@@ -1,7 +1,7 @@
 'use strict';
 
 require('should');
-import { map, countBy, filter, times } from 'lodash';
+import { map, countBy, filter } from 'lodash';
 
 import pinboardPage from './page-objects/pinboard-page';
 
@@ -295,13 +295,17 @@ describe('Pinboard Page', function () {
       pinboardPage.relevantCoaccusalsSection.leftArrow.click();
       pinboardPage.relevantCoaccusalsSection.leftArrow.waitForExist(1000, true);
 
-      times(5, () => pinboardPage.relevantCoaccusalsSection.rightArrow.click());
-      pinboardPage.relevantCoaccusalsSection.rightArrow.waitForExist(1000);
-      pinboardPage.relevantCoaccusalsSection.coaccusalCards().should.have.length(40);
+      let cardsCount = [];
+      while (pinboardPage.relevantCoaccusalsSection.rightArrow.isExisting()) {
+        pinboardPage.relevantCoaccusalsSection.rightArrow.click();
 
-      times(4, () => pinboardPage.relevantCoaccusalsSection.rightArrow.click());
-      pinboardPage.relevantCoaccusalsSection.coaccusalCards().should.have.length(50);
-      pinboardPage.relevantCoaccusalsSection.rightArrow.waitForExist(1000, true);
+        let count = pinboardPage.relevantCoaccusalsSection.coaccusalCards().length;
+        if (cardsCount.length === 0 || cardsCount[cardsCount.length - 1] !== count) {
+          cardsCount.push(count);
+        }
+      }
+
+      cardsCount.should.be.deepEqual([20, 40, 50]);
     });
 
     it('should go to officer page when clicking on officer name section', function () {
@@ -350,13 +354,17 @@ describe('Pinboard Page', function () {
       pinboardPage.relevantDocumentsSection.leftArrow.click();
       pinboardPage.relevantDocumentsSection.leftArrow.waitForExist(1000, true);
 
-      times(12, () => pinboardPage.relevantDocumentsSection.rightArrow.click());
-      pinboardPage.relevantDocumentsSection.rightArrow.waitForExist(1000);
-      pinboardPage.relevantDocumentsSection.documentCards().should.have.length(40);
+      let cardsCount = [];
+      while (pinboardPage.relevantDocumentsSection.rightArrow.isExisting()) {
+        pinboardPage.relevantDocumentsSection.rightArrow.click();
 
-      times(12, () => pinboardPage.relevantDocumentsSection.rightArrow.click());
-      pinboardPage.relevantDocumentsSection.documentCards().should.have.length(50);
-      pinboardPage.relevantDocumentsSection.rightArrow.waitForExist(1000, true);
+        let count = pinboardPage.relevantDocumentsSection.documentCards().length;
+        if (cardsCount.length === 0 || cardsCount[cardsCount.length - 1] !== count) {
+          cardsCount.push(count);
+        }
+      }
+
+      cardsCount.should.be.deepEqual([20, 40, 50]);
     });
   });
 
@@ -393,13 +401,17 @@ describe('Pinboard Page', function () {
       pinboardPage.relevantComplaintsSection.leftArrow.click();
       pinboardPage.relevantComplaintsSection.leftArrow.waitForExist(1000, true);
 
-      times(12, () => pinboardPage.relevantComplaintsSection.rightArrow.click());
-      pinboardPage.relevantComplaintsSection.rightArrow.waitForExist(1000);
-      pinboardPage.relevantComplaintsSection.complaintCards().should.have.length(40);
+      let cardsCount = [];
+      while (pinboardPage.relevantComplaintsSection.rightArrow.isExisting()) {
+        pinboardPage.relevantComplaintsSection.rightArrow.click();
 
-      times(12, () => pinboardPage.relevantComplaintsSection.rightArrow.click());
-      pinboardPage.relevantComplaintsSection.complaintCards().should.have.length(50);
-      pinboardPage.relevantComplaintsSection.rightArrow.waitForExist(1000, true);
+        let count = pinboardPage.relevantComplaintsSection.complaintCards().length;
+        if (cardsCount.length === 0 || cardsCount[cardsCount.length - 1] !== count) {
+          cardsCount.push(count);
+        }
+      }
+
+      cardsCount.should.be.deepEqual([20, 40, 50]);
     });
 
     it('should go to complaint page when clicking on incident date', function () {

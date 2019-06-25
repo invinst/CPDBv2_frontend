@@ -1,4 +1,4 @@
-import { navigationItemTransform } from 'selectors/search-page/search-terms/transforms';
+import { navigationItemTransform } from 'selectors/common/navigation-item-transform';
 
 
 describe('navigationItemTransform', function () {

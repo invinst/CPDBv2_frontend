@@ -7,8 +7,8 @@ import { roundedPercentile } from 'utils/calculations';
 import { FULL_MONTH_DATE_FORMAT } from 'utils/constants';
 import { getDemographicString } from 'utils/victims';
 import {
-  navigationItemTransform as searchTermNavigationItemTransform
-} from 'selectors/search-page/search-terms/transforms';
+  navigationItemTransform as previewPaneNavigationItemTransform
+} from './navigation-item-transform';
 
 
 const mappingRace = (race) => {
@@ -24,7 +24,7 @@ const mappingRace = (race) => {
 
 export const previewPaneTransform = item => {
   const { type } = item;
-  const transform = get(searchResultTransformMap, type, () => {});
+  const transform = get(previewPaneTransformMap, type, () => {});
   return {
     type,
     data: transform(item)
@@ -109,7 +109,7 @@ const crTransform = (item) => {
     coaccused,
     victims: map(item.victims, getDemographicString),
     address: item.address,
-    category: item.category,
+    category: item.category || item['most_common_category'],
     subCategory: item['sub_category'],
     incidentDate: formatDate(item['incident_date']),
     to: item.to,
@@ -127,7 +127,7 @@ const officerTransform = (item) => {
   const race = item['race'] === 'Unknown' ? null : item['race'];
   const lastPercentile = last(item['percentiles']);
   return {
-    fullName: item['name'],
+    fullName: item['name'] || item['full_name'],
     appointedDate: formatDate(item['appointed_date']),
     resignationDate: formatDate(item['resignation_date']),
     badge: item['badge'],
@@ -155,8 +155,8 @@ const officerTransform = (item) => {
   };
 };
 
-const searchResultTransformMap = {
-  'SEARCH-TERMS': searchTermNavigationItemTransform,
+const previewPaneTransformMap = {
+  'SEARCH-TERMS': previewPaneNavigationItemTransform,
   'DATE > CR': crTransform,
   'DATE > TRR': trrTransform,
   'DATE > OFFICERS': officerTransform,
@@ -224,7 +224,7 @@ export const searchResultItemTransform = (item) => ({
   tags: get(item, 'tags', []),
   itemIndex: item.itemIndex || 1,
   isPinned: item.isPinned,
-  ...get(searchResultTransformMap, item.type, () => {})(item)
+  ...get(previewPaneTransformMap, item.type, () => {})(item)
 });
 
 export const navigationItemTransform = item => ({
