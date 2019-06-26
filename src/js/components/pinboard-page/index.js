@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import cx from 'classnames';
-import { noop } from 'lodash';
+import TrackVisibility from 'react-on-screen';
+import { isEmpty, noop } from 'lodash';
 
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import SearchBar from './search-bar';
@@ -15,12 +16,30 @@ import PinnedCRsContainer from 'containers/pinboard-page/pinned-crs';
 import PinnedTRRsContainer from 'containers/pinboard-page/pinned-trrs';
 import FooterContainer from 'containers/footer-container';
 import EmptyPinboard from './empty-pinboard';
+import PreviewPane from 'components/search-page/search-results/preview-pane';
 
 
 export default class PinboardPage extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleOverlayClick = this.handleOverlayClick.bind(this);
+  }
+
   componentDidMount() {
     const { location, params, routes, pushBreadcrumbs } = this.props;
     pushBreadcrumbs({ location, params, routes });
+    document.body.classList.add('body-fixed-viewport');
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (isEmpty(nextProps.focusedItem)) {
+      document.body.classList.remove('body-not-scrollable');
+      document.body.classList.add('body-scrollable');
+    } else {
+      document.body.classList.add('body-not-scrollable');
+      document.body.classList.remove('body-scrollable');
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -36,12 +55,21 @@ export default class PinboardPage extends Component {
     }
   }
 
+  componentWillUnmount() {
+    document.body.classList.remove('body-fixed-viewport');
+  }
+
+  handleOverlayClick() {
+    this.props.focusItem({});
+  }
+
   renderContent() {
     const {
       changePinboardTab,
       currentTab,
       hasMapMarker,
       isEmptyPinboard,
+      focusedItem,
     } = this.props;
 
     if (isEmptyPinboard) {
@@ -53,11 +81,13 @@ export default class PinboardPage extends Component {
         <div className={ cx(responsiveContainerStyles.responsiveContainer, 'pinboard-page') }>
           <PinboardInfoContainer />
           <div className='data-visualizations'>
-            <PinboardPaneSection
-              changePinboardTab={ changePinboardTab }
-              currentTab={ currentTab }
-              hasMapMarker={ hasMapMarker }
-            />
+            <TrackVisibility partialVisibility={ true }>
+              <PinboardPaneSection
+                changePinboardTab={ changePinboardTab }
+                currentTab={ currentTab }
+                hasMapMarker={ hasMapMarker }
+              />
+            </TrackVisibility>
           </div>
           <div className='pinned-section'>
             <PinnedOfficersContainer/>
@@ -66,6 +96,18 @@ export default class PinboardPage extends Component {
           </div>
         </div>
         <RelevantSectionContainer />
+
+        <div
+          className='overlay'
+          aria-hidden={ isEmpty(focusedItem) }
+          onClick={ this.handleOverlayClick }
+        />
+
+        <PreviewPane
+          customClass='preview-pane'
+          yScrollable={ true }
+          { ...focusedItem }
+        />
       </div>
     );
   }
@@ -99,6 +141,8 @@ PinboardPage.propTypes = {
   shouldRedirect: PropTypes.bool,
   initialRequested: PropTypes.bool,
   isEmptyPinboard: PropTypes.bool,
+  focusedItem: PropTypes.object,
+  focusItem: PropTypes.func,
   routes: PropTypes.array,
   pushBreadcrumbs: PropTypes.func,
   location: PropTypes.shape({
@@ -108,5 +152,7 @@ PinboardPage.propTypes = {
 };
 
 PinboardPage.defaultProps = {
+  focusedItem: {},
+  focusItem: noop,
   pushBreadcrumbs: noop,
 };

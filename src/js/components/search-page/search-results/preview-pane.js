@@ -15,7 +15,7 @@ import {
   SearchTermItemPane,
   CRPane
 } from 'components/common/preview-pane';
-import style from './preview-pane.sass';
+import styles from './preview-pane.sass';
 
 
 export default class PreviewPane extends Component {
@@ -25,9 +25,9 @@ export default class PreviewPane extends Component {
   }
 
   renderPane() {
-    const { data, type } = this.props;
-    const officerPaneFunc = () => <OfficerPane { ...data }/>;
-    const crPaneFunc = () => <CRPane { ...data }/>;
+    const { data, type, yScrollable } = this.props;
+    const officerPaneFunc = () => <OfficerPane { ...data } yScrollable={ yScrollable }/>;
+    const crPaneFunc = () => <CRPane { ...data } yScrollable={ yScrollable }/>;
 
     const paneTypes = {
       'SEARCH-TERMS': () => <SearchTermItemPane { ...data } />,
@@ -50,11 +50,11 @@ export default class PreviewPane extends Component {
 
 
   render() {
-    const { data } = this.props;
+    const { data, customClass, yScrollable } = this.props;
 
     return (
       <SlideMotion show={ !isEmpty(data) } offsetX={ 100 }>
-        <div className={ cx('test--preview-pane', style.previewPane) }>
+        <div className={ cx(styles.previewPaneWrapper, customClass, { [styles.yScrollable]: yScrollable }) }>
           {
             this.renderPane()
           }
@@ -67,9 +67,12 @@ export default class PreviewPane extends Component {
 
 PreviewPane.propTypes = {
   data: PropTypes.object,
-  type: PropTypes.string
+  type: PropTypes.string,
+  customClass: PropTypes.string,
+  yScrollable: PropTypes.bool,
 };
 
 PreviewPane.defaultProps = {
   data: {},
+  yScrollable: false,
 };

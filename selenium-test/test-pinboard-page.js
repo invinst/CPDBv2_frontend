@@ -1,9 +1,10 @@
 'use strict';
 
 require('should');
-import { map, countBy, filter, times } from 'lodash';
+import { map, countBy, filter } from 'lodash';
 
 import pinboardPage from './page-objects/pinboard-page';
+import { switchToRecentTab } from './utils';
 
 
 function waitForGraphAnimationEnd(browser, pinboardPage) {
@@ -13,28 +14,28 @@ function waitForGraphAnimationEnd(browser, pinboardPage) {
 }
 
 describe('Pinboard Page', function () {
-  beforeEach(function () {
-    pinboardPage.open();
-  });
-
   it('should go to search page when the search bar is clicked', function () {
+    pinboardPage.open();
     pinboardPage.searchBar.click();
     browser.element('.search-page').waitForVisible();
     browser.getUrl().should.endWith('/search/');
   });
 
   it('should go to landing page when header is clicked', function () {
+    pinboardPage.open();
     pinboardPage.headerTitle.click();
     browser.getUrl().replace(/https?:\/\/[^/]+/, '').should.equal('/');
   });
 
   it('should go to Q&A url when clicking on Q&A link', function () {
+    pinboardPage.open();
     pinboardPage.headerQALink.click();
     browser.getUrl().should.equal('http://how.cpdp.works/');
   });
 
   context('pinboard pinned section', function () {
     it('should render the pinned cards correctly', function () {
+      pinboardPage.open();
       const officers = pinboardPage.pinnedSection.officers;
       officers.title.getText().should.equal('OFFICERS');
       officers.firstCardRank.getText().should.equal('Police Officer');
@@ -54,9 +55,14 @@ describe('Pinboard Page', function () {
   });
 
   context('pinboard section', function () {
+    beforeEach(function () {
+      pinboardPage.open();
+    });
+
     it('should render correctly', function () {
       pinboardPage.pinboardSection.title.getValue().should.equal('Pinboard Title');
       pinboardPage.pinboardSection.description.getValue().should.equal('Pinboard Description');
+      pinboardPage.pinboardSection.pinboardPaneMenu.waitForVisible();
       const pinboardPaneMenuText = pinboardPage.pinboardSection.pinboardPaneMenu.getText();
       pinboardPaneMenuText.should.containEql('NETWORK');
       pinboardPaneMenuText.should.containEql('GEOGRAPHIC');
@@ -79,6 +85,10 @@ describe('Pinboard Page', function () {
   });
 
   context('social graph section', function () {
+    beforeEach(function () {
+      pinboardPage.open();
+    });
+
     it('should render correctly', function () {
       pinboardPage.animatedSocialGraphSection.startDate.getText().should.equal('1990-01-09');
       pinboardPage.animatedSocialGraphSection.endDate.getText().should.equal('2008-01-11');
@@ -227,19 +237,24 @@ describe('Pinboard Page', function () {
       };
       groupsColors.should.eql(expectedGroupsColors);
     });
+  });
 
-    it('should render geographic section', function () {
-      pinboardPage.pinboardSection.pinboardPaneMenu.waitForVisible();
-      pinboardPage.pinboardSection.geographicPaneName.click();
-      pinboardPage.geographicSection.complaintText.getText().should.equal('Complaint');
-      pinboardPage.geographicSection.complaintNumber.getText().should.equal('5');
-      pinboardPage.geographicSection.trrText.getText().should.equal('Use of Force Report');
-      pinboardPage.geographicSection.trrNumber.getText().should.equal('2');
+  context('animatedSocialgraph off screen feature', function () {
+    it('should pause the timeline when invisible and continue to play when visible', function () {
+      pinboardPage.open('3664a7ea');
+      pinboardPage.animatedSocialGraphSection.playButton.waitForExist(200, true);
+
+      browser.scroll(pinboardPage.relevantCoaccusalsSection.title.selector);
+      pinboardPage.animatedSocialGraphSection.playButton.waitForExist(1000);
+
+      browser.scroll(pinboardPage.pinboardSection.title.selector);
+      pinboardPage.animatedSocialGraphSection.playButton.waitForExist(1000, true);
     });
   });
 
   context('Geographic section', function () {
     it('should render geographic section', function () {
+      pinboardPage.open();
       pinboardPage.pinboardSection.pinboardPaneMenu.waitForVisible();
       pinboardPage.pinboardSection.geographicPaneName.click();
       pinboardPage.geographicSection.complaintText.getText().should.equal('Complaint');
@@ -250,6 +265,10 @@ describe('Pinboard Page', function () {
   });
 
   context('relevant coaccusals section', function () {
+    beforeEach(function () {
+      pinboardPage.open();
+    });
+
     it('should render coaccusal cards', function () {
       pinboardPage.relevantCoaccusalsSection.title.getText().should.equal('COACCUSALS');
 
@@ -277,29 +296,30 @@ describe('Pinboard Page', function () {
       pinboardPage.relevantCoaccusalsSection.leftArrow.click();
       pinboardPage.relevantCoaccusalsSection.leftArrow.waitForExist(1000, true);
 
-      times(5, () => pinboardPage.relevantCoaccusalsSection.rightArrow.click());
-      pinboardPage.relevantCoaccusalsSection.rightArrow.waitForExist(1000);
-      pinboardPage.relevantCoaccusalsSection.coaccusalCards().should.have.length(40);
+      let cardsCount = [];
+      while (pinboardPage.relevantCoaccusalsSection.rightArrow.isExisting()) {
+        pinboardPage.relevantCoaccusalsSection.rightArrow.click();
 
-      times(4, () => pinboardPage.relevantCoaccusalsSection.rightArrow.click());
-      pinboardPage.relevantCoaccusalsSection.coaccusalCards().should.have.length(50);
-      pinboardPage.relevantCoaccusalsSection.rightArrow.waitForExist(1000, true);
+        let count = pinboardPage.relevantCoaccusalsSection.coaccusalCards().length;
+        if (cardsCount.length === 0 || cardsCount[cardsCount.length - 1] !== count) {
+          cardsCount.push(count);
+        }
+      }
+
+      cardsCount.should.be.deepEqual([20, 40, 50]);
     });
 
-    it('should go to officer page when clicking on officer name section', function () {
-      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.nameWrapper.click();
-      browser.pause(500);
-      browser.getUrl().should.match(/\/officer\/123\/richard-sullivan\/$/);
-    });
-
-    it('should go to officer page when clicking on coaccusal cont section', function () {
-      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.coaccusalCount.click();
-      browser.pause(500);
-      browser.getUrl().should.match(/\/officer\/123\/richard-sullivan\/$/);
+    it('should display preview pane when click on relevant coaccusal card', function () {
+      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.mainElement.click();
+      pinboardPage.previewPane.mainElement.waitForVisible();
     });
   });
 
   context('relevant documents section', function () {
+    beforeEach(function () {
+      pinboardPage.open();
+    });
+
     it('should render document cards', function () {
       pinboardPage.relevantDocumentsSection.title.getText().should.equal('DOCUMENTS');
 
@@ -328,17 +348,44 @@ describe('Pinboard Page', function () {
       pinboardPage.relevantDocumentsSection.leftArrow.click();
       pinboardPage.relevantDocumentsSection.leftArrow.waitForExist(1000, true);
 
-      times(12, () => pinboardPage.relevantDocumentsSection.rightArrow.click());
-      pinboardPage.relevantDocumentsSection.rightArrow.waitForExist(1000);
-      pinboardPage.relevantDocumentsSection.documentCards().should.have.length(40);
+      let cardsCount = [];
+      while (pinboardPage.relevantDocumentsSection.rightArrow.isExisting()) {
+        pinboardPage.relevantDocumentsSection.rightArrow.click();
 
-      times(12, () => pinboardPage.relevantDocumentsSection.rightArrow.click());
-      pinboardPage.relevantDocumentsSection.documentCards().should.have.length(50);
-      pinboardPage.relevantDocumentsSection.rightArrow.waitForExist(1000, true);
+        let count = pinboardPage.relevantDocumentsSection.documentCards().length;
+        if (cardsCount.length === 0 || cardsCount[cardsCount.length - 1] !== count) {
+          cardsCount.push(count);
+        }
+      }
+
+      cardsCount.should.be.deepEqual([20, 40, 50]);
+    });
+
+    it('should not show preview pane when we click on the right half of document card', function () {
+      const firstDocumentCard = pinboardPage.relevantDocumentsSection.documentCardSection;
+      firstDocumentCard.rightHalf.click();
+
+      pinboardPage.previewPane.mainElement.waitForVisible(1000, true);
+    });
+
+    it('should redirect to document page when click on the left half of document card', function () {
+      const firstDocumentCard = pinboardPage.relevantDocumentsSection.documentCardSection;
+      firstDocumentCard.leftHalf.click();
+
+      pinboardPage.previewPane.mainElement.waitForVisible(1000, true);
+      switchToRecentTab();
+      browser.getUrl().should.equal(
+        'https://assets.documentcloud.org/documents/5680384/CRID-1083633-CR-CRID-1083633-CR-Tactical.pdf'
+      );
+      browser.close();
     });
   });
 
   context('relevant complaints section', function () {
+    beforeEach(function () {
+      pinboardPage.open();
+    });
+
     it('should render complaint cards', function () {
       pinboardPage.relevantComplaintsSection.title.getText().should.equal('COMPLAINTS');
 
@@ -367,37 +414,41 @@ describe('Pinboard Page', function () {
       pinboardPage.relevantComplaintsSection.leftArrow.click();
       pinboardPage.relevantComplaintsSection.leftArrow.waitForExist(1000, true);
 
-      times(12, () => pinboardPage.relevantComplaintsSection.rightArrow.click());
-      pinboardPage.relevantComplaintsSection.rightArrow.waitForExist(1000);
-      pinboardPage.relevantComplaintsSection.complaintCards().should.have.length(40);
+      let cardsCount = [];
+      while (pinboardPage.relevantComplaintsSection.rightArrow.isExisting()) {
+        pinboardPage.relevantComplaintsSection.rightArrow.click();
 
-      times(12, () => pinboardPage.relevantComplaintsSection.rightArrow.click());
-      pinboardPage.relevantComplaintsSection.complaintCards().should.have.length(50);
-      pinboardPage.relevantComplaintsSection.rightArrow.waitForExist(1000, true);
+        let count = pinboardPage.relevantComplaintsSection.complaintCards().length;
+        if (cardsCount.length === 0 || cardsCount[cardsCount.length - 1] !== count) {
+          cardsCount.push(count);
+        }
+      }
+
+      cardsCount.should.be.deepEqual([20, 40, 50]);
     });
 
-    it('should go to complaint page when clicking on incident date', function () {
+    it('should display preview pane when we click on incident date', function () {
       pinboardPage.relevantComplaintsSection.complaintCardSection.incidentDate.click();
-      browser.pause(500);
-      browser.getUrl().should.match(/\/complaint\/1071234\/$/);
+
+      pinboardPage.previewPane.mainElement.waitForVisible();
     });
 
-    it('should go to complaint page when clicking on top officers', function () {
+    it('should display preview pane when we click on top officers', function () {
       pinboardPage.relevantComplaintsSection.complaintCardSection.topOfficers.click();
-      browser.pause(500);
-      browser.getUrl().should.match(/\/complaint\/1071234\/$/);
+
+      pinboardPage.previewPane.mainElement.waitForVisible();
     });
 
-    it('should go to complaint page when clicking on remaining officers', function () {
+    it('should display preview pane when we click on remaining officers', function () {
       pinboardPage.relevantComplaintsSection.complaintCardSection.remainingOfficers.click();
-      browser.pause(500);
-      browser.getUrl().should.match(/\/complaint\/1071234\/$/);
+
+      pinboardPage.previewPane.mainElement.waitForVisible();
     });
 
-    it('should go to complaint page when clicking on left half of a complaint card', function () {
+    it('should display preview pane when we click on left half of a complaint card', function () {
       pinboardPage.relevantComplaintsSection.complaintCardSection.leftHalf.click();
-      browser.pause(500);
-      browser.getUrl().should.match(/\/complaint\/1071234\/$/);
+
+      pinboardPage.previewPane.mainElement.waitForVisible();
     });
   });
 });
