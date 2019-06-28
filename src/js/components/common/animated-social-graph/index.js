@@ -150,25 +150,24 @@ export default class AnimatedSocialGraph extends Component {
   }
 
   render() {
-    const { officers, coaccusedData, listEvent, updateOfficerId, timelineIdx, refreshIntervalId } = this.props;
+    const { officers, coaccusedData, listEvent, updateOfficerId, timelineIdx, refreshIntervalId, officer } = this.props;
     const { fullscreen } = this.state;
 
     return (
       <div className={ cx(styles.animatedSocialGraph, { fullscreen }) }>
         {
-          isEmpty(officers) || (
-            <SocialGraph
-              officers={ officers }
-              coaccusedData={ coaccusedData }
-              listEvent={ listEvent }
-              timelineIdx={ timelineIdx }
-              startTimelineFromBeginning={ this.startTimelineFromBeginning }
-              collideNodes={ !refreshIntervalId }
-              stopTimeline={ this.stopTimeline }
-              fullscreen={ fullscreen }
-              updateOfficerId={ updateOfficerId }
-            />
-          )
+          !isEmpty(officers) && <SocialGraph
+            officers={ officers }
+            coaccusedData={ coaccusedData }
+            listEvent={ listEvent }
+            timelineIdx={ timelineIdx }
+            startTimelineFromBeginning={ this.startTimelineFromBeginning }
+            collideNodes={ !refreshIntervalId }
+            stopTimeline={ this.stopTimeline }
+            fullscreen={ fullscreen }
+            updateOfficerId={ updateOfficerId }
+            officer={ officer }
+          />
         }
         { this.graphControlPanel() }
       </div>
@@ -188,6 +187,7 @@ AnimatedSocialGraph.propTypes = {
   timelineIdx: PropTypes.number,
   refreshIntervalId: PropTypes.number,
   isVisible: PropTypes.bool,
+  officer: PropTypes.object,
 };
 
 AnimatedSocialGraph.defaultProps = {

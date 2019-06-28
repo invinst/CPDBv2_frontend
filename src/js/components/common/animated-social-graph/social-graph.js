@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import { isEmpty, countBy, indexOf, orderBy, isEqual } from 'lodash';
+import { isEmpty, countBy, indexOf, orderBy, isEqual, filter } from 'lodash';
 import moment from 'moment';
 import * as d3 from 'd3';
 import * as jLouvain from 'jlouvain';
@@ -22,6 +22,8 @@ const COLLIDE_ALPHA = 0.5;
 const MIN_MEMBERS_IN_COMMUNITY = 3;
 const NUMBER_OF_TOP_NODES = 5;
 const NUMBER_OF_LINK_GROUP_COLORS = 6;
+const LABEL_PADDING_LEFT_RIGHT = 10;
+const LABEL_PADDING_TOP_BOTTOM = 6;
 
 
 export default class SocialGraph extends Component {
@@ -37,13 +39,16 @@ export default class SocialGraph extends Component {
     this.connectedNodes = this.connectedNodes.bind(this);
     this.collide = this.collide.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleMouseover = this.handleMouseover.bind(this);
   }
 
   componentDidMount() {
     this.svg = d3.select(ReactDOM.findDOMNode(this.refs.chart)).append('svg:svg');
     this.node = this.svg.selectAll('.node');
     this.link = this.svg.selectAll('.link');
-    this.label = this.svg.selectAll('.label');
+    this.label = this.svg.selectAll('.node-label');
+    this.selectedLabel = this.svg.selectAll('.selected-node-label');
+    this.selectedLabelBox = this.svg.selectAll('.selected-node-label-box');
     this.tip = d3Tip()
       .attr('class', cx(styles.socialGraphTip, 'test--graph-tooltip'))
       .direction('e')
@@ -54,7 +59,7 @@ export default class SocialGraph extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { coaccusedData, timelineIdx, fullscreen } = this.props;
+    const { coaccusedData, timelineIdx, fullscreen, officer } = this.props;
 
     if (!isEqual(prevProps.coaccusedData, coaccusedData)) {
       this.drawGraph();
@@ -65,12 +70,24 @@ export default class SocialGraph extends Component {
       if (prevProps.fullscreen !== fullscreen) {
         this.resizeGraph();
       }
+      if (!isEqual(prevProps.officer, officer)) {
+        this._updateSelectedNode();
+      }
     }
   }
 
   handleClick(currentNode) {
     const { updateOfficerId } = this.props;
-    updateOfficerId(currentNode.uid);
+    if (updateOfficerId) {
+      this.tip.hide(currentNode);
+      updateOfficerId(currentNode.uid);
+    }
+  }
+
+  handleMouseover(currentNode) {
+    if (!currentNode.isSelectedNode) {
+      this.tip.show(currentNode);
+    }
   }
 
   graphTooltip(graphNode) {
@@ -83,6 +100,7 @@ export default class SocialGraph extends Component {
       linkedByIndex: {},
       maxNodeInCommunities: {},
       topNodes: [],
+      selectedNodes: [],
     };
   }
 
@@ -157,6 +175,7 @@ export default class SocialGraph extends Component {
     } else {
       this.data.nodes.forEach((graphNode) => {
         graphNode.degree = 0;
+        graphNode.isSelectedNode = false;
       });
     }
   }
@@ -221,7 +240,7 @@ export default class SocialGraph extends Component {
 
     for (const graphNodeId in communityPartition) {
       const groupId = communityPartition[graphNodeId];
-      if (indexOf(groupIds, groupId) != -1) {
+      if (indexOf(groupIds, groupId) !== -1) {
         communityPartition[graphNodeId] = groupId + 1;
       } else {
         communityPartition[graphNodeId] = 0;
@@ -246,6 +265,48 @@ export default class SocialGraph extends Component {
     });
   }
 
+  _updateSelectedNode() {
+    const { officer } = this.props;
+
+    this.force.stop();
+    this.data.selectedNodes.forEach((d) => {
+      d.isSelectedNode = false;
+    });
+    this.data.selectedNodes = [];
+    if (officer) {
+      this.data.selectedNodes = filter(this.data.nodes, { uid: officer.id });
+      this.data.selectedNodes.forEach((d) => {
+        d.isSelectedNode = true;
+      });
+    }
+
+    this.selectedLabelBox = this.selectedLabelBox.data(this.data.selectedNodes);
+    this.selectedLabel = this.selectedLabel.data(this.data.selectedNodes);
+
+    this.selectedLabelBox.enter()
+      .append('rect')
+      .attr('class', 'selected-node-label-box')
+      .attr('rx', '4')
+      .attr('ry', '4');
+
+    this.selectedLabel.enter()
+      .append('text')
+      .attr('class', 'selected-node-label');
+
+    this.selectedLabel.text((d) => d.fname);
+
+    this.selectedLabel.each(function (d) { d.bb = this.getBBox(); });
+
+    this.selectedLabelBox
+      .attr('width', function (d) { return d.bb.width + LABEL_PADDING_LEFT_RIGHT; })
+      .attr('height', function (d) { return d.bb.height + LABEL_PADDING_TOP_BOTTOM; });
+
+    this.selectedLabelBox.exit().remove();
+    this.selectedLabel.exit().remove();
+
+    this.force.start();
+  }
+
   recalculateNodeLinks(curDate) {
     this._resetNodes();
     this._recalculateLinks(curDate);
@@ -256,21 +317,23 @@ export default class SocialGraph extends Component {
 
   _restartNodes() {
     this.toggleNode = 0;
+
     this.node = this.node.data(this.data.nodes);
 
     this.label = this.label.data(this.data.topNodes);
 
     this.label.enter()
       .append('text')
-      .text((d) => d.fname)
       .attr('class', 'node-label');
+
+    this.label.text((d) => d.fname);
 
     this.label.exit().remove();
 
     this.node.enter().insert('circle', '.cursor')
       .attr('class', 'node officer-preview-link')
       .call(this.force.drag)
-      .on('mouseover', this.tip.show)
+      .on('mouseover', this.handleMouseover)
       .on('mouseout', this.tip.hide)
       .on('dblclick', this.connectedNodes);
 
@@ -309,6 +372,14 @@ export default class SocialGraph extends Component {
 
     this.label.attr('x', (d) => d.x + (d.degree / 2 + 2))
       .attr('y', (d) => d.y);
+
+    this.selectedLabel
+      .attr('x', (d) => d.x + (d.degree / 2 + 2) + LABEL_PADDING_LEFT_RIGHT / 2 )
+      .attr('y', (d) => d.y + LABEL_PADDING_TOP_BOTTOM / 2 + 2);
+
+    this.selectedLabelBox
+      .attr('x', (d) => d.x + (d.degree / 2 + 2))
+      .attr('y', (d) => d.y + LABEL_PADDING_TOP_BOTTOM / 2 - d.bb.height + 2);
 
     if (this.props.collideNodes) {
       this.node.each(this.cluster(60 * e.alpha * e.alpha))
@@ -422,6 +493,7 @@ SocialGraph.propTypes = {
   stopTimeline: PropTypes.func,
   fullscreen: PropTypes.bool,
   updateOfficerId: PropTypes.func,
+  officer: PropTypes.object,
 };
 
 SocialGraph.defaultProps = {
