@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import { indexOf, isEmpty, head, keys, map, omitBy, pick, sortBy } from 'lodash';
 
 import * as constants from 'utils/constants';
-import { searchResultItemTransform } from './transforms';
+import { searchResultItemTransform } from 'selectors/common/preview-pane-transforms';
 import extractQuery from 'utils/extract-query';
 import { dataToolSearchUrl } from 'utils/v1-url';
 import { pinboardItemsSelector } from 'selectors/pinboard-page/pinboard';

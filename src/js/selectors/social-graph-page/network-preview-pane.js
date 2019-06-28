@@ -1,4 +1,4 @@
-import { filter, find, get, isEmpty } from 'lodash';
+import { filter, find, isEmpty } from 'lodash';
 import { createSelector } from 'reselect';
 
 import {
@@ -8,10 +8,8 @@ import {
   getSelectedEdge,
   edgeCoaccusalsItemsSelector,
 } from './network';
-import { extractPercentile } from 'selectors/common/percentile';
 import { officerPath } from 'utils/paths';
-import { formatDate, getCurrentAge } from 'utils/date';
-import { roundedPercentile } from 'utils/calculations';
+import { officerTransform } from 'selectors/common/preview-pane-transforms';
 import { NETWORK_PREVIEW_PANE } from 'utils/constants';
 
 
@@ -32,34 +30,12 @@ export const edgeOfficersSelector = createSelector(
   }
 );
 
-export const officerDetailTransform = officer => ({
-  id: officer['id'],
-  to: officerPath(officer),
-  fullName: officer['full_name'],
-  appointedDate: formatDate(officer['appointed_date']),
-  resignationDate: formatDate(officer['resignation_date']),
-  badge: officer['badge'],
-  gender: officer['gender'] || '',
-  age: getCurrentAge(officer['birth_year']) || null,
-  race: officer['race'] || '',
-  rank: officer['rank'],
-  unit: {
-    id: get(officer['unit'], 'id'),
-    unitName: get(officer['unit'], 'unit_name'),
-    description: get(officer['unit'], 'description'),
-  },
-  lastPercentile: extractPercentile(officer['percentile']),
-  complaintCount: officer['allegation_count'],
-  complaintPercentile: roundedPercentile(get(officer['percentile'], 'percentile_allegation')),
-  civilianComplimentCount: officer['civilian_compliment_count'],
-  sustainedCount: officer['sustained_count'],
-  disciplineCount: officer['discipline_count'],
-  trrCount: get(officer, 'trr_count'),
-  trrPercentile: roundedPercentile(get(officer['percentile'], 'percentile_trr')),
-  majorAwardCount: get(officer, 'major_award_count'),
-  honorableMentionCount: get(officer, 'honorable_mention_count'),
-  honorableMentionPercentile: roundedPercentile(get(officer, 'honorable_mention_percentile')),
-});
+export const officerDetailTransform = officer => {
+  return {
+    ...officerTransform(officer),
+    to: officerPath(officer),
+  };
+};
 
 const getNetworkOfficer = (state) => {
   const selectedOfficerId = getSelectedOfficerId(state);

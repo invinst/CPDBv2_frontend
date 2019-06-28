@@ -21,7 +21,7 @@ export default class Timeline extends Component {
   componentDidMount() {
     const { timelineIdx } = this.props;
     this.addScrollEvents();
-    if (timelineIdx !== 0) {
+    if (!isUndefined(timelineIdx) && timelineIdx !== 0) {
       this.performScrollToTimelineIdx(timelineIdx);
     }
   }
@@ -33,9 +33,7 @@ export default class Timeline extends Component {
     if (!isEqual(items, prevProps.items)) {
       this.addScrollEvents();
     }
-    if (scrollToTimelineIdx) {
-      this.performScrollToTimelineIdx(scrollToTimelineIdx);
-    }
+    this.performScrollToTimelineIdx(scrollToTimelineIdx);
   }
 
   componentWillUnmount() {
@@ -72,7 +70,7 @@ export default class Timeline extends Component {
   }
 
   performScrollToTimelineIdx(scrollToTimelineIdx) {
-    if (scrollToTimelineIdx && this.scrollController) {
+    if (!isUndefined(scrollToTimelineIdx) && this.scrollController) {
       this.scrollController.scrollTo(`#trigger-${scrollToTimelineIdx}`);
     }
   }

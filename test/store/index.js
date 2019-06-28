@@ -292,6 +292,7 @@ describe('store', function () {
         trrItems: { requesting: false, items: [] },
         timelineIdx: 0,
         refreshIntervalId: null,
+        focusedItem: {},
       },
       toast: {},
     });

@@ -14,6 +14,7 @@ export default class PinboardPaneSection extends Component {
       currentTab,
       changePinboardTab,
       hasMapMarker,
+      isVisible,
     } = this.props;
     const pinboardPaneMap = {
       [PINBOARD_PAGE_TAB_NAMES.NETWORK]: {
@@ -43,7 +44,7 @@ export default class PinboardPaneSection extends Component {
             ))
           }
         </div>
-        { CurrentComponent ? <CurrentComponent /> : null }
+        { CurrentComponent ? <CurrentComponent isVisible={ isVisible }/> : null }
       </div>
     );
   }
@@ -53,4 +54,5 @@ PinboardPaneSection.propTypes = {
   currentTab: PropTypes.string,
   changePinboardTab: PropTypes.func,
   hasMapMarker: PropTypes.bool,
+  isVisible: PropTypes.bool,
 };

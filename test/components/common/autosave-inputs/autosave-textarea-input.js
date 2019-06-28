@@ -2,7 +2,7 @@ import React from 'react';
 import {
   renderIntoDocument, findRenderedDOMComponentWithTag, Simulate
 } from 'react-addons-test-utils';
-import { stub } from 'sinon';
+import { stub, spy } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import AutosaveTextareaInput from 'components/common/autosave-inputs/autosave-textarea-input';
@@ -15,14 +15,16 @@ describe('AutosaveTextareaInput component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should add resize event listener when componentDidMount', function () {
+  it('should add resize event listener and adjustTextareaHeight when componentDidMount', function () {
     const addEventListenerStub = stub(window, 'addEventListener');
+    const adjustTextareaHeightSpy = spy(AutosaveTextareaInput.prototype, 'adjustTextareaHeight');
     instance = renderIntoDocument(
       <AutosaveTextareaInput
         textareaLineHeight={ 16 }
         fieldType='description'
       />
     );
+    adjustTextareaHeightSpy.should.be.calledWith(instance.textarea);
     addEventListenerStub.should.be.calledWith('resize', instance.handleResize);
     addEventListenerStub.restore();
   });

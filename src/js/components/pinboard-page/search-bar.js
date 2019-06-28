@@ -46,8 +46,10 @@ export default class SearchBar extends Component {
           onClick={ this.closeShareMenu }
           data-clipboard-text={ window.location.href }
         >
-          <span className='copy-link-icon' />
-          Copy link
+          <div>
+            <span className='copy-link-icon' />
+            Copy link
+          </div>
         </ClipboardButton>
       </div>
     );
