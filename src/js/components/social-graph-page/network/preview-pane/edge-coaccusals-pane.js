@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import cx from 'classnames';
 import { isEmpty } from 'lodash';
 import pluralize from 'pluralize';
 
@@ -17,7 +16,7 @@ export default class EdgeCoaccusalsPane extends Component {
       info,
     } = this.props;
     return (
-      <div className={ cx(style.edgeCoaccusalsPane, 'test--edge-coaccusals-pane') }>
+      <div className={ style.edgeCoaccusalsPane }>
         <div className='edge-coaccusals-pane-header'>
           { `${info.sourceOfficerName} & ${info.targetOfficerName}'s ` }
           { `${info.coaccusedCount} ${pluralize('coaccusal', info.coaccusedCount)}` }
