@@ -7,7 +7,9 @@ import PinboardPage from 'components/pinboard-page';
 import { hasMapMarkersSelector, getCurrentTab } from 'selectors/pinboard-page/geographic-data';
 import { shouldRedirect } from 'selectors/pinboard-page/redirect';
 import { getInitialRequested } from 'selectors/pinboard-page/pinboard';
+import { focusedItemSelector } from 'selectors/pinboard-page/focused-item';
 import { changePinboardTab } from 'actions/pinboard';
+import { focusItem } from 'actions/pinboard-page';
 import { updatePathName } from 'actions/path-name';
 
 function mapStateToProps(state, ownProps) {
@@ -19,11 +21,13 @@ function mapStateToProps(state, ownProps) {
     initialRequested: getInitialRequested(state),
     shouldRedirect: shouldRedirect(state),
     isEmptyPinboard: isEmptyPinboardSelector(state),
+    focusedItem: focusedItemSelector(state),
   };
 }
 
 const mapDispatchToProps = {
   changePinboardTab,
+  focusItem,
   pushBreadcrumbs,
   updatePathName,
 };

@@ -30,7 +30,7 @@ export const relevantComplaintTransform = allegation => ({
   crid: allegation.crid,
   category: allegation.category,
   incidentDate: formatDate(allegation['incident_date'], false),
-  officers: (allegation.officers || []).map(officerTransform),
+  officers: (allegation.coaccused || []).map(officerTransform),
   point: allegation.point,
 });
 

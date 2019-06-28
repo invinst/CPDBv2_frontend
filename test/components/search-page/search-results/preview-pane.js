@@ -175,7 +175,7 @@ describe('PreviewPane component', function () {
 
   it('should not display any component if the data is empty', function () {
     instance = renderIntoDocument(
-      <PreviewPane/>
+      <PreviewPane customClass='test--preview-pane'/>
     );
     scryRenderedDOMComponentsWithClass(instance, 'test--preview-pane').should.have.length(0);
   });
@@ -185,6 +185,7 @@ describe('PreviewPane component', function () {
       <PreviewPane
         data={ { name: 'Community' } }
         type='NOT_FOUND'
+        customClass='test--preview-pane'
       />
     );
     const instanceDOM = findRenderedDOMComponentWithClass(instance, 'test--preview-pane');

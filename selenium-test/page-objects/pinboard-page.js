@@ -56,7 +56,6 @@ class AnimatedSocialGraphSection extends Section {
     super();
 
     this.prepareElementGetters({
-      title: '(//div[contains(@class, "sidenav-title")])',
       coaccusalsThresholdText: '(//p[contains(@class, "coaccusals-threshold-text")])',
       toggleTimelineButton: '(//button[contains(@class, "toggle-timeline-btn")])',
       startDate: '(//div[contains(@class, "start-date-label")])',
@@ -64,6 +63,7 @@ class AnimatedSocialGraphSection extends Section {
       currentDate: '(//span[contains(@class, "current-date-label")])',
       timelineSlider: '(//div[contains(@class, "test--timeline-slider")])',
       biggestGraphNode: '(//*[@r="7"])',
+      playButton: '(//button[contains(@class, "play-icon")])',
     });
   }
 
@@ -90,7 +90,7 @@ class BaseComplaintCardSection extends Section {
     this.prepareElementGetters({
       mainElement: this.mainElementSelector,
       leftHalf: `${this.mainElementSelector}//div[contains(@class, "left-half")]`,
-      rightHalf: `${this.mainElementSelector}//a[contains(@class, "right-half")]`,
+      rightHalf: `${this.mainElementSelector}//div[contains(@class, "right-half")]`,
       thumbnail: `${this.mainElementSelector}//div[contains(@class, "document-card-thumbnail")]`,
       plusButton: `${this.mainElementSelector}//div[contains(@class, "plus-button")]`,
       incidentDate: `${this.mainElementSelector}//div[contains(@class, "incident-date")]`,
@@ -109,7 +109,7 @@ class CoaccusalCardSection extends Section {
   constructor(baseSelector) {
     super();
 
-    this.mainElementSelector = `${baseSelector}//a[contains(@class, "relevant-coaccusal-card")]`;
+    this.mainElementSelector = `${baseSelector}//div[contains(@class, "relevant-coaccusal-card")]`;
 
     this.prepareElementGetters({
       mainElement: this.mainElementSelector,
@@ -214,6 +214,18 @@ class EmptyPinboardSection extends Section {
 
     this.prepareElementGetters({
       mainElement: '//div[contains(@class, "empty-pinboard__empty-pinboard")]',
+      repeatersRow: '//a[@class="helper-row"][1]',
+      skullcapCrewRow: '//a[@class="helper-row"][2]',
+    });
+  }
+}
+
+class PreviewPane extends Section {
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      mainElement: '//div[starts-with(@class, "preview-pane")]',
     });
   }
 }
@@ -227,6 +239,7 @@ class PinboardPage extends Page {
   relevantCoaccusalsSection = new RelevantCoaccusalsSection();
   relevantComplaintsSection = new RelevantComplaintsSection();
   emptyPinboardSection = new EmptyPinboardSection();
+  previewPane = new PreviewPane();
 
   constructor() {
     super();
@@ -240,7 +253,7 @@ class PinboardPage extends Page {
   }
 
   open(id='5cd06f2b') {
-    super.open(`/pinboard/${id}/`);
+    super.open(`/pinboard/${id}/pinboard-title/`);
   }
 }
 

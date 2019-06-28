@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
-import { stub } from 'sinon';
+import { stub, spy } from 'sinon';
 import {
   renderIntoDocument,
   findRenderedComponentWithType,
@@ -80,18 +79,16 @@ describe('BaseComplaintCard component', function () {
 
     findRenderedDOMComponentWithClass(instance, 'test--left-child');
 
-    const rightHalf = findRenderedComponentWithType(instance, Link);
-    rightHalf.props.to.should.eql('/complaint/123/');
+    findRenderedDOMComponentWithClass(instance, 'right-half');
+    findRenderedDOMComponentWithClass(instance, 'incident-date').textContent.should.eql('Apr 4, 2015');
+    findRenderedDOMComponentWithClass(instance, 'category').textContent.should.eql('Unknown');
 
-    findRenderedDOMComponentWithClass(rightHalf, 'incident-date').textContent.should.eql('Apr 4, 2015');
-    findRenderedDOMComponentWithClass(rightHalf, 'category').textContent.should.eql('Unknown');
-
-    const miniVisualTokens = scryRenderedComponentsWithType(rightHalf, MiniVisualToken);
+    const miniVisualTokens = scryRenderedComponentsWithType(instance, MiniVisualToken);
     miniVisualTokens.should.have.length(7);
 
-    scryRenderedDOMComponentsWithClass(rightHalf, 'top-officer-row').should.have.length(2);
-    scryRenderedDOMComponentsWithClass(rightHalf, 'top-officer-row-token').should.have.length(2);
-    const topOfficerNames = scryRenderedDOMComponentsWithClass(rightHalf, 'top-officer-row-officer-name');
+    scryRenderedDOMComponentsWithClass(instance, 'top-officer-row').should.have.length(2);
+    scryRenderedDOMComponentsWithClass(instance, 'top-officer-row-token').should.have.length(2);
+    const topOfficerNames = scryRenderedDOMComponentsWithClass(instance, 'top-officer-row-officer-name');
     topOfficerNames.should.have.length(2);
     topOfficerNames[0].textContent.should.eql('R. Sullivan');
     topOfficerNames[1].textContent.should.eql('E. May');
@@ -120,9 +117,9 @@ describe('BaseComplaintCard component', function () {
     miniVisualTokens[6].props.className.should.eql('remaining-officer');
     miniVisualTokens[6].props.percentile.should.eql({ year: 2015, items: [] });
 
-    findRenderedDOMComponentWithClass(rightHalf, 'not-showing-officer-count').textContent.should.eql('1+');
+    findRenderedDOMComponentWithClass(instance, 'not-showing-officer-count').textContent.should.eql('1+');
 
-    findRenderedComponentWithType(rightHalf, PlusButton);
+    findRenderedComponentWithType(instance, PlusButton);
   });
 
   it('should hide PlusButton if pinned', function () {
@@ -140,8 +137,8 @@ describe('BaseComplaintCard component', function () {
         pinned={ true }
       />
     );
-    const rightHalf = findRenderedComponentWithType(instance, Link);
-    scryRenderedComponentsWithType(rightHalf, PlusButton).should.have.length(0);
+    findRenderedDOMComponentWithClass(instance, 'right-half');
+    scryRenderedComponentsWithType(instance, PlusButton).should.have.length(0);
   });
 
   it('should call addItemInPinboardPage when clicking on PlusButton', function () {
@@ -159,8 +156,8 @@ describe('BaseComplaintCard component', function () {
         pinned={ false }
       />
     );
-    const rightHalf = findRenderedComponentWithType(instance, Link);
-    const plusButton = findRenderedComponentWithType(rightHalf, PlusButton);
+    findRenderedDOMComponentWithClass(instance, 'right-half');
+    const plusButton = findRenderedComponentWithType(instance, PlusButton);
     Simulate.click(findDOMNode(plusButton));
     addItemInPinboardPage.should.be.calledWith({
       type: 'CR',
@@ -169,5 +166,25 @@ describe('BaseComplaintCard component', function () {
       incidentDate: 'Apr 4, 2015',
       point: undefined
     });
+  });
+
+  it('should handle on focus', function () {
+    const focusItem = spy();
+    instance = renderIntoDocument(
+      <BaseComplaintCard
+        crid='123'
+        officers={ [] }
+        focusItem={ focusItem }
+      />
+    );
+    const rightHalf = findRenderedDOMComponentWithClass(instance, 'right-half');
+    Simulate.click(rightHalf);
+    focusItem.calledWith({ type: 'CR', 'id': '123' }).should.be.true();
+
+    focusItem.resetHistory();
+
+    const leftHalf = findRenderedDOMComponentWithClass(instance, 'left-half');
+    Simulate.click(leftHalf);
+    focusItem.calledWith({ type: 'CR', 'id': '123' }).should.be.true();
   });
 });

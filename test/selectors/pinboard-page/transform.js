@@ -17,7 +17,7 @@ describe('Pinboard Page transform selectors', function () {
           'category': 'Unknown',
           'incident_date': '2015-04-04',
           'point': { 'lon': -87.6427175, 'lat': 41.7756769 },
-          'officers': [{
+          'coaccused': [{
             'id': 31859,
             'rank': 'Sergeant of Police',
             'full_name': 'Eric Cato',
@@ -125,7 +125,7 @@ describe('Pinboard Page transform selectors', function () {
           'category': 'Unknown',
           'incident_date': '2015-04-04',
           'point': null,
-          'officers': [{
+          'coaccused': [{
             'id': 31859,
             'rank': 'Sergeant of Police',
             'full_name': 'Short Name',
@@ -231,7 +231,7 @@ describe('Pinboard Page transform selectors', function () {
         'crid': '1085121',
         'category': 'Money / Property',
         'incident_date': '2017-04-04',
-        'officers': [{
+        'coaccused': [{
           'id': 21098,
           'rank': 'Sergeant of Police',
           'full_name': 'Daniel O Toole',

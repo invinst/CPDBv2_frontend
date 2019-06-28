@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 import { relevantCoaccusalTransform } from './transform';
 import extractQuery from 'utils/extract-query';
 
-const getRelevantCoaccusalsPagination = state => state.pinboardPage.relevantCoaccusals;
+export const getRelevantCoaccusalsPagination = state => state.pinboardPage.relevantCoaccusals;
 
 export const getRequesting = state => state.pinboardPage.relevantCoaccusals.requesting;
 
