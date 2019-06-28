@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { get, keys } from 'lodash';
+import { get, keys, pick } from 'lodash';
 import cx from 'classnames';
 
 import SocialGraphOfficersContainer from 'containers/social-graph-page/social-graph-officers-container';
@@ -30,11 +30,7 @@ export default class RightPaneSection extends Component {
 
     const itemComponent = get(rightPaneMap, currentTab, {});
     const CurrentComponent = itemComponent.component;
-
-    let itemData = {};
-    (itemComponent.componentProps || []).forEach((propName) => {
-      itemData[propName] = this.props[propName];
-    });
+    const itemData = pick(this.props, itemComponent.componentProps);
 
     return (
       <div className={ cx(styles.rightPaneSection, 'right-pane-section') }>

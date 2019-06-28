@@ -1,4 +1,4 @@
-import { officerDetailTransform, getSortedNetworkOfficers } from 'selectors/social-graph-page/network-officers';
+import { officerDetailTransform, sortedNetworkOfficersSelector } from 'selectors/social-graph-page/network-officers';
 
 
 describe('Social Graph page selectors', function () {
@@ -55,7 +55,7 @@ describe('Social Graph page selectors', function () {
     });
   });
 
-  describe('getSortedNetworkOfficers', function () {
+  describe('sortedNetworkOfficersSelector', function () {
     it('should return network officers correctly', function () {
       const state = {
         socialGraphPage: {
@@ -148,7 +148,7 @@ describe('Social Graph page selectors', function () {
           }
         }
       ];
-      getSortedNetworkOfficers(state).should.eql(expectedSortedNetworkOfficers);
+      sortedNetworkOfficersSelector(state, {}).should.eql(expectedSortedNetworkOfficers);
     });
 
     it('should return network officers with order', function () {
@@ -243,7 +243,8 @@ describe('Social Graph page selectors', function () {
           }
         }
       ];
-      getSortedNetworkOfficers(state, [456, 123, 789]).should.eql(expectedSortedNetworkOfficers);
+      const props = { sortedOfficerIds: [456, 123, 789] };
+      sortedNetworkOfficersSelector(state, props).should.eql(expectedSortedNetworkOfficers);
     });
   });
 });

@@ -1,4 +1,5 @@
 import { isEmpty, sortBy, indexOf } from 'lodash';
+import { createSelector } from 'reselect';
 
 import { extractPercentile } from 'selectors/common/percentile';
 
@@ -10,10 +11,13 @@ export const officerDetailTransform = officer => ({
   percentile: extractPercentile(officer['percentile']),
 });
 
-export const getSortedNetworkOfficers = (state, sortedOfficerIds) => {
-  let officers = getNetworkOfficers(state);
-  if (!isEmpty(sortedOfficerIds)) {
-    officers = sortBy(officers, (officer) => indexOf(sortedOfficerIds, officer.id));
+export const sortedNetworkOfficersSelector = createSelector(
+  getNetworkOfficers,
+  (state, props) => props.sortedOfficerIds,
+  (officers, sortedOfficerIds) => {
+    if (!isEmpty(sortedOfficerIds)) {
+      officers = sortBy(officers, (officer) => indexOf(sortedOfficerIds, officer.id));
+    }
+    return officers.map(officerDetailTransform);
   }
-  return officers.map(officerDetailTransform);
-};
+);
