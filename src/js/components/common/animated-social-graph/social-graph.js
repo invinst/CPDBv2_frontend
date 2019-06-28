@@ -69,7 +69,7 @@ export default class SocialGraph extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { coaccusedData, timelineIdx, fullscreen, selectedOfficerId, selectedEdge } = this.props;
+    const { coaccusedData, timelineIdx, selectedOfficerId, selectedEdge, performResizeGraph } = this.props;
 
     if (!isEqual(prevProps.coaccusedData, coaccusedData)) {
       this.drawGraph();
@@ -77,7 +77,7 @@ export default class SocialGraph extends Component {
       if (prevProps.timelineIdx !== timelineIdx) {
         this.filterAndRestart();
       }
-      if (prevProps.fullscreen !== fullscreen) {
+      if (performResizeGraph) {
         this.resizeGraph();
       }
       if (prevProps.selectedOfficerId !== selectedOfficerId) {
@@ -582,6 +582,7 @@ SocialGraph.propTypes = {
   selectedEdge: PropTypes.object,
   updateSelectedEdge: PropTypes.func,
   updateSortedOfficerIds: PropTypes.func,
+  performResizeGraph: PropTypes.bool,
 };
 
 SocialGraph.defaultProps = {

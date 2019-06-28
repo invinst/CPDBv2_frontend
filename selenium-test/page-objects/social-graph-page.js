@@ -27,6 +27,7 @@ class AnimatedSocialGraphSection extends Section {
       geographicTab: '(//div[contains(@class, "geographic-btn")])',
       networkTab: '(//div[contains(@class, "social-graph-btn")])',
       leftSection: '(//div[contains(@class, "left-section")])',
+      rightSection: '(//div[contains(@class, "right-section")])',
       rightPaneSectionMenu: '(//div[@class="right-pane-section-menu"])',
       timelineTab: '(//span[contains(@class, "right-pane-tab-name")])[1]',
       officerTab: '(//span[contains(@class, "right-pane-tab-name")])[2]',
@@ -37,6 +38,7 @@ class AnimatedSocialGraphSection extends Section {
       secondCurrentEdge: '(//*[contains(@class, "link-group-color-5 current-link")])',
       selectedEdgeLabel: '(//*[@class="selected-edge-label"])',
       edgeCoaccusalsHeader: '(//div[@class="edge-coaccusals-pane-header"])',
+      toggleSidebarsButton: '(//div[contains(@class, "toggle-sidebars-btn")])',
     });
   }
 

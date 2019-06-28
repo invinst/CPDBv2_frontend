@@ -622,7 +622,7 @@ describe('SocialGraph', function () {
     should(instance.data.links).be.undefined();
   });
 
-  it('should call resizeGraph when fullscreen is changed', function () {
+  it('should call resizeGraph when performResizeGraph is true', function () {
     instance = renderIntoDocument(
       <SocialGraph
         officers={ officers }
@@ -636,7 +636,7 @@ describe('SocialGraph', function () {
         officers={ officers }
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
-        fullscreen={ true }
+        performResizeGraph={ true }
       />,
       instance
     );

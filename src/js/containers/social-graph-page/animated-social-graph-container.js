@@ -22,6 +22,8 @@ import {
 
 function mapStateToProps(state, ownProps) {
   return {
+    performResizeGraph: ownProps.performResizeGraph,
+    customRightControlButton: ownProps.customRightControlButton,
     officers: officersSelector(state),
     coaccusedData: coaccusedDataSelector(state),
     listEvent: getListEvent(state),
