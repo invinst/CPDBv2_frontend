@@ -469,6 +469,43 @@ describe('Search Page', function () {
       switchToRecentTab();
       browser.getUrl().should.eql('http://lvh.me/url-mediator/session-builder?neighborhood=SomeNeighborhood');
     });
+
+    it('should redirect to officer page when click on view profile button', function () {
+      searchPage.input.waitForVisible();
+      searchPage.input.setValue('Ke');
+
+      searchPage.officerPreviewPaneSection.viewOfficerButton.waitForVisible();
+      searchPage.officerPreviewPaneSection.viewOfficerButton.click();
+      browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/$/);
+    });
+
+    it('should add/remove officer to/from pinboard when click on pin button', function () {
+      searchPage.input.waitForVisible();
+      searchPage.input.setValue('Ke');
+
+      searchPage.officerPreviewPaneSection.pinButton.waitForVisible();
+      searchPage.pinboardButton.getText().should.eql('Your pinboard is empty');
+
+      searchPage.officerPreviewPaneSection.pinButton.click();
+      searchPage.pinboardButton.getText().should.eql('Pinboard (1)');
+
+      searchPage.toast.waitForVisible();
+      browser.waitUntil(function () {
+        return searchPage.toast.isVisible() === false;
+      }, 5000, 'Toast is not removed properly');
+
+      searchPage.officerPreviewPaneSection.pinButton.click();
+      searchPage.pinboardButton.getText().should.eql('Your pinboard is empty');
+    });
+
+    it('should redirect to unit page when click on unit item on officer info widget', function () {
+      searchPage.input.waitForVisible();
+      searchPage.input.setValue('Ke');
+
+      searchPage.officerPreviewPaneSection.unitItem.waitForVisible();
+      searchPage.officerPreviewPaneSection.unitItem.click();
+      browser.getUrl().should.match(/\/unit\/\d+\/$/);
+    });
   });
 
   describe('RankPreviewPane', function () {

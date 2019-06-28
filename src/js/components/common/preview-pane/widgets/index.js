@@ -9,6 +9,9 @@ export { default as GeoInfoWidget } from './geo-info-widget';
 export { default as VisualTokenWidget } from './visual-token-widget';
 export { default as OfficerInfoWidget } from './officer-info-widget';
 export { default as MetricWidget } from './metric-widget';
+export { default as NewOfficerInfoWidget } from './new-officer-info-widget';
+export { default as NewVisualTokenWidget } from './new-visual-token-widget';
+export { default as NewMetricWidget } from './new-metric-widget';
 export { default as NewWidgetWrapper } from './new-widget-wrapper';
 import WidgetWrapper from './widget-wrapper';
 

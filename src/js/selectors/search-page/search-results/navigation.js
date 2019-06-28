@@ -3,7 +3,8 @@ import { flatten, concat } from 'lodash';
 
 import * as constants from 'utils/constants';
 import { navigationItemTransform, previewPaneTransform } from 'selectors/common/preview-pane-transforms';
-import { slicedSuggestionGroupsSelector } from './suggestion-groups';
+import { slicedSuggestionGroupsSelector, getPinnedItem } from './suggestion-groups';
+import { pinboardItemsSelector } from 'selectors/pinboard-page/pinboard';
 
 
 const getSuggestionNavigation = state => state.searchPage.navigation;
@@ -29,11 +30,13 @@ const navigationItemListSelector = createSelector(
 const rawFocusedItemSelector = createSelector(
   navigationItemListSelector,
   getSuggestionNavigation,
-  (itemsList, { itemIndex }) => {
+  pinboardItemsSelector,
+  (itemsList, { itemIndex }, pinboardItems) => {
     if (itemsList[itemIndex] !== undefined) {
-      return itemsList[itemIndex];
+      return getPinnedItem(itemsList[itemIndex], pinboardItems);
     }
-    return itemsList[0];
+    const item = getPinnedItem(itemsList[0], pinboardItems);
+    return item;
   }
 );
 

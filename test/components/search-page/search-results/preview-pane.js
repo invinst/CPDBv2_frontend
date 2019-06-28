@@ -15,7 +15,7 @@ import {
   PoliceBeatPane,
   PoliceDistrictPane,
   SchoolGroundPane,
-  OfficerPane,
+  NewOfficerPane as OfficerPane,
   RankPane,
   SearchTermItemPane,
   CRPane

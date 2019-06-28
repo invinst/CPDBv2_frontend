@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { indexOf, isEmpty, head, keys, map, omitBy, pick, sortBy } from 'lodash';
+import { indexOf, isEmpty, head, keys, map, omitBy, pick, sortBy, cloneDeep } from 'lodash';
 
 import * as constants from 'utils/constants';
 import { searchResultItemTransform } from 'selectors/common/preview-pane-transforms';
@@ -89,12 +89,13 @@ const pinnedItemTypeMap = {
   'DATE > TRR': 'TRR',
 };
 
-const pinItem = (item, pinboardItems) => {
+export const getPinnedItem = (item, pinboardItems) => {
   const pinnedItemType = pinnedItemTypeMap[item.type];
-  item.isPinned =
+  const pinnedItem = cloneDeep(item);
+  pinnedItem.isPinned =
     (pinboardItems.hasOwnProperty(pinnedItemType)) &&
     (pinboardItems[pinnedItemType].indexOf(item.id) !== -1);
-  return item;
+  return pinnedItem;
 };
 
 export const isEmptySelector = createSelector(
@@ -108,7 +109,7 @@ export const searchResultGroupsSelector = createSelector(
   (groups, pinboardItems) => map(groups, ({ header, items, canLoadMore }) => ({
     header,
     canLoadMore,
-    items: map(items, item => searchResultItemTransform(pinItem(item, pinboardItems)))
+    items: map(items, item => searchResultItemTransform(getPinnedItem(item, pinboardItems)))
   }))
 );
 

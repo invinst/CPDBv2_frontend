@@ -133,6 +133,7 @@ export default class SuggestionResults extends Component {
       onSelect,
       contentType,
       onEmptyPinboardButtonClick,
+      addOrRemoveItemInPinboard,
     } = this.props;
 
     return (
@@ -159,7 +160,7 @@ export default class SuggestionResults extends Component {
                 { this.renderContent() }
               </div>
           }
-          <PreviewPane { ...previewPaneInfo }/>
+          <PreviewPane { ...previewPaneInfo } addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }/>
         </div>
       </div>
     );
