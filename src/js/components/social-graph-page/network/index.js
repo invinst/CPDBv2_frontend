@@ -19,11 +19,13 @@ export default class NetworkGraph extends Component {
     this.state = {
       showCivilComplaintOnly: true,
       thresholdValue: 2,
+      sortedOfficerIds: [],
     };
     this.handleCheckShowCivilOnly = this.handleCheckShowCivilOnly.bind(this);
     this.handleChangeThresholdValue = this.handleChangeThresholdValue.bind(this);
     this.handleClickOutside = this.handleClickOutside.bind(this);
     this.renderPreviewPane = this.renderPreviewPane.bind(this);
+    this.updateSortedOfficerIds = this.updateSortedOfficerIds.bind(this);
   }
 
   componentDidMount() {
@@ -96,6 +98,10 @@ export default class NetworkGraph extends Component {
     this.setState({ thresholdValue: value });
   }
 
+  updateSortedOfficerIds(officerIds) {
+    this.setState({ sortedOfficerIds: officerIds });
+  }
+
   renderPreviewPane() {
     const {
       networkPreviewPaneData,
@@ -105,6 +111,8 @@ export default class NetworkGraph extends Component {
       location,
       onTrackingAttachment,
     } = this.props;
+
+    const { sortedOfficerIds } = this.state;
 
     if (!isEmpty(networkPreviewPaneData)) {
       return (
@@ -121,6 +129,7 @@ export default class NetworkGraph extends Component {
           currentTab={ currentNetworkTab }
           showTimelineTab={ showTimelineTab }
           location={ location }
+          sortedOfficerIds={ sortedOfficerIds }
         />
       );
     }
@@ -163,7 +172,7 @@ export default class NetworkGraph extends Component {
 
         </div>
         <div className='graph-container'>
-          <AnimatedSocialGraphContainer/>
+          <AnimatedSocialGraphContainer updateSortedOfficerIds={ this.updateSortedOfficerIds } />
         </div>
         <div className='right-section'>
           {

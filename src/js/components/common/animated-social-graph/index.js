@@ -160,6 +160,7 @@ export default class AnimatedSocialGraph extends Component {
       updateSelectedOfficerId,
       selectedEdge,
       updateSelectedEdge,
+      updateSortedOfficerIds,
     } = this.props;
     const { fullscreen } = this.state;
 
@@ -179,6 +180,7 @@ export default class AnimatedSocialGraph extends Component {
             updateSelectedOfficerId={ updateSelectedOfficerId }
             selectedEdge={ selectedEdge }
             updateSelectedEdge={ updateSelectedEdge }
+            updateSortedOfficerIds={ updateSortedOfficerIds }
           />
         }
         { this.graphControlPanel() }
@@ -202,6 +204,7 @@ AnimatedSocialGraph.propTypes = {
   refreshIntervalId: PropTypes.number,
   isVisible: PropTypes.bool,
   updateRefreshIntervalId: PropTypes.func,
+  updateSortedOfficerIds: PropTypes.func,
 };
 
 AnimatedSocialGraph.defaultProps = {

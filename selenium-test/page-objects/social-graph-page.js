@@ -78,8 +78,8 @@ class OfficersSection extends Section {
     });
   }
 
-  officerRowCount() {
-    return browser.elements('//div[contains(@class, "officer-row")]').value.length;
+  officerRows() {
+    return browser.elements('//div[contains(@class, "officer-row")]').value;
   }
 }
 

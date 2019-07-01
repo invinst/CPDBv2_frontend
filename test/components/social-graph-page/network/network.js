@@ -515,4 +515,17 @@ describe('NetworkGraph component', function () {
     networkGraph.handleClickOutside({ target: findDOMNode(officerPane) });
     updateSelectedOfficerIdStub.should.not.be.called();
   });
+
+  it('should update sortedOfficerIds state when calling updateSortedOfficerIds', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <NetworkGraph unitId='232'/>
+      </Provider>
+    );
+
+    const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
+    networkGraph.state.sortedOfficerIds.should.eql([]);
+    networkGraph.updateSortedOfficerIds([123, 456, 789]);
+    networkGraph.state.sortedOfficerIds.should.eql([123, 456, 789]);
+  });
 });
