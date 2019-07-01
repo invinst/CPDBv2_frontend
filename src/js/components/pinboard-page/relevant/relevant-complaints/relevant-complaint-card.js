@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
+import { noop } from 'lodash';
 
 import styles from './relevant-complaint-card.sass';
 import BaseComplaintCard from 'components/pinboard-page/relevant/common/base-complaint-card';
@@ -17,11 +17,11 @@ export default class RelevantComplaintCard extends Component {
       officers,
       point,
       addItemInPinboardPage,
+      focusItem,
     } = this.props;
 
     const leftChild = (
-      <Link
-        to={ `/complaint/${crid}/` }
+      <div
         className={ styles.relevantComplaintMap }
         style={ point ? {
           background: `url("${getComplaintMapUrl(point.lat, point.lon, 130, 176)}") no-repeat center/cover`
@@ -38,6 +38,7 @@ export default class RelevantComplaintCard extends Component {
         officers={ officers }
         leftChild={ leftChild }
         addItemInPinboardPage={ addItemInPinboardPage }
+        focusItem={ focusItem }
       />
     );
   }
@@ -53,8 +54,12 @@ RelevantComplaintCard.propTypes = {
     lon: PropTypes.number
   }),
   addItemInPinboardPage: PropTypes.func,
+  focusItem: PropTypes.func,
 };
 
+RelevantComplaintCard.defaultProps = {
+  focusItem: noop,
+};
 
 export const RelevantComplaintCardWithUndo = withUndoCard(
   RelevantComplaintCard,

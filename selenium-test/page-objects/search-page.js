@@ -8,12 +8,12 @@ class OfficerPreviewPaneSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      wrapper: '.test--preview-pane',
+      wrapper: '//div[starts-with(@class, "preview-pane")]',
       gradient: '.test--gradient',
       communityPane: '.test--preview-pane-community',
       neighborhoodPane: '.test--preview-pane-neighborhood',
-      listMostOfficers: '//*[@class="test--preview-pane"]//*[contains(@class,"list-widget-item-link")]',
-      previewPane: '.test--preview-pane',
+      listMostOfficers: '//*[starts-with(@class, "preview-pane")]//*[contains(@class,"list-widget-item-link")]',
+      previewPane: '//div[starts-with(@class, "preview-pane")]',
     });
   }
 }
@@ -22,8 +22,8 @@ class RankPreviewPaneSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      previewPane: '.test--preview-pane',
-      listMostOfficers: '//*[@class="test--preview-pane"]//*[contains(@class,"list-widget-item-link")]',
+      previewPane: '//div[starts-with(@class, "preview-pane")]',
+      listMostOfficers: '//*[starts-with(@class, "preview-pane")]//*[contains(@class,"list-widget-item-link")]',
     });
   }
 }
@@ -33,11 +33,11 @@ class CRPreviewPaneSection extends Section {
     super();
     this.prepareElementGetters({
       callToAction: '//div[contains(@class, "new-call-to-action-widget")]',
-      wrapper: '.test--preview-pane',
+      wrapper: '//div[starts-with(@class, "preview-pane")]',
       gradient: '.widget-wrapper-gradient',
       title: '.cr-preview-pane-title-title',
       subtitle: '.cr-preview-pane-title-subtitle',
-      previewPane: '.test--preview-pane',
+      previewPane: '//div[starts-with(@class, "preview-pane")]',
       incidentDate: '//div[@class="cr-preview-pane-info-row"][1]',
       address: '//div[@class="cr-preview-pane-info-row"][2]',
       victimText: '.cr-preview-pane-victims-text',

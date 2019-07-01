@@ -18,9 +18,10 @@ export default class CRPane extends Component {
       victims,
       coaccused,
       to,
+      yScrollable,
     } = this.props;
     return (
-      <NewWidgetWrapper callToAction={ { to, text: 'View Complaint Record' } }>
+      <NewWidgetWrapper callToAction={ { to, text: 'View Complaint Record' } } yScrollable={ yScrollable }>
         <div className={ styles.crPane }>
           <div className='cr-preview-pane-info-wrapper'>
             <div className='cr-preview-pane-title'>
@@ -59,4 +60,9 @@ CRPane.propTypes = {
   victims: PropTypes.array,
   coaccused: PropTypes.array,
   to: PropTypes.string,
+  yScrollable: PropTypes.bool,
+};
+
+CRPane.defaultProps = {
+  yScrollable: false,
 };

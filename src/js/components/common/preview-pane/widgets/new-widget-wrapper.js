@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import MediaQuery from 'react-responsive';
+import cx from 'classnames';
 
 import NewCallToActionWidget from './new-call-to-action-widget';
 import styles from './new-widget-wrapper.sass';
@@ -32,7 +33,7 @@ export default class NewWidgetWrapper extends Component {
   }
 
   render() {
-    const { callToAction, className, children } = this.props;
+    const { callToAction, className, children, yScrollable } = this.props;
     const { to, url, text } = callToAction;
 
     return (
@@ -45,13 +46,18 @@ export default class NewWidgetWrapper extends Component {
             ) : null
           }
           <div
-            className='widget-wrapper-responsive-container'
+            className={ cx(
+              'widget-wrapper-responsive-container',
+              { 'y-scrollable': yScrollable },
+            ) }
             ref={ el => this.element = el }
           >
             { children }
-            <MediaQuery maxHeight={ this.state.height }>
-              <div className='widget-wrapper-gradient'/>
-            </MediaQuery>
+            { !yScrollable &&
+              <MediaQuery maxHeight={ this.state.height }>
+                <div className='widget-wrapper-gradient'/>
+              </MediaQuery>
+            }
           </div>
         </div>
       </WrapperLink>
@@ -62,10 +68,12 @@ export default class NewWidgetWrapper extends Component {
 NewWidgetWrapper.defaultProps = {
   className: '',
   callToAction: {},
+  yScrollable: false,
 };
 
 NewWidgetWrapper.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
   callToAction: PropTypes.object,
+  yScrollable: PropTypes.bool,
 };

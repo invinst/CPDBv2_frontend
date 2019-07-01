@@ -12,7 +12,7 @@ describe('RelevantComplaints selectors', function () {
         'crid': '1085121',
         'category': 'Money / Property',
         'incident_date': '2017-04-04',
-        'officers': [{
+        'coaccused': [{
           'id': 21098,
           'rank': 'Sergeant of Police',
           'full_name': 'Daniel O Toole',
@@ -30,7 +30,7 @@ describe('RelevantComplaints selectors', function () {
         'crid': '1082207',
         'category': 'Operation/Personnel Violations',
         'incident_date': '2016-09-11',
-        'officers': [{
+        'coaccused': [{
           'id': 19131,
           'rank': 'Police Officer',
           'full_name': 'Michael Miller',

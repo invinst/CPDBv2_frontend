@@ -1,12 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import { isEmpty, countBy, indexOf, orderBy, isEqual } from 'lodash';
+import { isEmpty, countBy, indexOf, orderBy, isEqual, filter, map } from 'lodash';
 import moment from 'moment';
 import * as d3 from 'd3';
 import * as jLouvain from 'jlouvain';
 import d3Tip from 'd3-tip';
 import 'rc-slider/assets/index.css';
 import cx from 'classnames';
+import pluralize from 'pluralize';
 
 import { imgUrl } from 'utils/static-assets';
 import styles from './social-graph.sass';
@@ -22,6 +23,8 @@ const COLLIDE_ALPHA = 0.5;
 const MIN_MEMBERS_IN_COMMUNITY = 3;
 const NUMBER_OF_TOP_NODES = 5;
 const NUMBER_OF_LINK_GROUP_COLORS = 6;
+const LABEL_PADDING_LEFT_RIGHT = 10;
+const LABEL_PADDING_TOP_BOTTOM = 6;
 
 
 export default class SocialGraph extends Component {
@@ -36,14 +39,26 @@ export default class SocialGraph extends Component {
     this.tick = this.tick.bind(this);
     this.connectedNodes = this.connectedNodes.bind(this);
     this.collide = this.collide.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleNodeClick = this.handleNodeClick.bind(this);
+    this.handleEdgeClick = this.handleEdgeClick.bind(this);
+    this.handleMouseover = this.handleMouseover.bind(this);
+    this.handleEdgeMouseover = this.handleEdgeMouseover.bind(this);
+    this.handleEdgeMouseout = this.handleEdgeMouseout.bind(this);
   }
 
   componentDidMount() {
     this.svg = d3.select(ReactDOM.findDOMNode(this.refs.chart)).append('svg:svg');
     this.node = this.svg.selectAll('.node');
     this.link = this.svg.selectAll('.link');
-    this.label = this.svg.selectAll('.label');
+    this.label = this.svg.selectAll('.node-label');
+    this.selectedNodeLabel = {
+      labelText: this.svg.selectAll('.selected-node-label'),
+      box: this.svg.selectAll('.selected-node-label-box'),
+    };
+    this.selectedEdgeLabel = {
+      labelText: this.svg.selectAll('.selected-edge-label'),
+      box: this.svg.selectAll('.selected-edge-label-box'),
+    };
     this.tip = d3Tip()
       .attr('class', cx(styles.socialGraphTip, 'test--graph-tooltip'))
       .direction('e')
@@ -54,7 +69,7 @@ export default class SocialGraph extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { coaccusedData, timelineIdx, fullscreen } = this.props;
+    const { coaccusedData, timelineIdx, fullscreen, selectedOfficerId, selectedEdge } = this.props;
 
     if (!isEqual(prevProps.coaccusedData, coaccusedData)) {
       this.drawGraph();
@@ -65,12 +80,46 @@ export default class SocialGraph extends Component {
       if (prevProps.fullscreen !== fullscreen) {
         this.resizeGraph();
       }
+      if (prevProps.selectedOfficerId !== selectedOfficerId) {
+        this._updateSelectedNode();
+      }
+      if (prevProps.selectedEdge !== selectedEdge) {
+        this._updateSelectedEdge();
+      }
     }
   }
 
-  handleClick(currentNode) {
-    const { updateOfficerId } = this.props;
-    updateOfficerId(currentNode.uid);
+  handleNodeClick(currentNode) {
+    const { updateSelectedOfficerId } = this.props;
+    if (updateSelectedOfficerId) {
+      this.tip.hide(currentNode);
+      updateSelectedOfficerId(currentNode.uid);
+    }
+  }
+
+  handleEdgeClick(currentEdge) {
+    const { updateSelectedEdge } = this.props;
+    if (updateSelectedEdge) {
+      updateSelectedEdge({ sourceUid: currentEdge.source.uid, targetUid: currentEdge.target.uid });
+    }
+  }
+
+  handleMouseover(currentNode) {
+    if (!currentNode.isSelectedNode) {
+      this.tip.show(currentNode);
+    }
+  }
+
+  handleEdgeMouseover(currentEdge) {
+    this.node.classed('edge-hover', function (graphNode) {
+      return graphNode === currentEdge.source || graphNode === currentEdge.target;
+    });
+    this.link.classed('edge-hover', (graphLink) => currentEdge === graphLink);
+  }
+
+  handleEdgeMouseout() {
+    this.node.classed('edge-hover', false);
+    this.link.classed('edge-hover', false);
   }
 
   graphTooltip(graphNode) {
@@ -83,6 +132,7 @@ export default class SocialGraph extends Component {
       linkedByIndex: {},
       maxNodeInCommunities: {},
       topNodes: [],
+      selectedNodes: [],
     };
   }
 
@@ -157,6 +207,7 @@ export default class SocialGraph extends Component {
     } else {
       this.data.nodes.forEach((graphNode) => {
         graphNode.degree = 0;
+        graphNode.isSelectedNode = false;
       });
     }
   }
@@ -187,9 +238,10 @@ export default class SocialGraph extends Component {
   }
 
   _recalculateNodeDegreesAndMaxWeight() {
+    const { updateSortedOfficerIds } = this.props;
     this.data.maxWeight = 0;
 
-    const orderedLinks = orderBy(this.data.links, ['weight'], ['asc']);
+    const orderedLinks = orderBy(this.data.links, ['weight', 'source', 'target']);
     const linksCount = this.data.links.length;
 
     orderedLinks.forEach((link, index) => {
@@ -203,7 +255,14 @@ export default class SocialGraph extends Component {
       link.colorGroup = Math.ceil((index + 1) * NUMBER_OF_LINK_GROUP_COLORS / linksCount);
     });
 
-    this.data.topNodes = orderBy(this.data.nodes, ['degree', 'uid'], ['desc', 'asc']).slice(0, NUMBER_OF_TOP_NODES);
+    const sortedNodes = orderBy(this.data.nodes, ['degree', 'fname'], ['desc', 'asc']);
+
+    this.data.topNodes = sortedNodes.slice(0, NUMBER_OF_TOP_NODES);
+
+    if (updateSortedOfficerIds) {
+      const sortedOfficerIds = map(sortedNodes, 'uid');
+      updateSortedOfficerIds(sortedOfficerIds);
+    }
   }
 
   _recalculateNodeGroups() {
@@ -221,7 +280,7 @@ export default class SocialGraph extends Component {
 
     for (const graphNodeId in communityPartition) {
       const groupId = communityPartition[graphNodeId];
-      if (indexOf(groupIds, groupId) != -1) {
+      if (indexOf(groupIds, groupId) !== -1) {
         communityPartition[graphNodeId] = groupId + 1;
       } else {
         communityPartition[graphNodeId] = 0;
@@ -246,6 +305,91 @@ export default class SocialGraph extends Component {
     });
   }
 
+  _drawSelectedLabel(selectedLabel, data, className, textFunc) {
+    selectedLabel.box = selectedLabel.box.data(data);
+    selectedLabel.labelText = selectedLabel.labelText.data(data);
+
+    selectedLabel.box.exit().remove();
+    selectedLabel.labelText.exit().remove();
+
+    selectedLabel.box.enter()
+      .append('rect')
+      .attr('class', `${className}-box`)
+      .attr('rx', '4')
+      .attr('ry', '4');
+
+    selectedLabel.labelText.enter()
+      .append('text')
+      .attr('class', className);
+
+    selectedLabel.labelText.text(textFunc);
+
+    selectedLabel.labelText.each(function (d) { d.bb = this.getBBox(); });
+
+    selectedLabel.box
+      .attr('width', function (d) { return d.bb.width + LABEL_PADDING_LEFT_RIGHT; })
+      .attr('height', function (d) { return d.bb.height + LABEL_PADDING_TOP_BOTTOM; });
+  }
+
+  _updateSelectedNode() {
+    const { selectedOfficerId } = this.props;
+
+    this.data.selectedNodes.forEach((d) => {
+      d.isSelectedNode = false;
+    });
+    this.data.selectedNodes = [];
+    if (selectedOfficerId) {
+      this.data.selectedNodes = filter(this.data.nodes, { uid: selectedOfficerId });
+      this.data.selectedNodes.forEach((d) => {
+        d.isSelectedNode = true;
+      });
+    }
+
+    this._drawSelectedLabel(this.selectedNodeLabel, this.data.selectedNodes, 'selected-node-label', (d) => d.fname);
+    this._updateSelectedNodePosition();
+  }
+
+  _updateSelectedNodePosition() {
+    this.selectedNodeLabel.labelText
+      .attr('x', (d) => d.x + (d.degree / 2 + 2) + LABEL_PADDING_LEFT_RIGHT / 2 )
+      .attr('y', (d) => d.y + LABEL_PADDING_TOP_BOTTOM / 2 + 2);
+
+    this.selectedNodeLabel.box
+      .attr('x', (d) => d.x + (d.degree / 2 + 2))
+      .attr('y', (d) => d.y + LABEL_PADDING_TOP_BOTTOM / 2 - d.bb.height + 2);
+  }
+
+
+  _updateSelectedEdge() {
+    const { selectedEdge } = this.props;
+
+    this.data.selectedEdges = [];
+    if (selectedEdge) {
+      this.data.selectedEdges = filter(
+        this.data.links,
+        { source: { uid: selectedEdge.sourceUid }, target: { uid: selectedEdge.targetUid } }
+      );
+    }
+
+    this._drawSelectedLabel(
+      this.selectedEdgeLabel,
+      this.data.selectedEdges,
+      'selected-edge-label',
+      () => `${selectedEdge.coaccusedCount} ${pluralize('coaccusal', selectedEdge.coaccusedCount)}`
+    );
+    this._updateSelectedEdgePosition();
+  }
+
+  _updateSelectedEdgePosition() {
+    this.selectedEdgeLabel.labelText
+      .attr('x', (d) => (d.source.x + d.target.x) / 2 + LABEL_PADDING_LEFT_RIGHT / 2)
+      .attr('y', (d) => (d.source.y + d.target.y) / 2 + LABEL_PADDING_TOP_BOTTOM / 2 + 2);
+
+    this.selectedEdgeLabel.box
+      .attr('x', (d) => (d.source.x + d.target.x) / 2)
+      .attr('y', (d) => (d.source.y + d.target.y) / 2 + LABEL_PADDING_TOP_BOTTOM / 2 - d.bb.height + 2);
+  }
+
   recalculateNodeLinks(curDate) {
     this._resetNodes();
     this._recalculateLinks(curDate);
@@ -256,26 +400,28 @@ export default class SocialGraph extends Component {
 
   _restartNodes() {
     this.toggleNode = 0;
+
     this.node = this.node.data(this.data.nodes);
 
     this.label = this.label.data(this.data.topNodes);
 
     this.label.enter()
       .append('text')
-      .text((d) => d.fname)
       .attr('class', 'node-label');
+
+    this.label.text((d) => d.fname);
 
     this.label.exit().remove();
 
     this.node.enter().insert('circle', '.cursor')
       .attr('class', 'node officer-preview-link')
       .call(this.force.drag)
-      .on('mouseover', this.tip.show)
+      .on('mouseover', this.handleMouseover)
       .on('mouseout', this.tip.hide)
       .on('dblclick', this.connectedNodes);
 
-    if (this.props.updateOfficerId) {
-      this.node.on('click', this.handleClick);
+    if (this.props.updateSelectedOfficerId) {
+      this.node.on('click', this.handleNodeClick);
     }
 
     this.node.attr('r', (d) => (d.degree / 2 + 2))
@@ -289,9 +435,16 @@ export default class SocialGraph extends Component {
       .linkStrength((d) => ((d.weight + 1) / (this.data.maxWeight + 1)));
     this.link = this.link.data(this.data.links);
 
-    this.link.enter().insert('line', '.node').attr('class', 'link');
+    this.link.enter().insert('line', '.node')
+      .attr('class', 'link edge-coaccusals-preview-link')
+      .on('mouseover', this.handleEdgeMouseover)
+      .on('mouseout', this.handleEdgeMouseout);
 
-    this.link.attr('class', (d) => `link link-group-color-${d.colorGroup} ${d.className}`);
+    if (this.props.updateSelectedEdge) {
+      this.link.on('click', this.handleEdgeClick);
+    }
+
+    this.link.attr('class', (d) => `link edge-coaccusals-preview-link link-group-color-${d.colorGroup} ${d.className}`);
 
     this.link.exit().remove();
   }
@@ -319,6 +472,9 @@ export default class SocialGraph extends Component {
       .attr('y1', (d) => d.source.y)
       .attr('x2', (d) => d.target.x)
       .attr('y2', (d) => d.target.y);
+
+    this._updateSelectedNodePosition();
+    this._updateSelectedEdgePosition();
   }
 
   connectedNodes(currentNode) {
@@ -421,7 +577,11 @@ SocialGraph.propTypes = {
   startTimelineFromBeginning: PropTypes.func,
   stopTimeline: PropTypes.func,
   fullscreen: PropTypes.bool,
-  updateOfficerId: PropTypes.func,
+  selectedOfficerId: PropTypes.number,
+  updateSelectedOfficerId: PropTypes.func,
+  selectedEdge: PropTypes.object,
+  updateSelectedEdge: PropTypes.func,
+  updateSortedOfficerIds: PropTypes.func,
 };
 
 SocialGraph.defaultProps = {

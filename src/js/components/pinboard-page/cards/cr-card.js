@@ -7,7 +7,7 @@ import withUndoCard from './with-undo-card';
 export default class CRCard extends Component {
   render() {
     return (
-      <LocationCard { ...this.props } dateKey='incidentDate'/>
+      <LocationCard { ...this.props } dateKey='incidentDate' focusable={ true }/>
     );
   }
 }

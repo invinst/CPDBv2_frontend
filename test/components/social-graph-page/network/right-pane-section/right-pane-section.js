@@ -59,16 +59,19 @@ describe('RightPaneSection component', function () {
 
     const activeTab = findRenderedDOMComponentWithClass(instance, 'active');
     activeTab.textContent.should.be.eql('Timeline');
-    findRenderedComponentWithType(instance, Timeline).should.be.ok();
+    const timelineComponent = findRenderedComponentWithType(instance, Timeline);
+    timelineComponent.props.location.should.be.eql(location);
   });
 
   it('should render correct active tab', function () {
+    const sortedOfficerIds = [123, 456, 789];
     instance = renderIntoDocument(
       <Provider store={ store }>
         <RightPaneSection
           currentTab={ NETWORK_TAB_NAMES.OFFICERS }
           showTimelineTab={ true }
           location={ location }
+          sortedOfficerIds={ sortedOfficerIds }
         />
       </Provider>
     );
@@ -80,7 +83,8 @@ describe('RightPaneSection component', function () {
 
     const activeTab = findRenderedDOMComponentWithClass(instance, 'active');
     activeTab.textContent.should.be.eql('Officers');
-    findRenderedComponentWithType(instance, Officers).should.be.ok();
+    const officersComponent = findRenderedComponentWithType(instance, Officers);
+    officersComponent.props.sortedOfficerIds.should.be.eql(sortedOfficerIds);
   });
 
   it('should call changeNetworkTab when clicking tab name', function () {

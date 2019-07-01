@@ -32,6 +32,7 @@ export default class OfficerPane extends Component {
       honorableMentionPercentile,
       to,
       lastPercentile,
+      yScrollable,
     } = this.props;
 
     const formatValue = (value) => isNil(value) ? 'N/A' : value;
@@ -67,7 +68,7 @@ export default class OfficerPane extends Component {
       },
     ];
     return (
-      <WidgetWrapper callToAction={ { to, text: 'View Officer Profile' } }>
+      <WidgetWrapper callToAction={ { to, text: 'View Officer Profile' } } yScrollable={ yScrollable }>
         <VisualTokenWidget { ...lastPercentile }/>
         <OfficerInfoWidget
           fullName={ fullName }
@@ -115,4 +116,9 @@ OfficerPane.propTypes = {
     items: PropTypes.array,
     visualTokenBackground: PropTypes.string,
   }),
+  yScrollable: PropTypes.bool,
+};
+
+OfficerPane.defaultProps = {
+  yScrollable: false,
 };

@@ -6,7 +6,11 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Use Of Force',
       'allegation_name': 'Excessive Force / On Duty - Injury'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      2675,
+      24157,
+    ]
   },
   {
     'crid': 'C182480',
@@ -15,16 +19,34 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Criminal Misconduct',
       'allegation_name': 'Conspiracy To Commit A Crime'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      12249,
+      22861,
+      6351,
+      8138,
+      8821,
+      30466,
+      24835,
+      11580,
+      15750,
+      32074
+    ]
   },
   {
     'crid': 'C185478',
     'incident_date': '1991-07-06',
     'most_common_category': {
-      'category': 'Use Of Force',
+      'category': 'Criminal Misconduct',
       'allegation_name': 'Excessive Force - Use Of Firearm / Off Duty - Injury'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      22861,
+      11580,
+      2675,
+      24157,
+    ]
   },
   {
     'crid': 'C186345',
@@ -33,7 +55,17 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Illegal Search',
       'allegation_name': 'Search Of Premise Without Warrant'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      22861,
+      2357,
+      11175,
+      30466,
+      18358,
+      11580,
+      2537,
+      7127
+    ]
   },
   {
     'crid': 'C190857',
@@ -42,7 +74,13 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Illegal Search',
       'allegation_name': 'Search Of Premise Without Warrant'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      22861,
+      11580,
+      15502,
+      14045
+    ]
   },
   {
     'crid': 'C193742',
@@ -51,7 +89,13 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Operation/Personnel Violations',
       'allegation_name': 'Inventory Procedures'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      28805,
+      12176,
+      2171,
+      12737,
+    ]
   },
   {
     'crid': 'C199563',
@@ -60,7 +104,13 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Lockup Procedures',
       'allegation_name': 'Miscellaneous'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      3663,
+      21194,
+      2171,
+      12737,
+    ]
   },
   {
     'crid': 'C199712',
@@ -69,7 +119,14 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Operation/Personnel Violations',
       'allegation_name': 'Neglect Of Duty'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      28805,
+      15502,
+      14045,
+      2171,
+      12737,
+    ]
   },
   {
     'crid': 'C200983',
@@ -78,7 +135,17 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Illegal Search',
       'allegation_name': 'Search Of Premise Without Warrant'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      22861,
+      18358,
+      2672,
+      849,
+      27339,
+      15502,
+      14045,
+      7127
+    ]
   },
   {
     'crid': 'C200989',
@@ -87,7 +154,17 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Operation/Personnel Violations',
       'allegation_name': 'Compensatory Time'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      26593,
+      29088,
+      12505,
+      28805,
+      22670,
+      28672,
+      15502,
+      14045
+    ]
   },
   {
     'crid': 'C201239',
@@ -96,7 +173,14 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Illegal Search',
       'allegation_name': 'Search Of Premise Without Warrant'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      28805,
+      3663,
+      21194,
+      2171,
+      12737,
+    ]
   },
   {
     'crid': 'C201979',
@@ -105,7 +189,11 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Lockup Procedures',
       'allegation_name': 'Arrest, Improper Procedures'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      28805,
+      12176
+    ]
   },
   {
     'crid': 'C204284',
@@ -114,7 +202,11 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Use Of Force',
       'allegation_name': 'Excessive Force - Use Of Firearm / Off Duty - Injury'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      28805,
+      12176
+    ]
   },
   {
     'crid': 'C206616',
@@ -123,7 +215,15 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Illegal Search',
       'allegation_name': 'Search Of Premise Without Warrant'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      28805,
+      3663,
+      21194,
+      12176,
+      15502,
+      14045
+    ]
   },
   {
     'crid': 'C206895',
@@ -132,7 +232,14 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Drug / Alcohol Abuse',
       'allegation_name': 'Impairment .04 Or Greater - Off Duty'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      3663,
+      8816,
+      4881,
+      15502,
+      14045
+    ]
   },
   {
     'crid': 'C207197',
@@ -141,7 +248,12 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Operation/Personnel Violations',
       'allegation_name': 'Inventory Procedures'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      28805,
+      15502,
+      14045
+    ]
   },
   {
     'crid': 'C207739',
@@ -150,7 +262,12 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Use Of Force',
       'allegation_name': 'Excessive Force / On Duty - Injury'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      28805,
+      15502,
+      14045
+    ]
   },
   {
     'crid': 'C207420',
@@ -159,7 +276,15 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Illegal Search',
       'allegation_name': 'Search Of Premise Without Warrant'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      28805,
+      12176,
+      26535,
+      15502,
+      2008,
+      14045
+    ]
   },
   {
     'crid': 'C207477',
@@ -168,7 +293,13 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Illegal Search',
       'allegation_name': 'Search Of Premise Without Warrant'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      28805,
+      12176,
+      15502,
+      14045
+    ]
   },
   {
     'crid': 'C208264',
@@ -177,7 +308,11 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Criminal Misconduct',
       'allegation_name': 'Conspiracy To Commit A Crime'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      28805,
+      14045
+    ]
   },
   {
     'crid': 'C209130',
@@ -186,7 +321,21 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Criminal Misconduct',
       'allegation_name': 'Conspiracy To Commit A Crime'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      10482,
+      28805,
+      3663,
+      21194,
+      12176,
+      4881,
+      10890,
+      28672,
+      26789,
+      15502,
+      14045,
+      21974
+    ]
   },
   {
     'crid': 'C209897',
@@ -195,7 +344,12 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Operation/Personnel Violations',
       'allegation_name': 'Inventory Procedures'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      28805,
+      3663,
+      21194
+    ]
   },
   {
     'crid': 'C211536',
@@ -204,7 +358,16 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Criminal Misconduct',
       'allegation_name': 'Theft'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      5929,
+      10482,
+      3663,
+      3202,
+      21194,
+      26789,
+      30214
+    ]
   },
   {
     'crid': 'C215976',
@@ -213,7 +376,15 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Illegal Search',
       'allegation_name': 'Search Of Premise Without Warrant'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      11386,
+      23896,
+      30209,
+      18809,
+      4269,
+      6343
+    ]
   },
   {
     'crid': 'C217960',
@@ -222,7 +393,11 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Illegal Search',
       'allegation_name': 'Search Of Premise Without Warrant'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      3663,
+      21194
+    ]
   },
   {
     'crid': 'C219724',
@@ -231,7 +406,13 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Operation/Personnel Violations',
       'allegation_name': 'Inventory Procedures'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      10482,
+      3663,
+      21194,
+      26789
+    ]
   },
   {
     'crid': 'C224270',
@@ -240,7 +421,17 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Illegal Search',
       'allegation_name': 'Search Of Premise Without Warrant'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      31643,
+      28805,
+      3663,
+      11934,
+      28468,
+      31456,
+      2052,
+      9970
+    ]
   },
   {
     'crid': 'C241050',
@@ -249,7 +440,15 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Use Of Force',
       'allegation_name': 'Excessive Force - Use Of Firearm / Off Duty - No Injury'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      28805,
+      3663,
+      11934,
+      31456,
+      2052,
+      9970
+    ]
   },
   {
     'crid': 'C227504',
@@ -258,7 +457,15 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Illegal Search',
       'allegation_name': 'Search Of Premise Without Warrant'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      28805,
+      3663,
+      31411,
+      11934,
+      2052,
+      9970
+    ]
   },
   {
     'crid': 'C229298',
@@ -267,7 +474,14 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Illegal Search',
       'allegation_name': 'Search Of Premise Without Warrant'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      28805,
+      3663,
+      13406,
+      9970,
+      24740
+    ]
   },
   {
     'crid': 'C240703',
@@ -276,7 +490,11 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'False Arrest',
       'allegation_name': 'Illegal Arrest / False Arrest'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      8138,
+      31945
+    ]
   },
   {
     'crid': 'C249055',
@@ -285,7 +503,11 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Supervisory Responsibilities',
       'allegation_name': 'State Civil Suit'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      8138,
+      31945
+    ]
   },
   {
     'crid': 'C237824',
@@ -294,7 +516,11 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Use Of Force',
       'allegation_name': 'Excessive Force / On Duty - Injury'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      8138,
+      31945
+    ]
   },
   {
     'crid': 'C238338',
@@ -303,7 +529,11 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Operation/Personnel Violations',
       'allegation_name': 'Miscellaneous'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      8138,
+      31945
+    ]
   },
   {
     'crid': 'C239521',
@@ -312,7 +542,13 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Use Of Force',
       'allegation_name': 'Excessive Force / On Duty - Injury'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      15243,
+      8138,
+      8065,
+      31945
+    ]
   },
   {
     'crid': 'C246406',
@@ -321,7 +557,17 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Verbal Abuse',
       'allegation_name': 'Use Of Profanity'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      30209,
+      10482,
+      2433,
+      3663,
+      8138,
+      30466,
+      26105,
+      31945
+    ]
   },
   {
     'crid': 'C248637',
@@ -330,7 +576,11 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Operation/Personnel Violations',
       'allegation_name': 'Inventory Procedures'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      15956,
+      4269
+    ]
   },
   {
     'crid': 'C249802',
@@ -339,7 +589,14 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Illegal Search',
       'allegation_name': 'Search Of Premise Without Warrant'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      10482,
+      2433,
+      3663,
+      16335,
+      31945
+    ]
   },
   {
     'crid': 'C249933',
@@ -348,7 +605,11 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Use Of Force',
       'allegation_name': 'Excessive Force / On Duty - Injury'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      15956,
+      2671
+    ]
   },
   {
     'crid': 'C250154',
@@ -357,7 +618,12 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Illegal Search',
       'allegation_name': 'Search Of Premise Without Warrant'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      4269,
+      6870,
+      2671
+    ]
   },
   {
     'crid': 'C250300',
@@ -366,7 +632,18 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Operation/Personnel Violations',
       'allegation_name': 'Inventory Procedures'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      30209,
+      10482,
+      2433,
+      3663,
+      30466,
+      2385,
+      16335,
+      27339,
+      31945
+    ]
   },
   {
     'crid': 'C251625',
@@ -375,7 +652,15 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Verbal Abuse',
       'allegation_name': 'Use Of Profanity'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      23896,
+      2117,
+      15956,
+      6318,
+      2671,
+      32206
+    ]
   },
   {
     'crid': 'C252724',
@@ -384,7 +669,13 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Use Of Force',
       'allegation_name': 'Excessive Force / On Duty - Injury'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      23896,
+      19131,
+      2671,
+      32206
+    ]
   },
   {
     'crid': 'C255296',
@@ -393,7 +684,12 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Illegal Search',
       'allegation_name': 'Search Of Premise Without Warrant'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      15956,
+      4269,
+      19131,
+    ]
   },
   {
     'crid': 'C258406',
@@ -402,7 +698,11 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Lockup Procedures',
       'allegation_name': 'Miscellaneous'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      15956,
+      2671
+    ]
   },
   {
     'crid': 'C258697',
@@ -411,7 +711,17 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Use Of Force',
       'allegation_name': 'Excessive Force / Off Duty - No Injury'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      25732,
+      17328,
+      8138,
+      12177,
+      25962,
+      27101,
+      2671,
+      32255
+    ]
   },
   {
     'crid': 'C261911',
@@ -420,7 +730,19 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Illegal Search',
       'allegation_name': 'Search Of Premise Without Warrant'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      2433,
+      21194,
+      29882,
+      4881,
+      4269,
+      16335,
+      19131,
+      1134,
+      31934,
+      31945
+    ]
   },
   {
     'crid': '261911',
@@ -429,7 +751,19 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Illegal Search',
       'allegation_name': 'Search Of Premise Without Warrant'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      29882,
+      19131,
+      31934,
+      2433,
+      16335,
+      31945,
+      4881,
+      1134,
+      21194,
+      4269
+    ]
   },
   {
     'crid': 'C262457',
@@ -438,7 +772,16 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Illegal Search',
       'allegation_name': 'Search Of Premise Without Warrant'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      13777,
+      25732,
+      2117,
+      12313,
+      15956,
+      25962,
+      2671
+    ]
   },
   {
     'crid': '262457',
@@ -447,7 +790,16 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Illegal Search',
       'allegation_name': 'Search Of Premise Without Warrant'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      13777,
+      2117,
+      15956,
+      2671,
+      12313,
+      25962,
+      25732
+    ]
   },
   {
     'crid': '265893',
@@ -456,7 +808,16 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Use Of Force',
       'allegation_name': 'Excessive Force / On Duty - Injury'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      28411,
+      32384,
+      13777,
+      2671,
+      12313,
+      25962,
+      25732
+    ]
   },
   {
     'crid': '268523',
@@ -465,7 +826,14 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Use Of Force',
       'allegation_name': 'Excessive Force / On Duty - Injury'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      13777,
+      15956,
+      2671,
+      12313,
+      25732
+    ]
   },
   {
     'crid': '271250',
@@ -474,7 +842,14 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Supervisory Responsibilities',
       'allegation_name': 'Federal Civil Suit'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      28411,
+      15237,
+      13777,
+      2957,
+      12313
+    ]
   },
   {
     'crid': '272897',
@@ -483,7 +858,11 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Lockup Procedures',
       'allegation_name': 'Prisoners Property'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      32413,
+      2671
+    ]
   },
   {
     'crid': '275302',
@@ -492,7 +871,14 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Operation/Personnel Violations',
       'allegation_name': 'Neglect Of Duty'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      32384,
+      27439,
+      2671,
+      25962,
+      25732
+    ]
   },
   {
     'crid': '275676',
@@ -501,7 +887,11 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Use Of Force',
       'allegation_name': 'Excessive Force / On Duty - Injury'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      15956,
+      25503
+    ]
   },
   {
     'crid': '279731',
@@ -510,7 +900,14 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Use Of Force',
       'allegation_name': 'Excessive Force - Use Of Firearm / Off Duty - Injury'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      19131,
+      31934,
+      31945,
+      4269,
+      10482
+    ]
   },
   {
     'crid': '284537',
@@ -519,7 +916,17 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Operation/Personnel Violations',
       'allegation_name': 'Miscellaneous'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      29882,
+      19131,
+      32007,
+      16335,
+      31945,
+      29842,
+      4269,
+      10482
+    ]
   },
   {
     'crid': '284969',
@@ -528,7 +935,18 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Illegal Search',
       'allegation_name': 'Search Of Premise Without Warrant'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      31934,
+      2385,
+      32007,
+      16335,
+      31945,
+      29842,
+      3663,
+      4269,
+      10482
+    ]
   },
   {
     'crid': '293291',
@@ -537,7 +955,11 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Lockup Procedures',
       'allegation_name': 'Prisoners Property'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      3663,
+      4269
+    ]
   },
   {
     'crid': '293355',
@@ -546,7 +968,11 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'False Arrest',
       'allegation_name': 'Illegal Arrest / False Arrest'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      3663,
+      4269
+    ]
   },
   {
     'crid': '311731',
@@ -555,7 +981,10 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'Use Of Force',
       'allegation_name': 'Excessive Force / Off Duty - No Injury'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      15956,
+    ]
   },
   {
     'crid': '315610',
@@ -564,7 +993,10 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'False Arrest',
       'allegation_name': 'Illegal Arrest / False Arrest'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      2671
+    ]
   },
   {
     'crid': '1014140',
@@ -573,6 +1005,9 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       'category': 'False Arrest',
       'allegation_name': 'Illegal Arrest / False Arrest'
     },
-    'attachments': []
+    'attachments': [],
+    'officer_ids': [
+      2671
+    ]
   }
 ]);

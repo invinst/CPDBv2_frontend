@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import pluralize from 'pluralize';
-import { get } from 'lodash';
+import { get, noop } from 'lodash';
 
 import StaticRadarChart from 'components/common/radar-chart';
+import ShortPress from 'components/common/short-press';
 import ItemUnpinButton from './item-unpin-button';
 import withUndoCard from './with-undo-card';
 import styles from './officer-card.sass';
@@ -13,6 +14,7 @@ export default class OfficerCard extends Component {
     super(props);
 
     this.removeItem = this.removeItem.bind(this);
+    this.focusItem = this.focusItem.bind(this);
   }
 
   removeItem() {
@@ -20,6 +22,11 @@ export default class OfficerCard extends Component {
     const { type, id } = item;
 
     removeItemInPinboardPage({ type, id });
+  }
+
+  focusItem() {
+    const { type, id } = this.props.item;
+    this.props.focusItem({ type, id });
   }
 
   render() {
@@ -35,20 +42,23 @@ export default class OfficerCard extends Component {
     };
 
     return (
-      <div className={ styles.officerCard }>
+      <div
+        className={ styles.officerCard }>
         <ItemUnpinButton onClick={ this.removeItem }/>
-        <div className='radar-chart-wrapper'>
-          <StaticRadarChart data={ chartData } { ...radarConfig } />
-        </div>
-        <div className='officer-card-body'>
-          <div className='officer-info'>
-            <div className='officer-rank'>{ rank }</div>
-            <div className='officer-name'>{ fullName }</div>
+        <ShortPress action={ this.focusItem }>
+          <div className='radar-chart-wrapper'>
+            <StaticRadarChart data={ chartData } { ...radarConfig } />
           </div>
-          <div className='officer-complaints-count'>
-            { `${ complaintCount } ${ pluralize('complaint', complaintCount) }` }
+          <div className='officer-card-body'>
+            <div className='officer-info'>
+              <div className='officer-rank'>{ rank }</div>
+              <div className='officer-name'>{ fullName }</div>
+            </div>
+            <div className='officer-complaints-count'>
+              { `${ complaintCount } ${ pluralize('complaint', complaintCount) }` }
+            </div>
           </div>
-        </div>
+        </ShortPress>
       </div>
     );
   }
@@ -57,10 +67,12 @@ export default class OfficerCard extends Component {
 OfficerCard.propTypes = {
   item: PropTypes.object,
   removeItemInPinboardPage: PropTypes.func,
+  focusItem: PropTypes.func,
 };
 
 OfficerCard.defaultProps = {
-  removeItemInPinboardPage: () => {},
+  removeItemInPinboardPage: noop,
+  focusItem: noop,
 };
 
 

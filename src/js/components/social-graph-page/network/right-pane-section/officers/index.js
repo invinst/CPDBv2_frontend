@@ -6,7 +6,7 @@ import OfficerRow from './officer-row';
 
 export default class Officers extends Component {
   render() {
-    const { officers, updateOfficerId } = this.props;
+    const { officers, updateSelectedOfficerId } = this.props;
 
     return (
       <div className={ styles.officersSection }>
@@ -15,7 +15,7 @@ export default class Officers extends Component {
             <OfficerRow
               key={ officer.id }
               officer={ officer }
-              updateOfficerId={ updateOfficerId }
+              updateSelectedOfficerId={ updateSelectedOfficerId }
             />
           ))
         }
@@ -27,7 +27,7 @@ export default class Officers extends Component {
 Officers.propTypes = {
   officers: PropTypes.array,
   officer: PropTypes.object,
-  updateOfficerId: PropTypes.func,
+  updateSelectedOfficerId: PropTypes.func,
 };
 
 Officers.defaultProps = {

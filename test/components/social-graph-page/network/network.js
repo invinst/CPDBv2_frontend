@@ -17,7 +17,9 @@ import NetworkGraph from 'components/social-graph-page/network';
 import AnimatedSocialGraphContainer from 'containers/social-graph-page/animated-social-graph-container';
 import RightPaneSection from 'components/social-graph-page/network/right-pane-section';
 import OfficerPane from 'components/common/preview-pane/officer-pane';
+import EdgeCoaccusalsPane from 'components/social-graph-page/network/preview-pane/edge-coaccusals-pane';
 import * as intercomUtils from 'utils/intercom';
+import { NETWORK_PREVIEW_PANE } from 'utils/constants';
 
 
 describe('NetworkGraph component', function () {
@@ -327,88 +329,203 @@ describe('NetworkGraph component', function () {
     networkGraph.state.thresholdValue.should.equal(3);
   });
 
-  it('should render officer OfficerPane if there is officer', function () {
-    const officer = {
-      id: '123',
-      fullName: 'Jerome Finnigan',
-      badge: '123456',
-      race: 'White',
-      gender: 'Male',
-      appointedDate: 'JAN 7, 2017',
-      unit: {
-        id: 1,
-        unitName: '001',
-        description: 'Unit 001',
+  it('should render officer preview-pane if there is selectedOfficerId', function () {
+    const networkPreviewPaneData = {
+      type: NETWORK_PREVIEW_PANE.OFFICER,
+      data: {
+        id: 123,
+        to: '/officer/123/jerome-finnigan/',
+        fullName: 'Jerome Finnigan',
+        appointedDate: 'JUL 8, 2001',
+        resignationDate: 'OCT 10, 2005',
+        badge: '123456',
+        gender: 'Male',
+        age: 47,
+        race: 'White',
+        rank: 'Police Officer',
+        unit: {
+          id: 456,
+          unitName: 'Unit 715',
+          description: 'This is unit description',
+        },
+        complaintCount: 10,
+        civilianComplimentCount: 20,
+        sustainedCount: 5,
+        disciplineCount: 3,
+        trrCount: 7,
+        majorAwardCount: 15,
+        honorableMentionCount: 12,
+        honorableMentionPercentile: 70,
+        trrPercentile: 90,
+        complaintPercentile: 95,
+        lastPercentile: {
+          year: 2017,
+          items: [
+            { axis: 'Use of Force Reports', value: 90 },
+            { axis: 'Officer Allegations', value: 82 },
+            { axis: 'Civilian Allegations', value: 97 },
+
+          ],
+          visualTokenBackground: '#f52524',
+          textColor: '#DFDFDF',
+        }
       },
-      rank: 'Police Officer',
-      complaintCount: 1,
-      complaintPercentile: 10,
-      disciplineCount: 0,
-      trrCount: 5,
-      trrPercentile: 78,
-      civilianComplimentCount: 2,
-      majorAwardCount: 1,
-      honorableMentionCount: 3,
-      honorableMentionPercentile: 99.3,
     };
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <NetworkGraph officer={ officer }/>
+        <NetworkGraph selectedOfficerId={ 123 } networkPreviewPaneData={ networkPreviewPaneData }/>
       </Provider>
     );
     scryRenderedComponentsWithType(instance, OfficerPane).should.have.length(1);
     scryRenderedComponentsWithType(instance, RightPaneSection).should.have.length(0);
   });
 
-  it('should call updateOfficerId when clicking outside of preview-pane or officer nodes', function () {
-    const updateOfficerIdStub = stub();
+  it('should render edge coaccusals preview-pane if there is selectedEdge', function () {
+    const networkPreviewPaneData = {
+      type: NETWORK_PREVIEW_PANE.EDGE_COACCUSALS,
+      data: {
+        items: [
+          {
+            date: 2003,
+            hasData: true,
+            key: '294088-YEAR-2003',
+            kind: 'YEAR'
+          },
+          {
+            category: 'Illegal Search',
+            crid: '294088',
+            incidentDate: 'NOV 26',
+            key: '294088',
+            kind: 'CR',
+            subcategory: 'Search Of Premise Without Warrant',
+            year: 2003,
+            attachments: [
+              {
+                fileType: 'document',
+                id: '123456',
+                previewImageUrl: 'https://assets.documentcloud.org/documents/3518950/pages/CRID-294088.gif',
+                title: 'CRID 294088 CR',
+                url: 'https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html'
+              }
+            ],
+            timelineIdx: 1,
+          },
+        ],
+        info: {
+          sourceOfficerName: 'Jerome Finnigan',
+          targetOfficerName: 'Edward May',
+          coaccusedCount: 6,
+        }
+      },
+    };
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <NetworkGraph updateOfficerId={ updateOfficerIdStub }/>
+        <NetworkGraph selectedOfficerId={ 123 } networkPreviewPaneData={ networkPreviewPaneData }/>
+      </Provider>
+    );
+    scryRenderedComponentsWithType(instance, EdgeCoaccusalsPane).should.have.length(1);
+    scryRenderedComponentsWithType(instance, RightPaneSection).should.have.length(0);
+  });
+
+  it('should call updateSelectedOfficerId when clicking outside and there is selectedOfficerId', function () {
+    const updateSelectedOfficerIdStub = stub();
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <NetworkGraph updateSelectedOfficerId={ updateSelectedOfficerIdStub } selectedOfficerId={ 123 } />
       </Provider>
     );
     const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
     const leftSection = findRenderedDOMComponentWithClass(instance, 'left-section');
     networkGraph.handleClickOutside({ target: findDOMNode(leftSection) });
-    updateOfficerIdStub.should.be.calledWith(null);
+    updateSelectedOfficerIdStub.should.be.calledWith(null);
   });
 
-  it('should not call updateOfficerId when clicking on preview-pane or officer nodes', function () {
-    const updateOfficerIdStub = stub();
-    const officer = {
-      id: '123',
-      fullName: 'Jerome Finnigan',
-      badge: '123456',
-      race: 'White',
-      gender: 'Male',
-      appointedDate: 'JAN 7, 2017',
-      unit: {
-        id: 1,
-        unitName: '001',
-        description: 'Unit 001',
+  it('should call updateSelectedEdge when clicking outside and there is selectedEdge', function () {
+    const updateSelectedEdgeStub = stub();
+    const selectedEdge = {
+      sourceOfficerName: 'Jerome Finnigan',
+      targetOfficerName: 'Edward May',
+      coaccusedCount: 10,
+    };
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <NetworkGraph updateSelectedEdge={ updateSelectedEdgeStub } selectedEdge={ selectedEdge } />
+      </Provider>
+    );
+    const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
+    const leftSection = findRenderedDOMComponentWithClass(instance, 'left-section');
+    networkGraph.handleClickOutside({ target: findDOMNode(leftSection) });
+    updateSelectedEdgeStub.should.be.calledWith(null);
+  });
+
+  it('should not call updateSelectedOfficerId when clicking on preview-pane', function () {
+    const updateSelectedOfficerIdStub = stub();
+    const networkPreviewPaneData = {
+      type: NETWORK_PREVIEW_PANE.OFFICER,
+      data: {
+        id: 123,
+        to: '/officer/123/jerome-finnigan/',
+        fullName: 'Jerome Finnigan',
+        appointedDate: 'JUL 8, 2001',
+        resignationDate: 'OCT 10, 2005',
+        badge: '123456',
+        gender: 'Male',
+        age: 47,
+        race: 'White',
+        rank: 'Police Officer',
+        unit: {
+          id: 456,
+          unitName: 'Unit 715',
+          description: 'This is unit description',
+        },
+        complaintCount: 10,
+        civilianComplimentCount: 20,
+        sustainedCount: 5,
+        disciplineCount: 3,
+        trrCount: 7,
+        majorAwardCount: 15,
+        honorableMentionCount: 12,
+        honorableMentionPercentile: 70,
+        trrPercentile: 90,
+        complaintPercentile: 95,
+        lastPercentile: {
+          year: 2017,
+          items: [
+            { axis: 'Use of Force Reports', value: 90 },
+            { axis: 'Officer Allegations', value: 82 },
+            { axis: 'Civilian Allegations', value: 97 },
+
+          ],
+          visualTokenBackground: '#f52524',
+          textColor: '#DFDFDF',
+        }
       },
-      rank: 'Police Officer',
-      complaintCount: 1,
-      complaintPercentile: 10,
-      disciplineCount: 0,
-      trrCount: 5,
-      trrPercentile: 78,
-      civilianComplimentCount: 2,
-      majorAwardCount: 1,
-      honorableMentionCount: 3,
-      honorableMentionPercentile: 99.3,
     };
     instance = renderIntoDocument(
       <Provider store={ store }>
         <NetworkGraph
-          updateOfficerId={ updateOfficerIdStub }
-          officer={ officer }
+          updateSelectedOfficerId={ updateSelectedOfficerIdStub }
+          selectedOfficerId={ 123 }
+          networkPreviewPaneData={ networkPreviewPaneData }
         />
       </Provider>
     );
     const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
     const officerPane = findRenderedComponentWithType(instance, OfficerPane);
     networkGraph.handleClickOutside({ target: findDOMNode(officerPane) });
-    updateOfficerIdStub.should.not.be.called();
+    updateSelectedOfficerIdStub.should.not.be.called();
+  });
+
+  it('should update sortedOfficerIds state when calling updateSortedOfficerIds', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <NetworkGraph unitId='232'/>
+      </Provider>
+    );
+
+    const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
+    networkGraph.state.sortedOfficerIds.should.eql([]);
+    networkGraph.updateSortedOfficerIds([123, 456, 789]);
+    networkGraph.state.sortedOfficerIds.should.eql([123, 456, 789]);
   });
 });
