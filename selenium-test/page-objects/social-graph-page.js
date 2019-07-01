@@ -30,7 +30,10 @@ class AnimatedSocialGraphSection extends Section {
       officerTimelineSection: '(//div[contains(@class, "test--officer-timeline")])',
       selectedNodeLabel: '(//*[@class="selected-node-label"])',
       officerTip: '(//div[contains(@class, "test--graph-tooltip")])',
-
+      firstCurrentEdge: '(//*[contains(@class, "link-group-color-4 current-link")])',
+      secondCurrentEdge: '(//*[contains(@class, "link-group-color-5 current-link")])',
+      selectedEdgeLabel: '(//*[@class="selected-edge-label"])',
+      edgeCoaccusalsHeader: '(//div[@class="edge-coaccusals-pane-header"])',
     });
   }
 
@@ -44,6 +47,10 @@ class AnimatedSocialGraphSection extends Section {
 
   graphLabels() {
     return browser.elements('(//*[name()="text" and @class="node-label"])').value;
+  }
+
+  edgeCoaccusalsItems() {
+    return browser.elements('//div[contains(@class, "item__item")]').value;
   }
 }
 

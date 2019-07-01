@@ -150,7 +150,17 @@ export default class AnimatedSocialGraph extends Component {
   }
 
   render() {
-    const { officers, coaccusedData, listEvent, updateOfficerId, timelineIdx, refreshIntervalId, officer } = this.props;
+    const {
+      officers,
+      coaccusedData,
+      listEvent,
+      timelineIdx,
+      refreshIntervalId,
+      selectedOfficerId,
+      updateSelectedOfficerId,
+      selectedEdge,
+      updateSelectedEdge,
+    } = this.props;
     const { fullscreen } = this.state;
 
     return (
@@ -165,8 +175,10 @@ export default class AnimatedSocialGraph extends Component {
             collideNodes={ !refreshIntervalId }
             stopTimeline={ this.stopTimeline }
             fullscreen={ fullscreen }
-            updateOfficerId={ updateOfficerId }
-            officer={ officer }
+            selectedOfficerId={ selectedOfficerId }
+            updateSelectedOfficerId={ updateSelectedOfficerId }
+            selectedEdge={ selectedEdge }
+            updateSelectedEdge={ updateSelectedEdge }
           />
         }
         { this.graphControlPanel() }
@@ -180,20 +192,23 @@ AnimatedSocialGraph.propTypes = {
   coaccusedData: PropTypes.array,
   listEvent: PropTypes.array,
   hasIntercom: PropTypes.bool,
-  updateOfficerId: PropTypes.func,
+  selectedOfficerId: PropTypes.number,
+  updateSelectedOfficerId: PropTypes.func,
+  selectedEdge: PropTypes.object,
+  updateSelectedEdge: PropTypes.func,
   expandedLink: PropTypes.string,
-  updateTimelineIdx: PropTypes.func,
-  updateRefreshIntervalId: PropTypes.func,
   timelineIdx: PropTypes.number,
+  updateTimelineIdx: PropTypes.func,
   refreshIntervalId: PropTypes.number,
   isVisible: PropTypes.bool,
-  officer: PropTypes.object,
+  updateRefreshIntervalId: PropTypes.func,
 };
 
 AnimatedSocialGraph.defaultProps = {
+  isVisible: true,
   updateTimelineIdx: noop,
   updateRefreshIntervalId: noop,
-  isVisible: true,
+  updateSelectedEdge: noop,
 };
 
 export const AnimatedSocialGraphWithSpinner = withLoadingSpinner(AnimatedSocialGraph, styles.socialGraphLoading);

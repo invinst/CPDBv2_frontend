@@ -3,7 +3,7 @@
 
 require('should');
 
-import { map, countBy, filter } from 'lodash';
+import { map, countBy, isEqual, filter } from 'lodash';
 import moment from 'moment/moment';
 
 import socialGraphPage from './page-objects/social-graph-page';
@@ -34,7 +34,7 @@ describe('Social Graph Page', function () {
     const graphLabels = socialGraphPage.animatedSocialGraphSection.graphLabels();
 
     graphNodes.should.have.length(20);
-    graphLinks.should.have.length(37);
+    graphLinks.should.have.length(38);
     graphLabels.should.have.length(5);
 
     const nodeGroupColors = countBy(map(
@@ -59,7 +59,7 @@ describe('Social Graph Page', function () {
     const expectedlinkGroupColors = {
       'link-group-color-1': 6,
       'link-group-color-2': 6,
-      'link-group-color-3': 6,
+      'link-group-color-3': 7,
       'link-group-color-4': 6,
       'link-group-color-5': 6,
       'link-group-color-6': 7,
@@ -116,7 +116,7 @@ describe('Social Graph Page', function () {
 
     let hideGraphLinks = filter(graphLinks, graphLink => graphLink.getCssProperty('opacity').value === 0.1);
     let visibleGraphLinks = filter(graphLinks, graphLink => graphLink.getCssProperty('opacity').value === 1);
-    hideGraphLinks.should.have.length(27);
+    hideGraphLinks.should.have.length(28);
     visibleGraphLinks.should.have.length(10);
 
     biggestNode.doubleClick();
@@ -129,7 +129,7 @@ describe('Social Graph Page', function () {
     hideGraphLinks = filter(graphLinks, graphLink => graphLink.getCssProperty('opacity').value === 0.1);
     visibleGraphLinks = filter(graphLinks, graphLink => graphLink.getCssProperty('opacity').value === 1);
     hideGraphLinks.should.have.length(0);
-    visibleGraphLinks.should.have.length(37);
+    visibleGraphLinks.should.have.length(38);
   });
 
   it('should show tooltip when hover a node', function () {
@@ -175,12 +175,12 @@ describe('Social Graph Page', function () {
   it('should change the graph when click on specific part of the timeline', function () {
     waitForGraphAnimationEnd(browser, socialGraphPage);
     socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
-    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(37);
+    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(38);
 
     browser.moveToObject(socialGraphPage.animatedSocialGraphSection.timelineSlider.selector);
     browser.buttonPress();
     socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
-    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(14);
+    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(13);
     const graphNodes = socialGraphPage.animatedSocialGraphSection.graphNodes();
     const groupsColors = countBy(map(
       graphNodes,
@@ -200,12 +200,12 @@ describe('Social Graph Page', function () {
   it('should load new data when change threshold and showCivilOnly', function () {
     waitForGraphAnimationEnd(browser, socialGraphPage);
     socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
-    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(37);
+    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(38);
 
     socialGraphPage.animatedSocialGraphSection.showCivilComplaintOnlyCheckbox.click();
     waitForGraphAnimationEnd(browser, socialGraphPage);
     socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
-    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(38);
+    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(39);
 
     browser.moveToObject(socialGraphPage.animatedSocialGraphSection.coaccusalsThresholdSlider.selector, 140, 7);
     browser.buttonPress();
@@ -344,5 +344,79 @@ describe('Social Graph Page', function () {
     ).format('MMM D').toUpperCase();
     formattedCurrentDate.should.eql('MAR 8');
     socialGraphPage.timelineSection.timelineItemDateActive.getText().should.eql(formattedCurrentDate);
+  });
+
+  it('should render edge coaccusals preview pane when clicking on officer edge', function () {
+    socialGraphPage.animatedSocialGraphSection.rightPaneSectionMenu.waitForVisible();
+    waitForGraphAnimationEnd(browser, socialGraphPage);
+
+    function waitUntilEdgeNotMoving(edge) {
+      let edgePosition = {};
+      browser.waitUntil(function () {
+        const newEdgePosition = {
+          x1: edge.getAttribute('x1'),
+          x2: edge.getAttribute('x2'),
+          y1: edge.getAttribute('y1'),
+          y2: edge.getAttribute('y2'),
+        };
+        const result = isEqual(newEdgePosition, edgePosition);
+        edgePosition = newEdgePosition;
+        return result;
+      }, 20000);
+    }
+
+    browser.execute(() => {
+      const currentLinks = document.getElementsByClassName('current-link');
+      for (let i = 0; i < currentLinks.length; i++) {
+        currentLinks[i].style['stroke-width'] = '8px';
+      }
+    });
+    const firstCurrentEdge = socialGraphPage.animatedSocialGraphSection.firstCurrentEdge;
+    waitUntilEdgeNotMoving(firstCurrentEdge);
+
+    firstCurrentEdge.getAttribute('class').should.not.containEql('edge-hover');
+    browser.moveToObject(firstCurrentEdge.selector);
+    firstCurrentEdge.getAttribute('class').should.containEql('edge-hover');
+
+    socialGraphPage.animatedSocialGraphSection.firstCurrentEdge.click();
+    socialGraphPage.animatedSocialGraphSection.selectedEdgeLabel.getText().should.eql('2 coaccusals');
+    socialGraphPage.animatedSocialGraphSection.edgeCoaccusalsHeader.getText().should.eql(
+      'Matthew Brandon & William Roberison\'s 2 coaccusals'
+    );
+    let edgeCoaccusalsItems = socialGraphPage.animatedSocialGraphSection.edgeCoaccusalsItems();
+    edgeCoaccusalsItems.should.have.length(4);
+    edgeCoaccusalsItems[0].getText().should.eql('1990');
+    edgeCoaccusalsItems[1].getText().should.containEql('JAN 9');
+    edgeCoaccusalsItems[1].getText().should.containEql('Use Of Force');
+    edgeCoaccusalsItems[2].getText().should.eql('1991');
+    edgeCoaccusalsItems[3].getText().should.containEql('JUL 6');
+    edgeCoaccusalsItems[3].getText().should.containEql('Criminal Misconduct');
+
+    socialGraphPage.animatedSocialGraphSection.biggestGraphNode.click();
+    socialGraphPage.animatedSocialGraphSection.selectedNodeLabel.getText().should.eql('Donnell Calhoun');
+    socialGraphPage.animatedSocialGraphSection.officerTip.waitForVisible(1000, true);
+    socialGraphPage.officersSection.officerPreviewPane.waitForVisible();
+
+    waitUntilEdgeNotMoving(socialGraphPage.animatedSocialGraphSection.secondCurrentEdge);
+
+    socialGraphPage.animatedSocialGraphSection.secondCurrentEdge.click();
+    socialGraphPage.animatedSocialGraphSection.selectedEdgeLabel.getText().should.eql('4 coaccusals');
+    socialGraphPage.animatedSocialGraphSection.edgeCoaccusalsHeader.getText().should.eql(
+      'Joseph Blaye & Tracy Hughes\'s 4 coaccusals'
+    );
+
+    edgeCoaccusalsItems = socialGraphPage.animatedSocialGraphSection.edgeCoaccusalsItems();
+
+    edgeCoaccusalsItems.should.have.length(6);
+    edgeCoaccusalsItems[0].getText().should.eql('1992');
+    edgeCoaccusalsItems[1].getText().should.containEql('JUL 18');
+    edgeCoaccusalsItems[1].getText().should.containEql('Operation/Personnel Violations');
+    edgeCoaccusalsItems[2].getText().should.eql('1993');
+    edgeCoaccusalsItems[3].getText().should.containEql('MAR 28');
+    edgeCoaccusalsItems[3].getText().should.containEql('Lockup Procedures');
+    edgeCoaccusalsItems[4].getText().should.containEql('APR 3');
+    edgeCoaccusalsItems[4].getText().should.containEql('Operation/Personnel Violations');
+    edgeCoaccusalsItems[5].getText().should.containEql('JUN 9');
+    edgeCoaccusalsItems[5].getText().should.containEql('Illegal Search');
   });
 });

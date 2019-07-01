@@ -7,14 +7,16 @@ import {
 import AnimatedSocialGraph from 'components/common/animated-social-graph';
 import {
   updateSocialGraphTimelineIdx,
-  updateOfficerId,
-  updateSocialGraphRefreshIntervalId
+  updateSelectedOfficerId,
+  updateSocialGraphRefreshIntervalId,
+  updateSocialGraphSelectedEdge,
 } from 'actions/social-graph-page';
 import {
   officersSelector,
   coaccusedDataSelector,
   getListEvent,
-  networkOfficerSelector,
+  getSelectedOfficerId,
+  selectedEdgeDataSelector,
 } from 'selectors/social-graph-page/network';
 
 
@@ -25,14 +27,16 @@ function mapStateToProps(state, ownProps) {
     listEvent: getListEvent(state),
     timelineIdx: getSocialGraphTimelineIdx(state),
     refreshIntervalId: getSocialGraphRefreshIntervalId(state),
-    officer: networkOfficerSelector(state),
+    selectedOfficerId: getSelectedOfficerId(state),
+    selectedEdge: selectedEdgeDataSelector(state),
   };
 }
 
 const mapDispatchToProps = {
-  updateOfficerId,
+  updateSelectedOfficerId,
   updateTimelineIdx: updateSocialGraphTimelineIdx,
   updateRefreshIntervalId: updateSocialGraphRefreshIntervalId,
+  updateSelectedEdge: updateSocialGraphSelectedEdge,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AnimatedSocialGraph);
