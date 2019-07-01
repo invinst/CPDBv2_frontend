@@ -1,7 +1,6 @@
 import React from 'react';
 import should from 'should';
 import { stub, useFakeTimers } from 'sinon';
-import { Link } from 'react-router';
 import {
   renderIntoDocument,
   findRenderedComponentWithType,
@@ -89,7 +88,6 @@ describe('RelevantComplaintCard component', function () {
     baseComplaintCard.props.officers.should.eql(officers);
     baseComplaintCard.props.point.should.eql({ lat: 41.7924183, lon: -87.668458 });
     baseComplaintCard.props.addItemInPinboardPage.should.eql(addItemInPinboardPageStub);
-    baseComplaintCard.props.leftChild.props.to.should.eql('/complaint/123/');
     baseComplaintCard.props.leftChild.props.style.should.eql({
       background: 'url(\"https://api.mapbox.com/styles/v1/mapbox/streets-v10/static/' +
         'url-https%3A%2F%2Fcpdbv21777.blob.core.windows.net%2Fassets%2Fmap-marker.png' +
@@ -97,7 +95,6 @@ describe('RelevantComplaintCard component', function () {
         '=pk.eyJ1IjoiaW52aXNpYmxlaW5zdGl0dXRlIiwiYSI6ImNpZ256bXRqMDAwMDBzeGtud3VoZGpl' +
         'NHMifQ.ky2VSGEYU5KritRMArHY-w\") no-repeat center/cover'
     });
-    baseComplaintCard.props.leftChild.type.should.be.eql(Link);
   });
 
   it('should render when no point', function () {
@@ -121,9 +118,7 @@ describe('RelevantComplaintCard component', function () {
     baseComplaintCard.props.officers.should.eql([]);
     should(baseComplaintCard.props.point).be.null();
     baseComplaintCard.props.addItemInPinboardPage.should.eql(addItemInPinboardPageStub);
-    baseComplaintCard.props.leftChild.props.to.should.eql('/complaint/123/');
     should(baseComplaintCard.props.leftChild.props.style).be.null();
-    baseComplaintCard.props.leftChild.type.should.be.eql(Link);
   });
 
   describe('RelevantComplaintCardWithUndo component', function () {

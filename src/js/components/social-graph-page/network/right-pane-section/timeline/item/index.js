@@ -41,7 +41,7 @@ export default class Item extends Component {
 
     return (
       <div
-        className={ cx(styles.item, { 'active': item.timelineIdx === timelineIdx }) }
+        className={ cx(styles.item, { 'active': timelineIdx && item.timelineIdx === timelineIdx }) }
         id={ !isUndefined(item.timelineIdx) ? `trigger-${item.timelineIdx}` : '' }
       >
         <ItemComponent { ...this.props }/>
@@ -54,4 +54,5 @@ Item.propTypes = {
   item: PropTypes.object,
   pathname: PropTypes.string,
   timelineIdx: PropTypes.number,
+  onTrackingAttachment: PropTypes.func,
 };

@@ -19,6 +19,7 @@ class AnimatedSocialGraphSection extends Section {
       showCivilComplaintOnlyCheckbox: '(//input[@class="test--show-civil-complaint-checkbox"])',
       tooltip: '(//div[contains(@class, "test--graph-tooltip")]//span)',
       biggestGraphNode: '(//*[@r="7"])',
+      anotherGraphNode: '(//*[@r="2.5" and contains(@style, "rgb(244, 162, 152)")])',
       mainTabs: '(//div[contains(@class, "main-tabs")])',
       geographicTab: '(//div[contains(@class, "geographic-btn")])',
       networkTab: '(//div[contains(@class, "social-graph-btn")])',
@@ -27,6 +28,12 @@ class AnimatedSocialGraphSection extends Section {
       timelineTab: '(//span[contains(@class, "right-pane-tab-name")])[1]',
       officerTab: '(//span[contains(@class, "right-pane-tab-name")])[2]',
       officerTimelineSection: '(//div[contains(@class, "test--officer-timeline")])',
+      selectedNodeLabel: '(//*[@class="selected-node-label"])',
+      officerTip: '(//div[contains(@class, "test--graph-tooltip")])',
+      firstCurrentEdge: '(//*[contains(@class, "link-group-color-4 current-link")])',
+      secondCurrentEdge: '(//*[contains(@class, "link-group-color-5 current-link")])',
+      selectedEdgeLabel: '(//*[@class="selected-edge-label"])',
+      edgeCoaccusalsHeader: '(//div[@class="edge-coaccusals-pane-header"])',
     });
   }
 
@@ -40,6 +47,10 @@ class AnimatedSocialGraphSection extends Section {
 
   graphLabels() {
     return browser.elements('(//*[name()="text" and @class="node-label"])').value;
+  }
+
+  edgeCoaccusalsItems() {
+    return browser.elements('//div[contains(@class, "item__item")]').value;
   }
 }
 

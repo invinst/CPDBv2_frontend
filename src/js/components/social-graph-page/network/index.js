@@ -9,7 +9,7 @@ import RightPaneSection from 'components/social-graph-page/network/right-pane-se
 import sliderStyles from 'components/common/slider.sass';
 import { showIntercomLauncher } from 'utils/intercom';
 import MainTabs from 'components/social-graph-page/main-tabs';
-import PreviewPane from 'components/social-graph-page/network/right-pane-section/officers/preview-pane';
+import PreviewPane from 'components/social-graph-page/network/preview-pane';
 import AnimatedSocialGraphContainer from 'containers/social-graph-page/animated-social-graph-container';
 
 
@@ -24,6 +24,7 @@ export default class NetworkGraph extends Component {
     this.handleCheckShowCivilOnly = this.handleCheckShowCivilOnly.bind(this);
     this.handleChangeThresholdValue = this.handleChangeThresholdValue.bind(this);
     this.handleClickOutside = this.handleClickOutside.bind(this);
+    this.renderPreviewPane = this.renderPreviewPane.bind(this);
     this.updateSortedOfficerIds = this.updateSortedOfficerIds.bind(this);
   }
 
@@ -46,9 +47,14 @@ export default class NetworkGraph extends Component {
   }
 
   handleClickOutside(event) {
-    const { updateOfficerId } = this.props;
-    if (!event.target.closest('.officer-preview-link')) {
-      updateOfficerId(null);
+    const { updateSelectedOfficerId, updateSelectedEdge, selectedOfficerId, selectedEdge } = this.props;
+    if (!event.target.closest('.officer-preview-link') && !event.target.closest('.edge-coaccusals-preview-link')) {
+      if (selectedOfficerId) {
+        updateSelectedOfficerId(null);
+      }
+      if (selectedEdge) {
+        updateSelectedEdge(null);
+      }
     }
   }
 
@@ -96,20 +102,41 @@ export default class NetworkGraph extends Component {
     this.setState({ sortedOfficerIds: officerIds });
   }
 
-  render() {
+  renderPreviewPane() {
     const {
-      title,
+      networkPreviewPaneData,
       changeNetworkTab,
-      currentMainTab,
       currentNetworkTab,
       showTimelineTab,
-      changeMainTab,
-      officer,
       location,
-      pinboardId,
+      onTrackingAttachment,
     } = this.props;
 
     const { sortedOfficerIds } = this.state;
+
+    if (!isEmpty(networkPreviewPaneData)) {
+      return (
+        <PreviewPane
+          { ...networkPreviewPaneData }
+          location={ location }
+          onTrackingAttachment={ onTrackingAttachment }
+        />
+      );
+    } else {
+      return (
+        <RightPaneSection
+          changeNetworkTab={ changeNetworkTab }
+          currentTab={ currentNetworkTab }
+          showTimelineTab={ showTimelineTab }
+          location={ location }
+          sortedOfficerIds={ sortedOfficerIds }
+        />
+      );
+    }
+  }
+
+  render() {
+    const { title, currentMainTab, changeMainTab, pinboardId, } = this.props;
 
     return (
       <div className={ styles.networkGraph }>
@@ -149,17 +176,7 @@ export default class NetworkGraph extends Component {
         </div>
         <div className='right-section'>
           {
-            !isEmpty(officer) ? (
-              <PreviewPane data={ officer } />
-            ) : (
-              <RightPaneSection
-                changeNetworkTab={ changeNetworkTab }
-                currentTab={ currentNetworkTab }
-                showTimelineTab={ showTimelineTab }
-                location={ location }
-                sortedOfficerIds={ sortedOfficerIds }
-              />
-            )
+            this.renderPreviewPane()
           }
         </div>
         <div className='clearfix'/>
@@ -181,9 +198,13 @@ NetworkGraph.propTypes = {
   showTimelineTab: PropTypes.bool,
   currentMainTab: PropTypes.string,
   currentNetworkTab: PropTypes.string,
-  officer: PropTypes.object,
-  updateOfficerId: PropTypes.func,
+  selectedOfficerId: PropTypes.number,
+  selectedEdge: PropTypes.object,
+  updateSelectedOfficerId: PropTypes.func,
+  updateSelectedEdge: PropTypes.func,
   location: PropTypes.object,
+  networkPreviewPaneData: PropTypes.object,
+  onTrackingAttachment: PropTypes.func,
 };
 
 NetworkGraph.defaultProps = {
