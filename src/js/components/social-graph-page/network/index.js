@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { isEmpty } from 'lodash';
+import { isEmpty, startCase, toLower } from 'lodash';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import cx from 'classnames';
@@ -13,15 +13,19 @@ import PreviewPane from 'components/social-graph-page/network/preview-pane';
 import AnimatedSocialGraphContainer from 'containers/social-graph-page/animated-social-graph-container';
 
 
+const COMPLAINT_ORIGIN_VALUES = ['ALL', 'CIVILIAN', 'OFFICER'];
+const COMPLAINT_ORIGIN_CIVILIAN = 'CIVILIAN';
+const DEFAULT_THRESHOLD_VALUE = 2;
+
 export default class NetworkGraph extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showCivilComplaintOnly: true,
-      thresholdValue: 2,
+      complaintOrigin: COMPLAINT_ORIGIN_CIVILIAN,
+      thresholdValue: DEFAULT_THRESHOLD_VALUE,
       sortedOfficerIds: [],
     };
-    this.handleCheckShowCivilOnly = this.handleCheckShowCivilOnly.bind(this);
+    this.handleSelectComplaintOrigin = this.handleSelectComplaintOrigin.bind(this);
     this.handleChangeThresholdValue = this.handleChangeThresholdValue.bind(this);
     this.handleClickOutside = this.handleClickOutside.bind(this);
     this.renderPreviewPane = this.renderPreviewPane.bind(this);
@@ -35,8 +39,8 @@ export default class NetworkGraph extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { showCivilComplaintOnly, thresholdValue } = this.state;
-    if (prevState.thresholdValue !== thresholdValue || prevState.showCivilComplaintOnly !== showCivilComplaintOnly) {
+    const { complaintOrigin, thresholdValue } = this.state;
+    if (prevState.thresholdValue !== thresholdValue || prevState.complaintOrigin !== complaintOrigin) {
       this.fetchGraphData();
     }
   }
@@ -67,19 +71,19 @@ export default class NetworkGraph extends Component {
       unitId,
       pinboardId,
     } = this.props;
-    const { showCivilComplaintOnly, thresholdValue } = this.state;
+    const { complaintOrigin, thresholdValue } = this.state;
     let requestParams;
     if (!isEmpty(pinboardId)) {
       requestParams = {
-        'pinboard_id': pinboardId, 'threshold': thresholdValue, 'show_civil_only': showCivilComplaintOnly
+        'pinboard_id': pinboardId, 'threshold': thresholdValue, 'complaint_origin': complaintOrigin
       };
     } else if (!isEmpty(unitId)) {
-      requestParams = { 'unit_id': unitId, 'threshold': thresholdValue, 'show_civil_only': showCivilComplaintOnly };
+      requestParams = { 'unit_id': unitId, 'threshold': thresholdValue, 'complaint_origin': complaintOrigin };
     } else if (!isEmpty(officerIds)) {
       requestParams = {
         'officer_ids': officerIds,
         'threshold': thresholdValue,
-        'show_civil_only': showCivilComplaintOnly
+        'complaint_origin': complaintOrigin
       };
     }
 
@@ -90,8 +94,8 @@ export default class NetworkGraph extends Component {
     }
   }
 
-  handleCheckShowCivilOnly(event) {
-    this.setState({ showCivilComplaintOnly: event.target.checked });
+  handleSelectComplaintOrigin(value) {
+    this.setState({ complaintOrigin: value });
   }
 
   handleChangeThresholdValue(value) {
@@ -137,6 +141,7 @@ export default class NetworkGraph extends Component {
 
   render() {
     const { title, currentMainTab, changeMainTab, pinboardId, } = this.props;
+    const { complaintOrigin } = this.state;
 
     return (
       <div className={ styles.networkGraph }>
@@ -160,15 +165,35 @@ export default class NetworkGraph extends Component {
               className={ cx(sliderStyles.slider, 'coaccusals-threshold-slider') }
             />
           </div>
-          <label>
-            Show only complaints from civilians
-            <input
-              type='checkbox'
-              checked={ this.state.showCivilComplaintOnly }
-              onChange={ this.handleCheckShowCivilOnly }
-              className='test--show-civil-complaint-checkbox'
-            />
-          </label>
+          <div className='complaint-origin'>
+            <div className='complaint-origin-label'>
+              Complaint Origin
+            </div>
+            {
+              COMPLAINT_ORIGIN_VALUES.map(complaintOriginValue => {
+                const uniqKey = `complaint-origin-${complaintOriginValue.toLowerCase()}`;
+                return (
+                  <div
+                    className={
+                      cx('complaint-origin-option-container', uniqKey)
+                    }
+                    key={ uniqKey }
+                  >
+                    <a
+                      className={
+                        cx('complaint-origin-option', { 'selected': complaintOrigin === complaintOriginValue })
+                      }
+                      onClick={ () => {
+                        this.handleSelectComplaintOrigin(complaintOriginValue);
+                      } }
+                    >
+                      { startCase(toLower(complaintOriginValue)) }
+                    </a>
+                  </div>
+                );
+              })
+            }
+          </div>
 
         </div>
         <div className='graph-container'>

@@ -51,6 +51,7 @@ import fetchDocumentByID from './document-page/fetch-document-by-id';
 import { getCrawlersData, getNextCrawlersData } from './crawlers-page/crawlers-page';
 import {
   getDefaultSocialGraphData,
+  getDefaultOfficerSocialGraphData,
   getOfficerComplaintSocialGraphData,
   getThresholdThreeSocialGraphData,
 } from './social-graph-page/social-graph-page';
@@ -185,17 +186,22 @@ axiosMockClient.onGet(CRAWLERS_API_URL).reply(function (config) {
 
 axiosMockClient.onGet(
   SOCIAL_GRAPH_NETWORK_API_URL,
-  { params: { 'threshold': 2, 'show_civil_only': true, 'unit_id': '123' } }
+  { params: { 'threshold': 2, 'complaint_origin': 'CIVILIAN', 'unit_id': '123' } }
 ).reply(200, getDefaultSocialGraphData());
 
 axiosMockClient.onGet(
   SOCIAL_GRAPH_NETWORK_API_URL,
-  { params: { 'threshold': 2, 'show_civil_only': false, 'unit_id': '123' } }
+  { params: { 'threshold': 2, 'complaint_origin': 'OFFICER', 'unit_id': '123' } }
+).reply(200, getDefaultOfficerSocialGraphData());
+
+axiosMockClient.onGet(
+  SOCIAL_GRAPH_NETWORK_API_URL,
+  { params: { 'threshold': 2, 'complaint_origin': 'ALL', 'unit_id': '123' } }
 ).reply(200, getOfficerComplaintSocialGraphData());
 
 axiosMockClient.onGet(
   SOCIAL_GRAPH_NETWORK_API_URL,
-  { params: { 'threshold': 3, 'show_civil_only': false, 'unit_id': '123' } }
+  { params: { 'threshold': 3, 'complaint_origin': 'ALL', 'unit_id': '123' } }
 ).reply(200, getThresholdThreeSocialGraphData());
 
 axiosMockClient.onPost(`${PINBOARDS_URL}`).reply(201, createPinboard());
@@ -262,12 +268,12 @@ axiosMockClient.onGet(`${PINBOARDS_URL}latest-retrieved-pinboard/`).reply(200, {
 
 axiosMockClient.onGet(
   SOCIAL_GRAPH_OFFICERS_API_URL,
-  { params: { 'threshold': 2, 'show_civil_only': true, 'unit_id': '123' } }
+  { params: { 'threshold': 2, 'complaint_origin': 'CIVILIAN', 'unit_id': '123' } }
 ).reply(200, getDefaultSocialGraphOfficersData());
 
 axiosMockClient.onGet(
   SOCIAL_GRAPH_ALLEGATIONS_API_URL,
-  { params: { 'threshold': 2, 'show_civil_only': true, 'unit_id': '123' } }
+  { params: { 'threshold': 2, 'complaint_origin': 'CIVILIAN', 'unit_id': '123' } }
 ).reply(200, getDefaultSocialGraphAllegationsData());
 
 axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/`).reply(200, fetchPinboard('3664a7ea'));

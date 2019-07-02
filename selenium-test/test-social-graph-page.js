@@ -9,9 +9,9 @@ import moment from 'moment/moment';
 import socialGraphPage from './page-objects/social-graph-page';
 
 
-function waitForGraphAnimationEnd(browser, socialGraphPage) {
+function waitForGraphAnimationEnd(browser, socialGraphPage, endDate='2008-01-11') {
   browser.waitUntil(function () {
-    return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '2008-01-11';
+    return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === endDate;
   }, 3000, 'expected timeline reaches end date after 1.65s');
 }
 
@@ -197,13 +197,27 @@ describe('Social Graph Page', function () {
     groupsColors.should.eql(expectedGroupsColors);
   });
 
-  it('should load new data when change threshold and showCivilOnly', function () {
+  it('should load new data when change threshold and complaintOrigin', function () {
     waitForGraphAnimationEnd(browser, socialGraphPage);
+    socialGraphPage.animatedSocialGraphSection.complaintOriginSelected.getText().should.eql('CIVILIAN');
+    socialGraphPage.animatedSocialGraphSection.startDate.getText().should.eql('1990-01-09');
+    socialGraphPage.animatedSocialGraphSection.endDate.getText().should.eql('2008-01-11');
     socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
     socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(38);
 
-    socialGraphPage.animatedSocialGraphSection.showCivilComplaintOnlyCheckbox.click();
-    waitForGraphAnimationEnd(browser, socialGraphPage);
+    socialGraphPage.animatedSocialGraphSection.complaintOriginOfficer.click();
+    waitForGraphAnimationEnd(browser, socialGraphPage, '1992-03-08');
+    socialGraphPage.animatedSocialGraphSection.complaintOriginSelected.getText().should.eql('OFFICER');
+    socialGraphPage.animatedSocialGraphSection.startDate.getText().should.eql('1990-01-09');
+    socialGraphPage.animatedSocialGraphSection.endDate.getText().should.eql('1992-03-08');
+    socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
+    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(3);
+
+    socialGraphPage.animatedSocialGraphSection.complaintOriginAll.click();
+    waitForGraphAnimationEnd(browser, socialGraphPage, '2009-01-11');
+    socialGraphPage.animatedSocialGraphSection.complaintOriginSelected.getText().should.eql('ALL');
+    socialGraphPage.animatedSocialGraphSection.startDate.getText().should.eql('1990-01-09');
+    socialGraphPage.animatedSocialGraphSection.endDate.getText().should.eql('2009-01-11');
     socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
     socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(39);
 
