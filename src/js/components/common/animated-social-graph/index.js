@@ -150,25 +150,38 @@ export default class AnimatedSocialGraph extends Component {
   }
 
   render() {
-    const { officers, coaccusedData, listEvent, updateOfficerId, timelineIdx, refreshIntervalId } = this.props;
+    const {
+      officers,
+      coaccusedData,
+      listEvent,
+      timelineIdx,
+      refreshIntervalId,
+      selectedOfficerId,
+      updateSelectedOfficerId,
+      selectedEdge,
+      updateSelectedEdge,
+      updateSortedOfficerIds,
+    } = this.props;
     const { fullscreen } = this.state;
 
     return (
       <div className={ cx(styles.animatedSocialGraph, { fullscreen }) }>
         {
-          isEmpty(officers) || (
-            <SocialGraph
-              officers={ officers }
-              coaccusedData={ coaccusedData }
-              listEvent={ listEvent }
-              timelineIdx={ timelineIdx }
-              startTimelineFromBeginning={ this.startTimelineFromBeginning }
-              collideNodes={ !refreshIntervalId }
-              stopTimeline={ this.stopTimeline }
-              fullscreen={ fullscreen }
-              updateOfficerId={ updateOfficerId }
-            />
-          )
+          !isEmpty(officers) && <SocialGraph
+            officers={ officers }
+            coaccusedData={ coaccusedData }
+            listEvent={ listEvent }
+            timelineIdx={ timelineIdx }
+            startTimelineFromBeginning={ this.startTimelineFromBeginning }
+            collideNodes={ !refreshIntervalId }
+            stopTimeline={ this.stopTimeline }
+            fullscreen={ fullscreen }
+            selectedOfficerId={ selectedOfficerId }
+            updateSelectedOfficerId={ updateSelectedOfficerId }
+            selectedEdge={ selectedEdge }
+            updateSelectedEdge={ updateSelectedEdge }
+            updateSortedOfficerIds={ updateSortedOfficerIds }
+          />
         }
         { this.graphControlPanel() }
       </div>
@@ -181,19 +194,24 @@ AnimatedSocialGraph.propTypes = {
   coaccusedData: PropTypes.array,
   listEvent: PropTypes.array,
   hasIntercom: PropTypes.bool,
-  updateOfficerId: PropTypes.func,
+  selectedOfficerId: PropTypes.number,
+  updateSelectedOfficerId: PropTypes.func,
+  selectedEdge: PropTypes.object,
+  updateSelectedEdge: PropTypes.func,
   expandedLink: PropTypes.string,
-  updateTimelineIdx: PropTypes.func,
-  updateRefreshIntervalId: PropTypes.func,
   timelineIdx: PropTypes.number,
+  updateTimelineIdx: PropTypes.func,
   refreshIntervalId: PropTypes.number,
   isVisible: PropTypes.bool,
+  updateRefreshIntervalId: PropTypes.func,
+  updateSortedOfficerIds: PropTypes.func,
 };
 
 AnimatedSocialGraph.defaultProps = {
+  isVisible: true,
   updateTimelineIdx: noop,
   updateRefreshIntervalId: noop,
-  isVisible: true,
+  updateSelectedEdge: noop,
 };
 
 export const AnimatedSocialGraphWithSpinner = withLoadingSpinner(AnimatedSocialGraph, styles.socialGraphLoading);

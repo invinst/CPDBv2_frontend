@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import Timeline from 'components/social-graph-page/network/right-pane-section/timeline';
 import {
-  getSocialGraphTimelineItems,
+  socialGraphTimelineItemsSelector,
   getSocialGraphRefreshIntervalId,
   getSocialGraphTimelineIdx,
   getTimelineIdxTriggerChange,
@@ -13,7 +13,7 @@ import { updateSocialGraphTimelineIdxFromTimelineTab, } from 'actions/social-gra
 
 function mapStateToProps(state, ownProps) {
   return {
-    items: getSocialGraphTimelineItems(state),
+    items: socialGraphTimelineItemsSelector(state),
     pathname: `${ownProps.location.pathname}${ownProps.location.search}`,
     timelineIdx: getSocialGraphTimelineIdx(state),
     refreshIntervalId: getSocialGraphRefreshIntervalId(state),

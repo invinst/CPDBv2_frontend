@@ -4,6 +4,7 @@ require('should');
 import { map, countBy, filter } from 'lodash';
 
 import pinboardPage from './page-objects/pinboard-page';
+import { switchToRecentTab } from './utils';
 
 
 function waitForGraphAnimationEnd(browser, pinboardPage) {
@@ -139,9 +140,9 @@ describe('Pinboard Page', function () {
       const expectedGraphLabelTexts = [
         'Donnell Calhoun',
         'Eugene Offett',
+        'Hardy White',
         'Johnny Cavers',
         'Melvin Ector',
-        'Thomas Kampenga'
       ];
 
       graphLabelTexts.sort().should.eql(expectedGraphLabelTexts);
@@ -308,16 +309,9 @@ describe('Pinboard Page', function () {
       cardsCount.should.be.deepEqual([20, 40, 50]);
     });
 
-    it('should go to officer page when clicking on officer name section', function () {
-      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.nameWrapper.click();
-      browser.pause(500);
-      browser.getUrl().should.match(/\/officer\/123\/richard-sullivan\/$/);
-    });
-
-    it('should go to officer page when clicking on coaccusal cont section', function () {
-      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.coaccusalCount.click();
-      browser.pause(500);
-      browser.getUrl().should.match(/\/officer\/123\/richard-sullivan\/$/);
+    it('should display preview pane when click on relevant coaccusal card', function () {
+      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.mainElement.click();
+      pinboardPage.previewPane.mainElement.waitForVisible();
     });
   });
 
@@ -365,6 +359,25 @@ describe('Pinboard Page', function () {
       }
 
       cardsCount.should.be.deepEqual([20, 40, 50]);
+    });
+
+    it('should not show preview pane when we click on the right half of document card', function () {
+      const firstDocumentCard = pinboardPage.relevantDocumentsSection.documentCardSection;
+      firstDocumentCard.rightHalf.click();
+
+      pinboardPage.previewPane.mainElement.waitForVisible(1000, true);
+    });
+
+    it('should redirect to document page when click on the left half of document card', function () {
+      const firstDocumentCard = pinboardPage.relevantDocumentsSection.documentCardSection;
+      firstDocumentCard.leftHalf.click();
+
+      pinboardPage.previewPane.mainElement.waitForVisible(1000, true);
+      switchToRecentTab();
+      browser.getUrl().should.equal(
+        'https://assets.documentcloud.org/documents/5680384/CRID-1083633-CR-CRID-1083633-CR-Tactical.pdf'
+      );
+      browser.close();
     });
   });
 
@@ -414,28 +427,28 @@ describe('Pinboard Page', function () {
       cardsCount.should.be.deepEqual([20, 40, 50]);
     });
 
-    it('should go to complaint page when clicking on incident date', function () {
+    it('should display preview pane when we click on incident date', function () {
       pinboardPage.relevantComplaintsSection.complaintCardSection.incidentDate.click();
-      browser.pause(500);
-      browser.getUrl().should.match(/\/complaint\/1071234\/$/);
+
+      pinboardPage.previewPane.mainElement.waitForVisible();
     });
 
-    it('should go to complaint page when clicking on top officers', function () {
+    it('should display preview pane when we click on top officers', function () {
       pinboardPage.relevantComplaintsSection.complaintCardSection.topOfficers.click();
-      browser.pause(500);
-      browser.getUrl().should.match(/\/complaint\/1071234\/$/);
+
+      pinboardPage.previewPane.mainElement.waitForVisible();
     });
 
-    it('should go to complaint page when clicking on remaining officers', function () {
+    it('should display preview pane when we click on remaining officers', function () {
       pinboardPage.relevantComplaintsSection.complaintCardSection.remainingOfficers.click();
-      browser.pause(500);
-      browser.getUrl().should.match(/\/complaint\/1071234\/$/);
+
+      pinboardPage.previewPane.mainElement.waitForVisible();
     });
 
-    it('should go to complaint page when clicking on left half of a complaint card', function () {
+    it('should display preview pane when we click on left half of a complaint card', function () {
       pinboardPage.relevantComplaintsSection.complaintCardSection.leftHalf.click();
-      browser.pause(500);
-      browser.getUrl().should.match(/\/complaint\/1071234\/$/);
+
+      pinboardPage.previewPane.mainElement.waitForVisible();
     });
   });
 });

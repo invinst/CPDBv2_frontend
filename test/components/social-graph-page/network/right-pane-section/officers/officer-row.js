@@ -44,18 +44,18 @@ describe('OfficerRow component', function () {
     officerName.textContent.should.eql('Jerome Finnigan');
   });
 
-  it('should call updateOfficerId when clicking', function () {
-    const updateOfficerIdStub = stub();
+  it('should call updateSelectedOfficerId when clicking', function () {
+    const updateSelectedOfficerIdStub = stub();
     instance = renderIntoDocument(
       <OfficerRow
         officer={ officer }
-        updateOfficerId={ updateOfficerIdStub }
+        updateSelectedOfficerId={ updateSelectedOfficerIdStub }
       />
     );
 
     const officerRow = findDOMNode(instance);
     Simulate.click(officerRow);
-    updateOfficerIdStub.should.be.calledWith(123);
+    updateSelectedOfficerIdStub.should.be.calledWith(123);
   });
 
   describe('shouldComponentUpdate', function () {

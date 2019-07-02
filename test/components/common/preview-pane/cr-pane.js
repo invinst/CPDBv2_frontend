@@ -81,7 +81,7 @@ describe('CRPane component', () => {
     accused.props.typeName.should.eql('allegation');
     accused.props.title.should.eql('ACCUSED OFFICERS');
     accused.props.items.should.eql(accusedOfficers);
-    accused.props.showItemArrow.should.be.true();
+    accused.props.showItemArrow.should.be.false();
     accused.props.wrapperClassName.should.eql('cr-preview-pane-accused');
   });
 

@@ -312,10 +312,10 @@ describe('SocialGraph', function () {
 
     const expectedTopNodes = [
       { uid: 3663 },
-      { uid: 4269 },
       { uid: 21194 },
+      { uid: 4269 },
       { uid: 31945 },
-      { uid: 14045 },
+      { uid: 30466 },
     ];
 
     const graphNodes = instance.data.nodes;
@@ -427,10 +427,10 @@ describe('SocialGraph', function () {
 
     const expectedTopNodes = [
       { uid: 22861 },
-      { uid: 11580 },
-      { uid: 14045 },
       { uid: 28805 },
       { uid: 30466 },
+      { uid: 11580 },
+      { uid: 14045 },
     ];
 
     const expectedLinkedByIndex = {
@@ -643,18 +643,182 @@ describe('SocialGraph', function () {
     resizeGraphSpy.called.should.be.true();
   });
 
-  it('should call updateOfficerId when clicking on a graph node', function () {
-    const updateOfficerIdStub = stub();
+  it('should call updateSelectedOfficerId when clicking on a graph node', function () {
+    const updateSelectedOfficerIdStub = stub();
     instance = renderIntoDocument(
       <SocialGraph
         officers={ officers }
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
-        updateOfficerId={ updateOfficerIdStub }
+        updateSelectedOfficerId={ updateSelectedOfficerIdStub }
       />
     );
     const graphNode = instance.data.nodes[0];
-    instance.handleClick(graphNode);
-    updateOfficerIdStub.should.be.calledWith(graphNode.uid);
+    instance.handleNodeClick(graphNode);
+    updateSelectedOfficerIdStub.should.be.calledWith(graphNode.uid);
+  });
+
+  it('should call _updateSelectedNode when componentDidUpdate', function () {
+    instance = renderIntoDocument(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+      />
+    );
+
+    instance = reRender(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+        selectedOfficerId={ 11580 }
+      />,
+      instance
+    );
+
+    instance.selectedNodeLabel.box.should.have.length(1);
+    const selectedNodeLabel = findDOMNode(instance).getElementsByClassName('selected-node-label')[0];
+    findDOMNode(selectedNodeLabel).textContent.should.eql('John Hart');
+
+    instance = reRender(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+        selectedOfficerId={ 8138 }
+      />,
+      instance
+    );
+
+    findDOMNode(selectedNodeLabel).textContent.should.eql('Glenn Evans');
+  });
+
+  it('should call _updateSelectedEdge when componentDidUpdate', function () {
+    instance = renderIntoDocument(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+        timelineIdx={ listEvent.length - 1 }
+      />
+    );
+
+    instance = reRender(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+        selectedEdge={ { sourceUid: 2675, targetUid: 24157, coaccusedCount: 2 } }
+        timelineIdx={ listEvent.length - 1 }
+      />,
+      instance
+    );
+
+    instance.selectedEdgeLabel.box.should.have.length(1);
+    const selectedEdgeLabel = findDOMNode(instance).getElementsByClassName('selected-edge-label')[0];
+    findDOMNode(selectedEdgeLabel).textContent.should.eql('2 coaccusals');
+
+    instance = reRender(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+        selectedEdge={ { sourceUid: 22861, targetUid: 30466, coaccusedCount: 3 } }
+        timelineIdx={ listEvent.length - 1 }
+      />,
+      instance
+    );
+
+    findDOMNode(selectedEdgeLabel).textContent.should.eql('3 coaccusals');
+  });
+
+  it('should call this.tip.show if isSelectedNode is false', function () {
+    instance = renderIntoDocument(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+      />
+    );
+    const showTipStub = stub(instance.tip, 'show');
+    instance.handleMouseover({ fullName: 'Glenn Evans', id: 8138 });
+    showTipStub.should.be.called();
+  });
+
+  it('should not call this.tip.show if isSelectedNode is true', function () {
+    instance = renderIntoDocument(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+      />
+    );
+    const showTipStub = stub(instance.tip, 'show');
+    instance.handleMouseover({ fullName: 'Glenn Evans', id: 8138, isSelectedNode: true });
+    showTipStub.should.not.be.called();
+  });
+
+  it('should call updateSelectedEdge when clicking on an edge', function () {
+    const updateSelectedEdgeStub = stub();
+    const currentEdge = {
+      source: {
+        uid: 8138,
+        fullName: 'Glenn Evans',
+      },
+      target: {
+        uid: 4269,
+        fullName: 'Johnny Cavers',
+      },
+    };
+    instance = renderIntoDocument(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+        updateSelectedEdge={ updateSelectedEdgeStub }
+      />
+    );
+    instance.handleEdgeClick(currentEdge);
+    updateSelectedEdgeStub.should.be.calledWith({ sourceUid: 8138, targetUid: 4269 });
+  });
+
+  it('should add & remove edge-hover class to edge and corresponding nodes when mouseover and mouseout', function () {
+    instance = renderIntoDocument(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+      />
+    );
+
+    let hoveredEdge = instance.data.links[0];
+    instance.handleEdgeMouseover(hoveredEdge);
+
+    findDOMNode(instance).getElementsByClassName('link edge-hover').should.have.length(1);
+    findDOMNode(instance).getElementsByClassName('node edge-hover').should.have.length(2);
+
+    instance.handleEdgeMouseout();
+
+    findDOMNode(instance).getElementsByClassName('link edge-hover').should.have.length(0);
+    findDOMNode(instance).getElementsByClassName('node edge-hover').should.have.length(0);
+  });
+
+  it('should call updateSortedOfficerIds', function () {
+    const updateSortedOfficerIdsSpy = spy();
+    instance = renderIntoDocument(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+        updateSortedOfficerIds={ updateSortedOfficerIdsSpy }
+      />
+    );
+
+    const expectedSortedOfficerIds = [
+      3663, 21194, 4269, 31945, 30466, 14045, 4881, 30209, 28805, 12176,
+      22861, 8138, 15956, 11580, 2671, 2675, 24157, 22297, 2171, 12737
+    ];
+    updateSortedOfficerIdsSpy.should.be.calledWith(expectedSortedOfficerIds);
   });
 });
