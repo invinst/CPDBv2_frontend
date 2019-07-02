@@ -30,7 +30,7 @@ describe('Pinboard Page', function () {
   it('should go to Q&A url when clicking on Q&A link', function () {
     pinboardPage.open();
     pinboardPage.headerQALink.click();
-    browser.getUrl().should.equal('http://how.cpdp.works/');
+    browser.getUrl().should.containEql('http://how.cpdp.works/');
   });
 
   context('pinboard pinned section', function () {
