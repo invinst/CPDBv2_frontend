@@ -8,12 +8,14 @@ import {
   scryRenderedComponentsWithType,
   findRenderedDOMComponentWithClass,
   scryRenderedDOMComponentsWithClass,
+  Simulate,
 } from 'react-addons-test-utils';
+import { stub } from 'sinon';
 import * as ReactRouter from 'react-router';
 import { Router, createMemoryHistory, Route } from 'react-router';
-import { stub } from 'sinon';
 import { createStore as ReduxCreateStore } from 'redux';
 import should from 'should';
+import { set } from 'lodash';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import PinnedOfficersContainer from 'containers/pinboard-page/pinned-officers';
@@ -25,8 +27,13 @@ import SearchBar from 'components/pinboard-page/search-bar';
 import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section';
 import RootReducer from 'reducers/root-reducer';
 import FooterContainer from 'containers/footer-container';
+import {
+  PINBOARD_PAGE_REDIRECT,
+  PINBOARD_PAGE_FOCUS_ITEM,
+  PINBOARD_FETCH_REQUEST_SUCCESS,
+} from 'utils/constants';
 import PinboardPage from 'components/pinboard-page';
-import { PINBOARD_PAGE_REDIRECT } from 'utils/constants';
+import PreviewPane from 'components/search-page/search-results/preview-pane';
 
 
 describe('PinboardPage component', function () {
@@ -50,6 +57,7 @@ describe('PinboardPage component', function () {
     trrItems: { requesting: false, items: [] },
     redirect: false,
     initialRequested: true,
+    focusedItem: {},
     pinboard
   });
 
@@ -122,7 +130,21 @@ describe('PinboardPage component', function () {
       payload: true,
     });
 
-    replaceStub.calledWith('/pinboard/5cd06f2b/pinboard-title/').should.be.true();
+    replaceStub.should.not.be.called();
+
+    store.dispatch({
+      type: PINBOARD_FETCH_REQUEST_SUCCESS,
+      payload: {
+        id: '66ef1560',
+        title: 'Title',
+        description: 'Description',
+        'officer_ids': [1],
+        crids: ['abc'],
+        'trr_ids': [1],
+      }
+    });
+
+    replaceStub.should.be.calledWith('/pinboard/66ef1560/title/');
     replaceStub.restore();
   });
 
@@ -287,5 +309,162 @@ describe('PinboardPage component', function () {
       </Provider>
     );
     stubPushBreadcrumbs.calledWith({ location, params, routes }).should.be.true();
+  });
+
+  it('should contain overlay and preview pane', function () {
+    const pinboard = {
+      title: 'This is pinboard title',
+      description: 'This is pinboard description',
+      crids: ['123'],
+    };
+
+    const pinboardPage = () => (
+      <Provider store={ createStore(pinboard) }>
+        <PinboardPageContainer />
+      </Provider>
+    );
+
+    instance = renderIntoDocument(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ pinboardPage } />
+      </Router>
+    );
+
+    findRenderedDOMComponentWithClass(instance, 'overlay').should.be.ok();
+    findRenderedComponentWithType(instance, PreviewPane).should.be.ok();
+  });
+
+  it('should hide overlay if there is no focused item by default', function () {
+    const pinboard = {
+      title: 'This is pinboard title',
+      description: 'This is pinboard description',
+      crids: ['123'],
+    };
+
+    const pinboardPageData = createPinboardPage(pinboard);
+    set(pinboardPageData, 'crItems', [{ 'crid': '123' }]);
+
+    const state = {
+      pinboardPage: pinboardPageData,
+      pathname: 'pinboard/5cd06f2b',
+    };
+
+    const store = ReduxCreateStore(RootReducer, state);
+
+    const pinboardPage = () => (
+      <Provider store={ store }>
+        <PinboardPageContainer />
+      </Provider>
+    );
+
+    instance = renderIntoDocument(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ pinboardPage } />
+      </Router>
+    );
+
+    store.dispatch({
+      type: PINBOARD_PAGE_FOCUS_ITEM,
+      payload: {},
+    });
+
+    const overlay = findRenderedDOMComponentWithClass(instance, 'overlay');
+    overlay.getAttribute('aria-hidden').should.equal('true');
+
+    document.body.classList.should.have.length(2);
+    document.body.classList.contains('body-scrollable').should.be.true();
+  });
+
+  it('should display overlay if there is focused item', function () {
+    const pinboard = {
+      title: 'This is pinboard title',
+      description: 'This is pinboard description',
+      crids: ['123'],
+    };
+
+    const pinboardPageData = createPinboardPage(pinboard);
+    set(pinboardPageData, 'crItems', { requesting: false, items: [{ 'crid': '123' }] });
+
+    const state = {
+      pinboardPage: pinboardPageData,
+      pathname: 'pinboard/5cd06f2b',
+    };
+
+    const store = ReduxCreateStore(RootReducer, state);
+
+    const pinboardPage = () => (
+      <Provider store={ store }>
+        <PinboardPageContainer />
+      </Provider>
+    );
+
+    instance = renderIntoDocument(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ pinboardPage } />
+      </Router>
+    );
+
+    store.dispatch({
+      type: PINBOARD_PAGE_FOCUS_ITEM,
+      payload: {
+        type: 'CR',
+        id: '123',
+      },
+    });
+
+    const overlay = findRenderedDOMComponentWithClass(instance, 'overlay');
+    overlay.getAttribute('aria-hidden').should.equal('false');
+
+    document.body.classList.should.have.length(2);
+    document.body.classList.contains('body-not-scrollable').should.be.true();
+  });
+
+  it('should handle on overlay click', function () {
+    const pinboard = {
+      title: 'This is pinboard title',
+      description: 'This is pinboard description',
+      crids: ['123'],
+    };
+
+    const pinboardPageData = createPinboardPage(pinboard);
+    set(pinboardPageData, 'crItems', { requesting: false, items: [{ 'crid': '123' }] });
+
+    const state = {
+      pinboardPage: pinboardPageData,
+      pathname: 'pinboard/5cd06f2b',
+    };
+
+    const store = ReduxCreateStore(RootReducer, state);
+
+    const pinboardPage = () => (
+      <Provider store={ store }>
+        <PinboardPageContainer />
+      </Provider>
+    );
+
+    instance = renderIntoDocument(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ pinboardPage } />
+      </Router>
+    );
+
+    store.dispatch({
+      type: PINBOARD_PAGE_FOCUS_ITEM,
+      payload: {
+        type: 'CR',
+        id: '123',
+      },
+    });
+
+    const overlay = findRenderedDOMComponentWithClass(instance, 'overlay');
+    overlay.getAttribute('aria-hidden').should.equal('false');
+    document.body.classList.should.have.length(2);
+    document.body.classList.contains('body-not-scrollable').should.be.true();
+
+    Simulate.click(overlay);
+
+    overlay.getAttribute('aria-hidden').should.equal('true');
+    document.body.classList.should.have.length(2);
+    document.body.classList.contains('body-scrollable').should.be.true();
   });
 });

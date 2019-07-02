@@ -312,10 +312,10 @@ describe('SocialGraph', function () {
 
     const expectedTopNodes = [
       { uid: 3663 },
-      { uid: 4269 },
       { uid: 21194 },
+      { uid: 4269 },
       { uid: 31945 },
-      { uid: 14045 },
+      { uid: 30466 },
     ];
 
     const graphNodes = instance.data.nodes;
@@ -427,10 +427,10 @@ describe('SocialGraph', function () {
 
     const expectedTopNodes = [
       { uid: 22861 },
-      { uid: 11580 },
-      { uid: 14045 },
       { uid: 28805 },
       { uid: 30466 },
+      { uid: 11580 },
+      { uid: 14045 },
     ];
 
     const expectedLinkedByIndex = {
@@ -802,5 +802,23 @@ describe('SocialGraph', function () {
 
     findDOMNode(instance).getElementsByClassName('link edge-hover').should.have.length(0);
     findDOMNode(instance).getElementsByClassName('node edge-hover').should.have.length(0);
+  });
+
+  it('should call updateSortedOfficerIds', function () {
+    const updateSortedOfficerIdsSpy = spy();
+    instance = renderIntoDocument(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+        updateSortedOfficerIds={ updateSortedOfficerIdsSpy }
+      />
+    );
+
+    const expectedSortedOfficerIds = [
+      3663, 21194, 4269, 31945, 30466, 14045, 4881, 30209, 28805, 12176,
+      22861, 8138, 15956, 11580, 2671, 2675, 24157, 22297, 2171, 12737
+    ];
+    updateSortedOfficerIdsSpy.should.be.calledWith(expectedSortedOfficerIds);
   });
 });

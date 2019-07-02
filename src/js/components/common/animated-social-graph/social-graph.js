@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import { isEmpty, countBy, indexOf, orderBy, isEqual, filter } from 'lodash';
+import { isEmpty, countBy, indexOf, orderBy, isEqual, filter, map } from 'lodash';
 import moment from 'moment';
 import * as d3 from 'd3';
 import * as jLouvain from 'jlouvain';
@@ -238,6 +238,7 @@ export default class SocialGraph extends Component {
   }
 
   _recalculateNodeDegreesAndMaxWeight() {
+    const { updateSortedOfficerIds } = this.props;
     this.data.maxWeight = 0;
 
     const orderedLinks = orderBy(this.data.links, ['weight', 'source', 'target']);
@@ -254,7 +255,14 @@ export default class SocialGraph extends Component {
       link.colorGroup = Math.ceil((index + 1) * NUMBER_OF_LINK_GROUP_COLORS / linksCount);
     });
 
-    this.data.topNodes = orderBy(this.data.nodes, ['degree', 'uid'], ['desc', 'asc']).slice(0, NUMBER_OF_TOP_NODES);
+    const sortedNodes = orderBy(this.data.nodes, ['degree', 'fname'], ['desc', 'asc']);
+
+    this.data.topNodes = sortedNodes.slice(0, NUMBER_OF_TOP_NODES);
+
+    if (updateSortedOfficerIds) {
+      const sortedOfficerIds = map(sortedNodes, 'uid');
+      updateSortedOfficerIds(sortedOfficerIds);
+    }
   }
 
   _recalculateNodeGroups() {
@@ -573,6 +581,7 @@ SocialGraph.propTypes = {
   updateSelectedOfficerId: PropTypes.func,
   selectedEdge: PropTypes.object,
   updateSelectedEdge: PropTypes.func,
+  updateSortedOfficerIds: PropTypes.func,
 };
 
 SocialGraph.defaultProps = {

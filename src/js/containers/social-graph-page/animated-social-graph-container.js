@@ -29,6 +29,7 @@ function mapStateToProps(state, ownProps) {
     refreshIntervalId: getSocialGraphRefreshIntervalId(state),
     selectedOfficerId: getSelectedOfficerId(state),
     selectedEdge: selectedEdgeDataSelector(state),
+    updateSortedOfficerIds: ownProps.updateSortedOfficerIds,
   };
 }
 

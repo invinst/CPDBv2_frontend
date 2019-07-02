@@ -20,7 +20,7 @@ export default class PreviewPane extends Component {
       },
       [NETWORK_PREVIEW_PANE.EDGE_COACCUSALS]: {
         component: EdgeCoaccusalsPane,
-        customClassName: 'edge-coaccusals-preview-pane edge-coaccusals-preview-link',
+        customClassName: 'edge-coaccusals-preview-link',
         customProps: ['location', 'onTrackingAttachment', 'updateSelectedCrid']
       },
       [NETWORK_PREVIEW_PANE.CR]: {

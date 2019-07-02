@@ -280,6 +280,18 @@ const defaultListEvent = [
   '2006-03-15',
   '2008-01-11'
 ];
+
+const defaultOfficerCoaccusedData = [
+  { 'officer_id_1': 2675, 'officer_id_2': 24157, 'incident_date': '1990-01-09T00:00:00Z', 'accussed_count': 2 },
+  { 'officer_id_1': 11580, 'officer_id_2': 30466, 'incident_date': '1990-01-09T00:00:00Z', 'accussed_count': 2 },
+  { 'officer_id_1': 22861, 'officer_id_2': 30466, 'incident_date': '1992-03-08T00:00:00Z', 'accussed_count': 2 },
+];
+
+const defaultOfficerListEvent = [
+  '1990-01-09',
+  '1992-03-08',
+];
+
 const allComplaintCoaccusedData = [
   { 'officer_id_1': 2675, 'officer_id_2': 24157, 'incident_date': '1990-01-09T00:00:00Z', 'accussed_count': 2 },
   { 'officer_id_1': 11580, 'officer_id_2': 30466, 'incident_date': '1990-01-09T00:00:00Z', 'accussed_count': 2 },
@@ -361,10 +373,10 @@ const allComplaintCoaccusedData = [
   { 'officer_id_1': 3663, 'officer_id_2': 31945, 'incident_date': '2006-03-15T00:00:00Z', 'accussed_count': 5 },
   { 'officer_id_1': 4269, 'officer_id_2': 31945, 'incident_date': '2006-03-15T00:00:00Z', 'accussed_count': 5 },
   { 'officer_id_1': 2671, 'officer_id_2': 15956, 'incident_date': '2006-03-15T00:00:00Z', 'accussed_count': 5 },
-  { 'officer_id_1': 3663, 'officer_id_2': 28805, 'incident_date': '2008-01-11T00:00:00Z', 'accussed_count': 7 },
-  { 'officer_id_1': 3663, 'officer_id_2': 4269, 'incident_date': '2008-01-11T00:00:00Z', 'accussed_count': 3 },
-  { 'officer_id_1': 2671, 'officer_id_2': 15956, 'incident_date': '2008-01-11T00:00:00Z', 'accussed_count': 6 },
-  { 'officer_id_1': 2171, 'officer_id_2': 12737, 'incident_date': '2008-01-11T00:00:00Z', 'accussed_count': 2 },
+  { 'officer_id_1': 3663, 'officer_id_2': 28805, 'incident_date': '2009-01-11T00:00:00Z', 'accussed_count': 7 },
+  { 'officer_id_1': 3663, 'officer_id_2': 4269, 'incident_date': '2009-01-11T00:00:00Z', 'accussed_count': 3 },
+  { 'officer_id_1': 2671, 'officer_id_2': 15956, 'incident_date': '2009-01-11T00:00:00Z', 'accussed_count': 6 },
+  { 'officer_id_1': 2171, 'officer_id_2': 12737, 'incident_date': '2009-01-11T00:00:00Z', 'accussed_count': 2 },
 ];
 const allComplaintListEvent = [
   '1990-01-09',
@@ -378,7 +390,7 @@ const allComplaintListEvent = [
   '1999-02-08',
   '1999-07-22',
   '2006-03-15',
-  '2008-01-11'
+  '2009-01-11'
 ];
 const thresholdThreeCoaccusedData = [
   { 'officer_id_1': 11580, 'officer_id_2': 30466, 'incident_date': '1992-03-08T00:00:00Z', 'accussed_count': 3 },
@@ -443,6 +455,12 @@ export const getDefaultSocialGraphData = () => ({
   'officers': officers,
   'coaccused_data': defaultCoaccusedData,
   'list_event': defaultListEvent,
+});
+
+export const getDefaultOfficerSocialGraphData = () => ({
+  'officers': officers,
+  'coaccused_data': defaultOfficerCoaccusedData,
+  'list_event': defaultOfficerListEvent,
 });
 
 export const getOfficerComplaintSocialGraphData = () => ({

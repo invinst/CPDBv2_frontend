@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
 
 import Officers from 'components/social-graph-page/network/right-pane-section/officers';
-import { networkOfficersSelector } from 'selectors/social-graph-page/network-officers';
+import { sortedNetworkOfficersSelector } from 'selectors/social-graph-page/network-officers';
 import { updateSelectedOfficerId } from 'actions/social-graph-page';
 
 
 function mapStateToProps(state, ownProps) {
   return {
-    officers: networkOfficersSelector(state),
+    officers: sortedNetworkOfficersSelector(state, ownProps),
     updateSelectedOfficerId: ownProps.updateSelectedOfficerId
   };
 }

@@ -12,6 +12,7 @@ import { unmountComponentSuppressError } from 'utils/test';
 import OfficerCard, { OfficerCardWithUndo } from 'components/pinboard-page/cards/officer-card';
 import ItemUnpinButton from 'components/pinboard-page/cards/item-unpin-button';
 import StaticRadarChart from 'components/common/radar-chart';
+import ShortPress from 'components/common/short-press';
 
 
 describe('OfficerCard component', function () {
@@ -63,6 +64,52 @@ describe('OfficerCard component', function () {
       type: 'OFFICER',
       id: 123
     });
+  });
+
+  it('should be focusable', function () {
+    const item = {
+      type: 'OFFICER',
+      isPinned: false,
+      id: 123,
+      rank: 'Officer as Detective',
+      fullName: 'James David',
+      complaintCount: '10',
+    };
+
+    instance = renderIntoDocument(
+      <OfficerCard
+        item={ item }
+      />
+    );
+
+    findRenderedComponentWithType(instance, ShortPress).should.be.ok();
+  });
+
+  it('should handle on focus', function () {
+    const item = {
+      type: 'OFFICER',
+      isPinned: false,
+      id: 123,
+      rank: 'Officer as Detective',
+      fullName: 'James David',
+      complaintCount: '10',
+    };
+    const focusItem = spy();
+
+    instance = renderIntoDocument(
+      <OfficerCard
+        item={ item }
+        focusItem={ focusItem }
+      />
+    );
+
+    const card = findRenderedDOMComponentWithClass(instance, 'officer-card-body');
+    const cardNode = findDOMNode(card);
+
+    Simulate.mouseDown(cardNode);
+    Simulate.mouseUp(cardNode);
+
+    focusItem.calledWith({ type: 'OFFICER', 'id': 123 }).should.be.true();
   });
 });
 

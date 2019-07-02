@@ -75,11 +75,13 @@ export default class AnimatedSocialGraph extends Component {
   }
 
   intervalTickTimeline() {
-    const { timelineIdx, updateTimelineIdx } = this.props;
-    if (timelineIdx < this.props.listEvent.length - 1) {
-      updateTimelineIdx(timelineIdx + 1);
-    } else {
-      this.stopTimeline();
+    const { timelineIdx, isVisible, updateTimelineIdx } = this.props;
+    if (isVisible) {
+      if (timelineIdx < this.props.listEvent.length - 1) {
+        updateTimelineIdx(timelineIdx + 1);
+      } else {
+        this.stopTimeline();
+      }
     }
   }
 
@@ -107,7 +109,7 @@ export default class AnimatedSocialGraph extends Component {
   }
 
   graphControlPanel() {
-    const { listEvent, timelineIdx, refreshIntervalId } = this.props;
+    const { listEvent, isVisible, timelineIdx, refreshIntervalId } = this.props;
     if (listEvent) {
       const numOfEvents = listEvent.length;
 
@@ -134,7 +136,7 @@ export default class AnimatedSocialGraph extends Component {
             />
             <div className='graph-actions'>
               <button
-                className={ cx('toggle-timeline-btn', refreshIntervalId ? 'pause-icon' : 'play-icon') }
+                className={ cx('toggle-timeline-btn', (refreshIntervalId && isVisible) ? 'pause-icon' : 'play-icon') }
                 onClick={ this.toggleTimeline }
               />
               <span className='current-date-label'>{ currentDateString }</span>
@@ -158,11 +160,12 @@ export default class AnimatedSocialGraph extends Component {
       updateSelectedOfficerId,
       selectedEdge,
       updateSelectedEdge,
+      updateSortedOfficerIds,
     } = this.props;
     const { fullscreen } = this.state;
 
     return (
-      <div className={ cx(styles.animatedSocialGraph, 'conmeo', { fullscreen }) }>
+      <div className={ cx(styles.animatedSocialGraph, { fullscreen }) }>
         {
           !isEmpty(officers) && <SocialGraph
             officers={ officers }
@@ -177,6 +180,7 @@ export default class AnimatedSocialGraph extends Component {
             updateSelectedOfficerId={ updateSelectedOfficerId }
             selectedEdge={ selectedEdge }
             updateSelectedEdge={ updateSelectedEdge }
+            updateSortedOfficerIds={ updateSortedOfficerIds }
           />
         }
         { this.graphControlPanel() }
@@ -198,10 +202,13 @@ AnimatedSocialGraph.propTypes = {
   timelineIdx: PropTypes.number,
   updateTimelineIdx: PropTypes.func,
   refreshIntervalId: PropTypes.number,
+  isVisible: PropTypes.bool,
   updateRefreshIntervalId: PropTypes.func,
+  updateSortedOfficerIds: PropTypes.func,
 };
 
 AnimatedSocialGraph.defaultProps = {
+  isVisible: true,
   updateTimelineIdx: noop,
   updateRefreshIntervalId: noop,
   updateSelectedEdge: noop,

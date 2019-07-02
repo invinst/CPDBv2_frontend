@@ -9,9 +9,9 @@ import moment from 'moment/moment';
 import socialGraphPage from './page-objects/social-graph-page';
 
 
-function waitForGraphAnimationEnd(browser, socialGraphPage) {
+function waitForGraphAnimationEnd(browser, socialGraphPage, endDate='2008-01-11') {
   browser.waitUntil(function () {
-    return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '2008-01-11';
+    return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === endDate;
   }, 3000, 'expected timeline reaches end date after 1.65s');
 }
 
@@ -75,16 +75,16 @@ describe('Social Graph Page', function () {
     const expectedGraphLabelTexts = [
       'Donnell Calhoun',
       'Eugene Offett',
+      'Hardy White',
       'Johnny Cavers',
       'Melvin Ector',
-      'Thomas Kampenga'
     ];
 
     const updatedExpectedGraphLabelTexts = [
       'Charles Toussas',
       'David Portis',
       'Donnell Calhoun',
-      'John Hart',
+      'Eugene Offett',
       'Thomas Kampenga',
     ];
 
@@ -197,13 +197,27 @@ describe('Social Graph Page', function () {
     groupsColors.should.eql(expectedGroupsColors);
   });
 
-  it('should load new data when change threshold and showCivilOnly', function () {
+  it('should load new data when change threshold and complaintOrigin', function () {
     waitForGraphAnimationEnd(browser, socialGraphPage);
+    socialGraphPage.animatedSocialGraphSection.complaintOriginSelected.getText().should.eql('CIVILIAN');
+    socialGraphPage.animatedSocialGraphSection.startDate.getText().should.eql('1990-01-09');
+    socialGraphPage.animatedSocialGraphSection.endDate.getText().should.eql('2008-01-11');
     socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
     socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(38);
 
-    socialGraphPage.animatedSocialGraphSection.showCivilComplaintOnlyCheckbox.click();
-    waitForGraphAnimationEnd(browser, socialGraphPage);
+    socialGraphPage.animatedSocialGraphSection.complaintOriginOfficer.click();
+    waitForGraphAnimationEnd(browser, socialGraphPage, '1992-03-08');
+    socialGraphPage.animatedSocialGraphSection.complaintOriginSelected.getText().should.eql('OFFICER');
+    socialGraphPage.animatedSocialGraphSection.startDate.getText().should.eql('1990-01-09');
+    socialGraphPage.animatedSocialGraphSection.endDate.getText().should.eql('1992-03-08');
+    socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
+    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(3);
+
+    socialGraphPage.animatedSocialGraphSection.complaintOriginAll.click();
+    waitForGraphAnimationEnd(browser, socialGraphPage, '2009-01-11');
+    socialGraphPage.animatedSocialGraphSection.complaintOriginSelected.getText().should.eql('ALL');
+    socialGraphPage.animatedSocialGraphSection.startDate.getText().should.eql('1990-01-09');
+    socialGraphPage.animatedSocialGraphSection.endDate.getText().should.eql('2009-01-11');
     socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
     socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(39);
 
@@ -249,10 +263,10 @@ describe('Social Graph Page', function () {
   it('should render officer preview pane when clicking on the officer row', function () {
     waitForGraphAnimationEnd(browser, socialGraphPage);
     socialGraphPage.animatedSocialGraphSection.officerTab.click();
-    socialGraphPage.officersSection.officerRowCount().should.eql(20);
+    socialGraphPage.officersSection.officerRows().should.have.length(20);
     socialGraphPage.officersSection.firstOfficerRow.click();
     socialGraphPage.previewPaneSection.previewPane.waitForVisible();
-    socialGraphPage.previewPaneSection.officerPreviewPaneName.getText().should.eql('Bennie Watson');
+    socialGraphPage.previewPaneSection.officerPreviewPaneName.getText().should.eql('Donnell Calhoun');
 
     socialGraphPage.animatedSocialGraphSection.leftSection.click();
     socialGraphPage.previewPaneSection.previewPane.waitForVisible(1000, true);
@@ -261,7 +275,7 @@ describe('Social Graph Page', function () {
   it('should render officer preview pane and officer name when clicking on the officer node', function () {
     waitForGraphAnimationEnd(browser, socialGraphPage);
     socialGraphPage.animatedSocialGraphSection.officerTab.click();
-    socialGraphPage.officersSection.officerRowCount().should.eql(20);
+    socialGraphPage.officersSection.officerRows().should.have.length(20);
     socialGraphPage.animatedSocialGraphSection.biggestGraphNode.click();
     socialGraphPage.previewPaneSection.previewPane.waitForVisible();
 
@@ -327,7 +341,7 @@ describe('Social Graph Page', function () {
     waitForGraphAnimationEnd(browser, socialGraphPage);
 
     socialGraphPage.animatedSocialGraphSection.officerTab.click();
-    socialGraphPage.officersSection.officerRowCount().should.eql(20);
+    socialGraphPage.officersSection.officerRows().should.have.length(20);
 
     socialGraphPage.animatedSocialGraphSection.timelineTab.click();
     browser.waitUntil(function () {
@@ -437,5 +451,66 @@ describe('Social Graph Page', function () {
 
     socialGraphPage.animatedSocialGraphSection.leftSection.click();
     socialGraphPage.previewPaneSection.previewPane.waitForVisible(1000, true);
+  });
+
+  it('should order officer rows correctly', function () {
+    socialGraphPage.animatedSocialGraphSection.rightPaneSectionMenu.waitForVisible();
+    waitForGraphAnimationEnd(browser, socialGraphPage);
+    socialGraphPage.animatedSocialGraphSection.officerTab.click();
+    const expectedFinalOrderedOfficers = [
+      'Donnell Calhoun',
+      'Eugene Offett',
+      'Johnny Cavers',
+      'Melvin Ector',
+      'Hardy White',
+      'Thomas Kampenga',
+      'Gilbert Cobb',
+      'Bennie Watson',
+      'Charles Toussas',
+      'Francis Higgins',
+      'David Portis',
+      'Glenn Evans',
+      'Isaac Lee',
+      'John Hart',
+      'Sean Brandon',
+      'Joseph Blaye',
+      'Matthew Brandon',
+      'Tracy Hughes',
+      'William Roberison',
+      'Estella Perez-Stanford'
+    ];
+    const finalOrderedOfficers = map(
+      socialGraphPage.officersSection.officerRows(), officerRow => officerRow.getText()
+    );
+    finalOrderedOfficers.should.eql(expectedFinalOrderedOfficers);
+
+    const expectedMiddleOrderedOfficers = [
+      'Charles Toussas',
+      'Donnell Calhoun',
+      'Thomas Kampenga',
+      'David Portis',
+      'Eugene Offett',
+      'Francis Higgins',
+      'Hardy White',
+      'John Hart',
+      'Glenn Evans',
+      'Johnny Cavers',
+      'Melvin Ector',
+      'Bennie Watson',
+      'Estella Perez-Stanford',
+      'Gilbert Cobb',
+      'Isaac Lee',
+      'Joseph Blaye',
+      'Matthew Brandon',
+      'Sean Brandon',
+      'Tracy Hughes',
+      'William Roberison'
+    ];
+    browser.moveToObject(socialGraphPage.animatedSocialGraphSection.timelineSlider.selector);
+    browser.buttonPress();
+    const middleOrderedOfficers = map(
+      socialGraphPage.officersSection.officerRows(), officerRow => officerRow.getText()
+    );
+    middleOrderedOfficers.should.eql(expectedMiddleOrderedOfficers);
   });
 });

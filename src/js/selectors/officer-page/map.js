@@ -34,18 +34,17 @@ export const crMapMarkersTransform = item => ({
   point: get(item, 'point', {
     lon: 0, lat: 0
   }),
+  date: item.date,
   kind: item.kind,
-  finding: item.finding,
   id: item.crid,
   category: item.category,
-  victims: item.victims,
-  coaccused: item.coaccused,
 });
 
 export const trrMapMarkerTransform = item => ({
   point: get(item, 'point', {
     lon: 0, lat: 0
   }),
+  date: item.date,
   kind: item.kind,
   id: item.trr_id.toString(),
   category: item['firearm_used'] ? 'Firearm' : item.taser ? 'Taser' : 'Use of Force Report',
