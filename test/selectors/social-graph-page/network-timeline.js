@@ -24,18 +24,14 @@ describe('Social Graph page selectors', function () {
           networkData: {
             networkAllegations: [
               {
-                'most_common_category': {
-                  category: 'Criminal Misconduct',
-                  'allegation_name': 'Theft'
-                },
+                category: 'Criminal Misconduct',
+                subcategory: 'Theft',
                 crid: '260131',
                 'incident_date': '2003-02-17',
               },
               {
-                'most_common_category': {
-                  category: 'Illegal Search',
-                  'allegation_name': 'Search Of Premise Without Warrant'
-                },
+                category: 'Illegal Search',
+                subcategory: 'Search Of Premise Without Warrant',
                 crid: '294088',
                 'incident_date': '2003-11-26',
                 attachments: [

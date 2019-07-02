@@ -165,9 +165,10 @@ describe('Timeline component', function () {
         timelineIdxTriggerChange={ 0 }
       />
     );
-    const handleScrollSpy = spy(instance, 'handleScroll');
+    const handleScrollStub = stub(instance, 'handleScroll');
     setTimeout(() => {
-      handleScrollSpy.should.be.calledWith(items[1]);
+      handleScrollStub.should.be.calledWith(items[1]);
+      handleScrollStub.restore();
       done();
     }, 150);
   });

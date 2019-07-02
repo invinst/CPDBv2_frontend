@@ -11,6 +11,7 @@ export const getListEvent = state => state.socialGraphPage.networkData.graphData
 export const getNetworkAllegations = state => state.socialGraphPage.networkData.networkAllegations;
 export const getSelectedOfficerId = state => state.socialGraphPage.networkData.selectedOfficerId;
 export const getSelectedEdge = state => state.socialGraphPage.networkData.selectedEdge;
+export const getSelectedCrid = state => state.socialGraphPage.networkData.selectedCrid;
 
 export const officersSelector = createSelector(
   [getGraphDataOfficers],
@@ -36,8 +37,8 @@ export const allegationTransform = item => {
     kind: NEW_TIMELINE_ITEMS.CR,
     incidentDate: moment(item['incident_date']).format('MMM D').toUpperCase(),
     year: moment(item['incident_date']).year(),
-    category: get(item, 'most_common_category.category', 'Unknown'),
-    subcategory: get(item, 'most_common_category.allegation_name', 'Unknown'),
+    category: get(item, 'category', 'Unknown'),
+    subcategory: get(item, 'subcategory', 'Unknown'),
     attachments: get(item, 'attachments', []).map(attachmentTransform),
     key: item['crid'],
     timelineIdx: item['timelineIdx'],

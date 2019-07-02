@@ -14,6 +14,7 @@ export default class EdgeCoaccusalsPane extends Component {
       pathname,
       onTrackingAttachment,
       info,
+      updateSelectedCrid,
     } = this.props;
     return (
       <div className={ style.edgeCoaccusalsPane }>
@@ -30,6 +31,7 @@ export default class EdgeCoaccusalsPane extends Component {
                 key={ item.key }
                 pathname={ pathname }
                 onTrackingAttachment={ onTrackingAttachment }
+                updateSelectedCrid={ updateSelectedCrid }
               />
             );
           })
@@ -43,6 +45,7 @@ EdgeCoaccusalsPane.propTypes = {
   items: PropTypes.array,
   pathname: PropTypes.string,
   onTrackingAttachment: PropTypes.func,
+  updateSelectedCrid: PropTypes.func,
   info: PropTypes.object,
 };
 

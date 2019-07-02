@@ -8,7 +8,10 @@ import {
   getTimelineIdxTriggerChange,
 } from 'selectors/social-graph-page/network-timeline';
 import { trackingClickAttachment } from 'actions/common/analytic';
-import { updateSocialGraphTimelineIdxFromTimelineTab, } from 'actions/social-graph-page';
+import {
+  updateSocialGraphTimelineIdxFromTimelineTab,
+  updateSocialGraphSelectedCrid
+} from 'actions/social-graph-page';
 
 
 function mapStateToProps(state, ownProps) {
@@ -24,6 +27,7 @@ function mapStateToProps(state, ownProps) {
 const mapDispatchToProps = {
   onTrackingAttachment: trackingClickAttachment,
   updateTimelineIdx: updateSocialGraphTimelineIdxFromTimelineTab,
+  updateSelectedCrid: updateSocialGraphSelectedCrid,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Timeline);

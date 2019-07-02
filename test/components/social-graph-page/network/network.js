@@ -461,8 +461,45 @@ describe('NetworkGraph component', function () {
     updateSelectedEdgeStub.should.be.calledWith(null);
   });
 
-  it('should not call updateSelectedOfficerId when clicking on preview-pane', function () {
+  it('should not call updateSelectedEdge when clicking outside and there is selected crid and edge', function () {
+    const updateSelectedEdgeStub = stub();
+    const selectedEdge = {
+      sourceOfficerName: 'Jerome Finnigan',
+      targetOfficerName: 'Edward May',
+      coaccusedCount: 10,
+    };
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <NetworkGraph
+          updateSelectedEdge={ updateSelectedEdgeStub }
+          selectedEdge={ selectedEdge }
+          selectedCrid={ '123456' }
+        />
+      </Provider>
+    );
+    const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
+    const leftSection = findRenderedDOMComponentWithClass(instance, 'left-section');
+    networkGraph.handleClickOutside({ target: findDOMNode(leftSection) });
+    updateSelectedEdgeStub.should.not.be.called();
+  });
+
+  it('should call updateSelectedCrid when clicking outside and there is selectedCrid', function () {
+    const updateSelectedCridStub = stub();
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <NetworkGraph updateSelectedCrid={ updateSelectedCridStub } selectedCrid={ '123456' } />
+      </Provider>
+    );
+    const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
+    const leftSection = findRenderedDOMComponentWithClass(instance, 'left-section');
+    networkGraph.handleClickOutside({ target: findDOMNode(leftSection) });
+    updateSelectedCridStub.should.be.calledWith(null);
+  });
+
+  it('should not call update selected officer, edge and cr when clicking on preview-pane', function () {
     const updateSelectedOfficerIdStub = stub();
+    const updateSelectedCridStub = stub();
+    const updateSelectedEdgeStub = stub();
     const networkPreviewPaneData = {
       type: NETWORK_PREVIEW_PANE.OFFICER,
       data: {
@@ -508,6 +545,8 @@ describe('NetworkGraph component', function () {
       <Provider store={ store }>
         <NetworkGraph
           updateSelectedOfficerId={ updateSelectedOfficerIdStub }
+          updateSelectedCrid={ updateSelectedCridStub }
+          updateSelectedEdge={ updateSelectedEdgeStub }
           selectedOfficerId={ 123 }
           networkPreviewPaneData={ networkPreviewPaneData }
         />
@@ -517,6 +556,8 @@ describe('NetworkGraph component', function () {
     const officerPane = findRenderedComponentWithType(instance, OfficerPane);
     networkGraph.handleClickOutside({ target: findDOMNode(officerPane) });
     updateSelectedOfficerIdStub.should.not.be.called();
+    updateSelectedCridStub.should.not.be.called();
+    updateSelectedEdgeStub.should.not.be.called();
   });
 
   it('should update sortedOfficerIds state when calling updateSortedOfficerIds', function () {

@@ -64,6 +64,8 @@ export const updateSocialGraphRefreshIntervalId = createAction(constants.UPDATE_
 
 export const updateSocialGraphSelectedEdge = createAction(constants.UPDATE_SOCIAL_GRAPH_SELECTED_EDGE);
 
+export const updateSocialGraphSelectedCrid = createAction(constants.UPDATE_SOCIAL_GRAPH_SELECTED_CRID);
+
 export const updateGeographicCrid = createAction(constants.UPDATE_GEOGRAPHIC_CRID);
 
 export const updateGeographicTrrId = createAction(constants.UPDATE_GEOGRAPHIC_TRR_ID);
