@@ -19,3 +19,6 @@ This is a tutorial on how to setup a new environment. Let's call it `beta`.
   
 ## 5. Post deploy
 - Check if all sites are working properly
+
+## 6. Github
+- `beta` branch must be protected from now on.
