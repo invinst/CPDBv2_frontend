@@ -1,4 +1,9 @@
-import { mapLegendSelector, mapMarkersSelector } from 'selectors/social-graph-page/geographic-data';
+import {
+  mapLegendSelector,
+  mapMarkersSelector,
+  geographicAllegationSelector,
+  geographicTRRSelector,
+} from 'selectors/social-graph-page/geographic-data';
 
 
 describe('GeographicData selectors', function () {
@@ -6,41 +11,43 @@ describe('GeographicData selectors', function () {
     it('should return correct legend info', function () {
       const state = {
         socialGraphPage: {
-          geographicData: [
-            {
-              category: 'Illegal Search',
-              kind: 'CR',
+          geographicData: {
+            mapData: [
+              {
+                category: 'Illegal Search',
+                kind: 'CR',
 
-              crid: '294619',
-              'coaccused_count': 9,
-            },
-            {
-              category: 'Illegal Search',
-              kind: 'CR',
+                crid: '294619',
+                'coaccused_count': 9,
+              },
+              {
+                category: 'Illegal Search',
+                kind: 'CR',
 
-              crid: '294620',
-              'coaccused_count': 10,
-            },
-            {
-              category: 'Illegal Search',
-              kind: 'CR',
+                crid: '294620',
+                'coaccused_count': 10,
+              },
+              {
+                category: 'Illegal Search',
+                kind: 'CR',
 
-              crid: '294621',
-              'coaccused_count': 11,
-            },
-            {
-              'trr_id': '123456',
-              kind: 'FORCE',
-              taser: false,
-              'firearm_used': true,
-            },
-            {
-              'trr_id': '654321',
-              kind: 'FORCE',
-              taser: true,
-              'firearm_used': false,
-            }
-          ]
+                crid: '294621',
+                'coaccused_count': 11,
+              },
+              {
+                'trr_id': '123456',
+                kind: 'FORCE',
+                taser: false,
+                'firearm_used': true,
+              },
+              {
+                'trr_id': '654321',
+                kind: 'FORCE',
+                taser: true,
+                'firearm_used': false,
+              }
+            ]
+          }
         }
       };
       mapLegendSelector(state).should.eql({
@@ -60,12 +67,7 @@ describe('GeographicData selectors', function () {
           lon: -87.73173299999999
         },
         crid: '1045343',
-        'coaccused_count': 6,
-        victims: [{
-          gender: 'Male',
-          race: 'White',
-          age: 35
-        }]
+        date: 'MAR 17, 2012',
       };
       const secondCr = {
         category: 'Illegal Search',
@@ -75,7 +77,7 @@ describe('GeographicData selectors', function () {
           lon: -87.67122688239999
         },
         crid: '294619',
-        'coaccused_count': 9,
+        date: 'MAR 20, 2013',
       };
       const trr = {
         'trr_id': '123456',
@@ -86,10 +88,13 @@ describe('GeographicData selectors', function () {
           lat: 35.3,
           lon: 50.5
         },
+        date: 'MAY 12, 2015',
       };
       const state = {
         socialGraphPage: {
-          geographicData: [firstCr, secondCr, trr]
+          geographicData: {
+            mapData: [firstCr, secondCr, trr]
+          }
         }
       };
       mapMarkersSelector(state).should.eql([{
@@ -100,12 +105,7 @@ describe('GeographicData selectors', function () {
         kind: 'CR',
         id: '1045343',
         category: 'Illegal Search',
-        victims: [{
-          gender: 'Male',
-          race: 'White',
-          age: 35
-        }],
-        coaccused: 6,
+        date: 'MAR 17, 2012',
       }, {
         category: 'Illegal Search',
         kind: 'CR',
@@ -114,8 +114,7 @@ describe('GeographicData selectors', function () {
           lon: -87.67122688239999
         },
         id: '294619',
-        coaccused: 9,
-        victims: undefined,
+        date: 'MAR 20, 2013',
       }, {
         point: {
           lat: 35.3,
@@ -124,7 +123,141 @@ describe('GeographicData selectors', function () {
         kind: 'FORCE',
         id: '123456',
         category: 'Firearm',
+        date: 'MAY 12, 2015',
       }]);
+    });
+  });
+
+  describe('geographicAllegationSelector', function () {
+    it('should return network officer correctly', function () {
+      const state = {
+        socialGraphPage: {
+          geographicData: {
+            previewPaneData: [
+              {
+                'date': '2006-10-24',
+                'crid': '123456',
+                'category': 'Operation/Personnel Violations',
+                'subcategory': 'Inadequate / Failure To Provide Service',
+                'coaccused': [
+                  {
+                    'id': 16567,
+                    'full_name': 'Baudilio Lopez',
+                    'percentile': {
+                      'id': 180838,
+                      'percentile_trr': '72.1094',
+                      'percentile_allegation_civilian': '98.5549',
+                      'percentile_allegation_internal': '61.1521'
+                    },
+                    'allegation_count': 93
+                  }
+                ],
+                'kind': 'CR',
+                'point': {
+                  'lon': -87.6450181,
+                  'lat': 41.7740541
+                },
+                'victims': [
+                  {
+                    'gender': 'Male',
+                    'race': 'Black'
+                  }
+                ],
+                'to': '/complaint/123456/',
+                'address': '66XX S HALSTED ST, CHICAGO IL'
+              },
+              {
+                'date': '2006-11-01',
+                'crid': '654321',
+                'category': 'Illegal Search',
+                'subcategory': 'Search Of Premise Without Warrant',
+                'coaccused': [],
+                'kind': 'CR',
+                'victims': [
+                  {
+                    'gender': 'Female',
+                    'race': 'Black'
+                  }
+                ],
+                'to': '/complaint/654321/',
+                'address': ''
+              },
+            ],
+            crid: '123456',
+          }
+        }
+      };
+      geographicAllegationSelector(state).should.eql({
+        category: 'Operation/Personnel Violations',
+        subCategory: 'Inadequate / Failure To Provide Service',
+        incidentDate: '2006-10-24',
+        address: '66XX S HALSTED ST, CHICAGO IL',
+        victims: ['Black, Male'],
+        coaccused: [{
+          id: 16567,
+          name: 'Baudilio Lopez',
+          url: '/officer/16567/baudilio-lopez/',
+          radarAxes: [
+            { axis: 'Use of Force Reports', value: 72.1094 },
+            { axis: 'Officer Allegations', value: 61.1521 },
+            { axis: 'Civilian Allegations', value: 98.5549 }
+          ],
+          radarColor: '#f0201e',
+          count: 93
+        }],
+        to: '/complaint/123456/'
+      });
+    });
+  });
+
+  describe('geographicTRRSelector', function () {
+    it('should return trr data correctly', function () {
+      const state = {
+        socialGraphPage: {
+          geographicData: {
+            previewPaneData: [
+              {
+                'date': '2006-10-24',
+                'trr_id': 123456,
+                'firearm_used': true,
+                'officer': {
+                  'id': 16567,
+                  'full_name': 'Baudilio Lopez',
+                  'percentile': {
+                    'id': 180838,
+                    'percentile_trr': '72.1094',
+                    'percentile_allegation_civilian': '98.5549',
+                    'percentile_allegation_internal': '61.1521'
+                  },
+                  'allegation_count': 93
+                },
+                'kind': 'FORCE',
+                'to': '/trr/123456/',
+                'address': '66XX S HALSTED ST, CHICAGO IL'
+              },
+            ],
+            trrId: '123456',
+          }
+        }
+      };
+      geographicTRRSelector(state).should.eql({
+        category: 'Firearm',
+        incidentDate: '2006-10-24',
+        address: '66XX S HALSTED ST, CHICAGO IL',
+        officer: {
+          id: 16567,
+          name: 'Baudilio Lopez',
+          url: '/officer/16567/baudilio-lopez/',
+          radarAxes: [
+            { axis: 'Use of Force Reports', value: 72.1094 },
+            { axis: 'Officer Allegations', value: 61.1521 },
+            { axis: 'Civilian Allegations', value: 98.5549 }
+          ],
+          radarColor: '#f0201e',
+          count: 93
+        },
+        to: '/trr/123456/'
+      });
     });
   });
 });
