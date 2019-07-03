@@ -35,6 +35,21 @@ export const fetchPinboardTRRs = () => ([
     'trr_datetime': '2012-01-01',
     'category': 'Impact Weapon',
     'point': { 'lon': 1.0, 'lat': 1.0 },
+    'firearm_used': true,
+    'date': '2017-02-03',
+    address: '14XX W 63RD ST, CHICAGO IL 60636',
+    officer: {
+      'id': 16567,
+      'full_name': 'Baudilio Lopez',
+      'percentile': {
+        'id': 180838,
+        'percentile_trr': '72.1094',
+        'percentile_allegation_civilian': '98.5549',
+        'percentile_allegation_internal': '61.1521'
+      },
+      'allegation_count': 93
+    },
+    to: '/trr/123456/'
   }
 ]);
 

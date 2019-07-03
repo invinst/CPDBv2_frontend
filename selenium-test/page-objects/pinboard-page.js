@@ -43,6 +43,7 @@ class PinnedTRRs extends Section {
     const firstCardSelector = `(${sectionSelector}/div[contains(@class, "type-cards")]/div)[1]`;
 
     this.prepareElementGetters({
+      firstElement: firstCardSelector,
       title: `${sectionSelector}/div[@class="type-title"]`,
       firstCardUnpinBtn: `${firstCardSelector}/span[starts-with(@class, "item-unpin-button")]`,
       firstCardDate: `${firstCardSelector}//span[@class="location-card-date"]`,
@@ -226,6 +227,10 @@ class PreviewPane extends Section {
 
     this.prepareElementGetters({
       mainElement: '//div[starts-with(@class, "preview-pane")]',
+      actionText: '.new-call-to-action-widget-text',
+      trrTitle: '.trr-preview-pane-title-title',
+      trrFirstInfo: '//div[@class="trr-preview-pane-info-row"][1]',
+      trrSecondInfo: '//div[@class="trr-preview-pane-info-row"][2]',
     });
   }
 }

@@ -13,7 +13,8 @@ import {
   SchoolGroundPane,
   RankPane,
   SearchTermItemPane,
-  CRPane
+  CRPane,
+  TRRPane,
 } from 'components/common/preview-pane';
 import styles from './preview-pane.sass';
 
@@ -27,7 +28,14 @@ export default class PreviewPane extends Component {
   renderPane() {
     const { data, type, yScrollable } = this.props;
     const officerPaneFunc = () => <OfficerPane { ...data } yScrollable={ yScrollable }/>;
-    const crPaneFunc = () => <CRPane { ...data } yScrollable={ yScrollable }/>;
+    const crPaneFunc = () => <CRPane { ...data } yScrollable={ yScrollable } />;
+    const trrPaneFunc = () => {
+      return (
+        <div className='trr-pane-wrapper'>
+          <TRRPane { ...data } yScrollable={ yScrollable } />
+        </div>
+      );
+    };
 
     const paneTypes = {
       'SEARCH-TERMS': () => <SearchTermItemPane { ...data } />,
@@ -44,6 +52,7 @@ export default class PreviewPane extends Component {
       CR: crPaneFunc,
       'DATE > CR': crPaneFunc,
       'INVESTIGATOR > CR': crPaneFunc,
+      TRR: trrPaneFunc,
     };
     return get(paneTypes, type, () => null)();
   }

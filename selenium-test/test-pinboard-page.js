@@ -13,7 +13,7 @@ function waitForGraphAnimationEnd(browser, pinboardPage) {
   }, 3000, 'expected timeline reaches end date after 1.65s');
 }
 
-describe('Pinboard Page', function () {
+describe.only('Pinboard Page', function () {
   it('should go to search page when the search bar is clicked', function () {
     pinboardPage.open();
     pinboardPage.searchBar.click();
@@ -51,6 +51,25 @@ describe('Pinboard Page', function () {
       trrs.title.getText().should.equal('TACTICAL RESPONSE REPORTS');
       trrs.firstCardDate.getText().should.equal('2012-01-01');
       trrs.firstCardCategory.getText().should.equal('Impact Weapon');
+    });
+
+    it('should show preview pane when click on TRR pinned item', function () {
+      pinboardPage.open();
+
+      pinboardPage.pinnedSection.trrs.firstElement.click();
+      pinboardPage.previewPane.mainElement.waitForVisible();
+      pinboardPage.previewPane.actionText.getText().should.equal('View Tactical Response Report');
+      pinboardPage.previewPane.trrTitle.getText().should.equal('Firearm');
+      pinboardPage.previewPane.trrFirstInfo.getText().should.equal('2017-02-03');
+      pinboardPage.previewPane.trrSecondInfo.getText().should.equal('14XX W 63RD ST, CHICAGO IL 60636');
+    });
+
+    it('should redirect to TRR page when click on TRR preview pane', function () {
+      pinboardPage.open();
+      pinboardPage.pinnedSection.trrs.firstElement.click();
+      pinboardPage.previewPane.mainElement.waitForVisible();
+      pinboardPage.previewPane.actionText.click();
+      browser.getUrl().should.containEql('/trr/123456/');
     });
   });
 

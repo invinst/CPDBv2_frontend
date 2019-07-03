@@ -121,8 +121,16 @@ const crTransform = (item) => {
 
 const trrTransform = (item) => {
   const dateText = item['trr_datetime'] ? ` - ${moment(item['trr_datetime']).format(FULL_MONTH_DATE_FORMAT)}` : '';
+  const officer = item['officer'];
+  const firearmUsed = item['firearm_used'];
+  const taser = item['taser'];
   return {
-    subText: `TRR # ${item.id}${dateText}`
+    subText: `TRR # ${item.id}${dateText}`,
+    to: item.to,
+    category: firearmUsed ? 'Firearm' : taser ? 'Taser' : 'Use of Force Report',
+    incidentDate: item.date,
+    address: item.address,
+    officer: officer ? accusedTransform(officer) : null,
   };
 };
 
