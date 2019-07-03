@@ -93,11 +93,19 @@ const accusedTransform = coaccused => {
   };
 };
 
+const getSubText = (highlight) => {
+  if (highlight) {
+    const summary = highlight.summary ? highlight.summary[0] : '';
+    const textContent = highlight['text_content'] ? highlight['text_content'][0] : '';
+    return summary || textContent || '';
+  }
+  return '';
+};
+
 const crTransform = (item) => {
-  const subText = (item.highlight && item.highlight.summary) ? item.highlight.summary[0] : '';
   const coaccused = map(item.coaccused, accusedTransform);
   return {
-    subText,
+    subText: getSubText(item.highlight),
     coaccused,
     victims: map(item.victims, getDemographicString),
     address: item.address,

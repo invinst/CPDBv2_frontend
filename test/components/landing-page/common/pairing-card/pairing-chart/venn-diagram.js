@@ -19,7 +19,6 @@ describe('VennDiagram component', function () {
   it('should render 2 circles with correct path colors and the intersection', function () {
     instance = renderIntoDocument(
       <Diagram
-        coaccusalCount={ 27 }
         background1={ 'red' }
         background2={ 'white' }
       />
@@ -39,6 +38,6 @@ describe('VennDiagram component', function () {
     // the intersection
     const intersection = instanceEl.querySelector('.venn-intersection path');
     should(intersection).not.be.null();
-    intersection.style.fill.should.eql('rgb(143, 143, 143)');
+    intersection.style.fill.should.eql('rgb(35, 31, 32)');
   });
 });
