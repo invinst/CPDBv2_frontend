@@ -428,9 +428,8 @@ describe('search page results selector', function () {
               {
                 id: '1001',
                 'force_type': null,
-                'trr_datetime': null,
+                'trr_datetime': '2004-04-23',
                 'firearm_used': true,
-                'date': '2017-02-03',
                 address: '14XX W 63RD ST, CHICAGO IL 60636',
                 officer: {
                   'id': 16567,
@@ -465,10 +464,10 @@ describe('search page results selector', function () {
             isPinned: true,
             text: 'Unknown',
             recentText: '1001',
-            subText: 'TRR # 1001',
+            subText: 'TRR # 1001 - April 23, 2004',
             category: 'Firearm',
             address: '14XX W 63RD ST, CHICAGO IL 60636',
-            incidentDate: '2017-02-03',
+            incidentDate: '2004-04-23',
             officer: {
               id: 16567,
               name: 'Baudilio Lopez',
@@ -502,7 +501,6 @@ describe('search page results selector', function () {
                 'force_type': 'Member Presence',
                 'trr_datetime': '2004-04-23',
                 'firearm_used': true,
-                'date': '2017-02-03',
                 address: '14XX W 63RD ST, CHICAGO IL 60636',
                 officer: {
                   'id': 16567,
@@ -540,7 +538,7 @@ describe('search page results selector', function () {
             subText: 'TRR # 1001 - April 23, 2004',
             category: 'Firearm',
             address: '14XX W 63RD ST, CHICAGO IL 60636',
-            incidentDate: '2017-02-03',
+            incidentDate: '2004-04-23',
             officer: {
               id: 16567,
               name: 'Baudilio Lopez',
@@ -574,7 +572,6 @@ describe('search page results selector', function () {
                 'force_type': null,
                 'trr_datetime': null,
                 'firearm_used': true,
-                'date': '2017-02-03',
                 address: '14XX W 63RD ST, CHICAGO IL 60636',
                 officer: {
                   'id': 16567,
@@ -612,7 +609,7 @@ describe('search page results selector', function () {
             subText: 'TRR # 1001',
             category: 'Firearm',
             address: '14XX W 63RD ST, CHICAGO IL 60636',
-            incidentDate: '2017-02-03',
+            incidentDate: null,
             officer: {
               id: 16567,
               name: 'Baudilio Lopez',
@@ -646,7 +643,6 @@ describe('search page results selector', function () {
                 'force_type': 'Member Presence',
                 'trr_datetime': '2004-04-23',
                 'firearm_used': true,
-                'date': '2017-02-03',
                 address: '14XX W 63RD ST, CHICAGO IL 60636',
                 officer: {
                   'id': 16567,
@@ -684,7 +680,7 @@ describe('search page results selector', function () {
             subText: 'TRR # 1001 - April 23, 2004',
             category: 'Firearm',
             address: '14XX W 63RD ST, CHICAGO IL 60636',
-            incidentDate: '2017-02-03',
+            incidentDate: '2004-04-23',
             officer: {
               id: 16567,
               name: 'Baudilio Lopez',

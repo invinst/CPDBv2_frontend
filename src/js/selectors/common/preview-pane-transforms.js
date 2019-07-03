@@ -128,7 +128,7 @@ const trrTransform = (item) => {
     subText: `TRR # ${item.id}${dateText}`,
     to: item.to,
     category: firearmUsed ? 'Firearm' : taser ? 'Taser' : 'Use of Force Report',
-    incidentDate: item.date,
+    incidentDate: item['trr_datetime'],
     address: item.address,
     officer: officer ? accusedTransform(officer) : null,
   };

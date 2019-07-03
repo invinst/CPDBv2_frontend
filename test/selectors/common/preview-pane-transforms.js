@@ -616,7 +616,6 @@ describe('search page transforms', function () {
         'id': '123456',
         'firearm_used': true,
         'trr_datetime': '2017-02-03',
-        'date': '2017-02-03',
         address: '14XX W 63RD ST, CHICAGO IL 60636',
         officer: {
           'id': 16567,
