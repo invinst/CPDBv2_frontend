@@ -1,30 +1,22 @@
 import React, { Component, PropTypes } from 'react';
-import { isNil, noop } from 'lodash';
+import { isNil, noop, isEmpty } from 'lodash';
 import MediaQuery from 'react-responsive';
 import cx from 'classnames';
 import { browserHistory } from 'react-router';
-import { isEmpty } from 'lodash';
 
 import {
   NewVisualTokenWidget as VisualTokenWidget,
   NewOfficerInfoWidget as OfficerInfoWidget,
   NewMetricWidget as MetricWidget,
+  PinButton,
 } from './widgets';
 import styles from './new-officer-pane.sass';
-
 
 export default class OfficerPane extends Component {
   constructor(props) {
     super(props);
 
-    this.handlePinButtonClick = this.handlePinButtonClick.bind(this);
     this.handleOnOfficerProfileClick = this.handleOnOfficerProfileClick.bind(this);
-  }
-
-  handlePinButtonClick() {
-    const { addOrRemoveItemInPinboard, type, id, isPinned } = this.props;
-
-    addOrRemoveItemInPinboard({ type, id, isPinned });
   }
 
   handleOnOfficerProfileClick() {
@@ -61,9 +53,11 @@ export default class OfficerPane extends Component {
       yScrollable,
       pinnable,
       maxHeight,
+      type,
+      id,
+      addOrRemoveItemInPinboard,
     } = this.props;
 
-    const pinButtonText = isPinned ? 'Remove from pinboard' : 'Add to pinboard';
     const formatValue = (value) => isNil(value) ? 'N/A' : value;
     const metrics = [
       {
@@ -101,9 +95,11 @@ export default class OfficerPane extends Component {
         <div className={ styles.officerPane }>
           {
             pinnable &&
-            <button className={ cx('pin-button', { 'is-pinned': isPinned }) } onClick={ this.handlePinButtonClick }>
-              { pinButtonText }
-            </button>
+            <PinButton
+              item={ { type, id, isPinned } }
+              className={ cx('pin-button', { 'is-pinned': isPinned }) }
+              addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
+            />
           }
           <button className='view-officer-profile-button' onClick={ this.handleOnOfficerProfileClick }>
             View Officer Profile

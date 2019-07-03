@@ -1,44 +1,29 @@
 import React, { Component, PropTypes } from 'react';
 import cx from 'classnames';
 
+import withPinnable from 'components/common/with-pinnable';
 import styles from './item-pin-button.sass';
 
 
-export default class ItemPinButton extends Component {
-  handlePinboardButtonClick(e) {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const { addOrRemoveItemInPinboard, suggestion } = this.props;
-    const { type, id, isPinned } = suggestion;
-
-    addOrRemoveItemInPinboard({
-      type: type,
-      id: id,
-      isPinned: isPinned,
-    });
-  }
-
+class ItemPinButton extends Component {
   render() {
     const { className } = this.props;
-    const { isPinned } = this.props.suggestion;
+    const { isPinned } = this.props.item;
 
     return (
-      <span
-        onClick={ this.handlePinboardButtonClick.bind(this) }
-        className={ cx(styles.wrapper, { 'is-pinned': isPinned }, className) }
-      />
+      <span className={ cx(styles.wrapper, { 'is-pinned': isPinned }, className) } />
     );
   }
 }
 
 ItemPinButton.propTypes = {
-  suggestion: PropTypes.shape({
+  item: PropTypes.shape({
     type: PropTypes.string,
     id: PropTypes.string,
     isPinned: PropTypes.bool,
   }),
-  onClick: PropTypes.func,
   addOrRemoveItemInPinboard: PropTypes.func,
   className: PropTypes.string,
 };
+
+export default withPinnable(ItemPinButton);

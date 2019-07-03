@@ -4,6 +4,7 @@ import {
   renderIntoDocument,
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
+  scryRenderedDOMComponentsWithClass,
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 import { stub } from 'sinon';
@@ -190,6 +191,21 @@ describe('NewOfficerPane component', () => {
     );
 
     findRenderedDOMComponentWithClass(instance, 'pin-button').should.be.ok();
+    findRenderedDOMComponentWithClass(instance, 'view-officer-profile-button').should.be.ok();
+  });
+
+  it('should not render pin button if not pinnable', function () {
+    instance = renderIntoDocument(
+      <OfficerPane
+        { ...officer }
+        complaintPercentile={ null }
+        honorableMentionPercentile={ null }
+        trrPercentile={ null }
+        pinnable={ false }
+      />
+    );
+
+    scryRenderedDOMComponentsWithClass(instance, 'pin-button').should.have.length(0);
     findRenderedDOMComponentWithClass(instance, 'view-officer-profile-button').should.be.ok();
   });
 
