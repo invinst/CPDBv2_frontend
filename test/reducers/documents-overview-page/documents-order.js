@@ -7,6 +7,18 @@ describe('DocumentsOverviewPage documentsOrder reducer', function () {
     documentsOrder(undefined, {}).should.deepEqual({ data: [], match: '' });
   });
 
+  it('should handle @@router/LOCATION_CHANGE', function () {
+    documentsOrder(
+      {
+        data: [1],
+        match: 'term',
+      },
+      {
+        type: '@@router/LOCATION_CHANGE'
+      }
+    ).should.deepEqual({ data: [], match: '' });
+  });
+
   it('should handle DOCUMENT_OVERVIEW_REQUEST_SUCCESS', function () {
     documentsOrder(
       {

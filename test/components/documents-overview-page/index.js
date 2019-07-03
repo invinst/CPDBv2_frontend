@@ -71,17 +71,22 @@ describe('DocumentsOverviewPage component', function () {
       }
     ];
     const fetchDocuments = spy();
+    const fetchDocumentsAuthenticated = spy();
 
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <DocumentsOverviewPage documents={ documents } fetchDocuments={ fetchDocuments }/>
+        <DocumentsOverviewPage
+          documents={ documents }
+          fetchDocuments={ fetchDocuments }
+          fetchDocumentsAuthenticated={ fetchDocumentsAuthenticated }/>
       </Provider>
     );
 
     let documentsTable = findRenderedComponentWithType(instance, DocumentsTable);
     documentsTable.props.should.containEql({
       rows: documents,
-      fetchDocuments: fetchDocuments
+      fetchDocuments: fetchDocuments,
+      fetchDocumentsAuthenticated: fetchDocumentsAuthenticated,
     });
   });
 

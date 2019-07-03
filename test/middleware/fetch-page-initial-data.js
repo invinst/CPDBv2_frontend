@@ -340,6 +340,30 @@ describe('fetchPageInitialData middleware', function () {
     fetchDocuments.restore();
   });
 
+  it('should dispatch fetchDocumentsAuthenticated when signing in successfully', function () {
+    const store = buildStore();
+    _.set(store._state, 'pathname', '/documents/');
+    const action = createSignInRequestSuccessAction();
+    let dispatched;
+    const fetchDocumentsAuthenticated = stub(docOverviewPageActions, 'fetchDocumentsAuthenticated');
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(fetchDocumentsAuthenticated()).should.be.true();
+    fetchDocumentsAuthenticated.restore();
+  });
+
+  it('should dispatch fetchDocumentsAuthenticated when accessing with edit mode', function () {
+    const action = createLocationChangeAction('/edit/documents/');
+    let dispatched;
+    const fetchDocumentsAuthenticated = stub(docOverviewPageActions, 'fetchDocumentsAuthenticated');
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(fetchDocumentsAuthenticated()).should.be.true();
+    fetchDocumentsAuthenticated.restore();
+  });
+
   it('should dispatch requestCrawlers', function () {
     const action = createLocationChangeAction('/crawlers/');
     let dispatched;
