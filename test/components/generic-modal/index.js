@@ -16,6 +16,7 @@ import LegalDisclaimerModalContent from 'components/generic-modal/legal-disclaim
 import GenericModal from 'components/generic-modal';
 import RequestDocumentModalContent from 'containers/cr-page/request-document-modal-container';
 import RequestTRRDocumentModalContent from 'containers/trr-page/request-document-modal-container';
+import LogFileModalContent from 'containers/crawlers-page/log-file-modal-container';
 import { CR_EDIT_TYPES } from 'utils/constants';
 
 
@@ -80,6 +81,33 @@ describe('GenericModal component', function () {
     );
 
     findRenderedComponentWithType(element, RequestDocumentModalContent).props.closeModal.should.equal(closeModal);
+  });
+
+  it('should render Log File when activeModal matches', function () {
+    const store = MockStore()({
+      cms: { pages: {} },
+      breadcrumb: {
+        breadcrumbs: []
+      },
+      crawlersPage: {
+        crawlers: [{
+          'log_url': 'https://lvh.me/log',
+          'crawler_name': 'COPA_CRAWLER',
+        }],
+      }
+    });
+    const closeModal = () => {};
+
+    element = renderIntoDocument(
+      <Provider store={ store }>
+        <GenericModal
+          activeModal='LOG_FILE'
+          closeModal={ closeModal }
+        />
+      </Provider>
+    );
+
+    findRenderedComponentWithType(element, LogFileModalContent).props.closeModal.should.equal(closeModal);
   });
 
   it('should render RequestDocumentModalContent for NEW_DOCUMENT_NOTIFICATIONS when activeModal matches', function () {

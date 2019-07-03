@@ -51,7 +51,7 @@ describe('TabbedPaneSection component', function () {
     tabNames[0].textContent.should.be.eql('TIMELINE');
     tabNames[1].textContent.should.be.eql('MAP');
     tabNames[2].textContent.should.be.eql('COACCUSALS');
-    tabNames[3].textContent.should.be.eql('ATTACHMENTS');
+    tabNames[3].textContent.should.be.eql('DOCUMENTS');
   });
 
   it('should hide the tabs with no data', function () {

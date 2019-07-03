@@ -1,12 +1,8 @@
 'use strict';
 
-import crPage from './page-objects/cr-page';
-
-
 require('should');
 
 import crawlersPage from './page-objects/crawlers-page';
-import { switchToRecentTab } from './utils';
 
 
 describe('Crawlers Page', function () {
@@ -30,13 +26,12 @@ describe('Crawlers Page', function () {
     crawlersPage.tableSection.breadcrumbsItem.getText().should.equal('Crawler Tracker');
   });
 
-  it('should go to new download window when click on crawler row', function () {
+  it('should open log file modal when click on crawler row and close it when click on close button', function () {
     crawlersPage.tableSection.firstCrawlerRow.click();
-
-    switchToRecentTab();
-    browser.getUrl().should.equal(
-      'https://lvh.me/cpdp-crawler-logs-develop/summary_reports_copa-2019-02-27-100330.txt'
-    );
+    crawlersPage.tableSection.logFileModal.waitForVisible();
+    crawlersPage.tableSection.logFileModalTitle.getText().should.equal('SUMMARY_REPORTS_COPA - 2019-02-20');
+    crawlersPage.tableSection.logFileCloseButton.click();
+    crawlersPage.tableSection.logFileModal.waitForVisible(1000, true);
   });
 
   it('should go to document page when click on Documents button', function () {
@@ -44,7 +39,7 @@ describe('Crawlers Page', function () {
     browser.getUrl().should.containEql('/documents/');
   });
 
-  it('should able to scroll', function () {
+  it('should able to scroll and should not open log file model when click on no log url crawler row', function () {
     crawlersPage.tableSection.rowCount().should.equal(20);
 
     browser.scroll(0, 99999);
@@ -56,5 +51,8 @@ describe('Crawlers Page', function () {
     crawlersPage.tableSection.lastNumNewDocuments.getText().should.equal('0');
     crawlersPage.tableSection.lastNumDocuments.getText().should.equal('1235');
     crawlersPage.tableSection.lastSuccessfulRuns.getText().should.equal('1');
+
+    crawlersPage.tableSection.lastCrawlerRow.click();
+    crawlersPage.tableSection.logFileModal.waitForVisible(1000, true);
   });
 });

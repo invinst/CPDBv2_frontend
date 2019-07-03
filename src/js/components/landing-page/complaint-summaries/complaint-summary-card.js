@@ -6,10 +6,11 @@ import _ from 'lodash';
 
 import styles from './complaint-summary-card.sass';
 
+
 export default class ComplaintSummaryCard extends React.Component {
   render() {
-    const { summary, incidentDate, categoryNames, crid } = this.props;
 
+    const { summary, incidentDate, categoryNames, crid } = this.props;
     const categories = _.join(categoryNames, ', ');
 
     return (
@@ -24,7 +25,8 @@ export default class ComplaintSummaryCard extends React.Component {
           <div className='complaint-summary-card-title-category'>{ categories }</div>
         </div>
         <div className='complaint-summary-card-summary'>
-          { _.truncate(summary, { 'length': 280, 'separator': ' ' }) }
+          { summary }
+          <div className='complaint-summary-card-summary-gradient'/>
         </div>
       </Link>
     );

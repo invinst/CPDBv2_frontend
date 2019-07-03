@@ -4,7 +4,14 @@ import { throttle } from 'lodash';
 
 import style from './download-menu-item.sass';
 import { imgUrl } from 'utils/static-assets';
+import { OFFICER_DOWNLOAD_KINDS, OFFICER_DOWNLOAD_TRACKING_ACTIONS } from 'utils/constants';
+import * as GATracking from 'utils/google_analytics_tracking';
 
+
+const textMap = {
+  [OFFICER_DOWNLOAD_KINDS.WITH_DOCS]: 'Data + docs',
+  [OFFICER_DOWNLOAD_KINDS.WITHOUT_DOCS]: 'Data only'
+};
 
 export default class DownloadMenuItem extends React.Component {
   constructor(props) {
@@ -22,23 +29,29 @@ export default class DownloadMenuItem extends React.Component {
   }
 
   triggerDownload(zipFileUrl) {
+    const { officerId, kind } = this.props;
+    GATracking.trackOfficerDownload(officerId, OFFICER_DOWNLOAD_TRACKING_ACTIONS.DOWNLOAD, kind);
     download(zipFileUrl);
     this.setState({ requested: false });
   }
 
   clickHandler() {
-    const { fetchOfficerZipFileUrl, officerId, zipFileUrl } = this.props;
+    const { fetchOfficerZipFileUrl, officerId, zipFileUrl, kind } = this.props;
     this.setState({ requested: true });
     if (zipFileUrl)
       this.triggerDownload(zipFileUrl);
-    else
+    else {
+      GATracking.trackOfficerDownload(officerId, OFFICER_DOWNLOAD_TRACKING_ACTIONS.REQUEST_DOWNLOAD_URLS, kind);
       fetchOfficerZipFileUrl(officerId);
+    }
   }
 
   render() {
+    const { kind } = this.props;
+
     return (
       <div className={ style.downloadMenuItem } onClick={ this.clickHandler }>
-        <div className='request-download'>{ this.props.text }</div>
+        <div className='request-download'>{ textMap[kind] }</div>
         {
           this.state.requested ? (
             <img className='download-menu-item-img' src={ imgUrl('loading.svg') } alt='downloading' />
@@ -53,10 +66,7 @@ export default class DownloadMenuItem extends React.Component {
 
 DownloadMenuItem.propTypes = {
   fetchOfficerZipFileUrl: PropTypes.func,
-  text: PropTypes.string,
+  kind: PropTypes.string,
   zipFileUrl: PropTypes.string,
   officerId: PropTypes.number,
-};
-
-DownloadMenuItem.defaultProps = {
 };

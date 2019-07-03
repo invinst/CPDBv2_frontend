@@ -234,7 +234,11 @@ describe('store', function () {
       },
       crawlersPage: {
         crawlers: [],
+        currentCrawlerId: null,
         pagination: {}
+      },
+      socialGraphPage: {
+        graphData: {}
       }
     });
   });

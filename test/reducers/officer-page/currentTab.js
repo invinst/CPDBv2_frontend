@@ -11,14 +11,14 @@ describe('currentTab reducer', function () {
   it('should handle CHANGE_OFFICER_TAB', function () {
     currentTab(undefined, {
       type: CHANGE_OFFICER_TAB,
-      payload: 'ATTACHMENTS'
-    }).should.eql('ATTACHMENTS');
+      payload: 'DOCUMENTS'
+    }).should.eql('DOCUMENTS');
   });
 
   it('should handle CHANGE_OFFICER_ID', function () {
     currentTab(undefined, {
       type: CHANGE_OFFICER_ID,
-      payload: 'ATTACHMENTS'
+      payload: 'DOCUMENTS'
     }).should.eql('TIMELINE');
   });
 });

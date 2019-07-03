@@ -38,6 +38,7 @@ export const EMBED_TOP_OFFICERS_PATH = 'embed/top-officers-page';
 export const EMBED_OFFICERS_PATH = 'embed/officers';
 export const TRACKER_ALL_DOCUMENTS_PATH = 'documents/crid/:crid';
 export const TRACKER_DOCUMENTS_OVERVIEW_PATH = 'documents/';
+export const SOCIAL_GRAPH_PATH = 'social-graph/';
 
 export const ROOT_EDIT_REGEX = /^\/(?:edit\/)?$/;
 
@@ -89,6 +90,7 @@ export const TRR_URL = `${V2_ROOT_PATH}trr/`;
 export const POPUP_API_URL = `${V2_ROOT_PATH}popup/`;
 export const DOCUMENTS_URL = `${V2_ROOT_PATH}attachments/`;
 export const CRAWLERS_API_URL = `${V2_ROOT_PATH}document-crawlers/`;
+export const SOCIAL_GRAPH_API_URL = `${V2_ROOT_PATH}social-graph/`;
 
 export const OFFICER_SUMMARY_REQUEST_START = 'OFFICER_SUMMARY_REQUEST_START';
 export const OFFICER_SUMMARY_REQUEST_SUCCESS = 'OFFICER_SUMMARY_REQUEST_SUCCESS';
@@ -131,6 +133,10 @@ export const EMBED_OFFICERS_REQUEST_FAILURE = 'EMBED_OFFICERS_REQUEST_FAILURE';
 export const TRACKING_CLICK_ATTACHMENT_START = 'TRACKING_CLICK_ATTACHMENT_START';
 export const TRACKING_CLICK_ATTACHMENT_SUCCESS = 'TRACKING_CLICK_ATTACHMENT_SUCCESS';
 export const TRACKING_CLICK_ATTACHMENT_FAILURE = 'TRACKING_CLICK_ATTACHMENT_FAILURE';
+
+export const SOCIAL_GRAPH_REQUEST_START = 'SOCIAL_GRAPH_REQUEST_START';
+export const SOCIAL_GRAPH_REQUEST_SUCCESS = 'SOCIAL_GRAPH_REQUEST_SUCCESS';
+export const SOCIAL_GRAPH_REQUEST_FAILURE = 'SOCIAL_GRAPH_REQUEST_FAILURE';
 
 
 
@@ -496,7 +502,7 @@ export const OFFICER_PAGE_TAB_NAMES = {
   TIMELINE: 'TIMELINE',
   MAP: 'MAP',
   COACCUSALS: 'COACCUSALS',
-  ATTACHMENTS: 'ATTACHMENTS',
+  ATTACHMENTS: 'DOCUMENTS',
 };
 
 export const OFFICER_PAGE_TAB_ROUTE = {
@@ -565,4 +571,14 @@ export const SHAREABLE_HEADER_BUTTON_TYPE = {
   NONE: 'none',
   MENU: 'menu',
   LINK: 'link',
+};
+
+export const OFFICER_DOWNLOAD_KINDS = {
+  WITHOUT_DOCS: 'without_docs',
+  WITH_DOCS: 'with_docs'
+};
+
+export const OFFICER_DOWNLOAD_TRACKING_ACTIONS = {
+  DOWNLOAD: 'download',
+  REQUEST_DOWNLOAD_URLS: 'request_download_urls'
 };

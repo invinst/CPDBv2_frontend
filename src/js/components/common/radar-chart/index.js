@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import RadarChart from './radar-chart';
 import { hasEnoughRadarChartData } from 'utils/radar-chart';
-import { boulderColor, clayGray, greyishColor, softBlackColor, sugarCaneColor } from 'utils/styles';
+import { clayGray, greyishColor, softBlackColor, sugarCaneColor } from 'utils/styles';
 
 
 const PRINT_RADAR_CHART_STYLES = {
@@ -29,9 +29,11 @@ export default class StaticRadarChart extends Component {
           width={ width }
           height={ height }
           radius={ radius }
-          backgroundColor={ boulderColor }
+          backgroundColor={ greyishColor }
           showGrid={ true }
+          outerGridOnly={ true }
           gridColor={ clayGray }
+          strokeWidth={ 0.6 }
           boundaryAreaColor={ greyishColor }
           { ...radarChartPrintStyle }
         />
