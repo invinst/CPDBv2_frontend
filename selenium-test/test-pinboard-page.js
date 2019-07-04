@@ -1,9 +1,10 @@
 'use strict';
 
 require('should');
-import { map, countBy, filter, times } from 'lodash';
+import { map, countBy, filter } from 'lodash';
 
 import pinboardPage from './page-objects/pinboard-page';
+import { switchToRecentTab } from './utils';
 
 
 function waitForGraphAnimationEnd(browser, pinboardPage) {
@@ -29,7 +30,7 @@ describe('Pinboard Page', function () {
   it('should go to Q&A url when clicking on Q&A link', function () {
     pinboardPage.open();
     pinboardPage.headerQALink.click();
-    browser.getUrl().should.equal('http://how.cpdp.works/');
+    browser.getUrl().should.containEql('http://how.cpdp.works/');
   });
 
   context('pinboard pinned section', function () {
@@ -142,9 +143,9 @@ describe('Pinboard Page', function () {
       const expectedGraphLabelTexts = [
         'Donnell Calhoun',
         'Eugene Offett',
+        'Hardy White',
         'Johnny Cavers',
         'Melvin Ector',
-        'Thomas Kampenga'
       ];
 
       graphLabelTexts.sort().should.eql(expectedGraphLabelTexts);
@@ -298,25 +299,22 @@ describe('Pinboard Page', function () {
       pinboardPage.relevantCoaccusalsSection.leftArrow.click();
       pinboardPage.relevantCoaccusalsSection.leftArrow.waitForExist(1000, true);
 
-      times(5, () => pinboardPage.relevantCoaccusalsSection.rightArrow.click());
-      pinboardPage.relevantCoaccusalsSection.rightArrow.waitForExist(1000);
-      pinboardPage.relevantCoaccusalsSection.coaccusalCards().should.have.length(40);
+      let cardsCount = [];
+      while (pinboardPage.relevantCoaccusalsSection.rightArrow.isExisting()) {
+        pinboardPage.relevantCoaccusalsSection.rightArrow.click();
 
-      times(4, () => pinboardPage.relevantCoaccusalsSection.rightArrow.click());
-      pinboardPage.relevantCoaccusalsSection.coaccusalCards().should.have.length(50);
-      pinboardPage.relevantCoaccusalsSection.rightArrow.waitForExist(1000, true);
+        let count = pinboardPage.relevantCoaccusalsSection.coaccusalCards().length;
+        if (cardsCount.length === 0 || cardsCount[cardsCount.length - 1] !== count) {
+          cardsCount.push(count);
+        }
+      }
+
+      cardsCount.should.be.deepEqual([20, 40, 50]);
     });
 
-    it('should go to officer page when clicking on officer name section', function () {
-      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.nameWrapper.click();
-      browser.pause(500);
-      browser.getUrl().should.match(/\/officer\/123\/richard-sullivan\/$/);
-    });
-
-    it('should go to officer page when clicking on coaccusal cont section', function () {
-      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.coaccusalCount.click();
-      browser.pause(500);
-      browser.getUrl().should.match(/\/officer\/123\/richard-sullivan\/$/);
+    it('should display preview pane when click on relevant coaccusal card', function () {
+      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.mainElement.click();
+      pinboardPage.previewPane.mainElement.waitForVisible();
     });
 
     it('should remove officer from the row and add to the pinned officers section', function () {
@@ -324,6 +322,7 @@ describe('Pinboard Page', function () {
       pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.mainElement.getAttribute(
         'href'
       ).should.match(/\/officer\/123\/richard-sullivan\/$/);
+      pinboardPage.relevantCoaccusalsSection.coaccusalCards().should.have.length(20);
 
       pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.plusButton.click();
       browser.pause(1050);
@@ -369,17 +368,42 @@ describe('Pinboard Page', function () {
       pinboardPage.relevantDocumentsSection.leftArrow.click();
       pinboardPage.relevantDocumentsSection.leftArrow.waitForExist(1000, true);
 
-      times(12, () => pinboardPage.relevantDocumentsSection.rightArrow.click());
-      pinboardPage.relevantDocumentsSection.rightArrow.waitForExist(1000);
-      pinboardPage.relevantDocumentsSection.documentCards().should.have.length(40);
+      let cardsCount = [];
+      while (pinboardPage.relevantDocumentsSection.rightArrow.isExisting()) {
+        pinboardPage.relevantDocumentsSection.rightArrow.click();
 
-      times(12, () => pinboardPage.relevantDocumentsSection.rightArrow.click());
-      pinboardPage.relevantDocumentsSection.documentCards().should.have.length(50);
-      pinboardPage.relevantDocumentsSection.rightArrow.waitForExist(1000, true);
+        let count = pinboardPage.relevantDocumentsSection.documentCards().length;
+        if (cardsCount.length === 0 || cardsCount[cardsCount.length - 1] !== count) {
+          cardsCount.push(count);
+        }
+      }
+
+      cardsCount.should.be.deepEqual([20, 40, 50]);
+    });
+
+    it('should not show preview pane when we click on the right half of document card', function () {
+      const firstDocumentCard = pinboardPage.relevantDocumentsSection.documentCardSection;
+      firstDocumentCard.rightHalf.click();
+
+      pinboardPage.previewPane.mainElement.waitForVisible(1000, true);
+    });
+
+    it('should redirect to document page when click on the left half of document card', function () {
+      const firstDocumentCard = pinboardPage.relevantDocumentsSection.documentCardSection;
+      firstDocumentCard.leftHalf.click();
+
+      pinboardPage.previewPane.mainElement.waitForVisible(1000, true);
+      switchToRecentTab();
+      browser.getUrl().should.equal(
+        'https://assets.documentcloud.org/documents/5680384/CRID-1083633-CR-CRID-1083633-CR-Tactical.pdf'
+      );
+      browser.close();
     });
 
     it('should add cr to the pinned crs section', function () {
       pinboardPage.pinnedSection.crs.crCards().should.have.length(1);
+      pinboardPage.relevantDocumentsSection.documentCards().should.have.length(20);
+
       pinboardPage.relevantDocumentsSection.documentCardSection.plusButton.click();
       browser.pause(1500);
 
@@ -421,37 +445,41 @@ describe('Pinboard Page', function () {
       pinboardPage.relevantComplaintsSection.leftArrow.click();
       pinboardPage.relevantComplaintsSection.leftArrow.waitForExist(1000, true);
 
-      times(12, () => pinboardPage.relevantComplaintsSection.rightArrow.click());
-      pinboardPage.relevantComplaintsSection.rightArrow.waitForExist(1000);
-      pinboardPage.relevantComplaintsSection.complaintCards().should.have.length(40);
+      let cardsCount = [];
+      while (pinboardPage.relevantComplaintsSection.rightArrow.isExisting()) {
+        pinboardPage.relevantComplaintsSection.rightArrow.click();
 
-      times(12, () => pinboardPage.relevantComplaintsSection.rightArrow.click());
-      pinboardPage.relevantComplaintsSection.complaintCards().should.have.length(50);
-      pinboardPage.relevantComplaintsSection.rightArrow.waitForExist(1000, true);
+        let count = pinboardPage.relevantComplaintsSection.complaintCards().length;
+        if (cardsCount.length === 0 || cardsCount[cardsCount.length - 1] !== count) {
+          cardsCount.push(count);
+        }
+      }
+
+      cardsCount.should.be.deepEqual([20, 40, 50]);
     });
 
-    it('should go to complaint page when clicking on incident date', function () {
+    it('should display preview pane when we click on incident date', function () {
       pinboardPage.relevantComplaintsSection.complaintCardSection.incidentDate.click();
-      browser.pause(500);
-      browser.getUrl().should.match(/\/complaint\/1071234\/$/);
+
+      pinboardPage.previewPane.mainElement.waitForVisible();
     });
 
-    it('should go to complaint page when clicking on top officers', function () {
+    it('should display preview pane when we click on top officers', function () {
       pinboardPage.relevantComplaintsSection.complaintCardSection.topOfficers.click();
-      browser.pause(500);
-      browser.getUrl().should.match(/\/complaint\/1071234\/$/);
+
+      pinboardPage.previewPane.mainElement.waitForVisible();
     });
 
-    it('should go to complaint page when clicking on remaining officers', function () {
+    it('should display preview pane when we click on remaining officers', function () {
       pinboardPage.relevantComplaintsSection.complaintCardSection.remainingOfficers.click();
-      browser.pause(500);
-      browser.getUrl().should.match(/\/complaint\/1071234\/$/);
+
+      pinboardPage.previewPane.mainElement.waitForVisible();
     });
 
-    it('should go to complaint page when clicking on left half of a complaint card', function () {
+    it('should display preview pane when we click on left half of a complaint card', function () {
       pinboardPage.relevantComplaintsSection.complaintCardSection.leftHalf.click();
-      browser.pause(500);
-      browser.getUrl().should.match(/\/complaint\/1071234\/$/);
+
+      pinboardPage.previewPane.mainElement.waitForVisible();
     });
 
     it('should remove cr from the row and add to the pinned crs section', function () {

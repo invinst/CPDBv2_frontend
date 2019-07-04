@@ -80,7 +80,7 @@ export default class PinnedType extends Component {
   }
 
   renderGrid() {
-    const { type, items } = this.props;
+    const { type, items, focusItem } = this.props;
     const Card = CARD_MAP[type];
     this.itemElements = {};
 
@@ -99,6 +99,7 @@ export default class PinnedType extends Component {
                   item={ item }
                   removeItemInPinboardPage={ this.removeItemInPinboardPage }
                   isAdded={ get(this.addedItem, 'id') === get(item, 'id') }
+                  focusItem={ focusItem }
                 />
               </div>
             </div>
@@ -138,6 +139,7 @@ PinnedType.propTypes = {
   removeItemInPinboardPage: PropTypes.func,
   orderPinboard: PropTypes.func,
   requesting: PropTypes.bool,
+  focusItem: PropTypes.func,
 };
 
 PinnedType.defaultProps = {

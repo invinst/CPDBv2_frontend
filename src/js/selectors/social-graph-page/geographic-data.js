@@ -1,11 +1,18 @@
-import { get, filter, compact } from 'lodash';
+import { get, filter, find, isEmpty, compact } from 'lodash';
 import { createSelector } from 'reselect';
 
-import { crMapMarkersTransform, trrMapMarkerTransform } from 'selectors/common/geographic';
+import {
+  crMapMarkersTransform,
+  trrMapMarkerTransform,
+} from 'selectors/common/geographic';
+import {
+  geographicAllegationTransform,
+  geographicTRRTransform,
+} from 'selectors/common/geographic-preview-pane';
 import { MAP_ITEMS } from 'utils/constants';
 
 
-const getGeographicData = state => get(state, 'socialGraphPage.geographicData', []);
+const getGeographicData = state => get(state, 'socialGraphPage.geographicData.mapData', []);
 
 export const mapLegendSelector = createSelector(
   getGeographicData,
@@ -26,4 +33,32 @@ export const mapMarkersSelector = createSelector(
       }
     })
   )
+);
+
+const previewPaneData = state => get(state, 'socialGraphPage.geographicData.previewPaneData', []);
+
+const getGeographicAllegation = state => {
+  const crid = state.socialGraphPage.geographicData.crid;
+  if (crid) {
+    const allegations = filter(previewPaneData(state), previewPaneDatum => previewPaneDatum['kind'] === 'CR');
+    return find(allegations, allegation => allegation.crid === crid);
+  }
+};
+
+const getGeographicTRR = state => {
+  const trrId = state.socialGraphPage.geographicData.trrId;
+  if (trrId) {
+    const trrs = filter(previewPaneData(state), previewPaneDatum => previewPaneDatum['kind'] === 'FORCE');
+    return find(trrs, trr => trr['trr_id'] === parseInt(trrId));
+  }
+};
+
+export const geographicAllegationSelector = createSelector(
+  getGeographicAllegation,
+  allegation => !isEmpty(allegation) ? geographicAllegationTransform(allegation) : undefined
+);
+
+export const geographicTRRSelector = createSelector(
+  getGeographicTRR,
+  trr => !isEmpty(trr) ? geographicTRRTransform(trr) : undefined
 );

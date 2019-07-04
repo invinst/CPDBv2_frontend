@@ -1,5 +1,5 @@
 import {
-  SUGGESTION_REQUEST_START, SUGGESTION_REQUEST_SUCCESS, SUGGESTION_REQUEST_FAILURE
+  SUGGESTION_REQUEST_START, SUGGESTION_REQUEST_SUCCESS, SUGGESTION_REQUEST_FAILURE, SUGGESTION_REQUEST_CANCELLED
 } from 'utils/constants';
 import isRequesting from 'reducers/search-page/is-requesting';
 
@@ -21,19 +21,17 @@ describe('searchPage.isRequesting reducer', function () {
     }).should.be.false();
   });
 
-  it('should handle SUGGESTION_REQUEST_FAILURE with cancel message', function () {
-    isRequesting(undefined, {
-      type: SUGGESTION_REQUEST_FAILURE,
-      payload: {
-        message: 'Cancelled by user'
-      }
-    }).should.be.true();
-  });
-
-  it('should handle SUGGESTION_REQUEST_FAILURE without cancel message', function () {
+  it('should handle SUGGESTION_REQUEST_FAILURE', function () {
     isRequesting(undefined, {
       type: SUGGESTION_REQUEST_FAILURE,
       payload: {}
     }).should.be.false();
+  });
+
+  it('should handle SUGGESTION_REQUEST_CANCELLED', function () {
+    isRequesting(undefined, {
+      type: SUGGESTION_REQUEST_CANCELLED,
+      payload: {}
+    }).should.be.true();
   });
 });

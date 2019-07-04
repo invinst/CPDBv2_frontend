@@ -86,17 +86,17 @@ describe('Timeline component', function () {
         timelineIdxTriggerChange={ 0 }
       />
     );
-    const scrollControllerScrollToSpy = spy(instance.scrollController, 'scrollTo');
+    const scrollControllerScrollToStub = stub(instance.scrollController, 'scrollTo');
     reRender(
       <Timeline
         items={ items }
         pathname='/social-graph/'
-        timelineIdx={ 2 }
+        timelineIdx={ 0 }
         timelineIdxTriggerChange={ 1 }
       />,
       instance
     );
-    scrollControllerScrollToSpy.should.be.calledWith('#trigger-2');
+    scrollControllerScrollToStub.should.be.calledWith('#trigger-0');
   });
 
   it('should destroy scrollController when componentWillUnmount', function () {
@@ -165,9 +165,10 @@ describe('Timeline component', function () {
         timelineIdxTriggerChange={ 0 }
       />
     );
-    const handleScrollSpy = spy(instance, 'handleScroll');
+    const handleScrollStub = stub(instance, 'handleScroll');
     setTimeout(() => {
-      handleScrollSpy.should.be.calledWith(items[1]);
+      handleScrollStub.should.be.calledWith(items[1]);
+      handleScrollStub.restore();
       done();
     }, 150);
   });

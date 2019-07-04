@@ -18,8 +18,8 @@ export default class OfficerRow extends Component {
   }
 
   handleClick() {
-    const { officer, updateOfficerId } = this.props;
-    updateOfficerId(officer.id);
+    const { officer, updateSelectedOfficerId } = this.props;
+    updateSelectedOfficerId(officer.id);
   }
 
   render() {
@@ -49,5 +49,5 @@ export default class OfficerRow extends Component {
 
 OfficerRow.propTypes = {
   officer: PropTypes.object,
-  updateOfficerId: PropTypes.func,
+  updateSelectedOfficerId: PropTypes.func,
 };

@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import cx from 'classnames';
 import * as ScrollMagic from 'scrollmagic';
 import { isUndefined, isEqual, isEmpty } from 'lodash';
 import { throttle } from 'lodash';
@@ -21,7 +20,7 @@ export default class Timeline extends Component {
   componentDidMount() {
     const { timelineIdx } = this.props;
     this.addScrollEvents();
-    if (timelineIdx !== 0) {
+    if (!isUndefined(timelineIdx) && timelineIdx !== 0) {
       this.performScrollToTimelineIdx(timelineIdx);
     }
   }
@@ -33,9 +32,7 @@ export default class Timeline extends Component {
     if (!isEqual(items, prevProps.items)) {
       this.addScrollEvents();
     }
-    if (scrollToTimelineIdx) {
-      this.performScrollToTimelineIdx(scrollToTimelineIdx);
-    }
+    this.performScrollToTimelineIdx(scrollToTimelineIdx);
   }
 
   componentWillUnmount() {
@@ -72,7 +69,7 @@ export default class Timeline extends Component {
   }
 
   performScrollToTimelineIdx(scrollToTimelineIdx) {
-    if (scrollToTimelineIdx && this.scrollController) {
+    if (!isUndefined(scrollToTimelineIdx) && this.scrollController) {
       this.scrollController.scrollTo(`#trigger-${scrollToTimelineIdx}`);
     }
   }
@@ -97,9 +94,9 @@ export default class Timeline extends Component {
   }
 
   render() {
-    const { items, pathname, onTrackingAttachment, timelineIdx } = this.props;
+    const { items, pathname, onTrackingAttachment, timelineIdx, updateSelectedCrid } = this.props;
     return (
-      <div ref='scrollContainer' className={ cx(style.officerTimeline, 'test--officer-timeline') }>
+      <div ref='scrollContainer' className={ style.timeline }>
         { isEmpty(items) && (<img className='loading-img' src={ imgUrl('loading.svg') } />) }
         {
           items.map((item) => {
@@ -110,6 +107,7 @@ export default class Timeline extends Component {
                 pathname={ pathname }
                 onTrackingAttachment={ onTrackingAttachment }
                 timelineIdx={ timelineIdx }
+                updateSelectedCrid={ updateSelectedCrid }
               />
             );
           })
@@ -127,6 +125,7 @@ Timeline.propTypes = {
   timelineIdx: PropTypes.number,
   timelineIdxTriggerChange: PropTypes.number,
   refreshIntervalId: PropTypes.number,
+  updateSelectedCrid: PropTypes.func,
 };
 
 Timeline.defaultProps = {

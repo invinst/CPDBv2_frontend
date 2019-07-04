@@ -1,9 +1,0 @@
-.officer-page .mapboxgl-popup-tip {
-    display: none;
-}
-
-.officer-page .mapboxgl-popup-content {
-    background-color: inherit;
-    box-shadow: none;
-    padding: 0;
-}

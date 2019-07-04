@@ -2,7 +2,10 @@ import React from 'react';
 import {
   renderIntoDocument,
   scryRenderedComponentsWithType,
+  Simulate,
 } from 'react-addons-test-utils';
+import { stub } from 'sinon';
+import { findDOMNode } from 'react-dom';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import Item from 'components/social-graph-page/network/right-pane-section/timeline/item';
@@ -101,6 +104,30 @@ describe('Item component', function () {
         />
       );
       instance.shouldComponentUpdate({ item: allegationItem, timelineIdx: 2 }).should.be.false();
+    });
+
+    it('should call updateSelectedCrid when clicking if kind is CR', function () {
+      const updateSelectedCridStub = stub();
+      instance = renderIntoDocument(
+        <Item
+          item={ allegationItem }
+          updateSelectedCrid={ updateSelectedCridStub }
+        />
+      );
+      Simulate.click(findDOMNode(instance));
+      updateSelectedCridStub.should.be.calledWith('123456');
+    });
+
+    it('should not call updateSelectedCrid when clicking if kind is not CR', function () {
+      const updateSelectedCridStub = stub();
+      instance = renderIntoDocument(
+        <Item
+          item={ yearItem }
+          updateSelectedCrid={ updateSelectedCridStub }
+        />
+      );
+      Simulate.click(findDOMNode(instance));
+      updateSelectedCridStub.should.not.be.called();
     });
   });
 });

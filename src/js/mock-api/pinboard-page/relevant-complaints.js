@@ -13,7 +13,7 @@ export const getFirstRelevantComplaints = (pinboardId, count) => {
       'crid': '1071234',
       'category': 'Lockup Procedures',
       'incident_date': '2004-04-23',
-      'officers': [
+      'coaccused': [
         RawRelevantCoaccusalFactory.build({
           'id': 123,
           rank: 'Detective',
@@ -33,7 +33,7 @@ export const getFirstRelevantComplaints = (pinboardId, count) => {
       'crid': '1079876',
       'category': 'Operations/Personnel Violation',
       'incident_date': '2014-05-02',
-      'officers': RawRelevantCoaccusalFactory.buildList(10)
+      'coaccused': RawRelevantCoaccusalFactory.buildList(10)
     }),
   ];
   complaints.results = fixedComplaints.concat(complaints.results).slice(0, 20);

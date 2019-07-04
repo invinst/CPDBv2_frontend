@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { isEmpty } from 'lodash';
+import { isEmpty, noop, startCase, toLower } from 'lodash';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import cx from 'classnames';
@@ -9,20 +9,27 @@ import RightPaneSection from 'components/social-graph-page/network/right-pane-se
 import sliderStyles from 'components/common/slider.sass';
 import { showIntercomLauncher } from 'utils/intercom';
 import MainTabs from 'components/social-graph-page/main-tabs';
-import PreviewPane from 'components/social-graph-page/network/right-pane-section/officers/preview-pane';
+import PreviewPane from 'components/social-graph-page/network/preview-pane';
 import AnimatedSocialGraphContainer from 'containers/social-graph-page/animated-social-graph-container';
 
+
+const COMPLAINT_ORIGIN_VALUES = ['ALL', 'CIVILIAN', 'OFFICER'];
+const COMPLAINT_ORIGIN_CIVILIAN = 'CIVILIAN';
+const DEFAULT_THRESHOLD_VALUE = 2;
 
 export default class NetworkGraph extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showCivilComplaintOnly: true,
-      thresholdValue: 2,
+      complaintOrigin: COMPLAINT_ORIGIN_CIVILIAN,
+      thresholdValue: DEFAULT_THRESHOLD_VALUE,
+      sortedOfficerIds: [],
     };
-    this.handleCheckShowCivilOnly = this.handleCheckShowCivilOnly.bind(this);
+    this.handleSelectComplaintOrigin = this.handleSelectComplaintOrigin.bind(this);
     this.handleChangeThresholdValue = this.handleChangeThresholdValue.bind(this);
     this.handleClickOutside = this.handleClickOutside.bind(this);
+    this.renderPreviewPane = this.renderPreviewPane.bind(this);
+    this.updateSortedOfficerIds = this.updateSortedOfficerIds.bind(this);
   }
 
   componentDidMount() {
@@ -32,8 +39,8 @@ export default class NetworkGraph extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { showCivilComplaintOnly, thresholdValue } = this.state;
-    if (prevState.thresholdValue !== thresholdValue || prevState.showCivilComplaintOnly !== showCivilComplaintOnly) {
+    const { complaintOrigin, thresholdValue } = this.state;
+    if (prevState.thresholdValue !== thresholdValue || prevState.complaintOrigin !== complaintOrigin) {
       this.fetchGraphData();
     }
   }
@@ -44,9 +51,25 @@ export default class NetworkGraph extends Component {
   }
 
   handleClickOutside(event) {
-    const { updateOfficerId } = this.props;
-    if (!event.target.closest('.officer-preview-link')) {
-      updateOfficerId(null);
+    const {
+      updateSelectedOfficerId,
+      updateSelectedEdge,
+      updateSelectedCrid,
+      selectedOfficerId,
+      selectedEdge,
+      selectedCrid,
+    } = this.props;
+    if (!event.target.closest('.officer-preview-link, .edge-coaccusals-preview-link, .cr-preview-link')) {
+      if (selectedOfficerId) {
+        updateSelectedOfficerId(null);
+      }
+      if (selectedCrid) {
+        updateSelectedCrid(null);
+      } else {
+        if (selectedEdge) {
+          updateSelectedEdge(null);
+        }
+      }
     }
   }
 
@@ -59,19 +82,19 @@ export default class NetworkGraph extends Component {
       unitId,
       pinboardId,
     } = this.props;
-    const { showCivilComplaintOnly, thresholdValue } = this.state;
+    const { complaintOrigin, thresholdValue } = this.state;
     let requestParams;
     if (!isEmpty(pinboardId)) {
       requestParams = {
-        'pinboard_id': pinboardId, 'threshold': thresholdValue, 'show_civil_only': showCivilComplaintOnly
+        'pinboard_id': pinboardId, 'threshold': thresholdValue, 'complaint_origin': complaintOrigin
       };
     } else if (!isEmpty(unitId)) {
-      requestParams = { 'unit_id': unitId, 'threshold': thresholdValue, 'show_civil_only': showCivilComplaintOnly };
+      requestParams = { 'unit_id': unitId, 'threshold': thresholdValue, 'complaint_origin': complaintOrigin };
     } else if (!isEmpty(officerIds)) {
       requestParams = {
         'officer_ids': officerIds,
         'threshold': thresholdValue,
-        'show_civil_only': showCivilComplaintOnly
+        'complaint_origin': complaintOrigin
       };
     }
 
@@ -82,26 +105,56 @@ export default class NetworkGraph extends Component {
     }
   }
 
-  handleCheckShowCivilOnly(event) {
-    this.setState({ showCivilComplaintOnly: event.target.checked });
+  handleSelectComplaintOrigin(value) {
+    this.setState({ complaintOrigin: value });
   }
 
   handleChangeThresholdValue(value) {
     this.setState({ thresholdValue: value });
   }
 
-  render() {
+  updateSortedOfficerIds(officerIds) {
+    this.setState({ sortedOfficerIds: officerIds });
+  }
+
+  renderPreviewPane() {
     const {
-      title,
+      networkPreviewPaneData,
       changeNetworkTab,
-      currentMainTab,
       currentNetworkTab,
       showTimelineTab,
-      changeMainTab,
-      officer,
       location,
-      pinboardId,
+      onTrackingAttachment,
+      updateSelectedCrid,
     } = this.props;
+
+    const { sortedOfficerIds } = this.state;
+
+    if (!isEmpty(networkPreviewPaneData)) {
+      return (
+        <PreviewPane
+          { ...networkPreviewPaneData }
+          location={ location }
+          onTrackingAttachment={ onTrackingAttachment }
+          updateSelectedCrid={ updateSelectedCrid }
+        />
+      );
+    } else {
+      return (
+        <RightPaneSection
+          changeNetworkTab={ changeNetworkTab }
+          currentTab={ currentNetworkTab }
+          showTimelineTab={ showTimelineTab }
+          location={ location }
+          sortedOfficerIds={ sortedOfficerIds }
+        />
+      );
+    }
+  }
+
+  render() {
+    const { title, currentMainTab, changeMainTab, pinboardId, } = this.props;
+    const { complaintOrigin } = this.state;
 
     return (
       <div className={ styles.networkGraph }>
@@ -125,32 +178,43 @@ export default class NetworkGraph extends Component {
               className={ cx(sliderStyles.slider, 'coaccusals-threshold-slider') }
             />
           </div>
-          <label>
-            Show only complaints from civilians
-            <input
-              type='checkbox'
-              checked={ this.state.showCivilComplaintOnly }
-              onChange={ this.handleCheckShowCivilOnly }
-              className='test--show-civil-complaint-checkbox'
-            />
-          </label>
+          <div className='complaint-origin'>
+            <div className='complaint-origin-label'>
+              Complaint Origin
+            </div>
+            {
+              COMPLAINT_ORIGIN_VALUES.map(complaintOriginValue => {
+                const uniqKey = `complaint-origin-${complaintOriginValue.toLowerCase()}`;
+                return (
+                  <div
+                    className={
+                      cx('complaint-origin-option-container', uniqKey)
+                    }
+                    key={ uniqKey }
+                  >
+                    <a
+                      className={
+                        cx('complaint-origin-option', { 'selected': complaintOrigin === complaintOriginValue })
+                      }
+                      onClick={ () => {
+                        this.handleSelectComplaintOrigin(complaintOriginValue);
+                      } }
+                    >
+                      { startCase(toLower(complaintOriginValue)) }
+                    </a>
+                  </div>
+                );
+              })
+            }
+          </div>
 
         </div>
         <div className='graph-container'>
-          <AnimatedSocialGraphContainer/>
+          <AnimatedSocialGraphContainer updateSortedOfficerIds={ this.updateSortedOfficerIds } />
         </div>
         <div className='right-section'>
           {
-            !isEmpty(officer) ? (
-              <PreviewPane data={ officer } />
-            ) : (
-              <RightPaneSection
-                changeNetworkTab={ changeNetworkTab }
-                currentTab={ currentNetworkTab }
-                showTimelineTab={ showTimelineTab }
-                location={ location }
-              />
-            )
+            this.renderPreviewPane()
           }
         </div>
         <div className='clearfix'/>
@@ -172,13 +236,22 @@ NetworkGraph.propTypes = {
   showTimelineTab: PropTypes.bool,
   currentMainTab: PropTypes.string,
   currentNetworkTab: PropTypes.string,
-  officer: PropTypes.object,
-  updateOfficerId: PropTypes.func,
+  selectedOfficerId: PropTypes.number,
+  selectedEdge: PropTypes.object,
+  updateSelectedOfficerId: PropTypes.func,
+  updateSelectedEdge: PropTypes.func,
   location: PropTypes.object,
+  networkPreviewPaneData: PropTypes.object,
+  onTrackingAttachment: PropTypes.func,
+  updateSelectedCrid: PropTypes.func,
+  selectedCrid: PropTypes.string,
 };
 
 NetworkGraph.defaultProps = {
-  requestSocialGraphNetwork: () => {},
-  requestSocialGraphAllegations: () => {},
-  requestSocialGraphOfficers: () => {},
+  requestSocialGraphNetwork: noop,
+  requestSocialGraphAllegations: noop,
+  requestSocialGraphOfficers: noop,
+  updateSelectedOfficerId: noop,
+  updateSelectedEdge: noop,
+  updateSelectedCrid: noop,
 };

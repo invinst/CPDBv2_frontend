@@ -1,26 +1,22 @@
-import geographicData from 'reducers/social-graph-page/geographic-data';
-import { SOCIAL_GRAPH_GEOGRAPHIC_REQUEST_SUCCESS } from 'utils/constants';
+import previewPaneData from 'reducers/social-graph-page/geographic-data/preview-pane-data';
+import { SOCIAL_GRAPH_GEOGRAPHIC_PREVIEW_PANE_REQUEST_SUCCESS } from 'utils/constants';
 
 
-describe('geographicData reducer', function () {
+describe('previewPaneData reducer', function () {
   it('should have initial state', function () {
-    geographicData(undefined, {}).should.eql([]);
+    previewPaneData(undefined, {}).should.eql([]);
   });
 
-  it('should handle SOCIAL_GRAPH_GEOGRAPHIC_REQUEST_SUCCESS', function () {
-    geographicData([], {
-      type: SOCIAL_GRAPH_GEOGRAPHIC_REQUEST_SUCCESS,
+  it('should handle SOCIAL_GRAPH_GEOGRAPHIC_PREVIEW_PANE_REQUEST_SUCCESS', function () {
+    previewPaneData([], {
+      type: SOCIAL_GRAPH_GEOGRAPHIC_PREVIEW_PANE_REQUEST_SUCCESS,
       payload: [
         {
           'date': '2007-04-25',
+          'to': '/complaint/123456/',
           'crid': '123456',
-          'category': 'Use Of Force',
-          'coaccused': 3,
+          'category': 'Firearm',
           'kind': 'CR',
-          'point': {
-            'lon': -87,
-            'lat': 35
-          },
           'victims': [
             {
               'gender': 'Male',
@@ -48,14 +44,10 @@ describe('geographicData reducer', function () {
     }).should.eql([
       {
         'date': '2007-04-25',
+        'to': '/complaint/123456/',
         'crid': '123456',
-        'category': 'Use Of Force',
-        'coaccused': 3,
+        'category': 'Firearm',
         'kind': 'CR',
-        'point': {
-          'lon': -87,
-          'lat': 35
-        },
         'victims': [
           {
             'gender': 'Male',

@@ -9,14 +9,31 @@
     stroke: $white-two-color
     stroke-width: 1px
 
+    &.edge-hover
+      stroke: $greyish-color
+      stroke-width: 2px
+
   text.node-label
     font-size: 13px
     font-weight: 300
     color: $mine-shaft-color
 
+  text.selected-node-label, text.selected-edge-label
+    color: $soft-black-color
+    font-size: 13px
+    line-height: 15px
+
+  rect.selected-node-label-box, rect.selected-edge-label-box
+    fill: $corn-silk-color
+    stroke: $white-two-color
+    stroke-width: 1px
+
   line.link
     stroke: $wild-sand
     stroke-width: 1px
+
+    &.edge-hover
+      stroke-width: 2px
 
     &.link-group-color-1
       stroke: $wild-sand
