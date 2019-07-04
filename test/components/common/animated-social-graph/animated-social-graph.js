@@ -13,7 +13,6 @@ import Slider from 'rc-slider';
 import { unmountComponentSuppressError } from 'utils/test';
 import AnimatedSocialGraph, { AnimatedSocialGraphWithSpinner } from 'components/common/animated-social-graph';
 import SocialGraph from 'components/common/animated-social-graph/social-graph';
-import * as intercomUtils from 'utils/intercom';
 import LoadingSpinner from 'components/common/loading-spinner';
 import graphStyles from 'components/common/animated-social-graph/animated-social-graph.sass';
 
@@ -262,44 +261,36 @@ describe('AnimatedSocialGraph component', function () {
     stopTimelineSpy.called.should.be.true();
   });
 
-  it('should call toggleFullscreen when click on fullscreen button', function () {
-    stub(intercomUtils, 'showIntercomLauncher');
+  it('should render expanded-mode-btn with a link when expandedLink is present', function () {
     instance = renderIntoDocument(
       <AnimatedSocialGraph
         officers={ officers }
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
-        hasIntercom={ true }
+        expandedLink='expanded_link'
       />
     );
 
-    const fullscreenButton = findRenderedDOMComponentWithClass(instance, 'fullscreen-btn');
-    fullscreenButton.className.should.containEql('expand-icon');
-    instance.state.fullscreen.should.be.false();
-    Simulate.click(fullscreenButton);
-
-    fullscreenButton.className.should.containEql('compress-icon');
-    intercomUtils.showIntercomLauncher.calledWith(false).should.be.true();
-    instance.state.fullscreen.should.be.true();
-    Simulate.click(fullscreenButton);
-
-    fullscreenButton.className.should.containEql('expand-icon');
-    intercomUtils.showIntercomLauncher.calledWith(true).should.be.true();
-    instance.state.fullscreen.should.be.false();
-    intercomUtils.showIntercomLauncher.restore();
+    const expandedModeButton = findRenderedDOMComponentWithClass(instance, 'expanded-mode-btn');
+    expandedModeButton.getAttribute('href').should.eql('expanded_link');
   });
 
-  it('should render fullscreen-btn with a link when expandedLink is present', function () {
+  it('should render customRightControlButton if present', function () {
+    const onClickStub = stub();
+    const customRightControlButton = (
+      <div className='toggle-sidebars-btn' onClick={ onClickStub }/>
+    );
     instance = renderIntoDocument(
       <AnimatedSocialGraph
         officers={ officers }
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
-        expandedLink={ 'expanded_link' }
+        customRightControlButton={ customRightControlButton }
       />
     );
 
-    const fullscreenButton = findRenderedDOMComponentWithClass(instance, 'fullscreen-btn');
-    fullscreenButton.getAttribute('href').should.eql('expanded_link');
+    const toggleSidebarsButton = findRenderedDOMComponentWithClass(instance, 'toggle-sidebars-btn');
+    Simulate.click(toggleSidebarsButton);
+    onClickStub.should.be.called();
   });
 });

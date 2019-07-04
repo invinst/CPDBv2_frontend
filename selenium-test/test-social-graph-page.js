@@ -513,4 +513,41 @@ describe('Social Graph Page', function () {
     );
     middleOrderedOfficers.should.eql(expectedMiddleOrderedOfficers);
   });
+
+  it('should show/hide right sidebar and left sidebar when clicking on toggle sidebars button', function () {
+    socialGraphPage.animatedSocialGraphSection.leftSection.waitForVisible();
+    socialGraphPage.animatedSocialGraphSection.rightSection.waitForVisible();
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.waitForVisible();
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.getAttribute('class').should.containEql(
+      'show-right-sidebar-icon'
+    );
+
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.click();
+    socialGraphPage.animatedSocialGraphSection.leftSection.waitForVisible(1000, true);
+    socialGraphPage.animatedSocialGraphSection.rightSection.isExisting().should.be.true();
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.getAttribute('class').should.containEql(
+      'hide-both-sidebars-icon'
+    );
+
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.click();
+    socialGraphPage.animatedSocialGraphSection.leftSection.isExisting().should.be.false();
+    socialGraphPage.animatedSocialGraphSection.rightSection.waitForVisible(1000, true);
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.getAttribute('class').should.containEql(
+      'show-left-sidebar-icon'
+    );
+
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.click();
+    socialGraphPage.animatedSocialGraphSection.leftSection.waitForVisible();
+    socialGraphPage.animatedSocialGraphSection.rightSection.isExisting().should.be.false();
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.getAttribute('class').should.containEql(
+      'show-both-sidebars-icon'
+    );
+
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.click();
+    socialGraphPage.animatedSocialGraphSection.leftSection.isExisting().should.be.true();
+    socialGraphPage.animatedSocialGraphSection.rightSection.waitForVisible();
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.getAttribute('class').should.containEql(
+      'show-right-sidebar-icon'
+    );
+  });
 });

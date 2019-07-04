@@ -127,3 +127,31 @@ $network-right-sidebar-width: 351px
     height: 100vh
     float: left
     background-color: white
+
+    .toggle-sidebars-btn
+      width: 32px
+      height: 26px
+
+    .show-right-sidebar-icon
+      background-image: url('/img/ic-sidebar-right.svg')
+
+    .hide-both-sidebars-icon
+      background-image: url('/img/ic-sidebar-full.svg')
+
+    .show-left-sidebar-icon
+      background-image: url('/img/ic-sidebar-left.svg')
+
+    .show-both-sidebars-icon
+      background-image: url('/img/ic-sidebar-both.svg')
+
+  &.show-right-sidebar
+    .graph-container
+      width: calc(100% - #{$network-right-sidebar-width})
+
+  &.show-left-sidebar
+    .graph-container
+      width: calc(100% - #{$social-graph-main-sidebar-width})
+
+  &.hide-both-sidebars
+    .graph-container
+      width: 100%
