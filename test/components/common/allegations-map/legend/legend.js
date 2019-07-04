@@ -19,14 +19,18 @@ describe('Legend component', function () {
       unsustainedCount: 20,
       sustainedCount: 3,
       useOfForceCount: 0,
+      allegationLoading: true,
+      useOfForceLoading: false,
     };
     instance = renderIntoDocument(<Legend legend={ legend } />);
     const legendRow = scryRenderedComponentsWithType(instance, Row);
     legendRow.should.have.length(4);
     legendRow[0].props.number.should.eql(23);
+    legendRow[0].props.loading.should.be.true();
     legendRow[1].props.number.should.eql(20);
     legendRow[2].props.number.should.eql(3);
     legendRow[3].props.number.should.eql(0);
+    legendRow[3].props.loading.should.be.false();
   });
 
   it('should not render rows with missing value', function () {

@@ -13,39 +13,53 @@ describe('GeographicData selectors', function () {
       const state = {
         pinboardPage: {
           geographicData: {
-            requesting: false,
-            data: [{
-              category: 'Illegal Search',
-              kind: 'CR',
-              crid: '294619',
-              'coaccused_count': 9,
-            }, {
-              category: 'Illegal Search',
-              kind: 'CR',
-              crid: '294620',
-              'coaccused_count': 10,
-            }, {
-              category: 'Illegal Search',
-              kind: 'CR',
-              crid: '294621',
-              'coaccused_count': 11,
-            }, {
-              'trr_id': '123456',
-              kind: 'FORCE',
-              taser: false,
-              'firearm_used': true,
-            }, {
-              'trr_id': '654321',
-              kind: 'FORCE',
-              taser: true,
-              'firearm_used': false,
-            }],
+            mapCrsDataTotalCount: 5,
+            mapTrrsDataTotalCount: 2,
+            mapCrsData: [
+              {
+                category: 'Illegal Search',
+                kind: 'CR',
+
+                crid: '294619',
+                'coaccused_count': 9,
+              },
+              {
+                category: 'Illegal Search',
+                kind: 'CR',
+
+                crid: '294620',
+                'coaccused_count': 10,
+              },
+              {
+                category: 'Illegal Search',
+                kind: 'CR',
+
+                crid: '294621',
+                'coaccused_count': 11,
+              },
+            ],
+            mapTrrsData: [
+              {
+                'trr_id': '123456',
+                kind: 'FORCE',
+                taser: false,
+                'firearm_used': true,
+              },
+              {
+                'trr_id': '654321',
+                kind: 'FORCE',
+                taser: true,
+                'firearm_used': false,
+              }
+            ],
           }
         }
       };
       mapLegendSelector(state).should.eql({
         allegationCount: 3,
         useOfForceCount: 2,
+        allegationLoading: true,
+        useOfForceLoading: false,
       });
     });
   });
@@ -87,7 +101,8 @@ describe('GeographicData selectors', function () {
         pinboardPage: {
           geographicData: {
             requesting: false,
-            data: [firstCr, secondCr, trr]
+            mapCrsData: [firstCr, secondCr],
+            mapTrrsData: [trr],
           }
         }
       };
@@ -137,7 +152,7 @@ describe('GeographicData selectors', function () {
         pinboardPage: {
           geographicData: {
             requesting: false,
-            data: [{
+            mapCrsData: [{
               category: 'Illegal Search',
               kind: 'CR',
               crid: '1045343',
@@ -154,12 +169,12 @@ describe('GeographicData selectors', function () {
     it('should return requesting status', function () {
       getGeographicDataRequesting({
         pinboardPage: {
-          geographicData: { requesting: false, data: [] },
+          geographicData: { requesting: false, mapCrsData: [], mapTrrsData: [] },
         }
       }).should.be.false();
       getGeographicDataRequesting({
         pinboardPage: {
-          geographicData: { requesting: true, data: [] },
+          geographicData: { requesting: true, mapCrsData: [], mapTrrsData: [] },
         }
       }).should.be.true();
     });

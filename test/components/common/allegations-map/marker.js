@@ -89,17 +89,12 @@ describe('Marker component', function () {
     handleClickCRMarkerStub.should.be.calledWith(null);
   });
 
-  it('should toggle popup and set zIndex when hovering', function () {
+  it('should toggle popup when hovering', function () {
     const stubMapboxMarker = {
       getPopup: stub().returns({
         isOpen: stub().returns(false)
       }),
       togglePopup: stub(),
-      getElement: stub().returns({
-        style: {
-          zIndex: 'auto'
-        }
-      })
     };
     //default
     instance = renderIntoDocument(
@@ -122,20 +117,14 @@ describe('Marker component', function () {
       />, instance
     );
     stubMapboxMarker.togglePopup.should.be.calledOnce();
-    stubMapboxMarker.getElement().style.zIndex.should.eql('10');
   });
 
-  it('should toggle popup and set zIndex when unhovering', function () {
+  it('should toggle popup when unhovering', function () {
     const stubMapboxMarker = {
       getPopup: stub().returns({
         isOpen: stub().returns(true)
       }),
       togglePopup: stub(),
-      getElement: stub().returns({
-        style: {
-          zIndex: 'auto'
-        }
-      })
     };
     //default
     instance = renderIntoDocument(
@@ -158,6 +147,5 @@ describe('Marker component', function () {
       />, instance
     );
     stubMapboxMarker.togglePopup.should.be.calledOnce();
-    stubMapboxMarker.getElement().style.zIndex.should.eql('0');
   });
 });

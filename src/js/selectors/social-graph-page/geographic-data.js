@@ -1,4 +1,4 @@
-import { get, filter, find, isEmpty, compact } from 'lodash';
+import { find, isEmpty, concat } from 'lodash';
 import { createSelector } from 'reselect';
 
 import {
@@ -9,56 +9,58 @@ import {
   geographicAllegationTransform,
   geographicTRRTransform,
 } from 'selectors/common/geographic-preview-pane';
-import { MAP_ITEMS } from 'utils/constants';
 
-
-const getGeographicData = state => get(state, 'socialGraphPage.geographicData.mapData', []);
+const getGeographicCrs = state => state.socialGraphPage.geographicData.mapCrsData;
+const getGeographicTrrs = state => state.socialGraphPage.geographicData.mapTrrsData;
+const getGeographicPreviewPaneCrs = state => state.socialGraphPage.geographicData.previewPaneCrsData;
+const getGeographicPreviewPaneTrrs = state => state.socialGraphPage.geographicData.previewPaneTrrsData;
 
 export const mapLegendSelector = createSelector(
-  getGeographicData,
-  geographicData => ({
-    allegationCount: filter(geographicData, geographicDatum => geographicDatum.kind === MAP_ITEMS.CR).length,
-    useOfForceCount: filter(geographicData, geographicDatum => geographicDatum.kind === MAP_ITEMS.FORCE).length,
+  getGeographicCrs,
+  getGeographicTrrs,
+  (state) => state.socialGraphPage.geographicData.mapCrsDataTotalCount,
+  (state) => state.socialGraphPage.geographicData.mapTrrsDataTotalCount,
+  (geographicCrs, geographicTrrs, crsTotalCount, trrsTotalCount) => ({
+    allegationCount: geographicCrs.length,
+    useOfForceCount: geographicTrrs.length,
+    allegationLoading: geographicCrs.length !== crsTotalCount,
+    useOfForceLoading: geographicTrrs.length !== trrsTotalCount,
   })
 );
 
 export const mapMarkersSelector = createSelector(
-  getGeographicData,
-  markers => compact(
-    markers.map(marker => {
-      if (marker.kind === MAP_ITEMS.CR) {
-        return crMapMarkersTransform(marker);
-      } else if (marker.kind === MAP_ITEMS.FORCE) {
-        return trrMapMarkerTransform(marker);
-      }
-    })
+  getGeographicCrs,
+  getGeographicTrrs,
+  (geographicCrs, geographicTrrs) => concat(
+    geographicCrs.map(marker => crMapMarkersTransform(marker)),
+    geographicTrrs.map(marker => trrMapMarkerTransform(marker)),
   )
 );
 
-const previewPaneData = state => get(state, 'socialGraphPage.geographicData.previewPaneData', []);
-
-const getGeographicAllegation = state => {
-  const crid = state.socialGraphPage.geographicData.crid;
-  if (crid) {
-    const allegations = filter(previewPaneData(state), previewPaneDatum => previewPaneDatum['kind'] === 'CR');
-    return find(allegations, allegation => allegation.crid === crid);
-  }
-};
-
-const getGeographicTRR = state => {
-  const trrId = state.socialGraphPage.geographicData.trrId;
-  if (trrId) {
-    const trrs = filter(previewPaneData(state), previewPaneDatum => previewPaneDatum['kind'] === 'FORCE');
-    return find(trrs, trr => trr['trr_id'] === parseInt(trrId));
-  }
-};
-
 export const geographicAllegationSelector = createSelector(
-  getGeographicAllegation,
-  allegation => !isEmpty(allegation) ? geographicAllegationTransform(allegation) : undefined
+  getGeographicPreviewPaneCrs,
+  (state) => state.socialGraphPage.geographicData.crid,
+  (geographicPreviewPaneCrs, crid) => {
+    if (crid) {
+      const allegation = find(geographicPreviewPaneCrs, obj => obj.crid === crid);
+      return !isEmpty(allegation) ? geographicAllegationTransform(allegation) : undefined;
+    }
+  }
 );
 
 export const geographicTRRSelector = createSelector(
-  getGeographicTRR,
-  trr => !isEmpty(trr) ? geographicTRRTransform(trr) : undefined
+  getGeographicPreviewPaneTrrs,
+  (state) => state.socialGraphPage.geographicData.trrId,
+  (geographicPreviewPaneTrrs, trrId) => {
+    if (trrId) {
+      const trr = find(geographicPreviewPaneTrrs, obj => obj['trr_id'] === parseInt(trrId));
+      return !isEmpty(trr) ? geographicTRRTransform(trr) : undefined;
+    }
+  }
+);
+
+export const isRequestedSelector = createSelector(
+  (state) => state.socialGraphPage.geographicData.isCrsRequested,
+  (state) => state.socialGraphPage.geographicData.isTrrsRequested,
+  (isCrsRequested, isTrrsRequested) => isCrsRequested && isTrrsRequested
 );
