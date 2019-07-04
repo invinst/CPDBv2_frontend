@@ -143,10 +143,8 @@ describe('Social Graph page selectors', function () {
       const allegation = {
         'crid': '123456',
         'incident_date': '2007-10-10',
-        'most_common_category': {
-          'category': 'Use of Force',
-          'allegation_name': 'Subcategory',
-        },
+        'category': 'Use of Force',
+        'subcategory': 'Subcategory',
         'attachments': [],
         'timelineIdx': 1,
       };
@@ -329,19 +327,15 @@ describe('Social Graph page selectors', function () {
           networkData: {
             networkAllegations: [
               {
-                'most_common_category': {
-                  category: 'Criminal Misconduct',
-                  'allegation_name': 'Theft'
-                },
+                category: 'Criminal Misconduct',
+                subcategory: 'Theft',
                 crid: '260131',
                 'incident_date': '2003-02-17',
                 'officer_ids': [123],
               },
               {
-                'most_common_category': {
-                  category: 'Illegal Search',
-                  'allegation_name': 'Search Of Premise Without Warrant'
-                },
+                category: 'Illegal Search',
+                subcategory: 'Search Of Premise Without Warrant',
                 crid: '294088',
                 'incident_date': '2003-11-26',
                 attachments: [
@@ -369,10 +363,8 @@ describe('Social Graph page selectors', function () {
       };
       edgeCoaccusalsItemsSelector(state).should.eql([
         {
-          'most_common_category': {
-            category: 'Illegal Search',
-            'allegation_name': 'Search Of Premise Without Warrant'
-          },
+          category: 'Illegal Search',
+          subcategory: 'Search Of Premise Without Warrant',
           crid: '294088',
           'incident_date': '2003-11-26',
           attachments: [

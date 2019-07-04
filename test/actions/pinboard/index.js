@@ -234,9 +234,8 @@ describe('pinboard actions', function () {
     });
   });
 
-
   describe('fetchPinboard', function () {
-    it('shoud return correct action', function () {
+    it('should return correct action', function () {
       fetchPinboard('5cd06f2b').should.deepEqual({
         types: [
           constants.PINBOARD_FETCH_REQUEST_START,
@@ -262,6 +261,7 @@ describe('pinboard actions', function () {
           constants.PINBOARD_COMPLAINTS_FETCH_REQUEST_START,
           constants.PINBOARD_COMPLAINTS_FETCH_REQUEST_SUCCESS,
           constants.PINBOARD_COMPLAINTS_FETCH_REQUEST_FAILURE,
+          constants.PINBOARD_COMPLAINTS_FETCH_REQUEST_CANCELLED,
         ],
         payload: {
           request: {
@@ -282,6 +282,7 @@ describe('pinboard actions', function () {
           constants.PINBOARD_OFFICERS_FETCH_REQUEST_START,
           constants.PINBOARD_OFFICERS_FETCH_REQUEST_SUCCESS,
           constants.PINBOARD_OFFICERS_FETCH_REQUEST_FAILURE,
+          constants.PINBOARD_OFFICERS_FETCH_REQUEST_CANCELLED,
         ],
         payload: {
           request: {
@@ -302,6 +303,7 @@ describe('pinboard actions', function () {
           constants.PINBOARD_TRRS_FETCH_REQUEST_START,
           constants.PINBOARD_TRRS_FETCH_REQUEST_SUCCESS,
           constants.PINBOARD_TRRS_FETCH_REQUEST_FAILURE,
+          constants.PINBOARD_TRRS_FETCH_REQUEST_CANCELLED,
         ],
         payload: {
           request: {
@@ -322,6 +324,7 @@ describe('pinboard actions', function () {
           constants.PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_START,
           constants.PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_SUCCESS,
           constants.PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_FAILURE,
+          constants.PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_CANCELLED,
         ],
         payload: {
           request: {
@@ -342,6 +345,7 @@ describe('pinboard actions', function () {
           constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_START,
           constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_SUCCESS,
           constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_FAILURE,
+          constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_CANCELLED,
         ],
         payload: {
           request: {
@@ -356,12 +360,13 @@ describe('pinboard actions', function () {
   });
 
   describe('fetchPinboardRelevantDocuments', function () {
-    it('shoud return correct action', function () {
+    it('should return correct action', function () {
       fetchPinboardRelevantDocuments('66ef1560').should.deepEqual({
         types: [
           constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_START,
           constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_SUCCESS,
           constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_FAILURE,
+          constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_CANCELLED,
         ],
         payload: {
           request: {
@@ -374,7 +379,7 @@ describe('pinboard actions', function () {
       });
     });
 
-    it('shoud return correct action with params', function () {
+    it('should return correct action with params', function () {
       fetchPinboardRelevantDocuments(
         '66ef1560',
         { limit: '20', offset: '20' }
@@ -383,6 +388,7 @@ describe('pinboard actions', function () {
           constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_START,
           constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_SUCCESS,
           constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_FAILURE,
+          constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_CANCELLED,
         ],
         payload: {
           request: {
@@ -397,12 +403,13 @@ describe('pinboard actions', function () {
   });
 
   describe('fetchPinboardRelevantCoaccusals', function () {
-    it('shoud return correct action', function () {
+    it('should return correct action', function () {
       fetchPinboardRelevantCoaccusals('66ef1560').should.deepEqual({
         types: [
           constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_START,
           constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_SUCCESS,
           constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_FAILURE,
+          constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_CANCELLED,
         ],
         payload: {
           request: {
@@ -415,7 +422,7 @@ describe('pinboard actions', function () {
       });
     });
 
-    it('shoud return correct action with params', function () {
+    it('should return correct action with params', function () {
       fetchPinboardRelevantCoaccusals(
         '66ef1560',
         { limit: '20', offset: '20' }
@@ -424,6 +431,7 @@ describe('pinboard actions', function () {
           constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_START,
           constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_SUCCESS,
           constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_FAILURE,
+          constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_CANCELLED,
         ],
         payload: {
           request: {
@@ -438,12 +446,13 @@ describe('pinboard actions', function () {
   });
 
   describe('fetchPinboardRelevantComplaints', function () {
-    it('shoud return correct action', function () {
+    it('should return correct action', function () {
       fetchPinboardRelevantComplaints('66ef1560').should.deepEqual({
         types: [
           constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_START,
           constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_SUCCESS,
           constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_FAILURE,
+          constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_CANCELLED,
         ],
         payload: {
           request: {
@@ -456,7 +465,7 @@ describe('pinboard actions', function () {
       });
     });
 
-    it('shoud return correct action with params', function () {
+    it('should return correct action with params', function () {
       fetchPinboardRelevantComplaints(
         '66ef1560',
         { limit: '20', offset: '20' }
@@ -465,6 +474,7 @@ describe('pinboard actions', function () {
           constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_START,
           constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_SUCCESS,
           constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_FAILURE,
+          constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_CANCELLED,
         ],
         payload: {
           request: {

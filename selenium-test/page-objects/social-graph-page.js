@@ -53,10 +53,6 @@ class AnimatedSocialGraphSection extends Section {
   graphLabels() {
     return browser.elements('(//*[name()="text" and @class="node-label"])').value;
   }
-
-  edgeCoaccusalsItems() {
-    return browser.elements('//div[contains(@class, "item__item")]').value;
-  }
 }
 
 class GeographicSection extends Section {
@@ -78,7 +74,6 @@ class OfficersSection extends Section {
 
     this.prepareElementGetters({
       firstOfficerRow: '//div[contains(@class, "officer-row")][1]',
-      officerPreviewPane: '//div[contains(@class, "preview-pane")]',
       officerName: '//h1[contains(@class, "test--officer-name")]',
     });
   }
@@ -94,17 +89,36 @@ class TimelineSection extends Section {
 
     this.prepareElementGetters({
       allegationItem: '//div[contains(@class, "item__item")][7]',
-      firstAllegationYear: '//div[contains(@class, "test--timeline-item")][1]//div[@class="date"]',
-      firstAllegationCategory: '//a[contains(@class, "test--timeline-item")][1]//div[@class="category"]',
-      firstAllegationSubcategory: '//a[contains(@class, "test--timeline-item")][1]//div[@class="subcategory"]',
-      firstAllegationDate: '//a[contains(@class, "test--timeline-item")][1]//span[@class="date"]',
-      timelineItemDateActive: '//div[contains(@class, "test--officer-timeline")]//div[contains(@class, "active")]' +
-        '//a[contains(@class, "test--timeline-item")][1]//span[@class="date"]',
+      firstYearItem: '//div[contains(@class, "item__item")][1]//div[@class="date"]',
+      firstAllegationItem: '//div[contains(@class, "item__item")][2]',
+      firstAllegationCategory: '//div[contains(@class, "item__item")][2]//div[@class="category"]',
+      firstAllegationSubcategory: '//div[contains(@class, "item__item")][2]//div[@class="subcategory"]',
+      firstAllegationDate: '//div[contains(@class, "item__item")][2]//span[@class="date"]',
+      timelineItemDateActive: '//div[contains(@class, "timeline__timeline")]//div[contains(@class, "active")]' +
+        '//span[@class="date"]',
     });
   }
 
   allegationRowCount() {
-    return browser.elements('//a[contains(@class, "test--timeline-item")]').value.length;
+    return browser.elements('//div[contains(@class, "item__item")]').value.length;
+  }
+}
+
+class PreviewPaneSection extends Section {
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      previewPane: '//div[contains(@class, "preview-pane")]',
+      officerPreviewPaneName: '//h1[contains(@class, "test--officer-name")]',
+      edgePreviewPaneHeader: '(//div[@class="edge-coaccusals-pane-header"])',
+      crPreviewPaneTitle: '//div[contains(@class, "cr-preview-pane-title-title")]',
+      crPreviewPaneSubtitle: '//div[contains(@class, "cr-preview-pane-title-subtitle")]',
+    });
+  }
+
+  edgeCoaccusalsItems() {
+    return browser.elements('//div[contains(@class, "item__item")]').value;
   }
 }
 
@@ -113,6 +127,7 @@ class SocialGraphPage extends Page {
   geographicSection = new GeographicSection();
   officersSection = new OfficersSection();
   timelineSection = new TimelineSection();
+  previewPaneSection = new PreviewPaneSection();
 
   open() {
     super.open('/social-graph/?unit_id=123&title=Live test social graph title');

@@ -267,7 +267,7 @@ describe('AnimatedSocialGraph component', function () {
         officers={ officers }
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
-        expandedLink={ 'expanded_link' }
+        expandedLink='expanded_link'
       />
     );
 

@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import cx from 'classnames';
 import * as ScrollMagic from 'scrollmagic';
 import { isUndefined, isEqual, isEmpty } from 'lodash';
 import { throttle } from 'lodash';
@@ -95,9 +94,9 @@ export default class Timeline extends Component {
   }
 
   render() {
-    const { items, pathname, onTrackingAttachment, timelineIdx } = this.props;
+    const { items, pathname, onTrackingAttachment, timelineIdx, updateSelectedCrid } = this.props;
     return (
-      <div ref='scrollContainer' className={ cx(style.officerTimeline, 'test--officer-timeline') }>
+      <div ref='scrollContainer' className={ style.timeline }>
         { isEmpty(items) && (<img className='loading-img' src={ imgUrl('loading.svg') } />) }
         {
           items.map((item) => {
@@ -108,6 +107,7 @@ export default class Timeline extends Component {
                 pathname={ pathname }
                 onTrackingAttachment={ onTrackingAttachment }
                 timelineIdx={ timelineIdx }
+                updateSelectedCrid={ updateSelectedCrid }
               />
             );
           })
@@ -125,6 +125,7 @@ Timeline.propTypes = {
   timelineIdx: PropTypes.number,
   timelineIdxTriggerChange: PropTypes.number,
   refreshIntervalId: PropTypes.number,
+  updateSelectedCrid: PropTypes.func,
 };
 
 Timeline.defaultProps = {
