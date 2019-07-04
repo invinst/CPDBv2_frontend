@@ -15,5 +15,9 @@ export default class TRRCard extends Component {
 export const TRRCardWithUndo = withUndoCard(
   TRRCard,
   () => 'TRR removed.',
-  'removeItemInPinboardPage'
+  'removeItemInPinboardPage',
+  {
+    isRequestDelay: false,
+    revertActionName: 'addItemInPinboardPage',
+  },
 );

@@ -27,7 +27,7 @@ describe('Pinboard Page', function () {
     browser.getUrl().replace(/https?:\/\/[^/]+/, '').should.equal('/');
   });
 
-  it.only('should go to Q&A url when clicking on Q&A link', function () {
+  it('should go to Q&A url when clicking on Q&A link', function () {
     pinboardPage.open();
     pinboardPage.headerQALink.click();
     browser.getUrl().should.containEql('http://how.cpdp.works/');
@@ -325,7 +325,7 @@ describe('Pinboard Page', function () {
       pinboardPage.relevantCoaccusalsSection.coaccusalCards().should.have.length(20);
 
       pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.plusButton.click();
-      browser.pause(1050);
+      browser.pause(4100);
 
       pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.officerName.getText().should.not.equal(
         'Richard Sullivan'
@@ -489,13 +489,35 @@ describe('Pinboard Page', function () {
       );
 
       pinboardPage.relevantComplaintsSection.complaintCardSection.plusButton.click();
-      browser.pause(1050);
+      browser.pause(4100);
 
       pinboardPage.pinnedSection.crs.crCards().should.have.length(2);
       pinboardPage.relevantComplaintsSection.complaintCardSection.category.getText().should.not.equal(
         'Lockup Procedures'
       );
     });
+  });
+});
+
+describe('Undo card', function () {
+  beforeEach(function () {
+    pinboardPage.open();
+  });
+
+  it('should show undo card when user click on unpin button', function () {
+    pinboardPage.pinnedSection.officers.firstCardUnpinBtn.click();
+    pinboardPage.pinnedSection.officers.undoCard.waitForVisible();
+
+    // card disappear after 4s
+    browser.pause(4100);
+    pinboardPage.pinnedSection.officers.officerCards().should.have.length(0);
+  });
+
+  it('should show card when user click on undo button', function () {
+    pinboardPage.pinnedSection.officers.firstCardUnpinBtn.click();
+    pinboardPage.pinnedSection.officers.undoCard.waitForVisible();
+    pinboardPage.pinnedSection.officers.undoCard.click();
+    pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
   });
 });
 

@@ -6,6 +6,7 @@ import {
   ADD_ITEM_IN_PINBOARD_PAGE,
   ORDER_PINBOARD,
   REMOVE_ITEM_IN_PINBOARD_PAGE,
+  PINBOARD_ITEM_REMOVE_MODE,
 } from 'utils/constants';
 
 
@@ -33,19 +34,19 @@ export default handleActions({
   [PINBOARD_OFFICERS_FETCH_REQUEST_SUCCESS]: (state, action) => action.payload,
   [ADD_ITEM_IN_PINBOARD_PAGE]: (state, action) => {
     const currentItems = state;
-    if (action.payload.type === 'OFFICER') {
-      const item = action.payload;
-      if (_.every(currentItems, currentItem => currentItem.id !== parseInt(item.id))) {
-        return currentItems.concat(toRawOfficer(item));
+    const { type, id } = action.payload;
+    if (type === 'OFFICER') {
+      if (_.every(currentItems, currentItem => currentItem.id !== parseInt(id))) {
+        return currentItems.concat(toRawOfficer(action.payload));
       }
     }
     return currentItems;
   },
   [REMOVE_ITEM_IN_PINBOARD_PAGE]: (state, action) => {
     const currentItems = state;
-    const { id, type } = action.payload;
+    const { id, type, mode } = action.payload;
 
-    if (type === 'OFFICER') {
+    if (type === 'OFFICER' && mode !== PINBOARD_ITEM_REMOVE_MODE.API_ONLY) {
       return _.reject(currentItems, { id: parseInt(id) });
     }
     return currentItems;
