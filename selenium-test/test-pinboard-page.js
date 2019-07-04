@@ -319,19 +319,19 @@ describe('Pinboard Page', function () {
 
     it('should remove officer from the row and add to the pinned officers section', function () {
       pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
-      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.mainElement.getAttribute(
-        'href'
-      ).should.match(/\/officer\/123\/richard-sullivan\/$/);
+      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.officerName.getText().should.equal(
+        'Richard Sullivan'
+      );
       pinboardPage.relevantCoaccusalsSection.coaccusalCards().should.have.length(20);
 
       pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.plusButton.click();
       browser.pause(1050);
 
+      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.officerName.getText().should.not.equal(
+        'Richard Sullivan'
+      );
       pinboardPage.relevantCoaccusalsSection.coaccusalCards().should.have.length(19);
       pinboardPage.pinnedSection.officers.officerCards().should.have.length(2);
-      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.mainElement.getAttribute(
-        'href'
-      ).should.not.match(/\/officer\/123\/richard-sullivan\/$/);
     });
   });
 
@@ -484,16 +484,17 @@ describe('Pinboard Page', function () {
 
     it('should remove cr from the row and add to the pinned crs section', function () {
       pinboardPage.pinnedSection.crs.crCards().should.have.length(1);
-      pinboardPage.relevantComplaintsSection.complaintCardSection.rightHalf.getAttribute(
-        'href'
-      ).should.match(/\/complaint\/1071234\/$/);
+      pinboardPage.relevantComplaintsSection.complaintCardSection.category.getText().should.equal(
+        'Lockup Procedures'
+      );
+
       pinboardPage.relevantComplaintsSection.complaintCardSection.plusButton.click();
       browser.pause(1050);
 
       pinboardPage.pinnedSection.crs.crCards().should.have.length(2);
-      pinboardPage.relevantComplaintsSection.complaintCardSection.rightHalf.getAttribute(
-        'href'
-      ).should.not.match(/\/complaint\/1071234\/$/);
+      pinboardPage.relevantComplaintsSection.complaintCardSection.category.getText().should.not.equal(
+        'Lockup Procedures'
+      );
     });
   });
 });
