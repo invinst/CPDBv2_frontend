@@ -82,6 +82,7 @@ describe('Officer map selectors', function () {
       const crItem = {
         category: 'Conduct Unbecoming (Off-Duty)',
         kind: 'CR',
+        finding: 'Sustained',
         point: {
           lat: 41.887673,
           lon: -87.62355
@@ -95,6 +96,7 @@ describe('Officer map selectors', function () {
           lon: -87.62355
         },
         kind: 'CR',
+        finding: 'Sustained',
         id: '1002787',
         category: 'Conduct Unbecoming (Off-Duty)',
         date: '2007-01-18',
@@ -200,6 +202,7 @@ describe('Officer map selectors', function () {
           lon: -87.73173299999999
         },
         kind: 'CR',
+        finding: 'Sustained',
         id: '1045343',
         category: 'Illegal Search',
         date: '2011-05-11',
