@@ -9,7 +9,6 @@ import 'rc-slider/assets/index.css';
 import cx from 'classnames';
 import pluralize from 'pluralize';
 
-import { imgUrl } from 'utils/static-assets';
 import styles from './social-graph.sass';
 import { greyishColor } from 'utils/styles';
 
@@ -559,11 +558,8 @@ export default class SocialGraph extends Component {
   }
 
   render() {
-    const { officers } = this.props;
     return (
-      <div ref='chart' className={ styles.socialGraph }>
-        { isEmpty(officers) && <img className='loading-img' src={ imgUrl('loading-large.svg') } /> }
-      </div>
+      <div ref='chart' className={ styles.socialGraph } />
     );
   }
 }

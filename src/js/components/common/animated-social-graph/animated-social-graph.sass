@@ -1,6 +1,8 @@
 @import 'variables'
 
 \:local(.animatedSocialGraph)
+  position: relative
+
   &.fullscreen
     position: fixed
     top: 0
@@ -81,7 +83,9 @@
             background-image: url('/img/ic-expand-hover.svg')
 
 \:local(.social-graph-loading)
-  margin: 0 auto
-  display: block
-  width: 176px
-  height: 454px
+  width: 160px
+  height: 160px
+  position: absolute
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)

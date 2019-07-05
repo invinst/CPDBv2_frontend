@@ -4,7 +4,7 @@ import {
   getSocialGraphTimelineIdx,
   getSocialGraphRefreshIntervalId
 } from 'selectors/social-graph-page/network-timeline';
-import AnimatedSocialGraph from 'components/common/animated-social-graph';
+import { AnimatedSocialGraphWithSpinner } from 'components/common/animated-social-graph';
 import {
   updateSocialGraphTimelineIdx,
   updateSelectedOfficerId,
@@ -17,6 +17,7 @@ import {
   getListEvent,
   getSelectedOfficerId,
   selectedEdgeDataSelector,
+  getRequesting,
 } from 'selectors/social-graph-page/network';
 
 
@@ -32,6 +33,7 @@ function mapStateToProps(state, ownProps) {
     selectedOfficerId: getSelectedOfficerId(state),
     selectedEdge: selectedEdgeDataSelector(state),
     updateSortedOfficerIds: ownProps.updateSortedOfficerIds,
+    requesting: getRequesting(state),
   };
 }
 
@@ -42,4 +44,4 @@ const mapDispatchToProps = {
   updateSelectedEdge: updateSocialGraphSelectedEdge,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AnimatedSocialGraph);
+export default connect(mapStateToProps, mapDispatchToProps)(AnimatedSocialGraphWithSpinner);

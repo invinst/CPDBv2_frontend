@@ -1,13 +1,16 @@
 import React from 'react';
 import {
+  findRenderedComponentWithType,
   renderIntoDocument,
   scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 import { spy, stub } from 'sinon';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
-import Timeline from 'components/social-graph-page/network/right-pane-section/timeline';
+import Timeline, { TimelineWithSpinner } from 'components/social-graph-page/network/right-pane-section/timeline';
 import Item from 'components/social-graph-page/network/right-pane-section/timeline/item';
+import LoadingSpinner from 'components/common/loading-spinner';
+import styles from 'components/social-graph-page/network/right-pane-section/timeline/timeline.sass';
 
 
 describe('Timeline component', function () {
@@ -171,5 +174,23 @@ describe('Timeline component', function () {
       handleScrollStub.restore();
       done();
     }, 150);
+  });
+
+  context('withLoadingSpinner', function () {
+    it('should render LoadingSpinner only if requesting is true', function () {
+      instance = renderIntoDocument(
+        <TimelineWithSpinner
+          items={ items }
+          timelineIdx={ 0 }
+          timelineIdxTriggerChange={ 0 }
+          requesting={ true }
+        />
+      );
+
+      scryRenderedComponentsWithType(instance, Item).should.have.length(0);
+
+      const loadingSpinner = findRenderedComponentWithType(instance, LoadingSpinner);
+      loadingSpinner.props.className.should.equal(styles.timelineLoading);
+    });
   });
 });
