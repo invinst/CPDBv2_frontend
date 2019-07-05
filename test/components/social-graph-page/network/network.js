@@ -572,4 +572,17 @@ describe('NetworkGraph component', function () {
     networkGraph.updateSortedOfficerIds([123, 456, 789]);
     networkGraph.state.sortedOfficerIds.should.eql([123, 456, 789]);
   });
+
+  it('should render mainTabsContent if there is mainTabsContent', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <NetworkGraph
+          unitId='232'
+          mainTabsContent={ <div className='main-tabs-content'>This is main tabs content</div> }
+        />
+      </Provider>
+    );
+    const mainTabsContent = findRenderedDOMComponentWithClass(instance, 'main-tabs-content');
+    mainTabsContent.textContent.should.eql('This is main tabs content');
+  });
 });

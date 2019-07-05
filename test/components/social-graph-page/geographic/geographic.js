@@ -8,7 +8,6 @@ import { findDOMNode } from 'react-dom';
 
 import { unmountComponentSuppressError } from 'utils/test/index';
 import GeographicMap from 'components/social-graph-page/geographic/index';
-import MainTabs from 'components/social-graph-page/main-tabs/index';
 import AllegationsMap from 'components/common/allegations-map/index';
 import PreviewPane from 'components/social-graph-page/geographic/preview-pane';
 import CRPane from 'components/common/preview-pane/cr-pane';
@@ -22,8 +21,7 @@ describe('GeographicMap component', function () {
   });
 
   it('should render correctly', function () {
-    instance = renderIntoDocument(<GeographicMap/>);
-    scryRenderedComponentsWithType(instance, MainTabs).should.have.length(1);
+    instance = renderIntoDocument(<GeographicMap />);
     scryRenderedComponentsWithType(instance, AllegationsMap).should.have.length(1);
   });
 
@@ -161,5 +159,13 @@ describe('GeographicMap component', function () {
     );
     instance.handleClickTRRMarker('123456');
     updateGeographicTrrIdStub.should.be.calledWith('123456');
+  });
+
+  it('should render mainTabsContent if there is mainTabsContent', function () {
+    instance = renderIntoDocument(
+      <GeographicMap mainTabsContent={ <div className='main-tabs-content'>This is main tabs content</div> }/>
+    );
+    const mainTabsContent = findRenderedDOMComponentWithClass(instance, 'main-tabs-content');
+    mainTabsContent.textContent.should.eql('This is main tabs content');
   });
 });

@@ -36,6 +36,7 @@ class AnimatedSocialGraphSection extends Section {
       firstCurrentEdge: '(//*[contains(@class, "link-group-color-4 current-link")])',
       secondCurrentEdge: '(//*[contains(@class, "link-group-color-5 current-link")])',
       selectedEdgeLabel: '(//*[@class="selected-edge-label"])',
+      backToPinboardButton: '(//a[@class="back-to-pinboard-link"])',
     });
   }
 
@@ -126,8 +127,8 @@ class SocialGraphPage extends Page {
   timelineSection = new TimelineSection();
   previewPaneSection = new PreviewPaneSection();
 
-  open() {
-    super.open('/social-graph/?unit_id=123&title=Live test social graph title');
+  open(params='?unit_id=123&title=Live test social graph title') {
+    super.open(`/social-graph/${params}`);
   }
 }
 

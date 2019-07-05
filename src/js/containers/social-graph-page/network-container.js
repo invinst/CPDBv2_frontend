@@ -5,7 +5,6 @@ import {
   requestSocialGraphNetwork,
   requestSocialGraphAllegations,
   requestSocialGraphOfficers,
-  changeMainTab,
   changeNetworkTab,
   updateSelectedOfficerId,
   updateSocialGraphSelectedEdge,
@@ -13,7 +12,6 @@ import {
 } from 'actions/social-graph-page';
 import {
   getShowTimelineTab,
-  getCurrentMainTab,
   getCurrentNetworkTab,
 } from 'selectors/social-graph-page';
 import { getSelectedEdge, getSelectedOfficerId, getSelectedCrid } from 'selectors/social-graph-page/network';
@@ -27,10 +25,10 @@ function mapStateToProps(state, ownProps) {
     pinboardId: ownProps.location.query['pinboard_id'],
     title: ownProps.location.query['title'],
     showTimelineTab: getShowTimelineTab(state),
-    currentMainTab: getCurrentMainTab(state),
     currentNetworkTab: getCurrentNetworkTab(state),
     selectedOfficerId: getSelectedOfficerId(state),
     selectedEdge: getSelectedEdge(state),
+    mainTabsContent: ownProps.mainTabsContent,
     location: ownProps.location,
     networkPreviewPaneData: getNetworkPreviewPaneData(state),
     selectedCrid: getSelectedCrid(state),
@@ -41,7 +39,6 @@ const mapDispatchToProps = {
   requestSocialGraphNetwork,
   requestSocialGraphAllegations,
   requestSocialGraphOfficers,
-  changeMainTab,
   changeNetworkTab,
   updateSelectedOfficerId,
   updateSelectedEdge: updateSocialGraphSelectedEdge,
