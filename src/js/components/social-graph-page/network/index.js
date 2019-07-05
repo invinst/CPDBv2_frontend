@@ -8,7 +8,6 @@ import styles from './network.sass';
 import RightPaneSection from 'components/social-graph-page/network/right-pane-section';
 import sliderStyles from 'components/common/slider.sass';
 import { showIntercomLauncher } from 'utils/intercom';
-import MainTabs from 'components/social-graph-page/main-tabs';
 import PreviewPane from 'components/social-graph-page/network/preview-pane';
 import AnimatedSocialGraphContainer from 'containers/social-graph-page/animated-social-graph-container';
 
@@ -210,23 +209,13 @@ export default class NetworkGraph extends Component {
   }
 
   renderLeftSidebar() {
-    const {
-      title,
-      currentMainTab,
-      changeMainTab,
-      pinboardId,
-    } = this.props;
+    const { title, mainTabsContent } = this.props;
     const { complaintOrigin } = this.state;
 
     if (this.sidebarsSettings().showLeftSidebar) {
       return (
         <div className='left-section'>
-          {
-            pinboardId && (
-              <a className='back-to-pinboard-link' href={ `/pinboard/${pinboardId}/` }>← Back to pinboard</a>
-            )
-          }
-          <MainTabs changeTab={ changeMainTab } currentTab={ currentMainTab }/>
+          { mainTabsContent }
           <div className='social-graph-title'>{ title }</div>
           <div className='coaccusals-threshold-slider-container'>
             <p className='coaccusals-threshold-text'>Minimum Coaccusal Threshold</p>
@@ -306,14 +295,13 @@ NetworkGraph.propTypes = {
   requestSocialGraphNetwork: PropTypes.func,
   requestSocialGraphAllegations: PropTypes.func,
   requestSocialGraphOfficers: PropTypes.func,
+  mainTabsContent: PropTypes.node,
   officerIds: PropTypes.string,
   unitId: PropTypes.string,
   pinboardId: PropTypes.string,
   title: PropTypes.string,
   changeNetworkTab: PropTypes.func,
-  changeMainTab: PropTypes.func,
   showTimelineTab: PropTypes.bool,
-  currentMainTab: PropTypes.string,
   currentNetworkTab: PropTypes.string,
   selectedOfficerId: PropTypes.number,
   selectedEdge: PropTypes.object,

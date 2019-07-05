@@ -39,6 +39,7 @@ class AnimatedSocialGraphSection extends Section {
       selectedEdgeLabel: '(//*[@class="selected-edge-label"])',
       edgeCoaccusalsHeader: '(//div[@class="edge-coaccusals-pane-header"])',
       toggleSidebarsButton: '(//div[contains(@class, "toggle-sidebars-btn")])',
+      backToPinboardButton: '(//a[@class="back-to-pinboard-link"])',
     });
   }
 
@@ -129,8 +130,8 @@ class SocialGraphPage extends Page {
   timelineSection = new TimelineSection();
   previewPaneSection = new PreviewPaneSection();
 
-  open() {
-    super.open('/social-graph/?unit_id=123&title=Live test social graph title');
+  open(params='?unit_id=123&title=Live test social graph title') {
+    super.open(`/social-graph/${params}`);
   }
 }
 

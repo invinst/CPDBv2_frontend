@@ -551,3 +551,24 @@ describe('Social Graph Page', function () {
     );
   });
 });
+
+describe('Social Graph Page with pinboard_id', function () {
+  beforeEach(function () {
+    socialGraphPage.open('?pinboard_id=5cd06f2b');
+  });
+
+  context('Network tab', function () {
+    it('should go back to pinboard page when clicking on back to pinboard button', function () {
+      socialGraphPage.animatedSocialGraphSection.backToPinboardButton.click();
+      browser.getUrl().should.containEql('/pinboard/5cd06f2b/');
+    });
+  });
+
+  context('Geographic tab', function () {
+    it('should go back to pinboard page when clicking on back to pinboard button', function () {
+      socialGraphPage.animatedSocialGraphSection.geographicTab.click();
+      socialGraphPage.animatedSocialGraphSection.backToPinboardButton.click();
+      browser.getUrl().should.containEql('/pinboard/5cd06f2b/');
+    });
+  });
+});

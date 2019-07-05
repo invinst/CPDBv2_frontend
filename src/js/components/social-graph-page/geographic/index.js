@@ -1,10 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { isEmpty } from 'lodash';
+import { isEmpty, noop } from 'lodash';
 import cx from 'classnames';
 
 import styles from './geographic.sass';
 import AllegationsMap from 'components/common/allegations-map';
-import MainTabs from 'components/social-graph-page/main-tabs';
 import PreviewPane from 'components/social-graph-page/geographic/preview-pane';
 
 
@@ -97,8 +96,7 @@ export default class GeographicMap extends Component {
     const {
       legend,
       markers,
-      changeMainTab,
-      currentMainTab,
+      mainTabsContent,
       allegation,
       trr,
     } = this.props;
@@ -106,7 +104,7 @@ export default class GeographicMap extends Component {
     return (
       <div className={ styles.geographicMap }>
         <div className='left-section'>
-          <MainTabs changeTab={ changeMainTab } currentTab={ currentMainTab }/>
+          { mainTabsContent }
         </div>
         <div className={ cx('main-content', { 'show-right-pane': !isEmpty(allegation) || !isEmpty(trr) }) }>
           <AllegationsMap
@@ -129,10 +127,9 @@ export default class GeographicMap extends Component {
 GeographicMap.propTypes = {
   legend: PropTypes.object,
   markers: PropTypes.array,
-  changeMainTab: PropTypes.func,
   requestSocialGraphGeographic: PropTypes.func,
   requestSocialGraphGeographicPreviewPane: PropTypes.func,
-  currentMainTab: PropTypes.string,
+  mainTabsContent: PropTypes.node,
   officerIds: PropTypes.string,
   unitId: PropTypes.string,
   updateGeographicCrid: PropTypes.func,
@@ -140,4 +137,9 @@ GeographicMap.propTypes = {
   allegation: PropTypes.object,
   trr: PropTypes.object,
   pinboardId: PropTypes.string,
+};
+
+GeographicMap.defaultProps = {
+  requestSocialGraphGeographic: noop,
+  requestSocialGraphGeographicPreviewPane: noop,
 };
