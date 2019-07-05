@@ -62,30 +62,23 @@
         color: $soft-black-color
         margin-left: 6px
 
-      .fullscreen-btn
+      .custom-right-control-buttons-container
         float: right
-        box-sizing: border-box
-        width: 24px
-        height: 24px
-        margin: 0 -4px 0 16px
-        padding: 4px
-        border: none
-        outline: none
-        background-size: 16px
-        background: no-repeat center
 
-        &.compress-icon
-          background-image: url('/img/ic-compress.svg')
-
-          &:hover
-            background-image: url('/img/ic-compress-hover.svg')
-
-        &.expand-icon
-          background-image: url('/img/ic-expand.svg')
+        .expanded-mode-btn
+          display: inline-block
+          box-sizing: border-box
+          width: 24px
+          height: 24px
+          margin: 0 -4px 0 16px
+          padding: 4px
+          border: none
+          outline: none
+          background-size: 16px
+          background: url('/img/ic-expand.svg') no-repeat center
 
           &:hover
             background-image: url('/img/ic-expand-hover.svg')
-
 
 \:local(.social-graph-loading)
   margin: 0 auto

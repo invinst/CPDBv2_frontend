@@ -573,6 +573,95 @@ describe('NetworkGraph component', function () {
     networkGraph.state.sortedOfficerIds.should.eql([123, 456, 789]);
   });
 
+  it('should show/hide left sidebar and right sidebar when clicking on toggle sidebars button', function () {
+    const store = mockStore({
+      socialGraphPage: {
+        networkData: {
+          graphData: {
+            officers: [
+              {
+                'full_name': 'Jerome Finnigan',
+                'id': 1,
+                'percentile': {
+                  'percentile_trr': '78.2707',
+                  'percentile_allegation_civilian': '97.8772',
+                  'percentile_allegation_internal': '61.1521'
+                },
+              },
+              {
+                'full_name': 'Edward May',
+                'id': 2,
+                'percentile': {
+                  'percentile_trr': '78.2707',
+                  'percentile_allegation_civilian': '97.8772',
+                  'percentile_allegation_internal': '61.1521'
+                },
+              },
+            ],
+            'coaccused_data': [
+              {
+                'officer_id_1': 1,
+                'officer_id_2': 2,
+                'incident_date': '1988-10-03',
+                'accussed_count': 1,
+              },
+              {
+                'officer_id_1': 1,
+                'officer_id_2': 2,
+                'incident_date': '1989-10-03',
+                'accussed_count': 2,
+              }
+            ],
+            'list_event': ['1988-10-03', '1989-10-03'],
+          },
+        },
+      },
+    });
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <NetworkGraph officerIds='123,456,789'/>
+      </Provider>
+    );
+
+    const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
+    const toggleSidebarsButton = findRenderedDOMComponentWithClass(instance, 'toggle-sidebars-btn');
+    networkGraph.state.sidebarsStatus.should.equal('SHOW_BOTH');
+    scryRenderedDOMComponentsWithClass(instance, 'left-section').should.have.length(1);
+    scryRenderedDOMComponentsWithClass(instance, 'right-section').should.have.length(1);
+
+    Simulate.click(toggleSidebarsButton);
+    networkGraph.state.sidebarsStatus.should.equal('SHOW_RIGHT');
+    scryRenderedDOMComponentsWithClass(instance, 'left-section').should.have.length(0);
+    scryRenderedDOMComponentsWithClass(instance, 'right-section').should.have.length(1);
+
+    Simulate.click(toggleSidebarsButton);
+    networkGraph.state.sidebarsStatus.should.equal('HIDE_BOTH');
+    scryRenderedDOMComponentsWithClass(instance, 'left-section').should.have.length(0);
+    scryRenderedDOMComponentsWithClass(instance, 'right-section').should.have.length(0);
+
+    Simulate.click(toggleSidebarsButton);
+    networkGraph.state.sidebarsStatus.should.equal('SHOW_LEFT');
+    scryRenderedDOMComponentsWithClass(instance, 'left-section').should.have.length(1);
+    scryRenderedDOMComponentsWithClass(instance, 'right-section').should.have.length(0);
+  });
+
+  it('should update performResizeGraph when sidebarsStatus state is difference after updating', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <NetworkGraph officerIds='123,456,789'/>
+      </Provider>
+    );
+
+    const animatedSocialGraph = findRenderedComponentWithType(instance, AnimatedSocialGraphContainer);
+    const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
+
+    networkGraph.setState({ sidebarsStatus: 'SHOW_BOTH' });
+    animatedSocialGraph.props.performResizeGraph.should.be.false();
+
+    networkGraph.setState({ sidebarsStatus: 'HIDE_BOTH' });
+    animatedSocialGraph.props.performResizeGraph.should.be.true();
+  });
+
   it('should render mainTabsContent if there is mainTabsContent', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>

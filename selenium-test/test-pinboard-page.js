@@ -37,17 +37,20 @@ describe('Pinboard Page', function () {
     it('should render the pinned cards correctly', function () {
       pinboardPage.open();
       const officers = pinboardPage.pinnedSection.officers;
+      officers.officerCards().should.have.length(1);
       officers.title.getText().should.equal('OFFICERS');
       officers.firstCardRank.getText().should.equal('Police Officer');
       officers.firstCardName.getText().should.equal('Daryl Mack');
       officers.firstCardCRsCount.getText().should.equal('10 complaints');
 
       const crs = pinboardPage.pinnedSection.crs;
+      crs.crCards().should.have.length(1);
       crs.title.getText().should.equal('COMPLAINTS');
       crs.firstCardDate.getText().should.equal('2010-01-01');
       crs.firstCardCategory.getText().should.equal('Use Of Force');
 
       const trrs = pinboardPage.pinnedSection.trrs;
+      trrs.trrCards().should.have.length(1);
       trrs.title.getText().should.equal('TACTICAL RESPONSE REPORTS');
       trrs.firstCardDate.getText().should.equal('2012-01-01');
       trrs.firstCardCategory.getText().should.equal('Impact Weapon');
@@ -313,6 +316,23 @@ describe('Pinboard Page', function () {
       pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.mainElement.click();
       pinboardPage.previewPane.mainElement.waitForVisible();
     });
+
+    it('should remove officer from the row and add to the pinned officers section', function () {
+      pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
+      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.officerName.getText().should.equal(
+        'Richard Sullivan'
+      );
+      pinboardPage.relevantCoaccusalsSection.coaccusalCards().should.have.length(20);
+
+      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.plusButton.click();
+      browser.pause(1050);
+
+      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.officerName.getText().should.not.equal(
+        'Richard Sullivan'
+      );
+      pinboardPage.relevantCoaccusalsSection.coaccusalCards().should.have.length(19);
+      pinboardPage.pinnedSection.officers.officerCards().should.have.length(2);
+    });
   });
 
   context('relevant documents section', function () {
@@ -378,6 +398,17 @@ describe('Pinboard Page', function () {
         'https://assets.documentcloud.org/documents/5680384/CRID-1083633-CR-CRID-1083633-CR-Tactical.pdf'
       );
       browser.close();
+    });
+
+    it('should add cr to the pinned crs section', function () {
+      pinboardPage.pinnedSection.crs.crCards().should.have.length(1);
+      pinboardPage.relevantDocumentsSection.documentCards().should.have.length(20);
+
+      pinboardPage.relevantDocumentsSection.documentCardSection.plusButton.click();
+      browser.pause(1500);
+
+      pinboardPage.relevantDocumentsSection.documentCards().should.have.length(20);
+      pinboardPage.pinnedSection.crs.crCards().should.have.length(2);
     });
   });
 
@@ -449,6 +480,21 @@ describe('Pinboard Page', function () {
       pinboardPage.relevantComplaintsSection.complaintCardSection.leftHalf.click();
 
       pinboardPage.previewPane.mainElement.waitForVisible();
+    });
+
+    it('should remove cr from the row and add to the pinned crs section', function () {
+      pinboardPage.pinnedSection.crs.crCards().should.have.length(1);
+      pinboardPage.relevantComplaintsSection.complaintCardSection.category.getText().should.equal(
+        'Lockup Procedures'
+      );
+
+      pinboardPage.relevantComplaintsSection.complaintCardSection.plusButton.click();
+      browser.pause(1050);
+
+      pinboardPage.pinnedSection.crs.crCards().should.have.length(2);
+      pinboardPage.relevantComplaintsSection.complaintCardSection.category.getText().should.not.equal(
+        'Lockup Procedures'
+      );
     });
   });
 });
