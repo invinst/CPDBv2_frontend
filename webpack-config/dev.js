@@ -18,10 +18,8 @@ const config = Object.assign({}, baseConfig, {
   devServer: {
     contentBase: path.join(__dirname, '..'),
     historyApiFallback: true,
-    hot: true,
+    hotOnly: true,
     port: 9966,
-    publicPath: '/',
-    noInfo: false,
     index: 'index.html'
   },
   cache: true,
@@ -53,7 +51,6 @@ const config = Object.assign({}, baseConfig, {
         use: {
           loader: 'babel-loader',
           options: {
-            plugins: ['react-hot-loader/babel'],
             presets: ['es2015', 'react']
           }
         }
@@ -81,7 +78,9 @@ const config = Object.assign({}, baseConfig, {
       {
         test: /\.sass$/,
         use: [
-          MiniCssExtractPlugin.loader,
+          {
+            loader: 'style-loader',
+          },
           {
             loader: 'css-loader',
             options: {
