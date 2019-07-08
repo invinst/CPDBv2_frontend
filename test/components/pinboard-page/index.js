@@ -34,6 +34,7 @@ import {
 } from 'utils/constants';
 import PinboardPage from 'components/pinboard-page';
 import PreviewPane from 'components/search-page/search-results/preview-pane';
+import EmptyPinboardPage from 'components/pinboard-page/empty-pinboard';
 
 
 describe('PinboardPage component', function () {
@@ -237,6 +238,15 @@ describe('PinboardPage component', function () {
     const pinboard = {
       title: 'This is pinboard title',
       description: 'This is pinboard description',
+      'example_pinboards': [{
+        id: '66ef1561',
+        title: 'Pinboard 1',
+        description: 'Description 1'
+      }, {
+        id: '66ef1562',
+        title: 'Pinboard 2',
+        description: 'Description 2'
+      }],
     };
 
     const pinboardPage = () => (
@@ -259,30 +269,17 @@ describe('PinboardPage component', function () {
     scryRenderedComponentsWithType(instance, RelevantSectionContainer).should.have.length(0);
 
     findRenderedComponentWithType(instance, SearchBar).props.shareable.should.be.false();
-    findRenderedDOMComponentWithClass(instance, 'empty-pinboard-title').textContent.should.equal('Add');
-    findRenderedDOMComponentWithClass(instance, 'empty-pinboard-description').textContent.should.containEql(
-      'Add officers, or complaint records through search.'
-    ).and.containEql('Or use an example pinboard as a baseline to get started.');
 
-    scryRenderedDOMComponentsWithClass(instance, 'helper-row').should.have.length(2);
-    const helperHeaders = scryRenderedDOMComponentsWithClass(instance, 'helper-header');
-    const helperTexts = scryRenderedDOMComponentsWithClass(instance, 'helper-text');
-    const helperArrows = scryRenderedDOMComponentsWithClass(instance, 'helper-arrow');
-    helperHeaders.should.have.length(2);
-    helperTexts.should.have.length(2);
-    helperArrows.should.have.length(2);
-
-    helperHeaders[0].textContent.should.equal('Repeaters');
-    helperHeaders[1].textContent.should.equal('Skullcap crew');
-    helperTexts[0].textContent.should.equal(
-      'Officers with at least 10 complaints against them generate 64% of all complaints.'
-    );
-    helperTexts[1].textContent.should.equal(
-      'Dogged by allegations of abuse, members of the group have been named in more than 20 federal lawsuits – yet h…'
-    );
-
-    findRenderedDOMComponentWithClass(instance, 'arrow-head');
-    findRenderedDOMComponentWithClass(instance, 'arrow-shaft');
+    const emptyPinboard = findRenderedComponentWithType(instance, EmptyPinboardPage);
+    emptyPinboard.props.examplePinboards.should.eql([{
+      id: '66ef1561',
+      title: 'Pinboard 1',
+      description: 'Description 1'
+    }, {
+      id: '66ef1562',
+      title: 'Pinboard 2',
+      description: 'Description 2'
+    }]);
 
     findRenderedComponentWithType(instance, FooterContainer);
   });

@@ -48,3 +48,8 @@ export const isEmptyPinboardSelector = createSelector(
   getPinboard,
   ({ officerIds, crids, trrIds }) => every([officerIds, crids, trrIds], isEmpty)
 );
+
+export const examplePinboardsSelector = createSelector(
+  state => state.pinboardPage.pinboard,
+  pinboard => get(pinboard, 'example_pinboards', []),
+);

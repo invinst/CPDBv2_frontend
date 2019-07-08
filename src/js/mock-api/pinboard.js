@@ -55,6 +55,15 @@ export const fetchEmptyPinboard = () => ({
   'crids': [],
   'trr_ids': [],
   'description': '',
+  'example_pinboards': [{
+    'description': 'Officers with at least 10 complaints against them generate 64% of all complaints.',
+    'id': 'b20c2c36',
+    'title': 'Watts Crew',
+  }, {
+    'description': 'Skullcap Crew is a nickname given to a group of five Chicago Police officers in a gang tactical...',
+    'id': '22e66085',
+    'title': 'Skullcap Crew',
+  }]
 });
 
 export const updatePinboardTitleParams = () => ({
