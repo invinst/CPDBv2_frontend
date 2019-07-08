@@ -48,6 +48,7 @@ describe('Social Graph preview pane selectors', function () {
         'honorable_mention_percentile': '70'
       };
       officerDetailTransform(officer).should.eql({
+        id: 123,
         to: '/officer/123/jerome-finnigan/',
         fullName: 'Jerome Finnigan',
         appointedDate: 'JUL 8, 2001',
@@ -457,6 +458,7 @@ describe('Social Graph preview pane selectors', function () {
         }
       };
       networkOfficerSelector(state).should.eql({
+        id: 123,
         to: '/officer/123/jerome-finnigan/',
         fullName: 'Jerome Finnigan',
         appointedDate: 'JUL 8, 2001',
@@ -605,6 +607,7 @@ describe('Social Graph preview pane selectors', function () {
       getNetworkPreviewPaneData(state).should.eql({
         type: NETWORK_PREVIEW_PANE.OFFICER,
         data: {
+          id: 123,
           to: '/officer/123/jerome-finnigan/',
           fullName: 'Jerome Finnigan',
           appointedDate: 'JUL 8, 2001',

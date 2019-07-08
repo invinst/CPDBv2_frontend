@@ -20,14 +20,14 @@ describe('ItemPinButton component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should have class is-pinned if suggestion.isPinned is true', function () {
-    instance = renderIntoDocument(<ItemPinButton suggestion={ { isPinned: true } } />);
+  it('should have class is-pinned if item.isPinned is true', function () {
+    instance = renderIntoDocument(<ItemPinButton item={ { isPinned: true } } />);
 
     findRenderedDOMComponentWithClass(instance, 'is-pinned').should.be.ok();
   });
 
-  it('should not have class is-pinned if suggesion.isPinned is false', function () {
-    instance = renderIntoDocument(<ItemPinButton suggestion={ { isPinned: false } } />);
+  it('should not have class is-pinned if item.isPinned is false', function () {
+    instance = renderIntoDocument(<ItemPinButton item={ { isPinned: false } } />);
 
     scryRenderedDOMComponentsWithClass(instance, 'is-pinned').length.should.be.equal(0);
   });
@@ -37,7 +37,7 @@ describe('ItemPinButton component', function () {
     instance = renderIntoDocument(
       <ItemPinButton
         addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
-        suggestion={ { isPinned: false, type: 'CR', id: '1' } } />
+        item={ { isPinned: false, type: 'CR', id: '1' } } />
     );
     Simulate.click(findDOMNode(instance));
     addOrRemoveItemInPinboard.calledWith({

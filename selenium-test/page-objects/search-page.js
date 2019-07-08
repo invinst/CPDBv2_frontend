@@ -14,6 +14,9 @@ class OfficerPreviewPaneSection extends Section {
       neighborhoodPane: '.test--preview-pane-neighborhood',
       listMostOfficers: '//*[starts-with(@class, "preview-pane")]//*[contains(@class,"list-widget-item-link")]',
       previewPane: '//div[starts-with(@class, "preview-pane")]',
+      pinButton: '.pin-button',
+      viewOfficerButton: '.view-officer-profile-button',
+      unitItem: 'li.has-link',
     });
   }
 }

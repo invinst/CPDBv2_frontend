@@ -1,0 +1,63 @@
+@import 'variables'
+
+
+\:local(.wrapper)
+  background-color: white
+  margin: 0 8px
+
+\:local(.title)
+  color: $soft-black-color
+  font-size: 26px
+  font-weight: 500
+  line-height: 32px
+  margin: 0
+  padding: 16px 8px
+  text-align: center
+
+\:local(.list)
+  list-style: none
+  padding: 0 8px
+  margin: 0
+
+\:local(.list-item)
+  line-height: 18px
+  border-top: 1px solid $white-two-color
+  padding: 10px 0
+  position: relative
+
+  &.has-link
+    cursor: pointer
+
+    &::after
+      position: absolute
+      pointer-events: none
+      right: 0
+      top: 11px
+      content: url('/img/disclosure-indicator-darker.svg')
+      height: 16px
+      width: 12px
+
+%item-text
+  float: left
+  font-size: 14px
+  font-weight: 400
+
+\:local(.item-key)
+  @extend %item-text
+  color: $clay-gray
+  width: 64px
+
+\:local(.item-value)
+  @extend %item-text
+  overflow: hidden
+  text-align: center
+  text-overflow: ellipsis
+  width: 100%
+  white-space: nowrap
+
+  &.has-key
+    width: calc(100% - 83px)
+    text-align: left
+
+.clear-fix
+  clear: both    

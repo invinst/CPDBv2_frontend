@@ -20,7 +20,12 @@ export const groupedSuggestions = {
           'sustained_count': 2,
           'birth_year': 1972,
           race: 'White',
-          gender: 'Male'
+          gender: 'Male',
+          unit: {
+            id: 1,
+            'unit_name': '018',
+            description: 'District 018',
+          }
         }
       ),
       RawOfficerSuggestion.build(

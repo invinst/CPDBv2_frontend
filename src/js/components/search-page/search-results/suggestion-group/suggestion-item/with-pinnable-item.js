@@ -90,7 +90,7 @@ export default function withPinnableItem(
               isPinnable && <ItemPinButton
                 className={ styles.itemPinButton }
                 addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
-                suggestion={ suggestion }
+                item={ suggestion }
               />
             }
             <div className={ styles.twoRowsWrapper }>
