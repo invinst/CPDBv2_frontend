@@ -1,3 +1,5 @@
+import { get, filter, includes } from 'lodash';
+
 import RawRelevantCoaccusalFactory from 'utils/test/factories/pinboard-page/raw-officer';
 import { paginationResponse } from 'mock-api/pinboard-page/common';
 
@@ -20,6 +22,12 @@ export const getFirstRelevantCoaccusals = (pinboardId, count) => {
     })
   ];
   coaccusals.results = fixedCoaccusals.concat(coaccusals.results).slice(0, 20);
+  return coaccusals;
+};
+
+export const filterPinnedOfficers = (coaccusals, currentPinboard={}) => {
+  const pinnedOfficerIds = get(currentPinboard, 'officer_ids', []);
+  coaccusals.results = filter(coaccusals.results, coaccusal => !includes(pinnedOfficerIds, coaccusal.id));
   return coaccusals;
 };
 

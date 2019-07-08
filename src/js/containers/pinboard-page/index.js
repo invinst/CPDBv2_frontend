@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { push as pushBreadcrumbs } from 'redux-breadcrumb-trail';
 
-import { getPinboard, isEmptyPinboardSelector } from 'selectors/pinboard-page/pinboard';
+import { getPinboard, isEmptyPinboardSelector, examplePinboardsSelector } from 'selectors/pinboard-page/pinboard';
 import PinboardPage from 'components/pinboard-page';
 import { hasMapMarkersSelector, getCurrentTab } from 'selectors/pinboard-page/geographic-data';
 import { shouldRedirect } from 'selectors/pinboard-page/redirect';
@@ -22,6 +22,7 @@ function mapStateToProps(state, ownProps) {
     shouldRedirect: shouldRedirect(state),
     isEmptyPinboard: isEmptyPinboardSelector(state),
     focusedItem: focusedItemSelector(state),
+    examplePinboards: examplePinboardsSelector(state),
   };
 }
 

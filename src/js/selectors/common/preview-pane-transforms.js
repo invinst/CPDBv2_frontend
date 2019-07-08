@@ -126,7 +126,7 @@ const trrTransform = (item) => {
   };
 };
 
-const officerTransform = (item) => {
+export const officerTransform = (item) => {
   const race = item['race'] === 'Unknown' ? null : item['race'];
   const lastPercentile =
     has(item, 'percentile') ? item['percentile'] :

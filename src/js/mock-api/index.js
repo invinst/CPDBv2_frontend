@@ -51,6 +51,7 @@ import fetchDocumentByID from './document-page/fetch-document-by-id';
 import { getCrawlersData, getNextCrawlersData } from './crawlers-page/crawlers-page';
 import {
   getDefaultSocialGraphData,
+  getDefaultOfficerSocialGraphData,
   getOfficerComplaintSocialGraphData,
   getThresholdThreeSocialGraphData,
 } from './social-graph-page/social-graph-page';
@@ -58,7 +59,7 @@ import { getDefaultSocialGraphOfficersData } from './social-graph-page/officers-
 import { getDefaultSocialGraphAllegationsData } from './social-graph-page/allegations-data';
 import {
   createPinboard,
-  fetchPinboard,
+  getOrCreateEmptyPinboard,
   updatePinboard,
   fetchEmptyPinboard,
   updatePinboardTitleParams,
@@ -75,9 +76,17 @@ import { getSocialGraphData } from './pinboard-page/social-graph';
 import { getSocialGraphBigData } from './pinboard-page/big-social-graph';
 import { getPinboardGeographicData } from './pinboard-page/geographic-data';
 import { getSocialGraphGeographicData } from './social-graph-page/geographic-data';
-import getRelevantCoaccusals, { getFirstRelevantCoaccusals } from 'mock-api/pinboard-page/relevant-coaccusals';
-import getRelevantDocuments, { getFirstRelevantDocuments } from 'mock-api/pinboard-page/relevant-documents';
-import getRelevantComplaints, { getFirstRelevantComplaints } from 'mock-api/pinboard-page/relevant-complaints';
+import getRelevantCoaccusals, {
+  getFirstRelevantCoaccusals,
+  filterPinnedOfficers,
+} from 'mock-api/pinboard-page/relevant-coaccusals';
+import getRelevantDocuments, {
+  getFirstRelevantDocuments,
+} from 'mock-api/pinboard-page/relevant-documents';
+import getRelevantComplaints, {
+  getFirstRelevantComplaints,
+  filterPinnedComplaints,
+} from 'mock-api/pinboard-page/relevant-complaints';
 
 
 const SEARCH_API_URL = /^suggestion\/$/;
@@ -185,30 +194,42 @@ axiosMockClient.onGet(CRAWLERS_API_URL).reply(function (config) {
 
 axiosMockClient.onGet(
   SOCIAL_GRAPH_NETWORK_API_URL,
-  { params: { 'threshold': 2, 'show_civil_only': true, 'unit_id': '123' } }
+  { params: { 'threshold': 2, 'complaint_origin': 'CIVILIAN', 'unit_id': '123' } }
 ).reply(200, getDefaultSocialGraphData());
 
 axiosMockClient.onGet(
   SOCIAL_GRAPH_NETWORK_API_URL,
-  { params: { 'threshold': 2, 'show_civil_only': false, 'unit_id': '123' } }
+  { params: { 'threshold': 2, 'complaint_origin': 'OFFICER', 'unit_id': '123' } }
+).reply(200, getDefaultOfficerSocialGraphData());
+
+axiosMockClient.onGet(
+  SOCIAL_GRAPH_NETWORK_API_URL,
+  { params: { 'threshold': 2, 'complaint_origin': 'ALL', 'unit_id': '123' } }
 ).reply(200, getOfficerComplaintSocialGraphData());
 
 axiosMockClient.onGet(
   SOCIAL_GRAPH_NETWORK_API_URL,
-  { params: { 'threshold': 3, 'show_civil_only': false, 'unit_id': '123' } }
+  { params: { 'threshold': 3, 'complaint_origin': 'ALL', 'unit_id': '123' } }
 ).reply(200, getThresholdThreeSocialGraphData());
 
 axiosMockClient.onPost(`${PINBOARDS_URL}`).reply(201, createPinboard());
 
-axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/`).reply(200, fetchPinboard());
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/`).reply(200, getOrCreateEmptyPinboard('5cd06f2b'));
+
+axiosMockClient.onPut(`${PINBOARDS_URL}5cd06f2b/`).reply(function (config) {
+  const pinboard = JSON.parse(config.data);
+  pinboard.id = '5cd06f2b';
+  pinboard['officer_ids'] = (pinboard['officer_ids'] || []).map(id => parseInt(id));
+  pinboard['trr_ids'] = (pinboard['trr_ids'] || []).map(id => parseInt(id));
+  const newPinboard = updatePinboard(pinboard);
+  return [200, newPinboard];
+});
 
 axiosMockClient.onPut(`${PINBOARDS_URL}5cd06f2b/`, updatePinboardTitleParams()).reply(200, updatedPinboardTitle());
 
 axiosMockClient.onPut(
   `${PINBOARDS_URL}5cd06f2b/`, updatePinboardDescriptionParams()
 ).reply(200, updatedPinboardDescription());
-
-axiosMockClient.onPut(`${PINBOARDS_URL}5cd06f2b/`).reply(200, updatePinboard());
 
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/complaints/`).reply(200, fetchPinboardComplaints());
 
@@ -226,9 +247,11 @@ axiosMockClient.onGet(
   { params: { 'unit_id': '123' } }
 ).reply(200, getSocialGraphGeographicData());
 
-axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-coaccusals/?`).reply(
-  200, getFirstRelevantCoaccusals('5cd06f2b', 50)
-);
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-coaccusals/?`).reply(function () {
+  const currentPinboard = getOrCreateEmptyPinboard('5cd06f2b');
+  const relevantCoaccusals = getFirstRelevantCoaccusals('5cd06f2b', 50);
+  return [200, filterPinnedOfficers(relevantCoaccusals, currentPinboard)];
+});
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-coaccusals/?limit=20&offset=20`).reply(
   200, getRelevantCoaccusals('5cd06f2b', 20, 20, 50)
 );
@@ -246,9 +269,11 @@ axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-documents/?limit=20&off
   200, getRelevantDocuments('5cd06f2b', 20, 40, 50)
 );
 
-axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-complaints/?`).reply(
-  200, getFirstRelevantComplaints('5cd06f2b', 50)
-);
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-complaints/?`).reply(function () {
+  const currentPinboard = getOrCreateEmptyPinboard('5cd06f2b');
+  const relevantComplaints = getFirstRelevantComplaints('5cd06f2b', 50);
+  return [200, filterPinnedComplaints(relevantComplaints, currentPinboard)];
+});
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-complaints/?limit=20&offset=20`).reply(
   200, getRelevantComplaints('5cd06f2b', 20, 20, 50)
 );
@@ -262,15 +287,15 @@ axiosMockClient.onGet(`${PINBOARDS_URL}latest-retrieved-pinboard/`).reply(200, {
 
 axiosMockClient.onGet(
   SOCIAL_GRAPH_OFFICERS_API_URL,
-  { params: { 'threshold': 2, 'show_civil_only': true, 'unit_id': '123' } }
+  { params: { 'threshold': 2, 'complaint_origin': 'CIVILIAN', 'unit_id': '123' } }
 ).reply(200, getDefaultSocialGraphOfficersData());
 
 axiosMockClient.onGet(
   SOCIAL_GRAPH_ALLEGATIONS_API_URL,
-  { params: { 'threshold': 2, 'show_civil_only': true, 'unit_id': '123' } }
+  { params: { 'threshold': 2, 'complaint_origin': 'CIVILIAN', 'unit_id': '123' } }
 ).reply(200, getDefaultSocialGraphAllegationsData());
 
-axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/`).reply(200, fetchPinboard('3664a7ea'));
+axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/`).reply(200, getOrCreateEmptyPinboard('3664a7ea'));
 
 axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/complaints/`).reply(200, fetchPinboardComplaints());
 

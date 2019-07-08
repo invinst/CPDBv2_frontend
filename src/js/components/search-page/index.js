@@ -142,7 +142,7 @@ export default class SearchPage extends Component {
     selectTag(null);
 
     if (value) {
-      this.getSuggestion(value, { limit: DEFAULT_SUGGESTION_LIMIT }).catch(noop);
+      this.getSuggestion(value, { limit: DEFAULT_SUGGESTION_LIMIT });
     }
   }
 

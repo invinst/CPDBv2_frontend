@@ -10,7 +10,7 @@ let source;
 
 const cancelOldRequest = (newRequest) => (...args) => {
   if (source) {
-    source.cancel(constants.SUGGESTION_REQUEST_CANCEL_MESSAGE);
+    source.cancel(constants.REQUEST_CANCEL_MESSAGE);
   }
   source = CancelToken.source();
   return newRequest(...args);
@@ -24,7 +24,8 @@ export const getSuggestion = cancelOldRequest(
     [
       constants.SUGGESTION_REQUEST_START,
       constants.SUGGESTION_REQUEST_SUCCESS,
-      constants.SUGGESTION_REQUEST_FAILURE
+      constants.SUGGESTION_REQUEST_FAILURE,
+      constants.SUGGESTION_REQUEST_CANCELLED,
     ],
     source.token
   )({ term, ...params }, adapter)
@@ -36,7 +37,8 @@ export const getSuggestionWithContentType = cancelOldRequest(
     [
       constants.SUGGESTION_SINGLE_REQUEST_START,
       constants.SUGGESTION_SINGLE_REQUEST_SUCCESS,
-      constants.SUGGESTION_SINGLE_REQUEST_FAILURE
+      constants.SUGGESTION_SINGLE_REQUEST_FAILURE,
+      constants.SUGGESTION_SINGLE_REQUEST_CANCELLED,
     ],
     source.token
   )({ term, ...params }, adapter)

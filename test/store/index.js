@@ -244,13 +244,20 @@ describe('store', function () {
           graphData: {},
           networkAllegations: [],
           networkOfficers: [],
-          officerId: null,
+          selectedOfficerId: null,
           timelineIdx: 0,
           refreshIntervalId: null,
           timelineIdxTriggerChange: 0,
+          selectedEdge: null,
+          selectedCrid: null,
         },
         currentMainTab: 'NETWORK',
-        geographicData: [],
+        geographicData: {
+          mapData: [],
+          previewPaneData: [],
+          crid: null,
+          trrId: null,
+        },
       },
       pinboardPage: {
         pinboard: {

@@ -2,25 +2,37 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
 import GeographicMap from 'components/social-graph-page/geographic';
-import { mapLegendSelector, mapMarkersSelector } from 'selectors/social-graph-page/geographic-data';
-import { getCurrentMainTab } from 'selectors/social-graph-page';
-import { changeMainTab, requestSocialGraphGeographic } from 'actions/social-graph-page';
+import {
+  mapLegendSelector,
+  mapMarkersSelector,
+  geographicAllegationSelector,
+  geographicTRRSelector,
+} from 'selectors/social-graph-page/geographic-data';
+import {
+  requestSocialGraphGeographic,
+  requestSocialGraphGeographicPreviewPane,
+  updateGeographicCrid,
+  updateGeographicTrrId,
+} from 'actions/social-graph-page';
 
 function mapStateToProps(state, ownProps) {
   return {
-    mapCustomClassName: 'social-graph-map',
     legend: mapLegendSelector(state),
     markers: mapMarkersSelector(state),
-    currentMainTab: getCurrentMainTab(state),
+    mainTabsContent: ownProps.mainTabsContent,
     officerIds: ownProps.location.query['officer_ids'],
     unitId: ownProps.location.query['unit_id'],
+    allegation: geographicAllegationSelector(state),
+    trr: geographicTRRSelector(state),
     pinboardId: ownProps.location.query['pinboard_id'],
   };
 }
 
 const mapDispatchToProps = {
-  changeMainTab,
-  requestSocialGraphGeographic
+  requestSocialGraphGeographic,
+  requestSocialGraphGeographicPreviewPane,
+  updateGeographicCrid,
+  updateGeographicTrrId,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(GeographicMap));

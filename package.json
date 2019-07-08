@@ -151,6 +151,7 @@
     "react-tagsinput": "^3.17.0",
     "react-toastify": "^5.1.0",
     "react-tooltip": "3.6.1",
+    "react-truncate": "^2.4.0",
     "redux": "^3.5.2",
     "redux-actions": "^0.9.1",
     "redux-axios-middleware": "4.0.0",

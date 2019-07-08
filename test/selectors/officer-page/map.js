@@ -29,7 +29,7 @@ describe('Officer map selectors', function () {
       gender: 'Male',
       race: 'White',
       age: 35
-    }]
+    }],
   };
   const exoneratedCr = {
     category: 'Illegal Search',
@@ -81,37 +81,14 @@ describe('Officer map selectors', function () {
     it('should return correct item', function () {
       const crItem = {
         category: 'Conduct Unbecoming (Off-Duty)',
-        'unit_name': '153',
         kind: 'CR',
-        subcategory: 'Association With Felon',
+        finding: 'Sustained',
         point: {
           lat: 41.887673,
           lon: -87.62355
         },
         crid: '1002787',
-        'unit_description': 'Mobile Strike Force',
-        rank: 'Police Officer',
         date: '2007-01-18',
-        coaccused: 1,
-        finding: 'Not Sustained',
-        outcome: 'No Action Taken',
-        victims: [
-          {
-            gender: 'Male',
-            age: null,
-            race: 'Hispanic'
-          },
-          {
-            gender: 'Female',
-            age: null,
-            race: 'White'
-          },
-          {
-            gender: 'Male',
-            age: 46,
-            race: 'Hispanic'
-          }
-        ]
       };
       crMapMarkersTransform(crItem).should.eql({
         point: {
@@ -119,27 +96,10 @@ describe('Officer map selectors', function () {
           lon: -87.62355
         },
         kind: 'CR',
-        finding: 'Not Sustained',
+        finding: 'Sustained',
         id: '1002787',
         category: 'Conduct Unbecoming (Off-Duty)',
-        victims: [
-          {
-            gender: 'Male',
-            age: null,
-            race: 'Hispanic'
-          },
-          {
-            gender: 'Female',
-            age: null,
-            race: 'White'
-          },
-          {
-            gender: 'Male',
-            age: 46,
-            race: 'Hispanic'
-          },
-        ],
-        coaccused: 1,
+        date: '2007-01-18',
       });
     });
   });
@@ -155,7 +115,8 @@ describe('Officer map selectors', function () {
         point: {
           lat: 50,
           lon: -87
-        }
+        },
+        date: 'MAR 17, 2012',
       };
       trrMapMarkerTransform(trrItem).should.eql({
         point: {
@@ -165,6 +126,7 @@ describe('Officer map selectors', function () {
         kind: 'FORCE',
         id: '56789',
         category: 'Taser',
+        date: 'MAR 17, 2012',
       });
     });
   });
@@ -243,12 +205,7 @@ describe('Officer map selectors', function () {
         finding: 'Sustained',
         id: '1045343',
         category: 'Illegal Search',
-        victims: [{
-          gender: 'Male',
-          race: 'White',
-          age: 35
-        }],
-        coaccused: 6,
+        date: '2011-05-11',
       }, {
         point: {
           lat: 35.3,
@@ -257,6 +214,7 @@ describe('Officer map selectors', function () {
         kind: 'FORCE',
         id: '123456',
         category: 'Firearm',
+        date: '2004-12-17',
       }]);
     });
   });

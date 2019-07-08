@@ -3,15 +3,15 @@
 
 require('should');
 
-import { map, countBy, filter } from 'lodash';
+import { map, countBy, isEqual, filter } from 'lodash';
 import moment from 'moment/moment';
 
 import socialGraphPage from './page-objects/social-graph-page';
 
 
-function waitForGraphAnimationEnd(browser, socialGraphPage) {
+function waitForGraphAnimationEnd(browser, socialGraphPage, endDate='2008-01-11') {
   browser.waitUntil(function () {
-    return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '2008-01-11';
+    return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === endDate;
   }, 3000, 'expected timeline reaches end date after 1.65s');
 }
 
@@ -34,7 +34,7 @@ describe('Social Graph Page', function () {
     const graphLabels = socialGraphPage.animatedSocialGraphSection.graphLabels();
 
     graphNodes.should.have.length(20);
-    graphLinks.should.have.length(37);
+    graphLinks.should.have.length(38);
     graphLabels.should.have.length(5);
 
     const nodeGroupColors = countBy(map(
@@ -59,7 +59,7 @@ describe('Social Graph Page', function () {
     const expectedlinkGroupColors = {
       'link-group-color-1': 6,
       'link-group-color-2': 6,
-      'link-group-color-3': 6,
+      'link-group-color-3': 7,
       'link-group-color-4': 6,
       'link-group-color-5': 6,
       'link-group-color-6': 7,
@@ -67,7 +67,7 @@ describe('Social Graph Page', function () {
 
     linkGroupColors.should.eql(expectedlinkGroupColors);
 
-    const graphLabelTexts = map(
+    let graphLabelTexts = map(
       graphLabels,
       (graphLabel) => graphLabel.getText()
     );
@@ -75,12 +75,29 @@ describe('Social Graph Page', function () {
     const expectedGraphLabelTexts = [
       'Donnell Calhoun',
       'Eugene Offett',
+      'Hardy White',
       'Johnny Cavers',
       'Melvin Ector',
-      'Thomas Kampenga'
+    ];
+
+    const updatedExpectedGraphLabelTexts = [
+      'Charles Toussas',
+      'David Portis',
+      'Donnell Calhoun',
+      'Eugene Offett',
+      'Thomas Kampenga',
     ];
 
     graphLabelTexts.sort().should.eql(expectedGraphLabelTexts);
+
+    browser.moveToObject(socialGraphPage.animatedSocialGraphSection.timelineSlider.selector);
+    browser.buttonPress();
+
+    graphLabelTexts = map(
+      graphLabels,
+      (graphLabel) => graphLabel.getText()
+    );
+    graphLabelTexts.sort().should.eql(updatedExpectedGraphLabelTexts);
   });
 
   it('should show connected nodes when double click on a node', function () {
@@ -99,7 +116,7 @@ describe('Social Graph Page', function () {
 
     let hideGraphLinks = filter(graphLinks, graphLink => graphLink.getCssProperty('opacity').value === 0.1);
     let visibleGraphLinks = filter(graphLinks, graphLink => graphLink.getCssProperty('opacity').value === 1);
-    hideGraphLinks.should.have.length(27);
+    hideGraphLinks.should.have.length(28);
     visibleGraphLinks.should.have.length(10);
 
     biggestNode.doubleClick();
@@ -112,7 +129,7 @@ describe('Social Graph Page', function () {
     hideGraphLinks = filter(graphLinks, graphLink => graphLink.getCssProperty('opacity').value === 0.1);
     visibleGraphLinks = filter(graphLinks, graphLink => graphLink.getCssProperty('opacity').value === 1);
     hideGraphLinks.should.have.length(0);
-    visibleGraphLinks.should.have.length(37);
+    visibleGraphLinks.should.have.length(38);
   });
 
   it('should show tooltip when hover a node', function () {
@@ -158,12 +175,12 @@ describe('Social Graph Page', function () {
   it('should change the graph when click on specific part of the timeline', function () {
     waitForGraphAnimationEnd(browser, socialGraphPage);
     socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
-    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(37);
+    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(38);
 
     browser.moveToObject(socialGraphPage.animatedSocialGraphSection.timelineSlider.selector);
     browser.buttonPress();
     socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
-    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(14);
+    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(13);
     const graphNodes = socialGraphPage.animatedSocialGraphSection.graphNodes();
     const groupsColors = countBy(map(
       graphNodes,
@@ -180,15 +197,29 @@ describe('Social Graph Page', function () {
     groupsColors.should.eql(expectedGroupsColors);
   });
 
-  it('should load new data when change threshold and showCivilOnly', function () {
+  it('should load new data when change threshold and complaintOrigin', function () {
     waitForGraphAnimationEnd(browser, socialGraphPage);
-    socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
-    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(37);
-
-    socialGraphPage.animatedSocialGraphSection.showCivilComplaintOnlyCheckbox.click();
-    waitForGraphAnimationEnd(browser, socialGraphPage);
+    socialGraphPage.animatedSocialGraphSection.complaintOriginSelected.getText().should.eql('CIVILIAN');
+    socialGraphPage.animatedSocialGraphSection.startDate.getText().should.eql('1990-01-09');
+    socialGraphPage.animatedSocialGraphSection.endDate.getText().should.eql('2008-01-11');
     socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
     socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(38);
+
+    socialGraphPage.animatedSocialGraphSection.complaintOriginOfficer.click();
+    waitForGraphAnimationEnd(browser, socialGraphPage, '1992-03-08');
+    socialGraphPage.animatedSocialGraphSection.complaintOriginSelected.getText().should.eql('OFFICER');
+    socialGraphPage.animatedSocialGraphSection.startDate.getText().should.eql('1990-01-09');
+    socialGraphPage.animatedSocialGraphSection.endDate.getText().should.eql('1992-03-08');
+    socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
+    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(3);
+
+    socialGraphPage.animatedSocialGraphSection.complaintOriginAll.click();
+    waitForGraphAnimationEnd(browser, socialGraphPage, '2009-01-11');
+    socialGraphPage.animatedSocialGraphSection.complaintOriginSelected.getText().should.eql('ALL');
+    socialGraphPage.animatedSocialGraphSection.startDate.getText().should.eql('1990-01-09');
+    socialGraphPage.animatedSocialGraphSection.endDate.getText().should.eql('2009-01-11');
+    socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
+    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(39);
 
     browser.moveToObject(socialGraphPage.animatedSocialGraphSection.coaccusalsThresholdSlider.selector, 140, 7);
     browser.buttonPress();
@@ -209,40 +240,64 @@ describe('Social Graph Page', function () {
     waitForGraphAnimationEnd(browser, socialGraphPage);
   });
 
+  it('should render officer name when hovering on officer node', function () {
+    waitForGraphAnimationEnd(browser, socialGraphPage);
+    browser.moveToObject(socialGraphPage.animatedSocialGraphSection.biggestGraphNode.selector);
+    socialGraphPage.animatedSocialGraphSection.officerTip.getText().should.eql('Donnell Calhoun');
+
+    socialGraphPage.animatedSocialGraphSection.biggestGraphNode.click();
+    socialGraphPage.animatedSocialGraphSection.selectedNodeLabel.getText().should.eql('Donnell Calhoun');
+    socialGraphPage.animatedSocialGraphSection.officerTip.waitForVisible(1000, true);
+
+    socialGraphPage.animatedSocialGraphSection.anotherGraphNode.click();
+    socialGraphPage.animatedSocialGraphSection.selectedNodeLabel.getText().should.eql('William Roberison');
+    browser.moveToObject(socialGraphPage.animatedSocialGraphSection.biggestGraphNode.selector);
+    socialGraphPage.animatedSocialGraphSection.officerTip.getText().should.eql('Donnell Calhoun');
+
+    socialGraphPage.animatedSocialGraphSection.leftSection.click();
+    socialGraphPage.animatedSocialGraphSection.selectedNodeLabel.waitForVisible(1000, true);
+    browser.moveToObject(socialGraphPage.animatedSocialGraphSection.anotherGraphNode.selector);
+    socialGraphPage.animatedSocialGraphSection.officerTip.getText().should.eql('William Roberison');
+  });
+
   it('should render officer preview pane when clicking on the officer row', function () {
     waitForGraphAnimationEnd(browser, socialGraphPage);
     socialGraphPage.animatedSocialGraphSection.officerTab.click();
-    socialGraphPage.officersSection.officerRowCount().should.eql(20);
+    socialGraphPage.officersSection.officerRows().should.have.length(20);
     socialGraphPage.officersSection.firstOfficerRow.click();
-    socialGraphPage.officersSection.officerPreviewPane.waitForVisible();
-    socialGraphPage.officersSection.officerName.getText().should.eql('Bennie Watson');
+    socialGraphPage.previewPaneSection.previewPane.waitForVisible();
+    socialGraphPage.previewPaneSection.officerPreviewPaneName.getText().should.eql('Donnell Calhoun');
 
     socialGraphPage.animatedSocialGraphSection.leftSection.click();
-    socialGraphPage.officersSection.officerPreviewPane.waitForVisible(1000, true);
+    socialGraphPage.previewPaneSection.previewPane.waitForVisible(1000, true);
   });
 
-  it('should render officer preview pane when clicking on the officer node', function () {
+  it('should render officer preview pane and officer name when clicking on the officer node', function () {
     waitForGraphAnimationEnd(browser, socialGraphPage);
     socialGraphPage.animatedSocialGraphSection.officerTab.click();
-    socialGraphPage.officersSection.officerRowCount().should.eql(20);
+    socialGraphPage.officersSection.officerRows().should.have.length(20);
     socialGraphPage.animatedSocialGraphSection.biggestGraphNode.click();
-    socialGraphPage.officersSection.officerPreviewPane.waitForVisible();
-    socialGraphPage.officersSection.officerName.getText().should.eql('Donnell Calhoun');
+    socialGraphPage.previewPaneSection.previewPane.waitForVisible();
 
     socialGraphPage.animatedSocialGraphSection.leftSection.click();
-    socialGraphPage.officersSection.officerPreviewPane.waitForVisible(1000, true);
+    socialGraphPage.previewPaneSection.previewPane.waitForVisible(1000, true);
   });
 
-  it('should render timeline section when clicking on timeline tab', function () {
+  it('should render timeline section and show preview pane when click on timeline item', function () {
     waitForGraphAnimationEnd(browser, socialGraphPage);
-    socialGraphPage.timelineSection.allegationRowCount().should.eql(64);
+    socialGraphPage.timelineSection.allegationRowCount().should.eql(83);
 
-    socialGraphPage.timelineSection.firstAllegationYear.getText().should.eql('1990');
+    socialGraphPage.timelineSection.firstYearItem.getText().should.eql('1990');
     socialGraphPage.timelineSection.firstAllegationCategory.getText().should.eql('Use Of Force');
     socialGraphPage.timelineSection.firstAllegationSubcategory.getText().should.eql(
       'Excessive Force / On Duty - Injury'
     );
     socialGraphPage.timelineSection.firstAllegationDate.getText().should.eql('JAN 9');
+
+    socialGraphPage.timelineSection.firstAllegationItem.click();
+
+    socialGraphPage.previewPaneSection.crPreviewPaneTitle.getText().should.eql('Use Of Force');
+    socialGraphPage.previewPaneSection.crPreviewPaneSubtitle.getText().should.eql('Excessive Force / On Duty - Injury');
   });
 
   it('should scroll to last timeline item(s) when slider reach the end', function () {
@@ -286,7 +341,7 @@ describe('Social Graph Page', function () {
     waitForGraphAnimationEnd(browser, socialGraphPage);
 
     socialGraphPage.animatedSocialGraphSection.officerTab.click();
-    socialGraphPage.officersSection.officerRowCount().should.eql(20);
+    socialGraphPage.officersSection.officerRows().should.have.length(20);
 
     socialGraphPage.animatedSocialGraphSection.timelineTab.click();
     browser.waitUntil(function () {
@@ -308,5 +363,212 @@ describe('Social Graph Page', function () {
     ).format('MMM D').toUpperCase();
     formattedCurrentDate.should.eql('MAR 8');
     socialGraphPage.timelineSection.timelineItemDateActive.getText().should.eql(formattedCurrentDate);
+  });
+
+  it('should render edge coaccusals preview pane when clicking on officer edge', function () {
+    socialGraphPage.animatedSocialGraphSection.rightPaneSectionMenu.waitForVisible();
+    waitForGraphAnimationEnd(browser, socialGraphPage);
+
+    function waitUntilEdgeNotMoving(edge) {
+      let edgePosition = {};
+      browser.waitUntil(function () {
+        const newEdgePosition = {
+          x1: edge.getAttribute('x1'),
+          x2: edge.getAttribute('x2'),
+          y1: edge.getAttribute('y1'),
+          y2: edge.getAttribute('y2'),
+        };
+        const result = isEqual(newEdgePosition, edgePosition);
+        edgePosition = newEdgePosition;
+        return result;
+      }, 20000);
+    }
+
+    browser.execute(() => {
+      const currentLinks = document.getElementsByClassName('current-link');
+      for (let i = 0; i < currentLinks.length; i++) {
+        currentLinks[i].style['stroke-width'] = '8px';
+      }
+    });
+    const firstCurrentEdge = socialGraphPage.animatedSocialGraphSection.firstCurrentEdge;
+    waitUntilEdgeNotMoving(firstCurrentEdge);
+
+    firstCurrentEdge.getAttribute('class').should.not.containEql('edge-hover');
+    browser.moveToObject(firstCurrentEdge.selector);
+    firstCurrentEdge.getAttribute('class').should.containEql('edge-hover');
+
+    socialGraphPage.animatedSocialGraphSection.firstCurrentEdge.click();
+    socialGraphPage.animatedSocialGraphSection.selectedEdgeLabel.getText().should.eql('2 coaccusals');
+    socialGraphPage.previewPaneSection.edgePreviewPaneHeader.getText().should.eql(
+      'Matthew Brandon & William Roberison\'s 2 coaccusals'
+    );
+    let edgeCoaccusalsItems = socialGraphPage.previewPaneSection.edgeCoaccusalsItems();
+    edgeCoaccusalsItems.should.have.length(4);
+    edgeCoaccusalsItems[0].getText().should.eql('1990');
+    edgeCoaccusalsItems[1].getText().should.containEql('JAN 9');
+    edgeCoaccusalsItems[1].getText().should.containEql('Use Of Force');
+    edgeCoaccusalsItems[2].getText().should.eql('1991');
+    edgeCoaccusalsItems[3].getText().should.containEql('JUL 6');
+    edgeCoaccusalsItems[3].getText().should.containEql('Criminal Misconduct');
+
+    socialGraphPage.animatedSocialGraphSection.biggestGraphNode.click();
+    socialGraphPage.animatedSocialGraphSection.selectedNodeLabel.getText().should.eql('Donnell Calhoun');
+    socialGraphPage.animatedSocialGraphSection.officerTip.waitForVisible(1000, true);
+    socialGraphPage.previewPaneSection.previewPane.waitForVisible();
+
+    waitUntilEdgeNotMoving(socialGraphPage.animatedSocialGraphSection.secondCurrentEdge);
+
+    socialGraphPage.animatedSocialGraphSection.secondCurrentEdge.click();
+    socialGraphPage.animatedSocialGraphSection.selectedEdgeLabel.getText().should.eql('4 coaccusals');
+    socialGraphPage.previewPaneSection.edgePreviewPaneHeader.getText().should.eql(
+      'Joseph Blaye & Tracy Hughes\'s 4 coaccusals'
+    );
+
+    edgeCoaccusalsItems = socialGraphPage.previewPaneSection.edgeCoaccusalsItems();
+
+    edgeCoaccusalsItems.should.have.length(6);
+    edgeCoaccusalsItems[0].getText().should.eql('1992');
+    edgeCoaccusalsItems[1].getText().should.containEql('JUL 18');
+    edgeCoaccusalsItems[1].getText().should.containEql('Operation/Personnel Violations');
+    edgeCoaccusalsItems[2].getText().should.eql('1993');
+    edgeCoaccusalsItems[3].getText().should.containEql('MAR 28');
+    edgeCoaccusalsItems[3].getText().should.containEql('Lockup Procedures');
+    edgeCoaccusalsItems[4].getText().should.containEql('APR 3');
+    edgeCoaccusalsItems[4].getText().should.containEql('Operation/Personnel Violations');
+    edgeCoaccusalsItems[5].getText().should.containEql('JUN 9');
+    edgeCoaccusalsItems[5].getText().should.containEql('Illegal Search');
+
+    socialGraphPage.timelineSection.firstAllegationItem.click();
+
+    socialGraphPage.previewPaneSection.crPreviewPaneTitle.getText().should.eql('Operation/Personnel Violations');
+    socialGraphPage.previewPaneSection.crPreviewPaneSubtitle.getText().should.eql('Inventory Procedures');
+
+    socialGraphPage.animatedSocialGraphSection.leftSection.click();
+
+    socialGraphPage.previewPaneSection.edgePreviewPaneHeader.getText().should.eql(
+      'Joseph Blaye & Tracy Hughes\'s 4 coaccusals'
+    );
+
+    socialGraphPage.animatedSocialGraphSection.leftSection.click();
+    socialGraphPage.previewPaneSection.previewPane.waitForVisible(1000, true);
+  });
+
+  it('should order officer rows correctly', function () {
+    socialGraphPage.animatedSocialGraphSection.rightPaneSectionMenu.waitForVisible();
+    waitForGraphAnimationEnd(browser, socialGraphPage);
+    socialGraphPage.animatedSocialGraphSection.officerTab.click();
+    const expectedFinalOrderedOfficers = [
+      'Donnell Calhoun',
+      'Eugene Offett',
+      'Johnny Cavers',
+      'Melvin Ector',
+      'Hardy White',
+      'Thomas Kampenga',
+      'Gilbert Cobb',
+      'Bennie Watson',
+      'Charles Toussas',
+      'Francis Higgins',
+      'David Portis',
+      'Glenn Evans',
+      'Isaac Lee',
+      'John Hart',
+      'Sean Brandon',
+      'Joseph Blaye',
+      'Matthew Brandon',
+      'Tracy Hughes',
+      'William Roberison',
+      'Estella Perez-Stanford'
+    ];
+    const finalOrderedOfficers = map(
+      socialGraphPage.officersSection.officerRows(), officerRow => officerRow.getText()
+    );
+    finalOrderedOfficers.should.eql(expectedFinalOrderedOfficers);
+
+    const expectedMiddleOrderedOfficers = [
+      'Charles Toussas',
+      'Donnell Calhoun',
+      'Thomas Kampenga',
+      'David Portis',
+      'Eugene Offett',
+      'Francis Higgins',
+      'Hardy White',
+      'John Hart',
+      'Glenn Evans',
+      'Johnny Cavers',
+      'Melvin Ector',
+      'Bennie Watson',
+      'Estella Perez-Stanford',
+      'Gilbert Cobb',
+      'Isaac Lee',
+      'Joseph Blaye',
+      'Matthew Brandon',
+      'Sean Brandon',
+      'Tracy Hughes',
+      'William Roberison'
+    ];
+    browser.moveToObject(socialGraphPage.animatedSocialGraphSection.timelineSlider.selector);
+    browser.buttonPress();
+    const middleOrderedOfficers = map(
+      socialGraphPage.officersSection.officerRows(), officerRow => officerRow.getText()
+    );
+    middleOrderedOfficers.should.eql(expectedMiddleOrderedOfficers);
+  });
+
+  it('should show/hide right sidebar and left sidebar when clicking on toggle sidebars button', function () {
+    socialGraphPage.animatedSocialGraphSection.leftSection.waitForVisible();
+    socialGraphPage.animatedSocialGraphSection.rightSection.waitForVisible();
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.waitForVisible();
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.getAttribute('class').should.containEql(
+      'show-right-sidebar-icon'
+    );
+
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.click();
+    socialGraphPage.animatedSocialGraphSection.leftSection.waitForVisible(1000, true);
+    socialGraphPage.animatedSocialGraphSection.rightSection.isExisting().should.be.true();
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.getAttribute('class').should.containEql(
+      'hide-both-sidebars-icon'
+    );
+
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.click();
+    socialGraphPage.animatedSocialGraphSection.leftSection.isExisting().should.be.false();
+    socialGraphPage.animatedSocialGraphSection.rightSection.waitForVisible(1000, true);
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.getAttribute('class').should.containEql(
+      'show-left-sidebar-icon'
+    );
+
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.click();
+    socialGraphPage.animatedSocialGraphSection.leftSection.waitForVisible();
+    socialGraphPage.animatedSocialGraphSection.rightSection.isExisting().should.be.false();
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.getAttribute('class').should.containEql(
+      'show-both-sidebars-icon'
+    );
+
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.click();
+    socialGraphPage.animatedSocialGraphSection.leftSection.isExisting().should.be.true();
+    socialGraphPage.animatedSocialGraphSection.rightSection.waitForVisible();
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.getAttribute('class').should.containEql(
+      'show-right-sidebar-icon'
+    );
+  });
+});
+
+describe('Social Graph Page with pinboard_id', function () {
+  beforeEach(function () {
+    socialGraphPage.open('?pinboard_id=5cd06f2b');
+  });
+
+  context('Network tab', function () {
+    it('should go back to pinboard page when clicking on back to pinboard button', function () {
+      socialGraphPage.animatedSocialGraphSection.backToPinboardButton.click();
+      browser.getUrl().should.containEql('/pinboard/5cd06f2b/');
+    });
+  });
+
+  context('Geographic tab', function () {
+    it('should go back to pinboard page when clicking on back to pinboard button', function () {
+      socialGraphPage.animatedSocialGraphSection.geographicTab.click();
+      socialGraphPage.animatedSocialGraphSection.backToPinboardButton.click();
+      browser.getUrl().should.containEql('/pinboard/5cd06f2b/');
+    });
   });
 });
