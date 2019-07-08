@@ -2,8 +2,8 @@ import React, { PropTypes, Component } from 'react';
 
 import styles from './empty-pinboard.sass';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
-
 import ExamplePinboardLink from 'components/pinboard-page/empty-pinboard/example-pinboard-link';
+
 
 export default class EmptyPinboardPage extends Component {
   render() {

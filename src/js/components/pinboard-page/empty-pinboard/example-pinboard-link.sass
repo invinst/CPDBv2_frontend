@@ -4,7 +4,6 @@
   margin: 0 8px 4px 8px
   padding: 16px 0 16px 12px
   border: 1px solid $white-two-color
-  cursor: pointer
   display: block
   text-decoration: none
 
@@ -13,16 +12,24 @@
       color: $soft-black-color
       transition: color 0.5s ease-in-out
 
-.wrapper
-  display: inline-block
-  vertical-align: middle
-  width: calc(100% - 25px)
+  .wrapper
+    display: inline-block
+    vertical-align: middle
+    width: calc(100% - 25px)
 
-  .title
-    color: $accent-color
-    line-height: 16px
-    margin-bottom: 2px
+    .title
+      color: $accent-color
+      line-height: 16px
+      margin-bottom: 2px
 
-  .description
-    color: $boulder-color
-    font-size: 12px
+    .description
+      color: $boulder-color
+      font-size: 12px
+
+  .arrow
+    background: url('/img/disclosure-indicator.svg') 0 0 no-repeat scroll
+    display: inline-block
+    vertical-align: middle
+    width: 8px
+    height: 12px
+    margin: 0 8px 0 9px
