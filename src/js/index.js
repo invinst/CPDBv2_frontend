@@ -21,6 +21,10 @@ if (config.appEnv === 'live-test') {
   global.disableAnimation = true;
 }
 
+if (module.hot) {
+  module.hot.accept();
+}
+
 render(
   <RouterRoot />,
   document.getElementById('root'));
