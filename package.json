@@ -117,7 +117,6 @@
     "enum": "^2.4.0",
     "es6-promise": "^4.2.2",
     "fbemitter": "^2.1.1",
-    "glamor": "^2.20.40",
     "hammerjs": "^2.0.8",
     "ismobilejs": "^0.4.0",
     "jlouvain": "^2.0.0",

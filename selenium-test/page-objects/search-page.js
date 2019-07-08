@@ -107,7 +107,7 @@ class SearchPage extends Page {
       searchHint: '.search-hint',
       firstLoadMoreButton: '(//div[contains(@class, "test--load-more-button")])[1]',
       secondLoadMoreButton: '(//div[contains(@class, "test--load-more-button")])[2]',
-      plusSign: '(//div[contains(@class, "test--plus-sign")])',
+      plusSign: '(//div[contains(@class, "plus-sign-wrapper")])',
       firstAliasButton: '(//a[contains(@class, "test--create-alias-link")])[1]',
       pinboardButton: '.test--pinboard-button',
       pinboardBar: '//div[starts-with(@class, "pinboard-bar")]',

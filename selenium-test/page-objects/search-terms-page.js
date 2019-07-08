@@ -64,7 +64,7 @@ class BottomLinksSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      backToFrontPageLink: '.test--search-term-back-front-page-link',
+      backToFrontPageLink: '.search-term-back-front-page-link',
     });
   }
 }
@@ -77,7 +77,7 @@ class SearchTermsPage extends Page {
     this.previewPane = new PreviewPane();
     this.prepareElementGetters({
       input: '.test--search-page-input',
-      title: '.test--search-term-title',
+      title: '.search-term-title',
       searchTermsToggle: '.test--toggle-button',
       clearSearchButton: '.test--search-close-button',
     });
