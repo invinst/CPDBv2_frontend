@@ -16,6 +16,7 @@ export default class AutosaveTextareaInput extends Component {
 
   componentDidMount() {
     window.addEventListener('resize', this.handleResize);
+    this.adjustTextareaHeight(this.textarea);
   }
 
   adjustTextareaHeight(textarea) {

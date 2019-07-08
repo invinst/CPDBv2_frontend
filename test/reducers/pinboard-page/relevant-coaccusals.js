@@ -197,4 +197,132 @@ describe('relevantCoaccusals reducer', function () {
       pagination: { next: null, previous: null },
     });
   });
+
+  it('should handle ADD_ITEM_TO_PINBOARD_STATE and remove item', function () {
+    const existingCoaccusals = [
+      {
+        'id': 21992,
+        'rank': 'Police Officer',
+        'full_name': 'Johnny Patterson',
+        'coaccusal_count': 24,
+        'percentile': {
+          'year': 2006,
+          'percentile_trr': '0.0000',
+          'percentile_allegation': '88.9038',
+          'percentile_allegation_civilian': '49.4652',
+          'percentile_allegation_internal': '85.8654'
+        }
+      },
+      {
+        'id': 2433,
+        'rank': 'Police Officer',
+        'full_name': 'Darren Borum',
+        'coaccusal_count': 18,
+        'percentile': {
+          'year': 2016,
+          'percentile_trr': '38.9028',
+          'percentile_allegation': '86.0456',
+          'percentile_allegation_civilian': '81.8766',
+          'percentile_allegation_internal': '88.3297'
+        }
+      }
+    ];
+
+    const currentState = {
+      items: existingCoaccusals,
+      count: 444,
+      pagination: {
+        next: '/pinboards/66ef1560/relevant-coaccusals/?limit=20&offset=40',
+        previous: '/pinboards/66ef1560/relevant-coaccusals/?',
+      },
+      requesting: false,
+    };
+
+    relevantCoaccusals(currentState, {
+      type: constants.ADD_ITEM_TO_PINBOARD_STATE,
+      payload: {
+        type: 'OFFICER',
+        id: '21992',
+      }
+    }).should.eql({
+      items: [
+        {
+          'id': 2433,
+          'rank': 'Police Officer',
+          'full_name': 'Darren Borum',
+          'coaccusal_count': 18,
+          'percentile': {
+            'year': 2016,
+            'percentile_trr': '38.9028',
+            'percentile_allegation': '86.0456',
+            'percentile_allegation_civilian': '81.8766',
+            'percentile_allegation_internal': '88.3297'
+          }
+        }
+      ],
+      count: 444,
+      pagination: {
+        next: '/pinboards/66ef1560/relevant-coaccusals/?limit=20&offset=40',
+        previous: '/pinboards/66ef1560/relevant-coaccusals/?',
+      },
+      requesting: false,
+    });
+  });
+
+  it('should ignore ADD_ITEM_TO_PINBOARD_STATE with type is not OFFICER', function () {
+    const existingCoaccusals = [
+      {
+        'id': 21992,
+        'rank': 'Police Officer',
+        'full_name': 'Johnny Patterson',
+        'coaccusal_count': 24,
+        'percentile': {
+          'year': 2006,
+          'percentile_trr': '0.0000',
+          'percentile_allegation': '88.9038',
+          'percentile_allegation_civilian': '49.4652',
+          'percentile_allegation_internal': '85.8654'
+        }
+      },
+      {
+        'id': 2433,
+        'rank': 'Police Officer',
+        'full_name': 'Darren Borum',
+        'coaccusal_count': 18,
+        'percentile': {
+          'year': 2016,
+          'percentile_trr': '38.9028',
+          'percentile_allegation': '86.0456',
+          'percentile_allegation_civilian': '81.8766',
+          'percentile_allegation_internal': '88.3297'
+        }
+      }
+    ];
+
+    const currentState = {
+      items: existingCoaccusals,
+      count: 444,
+      pagination: {
+        next: '/pinboards/66ef1560/relevant-coaccusals/?limit=20&offset=40',
+        previous: '/pinboards/66ef1560/relevant-coaccusals/?',
+      },
+      requesting: false,
+    };
+
+    relevantCoaccusals(currentState, {
+      type: constants.ADD_ITEM_TO_PINBOARD_STATE,
+      payload: {
+        type: 'CR',
+        id: '21992',
+      }
+    }).should.eql({
+      items: existingCoaccusals,
+      count: 444,
+      pagination: {
+        next: '/pinboards/66ef1560/relevant-coaccusals/?limit=20&offset=40',
+        previous: '/pinboards/66ef1560/relevant-coaccusals/?',
+      },
+      requesting: false,
+    });
+  });
 });

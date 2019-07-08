@@ -19,6 +19,8 @@ export default class Item extends Component {
     };
     const ItemComponent = componentMap[item.kind];
     this.component = <ItemComponent { ...this.props }/>;
+
+    this.handleClick = this.handleClick.bind(this);
   }
 
   shouldComponentUpdate(nextProps) {
@@ -31,6 +33,13 @@ export default class Item extends Component {
       );
   }
 
+  handleClick() {
+    const { item, updateSelectedCrid } = this.props;
+    if (item.kind === 'CR') {
+      updateSelectedCrid(item.crid);
+    }
+  }
+
   render() {
     const { item, timelineIdx } = this.props;
     const componentMap = {
@@ -41,8 +50,9 @@ export default class Item extends Component {
 
     return (
       <div
-        className={ cx(styles.item, { 'active': item.timelineIdx === timelineIdx }) }
+        className={ cx(styles.item, 'cr-preview-link', { 'active': timelineIdx && item.timelineIdx === timelineIdx }) }
         id={ !isUndefined(item.timelineIdx) ? `trigger-${item.timelineIdx}` : '' }
+        onClick={ this.handleClick }
       >
         <ItemComponent { ...this.props }/>
       </div>
@@ -54,4 +64,6 @@ Item.propTypes = {
   item: PropTypes.object,
   pathname: PropTypes.string,
   timelineIdx: PropTypes.number,
+  onTrackingAttachment: PropTypes.func,
+  updateSelectedCrid: PropTypes.func,
 };

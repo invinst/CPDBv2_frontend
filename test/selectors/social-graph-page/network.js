@@ -2,8 +2,13 @@ import {
   officersSelector,
   coaccusedDataSelector,
   getListEvent,
-  officerDetailTransform,
-  networkOfficerSelector
+  attachmentTransform,
+  allegationTransform,
+  yearItem,
+  fillYears,
+  gapYearItems,
+  edgeCoaccusalsItemsSelector,
+  selectedEdgeDataSelector,
 } from 'selectors/social-graph-page/network';
 
 
@@ -133,158 +138,300 @@ describe('Social Graph page selectors', function () {
     });
   });
 
-  describe('officerDetailTransform', function () {
-    it('should return officer correctly', function () {
-      const officer = {
-        'id': 123,
-        'full_name': 'Jerome Finnigan',
-        'appointed_date': '2001-07-08',
-        'resignation_date': '2005-10-10',
-        'badge': '123456',
-        'gender': 'Male',
-        'birth_year': 1970,
-        'race': 'White',
-        'rank': 'Police Officer',
-        'unit': {
-          'id': 456,
-          'unit_name': 'Unit 715',
-          'description': 'This is unit description',
-        },
-        'allegation_count': 10,
-        'sustained_count': 5,
-        'civilian_compliment_count': 20,
-        'discipline_count': 3,
-        'trr_count': 7,
-        'major_award_count': 15,
-        'honorable_mention_count': 12,
-        'percentile': {
-          'year': 2017,
-          'percentile_allegation': '95',
-          'percentile_trr': '90',
-          'percentile_allegation_civilian': '97.0',
-          'percentile_allegation_internal': '82.0',
-        },
-        'honorable_mention_percentile': '70'
+  describe('allegationTransform', function () {
+    it('should return allegation correctly', function () {
+      const allegation = {
+        'crid': '123456',
+        'incident_date': '2007-10-10',
+        'category': 'Use of Force',
+        'subcategory': 'Subcategory',
+        'attachments': [],
+        'timelineIdx': 1,
       };
-      officerDetailTransform(officer).should.eql({
-        id: 123,
-        to: '/officer/123/jerome-finnigan/',
-        fullName: 'Jerome Finnigan',
-        appointedDate: 'JUL 8, 2001',
-        resignationDate: 'OCT 10, 2005',
-        badge: '123456',
-        gender: 'Male',
-        age: 47,
-        race: 'White',
-        rank: 'Police Officer',
-        unit: {
-          id: 456,
-          unitName: 'Unit 715',
-          description: 'This is unit description',
-        },
-        complaintCount: 10,
-        civilianComplimentCount: 20,
-        sustainedCount: 5,
-        disciplineCount: 3,
-        trrCount: 7,
-        majorAwardCount: 15,
-        honorableMentionCount: 12,
-        honorableMentionPercentile: 70,
-        trrPercentile: 90,
-        complaintPercentile: 95,
-        lastPercentile: {
-          year: 2017,
-          items: [
-            { axis: 'Use of Force Reports', value: 90 },
-            { axis: 'Officer Allegations', value: 82 },
-            { axis: 'Civilian Allegations', value: 97 },
-
-          ],
-          visualTokenBackground: '#f52524',
-          textColor: '#DFDFDF',
-        }
+      allegationTransform(allegation).should.eql({
+        crid: '123456',
+        kind: 'CR',
+        year: 2007,
+        incidentDate: 'OCT 10',
+        category: 'Use of Force',
+        subcategory: 'Subcategory',
+        attachments: [],
+        key: '123456',
+        timelineIdx: 1,
       });
     });
   });
-  describe('networkOfficerSelector', function () {
-    it('should return network officer correctly', function () {
+
+  describe('attachmentTransform', function () {
+    it('should return allegation correctly', function () {
+      const attachment = {
+        'file_type': 'document',
+        'preview_image_url': 'http://lvh.me/preview/image/url',
+        'title': 'Document Title',
+        'url': 'http://lvh.me/document/url',
+        'id': 456789
+      };
+      attachmentTransform(attachment).should.eql({
+        fileType: 'document',
+        previewImageUrl: 'http://lvh.me/preview/image/url',
+        title: 'Document Title',
+        url: 'http://lvh.me/document/url',
+        id: 456789
+      });
+    });
+  });
+
+  describe('yearItem', function () {
+    it('should copy unit and rank info from baseItem', function () {
+      const baseItem = {
+        crid: '123456',
+        kind: 'CR',
+        year: 2007,
+        incidentDate: 'OCT 10',
+        category: 'Use of Force',
+        subcategory: 'Subcategory',
+        attachments: [],
+        key: '123456'
+      };
+
+      yearItem(baseItem, 2007, true).should.eql({
+        kind: 'YEAR',
+        date: 2007,
+        hasData: true,
+        key: '123456-YEAR-2007',
+      });
+    });
+  });
+
+  describe('gapYearItems', function () {
+    it('should return correct year items', function () {
+      const fromItem = {
+        year: 2014,
+        incidentDate: 'MAR 1',
+        kind: 'CR',
+        key: 1,
+      };
+      const toItem = {
+        year: 2011,
+        incidentDate: 'MAR 1',
+        kind: 'CR',
+        key: 2,
+      };
+
+      gapYearItems(fromItem, toItem).should.eql([
+        {
+          kind: 'YEAR',
+          date: 2013,
+          hasData: false,
+          key: '2-YEAR-2013',
+        },
+        {
+          kind: 'YEAR',
+          date: 2012,
+          hasData: false,
+          key: '2-YEAR-2012',
+        }
+      ]);
+    });
+  });
+
+  describe('fillYears', function () {
+    it('should fill year items into correct indexes', function () {
+      const items = [
+        {
+          year: 2014,
+          date: 'MAR 1',
+          kind: 'CR',
+          key: 1,
+        },
+        {
+          year: 2011,
+          date: 'MAR 1',
+          kind: 'CR',
+          key: 2,
+        }
+      ];
+
+      fillYears(items).should.eql([
+        {
+          kind: 'YEAR',
+          date: 2014,
+          hasData: true,
+          key: '1-YEAR-2014',
+        },
+        {
+          year: 2014,
+          date: 'MAR 1',
+          kind: 'CR',
+          key: 1,
+        },
+        {
+          kind: 'YEAR',
+          date: 2013,
+          hasData: false,
+          key: '2-YEAR-2013',
+        },
+        {
+          kind: 'YEAR',
+          date: 2012,
+          hasData: false,
+          key: '2-YEAR-2012',
+        },
+        {
+          kind: 'YEAR',
+          date: 2011,
+          hasData: true,
+          key: '2-YEAR-2011',
+        },
+        {
+          year: 2011,
+          date: 'MAR 1',
+          kind: 'CR',
+          key: 2,
+        }
+      ]);
+    });
+
+    it('should fill no years between two items that in the same year', function () {
+      const sameYearItems = [
+        {
+          year: 2014,
+          incidentDate: 'MAR 1',
+          kind: 'CR',
+          key: 1,
+        },
+        {
+          year: 2014,
+          incidentDate: 'MAR 1',
+          kind: 'CR',
+          key: 2,
+        }
+      ];
+
+      fillYears(sameYearItems).should.eql([
+        {
+          kind: 'YEAR',
+          date: 2014,
+          hasData: true,
+          key: '1-YEAR-2014',
+        },
+        ...sameYearItems
+      ]);
+    });
+  });
+
+  describe('edgeCoaccusalsItemsSelector', function () {
+    it('should return edge coaccusals items correctly', function () {
       const state = {
         socialGraphPage: {
           networkData: {
-            networkOfficers: [
+            networkAllegations: [
               {
-                'id': 123,
-                'full_name': 'Jerome Finnigan',
-                'appointed_date': '2001-07-08',
-                'resignation_date': '2005-10-10',
-                'badge': '123456',
-                'gender': 'Male',
-                'birth_year': 1970,
-                'race': 'White',
-                'rank': 'Police Officer',
-                'unit': {
-                  'id': 456,
-                  'unit_name': 'Unit 715',
-                  'description': 'This is unit description',
-                },
-                'allegation_count': 10,
-                'sustained_count': 5,
-                'civilian_compliment_count': 20,
-                'discipline_count': 3,
-                'trr_count': 7,
-                'major_award_count': 15,
-                'honorable_mention_count': 12,
-                'percentile': {
-                  'year': 2017,
-                  'percentile_allegation': '95',
-                  'percentile_trr': '90',
-                  'percentile_allegation_civilian': '97.0',
-                  'percentile_allegation_internal': '82.0',
-                },
-                'honorable_mention_percentile': '70'
-              }
+                category: 'Criminal Misconduct',
+                subcategory: 'Theft',
+                crid: '260131',
+                'incident_date': '2003-02-17',
+                'officer_ids': [123],
+              },
+              {
+                category: 'Illegal Search',
+                subcategory: 'Search Of Premise Without Warrant',
+                crid: '294088',
+                'incident_date': '2003-11-26',
+                attachments: [
+                  {
+                    url: 'https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html',
+                    'preview_image_url':
+                      'https://assets.documentcloud.org/documents/3518950/pages/CRID-294088-CR-p1-normal.gif',
+                    title: 'CRID 294088 CR',
+                    'file_type': 'document',
+                    'id': '123456',
+                  }
+                ],
+                'officer_ids': [123, 456, 789],
+              },
             ],
-            officerId: 123
+            graphData: {
+              'list_event': ['2003-02-17', '2003-11-26']
+            },
+            selectedEdge: {
+              sourceUid: 123,
+              targetUid: 456,
+            }
           }
         }
       };
-      networkOfficerSelector(state).should.eql({
-        id: 123,
-        to: '/officer/123/jerome-finnigan/',
-        fullName: 'Jerome Finnigan',
-        appointedDate: 'JUL 8, 2001',
-        resignationDate: 'OCT 10, 2005',
-        badge: '123456',
-        gender: 'Male',
-        age: 47,
-        race: 'White',
-        rank: 'Police Officer',
-        unit: {
-          id: 456,
-          unitName: 'Unit 715',
-          description: 'This is unit description',
-        },
-        complaintCount: 10,
-        civilianComplimentCount: 20,
-        sustainedCount: 5,
-        disciplineCount: 3,
-        trrCount: 7,
-        majorAwardCount: 15,
-        honorableMentionCount: 12,
-        honorableMentionPercentile: 70,
-        trrPercentile: 90,
-        complaintPercentile: 95,
-        lastPercentile: {
-          year: 2017,
-          items: [
-            { axis: 'Use of Force Reports', value: 90 },
-            { axis: 'Officer Allegations', value: 82 },
-            { axis: 'Civilian Allegations', value: 97 },
-
+      edgeCoaccusalsItemsSelector(state).should.eql([
+        {
+          category: 'Illegal Search',
+          subcategory: 'Search Of Premise Without Warrant',
+          crid: '294088',
+          'incident_date': '2003-11-26',
+          attachments: [
+            {
+              url: 'https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html',
+              'preview_image_url':
+                'https://assets.documentcloud.org/documents/3518950/pages/CRID-294088-CR-p1-normal.gif',
+              title: 'CRID 294088 CR',
+              'file_type': 'document',
+              'id': '123456',
+            }
           ],
-          visualTokenBackground: '#f52524',
-          textColor: '#DFDFDF',
+          'officer_ids': [123, 456, 789],
+        },
+      ]);
+    });
+  });
+
+  describe('selectedEdgeDataSelector', function () {
+    it('should return selected edge correctly', function () {
+      const state = {
+        socialGraphPage: {
+          networkData: {
+            networkAllegations: [
+              {
+                'most_common_category': {
+                  category: 'Criminal Misconduct',
+                  'allegation_name': 'Theft'
+                },
+                crid: '260131',
+                'incident_date': '2003-02-17',
+                'officer_ids': [123, 456],
+              },
+              {
+                'most_common_category': {
+                  category: 'Illegal Search',
+                  'allegation_name': 'Search Of Premise Without Warrant'
+                },
+                crid: '294088',
+                'incident_date': '2003-11-26',
+                attachments: [
+                  {
+                    url: 'https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html',
+                    'preview_image_url':
+                      'https://assets.documentcloud.org/documents/3518950/pages/CRID-294088-CR-p1-normal.gif',
+                    title: 'CRID 294088 CR',
+                    'file_type': 'document',
+                    'id': '123456',
+                  }
+                ],
+                'officer_ids': [123, 456, 789],
+              },
+            ],
+            graphData: {
+              'list_event': ['2003-02-17', '2003-11-26']
+            },
+            selectedEdge: {
+              sourceUid: 123,
+              targetUid: 456,
+            }
+          }
         }
+      };
+      selectedEdgeDataSelector(state).should.eql({
+        sourceUid: 123,
+        targetUid: 456,
+        coaccusedCount: 2,
       });
     });
   });

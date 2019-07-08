@@ -1,4 +1,4 @@
-import { get, sumBy, map, last, kebabCase } from 'lodash';
+import { get, sumBy, map, last, kebabCase, has } from 'lodash';
 import moment from 'moment';
 
 import { extractPercentile } from 'selectors/common/percentile';
@@ -7,8 +7,8 @@ import { roundedPercentile } from 'utils/calculations';
 import { FULL_MONTH_DATE_FORMAT } from 'utils/constants';
 import { getDemographicString } from 'utils/victims';
 import {
-  navigationItemTransform as searchTermNavigationItemTransform
-} from 'selectors/search-page/search-terms/transforms';
+  navigationItemTransform as previewPaneNavigationItemTransform
+} from './navigation-item-transform';
 
 
 const mappingRace = (race) => {
@@ -24,7 +24,7 @@ const mappingRace = (race) => {
 
 export const previewPaneTransform = item => {
   const { type } = item;
-  const transform = get(searchResultTransformMap, type, () => {});
+  const transform = get(previewPaneTransformMap, type, () => {});
   return {
     type,
     data: transform(item)
@@ -87,7 +87,10 @@ const accusedTransform = coaccused => {
     id: coaccused.id,
     name: coaccused['full_name'],
     url: `/officer/${coaccused.id}/${kebabCase(coaccused['full_name'])}/`,
-    count: coaccused['allegation_count'],
+    count:
+      has(coaccused, 'allegation_count') ? coaccused['allegation_count'] :
+      has(coaccused, 'complaint_count') ? coaccused['complaint_count'] :
+      0,
     radarAxes: percentile.items,
     radarColor: percentile.visualTokenBackground,
   };
@@ -109,7 +112,7 @@ const crTransform = (item) => {
     coaccused,
     victims: map(item.victims, getDemographicString),
     address: item.address,
-    category: item.category,
+    category: item.category || item['most_common_category'],
     subCategory: item['sub_category'],
     incidentDate: formatDate(item['incident_date']),
     to: item.to,
@@ -123,11 +126,15 @@ const trrTransform = (item) => {
   };
 };
 
-const officerTransform = (item) => {
+export const officerTransform = (item) => {
   const race = item['race'] === 'Unknown' ? null : item['race'];
-  const lastPercentile = last(item['percentiles']);
+  const lastPercentile =
+    has(item, 'percentile') ? item['percentile'] :
+    has(item, 'percentiles') ? last(item['percentiles']) :
+    {};
+
   return {
-    fullName: item['name'],
+    fullName: item['name'] || item['full_name'],
     appointedDate: formatDate(item['appointed_date']),
     resignationDate: formatDate(item['resignation_date']),
     badge: item['badge'],
@@ -155,8 +162,8 @@ const officerTransform = (item) => {
   };
 };
 
-const searchResultTransformMap = {
-  'SEARCH-TERMS': searchTermNavigationItemTransform,
+const previewPaneTransformMap = {
+  'SEARCH-TERMS': previewPaneNavigationItemTransform,
   'DATE > CR': crTransform,
   'DATE > TRR': trrTransform,
   'DATE > OFFICERS': officerTransform,
@@ -224,7 +231,7 @@ export const searchResultItemTransform = (item) => ({
   tags: get(item, 'tags', []),
   itemIndex: item.itemIndex || 1,
   isPinned: item.isPinned,
-  ...get(searchResultTransformMap, item.type, () => {})(item)
+  ...get(previewPaneTransformMap, item.type, () => {})(item)
 });
 
 export const navigationItemTransform = item => ({

@@ -1,19 +1,19 @@
 import { connect } from 'react-redux';
 
 import Officers from 'components/social-graph-page/network/right-pane-section/officers';
-import { networkOfficersSelector } from 'selectors/social-graph-page/network-officers';
-import { updateOfficerId } from 'actions/social-graph-page';
+import { sortedNetworkOfficersSelector } from 'selectors/social-graph-page/network-officers';
+import { updateSelectedOfficerId } from 'actions/social-graph-page';
 
 
 function mapStateToProps(state, ownProps) {
   return {
-    officers: networkOfficersSelector(state),
-    updateOfficerId: ownProps.updateOfficerId
+    officers: sortedNetworkOfficersSelector(state, ownProps),
+    updateSelectedOfficerId: ownProps.updateSelectedOfficerId
   };
 }
 
 const mapDispatchToProps = {
-  updateOfficerId,
+  updateSelectedOfficerId,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Officers);

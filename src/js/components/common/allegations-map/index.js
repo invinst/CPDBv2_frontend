@@ -4,11 +4,10 @@ import ReactDOM from 'react-dom';
 import cx from 'classnames';
 import { isEmpty } from 'lodash';
 
-import { MAP_INFO, MAP_ITEMS, MAPBOX_STYLE } from 'utils/constants';
+import { MAP_INFO, MAPBOX_STYLE } from 'utils/constants';
 import { mapboxgl } from 'utils/vendors';
 import Legend from './legend';
 import MarkerTooltip from './marker-tooltip';
-import SimpleMarkerTooltip from './simple-marker-tooltip';
 import Marker from './marker';
 import styles from './allegations-map.sass';
 import withLoadingSpinner from 'components/common/with-loading-spinner';
@@ -27,6 +26,11 @@ export default class AllegationsMap extends Component {
     nextProps.markers.map(marker => {
       this.addMarker(marker);
     });
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const { legend, markers } = this.props;
+    return legend !== nextProps.legend || markers !== nextProps.markers;
   }
 
   gotRef(el) {
@@ -49,31 +53,18 @@ export default class AllegationsMap extends Component {
 
   createPopup(marker) {
     const popup = new mapboxgl.Popup({ offset: 0, closeButton: false });
-    let tooltip;
-    if (marker.kind === MAP_ITEMS.CR) {
-      tooltip = (
-        <MarkerTooltip
-          id={ marker.id }
-          kind={ marker.kind }
-          category={ marker.category }
-          coaccused={ marker.coaccused }
-          victims={ marker.victims }
-        />
-      );
-    } else if (marker.kind === MAP_ITEMS.FORCE) {
-      tooltip = (
-        <SimpleMarkerTooltip
-          kind='TRR'
-          id={ marker.id }
-          category={ marker.category }
-        />
-      );
-    }
+    const tooltip = (
+      <MarkerTooltip
+        date={ marker.date }
+        category={ marker.category }
+      />
+    );
     popup.setHTML(ReactDOMServer.renderToString(tooltip));
     return popup;
   }
 
   addMarker(marker) {
+    const { handleClickCRMarker, handleClickTRRMarker } = this.props;
     const popup = this.createPopup(marker);
 
     const markerEl = document.createElement('div');
@@ -89,6 +80,8 @@ export default class AllegationsMap extends Component {
         kind={ marker.kind }
         finding={ marker.finding }
         mapboxMarker={ this.marker }
+        handleClickCRMarker={ handleClickCRMarker }
+        handleClickTRRMarker={ handleClickTRRMarker }
       />,
       markerEl
     );
@@ -146,7 +139,9 @@ AllegationsMap.propTypes = {
         category: PropTypes.string,
       })
     ),
-  ])
+  ]),
+  handleClickCRMarker: PropTypes.func,
+  handleClickTRRMarker: PropTypes.func,
 };
 
 AllegationsMap.defaultProps = {

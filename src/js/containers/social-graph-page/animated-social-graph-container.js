@@ -7,30 +7,39 @@ import {
 import AnimatedSocialGraph from 'components/common/animated-social-graph';
 import {
   updateSocialGraphTimelineIdx,
-  updateOfficerId,
-  updateSocialGraphRefreshIntervalId
+  updateSelectedOfficerId,
+  updateSocialGraphRefreshIntervalId,
+  updateSocialGraphSelectedEdge,
 } from 'actions/social-graph-page';
 import {
   officersSelector,
   coaccusedDataSelector,
   getListEvent,
+  getSelectedOfficerId,
+  selectedEdgeDataSelector,
 } from 'selectors/social-graph-page/network';
 
 
 function mapStateToProps(state, ownProps) {
   return {
+    performResizeGraph: ownProps.performResizeGraph,
+    customRightControlButton: ownProps.customRightControlButton,
     officers: officersSelector(state),
     coaccusedData: coaccusedDataSelector(state),
     listEvent: getListEvent(state),
     timelineIdx: getSocialGraphTimelineIdx(state),
     refreshIntervalId: getSocialGraphRefreshIntervalId(state),
+    selectedOfficerId: getSelectedOfficerId(state),
+    selectedEdge: selectedEdgeDataSelector(state),
+    updateSortedOfficerIds: ownProps.updateSortedOfficerIds,
   };
 }
 
 const mapDispatchToProps = {
-  updateOfficerId,
+  updateSelectedOfficerId,
   updateTimelineIdx: updateSocialGraphTimelineIdx,
   updateRefreshIntervalId: updateSocialGraphRefreshIntervalId,
+  updateSelectedEdge: updateSocialGraphSelectedEdge,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AnimatedSocialGraph);
