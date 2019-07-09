@@ -1,55 +1,16 @@
 import React, { PropTypes, Component } from 'react';
+import cx from 'classnames';
+import { noop } from 'lodash';
 
 import RightLinks from './right-links';
 import LogoContainer from 'containers/headers/slim-header/logo-container';
-import {
-  middleWrapperStyle,
-  bottomRightLinkStyle,
-  bottomSlimHeaderStyle,
-  middleRightLinkStyle,
-  middleSlimHeaderStyle,
-  verticallyAlignedHeaderItemStyle,
-  logoWrapper,
-  topRightLinkStyle,
-  topSlimHeaderStyle,
-  bottomSearchBoxStyle,
-  middleSearchBoxStyle,
-  topSearchBoxStyle
-} from './slim-header-content.style';
-
 import LogOutButtonContainer from 'containers/log-out-container';
 import SearchSectionComponent from 'components/landing-page/search-section';
 import { accentColor } from 'utils/styles';
 import { scrollToTop } from 'utils/dom';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
+import styles from './slim-header-content.sass';
 
-
-const positionSpecificStyles = {
-  top: {
-    wrapperStyle: {},
-    slimHeaderStyle: topSlimHeaderStyle,
-    rightLinkStyle: topRightLinkStyle,
-    searchBoxStyle: topSearchBoxStyle,
-    magnifyingGlassColor: accentColor,
-    handleOnClick: () => {},
-  },
-  middle: {
-    wrapperStyle: middleWrapperStyle,
-    slimHeaderStyle: middleSlimHeaderStyle,
-    rightLinkStyle: middleRightLinkStyle,
-    searchBoxStyle: middleSearchBoxStyle,
-    magnifyingGlassColor: accentColor,
-    handleOnClick: () => {}
-  },
-  bottom: {
-    wrapperStyle: {},
-    slimHeaderStyle: bottomSlimHeaderStyle,
-    rightLinkStyle: bottomRightLinkStyle,
-    searchBoxStyle: bottomSearchBoxStyle,
-    magnifyingGlassColor: 'white',
-    handleOnClick: scrollToTop
-  }
-};
 
 class SlimHeaderContent extends Component {
   getPosition() {
@@ -61,33 +22,28 @@ class SlimHeaderContent extends Component {
     const { pathname, editModeOn, style, className } = this.props;
     const position = this.getPosition();
 
-    const {
-      wrapperStyle,
-      slimHeaderStyle,
-      searchBoxStyle,
-      magnifyingGlassColor,
-      rightLinkStyle,
-      handleOnClick
-    } = positionSpecificStyles[position];
-
     return (
-      <div className={ className } onClick={ handleOnClick } style={ { ...wrapperStyle, ...style } }>
+      <div
+        className={ cx(className, styles.slimHeaderContent, position) }
+        onClick={ position === 'bottom' ? scrollToTop : noop }
+        style={ style }
+      >
         <ResponsiveFluidWidthComponent>
-          <div style={ slimHeaderStyle }>
-            <div style={ verticallyAlignedHeaderItemStyle }>
+          <div className={ cx('slim-header', position) } >
+            <div className={ cx('vertically-aligned-header-item', position) }>
               <LogOutButtonContainer pathname={ pathname } />
             </div>
 
-            <div style={ verticallyAlignedHeaderItemStyle }>
-              <RightLinks rightLinkStyle={ rightLinkStyle } editModeOn={ editModeOn } />
+            <div className={ cx('vertically-aligned-header-item', position) }>
+              <RightLinks className={ cx('right-link', position) } editModeOn={ editModeOn } />
             </div>
 
             <SearchSectionComponent
-              searchBoxStyle={ searchBoxStyle }
-              magnifyingGlassColor={ magnifyingGlassColor }
+              searchBoxClassName={ cx('search-box', position) }
+              magnifyingGlassColor={ position === 'bottom' ? 'white' : accentColor }
             />
 
-            <div style={ logoWrapper }>
+            <div className='logo'>
               <LogoContainer position={ position } editModeOn={ editModeOn } />
             </div>
           </div>

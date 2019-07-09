@@ -1,13 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import MediaQuery from 'react-responsive';
+import cx from 'classnames';
 
 import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 import LinkTextEditable from 'components/inline-editable/editable-section/link-text-editable';
 import { editMode } from 'utils/edit-path';
-import { wrapperStyle, titleStyle, subtitleStyle } from './logo.style';
+import styles from './logo.sass';
 import { ROOT_PATH } from 'utils/constants';
 
 class Logo extends Component {
@@ -18,14 +19,13 @@ class Logo extends Component {
 
     return (
       <EditWrapperStateProvider { ...editWrapperStateProps }>
-        <HoverableEditWrapper style={ wrapperStyle[position] }>
+        <HoverableEditWrapper className={ styles.logo }>
           <MediaQuery minWidth={ 830 }>
             { (matches) => (
               matches
                 ? (
                   <LinkTextEditable
-                    style={ titleStyle[position] }
-                    className='test--header-logo-title'
+                    className={ cx('header-logo-title', position) }
                     placeholder='Title'
                     to={ titleLink }
                     fieldname='navbar_title'
@@ -33,9 +33,9 @@ class Logo extends Component {
                 )
                 : (
                   <Link
-                    style={ titleStyle[position] }
                     to={ titleLink }
-                    className='test--header-logo-title'>
+                    className={ cx('header-logo-title', position) }
+                  >
                     CPDP
                   </Link>
                 )
@@ -43,8 +43,7 @@ class Logo extends Component {
           </MediaQuery>
           <MediaQuery minWidth={ 950 }>
             <RichTextEditable
-              style={ subtitleStyle[position] }
-              className='test--header-logo-subtitle'
+              className={ cx('header-logo-subtitle', position) }
               placeholder='Subtitle'
               fieldname='navbar_subtitle'
               />

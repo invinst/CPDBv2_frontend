@@ -1,11 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import config from 'config';
+import cx from 'classnames';
 
 import { QA_LINK } from 'utils/constants';
 
 export default class RightLinks extends Component {
   render() {
-    const { rightLinkStyle } = this.props;
+    const { className } = this.props;
     const links = [
       {
         name: 'Data',
@@ -25,11 +26,10 @@ export default class RightLinks extends Component {
       if (link.externalHref) {
         return (
           <a
-            className='test--right-external-link'
+            className={ cx(className, 'right-external-link') }
             onClick={ (e) => {
               e.stopPropagation();
             } }
-            style={ rightLinkStyle }
             key={ index }
             href={ link.externalHref }
           >
@@ -45,5 +45,5 @@ export default class RightLinks extends Component {
 
 RightLinks.propTypes = {
   editModeOn: PropTypes.bool,
-  rightLinkStyle: PropTypes.object
+  className: PropTypes.string,
 };

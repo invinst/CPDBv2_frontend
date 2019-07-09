@@ -1,15 +1,19 @@
 import React, { PropTypes } from 'react';
+import cx from 'classnames';
+
+import styles from './magnifying-glass.sass';
+
 
 export default class MagnifyingGlass extends React.Component {
   render() {
-    const { color, style, ...rest } = this.props;
+    const { className, color, ...rest } = this.props;
     return (
       <svg
+        className={ cx(className, styles.magnifyingGlass) }
         xmlns='http://www.w3.org/2000/svg'
         width='17'
         height='17'
         viewBox='0 0 17 17'
-        style={ { overflow: 'visible', ...style } }
         { ...rest }
       >
         <path
@@ -26,7 +30,7 @@ export default class MagnifyingGlass extends React.Component {
 
 MagnifyingGlass.propTypes = {
   color: PropTypes.string,
-  style: PropTypes.object,
+  className: PropTypes.string,
 };
 
 MagnifyingGlass.defaultProps = {

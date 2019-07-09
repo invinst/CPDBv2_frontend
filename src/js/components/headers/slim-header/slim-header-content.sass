@@ -1,0 +1,80 @@
+@import 'variables'
+
+\:local(.slim-header-content)
+  .slim-header
+    padding: 0 16px
+    box-sizing: border-box
+    width: inherit
+    font-size: 14px
+    line-height: 18px
+
+    &.top
+      height: 102px
+
+    &.middle
+      height: 64px
+      box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.13)
+
+    &.bottom
+      height: 102px
+      cursor: pointer
+
+    .vertically-aligned-header-item
+      float: right
+      position: relative
+      top: 50%
+      transform: translateY(-50%)
+
+    .right-link
+      text-decoration: none
+      color: $medium-gray-color
+      font-weight: 400
+      cursor: pointer
+      margin-left: 46px
+
+      &.top
+        color: $accent-color
+
+      &.middle
+        color: $clay-gray
+
+      &.bottom
+        color: white
+
+    .search-box
+      width: 274px
+      color: $greyish-color
+      font-size: 14px
+      line-height: 14px
+      box-sizing: border-box
+      cursor: text
+      display: block
+      text-decoration: none
+      text-align: right
+      border: solid 1px $white-two-color
+      padding: 0 13px
+
+      &.top
+        background-color: $sugar-cane-color
+        height: 40px
+        line-height: 40px
+        border: solid 1px $white-two-color
+
+      &.middle
+        background-color: white
+        height: 32px
+        line-height: 32px
+        border: solid 1px $white-two-color
+
+      &.bottom
+        background-color: $light-blue
+        height: 40px
+        line-height: 40px
+        border: solid 1px white
+        color: white
+
+    .logo
+      float: left
+      position: relative
+      top: 50%
+      transform: translateY(-50%)

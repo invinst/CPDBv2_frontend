@@ -14,7 +14,6 @@ import { SlimHeader } from 'components/headers/slim-header';
 import { unmountComponentSuppressError } from 'utils/test';
 import ContextWrapper from 'utils/test/components/context-wrapper';
 import * as domUtils from 'utils/dom';
-import { fixedStyle } from 'components/headers/slim-header/slim-header.style';
 import SlimHeaderContent from 'components/headers/slim-header/slim-header-content';
 import { RichTextFieldFactory } from 'utils/test/factories/field';
 
@@ -124,7 +123,7 @@ describe('SlimHeader component', function () {
           </SlimHeaderContextWrapper>
         </Provider>
       );
-      let externalLinks = scryRenderedDOMComponentsWithClass(element, 'test--right-external-link');
+      let externalLinks = scryRenderedDOMComponentsWithClass(element, 'right-external-link');
       const dummyEvent = {
         stopPropagation: spy()
       };
@@ -211,7 +210,6 @@ describe('SlimHeader component', function () {
         transform: 'translateY(-100%)',
         backgroundColor: 'rgb(255, 255, 255)',
         height: '64px',
-        ...fixedStyle
       });
     });
 

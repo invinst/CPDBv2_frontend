@@ -3,7 +3,7 @@ import { Motion, spring } from 'react-motion';
 
 import { calculatePosition } from 'utils/dom';
 import SlimHeaderContent from './slim-header-content';
-import { fixedStyle } from './slim-header.style';
+import styles from './slim-header.sass';
 
 
 export class SlimHeader extends Component {
@@ -72,7 +72,7 @@ export class SlimHeader extends Component {
             const b = Math.round(backgroundB);
             return (
               <SlimHeaderContent
-                className='test--sticky-slim-header'
+                className={ styles.stickySlimHeader }
                 position={ this.state.position }
                 pathname={ pathname }
                 editModeOn={ editModeOn }
@@ -80,7 +80,6 @@ export class SlimHeader extends Component {
                   transform: `translateY(-${translateY}%)`,
                   backgroundColor: `rgb(${r}, ${g}, ${b})`,
                   height: `${height}px`,
-                  ...fixedStyle
                 } }
                 disableTop={ true }
               />
