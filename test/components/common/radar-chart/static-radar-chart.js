@@ -65,6 +65,7 @@ describe('StaticRadarChart component', function () {
       width: 456,
       height: 432,
       radius: 123,
+      offsetTop: 2,
       someProps: 'someProps'
     };
 
@@ -79,6 +80,7 @@ describe('StaticRadarChart component', function () {
     noDataRadarChart.props.gridColor.should.equal('#8F8F8F');
     noDataRadarChart.props.strokeWidth.should.equal(0.6);
     noDataRadarChart.props.boundaryAreaColor.should.equal('#ADADAD');
+    noDataRadarChart.props.offsetTop.should.equal(2);
 
     findRenderedComponentWithType(instance, RadarArea);
     const radarGrid = findRenderedComponentWithType(instance, RadarGrid);

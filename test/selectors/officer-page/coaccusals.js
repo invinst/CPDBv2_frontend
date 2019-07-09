@@ -30,7 +30,6 @@ describe('Officer coaccusals selectors', function () {
                 'coaccusal_count': 4,
                 rank: 'Po As Detective',
                 'percentile': {
-                  'officer_id': 1,
                   'year': 2007,
                   'percentile_allegation': '99.987',
                   'percentile_allegation_civilian': '94.0',
@@ -50,7 +49,6 @@ describe('Officer coaccusals selectors', function () {
                 'coaccusal_count': 2,
                 rank: 'Po As Detective',
                 'percentile': {
-                  'officer_id': 2,
                   'year': 2007,
                   'percentile_allegation': '39.0',
                   'percentile_allegation_civilian': '83.0',
@@ -70,7 +68,6 @@ describe('Officer coaccusals selectors', function () {
                 'coaccusal_count': 1,
                 rank: 'Police Officer',
                 'percentile': {
-                  'officer_id': 3,
                   'year': 2007,
                   'percentile_allegation': '19.0',
                   'percentile_allegation_civilian': '73.0',
@@ -114,7 +111,6 @@ describe('Officer coaccusals selectors', function () {
                     'value': 94
                   }
                 ],
-                officerId: 1,
                 textColor: '#DFDFDF',
                 visualTokenBackground: '#f52524',
                 year: 2007
@@ -147,7 +143,6 @@ describe('Officer coaccusals selectors', function () {
                     'value': 83
                   }
                 ],
-                officerId: 2,
                 textColor: '#DFDFDF',
                 visualTokenBackground: '#f52524',
                 year: 2007
@@ -185,7 +180,6 @@ describe('Officer coaccusals selectors', function () {
                     'value': 73
                   }
                 ],
-                officerId: 3,
                 textColor: '#DFDFDF',
                 visualTokenBackground: '#f32a29',
                 year: 2007

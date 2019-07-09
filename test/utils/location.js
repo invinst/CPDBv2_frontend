@@ -10,7 +10,8 @@ import {
   serializeFilterParams,
   officerPath,
   getUnitName,
-  getDocDedupCRID
+  getDocDedupCRID,
+  getPinboardID
 } from 'utils/location';
 
 
@@ -121,6 +122,16 @@ describe('location utils', function () {
 
     it('should return crid', function () {
       getDocDedupCRID('/documents/crid/1000000/').should.eql('1000000');
+    });
+  });
+
+  describe('getPinboardID', function () {
+    it('should return null when url is undefined', function () {
+      should(getPinboardID(undefined)).eql(null);
+    });
+
+    it('should return pinboard id', function () {
+      getPinboardID('/pinboard/123/').should.eql('123');
     });
   });
 });

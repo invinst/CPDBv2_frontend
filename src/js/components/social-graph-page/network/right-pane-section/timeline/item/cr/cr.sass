@@ -1,0 +1,56 @@
+@import 'variables'
+
+$height: 58px
+
+\:local(.wrapper)
+  display: inline-block
+  width: 100%
+  padding: 0 16px 0 8px
+  box-sizing: border-box
+  height: $height
+  line-height: $height - 1px
+
+  .content
+    .kind
+      width: 24px
+      border: 1px solid $champagne-color
+      border-radius: 2px
+      color: $bright-orange-two-color
+      font-size: 14px
+      line-height: 22px
+      display: inline-block
+      text-align: center
+      margin: 0 8px 3px 0
+      box-sizing: border-box
+
+    .detail
+      line-height: 18px
+      color: $soft-black-color
+      display: inline-block
+      vertical-align: middle
+      width: calc(100% - 100px)
+
+      .category
+        color: $soft-black-color
+
+      .subcategory
+        font-weight: 300
+        line-height: 14px
+        font-size: 12px
+        color: $clay-gray
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
+
+    .right
+      float: right
+      display: inline-block
+      text-align: right
+
+      .date
+        width: 44px
+        display: inline-block
+        text-align: right
+        font-size: 12px
+        color: $clay-gray
+        font-weight: 300

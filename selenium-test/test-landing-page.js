@@ -61,9 +61,11 @@ describe('landing page', function () {
 
   it('should go to the landing page when the url does not match any route', function () {
     browser.url('/url-mediator/session-builder/');
+    browser.element('body').waitForVisible();
     landingPage.currentBasePath.should.eql('/');
 
     browser.url('/something/really/wrong/');
+    browser.element('body').waitForVisible();
     landingPage.currentBasePath.should.eql('/');
   });
 
@@ -204,11 +206,11 @@ describe('landing page', function () {
 
     it('should go to search term page when clicking anywhere in the search box', function () {
       landingPage.searchSection.sectionSearchBox.click();
-      browser.getUrl().should.containEql('/search/terms/');
+      browser.getUrl().should.containEql('/search/');
 
       landingPage.open();
       landingPage.searchSection.sectionSearchTerm.click();
-      browser.getUrl().should.containEql('/search/terms/');
+      browser.getUrl().should.containEql('/search/');
     });
   });
 });

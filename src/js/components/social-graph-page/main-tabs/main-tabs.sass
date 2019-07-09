@@ -1,0 +1,30 @@
+@import 'variables'
+
+$social-graph-sidebar-width: 244px
+
+\:local(.mainTabs)
+  .social-graph-btn, .geographic-btn
+    width: 102px
+    height: 102px
+    display: inline-block
+    border: 1px solid $white-two-color
+    box-sizing: border-box
+    background-position: center
+    background-repeat: no-repeat
+    cursor: pointer
+
+    &.active
+      border: 4px solid $white20-color
+      background-color: $accent-color
+
+  .social-graph-btn
+    background-image: url('/img/ic-social-graph.svg')
+
+    &.active
+      background-image: url('/img/ic-social-graph-active.svg')
+
+  .geographic-btn
+    background-image: url('/img/ic-geographic.svg')
+
+    &.active
+      background-image: url('/img/ic-geographic-active.svg')

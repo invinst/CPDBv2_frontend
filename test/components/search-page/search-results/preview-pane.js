@@ -15,11 +15,11 @@ import {
   PoliceBeatPane,
   PoliceDistrictPane,
   SchoolGroundPane,
-  OfficerPane,
+  NewOfficerPane as OfficerPane,
   RankPane,
   SearchTermItemPane,
   CRPane
-} from 'components/search-page/preview-pane';
+} from 'components/common/preview-pane';
 
 
 describe('PreviewPane component', function () {
@@ -175,7 +175,7 @@ describe('PreviewPane component', function () {
 
   it('should not display any component if the data is empty', function () {
     instance = renderIntoDocument(
-      <PreviewPane/>
+      <PreviewPane customClass='test--preview-pane'/>
     );
     scryRenderedDOMComponentsWithClass(instance, 'test--preview-pane').should.have.length(0);
   });
@@ -185,6 +185,7 @@ describe('PreviewPane component', function () {
       <PreviewPane
         data={ { name: 'Community' } }
         type='NOT_FOUND'
+        customClass='test--preview-pane'
       />
     );
     const instanceDOM = findRenderedDOMComponentWithClass(instance, 'test--preview-pane');

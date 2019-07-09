@@ -13,22 +13,31 @@ import {
   searchResultGroupsSelector,
   hasMoreSelector,
   nextParamsSelector,
-  isShowingSingleContentTypeSelector
+  isShowingSingleContentTypeSelector,
 } from 'selectors/search-page/search-results/suggestion-groups';
 import {
   previewPaneInfoSelector,
   totalItemCountSelector
 } from 'selectors/search-page/search-results/navigation';
 import { getFocusedItem } from 'selectors/search-page';
+import { addOrRemoveItemInPinboard } from 'actions/pinboard';
 
 
 function mapStateToProps(state, ownProps) {
-  const { onLoadMore, aliasEditModeOn, editModeOn } = ownProps;
+  const {
+    onLoadMore,
+    aliasEditModeOn,
+    editModeOn,
+    onSelect,
+    contentType,
+} = ownProps;
   const { isRequesting, navigation, query } = state.searchPage;
 
   return {
     navigation,
     onLoadMore,
+    onSelect,
+    contentType,
     aliasEditModeOn,
     isEmpty: isEmptySelector(state),
     searchText: query,
@@ -40,7 +49,7 @@ function mapStateToProps(state, ownProps) {
     hasMore: hasMoreSelector(state),
     nextParams: nextParamsSelector(state),
     singleContent: isShowingSingleContentTypeSelector(state),
-    totalItemCount: totalItemCountSelector(state)
+    totalItemCount: totalItemCountSelector(state),
   };
 }
 
@@ -50,6 +59,7 @@ const mapDispatchToProps = {
   getSuggestionWithContentType,
   move,
   setSearchNavigation,
+  addOrRemoveItemInPinboard,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);

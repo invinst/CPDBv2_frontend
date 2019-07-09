@@ -238,8 +238,69 @@ describe('store', function () {
         pagination: {}
       },
       socialGraphPage: {
-        graphData: {}
-      }
+        networkData: {
+          currentNetworkTab: 'Timeline',
+          showTimelineTab: true,
+          graphData: {},
+          networkAllegations: [],
+          networkOfficers: [],
+          selectedOfficerId: null,
+          timelineIdx: 0,
+          refreshIntervalId: null,
+          timelineIdxTriggerChange: 0,
+          selectedEdge: null,
+          selectedCrid: null,
+        },
+        currentMainTab: 'NETWORK',
+        geographicData: {
+          mapData: [],
+          previewPaneData: [],
+          crid: null,
+          trrId: null,
+        },
+      },
+      pinboardPage: {
+        pinboard: {
+          crids: [],
+          description: '',
+          id: null,
+          isPinboardRestored: false,
+          'officer_ids': [],
+          saving: false,
+          title: '',
+          'trr_ids': [],
+        },
+        graphData: { requesting: false, data: {} },
+        geographicData: { requesting: false, data: [] },
+        currentTab: 'NETWORK',
+        relevantDocuments: {
+          requesting: false,
+          items: [],
+          count: 0,
+          pagination: { next: null, previous: null }
+        },
+        relevantCoaccusals: {
+          requesting: false,
+          items: [],
+          count: 0,
+          pagination: { next: null, previous: null }
+        },
+        relevantComplaints: {
+          requesting: false,
+          items: [],
+          count: 0,
+          pagination: { next: null, previous: null }
+        },
+        redirect: false,
+        initialRequested: false,
+        officerItems: { requesting: false, items: [] },
+        crItems: { requesting: false, items: [] },
+        trrItems: { requesting: false, items: [] },
+        timelineIdx: 0,
+        refreshIntervalId: null,
+        focusedItem: {},
+      },
+      toast: {},
     });
   });
 });

@@ -1,0 +1,36 @@
+@import 'variables'
+
+%pinboard-btn
+  display: block
+  height: 40px
+  font-weight: 300
+  font-size: 14px
+  text-align: center
+  box-sizing: border-box
+  margin-top: 7px
+  border-radius: 2px
+  line-height: 40px
+  position: absolute
+  right: 16px
+  top: 0
+  z-index: 1
+  cursor: pointer
+
+\:local(.pinboard-no-item)
+  @extend %pinboard-btn
+  width: 181px
+  color: $cash-green-color
+  border: 1px solid $white-two-color
+
+\:local(.pinboard-has-items)
+  @extend %pinboard-btn
+  width: 109px
+  color: $japanese-laurel
+  background-color: $sprout
+
+  &:visited
+    color: $cash-green-color
+
+  &:hover
+    color: white
+    background-color: $cash-green-color

@@ -1,0 +1,37 @@
+@import 'variables'
+
+$social-graph-sidebar-width: 244px
+$network-right-sidebar-width: 351px
+
+\:local(.geographic-map)
+  background-color: $sugar-cane-color
+
+  .left-section
+    width: $social-graph-sidebar-width
+    height: 100vh
+    padding: 12px 28px 39px 12px
+    box-sizing: border-box
+    float: left
+    font-size: 14px
+    color: $boulder-color
+    font-weight: 300
+    box-shadow: 0 1px 2px 0 $black15-color
+
+  .main-content
+    width: calc(100% - #{$social-graph-sidebar-width})
+    float: left
+    box-sizing: border-box
+    border-left: 1px solid $white-two-color
+
+  .right-section
+    width: $network-right-sidebar-width
+    height: 100vh
+    box-sizing: border-box
+    float: left
+    font-size: 14px
+    color: $boulder-color
+    font-weight: 300
+    display: inline-block
+
+  .show-right-pane
+    width: calc(100% - #{$social-graph-sidebar-width} - #{$network-right-sidebar-width})

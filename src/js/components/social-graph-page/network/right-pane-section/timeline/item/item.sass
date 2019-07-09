@@ -1,0 +1,12 @@
+@import 'variables'
+
+
+\:local(.item)
+  background-color: $snow-color
+
+  & + &
+    .content
+      border-top: solid 1px $white-two-color
+
+  &.active
+    background-color: $corn-silk-color

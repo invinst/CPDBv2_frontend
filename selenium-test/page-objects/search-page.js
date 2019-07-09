@@ -8,12 +8,15 @@ class OfficerPreviewPaneSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      wrapper: '.test--preview-pane',
+      wrapper: '//div[starts-with(@class, "preview-pane")]',
       gradient: '.test--gradient',
       communityPane: '.test--preview-pane-community',
       neighborhoodPane: '.test--preview-pane-neighborhood',
-      listMostOfficers: '//*[@class="test--preview-pane"]//*[contains(@class,"list-widget-item-link")]',
-      previewPane: '.test--preview-pane',
+      listMostOfficers: '//*[starts-with(@class, "preview-pane")]//*[contains(@class,"list-widget-item-link")]',
+      previewPane: '//div[starts-with(@class, "preview-pane")]',
+      pinButton: '.pin-button',
+      viewOfficerButton: '.view-officer-profile-button',
+      unitItem: 'li.has-link',
     });
   }
 }
@@ -22,8 +25,8 @@ class RankPreviewPaneSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      previewPane: '.test--preview-pane',
-      listMostOfficers: '//*[@class="test--preview-pane"]//*[contains(@class,"list-widget-item-link")]',
+      previewPane: '//div[starts-with(@class, "preview-pane")]',
+      listMostOfficers: '//*[starts-with(@class, "preview-pane")]//*[contains(@class,"list-widget-item-link")]',
     });
   }
 }
@@ -33,11 +36,11 @@ class CRPreviewPaneSection extends Section {
     super();
     this.prepareElementGetters({
       callToAction: '//div[contains(@class, "new-call-to-action-widget")]',
-      wrapper: '.test--preview-pane',
+      wrapper: '//div[starts-with(@class, "preview-pane")]',
       gradient: '.widget-wrapper-gradient',
       title: '.cr-preview-pane-title-title',
       subtitle: '.cr-preview-pane-title-subtitle',
-      previewPane: '.test--preview-pane',
+      previewPane: '//div[starts-with(@class, "preview-pane")]',
       incidentDate: '//div[@class="cr-preview-pane-info-row"][1]',
       address: '//div[@class="cr-preview-pane-info-row"][2]',
       victimText: '.cr-preview-pane-victims-text',
@@ -97,6 +100,8 @@ class SearchPage extends Page {
       searchTermsToggle: '.test--toggle-button',
       clearSearchButton: '.test--search-close-button',
       firstOfficerResult: '.test--suggestion-group .suggestion-item-OFFICER-1',
+      firstOfficerPinButton:
+        '//a[contains(@class, "suggestion-item-OFFICER-1")]//span[starts-with(@class, "item-pin-button")]',
       secondOfficerResult: '.test--suggestion-group .suggestion-item-OFFICER-2',
       firstNeighborhoodResult: '.test--suggestion-group .suggestion-item-NEIGHBORHOOD-1',
       secondNeighborhoodResult: '.test--suggestion-group .suggestion-item-NEIGHBORHOOD-2',
@@ -105,8 +110,11 @@ class SearchPage extends Page {
       searchHint: '.search-hint',
       firstLoadMoreButton: '(//div[contains(@class, "test--load-more-button")])[1]',
       secondLoadMoreButton: '(//div[contains(@class, "test--load-more-button")])[2]',
-      plusSign: '(//div[contains(@class, "test--plus-sign")])',
+      plusSign: '(//div[contains(@class, "plus-sign-wrapper")])',
       firstAliasButton: '(//a[contains(@class, "test--create-alias-link")])[1]',
+      pinboardButton: '.test--pinboard-button',
+      pinboardBar: '//div[starts-with(@class, "pinboard-bar")]',
+      toast: '.Toastify__toast-body',
     });
   }
 
@@ -116,12 +124,10 @@ class SearchPage extends Page {
       result = `${result}?terms=${query}`;
     }
     super.open(result);
-    browser.element('body').waitForVisible();
   }
 
   openWithEditMode() {
     super.open('/edit/search/');
-    browser.element('body').waitForVisible();
   }
 }
 

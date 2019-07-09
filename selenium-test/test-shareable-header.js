@@ -8,6 +8,7 @@ import searchTermsPage from './page-objects/search-terms-page';
 import trrPage from './page-objects/trr-page';
 import header from './page-objects/shareable-header';
 import officerPage from './page-objects/officer-page';
+import pinboardPage from './page-objects/pinboard-page';
 
 
 describe('shareableHeader', function () {
@@ -30,7 +31,6 @@ describe('shareableHeader', function () {
 
     it('should show breadcrumbs correctly when entering the Search Terms page first', function () {
       searchTermsPage.open();
-      searchTermsPage.searchTermsToggle.click();
       searchPage.input.waitForVisible();
       browser.keys('ke');
       searchPage.firstOfficerResult.waitForVisible();
@@ -66,5 +66,21 @@ describe('shareableHeader', function () {
         header.breadcrumbs.mainElement.getText().should.eql('cpdpBernadette KellyTRR 1');
       }
     );
+
+    // TODO: We temporarily skip this test because clicking on complaint item on relevant section
+    // does not navigate to complaint page anymore (it shows preview pane instead). We will update
+    // the test when the preview page gets updated and has a link to navigate to complaint page.
+    it.skip('should show pinboard breadcrumb', function () {
+      pinboardPage.open();
+      pinboardPage.pinboardSection.pinboardPaneMenu.waitForVisible();
+
+      pinboardPage.relevantComplaintsSection.complaintCardSection.incidentDate.click();
+      browser.pause(500);
+      browser.getUrl().should.match(/\/complaint\/1071234\/$/);
+
+      const BreadcrumbsItems = header.breadcrumbs.items;
+      BreadcrumbsItems.count.should.eql(3);
+      header.breadcrumbs.mainElement.getText().should.containEql('cpdp').and.containEql('Pinboard');
+    });
   });
 });

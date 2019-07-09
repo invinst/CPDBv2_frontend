@@ -1,0 +1,17 @@
+@import 'variables'
+
+\:local(.plus-button)
+  position: absolute
+  top: 0
+  right: 0
+  padding: 8px
+
+  &:hover
+    .inner-circle
+      background: url(/img/ic-plus-white.svg) no-repeat scroll center/61% $cash-green-color
+
+  .inner-circle
+    border-radius: 7px
+    width: 14px
+    height: 14px
+    background: url(/img/ic-plus-darker-green.svg) no-repeat scroll center/61% white

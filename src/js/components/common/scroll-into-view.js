@@ -1,69 +1,38 @@
 import React, { PropTypes, Component } from 'react';
-
-import SmoothScroller from 'components/common/smooth-scroller';
+import { isEmpty, get } from 'lodash';
 
 
 export default class ScrollIntoView extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      offset: 0
-    };
+  componentDidUpdate() {
+    this.scrollIntoView();
   }
 
-  componentWillReceiveProps(nextProps) {
-    const offset = this.getDesiredOffset(nextProps);
+  scrollIntoView() {
+    const { scrollOptions, focusedItemClassName } = this.props;
+    const element = get(document.getElementsByClassName(focusedItemClassName), '0', null);
 
-    if (offset !== null) {
-      this.setState({
-        offset
-      });
+    if (!isEmpty(element)) {
+      element.scrollIntoView(scrollOptions);
     }
-  }
-
-  getDesiredOffset(nextProps) {
-    const { focusedClassName } = nextProps;
-
-    if (!this.scrollerRef || focusedClassName === this.props.focusedClassName) return null;
-    const element = document.getElementsByClassName(focusedClassName)[0];
-    if (element === undefined) return null;
-
-    const parentRect = this.scrollerRef.view.getBoundingClientRect();
-    const childRect = element.getBoundingClientRect();
-    let desiredChildTop;
-
-    if (childRect.top - parentRect.top < 0) {
-      desiredChildTop = parentRect.top;
-    } else if (childRect.top - parentRect.top > parentRect.height - childRect.height) {
-      desiredChildTop = parentRect.top + parentRect.height - childRect.height;
-    } else {
-      return null;
-    }
-
-    return this.scrollerRef.getScrollTop() - (desiredChildTop - childRect.top);
-  }
-
-  handleRef(scrollerRef) {
-    if (scrollerRef === null) return;
-    this.scrollerRef = scrollerRef;
   }
 
   render() {
-    const { children, style } = this.props;
+    const { children } = this.props;
 
-    return (
-      <SmoothScroller
-        selectedOffset={ this.state.offset }
-        style={ style }
-        onScrollerRef={ this.handleRef.bind(this) }>
-        { children }
-      </SmoothScroller>
-    );
+    return <div>{ children }</div>;
   }
 }
 
 ScrollIntoView.propTypes = {
   children: PropTypes.node,
-  focusedClassName: PropTypes.string,
-  style: PropTypes.object
+  focusedItemClassName: PropTypes.string,
+  scrollOptions: PropTypes.object,
+};
+
+ScrollIntoView.defaultProps = {
+  scrollOptions: {
+    behavior: 'smooth',
+    block: 'center',
+    inline: 'nearest',
+  },
 };

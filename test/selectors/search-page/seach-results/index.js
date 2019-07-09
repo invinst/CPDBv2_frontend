@@ -59,7 +59,10 @@ describe('search page results selector', function () {
               })
             ]
           }
-        }
+        },
+        pinboardPage: {
+          pinboard: null
+        },
       }).should.deepEqual([
         {
           header: 'OFFICER',
@@ -75,6 +78,7 @@ describe('search page results selector', function () {
             'fullName': 'Jerome Turbyville',
             'gender': 'Male',
             'id': '29033',
+            'isPinned': false,
             'itemIndex': 1,
             'lastPercentile': {
               'items': [
@@ -91,7 +95,6 @@ describe('search page results selector', function () {
                   'value': 92,
                 },
               ],
-              'officerId': undefined,
               'textColor': '#DFDFDF',
               'visualTokenBackground': '#f52524',
               'year': undefined,
@@ -141,7 +144,14 @@ describe('search page results selector', function () {
               coaccused: []
             })]
           }
-        }
+        },
+        pinboardPage: {
+          pinboard: {
+            'officer_ids': [],
+            crids: ['1001'],
+            'trr_ids': [],
+          }
+        },
       }).should.deepEqual([
         {
           header: 'CR',
@@ -149,8 +159,9 @@ describe('search page results selector', function () {
           items: [{
             type: 'CR',
             id: '1001',
-            text: 'CR # 1234 - April 23, 2004',
-            recentText: 'CR # 1234 - April 23, 2004',
+            isPinned: true,
+            text: 'CR # 1234 • April 23, 2004',
+            recentText: 'CR # 1234 • April 23, 2004',
             subText: 'the officer pointed a gun at the victim',
             category: 'Use Of Force',
             subCategory: 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
@@ -185,7 +196,10 @@ describe('search page results selector', function () {
               coaccused: []
             })]
           }
-        }
+        },
+        pinboardPage: {
+          pinboard: null
+        },
       }).should.deepEqual([
         {
           header: 'CR',
@@ -193,6 +207,7 @@ describe('search page results selector', function () {
           items: [{
             type: 'CR',
             id: '1001',
+            isPinned: false,
             text: 'CR # 1234',
             recentText: 'CR # 1234',
             subText: '',
@@ -231,7 +246,10 @@ describe('search page results selector', function () {
               coaccused: []
             })]
           }
-        }
+        },
+        pinboardPage: {
+          pinboard: null
+        },
       }).should.deepEqual([
         {
           header: 'DATE > CR',
@@ -239,8 +257,9 @@ describe('search page results selector', function () {
           items: [{
             type: 'DATE > CR',
             id: '1001',
-            text: 'CR # 1234 - April 23, 2004',
-            recentText: 'CR # 1234 - April 23, 2004',
+            isPinned: false,
+            text: 'CR # 1234 • April 23, 2004',
+            recentText: 'CR # 1234 • April 23, 2004',
             subText: 'the police pointed a knife at the victim',
             to: '',
             url: '',
@@ -277,7 +296,10 @@ describe('search page results selector', function () {
               coaccused: []
             })]
           }
-        }
+        },
+        pinboardPage: {
+          pinboard: null
+        },
       }).should.deepEqual([
         {
           header: 'DATE > CR',
@@ -285,6 +307,7 @@ describe('search page results selector', function () {
           items: [{
             type: 'DATE > CR',
             id: '1001',
+            isPinned: false,
             text: 'CR # 1234',
             recentText: 'CR # 1234',
             subText: 'the police pointed a knife at the victim',
@@ -330,7 +353,10 @@ describe('search page results selector', function () {
               })
             ]
           }
-        }
+        },
+        pinboardPage: {
+          pinboard: null
+        },
       }).should.deepEqual([
         {
           header: 'DATE > OFFICERS',
@@ -346,6 +372,7 @@ describe('search page results selector', function () {
             'fullName': 'Jerome Finnigan',
             'gender': 'Male',
             'id': '29033',
+            'isPinned': false,
             'itemIndex': 1,
             'lastPercentile': {
               'items': [
@@ -362,7 +389,6 @@ describe('search page results selector', function () {
                   'value': 92,
                 },
               ],
-              'officerId': undefined,
               'textColor': '#DFDFDF',
               'visualTokenBackground': '#f52524',
               'year': undefined,
@@ -402,7 +428,14 @@ describe('search page results selector', function () {
               { id: '1001', 'force_type': null, 'trr_datetime': null }
             )]
           }
-        }
+        },
+        pinboardPage: {
+          pinboard: {
+            'officer_ids': ['1001'],
+            crids: ['1001'],
+            'trr_ids': ['1001'],
+          }
+        },
       }).should.deepEqual([
         {
           header: 'TRR',
@@ -410,6 +443,7 @@ describe('search page results selector', function () {
           items: [{
             type: 'TRR',
             id: '1001',
+            isPinned: true,
             text: 'Unknown',
             recentText: '1001',
             subText: 'TRR # 1001',
@@ -432,7 +466,14 @@ describe('search page results selector', function () {
               { id: '1001', 'force_type': 'Member Presence', 'trr_datetime': '2004-04-23' }
             )]
           }
-        }
+        },
+        pinboardPage: {
+          pinboard: {
+            'officer_ids': ['1001'],
+            crids: ['1001'],
+            'trr_ids': [],
+          }
+        },
       }).should.deepEqual([
         {
           header: 'TRR',
@@ -440,6 +481,7 @@ describe('search page results selector', function () {
           items: [{
             type: 'TRR',
             id: '1001',
+            isPinned: false,
             text: 'Member Presence',
             recentText: '1001',
             subText: 'TRR # 1001 - April 23, 2004',
@@ -462,13 +504,21 @@ describe('search page results selector', function () {
               { id: '1001', 'force_type': null, 'trr_datetime': null }
             )]
           }
-        }
+        },
+        pinboardPage: {
+          pinboard: {
+            'officer_ids': ['1001'],
+            crids: ['1001'],
+            'trr_ids': ['1001'],
+          }
+        },
       }).should.deepEqual([
         {
           header: 'DATE > TRR',
           canLoadMore: false,
           items: [{
             type: 'DATE > TRR',
+            isPinned: true,
             id: '1001',
             text: 'Unknown',
             recentText: '1001',
@@ -492,7 +542,14 @@ describe('search page results selector', function () {
               { id: '1001', 'force_type': 'Member Presence', 'trr_datetime': '2004-04-23' }
             )]
           }
-        }
+        },
+        pinboardPage: {
+          pinboard: {
+            'officer_ids': ['1001'],
+            crids: ['1001'],
+            'trr_ids': ['1002'],
+          }
+        },
       }).should.deepEqual([
         {
           header: 'DATE > TRR',
@@ -500,6 +557,7 @@ describe('search page results selector', function () {
           items: [{
             type: 'DATE > TRR',
             id: '1001',
+            isPinned: false,
             text: 'Member Presence',
             recentText: '1001',
             subText: 'TRR # 1001 - April 23, 2004',
@@ -522,7 +580,14 @@ describe('search page results selector', function () {
               { id: '1001', to: 'to', url: 'url', description: 'description' }
             ]
           }
-        }
+        },
+        pinboardPage: {
+          pinboard: {
+            'officer_ids': ['1001'],
+            crids: ['1001'],
+            'trr_ids': ['1001'],
+          }
+        },
       }).should.deepEqual([
         {
           header: 'UNIT',
@@ -530,6 +595,7 @@ describe('search page results selector', function () {
           items: [{
             type: 'UNIT',
             id: '1001',
+            isPinned: false,
             text: 'description',
             recentText: 'description',
             to: 'to',
@@ -551,7 +617,14 @@ describe('search page results selector', function () {
               { id: '1001', to: 'to', url: 'url', name: '001' }
             ]
           }
-        }
+        },
+        pinboardPage: {
+          pinboard: {
+            'officer_ids': ['1001'],
+            crids: ['1001'],
+            'trr_ids': ['1001'],
+          }
+        },
       }).should.deepEqual([
         {
           header: 'UNIT',
@@ -559,6 +632,7 @@ describe('search page results selector', function () {
           items: [{
             type: 'UNIT',
             id: '1001',
+            isPinned: false,
             text: 'Unit 001',
             recentText: 'Unit 001',
             to: 'to',
@@ -579,6 +653,9 @@ describe('search page results selector', function () {
             'OFFICER': RawOfficerSuggestion.buildList(10),
             'CO-ACCUSED': RawOfficerSuggestion.buildList(3)
           }
+        },
+        pinboardPage: {
+          pinboard: null
         }
       });
 
@@ -600,6 +677,9 @@ describe('search page results selector', function () {
             'CO-ACCUSED': RawOfficerSuggestion.buildList(3)
           },
           contentType: 'OFFICER'
+        },
+        pinboardPage: {
+          pinboard: null
         }
       });
 
@@ -616,6 +696,9 @@ describe('search page results selector', function () {
             'OFFICER': [],
             'CO-ACCUSED': RawOfficerSuggestion.buildList(3)
           }
+        },
+        pinboardPage: {
+          pinboard: null
         }
       });
 
@@ -632,6 +715,9 @@ describe('search page results selector', function () {
             'OFFICER': RawOfficerSuggestion.buildList(10),
             'CO-ACCUSED': RawOfficerSuggestion.buildList(3)
           }
+        },
+        pinboardPage: {
+          pinboard: null
         }
       });
 
@@ -647,6 +733,9 @@ describe('search page results selector', function () {
             'OFFICER': RawOfficerSuggestion.buildList(10),
           },
           contentType: null
+        },
+        pinboardPage: {
+          pinboard: null
         }
       });
 
@@ -698,6 +787,13 @@ describe('search page results selector', function () {
               }
             ]
           }
+        },
+        pinboardPage: {
+          pinboard: {
+            'officer_ids': ['317'],
+            crids: ['317'],
+            'trr_ids': ['317'],
+          }
         }
       });
       groups.should.eql([{
@@ -706,6 +802,7 @@ describe('search page results selector', function () {
         items: [{
           type: 'COMMUNITY',
           id: 317,
+          isPinned: false,
           text: 'Roseland',
           recentText: 'Roseland',
           to: undefined,
@@ -863,7 +960,10 @@ describe('search page results selector', function () {
           tags: [],
           query: 'abc',
           suggestionGroups: {}
-        }
+        },
+        pinboardPage: {
+          pinboard: null
+        },
       }).should.deepEqual({
         url: '/v1/abc/',
         isDataToolSearchUrl: true,
@@ -892,12 +992,15 @@ describe('search page results selector', function () {
               RawCRSuggestion.build()
             ]
           }
-        }
+        },
+        pinboardPage: {
+          pinboard: null
+        },
       }).should.deepEqual({
         to: 'officer1',
         url: '/officer/1/',
         recentText: 'officer1',
-        type: 'OFFICER'
+        type: 'OFFICER',
       });
     });
   });
