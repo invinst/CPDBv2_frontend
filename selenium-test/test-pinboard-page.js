@@ -325,7 +325,7 @@ describe('Pinboard Page', function () {
       pinboardPage.relevantCoaccusalsSection.coaccusalCards().should.have.length(20);
 
       pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.plusButton.click();
-      browser.pause(4100);
+      browser.pause(4500);
 
       pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.officerName.getText().should.not.equal(
         'Richard Sullivan'
@@ -405,7 +405,7 @@ describe('Pinboard Page', function () {
       pinboardPage.relevantDocumentsSection.documentCards().should.have.length(20);
 
       pinboardPage.relevantDocumentsSection.documentCardSection.plusButton.click();
-      browser.pause(1500);
+      browser.pause(4500);
 
       pinboardPage.relevantDocumentsSection.documentCards().should.have.length(20);
       pinboardPage.pinnedSection.crs.crCards().should.have.length(2);
@@ -489,7 +489,7 @@ describe('Pinboard Page', function () {
       );
 
       pinboardPage.relevantComplaintsSection.complaintCardSection.plusButton.click();
-      browser.pause(4100);
+      browser.pause(4500);
 
       pinboardPage.pinnedSection.crs.crCards().should.have.length(2);
       pinboardPage.relevantComplaintsSection.complaintCardSection.category.getText().should.not.equal(
@@ -509,7 +509,7 @@ describe('Undo card', function () {
     pinboardPage.pinnedSection.officers.undoCard.waitForVisible();
 
     // card disappear after 4s
-    browser.pause(4100);
+    browser.pause(4500);
     pinboardPage.pinnedSection.officers.officerCards().should.have.length(0);
   });
 
