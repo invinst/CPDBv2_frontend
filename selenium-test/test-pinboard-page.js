@@ -27,7 +27,7 @@ describe('Pinboard Page', function () {
     browser.getUrl().replace(/https?:\/\/[^/]+/, '').should.equal('/');
   });
 
-  it.only('should go to Q&A url when clicking on Q&A link', function () {
+  it('should go to Q&A url when clicking on Q&A link', function () {
     pinboardPage.open();
     pinboardPage.headerQALink.click();
     browser.getUrl().should.containEql('http://how.cpdp.works/');

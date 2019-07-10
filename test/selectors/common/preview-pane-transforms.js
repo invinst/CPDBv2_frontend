@@ -660,7 +660,8 @@ describe('search page transforms', function () {
             radarColor: '#f0201e',
             count: 93
           },
-          to: '/trr/123456/'
+          to: '/trr/123456/',
+          isPinned: false,
         },
       };
 
