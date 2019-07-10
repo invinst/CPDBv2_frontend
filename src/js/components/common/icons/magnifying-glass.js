@@ -6,13 +6,13 @@ import styles from './magnifying-glass.sass';
 
 export default class MagnifyingGlass extends React.Component {
   render() {
-    const { className, color, ...rest } = this.props;
+    const { className, color, size, ...rest } = this.props;
     return (
       <svg
         className={ cx(className, styles.magnifyingGlass) }
         xmlns='http://www.w3.org/2000/svg'
-        width='17'
-        height='17'
+        width={ size }
+        height={ size }
         viewBox='0 0 17 17'
         { ...rest }
       >
@@ -31,6 +31,7 @@ export default class MagnifyingGlass extends React.Component {
 MagnifyingGlass.propTypes = {
   color: PropTypes.string,
   className: PropTypes.string,
+  size: PropTypes.number,
 };
 
 MagnifyingGlass.defaultProps = {

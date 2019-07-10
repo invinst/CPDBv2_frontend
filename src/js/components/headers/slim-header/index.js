@@ -34,27 +34,26 @@ export class SlimHeader extends Component {
   render() {
     const { show, pathname } = this.props;
     const { editModeOn } = this.context;
+    const { position } = this.state;
 
     if (!show) {
       return null;
     }
 
-    const isTop = this.state.position === 'top';
-    const isBottom = this.state.position === 'bottom';
+    const isTop = position === 'top';
+    const isBottom = position === 'bottom';
 
     const defaultStyle = {
       translateY: isTop ? 100 : 0,
       backgroundR: isBottom ? 0 : 255,
       backgroundG: isBottom ? 94 : 255,
       backgroundB: isBottom ? 244 : 255,
-      height: isBottom ? 102 : 64
     };
     const style = {
       translateY: spring(isTop ? 100 : 0),
       backgroundR: spring(isBottom ? 0 : 255),
       backgroundG: spring(isBottom ? 94 : 255),
       backgroundB: spring(isBottom ? 244 : 255),
-      height: spring(isBottom ? 102 : 64)
     };
 
     return (
@@ -73,7 +72,7 @@ export class SlimHeader extends Component {
             return (
               <SlimHeaderContent
                 className={ styles.stickySlimHeader }
-                position={ this.state.position }
+                position={ position }
                 pathname={ pathname }
                 editModeOn={ editModeOn }
                 style={ {

@@ -5,12 +5,12 @@ import {
 } from 'react-addons-test-utils';
 import { stub } from 'sinon';
 import { unmountComponentSuppressError } from 'utils/test';
-import SearchSection from 'components/landing-page/search-section';
+import SearchBox from 'components/headers/slim-header/search-box';
 import * as editPath from 'utils/edit-path' ;
 import MagnifyingGlass from 'components/common/icons/magnifying-glass';
 
 
-describe('SearchSection component', function () {
+describe('SearchBox component', function () {
   let instance;
 
   beforeEach(function () {
@@ -23,12 +23,12 @@ describe('SearchSection component', function () {
   });
 
   it('should be renderable', function () {
-    SearchSection.should.be.renderable();
+    SearchBox.should.be.renderable();
   });
 
   it('should call pushPathPreserveEditMode with search path when user click on the search box', function () {
     instance = renderIntoDocument(
-      <SearchSection />
+      <SearchBox />
     );
     const searchBox = findRenderedDOMComponentWithClass(instance, 'test--search-section-search-box');
     Simulate.click(searchBox);
@@ -37,16 +37,16 @@ describe('SearchSection component', function () {
 
   it('should call pushPathPreserveEditMode with search term path when user click on the search term', function () {
     instance = renderIntoDocument(
-      <SearchSection />
+      <SearchBox />
     );
 
-    const searchBox = findRenderedDOMComponentWithClass(instance, 'test--search-section-term');
+    const searchBox = findRenderedDOMComponentWithClass(instance, 'test--search-box-term');
     Simulate.click(searchBox);
     this.stubPushPathPreserveEditMode.calledWith('/search/terms/').should.be.true();
   });
 
   it('should render MagnifyingGlass with correct color', function () {
-    instance = renderIntoDocument(<SearchSection magnifyingGlassColor={ 'white' } />);
+    instance = renderIntoDocument(<SearchBox magnifyingGlassColor={ 'white' } />);
     const magnifyingGlass = findRenderedComponentWithType(instance, MagnifyingGlass);
     magnifyingGlass.props.color.should.eql('white');
   });

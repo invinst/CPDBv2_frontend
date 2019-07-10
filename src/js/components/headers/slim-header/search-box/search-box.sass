@@ -1,0 +1,50 @@
+@import 'variables'
+@import 'common'
+
+\:local(.search-box)
+  @extend %vertical-align-middle
+  z-index: 1 // make sure its clickable area doesn't get covered up by CPDP logo
+  width: 336px
+  font-size: 14px
+  box-sizing: border-box
+  cursor: text
+  text-decoration: none
+  text-align: right
+  border-right: solid 1px $white-two-color
+  padding: 0 23px 0 14px
+  background-color: white
+  height: 40px
+  line-height: 40px
+
+  &.bottom
+    background-color: transparent
+    height: 40px
+    line-height: 40px
+    border-right: solid 1px $white20-color
+    color: white
+
+  .search-box-term
+    cursor: pointer
+    font-weight: 300
+    color: $clay-gray
+
+    &.bottom
+      color: white
+
+  .search-box-magnifying-glass
+    @extend %vertical-align-middle
+    float: left
+    margin-right: 11px
+
+  .search-box-search-text
+    float: left
+    font-weight: 300
+
+    &.top
+      color: $accent-color
+
+    &.middle
+      color: $boulder-color
+
+    &.bottom
+      color: white

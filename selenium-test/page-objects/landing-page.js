@@ -158,7 +158,7 @@ class SearchSection extends Section {
     super();
     this.prepareElementGetters({
       sectionSearchBox: '.test--search-section-search-box',
-      sectionSearchTerm: '.test--search-section-term',
+      sectionSearchTerm: '.test--search-box-term',
     });
   }
 }

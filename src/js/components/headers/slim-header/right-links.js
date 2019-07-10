@@ -3,10 +3,11 @@ import config from 'config';
 import cx from 'classnames';
 
 import { QA_LINK } from 'utils/constants';
+import styles from './right-links.sass';
 
 export default class RightLinks extends Component {
   render() {
-    const { className } = this.props;
+    const { position } = this.props;
     const links = [
       {
         name: 'Data',
@@ -17,33 +18,28 @@ export default class RightLinks extends Component {
         externalHref: QA_LINK
       },
       {
-        name: 'Glossary',
-        externalHref: `${config.v1Url}/glossary/`
+        name: 'Documents',
+        externalHref: '/documents/'
       }
     ];
 
-    const tags = links.map((link, index) => {
-      if (link.externalHref) {
-        return (
-          <a
-            className={ cx(className, 'right-external-link') }
-            onClick={ (e) => {
-              e.stopPropagation();
-            } }
-            key={ index }
-            href={ link.externalHref }
-          >
-            { link.name }
-          </a>
-        );
-      }
-    });
+    const tags = links.map((link, index) => (
+      <a
+        className={ cx('right-external-link', position) }
+        onClick={ e => { e.stopPropagation(); } }
+        key={ index }
+        href={ link.externalHref }
+      >
+        { link.name }
+      </a>
+    ));
 
-    return <div>{ tags }</div>;
+    return (
+      <div className={ styles.rightLinks }>{ tags }</div>
+    );
   }
 }
 
 RightLinks.propTypes = {
-  editModeOn: PropTypes.bool,
-  className: PropTypes.string,
+  position: PropTypes.string,
 };

@@ -5,8 +5,7 @@ import { noop } from 'lodash';
 import RightLinks from './right-links';
 import LogoContainer from 'containers/headers/slim-header/logo-container';
 import LogOutButtonContainer from 'containers/log-out-container';
-import SearchSectionComponent from 'components/landing-page/search-section';
-import { accentColor } from 'utils/styles';
+import SearchBox from 'components/headers/slim-header/search-box';
 import { scrollToTop } from 'utils/dom';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import styles from './slim-header-content.sass';
@@ -30,21 +29,30 @@ class SlimHeaderContent extends Component {
       >
         <ResponsiveFluidWidthComponent>
           <div className={ cx('slim-header', position) } >
-            <div className={ cx('vertically-aligned-header-item', position) }>
-              <LogOutButtonContainer pathname={ pathname } />
+            <div className={ cx('top-bar', position) }>
+              <div className='logo'>
+                <LogoContainer position={ position } editModeOn={ editModeOn } />
+              </div>
+              <div className='watch-video'>
+                <div className='watch-video-text'>
+                  <span className={ cx('watch-video-text-upper', position) }>WATCH:</span>
+                  <br/>
+                  <span className={ cx('watch-video-text-lower', position) }>What is CPDP?</span>
+                </div>
+                <div className='watch-video-clip'/>
+              </div>
             </div>
-
-            <div className={ cx('vertically-aligned-header-item', position) }>
-              <RightLinks className={ cx('right-link', position) } editModeOn={ editModeOn } />
-            </div>
-
-            <SearchSectionComponent
-              searchBoxClassName={ cx('search-box', position) }
-              magnifyingGlassColor={ position === 'bottom' ? 'white' : accentColor }
-            />
-
-            <div className='logo'>
-              <LogoContainer position={ position } editModeOn={ editModeOn } />
+            <div className={ cx('navbar', position) }>
+              <div className={ cx('vertically-aligned-header-item', position) }>
+                <LogOutButtonContainer pathname={ pathname } />
+              </div>
+              <div className={ cx('vertically-aligned-header-item', position) }>
+                <RightLinks position={ position } />
+              </div>
+              <SearchBox
+                position={ position }
+                searchBoxClassName={ cx('search-box', position) }
+              />
             </div>
           </div>
         </ResponsiveFluidWidthComponent>
