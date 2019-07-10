@@ -29,7 +29,7 @@ export const performFetchPinboardRelatedData = createAction(constants.PERFORM_FE
 let pinboardSource;
 const cancelFetchRequests = (newRequest) => (...args) => {
   if (pinboardSource)
-    pinboardSource.cancel(constants.SUGGESTION_REQUEST_CANCEL_MESSAGE);
+    pinboardSource.cancel(constants.REQUEST_CANCEL_MESSAGE);
 
   pinboardSource = CancelToken.source();
   return newRequest(...args);
@@ -72,6 +72,7 @@ export const fetchPinboardSocialGraph = id => get(
     constants.PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_START,
     constants.PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_SUCCESS,
     constants.PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_FAILURE,
+    constants.PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_CANCELLED,
   ],
   pinboardSource && pinboardSource.token
 )();
@@ -82,6 +83,7 @@ export const fetchPinboardGeographicData = id => get(
     constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_START,
     constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_SUCCESS,
     constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_FAILURE,
+    constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_CANCELLED,
   ],
   pinboardSource && pinboardSource.token
 )();
@@ -94,6 +96,7 @@ export const fetchPinboardComplaints = id => get(
     constants.PINBOARD_COMPLAINTS_FETCH_REQUEST_START,
     constants.PINBOARD_COMPLAINTS_FETCH_REQUEST_SUCCESS,
     constants.PINBOARD_COMPLAINTS_FETCH_REQUEST_FAILURE,
+    constants.PINBOARD_COMPLAINTS_FETCH_REQUEST_CANCELLED,
   ],
   pinboardSource && pinboardSource.token
 )();
@@ -104,6 +107,7 @@ export const fetchPinboardOfficers = id => get(
     constants.PINBOARD_OFFICERS_FETCH_REQUEST_START,
     constants.PINBOARD_OFFICERS_FETCH_REQUEST_SUCCESS,
     constants.PINBOARD_OFFICERS_FETCH_REQUEST_FAILURE,
+    constants.PINBOARD_OFFICERS_FETCH_REQUEST_CANCELLED,
   ],
   pinboardSource && pinboardSource.token
 )();
@@ -114,6 +118,7 @@ export const fetchPinboardTRRs = id => get(
     constants.PINBOARD_TRRS_FETCH_REQUEST_START,
     constants.PINBOARD_TRRS_FETCH_REQUEST_SUCCESS,
     constants.PINBOARD_TRRS_FETCH_REQUEST_FAILURE,
+    constants.PINBOARD_TRRS_FETCH_REQUEST_CANCELLED,
   ],
   pinboardSource && pinboardSource.token
 )();
@@ -130,6 +135,7 @@ export const fetchPinboardRelevantDocuments = getWithPaginate(
     constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_START,
     constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_SUCCESS,
     constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_FAILURE,
+    constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_CANCELLED,
   ]
 );
 export const fetchPinboardRelevantCoaccusals = getWithPaginate(
@@ -138,6 +144,7 @@ export const fetchPinboardRelevantCoaccusals = getWithPaginate(
     constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_START,
     constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_SUCCESS,
     constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_FAILURE,
+    constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_CANCELLED,
   ]
 );
 export const fetchPinboardRelevantComplaints = getWithPaginate(
@@ -146,6 +153,7 @@ export const fetchPinboardRelevantComplaints = getWithPaginate(
     constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_START,
     constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_SUCCESS,
     constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_FAILURE,
+    constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_CANCELLED,
   ]
 );
 

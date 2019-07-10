@@ -7,7 +7,6 @@ import {
 
 import { unmountComponentSuppressError } from 'utils/test';
 import GeographicMap from 'components/social-graph-page/geographic';
-import MainTabs from 'components/social-graph-page/main-tabs';
 import AllegationsMap from 'components/common/allegations-map';
 
 
@@ -20,7 +19,6 @@ describe('GeographicMap component', function () {
 
   it('should render correctly', function () {
     instance = renderIntoDocument(<GeographicMap/>);
-    scryRenderedComponentsWithType(instance, MainTabs).should.have.length(1);
     scryRenderedComponentsWithType(instance, AllegationsMap).should.have.length(1);
   });
 

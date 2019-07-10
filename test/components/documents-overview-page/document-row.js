@@ -95,7 +95,7 @@ describe('DocumentsOverviewPage DocumentRow component', function () {
     this.trackOutboundLink.calledWith('http://audio/link/1', '_blank').should.be.true();
   });
 
-  it('shoud be assigned "edit-mode" class if editModeOn is true', function () {
+  it('should be assigned "edit-mode" class if editModeOn is true', function () {
     instance = renderIntoDocument(
       <DocumentRow crid='1' editModeOn={ true }/>
     );

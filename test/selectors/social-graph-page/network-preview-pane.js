@@ -1,7 +1,13 @@
+import should from 'should';
+
 import {
   officerDetailTransform,
+  accusedTransform,
+  networkAllegationTransform,
   networkOfficerSelector,
   edgeOfficersSelector,
+  getNetworkAllegation,
+  networkAllegationSelector,
   getNetworkPreviewPaneData,
 } from 'selectors/social-graph-page/network-preview-pane';
 import { NETWORK_PREVIEW_PANE } from 'utils/constants';
@@ -42,6 +48,7 @@ describe('Social Graph preview pane selectors', function () {
         'honorable_mention_percentile': '70'
       };
       officerDetailTransform(officer).should.eql({
+        id: 123,
         to: '/officer/123/jerome-finnigan/',
         fullName: 'Jerome Finnigan',
         appointedDate: 'JUL 8, 2001',
@@ -78,6 +85,333 @@ describe('Social Graph preview pane selectors', function () {
           textColor: '#DFDFDF',
         }
       });
+    });
+  });
+
+  describe('accusedTransform', function () {
+    it('should return accused officer correctly', function () {
+      const coaccused = {
+        'id': 21992,
+        'rank': 'Police Officer',
+        'full_name': 'Johnny Patterson',
+        'coaccusal_count': 24,
+        'allegation_count': 42,
+        'percentile': {
+          'year': 2006,
+          'percentile_trr': '0.0000',
+          'percentile_allegation': '88.9038',
+          'percentile_allegation_civilian': '49.4652',
+          'percentile_allegation_internal': '85.8654'
+        }
+      };
+      accusedTransform(coaccused).should.eql({
+        id: 21992,
+        name: 'Johnny Patterson',
+        url: '/officer/21992/johnny-patterson/',
+        count: 42,
+        radarAxes: [
+          {
+            'axis': 'Use of Force Reports',
+            'value': 0,
+          },
+          {
+            'axis': 'Officer Allegations',
+            'value': 85.8654,
+          },
+          {
+            'axis': 'Civilian Allegations',
+            'value': 49.4652,
+          }
+        ],
+        radarColor: '#f9946b',
+      });
+    });
+  });
+
+  describe('networkAllegationTransform', function () {
+    it('should return network allegation correctly', function () {
+      const networkCRDatum = {
+        'crid': '123456',
+        'incident_date': '2007-10-10',
+        'address': '3510 Michigan Ave, Chicago, IL 60653',
+        'category': 'Use of Force',
+        'subcategory': 'Illegal Arrest / False Arrest',
+        'attachments': [],
+        'to': '/complaint/123456/',
+        'victims': [
+          {
+            'gender': 'Male',
+            'race': 'Black'
+          },
+          {
+            'gender': 'Male',
+            'race': 'White'
+          },
+        ],
+        'coaccused': [
+          {
+            'id': 21992,
+            'rank': 'Police Officer',
+            'full_name': 'Johnny Patterson',
+            'coaccusal_count': 24,
+            'allegation_count': 42,
+            'percentile': {
+              'year': 2006,
+              'percentile_trr': '0.0000',
+              'percentile_allegation': '88.9038',
+              'percentile_allegation_civilian': '49.4652',
+              'percentile_allegation_internal': '85.8654'
+            }
+          }
+        ],
+      };
+      networkAllegationTransform(networkCRDatum).should.eql({
+        category: 'Use of Force',
+        subCategory: 'Illegal Arrest / False Arrest',
+        incidentDate: 'OCT 10, 2007',
+        address: '3510 Michigan Ave, Chicago, IL 60653',
+        to: '/complaint/123456/',
+        victims: ['Black, Male', 'White, Male'],
+        coaccused: [
+          {
+            id: 21992,
+            name: 'Johnny Patterson',
+            url: '/officer/21992/johnny-patterson/',
+            count: 42,
+            radarAxes: [
+              {
+                'axis': 'Use of Force Reports',
+                'value': 0,
+              },
+              {
+                'axis': 'Officer Allegations',
+                'value': 85.8654,
+              },
+              {
+                'axis': 'Civilian Allegations',
+                'value': 49.4652,
+              }
+            ],
+            radarColor: '#f9946b',
+          }
+        ],
+      });
+    });
+  });
+
+  describe('getNetworkAllegation', function () {
+    it('should return network allegation if there is selectedCrid', function () {
+      const state = {
+        socialGraphPage: {
+          networkData: {
+            networkAllegations: [
+              {
+                category: 'Criminal Misconduct',
+                subcategory: 'Theft',
+                crid: '260131',
+                'incident_date': '2003-02-17',
+                'officer_ids': [123],
+              },
+              {
+                category: 'Illegal Search',
+                subcategory: 'Search Of Premise Without Warrant',
+                crid: '294088',
+                'incident_date': '2003-11-26',
+                attachments: [
+                  {
+                    url: 'https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html',
+                    'preview_image_url':
+                      'https://assets.documentcloud.org/documents/3518950/pages/CRID-294088-CR-p1-normal.gif',
+                    title: 'CRID 294088 CR',
+                    'file_type': 'document',
+                    'id': '123456',
+                  }
+                ],
+                'officer_ids': [123, 456, 789],
+              },
+            ],
+            graphData: {
+              'list_event': ['2003-02-17', '2003-11-26']
+            },
+            selectedCrid: '260131',
+          }
+        }
+      };
+      getNetworkAllegation(state).should.eql({
+        category: 'Criminal Misconduct',
+        subcategory: 'Theft',
+        crid: '260131',
+        'incident_date': '2003-02-17',
+        'officer_ids': [123],
+      });
+    });
+  });
+
+  describe('networkAllegationSelector', function () {
+    it('should return allegation correctly if there is selectedCrid', function () {
+      const state = {
+        socialGraphPage: {
+          networkData: {
+            networkAllegations: [
+              {
+                'crid': '123456',
+                'incident_date': '2007-10-10',
+                'address': '3510 Michigan Ave, Chicago, IL 60653',
+                'category': 'Use of Force',
+                'subcategory': 'Illegal Arrest / False Arrest',
+                'attachments': [],
+                'to': '/complaint/123456/',
+                'victims': [
+                  {
+                    'gender': 'Male',
+                    'race': 'Black'
+                  },
+                  {
+                    'gender': 'Male',
+                    'race': 'White'
+                  },
+                ],
+                'coaccused': [
+                  {
+                    'id': 21992,
+                    'rank': 'Police Officer',
+                    'full_name': 'Johnny Patterson',
+                    'coaccusal_count': 24,
+                    'allegation_count': 42,
+                    'percentile': {
+                      'year': 2006,
+                      'percentile_trr': '0.0000',
+                      'percentile_allegation': '88.9038',
+                      'percentile_allegation_civilian': '49.4652',
+                      'percentile_allegation_internal': '85.8654'
+                    }
+                  }
+                ],
+              },
+              {
+                category: 'Illegal Search',
+                subcategory: 'Search Of Premise Without Warrant',
+                crid: '294088',
+                'incident_date': '2003-11-26',
+                attachments: [
+                  {
+                    url: 'https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html',
+                    'preview_image_url':
+                      'https://assets.documentcloud.org/documents/3518950/pages/CRID-294088-CR-p1-normal.gif',
+                    title: 'CRID 294088 CR',
+                    'file_type': 'document',
+                    'id': '123456',
+                  }
+                ],
+                'officer_ids': [123, 456, 789],
+              },
+            ],
+            graphData: {
+              'list_event': ['2003-02-17', '2003-11-26']
+            },
+            selectedCrid: '123456',
+          }
+        }
+      };
+      networkAllegationSelector(state).should.eql({
+        category: 'Use of Force',
+        subCategory: 'Illegal Arrest / False Arrest',
+        incidentDate: 'OCT 10, 2007',
+        address: '3510 Michigan Ave, Chicago, IL 60653',
+        to: '/complaint/123456/',
+        victims: ['Black, Male', 'White, Male'],
+        coaccused: [
+          {
+            id: 21992,
+            name: 'Johnny Patterson',
+            url: '/officer/21992/johnny-patterson/',
+            count: 42,
+            radarAxes: [
+              {
+                'axis': 'Use of Force Reports',
+                'value': 0,
+              },
+              {
+                'axis': 'Officer Allegations',
+                'value': 85.8654,
+              },
+              {
+                'axis': 'Civilian Allegations',
+                'value': 49.4652,
+              }
+            ],
+            radarColor: '#f9946b',
+          }
+        ],
+      });
+    });
+
+    it('should return undefined if getNetworkAllegation return null', function () {
+      const state = {
+        socialGraphPage: {
+          networkData: {
+            networkAllegations: [
+              {
+                'crid': '123456',
+                'incident_date': '2007-10-10',
+                'address': '3510 Michigan Ave, Chicago, IL 60653',
+                'category': 'Use of Force',
+                'subcategory': 'Illegal Arrest / False Arrest',
+                'attachments': [],
+                'to': '/complaint/123456/',
+                'victims': [
+                  {
+                    'gender': 'Male',
+                    'race': 'Black'
+                  },
+                  {
+                    'gender': 'Male',
+                    'race': 'White'
+                  },
+                ],
+                'coaccused': [
+                  {
+                    'id': 21992,
+                    'rank': 'Police Officer',
+                    'full_name': 'Johnny Patterson',
+                    'coaccusal_count': 24,
+                    'allegation_count': 42,
+                    'percentile': {
+                      'year': 2006,
+                      'percentile_trr': '0.0000',
+                      'percentile_allegation': '88.9038',
+                      'percentile_allegation_civilian': '49.4652',
+                      'percentile_allegation_internal': '85.8654'
+                    }
+                  }
+                ],
+              },
+              {
+                category: 'Illegal Search',
+                subcategory: 'Search Of Premise Without Warrant',
+                crid: '294088',
+                'incident_date': '2003-11-26',
+                attachments: [
+                  {
+                    url: 'https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html',
+                    'preview_image_url':
+                      'https://assets.documentcloud.org/documents/3518950/pages/CRID-294088-CR-p1-normal.gif',
+                    title: 'CRID 294088 CR',
+                    'file_type': 'document',
+                    'id': '123456',
+                  }
+                ],
+                'officer_ids': [123, 456, 789],
+              },
+            ],
+            graphData: {
+              'list_event': ['2003-02-17', '2003-11-26']
+            },
+            selectedCrid: '654321',
+          }
+        }
+      };
+      should(networkAllegationSelector(state)).be.undefined();
     });
   });
 
@@ -124,6 +458,7 @@ describe('Social Graph preview pane selectors', function () {
         }
       };
       networkOfficerSelector(state).should.eql({
+        id: 123,
         to: '/officer/123/jerome-finnigan/',
         fullName: 'Jerome Finnigan',
         appointedDate: 'JUL 8, 2001',
@@ -272,6 +607,7 @@ describe('Social Graph preview pane selectors', function () {
       getNetworkPreviewPaneData(state).should.eql({
         type: NETWORK_PREVIEW_PANE.OFFICER,
         data: {
+          id: 123,
           to: '/officer/123/jerome-finnigan/',
           fullName: 'Jerome Finnigan',
           appointedDate: 'JUL 8, 2001',
@@ -317,19 +653,15 @@ describe('Social Graph preview pane selectors', function () {
           networkData: {
             networkAllegations: [
               {
-                'most_common_category': {
-                  category: 'Criminal Misconduct',
-                  'allegation_name': 'Theft'
-                },
+                category: 'Criminal Misconduct',
+                subcategory: 'Theft',
                 crid: '260131',
                 'incident_date': '2003-02-17',
                 'officer_ids': [123],
               },
               {
-                'most_common_category': {
-                  category: 'Illegal Search',
-                  'allegation_name': 'Search Of Premise Without Warrant'
-                },
+                category: 'Illegal Search',
+                subcategory: 'Search Of Premise Without Warrant',
                 crid: '294088',
                 'incident_date': '2003-11-26',
                 attachments: [
@@ -434,5 +766,109 @@ describe('Social Graph preview pane selectors', function () {
       });
     });
 
+    it('should return network allegation data correctly', function () {
+      const state = {
+        socialGraphPage: {
+          networkData: {
+            networkAllegations: [
+              {
+                'crid': '123456',
+                'incident_date': '2007-10-10',
+                'address': '3510 Michigan Ave, Chicago, IL 60653',
+                'category': 'Use of Force',
+                'subcategory': 'Illegal Arrest / False Arrest',
+                'attachments': [],
+                'to': '/complaint/123456/',
+                'victims': [
+                  {
+                    'gender': 'Male',
+                    'race': 'Black'
+                  },
+                  {
+                    'gender': 'Male',
+                    'race': 'White'
+                  },
+                ],
+                'coaccused': [
+                  {
+                    'id': 21992,
+                    'rank': 'Police Officer',
+                    'full_name': 'Johnny Patterson',
+                    'coaccusal_count': 24,
+                    'allegation_count': 42,
+                    'percentile': {
+                      'year': 2006,
+                      'percentile_trr': '0.0000',
+                      'percentile_allegation': '88.9038',
+                      'percentile_allegation_civilian': '49.4652',
+                      'percentile_allegation_internal': '85.8654'
+                    }
+                  }
+                ],
+              },
+              {
+                category: 'Illegal Search',
+                subcategory: 'Search Of Premise Without Warrant',
+                crid: '294088',
+                'incident_date': '2003-11-26',
+                attachments: [
+                  {
+                    url: 'https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html',
+                    'preview_image_url':
+                      'https://assets.documentcloud.org/documents/3518950/pages/CRID-294088-CR-p1-normal.gif',
+                    title: 'CRID 294088 CR',
+                    'file_type': 'document',
+                    'id': '123456',
+                  }
+                ],
+                'officer_ids': [123, 456, 789],
+              },
+            ],
+            graphData: {
+              'list_event': ['2003-02-17', '2003-11-26']
+            },
+            selectedCrid: '123456',
+            selectedEdge: {
+              sourceUid: 123,
+              targetUid: 456,
+            },
+          }
+        }
+      };
+      getNetworkPreviewPaneData(state).should.eql({
+        type: NETWORK_PREVIEW_PANE.CR,
+        data: {
+          category: 'Use of Force',
+          subCategory: 'Illegal Arrest / False Arrest',
+          incidentDate: 'OCT 10, 2007',
+          address: '3510 Michigan Ave, Chicago, IL 60653',
+          to: '/complaint/123456/',
+          victims: ['Black, Male', 'White, Male'],
+          coaccused: [
+            {
+              id: 21992,
+              name: 'Johnny Patterson',
+              url: '/officer/21992/johnny-patterson/',
+              count: 42,
+              radarAxes: [
+                {
+                  'axis': 'Use of Force Reports',
+                  'value': 0,
+                },
+                {
+                  'axis': 'Officer Allegations',
+                  'value': 85.8654,
+                },
+                {
+                  'axis': 'Civilian Allegations',
+                  'value': 49.4652,
+                }
+              ],
+              radarColor: '#f9946b',
+            }
+          ],
+        }
+      });
+    });
   });
 });

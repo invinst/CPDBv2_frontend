@@ -4,27 +4,21 @@ import { debounce, isEmpty, noop } from 'lodash';
 import { Promise } from 'es6-promise';
 import DocumentMeta from 'react-document-meta';
 import { toast, cssTransition } from 'react-toastify';
-import { css } from 'glamor';
+import cx from 'classnames';
 
 import SearchBox from './search-box';
-import {
-  cancelButtonStyle,
-  searchBoxStyle,
-  searchContentWrapperStyle,
-  toastWrapperStyle,
-  toastBodyStyle,
-} from './search-page.style.js';
 import { navigateToSearchItem } from 'utils/navigate-to-search-item';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import { generatePinboardUrl } from 'utils/pinboard';
 import SearchMainPanel from './search-main-panel';
-import HoverableButton from 'components/common/hoverable-button';
+import HoverableButton from 'components/common/hoverable-button-without-inline-style';
 import {
   ROOT_PATH, SEARCH_ALIAS_EDIT_PATH, SEARCH_BOX, MORE_BUTTON, RECENT_CONTENT_TYPE
 } from 'utils/constants';
 import { showIntercomLauncher } from 'utils/intercom';
 import * as IntercomTracking from 'utils/intercom-tracking';
 import 'toast.css';
+import './search-page.sass';
 
 
 const DEFAULT_SUGGESTION_LIMIT = 9;
@@ -99,8 +93,8 @@ export default class SearchPage extends Component {
     });
 
     toast(message, {
-      className: css(toastWrapperStyle),
-      bodyClassName: css(toastBodyStyle),
+      className: 'toast-wrapper',
+      bodyClassName: 'toast-body',
       transition: TopRightTransition,
     });
   }
@@ -148,7 +142,7 @@ export default class SearchPage extends Component {
     selectTag(null);
 
     if (value) {
-      this.getSuggestion(value, { limit: DEFAULT_SUGGESTION_LIMIT }).catch(noop);
+      this.getSuggestion(value, { limit: DEFAULT_SUGGESTION_LIMIT });
     }
   }
 
@@ -195,28 +189,32 @@ export default class SearchPage extends Component {
     return (
       <DocumentMeta title='CPDP'>
         <div
-          className='search-page'
-          style={ searchContentWrapperStyle(aliasEditModeOn) }>
-          <div style={ searchBoxStyle(aliasEditModeOn, query !== '') }>
-            <SearchBox
-              onEscape={ this.handleGoBack }
-              onChange={ this.handleChange }
-              firstSuggestionItem={ firstItem }
-              value={ query }
-              searchTermsHidden={ searchTermsHidden }
-              changeSearchQuery={ changeSearchQuery }
-              focused={ focusedItem.uniqueKey === SEARCH_BOX }
-              resetNavigation={ this.resetNavigation }
-              trackRecentSuggestion={ trackRecentSuggestion }
-            />
-            <HoverableButton
-              style={ cancelButtonStyle(searchTermsHidden) }
-              onClick={ this.handleGoBack }
-              className='searchbar__button--back'>
-              Cancel
-            </HoverableButton>
+          className={ cx('search-page', { 'edit-mode-on': aliasEditModeOn }) }>
+          <div className={ cx('search-box-wrapper', { 'edit-mode-on': aliasEditModeOn }) }>
+            <div className={
+              cx('search-box', { 'has-bottom-border': query !== '' })
+            }>
+              <SearchBox
+                onEscape={ this.handleGoBack }
+                onChange={ this.handleChange }
+                firstSuggestionItem={ firstItem }
+                value={ query }
+                searchTermsHidden={ searchTermsHidden }
+                changeSearchQuery={ changeSearchQuery }
+                focused={ focusedItem.uniqueKey === SEARCH_BOX }
+                resetNavigation={ this.resetNavigation }
+                trackRecentSuggestion={ trackRecentSuggestion }
+              />
+              <HoverableButton
+                className={
+                  cx('searchbar__button--back', 'cancel-button', { 'search-terms-hidden': searchTermsHidden })
+                }
+                onClick={ this.handleGoBack }>
+                Cancel
+              </HoverableButton>
+            </div>
           </div>
-          <div>
+          <div className='search-main-panel-wrapper'>
             <SearchMainPanel
               contentType={ contentType }
               query={ query }

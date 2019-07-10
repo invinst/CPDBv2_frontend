@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { isEmpty, startCase, toLower } from 'lodash';
+import { isEmpty, noop, startCase, toLower } from 'lodash';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import cx from 'classnames';
@@ -8,10 +8,41 @@ import styles from './network.sass';
 import RightPaneSection from 'components/social-graph-page/network/right-pane-section';
 import sliderStyles from 'components/common/slider.sass';
 import { showIntercomLauncher } from 'utils/intercom';
-import MainTabs from 'components/social-graph-page/main-tabs';
 import PreviewPane from 'components/social-graph-page/network/preview-pane';
 import AnimatedSocialGraphContainer from 'containers/social-graph-page/animated-social-graph-container';
 
+const SIDEBARS_STATUS_MAPPING = {
+  'SHOW_BOTH': {
+    showLeftSidebar: true,
+    showRightSidebar: true,
+    classname: 'show-both-sidebars',
+    iconClassname: 'show-right-sidebar-icon',
+    nextSidebarsStatus: 'SHOW_RIGHT',
+  },
+  'SHOW_RIGHT': {
+    showLeftSidebar: false,
+    showRightSidebar: true,
+    classname: 'show-right-sidebar',
+    iconClassname: 'hide-both-sidebars-icon',
+    nextSidebarsStatus: 'HIDE_BOTH',
+  },
+  'HIDE_BOTH': {
+    showLeftSidebar: false,
+    showRightSidebar: false,
+    classname: 'hide-both-sidebars',
+    iconClassname: 'show-left-sidebar-icon',
+    nextSidebarsStatus: 'SHOW_LEFT',
+  },
+  'SHOW_LEFT': {
+    showLeftSidebar: true,
+    showRightSidebar: false,
+    classname: 'show-left-sidebar',
+    iconClassname: 'show-both-sidebars-icon',
+    nextSidebarsStatus: 'SHOW_BOTH',
+  },
+};
+
+const DEFAULT_SIDEBARS_STATUS = 'SHOW_BOTH';
 
 const COMPLAINT_ORIGIN_VALUES = ['ALL', 'CIVILIAN', 'OFFICER'];
 const COMPLAINT_ORIGIN_CIVILIAN = 'CIVILIAN';
@@ -24,18 +55,25 @@ export default class NetworkGraph extends Component {
       complaintOrigin: COMPLAINT_ORIGIN_CIVILIAN,
       thresholdValue: DEFAULT_THRESHOLD_VALUE,
       sortedOfficerIds: [],
+      sidebarsStatus: DEFAULT_SIDEBARS_STATUS,
     };
     this.handleSelectComplaintOrigin = this.handleSelectComplaintOrigin.bind(this);
     this.handleChangeThresholdValue = this.handleChangeThresholdValue.bind(this);
     this.handleClickOutside = this.handleClickOutside.bind(this);
-    this.renderPreviewPane = this.renderPreviewPane.bind(this);
     this.updateSortedOfficerIds = this.updateSortedOfficerIds.bind(this);
+    this.handleToggleSidebarsButtonClick = this.handleToggleSidebarsButtonClick.bind(this);
   }
 
   componentDidMount() {
     showIntercomLauncher(false);
     this.fetchGraphData();
     window.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  componentWillUpdate(_, nextState) {
+    const { sidebarsStatus } = this.state;
+
+    this.performResizeGraph = sidebarsStatus !== nextState.sidebarsStatus;
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -51,13 +89,24 @@ export default class NetworkGraph extends Component {
   }
 
   handleClickOutside(event) {
-    const { updateSelectedOfficerId, updateSelectedEdge, selectedOfficerId, selectedEdge } = this.props;
-    if (!event.target.closest('.officer-preview-link') && !event.target.closest('.edge-coaccusals-preview-link')) {
+    const {
+      updateSelectedOfficerId,
+      updateSelectedEdge,
+      updateSelectedCrid,
+      selectedOfficerId,
+      selectedEdge,
+      selectedCrid,
+    } = this.props;
+    if (!event.target.closest('.officer-preview-link, .edge-coaccusals-preview-link, .cr-preview-link')) {
       if (selectedOfficerId) {
         updateSelectedOfficerId(null);
       }
-      if (selectedEdge) {
-        updateSelectedEdge(null);
+      if (selectedCrid) {
+        updateSelectedCrid(null);
+      } else {
+        if (selectedEdge) {
+          updateSelectedEdge(null);
+        }
       }
     }
   }
@@ -114,6 +163,7 @@ export default class NetworkGraph extends Component {
       showTimelineTab,
       location,
       onTrackingAttachment,
+      updateSelectedCrid,
     } = this.props;
 
     const { sortedOfficerIds } = this.state;
@@ -124,6 +174,7 @@ export default class NetworkGraph extends Component {
           { ...networkPreviewPaneData }
           location={ location }
           onTrackingAttachment={ onTrackingAttachment }
+          updateSelectedCrid={ updateSelectedCrid }
         />
       );
     } else {
@@ -139,19 +190,32 @@ export default class NetworkGraph extends Component {
     }
   }
 
-  render() {
-    const { title, currentMainTab, changeMainTab, pinboardId, } = this.props;
+  handleToggleSidebarsButtonClick() {
+    this.setState({ sidebarsStatus: this.sidebarsSettings().nextSidebarsStatus });
+  }
+
+  toggleSidebarsButton() {
+    return (
+      <div
+        className={ cx('toggle-sidebars-btn', this.sidebarsSettings().iconClassname) }
+        onClick={ this.handleToggleSidebarsButtonClick }
+      />
+    );
+  }
+
+  sidebarsSettings() {
+    const { sidebarsStatus } = this.state;
+    return SIDEBARS_STATUS_MAPPING[sidebarsStatus];
+  }
+
+  renderLeftSidebar() {
+    const { title, mainTabsContent } = this.props;
     const { complaintOrigin } = this.state;
 
-    return (
-      <div className={ styles.networkGraph }>
+    if (this.sidebarsSettings().showLeftSidebar) {
+      return (
         <div className='left-section'>
-          {
-            pinboardId && (
-              <a className='back-to-pinboard-link' href={ `/pinboard/${pinboardId}/` }>← Back to pinboard</a>
-            )
-          }
-          <MainTabs changeTab={ changeMainTab } currentTab={ currentMainTab }/>
+          { mainTabsContent }
           <div className='social-graph-title'>{ title }</div>
           <div className='coaccusals-threshold-slider-container'>
             <p className='coaccusals-threshold-text'>Minimum Coaccusal Threshold</p>
@@ -194,16 +258,33 @@ export default class NetworkGraph extends Component {
               })
             }
           </div>
+        </div>
+      );
+    }
+  }
 
-        </div>
-        <div className='graph-container'>
-          <AnimatedSocialGraphContainer updateSortedOfficerIds={ this.updateSortedOfficerIds } />
-        </div>
+  renderRightSidebar() {
+    if (this.sidebarsSettings().showRightSidebar) {
+      return (
         <div className='right-section'>
-          {
-            this.renderPreviewPane()
-          }
+          { this.renderPreviewPane() }
         </div>
+      );
+    }
+  }
+
+  render() {
+    return (
+      <div className={ cx(styles.networkGraph, this.sidebarsSettings().classname) }>
+        { this.renderLeftSidebar() }
+        <div className='graph-container'>
+          <AnimatedSocialGraphContainer
+            performResizeGraph={ this.performResizeGraph }
+            customRightControlButton={ this.toggleSidebarsButton() }
+            updateSortedOfficerIds={ this.updateSortedOfficerIds }
+          />
+        </div>
+        { this.renderRightSidebar() }
         <div className='clearfix'/>
       </div>
     );
@@ -214,14 +295,13 @@ NetworkGraph.propTypes = {
   requestSocialGraphNetwork: PropTypes.func,
   requestSocialGraphAllegations: PropTypes.func,
   requestSocialGraphOfficers: PropTypes.func,
+  mainTabsContent: PropTypes.node,
   officerIds: PropTypes.string,
   unitId: PropTypes.string,
   pinboardId: PropTypes.string,
   title: PropTypes.string,
   changeNetworkTab: PropTypes.func,
-  changeMainTab: PropTypes.func,
   showTimelineTab: PropTypes.bool,
-  currentMainTab: PropTypes.string,
   currentNetworkTab: PropTypes.string,
   selectedOfficerId: PropTypes.number,
   selectedEdge: PropTypes.object,
@@ -230,10 +310,15 @@ NetworkGraph.propTypes = {
   location: PropTypes.object,
   networkPreviewPaneData: PropTypes.object,
   onTrackingAttachment: PropTypes.func,
+  updateSelectedCrid: PropTypes.func,
+  selectedCrid: PropTypes.string,
 };
 
 NetworkGraph.defaultProps = {
-  requestSocialGraphNetwork: () => {},
-  requestSocialGraphAllegations: () => {},
-  requestSocialGraphOfficers: () => {},
+  requestSocialGraphNetwork: noop,
+  requestSocialGraphAllegations: noop,
+  requestSocialGraphOfficers: noop,
+  updateSelectedOfficerId: noop,
+  updateSelectedEdge: noop,
+  updateSelectedCrid: noop,
 };

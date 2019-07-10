@@ -347,7 +347,8 @@ describe('search page transforms', function () {
             count: 10,
             url: '/officer/123/john-watts/',
           },
-          policeHQ: '22nd'
+          policeHQ: '22nd',
+          isPinned: false,
         }
       });
     });
@@ -369,7 +370,8 @@ describe('search page transforms', function () {
           to: '/search/?terms=123456abcd&type=123456ABCD',
           url: '',
           type: 'SEARCH-TERMS',
-          uniqueKey: 'SEARCH-TERMS-123456-abcd'
+          uniqueKey: 'SEARCH-TERMS-123456-abcd',
+          isPinned: false,
         },
         type: 'SEARCH-TERMS'
       });
@@ -386,6 +388,7 @@ describe('search page transforms', function () {
         to: '/officer/29033/',
         'allegation_count': 10,
         'sustained_count': 2,
+        isPinned: true,
         unit: {
           id: 1,
           'unit_name': '018',
@@ -394,6 +397,7 @@ describe('search page transforms', function () {
       });
       const info = {
         data: {
+          id: '29033',
           fullName: 'Jerome Turbyville',
           age: 48,
           appointedDate: 'DEC 13, 1999',
@@ -428,6 +432,7 @@ describe('search page transforms', function () {
           trrCount: undefined,
           trrPercentile: 90,
           to: '/officer/29033/',
+          isPinned: true,
         },
         type: 'OFFICER',
       };
@@ -465,6 +470,7 @@ describe('search page transforms', function () {
         ...focusedSuggestion
       }).should.deepEqual({
         data: {
+          id: '29033',
           fullName: 'Jerome Turbyville',
           age: 48,
           appointedDate: 'DEC 13, 1999',
@@ -499,6 +505,7 @@ describe('search page transforms', function () {
           trrCount: undefined,
           trrPercentile: 90,
           to: '/officer/29033/',
+          isPinned: false,
         },
         type: 'OFFICER',
       });
@@ -522,6 +529,7 @@ describe('search page transforms', function () {
       });
       const info = {
         data: {
+          id: '29033',
           fullName: 'Jerome Turbyville',
           age: 48,
           appointedDate: 'DEC 13, 1999',
@@ -556,6 +564,7 @@ describe('search page transforms', function () {
           trrCount: undefined,
           trrPercentile: 90,
           to: '/officer/29033/',
+          isPinned: false,
         },
         type: 'UNIT > OFFICERS',
       };
@@ -601,7 +610,8 @@ describe('search page transforms', function () {
             ],
             'radarColor': undefined,
             'url': '/officer/2/peter-parker/'
-          }]
+          }],
+          isPinned: false,
         },
         type: 'RANK',
       };

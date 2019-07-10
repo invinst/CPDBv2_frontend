@@ -7,7 +7,8 @@ class PinnedOfficers extends Section {
     super();
 
     const sectionSelector = '//div[contains(@class, "test--OFFICER-section")]';
-    const firstCardSelector = `(${sectionSelector}/div[contains(@class, "type-cards")]/div)[1]`;
+    this.officerCardSelector = `${sectionSelector}/div[contains(@class, "type-cards")]/div`;
+    const firstCardSelector = `(${this.officerCardSelector})[1]`;
 
     this.prepareElementGetters({
       title: `${sectionSelector}/div[@class="type-title"]`,
@@ -17,6 +18,10 @@ class PinnedOfficers extends Section {
       firstCardCRsCount: `${firstCardSelector}//div[@class="officer-complaints-count"]`,
     });
   }
+
+  officerCards() {
+    return browser.elements(this.officerCardSelector).value;
+  }
 }
 
 class PinnedCRs extends Section {
@@ -24,7 +29,8 @@ class PinnedCRs extends Section {
     super();
 
     const sectionSelector = '//div[contains(@class, "test--CR-section")]';
-    const firstCardSelector = `(${sectionSelector}/div[contains(@class, "type-cards")]/div)[1]`;
+    this.crCardSelector = `${sectionSelector}/div[contains(@class, "type-cards")]/div`;
+    const firstCardSelector = `(${this.crCardSelector})[1]`;
 
     this.prepareElementGetters({
       title: `${sectionSelector}/div[@class="type-title"]`,
@@ -33,6 +39,10 @@ class PinnedCRs extends Section {
       firstCardCategory: `${firstCardSelector}//span[@class="location-card-category"]`,
     });
   }
+
+  crCards() {
+    return browser.elements(this.crCardSelector).value;
+  }
 }
 
 class PinnedTRRs extends Section {
@@ -40,7 +50,8 @@ class PinnedTRRs extends Section {
     super();
 
     const sectionSelector = '//div[contains(@class, "test--TRR-section")]';
-    const firstCardSelector = `(${sectionSelector}/div[contains(@class, "type-cards")]/div)[1]`;
+    this.trrCardSelector = `${sectionSelector}/div[contains(@class, "type-cards")]/div`;
+    const firstCardSelector = `(${this.trrCardSelector})[1]`;
 
     this.prepareElementGetters({
       firstElement: firstCardSelector,
@@ -49,6 +60,10 @@ class PinnedTRRs extends Section {
       firstCardDate: `${firstCardSelector}//span[@class="location-card-date"]`,
       firstCardCategory: `${firstCardSelector}//span[@class="location-card-category"]`,
     });
+  }
+
+  trrCards() {
+    return browser.elements(this.trrCardSelector).value;
   }
 }
 
@@ -87,6 +102,7 @@ class BaseComplaintCardSection extends Section {
     super();
 
     this.mainElementSelector = `${baseSelector}//div[contains(@class, "base-complaint-card")]`;
+    this.wrapperSelector = `${baseSelector}//div[contains(@class, "swiper-slide")]`;
 
     this.prepareElementGetters({
       mainElement: this.mainElementSelector,
@@ -111,6 +127,7 @@ class CoaccusalCardSection extends Section {
     super();
 
     this.mainElementSelector = `${baseSelector}//div[contains(@class, "relevant-coaccusal-card")]`;
+    this.wrapperSelector = `${baseSelector}//div[contains(@class, "swiper-slide")]`;
 
     this.prepareElementGetters({
       mainElement: this.mainElementSelector,
@@ -215,8 +232,8 @@ class EmptyPinboardSection extends Section {
 
     this.prepareElementGetters({
       mainElement: '//div[contains(@class, "empty-pinboard__empty-pinboard")]',
-      repeatersRow: '//a[@class="helper-row"][1]',
-      skullcapCrewRow: '//a[@class="helper-row"][2]',
+      firstExample: '//a[contains(@class, "example-pinboard-link__example-pinboard-link")][1]',
+      secondExample: '//a[contains(@class, "example-pinboard-link__example-pinboard-link")][2]',
     });
   }
 }

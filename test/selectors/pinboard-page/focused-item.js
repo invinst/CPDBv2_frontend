@@ -18,6 +18,7 @@ describe('focusedItem selectors', function () {
         'unit_name': '018',
         description: 'District 018',
       },
+      isPinned: true,
     });
     const state = {
       pinboardPage: {
@@ -60,6 +61,7 @@ describe('focusedItem selectors', function () {
 
     focusedItemSelector(state).should.be.eql({
       data: {
+        id: '29033',
         fullName: 'Jerome Turbyville',
         age: 48,
         appointedDate: 'DEC 13, 1999',
@@ -94,6 +96,7 @@ describe('focusedItem selectors', function () {
         trrCount: undefined,
         trrPercentile: 90,
         to: '/officer/29033/',
+        isPinned: true,
       },
       type: 'OFFICER',
     });

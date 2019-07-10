@@ -265,11 +265,11 @@ describe('Social Graph Page', function () {
     socialGraphPage.animatedSocialGraphSection.officerTab.click();
     socialGraphPage.officersSection.officerRows().should.have.length(20);
     socialGraphPage.officersSection.firstOfficerRow.click();
-    socialGraphPage.officersSection.officerPreviewPane.waitForVisible();
-    socialGraphPage.officersSection.officerName.getText().should.eql('Donnell Calhoun');
+    socialGraphPage.previewPaneSection.previewPane.waitForVisible();
+    socialGraphPage.previewPaneSection.officerPreviewPaneName.getText().should.eql('Donnell Calhoun');
 
     socialGraphPage.animatedSocialGraphSection.leftSection.click();
-    socialGraphPage.officersSection.officerPreviewPane.waitForVisible(1000, true);
+    socialGraphPage.previewPaneSection.previewPane.waitForVisible(1000, true);
   });
 
   it('should render officer preview pane and officer name when clicking on the officer node', function () {
@@ -277,22 +277,27 @@ describe('Social Graph Page', function () {
     socialGraphPage.animatedSocialGraphSection.officerTab.click();
     socialGraphPage.officersSection.officerRows().should.have.length(20);
     socialGraphPage.animatedSocialGraphSection.biggestGraphNode.click();
-    socialGraphPage.officersSection.officerPreviewPane.waitForVisible();
+    socialGraphPage.previewPaneSection.previewPane.waitForVisible();
 
     socialGraphPage.animatedSocialGraphSection.leftSection.click();
-    socialGraphPage.officersSection.officerPreviewPane.waitForVisible(1000, true);
+    socialGraphPage.previewPaneSection.previewPane.waitForVisible(1000, true);
   });
 
-  it('should render timeline section when clicking on timeline tab', function () {
+  it('should render timeline section and show preview pane when click on timeline item', function () {
     waitForGraphAnimationEnd(browser, socialGraphPage);
-    socialGraphPage.timelineSection.allegationRowCount().should.eql(64);
+    socialGraphPage.timelineSection.allegationRowCount().should.eql(83);
 
-    socialGraphPage.timelineSection.firstAllegationYear.getText().should.eql('1990');
+    socialGraphPage.timelineSection.firstYearItem.getText().should.eql('1990');
     socialGraphPage.timelineSection.firstAllegationCategory.getText().should.eql('Use Of Force');
     socialGraphPage.timelineSection.firstAllegationSubcategory.getText().should.eql(
       'Excessive Force / On Duty - Injury'
     );
     socialGraphPage.timelineSection.firstAllegationDate.getText().should.eql('JAN 9');
+
+    socialGraphPage.timelineSection.firstAllegationItem.click();
+
+    socialGraphPage.previewPaneSection.crPreviewPaneTitle.getText().should.eql('Use Of Force');
+    socialGraphPage.previewPaneSection.crPreviewPaneSubtitle.getText().should.eql('Excessive Force / On Duty - Injury');
   });
 
   it('should scroll to last timeline item(s) when slider reach the end', function () {
@@ -394,10 +399,10 @@ describe('Social Graph Page', function () {
 
     socialGraphPage.animatedSocialGraphSection.firstCurrentEdge.click();
     socialGraphPage.animatedSocialGraphSection.selectedEdgeLabel.getText().should.eql('2 coaccusals');
-    socialGraphPage.animatedSocialGraphSection.edgeCoaccusalsHeader.getText().should.eql(
+    socialGraphPage.previewPaneSection.edgePreviewPaneHeader.getText().should.eql(
       'Matthew Brandon & William Roberison\'s 2 coaccusals'
     );
-    let edgeCoaccusalsItems = socialGraphPage.animatedSocialGraphSection.edgeCoaccusalsItems();
+    let edgeCoaccusalsItems = socialGraphPage.previewPaneSection.edgeCoaccusalsItems();
     edgeCoaccusalsItems.should.have.length(4);
     edgeCoaccusalsItems[0].getText().should.eql('1990');
     edgeCoaccusalsItems[1].getText().should.containEql('JAN 9');
@@ -409,17 +414,17 @@ describe('Social Graph Page', function () {
     socialGraphPage.animatedSocialGraphSection.biggestGraphNode.click();
     socialGraphPage.animatedSocialGraphSection.selectedNodeLabel.getText().should.eql('Donnell Calhoun');
     socialGraphPage.animatedSocialGraphSection.officerTip.waitForVisible(1000, true);
-    socialGraphPage.officersSection.officerPreviewPane.waitForVisible();
+    socialGraphPage.previewPaneSection.previewPane.waitForVisible();
 
     waitUntilEdgeNotMoving(socialGraphPage.animatedSocialGraphSection.secondCurrentEdge);
 
     socialGraphPage.animatedSocialGraphSection.secondCurrentEdge.click();
     socialGraphPage.animatedSocialGraphSection.selectedEdgeLabel.getText().should.eql('4 coaccusals');
-    socialGraphPage.animatedSocialGraphSection.edgeCoaccusalsHeader.getText().should.eql(
+    socialGraphPage.previewPaneSection.edgePreviewPaneHeader.getText().should.eql(
       'Joseph Blaye & Tracy Hughes\'s 4 coaccusals'
     );
 
-    edgeCoaccusalsItems = socialGraphPage.animatedSocialGraphSection.edgeCoaccusalsItems();
+    edgeCoaccusalsItems = socialGraphPage.previewPaneSection.edgeCoaccusalsItems();
 
     edgeCoaccusalsItems.should.have.length(6);
     edgeCoaccusalsItems[0].getText().should.eql('1992');
@@ -432,6 +437,20 @@ describe('Social Graph Page', function () {
     edgeCoaccusalsItems[4].getText().should.containEql('Operation/Personnel Violations');
     edgeCoaccusalsItems[5].getText().should.containEql('JUN 9');
     edgeCoaccusalsItems[5].getText().should.containEql('Illegal Search');
+
+    socialGraphPage.timelineSection.firstAllegationItem.click();
+
+    socialGraphPage.previewPaneSection.crPreviewPaneTitle.getText().should.eql('Operation/Personnel Violations');
+    socialGraphPage.previewPaneSection.crPreviewPaneSubtitle.getText().should.eql('Inventory Procedures');
+
+    socialGraphPage.animatedSocialGraphSection.leftSection.click();
+
+    socialGraphPage.previewPaneSection.edgePreviewPaneHeader.getText().should.eql(
+      'Joseph Blaye & Tracy Hughes\'s 4 coaccusals'
+    );
+
+    socialGraphPage.animatedSocialGraphSection.leftSection.click();
+    socialGraphPage.previewPaneSection.previewPane.waitForVisible(1000, true);
   });
 
   it('should order officer rows correctly', function () {
@@ -493,5 +512,63 @@ describe('Social Graph Page', function () {
       socialGraphPage.officersSection.officerRows(), officerRow => officerRow.getText()
     );
     middleOrderedOfficers.should.eql(expectedMiddleOrderedOfficers);
+  });
+
+  it('should show/hide right sidebar and left sidebar when clicking on toggle sidebars button', function () {
+    socialGraphPage.animatedSocialGraphSection.leftSection.waitForVisible();
+    socialGraphPage.animatedSocialGraphSection.rightSection.waitForVisible();
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.waitForVisible();
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.getAttribute('class').should.containEql(
+      'show-right-sidebar-icon'
+    );
+
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.click();
+    socialGraphPage.animatedSocialGraphSection.leftSection.waitForVisible(1000, true);
+    socialGraphPage.animatedSocialGraphSection.rightSection.isExisting().should.be.true();
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.getAttribute('class').should.containEql(
+      'hide-both-sidebars-icon'
+    );
+
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.click();
+    socialGraphPage.animatedSocialGraphSection.leftSection.isExisting().should.be.false();
+    socialGraphPage.animatedSocialGraphSection.rightSection.waitForVisible(1000, true);
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.getAttribute('class').should.containEql(
+      'show-left-sidebar-icon'
+    );
+
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.click();
+    socialGraphPage.animatedSocialGraphSection.leftSection.waitForVisible();
+    socialGraphPage.animatedSocialGraphSection.rightSection.isExisting().should.be.false();
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.getAttribute('class').should.containEql(
+      'show-both-sidebars-icon'
+    );
+
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.click();
+    socialGraphPage.animatedSocialGraphSection.leftSection.isExisting().should.be.true();
+    socialGraphPage.animatedSocialGraphSection.rightSection.waitForVisible();
+    socialGraphPage.animatedSocialGraphSection.toggleSidebarsButton.getAttribute('class').should.containEql(
+      'show-right-sidebar-icon'
+    );
+  });
+});
+
+describe('Social Graph Page with pinboard_id', function () {
+  beforeEach(function () {
+    socialGraphPage.open('?pinboard_id=5cd06f2b');
+  });
+
+  context('Network tab', function () {
+    it('should go back to pinboard page when clicking on back to pinboard button', function () {
+      socialGraphPage.animatedSocialGraphSection.backToPinboardButton.click();
+      browser.getUrl().should.containEql('/pinboard/5cd06f2b/');
+    });
+  });
+
+  context('Geographic tab', function () {
+    it('should go back to pinboard page when clicking on back to pinboard button', function () {
+      socialGraphPage.animatedSocialGraphSection.geographicTab.click();
+      socialGraphPage.animatedSocialGraphSection.backToPinboardButton.click();
+      browser.getUrl().should.containEql('/pinboard/5cd06f2b/');
+    });
   });
 });

@@ -57,6 +57,7 @@ export default handleActions({
     return {
       ...state,
       saving: false,
+      'example_pinboards': action.payload['example_pinboards'],
     };
   },
   [constants.PINBOARD_UPDATE_REQUEST_FAILURE]: (state, action) => {

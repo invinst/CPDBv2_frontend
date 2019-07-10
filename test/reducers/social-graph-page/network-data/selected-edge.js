@@ -1,7 +1,10 @@
 import should from 'should';
 
 import selectedEdge from 'reducers/social-graph-page/network-data/selected-edge';
-import { UPDATE_SELECTED_OFFICER_ID, UPDATE_SOCIAL_GRAPH_SELECTED_EDGE } from 'utils/constants';
+import {
+  UPDATE_SELECTED_OFFICER_ID,
+  UPDATE_SOCIAL_GRAPH_SELECTED_EDGE,
+} from 'utils/constants';
 
 
 describe('selectedEdge reducer', function () {

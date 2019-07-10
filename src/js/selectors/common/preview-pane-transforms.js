@@ -27,7 +27,7 @@ export const previewPaneTransform = item => {
   const transform = get(previewPaneTransformMap, type, () => {});
   return {
     type,
-    data: transform(item)
+    data: { ...transform(item), isPinned: get(item, 'isPinned', false) }
   };
 };
 
@@ -142,6 +142,7 @@ export const officerTransform = (item) => {
     {};
 
   return {
+    id: item['id'],
     fullName: item['name'] || item['full_name'],
     appointedDate: formatDate(item['appointed_date']),
     resignationDate: formatDate(item['resignation_date']),

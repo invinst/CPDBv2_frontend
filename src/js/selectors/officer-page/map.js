@@ -35,6 +35,7 @@ export const crMapMarkersTransform = item => ({
     lon: 0, lat: 0
   }),
   date: item.date,
+  finding: item.finding,
   kind: item.kind,
   id: item.crid,
   category: item.category,

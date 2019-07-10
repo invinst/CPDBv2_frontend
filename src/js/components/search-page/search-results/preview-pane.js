@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import { isEmpty, get } from 'lodash';
+import { isEmpty, get, noop } from 'lodash';
 import cx from 'classnames';
 
 import SlideMotion from 'components/animation/slide-motion';
 import {
-  OfficerPane,
+  NewOfficerPane as OfficerPane,
   CommunityPane,
   NeighborhoodPane,
   WardPane,
@@ -26,9 +26,13 @@ export default class PreviewPane extends Component {
   }
 
   renderPane() {
-    const { data, type, yScrollable } = this.props;
-    const officerPaneFunc = () => <OfficerPane { ...data } yScrollable={ yScrollable }/>;
-    const crPaneFunc = () => <CRPane { ...data } yScrollable={ yScrollable } />;
+    const { data, type, yScrollable, addOrRemoveItemInPinboard } = this.props;
+    const officerPaneFunc = () => <OfficerPane { ...data }
+      yScrollable={ yScrollable }
+      type={ type }
+      addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
+    />;
+    const crPaneFunc = () => <CRPane { ...data } yScrollable={ yScrollable }/>;
     const trrPaneFunc = () => {
       return (
         <div className='trr-pane-wrapper'>
@@ -79,9 +83,11 @@ PreviewPane.propTypes = {
   type: PropTypes.string,
   customClass: PropTypes.string,
   yScrollable: PropTypes.bool,
+  addOrRemoveItemInPinboard: PropTypes.func,
 };
 
 PreviewPane.defaultProps = {
   data: {},
   yScrollable: false,
+  addOrRemoveItemInPinboard: noop,
 };

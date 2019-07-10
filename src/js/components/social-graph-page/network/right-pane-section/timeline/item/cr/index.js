@@ -1,6 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
-import cx from 'classnames';
 
 import Attachments from './attachments';
 import styles from './cr.sass';
@@ -11,10 +9,7 @@ export default class Cr extends Component {
     const { item, pathname, onTrackingAttachment } = this.props;
 
     return (
-      <Link
-        className={ cx(styles.wrapper, 'test--timeline-item') }
-        to={ `/complaint/${item.crid}/` }
-      >
+      <div className={ styles.wrapper }>
         <div className='content'>
           <span className={ 'kind' }>C</span>
           <span className='detail'>
@@ -30,7 +25,7 @@ export default class Cr extends Component {
             <span className='date'>{ item.incidentDate }</span>
           </span>
         </div>
-      </Link>
+      </div>
     );
   }
 }

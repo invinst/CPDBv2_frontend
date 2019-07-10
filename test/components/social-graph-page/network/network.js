@@ -461,8 +461,45 @@ describe('NetworkGraph component', function () {
     updateSelectedEdgeStub.should.be.calledWith(null);
   });
 
-  it('should not call updateSelectedOfficerId when clicking on preview-pane', function () {
+  it('should not call updateSelectedEdge when clicking outside and there is selected crid and edge', function () {
+    const updateSelectedEdgeStub = stub();
+    const selectedEdge = {
+      sourceOfficerName: 'Jerome Finnigan',
+      targetOfficerName: 'Edward May',
+      coaccusedCount: 10,
+    };
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <NetworkGraph
+          updateSelectedEdge={ updateSelectedEdgeStub }
+          selectedEdge={ selectedEdge }
+          selectedCrid={ '123456' }
+        />
+      </Provider>
+    );
+    const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
+    const leftSection = findRenderedDOMComponentWithClass(instance, 'left-section');
+    networkGraph.handleClickOutside({ target: findDOMNode(leftSection) });
+    updateSelectedEdgeStub.should.not.be.called();
+  });
+
+  it('should call updateSelectedCrid when clicking outside and there is selectedCrid', function () {
+    const updateSelectedCridStub = stub();
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <NetworkGraph updateSelectedCrid={ updateSelectedCridStub } selectedCrid={ '123456' } />
+      </Provider>
+    );
+    const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
+    const leftSection = findRenderedDOMComponentWithClass(instance, 'left-section');
+    networkGraph.handleClickOutside({ target: findDOMNode(leftSection) });
+    updateSelectedCridStub.should.be.calledWith(null);
+  });
+
+  it('should not call update selected officer, edge and cr when clicking on preview-pane', function () {
     const updateSelectedOfficerIdStub = stub();
+    const updateSelectedCridStub = stub();
+    const updateSelectedEdgeStub = stub();
     const networkPreviewPaneData = {
       type: NETWORK_PREVIEW_PANE.OFFICER,
       data: {
@@ -508,6 +545,8 @@ describe('NetworkGraph component', function () {
       <Provider store={ store }>
         <NetworkGraph
           updateSelectedOfficerId={ updateSelectedOfficerIdStub }
+          updateSelectedCrid={ updateSelectedCridStub }
+          updateSelectedEdge={ updateSelectedEdgeStub }
           selectedOfficerId={ 123 }
           networkPreviewPaneData={ networkPreviewPaneData }
         />
@@ -517,6 +556,8 @@ describe('NetworkGraph component', function () {
     const officerPane = findRenderedComponentWithType(instance, OfficerPane);
     networkGraph.handleClickOutside({ target: findDOMNode(officerPane) });
     updateSelectedOfficerIdStub.should.not.be.called();
+    updateSelectedCridStub.should.not.be.called();
+    updateSelectedEdgeStub.should.not.be.called();
   });
 
   it('should update sortedOfficerIds state when calling updateSortedOfficerIds', function () {
@@ -530,5 +571,107 @@ describe('NetworkGraph component', function () {
     networkGraph.state.sortedOfficerIds.should.eql([]);
     networkGraph.updateSortedOfficerIds([123, 456, 789]);
     networkGraph.state.sortedOfficerIds.should.eql([123, 456, 789]);
+  });
+
+  it('should show/hide left sidebar and right sidebar when clicking on toggle sidebars button', function () {
+    const store = mockStore({
+      socialGraphPage: {
+        networkData: {
+          graphData: {
+            officers: [
+              {
+                'full_name': 'Jerome Finnigan',
+                'id': 1,
+                'percentile': {
+                  'percentile_trr': '78.2707',
+                  'percentile_allegation_civilian': '97.8772',
+                  'percentile_allegation_internal': '61.1521'
+                },
+              },
+              {
+                'full_name': 'Edward May',
+                'id': 2,
+                'percentile': {
+                  'percentile_trr': '78.2707',
+                  'percentile_allegation_civilian': '97.8772',
+                  'percentile_allegation_internal': '61.1521'
+                },
+              },
+            ],
+            'coaccused_data': [
+              {
+                'officer_id_1': 1,
+                'officer_id_2': 2,
+                'incident_date': '1988-10-03',
+                'accussed_count': 1,
+              },
+              {
+                'officer_id_1': 1,
+                'officer_id_2': 2,
+                'incident_date': '1989-10-03',
+                'accussed_count': 2,
+              }
+            ],
+            'list_event': ['1988-10-03', '1989-10-03'],
+          },
+        },
+      },
+    });
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <NetworkGraph officerIds='123,456,789'/>
+      </Provider>
+    );
+
+    const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
+    const toggleSidebarsButton = findRenderedDOMComponentWithClass(instance, 'toggle-sidebars-btn');
+    networkGraph.state.sidebarsStatus.should.equal('SHOW_BOTH');
+    scryRenderedDOMComponentsWithClass(instance, 'left-section').should.have.length(1);
+    scryRenderedDOMComponentsWithClass(instance, 'right-section').should.have.length(1);
+
+    Simulate.click(toggleSidebarsButton);
+    networkGraph.state.sidebarsStatus.should.equal('SHOW_RIGHT');
+    scryRenderedDOMComponentsWithClass(instance, 'left-section').should.have.length(0);
+    scryRenderedDOMComponentsWithClass(instance, 'right-section').should.have.length(1);
+
+    Simulate.click(toggleSidebarsButton);
+    networkGraph.state.sidebarsStatus.should.equal('HIDE_BOTH');
+    scryRenderedDOMComponentsWithClass(instance, 'left-section').should.have.length(0);
+    scryRenderedDOMComponentsWithClass(instance, 'right-section').should.have.length(0);
+
+    Simulate.click(toggleSidebarsButton);
+    networkGraph.state.sidebarsStatus.should.equal('SHOW_LEFT');
+    scryRenderedDOMComponentsWithClass(instance, 'left-section').should.have.length(1);
+    scryRenderedDOMComponentsWithClass(instance, 'right-section').should.have.length(0);
+  });
+
+  it('should update performResizeGraph when sidebarsStatus state is difference after updating', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <NetworkGraph officerIds='123,456,789'/>
+      </Provider>
+    );
+
+    const animatedSocialGraph = findRenderedComponentWithType(instance, AnimatedSocialGraphContainer);
+    const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
+
+    networkGraph.setState({ sidebarsStatus: 'SHOW_BOTH' });
+    animatedSocialGraph.props.performResizeGraph.should.be.false();
+
+    networkGraph.setState({ sidebarsStatus: 'HIDE_BOTH' });
+    animatedSocialGraph.props.performResizeGraph.should.be.true();
+  });
+
+  it('should render mainTabsContent if there is mainTabsContent', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <NetworkGraph
+          unitId='232'
+          mainTabsContent={ <div className='main-tabs-content'>This is main tabs content</div> }
+        />
+      </Provider>
+    );
+    const mainTabsContent = findRenderedDOMComponentWithClass(instance, 'main-tabs-content');
+    mainTabsContent.textContent.should.eql('This is main tabs content');
   });
 });

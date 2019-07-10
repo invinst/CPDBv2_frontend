@@ -19,14 +19,24 @@ export const searchContentWrapperStyle = (aliasEditModeOn) => ({
   minHeight: '100vh',
   background: aliasEditModeOn ? lightGirlyPink : 'white',
   fontFamily: sanFranciscoTextFamily,
-  overflow: 'hidden',
 });
+
+export const searchBoxWrapperStyle = {
+  backgroundColor: 'white',
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  width: '100%',
+  zIndex: 1,
+  height: '50px',
+};
 
 export const searchBoxStyle = (aliasEditModeOn, hasBottomBorder) => {
   let style = {
     backgroundColor: aliasEditModeOn ? girlyPink : 'white',
     padding: `${searchBoxPadding}px 0 9px 0`,
     margin: '0 16px',
+    width: 'calc(100% - 32px)',
   };
 
   if (hasBottomBorder) {
@@ -53,6 +63,10 @@ export const cancelButtonStyle = (searchTermsHidden) => ({
     color: softBlackColor
   }
 });
+
+export const searchMainPanelWrapperStyle = {
+  paddingTop: '50px',
+};
 
 export const toastWrapperStyle = {
   backgroundColor: sproutColor,

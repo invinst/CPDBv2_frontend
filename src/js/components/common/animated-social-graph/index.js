@@ -7,7 +7,6 @@ import cx from 'classnames';
 import SocialGraph from './social-graph';
 import styles from './animated-social-graph.sass';
 import sliderStyles from 'components/common/slider.sass';
-import { showIntercomLauncher } from 'utils/intercom';
 import withLoadingSpinner from 'components/common/with-loading-spinner';
 
 const ANIMATE_SPEED = 150;
@@ -18,12 +17,10 @@ export default class AnimatedSocialGraph extends Component {
     super(props);
     this.state = {
       searchInputText: '',
-      fullscreen: false,
     };
 
     this.startTimelineFromBeginning = this.startTimelineFromBeginning.bind(this);
     this.toggleTimeline = this.toggleTimeline.bind(this);
-    this.toggleFullscreen = this.toggleFullscreen.bind(this);
     this.stopTimeline = this.stopTimeline.bind(this);
     this.intervalTickTimeline = this.intervalTickTimeline.bind(this);
     this.handleDateSliderChange = this.handleDateSliderChange.bind(this);
@@ -65,15 +62,6 @@ export default class AnimatedSocialGraph extends Component {
     }
   }
 
-  toggleFullscreen() {
-    this.setState((state) => {
-      if (this.props.hasIntercom) {
-        showIntercomLauncher(state.fullscreen);
-      }
-      return { fullscreen: !state.fullscreen };
-    });
-  }
-
   intervalTickTimeline() {
     const { timelineIdx, isVisible, updateTimelineIdx } = this.props;
     if (isVisible) {
@@ -90,22 +78,15 @@ export default class AnimatedSocialGraph extends Component {
     updateTimelineIdx(value);
   }
 
-  fullscreenButton() {
-    const { expandedLink } = this.props;
-    const { fullscreen } = this.state;
+  rightControlButton() {
+    const { expandedLink, customRightControlButton } = this.props;
 
-    if (expandedLink) {
-      return (
-        <a href={ expandedLink } className='fullscreen-btn expand-icon' />
-      );
-    } else {
-      return (
-        <button
-          className={ cx('fullscreen-btn', fullscreen ? 'compress-icon' : 'expand-icon') }
-          onClick={ this.toggleFullscreen }
-        />
-      );
-    }
+    return (
+      <div className='custom-right-control-buttons-container'>
+        { expandedLink && (<a href={ expandedLink } className='expanded-mode-btn' />) }
+        { customRightControlButton }
+      </div>
+    );
   }
 
   graphControlPanel() {
@@ -140,7 +121,7 @@ export default class AnimatedSocialGraph extends Component {
                 onClick={ this.toggleTimeline }
               />
               <span className='current-date-label'>{ currentDateString }</span>
-              { this.fullscreenButton() }
+              { this.rightControlButton() }
               <div className='clearfix'/>
             </div>
           </div>
@@ -161,6 +142,7 @@ export default class AnimatedSocialGraph extends Component {
       selectedEdge,
       updateSelectedEdge,
       updateSortedOfficerIds,
+      performResizeGraph,
     } = this.props;
     const { fullscreen } = this.state;
 
@@ -181,6 +163,7 @@ export default class AnimatedSocialGraph extends Component {
             selectedEdge={ selectedEdge }
             updateSelectedEdge={ updateSelectedEdge }
             updateSortedOfficerIds={ updateSortedOfficerIds }
+            performResizeGraph={ performResizeGraph }
           />
         }
         { this.graphControlPanel() }
@@ -205,6 +188,8 @@ AnimatedSocialGraph.propTypes = {
   isVisible: PropTypes.bool,
   updateRefreshIntervalId: PropTypes.func,
   updateSortedOfficerIds: PropTypes.func,
+  customRightControlButton: PropTypes.node,
+  performResizeGraph: PropTypes.bool,
 };
 
 AnimatedSocialGraph.defaultProps = {

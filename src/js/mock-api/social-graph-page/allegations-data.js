@@ -2,10 +2,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C173224',
     'incident_date': '1990-01-09',
-    'most_common_category': {
-      'category': 'Use Of Force',
-      'allegation_name': 'Excessive Force / On Duty - Injury'
-    },
+    'category': 'Use Of Force',
+    'subcategory': 'Excessive Force / On Duty - Injury',
     'attachments': [],
     'officer_ids': [
       2675,
@@ -15,10 +13,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C182480',
     'incident_date': '1991-02-20',
-    'most_common_category': {
-      'category': 'Criminal Misconduct',
-      'allegation_name': 'Conspiracy To Commit A Crime'
-    },
+    'category': 'Criminal Misconduct',
+    'subcategory': 'Conspiracy To Commit A Crime',
     'attachments': [],
     'officer_ids': [
       12249,
@@ -36,10 +32,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C185478',
     'incident_date': '1991-07-06',
-    'most_common_category': {
-      'category': 'Criminal Misconduct',
-      'allegation_name': 'Excessive Force - Use Of Firearm / Off Duty - Injury'
-    },
+    'category': 'Criminal Misconduct',
+    'subcategory': 'Excessive Force - Use Of Firearm / Off Duty - Injury',
     'attachments': [],
     'officer_ids': [
       22861,
@@ -51,10 +45,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C186345',
     'incident_date': '1991-08-07',
-    'most_common_category': {
-      'category': 'Illegal Search',
-      'allegation_name': 'Search Of Premise Without Warrant'
-    },
+    'category': 'Illegal Search',
+    'subcategory': 'Search Of Premise Without Warrant',
     'attachments': [],
     'officer_ids': [
       22861,
@@ -70,10 +62,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C190857',
     'incident_date': '1992-03-08',
-    'most_common_category': {
-      'category': 'Illegal Search',
-      'allegation_name': 'Search Of Premise Without Warrant'
-    },
+    'category': 'Illegal Search',
+    'subcategory': 'Search Of Premise Without Warrant',
     'attachments': [],
     'officer_ids': [
       22861,
@@ -85,10 +75,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C193742',
     'incident_date': '1992-07-18',
-    'most_common_category': {
-      'category': 'Operation/Personnel Violations',
-      'allegation_name': 'Inventory Procedures'
-    },
+    'category': 'Operation/Personnel Violations',
+    'subcategory': 'Inventory Procedures',
     'attachments': [],
     'officer_ids': [
       28805,
@@ -100,10 +88,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C199563',
     'incident_date': '1993-03-28',
-    'most_common_category': {
-      'category': 'Lockup Procedures',
-      'allegation_name': 'Miscellaneous'
-    },
+    'category': 'Lockup Procedures',
+    'subcategory': 'Miscellaneous',
     'attachments': [],
     'officer_ids': [
       3663,
@@ -115,10 +101,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C199712',
     'incident_date': '1993-04-03',
-    'most_common_category': {
-      'category': 'Operation/Personnel Violations',
-      'allegation_name': 'Neglect Of Duty'
-    },
+    'category': 'Operation/Personnel Violations',
+    'subcategory': 'Neglect Of Duty',
     'attachments': [],
     'officer_ids': [
       28805,
@@ -131,10 +115,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C200983',
     'incident_date': '1993-06-01',
-    'most_common_category': {
-      'category': 'Illegal Search',
-      'allegation_name': 'Search Of Premise Without Warrant'
-    },
+    'category': 'Illegal Search',
+    'subcategory': 'Search Of Premise Without Warrant',
     'attachments': [],
     'officer_ids': [
       22861,
@@ -150,10 +132,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C200989',
     'incident_date': '1993-06-03',
-    'most_common_category': {
-      'category': 'Operation/Personnel Violations',
-      'allegation_name': 'Compensatory Time'
-    },
+    'category': 'Operation/Personnel Violations',
+    'subcategory': 'Compensatory Time',
     'attachments': [],
     'officer_ids': [
       26593,
@@ -169,10 +149,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C201239',
     'incident_date': '1993-06-09',
-    'most_common_category': {
-      'category': 'Illegal Search',
-      'allegation_name': 'Search Of Premise Without Warrant'
-    },
+    'category': 'Illegal Search',
+    'subcategory': 'Search Of Premise Without Warrant',
     'attachments': [],
     'officer_ids': [
       28805,
@@ -185,10 +163,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C201979',
     'incident_date': '1993-07-13',
-    'most_common_category': {
-      'category': 'Lockup Procedures',
-      'allegation_name': 'Arrest, Improper Procedures'
-    },
+    'category': 'Lockup Procedures',
+    'subcategory': 'Arrest, Improper Procedures',
     'attachments': [],
     'officer_ids': [
       28805,
@@ -198,10 +174,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C204284',
     'incident_date': '1993-10-16',
-    'most_common_category': {
-      'category': 'Use Of Force',
-      'allegation_name': 'Excessive Force - Use Of Firearm / Off Duty - Injury'
-    },
+    'category': 'Use Of Force',
+    'subcategory': 'Excessive Force - Use Of Firearm / Off Duty - Injury',
     'attachments': [],
     'officer_ids': [
       28805,
@@ -211,10 +185,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C206616',
     'incident_date': '1994-01-31',
-    'most_common_category': {
-      'category': 'Illegal Search',
-      'allegation_name': 'Search Of Premise Without Warrant'
-    },
+    'category': 'Illegal Search',
+    'subcategory': 'Search Of Premise Without Warrant',
     'attachments': [],
     'officer_ids': [
       28805,
@@ -228,10 +200,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C206895',
     'incident_date': '1994-02-15',
-    'most_common_category': {
-      'category': 'Drug / Alcohol Abuse',
-      'allegation_name': 'Impairment .04 Or Greater - Off Duty'
-    },
+    'category': 'Drug / Alcohol Abuse',
+    'subcategory': 'Impairment .04 Or Greater - Off Duty',
     'attachments': [],
     'officer_ids': [
       3663,
@@ -244,10 +214,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C207197',
     'incident_date': '1994-02-26',
-    'most_common_category': {
-      'category': 'Operation/Personnel Violations',
-      'allegation_name': 'Inventory Procedures'
-    },
+    'category': 'Operation/Personnel Violations',
+    'subcategory': 'Inventory Procedures',
     'attachments': [],
     'officer_ids': [
       28805,
@@ -258,10 +226,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C207739',
     'incident_date': '1994-03-06',
-    'most_common_category': {
-      'category': 'Use Of Force',
-      'allegation_name': 'Excessive Force / On Duty - Injury'
-    },
+    'category': 'Use Of Force',
+    'subcategory': 'Excessive Force / On Duty - Injury',
     'attachments': [],
     'officer_ids': [
       28805,
@@ -272,10 +238,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C207420',
     'incident_date': '1994-03-07',
-    'most_common_category': {
-      'category': 'Illegal Search',
-      'allegation_name': 'Search Of Premise Without Warrant'
-    },
+    'category': 'Illegal Search',
+    'subcategory': 'Search Of Premise Without Warrant',
     'attachments': [],
     'officer_ids': [
       28805,
@@ -289,10 +253,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C207477',
     'incident_date': '1994-03-12',
-    'most_common_category': {
-      'category': 'Illegal Search',
-      'allegation_name': 'Search Of Premise Without Warrant'
-    },
+    'category': 'Illegal Search',
+    'subcategory': 'Search Of Premise Without Warrant',
     'attachments': [],
     'officer_ids': [
       28805,
@@ -304,10 +266,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C208264',
     'incident_date': '1994-04-17',
-    'most_common_category': {
-      'category': 'Criminal Misconduct',
-      'allegation_name': 'Conspiracy To Commit A Crime'
-    },
+    'category': 'Criminal Misconduct',
+    'subcategory': 'Conspiracy To Commit A Crime',
     'attachments': [],
     'officer_ids': [
       28805,
@@ -317,10 +277,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C209130',
     'incident_date': '1994-05-24',
-    'most_common_category': {
-      'category': 'Criminal Misconduct',
-      'allegation_name': 'Conspiracy To Commit A Crime'
-    },
+    'category': 'Criminal Misconduct',
+    'subcategory': 'Conspiracy To Commit A Crime',
     'attachments': [],
     'officer_ids': [
       10482,
@@ -340,10 +298,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C209897',
     'incident_date': '1994-06-21',
-    'most_common_category': {
-      'category': 'Operation/Personnel Violations',
-      'allegation_name': 'Inventory Procedures'
-    },
+    'category': 'Operation/Personnel Violations',
+    'subcategory': 'Inventory Procedures',
     'attachments': [],
     'officer_ids': [
       28805,
@@ -354,10 +310,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C211536',
     'incident_date': '1994-08-17',
-    'most_common_category': {
-      'category': 'Criminal Misconduct',
-      'allegation_name': 'Theft'
-    },
+    'category': 'Criminal Misconduct',
+    'subcategory': 'Theft',
     'attachments': [],
     'officer_ids': [
       5929,
@@ -372,10 +326,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C215976',
     'incident_date': '1995-02-28',
-    'most_common_category': {
-      'category': 'Illegal Search',
-      'allegation_name': 'Search Of Premise Without Warrant'
-    },
+    'category': 'Illegal Search',
+    'subcategory': 'Search Of Premise Without Warrant',
     'attachments': [],
     'officer_ids': [
       11386,
@@ -389,10 +341,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C217960',
     'incident_date': '1995-05-21',
-    'most_common_category': {
-      'category': 'Illegal Search',
-      'allegation_name': 'Search Of Premise Without Warrant'
-    },
+    'category': 'Illegal Search',
+    'subcategory': 'Search Of Premise Without Warrant',
     'attachments': [],
     'officer_ids': [
       3663,
@@ -402,10 +352,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C219724',
     'incident_date': '1995-07-28',
-    'most_common_category': {
-      'category': 'Operation/Personnel Violations',
-      'allegation_name': 'Inventory Procedures'
-    },
+    'category': 'Operation/Personnel Violations',
+    'subcategory': 'Inventory Procedures',
     'attachments': [],
     'officer_ids': [
       10482,
@@ -417,10 +365,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C224270',
     'incident_date': '1996-01-20',
-    'most_common_category': {
-      'category': 'Illegal Search',
-      'allegation_name': 'Search Of Premise Without Warrant'
-    },
+    'category': 'Illegal Search',
+    'subcategory': 'Search Of Premise Without Warrant',
     'attachments': [],
     'officer_ids': [
       31643,
@@ -436,10 +382,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C241050',
     'incident_date': '1996-04-20',
-    'most_common_category': {
-      'category': 'Use Of Force',
-      'allegation_name': 'Excessive Force - Use Of Firearm / Off Duty - No Injury'
-    },
+    'category': 'Use Of Force',
+    'subcategory': 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
     'attachments': [],
     'officer_ids': [
       28805,
@@ -453,10 +397,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C227504',
     'incident_date': '1996-05-28',
-    'most_common_category': {
-      'category': 'Illegal Search',
-      'allegation_name': 'Search Of Premise Without Warrant'
-    },
+    'category': 'Illegal Search',
+    'subcategory': 'Search Of Premise Without Warrant',
     'attachments': [],
     'officer_ids': [
       28805,
@@ -470,10 +412,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C229298',
     'incident_date': '1996-07-27',
-    'most_common_category': {
-      'category': 'Illegal Search',
-      'allegation_name': 'Search Of Premise Without Warrant'
-    },
+    'category': 'Illegal Search',
+    'subcategory': 'Search Of Premise Without Warrant',
     'attachments': [],
     'officer_ids': [
       28805,
@@ -486,10 +426,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C240703',
     'incident_date': '1996-12-27',
-    'most_common_category': {
-      'category': 'False Arrest',
-      'allegation_name': 'Illegal Arrest / False Arrest'
-    },
+    'category': 'False Arrest',
+    'subcategory': 'Illegal Arrest / False Arrest',
     'attachments': [],
     'officer_ids': [
       8138,
@@ -499,10 +437,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C249055',
     'incident_date': '1996-12-30',
-    'most_common_category': {
-      'category': 'Supervisory Responsibilities',
-      'allegation_name': 'State Civil Suit'
-    },
+    'category': 'Supervisory Responsibilities',
+    'subcategory': 'State Civil Suit',
     'attachments': [],
     'officer_ids': [
       8138,
@@ -512,10 +448,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C237824',
     'incident_date': '1997-06-20',
-    'most_common_category': {
-      'category': 'Use Of Force',
-      'allegation_name': 'Excessive Force / On Duty - Injury'
-    },
+    'category': 'Use Of Force',
+    'subcategory': 'Excessive Force / On Duty - Injury',
     'attachments': [],
     'officer_ids': [
       8138,
@@ -525,10 +459,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C238338',
     'incident_date': '1997-07-11',
-    'most_common_category': {
-      'category': 'Operation/Personnel Violations',
-      'allegation_name': 'Miscellaneous'
-    },
+    'category': 'Operation/Personnel Violations',
+    'subcategory': 'Miscellaneous',
     'attachments': [],
     'officer_ids': [
       8138,
@@ -538,10 +470,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C239521',
     'incident_date': '1997-08-23',
-    'most_common_category': {
-      'category': 'Use Of Force',
-      'allegation_name': 'Excessive Force / On Duty - Injury'
-    },
+    'category': 'Use Of Force',
+    'subcategory': 'Excessive Force / On Duty - Injury',
     'attachments': [],
     'officer_ids': [
       15243,
@@ -553,10 +483,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C246406',
     'incident_date': '1998-06-27',
-    'most_common_category': {
-      'category': 'Verbal Abuse',
-      'allegation_name': 'Use Of Profanity'
-    },
+    'category': 'Verbal Abuse',
+    'subcategory': 'Use Of Profanity',
     'attachments': [],
     'officer_ids': [
       30209,
@@ -572,10 +500,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C248637',
     'incident_date': '1998-09-22',
-    'most_common_category': {
-      'category': 'Operation/Personnel Violations',
-      'allegation_name': 'Inventory Procedures'
-    },
+    'category': 'Operation/Personnel Violations',
+    'subcategory': 'Inventory Procedures',
     'attachments': [],
     'officer_ids': [
       15956,
@@ -585,10 +511,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C249802',
     'incident_date': '1998-11-09',
-    'most_common_category': {
-      'category': 'Illegal Search',
-      'allegation_name': 'Search Of Premise Without Warrant'
-    },
+    'category': 'Illegal Search',
+    'subcategory': 'Search Of Premise Without Warrant',
     'attachments': [],
     'officer_ids': [
       10482,
@@ -601,10 +525,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C249933',
     'incident_date': '1998-11-17',
-    'most_common_category': {
-      'category': 'Use Of Force',
-      'allegation_name': 'Excessive Force / On Duty - Injury'
-    },
+    'category': 'Use Of Force',
+    'subcategory': 'Excessive Force / On Duty - Injury',
     'attachments': [],
     'officer_ids': [
       15956,
@@ -614,10 +536,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C250154',
     'incident_date': '1998-11-28',
-    'most_common_category': {
-      'category': 'Illegal Search',
-      'allegation_name': 'Search Of Premise Without Warrant'
-    },
+    'category': 'Illegal Search',
+    'subcategory': 'Search Of Premise Without Warrant',
     'attachments': [],
     'officer_ids': [
       4269,
@@ -628,10 +548,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C250300',
     'incident_date': '1998-12-03',
-    'most_common_category': {
-      'category': 'Operation/Personnel Violations',
-      'allegation_name': 'Inventory Procedures'
-    },
+    'category': 'Operation/Personnel Violations',
+    'subcategory': 'Inventory Procedures',
     'attachments': [],
     'officer_ids': [
       30209,
@@ -648,10 +566,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C251625',
     'incident_date': '1999-02-08',
-    'most_common_category': {
-      'category': 'Verbal Abuse',
-      'allegation_name': 'Use Of Profanity'
-    },
+    'category': 'Verbal Abuse',
+    'subcategory': 'Use Of Profanity',
     'attachments': [],
     'officer_ids': [
       23896,
@@ -665,10 +581,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C252724',
     'incident_date': '1999-03-30',
-    'most_common_category': {
-      'category': 'Use Of Force',
-      'allegation_name': 'Excessive Force / On Duty - Injury'
-    },
+    'category': 'Use Of Force',
+    'subcategory': 'Excessive Force / On Duty - Injury',
     'attachments': [],
     'officer_ids': [
       23896,
@@ -680,10 +594,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C255296',
     'incident_date': '1999-07-22',
-    'most_common_category': {
-      'category': 'Illegal Search',
-      'allegation_name': 'Search Of Premise Without Warrant'
-    },
+    'category': 'Illegal Search',
+    'subcategory': 'Search Of Premise Without Warrant',
     'attachments': [],
     'officer_ids': [
       15956,
@@ -694,10 +606,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C258406',
     'incident_date': '1999-11-16',
-    'most_common_category': {
-      'category': 'Lockup Procedures',
-      'allegation_name': 'Miscellaneous'
-    },
+    'category': 'Lockup Procedures',
+    'subcategory': 'Miscellaneous',
     'attachments': [],
     'officer_ids': [
       15956,
@@ -707,10 +617,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C258697',
     'incident_date': '1999-12-15',
-    'most_common_category': {
-      'category': 'Use Of Force',
-      'allegation_name': 'Excessive Force / Off Duty - No Injury'
-    },
+    'category': 'Use Of Force',
+    'subcategory': 'Excessive Force / Off Duty - No Injury',
     'attachments': [],
     'officer_ids': [
       25732,
@@ -726,10 +634,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C261911',
     'incident_date': '2000-04-20',
-    'most_common_category': {
-      'category': 'Illegal Search',
-      'allegation_name': 'Search Of Premise Without Warrant'
-    },
+    'category': 'Illegal Search',
+    'subcategory': 'Search Of Premise Without Warrant',
     'attachments': [],
     'officer_ids': [
       2433,
@@ -747,10 +653,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': '261911',
     'incident_date': '2000-04-28',
-    'most_common_category': {
-      'category': 'Illegal Search',
-      'allegation_name': 'Search Of Premise Without Warrant'
-    },
+    'category': 'Illegal Search',
+    'subcategory': 'Search Of Premise Without Warrant',
     'attachments': [],
     'officer_ids': [
       29882,
@@ -768,10 +672,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': 'C262457',
     'incident_date': '2000-05-20',
-    'most_common_category': {
-      'category': 'Illegal Search',
-      'allegation_name': 'Search Of Premise Without Warrant'
-    },
+    'category': 'Illegal Search',
+    'subcategory': 'Search Of Premise Without Warrant',
     'attachments': [],
     'officer_ids': [
       13777,
@@ -786,10 +688,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': '262457',
     'incident_date': '2000-05-20',
-    'most_common_category': {
-      'category': 'Illegal Search',
-      'allegation_name': 'Search Of Premise Without Warrant'
-    },
+    'category': 'Illegal Search',
+    'subcategory': 'Search Of Premise Without Warrant',
     'attachments': [],
     'officer_ids': [
       13777,
@@ -804,10 +704,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': '265893',
     'incident_date': '2000-09-21',
-    'most_common_category': {
-      'category': 'Use Of Force',
-      'allegation_name': 'Excessive Force / On Duty - Injury'
-    },
+    'category': 'Use Of Force',
+    'subcategory': 'Excessive Force / On Duty - Injury',
     'attachments': [],
     'officer_ids': [
       28411,
@@ -822,10 +720,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': '268523',
     'incident_date': '2001-01-15',
-    'most_common_category': {
-      'category': 'Use Of Force',
-      'allegation_name': 'Excessive Force / On Duty - Injury'
-    },
+    'category': 'Use Of Force',
+    'subcategory': 'Excessive Force / On Duty - Injury',
     'attachments': [],
     'officer_ids': [
       13777,
@@ -838,10 +734,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': '271250',
     'incident_date': '2001-02-22',
-    'most_common_category': {
-      'category': 'Supervisory Responsibilities',
-      'allegation_name': 'Federal Civil Suit'
-    },
+    'category': 'Supervisory Responsibilities',
+    'subcategory': 'Federal Civil Suit',
     'attachments': [],
     'officer_ids': [
       28411,
@@ -854,10 +748,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': '272897',
     'incident_date': '2001-07-09',
-    'most_common_category': {
-      'category': 'Lockup Procedures',
-      'allegation_name': 'Prisoners Property'
-    },
+    'category': 'Lockup Procedures',
+    'subcategory': 'Prisoners Property',
     'attachments': [],
     'officer_ids': [
       32413,
@@ -867,10 +759,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': '275302',
     'incident_date': '2001-10-02',
-    'most_common_category': {
-      'category': 'Operation/Personnel Violations',
-      'allegation_name': 'Neglect Of Duty'
-    },
+    'category': 'Operation/Personnel Violations',
+    'subcategory': 'Neglect Of Duty',
     'attachments': [],
     'officer_ids': [
       32384,
@@ -883,10 +773,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': '275676',
     'incident_date': '2001-10-19',
-    'most_common_category': {
-      'category': 'Use Of Force',
-      'allegation_name': 'Excessive Force / On Duty - Injury'
-    },
+    'category': 'Use Of Force',
+    'subcategory': 'Excessive Force / On Duty - Injury',
     'attachments': [],
     'officer_ids': [
       15956,
@@ -896,10 +784,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': '279731',
     'incident_date': '2002-04-01',
-    'most_common_category': {
-      'category': 'Use Of Force',
-      'allegation_name': 'Excessive Force - Use Of Firearm / Off Duty - Injury'
-    },
+    'category': 'Use Of Force',
+    'subcategory': 'Excessive Force - Use Of Firearm / Off Duty - Injury',
     'attachments': [],
     'officer_ids': [
       19131,
@@ -912,10 +798,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': '284537',
     'incident_date': '2002-09-28',
-    'most_common_category': {
-      'category': 'Operation/Personnel Violations',
-      'allegation_name': 'Miscellaneous'
-    },
+    'category': 'Operation/Personnel Violations',
+    'subcategory': 'Miscellaneous',
     'attachments': [],
     'officer_ids': [
       29882,
@@ -931,10 +815,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': '284969',
     'incident_date': '2002-10-13',
-    'most_common_category': {
-      'category': 'Illegal Search',
-      'allegation_name': 'Search Of Premise Without Warrant'
-    },
+    'category': 'Illegal Search',
+    'subcategory': 'Search Of Premise Without Warrant',
     'attachments': [],
     'officer_ids': [
       31934,
@@ -951,10 +833,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': '293291',
     'incident_date': '2003-10-25',
-    'most_common_category': {
-      'category': 'Lockup Procedures',
-      'allegation_name': 'Prisoners Property'
-    },
+    'category': 'Lockup Procedures',
+    'subcategory': 'Prisoners Property',
     'attachments': [],
     'officer_ids': [
       3663,
@@ -964,10 +844,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': '293355',
     'incident_date': '2003-10-25',
-    'most_common_category': {
-      'category': 'False Arrest',
-      'allegation_name': 'Illegal Arrest / False Arrest'
-    },
+    'category': 'False Arrest',
+    'subcategory': 'Illegal Arrest / False Arrest',
     'attachments': [],
     'officer_ids': [
       3663,
@@ -977,10 +855,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': '311731',
     'incident_date': '2006-03-15',
-    'most_common_category': {
-      'category': 'Use Of Force',
-      'allegation_name': 'Excessive Force / Off Duty - No Injury'
-    },
+    'category': 'Use Of Force',
+    'subcategory': 'Excessive Force / Off Duty - No Injury',
     'attachments': [],
     'officer_ids': [
       15956,
@@ -989,10 +865,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': '315610',
     'incident_date': '2006-09-11',
-    'most_common_category': {
-      'category': 'False Arrest',
-      'allegation_name': 'Illegal Arrest / False Arrest'
-    },
+    'category': 'False Arrest',
+    'subcategory': 'Illegal Arrest / False Arrest',
     'attachments': [],
     'officer_ids': [
       2671
@@ -1001,10 +875,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
   {
     'crid': '1014140',
     'incident_date': '2008-01-11',
-    'most_common_category': {
-      'category': 'False Arrest',
-      'allegation_name': 'Illegal Arrest / False Arrest'
-    },
+    'category': 'False Arrest',
+    'subcategory': 'Illegal Arrest / False Arrest',
     'attachments': [],
     'officer_ids': [
       2671

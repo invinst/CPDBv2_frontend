@@ -1,28 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { map, noop } from 'lodash';
+import { map, noop, get } from 'lodash';
+import cx from 'classnames';
 
-import {
-  searchResultsWrapperStyle,
-  actionBarStyle,
-  cancelButtonStyle,
-  columnWrapperStyle,
-  loadingStyle,
-  plusSignStyle,
-  plusWrapperStyle,
-  resultWrapperStyle,
-  suggestionResultsStyle
-} from './search-results.style';
 import SuggestionGroup from './suggestion-group';
 import SuggestionNoResult from './search-no-result';
 import PreviewPane from 'components/search-page/search-results/preview-pane';
 import * as constants from 'utils/constants';
 import { SEARCH_PAGE_NAVIGATION_KEYS } from 'utils/constants';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
-import ScrollIntoView from 'components/common/scroll-into-view';
 import SearchTags from 'components/search-page/search-tags';
-import { buttonsWrapperStyle } from 'components/search-page/search-main-panel.style';
 import PinboardButtonContainer from 'containers/search-page/pinboard-button-container';
+import ScrollIntoView from 'components/common/scroll-into-view';
+import style from './search-results.sass';
 
 
 export default class SuggestionResults extends Component {
@@ -95,19 +85,18 @@ export default class SuggestionResults extends Component {
 
     if (aliasEditModeOn) {
       return (
-        <div style={ actionBarStyle }>
+        <div className='action-bar'>
           <Link
             to={ `/edit/${constants.SEARCH_PATH}` }
-            style={ cancelButtonStyle }
-            className='test--cancel-alias-button'>
+            className='cancel-alias-button'>
             Cancel
           </Link>
         </div>
       );
     } else {
       return (
-        <div style={ plusWrapperStyle } className='test--plus-sign'>
-          <Link to={ `/edit/${constants.SEARCH_ALIAS_EDIT_PATH}` } style={ plusSignStyle }>[+]</Link>
+        <div className='plus-sign-wrapper'>
+          <Link to={ `/edit/${constants.SEARCH_ALIAS_EDIT_PATH}` } className='plus-sign'>[+]</Link>
         </div>
       );
     }
@@ -118,15 +107,15 @@ export default class SuggestionResults extends Component {
 
     if (singleContent)
       return (
-        <div className='content-wrapper' style={ columnWrapperStyle }>
+        <div className='content-wrapper'>
           { editModeOn ? this.renderActionBar() : null }
           { this.renderGroups() }
         </div>
       );
     else {
       return (
-        <div className='content-wrapper' style={ columnWrapperStyle }>
-          <ScrollIntoView focusedClassName={ `suggestion-item-${focusedItem.uniqueKey}` }>
+        <div className='content-wrapper'>
+          <ScrollIntoView focusedItemClassName={ `suggestion-item-${get(focusedItem, 'uniqueKey', '')}` }>
             { editModeOn ? this.renderActionBar() : null }
             { this.renderGroups() }
           </ScrollIntoView>
@@ -144,11 +133,12 @@ export default class SuggestionResults extends Component {
       onSelect,
       contentType,
       onEmptyPinboardButtonClick,
+      addOrRemoveItemInPinboard,
     } = this.props;
 
     return (
-      <div style={ searchResultsWrapperStyle }>
-        <div style={ buttonsWrapperStyle }>
+      <div className={ style.searchResults }>
+        <div className='buttons-wrapper'>
           <SearchTags
             tags={ tags }
             onSelect={ onSelect }
@@ -160,17 +150,17 @@ export default class SuggestionResults extends Component {
             onEmptyPinboardButtonClick={ onEmptyPinboardButtonClick }
           />
         </div>
-        <div style={ suggestionResultsStyle(aliasEditModeOn) }>
+        <div className={ cx('suggestion-results', { 'edit-mode-on': aliasEditModeOn }) }>
           {
             isRequesting ?
-              <div style={ loadingStyle }>
+              <div className='loading'>
                 Loading...
               </div> :
-              <div style={ resultWrapperStyle }>
+              <div className='result-wrapper'>
                 { this.renderContent() }
               </div>
           }
-          <PreviewPane { ...previewPaneInfo }/>
+          <PreviewPane { ...previewPaneInfo } addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }/>
         </div>
       </div>
     );

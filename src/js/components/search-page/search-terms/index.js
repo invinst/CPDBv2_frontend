@@ -1,27 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { map, isEmpty, noop } from 'lodash';
-
+import { map, isEmpty, noop, get } from 'lodash';
+import cx from 'classnames';
 
 import CategoryColumn from './category-column';
-import {
-  bottomLinkStyle,
-  bottomLinksWrapperStyle,
-  contentWrapperStyle,
-  maximumStyle,
-  mediumStyle,
-  minimumStyle,
-  searchTermTitleStyle,
-  scrollIntoViewStyle,
-  wrapperStyle,
-} from './search-terms.style.js';
 import { ROOT_PATH, SEARCH_TERMS_NAVIGATION_KEYS } from 'utils/constants';
-import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
+import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component-without-inline-style';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
-import ScrollIntoView from 'components/common/scroll-into-view';
 import * as IntercomTracking from 'utils/intercom-tracking';
 import RecentSuggestion from 'components/search-page/search-results/recent-suggestion';
 import PinboardBar from 'components/search-page/pinboard/pinboard-bar';
+import ScrollIntoView from 'components/common/scroll-into-view';
+import style from './search-terms.sass';
 
 
 export default class SearchTerms extends Component {
@@ -71,44 +61,43 @@ export default class SearchTerms extends Component {
   }
 
   render() {
-    const { focusedItem, onEmptyPinboardButtonClick } = this.props;
+    const { onEmptyPinboardButtonClick, aliasEditModeOn, focusedItem } = this.props;
+
     return (
-      <div style={ wrapperStyle }>
+      <div className={ style.wrapper }>
         <PinboardBar onEmptyPinboardButtonClick={ onEmptyPinboardButtonClick } />
-        <ScrollIntoView
-          style={ scrollIntoViewStyle }
-          focusedClassName={ `term-item-${focusedItem.uniqueKey.replace(' ', '-')}` }
-          >
-          { this.renderRecentSuggestion() }
-          <div>
+        <div className={ cx('search-term-wrapper', { 'edit-mode-on': aliasEditModeOn } ) }>
+          <ScrollIntoView focusedItemClassName={ `term-item-${get(focusedItem, 'uniqueKey', '').replace(' ', '-')}` }>
+            { this.renderRecentSuggestion() }
             <ResponsiveFluidWidthComponent
-              style={ contentWrapperStyle }
-              minimumStyle={ minimumStyle }
-              mediumStyle={ mediumStyle }
-              maximumStyle={ maximumStyle }
+              className='content-wrapper'
+              minimumClassName='minimum'
+              mediumClassName='medium'
+              maximumClassName='maximum'
               minWidthThreshold={ 1020 }
               maxWidthThreshold={ 1760 }
             >
               <div>
-                <div style={ searchTermTitleStyle } className='test--search-term-title'>
+                <div className='search-term-title'>
                   Search Terms
                 </div>
                 { this.renderColumns() }
-                <div style={ bottomLinksWrapperStyle }>
-                  <Link style={ bottomLinkStyle } to={ ROOT_PATH } className='test--search-term-back-front-page-link'>
+                <div className='bottom-link-wrapper'>
+                  <Link to={ ROOT_PATH } className='search-term-back-front-page-link'>
                     Back to Front Page
                   </Link>
                 </div>
               </div>
             </ResponsiveFluidWidthComponent>
-          </div>
-        </ScrollIntoView>
+          </ScrollIntoView>
+        </div>
       </div>
     );
   }
 }
 
 SearchTerms.propTypes = {
+  aliasEditModeOn: PropTypes.bool,
   move: PropTypes.func,
   categories: PropTypes.array,
   focusedItem: PropTypes.object,
@@ -119,6 +108,7 @@ SearchTerms.propTypes = {
 };
 
 SearchTerms.defaultProps = {
+  aliasEditModeOn: false,
   move: noop,
   resetNavigation: noop,
   focusedItem: {

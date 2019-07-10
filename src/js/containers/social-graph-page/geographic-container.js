@@ -8,9 +8,7 @@ import {
   geographicAllegationSelector,
   geographicTRRSelector,
 } from 'selectors/social-graph-page/geographic-data';
-import { getCurrentMainTab } from 'selectors/social-graph-page';
 import {
-  changeMainTab,
   requestSocialGraphGeographic,
   requestSocialGraphGeographicPreviewPane,
   updateGeographicCrid,
@@ -21,7 +19,7 @@ function mapStateToProps(state, ownProps) {
   return {
     legend: mapLegendSelector(state),
     markers: mapMarkersSelector(state),
-    currentMainTab: getCurrentMainTab(state),
+    mainTabsContent: ownProps.mainTabsContent,
     officerIds: ownProps.location.query['officer_ids'],
     unitId: ownProps.location.query['unit_id'],
     allegation: geographicAllegationSelector(state),
@@ -31,7 +29,6 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  changeMainTab,
   requestSocialGraphGeographic,
   requestSocialGraphGeographicPreviewPane,
   updateGeographicCrid,

@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 
 import RecentSuggestionItem from './recent-suggestion-item';
-import { suggestionGroupStyle } from './recent-suggestion.style';
 import BlockTitle from 'components/common/block-title';
+import './recent-suggestion.sass';
 
 
 export default class RecentSuggestion extends Component {
@@ -10,7 +10,6 @@ export default class RecentSuggestion extends Component {
     const { recentSuggestions } = this.props;
     return (
       <div
-        style={ suggestionGroupStyle }
         className='recent-suggestions'>
         <BlockTitle>RECENT</BlockTitle>
         <div>
