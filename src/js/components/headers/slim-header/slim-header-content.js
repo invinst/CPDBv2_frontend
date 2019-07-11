@@ -23,36 +23,33 @@ class SlimHeaderContent extends Component {
 
     return (
       <div
-        className={ cx(className, styles.slimHeaderContent, position) }
+        className={ className }
         onClick={ position === 'bottom' ? scrollToTop : noop }
         style={ style }
       >
         <ResponsiveFluidWidthComponent>
-          <div className={ cx('slim-header', position) } >
-            <div className={ cx('top-bar', position) }>
+          <div className={ cx(styles.slimHeader, position) }>
+            <div className='top-bar'>
               <div className='logo'>
                 <LogoContainer position={ position } editModeOn={ editModeOn } />
               </div>
               <div className='watch-video'>
                 <div className='watch-video-text'>
-                  <span className={ cx('watch-video-text-upper', position) }>WATCH:</span>
+                  <span className='watch-video-text-upper'>WATCH:</span>
                   <br/>
-                  <span className={ cx('watch-video-text-lower', position) }>What is CPDP?</span>
+                  <span className='watch-video-text-lower'>What is CPDP?</span>
                 </div>
                 <div className='watch-video-clip'/>
               </div>
             </div>
-            <div className={ cx('navbar', position) }>
-              <div className={ cx('vertically-aligned-header-item', position) }>
+            <div className='navbar'>
+              <div className='vertically-aligned-header-item'>
                 <LogOutButtonContainer pathname={ pathname } />
               </div>
-              <div className={ cx('vertically-aligned-header-item', position) }>
+              <div className='vertically-aligned-header-item'>
                 <RightLinks position={ position } />
               </div>
-              <SearchBox
-                position={ position }
-                searchBoxClassName={ cx('search-box', position) }
-              />
+              <SearchBox position={ position }/>
             </div>
           </div>
         </ResponsiveFluidWidthComponent>

@@ -19,13 +19,13 @@ class Logo extends Component {
 
     return (
       <EditWrapperStateProvider { ...editWrapperStateProps }>
-        <HoverableEditWrapper className={ styles.logo }>
+        <HoverableEditWrapper className={ cx(styles.logo, position) }>
           <MediaQuery minWidth={ 830 }>
             { (matches) => (
               matches
                 ? (
                   <LinkTextEditable
-                    className={ cx('header-logo-title', position) }
+                    className='header-logo-title'
                     placeholder='Title'
                     to={ titleLink }
                     fieldname='navbar_title'
@@ -34,7 +34,7 @@ class Logo extends Component {
                 : (
                   <Link
                     to={ titleLink }
-                    className={ cx('header-logo-title', position) }
+                    className='header-logo-title'
                   >
                     CPDP
                   </Link>
@@ -43,7 +43,7 @@ class Logo extends Component {
           </MediaQuery>
           <MediaQuery minWidth={ 950 }>
             <RichTextEditable
-              className={ cx('header-logo-subtitle', position) }
+              className='header-logo-subtitle'
               placeholder='Subtitle'
               fieldname='navbar_subtitle'
               />

@@ -16,35 +16,32 @@
   height: 40px
   line-height: 40px
 
-  &.bottom
-    background-color: transparent
-    height: 40px
-    line-height: 40px
-    border-right: solid 1px $white20-color
-    color: white
-
   .search-box-term
     cursor: pointer
     font-weight: 300
     color: $clay-gray
 
-    &.bottom
-      color: white
-
   .search-box-magnifying-glass
     @extend %vertical-align-middle
     float: left
     margin-right: 11px
+    color: $accent-color
 
   .search-box-search-text
     float: left
     font-weight: 300
 
-    &.top
-      color: $accent-color
-
-    &.middle
+  &.middle
+    .search-box-search-text
       color: $boulder-color
 
-    &.bottom
+  &.bottom
+    background-color: transparent
+    border-right: solid 1px $white20-color
+    color: white
+
+    .search-box-search-text
+      color: white
+
+    .search-box-term
       color: white

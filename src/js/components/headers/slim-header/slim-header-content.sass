@@ -1,19 +1,12 @@
 @import 'variables'
 @import 'common'
 
-\:local(.slim-header-content)
-  .slim-header
-    box-sizing: border-box
-    width: inherit
-    font-size: 14px
-    line-height: 18px
-    height: 128px
-
-    &.middle
-      height: 40px
-
-    &.bottom
-      cursor: pointer
+\:local(.slim-header)
+  box-sizing: border-box
+  width: inherit
+  font-size: 14px
+  line-height: 18px
+  height: 128px
 
   .top-bar
     height: 88px
@@ -22,18 +15,12 @@
     z-index: 2
     padding: 0 8px 0 16px
 
-    &.middle
-      display: none
-
   .navbar
     height: 40px
     background-color: $sugar-cane-color
     box-shadow: 0 1px 2px 0 $black15-color
     position: relative
     z-index: 1
-
-    &.bottom
-      background-color: transparent
 
   .vertically-aligned-header-item
     @extend %vertical-align-middle
@@ -57,17 +44,29 @@
   .watch-video-text-upper
     color: $boulder-color
 
-    &.bottom
-      color: white
-
   .watch-video-text-lower
     color: $accent-color
-
-    &.bottom
-      color: white
 
   .watch-video-clip
     width: 116px
     height: 72px
     display: inline-block
     background-color: green
+
+  &.middle
+    height: 40px
+
+    .top-bar
+      display: none
+
+  &.bottom
+    cursor: pointer
+
+    .navbar
+      background-color: transparent
+
+    .watch-video-text-upper
+      color: white
+
+    .watch-video-text-lower
+      color: white

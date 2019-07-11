@@ -27,8 +27,8 @@ export default class SearchBox extends Component {
         onClick={ this.handleClick }
       >
         <MagnifyingGlass className='search-box-magnifying-glass' color={ magnifyingGlassColors[position] } size={ 12 }/>
-        <span className={ cx('search-box-search-text', position) }>Search</span>
-        <span className={ cx('search-box-term', position) }>What can I search?</span>
+        <span className='search-box-search-text'>Search</span>
+        <span className='search-box-term'>What can I search?</span>
       </div>
     );
   }
@@ -39,6 +39,5 @@ SearchBox.contextTypes = {
 };
 
 SearchBox.propTypes = {
-  searchBoxClassName: PropTypes.string,
   position: PropTypes.string,
 };
