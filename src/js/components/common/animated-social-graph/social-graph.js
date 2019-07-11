@@ -9,7 +9,6 @@ import 'rc-slider/assets/index.css';
 import cx from 'classnames';
 import pluralize from 'pluralize';
 
-import { imgUrl } from 'utils/static-assets';
 import styles from './social-graph.sass';
 import { greyishColor } from 'utils/styles';
 
@@ -47,7 +46,7 @@ export default class SocialGraph extends Component {
   }
 
   componentDidMount() {
-    this.svg = d3.select(ReactDOM.findDOMNode(this.refs.chart)).append('svg:svg');
+    this.svg = d3.select(ReactDOM.findDOMNode(this.chart)).append('svg:svg');
     this.node = this.svg.selectAll('.node');
     this.link = this.svg.selectAll('.link');
     this.label = this.svg.selectAll('.node-label');
@@ -177,7 +176,7 @@ export default class SocialGraph extends Component {
   }
 
   resizeGraph() {
-    const chartDiv = d3.select(ReactDOM.findDOMNode(this.refs.chart)).node();
+    const chartDiv = d3.select(ReactDOM.findDOMNode(this.chart)).node();
     this.width = chartDiv.clientWidth;
     this.height = chartDiv.clientHeight;
     this.svg.attr('width', this.width).attr('height', this.height);
@@ -559,11 +558,8 @@ export default class SocialGraph extends Component {
   }
 
   render() {
-    const { officers } = this.props;
     return (
-      <div ref='chart' className={ styles.socialGraph }>
-        { isEmpty(officers) && <img className='loading-img' src={ imgUrl('loading-large.svg') } /> }
-      </div>
+      <div ref={ chart => this.chart = chart } className={ styles.socialGraph } />
     );
   }
 }

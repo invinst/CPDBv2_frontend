@@ -250,6 +250,9 @@ describe('store', function () {
           timelineIdxTriggerChange: 0,
           selectedEdge: null,
           selectedCrid: null,
+          requesting: false,
+          networkAllegationsRequesting: false,
+          networkOfficersRequesting: false,
         },
         currentMainTab: 'NETWORK',
         geographicData: {
