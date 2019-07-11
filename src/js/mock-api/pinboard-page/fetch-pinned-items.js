@@ -33,7 +33,7 @@ export const fetchPinboardTRRs = () => ([
   {
     'id': 1234,
     'trr_datetime': '2012-01-01',
-    'category': 'Impact Weapon',
+    'category': 'Firearm',
     'point': { 'lon': 1.0, 'lat': 1.0 },
     'firearm_used': true,
     'address': '14XX W 63RD ST, CHICAGO IL 60636',
