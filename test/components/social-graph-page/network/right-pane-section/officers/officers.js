@@ -64,10 +64,19 @@ describe('Officers component', function () {
         <OfficersWithSpinner officers={ officers } requesting={ true } />
       );
 
-      scryRenderedComponentsWithType(instance, OfficerRow).should.have.length(0);
+      scryRenderedComponentsWithType(instance, Officers).should.have.length(0);
 
       const loadingSpinner = findRenderedComponentWithType(instance, LoadingSpinner);
       loadingSpinner.props.className.should.equal(styles.officersLoading);
+    });
+
+    it('should not render LoadingSpinner only if requesting is false', function () {
+      instance = renderIntoDocument(
+        <OfficersWithSpinner officers={ officers } requesting={ false } />
+      );
+
+      scryRenderedComponentsWithType(instance, Officers).should.have.length(1);
+      scryRenderedComponentsWithType(instance, LoadingSpinner).should.have.length(0);
     });
   });
 });

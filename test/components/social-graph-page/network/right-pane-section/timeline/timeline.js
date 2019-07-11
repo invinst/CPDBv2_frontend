@@ -187,10 +187,24 @@ describe('Timeline component', function () {
         />
       );
 
-      scryRenderedComponentsWithType(instance, Item).should.have.length(0);
+      scryRenderedComponentsWithType(instance, Timeline).should.have.length(0);
 
       const loadingSpinner = findRenderedComponentWithType(instance, LoadingSpinner);
       loadingSpinner.props.className.should.equal(styles.timelineLoading);
+    });
+
+    it('should not render LoadingSpinner if requesting is false', function () {
+      instance = renderIntoDocument(
+        <TimelineWithSpinner
+          items={ items }
+          timelineIdx={ 0 }
+          timelineIdxTriggerChange={ 0 }
+          requesting={ false }
+        />
+      );
+
+      scryRenderedComponentsWithType(instance, Timeline).should.have.length(1);
+      scryRenderedComponentsWithType(instance, LoadingSpinner).should.have.length(0);
     });
   });
 });

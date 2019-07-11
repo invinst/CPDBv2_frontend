@@ -115,11 +115,25 @@ describe('AnimatedSocialGraph component', function () {
         />
       );
 
-      scryRenderedComponentsWithType(instance, SocialGraph).should.have.length(0);
-      scryRenderedDOMComponentsWithClass(instance, 'graph-control-panel').should.have.length(0);
+      scryRenderedComponentsWithType(instance, AnimatedSocialGraph).should.have.length(0);
 
       const loadingSpinner = findRenderedComponentWithType(instance, LoadingSpinner);
       loadingSpinner.props.className.should.equal(graphStyles.socialGraphLoading);
+    });
+
+    it('should not render LoadingSpinner only if requesting is false', function () {
+      instance = renderIntoDocument(
+        <AnimatedSocialGraphWithSpinner
+          timelineIdx={ 0 }
+          officers={ officers }
+          coaccusedData={ coaccusedData }
+          listEvent={ listEvent }
+          requesting={ false }
+        />
+      );
+
+      scryRenderedComponentsWithType(instance, AnimatedSocialGraph).should.have.length(1);
+      scryRenderedComponentsWithType(instance, LoadingSpinner).should.have.length(0);
     });
   });
 

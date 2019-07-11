@@ -46,7 +46,7 @@ export default class SocialGraph extends Component {
   }
 
   componentDidMount() {
-    this.svg = d3.select(ReactDOM.findDOMNode(this.refs.chart)).append('svg:svg');
+    this.svg = d3.select(ReactDOM.findDOMNode(this.chart)).append('svg:svg');
     this.node = this.svg.selectAll('.node');
     this.link = this.svg.selectAll('.link');
     this.label = this.svg.selectAll('.node-label');
@@ -176,7 +176,7 @@ export default class SocialGraph extends Component {
   }
 
   resizeGraph() {
-    const chartDiv = d3.select(ReactDOM.findDOMNode(this.refs.chart)).node();
+    const chartDiv = d3.select(ReactDOM.findDOMNode(this.chart)).node();
     this.width = chartDiv.clientWidth;
     this.height = chartDiv.clientHeight;
     this.svg.attr('width', this.width).attr('height', this.height);
@@ -559,7 +559,7 @@ export default class SocialGraph extends Component {
 
   render() {
     return (
-      <div ref='chart' className={ styles.socialGraph } />
+      <div ref={ chart => this.chart = chart } className={ styles.socialGraph } />
     );
   }
 }
