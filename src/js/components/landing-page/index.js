@@ -22,10 +22,10 @@ class LandingPage extends Component {
   }
 
   renderWithResponsiveStyle(style) {
-    const { pathname } = this.props;
+    const { pathname, openVideoModal } = this.props;
     return (
       <div className={ styles.landingPage }>
-        <SlimHeader pathname={ pathname } />
+        <SlimHeader pathname={ pathname } openVideoModal={ openVideoModal } />
         <HeatMap/>
         <div className='landing-page-carousel-wrapper'>
           <OfficersByAllegationContainer className='landing-page-carousel' pathname={ pathname }/>
@@ -51,7 +51,8 @@ class LandingPage extends Component {
 
 LandingPage.propTypes = {
   resetBreadcrumbs: PropTypes.func,
-  pathname: PropTypes.string
+  pathname: PropTypes.string,
+  openVideoModal: PropTypes.func,
 };
 
 LandingPage.contextTypes = {

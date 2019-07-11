@@ -70,7 +70,7 @@ module.exports = distFolder => ({
         ]
       },
       {
-        test: /\.sass$/,
+        test: /\.(sass|scss)$/,
         use: [
           MiniCssExtractPlugin.loader,
           {

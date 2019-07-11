@@ -12,9 +12,21 @@ import styles from './slim-header-content.sass';
 
 
 class SlimHeaderContent extends Component {
+  constructor(props) {
+    super(props);
+    this.handleWatchVideoButtonClick = this.handleWatchVideoButtonClick.bind(this);
+  }
+
   getPosition() {
     const { position, disableTop } = this.props;
     return (position === 'top' && disableTop) ? 'middle' : position;
+  }
+
+  handleWatchVideoButtonClick(e) {
+    e.stopPropagation();
+
+    const { openVideoModal } = this.props;
+    openVideoModal();
   }
 
   render() {
@@ -39,7 +51,9 @@ class SlimHeaderContent extends Component {
                   <br/>
                   <span className='watch-video-text-lower'>What is CPDP?</span>
                 </div>
-                <div className='watch-video-clip'/>
+                <div className='watch-video-button' onClick={ this.handleWatchVideoButtonClick }>
+                  <img className='watch-video-play-button' width={ 32 } height={ 32 } src='/img/video-play-button.svg'/>
+                </div>
               </div>
             </div>
             <div className='navbar'>
@@ -64,7 +78,8 @@ SlimHeaderContent.propTypes = {
   editModeOn: PropTypes.bool,
   style: PropTypes.object,
   disableTop: PropTypes.bool,
-  className: PropTypes.string
+  className: PropTypes.string,
+  openVideoModal: PropTypes.func,
 };
 
 SlimHeaderContent.defaultProps = {

@@ -1,14 +1,15 @@
 import { StyleRoot } from 'radium';
 import { locationShape } from 'react-router/lib/PropTypes';
 import React, { PropTypes, cloneElement } from 'react';
+import ModalVideo from 'react-modal-video';
 
 import { getMockAdapter } from 'mock-api';
 import EditModeProvider from 'components/edit-mode-provider';
 import LoginModalContainer from 'containers/login-modal-container';
 import GenericModalContainer from 'containers/generic-modal-container';
+import VideoModalContainer from 'containers/video-modal-container';
 import RouteTransition from 'containers/animation/route-transition';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
-
 import { ALPHA_NUMBERIC } from 'utils/constants';
 
 
@@ -64,6 +65,7 @@ export default class App extends React.Component {
           </RouteTransition>
           <LoginModalContainer location={ location }/>
           <GenericModalContainer location={ location }/>
+          <VideoModalContainer />
         </EditModeProvider>
       </StyleRoot>
     );

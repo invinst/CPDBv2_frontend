@@ -3,6 +3,7 @@ import { withRouter } from 'react-router';
 import { reset as resetBreadcrumbs } from 'redux-breadcrumb-trail';
 
 import LandingPage from 'components/landing-page';
+import { openVideoModal } from 'actions/video-modal';
 
 
 function mapStateToProps(state, ownProps) {
@@ -12,7 +13,8 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  resetBreadcrumbs: resetBreadcrumbs
+  resetBreadcrumbs,
+  openVideoModal,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LandingPage));

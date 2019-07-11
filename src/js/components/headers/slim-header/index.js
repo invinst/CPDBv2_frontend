@@ -32,7 +32,7 @@ export class SlimHeader extends Component {
   }
 
   render() {
-    const { show, pathname } = this.props;
+    const { show, pathname, openVideoModal } = this.props;
     const { editModeOn } = this.context;
     const { position } = this.state;
 
@@ -63,6 +63,7 @@ export class SlimHeader extends Component {
           position='top'
           pathname={ pathname }
           editModeOn={ editModeOn }
+          openVideoModal={ openVideoModal }
         />
         <Motion defaultStyle={ defaultStyle } style={ style }>
           { ({ translateY, backgroundR, backgroundG, backgroundB, height }) => {
@@ -81,6 +82,7 @@ export class SlimHeader extends Component {
                   height: `${height}px`,
                 } }
                 disableTop={ true }
+                openVideoModal={ openVideoModal }
               />
             );
           } }
@@ -92,7 +94,8 @@ export class SlimHeader extends Component {
 
 SlimHeader.propTypes = {
   show: PropTypes.bool,
-  pathname: PropTypes.string
+  pathname: PropTypes.string,
+  openVideoModal: PropTypes.func,
 };
 
 SlimHeader.defaultProps = {

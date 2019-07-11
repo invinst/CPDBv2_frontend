@@ -76,7 +76,7 @@ const config = Object.assign({}, baseConfig, {
         ]
       },
       {
-        test: /\.sass$/,
+        test: /\.(sass|scss)$/,
         use: [
           {
             loader: 'style-loader',

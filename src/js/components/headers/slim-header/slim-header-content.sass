@@ -28,7 +28,7 @@
 
   .logo
     @extend %vertical-align-middle
-    float: left
+    display: inline-block
 
   .watch-video
     float: right
@@ -47,11 +47,18 @@
   .watch-video-text-lower
     color: $accent-color
 
-  .watch-video-clip
-    width: 116px
-    height: 72px
+  .watch-video-button
+    width: 100px
+    height: 66px
     display: inline-block
-    background-color: green
+    background: url('/img/vimeo-demo-video-thumbnail.png') no-repeat scroll center transparent
+    cursor: pointer
+    outline: solid 5px $accent-color50
+
+  .watch-video-play-button
+    @extend %vertical-align-middle
+    margin: 0 auto
+    display: block
 
   &.middle
     height: 40px
