@@ -32,10 +32,14 @@ describe('EmptyPinboard component', function () {
 
     findDOMNode(instance).className.should.containEql('responsive-container');
 
-    findRenderedDOMComponentWithClass(instance, 'empty-pinboard-title').textContent.should.equal('Add');
+    findRenderedDOMComponentWithClass(instance, 'empty-pinboard-title').textContent.should.equal('Get started');
     findRenderedDOMComponentWithClass(instance, 'empty-pinboard-description').textContent.should.containEql(
-      'Add officers, or complaint records through search.'
-    ).and.containEql('Or use an example pinboard as a baseline to get started.');
+      'Use search to find officers and individual complaint records.'
+    ).and.containEql(
+      'Press the plus button to add cards to your pinboard.'
+    ).and.containEql(
+      'Come back to give the pinboard a title and then see a network map and discover relevant documents.'
+    );
 
     const examplePinboardLinks = scryRenderedComponentsWithType(instance, Link);
     examplePinboardLinks.should.have.length(2);
