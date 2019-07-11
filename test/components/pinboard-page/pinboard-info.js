@@ -2,13 +2,12 @@ import React from 'react';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
-  findRenderedComponentWithType
+  scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 import { stub } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import PinboardInfo from 'components/pinboard-page/pinboard-info';
-import AutosaveTextInput from 'components/common/autosave-inputs/autosave-text-input';
 import AutosaveTextareaInput from 'components/common/autosave-inputs/autosave-textarea-input';
 
 
@@ -30,10 +29,10 @@ describe('PinboardInfo component', function () {
       <PinboardInfo pinboard={ pinboard } updatePinboardInfo={ updatePinboardInfoStub }/>
     );
 
-    const titleTextInput = findRenderedComponentWithType(instance, AutosaveTextInput);
-    const descriptionTextareaInput = findRenderedComponentWithType(instance, AutosaveTextareaInput);
-    titleTextInput.props.save.should.eql(updatePinboardInfoStub);
-    descriptionTextareaInput.props.save.should.eql(updatePinboardInfoStub);
+    const autosaveTextareaInput = scryRenderedComponentsWithType(instance, AutosaveTextareaInput);
+    autosaveTextareaInput.should.have.length(2);
+    autosaveTextareaInput[0].props.save.should.eql(updatePinboardInfoStub);
+    autosaveTextareaInput[1].props.save.should.eql(updatePinboardInfoStub);
 
     findRenderedDOMComponentWithClass(instance, 'pinboard-title').value.should.eql(
       'This is pinboard title'
