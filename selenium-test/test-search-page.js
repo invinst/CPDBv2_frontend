@@ -562,6 +562,35 @@ describe('Search Page', function () {
       browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/$/);
     });
   });
+
+  describe('TRRPreviewPane', function () {
+    beforeEach(function () {
+      searchPage.input.waitForVisible();
+      searchPage.input.setValue('2004/04/23');
+      searchPage.dateTRRResultsSection.firstResultText.waitForVisible();
+      searchPage.dateTRRResultsSection.firstResultText.click();
+      searchPage.trrPreviewPaneSection.wrapper.waitForVisible();
+    });
+
+    it('should render enough content', function () {
+      searchPage.trrPreviewPaneSection.callToAction.getText().should.eql('View Tactical Response Report');
+      searchPage.trrPreviewPaneSection.title.getText().should.eql('Taser');
+      searchPage.trrPreviewPaneSection.incidentDate.getText().should.eql('Apr 23, 2004');
+      searchPage.trrPreviewPaneSection.address.getText().should.eql('3000 Michigan Ave');
+      searchPage.trrPreviewPaneSection.officerHeader.getText().should.eql('OFFICER');
+      searchPage.trrPreviewPaneSection.officerLink.count.should.eql(1);
+    });
+
+    it('should go to trr page when being clicked', function () {
+      searchPage.trrPreviewPaneSection.callToAction.click();
+      browser.getUrl().should.match(/\/trr\/\w+\/$/);
+    });
+
+    it('should redirect to officer profile when clicking on officer item', function () {
+      searchPage.trrPreviewPaneSection.officerLink.click();
+      browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/$/);
+    });
+  });
 });
 
 describe('Search Page in edit mode', function () {
