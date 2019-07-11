@@ -4,6 +4,7 @@ import { createSelector } from 'reselect';
 import { extractPercentile } from 'selectors/common/percentile';
 
 const getNetworkOfficers = state => state.socialGraphPage.networkData.networkOfficers;
+export const getNetworkOfficersRequesting = state => state.socialGraphPage.networkData.networkOfficersRequesting;
 
 export const officerDetailTransform = officer => ({
   id: officer['id'],

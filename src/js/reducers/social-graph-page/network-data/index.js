@@ -11,6 +11,9 @@ import timelineIdxTriggerChange from './timeline-idx-trigger-change';
 import showTimelineTab from './show-timeline-tab';
 import selectedEdge from './selected-edge';
 import selectedCrid from './selected-crid';
+import requesting from './requesting';
+import networkOfficersRequesting from './network-officers-requesting';
+import networkAllegationsRequesting from './network-allegations-requesting';
 
 
 export default combineReducers({
@@ -25,4 +28,7 @@ export default combineReducers({
   showTimelineTab,
   selectedEdge,
   selectedCrid,
+  requesting,
+  networkOfficersRequesting,
+  networkAllegationsRequesting,
 });

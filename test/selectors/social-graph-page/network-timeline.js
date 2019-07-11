@@ -3,6 +3,7 @@ import {
   getSocialGraphTimelineIdx,
   getSocialGraphRefreshIntervalId,
   getTimelineIdxTriggerChange,
+  getNetworkAllegationsRequesting,
 } from 'selectors/social-graph-page/network-timeline';
 
 
@@ -132,6 +133,22 @@ describe('Social Graph page selectors', function () {
         }
       };
       getTimelineIdxTriggerChange(state).should.eql(1);
+    });
+  });
+
+  describe('getNetworkAllegationsRequesting', function () {
+    it('should return requesting status', function () {
+      getNetworkAllegationsRequesting({
+        socialGraphPage: {
+          networkData: { networkAllegationsRequesting: false }
+        }
+      }).should.be.false();
+
+      getNetworkAllegationsRequesting({
+        socialGraphPage: {
+          networkData: { networkAllegationsRequesting: true }
+        }
+      }).should.be.true();
     });
   });
 });
