@@ -1,14 +1,32 @@
 import React, { Component, PropTypes } from 'react';
-import { isNil } from 'lodash';
+import { isNil, noop, isEmpty } from 'lodash';
+import MediaQuery from 'react-responsive';
+import cx from 'classnames';
+import { browserHistory } from 'react-router';
 
-import WidgetWrapper, {
-  VisualTokenWidget,
-  OfficerInfoWidget,
-  MetricWidget,
+import {
+  NewVisualTokenWidget as VisualTokenWidget,
+  NewOfficerInfoWidget as OfficerInfoWidget,
+  NewMetricWidget as MetricWidget,
+  PinButton,
 } from './widgets';
-
+import styles from './officer-pane.sass';
 
 export default class OfficerPane extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleOnOfficerProfileClick = this.handleOnOfficerProfileClick.bind(this);
+  }
+
+  handleOnOfficerProfileClick() {
+    const { to } = this.props;
+
+    if (!isEmpty(to)) {
+      browserHistory.push(to);
+    }
+  }
+
   render() {
     const {
       fullName,
@@ -30,9 +48,14 @@ export default class OfficerPane extends Component {
       honorableMentionCount,
       majorAwardCount,
       honorableMentionPercentile,
-      to,
       lastPercentile,
+      isPinned,
       yScrollable,
+      pinnable,
+      maxHeight,
+      type,
+      id,
+      addOrRemoveItemInPinboard,
     } = this.props;
 
     const formatValue = (value) => isNil(value) ? 'N/A' : value;
@@ -68,26 +91,45 @@ export default class OfficerPane extends Component {
       },
     ];
     return (
-      <WidgetWrapper callToAction={ { to, text: 'View Officer Profile' } } yScrollable={ yScrollable }>
-        <VisualTokenWidget { ...lastPercentile }/>
-        <OfficerInfoWidget
-          fullName={ fullName }
-          appointedDate={ appointedDate }
-          resignationDate={ resignationDate }
-          age={ age }
-          unit={ unit }
-          rank={ rank }
-          badge={ badge }
-          race={ race }
-          gender={ gender }
-        />
-        <MetricWidget metrics={ metrics }/>
-      </WidgetWrapper>
+      <div className={ styles.wrapper }>
+        <div className={ styles.officerPane }>
+          {
+            pinnable &&
+            <PinButton
+              item={ { type, id, isPinned } }
+              className={ cx('pin-button', { 'is-pinned': isPinned }) }
+              addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
+            />
+          }
+          <button className='view-officer-profile-button' onClick={ this.handleOnOfficerProfileClick }>
+            View Officer Profile
+          </button>
+          <VisualTokenWidget { ...lastPercentile }/>
+          <OfficerInfoWidget
+            fullName={ fullName }
+            appointedDate={ appointedDate }
+            resignationDate={ resignationDate }
+            age={ age }
+            unit={ unit }
+            rank={ rank }
+            badge={ badge }
+            race={ race }
+            gender={ gender }
+          />
+          <MetricWidget metrics={ metrics }/>
+          { !yScrollable &&
+            <MediaQuery maxHeight={ maxHeight }>
+              <div className='gradient test--gradient' />
+            </MediaQuery>
+          }
+        </div>
+      </div>
     );
   }
 }
 
 OfficerPane.propTypes = {
+  id: PropTypes.string,
   fullName: PropTypes.string,
   age: PropTypes.number,
   appointedDate: PropTypes.string,
@@ -117,8 +159,19 @@ OfficerPane.propTypes = {
     visualTokenBackground: PropTypes.string,
   }),
   yScrollable: PropTypes.bool,
+  isPinned: PropTypes.bool,
+  type: PropTypes.string,
+  addOrRemoveItemInPinboard: PropTypes.func,
+  pinnable: PropTypes.bool,
+  maxHeight: PropTypes.number,
 };
 
 OfficerPane.defaultProps = {
+  id: '',
   yScrollable: false,
+  isPinned: false,
+  type: '',
+  addOrRemoveItemInPinboard: noop,
+  pinnable: true,
+  maxHeight: 990,
 };

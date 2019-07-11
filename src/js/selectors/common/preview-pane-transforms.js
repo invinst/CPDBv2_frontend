@@ -1,4 +1,4 @@
-import { get, sumBy, map, last, kebabCase, has } from 'lodash';
+import { get, sumBy, map, last, kebabCase, has, compact } from 'lodash';
 import moment from 'moment';
 
 import { extractPercentile } from 'selectors/common/percentile';
@@ -110,7 +110,7 @@ const crTransform = (item) => {
   return {
     subText: getSubText(item.highlight),
     coaccused,
-    victims: map(item.victims, getDemographicString),
+    victims: compact(map(item.victims, getDemographicString)),
     address: item.address,
     category: item.category || item['most_common_category'],
     subCategory: item['sub_category'],

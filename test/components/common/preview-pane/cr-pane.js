@@ -173,4 +173,41 @@ describe('CRPane component', () => {
     const accused = scryRenderedDOMComponentsWithClass(instance, 'cr-preview-pane-victims');
     accused.length.should.eql(0);
   });
+
+  it('should not render address section if there is no address', function () {
+    const accusedOfficers = [{
+      id: 16567,
+      name: 'Baudilio Lopez',
+      url: '/officer/16567/baudilio-lopez/',
+      radarAxes: [
+        { axis: 'Use of Force Reports', value: 72.1094 },
+        { axis: 'Officer Allegations', value: 61.1521 },
+        { axis: 'Civilian Allegations', value: 98.5549 }
+      ],
+      radarColor: '#f0201e',
+      count: 93
+    }, {
+      id: 7544,
+      name: 'Dominique Dunigan',
+      url: '/officer/7544/dominique-dunigan/',
+      radarAxes: [
+        { axis: 'Use of Force Reports', value: 0 },
+        { axis: 'Officer Allegations', value: 0 },
+        { axis: 'Civilian Allegations', value: 24.118 }
+      ],
+      radarColor: '#f5c5a2',
+      count: 1
+    }];
+    instance = renderIntoDocument(
+      <CRPane
+        to='/complaint/123/'
+        category='Use Of Force'
+        subCategory='Excessive Force - Use Of Firearm / Off Duty - No Injury'
+        incidentDate='JUL 2, 2012'
+        victims={ ['Hispanic, Female', 'Hispanic, Female, Age 48'] }
+        coaccused={ accusedOfficers }
+      />
+    );
+    scryRenderedDOMComponentsWithClass(instance, 'cr-preview-pane-address').should.have.length(0);
+  });
 });
