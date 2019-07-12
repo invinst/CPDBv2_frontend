@@ -8,7 +8,7 @@ import {
 import MediaQuery from 'react-responsive';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import Logo from 'components/headers/slim-header/logo';
+import Logo from 'components/headers/slim-header/slim-header-content/logo';
 import LinkTextEditable from 'components/inline-editable/editable-section/link-text-editable';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 

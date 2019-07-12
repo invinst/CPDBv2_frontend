@@ -8,7 +8,7 @@ import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrap
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 import LinkTextEditable from 'components/inline-editable/editable-section/link-text-editable';
 import { editMode } from 'utils/edit-path';
-import styles from './logo.sass';
+import styles from 'components/headers/slim-header/slim-header-content/logo.sass';
 import { ROOT_PATH } from 'utils/constants';
 
 class Logo extends Component {

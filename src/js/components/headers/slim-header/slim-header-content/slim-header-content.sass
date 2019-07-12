@@ -1,0 +1,43 @@
+@import 'variables'
+@import 'common'
+
+\:local(.slim-header)
+  box-sizing: border-box
+  width: inherit
+  font-size: 14px
+  line-height: 18px
+  height: 128px
+
+  .top-bar
+    height: 88px
+    box-shadow: 0 1px 1px 0 $black13-color
+    position: relative
+    z-index: 2
+    padding: 0 8px 0 16px
+
+  .navbar
+    height: 40px
+    background-color: $sugar-cane-color
+    box-shadow: 0 1px 2px 0 $black15-color
+    position: relative
+    z-index: 1
+
+  .vertically-aligned-header-item
+    @extend %vertical-align-middle
+    float: right
+
+  .logo
+    @extend %vertical-align-middle
+    display: inline-block
+
+  &.middle
+    height: 40px
+
+    .top-bar
+      display: none
+
+  &.bottom
+    cursor: pointer
+
+    .navbar
+      background-color: transparent

@@ -3,7 +3,7 @@ import config from 'config';
 import cx from 'classnames';
 
 import { QA_LINK } from 'utils/constants';
-import styles from './right-links.sass';
+import styles from 'components/headers/slim-header/slim-header-content/right-links.sass';
 
 export default class RightLinks extends Component {
   render() {

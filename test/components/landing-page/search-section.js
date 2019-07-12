@@ -5,7 +5,7 @@ import {
 } from 'react-addons-test-utils';
 import { stub } from 'sinon';
 import { unmountComponentSuppressError } from 'utils/test';
-import SearchBox from 'components/headers/slim-header/search-box';
+import SearchBox from 'components/headers/slim-header/slim-header-content/search-box';
 import * as editPath from 'utils/edit-path' ;
 import MagnifyingGlass from 'components/common/icons/magnifying-glass';
 

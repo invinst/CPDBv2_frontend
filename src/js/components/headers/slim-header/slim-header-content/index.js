@@ -5,10 +5,11 @@ import { noop } from 'lodash';
 import RightLinks from './right-links';
 import LogoContainer from 'containers/headers/slim-header/logo-container';
 import LogOutButtonContainer from 'containers/log-out-container';
-import SearchBox from 'components/headers/slim-header/search-box';
+import SearchBox from 'components/headers/slim-header/slim-header-content/search-box';
 import { scrollToTop } from 'utils/dom';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import styles from './slim-header-content.sass';
+import DemoVideo from './demo-video';
 
 
 class SlimHeaderContent extends Component {
@@ -45,16 +46,7 @@ class SlimHeaderContent extends Component {
               <div className='logo'>
                 <LogoContainer position={ position } editModeOn={ editModeOn } />
               </div>
-              <div className='watch-video'>
-                <div className='watch-video-text'>
-                  <span className='watch-video-text-upper'>WATCH:</span>
-                  <br/>
-                  <span className='watch-video-text-lower'>What is CPDP?</span>
-                </div>
-                <div className='watch-video-button' onClick={ this.handleWatchVideoButtonClick }>
-                  <img className='watch-video-play-button' width={ 32 } height={ 32 } src='/img/video-play-button.svg'/>
-                </div>
-              </div>
+              <DemoVideo position={ position }/>
             </div>
             <div className='navbar'>
               <div className='vertically-aligned-header-item'>
