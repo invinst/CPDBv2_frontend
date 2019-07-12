@@ -5,8 +5,20 @@ import styles from './demo-video.sass';
 
 
 class DemoVideo extends Component {
+  constructor(props) {
+    super(props);
+    this.handleWatchVideoButtonClick = this.handleWatchVideoButtonClick.bind(this);
+  }
+
+  handleWatchVideoButtonClick(e) {
+    e.stopPropagation();
+
+    const { openVideoModal } = this.props;
+    openVideoModal();
+  }
+
   render() {
-    const { position } = this.props;
+    const { position, videoThumbnailUrl } = this.props;
     return (
       <div className={ cx(styles.demoVideo, position) }>
         <div className='demo-video-text'>
@@ -15,7 +27,8 @@ class DemoVideo extends Component {
           <span className='demo-video-text-lower'>What is CPDP?</span>
         </div>
         <div className='demo-video-button' onClick={ this.handleWatchVideoButtonClick }>
-          <img className='demo-video-play-button' width={ 32 } height={ 32 } src='/img/video-play-button.svg'/>
+          <img className='demo-video-thumbnail' src={ videoThumbnailUrl } />
+          <img className='demo-video-play-button' src='/img/video-play-button.svg' width={ 32 } height={ 32 } />
         </div>
       </div>
     );
@@ -24,6 +37,8 @@ class DemoVideo extends Component {
 
 DemoVideo.propTypes = {
   position: PropTypes.string,
+  openVideoModal: PropTypes.func,
+  videoThumbnailUrl: PropTypes.string,
 };
 
 export default DemoVideo;

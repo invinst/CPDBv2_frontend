@@ -13,25 +13,13 @@ import DemoVideo from './demo-video';
 
 
 class SlimHeaderContent extends Component {
-  constructor(props) {
-    super(props);
-    this.handleWatchVideoButtonClick = this.handleWatchVideoButtonClick.bind(this);
-  }
-
   getPosition() {
     const { position, disableTop } = this.props;
     return (position === 'top' && disableTop) ? 'middle' : position;
   }
 
-  handleWatchVideoButtonClick(e) {
-    e.stopPropagation();
-
-    const { openVideoModal } = this.props;
-    openVideoModal();
-  }
-
   render() {
-    const { pathname, editModeOn, style, className } = this.props;
+    const { pathname, editModeOn, style, className, openVideoModal, videoThumbnailUrl } = this.props;
     const position = this.getPosition();
 
     return (
@@ -46,7 +34,11 @@ class SlimHeaderContent extends Component {
               <div className='logo'>
                 <LogoContainer position={ position } editModeOn={ editModeOn } />
               </div>
-              <DemoVideo position={ position }/>
+              <DemoVideo
+                position={ position }
+                openVideoModal={ openVideoModal }
+                videoThumbnailUrl={ videoThumbnailUrl }
+              />
             </div>
             <div className='navbar'>
               <div className='vertically-aligned-header-item'>
@@ -72,6 +64,7 @@ SlimHeaderContent.propTypes = {
   disableTop: PropTypes.bool,
   className: PropTypes.string,
   openVideoModal: PropTypes.func,
+  videoThumbnailUrl: PropTypes.string,
 };
 
 SlimHeaderContent.defaultProps = {

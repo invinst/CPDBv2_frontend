@@ -33,6 +33,8 @@ import { fetchDocumentsByCRID } from 'actions/document-deduplicator-page';
 import { fetchDocuments, fetchDocumentsAuthenticated } from 'actions/documents-overview-page';
 import { cancelledByUser } from 'utils/axios-client';
 import { requestCrawlers } from 'actions/crawlers-page';
+import { fetchVideoInfo } from 'actions/headers/slim-header';
+import { hasVideoInfoSelector } from 'selectors/headers/slim-header';
 
 let prevPathname = '';
 
@@ -123,6 +125,10 @@ export default store => next => action => {
 
       if (!hasComplaintSummaryData(state)) {
         dispatches.push(store.dispatch(getComplaintSummaries()));
+      }
+
+      if (!hasVideoInfoSelector(state)) {
+        dispatches.push(store.dispatch(fetchVideoInfo()));
       }
     }
 

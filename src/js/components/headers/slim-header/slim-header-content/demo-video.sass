@@ -19,17 +19,24 @@
       color: $accent-color
 
   .demo-video-button
-    width: 100px
-    height: 66px
     display: inline-block
-    background: url('/img/vimeo-demo-video-thumbnail.png') no-repeat scroll center transparent
-    cursor: pointer
-    outline: solid 5px $accent-color50
+    position: relative
+
+    .demo-video-thumbnail
+      width: 100px
+      height: 66px
+      display: inline-block
+      cursor: pointer
+      outline: solid 5px $accent-color50
 
     .demo-video-play-button
       @extend %vertical-align-middle
       margin: 0 auto
       display: block
+      position: absolute
+      left: 0
+      right: 0
+      cursor: pointer
 
   &.bottom
     .demo-video-button
