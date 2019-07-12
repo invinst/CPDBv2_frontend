@@ -41,7 +41,10 @@ describe('SlimHeader component', function () {
     },
     headers: {
       slimHeader: {
-        logoSectionEditModeOn: false
+        logoSectionEditModeOn: false,
+        videoInfo: [{
+          'thumbnail_small': 'https://i.vimeocdn.com/video/797111186_100x75.webp',
+        }],
       }
     }
   });
@@ -99,7 +102,7 @@ describe('SlimHeader component', function () {
     link.getAttribute('href').should.eql('http://cpdb.lvh.me');
   });
 
-  it('should render Glossary link', function () {
+  it('should render Documents link', function () {
     const openRequestDocumentModal = spy();
     element = renderIntoDocument(
       <Provider store={ store }>
@@ -110,8 +113,8 @@ describe('SlimHeader component', function () {
     );
 
     const links = scryRenderedDOMComponentsWithTag(element, 'a');
-    const link = links.filter(link => link.textContent === 'Glossary')[0];
-    link.getAttribute('href').should.eql('http://cpdb.lvh.me/glossary/');
+    const link = links.filter(link => link.textContent === 'Documents')[0];
+    link.getAttribute('href').should.eql('/documents/');
   });
 
   describe('External links', function () {
@@ -170,7 +173,7 @@ describe('SlimHeader component', function () {
   });
 
   describe('SlimHeaderContent', function () {
-    it('should be rendered with correct style on the top of the page', function () {
+    it('should be rendered with correct props and style on the top of the page', function () {
       element = renderIntoDocument(
         <Provider store={ store }>
           <SlimHeaderContextWrapper context={ { editModeOn: false } }>
@@ -188,7 +191,7 @@ describe('SlimHeader component', function () {
       slimHeaderContent.props.editModeOn.should.eql(false);
     });
 
-    it('should be rendered with correct style in the middle of the page', function () {
+    it('should be rendered with correct props and style in the middle of the page', function () {
       element = renderIntoDocument(
         <Provider store={ store }>
           <SlimHeaderContextWrapper context={ { editModeOn: false } }>
@@ -209,11 +212,10 @@ describe('SlimHeader component', function () {
       slimHeaderContent.props.style.should.eql({
         transform: 'translateY(-100%)',
         backgroundColor: 'rgb(255, 255, 255)',
-        height: '64px',
       });
     });
 
-    it('should be rendered with correct style in the bottom of the page', function (done) {
+    it('should be rendered with correct props and style in the bottom of the page', function (done) {
       element = renderIntoDocument(
         <Provider store={ store }>
           <SlimHeaderContextWrapper context={ { editModeOn: false } }>

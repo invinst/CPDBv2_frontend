@@ -1,9 +1,12 @@
 import React from 'react';
-
 import {
-  Simulate, renderIntoDocument, findRenderedDOMComponentWithClass, findRenderedComponentWithType
+  Simulate,
+  renderIntoDocument,
+  findRenderedComponentWithType,
 } from 'react-addons-test-utils';
+import { findDOMNode } from 'react-dom';
 import { stub } from 'sinon';
+
 import { unmountComponentSuppressError } from 'utils/test';
 import SearchBox from 'components/headers/slim-header/slim-header-content/search-box';
 import * as editPath from 'utils/edit-path' ;
@@ -30,7 +33,7 @@ describe('SearchBox component', function () {
     instance = renderIntoDocument(
       <SearchBox />
     );
-    const searchBox = findRenderedDOMComponentWithClass(instance, 'test--search-section-search-box');
+    const searchBox = findDOMNode(instance);
     Simulate.click(searchBox);
     this.stubPushPathPreserveEditMode.calledWith('/search/terms/').should.be.true();
   });
@@ -40,7 +43,7 @@ describe('SearchBox component', function () {
       <SearchBox />
     );
 
-    const searchBox = findRenderedDOMComponentWithClass(instance, 'test--search-box-term');
+    const searchBox = findDOMNode(instance);
     Simulate.click(searchBox);
     this.stubPushPathPreserveEditMode.calledWith('/search/terms/').should.be.true();
   });
@@ -48,6 +51,6 @@ describe('SearchBox component', function () {
   it('should render MagnifyingGlass with correct color', function () {
     instance = renderIntoDocument(<SearchBox magnifyingGlassColor={ 'white' } />);
     const magnifyingGlass = findRenderedComponentWithType(instance, MagnifyingGlass);
-    magnifyingGlass.props.color.should.eql('white');
+    magnifyingGlass.props.color.should.eql('#005EF4');
   });
 });

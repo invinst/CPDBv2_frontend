@@ -67,7 +67,7 @@ export class SlimHeader extends Component {
           videoThumbnailUrl={ videoThumbnailUrl }
         />
         <Motion defaultStyle={ defaultStyle } style={ style }>
-          { ({ translateY, backgroundR, backgroundG, backgroundB, height }) => {
+          { ({ translateY, backgroundR, backgroundG, backgroundB }) => {
             const r = Math.round(backgroundR);
             const g = Math.round(backgroundG);
             const b = Math.round(backgroundB);
@@ -80,7 +80,6 @@ export class SlimHeader extends Component {
                 style={ {
                   transform: `translateY(-${translateY}%)`,
                   backgroundColor: `rgb(${r}, ${g}, ${b})`,
-                  height: `${height}px`,
                 } }
                 disableTop={ true }
                 openVideoModal={ openVideoModal }

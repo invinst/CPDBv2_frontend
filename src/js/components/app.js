@@ -1,7 +1,6 @@
 import { StyleRoot } from 'radium';
 import { locationShape } from 'react-router/lib/PropTypes';
 import React, { PropTypes, cloneElement } from 'react';
-import ModalVideo from 'react-modal-video';
 
 import { getMockAdapter } from 'mock-api';
 import EditModeProvider from 'components/edit-mode-provider';

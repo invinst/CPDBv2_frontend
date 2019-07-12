@@ -204,7 +204,8 @@ describe('store', function () {
           scrollPosition: null
         },
         slimHeader: {
-          logoSectionEditModeOn: false
+          logoSectionEditModeOn: false,
+          videoInfo: [],
         }
       },
       embed: {
@@ -239,6 +240,9 @@ describe('store', function () {
       },
       socialGraphPage: {
         graphData: {}
+      },
+      videoModal: {
+        active: false,
       }
     });
   });
