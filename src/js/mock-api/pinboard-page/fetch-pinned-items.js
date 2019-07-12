@@ -25,7 +25,24 @@ export const fetchPinboardOfficers = () => ([
       'percentile_allegation_internal': '99.7840',
       'year': 2016,
       'id': 1,
-    }
+    },
+    'date_of_appt': '2000-01-02',
+    'date_of_resignation': '2010-02-03',
+    'badge': '456',
+    'to': '/officer/11/jerome-finnigan/',
+    'unit': {
+      'id': 4,
+      'unit_name': '004',
+      'description': 'District 004',
+      'long_unit_name': 'Unit 004'
+    },
+    'allegation_count': 1,
+    'civilian_compliment_count': 2,
+    'discipline_count': 6,
+    'trr_count': 7,
+    'major_award_count': 8,
+    'honorable_mention_count': 3,
+    'honorable_mention_percentile': 88.88,
   }
 ]);
 

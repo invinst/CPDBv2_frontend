@@ -9,6 +9,7 @@ class PinnedOfficers extends Section {
     const sectionSelector = '//div[contains(@class, "test--OFFICER-section")]';
     this.officerCardSelector = `${sectionSelector}/div[contains(@class, "type-cards")]/div`;
     const firstCardSelector = `(${this.officerCardSelector})[1]`;
+    const secondCardSelector = `(${this.officerCardSelector})[2]`;
 
     this.prepareElementGetters({
       title: `${sectionSelector}/div[@class="type-title"]`,
@@ -16,6 +17,7 @@ class PinnedOfficers extends Section {
       firstCardRank: `${firstCardSelector}//div[@class="officer-rank"]`,
       firstCardName: `${firstCardSelector}//div[@class="officer-name"]`,
       firstCardCRsCount: `${firstCardSelector}//div[@class="officer-complaints-count"]`,
+      secondCardName: `${secondCardSelector}//div[@class="officer-name"]`,
     });
   }
 
@@ -252,6 +254,52 @@ class PreviewPane extends Section {
   }
 }
 
+class OfficerPreviewPane extends Section {
+  constructor() {
+    super();
+    this.officerInfoWidgetSelector = '//li[starts-with(@class, "new-officer-info-widget")]';
+    this.officerMetricWidgetItemSelector = '//div[starts-with(@class, "new-metric-widget-item")]',
+
+    this.prepareElementGetters({
+      wrapper: '//div[starts-with(@class, "preview-pane")]',
+      gradient: '.test--gradient',
+      communityPane: '.test--preview-pane-community',
+      neighborhoodPane: '.test--preview-pane-neighborhood',
+      listMostOfficers: '//*[starts-with(@class, "preview-pane")]//*[contains(@class,"list-widget-item-link")]',
+      previewPane: '//div[starts-with(@class, "preview-pane")]',
+      pinButton: '.pin-button',
+      viewOfficerButton: '.view-officer-profile-button',
+      officerName: '.test--officer-name',
+      genericInfo: `(${this.officerInfoWidgetSelector})[1]`,
+      badgeKey: `(${this.officerInfoWidgetSelector})[2]//div[contains(@class, "item-key")]`,
+      badgeValue: `(${this.officerInfoWidgetSelector})[2]//div[contains(@class, "item-value")]`,
+      rankKey: `(${this.officerInfoWidgetSelector})[3]//div[contains(@class, "item-key")]`,
+      rankValue: `(${this.officerInfoWidgetSelector})[3]//div[contains(@class, "item-value")]`,
+      unitKey: `(${this.officerInfoWidgetSelector})[4]//div[contains(@class, "item-key")]`,
+      unitValue: `(${this.officerInfoWidgetSelector})[4]//div[contains(@class, "item-value")]`,
+      careerKey: `(${this.officerInfoWidgetSelector})[5]//div[contains(@class, "item-key")]`,
+      careerValue: `(${this.officerInfoWidgetSelector})[5]//div[contains(@class, "item-value")]`,
+      allegationValue: `(${this.officerMetricWidgetItemSelector})[1]//div[contains(@class, "item-value")]`,
+      allegationName: `(${this.officerMetricWidgetItemSelector})[1]//div[contains(@class, "item-name")]`,
+      allegationDescription: `(${this.officerMetricWidgetItemSelector})[1]//div[contains(@class, "item-description")]`,
+      sustainedValue: `(${this.officerMetricWidgetItemSelector})[2]//div[contains(@class, "item-value")]`,
+      sustainedName: `(${this.officerMetricWidgetItemSelector})[2]//div[contains(@class, "item-name")]`,
+      sustainedDescription: `(${this.officerMetricWidgetItemSelector})[2]//div[contains(@class, "item-description")]`,
+      trrValue: `(${this.officerMetricWidgetItemSelector})[3]//div[contains(@class, "item-value")]`,
+      trrName: `(${this.officerMetricWidgetItemSelector})[3]//div[contains(@class, "item-name")]`,
+      trrDescription: `(${this.officerMetricWidgetItemSelector})[3]//div[contains(@class, "item-description")]`,
+      allegationCivilianValue: `(${this.officerMetricWidgetItemSelector})[4]//div[contains(@class, "item-value")]`,
+      allegationCivilianName: `(${this.officerMetricWidgetItemSelector})[4]//div[contains(@class, "item-name")]`,
+      majorAwardValue: `(${this.officerMetricWidgetItemSelector})[5]//div[contains(@class, "item-value")]`,
+      majorAwardName: `(${this.officerMetricWidgetItemSelector})[5]//div[contains(@class, "item-name")]`,
+      honorableMentionValue: `(${this.officerMetricWidgetItemSelector})[6]//div[contains(@class, "item-value")]`,
+      honorableMentionName: `(${this.officerMetricWidgetItemSelector})[6]//div[contains(@class, "item-name")]`,
+      honorableMentionDescription:
+        `(${this.officerMetricWidgetItemSelector})[6]//div[contains(@class, "item-description")]`,
+    });
+  }
+}
+
 class PinboardPage extends Page {
   pinnedSection = new PinboardPinnedSection();
   animatedSocialGraphSection = new AnimatedSocialGraphSection();
@@ -262,6 +310,7 @@ class PinboardPage extends Page {
   relevantComplaintsSection = new RelevantComplaintsSection();
   emptyPinboardSection = new EmptyPinboardSection();
   previewPane = new PreviewPane();
+  officerPreviewPane = new OfficerPreviewPane();
 
   constructor() {
     super();

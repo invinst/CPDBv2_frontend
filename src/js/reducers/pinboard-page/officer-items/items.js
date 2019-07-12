@@ -10,23 +10,7 @@ import {
 
 
 const toRawOfficer = (item) => {
-  const { id, fullName, percentile, rank, complaintCount } = item;
-  let rawPercentile = null;
-  if (percentile && percentile.items) {
-    rawPercentile = {
-      'percentile_trr': percentile.items[0].value,
-      'percentile_allegation_internal': percentile.items[1].value,
-      'percentile_allegation_civilian': percentile.items[2].value,
-    };
-  }
-
-  return {
-    'id': _.parseInt(id),
-    'full_name': fullName,
-    'percentile': rawPercentile,
-    rank,
-    'complaint_count': complaintCount,
-  };
+  return item.rawData;
 };
 
 export default handleActions({

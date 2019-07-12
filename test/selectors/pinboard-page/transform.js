@@ -8,41 +8,42 @@ import {
 describe('Pinboard Page transform selectors', function () {
   describe('relevantDocumentTransform', function () {
     it('should format document correctly', function () {
+      const allegation = {
+        'crid': '1074534',
+        'category': 'Unknown',
+        'incident_date': '2015-04-04',
+        'point': { 'lon': -87.6427175, 'lat': 41.7756769 },
+        'coaccused': [{
+          'id': 31859,
+          'rank': 'Sergeant of Police',
+          'full_name': 'Eric Cato',
+          'coaccusal_count': null,
+          'percentile': {
+            'year': 2016,
+            'percentile_trr': '72.1094',
+            'percentile_allegation': '99.4803',
+            'percentile_allegation_civilian': '99.1379',
+            'percentile_allegation_internal': '88.3297'
+          }
+        }, {
+          'id': 32020,
+          'rank': 'Police Officer',
+          'full_name': 'Scott Hall',
+          'coaccusal_count': null,
+          'percentile': {
+            'year': 2016,
+            'percentile_trr': '78.2707',
+            'percentile_allegation': '98.7238',
+            'percentile_allegation_civilian': '97.8772',
+            'percentile_allegation_internal': '61.1521'
+          }
+        }]
+      };
       const document = {
         'id': 16316,
         'preview_image_url': 'https://www.documentcloud.org/documents/CRID-1074534-TRR-Stegmiller-p1-normal.gif',
         'url': 'https://www.documentcloud.org/documents/3037807/CRID-1074534-TRR-Stegmiller.pdf',
-        'allegation': {
-          'crid': '1074534',
-          'category': 'Unknown',
-          'incident_date': '2015-04-04',
-          'point': { 'lon': -87.6427175, 'lat': 41.7756769 },
-          'coaccused': [{
-            'id': 31859,
-            'rank': 'Sergeant of Police',
-            'full_name': 'Eric Cato',
-            'coaccusal_count': null,
-            'percentile': {
-              'year': 2016,
-              'percentile_trr': '72.1094',
-              'percentile_allegation': '99.4803',
-              'percentile_allegation_civilian': '99.1379',
-              'percentile_allegation_internal': '88.3297'
-            }
-          }, {
-            'id': 32020,
-            'rank': 'Police Officer',
-            'full_name': 'Scott Hall',
-            'coaccusal_count': null,
-            'percentile': {
-              'year': 2016,
-              'percentile_trr': '78.2707',
-              'percentile_allegation': '98.7238',
-              'percentile_allegation_civilian': '97.8772',
-              'percentile_allegation_internal': '61.1521'
-            }
-          }]
-        }
+        'allegation': allegation,
       };
 
       relevantDocumentTransform(document, []).should.eql({
@@ -82,23 +83,25 @@ describe('Pinboard Page transform selectors', function () {
               textColor: '#DFDFDF',
             }
           }],
+          rawData: allegation,
         },
         pinned: false,
       });
     });
 
     it('should set pinned to true if crid in crids', function () {
+      const allegation = {
+        'crid': '1074534',
+        'category': 'Unknown',
+        'incident_date': '2015-04-04',
+        'point': null,
+        'officers': []
+      };
       const document = {
         'id': 16316,
         'preview_image_url': 'https://www.documentcloud.org/documents/CRID-1074534-TRR-Stegmiller-p1-normal.gif',
         'url': 'https://www.documentcloud.org/documents/3037807/CRID-1074534-TRR-Stegmiller.pdf',
-        'allegation': {
-          'crid': '1074534',
-          'category': 'Unknown',
-          'incident_date': '2015-04-04',
-          'point': null,
-          'officers': []
-        }
+        'allegation': allegation,
       };
 
       relevantDocumentTransform(document, ['1074534', '1074535']).should.eql({
@@ -110,47 +113,49 @@ describe('Pinboard Page transform selectors', function () {
           incidentDate: 'Apr 4, 2015',
           officers: [],
           point: null,
+          rawData: allegation,
         },
         pinned: true,
       });
     });
 
     it('should shorten officer name', function () {
+      const allegation = {
+        'crid': '1074534',
+        'category': 'Unknown',
+        'incident_date': '2015-04-04',
+        'point': null,
+        'coaccused': [{
+          'id': 31859,
+          'rank': 'Sergeant of Police',
+          'full_name': 'Short Name',
+          'coaccusal_count': null,
+          'percentile': null
+        }, {
+          'id': 32020,
+          'rank': 'Police Officer',
+          'full_name': 'Short Three Names',
+          'coaccusal_count': null,
+          'percentile': null
+        }, {
+          'id': 32022,
+          'rank': 'Police Officer',
+          'full_name': 'Long Three Nameeeeeeee',
+          'coaccusal_count': null,
+          'percentile': null
+        }, {
+          'id': 32024,
+          'rank': 'Police Officer',
+          'full_name': 'Long LastNameeeeeeeeeeeeeee',
+          'coaccusal_count': null,
+          'percentile': null
+        }]
+      };
       const document = {
         'id': 16316,
         'preview_image_url': 'https://www.documentcloud.org/documents/CRID-1074534-TRR-Stegmiller-p1-normal.gif',
         'url': 'https://www.documentcloud.org/documents/3037807/CRID-1074534-TRR-Stegmiller.pdf',
-        'allegation': {
-          'crid': '1074534',
-          'category': 'Unknown',
-          'incident_date': '2015-04-04',
-          'point': null,
-          'coaccused': [{
-            'id': 31859,
-            'rank': 'Sergeant of Police',
-            'full_name': 'Short Name',
-            'coaccusal_count': null,
-            'percentile': null
-          }, {
-            'id': 32020,
-            'rank': 'Police Officer',
-            'full_name': 'Short Three Names',
-            'coaccusal_count': null,
-            'percentile': null
-          }, {
-            'id': 32022,
-            'rank': 'Police Officer',
-            'full_name': 'Long Three Nameeeeeeee',
-            'coaccusal_count': null,
-            'percentile': null
-          }, {
-            'id': 32024,
-            'rank': 'Police Officer',
-            'full_name': 'Long LastNameeeeeeeeeeeeeee',
-            'coaccusal_count': null,
-            'percentile': null
-          }]
-        }
+        'allegation': allegation,
       };
 
       relevantDocumentTransform(document, []).should.eql({
@@ -182,6 +187,7 @@ describe('Pinboard Page transform selectors', function () {
             shortName: 'LastNameeeeeeeeeeeeeee',
             percentile: null,
           }],
+          rawData: allegation,
         },
         pinned: false,
       });
@@ -220,7 +226,8 @@ describe('Pinboard Page transform selectors', function () {
           ],
           visualTokenBackground: '#f9946b',
           textColor: '#231F20',
-        }
+        },
+        rawData: coaccusal,
       });
     });
   });
@@ -267,6 +274,7 @@ describe('Pinboard Page transform selectors', function () {
             textColor: '#DFDFDF',
           },
         }],
+        rawData: complaint,
       });
     });
   });

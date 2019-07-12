@@ -46,6 +46,17 @@ describe('RelevantCoaccusalCard component', function () {
           ],
           visualTokenBackground: '#ed7467',
         } }
+        rawData={ {
+          'id': 123,
+          'full_name': 'Jerome Finnigan',
+          'rank': 'Officer',
+          'complaint_count': 22,
+          'percentile': {
+            'percentile_trr': 20.6,
+            'percentile_allegation_internal': 10.1,
+            'percentile_allegation_civilian': 52.5,
+          },
+        } }
       />
     );
 
@@ -73,19 +84,17 @@ describe('RelevantCoaccusalCard component', function () {
     addItemInPinboardPageStub.should.calledOnce();
     addItemInPinboardPageStub.should.calledWith({
       type: 'OFFICER',
-      id: '123',
-      complaintCount: 22,
-      fullName: 'Jerome Finnigan',
-      rank: 'Officer',
-      percentile: {
-        items: [
-          { axis: 'Use of Force Reports', value: 20.6 },
-          { axis: 'Officer Allegations', value: 10.1 },
-          { axis: 'Civilian Allegations', value: 52.5 }
-        ],
-        officerId: 123,
-        visualTokenBackground: '#ed7467',
-        year: 2015
+      id: 123,
+      rawData: {
+        'id': 123,
+        'full_name': 'Jerome Finnigan',
+        'rank': 'Officer',
+        'complaint_count': 22,
+        'percentile': {
+          'percentile_trr': 20.6,
+          'percentile_allegation_internal': 10.1,
+          'percentile_allegation_civilian': 52.5,
+        },
       }
     });
   });
@@ -130,6 +139,17 @@ describe('RelevantCoaccusalCard component', function () {
         rank='Officer'
         coaccusalCount={ 1 }
         percentile={ {} }
+        rawData= { {
+          'id': 123,
+          'full_name': 'Jerome Finnigan',
+          'rank': 'Officer',
+          'complaint_count': 22,
+          'percentile': {
+            'percentile_trr': 20.6,
+            'percentile_allegation_internal': 10.1,
+            'percentile_allegation_civilian': 52.5,
+          },
+        } }
       />
     );
 
@@ -138,11 +158,18 @@ describe('RelevantCoaccusalCard component', function () {
 
     addItemInPinboardPageStub.calledWith({
       type: 'OFFICER',
-      id: '123',
-      fullName: 'Jerome Finnigan',
-      percentile: {},
-      complaintCount: 1,
-      rank: 'Officer'
+      id: 123,
+      rawData: {
+        'id': 123,
+        'full_name': 'Jerome Finnigan',
+        'rank': 'Officer',
+        'complaint_count': 22,
+        'percentile': {
+          'percentile_trr': 20.6,
+          'percentile_allegation_internal': 10.1,
+          'percentile_allegation_civilian': 52.5,
+        },
+      }
     });
   });
 

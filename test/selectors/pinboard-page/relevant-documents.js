@@ -8,55 +8,58 @@ import {
 describe('RelevantDocuments selectors', function () {
   describe('relevantDocumentsSelector', function () {
     it('should return documents data correctly', function () {
+      const allegation1 = {
+        'crid': '1074534',
+        'category': 'Unknown',
+        'incident_date': '2015-04-04',
+        'point': { 'lon': -87.6427175, 'lat': 41.7756769 },
+        'coaccused': [{
+          'id': 31859,
+          'rank': 'Sergeant of Police',
+          'full_name': 'Eric Cato',
+          'coaccusal_count': null,
+          'allegation_count': 12,
+          'percentile': {
+            'year': 2016,
+            'percentile_trr': '72.1094',
+            'percentile_allegation': '99.4803',
+            'percentile_allegation_civilian': '99.1379',
+            'percentile_allegation_internal': '88.3297'
+          }
+        }, {
+          'id': 32020,
+          'rank': 'Police Officer',
+          'full_name': 'Scott Hall',
+          'coaccusal_count': null,
+          'allegation_count': 44,
+          'percentile': {
+            'year': 2016,
+            'percentile_trr': '78.2707',
+            'percentile_allegation': '98.7238',
+            'percentile_allegation_civilian': '97.8772',
+            'percentile_allegation_internal': '61.1521'
+          }
+        }]
+      };
+      const allegation2 = {
+        'point': null,
+        'crid': '1074535',
+        'category': 'Unknown',
+        'incident_date': '2015-04-04',
+        'coaccused': [],
+      };
+
       const documents = [{
         'id': 16316,
         'preview_image_url': 'https://www.documentcloud.org/documents/CRID-1074534-TRR-Stegmiller-p1-normal.gif',
         'url': 'https://www.documentcloud.org/documents/3037807/CRID-1074534-TRR-Stegmiller.pdf',
-        'allegation': {
-          'crid': '1074534',
-          'category': 'Unknown',
-          'incident_date': '2015-04-04',
-          'point': { 'lon': -87.6427175, 'lat': 41.7756769 },
-          'coaccused': [{
-            'id': 31859,
-            'rank': 'Sergeant of Police',
-            'full_name': 'Eric Cato',
-            'coaccusal_count': null,
-            'allegation_count': 12,
-            'percentile': {
-              'year': 2016,
-              'percentile_trr': '72.1094',
-              'percentile_allegation': '99.4803',
-              'percentile_allegation_civilian': '99.1379',
-              'percentile_allegation_internal': '88.3297'
-            }
-          }, {
-            'id': 32020,
-            'rank': 'Police Officer',
-            'full_name': 'Scott Hall',
-            'coaccusal_count': null,
-            'allegation_count': 44,
-            'percentile': {
-              'year': 2016,
-              'percentile_trr': '78.2707',
-              'percentile_allegation': '98.7238',
-              'percentile_allegation_civilian': '97.8772',
-              'percentile_allegation_internal': '61.1521'
-            }
-          }]
-        }
+        'allegation': allegation1,
       },
       {
         'id': 2289,
         'preview_image_url': null,
         'url': 'https://w.soundcloud.com/player/?url=https%3A/s=false&amp;visual=true',
-        'allegation': {
-          'point': null,
-          'crid': '1074535',
-          'category': 'Unknown',
-          'incident_date': '2015-04-04',
-          'coaccused': []
-        }
+        'allegation': allegation2
       }];
       const state = {
         pinboardPage: {
@@ -113,6 +116,7 @@ describe('RelevantDocuments selectors', function () {
               textColor: '#DFDFDF',
             }
           }],
+          rawData: allegation1,
         },
         pinned: false,
       },
@@ -125,6 +129,7 @@ describe('RelevantDocuments selectors', function () {
           incidentDate: 'Apr 4, 2015',
           officers: [],
           point: null,
+          rawData: allegation2,
         },
         pinned: true,
       }]);

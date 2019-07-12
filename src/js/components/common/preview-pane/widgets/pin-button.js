@@ -20,7 +20,7 @@ class PinButton extends Component {
 PinButton.propTypes = {
   item: PropTypes.shape({
     type: PropTypes.string,
-    id: PropTypes.string,
+    id: PropTypes.number,
     isPinned: PropTypes.bool,
   }),
   addOrRemoveItemInPinboard: PropTypes.func,
@@ -30,7 +30,7 @@ PinButton.propTypes = {
 PinButton.defaultProps = {
   item: {
     type: '',
-    id: '',
+    id: 123456,
     isPinned: '',
   },
   addOrRemoveItemInPinboard: noop,
