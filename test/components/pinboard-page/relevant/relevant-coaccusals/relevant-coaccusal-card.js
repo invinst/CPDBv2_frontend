@@ -139,7 +139,7 @@ describe('RelevantCoaccusalCard component', function () {
         rank='Officer'
         coaccusalCount={ 1 }
         percentile={ {} }
-        rawData= { {
+        rawData={ {
           'id': 123,
           'full_name': 'Jerome Finnigan',
           'rank': 'Officer',
