@@ -127,7 +127,7 @@ describe('SlimHeader component', function () {
           </SlimHeaderContextWrapper>
         </Provider>
       );
-      let externalLinks = scryRenderedDOMComponentsWithClass(element, 'right-external-link');
+      let externalLinks = scryRenderedDOMComponentsWithClass(element, 'right-link');
       const dummyEvent = {
         stopPropagation: spy()
       };

@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Motion, spring } from 'react-motion';
 
-import { calculatePosition, bodyScrollPosition } from 'utils/dom';
+import { calculatePosition } from 'utils/dom';
 import SlimHeaderContent from './slim-header-content';
 import styles from './slim-header.sass';
 

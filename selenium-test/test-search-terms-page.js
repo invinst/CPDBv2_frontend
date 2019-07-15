@@ -84,7 +84,7 @@ describe('Search terms page', function () {
 
   it('should show PreviewPane in the viewport when scroll to bottom', function () {
     browser.keys('ArrowDown');
-    browser.scroll(0, 9999999);
+    browser.scroll(0, 9999);
 
     searchTermsPage.previewPane.title.isVisibleWithinViewport().should.be.true();
   });

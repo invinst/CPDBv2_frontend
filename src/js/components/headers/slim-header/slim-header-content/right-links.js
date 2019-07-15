@@ -11,24 +11,24 @@ export default class RightLinks extends Component {
     const links = [
       {
         name: 'Data',
-        externalHref: config.v1Url
+        url: config.v1Url
       },
       {
         name: 'Q&A',
-        externalHref: QA_LINK
+        url: QA_LINK
       },
       {
         name: 'Documents',
-        externalHref: '/documents/'
+        url: '/documents/'
       }
     ];
 
     const tags = links.map((link, index) => (
       <a
-        className={ cx('right-external-link', position) }
+        className={ cx('right-link', position) }
         onClick={ e => { e.stopPropagation(); } }
         key={ index }
-        href={ link.externalHref }
+        href={ link.url }
       >
         { link.name }
       </a>
