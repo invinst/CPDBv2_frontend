@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Motion, spring } from 'react-motion';
 
-import { calculatePosition } from 'utils/dom';
+import { calculatePosition, bodyScrollPosition } from 'utils/dom';
 import SlimHeaderContent from './slim-header-content';
 import styles from './slim-header.sass';
 
@@ -25,7 +25,8 @@ export class SlimHeader extends Component {
   }
 
   recalculatePosition() {
-    const newPosition = calculatePosition();
+    // offset must equal the height of top bar so that the navbar is always visible
+    const newPosition = calculatePosition(88);
     if (newPosition !== this.state.position) {
       this.setState({ position: newPosition });
     }
