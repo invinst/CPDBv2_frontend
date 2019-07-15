@@ -12,10 +12,11 @@ class PinnedOfficers extends Section {
 
     this.prepareElementGetters({
       title: `${sectionSelector}/div[@class="type-title"]`,
-      firstCardUnpinBtn: `${firstCardSelector}/span[starts-with(@class, "item-unpin-button")]`,
+      firstCardUnpinBtn: `${firstCardSelector}//span[starts-with(@class, "item-unpin-button")]`,
       firstCardRank: `${firstCardSelector}//div[@class="officer-rank"]`,
       firstCardName: `${firstCardSelector}//div[@class="officer-name"]`,
       firstCardCRsCount: `${firstCardSelector}//div[@class="officer-complaints-count"]`,
+      undoCard: '.test--undo-card',
     });
   }
 
