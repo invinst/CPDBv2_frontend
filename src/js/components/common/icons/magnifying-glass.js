@@ -36,5 +36,4 @@ MagnifyingGlass.propTypes = {
 
 MagnifyingGlass.defaultProps = {
   color: '#005EF4',
-  style: {}
 };

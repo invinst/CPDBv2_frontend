@@ -24,6 +24,7 @@ import { fetchDocumentsByCRID } from 'actions/document-deduplicator-page';
 import * as docOverviewPageActions from 'actions/documents-overview-page';
 import { requestCrawlers } from 'actions/crawlers-page';
 import { fetchDocument } from 'actions/document-page';
+import { fetchVideoInfo } from 'actions/headers/slim-header';
 
 
 const createLocationChangeAction = (pathname) => ({
@@ -201,6 +202,7 @@ describe('fetchPageInitialData middleware', function () {
     store.dispatch.calledWith(requestActivityGrid()).should.be.true();
     store.dispatch.calledWith(getRecentDocument()).should.be.true();
     store.dispatch.calledWith(getComplaintSummaries()).should.be.true();
+    store.dispatch.calledWith(fetchVideoInfo()).should.be.true();
   });
 
   it('should dispatch fetch cr data if crid change', function () {

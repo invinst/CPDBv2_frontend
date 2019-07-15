@@ -34,10 +34,6 @@ export default class SearchBox extends Component {
   }
 }
 
-SearchBox.contextTypes = {
-  editModeOn: PropTypes.bool,
-};
-
 SearchBox.propTypes = {
   position: PropTypes.string,
 };

@@ -11,9 +11,8 @@ import {
 import { get } from 'actions/common/async-action';
 
 
-export const turnOnLogoSectionEditMode = createAction(TURN_ON_LOGO_EDIT_MODE, () => {});
-
-export const turnOffLogoSectionEditMode = createAction(TURN_OFF_LOGO_EDIT_MODE, () => {});
+export const turnOnLogoSectionEditMode = createAction(TURN_ON_LOGO_EDIT_MODE);
+export const turnOffLogoSectionEditMode = createAction(TURN_OFF_LOGO_EDIT_MODE);
 
 export const fetchVideoInfo = get(
   `https://vimeo.com/api/v2/video/${MODAL_VIDEO_INFO.VIDEO_ID}.json`,
