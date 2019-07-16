@@ -4,6 +4,7 @@ import {
   renderIntoDocument,
   scryRenderedDOMComponentsWithClass,
   findRenderedDOMComponentWithClass,
+  scryRenderedComponentsWithType,
   Simulate,
 } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
@@ -12,9 +13,11 @@ import { stub } from 'sinon';
 
 import { PINBOARD_PAGE_TAB_NAMES } from 'utils/constants';
 import { unmountComponentSuppressError } from 'utils/test';
-import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section';
-import { AnimatedSocialGraphWithSpinner } from 'components/common/animated-social-graph';
-import { AllegationsMapWithSpinner } from 'components/common/allegations-map';
+import PinboardPaneSection, { PinboardPaneSectionWithSpinner } from 'components/pinboard-page/pinboard-pane-section';
+import AnimatedSocialGraph from 'components/common/animated-social-graph';
+import AllegationsMap from 'components/common/allegations-map';
+import LoadingSpinner from 'components/common/loading-spinner';
+import styles from 'components/pinboard-page/pinboard-pane-section/pinboard-pane-section.sass';
 
 
 describe('PinboardPaneSection component', function () {
@@ -22,7 +25,32 @@ describe('PinboardPaneSection component', function () {
   const store = mockStore({
     pinboardPage: {
       graphData: { requesting: false, data: {} },
-      geographicData: { requesting: false, mapCrsData: [], mapTrrsData: [] },
+      geographicData: {
+        crsRequesting: false,
+        trrsRequesting: false,
+        mapCrsData: [
+          {
+            'date': '2006-09-26',
+            'crid': '1000018',
+            'category': 'Operation/Personnel Violations',
+            'coaccused_count': 1,
+            'kind': 'CR'
+          }
+        ],
+        mapTrrsData: [
+          {
+            'trr_id': '123456',
+            kind: 'FORCE',
+            taser: false,
+            'firearm_used': true,
+            point: {
+              lat: 35.3,
+              lon: 50.5
+            },
+            date: 'MAY 12, 2015',
+          }
+        ]
+      },
     },
   });
   let instance;
@@ -92,7 +120,7 @@ describe('PinboardPaneSection component', function () {
       </Provider>
     );
 
-    findRenderedComponentWithType(instance, AnimatedSocialGraphWithSpinner).should.be.ok();
+    findRenderedComponentWithType(instance, AnimatedSocialGraph).should.be.ok();
   });
 
   it('should render geographic tab', function () {
@@ -102,7 +130,7 @@ describe('PinboardPaneSection component', function () {
       </Provider>
     );
 
-    findRenderedComponentWithType(instance, AllegationsMapWithSpinner).should.be.ok();
+    findRenderedComponentWithType(instance, AllegationsMap).should.be.ok();
   });
 
   it('should call changePinboardTab when clicking tab name', function () {
@@ -120,5 +148,27 @@ describe('PinboardPaneSection component', function () {
     Simulate.click(geographicTab);
 
     stubChangePinboardTab.should.be.calledWith('GEOGRAPHIC');
+  });
+
+  context('withLoadingSpinner', function () {
+    it('should render LoadingSpinner only if requesting is true', function () {
+      instance = renderIntoDocument(
+        <PinboardPaneSectionWithSpinner requesting={ true } />
+      );
+
+      scryRenderedComponentsWithType(instance, PinboardPaneSection).should.have.length(0);
+
+      const loadingSpinner = findRenderedComponentWithType(instance, LoadingSpinner);
+      loadingSpinner.props.className.should.equal(styles.pinboardPaneSectionLoading);
+    });
+
+    it('should not render LoadingSpinner if requesting is false', function () {
+      instance = renderIntoDocument(
+        <PinboardPaneSectionWithSpinner requesting={ false }/>
+      );
+
+      scryRenderedComponentsWithType(instance, PinboardPaneSection).should.have.length(1);
+      scryRenderedComponentsWithType(instance, LoadingSpinner).should.have.length(0);
+    });
   });
 });

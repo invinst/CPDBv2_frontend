@@ -4,7 +4,8 @@ import { push as pushBreadcrumbs } from 'redux-breadcrumb-trail';
 
 import { getPinboard, isEmptyPinboardSelector, examplePinboardsSelector } from 'selectors/pinboard-page/pinboard';
 import PinboardPage from 'components/pinboard-page';
-import { hasMapMarkersSelector, getCurrentTab } from 'selectors/pinboard-page/geographic-data';
+import { hasMapMarkersSelector } from 'selectors/pinboard-page/geographic-data';
+import { getCurrentTab } from 'selectors/pinboard-page/pinboard-pane-section';
 import { shouldRedirect } from 'selectors/pinboard-page/redirect';
 import { getInitialRequested } from 'selectors/pinboard-page/pinboard';
 import { focusedItemSelector } from 'selectors/pinboard-page/focused-item';
