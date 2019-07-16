@@ -7,7 +7,7 @@ class Breadcrumbs extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      mainElement: '.breadcrumbs',
+      mainElement: '//ul[@class="breadcrumbs"]',
       items: '//li[contains(@class, "breadcrumbs-item")]',
       firstItem: '(//li[contains(@class, "breadcrumbs-item")])[1]',
       secondItem: '(//li[contains(@class, "breadcrumbs-item")])[2]',

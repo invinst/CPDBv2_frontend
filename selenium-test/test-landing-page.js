@@ -188,12 +188,12 @@ describe('landing page', function () {
     });
   });
 
-  describe('Header', function () {
+  describe.only('Header', function () {
     afterEach(function () {
       browser.scroll(0, 0);
     });
 
-    it.only('should render correctly at the top of the page', function () {
+    it('should render correctly at the top of the page', function () {
       const header = landingPage.topHeader;
       header.mainElement.getCssProperty('position').value.should.eql('static');
       header.mainElement.getCssProperty('background-color').value.should.eql('rgba(0,0,0,0)');
@@ -217,7 +217,6 @@ describe('landing page', function () {
       navBar.searchBox.searchMagnifyingGlassPath.getAttribute('fill').should.eql('#005EF4');
       navBar.searchBox.searchText.getCssProperty('color').value.should.eql('rgba(0,94,244,1)');
       navBar.searchBox.searchTerm.getCssProperty('color').value.should.eql('rgba(143,143,143,1)');
-
       navBar.rightLinks.data.getCssProperty('color').value.should.eql('rgba(0,94,244,1)');
       navBar.rightLinks.qa.getCssProperty('color').value.should.eql('rgba(0,94,244,1)');
       navBar.rightLinks.documents.getCssProperty('color').value.should.eql('rgba(0,94,244,1)');
@@ -226,13 +225,55 @@ describe('landing page', function () {
     it('should render correctly at the middle of the page', function () {
       browser.scroll(0, 100); // must scroll pass the top bar
       browser.pause(1000);
-      landingPage.slimHeader.mainElement.getCssProperty('position').value.should.eql('fixed');
+
+      const header = landingPage.slimHeader;
+      header.mainElement.getCssProperty('position').value.should.eql('fixed');
+
+      const topBar = header.topBar;
+      topBar.mainElement.waitForVisible(1000, true);
+
+      const navBar = header.navBar;
+      navBar.mainElement.waitForVisible();
+      navBar.mainElement.getCssProperty('background-color').value.should.eql('rgba(245,244,244,1)');
+      navBar.searchBox.mainElement.getCssProperty('background-color').value.should.eql('rgba(255,255,255,1)');
+      navBar.searchBox.searchMagnifyingGlassPath.getAttribute('fill').should.eql('#767676');
+      navBar.searchBox.searchText.getCssProperty('color').value.should.eql('rgba(118,118,118,1)');
+      navBar.searchBox.searchTerm.getCssProperty('color').value.should.eql('rgba(143,143,143,1)');
+      navBar.rightLinks.data.getCssProperty('color').value.should.eql('rgba(118,118,118,1)');
+      navBar.rightLinks.qa.getCssProperty('color').value.should.eql('rgba(118,118,118,1)');
+      navBar.rightLinks.documents.getCssProperty('color').value.should.eql('rgba(118,118,118,1)');
     });
 
-    it('should render correctly at the bottom of the page', function () {
+    it.only('should render correctly at the bottom of the page', function () {
       browser.scroll(0, 9999);
       browser.pause(2000);
-      landingPage.slimHeader.mainElement.getCssProperty('background-color').value.should.eql('rgba(0,94,244,1)');
+
+      const header = landingPage.slimHeader;
+      header.mainElement.getCssProperty('position').value.should.eql('fixed');
+      header.mainElement.getCssProperty('background-color').value.should.eql('rgba(0,94,244,1)');
+
+      const topBar = header.topBar;
+      topBar.mainElement.waitForVisible();
+      topBar.logo.title.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
+      topBar.logo.subtitle.getCssProperty('color').value.should.eql('rgba(255,255,255,0.7)');
+      topBar.demoVideo.upperText.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
+      topBar.demoVideo.lowerText.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
+      console.log(topBar.demoVideo.playButtonThumbnail.selector)
+      topBar.demoVideo.playButtonThumbnail.getCssProperty('outline').value.should.eql('rgba(255,255,255,0.5)solid5px');
+      topBar.demoVideo.playButtonThumbnail.getAttribute('src').should.eql(
+        'https://i.vimeocdn.com/video/797111186_100x75.jpg'
+      );
+
+      const navBar = header.navBar;
+      navBar.mainElement.waitForVisible();
+      navBar.mainElement.getCssProperty('background-color').value.should.eql('rgba(0,0,0,0)');
+      navBar.searchBox.mainElement.getCssProperty('background-color').value.should.eql('rgba(0,0,0,0)');
+      navBar.searchBox.searchMagnifyingGlassPath.getAttribute('fill').should.eql('white');
+      navBar.searchBox.searchText.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
+      navBar.searchBox.searchTerm.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
+      navBar.rightLinks.data.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
+      navBar.rightLinks.qa.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
+      navBar.rightLinks.documents.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
     });
 
     it('should go to search term page when clicking anywhere in the search box', function () {
