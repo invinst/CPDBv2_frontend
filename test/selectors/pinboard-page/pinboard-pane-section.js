@@ -1,6 +1,6 @@
 import should from 'should';
 
-import { getCurrentTab } from 'selectors/pinboard-page/pinboard-pane-section';
+import { getCurrentTab, pinboardPaneSectionRequestingSelector } from 'selectors/pinboard-page/pinboard-pane-section';
 
 
 describe('PinboardPaneSection selectors', function () {
@@ -176,6 +176,40 @@ describe('PinboardPaneSection selectors', function () {
         }
       };
       getCurrentTab(state).should.eql('GEOGRAPHIC');
+    });
+  });
+
+  describe('pinboardPaneSectionRequestingSelector', function () {
+    it('should return true if data is requesting', function () {
+      const state = {
+        pinboardPage: {
+          graphData: {
+            requesting: true,
+            data: {}
+          },
+          geographicData: {
+            crsRequesting: false,
+            trrsRequesting: false,
+          },
+        }
+      };
+      pinboardPaneSectionRequestingSelector(state).should.be.true();
+    });
+
+    it('should return false if data is requested', function () {
+      const state = {
+        pinboardPage: {
+          graphData: {
+            requesting: false,
+            data: {}
+          },
+          geographicData: {
+            crsRequesting: false,
+            trrsRequesting: false,
+          },
+        }
+      };
+      pinboardPaneSectionRequestingSelector(state).should.be.false();
     });
   });
 });

@@ -6,13 +6,18 @@ import { getSocialGraphRequesting, getCoaccusedData } from './social-graph';
 import { PINBOARD_PAGE_TAB_NAMES } from 'utils/constants';
 
 
-export const defaultTabSelector = createSelector(
+export const pinboardPaneSectionRequestingSelector = createSelector(
   getSocialGraphRequesting,
   geographicDataRequestingSelector,
+  (socialGraphRequesting, geographicDataRequesting) => socialGraphRequesting || geographicDataRequesting
+);
+
+export const defaultTabSelector = createSelector(
+  pinboardPaneSectionRequestingSelector,
   getCoaccusedData,
   hasMapMarkersSelector,
-  (socialGraphRequesting, geographicDataRequesting, coaccusedData, hasMapMarkers) => {
-    if (!socialGraphRequesting && !geographicDataRequesting) {
+  (pinboardPaneSectionRequesting, coaccusedData, hasMapMarkers) => {
+    if (!pinboardPaneSectionRequesting) {
       if (isEmpty(coaccusedData) && hasMapMarkers) {
         return PINBOARD_PAGE_TAB_NAMES.GEOGRAPHIC;
       } else {

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import cx from 'classnames';
 import TrackVisibility from 'react-on-screen';
-import { isEmpty, noop, isNull } from 'lodash';
+import { isEmpty, noop } from 'lodash';
 
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import SearchBar from './search-bar';
@@ -71,6 +71,7 @@ export default class PinboardPage extends Component {
       isEmptyPinboard,
       focusedItem,
       examplePinboards,
+      requesting,
     } = this.props;
 
     if (isEmptyPinboard) {
@@ -87,7 +88,7 @@ export default class PinboardPage extends Component {
                 changePinboardTab={ changePinboardTab }
                 currentTab={ currentTab }
                 hasMapMarker={ hasMapMarker }
-                requesting={ isNull(currentTab) }
+                requesting={ requesting }
               />
             </TrackVisibility>
           </div>
@@ -152,6 +153,7 @@ PinboardPage.propTypes = {
   }),
   updatePathName: PropTypes.func,
   examplePinboards: PropTypes.array,
+  requesting: PropTypes.bool,
 };
 
 PinboardPage.defaultProps = {
