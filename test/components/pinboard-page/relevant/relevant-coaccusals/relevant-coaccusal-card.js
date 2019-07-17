@@ -10,7 +10,7 @@ import {
 import { stub, useFakeTimers, spy } from 'sinon';
 import should from 'should';
 
-import { unmountComponentSuppressError } from 'utils/test';
+import { unmountComponentSuppressError, reRender } from 'utils/test';
 import RelevantCoaccusalCard, { RelevantCoaccusalCardWithUndo }
   from 'components/pinboard-page/relevant/relevant-coaccusals/relevant-coaccusal-card';
 import StaticRadarChart from 'components/common/radar-chart';
@@ -210,5 +210,43 @@ describe('RelevantCoaccusalCard component', function () {
     Simulate.click(div);
 
     focusItem.calledWith({ type: 'OFFICER', 'id': 123 }).should.be.true();
+  });
+
+  it('should remove item if pin status changed', function () {
+    const addItemInPinboardPage = spy();
+    instance = renderIntoDocument(
+      <RelevantCoaccusalCard
+        id={ 123 }
+        fullName='Jerome Finnigan'
+        rank='Officer'
+        coaccusalCount={ 1 }
+        complaintCount={ 1 }
+        percentile={ {} }
+        addItemInPinboardPage={ addItemInPinboardPage }
+      />
+    );
+
+    reRender(
+      <RelevantCoaccusalCard
+        id={ 123 }
+        fullName='Jerome Finnigan'
+        rank='Officer'
+        coaccusalCount={ 1 }
+        complaintCount={ 1 }
+        percentile={ {} }
+        addItemInPinboardPage={ addItemInPinboardPage }
+        isPinStatusChanging={ true }
+      />,
+      instance
+    );
+
+    addItemInPinboardPage.should.be.calledWith({
+      type: 'OFFICER',
+      id: '123',
+      fullName: 'Jerome Finnigan',
+      percentile: {},
+      complaintCount: 1,
+      rank: 'Officer'
+    });
   });
 });

@@ -8,7 +8,7 @@ import {
 import { findDOMNode } from 'react-dom';
 import { spy } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
+import { unmountComponentSuppressError, reRender } from 'utils/test';
 import OfficerCard, { OfficerCardWithUndo } from 'components/pinboard-page/cards/officer-card';
 import ItemUnpinButton from 'components/pinboard-page/cards/item-unpin-button';
 import StaticRadarChart from 'components/common/radar-chart';
@@ -111,6 +111,37 @@ describe('OfficerCard component', function () {
     Simulate.mouseUp(cardNode);
 
     focusItem.calledWith({ type: 'OFFICER', 'id': 123 }).should.be.true();
+  });
+
+  it('should remove item if pin status changed', function () {
+    const item = {
+      id: 123,
+      type: 'OFFICER',
+      rank: 'Officer as Detective',
+      fullName: 'James David',
+      complaintCount: '10',
+    };
+    const removeItemInPinboardPage = spy();
+    instance = renderIntoDocument(
+      <OfficerCard
+        item={ item }
+        removeItemInPinboardPage={ removeItemInPinboardPage }
+      />
+    );
+
+    item.isPinStatusChanging = true;
+    reRender(
+      <OfficerCard
+        item={ item }
+        removeItemInPinboardPage={ removeItemInPinboardPage }
+      />,
+      instance
+    );
+
+    removeItemInPinboardPage.should.be.calledWith({
+      id: 123,
+      type: 'OFFICER',
+    });
   });
 });
 

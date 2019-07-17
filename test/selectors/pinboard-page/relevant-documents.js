@@ -72,7 +72,12 @@ describe('RelevantDocuments selectors', function () {
               next: '/pinboards/66ef1560/relevant-documents/?limit=20&offset=20',
               previous: null
             },
-          }
+          },
+          pinItemFromPreviewPane: {
+            type: 'CR',
+            id: '1074535',
+            isPinned: false,
+          },
         }
       };
 
@@ -113,6 +118,7 @@ describe('RelevantDocuments selectors', function () {
               textColor: '#DFDFDF',
             }
           }],
+          isPinStatusChanging: false,
         },
         pinned: false,
       },
@@ -125,6 +131,7 @@ describe('RelevantDocuments selectors', function () {
           incidentDate: 'Apr 4, 2015',
           officers: [],
           point: null,
+          isPinStatusChanging: true,
         },
         pinned: true,
       }]);

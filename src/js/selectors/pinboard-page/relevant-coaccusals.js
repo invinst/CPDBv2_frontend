@@ -1,15 +1,17 @@
 import { createSelector } from 'reselect';
+import { map } from 'lodash';
 
 import { relevantCoaccusalTransform } from './transform';
 import extractQuery from 'utils/extract-query';
 
 export const getRelevantCoaccusalsPagination = state => state.pinboardPage.relevantCoaccusals;
-
+const pinItemFromPreviewPane = state => state.pinboardPage.pinItemFromPreviewPane;
 export const getRequesting = state => state.pinboardPage.relevantCoaccusals.requesting;
 
 export const relevantCoaccusalsSelector = createSelector(
   getRelevantCoaccusalsPagination,
-  ({ items }) => items.map(relevantCoaccusalTransform)
+  pinItemFromPreviewPane,
+  ({ items }, updatingItem) => map(items, item => relevantCoaccusalTransform(item, updatingItem))
 );
 
 const relevantCoaccusalsCountSelector = createSelector(

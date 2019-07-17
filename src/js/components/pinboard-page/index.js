@@ -24,6 +24,7 @@ export default class PinboardPage extends Component {
     super(props);
 
     this.handleOverlayClick = this.handleOverlayClick.bind(this);
+    this.handlePinChangedOnPreviewPane = this.handlePinChangedOnPreviewPane.bind(this);
   }
 
   componentDidMount() {
@@ -61,6 +62,16 @@ export default class PinboardPage extends Component {
 
   handleOverlayClick() {
     this.props.focusItem({});
+  }
+
+  handlePinChangedOnPreviewPane(item) {
+    const {
+      focusItem,
+      addOrRemoveItemInPinboardFromPreviewPane,
+    } = this.props;
+
+    focusItem({});
+    addOrRemoveItemInPinboardFromPreviewPane(item);
   }
 
   renderContent() {
@@ -107,6 +118,7 @@ export default class PinboardPage extends Component {
         <PreviewPane
           customClass='preview-pane'
           yScrollable={ true }
+          addOrRemoveItemInPinboard={ this.handlePinChangedOnPreviewPane }
           { ...focusedItem }
         />
       </div>
@@ -151,10 +163,16 @@ PinboardPage.propTypes = {
   }),
   updatePathName: PropTypes.func,
   examplePinboards: PropTypes.array,
+  addItemInPinboardPage: PropTypes.func,
+  removeItemInPinboardPage: PropTypes.func,
+  addOrRemoveItemInPinboardFromPreviewPane: PropTypes.func,
 };
 
 PinboardPage.defaultProps = {
   focusedItem: {},
   focusItem: noop,
   pushBreadcrumbs: noop,
+  addItemInPinboardPage: noop,
+  removeItemInPinboardPage: noop,
+  addOrRemoveItemInPinboardFromPreviewPane: noop,
 };

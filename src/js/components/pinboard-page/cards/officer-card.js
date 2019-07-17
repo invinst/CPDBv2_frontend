@@ -17,6 +17,14 @@ export default class OfficerCard extends Component {
     this.focusItem = this.focusItem.bind(this);
   }
 
+  componentDidUpdate() {
+    const { item } = this.props;
+
+    if (item.isPinStatusChanging) {
+      this.removeItem();
+    }
+  }
+
   removeItem() {
     const { item, removeItemInPinboardPage } = this.props;
     const { type, id } = item;

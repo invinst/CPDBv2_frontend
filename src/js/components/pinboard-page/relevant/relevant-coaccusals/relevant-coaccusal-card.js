@@ -13,13 +13,23 @@ export default class RelevantCoaccusalCard extends Component {
   constructor(props) {
     super(props);
 
+    this.handleAddItemToPinboard = this.handleAddItemToPinboard.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleFocus = this.handleFocus.bind(this);
   }
 
+  componentDidUpdate() {
+    if (this.props.isPinStatusChanging) {
+      this.handleAddItemToPinboard();
+    }
+  }
+
   handleClick(e) {
     e.preventDefault();
+    this.handleAddItemToPinboard();
+  }
 
+  handleAddItemToPinboard() {
     const {
       id,
       fullName,
@@ -86,10 +96,12 @@ RelevantCoaccusalCard.propTypes = {
   complaintCount: PropTypes.number,
   addItemInPinboardPage: PropTypes.func,
   focusItem: PropTypes.func,
+  isPinStatusChanging: PropTypes.bool,
 };
 
 RelevantCoaccusalCard.defaultProps = {
   focusItem: noop,
+  isPinStatusChanging: false,
 };
 
 
