@@ -15,11 +15,7 @@ export default class WidgetWrapper extends Component {
     return (
       <WrapperLink url={ url } to={ to }>
         <div className={ cx(className, styles.wrapper) }>
-          <div
-            className={ cx(
-              'responsive-container-common',
-              { 'not-y-scrollable': !yScrollable })
-            } >
+          <div className='responsive-container-common'>
             { children }
             { !yScrollable &&
               <MediaQuery maxHeight={ maxHeight }>

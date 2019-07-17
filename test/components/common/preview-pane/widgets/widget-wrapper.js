@@ -4,11 +4,10 @@ import {
   renderIntoDocument,
   findRenderedComponentWithType,
   scryRenderedComponentsWithType,
-  scryRenderedDOMComponentsWithClass,
 } from 'react-addons-test-utils';
 
 import WidgetWrapper, { TextWidget, CallToActionWidget } from 'components/common/preview-pane/widgets';
-import { unmountComponentSuppressError, reRender } from 'utils/test';
+import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('WidgetWrapper component', () => {
@@ -48,24 +47,5 @@ describe('WidgetWrapper component', () => {
       </WidgetWrapper>
     );
     scryRenderedComponentsWithType(instance, MediaQuery).should.have.length(0);
-  });
-
-  it('should handle scrollable correctly', function () {
-    instance = renderIntoDocument(
-      <WidgetWrapper yScrollable={ false }>
-        <TextWidget title={ 'title' } />
-      </WidgetWrapper>
-    );
-
-    scryRenderedDOMComponentsWithClass(instance, 'not-y-scrollable').should.have.length(1);
-
-    reRender(
-      <WidgetWrapper yScrollable={ true }>
-        <TextWidget title={ 'title' } />
-      </WidgetWrapper>,
-      instance
-    );
-
-    scryRenderedDOMComponentsWithClass(instance, 'not-y-scrollable').should.have.length(0);
   });
 });
