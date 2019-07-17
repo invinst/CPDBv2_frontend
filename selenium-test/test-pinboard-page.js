@@ -62,8 +62,8 @@ describe('Pinboard Page', function () {
       pinboardPage.pinnedSection.trrs.firstElement.click();
       pinboardPage.previewPane.mainElement.waitForVisible();
       pinboardPage.previewPane.actionText.getText().should.equal('View Tactical Response Report');
-      pinboardPage.previewPane.trrTitle.getText().should.equal('Firearm');
-      pinboardPage.previewPane.trrFirstInfo.getText().should.equal('2012-01-01');
+      pinboardPage.previewPane.trrTitle.getText().should.equal('Impact Weapon');
+      pinboardPage.previewPane.trrFirstInfo.getText().should.equal('Jan 01, 2012');
       pinboardPage.previewPane.trrSecondInfo.getText().should.equal('14XX W 63RD ST, CHICAGO IL 60636');
     });
 
