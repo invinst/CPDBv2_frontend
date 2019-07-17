@@ -188,7 +188,7 @@ describe('landing page', function () {
     });
   });
 
-  describe.only('Header', function () {
+  describe('Header', function () {
     afterEach(function () {
       browser.scroll(0, 0);
     });
@@ -244,7 +244,7 @@ describe('landing page', function () {
       navBar.rightLinks.documents.getCssProperty('color').value.should.eql('rgba(118,118,118,1)');
     });
 
-    it.only('should render correctly at the bottom of the page', function () {
+    it('should render correctly at the bottom of the page', function () {
       browser.scroll(0, 9999);
       browser.pause(2000);
 
@@ -258,7 +258,6 @@ describe('landing page', function () {
       topBar.logo.subtitle.getCssProperty('color').value.should.eql('rgba(255,255,255,0.7)');
       topBar.demoVideo.upperText.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
       topBar.demoVideo.lowerText.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
-      console.log(topBar.demoVideo.playButtonThumbnail.selector)
       topBar.demoVideo.playButtonThumbnail.getCssProperty('outline').value.should.eql('rgba(255,255,255,0.5)solid5px');
       topBar.demoVideo.playButtonThumbnail.getAttribute('src').should.eql(
         'https://i.vimeocdn.com/video/797111186_100x75.jpg'

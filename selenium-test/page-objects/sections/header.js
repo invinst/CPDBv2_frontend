@@ -3,9 +3,8 @@ import Section from './section';
 
 class LogoSection extends Section {
   constructor(parentSelector) {
-    super(parentSelector);
+    super(parentSelector, '//div[@class="logo"]');
     this.prepareElementGetters({
-      mainElement: '//div[@class="logo"]',
       editButton: '//span[@class="top-button-wrapper"]//a[@class="hoverable-edit-wrapper-button"]',
       saveButton: '//span[@class="bottom-button-wrapper"]//a[@class="hoverable-edit-wrapper-button"]',
       cancelButton: '//span[@class="bottom-button-wrapper"]//a[@class="hoverable-edit-wrapper-button"][2]',
@@ -24,11 +23,10 @@ class LogoSection extends Section {
 
 class DemoVideoSection extends Section {
   constructor(parentSelector) {
-    super(parentSelector);
+    super(parentSelector, '//div[contains(@class, "demo-video__demo-video")]');
 
     const playButtonSelector = '//div[@class="demo-video-button"]';
     this.prepareElementGetters({
-      mainElement: '//div[contains(@class, "demo-video__demo-video")]',
       upperText: '//span[@class="demo-video-text-upper"]',
       lowerText: '//span[@class="demo-video-text-lower"]',
       playButton: playButtonSelector,
@@ -39,10 +37,9 @@ class DemoVideoSection extends Section {
 
 class TopBarSection extends Section {
   constructor(parentSelector) {
-    super(parentSelector);
+    super(parentSelector, '//div[@class="top-bar"]');
 
     this.prepareElementGetters({
-      mainElement: '//div[@class="top-bar"]',
       logo: LogoSection,
       demoVideo: DemoVideoSection,
     });
@@ -51,11 +48,10 @@ class TopBarSection extends Section {
 
 class SearchBoxSection extends Section {
   constructor(parentSelector) {
-    super(parentSelector);
+    super(parentSelector, '//div[contains(@class, "search-box__search-box")]');
 
     const searchMagnifyingGlassSelector = '//*[name()="svg" and contains(@class, "search-box-magnifying-glass")]';
     this.prepareElementGetters({
-      mainElement: '//div[contains(@class, "search-box__search-box")]',
       searchMagnifyingGlass: searchMagnifyingGlassSelector,
       searchMagnifyingGlassPath: `${searchMagnifyingGlassSelector}//*[name()="path"]`,
       searchText: '//span[@class="search-box-search-text"]',
@@ -67,10 +63,9 @@ class SearchBoxSection extends Section {
 
 class RightLinksSection extends Section {
   constructor(parentSelector) {
-    super(parentSelector);
+    super(parentSelector, '//div[contains(@class, "right-links__right-links")]');
 
     this.prepareElementGetters({
-      mainElement: '//div[contains(@class, "right-links__right-links")]',
       data: '//a[text()="Data"]',
       qa: '//a[text()="Q&A"]',
       documents: '//a[text()="Documents"]',
@@ -80,9 +75,8 @@ class RightLinksSection extends Section {
 
 class NavBarSection extends Section {
   constructor(parentSelector) {
-    super(parentSelector);
+    super(parentSelector, '//div[@class="navbar"]');
     this.prepareElementGetters({
-      mainElement: '//div[@class="navbar"]',
       logOutButton: '//a[contains(@class, "test--logout-button")]',
       searchBox: SearchBoxSection,
       rightLinks: RightLinksSection,
@@ -91,11 +85,10 @@ class NavBarSection extends Section {
 }
 
 class Header extends Section {
-  constructor(parentSelector, mainElementSelector='') {
-    super(parentSelector);
+  constructor(parentSelector, mainElementSelector) {
+    super(parentSelector, mainElementSelector);
 
     this.prepareElementGetters({
-      mainElement: mainElementSelector,
       topBar: TopBarSection,
       navBar: NavBarSection,
     });

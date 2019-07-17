@@ -155,10 +155,8 @@ class HeatMapSection extends Section {
 }
 
 class SearchSection extends Section {
-  mainElementSelector = '//div[contains(@class, "search-box__search-box")]';
-
-  constructor() {
-    super();
+  constructor(parentSelector='') {
+    super(parentSelector, '//div[contains(@class, "search-box__search-box")]');
     this.prepareElementGetters({
       sectionSearchTerm: '//span[@class="search-box-term"]',
     });

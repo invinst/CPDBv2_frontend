@@ -4,10 +4,9 @@ import Page from './page';
 import Section from './sections/section';
 
 class Breadcrumbs extends Section {
-  constructor() {
-    super();
+  constructor(parentSelector='') {
+    super(parentSelector, '//ul[@class="breadcrumbs"]');
     this.prepareElementGetters({
-      mainElement: '//ul[@class="breadcrumbs"]',
       items: '//li[contains(@class, "breadcrumbs-item")]',
       firstItem: '(//li[contains(@class, "breadcrumbs-item")])[1]',
       secondItem: '(//li[contains(@class, "breadcrumbs-item")])[2]',
@@ -17,10 +16,9 @@ class Breadcrumbs extends Section {
 }
 
 class HeaderButton extends Section {
-  constructor() {
-    super();
+  constructor(parentSelector='') {
+    super(parentSelector, '//div[contains(@class, "header-button")]');
     this.prepareElementGetters({
-      mainElement: '//div[contains(@class, "header-button")]',
       menu: '//div[contains(@class, "share-menu")]'
     });
   }
