@@ -344,7 +344,7 @@ describe('Pinboard Page', function () {
       pinboardPage.relevantCoaccusalsSection.coaccusalCards().should.have.length(20);
 
       pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.plusButton.click();
-      browser.pause(1050);
+      browser.pause(4500);
 
       pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.officerName.getText().should.not.equal(
         'Richard Sullivan'
@@ -462,7 +462,7 @@ describe('Pinboard Page', function () {
       pinboardPage.relevantDocumentsSection.documentCards().should.have.length(20);
 
       pinboardPage.relevantDocumentsSection.documentCardSection.plusButton.click();
-      browser.pause(1500);
+      browser.pause(4500);
 
       pinboardPage.relevantDocumentsSection.documentCards().should.have.length(20);
       pinboardPage.pinnedSection.crs.crCards().should.have.length(2);
@@ -546,13 +546,35 @@ describe('Pinboard Page', function () {
       );
 
       pinboardPage.relevantComplaintsSection.complaintCardSection.plusButton.click();
-      browser.pause(1050);
+      browser.pause(4500);
 
       pinboardPage.pinnedSection.crs.crCards().should.have.length(2);
       pinboardPage.relevantComplaintsSection.complaintCardSection.category.getText().should.not.equal(
         'Lockup Procedures'
       );
     });
+  });
+});
+
+describe('Undo card', function () {
+  beforeEach(function () {
+    pinboardPage.open();
+  });
+
+  it('should show undo card when user click on unpin button', function () {
+    pinboardPage.pinnedSection.officers.firstCardUnpinBtn.click();
+    pinboardPage.pinnedSection.officers.undoCard.waitForVisible();
+
+    // card disappear after 4s
+    browser.pause(4500);
+    pinboardPage.pinnedSection.officers.officerCards().should.have.length(0);
+  });
+
+  it('should show card when user click on undo button', function () {
+    pinboardPage.pinnedSection.officers.firstCardUnpinBtn.click();
+    pinboardPage.pinnedSection.officers.undoCard.waitForVisible();
+    pinboardPage.pinnedSection.officers.undoCard.click();
+    pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
   });
 });
 

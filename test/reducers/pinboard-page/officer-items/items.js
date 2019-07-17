@@ -209,6 +209,36 @@ describe('Pinboard officerItemsReducer', function () {
     }]);
   });
 
+  it('should handle REMOVE_ITEM_IN_PINBOARD_PAGE with API_ONLY mode', function () {
+    officerItemsReducer(
+      [{
+        'id': 1,
+      }, {
+        'id': 2,
+        'full_name': 'Jerome Finnigan',
+        'rank': 'Officer',
+        'complaint_count': 3,
+        'percentile': null,
+      }],
+      {
+        type: constants.REMOVE_ITEM_IN_PINBOARD_PAGE,
+        payload: {
+          type: 'OFFICER',
+          id: '2',
+          mode: constants.PINBOARD_ITEM_REMOVE_MODE.API_ONLY
+        }
+      }
+    ).should.deepEqual([{
+      'id': 1,
+    }, {
+      'id': 2,
+      'full_name': 'Jerome Finnigan',
+      'rank': 'Officer',
+      'complaint_count': 3,
+      'percentile': null,
+    }]);
+  });
+
   it('should handle ORDER_PINBOARD', function () {
     officerItemsReducer(
       [{
