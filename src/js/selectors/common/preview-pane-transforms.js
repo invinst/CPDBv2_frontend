@@ -1,10 +1,10 @@
-import { get, sumBy, map, last, kebabCase, has } from 'lodash';
+import { get, sumBy, map, last, kebabCase, has, isEmpty } from 'lodash';
 import moment from 'moment';
 
 import { extractPercentile } from 'selectors/common/percentile';
 import { getCurrentAge, formatDate } from 'utils/date';
 import { roundedPercentile } from 'utils/calculations';
-import { FULL_MONTH_DATE_FORMAT } from 'utils/constants';
+import { DATE_FORMAT, FULL_MONTH_DATE_FORMAT } from 'utils/constants';
 import { getDemographicString } from 'utils/victims';
 import {
   navigationItemTransform as previewPaneNavigationItemTransform
@@ -120,15 +120,19 @@ const crTransform = (item) => {
 };
 
 const trrTransform = (item) => {
+  const incidentDate = !isEmpty(item['trr_datetime']) ? moment(item['trr_datetime']).format(DATE_FORMAT) : '';
   const dateText = item['trr_datetime'] ? ` - ${moment(item['trr_datetime']).format(FULL_MONTH_DATE_FORMAT)}` : '';
   const officer = item['officer'];
   const firearmUsed = item['firearm_used'];
   const taser = item['taser'];
+  const category = has(item, 'category') ? item['category'] :
+    firearmUsed ? 'Firearm' : taser ? 'Taser' : 'Use of Force Report';
+
   return {
     subText: `TRR # ${item.id}${dateText}`,
     to: item.to,
-    category: firearmUsed ? 'Firearm' : taser ? 'Taser' : 'Use of Force Report',
-    incidentDate: item['trr_datetime'],
+    category,
+    incidentDate,
     address: item.address,
     officer: officer ? accusedTransform(officer) : null,
   };
