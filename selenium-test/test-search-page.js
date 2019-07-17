@@ -579,6 +579,8 @@ describe('Search Page', function () {
       searchPage.trrPreviewPaneSection.address.getText().should.eql('3000 Michigan Ave');
       searchPage.trrPreviewPaneSection.officerHeader.getText().should.eql('OFFICER');
       searchPage.trrPreviewPaneSection.officerLink.count.should.eql(1);
+      searchPage.trrPreviewPaneSection.officerName.getText().should.equal('Jesse Pinkman');
+      searchPage.trrPreviewPaneSection.officerAllegationCount.getText().should.equal('1 allegation');
     });
 
     it('should go to trr page when being clicked', function () {

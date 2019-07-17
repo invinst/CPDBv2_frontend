@@ -59,7 +59,6 @@ class TRRPreviewPaneSection extends Section {
     this.prepareElementGetters({
       callToAction: '//div[contains(@class, "new-call-to-action-widget")]',
       wrapper: '//div[starts-with(@class, "preview-pane")]',
-      gradient: '.widget-wrapper-gradient',
       title: '.trr-preview-pane-title-title',
       incidentDate: '//div[@class="trr-preview-pane-info-row"][1]',
       address: '//div[@class="trr-preview-pane-info-row"][2]',
