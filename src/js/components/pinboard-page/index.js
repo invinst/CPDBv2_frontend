@@ -163,8 +163,6 @@ PinboardPage.propTypes = {
   }),
   updatePathName: PropTypes.func,
   examplePinboards: PropTypes.array,
-  addItemInPinboardPage: PropTypes.func,
-  removeItemInPinboardPage: PropTypes.func,
   addOrRemoveItemInPinboardFromPreviewPane: PropTypes.func,
 };
 
@@ -172,7 +170,5 @@ PinboardPage.defaultProps = {
   focusedItem: {},
   focusItem: noop,
   pushBreadcrumbs: noop,
-  addItemInPinboardPage: noop,
-  removeItemInPinboardPage: noop,
   addOrRemoveItemInPinboardFromPreviewPane: noop,
 };
