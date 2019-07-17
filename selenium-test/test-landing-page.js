@@ -116,10 +116,20 @@ describe('landing page', function () {
 
     describe('Pair cards', function () {
       it('should go to officer summary page when clicking on left half of the pair card', function () {
+        browser.setViewportSize({
+          width: 1500,
+          height: 1200,
+        });
+
         const firstPairCardLeftHalf = landingPage.recentActivityCarousel.firstPairCardLeftHalf;
         firstPairCardLeftHalf.click();
         browser.pause(500);
         browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/?$/);
+
+        browser.setViewportSize({
+          width: 1000,
+          height: 1000,
+        });
       });
 
       it('should go to officer summary page when clicking on right half of the pair card', function () {
