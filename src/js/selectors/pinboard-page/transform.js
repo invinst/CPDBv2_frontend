@@ -32,6 +32,7 @@ export const relevantComplaintTransform = allegation => ({
   incidentDate: formatDate(allegation['incident_date'], false),
   officers: (allegation.coaccused || []).map(officerTransform),
   point: allegation.point,
+  rawData: allegation,
 });
 
 export const relevantDocumentTransform = (document, crids) => ({
@@ -48,4 +49,5 @@ export const relevantCoaccusalTransform = coaccusal => ({
   coaccusalCount: coaccusal['coaccusal_count'],
   complaintCount: coaccusal['allegation_count'],
   percentile: extractPercentile(coaccusal.percentile),
+  rawData: coaccusal,
 });

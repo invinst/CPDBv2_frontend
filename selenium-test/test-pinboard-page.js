@@ -352,6 +352,44 @@ describe('Pinboard Page', function () {
       pinboardPage.relevantCoaccusalsSection.coaccusalCards().should.have.length(19);
       pinboardPage.pinnedSection.officers.officerCards().should.have.length(2);
     });
+
+    it('should supply enough data to pinned section if user pin it', function () {
+      pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
+      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.plusButton.click();
+      browser.pause(4500);
+
+      pinboardPage.pinnedSection.officers.officerCards().should.have.length(2);
+      pinboardPage.pinnedSection.officers.secondCardName.click();
+      pinboardPage.officerPreviewPane.pinButton.getText().should.equal('Add to pinboard');
+      pinboardPage.officerPreviewPane.viewOfficerButton.getText().should.equal('View Officer Profile');
+      pinboardPage.officerPreviewPane.officerName.getText().should.equal('Richard Sullivan');
+      pinboardPage.officerPreviewPane.genericInfo.getText().should.equal('67 year old, black, female.');
+      pinboardPage.officerPreviewPane.badgeKey.getText().should.equal('Badge');
+      pinboardPage.officerPreviewPane.badgeValue.getText().should.equal('456');
+      pinboardPage.officerPreviewPane.rankKey.getText().should.equal('Rank');
+      pinboardPage.officerPreviewPane.rankValue.getText().should.equal('Detective');
+      pinboardPage.officerPreviewPane.unitKey.getText().should.equal('Unit');
+      pinboardPage.officerPreviewPane.unitValue.getText().should.equal('District 004');
+      pinboardPage.officerPreviewPane.careerKey.getText().should.equal('Career');
+      pinboardPage.officerPreviewPane.allegationValue.getText().should.equal('1');
+      pinboardPage.officerPreviewPane.allegationName.getText().should.equal('Allegations');
+      pinboardPage.officerPreviewPane.allegationDescription.getText().should.equal('More than 22% of other officers');
+      pinboardPage.officerPreviewPane.sustainedValue.getText().should.equal('4');
+      pinboardPage.officerPreviewPane.sustainedName.getText().should.equal('Sustained');
+      pinboardPage.officerPreviewPane.sustainedDescription.getText().should.equal('6 Disciplined');
+      pinboardPage.officerPreviewPane.trrValue.getText().should.equal('7');
+      pinboardPage.officerPreviewPane.trrName.getText().should.equal('Use of Force Reports');
+      pinboardPage.officerPreviewPane.trrDescription.getText().should.equal('More than 11% of other officers');
+      pinboardPage.officerPreviewPane.allegationCivilianValue.getText().should.equal('2');
+      pinboardPage.officerPreviewPane.allegationCivilianName.getText().should.equal('Civilian\nCompliments');
+      pinboardPage.officerPreviewPane.majorAwardValue.getText().should.equal('8');
+      pinboardPage.officerPreviewPane.majorAwardName.getText().should.equal('Major Awards');
+      pinboardPage.officerPreviewPane.honorableMentionValue.getText().should.equal('3');
+      pinboardPage.officerPreviewPane.honorableMentionName.getText().should.equal('Honorable Mentions');
+      pinboardPage.officerPreviewPane.honorableMentionDescription.getText().should.equal(
+        'More than 88% of other officers'
+      );
+    });
   });
 
   context('relevant documents section', function () {

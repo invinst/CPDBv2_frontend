@@ -10,12 +10,7 @@ import {
 } from 'utils/constants';
 
 
-const toRawCR = item => ({
-  'crid': item.id,
-  'incident_date': item.incidentDate,
-  'most_common_category': item.category,
-  'point': item.point,
-});
+const toRawCR = item => item.rawData;
 
 export default handleActions({
   [PINBOARD_COMPLAINTS_FETCH_REQUEST_SUCCESS]: (state, action) => action.payload,

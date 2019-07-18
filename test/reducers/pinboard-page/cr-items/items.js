@@ -29,9 +29,12 @@ describe('crItemsReducer', function () {
         payload: {
           type: 'CR',
           id: '2',
-          incidentDate: 'Apr 4, 2017',
-          category: 'Use Of Force',
-          point: { 'lon': 1.0, 'lat': 2.0 },
+          rawData: {
+            'crid': '2',
+            'incident_date': 'Apr 4, 2017',
+            'most_common_category': 'Use Of Force',
+            'point': { 'lon': 1.0, 'lat': 2.0 },
+          }
         }
       }
     ).should.deepEqual([{
@@ -52,9 +55,12 @@ describe('crItemsReducer', function () {
         payload: {
           type: 'CR',
           id: '1',
-          incidentDate: 'Apr 4, 2017',
-          category: 'Use Of Force',
-          point: { 'lon': 1.0, 'lat': 2.0 },
+          rawData: {
+            'crid': '1',
+            'incident_date': 'Apr 4, 2017',
+            'most_common_category': 'Use Of Force',
+            'point': { 'lon': 1.0, 'lat': 2.0 },
+          }
         }
       }
     ).should.deepEqual([{ 'crid': '1' }]);
@@ -68,10 +74,13 @@ describe('crItemsReducer', function () {
         payload: {
           type: 'OFFICER',
           id: '2',
-          complaintCount: 3,
-          fullName: 'Jerome Finnigan',
-          percentile: {},
-          rank: 'Officer',
+          rawData: {
+            'id': 2,
+            'full_name': 'Jerome Finnigan',
+            'rank': 'Officer',
+            'complaint_count': 3,
+            'percentile': null,
+          }
         }
       }
     ).should.deepEqual([{ 'crid': '1' }]);
