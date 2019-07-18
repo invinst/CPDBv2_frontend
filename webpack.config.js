@@ -2,7 +2,7 @@
 
 const path = require('path');
 
-const allowedEnvs = ['dev', 'prod', 'staging', 'test', 'live-test'];
+const allowedEnvs = ['dev', 'prod', 'beta', 'staging', 'test', 'live-test'];
 
 let env = process.env['CPDB_APP_ENV'];
 let isValid = env && env.length > 0 && allowedEnvs.indexOf(env) !== -1;
