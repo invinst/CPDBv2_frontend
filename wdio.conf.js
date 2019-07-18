@@ -139,7 +139,7 @@ exports.config = {
     ui: 'bdd',
     timeout: 2000000,
     compilers: ['js:babel-register'],
-    retries: process.env.CPDB_APP_ENV === 'live-test' ? 0 : 3,
+    retries: 3,
   },
   //
   // =====
