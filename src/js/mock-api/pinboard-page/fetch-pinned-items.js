@@ -29,7 +29,7 @@ export const fetchPinboardOfficers = () => ([
     'date_of_appt': '2000-01-02',
     'date_of_resignation': '2010-02-03',
     'badge': '456',
-    'to': '/officer/11/jerome-finnigan/',
+    'to': '/officer/1234/daryl-mack/',
     'unit': {
       'id': 4,
       'unit_name': '004',

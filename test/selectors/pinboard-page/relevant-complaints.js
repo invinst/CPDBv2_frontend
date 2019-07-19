@@ -68,7 +68,12 @@ describe('RelevantComplaints selectors', function () {
               next: '/pinboards/66ef1560/relevant-complaints/?limit=20&offset=20',
               previous: null
             },
-          }
+          },
+          pinItemFromPreviewPane: {
+            type: 'CR',
+            id: '1085121',
+            isPinned: true,
+          },
         }
       };
 
@@ -92,6 +97,7 @@ describe('RelevantComplaints selectors', function () {
             textColor: '#DFDFDF',
           },
         }],
+        isPinStatusChanging: true,
         rawData: complaint1,
       },
       {
@@ -128,6 +134,7 @@ describe('RelevantComplaints selectors', function () {
             textColor: '#231F20',
           },
         }],
+        isPinStatusChanging: false,
         rawData: complaint2,
       }]);
     });

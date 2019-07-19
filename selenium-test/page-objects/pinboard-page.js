@@ -140,6 +140,7 @@ class CoaccusalCardSection extends Section {
       officerRank: `${this.mainElementSelector}//p[contains(@class, "officer-card-rank")]`,
       officerName: `${this.mainElementSelector}//p[contains(@class, "officer-card-name")]`,
       coaccusalCount: `${this.mainElementSelector}//div[contains(@class, "coaccusal-count")]`,
+      undoCard: '.test--undo-card',
     });
   }
 }
@@ -267,7 +268,6 @@ class OfficerPreviewPane extends Section {
       communityPane: '.test--preview-pane-community',
       neighborhoodPane: '.test--preview-pane-neighborhood',
       listMostOfficers: '//*[starts-with(@class, "preview-pane")]//*[contains(@class,"list-widget-item-link")]',
-      previewPane: '//div[starts-with(@class, "preview-pane")]',
       pinButton: '.pin-button',
       viewOfficerButton: '.view-officer-profile-button',
       officerName: '.test--officer-name',

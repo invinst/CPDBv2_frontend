@@ -302,6 +302,7 @@ describe('store', function () {
         timelineIdx: 0,
         refreshIntervalId: null,
         focusedItem: {},
+        pinItemFromPreviewPane: {},
       },
       toast: {},
     });

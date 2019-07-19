@@ -81,11 +81,12 @@ describe('Pinboard Page transform selectors', function () {
               ],
               visualTokenBackground: '#f0201e',
               textColor: '#DFDFDF',
-            }
+            },
           }],
+          isPinStatusChanging: false,
           rawData: allegation,
         },
-        pinned: false,
+        pinned: false
       });
     });
 
@@ -113,6 +114,7 @@ describe('Pinboard Page transform selectors', function () {
           incidentDate: 'Apr 4, 2015',
           officers: [],
           point: null,
+          isPinStatusChanging: false,
           rawData: allegation,
         },
         pinned: true,
@@ -187,6 +189,7 @@ describe('Pinboard Page transform selectors', function () {
             shortName: 'LastNameeeeeeeeeeeeeee',
             percentile: null,
           }],
+          isPinStatusChanging: false,
           rawData: allegation,
         },
         pinned: false,
@@ -227,6 +230,7 @@ describe('Pinboard Page transform selectors', function () {
           visualTokenBackground: '#f9946b',
           textColor: '#231F20',
         },
+        isPinStatusChanging: false,
         rawData: coaccusal,
       });
     });
@@ -274,6 +278,7 @@ describe('Pinboard Page transform selectors', function () {
             textColor: '#DFDFDF',
           },
         }],
+        isPinStatusChanging: false,
         rawData: complaint,
       });
     });

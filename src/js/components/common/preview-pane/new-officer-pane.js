@@ -167,7 +167,7 @@ OfficerPane.propTypes = {
 };
 
 OfficerPane.defaultProps = {
-  id: 123456,
+  id: 0,
   yScrollable: false,
   isPinned: false,
   type: '',

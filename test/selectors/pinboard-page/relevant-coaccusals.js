@@ -48,7 +48,11 @@ describe('RelevantCoaccusals selectors', function () {
               next: '/pinboards/66ef1560/relevant-coaccusals/?limit=20&offset=20',
               previous: null
             },
-          }
+          },
+          pinItemFromPreviewPane: {
+            type: 'OFFICER',
+            id: 2433,
+          },
         }
       };
 
@@ -68,6 +72,7 @@ describe('RelevantCoaccusals selectors', function () {
           visualTokenBackground: '#f9946b',
           textColor: '#231F20',
         },
+        isPinStatusChanging: false,
         rawData: rawCoaccusal1,
       }, {
         id: 2433,
@@ -85,6 +90,7 @@ describe('RelevantCoaccusals selectors', function () {
           visualTokenBackground: '#f64016',
           textColor: '#231F20'
         },
+        isPinStatusChanging: true,
         rawData: rawCoaccusal2,
       }]);
     });

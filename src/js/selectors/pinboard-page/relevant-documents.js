@@ -1,17 +1,19 @@
 import { createSelector } from 'reselect';
+import { map } from 'lodash';
 
 import extractQuery from 'utils/extract-query';
 import { relevantDocumentTransform } from './transform';
 import { pinboardICRIDsSelector } from 'selectors/pinboard-page/pinboard';
 
 const getRelevantDocumentsPagination = state => state.pinboardPage.relevantDocuments;
-
+const pinItemFromPreviewPane = state => state.pinboardPage.pinItemFromPreviewPane;
 export const getRequesting = state => state.pinboardPage.relevantDocuments.requesting;
 
 export const relevantDocumentsSelector = createSelector(
   getRelevantDocumentsPagination,
   pinboardICRIDsSelector,
-  ({ items }, crids) => items.map(item => relevantDocumentTransform(item, crids))
+  pinItemFromPreviewPane,
+  ({ items }, crids, updatingItem) => map(items, item => relevantDocumentTransform(item, crids, updatingItem))
 );
 
 const relevantDocumentsCountSelector = createSelector(
