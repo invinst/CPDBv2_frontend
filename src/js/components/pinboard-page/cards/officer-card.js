@@ -17,6 +17,14 @@ export default class OfficerCard extends Component {
     this.focusItem = this.focusItem.bind(this);
   }
 
+  componentDidUpdate() {
+    const { item } = this.props;
+
+    if (item.isPinStatusChanging) {
+      this.removeItem();
+    }
+  }
+
   removeItem() {
     const { item, removeItemInPinboardPage } = this.props;
     const { type, id } = item;
@@ -67,11 +75,13 @@ export default class OfficerCard extends Component {
 OfficerCard.propTypes = {
   item: PropTypes.object,
   removeItemInPinboardPage: PropTypes.func,
+  addItemInPinboardPage: PropTypes.func,
   focusItem: PropTypes.func,
 };
 
 OfficerCard.defaultProps = {
   removeItemInPinboardPage: noop,
+  addItemInPinboardPage: noop,
   focusItem: noop,
 };
 
@@ -79,5 +89,9 @@ OfficerCard.defaultProps = {
 export const OfficerCardWithUndo = withUndoCard(
   OfficerCard,
   props => `${get(props, 'item.fullName', '')} removed.`,
-  'removeItemInPinboardPage'
+  'removeItemInPinboardPage',
+  {
+    isRequestDelay: false,
+    revertActionName: 'addItemInPinboardPage',
+  }
 );

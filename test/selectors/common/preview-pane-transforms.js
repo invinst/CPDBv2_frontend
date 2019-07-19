@@ -647,7 +647,7 @@ describe('search page transforms', function () {
         data: {
           subText: 'TRR # 123456 - February 3, 2017',
           category: 'Firearm',
-          incidentDate: '2017-02-03',
+          incidentDate: 'Feb 03, 2017',
           address: '14XX W 63RD ST, CHICAGO IL 60636',
           officer: {
             id: 16567,

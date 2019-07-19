@@ -29,7 +29,9 @@ import {
   fetchPinboardComplaints,
   fetchPinboardOfficers,
   fetchPinboardTRRs,
-  fetchPinboardGeographicData,
+  fetchPinboardGeographic,
+  fetchFirstPagePinboardGeographicTrrs,
+  fetchFirstPagePinboardGeographicCrs,
   fetchPinboardSocialGraph,
   fetchPinboardRelevantDocuments,
   fetchPinboardRelevantCoaccusals,
@@ -380,7 +382,9 @@ describe('fetchPageInitialData middleware', function () {
     store.dispatch.calledWith(fetchPinboardOfficers('268a5e58')).should.be.true();
     store.dispatch.calledWith(fetchPinboardTRRs('268a5e58')).should.be.true();
     store.dispatch.calledWith(fetchPinboardSocialGraph('268a5e58')).should.be.true();
-    store.dispatch.calledWith(fetchPinboardGeographicData('268a5e58')).should.be.true();
+    store.dispatch.should.be.calledWith(fetchPinboardGeographic());
+    store.dispatch.should.be.calledWith(fetchFirstPagePinboardGeographicCrs({ 'pinboard_id': '268a5e58' }));
+    store.dispatch.should.be.calledWith(fetchFirstPagePinboardGeographicTrrs({ 'pinboard_id': '268a5e58' }));
     store.dispatch.should.be.calledWith(fetchPinboardRelevantDocuments('268a5e58'));
     store.dispatch.should.be.calledWith(fetchPinboardRelevantCoaccusals('268a5e58'));
     store.dispatch.should.be.calledWith(fetchPinboardRelevantComplaints('268a5e58'));

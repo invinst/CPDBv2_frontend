@@ -3,6 +3,7 @@ import {
   mapMarkersSelector,
   geographicAllegationSelector,
   geographicTRRSelector,
+  isRequestedSelector,
 } from 'selectors/social-graph-page/geographic-data';
 
 
@@ -12,7 +13,9 @@ describe('GeographicData selectors', function () {
       const state = {
         socialGraphPage: {
           geographicData: {
-            mapData: [
+            mapCrsDataTotalCount: 5,
+            mapTrrsDataTotalCount: 2,
+            mapCrsData: [
               {
                 category: 'Illegal Search',
                 kind: 'CR',
@@ -34,6 +37,8 @@ describe('GeographicData selectors', function () {
                 crid: '294621',
                 'coaccused_count': 11,
               },
+            ],
+            mapTrrsData: [
               {
                 'trr_id': '123456',
                 kind: 'FORCE',
@@ -46,13 +51,15 @@ describe('GeographicData selectors', function () {
                 taser: true,
                 'firearm_used': false,
               }
-            ]
+            ],
           }
         }
       };
       mapLegendSelector(state).should.eql({
         allegationCount: 3,
         useOfForceCount: 2,
+        allegationLoading: true,
+        useOfForceLoading: false,
       });
     });
   });
@@ -93,7 +100,8 @@ describe('GeographicData selectors', function () {
       const state = {
         socialGraphPage: {
           geographicData: {
-            mapData: [firstCr, secondCr, trr]
+            mapCrsData: [firstCr, secondCr],
+            mapTrrsData: [trr],
           }
         }
       };
@@ -133,7 +141,7 @@ describe('GeographicData selectors', function () {
       const state = {
         socialGraphPage: {
           geographicData: {
-            previewPaneData: [
+            previewPaneCrsData: [
               {
                 'incident_date': '2006-10-24',
                 'crid': '123456',
@@ -215,7 +223,7 @@ describe('GeographicData selectors', function () {
       const state = {
         socialGraphPage: {
           geographicData: {
-            previewPaneData: [
+            previewPaneTrrsData: [
               {
                 'date': '2006-10-24',
                 'trr_id': 123456,
@@ -258,6 +266,44 @@ describe('GeographicData selectors', function () {
         },
         to: '/trr/123456/'
       });
+    });
+  });
+
+  describe('isRequestedSelector', function () {
+    it('should return true if both CR and TRR data are loaded', function () {
+      const state = {
+        socialGraphPage: {
+          geographicData: {
+            isCrsRequested: true,
+            isTrrsRequested: true
+          }
+        }
+      };
+      isRequestedSelector(state).should.be.true();
+    });
+
+    it('should return false if neither CR nor TRR are loaded', function () {
+      const state = {
+        socialGraphPage: {
+          geographicData: {
+            isCrsRequested: false,
+            isTrrsRequested: false,
+          }
+        }
+      };
+      isRequestedSelector(state).should.be.false();
+    });
+
+    it('should return false if only CR or TRR is loaded', function () {
+      const state = {
+        socialGraphPage: {
+          geographicData: {
+            isCrsRequested: false,
+            isTrrsRequested: true,
+          }
+        }
+      };
+      isRequestedSelector(state).should.be.false();
     });
   });
 });

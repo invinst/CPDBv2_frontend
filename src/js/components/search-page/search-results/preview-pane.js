@@ -57,6 +57,7 @@ export default class PreviewPane extends Component {
       'DATE > CR': crPaneFunc,
       'INVESTIGATOR > CR': crPaneFunc,
       TRR: trrPaneFunc,
+      'DATE > TRR': trrPaneFunc,
     };
     return get(paneTypes, type, () => null)();
   }

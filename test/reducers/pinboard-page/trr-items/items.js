@@ -60,6 +60,20 @@ describe('Pinboard trrItemsReducer', function () {
     ).should.deepEqual([{ 'id': 1 }, { 'id': 2 }]);
   });
 
+  it('should handle REMOVE_ITEM_IN_PINBOARD_PAGE with API_ONLY mode', function () {
+    trrItemsReducer(
+      [{ 'id': 1 }, { 'id': 2 }],
+      {
+        type: constants.REMOVE_ITEM_IN_PINBOARD_PAGE,
+        payload: {
+          type: 'TRR',
+          id: '2',
+          mode: constants.PINBOARD_ITEM_REMOVE_MODE.API_ONLY,
+        }
+      }
+    ).should.deepEqual([{ 'id': 1 }, { 'id': 2 }]);
+  });
+
   it('should handle ORDER_PINBOARD', function () {
     trrItemsReducer(
       [{ 'id': 1 }, { 'id': 2 }],

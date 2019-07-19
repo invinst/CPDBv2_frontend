@@ -152,7 +152,20 @@ export const groupedSuggestions = {
           id: '123',
           to: '/trr/123/',
           'force_type': 'Member Presence',
-          'trr_datetime': '2004-04-27'
+          'trr_datetime': '2004-04-27',
+          'category': 'Taser',
+          'address': '3000 Michigan Ave',
+          'officer': {
+            'id': 1,
+            'full_name': 'Jesse Pinkman',
+            'allegation_count': 1,
+            'percentile': {
+              'id': 1,
+              'percentile_trr': '3.3000',
+              'percentile_allegation_civilian': '1.1000',
+              'percentile_allegation_internal': '2.2000',
+            },
+          }
         }
       ),
       RawTRRSuggestion.build(
@@ -160,7 +173,20 @@ export const groupedSuggestions = {
           id: '456',
           to: '/trr/456/',
           'force_type': null,
-          'trr_datetime': null
+          'trr_datetime': null,
+          'category': 'Firearm',
+          'address': '4000 Michigan Ave',
+          'officer': {
+            'id': 2,
+            'full_name': 'Lorem Ipsum',
+            'allegation_count': 2,
+            'percentile': {
+              'id': 2,
+              'percentile_trr': '4.4000',
+              'percentile_allegation_civilian': '5.5000',
+              'percentile_allegation_internal': '6.6000',
+            },
+          }
         }
       )
     ]
@@ -234,7 +260,20 @@ export const groupedSuggestions = {
           id: '123',
           to: '/trr/123/',
           'force_type': 'Member Presence',
-          'trr_datetime': '2004-04-23'
+          'trr_datetime': '2004-04-23',
+          'category': 'Taser',
+          'address': '3000 Michigan Ave',
+          'officer': {
+            'id': 1,
+            'full_name': 'Jesse Pinkman',
+            'allegation_count': 1,
+            'percentile': {
+              'id': 1,
+              'percentile_trr': '3.3000',
+              'percentile_allegation_civilian': '1.1000',
+              'percentile_allegation_internal': '2.2000',
+            },
+          }
         }
       ),
       RawTRRSuggestion.build(
@@ -242,7 +281,20 @@ export const groupedSuggestions = {
           id: '456',
           to: '/trr/456/',
           'force_type': null,
-          'trr_datetime': '2004-04-23'
+          'trr_datetime': '2004-04-23',
+          'category': 'Firearm',
+          'address': '4000 Michigan Ave',
+          'officer': {
+            'id': 2,
+            'full_name': 'Lorem Ipsum',
+            'allegation_count': 2,
+            'percentile': {
+              'id': 2,
+              'percentile_trr': '4.4000',
+              'percentile_allegation_civilian': '5.5000',
+              'percentile_allegation_internal': '6.6000',
+            },
+          }
         }
       )
     ],

@@ -17,10 +17,15 @@ import {
   fetchPinboardRelevantDocuments,
   fetchPinboardRelevantCoaccusals,
   fetchPinboardRelevantComplaints,
-  fetchPinboardGeographicData,
+  fetchFirstPagePinboardGeographicCrs,
+  fetchOtherPagesPinboardGeographicCrs,
+  fetchFirstPagePinboardGeographicTrrs,
+  fetchOtherPagesPinboardGeographicTrrs,
   removeItemInPinboardPage,
   addItemInPinboardPage,
   fetchLatestRetrievedPinboard,
+  savePinboardWithoutChangingState,
+  handleRemovingItemInPinboardPage,
 } from 'actions/pinboard';
 import * as constants from 'utils/constants';
 
@@ -338,19 +343,82 @@ describe('pinboard actions', function () {
     });
   });
 
-  describe('fetchPinboardGeographicData', function () {
+  describe('fetchFirstPagePinboardGeographicCrs', function () {
     it('should return correct action', function () {
-      fetchPinboardGeographicData('268a5e58').should.deepEqual({
+      fetchFirstPagePinboardGeographicCrs({ 'pinboard_id': '268a5e58' }).should.deepEqual({
         types: [
-          constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_START,
-          constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_SUCCESS,
-          constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_FAILURE,
-          constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_CANCELLED,
+          constants.FIRST_PAGE_PINBOARD_GEOGRAPHIC_CRS_FETCH_REQUEST_START,
+          constants.FIRST_PAGE_PINBOARD_GEOGRAPHIC_CRS_FETCH_REQUEST_SUCCESS,
+          constants.FIRST_PAGE_PINBOARD_GEOGRAPHIC_CRS_FETCH_REQUEST_FAILURE,
+          constants.FIRST_PAGE_PINBOARD_GEOGRAPHIC_CRS_FETCH_REQUEST_CANCELLED,
         ],
         payload: {
           request: {
-            url: `${constants.SOCIAL_GRAPH_GEOGRAPHIC_API_URL}?pinboard_id=268a5e58`,
-            params: undefined,
+            url: constants.SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
+            params: { 'pinboard_id': '268a5e58' },
+            adapter: null,
+            cancelToken: 'token',
+          }
+        }
+      });
+    });
+  });
+
+  describe('fetchOtherPagesPinboardGeographicCrs', function () {
+    it('should return correct action', function () {
+      fetchOtherPagesPinboardGeographicCrs({ 'pinboard_id': '268a5e58' }).should.deepEqual({
+        types: [
+          constants.PINBOARD_GEOGRAPHIC_CRS_FETCH_REQUEST_START,
+          constants.PINBOARD_GEOGRAPHIC_CRS_FETCH_REQUEST_SUCCESS,
+          constants.PINBOARD_GEOGRAPHIC_CRS_FETCH_REQUEST_FAILURE,
+          constants.PINBOARD_GEOGRAPHIC_CRS_FETCH_REQUEST_CANCELLED,
+        ],
+        payload: {
+          request: {
+            url: constants.SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
+            params: { 'pinboard_id': '268a5e58' },
+            adapter: null,
+            cancelToken: 'token',
+          }
+        }
+      });
+    });
+  });
+
+  describe('fetchFirstPagePinboardGeographicTrrs', function () {
+    it('should return correct action', function () {
+      fetchFirstPagePinboardGeographicTrrs({ 'pinboard_id': '268a5e58' }).should.deepEqual({
+        types: [
+          constants.FIRST_PAGE_PINBOARD_GEOGRAPHIC_TRRS_FETCH_REQUEST_START,
+          constants.FIRST_PAGE_PINBOARD_GEOGRAPHIC_TRRS_FETCH_REQUEST_SUCCESS,
+          constants.FIRST_PAGE_PINBOARD_GEOGRAPHIC_TRRS_FETCH_REQUEST_FAILURE,
+          constants.FIRST_PAGE_PINBOARD_GEOGRAPHIC_TRRS_FETCH_REQUEST_CANCELLED,
+        ],
+        payload: {
+          request: {
+            url: constants.SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL,
+            params: { 'pinboard_id': '268a5e58' },
+            adapter: null,
+            cancelToken: 'token',
+          }
+        }
+      });
+    });
+  });
+
+  describe('fetchOtherPagesPinboardGeographicTrrs', function () {
+    it('should return correct action', function () {
+      fetchOtherPagesPinboardGeographicTrrs({ 'pinboard_id': '268a5e58' }).should.deepEqual({
+        types: [
+          constants.PINBOARD_GEOGRAPHIC_TRRS_FETCH_REQUEST_START,
+          constants.PINBOARD_GEOGRAPHIC_TRRS_FETCH_REQUEST_SUCCESS,
+          constants.PINBOARD_GEOGRAPHIC_TRRS_FETCH_REQUEST_FAILURE,
+          constants.PINBOARD_GEOGRAPHIC_TRRS_FETCH_REQUEST_CANCELLED,
+        ],
+        payload: {
+          request: {
+            url: constants.SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL,
+            params: { 'pinboard_id': '268a5e58' },
             adapter: null,
             cancelToken: 'token',
           }
@@ -503,6 +571,48 @@ describe('pinboard actions', function () {
             adapter: null,
             cancelToken: undefined,
           }
+        }
+      });
+    });
+  });
+
+  describe('savePinboardWithoutChangingState', function () {
+    it('should return correct action', function () {
+      savePinboardWithoutChangingState({
+        id: 1,
+        title: 'Pinboard Title',
+        'officer_ids': [12],
+        crids: ['abc'],
+        'trr_ids': [1],
+        description: 'Description',
+        isPinboardRestored: false,
+      }).should.deepEqual({
+        type: constants.SAVE_PINBOARD_WITHOUT_CHANGING_STATE,
+        payload: {
+          id: 1,
+          title: 'Pinboard Title',
+          'officer_ids': [12],
+          crids: ['abc'],
+          'trr_ids': [1],
+          description: 'Description',
+          isPinboardRestored: false,
+        },
+      });
+    });
+  });
+
+  describe('handleRemovingItemInPinboardPage', function () {
+    it('should return correct action', function () {
+      handleRemovingItemInPinboardPage({
+        id: 1,
+        type: 'OFFICER',
+        mode: constants.PINBOARD_ITEM_REMOVE_MODE.STATE_ONLY,
+      }).should.deepEqual({
+        type: constants.HANDLE_REMOVING_ITEM_IN_PINBOARD_PAGE,
+        payload: {
+          id: 1,
+          type: 'OFFICER',
+          mode: constants.PINBOARD_ITEM_REMOVE_MODE.STATE_ONLY,
         }
       });
     });

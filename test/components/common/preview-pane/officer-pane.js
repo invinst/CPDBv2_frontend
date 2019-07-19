@@ -11,7 +11,7 @@ import { stub } from 'sinon';
 import { browserHistory } from 'react-router';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
-import OfficerPane from 'components/common/preview-pane/officer-pane';
+import { NewOfficerPane as OfficerPane } from 'components/common/preview-pane';
 import {
   NewVisualTokenWidget as VisualTokenWidget,
   NewOfficerInfoWidget as OfficerInfoWidget,
@@ -19,10 +19,10 @@ import {
 } from 'components/common/preview-pane/widgets';
 
 
-describe('OfficerPane component', () => {
+describe('NewOfficerPane component', () => {
   let instance;
   const officer = {
-    id: '123456',
+    id: 123456,
     fullName: 'John Watts',
     appointedDate: '05-08-2018',
     resignationDate: '05-12-2019',
@@ -229,7 +229,7 @@ describe('OfficerPane component', () => {
 
     addOrRemoveItemInPinboardStub.calledWith({
       type: 'OFFICER',
-      id: '123456',
+      id: 123456,
       isPinned: false,
     }).should.be.true();
 
@@ -250,7 +250,7 @@ describe('OfficerPane component', () => {
 
     addOrRemoveItemInPinboardStub.calledWith({
       type: 'OFFICER',
-      id: '123456',
+      id: 123456,
       isPinned: true,
     }).should.be.true();
   });

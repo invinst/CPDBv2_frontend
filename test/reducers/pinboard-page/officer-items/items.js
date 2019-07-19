@@ -28,11 +28,14 @@ describe('Pinboard officerItemsReducer', function () {
         type: constants.ADD_ITEM_IN_PINBOARD_PAGE,
         payload: {
           type: 'OFFICER',
-          id: '2',
-          complaintCount: 3,
-          fullName: 'Jerome Finnigan',
-          percentile: null,
-          rank: 'Officer',
+          'id': 2,
+          rawData: {
+            'id': 2,
+            'full_name': 'Jerome Finnigan',
+            'rank': 'Officer',
+            'complaint_count': 3,
+            'percentile': null,
+          }
         }
       }
     ).should.deepEqual([{
@@ -53,20 +56,18 @@ describe('Pinboard officerItemsReducer', function () {
         type: constants.ADD_ITEM_IN_PINBOARD_PAGE,
         payload: {
           type: 'OFFICER',
-          id: '2',
-          complaintCount: 3,
-          fullName: 'Jerome Finnigan',
-          percentile: {
-            year: undefined,
-            items: [
-              { axis: 'Use of Force Reports', value: 99.9 },
-              { axis: 'Officer Allegations', value: 11.1 },
-              { axis: 'Civilian Allegations', value: 22.2 }
-            ],
-            visualTokenBackground: '#e85050',
-            textColor: '#231F20',
-          },
-          rank: 'Officer',
+          'id': 2,
+          rawData: {
+            'id': 2,
+            'full_name': 'Jerome Finnigan',
+            'rank': 'Officer',
+            'complaint_count': 3,
+            'percentile': {
+              'percentile_trr': 99.9,
+              'percentile_allegation_internal': 11.1,
+              'percentile_allegation_civilian': 22.2,
+            },
+          }
         }
       }
     ).should.deepEqual([{
@@ -91,11 +92,18 @@ describe('Pinboard officerItemsReducer', function () {
         type: constants.ADD_ITEM_IN_PINBOARD_PAGE,
         payload: {
           type: 'OFFICER',
-          id: '1',
-          complaintCount: 3,
-          fullName: 'Jerome Finnigan',
-          percentile: null,
-          rank: 'Officer',
+          'id': 1,
+          rawData: {
+            'id': 1,
+            'full_name': 'Jerome Finnigan',
+            'rank': 'Officer',
+            'complaint_count': 3,
+            'percentile': {
+              'percentile_trr': 99.9,
+              'percentile_allegation_internal': 11.1,
+              'percentile_allegation_civilian': 22.2,
+            },
+          }
         }
       }
     ).should.deepEqual([{ 'id': 1 }]);
@@ -109,9 +117,12 @@ describe('Pinboard officerItemsReducer', function () {
         payload: {
           type: 'CR',
           id: '2',
-          incidentDate: 'Apr 4, 2017',
-          category: 'Use Of Force',
-          point: { 'lon': 1.0, 'lat': 2.0 },
+          rawData: {
+            'crid': '2',
+            'incident_date': 'Apr 4, 2017',
+            'most_common_category': 'Use Of Force',
+            'point': { 'lon': 1.0, 'lat': 2.0 },
+          }
         }
       }
     ).should.deepEqual([{ 'id': 1 }]);
@@ -185,6 +196,36 @@ describe('Pinboard officerItemsReducer', function () {
         payload: {
           type: 'CR',
           id: '2',
+        }
+      }
+    ).should.deepEqual([{
+      'id': 1,
+    }, {
+      'id': 2,
+      'full_name': 'Jerome Finnigan',
+      'rank': 'Officer',
+      'complaint_count': 3,
+      'percentile': null,
+    }]);
+  });
+
+  it('should handle REMOVE_ITEM_IN_PINBOARD_PAGE with API_ONLY mode', function () {
+    officerItemsReducer(
+      [{
+        'id': 1,
+      }, {
+        'id': 2,
+        'full_name': 'Jerome Finnigan',
+        'rank': 'Officer',
+        'complaint_count': 3,
+        'percentile': null,
+      }],
+      {
+        type: constants.REMOVE_ITEM_IN_PINBOARD_PAGE,
+        payload: {
+          type: 'OFFICER',
+          id: '2',
+          mode: constants.PINBOARD_ITEM_REMOVE_MODE.API_ONLY
         }
       }
     ).should.deepEqual([{

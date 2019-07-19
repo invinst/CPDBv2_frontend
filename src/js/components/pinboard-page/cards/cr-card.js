@@ -16,5 +16,9 @@ export default class CRCard extends Component {
 export const CRCardWithUndo = withUndoCard(
   CRCard,
   () => 'CR removed.',
-  'removeItemInPinboardPage'
+  'removeItemInPinboardPage',
+  {
+    isRequestDelay: false,
+    revertActionName: 'addItemInPinboardPage',
+  },
 );
