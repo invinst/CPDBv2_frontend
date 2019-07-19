@@ -1,6 +1,6 @@
 'use strict';
 
-const { keys, forEach, has } = require('lodash');
+const { keys, forEach } = require('lodash');
 
 
 export default class Section {
@@ -29,7 +29,7 @@ export default class Section {
           });
         } else if (typeof elements[key] === 'string') {
           const selector = this._buildSelector(elements[key]);
-          if (selector && !has(this, key)) {
+          if (selector) {
             Object.defineProperty(this, key, {
               get: function () {
                 const element = browser.element(selector);

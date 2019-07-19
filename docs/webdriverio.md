@@ -4,27 +4,69 @@ We use WebdriverIO to drive our selenium tests.
 
 ## Writing page objects
 
-We used [Page Object Pattern](http://webdriver.io/guide/testrunner/pageobjects.html#description) to abstract the page information and make the test easier to read and write.
+We used [Page Object Pattern](http://webdriver.io/guide/testrunner/pageobjects.html#description) to abstract the page 
+information and make the test easier to read and write.
 
-We wrote a base class called `Section` which contains `prepareElementGetters` method to help look up and return the element by using [Object.defineProperty](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty).
+We wrote a base class called `Section` which contains `prepareElementGetters` method to help look up and return the 
+element by using 
+[Object.defineProperty](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty).
+Out `Section` has the ability to automatically build a linked selector using `parentSelector` and `mainElementSelector`, 
+which results in a more precise and reliable one. A section can be selected using `yourSection.mainElement`.
 
 Example:
 ```javascript
+class Logo extends Header {
+  constructor(parentSelector) {
+    super(parentSelector, '//div[contains(@class, "logo")]');
+    this.prepareElementGetters();
+  }
+}
+
 export default class Header extends Section {
-  constructor() {
-    super();
+  constructor(parentSelector, mainElementSelector) {
+    super(parentSelector, mainElementSelector);
     this.prepareElementGetters({
-      officerName: '.test--officer-name',
+      logo: Logo,
     });
   }
 }
 
-export default class Header extends Section { ... }
-
-class OfficerSummaryPage extends Page {
-  header = new Header();
-  summarySection = new SummarySection();
+class SlimHeader extends Header {
+  constructor(parentSelector) {
+    super(parentSelector, '//div[contains(@class, "slim-header")]');
+    this.prepareElementGetters({
+      navBar: '//div[contains(@class, "navBar")]',
+    });
+  }
 }
+
+class TopHeader extends Header {
+  constructor(parentSelector) {
+    super(parentSelector, '//div[contains(@class, "top-header")]');
+    this.prepareElementGetters({
+      navBar: '//div[contains(@class, "navBar")]',
+    });
+  }
+}
+
+class OldStyleLandingPage extends Page {
+  slimHeader = new SlimHeader();
+  topHeader = new TopHeader();
+}
+
+class LandingPage extends Page {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      slimHeader: SlimHeader,
+      topHeader: TopHeader,
+    });
+  }
+}
+
+const landingPage = new LandingPage()
+landingPage.topHeader.logo.selector.should.eql('//div[contains(@class, "top-header")]//div[contains(@class, "logo")]')
+landingPage.slimHeader.logo.selector.should.eql('//div[contains(@class, "slim-header")]//div[contains(@class, "logo")]')
 
 ```
 
