@@ -1,15 +1,17 @@
 import { createSelector } from 'reselect';
+import { map } from 'lodash';
 
 import extractQuery from 'utils/extract-query';
 import { relevantComplaintTransform } from './transform';
 
 export const getRelevantComplaintsPagination = state => state.pinboardPage.relevantComplaints;
-
+const pinItemFromPreviewPane = state => state.pinboardPage.pinItemFromPreviewPane;
 export const getRequesting = state => state.pinboardPage.relevantComplaints.requesting;
 
 export const relevantComplaintsSelector = createSelector(
   getRelevantComplaintsPagination,
-  ({ items }) => items.map(relevantComplaintTransform)
+  pinItemFromPreviewPane,
+  ({ items }, updatingItem) => map(items, item => relevantComplaintTransform(item, updatingItem))
 );
 
 const relevantComplaintsCountSelector = createSelector(

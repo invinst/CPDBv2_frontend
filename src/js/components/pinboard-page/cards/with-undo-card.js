@@ -1,23 +1,28 @@
 import React, { Component } from 'react';
-import { get, noop } from 'lodash';
+import { get, noop, omit } from 'lodash';
 import cx from 'classnames';
 
-import { UNDO_CARD_THEMES, UNDO_CARD_VISIBLE_TIME } from 'utils/constants';
+import { UNDO_CARD_THEMES, UNDO_CARD_VISIBLE_TIME, PINBOARD_ITEM_REMOVE_MODE } from 'utils/constants';
 import styles from './with-undo-card.sass';
 
+const DISPLAY = 'DISPLAY';
+const REMOVING = 'REMOVING';
+const REMOVED = 'REMOVED';
+const defaultSettings = {
+  theme: UNDO_CARD_THEMES.LIGHT,
+  keepVisible: false,
+  hasWrapper: false,
+  isRequestDelay: true,
+  revertActionName: null,
+};
 
 export default function withUndoCard(
   WrappedComponent,
   getText,
   actionName,
-  settings={
-    theme: UNDO_CARD_THEMES.LIGHT,
-    keepVisible: false,
-    hasWrapper: false
-  }) {
-  const DISPLAY = 'DISPLAY';
-  const REMOVING = 'REMOVING';
-  const REMOVED = 'REMOVED';
+  settings=defaultSettings) {
+
+  settings = { ...defaultSettings, ...settings };
 
   return class extends Component {
     constructor(props) {
@@ -26,17 +31,43 @@ export default function withUndoCard(
       this.state = {
         status: DISPLAY
       };
-
-      this.action = this.action.bind(this);
+      this.act = this.act.bind(this);
+      this.actOnDelay = this.actOnDelay.bind(this);
+      this.revert = this.revert.bind(this);
       this.undo = this.undo.bind(this);
       this.countdown = undefined;
+      this.removingItem = undefined;
     }
 
     componentWillUnmount() {
       clearTimeout(this.countdown);
     }
 
-    action(item) {
+    act(item) {
+      this.setState({
+        status: REMOVING
+      });
+
+      get(this.props, actionName, noop)({
+        ...item,
+        mode: PINBOARD_ITEM_REMOVE_MODE.API_ONLY
+      });
+      this.removingItem = item;
+
+      this.countdown = setTimeout(() => {
+        this.setState({
+          status: REMOVED
+        });
+
+        get(this.props, actionName, noop)({
+          ...item,
+          mode: PINBOARD_ITEM_REMOVE_MODE.STATE_ONLY
+        });
+        this.removingItem = undefined;
+      }, UNDO_CARD_VISIBLE_TIME);
+    }
+
+    actOnDelay(item) {
       this.setState({
         status: REMOVING
       });
@@ -50,17 +81,31 @@ export default function withUndoCard(
       }, UNDO_CARD_VISIBLE_TIME);
     }
 
+    revert() {
+      const { revertActionName } = settings;
+
+      if (this.removingItem) {
+        get(this.props, revertActionName, noop)({ ...this.removingItem, isPinned: false });
+      }
+    }
+
     undo() {
+      const { isRequestDelay } = settings;
+
       clearTimeout(this.countdown);
 
       this.setState({
         status: DISPLAY
       });
+
+      if (!isRequestDelay) {
+        this.revert();
+      }
     }
 
     render() {
       const { status } = this.state;
-      const { theme, keepVisible, hasWrapper } = settings;
+      const { theme, keepVisible, hasWrapper, isRequestDelay, revertActionName } = settings;
 
       if (status === REMOVED && !keepVisible) {
         return null;
@@ -82,7 +127,11 @@ export default function withUndoCard(
         );
       }
 
-      return <WrappedComponent { ...this.props } { ...{ [actionName]: this.action } }/>;
+      const passingProps = omit(this.props, [actionName, revertActionName]);
+      passingProps[actionName] = isRequestDelay ? this.actOnDelay : this.act;
+      passingProps[revertActionName] = this.revert;
+
+      return <WrappedComponent { ...passingProps }/>;
     }
   };
 }

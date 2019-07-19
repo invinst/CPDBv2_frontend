@@ -7,7 +7,7 @@ import withUndoCard from './with-undo-card';
 export default class TRRCard extends Component {
   render() {
     return (
-      <LocationCard { ...this.props } dateKey='trrDate'/>
+      <LocationCard { ...this.props } dateKey='trrDate' focusable={ true } />
     );
   }
 }
@@ -15,5 +15,9 @@ export default class TRRCard extends Component {
 export const TRRCardWithUndo = withUndoCard(
   TRRCard,
   () => 'TRR removed.',
-  'removeItemInPinboardPage'
+  'removeItemInPinboardPage',
+  {
+    isRequestDelay: false,
+    revertActionName: 'addItemInPinboardPage',
+  },
 );

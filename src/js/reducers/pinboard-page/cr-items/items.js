@@ -6,15 +6,11 @@ import {
   ADD_ITEM_IN_PINBOARD_PAGE,
   ORDER_PINBOARD,
   REMOVE_ITEM_IN_PINBOARD_PAGE,
+  PINBOARD_ITEM_REMOVE_MODE,
 } from 'utils/constants';
 
 
-const toRawCR = item => ({
-  'crid': item.id,
-  'incident_date': item.incidentDate,
-  'most_common_category': item.category,
-  'point': item.point,
-});
+const toRawCR = item => item.rawData;
 
 export default handleActions({
   [PINBOARD_COMPLAINTS_FETCH_REQUEST_SUCCESS]: (state, action) => action.payload,
@@ -30,9 +26,9 @@ export default handleActions({
   },
   [REMOVE_ITEM_IN_PINBOARD_PAGE]: (state, action) => {
     const currentItems = state;
-    const { id, type } = action.payload;
+    const { id, type, mode } = action.payload;
 
-    if (type === 'CR') {
+    if (type === 'CR' && mode !== PINBOARD_ITEM_REMOVE_MODE.API_ONLY) {
       return _.reject(currentItems, { crid: id });
     }
     return currentItems;

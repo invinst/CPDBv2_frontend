@@ -587,6 +587,35 @@ describe('Pinboard reducer', function () {
     });
   });
 
+  it('should handle REMOVE_ITEM_FROM_PINBOARD_STATE with STATE_ONLY mode', function () {
+    pinboardReducer(
+      {
+        id: '66ef1560',
+        title: 'Title 2',
+        description: 'Description 2',
+        'officer_ids': [4, 5],
+        crids: [],
+        'trr_ids': [2, 1, 3],
+      },
+      {
+        type: constants.REMOVE_ITEM_FROM_PINBOARD_STATE,
+        payload: {
+          type: 'TRR',
+          id: '7',
+          mode: constants.PINBOARD_ITEM_REMOVE_MODE.STATE_ONLY,
+        }
+      }
+    ).should.deepEqual({
+      id: '66ef1560',
+      title: 'Title 2',
+      description: 'Description 2',
+      'officer_ids': [4, 5],
+      crids: [],
+      'trr_ids': [2, 1, 3],
+      needRefreshData: false
+    });
+  });
+
   it('should handle ORDER_PINBOARD_STATE with type is OFFICER', function () {
     pinboardReducer(
       {

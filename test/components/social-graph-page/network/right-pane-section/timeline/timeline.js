@@ -1,13 +1,16 @@
 import React from 'react';
 import {
+  findRenderedComponentWithType,
   renderIntoDocument,
   scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 import { spy, stub } from 'sinon';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
-import Timeline from 'components/social-graph-page/network/right-pane-section/timeline';
+import Timeline, { TimelineWithSpinner } from 'components/social-graph-page/network/right-pane-section/timeline';
 import Item from 'components/social-graph-page/network/right-pane-section/timeline/item';
+import LoadingSpinner from 'components/common/loading-spinner';
+import styles from 'components/social-graph-page/network/right-pane-section/timeline/timeline.sass';
 
 
 describe('Timeline component', function () {
@@ -158,6 +161,7 @@ describe('Timeline component', function () {
   });
 
   it('should call handleScroll when timeline reach ScrollMagic.Scene', function (done) {
+    const handleScrollStub = stub(Timeline.prototype, 'handleScroll');
     instance = renderIntoDocument(
       <Timeline
         items={ items }
@@ -165,11 +169,42 @@ describe('Timeline component', function () {
         timelineIdxTriggerChange={ 0 }
       />
     );
-    const handleScrollStub = stub(instance, 'handleScroll');
     setTimeout(() => {
       handleScrollStub.should.be.calledWith(items[1]);
       handleScrollStub.restore();
       done();
     }, 150);
+  });
+
+  context('withLoadingSpinner', function () {
+    it('should render LoadingSpinner only if requesting is true', function () {
+      instance = renderIntoDocument(
+        <TimelineWithSpinner
+          items={ items }
+          timelineIdx={ 0 }
+          timelineIdxTriggerChange={ 0 }
+          requesting={ true }
+        />
+      );
+
+      scryRenderedComponentsWithType(instance, Timeline).should.have.length(0);
+
+      const loadingSpinner = findRenderedComponentWithType(instance, LoadingSpinner);
+      loadingSpinner.props.className.should.equal(styles.timelineLoading);
+    });
+
+    it('should not render LoadingSpinner if requesting is false', function () {
+      instance = renderIntoDocument(
+        <TimelineWithSpinner
+          items={ items }
+          timelineIdx={ 0 }
+          timelineIdxTriggerChange={ 0 }
+          requesting={ false }
+        />
+      );
+
+      scryRenderedComponentsWithType(instance, Timeline).should.have.length(1);
+      scryRenderedComponentsWithType(instance, LoadingSpinner).should.have.length(0);
+    });
   });
 });

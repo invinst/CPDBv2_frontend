@@ -620,5 +620,55 @@ describe('search page transforms', function () {
         ...focusedSuggestion
       }).should.deepEqual(info);
     });
+
+    it('should transform TRR data correctly', function () {
+      const focusedItem = {
+        'id': '123456',
+        'firearm_used': true,
+        'trr_datetime': '2017-02-03',
+        address: '14XX W 63RD ST, CHICAGO IL 60636',
+        officer: {
+          'id': 16567,
+          'full_name': 'Baudilio Lopez',
+          'percentile': {
+            'id': 180838,
+            'percentile_trr': '72.1094',
+            'percentile_allegation_civilian': '98.5549',
+            'percentile_allegation_internal': '61.1521'
+          },
+          'allegation_count': 93
+        },
+        to: '/trr/123456/'
+      };
+
+      const expectedData = {
+        type: 'TRR',
+        data: {
+          subText: 'TRR # 123456 - February 3, 2017',
+          category: 'Firearm',
+          incidentDate: 'Feb 03, 2017',
+          address: '14XX W 63RD ST, CHICAGO IL 60636',
+          officer: {
+            id: 16567,
+            name: 'Baudilio Lopez',
+            url: '/officer/16567/baudilio-lopez/',
+            radarAxes: [
+              { axis: 'Use of Force Reports', value: 72.1094 },
+              { axis: 'Officer Allegations', value: 61.1521 },
+              { axis: 'Civilian Allegations', value: 98.5549 }
+            ],
+            radarColor: '#f0201e',
+            count: 93
+          },
+          to: '/trr/123456/',
+          isPinned: false,
+        },
+      };
+
+      previewPaneTransform({
+        type: 'TRR',
+        ...focusedItem
+      }).should.deepEqual(expectedData);
+    });
   });
 });

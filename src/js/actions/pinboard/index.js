@@ -23,6 +23,8 @@ export const removeItemFromPinboardState = createAction(constants.REMOVE_ITEM_FR
 export const orderPinboardState = createAction(constants.ORDER_PINBOARD_STATE);
 export const updatePinboardInfoState = createAction(constants.UPDATE_PINBOARD_INFO_STATE);
 export const savePinboard = createAction(constants.SAVE_PINBOARD);
+export const savePinboardWithoutChangingState = createAction(constants.SAVE_PINBOARD_WITHOUT_CHANGING_STATE);
+export const handleRemovingItemInPinboardPage = createAction(constants.HANDLE_REMOVING_ITEM_IN_PINBOARD_PAGE);
 
 export const performFetchPinboardRelatedData = createAction(constants.PERFORM_FETCH_PINBOARD_RELATED_DATA);
 

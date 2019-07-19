@@ -38,7 +38,7 @@ describe('PinButton component', () => {
     instance = renderIntoDocument(
       <PinButton
         addOrRemoveItemInPinboard={ addOrRemoveItemInPinboardStub }
-        item={ { type: 'OFFICER', id: '123456', isPinned: true } }
+        item={ { type: 'OFFICER', id: 123456, isPinned: true } }
       />
     );
 
@@ -48,7 +48,7 @@ describe('PinButton component', () => {
 
     addOrRemoveItemInPinboardStub.calledWith({
       type: 'OFFICER',
-      id: '123456',
+      id: 123456,
       isPinned: true,
     });
   });

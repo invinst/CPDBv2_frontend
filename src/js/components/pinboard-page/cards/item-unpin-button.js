@@ -6,10 +6,9 @@ import styles from './item-unpin-button.sass';
 export default class ItemUnpinButton extends Component {
   render() {
     return (
-      <span
-        className={ styles.wrapper }
-        onClick={ this.props.onClick }
-      />
+      <div className={ styles.wrapper } onClick={ this.props.onClick }>
+        <div className='inner-remove-symbol'/>
+      </div>
     );
   }
 }

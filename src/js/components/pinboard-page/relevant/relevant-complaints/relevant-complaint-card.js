@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { noop } from 'lodash';
+import { noop, pick } from 'lodash';
 
 import styles from './relevant-complaint-card.sass';
 import BaseComplaintCard from 'components/pinboard-page/relevant/common/base-complaint-card';
@@ -11,14 +11,14 @@ import { UNDO_CARD_THEMES } from 'utils/constants';
 export default class RelevantComplaintCard extends Component {
   render() {
     const {
-      crid,
-      incidentDate,
-      category,
-      officers,
       point,
       addItemInPinboardPage,
       focusItem,
     } = this.props;
+    const complaintFields = [
+      'crid', 'incidentDate', 'category', 'point', 'officers',
+      'point', 'rawData'
+    ];
 
     const leftChild = (
       <div
@@ -31,11 +31,7 @@ export default class RelevantComplaintCard extends Component {
 
     return (
       <BaseComplaintCard
-        crid={ crid }
-        incidentDate={ incidentDate }
-        category={ category }
-        point={ point }
-        officers={ officers }
+        { ...pick(this.props, complaintFields) }
         leftChild={ leftChild }
         addItemInPinboardPage={ addItemInPinboardPage }
         focusItem={ focusItem }

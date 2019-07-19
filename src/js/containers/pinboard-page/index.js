@@ -10,7 +10,10 @@ import { shouldRedirect } from 'selectors/pinboard-page/redirect';
 import { getInitialRequested } from 'selectors/pinboard-page/pinboard';
 import { focusedItemSelector } from 'selectors/pinboard-page/focused-item';
 import { changePinboardTab } from 'actions/pinboard';
-import { focusItem } from 'actions/pinboard-page';
+import {
+  focusItem,
+  addOrRemoveItemInPinboardFromPreviewPane,
+} from 'actions/pinboard-page';
 import { updatePathName } from 'actions/path-name';
 
 function mapStateToProps(state, ownProps) {
@@ -33,6 +36,7 @@ const mapDispatchToProps = {
   focusItem,
   pushBreadcrumbs,
   updatePathName,
+  addOrRemoveItemInPinboardFromPreviewPane,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PinboardPage));

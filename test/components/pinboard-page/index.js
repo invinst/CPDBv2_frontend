@@ -10,7 +10,7 @@ import {
   scryRenderedDOMComponentsWithClass,
   Simulate,
 } from 'react-addons-test-utils';
-import { stub } from 'sinon';
+import { stub, spy } from 'sinon';
 import * as ReactRouter from 'react-router';
 import { Router, createMemoryHistory, Route } from 'react-router';
 import { createStore as ReduxCreateStore } from 'redux';
@@ -463,5 +463,52 @@ describe('PinboardPage component', function () {
     overlay.getAttribute('aria-hidden').should.equal('true');
     document.body.classList.should.have.length(2);
     document.body.classList.contains('body-scrollable').should.be.true();
+  });
+
+  it('should handle when pin status is changed from preview pane', function () {
+    const pinboard = {
+      title: 'This is pinboard title',
+      description: 'This is pinboard description',
+      'officer_ids': [123],
+    };
+    const pinboardPageData = createPinboardPage(pinboard);
+    set(pinboardPageData, 'officerItems', { requesting: false, items: [{ id: 123 }], removingItems: [] });
+    const state = {
+      pinboardPage: pinboardPageData,
+      pathname: 'pinboard/5cd06f2b',
+    };
+    const store = ReduxCreateStore(RootReducer, state);
+    const handlePinChangedOnPreviewPane = spy(PinboardPage.prototype, 'handlePinChangedOnPreviewPane');
+
+    const pinboardPage = () => (
+      <Provider store={ store }>
+        <PinboardPageContainer />
+      </Provider>
+    );
+
+    instance = renderIntoDocument(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ pinboardPage } />
+      </Router>
+    );
+
+    store.dispatch({
+      type: PINBOARD_PAGE_FOCUS_ITEM,
+      payload: {
+        type: 'OFFICER',
+        id: 123,
+      },
+    });
+
+    const pinButton = findRenderedDOMComponentWithClass(instance, 'pin-button');
+    Simulate.click(pinButton);
+
+    handlePinChangedOnPreviewPane.should.be.calledWith({
+      type: 'OFFICER',
+      id: 123,
+      isPinned: true,
+    });
+
+    handlePinChangedOnPreviewPane.restore();
   });
 });

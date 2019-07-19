@@ -1,4 +1,4 @@
-import { kebabCase, isEmpty, isNil } from 'lodash';
+import { kebabCase, isEmpty, isNil, includes, parseInt, identity } from 'lodash';
 
 
 export const generatePinboardUrl = pinboard => {
@@ -8,4 +8,9 @@ export const generatePinboardUrl = pinboard => {
 
   const title = isEmpty(pinboard['title']) ? 'Untitled Pinboard' : pinboard['title'];
   return `/pinboard/${pinboard.id}/${kebabCase(title)}/`;
+};
+
+
+export const getFormatId = (attr) => {
+  return includes(['officer_ids', 'trr_ids'], attr) ? parseInt : identity;
 };
