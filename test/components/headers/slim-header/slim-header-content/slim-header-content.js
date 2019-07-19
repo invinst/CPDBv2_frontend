@@ -59,21 +59,19 @@ describe('SlimHeaderContent component', function () {
     const headerDom = findDOMNode(header);
     headerDom.getAttribute('class').should.eql('custom-class-name');
 
-    const responsiveFluidWidthComponent = findRenderedComponentWithType(header, ResponsiveFluidWidthComponent);
-
-    const logo = findRenderedComponentWithType(responsiveFluidWidthComponent, Logo);
+    const logo = findRenderedComponentWithType(header, Logo);
     logo.props.position.should.equal('top');
     logo.props.editModeOn.should.be.false();
 
-    const demoVideo = findRenderedComponentWithType(responsiveFluidWidthComponent, DemoVideo);
+    const demoVideo = findRenderedComponentWithType(header, DemoVideo);
     demoVideo.props.position.should.equal('top');
     demoVideo.props.openVideoModal.should.equal(openVideoModal);
     demoVideo.props.videoThumbnailUrl.should.equal('https://i.vimeocdn.com/video/797111186_100x75.webp');
 
-    findRenderedComponentWithType(responsiveFluidWidthComponent, LogOutButton);
+    findRenderedComponentWithType(header, LogOutButton);
 
-    findRenderedComponentWithType(responsiveFluidWidthComponent, RightLinks).props.position.should.equal('top');
-    findRenderedComponentWithType(responsiveFluidWidthComponent, SearchBox).props.position.should.equal('top');
+    findRenderedComponentWithType(header, RightLinks).props.position.should.equal('top');
+    findRenderedComponentWithType(header, SearchBox).props.position.should.equal('top');
   });
 
   it('should have correct position', function () {
