@@ -8,7 +8,7 @@ import {
 describe('RelevantComplaints selectors', function () {
   describe('relevantComplaintsSelector', function () {
     it('should return complaints data correctly', function () {
-      const complaints = [{
+      const complaint1 = {
         'crid': '1085121',
         'category': 'Money / Property',
         'incident_date': '2017-04-04',
@@ -26,7 +26,8 @@ describe('RelevantComplaints selectors', function () {
           }
         }],
         'point': { 'lon': -87.6427175, 'lat': 41.7756769 }
-      }, {
+      };
+      const complaint2 = {
         'crid': '1082207',
         'category': 'Operation/Personnel Violations',
         'incident_date': '2016-09-11',
@@ -56,7 +57,8 @@ describe('RelevantComplaints selectors', function () {
           }
         }],
         'point': { 'lon': -87.6097074, 'lat': 41.6600254 }
-      }];
+      };
+      const complaints = [complaint1, complaint2];
       const state = {
         pinboardPage: {
           relevantComplaints: {
@@ -96,6 +98,7 @@ describe('RelevantComplaints selectors', function () {
           },
         }],
         isPinStatusChanging: true,
+        rawData: complaint1,
       },
       {
         crid: '1082207',
@@ -132,6 +135,7 @@ describe('RelevantComplaints selectors', function () {
           },
         }],
         isPinStatusChanging: false,
+        rawData: complaint2,
       }]);
     });
   });

@@ -13,12 +13,12 @@ class PinnedOfficers extends Section {
 
     this.prepareElementGetters({
       title: `${sectionSelector}/div[@class="type-title"]`,
-      firstCardUnpinBtn: `${firstCardSelector}//span[starts-with(@class, "item-unpin-button")]`,
+      firstCardUnpinBtn: `${firstCardSelector}//div[starts-with(@class, "item-unpin-button")]`,
       firstCardRank: `${firstCardSelector}//div[@class="officer-rank"]`,
       firstCardName: `${firstCardSelector}//div[@class="officer-name"]`,
       firstCardCRsCount: `${firstCardSelector}//div[@class="officer-complaints-count"]`,
-      undoCard: '.test--undo-card',
       secondCardName: `${secondCardSelector}//div[@class="officer-name"]`,
+      undoCard: '.test--undo-card',
     });
   }
 
@@ -268,7 +268,6 @@ class OfficerPreviewPane extends Section {
       communityPane: '.test--preview-pane-community',
       neighborhoodPane: '.test--preview-pane-neighborhood',
       listMostOfficers: '//*[starts-with(@class, "preview-pane")]//*[contains(@class,"list-widget-item-link")]',
-      mainElement: '//div[starts-with(@class, "preview-pane")]',
       pinButton: '.pin-button',
       viewOfficerButton: '.view-officer-profile-button',
       officerName: '.test--officer-name',

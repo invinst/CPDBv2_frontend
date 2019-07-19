@@ -8,7 +8,7 @@ import {
 describe('RelevantCoaccusals selectors', function () {
   describe('relevantCoaccusalsSelector', function () {
     it('should return coaccusals data correctly', function () {
-      const coaccusals = [{
+      const rawCoaccusal1 = {
         'id': 21992,
         'rank': 'Police Officer',
         'full_name': 'Johnny Patterson',
@@ -21,8 +21,8 @@ describe('RelevantCoaccusals selectors', function () {
           'percentile_allegation_civilian': '49.4652',
           'percentile_allegation_internal': '85.8654'
         }
-      },
-      {
+      };
+      const rawCoaccusal2 = {
         'id': 2433,
         'rank': 'Police Officer',
         'full_name': 'Darren Borum',
@@ -35,7 +35,9 @@ describe('RelevantCoaccusals selectors', function () {
           'percentile_allegation_civilian': '81.8766',
           'percentile_allegation_internal': '88.3297'
         }
-      }];
+      };
+
+      const coaccusals = [rawCoaccusal1, rawCoaccusal2];
       const state = {
         pinboardPage: {
           pinboard: {},
@@ -71,6 +73,7 @@ describe('RelevantCoaccusals selectors', function () {
           textColor: '#231F20',
         },
         isPinStatusChanging: false,
+        rawData: rawCoaccusal1,
       }, {
         id: 2433,
         rank: 'Police Officer',
@@ -88,6 +91,7 @@ describe('RelevantCoaccusals selectors', function () {
           textColor: '#231F20'
         },
         isPinStatusChanging: true,
+        rawData: rawCoaccusal2,
       }]);
     });
   });

@@ -30,7 +30,7 @@ PinButton.propTypes = {
 PinButton.defaultProps = {
   item: {
     type: '',
-    id: '',
+    id: 123456,
     isPinned: '',
   },
   addOrRemoveItemInPinboard: noop,
