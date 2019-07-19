@@ -1,6 +1,7 @@
 import { get } from 'actions/common/async-action';
 import * as constants from 'utils/constants';
 import { createAction } from 'redux-actions';
+import { merge } from 'lodash';
 
 
 export const requestSocialGraphNetwork = (params) => get(
@@ -21,23 +22,77 @@ export const requestSocialGraphAllegations = (params) => get(
   ]
 )(params);
 
-export const requestSocialGraphGeographic = (params) => get(
-  constants.SOCIAL_GRAPH_GEOGRAPHIC_API_URL,
+export const requestFirstPageSocialGraphGeographicCrs = (params) => get(
+  constants.SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
   [
-    constants.SOCIAL_GRAPH_GEOGRAPHIC_REQUEST_START,
-    constants.SOCIAL_GRAPH_GEOGRAPHIC_REQUEST_SUCCESS,
-    constants.SOCIAL_GRAPH_GEOGRAPHIC_REQUEST_FAILURE
+    constants.FIRST_PAGE_GEOGRAPHIC_CRS_REQUEST_START,
+    constants.FIRST_PAGE_GEOGRAPHIC_CRS_REQUEST_SUCCESS,
+    constants.FIRST_PAGE_GEOGRAPHIC_CRS_REQUEST_FAILURE
   ]
 )(params);
 
-export const requestSocialGraphGeographicPreviewPane = (params) => get(
-  constants.SOCIAL_GRAPH_DETAIL_GEOGRAPHIC_API_URL,
+export const requestOtherPagesSocialGraphGeographicCrs = (params) => get(
+  constants.SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
   [
-    constants.SOCIAL_GRAPH_GEOGRAPHIC_PREVIEW_PANE_REQUEST_START,
-    constants.SOCIAL_GRAPH_GEOGRAPHIC_PREVIEW_PANE_REQUEST_SUCCESS,
-    constants.SOCIAL_GRAPH_GEOGRAPHIC_PREVIEW_PANE_REQUEST_FAILURE
+    constants.GEOGRAPHIC_CRS_REQUEST_START,
+    constants.GEOGRAPHIC_CRS_REQUEST_SUCCESS,
+    constants.GEOGRAPHIC_CRS_REQUEST_FAILURE
   ]
 )(params);
+
+export const requestFirstPageSocialGraphGeographicTrrs = (params) => get(
+  constants.SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL,
+  [
+    constants.FIRST_PAGE_GEOGRAPHIC_TRRS_REQUEST_START,
+    constants.FIRST_PAGE_GEOGRAPHIC_TRRS_REQUEST_SUCCESS,
+    constants.FIRST_PAGE_GEOGRAPHIC_TRRS_REQUEST_FAILURE
+  ]
+)(params);
+
+export const requestOtherPagesSocialGraphGeographicTrrs = (params) => get(
+  constants.SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL,
+  [
+    constants.GEOGRAPHIC_TRRS_REQUEST_START,
+    constants.GEOGRAPHIC_TRRS_REQUEST_SUCCESS,
+    constants.GEOGRAPHIC_TRRS_REQUEST_FAILURE
+  ]
+)(params);
+
+export const requestFirstPageSocialGraphGeographicCrsPreviewPane = (params) => get(
+  constants.SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
+  [
+    constants.FIRST_PAGE_GEOGRAPHIC_CRS_PREVIEW_PANE_REQUEST_START,
+    constants.FIRST_PAGE_GEOGRAPHIC_CRS_PREVIEW_PANE_REQUEST_SUCCESS,
+    constants.FIRST_PAGE_GEOGRAPHIC_CRS_PREVIEW_PANE_REQUEST_FAILURE
+  ]
+)(merge({ detail: true }, params));
+
+export const requestOtherPagesSocialGraphGeographicCrsPreviewPane = (params) => get(
+  constants.SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
+  [
+    constants.GEOGRAPHIC_CRS_PREVIEW_PANE_REQUEST_START,
+    constants.GEOGRAPHIC_CRS_PREVIEW_PANE_REQUEST_SUCCESS,
+    constants.GEOGRAPHIC_CRS_PREVIEW_PANE_REQUEST_FAILURE
+  ]
+)(merge({ detail: true }, params));
+
+export const requestFirstPageSocialGraphGeographicTrrsPreviewPane = (params) => get(
+  constants.SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL,
+  [
+    constants.FIRST_PAGE_GEOGRAPHIC_TRRS_PREVIEW_PANE_REQUEST_START,
+    constants.FIRST_PAGE_GEOGRAPHIC_TRRS_PREVIEW_PANE_REQUEST_SUCCESS,
+    constants.FIRST_PAGE_GEOGRAPHIC_TRRS_PREVIEW_PANE_REQUEST_FAILURE
+  ]
+)(merge({ detail: true }, params));
+
+export const requestOtherPagesSocialGraphGeographicTrrsPreviewPane = (params) => get(
+  constants.SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL,
+  [
+    constants.GEOGRAPHIC_TRRS_PREVIEW_PANE_REQUEST_START,
+    constants.GEOGRAPHIC_TRRS_PREVIEW_PANE_REQUEST_SUCCESS,
+    constants.GEOGRAPHIC_TRRS_PREVIEW_PANE_REQUEST_FAILURE
+  ]
+)(merge({ detail: true }, params));
 
 export const requestSocialGraphOfficers = (params) => get(
   constants.SOCIAL_GRAPH_OFFICERS_API_URL,

@@ -18,13 +18,11 @@ export class Marker extends Component {
     if (hovering) {
       if (!mapboxMarker.getPopup().isOpen()) {
         mapboxMarker.togglePopup();
-        mapboxMarker.getElement().style.zIndex = '10';
       }
     }
     else {
       if (mapboxMarker.getPopup().isOpen()) {
         mapboxMarker.togglePopup();
-        mapboxMarker.getElement().style.zIndex = '0';
       }
     }
   }

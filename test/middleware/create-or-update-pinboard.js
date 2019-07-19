@@ -11,7 +11,9 @@ import {
   addItemToPinboardState,
   removeItemFromPinboardState,
   fetchPinboardSocialGraph,
-  fetchPinboardGeographicData,
+  fetchPinboardGeographic,
+  fetchFirstPagePinboardGeographicCrs,
+  fetchFirstPagePinboardGeographicTrrs,
   fetchPinboardRelevantDocuments,
   fetchPinboardRelevantCoaccusals,
   fetchPinboardRelevantComplaints,
@@ -348,7 +350,9 @@ describe('createOrUpdatePinboard middleware', function () {
     setTimeout(
       () => {
         store.dispatch.should.be.calledWith(fetchPinboardSocialGraph('66ef1560'));
-        store.dispatch.should.be.calledWith(fetchPinboardGeographicData('66ef1560'));
+        store.dispatch.should.be.calledWith(fetchPinboardGeographic());
+        store.dispatch.should.be.calledWith(fetchFirstPagePinboardGeographicCrs({ 'pinboard_id': '66ef1560' }));
+        store.dispatch.should.be.calledWith(fetchFirstPagePinboardGeographicTrrs({ 'pinboard_id': '66ef1560' }));
         store.dispatch.should.be.calledWith(fetchPinboardRelevantDocuments('66ef1560'));
         store.dispatch.should.be.calledWith(fetchPinboardRelevantCoaccusals('66ef1560'));
         store.dispatch.should.be.calledWith(fetchPinboardRelevantComplaints('66ef1560'));
@@ -527,7 +531,9 @@ describe('createOrUpdatePinboard middleware', function () {
       dispatched.should.eql(action);
 
       store.dispatch.should.be.calledWith(fetchPinboardSocialGraph('66ef1560'));
-      store.dispatch.should.be.calledWith(fetchPinboardGeographicData('66ef1560'));
+      store.dispatch.should.be.calledWith(fetchPinboardGeographic());
+      store.dispatch.should.be.calledWith(fetchFirstPagePinboardGeographicCrs({ 'pinboard_id': '66ef1560' }));
+      store.dispatch.should.be.calledWith(fetchFirstPagePinboardGeographicTrrs({ 'pinboard_id': '66ef1560' }));
       store.dispatch.should.be.calledWith(fetchPinboardRelevantDocuments('66ef1560'));
       store.dispatch.should.be.calledWith(fetchPinboardRelevantCoaccusals('66ef1560'));
       store.dispatch.should.be.calledWith(fetchPinboardRelevantComplaints('66ef1560'));

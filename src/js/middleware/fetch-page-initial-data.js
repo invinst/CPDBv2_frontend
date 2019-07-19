@@ -46,12 +46,17 @@ import {
   fetchPinboardOfficers,
   fetchPinboardTRRs,
   fetchPinboardSocialGraph,
-  fetchPinboardGeographicData,
+  fetchPinboardGeographic,
+  fetchFirstPagePinboardGeographicCrs,
+  fetchOtherPagesPinboardGeographicCrs,
+  fetchFirstPagePinboardGeographicTrrs,
+  fetchOtherPagesPinboardGeographicTrrs,
   fetchPinboardRelevantDocuments,
   fetchPinboardRelevantCoaccusals,
   fetchPinboardRelevantComplaints,
 } from 'actions/pinboard';
 import { redirect } from 'actions/pinboard-page';
+import loadPaginatedData from 'utils/load-paginated-data';
 
 let prevPathname = '';
 
@@ -217,7 +222,19 @@ export default store => next => action => {
           store.dispatch(fetchPinboardOfficers(idOnPath));
           store.dispatch(fetchPinboardTRRs(idOnPath));
           store.dispatch(fetchPinboardSocialGraph(idOnPath));
-          store.dispatch(fetchPinboardGeographicData(idOnPath));
+          store.dispatch(fetchPinboardGeographic());
+          loadPaginatedData(
+            { 'pinboard_id': idOnPath },
+            fetchFirstPagePinboardGeographicCrs,
+            fetchOtherPagesPinboardGeographicCrs,
+            store,
+          );
+          loadPaginatedData(
+            { 'pinboard_id': idOnPath },
+            fetchFirstPagePinboardGeographicTrrs,
+            fetchOtherPagesPinboardGeographicTrrs,
+            store,
+          );
           store.dispatch(fetchPinboardRelevantDocuments(idOnPath));
           store.dispatch(fetchPinboardRelevantCoaccusals(idOnPath));
           store.dispatch(fetchPinboardRelevantComplaints(idOnPath));

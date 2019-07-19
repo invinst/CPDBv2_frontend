@@ -79,16 +79,51 @@ export const fetchPinboardSocialGraph = id => get(
   pinboardSource && pinboardSource.token
 )();
 
-export const fetchPinboardGeographicData = id => get(
-  `${constants.SOCIAL_GRAPH_GEOGRAPHIC_API_URL}?pinboard_id=${id}`,
+export const fetchPinboardGeographic = createAction(constants.PINBOARD_GEOGRAPHIC_FETCH_REQUEST_START);
+
+export const fetchFirstPagePinboardGeographicCrs = (params) => get(
+  constants.SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
   [
-    constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_START,
-    constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_SUCCESS,
-    constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_FAILURE,
-    constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_CANCELLED,
+    constants.FIRST_PAGE_PINBOARD_GEOGRAPHIC_CRS_FETCH_REQUEST_START,
+    constants.FIRST_PAGE_PINBOARD_GEOGRAPHIC_CRS_FETCH_REQUEST_SUCCESS,
+    constants.FIRST_PAGE_PINBOARD_GEOGRAPHIC_CRS_FETCH_REQUEST_FAILURE,
+    constants.FIRST_PAGE_PINBOARD_GEOGRAPHIC_CRS_FETCH_REQUEST_CANCELLED,
   ],
   pinboardSource && pinboardSource.token
-)();
+)(params);
+
+export const fetchFirstPagePinboardGeographicTrrs = (params) => get(
+  constants.SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL,
+  [
+    constants.FIRST_PAGE_PINBOARD_GEOGRAPHIC_TRRS_FETCH_REQUEST_START,
+    constants.FIRST_PAGE_PINBOARD_GEOGRAPHIC_TRRS_FETCH_REQUEST_SUCCESS,
+    constants.FIRST_PAGE_PINBOARD_GEOGRAPHIC_TRRS_FETCH_REQUEST_FAILURE,
+    constants.FIRST_PAGE_PINBOARD_GEOGRAPHIC_TRRS_FETCH_REQUEST_CANCELLED,
+  ],
+  pinboardSource && pinboardSource.token
+)(params);
+
+export const fetchOtherPagesPinboardGeographicCrs = (params) => get(
+  constants.SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
+  [
+    constants.PINBOARD_GEOGRAPHIC_CRS_FETCH_REQUEST_START,
+    constants.PINBOARD_GEOGRAPHIC_CRS_FETCH_REQUEST_SUCCESS,
+    constants.PINBOARD_GEOGRAPHIC_CRS_FETCH_REQUEST_FAILURE,
+    constants.PINBOARD_GEOGRAPHIC_CRS_FETCH_REQUEST_CANCELLED,
+  ],
+  pinboardSource && pinboardSource.token
+)(params);
+
+export const fetchOtherPagesPinboardGeographicTrrs = (params) => get(
+  constants.SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL,
+  [
+    constants.PINBOARD_GEOGRAPHIC_TRRS_FETCH_REQUEST_START,
+    constants.PINBOARD_GEOGRAPHIC_TRRS_FETCH_REQUEST_SUCCESS,
+    constants.PINBOARD_GEOGRAPHIC_TRRS_FETCH_REQUEST_FAILURE,
+    constants.PINBOARD_GEOGRAPHIC_TRRS_FETCH_REQUEST_CANCELLED,
+  ],
+  pinboardSource && pinboardSource.token
+)(params);
 
 export const changePinboardTab = createAction(constants.CHANGE_PINBOARD_TAB);
 

@@ -1,11 +1,11 @@
 import React from 'react';
+import { values, concat, times } from 'lodash';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
   findRenderedComponentWithType,
   scryRenderedComponentsWithType,
   scryRenderedDOMComponentsWithClass,
-
 } from 'react-addons-test-utils';
 import { mapboxgl } from 'utils/vendors';
 
@@ -71,7 +71,6 @@ describe('Map component', function () {
   it('should render officer map and legend', function () {
     instance = renderIntoDocument(<AllegationsMap legend={ legend } markers={ markers } />);
 
-    scryRenderedComponentsWithType(instance, LoadingSpinner).should.have.length(0);
     findRenderedDOMComponentWithClass(instance, mapStyles.map);
     findRenderedDOMComponentWithClass(instance, legendStyles.legend);
   });
@@ -87,18 +86,76 @@ describe('Map component', function () {
       scryRenderedComponentsWithType(instance, Legend).should.have.length(0);
       scryRenderedDOMComponentsWithClass(instance, 'map-tab').should.have.length(0);
     });
+
+    it('should not render loading spinner if requesting is false', function () {
+      instance = renderIntoDocument(<AllegationsMapWithSpinner legend={ legend } requesting={ false } />);
+
+      scryRenderedComponentsWithType(instance, LoadingSpinner).should.have.length(0);
+      findRenderedComponentWithType(instance, AllegationsMap);
+    });
   });
 
-  it('should rerender', function () {
+  it('should rerender with clearAllMarkers is true', function () {
+    const marker = new mapboxgl.Marker();
+    marker.remove.resetHistory();
     instance = renderIntoDocument(<AllegationsMap legend={ legend } markers={ markers } />);
     findRenderedDOMComponentWithClass(instance, mapStyles.map);
     findRenderedDOMComponentWithClass(instance, legendStyles.legend);
 
-    instance.currentMarkers.should.have.length(3);
+    values(instance.currentMarkers).should.have.length(3);
     instance = reRender(<AllegationsMap legend={ legend } markers={ markers } />, instance);
     findRenderedDOMComponentWithClass(instance, mapStyles.map);
     findRenderedDOMComponentWithClass(instance, legendStyles.legend);
-    const marker = new mapboxgl.Marker();
     marker.remove.callCount.should.equal(3);
+  });
+
+  it('should rerender with clearAllMarkers is false', function () {
+    const marker = new mapboxgl.Marker();
+    marker.remove.resetHistory();
+    instance = renderIntoDocument(<AllegationsMap legend={ legend } markers={ markers } />);
+    values(instance.currentMarkers).should.have.length(3);
+
+    const newMarkers = [{
+      point: {
+        lat: 42.012567,
+        lon: -87.680291,
+      },
+      kind: 'CR',
+      finding: 'Not Sustained',
+      id: '456789',
+      category: 'False Arrest',
+      coaccused: 1,
+      victims: [{
+        gender: 'male',
+        race: 'White',
+        age: 35,
+      }]
+    }];
+
+    instance = reRender(
+      <AllegationsMap legend={ legend } markers={ concat(newMarkers, markers) } clearAllMarkers={ false } />,
+      instance
+    );
+
+    values(instance.currentMarkers).should.have.length(4);
+    marker.remove.callCount.should.equal(0);
+  });
+
+  it('should render loadMarkersPerPages when componentDidMount', function (done) {
+    const createMarker = (index) => ({
+      point: {
+        lat: 42.012567,
+        lon: -87.680291,
+      },
+      id: index.toString(),
+      kind: 'CR',
+    });
+    const markers = times(201, createMarker);
+    instance = renderIntoDocument(<AllegationsMap legend={ legend } markers={ markers } />);
+
+    setTimeout(() => {
+      values(instance.currentMarkers).should.have.length(201);
+      done();
+    }, 100);
   });
 });

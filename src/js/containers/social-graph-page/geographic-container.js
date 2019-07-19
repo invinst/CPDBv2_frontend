@@ -7,10 +7,17 @@ import {
   mapMarkersSelector,
   geographicAllegationSelector,
   geographicTRRSelector,
+  isRequestedSelector,
 } from 'selectors/social-graph-page/geographic-data';
 import {
-  requestSocialGraphGeographic,
-  requestSocialGraphGeographicPreviewPane,
+  requestFirstPageSocialGraphGeographicCrs,
+  requestOtherPagesSocialGraphGeographicCrs,
+  requestFirstPageSocialGraphGeographicTrrs,
+  requestOtherPagesSocialGraphGeographicTrrs,
+  requestFirstPageSocialGraphGeographicCrsPreviewPane,
+  requestOtherPagesSocialGraphGeographicCrsPreviewPane,
+  requestFirstPageSocialGraphGeographicTrrsPreviewPane,
+  requestOtherPagesSocialGraphGeographicTrrsPreviewPane,
   updateGeographicCrid,
   updateGeographicTrrId,
 } from 'actions/social-graph-page';
@@ -25,12 +32,19 @@ function mapStateToProps(state, ownProps) {
     allegation: geographicAllegationSelector(state),
     trr: geographicTRRSelector(state),
     pinboardId: ownProps.location.query['pinboard_id'],
+    isRequested: isRequestedSelector(state),
   };
 }
 
 const mapDispatchToProps = {
-  requestSocialGraphGeographic,
-  requestSocialGraphGeographicPreviewPane,
+  requestFirstPageSocialGraphGeographicCrs,
+  requestOtherPagesSocialGraphGeographicCrs,
+  requestFirstPageSocialGraphGeographicTrrs,
+  requestOtherPagesSocialGraphGeographicTrrs,
+  requestFirstPageSocialGraphGeographicCrsPreviewPane,
+  requestOtherPagesSocialGraphGeographicCrsPreviewPane,
+  requestFirstPageSocialGraphGeographicTrrsPreviewPane,
+  requestOtherPagesSocialGraphGeographicTrrsPreviewPane,
   updateGeographicCrid,
   updateGeographicTrrId,
 };

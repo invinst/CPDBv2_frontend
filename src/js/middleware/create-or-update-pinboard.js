@@ -15,7 +15,11 @@ import {
   createPinboard,
   updatePinboard,
   fetchPinboardSocialGraph,
-  fetchPinboardGeographicData,
+  fetchPinboardGeographic,
+  fetchFirstPagePinboardGeographicCrs,
+  fetchFirstPagePinboardGeographicTrrs,
+  fetchOtherPagesPinboardGeographicCrs,
+  fetchOtherPagesPinboardGeographicTrrs,
   fetchPinboardRelevantDocuments,
   fetchPinboardRelevantCoaccusals,
   fetchPinboardRelevantComplaints,
@@ -29,6 +33,7 @@ import {
   handleRemovingItemInPinboardPage,
 } from 'actions/pinboard';
 import { showToast } from 'actions/toast';
+import loadPaginatedData from 'utils/load-paginated-data';
 
 
 const getRequestPinboard = (state, pinboard=undefined) => {
@@ -81,7 +86,19 @@ function dispatchUpdateOrCreatePinboard(store, currentPinboard) {
 function dispatchFetchPinboardPageData(store, pinboardId) {
   store.dispatch(performFetchPinboardRelatedData());
   store.dispatch(fetchPinboardSocialGraph(pinboardId));
-  store.dispatch(fetchPinboardGeographicData(pinboardId));
+  store.dispatch(fetchPinboardGeographic());
+  loadPaginatedData(
+    { 'pinboard_id': pinboardId },
+    fetchFirstPagePinboardGeographicCrs,
+    fetchOtherPagesPinboardGeographicCrs,
+    store,
+  );
+  loadPaginatedData(
+    { 'pinboard_id': pinboardId },
+    fetchFirstPagePinboardGeographicTrrs,
+    fetchOtherPagesPinboardGeographicTrrs,
+    store,
+  );
   store.dispatch(fetchPinboardRelevantDocuments(pinboardId));
   store.dispatch(fetchPinboardRelevantCoaccusals(pinboardId));
   store.dispatch(fetchPinboardRelevantComplaints(pinboardId));
