@@ -42,6 +42,6 @@ TRRPane.propTypes = {
   category: PropTypes.string,
   incidentDate: PropTypes.string,
   address: PropTypes.string,
-  officer: PropTypes.array,
+  officer: PropTypes.object,
   to: PropTypes.string,
 };

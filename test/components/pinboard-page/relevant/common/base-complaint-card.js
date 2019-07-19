@@ -154,6 +154,12 @@ describe('BaseComplaintCard component', function () {
         officers={ [] }
         addItemInPinboardPage={ addItemInPinboardPage }
         pinned={ false }
+        rawData={ {
+          'crid': '123',
+          'incident_date': 'Apr 4, 2015',
+          'most_common_category': 'Unknown',
+          'point': { 'lon': 1.0, 'lat': 2.0 },
+        } }
       />
     );
     findRenderedDOMComponentWithClass(instance, 'right-half');
@@ -162,9 +168,12 @@ describe('BaseComplaintCard component', function () {
     addItemInPinboardPage.should.be.calledWith({
       type: 'CR',
       id: '123',
-      category: 'Unknown',
-      incidentDate: 'Apr 4, 2015',
-      point: undefined
+      rawData: {
+        'crid': '123',
+        'incident_date': 'Apr 4, 2015',
+        'most_common_category': 'Unknown',
+        'point': { 'lon': 1.0, 'lat': 2.0 },
+      }
     });
   });
 

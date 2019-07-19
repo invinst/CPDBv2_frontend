@@ -26,10 +26,16 @@ if (config.localStorageVersion !== localStorageVersion) {
 function configureStore(initialState) {
   const composeArgs = [
     applyMiddleware(
-      thunk, configuredAxiosMiddleware, searchPath, tracking,
-      routerMiddleware(browserHistory), fetchPageInitialData,
-      redirectOfficerAlias, updatePathName,
-      retryOfficerDownloadMiddleware, createOrUpdatePinboard,
+      thunk,
+      configuredAxiosMiddleware,
+      searchPath,
+      tracking,
+      routerMiddleware(browserHistory),
+      fetchPageInitialData,
+      redirectOfficerAlias,
+      updatePathName,
+      retryOfficerDownloadMiddleware,
+      createOrUpdatePinboard,
       restorePinboardSession,
     ),
     persistState(()=>{}, localStorageConfig)

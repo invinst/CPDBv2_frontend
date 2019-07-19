@@ -1,38 +1,20 @@
 import {
   requestSocialGraphNetwork,
   requestSocialGraphAllegations,
-  requestSocialGraphGeographic,
+  requestFirstPageSocialGraphGeographicCrs,
+  requestOtherPagesSocialGraphGeographicCrs,
+  requestFirstPageSocialGraphGeographicTrrs,
+  requestOtherPagesSocialGraphGeographicTrrs,
+  requestFirstPageSocialGraphGeographicCrsPreviewPane,
+  requestOtherPagesSocialGraphGeographicCrsPreviewPane,
+  requestFirstPageSocialGraphGeographicTrrsPreviewPane,
+  requestOtherPagesSocialGraphGeographicTrrsPreviewPane,
   requestSocialGraphOfficers,
   updateSocialGraphTimelineIdx,
   updateSocialGraphTimelineIdxFromTimelineTab,
   updateSocialGraphRefreshIntervalId,
-  requestSocialGraphGeographicPreviewPane,
 } from 'actions/social-graph-page';
-import {
-  SOCIAL_GRAPH_NETWORK_API_URL,
-  SOCIAL_GRAPH_ALLEGATIONS_API_URL,
-  SOCIAL_GRAPH_GEOGRAPHIC_API_URL,
-  SOCIAL_GRAPH_OFFICERS_API_URL,
-  SOCIAL_GRAPH_DETAIL_GEOGRAPHIC_API_URL,
-  SOCIAL_GRAPH_NETWORK_REQUEST_START,
-  SOCIAL_GRAPH_NETWORK_REQUEST_SUCCESS,
-  SOCIAL_GRAPH_NETWORK_REQUEST_FAILURE,
-  SOCIAL_GRAPH_ALLEGATIONS_REQUEST_START,
-  SOCIAL_GRAPH_ALLEGATIONS_REQUEST_SUCCESS,
-  SOCIAL_GRAPH_ALLEGATIONS_REQUEST_FAILURE,
-  SOCIAL_GRAPH_GEOGRAPHIC_REQUEST_START,
-  SOCIAL_GRAPH_GEOGRAPHIC_REQUEST_SUCCESS,
-  SOCIAL_GRAPH_GEOGRAPHIC_REQUEST_FAILURE,
-  SOCIAL_GRAPH_OFFICERS_REQUEST_START,
-  SOCIAL_GRAPH_OFFICERS_REQUEST_SUCCESS,
-  SOCIAL_GRAPH_OFFICERS_REQUEST_FAILURE,
-  UPDATE_SOCIAL_GRAPH_TIMELINE_IDX,
-  UPDATE_SOCIAL_GRAPH_TIMELINE_IDX_FROM_TIMELINE_TAB,
-  UPDATE_SOCIAL_GRAPH_REFRESH_INTERVAL_ID,
-  SOCIAL_GRAPH_GEOGRAPHIC_PREVIEW_PANE_REQUEST_START,
-  SOCIAL_GRAPH_GEOGRAPHIC_PREVIEW_PANE_REQUEST_SUCCESS,
-  SOCIAL_GRAPH_GEOGRAPHIC_PREVIEW_PANE_REQUEST_FAILURE,
-} from 'utils/constants';
+import * as constants from 'utils/constants';
 
 
 describe('socialGraph actions', function () {
@@ -40,13 +22,13 @@ describe('socialGraph actions', function () {
     it('should return the right action', function () {
       requestSocialGraphNetwork({ 'unit_id': 123, 'threshold': 2, 'complaint_origin': 'CIVILIAN' }).should.eql({
         types: [
-          SOCIAL_GRAPH_NETWORK_REQUEST_START,
-          SOCIAL_GRAPH_NETWORK_REQUEST_SUCCESS,
-          SOCIAL_GRAPH_NETWORK_REQUEST_FAILURE
+          constants.SOCIAL_GRAPH_NETWORK_REQUEST_START,
+          constants.SOCIAL_GRAPH_NETWORK_REQUEST_SUCCESS,
+          constants.SOCIAL_GRAPH_NETWORK_REQUEST_FAILURE
         ],
         payload: {
           request: {
-            url: SOCIAL_GRAPH_NETWORK_API_URL,
+            url: constants.SOCIAL_GRAPH_NETWORK_API_URL,
             params: { 'unit_id': 123, 'threshold': 2, 'complaint_origin': 'CIVILIAN' },
             adapter: null,
             cancelToken: undefined,
@@ -60,13 +42,13 @@ describe('socialGraph actions', function () {
     it('should return the right action', function () {
       requestSocialGraphAllegations({ 'unit_id': 123, 'threshold': 2, 'complaint_origin': 'CIVILIAN' }).should.eql({
         types: [
-          SOCIAL_GRAPH_ALLEGATIONS_REQUEST_START,
-          SOCIAL_GRAPH_ALLEGATIONS_REQUEST_SUCCESS,
-          SOCIAL_GRAPH_ALLEGATIONS_REQUEST_FAILURE
+          constants.SOCIAL_GRAPH_ALLEGATIONS_REQUEST_START,
+          constants.SOCIAL_GRAPH_ALLEGATIONS_REQUEST_SUCCESS,
+          constants.SOCIAL_GRAPH_ALLEGATIONS_REQUEST_FAILURE
         ],
         payload: {
           request: {
-            url: SOCIAL_GRAPH_ALLEGATIONS_API_URL,
+            url: constants.SOCIAL_GRAPH_ALLEGATIONS_API_URL,
             params: { 'unit_id': 123, 'threshold': 2, 'complaint_origin': 'CIVILIAN' },
             adapter: null,
             cancelToken: undefined,
@@ -76,17 +58,17 @@ describe('socialGraph actions', function () {
     });
   });
 
-  describe('requestSocialGraphGeographic', function () {
+  describe('requestFirstPageSocialGraphGeographicCrs', function () {
     it('should return the right action', function () {
-      requestSocialGraphGeographic({ 'unit_id': 123 }).should.eql({
+      requestFirstPageSocialGraphGeographicCrs({ 'unit_id': 123 }).should.eql({
         types: [
-          SOCIAL_GRAPH_GEOGRAPHIC_REQUEST_START,
-          SOCIAL_GRAPH_GEOGRAPHIC_REQUEST_SUCCESS,
-          SOCIAL_GRAPH_GEOGRAPHIC_REQUEST_FAILURE
+          constants.FIRST_PAGE_GEOGRAPHIC_CRS_REQUEST_START,
+          constants.FIRST_PAGE_GEOGRAPHIC_CRS_REQUEST_SUCCESS,
+          constants.FIRST_PAGE_GEOGRAPHIC_CRS_REQUEST_FAILURE,
         ],
         payload: {
           request: {
-            url: SOCIAL_GRAPH_GEOGRAPHIC_API_URL,
+            url: constants.SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
             params: { 'unit_id': 123 },
             adapter: null,
             cancelToken: undefined,
@@ -96,18 +78,138 @@ describe('socialGraph actions', function () {
     });
   });
 
-  describe('requestSocialGraphGeographicPreviewPane', function () {
+  describe('requestOtherPagesSocialGraphGeographicCrs', function () {
     it('should return the right action', function () {
-      requestSocialGraphGeographicPreviewPane({ 'unit_id': 123 }).should.eql({
+      requestOtherPagesSocialGraphGeographicCrs({ 'unit_id': 123 }).should.eql({
         types: [
-          SOCIAL_GRAPH_GEOGRAPHIC_PREVIEW_PANE_REQUEST_START,
-          SOCIAL_GRAPH_GEOGRAPHIC_PREVIEW_PANE_REQUEST_SUCCESS,
-          SOCIAL_GRAPH_GEOGRAPHIC_PREVIEW_PANE_REQUEST_FAILURE
+          constants.GEOGRAPHIC_CRS_REQUEST_START,
+          constants.GEOGRAPHIC_CRS_REQUEST_SUCCESS,
+          constants.GEOGRAPHIC_CRS_REQUEST_FAILURE,
         ],
         payload: {
           request: {
-            url: SOCIAL_GRAPH_DETAIL_GEOGRAPHIC_API_URL,
+            url: constants.SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
             params: { 'unit_id': 123 },
+            adapter: null,
+            cancelToken: undefined,
+          }
+        }
+      });
+    });
+  });
+
+  describe('requestFirstPageSocialGraphGeographicTrrs', function () {
+    it('should return the right action', function () {
+      requestFirstPageSocialGraphGeographicTrrs({ 'unit_id': 123 }).should.eql({
+        types: [
+          constants.FIRST_PAGE_GEOGRAPHIC_TRRS_REQUEST_START,
+          constants.FIRST_PAGE_GEOGRAPHIC_TRRS_REQUEST_SUCCESS,
+          constants.FIRST_PAGE_GEOGRAPHIC_TRRS_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: constants.SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL,
+            params: { 'unit_id': 123 },
+            adapter: null,
+            cancelToken: undefined,
+          }
+        }
+      });
+    });
+  });
+
+  describe('requestOtherPagesSocialGraphGeographicTrrs', function () {
+    it('should return the right action', function () {
+      requestOtherPagesSocialGraphGeographicTrrs({ 'unit_id': 123 }).should.eql({
+        types: [
+          constants.GEOGRAPHIC_TRRS_REQUEST_START,
+          constants.GEOGRAPHIC_TRRS_REQUEST_SUCCESS,
+          constants.GEOGRAPHIC_TRRS_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: constants.SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL,
+            params: { 'unit_id': 123 },
+            adapter: null,
+            cancelToken: undefined,
+          }
+        }
+      });
+    });
+  });
+
+  describe('requestFirstPageSocialGraphGeographicCrsPreviewPane', function () {
+    it('should return the right action', function () {
+      requestFirstPageSocialGraphGeographicCrsPreviewPane({ 'unit_id': 123 }).should.eql({
+        types: [
+          constants.FIRST_PAGE_GEOGRAPHIC_CRS_PREVIEW_PANE_REQUEST_START,
+          constants.FIRST_PAGE_GEOGRAPHIC_CRS_PREVIEW_PANE_REQUEST_SUCCESS,
+          constants.FIRST_PAGE_GEOGRAPHIC_CRS_PREVIEW_PANE_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: constants.SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
+            params: { 'unit_id': 123, 'detail': true },
+            adapter: null,
+            cancelToken: undefined,
+          }
+        }
+      });
+    });
+  });
+
+  describe('requestOtherPagesSocialGraphGeographicCrsPreviewPane', function () {
+    it('should return the right action', function () {
+      requestOtherPagesSocialGraphGeographicCrsPreviewPane({ 'unit_id': 123 }).should.eql({
+        types: [
+          constants.GEOGRAPHIC_CRS_PREVIEW_PANE_REQUEST_START,
+          constants.GEOGRAPHIC_CRS_PREVIEW_PANE_REQUEST_SUCCESS,
+          constants.GEOGRAPHIC_CRS_PREVIEW_PANE_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: constants.SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
+            params: { 'unit_id': 123, 'detail': true },
+            adapter: null,
+            cancelToken: undefined,
+          }
+        }
+      });
+    });
+  });
+
+  describe('requestFirstPageSocialGraphGeographicTrrsPreviewPane', function () {
+    it('should return the right action', function () {
+      requestFirstPageSocialGraphGeographicTrrsPreviewPane({ 'unit_id': 123 }).should.eql({
+        types: [
+          constants.FIRST_PAGE_GEOGRAPHIC_TRRS_PREVIEW_PANE_REQUEST_START,
+          constants.FIRST_PAGE_GEOGRAPHIC_TRRS_PREVIEW_PANE_REQUEST_SUCCESS,
+          constants.FIRST_PAGE_GEOGRAPHIC_TRRS_PREVIEW_PANE_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: constants.SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL,
+            params: { 'unit_id': 123, 'detail': true },
+            adapter: null,
+            cancelToken: undefined,
+          }
+        }
+      });
+    });
+  });
+
+  describe('requestOtherPagesSocialGraphGeographicTrrsPreviewPane', function () {
+    it('should return the right action', function () {
+      requestOtherPagesSocialGraphGeographicTrrsPreviewPane({ 'unit_id': 123 }).should.eql({
+        types: [
+          constants.GEOGRAPHIC_TRRS_PREVIEW_PANE_REQUEST_START,
+          constants.GEOGRAPHIC_TRRS_PREVIEW_PANE_REQUEST_SUCCESS,
+          constants.GEOGRAPHIC_TRRS_PREVIEW_PANE_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: constants.SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL,
+            params: { 'unit_id': 123, 'detail': true },
             adapter: null,
             cancelToken: undefined,
           }
@@ -120,13 +222,13 @@ describe('socialGraph actions', function () {
     it('should return the right action', function () {
       requestSocialGraphOfficers({ 'unit_id': 123 }).should.eql({
         types: [
-          SOCIAL_GRAPH_OFFICERS_REQUEST_START,
-          SOCIAL_GRAPH_OFFICERS_REQUEST_SUCCESS,
-          SOCIAL_GRAPH_OFFICERS_REQUEST_FAILURE
+          constants.SOCIAL_GRAPH_OFFICERS_REQUEST_START,
+          constants.SOCIAL_GRAPH_OFFICERS_REQUEST_SUCCESS,
+          constants.SOCIAL_GRAPH_OFFICERS_REQUEST_FAILURE
         ],
         payload: {
           request: {
-            url: SOCIAL_GRAPH_OFFICERS_API_URL,
+            url: constants.SOCIAL_GRAPH_OFFICERS_API_URL,
             params: { 'unit_id': 123 },
             adapter: null,
             cancelToken: undefined,
@@ -139,7 +241,7 @@ describe('socialGraph actions', function () {
   describe('updateSocialGraphTimelineIdx', function () {
     it('should return correct payload', function () {
       updateSocialGraphTimelineIdx(20).should.eql({
-        type: UPDATE_SOCIAL_GRAPH_TIMELINE_IDX,
+        type: constants.UPDATE_SOCIAL_GRAPH_TIMELINE_IDX,
         payload: 20
       });
     });
@@ -148,7 +250,7 @@ describe('socialGraph actions', function () {
   describe('updateSocialGraphTimelineIdxFromTimelineTab', function () {
     it('should return correct payload', function () {
       updateSocialGraphTimelineIdxFromTimelineTab(20).should.eql({
-        type: UPDATE_SOCIAL_GRAPH_TIMELINE_IDX_FROM_TIMELINE_TAB,
+        type: constants.UPDATE_SOCIAL_GRAPH_TIMELINE_IDX_FROM_TIMELINE_TAB,
         payload: 20
       });
     });
@@ -157,7 +259,7 @@ describe('socialGraph actions', function () {
   describe('updateSocialGraphRefreshIntervalId', function () {
     it('should return correct payload', function () {
       updateSocialGraphRefreshIntervalId(1234).should.eql({
-        type: UPDATE_SOCIAL_GRAPH_REFRESH_INTERVAL_ID,
+        type: constants.UPDATE_SOCIAL_GRAPH_REFRESH_INTERVAL_ID,
         payload: 1234
       });
     });

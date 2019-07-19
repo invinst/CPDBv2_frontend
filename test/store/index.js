@@ -256,10 +256,16 @@ describe('store', function () {
         },
         currentMainTab: 'NETWORK',
         geographicData: {
-          mapData: [],
-          previewPaneData: [],
           crid: null,
           trrId: null,
+          isCrsRequested: false,
+          isTrrsRequested: false,
+          mapCrsData: [],
+          mapTrrsData: [],
+          mapCrsDataTotalCount: null,
+          mapTrrsDataTotalCount: null,
+          previewPaneCrsData: [],
+          previewPaneTrrsData: [],
         },
       },
       pinboardPage: {
@@ -274,7 +280,15 @@ describe('store', function () {
           'trr_ids': [],
         },
         graphData: { requesting: false, data: {} },
-        geographicData: { requesting: false, data: [] },
+        geographicData: {
+          requesting: false,
+          clearAllMarkers: false,
+          mapCrsData: [],
+          mapTrrsData: [],
+          mapCrsDataTotalCount: null,
+          mapTrrsDataTotalCount: null,
+
+        },
         currentTab: 'NETWORK',
         relevantDocuments: {
           requesting: false,
@@ -302,6 +316,7 @@ describe('store', function () {
         timelineIdx: 0,
         refreshIntervalId: null,
         focusedItem: {},
+        pinItemFromPreviewPane: {},
       },
       toast: {},
     });

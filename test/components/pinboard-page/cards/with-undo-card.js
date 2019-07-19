@@ -28,6 +28,12 @@ describe('withUndoCard higher-order component', function () {
     rank: 'Officer as Detective',
     fullName: 'James David',
     complaintCount: '10',
+    rawData: {
+      'id': 123,
+      'rank': 'Officer as Detective',
+      'full_name': 'James David',
+      'complaint_count': '10',
+    }
   };
 
   afterEach(function () {
@@ -94,12 +100,14 @@ describe('withUndoCard higher-order component', function () {
         clock.tick(constants.UNDO_CARD_VISIBLE_TIME);
 
         addItemInPinboardPage.should.be.calledWith({
-          complaintCount: '10',
-          fullName: 'James David',
-          id: '123',
-          percentile: undefined,
-          rank: 'Officer as Detective',
-          type: 'OFFICER'
+          id: 123,
+          type: 'OFFICER',
+          rawData: {
+            'id': 123,
+            'rank': 'Officer as Detective',
+            'full_name': 'James David',
+            'complaint_count': '10',
+          }
         });
       });
 

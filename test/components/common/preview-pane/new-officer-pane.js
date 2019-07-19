@@ -22,7 +22,7 @@ import {
 describe('NewOfficerPane component', () => {
   let instance;
   const officer = {
-    id: '123456',
+    id: 123456,
     fullName: 'John Watts',
     appointedDate: '05-08-2018',
     resignationDate: '05-12-2019',
@@ -229,7 +229,7 @@ describe('NewOfficerPane component', () => {
 
     addOrRemoveItemInPinboardStub.calledWith({
       type: 'OFFICER',
-      id: '123456',
+      id: 123456,
       isPinned: false,
     }).should.be.true();
 
@@ -250,7 +250,7 @@ describe('NewOfficerPane component', () => {
 
     addOrRemoveItemInPinboardStub.calledWith({
       type: 'OFFICER',
-      id: '123456',
+      id: 123456,
       isPinned: true,
     }).should.be.true();
   });

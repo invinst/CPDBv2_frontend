@@ -23,7 +23,10 @@ describe('SocialGraphPage component', function () {
       networkData: {
         graphData: {},
       },
-      geographicData: [],
+      geographicData: {
+        mapCrsData: [],
+        mapTrrsData: [],
+      },
     },
   });
   const location = {

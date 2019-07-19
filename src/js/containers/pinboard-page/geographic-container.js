@@ -6,6 +6,7 @@ import {
   mapLegendSelector,
   mapMarkersSelector,
   getGeographicDataRequesting,
+  getClearAllMarkers,
 } from 'selectors/pinboard-page/geographic-data';
 
 function mapStateToProps(state, ownProps) {
@@ -14,6 +15,7 @@ function mapStateToProps(state, ownProps) {
     legend: mapLegendSelector(state),
     markers: mapMarkersSelector(state),
     requesting: getGeographicDataRequesting(state),
+    clearAllMarkers: getClearAllMarkers(state),
   };
 }
 

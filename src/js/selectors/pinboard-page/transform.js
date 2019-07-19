@@ -26,26 +26,30 @@ const officerTransform = officer => {
   };
 };
 
-export const relevantComplaintTransform = allegation => ({
+export const relevantComplaintTransform = (allegation, updatingItem={}) => ({
   crid: allegation.crid,
   category: allegation.category,
   incidentDate: formatDate(allegation['incident_date'], false),
   officers: (allegation.coaccused || []).map(officerTransform),
   point: allegation.point,
+  isPinStatusChanging: updatingItem.type === 'CR' && updatingItem.id === allegation.crid,
+  rawData: allegation,
 });
 
-export const relevantDocumentTransform = (document, crids) => ({
+export const relevantDocumentTransform = (document, crids, updatingItem={}) => ({
   previewImageUrl: document['preview_image_url'],
   url: document.url,
-  allegation: relevantComplaintTransform(document.allegation),
+  allegation: relevantComplaintTransform(document.allegation, updatingItem),
   pinned: includes(crids, document.allegation.crid),
 });
 
-export const relevantCoaccusalTransform = coaccusal => ({
+export const relevantCoaccusalTransform = (coaccusal, updatingItem={}) => ({
   id: coaccusal.id,
   rank: coaccusal.rank,
   fullName: coaccusal['full_name'],
   coaccusalCount: coaccusal['coaccusal_count'],
   complaintCount: coaccusal['allegation_count'],
   percentile: extractPercentile(coaccusal.percentile),
+  isPinStatusChanging: updatingItem.type === 'OFFICER' && updatingItem.id.toString() === coaccusal.id.toString(),
+  rawData: coaccusal,
 });

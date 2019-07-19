@@ -11,13 +11,11 @@ export default class EmptyPinboardPage extends Component {
     return (
       <div className={ responsiveContainerStyles.responsiveContainer }>
         <div className={ styles.emptyPinboard }>
-          <div className='empty-pinboard-title'>Add</div>
+          <div className='empty-pinboard-title'>Get started</div>
           <div className='empty-pinboard-description'>
-            <div>
-              Add officers, or complaint records through search.<br />
-              <br />
-              Or use an example pinboard as a baseline to get started.
-            </div>
+            Use search to find officers and individual complaint records and
+            press the plus button to add cards to your pinboard.<br/><br/>
+            Come back to the pinboard to give it a title and see a network map or discover relevant documents.
           </div>
           { examplePinboards.map(pinboard => (
             <ExamplePinboardLink
