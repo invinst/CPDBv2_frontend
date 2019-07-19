@@ -11,7 +11,6 @@ import { stub, spy } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import * as DomUtils from 'utils/dom';
-import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import LogOutButton from 'components/log-out-button';
 import SlimHeaderContent from 'components/headers/slim-header/slim-header-content';
 import Logo from 'components/headers/slim-header/slim-header-content/logo';
