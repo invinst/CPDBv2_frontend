@@ -27,7 +27,7 @@ describe('Pinboard Page', function () {
     browser.getUrl().replace(/https?:\/\/[^/]+/, '').should.equal('/');
   });
 
-  it.only('should go to Q&A url when clicking on Q&A link', function () {
+  it('should go to Q&A url when clicking on Q&A link', function () {
     pinboardPage.open();
     pinboardPage.headerQALink.click();
     browser.getUrl().should.containEql('http://how.cpdp.works/');
@@ -54,6 +54,25 @@ describe('Pinboard Page', function () {
       trrs.title.getText().should.equal('TACTICAL RESPONSE REPORTS');
       trrs.firstCardDate.getText().should.equal('2012-01-01');
       trrs.firstCardCategory.getText().should.equal('Impact Weapon');
+    });
+
+    it('should show preview pane when click on TRR pinned item', function () {
+      pinboardPage.open();
+
+      pinboardPage.pinnedSection.trrs.firstElement.click();
+      pinboardPage.previewPane.mainElement.waitForVisible();
+      pinboardPage.previewPane.actionText.getText().should.equal('View Tactical Response Report');
+      pinboardPage.previewPane.trrTitle.getText().should.equal('Impact Weapon');
+      pinboardPage.previewPane.trrFirstInfo.getText().should.equal('Jan 01, 2012');
+      pinboardPage.previewPane.trrSecondInfo.getText().should.equal('14XX W 63RD ST, CHICAGO IL 60636');
+    });
+
+    it('should redirect to TRR page when click on TRR preview pane', function () {
+      pinboardPage.open();
+      pinboardPage.pinnedSection.trrs.firstElement.click();
+      pinboardPage.previewPane.mainElement.waitForVisible();
+      pinboardPage.previewPane.actionText.click();
+      browser.getUrl().should.containEql('/trr/123456/');
     });
   });
 
@@ -325,13 +344,51 @@ describe('Pinboard Page', function () {
       pinboardPage.relevantCoaccusalsSection.coaccusalCards().should.have.length(20);
 
       pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.plusButton.click();
-      browser.pause(1050);
+      browser.pause(4500);
 
       pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.officerName.getText().should.not.equal(
         'Richard Sullivan'
       );
       pinboardPage.relevantCoaccusalsSection.coaccusalCards().should.have.length(19);
       pinboardPage.pinnedSection.officers.officerCards().should.have.length(2);
+    });
+
+    it('should supply enough data to pinned section if user pin it', function () {
+      pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
+      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.plusButton.click();
+      browser.pause(4500);
+
+      pinboardPage.pinnedSection.officers.officerCards().should.have.length(2);
+      pinboardPage.pinnedSection.officers.secondCardName.click();
+      pinboardPage.officerPreviewPane.pinButton.getText().should.equal('Add to pinboard');
+      pinboardPage.officerPreviewPane.viewOfficerButton.getText().should.equal('View Officer Profile');
+      pinboardPage.officerPreviewPane.officerName.getText().should.equal('Richard Sullivan');
+      pinboardPage.officerPreviewPane.genericInfo.getText().should.equal('67 year old, black, female.');
+      pinboardPage.officerPreviewPane.badgeKey.getText().should.equal('Badge');
+      pinboardPage.officerPreviewPane.badgeValue.getText().should.equal('456');
+      pinboardPage.officerPreviewPane.rankKey.getText().should.equal('Rank');
+      pinboardPage.officerPreviewPane.rankValue.getText().should.equal('Detective');
+      pinboardPage.officerPreviewPane.unitKey.getText().should.equal('Unit');
+      pinboardPage.officerPreviewPane.unitValue.getText().should.equal('District 004');
+      pinboardPage.officerPreviewPane.careerKey.getText().should.equal('Career');
+      pinboardPage.officerPreviewPane.allegationValue.getText().should.equal('1');
+      pinboardPage.officerPreviewPane.allegationName.getText().should.equal('Allegations');
+      pinboardPage.officerPreviewPane.allegationDescription.getText().should.equal('More than 22% of other officers');
+      pinboardPage.officerPreviewPane.sustainedValue.getText().should.equal('4');
+      pinboardPage.officerPreviewPane.sustainedName.getText().should.equal('Sustained');
+      pinboardPage.officerPreviewPane.sustainedDescription.getText().should.equal('6 Disciplined');
+      pinboardPage.officerPreviewPane.trrValue.getText().should.equal('7');
+      pinboardPage.officerPreviewPane.trrName.getText().should.equal('Use of Force Reports');
+      pinboardPage.officerPreviewPane.trrDescription.getText().should.equal('More than 11% of other officers');
+      pinboardPage.officerPreviewPane.allegationCivilianValue.getText().should.equal('2');
+      pinboardPage.officerPreviewPane.allegationCivilianName.getText().should.equal('Civilian\nCompliments');
+      pinboardPage.officerPreviewPane.majorAwardValue.getText().should.equal('8');
+      pinboardPage.officerPreviewPane.majorAwardName.getText().should.equal('Major Awards');
+      pinboardPage.officerPreviewPane.honorableMentionValue.getText().should.equal('3');
+      pinboardPage.officerPreviewPane.honorableMentionName.getText().should.equal('Honorable Mentions');
+      pinboardPage.officerPreviewPane.honorableMentionDescription.getText().should.equal(
+        'More than 88% of other officers'
+      );
     });
   });
 
@@ -405,7 +462,7 @@ describe('Pinboard Page', function () {
       pinboardPage.relevantDocumentsSection.documentCards().should.have.length(20);
 
       pinboardPage.relevantDocumentsSection.documentCardSection.plusButton.click();
-      browser.pause(1500);
+      browser.pause(4500);
 
       pinboardPage.relevantDocumentsSection.documentCards().should.have.length(20);
       pinboardPage.pinnedSection.crs.crCards().should.have.length(2);
@@ -489,13 +546,35 @@ describe('Pinboard Page', function () {
       );
 
       pinboardPage.relevantComplaintsSection.complaintCardSection.plusButton.click();
-      browser.pause(1050);
+      browser.pause(4500);
 
       pinboardPage.pinnedSection.crs.crCards().should.have.length(2);
       pinboardPage.relevantComplaintsSection.complaintCardSection.category.getText().should.not.equal(
         'Lockup Procedures'
       );
     });
+  });
+});
+
+describe('Undo card', function () {
+  beforeEach(function () {
+    pinboardPage.open();
+  });
+
+  it('should show undo card when user click on unpin button', function () {
+    pinboardPage.pinnedSection.officers.firstCardUnpinBtn.click();
+    pinboardPage.pinnedSection.officers.undoCard.waitForVisible();
+
+    // card disappear after 4s
+    browser.pause(4500);
+    pinboardPage.pinnedSection.officers.officerCards().should.have.length(0);
+  });
+
+  it('should show card when user click on undo button', function () {
+    pinboardPage.pinnedSection.officers.firstCardUnpinBtn.click();
+    pinboardPage.pinnedSection.officers.undoCard.waitForVisible();
+    pinboardPage.pinnedSection.officers.undoCard.click();
+    pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
   });
 });
 

@@ -9,6 +9,7 @@ import {
   gapYearItems,
   edgeCoaccusalsItemsSelector,
   selectedEdgeDataSelector,
+  getRequesting,
 } from 'selectors/social-graph-page/network';
 
 
@@ -433,6 +434,22 @@ describe('Social Graph page selectors', function () {
         targetUid: 456,
         coaccusedCount: 2,
       });
+    });
+  });
+
+  describe('getRequesting', function () {
+    it('should return requesting status', function () {
+      getRequesting({
+        socialGraphPage: {
+          networkData: { requesting: false }
+        }
+      }).should.be.false();
+
+      getRequesting({
+        socialGraphPage: {
+          networkData: { requesting: true }
+        }
+      }).should.be.true();
     });
   });
 });

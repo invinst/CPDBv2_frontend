@@ -3,13 +3,18 @@
 \:local(.preview-pane-wrapper)
   width: 321px
   border-left: 1px $white-two-color solid
-  background-color: white
+  background-color: $sugar-cane-color
   height: 100%
   box-sizing: border-box
   display: inline-block
   vertical-align: top
   position: fixed
   right: 0
+
+  .trr-pane-wrapper
+    border: 1px $white-two-color solid
+    margin: 12px 8px
+    min-height: calc(100vh - 26px)
 
 \:local(.y-scrollable)
   overflow-y: scroll

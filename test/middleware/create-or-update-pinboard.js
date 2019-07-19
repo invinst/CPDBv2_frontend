@@ -18,7 +18,9 @@ import {
   fetchPinboardRelevantCoaccusals,
   fetchPinboardRelevantComplaints,
   performFetchPinboardRelatedData,
-  updatePinboardInfoState
+  updatePinboardInfoState,
+  savePinboardWithoutChangingState,
+  handleRemovingItemInPinboardPage,
 } from 'actions/pinboard';
 import PinboardFactory from 'utils/test/factories/pinboard';
 
@@ -28,7 +30,22 @@ describe('createOrUpdatePinboard middleware', function () {
     getState: () => {
       return {
         pinboardPage: {
-          pinboard
+          pinboard,
+          officerItems: {
+            items: [],
+            removingItems: [],
+            requesting: false,
+          },
+          crItems: {
+            items: [],
+            removingItems: [],
+            requesting: false,
+          },
+          trrItems: {
+            items: [],
+            removingItems: [],
+            requesting: false,
+          },
         },
         pathname,
       };
@@ -221,6 +238,129 @@ describe('createOrUpdatePinboard middleware', function () {
     );
   });
 
+  it('should handle REMOVE_ITEM_IN_PINBOARD_PAGE with API_ONLY mode', function (done) {
+    const action = {
+      type: constants.REMOVE_ITEM_IN_PINBOARD_PAGE,
+      payload: {
+        id: '123',
+        type: 'CR',
+        mode: constants.PINBOARD_ITEM_REMOVE_MODE.API_ONLY
+      }
+    };
+    const store = createStore(PinboardFactory.build());
+
+    let dispatched;
+    createOrUpdatePinboard(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+
+    store.dispatch.should.be.calledWith(handleRemovingItemInPinboardPage({
+      id: '123',
+      type: 'CR',
+      mode: constants.PINBOARD_ITEM_REMOVE_MODE.API_ONLY
+    }));
+
+    setTimeout(
+      () => {
+        store.dispatch.should.be.calledWith(savePinboardWithoutChangingState(action.payload));
+        done();
+      },
+      50
+    );
+  });
+
+  it('should handle REMOVE_ITEM_IN_PINBOARD_PAGE with STATE_ONLY mode', function () {
+    const action = {
+      type: constants.REMOVE_ITEM_IN_PINBOARD_PAGE,
+      payload: {
+        id: '123',
+        type: 'CR',
+        mode: constants.PINBOARD_ITEM_REMOVE_MODE.STATE_ONLY
+      }
+    };
+    const store = createStore(PinboardFactory.build());
+
+    let dispatched;
+    createOrUpdatePinboard(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+
+    store.dispatch.should.be.calledWith(removeItemFromPinboardState(action.payload));
+  });
+
+  it('should handle SAVE_PINBOARD_WITHOUT_CHANGING_STATE', function (done) {
+    const action = {
+      type: constants.SAVE_PINBOARD_WITHOUT_CHANGING_STATE,
+      payload: {
+        type: 'OFFICER',
+        id: '123',
+      }
+    };
+    const store = {
+      getState: () => {
+        return {
+          pinboardPage: {
+            pinboard: PinboardFactory.build({
+              'id': '66ef1560',
+              'officer_ids': [123, 456],
+              'saving': false,
+              'needRefreshData': true,
+            }),
+            officerItems: {
+              items: [],
+              removingItems: ['123'],
+              requesting: false,
+            },
+            crItems: {
+              items: [],
+              removingItems: [],
+              requesting: false,
+            },
+            trrItems: {
+              items: [],
+              removingItems: [],
+              requesting: false,
+            },
+          },
+        };
+      },
+      dispatch: stub().usingPromise(Promise).resolves({
+        payload: {
+          id: '66ef1560',
+          title: '',
+          description: '',
+          'officer_ids': ['456'],
+          crids: [],
+          'trr_ids': [],
+        }
+      })
+    };
+
+    let dispatched;
+    createOrUpdatePinboard(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+
+    store.dispatch.should.be.calledWith(updatePinboard({
+      id: '66ef1560',
+      title: '',
+      description: '',
+      officerIds: ['456'],
+      crids: [],
+      trrIds: [],
+    }));
+
+    setTimeout(
+      () => {
+        store.dispatch.should.be.calledWith(fetchPinboardSocialGraph('66ef1560'));
+        store.dispatch.should.be.calledWith(fetchPinboardGeographicData('66ef1560'));
+        store.dispatch.should.be.calledWith(fetchPinboardRelevantDocuments('66ef1560'));
+        store.dispatch.should.be.calledWith(fetchPinboardRelevantCoaccusals('66ef1560'));
+        store.dispatch.should.be.calledWith(fetchPinboardRelevantComplaints('66ef1560'));
+        store.dispatch.should.be.calledWith(performFetchPinboardRelatedData());
+        done();
+      },
+      50
+    );
+  });
+
   describe('handling SAVE_PINBOARD', function () {
     it('should dispatch createPinboard', function (done) {
       const action = {
@@ -326,6 +466,7 @@ describe('createOrUpdatePinboard middleware', function () {
       createOrUpdatePinboard(store)(action => dispatched = action)(action);
       dispatched.should.eql(action);
 
+      store.dispatch.should.be.called();
       store.dispatch.should.be.calledWith(createPinboard({
         id: null,
         title: '',
@@ -410,7 +551,22 @@ describe('createOrUpdatePinboard middleware', function () {
                 'id': '66ef1560',
                 'officer_ids': [123, 456],
                 'saving': false,
-              })
+              }),
+              officerItems: {
+                items: [],
+                removingItems: [],
+                requesting: false,
+              },
+              crItems: {
+                items: [],
+                removingItems: [],
+                requesting: false,
+              },
+              trrItems: {
+                items: [],
+                removingItems: [],
+                requesting: false,
+              },
             },
           };
         },

@@ -53,7 +53,12 @@ export const RawTRRSuggestion = Factory.define('RawTRRSuggestion')
   .attr('to', '')
   .attr('url', '')
   .attr('force_type', lorem.words)
-  .attr('trr_datetime', '1999-12-13');
+  .attr('trr_datetime', '1999-12-13')
+  .attr('officer', null)
+  .attr('taser', lorem.words)
+  .attr('address', lorem.words)
+  .attr('firearm_used', lorem.words);
+
 
 /* istanbul ignore next */
 export const RawNeighborhoodSuggestion = Factory.define('RawNeighborhoodSuggestion')

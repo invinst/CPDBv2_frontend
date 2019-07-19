@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { map, differenceBy, first, get, isEqual } from 'lodash';
+import { map, differenceBy, first, get, isEqual, noop } from 'lodash';
 import cx from 'classnames';
 import { Muuri } from 'utils/vendors';
 
@@ -9,6 +9,7 @@ import { TRRCardWithUndo as TRRCard } from './cards/trr-card';
 import styles from './pinned-type.sass';
 import { getPageYBottomOffset, scrollByBottomOffset } from 'utils/navigation';
 import LoadingSpinner from 'components/common/loading-spinner';
+import { PINBOARD_ITEM_REMOVE_MODE } from 'utils/constants';
 
 
 const CARD_MAP = {
@@ -71,7 +72,10 @@ export default class PinnedType extends Component {
   }
 
   removeItemInPinboardPage(item) {
-    this.gridMuuri.remove(this.itemElements[item.id]);
+    const mode = get(item, 'mode', PINBOARD_ITEM_REMOVE_MODE.DEFAULT);
+    if (mode !== PINBOARD_ITEM_REMOVE_MODE.API_ONLY) {
+      this.gridMuuri.remove(this.itemElements[item.id]);
+    }
 
     setTimeout(
       () => this.props.removeItemInPinboardPage(item),
@@ -80,7 +84,7 @@ export default class PinnedType extends Component {
   }
 
   renderGrid() {
-    const { type, items, focusItem } = this.props;
+    const { type, items, focusItem, addItemInPinboardPage } = this.props;
     const Card = CARD_MAP[type];
     this.itemElements = {};
 
@@ -98,6 +102,7 @@ export default class PinnedType extends Component {
                 <Card
                   item={ item }
                   removeItemInPinboardPage={ this.removeItemInPinboardPage }
+                  addItemInPinboardPage={ addItemInPinboardPage }
                   isAdded={ get(this.addedItem, 'id') === get(item, 'id') }
                   focusItem={ focusItem }
                 />
@@ -137,11 +142,13 @@ PinnedType.propTypes = {
   title: PropTypes.string,
   items: PropTypes.array,
   removeItemInPinboardPage: PropTypes.func,
+  addItemInPinboardPage: PropTypes.func,
   orderPinboard: PropTypes.func,
   requesting: PropTypes.bool,
   focusItem: PropTypes.func,
 };
 
 PinnedType.defaultProps = {
-  items: []
+  items: [],
+  addItemInPinboardPage: noop,
 };

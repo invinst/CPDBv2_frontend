@@ -12,6 +12,7 @@ export const getNetworkAllegations = state => state.socialGraphPage.networkData.
 export const getSelectedOfficerId = state => state.socialGraphPage.networkData.selectedOfficerId;
 export const getSelectedEdge = state => state.socialGraphPage.networkData.selectedEdge;
 export const getSelectedCrid = state => state.socialGraphPage.networkData.selectedCrid;
+export const getRequesting = state => state.socialGraphPage.networkData.requesting;
 
 export const officersSelector = createSelector(
   [getGraphDataOfficers],

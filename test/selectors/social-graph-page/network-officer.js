@@ -1,4 +1,8 @@
-import { officerDetailTransform, sortedNetworkOfficersSelector } from 'selectors/social-graph-page/network-officers';
+import {
+  officerDetailTransform,
+  sortedNetworkOfficersSelector,
+  getNetworkOfficersRequesting,
+} from 'selectors/social-graph-page/network-officers';
 
 
 describe('Social Graph page selectors', function () {
@@ -245,6 +249,22 @@ describe('Social Graph page selectors', function () {
       ];
       const props = { sortedOfficerIds: [456, 123, 789] };
       sortedNetworkOfficersSelector(state, props).should.eql(expectedSortedNetworkOfficers);
+    });
+  });
+
+  describe('getNetworkOfficersRequesting', function () {
+    it('should return requesting status', function () {
+      getNetworkOfficersRequesting({
+        socialGraphPage: {
+          networkData: { networkOfficersRequesting: false }
+        }
+      }).should.be.false();
+
+      getNetworkOfficersRequesting({
+        socialGraphPage: {
+          networkData: { networkOfficersRequesting: true }
+        }
+      }).should.be.true();
     });
   });
 });
