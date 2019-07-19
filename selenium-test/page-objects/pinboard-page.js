@@ -13,7 +13,7 @@ class PinnedOfficers extends Section {
 
     this.prepareElementGetters({
       title: `${sectionSelector}/div[@class="type-title"]`,
-      firstCardUnpinBtn: `${firstCardSelector}//span[starts-with(@class, "item-unpin-button")]`,
+      firstCardUnpinBtn: `${firstCardSelector}//div[starts-with(@class, "item-unpin-button")]`,
       firstCardRank: `${firstCardSelector}//div[@class="officer-rank"]`,
       firstCardName: `${firstCardSelector}//div[@class="officer-name"]`,
       firstCardCRsCount: `${firstCardSelector}//div[@class="officer-complaints-count"]`,
@@ -37,7 +37,7 @@ class PinnedCRs extends Section {
 
     this.prepareElementGetters({
       title: `${sectionSelector}/div[@class="type-title"]`,
-      firstCardUnpinBtn: `${firstCardSelector}/span[starts-with(@class, "item-unpin-button")]`,
+      firstCardUnpinBtn: `${firstCardSelector}/div[starts-with(@class, "item-unpin-button")]`,
       firstCardDate: `${firstCardSelector}//span[@class="location-card-date"]`,
       firstCardCategory: `${firstCardSelector}//span[@class="location-card-category"]`,
     });
@@ -59,7 +59,7 @@ class PinnedTRRs extends Section {
     this.prepareElementGetters({
       firstElement: firstCardSelector,
       title: `${sectionSelector}/div[@class="type-title"]`,
-      firstCardUnpinBtn: `${firstCardSelector}/span[starts-with(@class, "item-unpin-button")]`,
+      firstCardUnpinBtn: `${firstCardSelector}/div[starts-with(@class, "item-unpin-button")]`,
       firstCardDate: `${firstCardSelector}//span[@class="location-card-date"]`,
       firstCardCategory: `${firstCardSelector}//span[@class="location-card-category"]`,
     });
