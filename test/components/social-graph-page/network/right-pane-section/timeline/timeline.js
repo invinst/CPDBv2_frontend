@@ -161,6 +161,7 @@ describe('Timeline component', function () {
   });
 
   it('should call handleScroll when timeline reach ScrollMagic.Scene', function (done) {
+    const handleScrollStub = stub(Timeline.prototype, 'handleScroll');
     instance = renderIntoDocument(
       <Timeline
         items={ items }
@@ -168,7 +169,6 @@ describe('Timeline component', function () {
         timelineIdxTriggerChange={ 0 }
       />
     );
-    const handleScrollStub = stub(instance, 'handleScroll');
     setTimeout(() => {
       handleScrollStub.should.be.calledWith(items[1]);
       handleScrollStub.restore();
