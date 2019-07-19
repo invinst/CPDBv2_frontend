@@ -5,7 +5,6 @@ import {
   getPinboardTimelineIdx,
   getPinboardRefreshIntervalId,
   getExpandedLink,
-  getRequesting,
 } from 'selectors/pinboard-page/social-graph';
 import AnimatedSocialGraph from 'components/common/animated-social-graph';
 import { updatePinboardTimelineIdx, updatePinboardRefreshIntervalId } from 'actions/pinboard-page';
@@ -13,7 +12,6 @@ import { updatePinboardTimelineIdx, updatePinboardRefreshIntervalId } from 'acti
 
 function mapStateToProps(state, ownProps) {
   return {
-    requesting: getRequesting(state),
     officers: graphDataSelector(state).officers,
     coaccusedData: graphDataSelector(state).coaccusedData,
     listEvent: graphDataSelector(state).listEvent,

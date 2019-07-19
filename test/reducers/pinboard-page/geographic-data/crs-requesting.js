@@ -1,6 +1,6 @@
 import should from 'should';
 
-import requestingReducer from 'reducers/pinboard-page/geographic-data/requesting';
+import requestingReducer from 'reducers/pinboard-page/geographic-data/crs-requesting';
 import {
   FIRST_PAGE_PINBOARD_GEOGRAPHIC_CRS_FETCH_REQUEST_START,
   FIRST_PAGE_PINBOARD_GEOGRAPHIC_CRS_FETCH_REQUEST_SUCCESS,

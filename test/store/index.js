@@ -281,15 +281,15 @@ describe('store', function () {
         },
         graphData: { requesting: false, data: {} },
         geographicData: {
-          requesting: false,
           clearAllMarkers: false,
           mapCrsData: [],
           mapTrrsData: [],
           mapCrsDataTotalCount: null,
           mapTrrsDataTotalCount: null,
-
+          crsRequesting: false,
+          trrsRequesting: false,
         },
-        currentTab: 'NETWORK',
+        currentTab: null,
         relevantDocuments: {
           requesting: false,
           items: [],

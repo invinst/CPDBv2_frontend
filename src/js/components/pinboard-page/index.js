@@ -9,7 +9,7 @@ import SearchBar from './search-bar';
 import Header from './header';
 import styles from './pinboard-page.sass';
 import PinboardInfoContainer from 'containers/pinboard-page/pinboard-info';
-import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section';
+import { PinboardPaneSectionWithSpinner } from 'components/pinboard-page/pinboard-pane-section';
 import RelevantSectionContainer from 'containers/pinboard-page/relevant-section';
 import PinnedOfficersContainer from 'containers/pinboard-page/pinned-officers';
 import PinnedCRsContainer from 'containers/pinboard-page/pinned-crs';
@@ -82,6 +82,7 @@ export default class PinboardPage extends Component {
       isEmptyPinboard,
       focusedItem,
       examplePinboards,
+      requesting,
     } = this.props;
 
     if (isEmptyPinboard) {
@@ -94,10 +95,11 @@ export default class PinboardPage extends Component {
           <PinboardInfoContainer />
           <div className='data-visualizations'>
             <TrackVisibility partialVisibility={ true }>
-              <PinboardPaneSection
+              <PinboardPaneSectionWithSpinner
                 changePinboardTab={ changePinboardTab }
                 currentTab={ currentTab }
                 hasMapMarker={ hasMapMarker }
+                requesting={ requesting }
               />
             </TrackVisibility>
           </div>
@@ -164,6 +166,7 @@ PinboardPage.propTypes = {
   updatePathName: PropTypes.func,
   examplePinboards: PropTypes.array,
   addOrRemoveItemInPinboardFromPreviewPane: PropTypes.func,
+  requesting: PropTypes.bool,
 };
 
 PinboardPage.defaultProps = {
