@@ -7,7 +7,7 @@ export default class ItemUnpinButton extends Component {
   render() {
     return (
       <span
-        className={ styles.wrapper }
+        className={ styles.itemUnpinButton }
         onClick={ this.props.onClick }
       />
     );

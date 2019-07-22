@@ -119,7 +119,8 @@ describe('BaseComplaintCard component', function () {
 
     findRenderedDOMComponentWithClass(instance, 'not-showing-officer-count').textContent.should.eql('1+');
 
-    findRenderedComponentWithType(instance, PlusButton);
+    const plusButton = findRenderedComponentWithType(instance, PlusButton);
+    plusButton.props.darkMode.should.be.true();
   });
 
   it('should hide PlusButton if pinned', function () {

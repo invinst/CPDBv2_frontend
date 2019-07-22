@@ -1,5 +1,5 @@
 import React from 'react';
-import { renderIntoDocument, findRenderedDOMComponentWithClass, Simulate } from 'react-addons-test-utils';
+import { renderIntoDocument, Simulate } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 import { stub } from 'sinon';
 
@@ -25,8 +25,19 @@ describe('PlusButton component', function () {
     const element = findDOMNode(instance);
     element.getAttribute('class').should.containEql('custom-class-name');
 
-    findRenderedDOMComponentWithClass(instance, 'inner-circle');
     Simulate.click(element);
     onClickStub.should.be.calledOnce();
+  });
+
+  it('should have dark mode', function () {
+    const onClickStub = stub();
+    instance = renderIntoDocument(
+      <PlusButton
+        onClick={ onClickStub }
+        darkMode={ true }
+      />
+    );
+    const element = findDOMNode(instance);
+    element.getAttribute('class').should.containEql('dark-mode');
   });
 });
