@@ -7,6 +7,26 @@ describe('DocumentsOverviewPage documents reducer', function () {
     documents(undefined, {}).should.deepEqual({ data: {}, match: '' });
   });
 
+  it('should handle @@router/LOCATION_CHANGE', function () {
+    documents({
+      data: {
+        '1': {
+          id: 1
+        },
+        '3': {
+          id: 3
+        }
+      },
+      match: 'term'
+    }, {
+      type: '@@router/LOCATION_CHANGE'
+    }
+    ).should.deepEqual({
+      data: {},
+      match: ''
+    });
+  });
+
   it('should handle DOCUMENT_OVERVIEW_REQUEST_SUCCESS', function () {
     documents({
       data: {
