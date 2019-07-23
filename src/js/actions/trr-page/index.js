@@ -12,6 +12,7 @@ import {
   TRR_EDIT_MODE,
   TRR_EDIT_TYPES,
 } from 'utils/constants';
+import { createChangeEditModeAction } from 'actions/cms';
 
 
 export const fetchTRR = trrId => (get(
@@ -24,17 +25,16 @@ export const requestDocument = ({ id, email }) => post(
   [TRR_REQUEST_DOC_REQUEST_START, TRR_REQUEST_DOC_REQUEST_SUCCESS, TRR_REQUEST_DOC_REQUEST_FAILURE]
 )({ email: email });
 
-const createChangeEditModeAction = (editType, mode) => createAction(
-  TRR_EDIT_MODE,
-  () => ({ editType, mode })
+export const turnOnNoAttachmentTextEditMode = createChangeEditModeAction(TRR_EDIT_MODE)(
+  TRR_EDIT_TYPES.NO_ATTACHMENT_TEXT, true
+);
+export const turnOffNoAttachmentTextEditMode = createChangeEditModeAction(TRR_EDIT_MODE)(
+  TRR_EDIT_TYPES.NO_ATTACHMENT_TEXT, false
 );
 
-export const turnOnNoAttachmentTextEditMode = createChangeEditModeAction(TRR_EDIT_TYPES.NO_ATTACHMENT_TEXT, true);
-export const turnOffNoAttachmentTextEditMode = createChangeEditModeAction(TRR_EDIT_TYPES.NO_ATTACHMENT_TEXT, false);
-
-export const turnOnDocumentRequestInstructionEditMode = createChangeEditModeAction(
+export const turnOnDocumentRequestInstructionEditMode = createChangeEditModeAction(TRR_EDIT_MODE)(
   TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION, true
 );
-export const turnOffDocumentRequestInstructionEditMode = createChangeEditModeAction(
+export const turnOffDocumentRequestInstructionEditMode = createChangeEditModeAction(TRR_EDIT_MODE)(
   TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION, false
 );
