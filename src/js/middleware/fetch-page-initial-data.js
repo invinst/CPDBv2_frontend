@@ -37,7 +37,7 @@ import { pageLoadFinish, pageLoadStart } from 'actions/page-loading';
 import { fetchPopup } from 'actions/popup';
 import { requestSearchTermCategories } from 'actions/search-page/search-terms';
 import { fetchDocumentsByCRID } from 'actions/document-deduplicator-page';
-import { fetchDocuments } from 'actions/documents-overview-page';
+import { fetchDocuments, fetchDocumentsAuthenticated } from 'actions/documents-overview-page';
 import { cancelledByUser } from 'utils/axios-client';
 import { requestCrawlers } from 'actions/crawlers-page';
 import {
@@ -65,6 +65,25 @@ const handleFetchingDocumentPage = (dispatches, store, pathname) => {
   dispatches.push(store.dispatch(fetchDocument(documentId)));
 };
 
+const handleFetchingDocumentsOverviewPage = (dispatches, store, state, action, fetch) => {
+  const previousMatch = getMatchParamater(state);
+  const currentMatch = get(action.payload.query, 'match', '');
+  const previousDataOrders = getDocumentsOrder(state);
+  let params = {};
+
+  if (currentMatch !== '') {
+    params = { match: currentMatch };
+  }
+
+  if (
+    action.type === SIGNIN_REQUEST_SUCCESS ||
+    currentMatch !== previousMatch ||
+    (currentMatch === '' && previousDataOrders.length === 0)
+  ) {
+    dispatches.push(store.dispatch(fetch(params)).catch(cancelledByUser));
+  }
+};
+
 export default store => next => action => {
   const result = next(action);
 
@@ -74,6 +93,8 @@ export default store => next => action => {
   if (action.type === SIGNIN_REQUEST_SUCCESS) {
     if (state.pathname.match(/document\/\d+/)) {
       handleFetchingDocumentPage(dispatches, store, state.pathname);
+    } else if (state.pathname.match(/\/documents\//)) {
+      handleFetchingDocumentsOverviewPage(dispatches, store, state, action, fetchDocumentsAuthenticated);
     }
   }
 
@@ -188,22 +209,12 @@ export default store => next => action => {
       }
     }
 
+    else if (action.payload.pathname.match(/\/edit\/documents\//)) {
+      handleFetchingDocumentsOverviewPage(dispatches, store, state, action, fetchDocumentsAuthenticated);
+    }
+
     else if (action.payload.pathname.match(/\/documents\//)) {
-      const previousMatch = getMatchParamater(state);
-      const currentMatch = get(action.payload.query, 'match', '');
-      const previousDataOrders = getDocumentsOrder(state);
-      let params = {};
-
-      if (currentMatch !== '') {
-        params = { match: currentMatch };
-      }
-
-      if (
-          currentMatch !== previousMatch ||
-          (currentMatch === '' && previousDataOrders.length === 0)
-      ) {
-        dispatches.push(store.dispatch(fetchDocuments(params)).catch(cancelledByUser));
-      }
+      handleFetchingDocumentsOverviewPage(dispatches, store, state, action, fetchDocuments);
     }
 
     else if (action.payload.pathname.match(/\/crawlers\//)) {

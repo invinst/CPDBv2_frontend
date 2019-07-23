@@ -36,6 +36,22 @@ http {
             set $is_embedded_map M;
         }
 
+        if ($request_uri ~ '^\/(edit\/)?document\/\d+\/') {
+            set $is_tracker T;
+        }
+
+        if ($request_uri ~ '^\/(edit\/)?documents\/') {
+            set $is_tracker T;
+        }
+
+        if ($request_uri ~ '^\/(edit\/)?documents\/crid\/\w+\/') {
+            set $is_tracker T;
+        }
+
+        if ($request_uri ~ '^\/crawlers\/') {
+            set $is_tracker T;
+        }
+
         if ($request_uri ~ '^/(fonts|img|static)/') {
             set $is_assets F;
         }
@@ -45,7 +61,7 @@ http {
         }
 
         if ($http_user_agent ~* '(iPhone|iPod|Android|Blackberry|Windows Phone|Opera Mini|WebOS|SymbianOS|IEMobile|Maemo)') {
-            set $is_redirect "${is_assets}${is_bundle}${is_embedded_map}C";
+            set $is_redirect "${is_assets}${is_bundle}${is_embedded_map}${is_tracker}C";
         }
 
         if ($is_redirect = C) {

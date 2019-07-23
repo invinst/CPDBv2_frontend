@@ -44,6 +44,9 @@ jobs:
             if [ $CIRCLE_BRANCH == "master" ]
             then
               yarn build
+            elif [ $CIRCLE_BRANCH == "beta" ]
+            then
+              yarn build-beta
             else
               yarn build-staging
             fi
@@ -93,6 +96,9 @@ jobs:
             if [ $CIRCLE_BRANCH == "master" ]
             then
               export MOBILE_SERVER_NAME=m.cpdp.co
+            elif [ $CIRCLE_BRANCH == "beta" ]
+            then
+              export MOBILE_SERVER_NAME=mb.cpdp.co
             else
               export MOBILE_SERVER_NAME=ms.cpdp.co
             fi
@@ -128,6 +134,9 @@ jobs:
             if [ $CIRCLE_BRANCH == "master" ]
             then
               export NAMESPACE=production
+            elif [ $CIRCLE_BRANCH == "beta" ]
+            then
+              export NAMESPACE=beta
             else
               export NAMESPACE=staging
             fi
@@ -170,6 +179,7 @@ workflows:
             branches:
               only:
                 - staging
+                - beta
                 - master
       - deploy:
           requires:

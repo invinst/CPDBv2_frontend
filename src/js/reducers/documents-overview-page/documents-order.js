@@ -4,6 +4,7 @@ import * as _ from 'lodash';
 import * as constants from 'utils/constants';
 
 export default handleActions({
+  '@@router/LOCATION_CHANGE': (state, action) => ({ data: [], match: '' }),
   [constants.DOCUMENT_OVERVIEW_REQUEST_SUCCESS]: (state, action) => {
     const matchVal = _.get(action.request.params, 'match', '');
     const docIds = _.map(action.payload.results, (doc) => doc.id);
