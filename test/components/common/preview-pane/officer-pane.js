@@ -11,7 +11,7 @@ import { stub } from 'sinon';
 import { browserHistory } from 'react-router';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
-import { NewOfficerPane as OfficerPane } from 'components/common/preview-pane';
+import { OfficerPane as OfficerPane } from 'components/common/preview-pane';
 import {
   NewVisualTokenWidget as VisualTokenWidget,
   NewOfficerInfoWidget as OfficerInfoWidget,
@@ -19,7 +19,7 @@ import {
 } from 'components/common/preview-pane/widgets';
 
 
-describe('NewOfficerPane component', () => {
+describe('OfficerPane component', () => {
   let instance;
   const officer = {
     id: 123456,
