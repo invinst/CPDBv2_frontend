@@ -83,10 +83,18 @@ export default class PinboardPage extends Component {
       focusedItem,
       examplePinboards,
       requesting,
+      emptyPinboardTitleEditWrapperStateProps,
+      emptyPinboardDescriptionEditWrapperStateProps,
     } = this.props;
 
     if (isEmptyPinboard) {
-      return <EmptyPinboard examplePinboards={ examplePinboards } />;
+      return (
+        <EmptyPinboard
+          examplePinboards={ examplePinboards }
+          emptyPinboardTitleEditWrapperStateProps={ emptyPinboardTitleEditWrapperStateProps }
+          emptyPinboardDescriptionEditWrapperStateProps={ emptyPinboardDescriptionEditWrapperStateProps }
+        />
+      );
     }
 
     return (
@@ -167,6 +175,8 @@ PinboardPage.propTypes = {
   examplePinboards: PropTypes.array,
   addOrRemoveItemInPinboardFromPreviewPane: PropTypes.func,
   requesting: PropTypes.bool,
+  emptyPinboardTitleEditWrapperStateProps: PropTypes.object,
+  emptyPinboardDescriptionEditWrapperStateProps: PropTypes.object,
 };
 
 PinboardPage.defaultProps = {

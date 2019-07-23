@@ -2,7 +2,7 @@ import { Promise } from 'es6-promise';
 import { every, get } from 'lodash';
 
 import {
-  LANDING_PAGE_ID, OFFICER_PAGE_ID, CR_PAGE_ID, TRR_PAGE_ID,
+  LANDING_PAGE_ID, OFFICER_PAGE_ID, CR_PAGE_ID, TRR_PAGE_ID, PINBOARD_PAGE_ID,
   SIGNIN_REQUEST_SUCCESS, PINBOARD_HEX_ID_LENGTH,
 } from 'utils/constants';
 import {
@@ -254,6 +254,8 @@ export default store => next => action => {
           dispatches.push(store.dispatch(fetchPinboard(idOnPath)));
         }
       }
+
+      getCMSContent(PINBOARD_PAGE_ID);
     }
 
     prevPathname = action.payload.pathname;
