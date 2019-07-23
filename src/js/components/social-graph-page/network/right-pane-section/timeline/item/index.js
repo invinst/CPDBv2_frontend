@@ -47,10 +47,11 @@ export default class Item extends Component {
       [NEW_TIMELINE_ITEMS.YEAR]: Year
     };
     const ItemComponent = componentMap[item.kind];
+    const isActive = !isUndefined(timelineIdx) && item.timelineIdx === timelineIdx;
 
     return (
       <div
-        className={ cx(styles.item, 'cr-preview-link', { 'active': timelineIdx && item.timelineIdx === timelineIdx }) }
+        className={ cx(styles.item, 'cr-preview-link', { 'active': isActive }) }
         id={ !isUndefined(item.timelineIdx) ? `trigger-${item.timelineIdx}` : '' }
         onClick={ this.handleClick }
       >

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { get } from 'lodash';
+import { get, pick, merge } from 'lodash';
 import cx from 'classnames';
 
 import { NETWORK_PREVIEW_PANE } from 'utils/constants';
@@ -16,7 +16,8 @@ export default class PreviewPane extends Component {
     const paneTypes = {
       [NETWORK_PREVIEW_PANE.OFFICER]: {
         component: OfficerPane,
-        customClassName: 'officer-preview-pane officer-preview-link',
+        customClassName: 'officer-preview-link',
+        defaultProps: { pinnable: false, yScrollable: true }
       },
       [NETWORK_PREVIEW_PANE.EDGE_COACCUSALS]: {
         component: EdgeCoaccusalsPane,
@@ -26,23 +27,19 @@ export default class PreviewPane extends Component {
       [NETWORK_PREVIEW_PANE.CR]: {
         component: CRPane,
         customClassName: 'cr-preview-pane cr-preview-link',
+        defaultProps: { yScrollable: true }
       },
     };
 
     const itemComponent = get(paneTypes, type, {});
     const ItemComponent = itemComponent.component;
 
-    let itemData = data;
-    if (itemComponent.customProps) {
-      itemComponent.customProps.forEach((propName) => {
-        itemData[propName] = this.props[propName];
-      });
-    }
+    const itemData = merge(pick(this.props, itemComponent.customProps), data);
 
     return (
       <div className={ cx(styles.previewPane, itemComponent.customClassName) }>
         {
-          ItemComponent && <ItemComponent { ...itemData } />
+          ItemComponent && <ItemComponent { ...itemData } { ...itemComponent.defaultProps } />
         }
       </div>
     );

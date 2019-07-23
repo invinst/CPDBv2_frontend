@@ -42,7 +42,7 @@ class CRPreviewPaneSection extends Section {
       subtitle: '.cr-preview-pane-title-subtitle',
       previewPane: '//div[starts-with(@class, "preview-pane")]',
       incidentDate: '//div[@class="cr-preview-pane-info-row"][1]',
-      address: '//div[@class="cr-preview-pane-info-row"][2]',
+      address: '//div[contains(@class, "cr-preview-pane-address")]',
       victimText: '.cr-preview-pane-victims-text',
       victims: '//div[contains(@class, "demographic__demographic")]',
       firstVictim: '//div[contains(@class, "demographic__demographic")][1]',

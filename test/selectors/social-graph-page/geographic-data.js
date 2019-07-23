@@ -143,7 +143,7 @@ describe('GeographicData selectors', function () {
           geographicData: {
             previewPaneCrsData: [
               {
-                'date': '2006-10-24',
+                'incident_date': '2006-10-24',
                 'crid': '123456',
                 'category': 'Operation/Personnel Violations',
                 'subcategory': 'Inadequate / Failure To Provide Service',
@@ -198,7 +198,7 @@ describe('GeographicData selectors', function () {
       geographicAllegationSelector(state).should.eql({
         category: 'Operation/Personnel Violations',
         subCategory: 'Inadequate / Failure To Provide Service',
-        incidentDate: '2006-10-24',
+        incidentDate: 'OCT 24, 2006',
         address: '66XX S HALSTED ST, CHICAGO IL',
         victims: ['Black, Male'],
         coaccused: [{

@@ -4,7 +4,7 @@ import cx from 'classnames';
 
 import SlideMotion from 'components/animation/slide-motion';
 import {
-  NewOfficerPane as OfficerPane,
+  OfficerPane,
   CommunityPane,
   NeighborhoodPane,
   WardPane,

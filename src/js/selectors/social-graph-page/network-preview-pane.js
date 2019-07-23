@@ -1,4 +1,4 @@
-import { filter, find, isEmpty, kebabCase, map } from 'lodash';
+import { filter, find, isEmpty, kebabCase, map, compact } from 'lodash';
 import { createSelector } from 'reselect';
 import moment from 'moment/moment';
 
@@ -57,7 +57,7 @@ export const networkAllegationTransform = networkCRDatum => ({
   subCategory: networkCRDatum.subcategory,
   incidentDate: moment(networkCRDatum['incident_date']).format('MMM D, YYYY').toUpperCase(),
   address: networkCRDatum.address,
-  victims: map(networkCRDatum.victims, victim => getDemographicString(victim)),
+  victims: compact(map(networkCRDatum.victims, getDemographicString)),
   coaccused: map(networkCRDatum['coaccused'], coaccused => accusedTransform(coaccused)),
   to: networkCRDatum.to,
 });

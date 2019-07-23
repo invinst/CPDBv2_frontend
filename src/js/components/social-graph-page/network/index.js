@@ -175,6 +175,7 @@ export default class NetworkGraph extends Component {
           location={ location }
           onTrackingAttachment={ onTrackingAttachment }
           updateSelectedCrid={ updateSelectedCrid }
+          pinnable={ false }
         />
       );
     } else {

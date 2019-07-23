@@ -10,13 +10,18 @@ describe('GeographicPreviewPane selectors', function () {
       const allegation = {
         category: 'Use of Force',
         subcategory: 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
-        date: '2017-02-03',
+        'incident_date': '2017-02-03',
         address: '14XX W 63RD ST, CHICAGO IL 60636',
         victims: [
           {
             gender: 'Male',
             race: 'Black',
             age: 53
+          },
+          {
+            gender: '',
+            race: '',
+            age: null,
           }
         ],
         coaccused: [
@@ -37,7 +42,7 @@ describe('GeographicPreviewPane selectors', function () {
       geographicAllegationTransform(allegation).should.eql({
         category: 'Use of Force',
         subCategory: 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
-        incidentDate: '2017-02-03',
+        incidentDate: 'FEB 3, 2017',
         address: '14XX W 63RD ST, CHICAGO IL 60636',
         victims: ['Black, Male, Age 53'],
         coaccused: [

@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { map, get, reduce, defaults, sortBy, kebabCase, isNil, isEmpty } from 'lodash';
+import { map, get, reduce, defaults, sortBy, kebabCase, isNil, isEmpty, compact } from 'lodash';
 import pluralize from 'pluralize';
 
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
@@ -58,7 +58,7 @@ const getComplainantStringSelector = createSelector(
 
 const getVictimStringSelector = createSelector(
   getVictims,
-  (victims) => map(victims, (victim) => getDemographicString(victim))
+  (victims) => compact(map(victims, getDemographicString))
 );
 
 const getTransformedCoaccused = createSelector(

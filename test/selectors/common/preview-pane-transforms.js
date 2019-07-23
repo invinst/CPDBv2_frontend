@@ -22,7 +22,8 @@ describe('search page transforms', function () {
         address: '14XX W 63RD ST, CHICAGO IL 60636',
         'victims': [
           { 'gender': 'Female', 'race': 'Hispanic' },
-          { 'gender': 'Female', 'race': 'Hispanic', 'age': 48 }
+          { 'gender': 'Female', 'race': 'Hispanic', 'age': 48 },
+          { 'gender': '', 'race': '', 'age': null }
         ],
         'coaccused': [
           {
