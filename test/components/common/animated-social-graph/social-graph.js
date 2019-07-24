@@ -505,7 +505,6 @@ describe('SocialGraph', function () {
         officers={ officers }
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
-        collideNodes={ true }
       />
     );
 
@@ -523,27 +522,6 @@ describe('SocialGraph', function () {
     visibleGraphNodes = filter(graphNodes, graphNode => graphNode.style.opacity === '1');
     hideGraphNodes.should.have.length(0);
     visibleGraphNodes.should.have.length(20);
-  });
-
-  it('should move d to be adjacent to the cluster node when call cluster', function () {
-    instance = renderIntoDocument(
-      <SocialGraph
-        officers={ officers }
-        coaccusedData={ coaccusedData }
-        listEvent={ listEvent }
-      />
-    );
-    const graphNode = { id: 11, fname: 'David Portis', uid: 22861, degree: 3, group: 6, x: 40, y: 60 };
-    const cluster = instance.data.maxNodeInCommunities[graphNode.group];
-    cluster.x = 10;
-    cluster.y = 20;
-
-    instance.cluster(0.5)(graphNode);
-
-    round(graphNode.x, 2).should.eql(27.55);
-    round(graphNode.y, 2).should.eql(43.4);
-    round(cluster.x, 2).should.eql(22.45);
-    round(cluster.y, 2).should.eql(36.6);
   });
 
   it('should resolves collisions between d and all other circles when call collide', function () {

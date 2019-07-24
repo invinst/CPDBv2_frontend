@@ -431,7 +431,18 @@ export default class SocialGraph extends Component {
 
   _restartLinks() {
     this.force.links(this.data.links)
-      .linkStrength((d) => ((d.weight + 1) / (this.data.maxWeight + 1)));
+      .linkStrength((d) => {
+        let strength = (d.weight + 1) / (this.data.maxWeight + 1);
+        if (d.source.group === d.target.group) {
+          const maxNodeInCommunity = this.data.maxNodeInCommunities[d.source.group];
+          if (maxNodeInCommunity && (maxNodeInCommunity.id === d.source.id || maxNodeInCommunity.id === d.target.id)) {
+            strength =+ 1;
+          } else {
+            strength =+ 0.5;
+          }
+        }
+        return strength;
+      });
     this.link = this.link.data(this.data.links);
 
     this.link.enter().insert('line', '.node')
@@ -462,10 +473,7 @@ export default class SocialGraph extends Component {
     this.label.attr('x', (d) => d.x + (d.degree / 2 + 2))
       .attr('y', (d) => d.y);
 
-    if (this.props.collideNodes) {
-      this.node.each(this.cluster(60 * e.alpha * e.alpha))
-        .each(this.collide());
-    }
+    this.node.each(this.collide());
 
     this.link.attr('x1', (d) => d.source.x)
       .attr('y1', (d) => d.source.y)
@@ -504,29 +512,6 @@ export default class SocialGraph extends Component {
 
     this.recalculateNodeLinks(curDate);
     this.restart();
-  }
-
-  cluster(alpha) {
-    const maxNodeInCommunities = this.data.maxNodeInCommunities;
-    return (currentNode) => {
-      const cluster = maxNodeInCommunities[currentNode.group];
-      if (typeof cluster === 'undefined' || cluster === currentNode || currentNode.group === 0)
-        return;
-      const xDistance = currentNode.x - cluster.x,
-        yDistance = currentNode.y - cluster.y,
-        distance = Math.sqrt(xDistance * xDistance + yDistance * yDistance),
-        minDistance = (currentNode.degree + cluster.degree) / 2 + 4;
-
-      if (distance && minDistance && distance !== minDistance) {
-        const percentage = (distance - minDistance) / distance * alpha;
-        const xAdjust = xDistance * percentage;
-        const yAdjust = yDistance * percentage;
-        currentNode.x -= xAdjust;
-        currentNode.y -= yAdjust;
-        cluster.x += xAdjust;
-        cluster.y += yAdjust;
-      }
-    };
   }
 
   collide() {
@@ -569,10 +554,8 @@ SocialGraph.propTypes = {
   coaccusedData: PropTypes.array.isRequired,
   listEvent: PropTypes.array.isRequired,
   timelineIdx: PropTypes.number,
-  collideNodes: PropTypes.bool,
   startTimelineFromBeginning: PropTypes.func,
   stopTimeline: PropTypes.func,
-  fullscreen: PropTypes.bool,
   selectedOfficerId: PropTypes.number,
   updateSelectedOfficerId: PropTypes.func,
   selectedEdge: PropTypes.object,
@@ -584,5 +567,4 @@ SocialGraph.propTypes = {
 SocialGraph.defaultProps = {
   startTimelineFromBeginning: () => {},
   stopTimeline: () => {},
-  collideNodes: false
 };
