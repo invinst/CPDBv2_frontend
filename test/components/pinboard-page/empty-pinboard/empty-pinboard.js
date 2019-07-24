@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
-  scryRenderedComponentsWithType,
+  scryRenderedComponentsWithType, findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
@@ -11,6 +11,9 @@ import EmptyPinboard from 'components/pinboard-page/empty-pinboard';
 import { findDOMNode } from 'react-dom';
 import { buildEditStateFields } from 'utils/test/factories/draft';
 import { spy } from 'sinon';
+import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
+import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
+import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 
 describe('EmptyPinboard component', function () {
   let instance;
@@ -66,8 +69,21 @@ describe('EmptyPinboard component', function () {
 
     findDOMNode(instance).className.should.containEql('responsive-container');
 
-    findRenderedDOMComponentWithClass(instance, 'empty-pinboard-title').textContent.should.equal('Get started');
-    findRenderedDOMComponentWithClass(instance, 'empty-pinboard-description').textContent.should.containEql(
+    const editWrapperStateProviderTitle = scryRenderedComponentsWithType(instance, EditWrapperStateProvider)[0];
+    const hoverableEditWrapperTitle = findRenderedComponentWithType(
+      editWrapperStateProviderTitle, HoverableEditWrapper
+    );
+    const editableTitle = findRenderedComponentWithType(hoverableEditWrapperTitle, RichTextEditable);
+    editableTitle.props.fieldname.should.equal('empty_pinboard_title');
+    findDOMNode(editableTitle).textContent.should.equal('Get started');
+
+    const editWrapperStateProviderDescription = scryRenderedComponentsWithType(instance, EditWrapperStateProvider)[1];
+    const hoverableEditWrapperDescription = findRenderedComponentWithType(
+      editWrapperStateProviderDescription, HoverableEditWrapper
+    );
+    const editableDescription = findRenderedComponentWithType(hoverableEditWrapperDescription, RichTextEditable);
+    editableDescription.props.fieldname.should.equal('empty_pinboard_description');
+    findDOMNode(editableDescription).textContent.should.containEql(
       'Use search to find officers and individual complaint records and ' +
       'press the plus button to add cards to your pinboard.'
     ).and.containEql(

@@ -17,17 +17,19 @@ import {
 import { updatePathName } from 'actions/path-name';
 
 
-const mapStateToProps = (state, ownProps) => ({
-  ...ownProps,
-  pinboard: getPinboard(state),
-  currentTab: getCurrentTab(state),
-  hasMapMarker: hasMapMarkersSelector(state),
-  initialRequested: getInitialRequested(state),
-  shouldRedirect: shouldRedirect(state),
-  isEmptyPinboard: isEmptyPinboardSelector(state),
-  focusedItem: focusedItemSelector(state),
-  requesting: pinboardPaneSectionRequestingSelector(state),
-});
+function mapStateToProps(state, ownProps) {
+  return {
+    ...ownProps,
+    pinboard: getPinboard(state),
+    currentTab: getCurrentTab(state),
+    hasMapMarker: hasMapMarkersSelector(state),
+    initialRequested: getInitialRequested(state),
+    shouldRedirect: shouldRedirect(state),
+    isEmptyPinboard: isEmptyPinboardSelector(state),
+    focusedItem: focusedItemSelector(state),
+    requesting: pinboardPaneSectionRequestingSelector(state),
+  };
+}
 
 const mapDispatchToProps = {
   changePinboardTab,

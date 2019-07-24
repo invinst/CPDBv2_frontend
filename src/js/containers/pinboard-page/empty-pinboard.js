@@ -13,7 +13,7 @@ import {
 import { updatePage } from 'actions/cms';
 import { getCMSFields } from 'selectors/cms';
 import { PINBOARD_EDIT_TYPES, PINBOARD_PAGE_ID } from 'utils/constants';
-import { getEditModeOn } from 'selectors/pinboard-page/edit-mode';
+import getEditModeOn from 'selectors/pinboard-page/edit-mode-on';
 
 
 const mapStateToProps = (state, ownProps) => ({

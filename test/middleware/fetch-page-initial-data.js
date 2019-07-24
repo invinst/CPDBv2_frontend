@@ -5,7 +5,14 @@ import extractQuery from 'utils/extract-query';
 
 import fetchPageInitialData from 'middleware/fetch-page-initial-data';
 import { changeOfficerId, fetchOfficerSummary, requestCreateOfficerZipFile } from 'actions/officer-page';
-import { LANDING_PAGE_ID, OFFICER_PAGE_ID, CR_PAGE_ID, TRR_PAGE_ID, SIGNIN_REQUEST_SUCCESS } from 'utils/constants';
+import {
+  LANDING_PAGE_ID,
+  OFFICER_PAGE_ID,
+  CR_PAGE_ID,
+  TRR_PAGE_ID,
+  SIGNIN_REQUEST_SUCCESS,
+  PINBOARD_PAGE_ID
+} from 'utils/constants';
 import { fetchNewTimelineItems } from 'actions/officer-page/new-timeline';
 import { fetchPage } from 'actions/cms';
 import { getCommunities, getClusterGeoJson } from 'actions/landing-page/heat-map';
@@ -390,6 +397,16 @@ describe('fetchPageInitialData middleware', function () {
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
     store.dispatch.calledWith(requestCrawlers()).should.be.true();
+  });
+
+  it('should get pinboard cms', function () {
+    const store = buildStore();
+    const action = createLocationChangeAction('/pinboard/268a5e58/');
+    let dispatched;
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+
+    store.dispatch.calledWith(fetchPage(PINBOARD_PAGE_ID)()).should.be.true();
   });
 
   it('should get all pinboard data if requesting ID equals ID in state', function () {
