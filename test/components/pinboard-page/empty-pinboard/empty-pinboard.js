@@ -9,6 +9,8 @@ import {
 import { unmountComponentSuppressError } from 'utils/test';
 import EmptyPinboard from 'components/pinboard-page/empty-pinboard';
 import { findDOMNode } from 'react-dom';
+import { buildEditStateFields } from 'utils/test/factories/draft';
+import { spy } from 'sinon';
 
 describe('EmptyPinboard component', function () {
   let instance;
@@ -18,6 +20,32 @@ describe('EmptyPinboard component', function () {
   });
 
   it('should have enough contents', function () {
+    const fields = buildEditStateFields({
+      'empty_pinboard_title': ['Get started'],
+      'empty_pinboard_description': [
+        'Use search to find officers and individual complaint records and ' +
+        'press the plus button to add cards to your pinboard.',
+        '',
+        'Come back to the pinboard to give it a title and see a network map or discover relevant documents.',
+      ],
+    });
+
+    const emptyPinboardTitleEditWrapperStateProps = {
+      fields,
+      sectionEditModeOn: false,
+      onSaveForm: spy(),
+      turnOnSectionEditMode: spy(),
+      turnOffSectionEditMode: spy()
+    };
+
+    const emptyPinboardDescriptionEditWrapperStateProps = {
+      fields,
+      sectionEditModeOn: false,
+      onSaveForm: spy(),
+      turnOnSectionEditMode: spy(),
+      turnOffSectionEditMode: spy()
+    };
+
     const examplePinboards = [{
       id: '66ef1561',
       title: 'Pinboard 1',
@@ -28,7 +56,13 @@ describe('EmptyPinboard component', function () {
       description: 'Description 2'
     }];
 
-    instance = renderIntoDocument(<EmptyPinboard examplePinboards={ examplePinboards }/>);
+    instance = renderIntoDocument(
+      <EmptyPinboard
+        examplePinboards={ examplePinboards }
+        emptyPinboardTitleEditWrapperStateProps={ emptyPinboardTitleEditWrapperStateProps }
+        emptyPinboardDescriptionEditWrapperStateProps={ emptyPinboardDescriptionEditWrapperStateProps }
+      />
+    );
 
     findDOMNode(instance).className.should.containEql('responsive-container');
 

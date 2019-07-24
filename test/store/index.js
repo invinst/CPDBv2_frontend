@@ -317,6 +317,10 @@ describe('store', function () {
         refreshIntervalId: null,
         focusedItem: {},
         pinItemFromPreviewPane: {},
+        editModeOn: {
+          EMPTY_PINBOARD_DESCRIPTION: false,
+          EMPTY_PINBOARD_TITLE: false,
+        },
       },
       toast: {},
     });

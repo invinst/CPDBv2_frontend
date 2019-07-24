@@ -1,5 +1,3 @@
-import { createAction } from 'redux-actions';
-
 import { get, post } from 'actions/common/async-action';
 import {
   TRR_URL,

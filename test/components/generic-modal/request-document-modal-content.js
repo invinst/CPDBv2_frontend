@@ -15,7 +15,7 @@ import { StyleRoot } from 'radium';
 import * as intercomUtils from 'utils/intercom';
 
 import RequestDocumentModalContent from 'components/generic-modal/request-document-modal-content';
-import { RawContentStateFactory } from 'utils/test/factories/draft';
+import { buildEditStateFields } from 'utils/test/factories/draft';
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
 import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
@@ -32,15 +32,9 @@ describe('RequestDocumentModalContent component', function () {
 
   it('should initial render form with text box for request document button', function () {
     const instructionEditWrapperStateProps = {
-      fields: {
-        'document_request_instruction': {
-          type: 'rich_text',
-          name: 'document_request_instruction',
-          value: RawContentStateFactory.build(
-            {}, { blockTexts: ['We’ll notify you when the document is made available.'] }
-          )
-        }
-      },
+      fields: buildEditStateFields({
+        'document_request_instruction': ['We’ll notify you when the document is made available.'],
+      }),
       sectionEditModeOn: false,
       onSaveForm: spy(),
       turnOnSectionEditMode: spy(),
@@ -69,15 +63,9 @@ describe('RequestDocumentModalContent component', function () {
 
   it('should initial render form with text box for new document notifications button', function () {
     const instructionEditWrapperStateProps = {
-      fields: {
-        'new_document_notification': {
-          type: 'rich_text',
-          name: 'new_document_notification',
-          value: RawContentStateFactory.build(
-            {}, { blockTexts: ['We’ll notify you when we have new documents.'] }
-          )
-        }
-      },
+      fields: buildEditStateFields({
+        'new_document_notification': ['We’ll notify you when we have new documents.'],
+      }),
       sectionEditModeOn: false,
       onSaveForm: spy(),
       turnOnSectionEditMode: spy(),
