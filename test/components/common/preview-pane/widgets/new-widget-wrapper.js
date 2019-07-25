@@ -4,7 +4,6 @@ import {
   renderIntoDocument,
   findRenderedComponentWithType,
   scryRenderedComponentsWithType,
-  scryRenderedDOMComponentsWithClass,
 } from 'react-addons-test-utils';
 
 import { NewWidgetWrapper, TextWidget, NewCallToActionWidget } from 'components/common/preview-pane/widgets';
@@ -39,25 +38,6 @@ describe('NewWidgetWrapper component', () => {
 
     scryRenderedComponentsWithType(instance, NewCallToActionWidget).should.have.length(0);
     findRenderedComponentWithType(instance, MediaQuery).props.maxHeight.should.equal(106);
-  });
-
-  it('should handle scrollable properly', function () {
-    instance = renderIntoDocument(
-      <NewWidgetWrapper yScrollable={ false }>
-        <TextWidget title='title'/>
-      </NewWidgetWrapper>
-    );
-
-    scryRenderedDOMComponentsWithClass(instance, 'y-scrollable').should.have.length(0);
-
-    reRender(
-      <NewWidgetWrapper yScrollable={ true }>
-        <TextWidget title='title'/>
-      </NewWidgetWrapper>,
-      instance
-    );
-
-    scryRenderedDOMComponentsWithClass(instance, 'y-scrollable').should.have.length(1);
   });
 
   it('should not display overlay gradient if scrollable', function () {
