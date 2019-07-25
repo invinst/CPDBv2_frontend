@@ -3,7 +3,8 @@ import { Link } from 'react-router';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
-  scryRenderedComponentsWithType, findRenderedComponentWithType,
+  scryRenderedComponentsWithType,
+  findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
