@@ -37,7 +37,7 @@ class DemoVideoSection extends Section {
 
 class TopBarSection extends Section {
   constructor(parentSelector) {
-    super(parentSelector, '//div[@class="top-bar"]');
+    super(parentSelector, '//div[@class="top-bar-wrapper"]');
 
     this.prepareElementGetters({
       logo: LogoSection,
@@ -75,7 +75,7 @@ class RightLinksSection extends Section {
 
 class NavBarSection extends Section {
   constructor(parentSelector) {
-    super(parentSelector, '//div[@class="navbar"]');
+    super(parentSelector, '//div[@class="navbar-wrapper"]');
     this.prepareElementGetters({
       logOutButton: '//a[contains(@class, "test--logout-button")]',
       searchBox: SearchBoxSection,

@@ -28,24 +28,28 @@ class SlimHeaderContent extends Component {
         style={ style }
       >
         <div className={ cx(styles.slimHeader, position) }>
-          <div className='top-bar'>
-            <div className='logo'>
-              <LogoContainer position={ position } editModeOn={ editModeOn } />
+          <div className='top-bar-wrapper'>
+            <div className='top-bar'>
+              <div className='logo'>
+                <LogoContainer position={ position } editModeOn={ editModeOn }/>
+              </div>
+              <DemoVideo
+                position={ position }
+                openVideoModal={ openVideoModal }
+                videoThumbnailUrl={ videoThumbnailUrl }
+              />
             </div>
-            <DemoVideo
-              position={ position }
-              openVideoModal={ openVideoModal }
-              videoThumbnailUrl={ videoThumbnailUrl }
-            />
           </div>
-          <div className='navbar'>
-            <div className='vertically-aligned-header-item'>
-              <LogOutButtonContainer pathname={ pathname } />
+          <div className='navbar-wrapper'>
+            <div className='navbar'>
+              <div className='vertically-aligned-header-item'>
+                <LogOutButtonContainer pathname={ pathname } />
+              </div>
+              <div className='vertically-aligned-header-item'>
+                <RightLinks position={ position } />
+              </div>
+              <SearchBox position={ position }/>
             </div>
-            <div className='vertically-aligned-header-item'>
-              <RightLinks position={ position } />
-            </div>
-            <SearchBox position={ position }/>
           </div>
         </div>
       </div>
