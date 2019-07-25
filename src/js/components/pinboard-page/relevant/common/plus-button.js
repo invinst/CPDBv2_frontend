@@ -6,11 +6,9 @@ import styles from './plus-button.sass';
 
 export class PlusButton extends Component {
   render() {
-    const { className, onClick } = this.props;
+    const { className, onClick, darkMode } = this.props;
     return (
-      <div className={ cx(styles.plusButton, className) } onClick={ onClick }>
-        <div className='inner-circle'/>
-      </div>
+      <div className={ cx(styles.plusButton, className, { 'dark-mode': darkMode }) } onClick={ onClick } />
     );
   }
 }
@@ -18,6 +16,11 @@ export class PlusButton extends Component {
 PlusButton.propTypes = {
   onClick: PropTypes.func,
   className: PropTypes.string,
+  darkMode: PropTypes.bool,
+};
+
+PlusButton.defaultProps = {
+  darkMode: false,
 };
 
 export default PlusButton;
