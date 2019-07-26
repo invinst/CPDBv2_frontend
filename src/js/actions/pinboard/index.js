@@ -194,11 +194,11 @@ export const fetchPinboardRelevantComplaints = getWithPaginate(
   ]
 );
 
-export const fetchLatestRetrievedPinboard = () => get(
+export const fetchLatestRetrievedPinboard = get(
   `${constants.PINBOARDS_URL}latest-retrieved-pinboard/`,
   [
     constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_START,
     constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_SUCCESS,
     constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_FAILURE,
   ]
-)();
+);

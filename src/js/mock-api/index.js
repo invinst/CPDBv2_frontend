@@ -63,7 +63,6 @@ import {
   createPinboard,
   getOrCreateEmptyPinboard,
   updatePinboard,
-  fetchEmptyPinboard,
   updatePinboardTitleParams,
   updatedPinboardTitle,
   updatePinboardDescriptionParams,
@@ -298,9 +297,14 @@ axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-complaints/?limit=20&of
   200, getRelevantComplaints('5cd06f2b', 20, 40, 50)
 );
 
-axiosMockClient.onGet(`${PINBOARDS_URL}abcd1234/`).reply(200, fetchEmptyPinboard());
+axiosMockClient.onGet(`${PINBOARDS_URL}abcd1234/`).reply(200, getOrCreateEmptyPinboard('abcd1234'));
 
-axiosMockClient.onGet(`${PINBOARDS_URL}latest-retrieved-pinboard/`).reply(200, {});
+axiosMockClient.onGet(`${PINBOARDS_URL}latest-retrieved-pinboard/`, { params: {} }).reply(200, {});
+axiosMockClient.onGet(`${PINBOARDS_URL}latest-retrieved-pinboard/`, { params: { 'create': false } }).reply(200, {});
+axiosMockClient.onGet(
+  `${PINBOARDS_URL}latest-retrieved-pinboard/`,
+  { params: { 'create': true } }
+).reply(200, getOrCreateEmptyPinboard('abcd1234'));
 
 axiosMockClient.onGet(
   SOCIAL_GRAPH_OFFICERS_API_URL,

@@ -645,3 +645,13 @@ describe('Empty Pinboard Page', function () {
     browser.getUrl().should.match(/pinboard\/22e66085\//);
   });
 });
+
+describe('No Id Pinboard Page', function () {
+  beforeEach(function () {
+    pinboardPage.open('');
+  });
+
+  it('should render pinboard return by latest-retrieved-pinboard', function () {
+    pinboardPage.emptyPinboardSection.mainElement.waitForVisible();
+  });
+});
