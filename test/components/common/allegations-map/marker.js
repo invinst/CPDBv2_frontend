@@ -1,8 +1,13 @@
 import React from 'react';
 import { stub } from 'sinon';
-import { renderIntoDocument, scryRenderedDOMComponentsWithClass, Simulate } from 'react-addons-test-utils';
+import {
+  renderIntoDocument,
+  scryRenderedDOMComponentsWithClass,
+  Simulate,
+} from 'react-addons-test-utils';
 import { browserHistory } from 'react-router';
 import { findDOMNode } from 'react-dom';
+import isMobile from 'ismobilejs';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import HoverableMarker, { Marker } from 'components/common/allegations-map/marker';
@@ -55,6 +60,23 @@ describe('Marker component', function () {
     Simulate.click(findDOMNode(instance));
     stubPush.should.be.calledWith('/trr/123/');
     stubPush.restore();
+  });
+
+  it('should not open CR page when clicked if device is tablet', function () {
+    const tabletStub = stub(isMobile, 'tablet').value(true);
+    const stubPush = stub(browserHistory, 'push');
+    instance = renderIntoDocument(
+      <Marker
+        id={ '123' }
+        kind={ 'CR' }
+        finding={ 'Sustained' }
+        hovering={ false }
+      />
+    );
+    Simulate.click(findDOMNode(instance));
+    stubPush.should.not.be.called();
+    stubPush.restore();
+    tabletStub.restore();
   });
 
   it('should call handClickCRMarker if kind is CR', function () {
@@ -147,5 +169,37 @@ describe('Marker component', function () {
       />, instance
     );
     stubMapboxMarker.togglePopup.should.be.calledOnce();
+  });
+
+  it('should not toggle popup when hovering if device is tablet', function () {
+    const tabletStub = stub(isMobile, 'tablet').value(true);
+    const stubMapboxMarker = {
+      getPopup: stub().returns({
+        isOpen: stub().returns(false)
+      }),
+      togglePopup: stub(),
+    };
+    //default
+    instance = renderIntoDocument(
+      <Marker
+        id={ '123' }
+        kind={ 'CR' }
+        finding={ 'Sustained' }
+        hovering={ false }
+        mapboxMarker={ stubMapboxMarker }
+      />
+    );
+    //hover
+    instance = reRender(
+      <Marker
+        id={ '123' }
+        kind={ 'CR' }
+        finding={ 'Sustained' }
+        hovering={ true }
+        mapboxMarker={ stubMapboxMarker }
+      />, instance
+    );
+    stubMapboxMarker.togglePopup.should.not.be.called();
+    tabletStub.restore();
   });
 });
