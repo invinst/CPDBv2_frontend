@@ -1,6 +1,6 @@
 import getEditModeOn from 'selectors/pinboard-page/edit-mode-on';
 
-describe.only('editModeOn', function () {
+describe('editModeOn', function () {
   it('should return correct state', function () {
     getEditModeOn({
       pinboardPage: {

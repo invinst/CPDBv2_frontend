@@ -3,7 +3,7 @@ import editModeOn from 'reducers/pinboard-page/edit-mode-on';
 import { PINBOARD_EDIT_TYPES, PINBOARD_EDIT_MODE, LOCATION_CHANGE } from 'utils/constants';
 
 
-describe.only('summary reducer', function () {
+describe('summary reducer', function () {
   it('should have initial state', function () {
     editModeOn(undefined, {}).should.eql({
       [PINBOARD_EDIT_TYPES.EMPTY_PINBOARD_TITLE]: false,
