@@ -10,7 +10,7 @@ information and make the test easier to read and write.
 We wrote a base class called `Section` which contains `prepareElementGetters` method to help look up and return the 
 element by using 
 [Object.defineProperty](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty).
-Out `Section` has the ability to automatically build a linked selector using `parentSelector` and `mainElementSelector`, 
+Our `Section` has the ability to automatically build a linked selector using `parentSelector` and `mainElementSelector`, 
 which results in a more precise and reliable one. A section can be selected using `yourSection.mainElement`.
 
 Example:
