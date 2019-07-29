@@ -10,6 +10,7 @@
   "scripts": {
     "build": "CPDB_APP_ENV=prod webpack",
     "build-staging": "CPDB_APP_ENV=staging webpack",
+    "build-beta": "CPDB_APP_ENV=beta webpack",
     "start": "CPDB_APP_ENV=dev webpack-dev-server",
     "test": "CPDB_APP_ENV=test webpack-dev-server",
     "test-grep": "yarn test --pm-grep",
