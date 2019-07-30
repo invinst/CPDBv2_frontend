@@ -28,7 +28,8 @@ describe('SlimHeaderContent component', function () {
     },
     headers: {
       slimHeader: {
-        logoSectionEditModeOn: false
+        logoSectionEditModeOn: false,
+        demoVideoSectionEditModeOn: false,
       }
     }
   });
@@ -64,6 +65,7 @@ describe('SlimHeaderContent component', function () {
 
     const demoVideo = findRenderedComponentWithType(header, DemoVideo);
     demoVideo.props.position.should.equal('top');
+    demoVideo.props.editModeOn.should.be.false();
     demoVideo.props.openVideoModal.should.equal(openVideoModal);
     demoVideo.props.videoThumbnailUrl.should.equal('https://i.vimeocdn.com/video/797111186_100x75.webp');
 

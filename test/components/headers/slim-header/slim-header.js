@@ -43,6 +43,7 @@ describe('SlimHeader component', function () {
     headers: {
       slimHeader: {
         logoSectionEditModeOn: false,
+        demoVideoSectionEditModeOn: false,
         videoInfo: [{
           'thumbnail_small': 'https://i.vimeocdn.com/video/797111186_100x75.webp',
         }],

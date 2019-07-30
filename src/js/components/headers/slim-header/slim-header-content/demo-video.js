@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import cx from 'classnames';
 
+import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
+import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
+import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 import styles from './demo-video.sass';
 
 
@@ -18,13 +21,19 @@ class DemoVideo extends Component {
   }
 
   render() {
-    const { position, videoThumbnailUrl } = this.props;
+    const { position, videoThumbnailUrl, editWrapperStateProps } = this.props;
     return (
       <div className={ cx(styles.demoVideo, position) }>
         <div className='demo-video-text'>
-          <span className='demo-video-text-upper'>WATCH:</span>
-          <br/>
-          <span className='demo-video-text-lower'>What is CPDP?</span>
+          <EditWrapperStateProvider { ...editWrapperStateProps }>
+            <HoverableEditWrapper>
+              <RichTextEditable
+                className='demo-video-text-input'
+                placeholder='What is CPDP?'
+                fieldname='demo_video_text'
+              />
+            </HoverableEditWrapper>
+          </EditWrapperStateProvider>
         </div>
         <div className='demo-video-button' onClick={ this.handleWatchVideoButtonClick }>
           <img className='demo-video-thumbnail' src={ videoThumbnailUrl } />
@@ -39,6 +48,7 @@ DemoVideo.propTypes = {
   position: PropTypes.string,
   openVideoModal: PropTypes.func,
   videoThumbnailUrl: PropTypes.string,
+  editWrapperStateProps: PropTypes.object,
 };
 
 export default DemoVideo;

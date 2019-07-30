@@ -212,8 +212,8 @@ describe('landing page', function () {
       topBar.mainElement.waitForVisible();
       topBar.logo.title.getCssProperty('color').value.should.eql('rgba(35,31,32,1)');
       topBar.logo.subtitle.getCssProperty('color').value.should.eql('rgba(118,118,118,1)');
-      topBar.demoVideo.upperText.getCssProperty('color').value.should.eql('rgba(118,118,118,1)');
-      topBar.demoVideo.lowerText.getCssProperty('color').value.should.eql('rgba(0,94,244,1)');
+      topBar.demoVideo.titleText.getCssProperty('color').value.should.eql('rgba(0,94,244,1)');
+      topBar.demoVideo.titleText.getText().should.eql('What is CPDP?');
       topBar.demoVideo.playButtonThumbnail.getCssProperty('outline').value.should.eql('rgba(0,94,244,0.5)solid5px');
       topBar.demoVideo.playButtonThumbnail.getAttribute('src').should.eql(
         'https://i.vimeocdn.com/video/797111186_100x75.jpg'
@@ -266,8 +266,7 @@ describe('landing page', function () {
       topBar.mainElement.waitForVisible();
       topBar.logo.title.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
       topBar.logo.subtitle.getCssProperty('color').value.should.eql('rgba(255,255,255,0.7)');
-      topBar.demoVideo.upperText.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
-      topBar.demoVideo.lowerText.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
+      topBar.demoVideo.titleText.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
       topBar.demoVideo.playButtonThumbnail.getCssProperty('outline').value.should.eql('rgba(255,255,255,0.5)solid5px');
       topBar.demoVideo.playButtonThumbnail.getAttribute('src').should.eql(
         'https://i.vimeocdn.com/video/797111186_100x75.jpg'
