@@ -1,5 +1,5 @@
 import { reset as resetBreadcrumb } from 'redux-breadcrumb-trail';
-import { kebabCase, invert } from 'lodash';
+import { kebabCase, invert, has } from 'lodash';
 
 import { getOfficerId } from 'utils/location';
 import { OFFICER_SUMMARY_REQUEST_SUCCESS, OFFICER_PAGE_TAB_ROUTE, CHANGE_OFFICER_TAB } from 'utils/constants';
@@ -52,7 +52,7 @@ const redirectOfficerAliasMiddleware = store => next => action => {
 
     store.dispatch(resetBreadcrumb({ breadcrumbs }));
   }
-  if (action.type === '@@redux-breadcrumb-trail/PUSH') {
+  if (action.type === '@@redux-breadcrumb-trail/PUSH' && has(action.payload.params, 'officerId')) {
     action.payload.params.officerId = parseInt(action.payload.params.officerId);
   }
   if (action.type === CHANGE_OFFICER_TAB) {
