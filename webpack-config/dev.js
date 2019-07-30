@@ -38,7 +38,8 @@ const config = Object.assign({}, baseConfig, {
       filename: 'index.html',
       templateParameters: {
         'GA_TRACKING_ID': 'UA-XXXXX-Y',
-        'INTERCOM_ID': 'gbsby1ik'
+        'INTERCOM_ID': 'gbsby1ik',
+        'DISABLE_SEARCH_INDEX': true,
       }
     })
   ],
