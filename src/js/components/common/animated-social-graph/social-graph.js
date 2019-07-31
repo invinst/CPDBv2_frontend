@@ -14,10 +14,9 @@ import { greyishColor } from 'utils/styles';
 
 const DEFAULT_GRAPH_WIDTH = 800;
 const DEFAULT_GRAPH_HEIGHT = 500;
-const RADIUS = 10;
 const DEFAULT_PADDING = 1.5;
 const DEFAULT_CLUSTER_PADDING = 6;
-const MAX_RADIUS = 12;
+const MAX_RADIUS = 20;
 const COLLIDE_ALPHA = 0.5;
 const MIN_MEMBERS_IN_COMMUNITY = 3;
 const NUMBER_OF_TOP_NODES = 5;
@@ -155,7 +154,6 @@ export default class SocialGraph extends Component {
     this.force = d3.layout.force()
       .size([this.width, this.height])
       .nodes(this.data.nodes)
-      .charge(-50)
       .friction(0.5)
       .links(this.data.links)
       .on('tick', this.tick);
@@ -179,6 +177,14 @@ export default class SocialGraph extends Component {
     const chartDiv = d3.select(ReactDOM.findDOMNode(this.chart)).node();
     this.width = chartDiv.clientWidth;
     this.height = chartDiv.clientHeight;
+
+    const graphViewPortRadius = Math.min(this.width, this.height) / 2;
+    const linkDistance = Math.sqrt((Math.PI * Math.pow(graphViewPortRadius, 2) / this.data.nodes.length));
+
+    this.force.charge(-5 * linkDistance)
+      .gravity(10 / linkDistance)
+      .linkDistance(linkDistance);
+
     this.svg.attr('width', this.width).attr('height', this.height);
     this.force.size([this.width, this.height]);
     this.force.start();
@@ -350,11 +356,11 @@ export default class SocialGraph extends Component {
 
   _updateSelectedNodePosition() {
     this.selectedNodeLabel.labelText
-      .attr('x', (d) => d.x + (d.degree / 2 + 2) + LABEL_PADDING_LEFT_RIGHT / 2 )
+      .attr('x', (d) => d.x + this.nodeRadius(d) + LABEL_PADDING_LEFT_RIGHT / 2 )
       .attr('y', (d) => d.y + LABEL_PADDING_TOP_BOTTOM / 2 + 2);
 
     this.selectedNodeLabel.box
-      .attr('x', (d) => d.x + (d.degree / 2 + 2))
+      .attr('x', (d) => d.x + this.nodeRadius(d))
       .attr('y', (d) => d.y + LABEL_PADDING_TOP_BOTTOM / 2 - d.bb.height + 2);
   }
 
@@ -423,10 +429,14 @@ export default class SocialGraph extends Component {
       this.node.on('click', this.handleNodeClick);
     }
 
-    this.node.attr('r', (d) => (d.degree / 2 + 2))
+    this.node.attr('r', (d) => this.nodeRadius(d))
       .style('fill', (d) => d.color || greyishColor);
 
     this.node.exit().remove();
+  }
+
+  nodeRadius(node) {
+    return Math.min((node.degree / 2 + 2), MAX_RADIUS);
   }
 
   _restartLinks() {
@@ -436,9 +446,9 @@ export default class SocialGraph extends Component {
         if (d.source.group === d.target.group) {
           const maxNodeInCommunity = this.data.maxNodeInCommunities[d.source.group];
           if (maxNodeInCommunity && (maxNodeInCommunity.id === d.source.id || maxNodeInCommunity.id === d.target.id)) {
-            strength =+ 1;
-          } else {
             strength =+ 0.5;
+          } else {
+            strength =+ 0.1;
           }
         }
         return strength;
@@ -467,10 +477,16 @@ export default class SocialGraph extends Component {
 
   tick(e) {
     // bounded graph
-    this.node.attr('cx', (d) => d.x = Math.max(RADIUS, Math.min(this.width - RADIUS, d.x || 0)))
-    .attr('cy', (d) => d.y = Math.max(RADIUS, Math.min(this.height - RADIUS, d.y || 0)));
+    this.node.attr('cx', (d) => {
+      const nodeRadius = this.nodeRadius(d);
+      return d.x = Math.max(nodeRadius, Math.min(this.width - nodeRadius, d.x || 0));
+    })
+    .attr('cy', (d) => {
+      const nodeRadius = this.nodeRadius(d);
+      return d.y = Math.max(nodeRadius, Math.min(this.height - nodeRadius, d.y || 0));
+    });
 
-    this.label.attr('x', (d) => d.x + (d.degree / 2 + 2))
+    this.label.attr('x', (d) => d.x + this.nodeRadius(d))
       .attr('y', (d) => d.y);
 
     this.node.each(this.collide());
@@ -517,7 +533,7 @@ export default class SocialGraph extends Component {
   collide() {
     const quadtree = d3.geom.quadtree(this.data.nodes);
     return (currentNode) => {
-      let r = (currentNode.degree / 2 + 2) + MAX_RADIUS + DEFAULT_CLUSTER_PADDING,
+      let r = this.nodeRadius(currentNode) + MAX_RADIUS + DEFAULT_CLUSTER_PADDING,
         nx1 = currentNode.x - r,
         nx2 = currentNode.x + r,
         ny1 = currentNode.y - r,
