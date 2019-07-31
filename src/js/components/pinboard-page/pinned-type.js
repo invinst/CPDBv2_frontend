@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { map, differenceBy, first, get, isEqual, noop } from 'lodash';
+import { map, differenceBy, first, get, isEqual, noop, find } from 'lodash';
 import cx from 'classnames';
 import { Muuri } from 'utils/vendors';
 
@@ -43,9 +43,18 @@ export default class PinnedType extends Component {
     this.rendered = true;
   }
 
-  componentDidUpdate() {
-    this.gridMuuri && this.gridMuuri.destroy();
-    this.initGrid();
+  componentDidUpdate(prevProps) {
+    if (this.gridMuuri) {
+      const { items } = this.props;
+      items.forEach(item => {
+        if (!find(prevProps.items, { id: item.id })) {
+          this.gridMuuri.add(this.itemElements[item.id]);
+        }
+      });
+    } else {
+      this.initGrid();
+    }
+
     this.bottomOffset && scrollByBottomOffset(this.bottomOffset);
   }
 
