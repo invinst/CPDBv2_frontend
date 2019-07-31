@@ -7,7 +7,7 @@ class PinnedOfficers extends Section {
     super();
 
     const sectionSelector = '//div[contains(@class, "test--OFFICER-section")]';
-    this.officerCardSelector = `${sectionSelector}/div[contains(@class, "type-cards")]/div`;
+    this.officerCardSelector = `${sectionSelector}/div[contains(@class, "pinned-grid")]/div`;
     const firstCardSelector = `(${this.officerCardSelector})[1]`;
     const secondCardSelector = `(${this.officerCardSelector})[2]`;
 
@@ -32,7 +32,7 @@ class PinnedCRs extends Section {
     super();
 
     const sectionSelector = '//div[contains(@class, "test--CR-section")]';
-    this.crCardSelector = `${sectionSelector}/div[contains(@class, "type-cards")]/div`;
+    this.crCardSelector = `${sectionSelector}/div[contains(@class, "pinned-grid")]/div`;
     const firstCardSelector = `(${this.crCardSelector})[1]`;
 
     this.prepareElementGetters({
@@ -53,7 +53,7 @@ class PinnedTRRs extends Section {
     super();
 
     const sectionSelector = '//div[contains(@class, "test--TRR-section")]';
-    this.trrCardSelector = `${sectionSelector}/div[contains(@class, "type-cards")]/div`;
+    this.trrCardSelector = `${sectionSelector}/div[contains(@class, "pinned-grid")]/div`;
     const firstCardSelector = `(${this.trrCardSelector})[1]`;
 
     this.prepareElementGetters({
