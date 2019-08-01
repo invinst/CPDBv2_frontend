@@ -24,17 +24,15 @@ class DemoVideo extends Component {
     const { position, videoThumbnailUrl, editWrapperStateProps } = this.props;
     return (
       <div className={ cx(styles.demoVideo, position) }>
-        <div className='demo-video-text'>
-          <EditWrapperStateProvider { ...editWrapperStateProps }>
-            <HoverableEditWrapper>
-              <RichTextEditable
-                className='demo-video-text-input'
-                placeholder='What is CPDP?'
-                fieldname='demo_video_text'
-              />
-            </HoverableEditWrapper>
-          </EditWrapperStateProvider>
-        </div>
+        <EditWrapperStateProvider { ...editWrapperStateProps }>
+          <HoverableEditWrapper className='demo-video-text'>
+            <RichTextEditable
+              className='demo-video-text-input'
+              placeholder='What is CPDP?'
+              fieldname='demo_video_text'
+            />
+          </HoverableEditWrapper>
+        </EditWrapperStateProvider>
         <div className='demo-video-button' onClick={ this.handleWatchVideoButtonClick }>
           <img className='demo-video-thumbnail' src={ videoThumbnailUrl } />
           <img className='demo-video-play-button' src='/img/video-play-button.svg' width={ 32 } height={ 32 } />

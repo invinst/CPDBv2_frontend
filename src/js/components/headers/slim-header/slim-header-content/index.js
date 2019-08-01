@@ -18,7 +18,7 @@ class SlimHeaderContent extends Component {
   }
 
   render() {
-    const { pathname, editModeOn, style, className, openVideoModal, videoThumbnailUrl } = this.props;
+    const { pathname, editModeOn, style, className } = this.props;
     const position = this.getPosition();
 
     return (
@@ -36,8 +36,6 @@ class SlimHeaderContent extends Component {
               <DemoVideoContainer
                 position={ position }
                 editModeOn={ editModeOn }
-                openVideoModal={ openVideoModal }
-                videoThumbnailUrl={ videoThumbnailUrl }
               />
             </div>
           </div>
@@ -65,8 +63,6 @@ SlimHeaderContent.propTypes = {
   style: PropTypes.object,
   disableTop: PropTypes.bool,
   className: PropTypes.string,
-  openVideoModal: PropTypes.func,
-  videoThumbnailUrl: PropTypes.string,
 };
 
 SlimHeaderContent.defaultProps = {

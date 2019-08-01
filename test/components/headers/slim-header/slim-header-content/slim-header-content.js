@@ -7,7 +7,7 @@ import {
   findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
-import { stub, spy } from 'sinon';
+import { stub } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import * as DomUtils from 'utils/dom';
@@ -39,8 +39,6 @@ describe('SlimHeaderContent component', function () {
   });
 
   it('should render correctly', function () {
-    const openVideoModal = spy();
-
     element = renderIntoDocument(
       <Provider store={ storeMock } >
         <SlimHeaderContent
@@ -49,8 +47,6 @@ describe('SlimHeaderContent component', function () {
           editModeOn={ false }
           disableTop={ false }
           className='custom-class-name'
-          openVideoModal={ openVideoModal }
-          videoThumbnailUrl='https://i.vimeocdn.com/video/797111186_100x75.webp'
         />
       </Provider>
     );
@@ -66,8 +62,6 @@ describe('SlimHeaderContent component', function () {
     const demoVideo = findRenderedComponentWithType(header, DemoVideo);
     demoVideo.props.position.should.equal('top');
     demoVideo.props.editModeOn.should.be.false();
-    demoVideo.props.openVideoModal.should.equal(openVideoModal);
-    demoVideo.props.videoThumbnailUrl.should.equal('https://i.vimeocdn.com/video/797111186_100x75.webp');
 
     findRenderedComponentWithType(header, LogOutButton);
 
