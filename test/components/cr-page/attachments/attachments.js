@@ -9,7 +9,7 @@ import { spy } from 'sinon';
 import { unmountComponentSuppressError, renderWithContext } from 'utils/test';
 import Attachments from 'components/cr-page/attachments';
 import PrintAttachments from 'components/cr-page/attachments/print-attachments';
-import { RawContentStateFactory } from 'utils/test/factories/draft';
+import { buildEditStateFields } from 'utils/test/factories/draft';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
 import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
@@ -24,15 +24,9 @@ describe('AttachmentsTab component', function () {
 
   it('should show editable "no documents" message if no items', function () {
     const noAttachmentTextEditWrapperStateProps = {
-      fields: {
-        'no_attachment_text': {
-          type: 'rich_text',
-          name: 'no_attachment_text',
-          value: RawContentStateFactory.build(
-            {}, { blockTexts: ['There are no documents that have been made public yet.'] }
-          )
-        }
-      },
+      fields: buildEditStateFields({
+        'no_attachment_text': ['There are no documents that have been made public yet.'],
+      }),
       sectionEditModeOn: false,
       onSaveForm: spy(),
       turnOnSectionEditMode: spy(),

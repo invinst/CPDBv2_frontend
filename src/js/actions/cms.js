@@ -1,3 +1,5 @@
+import { createAction } from 'redux-actions';
+
 import * as constants from 'utils/constants';
 import { get, authenticatedPatch } from 'actions/common/async-action';
 
@@ -18,4 +20,9 @@ export const fetchPage = pageid => get(
     constants.CMS_PAGE_REQUEST_SUCCESS,
     constants.CMS_PAGE_REQUEST_FAILURE
   ]
+);
+
+export const createChangeEditModeAction = editMode => (editType, mode) => createAction(
+  editMode,
+  () => ({ editType, mode })
 );

@@ -563,6 +563,9 @@ export const CR_EDIT_TYPES = new Enum([
 export const TRR_EDIT_MODE = 'TRR_EDIT_MODE';
 export const TRR_EDIT_TYPES = new Enum(['NO_ATTACHMENT_TEXT', 'DOCUMENT_REQUEST_INSTRUCTION']);
 
+export const PINBOARD_EDIT_MODE = 'PINBOARD_EDIT_MODE';
+export const PINBOARD_EDIT_TYPES = new Enum(['EMPTY_PINBOARD_TITLE', 'EMPTY_PINBOARD_DESCRIPTION']);
+
 export const TURN_ON_LOGO_EDIT_MODE = 'TURN_ON_LOGO_EDIT_MODE';
 export const TURN_OFF_LOGO_EDIT_MODE = 'TURN_OFF_LOGO_EDIT_MODE';
 
@@ -597,6 +600,7 @@ export const LANDING_PAGE_ID = 'landing-page';
 export const OFFICER_PAGE_ID = 'officer-page';
 export const CR_PAGE_ID = 'cr-page';
 export const TRR_PAGE_ID = 'trr-page';
+export const PINBOARD_PAGE_ID = 'pinboard-page';
 
 export const NEW_TIMELINE_ITEMS = {
   CR: 'CR',
