@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import cx from 'classnames';
+import isMobile from 'ismobilejs';
 
 import Hoverable from 'components/common/higher-order/hoverable';
 import { MAP_ITEMS } from 'utils/constants';
@@ -14,15 +15,17 @@ export class Marker extends Component {
   }
 
   componentDidUpdate() {
-    const { mapboxMarker, hovering } = this.props;
-    if (hovering) {
-      if (!mapboxMarker.getPopup().isOpen()) {
-        mapboxMarker.togglePopup();
+    if (!isMobile.tablet) {
+      const { mapboxMarker, hovering } = this.props;
+      if (hovering) {
+        if (!mapboxMarker.getPopup().isOpen()) {
+          mapboxMarker.togglePopup();
+        }
       }
-    }
-    else {
-      if (mapboxMarker.getPopup().isOpen()) {
-        mapboxMarker.togglePopup();
+      else {
+        if (mapboxMarker.getPopup().isOpen()) {
+          mapboxMarker.togglePopup();
+        }
       }
     }
   }
@@ -61,7 +64,7 @@ export class Marker extends Component {
             'sustained-finding': finding === 'Sustained'
           }
         ) }
-        onClick={ this.handleClick }
+        onClick={ isMobile.tablet ? null : this.handleClick }
       />
     );
   }
