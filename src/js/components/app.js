@@ -6,9 +6,9 @@ import { getMockAdapter } from 'mock-api';
 import EditModeProvider from 'components/edit-mode-provider';
 import LoginModalContainer from 'containers/login-modal-container';
 import GenericModalContainer from 'containers/generic-modal-container';
+import VideoModalContainer from 'containers/video-modal-container';
 import RouteTransition from 'containers/animation/route-transition';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
-
 import { ALPHA_NUMBERIC } from 'utils/constants';
 
 
@@ -64,6 +64,7 @@ export default class App extends React.Component {
           </RouteTransition>
           <LoginModalContainer location={ location }/>
           <GenericModalContainer location={ location }/>
+          <VideoModalContainer />
         </EditModeProvider>
       </StyleRoot>
     );

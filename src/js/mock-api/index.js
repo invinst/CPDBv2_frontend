@@ -19,6 +19,7 @@ import {
   DOCUMENTS_URL,
   CRAWLERS_API_URL,
   SOCIAL_GRAPH_API_URL,
+  MODAL_VIDEO_INFO,
 } from 'utils/constants';
 import { communityGeoJSONPath } from 'utils/static-assets';
 import getCRData from './cr-page/get-data';
@@ -51,7 +52,7 @@ import {
   getOfficerComplaintSocialGraphData,
   getThresholdThreeSocialGraphData
 } from './social-graph-page/social-graph-page';
-
+import { modalVideoInfo } from './headers/slim-header';
 
 const SEARCH_API_URL = /^suggestion\/$/;
 const SEARCH_SINGLE_API_URL = /^suggestion\/single\/$/;
@@ -132,6 +133,8 @@ axiosMockClient.onGet(communityGeoJSONPath).reply(200, getCommunities());
 
 axiosMockClient.onGet(`${SLUG_PAGE_API_URL}landing-page/`).reply(200, landingPageCMSFields);
 axiosMockClient.onGet(`${SLUG_PAGE_API_URL}officer-page/`).reply(200, officerPageCMSFields);
+
+axiosMockClient.onGet(`https://vimeo.com/api/v2/video/${MODAL_VIDEO_INFO.VIDEO_ID}.json`).reply(200, modalVideoInfo);
 
 axiosMockClient.onGet(`${POPUP_API_URL}?page=complaint`).reply(200, getCRPopup());
 
