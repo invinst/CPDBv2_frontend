@@ -22,7 +22,7 @@ export const RawTRROfficerFactory = Factory.define('RawTRROfficerFactory')
   .attr('sustained_count', () => random.number())
   .attr('unit', {
     'unit_name': '001',
-    'description': 'Targeted Response Unit'
+    'description': 'Targeted Response Unit',
   })
   .attr('percentile_allegation_civilian', percentileGenerator)
   .attr('percentile_allegation_internal', percentileGenerator)
@@ -51,5 +51,5 @@ export const RawTRRFactory = Factory.define('RawTRRFactory')
     'Imminent Threat Of Battery',
     'Pulled Away',
     'Verbal Commands',
-    'Other (Specify)'
+    'Other (Specify)',
   ]);

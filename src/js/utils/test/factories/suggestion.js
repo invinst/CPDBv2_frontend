@@ -44,7 +44,7 @@ export const RawCRSuggestion = Factory.define('RawCRSuggestion')
   .attr('address', lorem.words)
   .attr('incident_date', '1999-12-13')
   .attr('highlight', {
-    summary: [String(lorem.sentence)]
+    summary: [String(lorem.sentence)],
   });
 
 /* istanbul ignore next */
@@ -110,7 +110,6 @@ export const CRSuggestion = Factory.define('CRSuggestion')
   .attr('category', lorem.words)
   .attr('incident_date', '1999-12-13')
   .attr('highlight', {
-    summary: [String(lorem.sentence)]
+    summary: [String(lorem.sentence)],
   });
-
 

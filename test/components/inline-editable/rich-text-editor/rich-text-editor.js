@@ -6,7 +6,7 @@ import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
   scryRenderedDOMComponentsWithClass,
-  scryRenderedComponentsWithType
+  scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 import { spy } from 'sinon';
 

@@ -16,9 +16,9 @@ export default class RouteTransition extends Component {
         {
           key: this.getRouteTransitionKey(props.pathname),
           handler: props.children,
-          opacity: 1
-        }
-      ]
+          opacity: 1,
+        },
+      ],
     };
   }
 
@@ -33,14 +33,14 @@ export default class RouteTransition extends Component {
           {
             handler: children,
             key: nextKey,
-            opacity: 0
+            opacity: 0,
           },
           {
             handler: this.props.children,
             key: prevKey,
-            opacity: 1
-          }
-        ]
+            opacity: 1,
+          },
+        ],
       });
     } else if (!pageLoading && this.props.pageLoading && this.overlayCompletelyCover) {
       scrollToTop();
@@ -50,9 +50,9 @@ export default class RouteTransition extends Component {
           {
             handler: this.props.children,
             key: prevKey,
-            opacity: 1
-          }
-        ]
+            opacity: 1,
+          },
+        ],
       });
     } else {
       let { contents } = this.state;
@@ -73,7 +73,7 @@ export default class RouteTransition extends Component {
     pathname = pathname.replace(/^\/edit(.*)/, '$1');
     const patterns = [
       /.*(complaint\/\d+).*/,
-      /.*(search)\/.*/
+      /.*(search)\/.*/,
     ];
     for (let ind in patterns) {
       const pattern = patterns[ind];
@@ -95,9 +95,9 @@ export default class RouteTransition extends Component {
             {
               handler: children,
               key: this.getRouteTransitionKey(pathname),
-              opacity: 1
-            }
-          ]
+              opacity: 1,
+            },
+          ],
         });
       });
     }
@@ -143,5 +143,5 @@ export default class RouteTransition extends Component {
 RouteTransition.propTypes = {
   children: PropTypes.node,
   pathname: PropTypes.string,
-  pageLoading: PropTypes.bool
+  pageLoading: PropTypes.bool,
 };

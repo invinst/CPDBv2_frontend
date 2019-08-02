@@ -119,7 +119,7 @@ SearchTerms.defaultProps = {
   resetNavigation: () => {},
   setNavigation: () => {},
   focusedItem: {
-    uniqueKey: ''
+    uniqueKey: '',
   },
   navigationKeys: [],
   categories: [],

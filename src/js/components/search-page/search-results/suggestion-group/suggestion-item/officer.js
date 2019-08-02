@@ -51,13 +51,13 @@ OfficerItem.propTypes = {
     gender: PropTypes.string,
     complaintCount: PropTypes.number,
   }),
-  isFocused: PropTypes.bool
+  isFocused: PropTypes.bool,
 };
 
 OfficerItem.defaultProps = {
   suggestion: {
     complaintCount: 0,
-    sustainedCount: 0
+    sustainedCount: 0,
   },
 };
 

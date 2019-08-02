@@ -17,7 +17,7 @@ export default class DatePickerButton extends Component {
           onClick={ onClick }
           style={ {
             base: buttonStyle,
-            hover: hoveredButtonStyle
+            hover: hoveredButtonStyle,
           } }>
           <span style={ iconStyle } />
         </HoverableButton>
@@ -28,5 +28,5 @@ export default class DatePickerButton extends Component {
 
 DatePickerButton.propTypes = {
   onClick: PropTypes.func,
-  value: PropTypes.string
+  value: PropTypes.string,
 };

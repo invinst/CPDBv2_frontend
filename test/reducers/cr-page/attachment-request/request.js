@@ -7,44 +7,44 @@ describe('AttachmentRequest reducer', function () {
     it('should have initial state', function () {
       request(undefined, {}).should.eql({
         isRequested: false,
-        message: ''
+        message: '',
       });
     });
 
     it('should handle CR_REQUEST_DOC_START', function () {
       request(undefined, {
         type: CR_REQUEST_DOC_START,
-        email: 'valid@email.com'
+        email: 'valid@email.com',
       }).should.eql({
-        isRequested: false
+        isRequested: false,
       });
     });
 
     it('should handle CR_REQUEST_DOC_SUCCESS', function () {
       request({
-        isRequested: false
+        isRequested: false,
       }, {
         type: CR_REQUEST_DOC_SUCCESS,
         payload: {
-          message: 'Thanks for subscribing'
-        }
+          message: 'Thanks for subscribing',
+        },
       }).should.eql({
         isRequested: true,
-        message: 'Thanks for subscribing'
+        message: 'Thanks for subscribing',
       });
     });
 
     it('should handle CR_REQUEST_DOC_FAILURE', function () {
       request({
-        isRequested: false
+        isRequested: false,
       }, {
         type: CR_REQUEST_DOC_FAILURE,
         payload: {
-          message: 'Not subscribe'
-        }
+          message: 'Not subscribe',
+        },
       }).should.eql({
         isRequested: false,
-        message: 'Not subscribe'
+        message: 'Not subscribe',
       });
     });
 

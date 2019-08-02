@@ -7,7 +7,7 @@ export default class ScrollIntoView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      offset: 0
+      offset: 0,
     };
   }
 
@@ -16,7 +16,7 @@ export default class ScrollIntoView extends Component {
 
     if (offset !== null) {
       this.setState({
-        offset
+        offset,
       });
     }
   }
@@ -65,5 +65,5 @@ export default class ScrollIntoView extends Component {
 ScrollIntoView.propTypes = {
   children: PropTypes.node,
   focusedClassName: PropTypes.string,
-  style: PropTypes.object
+  style: PropTypes.object,
 };

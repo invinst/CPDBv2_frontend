@@ -168,4 +168,3 @@ describe('Social Graph Page', function () {
   });
 });
 
-

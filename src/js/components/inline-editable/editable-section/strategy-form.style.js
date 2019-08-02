@@ -1,5 +1,5 @@
 import {
-  fashionPinkColor, softGreenColor, pinkishWhiteColor, tomatoPinkColor
+  fashionPinkColor, softGreenColor, pinkishWhiteColor, tomatoPinkColor,
 } from 'utils/styles';
 
 
@@ -9,7 +9,7 @@ export const strategyFormStyle = {
   boxShadow: `0 2px 4px 0 ${softGreenColor}`,
   padding: '16px',
   left: 'calc(50% - 117.5px)',
-  backgroundColor: pinkishWhiteColor
+  backgroundColor: pinkishWhiteColor,
 };
 
 export const numberEntriesStyle = {
@@ -17,7 +17,7 @@ export const numberEntriesStyle = {
   width: '37px',
   height: '22px',
   borderRadius: '2px',
-  outline: 'none'
+  outline: 'none',
 };
 
 export const strategySelectStyle = {
@@ -27,5 +27,5 @@ export const strategySelectStyle = {
   height: '26px',
   borderRadius: '2px',
   outline: 'none',
-  marginLeft: '8px'
+  marginLeft: '8px',
 };

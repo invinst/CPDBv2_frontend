@@ -14,11 +14,11 @@ describe('citySummarySelector', function () {
             'most_common_complaints': [
               'abc',
               'def',
-              'ghi'
-            ]
-          }
-        }
-      }
+              'ghi',
+            ],
+          },
+        },
+      },
     }).should.eql({
       startYear: 1999,
       endYear: 2017,
@@ -27,8 +27,8 @@ describe('citySummarySelector', function () {
       mostCommonComplaints: [
         'abc',
         'def',
-        'ghi'
-      ]
+        'ghi',
+      ],
     });
   });
 });

@@ -9,13 +9,13 @@ export const linkStyle = {
   textDecoration: 'none',
   cursor: 'pointer',
   ':hover': {
-    color: softBlackColor
-  }
+    color: softBlackColor,
+  },
 };
 
 export const footerStyle = {
   textAlign: 'right',
   padding: '36px 36px',
   height: '88px',
-  boxSizing: 'border-box'
+  boxSizing: 'border-box',
 };

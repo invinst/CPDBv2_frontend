@@ -3,7 +3,7 @@ import { map } from 'lodash';
 
 import {
   racePopulationStyle, columnStyle, labelTextStyle, populationCountStyle, medianIncomeStyle,
-  raceItemStyle, raceTextStyle, raceCountStyle
+  raceItemStyle, raceTextStyle, raceCountStyle,
 } from './community-race-population.style';
 
 
@@ -43,12 +43,12 @@ export default class CommunityRacePopulation extends Component {
 }
 
 CommunityRacePopulation.defaultProps = {
-  extraStyle: {}
+  extraStyle: {},
 };
 
 CommunityRacePopulation.propTypes = {
   population: PropTypes.string,
   raceCount: PropTypes.array,
   medianIncome: PropTypes.string,
-  extraStyle: PropTypes.object
+  extraStyle: PropTypes.object,
 };

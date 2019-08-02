@@ -22,13 +22,13 @@ ArticleExpanded.propTypes = {
   children: PropTypes.node,
   style: PropTypes.shape({
     outer: PropTypes.object,
-    inner: PropTypes.object
+    inner: PropTypes.object,
   }),
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
 ArticleExpanded.defaultProps = {
-  style: {}
+  style: {},
 };
 
 export default ConfiguredRadium(ArticleExpanded);

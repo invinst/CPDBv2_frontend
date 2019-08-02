@@ -7,7 +7,7 @@ import { fetchUnitProfileSummary } from 'actions/unit-profile-page';
 
 const mapStateToProps = (state, ownProps) => {
   const {
-    activeMembers, totalMembers, memberFacets, complaintCount, sustainedComplaintCount, complaintFacets
+    activeMembers, totalMembers, memberFacets, complaintCount, sustainedComplaintCount, complaintFacets,
   } = ownProps.summary;
 
   return {
@@ -17,12 +17,12 @@ const mapStateToProps = (state, ownProps) => {
     memberFacets,
     complaintCount,
     sustainedComplaintCount,
-    complaintFacets
+    complaintFacets,
   };
 };
 
 const mapDispatchToProps = {
-  fetchUnitProfileSummary
+  fetchUnitProfileSummary,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SummaryPage);

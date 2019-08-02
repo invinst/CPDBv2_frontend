@@ -29,8 +29,8 @@ export default class CommunityDropdown extends Component {
             <CommunityDetail
               closeDetail={ () => this.props.selectCommunity(0) }
               community={ find(this.props.communities, obj => obj.id === this.props.communityId) }/>
-          )
-        }
+          ),
+        },
       }];
     } else if (showDropdown) {
       return [{
@@ -42,8 +42,8 @@ export default class CommunityDropdown extends Component {
               closeDropdown={ this.props.closeDropdown }
               communities={ this.props.communities }
               selectCommunity={ this.props.selectCommunity }/>
-          )
-        }
+          ),
+        },
       }];
     } else {
       return [{
@@ -53,8 +53,8 @@ export default class CommunityDropdown extends Component {
           getElement: () => (
             <DropdownPlaceHolder
               openDropdown={ this.props.openDropdown }/>
-          )
-        }
+          ),
+        },
       }];
     }
   }
@@ -91,5 +91,5 @@ CommunityDropdown.propTypes = {
   openDropdown: PropTypes.func,
   closeDropdown: PropTypes.func,
   selectCommunity: PropTypes.func,
-  communityId: PropTypes.number
+  communityId: PropTypes.number,
 };

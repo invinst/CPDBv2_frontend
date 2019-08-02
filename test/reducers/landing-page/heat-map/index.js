@@ -6,7 +6,7 @@ describe('heatMap reducer', function () {
     heatMap(undefined, {}).should.eql({
       citySummary: {},
       communities: null,
-      clusterGeoJson: null
+      clusterGeoJson: null,
     });
   });
 });

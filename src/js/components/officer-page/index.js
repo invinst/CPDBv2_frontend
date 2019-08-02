@@ -47,7 +47,7 @@ class OfficerPage extends Component {
 
     const pageTitle = compact([
       officerSummary.rank === 'N/A' ? '' : officerSummary.rank,
-      officerName
+      officerName,
     ]).join(' ');
 
     const hasUnknownBadge = (officerSummary.badge || 'Unknown') === 'Unknown';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { renderIntoDocument, findRenderedDOMComponentWithClass, } from 'react-addons-test-utils';
+import { renderIntoDocument, findRenderedDOMComponentWithClass } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import Joined from 'components/officer-page/tabbed-pane-section/timeline/item/showings/joined';

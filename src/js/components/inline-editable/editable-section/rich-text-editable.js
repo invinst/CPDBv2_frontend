@@ -13,13 +13,13 @@ class RichTextEditable extends Component {
     return {
       editModeOn: editModeOn || fieldContext.editModeOn,
       value: value || fieldContext.value,
-      onChange: onChange || fieldContext.onChange
+      onChange: onChange || fieldContext.onChange,
     };
   }
 
   render() {
     const {
-      style, placeholder, className, lastBlockChild
+      style, placeholder, className, lastBlockChild,
     } = this.props;
 
     const { editModeOn, value, onChange } = this.getEditorProps();
@@ -57,11 +57,11 @@ RichTextEditable.propTypes = {
   editModeOn: PropTypes.bool,
   placeholder: PropTypes.string,
   fieldname: PropTypes.string,
-  lastBlockChild: PropTypes.node
+  lastBlockChild: PropTypes.node,
 };
 
 RichTextEditable.contextTypes = {
-  fieldContexts: PropTypes.object
+  fieldContexts: PropTypes.object,
 };
 
 export default RichTextEditable;

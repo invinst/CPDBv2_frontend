@@ -6,7 +6,7 @@ import { editModeOn } from 'utils/edit-path';
 export default class EditModeProvider extends Component {
   getChildContext() {
     return {
-      editModeOn: editModeOn(this.getPathname())
+      editModeOn: editModeOn(this.getPathname()),
     };
   }
 
@@ -26,15 +26,15 @@ export default class EditModeProvider extends Component {
 EditModeProvider.propTypes = {
   children: PropTypes.node,
   pathname: PropTypes.string,
-  location: PropTypes.object
+  location: PropTypes.object,
 };
 
 EditModeProvider.defaultProps = {
   location: {
-    pathname: ''
-  }
+    pathname: '',
+  },
 };
 
 EditModeProvider.childContextTypes = {
-  editModeOn: PropTypes.bool
+  editModeOn: PropTypes.bool,
 };

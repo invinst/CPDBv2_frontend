@@ -11,7 +11,7 @@ describe('summary reducer', function () {
   it('should handle OFFICER_SUMMARY_REQUEST_SUCCESS', function () {
     summary(undefined, {
       type: OFFICER_SUMMARY_REQUEST_SUCCESS,
-      payload: { 'a': 'b' }
+      payload: { 'a': 'b' },
     }).should.eql({ 'a': 'b' });
   });
 

@@ -10,7 +10,7 @@ describe('subscribedTRRIds reducer', function () {
   it('should handle TRR_REQUEST_DOC_REQUEST_SUCCESS', function () {
     subscribedTRRIds({ 123: true }, {
       type: TRR_REQUEST_DOC_REQUEST_SUCCESS,
-      payload: { 'trr_id': 456 }
+      payload: { 'trr_id': 456 },
     }).should.eql({ 123: true, 456: true });
   });
 });

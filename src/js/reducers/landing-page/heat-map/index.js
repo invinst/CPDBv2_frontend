@@ -8,5 +8,5 @@ import clusterGeoJson from './cluster-geo-json';
 export default combineReducers({
   citySummary,
   communities,
-  clusterGeoJson
+  clusterGeoJson,
 });

@@ -6,7 +6,7 @@ import { each, assign } from 'lodash';
 import { spy } from 'sinon';
 
 import {
-  renderIntoDocument, Simulate, scryRenderedDOMComponentsWithClass, findRenderedComponentWithType
+  renderIntoDocument, Simulate, scryRenderedDOMComponentsWithClass, findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 import { MOBILE, TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
 

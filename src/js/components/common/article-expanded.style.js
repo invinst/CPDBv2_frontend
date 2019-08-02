@@ -6,15 +6,15 @@ export const innerWrapperStyle = {
   paddingTop: '88px',
   paddingLeft: '16px',
   paddingRight: '16px',
-  margin: '0 auto'
+  margin: '0 auto',
 };
 
 export const borderStyle = {
   borderTop: `1px solid ${lightGreyColor}`,
-  borderBottom: `1px solid ${lightGreyColor}`
+  borderBottom: `1px solid ${lightGreyColor}`,
 };
 
 export const outerWrapperStyle = {
   overflow: 'hidden',
-  display: 'block'
+  display: 'block',
 };

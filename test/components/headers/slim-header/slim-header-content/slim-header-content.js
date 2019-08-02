@@ -24,14 +24,14 @@ describe('SlimHeaderContent component', function () {
   const storeMock = MockStore()({
     authentication: {},
     cms: {
-      pages: {}
+      pages: {},
     },
     headers: {
       slimHeader: {
         logoSectionEditModeOn: false,
         demoVideoSectionEditModeOn: false,
-      }
-    }
+      },
+    },
   });
 
   afterEach(function () {

@@ -8,7 +8,7 @@ import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
   scryRenderedDOMComponentsWithClass,
-  Simulate
+  Simulate,
 } from 'react-addons-test-utils';
 import { spy, stub, useFakeTimers } from 'sinon';
 import { StyleRoot } from 'radium';
@@ -38,13 +38,13 @@ describe('RequestDocumentModalContent component', function () {
           name: 'document_request_instruction',
           value: RawContentStateFactory.build(
             {}, { blockTexts: ['We’ll notify you when the document is made available.'] }
-          )
-        }
+          ),
+        },
       },
       sectionEditModeOn: false,
       onSaveForm: spy(),
       turnOnSectionEditMode: spy(),
-      turnOffSectionEditMode: spy()
+      turnOffSectionEditMode: spy(),
     };
     element = renderIntoDocument(
       <RequestDocumentModalContent
@@ -75,13 +75,13 @@ describe('RequestDocumentModalContent component', function () {
           name: 'new_document_notification',
           value: RawContentStateFactory.build(
             {}, { blockTexts: ['We’ll notify you when we have new documents.'] }
-          )
-        }
+          ),
+        },
       },
       sectionEditModeOn: false,
       onSaveForm: spy(),
       turnOnSectionEditMode: spy(),
-      turnOffSectionEditMode: spy()
+      turnOffSectionEditMode: spy(),
     };
     element = renderIntoDocument(
       <RequestDocumentModalContent

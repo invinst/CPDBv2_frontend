@@ -31,7 +31,7 @@ export default class AnimatedRadarChart extends Component {
     const transitionValue = context.printMode ? Math.max(this.animatedData.length - 1, 0) : 0;
     this.state = {
       transitionValue: transitionValue,
-      showExplainer: false
+      showExplainer: false,
     };
   }
 
@@ -122,7 +122,7 @@ export default class AnimatedRadarChart extends Component {
         ...d,
         value: (d.value - previousData[i].value) * (transitionValue - (index - 1)) + previousData[i].value,
       })),
-      visualTokenBackground: backgroundColor
+      visualTokenBackground: backgroundColor,
     };
   }
 

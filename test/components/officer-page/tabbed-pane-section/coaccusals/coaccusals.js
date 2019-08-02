@@ -1,5 +1,5 @@
 import React from 'react';
-import { renderIntoDocument, scryRenderedDOMComponentsWithClass, } from 'react-addons-test-utils';
+import { renderIntoDocument, scryRenderedDOMComponentsWithClass } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import Coaccusals from 'components/officer-page/tabbed-pane-section/coaccusals';
@@ -38,7 +38,7 @@ describe('Coaccusals component', function () {
             gender: 'male',
             coaccusalCount: 2,
           },
-        ]
+        ],
       },
       {
         name: 'COACCUSED 1 TIME',
@@ -52,8 +52,8 @@ describe('Coaccusals component', function () {
             race: 'white',
             gender: 'male',
             coaccusalCount: 1,
-          }
-        ]
+          },
+        ],
       },
     ];
 

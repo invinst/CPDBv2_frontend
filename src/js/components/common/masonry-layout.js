@@ -10,7 +10,7 @@ export default class MasonryLayout extends Component {
       container: this.masonryContainer,
       packed: packed,
       sizes: sizes,
-      position: position
+      position: position,
     });
 
     this.instance.resize(true);
@@ -63,7 +63,7 @@ MasonryLayout.propTypes = {
   children: PropTypes.arrayOf(PropTypes.element).isRequired,
   sizes: PropTypes.array,
   packed: PropTypes.string,
-  position: PropTypes.bool
+  position: PropTypes.bool,
 };
 
 MasonryLayout.defaultProps = {
@@ -73,7 +73,7 @@ MasonryLayout.defaultProps = {
   sizes: [
     { columns: 1, gutter: 20 },
     { mq: '768px', columns: 2, gutter: 20 },
-    { mq: '1024px', columns: 3, gutter: 20 }
+    { mq: '1024px', columns: 3, gutter: 20 },
   ],
-  style: {}
+  style: {},
 };

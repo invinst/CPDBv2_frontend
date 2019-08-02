@@ -11,17 +11,17 @@ export const getCitySummary = () => CitySummaryFactory.build({
   'most_common_complaints': [
     {
       name: 'Operation/Personnel Violations',
-      count: 3
+      count: 3,
     },
     {
       name: 'Use Of Force',
-      count: 2
+      count: 2,
     },
     {
       name: 'Illegal Search',
-      count: 1
-    }
-  ]
+      count: 1,
+    },
+  ],
 });
 
 export const getCommunities = () => ({
@@ -31,10 +31,10 @@ export const getCommunities = () => ({
       rawCommunityFactory.build({
         'allegation_count': 5,
         'discipline_count': 2,
-        'name': 'Hyde Park'
+        'name': 'Hyde Park',
       }),
-      ...rawCommunityFactory.buildList(9)
+      ...rawCommunityFactory.buildList(9),
     ],
     properties => ({ properties })
-  )
+  ),
 });

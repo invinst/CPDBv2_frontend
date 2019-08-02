@@ -4,7 +4,7 @@ import { stub, spy } from 'sinon';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
-  Simulate
+  Simulate,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';

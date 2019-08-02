@@ -5,7 +5,7 @@ import Mousestrap from 'mousetrap';
 import { Link, Router, Route, createMemoryHistory } from 'react-router';
 import {
   renderIntoDocument, findRenderedComponentWithType, findRenderedDOMComponentWithTag,
-  findRenderedDOMComponentWithClass, scryRenderedDOMComponentsWithClass, Simulate
+  findRenderedDOMComponentWithClass, scryRenderedDOMComponentsWithClass, Simulate,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
@@ -41,7 +41,7 @@ describe('SuggestionItemBase component', function () {
 
   it('should render Link if given to', function () {
     const suggestion = {
-      to: '/officer/123'
+      to: '/officer/123',
     };
 
     instance = renderIntoDocument(<SuggestionItemBase suggestion={ suggestion }/>);
@@ -51,7 +51,7 @@ describe('SuggestionItemBase component', function () {
 
   it('should render a tag otherwise', function () {
     const suggestion = {
-      url: 'https://example.com/'
+      url: 'https://example.com/',
     };
 
     instance = renderIntoDocument(<SuggestionItemBase suggestion={ suggestion }/>);
@@ -66,7 +66,7 @@ describe('SuggestionItemBase component', function () {
 
   it('should render second row if subText is given', function () {
     const suggestion = {
-      subText: 'Sample'
+      subText: 'Sample',
     };
     instance = renderIntoDocument(<SuggestionItemBase suggestion={ suggestion }/>);
     const element = findRenderedDOMComponentWithClass(instance, 'test--second-row');
@@ -81,7 +81,7 @@ describe('SuggestionItemBase component', function () {
   describe('click action', function () {
     it('should call selectItem if not focused', function () {
       const suggestion = {
-        uniqueKey: '123'
+        uniqueKey: '123',
       };
       const selectItemSpy = spy();
       instance = renderIntoDocument(
@@ -97,7 +97,7 @@ describe('SuggestionItemBase component', function () {
 
     it('should trigger ENTER event if focused', function () {
       const suggestion = {
-        uniqueKey: '123'
+        uniqueKey: '123',
       };
       const triggerStub = stub(Mousestrap, 'trigger');
       instance = renderIntoDocument(
@@ -134,10 +134,10 @@ describe('SuggestionItemBase component', function () {
       const props = {
         setAliasAdminPageContent,
         suggestion: { id, text, type, subText, tags },
-        aliasEditModeOn: true
+        aliasEditModeOn: true,
       };
       const dummyEvent = {
-        stopPropagation: spy()
+        stopPropagation: spy(),
       };
       const suggestionItemBaseRenderer = () => (
         <SuggestionItemBase { ...props }/>
@@ -155,7 +155,7 @@ describe('SuggestionItemBase component', function () {
         id, text,
         type: 'officer',
         description: subText,
-        existingAliases: tags
+        existingAliases: tags,
       }).should.be.true();
     });
   });

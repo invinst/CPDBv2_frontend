@@ -28,7 +28,7 @@ describe('embed top officers page', function () {
       const firstCard = embedOfficersPage.embedOfficersCarousel.cards;
       firstCard.click();
       switchToRecentTab();
-      browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/?$/);
+      browser.getUrl().should.match(/\/officer\/\d+\/[a-z]+\/?$/);
     });
   });
 });

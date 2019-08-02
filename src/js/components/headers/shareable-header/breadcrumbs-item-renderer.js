@@ -16,7 +16,7 @@ export default class BreadcrumbsItemRenderer extends React.Component {
     else {
       newChildren = React.cloneElement(children, {
         style: children.props.style,
-        className: cx(children.props.className, 'breadcrumbs-item-link', { 'bottom': atBottom })
+        className: cx(children.props.className, 'breadcrumbs-item-link', { 'bottom': atBottom }),
       });
     }
     return (
@@ -28,7 +28,7 @@ export default class BreadcrumbsItemRenderer extends React.Component {
 BreadcrumbsItemRenderer.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.object
+    PropTypes.object,
   ]),
   scrollPosition: PropTypes.string,
 };

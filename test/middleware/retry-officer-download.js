@@ -7,7 +7,7 @@ import { fetchOfficerZipFileUrl, fetchOfficerZipWithDocsFileUrl } from 'actions/
 
 describe('retryOfficerDownloadMiddleware', function () {
   const store = {
-    dispatch: stub().usingPromise(Promise).resolves('abc')
+    dispatch: stub().usingPromise(Promise).resolves('abc'),
   };
 
   afterEach(function () {
@@ -25,7 +25,7 @@ describe('retryOfficerDownloadMiddleware', function () {
           url: '/officer/123/',
           params: { 'retry-counter': 1 },
         },
-        payload: ''
+        payload: '',
       };
       retryOfficerDownloadMiddleware(store)(() => {})(action);
 
@@ -45,7 +45,7 @@ describe('retryOfficerDownloadMiddleware', function () {
           url: '/officer/123/',
           params: { 'retry-counter': 1 },
         },
-        payload: ''
+        payload: '',
       };
       retryOfficerDownloadMiddleware(store)(() => {})(action);
 
@@ -62,7 +62,7 @@ describe('retryOfficerDownloadMiddleware', function () {
         url: '/officer/123/',
         params: { 'retry-counter': 60 },
       },
-      payload: 'lvh.me/file.zip'
+      payload: 'lvh.me/file.zip',
     };
     retryOfficerDownloadMiddleware(store)(() => {})(action);
 
@@ -81,7 +81,7 @@ describe('retryOfficerDownloadMiddleware', function () {
           url: '/officer/123/',
           params: { 'retry-counter': 60 },
         },
-        payload: ''
+        payload: '',
       };
       retryOfficerDownloadMiddleware(store)(() => {})(action);
 

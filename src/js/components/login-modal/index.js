@@ -6,7 +6,7 @@ import ForgotPasswordLink from './forgot-password-link';
 import {
   outerWrapperStyle, innerWrapperStyle, usernameInputStyle, passwordInputStyle,
   signInButtonStyle, labelStyle, nameWrapperStyle,
-  passwordInputWrapperStyle, errorMessageStyle, successMessageStyle
+  passwordInputWrapperStyle, errorMessageStyle, successMessageStyle,
 } from './login-modal.style';
 import FadeMotion from 'components/animation/fade-motion';
 
@@ -15,7 +15,7 @@ class LoginModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      disabled: true
+      disabled: true,
     };
     this.handleSignIn = this.handleSignIn.bind(this);
     this.handlePasswordKeyDown = this.handlePasswordKeyDown.bind(this);
@@ -37,7 +37,7 @@ class LoginModal extends Component {
   handleSignIn() {
     this.props.onSignIn({
       username: this.nameInput.value,
-      password: this.passwordInput.value
+      password: this.passwordInput.value,
     });
   }
 
@@ -54,7 +54,7 @@ class LoginModal extends Component {
   handleInputChange() {
     if (!!(this.nameInput.value && this.passwordInput.value) === this.state.disabled) {
       this.setState({
-        disabled: !(this.nameInput.value && this.passwordInput.value)
+        disabled: !(this.nameInput.value && this.passwordInput.value),
       });
     }
   }
@@ -62,7 +62,7 @@ class LoginModal extends Component {
   renderContent(opacity) {
     const {
       loginErrorMessage, onResetPassword, forgotPasswordErrorMessage,
-      loginSuccessMessage, showForgotPasswordModal
+      loginSuccessMessage, showForgotPasswordModal,
     } = this.props;
     const { disabled } = this.state;
 
@@ -124,7 +124,7 @@ LoginModal.propTypes = {
   showForgotPasswordModal: PropTypes.bool,
   loginErrorMessage: PropTypes.string,
   loginSuccessMessage: PropTypes.string,
-  forgotPasswordErrorMessage: PropTypes.string
+  forgotPasswordErrorMessage: PropTypes.string,
 };
 
 export default LoginModal;

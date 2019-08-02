@@ -1,7 +1,7 @@
 import React from 'react';
 import { stub } from 'sinon';
 import {
-  scryRenderedDOMComponentsWithTag, scryRenderedComponentsWithType
+  scryRenderedDOMComponentsWithTag, scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 import { Entity } from 'draft-js';
 
@@ -23,7 +23,7 @@ describe('Link component', function () {
     const entityKey = 'entityKey';
     const url = 'url';
     const context = {
-      editModeOn: false
+      editModeOn: false,
     };
     const getStub = stub(Entity, 'get');
     getStub.withArgs(entityKey).returns({ getData: () => { return { url }; } });
@@ -38,7 +38,7 @@ describe('Link component', function () {
     const entityKey = 'entityKey';
     const url = 'url';
     const context = {
-      editModeOn: true
+      editModeOn: true,
     };
     const getStub = stub(Entity, 'get');
     getStub.withArgs(entityKey).returns({ getData: () => { return { url }; } });
@@ -53,8 +53,8 @@ describe('Link component', function () {
     const style = { a: 'b' };
     const context = {
       draftEntityStyle: {
-        [ENTITY_LINK]: style
-      }
+        [ENTITY_LINK]: style,
+      },
     };
     stub(Entity, 'get').returns({ getData: () => { return { url: 'url' }; } });
     instance = renderWithContext(context, <Link/>);
@@ -70,9 +70,9 @@ describe('Link component', function () {
         [ENTITY_LINK]: {
           [TABLET]: style,
           [DESKTOP]: style,
-          [EXTRA_WIDE]: style
-        }
-      }
+          [EXTRA_WIDE]: style,
+        },
+      },
     };
     stub(Entity, 'get').returns({ getData: () => { return { url: 'url' }; } });
     instance = renderWithContext(context, <Link/>);

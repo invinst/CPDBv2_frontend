@@ -3,7 +3,7 @@ import { stub } from 'sinon';
 
 import {
   get, post, patch, put, authenticatedGet, withoutCredentialsGet,
-  authenticatedPost, authenticatedPatch, authenticatedPut
+  authenticatedPost, authenticatedPatch, authenticatedPut,
 } from 'actions/common/async-action';
 
 
@@ -20,9 +20,9 @@ describe('async-action', function () {
             url,
             params: undefined,
             adapter: null,
-            cancelToken: undefined
-          }
-        }
+            cancelToken: undefined,
+          },
+        },
       });
     });
   });
@@ -43,10 +43,10 @@ describe('async-action', function () {
             adapter: null,
             cancelToken: undefined,
             headers: {
-              Authorization: 'Token authenticated_token'
-            }
-          }
-        }
+              Authorization: 'Token authenticated_token',
+            },
+          },
+        },
       });
       Cookies.get.restore();
     });
@@ -65,9 +65,9 @@ describe('async-action', function () {
             params,
             adapter: null,
             cancelToken: undefined,
-            headers: {}
-          }
-        }
+            headers: {},
+          },
+        },
       });
       Cookies.get.restore();
     });
@@ -87,8 +87,8 @@ describe('async-action', function () {
             adapter: null,
             cancelToken: undefined,
             withCredentials: false,
-          }
-        }
+          },
+        },
       });
     });
   });
@@ -106,9 +106,9 @@ describe('async-action', function () {
             url,
             method: 'post',
             data,
-            adapter: null
-          }
-        }
+            adapter: null,
+          },
+        },
       });
     });
   });
@@ -129,10 +129,10 @@ describe('async-action', function () {
             data,
             adapter: null,
             headers: {
-              Authorization: 'Token authenticated_token'
-            }
-          }
-        }
+              Authorization: 'Token authenticated_token',
+            },
+          },
+        },
       });
 
       Cookies.get.restore();
@@ -152,9 +152,9 @@ describe('async-action', function () {
             url,
             method: 'patch',
             data,
-            adapter: null
-          }
-        }
+            adapter: null,
+          },
+        },
       });
     });
   });
@@ -175,10 +175,10 @@ describe('async-action', function () {
             data,
             adapter: null,
             headers: {
-              Authorization: 'Token authenticated_token'
-            }
-          }
-        }
+              Authorization: 'Token authenticated_token',
+            },
+          },
+        },
       });
 
       Cookies.get.restore();
@@ -198,9 +198,9 @@ describe('async-action', function () {
             url,
             method: 'put',
             data,
-            adapter: null
-          }
-        }
+            adapter: null,
+          },
+        },
       });
     });
   });
@@ -221,10 +221,10 @@ describe('async-action', function () {
             data,
             adapter: null,
             headers: {
-              Authorization: 'Token authenticated_token'
-            }
-          }
-        }
+              Authorization: 'Token authenticated_token',
+            },
+          },
+        },
       });
 
       Cookies.get.restore();

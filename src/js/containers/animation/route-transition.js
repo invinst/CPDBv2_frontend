@@ -6,7 +6,7 @@ import RouteTransition from 'components/animation/route-transition';
 function mapStateToProps(state, ownProps) {
   return {
     ...ownProps,
-    pageLoading: state.pageLoading
+    pageLoading: state.pageLoading,
   };
 }
 

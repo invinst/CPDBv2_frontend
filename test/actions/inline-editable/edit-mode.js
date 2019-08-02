@@ -6,7 +6,7 @@ describe('toggleEditMode action', function () {
     const pathName = '/edit/path';
     toggleEditMode(pathName).should.eql({
       type: '@@router/CALL_HISTORY_METHOD',
-      payload: { method: 'push', args: ['/path'] }
+      payload: { method: 'push', args: ['/path'] },
     });
   });
 
@@ -14,7 +14,7 @@ describe('toggleEditMode action', function () {
     const pathName = '/path';
     toggleEditMode(pathName).should.eql({
       type: '@@router/CALL_HISTORY_METHOD',
-      payload: { method: 'push', args: ['/edit/path'] }
+      payload: { method: 'push', args: ['/edit/path'] },
     });
   });
 });

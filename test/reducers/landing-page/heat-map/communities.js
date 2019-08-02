@@ -12,13 +12,13 @@ describe('communities reducer', function () {
   it('should handle COMMUNITY_REQUEST_START', function () {
     communities({
       type: 'FeatureCollection',
-      features: []
+      features: [],
     }, {
       type: constants.COMMUNITY_REQUEST_START,
-      payload: {}
+      payload: {},
     }).should.eql({
       type: 'FeatureCollection',
-      features: []
+      features: [],
     });
   });
 
@@ -27,24 +27,24 @@ describe('communities reducer', function () {
       type: constants.COMMUNITY_REQUEST_SUCCESS,
       payload: {
         type: 'FeatureCollection',
-        features: [1, 2, 3]
-      }
+        features: [1, 2, 3],
+      },
     }).should.eql({
       type: 'FeatureCollection',
-      features: [1, 2, 3]
+      features: [1, 2, 3],
     });
   });
 
   it('should handle COMMUNITY_REQUEST_FAILURE', function () {
     communities({
       type: 'FeatureCollection',
-      features: []
+      features: [],
     }, {
       type: constants.COMMUNITY_REQUEST_FAILURE,
-      payload: {}
+      payload: {},
     }).should.eql({
       type: 'FeatureCollection',
-      features: []
+      features: [],
     });
   });
 });

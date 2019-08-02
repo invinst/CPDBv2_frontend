@@ -9,7 +9,7 @@ const _responsiveStyle = {
   [EXTRA_WIDE]: DESKTOP,
   [DESKTOP]: {},
   [TABLET]: {},
-  [MOBILE]: TABLET
+  [MOBILE]: TABLET,
 };
 
 export default class ResponsiveStyleComponent extends Component {
@@ -63,7 +63,7 @@ export default class ResponsiveStyleComponent extends Component {
 ResponsiveStyleComponent.propTypes = {
   style: PropTypes.object,
   children: PropTypes.func,
-  responsiveStyle: PropTypes.object
+  responsiveStyle: PropTypes.object,
 };
 
 export { MOBILE, TABLET, DESKTOP, EXTRA_WIDE };

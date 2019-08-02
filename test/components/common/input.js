@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  renderIntoDocument, scryRenderedDOMComponentsWithTag, findRenderedDOMComponentWithTag, Simulate
+  renderIntoDocument, scryRenderedDOMComponentsWithTag, findRenderedDOMComponentWithTag, Simulate,
 } from 'react-addons-test-utils';
 import { spy, stub } from 'sinon';
 
@@ -118,7 +118,7 @@ describe('TextInput component', function () {
   it('should handle keys in keyPressHandlers', function () {
     const keyPressHandlers = {
       esc: spy(),
-      enter: spy()
+      enter: spy(),
     };
 
     instance = renderIntoDocument(

@@ -25,5 +25,5 @@ export default class ComplaintAggregateSection extends Component {
 ComplaintAggregateSection.propTypes = {
   count: PropTypes.number,
   sustainedCount: PropTypes.number,
-  facets: PropTypes.array
+  facets: PropTypes.array,
 };

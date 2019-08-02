@@ -12,7 +12,6 @@ import PairingChart from 'components/landing-page/common/pairing-card/pairing-ch
 import OfficerInfo from 'components/landing-page/common/pairing-card/officer-info';
 
 
-
 describe('PairingCard component', function () {
   let instance;
   const officer1 = {

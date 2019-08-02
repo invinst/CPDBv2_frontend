@@ -6,6 +6,6 @@ import Link, { findLinkEntities } from 'components/inline-editable/rich-text-edi
 export default new CompositeDecorator([
   {
     strategy: findLinkEntities,
-    component: Link
-  }
+    component: Link,
+  },
 ]);

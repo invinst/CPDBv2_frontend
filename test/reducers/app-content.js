@@ -12,8 +12,8 @@ describe('appContentReducer', function () {
     appContentReducer('/', {
       type: '@@router/LOCATION_CHANGE',
       payload: {
-        pathname: '/some/path/'
-      }
+        pathname: '/some/path/',
+      },
     }).should.eql('/some/path/');
   });
 });

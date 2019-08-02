@@ -12,7 +12,7 @@ describe('currentCrawlerId reducer', function () {
   it('should handle OPEN_LOG_FILE_MODAL with empty state', function () {
     currentCrawlerId([], {
       type: OPEN_LOG_FILE_MODAL,
-      payload: 111
+      payload: 111,
     }).should.eql(111);
   });
 });

@@ -52,7 +52,7 @@ StaticRadarChart.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
       axis: PropTypes.string.isRequired,
-      value: PropTypes.number.isRequired
+      value: PropTypes.number.isRequired,
     })
   ),
   backgroundColor: PropTypes.string,
@@ -70,7 +70,7 @@ StaticRadarChart.propTypes = {
   legendText: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
-    PropTypes.element
+    PropTypes.element,
   ]),
   fadeOutLegend: PropTypes.bool,
 };

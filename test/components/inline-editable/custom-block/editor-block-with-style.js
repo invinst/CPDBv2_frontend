@@ -26,7 +26,7 @@ describe('EditorBlockWithStyle component', function () {
         blockProps={ {
           style,
           element: 'div',
-          child: child
+          child: child,
         } }
       />
     );
