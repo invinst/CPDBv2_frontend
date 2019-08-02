@@ -75,7 +75,7 @@ export default class SearchTerms extends Component {
         <ScrollIntoView
           style={ wrapperStyle }
           focusedClassName={ `term-item-${focusedItem.uniqueKey.replace(' ', '-')}` }
-          >
+        >
           <ResponsiveFluidWidthComponent
             style={ contentWrapperStyle }
             minimumStyle={ minimumStyle }

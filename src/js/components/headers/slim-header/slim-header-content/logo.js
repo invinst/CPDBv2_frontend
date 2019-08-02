@@ -46,7 +46,7 @@ class Logo extends Component {
               className='header-logo-subtitle'
               placeholder='Subtitle'
               fieldname='navbar_subtitle'
-              />
+            />
           </MediaQuery>
         </HoverableEditWrapper>
       </EditWrapperStateProvider>

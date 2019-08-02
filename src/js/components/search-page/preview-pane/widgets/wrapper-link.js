@@ -10,8 +10,8 @@ export default class WrapperLink extends Component {
     const { url, to, children } = this.props;
     return (
       to
-      ? <Link className={ styles.wrapperLink } to={ to }>{ children }</Link>
-      : <OutboundLink className={ styles.wrapperLink } href={ url }>{ children }</OutboundLink>
+        ? <Link className={ styles.wrapperLink } to={ to }>{ children }</Link>
+        : <OutboundLink className={ styles.wrapperLink } href={ url }>{ children }</OutboundLink>
     );
   }
 }

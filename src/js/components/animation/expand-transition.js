@@ -62,10 +62,10 @@ export default class ExpandTransition extends React.Component {
           defaultStyles={ this.props.childKey ?
             [{ key: String(this.props.childKey), style: { height: 0, x: 0 } }] : [] }
           styles={ this.props.childKey ?
-          [{
-            key: String(this.props.childKey),
-            style: { height: spring(this.state.childHeight, defaultConfig()), x: 1 }
-          }]
+            [{
+              key: String(this.props.childKey),
+              style: { height: spring(this.state.childHeight, defaultConfig()), x: 1 }
+            }]
             : [] }>
           { (interpolatedStyles) => {
             let config = interpolatedStyles[0];

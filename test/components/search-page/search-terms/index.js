@@ -3,7 +3,7 @@ import { spy, stub } from 'sinon';
 import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
- findRenderedDOMComponentWithTag, renderIntoDocument,
+  findRenderedDOMComponentWithTag, renderIntoDocument,
   Simulate
 } from 'react-addons-test-utils';
 import Mousetrap from 'mousetrap';

@@ -17,10 +17,10 @@ export default class RecentSuggestion extends Component {
         <BlockTitle>RECENT</BlockTitle>
         <div>
           {
-          recentSuggestions.map((entry, index) => (
-            <RecentSuggestionItem key={ index } entry={ entry } isLast={ index === maxIndex }/>
-          ))
-        }
+            recentSuggestions.map((entry, index) => (
+              <RecentSuggestionItem key={ index } entry={ entry } isLast={ index === maxIndex }/>
+            ))
+          }
         </div>
       </div>
     );
