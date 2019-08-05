@@ -78,6 +78,20 @@ describe('redirectOfficerAliasMiddleware', function () {
     action.payload.params.officerId.should.eql(456);
   });
 
+  it('should handle @@redux-breadcrumb-trail/PUSH but not add officeId param if it is not there before ', function () {
+    const action = {
+      type: '@@redux-breadcrumb-trail/PUSH',
+      payload: {
+        params: {
+          crid: '456'
+        }
+      }
+    };
+    redirectOfficerAliasMiddleware({})(action => action)(action);
+
+    action.payload.params.should.not.have.property('officerId');
+  });
+
 
   it('should dispatch correct actions', function () {
     const summaryRequestAction = {
