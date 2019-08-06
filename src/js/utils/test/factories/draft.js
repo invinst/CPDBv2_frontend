@@ -10,7 +10,7 @@ export const RawContentStateFactory = new Factory()
   .attr('blocks', ['blockTexts'], (blockTexts) => (
     blockTexts.map(
       text => RawContentBlockFactory.build({ text }))
-    )
+  )
   );
 
 export const RawContentBlockFactory = new Factory()
