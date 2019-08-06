@@ -47,6 +47,7 @@ import {
 import {
   redirect,
 } from 'actions/pinboard-page';
+import { fetchVideoInfo } from 'actions/headers/slim-header';
 
 
 const createLocationChangeAction = (pathname) => ({
@@ -227,6 +228,7 @@ describe('fetchPageInitialData middleware', function () {
     store.dispatch.calledWith(requestActivityGrid()).should.be.true();
     store.dispatch.calledWith(getRecentDocument()).should.be.true();
     store.dispatch.calledWith(getComplaintSummaries()).should.be.true();
+    store.dispatch.calledWith(fetchVideoInfo()).should.be.true();
   });
 
   it('should dispatch fetch cr data if crid change', function () {

@@ -57,6 +57,8 @@ import {
 } from 'actions/pinboard';
 import { redirect } from 'actions/pinboard-page';
 import loadPaginatedData from 'utils/load-paginated-data';
+import { fetchVideoInfo } from 'actions/headers/slim-header';
+import { hasVideoInfoSelector } from 'selectors/headers/slim-header';
 
 let prevPathname = '';
 
@@ -147,6 +149,10 @@ export default store => next => action => {
 
       if (!hasComplaintSummaryData(state)) {
         dispatches.push(store.dispatch(getComplaintSummaries()));
+      }
+
+      if (!hasVideoInfoSelector(state)) {
+        dispatches.push(store.dispatch(fetchVideoInfo()));
       }
     }
 

@@ -204,7 +204,8 @@ describe('store', function () {
           scrollPosition: null
         },
         slimHeader: {
-          logoSectionEditModeOn: false
+          logoSectionEditModeOn: false,
+          videoInfo: [],
         }
       },
       embed: {
@@ -321,6 +322,9 @@ describe('store', function () {
           EMPTY_PINBOARD_DESCRIPTION: false,
           EMPTY_PINBOARD_TITLE: false,
         },
+      },
+      videoModal: {
+        active: false,
       },
       toast: {},
     });

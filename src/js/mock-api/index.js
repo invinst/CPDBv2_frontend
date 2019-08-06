@@ -24,6 +24,7 @@ import {
   SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL,
   SOCIAL_GRAPH_OFFICERS_API_URL,
   SOCIAL_GRAPH_ALLEGATIONS_API_URL,
+  MODAL_VIDEO_INFO,
 } from 'utils/constants';
 import { communityGeoJSONPath } from 'utils/static-assets';
 import getCRData from './cr-page/get-data';
@@ -89,6 +90,7 @@ import getRelevantComplaints, {
   getFirstRelevantComplaints,
   filterPinnedComplaints,
 } from 'mock-api/pinboard-page/relevant-complaints';
+import { modalVideoInfo } from './headers/slim-header';
 
 
 const SEARCH_API_URL = /^suggestion\/$/;
@@ -170,6 +172,8 @@ axiosMockClient.onGet(communityGeoJSONPath).reply(200, getCommunities());
 
 axiosMockClient.onGet(`${SLUG_PAGE_API_URL}landing-page/`).reply(200, landingPageCMSFields);
 axiosMockClient.onGet(`${SLUG_PAGE_API_URL}officer-page/`).reply(200, officerPageCMSFields);
+
+axiosMockClient.onGet(`https://vimeo.com/api/v2/video/${MODAL_VIDEO_INFO.VIDEO_ID}.json`).reply(200, modalVideoInfo);
 
 axiosMockClient.onGet(`${POPUP_API_URL}?page=complaint`).reply(200, getCRPopup());
 
