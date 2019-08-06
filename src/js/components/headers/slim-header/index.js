@@ -33,7 +33,7 @@ export class SlimHeader extends Component {
   }
 
   render() {
-    const { show, pathname, openVideoModal, videoThumbnailUrl } = this.props;
+    const { show, pathname } = this.props;
     const { editModeOn } = this.context;
     const { position } = this.state;
 
@@ -64,8 +64,6 @@ export class SlimHeader extends Component {
           position='top'
           pathname={ pathname }
           editModeOn={ editModeOn }
-          openVideoModal={ openVideoModal }
-          videoThumbnailUrl={ videoThumbnailUrl }
         />
         <Motion defaultStyle={ defaultStyle } style={ style }>
           { ({ translateY, backgroundR, backgroundG, backgroundB }) => {
@@ -83,8 +81,6 @@ export class SlimHeader extends Component {
                   backgroundColor: `rgb(${r}, ${g}, ${b})`,
                 } }
                 disableTop={ true }
-                openVideoModal={ openVideoModal }
-                videoThumbnailUrl={ videoThumbnailUrl }
               />
             );
           } }
@@ -97,8 +93,6 @@ export class SlimHeader extends Component {
 SlimHeader.propTypes = {
   show: PropTypes.bool,
   pathname: PropTypes.string,
-  openVideoModal: PropTypes.func,
-  videoThumbnailUrl: PropTypes.string,
 };
 
 SlimHeader.defaultProps = {

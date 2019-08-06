@@ -43,6 +43,7 @@ describe('SlimHeader component', function () {
     headers: {
       slimHeader: {
         logoSectionEditModeOn: false,
+        demoVideoSectionEditModeOn: false,
         videoInfo: [{
           'thumbnail_small': 'https://i.vimeocdn.com/video/797111186_100x75.webp',
         }],
@@ -175,15 +176,12 @@ describe('SlimHeader component', function () {
 
   describe('SlimHeaderContent', function () {
     it('should be rendered with correct props and style on the top of the page', function () {
-      const openVideoModalStub = stub();
       element = renderIntoDocument(
         <Provider store={ store }>
           <SlimHeaderContextWrapper context={ { editModeOn: false } }>
             <SlimHeader
               show={ true }
               pathname='/'
-              openVideoModal={ openVideoModalStub }
-              videoThumbnailUrl='https://i.vimeocdn.com/video/797111186_100x75.webp'
             />
           </SlimHeaderContextWrapper>
         </Provider>
@@ -196,20 +194,15 @@ describe('SlimHeader component', function () {
       slimHeaderContent.props.position.should.eql('top');
       slimHeaderContent.props.pathname.should.eql('/');
       slimHeaderContent.props.editModeOn.should.eql(false);
-      slimHeaderContent.props.openVideoModal.should.eql(openVideoModalStub);
-      slimHeaderContent.props.videoThumbnailUrl.should.eql('https://i.vimeocdn.com/video/797111186_100x75.webp');
     });
 
     it('should be rendered with correct props and style in the middle of the page', function () {
-      const openVideoModalStub = stub();
       element = renderIntoDocument(
         <Provider store={ store }>
           <SlimHeaderContextWrapper context={ { editModeOn: false } }>
             <SlimHeader
               show={ true }
               pathname='/'
-              openVideoModal={ openVideoModalStub }
-              videoThumbnailUrl='https://i.vimeocdn.com/video/797111186_100x75.webp'
             />
           </SlimHeaderContextWrapper>
         </Provider>
@@ -228,20 +221,15 @@ describe('SlimHeader component', function () {
         transform: 'translateY(-100%)',
         backgroundColor: 'rgb(255, 255, 255)',
       });
-      slimHeaderContent.props.openVideoModal.should.eql(openVideoModalStub);
-      slimHeaderContent.props.videoThumbnailUrl.should.eql('https://i.vimeocdn.com/video/797111186_100x75.webp');
     });
 
     it('should be rendered with correct props and style in the bottom of the page', function (done) {
-      const openVideoModalStub = stub();
       element = renderIntoDocument(
         <Provider store={ store }>
           <SlimHeaderContextWrapper context={ { editModeOn: false } }>
             <SlimHeader
               show={ true }
               pathname='/'
-              openVideoModal={ openVideoModalStub }
-              videoThumbnailUrl='https://i.vimeocdn.com/video/797111186_100x75.webp'
             />
           </SlimHeaderContextWrapper>
         </Provider>
@@ -255,11 +243,8 @@ describe('SlimHeader component', function () {
         slimHeaderContent.props.pathname.should.eql('/');
         slimHeaderContent.props.editModeOn.should.eql(false);
         slimHeaderContent.props.disableTop.should.eql(true);
-        slimHeaderContent.props.openVideoModal.should.eql(openVideoModalStub);
-        slimHeaderContent.props.videoThumbnailUrl.should.eql('https://i.vimeocdn.com/video/797111186_100x75.webp');
         done();
       }, 500);
-
     });
   });
 });
