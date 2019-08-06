@@ -43,7 +43,7 @@ class ComplaintCard extends Component {
                   <div className='section-label'>Complainant</div>
                   <div className='section-content nowrap-text'>{ complainants }</div>
                 </div>
-                ) : null
+              ) : null
           }
           {
             accused
@@ -52,7 +52,7 @@ class ComplaintCard extends Component {
                   <div className='section-label'>Accused</div>
                   <div className='section-content accused'>{ accused }</div>
                 </div>
-                ) : null
+              ) : null
           }
         </div>
       </Link>

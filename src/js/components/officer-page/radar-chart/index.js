@@ -191,7 +191,7 @@ export default class AnimatedRadarChart extends Component {
                 scaleEditWrapperStateProps={ scaleEditWrapperStateProps }
               />
             </div>
-            )
+          )
           }
         </div>
       );

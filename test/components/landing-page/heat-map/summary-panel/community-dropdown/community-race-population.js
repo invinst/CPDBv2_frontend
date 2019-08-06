@@ -7,7 +7,7 @@ import {
 
 import { communityFactory } from 'utils/test/factories/heat-map';
 import CommunityRacePopulation from
-    'components/landing-page/heat-map/summary-panel/community-dropdown/community-race-population';
+  'components/landing-page/heat-map/summary-panel/community-dropdown/community-race-population';
 import { unmountComponentSuppressError } from 'utils/test';
 
 

@@ -70,7 +70,7 @@ export default function (SubComponent) {
     handleSaveForm() {
       const data = map(values(this.state.fields), this.serializeField);
       this.props.onSaveForm({ fields: data })
-      .then(() => this.props.turnOffSectionEditMode());
+        .then(() => this.props.turnOffSectionEditMode());
     }
 
     handleUpdateFieldValue(fieldName, fieldValue) {

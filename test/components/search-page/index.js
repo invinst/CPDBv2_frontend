@@ -173,7 +173,7 @@ describe('SearchPage component', function () {
       instance = renderIntoDocument(
         <SearchPage
           focusedItem={ NavigationItem.build({ id: 'OFFICER', 'type': MORE_BUTTON }) }
-          />
+        />
       );
       Mousetrap.trigger('enter');
       handleSelectStub.calledWith('OFFICER');
