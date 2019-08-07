@@ -5,7 +5,7 @@ import NoRerender from 'components/common/higher-order/no-rerender';
 import { showIntercomMessages } from 'utils/intercom';
 import FooterNavLink from './footer-nav-link';
 import styles from './footer.sass';
-import { INVISIBLE_INSTITUTE_URL } from '../../utils/constants';
+import { INVISIBLE_INSTITUTE_URL } from 'utils/constants';
 import OutboundLink from 'components/common/outbound-link';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 
