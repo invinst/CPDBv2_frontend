@@ -89,11 +89,11 @@ describe('RelevantComplaintCard component', function () {
     baseComplaintCard.props.point.should.eql({ lat: 41.7924183, lon: -87.668458 });
     baseComplaintCard.props.addItemInPinboardPage.should.eql(addItemInPinboardPageStub);
     baseComplaintCard.props.leftChild.props.style.should.eql({
-      background: 'url(\"https://api.mapbox.com/styles/v1/mapbox/streets-v10/static/' +
+      background: 'url("https://api.mapbox.com/styles/v1/mapbox/streets-v10/static/' +
         'url-https%3A%2F%2Fcpdbv21777.blob.core.windows.net%2Fassets%2Fmap-marker.png' +
         '(-87.668458,41.7924183)/-87.668458,41.7924183,12,0,0/130x176@2x?access_token' +
         '=pk.eyJ1IjoiaW52aXNpYmxlaW5zdGl0dXRlIiwiYSI6ImNpZ256bXRqMDAwMDBzeGtud3VoZGpl' +
-        'NHMifQ.ky2VSGEYU5KritRMArHY-w\") no-repeat center/cover'
+        'NHMifQ.ky2VSGEYU5KritRMArHY-w") no-repeat center/cover'
     });
   });
 

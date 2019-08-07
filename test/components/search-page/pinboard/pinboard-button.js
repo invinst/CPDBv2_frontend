@@ -21,10 +21,13 @@ describe('PinboardButton component', function () {
 
   it('should not display "Your pinboard is empty" when there is no pinned item and emptyText is true', function () {
     instance = renderIntoDocument(
-      <PinboardButton pinboard={ {
-        itemsCount: 0,
-        isPinboardRestored: true,
-      } }
+      <PinboardButton
+        pinboard={
+          {
+            itemsCount: 0,
+            isPinboardRestored: true,
+          }
+        }
         emptyText={ true }
       />
     );

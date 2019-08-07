@@ -42,7 +42,7 @@ export default class NewWidgetWrapper extends Component {
             <div className='new-call-to-action-widget-container'>
               <NewCallToActionWidget text={ text }/>
             </div>
-            ) : null
+          ) : null
           }
           <div className='widget-wrapper-responsive-container' ref={ el => this.element = el }>
             { children }
