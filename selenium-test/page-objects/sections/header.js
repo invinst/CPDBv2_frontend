@@ -27,8 +27,7 @@ class DemoVideoSection extends Section {
 
     const playButtonSelector = '//div[@class="demo-video-button"]';
     this.prepareElementGetters({
-      upperText: '//span[@class="demo-video-text-upper"]',
-      lowerText: '//span[@class="demo-video-text-lower"]',
+      titleText: '//div[contains(@class, "demo-video-text-input")]',
       playButton: playButtonSelector,
       playButtonThumbnail: `${ playButtonSelector }//img[@class="demo-video-thumbnail"]`,
     });

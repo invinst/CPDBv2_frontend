@@ -1,5 +1,6 @@
 import {
   getLogoSectionEditModeOn,
+  getDemoVideoSectionEditModeOn,
   hasVideoInfoSelector,
   thumbnailUrlSelector,
 } from 'selectors/headers/slim-header';
@@ -19,6 +20,26 @@ describe('Slim header selectors', function () {
         headers: {
           slimHeader: {
             logoSectionEditModeOn: false
+          }
+        }
+      }).should.be.false();
+    });
+  });
+
+  describe('getDemoVideoSectionEditModeOn', function () {
+    it('should return correct demo video section edit mode', function () {
+      getDemoVideoSectionEditModeOn({
+        headers: {
+          slimHeader: {
+            demoVideoSectionEditModeOn: true
+          }
+        }
+      }).should.be.true();
+
+      getDemoVideoSectionEditModeOn({
+        headers: {
+          slimHeader: {
+            demoVideoSectionEditModeOn: false
           }
         }
       }).should.be.false();
