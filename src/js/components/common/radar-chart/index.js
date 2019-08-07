@@ -17,7 +17,7 @@ const PRINT_RADAR_CHART_STYLES = {
 
 export default class StaticRadarChart extends Component {
   render() {
-    const { data, width, height, radius } = this.props;
+    const { data, width, height, radius, offsetTop } = this.props;
 
     const { printMode } = this.context;
     const radarChartPrintStyle = printMode ? PRINT_RADAR_CHART_STYLES : {};
@@ -35,6 +35,7 @@ export default class StaticRadarChart extends Component {
           gridColor={ clayGray }
           strokeWidth={ 0.6 }
           boundaryAreaColor={ greyishColor }
+          offsetTop={ offsetTop }
           { ...radarChartPrintStyle }
         />
       );
@@ -73,6 +74,7 @@ StaticRadarChart.propTypes = {
     PropTypes.element
   ]),
   fadeOutLegend: PropTypes.bool,
+  offsetTop: PropTypes.number,
 };
 
 StaticRadarChart.contextTypes = {

@@ -5,7 +5,7 @@ import {
   scryRenderedDOMComponentsWithClass,
 } from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError } from 'utils/test/index';
+import { unmountComponentSuppressError } from 'utils/test';
 import PrintNotes from 'components/common/print-notes';
 
 

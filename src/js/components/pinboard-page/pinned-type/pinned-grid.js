@@ -1,0 +1,125 @@
+import React, { Component, PropTypes } from 'react';
+import { map, get, isEqual, find, noop } from 'lodash';
+import { Muuri } from 'utils/vendors';
+
+import { OfficerCardWithUndo as OfficerCard } from 'components/pinboard-page/cards/officer-card';
+import { CRCardWithUndo as CRCard } from 'components/pinboard-page/cards/cr-card';
+import { TRRCardWithUndo as TRRCard } from 'components/pinboard-page/cards/trr-card';
+import { getPageYBottomOffset, scrollByBottomOffset } from 'utils/navigation';
+import { PINBOARD_ITEM_REMOVE_MODE } from 'utils/constants';
+import styles from './pinned-grid.sass';
+
+
+const CARD_MAP = {
+  'OFFICER': OfficerCard,
+  'CR': CRCard,
+  'TRR': TRRCard,
+};
+
+export default class PinnedGrid extends Component {
+  constructor(props) {
+    super(props);
+
+    this.rendered = false;
+    this.updateOrder = this.updateOrder.bind(this);
+    this.removeItemInPinboardPage = this.removeItemInPinboardPage.bind(this);
+  }
+
+  componentDidMount() {
+    this.initGrid();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.bottomOffset = this.rendered ? getPageYBottomOffset() : null;
+    this.rendered = true;
+  }
+
+  componentDidUpdate(prevProps) {
+    const { items } = this.props;
+    items.forEach(item => {
+      if (!find(prevProps.items, { id: item.id })) {
+        this.gridMuuri.add(this.itemElements[item.id]);
+      }
+    });
+
+    this.bottomOffset && scrollByBottomOffset(this.bottomOffset);
+  }
+
+  componentWillUnmount() {
+    this.gridMuuri.destroy();
+  }
+
+  initGrid() {
+    this.gridMuuri = new Muuri(this.grid, {
+      itemClass: 'pinned-grid-item',
+      dragEnabled: true,
+    });
+
+    this.gridMuuri.on('dragEnd', this.updateOrder);
+  }
+
+  updateOrder() {
+    const { orderPinboard, type, items } = this.props;
+    const newIds = this.gridMuuri.getItems().map(item => item.getElement().getAttribute('data-id'));
+    const currentIds = map(items, item => item.id);
+
+    if (!isEqual(newIds, currentIds)) {
+      orderPinboard({ type, ids: newIds });
+    }
+  }
+
+  removeItemInPinboardPage(item) {
+    const mode = get(item, 'mode', PINBOARD_ITEM_REMOVE_MODE.DEFAULT);
+    if (mode !== PINBOARD_ITEM_REMOVE_MODE.API_ONLY) {
+      this.gridMuuri.remove(this.itemElements[item.id]);
+    }
+
+    setTimeout(
+      () => this.props.removeItemInPinboardPage(item),
+      200
+    );
+  }
+
+  render() {
+    const { type, items, focusItem, addItemInPinboardPage } = this.props;
+    const Card = CARD_MAP[type];
+    this.itemElements = {};
+
+    return (
+      <div className={ styles.pinnedGrid } ref={ grid => this.grid = grid }>
+        {
+          map(items, item => (
+            <div
+              key={ item.id }
+              className='pinned-grid-item'
+              data-id={ item.id }
+              ref={ element => this.itemElements[item.id] = element }
+            >
+              <div className='item-content'>
+                <Card
+                  item={ item }
+                  removeItemInPinboardPage={ this.removeItemInPinboardPage }
+                  addItemInPinboardPage={ addItemInPinboardPage }
+                  focusItem={ focusItem }
+                />
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    );
+  }
+}
+
+PinnedGrid.propTypes = {
+  type: PropTypes.string,
+  items: PropTypes.array,
+  removeItemInPinboardPage: PropTypes.func,
+  addItemInPinboardPage: PropTypes.func,
+  orderPinboard: PropTypes.func,
+  focusItem: PropTypes.func,
+};
+
+PinnedGrid.defaultProps = {
+  addItemInPinboardPage: noop,
+};

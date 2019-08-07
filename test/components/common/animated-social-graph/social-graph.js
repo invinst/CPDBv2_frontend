@@ -1,13 +1,12 @@
 import React from 'react';
-import { stub } from 'sinon';
+import { spy, stub } from 'sinon';
 import { renderIntoDocument } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 import { forOwn, find, forIn, filter, round } from 'lodash';
 import should from 'should';
 
-import { unmountComponentSuppressError, reRender } from 'utils/test/index';
+import { unmountComponentSuppressError, reRender } from 'utils/test';
 import SocialGraph from 'components/common/animated-social-graph/social-graph';
-import { bostonRed, smokeGray } from 'utils/styles';
 
 
 describe('SocialGraph', function () {
@@ -35,182 +34,182 @@ describe('SocialGraph', function () {
     { fullName: 'Matthew Brandon', id: 2675 }
   ];
   const coaccusedData = [
-    { officerId1: 2675, officerId2: 24157, incidentDate: '1990-01-09T00:00:00Z', accussedCount: 2 },
-    { officerId1: 11580, officerId2: 30466, incidentDate: '1991-02-20T00:00:00Z', accussedCount: 2 },
-    { officerId1: 22861, officerId2: 30466, incidentDate: '1991-02-20T00:00:00Z', accussedCount: 2 },
-    { officerId1: 11580, officerId2: 22861, incidentDate: '1991-02-20T00:00:00Z', accussedCount: 2 },
-    { officerId1: 11580, officerId2: 22861, incidentDate: '1991-07-06T00:00:00Z', accussedCount: 3 },
-    { officerId1: 22861, officerId2: 30466, incidentDate: '1991-08-07T00:00:00Z', accussedCount: 3 },
-    { officerId1: 11580, officerId2: 22861, incidentDate: '1991-08-07T00:00:00Z', accussedCount: 4 },
-    { officerId1: 11580, officerId2: 30466, incidentDate: '1991-08-07T00:00:00Z', accussedCount: 3 },
-    { officerId1: 11580, officerId2: 22861, incidentDate: '1992-03-08T00:00:00Z', accussedCount: 5 },
-    { officerId1: 12176, officerId2: 28805, incidentDate: '1992-07-18T00:00:00Z', accussedCount: 2 },
-    { officerId1: 11580, officerId2: 30466, incidentDate: '1993-02-15T00:00:00Z', accussedCount: 4 },
-    { officerId1: 3663, officerId2: 21194, incidentDate: '1993-03-28T00:00:00Z', accussedCount: 2 },
-    { officerId1: 14045, officerId2: 28805, incidentDate: '1993-04-03T00:00:00Z', accussedCount: 2 },
-    { officerId1: 14045, officerId2: 22861, incidentDate: '1993-06-01T00:00:00Z', accussedCount: 2 },
-    { officerId1: 14045, officerId2: 28805, incidentDate: '1993-06-03T00:00:00Z', accussedCount: 3 },
-    { officerId1: 3663, officerId2: 21194, incidentDate: '1993-06-09T00:00:00Z', accussedCount: 3 },
-    { officerId1: 12176, officerId2: 28805, incidentDate: '1993-07-13T00:00:00Z', accussedCount: 3 },
-    { officerId1: 12176, officerId2: 28805, incidentDate: '1993-10-16T00:00:00Z', accussedCount: 4 },
-    { officerId1: 11580, officerId2: 30466, incidentDate: '1994-01-09T00:00:00Z', accussedCount: 5 },
-    { officerId1: 3663, officerId2: 28805, incidentDate: '1994-01-31T00:00:00Z', accussedCount: 2 },
-    { officerId1: 14045, officerId2: 28805, incidentDate: '1994-01-31T00:00:00Z', accussedCount: 4 },
-    { officerId1: 21194, officerId2: 28805, incidentDate: '1994-01-31T00:00:00Z', accussedCount: 2 },
-    { officerId1: 12176, officerId2: 28805, incidentDate: '1994-01-31T00:00:00Z', accussedCount: 5 },
-    { officerId1: 3663, officerId2: 21194, incidentDate: '1994-01-31T00:00:00Z', accussedCount: 4 },
-    { officerId1: 3663, officerId2: 14045, incidentDate: '1994-02-15T00:00:00Z', accussedCount: 2 },
-    { officerId1: 14045, officerId2: 28805, incidentDate: '1994-02-26T00:00:00Z', accussedCount: 5 },
-    { officerId1: 14045, officerId2: 28805, incidentDate: '1994-03-06T00:00:00Z', accussedCount: 6 },
-    { officerId1: 12176, officerId2: 28805, incidentDate: '1994-03-07T00:00:00Z', accussedCount: 6 },
-    { officerId1: 12176, officerId2: 14045, incidentDate: '1994-03-07T00:00:00Z', accussedCount: 2 },
-    { officerId1: 14045, officerId2: 28805, incidentDate: '1994-03-07T00:00:00Z', accussedCount: 7 },
-    { officerId1: 14045, officerId2: 28805, incidentDate: '1994-03-12T00:00:00Z', accussedCount: 8 },
-    { officerId1: 12176, officerId2: 14045, incidentDate: '1994-03-12T00:00:00Z', accussedCount: 3 },
-    { officerId1: 12176, officerId2: 28805, incidentDate: '1994-03-12T00:00:00Z', accussedCount: 7 },
-    { officerId1: 14045, officerId2: 28805, incidentDate: '1994-04-17T00:00:00Z', accussedCount: 9 },
-    { officerId1: 14045, officerId2: 28805, incidentDate: '1994-05-24T00:00:00Z', accussedCount: 10 },
-    { officerId1: 12176, officerId2: 21194, incidentDate: '1994-05-24T00:00:00Z', accussedCount: 2 },
-    { officerId1: 12176, officerId2: 14045, incidentDate: '1994-05-24T00:00:00Z', accussedCount: 4 },
-    { officerId1: 3663, officerId2: 21194, incidentDate: '1994-05-24T00:00:00Z', accussedCount: 5 },
-    { officerId1: 3663, officerId2: 14045, incidentDate: '1994-05-24T00:00:00Z', accussedCount: 3 },
-    { officerId1: 3663, officerId2: 12176, incidentDate: '1994-05-24T00:00:00Z', accussedCount: 2 },
-    { officerId1: 3663, officerId2: 4881, incidentDate: '1994-05-24T00:00:00Z', accussedCount: 2 },
-    { officerId1: 12176, officerId2: 28805, incidentDate: '1994-05-24T00:00:00Z', accussedCount: 8 },
-    { officerId1: 14045, officerId2: 21194, incidentDate: '1994-05-24T00:00:00Z', accussedCount: 2 },
-    { officerId1: 3663, officerId2: 28805, incidentDate: '1994-05-24T00:00:00Z', accussedCount: 3 },
-    { officerId1: 4881, officerId2: 14045, incidentDate: '1994-05-24T00:00:00Z', accussedCount: 2 },
-    { officerId1: 21194, officerId2: 28805, incidentDate: '1994-05-24T00:00:00Z', accussedCount: 3 },
-    { officerId1: 21194, officerId2: 28805, incidentDate: '1994-06-21T00:00:00Z', accussedCount: 4 },
-    { officerId1: 3663, officerId2: 21194, incidentDate: '1994-06-21T00:00:00Z', accussedCount: 6 },
-    { officerId1: 3663, officerId2: 28805, incidentDate: '1994-06-21T00:00:00Z', accussedCount: 4 },
-    { officerId1: 3663, officerId2: 21194, incidentDate: '1994-08-17T00:00:00Z', accussedCount: 7 },
-    { officerId1: 4269, officerId2: 30209, incidentDate: '1995-02-28T00:00:00Z', accussedCount: 2 },
-    { officerId1: 3663, officerId2: 21194, incidentDate: '1995-05-21T00:00:00Z', accussedCount: 8 },
-    { officerId1: 3663, officerId2: 21194, incidentDate: '1995-07-28T00:00:00Z', accussedCount: 9 },
-    { officerId1: 3663, officerId2: 28805, incidentDate: '1996-01-20T00:00:00Z', accussedCount: 5 },
-    { officerId1: 11580, officerId2: 30466, incidentDate: '1996-01-22T00:00:00Z', accussedCount: 6 },
-    { officerId1: 3663, officerId2: 28805, incidentDate: '1996-04-20T00:00:00Z', accussedCount: 6 },
-    { officerId1: 3663, officerId2: 28805, incidentDate: '1996-05-28T00:00:00Z', accussedCount: 7 },
-    { officerId1: 3663, officerId2: 28805, incidentDate: '1996-07-27T00:00:00Z', accussedCount: 8 },
-    { officerId1: 8138, officerId2: 31945, incidentDate: '1996-12-27T00:00:00Z', accussedCount: 2 },
-    { officerId1: 8138, officerId2: 31945, incidentDate: '1996-12-30T00:00:00Z', accussedCount: 3 },
-    { officerId1: 8138, officerId2: 31945, incidentDate: '1997-06-20T00:00:00Z', accussedCount: 4 },
-    { officerId1: 8138, officerId2: 31945, incidentDate: '1997-07-11T00:00:00Z', accussedCount: 5 },
-    { officerId1: 8138, officerId2: 31945, incidentDate: '1997-08-23T00:00:00Z', accussedCount: 6 },
-    { officerId1: 8138, officerId2: 31945, incidentDate: '1998-06-27T00:00:00Z', accussedCount: 7 },
-    { officerId1: 3663, officerId2: 8138, incidentDate: '1998-06-27T00:00:00Z', accussedCount: 2 },
-    { officerId1: 8138, officerId2: 30466, incidentDate: '1998-06-27T00:00:00Z', accussedCount: 2 },
-    { officerId1: 4269, officerId2: 15956, incidentDate: '1998-09-22T00:00:00Z', accussedCount: 2 },
-    { officerId1: 3663, officerId2: 31945, incidentDate: '1998-11-09T00:00:00Z', accussedCount: 2 },
-    { officerId1: 2671, officerId2: 15956, incidentDate: '1998-11-17T00:00:00Z', accussedCount: 2 },
-    { officerId1: 2671, officerId2: 4269, incidentDate: '1998-11-28T00:00:00Z', accussedCount: 2 },
-    { officerId1: 3663, officerId2: 30209, incidentDate: '1998-12-03T00:00:00Z', accussedCount: 2 },
-    { officerId1: 30466, officerId2: 31945, incidentDate: '1998-12-03T00:00:00Z', accussedCount: 2 },
-    { officerId1: 30209, officerId2: 31945, incidentDate: '1998-12-03T00:00:00Z', accussedCount: 2 },
-    { officerId1: 30209, officerId2: 30466, incidentDate: '1998-12-03T00:00:00Z', accussedCount: 2 },
-    { officerId1: 3663, officerId2: 31945, incidentDate: '1998-12-03T00:00:00Z', accussedCount: 3 },
-    { officerId1: 3663, officerId2: 30466, incidentDate: '1998-12-03T00:00:00Z', accussedCount: 2 },
-    { officerId1: 2671, officerId2: 15956, incidentDate: '1999-02-08T00:00:00Z', accussedCount: 3 },
-    { officerId1: 2671, officerId2: 15956, incidentDate: '1999-03-30T00:00:00Z', accussedCount: 4 },
-    { officerId1: 2671, officerId2: 4269, incidentDate: '1999-07-22T00:00:00Z', accussedCount: 3 },
-    { officerId1: 4269, officerId2: 15956, incidentDate: '1999-07-22T00:00:00Z', accussedCount: 3 },
-    { officerId1: 2671, officerId2: 15956, incidentDate: '1999-07-22T00:00:00Z', accussedCount: 5 },
-    { officerId1: 2671, officerId2: 15956, incidentDate: '1999-11-16T00:00:00Z', accussedCount: 6 },
-    { officerId1: 2671, officerId2: 15956, incidentDate: '1999-12-15T00:00:00Z', accussedCount: 7 },
-    { officerId1: 4881, officerId2: 21194, incidentDate: '2000-04-20T00:00:00Z', accussedCount: 2 },
-    { officerId1: 4881, officerId2: 31945, incidentDate: '2000-04-28T00:00:00Z', accussedCount: 2 },
-    { officerId1: 4881, officerId2: 21194, incidentDate: '2000-04-28T00:00:00Z', accussedCount: 3 },
-    { officerId1: 4269, officerId2: 4881, incidentDate: '2000-04-28T00:00:00Z', accussedCount: 2 },
-    { officerId1: 21194, officerId2: 31945, incidentDate: '2000-04-28T00:00:00Z', accussedCount: 2 },
-    { officerId1: 4269, officerId2: 31945, incidentDate: '2000-04-28T00:00:00Z', accussedCount: 2 },
-    { officerId1: 4269, officerId2: 21194, incidentDate: '2000-04-28T00:00:00Z', accussedCount: 2 },
-    { officerId1: 2671, officerId2: 15956, incidentDate: '2000-05-20T00:00:00Z', accussedCount: 9 },
-    { officerId1: 2671, officerId2: 15956, incidentDate: '2000-05-20T00:00:00Z', accussedCount: 8 },
-    { officerId1: 2671, officerId2: 15956, incidentDate: '2000-09-21T00:00:00Z', accussedCount: 10 },
-    { officerId1: 2671, officerId2: 15956, incidentDate: '2001-01-15T00:00:00Z', accussedCount: 11 },
-    { officerId1: 2671, officerId2: 15956, incidentDate: '2001-02-22T00:00:00Z', accussedCount: 12 },
-    { officerId1: 2671, officerId2: 15956, incidentDate: '2001-07-09T00:00:00Z', accussedCount: 13 },
-    { officerId1: 2671, officerId2: 15956, incidentDate: '2001-10-02T00:00:00Z', accussedCount: 14 },
-    { officerId1: 2671, officerId2: 15956, incidentDate: '2001-10-19T00:00:00Z', accussedCount: 15 },
-    { officerId1: 4269, officerId2: 31945, incidentDate: '2002-04-01T00:00:00Z', accussedCount: 3 },
-    { officerId1: 3663, officerId2: 31945, incidentDate: '2002-09-28T00:00:00Z', accussedCount: 4 },
-    { officerId1: 4269, officerId2: 31945, incidentDate: '2002-09-28T00:00:00Z', accussedCount: 4 },
-    { officerId1: 3663, officerId2: 4269, incidentDate: '2002-10-13T00:00:00Z', accussedCount: 2 },
-    { officerId1: 3663, officerId2: 31945, incidentDate: '2002-10-13T00:00:00Z', accussedCount: 5 },
-    { officerId1: 4269, officerId2: 31945, incidentDate: '2002-10-13T00:00:00Z', accussedCount: 5 },
-    { officerId1: 3663, officerId2: 4269, incidentDate: '2003-10-25T00:00:00Z', accussedCount: 4 },
-    { officerId1: 3663, officerId2: 4269, incidentDate: '2003-10-25T00:00:00Z', accussedCount: 3 },
-    { officerId1: 2671, officerId2: 15956, incidentDate: '2006-03-15T00:00:00Z', accussedCount: 16 },
-    { officerId1: 2671, officerId2: 15956, incidentDate: '2006-09-11T00:00:00Z', accussedCount: 17 },
-    { officerId1: 2671, officerId2: 15956, incidentDate: '2008-01-11T00:00:00Z', accussedCount: 18 }
+    { officerId1: 2675, officerId2: 24157, incidentDate: '1990-01-09', accussedCount: 2 },
+    { officerId1: 11580, officerId2: 30466, incidentDate: '1991-02-20', accussedCount: 2 },
+    { officerId1: 22861, officerId2: 30466, incidentDate: '1991-02-20', accussedCount: 2 },
+    { officerId1: 11580, officerId2: 22861, incidentDate: '1991-02-20', accussedCount: 2 },
+    { officerId1: 11580, officerId2: 22861, incidentDate: '1991-07-06', accussedCount: 3 },
+    { officerId1: 22861, officerId2: 30466, incidentDate: '1991-08-07', accussedCount: 3 },
+    { officerId1: 11580, officerId2: 22861, incidentDate: '1991-08-07', accussedCount: 4 },
+    { officerId1: 11580, officerId2: 30466, incidentDate: '1991-08-07', accussedCount: 3 },
+    { officerId1: 11580, officerId2: 22861, incidentDate: '1992-03-08', accussedCount: 5 },
+    { officerId1: 12176, officerId2: 28805, incidentDate: '1992-07-18', accussedCount: 2 },
+    { officerId1: 11580, officerId2: 30466, incidentDate: '1993-02-15', accussedCount: 4 },
+    { officerId1: 3663, officerId2: 21194, incidentDate: '1993-03-28', accussedCount: 2 },
+    { officerId1: 14045, officerId2: 28805, incidentDate: '1993-04-03', accussedCount: 2 },
+    { officerId1: 14045, officerId2: 22861, incidentDate: '1993-06-01', accussedCount: 2 },
+    { officerId1: 14045, officerId2: 28805, incidentDate: '1993-06-03', accussedCount: 3 },
+    { officerId1: 3663, officerId2: 21194, incidentDate: '1993-06-09', accussedCount: 3 },
+    { officerId1: 12176, officerId2: 28805, incidentDate: '1993-07-13', accussedCount: 3 },
+    { officerId1: 12176, officerId2: 28805, incidentDate: '1993-10-16', accussedCount: 4 },
+    { officerId1: 11580, officerId2: 30466, incidentDate: '1994-01-09', accussedCount: 5 },
+    { officerId1: 3663, officerId2: 28805, incidentDate: '1994-01-31', accussedCount: 2 },
+    { officerId1: 14045, officerId2: 28805, incidentDate: '1994-01-31', accussedCount: 4 },
+    { officerId1: 21194, officerId2: 28805, incidentDate: '1994-01-31', accussedCount: 2 },
+    { officerId1: 12176, officerId2: 28805, incidentDate: '1994-01-31', accussedCount: 5 },
+    { officerId1: 3663, officerId2: 21194, incidentDate: '1994-01-31', accussedCount: 4 },
+    { officerId1: 3663, officerId2: 14045, incidentDate: '1994-02-15', accussedCount: 2 },
+    { officerId1: 14045, officerId2: 28805, incidentDate: '1994-02-26', accussedCount: 5 },
+    { officerId1: 14045, officerId2: 28805, incidentDate: '1994-03-06', accussedCount: 6 },
+    { officerId1: 12176, officerId2: 28805, incidentDate: '1994-03-07', accussedCount: 6 },
+    { officerId1: 12176, officerId2: 14045, incidentDate: '1994-03-07', accussedCount: 2 },
+    { officerId1: 14045, officerId2: 28805, incidentDate: '1994-03-07', accussedCount: 7 },
+    { officerId1: 14045, officerId2: 28805, incidentDate: '1994-03-12', accussedCount: 8 },
+    { officerId1: 12176, officerId2: 14045, incidentDate: '1994-03-12', accussedCount: 3 },
+    { officerId1: 12176, officerId2: 28805, incidentDate: '1994-03-12', accussedCount: 7 },
+    { officerId1: 14045, officerId2: 28805, incidentDate: '1994-04-17', accussedCount: 9 },
+    { officerId1: 14045, officerId2: 28805, incidentDate: '1994-05-24', accussedCount: 10 },
+    { officerId1: 12176, officerId2: 21194, incidentDate: '1994-05-24', accussedCount: 2 },
+    { officerId1: 12176, officerId2: 14045, incidentDate: '1994-05-24', accussedCount: 4 },
+    { officerId1: 3663, officerId2: 21194, incidentDate: '1994-05-24', accussedCount: 5 },
+    { officerId1: 3663, officerId2: 14045, incidentDate: '1994-05-24', accussedCount: 3 },
+    { officerId1: 3663, officerId2: 12176, incidentDate: '1994-05-24', accussedCount: 2 },
+    { officerId1: 3663, officerId2: 4881, incidentDate: '1994-05-24', accussedCount: 2 },
+    { officerId1: 12176, officerId2: 28805, incidentDate: '1994-05-24', accussedCount: 8 },
+    { officerId1: 14045, officerId2: 21194, incidentDate: '1994-05-24', accussedCount: 2 },
+    { officerId1: 3663, officerId2: 28805, incidentDate: '1994-05-24', accussedCount: 3 },
+    { officerId1: 4881, officerId2: 14045, incidentDate: '1994-05-24', accussedCount: 2 },
+    { officerId1: 21194, officerId2: 28805, incidentDate: '1994-05-24', accussedCount: 3 },
+    { officerId1: 21194, officerId2: 28805, incidentDate: '1994-06-21', accussedCount: 4 },
+    { officerId1: 3663, officerId2: 21194, incidentDate: '1994-06-21', accussedCount: 6 },
+    { officerId1: 3663, officerId2: 28805, incidentDate: '1994-06-21', accussedCount: 4 },
+    { officerId1: 3663, officerId2: 21194, incidentDate: '1994-08-17', accussedCount: 7 },
+    { officerId1: 4269, officerId2: 30209, incidentDate: '1995-02-28', accussedCount: 2 },
+    { officerId1: 3663, officerId2: 21194, incidentDate: '1995-05-21', accussedCount: 8 },
+    { officerId1: 3663, officerId2: 21194, incidentDate: '1995-07-28', accussedCount: 9 },
+    { officerId1: 3663, officerId2: 28805, incidentDate: '1996-01-20', accussedCount: 5 },
+    { officerId1: 11580, officerId2: 30466, incidentDate: '1996-01-22', accussedCount: 6 },
+    { officerId1: 3663, officerId2: 28805, incidentDate: '1996-04-20', accussedCount: 6 },
+    { officerId1: 3663, officerId2: 28805, incidentDate: '1996-05-28', accussedCount: 7 },
+    { officerId1: 3663, officerId2: 28805, incidentDate: '1996-07-27', accussedCount: 8 },
+    { officerId1: 8138, officerId2: 31945, incidentDate: '1996-12-27', accussedCount: 2 },
+    { officerId1: 8138, officerId2: 31945, incidentDate: '1996-12-30', accussedCount: 3 },
+    { officerId1: 8138, officerId2: 31945, incidentDate: '1997-06-20', accussedCount: 4 },
+    { officerId1: 8138, officerId2: 31945, incidentDate: '1997-07-11', accussedCount: 5 },
+    { officerId1: 8138, officerId2: 31945, incidentDate: '1997-08-23', accussedCount: 6 },
+    { officerId1: 8138, officerId2: 31945, incidentDate: '1998-06-27', accussedCount: 7 },
+    { officerId1: 3663, officerId2: 8138, incidentDate: '1998-06-27', accussedCount: 2 },
+    { officerId1: 8138, officerId2: 30466, incidentDate: '1998-06-27', accussedCount: 2 },
+    { officerId1: 4269, officerId2: 15956, incidentDate: '1998-09-22', accussedCount: 2 },
+    { officerId1: 3663, officerId2: 31945, incidentDate: '1998-11-09', accussedCount: 2 },
+    { officerId1: 2671, officerId2: 15956, incidentDate: '1998-11-17', accussedCount: 2 },
+    { officerId1: 2671, officerId2: 4269, incidentDate: '1998-11-28', accussedCount: 2 },
+    { officerId1: 3663, officerId2: 30209, incidentDate: '1998-12-03', accussedCount: 2 },
+    { officerId1: 30466, officerId2: 31945, incidentDate: '1998-12-03', accussedCount: 2 },
+    { officerId1: 30209, officerId2: 31945, incidentDate: '1998-12-03', accussedCount: 2 },
+    { officerId1: 30209, officerId2: 30466, incidentDate: '1998-12-03', accussedCount: 2 },
+    { officerId1: 3663, officerId2: 31945, incidentDate: '1998-12-03', accussedCount: 3 },
+    { officerId1: 3663, officerId2: 30466, incidentDate: '1998-12-03', accussedCount: 2 },
+    { officerId1: 2671, officerId2: 15956, incidentDate: '1999-02-08', accussedCount: 3 },
+    { officerId1: 2671, officerId2: 15956, incidentDate: '1999-03-30', accussedCount: 4 },
+    { officerId1: 2671, officerId2: 4269, incidentDate: '1999-07-22', accussedCount: 3 },
+    { officerId1: 4269, officerId2: 15956, incidentDate: '1999-07-22', accussedCount: 3 },
+    { officerId1: 2671, officerId2: 15956, incidentDate: '1999-07-22', accussedCount: 5 },
+    { officerId1: 2671, officerId2: 15956, incidentDate: '1999-11-16', accussedCount: 6 },
+    { officerId1: 2671, officerId2: 15956, incidentDate: '1999-12-15', accussedCount: 7 },
+    { officerId1: 4881, officerId2: 21194, incidentDate: '2000-04-20', accussedCount: 2 },
+    { officerId1: 4881, officerId2: 31945, incidentDate: '2000-04-28', accussedCount: 2 },
+    { officerId1: 4881, officerId2: 21194, incidentDate: '2000-04-28', accussedCount: 3 },
+    { officerId1: 4269, officerId2: 4881, incidentDate: '2000-04-28', accussedCount: 2 },
+    { officerId1: 21194, officerId2: 31945, incidentDate: '2000-04-28', accussedCount: 2 },
+    { officerId1: 4269, officerId2: 31945, incidentDate: '2000-04-28', accussedCount: 2 },
+    { officerId1: 4269, officerId2: 21194, incidentDate: '2000-04-28', accussedCount: 2 },
+    { officerId1: 2671, officerId2: 15956, incidentDate: '2000-05-20', accussedCount: 9 },
+    { officerId1: 2671, officerId2: 15956, incidentDate: '2000-05-20', accussedCount: 8 },
+    { officerId1: 2671, officerId2: 15956, incidentDate: '2000-09-21', accussedCount: 10 },
+    { officerId1: 2671, officerId2: 15956, incidentDate: '2001-01-15', accussedCount: 11 },
+    { officerId1: 2671, officerId2: 15956, incidentDate: '2001-02-22', accussedCount: 12 },
+    { officerId1: 2671, officerId2: 15956, incidentDate: '2001-07-09', accussedCount: 13 },
+    { officerId1: 2671, officerId2: 15956, incidentDate: '2001-10-02', accussedCount: 14 },
+    { officerId1: 2671, officerId2: 15956, incidentDate: '2001-10-19', accussedCount: 15 },
+    { officerId1: 4269, officerId2: 31945, incidentDate: '2002-04-01', accussedCount: 3 },
+    { officerId1: 3663, officerId2: 31945, incidentDate: '2002-09-28', accussedCount: 4 },
+    { officerId1: 4269, officerId2: 31945, incidentDate: '2002-09-28', accussedCount: 4 },
+    { officerId1: 3663, officerId2: 4269, incidentDate: '2002-10-13', accussedCount: 2 },
+    { officerId1: 3663, officerId2: 31945, incidentDate: '2002-10-13', accussedCount: 5 },
+    { officerId1: 4269, officerId2: 31945, incidentDate: '2002-10-13', accussedCount: 5 },
+    { officerId1: 3663, officerId2: 4269, incidentDate: '2003-10-25', accussedCount: 4 },
+    { officerId1: 3663, officerId2: 4269, incidentDate: '2003-10-25', accussedCount: 3 },
+    { officerId1: 2671, officerId2: 15956, incidentDate: '2006-03-15', accussedCount: 16 },
+    { officerId1: 2671, officerId2: 15956, incidentDate: '2006-09-11', accussedCount: 17 },
+    { officerId1: 2671, officerId2: 15956, incidentDate: '2008-01-11', accussedCount: 18 }
   ];
   const listEvent = [
-    '1990-01-09 00:00:00+00:00',
-    '1991-02-20 00:00:00+00:00',
-    '1991-07-06 00:00:00+00:00',
-    '1991-08-07 00:00:00+00:00',
-    '1992-03-08 00:00:00+00:00',
-    '1992-07-18 00:00:00+00:00',
-    '1993-02-15 00:00:00+00:00',
-    '1993-03-28 00:00:00+00:00',
-    '1993-04-03 00:00:00+00:00',
-    '1993-06-01 00:00:00+00:00',
-    '1993-06-03 00:00:00+00:00',
-    '1993-06-09 00:00:00+00:00',
-    '1993-07-13 00:00:00+00:00',
-    '1993-10-16 00:00:00+00:00',
-    '1994-01-09 00:00:00+00:00',
-    '1994-01-31 00:00:00+00:00',
-    '1994-02-15 00:00:00+00:00',
-    '1994-02-26 00:00:00+00:00',
-    '1994-03-06 00:00:00+00:00',
-    '1994-03-07 00:00:00+00:00',
-    '1994-03-12 00:00:00+00:00',
-    '1994-04-17 00:00:00+00:00',
-    '1994-05-24 00:00:00+00:00',
-    '1994-06-21 00:00:00+00:00',
-    '1994-08-17 00:00:00+00:00',
-    '1995-02-28 00:00:00+00:00',
-    '1995-05-21 00:00:00+00:00',
-    '1995-07-28 00:00:00+00:00',
-    '1996-01-20 00:00:00+00:00',
-    '1996-01-22 00:00:00+00:00',
-    '1996-04-20 00:00:00+00:00',
-    '1996-05-28 00:00:00+00:00',
-    '1996-07-27 00:00:00+00:00',
-    '1996-12-27 00:00:00+00:00',
-    '1996-12-30 00:00:00+00:00',
-    '1997-06-20 00:00:00+00:00',
-    '1997-07-11 00:00:00+00:00',
-    '1997-08-23 00:00:00+00:00',
-    '1998-06-27 00:00:00+00:00',
-    '1998-09-22 00:00:00+00:00',
-    '1998-11-09 00:00:00+00:00',
-    '1998-11-17 00:00:00+00:00',
-    '1998-11-28 00:00:00+00:00',
-    '1998-12-03 00:00:00+00:00',
-    '1999-02-08 00:00:00+00:00',
-    '1999-03-30 00:00:00+00:00',
-    '1999-07-22 00:00:00+00:00',
-    '1999-11-16 00:00:00+00:00',
-    '1999-12-15 00:00:00+00:00',
-    '2000-04-20 00:00:00+00:00',
-    '2000-04-28 00:00:00+00:00',
-    '2000-05-20 00:00:00+00:00',
-    '2000-09-21 00:00:00+00:00',
-    '2001-01-15 00:00:00+00:00',
-    '2001-02-22 00:00:00+00:00',
-    '2001-07-09 00:00:00+00:00',
-    '2001-10-02 00:00:00+00:00',
-    '2001-10-19 00:00:00+00:00',
-    '2002-04-01 00:00:00+00:00',
-    '2002-09-28 00:00:00+00:00',
-    '2002-10-13 00:00:00+00:00',
-    '2003-10-25 00:00:00+00:00',
-    '2006-03-15 00:00:00+00:00',
-    '2006-09-11 00:00:00+00:00',
-    '2008-01-11 00:00:00+00:00'
+    '1990-01-09',
+    '1991-02-20',
+    '1991-07-06',
+    '1991-08-07',
+    '1992-03-08',
+    '1992-07-18',
+    '1993-02-15',
+    '1993-03-28',
+    '1993-04-03',
+    '1993-06-01',
+    '1993-06-03',
+    '1993-06-09',
+    '1993-07-13',
+    '1993-10-16',
+    '1994-01-09',
+    '1994-01-31',
+    '1994-02-15',
+    '1994-02-26',
+    '1994-03-06',
+    '1994-03-07',
+    '1994-03-12',
+    '1994-04-17',
+    '1994-05-24',
+    '1994-06-21',
+    '1994-08-17',
+    '1995-02-28',
+    '1995-05-21',
+    '1995-07-28',
+    '1996-01-20',
+    '1996-01-22',
+    '1996-04-20',
+    '1996-05-28',
+    '1996-07-27',
+    '1996-12-27',
+    '1996-12-30',
+    '1997-06-20',
+    '1997-07-11',
+    '1997-08-23',
+    '1998-06-27',
+    '1998-09-22',
+    '1998-11-09',
+    '1998-11-17',
+    '1998-11-28',
+    '1998-12-03',
+    '1999-02-08',
+    '1999-03-30',
+    '1999-07-22',
+    '1999-11-16',
+    '1999-12-15',
+    '2000-04-20',
+    '2000-04-28',
+    '2000-05-20',
+    '2000-09-21',
+    '2001-01-15',
+    '2001-02-22',
+    '2001-07-09',
+    '2001-10-02',
+    '2001-10-19',
+    '2002-04-01',
+    '2002-09-28',
+    '2002-10-13',
+    '2003-10-25',
+    '2006-03-15',
+    '2006-09-11',
+    '2008-01-11'
   ];
 
   afterEach(function () {
@@ -254,43 +253,43 @@ describe('SocialGraph', function () {
     ];
 
     const expectedLinks = [
-      { sourceUid: 2675, targetUid: 24157, weight: 2, color: smokeGray },
-      { sourceUid: 22861, targetUid: 30466, weight: 3, color: smokeGray },
-      { sourceUid: 11580, targetUid: 22861, weight: 5, color: smokeGray },
-      { sourceUid: 14045, targetUid: 22861, weight: 2, color: smokeGray },
-      { sourceUid: 14045, targetUid: 28805, weight: 10, color: smokeGray },
-      { sourceUid: 12176, targetUid: 21194, weight: 2, color: smokeGray },
-      { sourceUid: 12176, targetUid: 14045, weight: 4, color: smokeGray },
-      { sourceUid: 3663, targetUid: 14045, weight: 3, color: smokeGray },
-      { sourceUid: 3663, targetUid: 12176, weight: 2, color: smokeGray },
-      { sourceUid: 3663, targetUid: 4881, weight: 2, color: smokeGray },
-      { sourceUid: 12176, targetUid: 28805, weight: 8, color: smokeGray },
-      { sourceUid: 14045, targetUid: 21194, weight: 2, color: smokeGray },
-      { sourceUid: 4881, targetUid: 14045, weight: 2, color: smokeGray },
-      { sourceUid: 21194, targetUid: 28805, weight: 4, color: smokeGray },
-      { sourceUid: 4269, targetUid: 30209, weight: 2, color: smokeGray },
-      { sourceUid: 3663, targetUid: 21194, weight: 9, color: smokeGray },
-      { sourceUid: 11580, targetUid: 30466, weight: 6, color: smokeGray },
-      { sourceUid: 3663, targetUid: 28805, weight: 8, color: smokeGray },
-      { sourceUid: 8138, targetUid: 31945, weight: 7, color: smokeGray },
-      { sourceUid: 3663, targetUid: 8138, weight: 2, color: smokeGray },
-      { sourceUid: 8138, targetUid: 30466, weight: 2, color: smokeGray },
-      { sourceUid: 3663, targetUid: 30209, weight: 2, color: smokeGray },
-      { sourceUid: 30466, targetUid: 31945, weight: 2, color: smokeGray },
-      { sourceUid: 30209, targetUid: 31945, weight: 2, color: smokeGray },
-      { sourceUid: 30209, targetUid: 30466, weight: 2, color: smokeGray },
-      { sourceUid: 3663, targetUid: 30466, weight: 2, color: smokeGray },
-      { sourceUid: 2671, targetUid: 4269, weight: 3, color: smokeGray },
-      { sourceUid: 4269, targetUid: 15956, weight: 3, color: smokeGray },
-      { sourceUid: 4881, targetUid: 31945, weight: 2, color: smokeGray },
-      { sourceUid: 4881, targetUid: 21194, weight: 3, color: smokeGray },
-      { sourceUid: 4269, targetUid: 4881, weight: 2, color: smokeGray },
-      { sourceUid: 21194, targetUid: 31945, weight: 2, color: smokeGray },
-      { sourceUid: 4269, targetUid: 21194, weight: 2, color: smokeGray },
-      { sourceUid: 3663, targetUid: 31945, weight: 5, color: smokeGray },
-      { sourceUid: 4269, targetUid: 31945, weight: 5, color: smokeGray },
-      { sourceUid: 3663, targetUid: 4269, weight: 3, color: smokeGray },
-      { sourceUid: 2671, targetUid: 15956, weight: 18, color: bostonRed }
+      { sourceUid: 2675, targetUid: 24157, weight: 2, className: '' },
+      { sourceUid: 22861, targetUid: 30466, weight: 3, className: '' },
+      { sourceUid: 11580, targetUid: 22861, weight: 5, className: '' },
+      { sourceUid: 14045, targetUid: 22861, weight: 2, className: '' },
+      { sourceUid: 14045, targetUid: 28805, weight: 10, className: '' },
+      { sourceUid: 12176, targetUid: 21194, weight: 2, className: '' },
+      { sourceUid: 12176, targetUid: 14045, weight: 4, className: '' },
+      { sourceUid: 3663, targetUid: 14045, weight: 3, className: '' },
+      { sourceUid: 3663, targetUid: 12176, weight: 2, className: '' },
+      { sourceUid: 3663, targetUid: 4881, weight: 2, className: '' },
+      { sourceUid: 12176, targetUid: 28805, weight: 8, className: '' },
+      { sourceUid: 14045, targetUid: 21194, weight: 2, className: '' },
+      { sourceUid: 4881, targetUid: 14045, weight: 2, className: '' },
+      { sourceUid: 21194, targetUid: 28805, weight: 4, className: '' },
+      { sourceUid: 4269, targetUid: 30209, weight: 2, className: '' },
+      { sourceUid: 3663, targetUid: 21194, weight: 9, className: '' },
+      { sourceUid: 11580, targetUid: 30466, weight: 6, className: '' },
+      { sourceUid: 3663, targetUid: 28805, weight: 8, className: '' },
+      { sourceUid: 8138, targetUid: 31945, weight: 7, className: '' },
+      { sourceUid: 3663, targetUid: 8138, weight: 2, className: '' },
+      { sourceUid: 8138, targetUid: 30466, weight: 2, className: '' },
+      { sourceUid: 3663, targetUid: 30209, weight: 2, className: '' },
+      { sourceUid: 30466, targetUid: 31945, weight: 2, className: '' },
+      { sourceUid: 30209, targetUid: 31945, weight: 2, className: '' },
+      { sourceUid: 30209, targetUid: 30466, weight: 2, className: '' },
+      { sourceUid: 3663, targetUid: 30466, weight: 2, className: '' },
+      { sourceUid: 2671, targetUid: 4269, weight: 3, className: '' },
+      { sourceUid: 4269, targetUid: 15956, weight: 3, className: '' },
+      { sourceUid: 4881, targetUid: 31945, weight: 2, className: '' },
+      { sourceUid: 4881, targetUid: 21194, weight: 3, className: '' },
+      { sourceUid: 4269, targetUid: 4881, weight: 2, className: '' },
+      { sourceUid: 21194, targetUid: 31945, weight: 2, className: '' },
+      { sourceUid: 4269, targetUid: 21194, weight: 2, className: '' },
+      { sourceUid: 3663, targetUid: 31945, weight: 5, className: '' },
+      { sourceUid: 4269, targetUid: 31945, weight: 5, className: '' },
+      { sourceUid: 3663, targetUid: 4269, weight: 3, className: '' },
+      { sourceUid: 2671, targetUid: 15956, weight: 18, className: 'current-link' }
     ];
 
     const expectedLinkedByIndex = {
@@ -311,6 +310,14 @@ describe('SocialGraph', function () {
       '6': { uid: 30466 },
     };
 
+    const expectedTopNodes = [
+      { uid: 3663 },
+      { uid: 21194 },
+      { uid: 4269 },
+      { uid: 31945 },
+      { uid: 30466 },
+    ];
+
     const graphNodes = instance.data.nodes;
 
     graphNodes.length.should.eql(expectedNodes.length);
@@ -330,7 +337,7 @@ describe('SocialGraph', function () {
       });
 
       graphLink.weight.should.eql(expectedLink.weight);
-      graphLink.color.should.eql(expectedLink.color);
+      graphLink.className.should.eql(expectedLink.className);
     });
     instance.data.linkedByIndex.should.eql(expectedLinkedByIndex);
 
@@ -342,10 +349,18 @@ describe('SocialGraph', function () {
       maxNode.uid.should.eql(expectedMaxNodeInCommunities[group].uid);
     });
 
+    const topNodes = instance.data.topNodes;
+    topNodes.length.should.eql(expectedTopNodes.length);
+
+    topNodes.forEach((topNode, index) => {
+      topNode.uid.should.eql(expectedTopNodes[index].uid);
+    });
+
     instance.data.maxWeight.should.eql(18);
 
     findDOMNode(instance).getElementsByClassName('node').length.should.eql(expectedNodes.length);
     findDOMNode(instance).getElementsByClassName('link').length.should.eql(expectedLinks.length);
+    findDOMNode(instance).getElementsByClassName('node-label').length.should.eql(expectedTopNodes.length);
 
     startTimelineFromBeginningStub.called.should.be.true();
     stopTimelineStub.called.should.be.true();
@@ -394,14 +409,14 @@ describe('SocialGraph', function () {
     ];
 
     const expectedLinks = [
-      { sourceUid: 2675, targetUid: 24157, weight: 2, color: smokeGray },
-      { sourceUid: 22861, targetUid: 30466, weight: 3, color: smokeGray },
-      { sourceUid: 11580, targetUid: 22861, weight: 5, color: smokeGray },
-      { sourceUid: 14045, targetUid: 22861, weight: 2, color: smokeGray },
-      { sourceUid: 14045, targetUid: 28805, weight: 3, color: smokeGray },
-      { sourceUid: 3663, targetUid: 21194, weight: 3, color: smokeGray },
-      { sourceUid: 12176, targetUid: 28805, weight: 4, color: smokeGray },
-      { sourceUid: 11580, targetUid: 30466, weight: 5, color: bostonRed },
+      { sourceUid: 2675, targetUid: 24157, weight: 2, className: '' },
+      { sourceUid: 22861, targetUid: 30466, weight: 3, className: '' },
+      { sourceUid: 11580, targetUid: 22861, weight: 5, className: '' },
+      { sourceUid: 14045, targetUid: 22861, weight: 2, className: '' },
+      { sourceUid: 14045, targetUid: 28805, weight: 3, className: '' },
+      { sourceUid: 3663, targetUid: 21194, weight: 3, className: '' },
+      { sourceUid: 12176, targetUid: 28805, weight: 4, className: '' },
+      { sourceUid: 11580, targetUid: 30466, weight: 5, className: 'current-link' },
     ];
 
     const expectedMaxNodeInCommunities = {
@@ -409,6 +424,14 @@ describe('SocialGraph', function () {
       '3': { uid: 14045 },
       '9': { uid: 22861 },
     };
+
+    const expectedTopNodes = [
+      { uid: 22861 },
+      { uid: 28805 },
+      { uid: 30466 },
+      { uid: 11580 },
+      { uid: 14045 },
+    ];
 
     const expectedLinkedByIndex = {
       '0,0': 1, '0,18': 1, '0,3': 1, '1,1': 1, '10,10': 1, '10,12': 1, '10,14': 1, '10,2': 1,
@@ -439,7 +462,7 @@ describe('SocialGraph', function () {
       });
 
       graphLink.weight.should.eql(expectedLink.weight);
-      graphLink.color.should.eql(expectedLink.color);
+      graphLink.className.should.eql(expectedLink.className);
     });
     instance.data.linkedByIndex.should.eql(expectedLinkedByIndex);
 
@@ -451,40 +474,18 @@ describe('SocialGraph', function () {
       maxNode.uid.should.eql(expectedMaxNodeInCommunities[group].uid);
     });
 
+    const topNodes = instance.data.topNodes;
+    topNodes.length.should.eql(expectedTopNodes.length);
+
+    topNodes.forEach((topNode, index) => {
+      topNode.uid.should.eql(expectedTopNodes[index].uid);
+    });
+
     instance.data.maxWeight.should.eql(5);
 
     findDOMNode(instance).getElementsByClassName('node').length.should.eql(expectedNodes.length);
     findDOMNode(instance).getElementsByClassName('link').length.should.eql(expectedLinks.length);
-  });
-
-  it('should highlight node when clickSearchState changes', function () {
-    instance = renderIntoDocument(
-      <SocialGraph
-        officers={ officers }
-        coaccusedData={ coaccusedData }
-        listEvent={ listEvent }
-      />
-    );
-
-    instance = reRender(
-      <SocialGraph
-        officers={ officers }
-        coaccusedData={ coaccusedData }
-        listEvent={ listEvent }
-        searchText='Thomas Kampenga'
-        clickSearchState={ true }
-      />,
-      instance
-    );
-
-    const socialGraph = findDOMNode(instance);
-    let graphNodes = socialGraph.getElementsByClassName('node');
-    const currentNode = filter(graphNodes, node => node.style.opacity !== '0');
-    const otherNodes = filter(graphNodes, node => node.style.opacity === '0');
-    graphNodes.should.have.length(20);
-    otherNodes.should.have.length(19);
-    currentNode.should.have.length(1);
-    currentNode[0].getAttribute('r').should.eql('20');
+    findDOMNode(instance).getElementsByClassName('node-label').length.should.eql(expectedTopNodes.length);
   });
 
   it('should return tooltip info when call graphTooltip', function () {
@@ -570,18 +571,18 @@ describe('SocialGraph', function () {
 
   it('should call drawGraph again when componentDidUpdate', function () {
     const smallCoaccusedData = [
-      { officerId1: 2675, officerId2: 24157, incidentDate: '1990-01-09T00:00:00Z', accussedCount: 2 },
-      { officerId1: 11580, officerId2: 30466, incidentDate: '1991-02-20T00:00:00Z', accussedCount: 2 },
-      { officerId1: 22861, officerId2: 30466, incidentDate: '1991-02-20T00:00:00Z', accussedCount: 2 },
-      { officerId1: 11580, officerId2: 22861, incidentDate: '1991-02-20T00:00:00Z', accussedCount: 2 },
-      { officerId1: 11580, officerId2: 22861, incidentDate: '1991-07-06T00:00:00Z', accussedCount: 3 },
-      { officerId1: 22861, officerId2: 30466, incidentDate: '1991-08-07T00:00:00Z', accussedCount: 3 },
-      { officerId1: 11580, officerId2: 22861, incidentDate: '1991-08-07T00:00:00Z', accussedCount: 4 },
-      { officerId1: 11580, officerId2: 30466, incidentDate: '1991-08-07T00:00:00Z', accussedCount: 3 },
-      { officerId1: 11580, officerId2: 22861, incidentDate: '1992-03-08T00:00:00Z', accussedCount: 5 },
-      { officerId1: 12176, officerId2: 28805, incidentDate: '1992-07-18T00:00:00Z', accussedCount: 2 },
-      { officerId1: 11580, officerId2: 30466, incidentDate: '1993-02-15T00:00:00Z', accussedCount: 4 },
-      { officerId1: 3663, officerId2: 21194, incidentDate: '1993-03-28T00:00:00Z', accussedCount: 2 },
+      { officerId1: 2675, officerId2: 24157, incidentDate: '1990-01-09', accussedCount: 2 },
+      { officerId1: 11580, officerId2: 30466, incidentDate: '1991-02-20', accussedCount: 2 },
+      { officerId1: 22861, officerId2: 30466, incidentDate: '1991-02-20', accussedCount: 2 },
+      { officerId1: 11580, officerId2: 22861, incidentDate: '1991-02-20', accussedCount: 2 },
+      { officerId1: 11580, officerId2: 22861, incidentDate: '1991-07-06', accussedCount: 3 },
+      { officerId1: 22861, officerId2: 30466, incidentDate: '1991-08-07', accussedCount: 3 },
+      { officerId1: 11580, officerId2: 22861, incidentDate: '1991-08-07', accussedCount: 4 },
+      { officerId1: 11580, officerId2: 30466, incidentDate: '1991-08-07', accussedCount: 3 },
+      { officerId1: 11580, officerId2: 22861, incidentDate: '1992-03-08', accussedCount: 5 },
+      { officerId1: 12176, officerId2: 28805, incidentDate: '1992-07-18', accussedCount: 2 },
+      { officerId1: 11580, officerId2: 30466, incidentDate: '1993-02-15', accussedCount: 4 },
+      { officerId1: 3663, officerId2: 21194, incidentDate: '1993-03-28', accussedCount: 2 },
     ];
 
     instance = renderIntoDocument(
@@ -619,5 +620,205 @@ describe('SocialGraph', function () {
 
     should(instance.data.nodes).be.undefined();
     should(instance.data.links).be.undefined();
+  });
+
+  it('should call resizeGraph when performResizeGraph is true', function () {
+    instance = renderIntoDocument(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+      />
+    );
+    const resizeGraphSpy = spy(instance, 'resizeGraph');
+    instance = reRender(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+        performResizeGraph={ true }
+      />,
+      instance
+    );
+    resizeGraphSpy.called.should.be.true();
+  });
+
+  it('should call updateSelectedOfficerId when clicking on a graph node', function () {
+    const updateSelectedOfficerIdStub = stub();
+    instance = renderIntoDocument(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+        updateSelectedOfficerId={ updateSelectedOfficerIdStub }
+      />
+    );
+    const graphNode = instance.data.nodes[0];
+    instance.handleNodeClick(graphNode);
+    updateSelectedOfficerIdStub.should.be.calledWith(graphNode.uid);
+  });
+
+  it('should call _updateSelectedNode when componentDidUpdate', function () {
+    instance = renderIntoDocument(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+      />
+    );
+
+    instance = reRender(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+        selectedOfficerId={ 11580 }
+      />,
+      instance
+    );
+
+    instance.selectedNodeLabel.box.should.have.length(1);
+    const selectedNodeLabel = findDOMNode(instance).getElementsByClassName('selected-node-label')[0];
+    findDOMNode(selectedNodeLabel).textContent.should.eql('John Hart');
+
+    instance = reRender(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+        selectedOfficerId={ 8138 }
+      />,
+      instance
+    );
+
+    findDOMNode(selectedNodeLabel).textContent.should.eql('Glenn Evans');
+  });
+
+  it('should call _updateSelectedEdge when componentDidUpdate', function () {
+    instance = renderIntoDocument(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+        timelineIdx={ listEvent.length - 1 }
+      />
+    );
+
+    instance = reRender(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+        selectedEdge={ { sourceUid: 2675, targetUid: 24157, coaccusedCount: 2 } }
+        timelineIdx={ listEvent.length - 1 }
+      />,
+      instance
+    );
+
+    instance.selectedEdgeLabel.box.should.have.length(1);
+    const selectedEdgeLabel = findDOMNode(instance).getElementsByClassName('selected-edge-label')[0];
+    findDOMNode(selectedEdgeLabel).textContent.should.eql('2 coaccusals');
+
+    instance = reRender(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+        selectedEdge={ { sourceUid: 22861, targetUid: 30466, coaccusedCount: 3 } }
+        timelineIdx={ listEvent.length - 1 }
+      />,
+      instance
+    );
+
+    findDOMNode(selectedEdgeLabel).textContent.should.eql('3 coaccusals');
+  });
+
+  it('should call this.tip.show if isSelectedNode is false', function () {
+    instance = renderIntoDocument(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+      />
+    );
+    const showTipStub = stub(instance.tip, 'show');
+    instance.handleMouseover({ fullName: 'Glenn Evans', id: 8138 });
+    showTipStub.should.be.called();
+  });
+
+  it('should not call this.tip.show if isSelectedNode is true', function () {
+    instance = renderIntoDocument(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+      />
+    );
+    const showTipStub = stub(instance.tip, 'show');
+    instance.handleMouseover({ fullName: 'Glenn Evans', id: 8138, isSelectedNode: true });
+    showTipStub.should.not.be.called();
+  });
+
+  it('should call updateSelectedEdge when clicking on an edge', function () {
+    const updateSelectedEdgeStub = stub();
+    const currentEdge = {
+      source: {
+        uid: 8138,
+        fullName: 'Glenn Evans',
+      },
+      target: {
+        uid: 4269,
+        fullName: 'Johnny Cavers',
+      },
+    };
+    instance = renderIntoDocument(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+        updateSelectedEdge={ updateSelectedEdgeStub }
+      />
+    );
+    instance.handleEdgeClick(currentEdge);
+    updateSelectedEdgeStub.should.be.calledWith({ sourceUid: 8138, targetUid: 4269 });
+  });
+
+  it('should add & remove edge-hover class to edge and corresponding nodes when mouseover and mouseout', function () {
+    instance = renderIntoDocument(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+      />
+    );
+
+    let hoveredEdge = instance.data.links[0];
+    instance.handleEdgeMouseover(hoveredEdge);
+
+    findDOMNode(instance).getElementsByClassName('link edge-hover').should.have.length(1);
+    findDOMNode(instance).getElementsByClassName('node edge-hover').should.have.length(2);
+
+    instance.handleEdgeMouseout();
+
+    findDOMNode(instance).getElementsByClassName('link edge-hover').should.have.length(0);
+    findDOMNode(instance).getElementsByClassName('node edge-hover').should.have.length(0);
+  });
+
+  it('should call updateSortedOfficerIds', function () {
+    const updateSortedOfficerIdsSpy = spy();
+    instance = renderIntoDocument(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+        updateSortedOfficerIds={ updateSortedOfficerIdsSpy }
+      />
+    );
+
+    const expectedSortedOfficerIds = [
+      3663, 21194, 4269, 31945, 30466, 14045, 4881, 30209, 28805, 12176,
+      22861, 8138, 15956, 11580, 2671, 2675, 24157, 22297, 2171, 12737
+    ];
+    updateSortedOfficerIdsSpy.should.be.calledWith(expectedSortedOfficerIds);
   });
 });

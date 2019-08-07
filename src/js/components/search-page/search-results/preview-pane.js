@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { isEmpty, get } from 'lodash';
+import { isEmpty, get, noop } from 'lodash';
+import cx from 'classnames';
 
 import SlideMotion from 'components/animation/slide-motion';
 import {
@@ -12,9 +13,10 @@ import {
   SchoolGroundPane,
   RankPane,
   SearchTermItemPane,
-  CRPane
-} from 'components/search-page/preview-pane';
-import { wrapperStyle } from './preview-pane.style';
+  CRPane,
+  TRRPane,
+} from 'components/common/preview-pane';
+import styles from './preview-pane.sass';
 
 
 export default class PreviewPane extends Component {
@@ -24,9 +26,20 @@ export default class PreviewPane extends Component {
   }
 
   renderPane() {
-    const { data, type } = this.props;
-    const officerPaneFunc = () => <OfficerPane { ...data }/>;
-    const crPaneFunc = () => <CRPane { ...data }/>;
+    const { data, type, yScrollable, addOrRemoveItemInPinboard } = this.props;
+    const officerPaneFunc = () => <OfficerPane { ...data }
+      yScrollable={ yScrollable }
+      type={ type }
+      addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
+    />;
+    const crPaneFunc = () => <CRPane { ...data } yScrollable={ yScrollable }/>;
+    const trrPaneFunc = () => {
+      return (
+        <div className='trr-pane-wrapper'>
+          <TRRPane { ...data } yScrollable={ yScrollable } />
+        </div>
+      );
+    };
 
     const paneTypes = {
       'SEARCH-TERMS': () => <SearchTermItemPane { ...data } />,
@@ -43,17 +56,19 @@ export default class PreviewPane extends Component {
       CR: crPaneFunc,
       'DATE > CR': crPaneFunc,
       'INVESTIGATOR > CR': crPaneFunc,
+      TRR: trrPaneFunc,
+      'DATE > TRR': trrPaneFunc,
     };
     return get(paneTypes, type, () => null)();
   }
 
 
   render() {
-    const { data } = this.props;
+    const { data, customClass, yScrollable } = this.props;
 
     return (
       <SlideMotion show={ !isEmpty(data) } offsetX={ 100 }>
-        <div className='test--preview-pane' style={ wrapperStyle }>
+        <div className={ cx(styles.previewPaneWrapper, customClass, { [styles.yScrollable]: yScrollable }) }>
           {
             this.renderPane()
           }
@@ -66,9 +81,14 @@ export default class PreviewPane extends Component {
 
 PreviewPane.propTypes = {
   data: PropTypes.object,
-  type: PropTypes.string
+  type: PropTypes.string,
+  customClass: PropTypes.string,
+  yScrollable: PropTypes.bool,
+  addOrRemoveItemInPinboard: PropTypes.func,
 };
 
 PreviewPane.defaultProps = {
   data: {},
+  yScrollable: false,
+  addOrRemoveItemInPinboard: noop,
 };

@@ -96,7 +96,11 @@ describe('Carousel component', function () {
     instance.state.displayLeftArrow = false;
     instance.state.displayRightArrow = false;
     const swiper = findRenderedComponentWithType(instance, Swiper);
-    swiper.props.onSnapIndexChange(true, true);
+    swiper.props.onSnapIndexChange({
+      isEnd: false,
+      isBeginning: false,
+      activeIndex: 1
+    });
     instance.state.displayLeftArrow.should.be.true();
     instance.state.displayRightArrow.should.be.true();
   });
@@ -160,6 +164,44 @@ describe('Carousel component', function () {
     );
     instance.slidesPerGroup = 1;
     Simulate.click(rightArrow);
+    loadMoreSpy.called.should.be.true();
+  });
+
+  it('should call loadMore when reach end with onSnapIndexChange', function () {
+    const loadMoreSpy = spy();
+    instance = renderIntoDocument(carouselComponent(
+      OfficerCardFactory.buildList(10),
+      {
+        hasMore: true,
+        loadMore: loadMoreSpy,
+        threshold: 2
+      }
+    ));
+
+    const swiper = findRenderedComponentWithType(instance, Swiper);
+    swiper.props.onSnapIndexChange({
+      isEnd: true,
+      isBeginning: true,
+      activeIndex: 1
+    });
+
+    loadMoreSpy.called.should.be.true();
+  });
+
+  it('should call loadMore when reach end with onUpdate', function () {
+    const loadMoreSpy = spy();
+    instance = renderIntoDocument(carouselComponent(
+      OfficerCardFactory.buildList(10),
+      {
+        hasMore: true,
+        loadMore: loadMoreSpy,
+        threshold: 2
+      }
+    ));
+
+    const swiper = findRenderedComponentWithType(instance, Swiper);
+    swiper.props.onUpdate({ isEnd: true, isBeginning: true });
+
     loadMoreSpy.called.should.be.true();
   });
 

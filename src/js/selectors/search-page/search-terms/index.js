@@ -1,7 +1,10 @@
 import { createSelector } from 'reselect';
-import { searchTermsSelector } from 'selectors/search-page/search-terms/categories';
+import { getQuery } from 'selectors/search-page/search-results/suggestion-groups';
 
 
-export const hiddenSelector = createSelector(searchTermsSelector, searchTerms => searchTerms.hidden);
+export const hiddenSelector = createSelector(
+  getQuery,
+  query => query !== ''
+);
 
 

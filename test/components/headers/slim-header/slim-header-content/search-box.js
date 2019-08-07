@@ -59,7 +59,7 @@ describe('SearchBox component', function () {
     magnifyingGlass.props.color.should.equal('white');
   });
 
-  it('should go to search terms page when being clicked', function () {
+  it('should go to search page when being clicked', function () {
     const pushPathPreserveEditMode = stub(editPathUtils, 'pushPathPreserveEditMode');
     const stopPropagation = spy();
 
@@ -69,7 +69,7 @@ describe('SearchBox component', function () {
 
     stopPropagation.should.be.calledOnce();
     pushPathPreserveEditMode.should.be.calledOnce();
-    pushPathPreserveEditMode.should.be.calledWith('/search/terms/');
+    pushPathPreserveEditMode.should.be.calledWith('/search/');
 
     pushPathPreserveEditMode.restore();
   });

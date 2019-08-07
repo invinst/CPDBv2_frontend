@@ -1,0 +1,36 @@
+@import 'variables'
+
+\:local(.pinboard-pane-section)
+  background-color: white
+  height: 518px
+
+  .pinboard-pane-section-menu
+    height: 64px
+    line-height: 64px
+    text-align: center
+
+  .pinboard-pane-tab-name
+    height: 36px
+    background-color: white
+    color: $accent-color
+    font-size: 14px
+    font-weight: 300
+    border-radius: 2px
+    padding: 8px 16px 10px 16px
+    cursor: pointer
+    margin: 0 8px
+
+    &:hover
+      background-color: $sugar-cane-color
+      color: $soft-black-color
+
+    &.active
+      background-color: $accent-color
+      color: white
+
+
+\:local(.pinboard-pane-section-loading)
+  margin: 0 auto
+  display: block
+  width: 176px
+  height: 518px

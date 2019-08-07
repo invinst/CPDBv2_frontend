@@ -53,9 +53,9 @@ describe('Search Page', function () {
     searchPage.suggestionTags.getText().should.containEql('TRR');
 
     searchPage.crResultsSection.results.count.should.equal(2);
-    searchPage.crResultsSection.firstResultText.getText().should.equal('CR # CR123 - April 23, 2004');
+    searchPage.crResultsSection.firstResultText.getText().should.equal('CR # CR123 • April 23, 2004');
     searchPage.crResultsSection.firstResultSubText.getText().should.equal('an officer named Kelly caught the victim');
-    searchPage.crResultsSection.secondResultText.getText().should.equal('CR # CR456 - November 12, 2006');
+    searchPage.crResultsSection.secondResultText.getText().should.equal('CR # CR456 • November 12, 2006');
     searchPage.crResultsSection.secondResultSubText.getText().should.equal('');
 
     searchPage.trrResultsSection.results.count.should.equal(2);
@@ -73,7 +73,7 @@ describe('Search Page', function () {
     searchPage.suggestionTags.getText().should.containEql('INVESTIGATOR > CR');
 
     searchPage.investigatorCRResultsSection.results.count.should.equal(2);
-    searchPage.investigatorCRResultsSection.firstResultText.getText().should.equal('CR # CR123456 - April 23, 2004');
+    searchPage.investigatorCRResultsSection.firstResultText.getText().should.equal('CR # CR123456 • April 23, 2004');
     searchPage.investigatorCRResultsSection.firstResultSubText.getText().should.equal(
       'an officer named Kelly caught the victim'
     );
@@ -92,9 +92,9 @@ describe('Search Page', function () {
     searchPage.suggestionTags.getText().should.containEql('DATE > TRR');
 
     searchPage.dateCRResultsSection.results.count.should.equal(2);
-    searchPage.dateCRResultsSection.firstResultText.getText().should.equal('CR # CR123 - April 23, 2004');
+    searchPage.dateCRResultsSection.firstResultText.getText().should.equal('CR # CR123 • April 23, 2004');
     searchPage.dateCRResultsSection.firstResultSubText.getText().should.equal('');
-    searchPage.dateCRResultsSection.secondResultText.getText().should.equal('CR # CR456 - April 23, 2004');
+    searchPage.dateCRResultsSection.secondResultText.getText().should.equal('CR # CR456 • April 23, 2004');
     searchPage.dateCRResultsSection.secondResultSubText.getText().should.equal('');
     searchPage.crPreviewPaneSection.callToAction.getText().should.eql('View Complaint Record');
 
@@ -138,10 +138,9 @@ describe('Search Page', function () {
   it('should able to show SEARCH-TERMS results', function () {
     searchPage.input.waitForVisible();
     searchPage.input.setValue('Geography');
-
     searchPage.searchTermsResultsSection.results.waitForVisible();
-
     searchPage.searchTermsResultsSection.results.count.should.equal(1);
+
     searchPage.searchTermsResultsSection.firstResultText.getText().should.equal('Geography - Communities');
     searchPage.searchTermsResultsSection.firstResultText.click();
     searchPage.searchTermsResultsSection.previewPaneTitle.getText().should.containEql('Communities');
@@ -314,6 +313,7 @@ describe('Search Page', function () {
     landingPage.open();
     searchPage.open();
     browser.keys('Escape');
+    browser.pause(500);
 
     landingPage.currentBasePath.should.equal('/');
   });
@@ -416,16 +416,6 @@ describe('Search Page', function () {
       searchPage.clearSearchButton.click();
       searchPage.input.getValue().should.containEql('');
     });
-
-    it('should open search terms page when clicked', function () {
-      searchPage.searchTermsToggle.getText().should.equal('What can I search?');
-      searchPage.searchTermsToggle.click();
-      searchPage.searchTermsToggle.getText().should.equal('Hide Search terms');
-      browser.getUrl().should.match(/\/search\/terms\/$/);
-      searchPage.searchTermsToggle.click();
-      searchPage.searchTermsToggle.getText().should.equal('What can I search?');
-      browser.getUrl().should.not.match(/\/search\/terms\/$/);
-    });
   });
 
   describe('OfficerPreviewPane', function () {
@@ -446,7 +436,7 @@ describe('Search Page', function () {
     it('should not display gradient when content is fully shown', function () {
       browser.setViewportSize({
         width: 1000,
-        height: 1200
+        height: 2400
       });
       searchPage.input.waitForVisible();
       searchPage.input.setValue('Ke');
@@ -478,6 +468,43 @@ describe('Search Page', function () {
       searchPage.officerPreviewPaneSection.neighborhoodPane.click();
       switchToRecentTab();
       browser.getUrl().should.eql('http://lvh.me/url-mediator/session-builder?neighborhood=SomeNeighborhood');
+    });
+
+    it('should redirect to officer page when click on view profile button', function () {
+      searchPage.input.waitForVisible();
+      searchPage.input.setValue('Ke');
+
+      searchPage.officerPreviewPaneSection.viewOfficerButton.waitForVisible();
+      searchPage.officerPreviewPaneSection.viewOfficerButton.click();
+      browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/$/);
+    });
+
+    it('should add/remove officer to/from pinboard when click on pin button', function () {
+      searchPage.input.waitForVisible();
+      searchPage.input.setValue('Ke');
+
+      searchPage.officerPreviewPaneSection.pinButton.waitForVisible();
+      searchPage.pinboardButton.getText().should.eql('Your pinboard is empty');
+
+      searchPage.officerPreviewPaneSection.pinButton.click();
+      searchPage.pinboardButton.getText().should.eql('Pinboard (1)');
+
+      searchPage.toast.waitForVisible();
+      browser.waitUntil(function () {
+        return searchPage.toast.isVisible() === false;
+      }, 5000, 'Toast is not removed properly');
+
+      searchPage.officerPreviewPaneSection.pinButton.click();
+      searchPage.pinboardButton.getText().should.eql('Your pinboard is empty');
+    });
+
+    it('should redirect to unit page when click on unit item on officer info widget', function () {
+      searchPage.input.waitForVisible();
+      searchPage.input.setValue('Ke');
+
+      searchPage.officerPreviewPaneSection.unitItem.waitForVisible();
+      searchPage.officerPreviewPaneSection.unitItem.click();
+      browser.getUrl().should.match(/\/unit\/\d+\/$/);
     });
   });
 
@@ -535,6 +562,37 @@ describe('Search Page', function () {
       browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/$/);
     });
   });
+
+  describe('TRRPreviewPane', function () {
+    beforeEach(function () {
+      searchPage.input.waitForVisible();
+      searchPage.input.setValue('2004/04/23');
+      searchPage.dateTRRResultsSection.firstResultText.waitForVisible();
+      searchPage.dateTRRResultsSection.firstResultText.click();
+      searchPage.trrPreviewPaneSection.wrapper.waitForVisible();
+    });
+
+    it('should render enough content', function () {
+      searchPage.trrPreviewPaneSection.callToAction.getText().should.eql('View Tactical Response Report');
+      searchPage.trrPreviewPaneSection.title.getText().should.eql('Taser');
+      searchPage.trrPreviewPaneSection.incidentDate.getText().should.eql('Apr 23, 2004');
+      searchPage.trrPreviewPaneSection.address.getText().should.eql('3000 Michigan Ave');
+      searchPage.trrPreviewPaneSection.officerHeader.getText().should.eql('OFFICER');
+      searchPage.trrPreviewPaneSection.officerLink.count.should.eql(1);
+      searchPage.trrPreviewPaneSection.officerName.getText().should.equal('Jesse Pinkman');
+      searchPage.trrPreviewPaneSection.officerAllegationCount.getText().should.equal('1 allegation');
+    });
+
+    it('should go to trr page when being clicked', function () {
+      searchPage.trrPreviewPaneSection.callToAction.click();
+      browser.getUrl().should.match(/\/trr\/\w+\/$/);
+    });
+
+    it('should redirect to officer profile when clicking on officer item', function () {
+      searchPage.trrPreviewPaneSection.officerLink.click();
+      browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/$/);
+    });
+  });
 });
 
 describe('Search Page in edit mode', function () {
@@ -560,11 +618,70 @@ describe('Search Page with query parameter', function () {
     searchPage.investigatorCRResultsSection.results.waitForVisible();
     searchPage.suggestionTags.getText().should.containEql('INVESTIGATOR > CR');
     searchPage.investigatorCRResultsSection.results.count.should.equal(2);
-    searchPage.investigatorCRResultsSection.firstResultText.getText().should.equal('CR # CR123456 - April 23, 2004');
+    searchPage.investigatorCRResultsSection.firstResultText.getText().should.equal('CR # CR123456 • April 23, 2004');
     searchPage.investigatorCRResultsSection.firstResultSubText.getText().should.equal(
       'an officer named Kelly caught the victim'
     );
     searchPage.investigatorCRResultsSection.secondResultText.getText().should.equal('CR # CR654321');
     searchPage.investigatorCRResultsSection.secondResultSubText.getText().should.equal('');
+  });
+});
+
+describe('Search Page with pinboard functionalities', function () {
+  it('should display pinboard button with correct text when items are added/removed', function () {
+    searchPage.open('Ke');
+    searchPage.suggestionGroup.waitForVisible();
+    searchPage.pinboardButton.getText().should.eql('Your pinboard is empty');
+
+    searchPage.firstOfficerPinButton.click();
+    searchPage.pinboardButton.getText().should.eql('Pinboard (1)');
+
+    searchPage.firstOfficerPinButton.click();
+    searchPage.pinboardButton.getText().should.eql('Your pinboard is empty');
+  });
+
+  it('should display pinboard button that links to pinboard page when pinboard is not empty', function () {
+    searchPage.open('Ke');
+    searchPage.suggestionGroup.waitForVisible();
+    searchPage.firstOfficerPinButton.click();
+    searchPage.pinboardButton.click();
+    browser.getUrl().should.match(/pinboard\/5cd06f2b\/pinboard-title\/$/);
+  });
+
+  it('should display pinboard tooltip bar when not search', function () {
+    const tip = 'Create collections of officers, complaint records, and tactical reponse reports using search.';
+    searchPage.open('');
+    searchPage.pinboardBar.waitForVisible();
+    searchPage.pinboardBar.getText().should.containEql(tip);
+
+    searchPage.pinboardButton.getText().should.eql('Pinboard (0)');
+  });
+
+  it('should redirect to Pinboard page when click on pinboard button', function () {
+    searchPage.open('Ke');
+    searchPage.suggestionGroup.waitForVisible();
+
+    searchPage.pinboardButton.click();
+    browser.getUrl().should.match(/pinboard\/5cd06f2b\/pinboard-title\/$/);
+  });
+});
+
+describe('Search Page toast', function () {
+  it('should display toast in few seconds when items are added/removed', function () {
+    searchPage.open('Ke');
+
+    searchPage.suggestionGroup.waitForVisible();
+    searchPage.firstOfficerPinButton.click();
+
+    searchPage.toast.waitForVisible();
+    searchPage.toast.getText().should.be.eql('Officer added');
+
+    browser.waitUntil(function () {
+      return searchPage.toast.isVisible() === false;
+    }, 5000, 'Toast is not removed properly');
+
+    searchPage.firstOfficerPinButton.click();
+    searchPage.toast.waitForVisible();
+    searchPage.toast.getText().should.be.eql('Officer removed');
   });
 });

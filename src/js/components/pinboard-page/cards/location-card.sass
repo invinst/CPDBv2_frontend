@@ -1,0 +1,39 @@
+@import 'variables'
+@import './with-undo-card'
+
+
+\:local(.location-card)
+  @extend %card
+  border-color: $white-two-color
+  color: $soft-black-color
+  margin: 0 8px 8px 0
+
+  .location-card-map
+    width: 100%
+    height: 88px
+
+  .location-card-body
+    width: 100%
+    height: 86px
+    padding: 8px 8px 10px 8px
+    box-sizing: border-box
+    background-color: $sugar-cane-color
+
+  .location-card-date
+    display: block
+    color: $boulder-color
+    font-size: 12px
+
+  .location-card-category
+    display: block
+    overflow-wrap: break-word
+    overflow: hidden
+    line-height: 16px
+    max-height: 48px
+    margin-top: 4px
+
+  .empty-map
+    background-image: url('/img/grid-empty-map.svg')
+    background-position: center
+    background-repeat: no-repeat
+    background-color: $satin-linen

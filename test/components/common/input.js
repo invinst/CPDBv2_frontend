@@ -137,8 +137,13 @@ describe('TextInput component', function () {
     const stubFocus = stub(instance.input, 'focus');
     stubFocus.called.should.be.false();
 
+    stubFocus.resetHistory();
     instance = reRender(<TextInput focused={ true }/>, instance);
     stubFocus.called.should.be.true();
+
+    stubFocus.resetHistory();
+    instance = reRender(<TextInput focused={ true }/>, instance);
+    stubFocus.called.should.be.false();
   });
 
   context('when blurOnKeyPress prop is provided', function () {

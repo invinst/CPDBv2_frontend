@@ -68,7 +68,6 @@ class EmbeddableHeatMapPage extends Page {
 
   open() {
     super.open('/');
-    browser.element('body').waitForVisible();
   }
 }
 

@@ -18,8 +18,9 @@ import {
   OfficerPane,
   RankPane,
   SearchTermItemPane,
-  CRPane
-} from 'components/search-page/preview-pane';
+  CRPane,
+  TRRPane,
+} from 'components/common/preview-pane';
 
 
 describe('PreviewPane component', function () {
@@ -173,9 +174,65 @@ describe('PreviewPane component', function () {
     findRenderedComponentWithType(instance, CRPane);
   });
 
+  it('should render TRRPane for TRR', function () {
+    instance = renderIntoDocument(
+      <PreviewPane
+        type='TRR'
+        data={ {
+          subText: 'TRR # 123456 - February 3, 2017',
+          category: 'Firearm',
+          incidentDate: '2017-02-03',
+          address: '14XX W 63RD ST, CHICAGO IL 60636',
+          officer: {
+            id: 16567,
+            name: 'Baudilio Lopez',
+            url: '/officer/16567/baudilio-lopez/',
+            radarAxes: [
+              { axis: 'Use of Force Reports', value: 72.1094 },
+              { axis: 'Officer Allegations', value: 61.1521 },
+              { axis: 'Civilian Allegations', value: 98.5549 }
+            ],
+            radarColor: '#f0201e',
+            count: 93
+          },
+          to: '/trr/123456/',
+        } }
+      />
+    );
+    findRenderedComponentWithType(instance, TRRPane).should.be.ok();
+  });
+
+  it('should render TRRPane for Date > TRR', function () {
+    instance = renderIntoDocument(
+      <PreviewPane
+        type='DATE > TRR'
+        data={ {
+          subText: 'TRR # 123456 - February 3, 2017',
+          category: 'Firearm',
+          incidentDate: '2017-02-03',
+          address: '14XX W 63RD ST, CHICAGO IL 60636',
+          officer: {
+            id: 16567,
+            name: 'Baudilio Lopez',
+            url: '/officer/16567/baudilio-lopez/',
+            radarAxes: [
+              { axis: 'Use of Force Reports', value: 72.1094 },
+              { axis: 'Officer Allegations', value: 61.1521 },
+              { axis: 'Civilian Allegations', value: 98.5549 }
+            ],
+            radarColor: '#f0201e',
+            count: 93
+          },
+          to: '/trr/123456/',
+        } }
+      />
+    );
+    findRenderedComponentWithType(instance, TRRPane).should.be.ok();
+  });
+
   it('should not display any component if the data is empty', function () {
     instance = renderIntoDocument(
-      <PreviewPane/>
+      <PreviewPane customClass='test--preview-pane'/>
     );
     scryRenderedDOMComponentsWithClass(instance, 'test--preview-pane').should.have.length(0);
   });
@@ -185,6 +242,7 @@ describe('PreviewPane component', function () {
       <PreviewPane
         data={ { name: 'Community' } }
         type='NOT_FOUND'
+        customClass='test--preview-pane'
       />
     );
     const instanceDOM = findRenderedDOMComponentWithClass(instance, 'test--preview-pane');
