@@ -1,0 +1,49 @@
+@import 'variables'
+@import 'common'
+
+\:local(.demo-video)
+  float: right
+  @extend %vertical-align-middle
+  font-weight: 300
+
+  .demo-video-text
+    @extend %vertical-align-middle
+    text-align: right
+    display: inline-block
+    margin-right: 12px
+
+    .demo-video-text-upper
+      color: $boulder-color
+
+    .demo-video-text-lower
+      color: $accent-color
+
+  .demo-video-button
+    display: inline-block
+    position: relative
+
+    .demo-video-thumbnail
+      width: 100px
+      height: 66px
+      display: inline-block
+      cursor: pointer
+      outline: solid 5px $accent-color50
+
+    .demo-video-play-button
+      @extend %vertical-align-middle
+      margin: 0 auto
+      display: block
+      position: absolute
+      left: 0
+      right: 0
+      cursor: pointer
+
+  &.bottom
+    .demo-video-thumbnail
+      outline: solid 5px $white50-color
+
+    .demo-video-text-upper
+      color: white
+
+    .demo-video-text-lower
+      color: white

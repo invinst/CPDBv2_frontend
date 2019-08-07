@@ -42,7 +42,7 @@ describe('Crawlers Page', function () {
   it('should able to scroll and should not open log file model when click on no log url crawler row', function () {
     crawlersPage.tableSection.rowCount().should.equal(20);
 
-    browser.scroll(0, 99999);
+    browser.scroll(0, 9999);
     browser.pause(1000);
 
     crawlersPage.tableSection.rowCount().should.equal(25);

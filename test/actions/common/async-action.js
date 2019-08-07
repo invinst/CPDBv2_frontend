@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import { stub } from 'sinon';
 
 import {
-  get, post, patch, put, authenticatedGet,
+  get, post, patch, put, authenticatedGet, withoutCredentialsGet,
   authenticatedPost, authenticatedPatch, authenticatedPut
 } from 'actions/common/async-action';
 
@@ -70,6 +70,26 @@ describe('async-action', function () {
         }
       });
       Cookies.get.restore();
+    });
+  });
+
+  describe('withoutCredentialsGet', function () {
+    it('should return the right action', function () {
+      const url = '/url';
+      const types = ['a', 'b', 'c'];
+
+      withoutCredentialsGet(url, types)().should.eql({
+        types,
+        payload: {
+          request: {
+            url,
+            params: undefined,
+            adapter: null,
+            cancelToken: undefined,
+            withCredentials: false,
+          }
+        }
+      });
     });
   });
 

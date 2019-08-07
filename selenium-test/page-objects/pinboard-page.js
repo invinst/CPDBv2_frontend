@@ -101,57 +101,56 @@ class AnimatedSocialGraphSection extends Section {
 
 
 class BaseComplaintCardSection extends Section {
-  constructor(baseSelector) {
-    super();
-
-    this.mainElementSelector = `${baseSelector}//div[contains(@class, "base-complaint-card")]`;
-    this.wrapperSelector = `${baseSelector}//div[contains(@class, "swiper-slide")]`;
+  constructor(parentSelector) {
+    super(parentSelector, '//div[contains(@class, "base-complaint-card")]');
 
     this.prepareElementGetters({
-      mainElement: this.mainElementSelector,
-      leftHalf: `${this.mainElementSelector}//div[contains(@class, "left-half")]`,
-      rightHalf: `${this.mainElementSelector}//div[contains(@class, "right-half")]`,
-      thumbnail: `${this.mainElementSelector}//div[contains(@class, "document-card-thumbnail")]`,
-      plusButton: `${this.mainElementSelector}//div[contains(@class, "plus-button")]`,
-      incidentDate: `${this.mainElementSelector}//div[contains(@class, "incident-date")]`,
-      category: `${this.mainElementSelector}//div[contains(@class, "category")]`,
-      topOfficers: `${this.mainElementSelector}//div[contains(@class, "top-officers")]`,
-      firstTopOfficerName: `${this.mainElementSelector}//div[@class="top-officer-row-officer-name"]`,
-      secondTopOfficerName: `(${this.mainElementSelector}//div[@class="top-officer-row-officer-name"])[2]`,
-      remainingOfficers: `${this.mainElementSelector}//div[contains(@class, "remaining-officers")]`,
-      miniOfficerToken: `${this.mainElementSelector}//div[contains(@class, "mini-officer-visual-token")]`,
-      notShowingOfficerCount: `${this.mainElementSelector}//div[contains(@class, "not-showing-officer-count")]`,
+      leftHalf: '//div[contains(@class, "left-half")]',
+      rightHalf: '//div[contains(@class, "right-half")]',
+      thumbnail: '//div[contains(@class, "document-card-thumbnail")]',
+      plusButton: '//div[contains(@class, "plus-button")]',
+      incidentDate: '//div[contains(@class, "incident-date")]',
+      category: '//div[contains(@class, "category")]',
+      topOfficers: '//div[contains(@class, "top-officers")]',
+      firstTopOfficerName: '//div[@class="top-officer-row-officer-name"]',
+      secondTopOfficerName: '(//div[@class="top-officer-row-officer-name"])[2]',
+      remainingOfficers: '//div[contains(@class, "remaining-officers")]',
+      miniOfficerToken: '//div[contains(@class, "mini-officer-visual-token")]',
+      notShowingOfficerCount: '//div[contains(@class, "not-showing-officer-count")]',
     });
   }
 }
 
-class CoaccusalCardSection extends Section {
-  constructor(baseSelector) {
-    super();
+class UndoCardSection extends Section {
+  constructor(parentSelector='') {
+    super(parentSelector, '//div[contains(@class, "test--undo-card")]');
+    this.prepareElementGetters();
+  }
+}
 
-    this.mainElementSelector = `${baseSelector}//div[contains(@class, "relevant-coaccusal-card")]`;
-    this.wrapperSelector = `${baseSelector}//div[contains(@class, "swiper-slide")]`;
+class CoaccusalCardSection extends Section {
+  constructor(parentSelector) {
+    super(parentSelector, '//div[contains(@class, "relevant-coaccusal-card")]');
 
     this.prepareElementGetters({
-      mainElement: this.mainElementSelector,
-      plusButton: `${this.mainElementSelector}//div[contains(@class, "plus-button")]`,
-      radarChart: `${this.mainElementSelector}//div[contains(@class, "radar-chart-wrapper")]`,
-      nameWrapper: `${this.mainElementSelector}//div[contains(@class, "officer-name-wrapper")]`,
-      officerRank: `${this.mainElementSelector}//p[contains(@class, "officer-card-rank")]`,
-      officerName: `${this.mainElementSelector}//p[contains(@class, "officer-card-name")]`,
-      coaccusalCount: `${this.mainElementSelector}//div[contains(@class, "coaccusal-count")]`,
-      undoCard: '.test--undo-card',
+      plusButton: '//div[contains(@class, "plus-button")]',
+      radarChart: '//div[contains(@class, "radar-chart-wrapper")]',
+      nameWrapper: '//div[contains(@class, "officer-name-wrapper")]',
+      officerRank: '//p[contains(@class, "officer-card-rank")]',
+      officerName: '//p[contains(@class, "officer-card-name")]',
+      coaccusalCount: '//div[contains(@class, "coaccusal-count")]',
     });
   }
 }
 
 class BaseRelevantSection extends Section {
-  constructor(baseSelector) {
-    super();
+  constructor(parentSelector, mainElementSelector) {
+    super(parentSelector, mainElementSelector);
     this.prepareElementGetters({
-      title: `${baseSelector}//div[contains(@class, "relevant-infinite-carousel-title")]`,
-      leftArrow: `${baseSelector}//button[contains(@class, "left relevant-carousel-arrow")]`,
-      rightArrow: `${baseSelector}//button[contains(@class, "right relevant-carousel-arrow")]`,
+      title: '//div[contains(@class, "relevant-infinite-carousel-title")]',
+      leftArrow: '//button[contains(@class, "left relevant-carousel-arrow")]',
+      rightArrow: '//button[contains(@class, "right relevant-carousel-arrow")]',
+      undoCard: UndoCardSection,
     });
   }
 }
@@ -159,9 +158,10 @@ class BaseRelevantSection extends Section {
 
 class RelevantDocumentsSection extends BaseRelevantSection {
   constructor() {
-    const baseSelector = '//div[contains(@class, "relevant-documents")]';
-    super(baseSelector);
-    this.documentCardSection = new BaseComplaintCardSection(baseSelector);
+    super('', '//div[contains(@class, "relevant-documents")]');
+    this.prepareElementGetters({
+      documentCardSection: BaseComplaintCardSection,
+    });
   }
 
   documentCards() {
@@ -171,9 +171,10 @@ class RelevantDocumentsSection extends BaseRelevantSection {
 
 class RelevantComplaintsSection extends BaseRelevantSection {
   constructor() {
-    const baseSelector = '//div[contains(@class, "relevant-complaints")]';
-    super(baseSelector);
-    this.complaintCardSection = new BaseComplaintCardSection(baseSelector);
+    super('', '//div[contains(@class, "relevant-complaints")]');
+    this.prepareElementGetters({
+      complaintCardSection: BaseComplaintCardSection,
+    });
   }
 
   complaintCards() {
@@ -183,9 +184,10 @@ class RelevantComplaintsSection extends BaseRelevantSection {
 
 class RelevantCoaccusalsSection extends BaseRelevantSection {
   constructor() {
-    const baseSelector = '//div[contains(@class, "relevant-coaccusals")]';
-    super(baseSelector);
-    this.coaccusalCardSection = new CoaccusalCardSection(baseSelector);
+    super('', '//div[contains(@class, "relevant-coaccusals")]');
+    this.prepareElementGetters({
+      coaccusalCardSection: CoaccusalCardSection,
+    });
   }
 
   coaccusalCards() {
@@ -232,10 +234,9 @@ class GeographicSection extends Section {
 
 class EmptyPinboardSection extends Section {
   constructor() {
-    super();
+    super('', '//div[contains(@class, "empty-pinboard__empty-pinboard")]');
 
     this.prepareElementGetters({
-      mainElement: '//div[contains(@class, "empty-pinboard__empty-pinboard")]',
       firstExample: '//a[contains(@class, "example-pinboard-link__example-pinboard-link")][1]',
       secondExample: '//a[contains(@class, "example-pinboard-link__example-pinboard-link")][2]',
     });
@@ -247,7 +248,7 @@ class PreviewPane extends Section {
     super();
 
     this.prepareElementGetters({
-      mainElement: '//div[starts-with(@class, "preview-pane")]',
+      wrapper: '//div[starts-with(@class, "preview-pane")]',
       actionText: '.new-call-to-action-widget-text',
       trrTitle: '.trr-preview-pane-title-title',
       trrFirstInfo: '//div[@class="trr-preview-pane-info-row"][1]',
