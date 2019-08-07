@@ -65,6 +65,11 @@ export default class SocialGraph extends Component {
       .html(this.graphTooltip);
     this.svg.call(this.tip);
     this.drawGraph();
+    d3.select(window).on('resize', this.resizeGraph);
+  }
+
+  componentWillUnmount() {
+    d3.select(window).on('resize', null);
   }
 
   componentDidUpdate(prevProps) {
@@ -161,7 +166,6 @@ export default class SocialGraph extends Component {
       .on('tick', this.tick);
 
     this.resizeGraph();
-    d3.select(window).on('resize', this.resizeGraph);
 
     this.data.linkedByIndex = {};
     this.data.links.forEach((link) => {
