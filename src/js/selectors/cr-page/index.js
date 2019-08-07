@@ -3,7 +3,7 @@ import { map, get, reduce, defaults, sortBy, kebabCase, isNil, isEmpty, compact 
 import pluralize from 'pluralize';
 
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
-import { getBreadcrumb } from '../breadcrumbs';
+import { getBreadcrumb } from 'selectors/breadcrumbs';
 import { getFindingOutcomeMix } from './finding-outcome-mix';
 import { officerCardTransform } from 'selectors/common/officer-card';
 import { getDemographicString } from 'utils/victims';
