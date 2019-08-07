@@ -10,6 +10,7 @@ class AnimatedSocialGraphSection extends Section {
       title: '(//div[contains(@class, "sidenav-title")])',
       coaccusalsThresholdText: '(//p[contains(@class, "coaccusals-threshold-text")])',
       toggleTimelineButton: '(//button[contains(@class, "toggle-timeline-btn")])',
+      toggleTimelineIcon: '(//button[contains(@class, "toggle-timeline-btn")]//div)',
       searchInput: '(//input[contains(@class, "graph-search-input")])',
       searchButton: '(//button[contains(@class, "graph-search-btn")])',
       startDate: '(//div[contains(@class, "start-date-label")])',

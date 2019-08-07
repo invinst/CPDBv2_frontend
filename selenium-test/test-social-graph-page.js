@@ -81,19 +81,41 @@ describe('Social Graph Page', function () {
   });
 
   it('should pause timeline when click on toggle timeline button', function () {
-    browser.waitUntil(function () {
-      return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '1994-01-10';
-    }, 10000, 'expected timeline reaches specific date after 10s', 50);
-    socialGraphPage.animatedSocialGraphSection.toggleTimelineButton.click();
-    socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
-    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(10);
+    const toggleTimelineButton = socialGraphPage.animatedSocialGraphSection.toggleTimelineButton;
+    const toggleTimelineIcon = socialGraphPage.animatedSocialGraphSection.toggleTimelineIcon;
 
-    socialGraphPage.animatedSocialGraphSection.toggleTimelineButton.click();
     browser.waitUntil(function () {
       return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '2008-01-11';
-    }, 15000, 'expected timeline reaches specific date after 15s');
-    socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
-    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(37);
+    }, 15000, 'expected timeline reaches end date after 15s');
+    browser.waitUntil(function () {
+      return toggleTimelineIcon.getAttribute('class') === 'play-icon';
+    });
+
+    toggleTimelineButton.click();
+
+    const middleDays = [
+      '1992-03-08',
+      '1994-01-10',
+      '1994-03-07',
+      '1994-03-12',
+      '1994-04-17',
+      '1998-11-17',
+      '1999-02-08',
+      '1999-07-22',
+      '2006-03-15'
+    ];
+    toggleTimelineIcon.getAttribute('class').should.equal('pause-icon');
+    browser.waitUntil(function () {
+      return middleDays.indexOf(socialGraphPage.animatedSocialGraphSection.currentDate.getText()) !== -1;
+    });
+
+    toggleTimelineButton.click();
+    toggleTimelineIcon.getAttribute('class').should.equal('play-icon');
+
+    toggleTimelineButton.click();
+    browser.waitUntil(function () {
+      return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '2008-01-11';
+    }, 15000, 'expected timeline reaches end date after 15s');
   });
 
   it('should change the graph when click on specific part of the timeline', function () {
