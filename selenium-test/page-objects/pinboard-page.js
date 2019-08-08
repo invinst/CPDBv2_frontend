@@ -326,7 +326,9 @@ class PinboardPage extends Page {
   }
 
   open(id='5cd06f2b') {
-    super.open(`/pinboard/${id}/pinboard-title/`);
+    const url = id ? `/pinboard/${id}/pinboard-title/` : '/pinboard/';
+
+    super.open(url);
   }
 }
 

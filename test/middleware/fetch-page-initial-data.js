@@ -462,4 +462,17 @@ describe('fetchPageInitialData middleware', function () {
     store.dispatch.should.not.be.calledWith(fetchPinboardRelevantCoaccusals('268a5e5'));
     store.dispatch.should.not.be.calledWith(fetchPinboardRelevantComplaints('268a5e5'));
   });
+
+  it('should dispatch redirect if it is no id pinboard page', function () {
+    const store = buildStore();
+    _.set(store._state, 'pinboardPage.pinboard.id', null);
+    const action = createLocationChangeAction('/pinboard/');
+    let dispatched;
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+
+    store.dispatch.should.be.calledThrice();
+    store.dispatch.calledWith(redirect(true)).should.be.true();
+  });
 });

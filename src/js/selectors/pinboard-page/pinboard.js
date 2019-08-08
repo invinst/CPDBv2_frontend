@@ -28,6 +28,11 @@ export const getPinboard = createSelector(
   })
 );
 
+export const isPinboardRestoredSelector = createSelector(
+  state => state.pinboardPage.pinboard,
+  pinboard => get(pinboard, 'isPinboardRestored', false),
+);
+
 export const pinboardItemsSelector = createSelector(
   getPinboard,
   ({ officerIds, crids, trrIds }) => ({

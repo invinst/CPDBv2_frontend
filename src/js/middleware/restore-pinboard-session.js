@@ -1,16 +1,14 @@
-import { getPinboard } from 'selectors/pinboard-page/pinboard';
+import { isPinboardRestoredSelector } from 'selectors/pinboard-page/pinboard';
 import { fetchLatestRetrievedPinboard } from 'actions/pinboard';
 
 
 export default store => next => action => {
   const result = next(action);
 
-  if (action.type === '@@router/LOCATION_CHANGE' &&
-    !action.payload.pathname.match(/\/pinboard\/[a-fA-F0-9]+\//)) {
+  if (action.type === '@@router/LOCATION_CHANGE') {
     const state = store.getState();
-    const pinboard = getPinboard(state);
-    if (!pinboard.isPinboardRestored) {
-      store.dispatch(fetchLatestRetrievedPinboard());
+    if (!isPinboardRestoredSelector(state)) {
+      store.dispatch(fetchLatestRetrievedPinboard({ create: action.payload.pathname === '/pinboard/' }));
     }
   }
 

@@ -38,7 +38,7 @@ export const EMBED_OFFICERS_PATH = 'embed/officers';
 export const TRACKER_ALL_DOCUMENTS_PATH = 'documents/crid/:crid';
 export const TRACKER_DOCUMENTS_OVERVIEW_PATH = 'documents/';
 export const SOCIAL_GRAPH_PATH = 'social-graph/';
-export const PINBOARD_PATH = 'pinboard/:pinboardId(/:pinboardTitle)';
+export const PINBOARD_PATH = 'pinboard(/:pinboardId)(/:pinboardTitle)';
 
 export const ROOT_EDIT_REGEX = /^\/(?:edit\/)?$/;
 

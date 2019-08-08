@@ -227,10 +227,12 @@ export default store => next => action => {
       dispatches.push(store.dispatch(requestCrawlers()));
     }
 
-    else if (action.payload.pathname.match(/\/pinboard\/[a-fA-F0-9]+\//)) {
+    else if (action.payload.pathname.match(/\/pinboard\/([a-fA-F0-9]+\/)?/)) {
       const idOnPath = getPinboardID(action.payload.pathname);
       const idInStore = getPinboard(state).id;
-      if (idOnPath.length === PINBOARD_HEX_ID_LENGTH) {
+      if (!idOnPath) {
+        dispatches.push(store.dispatch(redirect(true)));
+      } else if (idOnPath.length === PINBOARD_HEX_ID_LENGTH) {
         if (idOnPath === idInStore) {
           dispatches.push(store.dispatch(redirect(false)));
           dispatches.push(store.dispatch(fetchPinboard(idOnPath)));
