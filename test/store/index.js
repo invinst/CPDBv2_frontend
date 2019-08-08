@@ -204,6 +204,7 @@ describe('store', function () {
           scrollPosition: null
         },
         slimHeader: {
+          demoVideoSectionEditModeOn: false,
           logoSectionEditModeOn: false,
           videoInfo: [],
         }

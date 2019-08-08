@@ -3,7 +3,7 @@ import {
   renderIntoDocument, Simulate,
   findRenderedDOMComponentWithClass,
 }
-from 'react-addons-test-utils';
+  from 'react-addons-test-utils';
 import { stub } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';

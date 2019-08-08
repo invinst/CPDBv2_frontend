@@ -97,15 +97,12 @@ describe('LandingPage component', function () {
 
   it('should render enough content', function () {
     const stubResetBreadcrumbs = spy();
-    const openVideoModal = spy();
 
     instance = renderIntoDocument(
       <Provider store={ store }>
         <LandingPage
           resetBreadcrumbs={ stubResetBreadcrumbs }
           pathname='/'
-          openVideoModal={ openVideoModal }
-          videoThumbnailUrl='https://i.vimeocdn.com/video/797111186_100x75.webp'
         />
       </Provider>
     );
@@ -119,8 +116,6 @@ describe('LandingPage component', function () {
 
     const slimHeader = findRenderedComponentWithType(responsiveStyleComponent, SlimHeader);
     slimHeader.props.pathname.should.equal('/');
-    slimHeader.props.openVideoModal.should.equal(openVideoModal);
-    slimHeader.props.videoThumbnailUrl.should.equal('https://i.vimeocdn.com/video/797111186_100x75.webp');
 
     findRenderedComponentWithType(responsiveStyleComponent, HeatMap).should.be.ok();
     findRenderedComponentWithType(responsiveStyleComponent, OfficersByAllegation).should.be.ok();

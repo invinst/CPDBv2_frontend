@@ -68,10 +68,6 @@ export default class SocialGraph extends Component {
     d3.select(window).on('resize', this.resizeGraph);
   }
 
-  componentWillUnmount() {
-    d3.select(window).on('resize', null);
-  }
-
   componentDidUpdate(prevProps) {
     const { coaccusedData, timelineIdx, selectedOfficerId, selectedEdge, performResizeGraph } = this.props;
 
@@ -91,6 +87,10 @@ export default class SocialGraph extends Component {
         this._updateSelectedEdge();
       }
     }
+  }
+
+  componentWillUnmount() {
+    d3.select(window).on('resize', null);
   }
 
   handleNodeClick(currentNode) {
@@ -461,7 +461,7 @@ export default class SocialGraph extends Component {
   tick(e) {
     // bounded graph
     this.node.attr('cx', (d) => d.x = Math.max(RADIUS, Math.min(this.width - RADIUS, d.x || 0)))
-    .attr('cy', (d) => d.y = Math.max(RADIUS, Math.min(this.height - RADIUS, d.y || 0)));
+      .attr('cy', (d) => d.y = Math.max(RADIUS, Math.min(this.height - RADIUS, d.y || 0)));
 
     this.label.attr('x', (d) => d.x + (d.degree / 2 + 2))
       .attr('y', (d) => d.y);

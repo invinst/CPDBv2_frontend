@@ -116,8 +116,8 @@ export const groupedSuggestions = {
           'sub_category': 'Reports',
           address: '14XX W 63RD ST, CHICAGO IL 60636',
           'victims': [
-              { 'gender': 'Female', 'race': 'Hispanic' },
-              { 'gender': 'Female', 'race': 'Hispanic' }
+            { 'gender': 'Female', 'race': 'Hispanic' },
+            { 'gender': 'Female', 'race': 'Hispanic' }
           ],
           'coaccused': [
             {
@@ -224,8 +224,8 @@ export const groupedSuggestions = {
           'sub_category': 'Reports',
           address: '14XX W 63RD ST, CHICAGO IL 60636',
           'victims': [
-              { 'gender': 'Female', 'race': 'Hispanic' },
-              { 'gender': 'Female', 'race': 'Hispanic' }
+            { 'gender': 'Female', 'race': 'Hispanic' },
+            { 'gender': 'Female', 'race': 'Hispanic' }
           ],
           'coaccused': [
             {
@@ -389,8 +389,8 @@ export const groupedSuggestions = {
           highlight: {},
           address: '14XX W 63RD ST, CHICAGO IL 60636',
           'victims': [
-              { 'gender': 'Female', 'race': 'Hispanic' },
-              { 'gender': 'Female', 'race': 'Hispanic' }
+            { 'gender': 'Female', 'race': 'Hispanic' },
+            { 'gender': 'Female', 'race': 'Hispanic' }
           ],
           'coaccused': [
             {
@@ -472,8 +472,8 @@ export const groupedSuggestions = {
           'sub_category': 'Reports',
           address: '14XX W 63RD ST, CHICAGO IL 60636',
           'victims': [
-              { 'gender': 'Female', 'race': 'Hispanic' },
-              { 'gender': 'Female', 'race': 'Hispanic' }
+            { 'gender': 'Female', 'race': 'Hispanic' },
+            { 'gender': 'Female', 'race': 'Hispanic' }
           ],
           'coaccused': [
             {

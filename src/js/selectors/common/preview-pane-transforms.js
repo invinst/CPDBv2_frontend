@@ -89,8 +89,8 @@ const accusedTransform = coaccused => {
     url: `/officer/${coaccused.id}/${kebabCase(coaccused['full_name'])}/`,
     count:
       has(coaccused, 'allegation_count') ? coaccused['allegation_count'] :
-      has(coaccused, 'complaint_count') ? coaccused['complaint_count'] :
-      0,
+        has(coaccused, 'complaint_count') ? coaccused['complaint_count'] :
+          0,
     radarAxes: percentile.items,
     radarColor: percentile.visualTokenBackground,
   };
@@ -142,8 +142,8 @@ export const officerTransform = (item) => {
   const race = item['race'] === 'Unknown' ? null : item['race'];
   const lastPercentile =
     has(item, 'percentile') ? item['percentile'] :
-    has(item, 'percentiles') ? last(item['percentiles']) :
-    {};
+      has(item, 'percentiles') ? last(item['percentiles']) :
+        {};
 
   return {
     id: item['id'],

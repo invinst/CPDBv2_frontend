@@ -20,7 +20,7 @@ export class MiniVisualToken extends Component {
           height={ 22 }
           radius={ 10 }
           offsetTop={ 2 }
-      />
+        />
       </div>
     );
   }

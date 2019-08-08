@@ -110,9 +110,9 @@ const getInvolvementsSelector = createSelector(
     accumulator = defaults(accumulator, { [type]: [] });
 
     if (
-        isNil(obj['officer_id']) ||
+      isNil(obj['officer_id']) ||
         map(accumulator[type], 'id').indexOf(obj['officer_id']) === -1
-      ) {
+    ) {
       let officer = {
         id: obj['officer_id'],
         fullName: obj['full_name'],

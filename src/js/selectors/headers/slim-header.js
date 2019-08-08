@@ -3,6 +3,8 @@ import { createSelector } from 'reselect';
 
 export const getLogoSectionEditModeOn = state => state.headers.slimHeader.logoSectionEditModeOn;
 
+export const getDemoVideoSectionEditModeOn = state => state.headers.slimHeader.demoVideoSectionEditModeOn;
+
 const getVideoInfo = state => first(get(state, 'headers.slimHeader.videoInfo'));
 
 export const hasVideoInfoSelector = createSelector(

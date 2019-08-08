@@ -8,7 +8,7 @@ import LogOutButtonContainer from 'containers/log-out-container';
 import SearchBox from 'components/headers/slim-header/slim-header-content/search-box';
 import { scrollToTop } from 'utils/dom';
 import styles from './slim-header-content.sass';
-import DemoVideo from './demo-video';
+import DemoVideoContainer from 'containers/headers/slim-header/demo-video-container';
 
 
 class SlimHeaderContent extends Component {
@@ -18,7 +18,7 @@ class SlimHeaderContent extends Component {
   }
 
   render() {
-    const { pathname, editModeOn, style, className, openVideoModal, videoThumbnailUrl } = this.props;
+    const { pathname, editModeOn, style, className } = this.props;
     const position = this.getPosition();
 
     return (
@@ -33,10 +33,9 @@ class SlimHeaderContent extends Component {
               <div className='logo'>
                 <LogoContainer position={ position } editModeOn={ editModeOn }/>
               </div>
-              <DemoVideo
+              <DemoVideoContainer
                 position={ position }
-                openVideoModal={ openVideoModal }
-                videoThumbnailUrl={ videoThumbnailUrl }
+                editModeOn={ editModeOn }
               />
             </div>
           </div>
@@ -64,8 +63,6 @@ SlimHeaderContent.propTypes = {
   style: PropTypes.object,
   disableTop: PropTypes.bool,
   className: PropTypes.string,
-  openVideoModal: PropTypes.func,
-  videoThumbnailUrl: PropTypes.string,
 };
 
 SlimHeaderContent.defaultProps = {

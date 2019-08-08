@@ -448,7 +448,7 @@ describe('fetchPageInitialData middleware', function () {
   it('should not dispatch fetchPinboard if requesting ID is not valid', function () {
     const store = buildStore();
     _.set(store._state, 'pinboardPage.pinboard.id', null);
-    const action = createLocationChangeAction('/pinboard/268a5e5/');  // Not enough 8 characters
+    const action = createLocationChangeAction('/pinboard/268a5e5/'); // Not enough 8 characters
     let dispatched;
 
     fetchPageInitialData(store)(action => dispatched = action)(action);

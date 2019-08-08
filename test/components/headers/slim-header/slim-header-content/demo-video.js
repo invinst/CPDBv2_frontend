@@ -3,12 +3,14 @@ import { findDOMNode } from 'react-dom';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
+  findRenderedComponentWithType,
   Simulate,
 } from 'react-addons-test-utils';
 import { stub } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import DemoVideo from 'components/headers/slim-header/slim-header-content/demo-video';
+import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 
 
 describe('DemoVideo component', function () {
@@ -28,8 +30,10 @@ describe('DemoVideo component', function () {
     );
 
     findDOMNode(instance).getAttribute('class').should.containEql('top');
-    findRenderedDOMComponentWithClass(instance, 'demo-video-text-upper').textContent.should.eql('WATCH:');
-    findRenderedDOMComponentWithClass(instance, 'demo-video-text-lower').textContent.should.eql('What is CPDP?');
+    const richTextEditable = findRenderedComponentWithType(instance, RichTextEditable);
+    richTextEditable.props.className.should.equal('demo-video-text-input');
+    richTextEditable.props.placeholder.should.equal('What is CPDP?');
+    richTextEditable.props.fieldname.should.equal('demo_video_text');
     findRenderedDOMComponentWithClass(instance, 'demo-video-thumbnail').getAttribute('src').should.eql(
       'https://i.vimeocdn.com/video/797111186_100x75.webp'
     );

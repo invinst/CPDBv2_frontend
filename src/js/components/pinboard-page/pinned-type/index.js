@@ -22,7 +22,7 @@ export default class PinnedType extends Component {
         {
           (requesting && noItems) ?
             <LoadingSpinner className='pinned-type-loading'/>
-          :
+            :
             <PinnedGrid { ...omit(this.props, ['requesting', 'title']) }/>
         }
       </div>
