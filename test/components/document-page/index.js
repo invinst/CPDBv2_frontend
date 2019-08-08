@@ -18,6 +18,7 @@ import ShareableHeader from 'components/headers/shareable-header';
 import FooterContainer from 'containers/footer-container';
 import SimpleListWidget from 'components/document-page/simple-list-widget';
 import EditableTextBox from 'components/document-page/editable-text-box';
+import EditableTagsInput from 'components/document-page/editable-tags-input';
 
 
 describe('DocumentPage component', function () {
@@ -48,6 +49,7 @@ describe('DocumentPage component', function () {
         'id': 14193,
         'crid': '1083633',
         'title': 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)',
+        'tags': ['tag1', 'tag2'],
         'text_content': 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE',
         'url': 'https://assets.documentcloud.org/documents/5680384/CRID-1083633-CR-CRID-1083633-CR-Tactical.pdf',
         'preview_image_url': 'https://assets.documentcloud.org/documents/5680384/pages/CRID-1083633.gif',
@@ -105,6 +107,7 @@ describe('DocumentPage component', function () {
         'notifications_count': 10,
       },
       titleEditModeOn: false,
+      tagsEditModeOn: false,
       textContentEditModeOn: false
     },
   };
@@ -216,6 +219,11 @@ describe('DocumentPage component', function () {
         key: 'title',
         value: 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)'
       },
+      tags: {
+        type: 'array',
+        key: 'tags',
+        value: ['tag1', 'tag2']
+      },
       textContent: {
         type: 'string',
         key: 'text_content',
@@ -237,6 +245,11 @@ describe('DocumentPage component', function () {
         type: 'string',
         key: 'title',
         value: 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)'
+      },
+      tags: {
+        type: 'array',
+        key: 'tags',
+        value: ['tag1', 'tag2']
       },
       textContent: {
         type: 'string',
@@ -312,5 +325,45 @@ describe('DocumentPage component', function () {
 
     const linkDocumentsContent = findRenderedDOMComponentWithClass(instance, 'linked-documents-content');
     linkDocumentsContent.getAttribute('href').should.eql('/documents/crid/1083633/');
+  });
+
+  it('should render EditableTagsInput for authenticated users', function () {
+    const newState = cloneDeep(state);
+    set(newState, 'authentication.apiAccessToken', '123456');
+    const newStore = MockStore()(newState);
+
+    const recentDocument = () => (
+      <Provider store={ newStore }>
+        <DocumentPageContainer />
+      </Provider>
+    );
+
+    instance = renderIntoDocument(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ recentDocument } />
+      </Router>
+    );
+
+    scryRenderedComponentsWithType(instance, EditableTagsInput).should.have.length(1);
+  });
+
+  it('should not render EditableTagsInput for unauthenticated users', function () {
+    const newState = cloneDeep(state);
+    set(newState, 'authentication.apiAccessToken', '');
+    const newStore = MockStore()(newState);
+
+    const recentDocument = () => (
+      <Provider store={ newStore }>
+        <DocumentPageContainer />
+      </Provider>
+    );
+
+    instance = renderIntoDocument(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ recentDocument } />
+      </Router>
+    );
+
+    scryRenderedComponentsWithType(instance, EditableTagsInput).should.have.length(0);
   });
 });

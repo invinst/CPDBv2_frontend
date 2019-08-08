@@ -1,12 +1,38 @@
 'use strict';
 
 import Page from './page';
+import Section from './sections/section';
 import LoginScreen from './sections/login-screen';
 
 const getInfoItemSelector = (text) =>
   `//div[contains(@class, "document-info")]/*[@class="list-item" and span[text()="${text}"]]`;
 
+class TagsSection extends Section {
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      tagsInput: '//div[contains(@class, "main-section-tags")]//div[contains(@class, "simple-tag-editable")]',
+      tags: '//div[contains(@class, "main-section-tags")]//span[@class="react-tagsinput-tag"]',
+      editButton: '//div[contains(@class, "main-section-tags")]' +
+        '//a[contains(@class, "hoverable-edit-wrapper-button") and text()="Edit"]',
+      saveButton: '//div[contains(@class, "main-section-tags")]' +
+        '//a[contains(@class, "hoverable-edit-wrapper-button") and text()="Save"]',
+      cancelButton: '//div[contains(@class, "main-section-tags")]' +
+        '//a[contains(@class, "hoverable-edit-wrapper-button") and text()="Cancel"]',
+      firstTag: '//div[contains(@class, "main-section-tags")]//span[@class="react-tagsinput-tag"][1]',
+      secondTag: '//div[contains(@class, "main-section-tags")]//span[@class="react-tagsinput-tag"][2]',
+      thirdTag: '//div[contains(@class, "main-section-tags")]//span[@class="react-tagsinput-tag"][3]',
+      firstTagDeleteBtn: '//div[contains(@class, "main-section-tags")]' +
+        '//span[@class="react-tagsinput-tag"][1]//a[@class="react-tagsinput-remove"]',
+      tagsInputTextbox: '.main-section-tags .react-tagsinput-input',
+    });
+  }
+}
+
 class DocumentPage extends Page {
+  tagsSection = new TagsSection();
+
   constructor() {
     super();
 

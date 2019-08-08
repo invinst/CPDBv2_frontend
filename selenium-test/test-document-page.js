@@ -83,6 +83,9 @@ describe('Document page', function () {
       documentPage.documentTitle.getText().should.equal(
         'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)'
       );
+      documentPage.tagsSection.tags.count.should.equal(2);
+      documentPage.tagsSection.firstTag.getText().should.equal('hospital');
+      documentPage.tagsSection.secondTag.getText().should.equal('tactical');
       documentPage.documentText.getText().should.equal(
         'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE'
       );
@@ -94,6 +97,43 @@ describe('Document page', function () {
       documentPage.views.getText().should.endWith('1,000');
       documentPage.downloads.getText().should.endWith('100');
       documentPage.notifications.getText().should.endWith('10');
+    });
+
+    it('should be able to update document tags', function () {
+      documentPage.tagsSection.tags.count.should.equal(2);
+      documentPage.tagsSection.firstTag.getText().should.equal('hospital');
+      documentPage.tagsSection.secondTag.getText().should.equal('tactical');
+
+      browser.moveToObject(documentPage.tagsSection.tagsInput.selector);
+      documentPage.tagsSection.editButton.click();
+      documentPage.tagsSection.firstTagDeleteBtn.click();
+      documentPage.tagsSection.tagsInputTextbox.setValue('chicago');
+      browser.keys('Enter');
+      documentPage.tagsSection.tagsInputTextbox.setValue('copa');
+      browser.keys('Enter');
+
+      documentPage.tagsSection.cancelButton.click();
+
+      documentPage.tagsSection.tags.count.should.equal(2);
+      documentPage.tagsSection.firstTag.getText().should.equal('hospital');
+      documentPage.tagsSection.secondTag.getText().should.equal('tactical');
+
+      browser.moveToObject(documentPage.tagsSection.tagsInput.selector);
+      documentPage.tagsSection.editButton.click();
+      documentPage.tagsSection.firstTagDeleteBtn.click();
+
+      documentPage.tagsSection.tagsInputTextbox.setValue('chicago');
+      browser.keys('Enter');
+      documentPage.tagsSection.tagsInputTextbox.setValue('copa');
+      browser.keys('Enter');
+
+      browser.moveToObject(documentPage.tagsSection.tagsInput.selector);
+      documentPage.tagsSection.saveButton.click();
+
+      documentPage.tagsSection.tags.count.should.equal(3);
+      documentPage.tagsSection.firstTag.getText().should.equal('tactical');
+      documentPage.tagsSection.secondTag.getText().should.equal('chicago');
+      documentPage.tagsSection.thirdTag.getText().should.equal('copa');
     });
 
     it('should go to document dedup page when the user clicks on link documents section', function () {
