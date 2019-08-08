@@ -20,7 +20,7 @@ export default class PinboardInfo extends Component {
         <AutosaveTextareaInput
           className='pinboard-description'
           value={ pinboard.description }
-          placeholder='Now, write something brief, describing your pinboard.'
+          placeholder='Now, click here to write a brief description of your pinboard.'
           fieldType='description'
           save={ updatePinboardInfo }
           textareaLineHeight={ 16 }

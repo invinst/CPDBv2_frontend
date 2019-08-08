@@ -192,7 +192,7 @@ describe('SearchPage component', function () {
         <Provider store={ store }>
           <SearchPage
             focusedItem={ NavigationItem.build({ id: 'OFFICER', 'type': MORE_BUTTON }) }
-            />
+          />
         </Provider>
       );
       Mousetrap.trigger('enter');

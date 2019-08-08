@@ -30,7 +30,7 @@ function mapStateToProps(state, ownProps) {
     editModeOn,
     onSelect,
     contentType,
-} = ownProps;
+  } = ownProps;
   const { isRequesting, navigation, query } = state.searchPage;
 
   return {

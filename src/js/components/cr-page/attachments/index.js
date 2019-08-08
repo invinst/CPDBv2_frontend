@@ -25,41 +25,41 @@ export default class Attachments extends Component {
 
     return (
       printMode
-      ? (
-        <PrintAttachments items={ items }/>
-      ) : (
-        <div className={ cx(styles.attachmentsContainer, { 'has-data': hasData }) }>
-          <div className='attachments-content'>
-            {
-              hasData
-              ? (
-                <AttachmentHeader
-                  openRequestDocumentModal={ openRequestDocumentModal }
-                  alreadyRequested={ alreadyRequested }
-                />
-              ) : (
-                <NoAttachmentHeader
-                  openRequestDocumentModal={ openRequestDocumentModal }
-                  alreadyRequested={ alreadyRequested }
-                  editWrapperStateProps={ noAttachmentTextEditWrapperStateProps }
-                />
-              )
-            }
-            <div className='attachments'>
+        ? (
+          <PrintAttachments items={ items }/>
+        ) : (
+          <div className={ cx(styles.attachmentsContainer, { 'has-data': hasData }) }>
+            <div className='attachments-content'>
               {
-                items.map((item, ind) => (
-                  <AttachmentItem
-                    key={ ind }
-                    { ...item }
-                    pathname={ pathname }
-                    onTrackingAttachment={ onTrackingAttachment }
-                  />
-                ))
+                hasData
+                  ? (
+                    <AttachmentHeader
+                      openRequestDocumentModal={ openRequestDocumentModal }
+                      alreadyRequested={ alreadyRequested }
+                    />
+                  ) : (
+                    <NoAttachmentHeader
+                      openRequestDocumentModal={ openRequestDocumentModal }
+                      alreadyRequested={ alreadyRequested }
+                      editWrapperStateProps={ noAttachmentTextEditWrapperStateProps }
+                    />
+                  )
               }
+              <div className='attachments'>
+                {
+                  items.map((item, ind) => (
+                    <AttachmentItem
+                      key={ ind }
+                      { ...item }
+                      pathname={ pathname }
+                      onTrackingAttachment={ onTrackingAttachment }
+                    />
+                  ))
+                }
+              </div>
             </div>
           </div>
-        </div>
-      )
+        )
     );
   }
 }

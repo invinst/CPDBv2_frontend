@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 import cards from './cards';
 import isRequesting from './is-requesting';
-import { headerEditModeOn } from '../carousel-header-edit-utils';
+import { headerEditModeOn } from 'reducers/landing-page/carousel-header-edit-utils';
 import { CAROUSEL_TYPES } from 'utils/constants';
 
 

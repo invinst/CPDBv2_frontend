@@ -58,7 +58,7 @@ class StrategyForm extends Component {
                 value={ strategy.id }>
                 { strategy.name }
               </option>
-              ))
+            ))
           }
         </select>
       </div>

@@ -4,7 +4,8 @@ import { RichTextFieldFactory } from 'utils/test/factories/field';
 export const landingPageCMSFields = {
   fields: [
     RichTextFieldFactory.build({ name: 'navbar_title' }),
-    RichTextFieldFactory.build({ name: 'navbar_subtitle' })
+    RichTextFieldFactory.build({ name: 'navbar_subtitle' }),
+    RichTextFieldFactory.build({ name: 'demo_video_text' }, { blockTexts: ['What is CPDP?'] }),
   ],
   meta: {}
 };

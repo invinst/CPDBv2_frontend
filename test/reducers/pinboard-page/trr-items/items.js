@@ -10,8 +10,8 @@ describe('Pinboard trrItemsReducer', function () {
   });
 
   it('should handle PINBOARD_TRRS_FETCH_REQUEST_SUCCESS', function () {
-    trrItemsReducer([
-      { 'id': 1 }],
+    trrItemsReducer(
+      [{ 'id': 1 }],
       {
         type: constants.PINBOARD_TRRS_FETCH_REQUEST_SUCCESS,
         payload: [

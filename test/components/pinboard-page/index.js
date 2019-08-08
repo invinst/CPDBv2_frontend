@@ -31,10 +31,12 @@ import {
   PINBOARD_PAGE_REDIRECT,
   PINBOARD_PAGE_FOCUS_ITEM,
   PINBOARD_FETCH_REQUEST_SUCCESS,
+  PINBOARD_EDIT_TYPES,
 } from 'utils/constants';
 import PinboardPage from 'components/pinboard-page';
 import PreviewPane from 'components/search-page/search-results/preview-pane';
 import EmptyPinboardPage from 'components/pinboard-page/empty-pinboard';
+import { buildEditStateFields } from 'utils/test/factories/draft';
 
 
 describe('PinboardPage component', function () {
@@ -46,7 +48,7 @@ describe('PinboardPage component', function () {
     pagination: { next: null, previous: null }
   };
 
-  const createPinboardPage = pinboard => ({
+  const createPinboardPage = (pinboard, editModeOn) => ({
     graphData: { requesting: false, data: {} },
     geographicData: { requesting: false, data: [] },
     currentTab: 'NETWORK',
@@ -59,11 +61,34 @@ describe('PinboardPage component', function () {
     redirect: false,
     initialRequested: true,
     focusedItem: {},
-    pinboard
+    pinboard,
+    editModeOn,
   });
 
-  const createStore = pinboard => MockStore()({
-    pinboardPage: createPinboardPage(pinboard),
+  const defaultFields = buildEditStateFields({
+    'empty_pinboard_title': ['Get started'],
+    'empty_pinboard_description': [
+      'Use search to find officers and individual complaint records and ' +
+      'press the plus button to add cards to your pinboard.',
+      '',
+      'Come back to the pinboard to give it a title and see a network map or discover relevant documents.',
+    ],
+  });
+
+  const defaultEditModeOn = {
+    [PINBOARD_EDIT_TYPES.EMPTY_PINBOARD_TITLE]: false,
+    [PINBOARD_EDIT_TYPES.EMPTY_PINBOARD_DESCRIPTION]: false,
+  };
+
+  const createStore = (pinboard, editModeOn=defaultEditModeOn, fields=defaultFields) => MockStore()({
+    pinboardPage: createPinboardPage(pinboard, editModeOn),
+    cms: {
+      pages: {
+        'pinboard-page': {
+          fields,
+        }
+      }
+    },
   });
 
   afterEach(function () {

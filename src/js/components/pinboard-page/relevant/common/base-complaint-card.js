@@ -70,7 +70,7 @@ export class BaseComplaintCard extends Component {
             </div>
           </div>
         </div>
-        { pinned || <PlusButton onClick={ this.handleClick } /> }
+        { pinned || <PlusButton darkMode={ true } onClick={ this.handleClick } /> }
       </div>
     );
   }

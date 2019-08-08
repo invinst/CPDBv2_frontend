@@ -61,6 +61,7 @@ export default class SocialGraph extends Component {
       .html(this.graphTooltip);
     this.svg.call(this.tip);
     this.drawGraph();
+    d3.select(window).on('resize', this.resizeGraph);
   }
 
   componentDidUpdate(prevProps) {
@@ -82,6 +83,10 @@ export default class SocialGraph extends Component {
         this._updateSelectedEdge();
       }
     }
+  }
+
+  componentWillUnmount() {
+    d3.select(window).on('resize', null);
   }
 
   handleNodeClick(currentNode) {
@@ -154,7 +159,6 @@ export default class SocialGraph extends Component {
       .on('tick', this.tick);
 
     this.resizeGraph();
-    d3.select(window).on('resize', this.resizeGraph);
 
     this.data.linkedByIndex = {};
     this.data.links.forEach((link) => {
@@ -427,10 +431,10 @@ export default class SocialGraph extends Component {
       const nodeRadius = this.nodeRadius(d);
       return d.x = Math.max(nodeRadius, Math.min(this.width - nodeRadius, d.x || 0));
     })
-    .attr('cy', (d) => {
-      const nodeRadius = this.nodeRadius(d);
-      return d.y = Math.max(nodeRadius, Math.min(this.height - nodeRadius, d.y || 0));
-    });
+      .attr('cy', (d) => {
+        const nodeRadius = this.nodeRadius(d);
+        return d.y = Math.max(nodeRadius, Math.min(this.height - nodeRadius, d.y || 0));
+      });
 
     this.label.attr('x', (d) => d.x + this.nodeRadius(d))
       .attr('y', (d) => d.y);

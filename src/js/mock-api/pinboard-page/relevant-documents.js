@@ -1,7 +1,5 @@
-import
-  RawRelevantDocumentFactory,
-  { RawAllegationFactory }
-from 'utils/test/factories/pinboard-page/raw-relevant-document';
+import RawRelevantDocumentFactory, { RawAllegationFactory }
+  from 'utils/test/factories/pinboard-page/raw-relevant-document';
 import { paginationResponse } from 'mock-api/pinboard-page/common';
 import RawRelevantCoaccusalFactory from 'utils/test/factories/pinboard-page/raw-officer';
 

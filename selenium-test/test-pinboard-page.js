@@ -102,7 +102,7 @@ describe('Pinboard Page', function () {
 
     it('should show preview pane when click on TRR pinned item', function () {
       pinboardPage.pinnedSection.trrs.firstElement.click();
-      pinboardPage.previewPane.mainElement.waitForVisible();
+      pinboardPage.previewPane.wrapper.waitForVisible();
       pinboardPage.previewPane.actionText.getText().should.equal('View Tactical Response Report');
       pinboardPage.previewPane.trrTitle.getText().should.equal('Impact Weapon');
       pinboardPage.previewPane.trrFirstInfo.getText().should.equal('Jan 01, 2012');
@@ -111,7 +111,7 @@ describe('Pinboard Page', function () {
 
     it('should redirect to TRR page when click on TRR preview pane', function () {
       pinboardPage.pinnedSection.trrs.firstElement.click();
-      pinboardPage.previewPane.mainElement.waitForVisible();
+      pinboardPage.previewPane.wrapper.waitForVisible();
       pinboardPage.previewPane.actionText.click();
       browser.getUrl().should.containEql('/trr/123456/');
     });
@@ -374,7 +374,7 @@ describe('Pinboard Page', function () {
 
     it('should display preview pane when click on relevant coaccusal card', function () {
       pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.mainElement.click();
-      pinboardPage.previewPane.mainElement.waitForVisible();
+      pinboardPage.previewPane.wrapper.waitForVisible();
     });
 
     it('should remove officer from the row and add to the pinned officers section', function () {
@@ -398,7 +398,7 @@ describe('Pinboard Page', function () {
       pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.mainElement.click();
       pinboardPage.officerPreviewPane.wrapper.waitForVisible();
       pinboardPage.officerPreviewPane.pinButton.click();
-      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.undoCard.waitForVisible();
+      pinboardPage.relevantCoaccusalsSection.undoCard.mainElement.waitForVisible();
     });
 
     it('should supply enough data to pinned section if user pin it', function () {
@@ -490,14 +490,14 @@ describe('Pinboard Page', function () {
       const firstDocumentCard = pinboardPage.relevantDocumentsSection.documentCardSection;
       firstDocumentCard.rightHalf.click();
 
-      pinboardPage.previewPane.mainElement.waitForVisible(1000, true);
+      pinboardPage.previewPane.wrapper.waitForVisible(1000, true);
     });
 
     it('should redirect to document page when click on the left half of document card', function () {
       const firstDocumentCard = pinboardPage.relevantDocumentsSection.documentCardSection;
       firstDocumentCard.leftHalf.click();
 
-      pinboardPage.previewPane.mainElement.waitForVisible(1000, true);
+      pinboardPage.previewPane.wrapper.waitForVisible(1000, true);
       switchToRecentTab();
       browser.getUrl().should.equal(
         'https://assets.documentcloud.org/documents/5680384/CRID-1083633-CR-CRID-1083633-CR-Tactical.pdf'
@@ -566,25 +566,25 @@ describe('Pinboard Page', function () {
     it('should display preview pane when we click on incident date', function () {
       pinboardPage.relevantComplaintsSection.complaintCardSection.incidentDate.click();
 
-      pinboardPage.previewPane.mainElement.waitForVisible();
+      pinboardPage.previewPane.wrapper.waitForVisible();
     });
 
     it('should display preview pane when we click on top officers', function () {
       pinboardPage.relevantComplaintsSection.complaintCardSection.topOfficers.click();
 
-      pinboardPage.previewPane.mainElement.waitForVisible();
+      pinboardPage.previewPane.wrapper.waitForVisible();
     });
 
     it('should display preview pane when we click on remaining officers', function () {
       pinboardPage.relevantComplaintsSection.complaintCardSection.remainingOfficers.click();
 
-      pinboardPage.previewPane.mainElement.waitForVisible();
+      pinboardPage.previewPane.wrapper.waitForVisible();
     });
 
     it('should display preview pane when we click on left half of a complaint card', function () {
       pinboardPage.relevantComplaintsSection.complaintCardSection.leftHalf.click();
 
-      pinboardPage.previewPane.mainElement.waitForVisible();
+      pinboardPage.previewPane.wrapper.waitForVisible();
     });
 
     it('should remove cr from the row and add to the pinned crs section', function () {

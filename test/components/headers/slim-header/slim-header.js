@@ -5,7 +5,8 @@ import {
   scryRenderedComponentsWithType,
   scryRenderedDOMComponentsWithTag,
   findRenderedComponentWithType,
-  scryRenderedDOMComponentsWithClass, Simulate
+  scryRenderedDOMComponentsWithClass,
+  Simulate,
 } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import { stub, spy } from 'sinon';
@@ -14,7 +15,6 @@ import { SlimHeader } from 'components/headers/slim-header';
 import { unmountComponentSuppressError } from 'utils/test';
 import ContextWrapper from 'utils/test/components/context-wrapper';
 import * as domUtils from 'utils/dom';
-import { fixedStyle } from 'components/headers/slim-header/slim-header.style';
 import SlimHeaderContent from 'components/headers/slim-header/slim-header-content';
 import { RichTextFieldFactory } from 'utils/test/factories/field';
 
@@ -42,7 +42,11 @@ describe('SlimHeader component', function () {
     },
     headers: {
       slimHeader: {
-        logoSectionEditModeOn: false
+        logoSectionEditModeOn: false,
+        demoVideoSectionEditModeOn: false,
+        videoInfo: [{
+          'thumbnail_small': 'https://i.vimeocdn.com/video/797111186_100x75.webp',
+        }],
       }
     }
   });
@@ -100,7 +104,7 @@ describe('SlimHeader component', function () {
     link.getAttribute('href').should.eql('http://cpdb.lvh.me');
   });
 
-  it('should render Glossary link', function () {
+  it('should render Documents link', function () {
     const openRequestDocumentModal = spy();
     element = renderIntoDocument(
       <Provider store={ store }>
@@ -111,8 +115,8 @@ describe('SlimHeader component', function () {
     );
 
     const links = scryRenderedDOMComponentsWithTag(element, 'a');
-    const link = links.filter(link => link.textContent === 'Glossary')[0];
-    link.getAttribute('href').should.eql('http://cpdb.lvh.me/glossary/');
+    const link = links.filter(link => link.textContent === 'Documents')[0];
+    link.getAttribute('href').should.eql('/documents/');
   });
 
   describe('External links', function () {
@@ -124,7 +128,7 @@ describe('SlimHeader component', function () {
           </SlimHeaderContextWrapper>
         </Provider>
       );
-      let externalLinks = scryRenderedDOMComponentsWithClass(element, 'test--right-external-link');
+      let externalLinks = scryRenderedDOMComponentsWithClass(element, 'right-link');
       const dummyEvent = {
         stopPropagation: spy()
       };
@@ -171,11 +175,14 @@ describe('SlimHeader component', function () {
   });
 
   describe('SlimHeaderContent', function () {
-    it('should be rendered with correct style on the top of the page', function () {
+    it('should be rendered with correct props and style on the top of the page', function () {
       element = renderIntoDocument(
         <Provider store={ store }>
           <SlimHeaderContextWrapper context={ { editModeOn: false } }>
-            <SlimHeader show={ true } pathname='/' />
+            <SlimHeader
+              show={ true }
+              pathname='/'
+            />
           </SlimHeaderContextWrapper>
         </Provider>
       );
@@ -189,11 +196,14 @@ describe('SlimHeader component', function () {
       slimHeaderContent.props.editModeOn.should.eql(false);
     });
 
-    it('should be rendered with correct style in the middle of the page', function () {
+    it('should be rendered with correct props and style in the middle of the page', function () {
       element = renderIntoDocument(
         <Provider store={ store }>
           <SlimHeaderContextWrapper context={ { editModeOn: false } }>
-            <SlimHeader show={ true } pathname='/' />
+            <SlimHeader
+              show={ true }
+              pathname='/'
+            />
           </SlimHeaderContextWrapper>
         </Provider>
       );
@@ -210,16 +220,17 @@ describe('SlimHeader component', function () {
       slimHeaderContent.props.style.should.eql({
         transform: 'translateY(-100%)',
         backgroundColor: 'rgb(255, 255, 255)',
-        height: '64px',
-        ...fixedStyle
       });
     });
 
-    it('should be rendered with correct style in the bottom of the page', function (done) {
+    it('should be rendered with correct props and style in the bottom of the page', function (done) {
       element = renderIntoDocument(
         <Provider store={ store }>
           <SlimHeaderContextWrapper context={ { editModeOn: false } }>
-            <SlimHeader show={ true } pathname='/' />
+            <SlimHeader
+              show={ true }
+              pathname='/'
+            />
           </SlimHeaderContextWrapper>
         </Provider>
       );
@@ -234,7 +245,6 @@ describe('SlimHeader component', function () {
         slimHeaderContent.props.disableTop.should.eql(true);
         done();
       }, 500);
-
     });
   });
 });

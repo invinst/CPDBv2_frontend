@@ -70,12 +70,21 @@ export default class AllegationsMap extends Component {
     }
   }
 
+  getUrl(marker) {
+    if (marker.kind === 'CR') {
+      return `/complaint/${marker.id}/`;
+    } else if (marker.kind === 'FORCE') {
+      return `/trr/${marker.id}/`;
+    }
+  }
+
   createPopup(marker) {
     const popup = new mapboxgl.Popup({ offset: 0, closeButton: false });
     const tooltip = (
       <MarkerTooltip
         date={ marker.date }
         category={ marker.category }
+        url={ this.getUrl(marker) }
       />
     );
     popup.setHTML(ReactDOMServer.renderToString(tooltip));

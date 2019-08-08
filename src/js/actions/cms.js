@@ -1,3 +1,5 @@
+import { createAction } from 'redux-actions';
+
 import * as constants from 'utils/constants';
 import { get, authenticatedPatch } from 'actions/common/async-action';
 
@@ -9,7 +11,7 @@ export const updatePage = pageid => data => authenticatedPatch(
     constants.UPDATE_CMS_PAGE_REQUEST_SUCCESS,
     constants.UPDATE_CMS_PAGE_REQUEST_FAILURE
   ]
-  )(data);
+)(data);
 
 export const fetchPage = pageid => get(
   `${constants.SLUG_PAGE_API_URL}${pageid}/`,
@@ -18,4 +20,9 @@ export const fetchPage = pageid => get(
     constants.CMS_PAGE_REQUEST_SUCCESS,
     constants.CMS_PAGE_REQUEST_FAILURE
   ]
+);
+
+export const createChangeEditModeAction = editMode => (editType, mode) => createAction(
+  editMode,
+  () => ({ editType, mode })
 );

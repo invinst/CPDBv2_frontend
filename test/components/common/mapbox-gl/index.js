@@ -11,10 +11,10 @@ describe('MapboxGL component', function () {
   let instance;
 
   beforeEach(function () {
-    mapboxgl._addSourceSpy.reset();
-    mapboxgl._addLayerSpy.reset();
-    mapboxgl._getSourceSpy.reset();
-    mapboxgl._removeSpy.reset();
+    mapboxgl._addSourceSpy.resetHistory();
+    mapboxgl._addLayerSpy.resetHistory();
+    mapboxgl._getSourceSpy.resetHistory();
+    mapboxgl._removeSpy.resetHistory();
   });
 
   afterEach(function () {

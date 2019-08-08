@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import Logo from 'components/headers/slim-header/logo';
+import Logo from 'components/headers/slim-header/slim-header-content/logo';
 import { mergeEditWrapperStateProps } from 'utils/container';
 import { getCMSFields } from 'selectors/cms';
 import { getLogoSectionEditModeOn } from 'selectors/headers/slim-header';

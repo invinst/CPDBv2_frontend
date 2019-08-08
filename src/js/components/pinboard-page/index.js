@@ -15,7 +15,7 @@ import PinnedOfficersContainer from 'containers/pinboard-page/pinned-officers';
 import PinnedCRsContainer from 'containers/pinboard-page/pinned-crs';
 import PinnedTRRsContainer from 'containers/pinboard-page/pinned-trrs';
 import FooterContainer from 'containers/footer-container';
-import EmptyPinboard from './empty-pinboard';
+import EmptyPinboardContainer from 'containers/pinboard-page/empty-pinboard';
 import PreviewPane from 'components/search-page/search-results/preview-pane';
 
 
@@ -81,12 +81,13 @@ export default class PinboardPage extends Component {
       hasMapMarker,
       isEmptyPinboard,
       focusedItem,
-      examplePinboards,
       requesting,
     } = this.props;
 
     if (isEmptyPinboard) {
-      return <EmptyPinboard examplePinboards={ examplePinboards } />;
+      return (
+        <EmptyPinboardContainer />
+      );
     }
 
     return (
@@ -164,7 +165,6 @@ PinboardPage.propTypes = {
     pathname: PropTypes.string
   }),
   updatePathName: PropTypes.func,
-  examplePinboards: PropTypes.array,
   addOrRemoveItemInPinboardFromPreviewPane: PropTypes.func,
   requesting: PropTypes.bool,
 };

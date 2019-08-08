@@ -17,11 +17,11 @@ const navigationItemListSelector = createSelector(
       ...group.items,
       ...(
         group.canLoadMore ?
-        [{
-          id: group.header,
-          type: constants.MORE_BUTTON
-        }] :
-        []
+          [{
+            id: group.header,
+            type: constants.MORE_BUTTON
+          }] :
+          []
       )
     ]))
   )
