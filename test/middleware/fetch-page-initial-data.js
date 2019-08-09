@@ -472,7 +472,6 @@ describe('fetchPageInitialData middleware', function () {
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
 
-    store.dispatch.should.be.calledThrice();
     store.dispatch.calledWith(redirect(true)).should.be.true();
   });
 });
