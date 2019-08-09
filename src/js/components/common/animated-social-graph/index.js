@@ -136,7 +136,6 @@ export default class AnimatedSocialGraph extends Component {
       coaccusedData,
       listEvent,
       timelineIdx,
-      refreshIntervalId,
       selectedOfficerId,
       updateSelectedOfficerId,
       selectedEdge,
@@ -144,10 +143,9 @@ export default class AnimatedSocialGraph extends Component {
       updateSortedOfficerIds,
       performResizeGraph,
     } = this.props;
-    const { fullscreen } = this.state;
 
     return (
-      <div className={ cx(styles.animatedSocialGraph, { fullscreen }) }>
+      <div className={ styles.animatedSocialGraph }>
         {
           !isEmpty(officers) && <SocialGraph
             officers={ officers }
@@ -155,9 +153,7 @@ export default class AnimatedSocialGraph extends Component {
             listEvent={ listEvent }
             timelineIdx={ timelineIdx }
             startTimelineFromBeginning={ this.startTimelineFromBeginning }
-            collideNodes={ !refreshIntervalId }
             stopTimeline={ this.stopTimeline }
-            fullscreen={ fullscreen }
             selectedOfficerId={ selectedOfficerId }
             updateSelectedOfficerId={ updateSelectedOfficerId }
             selectedEdge={ selectedEdge }

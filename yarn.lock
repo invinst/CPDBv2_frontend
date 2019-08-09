@@ -5809,11 +5809,6 @@ istanbul-reports@^2.1.1:
   dependencies:
     handlebars "^4.1.2"
 
-jlouvain@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/jlouvain/-/jlouvain-2.0.0.tgz#2718f0e58911cb337ae981b9e65253c3c0606019"
-  integrity sha1-Jxjw5YkRyzN66YG55lJTw8BgYBk=
-
 js-base64@^2.1.8:
   version "2.4.9"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.4.9.tgz#748911fb04f48a60c4771b375cac45a80df11c03"

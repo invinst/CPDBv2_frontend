@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import { isEmpty, countBy, indexOf, orderBy, isEqual, filter, map } from 'lodash';
+import { isEmpty, orderBy, isEqual, filter, map } from 'lodash';
 import moment from 'moment';
 import * as d3 from 'd3';
-import * as jLouvain from 'jlouvain';
 import d3Tip from 'd3-tip';
 import 'rc-slider/assets/index.css';
 import cx from 'classnames';
@@ -14,12 +13,9 @@ import { greyishColor } from 'utils/styles';
 
 const DEFAULT_GRAPH_WIDTH = 800;
 const DEFAULT_GRAPH_HEIGHT = 500;
-const RADIUS = 10;
 const DEFAULT_PADDING = 1.5;
-const DEFAULT_CLUSTER_PADDING = 6;
-const MAX_RADIUS = 12;
+const MAX_RADIUS = 20;
 const COLLIDE_ALPHA = 0.5;
-const MIN_MEMBERS_IN_COMMUNITY = 3;
 const NUMBER_OF_TOP_NODES = 5;
 const NUMBER_OF_LINK_GROUP_COLORS = 6;
 const LABEL_PADDING_LEFT_RIGHT = 10;
@@ -132,9 +128,7 @@ export default class SocialGraph extends Component {
 
   setInitialData() {
     this.data = {
-      maxWeight: 0,
       linkedByIndex: {},
-      maxNodeInCommunities: {},
       topNodes: [],
       selectedNodes: [],
     };
@@ -160,8 +154,7 @@ export default class SocialGraph extends Component {
     this.force = d3.layout.force()
       .size([this.width, this.height])
       .nodes(this.data.nodes)
-      .charge(-50)
-      .friction(0.5)
+      .friction(0.3)
       .links(this.data.links)
       .on('tick', this.tick);
 
@@ -183,6 +176,14 @@ export default class SocialGraph extends Component {
     const chartDiv = d3.select(ReactDOM.findDOMNode(this.chart)).node();
     this.width = chartDiv.clientWidth;
     this.height = chartDiv.clientHeight;
+
+    const graphViewPortRadius = Math.min(this.width, this.height) / 2;
+    const linkDistance = Math.sqrt((Math.PI * Math.pow(graphViewPortRadius, 2) / this.data.nodes.length));
+
+    this.force.charge(-10 * linkDistance)
+      .gravity(10 / linkDistance)
+      .linkDistance(linkDistance);
+
     this.svg.attr('width', this.width).attr('height', this.height);
     this.force.size([this.width, this.height]);
     this.force.start();
@@ -240,9 +241,8 @@ export default class SocialGraph extends Component {
     this.data.links = Object.values(nodesData);
   }
 
-  _recalculateNodeDegreesAndMaxWeight() {
+  _recalculateNodeDegrees() {
     const { updateSortedOfficerIds } = this.props;
-    this.data.maxWeight = 0;
 
     const orderedLinks = orderBy(this.data.links, ['weight', 'source', 'target']);
     const linksCount = this.data.links.length;
@@ -250,10 +250,6 @@ export default class SocialGraph extends Component {
     orderedLinks.forEach((link, index) => {
       this.data.nodes[link.source].degree += 1;
       this.data.nodes[link.target].degree += 1;
-
-      if (this.data.maxWeight < link.weight) {
-        this.data.maxWeight = link.weight;
-      }
 
       link.colorGroup = Math.ceil((index + 1) * NUMBER_OF_LINK_GROUP_COLORS / linksCount);
     });
@@ -266,39 +262,6 @@ export default class SocialGraph extends Component {
       const sortedOfficerIds = map(sortedNodes, 'uid');
       updateSortedOfficerIds(sortedOfficerIds);
     }
-  }
-
-  _recalculateNodeGroups() {
-    const communityPartition = jLouvain.jLouvain().nodes(Object.values(this.data.officerHash)).edges(this.data.links)();
-
-    const memberCountInCommunity = countBy(communityPartition);
-
-    let groupIds = [];
-
-    for (const groupId in memberCountInCommunity) {
-      if (memberCountInCommunity[groupId] >= MIN_MEMBERS_IN_COMMUNITY) {
-        groupIds.push(parseInt(groupId));
-      }
-    }
-
-    for (const graphNodeId in communityPartition) {
-      const groupId = communityPartition[graphNodeId];
-      if (indexOf(groupIds, groupId) !== -1) {
-        communityPartition[graphNodeId] = groupId + 1;
-      } else {
-        communityPartition[graphNodeId] = 0;
-      }
-    }
-
-    this.data.maxNodeInCommunities = {};
-    this.data.nodes.forEach((graphNode) => {
-      graphNode.group = communityPartition[graphNode.id];
-
-      if (!(graphNode.group in this.data.maxNodeInCommunities) ||
-        (this.data.maxNodeInCommunities[graphNode.group].degree < graphNode.degree)) {
-        this.data.maxNodeInCommunities[graphNode.group] = graphNode;
-      }
-    });
   }
 
   _updateLinkSourceAndTarget() {
@@ -354,11 +317,11 @@ export default class SocialGraph extends Component {
 
   _updateSelectedNodePosition() {
     this.selectedNodeLabel.labelText
-      .attr('x', (d) => d.x + (d.degree / 2 + 2) + LABEL_PADDING_LEFT_RIGHT / 2 )
+      .attr('x', (d) => d.x + this.nodeRadius(d) + LABEL_PADDING_LEFT_RIGHT / 2 )
       .attr('y', (d) => d.y + LABEL_PADDING_TOP_BOTTOM / 2 + 2);
 
     this.selectedNodeLabel.box
-      .attr('x', (d) => d.x + (d.degree / 2 + 2))
+      .attr('x', (d) => d.x + this.nodeRadius(d))
       .attr('y', (d) => d.y + LABEL_PADDING_TOP_BOTTOM / 2 - d.bb.height + 2);
   }
 
@@ -396,8 +359,7 @@ export default class SocialGraph extends Component {
   recalculateNodeLinks(curDate) {
     this._resetNodes();
     this._recalculateLinks(curDate);
-    this._recalculateNodeDegreesAndMaxWeight();
-    this._recalculateNodeGroups();
+    this._recalculateNodeDegrees();
     this._updateLinkSourceAndTarget();
   }
 
@@ -427,15 +389,20 @@ export default class SocialGraph extends Component {
       this.node.on('click', this.handleNodeClick);
     }
 
-    this.node.attr('r', (d) => (d.degree / 2 + 2))
+    this.node.attr('r', (d) => this.nodeRadius(d))
       .style('fill', (d) => d.color || greyishColor);
 
     this.node.exit().remove();
   }
 
+  nodeRadius(node) {
+    return Math.min((node.degree / 2 + 2), MAX_RADIUS);
+  }
+
   _restartLinks() {
     this.force.links(this.data.links)
-      .linkStrength((d) => ((d.weight + 1) / (this.data.maxWeight + 1)));
+      .linkStrength((d) => 1 / (Math.min(d.source.degree, d.target.degree) + 1));
+
     this.link = this.link.data(this.data.links);
 
     this.link.enter().insert('line', '.node')
@@ -460,16 +427,19 @@ export default class SocialGraph extends Component {
 
   tick(e) {
     // bounded graph
-    this.node.attr('cx', (d) => d.x = Math.max(RADIUS, Math.min(this.width - RADIUS, d.x || 0)))
-      .attr('cy', (d) => d.y = Math.max(RADIUS, Math.min(this.height - RADIUS, d.y || 0)));
+    this.node.attr('cx', (d) => {
+      const nodeRadius = this.nodeRadius(d);
+      return d.x = Math.max(nodeRadius, Math.min(this.width - nodeRadius, d.x || 0));
+    })
+      .attr('cy', (d) => {
+        const nodeRadius = this.nodeRadius(d);
+        return d.y = Math.max(nodeRadius, Math.min(this.height - nodeRadius, d.y || 0));
+      });
 
-    this.label.attr('x', (d) => d.x + (d.degree / 2 + 2))
+    this.label.attr('x', (d) => d.x + this.nodeRadius(d))
       .attr('y', (d) => d.y);
 
-    if (this.props.collideNodes) {
-      this.node.each(this.cluster(60 * e.alpha * e.alpha))
-        .each(this.collide());
-    }
+    this.node.each(this.collide());
 
     this.link.attr('x1', (d) => d.source.x)
       .attr('y1', (d) => d.source.y)
@@ -510,33 +480,10 @@ export default class SocialGraph extends Component {
     this.restart();
   }
 
-  cluster(alpha) {
-    const maxNodeInCommunities = this.data.maxNodeInCommunities;
-    return (currentNode) => {
-      const cluster = maxNodeInCommunities[currentNode.group];
-      if (typeof cluster === 'undefined' || cluster === currentNode || currentNode.group === 0)
-        return;
-      const xDistance = currentNode.x - cluster.x,
-        yDistance = currentNode.y - cluster.y,
-        distance = Math.sqrt(xDistance * xDistance + yDistance * yDistance),
-        minDistance = (currentNode.degree + cluster.degree) / 2 + 4;
-
-      if (distance && minDistance && distance !== minDistance) {
-        const percentage = (distance - minDistance) / distance * alpha;
-        const xAdjust = xDistance * percentage;
-        const yAdjust = yDistance * percentage;
-        currentNode.x -= xAdjust;
-        currentNode.y -= yAdjust;
-        cluster.x += xAdjust;
-        cluster.y += yAdjust;
-      }
-    };
-  }
-
   collide() {
     const quadtree = d3.geom.quadtree(this.data.nodes);
     return (currentNode) => {
-      let r = (currentNode.degree / 2 + 2) + MAX_RADIUS + DEFAULT_CLUSTER_PADDING,
+      let r = this.nodeRadius(currentNode) + MAX_RADIUS,
         nx1 = currentNode.x - r,
         nx2 = currentNode.x + r,
         ny1 = currentNode.y - r,
@@ -546,8 +493,7 @@ export default class SocialGraph extends Component {
           let x = currentNode.x - quad.point.x,
             y = currentNode.y - quad.point.y,
             l = Math.sqrt(x * x + y * y),
-            r = (currentNode.degree / 2 + 3) + (quad.point.degree / 2 + 3) +
-              (currentNode.group === quad.point.group ? DEFAULT_PADDING : DEFAULT_CLUSTER_PADDING);
+            r = (currentNode.degree / 2 + 3) + (quad.point.degree / 2 + 3) + DEFAULT_PADDING;
           if (l && r && l < r) {
             l = (l - r) / l * COLLIDE_ALPHA;
             currentNode.x -= x *= l;
@@ -573,10 +519,8 @@ SocialGraph.propTypes = {
   coaccusedData: PropTypes.array.isRequired,
   listEvent: PropTypes.array.isRequired,
   timelineIdx: PropTypes.number,
-  collideNodes: PropTypes.bool,
   startTimelineFromBeginning: PropTypes.func,
   stopTimeline: PropTypes.func,
-  fullscreen: PropTypes.bool,
   selectedOfficerId: PropTypes.number,
   updateSelectedOfficerId: PropTypes.func,
   selectedEdge: PropTypes.object,
@@ -588,5 +532,4 @@ SocialGraph.propTypes = {
 SocialGraph.defaultProps = {
   startTimelineFromBeginning: () => {},
   stopTimeline: () => {},
-  collideNodes: false
 };
