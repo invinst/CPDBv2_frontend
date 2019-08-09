@@ -129,3 +129,12 @@ export const trackPopupButtonClick = (sourceUrl, popupName) => {
     eventLabel: `${sourceUrl} - ${popupName}`,
   });
 };
+
+export const trackDocumentEdit = (documentID, documentField) => {
+  global.ga('send', {
+    hitType: 'event',
+    eventCategory: 'document_edit',
+    eventAction: 'edit',
+    eventLabel: `Document ID: ${documentID} - Field: ${documentField}`,
+  });
+};
