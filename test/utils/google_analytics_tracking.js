@@ -187,4 +187,16 @@ describe('GATracking utils', function () {
       });
     });
   });
+
+  describe('trackDocumentEdit', function () {
+    it('should send event analytic', function () {
+      GATracking.trackDocumentEdit(1234, 'title');
+      global.ga.should.be.calledWith('send', {
+        hitType: 'event',
+        eventCategory: 'document_edit',
+        eventAction: 'edit',
+        eventLabel: 'Document ID: 1234 - Field: title',
+      });
+    });
+  });
 });
