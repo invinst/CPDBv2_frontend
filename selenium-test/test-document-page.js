@@ -4,6 +4,7 @@ require('should');
 const moment = require('moment');
 
 import documentPage from './page-objects/document-page';
+import { switchToRecentTab } from './utils';
 
 
 describe('Document page', function () {
@@ -49,6 +50,7 @@ describe('Document page', function () {
 
     it('should open the pdf when the user clicks on the big thumbnail', function () {
       documentPage.thumbnail.click();
+      switchToRecentTab();
       browser.getUrl().should.equal(
         'https://assets.documentcloud.org/documents/5680384/CRID-1083633-CR-CRID-1083633-CR-Tactical.pdf'
       );
