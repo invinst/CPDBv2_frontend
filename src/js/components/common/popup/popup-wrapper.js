@@ -1,16 +1,16 @@
 import React, { Component, PropTypes } from 'react';
 import ReactTooltip from 'react-tooltip';
-import uuid from 'uuid/v4';
 import cx from 'classnames';
 
 import * as GATracking from 'utils/google_analytics_tracking';
 import style from './popup-wrapper.sass';
+import { generatePopupId } from 'utils/popup';
 
 
 export default class PopupWrapper extends Component {
   constructor(props) {
     super(props);
-    this.tooltipId = `tooltip-${uuid()}`;
+    this.tooltipId = generatePopupId();
     this.hideOtherPopups = this.hideOtherPopups.bind(this);
     this.afterShow = this.afterShow.bind(this);
   }
