@@ -20,9 +20,7 @@ describe('Document page', function () {
       const updatedDate = moment(updatedAt).format('MMM D, YYYY');
 
       documentPage.crid.getText().should.endWith('CR 1083633');
-      documentPage.source.getText().should.endWith(
-        'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf'
-      );
+      documentPage.source.getText().should.endWith('chicagocopa.org');
       documentPage.crawler.getText().should.endWith('Chicago COPA');
       documentPage.date.getText().should.endWith(createdAt);
       documentPage.pageCount.getText().should.equal('5 pages');
@@ -75,9 +73,7 @@ describe('Document page', function () {
 
       documentPage.pageCount.getText().should.equal('5 pages');
       documentPage.crid.getText().should.endWith('CR 1083633');
-      documentPage.source.getText().should.endWith(
-        'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf'
-      );
+      documentPage.source.getText().should.endWith('chicagocopa.org');
       documentPage.crawler.getText().should.endWith('Chicago COPA');
       documentPage.date.getText().should.endWith(createdAt);
       documentPage.linkedDocumentsTitle.getText().should.equal('Linked Documents (2)');
