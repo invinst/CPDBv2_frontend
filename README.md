@@ -54,6 +54,9 @@ Other benefits:
 Right now the benefits seem to justify the added burden of maintaining a Dockerfile. Let's try this out for a while and
 see how things go.
 
+### Environment Variables:
+- `SKIP_COVERALLS`: set to `true` to skip sending coverage report to Coveralls. Only do this if Coveralls is down.
+
 ### Building & pushing the docker image for CI:
 
 **Important: Current version of Docker image is 0.1.2. Please update this when you make changes to it.**

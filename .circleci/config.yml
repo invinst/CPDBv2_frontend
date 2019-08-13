@@ -16,7 +16,14 @@ jobs:
       - run: yarn
       - run: yarn lint
       - run: yarn cover
-      - run: yarn cover-report
+      - run:
+          name: Submit coverage
+          command: |
+            if [ -z $SKIP_COVERALLS ] || [ $SKIP_COVERALLS != "true" ]; then
+              yarn cover-report
+            else
+              echo "Skipped due to SKIP_COVERALLS is" $SKIP_COVERALLS
+            fi
       - run: yarn live-test
       - store_artifacts:
           path: /home/circleci/errorShots
