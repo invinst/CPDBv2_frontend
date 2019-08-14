@@ -83,7 +83,7 @@ export default class EditWrapperStateProvider extends Component {
   handleSaveForm() {
     const data = map(values(this.state.fields), this.serializeField);
     return this.props.onSaveForm({ fields: data })
-    .then(() => this.props.turnOffSectionEditMode());
+      .then(() => this.props.turnOffSectionEditMode());
   }
 
   render() {

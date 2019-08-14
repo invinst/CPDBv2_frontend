@@ -38,8 +38,8 @@ export const RawTRRFactory = Factory.define('RawTRRFactory')
   .attr('officer_assigned_beat', '4682E')
   .attr('officer_on_duty', ()=> random.boolean())
   .attr('subject_race', () => helpers.shuffle(
-      ['White', 'Black', 'Hispanic', 'Asian/Pacific', 'Unknown', 'Native American/Alaskan Native']
-    )[0]
+    ['White', 'Black', 'Hispanic', 'Asian/Pacific', 'Unknown', 'Native American/Alaskan Native']
+  )[0]
   )
   .attr('subject_race', () => helpers.shuffle(['Male', 'Female'])[0])
   .attr('force_category', () => helpers.shuffle(['Taser', 'Firearm', 'Other'])[0])

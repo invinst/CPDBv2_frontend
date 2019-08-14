@@ -16,7 +16,14 @@ jobs:
       - run: yarn
       - run: yarn lint
       - run: yarn cover
-      - run: yarn cover-report
+      - run:
+          name: Submit coverage
+          command: |
+            if [ -z $SKIP_COVERALLS ] || [ $SKIP_COVERALLS != "true" ]; then
+              yarn cover-report
+            else
+              echo "Skipped due to SKIP_COVERALLS is" $SKIP_COVERALLS
+            fi
       - run: yarn live-test
       - store_artifacts:
           path: /home/circleci/errorShots
@@ -44,6 +51,9 @@ jobs:
             if [ $CIRCLE_BRANCH == "master" ]
             then
               yarn build
+            elif [ $CIRCLE_BRANCH == "beta" ]
+            then
+              yarn build-beta
             else
               yarn build-staging
             fi
@@ -93,6 +103,9 @@ jobs:
             if [ $CIRCLE_BRANCH == "master" ]
             then
               export MOBILE_SERVER_NAME=m.cpdp.co
+            elif [ $CIRCLE_BRANCH == "beta" ]
+            then
+              export MOBILE_SERVER_NAME=mb.cpdp.co
             else
               export MOBILE_SERVER_NAME=ms.cpdp.co
             fi
@@ -113,7 +126,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: /tmp/workspace
-      - run: 
+      - run:
           name: Setup Google Cloud SDK
           command: |
             apt-get install -qq -y gettext
@@ -128,6 +141,9 @@ jobs:
             if [ $CIRCLE_BRANCH == "master" ]
             then
               export NAMESPACE=production
+            elif [ $CIRCLE_BRANCH == "beta" ]
+            then
+              export NAMESPACE=beta
             else
               export NAMESPACE=staging
             fi
@@ -170,6 +186,7 @@ workflows:
             branches:
               only:
                 - staging
+                - beta
                 - master
       - deploy:
           requires:

@@ -22,15 +22,11 @@
 - visit `localhost:9966` to see live changes.
 
 ## Deployment
-
-We use instances from Azure for now. Both can be ssh'ed into with "ansible" user and same password as v1 instance.
-
-- Staging node: [23.96.180.229](http://23.96.180.229)
-- Production node: [13.92.132.7](http://13.92.132.7)
-- `bin/setup-staging`: Setup the infrastructure of staging. (password is the same as deploy user's on v1). Before setting up with the recent scripts, please ensure that you have your ssh keys on the server.
-- `bin/deploy-staging`: Deploy the new updates to staging.
-- `bin/setup-production`: Setup production instance.
-- `bin/deploy-production`: Deploy newest code to production instance.
+Deployment should be almost automatic depending on which branch you pushed. 
+`master` branch push will trigger production deploy whereas
+`beta` branch push will trigger beta deploy and
+`staging` branch push will trigger staging deploy.
+If you want to see each step, look at `.circleci/config.yml`.
 
 ## localStorageVersion
 
@@ -57,6 +53,9 @@ Other benefits:
 
 Right now the benefits seem to justify the added burden of maintaining a Dockerfile. Let's try this out for a while and
 see how things go.
+
+### Environment Variables:
+- `SKIP_COVERALLS`: set to `true` to skip sending coverage report to Coveralls. Only do this if Coveralls is down.
 
 ### Building & pushing the docker image for CI:
 

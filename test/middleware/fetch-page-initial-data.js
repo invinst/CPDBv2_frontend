@@ -24,6 +24,7 @@ import { fetchDocumentsByCRID } from 'actions/document-deduplicator-page';
 import * as docOverviewPageActions from 'actions/documents-overview-page';
 import { requestCrawlers } from 'actions/crawlers-page';
 import { fetchDocument } from 'actions/document-page';
+import { fetchVideoInfo } from 'actions/headers/slim-header';
 
 
 const createLocationChangeAction = (pathname) => ({
@@ -201,6 +202,7 @@ describe('fetchPageInitialData middleware', function () {
     store.dispatch.calledWith(requestActivityGrid()).should.be.true();
     store.dispatch.calledWith(getRecentDocument()).should.be.true();
     store.dispatch.calledWith(getComplaintSummaries()).should.be.true();
+    store.dispatch.calledWith(fetchVideoInfo()).should.be.true();
   });
 
   it('should dispatch fetch cr data if crid change', function () {
@@ -338,6 +340,30 @@ describe('fetchPageInitialData middleware', function () {
     dispatched.should.eql(action);
     store.dispatch.calledWith(fetchDocuments({ match: '1000000' })).should.be.false();
     fetchDocuments.restore();
+  });
+
+  it('should dispatch fetchDocumentsAuthenticated when signing in successfully', function () {
+    const store = buildStore();
+    _.set(store._state, 'pathname', '/documents/');
+    const action = createSignInRequestSuccessAction();
+    let dispatched;
+    const fetchDocumentsAuthenticated = stub(docOverviewPageActions, 'fetchDocumentsAuthenticated');
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(fetchDocumentsAuthenticated()).should.be.true();
+    fetchDocumentsAuthenticated.restore();
+  });
+
+  it('should dispatch fetchDocumentsAuthenticated when accessing with edit mode', function () {
+    const action = createLocationChangeAction('/edit/documents/');
+    let dispatched;
+    const fetchDocumentsAuthenticated = stub(docOverviewPageActions, 'fetchDocumentsAuthenticated');
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(fetchDocumentsAuthenticated()).should.be.true();
+    fetchDocumentsAuthenticated.restore();
   });
 
   it('should dispatch requestCrawlers', function () {

@@ -45,11 +45,11 @@ describe('DownloadMenu component', function () {
     const downloadMenuItems = scryRenderedComponentsWithType(element, DownloadMenuItem);
 
     downloadMenuItems[0].props.officerId.should.eql(123);
-    downloadMenuItems[0].props.text.should.eql('Data + docs');
+    downloadMenuItems[0].props.kind.should.eql('with_docs');
     downloadMenuItems[0].props.zipFileUrl.should.eql('lvh.me/file-with-docs.zip');
 
     downloadMenuItems[1].props.officerId.should.eql(123);
-    downloadMenuItems[1].props.text.should.eql('Data only');
+    downloadMenuItems[1].props.kind.should.eql('without_docs');
     downloadMenuItems[1].props.zipFileUrl.should.eql('lvh.me/file.zip');
   });
 });

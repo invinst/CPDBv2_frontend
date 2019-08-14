@@ -204,7 +204,9 @@ describe('store', function () {
           scrollPosition: null
         },
         slimHeader: {
-          logoSectionEditModeOn: false
+          demoVideoSectionEditModeOn: false,
+          logoSectionEditModeOn: false,
+          videoInfo: [],
         }
       },
       embed: {
@@ -236,6 +238,12 @@ describe('store', function () {
         crawlers: [],
         currentCrawlerId: null,
         pagination: {}
+      },
+      socialGraphPage: {
+        graphData: {}
+      },
+      videoModal: {
+        active: false,
       }
     });
   });

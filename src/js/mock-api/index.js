@@ -18,6 +18,8 @@ import {
   POPUP_API_URL,
   DOCUMENTS_URL,
   CRAWLERS_API_URL,
+  SOCIAL_GRAPH_API_URL,
+  MODAL_VIDEO_INFO,
 } from 'utils/constants';
 import { communityGeoJSONPath } from 'utils/static-assets';
 import getCRData from './cr-page/get-data';
@@ -43,8 +45,14 @@ import fetchDocumentsByCRID from './document-deduplicator-page/fetch-documents-b
 import searchDocuments from './documents-overview-page/search-documents';
 import fetchDocuments from './documents-overview-page/fetch-documents';
 import fetchDocumentByID from './document-page/fetch-document-by-id';
+import fetchDocumentsAuthenticated from './documents-overview-page/fetch-documents-authenticated';
 import { getCrawlersData, getNextCrawlersData } from './crawlers-page/crawlers-page';
-
+import {
+  getDefaultSocialGraphData,
+  getOfficerComplaintSocialGraphData,
+  getThresholdThreeSocialGraphData
+} from './social-graph-page/social-graph-page';
+import { modalVideoInfo } from './headers/slim-header';
 
 const SEARCH_API_URL = /^suggestion\/$/;
 const SEARCH_SINGLE_API_URL = /^suggestion\/single\/$/;
@@ -126,6 +134,8 @@ axiosMockClient.onGet(communityGeoJSONPath).reply(200, getCommunities());
 axiosMockClient.onGet(`${SLUG_PAGE_API_URL}landing-page/`).reply(200, landingPageCMSFields);
 axiosMockClient.onGet(`${SLUG_PAGE_API_URL}officer-page/`).reply(200, officerPageCMSFields);
 
+axiosMockClient.onGet(`https://vimeo.com/api/v2/video/${MODAL_VIDEO_INFO.VIDEO_ID}.json`).reply(200, modalVideoInfo);
+
 axiosMockClient.onGet(`${POPUP_API_URL}?page=complaint`).reply(200, getCRPopup());
 
 axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'community', contentType: 'COMMUNITY' } })
@@ -138,6 +148,11 @@ axiosMockClient.onGet(`${DOCUMENTS_URL}`, { params: { match: '123457' } }).reply
 
 axiosMockClient.onPatch(`${DOCUMENTS_URL}1/`).reply(200, { show: false });
 
+axiosMockClient.onGet(
+  `${DOCUMENTS_URL}`,
+  { headers: { 'Authorization': 'Token 055a5575c1832e9123cd546fe0cfdc8607f8680c' } }
+).reply(200, fetchDocumentsAuthenticated());
+
 axiosMockClient.onGet(`${DOCUMENTS_URL}`).reply(200, fetchDocuments());
 
 axiosMockClient.onGet(`${DOCUMENTS_URL}1/`).reply(function (config) {
@@ -148,6 +163,21 @@ axiosMockClient.onGet(`${DOCUMENTS_URL}1/`).reply(function (config) {
 axiosMockClient.onGet(CRAWLERS_API_URL).reply(function (config) {
   return [200, (config.params && config.params.offset === '20') ? getNextCrawlersData() : getCrawlersData()];
 });
+
+axiosMockClient.onGet(
+  SOCIAL_GRAPH_API_URL,
+  { params: { 'threshold': 2, 'show_civil_only': true, 'unit_id': '123' } }
+).reply(200, getDefaultSocialGraphData());
+
+axiosMockClient.onGet(
+  SOCIAL_GRAPH_API_URL,
+  { params: { 'threshold': 2, 'show_civil_only': false, 'unit_id': '123' } }
+).reply(200, getOfficerComplaintSocialGraphData());
+
+axiosMockClient.onGet(
+  SOCIAL_GRAPH_API_URL,
+  { params: { 'threshold': 3, 'show_civil_only': false, 'unit_id': '123' } }
+).reply(200, getThresholdThreeSocialGraphData());
 
 /*istanbul ignore next*/
 export function getMockAdapter() {

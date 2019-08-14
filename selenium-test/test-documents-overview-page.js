@@ -62,9 +62,19 @@ describe('Documents Overview page', function () {
     docOverviewPage.firstDocCRID.getText().should.equal('CR 123457');
   });
 
-  it('should go to crawlers tracker page when the header button on the breadcrumb is clicked');
+  it('should go to crawlers tracker page when the header button on the breadcrumb is clicked', function () {
+    docOverviewPage.open();
+    docOverviewPage.headerButton.click();
 
-  it('should go to document detail page when the document row is clicked');
+    browser.getUrl().should.match(/\/crawlers\//);
+  });
+
+  it('should go to document detail page when the document row is clicked', function () {
+    docOverviewPage.open();
+    docOverviewPage.firstDocRow.click();
+
+    browser.getUrl().should.match(/\/document\/1\//);
+  });
 
   it('should display breadcrumb', function () {
     docOverviewPage.open();

@@ -7,6 +7,7 @@ import {
   findRenderedComponentWithType,
   scryRenderedComponentsWithType
 } from 'react-addons-test-utils';
+import { stub } from 'sinon';
 
 import HeaderButton from 'components/headers/shareable-header/header-button';
 import ShareMenu from 'components/headers/shareable-header/share-menu';
@@ -16,7 +17,16 @@ describe('HeaderButton component', function () {
   let element;
 
   beforeEach(function () {
-    element = renderIntoDocument(<HeaderButton scrollPosition='top' buttonText='Header button'/>);
+    this.stubOnOpen = stub();
+    this.stubOnClose = stub();
+    element = renderIntoDocument(
+      <HeaderButton
+        scrollPosition='top'
+        buttonText='Header button'
+        onOpen={ this.stubOnOpen }
+        onClose={ this.stubOnClose }
+      />
+    );
   });
 
   afterEach(function () {
@@ -42,6 +52,14 @@ describe('HeaderButton component', function () {
     findRenderedComponentWithType(element, ShareMenu);
     Simulate.click(shareButtonDOMElement);
     scryRenderedComponentsWithType(element, ShareMenu).should.have.length(0);
+  });
+
+  it('should call onOpen/onClose when opening/closing', function () {
+    const shareButtonDOMElement = findRenderedDOMComponentWithClass(element, 'button');
+    Simulate.click(shareButtonDOMElement);
+    this.stubOnOpen.should.be.calledOnce();
+    Simulate.click(shareButtonDOMElement);
+    this.stubOnClose.should.be.calledOnce();
   });
 
   it('should add focus class name when shareMenuIsOpen', function () {

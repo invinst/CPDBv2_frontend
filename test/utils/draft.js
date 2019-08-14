@@ -68,14 +68,14 @@ describe('Draft utils', function () {
   describe('multilineTextValueToArray', function () {
     it('should return block texts as array of strings', function () {
       multilineTextValueToArray(RawContentStateFactory.build({}, { blockTexts: ['c', 'd'] }))
-      .should.eql(['c', 'd']);
+        .should.eql(['c', 'd']);
     });
   });
 
   describe('plainTextValueToString', function () {
     it('should return block text as a single string', function () {
       plainTextValueToString(RawContentStateFactory.build({}, { blockTexts: ['e'] }))
-      .should.eql('e');
+        .should.eql('e');
     });
   });
 

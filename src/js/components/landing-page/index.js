@@ -25,7 +25,7 @@ class LandingPage extends Component {
     const { pathname } = this.props;
     return (
       <div className={ styles.landingPage }>
-        <SlimHeader pathname={ pathname } />
+        <SlimHeader pathname={ pathname }/>
         <HeatMap/>
         <div className='landing-page-carousel-wrapper'>
           <OfficersByAllegationContainer className='landing-page-carousel' pathname={ pathname }/>
@@ -51,7 +51,7 @@ class LandingPage extends Component {
 
 LandingPage.propTypes = {
   resetBreadcrumbs: PropTypes.func,
-  pathname: PropTypes.string
+  pathname: PropTypes.string,
 };
 
 LandingPage.contextTypes = {

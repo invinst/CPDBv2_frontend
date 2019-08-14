@@ -57,6 +57,9 @@ describe('App component', function () {
     genericModal: {
       activeModal: null
     },
+    videoModal: {
+      active: false
+    },
     breadcrumb: {
       breadcrumbs: []
     },

@@ -28,6 +28,8 @@ export const get = getWithConfig();
 
 export const authenticatedGet = getWithConfig(authorizationHeaders);
 
+export const withoutCredentialsGet = getWithConfig(() => ({ withCredentials: false }));
+
 const postWithConfig = (config=() => ({})) => (url, types) => ((data, adapter=getMockAdapter()) => ({
   types,
   payload: {
