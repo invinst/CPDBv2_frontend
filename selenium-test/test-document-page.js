@@ -136,6 +136,11 @@ describe('Document page', function () {
       documentPage.tagsSection.thirdTag.getText().should.equal('copa');
     });
 
+    it('should go to next untagged document when clicking on next-untagged document tag', function () {
+      documentPage.tagsSection.nextUntaggedDocumentButton.click();
+      browser.getUrl().should.containEql('/document/2/');
+    });
+
     it('should go to document dedup page when the user clicks on link documents section', function () {
       documentPage.linkedDocuments.click();
       browser.getUrl().should.endWith('/documents/crid/1083633/');
