@@ -197,10 +197,3 @@ workflows:
           filters:
             branches:
               only: master
-
-      - reset_staging_branch:
-          requires:
-            - deploy
-          filters:
-            branches:
-              only: master
