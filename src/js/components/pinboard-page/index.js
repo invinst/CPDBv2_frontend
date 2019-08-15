@@ -9,13 +9,13 @@ import SearchBar from './search-bar';
 import Header from './header';
 import styles from './pinboard-page.sass';
 import PinboardInfoContainer from 'containers/pinboard-page/pinboard-info';
-import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section';
+import { PinboardPaneSectionWithSpinner } from 'components/pinboard-page/pinboard-pane-section';
 import RelevantSectionContainer from 'containers/pinboard-page/relevant-section';
 import PinnedOfficersContainer from 'containers/pinboard-page/pinned-officers';
 import PinnedCRsContainer from 'containers/pinboard-page/pinned-crs';
 import PinnedTRRsContainer from 'containers/pinboard-page/pinned-trrs';
 import FooterContainer from 'containers/footer-container';
-import EmptyPinboard from './empty-pinboard';
+import EmptyPinboardContainer from 'containers/pinboard-page/empty-pinboard';
 import PreviewPane from 'components/search-page/search-results/preview-pane';
 
 
@@ -24,6 +24,7 @@ export default class PinboardPage extends Component {
     super(props);
 
     this.handleOverlayClick = this.handleOverlayClick.bind(this);
+    this.handlePinChangedOnPreviewPane = this.handlePinChangedOnPreviewPane.bind(this);
   }
 
   componentDidMount() {
@@ -63,6 +64,16 @@ export default class PinboardPage extends Component {
     this.props.focusItem({});
   }
 
+  handlePinChangedOnPreviewPane(item) {
+    const {
+      focusItem,
+      addOrRemoveItemInPinboardFromPreviewPane,
+    } = this.props;
+
+    focusItem({});
+    addOrRemoveItemInPinboardFromPreviewPane(item);
+  }
+
   renderContent() {
     const {
       changePinboardTab,
@@ -70,11 +81,13 @@ export default class PinboardPage extends Component {
       hasMapMarker,
       isEmptyPinboard,
       focusedItem,
-      examplePinboards,
+      requesting,
     } = this.props;
 
     if (isEmptyPinboard) {
-      return <EmptyPinboard examplePinboards={ examplePinboards } />;
+      return (
+        <EmptyPinboardContainer />
+      );
     }
 
     return (
@@ -83,10 +96,11 @@ export default class PinboardPage extends Component {
           <PinboardInfoContainer />
           <div className='data-visualizations'>
             <TrackVisibility partialVisibility={ true }>
-              <PinboardPaneSection
+              <PinboardPaneSectionWithSpinner
                 changePinboardTab={ changePinboardTab }
                 currentTab={ currentTab }
                 hasMapMarker={ hasMapMarker }
+                requesting={ requesting }
               />
             </TrackVisibility>
           </div>
@@ -107,6 +121,7 @@ export default class PinboardPage extends Component {
         <PreviewPane
           customClass='preview-pane'
           yScrollable={ true }
+          addOrRemoveItemInPinboard={ this.handlePinChangedOnPreviewPane }
           { ...focusedItem }
         />
       </div>
@@ -150,11 +165,13 @@ PinboardPage.propTypes = {
     pathname: PropTypes.string
   }),
   updatePathName: PropTypes.func,
-  examplePinboards: PropTypes.array,
+  addOrRemoveItemInPinboardFromPreviewPane: PropTypes.func,
+  requesting: PropTypes.bool,
 };
 
 PinboardPage.defaultProps = {
   focusedItem: {},
   focusItem: noop,
   pushBreadcrumbs: noop,
+  addOrRemoveItemInPinboardFromPreviewPane: noop,
 };

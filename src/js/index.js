@@ -3,6 +3,7 @@ import 'draft.css';
 import 'font.css';
 import 'leaflet.css';
 import 'print.css';
+import 'vendors/modal-video.scss';
 
 import React from 'react';
 import { render } from 'react-dom';
@@ -21,6 +22,10 @@ if (config.appEnv === 'dev') {
 
 if (config.appEnv === 'live-test') {
   global.disableAnimation = true;
+}
+
+if (module.hot) {
+  module.hot.accept();
 }
 
 render(

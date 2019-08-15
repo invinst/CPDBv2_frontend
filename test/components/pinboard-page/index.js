@@ -10,7 +10,7 @@ import {
   scryRenderedDOMComponentsWithClass,
   Simulate,
 } from 'react-addons-test-utils';
-import { stub } from 'sinon';
+import { stub, spy } from 'sinon';
 import * as ReactRouter from 'react-router';
 import { Router, createMemoryHistory, Route } from 'react-router';
 import { createStore as ReduxCreateStore } from 'redux';
@@ -24,17 +24,19 @@ import PinnedTRRsContainer from 'containers/pinboard-page/pinned-trrs';
 import PinboardPageContainer from 'containers/pinboard-page';
 import RelevantSectionContainer from 'containers/pinboard-page/relevant-section';
 import SearchBar from 'components/pinboard-page/search-bar';
-import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section';
+import { PinboardPaneSectionWithSpinner } from 'components/pinboard-page/pinboard-pane-section';
 import RootReducer from 'reducers/root-reducer';
 import FooterContainer from 'containers/footer-container';
 import {
   PINBOARD_PAGE_REDIRECT,
   PINBOARD_PAGE_FOCUS_ITEM,
   PINBOARD_FETCH_REQUEST_SUCCESS,
+  PINBOARD_EDIT_TYPES,
 } from 'utils/constants';
 import PinboardPage from 'components/pinboard-page';
 import PreviewPane from 'components/search-page/search-results/preview-pane';
 import EmptyPinboardPage from 'components/pinboard-page/empty-pinboard';
+import { buildEditStateFields } from 'utils/test/factories/draft';
 
 
 describe('PinboardPage component', function () {
@@ -46,7 +48,7 @@ describe('PinboardPage component', function () {
     pagination: { next: null, previous: null }
   };
 
-  const createPinboardPage = pinboard => ({
+  const createPinboardPage = (pinboard, editModeOn) => ({
     graphData: { requesting: false, data: {} },
     geographicData: { requesting: false, data: [] },
     currentTab: 'NETWORK',
@@ -59,11 +61,34 @@ describe('PinboardPage component', function () {
     redirect: false,
     initialRequested: true,
     focusedItem: {},
-    pinboard
+    pinboard,
+    editModeOn,
   });
 
-  const createStore = pinboard => MockStore()({
-    pinboardPage: createPinboardPage(pinboard),
+  const defaultFields = buildEditStateFields({
+    'empty_pinboard_title': ['Get started'],
+    'empty_pinboard_description': [
+      'Use search to find officers and individual complaint records and ' +
+      'press the plus button to add cards to your pinboard.',
+      '',
+      'Come back to the pinboard to give it a title and see a network map or discover relevant documents.',
+    ],
+  });
+
+  const defaultEditModeOn = {
+    [PINBOARD_EDIT_TYPES.EMPTY_PINBOARD_TITLE]: false,
+    [PINBOARD_EDIT_TYPES.EMPTY_PINBOARD_DESCRIPTION]: false,
+  };
+
+  const createStore = (pinboard, editModeOn=defaultEditModeOn, fields=defaultFields) => MockStore()({
+    pinboardPage: createPinboardPage(pinboard, editModeOn),
+    cms: {
+      pages: {
+        'pinboard-page': {
+          fields,
+        }
+      }
+    },
   });
 
   afterEach(function () {
@@ -227,7 +252,7 @@ describe('PinboardPage component', function () {
       </Router>
     );
 
-    findRenderedComponentWithType(instance, PinboardPaneSection);
+    findRenderedComponentWithType(instance, PinboardPaneSectionWithSpinner);
 
     findRenderedComponentWithType(instance, RelevantSectionContainer);
     const footer = findRenderedComponentWithType(instance, FooterContainer);
@@ -263,7 +288,7 @@ describe('PinboardPage component', function () {
 
     findDOMNode(findRenderedComponentWithType(instance, PinboardPage)).className.should.containEql('empty');
 
-    scryRenderedComponentsWithType(instance, PinboardPaneSection).should.have.length(0);
+    scryRenderedComponentsWithType(instance, PinboardPaneSectionWithSpinner).should.have.length(0);
     scryRenderedDOMComponentsWithClass(instance, 'pinboard-title').should.have.length(0);
     scryRenderedDOMComponentsWithClass(instance, 'pinboard-description').should.have.length(0);
     scryRenderedComponentsWithType(instance, RelevantSectionContainer).should.have.length(0);
@@ -463,5 +488,52 @@ describe('PinboardPage component', function () {
     overlay.getAttribute('aria-hidden').should.equal('true');
     document.body.classList.should.have.length(2);
     document.body.classList.contains('body-scrollable').should.be.true();
+  });
+
+  it('should handle when pin status is changed from preview pane', function () {
+    const pinboard = {
+      title: 'This is pinboard title',
+      description: 'This is pinboard description',
+      'officer_ids': [123],
+    };
+    const pinboardPageData = createPinboardPage(pinboard);
+    set(pinboardPageData, 'officerItems', { requesting: false, items: [{ id: 123 }], removingItems: [] });
+    const state = {
+      pinboardPage: pinboardPageData,
+      pathname: 'pinboard/5cd06f2b',
+    };
+    const store = ReduxCreateStore(RootReducer, state);
+    const handlePinChangedOnPreviewPane = spy(PinboardPage.prototype, 'handlePinChangedOnPreviewPane');
+
+    const pinboardPage = () => (
+      <Provider store={ store }>
+        <PinboardPageContainer />
+      </Provider>
+    );
+
+    instance = renderIntoDocument(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ pinboardPage } />
+      </Router>
+    );
+
+    store.dispatch({
+      type: PINBOARD_PAGE_FOCUS_ITEM,
+      payload: {
+        type: 'OFFICER',
+        id: 123,
+      },
+    });
+
+    const pinButton = findRenderedDOMComponentWithClass(instance, 'pin-button');
+    Simulate.click(pinButton);
+
+    handlePinChangedOnPreviewPane.should.be.calledWith({
+      type: 'OFFICER',
+      id: 123,
+      isPinned: true,
+    });
+
+    handlePinChangedOnPreviewPane.restore();
   });
 });

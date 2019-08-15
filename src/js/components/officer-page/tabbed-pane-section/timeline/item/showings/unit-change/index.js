@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import cx from 'classnames';
 
-import baseStyles from '../base-item.sass';
+import baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/showings/base-item.sass';
 import styles from './unit-change.sass';
 
 
@@ -16,7 +16,7 @@ export default class UnitChange extends Component {
             {
               oldUnitName === 'Unassigned' ?
                 <span className='old-unit unassigned'>Unassigned → </span>
-              :
+                :
                 <span className='old-unit'>{ oldUnitName } - { oldUnitDescription } → </span>
             }
             <span className='new-unit'>{ unitName } - { unitDescription }</span>

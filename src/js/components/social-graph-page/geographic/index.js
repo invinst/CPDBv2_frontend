@@ -5,6 +5,7 @@ import cx from 'classnames';
 import styles from './geographic.sass';
 import AllegationsMap from 'components/common/allegations-map';
 import PreviewPane from 'components/social-graph-page/geographic/preview-pane';
+import loadPaginatedData from 'utils/load-paginated-data';
 
 
 export default class GeographicMap extends Component {
@@ -28,11 +29,18 @@ export default class GeographicMap extends Component {
 
   fetchGeographicData() {
     const {
-      requestSocialGraphGeographic,
-      requestSocialGraphGeographicPreviewPane,
+      requestFirstPageSocialGraphGeographicCrs,
+      requestOtherPagesSocialGraphGeographicCrs,
+      requestFirstPageSocialGraphGeographicTrrs,
+      requestOtherPagesSocialGraphGeographicTrrs,
+      requestFirstPageSocialGraphGeographicCrsPreviewPane,
+      requestOtherPagesSocialGraphGeographicCrsPreviewPane,
+      requestFirstPageSocialGraphGeographicTrrsPreviewPane,
+      requestOtherPagesSocialGraphGeographicTrrsPreviewPane,
       officerIds,
       unitId,
-      pinboardId
+      pinboardId,
+      isRequested,
     } = this.props;
     let requestParams;
     if (!isEmpty(pinboardId)) {
@@ -45,9 +53,27 @@ export default class GeographicMap extends Component {
       };
     }
 
-    if (requestParams) {
-      requestSocialGraphGeographic(requestParams);
-      requestSocialGraphGeographicPreviewPane(requestParams);
+    if (requestParams && !isRequested) {
+      loadPaginatedData(
+        requestParams,
+        requestFirstPageSocialGraphGeographicCrs,
+        requestOtherPagesSocialGraphGeographicCrs
+      );
+      loadPaginatedData(
+        requestParams,
+        requestFirstPageSocialGraphGeographicTrrs,
+        requestOtherPagesSocialGraphGeographicTrrs,
+      );
+      loadPaginatedData(
+        requestParams,
+        requestFirstPageSocialGraphGeographicCrsPreviewPane,
+        requestOtherPagesSocialGraphGeographicCrsPreviewPane
+      );
+      loadPaginatedData(
+        requestParams,
+        requestFirstPageSocialGraphGeographicTrrsPreviewPane,
+        requestOtherPagesSocialGraphGeographicTrrsPreviewPane,
+      );
     }
   }
 
@@ -113,6 +139,7 @@ export default class GeographicMap extends Component {
             markers={ markers }
             handleClickCRMarker={ this.handleClickCRMarker }
             handleClickTRRMarker={ this.handleClickTRRMarker }
+            clearAllMarkers={ false }
           />
         </div>
         {
@@ -127,9 +154,15 @@ export default class GeographicMap extends Component {
 GeographicMap.propTypes = {
   legend: PropTypes.object,
   markers: PropTypes.array,
-  requestSocialGraphGeographic: PropTypes.func,
-  requestSocialGraphGeographicPreviewPane: PropTypes.func,
   mainTabsContent: PropTypes.node,
+  requestFirstPageSocialGraphGeographicCrs: PropTypes.func,
+  requestOtherPagesSocialGraphGeographicCrs: PropTypes.func,
+  requestFirstPageSocialGraphGeographicTrrs: PropTypes.func,
+  requestOtherPagesSocialGraphGeographicTrrs: PropTypes.func,
+  requestFirstPageSocialGraphGeographicCrsPreviewPane: PropTypes.func,
+  requestOtherPagesSocialGraphGeographicCrsPreviewPane: PropTypes.func,
+  requestFirstPageSocialGraphGeographicTrrsPreviewPane: PropTypes.func,
+  requestOtherPagesSocialGraphGeographicTrrsPreviewPane: PropTypes.func,
   officerIds: PropTypes.string,
   unitId: PropTypes.string,
   updateGeographicCrid: PropTypes.func,
@@ -137,6 +170,7 @@ GeographicMap.propTypes = {
   allegation: PropTypes.object,
   trr: PropTypes.object,
   pinboardId: PropTypes.string,
+  isRequested: PropTypes.bool,
 };
 
 GeographicMap.defaultProps = {

@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-
 import pluralize from 'pluralize';
 import { isEmpty } from 'lodash';
 
@@ -29,14 +28,14 @@ export default class CRPane extends Component {
               <div className='cr-preview-pane-title-subtitle'>{ subCategory }</div>
             </div>
             <div className='cr-preview-pane-info-row'>{ incidentDate }</div>
-            <div className='cr-preview-pane-info-row'>{ address }</div>
+            { !isEmpty(address) && <div className='cr-preview-pane-info-row cr-preview-pane-address'>{ address }</div> }
             {
-              !isEmpty(victims) ? (
+              !isEmpty(victims) && (
                 <div>
                   <div className='cr-preview-pane-victims-text'>{ pluralize('VICTIM', victims.length) }</div>
                   <Demographics className='cr-preview-pane-victims' persons={ victims } />
                 </div>
-              ): <div/>
+              )
             }
           </div>
           <ListWidget

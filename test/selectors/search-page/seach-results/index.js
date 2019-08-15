@@ -425,7 +425,25 @@ describe('search page results selector', function () {
           tags: [],
           suggestionGroups: {
             'TRR': [RawTRRSuggestion.build(
-              { id: '1001', 'force_type': null, 'trr_datetime': null }
+              {
+                id: '1001',
+                'force_type': null,
+                'trr_datetime': '2004-04-23',
+                'firearm_used': true,
+                address: '14XX W 63RD ST, CHICAGO IL 60636',
+                officer: {
+                  'id': 16567,
+                  'full_name': 'Baudilio Lopez',
+                  'percentile': {
+                    'id': 180838,
+                    'percentile_trr': '72.1094',
+                    'percentile_allegation_civilian': '98.5549',
+                    'percentile_allegation_internal': '61.1521'
+                  },
+                  'allegation_count': 93
+                },
+                to: '/trr/123456/'
+              }
             )]
           }
         },
@@ -446,8 +464,23 @@ describe('search page results selector', function () {
             isPinned: true,
             text: 'Unknown',
             recentText: '1001',
-            subText: 'TRR # 1001',
-            to: '',
+            subText: 'TRR # 1001 - April 23, 2004',
+            category: 'Firearm',
+            address: '14XX W 63RD ST, CHICAGO IL 60636',
+            incidentDate: 'Apr 23, 2004',
+            officer: {
+              id: 16567,
+              name: 'Baudilio Lopez',
+              url: '/officer/16567/baudilio-lopez/',
+              radarAxes: [
+                { axis: 'Use of Force Reports', value: 72.1094 },
+                { axis: 'Officer Allegations', value: 61.1521 },
+                { axis: 'Civilian Allegations', value: 98.5549 }
+              ],
+              radarColor: '#f0201e',
+              count: 93
+            },
+            to: '/trr/123456/',
             url: '',
             tags: [],
             uniqueKey: 'TRR-1001',
@@ -462,9 +495,26 @@ describe('search page results selector', function () {
         searchPage: {
           tags: [],
           suggestionGroups: {
-            'TRR': [RawTRRSuggestion.build(
-              { id: '1001', 'force_type': 'Member Presence', 'trr_datetime': '2004-04-23' }
-            )]
+            'TRR': [{
+              id: '1001',
+              'force_type': null,
+              'incident_date': null,
+              'firearm_used': true,
+              address: '14XX W 63RD ST, CHICAGO IL 60636',
+              officer: {
+                'id': 16567,
+                'full_name': 'Baudilio Lopez',
+                'percentile': {
+                  'id': 180838,
+                  'percentile_trr': '72.1094',
+                  'percentile_allegation_civilian': '98.5549',
+                  'percentile_allegation_internal': '61.1521'
+                },
+                'allegation_count': 93
+              },
+              to: '/trr/123456/',
+              url: '',
+            }]
           }
         },
         pinboardPage: {
@@ -482,10 +532,25 @@ describe('search page results selector', function () {
             type: 'TRR',
             id: '1001',
             isPinned: false,
-            text: 'Member Presence',
+            text: 'Unknown',
             recentText: '1001',
-            subText: 'TRR # 1001 - April 23, 2004',
-            to: '',
+            subText: 'TRR # 1001',
+            category: 'Firearm',
+            address: '14XX W 63RD ST, CHICAGO IL 60636',
+            incidentDate: '',
+            officer: {
+              id: 16567,
+              name: 'Baudilio Lopez',
+              url: '/officer/16567/baudilio-lopez/',
+              radarAxes: [
+                { axis: 'Use of Force Reports', value: 72.1094 },
+                { axis: 'Officer Allegations', value: 61.1521 },
+                { axis: 'Civilian Allegations', value: 98.5549 }
+              ],
+              radarColor: '#f0201e',
+              count: 93
+            },
+            to: '/trr/123456/',
             url: '',
             tags: [],
             uniqueKey: 'TRR-1001',
@@ -501,7 +566,25 @@ describe('search page results selector', function () {
           tags: [],
           suggestionGroups: {
             'DATE > TRR': [RawTRRSuggestion.build(
-              { id: '1001', 'force_type': null, 'trr_datetime': null }
+              {
+                id: '1001',
+                'force_type': 'Member Presence',
+                'trr_datetime': '2004-04-23',
+                'firearm_used': true,
+                address: '14XX W 63RD ST, CHICAGO IL 60636',
+                officer: {
+                  'id': 16567,
+                  'full_name': 'Baudilio Lopez',
+                  'percentile': {
+                    'id': 180838,
+                    'percentile_trr': '72.1094',
+                    'percentile_allegation_civilian': '98.5549',
+                    'percentile_allegation_internal': '61.1521'
+                  },
+                  'allegation_count': 93
+                },
+                to: '/trr/123456/'
+              }
             )]
           }
         },
@@ -520,10 +603,25 @@ describe('search page results selector', function () {
             type: 'DATE > TRR',
             isPinned: true,
             id: '1001',
-            text: 'Unknown',
+            text: 'Member Presence',
             recentText: '1001',
-            subText: 'TRR # 1001',
-            to: '',
+            subText: 'TRR # 1001 - April 23, 2004',
+            category: 'Firearm',
+            address: '14XX W 63RD ST, CHICAGO IL 60636',
+            incidentDate: 'Apr 23, 2004',
+            officer: {
+              id: 16567,
+              name: 'Baudilio Lopez',
+              url: '/officer/16567/baudilio-lopez/',
+              radarAxes: [
+                { axis: 'Use of Force Reports', value: 72.1094 },
+                { axis: 'Officer Allegations', value: 61.1521 },
+                { axis: 'Civilian Allegations', value: 98.5549 }
+              ],
+              radarColor: '#f0201e',
+              count: 93
+            },
+            to: '/trr/123456/',
             url: '',
             tags: [],
             uniqueKey: 'DATE-TRR-1001',
@@ -538,9 +636,26 @@ describe('search page results selector', function () {
         searchPage: {
           tags: [],
           suggestionGroups: {
-            'DATE > TRR': [RawTRRSuggestion.build(
-              { id: '1001', 'force_type': 'Member Presence', 'trr_datetime': '2004-04-23' }
-            )]
+            'DATE > TRR': [{
+              id: '1001',
+              'force_type': null,
+              'incident_date': null,
+              'firearm_used': true,
+              address: '14XX W 63RD ST, CHICAGO IL 60636',
+              officer: {
+                'id': 16567,
+                'full_name': 'Baudilio Lopez',
+                'percentile': {
+                  'id': 180838,
+                  'percentile_trr': '72.1094',
+                  'percentile_allegation_civilian': '98.5549',
+                  'percentile_allegation_internal': '61.1521'
+                },
+                'allegation_count': 93
+              },
+              to: '/trr/123456/',
+              url: '',
+            }]
           }
         },
         pinboardPage: {
@@ -558,10 +673,25 @@ describe('search page results selector', function () {
             type: 'DATE > TRR',
             id: '1001',
             isPinned: false,
-            text: 'Member Presence',
+            text: 'Unknown',
             recentText: '1001',
-            subText: 'TRR # 1001 - April 23, 2004',
-            to: '',
+            subText: 'TRR # 1001',
+            category: 'Firearm',
+            address: '14XX W 63RD ST, CHICAGO IL 60636',
+            incidentDate: '',
+            officer: {
+              id: 16567,
+              name: 'Baudilio Lopez',
+              url: '/officer/16567/baudilio-lopez/',
+              radarAxes: [
+                { axis: 'Use of Force Reports', value: 72.1094 },
+                { axis: 'Officer Allegations', value: 61.1521 },
+                { axis: 'Civilian Allegations', value: 98.5549 }
+              ],
+              radarColor: '#f0201e',
+              count: 93
+            },
+            to: '/trr/123456/',
             url: '',
             tags: [],
             uniqueKey: 'DATE-TRR-1001',

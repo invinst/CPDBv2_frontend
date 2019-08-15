@@ -38,9 +38,9 @@ export function isScrolledToBottom() {
   return viewportHeight() + bodyScrollPosition() + 20 >= fullDocumentHeight();
 }
 
-export function calculatePosition() {
+export function calculatePosition(offset = 0) {
   /* istanbul ignore next */
-  if (bodyScrollPosition() === 0) {
+  if (bodyScrollPosition() <= offset) {
     return 'top';
   } else if (isScrolledToBottom()) {
     return 'bottom';

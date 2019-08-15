@@ -2,6 +2,7 @@ import 'polyfill';
 
 import { lorem } from 'faker';
 import { Factory } from 'rosie';
+import { mapValues } from 'lodash';
 
 
 export const RawContentStateFactory = new Factory()
@@ -10,7 +11,7 @@ export const RawContentStateFactory = new Factory()
   .attr('blocks', ['blockTexts'], (blockTexts) => (
     blockTexts.map(
       text => RawContentBlockFactory.build({ text }))
-    )
+  )
   );
 
 export const RawContentBlockFactory = new Factory()
@@ -21,3 +22,13 @@ export const RawContentBlockFactory = new Factory()
   .attr('type', 'unstyled')
   .attr('inlineStyleRanges', [])
   .attr('data', {});
+
+export const buildEditStateFields = fields => (
+  mapValues(fields, (texts, name) => ({
+    type: 'rich_text',
+    name: name,
+    value: RawContentStateFactory.build(
+      {}, { blockTexts: texts }
+    )
+  }))
+);

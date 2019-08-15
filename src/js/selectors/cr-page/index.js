@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect';
-import { map, get, reduce, defaults, sortBy, kebabCase, isNil, isEmpty } from 'lodash';
+import { map, get, reduce, defaults, sortBy, kebabCase, isNil, isEmpty, compact } from 'lodash';
 import pluralize from 'pluralize';
 
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
-import { getBreadcrumb } from '../breadcrumbs';
+import { getBreadcrumb } from 'selectors/breadcrumbs';
 import { getFindingOutcomeMix } from './finding-outcome-mix';
 import { officerCardTransform } from 'selectors/common/officer-card';
 import { getDemographicString } from 'utils/victims';
@@ -58,7 +58,7 @@ const getComplainantStringSelector = createSelector(
 
 const getVictimStringSelector = createSelector(
   getVictims,
-  (victims) => map(victims, (victim) => getDemographicString(victim))
+  (victims) => compact(map(victims, getDemographicString))
 );
 
 const getTransformedCoaccused = createSelector(
@@ -110,9 +110,9 @@ const getInvolvementsSelector = createSelector(
     accumulator = defaults(accumulator, { [type]: [] });
 
     if (
-        isNil(obj['officer_id']) ||
+      isNil(obj['officer_id']) ||
         map(accumulator[type], 'id').indexOf(obj['officer_id']) === -1
-      ) {
+    ) {
       let officer = {
         id: obj['officer_id'],
         fullName: obj['full_name'],

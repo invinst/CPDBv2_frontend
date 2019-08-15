@@ -7,15 +7,18 @@ class PinnedOfficers extends Section {
     super();
 
     const sectionSelector = '//div[contains(@class, "test--OFFICER-section")]';
-    this.officerCardSelector = `${sectionSelector}/div[contains(@class, "type-cards")]/div`;
+    this.officerCardSelector = `${sectionSelector}/div[contains(@class, "pinned-grid")]/div`;
     const firstCardSelector = `(${this.officerCardSelector})[1]`;
+    const secondCardSelector = `(${this.officerCardSelector})[2]`;
 
     this.prepareElementGetters({
       title: `${sectionSelector}/div[@class="type-title"]`,
-      firstCardUnpinBtn: `${firstCardSelector}/span[starts-with(@class, "item-unpin-button")]`,
+      firstCardUnpinBtn: `${firstCardSelector}//span[starts-with(@class, "item-unpin-button")]`,
       firstCardRank: `${firstCardSelector}//div[@class="officer-rank"]`,
       firstCardName: `${firstCardSelector}//div[@class="officer-name"]`,
       firstCardCRsCount: `${firstCardSelector}//div[@class="officer-complaints-count"]`,
+      secondCardName: `${secondCardSelector}//div[@class="officer-name"]`,
+      undoCard: '.test--undo-card',
     });
   }
 
@@ -29,12 +32,12 @@ class PinnedCRs extends Section {
     super();
 
     const sectionSelector = '//div[contains(@class, "test--CR-section")]';
-    this.crCardSelector = `${sectionSelector}/div[contains(@class, "type-cards")]/div`;
+    this.crCardSelector = `${sectionSelector}/div[contains(@class, "pinned-grid")]/div`;
     const firstCardSelector = `(${this.crCardSelector})[1]`;
 
     this.prepareElementGetters({
       title: `${sectionSelector}/div[@class="type-title"]`,
-      firstCardUnpinBtn: `${firstCardSelector}/span[starts-with(@class, "item-unpin-button")]`,
+      firstCardUnpinBtn: `${firstCardSelector}/div[starts-with(@class, "item-unpin-button")]`,
       firstCardDate: `${firstCardSelector}//span[@class="location-card-date"]`,
       firstCardCategory: `${firstCardSelector}//span[@class="location-card-category"]`,
     });
@@ -50,12 +53,13 @@ class PinnedTRRs extends Section {
     super();
 
     const sectionSelector = '//div[contains(@class, "test--TRR-section")]';
-    this.trrCardSelector = `${sectionSelector}/div[contains(@class, "type-cards")]/div`;
+    this.trrCardSelector = `${sectionSelector}/div[contains(@class, "pinned-grid")]/div`;
     const firstCardSelector = `(${this.trrCardSelector})[1]`;
 
     this.prepareElementGetters({
+      firstElement: firstCardSelector,
       title: `${sectionSelector}/div[@class="type-title"]`,
-      firstCardUnpinBtn: `${firstCardSelector}/span[starts-with(@class, "item-unpin-button")]`,
+      firstCardUnpinBtn: `${firstCardSelector}/div[starts-with(@class, "item-unpin-button")]`,
       firstCardDate: `${firstCardSelector}//span[@class="location-card-date"]`,
       firstCardCategory: `${firstCardSelector}//span[@class="location-card-category"]`,
     });
@@ -97,56 +101,56 @@ class AnimatedSocialGraphSection extends Section {
 
 
 class BaseComplaintCardSection extends Section {
-  constructor(baseSelector) {
-    super();
-
-    this.mainElementSelector = `${baseSelector}//div[contains(@class, "base-complaint-card")]`;
-    this.wrapperSelector = `${baseSelector}//div[contains(@class, "swiper-slide")]`;
+  constructor(parentSelector) {
+    super(parentSelector, '//div[contains(@class, "base-complaint-card")]');
 
     this.prepareElementGetters({
-      mainElement: this.mainElementSelector,
-      leftHalf: `${this.mainElementSelector}//div[contains(@class, "left-half")]`,
-      rightHalf: `${this.mainElementSelector}//div[contains(@class, "right-half")]`,
-      thumbnail: `${this.mainElementSelector}//div[contains(@class, "document-card-thumbnail")]`,
-      plusButton: `${this.mainElementSelector}//div[contains(@class, "plus-button")]`,
-      incidentDate: `${this.mainElementSelector}//div[contains(@class, "incident-date")]`,
-      category: `${this.mainElementSelector}//div[contains(@class, "category")]`,
-      topOfficers: `${this.mainElementSelector}//div[contains(@class, "top-officers")]`,
-      firstTopOfficerName: `${this.mainElementSelector}//div[@class="top-officer-row-officer-name"]`,
-      secondTopOfficerName: `(${this.mainElementSelector}//div[@class="top-officer-row-officer-name"])[2]`,
-      remainingOfficers: `${this.mainElementSelector}//div[contains(@class, "remaining-officers")]`,
-      miniOfficerToken: `${this.mainElementSelector}//div[contains(@class, "mini-officer-visual-token")]`,
-      notShowingOfficerCount: `${this.mainElementSelector}//div[contains(@class, "not-showing-officer-count")]`,
+      leftHalf: '//div[contains(@class, "left-half")]',
+      rightHalf: '//div[contains(@class, "right-half")]',
+      thumbnail: '//div[contains(@class, "document-card-thumbnail")]',
+      plusButton: '//div[contains(@class, "plus-button")]',
+      incidentDate: '//div[contains(@class, "incident-date")]',
+      category: '//div[contains(@class, "category")]',
+      topOfficers: '//div[contains(@class, "top-officers")]',
+      firstTopOfficerName: '//div[@class="top-officer-row-officer-name"]',
+      secondTopOfficerName: '(//div[@class="top-officer-row-officer-name"])[2]',
+      remainingOfficers: '//div[contains(@class, "remaining-officers")]',
+      miniOfficerToken: '//div[contains(@class, "mini-officer-visual-token")]',
+      notShowingOfficerCount: '//div[contains(@class, "not-showing-officer-count")]',
     });
   }
 }
 
-class CoaccusalCardSection extends Section {
-  constructor(baseSelector) {
-    super();
+class UndoCardSection extends Section {
+  constructor(parentSelector='') {
+    super(parentSelector, '//div[contains(@class, "test--undo-card")]');
+    this.prepareElementGetters();
+  }
+}
 
-    this.mainElementSelector = `${baseSelector}//div[contains(@class, "relevant-coaccusal-card")]`;
-    this.wrapperSelector = `${baseSelector}//div[contains(@class, "swiper-slide")]`;
+class CoaccusalCardSection extends Section {
+  constructor(parentSelector) {
+    super(parentSelector, '//div[contains(@class, "relevant-coaccusal-card")]');
 
     this.prepareElementGetters({
-      mainElement: this.mainElementSelector,
-      plusButton: `${this.mainElementSelector}//div[contains(@class, "plus-button")]`,
-      radarChart: `${this.mainElementSelector}//div[contains(@class, "radar-chart-wrapper")]`,
-      nameWrapper: `${this.mainElementSelector}//div[contains(@class, "officer-name-wrapper")]`,
-      officerRank: `${this.mainElementSelector}//p[contains(@class, "officer-card-rank")]`,
-      officerName: `${this.mainElementSelector}//p[contains(@class, "officer-card-name")]`,
-      coaccusalCount: `${this.mainElementSelector}//div[contains(@class, "coaccusal-count")]`,
+      plusButton: '//div[contains(@class, "plus-button")]',
+      radarChart: '//div[contains(@class, "radar-chart-wrapper")]',
+      nameWrapper: '//div[contains(@class, "officer-name-wrapper")]',
+      officerRank: '//p[contains(@class, "officer-card-rank")]',
+      officerName: '//p[contains(@class, "officer-card-name")]',
+      coaccusalCount: '//div[contains(@class, "coaccusal-count")]',
     });
   }
 }
 
 class BaseRelevantSection extends Section {
-  constructor(baseSelector) {
-    super();
+  constructor(parentSelector, mainElementSelector) {
+    super(parentSelector, mainElementSelector);
     this.prepareElementGetters({
-      title: `${baseSelector}//div[contains(@class, "relevant-infinite-carousel-title")]`,
-      leftArrow: `${baseSelector}//button[contains(@class, "left relevant-carousel-arrow")]`,
-      rightArrow: `${baseSelector}//button[contains(@class, "right relevant-carousel-arrow")]`,
+      title: '//div[contains(@class, "relevant-infinite-carousel-title")]',
+      leftArrow: '//button[contains(@class, "left relevant-carousel-arrow")]',
+      rightArrow: '//button[contains(@class, "right relevant-carousel-arrow")]',
+      undoCard: UndoCardSection,
     });
   }
 }
@@ -154,9 +158,10 @@ class BaseRelevantSection extends Section {
 
 class RelevantDocumentsSection extends BaseRelevantSection {
   constructor() {
-    const baseSelector = '//div[contains(@class, "relevant-documents")]';
-    super(baseSelector);
-    this.documentCardSection = new BaseComplaintCardSection(baseSelector);
+    super('', '//div[contains(@class, "relevant-documents")]');
+    this.prepareElementGetters({
+      documentCardSection: BaseComplaintCardSection,
+    });
   }
 
   documentCards() {
@@ -166,9 +171,10 @@ class RelevantDocumentsSection extends BaseRelevantSection {
 
 class RelevantComplaintsSection extends BaseRelevantSection {
   constructor() {
-    const baseSelector = '//div[contains(@class, "relevant-complaints")]';
-    super(baseSelector);
-    this.complaintCardSection = new BaseComplaintCardSection(baseSelector);
+    super('', '//div[contains(@class, "relevant-complaints")]');
+    this.prepareElementGetters({
+      complaintCardSection: BaseComplaintCardSection,
+    });
   }
 
   complaintCards() {
@@ -178,9 +184,10 @@ class RelevantComplaintsSection extends BaseRelevantSection {
 
 class RelevantCoaccusalsSection extends BaseRelevantSection {
   constructor() {
-    const baseSelector = '//div[contains(@class, "relevant-coaccusals")]';
-    super(baseSelector);
-    this.coaccusalCardSection = new CoaccusalCardSection(baseSelector);
+    super('', '//div[contains(@class, "relevant-coaccusals")]');
+    this.prepareElementGetters({
+      coaccusalCardSection: CoaccusalCardSection,
+    });
   }
 
   coaccusalCards() {
@@ -227,10 +234,9 @@ class GeographicSection extends Section {
 
 class EmptyPinboardSection extends Section {
   constructor() {
-    super();
+    super('', '//div[contains(@class, "empty-pinboard__empty-pinboard")]');
 
     this.prepareElementGetters({
-      mainElement: '//div[contains(@class, "empty-pinboard__empty-pinboard")]',
       firstExample: '//a[contains(@class, "example-pinboard-link__example-pinboard-link")][1]',
       secondExample: '//a[contains(@class, "example-pinboard-link__example-pinboard-link")][2]',
     });
@@ -242,7 +248,56 @@ class PreviewPane extends Section {
     super();
 
     this.prepareElementGetters({
-      mainElement: '//div[starts-with(@class, "preview-pane")]',
+      wrapper: '//div[starts-with(@class, "preview-pane")]',
+      actionText: '.new-call-to-action-widget-text',
+      trrTitle: '.trr-preview-pane-title-title',
+      trrFirstInfo: '//div[@class="trr-preview-pane-info-row"][1]',
+      trrSecondInfo: '//div[@class="trr-preview-pane-info-row"][2]',
+    });
+  }
+}
+
+class OfficerPreviewPane extends Section {
+  constructor() {
+    super();
+    this.officerInfoWidgetSelector = '//li[starts-with(@class, "new-officer-info-widget")]';
+    this.officerMetricWidgetItemSelector = '//div[starts-with(@class, "new-metric-widget-item")]',
+
+    this.prepareElementGetters({
+      wrapper: '//div[starts-with(@class, "preview-pane")]',
+      gradient: '.test--gradient',
+      communityPane: '.test--preview-pane-community',
+      neighborhoodPane: '.test--preview-pane-neighborhood',
+      listMostOfficers: '//*[starts-with(@class, "preview-pane")]//*[contains(@class,"list-widget-item-link")]',
+      pinButton: '.pin-button',
+      viewOfficerButton: '.view-officer-profile-button',
+      officerName: '.test--officer-name',
+      genericInfo: `(${this.officerInfoWidgetSelector})[1]`,
+      badgeKey: `(${this.officerInfoWidgetSelector})[2]//div[contains(@class, "item-key")]`,
+      badgeValue: `(${this.officerInfoWidgetSelector})[2]//div[contains(@class, "item-value")]`,
+      rankKey: `(${this.officerInfoWidgetSelector})[3]//div[contains(@class, "item-key")]`,
+      rankValue: `(${this.officerInfoWidgetSelector})[3]//div[contains(@class, "item-value")]`,
+      unitKey: `(${this.officerInfoWidgetSelector})[4]//div[contains(@class, "item-key")]`,
+      unitValue: `(${this.officerInfoWidgetSelector})[4]//div[contains(@class, "item-value")]`,
+      careerKey: `(${this.officerInfoWidgetSelector})[5]//div[contains(@class, "item-key")]`,
+      careerValue: `(${this.officerInfoWidgetSelector})[5]//div[contains(@class, "item-value")]`,
+      allegationValue: `(${this.officerMetricWidgetItemSelector})[1]//div[contains(@class, "item-value")]`,
+      allegationName: `(${this.officerMetricWidgetItemSelector})[1]//div[contains(@class, "item-name")]`,
+      allegationDescription: `(${this.officerMetricWidgetItemSelector})[1]//div[contains(@class, "item-description")]`,
+      sustainedValue: `(${this.officerMetricWidgetItemSelector})[2]//div[contains(@class, "item-value")]`,
+      sustainedName: `(${this.officerMetricWidgetItemSelector})[2]//div[contains(@class, "item-name")]`,
+      sustainedDescription: `(${this.officerMetricWidgetItemSelector})[2]//div[contains(@class, "item-description")]`,
+      trrValue: `(${this.officerMetricWidgetItemSelector})[3]//div[contains(@class, "item-value")]`,
+      trrName: `(${this.officerMetricWidgetItemSelector})[3]//div[contains(@class, "item-name")]`,
+      trrDescription: `(${this.officerMetricWidgetItemSelector})[3]//div[contains(@class, "item-description")]`,
+      allegationCivilianValue: `(${this.officerMetricWidgetItemSelector})[4]//div[contains(@class, "item-value")]`,
+      allegationCivilianName: `(${this.officerMetricWidgetItemSelector})[4]//div[contains(@class, "item-name")]`,
+      majorAwardValue: `(${this.officerMetricWidgetItemSelector})[5]//div[contains(@class, "item-value")]`,
+      majorAwardName: `(${this.officerMetricWidgetItemSelector})[5]//div[contains(@class, "item-name")]`,
+      honorableMentionValue: `(${this.officerMetricWidgetItemSelector})[6]//div[contains(@class, "item-value")]`,
+      honorableMentionName: `(${this.officerMetricWidgetItemSelector})[6]//div[contains(@class, "item-name")]`,
+      honorableMentionDescription:
+        `(${this.officerMetricWidgetItemSelector})[6]//div[contains(@class, "item-description")]`,
     });
   }
 }
@@ -257,6 +312,7 @@ class PinboardPage extends Page {
   relevantComplaintsSection = new RelevantComplaintsSection();
   emptyPinboardSection = new EmptyPinboardSection();
   previewPane = new PreviewPane();
+  officerPreviewPane = new OfficerPreviewPane();
 
   constructor() {
     super();
@@ -270,7 +326,9 @@ class PinboardPage extends Page {
   }
 
   open(id='5cd06f2b') {
-    super.open(`/pinboard/${id}/pinboard-title/`);
+    const url = id ? `/pinboard/${id}/pinboard-title/` : '/pinboard/';
+
+    super.open(url);
   }
 }
 

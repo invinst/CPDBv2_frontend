@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { get, concat, keyBy, isEmpty } from 'lodash';
+import { get, concat, keyBy, isEmpty, each } from 'lodash';
 
 import {
   getPinnedCRs,
@@ -20,11 +20,19 @@ const allItemsSelector = createSelector(
   getPinnedOfficers,
   getRelevantComplaints,
   getRelevantCoaccusals,
-  (pinnedCRs, pinnedTRRs, pinnedOfficers, relevantCRs, relevantOfficers) => ({
-    'CR': keyBy(concat(pinnedCRs, relevantCRs), item => item.crid),
-    'TRR': keyBy(pinnedTRRs, item => item.id.toString()),
-    'OFFICER': keyBy(concat(pinnedOfficers, relevantOfficers), item => item.id.toString()),
-  })
+  (pinnedCRs, pinnedTRRs, pinnedOfficers, relevantCRs, relevantOfficers) => {
+    each(pinnedCRs, cr => cr.isPinned = true);
+    each(pinnedTRRs, trr => trr.isPinned = true);
+    each(pinnedOfficers, officer => officer.isPinned = true);
+    each(relevantCRs, cr => cr.isPinned = false);
+    each(relevantOfficers, officer => officer.isPinned = false);
+
+    return {
+      'CR': keyBy(concat(pinnedCRs, relevantCRs), item => item.crid),
+      'TRR': keyBy(pinnedTRRs, item => item.id.toString()),
+      'OFFICER': keyBy(concat(pinnedOfficers, relevantOfficers), item => item.id.toString()),
+    };
+  }
 );
 
 export const focusedItemSelector = createSelector(

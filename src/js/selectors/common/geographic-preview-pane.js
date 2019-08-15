@@ -1,7 +1,8 @@
-import { kebabCase, map } from 'lodash';
+import { kebabCase, map, compact } from 'lodash';
 
 import { getDemographicString } from 'utils/victims';
 import { extractPercentile } from './percentile';
+import moment from 'moment/moment';
 
 
 const accusedTransform = coaccused => {
@@ -19,9 +20,9 @@ const accusedTransform = coaccused => {
 export const geographicAllegationTransform = geographicCRDatum => ({
   category: geographicCRDatum.category,
   subCategory: geographicCRDatum.subcategory,
-  incidentDate: geographicCRDatum.date,
+  incidentDate: moment(geographicCRDatum['incident_date']).format('MMM D, YYYY').toUpperCase(),
   address: geographicCRDatum.address,
-  victims: map(geographicCRDatum.victims, victim => getDemographicString(victim)),
+  victims: compact(map(geographicCRDatum.victims, getDemographicString)),
   coaccused: map(geographicCRDatum['coaccused'], coaccused => accusedTransform(coaccused)),
   to: geographicCRDatum.to,
 });

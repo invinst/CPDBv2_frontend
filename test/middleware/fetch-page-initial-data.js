@@ -5,7 +5,14 @@ import extractQuery from 'utils/extract-query';
 
 import fetchPageInitialData from 'middleware/fetch-page-initial-data';
 import { changeOfficerId, fetchOfficerSummary, requestCreateOfficerZipFile } from 'actions/officer-page';
-import { LANDING_PAGE_ID, OFFICER_PAGE_ID, CR_PAGE_ID, TRR_PAGE_ID, SIGNIN_REQUEST_SUCCESS } from 'utils/constants';
+import {
+  LANDING_PAGE_ID,
+  OFFICER_PAGE_ID,
+  CR_PAGE_ID,
+  TRR_PAGE_ID,
+  SIGNIN_REQUEST_SUCCESS,
+  PINBOARD_PAGE_ID
+} from 'utils/constants';
 import { fetchNewTimelineItems } from 'actions/officer-page/new-timeline';
 import { fetchPage } from 'actions/cms';
 import { getCommunities, getClusterGeoJson } from 'actions/landing-page/heat-map';
@@ -29,7 +36,9 @@ import {
   fetchPinboardComplaints,
   fetchPinboardOfficers,
   fetchPinboardTRRs,
-  fetchPinboardGeographicData,
+  fetchPinboardGeographic,
+  fetchFirstPagePinboardGeographicTrrs,
+  fetchFirstPagePinboardGeographicCrs,
   fetchPinboardSocialGraph,
   fetchPinboardRelevantDocuments,
   fetchPinboardRelevantCoaccusals,
@@ -38,6 +47,7 @@ import {
 import {
   redirect,
 } from 'actions/pinboard-page';
+import { fetchVideoInfo } from 'actions/headers/slim-header';
 
 
 const createLocationChangeAction = (pathname) => ({
@@ -218,6 +228,7 @@ describe('fetchPageInitialData middleware', function () {
     store.dispatch.calledWith(requestActivityGrid()).should.be.true();
     store.dispatch.calledWith(getRecentDocument()).should.be.true();
     store.dispatch.calledWith(getComplaintSummaries()).should.be.true();
+    store.dispatch.calledWith(fetchVideoInfo()).should.be.true();
   });
 
   it('should dispatch fetch cr data if crid change', function () {
@@ -390,6 +401,16 @@ describe('fetchPageInitialData middleware', function () {
     store.dispatch.calledWith(requestCrawlers()).should.be.true();
   });
 
+  it('should get pinboard cms', function () {
+    const store = buildStore();
+    const action = createLocationChangeAction('/pinboard/268a5e58/');
+    let dispatched;
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+
+    store.dispatch.calledWith(fetchPage(PINBOARD_PAGE_ID)()).should.be.true();
+  });
+
   it('should get all pinboard data if requesting ID equals ID in state', function () {
     const store = buildStore();
     _.set(store._state, 'pinboardPage.pinboard.id', '268a5e58');
@@ -404,7 +425,9 @@ describe('fetchPageInitialData middleware', function () {
     store.dispatch.calledWith(fetchPinboardOfficers('268a5e58')).should.be.true();
     store.dispatch.calledWith(fetchPinboardTRRs('268a5e58')).should.be.true();
     store.dispatch.calledWith(fetchPinboardSocialGraph('268a5e58')).should.be.true();
-    store.dispatch.calledWith(fetchPinboardGeographicData('268a5e58')).should.be.true();
+    store.dispatch.should.be.calledWith(fetchPinboardGeographic());
+    store.dispatch.should.be.calledWith(fetchFirstPagePinboardGeographicCrs({ 'pinboard_id': '268a5e58' }));
+    store.dispatch.should.be.calledWith(fetchFirstPagePinboardGeographicTrrs({ 'pinboard_id': '268a5e58' }));
     store.dispatch.should.be.calledWith(fetchPinboardRelevantDocuments('268a5e58'));
     store.dispatch.should.be.calledWith(fetchPinboardRelevantCoaccusals('268a5e58'));
     store.dispatch.should.be.calledWith(fetchPinboardRelevantComplaints('268a5e58'));
@@ -425,7 +448,7 @@ describe('fetchPageInitialData middleware', function () {
   it('should not dispatch fetchPinboard if requesting ID is not valid', function () {
     const store = buildStore();
     _.set(store._state, 'pinboardPage.pinboard.id', null);
-    const action = createLocationChangeAction('/pinboard/268a5e5/');  // Not enough 8 characters
+    const action = createLocationChangeAction('/pinboard/268a5e5/'); // Not enough 8 characters
     let dispatched;
 
     fetchPageInitialData(store)(action => dispatched = action)(action);
@@ -438,5 +461,17 @@ describe('fetchPageInitialData middleware', function () {
     store.dispatch.should.not.be.calledWith(fetchPinboardRelevantDocuments('268a5e5'));
     store.dispatch.should.not.be.calledWith(fetchPinboardRelevantCoaccusals('268a5e5'));
     store.dispatch.should.not.be.calledWith(fetchPinboardRelevantComplaints('268a5e5'));
+  });
+
+  it('should dispatch redirect if it is no id pinboard page', function () {
+    const store = buildStore();
+    _.set(store._state, 'pinboardPage.pinboard.id', null);
+    const action = createLocationChangeAction('/pinboard/');
+    let dispatched;
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+
+    store.dispatch.calledWith(redirect(true)).should.be.true();
   });
 });

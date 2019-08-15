@@ -49,16 +49,6 @@ describe('fetchLatestRetrievedPinboard middleware', () => {
     store.dispatch.called.should.be.false();
   });
 
-  it('should not dispatch if location change is pinboard detail page', () => {
-    const action = createLocationChangeAction('/pinboard/5cd06f2b/');
-
-    let dispatched;
-    restorePinboardSession(store)(action => dispatched = action)(action);
-    dispatched.should.eql(action);
-
-    store.dispatch.called.should.be.false();
-  });
-
   it('should not dispatch if pinboard is restored', () => {
     store.getState().pinboardPage.pinboard.isPinboardRestored = true;
     const action = createLocationChangeAction('');
@@ -70,13 +60,23 @@ describe('fetchLatestRetrievedPinboard middleware', () => {
     store.dispatch.called.should.be.false();
   });
 
-  it('should dispatch fetchLatestRetrievedPinboard', () => {
+  it('should dispatch fetchLatestRetrievedPinboard with create is false if not on no id pinboard page', () => {
     const action = createLocationChangeAction('');
 
     let dispatched;
     restorePinboardSession(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
 
-    store.dispatch.calledWith(fetchLatestRetrievedPinboard()).should.be.true();
+    store.dispatch.calledWith(fetchLatestRetrievedPinboard({ create: false })).should.be.true();
+  });
+
+  it('should dispatch fetchLatestRetrievedPinboard with create is true if on no id pinboard page', () => {
+    const action = createLocationChangeAction('/pinboard/');
+
+    let dispatched;
+    restorePinboardSession(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+
+    store.dispatch.calledWith(fetchLatestRetrievedPinboard({ create: true })).should.be.true();
   });
 });

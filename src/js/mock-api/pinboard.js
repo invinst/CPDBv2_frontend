@@ -1,5 +1,23 @@
 import { has } from 'lodash';
 
+const emptyPinboard = {
+  'id': 'abcd1234',
+  'title': '',
+  'officer_ids': [],
+  'crids': [],
+  'trr_ids': [],
+  'description': '',
+  'example_pinboards': [{
+    'description': 'Officers with at least 10 complaints against them generate 64% of all complaints.',
+    'id': 'b20c2c36',
+    'title': 'Watts Crew',
+  }, {
+    'description': 'Skullcap Crew is a nickname given to a group of five Chicago Police officers in a gang tactical...',
+    'id': '22e66085',
+    'title': 'Skullcap Crew',
+  }]
+};
+
 export const createPinboard = () => ({
   'id': '5cd06f2b',
   'title': '',
@@ -25,7 +43,8 @@ const pinboards = {
     'crids': ['1234567'],
     'trr_ids': [1234],
     'description': 'Pinboard Description',
-  }
+  },
+  'abcd1234': emptyPinboard,
 };
 
 export function getOrCreateEmptyPinboard(pinboardId='5cd06f2b') {
@@ -47,24 +66,6 @@ export function updatePinboard(pinboard) {
   pinboards[pinboard.id] = { ...oldPinboard, ...pinboard };
   return pinboards[pinboard.id];
 }
-
-export const fetchEmptyPinboard = () => ({
-  'id': 'abcd1234',
-  'title': '',
-  'officer_ids': [],
-  'crids': [],
-  'trr_ids': [],
-  'description': '',
-  'example_pinboards': [{
-    'description': 'Officers with at least 10 complaints against them generate 64% of all complaints.',
-    'id': 'b20c2c36',
-    'title': 'Watts Crew',
-  }, {
-    'description': 'Skullcap Crew is a nickname given to a group of five Chicago Police officers in a gang tactical...',
-    'id': '22e66085',
-    'title': 'Skullcap Crew',
-  }]
-});
 
 export const updatePinboardTitleParams = () => ({
   'title': 'Updated Title',

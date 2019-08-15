@@ -17,3 +17,5 @@ export const getSocialGraphTimelineIdx = state => state.socialGraphPage.networkD
 export const getSocialGraphRefreshIntervalId = state => state.socialGraphPage.networkData.refreshIntervalId;
 
 export const getTimelineIdxTriggerChange = state => state.socialGraphPage.networkData.timelineIdxTriggerChange;
+
+export const getNetworkAllegationsRequesting = state => state.socialGraphPage.networkData.networkAllegationsRequesting;

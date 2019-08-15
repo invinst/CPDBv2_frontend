@@ -25,7 +25,7 @@ describe('StrategyForm component', function () {
       <StrategyForm
         editModeOn={ true }
         value={ strategyFormValue }
-        />
+      />
     );
     const input = findRenderedDOMComponentWithTag(instance, 'input');
     input.value.should.eql('10');
@@ -52,7 +52,7 @@ describe('StrategyForm component', function () {
         onChange={ onChange }
         editModeOn={ true }
         value={ strategyFormValue }
-        />
+      />
     );
     const input = findRenderedDOMComponentWithTag(instance, 'input');
     input.value = 15;
@@ -67,7 +67,7 @@ describe('StrategyForm component', function () {
         onChange={ onChange }
         editModeOn={ true }
         value={ strategyFormValue }
-        />
+      />
     );
     const select = findRenderedDOMComponentWithTag(instance, 'select');
     select.value = 2;

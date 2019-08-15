@@ -10,6 +10,7 @@
   height: 176px
   position: relative
   width: 148px
+  margin: 0 8px 8px 0
 
 %undo-card-text
   display: block
@@ -34,7 +35,7 @@
   @extend %card
   background-color: $wild-sand
   border-color: $white-two-color
-  animation: fadeOut 1s ease-in-out forwards
+  animation: fadeOut 2s ease-in-out 2s forwards
   
   .text
     @extend %undo-card-text
@@ -53,7 +54,7 @@
 
 \:local(.undo-card-dark)
   @extend %card
-  animation: fadeOut 1s ease-in-out forwards
+  animation: fadeOut 2s ease-in-out 2s forwards
   background-color: $soft-black-color
   border-color: $mine-shaft-color
   

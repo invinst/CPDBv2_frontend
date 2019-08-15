@@ -2,18 +2,8 @@ import { handleActions } from 'redux-actions';
 import * as _ from 'lodash';
 
 import * as constants from 'utils/constants';
+import { getFormatId } from 'utils/pinboard';
 
-
-const PINBOARD_ATTR_MAP = {
-  'CR': 'crids',
-  'DATE > CR': 'crids',
-  'INVESTIGATOR > CR': 'crids',
-  'OFFICER': 'officer_ids',
-  'UNIT > OFFICERS': 'officer_ids',
-  'DATE > OFFICERS': 'officer_ids',
-  'TRR': 'trr_ids',
-  'DATE > TRR': 'trr_ids',
-};
 
 const defaultState = {
   'id': null,
@@ -24,10 +14,6 @@ const defaultState = {
   'description': '',
   'saving': false,
   'isPinboardRestored': false,
-};
-
-const getFormatId = (attr) => {
-  return _.includes(['officer_ids', 'trr_ids'], attr) ? _.parseInt : _.identity;
 };
 
 export default handleActions({
@@ -81,7 +67,7 @@ export default handleActions({
     };
   },
   [constants.ADD_ITEM_TO_PINBOARD_STATE]: (state, action) => {
-    const attr = PINBOARD_ATTR_MAP[action.payload.type];
+    const attr = constants.PINBOARD_ATTR_MAP[action.payload.type];
     const ids = state[attr] || [];
     const format = getFormatId(attr);
     const newId = format(action.payload.id);
@@ -92,19 +78,20 @@ export default handleActions({
     };
   },
   [constants.REMOVE_ITEM_FROM_PINBOARD_STATE]: (state, action) => {
-    const attr = PINBOARD_ATTR_MAP[action.payload.type];
+    const { type, mode, id: payloadId } = action.payload;
+    const attr = constants.PINBOARD_ATTR_MAP[type];
     let ids = state[attr] || [];
     const format = getFormatId(attr);
 
     return {
       ...state,
-      [attr]: _.reject(ids, id => id === format(action.payload.id)),
-      needRefreshData: true,
+      [attr]: _.reject(ids, id => id === format(payloadId)),
+      needRefreshData: mode !== constants.PINBOARD_ITEM_REMOVE_MODE.STATE_ONLY,
     };
   },
   [constants.ORDER_PINBOARD_STATE]: (state, action) => {
     const { ids, type } = action.payload;
-    const attr = PINBOARD_ATTR_MAP[type];
+    const attr = constants.PINBOARD_ATTR_MAP[type];
     const format = getFormatId(attr);
 
     return {

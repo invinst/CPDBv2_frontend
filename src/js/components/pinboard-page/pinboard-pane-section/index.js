@@ -6,6 +6,7 @@ import GeographicContainer from 'containers/pinboard-page/geographic-container';
 import SocialGraphContainer from 'containers/pinboard-page/social-graph-container';
 import { PINBOARD_PAGE_TAB_NAMES } from 'utils/constants';
 import styles from './pinboard-pane-section.sass';
+import withLoadingSpinner from 'components/common/with-loading-spinner';
 
 
 export default class PinboardPaneSection extends Component {
@@ -55,4 +56,10 @@ PinboardPaneSection.propTypes = {
   changePinboardTab: PropTypes.func,
   hasMapMarker: PropTypes.bool,
   isVisible: PropTypes.bool,
+  loading: PropTypes.bool,
 };
+
+export const PinboardPaneSectionWithSpinner = withLoadingSpinner(
+  PinboardPaneSection,
+  styles.pinboardPaneSectionLoading
+);

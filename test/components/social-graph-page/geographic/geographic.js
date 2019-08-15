@@ -1,8 +1,11 @@
+import { Promise } from 'es6-promise';
 import React from 'react';
 import { stub } from 'sinon';
 import {
   scryRenderedComponentsWithType,
-  renderIntoDocument, findRenderedComponentWithType, findRenderedDOMComponentWithClass,
+  renderIntoDocument,
+  findRenderedComponentWithType,
+  findRenderedDOMComponentWithClass,
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 
@@ -25,32 +28,134 @@ describe('GeographicMap component', function () {
     scryRenderedComponentsWithType(instance, AllegationsMap).should.have.length(1);
   });
 
-  it('should fetch geographic data with unit_id when componentDidMount', function () {
-    const requestGeographicStub = stub();
-    const requestSocialGraphGeographicPreviewPaneStub = stub();
+  it('should fetch geographic data pages with unit_id when componentDidMount', function (done) {
+    const requestFirstPageSocialGraphGeographicCrsStub = stub().usingPromise(Promise).resolves(
+      { payload: { count: 100, limit: 50 }, request: { params: { 'unit_id': '123' } } }
+    );
+    const requestFirstPageSocialGraphGeographicTrrsStub = stub().usingPromise(Promise).resolves(
+      { payload: { count: 200, limit: 100 }, request: { params: { 'unit_id': '123' } } }
+    );
+    const requestFirstPageSocialGraphGeographicCrsPreviewPaneStub = stub().usingPromise(Promise).resolves(
+      { payload: { count: 200, limit: 150 }, request: { params: { 'unit_id': '123' } } }
+    );
+    const requestFirstPageSocialGraphGeographicTrrsPreviewPaneStub = stub().usingPromise(Promise).resolves(
+      { payload: { count: 250, limit: 200 }, request: { params: { 'unit_id': '123' } } }
+    );
+    const requestOtherPagesSocialGraphGeographicCrsStub = stub();
+    const requestOtherPagesSocialGraphGeographicTrrsStub = stub();
+    const requestOtherPagesSocialGraphGeographicCrsPreviewPaneStub = stub();
+    const requestOtherPagesSocialGraphGeographicTrrsPreviewPaneStub = stub();
+
     instance = renderIntoDocument(
       <GeographicMap
-        requestSocialGraphGeographic={ requestGeographicStub }
-        requestSocialGraphGeographicPreviewPane={ requestSocialGraphGeographicPreviewPaneStub }
+        requestFirstPageSocialGraphGeographicCrs={ requestFirstPageSocialGraphGeographicCrsStub }
+        requestFirstPageSocialGraphGeographicTrrs={ requestFirstPageSocialGraphGeographicTrrsStub }
+        requestFirstPageSocialGraphGeographicCrsPreviewPane={
+          requestFirstPageSocialGraphGeographicCrsPreviewPaneStub
+        }
+        requestFirstPageSocialGraphGeographicTrrsPreviewPane={
+          requestFirstPageSocialGraphGeographicTrrsPreviewPaneStub
+        }
+        requestOtherPagesSocialGraphGeographicCrs={ requestOtherPagesSocialGraphGeographicCrsStub }
+        requestOtherPagesSocialGraphGeographicTrrs={ requestOtherPagesSocialGraphGeographicTrrsStub }
+        requestOtherPagesSocialGraphGeographicCrsPreviewPane={
+          requestOtherPagesSocialGraphGeographicCrsPreviewPaneStub
+        }
+        requestOtherPagesSocialGraphGeographicTrrsPreviewPane={
+          requestOtherPagesSocialGraphGeographicTrrsPreviewPaneStub
+        }
         unitId='123'
       />
     );
-    requestGeographicStub.should.be.calledWith({ 'unit_id': '123' });
-    requestSocialGraphGeographicPreviewPaneStub.should.be.calledWith({ 'unit_id': '123' });
+    requestFirstPageSocialGraphGeographicCrsStub.should.be.calledWith({ 'unit_id': '123' });
+    requestFirstPageSocialGraphGeographicTrrsStub.should.be.calledWith({ 'unit_id': '123' });
+    requestFirstPageSocialGraphGeographicCrsPreviewPaneStub.should.be.calledWith({ 'unit_id': '123' });
+    requestFirstPageSocialGraphGeographicTrrsPreviewPaneStub.should.be.calledWith({ 'unit_id': '123' });
+    setTimeout(() => {
+      requestOtherPagesSocialGraphGeographicCrsStub.should.be.calledWith({ limit: 50, offset: 50, 'unit_id': '123' });
+      requestOtherPagesSocialGraphGeographicTrrsStub.should.be.calledWith({
+        'limit': 100,
+        'offset': 100,
+        'unit_id': '123'
+      });
+      requestOtherPagesSocialGraphGeographicCrsPreviewPaneStub.should.be.calledWith({
+        'limit': 150,
+        'offset': 150,
+        'unit_id': '123'
+      });
+      requestOtherPagesSocialGraphGeographicTrrsPreviewPaneStub.should.be.calledWith({
+        'limit': 200,
+        'offset': 200,
+        'unit_id': '123'
+      });
+      done();
+    }, 50);
   });
 
-  it('should fetch geographic data with officer_ids when componentDidMount', function () {
-    const requestGeographicStub = stub();
-    const requestSocialGraphGeographicPreviewPaneStub = stub();
+  it('should fetch geographic data pages with officer_ids when componentDidMount', function () {
+    const requestFirstPageSocialGraphGeographicCrsStub = stub().usingPromise(Promise).resolves(
+      { payload: { count: 50, limit: 50 } }
+    );
+    const requestFirstPageSocialGraphGeographicTrrsStub = stub().usingPromise(Promise).resolves(
+      { payload: { count: 100, limit: 100 } }
+    );
+    const requestFirstPageSocialGraphGeographicCrsPreviewPaneStub = stub().usingPromise(Promise).resolves(
+      { payload: { count: 150, limit: 150 } }
+    );
+    const requestFirstPageSocialGraphGeographicTrrsPreviewPaneStub = stub().usingPromise(Promise).resolves(
+      { payload: { count: 200, limit: 200 } }
+    );
+
     instance = renderIntoDocument(
       <GeographicMap
-        requestSocialGraphGeographic={ requestGeographicStub }
-        requestSocialGraphGeographicPreviewPane={ requestSocialGraphGeographicPreviewPaneStub }
+        requestFirstPageSocialGraphGeographicCrs={ requestFirstPageSocialGraphGeographicCrsStub }
+        requestFirstPageSocialGraphGeographicTrrs={ requestFirstPageSocialGraphGeographicTrrsStub }
+        requestFirstPageSocialGraphGeographicCrsPreviewPane={
+          requestFirstPageSocialGraphGeographicCrsPreviewPaneStub
+        }
+        requestFirstPageSocialGraphGeographicTrrsPreviewPane={
+          requestFirstPageSocialGraphGeographicTrrsPreviewPaneStub
+        }
         officerIds='123,456,789'
       />
     );
-    requestGeographicStub.should.be.calledWith({ 'officer_ids': '123,456,789' });
-    requestSocialGraphGeographicPreviewPaneStub.should.be.calledWith({ 'officer_ids': '123,456,789' });
+    requestFirstPageSocialGraphGeographicCrsStub.should.be.calledWith({ 'officer_ids': '123,456,789' });
+    requestFirstPageSocialGraphGeographicTrrsStub.should.be.calledWith({ 'officer_ids': '123,456,789' });
+    requestFirstPageSocialGraphGeographicCrsPreviewPaneStub.should.be.calledWith({ 'officer_ids': '123,456,789' });
+    requestFirstPageSocialGraphGeographicTrrsPreviewPaneStub.should.be.calledWith({ 'officer_ids': '123,456,789' });
+  });
+
+  it('should fetch geographic data pages with pinboard_id when componentDidMount', function () {
+    const requestFirstPageSocialGraphGeographicCrsStub = stub().usingPromise(Promise).resolves(
+      { payload: { count: 50, limit: 50 } }
+    );
+    const requestFirstPageSocialGraphGeographicTrrsStub = stub().usingPromise(Promise).resolves(
+      { payload: { count: 100, limit: 100 } }
+    );
+    const requestFirstPageSocialGraphGeographicCrsPreviewPaneStub = stub().usingPromise(Promise).resolves(
+      { payload: { count: 150, limit: 150 } }
+    );
+    const requestFirstPageSocialGraphGeographicTrrsPreviewPaneStub = stub().usingPromise(Promise).resolves(
+      { payload: { count: 200, limit: 200 } }
+    );
+
+    instance = renderIntoDocument(
+      <GeographicMap
+        requestFirstPageSocialGraphGeographicCrs={ requestFirstPageSocialGraphGeographicCrsStub }
+        requestFirstPageSocialGraphGeographicTrrs={ requestFirstPageSocialGraphGeographicTrrsStub }
+        requestFirstPageSocialGraphGeographicCrsPreviewPane={
+          requestFirstPageSocialGraphGeographicCrsPreviewPaneStub
+        }
+        requestFirstPageSocialGraphGeographicTrrsPreviewPane={
+          requestFirstPageSocialGraphGeographicTrrsPreviewPaneStub
+        }
+        pinboardId='5cd06f2b'
+      />
+    );
+    requestFirstPageSocialGraphGeographicCrsStub.should.be.calledWith({ 'pinboard_id': '5cd06f2b' });
+    requestFirstPageSocialGraphGeographicTrrsStub.should.be.calledWith({ 'pinboard_id': '5cd06f2b' });
+    requestFirstPageSocialGraphGeographicCrsPreviewPaneStub.should.be.calledWith({ 'pinboard_id': '5cd06f2b' });
+    requestFirstPageSocialGraphGeographicTrrsPreviewPaneStub.should.be.calledWith({ 'pinboard_id': '5cd06f2b' });
   });
 
   it('should add mousedown event when componentDidMounted', function () {

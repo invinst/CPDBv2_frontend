@@ -204,7 +204,9 @@ describe('store', function () {
           scrollPosition: null
         },
         slimHeader: {
-          logoSectionEditModeOn: false
+          demoVideoSectionEditModeOn: false,
+          logoSectionEditModeOn: false,
+          videoInfo: [],
         }
       },
       embed: {
@@ -250,13 +252,22 @@ describe('store', function () {
           timelineIdxTriggerChange: 0,
           selectedEdge: null,
           selectedCrid: null,
+          requesting: false,
+          networkAllegationsRequesting: false,
+          networkOfficersRequesting: false,
         },
         currentMainTab: 'NETWORK',
         geographicData: {
-          mapData: [],
-          previewPaneData: [],
           crid: null,
           trrId: null,
+          isCrsRequested: false,
+          isTrrsRequested: false,
+          mapCrsData: [],
+          mapTrrsData: [],
+          mapCrsDataTotalCount: null,
+          mapTrrsDataTotalCount: null,
+          previewPaneCrsData: [],
+          previewPaneTrrsData: [],
         },
       },
       pinboardPage: {
@@ -271,8 +282,16 @@ describe('store', function () {
           'trr_ids': [],
         },
         graphData: { requesting: false, data: {} },
-        geographicData: { requesting: false, data: [] },
-        currentTab: 'NETWORK',
+        geographicData: {
+          clearAllMarkers: false,
+          mapCrsData: [],
+          mapTrrsData: [],
+          mapCrsDataTotalCount: null,
+          mapTrrsDataTotalCount: null,
+          crsRequesting: false,
+          trrsRequesting: false,
+        },
+        currentTab: null,
         relevantDocuments: {
           requesting: false,
           items: [],
@@ -293,12 +312,20 @@ describe('store', function () {
         },
         redirect: false,
         initialRequested: false,
-        officerItems: { requesting: false, items: [] },
-        crItems: { requesting: false, items: [] },
-        trrItems: { requesting: false, items: [] },
+        officerItems: { requesting: false, items: [], removingItems: [] },
+        crItems: { requesting: false, items: [], removingItems: [] },
+        trrItems: { requesting: false, items: [], removingItems: [] },
         timelineIdx: 0,
         refreshIntervalId: null,
         focusedItem: {},
+        pinItemFromPreviewPane: {},
+        editModeOn: {
+          EMPTY_PINBOARD_DESCRIPTION: false,
+          EMPTY_PINBOARD_TITLE: false,
+        },
+      },
+      videoModal: {
+        active: false,
       },
       toast: {},
     });

@@ -15,6 +15,8 @@ import focusedItem from './focused-item';
 import timelineIdx from './timeline_idx';
 import refreshIntervalId from './refresh-interval-id';
 import initialRequested from './initial-requested';
+import pinItemFromPreviewPane from './pin-item-from-preview-pane';
+import editModeOn from './edit-mode-on';
 
 
 export default combineReducers({
@@ -33,4 +35,6 @@ export default combineReducers({
   timelineIdx,
   refreshIntervalId,
   initialRequested,
+  pinItemFromPreviewPane,
+  editModeOn,
 });

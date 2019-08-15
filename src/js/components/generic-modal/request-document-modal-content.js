@@ -24,7 +24,7 @@ class RequestDocumentModalContent extends Component {
     return onRequestDocument({ id, email }).then((action) => {
       updateIntercomEmail(email);
       this.setState({ warning: false });
-      setTimeout(closeModal, 1500);  // auto close modal if success
+      setTimeout(closeModal, 1500); // auto close modal if success
     }).catch(e => {
       this.setState({ warning: true });
     });

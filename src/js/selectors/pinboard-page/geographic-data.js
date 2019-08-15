@@ -1,47 +1,43 @@
-import { get, isEmpty, filter, compact } from 'lodash';
+import { isEmpty, concat } from 'lodash';
 import { createSelector } from 'reselect';
 
 import { crMapMarkersTransform, trrMapMarkerTransform } from 'selectors/common/geographic';
-import { MAP_ITEMS, PINBOARD_PAGE_TAB_NAMES } from 'utils/constants';
 
 
-const getGeographicData = state => get(state, 'pinboardPage.geographicData.data', []);
-export const getGeographicDataRequesting = state => get(state, 'pinboardPage.geographicData.requesting', false);
+const getGeographicCrs = state => state.pinboardPage.geographicData.mapCrsData;
+const getGeographicTrrs = state => state.pinboardPage.geographicData.mapTrrsData;
+export const getClearAllMarkers = state => state.pinboardPage.geographicData.clearAllMarkers;
+
+export const geographicDataRequestingSelector = createSelector(
+  (state) => state.pinboardPage.geographicData.crsRequesting,
+  (state) => state.pinboardPage.geographicData.trrsRequesting,
+  (crsRequesting, trrsRequesting) => crsRequesting || trrsRequesting
+);
 
 export const mapLegendSelector = createSelector(
-  getGeographicData,
-  geographicData => ({
-    allegationCount: filter(geographicData, geographicDatum => geographicDatum.kind === MAP_ITEMS.CR).length,
-    useOfForceCount: filter(geographicData, geographicDatum => geographicDatum.kind === MAP_ITEMS.FORCE).length,
+  getGeographicCrs,
+  getGeographicTrrs,
+  (state) => state.pinboardPage.geographicData.mapCrsDataTotalCount,
+  (state) => state.pinboardPage.geographicData.mapTrrsDataTotalCount,
+  (geographicCrs, geographicTrrs, crsTotalCount, trrsTotalCount) => ({
+    allegationCount: geographicCrs.length,
+    useOfForceCount: geographicTrrs.length,
+    allegationLoading: geographicCrs.length !== crsTotalCount,
+    useOfForceLoading: geographicTrrs.length !== trrsTotalCount,
   })
 );
 
 export const hasMapMarkersSelector = createSelector(
-  getGeographicData,
-  geographicData => !isEmpty(geographicData)
+  getGeographicCrs,
+  getGeographicTrrs,
+  (geographicCrs, geographicTrrs) => !isEmpty(geographicCrs) || !isEmpty(geographicTrrs)
 );
 
 export const mapMarkersSelector = createSelector(
-  getGeographicData,
-  markers => compact(
-    markers.map(marker => {
-      if (marker.kind === MAP_ITEMS.CR) {
-        return crMapMarkersTransform(marker);
-      } else if (marker.kind === MAP_ITEMS.FORCE) {
-        return trrMapMarkerTransform(marker);
-      }
-    })
+  getGeographicCrs,
+  getGeographicTrrs,
+  (geographicCrs, geographicTrrs) => concat(
+    geographicCrs.map(marker => crMapMarkersTransform(marker)),
+    geographicTrrs.map(marker => trrMapMarkerTransform(marker)),
   )
 );
-
-export const getCurrentTab = state => {
-  if (
-    isEmpty(state.pinboardPage.graphData.data['coaccused_data'])
-    && isEmpty(state.pinboardPage.geographicData.data)
-  ) {
-    return PINBOARD_PAGE_TAB_NAMES.NETWORK;
-  } else if (isEmpty(state.pinboardPage.graphData.data['coaccused_data'])) {
-    return PINBOARD_PAGE_TAB_NAMES.GEOGRAPHIC;
-  }
-  return state.pinboardPage.currentTab;
-};

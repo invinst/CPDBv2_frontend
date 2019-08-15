@@ -58,7 +58,7 @@ export default class TextInput extends Component {
     const { focused, value } = nextProps;
 
     this.setState({ value });
-    if (focused) {
+    if (!this.props.focused && focused) {
       this.input.focus();
     }
   }

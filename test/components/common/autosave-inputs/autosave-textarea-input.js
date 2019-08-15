@@ -67,9 +67,9 @@ describe('AutosaveTextareaInput component', function () {
       />
     );
 
-    const textareaStub = stub(instance, 'textarea').value({ scrollHeight: 42, rows: 0 });
+    const textareaStub = stub(instance, 'textarea').value({ scrollHeight: 50 });
     instance.handleResize();
-    instance.textarea.rows.should.equal(2);
+    instance.textarea.rows.should.equal(3);
     textareaStub.restore();
   });
 });

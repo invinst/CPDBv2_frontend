@@ -1,10 +1,10 @@
-import { get, sumBy, map, last, kebabCase, has } from 'lodash';
+import { get, sumBy, map, last, kebabCase, has, isEmpty, compact } from 'lodash';
 import moment from 'moment';
 
 import { extractPercentile } from 'selectors/common/percentile';
 import { getCurrentAge, formatDate } from 'utils/date';
 import { roundedPercentile } from 'utils/calculations';
-import { FULL_MONTH_DATE_FORMAT } from 'utils/constants';
+import { DATE_FORMAT, FULL_MONTH_DATE_FORMAT } from 'utils/constants';
 import { getDemographicString } from 'utils/victims';
 import {
   navigationItemTransform as previewPaneNavigationItemTransform
@@ -89,8 +89,8 @@ const accusedTransform = coaccused => {
     url: `/officer/${coaccused.id}/${kebabCase(coaccused['full_name'])}/`,
     count:
       has(coaccused, 'allegation_count') ? coaccused['allegation_count'] :
-      has(coaccused, 'complaint_count') ? coaccused['complaint_count'] :
-      0,
+        has(coaccused, 'complaint_count') ? coaccused['complaint_count'] :
+          0,
     radarAxes: percentile.items,
     radarColor: percentile.visualTokenBackground,
   };
@@ -110,7 +110,7 @@ const crTransform = (item) => {
   return {
     subText: getSubText(item.highlight),
     coaccused,
-    victims: map(item.victims, getDemographicString),
+    victims: compact(map(item.victims, getDemographicString)),
     address: item.address,
     category: item.category || item['most_common_category'],
     subCategory: item['sub_category'],
@@ -120,9 +120,21 @@ const crTransform = (item) => {
 };
 
 const trrTransform = (item) => {
+  const incidentDate = !isEmpty(item['trr_datetime']) ? moment(item['trr_datetime']).format(DATE_FORMAT) : '';
   const dateText = item['trr_datetime'] ? ` - ${moment(item['trr_datetime']).format(FULL_MONTH_DATE_FORMAT)}` : '';
+  const officer = item['officer'];
+  const firearmUsed = item['firearm_used'];
+  const taser = item['taser'];
+  const category = has(item, 'category') ? item['category'] :
+    firearmUsed ? 'Firearm' : taser ? 'Taser' : 'Use of Force Report';
+
   return {
-    subText: `TRR # ${item.id}${dateText}`
+    subText: `TRR # ${item.id}${dateText}`,
+    to: item.to,
+    category,
+    incidentDate,
+    address: item.address,
+    officer: officer ? accusedTransform(officer) : null,
   };
 };
 
@@ -130,8 +142,8 @@ export const officerTransform = (item) => {
   const race = item['race'] === 'Unknown' ? null : item['race'];
   const lastPercentile =
     has(item, 'percentile') ? item['percentile'] :
-    has(item, 'percentiles') ? last(item['percentiles']) :
-    {};
+      has(item, 'percentiles') ? last(item['percentiles']) :
+        {};
 
   return {
     id: item['id'],

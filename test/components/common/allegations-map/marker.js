@@ -1,8 +1,13 @@
 import React from 'react';
 import { stub } from 'sinon';
-import { renderIntoDocument, scryRenderedDOMComponentsWithClass, Simulate } from 'react-addons-test-utils';
+import {
+  renderIntoDocument,
+  scryRenderedDOMComponentsWithClass,
+  Simulate,
+} from 'react-addons-test-utils';
 import { browserHistory } from 'react-router';
 import { findDOMNode } from 'react-dom';
+import isMobile from 'ismobilejs';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import HoverableMarker, { Marker } from 'components/common/allegations-map/marker';
@@ -57,6 +62,23 @@ describe('Marker component', function () {
     stubPush.restore();
   });
 
+  it('should not open CR page when clicked if device is tablet', function () {
+    const tabletStub = stub(isMobile, 'tablet').value(true);
+    const stubPush = stub(browserHistory, 'push');
+    instance = renderIntoDocument(
+      <Marker
+        id={ '123' }
+        kind={ 'CR' }
+        finding={ 'Sustained' }
+        hovering={ false }
+      />
+    );
+    Simulate.click(findDOMNode(instance));
+    stubPush.should.not.be.called();
+    stubPush.restore();
+    tabletStub.restore();
+  });
+
   it('should call handClickCRMarker if kind is CR', function () {
     const handleClickCRMarkerStub = stub();
     const handleClickTRRMarkerStub = stub();
@@ -89,17 +111,12 @@ describe('Marker component', function () {
     handleClickCRMarkerStub.should.be.calledWith(null);
   });
 
-  it('should toggle popup and set zIndex when hovering', function () {
+  it('should toggle popup when hovering', function () {
     const stubMapboxMarker = {
       getPopup: stub().returns({
         isOpen: stub().returns(false)
       }),
       togglePopup: stub(),
-      getElement: stub().returns({
-        style: {
-          zIndex: 'auto'
-        }
-      })
     };
     //default
     instance = renderIntoDocument(
@@ -122,20 +139,14 @@ describe('Marker component', function () {
       />, instance
     );
     stubMapboxMarker.togglePopup.should.be.calledOnce();
-    stubMapboxMarker.getElement().style.zIndex.should.eql('10');
   });
 
-  it('should toggle popup and set zIndex when unhovering', function () {
+  it('should toggle popup when unhovering', function () {
     const stubMapboxMarker = {
       getPopup: stub().returns({
         isOpen: stub().returns(true)
       }),
       togglePopup: stub(),
-      getElement: stub().returns({
-        style: {
-          zIndex: 'auto'
-        }
-      })
     };
     //default
     instance = renderIntoDocument(
@@ -158,6 +169,37 @@ describe('Marker component', function () {
       />, instance
     );
     stubMapboxMarker.togglePopup.should.be.calledOnce();
-    stubMapboxMarker.getElement().style.zIndex.should.eql('0');
+  });
+
+  it('should not toggle popup when hovering if device is tablet', function () {
+    const tabletStub = stub(isMobile, 'tablet').value(true);
+    const stubMapboxMarker = {
+      getPopup: stub().returns({
+        isOpen: stub().returns(false)
+      }),
+      togglePopup: stub(),
+    };
+    //default
+    instance = renderIntoDocument(
+      <Marker
+        id={ '123' }
+        kind={ 'CR' }
+        finding={ 'Sustained' }
+        hovering={ false }
+        mapboxMarker={ stubMapboxMarker }
+      />
+    );
+    //hover
+    instance = reRender(
+      <Marker
+        id={ '123' }
+        kind={ 'CR' }
+        finding={ 'Sustained' }
+        hovering={ true }
+        mapboxMarker={ stubMapboxMarker }
+      />, instance
+    );
+    stubMapboxMarker.togglePopup.should.not.be.called();
+    tabletStub.restore();
   });
 });

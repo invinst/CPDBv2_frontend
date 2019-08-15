@@ -94,7 +94,8 @@ class GenericModalSection extends Section {
     super();
     this.prepareElementGetters({
       overlay: '//div[contains(@class, "generic-modal__generic-modal")]',
-      legalDisclaimerTitle: '//p[text()="LEGAL DISCLAIMER"]'
+      legalDisclaimerTitle: '//p[text()="LEGAL DISCLAIMER"]',
+      iUnderstandLink: '.i-understand-link',
     });
   }
 }
@@ -154,11 +155,10 @@ class HeatMapSection extends Section {
 }
 
 class SearchSection extends Section {
-  constructor() {
-    super();
+  constructor(parentSelector='') {
+    super(parentSelector, '//div[contains(@class, "search-box__search-box")]');
     this.prepareElementGetters({
-      sectionSearchBox: '.test--search-section-search-box',
-      sectionSearchTerm: '.test--search-section-term',
+      sectionSearchTerm: '//span[@class="search-box-term"]',
     });
   }
 }

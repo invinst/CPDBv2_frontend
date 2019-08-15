@@ -10,8 +10,8 @@ describe('Pinboard trrItemsReducer', function () {
   });
 
   it('should handle PINBOARD_TRRS_FETCH_REQUEST_SUCCESS', function () {
-    trrItemsReducer([
-      { 'id': 1 }],
+    trrItemsReducer(
+      [{ 'id': 1 }],
       {
         type: constants.PINBOARD_TRRS_FETCH_REQUEST_SUCCESS,
         payload: [
@@ -55,6 +55,20 @@ describe('Pinboard trrItemsReducer', function () {
         payload: {
           type: 'CR',
           id: '2',
+        }
+      }
+    ).should.deepEqual([{ 'id': 1 }, { 'id': 2 }]);
+  });
+
+  it('should handle REMOVE_ITEM_IN_PINBOARD_PAGE with API_ONLY mode', function () {
+    trrItemsReducer(
+      [{ 'id': 1 }, { 'id': 2 }],
+      {
+        type: constants.REMOVE_ITEM_IN_PINBOARD_PAGE,
+        payload: {
+          type: 'TRR',
+          id: '2',
+          mode: constants.PINBOARD_ITEM_REMOVE_MODE.API_ONLY,
         }
       }
     ).should.deepEqual([{ 'id': 1 }, { 'id': 2 }]);

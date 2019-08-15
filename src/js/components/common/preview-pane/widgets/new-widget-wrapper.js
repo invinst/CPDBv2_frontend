@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import MediaQuery from 'react-responsive';
-import cx from 'classnames';
 
 import NewCallToActionWidget from './new-call-to-action-widget';
 import styles from './new-widget-wrapper.sass';
@@ -43,15 +42,9 @@ export default class NewWidgetWrapper extends Component {
             <div className='new-call-to-action-widget-container'>
               <NewCallToActionWidget text={ text }/>
             </div>
-            ) : null
+          ) : null
           }
-          <div
-            className={ cx(
-              'widget-wrapper-responsive-container',
-              { 'y-scrollable': yScrollable },
-            ) }
-            ref={ el => this.element = el }
-          >
+          <div className='widget-wrapper-responsive-container' ref={ el => this.element = el }>
             { children }
             { !yScrollable &&
               <MediaQuery maxHeight={ this.state.height }>

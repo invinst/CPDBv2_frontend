@@ -20,9 +20,11 @@ import {
   CRAWLERS_API_URL,
   SOCIAL_GRAPH_NETWORK_API_URL,
   PINBOARDS_URL,
-  SOCIAL_GRAPH_GEOGRAPHIC_API_URL,
+  SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
+  SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL,
   SOCIAL_GRAPH_OFFICERS_API_URL,
   SOCIAL_GRAPH_ALLEGATIONS_API_URL,
+  MODAL_VIDEO_INFO,
 } from 'utils/constants';
 import { communityGeoJSONPath } from 'utils/static-assets';
 import getCRData from './cr-page/get-data';
@@ -62,7 +64,6 @@ import {
   createPinboard,
   getOrCreateEmptyPinboard,
   updatePinboard,
-  fetchEmptyPinboard,
   updatePinboardTitleParams,
   updatedPinboardTitle,
   updatePinboardDescriptionParams,
@@ -75,8 +76,8 @@ import {
 } from './pinboard-page/fetch-pinned-items';
 import { getSocialGraphData } from './pinboard-page/social-graph';
 import { getSocialGraphBigData } from './pinboard-page/big-social-graph';
-import { getPinboardGeographicData } from './pinboard-page/geographic-data';
-import { getSocialGraphGeographicData } from './social-graph-page/geographic-data';
+import { pinboardGeographicCrsData, pinboardGeographicTrrsData } from './pinboard-page/geographic-data';
+import { socialGraphGeographicCrsData, socialGraphGeographicTrrsData, } from './social-graph-page/geographic-data';
 import getRelevantCoaccusals, {
   getFirstRelevantCoaccusals,
   filterPinnedOfficers,
@@ -88,6 +89,7 @@ import getRelevantComplaints, {
   getFirstRelevantComplaints,
   filterPinnedComplaints,
 } from 'mock-api/pinboard-page/relevant-complaints';
+import { modalVideoInfo } from './headers/slim-header';
 
 
 const SEARCH_API_URL = /^suggestion\/$/;
@@ -170,6 +172,8 @@ axiosMockClient.onGet(communityGeoJSONPath).reply(200, getCommunities());
 axiosMockClient.onGet(`${SLUG_PAGE_API_URL}landing-page/`).reply(200, landingPageCMSFields);
 axiosMockClient.onGet(`${SLUG_PAGE_API_URL}officer-page/`).reply(200, officerPageCMSFields);
 
+axiosMockClient.onGet(`https://vimeo.com/api/v2/video/${MODAL_VIDEO_INFO.VIDEO_ID}.json`).reply(200, modalVideoInfo);
+
 axiosMockClient.onGet(`${POPUP_API_URL}?page=complaint`).reply(200, getCRPopup());
 
 axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'community', contentType: 'COMMUNITY' } })
@@ -245,13 +249,23 @@ axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/trrs/`).reply(200, fetchPinboard
 
 axiosMockClient.onGet(`${SOCIAL_GRAPH_NETWORK_API_URL}?pinboard_id=5cd06f2b`).reply(200, getSocialGraphData());
 axiosMockClient.onGet(
-  `${SOCIAL_GRAPH_GEOGRAPHIC_API_URL}?pinboard_id=5cd06f2b`
-).reply(200, getPinboardGeographicData());
+  SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
+  { params: { 'pinboard_id': '5cd06f2b' } }
+).reply(200, pinboardGeographicCrsData);
+axiosMockClient.onGet(
+  SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL,
+  { params: { 'pinboard_id': '5cd06f2b' } }
+).reply(200, pinboardGeographicTrrsData);
 
 axiosMockClient.onGet(
-  SOCIAL_GRAPH_GEOGRAPHIC_API_URL,
+  SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
   { params: { 'unit_id': '123' } }
-).reply(200, getSocialGraphGeographicData());
+).reply(200, socialGraphGeographicCrsData);
+
+axiosMockClient.onGet(
+  SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL,
+  { params: { 'unit_id': '123' } }
+).reply(200, socialGraphGeographicTrrsData);
 
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-coaccusals/?`).reply(function () {
   const currentPinboard = getOrCreateEmptyPinboard('5cd06f2b');
@@ -287,9 +301,14 @@ axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-complaints/?limit=20&of
   200, getRelevantComplaints('5cd06f2b', 20, 40, 50)
 );
 
-axiosMockClient.onGet(`${PINBOARDS_URL}abcd1234/`).reply(200, fetchEmptyPinboard());
+axiosMockClient.onGet(`${PINBOARDS_URL}abcd1234/`).reply(200, getOrCreateEmptyPinboard('abcd1234'));
 
-axiosMockClient.onGet(`${PINBOARDS_URL}latest-retrieved-pinboard/`).reply(200, {});
+axiosMockClient.onGet(`${PINBOARDS_URL}latest-retrieved-pinboard/`, { params: {} }).reply(200, {});
+axiosMockClient.onGet(`${PINBOARDS_URL}latest-retrieved-pinboard/`, { params: { 'create': false } }).reply(200, {});
+axiosMockClient.onGet(
+  `${PINBOARDS_URL}latest-retrieved-pinboard/`,
+  { params: { 'create': true } }
+).reply(200, getOrCreateEmptyPinboard('abcd1234'));
 
 axiosMockClient.onGet(
   SOCIAL_GRAPH_OFFICERS_API_URL,

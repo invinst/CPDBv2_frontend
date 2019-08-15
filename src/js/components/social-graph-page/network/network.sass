@@ -1,7 +1,7 @@
 @import 'variables'
 
 $social-graph-main-sidebar-width: 244px
-$network-right-sidebar-width: 351px
+$network-right-sidebar-width: 320px
 
 \:local(.networkGraph)
   background-color: $sugar-cane-color
@@ -16,6 +16,7 @@ $network-right-sidebar-width: 351px
     color: $boulder-color
     font-weight: 300
     box-shadow: 0 1px 2px 0 $black15-color
+    overflow-y: auto
 
     .complaint-origin
       .complaint-origin-label
@@ -116,6 +117,7 @@ $network-right-sidebar-width: 351px
     font-size: 14px
     color: $boulder-color
     font-weight: 300
+    box-shadow: 0 1px 2px 0 $black15-color, 0 1px 2px 0 $black15-color
 
 
   .graph-container

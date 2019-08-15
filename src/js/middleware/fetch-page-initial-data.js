@@ -2,7 +2,7 @@ import { Promise } from 'es6-promise';
 import { every, get } from 'lodash';
 
 import {
-  LANDING_PAGE_ID, OFFICER_PAGE_ID, CR_PAGE_ID, TRR_PAGE_ID,
+  LANDING_PAGE_ID, OFFICER_PAGE_ID, CR_PAGE_ID, TRR_PAGE_ID, PINBOARD_PAGE_ID,
   SIGNIN_REQUEST_SUCCESS, PINBOARD_HEX_ID_LENGTH,
 } from 'utils/constants';
 import {
@@ -46,12 +46,19 @@ import {
   fetchPinboardOfficers,
   fetchPinboardTRRs,
   fetchPinboardSocialGraph,
-  fetchPinboardGeographicData,
+  fetchPinboardGeographic,
+  fetchFirstPagePinboardGeographicCrs,
+  fetchOtherPagesPinboardGeographicCrs,
+  fetchFirstPagePinboardGeographicTrrs,
+  fetchOtherPagesPinboardGeographicTrrs,
   fetchPinboardRelevantDocuments,
   fetchPinboardRelevantCoaccusals,
   fetchPinboardRelevantComplaints,
 } from 'actions/pinboard';
 import { redirect } from 'actions/pinboard-page';
+import loadPaginatedData from 'utils/load-paginated-data';
+import { fetchVideoInfo } from 'actions/headers/slim-header';
+import { hasVideoInfoSelector } from 'selectors/headers/slim-header';
 
 let prevPathname = '';
 
@@ -143,6 +150,10 @@ export default store => next => action => {
       if (!hasComplaintSummaryData(state)) {
         dispatches.push(store.dispatch(getComplaintSummaries()));
       }
+
+      if (!hasVideoInfoSelector(state)) {
+        dispatches.push(store.dispatch(fetchVideoInfo()));
+      }
     }
 
     else if (action.payload.pathname.match(/complaint\/\w+/)) {
@@ -216,10 +227,12 @@ export default store => next => action => {
       dispatches.push(store.dispatch(requestCrawlers()));
     }
 
-    else if (action.payload.pathname.match(/\/pinboard\/[a-fA-F0-9]+\//)) {
+    else if (action.payload.pathname.match(/\/pinboard\/([a-fA-F0-9]+\/)?/)) {
       const idOnPath = getPinboardID(action.payload.pathname);
       const idInStore = getPinboard(state).id;
-      if (idOnPath.length === PINBOARD_HEX_ID_LENGTH) {
+      if (!idOnPath) {
+        dispatches.push(store.dispatch(redirect(true)));
+      } else if (idOnPath.length === PINBOARD_HEX_ID_LENGTH) {
         if (idOnPath === idInStore) {
           dispatches.push(store.dispatch(redirect(false)));
           dispatches.push(store.dispatch(fetchPinboard(idOnPath)));
@@ -228,7 +241,19 @@ export default store => next => action => {
           store.dispatch(fetchPinboardOfficers(idOnPath));
           store.dispatch(fetchPinboardTRRs(idOnPath));
           store.dispatch(fetchPinboardSocialGraph(idOnPath));
-          store.dispatch(fetchPinboardGeographicData(idOnPath));
+          store.dispatch(fetchPinboardGeographic());
+          loadPaginatedData(
+            { 'pinboard_id': idOnPath },
+            fetchFirstPagePinboardGeographicCrs,
+            fetchOtherPagesPinboardGeographicCrs,
+            store,
+          );
+          loadPaginatedData(
+            { 'pinboard_id': idOnPath },
+            fetchFirstPagePinboardGeographicTrrs,
+            fetchOtherPagesPinboardGeographicTrrs,
+            store,
+          );
           store.dispatch(fetchPinboardRelevantDocuments(idOnPath));
           store.dispatch(fetchPinboardRelevantCoaccusals(idOnPath));
           store.dispatch(fetchPinboardRelevantComplaints(idOnPath));
@@ -237,6 +262,8 @@ export default store => next => action => {
           dispatches.push(store.dispatch(fetchPinboard(idOnPath)));
         }
       }
+
+      getCMSContent(PINBOARD_PAGE_ID);
     }
 
     prevPathname = action.payload.pathname;

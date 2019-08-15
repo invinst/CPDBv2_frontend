@@ -147,6 +147,10 @@ describe('Social Graph preview pane selectors', function () {
             'gender': 'Male',
             'race': 'White'
           },
+          {
+            'gender': '',
+            'race': '',
+          },
         ],
         'coaccused': [
           {

@@ -42,13 +42,30 @@ class CRPreviewPaneSection extends Section {
       subtitle: '.cr-preview-pane-title-subtitle',
       previewPane: '//div[starts-with(@class, "preview-pane")]',
       incidentDate: '//div[@class="cr-preview-pane-info-row"][1]',
-      address: '//div[@class="cr-preview-pane-info-row"][2]',
+      address: '//div[contains(@class, "cr-preview-pane-address")]',
       victimText: '.cr-preview-pane-victims-text',
       victims: '//div[contains(@class, "demographic__demographic")]',
       firstVictim: '//div[contains(@class, "demographic__demographic")][1]',
       secondVictim: '//div[contains(@class, "demographic__demographic")][2]',
       accusedText: '.list-widget-header',
       accusedOfficers: '.list-widget-item-link',
+    });
+  }
+}
+
+class TRRPreviewPaneSection extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      callToAction: '//div[contains(@class, "new-call-to-action-widget")]',
+      wrapper: '//div[starts-with(@class, "preview-pane")]',
+      title: '.trr-preview-pane-title-title',
+      incidentDate: '//div[@class="trr-preview-pane-info-row"][1]',
+      address: '//div[@class="trr-preview-pane-info-row"][2]',
+      officerHeader: '.list-widget-header',
+      officerLink: '.list-widget-item-link',
+      officerName: '.list-widget-list-item-name',
+      officerAllegationCount: '.list-widget-list-item-count'
     });
   }
 }
@@ -76,6 +93,7 @@ class SearchPage extends Page {
   officerPreviewPaneSection = new OfficerPreviewPaneSection();
   rankPreviewPaneSection = new RankPreviewPaneSection();
   crPreviewPaneSection = new CRPreviewPaneSection();
+  trrPreviewPaneSection = new TRRPreviewPaneSection();
   dateCRResultsSection = new ResultsSection('DATE-CR');
   investigatorCRResultsSection = new ResultsSection('INVESTIGATOR-CR');
   dateTRRResultsSection = new ResultsSection('DATE-TRR');

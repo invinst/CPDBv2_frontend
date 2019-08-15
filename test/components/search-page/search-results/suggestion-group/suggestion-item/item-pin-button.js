@@ -4,7 +4,7 @@ import {
   findRenderedDOMComponentWithClass,
   scryRenderedDOMComponentsWithClass
 }
-from 'react-addons-test-utils';
+  from 'react-addons-test-utils';
 import { unmountComponentSuppressError } from 'utils/test';
 import { findDOMNode } from 'react-dom';
 import { stub } from 'sinon';

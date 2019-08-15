@@ -1,19 +1,28 @@
 import React from 'react';
-import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
-import { findDOMNode } from 'react-dom';
-
-import { unmountComponentSuppressError } from 'utils/test';
-import { OfficerPane } from 'components/common/preview-pane';
 import {
-  VisualTokenWidget,
-  OfficerInfoWidget,
-  MetricWidget,
+  Simulate,
+  renderIntoDocument,
+  findRenderedComponentWithType,
+  findRenderedDOMComponentWithClass,
+  scryRenderedDOMComponentsWithClass,
+} from 'react-addons-test-utils';
+import { findDOMNode } from 'react-dom';
+import { stub } from 'sinon';
+import { browserHistory } from 'react-router';
+
+import { unmountComponentSuppressError, reRender } from 'utils/test';
+import { OfficerPane as OfficerPane } from 'components/common/preview-pane';
+import {
+  NewVisualTokenWidget as VisualTokenWidget,
+  NewOfficerInfoWidget as OfficerInfoWidget,
+  NewMetricWidget as MetricWidget,
 } from 'components/common/preview-pane/widgets';
 
 
 describe('OfficerPane component', () => {
   let instance;
   const officer = {
+    id: 123456,
     fullName: 'John Watts',
     appointedDate: '05-08-2018',
     resignationDate: '05-12-2019',
@@ -45,6 +54,7 @@ describe('OfficerPane component', () => {
       ],
       visualTokenBackground: '#ffffff'
     },
+    isPinned: true,
   };
 
   afterEach(function () {
@@ -168,5 +178,102 @@ describe('OfficerPane component', () => {
       value: 3,
       description: '',
     });
+  });
+
+  it('should render pin and view officer profile buttons', function () {
+    instance = renderIntoDocument(
+      <OfficerPane
+        { ...officer }
+        complaintPercentile={ null }
+        honorableMentionPercentile={ null }
+        trrPercentile={ null }
+      />
+    );
+
+    findRenderedDOMComponentWithClass(instance, 'pin-button').should.be.ok();
+    findRenderedDOMComponentWithClass(instance, 'view-officer-profile-button').should.be.ok();
+  });
+
+  it('should not render pin button if not pinnable', function () {
+    instance = renderIntoDocument(
+      <OfficerPane
+        { ...officer }
+        complaintPercentile={ null }
+        honorableMentionPercentile={ null }
+        trrPercentile={ null }
+        pinnable={ false }
+      />
+    );
+
+    scryRenderedDOMComponentsWithClass(instance, 'pin-button').should.have.length(0);
+    findRenderedDOMComponentWithClass(instance, 'view-officer-profile-button').should.be.ok();
+  });
+
+  it('should add or remove item to/from pinboard when click on pin button', function () {
+    const addOrRemoveItemInPinboardStub = stub();
+
+    instance = renderIntoDocument(
+      <OfficerPane
+        { ...officer }
+        complaintPercentile={ null }
+        honorableMentionPercentile={ null }
+        trrPercentile={ null }
+        type={ 'OFFICER' }
+        addOrRemoveItemInPinboard={ addOrRemoveItemInPinboardStub }
+        isPinned={ false }
+      />
+    );
+
+    let pinButton = findRenderedDOMComponentWithClass(instance, 'pin-button');
+    Simulate.click(pinButton);
+
+    addOrRemoveItemInPinboardStub.calledWith({
+      type: 'OFFICER',
+      id: 123456,
+      isPinned: false,
+    }).should.be.true();
+
+    reRender(
+      <OfficerPane
+        { ...officer }
+        complaintPercentile={ null }
+        honorableMentionPercentile={ null }
+        trrPercentile={ null }
+        type={ 'OFFICER' }
+        addOrRemoveItemInPinboard={ addOrRemoveItemInPinboardStub }
+        isPinned={ true }
+      />, instance
+    );
+
+    pinButton = findRenderedDOMComponentWithClass(instance, 'pin-button');
+    Simulate.click(pinButton);
+
+    addOrRemoveItemInPinboardStub.calledWith({
+      type: 'OFFICER',
+      id: 123456,
+      isPinned: true,
+    }).should.be.true();
+  });
+
+  it('should redirect to officer page when click on View officer profile button', function () {
+    const browserHistoryPush = stub(browserHistory, 'push');
+
+    instance = renderIntoDocument(
+      <OfficerPane
+        { ...officer }
+        complaintPercentile={ null }
+        honorableMentionPercentile={ null }
+        trrPercentile={ null }
+        type={ 'OFFICER' }
+        isPinned={ false }
+      />
+    );
+
+    const viewProfileButton = findRenderedDOMComponentWithClass(instance, 'view-officer-profile-button');
+    Simulate.click(viewProfileButton);
+
+    browserHistoryPush.calledWith('some_url').should.be.true();
+
+    browserHistoryPush.restore();
   });
 });

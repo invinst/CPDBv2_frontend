@@ -4,14 +4,15 @@
   position: absolute
   top: 0
   right: 0
-  padding: 8px
+  width: 30px
+  height: 30px
+  cursor: pointer
+  background: url(/img/ic-green-plus-white-circle.svg) no-repeat center
+  background-size: 14px 14px
+
+  &.dark-mode
+    background-image: url(/img/ic-darker-green-plus-white-circle.svg)
+
 
   &:hover
-    .inner-circle
-      background: url(/img/ic-plus-white.svg) no-repeat scroll center/61% $cash-green-color
-
-  .inner-circle
-    border-radius: 7px
-    width: 14px
-    height: 14px
-    background: url(/img/ic-plus-darker-green.svg) no-repeat scroll center/61% white
+    background-image: url(/img/ic-white-plus-green-circle.svg)

@@ -2,15 +2,20 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { push as pushBreadcrumbs } from 'redux-breadcrumb-trail';
 
-import { getPinboard, isEmptyPinboardSelector, examplePinboardsSelector } from 'selectors/pinboard-page/pinboard';
+import { getPinboard, isEmptyPinboardSelector } from 'selectors/pinboard-page/pinboard';
 import PinboardPage from 'components/pinboard-page';
-import { hasMapMarkersSelector, getCurrentTab } from 'selectors/pinboard-page/geographic-data';
+import { hasMapMarkersSelector } from 'selectors/pinboard-page/geographic-data';
+import { getCurrentTab, pinboardPaneSectionRequestingSelector } from 'selectors/pinboard-page/pinboard-pane-section';
 import { shouldRedirect } from 'selectors/pinboard-page/redirect';
 import { getInitialRequested } from 'selectors/pinboard-page/pinboard';
 import { focusedItemSelector } from 'selectors/pinboard-page/focused-item';
 import { changePinboardTab } from 'actions/pinboard';
-import { focusItem } from 'actions/pinboard-page';
+import {
+  focusItem,
+  addOrRemoveItemInPinboardFromPreviewPane,
+} from 'actions/pinboard-page';
 import { updatePathName } from 'actions/path-name';
+
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -22,7 +27,7 @@ function mapStateToProps(state, ownProps) {
     shouldRedirect: shouldRedirect(state),
     isEmptyPinboard: isEmptyPinboardSelector(state),
     focusedItem: focusedItemSelector(state),
-    examplePinboards: examplePinboardsSelector(state),
+    requesting: pinboardPaneSectionRequestingSelector(state),
   };
 }
 
@@ -31,6 +36,7 @@ const mapDispatchToProps = {
   focusItem,
   pushBreadcrumbs,
   updatePathName,
+  addOrRemoveItemInPinboardFromPreviewPane,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PinboardPage));

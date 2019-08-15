@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import ReactDOM from 'react-dom';
 import cx from 'classnames';
-import { isEmpty } from 'lodash';
+import { isEmpty, values, slice, isEqual } from 'lodash';
 
 import { MAP_INFO, MAPBOX_STYLE } from 'utils/constants';
 import { mapboxgl } from 'utils/vendors';
@@ -12,25 +12,48 @@ import Marker from './marker';
 import styles from './allegations-map.sass';
 import withLoadingSpinner from 'components/common/with-loading-spinner';
 
+const MARKERS_PER_PAGE = 200;
+
 export default class AllegationsMap extends Component {
   constructor(props) {
     super(props);
-    this.currentMarkers = [];
+    this.currentMarkers = {};
+  }
+
+  componentDidMount() {
+    this.loadMarkersPerPages();
   }
 
   componentWillReceiveProps(nextProps, nextState) {
-    if (!isEmpty(this.currentMarkers)) {
-      this.currentMarkers.map(currentMarker => currentMarker.remove());
+    if (nextProps.clearAllMarkers) {
+      values(this.currentMarkers).forEach(currentMarker => currentMarker.remove());
+      this.currentMarkers = {};
+      this.addMarkers(nextProps.markers);
+    } else {
+      if (!isEqual(nextProps.markers, this.props.markers)) {
+        this.addMarkers(nextProps.markers);
+      }
     }
-    this.currentMarkers = [];
-    nextProps.markers.map(marker => {
-      this.addMarker(marker);
-    });
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     const { legend, markers } = this.props;
     return legend !== nextProps.legend || markers !== nextProps.markers;
+  }
+
+  loadMarkersPerPages(startIndex=0) {
+    const { markers } = this.props;
+
+    slice(markers, startIndex, startIndex + MARKERS_PER_PAGE).forEach(marker => {
+      this.addMarker(marker);
+    });
+
+    const nextStartIndex = startIndex + MARKERS_PER_PAGE;
+    if (nextStartIndex < markers.length) {
+      setTimeout(() => {
+        this.loadMarkersPerPages(nextStartIndex);
+      }, 1);
+    }
   }
 
   gotRef(el) {
@@ -44,10 +67,14 @@ export default class AllegationsMap extends Component {
         scrollZoom: false,
       });
       this.map.addControl(new mapboxgl.NavigationControl(), 'top-left');
+    }
+  }
 
-      this.props.markers.map(marker => {
-        this.addMarker(marker);
-      });
+  getUrl(marker) {
+    if (marker.kind === 'CR') {
+      return `/complaint/${marker.id}/`;
+    } else if (marker.kind === 'FORCE') {
+      return `/trr/${marker.id}/`;
     }
   }
 
@@ -57,22 +84,31 @@ export default class AllegationsMap extends Component {
       <MarkerTooltip
         date={ marker.date }
         category={ marker.category }
+        url={ this.getUrl(marker) }
       />
     );
     popup.setHTML(ReactDOMServer.renderToString(tooltip));
     return popup;
   }
 
+  markerUid(marker) {
+    return `${ marker.kind }-${ marker.id }`;
+  }
+
   addMarker(marker) {
+    if (!isEmpty(this.currentMarkers[this.markerUid(marker)])) {
+      return;
+    }
     const { handleClickCRMarker, handleClickTRRMarker } = this.props;
     const popup = this.createPopup(marker);
 
     const markerEl = document.createElement('div');
+    markerEl.className = `map-marker ${marker.kind.toLowerCase()}-marker`;
     this.marker = new mapboxgl.Marker(markerEl);
     this.marker.setLngLat([marker.point.lon, marker.point.lat]);
     this.marker.setPopup(popup);
     this.marker.addTo(this.map);
-    this.currentMarkers.push(this.marker);
+    this.currentMarkers[this.markerUid(marker)] = this.marker;
 
     ReactDOM.render(
       <Marker
@@ -85,6 +121,10 @@ export default class AllegationsMap extends Component {
       />,
       markerEl
     );
+  }
+
+  addMarkers(markers) {
+    markers.forEach(marker => this.addMarker(marker));
   }
 
   render() {
@@ -142,10 +182,12 @@ AllegationsMap.propTypes = {
   ]),
   handleClickCRMarker: PropTypes.func,
   handleClickTRRMarker: PropTypes.func,
+  clearAllMarkers: PropTypes.bool,
 };
 
 AllegationsMap.defaultProps = {
   legend: {},
-  markers: []
+  markers: [],
+  clearAllMarkers: true,
 };
 export const AllegationsMapWithSpinner = withLoadingSpinner(AllegationsMap, styles.allegationMapLoading);
