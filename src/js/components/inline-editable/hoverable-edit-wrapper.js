@@ -28,7 +28,7 @@ export default class HoverableEditWrapper extends Component {
                 </span>
               ) : (
                 <span className='top-button-wrapper'>
-                  <a className='hoverable-edit-wrapper-button' onClick={ turnOnSectionEditMode }>
+                  <a className='hoverable-edit-wrapper-button edit-button' onClick={ turnOnSectionEditMode }>
                     Edit
                   </a>
                 </span>
