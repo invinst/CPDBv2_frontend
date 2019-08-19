@@ -31,17 +31,17 @@ describe('Slim header selectors', function () {
       getDemoVideoSectionEditModeOn({
         headers: {
           slimHeader: {
-            demoVideoSectionEditModeOn: true
-          }
-        }
+            demoVideoSectionEditModeOn: true,
+          },
+        },
       }).should.be.true();
 
       getDemoVideoSectionEditModeOn({
         headers: {
           slimHeader: {
-            demoVideoSectionEditModeOn: false
-          }
-        }
+            demoVideoSectionEditModeOn: false,
+          },
+        },
       }).should.be.false();
     });
   });
