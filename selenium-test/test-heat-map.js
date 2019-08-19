@@ -103,7 +103,7 @@ describe('Heat map', function () {
 
         it('should navigate to officer detail page when click on officer item', function () {
           landingPage.heatMapSection.communityDetail.firstOfficer.click();
-          browser.getUrl().should.match(/\/officer\/1\/[a-z]+\/$/);
+          browser.getUrl().should.match(/\/officer\/1\/[-a-z]+\/$/);
         });
 
         it('should navigate to v1 data tool when click on See More button', function () {

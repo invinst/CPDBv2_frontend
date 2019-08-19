@@ -465,7 +465,7 @@ describe('Search Page', function () {
       searchPage.officerPreviewPaneSection.neighborhoodPane.waitForVisible();
       searchPage.officerPreviewPaneSection.listMostOfficers.count.should.eql(2);
       searchPage.officerPreviewPaneSection.listMostOfficers.click();
-      browser.getUrl().should.match(/\/officer\/\d+\/[a-z]+\/$/);
+      browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/$/);
     });
 
     it('should go to data tool when click anywhere', function () {
@@ -491,7 +491,7 @@ describe('Search Page', function () {
       searchPage.rankPreviewPaneSection.previewPane.waitForVisible();
       searchPage.rankPreviewPaneSection.listMostOfficers.count.should.eql(2);
       searchPage.rankPreviewPaneSection.listMostOfficers.click();
-      browser.getUrl().should.match(/\/officer\/\d+\/[a-z]+\/$/);
+      browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/$/);
     });
   });
 
@@ -532,7 +532,7 @@ describe('Search Page', function () {
 
     it('should redirect to officer profile when clicking on officer item', function () {
       searchPage.crPreviewPaneSection.accusedOfficers.click();
-      browser.getUrl().should.match(/\/officer\/\d+\/[a-z]+\/$/);
+      browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/$/);
     });
   });
 });
