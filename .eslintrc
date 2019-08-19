@@ -113,7 +113,30 @@
         ],
         "object-curly-spacing": [2, "always"],
         "computed-property-spacing": [2, "never"],
-        "array-bracket-spacing": [2, "never"]
+        "array-bracket-spacing": [2, "never"],
+        "mocha/handle-done-callback": 2,
+        "mocha/max-top-level-suites": 0,
+        "mocha/no-exclusive-tests": 2,
+        "mocha/no-global-tests": 2,
+        "mocha/no-hooks": 0,
+        "mocha/no-hooks-for-single-case": 0,
+        "mocha/no-identical-title": 2,
+        "mocha/no-mocha-arrows": 0,
+        "mocha/no-nested-tests": 2,
+        "mocha/no-pending-tests": 2,
+        "mocha/no-return-and-callback": 2,
+        "mocha/no-setup-in-describe": 0,
+        "mocha/no-sibling-hooks": 2,
+        "mocha/no-skipped-tests": 1,
+        "mocha/no-synchronous-tests": 0,
+        "mocha/no-top-level-hooks": 2,
+        // TODO: prefer-arrow-callback's log lever should be 2, but "plugin:mocha" has a bug that it detects arrow
+        // functions **inside** test suites as error. If eslint-plugin-mocha is upgraded, pleaes try to set this
+        // log level as 2 and see if the error is fixed.
+        "mocha/prefer-arrow-callback": 0,
+        "mocha/valid-suite-description": 0,
+        "mocha/valid-test-description": 0,
+        "mocha/no-async-describe": 2
     },
     "env": {
         "browser": true,
@@ -132,10 +155,12 @@
     },
     "plugins": [
         "react",
-        "babel"
+        "babel",
+        "mocha"
     ],
     "extends": [
-        "eslint:recommended"
+        "eslint:recommended",
+        "plugin:mocha/recommended"
     ],
     "globals": {
         "Intercom": false,

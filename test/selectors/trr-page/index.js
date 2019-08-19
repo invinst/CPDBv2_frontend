@@ -229,75 +229,6 @@ describe('TRR page selectors', function () {
     });
   });
 
-  describe('trrDetailSelector', function () {
-    it('should select correctly', function () {
-      const state = {
-        trrPage: {
-          data: {
-            'subject_race': 'White',
-            'subject_gender': 'Male',
-            'subject_age': 37,
-            'force_category': 'Other',
-            'force_types': ['Verbal Commands'],
-          },
-        },
-      };
-
-      trrDetailSelector(state).should.eql({
-        subjectDemographic: 'White, Male, 37 years old',
-        category: 'Other',
-        forceTypes: ['Verbal Commands'],
-      });
-    });
-
-    it('should cover missing data cases', function () {
-      trrDetailSelector({
-        trrPage: {
-          data: {
-            'subject_race': 'White',
-            'subject_gender': 'Male',
-            'force_category': 'Other',
-            'force_types': ['Verbal Commands'],
-          },
-        },
-      }).should.eql({
-        subjectDemographic: 'White, Male',
-        category: 'Other',
-        forceTypes: ['Verbal Commands'],
-      });
-
-      trrDetailSelector({
-        trrPage: {
-          data: {
-            'subject_race': 'White',
-            'subject_age': 37,
-            'force_category': 'Other',
-            'force_types': ['Verbal Commands'],
-          },
-        },
-      }).should.eql({
-        subjectDemographic: 'White, 37 years old',
-        category: 'Other',
-        forceTypes: ['Verbal Commands'],
-      });
-
-      trrDetailSelector({
-        trrPage: {
-          data: {
-            'subject_gender': 'Male',
-            'subject_age': 37,
-            'force_category': 'Other',
-            'force_types': ['Verbal Commands'],
-          },
-        },
-      }).should.eql({
-        subjectDemographic: 'Male, 37 years old',
-        category: 'Other',
-        forceTypes: ['Verbal Commands'],
-      });
-    });
-  });
-
   describe('trrLocationSelector', function () {
     it('should select correctly', function () {
       trrLocationSelector({
@@ -323,32 +254,6 @@ describe('TRR page selectors', function () {
           'lng': -87.6533166,
         },
       });
-    });
-  });
-
-  describe('trrDocumentSelector', function () {
-    it('should select correctly', function () {
-      trrDocumentSelector({
-        trrPage: {
-          trrId: 123,
-          attachmentRequest: {
-            subscribedTRRIds: {
-              123: true,
-            },
-          },
-        },
-      }).should.eql({ alreadyRequested: true });
-
-      trrDocumentSelector({
-        trrPage: {
-          trrId: 456,
-          attachmentRequest: {
-            subscribedTRRIds: {
-              123: true,
-            },
-          },
-        },
-      }).should.eql({ alreadyRequested: false });
     });
   });
 });

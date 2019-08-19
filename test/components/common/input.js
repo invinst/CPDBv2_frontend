@@ -50,17 +50,6 @@ describe('TextInput component', function () {
     inputElement.value.should.eql('value');
   });
 
-  it('should trigger onFocus on focus', function () {
-    const onFocusSpy = spy();
-
-    instance = renderIntoDocument(
-      <TextInput onFocus={ onFocusSpy } autoFocus={ false }/>
-    );
-    const inputElement = findRenderedDOMComponentWithTag(instance, 'input');
-    Simulate.focus(inputElement);
-    onFocusSpy.called.should.be.true();
-  });
-
   it('should trigger internal input focus on focus', function () {
     const onFocusSpy = spy();
 
