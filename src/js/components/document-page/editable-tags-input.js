@@ -9,7 +9,7 @@ import SimpleTagEditable from 'components/inline-editable/editable-section/simpl
 
 export default class EditableTagsInput extends Component {
   render() {
-    const { className, title, editWrapperStateProps, fieldName } = this.props;
+    const { className, title, editWrapperStateProps, fieldName, errorMessages } = this.props;
     return (
       <div className={ cx(styles.editableTagsInput, className) }>
         <div className='editable-tags-title'>{ title }</div>
@@ -18,6 +18,13 @@ export default class EditableTagsInput extends Component {
             <SimpleTagEditable fieldName={ fieldName }/>
           </HoverableEditWrapper>
         </EditWrapperStateProvider>
+        {
+          errorMessages && (
+            <div className='error-messages'>
+              { errorMessages.join(' ') }
+            </div>
+          )
+        }
       </div>
     );
   }
@@ -28,4 +35,5 @@ EditableTagsInput.propTypes = {
   title: PropTypes.string,
   fieldName: PropTypes.string,
   editWrapperStateProps: PropTypes.object,
+  errorMessages: PropTypes.array,
 };

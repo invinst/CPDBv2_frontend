@@ -51,4 +51,28 @@ describe('EditableTagsInput component', function () {
     const simpleTagsEditable = findRenderedComponentWithType(hoverableEditWrapper, SimpleTagsEditable);
     simpleTagsEditable.props.fieldName.should.eql('tags');
   });
+
+  it('should show error message(s) if there are errorMessages', function () {
+    const editWrapperStateProps = {
+      fields: {
+        tags: {
+          type: 'array',
+          key: 'tags',
+          value: ['tag1', 'tag2']
+        },
+      }
+    };
+
+    instance = renderIntoDocument(
+      <EditableTagsInput
+        className='editable-tags-input'
+        title='Tags title'
+        fieldName='tags'
+        editWrapperStateProps={ editWrapperStateProps }
+        errorMessages={ ['This is error message 1.', 'This is error message 2.'] }
+      />
+    );
+    const errorMessages = findRenderedDOMComponentWithClass(instance, 'error-messages');
+    errorMessages.textContent.should.eql('This is error message 1. This is error message 2.');
+  });
 });

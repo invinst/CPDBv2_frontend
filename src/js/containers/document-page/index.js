@@ -7,7 +7,8 @@ import {
   getTitleEditModeOn,
   getTagsEditModeOn,
   getTextContentEditModeOn,
-  documentEditableFieldsSelector
+  getTagsErrorMessages,
+  documentEditableFieldsSelector,
 } from 'selectors/document-page';
 import { updateDocument } from 'actions/document-page';
 import { isSignedIn } from 'selectors/log-out';
@@ -31,6 +32,7 @@ function mapStateToProps(state, ownProps) {
     tagsEditModeOn: getTagsEditModeOn(state),
     textContentEditModeOn: getTextContentEditModeOn(state),
     isSignedIn: isSignedIn(state),
+    tagsErrorMessages: getTagsErrorMessages(state),
   };
 }
 

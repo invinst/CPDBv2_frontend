@@ -28,6 +28,7 @@ class TagsSection extends Section {
       firstTagDeleteBtn: '//div[contains(@class, "main-section-tags")]' +
         '//span[@class="react-tagsinput-tag"][1]//a[@class="react-tagsinput-remove"]',
       tagsInputTextbox: '.main-section-tags .react-tagsinput-input',
+      errorMessages: '.error-messages',
     });
   }
 }

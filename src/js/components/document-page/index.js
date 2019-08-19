@@ -29,6 +29,7 @@ export default class DocumentPage extends Component {
       textContentEditWrapperStateProps,
       isSignedIn,
       infoItems,
+      tagsErrorMessages,
     } = this.props;
 
     const displayedDocuments = slice(linkedDocuments, 0, 11);
@@ -88,6 +89,7 @@ export default class DocumentPage extends Component {
                     title='Tags'
                     fieldName='tags'
                     editWrapperStateProps={ tagsEditWrapperStateProps }
+                    errorMessages={ tagsErrorMessages }
                   />
                 ) : null
               }
@@ -128,4 +130,5 @@ DocumentPage.propTypes = {
   textContentEditWrapperStateProps: PropTypes.object,
   isSignedIn: PropTypes.bool,
   infoItems: PropTypes.array,
+  tagsErrorMessages: PropTypes.array,
 };
