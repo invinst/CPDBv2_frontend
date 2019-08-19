@@ -103,9 +103,11 @@ describe('Document page', function () {
       documentPage.tagsSection.tags.count.should.equal(2);
       documentPage.tagsSection.firstTag.getText().should.equal('hospital');
       documentPage.tagsSection.secondTag.getText().should.equal('tactical');
+      documentPage.tagsSection.tagDeleteBtns.count.should.equal(0);
 
       browser.moveToObject(documentPage.tagsSection.tagsInput.selector);
       documentPage.tagsSection.editButton.click();
+      documentPage.tagsSection.tagDeleteBtns.count.should.equal(2);
       documentPage.tagsSection.firstTagDeleteBtn.click();
       documentPage.tagsSection.tagsInputTextbox.setValue('chicago');
       browser.keys('Enter');
@@ -129,6 +131,12 @@ describe('Document page', function () {
 
       browser.moveToObject(documentPage.tagsSection.tagsInput.selector);
       documentPage.tagsSection.saveButton.click();
+
+      browser.moveToObject(documentPage.tagsSection.tagsInput.selector);
+      documentPage.tagsSection.saveButton.count.should.equal(0);
+      documentPage.tagsSection.cancelButton.count.should.equal(0);
+      documentPage.tagsSection.editButton.count.should.equal(1);
+      documentPage.tagsSection.tagDeleteBtns.count.should.equal(0);
 
       documentPage.tagsSection.tags.count.should.equal(3);
       documentPage.tagsSection.firstTag.getText().should.equal('tactical');
