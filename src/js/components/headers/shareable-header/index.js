@@ -117,7 +117,7 @@ ShareableHeader.defaultProps = {
   },
   routes: [],
   hasHeaderButton: true,
-  buttonType: constants.SHAREABLE_HEADER_BUTTON_TYPE.MENU,
+  buttonType: constants.SHAREABLE_HEADER_BUTTON_TYPE.NONE,
   onOpen: () => {},
   onClose: () => {},
 };
