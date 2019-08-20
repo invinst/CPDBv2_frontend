@@ -121,6 +121,9 @@
         "mocha/no-hooks": 0,
         "mocha/no-hooks-for-single-case": 0,
         "mocha/no-identical-title": 2,
+        // TODO: no-mocha-arrows's log lever should be 2, but "plugin:mocha" has a bug that it detects arrow
+        // functions **inside** test suites as error. If eslint-plugin-mocha is upgraded, pleaes try to set this
+        // log level as 2 and see if the error is fixed.
         "mocha/no-mocha-arrows": 0,
         "mocha/no-nested-tests": 2,
         "mocha/no-pending-tests": 2,
@@ -130,9 +133,6 @@
         "mocha/no-skipped-tests": 0,
         "mocha/no-synchronous-tests": 0,
         "mocha/no-top-level-hooks": 2,
-        // TODO: prefer-arrow-callback's log lever should be 2, but "plugin:mocha" has a bug that it detects arrow
-        // functions **inside** test suites as error. If eslint-plugin-mocha is upgraded, pleaes try to set this
-        // log level as 2 and see if the error is fixed.
         "mocha/prefer-arrow-callback": 0,
         "mocha/valid-suite-description": 0,
         "mocha/valid-test-description": 0,
