@@ -569,7 +569,7 @@ describe('SearchPage component', function () {
       type: 'CR',
     }));
 
-    showToastStub.should.be.called();
+    showToastStub.should.be.calledWith('CR removed', 'removed');
   });
 
   it('should handle when click on pinboard button if pinboard is not exist', function (done) {
