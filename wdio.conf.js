@@ -5,7 +5,26 @@ const webpackConfig = require('./webpack.config');
 
 
 exports.config = {
-
+  // ==================================
+  // Where should your test be launched
+  // ==================================
+  //
+  runner: 'local',
+  //
+  // =====================
+  // Server Configurations
+  // =====================
+  // Host address of the running Selenium server. This information is usually obsolete as
+  // WebdriverIO automatically connects to localhost. Also if you are using one of the
+  // supported cloud services like Sauce Labs, Browserstack or Testing Bot you also don't
+  // need to define host and port information because WebdriverIO can figure that out
+  // according to your user and key information. However if you are using a private Selenium
+  // backend you should define the host address, port, and path here.
+  //
+  hostname: 'localhost',
+  port: 4444,
+  path: '/wd/hub',
+  //
   //
   // ==================
   // Specify Test Files
@@ -53,17 +72,17 @@ exports.config = {
     // 5 instances get started at a time.
     //
     browserName: 'chrome',
+    'goog:chromeOptions': {
+      // to run chrome headless the following flags are required
+      // (see https://developers.google.com/web/updates/2017/04/headless-chrome)
+      // args: ['--headless', '--disable-gpu'],
+    },
   }],
   //
   // ===================
   // Test Configurations
   // ===================
   // Define all options that are relevant for the WebdriverIO instance here
-  //
-  // By default WebdriverIO commands are executed in a synchronous way using
-  // the wdio-sync package. If you still want to run your tests in an async way
-  // e.g. using promises you can set the sync option to false.
-  sync: true,
   //
   // Level of logging verbosity: silent | verbose | command | data | result | error
   logLevel: 'error',
@@ -219,10 +238,7 @@ exports.config = {
   //
   // Function to be executed before a test (in Mocha/Jasmine) or a step (in Cucumber) starts.
   beforeTest: function (test) {
-    browser.setViewportSize({
-      width: 1000,
-      height: 1000
-    });
+    browser.setWindowRect(0, 0, 1000, 1000);
   },
   //
   // Runs before a WebdriverIO command gets executed.
@@ -259,15 +275,16 @@ exports.config = {
   seleniumArgs: {
     drivers: {
       chrome: {
-        version: '74.0.3729.6',
-        baseURL: 'https://chromedriver.storage.googleapis.com'
+        version: '76.0.3809.126',
+        arch: process.arch,
       }
     }
   },
   seleniumInstallArgs: {
     drivers: {
       chrome: {
-        version: '74.0.3729.6',
+        version: '76.0.3809.126',
+        arch: process.arch,
         baseURL: 'https://chromedriver.storage.googleapis.com'
       }
     }
