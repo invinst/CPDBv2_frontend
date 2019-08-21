@@ -19,7 +19,7 @@ class LoginScreen extends Section {
   }
 
   enterCredentials(username, password) {
-    this.loginModal.waitForVisible(20000);
+    this.loginModal.waitForDisplayed(20000);
     reliableSetValue(this.loginNameInput, username);
     reliableSetValue(this.loginPasswordInput, password);
   }

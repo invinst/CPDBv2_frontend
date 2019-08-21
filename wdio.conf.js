@@ -2,6 +2,7 @@ var historyApiFallback = require('connect-history-api-fallback');
 var browserSync = require('browser-sync').create();
 const webpack = require('webpack');
 const webpackConfig = require('./webpack.config');
+const initCommands = require('./selenium-test/custom-commands');
 
 
 exports.config = {
@@ -219,8 +220,9 @@ exports.config = {
   //
   // Gets executed before test execution begins. At this point you can access all global
   // variables, such as `browser`. It is the perfect place to define custom commands.
-  // before: function (capabilities, specs) {
-  // },
+  before: function (capabilities, specs) {
+    initCommands();
+  },
   //
   // Hook that gets executed before the suite starts
   // beforeSuite: function (suite) {

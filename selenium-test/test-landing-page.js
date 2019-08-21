@@ -69,19 +69,19 @@ describe('landing page', function () {
   });
 
   it('should keep the same body width when scrollbar disappears because of open modal', function () {
-    const initialWidth = browser.getCssProperty('body', 'width');
+    const initialWidth = $('body').getCSSProperty('width');
     landingPage.footer.legalDisclaimer.click();
-    const activeWidth = browser.getCssProperty('body', 'width');
+    const activeWidth = $('body').getCSSProperty('width');
     activeWidth.should.eql(initialWidth);
   });
 
   it('should go to the landing page when the url does not match any route', function () {
     browser.url('/url-mediator/session-builder/');
-    browser.element('body').waitForDisplayed();
+    $('body').waitForDisplayed();
     landingPage.currentBasePath.should.eql('/');
 
     browser.url('/something/really/wrong/');
-    browser.element('body').waitForDisplayed();
+    $('body').waitForDisplayed();
     landingPage.currentBasePath.should.eql('/');
   });
 
@@ -199,32 +199,32 @@ describe('landing page', function () {
 
     it('should render correctly at the top of the page', function () {
       const header = landingPage.topHeader;
-      header.mainElement.getCssProperty('position').value.should.eql('static');
-      header.mainElement.getCssProperty('background-color').value.should.eql('rgba(0,0,0,0)');
+      header.mainElement.getCSSProperty('position').value.should.eql('static');
+      header.mainElement.getCSSProperty('background-color').value.should.eql('rgba(0,0,0,0)');
 
       const topBar = header.topBar;
       topBar.mainElement.waitForDisplayed();
-      topBar.logo.title.getCssProperty('color').value.should.eql('rgba(35,31,32,1)');
-      topBar.logo.subtitle.getCssProperty('color').value.should.eql('rgba(118,118,118,1)');
-      topBar.demoVideo.titleText.getCssProperty('color').value.should.eql('rgba(0,94,244,1)');
+      topBar.logo.title.getCSSProperty('color').value.should.eql('rgba(35,31,32,1)');
+      topBar.logo.subtitle.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
+      topBar.demoVideo.titleText.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
       topBar.demoVideo.titleText.getText().should.eql('What is CPDP?');
-      topBar.demoVideo.playButtonThumbnail.getCssProperty('outline').value.should.eql('rgba(0,94,244,0.5)solid5px');
+      topBar.demoVideo.playButtonThumbnail.getCSSProperty('outline').value.should.eql('rgba(0,94,244,0.5)solid5px');
       topBar.demoVideo.playButtonThumbnail.getAttribute('src').should.eql(
         'https://i.vimeocdn.com/video/797111186_100x75.jpg'
       );
 
       const navBar = header.navBar;
       navBar.mainElement.waitForDisplayed();
-      navBar.mainElement.getCssProperty('background-color').value.should.eql('rgba(245,244,244,1)');
-      navBar.searchBox.mainElement.getCssProperty('background-color').value.should.eql('rgba(255,255,255,1)');
-      navBar.searchBox.mainElement.getCssProperty('background-color').value.should.eql('rgba(255,255,255,1)');
+      navBar.mainElement.getCSSProperty('background-color').value.should.eql('rgba(245,244,244,1)');
+      navBar.searchBox.mainElement.getCSSProperty('background-color').value.should.eql('rgba(255,255,255,1)');
+      navBar.searchBox.mainElement.getCSSProperty('background-color').value.should.eql('rgba(255,255,255,1)');
       navBar.searchBox.searchMagnifyingGlassPath.getAttribute('fill').should.eql('#005EF4');
-      navBar.searchBox.searchText.getCssProperty('color').value.should.eql('rgba(0,94,244,1)');
-      navBar.searchBox.searchTerm.getCssProperty('color').value.should.eql('rgba(143,143,143,1)');
-      navBar.rightLinks.data.getCssProperty('color').value.should.eql('rgba(0,94,244,1)');
-      navBar.rightLinks.qa.getCssProperty('color').value.should.eql('rgba(0,94,244,1)');
-      navBar.rightLinks.documents.getCssProperty('color').value.should.eql('rgba(0,94,244,1)');
-      navBar.rightLinks.pinboard.getCssProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.searchBox.searchText.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.searchBox.searchTerm.getCSSProperty('color').value.should.eql('rgba(143,143,143,1)');
+      navBar.rightLinks.data.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.rightLinks.qa.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.rightLinks.documents.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.rightLinks.pinboard.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
     });
 
     it('should render correctly at the middle of the page', function () {
@@ -232,22 +232,22 @@ describe('landing page', function () {
       browser.pause(1000);
 
       const header = landingPage.slimHeader;
-      header.mainElement.getCssProperty('position').value.should.eql('fixed');
+      header.mainElement.getCSSProperty('position').value.should.eql('fixed');
 
       const topBar = header.topBar;
       topBar.mainElement.waitForDisplayed(1000, true);
 
       const navBar = header.navBar;
       navBar.mainElement.waitForDisplayed();
-      navBar.mainElement.getCssProperty('background-color').value.should.eql('rgba(245,244,244,1)');
-      navBar.searchBox.mainElement.getCssProperty('background-color').value.should.eql('rgba(255,255,255,1)');
+      navBar.mainElement.getCSSProperty('background-color').value.should.eql('rgba(245,244,244,1)');
+      navBar.searchBox.mainElement.getCSSProperty('background-color').value.should.eql('rgba(255,255,255,1)');
       navBar.searchBox.searchMagnifyingGlassPath.getAttribute('fill').should.eql('#767676');
-      navBar.searchBox.searchText.getCssProperty('color').value.should.eql('rgba(118,118,118,1)');
-      navBar.searchBox.searchTerm.getCssProperty('color').value.should.eql('rgba(143,143,143,1)');
-      navBar.rightLinks.data.getCssProperty('color').value.should.eql('rgba(118,118,118,1)');
-      navBar.rightLinks.qa.getCssProperty('color').value.should.eql('rgba(118,118,118,1)');
-      navBar.rightLinks.documents.getCssProperty('color').value.should.eql('rgba(118,118,118,1)');
-      navBar.rightLinks.pinboard.getCssProperty('color').value.should.eql('rgba(118,118,118,1)');
+      navBar.searchBox.searchText.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
+      navBar.searchBox.searchTerm.getCSSProperty('color').value.should.eql('rgba(143,143,143,1)');
+      navBar.rightLinks.data.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
+      navBar.rightLinks.qa.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
+      navBar.rightLinks.documents.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
+      navBar.rightLinks.pinboard.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
     });
 
     it('should render correctly at the bottom of the page', function () {
@@ -255,37 +255,37 @@ describe('landing page', function () {
       browser.pause(2000);
 
       const header = landingPage.slimHeader;
-      header.mainElement.getCssProperty('position').value.should.eql('fixed');
-      header.mainElement.getCssProperty('background-color').value.should.eql('rgba(0,94,244,1)');
+      header.mainElement.getCSSProperty('position').value.should.eql('fixed');
+      header.mainElement.getCSSProperty('background-color').value.should.eql('rgba(0,94,244,1)');
 
       const topBar = header.topBar;
       topBar.mainElement.waitForDisplayed();
-      topBar.logo.title.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
-      topBar.logo.subtitle.getCssProperty('color').value.should.eql('rgba(255,255,255,0.7)');
-      topBar.demoVideo.titleText.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
-      topBar.demoVideo.playButtonThumbnail.getCssProperty('outline').value.should.eql('rgba(255,255,255,0.5)solid5px');
+      topBar.logo.title.getCSSProperty('color').value.should.eql('rgba(255,255,255,1)');
+      topBar.logo.subtitle.getCSSProperty('color').value.should.eql('rgba(255,255,255,0.7)');
+      topBar.demoVideo.titleText.getCSSProperty('color').value.should.eql('rgba(255,255,255,1)');
+      topBar.demoVideo.playButtonThumbnail.getCSSProperty('outline').value.should.eql('rgba(255,255,255,0.5)solid5px');
       topBar.demoVideo.playButtonThumbnail.getAttribute('src').should.eql(
         'https://i.vimeocdn.com/video/797111186_100x75.jpg'
       );
 
       const navBar = header.navBar;
       navBar.mainElement.waitForDisplayed();
-      navBar.mainElement.getCssProperty('background-color').value.should.eql('rgba(0,0,0,0)');
-      navBar.searchBox.mainElement.getCssProperty('background-color').value.should.eql('rgba(0,0,0,0)');
+      navBar.mainElement.getCSSProperty('background-color').value.should.eql('rgba(0,0,0,0)');
+      navBar.searchBox.mainElement.getCSSProperty('background-color').value.should.eql('rgba(0,0,0,0)');
       navBar.searchBox.searchMagnifyingGlassPath.getAttribute('fill').should.eql('white');
-      navBar.searchBox.searchText.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
-      navBar.searchBox.searchTerm.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
-      navBar.rightLinks.data.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
-      navBar.rightLinks.qa.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
-      navBar.rightLinks.documents.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
-      navBar.rightLinks.pinboard.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
+      navBar.searchBox.searchText.getCSSProperty('color').value.should.eql('rgba(255,255,255,1)');
+      navBar.searchBox.searchTerm.getCSSProperty('color').value.should.eql('rgba(255,255,255,1)');
+      navBar.rightLinks.data.getCSSProperty('color').value.should.eql('rgba(255,255,255,1)');
+      navBar.rightLinks.qa.getCSSProperty('color').value.should.eql('rgba(255,255,255,1)');
+      navBar.rightLinks.documents.getCSSProperty('color').value.should.eql('rgba(255,255,255,1)');
+      navBar.rightLinks.pinboard.getCSSProperty('color').value.should.eql('rgba(255,255,255,1)');
     });
 
     it('should go to pinboard page when clicking on pinboard tag', function () {
       const navBar = landingPage.topHeader.navBar;
-      navBar.mainElement.waitForVisible();
+      navBar.mainElement.waitForDisplayed();
       navBar.rightLinks.pinboard.click();
-      pinboardPage.emptyPinboardSection.mainElement.waitForVisible();
+      pinboardPage.emptyPinboardSection.mainElement.waitForDisplayed();
       browser.getUrl().should.endWith('/pinboard/abcd1234/untitled-pinboard/');
     });
 
