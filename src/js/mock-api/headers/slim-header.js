@@ -21,5 +21,5 @@ export const modalVideoInfo = [{
   width: 1920,
   height: 1080,
   tags: 'chicago, police',
-  'embed_privacy': 'anywhere'
+  'embed_privacy': 'anywhere',
 }];

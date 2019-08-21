@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   renderIntoDocument,
-  findRenderedComponentWithType
+  findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 import { spy } from 'sinon';
 import MockStore from 'redux-mock-store';
@@ -18,8 +18,8 @@ describe('DocumentDeduplicatorPage component', function () {
   let instance;
   const store = MockStore()({
     breadcrumb: {
-      breadcrumbs: []
-    }
+      breadcrumbs: [],
+    },
   });
 
   afterEach(function () {
@@ -35,7 +35,7 @@ describe('DocumentDeduplicatorPage component', function () {
 
     let shareableHeaderContainer = findRenderedComponentWithType(instance, ShareableHeaderContainer);
     shareableHeaderContainer.props.should.containEql({
-      buttonType: constants.SHAREABLE_HEADER_BUTTON_TYPE.NONE
+      buttonType: constants.SHAREABLE_HEADER_BUTTON_TYPE.NONE,
     });
   });
 
@@ -49,8 +49,8 @@ describe('DocumentDeduplicatorPage component', function () {
         date: 'Jan 10, 2019',
         viewsCount: 1,
         downloadsCount: 1,
-        show: true
-      }
+        show: true,
+      },
     ];
     const setDocumentShow = spy();
     const fetchDocumentsByCRID = spy();
@@ -68,7 +68,7 @@ describe('DocumentDeduplicatorPage component', function () {
     documentsTable.props.should.containEql({
       rows: documents,
       setDocumentShow: setDocumentShow,
-      fetchDocumentsByCRID: fetchDocumentsByCRID
+      fetchDocumentsByCRID: fetchDocumentsByCRID,
     });
   });
 });

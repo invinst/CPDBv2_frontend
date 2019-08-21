@@ -57,15 +57,15 @@ class Logo extends Component {
 Logo.propTypes = {
   style: PropTypes.object,
   position: PropTypes.string,
-  editWrapperStateProps: PropTypes.object
+  editWrapperStateProps: PropTypes.object,
 };
 
 Logo.defaultProps = {
-  style: {}
+  style: {},
 };
 
 Logo.contextTypes = {
-  editModeOn: PropTypes.bool
+  editModeOn: PropTypes.bool,
 };
 
 export default Logo;

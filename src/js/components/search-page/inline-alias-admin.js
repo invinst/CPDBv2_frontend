@@ -27,7 +27,7 @@ export default class InlineAliasAdmin extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      aliases: props.existingAliases || []
+      aliases: props.existingAliases || [],
     };
     this.handleAliasesChange = this.handleAliasesChange.bind(this);
     this.renderAlias = this.renderAlias.bind(this);
@@ -37,7 +37,7 @@ export default class InlineAliasAdmin extends Component {
 
   handleAliasesChange(newAliases) {
     this.setState({
-      aliases: newAliases
+      aliases: newAliases,
     });
   }
 
@@ -119,5 +119,5 @@ InlineAliasAdmin.propTypes = {
   existingAliases: PropTypes.array,
   type: PropTypes.string,
   updateAliases: PropTypes.func,
-  errorMessage: PropTypes.string
+  errorMessage: PropTypes.string,
 };

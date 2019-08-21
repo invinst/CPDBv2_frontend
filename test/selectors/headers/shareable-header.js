@@ -5,9 +5,9 @@ describe('getShareablePageScrollPosition', function () {
     getShareablePageScrollPosition({
       headers: {
         shareableHeader: {
-          scrollPosition: 'top'
-        }
-      }
+          scrollPosition: 'top',
+        },
+      },
     }).should.eql('top');
   });
 });

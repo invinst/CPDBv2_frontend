@@ -11,7 +11,7 @@ export const citySummarySelector = createSelector(
     endYear: citySummary['end_year'],
     allegationCount: citySummary['allegation_count'],
     disciplinePercentage: Math.round((citySummary['discipline_count'] * 100) / citySummary['allegation_count']),
-    mostCommonComplaints: citySummary['most_common_complaints']
+    mostCommonComplaints: citySummary['most_common_complaints'],
   })
 );
 

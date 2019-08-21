@@ -18,16 +18,16 @@ describe('search terms actions', function () {
         types: [
           SEARCH_TERMS_CATEGORIES_REQUEST_START,
           SEARCH_TERMS_CATEGORIES_REQUEST_SUCCESS,
-          SEARCH_TERMS_CATEGORIES_REQUEST_FAILURE
+          SEARCH_TERMS_CATEGORIES_REQUEST_FAILURE,
         ],
         payload: {
           request: {
             url: SEARCH_TERMS_CATEGORIES_API_URL,
             params: undefined,
             adapter: null,
-            cancelToken: undefined
-          }
-        }
+            cancelToken: undefined,
+          },
+        },
       });
     });
   });
@@ -37,8 +37,8 @@ describe('search terms actions', function () {
       move('up', 2).should.deepEqual({
         type: SEARCH_TERMS_NAVIGATION_UP,
         payload: {
-          totalItemCount: 2
-        }
+          totalItemCount: 2,
+        },
       });
     });
 
@@ -46,8 +46,8 @@ describe('search terms actions', function () {
       move('down', 2).should.deepEqual({
         type: SEARCH_TERMS_NAVIGATION_DOWN,
         payload: {
-          totalItemCount: 2
-        }
+          totalItemCount: 2,
+        },
       });
     });
   });
@@ -56,7 +56,7 @@ describe('search terms actions', function () {
     it('should return SEARCH_TERMS_NAVIGATION_RESET', function () {
       resetNavigation().should.deepEqual({
         type: SEARCH_TERMS_NAVIGATION_RESET,
-        payload: undefined
+        payload: undefined,
       });
     });
   });
@@ -67,7 +67,7 @@ describe('search terms actions', function () {
       const navigationKeys = ['key-1', 'key-2', uniqueKey];
       setNavigation({ navigationKeys, uniqueKey }).should.deepEqual({
         type: SEARCH_TERMS_NAVIGATION_SET,
-        payload: { navigationKeys, uniqueKey }
+        payload: { navigationKeys, uniqueKey },
       });
     });
   });

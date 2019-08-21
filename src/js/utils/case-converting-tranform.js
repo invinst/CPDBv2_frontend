@@ -7,7 +7,7 @@ export function officersToCamelCase(officers) {
     race: officer.race,
     allegationCount: officer['allegation_count'],
     id: officer['id'],
-    v1Url: officer['v1_url']
+    v1Url: officer['v1_url'],
   }));
 }
 

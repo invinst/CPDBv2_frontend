@@ -75,7 +75,7 @@ describe('AttachmentItem component', function () {
     stubOnTrackingAttachment.should.be.calledWith({
       attachmentId: '123456',
       sourcePage: 'CR Page',
-      app: 'Frontend'
+      app: 'Frontend',
     });
   });
 });

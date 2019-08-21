@@ -4,7 +4,7 @@ import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
   scryRenderedDOMComponentsWithClass,
-  findRenderedComponentWithType
+  findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 
@@ -22,10 +22,10 @@ describe('SearchMainPanel component', function () {
         categories: [],
         navigation: {
           itemIndex: 0,
-        }
+        },
       },
-      pagination: {}
-    }
+      pagination: {},
+    },
   });
 
   afterEach(function () {

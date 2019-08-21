@@ -9,8 +9,8 @@ describe('related complaints by category count reducer', function () {
     const action = {
       type: 'RELATED_COMPLAINTS_BY_CATEGORY_REQUEST_SUCCESS',
       payload: {
-        count: 123
-      }
+        count: 123,
+      },
     };
 
     count({}, action).should.eql(123);

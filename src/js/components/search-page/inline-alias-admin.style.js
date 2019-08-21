@@ -31,12 +31,12 @@ export const descriptionStyle = {
 export const hintStyle = {
   color: smokeGray,
   fontWeight: '300',
-  fontSize: '13px'
+  fontSize: '13px',
 };
 
 export const errorStyle = {
   ...hintStyle,
-  color: 'red'
+  color: 'red',
 };
 
 export const actionButtonStyle = {
@@ -46,7 +46,7 @@ export const actionButtonStyle = {
   color: 'inherit',
   border: 'none',
   marginRight: '10px',
-  marginTop: '20px'
+  marginTop: '20px',
 };
 
 export const removeTagButtonStyle = {

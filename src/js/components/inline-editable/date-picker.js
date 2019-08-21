@@ -40,7 +40,7 @@ class DatePicker extends Component {
 DatePicker.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.string,
-  editModeOn: PropTypes.bool
+  editModeOn: PropTypes.bool,
 };
 
 export default DatePicker;

@@ -38,9 +38,9 @@ export const RandomizerFieldFactory = Factory.define('randomizerField')
     'selectedStrategyId': 1,
     'strategies': [{
       'id': 1,
-      'name': 'Last entries'
+      'name': 'Last entries',
     }, {
       'id': 2,
-      'name': 'Last days'
-    }]
+      'name': 'Last days',
+    }],
   });

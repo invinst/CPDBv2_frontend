@@ -48,12 +48,12 @@ class ToggleButton extends Component {
 ToggleButton.propTypes = {
   value: PropTypes.string,
   searchTermsHidden: PropTypes.bool,
-  changeSearchQuery: PropTypes.func
+  changeSearchQuery: PropTypes.func,
 };
 
 ToggleButton.defaultProps = {
   value: '',
-  changeSearchQuery: () => {}
+  changeSearchQuery: () => {},
 };
 
 export default ToggleButton;

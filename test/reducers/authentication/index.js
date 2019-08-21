@@ -8,7 +8,7 @@ describe('authentication reducer', function () {
       loginSuccessMessage: null,
       forgotPasswordErrorMessage: null,
       apiAccessToken: null,
-      showForgotPasswordModal: false
+      showForgotPasswordModal: false,
     });
   });
 });

@@ -13,8 +13,8 @@ export function loadTwitter(cb) {
   if (global.Mocha !== undefined) {
     const mockTwttr = {
       widgets: {
-        createTimeline: () => {}
-      }
+        createTimeline: () => {},
+      },
     };
     cb(mockTwttr);
   } else {

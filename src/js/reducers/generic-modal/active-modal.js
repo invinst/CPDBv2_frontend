@@ -12,7 +12,7 @@ const activeModal = handleActions({
   [OPEN_REQUEST_TRR_DOCUMENT_MODAL]: () => 'REQUEST_TRR_DOCUMENT',
   [OPEN_LOG_FILE_MODAL]: () => 'LOG_FILE',
   [OPEN_LEGAL_DISCLAIMER_MODAL]: () => 'LEGAL_DISCLAIMER',
-  [CLOSE_MODAL]: () => null
+  [CLOSE_MODAL]: () => null,
 }, null);
 
 export default activeModal;

@@ -34,7 +34,7 @@ export default class PrintAttachments extends Component {
 }
 
 PrintAttachments.defaultProps = {
-  items: []
+  items: [],
 };
 
 PrintAttachments.propTypes = {

@@ -19,7 +19,7 @@ describe('GATracking utils', function () {
         hitType: 'event',
         eventCategory: 'landing_page_carousel',
         eventAction: 'swipe_left',
-        eventLabel: 'type'
+        eventLabel: 'type',
       });
     });
   });
@@ -45,7 +45,7 @@ describe('GATracking utils', function () {
 
       global.ga.should.be.calledWith('send', {
         hitType: 'pageview',
-        page: 'pathname'
+        page: 'pathname',
       });
     });
   });
@@ -58,7 +58,7 @@ describe('GATracking utils', function () {
         hitType: 'event',
         eventCategory: 'search',
         eventAction: 'num_results',
-        eventValue: 12
+        eventValue: 12,
       });
     });
   });
@@ -76,7 +76,7 @@ describe('GATracking utils', function () {
         hitType: 'event',
         eventCategory: 'search',
         eventAction: 'change_query',
-        eventLabel: 'quer'
+        eventLabel: 'quer',
       });
 
       clock.tick(1000);
@@ -97,7 +97,7 @@ describe('GATracking utils', function () {
         hitType: 'event',
         eventCategory: 'community',
         eventAction: 'click',
-        eventLabel: 'communityName'
+        eventLabel: 'communityName',
       });
     });
   });
@@ -110,7 +110,7 @@ describe('GATracking utils', function () {
         hitType: 'event',
         eventCategory: 'visual_token_explainer',
         eventAction: 'open',
-        eventValue: 123
+        eventValue: 123,
       });
     });
   });
@@ -122,7 +122,7 @@ describe('GATracking utils', function () {
         hitType: 'event',
         eventCategory: 'related_by_category',
         eventAction: 'click',
-        eventLabel: 'Source CRID: 01234 - Target CRID: 56789'
+        eventLabel: 'Source CRID: 01234 - Target CRID: 56789',
       });
     });
   });
@@ -134,7 +134,7 @@ describe('GATracking utils', function () {
         hitType: 'event',
         eventCategory: 'related_by_accused',
         eventAction: 'click',
-        eventLabel: 'Source CRID: 01234 - Target CRID: 56789'
+        eventLabel: 'Source CRID: 01234 - Target CRID: 56789',
       });
     });
   });
@@ -146,7 +146,7 @@ describe('GATracking utils', function () {
         hitType: 'event',
         eventCategory: 'attachment_click',
         eventAction: 'click',
-        eventLabel: 'Source URL: / - Target URL: /complaint/123456/'
+        eventLabel: 'Source URL: / - Target URL: /complaint/123456/',
       });
     });
   });

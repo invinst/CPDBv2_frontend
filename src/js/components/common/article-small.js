@@ -4,10 +4,10 @@ import ConfiguredRadium from 'utils/configured-radium';
 import ArticleHeader from 'components/common/article-header';
 import ArticleContent from 'components/common/article-content';
 import ResponsiveStyleComponent, {
-  DESKTOP, TABLET, EXTRA_WIDE
+  DESKTOP, TABLET, EXTRA_WIDE,
 } from 'components/responsive/responsive-style-component';
 import {
-  wrapperStyle, tabletWrapperStyle, contentStyle, extraWideWrapperStyle, wrapperHoverStyle
+  wrapperStyle, tabletWrapperStyle, contentStyle, extraWideWrapperStyle, wrapperHoverStyle,
 } from './article-small.style';
 
 
@@ -53,14 +53,14 @@ class ArticleSmall extends Component {
       <ResponsiveStyleComponent
         responsiveStyle={ {
           [TABLET]: {
-            wrapper: [wrapperStyle, tabletWrapperStyle, style.wrapper, hoverable && wrapperHoverStyle]
+            wrapper: [wrapperStyle, tabletWrapperStyle, style.wrapper, hoverable && wrapperHoverStyle],
           },
           [DESKTOP]: {
-            wrapper: [wrapperStyle, style.wrapper, hoverable && wrapperHoverStyle]
+            wrapper: [wrapperStyle, style.wrapper, hoverable && wrapperHoverStyle],
           },
           [EXTRA_WIDE]: {
-            wrapper: [wrapperStyle, extraWideWrapperStyle, style.wrapper, hoverable && wrapperHoverStyle]
-          }
+            wrapper: [wrapperStyle, extraWideWrapperStyle, style.wrapper, hoverable && wrapperHoverStyle],
+          },
         } }>
         { this.renderWithResponsiveStyle.bind(this) }
       </ResponsiveStyleComponent>
@@ -73,15 +73,15 @@ ArticleSmall.propTypes = {
   style: PropTypes.shape({
     wrapper: PropTypes.object,
     header: PropTypes.object,
-    paragraph: PropTypes.object
+    paragraph: PropTypes.object,
   }),
   header: PropTypes.string,
   paragraphs: PropTypes.array.isRequired,
-  hoverable: PropTypes.bool
+  hoverable: PropTypes.bool,
 };
 
 ArticleSmall.defaultProps = {
-  style: {}
+  style: {},
 };
 
 export default ConfiguredRadium(ArticleSmall);

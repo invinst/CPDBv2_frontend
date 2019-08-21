@@ -31,13 +31,13 @@ const createLocationChangeAction = (pathname) => ({
   type: '@@router/LOCATION_CHANGE',
   payload: {
     pathname: pathname,
-    query: extractQuery(pathname)
-  }
+    query: extractQuery(pathname),
+  },
 });
 
 const createSignInRequestSuccessAction = () => ({
   type: SIGNIN_REQUEST_SUCCESS,
-  payload: {}
+  payload: {},
 });
 
 const buildStore = () => ({
@@ -49,51 +49,51 @@ const buildStore = () => ({
       heatMap: {
         communities: null,
         citySummary: {},
-        clusterGeoJson: null
+        clusterGeoJson: null,
       },
       officersByAllegation: {
-        cards: []
+        cards: [],
       },
       recentDocument: {
-        cards: []
+        cards: [],
       },
       complaintSummaries: {
-        cards: []
+        cards: [],
       },
       activityGrid: {
-        cards: []
-      }
+        cards: [],
+      },
     },
     faqPage: {
-      faqsRequested: false
+      faqsRequested: false,
     },
     documentDeduplicatorPage: {
       documents: {
         data: {},
-        crid: ''
+        crid: '',
       },
       pagination: {},
       documentsOrder: {
         data: [],
-        crid: ''
-      }
+        crid: '',
+      },
     },
     documentsOverviewPage: {
       documents: {
         data: {},
-        match: ''
+        match: '',
       },
       pagination: {},
       documentsOrder: {
         data: [],
-        match: ''
-      }
-    }
+        match: '',
+      },
+    },
   },
   getState() {
     return this._state;
   },
-  dispatch: stub().usingPromise(Promise).resolves('abc')
+  dispatch: stub().usingPromise(Promise).resolves('abc'),
 });
 
 describe('fetchPageInitialData middleware', function () {
@@ -107,7 +107,7 @@ describe('fetchPageInitialData middleware', function () {
 
   it('should not dispatch any action if action is not LOCATION_CHANGE', function () {
     const action = {
-      type: 'other action'
+      type: 'other action',
     };
     let dispatched;
 
@@ -131,12 +131,12 @@ describe('fetchPageInitialData middleware', function () {
         return {
           cms: {
             pages: {
-              'officer-page': {}
+              'officer-page': {},
             },
           },
         };
       },
-      dispatch: stub().usingPromise(Promise).resolves('abc')
+      dispatch: stub().usingPromise(Promise).resolves('abc'),
     };
 
     const action = createLocationChangeAction('/officer/2/');

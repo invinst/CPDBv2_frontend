@@ -4,5 +4,5 @@ import pages from './pages';
 
 
 export default combineReducers({
-  pages
+  pages,
 });

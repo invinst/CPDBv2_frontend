@@ -20,6 +20,6 @@ export default class Counter extends Component {
 
 Counter.propTypes = {
   viewsCount: PropTypes.number,
-  downloadsCount: PropTypes.number
+  downloadsCount: PropTypes.number,
 };
 

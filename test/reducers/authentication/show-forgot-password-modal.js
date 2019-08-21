@@ -2,7 +2,7 @@ import { each } from 'lodash';
 
 import authenticationShowForgotPasswordModal from 'reducers/authentication/show-forgot-password-modal';
 import {
-  OPEN_FORGOT_PASSWORD_MODAL, CLOSE_FORGOT_PASSWORD_MODAL, RESET_PASSWORD_SUCCESS
+  OPEN_FORGOT_PASSWORD_MODAL, CLOSE_FORGOT_PASSWORD_MODAL, RESET_PASSWORD_SUCCESS,
 } from 'utils/constants';
 
 
@@ -13,7 +13,7 @@ describe('authenticationShowForgotPasswordModal reducer', function () {
 
   it('should return true on OPEN_FORGOT_PASSWORD_MODAL', function () {
     authenticationShowForgotPasswordModal(undefined, {
-      type: OPEN_FORGOT_PASSWORD_MODAL
+      type: OPEN_FORGOT_PASSWORD_MODAL,
     }).should.be.true();
   });
 
@@ -22,7 +22,7 @@ describe('authenticationShowForgotPasswordModal reducer', function () {
       [CLOSE_FORGOT_PASSWORD_MODAL, RESET_PASSWORD_SUCCESS, '@@router/LOCATION_CHANGE'],
       (type) => {
         authenticationShowForgotPasswordModal(undefined, {
-          type: type
+          type: type,
         }).should.be.false();
       }
     );

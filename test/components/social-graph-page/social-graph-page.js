@@ -51,7 +51,7 @@ describe('SocialGraphPage component', function () {
     requestSocialGraphStub.calledWith({
       'unit_id': '232',
       'threshold': 2,
-      'show_civil_only': true
+      'show_civil_only': true,
     }).should.be.true();
   });
 
@@ -66,7 +66,7 @@ describe('SocialGraphPage component', function () {
     requestSocialGraphStub.calledWith({
       'officer_ids': '123,456,789',
       'threshold': 2,
-      'show_civil_only': true
+      'show_civil_only': true,
     }).should.be.true();
   });
 
@@ -112,7 +112,7 @@ describe('SocialGraphPage component', function () {
     requestSocialGraphStub.calledWith({
       'officer_ids': '123,456,789',
       'threshold': 2,
-      'show_civil_only': true
+      'show_civil_only': true,
     }).should.be.true();
 
     instance.setState({ 'showCivilComplaintOnly': false, thresholdValue: 3 });
@@ -120,7 +120,7 @@ describe('SocialGraphPage component', function () {
     requestSocialGraphStub.calledWith({
       'officer_ids': '123,456,789',
       'threshold': 3,
-      'show_civil_only': false
+      'show_civil_only': false,
     }).should.be.true();
   });
 

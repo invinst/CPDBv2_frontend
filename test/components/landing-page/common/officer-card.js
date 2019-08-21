@@ -5,7 +5,7 @@ import { findDOMNode } from 'react-dom';
 import {
   renderIntoDocument,
   findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass
+  findRenderedDOMComponentWithClass,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
@@ -34,7 +34,7 @@ describe('OfficerCard component', function () {
         gender='male'
         rank='Police Officer'
         percentile={ {
-          items: [{ 'axis': 'a', value: 1 }]
+          items: [{ 'axis': 'a', value: 1 }],
         } }
       />
     );

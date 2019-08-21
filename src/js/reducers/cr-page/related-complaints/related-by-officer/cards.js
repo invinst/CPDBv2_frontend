@@ -6,7 +6,7 @@ import { cardsState, defaultCardsState } from '../cards-state';
 
 export default handleActions(
   {
-    [constants.RELATED_COMPLAINTS_BY_OFFICER_REQUEST_SUCCESS]: cardsState
+    [constants.RELATED_COMPLAINTS_BY_OFFICER_REQUEST_SUCCESS]: cardsState,
   },
   defaultCardsState
 );

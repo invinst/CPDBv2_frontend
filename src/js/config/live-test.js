@@ -2,5 +2,5 @@ import config from './test';
 
 export default {
   ...config,
-  appEnv: 'live-test'
+  appEnv: 'live-test',
 };

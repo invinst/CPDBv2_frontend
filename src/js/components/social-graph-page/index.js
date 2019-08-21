@@ -48,7 +48,7 @@ export default class SocialGraphPage extends Component {
       requestParams = {
         'officer_ids': officerIds,
         'threshold': thresholdValue,
-        'show_civil_only': showCivilComplaintOnly
+        'show_civil_only': showCivilComplaintOnly,
       };
     }
 

@@ -28,8 +28,8 @@ describe('PrintNotes component', function () {
         page: 'complaint',
         title: 'Accused Officer',
         name: 'accused officer',
-        text: 'this is accused officer note.'
-      }
+        text: 'this is accused officer note.',
+      },
     ];
     instance = renderIntoDocument(<PrintNotes notes={ notes }/>);
     findRenderedDOMComponentWithClass(instance, 'notes-title').textContent.should.eql('Notes');
@@ -51,32 +51,32 @@ describe('PrintNotes component', function () {
         page: 'officer',
         title: 'trr',
         name: 'trr',
-        text: 'this is trr note.'
+        text: 'this is trr note.',
       },
       {
         page: 'officer',
         title: 'trr',
         name: 'trr',
-        text: 'this is trr note.'
+        text: 'this is trr note.',
       },
       {
         page: 'officer',
         title: 'Sustained',
         name: 'sustained',
-        text: 'this is sustained note.'
+        text: 'this is sustained note.',
       },
       {
         page: 'officer',
         title: 'Allegation',
         name: 'allegation',
-        text: 'this is allegation note.'
+        text: 'this is allegation note.',
       },
       {
         page: 'officer',
         title: 'Major Award',
         name: 'major_award',
-        text: 'this is major award note.'
-      }
+        text: 'this is major award note.',
+      },
     ];
     instance = renderIntoDocument(<PrintNotes notes={ notes }/>);
     scryRenderedDOMComponentsWithClass(instance, 'notes-column').should.have.length(2);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { spy, stub } from 'sinon';
 import {
-  renderIntoDocument, scryRenderedDOMComponentsWithTag, Simulate
+  renderIntoDocument, scryRenderedDOMComponentsWithTag, Simulate,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';

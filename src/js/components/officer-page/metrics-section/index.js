@@ -68,7 +68,7 @@ export default class MetricsSection extends Component {
         name: `Honorable ${pluralize('Mention', honorableMentionCount)}`,
         description: this.getDescription(honorableMentionPercentile, ['N/A', 0]),
         popup: get(popup, POPUP_NAMES.OFFICER.HONORABLE_MENTION),
-      }
+      },
     ];
 
     const metricChunks = chunk(metrics, 2);

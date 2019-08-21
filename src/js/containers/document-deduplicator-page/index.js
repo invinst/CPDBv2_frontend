@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import {
-  documentsSelector, hasMoreSelector, nextParamsSelector
+  documentsSelector, hasMoreSelector, nextParamsSelector,
 } from 'selectors/document-deduplicator-page';
 import DocumentsPage from 'components/document-deduplicator-page';
 import { setDocumentShow, fetchDocumentsByCRID } from 'actions/document-deduplicator-page';
@@ -17,7 +17,7 @@ function mapStateToProps(state, ownProps) {
 
 const mapDispatchToProps = {
   setDocumentShow,
-  fetchDocumentsByCRID
+  fetchDocumentsByCRID,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DocumentsPage);

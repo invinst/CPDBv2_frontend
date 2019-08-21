@@ -12,7 +12,7 @@ export default class Carousel extends Component {
     this.state = {
       slideIndex: 0,
       displayRightArrow: true,
-      displayLeftArrow: false
+      displayLeftArrow: false,
     };
 
     this.onSnapIndexChange = this.onSnapIndexChange.bind(this);
@@ -78,14 +78,14 @@ export default class Carousel extends Component {
     this.setState({
       slideIndex: isEnd ? this.state.slideIndex : activeIndex,
       displayLeftArrow: !isBeginning,
-      displayRightArrow: !isEnd
+      displayRightArrow: !isEnd,
     });
   }
 
   updateArrows({ isEnd, isBeginning }) {
     this.setState({
       displayLeftArrow: !isBeginning,
-      displayRightArrow: !isEnd
+      displayRightArrow: !isEnd,
     });
   }
 
@@ -139,5 +139,5 @@ Carousel.defaultProps = {
   spaceBetween: 8,
   style: {},
   loadMore: () => {},
-  onNavigate: () => {}
+  onNavigate: () => {},
 };

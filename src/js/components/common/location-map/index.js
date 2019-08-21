@@ -72,7 +72,7 @@ export default class LocationMap extends Component {
         style: mapboxStyle,
         zoom: zoom1,
         center: [centerLng, centerLat],
-        interactive: false
+        interactive: false,
       });
       this.map.on('click', this.handleMapClick.bind(this));
       this.addMarker(lat, lng, markerEl);
@@ -107,14 +107,14 @@ export default class LocationMap extends Component {
     const { lng, lat } = this.props;
     this.map.easeTo({
       center: [lng, lat],
-      zoom: zoom2
+      zoom: zoom2,
     });
   }
 
   zoomOut() {
     this.map.easeTo({
       center: [centerLng, centerLat],
-      zoom: zoom1
+      zoom: zoom1,
     });
   }
 

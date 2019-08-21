@@ -13,7 +13,7 @@ describe('pageLoading reducer', function () {
     pageLoading(
       {},
       {
-        type: constants.PAGE_LOAD_START
+        type: constants.PAGE_LOAD_START,
       }
     ).should.eql(true);
   });
@@ -22,7 +22,7 @@ describe('pageLoading reducer', function () {
     pageLoading(
       {},
       {
-        type: constants.PAGE_LOAD_FINISH
+        type: constants.PAGE_LOAD_FINISH,
       }
     ).should.eql(false);
   });

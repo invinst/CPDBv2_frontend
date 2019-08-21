@@ -6,7 +6,7 @@ export const trackSwipeLanddingPageCarousel = (direction, type) => {
     hitType: 'event',
     eventCategory: 'landing_page_carousel',
     eventAction: `swipe_${direction}`,
-    eventLabel: type
+    eventLabel: type,
   });
 };
 
@@ -22,7 +22,7 @@ export const trackOutboundLink = (url, windowName) => {
       if (!windowName) {
         document.location = url;
       }
-    }
+    },
   });
 
   if (windowName) {
@@ -34,7 +34,7 @@ export const trackOutboundLink = (url, windowName) => {
 export const trackPageView = (pathname) => {
   global.ga('send', {
     hitType: 'pageview',
-    page: pathname
+    page: pathname,
   });
 };
 
@@ -43,7 +43,7 @@ export const trackSearchResultsCount = (count) => {
     hitType: 'event',
     eventCategory: 'search',
     eventAction: 'num_results',
-    eventValue: count
+    eventValue: count,
   });
 };
 
@@ -53,7 +53,7 @@ export function trackSearchQuery(query) {
     hitType: 'event',
     eventCategory: 'search',
     eventAction: 'change_query',
-    eventLabel: query
+    eventLabel: query,
   });
 }
 
@@ -62,7 +62,7 @@ export const trackCommunityClick = (communityName) => {
     hitType: 'event',
     eventCategory: 'community',
     eventAction: 'click',
-    eventLabel: communityName
+    eventLabel: communityName,
   });
 };
 
@@ -71,7 +71,7 @@ export const trackOpenExplainer = (officerId) => {
     hitType: 'event',
     eventCategory: 'visual_token_explainer',
     eventAction: 'open',
-    eventValue: officerId
+    eventValue: officerId,
   });
 };
 

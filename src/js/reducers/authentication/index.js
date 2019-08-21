@@ -12,5 +12,5 @@ export default combineReducers({
   loginSuccessMessage,
   forgotPasswordErrorMessage,
   apiAccessToken,
-  showForgotPasswordModal
+  showForgotPasswordModal,
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  renderIntoDocument, findRenderedDOMComponentWithClass, scryRenderedDOMComponentsWithClass
+  renderIntoDocument, findRenderedDOMComponentWithClass, scryRenderedDOMComponentsWithClass,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError, reRender, withAnimationDisabled } from 'utils/test';

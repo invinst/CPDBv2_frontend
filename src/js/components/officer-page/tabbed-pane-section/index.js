@@ -17,7 +17,7 @@ export default class TabbedPaneSection extends Component {
       changeOfficerTab,
       hasComplaint,
       hasMapMarker,
-      hasCoaccusal
+      hasCoaccusal,
     } = this.props;
     const tabbedPaneMap = {
       [OFFICER_PAGE_TAB_NAMES.TIMELINE]: {

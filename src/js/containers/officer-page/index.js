@@ -20,7 +20,7 @@ import {
   turnOnScaleExplainEditMode,
   turnOffScaleExplainEditMode,
   turnOnNoDataRadarChartExplainEditMode,
-  turnOffNoDataRadarChartExplainEditMode
+  turnOffNoDataRadarChartExplainEditMode,
 } from 'actions/officer-page';
 import { hasComplaintSelector, numAttachmentsSelector } from 'selectors/officer-page/attachments';
 import { hasMapMarkersSelector } from 'selectors/officer-page/map';
@@ -70,28 +70,28 @@ const editWrapperStateProps = (stateProps, dispatchProps, ownProps) => {
       'turnOnScaleExplainEditMode',
       'turnOffScaleExplainEditMode',
       'turnOnNoDataRadarChartExplainEditMode',
-      'turnOffNoDataRadarChartExplainEditMode'
+      'turnOffNoDataRadarChartExplainEditMode',
     ]),
     triangleEditWrapperStateProps: {
       fields: stateProps.editableFields,
       sectionEditModeOn: stateProps.editModeOn[OFFICER_EDIT_TYPES.TRIANGLE],
       onSaveForm: dispatchProps.onSaveForm,
       turnOnSectionEditMode: dispatchProps.turnOnTriangleExplainEditMode,
-      turnOffSectionEditMode: dispatchProps.turnOffTriangleExplainEditMode
+      turnOffSectionEditMode: dispatchProps.turnOffTriangleExplainEditMode,
     },
     scaleEditWrapperStateProps: {
       fields: stateProps.editableFields,
       sectionEditModeOn: stateProps.editModeOn[OFFICER_EDIT_TYPES.SCALE],
       onSaveForm: dispatchProps.onSaveForm,
       turnOnSectionEditMode: dispatchProps.turnOnScaleExplainEditMode,
-      turnOffSectionEditMode: dispatchProps.turnOffScaleExplainEditMode
+      turnOffSectionEditMode: dispatchProps.turnOffScaleExplainEditMode,
     },
     noDataRadarChartEditWrapperStateProps: {
       fields: stateProps.editableFields,
       sectionEditModeOn: stateProps.editModeOn[OFFICER_EDIT_TYPES.NO_DATA_RADAR_CHART],
       onSaveForm: dispatchProps.onSaveForm,
       turnOnSectionEditMode: dispatchProps.turnOnNoDataRadarChartExplainEditMode,
-      turnOffSectionEditMode: dispatchProps.turnOffNoDataRadarChartExplainEditMode
+      turnOffSectionEditMode: dispatchProps.turnOffNoDataRadarChartExplainEditMode,
     },
   };
 };
@@ -105,7 +105,7 @@ const mapDispatchToProps = {
   turnOffScaleExplainEditMode,
   turnOnNoDataRadarChartExplainEditMode,
   turnOffNoDataRadarChartExplainEditMode,
-  pushBreadcrumbs
+  pushBreadcrumbs,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps, editWrapperStateProps)(OfficerPage);

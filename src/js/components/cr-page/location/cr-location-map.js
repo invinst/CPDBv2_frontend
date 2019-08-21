@@ -21,5 +21,5 @@ export default class CRLocationMap extends Component {
 
 CRLocationMap.propTypes = {
   lat: PropTypes.number,
-  lng: PropTypes.number
+  lng: PropTypes.number,
 };

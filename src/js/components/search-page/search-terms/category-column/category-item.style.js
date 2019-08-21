@@ -1,6 +1,6 @@
 import {
   greyishColor, accentColor, whiteTwoColor, concreteColor,
-  fadedAccentColor
+  fadedAccentColor,
 } from 'utils/styles';
 
 

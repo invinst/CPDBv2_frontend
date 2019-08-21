@@ -42,5 +42,5 @@ DocumentsTable.propTypes = {
   setDocumentShow: PropTypes.func,
   hasMore: PropTypes.bool,
   nextParams: PropTypes.object,
-  fetchDocumentsByCRID: PropTypes.func
+  fetchDocumentsByCRID: PropTypes.func,
 };

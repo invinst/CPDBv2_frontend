@@ -35,9 +35,9 @@ Scroller.propTypes = {
   scrollLeft: PropTypes.number,
   style: PropTypes.object,
   onElementRef: PropTypes.func,
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 Scroller.defaultProps = {
-  onElementRef: () => {}
+  onElementRef: () => {},
 };

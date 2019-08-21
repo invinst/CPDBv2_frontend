@@ -4,7 +4,7 @@ import MoreLink from 'components/common/more-link';
 import CancelUpdateButtons from './cancel-update-buttons';
 import {
   moreLinkWrapperStyle, editLinkBaseStyle, editLinkHoverStyle,
-  editLinkUnderlineBaseStyle, editLinkUnderlineHoverStyle
+  editLinkUnderlineBaseStyle, editLinkUnderlineHoverStyle,
 } from './edit-toggle.style';
 
 
@@ -24,7 +24,7 @@ class EditToggle extends Component {
             <MoreLink
               style={ {
                 base: { base: editLinkBaseStyle, hover: editLinkHoverStyle },
-                underline: { base: editLinkUnderlineBaseStyle, hover: editLinkUnderlineHoverStyle }
+                underline: { base: editLinkUnderlineBaseStyle, hover: editLinkUnderlineHoverStyle },
               } }
               onClick={ turnOnSectionEditMode }>
               Edit
@@ -43,11 +43,11 @@ EditToggle.propTypes = {
   turnOnSectionEditMode: PropTypes.func,
   turnOffSectionEditMode: PropTypes.func,
   onSaveForm: PropTypes.func,
-  style: PropTypes.object
+  style: PropTypes.object,
 };
 
 EditToggle.contextTypes = {
-  editModeOn: PropTypes.bool
+  editModeOn: PropTypes.bool,
 };
 
 export default EditToggle;

@@ -4,7 +4,7 @@ import Footer from 'components/footer';
 import {
   renderIntoDocument,
   scryRenderedComponentsWithType,
-  findRenderedDOMComponentWithClass
+  findRenderedDOMComponentWithClass,
 } from 'react-addons-test-utils';
 import { spy } from 'sinon';
 import { unmountComponentSuppressError } from 'utils/test';

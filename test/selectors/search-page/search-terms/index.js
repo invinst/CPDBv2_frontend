@@ -10,11 +10,11 @@ describe('search terms selectors', function () {
       searchTerms: {
         hidden: false,
         categories: [{
-          name: 'abc'
+          name: 'abc',
         }],
-        selectedCategory: 1
-      }
-    }
+        selectedCategory: 1,
+      },
+    },
   };
 
   describe('hiddenSelector', function () {

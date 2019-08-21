@@ -11,10 +11,10 @@ describe('cms selectors', function () {
         cms: {
           pages: {
             abc: {
-              fields: '123'
-            }
-          }
-        }
+              fields: '123',
+            },
+          },
+        },
       };
 
       getCMSFields('abc')(state).should.eql('123');
@@ -23,8 +23,8 @@ describe('cms selectors', function () {
     it('should return null if page content does not exist', function () {
       const state = {
         cms: {
-          pages: {}
-        }
+          pages: {},
+        },
       };
 
       should(getCMSFields('abc')(state)).eql(null);
@@ -36,10 +36,10 @@ describe('cms selectors', function () {
       cms: {
         pages: {
           [LANDING_PAGE_ID]: {
-            fields: '123'
-          }
-        }
-      }
+            fields: '123',
+          },
+        },
+      },
     };
 
     it('should return true if page content exist', function () {

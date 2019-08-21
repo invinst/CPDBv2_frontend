@@ -1,5 +1,5 @@
 import {
-  cardSelector, countSelector, nextParamsSelector, hasMoreSelector
+  cardSelector, countSelector, nextParamsSelector, hasMoreSelector,
 } from 'selectors/cr-page/related-complaints';
 import { RelatedComplaintFactory } from 'utils/test/factories/complaint';
 
@@ -17,15 +17,15 @@ describe('related complaints selectors', function () {
                     complainants: [{ race: 'white', 'gender': 'male', age: 43 }],
                     'category_names': ['a', 'b'],
                     'point': { lat: 1, lon: 2 },
-                    coaccused: ['c', 'd']
-                  }]
-                }
-              }
-            }
-          }
+                    coaccused: ['c', 'd'],
+                  }],
+                },
+              },
+            },
+          },
         },
         {
-          match: 'officers'
+          match: 'officers',
         }
       ).should.eql([{
         crid: 123,
@@ -33,7 +33,7 @@ describe('related complaints selectors', function () {
         lon: 2,
         categories: 'a, b',
         complainants: 'white male Age 43',
-        accused: 'c, d'
+        accused: 'c, d',
       }]);
     });
 
@@ -44,14 +44,14 @@ describe('related complaints selectors', function () {
             relatedComplaints: {
               relatedByCategory: {
                 cards: {
-                  cards: [RelatedComplaintFactory.build({ crid: 123 })]
-                }
-              }
-            }
-          }
+                  cards: [RelatedComplaintFactory.build({ crid: 123 })],
+                },
+              },
+            },
+          },
         },
         {
-          match: 'categories'
+          match: 'categories',
         }
       )[0].crid.should.eql(123);
     });
@@ -64,13 +64,13 @@ describe('related complaints selectors', function () {
           crPage: {
             relatedComplaints: {
               relatedByOfficer: {
-                count: 123
-              }
-            }
-          }
+                count: 123,
+              },
+            },
+          },
         },
         {
-          match: 'officers'
+          match: 'officers',
         }
       ).should.eql(123);
     });
@@ -81,13 +81,13 @@ describe('related complaints selectors', function () {
           crPage: {
             relatedComplaints: {
               relatedByCategory: {
-                count: 123
-              }
-            }
-          }
+                count: 123,
+              },
+            },
+          },
         },
         {
-          match: 'categories'
+          match: 'categories',
         }
       ).should.eql(123);
     });
@@ -101,17 +101,17 @@ describe('related complaints selectors', function () {
             relatedComplaints: {
               relatedByOfficer: {
                 pagination: {
-                  next: 'localhost.com/?a=1'
-                }
-              }
-            }
-          }
+                  next: 'localhost.com/?a=1',
+                },
+              },
+            },
+          },
         },
         {
-          match: 'officers'
+          match: 'officers',
         }
       ).should.eql({
-        a: '1'
+        a: '1',
       });
     });
 
@@ -122,17 +122,17 @@ describe('related complaints selectors', function () {
             relatedComplaints: {
               relatedByCategory: {
                 pagination: {
-                  next: 'localhost.com/?a=1'
-                }
-              }
-            }
-          }
+                  next: 'localhost.com/?a=1',
+                },
+              },
+            },
+          },
         },
         {
-          match: 'categories'
+          match: 'categories',
         }
       ).should.eql({
-        a: '1'
+        a: '1',
       });
     });
   });
@@ -145,15 +145,15 @@ describe('related complaints selectors', function () {
             relatedComplaints: {
               relatedByOfficer: {
                 cards: {
-                  cards: RelatedComplaintFactory.buildList(10)
+                  cards: RelatedComplaintFactory.buildList(10),
                 },
-                count: 20
-              }
-            }
-          }
+                count: 20,
+              },
+            },
+          },
         },
         {
-          match: 'officers'
+          match: 'officers',
         }
       ).should.be.true();
     });
@@ -165,15 +165,15 @@ describe('related complaints selectors', function () {
             relatedComplaints: {
               relatedByCategory: {
                 cards: {
-                  cards: RelatedComplaintFactory.buildList(10)
+                  cards: RelatedComplaintFactory.buildList(10),
                 },
-                count: 10
-              }
-            }
-          }
+                count: 10,
+              },
+            },
+          },
         },
         {
-          match: 'categories'
+          match: 'categories',
         }
       ).should.be.false();
     });

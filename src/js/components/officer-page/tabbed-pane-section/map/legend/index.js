@@ -34,7 +34,7 @@ Legend.propTypes = {
   legend: PropTypes.shape({
     unsustainedCount: PropTypes.number,
     sustainedCount: PropTypes.number,
-    useOfForceCount: PropTypes.number
+    useOfForceCount: PropTypes.number,
   }),
 };
 
@@ -42,6 +42,6 @@ Legend.defaultProps = {
   legend: {
     unsustainedCount: 0,
     sustainedCount: 0,
-    useOfForceCount: 0
+    useOfForceCount: 0,
   },
 };

@@ -4,7 +4,7 @@ export default () => ({
   'unit': {
     'id': 1,
     'unit_name': '001',
-    'description': 'District 001'
+    'description': 'District 001',
   },
   'date_of_appt': '2015-09-23',
   'rank': 'NA',
@@ -32,7 +32,7 @@ export default () => ({
       'year': 2002,
       'percentile_allegation': '43.233',
       'percentile_allegation_civilian': '0.3',
-      'percentile_allegation_internal': '0.023'
+      'percentile_allegation_internal': '0.023',
     },
     {
       'id': 1,
@@ -40,7 +40,7 @@ export default () => ({
       'percentile_trr': '0.049',
       'percentile_allegation': '43.233',
       'percentile_allegation_civilian': '0.3',
-      'percentile_allegation_internal': '0.023'
+      'percentile_allegation_internal': '0.023',
     },
     {
       'id': 1,
@@ -48,7 +48,7 @@ export default () => ({
       'percentile_trr': '0.049',
       'percentile_allegation': '43.233',
       'percentile_allegation_civilian': '22.10',
-      'percentile_allegation_internal': '0.023'
+      'percentile_allegation_internal': '0.023',
     },
     {
       'id': 1,
@@ -56,7 +56,7 @@ export default () => ({
       'percentile_trr': '0.049',
       'percentile_allegation': '43.233',
       'percentile_allegation_civilian': '10.10',
-      'percentile_allegation_internal': '0.023'
+      'percentile_allegation_internal': '0.023',
     },
     {
       'id': 1,
@@ -64,7 +64,7 @@ export default () => ({
       'percentile_trr': '66.046',
       'percentile_allegation': '43.233',
       'percentile_allegation_civilian': '75.065',
-      'percentile_allegation_internal': '0.022'
+      'percentile_allegation_internal': '0.022',
     },
     {
       'id': 1,
@@ -72,14 +72,14 @@ export default () => ({
       'percentile_trr': '66.044',
       'percentile_allegation': '32.102',
       'percentile_allegation_civilian': '59.468',
-      'percentile_allegation_internal': '0.021'
+      'percentile_allegation_internal': '0.021',
     },
     {
       'id': 1,
       'year': 2017,
       'percentile_allegation': '32.102',
     },
-  ]
+  ],
 });
 
 export const noPercentileOfficerSummary = {
@@ -88,7 +88,7 @@ export const noPercentileOfficerSummary = {
   'unit': {
     'id': 1,
     'unit_name': '001',
-    'description': 'District 001'
+    'description': 'District 001',
   },
   'date_of_appt': '2015-09-23',
   'rank': 'NA',
@@ -115,12 +115,12 @@ export const noPercentileOfficerSummary = {
       'year': 2002,
       'percentile_allegation': '43.233',
       'percentile_allegation_civilian': '0.3',
-      'percentile_allegation_internal': '0.023'
+      'percentile_allegation_internal': '0.023',
     },
     {
       'id': 2,
       'year': 2017,
       'percentile_allegation': '32.102',
     },
-  ]
+  ],
 };

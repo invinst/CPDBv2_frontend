@@ -17,7 +17,7 @@ const transformRaceCount = raceCount => {
 
   return map(raceCount, ({ race, count }) => ({
     race,
-    count: `${round((count / total) * 100, 1)}%`
+    count: `${round((count / total) * 100, 1)}%`,
   }));
 };
 
@@ -29,7 +29,7 @@ const transformCommunity = community => ({
   mostComplaintsOfficers: map(community['most_complaints_officers'], transformMostComplaintOfficer),
   name: community.name,
   population: community.population.toLocaleString(),
-  raceCount: transformRaceCount(community['race_count'])
+  raceCount: transformRaceCount(community['race_count']),
 });
 
 export const hasClusterGeoJsonData = createSelector(
@@ -43,8 +43,8 @@ export const communityGeoJSONSelector = createSelector(
     ...communities,
     features: map(communities.features, feature => ({
       ...feature,
-      properties: transformCommunity(feature.properties)
-    }))
+      properties: transformCommunity(feature.properties),
+    })),
   }: null)
 );
 

@@ -18,18 +18,18 @@ describe('Document deduplicator page documentsOrder reducer', function () {
         payload: {
           results: [
             {
-              id: 3
+              id: 3,
             },
             {
-              id: 2
-            }
-          ]
+              id: 2,
+            },
+          ],
         },
         request: {
           params: {
-            crid: '1000000'
-          }
-        }
+            crid: '1000000',
+          },
+        },
       }
     ).should.deepEqual({ data: [1, 3, 2], crid: '1000000' });
 
@@ -43,16 +43,16 @@ describe('Document deduplicator page documentsOrder reducer', function () {
         payload: {
           results: [
             {
-              id: 3
+              id: 3,
             },
             {
-              id: 2
-            }
-          ]
+              id: 2,
+            },
+          ],
         },
         request: {
-          params: {}
-        }
+          params: {},
+        },
       }
     ).should.deepEqual({ data: [3, 2], crid: '' });
   });

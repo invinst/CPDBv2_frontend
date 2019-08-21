@@ -13,11 +13,11 @@ import {
   searchResultGroupsSelector,
   hasMoreSelector,
   nextParamsSelector,
-  isShowingSingleContentTypeSelector
+  isShowingSingleContentTypeSelector,
 } from 'selectors/search-page/search-results/suggestion-groups';
 import {
   previewPaneInfoSelector,
-  totalItemCountSelector
+  totalItemCountSelector,
 } from 'selectors/search-page/search-results/navigation';
 import { getFocusedItem } from 'selectors/search-page';
 
@@ -40,7 +40,7 @@ function mapStateToProps(state, ownProps) {
     hasMore: hasMoreSelector(state),
     nextParams: nextParamsSelector(state),
     singleContent: isShowingSingleContentTypeSelector(state),
-    totalItemCount: totalItemCountSelector(state)
+    totalItemCount: totalItemCountSelector(state),
   };
 }
 

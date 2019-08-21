@@ -1,7 +1,7 @@
 import React from 'react';
 import { Motion } from 'react-motion';
 import {
-  renderIntoDocument, scryRenderedComponentsWithType, scryRenderedDOMComponentsWithClass
+  renderIntoDocument, scryRenderedComponentsWithType, scryRenderedDOMComponentsWithClass,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError, withAnimationDisabled } from 'utils/test';

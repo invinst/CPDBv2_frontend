@@ -20,5 +20,5 @@ export default class SummaryRow extends Component {
 SummaryRow.propTypes = {
   label: PropTypes.string,
   className: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.node,
 };

@@ -8,8 +8,8 @@ describe('recent-document selectors', function () {
   beforeEach(function () {
     state = {
       landingPage: {
-        recentDocument: {}
-      }
+        recentDocument: {},
+      },
     };
   });
 

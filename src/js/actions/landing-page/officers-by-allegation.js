@@ -8,7 +8,7 @@ export const requestOfficersByAllegation = get(
   [
     constants.OFFICERS_BY_ALLEGATION_REQUEST_START,
     constants.OFFICERS_BY_ALLEGATION_REQUEST_SUCCESS,
-    constants.OFFICERS_BY_ALLEGATION_REQUEST_FAILURE
+    constants.OFFICERS_BY_ALLEGATION_REQUEST_FAILURE,
   ]
 );
 

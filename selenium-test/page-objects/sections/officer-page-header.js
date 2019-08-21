@@ -7,7 +7,7 @@ export default class Header extends Section {
     this.prepareElementGetters({
       officerName: '.test--officer-name',
       summaryButton: '//a[@class="test--header-button"][text()="Summary"]',
-      activeButton: '.test--header-button-active'
+      activeButton: '.test--header-button-active',
     });
   }
 }

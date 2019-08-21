@@ -2,7 +2,7 @@ import React from 'react';
 import {
   findRenderedComponentWithType,
   renderIntoDocument,
-  scryRenderedComponentsWithType
+  scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 import { spy, stub } from 'sinon';
@@ -114,7 +114,7 @@ describe('SearchResults component', function () {
   it('should be renderable if it is single content', function () {
     const suggestionGroups = [{
       canLoadMore: true,
-      header: 'OFFICER'
+      header: 'OFFICER',
     }];
     const getSuggestionWithContentType = stub().returns({ catch: stub() });
     SearchResults.should.be.renderable({
@@ -133,11 +133,11 @@ describe('SearchResults component', function () {
           ['rank', null],
           ['2017 salary', '$99,999'],
           ['race', 'White'],
-          ['sex', 'Male']
+          ['sex', 'Male'],
         ],
         title: 'John Wang',
         visualTokenBackgroundColor: '#fafafa',
-        visualTokenImg: 'http://test.img'
+        visualTokenImg: 'http://test.img',
       };
       instance = renderIntoDocument(
         <SearchResults isEmpty={ false } previewPaneInfo={ previewPaneInfo }/>
@@ -151,7 +151,7 @@ describe('SearchResults component', function () {
         ['rank', null],
         [`${currentYear} salary`, '$99,999'],
         ['race', 'White'],
-        ['sex', 'Male']
+        ['sex', 'Male'],
       ]);
       previewPane.props.visualTokenImg.should.eql('http://test.img');
       previewPane.props.visualTokenBackgroundColor.should.eql('#fafafa');

@@ -4,7 +4,7 @@ import {
   turnOffNoAttachmentTextEditMode,
   turnOnNoAttachmentTextEditMode,
   turnOnDocumentRequestInstructionEditMode,
-  turnOffDocumentRequestInstructionEditMode
+  turnOffDocumentRequestInstructionEditMode,
 } from 'actions/trr-page';
 import {
   TRR_URL,
@@ -15,7 +15,7 @@ import {
   TRR_REQUEST_DOC_REQUEST_SUCCESS,
   TRR_REQUEST_DOC_REQUEST_FAILURE,
   TRR_EDIT_MODE,
-  TRR_EDIT_TYPES
+  TRR_EDIT_TYPES,
 } from 'utils/constants';
 
 
@@ -29,9 +29,9 @@ describe('TRRPage actions', function () {
             url: `${TRR_URL}123/`,
             params: undefined,
             adapter: null,
-            cancelToken: undefined
-          }
-        }
+            cancelToken: undefined,
+          },
+        },
       });
     });
   });
@@ -44,12 +44,12 @@ describe('TRRPage actions', function () {
           request: {
             url: `${TRR_URL}123/request-document/`,
             data: {
-              email: 'valid@email.com'
+              email: 'valid@email.com',
             },
             method: 'post',
-            adapter: null
-          }
-        }
+            adapter: null,
+          },
+        },
       });
     });
   });
@@ -58,7 +58,7 @@ describe('TRRPage actions', function () {
     it('should return correct action', function () {
       turnOnNoAttachmentTextEditMode().should.eql({
         type: TRR_EDIT_MODE,
-        payload: { editType: TRR_EDIT_TYPES.NO_ATTACHMENT_TEXT, mode: true }
+        payload: { editType: TRR_EDIT_TYPES.NO_ATTACHMENT_TEXT, mode: true },
       });
     });
   });
@@ -67,7 +67,7 @@ describe('TRRPage actions', function () {
     it('should return correct action', function () {
       turnOffNoAttachmentTextEditMode().should.eql({
         type: TRR_EDIT_MODE,
-        payload: { editType: TRR_EDIT_TYPES.NO_ATTACHMENT_TEXT, mode: false }
+        payload: { editType: TRR_EDIT_TYPES.NO_ATTACHMENT_TEXT, mode: false },
       });
     });
   });
@@ -76,7 +76,7 @@ describe('TRRPage actions', function () {
     it('should return correct action', function () {
       turnOnDocumentRequestInstructionEditMode().should.eql({
         type: TRR_EDIT_MODE,
-        payload: { editType: TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION, mode: true }
+        payload: { editType: TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION, mode: true },
       });
     });
   });
@@ -85,7 +85,7 @@ describe('TRRPage actions', function () {
     it('should return correct action', function () {
       turnOffDocumentRequestInstructionEditMode().should.eql({
         type: TRR_EDIT_MODE,
-        payload: { editType: TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION, mode: false }
+        payload: { editType: TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION, mode: false },
       });
     });
   });

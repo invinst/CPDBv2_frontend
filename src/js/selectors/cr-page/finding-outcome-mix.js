@@ -29,7 +29,7 @@ const dictionaryMappingMix = (finalFinding, finalOutcome) => {
     'Exonerated': {
       'No Action Taken': 'Exonerated',
       'Penalty Not Served': 'Penalty Not Served',
-      'Reinstated By Police Board': 'Reinstated By Police Board'
+      'Reinstated By Police Board': 'Reinstated By Police Board',
     },
     'Sustained': {
       'Reprimand': 'Reprimand',
@@ -38,16 +38,16 @@ const dictionaryMappingMix = (finalFinding, finalOutcome) => {
       'Suspended For 180 Days': 'Suspended 180 days',
       'Separated Other Case': 'Sustained',
       'Suspended Indefinitely': 'Suspended Indefinitely',
-      'Sustained-No Penalty': 'No Penalty'
+      'Sustained-No Penalty': 'No Penalty',
     },
     'Discharged': {
-      'No Action Taken': 'No Action Taken'
+      'No Action Taken': 'No Action Taken',
     },
     'No Affidavit': {
-      'No Action Taken': 'No Affidavit'
+      'No Action Taken': 'No Affidavit',
     },
     'No Cooperation': {
-      'No Action Taken': 'No Cooperation'
+      'No Action Taken': 'No Cooperation',
     },
     'Not Sustained': {
       'No Action Taken': 'Not Sustained',
@@ -59,14 +59,14 @@ const dictionaryMappingMix = (finalFinding, finalOutcome) => {
       'Reinstated By Court Action': 'Reinstated By Court Action',
       'Suspended Over 30 Days': 'Suspended >30 days',
       'Sustained-No Penalty': 'No Penalty',
-      'Resigned -Not Served': 'Resigned - Not Served'
+      'Resigned -Not Served': 'Resigned - Not Served',
     },
     'Unfounded': {
       'No Action Taken': 'Unfounded',
       'Administrative Termination': 'Administrative Termination',
       'Reinstated By Court Action': 'Reinstated By Court Action',
-      'Resigned -Not Served': 'Resigned -Not Served'
-    }
+      'Resigned -Not Served': 'Resigned -Not Served',
+    },
   }, `${finalFinding}.${finalOutcome}`, null);
 };
 
@@ -77,6 +77,6 @@ export const getFindingOutcomeMix = (finalFinding, finalOutcome) => {
     suspensionDaysMix,
     unknownMix,
     dictionaryMappingMix,
-    combineMix
+    combineMix,
   ].reduce((outcome, mix) => { return outcome ? outcome : mix(finalFinding, finalOutcome); }, null);
 };

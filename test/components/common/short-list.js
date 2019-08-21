@@ -2,7 +2,7 @@ import React from 'react';
 import {
   renderIntoDocument,
   scryRenderedDOMComponentsWithClass,
-  findRenderedDOMComponentWithClass
+  findRenderedDOMComponentWithClass,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
@@ -22,7 +22,7 @@ describe('ShortList component', function () {
       ['rank', 'big guy'],
       ['2017 salary', '$50,000'],
       ['race', null],
-      ['sex', 'male']
+      ['sex', 'male'],
     ];
 
     instance = renderIntoDocument(

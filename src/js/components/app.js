@@ -72,7 +72,7 @@ export default class App extends React.Component {
 }
 
 App.childContextTypes = {
-  adapter: PropTypes.func
+  adapter: PropTypes.func,
 };
 
 App.propTypes = {
@@ -90,10 +90,10 @@ App.propTypes = {
 App.defaultProps = {
   params: {},
   location: {
-    pathname: ''
+    pathname: '',
   },
   receiveTokenFromCookie: () => {
   },
   changeSearchQuery: () => {
-  }
+  },
 };

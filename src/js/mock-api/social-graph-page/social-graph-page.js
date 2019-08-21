@@ -18,7 +18,7 @@ const officers = [
   { 'full_name': 'Tracy Hughes', id: 12737 },
   { 'full_name': 'Donnell Calhoun', id: 3663 },
   { 'full_name': 'Hardy White', id: 30466 },
-  { 'full_name': 'Matthew Brandon', id: 2675 }
+  { 'full_name': 'Matthew Brandon', id: 2675 },
 ];
 const defaultCoaccusedData = [
   { 'officer_id_1': 2675, 'officer_id_2': 24157, 'incident_date': '1990-01-09T00:00:00Z', 'accussed_count': 2 },
@@ -102,7 +102,7 @@ const defaultCoaccusedData = [
   { 'officer_id_1': 2671, 'officer_id_2': 15956, 'incident_date': '2006-03-15T00:00:00Z', 'accussed_count': 5 },
   { 'officer_id_1': 3663, 'officer_id_2': 28805, 'incident_date': '2008-01-11T00:00:00Z', 'accussed_count': 7 },
   { 'officer_id_1': 3663, 'officer_id_2': 4269, 'incident_date': '2008-01-11T00:00:00Z', 'accussed_count': 3 },
-  { 'officer_id_1': 2671, 'officer_id_2': 15956, 'incident_date': '2008-01-11T00:00:00Z', 'accussed_count': 6 }
+  { 'officer_id_1': 2671, 'officer_id_2': 15956, 'incident_date': '2008-01-11T00:00:00Z', 'accussed_count': 6 },
 ];
 const defaultListEvent = [
   '1990-01-09 00:00:00+00:00',
@@ -115,7 +115,7 @@ const defaultListEvent = [
   '1999-02-08 00:00:00+00:00',
   '1999-07-22 00:00:00+00:00',
   '2006-03-15 00:00:00+00:00',
-  '2008-01-11 00:00:00+00:00'
+  '2008-01-11 00:00:00+00:00',
 ];
 const allComplaintCoaccusedData = [
   { 'officer_id_1': 2675, 'officer_id_2': 24157, 'incident_date': '1990-01-09T00:00:00Z', 'accussed_count': 2 },
@@ -200,7 +200,7 @@ const allComplaintCoaccusedData = [
   { 'officer_id_1': 2671, 'officer_id_2': 15956, 'incident_date': '2006-03-15T00:00:00Z', 'accussed_count': 5 },
   { 'officer_id_1': 3663, 'officer_id_2': 28805, 'incident_date': '2008-01-11T00:00:00Z', 'accussed_count': 7 },
   { 'officer_id_1': 3663, 'officer_id_2': 4269, 'incident_date': '2008-01-11T00:00:00Z', 'accussed_count': 3 },
-  { 'officer_id_1': 2671, 'officer_id_2': 15956, 'incident_date': '2008-01-11T00:00:00Z', 'accussed_count': 6 }
+  { 'officer_id_1': 2671, 'officer_id_2': 15956, 'incident_date': '2008-01-11T00:00:00Z', 'accussed_count': 6 },
 ];
 const allComplaintListEvent = [
   '1990-01-09 00:00:00+00:00',
@@ -214,7 +214,7 @@ const allComplaintListEvent = [
   '1999-02-08 00:00:00+00:00',
   '1999-07-22 00:00:00+00:00',
   '2006-03-15 00:00:00+00:00',
-  '2008-01-11 00:00:00+00:00'
+  '2008-01-11 00:00:00+00:00',
 ];
 const thresholdThreeCoaccusedData = [
   { 'officer_id_1': 11580, 'officer_id_2': 30466, 'incident_date': '1992-03-08T00:00:00Z', 'accussed_count': 3 },
@@ -260,7 +260,7 @@ const thresholdThreeCoaccusedData = [
   { 'officer_id_1': 2671, 'officer_id_2': 15956, 'incident_date': '2006-03-15T00:00:00Z', 'accussed_count': 5 },
   { 'officer_id_1': 3663, 'officer_id_2': 28805, 'incident_date': '2008-01-11T00:00:00Z', 'accussed_count': 7 },
   { 'officer_id_1': 3663, 'officer_id_2': 4269, 'incident_date': '2008-01-11T00:00:00Z', 'accussed_count': 3 },
-  { 'officer_id_1': 2671, 'officer_id_2': 15956, 'incident_date': '2008-01-11T00:00:00Z', 'accussed_count': 6 }
+  { 'officer_id_1': 2671, 'officer_id_2': 15956, 'incident_date': '2008-01-11T00:00:00Z', 'accussed_count': 6 },
 ];
 const thresholdThreeListEvent = [
   '1992-03-08 00:00:00+00:00',
@@ -272,7 +272,7 @@ const thresholdThreeListEvent = [
   '1999-02-08 00:00:00+00:00',
   '1999-07-22 00:00:00+00:00',
   '2006-03-15 00:00:00+00:00',
-  '2008-01-11 00:00:00+00:00'
+  '2008-01-11 00:00:00+00:00',
 ];
 
 export const getDefaultSocialGraphData = () => ({

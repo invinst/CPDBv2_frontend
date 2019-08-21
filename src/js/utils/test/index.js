@@ -45,7 +45,7 @@ export function wrapWithContext(context, component) {
   }
 
   ContextWrapper.propTypes = {
-    children: PropTypes.node
+    children: PropTypes.node,
   };
 
   ContextWrapper.childContextTypes = mapValues(context, () => PropTypes.any);

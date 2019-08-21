@@ -9,21 +9,21 @@ describe('complaintSummariesIsRequesting reducer', function () {
 
   it('should handle RECENT_COMPLAINT_SUMMARIES_REQUEST_START', function () {
     complaintSummariesIsRequesting(undefined, {
-      type: constants.RECENT_COMPLAINT_SUMMARIES_REQUEST_START
+      type: constants.RECENT_COMPLAINT_SUMMARIES_REQUEST_START,
     }).should.be.true();
   });
 
   it('should handle RECENT_COMPLAINT_SUMMARIES_REQUEST_SUCCESS', function () {
     complaintSummariesIsRequesting(true, {
       type: constants.RECENT_COMPLAINT_SUMMARIES_REQUEST_SUCCESS,
-      payload: [1, 2, 3]
+      payload: [1, 2, 3],
     }).should.be.false();
   });
 
   it('should handle RECENT_COMPLAINT_SUMMARIES_FAILURE', function () {
     complaintSummariesIsRequesting(true, {
       type: constants.RECENT_COMPLAINT_SUMMARIES_REQUEST_FAILURE,
-      payload: new Error('Load failed')
+      payload: new Error('Load failed'),
     }).should.be.false();
   });
 });

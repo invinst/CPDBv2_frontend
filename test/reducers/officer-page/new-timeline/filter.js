@@ -13,7 +13,7 @@ describe('filter reducer', function () {
   it('should handle OFFICER_NEW_TIMELINE_ITEMS_CHANGE_FILTER', function () {
     items('ALL', {
       type: OFFICER_NEW_TIMELINE_ITEMS_CHANGE_FILTER,
-      payload: 'COMPLAINTS'
+      payload: 'COMPLAINTS',
     }).should.eql('COMPLAINTS');
   });
 });

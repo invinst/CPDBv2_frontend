@@ -29,7 +29,7 @@ export const CoaccusedFactory = Factory.define('coaccused')
     items: [
       { axis: 'Use of Force Reports', value: Math.random() * 100 },
       { axis: 'Officer Allegations', value: Math.random() * 100 },
-      { axis: 'Civilian Allegations', value: Math.random() * 100 }
+      { axis: 'Civilian Allegations', value: Math.random() * 100 },
     ],
     visualTokenBackground: '#f5f4f4',
     textColor: '#231F20',

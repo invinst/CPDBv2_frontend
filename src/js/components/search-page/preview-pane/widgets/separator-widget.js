@@ -23,5 +23,5 @@ const styles = {
     background: whiteTwoColor,
     margin: '0 16px',
     height: '1px',
-  }
+  },
 };

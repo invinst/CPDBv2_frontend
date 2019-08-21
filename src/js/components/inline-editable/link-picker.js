@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 
 import {
   wrapperStyle, linkButtonStyle, popupWrapperStyle, linkInputStyle,
-  hoveredLinkButtonStyle, iconStyle
+  hoveredLinkButtonStyle, iconStyle,
 } from './link-picker.style';
 import HoverableButton from 'components/common/hoverable-button';
 
@@ -11,7 +11,7 @@ export default class LinkPicker extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false
+      open: false,
     };
     this.handleTogglePopup = this.handleTogglePopup.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -19,7 +19,7 @@ export default class LinkPicker extends Component {
 
   handleTogglePopup() {
     this.setState({
-      open: !this.state.open
+      open: !this.state.open,
     });
   }
 
@@ -40,7 +40,7 @@ export default class LinkPicker extends Component {
           onClick={ this.handleTogglePopup }
           style={ {
             base: linkButtonStyle,
-            hover: hoveredLinkButtonStyle
+            hover: hoveredLinkButtonStyle,
           } }>
           <span style={ iconStyle } />
         </HoverableButton>
@@ -60,5 +60,5 @@ LinkPicker.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.string,
   editModeOn: PropTypes.bool,
-  style: PropTypes.object
+  style: PropTypes.object,
 };

@@ -14,7 +14,7 @@ export const fetchDocumentsByCRID = ({ crid, limit, offset }) => (authenticatedG
   [
     DOCUMENT_DEDUPLICATOR_REQUEST_START,
     DOCUMENT_DEDUPLICATOR_REQUEST_SUCCESS,
-    DOCUMENT_DEDUPLICATOR_REQUEST_FAILURE
+    DOCUMENT_DEDUPLICATOR_REQUEST_FAILURE,
   ]
 )({ crid, limit, offset }));
 
@@ -23,6 +23,6 @@ export const setDocumentShow = (pk, show) => authenticatedPatch(
   [
     DOCUMENT_VISIBILITY_TOGGLE_REQUEST_START,
     DOCUMENT_VISIBILITY_TOGGLE_REQUEST_SUCCESS,
-    DOCUMENT_VISIBILITY_TOGGLE_REQUEST_FAILURE
+    DOCUMENT_VISIBILITY_TOGGLE_REQUEST_FAILURE,
   ]
 )({ show });

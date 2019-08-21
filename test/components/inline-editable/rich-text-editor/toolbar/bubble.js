@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  renderIntoDocument, scryRenderedComponentsWithType
+  renderIntoDocument, scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 
 import Children from 'utils/test/components/children';

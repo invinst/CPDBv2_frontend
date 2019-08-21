@@ -5,8 +5,8 @@ const results = {
         id: 1,
         name: 'Tsumiki Miniwa',
         'cr_years': [
-          2002
-        ]
+          2002,
+        ],
       },
       {
         id: 2,
@@ -18,8 +18,8 @@ const results = {
           2005,
           2010,
           2011,
-          2012
-        ]
+          2012,
+        ],
       },
       {
         id: 3,
@@ -44,18 +44,16 @@ const results = {
           2011,
           2011,
           2011,
-          2012
-        ]
-      }
+          2012,
+        ],
+      },
     ],
     links: [
       { source: 1, target: 2, 'cr_years': [2002] },
-      { source: 2, target: 3, 'cr_years': [2010, 2011] }
-    ]
-  }
+      { source: 2, target: 3, 'cr_years': [2010, 2011] },
+    ],
+  },
 };
 
 export default (offierId=1) => results[`${offierId}`];
-
-
 
