@@ -6,7 +6,7 @@ import crPage from './page-objects/cr-page';
 import officerPage from './page-objects/officer-page';
 
 
-describe.only('Popup', function () {
+describe('Popup', function () {
   beforeEach(function () {
     crPage.open();
   });

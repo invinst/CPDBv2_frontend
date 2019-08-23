@@ -604,7 +604,7 @@ describe('Search Page in edit mode', function () {
   });
 });
 
-describe.only('Search Page with query parameter', function () {
+describe('Search Page with query parameter', function () {
   it('should able to show INVESTIGATOR > CR results via query parameter', function () {
     searchPage.open('Kelly');
     searchPage.investigatorCRResultsSection.results.waitForDisplayed();
@@ -619,7 +619,7 @@ describe.only('Search Page with query parameter', function () {
   });
 });
 
-describe.only('Search Page with pinboard functionalities', function () {
+describe('Search Page with pinboard functionalities', function () {
   it('should display pinboard button with correct text when items are added/removed', function () {
     searchPage.open('Ke');
     searchPage.suggestionGroup.waitForDisplayed();
@@ -658,7 +658,7 @@ describe.only('Search Page with pinboard functionalities', function () {
   });
 });
 
-describe.only('Search Page toast', function () {
+describe('Search Page toast', function () {
   it('should display toast in few seconds when items are added/removed', function () {
     searchPage.open('Ke');
 
