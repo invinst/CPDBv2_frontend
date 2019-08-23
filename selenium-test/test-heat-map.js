@@ -33,6 +33,8 @@ describe('Heat map', function () {
       $$(landingPage.heatMapSection.complaintCategory.selector)[0].click();
       browser.switchWindow('/url-mediator/session-builder');
       browser.getUrl().should.match(/\/url-mediator\/session-builder\?cat__category=/);
+      browser.closeWindow();
+      browser.switchWindow('localhost');
     });
 
     it('should go to v1 datatool when click on allegation count', function () {
@@ -40,6 +42,8 @@ describe('Heat map', function () {
       landingPage.heatMapSection.citySummary.allegationDiscipline.click();
       browser.switchWindow('cpdb');
       browser.getUrl().should.not.equal(v2Url);
+      browser.closeWindow();
+      browser.switchWindow('localhost');
     });
 
     context('dropdown revealed', function () {
@@ -48,6 +52,7 @@ describe('Heat map', function () {
         landingPage.heatMapSection.dropdownPlaceholder.click();
         landingPage.heatMapSection.dropdown.dropdownItems.waitForDisplayed();
         landingPage.heatMapSection.dropdownPlaceholder.waitForDisplayed(1000, true);
+        browser.pause(400); // wait for the animation end to avoid miss-click. The stiffness is 300
       });
 
       it('should show community detail if click on a community', function () {
@@ -71,14 +76,12 @@ describe('Heat map', function () {
       });
 
       it('should change back if click on city summary', function () {
-        browser.pause(400); // wait for the animation end to avoid miss-click. The stiffness is 300
         landingPage.heatMapSection.citySummary.tapBottom();
         landingPage.heatMapSection.dropdownPlaceholder.waitForDisplayed();
         landingPage.heatMapSection.dropdown.dropdownItems.waitForDisplayed(1000, true);
       });
 
       it('should change back if click on up arrow', function () {
-        browser.pause(400); // wait for the animation end to avoid miss-click. The stiffness is 300
         landingPage.heatMapSection.dropdown.dropdownUpArrow.click();
         landingPage.heatMapSection.dropdownPlaceholder.waitForDisplayed();
         landingPage.heatMapSection.dropdown.dropdownItems.waitForDisplayed(1000, true);
@@ -112,6 +115,8 @@ describe('Heat map', function () {
           landingPage.heatMapSection.communityDetail.v1Link.click();
           browser.switchWindow('/url-mediator/session-builder');
           browser.getUrl().should.match(/\/url-mediator\/session-builder\?community=/);
+          browser.closeWindow();
+          browser.switchWindow('localhost');
         });
       });
     });
