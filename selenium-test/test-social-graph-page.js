@@ -340,9 +340,7 @@ describe('Social Graph Page', function () {
     socialGraphPage.officersSection.officerRows().should.have.length(20);
 
     socialGraphPage.animatedSocialGraphSection.timelineTab.click();
-    browser.waitUntil(function () {
-      return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '2008-01-11';
-    }, 3000);
+    socialGraphPage.animatedSocialGraphSection.currentDate.waitForText('2008-01-11');
     let formattedCurrentDate = moment(
       socialGraphPage.animatedSocialGraphSection.currentDate.getText()
     ).format('MMM D').toUpperCase();
@@ -351,9 +349,7 @@ describe('Social Graph Page', function () {
 
     socialGraphPage.timelineSection.allegationItem.scrollIntoView();
 
-    browser.waitUntil(function () {
-      return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '1992-03-08';
-    }, 3000);
+    socialGraphPage.animatedSocialGraphSection.currentDate.waitForText('1992-03-08');
     formattedCurrentDate = moment(
       socialGraphPage.animatedSocialGraphSection.currentDate.getText()
     ).format('MMM D').toUpperCase();

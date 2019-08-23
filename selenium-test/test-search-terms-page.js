@@ -48,7 +48,6 @@ describe('Search terms page', function () {
     const firstCategoryHeader = searchTermsPage.categoryMainPanel.getCategoryHeader(0);
     const firstTerm = searchTermsPage.categoryMainPanel.getItemInColumn(0, 0);
     const secondTerm = searchTermsPage.categoryMainPanel.getItemInColumn(0, 1);
-    console.warn('firstCategoryHeader', searchTermsPage.categoryMainPanel.getCategoryHeader(0))
     firstCategoryHeader.getAttribute('style').should.not.containEql(focusedColor);
     firstTerm.getAttribute('style').should.not.containEql(focusedColor);
     secondTerm.getAttribute('style').should.not.containEql(focusedColor);

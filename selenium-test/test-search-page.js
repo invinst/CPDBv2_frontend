@@ -461,6 +461,8 @@ describe('Search Page', function () {
       searchPage.officerPreviewPaneSection.neighborhoodPane.click();
       browser.switchWindow('http://lvh.me/url-mediator/session-builder');
       browser.getUrl().should.eql('http://lvh.me/url-mediator/session-builder?neighborhood=SomeNeighborhood');
+      browser.closeWindow();
+      browser.switchWindow('localhost');
     });
 
     it('should redirect to officer page when click on view profile button', function () {
@@ -602,7 +604,7 @@ describe('Search Page in edit mode', function () {
   });
 });
 
-describe('Search Page with query parameter', function () {
+describe.only('Search Page with query parameter', function () {
   it('should able to show INVESTIGATOR > CR results via query parameter', function () {
     searchPage.open('Kelly');
     searchPage.investigatorCRResultsSection.results.waitForDisplayed();
@@ -617,7 +619,7 @@ describe('Search Page with query parameter', function () {
   });
 });
 
-describe('Search Page with pinboard functionalities', function () {
+describe.only('Search Page with pinboard functionalities', function () {
   it('should display pinboard button with correct text when items are added/removed', function () {
     searchPage.open('Ke');
     searchPage.suggestionGroup.waitForDisplayed();
@@ -656,7 +658,7 @@ describe('Search Page with pinboard functionalities', function () {
   });
 });
 
-describe('Search Page toast', function () {
+describe.only('Search Page toast', function () {
   it('should display toast in few seconds when items are added/removed', function () {
     searchPage.open('Ke');
 
