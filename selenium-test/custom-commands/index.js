@@ -5,11 +5,11 @@ function initCommands() {
 
   browser.addCommand(
     'waitForText',
-    function (text, timeout=5000, reverse=false) {
+    function (text, timeout, reverse=false) {
       browser.waitUntil(
         () => (this.getText() === text) !== reverse,
         timeout,
-        `${this} text still ${reverse ? '' : 'not'} equal ${text} after ${timeout}ms`
+        `${this.selector}'s text still ${reverse ? '' : 'not'} equal ${text} after ${timeout || '{ waitforTimeout }'}ms`
       );
     },
     true
@@ -17,11 +17,11 @@ function initCommands() {
 
   browser.addCommand(
     'waitForDisplayedInViewport',
-    function (timeout=5000, reverse=false) {
+    function (timeout, reverse=false) {
       browser.waitUntil(
         () => this.isDisplayedInViewport() !== reverse,
         timeout,
-        `${this} is still ${reverse ? '' : 'not'} in viewport after ${timeout}ms`
+        `${this.selector} is still ${reverse ? '' : 'not'} in viewport after ${timeout || '{ waitforTimeout }'}ms`
       );
     },
     true
