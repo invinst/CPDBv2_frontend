@@ -291,7 +291,7 @@
   dependencies:
     "@types/node" "*"
 
-"@wdio/cli@^5.12.1":
+"@wdio/cli@^5.12.4":
   version "5.12.5"
   resolved "https://registry.yarnpkg.com/@wdio/cli/-/cli-5.12.5.tgz#f4121b0d7682f67431521b83aa213c23128341a2"
   integrity sha512-PvHKhiJ+D5Z+sdKRtjl5/H5kIJaKy4XJ/hq6DVX0JtwuPwj5elvkoBmeBgxaVskk6j8GZ5rJ5eyG9ja62bzwsA==
@@ -341,7 +341,7 @@
     "@wdio/reporter" "^5.12.1"
     chalk "^2.3.0"
 
-"@wdio/local-runner@^5.12.1":
+"@wdio/local-runner@^5.12.4":
   version "5.12.5"
   resolved "https://registry.yarnpkg.com/@wdio/local-runner/-/local-runner-5.12.5.tgz#e9a7079caf8fb4d777d8e10d01ecfe17e13cf291"
   integrity sha512-+8+ZN0zxrpoXk4Iz9tqvfsP8H8Mqz4Y56AvZhR4wZb00BExOMgzvbnTpAiAQjsOggPF/nBe7EzbGfQRxcAr40w==
