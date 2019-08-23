@@ -543,7 +543,7 @@ describe('Social Graph Page', function () {
   });
 });
 
-xdescribe('Social Graph Page with pinboard_id', function () {
+describe('Social Graph Page with pinboard_id', function () {
   beforeEach(function () {
     socialGraphPage.open('?pinboard_id=5cd06f2b');
   });
