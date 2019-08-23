@@ -31,7 +31,7 @@ describe('Social Graph Page', function () {
 
     const groupsColors = map(
       graphNodes,
-      (graphNode) => graphNode.getCssProperty('fill').value
+      (graphNode) => graphNode.getCSSProperty('fill').value
     );
     const groupsCount = values(countBy(groupsColors));
     groupsCount.sort((a, b) => a - b).should.eql([3, 5, 6, 6]);
@@ -48,25 +48,25 @@ describe('Social Graph Page', function () {
     const biggestNode = socialGraphPage.animatedSocialGraphSection.biggestGraphNode;
     biggestNode.doubleClick();
 
-    let hideGraphNodes = filter(graphNodes, graphNode => graphNode.getCssProperty('opacity').value === 0.1);
-    let visibleGraphNodes = filter(graphNodes, graphNode => graphNode.getCssProperty('opacity').value === 1);
+    let hideGraphNodes = filter(graphNodes, graphNode => graphNode.getCSSProperty('opacity').value === 0.1);
+    let visibleGraphNodes = filter(graphNodes, graphNode => graphNode.getCSSProperty('opacity').value === 1);
     hideGraphNodes.should.have.length(9);
     visibleGraphNodes.should.have.length(11);
 
-    let hideGraphLinks = filter(graphLinks, graphLink => graphLink.getCssProperty('opacity').value === 0.1);
-    let visibleGraphLinks = filter(graphLinks, graphLink => graphLink.getCssProperty('opacity').value === 1);
+    let hideGraphLinks = filter(graphLinks, graphLink => graphLink.getCSSProperty('opacity').value === 0.1);
+    let visibleGraphLinks = filter(graphLinks, graphLink => graphLink.getCSSProperty('opacity').value === 1);
     hideGraphLinks.should.have.length(27);
     visibleGraphLinks.should.have.length(10);
 
     biggestNode.doubleClick();
 
-    hideGraphNodes = filter(graphNodes, graphNode => graphNode.getCssProperty('opacity').value === 0.1);
-    visibleGraphNodes = filter(graphNodes, graphNode => graphNode.getCssProperty('opacity').value === 1);
+    hideGraphNodes = filter(graphNodes, graphNode => graphNode.getCSSProperty('opacity').value === 0.1);
+    visibleGraphNodes = filter(graphNodes, graphNode => graphNode.getCSSProperty('opacity').value === 1);
     hideGraphNodes.should.have.length(0);
     visibleGraphNodes.should.have.length(20);
 
-    hideGraphLinks = filter(graphLinks, graphLink => graphLink.getCssProperty('opacity').value === 0.1);
-    visibleGraphLinks = filter(graphLinks, graphLink => graphLink.getCssProperty('opacity').value === 1);
+    hideGraphLinks = filter(graphLinks, graphLink => graphLink.getCSSProperty('opacity').value === 0.1);
+    visibleGraphLinks = filter(graphLinks, graphLink => graphLink.getCSSProperty('opacity').value === 1);
     hideGraphLinks.should.have.length(0);
     visibleGraphLinks.should.have.length(37);
   });
@@ -76,7 +76,7 @@ describe('Social Graph Page', function () {
       return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '2008-01-11';
     }, 15000, 'expected timeline reaches end date after 15s');
 
-    browser.moveToObject(socialGraphPage.animatedSocialGraphSection.biggestGraphNode.selector);
+    socialGraphPage.animatedSocialGraphSection.biggestGraphNode.moveTo();
     socialGraphPage.animatedSocialGraphSection.tooltip.getText().should.equal('Donnell Calhoun');
   });
 
@@ -125,14 +125,13 @@ describe('Social Graph Page', function () {
     socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
     socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(37);
 
-    browser.moveToObject(socialGraphPage.animatedSocialGraphSection.timelineSlider.selector);
-    browser.buttonPress();
+    socialGraphPage.animatedSocialGraphSection.timelineSlider.click();
     socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
     socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(14);
     const graphNodes = socialGraphPage.animatedSocialGraphSection.graphNodes();
     const groupsColors = map(
       graphNodes,
-      (graphNode) => graphNode.getCssProperty('fill').value
+      (graphNode) => graphNode.getCSSProperty('fill').value
     );
     const groupsCount = values(countBy(groupsColors));
     groupsCount.sort((a, b) => a - b).should.eql([3, 3, 3, 11]);
@@ -152,8 +151,7 @@ describe('Social Graph Page', function () {
     socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
     socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(38);
 
-    browser.moveToObject(socialGraphPage.animatedSocialGraphSection.coaccusalsThresholdSlider.selector, 140, 7);
-    browser.buttonPress();
+    socialGraphPage.animatedSocialGraphSection.coaccusalsThresholdSlider.clickAt(140, 7);
     browser.waitUntil(function () {
       return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '2008-01-11';
     }, 15000, 'expected timeline reaches end date after 15s');

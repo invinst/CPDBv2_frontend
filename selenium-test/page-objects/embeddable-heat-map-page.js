@@ -15,11 +15,6 @@ class CitySummary extends Section {
       mostCommonComplaints: '.test--most-common-complaints',
     });
   }
-
-  tapBottom() {
-    browser.moveToObject('.test--city-summary', 100, 370);
-    browser.buttonPress();
-  }
 }
 
 class CommunityDetail extends Section {
