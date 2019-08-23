@@ -5,6 +5,7 @@ import { times } from 'lodash';
 
 import landingPage from './page-objects/landing-page';
 import header from './page-objects/shareable-header';
+import pinboardPage from './page-objects/pinboard-page';
 
 
 should.config.checkProtoEql = false;
@@ -232,6 +233,7 @@ describe('landing page', function () {
       navBar.rightLinks.data.getCssProperty('color').value.should.eql('rgba(0,94,244,1)');
       navBar.rightLinks.qa.getCssProperty('color').value.should.eql('rgba(0,94,244,1)');
       navBar.rightLinks.documents.getCssProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.rightLinks.pinboard.getCssProperty('color').value.should.eql('rgba(0,94,244,1)');
     });
 
     it('should render correctly at the middle of the page', function () {
@@ -254,6 +256,7 @@ describe('landing page', function () {
       navBar.rightLinks.data.getCssProperty('color').value.should.eql('rgba(118,118,118,1)');
       navBar.rightLinks.qa.getCssProperty('color').value.should.eql('rgba(118,118,118,1)');
       navBar.rightLinks.documents.getCssProperty('color').value.should.eql('rgba(118,118,118,1)');
+      navBar.rightLinks.pinboard.getCssProperty('color').value.should.eql('rgba(118,118,118,1)');
     });
 
     it('should render correctly at the bottom of the page', function () {
@@ -284,6 +287,15 @@ describe('landing page', function () {
       navBar.rightLinks.data.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
       navBar.rightLinks.qa.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
       navBar.rightLinks.documents.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
+      navBar.rightLinks.pinboard.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
+    });
+
+    it('should go to pinboard page when clicking on pinboard tag', function () {
+      const navBar = landingPage.topHeader.navBar;
+      navBar.mainElement.waitForVisible();
+      navBar.rightLinks.pinboard.click();
+      pinboardPage.emptyPinboardSection.mainElement.waitForVisible();
+      browser.getUrl().should.endWith('/pinboard/abcd1234/untitled-pinboard/');
     });
 
     it('should go to search page when clicking anywhere in the search box', function () {

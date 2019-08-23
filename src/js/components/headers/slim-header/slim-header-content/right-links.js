@@ -20,6 +20,10 @@ export default class RightLinks extends Component {
       {
         name: 'Documents',
         url: '/documents/'
+      },
+      {
+        name: 'Pinboard',
+        url: '/pinboard/'
       }
     ];
 
