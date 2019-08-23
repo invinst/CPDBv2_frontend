@@ -14,24 +14,24 @@ describe('Login screen', function () {
 
   describe('login button', function () {
     it('should do nothing when clicked on if username and password are not filled in', function () {
-      landingPage.loginScreen.loginButton.waitForVisible();
+      landingPage.loginScreen.loginButton.waitForDisplayed();
       landingPage.loginScreen.loginButton.click();
-      landingPage.loginScreen.loginModal.waitForVisible();
+      landingPage.loginScreen.loginModal.waitForDisplayed();
     });
 
     it('should hide login screen when clicked on if logged-in successfully', function () {
-      landingPage.loginScreen.loginModal.waitForVisible();
+      landingPage.loginScreen.loginModal.waitForDisplayed();
       landingPage.loginScreen.enterCredentials('username', 'password');
       landingPage.loginScreen.loginButton.click();
       landingPage.loginScreen.loginModal.waitForExist(2000, true);
     });
 
     it('should show error message when clicked on if there is an error', function () {
-      landingPage.loginScreen.loginModal.waitForVisible();
+      landingPage.loginScreen.loginModal.waitForDisplayed();
       landingPage.loginScreen.enterCredentials('badname', 'badpassword');
       landingPage.loginScreen.loginButton.click();
 
-      landingPage.loginScreen.loginModal.waitForVisible();
+      landingPage.loginScreen.loginModal.waitForDisplayed();
       browser.waitUntil(function () {
         return landingPage.loginScreen.loginModal.getText().indexOf('Bad username/password') !== -1;
       }, 2000, 'expected error text to show after 2s');
@@ -40,22 +40,22 @@ describe('Login screen', function () {
 
   describe('reset password link', function () {
     it('should show reset password modal when clicked on', function () {
-      landingPage.loginScreen.forgotPasswordButton.waitForVisible();
+      landingPage.loginScreen.forgotPasswordButton.waitForDisplayed();
       landingPage.loginScreen.forgotPasswordButton.click();
-      landingPage.loginScreen.forgotPasswordModal.waitForVisible();
+      landingPage.loginScreen.forgotPasswordModal.waitForDisplayed();
     });
   });
 
   describe('reset password modal', function () {
     beforeEach(function () {
-      landingPage.loginScreen.forgotPasswordButton.waitForVisible();
+      landingPage.loginScreen.forgotPasswordButton.waitForDisplayed();
       landingPage.loginScreen.forgotPasswordButton.click();
-      landingPage.loginScreen.forgotPasswordModal.waitForVisible();
+      landingPage.loginScreen.forgotPasswordModal.waitForDisplayed();
     });
 
     describe('reset password button', function () {
       it('should show success message when clicked on if there is not an error', function () {
-        landingPage.loginScreen.emailInput.waitForVisible();
+        landingPage.loginScreen.emailInput.waitForDisplayed();
         landingPage.loginScreen.emailInput.setValue('valid@email.com');
         landingPage.loginScreen.resetPasswordButton.click();
 

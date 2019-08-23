@@ -11,6 +11,7 @@ describe('unit summary page', function () {
   });
 
   it('should display unit summary', function () {
+    browser.pause(9999)
     summaryPage.header.unitName.getText().should.equal('Unit 001');
 
     summaryPage.memberAggregateSection.status.getText().should.equal('5 active members, 10 all-time');

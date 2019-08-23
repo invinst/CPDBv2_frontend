@@ -41,7 +41,7 @@ class AccusedOfficerSection extends Section {
   }
 
   cardCount() {
-    return browser.elements('//a[contains(@class, "coaccused-card")]').value.length;
+    return $$('//a[contains(@class, "coaccused-card")]').length;
   }
 }
 
@@ -81,7 +81,7 @@ class AttachmentsSection extends Section {
   }
 
   cardCount() {
-    return browser.elements('.test--attachment-card').value.length;
+    return $$('.test--attachment-card').length;
   }
 }
 
@@ -98,9 +98,9 @@ class InvestigatorSection extends Section {
   }
 
   itemCount() {
-    return browser.elements(
+    return $$(
       '(//*[contains(@class, "test--involvement-investigator")]//*[contains(@class, "test--officer-row")])'
-    ).value.length;
+    ).length;
   }
 }
 
@@ -115,9 +115,9 @@ class PoliceWitnessSection extends Section {
   }
 
   itemCount() {
-    return browser.elements(
+    return $$(
       '(//*[contains(@class, "test--involvement-police_witness")]//*[contains(@class, "test--officer-row")])'
-    ).value.length;
+    ).length;
   }
 }
 
@@ -151,7 +151,7 @@ class CarouselSection extends Section {
   }
 
   cardAtIndex(index) {
-    return browser.element([
+    return $([
       `(//*[contains(@class, "${this.carouselClassName}")]`,
       `//*[contains(@class, "${this.cardClassName}")])`,
       `[${index}]`
@@ -171,7 +171,7 @@ class DistanceDropdown extends Section {
   }
 
   getOption(value) {
-    return browser.element([
+    return $([
       `//*[contains(@class, "${this.optionClassName}")`,
       ` and text()="${value}"]`
     ].join(''));

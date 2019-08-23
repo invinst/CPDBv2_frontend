@@ -14,7 +14,7 @@ describe('Header', function () {
 
   context('edit mode off', function () {
     it('should not display log out button', function () {
-      landingPage.topHeader.navBar.logOutButton.waitForVisible(2000, true);
+      landingPage.topHeader.navBar.logOutButton.waitForDisplayed(2000, true);
     });
   });
 
@@ -24,19 +24,19 @@ describe('Header', function () {
     });
 
     it('should display log out button and log out when we click on', function () {
-      landingPage.topHeader.navBar.logOutButton.waitForVisible();
+      landingPage.topHeader.navBar.logOutButton.waitForDisplayed();
       landingPage.topHeader.navBar.logOutButton.click();
-      landingPage.loginScreen.loginModal.waitForVisible();
-      should(browser.getCookie('apiAccessToken')).be.null();
+      landingPage.loginScreen.loginModal.waitForDisplayed();
+      browser.getCookies(['apiAccessToken']).should.be.empty();
     });
 
     describe('logo section', function () {
       beforeEach(function () {
-        browser.moveToObject(landingPage.topHeader.topBar.logo.title.selector);
+        landingPage.topHeader.topBar.logo.title.moveTo();
       });
 
       it('should display edit button when hover on logo section', function () {
-        landingPage.topHeader.topBar.logo.editButton.waitForVisible();
+        landingPage.topHeader.topBar.logo.editButton.waitForDisplayed();
       });
 
       context('section edit mode on', function () {
@@ -52,20 +52,20 @@ describe('Header', function () {
 
         it('should allow editing subtitle with rich text capabilities', function () {
           selectText(landingPage.topHeader.topBar.logo.subtitle.selector);
-          landingPage.richTextToolbar.element.waitForVisible();
+          landingPage.richTextToolbar.element.waitForDisplayed();
         });
 
         it('should display save and cancel button', function () {
-          landingPage.topHeader.topBar.logo.saveButton.waitForVisible();
-          landingPage.topHeader.topBar.logo.cancelButton.waitForVisible();
+          landingPage.topHeader.topBar.logo.saveButton.waitForDisplayed();
+          landingPage.topHeader.topBar.logo.cancelButton.waitForDisplayed();
         });
 
         it('should turn off section edit mode when click on cancel button', function () {
           landingPage.topHeader.topBar.logo.cancelButton.click();
-          browser.moveToObject(landingPage.topHeader.topBar.logo.title.selector);
-          landingPage.topHeader.topBar.logo.editButton.waitForVisible();
-          landingPage.topHeader.topBar.logo.saveButton.waitForVisible(2000, true);
-          landingPage.topHeader.topBar.logo.cancelButton.waitForVisible(2000, true);
+          landingPage.topHeader.topBar.logo.title.moveTo();
+          landingPage.topHeader.topBar.logo.editButton.waitForDisplayed();
+          landingPage.topHeader.topBar.logo.saveButton.waitForDisplayed(2000, true);
+          landingPage.topHeader.topBar.logo.cancelButton.waitForDisplayed(2000, true);
         });
       });
     });

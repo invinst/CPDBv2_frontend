@@ -69,9 +69,9 @@ describe('landing page', function () {
   });
 
   it('should keep the same body width when scrollbar disappears because of open modal', function () {
-    const initialWidth = $('body').getCSSProperty('width');
+    const initialWidth = $('body').getCSSProperty('width').value;
     landingPage.footer.legalDisclaimer.click();
-    const activeWidth = $('body').getCSSProperty('width');
+    const activeWidth = $('body').getCSSProperty('width').value;
     activeWidth.should.eql(initialWidth);
   });
 
