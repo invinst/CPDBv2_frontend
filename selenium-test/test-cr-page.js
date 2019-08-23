@@ -109,7 +109,7 @@ describe('CR page', function () {
     it('should show previous complaints when click left arrow', function () {
       crPage.relatedByCategoriesCarousel.rightArrow.click();
       crPage.relatedByCategoriesCarousel.cardAtIndex(6).waitForDisplayed();
-      crPage.relatedByCategoriesCarousel.cardAtIndex(1).isDisplayedInViewport().should.be.false();
+      crPage.relatedByCategoriesCarousel.cardAtIndex(1).waitForDisplayedInViewport(5000, true);
       crPage.relatedByCategoriesCarousel.leftArrow.click();
       crPage.relatedByCategoriesCarousel.cardAtIndex(1).waitForDisplayed();
     });

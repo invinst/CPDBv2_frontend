@@ -469,6 +469,8 @@ describe('Search Page', function () {
       searchPage.officerPreviewPaneSection.neighborhoodPane.click();
       browser.switchWindow('http://lvh.me/url-mediator/session-builder');
       browser.getUrl().should.eql('http://lvh.me/url-mediator/session-builder?neighborhood=SomeNeighborhood');
+      browser.closeWindow();
+      browser.switchWindow('localhost');
     });
   });
 

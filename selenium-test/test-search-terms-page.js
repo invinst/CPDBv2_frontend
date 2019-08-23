@@ -59,7 +59,7 @@ describe('Search terms page', function () {
     browser.keys('ArrowDown');
     browser.keys('ArrowUp');
 
-    searchTermsPage.previewPane.title.waitForVisible(1000, true);
+    searchTermsPage.previewPane.title.waitForDisplayed(1000, true);
   });
 
   it('should show PreviewPane when navigating to SearchTerms items', function () {
