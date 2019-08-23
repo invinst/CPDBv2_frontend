@@ -347,7 +347,7 @@ describe('Social Graph Page', function () {
     formattedCurrentDate.should.eql('JAN 11');
     socialGraphPage.timelineSection.timelineItemDateActive.getText().should.eql(formattedCurrentDate);
 
-    socialGraphPage.timelineSection.allegationItem.scrollIntoView();
+    socialGraphPage.timelineSection.allegationItem.scrollIntoView({ behavior: 'smooth' });
 
     socialGraphPage.animatedSocialGraphSection.currentDate.waitForText('1992-03-08');
     formattedCurrentDate = moment(
