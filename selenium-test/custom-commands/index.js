@@ -9,7 +9,7 @@ function initCommands() {
       browser.waitUntil(
         () => (this.getText() === text) !== reverse,
         timeout,
-        `${this.selector}'s text still ${reverse ? '' : 'not'} equal ${text} after ${timeout || '{ waitforTimeout }'}ms`
+        `${this.selector}'s text still ${reverse ? '' : 'not'} equals ${text} after ${timeout || '{waitforTimeout}'}ms`
       );
     },
     true
@@ -21,7 +21,7 @@ function initCommands() {
       browser.waitUntil(
         () => this.isDisplayedInViewport() !== reverse,
         timeout,
-        `${this.selector} is still ${reverse ? '' : 'not'} in viewport after ${timeout || '{ waitforTimeout }'}ms`
+        `${this.selector} is still ${reverse ? '' : 'not'} in viewport after ${timeout || '{waitforTimeout}'}ms`
       );
     },
     true
