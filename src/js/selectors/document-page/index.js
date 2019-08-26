@@ -18,7 +18,7 @@ export const documentSelector = createSelector(
         name: 'Source',
         value: getDomainName(data['original_url']),
         url: data['original_url'],
-        tooltip: data['original_url']
+        tooltip: data['original_url'],
       },
       { name: 'Crawler', value: data['crawler_name'] },
       { name: 'Date', value: moment(data['created_at']).format('MMM D, YYYY') },

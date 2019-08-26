@@ -77,7 +77,7 @@ describe('DocumentPage actions', function () {
         fields: [
           { type: 'number', key: 'id', value: 123 },
           { type: 'string', key: 'title', value: 'new title' },
-        ]
+        ],
       });
 
       trackDocumentEditStub.calledOnceWith(123, 'title'.should.be.true);

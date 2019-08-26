@@ -3,7 +3,7 @@ import ReactTooltip from 'react-tooltip';
 import {
   renderIntoDocument,
   findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass
+  findRenderedDOMComponentWithClass,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
