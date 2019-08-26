@@ -111,8 +111,7 @@ class CitySummary extends Section {
   }
 
   tapBottom() {
-    browser.moveToObject('.test--city-summary', 100, 370);
-    browser.buttonPress();
+    $('.test--city-summary').clickAt(100, 370);
   }
 }
 

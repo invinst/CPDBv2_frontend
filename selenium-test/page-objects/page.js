@@ -13,9 +13,9 @@ export default class Page extends Section {
   }
 
   open(path) {
-    browser.deleteCookie();
+    browser.deleteCookies();
     browser.url(path);
-    browser.element('body').waitForVisible();
+    $('body').waitForDisplayed();
   }
 
   get currentBasePath() {

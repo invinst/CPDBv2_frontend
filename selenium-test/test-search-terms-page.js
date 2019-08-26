@@ -23,13 +23,13 @@ describe('Search terms page', function () {
   });
 
   it('should navigate to Search page when user type in something in search box', function () {
-    searchPage.input.waitForVisible();
+    searchPage.input.waitForDisplayed();
     searchPage.input.setValue('Ke');
     browser.getUrl().should.match(/\/search\/$/);
   });
 
   it('should focus on the search box by default', function () {
-    searchTermsPage.input.waitForVisible();
+    searchTermsPage.input.waitForDisplayed();
 
     browser.keys('A');
 
@@ -37,10 +37,10 @@ describe('Search terms page', function () {
   });
 
   it('should focus on nothing after unfocused the input', function () {
-    searchTermsPage.input.waitForVisible();
+    searchTermsPage.input.waitForDisplayed();
     searchTermsPage.title.click();
 
-    searchTermsPage.categoryMainPanel.focusedItem.waitForVisible(2000, true);
+    searchTermsPage.categoryMainPanel.focusedItem.waitForDisplayed(2000, true);
   });
 
   it('should navigates between the result when user press the navigation keys', function () {
