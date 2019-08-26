@@ -20,7 +20,7 @@ export default class RichTextEditor extends Component {
     this.state = {
       showToolbar: false,
       editorTop: null,
-      editorLeft: null
+      editorLeft: null,
     };
   }
 
@@ -28,7 +28,7 @@ export default class RichTextEditor extends Component {
     if (nextProps.readOnly) {
       this.toolbarFocused = false;
       this.setState({
-        showToolbar: false
+        showToolbar: false,
       });
     }
   }
@@ -58,12 +58,12 @@ export default class RichTextEditor extends Component {
       this.setState({
         showToolbar: true,
         editorLeft: rect.left,
-        editorTop: rect.top
+        editorTop: rect.top,
       });
     } else {
       this.toolbarFocused = false;
       this.setState({
-        showToolbar: false
+        showToolbar: false,
       });
     }
     if (onChange) {
@@ -78,7 +78,7 @@ export default class RichTextEditor extends Component {
 
     const paragraphBlockRender = {
       element: 'div',
-      wrapper: <div style={ wrapper }/>
+      wrapper: <div style={ wrapper }/>,
     };
 
     const blockRenderMap = DefaultDraftBlockRenderMap
@@ -93,8 +93,8 @@ export default class RichTextEditor extends Component {
           props: {
             style: { ...paragraph, ...(readOnly ? {} : textEditorStyle) },
             element: 'div',
-            child: contentBlock.getKey() === lastContentBlockKey ? lastBlockChild : null
-          }
+            child: contentBlock.getKey() === lastContentBlockKey ? lastBlockChild : null,
+          },
         };
       }
     }
@@ -139,10 +139,10 @@ RichTextEditor.propTypes = {
   readOnly: PropTypes.bool,
   disableToolbar: PropTypes.bool,
   editorState: PropTypes.object,
-  lastBlockChild: PropTypes.node
+  lastBlockChild: PropTypes.node,
 };
 
 RichTextEditor.defaultProps = {
   style: {},
-  editorState: EditorState.createEmpty()
+  editorState: EditorState.createEmpty(),
 };

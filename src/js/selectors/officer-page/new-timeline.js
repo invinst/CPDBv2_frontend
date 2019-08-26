@@ -11,7 +11,7 @@ import {
   values,
   isUndefined,
   cloneDeep,
-  map
+  map,
 } from 'lodash';
 import moment from 'moment';
 import { createSelector } from 'reselect';
@@ -58,7 +58,7 @@ export const attachmentsTransform = (attachments) => {
         url: attachment.url,
         previewImageUrl: previewImageUrl,
         fileType: fileType,
-        id: attachment['id']
+        id: attachment['id'],
       };
     });
   }
@@ -133,7 +133,7 @@ export const fillYears = (items) => {
         const specialItems = [
           NEW_TIMELINE_ITEMS.UNIT_CHANGE,
           NEW_TIMELINE_ITEMS.RANK_CHANGE,
-          NEW_TIMELINE_ITEMS.JOINED
+          NEW_TIMELINE_ITEMS.JOINED,
         ];
         const hasFirstChangedItem = includes(specialItems, nextItem.kind);
 

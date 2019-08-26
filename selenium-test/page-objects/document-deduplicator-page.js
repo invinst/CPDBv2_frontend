@@ -21,7 +21,7 @@ class DocumentDeduplicatorPage extends Page {
       secondDocViews: '(//span[contains(@class, "view-count")])[2]',
       secondDocDownloads: '(//span[contains(@class, "download-count")])[2]',
       secondDocDate: '(//span[contains(@class, "document-date")])[2]',
-      secondDocToggleText: '(//span[@class="toggle-text"])[2]'
+      secondDocToggleText: '(//span[@class="toggle-text"])[2]',
     });
   }
 

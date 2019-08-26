@@ -37,8 +37,9 @@ describe('SimpleListWidget component', function () {
           { name: 'CRID / UID', value: 'CR 1083633', to: '/complaint/1083633/' },
           {
             name: 'Source',
-            value: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf',
-            url: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf'
+            value: 'chicagocopa.org',
+            tooltip: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf',
+            url: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf',
           },
         ] }
       />
@@ -54,12 +55,17 @@ describe('SimpleListWidget component', function () {
     items[0].props.to.should.eql('/complaint/1083633/');
     findRenderedDOMComponentWithClass(items[0], 'list-item-name').textContent.should.eql('CRID / UID');
     findRenderedDOMComponentWithClass(items[0], 'list-item-value').textContent.should.eql('CR 1083633');
+    findRenderedDOMComponentWithClass(items[0], 'list-item-value').getAttribute('data-tip').should.eql('false');
 
     items[1].props.className.should.eql('list-item');
     items[1].props.url.should.eql('https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf');
     findRenderedDOMComponentWithClass(items[1], 'list-item-name').textContent.should.eql('Source');
-    findRenderedDOMComponentWithClass(items[1], 'list-item-value').textContent.should.eql(
-      'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf'
-    );
+
+    const sourceItemValue = findRenderedDOMComponentWithClass(items[1], 'list-item-value');
+    sourceItemValue.textContent.should.eql('chicagocopa.org');
+    sourceItemValue.getAttribute('data-tip').should.eql('true');
+    sourceItemValue.getAttribute('data-for').should.containEql('tooltip-');
+    sourceItemValue.getAttribute('data-event').should.eql('mouseover');
+    sourceItemValue.getAttribute('data-event-off').should.eql('mouseleave');
   });
 });

@@ -4,7 +4,7 @@ import {
   renderIntoDocument,
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
-  scryRenderedComponentsWithType
+  scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import Breadcrumbs from 'redux-breadcrumb-trail';
@@ -26,8 +26,8 @@ describe('ShareableHeader component', function () {
   const mockStore = MockStore();
   const store = mockStore({
     breadcrumb: {
-      breadcrumbs: []
-    }
+      breadcrumbs: [],
+    },
   });
 
   class CustomMenu extends React.Component {
@@ -103,8 +103,8 @@ describe('ShareableHeader component with button components', function () {
   const mockStore = MockStore();
   const store = mockStore({
     breadcrumb: {
-      breadcrumbs: []
-    }
+      breadcrumbs: [],
+    },
   });
 
   afterEach(function () {
@@ -147,8 +147,8 @@ describe('ShareableHeader global click listener', function () {
   const mockStore = MockStore();
   const store = mockStore({
     breadcrumb: {
-      breadcrumbs: []
-    }
+      breadcrumbs: [],
+    },
   });
 
   beforeEach(function () {
@@ -185,8 +185,8 @@ describe('ShareableHeader global scroll listener', function () {
   const mockStore = MockStore();
   const store = mockStore({
     breadcrumb: {
-      breadcrumbs: []
-    }
+      breadcrumbs: [],
+    },
   });
 
   beforeEach(function () {
@@ -216,6 +216,4 @@ describe('ShareableHeader global scroll listener', function () {
     window.removeEventListener.calledWith('scroll', element.handleScroll).should.be.true();
   });
 });
-
-
 

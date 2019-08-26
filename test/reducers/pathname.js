@@ -13,8 +13,8 @@ describe('pathname reducer', function () {
     const action = {
       type: '@@router/LOCATION_CHANGE',
       payload: {
-        pathname: '/some/path/'
-      }
+        pathname: '/some/path/',
+      },
     };
 
     pathname('some state', action).should.eql('/some/path/');
@@ -23,7 +23,7 @@ describe('pathname reducer', function () {
   it('should handle UPDATE_PATH_NAME', function () {
     const action = {
       type: UPDATE_PATH_NAME,
-      payload: '/some/path/'
+      payload: '/some/path/',
     };
 
     pathname('some state', action).should.eql('/some/path/');

@@ -20,7 +20,7 @@ export const groupedSuggestions = {
           'sustained_count': 2,
           'birth_year': 1972,
           race: 'White',
-          gender: 'Male'
+          gender: 'Male',
         }
       ),
       RawOfficerSuggestion.build(
@@ -32,9 +32,9 @@ export const groupedSuggestions = {
           'sustained_count': 1,
           'birth_year': 1980,
           race: 'White',
-          gender: 'Female'
+          gender: 'Female',
         }),
-      ...RawOfficerSuggestion.buildList(8)
+      ...RawOfficerSuggestion.buildList(8),
     ],
     'CO-ACCUSED': [
       RawOfficerSuggestion.build(
@@ -46,9 +46,9 @@ export const groupedSuggestions = {
           'sustained_count': 2,
           'birth_year': 1972,
           race: 'White',
-          gender: 'Male'
+          gender: 'Male',
         }
-      )
+      ),
     ],
     'UNIT': [],
     'NEIGHBORHOOD': [
@@ -70,12 +70,12 @@ export const groupedSuggestions = {
           'sub_category': 'Reports',
           'incident_date': '2004-04-23',
           highlight: {
-            summary: ['an officer named Kelly caught the victim']
+            summary: ['an officer named Kelly caught the victim'],
           },
           address: '14XX W 63RD ST, CHICAGO IL 60636',
           'victims': [
             { 'gender': 'Female', 'race': 'Hispanic' },
-            { 'gender': 'Female', 'race': 'Hispanic', 'age': 48 }
+            { 'gender': 'Female', 'race': 'Hispanic', 'age': 48 },
           ],
           'coaccused': [{
             'id': 16567,
@@ -84,9 +84,9 @@ export const groupedSuggestions = {
               'id': 16567,
               'percentile_trr': '72.1094',
               'percentile_allegation_civilian': '98.5549',
-              'percentile_allegation_internal': '61.1521'
+              'percentile_allegation_internal': '61.1521',
             },
-            'allegation_count': 93
+            'allegation_count': 93,
           }, {
             'id': 16568,
             'full_name': 'Baudilio Lopez',
@@ -94,9 +94,9 @@ export const groupedSuggestions = {
               'id': 16568,
               'percentile_trr': '72.1094',
               'percentile_allegation_civilian': '98.5549',
-              'percentile_allegation_internal': '61.1521'
+              'percentile_allegation_internal': '61.1521',
             },
-            'allegation_count': 93
+            'allegation_count': 93,
           }],
         }
       ),
@@ -112,7 +112,7 @@ export const groupedSuggestions = {
           address: '14XX W 63RD ST, CHICAGO IL 60636',
           'victims': [
             { 'gender': 'Female', 'race': 'Hispanic' },
-            { 'gender': 'Female', 'race': 'Hispanic' }
+            { 'gender': 'Female', 'race': 'Hispanic' },
           ],
           'coaccused': [
             {
@@ -122,9 +122,9 @@ export const groupedSuggestions = {
                 'id': 180838,
                 'percentile_trr': '72.1094',
                 'percentile_allegation_civilian': '98.5549',
-                'percentile_allegation_internal': '61.1521'
+                'percentile_allegation_internal': '61.1521',
               },
-              'allegation_count': 93
+              'allegation_count': 93,
             },
             {
               'id': 7544,
@@ -133,10 +133,10 @@ export const groupedSuggestions = {
                 'id': 180839,
                 'percentile_trr': '0.0000',
                 'percentile_allegation_civilian': '24.1180',
-                'percentile_allegation_internal': '0.0000'
+                'percentile_allegation_internal': '0.0000',
               },
-              'allegation_count': 1
-            }
+              'allegation_count': 1,
+            },
           ],
         }
       ),
@@ -147,7 +147,7 @@ export const groupedSuggestions = {
           id: '123',
           to: '/trr/123/',
           'force_type': 'Member Presence',
-          'trr_datetime': '2004-04-27'
+          'trr_datetime': '2004-04-27',
         }
       ),
       RawTRRSuggestion.build(
@@ -155,16 +155,16 @@ export const groupedSuggestions = {
           id: '456',
           to: '/trr/456/',
           'force_type': null,
-          'trr_datetime': null
+          'trr_datetime': null,
         }
-      )
-    ]
+      ),
+    ],
   },
   'noresult': {},
   'foo': {
     'OFFICER': [
-      RawOfficerSuggestion.build({ name: 'Laurence Lanners', to: '/officer/5678/laurence-lanners/' })
-    ]
+      RawOfficerSuggestion.build({ name: 'Laurence Lanners', to: '/officer/5678/laurence-lanners/' }),
+    ],
   },
   '2004/04/23': {
     'DATE > CR': [
@@ -194,7 +194,7 @@ export const groupedSuggestions = {
           address: '14XX W 63RD ST, CHICAGO IL 60636',
           'victims': [
             { 'gender': 'Female', 'race': 'Hispanic' },
-            { 'gender': 'Female', 'race': 'Hispanic' }
+            { 'gender': 'Female', 'race': 'Hispanic' },
           ],
           'coaccused': [
             {
@@ -204,9 +204,9 @@ export const groupedSuggestions = {
                 'id': 180838,
                 'percentile_trr': '72.1094',
                 'percentile_allegation_civilian': '98.5549',
-                'percentile_allegation_internal': '61.1521'
+                'percentile_allegation_internal': '61.1521',
               },
-              'allegation_count': 93
+              'allegation_count': 93,
             },
             {
               'id': 7544,
@@ -215,10 +215,10 @@ export const groupedSuggestions = {
                 'id': 180839,
                 'percentile_trr': '0.0000',
                 'percentile_allegation_civilian': '24.1180',
-                'percentile_allegation_internal': '0.0000'
+                'percentile_allegation_internal': '0.0000',
               },
-              'allegation_count': 1
-            }
+              'allegation_count': 1,
+            },
           ],
         }
       ),
@@ -229,7 +229,7 @@ export const groupedSuggestions = {
           id: '123',
           to: '/trr/123/',
           'force_type': 'Member Presence',
-          'trr_datetime': '2004-04-23'
+          'trr_datetime': '2004-04-23',
         }
       ),
       RawTRRSuggestion.build(
@@ -237,9 +237,9 @@ export const groupedSuggestions = {
           id: '456',
           to: '/trr/456/',
           'force_type': null,
-          'trr_datetime': '2004-04-23'
+          'trr_datetime': '2004-04-23',
         }
-      )
+      ),
     ],
     'DATE > OFFICERS': [
       RawOfficerSuggestion.build(
@@ -247,7 +247,7 @@ export const groupedSuggestions = {
           id: '123',
           name: 'Jerome Finnigan',
           to: '/officer/123/jerome-finnigan/',
-          'birth_year': '1975'
+          'birth_year': '1975',
         }
       ),
       RawOfficerSuggestion.build(
@@ -255,7 +255,7 @@ export const groupedSuggestions = {
           id: '456',
           name: 'Edward May',
           to: '/officer/456/edward-may/',
-          'birth_year': '1969'
+          'birth_year': '1969',
         }
       ),
     ],
@@ -274,7 +274,7 @@ export const groupedSuggestions = {
           'active_officers_count': 3,
         }
       ),
-    ]
+    ],
   },
   'Geography': {
     'SEARCH-TERMS': [
@@ -284,9 +284,9 @@ export const groupedSuggestions = {
           'category_name': 'Geography',
           description: 'Whatever [SomeLink](http://www.somelink.lvh.me)',
           'call_to_action_type': 'view_all',
-          id: 'community'
+          id: 'community',
         }
-      )
+      ),
     ],
   },
   'Kelly': {
@@ -300,9 +300,9 @@ export const groupedSuggestions = {
           'sustained_count': 2,
           'birth_year': 1972,
           race: 'White',
-          gender: 'Male'
+          gender: 'Male',
         }
-      )
+      ),
     ],
     'INVESTIGATOR > CR': [
       RawCRSuggestion.build(
@@ -314,7 +314,7 @@ export const groupedSuggestions = {
           'sub_category': 'Reports',
           'incident_date': '2004-04-23',
           highlight: {
-            summary: ['an officer named Kelly caught the victim']
+            summary: ['an officer named Kelly caught the victim'],
           },
           address: '15XX W 63RD ST, CHICAGO IL 60636',
           'victims': [],
@@ -333,7 +333,7 @@ export const groupedSuggestions = {
           address: '14XX W 63RD ST, CHICAGO IL 60636',
           'victims': [
             { 'gender': 'Female', 'race': 'Hispanic' },
-            { 'gender': 'Female', 'race': 'Hispanic' }
+            { 'gender': 'Female', 'race': 'Hispanic' },
           ],
           'coaccused': [
             {
@@ -343,9 +343,9 @@ export const groupedSuggestions = {
                 'id': 180838,
                 'percentile_trr': '72.1094',
                 'percentile_allegation_civilian': '98.5549',
-                'percentile_allegation_internal': '61.1521'
+                'percentile_allegation_internal': '61.1521',
               },
-              'allegation_count': 93
+              'allegation_count': 93,
             },
             {
               'id': 7544,
@@ -354,14 +354,14 @@ export const groupedSuggestions = {
                 'id': 180839,
                 'percentile_trr': '0.0000',
                 'percentile_allegation_civilian': '24.1180',
-                'percentile_allegation_internal': '0.0000'
+                'percentile_allegation_internal': '0.0000',
               },
-              'allegation_count': 1
-            }
+              'allegation_count': 1,
+            },
           ],
         },
       ),
-    ]
+    ],
   },
   'CR only': {
     'CR': [
@@ -374,12 +374,12 @@ export const groupedSuggestions = {
           'sub_category': 'Reports',
           'incident_date': '2004-04-23',
           highlight: {
-            summary: ['an officer named Kelly caught the victim']
+            summary: ['an officer named Kelly caught the victim'],
           },
           address: '14XX W 63RD ST, CHICAGO IL 60636',
           'victims': [
             { 'gender': 'Female', 'race': 'Hispanic' },
-            { 'gender': 'Female', 'race': 'Hispanic', 'age': 48 }
+            { 'gender': 'Female', 'race': 'Hispanic', 'age': 48 },
           ],
           'coaccused': [{
             'id': 16567,
@@ -388,9 +388,9 @@ export const groupedSuggestions = {
               'id': 16567,
               'percentile_trr': '72.1094',
               'percentile_allegation_civilian': '98.5549',
-              'percentile_allegation_internal': '61.1521'
+              'percentile_allegation_internal': '61.1521',
             },
-            'allegation_count': 93
+            'allegation_count': 93,
           }, {
             'id': 16568,
             'full_name': 'Baudilio Lopez',
@@ -398,9 +398,9 @@ export const groupedSuggestions = {
               'id': 16568,
               'percentile_trr': '72.1094',
               'percentile_allegation_civilian': '98.5549',
-              'percentile_allegation_internal': '61.1521'
+              'percentile_allegation_internal': '61.1521',
             },
-            'allegation_count': 93
+            'allegation_count': 93,
           }],
         }
       ),
@@ -416,7 +416,7 @@ export const groupedSuggestions = {
           address: '14XX W 63RD ST, CHICAGO IL 60636',
           'victims': [
             { 'gender': 'Female', 'race': 'Hispanic' },
-            { 'gender': 'Female', 'race': 'Hispanic' }
+            { 'gender': 'Female', 'race': 'Hispanic' },
           ],
           'coaccused': [
             {
@@ -426,9 +426,9 @@ export const groupedSuggestions = {
                 'id': 180838,
                 'percentile_trr': '72.1094',
                 'percentile_allegation_civilian': '98.5549',
-                'percentile_allegation_internal': '61.1521'
+                'percentile_allegation_internal': '61.1521',
               },
-              'allegation_count': 93
+              'allegation_count': 93,
             },
             {
               'id': 7544,
@@ -437,15 +437,15 @@ export const groupedSuggestions = {
                 'id': 180839,
                 'percentile_trr': '0.0000',
                 'percentile_allegation_civilian': '24.1180',
-                'percentile_allegation_internal': '0.0000'
+                'percentile_allegation_internal': '0.0000',
               },
-              'allegation_count': 1
-            }
+              'allegation_count': 1,
+            },
           ],
         }
       ),
-    ]
-  }
+    ],
+  },
 };
 
 export const singleGroupSuggestions = {
@@ -456,8 +456,8 @@ export const singleGroupSuggestions = {
     results: [
       RawOfficerSuggestion.build({ name: 'Bernadette Kelly' }),
       RawOfficerSuggestion.build({ name: 'Charles Kelly' }),
-      ...RawOfficerSuggestion.buildList(18)
-    ]
+      ...RawOfficerSuggestion.buildList(18),
+    ],
   },
   neighborhoods: {
     count: 7,
@@ -471,12 +471,12 @@ export const singleGroupSuggestions = {
       RawNeighborhoodSuggestion.build({ id: '5', name: 'Garfield Park' }),
       RawNeighborhoodSuggestion.build({ id: '6', name: 'Humboldt Park' }),
       RawNeighborhoodSuggestion.build({ id: '7', name: 'Auburn Gresham' }),
-    ]
+    ],
   },
   offset20: {
     count: 30,
     previous: null,
     next: null,
-    results: RawOfficerSuggestion.buildList(10)
-  }
+    results: RawOfficerSuggestion.buildList(10),
+  },
 };

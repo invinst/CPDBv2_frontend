@@ -19,11 +19,11 @@ class ArticleContent extends Component {
       <ResponsiveStyleComponent
         responsiveStyle={ {
           [TABLET]: {
-            content: [contentStyle, contentTabletStyle, this.props.style]
+            content: [contentStyle, contentTabletStyle, this.props.style],
           },
           [DESKTOP]: {
-            content: [contentStyle, this.props.style]
-          }
+            content: [contentStyle, this.props.style],
+          },
         } }>
         { this.renderWithResponsiveStyle.bind(this) }
       </ResponsiveStyleComponent>
@@ -33,7 +33,7 @@ class ArticleContent extends Component {
 
 ArticleContent.propTypes = {
   children: PropTypes.node,
-  style: PropTypes.object
+  style: PropTypes.object,
 };
 
 export default ConfiguredRadium(ArticleContent);

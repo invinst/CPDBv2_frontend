@@ -64,7 +64,7 @@ describe('LinkTextEditable component', function () {
     editableElement.props.editModeOn.should.be.true();
     editableElement.props.editorElement.props.should.containEql({
       editorState: editorState,
-      onChange: onChangeSpy
+      onChange: onChangeSpy,
     });
   });
 
@@ -77,8 +77,8 @@ describe('LinkTextEditable component', function () {
             editModeOn: true,
             value: editorState,
             onChange: onChangeSpy,
-          }
-        }
+          },
+        },
       },
       <LinkTextEditable fieldname='navbar_title' />
     );
@@ -87,7 +87,7 @@ describe('LinkTextEditable component', function () {
     editableElement.props.editModeOn.should.be.true();
     editableElement.props.editorElement.props.should.containEql({
       editorState: editorState,
-      onChange: onChangeSpy
+      onChange: onChangeSpy,
     });
   });
 });

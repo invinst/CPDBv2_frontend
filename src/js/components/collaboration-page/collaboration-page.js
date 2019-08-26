@@ -6,7 +6,7 @@ import ResponsiveStyleComponent from 'components/responsive/responsive-style-com
 import {
   wrapperStyle, headLineStyle, leftColumnStyle, rightColumnStyle,
   columnHeadLineStyle, emailLinkStyle, listElementStyle, paragraphStyle,
-  emailLinkWrapperStyle, smallTextStyle, copyLinkStyle, listStyle
+  emailLinkWrapperStyle, smallTextStyle, copyLinkStyle, listStyle,
 } from './collaboration-page.style';
 import { MOBILE, TABLET, DESKTOP } from 'utils/constants';
 import NoRerender from 'components/common/higher-order/no-rerender';
@@ -85,14 +85,14 @@ class CollaborationPage extends Component {
       <ResponsiveStyleComponent
         responsiveStyle={ {
           [MOBILE]: {
-            wrapper: [wrapperStyle.base, wrapperStyle.mobile]
+            wrapper: [wrapperStyle.base, wrapperStyle.mobile],
           },
           [TABLET]: {
-            wrapper: [wrapperStyle.base, wrapperStyle.tablet]
+            wrapper: [wrapperStyle.base, wrapperStyle.tablet],
           },
           [DESKTOP]: {
-            wrapper: [wrapperStyle.base, wrapperStyle.tablet]
-          }
+            wrapper: [wrapperStyle.base, wrapperStyle.tablet],
+          },
         } }>
         { this.renderWithResponsiveStyle.bind(this) }
       </ResponsiveStyleComponent>

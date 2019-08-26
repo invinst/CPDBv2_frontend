@@ -4,7 +4,7 @@ import should from 'should';
 import {
   renderIntoDocument,
   scryRenderedComponentsWithType,
-  findRenderedDOMComponentWithClass
+  findRenderedDOMComponentWithClass,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
@@ -57,9 +57,9 @@ describe('SuggestedCards component', function () {
         items: [
           { axis: 'a', value: 10 },
           { axis: 'b', value: 20 },
-          { axis: 'c', value: 50 }
-        ]
-      }
+          { axis: 'c', value: 50 },
+        ],
+      },
     }];
     instance = renderIntoDocument(<SuggestedCards cards={ cards }/>);
     const svg = findRenderedDOMComponentWithClass(instance, 'test--radar');

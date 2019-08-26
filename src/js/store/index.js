@@ -29,7 +29,7 @@ function configureStore(initialState) {
       redirectOfficerAlias, updatePathName,
       retryOfficerDownloadMiddleware
     ),
-    persistState(()=>{}, localStorageConfig)
+    persistState(()=>{}, localStorageConfig),
   ];
 
   /* istanbul ignore next */

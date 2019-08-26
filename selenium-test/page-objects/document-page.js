@@ -4,7 +4,7 @@ import Page from './page';
 import LoginScreen from './sections/login-screen';
 
 const getInfoItemSelector = (text) =>
-  `//div[contains(@class, "document-info")]/*[@class="list-item" and span[text()="${text}"]]`;
+  `//div[contains(@class, "document-info")]//*[@class="list-item" and span[text()="${text}"]]`;
 
 class DocumentPage extends Page {
   constructor() {

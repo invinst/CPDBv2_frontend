@@ -13,8 +13,8 @@ export default class FadeTransition extends Component {
         key: children.key,
         data: children,
         style: {
-          opacity: 1
-        }
+          opacity: 1,
+        },
       });
     }
     return styles;
@@ -28,8 +28,8 @@ export default class FadeTransition extends Component {
         key: children.key,
         data: children,
         style: {
-          opacity: spring(1, defaultConfig())
-        }
+          opacity: spring(1, defaultConfig()),
+        },
       });
     }
     return styles;
@@ -59,7 +59,7 @@ export default class FadeTransition extends Component {
               {
                 interpolatedStyles.map(({ data, style }) => {
                   return React.cloneElement(data, { style: {
-                    ...style, position: 'absolute', top: 0, right: 0, bottom: 0, left: 0
+                    ...style, position: 'absolute', top: 0, right: 0, bottom: 0, left: 0,
                   } });
                 })
               }
@@ -72,5 +72,5 @@ export default class FadeTransition extends Component {
 }
 
 FadeTransition.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };

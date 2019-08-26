@@ -23,7 +23,7 @@ export const documentsSelector = createSelector(
         results.push({
           kind: constants.DOCUMENTS_SEARCH_ITEMS.MONTH_SEPARATOR,
           text: date.format('MMM YYYY'),
-          id: date.format('MM-YYYY')
+          id: date.format('MM-YYYY'),
         });
       }
       prevDate = date;

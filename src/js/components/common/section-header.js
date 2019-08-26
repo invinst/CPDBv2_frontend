@@ -17,5 +17,5 @@ export default class SectionHeader extends React.Component {
 }
 
 SectionHeader.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };

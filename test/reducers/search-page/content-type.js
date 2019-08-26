@@ -10,7 +10,7 @@ describe('searchPage.contentType reducer', function () {
   it('should handle SELECT_TAG', function () {
     contentType(undefined, {
       type: SELECT_TAG,
-      payload: 'a'
+      payload: 'a',
     }).should.equal('a');
   });
 
@@ -19,9 +19,9 @@ describe('searchPage.contentType reducer', function () {
       type: LOCATION_CHANGE,
       payload: {
         query: {
-          type: 'COMMUNITY'
-        }
-      }
+          type: 'COMMUNITY',
+        },
+      },
     }).should.eql('COMMUNITY');
   });
 
@@ -30,9 +30,9 @@ describe('searchPage.contentType reducer', function () {
       type: LOCATION_CHANGE,
       payload: {
         query: {
-          type: 'COMMUNITY'
-        }
-      }
+          type: 'COMMUNITY',
+        },
+      },
     }).should.eql('COMMUNITY');
   });
 });

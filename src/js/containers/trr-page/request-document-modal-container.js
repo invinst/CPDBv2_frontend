@@ -8,7 +8,7 @@ import RequestDocumentModalContent from 'components/generic-modal/request-docume
 import { TRR_EDIT_TYPES, TRR_PAGE_ID } from 'utils/constants';
 import {
   turnOnDocumentRequestInstructionEditMode,
-  turnOffDocumentRequestInstructionEditMode
+  turnOffDocumentRequestInstructionEditMode,
 } from 'actions/trr-page';
 import { updatePage } from 'actions/cms';
 import { getCMSFields } from 'selectors/cms';
@@ -45,8 +45,8 @@ const editWrapperStateProps = (stateProps, dispatchProps, ownProps) => {
       sectionEditModeOn: stateProps.editModeOn[TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION],
       onSaveForm: dispatchProps.onSaveForm,
       turnOnSectionEditMode: dispatchProps.turnOnDocumentRequestInstructionEditMode,
-      turnOffSectionEditMode: dispatchProps.turnOffDocumentRequestInstructionEditMode
-    }
+      turnOffSectionEditMode: dispatchProps.turnOffDocumentRequestInstructionEditMode,
+    },
   };
 };
 

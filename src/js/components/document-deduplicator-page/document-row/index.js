@@ -27,7 +27,7 @@ export default class DocumentRow extends Component {
         <span
           className='document-thumbnail'
           style={ thumbnail ? {
-            backgroundImage: `url(${thumbnail})`
+            backgroundImage: `url(${thumbnail})`,
           } : null }/>
         <span className={ cx('document-title', { 'document-faded': !show }) }>
           { title }
@@ -74,5 +74,5 @@ DocumentRow.propTypes = {
 };
 
 DocumentRow.contextTypes = {
-  editModeOn: PropTypes.bool
+  editModeOn: PropTypes.bool,
 };

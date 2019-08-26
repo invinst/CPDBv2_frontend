@@ -3,7 +3,7 @@ import {
   renderIntoDocument,
   scryRenderedDOMComponentsWithTag,
   findRenderedDOMComponentWithTag,
-  findRenderedDOMComponentWithClass
+  findRenderedDOMComponentWithClass,
 } from 'react-addons-test-utils';
 
 import RadarGrid from 'components/common/radar-chart/radar-grid';

@@ -29,7 +29,7 @@ LoadMoreButton.propTypes = {
 };
 
 LoadMoreButton.defaultProps = {
-  onLoadMore: function () {}
+  onLoadMore: function () {},
 };
 
 export default Hoverable(LoadMoreButton);

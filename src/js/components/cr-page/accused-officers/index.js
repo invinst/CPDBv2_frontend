@@ -13,13 +13,13 @@ export default class AccusedOfficers extends Component {
     super(props);
 
     this.state = {
-      expanded: false
+      expanded: false,
     };
   }
 
   handleExpandList() {
     this.setState({
-      expanded: true
+      expanded: true,
     });
   }
 
@@ -73,5 +73,5 @@ AccusedOfficers.propTypes = {
 };
 
 AccusedOfficers.defaultProps = {
-  officers: []
+  officers: [],
 };

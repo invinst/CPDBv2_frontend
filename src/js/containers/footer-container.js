@@ -6,7 +6,7 @@ import { openLegalDisclaimerModal } from 'actions/generic-modal';
 const mapStateToProps = (state, ownProps) => ownProps;
 
 const mapDispatchToProps = {
-  openLegalDisclaimerModal
+  openLegalDisclaimerModal,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Footer);

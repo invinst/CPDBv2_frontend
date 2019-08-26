@@ -10,7 +10,7 @@ import * as GATracking from 'utils/google_analytics_tracking';
 
 const textMap = {
   [OFFICER_DOWNLOAD_KINDS.WITH_DOCS]: 'Data + docs',
-  [OFFICER_DOWNLOAD_KINDS.WITHOUT_DOCS]: 'Data only'
+  [OFFICER_DOWNLOAD_KINDS.WITHOUT_DOCS]: 'Data only',
 };
 
 export default class DownloadMenuItem extends React.Component {

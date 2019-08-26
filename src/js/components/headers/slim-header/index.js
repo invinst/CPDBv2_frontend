@@ -10,7 +10,7 @@ export class SlimHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      position: 'top'
+      position: 'top',
     };
 
     this.recalculatePosition = this.recalculatePosition.bind(this);
@@ -96,11 +96,11 @@ SlimHeader.propTypes = {
 };
 
 SlimHeader.defaultProps = {
-  show: true
+  show: true,
 };
 
 SlimHeader.contextTypes = {
-  editModeOn: PropTypes.bool
+  editModeOn: PropTypes.bool,
 };
 
 export default SlimHeader;

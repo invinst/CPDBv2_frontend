@@ -45,10 +45,10 @@ export default class SuggestedCards extends Component {
 
 SuggestedCards.propTypes = {
   cards: PropTypes.array,
-  requestActivityGrid: PropTypes.func
+  requestActivityGrid: PropTypes.func,
 };
 
 SuggestedCards.defaultProps = {
   cards: [],
-  requestActivityGrid: () => {}
+  requestActivityGrid: () => {},
 };

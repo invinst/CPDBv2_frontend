@@ -37,7 +37,7 @@ describe('EditWrapperStateProvider component', function () {
         fields={ {
           'navbar_title': navbarTitleField,
           'empty_field': null,
-          'string_field': stringField
+          'string_field': stringField,
         } }
         sectionEditModeOn={ true }
         turnOnSectionEditMode={ turnOnSectionEditModeSpy }
@@ -51,22 +51,22 @@ describe('EditWrapperStateProvider component', function () {
     childContext.should.containEql({
       sectionEditModeOn: true,
       turnOnSectionEditMode: turnOnSectionEditModeSpy,
-      turnOffSectionEditMode: turnOffSectionEditModeSpy
+      turnOffSectionEditMode: turnOffSectionEditModeSpy,
     });
 
     const fieldContexts = childContext.fieldContexts;
     fieldContexts['navbar_title'].should.not.be.undefined();
     fieldContexts['navbar_title'].should.containEql({
       value: 'my value',
-      editModeOn: true
+      editModeOn: true,
     });
     fieldContexts['empty_field'].should.containEql({
       value: null,
-      editModeOn: true
+      editModeOn: true,
     });
     fieldContexts['string_field'].should.containEql({
       value: stringField.value,
-      editModeOn: true
+      editModeOn: true,
     });
     draftUtils.convertContentStateToEditorState.calledWith(navbarTitleField.value).should.be.true();
     draftUtils.convertContentStateToEditorState.restore();
@@ -90,10 +90,10 @@ describe('EditWrapperStateProvider component', function () {
         'navbar_title': {
           name: 'navbar_title',
           type: 'rich_text',
-          value: 'editor state'
+          value: 'editor state',
         },
-        'string_field': stringField
-      }
+        'string_field': stringField,
+      },
     });
 
     const savePromise = instance.getChildContext().onSaveForm().should.be.fulfilled();
@@ -103,10 +103,10 @@ describe('EditWrapperStateProvider component', function () {
           {
             name: 'navbar_title',
             type: 'rich_text',
-            value: 'raw content'
+            value: 'raw content',
           },
-          stringField
-        ]
+          stringField,
+        ],
       }).should.be.true();
       turnOffSectionEditModeSpy.called.should.be.true();
 
@@ -123,8 +123,8 @@ describe('EditWrapperStateProvider component', function () {
     );
     instance.setState({
       fields: {
-        'navbar_title': RichTextFieldFactory.build({ name: 'navbar_title' })
-      }
+        'navbar_title': RichTextFieldFactory.build({ name: 'navbar_title' }),
+      },
     });
 
     instance.getChildContext().fieldContexts['navbar_title'].onChange('changed value');

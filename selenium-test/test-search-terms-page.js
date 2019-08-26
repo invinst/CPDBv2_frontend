@@ -132,12 +132,6 @@ describe('Search terms page', function () {
     searchTermsPage.input.getValue().should.eql('Some other T');
   });
 
-  it('should show PreviewPane when a SearchTerms item is clicked', function () {
-    searchTermsPage.categoryMainPanel.firstCategoryItem.click();
-
-    searchTermsPage.previewPane.title.getText().should.eql('Communities');
-  });
-
   it('should show PreviewPane with markdown', function () {
     browser.keys('ArrowDown');
 

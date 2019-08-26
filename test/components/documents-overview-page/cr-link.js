@@ -2,7 +2,7 @@ import React from 'react';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
-  Simulate
+  Simulate,
 } from 'react-addons-test-utils';
 import { spy } from 'sinon';
 import { findDOMNode } from 'react-dom';

@@ -29,12 +29,12 @@ FixedHeightGrid.propTypes = {
   childHeight: PropTypes.number,
   childWidth: PropTypes.number,
   availableHeight: PropTypes.number,
-  style: PropTypes.object
+  style: PropTypes.object,
 };
 
 FixedHeightGrid.defaultProps = {
   childHeight: 1,
-  style: {}
+  style: {},
 };
 
 export default FixedHeightGrid;

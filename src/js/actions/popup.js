@@ -12,6 +12,6 @@ export const fetchPopup = page => (get(
   [
     POPUP_REQUEST_START,
     POPUP_REQUEST_SUCCESS,
-    POPUP_REQUEST_FAILURE
+    POPUP_REQUEST_FAILURE,
   ]
 )());

@@ -92,9 +92,9 @@ export default class CitySummary extends Component {
 CitySummary.propTypes = {
   citySummary: PropTypes.object,
   onClick: PropTypes.func,
-  isActive: PropTypes.bool
+  isActive: PropTypes.bool,
 };
 
 CitySummary.defaultProps = {
-  citySummary: {}
+  citySummary: {},
 };

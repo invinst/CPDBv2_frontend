@@ -5,7 +5,7 @@ import RadarLegend from 'components/common/radar-chart/radar-legend';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
-  findRenderedComponentWithType
+  findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 
 

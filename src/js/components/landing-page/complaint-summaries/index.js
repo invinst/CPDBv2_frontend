@@ -7,7 +7,7 @@ import CarouselWrapper from '../carousel-wrapper';
 
 export default CarouselWrapper(
   {
-    [CAROUSEL_TYPES.COMPLAINT]: { CardComponent: ComplaintSummaryCard, itemWidth: 232 }
+    [CAROUSEL_TYPES.COMPLAINT]: { CardComponent: ComplaintSummaryCard, itemWidth: 232 },
   },
   CAROUSEL_TYPES.COMPLAINT
 );

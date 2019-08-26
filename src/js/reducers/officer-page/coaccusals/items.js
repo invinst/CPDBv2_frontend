@@ -10,5 +10,5 @@ export default handleActions({
   [OFFICER_COACCUSALS_REQUEST_SUCCESS]: (state, action) => {
     return action.payload;
   },
-  [CHANGE_OFFICER_ID]: (state, action) => []
+  [CHANGE_OFFICER_ID]: (state, action) => [],
 }, []);

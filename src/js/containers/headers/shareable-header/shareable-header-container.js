@@ -10,7 +10,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  updateShareablePageScrollPosition
+  updateShareablePageScrollPosition,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ShareableHeader));

@@ -3,7 +3,7 @@ import { stub } from 'sinon';
 import {
   isEmptySelector, suggestionTagsSelector, searchResultGroupsSelector,
   hasMoreSelector, nextParamsSelector, isShowingSingleContentTypeSelector,
-  firstItemSelector
+  firstItemSelector,
 } from 'selectors/search-page/search-results/suggestion-groups';
 import { RawOfficerSuggestion, RawCRSuggestion, RawTRRSuggestion } from 'utils/test/factories/suggestion';
 import * as v1UrlUtils from 'utils/v1-url';
@@ -14,18 +14,18 @@ describe('isShowingSingleContentTypeSelector', function () {
     isShowingSingleContentTypeSelector({
       searchPage: {
         contentType: 'OFFICER',
-        tags: []
-      }
+        tags: [],
+      },
     }).should.be.true();
     isShowingSingleContentTypeSelector({
       searchPage: {
         contentType: null,
-        tags: [1]
-      }
+        tags: [1],
+      },
     }).should.be.true();
     isShowingSingleContentTypeSelector({
       searchPage: {
-        tags: []
+        tags: [],
       },
     }).should.be.false();
   });
@@ -56,10 +56,10 @@ describe('search page results selector', function () {
                   'unit_name': '018',
                   description: 'a',
                 },
-              })
-            ]
-          }
-        }
+              }),
+            ],
+          },
+        },
       }).should.deepEqual([
         {
           header: 'OFFICER',
@@ -117,8 +117,8 @@ describe('search page results selector', function () {
               description: 'a',
             },
             'url': '',
-          }]
-        }
+          }],
+        },
       ]);
     });
 
@@ -132,16 +132,16 @@ describe('search page results selector', function () {
               crid: '1234',
               'incident_date': '2004-04-23',
               highlight: {
-                summary: ['the officer pointed a gun at the victim']
+                summary: ['the officer pointed a gun at the victim'],
               },
               category: 'Use Of Force',
               'sub_category': 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
               address: '14XX W 63RD ST, CHICAGO IL 60636',
               victims: [],
-              coaccused: []
-            })]
-          }
-        }
+              coaccused: [],
+            })],
+          },
+        },
       }).should.deepEqual([
         {
           header: 'CR',
@@ -163,8 +163,8 @@ describe('search page results selector', function () {
             tags: [],
             uniqueKey: 'CR-1001',
             itemIndex: 1,
-          }]
-        }
+          }],
+        },
       ]);
     });
 
@@ -182,10 +182,10 @@ describe('search page results selector', function () {
               'sub_category': 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
               address: '14XX W 63RD ST, CHICAGO IL 60636',
               victims: [],
-              coaccused: []
-            })]
-          }
-        }
+              coaccused: [],
+            })],
+          },
+        },
       }).should.deepEqual([
         {
           header: 'CR',
@@ -207,8 +207,8 @@ describe('search page results selector', function () {
             address: '14XX W 63RD ST, CHICAGO IL 60636',
             victims: [],
             coaccused: [],
-          }]
-        }
+          }],
+        },
       ]);
     });
 
@@ -222,16 +222,16 @@ describe('search page results selector', function () {
               crid: '1234',
               'incident_date': '2004-04-23',
               highlight: {
-                summary: ['the police pointed a knife at the victim']
+                summary: ['the police pointed a knife at the victim'],
               },
               category: 'Use Of Force',
               'sub_category': 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
               address: '14XX W 63RD ST, CHICAGO IL 60636',
               victims: [],
-              coaccused: []
-            })]
-          }
-        }
+              coaccused: [],
+            })],
+          },
+        },
       }).should.deepEqual([
         {
           header: 'DATE > CR',
@@ -253,8 +253,8 @@ describe('search page results selector', function () {
             address: '14XX W 63RD ST, CHICAGO IL 60636',
             victims: [],
             coaccused: [],
-          }]
-        }
+          }],
+        },
       ]);
     });
 
@@ -268,16 +268,16 @@ describe('search page results selector', function () {
               crid: '1234',
               'incident_date': null,
               highlight: {
-                summary: ['the police pointed a knife at the victim']
+                summary: ['the police pointed a knife at the victim'],
               },
               category: 'Use Of Force',
               'sub_category': 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
               address: '14XX W 63RD ST, CHICAGO IL 60636',
               victims: [],
-              coaccused: []
-            })]
-          }
-        }
+              coaccused: [],
+            })],
+          },
+        },
       }).should.deepEqual([
         {
           header: 'DATE > CR',
@@ -299,8 +299,8 @@ describe('search page results selector', function () {
             address: '14XX W 63RD ST, CHICAGO IL 60636',
             victims: [],
             coaccused: [],
-          }]
-        }
+          }],
+        },
       ]);
     });
 
@@ -327,10 +327,10 @@ describe('search page results selector', function () {
                   'unit_name': '018',
                   description: 'a',
                 },
-              })
-            ]
-          }
-        }
+              }),
+            ],
+          },
+        },
       }).should.deepEqual([
         {
           header: 'DATE > OFFICERS',
@@ -388,8 +388,8 @@ describe('search page results selector', function () {
               description: 'a',
             },
             'url': '',
-          }]
-        }
+          }],
+        },
       ]);
     });
 
@@ -400,9 +400,9 @@ describe('search page results selector', function () {
           suggestionGroups: {
             'TRR': [RawTRRSuggestion.build(
               { id: '1001', 'force_type': null, 'trr_datetime': null }
-            )]
-          }
-        }
+            )],
+          },
+        },
       }).should.deepEqual([
         {
           header: 'TRR',
@@ -418,8 +418,8 @@ describe('search page results selector', function () {
             tags: [],
             uniqueKey: 'TRR-1001',
             itemIndex: 1,
-          }]
-        }
+          }],
+        },
       ]);
     });
 
@@ -430,9 +430,9 @@ describe('search page results selector', function () {
           suggestionGroups: {
             'TRR': [RawTRRSuggestion.build(
               { id: '1001', 'force_type': 'Member Presence', 'trr_datetime': '2004-04-23' }
-            )]
-          }
-        }
+            )],
+          },
+        },
       }).should.deepEqual([
         {
           header: 'TRR',
@@ -448,8 +448,8 @@ describe('search page results selector', function () {
             tags: [],
             uniqueKey: 'TRR-1001',
             itemIndex: 1,
-          }]
-        }
+          }],
+        },
       ]);
     });
 
@@ -460,9 +460,9 @@ describe('search page results selector', function () {
           suggestionGroups: {
             'DATE > TRR': [RawTRRSuggestion.build(
               { id: '1001', 'force_type': null, 'trr_datetime': null }
-            )]
-          }
-        }
+            )],
+          },
+        },
       }).should.deepEqual([
         {
           header: 'DATE > TRR',
@@ -478,8 +478,8 @@ describe('search page results selector', function () {
             tags: [],
             uniqueKey: 'DATE-TRR-1001',
             itemIndex: 1,
-          }]
-        }
+          }],
+        },
       ]);
     });
 
@@ -490,9 +490,9 @@ describe('search page results selector', function () {
           suggestionGroups: {
             'DATE > TRR': [RawTRRSuggestion.build(
               { id: '1001', 'force_type': 'Member Presence', 'trr_datetime': '2004-04-23' }
-            )]
-          }
-        }
+            )],
+          },
+        },
       }).should.deepEqual([
         {
           header: 'DATE > TRR',
@@ -508,8 +508,8 @@ describe('search page results selector', function () {
             tags: [],
             uniqueKey: 'DATE-TRR-1001',
             itemIndex: 1,
-          }]
-        }
+          }],
+        },
       ]);
     });
 
@@ -519,10 +519,10 @@ describe('search page results selector', function () {
           tags: [],
           suggestionGroups: {
             'UNIT': [
-              { id: '1001', to: 'to', url: 'url', description: 'description' }
-            ]
-          }
-        }
+              { id: '1001', to: 'to', url: 'url', description: 'description' },
+            ],
+          },
+        },
       }).should.deepEqual([
         {
           header: 'UNIT',
@@ -537,8 +537,8 @@ describe('search page results selector', function () {
             tags: [],
             uniqueKey: 'UNIT-1001',
             itemIndex: 1,
-          }]
-        }
+          }],
+        },
       ]);
     });
 
@@ -548,10 +548,10 @@ describe('search page results selector', function () {
           tags: [],
           suggestionGroups: {
             'UNIT': [
-              { id: '1001', to: 'to', url: 'url', name: '001' }
-            ]
-          }
-        }
+              { id: '1001', to: 'to', url: 'url', name: '001' },
+            ],
+          },
+        },
       }).should.deepEqual([
         {
           header: 'UNIT',
@@ -566,8 +566,8 @@ describe('search page results selector', function () {
             tags: [],
             uniqueKey: 'UNIT-1001',
             itemIndex: 1,
-          }]
-        }
+          }],
+        },
       ]);
     });
 
@@ -577,9 +577,9 @@ describe('search page results selector', function () {
           tags: [],
           suggestionGroups: {
             'OFFICER': RawOfficerSuggestion.buildList(10),
-            'CO-ACCUSED': RawOfficerSuggestion.buildList(3)
-          }
-        }
+            'CO-ACCUSED': RawOfficerSuggestion.buildList(3),
+          },
+        },
       });
 
       officerGroup.header.should.equal('OFFICER');
@@ -597,10 +597,10 @@ describe('search page results selector', function () {
           tags: [],
           suggestionGroups: {
             'OFFICER': RawOfficerSuggestion.buildList(10),
-            'CO-ACCUSED': RawOfficerSuggestion.buildList(3)
+            'CO-ACCUSED': RawOfficerSuggestion.buildList(3),
           },
-          contentType: 'OFFICER'
-        }
+          contentType: 'OFFICER',
+        },
       });
 
       officerGroup.header.should.equal('OFFICER');
@@ -614,9 +614,9 @@ describe('search page results selector', function () {
           tags: [],
           suggestionGroups: {
             'OFFICER': [],
-            'CO-ACCUSED': RawOfficerSuggestion.buildList(3)
-          }
-        }
+            'CO-ACCUSED': RawOfficerSuggestion.buildList(3),
+          },
+        },
       });
 
       groups.length.should.equal(1);
@@ -630,9 +630,9 @@ describe('search page results selector', function () {
           tags: ['OFFICER', 'CO-ACCUSED'],
           suggestionGroups: {
             'OFFICER': RawOfficerSuggestion.buildList(10),
-            'CO-ACCUSED': RawOfficerSuggestion.buildList(3)
-          }
-        }
+            'CO-ACCUSED': RawOfficerSuggestion.buildList(3),
+          },
+        },
       });
 
       groups.length.should.equal(1);
@@ -646,8 +646,8 @@ describe('search page results selector', function () {
           suggestionGroups: {
             'OFFICER': RawOfficerSuggestion.buildList(10),
           },
-          contentType: null
-        }
+          contentType: null,
+        },
       });
 
       officerGroup.header.should.equal('OFFICER');
@@ -678,7 +678,7 @@ describe('search page results selector', function () {
                   count: 26,
                   'percentile_trr': 95.0,
                   'percentile_allegation_internal': 82.0,
-                  'percentile_allegation_civilian': 97.0
+                  'percentile_allegation_civilian': 97.0,
                 }],
                 'race_count': [
                   { race: 'Persons of Spanish Language', count: 121 },
@@ -695,10 +695,10 @@ describe('search page results selector', function () {
                   'allegation_count': 10,
                 },
                 'police_hq': '22nd',
-              }
-            ]
-          }
-        }
+              },
+            ],
+          },
+        },
       });
       groups.should.eql([{
         header: 'COMMUNITY',
@@ -727,16 +727,16 @@ describe('search page results selector', function () {
             count: 26,
             radarAxes: [{
               axis: 'Use of Force Reports',
-              value: 95
+              value: 95,
             }, {
               axis: 'Officer Allegations',
-              value: 82
+              value: 82,
             }, {
               axis: 'Civilian Allegations',
-              value: 97
+              value: 97,
             }],
             radarColor: '#f52524',
-            url: '/officer/12478/ronald-holt/'
+            url: '/officer/12478/ronald-holt/',
           }],
           districtCommander: {
             id: 123,
@@ -764,8 +764,8 @@ describe('search page results selector', function () {
       suggestionTagsSelector({
         searchPage: {
           tags: ['NEIGHBORHOOD', 'OFFICER', 'UNIT', 'COMMUNITY', 'POLICE-DISTRICT'],
-          query: 'something'
-        }
+          query: 'something',
+        },
       }).should.deepEqual(['OFFICER', 'COMMUNITY', 'NEIGHBORHOOD', 'POLICE-DISTRICT', 'UNIT']);
     });
 
@@ -773,8 +773,8 @@ describe('search page results selector', function () {
       suggestionTagsSelector({
         searchPage: {
           tags: ['NEIGHBORHOOD', 'OFFICER', 'UNIT', 'COMMUNITY'],
-          query: ''
-        }
+          query: '',
+        },
       }).should.deepEqual(['RECENT']);
     });
   });
@@ -786,9 +786,9 @@ describe('search page results selector', function () {
           tags: [],
           suggestionGroups: {
             'OFFICER': [],
-            'UNIT': []
-          }
-        }
+            'UNIT': [],
+          },
+        },
       }).should.be.true();
     });
 
@@ -798,9 +798,9 @@ describe('search page results selector', function () {
           tags: [],
           suggestionGroups: {
             'OFFICER': [{}],
-            'UNIT': []
-          }
-        }
+            'UNIT': [],
+          },
+        },
       }).should.be.false();
     });
   });
@@ -811,8 +811,8 @@ describe('search page results selector', function () {
         searchPage: {
           tags: [],
           pagination: {},
-          contentType: null
-        }
+          contentType: null,
+        },
       }).should.be.false();
     });
 
@@ -821,8 +821,8 @@ describe('search page results selector', function () {
         searchPage: {
           tags: [],
           pagination: {},
-          contentType: 'OFFICER'
-        }
+          contentType: 'OFFICER',
+        },
       }).should.be.false();
     });
 
@@ -831,10 +831,10 @@ describe('search page results selector', function () {
         searchPage: {
           tags: [],
           pagination: {
-            next: 'example.com/next'
+            next: 'example.com/next',
           },
-          contentType: 'OFFICER'
-        }
+          contentType: 'OFFICER',
+        },
       }).should.be.true();
     });
   });
@@ -844,12 +844,12 @@ describe('search page results selector', function () {
       nextParamsSelector({
         searchPage: {
           pagination: {
-            next: 'example.com?limit=20&offset=20'
-          }
-        }
+            next: 'example.com?limit=20&offset=20',
+          },
+        },
       }).should.deepEqual({
         limit: '20',
-        offset: '20'
+        offset: '20',
       });
     });
   });
@@ -862,8 +862,8 @@ describe('search page results selector', function () {
         searchPage: {
           tags: [],
           query: 'abc',
-          suggestionGroups: {}
-        }
+          suggestionGroups: {},
+        },
       }).should.deepEqual({
         url: '/v1/abc/',
         isDataToolSearchUrl: true,
@@ -884,20 +884,20 @@ describe('search page results selector', function () {
                 to: 'officer1',
                 url: '/officer/1/',
                 name: 'officer1',
-                type: 'OFFICER'
+                type: 'OFFICER',
               }),
-              ...RawOfficerSuggestion.buildList(2)
+              ...RawOfficerSuggestion.buildList(2),
             ],
             'CR': [
-              RawCRSuggestion.build()
-            ]
-          }
-        }
+              RawCRSuggestion.build(),
+            ],
+          },
+        },
       }).should.deepEqual({
         to: 'officer1',
         url: '/officer/1/',
         recentText: 'officer1',
-        type: 'OFFICER'
+        type: 'OFFICER',
       });
     });
   });

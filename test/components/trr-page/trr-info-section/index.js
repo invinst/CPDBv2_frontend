@@ -51,7 +51,7 @@ describe('TRRInfoSection component', function () {
     detail.props.forceTypes.should.eql([
       'Stiffened (Dead Weight)',
       'Did Not Follow Verbal Direction',
-      'Imminent Threat Of Battery'
+      'Imminent Threat Of Battery',
     ]);
 
     document.props.alreadyRequested.should.be.false();

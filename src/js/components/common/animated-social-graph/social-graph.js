@@ -72,7 +72,7 @@ export default class SocialGraph extends Component {
     this.data = {
       maxWeight: 0,
       linkedByIndex: {},
-      maxNodeInCommunities: {}
+      maxNodeInCommunities: {},
     };
   }
 
@@ -134,7 +134,7 @@ export default class SocialGraph extends Component {
           id: index,
           uid: officer.id,
           fname: officer.fullName,
-          degree: 0
+          degree: 0,
         };
         nodes.push(officerData);
         officerHash[officer.id] = index;
@@ -164,7 +164,7 @@ export default class SocialGraph extends Component {
           nodesData[objKey] = {
             source: officerIndex1,
             target: officerIndex2,
-            weight: row.accussedCount
+            weight: row.accussedCount,
           };
         }
         nodesData[objKey]['color'] = (rowDate.getTime() === curDate.getTime()) ? bostonRed : smokeGray;
@@ -436,5 +436,5 @@ SocialGraph.propTypes = {
 SocialGraph.defaultProps = {
   startTimelineFromBeginning: () => {},
   stopTimeline: () => {},
-  collideNodes: false
+  collideNodes: false,
 };

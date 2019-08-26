@@ -15,5 +15,5 @@ export default class MonthSeparator extends Component {
 }
 
 MonthSeparator.propTypes = {
-  text: PropTypes.string
+  text: PropTypes.string,
 };

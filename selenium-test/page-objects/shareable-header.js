@@ -19,7 +19,7 @@ class HeaderButton extends Section {
   constructor(parentSelector='') {
     super(parentSelector, '//div[contains(@class, "header-button")]');
     this.prepareElementGetters({
-      menu: '//div[contains(@class, "share-menu")]'
+      menu: '//div[contains(@class, "share-menu")]',
     });
   }
 }

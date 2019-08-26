@@ -8,13 +8,13 @@ export default function (ComponentClass, WrapperElement = 'span', style, classNa
       this.handleMouseOver = this.handleMouseOver.bind(this);
       this.handleMouseOut = this.handleMouseOut.bind(this);
       this.state = {
-        hovering: false
+        hovering: false,
       };
     }
 
     handleMouseOver(event) {
       this.setState({
-        hovering: true
+        hovering: true,
       });
       const { onMouseOver } = this.props;
       if (onMouseOver) {
@@ -24,7 +24,7 @@ export default function (ComponentClass, WrapperElement = 'span', style, classNa
 
     handleMouseOut(event) {
       this.setState({
-        hovering: false
+        hovering: false,
       });
       const { onMouseOut } = this.props;
       if (onMouseOut) {
@@ -50,7 +50,7 @@ export default function (ComponentClass, WrapperElement = 'span', style, classNa
 
   Hoverable.propTypes = {
     onMouseOut: PropTypes.func,
-    onMouseOver: PropTypes.func
+    onMouseOver: PropTypes.func,
   };
 
   return Hoverable;

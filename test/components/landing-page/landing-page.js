@@ -29,12 +29,12 @@ const store = mockStore({
   authentication: {},
   cms: {
     pages: {
-    }
+    },
   },
   landingPage: {
     heatMap: {
       citySummary: {},
-      communities: null
+      communities: null,
     },
     activityGrid: {
       cards: [
@@ -42,7 +42,7 @@ const store = mockStore({
         RawOfficerCardFactory.build(),
         RawOfficerCardFactory.build(),
       ],
-      headerEditModeOn: false
+      headerEditModeOn: false,
     },
     officersByAllegation: {
       cards: [
@@ -50,34 +50,34 @@ const store = mockStore({
         RawOfficerCardFactory.build({ kind: '' }),
         RawOfficerCardFactory.build({ kind: '' }),
       ],
-      headerEditModeOn: false
+      headerEditModeOn: false,
     },
     recentDocument: {
       cards: [
         RawDocumentCardFactory.build(),
-        RawDocumentCardFactory.build()
+        RawDocumentCardFactory.build(),
       ],
-      headerEditModeOn: false
+      headerEditModeOn: false,
     },
     complaintSummaries: {
       cards: [
         ComplaintSummaryFactory.build(),
-        ComplaintSummaryFactory.build()
+        ComplaintSummaryFactory.build(),
       ],
-      headerEditModeOn: false
-    }
+      headerEditModeOn: false,
+    },
   },
   breadcrumb: {
-    breadcrumbs: []
+    breadcrumbs: [],
   },
   headers: {
     shareableHeader: {
-      scrollPosition: 'top'
+      scrollPosition: 'top',
     },
     slimHeader: {
-      logoSectionEditModeOn: false
-    }
-  }
+      logoSectionEditModeOn: false,
+    },
+  },
 });
 
 describe('LandingPage component', function () {
@@ -91,7 +91,7 @@ describe('LandingPage component', function () {
     const stubResetBreadcrumbs = stub();
     LandingPage.should.be.responsiveRenderable({
       store: store,
-      resetBreadcrumbs: stubResetBreadcrumbs
+      resetBreadcrumbs: stubResetBreadcrumbs,
     });
   });
 

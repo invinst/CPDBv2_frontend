@@ -4,7 +4,7 @@ import { map } from 'lodash';
 import OutboundLink from 'components/common/outbound-link';
 import {
   officersWrapperStyle, officersHeaderStyle, officerTextStyle, officerNameTextStyle,
-  officerItemStyle, complaintsCountStyle, rightArrowStyle
+  officerItemStyle, complaintsCountStyle, rightArrowStyle,
 } from './community-officers.style';
 
 
@@ -37,5 +37,5 @@ export default class CommunityOfficers extends Component {
 
 CommunityOfficers.propTypes = {
   mostComplaintsOfficers: PropTypes.array,
-  communityName: PropTypes.string
+  communityName: PropTypes.string,
 };

@@ -22,18 +22,18 @@ describe('CategoryColumn component', function () {
       instance.shouldComponentUpdate({
         name: 'Geography',
         focusedItem: {
-          uniqueKey: 'category-Geography'
-        }
+          uniqueKey: 'category-Geography',
+        },
       }).should.be.true();
 
       instance.shouldComponentUpdate({
         name: 'Geography',
         items: [{
-          id: 1
+          id: 1,
         }],
         focusedItem: {
-          uniqueKey: 'Geography-1'
-        }
+          uniqueKey: 'Geography-1',
+        },
       }).should.be.true();
     });
 
@@ -49,11 +49,11 @@ describe('CategoryColumn component', function () {
       instance.shouldComponentUpdate({
         name: 'Geography',
         items: [{
-          id: 1
+          id: 1,
         }],
         focusedItem: {
-          uniqueKey: 'Geography-2'
-        }
+          uniqueKey: 'Geography-2',
+        },
       }).should.be.false();
     });
 

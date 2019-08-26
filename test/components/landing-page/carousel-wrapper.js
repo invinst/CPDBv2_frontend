@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  renderIntoDocument, scryRenderedDOMComponentsWithClass, findRenderedComponentWithType
+  renderIntoDocument, scryRenderedDOMComponentsWithClass, findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 import { stub } from 'sinon';
 

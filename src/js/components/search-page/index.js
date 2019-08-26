@@ -8,7 +8,7 @@ import SearchBox from './search-box';
 import {
   cancelButtonStyle,
   searchBoxStyle,
-  searchContentWrapperStyle
+  searchContentWrapperStyle,
 } from './search-page.style.js';
 import { navigateToSearchItem } from 'utils/navigate-to-search-item';
 import * as constants from 'utils/constants';
@@ -16,7 +16,7 @@ import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import SearchMainPanel from './search-main-panel';
 import HoverableButton from 'components/common/hoverable-button';
 import {
-  ROOT_PATH, SEARCH_ALIAS_EDIT_PATH, SEARCH_BOX, MORE_BUTTON, RECENT_CONTENT_TYPE
+  ROOT_PATH, SEARCH_ALIAS_EDIT_PATH, SEARCH_BOX, MORE_BUTTON, RECENT_CONTENT_TYPE,
 } from 'utils/constants';
 import { showIntercomLauncher } from 'utils/intercom';
 import * as IntercomTracking from 'utils/intercom-tracking';
@@ -53,7 +53,7 @@ export default class SearchPage extends Component {
 
   componentWillReceiveProps(nextProps) {
     const {
-      location, params, routes, pushBreadcrumbs, query, isRequesting, isEmpty, contentType, selectTag
+      location, params, routes, pushBreadcrumbs, query, isRequesting, isEmpty, contentType, selectTag,
     } = nextProps;
     pushBreadcrumbs({ location, params, routes });
 
@@ -148,7 +148,7 @@ export default class SearchPage extends Component {
     const {
       query, searchTermsHidden, tags, contentType, recentSuggestions,
       editModeOn, officerCards, requestActivityGrid,
-      children, changeSearchQuery, focusedItem, firstItem, trackRecentSuggestion, isRequesting
+      children, changeSearchQuery, focusedItem, firstItem, trackRecentSuggestion, isRequesting,
     } = this.props;
 
     return (
@@ -202,7 +202,7 @@ export default class SearchPage extends Component {
 
 SearchPage.propTypes = {
   location: PropTypes.shape({
-    pathname: PropTypes.string
+    pathname: PropTypes.string,
   }),
   focusedItem: PropTypes.object,
   tags: PropTypes.array,
@@ -227,7 +227,7 @@ SearchPage.propTypes = {
   pushBreadcrumbs: PropTypes.func,
   resetSearchResultNavigation: PropTypes.func,
   resetSearchTermNavigation: PropTypes.func,
-  firstItem: PropTypes.object
+  firstItem: PropTypes.object,
 };
 
 /* istanbul ignore next */
@@ -239,12 +239,12 @@ SearchPage.defaultProps = {
   trackRecentSuggestion: () => {},
   changeSearchQuery: () => {},
   location: {
-    pathname: '/'
+    pathname: '/',
   },
   searchTermsHidden: true,
   selectTag: (...args) => {},
   pushBreadcrumbs: (...args) => {},
   resetSearchResultNavigation: () => {},
   resetSearchTermNavigation: () => {},
-  firstItem: {}
+  firstItem: {},
 };

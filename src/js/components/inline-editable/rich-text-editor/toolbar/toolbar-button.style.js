@@ -12,12 +12,12 @@ export const wrapperStyle = ({ active, hovering }) => ({
   fontSize: '16px',
   backgroundColor: active ?
     hovering ? deepBlueColor : accentColor :
-    hovering ? lavenderColor : 'white'
+    hovering ? lavenderColor : 'white',
 });
 
 export const iconStyle = (iconToUse) => ({
   display: 'inline-block',
   width: '100%',
   height: '100%',
-  background: `url("${imgUrl(iconToUse)}") no-repeat scroll center`
+  background: `url("${imgUrl(iconToUse)}") no-repeat scroll center`,
 });

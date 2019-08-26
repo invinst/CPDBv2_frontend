@@ -4,6 +4,7 @@ require('should');
 const moment = require('moment');
 
 import documentPage from './page-objects/document-page';
+import { switchToRecentTab } from './utils';
 
 
 describe('Document page', function () {
@@ -19,9 +20,7 @@ describe('Document page', function () {
       const updatedDate = moment(updatedAt).format('MMM D, YYYY');
 
       documentPage.crid.getText().should.endWith('CR 1083633');
-      documentPage.source.getText().should.endWith(
-        'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf'
-      );
+      documentPage.source.getText().should.endWith('chicagocopa.org');
       documentPage.crawler.getText().should.endWith('Chicago COPA');
       documentPage.date.getText().should.endWith(createdAt);
       documentPage.pageCount.getText().should.equal('5 pages');
@@ -49,6 +48,7 @@ describe('Document page', function () {
 
     it('should open the pdf when the user clicks on the big thumbnail', function () {
       documentPage.thumbnail.click();
+      switchToRecentTab();
       browser.getUrl().should.equal(
         'https://assets.documentcloud.org/documents/5680384/CRID-1083633-CR-CRID-1083633-CR-Tactical.pdf'
       );
@@ -73,9 +73,7 @@ describe('Document page', function () {
 
       documentPage.pageCount.getText().should.equal('5 pages');
       documentPage.crid.getText().should.endWith('CR 1083633');
-      documentPage.source.getText().should.endWith(
-        'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf'
-      );
+      documentPage.source.getText().should.endWith('chicagocopa.org');
       documentPage.crawler.getText().should.endWith('Chicago COPA');
       documentPage.date.getText().should.endWith(createdAt);
       documentPage.linkedDocumentsTitle.getText().should.equal('Linked Documents (2)');

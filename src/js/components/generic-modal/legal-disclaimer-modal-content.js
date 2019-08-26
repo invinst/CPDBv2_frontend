@@ -46,7 +46,7 @@ class LegalDisclaimerModalContent extends Component {
 }
 
 LegalDisclaimerModalContent.propTypes = {
-  closeModal: PropTypes.func
+  closeModal: PropTypes.func,
 };
 
 export default LegalDisclaimerModalContent;

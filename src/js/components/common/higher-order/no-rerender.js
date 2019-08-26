@@ -14,7 +14,7 @@ export default function (SubComponent) {
   }
 
   NoRerender.propTypes = {
-    children: PropTypes.node
+    children: PropTypes.node,
   };
 
   return NoRerender;

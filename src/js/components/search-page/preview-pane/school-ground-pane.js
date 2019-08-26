@@ -42,7 +42,7 @@ SchoolGroundPane.propTypes = {
     id: PropTypes.string,
     name: PropTypes.string,
     count: PropTypes.number,
-    url: PropTypes.string
+    url: PropTypes.string,
   })),
   url: PropTypes.string,
 };

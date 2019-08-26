@@ -12,8 +12,8 @@ describe('ActiveTab reducer', function () {
     const action = {
       type: '@@router/LOCATION_CHANGE',
       payload: {
-        pathname: '/officer/1/timeline/'
-      }
+        pathname: '/officer/1/timeline/',
+      },
     };
 
     ActiveTab('some state', action).should.eql('timeline');
@@ -23,8 +23,8 @@ describe('ActiveTab reducer', function () {
     const action = {
       type: '@@router/LOCATION_CHANGE',
       payload: {
-        pathname: '/wrongpath/1/2/'
-      }
+        pathname: '/wrongpath/1/2/',
+      },
     };
 
     ActiveTab('some state', action).should.eql('some state');

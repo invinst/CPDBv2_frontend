@@ -28,7 +28,7 @@ export default class DocumentRow extends Component {
       crid,
       documentsCount,
       onCRLinkClick,
-      editModeOn
+      editModeOn,
     } = this.props;
 
     return (
@@ -38,7 +38,7 @@ export default class DocumentRow extends Component {
         <span
           className='document-thumbnail'
           style={ thumbnail ? {
-            backgroundImage: `url(${thumbnail})`
+            backgroundImage: `url(${thumbnail})`,
           } : null }/>
         <span className='document-title'>
           { title }

@@ -22,9 +22,9 @@ export default class Demographics extends Component {
 
 Demographics.propTypes = {
   persons: PropTypes.array,
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
 Demographics.defaultProps = {
-  persons: []
+  persons: [],
 };

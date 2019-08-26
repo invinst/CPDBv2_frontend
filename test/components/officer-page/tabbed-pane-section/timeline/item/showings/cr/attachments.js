@@ -128,7 +128,7 @@ describe('Attachments component', function () {
     stubOnTrackingAttachment.should.be.calledWith({
       attachmentId: '123456',
       sourcePage: 'Officer Page - Timeline Tab',
-      app: 'Frontend'
+      app: 'Frontend',
     });
   });
 });

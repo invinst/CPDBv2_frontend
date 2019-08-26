@@ -16,13 +16,13 @@ describe('popups reducer', function () {
         name: 'unit',
         page: 'officer',
         title: 'Unit',
-        text: 'Some unit explanation'
-      }]
+        text: 'Some unit explanation',
+      }],
     }).should.eql([{
       name: 'unit',
       page: 'officer',
       title: 'Unit',
-      text: 'Some unit explanation'
+      text: 'Some unit explanation',
     }]);
   });
 });

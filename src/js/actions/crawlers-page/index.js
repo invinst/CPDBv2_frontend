@@ -7,6 +7,6 @@ export const requestCrawlers = (params) => get(
   [
     constants.CRAWLERS_REQUEST_START,
     constants.CRAWLERS_REQUEST_SUCCESS,
-    constants.CRAWLERS_REQUEST_FAILURE
+    constants.CRAWLERS_REQUEST_FAILURE,
   ]
 )(params);
