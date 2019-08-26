@@ -35,9 +35,9 @@ class TableSection extends Section {
   }
 
   rowCount() {
-    return browser.elements(
+    return $$(
       '(//div[contains(@class, "crawler-row")])'
-    ).value.length;
+    ).length;
   }
 }
 

@@ -30,7 +30,7 @@ describe('landing page', function () {
 
   it('should show login screen if not logged-in when entering edit mode', function () {
     landingPage.toggleEditMode(false);
-    landingPage.loginScreen.loginModal.waitForVisible();
+    landingPage.loginScreen.loginModal.waitForDisplayed();
   });
 
   it('should not show login screen if already logged-in when entering edit mode', function () {
@@ -41,47 +41,47 @@ describe('landing page', function () {
     landingPage.toggleEditMode(false);
 
     browser.pause(500);
-    landingPage.loginScreen.loginModal.waitForVisible(2000, true);
+    landingPage.loginScreen.loginModal.waitForDisplayed(2000, true);
   });
 
   it('should open a modal when user clicks on "Legal Disclaimer"', function () {
     landingPage.footer.legalDisclaimer.click();
-    landingPage.genericModalSection.overlay.waitForVisible();
-    landingPage.genericModalSection.legalDisclaimerTitle.waitForVisible();
+    landingPage.genericModalSection.overlay.waitForDisplayed();
+    landingPage.genericModalSection.legalDisclaimerTitle.waitForDisplayed();
   });
 
   it('should close the modal when user clicks on the overlay area', function () {
     landingPage.footer.legalDisclaimer.click();
-    landingPage.genericModalSection.overlay.waitForVisible();
-    landingPage.genericModalSection.legalDisclaimerTitle.waitForVisible();
+    landingPage.genericModalSection.overlay.waitForDisplayed();
+    landingPage.genericModalSection.legalDisclaimerTitle.waitForDisplayed();
 
     landingPage.genericModalSection.overlay.click();
-    landingPage.genericModalSection.legalDisclaimerTitle.waitForVisible(2000, true);
+    landingPage.genericModalSection.legalDisclaimerTitle.waitForDisplayed(2000, true);
   });
 
   it('should close the modal when user clicks on "I understand"', function () {
     landingPage.footer.legalDisclaimer.click();
-    landingPage.genericModalSection.overlay.waitForVisible();
-    landingPage.genericModalSection.legalDisclaimerTitle.waitForVisible();
+    landingPage.genericModalSection.overlay.waitForDisplayed();
+    landingPage.genericModalSection.legalDisclaimerTitle.waitForDisplayed();
 
     landingPage.genericModalSection.overlay.click();
-    landingPage.genericModalSection.legalDisclaimerTitle.waitForVisible(2000, true);
+    landingPage.genericModalSection.legalDisclaimerTitle.waitForDisplayed(2000, true);
   });
 
   it('should keep the same body width when scrollbar disappears because of open modal', function () {
-    const initialWidth = browser.getCssProperty('body', 'width');
+    const initialWidth = $('body').getCSSProperty('width').value;
     landingPage.footer.legalDisclaimer.click();
-    const activeWidth = browser.getCssProperty('body', 'width');
+    const activeWidth = $('body').getCSSProperty('width').value;
     activeWidth.should.eql(initialWidth);
   });
 
   it('should go to the landing page when the url does not match any route', function () {
     browser.url('/url-mediator/session-builder/');
-    browser.element('body').waitForVisible();
+    $('body').waitForDisplayed();
     landingPage.currentBasePath.should.eql('/');
 
     browser.url('/something/really/wrong/');
-    browser.element('body').waitForVisible();
+    $('body').waitForDisplayed();
     landingPage.currentBasePath.should.eql('/');
   });
 
@@ -89,13 +89,13 @@ describe('landing page', function () {
     it('should show initial carousel', function () {
       browser.pause();
       landingPage.recentActivityCarousel.officerCards.count.should.equal(2);
-      landingPage.recentActivityCarousel.rightArrow.waitForVisible();
-      landingPage.recentActivityCarousel.leftArrow.waitForVisible(2000, true);
+      landingPage.recentActivityCarousel.rightArrow.waitForDisplayed();
+      landingPage.recentActivityCarousel.leftArrow.waitForDisplayed(2000, true);
     });
 
     it('should change next group of slides when clicking on right arrow', function () {
       landingPage.recentActivityCarousel.rightArrow.click();
-      landingPage.recentActivityCarousel.leftArrow.waitForVisible(1000);
+      landingPage.recentActivityCarousel.leftArrow.waitForDisplayed(1000);
     });
 
     describe('Officer cards', function () {
@@ -119,20 +119,14 @@ describe('landing page', function () {
 
     describe('Pair cards', function () {
       it('should go to officer summary page when clicking on left half of the pair card', function () {
-        browser.setViewportSize({
-          width: 1500,
-          height: 1200,
-        });
+        browser.setWindowRect(0, 0, 1500, 1200);
 
         const firstPairCardLeftHalf = landingPage.recentActivityCarousel.firstPairCardLeftHalf;
         firstPairCardLeftHalf.click();
         browser.pause(500);
         browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/?$/);
 
-        browser.setViewportSize({
-          width: 1000,
-          height: 1000,
-        });
+        browser.setWindowRect(0, 0, 1000, 1000);
       });
 
       it('should go to officer summary page when clicking on right half of the pair card', function () {
@@ -147,8 +141,8 @@ describe('landing page', function () {
   describe('Officers By Allegation carousel', function () {
     it('should show initial carousel', function () {
       landingPage.officersByAllegationCarousel.cards.count.should.equal(48);
-      landingPage.officersByAllegationCarousel.rightArrow.waitForVisible();
-      landingPage.officersByAllegationCarousel.leftArrow.waitForVisible(2000, true);
+      landingPage.officersByAllegationCarousel.rightArrow.waitForDisplayed();
+      landingPage.officersByAllegationCarousel.leftArrow.waitForDisplayed(2000, true);
     });
 
     it('should go to officer summary page when click to card', function () {
@@ -162,8 +156,8 @@ describe('landing page', function () {
   describe('Recent Document Carousel', function () {
     it('should show initial carousel', function () {
       landingPage.recentDocumentCarousel.cards.count.should.equal(24);
-      landingPage.recentDocumentCarousel.rightArrow.waitForVisible();
-      landingPage.recentDocumentCarousel.leftArrow.waitForVisible(2000, true);
+      landingPage.recentDocumentCarousel.rightArrow.waitForDisplayed();
+      landingPage.recentDocumentCarousel.leftArrow.waitForDisplayed(2000, true);
     });
 
     it('should go to cr page when click to card', function () {
@@ -177,8 +171,8 @@ describe('landing page', function () {
   describe('Complaint Summaries Carousel', function () {
     it('should show initial carousel', function () {
       landingPage.complaintSummariesCarousel.cards.count.should.equal(20);
-      landingPage.complaintSummariesCarousel.rightArrow.waitForVisible();
-      landingPage.complaintSummariesCarousel.leftArrow.waitForVisible(2000, true);
+      landingPage.complaintSummariesCarousel.rightArrow.waitForDisplayed();
+      landingPage.complaintSummariesCarousel.leftArrow.waitForDisplayed(2000, true);
     });
 
     it('should go to cr page when click to card', function () {
@@ -189,15 +183,12 @@ describe('landing page', function () {
     });
 
     it('should navigate to the last slide by clicking right arrow', function () {
-      browser.setViewportSize({
-        width: 1200,
-        height: 1000,
-      });
+      browser.setWindowRect(0, 0, 1200, 1000);
 
       landingPage.complaintSummariesCarousel.cards.count.should.equal(20);
-      landingPage.complaintSummariesCarousel.rightArrow.waitForVisible();
+      landingPage.complaintSummariesCarousel.rightArrow.waitForDisplayed();
       times(6, () => landingPage.complaintSummariesCarousel.rightArrow.click());
-      landingPage.complaintSummariesCarousel.rightArrow.waitForVisible(2000, true);
+      landingPage.complaintSummariesCarousel.rightArrow.waitForDisplayed(2000, true);
     });
   });
 
@@ -208,32 +199,32 @@ describe('landing page', function () {
 
     it('should render correctly at the top of the page', function () {
       const header = landingPage.topHeader;
-      header.mainElement.getCssProperty('position').value.should.eql('static');
-      header.mainElement.getCssProperty('background-color').value.should.eql('rgba(0,0,0,0)');
+      header.mainElement.getCSSProperty('position').value.should.eql('static');
+      header.mainElement.getCSSProperty('background-color').value.should.eql('rgba(0,0,0,0)');
 
       const topBar = header.topBar;
-      topBar.mainElement.waitForVisible();
-      topBar.logo.title.getCssProperty('color').value.should.eql('rgba(35,31,32,1)');
-      topBar.logo.subtitle.getCssProperty('color').value.should.eql('rgba(118,118,118,1)');
-      topBar.demoVideo.titleText.getCssProperty('color').value.should.eql('rgba(0,94,244,1)');
+      topBar.mainElement.waitForDisplayed();
+      topBar.logo.title.getCSSProperty('color').value.should.eql('rgba(35,31,32,1)');
+      topBar.logo.subtitle.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
+      topBar.demoVideo.titleText.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
       topBar.demoVideo.titleText.getText().should.eql('What is CPDP?');
-      topBar.demoVideo.playButtonThumbnail.getCssProperty('outline').value.should.eql('rgba(0,94,244,0.5)solid5px');
+      topBar.demoVideo.playButtonThumbnail.getCSSProperty('outline').value.should.eql('rgba(0,94,244,0.5)solid5px');
       topBar.demoVideo.playButtonThumbnail.getAttribute('src').should.eql(
         'https://i.vimeocdn.com/video/797111186_100x75.jpg'
       );
 
       const navBar = header.navBar;
-      navBar.mainElement.waitForVisible();
-      navBar.mainElement.getCssProperty('background-color').value.should.eql('rgba(245,244,244,1)');
-      navBar.searchBox.mainElement.getCssProperty('background-color').value.should.eql('rgba(255,255,255,1)');
-      navBar.searchBox.mainElement.getCssProperty('background-color').value.should.eql('rgba(255,255,255,1)');
+      navBar.mainElement.waitForDisplayed();
+      navBar.mainElement.getCSSProperty('background-color').value.should.eql('rgba(245,244,244,1)');
+      navBar.searchBox.mainElement.getCSSProperty('background-color').value.should.eql('rgba(255,255,255,1)');
+      navBar.searchBox.mainElement.getCSSProperty('background-color').value.should.eql('rgba(255,255,255,1)');
       navBar.searchBox.searchMagnifyingGlassPath.getAttribute('fill').should.eql('#005EF4');
-      navBar.searchBox.searchText.getCssProperty('color').value.should.eql('rgba(0,94,244,1)');
-      navBar.searchBox.searchTerm.getCssProperty('color').value.should.eql('rgba(143,143,143,1)');
-      navBar.rightLinks.data.getCssProperty('color').value.should.eql('rgba(0,94,244,1)');
-      navBar.rightLinks.qa.getCssProperty('color').value.should.eql('rgba(0,94,244,1)');
-      navBar.rightLinks.documents.getCssProperty('color').value.should.eql('rgba(0,94,244,1)');
-      navBar.rightLinks.pinboard.getCssProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.searchBox.searchText.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.searchBox.searchTerm.getCSSProperty('color').value.should.eql('rgba(143,143,143,1)');
+      navBar.rightLinks.data.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.rightLinks.qa.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.rightLinks.documents.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.rightLinks.pinboard.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
     });
 
     it('should render correctly at the middle of the page', function () {
@@ -241,22 +232,22 @@ describe('landing page', function () {
       browser.pause(1000);
 
       const header = landingPage.slimHeader;
-      header.mainElement.getCssProperty('position').value.should.eql('fixed');
+      header.mainElement.getCSSProperty('position').value.should.eql('fixed');
 
       const topBar = header.topBar;
-      topBar.mainElement.waitForVisible(1000, true);
+      topBar.mainElement.waitForDisplayed(1000, true);
 
       const navBar = header.navBar;
-      navBar.mainElement.waitForVisible();
-      navBar.mainElement.getCssProperty('background-color').value.should.eql('rgba(245,244,244,1)');
-      navBar.searchBox.mainElement.getCssProperty('background-color').value.should.eql('rgba(255,255,255,1)');
+      navBar.mainElement.waitForDisplayed();
+      navBar.mainElement.getCSSProperty('background-color').value.should.eql('rgba(245,244,244,1)');
+      navBar.searchBox.mainElement.getCSSProperty('background-color').value.should.eql('rgba(255,255,255,1)');
       navBar.searchBox.searchMagnifyingGlassPath.getAttribute('fill').should.eql('#767676');
-      navBar.searchBox.searchText.getCssProperty('color').value.should.eql('rgba(118,118,118,1)');
-      navBar.searchBox.searchTerm.getCssProperty('color').value.should.eql('rgba(143,143,143,1)');
-      navBar.rightLinks.data.getCssProperty('color').value.should.eql('rgba(118,118,118,1)');
-      navBar.rightLinks.qa.getCssProperty('color').value.should.eql('rgba(118,118,118,1)');
-      navBar.rightLinks.documents.getCssProperty('color').value.should.eql('rgba(118,118,118,1)');
-      navBar.rightLinks.pinboard.getCssProperty('color').value.should.eql('rgba(118,118,118,1)');
+      navBar.searchBox.searchText.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
+      navBar.searchBox.searchTerm.getCSSProperty('color').value.should.eql('rgba(143,143,143,1)');
+      navBar.rightLinks.data.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
+      navBar.rightLinks.qa.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
+      navBar.rightLinks.documents.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
+      navBar.rightLinks.pinboard.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
     });
 
     it('should render correctly at the bottom of the page', function () {
@@ -264,37 +255,37 @@ describe('landing page', function () {
       browser.pause(2000);
 
       const header = landingPage.slimHeader;
-      header.mainElement.getCssProperty('position').value.should.eql('fixed');
-      header.mainElement.getCssProperty('background-color').value.should.eql('rgba(0,94,244,1)');
+      header.mainElement.getCSSProperty('position').value.should.eql('fixed');
+      header.mainElement.getCSSProperty('background-color').value.should.eql('rgba(0,94,244,1)');
 
       const topBar = header.topBar;
-      topBar.mainElement.waitForVisible();
-      topBar.logo.title.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
-      topBar.logo.subtitle.getCssProperty('color').value.should.eql('rgba(255,255,255,0.7)');
-      topBar.demoVideo.titleText.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
-      topBar.demoVideo.playButtonThumbnail.getCssProperty('outline').value.should.eql('rgba(255,255,255,0.5)solid5px');
+      topBar.mainElement.waitForDisplayed();
+      topBar.logo.title.getCSSProperty('color').value.should.eql('rgba(255,255,255,1)');
+      topBar.logo.subtitle.getCSSProperty('color').value.should.eql('rgba(255,255,255,0.7)');
+      topBar.demoVideo.titleText.getCSSProperty('color').value.should.eql('rgba(255,255,255,1)');
+      topBar.demoVideo.playButtonThumbnail.getCSSProperty('outline').value.should.eql('rgba(255,255,255,0.5)solid5px');
       topBar.demoVideo.playButtonThumbnail.getAttribute('src').should.eql(
         'https://i.vimeocdn.com/video/797111186_100x75.jpg'
       );
 
       const navBar = header.navBar;
-      navBar.mainElement.waitForVisible();
-      navBar.mainElement.getCssProperty('background-color').value.should.eql('rgba(0,0,0,0)');
-      navBar.searchBox.mainElement.getCssProperty('background-color').value.should.eql('rgba(0,0,0,0)');
+      navBar.mainElement.waitForDisplayed();
+      navBar.mainElement.getCSSProperty('background-color').value.should.eql('rgba(0,0,0,0)');
+      navBar.searchBox.mainElement.getCSSProperty('background-color').value.should.eql('rgba(0,0,0,0)');
       navBar.searchBox.searchMagnifyingGlassPath.getAttribute('fill').should.eql('white');
-      navBar.searchBox.searchText.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
-      navBar.searchBox.searchTerm.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
-      navBar.rightLinks.data.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
-      navBar.rightLinks.qa.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
-      navBar.rightLinks.documents.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
-      navBar.rightLinks.pinboard.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
+      navBar.searchBox.searchText.getCSSProperty('color').value.should.eql('rgba(255,255,255,1)');
+      navBar.searchBox.searchTerm.getCSSProperty('color').value.should.eql('rgba(255,255,255,1)');
+      navBar.rightLinks.data.getCSSProperty('color').value.should.eql('rgba(255,255,255,1)');
+      navBar.rightLinks.qa.getCSSProperty('color').value.should.eql('rgba(255,255,255,1)');
+      navBar.rightLinks.documents.getCSSProperty('color').value.should.eql('rgba(255,255,255,1)');
+      navBar.rightLinks.pinboard.getCSSProperty('color').value.should.eql('rgba(255,255,255,1)');
     });
 
     it('should go to pinboard page when clicking on pinboard tag', function () {
       const navBar = landingPage.topHeader.navBar;
-      navBar.mainElement.waitForVisible();
+      navBar.mainElement.waitForDisplayed();
       navBar.rightLinks.pinboard.click();
-      pinboardPage.emptyPinboardSection.mainElement.waitForVisible();
+      pinboardPage.emptyPinboardSection.mainElement.waitForDisplayed();
       browser.getUrl().should.endWith('/pinboard/abcd1234/untitled-pinboard/');
     });
 

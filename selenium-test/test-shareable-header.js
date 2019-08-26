@@ -17,11 +17,11 @@ describe('shareableHeader', function () {
       landingPage.open();
       browser.keys('ke');
 
-      searchPage.input.waitForVisible();
-      searchPage.firstOfficerResult.waitForVisible();
+      searchPage.input.waitForDisplayed();
+      searchPage.firstOfficerResult.waitForDisplayed();
       searchPage.firstOfficerResult.click();
       browser.keys('Enter');
-      header.breadcrumbs.mainElement.waitForVisible();
+      header.breadcrumbs.mainElement.waitForDisplayed();
 
       const BreadcrumbsItems = header.breadcrumbs.items;
       BreadcrumbsItems.count.should.eql(3);
@@ -31,9 +31,9 @@ describe('shareableHeader', function () {
 
     it('should show breadcrumbs correctly when entering the Search Terms page first', function () {
       searchTermsPage.open();
-      searchPage.input.waitForVisible();
+      searchPage.input.waitForDisplayed();
       browser.keys('ke');
-      searchPage.firstOfficerResult.waitForVisible();
+      searchPage.firstOfficerResult.waitForDisplayed();
 
       browser.keys('ArrowDown');
       browser.pause(200);
@@ -56,10 +56,10 @@ describe('shareableHeader', function () {
       'should show breadcrumb Officer > TRR when click TRR row through officer timeline',
       function () {
         officerPage.open();
-        officerPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible();
+        officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed();
         officerPage.tabbedPaneSection.timelineSection.trrItem.click();
 
-        trrPage.title.waitForVisible();
+        trrPage.title.waitForDisplayed();
 
         const BreadcrumbsItems = header.breadcrumbs.items;
         BreadcrumbsItems.count.should.eql(3);
@@ -72,7 +72,7 @@ describe('shareableHeader', function () {
     // the test when the preview page gets updated and has a link to navigate to complaint page.
     it.skip('should show pinboard breadcrumb', function () {
       pinboardPage.open();
-      pinboardPage.pinboardSection.pinboardPaneMenu.waitForVisible();
+      pinboardPage.pinboardSection.pinboardPaneMenu.waitForDisplayed();
 
       pinboardPage.relevantComplaintsSection.complaintCardSection.incidentDate.click();
       browser.pause(500);

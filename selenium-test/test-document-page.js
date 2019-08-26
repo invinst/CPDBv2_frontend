@@ -36,9 +36,9 @@ describe('Document page', function () {
         `This document was last edited by John Doe at ${ updatedTime } on ${ updatedDate }`
       );
 
-      documentPage.views.waitForVisible(10000, true);
-      documentPage.notifications.waitForVisible(10000, true);
-      documentPage.downloads.waitForVisible(10000, true);
+      documentPage.views.waitForDisplayed(10000, true);
+      documentPage.notifications.waitForDisplayed(10000, true);
+      documentPage.downloads.waitForDisplayed(10000, true);
     });
 
     it('should go to CR page when the user clicks on crid', function () {

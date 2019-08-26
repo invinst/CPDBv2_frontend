@@ -4,7 +4,6 @@ require('should');
 import { map, countBy, filter } from 'lodash';
 
 import pinboardPage from './page-objects/pinboard-page';
-import { switchToRecentTab } from './utils';
 
 
 function waitForGraphAnimationEnd(browser, pinboardPage) {
@@ -17,7 +16,7 @@ describe('Pinboard Page', function () {
   it('should go to search page when the search bar is clicked', function () {
     pinboardPage.open();
     pinboardPage.searchBar.click();
-    browser.element('.search-page').waitForVisible();
+    $('.search-page').waitForDisplayed();
     browser.getUrl().should.endWith('/search/');
   });
 
@@ -61,7 +60,7 @@ describe('Pinboard Page', function () {
 
     it('should show preview pane when click on pinned officer item', function () {
       pinboardPage.pinnedSection.officers.firstCardRank.click();
-      pinboardPage.officerPreviewPane.wrapper.waitForVisible();
+      pinboardPage.officerPreviewPane.wrapper.waitForDisplayed();
       pinboardPage.officerPreviewPane.pinButton.getText().should.equal('Remove from pinboard');
       pinboardPage.officerPreviewPane.viewOfficerButton.getText().should.equal('View Officer Profile');
       pinboardPage.officerPreviewPane.officerName.getText().should.equal('Daryl Mack');
@@ -95,14 +94,14 @@ describe('Pinboard Page', function () {
 
     it('should show undo card when click on pin button in officer preview pane', function () {
       pinboardPage.pinnedSection.officers.firstCardRank.click();
-      pinboardPage.officerPreviewPane.wrapper.waitForVisible();
+      pinboardPage.officerPreviewPane.wrapper.waitForDisplayed();
       pinboardPage.officerPreviewPane.pinButton.click();
-      pinboardPage.pinnedSection.officers.undoCard.waitForVisible();
+      pinboardPage.pinnedSection.officers.undoCard.waitForDisplayed();
     });
 
     it('should show preview pane when click on TRR pinned item', function () {
       pinboardPage.pinnedSection.trrs.firstElement.click();
-      pinboardPage.previewPane.wrapper.waitForVisible();
+      pinboardPage.previewPane.wrapper.waitForDisplayed();
       pinboardPage.previewPane.actionText.getText().should.equal('View Tactical Response Report');
       pinboardPage.previewPane.trrTitle.getText().should.equal('Impact Weapon');
       pinboardPage.previewPane.trrFirstInfo.getText().should.equal('Jan 01, 2012');
@@ -111,7 +110,7 @@ describe('Pinboard Page', function () {
 
     it('should redirect to TRR page when click on TRR preview pane', function () {
       pinboardPage.pinnedSection.trrs.firstElement.click();
-      pinboardPage.previewPane.wrapper.waitForVisible();
+      pinboardPage.previewPane.wrapper.waitForDisplayed();
       pinboardPage.previewPane.actionText.click();
       browser.getUrl().should.containEql('/trr/123456/');
     });
@@ -125,7 +124,7 @@ describe('Pinboard Page', function () {
     it('should render correctly', function () {
       pinboardPage.pinboardSection.title.getValue().should.equal('Pinboard Title');
       pinboardPage.pinboardSection.description.getValue().should.equal('Pinboard Description');
-      pinboardPage.pinboardSection.pinboardPaneMenu.waitForVisible();
+      pinboardPage.pinboardSection.pinboardPaneMenu.waitForDisplayed();
       const pinboardPaneMenuText = pinboardPage.pinboardSection.pinboardPaneMenu.getText();
       pinboardPaneMenuText.should.containEql('NETWORK');
       pinboardPaneMenuText.should.containEql('GEOGRAPHIC');
@@ -135,7 +134,7 @@ describe('Pinboard Page', function () {
       pinboardPage.pinboardSection.title.getValue().should.equal('Pinboard Title');
       pinboardPage.pinboardSection.description.getValue().should.equal('Pinboard Description');
       browser.getUrl().should.containEql('/pinboard-title/');
-      pinboardPage.pinboardSection.pinboardPaneMenu.waitForVisible();
+      pinboardPage.pinboardSection.pinboardPaneMenu.waitForDisplayed();
       pinboardPage.pinboardSection.title.click();
       pinboardPage.pinboardSection.title.setValue('Updated Title');
       pinboardPage.pinboardSection.description.click();
@@ -167,7 +166,7 @@ describe('Pinboard Page', function () {
 
       const nodeGroupColors = countBy(map(
         graphNodes,
-        (graphNode) => graphNode.getCssProperty('fill').value
+        (graphNode) => graphNode.getCSSProperty('fill').value
       ));
       const expectedNodeGroupColors = {
         'rgb(253,94,76)': 6,
@@ -220,25 +219,25 @@ describe('Pinboard Page', function () {
       const biggestNode = pinboardPage.animatedSocialGraphSection.biggestGraphNode;
       biggestNode.doubleClick();
 
-      let hideGraphNodes = filter(graphNodes, graphNode => graphNode.getCssProperty('opacity').value === 0.1);
-      let visibleGraphNodes = filter(graphNodes, graphNode => graphNode.getCssProperty('opacity').value === 1);
+      let hideGraphNodes = filter(graphNodes, graphNode => graphNode.getCSSProperty('opacity').value === 0.1);
+      let visibleGraphNodes = filter(graphNodes, graphNode => graphNode.getCSSProperty('opacity').value === 1);
       hideGraphNodes.should.have.length(9);
       visibleGraphNodes.should.have.length(11);
 
-      let hideGraphLinks = filter(graphLinks, graphLink => graphLink.getCssProperty('opacity').value === 0.1);
-      let visibleGraphLinks = filter(graphLinks, graphLink => graphLink.getCssProperty('opacity').value === 1);
+      let hideGraphLinks = filter(graphLinks, graphLink => graphLink.getCSSProperty('opacity').value === 0.1);
+      let visibleGraphLinks = filter(graphLinks, graphLink => graphLink.getCSSProperty('opacity').value === 1);
       hideGraphLinks.should.have.length(27);
       visibleGraphLinks.should.have.length(10);
 
       biggestNode.doubleClick();
 
-      hideGraphNodes = filter(graphNodes, graphNode => graphNode.getCssProperty('opacity').value === 0.1);
-      visibleGraphNodes = filter(graphNodes, graphNode => graphNode.getCssProperty('opacity').value === 1);
+      hideGraphNodes = filter(graphNodes, graphNode => graphNode.getCSSProperty('opacity').value === 0.1);
+      visibleGraphNodes = filter(graphNodes, graphNode => graphNode.getCSSProperty('opacity').value === 1);
       hideGraphNodes.should.have.length(0);
       visibleGraphNodes.should.have.length(20);
 
-      hideGraphLinks = filter(graphLinks, graphLink => graphLink.getCssProperty('opacity').value === 0.1);
-      visibleGraphLinks = filter(graphLinks, graphLink => graphLink.getCssProperty('opacity').value === 1);
+      hideGraphLinks = filter(graphLinks, graphLink => graphLink.getCSSProperty('opacity').value === 0.1);
+      visibleGraphLinks = filter(graphLinks, graphLink => graphLink.getCSSProperty('opacity').value === 1);
       hideGraphLinks.should.have.length(0);
       visibleGraphLinks.should.have.length(37);
     });
@@ -281,14 +280,13 @@ describe('Pinboard Page', function () {
       pinboardPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
       pinboardPage.animatedSocialGraphSection.graphLinks().should.have.length(37);
 
-      browser.moveToObject(pinboardPage.animatedSocialGraphSection.timelineSlider.selector);
-      browser.buttonPress();
+      pinboardPage.animatedSocialGraphSection.timelineSlider.click();
       pinboardPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
       pinboardPage.animatedSocialGraphSection.graphLinks().should.have.length(14);
       const graphNodes = pinboardPage.animatedSocialGraphSection.graphNodes();
       const groupsColors = countBy(map(
         graphNodes,
-        (graphNode) => graphNode.getCssProperty('fill').value
+        (graphNode) => graphNode.getCSSProperty('fill').value
       ));
       const expectedGroupsColors = {
         'rgb(253,94,76)': 6,
@@ -307,10 +305,10 @@ describe('Pinboard Page', function () {
       pinboardPage.open('3664a7ea');
       pinboardPage.animatedSocialGraphSection.playButton.waitForExist(200, true);
 
-      browser.scroll(pinboardPage.relevantCoaccusalsSection.title.selector);
+      pinboardPage.relevantCoaccusalsSection.title.scrollIntoView();
       pinboardPage.animatedSocialGraphSection.playButton.waitForExist(1000);
 
-      browser.scroll(pinboardPage.pinboardSection.title.selector);
+      pinboardPage.pinboardSection.title.scrollIntoView();
       pinboardPage.animatedSocialGraphSection.playButton.waitForExist(1000, true);
     });
   });
@@ -318,7 +316,7 @@ describe('Pinboard Page', function () {
   context('Geographic section', function () {
     it('should render geographic section', function () {
       pinboardPage.open();
-      pinboardPage.pinboardSection.pinboardPaneMenu.waitForVisible();
+      pinboardPage.pinboardSection.pinboardPaneMenu.waitForDisplayed();
       pinboardPage.pinboardSection.geographicPaneName.click();
       pinboardPage.geographicSection.complaintText.getText().should.equal('Complaint');
       pinboardPage.geographicSection.complaintNumber.getText().should.equal('5');
@@ -374,7 +372,7 @@ describe('Pinboard Page', function () {
 
     it('should display preview pane when click on relevant coaccusal card', function () {
       pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.mainElement.click();
-      pinboardPage.previewPane.wrapper.waitForVisible();
+      pinboardPage.previewPane.wrapper.waitForDisplayed();
     });
 
     it('should remove officer from the row and add to the pinned officers section', function () {
@@ -396,9 +394,9 @@ describe('Pinboard Page', function () {
 
     it('should show undo card when click on pin button in preview pane', function () {
       pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.mainElement.click();
-      pinboardPage.officerPreviewPane.wrapper.waitForVisible();
+      pinboardPage.officerPreviewPane.wrapper.waitForDisplayed();
       pinboardPage.officerPreviewPane.pinButton.click();
-      pinboardPage.relevantCoaccusalsSection.undoCard.mainElement.waitForVisible();
+      pinboardPage.relevantCoaccusalsSection.undoCard.mainElement.waitForDisplayed();
     });
 
     it('should supply enough data to pinned section if user pin it', function () {
@@ -490,19 +488,17 @@ describe('Pinboard Page', function () {
       const firstDocumentCard = pinboardPage.relevantDocumentsSection.documentCardSection;
       firstDocumentCard.rightHalf.click();
 
-      pinboardPage.previewPane.wrapper.waitForVisible(1000, true);
+      pinboardPage.previewPane.wrapper.waitForDisplayed(1000, true);
     });
 
     it('should redirect to document page when click on the left half of document card', function () {
       const firstDocumentCard = pinboardPage.relevantDocumentsSection.documentCardSection;
       firstDocumentCard.leftHalf.click();
 
-      pinboardPage.previewPane.wrapper.waitForVisible(1000, true);
-      switchToRecentTab();
-      browser.getUrl().should.equal(
+      pinboardPage.previewPane.wrapper.waitForDisplayed(1000, true);
+      browser.switchWindow(
         'https://assets.documentcloud.org/documents/5680384/CRID-1083633-CR-CRID-1083633-CR-Tactical.pdf'
       );
-      browser.close();
     });
 
     it('should add cr to the pinned crs section', function () {
@@ -566,25 +562,25 @@ describe('Pinboard Page', function () {
     it('should display preview pane when we click on incident date', function () {
       pinboardPage.relevantComplaintsSection.complaintCardSection.incidentDate.click();
 
-      pinboardPage.previewPane.wrapper.waitForVisible();
+      pinboardPage.previewPane.wrapper.waitForDisplayed();
     });
 
     it('should display preview pane when we click on top officers', function () {
       pinboardPage.relevantComplaintsSection.complaintCardSection.topOfficers.click();
 
-      pinboardPage.previewPane.wrapper.waitForVisible();
+      pinboardPage.previewPane.wrapper.waitForDisplayed();
     });
 
     it('should display preview pane when we click on remaining officers', function () {
       pinboardPage.relevantComplaintsSection.complaintCardSection.remainingOfficers.click();
 
-      pinboardPage.previewPane.wrapper.waitForVisible();
+      pinboardPage.previewPane.wrapper.waitForDisplayed();
     });
 
     it('should display preview pane when we click on left half of a complaint card', function () {
       pinboardPage.relevantComplaintsSection.complaintCardSection.leftHalf.click();
 
-      pinboardPage.previewPane.wrapper.waitForVisible();
+      pinboardPage.previewPane.wrapper.waitForDisplayed();
     });
 
     it('should remove cr from the row and add to the pinned crs section', function () {
@@ -611,7 +607,7 @@ describe('Undo card', function () {
 
   it('should show undo card when user click on unpin button', function () {
     pinboardPage.pinnedSection.officers.firstCardUnpinBtn.click();
-    pinboardPage.pinnedSection.officers.undoCard.waitForVisible();
+    pinboardPage.pinnedSection.officers.undoCard.waitForDisplayed();
 
     // card disappear after 4s
     browser.pause(4500);
@@ -620,7 +616,7 @@ describe('Undo card', function () {
 
   it('should show card when user click on undo button', function () {
     pinboardPage.pinnedSection.officers.firstCardUnpinBtn.click();
-    pinboardPage.pinnedSection.officers.undoCard.waitForVisible();
+    pinboardPage.pinnedSection.officers.undoCard.waitForDisplayed();
     pinboardPage.pinnedSection.officers.undoCard.click();
     pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
   });
@@ -632,7 +628,7 @@ describe('Empty Pinboard Page', function () {
   });
 
   it('should render when there is no content', function () {
-    pinboardPage.emptyPinboardSection.mainElement.waitForVisible();
+    pinboardPage.emptyPinboardSection.mainElement.waitForDisplayed();
   });
 
   it('should go to Watts Crew pinboard page when clicking on Repeaters row', function () {
@@ -652,6 +648,6 @@ describe('No Id Pinboard Page', function () {
   });
 
   it('should render pinboard return by latest-retrieved-pinboard', function () {
-    pinboardPage.emptyPinboardSection.mainElement.waitForVisible();
+    pinboardPage.emptyPinboardSection.mainElement.waitForDisplayed();
   });
 });
