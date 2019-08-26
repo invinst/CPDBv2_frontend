@@ -62,7 +62,7 @@ describe('Timeline component', function () {
     const dropdown = findRenderedComponentWithType(instance, Dropdown);
     dropdown.props.defaultValue.should.eql('ALL');
     dropdown.props.options.should.eql([
-      'ALL', 'COMPLAINTS', 'SUSTAINED', 'USE OF FORCE', 'AWARDS', 'RANK/UNIT CHANGES'
+      'ALL', 'COMPLAINTS', 'SUSTAINED', 'USE OF FORCE', 'AWARDS', 'RANK/UNIT CHANGES',
     ]);
   });
 
@@ -110,7 +110,7 @@ describe('Timeline component', function () {
         rank: 'Police Officer',
         unitDescription: 'Mobile Strike Force',
         unitName: 'Unit 153',
-      }
+      },
     ];
     instance = renderIntoDocument(<Timeline items={ items } />);
     scryRenderedComponentsWithType(instance, Item).should.have.length(3);

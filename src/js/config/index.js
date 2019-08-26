@@ -8,10 +8,10 @@ const configs = {
   'beta': require('./beta'),
   'staging': require('./staging'),
   'test': require('./test'),
-  'live-test': require('./live-test')
+  'live-test': require('./live-test'),
 };
 
 export default {
   ...defaultConfig,
-  ...configs[nodeEnv].default
+  ...configs[nodeEnv].default,
 };

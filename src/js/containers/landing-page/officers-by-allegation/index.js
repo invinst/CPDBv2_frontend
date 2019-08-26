@@ -8,7 +8,7 @@ import { updatePage } from 'actions/cms';
 import { mergeEditWrapperStateProps } from 'utils/container';
 import {
   turnOffCarouselAllegationHeaderEditMode,
-  turnOnCarouselAllegationHeaderEditMode
+  turnOnCarouselAllegationHeaderEditMode,
 } from 'actions/landing-page/officers-by-allegation';
 
 
@@ -18,14 +18,14 @@ function mapStateToProps(state, ownProps) {
     pathname: ownProps.pathname,
     openCardInNewPage: ownProps.openCardInNewPage,
     fields: getCMSFields(constants.LANDING_PAGE_ID)(state),
-    sectionEditModeOn: getCarouselAllegationHeaderEditModeOn(state)
+    sectionEditModeOn: getCarouselAllegationHeaderEditModeOn(state),
   };
 }
 
 const mapDispatchToProps = {
   onSaveForm: updatePage(constants.LANDING_PAGE_ID),
   turnOnSectionEditMode: turnOnCarouselAllegationHeaderEditMode,
-  turnOffSectionEditMode: turnOffCarouselAllegationHeaderEditMode
+  turnOffSectionEditMode: turnOffCarouselAllegationHeaderEditMode,
 };
 
 export default connect(

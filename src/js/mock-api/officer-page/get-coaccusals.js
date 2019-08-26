@@ -15,7 +15,7 @@ const coaccusals = [{
     'percentile_allegation': '93.0000',
     'percentile_allegation_internal': '91.0000',
     'id': 2,
-    'year': 2016
+    'year': 2016,
   }],
 }, {
   id: 3,
@@ -34,13 +34,13 @@ const coaccusals = [{
     'percentile_allegation': '98.0000',
     'percentile_allegation_internal': '81.0000',
     'id': 3,
-    'year': 2016
+    'year': 2016,
   }],
 }];
 
 const results = {
   '1': coaccusals,
-  '1234': []
+  '1234': [],
 };
 
 export default (officerId = 1) => results[`${officerId}`];

@@ -12,7 +12,7 @@ export default function (SubComponent) {
     constructor(props) {
       super(props);
       this.state = {
-        fields: mapValues(props.fields, this.deserializeField)
+        fields: mapValues(props.fields, this.deserializeField),
       };
       this.handleUpdateFieldValue = this.handleUpdateFieldValue.bind(this);
       this.handleSaveForm = this.handleSaveForm.bind(this);
@@ -21,13 +21,13 @@ export default function (SubComponent) {
 
     getChildContext() {
       return {
-        sectionEditModeOn: this.props.sectionEditModeOn
+        sectionEditModeOn: this.props.sectionEditModeOn,
       };
     }
 
     componentWillReceiveProps(nextProps) {
       this.setState({
-        fields: mapValues(nextProps.fields, this.deserializeField)
+        fields: mapValues(nextProps.fields, this.deserializeField),
       });
     }
 
@@ -40,12 +40,12 @@ export default function (SubComponent) {
         case 'rich_text':
           return {
             ...field,
-            value: convertContentStateToEditorState(field.value)
+            value: convertContentStateToEditorState(field.value),
           };
         case 'officers_list':
           return {
             ...field,
-            value: officersToCamelCase(field.value)
+            value: officersToCamelCase(field.value),
           };
       }
       return field;
@@ -56,12 +56,12 @@ export default function (SubComponent) {
         case 'rich_text':
           return {
             ...field,
-            value: convertToRaw(field.value.getCurrentContent())
+            value: convertToRaw(field.value.getCurrentContent()),
           };
         case 'officers_list':
           return {
             ...field,
-            value: officersToSnakeCase(field.value)
+            value: officersToSnakeCase(field.value),
           };
       }
       return field;
@@ -82,9 +82,9 @@ export default function (SubComponent) {
           ...fields,
           [fieldName]: {
             ...field,
-            value: fieldValue
-          }
-        }
+            value: fieldValue,
+          },
+        },
       });
     }
 
@@ -93,7 +93,7 @@ export default function (SubComponent) {
       return {
         value: field && field.value,
         editModeOn: sectionEditModeOn,
-        onChange: val => this.handleUpdateFieldValue(fieldName, val)
+        onChange: val => this.handleUpdateFieldValue(fieldName, val),
       };
     }
 
@@ -112,7 +112,7 @@ export default function (SubComponent) {
               sectionEditModeOn,
               turnOnSectionEditMode,
               turnOffSectionEditMode,
-              onSaveForm: this.handleSaveForm
+              onSaveForm: this.handleSaveForm,
             } }
             fieldProps={
               mapValues(fields, this.fieldProps)
@@ -128,11 +128,11 @@ export default function (SubComponent) {
     onSaveForm: PropTypes.func,
     sectionEditModeOn: PropTypes.bool,
     turnOnSectionEditMode: PropTypes.func,
-    turnOffSectionEditMode: PropTypes.func
+    turnOffSectionEditMode: PropTypes.func,
   };
 
   EditableSection.childContextTypes = {
-    sectionEditModeOn: PropTypes.bool
+    sectionEditModeOn: PropTypes.bool,
   };
 
   return EditableSection;

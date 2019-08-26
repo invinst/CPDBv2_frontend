@@ -12,10 +12,10 @@ describe('searchPage.pagination reducer', function () {
     pagination(undefined, {
       type: SUGGESTION_SINGLE_REQUEST_SUCCESS,
       payload: {
-        next: 'example.com'
-      }
+        next: 'example.com',
+      },
     }).should.deepEqual({
-      next: 'example.com'
+      next: 'example.com',
     });
   });
 });

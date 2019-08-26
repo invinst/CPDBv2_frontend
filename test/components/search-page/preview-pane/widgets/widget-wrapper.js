@@ -3,7 +3,7 @@ import MediaQuery from 'react-responsive';
 import {
   renderIntoDocument,
   findRenderedComponentWithType,
-  scryRenderedComponentsWithType
+  scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 
 import WidgetWrapper, { TextWidget, CallToActionWidget } from 'components/search-page/preview-pane/widgets';

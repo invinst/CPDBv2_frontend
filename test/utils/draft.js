@@ -9,7 +9,7 @@ import {
   createFieldWithEmptyEditorState, createEmptyStringField, createEmptyDateField, removeSelection,
   getFieldOrCreateEmptyWithEditorState, linkEntitySelected, createLinkEntity, removeLinkEntity,
   inlineStyleSelected, defocus, getSelectionStartBlockKey,
-  editorStateToText, convertEditorStateToRaw
+  editorStateToText, convertEditorStateToRaw,
 } from 'utils/draft';
 import { ENTITY_LINK } from 'utils/constants';
 import { RawContentStateFactory } from 'utils/test/factories/draft';
@@ -35,9 +35,9 @@ describe('Draft utils', function () {
       contentStateToTextArray({
         getBlocksAsArray: () => [
           { getText: () => 'a' },
-          { getText: () => 'b' }
+          { getText: () => 'b' },
         ],
-        isEmpty: () => false
+        isEmpty: () => false,
       }).should.eql(['a', 'b']);
     });
   });
@@ -60,7 +60,7 @@ describe('Draft utils', function () {
     it('should return field given name', function () {
       getField([
         { name: 'a', value: 1 },
-        { name: 'b', value: 2 }
+        { name: 'b', value: 2 },
       ], 'a').value.should.eql(1);
     });
   });
@@ -88,7 +88,7 @@ describe('Draft utils', function () {
         entityRanges: [],
         inlineStyleRanges: [],
         type: 'unstyled',
-        text: 'abc'
+        text: 'abc',
       });
       block.key.should.not.undefined();
     });
@@ -107,9 +107,9 @@ describe('Draft utils', function () {
               key: 'abc12',
               type: 'unstyled',
               inlineStyleRanges: [],
-              data: {}
-            }
-          ]
+              data: {},
+            },
+          ],
         }
       );
     });
@@ -130,10 +130,10 @@ describe('Draft utils', function () {
               key: 'abc12',
               type: 'unstyled',
               inlineStyleRanges: [],
-              data: {}
-            }
-          ]
-        }
+              data: {},
+            },
+          ],
+        },
       });
     });
   });
@@ -143,12 +143,12 @@ describe('Draft utils', function () {
       createEmptyStringField('c').should.eql({
         name: 'c',
         type: 'string',
-        value: ''
+        value: '',
       });
       createEmptyStringField('d', 'link').should.eql({
         name: 'd',
         type: 'link',
-        value: ''
+        value: '',
       });
     });
   });
@@ -158,7 +158,7 @@ describe('Draft utils', function () {
       createEmptyDateField('e').should.eql({
         name: 'e',
         type: 'date',
-        value: moment().format('YYYY-MM-DD')
+        value: moment().format('YYYY-MM-DD'),
       });
     });
   });
@@ -166,7 +166,7 @@ describe('Draft utils', function () {
   describe('getFieldOrCreateEmptyWithEditorState', function () {
     it('should create empty field if not found', function () {
       getFieldOrCreateEmptyWithEditorState([
-        { name: 'a' }
+        { name: 'a' },
       ], 'b', 'c').should.eql({
         name: 'b',
         type: 'c',
@@ -180,20 +180,20 @@ describe('Draft utils', function () {
               key: 'abc12',
               type: 'unstyled',
               inlineStyleRanges: [],
-              data: {}
-            }
-          ]
-        }
+              data: {},
+            },
+          ],
+        },
       });
     });
 
     it('should get field if exists', function () {
       getFieldOrCreateEmptyWithEditorState([
-        { name: 'a', type: 'b', value: 'c' }
+        { name: 'a', type: 'b', value: 'c' },
       ], 'a', 'b').should.eql({
         name: 'a',
         type: 'b',
-        value: 'c'
+        value: 'c',
       });
     });
   });
@@ -335,10 +335,10 @@ describe('Draft utils', function () {
             inlineStyleRanges: [],
             key: contentState.getFirstBlock().getKey(),
             text: 'abc',
-            type: 'unstyled'
-          }
+            type: 'unstyled',
+          },
         ],
-        entityMap: {}
+        entityMap: {},
       });
     });
   });

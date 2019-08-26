@@ -16,9 +16,9 @@ describe('popup actions', function () {
             url: `${POPUP_API_URL}?page=officer`,
             params: undefined,
             adapter: null,
-            cancelToken: undefined
-          }
-        }
+            cancelToken: undefined,
+          },
+        },
       });
     });
   });

@@ -6,12 +6,12 @@ export const tagStyle = (selected) => ({
   marginRight: '24px',
   fontSize: '14px',
   cursor: 'pointer',
-  color: selected ? softBlackColor : clayGray
+  color: selected ? softBlackColor : clayGray,
 });
 
 export const dataToolTagStyle = {
   ...tagStyle(false),
-  cursor: 'default'
+  cursor: 'default',
 };
 
 export const tagsWrapperHeight = 44;

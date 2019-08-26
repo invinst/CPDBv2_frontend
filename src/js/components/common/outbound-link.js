@@ -38,5 +38,5 @@ OutboundLink.propTypes = {
 
 OutboundLink.defaultProps = {
   onClick: () => {},
-  target: '_blank'
+  target: '_blank',
 };

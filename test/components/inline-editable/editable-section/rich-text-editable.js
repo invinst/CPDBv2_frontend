@@ -61,8 +61,8 @@ describe('RichTextEditable component', function () {
             editModeOn: true,
             value: editorState,
             onChange: onChangeSpy,
-          }
-        }
+          },
+        },
       },
       <RichTextEditable fieldname='navbar_title' />
     );
@@ -71,7 +71,7 @@ describe('RichTextEditable component', function () {
     editable.props.editModeOn.should.be.true();
     editable.props.editorElement.props.should.containEql({
       editorState: editorState,
-      onChange: onChangeSpy
+      onChange: onChangeSpy,
     });
   });
 });

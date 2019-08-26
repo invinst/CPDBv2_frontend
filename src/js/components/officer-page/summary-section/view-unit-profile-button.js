@@ -22,5 +22,5 @@ export default class ViewUnitProfileButton extends Component {
 }
 
 ViewUnitProfileButton.propTypes = {
-  unitName: PropTypes.string
+  unitName: PropTypes.string,
 };

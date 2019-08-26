@@ -8,5 +8,5 @@ export default handleActions({
   [LOCATION_CHANGE]: (state, action) => {
     const contentType = action.payload.query.type;
     return SEARCH_CATEGORIES.includes(contentType) ? contentType : null;
-  }
+  },
 }, null);

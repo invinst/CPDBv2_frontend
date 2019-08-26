@@ -63,17 +63,17 @@ export const documentEditableFieldsSelector = createSelector(
     attachmentId: {
       type: 'number',
       key: 'id',
-      value: documentAttrs.attachmentId
+      value: documentAttrs.attachmentId,
     },
     title: {
       type: 'string',
       key: 'title',
-      value: documentAttrs.title || ''
+      value: documentAttrs.title || '',
     },
     textContent: {
       type: 'string',
       key: 'text_content',
-      value: documentAttrs.fullText || ''
-    }
+      value: documentAttrs.fullText || '',
+    },
   })
 );

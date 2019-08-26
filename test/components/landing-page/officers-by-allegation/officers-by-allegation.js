@@ -2,7 +2,7 @@ import React from 'react';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
-  scryRenderedComponentsWithType
+  scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 import { unmountComponentSuppressError } from 'utils/test';
 import { findDOMNode } from 'react-dom';
@@ -24,7 +24,7 @@ describe('Officers By Allegation components', function () {
     'birthYear': 1974,
     'complaintPercentile': 99.5,
     'race': 'Hispanic',
-    'gender': 'Male'
+    'gender': 'Male',
   }, {
     'id': 2,
     'fullName': 'Jerome Finnagan',
@@ -33,7 +33,7 @@ describe('Officers By Allegation components', function () {
     'birthYear': 1979,
     'complaintPercentile': 99.1,
     'race': 'White',
-    'gender': 'Male'
+    'gender': 'Male',
   }];
 
   beforeEach(function () {

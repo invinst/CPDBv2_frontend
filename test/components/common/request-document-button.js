@@ -5,7 +5,7 @@ import { renderIntoDocument, Simulate, findRenderedComponentWithType } from 'rea
 
 import { unmountComponentSuppressError } from 'utils/test';
 import HoverableRequestDocumentButton, {
-  RequestDocumentButton
+  RequestDocumentButton,
 } from 'components/common/request-document-button';
 
 

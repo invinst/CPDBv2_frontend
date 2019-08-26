@@ -8,7 +8,7 @@ function mapStateToProps(state, props) {
   const { onClick } = props;
   return {
     citySummary: citySummarySelector(state),
-    onClick
+    onClick,
   };
 }
 

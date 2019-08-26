@@ -1,6 +1,6 @@
 import * as loginModalStyle from './login-modal.style';
 import {
-  sanFranciscoTextFamily, softBlackColor, mediumGrayColor, greyColor
+  sanFranciscoTextFamily, softBlackColor, mediumGrayColor, greyColor,
 } from 'utils/styles';
 
 export const innerWrapperStyle = {
@@ -17,27 +17,27 @@ export const innerWrapperStyle = {
   boxShadow: '0 1px 4px 0 rgba(35, 31, 32, 0.2)',
   fontFamily: sanFranciscoTextFamily,
   fontSize: '14px',
-  fontWeight: 300
+  fontWeight: 300,
 };
 
 export const headerStyle = {
   textAlign: 'center',
   color: softBlackColor,
   fontSize: '26px',
-  marginBottom: '6px'
+  marginBottom: '6px',
 };
 
 export const subHeaderStyle = {
   textAlign: 'center',
   color: mediumGrayColor,
-  marginBottom: '39px'
+  marginBottom: '39px',
 };
 
 export const emailInputWrapperStyle = {
   borderBottom: `2px solid ${greyColor}`,
   paddingBottom: '8px',
   cursor: 'pointer',
-  marginBottom: '11px'
+  marginBottom: '11px',
 };
 
 export const labelStyle = loginModalStyle.labelStyle;

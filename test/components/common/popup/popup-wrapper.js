@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  renderIntoDocument, findRenderedDOMComponentWithClass, Simulate, findRenderedComponentWithType
+  renderIntoDocument, findRenderedDOMComponentWithClass, Simulate, findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 import { spy, stub } from 'sinon';
 import ReactTooltip from 'react-tooltip';
@@ -35,7 +35,7 @@ describe('PopupWrapper', function () {
 
   it('should stopPropagation when being clicked ', function () {
     const dummyEvent = {
-      stopPropagation: spy()
+      stopPropagation: spy(),
     };
     instance = renderIntoDocument(<PopupWrapper/>);
 

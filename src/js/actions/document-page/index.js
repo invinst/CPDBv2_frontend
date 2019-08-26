@@ -13,7 +13,7 @@ import {
   TURN_OFF_DOCUMENT_TEXT_CONTENT_EDIT_MODE,
   UPDATE_DOCUMENT_PAGE_REQUEST_START,
   UPDATE_DOCUMENT_PAGE_REQUEST_SUCCESS,
-  UPDATE_DOCUMENT_PAGE_REQUEST_FAILURE
+  UPDATE_DOCUMENT_PAGE_REQUEST_FAILURE,
 } from 'utils/constants';
 import { trackDocumentEdit } from 'utils/google_analytics_tracking';
 
@@ -44,7 +44,7 @@ export const updateDocument = fieldName => obj => {
     [
       UPDATE_DOCUMENT_PAGE_REQUEST_START,
       UPDATE_DOCUMENT_PAGE_REQUEST_SUCCESS,
-      UPDATE_DOCUMENT_PAGE_REQUEST_FAILURE
+      UPDATE_DOCUMENT_PAGE_REQUEST_FAILURE,
     ]
   )(data);
 };

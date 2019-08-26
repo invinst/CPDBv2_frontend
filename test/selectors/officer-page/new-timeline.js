@@ -165,8 +165,8 @@ describe('Officer new timeline selectors', function () {
             'preview_image_url': 'https://assets.documentcloud.org/documents/3518955/pages/CRID-303350-CR-p1.gif',
             'file_type': 'document',
             'id': '654321',
-          }
-        ]
+          },
+        ],
       };
 
       crTransform(crItem, 1).should.eql({
@@ -200,7 +200,7 @@ describe('Officer new timeline selectors', function () {
             previewImageUrl: 'https://assets.documentcloud.org/documents/3518955/pages/CRID-303350-CR-p1.gif',
             fileType: 'document',
             id: '654321',
-          }
+          },
         ],
       });
     });
@@ -384,7 +384,7 @@ describe('Officer new timeline selectors', function () {
           key: '2-YEAR-2013',
           isAfterRankChange: false,
           isAfterUnitChange: false,
-          hasFirstChangedItem: false
+          hasFirstChangedItem: false,
         },
         {
           rank: 'Police Officer',
@@ -398,8 +398,8 @@ describe('Officer new timeline selectors', function () {
           key: '2-YEAR-2012',
           isAfterRankChange: false,
           isAfterUnitChange: false,
-          hasFirstChangedItem: false
-        }
+          hasFirstChangedItem: false,
+        },
       ]);
     });
   });
@@ -428,7 +428,7 @@ describe('Officer new timeline selectors', function () {
           isCurrentUnit: false,
           isCurrentRank: true,
           key: 2,
-        }
+        },
       ];
 
       fillYears(items).should.eql([
@@ -444,7 +444,7 @@ describe('Officer new timeline selectors', function () {
           key: '1-YEAR-2014',
           isAfterRankChange: false,
           isAfterUnitChange: false,
-          hasFirstChangedItem: false
+          hasFirstChangedItem: false,
         },
         {
           year: 2014,
@@ -469,7 +469,7 @@ describe('Officer new timeline selectors', function () {
           key: '2-YEAR-2013',
           isAfterRankChange: false,
           isAfterUnitChange: false,
-          hasFirstChangedItem: false
+          hasFirstChangedItem: false,
         },
         {
           rank: 'Police Officer',
@@ -483,7 +483,7 @@ describe('Officer new timeline selectors', function () {
           key: '2-YEAR-2012',
           isAfterRankChange: false,
           isAfterUnitChange: false,
-          hasFirstChangedItem: false
+          hasFirstChangedItem: false,
         },
         {
           rank: 'Police Officer',
@@ -497,7 +497,7 @@ describe('Officer new timeline selectors', function () {
           key: '2-YEAR-2011',
           isAfterRankChange: false,
           isAfterUnitChange: false,
-          hasFirstChangedItem: false
+          hasFirstChangedItem: false,
         },
         {
           year: 2011,
@@ -509,7 +509,7 @@ describe('Officer new timeline selectors', function () {
           isCurrentUnit: false,
           isCurrentRank: true,
           key: 2,
-        }
+        },
       ]);
     });
 
@@ -607,7 +607,7 @@ describe('Officer new timeline selectors', function () {
           date: '2015',
           key: '1-YEAR-2015',
           hasData: true,
-          hasFirstChangedItem: false
+          hasFirstChangedItem: false,
         },
         {
           year: 2015,
@@ -618,7 +618,7 @@ describe('Officer new timeline selectors', function () {
           unitDescription: 'Mobile Strike Force',
           isCurrentUnit: false,
           isCurrentRank: true,
-          key: 1
+          key: 1,
         },
         {
           rank: 'Police Officer',
@@ -632,7 +632,7 @@ describe('Officer new timeline selectors', function () {
           date: '2014',
           key: '2-YEAR-2014',
           hasData: true,
-          hasFirstChangedItem: true
+          hasFirstChangedItem: true,
         },
         {
           year: 2014,
@@ -643,7 +643,7 @@ describe('Officer new timeline selectors', function () {
           unitDescription: 'Mobile Strike Force',
           isCurrentUnit: false,
           isCurrentRank: true,
-          key: 2
+          key: 2,
         },
         {
           rank: 'Some Officer',
@@ -657,7 +657,7 @@ describe('Officer new timeline selectors', function () {
           date: '2013',
           key: '3-YEAR-2013',
           hasData: true,
-          hasFirstChangedItem: false
+          hasFirstChangedItem: false,
         },
         {
           year: 2013,
@@ -668,7 +668,7 @@ describe('Officer new timeline selectors', function () {
           unitDescription: 'Some Force',
           isCurrentUnit: true,
           isCurrentRank: false,
-          key: 3
+          key: 3,
         },
         {
           rank: 'Some Officer',
@@ -682,7 +682,7 @@ describe('Officer new timeline selectors', function () {
           date: '2012',
           key: '4-YEAR-2012',
           hasData: true,
-          hasFirstChangedItem: false
+          hasFirstChangedItem: false,
         },
         {
           year: 2012,
@@ -693,7 +693,7 @@ describe('Officer new timeline selectors', function () {
           unitDescription: 'Some Force',
           isCurrentUnit: true,
           isCurrentRank: false,
-          key: 4
+          key: 4,
         },
         {
           rank: 'Some Officer',
@@ -707,7 +707,7 @@ describe('Officer new timeline selectors', function () {
           date: '2011',
           key: '5-YEAR-2011',
           hasData: true,
-          hasFirstChangedItem: true
+          hasFirstChangedItem: true,
         },
         {
           year: 2011,
@@ -718,7 +718,7 @@ describe('Officer new timeline selectors', function () {
           unitDescription: 'Some Force',
           isCurrentUnit: true,
           isCurrentRank: false,
-          key: 5
+          key: 5,
         },
         {
           rank: 'Some Officer',
@@ -732,7 +732,7 @@ describe('Officer new timeline selectors', function () {
           date: '2010',
           key: '6-YEAR-2010',
           hasData: true,
-          hasFirstChangedItem: false
+          hasFirstChangedItem: false,
         },
         {
           year: 2010,
@@ -743,7 +743,7 @@ describe('Officer new timeline selectors', function () {
           unitDescription: 'Some Force',
           isCurrentUnit: true,
           isCurrentRank: false,
-          key: 6
+          key: 6,
         },
         {
           rank: 'Some Officer',
@@ -757,7 +757,7 @@ describe('Officer new timeline selectors', function () {
           date: '2009',
           key: '7-YEAR-2009',
           hasData: true,
-          hasFirstChangedItem: true
+          hasFirstChangedItem: true,
         },
         {
           year: 2009,
@@ -768,8 +768,8 @@ describe('Officer new timeline selectors', function () {
           unitDescription: 'Some Force',
           isCurrentUnit: true,
           isCurrentRank: false,
-          key: 7
-        }
+          key: 7,
+        },
       ]);
     });
 
@@ -800,7 +800,7 @@ describe('Officer new timeline selectors', function () {
           key: 2,
           isAfterRankChange: false,
           isAfterUnitChange: false,
-        }
+        },
       ];
 
       fillYears(sameYearItems).should.eql([
@@ -816,9 +816,9 @@ describe('Officer new timeline selectors', function () {
           key: '1-YEAR-2014',
           isAfterRankChange: false,
           isAfterUnitChange: false,
-          hasFirstChangedItem: false
+          hasFirstChangedItem: false,
         },
-        ...sameYearItems
+        ...sameYearItems,
       ]);
     });
   });
@@ -945,7 +945,7 @@ describe('Officer new timeline selectors', function () {
           rank: 'Police Officer',
           unitName: 'Unit 007',
           unitDescription: 'District 007',
-          key: '3-YEAR-2016'
+          key: '3-YEAR-2016',
         },
       ];
 
@@ -1099,7 +1099,7 @@ describe('Officer new timeline selectors', function () {
           unitDescription: 'Mobile Strike Force',
           year: 2003,
           key: 3,
-        }
+        },
       ]);
     });
 
@@ -1119,7 +1119,7 @@ describe('Officer new timeline selectors', function () {
           unitDescription: 'Mobile Strike Force',
           year: 2003,
           key: 3,
-        }
+        },
       ]);
     });
   });
@@ -1289,9 +1289,9 @@ describe('Officer new timeline selectors', function () {
       newTimelineItemsSelector({
         officerPage: {
           newTimeline: {
-            items: []
-          }
-        }
+            items: [],
+          },
+        },
       }).should.be.empty();
     });
 
@@ -1301,7 +1301,7 @@ describe('Officer new timeline selectors', function () {
           newTimeline: {
             filter: {
               label: 'ALL',
-              kind: ['CR', 'FORCE', 'AWARD']
+              kind: ['CR', 'FORCE', 'AWARD'],
             },
             items: [
               {
@@ -1310,7 +1310,7 @@ describe('Officer new timeline selectors', function () {
                 'unit_description': 'District 007',
                 rank: 'Police Officer',
                 date: '2006-03-01',
-                'award_type': 'Honorable Mention'
+                'award_type': 'Honorable Mention',
               },
               {
                 'trr_id': 1,
@@ -1320,7 +1320,7 @@ describe('Officer new timeline selectors', function () {
                 'unit_description': 'District 007',
                 rank: 'Police Officer',
                 date: '2005-12-17',
-                'firearm_used': false
+                'firearm_used': false,
               },
               {
                 'trr_id': 2,
@@ -1330,14 +1330,14 @@ describe('Officer new timeline selectors', function () {
                 'unit_description': 'District 007',
                 rank: 'Police Officer',
                 date: '2005-03-17',
-                'firearm_used': false
+                'firearm_used': false,
               },
               {
                 'unit_name': '007',
                 kind: 'UNIT_CHANGE',
                 'unit_description': 'District 007',
                 rank: 'Police Officer',
-                date: '2005-01-07'
+                date: '2005-01-07',
               },
               {
                 'trr_id': 3,
@@ -1347,7 +1347,7 @@ describe('Officer new timeline selectors', function () {
                 'unit_description': 'Mobile Strike Force',
                 rank: 'Police Officer',
                 date: '2004-12-17',
-                'firearm_used': true
+                'firearm_used': true,
               },
               {
                 category: 'Illegal Search',
@@ -1369,8 +1369,8 @@ describe('Officer new timeline selectors', function () {
                     title: 'CRID 294088 CR',
                     'file_type': 'document',
                     'id': '123456',
-                  }
-                ]
+                  },
+                ],
               },
               {
                 category: 'Criminal Misconduct',
@@ -1383,14 +1383,14 @@ describe('Officer new timeline selectors', function () {
                 date: '2003-02-17',
                 coaccused: 4,
                 finding: 'Unfounded',
-                outcome: 'No Action Taken'
+                outcome: 'No Action Taken',
               },
               {
                 'unit_name': '153',
                 kind: 'UNIT_CHANGE',
                 'unit_description': 'Mobile Strike Force',
                 rank: 'Police Officer',
-                date: '2000-04-28'
+                date: '2000-04-28',
               },
               {
                 'unit_name': '153',
@@ -1410,18 +1410,18 @@ describe('Officer new timeline selectors', function () {
                 date: '2000-02-17',
                 coaccused: 4,
                 finding: 'Unfounded',
-                outcome: 'No Action Taken'
+                outcome: 'No Action Taken',
               },
               {
                 'unit_name': '044',
                 kind: 'JOINED',
                 'unit_description': 'Recruit Training Section',
                 rank: 'Detective',
-                date: '2000-02-05'
-              }
-            ]
-          }
-        }
+                date: '2000-02-05',
+              },
+            ],
+          },
+        },
       };
 
       newTimelineItemsSelector(state).should.eql([
@@ -1437,7 +1437,7 @@ describe('Officer new timeline selectors', function () {
           key: '0-YEAR-2006',
           isAfterRankChange: false,
           isAfterUnitChange: false,
-          hasFirstChangedItem: false
+          hasFirstChangedItem: false,
         },
         {
           year: 2006,
@@ -1465,7 +1465,7 @@ describe('Officer new timeline selectors', function () {
           key: '1-YEAR-2005',
           isAfterRankChange: false,
           isAfterUnitChange: false,
-          hasFirstChangedItem: false
+          hasFirstChangedItem: false,
         },
         {
           trrId: 1,
@@ -1524,7 +1524,7 @@ describe('Officer new timeline selectors', function () {
           key: '4-YEAR-2004-EMPTY',
           isAfterRankChange: false,
           isAfterUnitChange: false,
-          hasFirstChangedItem: false
+          hasFirstChangedItem: false,
         },
         {
           date: '2004',
@@ -1538,7 +1538,7 @@ describe('Officer new timeline selectors', function () {
           key: '4-YEAR-2004',
           isAfterRankChange: false,
           isAfterUnitChange: false,
-          hasFirstChangedItem: false
+          hasFirstChangedItem: false,
         },
         {
           trrId: 3,
@@ -1567,7 +1567,7 @@ describe('Officer new timeline selectors', function () {
           key: '5-YEAR-2003',
           isAfterRankChange: false,
           isAfterUnitChange: false,
-          hasFirstChangedItem: false
+          hasFirstChangedItem: false,
         },
         {
           attachments: [
@@ -1578,7 +1578,7 @@ describe('Officer new timeline selectors', function () {
               url: 'https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html',
               fileType: 'document',
               id: '123456',
-            }
+            },
           ],
           category: 'Illegal Search',
           coaccused: 8,
@@ -1628,7 +1628,7 @@ describe('Officer new timeline selectors', function () {
           key: '7-YEAR-2002',
           isAfterRankChange: false,
           isAfterUnitChange: false,
-          hasFirstChangedItem: false
+          hasFirstChangedItem: false,
         },
         {
           date: '2001',
@@ -1642,7 +1642,7 @@ describe('Officer new timeline selectors', function () {
           key: '7-YEAR-2001',
           isAfterRankChange: false,
           isAfterUnitChange: false,
-          hasFirstChangedItem: false
+          hasFirstChangedItem: false,
         },
         {
           date: '2000',
@@ -1656,7 +1656,7 @@ describe('Officer new timeline selectors', function () {
           key: '7-YEAR-2000',
           isAfterRankChange: false,
           isAfterUnitChange: true,
-          hasFirstChangedItem: true
+          hasFirstChangedItem: true,
         },
         {
           date: 'APR 28',
@@ -1718,7 +1718,7 @@ describe('Officer new timeline selectors', function () {
           key: 10,
           isAfterRankChange: false,
           isAfterUnitChange: false,
-        }
+        },
       ])
       ;
     });
@@ -1737,7 +1737,7 @@ describe('Officer new timeline selectors', function () {
                 'unit_description': 'District 007',
                 rank: 'Police Officer',
                 date: '2006-03-01',
-                'award_type': 'Honorable Mention'
+                'award_type': 'Honorable Mention',
               },
               {
                 'trr_id': 1,
@@ -1747,7 +1747,7 @@ describe('Officer new timeline selectors', function () {
                 'unit_description': 'District 007',
                 rank: 'Police Officer',
                 date: '2005-12-17',
-                'firearm_used': false
+                'firearm_used': false,
               },
               {
                 'trr_id': 2,
@@ -1757,14 +1757,14 @@ describe('Officer new timeline selectors', function () {
                 'unit_description': 'District 007',
                 rank: 'Police Officer',
                 date: '2005-03-17',
-                'firearm_used': false
+                'firearm_used': false,
               },
               {
                 'unit_name': '007',
                 kind: 'UNIT_CHANGE',
                 'unit_description': 'District 007',
                 rank: 'Police Officer',
-                date: '2005-01-07'
+                date: '2005-01-07',
               },
               {
                 'trr_id': 3,
@@ -1774,7 +1774,7 @@ describe('Officer new timeline selectors', function () {
                 'unit_description': 'Mobile Strike Force',
                 rank: 'Police Officer',
                 date: '2004-12-17',
-                'firearm_used': true
+                'firearm_used': true,
               },
               {
                 category: 'Illegal Search',
@@ -1795,8 +1795,8 @@ describe('Officer new timeline selectors', function () {
                       'https://assets.documentcloud.org/documents/3518950/pages/CRID-294088-CR-p1-normal.gif',
                     title: 'CRID 294088 CR',
                     'file_type': 'document',
-                  }
-                ]
+                  },
+                ],
               },
               {
                 category: 'Criminal Misconduct',
@@ -1809,14 +1809,14 @@ describe('Officer new timeline selectors', function () {
                 date: '2003-02-17',
                 coaccused: 4,
                 finding: 'Unfounded',
-                outcome: 'No Action Taken'
+                outcome: 'No Action Taken',
               },
               {
                 'unit_name': '153',
                 kind: 'UNIT_CHANGE',
                 'unit_description': 'Mobile Strike Force',
                 rank: 'Police Officer',
-                date: '2000-04-28'
+                date: '2000-04-28',
               },
               {
                 'unit_name': '153',
@@ -1836,18 +1836,18 @@ describe('Officer new timeline selectors', function () {
                 date: '2000-02-17',
                 coaccused: 4,
                 finding: 'Unfounded',
-                outcome: 'No Action Taken'
+                outcome: 'No Action Taken',
               },
               {
                 'unit_name': '044',
                 kind: 'JOINED',
                 'unit_description': 'Recruit Training Section',
                 rank: 'Detective',
-                date: '2000-02-05'
-              }
-            ]
-          }
-        }
+                date: '2000-02-05',
+              },
+            ],
+          },
+        },
       };
       filterCount(state).should.eql({
         'CRS': 3,
@@ -1860,5 +1860,4 @@ describe('Officer new timeline selectors', function () {
     });
   });
 });
-
 

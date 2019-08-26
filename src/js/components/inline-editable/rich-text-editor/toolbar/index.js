@@ -14,7 +14,7 @@ class Toolbar extends Component {
     super(props);
     this.state = {
       linkActive: false,
-      urlInputValue: ''
+      urlInputValue: '',
     };
     this.position = {};
     this.urlInputHasFocus = false;
@@ -98,7 +98,7 @@ class Toolbar extends Component {
     if (rect !== null) {
       this.position = {
         top: `${rect.top - 60 - parentTop}px`,
-        left: `${rect.left - parentLeft + (rect.width - 150) / 2}px`
+        left: `${rect.left - parentLeft + (rect.width - 150) / 2}px`,
       };
     }
     return this.position;
@@ -194,7 +194,7 @@ Toolbar.propTypes = {
   parentLeft: PropTypes.number,
   parentTop: PropTypes.number,
   onFocus: PropTypes.func,
-  onBlur: PropTypes.func
+  onBlur: PropTypes.func,
 };
 
 export default Toolbar;

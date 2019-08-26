@@ -8,12 +8,12 @@ import LogFileModalContent from 'components/generic-modal/log-file-modal-content
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    crawler: currentCrawler(state)
+    crawler: currentCrawler(state),
   };
 };
 
 const mapDispatchToProps = {
-  closeModal
+  closeModal,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LogFileModalContent);

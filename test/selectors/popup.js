@@ -19,12 +19,12 @@ describe('popup selector', function () {
       popupSelector(state).should.eql({
         'unit': {
           title: 'Unit',
-          text: 'Some unit explanation'
+          text: 'Some unit explanation',
         },
         'rank': {
           title: 'Rank',
-          text: 'Some rank explanation'
-        }
+          text: 'Some rank explanation',
+        },
       });
     });
   });

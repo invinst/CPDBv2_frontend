@@ -111,7 +111,7 @@ describe('Recent Document components', function () {
     stubOnTrackingAttachment.should.be.calledWith({
       attachmentId: '789',
       sourcePage: 'Landing Page',
-      app: 'Frontend'
+      app: 'Frontend',
     });
   });
 });

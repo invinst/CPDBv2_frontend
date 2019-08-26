@@ -1,7 +1,7 @@
 export const svgStyle = {
   width: '20px',
   height: '20px',
-  margin: '0 auto'
+  margin: '0 auto',
 };
 
 export const pathStyle = {
@@ -9,5 +9,5 @@ export const pathStyle = {
   strokeDashoffset: '13.1522',
   stroke: '#A52929',
   strokeLinecap: 'round',
-  strokeWidth: 4
+  strokeWidth: 4,
 };

@@ -5,22 +5,22 @@ const baseStyle = {
   float: 'right',
   borderRadius: '2px',
   height: '18px',
-  padding: '4px 9px'
+  padding: '4px 9px',
 };
 
 export const buttonStyle = {
   base: {
     ...baseStyle,
-    color: accentColor
+    color: accentColor,
   },
   hover: {
     ...baseStyle,
     color: accentColor,
-    backgroundColor: wildSandColor
+    backgroundColor: wildSandColor,
   },
   disabled: {
     ...baseStyle,
     color: mediumGrayColor,
-    cursor: 'default'
-  }
+    cursor: 'default',
+  },
 };

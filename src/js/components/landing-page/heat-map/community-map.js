@@ -9,7 +9,7 @@ export default class CommunityMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hoverCommunity: 0
+      hoverCommunity: 0,
     };
     this.renderMap = this.renderMap.bind(this);
   }
@@ -32,17 +32,17 @@ export default class CommunityMap extends Component {
         center={ center }
         onClick={ [
           [() => selectCommunity(0)],
-          ['community-fill', e => selectCommunity(e.features[0].properties.id)]
+          ['community-fill', e => selectCommunity(e.features[0].properties.id)],
         ] }
         onMouseMove={ [
-          ['community-fill', e => this.setState({ hoverCommunity: e.features[0].properties.id })]
+          ['community-fill', e => this.setState({ hoverCommunity: e.features[0].properties.id })],
         ] }
         onMouseLeave={ [
-          ['community-fill', e => this.setState({ hoverCommunity: 0 })]
+          ['community-fill', e => this.setState({ hoverCommunity: 0 })],
         ] }
         filters={ [
           ['community-select', ['==', 'id', communityId]],
-          ['community-hover', ['==', 'id', hoverCommunity]]
+          ['community-hover', ['==', 'id', hoverCommunity]],
         ] }
         sources={ [
           { name: 'cluster', type: 'geojson', data: clusterSource },
@@ -59,14 +59,14 @@ export default class CommunityMap extends Component {
                 type: 'exponential',
                 stops: [
                   [0, 0],
-                  [5000, 1]
-                ]
+                  [5000, 1],
+                ],
               },
               'heatmap-intensity': {
                 stops: [
                   [9, 20],
-                  [17, 100]
-                ]
+                  [17, 100],
+                ],
               },
               'heatmap-color': [
                 'interpolate',
@@ -77,22 +77,22 @@ export default class CommunityMap extends Component {
                 0.4, 'rgba(0,255,255, 0.5)',
                 0.6, 'rgba(0, 255, 0, 0.6)',
                 0.8, 'rgba(255, 255, 0, 0.7)',
-                1.0, 'rgba(255, 0, 0, 0.8)'
+                1.0, 'rgba(255, 0, 0, 0.8)',
               ],
               'heatmap-radius': {
                 stops: [
                   [9, 14],
-                  [17, 20]
-                ]
+                  [17, 20],
+                ],
               },
               'heatmap-opacity': {
                 default: 1,
                 stops: [
                   [9, 1],
-                  [17, 1]
-                ]
+                  [17, 1],
+                ],
               },
-            }
+            },
           },
           {
             id: 'community-hover',
@@ -100,9 +100,9 @@ export default class CommunityMap extends Component {
             source: 'community',
             paint: {
               'fill-color': '#007991',
-              'fill-opacity': 0.3
+              'fill-opacity': 0.3,
             },
-            filter: ['==', 'id', '']
+            filter: ['==', 'id', ''],
           },
           {
             id: 'community-select',
@@ -110,9 +110,9 @@ export default class CommunityMap extends Component {
             source: 'community',
             paint: {
               'fill-color': '#007991',
-              'fill-opacity': 0.5
+              'fill-opacity': 0.5,
             },
-            filter: ['==', 'id', '']
+            filter: ['==', 'id', ''],
           },
           {
             id: 'community-outline',
@@ -120,8 +120,8 @@ export default class CommunityMap extends Component {
             source: 'community',
             paint: {
               'line-color': '#007991',
-              'line-opacity': 0.8
-            }
+              'line-opacity': 0.8,
+            },
           },
           {
             id: 'community-fill',
@@ -129,9 +129,9 @@ export default class CommunityMap extends Component {
             source: 'community',
             paint: {
               'fill-color': '#007991',
-              'fill-opacity': 0
-            }
-          }
+              'fill-opacity': 0,
+            },
+          },
         ] }
       />
     );
@@ -164,13 +164,13 @@ CommunityMap.propTypes = {
   selectCommunity: PropTypes.func,
   communitySource: PropTypes.object,
   communityId: PropTypes.number,
-  clusterSource: PropTypes.object
+  clusterSource: PropTypes.object,
 };
 
 CommunityMap.defaultProps = {
   selectCommunity: () => {},
   communitySource: {
     type: 'FeatureCollection',
-    features: []
-  }
+    features: [],
+  },
 };

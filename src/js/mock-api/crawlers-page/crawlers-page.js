@@ -12,7 +12,7 @@ export const getCrawlersData = () => ({
       'num_new_documents': 0,
       'recent_run_at': '2019-02-20',
       'num_successful_run': 12,
-      'log_url': 'https://lvh.me/cpdp-crawler-logs-develop/summary_reports_copa-2019-02-27-100330.txt'
+      'log_url': 'https://lvh.me/cpdp-crawler-logs-develop/summary_reports_copa-2019-02-27-100330.txt',
     },
     {
       'id': 110,
@@ -166,7 +166,7 @@ export const getCrawlersData = () => ({
       'recent_run_at': '2018-12-14',
       'num_successful_run': 6,
     },
-  ]
+  ],
 });
 
 export const getNextCrawlersData = () => ({
@@ -214,6 +214,6 @@ export const getNextCrawlersData = () => ({
       'recent_run_at': '2018-11-29',
       'num_successful_run': 1,
     },
-  ]
+  ],
 });
 

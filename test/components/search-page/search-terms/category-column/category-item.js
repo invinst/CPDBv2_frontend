@@ -4,7 +4,7 @@ import {
   findRenderedDOMComponentWithClass,
   findRenderedComponentWithType,
   renderIntoDocument,
-  Simulate
+  Simulate,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
@@ -42,7 +42,7 @@ describe('CategoryItem component', function () {
           isFocused={ false }
           itemUniqueKey='police-beat'
           item={ {
-            name: 'Police beat'
+            name: 'Police beat',
           } }/>
       );
       const catitem = findRenderedComponentWithType(instance, CategoryItem);
@@ -57,7 +57,7 @@ describe('CategoryItem component', function () {
           isFocused={ false }
           itemUniqueKey='police-beat'
           item={ {
-            name: 'Police beat'
+            name: 'Police beat',
           } }/>
       );
       const catitem = findRenderedComponentWithType(instance, CategoryItem);
@@ -66,8 +66,8 @@ describe('CategoryItem component', function () {
         isFocused: false,
         itemUniqueKey: 'police-beat',
         item: {
-          name: 'Police beat'
-        }
+          name: 'Police beat',
+        },
       }).should.be.false();
     });
   });

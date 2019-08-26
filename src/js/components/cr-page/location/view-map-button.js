@@ -24,11 +24,11 @@ class ViewMapButton extends Component {
 ViewMapButton.propTypes = {
   lng: PropTypes.number,
   lat: PropTypes.number,
-  zoom: PropTypes.number
+  zoom: PropTypes.number,
 };
 
 ViewMapButton.defaultProps = {
-  zoom: 10
+  zoom: 10,
 };
 
 export default ViewMapButton;

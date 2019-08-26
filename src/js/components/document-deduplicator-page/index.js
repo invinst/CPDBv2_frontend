@@ -12,7 +12,7 @@ export default class DocumentDeduplicatorPage extends Component {
       setDocumentShow,
       hasMore,
       nextParams,
-      fetchDocumentsByCRID
+      fetchDocumentsByCRID,
     } = this.props;
 
     return (
@@ -34,5 +34,5 @@ DocumentDeduplicatorPage.propTypes = {
   setDocumentShow: PropTypes.func,
   hasMore: PropTypes.bool,
   nextParams: PropTypes.object,
-  fetchDocumentsByCRID: PropTypes.func
+  fetchDocumentsByCRID: PropTypes.func,
 };

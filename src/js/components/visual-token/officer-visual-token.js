@@ -17,5 +17,5 @@ export default class OfficerVisualToken extends Component {
 
 OfficerVisualToken.propTypes = {
   backgroundColor: PropTypes.string,
-  style: PropTypes.object
+  style: PropTypes.object,
 };

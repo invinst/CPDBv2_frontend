@@ -7,25 +7,25 @@ export const wrapperStyle = {
   boxSizing: 'border-box',
   height: '264.5px',
   position: 'relative',
-  color: softBlackColor
+  color: softBlackColor,
 };
 
 export const wrapperHoverStyle = {
   cursor: 'pointer',
   ':hover': {
-    color: accentColor
-  }
+    color: accentColor,
+  },
 };
 
 export const contentStyle = {
   overflow: 'hidden',
-  height: 'calc(100% - 17.5px)'
+  height: 'calc(100% - 17.5px)',
 };
 
 export const tabletWrapperStyle = {
-  height: '128px'
+  height: '128px',
 };
 
 export const extraWideWrapperStyle = {
-  height: '320px'
+  height: '320px',
 };

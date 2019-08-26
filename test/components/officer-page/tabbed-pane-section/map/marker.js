@@ -60,14 +60,14 @@ describe('Marker component', function () {
   it('should toggle popup and set zIndex when hovering', function () {
     const stubMapboxMarker = {
       getPopup: stub().returns({
-        isOpen: stub().returns(false)
+        isOpen: stub().returns(false),
       }),
       togglePopup: stub(),
       getElement: stub().returns({
         style: {
-          zIndex: 'auto'
-        }
-      })
+          zIndex: 'auto',
+        },
+      }),
     };
     //default
     instance = renderIntoDocument(
@@ -96,14 +96,14 @@ describe('Marker component', function () {
   it('should toggle popup and set zIndex when unhovering', function () {
     const stubMapboxMarker = {
       getPopup: stub().returns({
-        isOpen: stub().returns(true)
+        isOpen: stub().returns(true),
       }),
       togglePopup: stub(),
       getElement: stub().returns({
         style: {
-          zIndex: 'auto'
-        }
-      })
+          zIndex: 'auto',
+        },
+      }),
     };
     //default
     instance = renderIntoDocument(

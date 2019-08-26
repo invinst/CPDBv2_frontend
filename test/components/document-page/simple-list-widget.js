@@ -39,7 +39,7 @@ describe('SimpleListWidget component', function () {
             name: 'Source',
             value: 'chicagocopa.org',
             tooltip: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf',
-            url: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf'
+            url: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf',
           },
         ] }
       />

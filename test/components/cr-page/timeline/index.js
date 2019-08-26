@@ -22,13 +22,13 @@ describe('Timeline component', function () {
     circles.props.should.eql({
       startDate: '2012-12-12',
       endDate: '2013-12-12',
-      incidentDate: '2011-12-12'
+      incidentDate: '2011-12-12',
     });
     const text = findRenderedComponentWithType(instance, TimelineText);
     text.props.should.eql({
       startDate: '2012-12-12',
       endDate: '2013-12-12',
-      incidentDate: '2011-12-12'
+      incidentDate: '2011-12-12',
     });
   });
 });

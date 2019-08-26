@@ -7,7 +7,7 @@ describe('Page loading actions', function () {
     it('should return correct payload', function () {
       pageLoadStart().should.eql({
         type: constants.PAGE_LOAD_START,
-        payload: undefined
+        payload: undefined,
       });
     });
   });
@@ -16,7 +16,7 @@ describe('Page loading actions', function () {
     it('should return correct payload', function () {
       pageLoadFinish().should.eql({
         type: constants.PAGE_LOAD_FINISH,
-        payload: undefined
+        payload: undefined,
       });
     });
   });

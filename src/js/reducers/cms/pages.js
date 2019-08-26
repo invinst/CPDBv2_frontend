@@ -13,18 +13,18 @@ const transformPageObject = obj => ({
   fields: zipObject(
     map(obj.fields, field => field.name),
     obj.fields
-  )
+  ),
 });
 
 const pages = handleActions({
   [CMS_PAGE_REQUEST_SUCCESS]: (state, action) => ({
     ...state,
-    [getCmsPage(action.request.url)]: transformPageObject(action.payload)
+    [getCmsPage(action.request.url)]: transformPageObject(action.payload),
   }),
   [UPDATE_CMS_PAGE_REQUEST_SUCCESS]: (state, action) => ({
     ...state,
-    [getCmsPage(action.request.url)]: transformPageObject(action.payload)
-  })
+    [getCmsPage(action.request.url)]: transformPageObject(action.payload),
+  }),
 }, {});
 
 export default pages;

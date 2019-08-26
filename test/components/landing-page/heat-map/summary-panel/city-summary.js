@@ -18,19 +18,19 @@ describe('CitySummary component', function () {
     const mostCommonComplaints = [
       {
         name: 'failure to provide service',
-        count: 3
+        count: 3,
       },
       {
         name: 'search of premise without warrant',
-        count: 2
+        count: 2,
       },
       {
         name: 'excessive force',
-        count: 1
-      }
+        count: 1,
+      },
     ];
     const citySummary = {
-      mostCommonComplaints
+      mostCommonComplaints,
     };
 
     instance = renderIntoDocument(<CitySummary citySummary={ citySummary } />);

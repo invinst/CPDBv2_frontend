@@ -9,14 +9,14 @@ describe('Document deduplicator page pagination reducer', function () {
 
   it('should handle DOCUMENT_DEDUPLICATOR_REQUEST_SUCCESS', function () {
     pagination({
-      next: 'https://api.com/docs/?limit=20&offset=40'
+      next: 'https://api.com/docs/?limit=20&offset=40',
     }, {
       type: constants.DOCUMENT_DEDUPLICATOR_REQUEST_SUCCESS,
       payload: {
-        next: 'https://api.com/docs/?limit=20&&offset=60'
-      }
+        next: 'https://api.com/docs/?limit=20&&offset=60',
+      },
     }).should.deepEqual({
-      next: 'https://api.com/docs/?limit=20&&offset=60'
+      next: 'https://api.com/docs/?limit=20&&offset=60',
     });
   });
 });

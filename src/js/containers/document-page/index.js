@@ -6,7 +6,7 @@ import {
   documentSelector,
   getTitleEditModeOn,
   getTextContentEditModeOn,
-  documentEditableFieldsSelector
+  documentEditableFieldsSelector,
 } from 'selectors/document-page';
 import { updateDocument } from 'actions/document-page';
 import { isSignedIn } from 'selectors/log-out';
@@ -14,7 +14,7 @@ import {
   turnOnDocumentPageTitleEditMode,
   turnOffDocumentPageTitleEditMode,
   turnOnDocumentTextContentEditMode,
-  turnOffDocumentTextContentEditMode
+  turnOffDocumentTextContentEditMode,
 } from 'actions/document-page';
 
 
@@ -48,21 +48,21 @@ const editWrapperStateProps = (stateProps, dispatchProps, ownProps) => {
       'turnOnDocumentPageTitleEditMode',
       'turnOffDocumentPageTitleEditMode',
       'turnOnDocumentTextContentEditMode',
-      'turnOffDocumentTextContentEditMode'
+      'turnOffDocumentTextContentEditMode',
     ]),
     titleEditWrapperStateProps: {
       fields: stateProps.editableFields,
       sectionEditModeOn: stateProps.titleEditModeOn,
       onSaveForm: dispatchProps.onSaveFormTitle,
       turnOnSectionEditMode: dispatchProps.turnOnDocumentPageTitleEditMode,
-      turnOffSectionEditMode: dispatchProps.turnOffDocumentPageTitleEditMode
+      turnOffSectionEditMode: dispatchProps.turnOffDocumentPageTitleEditMode,
     },
     textContentEditWrapperStateProps: {
       fields: stateProps.editableFields,
       sectionEditModeOn: stateProps.textContentEditModeOn,
       onSaveForm: dispatchProps.onSaveFormContent,
       turnOnSectionEditMode: dispatchProps.turnOnDocumentTextContentEditMode,
-      turnOffSectionEditMode: dispatchProps.turnOffDocumentTextContentEditMode
+      turnOffSectionEditMode: dispatchProps.turnOffDocumentTextContentEditMode,
     },
   };
 };

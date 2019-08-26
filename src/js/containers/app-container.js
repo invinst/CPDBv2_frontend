@@ -21,7 +21,7 @@ const mapDispatchToProps = {
   receiveTokenFromCookie,
   toggleEditMode,
   toggleSearchMode,
-  changeSearchQuery
+  changeSearchQuery,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

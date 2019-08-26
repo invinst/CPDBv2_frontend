@@ -46,7 +46,7 @@ HoverableLink.propTypes = {
   hovering: PropTypes.bool,
   style: PropTypes.object,
   className: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default Hoverable(HoverableLink);

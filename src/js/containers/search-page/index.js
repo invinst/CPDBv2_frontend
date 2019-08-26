@@ -10,14 +10,14 @@ import {
   trackRecentSuggestion,
   resetNavigation as resetSearchResultNavigation,
   changeSearchQuery,
-  getSuggestionWithContentType
+  getSuggestionWithContentType,
 } from 'actions/search-page';
 import {
-  requestSearchTermCategories, resetNavigation as resetSearchTermNavigation
+  requestSearchTermCategories, resetNavigation as resetSearchTermNavigation,
 } from 'actions/search-page/search-terms';
 import { getFocusedItem } from 'selectors/search-page';
 import {
-  suggestionTagsSelector, isEmptySelector, firstItemSelector
+  suggestionTagsSelector, isEmptySelector, firstItemSelector,
 } from 'selectors/search-page/search-results/suggestion-groups';
 import { hiddenSelector } from 'selectors/search-page/search-terms';
 import { singleCardsSelector } from 'selectors/landing-page/activity-grid';
@@ -27,7 +27,7 @@ import editModeOnSelector from 'selectors/edit-mode-on';
 
 function mapStateToProps(state, ownProps) {
   const {
-    contentType, recentSuggestions, query, isRequesting
+    contentType, recentSuggestions, query, isRequesting,
   } = state.searchPage;
   const { children } = ownProps;
   const focusedItem = getFocusedItem(state);
@@ -44,7 +44,7 @@ function mapStateToProps(state, ownProps) {
     officerCards: singleCardsSelector(state),
     editModeOn: editModeOnSelector(state, ownProps),
     searchTermsHidden: hiddenSelector(state),
-    firstItem: firstItemSelector(state)
+    firstItem: firstItemSelector(state),
   };
 }
 
@@ -59,7 +59,7 @@ const mapDispatchToProps = {
   requestActivityGrid,
   requestSearchTermCategories,
   pushBreadcrumbs,
-  resetSearchTermNavigation
+  resetSearchTermNavigation,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchPage));

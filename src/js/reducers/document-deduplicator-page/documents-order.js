@@ -13,13 +13,13 @@ export default handleActions({
       if (state.crid === cridVal) {
         return {
           data: state.data.concat(docIds),
-          crid: cridVal
+          crid: cridVal,
         };
       }
 
       return {
         data: docIds,
-        crid: cridVal
+        crid: cridVal,
       };
-    }
+    },
 }, { data: [], crid: '' });

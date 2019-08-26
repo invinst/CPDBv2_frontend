@@ -10,7 +10,7 @@ class RichTextToolbar extends Section {
       boldButton: '.test--rich-text-bold',
       italicButton: '.test--rich-text-italic',
       linkButton: '.test--rich-text-link',
-      urlInput: '.test--toolbar-url-input'
+      urlInput: '.test--toolbar-url-input',
     });
   }
 }

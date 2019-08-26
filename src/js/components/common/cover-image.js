@@ -19,7 +19,7 @@ class CoverImage extends React.Component {
 
 CoverImage.propTypes = {
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  src: PropTypes.string
+  src: PropTypes.string,
 };
 
 export default ConfiguredRadium(CoverImage);

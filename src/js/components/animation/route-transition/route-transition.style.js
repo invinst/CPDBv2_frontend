@@ -8,5 +8,5 @@ export const overlayStyle = ({
   height: '100%',
   width: '100%',
   backgroundColor: snowColor,
-  zIndex: 1000
+  zIndex: 1000,
 });

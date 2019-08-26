@@ -11,7 +11,7 @@ export default class SummaryPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showDropdown: false
+      showDropdown: false,
     };
   }
 
@@ -58,5 +58,5 @@ export default class SummaryPanel extends Component {
 SummaryPanel.propTypes = {
   communityId: PropTypes.number,
   selectCommunity: PropTypes.func,
-  communities: PropTypes.array
+  communities: PropTypes.array,
 };

@@ -13,16 +13,16 @@ describe('AttachmentRequest reducer', function () {
         type: CR_REQUEST_DOC_SUCCESS,
         payload: {
           crid: 12,
-          message: 'Dummy message'
-        }
+          message: 'Dummy message',
+        },
       }).should.be.eql({ 12: true });
 
       subscribedCRIDs({ 13: true }, {
         type: CR_REQUEST_DOC_SUCCESS,
         payload: {
           crid: 12,
-          message: 'Dummy message'
-        }
+          message: 'Dummy message',
+        },
       }).should.be.eql({ 12: true, 13: true });
     });
   });

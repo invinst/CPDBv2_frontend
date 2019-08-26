@@ -46,7 +46,7 @@ export default class OfficerSection extends Component {
       }, {
         title: 'in uniform',
         value: officer.inUniform ? 'Yes' : 'No',
-      }
+      },
     ];
     const rows = chunk(officerData, 2);
 

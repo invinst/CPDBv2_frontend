@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   renderIntoDocument,
-  findRenderedComponentWithType
+  findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 import { unmountComponentSuppressError } from 'utils/test';
 import { stub } from 'sinon';
@@ -20,7 +20,7 @@ describe('Embed top officers page', function () {
       officersByAllegation: { cards: [] },
     },
     cms: {
-      pages: {}
+      pages: {},
     },
   });
   let instance;

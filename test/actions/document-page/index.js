@@ -19,7 +19,7 @@ import {
   UPDATE_DOCUMENT_PAGE_REQUEST_FAILURE,
   TURN_OFF_DOCUMENT_TITLE_EDIT_MODE,
   TURN_ON_DOCUMENT_TEXT_CONTENT_EDIT_MODE,
-  TURN_OFF_DOCUMENT_TEXT_CONTENT_EDIT_MODE
+  TURN_OFF_DOCUMENT_TEXT_CONTENT_EDIT_MODE,
 } from 'utils/constants';
 import * as GA from 'utils/google_analytics_tracking';
 
@@ -36,8 +36,8 @@ describe('DocumentPage actions', function () {
             adapter: null,
             headers: {},
             cancelToken: undefined,
-          }
-        }
+          },
+        },
       });
     });
   });
@@ -48,12 +48,12 @@ describe('DocumentPage actions', function () {
         fields: [
           { type: 'number', key: 'id', value: 123 },
           { type: 'string', key: 'title', value: 'new title' },
-        ]
+        ],
       }).should.eql({
         types: [
           UPDATE_DOCUMENT_PAGE_REQUEST_START,
           UPDATE_DOCUMENT_PAGE_REQUEST_SUCCESS,
-          UPDATE_DOCUMENT_PAGE_REQUEST_FAILURE
+          UPDATE_DOCUMENT_PAGE_REQUEST_FAILURE,
         ],
         payload: {
           request: {
@@ -65,8 +65,8 @@ describe('DocumentPage actions', function () {
             method: 'patch',
             adapter: null,
             headers: {},
-          }
-        }
+          },
+        },
       });
     });
 

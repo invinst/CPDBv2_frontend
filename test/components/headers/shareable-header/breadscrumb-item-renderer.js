@@ -2,7 +2,7 @@ import React from 'react';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
-  findRenderedDOMComponentWithTag
+  findRenderedDOMComponentWithTag,
 } from 'react-addons-test-utils';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
@@ -19,9 +19,9 @@ describe('BreadcrumbsItem component', function () {
     return mockStore({
       headers: {
         shareableHeader: {
-          scrollPosition: position
-        }
-      }
+          scrollPosition: position,
+        },
+      },
     });
   }
 

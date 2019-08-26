@@ -15,22 +15,22 @@ describe('redirectOfficerAliasMiddleware', function () {
           breadcrumbs: [
             {
               location: {
-                pathname: '/'
+                pathname: '/',
               },
-              params: {}
+              params: {},
             },
             {
               location: {
-                pathname
+                pathname,
               },
-              params: {}
-            }
-          ]
+              params: {},
+            },
+          ],
         },
         pathname: pathname,
       };
     },
-    dispatch: stub().usingPromise(Promise).resolves('abc')
+    dispatch: stub().usingPromise(Promise).resolves('abc'),
   });
 
   it('should redirect to correct officer if there is officer alias on OFFICER_SUMMARY_REQUEST_SUCCESS', function () {
@@ -38,7 +38,7 @@ describe('redirectOfficerAliasMiddleware', function () {
     const summaryRequestAction = {
       type: OFFICER_SUMMARY_REQUEST_SUCCESS,
       request: { url: '/officer/123/' },
-      payload: { 'full_name': 'Peter Parker', id: 456 }
+      payload: { 'full_name': 'Peter Parker', id: 456 },
     };
 
     redirectOfficerAliasMiddleware(store)(action => action)(summaryRequestAction);
@@ -46,21 +46,21 @@ describe('redirectOfficerAliasMiddleware', function () {
       breadcrumbs: [
         {
           location: {
-            pathname: '/'
+            pathname: '/',
           },
-          params: {}
+          params: {},
         },
         {
           location: {
-            pathname: '/officer/456/peter-parker/'
+            pathname: '/officer/456/peter-parker/',
           },
           params: {
             officerId: 456,
-            fullName: 'peter-parker'
+            fullName: 'peter-parker',
           },
-          url: '/officer/456/peter-parker/'
-        }
-      ]
+          url: '/officer/456/peter-parker/',
+        },
+      ],
     })).should.be.true();
   });
 
@@ -69,9 +69,9 @@ describe('redirectOfficerAliasMiddleware', function () {
       type: '@@redux-breadcrumb-trail/PUSH',
       payload: {
         params: {
-          officerId: '456'
-        }
-      }
+          officerId: '456',
+        },
+      },
     };
     redirectOfficerAliasMiddleware({})(action => action)(action);
 
@@ -83,9 +83,9 @@ describe('redirectOfficerAliasMiddleware', function () {
       type: '@@redux-breadcrumb-trail/PUSH',
       payload: {
         params: {
-          crid: '456'
-        }
-      }
+          crid: '456',
+        },
+      },
     };
     redirectOfficerAliasMiddleware({})(action => action)(action);
 
@@ -97,7 +97,7 @@ describe('redirectOfficerAliasMiddleware', function () {
     const summaryRequestAction = {
       type: OFFICER_SUMMARY_REQUEST_SUCCESS,
       request: { url: '/officer/123/' },
-      payload: { 'full_name': 'Peter Parker', id: 123 }
+      payload: { 'full_name': 'Peter Parker', id: 123 },
     };
 
     const mapTabStore = createStore('/officer/123/peter-parker/map/');
@@ -138,7 +138,7 @@ describe('redirectOfficerAliasMiddleware', function () {
     const summaryRequestAction = {
       type: OFFICER_SUMMARY_REQUEST_SUCCESS,
       request: { url: '/officer/123/' },
-      payload: { 'full_name': 'Peter Parker', id: 456 }
+      payload: { 'full_name': 'Peter Parker', id: 456 },
     };
 
     const storeWithoutTabName = createStore('/officer/123/peter-parker/');
@@ -153,7 +153,7 @@ describe('redirectOfficerAliasMiddleware', function () {
   it('should handle CHANGE_OFFICER_TAB action to add tab name to url', function () {
     const changeOfficeTabAction = {
       type: CHANGE_OFFICER_TAB,
-      payload: 'DOCUMENTS'
+      payload: 'DOCUMENTS',
     };
 
     const storeWithoutTabName = createStore('/officer/123/peter-parker/');

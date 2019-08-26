@@ -24,8 +24,8 @@ describe('CrawlersPage component', function () {
     const mockStore = MockStore();
     const store = mockStore({
       breadcrumb: {
-        breadcrumbs: []
-      }
+        breadcrumbs: [],
+      },
     });
     const requestCrawlersStub = stub();
     const crawlers = [{
@@ -33,19 +33,19 @@ describe('CrawlersPage component', function () {
       crawlerName: 'SUMMARY_REPORTS_COPA',
       numDocuments: 5,
       numNewDocuments: 1,
-      recentRunAt: '2019-02-20'
+      recentRunAt: '2019-02-20',
     }, {
       id: 110,
       crawlerName: 'SUMMARY_REPORTS_COPA',
       numDocuments: 7,
       numNewDocuments: 2,
-      recentRunAt: '2019-02-20'
+      recentRunAt: '2019-02-20',
     }, {
       id: 111,
       crawlerName: 'PORTAL_COPA',
       numDocuments: 15,
       numNewDocuments: 6,
-      recentRunAt: '2019-02-20'
+      recentRunAt: '2019-02-20',
     }];
     const nextParams = { limit: '20', offset: '20' };
 

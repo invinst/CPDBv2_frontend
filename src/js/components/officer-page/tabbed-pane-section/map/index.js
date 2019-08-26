@@ -96,14 +96,14 @@ Map.propTypes = {
   legend: PropTypes.shape({
     allegationCount: PropTypes.number,
     sustainedCount: PropTypes.number,
-    useOfForceCount: PropTypes.number
+    useOfForceCount: PropTypes.number,
   }),
   markers: PropTypes.oneOfType([
     PropTypes.arrayOf(
       PropTypes.shape({
         point: PropTypes.shape({
           lat: PropTypes.number,
-          lon: PropTypes.number
+          lon: PropTypes.number,
         }),
         kind: PropTypes.string,
         finding: PropTypes.string,
@@ -116,28 +116,28 @@ Map.propTypes = {
             race: PropTypes.string,
             age: PropTypes.number,
           })
-        )
+        ),
       })
     ),
     PropTypes.arrayOf(
       PropTypes.shape({
         point: PropTypes.shape({
           lat: PropTypes.number,
-          lon: PropTypes.number
+          lon: PropTypes.number,
         }),
         kind: PropTypes.string,
         id: PropTypes.string,
         category: PropTypes.string,
       })
     ),
-  ])
+  ]),
 };
 
 Map.defaultProps = {
   legend: {
     allegationCount: 0,
     sustainedCount: 0,
-    useOfForceCount: 0
+    useOfForceCount: 0,
   },
-  markers: []
+  markers: [],
 };

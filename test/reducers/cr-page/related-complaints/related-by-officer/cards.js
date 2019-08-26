@@ -5,9 +5,9 @@ describe('related complaints by officer cards reducer', function () {
     cards(undefined, {}).should.eql({
       meta: {
         crPageCrid: null,
-        distance: null
+        distance: null,
       },
-      cards: []
+      cards: [],
     });
   });
 
@@ -16,19 +16,19 @@ describe('related complaints by officer cards reducer', function () {
       const action = {
         type: 'RELATED_COMPLAINTS_BY_OFFICER_REQUEST_SUCCESS',
         payload: {
-          results: ['a']
+          results: ['a'],
         },
         request: {
-          url: '/cr/123/related-complaints/?distance=10mi'
-        }
+          url: '/cr/123/related-complaints/?distance=10mi',
+        },
       };
 
       cards({ meta: {} }, action).should.eql({
         meta: {
           crPageCrid: '123',
-          distance: '10mi'
+          distance: '10mi',
         },
-        cards: ['a']
+        cards: ['a'],
       });
     });
 
@@ -36,19 +36,19 @@ describe('related complaints by officer cards reducer', function () {
       const action = {
         type: 'RELATED_COMPLAINTS_BY_OFFICER_REQUEST_SUCCESS',
         payload: {
-          results: [{ crid: 'b' }]
+          results: [{ crid: 'b' }],
         },
         request: {
-          url: '/cr/123/related-complaints/?distance=10mi'
-        }
+          url: '/cr/123/related-complaints/?distance=10mi',
+        },
       };
 
       cards({
         meta: {
           crPageCrid: '123',
-          distance: '10mi'
+          distance: '10mi',
         },
-        cards: [{ crid: 'a' }]
+        cards: [{ crid: 'a' }],
       }, action).cards.should.eql([{ crid: 'a' }, { crid: 'b' }]);
     });
   });

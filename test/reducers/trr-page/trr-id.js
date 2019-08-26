@@ -12,8 +12,8 @@ describe('trr-page trrId reducer', function () {
     const action = {
       type: '@@router/LOCATION_CHANGE',
       payload: {
-        pathname: '/trr/1/'
-      }
+        pathname: '/trr/1/',
+      },
     };
 
     trrId('some state', action).should.eql(1);
@@ -23,12 +23,11 @@ describe('trr-page trrId reducer', function () {
     const action = {
       type: '@@router/LOCATION_CHANGE',
       payload: {
-        pathname: '/wrongpath/1/'
-      }
+        pathname: '/wrongpath/1/',
+      },
     };
 
     trrId('some state', action).should.eql('some state');
   });
 });
-
 

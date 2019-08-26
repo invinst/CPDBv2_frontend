@@ -2,7 +2,7 @@ import Radium from 'radium';
 
 const pulseKeyframes = Radium.keyframes({
   '0%': { transform: 'rotate(0)' },
-  '100%': { transform: 'rotate(360deg)' }
+  '100%': { transform: 'rotate(360deg)' },
 }, 'rotate');
 
 export const svgStyle = {
@@ -10,7 +10,7 @@ export const svgStyle = {
   animationName: pulseKeyframes,
   width: '20px',
   height: '20px',
-  margin: '0 auto'
+  margin: '0 auto',
 };
 
 export const pathStyle = {
@@ -19,5 +19,5 @@ export const pathStyle = {
   strokeWidth: 4,
   fill: 'none',
   strokeDashoffset: 110.244,
-  strokeDasharray: 204.244
+  strokeDasharray: 204.244,
 };

@@ -8,11 +8,11 @@ export const navStyle = {
     fontSize: '15px',
     textDecoration: 'none',
     ':hover': {
-      color: accentColor
-    }
+      color: accentColor,
+    },
   },
 
   active: {
-    fontWeight: 'bold'
-  }
+    fontWeight: 'bold',
+  },
 };

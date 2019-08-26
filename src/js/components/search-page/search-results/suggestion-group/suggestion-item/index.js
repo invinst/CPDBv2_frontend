@@ -18,7 +18,7 @@ export default class SuggestionItem extends Component {
     const keys = [
       'isFocused',
       'aliasEditModeOn',
-      'suggestion.uniqueKey'
+      'suggestion.uniqueKey',
     ];
 
     return reduce(keys, (memo, key) => (
@@ -44,5 +44,5 @@ SuggestionItem.propTypes = {
 };
 
 SuggestionItem.defaultProps = {
-  suggestion: {}
+  suggestion: {},
 };

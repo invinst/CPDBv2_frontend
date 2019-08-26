@@ -4,7 +4,7 @@ import isMobile from 'ismobilejs';
 
 import TextInput from 'components/common/input';
 import {
-  wrapperStyle, arrowUpStyle, inputStyle, dropdownStyle, dropdownItemStyle, inputWrapperStyle
+  wrapperStyle, arrowUpStyle, inputStyle, dropdownStyle, dropdownItemStyle, inputWrapperStyle,
 } from './dropdown.style';
 import MinimalScrollBars from 'components/common/minimal-scroll-bars';
 
@@ -13,14 +13,14 @@ export default class Dropdown extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      filterText: ''
+      filterText: '',
     };
     this.filterDropdown = this.filterDropdown.bind(this);
   }
 
   filterDropdown(event) {
     this.setState({
-      filterText: event.currentTarget.value
+      filterText: event.currentTarget.value,
     });
   }
 
@@ -56,7 +56,7 @@ export default class Dropdown extends Component {
             paddingVertical={ 23 }
             paddingHorizontal={ 16 }
             keyPressHandlers={ {
-              enter: () => this.selectFirstCommunity()
+              enter: () => this.selectFirstCommunity(),
             } }
             placeholder='Select a community'
             style={ inputStyle }
@@ -85,5 +85,5 @@ export default class Dropdown extends Component {
 Dropdown.propTypes = {
   communities: PropTypes.array,
   closeDropdown: PropTypes.func,
-  selectCommunity: PropTypes.func
+  selectCommunity: PropTypes.func,
 };

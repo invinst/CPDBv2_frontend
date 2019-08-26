@@ -10,7 +10,7 @@ import {
   plusSignStyle,
   plusWrapperStyle,
   resultWrapperStyle,
-  suggestionResultsStyle
+  suggestionResultsStyle,
 } from './search-results.style';
 import SuggestionGroup from './suggestion-group';
 import SuggestionNoResult from './search-no-result';

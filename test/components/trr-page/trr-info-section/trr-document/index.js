@@ -31,13 +31,13 @@ describe('Row component', function () {
           name: 'no_attachment_text',
           value: RawContentStateFactory.build(
             {}, { blockTexts: ['There are no documents that have been made public yet.'] }
-          )
-        }
+          ),
+        },
       },
       sectionEditModeOn: false,
       onSaveForm: spy(),
       turnOnSectionEditMode: spy(),
-      turnOffSectionEditMode: spy()
+      turnOffSectionEditMode: spy(),
     };
     const openRequestTRRDocumentModal = spy();
     instance = renderIntoDocument(

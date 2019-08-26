@@ -39,7 +39,7 @@ describe('HoverableEditWrapper component', function () {
         instance = renderWithContext(
           {
             editModeOn: true,
-            sectionEditModeOn: false
+            sectionEditModeOn: false,
           },
           <HoverableEditWrapper />
         );
@@ -54,7 +54,7 @@ describe('HoverableEditWrapper component', function () {
         instance = renderWithContext(
           {
             editModeOn: true,
-            sectionEditModeOn: true
+            sectionEditModeOn: true,
           },
           <HoverableEditWrapper />
         );

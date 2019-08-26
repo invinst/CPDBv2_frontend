@@ -27,13 +27,13 @@ BackgroundColorTransition.propTypes = {
   colorIn: PropTypes.string,
   colorOut: PropTypes.string,
   children: PropTypes.node,
-  style: PropTypes.object
+  style: PropTypes.object,
 };
 
 BackgroundColorTransition.defaultProps = {
   colorIn: 'white',
   colorOut: 'black',
-  style: {}
+  style: {},
 };
 
 export default ConfiguredRadium(BackgroundColorTransition);

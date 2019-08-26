@@ -12,7 +12,7 @@ import {
   SchoolGroundPane,
   RankPane,
   SearchTermItemPane,
-  CRPane
+  CRPane,
 } from 'components/search-page/preview-pane';
 import { wrapperStyle } from './preview-pane.style';
 
@@ -66,7 +66,7 @@ export default class PreviewPane extends Component {
 
 PreviewPane.propTypes = {
   data: PropTypes.object,
-  type: PropTypes.string
+  type: PropTypes.string,
 };
 
 PreviewPane.defaultProps = {

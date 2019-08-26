@@ -28,9 +28,9 @@ export default class RecentSuggestion extends Component {
 }
 
 RecentSuggestion.defaultProps = {
-  recentSuggestions: []
+  recentSuggestions: [],
 };
 
 RecentSuggestion.propTypes = {
-  recentSuggestions: PropTypes.array
+  recentSuggestions: PropTypes.array,
 };
