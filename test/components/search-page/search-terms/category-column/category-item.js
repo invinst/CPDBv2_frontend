@@ -4,7 +4,7 @@ import {
   findRenderedDOMComponentWithClass,
   findRenderedComponentWithType,
   renderIntoDocument,
-  Simulate
+  Simulate,
 } from 'react-addons-test-utils';
 import { browserHistory } from 'react-router';
 import * as GATracking from 'utils/google_analytics_tracking';
@@ -73,7 +73,7 @@ describe('CategoryItem component', function () {
           isFocused={ false }
           itemUniqueKey='police-beat'
           item={ {
-            name: 'Police beat'
+            name: 'Police beat',
           } }/>
       );
       const catitem = findRenderedComponentWithType(instance, CategoryItem);
@@ -88,7 +88,7 @@ describe('CategoryItem component', function () {
           isFocused={ false }
           itemUniqueKey='police-beat'
           item={ {
-            name: 'Police beat'
+            name: 'Police beat',
           } }/>
       );
       const catitem = findRenderedComponentWithType(instance, CategoryItem);
@@ -97,8 +97,8 @@ describe('CategoryItem component', function () {
         isFocused: false,
         itemUniqueKey: 'police-beat',
         item: {
-          name: 'Police beat'
-        }
+          name: 'Police beat',
+        },
       }).should.be.false();
     });
   });

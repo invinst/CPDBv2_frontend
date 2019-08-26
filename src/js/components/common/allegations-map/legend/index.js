@@ -21,13 +21,13 @@ export default class Legend extends Component {
         key: 'UNSUSTAINED_COUNT',
         className: 'unsustained-complaint',
         text: 'Unsustained Complaint',
-        number: legend.unsustainedCount
+        number: legend.unsustainedCount,
       },
       {
         key: 'SUSTAINED_COUNT',
         className: 'sustained-complaint',
         text: 'Sustained Allegation',
-        number: legend.sustainedCount
+        number: legend.sustainedCount,
       },
       {
         key: 'USE_OF_FORCE_COUNT',
@@ -61,6 +61,6 @@ Legend.defaultProps = {
     allegationCount: 0,
     unsustainedCount: 0,
     sustainedCount: 0,
-    useOfForceCount: 0
+    useOfForceCount: 0,
   },
 };

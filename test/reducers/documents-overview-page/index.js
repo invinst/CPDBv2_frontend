@@ -6,12 +6,12 @@ describe('DocumentsOverviewPage reducer', function () {
     docOverviewPageReducer(undefined, {}).should.deepEqual({
       documents: {
         data: {},
-        match: ''
+        match: '',
       },
       pagination: {},
       documentsOrder: {
         data: [],
-        match: ''
+        match: '',
       },
     });
   });

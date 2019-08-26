@@ -6,7 +6,7 @@ import {
   scryRenderedComponentsWithType,
   findRenderedComponentWithType,
   Simulate,
-  findRenderedDOMComponentWithClass
+  findRenderedDOMComponentWithClass,
 } from 'react-addons-test-utils';
 import { spy } from 'sinon';
 import { Link } from 'react-router';

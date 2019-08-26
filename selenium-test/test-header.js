@@ -1,7 +1,5 @@
 'use strict';
 
-var should = require('should');
-
 import landingPage from './page-objects/landing-page';
 import { selectText } from './utils';
 

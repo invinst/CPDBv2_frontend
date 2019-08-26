@@ -27,17 +27,15 @@ export default class SearchBox extends Component {
   }
 
   render() {
-    const {
-      value, onChange, onEscape, focused, resetNavigation,
-    } = this.props;
+    const { value, onChange, onEscape, focused, resetNavigation } = this.props;
 
     const keyPressHandlers = {
       esc: onEscape,
-      enter: this.handleEnter
+      enter: this.handleEnter,
     };
 
     const keyPressWithBlurHandlers = {
-      down: () => resetNavigation()
+      down: () => resetNavigation(),
     };
 
     return (
@@ -77,11 +75,11 @@ SearchBox.propTypes = {
   changeSearchQuery: PropTypes.func,
   focused: PropTypes.bool,
   resetNavigation: PropTypes.func,
-  trackRecentSuggestion: PropTypes.func
+  trackRecentSuggestion: PropTypes.func,
 };
 
 SearchBox.defaultProps = {
   value: '',
   focused: false,
-  trackRecentSuggestion: () => {}
+  trackRecentSuggestion: () => {},
 };

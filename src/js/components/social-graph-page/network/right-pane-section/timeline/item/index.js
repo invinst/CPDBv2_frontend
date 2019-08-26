@@ -15,7 +15,7 @@ export default class Item extends Component {
 
     const componentMap = {
       [NEW_TIMELINE_ITEMS.CR]: Cr,
-      [NEW_TIMELINE_ITEMS.YEAR]: Year
+      [NEW_TIMELINE_ITEMS.YEAR]: Year,
     };
     const ItemComponent = componentMap[item.kind];
     this.component = <ItemComponent { ...this.props }/>;
@@ -44,7 +44,7 @@ export default class Item extends Component {
     const { item, timelineIdx } = this.props;
     const componentMap = {
       [NEW_TIMELINE_ITEMS.CR]: Cr,
-      [NEW_TIMELINE_ITEMS.YEAR]: Year
+      [NEW_TIMELINE_ITEMS.YEAR]: Year,
     };
     const ItemComponent = componentMap[item.kind];
     const isActive = !isUndefined(timelineIdx) && item.timelineIdx === timelineIdx;

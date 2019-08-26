@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { renderIntoDocument,
-  findRenderedDOMComponentWithTag, findRenderedComponentWithType
+  findRenderedDOMComponentWithTag, findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';

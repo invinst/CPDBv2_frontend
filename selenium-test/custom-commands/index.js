@@ -39,8 +39,8 @@ function initCommands() {
         },
         actions: [
           { type: 'pointerMove', 'duration': 0, 'x': parseInt(location.x + x), 'y': parseInt(location.y + y) },
-          { type: 'pointerDown', button: 0, },
-          { type: 'pointerUp', button: 0, }
+          { type: 'pointerDown', button: 0 },
+          { type: 'pointerUp', button: 0 },
         ],
       }]);
     },

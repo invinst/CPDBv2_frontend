@@ -2,7 +2,7 @@ import React from 'react';
 import {
   renderIntoDocument,
   findRenderedComponentWithType,
-  findRenderedDOMComponentWithTag
+  findRenderedDOMComponentWithTag,
 } from 'react-addons-test-utils';
 import { Link } from 'react-router';
 

@@ -4,7 +4,7 @@ import {
   renderIntoDocument,
   scryRenderedDOMComponentsWithClass,
   findRenderedDOMComponentWithClass,
-  Simulate
+  Simulate,
 } from 'react-addons-test-utils';
 import { stub } from 'sinon';
 

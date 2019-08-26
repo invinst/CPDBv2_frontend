@@ -1,6 +1,6 @@
 import {
   getOfficerPercentile,
-  officerYearlyThreePercentile
+  officerYearlyThreePercentile,
 } from 'selectors/officer-page';
 
 
@@ -9,8 +9,8 @@ describe('Officer radar chart selectors', function () {
     officerPage: {
       summary: {
         percentiles: [],
-      }
-    }
+      },
+    },
   };
 
   beforeEach(function () {
@@ -39,37 +39,37 @@ describe('Officer radar chart selectors', function () {
           'percentile_allegation_civilian': '75.065',
           'percentile_allegation_internal': '0.022',
           'percentile_trr': '0.046',
-          'percentile_allegation': '31.201'
+          'percentile_allegation': '31.201',
         }];
 
       officerYearlyThreePercentile(state).should.eql([{
         'items': [{
           'axis': 'Use of Force Reports',
-          'value': 0.049
+          'value': 0.049,
         }, {
           'axis': 'Officer Allegations',
-          'value': 0.023
+          'value': 0.023,
         }, {
           'axis': 'Civilian Allegations',
-          'value': 66.251
+          'value': 66.251,
         }],
         textColor: '#231F20',
         visualTokenBackground: '#fc5d2c',
-        'year': 2006
+        'year': 2006,
       }, {
         'items': [{
           'axis': 'Use of Force Reports',
-          'value': 0.046
+          'value': 0.046,
         }, {
           'axis': 'Officer Allegations',
-          'value': 0.022
+          'value': 0.022,
         }, {
           'axis': 'Civilian Allegations',
-          'value': 75.065
+          'value': 75.065,
         }],
         textColor: '#231F20',
         visualTokenBackground: '#fc5d2c',
-        'year': 2007
+        'year': 2007,
       }]);
     });
   });

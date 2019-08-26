@@ -11,7 +11,7 @@ describe('isRequesting reducer', function () {
   it('should handle CHANGE_SEARCH_QUERY', function () {
     query(null, {
       type: CHANGE_SEARCH_QUERY,
-      payload: 'john'
+      payload: 'john',
     }).should.eql('john');
   });
 
@@ -20,9 +20,9 @@ describe('isRequesting reducer', function () {
       type: LOCATION_CHANGE,
       payload: {
         query: {
-          terms: 'new term'
-        }
-      }
+          terms: 'new term',
+        },
+      },
     }).should.eql('new term');
   });
 });

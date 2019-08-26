@@ -17,9 +17,9 @@ describe('configured-axios-middleware', function () {
     ],
     payload: {
       request: {
-        url: '/request-url'
-      }
-    }
+        url: '/request-url',
+      },
+    },
   };
 
   describe('onSuccess', () => {
@@ -28,9 +28,9 @@ describe('configured-axios-middleware', function () {
       status: 200,
       config: {
         params: {
-          a: 1
-        }
-      }
+          a: 1,
+        },
+      },
     };
 
     it('should fire action with response as payload', () => {
@@ -40,9 +40,9 @@ describe('configured-axios-middleware', function () {
         statusCode: 200,
         request: {
           params: {
-            a: 1
-          }
-        }
+            a: 1,
+          },
+        },
       });
     });
 
@@ -61,16 +61,16 @@ describe('configured-axios-middleware', function () {
     it('should fire action with error with response without message', function () {
       const error = {
         response: {
-          status: 400
-        }
+          status: 400,
+        },
       };
 
       onError({ action, next, error }).should.eql({
         type: 'REQUEST_FAILURE',
         payload: {
-          message: 'Request to /request-url failed with status code 400.'
+          message: 'Request to /request-url failed with status code 400.',
         },
-        statusCode: 400
+        statusCode: 400,
       });
     });
 
@@ -81,9 +81,9 @@ describe('configured-axios-middleware', function () {
       onError({ action, next, error }).should.eql({
         type: 'REQUEST_FAILURE',
         payload: {
-          message
+          message,
         },
-        statusCode: null
+        statusCode: null,
       });
     });
 
@@ -92,15 +92,15 @@ describe('configured-axios-middleware', function () {
       const error = new Error();
       error.response = {
         status: 400,
-        data: { message }
+        data: { message },
       };
 
       onError({ action, next, error }).should.eql({
         type: 'REQUEST_FAILURE',
         payload: {
-          message
+          message,
         },
-        statusCode: 400
+        statusCode: 400,
       });
     });
   });

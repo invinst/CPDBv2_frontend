@@ -15,16 +15,16 @@ describe('officer coaccusals actions', function () {
         types: [
           OFFICER_COACCUSALS_REQUEST_START,
           OFFICER_COACCUSALS_REQUEST_SUCCESS,
-          OFFICER_COACCUSALS_REQUEST_FAILURE
+          OFFICER_COACCUSALS_REQUEST_FAILURE,
         ],
         payload: {
           request: {
             url: `${OFFICER_URL}123/coaccusals/`,
             params: undefined,
             adapter: null,
-            cancelToken: undefined
-          }
-        }
+            cancelToken: undefined,
+          },
+        },
       });
     });
   });

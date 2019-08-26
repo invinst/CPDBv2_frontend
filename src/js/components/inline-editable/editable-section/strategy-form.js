@@ -14,13 +14,13 @@ class StrategyForm extends Component {
 
   handlePoolSizeChange(evt) {
     this.handleValueChange({
-      poolSize: parseInt(evt.target.value)
+      poolSize: parseInt(evt.target.value),
     });
   }
 
   handleStrategyChange(evt) {
     this.handleValueChange({
-      selectedStrategyId: parseInt(evt.target.value)
+      selectedStrategyId: parseInt(evt.target.value),
     });
   }
 
@@ -29,7 +29,7 @@ class StrategyForm extends Component {
 
     onChange({
       ...value,
-      ...updateValue
+      ...updateValue,
     });
   }
 
@@ -71,13 +71,13 @@ StrategyForm.propTypes = {
   value: PropTypes.shape({
     poolSize: PropTypes.number,
     selectedStrategyId: PropTypes.number,
-    strategies: PropTypes.array
+    strategies: PropTypes.array,
   }),
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
 };
 
 StrategyForm.defaultProps = {
-  value: {}
+  value: {},
 };
 
 export default StrategyForm;

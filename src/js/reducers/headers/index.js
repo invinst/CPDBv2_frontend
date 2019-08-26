@@ -6,5 +6,5 @@ import slimHeader from './slim-header';
 
 export default combineReducers({
   shareableHeader,
-  slimHeader
+  slimHeader,
 });

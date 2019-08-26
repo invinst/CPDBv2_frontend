@@ -214,7 +214,7 @@ describe('officer page', function () {
       browser.getUrl().should.match(/\/complaint\/\w+\/$/);
 
       header.breadcrumbs.secondItem.click();
-      browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/?$/);
+      browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/?$/);
     });
 
     it('should go to attachment source page when clicking on the attachment thumbnail', function () {
@@ -236,7 +236,7 @@ describe('officer page', function () {
       browser.getUrl().should.match(/\/trr\/\d+\/$/);
 
       header.breadcrumbs.secondItem.click();
-      browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/?$/);
+      browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/?$/);
     });
 
     describe('Timeline filter', function () {

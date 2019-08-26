@@ -15,8 +15,8 @@ describe('PinboardPaneSection selectors', function () {
                 'officer_id_1': 1,
                 'officer_id_2': 2,
                 'incident_date': '1988-10-03',
-                'accussed_count': 1
-              }]
+                'accussed_count': 1,
+              }],
             },
           },
           geographicData: {
@@ -24,8 +24,8 @@ describe('PinboardPaneSection selectors', function () {
             trrsRequesting: true,
             data: [],
           },
-          currentTab: null
-        }
+          currentTab: null,
+        },
       };
       should(getCurrentTab(state)).be.null();
     });
@@ -35,7 +35,7 @@ describe('PinboardPaneSection selectors', function () {
         pinboardPage: {
           graphData: {
             requesting: true,
-            data: {}
+            data: {},
           },
           geographicData: {
             crsRequesting: false,
@@ -45,11 +45,11 @@ describe('PinboardPaneSection selectors', function () {
               'crid': '1000018',
               'category': 'Operation/Personnel Violations',
               'coaccused_count': 1,
-              'kind': 'CR'
+              'kind': 'CR',
             }],
           },
-          currentTab: null
-        }
+          currentTab: null,
+        },
       };
       should(getCurrentTab(state)).be.null();
     });
@@ -60,7 +60,7 @@ describe('PinboardPaneSection selectors', function () {
           graphData: {
             requesting: false,
             data: {
-              'coaccused_data': []
+              'coaccused_data': [],
             },
           },
           geographicData: {
@@ -71,11 +71,11 @@ describe('PinboardPaneSection selectors', function () {
               'crid': '1000018',
               'category': 'Operation/Personnel Violations',
               'coaccused_count': 1,
-              'kind': 'CR'
+              'kind': 'CR',
             }],
           },
-          currentTab: 'NETTWORK'
-        }
+          currentTab: 'NETTWORK',
+        },
       };
       getCurrentTab(state).should.eql('NETTWORK');
     });
@@ -90,8 +90,8 @@ describe('PinboardPaneSection selectors', function () {
                 'officer_id_1': 1,
                 'officer_id_2': 2,
                 'incident_date': '1988-10-03',
-                'accussed_count': 1
-              }]
+                'accussed_count': 1,
+              }],
             },
           },
           geographicData: {
@@ -102,11 +102,11 @@ describe('PinboardPaneSection selectors', function () {
               'crid': '1000018',
               'category': 'Operation/Personnel Violations',
               'coaccused_count': 1,
-              'kind': 'CR'
+              'kind': 'CR',
             }],
           },
-          currentTab: 'GEOGRAPHIC'
-        }
+          currentTab: 'GEOGRAPHIC',
+        },
       };
       getCurrentTab(state).should.eql('GEOGRAPHIC');
     });
@@ -117,8 +117,8 @@ describe('PinboardPaneSection selectors', function () {
           graphData: {
             requesting: false,
             data: {
-              'coaccused_data': []
-            }
+              'coaccused_data': [],
+            },
           },
           geographicData: {
             crsRequesting: false,
@@ -126,8 +126,8 @@ describe('PinboardPaneSection selectors', function () {
             mapCrsData: [],
             mapTrrsData: [],
           },
-          currentTab: 'GEOGRAPHIC'
-        }
+          currentTab: 'GEOGRAPHIC',
+        },
       };
       getCurrentTab(state).should.eql('NETWORK');
     });
@@ -138,16 +138,16 @@ describe('PinboardPaneSection selectors', function () {
           graphData: {
             requesting: false,
             data: {
-              'coaccused_data': []
-            }
+              'coaccused_data': [],
+            },
           },
           geographicData: {
             crsRequesting: false,
             trrsRequesting: false,
             data: [],
           },
-          currentTab: null
-        }
+          currentTab: null,
+        },
       };
       getCurrentTab(state).should.eql('NETWORK');
     });
@@ -158,8 +158,8 @@ describe('PinboardPaneSection selectors', function () {
           graphData: {
             requesting: false,
             data: {
-              'coaccused_data': []
-            }
+              'coaccused_data': [],
+            },
           },
           geographicData: {
             crsRequesting: false,
@@ -169,11 +169,11 @@ describe('PinboardPaneSection selectors', function () {
               'crid': '1000018',
               'category': 'Operation/Personnel Violations',
               'coaccused_count': 1,
-              'kind': 'CR'
+              'kind': 'CR',
             }],
           },
-          currentTab: null
-        }
+          currentTab: null,
+        },
       };
       getCurrentTab(state).should.eql('GEOGRAPHIC');
     });
@@ -185,13 +185,13 @@ describe('PinboardPaneSection selectors', function () {
         pinboardPage: {
           graphData: {
             requesting: true,
-            data: {}
+            data: {},
           },
           geographicData: {
             crsRequesting: false,
             trrsRequesting: false,
           },
-        }
+        },
       };
       pinboardPaneSectionRequestingSelector(state).should.be.true();
     });
@@ -201,13 +201,13 @@ describe('PinboardPaneSection selectors', function () {
         pinboardPage: {
           graphData: {
             requesting: false,
-            data: {}
+            data: {},
           },
           geographicData: {
             crsRequesting: false,
             trrsRequesting: false,
           },
-        }
+        },
       };
       pinboardPaneSectionRequestingSelector(state).should.be.false();
     });

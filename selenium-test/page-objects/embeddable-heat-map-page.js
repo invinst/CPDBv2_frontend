@@ -12,7 +12,7 @@ class CitySummary extends Section {
     super();
     this.prepareElementGetters({
       allegationDiscipline: '.test--allegation-discipline-count',
-      mostCommonComplaints: '.test--most-common-complaints'
+      mostCommonComplaints: '.test--most-common-complaints',
     });
   }
 }
@@ -24,7 +24,7 @@ class CommunityDetail extends Section {
       closeBtn: '.test--community-close-btn',
       allegationDiscipline: '.test--community-allegation-discipline',
       v1Link: '.test--community-v1-link',
-      officers: '.test--community-officers'
+      officers: '.test--community-officers',
     });
   }
 }
@@ -35,7 +35,7 @@ class Dropdown extends Section {
     this.prepareElementGetters({
       dropdownUpArrow: '.test--dropdown-up-arrow',
       textInput: '.test--dropdown-text-input',
-      dropdownItems: '.test--dropdown-item'
+      dropdownItems: '.test--dropdown-item',
     });
   }
 }
@@ -46,7 +46,7 @@ class HeatMapSection extends Section {
     this.prepareElementGetters({
       dropdownPlaceholder: '.test--dropdown-placeholder',
       complaintCategory: '.test--complaint-category',
-      searchTermsLink: '.test--dropdown-search-terms'
+      searchTermsLink: '.test--dropdown-search-terms',
     });
   }
 

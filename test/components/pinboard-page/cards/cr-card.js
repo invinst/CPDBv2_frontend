@@ -77,7 +77,7 @@ describe('CRCardWithUndo component', function () {
     removeItemInPinboardPage.should.be.calledWith({
       id: 123,
       type: 'CR',
-      mode: PINBOARD_ITEM_REMOVE_MODE.API_ONLY
+      mode: PINBOARD_ITEM_REMOVE_MODE.API_ONLY,
     });
   });
 });

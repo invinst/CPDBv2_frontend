@@ -3,7 +3,7 @@ import {
   findRenderedDOMComponentWithClass,
   renderIntoDocument,
   scryRenderedDOMComponentsWithClass,
-  Simulate
+  Simulate,
 } from 'react-addons-test-utils';
 import { stub } from 'sinon';
 
@@ -89,7 +89,7 @@ describe('Attachments component', function () {
       url: 'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-1-of-3.html',
       previewImageUrl: 'https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p1-normal.gif',
       fileType: 'document',
-      id: '123456'
+      id: '123456',
     }];
     const instance = renderIntoDocument(<Attachments
       attachments={ attachments }

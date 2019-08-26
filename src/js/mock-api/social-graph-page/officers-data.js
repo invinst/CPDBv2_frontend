@@ -8,7 +8,7 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'unit': {
       'id': 3,
       'unit_name': '002',
-      'description': 'District 002'
+      'description': 'District 002',
     },
     'gender': 'M',
     'allegation_count': 10,
@@ -23,9 +23,9 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'percentile': {
       'percentile_trr': '0.0000',
       'percentile_allegation_civilian': '35.4196',
-      'percentile_allegation_internal': '83.0449'
+      'percentile_allegation_internal': '83.0449',
     },
-    'honorable_mention_percentile': 68.9444
+    'honorable_mention_percentile': 68.9444,
   },
   {
     'id': 28805,
@@ -36,7 +36,7 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'unit': {
       'id': 236,
       'unit_name': '765',
-      'description': 'Public Housing North'
+      'description': 'Public Housing North',
     },
     'gender': 'M',
     'allegation_count': 123,
@@ -51,9 +51,9 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'percentile': {
       'percentile_trr': '0.0000',
       'percentile_allegation_civilian': '98.6239',
-      'percentile_allegation_internal': '88.4491'
+      'percentile_allegation_internal': '88.4491',
     },
-    'honorable_mention_percentile': 0.0
+    'honorable_mention_percentile': 0.0,
   },
   {
     'id': 22861,
@@ -64,7 +64,7 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'unit': {
       'id': 232,
       'unit_name': '715',
-      'description': 'Public Housing South'
+      'description': 'Public Housing South',
     },
     'gender': 'M',
     'allegation_count': 11,
@@ -77,7 +77,7 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'resignation_date': '1995-12-13',
     'appointed_date': '1970-06-15',
     'percentile': {},
-    'honorable_mention_percentile': 0.0
+    'honorable_mention_percentile': 0.0,
   },
   {
     'id': 3663,
@@ -88,7 +88,7 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'unit': {
       'id': 232,
       'unit_name': '715',
-      'description': 'Public Housing South'
+      'description': 'Public Housing South',
     },
     'gender': 'M',
     'allegation_count': 39,
@@ -102,9 +102,9 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'appointed_date': '1978-02-26',
     'percentile': {
       'percentile_allegation_civilian': '87.4780',
-      'percentile_allegation_internal': '96.5164'
+      'percentile_allegation_internal': '96.5164',
     },
-    'honorable_mention_percentile': 0.0
+    'honorable_mention_percentile': 0.0,
   },
   {
     'id': 22297,
@@ -116,7 +116,7 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'unit': {
       'id': 5,
       'unit_name': '004',
-      'description': 'District 004'
+      'description': 'District 004',
     },
     'gender': 'F',
     'allegation_count': 10,
@@ -130,9 +130,9 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'percentile': {
       'percentile_trr': '63.0035',
       'percentile_allegation_civilian': '65.6966',
-      'percentile_allegation_internal': '61.1521'
+      'percentile_allegation_internal': '61.1521',
     },
-    'honorable_mention_percentile': 73.8267
+    'honorable_mention_percentile': 73.8267,
   },
   {
     'id': 21194,
@@ -144,7 +144,7 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'unit': {
       'id': 112,
       'unit_name': '145',
-      'description': 'Traffic Section'
+      'description': 'Traffic Section',
     },
     'gender': 'M',
     'allegation_count': 32,
@@ -159,9 +159,9 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'percentile': {
       'percentile_trr': '38.9028',
       'percentile_allegation_civilian': '61.9992',
-      'percentile_allegation_internal': '0.0000'
+      'percentile_allegation_internal': '0.0000',
     },
-    'honorable_mention_percentile': 41.6094
+    'honorable_mention_percentile': 41.6094,
   },
   {
     'id': 12176,
@@ -173,7 +173,7 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'unit': {
       'id': 23,
       'unit_name': '022',
-      'description': 'District 022'
+      'description': 'District 022',
     },
     'gender': 'M',
     'allegation_count': 65,
@@ -188,9 +188,9 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'percentile': {
       'percentile_trr': '0.0000',
       'percentile_allegation_civilian': '85.9396',
-      'percentile_allegation_internal': '76.8944'
+      'percentile_allegation_internal': '76.8944',
     },
-    'honorable_mention_percentile': 75.7087
+    'honorable_mention_percentile': 75.7087,
   },
   {
     'id': 4881,
@@ -201,7 +201,7 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'unit': {
       'id': 4,
       'unit_name': '003',
-      'description': 'District 003'
+      'description': 'District 003',
     },
     'gender': 'M',
     'allegation_count': 47,
@@ -216,9 +216,9 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'percentile': {
       'percentile_trr': '0.0000',
       'percentile_allegation_civilian': '85.1838',
-      'percentile_allegation_internal': '0.0000'
+      'percentile_allegation_internal': '0.0000',
     },
-    'honorable_mention_percentile': 0.0
+    'honorable_mention_percentile': 0.0,
   },
   {
     'id': 8138,
@@ -230,7 +230,7 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'unit': {
       'id': 12,
       'unit_name': '011',
-      'description': 'District 011'
+      'description': 'District 011',
     },
     'gender': 'M',
     'allegation_count': 132,
@@ -244,9 +244,9 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'percentile': {
       'percentile_trr': '94.8712',
       'percentile_allegation_civilian': '99.6612',
-      'percentile_allegation_internal': '61.1521'
+      'percentile_allegation_internal': '61.1521',
     },
-    'honorable_mention_percentile': 80.0466
+    'honorable_mention_percentile': 80.0466,
   },
   {
     'id': 30466,
@@ -257,7 +257,7 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'unit': {
       'id': 232,
       'unit_name': '715',
-      'description': 'Public Housing South'
+      'description': 'Public Housing South',
     },
     'gender': 'M',
     'allegation_count': 14,
@@ -270,7 +270,7 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'resignation_date': '1999-02-05',
     'appointed_date': '1969-11-03',
     'percentile': {},
-    'honorable_mention_percentile': 0.0
+    'honorable_mention_percentile': 0.0,
   },
   {
     'id': 15956,
@@ -282,7 +282,7 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'unit': {
       'id': 3,
       'unit_name': '002',
-      'description': 'District 002'
+      'description': 'District 002',
     },
     'gender': 'M',
     'allegation_count': 59,
@@ -297,9 +297,9 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'percentile': {
       'percentile_trr': '75.2071',
       'percentile_allegation_civilian': '96.1830',
-      'percentile_allegation_internal': '88.3297'
+      'percentile_allegation_internal': '88.3297',
     },
-    'honorable_mention_percentile': 78.342
+    'honorable_mention_percentile': 78.342,
   },
   {
     'id': 11580,
@@ -310,7 +310,7 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'unit': {
       'id': 117,
       'unit_name': '151',
-      'description': 'Traffic Enforcement'
+      'description': 'Traffic Enforcement',
     },
     'gender': 'M',
     'allegation_count': 15,
@@ -324,9 +324,9 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'appointed_date': '1976-03-08',
     'percentile': {
       'percentile_allegation_civilian': '0.0000',
-      'percentile_allegation_internal': '0.0000'
+      'percentile_allegation_internal': '0.0000',
     },
-    'honorable_mention_percentile': 0.0
+    'honorable_mention_percentile': 0.0,
   },
   {
     'id': 4269,
@@ -338,7 +338,7 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'unit': {
       'id': 3,
       'unit_name': '002',
-      'description': 'District 002'
+      'description': 'District 002',
     },
     'gender': 'M',
     'allegation_count': 48,
@@ -352,9 +352,9 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'percentile': {
       'percentile_trr': '0.0000',
       'percentile_allegation_civilian': '92.1417',
-      'percentile_allegation_internal': '61.1521'
+      'percentile_allegation_internal': '61.1521',
     },
-    'honorable_mention_percentile': 68.1146
+    'honorable_mention_percentile': 68.1146,
   },
   {
     'id': 2171,
@@ -365,7 +365,7 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'unit': {
       'id': 38,
       'unit_name': '055',
-      'description': 'Mounted Unit'
+      'description': 'Mounted Unit',
     },
     'gender': 'M',
     'allegation_count': 5,
@@ -380,9 +380,9 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'percentile': {
       'percentile_trr': '0.0000',
       'percentile_allegation_civilian': '30.7374',
-      'percentile_allegation_internal': '0.0000'
+      'percentile_allegation_internal': '0.0000',
     },
-    'honorable_mention_percentile': 55.4155
+    'honorable_mention_percentile': 55.4155,
   },
   {
     'id': 2675,
@@ -393,7 +393,7 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'unit': {
       'id': 232,
       'unit_name': '715',
-      'description': 'Public Housing South'
+      'description': 'Public Housing South',
     },
     'gender': 'M',
     'allegation_count': 4,
@@ -406,7 +406,7 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'resignation_date': '1994-09-28',
     'appointed_date': '1978-02-27',
     'percentile': {},
-    'honorable_mention_percentile': 0.0
+    'honorable_mention_percentile': 0.0,
   },
   {
     'id': 31945,
@@ -418,7 +418,7 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'unit': {
       'id': 149,
       'unit_name': '189',
-      'description': 'Narcotics Division'
+      'description': 'Narcotics Division',
     },
     'gender': 'M',
     'allegation_count': 45,
@@ -432,9 +432,9 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'percentile': {
       'percentile_trr': '0.0000',
       'percentile_allegation_civilian': '94.1100',
-      'percentile_allegation_internal': '61.1521'
+      'percentile_allegation_internal': '61.1521',
     },
-    'honorable_mention_percentile': 75.8385
+    'honorable_mention_percentile': 75.8385,
   },
   {
     'id': 2671,
@@ -446,7 +446,7 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'unit': {
       'id': 173,
       'unit_name': '311',
-      'description': 'Gang Enforcement - Area Central'
+      'description': 'Gang Enforcement - Area Central',
     },
     'gender': 'M',
     'allegation_count': 40,
@@ -460,9 +460,9 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'percentile': {
       'percentile_trr': '91.2913',
       'percentile_allegation_civilian': '95.0419',
-      'percentile_allegation_internal': '61.1521'
+      'percentile_allegation_internal': '61.1521',
     },
-    'honorable_mention_percentile': 96.5424
+    'honorable_mention_percentile': 96.5424,
   },
   {
     'id': 14045,
@@ -473,7 +473,7 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'unit': {
       'id': 208,
       'unit_name': '610',
-      'description': 'Detective Area - Central'
+      'description': 'Detective Area - Central',
     },
     'gender': 'M',
     'allegation_count': 46,
@@ -488,9 +488,9 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'percentile': {
       'percentile_trr': '0.0000',
       'percentile_allegation_civilian': '30.3789',
-      'percentile_allegation_internal': '0.0000'
+      'percentile_allegation_internal': '0.0000',
     },
-    'honorable_mention_percentile': 56.7008
+    'honorable_mention_percentile': 56.7008,
   },
   {
     'id': 12737,
@@ -501,7 +501,7 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'unit': {
       'id': 232,
       'unit_name': '715',
-      'description': 'Public Housing South'
+      'description': 'Public Housing South',
     },
     'gender': 'F',
     'allegation_count': 4,
@@ -515,9 +515,9 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'appointed_date': '1995-12-04',
     'percentile': {
       'percentile_allegation_civilian': '0.0000',
-      'percentile_allegation_internal': '89.7816'
+      'percentile_allegation_internal': '89.7816',
     },
-    'honorable_mention_percentile': 0.0
+    'honorable_mention_percentile': 0.0,
   },
   {
     'id': 24157,
@@ -528,7 +528,7 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'unit': {
       'id': 31,
       'unit_name': '045',
-      'description': 'District Reinstatement Unit'
+      'description': 'District Reinstatement Unit',
     },
     'gender': 'M',
     'allegation_count': 20,
@@ -542,8 +542,8 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'appointed_date': '1978-12-11',
     'percentile': {
       'percentile_allegation_civilian': '59.8787',
-      'percentile_allegation_internal': '99.3352'
+      'percentile_allegation_internal': '99.3352',
     },
-    'honorable_mention_percentile': 0.0
-  }
+    'honorable_mention_percentile': 0.0,
+  },
 ]);

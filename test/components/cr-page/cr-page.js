@@ -3,7 +3,7 @@ import MockStore from 'redux-mock-store';
 import {
   renderIntoDocument,
   scryRenderedComponentsWithType,
-  findRenderedComponentWithType
+  findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 import { Provider } from 'react-redux';
 
@@ -20,23 +20,23 @@ describe('CRPage component', function () {
   let instance;
   const store = MockStore()({
     breadcrumb: {
-      breadcrumbs: []
+      breadcrumbs: [],
     },
     crPage: {
       relatedComplaints: {
         relatedByCategory: {
           pagination: {},
           cards: {
-            cards: []
-          }
+            cards: [],
+          },
         },
         relatedByOfficer: {
           pagination: {},
           cards: {
-            cards: []
-          }
-        }
-      }
+            cards: [],
+          },
+        },
+      },
     },
   });
 

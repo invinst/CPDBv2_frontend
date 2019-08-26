@@ -3,7 +3,7 @@ import {
   V2_ROOT_PATH,
   TRACKING_CLICK_ATTACHMENT_START,
   TRACKING_CLICK_ATTACHMENT_SUCCESS,
-  TRACKING_CLICK_ATTACHMENT_FAILURE
+  TRACKING_CLICK_ATTACHMENT_FAILURE,
 } from 'utils/constants';
 
 
@@ -18,12 +18,12 @@ describe('analytic actions', function () {
             data: {
               'accessed_from_page': 'CR Page',
               'app': 'Frontend',
-              'attachment_id': '123456'
+              'attachment_id': '123456',
             },
             method: 'post',
-            adapter: null
-          }
-        }
+            adapter: null,
+          },
+        },
       });
     });
   });

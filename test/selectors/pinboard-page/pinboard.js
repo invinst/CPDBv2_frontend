@@ -36,7 +36,7 @@ describe('Pinboard selectors', function () {
             'trr_ids': [1],
             description: 'Description',
             isPinboardRestored: false,
-          })
+          }),
         },
       };
 
@@ -65,7 +65,7 @@ describe('Pinboard selectors', function () {
               'trr_ids': [1],
               description: 'Description',
               isPinboardRestored: false,
-            })
+            }),
           },
         };
 
@@ -93,7 +93,7 @@ describe('Pinboard selectors', function () {
               'trr_ids': [1],
               description: 'Description',
               isPinboardRestored: false,
-            })
+            }),
           },
         };
 
@@ -120,8 +120,8 @@ describe('Pinboard selectors', function () {
             'officer_ids': [12],
             crids: ['abc'],
             'trr_ids': [1],
-          })
-        }
+          }),
+        },
       };
 
       pinboardItemsSelector(state).should.eql({
@@ -140,8 +140,8 @@ describe('Pinboard selectors', function () {
             'officer_ids': [12],
             crids: ['abc', 'def'],
             'trr_ids': [1],
-          })
-        }
+          }),
+        },
       };
 
       pinboardICRIDsSelector(state).should.eql(['abc', 'def']);
@@ -156,8 +156,8 @@ describe('Pinboard selectors', function () {
             'officer_ids': [],
             crids: ['abc'],
             'trr_ids': [],
-          })
-        }
+          }),
+        },
       };
 
       isEmptyPinboardSelector(state).should.be.false();
@@ -170,8 +170,8 @@ describe('Pinboard selectors', function () {
             'officer_ids': [1],
             crids: [],
             'trr_ids': [],
-          })
-        }
+          }),
+        },
       };
 
       isEmptyPinboardSelector(state).should.be.false();
@@ -184,8 +184,8 @@ describe('Pinboard selectors', function () {
             'officer_ids': [],
             crids: [],
             'trr_ids': [1],
-          })
-        }
+          }),
+        },
       };
 
       isEmptyPinboardSelector(state).should.be.false();
@@ -198,8 +198,8 @@ describe('Pinboard selectors', function () {
             'officer_ids': [],
             crids: [],
             'trr_ids': [],
-          })
-        }
+          }),
+        },
       };
 
       isEmptyPinboardSelector(state).should.be.true();
@@ -217,24 +217,24 @@ describe('Pinboard selectors', function () {
             'example_pinboards': [{
               id: '66ef1561',
               title: 'Pinboard 1',
-              description: 'Description 1'
+              description: 'Description 1',
             }, {
               id: '66ef1562',
               title: 'Pinboard 2',
-              description: 'Description 2'
-            }]
-          })
-        }
+              description: 'Description 2',
+            }],
+          }),
+        },
       };
 
       examplePinboardsSelector(state).should.eql([{
         id: '66ef1561',
         title: 'Pinboard 1',
-        description: 'Description 1'
+        description: 'Description 1',
       }, {
         id: '66ef1562',
         title: 'Pinboard 2',
-        description: 'Description 2'
+        description: 'Description 2',
       }]);
     });
 
@@ -245,8 +245,8 @@ describe('Pinboard selectors', function () {
             'officer_ids': [],
             crids: [],
             'trr_ids': [],
-          })
-        }
+          }),
+        },
       };
 
       examplePinboardsSelector(state).should.eql([]);

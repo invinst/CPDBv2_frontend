@@ -34,8 +34,8 @@ describe('videoInfo reducer', function () {
         width: 1920,
         height: 1080,
         tags: 'chicago, police',
-        'embed_privacy': 'anywhere'
-      }]
+        'embed_privacy': 'anywhere',
+      }],
     }).should.eql(
       [{
         id: 285002059,
@@ -60,7 +60,7 @@ describe('videoInfo reducer', function () {
         width: 1920,
         height: 1080,
         tags: 'chicago, police',
-        'embed_privacy': 'anywhere'
+        'embed_privacy': 'anywhere',
       }]
     );
   });

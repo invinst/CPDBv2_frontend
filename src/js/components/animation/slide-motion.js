@@ -20,7 +20,7 @@ export default class SlideMotion extends Component {
 
           return React.cloneElement(
             this.props.children, {
-              style: { ...children.props.style, transform: `translateX(${translateX}%)` }
+              style: { ...children.props.style, transform: `translateX(${translateX}%)` },
             }
           );
         } }
@@ -32,5 +32,5 @@ export default class SlideMotion extends Component {
 SlideMotion.propTypes = {
   children: PropTypes.node,
   show: PropTypes.bool,
-  offsetX: PropTypes.number
+  offsetX: PropTypes.number,
 };

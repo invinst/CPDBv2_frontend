@@ -10,7 +10,7 @@ describe('currentNetworkTab reducer', function () {
   it('should handle CHANGE_NETWORK_TAB', function () {
     currentNetworkTab(undefined, {
       type: CHANGE_NETWORK_TAB,
-      payload: 'Officers'
+      payload: 'Officers',
     }).should.eql('Officers');
   });
 
@@ -18,7 +18,7 @@ describe('currentNetworkTab reducer', function () {
     it('should return Officers if payload is empty', function () {
       currentNetworkTab('Timeline', {
         type: SOCIAL_GRAPH_ALLEGATIONS_REQUEST_SUCCESS,
-        payload: []
+        payload: [],
       }).should.eql('Officers');
     });
 
@@ -30,8 +30,8 @@ describe('currentNetworkTab reducer', function () {
             'category': 'False Arrest',
             'crid': '1089128',
             'incident_date': '2018-02-01',
-          }
-        ]
+          },
+        ],
       }).should.eql('Officers');
     });
 
@@ -43,8 +43,8 @@ describe('currentNetworkTab reducer', function () {
             'category': 'False Arrest',
             'crid': '1089128',
             'incident_date': '2018-02-01',
-          }
-        ]
+          },
+        ],
       }).should.eql('Timeline');
     });
   });

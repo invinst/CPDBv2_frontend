@@ -20,7 +20,7 @@ export default class PreviewPane extends Component {
 
     const paneTypes = {
       CR: CRPane,
-      FORCE: TRRPane
+      FORCE: TRRPane,
     };
     const ItemComponent = get(paneTypes, type, null);
     if (ItemComponent)

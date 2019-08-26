@@ -9,7 +9,7 @@ export default class FadeMotion extends Component {
     const { show, children, maxOpacity } = this.props;
     const defaultStyle = { opacity: show ? maxOpacity : 0 };
     const motionStyle = {
-      opacity: spring(show ? maxOpacity : 0, defaultConfig())
+      opacity: spring(show ? maxOpacity : 0, defaultConfig()),
     };
 
     if (global.disableAnimation) {
@@ -35,9 +35,9 @@ export default class FadeMotion extends Component {
 FadeMotion.propTypes = {
   maxOpacity: PropTypes.number,
   children: PropTypes.func,
-  show: PropTypes.bool
+  show: PropTypes.bool,
 };
 
 FadeMotion.defaultProps = {
-  maxOpacity: 1
+  maxOpacity: 1,
 };

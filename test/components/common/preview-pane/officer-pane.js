@@ -52,7 +52,7 @@ describe('OfficerPane component', () => {
         { axis: 'b', value: 20 },
         { axis: 'c', value: 30 },
       ],
-      visualTokenBackground: '#ffffff'
+      visualTokenBackground: '#ffffff',
     },
     isPinned: true,
   };

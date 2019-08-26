@@ -103,14 +103,14 @@ describe('landing page', function () {
         const firstCard = landingPage.recentActivityCarousel.officerCards;
         firstCard.click();
         browser.pause(500);
-        browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/?$/);
+        browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/?$/);
       });
 
       it('should go back to the landing page when click on the cpdp breadcrumb', function () {
         const firstCard = landingPage.recentActivityCarousel.officerCards;
         firstCard.click();
         browser.pause(500);
-        browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/?$/);
+        browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/?$/);
 
         header.breadcrumbs.firstItem.click();
         browser.getUrl().should.match(/\//);
@@ -124,7 +124,7 @@ describe('landing page', function () {
         const firstPairCardLeftHalf = landingPage.recentActivityCarousel.firstPairCardLeftHalf;
         firstPairCardLeftHalf.click();
         browser.pause(500);
-        browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/?$/);
+        browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/?$/);
 
         browser.setWindowRect(0, 0, 1000, 1000);
       });
@@ -133,7 +133,7 @@ describe('landing page', function () {
         const firstPairCardRightHalf = landingPage.recentActivityCarousel.firstPairCardRightHalf;
         firstPairCardRightHalf.click();
         browser.pause(500);
-        browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/?$/);
+        browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/?$/);
       });
     });
   });
@@ -149,7 +149,7 @@ describe('landing page', function () {
       const firstCard = landingPage.officersByAllegationCarousel.cards;
       firstCard.click();
       browser.pause(500);
-      browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/?$/);
+      browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/?$/);
     });
   });
 

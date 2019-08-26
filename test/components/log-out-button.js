@@ -1,7 +1,7 @@
 import React from 'react';
 import { spy } from 'sinon';
 import {
-  renderIntoDocument, findRenderedComponentWithType, scryRenderedComponentsWithType
+  renderIntoDocument, findRenderedComponentWithType, scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 
 import LogOutButton from 'components/log-out-button';

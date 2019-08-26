@@ -8,7 +8,7 @@ export default class EditWrapperStateProvider extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fields: mapValues(props.fields, this.deserializeField)
+      fields: mapValues(props.fields, this.deserializeField),
     };
   }
 
@@ -19,13 +19,13 @@ export default class EditWrapperStateProvider extends Component {
       onSaveForm: this.handleSaveForm.bind(this),
       sectionEditModeOn,
       turnOnSectionEditMode,
-      turnOffSectionEditMode
+      turnOffSectionEditMode,
     };
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      fields: mapValues(nextProps.fields, this.deserializeField)
+      fields: mapValues(nextProps.fields, this.deserializeField),
     });
   }
 
@@ -38,7 +38,7 @@ export default class EditWrapperStateProvider extends Component {
       case 'rich_text':
         return {
           ...field,
-          value: convertContentStateToEditorState(field.value)
+          value: convertContentStateToEditorState(field.value),
         };
     }
     return field;
@@ -49,7 +49,7 @@ export default class EditWrapperStateProvider extends Component {
       case 'rich_text':
         return {
           ...field,
-          value: convertEditorStateToRaw(field.value)
+          value: convertEditorStateToRaw(field.value),
         };
     }
     return field;
@@ -64,9 +64,9 @@ export default class EditWrapperStateProvider extends Component {
         ...fields,
         [fieldName]: {
           ...field,
-          value: fieldValue
-        }
-      }
+          value: fieldValue,
+        },
+      },
     });
   }
 
@@ -76,7 +76,7 @@ export default class EditWrapperStateProvider extends Component {
     return mapValues(fields, (field, fieldName) => ({
       value: field && field.value,
       editModeOn: sectionEditModeOn,
-      onChange: val => this.handleUpdateFieldValue(fieldName, val)
+      onChange: val => this.handleUpdateFieldValue(fieldName, val),
     }));
   }
 
@@ -98,7 +98,7 @@ EditWrapperStateProvider.propTypes = {
   onSaveForm: PropTypes.func,
   sectionEditModeOn: PropTypes.bool,
   turnOnSectionEditMode: PropTypes.func,
-  turnOffSectionEditMode: PropTypes.func
+  turnOffSectionEditMode: PropTypes.func,
 };
 
 EditWrapperStateProvider.childContextTypes = {
@@ -106,5 +106,5 @@ EditWrapperStateProvider.childContextTypes = {
   onSaveForm: PropTypes.func,
   sectionEditModeOn: PropTypes.bool,
   turnOnSectionEditMode: PropTypes.func,
-  turnOffSectionEditMode: PropTypes.func
+  turnOffSectionEditMode: PropTypes.func,
 };

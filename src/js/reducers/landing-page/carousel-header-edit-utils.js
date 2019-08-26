@@ -13,6 +13,6 @@ export const headerEditModeOn = (carouselType) => {
         return false;
       }
       return state;
-    }
+    },
   }, false);
 };

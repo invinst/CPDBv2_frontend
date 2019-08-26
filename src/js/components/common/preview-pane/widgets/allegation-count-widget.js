@@ -12,7 +12,6 @@ import {
 } from './allegation-count-widget.style';
 
 
-
 export default class AllegationCountWidget extends Component {
   render() {
     const { numOfAllegations, subTitle, url } = this.props;
@@ -33,7 +32,7 @@ export default class AllegationCountWidget extends Component {
 AllegationCountWidget.defaultProps = {
   subTitle: null,
   url: '#',
-  numOfAllegations: 0
+  numOfAllegations: 0,
 };
 
 AllegationCountWidget.propTypes = {

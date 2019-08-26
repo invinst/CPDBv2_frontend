@@ -41,36 +41,36 @@ export const createBlock = (text='') => ({
   inlineStyleRanges: [],
   key: genKey(),
   type: 'unstyled',
-  text
+  text,
 });
 
 export const createEmptyEditorState = () => ({
   blocks: [createBlock()],
-  entityMap: {}
+  entityMap: {},
 });
 
 export const createFieldWithEmptyEditorState = (name, type) => ({
   name,
   type,
-  value: createEmptyEditorState()
+  value: createEmptyEditorState(),
 });
 
 export const createEmptyStringField = (name, type='string') => ({
   name,
   type,
-  value: ''
+  value: '',
 });
 
 export const createEmptyDateField = (name) => ({
   name,
   type: 'date',
-  value: moment().format('YYYY-MM-DD')
+  value: moment().format('YYYY-MM-DD'),
 });
 
 export const createEmptyOfficersField = () => ({
   name: 'officers',
   type: 'officers_list',
-  value: []
+  value: [],
 });
 
 export const getFieldOrCreateEmptyWithEditorState = (fields, name, type) => (

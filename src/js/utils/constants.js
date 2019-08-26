@@ -2,7 +2,7 @@ import Enum from 'enum';
 
 import {
   darkSilverSandColor, skepticColor, jaggedIceColor, romanticColor, porcelainColor, botticelliColor,
-  galleryColor, lightAltoColor, greyColor, softBlackColor
+  galleryColor, lightAltoColor, greyColor, softBlackColor,
 } from 'utils/styles';
 import config from 'config';
 
@@ -47,7 +47,7 @@ export const PAGINATION_DEFAULT = {
   results: [],
   count: 0,
   next: null,
-  previous: null
+  previous: null,
 };
 
 // Date format
@@ -193,7 +193,7 @@ export const ALPHA_NUMBERIC = [
   'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
   'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
   'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
-  'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+  'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
 ];
 
 export const SEARCH_PAGE_NAVIGATION_KEYS = ['up', 'down'];
@@ -265,7 +265,7 @@ export const FINDING_COLORS = {
   'No Cooperation': porcelainColor,
   'No Affidavit': botticelliColor,
   'Discharged': galleryColor,
-  'Unknown': lightAltoColor
+  'Unknown': lightAltoColor,
 };
 
 export const ACTIVITY_GRID_REQUEST_START = 'ACTIVITY_GRID_REQUEST_START';
@@ -546,7 +546,7 @@ export const OIG_EXTRA_BLUE_COLOR_SCHEME = {
 export const OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT = {
   COLOR_TEXT_LIGHT_SCHEME: ['55', '54', '45', '44'],
   DARK_COLOR: softBlackColor,
-  LIGHT_COLOR: greyColor
+  LIGHT_COLOR: greyColor,
 };
 
 export const RECENT_CONTENT_TYPE = 'RECENT';
@@ -564,7 +564,7 @@ export const OFFICER_EDIT_TYPES = new Enum(['TRIANGLE', 'SCALE', 'NO_DATA_RADAR_
 
 export const CR_EDIT_MODE = 'CR_EDIT_MODE';
 export const CR_EDIT_TYPES = new Enum([
-  'NO_ATTACHMENT_TEXT', 'DOCUMENT_REQUEST_INSTRUCTION', 'NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION'
+  'NO_ATTACHMENT_TEXT', 'DOCUMENT_REQUEST_INSTRUCTION', 'NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION',
 ]);
 
 export const TRR_EDIT_MODE = 'TRR_EDIT_MODE';
@@ -625,7 +625,7 @@ export const NEW_TIMELINE_ITEMS = {
 
 export const DOCUMENTS_SEARCH_ITEMS = {
   MONTH_SEPARATOR: 'MONTH_SEPARATOR',
-  DOCUMENT: 'DOCUMENT'
+  DOCUMENT: 'DOCUMENT',
 };
 
 export const NEW_TIMELINE_FILTERS = {
@@ -640,7 +640,7 @@ export const NEW_TIMELINE_FILTERS = {
   SUSTAINED: {
     label: 'SUSTAINED',
     kind: [NEW_TIMELINE_ITEMS.CR],
-    finding: ['Sustained']
+    finding: ['Sustained'],
   },
   FORCE: {
     label: 'USE OF FORCE',
@@ -653,7 +653,7 @@ export const NEW_TIMELINE_FILTERS = {
   RANK_UNIT_CHANGES: {
     label: 'RANK/UNIT CHANGES',
     kind: [],
-  }
+  },
 };
 
 export const DISTANCE_OPTIONS = {
@@ -661,7 +661,7 @@ export const DISTANCE_OPTIONS = {
   '1mi': '1 MILES',
   '2.5mi': '2.5 MILES',
   '5mi': '5 MILES',
-  '10mi': '10 MILES'
+  '10mi': '10 MILES',
 };
 
 export const QA_LINK = 'http://how.cpdp.works/';
@@ -700,7 +700,7 @@ export const MAP_ITEMS = {
 
 export const ACTIVITY_GRID_CARD_TYPES = {
   OFFICER: 'single_officer',
-  PAIR: 'coaccused_pair'
+  PAIR: 'coaccused_pair',
 };
 
 export const POPUP_NAMES = {
@@ -723,7 +723,7 @@ export const POPUP_NAMES = {
   TRR: {
     FORCE_CATEGORY: 'forceCategory',
     TYPES_OF_FORCE: 'typeOfForce',
-  }
+  },
 };
 
 export const CALL_TO_ACTION_TYPES = {
@@ -749,12 +749,12 @@ export const SHAREABLE_HEADER_BUTTON_TYPE = {
 
 export const OFFICER_DOWNLOAD_KINDS = {
   WITHOUT_DOCS: 'without_docs',
-  WITH_DOCS: 'with_docs'
+  WITH_DOCS: 'with_docs',
 };
 
 export const OFFICER_DOWNLOAD_TRACKING_ACTIONS = {
   DOWNLOAD: 'download',
-  REQUEST_DOWNLOAD_URLS: 'request_download_urls'
+  REQUEST_DOWNLOAD_URLS: 'request_download_urls',
 };
 
 export const PINBOARD_HEX_ID_LENGTH = 8;

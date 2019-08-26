@@ -11,6 +11,6 @@ export const paginationResponse = (apiSubPath, Factory) => (pinboardId, limit, o
     count,
     next: hasNext ? `${apiUrl}limit=${ limit }&offset=${ offset + limit }` : null,
     previous,
-    results: Factory.buildList(hasNext ? limit : Math.max(count - offset, 0))
+    results: Factory.buildList(hasNext ? limit : Math.max(count - offset, 0)),
   };
 };

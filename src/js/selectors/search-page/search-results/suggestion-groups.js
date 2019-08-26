@@ -64,7 +64,7 @@ export const slicedSuggestionGroupsSelector = createSelector(
       items = map(items, item => ({
         ...item,
         type: key,
-        itemIndex: lastIndex++
+        itemIndex: lastIndex++,
       }));
 
       const canLoadMore = !isSingle && items.length >= itemsPerCategory;
@@ -109,7 +109,7 @@ export const searchResultGroupsSelector = createSelector(
   (groups, pinboardItems) => map(groups, ({ header, items, canLoadMore }) => ({
     header,
     canLoadMore,
-    items: map(items, item => searchResultItemTransform(getPinnedItem(item, pinboardItems)))
+    items: map(items, item => searchResultItemTransform(getPinnedItem(item, pinboardItems))),
   }))
 );
 
@@ -130,7 +130,7 @@ export const firstItemSelector = createSelector(
         to: firstRecord.to,
         url: firstRecord.url,
         recentText: firstRecord.recentText,
-        type: firstGroup.header
+        type: firstGroup.header,
       };
     }
   }

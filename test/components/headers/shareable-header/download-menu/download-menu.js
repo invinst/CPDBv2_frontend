@@ -22,10 +22,10 @@ describe('DownloadMenu component', function () {
         [OFFICER_EDIT_TYPES.SCALE]: false,
         [OFFICER_EDIT_TYPES.NO_DATA_RADAR_CHART]: false,
       },
-      zipFileUrl: { withDocs: 'lvh.me/file-with-docs.zip', withoutDocs: 'lvh.me/file.zip' }
+      zipFileUrl: { withDocs: 'lvh.me/file-with-docs.zip', withoutDocs: 'lvh.me/file.zip' },
     },
     breadcrumb: {
-      breadcrumbs: []
+      breadcrumbs: [],
     },
     popups: [],
   });

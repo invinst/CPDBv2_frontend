@@ -24,7 +24,7 @@ describe('socialGraph actions', function () {
         types: [
           constants.SOCIAL_GRAPH_NETWORK_REQUEST_START,
           constants.SOCIAL_GRAPH_NETWORK_REQUEST_SUCCESS,
-          constants.SOCIAL_GRAPH_NETWORK_REQUEST_FAILURE
+          constants.SOCIAL_GRAPH_NETWORK_REQUEST_FAILURE,
         ],
         payload: {
           request: {
@@ -32,8 +32,8 @@ describe('socialGraph actions', function () {
             params: { 'unit_id': 123, 'threshold': 2, 'complaint_origin': 'CIVILIAN' },
             adapter: null,
             cancelToken: undefined,
-          }
-        }
+          },
+        },
       });
     });
   });
@@ -44,7 +44,7 @@ describe('socialGraph actions', function () {
         types: [
           constants.SOCIAL_GRAPH_ALLEGATIONS_REQUEST_START,
           constants.SOCIAL_GRAPH_ALLEGATIONS_REQUEST_SUCCESS,
-          constants.SOCIAL_GRAPH_ALLEGATIONS_REQUEST_FAILURE
+          constants.SOCIAL_GRAPH_ALLEGATIONS_REQUEST_FAILURE,
         ],
         payload: {
           request: {
@@ -52,8 +52,8 @@ describe('socialGraph actions', function () {
             params: { 'unit_id': 123, 'threshold': 2, 'complaint_origin': 'CIVILIAN' },
             adapter: null,
             cancelToken: undefined,
-          }
-        }
+          },
+        },
       });
     });
   });
@@ -72,8 +72,8 @@ describe('socialGraph actions', function () {
             params: { 'unit_id': 123 },
             adapter: null,
             cancelToken: undefined,
-          }
-        }
+          },
+        },
       });
     });
   });
@@ -92,8 +92,8 @@ describe('socialGraph actions', function () {
             params: { 'unit_id': 123 },
             adapter: null,
             cancelToken: undefined,
-          }
-        }
+          },
+        },
       });
     });
   });
@@ -112,8 +112,8 @@ describe('socialGraph actions', function () {
             params: { 'unit_id': 123 },
             adapter: null,
             cancelToken: undefined,
-          }
-        }
+          },
+        },
       });
     });
   });
@@ -132,8 +132,8 @@ describe('socialGraph actions', function () {
             params: { 'unit_id': 123 },
             adapter: null,
             cancelToken: undefined,
-          }
-        }
+          },
+        },
       });
     });
   });
@@ -152,8 +152,8 @@ describe('socialGraph actions', function () {
             params: { 'unit_id': 123, 'detail': true },
             adapter: null,
             cancelToken: undefined,
-          }
-        }
+          },
+        },
       });
     });
   });
@@ -172,8 +172,8 @@ describe('socialGraph actions', function () {
             params: { 'unit_id': 123, 'detail': true },
             adapter: null,
             cancelToken: undefined,
-          }
-        }
+          },
+        },
       });
     });
   });
@@ -192,8 +192,8 @@ describe('socialGraph actions', function () {
             params: { 'unit_id': 123, 'detail': true },
             adapter: null,
             cancelToken: undefined,
-          }
-        }
+          },
+        },
       });
     });
   });
@@ -212,8 +212,8 @@ describe('socialGraph actions', function () {
             params: { 'unit_id': 123, 'detail': true },
             adapter: null,
             cancelToken: undefined,
-          }
-        }
+          },
+        },
       });
     });
   });
@@ -224,7 +224,7 @@ describe('socialGraph actions', function () {
         types: [
           constants.SOCIAL_GRAPH_OFFICERS_REQUEST_START,
           constants.SOCIAL_GRAPH_OFFICERS_REQUEST_SUCCESS,
-          constants.SOCIAL_GRAPH_OFFICERS_REQUEST_FAILURE
+          constants.SOCIAL_GRAPH_OFFICERS_REQUEST_FAILURE,
         ],
         payload: {
           request: {
@@ -232,8 +232,8 @@ describe('socialGraph actions', function () {
             params: { 'unit_id': 123 },
             adapter: null,
             cancelToken: undefined,
-          }
-        }
+          },
+        },
       });
     });
   });
@@ -242,7 +242,7 @@ describe('socialGraph actions', function () {
     it('should return correct payload', function () {
       updateSocialGraphTimelineIdx(20).should.eql({
         type: constants.UPDATE_SOCIAL_GRAPH_TIMELINE_IDX,
-        payload: 20
+        payload: 20,
       });
     });
   });
@@ -251,7 +251,7 @@ describe('socialGraph actions', function () {
     it('should return correct payload', function () {
       updateSocialGraphTimelineIdxFromTimelineTab(20).should.eql({
         type: constants.UPDATE_SOCIAL_GRAPH_TIMELINE_IDX_FROM_TIMELINE_TAB,
-        payload: 20
+        payload: 20,
       });
     });
   });
@@ -260,7 +260,7 @@ describe('socialGraph actions', function () {
     it('should return correct payload', function () {
       updateSocialGraphRefreshIntervalId(1234).should.eql({
         type: constants.UPDATE_SOCIAL_GRAPH_REFRESH_INTERVAL_ID,
-        payload: 1234
+        payload: 1234,
       });
     });
   });

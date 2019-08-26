@@ -27,13 +27,13 @@ export const getFirstRelevantComplaints = (pinboardId, count) => {
           'coaccusal_count': 47,
         }),
         ...RawRelevantCoaccusalFactory.buildList(8),
-      ]
+      ],
     }),
     RawRelevantComplaintFactory.build({
       'crid': '1079876',
       'category': 'Operations/Personnel Violation',
       'incident_date': '2014-05-02',
-      'coaccused': RawRelevantCoaccusalFactory.buildList(10)
+      'coaccused': RawRelevantCoaccusalFactory.buildList(10),
     }),
   ];
   complaints.results = fixedComplaints.concat(complaints.results).slice(0, 20);

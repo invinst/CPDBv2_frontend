@@ -71,7 +71,6 @@ exports.config = {
     // maxInstances can get overwritten per capability. So if you have an in-house Selenium
     // grid with only 5 firefox instances available you can make sure that not more than
     // 5 instances get started at a time.
-    //
     browserName: 'chrome',
     'goog:chromeOptions': {
       // to run chrome headless the following flags are required
@@ -221,6 +220,7 @@ exports.config = {
   // Gets executed before test execution begins. At this point you can access all global
   // variables, such as `browser`. It is the perfect place to define custom commands.
   before: function (capabilities, specs) {
+    require('should');
     initCommands();
   },
   //

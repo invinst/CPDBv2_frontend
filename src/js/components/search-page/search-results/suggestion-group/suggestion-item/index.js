@@ -52,5 +52,5 @@ SuggestionItem.propTypes = {
 };
 
 SuggestionItem.defaultProps = {
-  suggestion: {}
+  suggestion: {},
 };

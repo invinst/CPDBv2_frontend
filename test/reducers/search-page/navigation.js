@@ -1,7 +1,7 @@
 import navigation from 'reducers/search-page/navigation';
 import {
   SEARCH_NAVIGATION_DOWN, SEARCH_NAVIGATION_UP, SEARCH_NAVIGATION_RESET,
-  CHANGE_SEARCH_QUERY, SEARCH_NAVIGATION_SET
+  CHANGE_SEARCH_QUERY, SEARCH_NAVIGATION_SET,
 } from 'utils/constants';
 
 
@@ -10,14 +10,14 @@ describe('navigation reducer', function () {
     it('resets to first position by default', function () {
       navigation({ 'itemIndex': 2 }, {
         type: SEARCH_NAVIGATION_RESET,
-        payload: undefined
+        payload: undefined,
       }).should.deepEqual({ 'itemIndex': 1 });
     });
 
     it('resets to a position', function () {
       navigation({ 'itemIndex': 2 }, {
         type: SEARCH_NAVIGATION_RESET,
-        payload: 3
+        payload: 3,
       }).should.deepEqual({ 'itemIndex': 3 });
     });
   });
@@ -26,7 +26,7 @@ describe('navigation reducer', function () {
     it('resets to search box position', function () {
       navigation({ 'itemIndex': 2 }, {
         type: CHANGE_SEARCH_QUERY,
-        payload: {}
+        payload: {},
       }).should.deepEqual({ 'itemIndex': 1 });
     });
   });
@@ -36,8 +36,8 @@ describe('navigation reducer', function () {
       navigation({ 'itemIndex': 1 }, {
         type: SEARCH_NAVIGATION_DOWN,
         payload: {
-          totalItemCount: 2
-        }
+          totalItemCount: 2,
+        },
       }).should.deepEqual({ 'itemIndex': 1 });
     });
 
@@ -45,8 +45,8 @@ describe('navigation reducer', function () {
       navigation({ 'itemIndex': 0 }, {
         type: SEARCH_NAVIGATION_DOWN,
         payload: {
-          totalItemCount: 2
-        }
+          totalItemCount: 2,
+        },
       }).should.deepEqual({ 'itemIndex': 1 });
     });
   });
@@ -56,8 +56,8 @@ describe('navigation reducer', function () {
       navigation({ 'itemIndex': -1 }, {
         type: SEARCH_NAVIGATION_UP,
         payload: {
-          totalItemCount: 2
-        }
+          totalItemCount: 2,
+        },
       }).should.deepEqual({ 'itemIndex': -1 });
     });
 
@@ -65,8 +65,8 @@ describe('navigation reducer', function () {
       navigation({ 'itemIndex': 1 }, {
         type: SEARCH_NAVIGATION_UP,
         payload: {
-          totalItemCount: 2
-        }
+          totalItemCount: 2,
+        },
       }).should.deepEqual({ 'itemIndex': 0 });
     });
   });
@@ -75,8 +75,8 @@ describe('navigation reducer', function () {
     navigation(undefined, {
       type: SEARCH_NAVIGATION_SET,
       payload: {
-        itemIndex: 1
-      }
+        itemIndex: 1,
+      },
     }).should.eql({ itemIndex: 1 });
   });
 });

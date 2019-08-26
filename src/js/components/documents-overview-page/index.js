@@ -13,7 +13,7 @@ export default class DocumentsOverviewPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchText: _.get(this.props.location.query, 'match', '')
+      searchText: _.get(this.props.location.query, 'match', ''),
     };
   }
 
@@ -34,7 +34,7 @@ export default class DocumentsOverviewPage extends Component {
       hasMore,
       nextParams,
       fetchDocuments,
-      fetchDocumentsAuthenticated
+      fetchDocumentsAuthenticated,
     } = this.props;
 
     return (
@@ -69,5 +69,5 @@ DocumentsOverviewPage.propTypes = {
 
 DocumentsOverviewPage.defaultProps = {
   documents: [],
-  location: {}
+  location: {},
 };

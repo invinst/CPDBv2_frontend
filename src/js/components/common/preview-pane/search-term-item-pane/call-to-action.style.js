@@ -8,7 +8,7 @@ export const linkStyle = {
   margin: '0px 16px',
   padding: '0px 16px',
   height: '40px',
-  textDecoration: 'none'
+  textDecoration: 'none',
 };
 
 export const textStyle = {
@@ -26,5 +26,5 @@ export const buttonStyle = {
   lineHeight: '26px',
   float: 'right',
   marginTop: '6px',
-  fontSize: '14px'
+  fontSize: '14px',
 };

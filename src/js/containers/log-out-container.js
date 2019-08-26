@@ -7,12 +7,12 @@ import { logOut } from 'actions/authentication';
 
 function mapStateToProps(state, ownProps) {
   return {
-    show: showLogOutButton(state, ownProps)
+    show: showLogOutButton(state, ownProps),
   };
 }
 
 const mapDispatchToProps = {
-  logOut
+  logOut,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LogOutButton);

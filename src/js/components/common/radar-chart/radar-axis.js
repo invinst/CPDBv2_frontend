@@ -6,7 +6,7 @@ import { roundedPercentile } from 'utils/calculations';
 import {
   radarAxisTextStyle,
   radarAxisTitleStyle,
-  radarAxisValueTitleStyle
+  radarAxisValueTitleStyle,
 } from './radar-axis.style';
 
 

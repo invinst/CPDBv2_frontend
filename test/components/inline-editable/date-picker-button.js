@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  renderIntoDocument, scryRenderedDOMComponentsWithTag
+  renderIntoDocument, scryRenderedDOMComponentsWithTag,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';

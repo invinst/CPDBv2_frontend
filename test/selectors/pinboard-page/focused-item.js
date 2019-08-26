@@ -29,8 +29,8 @@ describe('focusedItem selectors', function () {
         officerItems: {
           requesting: false,
           items: [
-            officerItem
-          ]
+            officerItem,
+          ],
         },
         crItems: {
           requesting: false,
@@ -39,7 +39,7 @@ describe('focusedItem selectors', function () {
             'incident_date': '2010-01-01',
             point: { 'lon': 1.0, 'lat': 1.0 },
             'most_common_category': 'Use Of Force',
-          }]
+          }],
         },
         trrItems: {
           requesting: false,
@@ -48,7 +48,7 @@ describe('focusedItem selectors', function () {
             'trr_datetime': '2012-01-01',
             category: 'Impact Weapon',
             point: { 'lon': 1.0, 'lat': 1.0 },
-          }]
+          }],
         },
         relevantComplaints: {
           items: [],
@@ -56,7 +56,7 @@ describe('focusedItem selectors', function () {
         relevantCoaccusals: {
           items: [],
         },
-      }
+      },
     };
 
     focusedItemSelector(state).should.be.eql({
@@ -75,10 +75,10 @@ describe('focusedItem selectors', function () {
           items: [
             { axis: 'Use of Force Reports', value: 90 },
             { axis: 'Officer Allegations', value: 91 },
-            { axis: 'Civilian Allegations', value: 92 }
+            { axis: 'Civilian Allegations', value: 92 },
           ],
           visualTokenBackground: '#f52524',
-          textColor: '#DFDFDF'
+          textColor: '#DFDFDF',
         },
         race: 'White',
         rank: 'Police Officer',

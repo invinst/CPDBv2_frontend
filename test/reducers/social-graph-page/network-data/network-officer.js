@@ -40,13 +40,13 @@ describe('networkOfficers reducer', function () {
           'percentile_allegation_civilian': '97.0',
           'percentile_allegation_internal': '82.0',
         },
-        'honorable_mention_percentile': '70'
+        'honorable_mention_percentile': '70',
       },
     ];
 
     networkOfficers([], {
       type: SOCIAL_GRAPH_OFFICERS_REQUEST_SUCCESS,
-      payload: graphOfficerData
+      payload: graphOfficerData,
     }).should.eql(graphOfficerData);
   });
 });

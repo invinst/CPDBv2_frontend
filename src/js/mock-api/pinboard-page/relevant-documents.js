@@ -30,7 +30,7 @@ export const getFirstRelevantDocuments = (pinboardId, count) => {
             'coaccusal_count': 47,
           }),
           ...RawRelevantCoaccusalFactory.buildList(8),
-        ]
+        ],
       }),
     }),
     RawRelevantDocumentFactory.build({
@@ -40,8 +40,8 @@ export const getFirstRelevantDocuments = (pinboardId, count) => {
         'crid': '1079876',
         'category': 'Operations/Personnel Violation',
         'incident_date': '2014-05-02',
-        'coaccused': RawRelevantCoaccusalFactory.buildList(10)
-      })
+        'coaccused': RawRelevantCoaccusalFactory.buildList(10),
+      }),
     }),
   ];
   documents.results = fixedDocuments.concat(documents.results).slice(0, 20);

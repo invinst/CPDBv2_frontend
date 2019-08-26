@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { map } from 'lodash';
 
 import {
-  wrapperStyle, aggregateNameStyle, entryStyle, countStyle, nameStyle, sustainedCountStyle
+  wrapperStyle, aggregateNameStyle, entryStyle, countStyle, nameStyle, sustainedCountStyle,
 } from './aggregate-facet.style';
 
 
@@ -34,5 +34,5 @@ export default class AggregateFacet extends Component {
 
 AggregateFacet.propTypes = {
   name: PropTypes.string,
-  entries: PropTypes.array
+  entries: PropTypes.array,
 };

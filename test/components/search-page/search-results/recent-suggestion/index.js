@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithTag,
-  renderIntoDocument
+  renderIntoDocument,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';

@@ -35,10 +35,10 @@ describe('Pinboard items selectors', function () {
                 'percentile_allegation_internal': '99.7840',
                 year: 2016,
                 id: 1,
-              }
+              },
             }],
           },
-        }
+        },
       }).should.eql([{
         id: '1',
         type: 'OFFICER',
@@ -95,10 +95,10 @@ describe('Pinboard items selectors', function () {
                 'percentile_allegation_internal': '99.7840',
                 year: 2016,
                 id: 1,
-              }
-            }]
+              },
+            }],
           },
-        }
+        },
       }).should.eql([{
         id: '1',
         type: 'OFFICER',
@@ -155,14 +155,14 @@ describe('Pinboard items selectors', function () {
                 'percentile_allegation_internal': '99.7840',
                 year: 2016,
                 id: 1,
-              }
-            }]
+              },
+            }],
           },
           pinItemFromPreviewPane: {
             type: 'OFFICER',
             id: 1,
           },
-        }
+        },
       }).should.eql([{
         id: '1',
         type: 'OFFICER',
@@ -211,7 +211,7 @@ describe('Pinboard items selectors', function () {
               category: 'Use Of Force',
             }],
           },
-        }
+        },
       }).should.eql([{
         id: '1000001',
         type: 'CR',
@@ -237,7 +237,7 @@ describe('Pinboard items selectors', function () {
             type: 'CR',
             id: '1000001',
           },
-        }
+        },
       }).should.eql([{
         id: '1000001',
         type: 'CR',
@@ -261,7 +261,7 @@ describe('Pinboard items selectors', function () {
               point: { 'lon': 1.0, 'lat': 1.0 },
             }],
           },
-        }
+        },
       }).should.eql([{
         id: '1',
         type: 'TRR',
@@ -287,7 +287,7 @@ describe('Pinboard items selectors', function () {
             type: 'TRR',
             id: '1',
           },
-        }
+        },
       }).should.eql([{
         id: '1',
         type: 'TRR',
@@ -308,7 +308,7 @@ describe('Pinboard items selectors', function () {
             requesting: true,
             items: [],
           },
-        }
+        },
       }).should.be.true();
 
       getPinnedCRsRequesting({
@@ -317,7 +317,7 @@ describe('Pinboard items selectors', function () {
             requesting: false,
             items: [],
           },
-        }
+        },
       }).should.be.false();
     });
   });
@@ -330,7 +330,7 @@ describe('Pinboard items selectors', function () {
             requesting: true,
             items: [],
           },
-        }
+        },
       }).should.be.true();
 
       getPinnedOfficersRequesting({
@@ -339,7 +339,7 @@ describe('Pinboard items selectors', function () {
             requesting: false,
             items: [],
           },
-        }
+        },
       }).should.be.false();
     });
   });
@@ -352,7 +352,7 @@ describe('Pinboard items selectors', function () {
             requesting: true,
             items: [],
           },
-        }
+        },
       }).should.be.true();
 
       getPinnedTRRsRequesting({
@@ -361,7 +361,7 @@ describe('Pinboard items selectors', function () {
             requesting: false,
             items: [],
           },
-        }
+        },
       }).should.be.false();
     });
   });
@@ -377,9 +377,9 @@ describe('Pinboard items selectors', function () {
               'incident_date': '2010-01-01',
               point: { 'lon': 1.0, 'lat': 1.0 },
               'most_common_category': 'Use Of Force',
-            }]
+            }],
           },
-        }
+        },
       };
 
       getPinnedCRs(state).should.eql([{
@@ -402,9 +402,9 @@ describe('Pinboard items selectors', function () {
               'trr_datetime': '2012-01-01',
               category: 'Impact Weapon',
               point: { 'lon': 1.0, 'lat': 1.0 },
-            }]
+            }],
           },
-        }
+        },
       };
 
       getPinnedTRRs(state).should.eql([{
@@ -439,10 +439,10 @@ describe('Pinboard items selectors', function () {
                 'percentile_allegation_internal': '99.7840',
                 year: 2016,
                 id: 1,
-              }
-            }]
+              },
+            }],
           },
-        }
+        },
       };
 
       getPinnedOfficers(state).should.eql([{
@@ -462,7 +462,7 @@ describe('Pinboard items selectors', function () {
           'percentile_allegation_internal': '99.7840',
           year: 2016,
           id: 1,
-        }
+        },
       }]);
     });
   });

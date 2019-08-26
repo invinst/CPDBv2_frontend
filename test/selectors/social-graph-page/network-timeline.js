@@ -14,8 +14,8 @@ describe('Social Graph page selectors', function () {
         socialGraphPage: {
           networkData: {
             graphData: {},
-          }
-        }
+          },
+        },
       }).should.be.empty();
     });
 
@@ -43,16 +43,16 @@ describe('Social Graph page selectors', function () {
                     title: 'CRID 294088 CR',
                     'file_type': 'document',
                     'id': '123456',
-                  }
-                ]
+                  },
+                ],
               },
             ],
             graphData: {
-              'list_event': ['2003-02-17', '2003-11-26']
-            }
+              'list_event': ['2003-02-17', '2003-11-26'],
+            },
           },
 
-        }
+        },
       };
 
       socialGraphTimelineItemsSelector(state).should.eql([
@@ -60,7 +60,7 @@ describe('Social Graph page selectors', function () {
           date: 2003,
           hasData: true,
           key: '260131-YEAR-2003',
-          kind: 'YEAR'
+          kind: 'YEAR',
         },
         {
           attachments: [],
@@ -87,8 +87,8 @@ describe('Social Graph page selectors', function () {
               id: '123456',
               previewImageUrl: 'https://assets.documentcloud.org/documents/3518950/pages/CRID-294088-CR-p1-normal.gif',
               title: 'CRID 294088 CR',
-              url: 'https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html'
-            }
+              url: 'https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html',
+            },
           ],
           timelineIdx: 1,
         },
@@ -104,7 +104,7 @@ describe('Social Graph page selectors', function () {
           networkData: {
             timelineIdx: 20,
           },
-        }
+        },
       };
       getSocialGraphTimelineIdx(state).should.eql(20);
     });
@@ -117,7 +117,7 @@ describe('Social Graph page selectors', function () {
           networkData: {
             refreshIntervalId: 1234,
           },
-        }
+        },
       };
       getSocialGraphRefreshIntervalId(state).should.eql(1234);
     });
@@ -130,7 +130,7 @@ describe('Social Graph page selectors', function () {
           networkData: {
             timelineIdxTriggerChange: 1,
           },
-        }
+        },
       };
       getTimelineIdxTriggerChange(state).should.eql(1);
     });
@@ -140,14 +140,14 @@ describe('Social Graph page selectors', function () {
     it('should return requesting status', function () {
       getNetworkAllegationsRequesting({
         socialGraphPage: {
-          networkData: { networkAllegationsRequesting: false }
-        }
+          networkData: { networkAllegationsRequesting: false },
+        },
       }).should.be.false();
 
       getNetworkAllegationsRequesting({
         socialGraphPage: {
-          networkData: { networkAllegationsRequesting: true }
-        }
+          networkData: { networkAllegationsRequesting: true },
+        },
       }).should.be.true();
     });
   });

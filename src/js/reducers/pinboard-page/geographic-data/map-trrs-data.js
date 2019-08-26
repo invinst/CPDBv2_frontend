@@ -8,5 +8,5 @@ export default handleActions({
   [constants.FIRST_PAGE_PINBOARD_GEOGRAPHIC_TRRS_FETCH_REQUEST_SUCCESS]: (state, action) => action.payload['results'],
   [constants.PINBOARD_GEOGRAPHIC_TRRS_FETCH_REQUEST_SUCCESS]: (state, action) => concat(
     state, action.payload['results']
-  )
+  ),
 }, []);

@@ -9,7 +9,7 @@ class CancelUpdateButtons extends Component {
     const { onCancelClick, onUpdateClick } = this.props;
     const style = {
       base: buttonStyle,
-      hover: hoverButtonStyle
+      hover: hoverButtonStyle,
     };
 
     return (
@@ -33,7 +33,7 @@ class CancelUpdateButtons extends Component {
 
 CancelUpdateButtons.propTypes = {
   onCancelClick: PropTypes.func,
-  onUpdateClick: PropTypes.func
+  onUpdateClick: PropTypes.func,
 };
 
 export default CancelUpdateButtons;

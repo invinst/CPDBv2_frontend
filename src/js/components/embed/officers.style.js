@@ -11,7 +11,7 @@ export const headerWrapperStyle = {
   display: 'inline-block',
   verticalAlign: 'top',
   boxSizing: 'border-box',
-  maxWidth: '50%'
+  maxWidth: '50%',
 };
 
 export const carouselStyle = {
@@ -19,12 +19,12 @@ export const carouselStyle = {
     width: 'calc(100% - 336px)',
     verticalAlign: 'top',
     display: 'inline-block',
-    minWidth: '50%'
-  }
+    minWidth: '50%',
+  },
 };
 
 export const itemStyle = {
-  width: '232px'
+  width: '232px',
 };
 
 export const titleStyle = {
@@ -34,7 +34,7 @@ export const titleStyle = {
   color: softBlackColor,
   padding: '0 16px',
   marginTop: 0,
-  marginBottom: '16px'
+  marginBottom: '16px',
 };
 
 export const descriptionStyle = {
@@ -42,5 +42,5 @@ export const descriptionStyle = {
   fontSize: '14px',
   textAlign: 'left',
   fontWeight: 300,
-  color: clayGray
+  color: clayGray,
 };

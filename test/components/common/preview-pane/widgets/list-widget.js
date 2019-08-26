@@ -4,7 +4,7 @@ import { spy } from 'sinon';
 import {
   renderIntoDocument,
   findRenderedComponentWithType,
-  scryRenderedDOMComponentsWithClass
+  scryRenderedDOMComponentsWithClass,
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 import { Link } from 'react-router';
@@ -25,12 +25,12 @@ describe('ListWidget', () => {
       {
         'id': 1,
         'name': 'Category Name 1',
-        'count': 90
+        'count': 90,
       },
       {
         'id': 2,
         'name': 'Category Name 2',
-        'count': 32
+        'count': 32,
       },
     ];
     instance = renderIntoDocument(
@@ -80,7 +80,7 @@ describe('ListWidget', () => {
         'name': 'Category Name 1',
         'count': 90,
         'url': 'url_1',
-      }
+      },
     ];
     instance = renderIntoDocument(
       <ListWidget

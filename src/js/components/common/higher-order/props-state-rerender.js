@@ -14,7 +14,7 @@ export default function (SubComponent) {
   }
 
   PropsStateRerender.propTypes = {
-    children: PropTypes.node
+    children: PropTypes.node,
   };
 
   return PropsStateRerender;

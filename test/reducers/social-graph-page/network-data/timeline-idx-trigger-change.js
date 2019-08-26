@@ -10,14 +10,14 @@ describe('timelineIdx reducer', function () {
   it('should handle UPDATE_SOCIAL_GRAPH_TIMELINE_IDX when previous state is 0', function () {
     timelineIdxTriggerChange(0, {
       type: UPDATE_SOCIAL_GRAPH_TIMELINE_IDX,
-      payload: 20
+      payload: 20,
     }).should.eql(1);
   });
 
   it('should handle UPDATE_SOCIAL_GRAPH_TIMELINE_IDX when previous state is 1', function () {
     timelineIdxTriggerChange(1, {
       type: UPDATE_SOCIAL_GRAPH_TIMELINE_IDX,
-      payload: 20
+      payload: 20,
     }).should.eql(0);
   });
 });

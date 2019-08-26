@@ -26,10 +26,10 @@ describe('TRRPane component', () => {
       radarAxes: [
         { axis: 'Use of Force Reports', value: 72.1094 },
         { axis: 'Officer Allegations', value: 61.1521 },
-        { axis: 'Civilian Allegations', value: 98.5549 }
+        { axis: 'Civilian Allegations', value: 98.5549 },
       ],
       radarColor: '#f0201e',
-      count: 93
+      count: 93,
     };
 
     instance = renderIntoDocument(
@@ -45,7 +45,7 @@ describe('TRRPane component', () => {
     const wrapper = findRenderedComponentWithType(instance, NewWidgetWrapper);
     wrapper.props.callToAction.should.eql({
       to: '/trr/123/',
-      text: 'View Tactical Response Report'
+      text: 'View Tactical Response Report',
     });
 
     const title = findRenderedDOMComponentWithClass(instance, 'trr-preview-pane-title-title');

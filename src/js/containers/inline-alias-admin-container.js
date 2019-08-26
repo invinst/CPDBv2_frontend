@@ -10,12 +10,12 @@ function mapStateToProps(state, ownProps) {
     text: state.inlineAliasAdminPage.text,
     description: state.inlineAliasAdminPage.description,
     existingAliases: state.inlineAliasAdminPage.existingAliases,
-    errorMessage: state.inlineAliasAdminPage.errorMessage
+    errorMessage: state.inlineAliasAdminPage.errorMessage,
   };
 }
 
 const mapDispatchToProps = {
-  updateAliases
+  updateAliases,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(InlineAliasAdmin);

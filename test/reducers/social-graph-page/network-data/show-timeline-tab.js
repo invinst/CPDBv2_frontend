@@ -11,7 +11,7 @@ describe('showTimelineTab reducer', function () {
     it('should return false if payload is empty', function () {
       showTimelineTab(true, {
         type: SOCIAL_GRAPH_ALLEGATIONS_REQUEST_SUCCESS,
-        payload: []
+        payload: [],
       }).should.be.false();
     });
 
@@ -23,8 +23,8 @@ describe('showTimelineTab reducer', function () {
             'category': 'False Arrest',
             'crid': '1089128',
             'incident_date': '2018-02-01',
-          }
-        ]
+          },
+        ],
       }).should.be.true();
     });
   });

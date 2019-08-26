@@ -10,7 +10,7 @@ describe('Involvement component', function () {
   let instance;
   const involvements = {
     'investigator': [{ id: 1 }],
-    'police_witness': [{ id: 2 }]
+    'police_witness': [{ id: 2 }],
   };
 
   afterEach(function () {

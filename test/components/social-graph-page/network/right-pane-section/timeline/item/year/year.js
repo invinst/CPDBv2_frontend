@@ -1,5 +1,5 @@
 import React from 'react';
-import { findRenderedDOMComponentWithClass, renderIntoDocument, } from 'react-addons-test-utils';
+import { findRenderedDOMComponentWithClass, renderIntoDocument } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import Year from 'components/social-graph-page/network/right-pane-section/timeline/item/year';
@@ -17,7 +17,7 @@ describe('Year component', function () {
       date: '1994',
       hasData: true,
       kind: 'YEAR',
-      key: '123456'
+      key: '123456',
     };
 
     instance = renderIntoDocument(<Year item={ year }/>);

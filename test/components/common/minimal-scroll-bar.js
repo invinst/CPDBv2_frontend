@@ -4,7 +4,7 @@ import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
   scryRenderedDOMComponentsWithClass,
-  scryRenderedDOMComponentsWithTag
+  scryRenderedDOMComponentsWithTag,
 } from 'react-addons-test-utils';
 import { stub } from 'sinon';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { spy } from 'sinon';
 import {
   renderIntoDocument,
-  findRenderedComponentWithType
+  findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 
 import Carousel from 'components/common/carousel';
@@ -27,7 +27,7 @@ describe('CarouselWrapper component', function () {
 
   it('should renderable', function () {
     CarouselWrapper.should.be.renderable({
-      cards: [{ crid: '123456' }]
+      cards: [{ crid: '123456' }],
     });
   });
 
@@ -62,7 +62,7 @@ describe('CarouselWrapper component', function () {
       match: 'officers',
       distance: '10mi',
       offset: 20,
-      limit: 20
+      limit: 20,
     };
     instance = renderIntoDocument(
       <CarouselWrapper

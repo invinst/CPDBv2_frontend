@@ -61,5 +61,5 @@ PinboardButton.defaultProps = {
     isPinboardRestored: true,
   },
   emptyText: false,
-  onEmptyPinboardButtonClick: noop
+  onEmptyPinboardButtonClick: noop,
 };

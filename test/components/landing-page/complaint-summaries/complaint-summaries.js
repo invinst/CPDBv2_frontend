@@ -2,7 +2,7 @@ import React from 'react';
 import {
   renderIntoDocument,
   scryRenderedComponentsWithType,
-  findRenderedDOMComponentWithClass
+  findRenderedDOMComponentWithClass,
 } from 'react-addons-test-utils';
 import { unmountComponentSuppressError } from 'utils/test';
 import { findDOMNode } from 'react-dom';
@@ -18,12 +18,12 @@ describe('Complaint Summaries components', function () {
     'crid': '111',
     'categoryNames': ['Illegal Search'],
     'summary': 'This is summary 1',
-    'incidentDate': new Date(2017, 6, 6)
+    'incidentDate': new Date(2017, 6, 6),
   }, {
     'crid': '112',
     'categoryNames': ['Use of Force'],
     'summary': 'This is summary 2',
-    'incidentDate': new Date(2017, 1, 6)
+    'incidentDate': new Date(2017, 1, 6),
   }];
 
   beforeEach(function () {

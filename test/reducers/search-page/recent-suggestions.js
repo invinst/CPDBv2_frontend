@@ -9,7 +9,7 @@ describe('recentSuggestions reducer', function () {
 
     recentSuggestions(undefined, {
       type: TRACK_RECENT_SUGGESTION,
-      payload: recentSuggestion
+      payload: recentSuggestion,
     }).should.deepEqual([recentSuggestion]);
   });
 
@@ -18,7 +18,7 @@ describe('recentSuggestions reducer', function () {
 
     recentSuggestions([recentSuggestion], {
       type: TRACK_RECENT_SUGGESTION,
-      payload: recentSuggestion
+      payload: recentSuggestion,
     }).length.should.equal(1);
   });
 
@@ -28,7 +28,7 @@ describe('recentSuggestions reducer', function () {
 
     recentSuggestions(state, {
       type: TRACK_RECENT_SUGGESTION,
-      payload: recentSuggestion
+      payload: recentSuggestion,
     }).length.should.equal(10);
   });
 
@@ -37,7 +37,7 @@ describe('recentSuggestions reducer', function () {
     const state = [recentSuggestionFactory.build()];
     const recents = recentSuggestions(state, {
       type: TRACK_RECENT_SUGGESTION,
-      payload: recentSuggestion
+      payload: recentSuggestion,
     });
 
     recents.length.should.equal(2);

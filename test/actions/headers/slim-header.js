@@ -62,7 +62,7 @@ describe('Video info actions', function () {
         types: [
           VIDEO_INFO_REQUEST_START,
           VIDEO_INFO_REQUEST_SUCCESS,
-          VIDEO_INFO_REQUEST_FAILURE
+          VIDEO_INFO_REQUEST_FAILURE,
         ],
         payload: {
           request: {
@@ -71,8 +71,8 @@ describe('Video info actions', function () {
             adapter: null,
             cancelToken: undefined,
             withCredentials: false,
-          }
-        }
+          },
+        },
       });
     });
   });

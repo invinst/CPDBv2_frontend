@@ -31,7 +31,7 @@ describe('Row component', function () {
       sectionEditModeOn: false,
       onSaveForm: spy(),
       turnOnSectionEditMode: spy(),
-      turnOffSectionEditMode: spy()
+      turnOffSectionEditMode: spy(),
     };
     const openRequestTRRDocumentModal = spy();
     instance = renderIntoDocument(

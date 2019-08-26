@@ -5,7 +5,7 @@ import {
   Simulate,
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass
+  scryRenderedDOMComponentsWithClass,
 } from 'react-addons-test-utils';
 
 import LegalDisclaimerModalContent from 'components/generic-modal/legal-disclaimer-modal-content';

@@ -4,7 +4,7 @@ import {
   findRenderedDOMComponentWithClass,
   findRenderedComponentWithType,
   scryRenderedComponentsWithType,
-  Simulate
+  Simulate,
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 import { spy, stub } from 'sinon';
@@ -92,7 +92,7 @@ describe('DocumentDeduplicatorPage DocumentRow component', function () {
     let counter = findRenderedComponentWithType(instance, Counter);
     counter.props.should.containEql({
       viewsCount: 20,
-      downloadsCount: 30
+      downloadsCount: 30,
     });
   });
 
@@ -106,7 +106,7 @@ describe('DocumentDeduplicatorPage DocumentRow component', function () {
     let toggle = findRenderedComponentWithType(instance, Toggle);
     toggle.props.should.containEql({
       on: true,
-      children: 'show'
+      children: 'show',
     });
     toggle.props.onChange(false);
     setDocumentShow.calledOnceWith(1, true).should.be.true();

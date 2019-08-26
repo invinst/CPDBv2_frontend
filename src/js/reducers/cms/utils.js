@@ -16,6 +16,6 @@ export const handleCMSEditModeActions = (EDIT_MODE, EDIT_TYPES) => {
         return defaultState;
       }
       return state;
-    }
+    },
   }, defaultState);
 };

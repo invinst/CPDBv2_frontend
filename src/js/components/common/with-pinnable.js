@@ -43,7 +43,7 @@ export default function withPinnable(WrappedComponent) {
       type: '',
       id: '',
       isPinned: false,
-    }
+    },
   };
 
   return _Base;

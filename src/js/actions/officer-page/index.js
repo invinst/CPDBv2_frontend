@@ -18,7 +18,7 @@ import {
   OFFICER_FETCH_ZIP_FILE_URL_REQUEST_FAILURE,
   OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_START,
   OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_SUCCESS,
-  OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_FAILURE
+  OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_FAILURE,
 } from 'utils/constants';
 import { createChangeEditModeAction } from 'actions/cms';
 
@@ -56,7 +56,7 @@ export const requestCreateOfficerZipFile = officerId => (get(
   [
     OFFICER_CREATE_ZIP_FILE_REQUEST_START,
     OFFICER_CREATE_ZIP_FILE_REQUEST_SUCCESS,
-    OFFICER_CREATE_ZIP_FILE_REQUEST_FAILURE
+    OFFICER_CREATE_ZIP_FILE_REQUEST_FAILURE,
   ]
 )());
 
@@ -65,7 +65,7 @@ export const fetchOfficerZipWithDocsFileUrl = (officerId, retryCounter=0) => (ge
   [
     OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_START,
     OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_SUCCESS,
-    OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_FAILURE
+    OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_FAILURE,
   ]
 )({ 'with-docs': true, 'retry-counter': retryCounter }));
 
@@ -74,6 +74,6 @@ export const fetchOfficerZipFileUrl = (officerId, retryCounter=0) => (get(
   [
     OFFICER_FETCH_ZIP_FILE_URL_REQUEST_START,
     OFFICER_FETCH_ZIP_FILE_URL_REQUEST_SUCCESS,
-    OFFICER_FETCH_ZIP_FILE_URL_REQUEST_FAILURE
+    OFFICER_FETCH_ZIP_FILE_URL_REQUEST_FAILURE,
   ]
 )({ 'with-docs': false, 'retry-counter': retryCounter }));

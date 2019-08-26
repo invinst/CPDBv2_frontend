@@ -21,7 +21,7 @@ describe('pinboard-page actions', function () {
     it('should return correct payload', function () {
       redirect(false).should.eql({
         type: PINBOARD_PAGE_REDIRECT,
-        payload: false
+        payload: false,
       });
     });
   });
@@ -30,7 +30,7 @@ describe('pinboard-page actions', function () {
     it('should return correct payload', function () {
       updatePinboardTimelineIdx(20).should.eql({
         type: UPDATE_PINBOARD_TIMELINE_IDX,
-        payload: 20
+        payload: 20,
       });
     });
   });
@@ -39,7 +39,7 @@ describe('pinboard-page actions', function () {
     it('should return correct payload', function () {
       updatePinboardRefreshIntervalId(1234).should.eql({
         type: UPDATE_PINBOARD_REFRESH_INTERVAL_ID,
-        payload: 1234
+        payload: 1234,
       });
     });
   });
@@ -48,7 +48,7 @@ describe('pinboard-page actions', function () {
     it('should return correct action', function () {
       turnOnEmptyPinboardTitleEditMode().should.eql({
         type: PINBOARD_EDIT_MODE,
-        payload: { editType: PINBOARD_EDIT_TYPES.EMPTY_PINBOARD_TITLE, mode: true }
+        payload: { editType: PINBOARD_EDIT_TYPES.EMPTY_PINBOARD_TITLE, mode: true },
       });
     });
   });
@@ -57,7 +57,7 @@ describe('pinboard-page actions', function () {
     it('should return correct action', function () {
       turnOffEmptyPinboardTitleEditMode().should.eql({
         type: PINBOARD_EDIT_MODE,
-        payload: { editType: PINBOARD_EDIT_TYPES.EMPTY_PINBOARD_TITLE, mode: false }
+        payload: { editType: PINBOARD_EDIT_TYPES.EMPTY_PINBOARD_TITLE, mode: false },
       });
     });
   });
@@ -66,7 +66,7 @@ describe('pinboard-page actions', function () {
     it('should return correct action', function () {
       turnOnEmptyPinboardDescriptionEditMode().should.eql({
         type: PINBOARD_EDIT_MODE,
-        payload: { editType: PINBOARD_EDIT_TYPES.EMPTY_PINBOARD_DESCRIPTION, mode: true }
+        payload: { editType: PINBOARD_EDIT_TYPES.EMPTY_PINBOARD_DESCRIPTION, mode: true },
       });
     });
   });
@@ -75,7 +75,7 @@ describe('pinboard-page actions', function () {
     it('should return correct action', function () {
       turnOffEmptyPinboardDescriptionEditMode().should.eql({
         type: PINBOARD_EDIT_MODE,
-        payload: { editType: PINBOARD_EDIT_TYPES.EMPTY_PINBOARD_DESCRIPTION, mode: false }
+        payload: { editType: PINBOARD_EDIT_TYPES.EMPTY_PINBOARD_DESCRIPTION, mode: false },
       });
     });
   });

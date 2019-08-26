@@ -9,7 +9,7 @@ export default class ResponsiveFluidWidthComponent extends Component {
   render() {
     const {
       style, children, minimumStyle, mediumStyle,
-      maximumStyle, minWidthThreshold, maxWidthThreshold
+      maximumStyle, minWidthThreshold, maxWidthThreshold,
     } = this.props;
     return (
       <div style={ style }>

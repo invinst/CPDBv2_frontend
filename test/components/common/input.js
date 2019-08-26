@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  renderIntoDocument, scryRenderedDOMComponentsWithTag, findRenderedDOMComponentWithTag, Simulate
+  renderIntoDocument, scryRenderedDOMComponentsWithTag, findRenderedDOMComponentWithTag, Simulate,
 } from 'react-addons-test-utils';
 import { spy, stub } from 'sinon';
 
@@ -48,17 +48,6 @@ describe('TextInput component', function () {
     Simulate.change(inputElement);
     onChangeSpy.called.should.be.true();
     inputElement.value.should.eql('value');
-  });
-
-  it('should trigger onFocus on focus', function () {
-    const onFocusSpy = spy();
-
-    instance = renderIntoDocument(
-      <TextInput onFocus={ onFocusSpy } autoFocus={ false }/>
-    );
-    const inputElement = findRenderedDOMComponentWithTag(instance, 'input');
-    Simulate.focus(inputElement);
-    onFocusSpy.called.should.be.true();
   });
 
   it('should trigger internal input focus on focus', function () {
@@ -118,7 +107,7 @@ describe('TextInput component', function () {
   it('should handle keys in keyPressHandlers', function () {
     const keyPressHandlers = {
       esc: spy(),
-      enter: spy()
+      enter: spy(),
     };
 
     instance = renderIntoDocument(

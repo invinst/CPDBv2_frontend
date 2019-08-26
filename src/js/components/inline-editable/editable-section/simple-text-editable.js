@@ -42,5 +42,5 @@ SimpleTextEditable.propTypes = {
 };
 
 SimpleTextEditable.contextTypes = {
-  fieldContexts: PropTypes.object
+  fieldContexts: PropTypes.object,
 };

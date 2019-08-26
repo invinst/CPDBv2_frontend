@@ -2,7 +2,7 @@ import React from 'react';
 import {
   renderIntoDocument,
   findRenderedComponentWithType,
-  scryRenderedComponentsWithType
+  scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 
 import ZipCodePane from 'components/common/preview-pane/zip-code-pane';

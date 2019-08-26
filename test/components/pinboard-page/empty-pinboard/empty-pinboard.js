@@ -39,7 +39,7 @@ describe('EmptyPinboard component', function () {
       sectionEditModeOn: false,
       onSaveForm: spy(),
       turnOnSectionEditMode: spy(),
-      turnOffSectionEditMode: spy()
+      turnOffSectionEditMode: spy(),
     };
 
     const emptyPinboardDescriptionEditWrapperStateProps = {
@@ -47,17 +47,17 @@ describe('EmptyPinboard component', function () {
       sectionEditModeOn: false,
       onSaveForm: spy(),
       turnOnSectionEditMode: spy(),
-      turnOffSectionEditMode: spy()
+      turnOffSectionEditMode: spy(),
     };
 
     const examplePinboards = [{
       id: '66ef1561',
       title: 'Pinboard 1',
-      description: 'Description 1'
+      description: 'Description 1',
     }, {
       id: '66ef1562',
       title: 'Pinboard 2',
-      description: 'Description 2'
+      description: 'Description 2',
     }];
 
     instance = renderIntoDocument(

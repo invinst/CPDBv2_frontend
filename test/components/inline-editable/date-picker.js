@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  renderIntoDocument, findRenderedDOMComponentWithTag, findRenderedComponentWithType
+  renderIntoDocument, findRenderedDOMComponentWithTag, findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 import DatePickerComponent from 'react-datepicker';
 import { spy } from 'sinon';

@@ -4,7 +4,7 @@ export const fetchPinboardComplaints = () => ([
     'incident_date': '2010-01-01',
     'point': { 'lon': 1.0, 'lat': 1.0 },
     'category': 'Use Of Force',
-  }
+  },
 ]);
 
 export const fetchPinboardOfficers = () => ([
@@ -34,7 +34,7 @@ export const fetchPinboardOfficers = () => ([
       'id': 4,
       'unit_name': '004',
       'description': 'District 004',
-      'long_unit_name': 'Unit 004'
+      'long_unit_name': 'Unit 004',
     },
     'allegation_count': 1,
     'civilian_compliment_count': 2,
@@ -43,7 +43,7 @@ export const fetchPinboardOfficers = () => ([
     'major_award_count': 8,
     'honorable_mention_count': 3,
     'honorable_mention_percentile': 88.88,
-  }
+  },
 ]);
 
 export const fetchPinboardTRRs = () => ([
@@ -61,12 +61,12 @@ export const fetchPinboardTRRs = () => ([
         'id': 180838,
         'percentile_trr': '72.1094',
         'percentile_allegation_civilian': '98.5549',
-        'percentile_allegation_internal': '61.1521'
+        'percentile_allegation_internal': '61.1521',
       },
-      'allegation_count': 93
+      'allegation_count': 93,
     },
-    'to': '/trr/123456/'
-  }
+    'to': '/trr/123456/',
+  },
 ]);
 
 export const fetchPinboardOfficers9778a2ec = () => ([]);

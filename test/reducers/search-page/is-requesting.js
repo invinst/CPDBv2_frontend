@@ -1,5 +1,5 @@
 import {
-  SUGGESTION_REQUEST_START, SUGGESTION_REQUEST_SUCCESS, SUGGESTION_REQUEST_FAILURE, SUGGESTION_REQUEST_CANCELLED
+  SUGGESTION_REQUEST_START, SUGGESTION_REQUEST_SUCCESS, SUGGESTION_REQUEST_FAILURE, SUGGESTION_REQUEST_CANCELLED,
 } from 'utils/constants';
 import isRequesting from 'reducers/search-page/is-requesting';
 
@@ -11,27 +11,27 @@ describe('searchPage.isRequesting reducer', function () {
 
   it('should handle SUGGESTION_REQUEST_START', function () {
     isRequesting(undefined, {
-      type: SUGGESTION_REQUEST_START
+      type: SUGGESTION_REQUEST_START,
     }).should.be.true();
   });
 
   it('should handle SUGGESTION_REQUEST_SUCCESS', function () {
     isRequesting(undefined, {
-      type: SUGGESTION_REQUEST_SUCCESS
+      type: SUGGESTION_REQUEST_SUCCESS,
     }).should.be.false();
   });
 
   it('should handle SUGGESTION_REQUEST_FAILURE', function () {
     isRequesting(undefined, {
       type: SUGGESTION_REQUEST_FAILURE,
-      payload: {}
+      payload: {},
     }).should.be.false();
   });
 
   it('should handle SUGGESTION_REQUEST_CANCELLED', function () {
     isRequesting(undefined, {
       type: SUGGESTION_REQUEST_CANCELLED,
-      payload: {}
+      payload: {},
     }).should.be.true();
   });
 });

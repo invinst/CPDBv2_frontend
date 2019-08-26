@@ -18,7 +18,7 @@ describe('relevantDocuments reducer', function () {
       count: 0,
       pagination: {
         next: null,
-        previous: null
+        previous: null,
       },
     });
   });
@@ -32,8 +32,8 @@ describe('relevantDocuments reducer', function () {
         'crid': '1074534',
         'category': 'Unknown',
         'incident_date': '2015-04-04',
-        'officers': []
-      }
+        'officers': [],
+      },
     },
     {
       'id': 2289,
@@ -43,8 +43,8 @@ describe('relevantDocuments reducer', function () {
         'crid': '1074534',
         'category': 'Unknown',
         'incident_date': '2015-04-04',
-        'officers': []
-      }
+        'officers': [],
+      },
     }];
 
     relevantDocuments(defaultState, {
@@ -54,19 +54,19 @@ describe('relevantDocuments reducer', function () {
         previous: null,
         count: 444,
         results: documents,
-      }
+      },
     }).should.eql({
       requesting: false,
       items: documents,
       count: 444,
       pagination: {
         next: '/pinboards/66ef1560/relevant-documents/?limit=20&offset=20',
-        previous: null
+        previous: null,
       },
     });
   });
 
-  it('should handle PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_SUCCESS', function () {
+  it('should handle PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_SUCCESS with existing documents', function () {
     const existingDocuments = [{
       'id': 16316,
       'preview_image_url': 'https://www.documentcloud.org/documents/CRID-1074534-TRR-Stegmiller-p1-normal.gif',
@@ -75,8 +75,8 @@ describe('relevantDocuments reducer', function () {
         'crid': '1074534',
         'category': 'Unknown',
         'incident_date': '2015-04-04',
-        'officers': []
-      }
+        'officers': [],
+      },
     }, {
       'id': 2289,
       'preview_image_url': null,
@@ -85,8 +85,8 @@ describe('relevantDocuments reducer', function () {
         'crid': '1074534',
         'category': 'Unknown',
         'incident_date': '2015-04-04',
-        'officers': []
-      }
+        'officers': [],
+      },
     }];
     const newDocuments = [{
       'id': 14665,
@@ -96,8 +96,8 @@ describe('relevantDocuments reducer', function () {
         'crid': '1074534',
         'category': 'Unknown',
         'incident_date': '2015-04-04',
-        'officers': []
-      }
+        'officers': [],
+      },
     }, {
       'id': 14660,
       'preview_image_url': 'https://assets.documentcloud.org/documents/CRID-1074534-CR-Arrest.gif',
@@ -106,8 +106,8 @@ describe('relevantDocuments reducer', function () {
         'crid': '1074534',
         'category': 'Unknown',
         'incident_date': '2015-04-04',
-        'officers': []
-      }
+        'officers': [],
+      },
     }];
 
     const currentState = {
@@ -115,8 +115,8 @@ describe('relevantDocuments reducer', function () {
       count: 444,
       pagination: {
         next: '/pinboards/66ef1560/relevant-documents/?limit=20&offset=20',
-        previous: null
-      }
+        previous: null,
+      },
     };
 
     relevantDocuments(currentState, {
@@ -126,7 +126,7 @@ describe('relevantDocuments reducer', function () {
         previous: '/pinboards/66ef1560/relevant-documents/?',
         count: 444,
         results: newDocuments,
-      }
+      },
     }).should.eql({
       requesting: false,
       items: existingDocuments.concat(newDocuments),
@@ -147,8 +147,8 @@ describe('relevantDocuments reducer', function () {
         'crid': '1074534',
         'category': 'Unknown',
         'incident_date': '2015-04-04',
-        'officers': []
-      }
+        'officers': [],
+      },
     }, {
       'id': 2289,
       'preview_image_url': null,
@@ -157,8 +157,8 @@ describe('relevantDocuments reducer', function () {
         'crid': '1074534',
         'category': 'Unknown',
         'incident_date': '2015-04-04',
-        'officers': []
-      }
+        'officers': [],
+      },
     }];
 
     const currentState = {
@@ -167,12 +167,12 @@ describe('relevantDocuments reducer', function () {
       pagination: {
         next: '/pinboards/66ef1560/relevant-documents/?limit=20&offset=40',
         previous: '/pinboards/66ef1560/relevant-documents/?',
-      }
+      },
     };
 
     relevantDocuments(currentState, {
       type: constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_FAILURE,
-      payload: {}
+      payload: {},
     }).should.eql({
       requesting: false,
       items: existingDocuments,

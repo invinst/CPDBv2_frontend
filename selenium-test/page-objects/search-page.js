@@ -65,7 +65,7 @@ class TRRPreviewPaneSection extends Section {
       officerHeader: '.list-widget-header',
       officerLink: '.list-widget-item-link',
       officerName: '.list-widget-list-item-name',
-      officerAllegationCount: '.list-widget-list-item-count'
+      officerAllegationCount: '.list-widget-list-item-count',
     });
   }
 }

@@ -1,7 +1,7 @@
 import { sanFranciscoTextFamily, lightMineShaftColor } from 'utils/styles';
 
 export const wrapperStyle = {
-  display: 'inline-block'
+  display: 'inline-block',
 };
 
 export const dateStyle = {
@@ -11,5 +11,5 @@ export const dateStyle = {
   marginLeft: '6px',
   width: '80px',
   height: '15px',
-  display: 'inline-block'
+  display: 'inline-block',
 };

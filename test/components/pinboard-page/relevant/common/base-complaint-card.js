@@ -31,36 +31,36 @@ describe('BaseComplaintCard component', function () {
       percentile: {
         year: 2015,
         items: [
-          { axis: 'Use of Force Reports', value: 20.6, },
-          { axis: 'Officer Allegations', value: 10.1, },
-          { axis: 'Civilian Allegations', value: 52.5, },
+          { axis: 'Use of Force Reports', value: 20.6 },
+          { axis: 'Officer Allegations', value: 10.1 },
+          { axis: 'Civilian Allegations', value: 52.5 },
         ],
         visualTokenBackground: '#ed7467',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
-      }
+      },
     }, {
       id: 2,
       shortName: 'E. May',
-      percentile: { year: 2015, items: [] }
+      percentile: { year: 2015, items: [] },
     }, {
       id: 3,
       shortName: 'B. Lopez',
-      percentile: { year: 2015, items: [] }
+      percentile: { year: 2015, items: [] },
     }, {
       id: 4,
-      percentile: { year: 2015, items: [] }
+      percentile: { year: 2015, items: [] },
     }, {
       id: 5,
-      percentile: { year: 2015, items: [] }
+      percentile: { year: 2015, items: [] },
     }, {
       id: 6,
-      percentile: { year: 2015, items: [] }
+      percentile: { year: 2015, items: [] },
     }, {
       id: 7,
-      percentile: { year: 2015, items: [] }
+      percentile: { year: 2015, items: [] },
     }, {
       id: 8,
-      percentile: { year: 2015, items: [] }
+      percentile: { year: 2015, items: [] },
     }];
     const addItemInPinboardPage = stub();
     instance = renderIntoDocument(
@@ -96,9 +96,9 @@ describe('BaseComplaintCard component', function () {
     miniVisualTokens[0].props.percentile.should.eql({
       year: 2015,
       items: [
-        { axis: 'Use of Force Reports', value: 20.6, },
-        { axis: 'Officer Allegations', value: 10.1, },
-        { axis: 'Civilian Allegations', value: 52.5, },
+        { axis: 'Use of Force Reports', value: 20.6 },
+        { axis: 'Officer Allegations', value: 10.1 },
+        { axis: 'Civilian Allegations', value: 52.5 },
       ],
       visualTokenBackground: '#ed7467',
       textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
@@ -174,7 +174,7 @@ describe('BaseComplaintCard component', function () {
         'incident_date': 'Apr 4, 2015',
         'most_common_category': 'Unknown',
         'point': { 'lon': 1.0, 'lat': 2.0 },
-      }
+      },
     });
   });
 

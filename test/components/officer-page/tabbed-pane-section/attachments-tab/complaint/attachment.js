@@ -5,7 +5,7 @@ import Attachment from 'components/officer-page/tabbed-pane-section/attachments-
 import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
-  renderIntoDocument, Simulate
+  renderIntoDocument, Simulate,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
@@ -18,7 +18,7 @@ describe('Attachment component', function () {
     title: 'CRID 1071970 OCIR 2 of 3',
     url: 'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-3-of-3.html',
     previewImageUrl: 'https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p1-normal.gif',
-    fileType: 'document'
+    fileType: 'document',
   };
 
   afterEach(function () {
@@ -48,7 +48,7 @@ describe('Attachment component', function () {
       title: 'Video Clip',
       url: 'https://player.vimeo.com/video/165206078',
       previewImageUrl: '/src/img/ic-video.svg',
-      fileType: 'video'
+      fileType: 'video',
     };
 
     instance = renderIntoDocument(
@@ -75,7 +75,7 @@ describe('Attachment component', function () {
     stubOnTrackingAttachment.should.be.calledWith({
       attachmentId: '123456',
       sourcePage: 'Officer Page - Attachments Tab',
-      app: 'Frontend'
+      app: 'Frontend',
     });
   });
 });

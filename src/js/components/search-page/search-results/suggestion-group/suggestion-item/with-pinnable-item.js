@@ -50,7 +50,7 @@ export default function withPinnableItem(
             id, text,
             type: type.toLowerCase(),
             description: subText,
-            existingAliases: tags
+            existingAliases: tags,
           } }
         />
       );
@@ -117,7 +117,7 @@ export default function withPinnableItem(
         ),
         onClick: this.handleClick,
         redirectLink,
-        redirectUrl
+        redirectUrl,
       };
 
       return <EditModeItem { ...wrapperProps }>{ content }</EditModeItem>;

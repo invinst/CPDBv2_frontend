@@ -5,5 +5,5 @@ import { SOCIAL_GRAPH_ALLEGATIONS_REQUEST_SUCCESS } from 'utils/constants';
 
 
 export default handleActions({
-  [SOCIAL_GRAPH_ALLEGATIONS_REQUEST_SUCCESS]: (state, action) => !isEmpty(action.payload)
+  [SOCIAL_GRAPH_ALLEGATIONS_REQUEST_SUCCESS]: (state, action) => !isEmpty(action.payload),
 }, true);

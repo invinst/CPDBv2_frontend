@@ -52,7 +52,7 @@ describe('TriangleExplainer components', function () {
       sectionEditModeOn: true,
       onSaveForm: spy(),
       turnOnSectionEditMode: spy(),
-      turnOffSectionEditMode: spy()
+      turnOffSectionEditMode: spy(),
     };
 
     instance = renderIntoDocument(

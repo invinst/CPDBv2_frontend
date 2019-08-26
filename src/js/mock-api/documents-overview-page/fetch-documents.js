@@ -26,6 +26,6 @@ export default () => ({
       'documents_count': '2',
       'file_type': 'document',
       'url': 'http://document/link/2',
-    }
-  ]
+    },
+  ],
 });

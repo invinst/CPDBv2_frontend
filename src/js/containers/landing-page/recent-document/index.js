@@ -9,7 +9,7 @@ import { trackingClickAttachment } from 'actions/common/analytic';
 import { mergeEditWrapperStateProps } from 'utils/container';
 import {
   turnOnCarouselDocumentHeaderEditMode,
-  turnOffCarouselDocumentHeaderEditMode
+  turnOffCarouselDocumentHeaderEditMode,
 } from 'actions/landing-page/recent-document';
 
 

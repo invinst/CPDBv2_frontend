@@ -5,7 +5,7 @@ import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
   scryRenderedDOMComponentsWithClass,
-  renderIntoDocument
+  renderIntoDocument,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
@@ -34,7 +34,7 @@ describe('SocialGraphPage component', function () {
       'officer_ids': '',
       'unit_id': '',
       'title': '',
-    }
+    },
   };
   let instance;
 

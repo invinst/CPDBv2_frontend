@@ -3,7 +3,7 @@ import { findDOMNode } from 'react-dom';
 import {
   renderIntoDocument,
   findRenderedComponentWithType,
-  scryRenderedComponentsWithType
+  scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 
 import PoliceBeatPane from 'components/common/preview-pane/police-beat-pane';

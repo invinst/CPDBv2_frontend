@@ -16,6 +16,6 @@ export const getToast = createSelector(
   state => state.toast,
   item => ({
     actionType: item.isPinned ? 'removed' : 'added',
-    type: TOAST_TYPE_MAP[item.type]
+    type: TOAST_TYPE_MAP[item.type],
   })
 );

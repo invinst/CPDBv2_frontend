@@ -7,5 +7,5 @@ export const panelStyle = top => ({
   width: '100%',
   minHeight: '112px',
   background: 'transparent',
-  fontFamily: sanFranciscoTextFamily
+  fontFamily: sanFranciscoTextFamily,
 });

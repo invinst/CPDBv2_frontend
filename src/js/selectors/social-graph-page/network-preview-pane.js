@@ -105,8 +105,8 @@ export const getNetworkPreviewPaneData = (state) => {
       type: NETWORK_PREVIEW_PANE.EDGE_COACCUSALS,
       data: {
         items: transformSocialGraphAllegationItems(edgeCoaccusalsItems),
-        info: { ...edgeOfficers, coaccusedCount }
-      }
+        info: { ...edgeOfficers, coaccusedCount },
+      },
     };
   }
 };

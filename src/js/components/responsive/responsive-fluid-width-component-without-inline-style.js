@@ -8,7 +8,7 @@ import style from './responsive-fluid-width-component-without-inline-style.sass'
 export default class ResponsiveFluidWidthComponentWithoutInlineStyle extends Component {
   render() {
     const {
-      className, children, minimumClassName, mediumClassName, maximumClassName, minWidthThreshold, maxWidthThreshold
+      className, children, minimumClassName, mediumClassName, maximumClassName, minWidthThreshold, maxWidthThreshold,
     } = this.props;
     return (
       <div className={ className }>

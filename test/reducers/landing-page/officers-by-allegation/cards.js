@@ -10,7 +10,7 @@ describe('cardsReducer', function () {
   it('should handle OFFICERS_BY_ALLEGATION_REQUEST_SUCCESS', function () {
     cardsReducer([], {
       type: constants.OFFICERS_BY_ALLEGATION_REQUEST_SUCCESS,
-      payload: [1, 2, 3]
+      payload: [1, 2, 3],
     }).should.eql([1, 2, 3]);
   });
 });

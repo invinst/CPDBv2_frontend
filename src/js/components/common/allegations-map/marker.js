@@ -61,7 +61,7 @@ export class Marker extends Component {
           {
             'force': kind === MAP_ITEMS.FORCE,
             'complaint': kind === MAP_ITEMS.CR,
-            'sustained-finding': finding === 'Sustained'
+            'sustained-finding': finding === 'Sustained',
           }
         ) }
         onClick={ isMobile.tablet ? null : this.handleClick }

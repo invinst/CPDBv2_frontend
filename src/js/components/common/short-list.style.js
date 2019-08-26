@@ -2,7 +2,7 @@ import { clayGray } from 'utils/styles';
 
 export const wrapperStyle = {
   margin: '8px 0 8px 16px',
-  fontSize: '14px'
+  fontSize: '14px',
 };
 export const labelStyle = {
   width: '110px',
@@ -12,5 +12,5 @@ export const labelStyle = {
 export const contentStyle = {};
 
 export const rowStyle = {
-  lineHeight: '24px'
+  lineHeight: '24px',
 };

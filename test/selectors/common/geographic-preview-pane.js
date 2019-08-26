@@ -16,13 +16,13 @@ describe('GeographicPreviewPane selectors', function () {
           {
             gender: 'Male',
             race: 'Black',
-            age: 53
+            age: 53,
           },
           {
             gender: '',
             race: '',
             age: null,
-          }
+          },
         ],
         coaccused: [
           {
@@ -32,12 +32,12 @@ describe('GeographicPreviewPane selectors', function () {
               'id': 180838,
               'percentile_trr': '72.1094',
               'percentile_allegation_civilian': '98.5549',
-              'percentile_allegation_internal': '61.1521'
+              'percentile_allegation_internal': '61.1521',
             },
-            'allegation_count': 93
-          }
+            'allegation_count': 93,
+          },
         ],
-        to: '/complaint/123456/'
+        to: '/complaint/123456/',
       };
       geographicAllegationTransform(allegation).should.eql({
         category: 'Use of Force',
@@ -53,13 +53,13 @@ describe('GeographicPreviewPane selectors', function () {
             radarAxes: [
               { axis: 'Use of Force Reports', value: 72.1094 },
               { axis: 'Officer Allegations', value: 61.1521 },
-              { axis: 'Civilian Allegations', value: 98.5549 }
+              { axis: 'Civilian Allegations', value: 98.5549 },
             ],
             radarColor: '#f0201e',
-            count: 93
-          }
+            count: 93,
+          },
         ],
-        to: '/complaint/123456/'
+        to: '/complaint/123456/',
       });
     });
   });
@@ -77,11 +77,11 @@ describe('GeographicPreviewPane selectors', function () {
             'id': 180838,
             'percentile_trr': '72.1094',
             'percentile_allegation_civilian': '98.5549',
-            'percentile_allegation_internal': '61.1521'
+            'percentile_allegation_internal': '61.1521',
           },
-          'allegation_count': 93
+          'allegation_count': 93,
         },
-        to: '/trr/123456/'
+        to: '/trr/123456/',
       };
       geographicTRRTransform(trr).should.eql({
         category: 'Firearm',
@@ -94,12 +94,12 @@ describe('GeographicPreviewPane selectors', function () {
           radarAxes: [
             { axis: 'Use of Force Reports', value: 72.1094 },
             { axis: 'Officer Allegations', value: 61.1521 },
-            { axis: 'Civilian Allegations', value: 98.5549 }
+            { axis: 'Civilian Allegations', value: 98.5549 },
           ],
           radarColor: '#f0201e',
-          count: 93
+          count: 93,
         },
-        to: '/trr/123456/'
+        to: '/trr/123456/',
       });
     });
   });

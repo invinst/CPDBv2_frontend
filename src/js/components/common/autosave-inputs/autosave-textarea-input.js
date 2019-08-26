@@ -8,7 +8,7 @@ export default class AutosaveTextareaInput extends Component {
     this.handleResize = this.handleResize.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
-      currentValue: props.value
+      currentValue: props.value,
     };
   }
 

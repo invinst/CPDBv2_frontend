@@ -35,7 +35,7 @@ export default class RelevantCoaccusalCard extends Component {
     addItemInPinboardPage({
       type: 'OFFICER',
       id,
-      rawData
+      rawData,
     });
   }
 

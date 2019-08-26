@@ -36,7 +36,7 @@ class AccusedOfficerSection extends Section {
       popupButton: '.test--accused-officer .popup-button',
       popupTitle: '.test--accused-officer .tooltip-title',
       popupText: '.test--accused-officer .tooltip-text',
-      popupCloseButton: '.test--accused-officer .popup-close-button'
+      popupCloseButton: '.test--accused-officer .popup-close-button',
     });
   }
 
@@ -52,7 +52,7 @@ class SummarySection extends Section {
     this.prepareElementGetters({
       firstVictim: '(//*[contains(@class, "test--victims")])//div[contains(@class, "demographic")][1]',
       firstComplainant: '(//*[contains(@class, "test--complainant")])//div[contains(@class, "demographic")][1]',
-      summary: '.cr-summary'
+      summary: '.cr-summary',
     });
   }
 }
@@ -65,7 +65,7 @@ class AttachmentCard extends Section {
 
     this.prepareElementGetters({
       title: `${firstCardSelector}//div[contains(@class, "attachment-card-title")]`,
-      element: firstCardSelector
+      element: firstCardSelector,
     });
   }
 }
@@ -76,7 +76,7 @@ class AttachmentsSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      documentRequestButton: '.test--attachment-request'
+      documentRequestButton: '.test--attachment-request',
     });
   }
 
@@ -128,7 +128,7 @@ class LocationSection extends Section {
     this.prepareElementGetters({
       address: '.test--location-address',
       locationType: '.test--location-type',
-      beat: '.test--location-beat'
+      beat: '.test--location-beat',
     });
   }
 }
@@ -154,7 +154,7 @@ class CarouselSection extends Section {
     return $([
       `(//*[contains(@class, "${this.carouselClassName}")]`,
       `//*[contains(@class, "${this.cardClassName}")])`,
-      `[${index}]`
+      `[${index}]`,
     ].join(''));
   }
 }
@@ -166,14 +166,14 @@ class DistanceDropdown extends Section {
     this.optionClassName = 'test--dropdown-menu-item';
     this.prepareElementGetters({
       button: '.test--dropdown-button',
-      options: `.${this.optionClassName}`
+      options: `.${this.optionClassName}`,
     });
   }
 
   getOption(value) {
     return $([
       `//*[contains(@class, "${this.optionClassName}")`,
-      ` and text()="${value}"]`
+      ` and text()="${value}"]`,
     ].join(''));
   }
 }
@@ -197,7 +197,7 @@ class CRPage extends Page {
       title: '.cr-title',
       category: '.test--cr-category-wrapper',
       incidentDate: '.cr-incident-date-value',
-      investigationTimeline: '.investigator-timeline-text'
+      investigationTimeline: '.investigator-timeline-text',
     });
   }
 

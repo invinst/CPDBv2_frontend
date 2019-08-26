@@ -27,10 +27,10 @@ describe('CRPane component', () => {
       radarAxes: [
         { axis: 'Use of Force Reports', value: 72.1094 },
         { axis: 'Officer Allegations', value: 61.1521 },
-        { axis: 'Civilian Allegations', value: 98.5549 }
+        { axis: 'Civilian Allegations', value: 98.5549 },
       ],
       radarColor: '#f0201e',
-      count: 93
+      count: 93,
     }, {
       id: 7544,
       name: 'Dominique Dunigan',
@@ -38,10 +38,10 @@ describe('CRPane component', () => {
       radarAxes: [
         { axis: 'Use of Force Reports', value: 0 },
         { axis: 'Officer Allegations', value: 0 },
-        { axis: 'Civilian Allegations', value: 24.118 }
+        { axis: 'Civilian Allegations', value: 24.118 },
       ],
       radarColor: '#f5c5a2',
-      count: 1
+      count: 1,
     }];
 
     instance = renderIntoDocument(
@@ -59,7 +59,7 @@ describe('CRPane component', () => {
     const wrapper = findRenderedComponentWithType(instance, NewWidgetWrapper);
     wrapper.props.callToAction.should.eql({
       to: '/complaint/123/',
-      text: 'View Complaint Record'
+      text: 'View Complaint Record',
     });
 
     const title = findRenderedDOMComponentWithClass(instance, 'cr-preview-pane-title-title');
@@ -101,10 +101,10 @@ describe('CRPane component', () => {
           radarAxes: [
             { axis: 'Use of Force Reports', value: 72.1094 },
             { axis: 'Officer Allegations', value: 61.1521 },
-            { axis: 'Civilian Allegations', value: 98.5549 }
+            { axis: 'Civilian Allegations', value: 98.5549 },
           ],
           radarColor: '#f0201e',
-          count: 93
+          count: 93,
         }] }
       />
     );
@@ -130,10 +130,10 @@ describe('CRPane component', () => {
           radarAxes: [
             { axis: 'Use of Force Reports', value: 72.1094 },
             { axis: 'Officer Allegations', value: 61.1521 },
-            { axis: 'Civilian Allegations', value: 98.5549 }
+            { axis: 'Civilian Allegations', value: 98.5549 },
           ],
           radarColor: '#f0201e',
-          count: 93
+          count: 93,
         }] }
       />
     );
@@ -160,10 +160,10 @@ describe('CRPane component', () => {
           radarAxes: [
             { axis: 'Use of Force Reports', value: 72.1094 },
             { axis: 'Officer Allegations', value: 61.1521 },
-            { axis: 'Civilian Allegations', value: 98.5549 }
+            { axis: 'Civilian Allegations', value: 98.5549 },
           ],
           radarColor: '#f0201e',
-          count: 93
+          count: 93,
         }] }
       />
     );
@@ -182,10 +182,10 @@ describe('CRPane component', () => {
       radarAxes: [
         { axis: 'Use of Force Reports', value: 72.1094 },
         { axis: 'Officer Allegations', value: 61.1521 },
-        { axis: 'Civilian Allegations', value: 98.5549 }
+        { axis: 'Civilian Allegations', value: 98.5549 },
       ],
       radarColor: '#f0201e',
-      count: 93
+      count: 93,
     }, {
       id: 7544,
       name: 'Dominique Dunigan',
@@ -193,10 +193,10 @@ describe('CRPane component', () => {
       radarAxes: [
         { axis: 'Use of Force Reports', value: 0 },
         { axis: 'Officer Allegations', value: 0 },
-        { axis: 'Civilian Allegations', value: 24.118 }
+        { axis: 'Civilian Allegations', value: 24.118 },
       ],
       radarColor: '#f5c5a2',
-      count: 1
+      count: 1,
     }];
     instance = renderIntoDocument(
       <CRPane

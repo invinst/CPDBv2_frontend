@@ -12,7 +12,7 @@ export default class TextInput extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.state = {
       showPlaceholder: true,
-      value: props.value
+      value: props.value,
     };
   }
 
@@ -83,7 +83,7 @@ export default class TextInput extends Component {
     const { onChange } = this.props;
     this.setState({
       showPlaceholder: !event.target.value,
-      value: event.target.value
+      value: event.target.value,
     });
     if (onChange) {
       onChange(event);
@@ -116,11 +116,11 @@ export default class TextInput extends Component {
     const _wrapperStyle = { ...wrapperStyle(width, height), ...style.wrapper };
     const _inputStyle = {
       ...inputStyle(paddingVertical, paddingHorizontal),
-      ...style.input
+      ...style.input,
     };
     const _placeholderStyle = {
       ...placeholderStyle(height, paddingVertical, paddingHorizontal),
-      ...style.placeholder
+      ...style.placeholder,
     };
 
     return (

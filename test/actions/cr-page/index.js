@@ -17,7 +17,7 @@ import {
   CR_REQUEST_DOC_SUCCESS,
   CR_REQUEST_DOC_FAILURE,
   CR_EDIT_MODE,
-  CR_EDIT_TYPES
+  CR_EDIT_TYPES,
 } from 'utils/constants';
 
 
@@ -31,9 +31,9 @@ describe('CRPage actions', function () {
             url: `${CR_URL}123/`,
             params: undefined,
             adapter: null,
-            cancelToken: undefined
-          }
-        }
+            cancelToken: undefined,
+          },
+        },
       });
     });
   });
@@ -46,12 +46,12 @@ describe('CRPage actions', function () {
           request: {
             url: `${CR_URL}123/request-document/`,
             data: {
-              email: 'valid@email.com'
+              email: 'valid@email.com',
             },
             method: 'post',
-            adapter: null
-          }
-        }
+            adapter: null,
+          },
+        },
       });
     });
   });
@@ -60,7 +60,7 @@ describe('CRPage actions', function () {
     it('should return correct action', function () {
       turnOnNoAttachmentTextEditMode().should.eql({
         type: CR_EDIT_MODE,
-        payload: { editType: CR_EDIT_TYPES.NO_ATTACHMENT_TEXT, mode: true }
+        payload: { editType: CR_EDIT_TYPES.NO_ATTACHMENT_TEXT, mode: true },
       });
     });
   });
@@ -69,7 +69,7 @@ describe('CRPage actions', function () {
     it('should return correct action', function () {
       turnOffNoAttachmentTextEditMode().should.eql({
         type: CR_EDIT_MODE,
-        payload: { editType: CR_EDIT_TYPES.NO_ATTACHMENT_TEXT, mode: false }
+        payload: { editType: CR_EDIT_TYPES.NO_ATTACHMENT_TEXT, mode: false },
       });
     });
   });
@@ -78,7 +78,7 @@ describe('CRPage actions', function () {
     it('should return correct action', function () {
       turnOnDocumentRequestInstructionEditMode().should.eql({
         type: CR_EDIT_MODE,
-        payload: { editType: CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION, mode: true }
+        payload: { editType: CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION, mode: true },
       });
     });
   });
@@ -87,7 +87,7 @@ describe('CRPage actions', function () {
     it('should return correct action', function () {
       turnOffDocumentRequestInstructionEditMode().should.eql({
         type: CR_EDIT_MODE,
-        payload: { editType: CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION, mode: false }
+        payload: { editType: CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION, mode: false },
       });
     });
   });
@@ -96,7 +96,7 @@ describe('CRPage actions', function () {
     it('should return correct action', function () {
       turnOnNewDocumentNotificationEditMode().should.eql({
         type: CR_EDIT_MODE,
-        payload: { editType: CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION, mode: true }
+        payload: { editType: CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION, mode: true },
       });
     });
   });
@@ -105,7 +105,7 @@ describe('CRPage actions', function () {
     it('should return correct action', function () {
       turnOffNewDocumentNotificationEditMode().should.eql({
         type: CR_EDIT_MODE,
-        payload: { editType: CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION, mode: false }
+        payload: { editType: CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION, mode: false },
       });
     });
   });

@@ -8,7 +8,7 @@ export const getDefaultSocialGraphAllegationsData = () => ([
     'officer_ids': [
       2675,
       24157,
-    ]
+    ],
   },
   {
     'crid': 'C182480',
@@ -26,8 +26,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       24835,
       11580,
       15750,
-      32074
-    ]
+      32074,
+    ],
   },
   {
     'crid': 'C185478',
@@ -40,7 +40,7 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       11580,
       2675,
       24157,
-    ]
+    ],
   },
   {
     'crid': 'C186345',
@@ -56,8 +56,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       18358,
       11580,
       2537,
-      7127
-    ]
+      7127,
+    ],
   },
   {
     'crid': 'C190857',
@@ -69,8 +69,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       22861,
       11580,
       15502,
-      14045
-    ]
+      14045,
+    ],
   },
   {
     'crid': 'C193742',
@@ -83,7 +83,7 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       12176,
       2171,
       12737,
-    ]
+    ],
   },
   {
     'crid': 'C199563',
@@ -96,7 +96,7 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       21194,
       2171,
       12737,
-    ]
+    ],
   },
   {
     'crid': 'C199712',
@@ -110,7 +110,7 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       14045,
       2171,
       12737,
-    ]
+    ],
   },
   {
     'crid': 'C200983',
@@ -126,8 +126,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       27339,
       15502,
       14045,
-      7127
-    ]
+      7127,
+    ],
   },
   {
     'crid': 'C200989',
@@ -143,8 +143,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       22670,
       28672,
       15502,
-      14045
-    ]
+      14045,
+    ],
   },
   {
     'crid': 'C201239',
@@ -158,7 +158,7 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       21194,
       2171,
       12737,
-    ]
+    ],
   },
   {
     'crid': 'C201979',
@@ -168,8 +168,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
     'attachments': [],
     'officer_ids': [
       28805,
-      12176
-    ]
+      12176,
+    ],
   },
   {
     'crid': 'C204284',
@@ -179,8 +179,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
     'attachments': [],
     'officer_ids': [
       28805,
-      12176
-    ]
+      12176,
+    ],
   },
   {
     'crid': 'C206616',
@@ -194,8 +194,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       21194,
       12176,
       15502,
-      14045
-    ]
+      14045,
+    ],
   },
   {
     'crid': 'C206895',
@@ -208,8 +208,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       8816,
       4881,
       15502,
-      14045
-    ]
+      14045,
+    ],
   },
   {
     'crid': 'C207197',
@@ -220,8 +220,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
     'officer_ids': [
       28805,
       15502,
-      14045
-    ]
+      14045,
+    ],
   },
   {
     'crid': 'C207739',
@@ -232,8 +232,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
     'officer_ids': [
       28805,
       15502,
-      14045
-    ]
+      14045,
+    ],
   },
   {
     'crid': 'C207420',
@@ -247,8 +247,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       26535,
       15502,
       2008,
-      14045
-    ]
+      14045,
+    ],
   },
   {
     'crid': 'C207477',
@@ -260,8 +260,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       28805,
       12176,
       15502,
-      14045
-    ]
+      14045,
+    ],
   },
   {
     'crid': 'C208264',
@@ -271,8 +271,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
     'attachments': [],
     'officer_ids': [
       28805,
-      14045
-    ]
+      14045,
+    ],
   },
   {
     'crid': 'C209130',
@@ -292,8 +292,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       26789,
       15502,
       14045,
-      21974
-    ]
+      21974,
+    ],
   },
   {
     'crid': 'C209897',
@@ -304,8 +304,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
     'officer_ids': [
       28805,
       3663,
-      21194
-    ]
+      21194,
+    ],
   },
   {
     'crid': 'C211536',
@@ -320,8 +320,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       3202,
       21194,
       26789,
-      30214
-    ]
+      30214,
+    ],
   },
   {
     'crid': 'C215976',
@@ -335,8 +335,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       30209,
       18809,
       4269,
-      6343
-    ]
+      6343,
+    ],
   },
   {
     'crid': 'C217960',
@@ -346,8 +346,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
     'attachments': [],
     'officer_ids': [
       3663,
-      21194
-    ]
+      21194,
+    ],
   },
   {
     'crid': 'C219724',
@@ -359,8 +359,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       10482,
       3663,
       21194,
-      26789
-    ]
+      26789,
+    ],
   },
   {
     'crid': 'C224270',
@@ -376,8 +376,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       28468,
       31456,
       2052,
-      9970
-    ]
+      9970,
+    ],
   },
   {
     'crid': 'C241050',
@@ -391,8 +391,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       11934,
       31456,
       2052,
-      9970
-    ]
+      9970,
+    ],
   },
   {
     'crid': 'C227504',
@@ -406,8 +406,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       31411,
       11934,
       2052,
-      9970
-    ]
+      9970,
+    ],
   },
   {
     'crid': 'C229298',
@@ -420,8 +420,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       3663,
       13406,
       9970,
-      24740
-    ]
+      24740,
+    ],
   },
   {
     'crid': 'C240703',
@@ -431,8 +431,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
     'attachments': [],
     'officer_ids': [
       8138,
-      31945
-    ]
+      31945,
+    ],
   },
   {
     'crid': 'C249055',
@@ -442,8 +442,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
     'attachments': [],
     'officer_ids': [
       8138,
-      31945
-    ]
+      31945,
+    ],
   },
   {
     'crid': 'C237824',
@@ -453,8 +453,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
     'attachments': [],
     'officer_ids': [
       8138,
-      31945
-    ]
+      31945,
+    ],
   },
   {
     'crid': 'C238338',
@@ -464,8 +464,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
     'attachments': [],
     'officer_ids': [
       8138,
-      31945
-    ]
+      31945,
+    ],
   },
   {
     'crid': 'C239521',
@@ -477,8 +477,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       15243,
       8138,
       8065,
-      31945
-    ]
+      31945,
+    ],
   },
   {
     'crid': 'C246406',
@@ -494,8 +494,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       8138,
       30466,
       26105,
-      31945
-    ]
+      31945,
+    ],
   },
   {
     'crid': 'C248637',
@@ -505,8 +505,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
     'attachments': [],
     'officer_ids': [
       15956,
-      4269
-    ]
+      4269,
+    ],
   },
   {
     'crid': 'C249802',
@@ -519,8 +519,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       2433,
       3663,
       16335,
-      31945
-    ]
+      31945,
+    ],
   },
   {
     'crid': 'C249933',
@@ -530,8 +530,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
     'attachments': [],
     'officer_ids': [
       15956,
-      2671
-    ]
+      2671,
+    ],
   },
   {
     'crid': 'C250154',
@@ -542,8 +542,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
     'officer_ids': [
       4269,
       6870,
-      2671
-    ]
+      2671,
+    ],
   },
   {
     'crid': 'C250300',
@@ -560,8 +560,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       2385,
       16335,
       27339,
-      31945
-    ]
+      31945,
+    ],
   },
   {
     'crid': 'C251625',
@@ -575,8 +575,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       15956,
       6318,
       2671,
-      32206
-    ]
+      32206,
+    ],
   },
   {
     'crid': 'C252724',
@@ -588,8 +588,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       23896,
       19131,
       2671,
-      32206
-    ]
+      32206,
+    ],
   },
   {
     'crid': 'C255296',
@@ -601,7 +601,7 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       15956,
       4269,
       19131,
-    ]
+    ],
   },
   {
     'crid': 'C258406',
@@ -611,8 +611,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
     'attachments': [],
     'officer_ids': [
       15956,
-      2671
-    ]
+      2671,
+    ],
   },
   {
     'crid': 'C258697',
@@ -628,8 +628,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       25962,
       27101,
       2671,
-      32255
-    ]
+      32255,
+    ],
   },
   {
     'crid': 'C261911',
@@ -647,8 +647,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       19131,
       1134,
       31934,
-      31945
-    ]
+      31945,
+    ],
   },
   {
     'crid': '261911',
@@ -666,8 +666,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       4881,
       1134,
       21194,
-      4269
-    ]
+      4269,
+    ],
   },
   {
     'crid': 'C262457',
@@ -682,8 +682,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       12313,
       15956,
       25962,
-      2671
-    ]
+      2671,
+    ],
   },
   {
     'crid': '262457',
@@ -698,8 +698,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       2671,
       12313,
       25962,
-      25732
-    ]
+      25732,
+    ],
   },
   {
     'crid': '265893',
@@ -714,8 +714,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       2671,
       12313,
       25962,
-      25732
-    ]
+      25732,
+    ],
   },
   {
     'crid': '268523',
@@ -728,8 +728,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       15956,
       2671,
       12313,
-      25732
-    ]
+      25732,
+    ],
   },
   {
     'crid': '271250',
@@ -742,8 +742,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       15237,
       13777,
       2957,
-      12313
-    ]
+      12313,
+    ],
   },
   {
     'crid': '272897',
@@ -753,8 +753,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
     'attachments': [],
     'officer_ids': [
       32413,
-      2671
-    ]
+      2671,
+    ],
   },
   {
     'crid': '275302',
@@ -767,8 +767,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       27439,
       2671,
       25962,
-      25732
-    ]
+      25732,
+    ],
   },
   {
     'crid': '275676',
@@ -778,8 +778,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
     'attachments': [],
     'officer_ids': [
       15956,
-      25503
-    ]
+      25503,
+    ],
   },
   {
     'crid': '279731',
@@ -792,8 +792,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       31934,
       31945,
       4269,
-      10482
-    ]
+      10482,
+    ],
   },
   {
     'crid': '284537',
@@ -809,8 +809,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       31945,
       29842,
       4269,
-      10482
-    ]
+      10482,
+    ],
   },
   {
     'crid': '284969',
@@ -827,8 +827,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       29842,
       3663,
       4269,
-      10482
-    ]
+      10482,
+    ],
   },
   {
     'crid': '293291',
@@ -838,8 +838,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
     'attachments': [],
     'officer_ids': [
       3663,
-      4269
-    ]
+      4269,
+    ],
   },
   {
     'crid': '293355',
@@ -849,8 +849,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
     'attachments': [],
     'officer_ids': [
       3663,
-      4269
-    ]
+      4269,
+    ],
   },
   {
     'crid': '311731',
@@ -860,7 +860,7 @@ export const getDefaultSocialGraphAllegationsData = () => ([
     'attachments': [],
     'officer_ids': [
       15956,
-    ]
+    ],
   },
   {
     'crid': '315610',
@@ -869,8 +869,8 @@ export const getDefaultSocialGraphAllegationsData = () => ([
     'subcategory': 'Illegal Arrest / False Arrest',
     'attachments': [],
     'officer_ids': [
-      2671
-    ]
+      2671,
+    ],
   },
   {
     'crid': '1014140',
@@ -879,7 +879,7 @@ export const getDefaultSocialGraphAllegationsData = () => ([
     'subcategory': 'Illegal Arrest / False Arrest',
     'attachments': [],
     'officer_ids': [
-      2671
-    ]
-  }
+      2671,
+    ],
+  },
 ]);

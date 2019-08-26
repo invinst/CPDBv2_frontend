@@ -9,7 +9,7 @@ const mochaOpts = JSON.parse(decodeURI(location.hash.substring(1)));
 mocha.setup({
   ui: 'bdd',
   reporter: 'spec',
-  ...mochaOpts
+  ...mochaOpts,
 });
 
 // Add support for all files in the test directory

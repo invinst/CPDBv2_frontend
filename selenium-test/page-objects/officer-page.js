@@ -146,7 +146,7 @@ class NoDataRadarChartSection extends Section {
       component: '//div[contains(@class, "radar-chart")]',
       noDataText: '.test--no-data-text',
       radarChart: '.test--radar',
-      editButton: '//div[contains(@class, "radar-chart")]//a[contains(@class, "hoverable-edit-wrapper-button")]'
+      editButton: '//div[contains(@class, "radar-chart")]//a[contains(@class, "hoverable-edit-wrapper-button")]',
     });
   }
 }
@@ -179,7 +179,7 @@ class OfficerPage extends Page {
     super();
 
     this.prepareElementGetters({
-      element: '.test--bottom-sheet-wrapper'
+      element: '.test--bottom-sheet-wrapper',
     });
   }
 
