@@ -72,21 +72,3 @@ export const selectText = selector => {
     selection.addRange(range);
   }, selector);
 };
-
-export const switchToRecentTab = () => {
-  // const handles = browser.getWindowHandle();
-  const oldUrl = browser.getUrl();
-  browser.switchToWindow(browser.getWindowHandle());
-  browser.waitUntil(
-    () => {
-      try {
-        return browser.getUrl() !== oldUrl;
-      }
-      catch (err) {
-        return false;
-      }
-    },
-    5000,
-    'Cannot switch to the recent tab.'
-  );
-};
