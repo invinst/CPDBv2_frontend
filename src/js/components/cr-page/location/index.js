@@ -52,5 +52,5 @@ Location.propTypes = {
   point: PropTypes.object,
   address: PropTypes.string,
   location: PropTypes.string,
-  beat: PropTypes.string
+  beat: PropTypes.string,
 };

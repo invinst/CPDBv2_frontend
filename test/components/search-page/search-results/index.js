@@ -31,7 +31,7 @@ describe('SearchResults component', function () {
   const store = MockStore()({
     pinboardPage: {
       pinboard: null,
-    }
+    },
   });
 
   it('should render Loading when isRequesting', function () {
@@ -173,7 +173,7 @@ describe('SearchResults component', function () {
   it('should be renderable if it is single content', function () {
     const suggestionGroups = [{
       canLoadMore: true,
-      header: 'OFFICER'
+      header: 'OFFICER',
     }];
     const getSuggestionWithContentType = stub().returns({ catch: stub() });
 
@@ -198,11 +198,11 @@ describe('SearchResults component', function () {
           ['rank', null],
           ['2017 salary', '$99,999'],
           ['race', 'White'],
-          ['sex', 'Male']
+          ['sex', 'Male'],
         ],
         title: 'John Wang',
         visualTokenBackgroundColor: '#fafafa',
-        visualTokenImg: 'http://test.img'
+        visualTokenImg: 'http://test.img',
       };
       instance = renderIntoDocument(
         <Provider store={ store }>
@@ -218,7 +218,7 @@ describe('SearchResults component', function () {
         ['rank', null],
         [`${currentYear} salary`, '$99,999'],
         ['race', 'White'],
-        ['sex', 'Male']
+        ['sex', 'Male'],
       ]);
       previewPane.props.visualTokenImg.should.eql('http://test.img');
       previewPane.props.visualTokenBackgroundColor.should.eql('#fafafa');

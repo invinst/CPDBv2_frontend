@@ -45,7 +45,7 @@ describe('Social Graph preview pane selectors', function () {
           'percentile_allegation_civilian': '97.0',
           'percentile_allegation_internal': '82.0',
         },
-        'honorable_mention_percentile': '70'
+        'honorable_mention_percentile': '70',
       };
       officerDetailTransform(officer).should.eql({
         id: 123,
@@ -83,7 +83,7 @@ describe('Social Graph preview pane selectors', function () {
           ],
           visualTokenBackground: '#f52524',
           textColor: '#DFDFDF',
-        }
+        },
       });
     });
   });
@@ -101,8 +101,8 @@ describe('Social Graph preview pane selectors', function () {
           'percentile_trr': '0.0000',
           'percentile_allegation': '88.9038',
           'percentile_allegation_civilian': '49.4652',
-          'percentile_allegation_internal': '85.8654'
-        }
+          'percentile_allegation_internal': '85.8654',
+        },
       };
       accusedTransform(coaccused).should.eql({
         id: 21992,
@@ -121,7 +121,7 @@ describe('Social Graph preview pane selectors', function () {
           {
             'axis': 'Civilian Allegations',
             'value': 49.4652,
-          }
+          },
         ],
         radarColor: '#f9946b',
       });
@@ -141,11 +141,11 @@ describe('Social Graph preview pane selectors', function () {
         'victims': [
           {
             'gender': 'Male',
-            'race': 'Black'
+            'race': 'Black',
           },
           {
             'gender': 'Male',
-            'race': 'White'
+            'race': 'White',
           },
           {
             'gender': '',
@@ -164,9 +164,9 @@ describe('Social Graph preview pane selectors', function () {
               'percentile_trr': '0.0000',
               'percentile_allegation': '88.9038',
               'percentile_allegation_civilian': '49.4652',
-              'percentile_allegation_internal': '85.8654'
-            }
-          }
+              'percentile_allegation_internal': '85.8654',
+            },
+          },
         ],
       };
       networkAllegationTransform(networkCRDatum).should.eql({
@@ -194,10 +194,10 @@ describe('Social Graph preview pane selectors', function () {
               {
                 'axis': 'Civilian Allegations',
                 'value': 49.4652,
-              }
+              },
             ],
             radarColor: '#f9946b',
-          }
+          },
         ],
       });
     });
@@ -229,17 +229,17 @@ describe('Social Graph preview pane selectors', function () {
                     title: 'CRID 294088 CR',
                     'file_type': 'document',
                     'id': '123456',
-                  }
+                  },
                 ],
                 'officer_ids': [123, 456, 789],
               },
             ],
             graphData: {
-              'list_event': ['2003-02-17', '2003-11-26']
+              'list_event': ['2003-02-17', '2003-11-26'],
             },
             selectedCrid: '260131',
-          }
-        }
+          },
+        },
       };
       getNetworkAllegation(state).should.eql({
         category: 'Criminal Misconduct',
@@ -268,11 +268,11 @@ describe('Social Graph preview pane selectors', function () {
                 'victims': [
                   {
                     'gender': 'Male',
-                    'race': 'Black'
+                    'race': 'Black',
                   },
                   {
                     'gender': 'Male',
-                    'race': 'White'
+                    'race': 'White',
                   },
                 ],
                 'coaccused': [
@@ -287,9 +287,9 @@ describe('Social Graph preview pane selectors', function () {
                       'percentile_trr': '0.0000',
                       'percentile_allegation': '88.9038',
                       'percentile_allegation_civilian': '49.4652',
-                      'percentile_allegation_internal': '85.8654'
-                    }
-                  }
+                      'percentile_allegation_internal': '85.8654',
+                    },
+                  },
                 ],
               },
               {
@@ -305,17 +305,17 @@ describe('Social Graph preview pane selectors', function () {
                     title: 'CRID 294088 CR',
                     'file_type': 'document',
                     'id': '123456',
-                  }
+                  },
                 ],
                 'officer_ids': [123, 456, 789],
               },
             ],
             graphData: {
-              'list_event': ['2003-02-17', '2003-11-26']
+              'list_event': ['2003-02-17', '2003-11-26'],
             },
             selectedCrid: '123456',
-          }
-        }
+          },
+        },
       };
       networkAllegationSelector(state).should.eql({
         category: 'Use of Force',
@@ -342,10 +342,10 @@ describe('Social Graph preview pane selectors', function () {
               {
                 'axis': 'Civilian Allegations',
                 'value': 49.4652,
-              }
+              },
             ],
             radarColor: '#f9946b',
-          }
+          },
         ],
       });
     });
@@ -366,11 +366,11 @@ describe('Social Graph preview pane selectors', function () {
                 'victims': [
                   {
                     'gender': 'Male',
-                    'race': 'Black'
+                    'race': 'Black',
                   },
                   {
                     'gender': 'Male',
-                    'race': 'White'
+                    'race': 'White',
                   },
                 ],
                 'coaccused': [
@@ -385,9 +385,9 @@ describe('Social Graph preview pane selectors', function () {
                       'percentile_trr': '0.0000',
                       'percentile_allegation': '88.9038',
                       'percentile_allegation_civilian': '49.4652',
-                      'percentile_allegation_internal': '85.8654'
-                    }
-                  }
+                      'percentile_allegation_internal': '85.8654',
+                    },
+                  },
                 ],
               },
               {
@@ -403,17 +403,17 @@ describe('Social Graph preview pane selectors', function () {
                     title: 'CRID 294088 CR',
                     'file_type': 'document',
                     'id': '123456',
-                  }
+                  },
                 ],
                 'officer_ids': [123, 456, 789],
               },
             ],
             graphData: {
-              'list_event': ['2003-02-17', '2003-11-26']
+              'list_event': ['2003-02-17', '2003-11-26'],
             },
             selectedCrid: '654321',
-          }
-        }
+          },
+        },
       };
       should(networkAllegationSelector(state)).be.undefined();
     });
@@ -454,12 +454,12 @@ describe('Social Graph preview pane selectors', function () {
                   'percentile_allegation_civilian': '97.0',
                   'percentile_allegation_internal': '82.0',
                 },
-                'honorable_mention_percentile': '70'
-              }
+                'honorable_mention_percentile': '70',
+              },
             ],
-            selectedOfficerId: 123
-          }
-        }
+            selectedOfficerId: 123,
+          },
+        },
       };
       networkOfficerSelector(state).should.eql({
         id: 123,
@@ -497,7 +497,7 @@ describe('Social Graph preview pane selectors', function () {
           ],
           visualTokenBackground: '#f52524',
           textColor: '#DFDFDF',
-        }
+        },
       });
     });
   });
@@ -526,7 +526,7 @@ describe('Social Graph preview pane selectors', function () {
                   'officer_id_2': 4,
                   'incident_date': '1991-10-03',
                   'accussed_count': 6,
-                }
+                },
               ],
               officers: [
                 {
@@ -535,7 +535,7 @@ describe('Social Graph preview pane selectors', function () {
                   'percentile': {
                     'percentile_trr': '78.2707',
                     'percentile_allegation_civilian': '97.8772',
-                    'percentile_allegation_internal': '61.1521'
+                    'percentile_allegation_internal': '61.1521',
                   },
                 },
                 {
@@ -544,17 +544,17 @@ describe('Social Graph preview pane selectors', function () {
                   'percentile': {
                     'percentile_trr': '80',
                     'percentile_allegation_civilian': '85',
-                    'percentile_allegation_internal': '90'
+                    'percentile_allegation_internal': '90',
                   },
-                }
-              ]
+                },
+              ],
             },
             selectedEdge: {
               sourceUid: 3,
               targetUid: 4,
-            }
-          }
-        }
+            },
+          },
+        },
       };
       edgeOfficersSelector(state).should.eql({
         sourceOfficerName: 'Jerome Finnigan',
@@ -598,15 +598,15 @@ describe('Social Graph preview pane selectors', function () {
                   'percentile_allegation_civilian': '97.0',
                   'percentile_allegation_internal': '82.0',
                 },
-                'honorable_mention_percentile': '70'
-              }
+                'honorable_mention_percentile': '70',
+              },
             ],
             graphData: {
-              'list_event': ['2003-02-17', '2003-11-26']
+              'list_event': ['2003-02-17', '2003-11-26'],
             },
-            selectedOfficerId: 123
-          }
-        }
+            selectedOfficerId: 123,
+          },
+        },
       };
       getNetworkPreviewPaneData(state).should.eql({
         type: NETWORK_PREVIEW_PANE.OFFICER,
@@ -646,7 +646,7 @@ describe('Social Graph preview pane selectors', function () {
             ],
             visualTokenBackground: '#f52524',
             textColor: '#DFDFDF',
-          }
+          },
         },
       });
     });
@@ -676,7 +676,7 @@ describe('Social Graph preview pane selectors', function () {
                     title: 'CRID 294088 CR',
                     'file_type': 'document',
                     'id': '123456',
-                  }
+                  },
                 ],
                 'officer_ids': [123, 456, 789],
               },
@@ -709,7 +709,7 @@ describe('Social Graph preview pane selectors', function () {
                   'percentile': {
                     'percentile_trr': '78.2707',
                     'percentile_allegation_civilian': '97.8772',
-                    'percentile_allegation_internal': '61.1521'
+                    'percentile_allegation_internal': '61.1521',
                   },
                 },
                 {
@@ -718,18 +718,18 @@ describe('Social Graph preview pane selectors', function () {
                   'percentile': {
                     'percentile_trr': '80',
                     'percentile_allegation_civilian': '85',
-                    'percentile_allegation_internal': '90'
+                    'percentile_allegation_internal': '90',
                   },
-                }
+                },
               ],
               'list_event': ['2003-02-17', '2003-11-26'],
             },
             selectedEdge: {
               sourceUid: 123,
               targetUid: 456,
-            }
-          }
-        }
+            },
+          },
+        },
       };
       getNetworkPreviewPaneData(state).should.eql({
         type: NETWORK_PREVIEW_PANE.EDGE_COACCUSALS,
@@ -739,7 +739,7 @@ describe('Social Graph preview pane selectors', function () {
               date: 2003,
               hasData: true,
               key: '294088-YEAR-2003',
-              kind: 'YEAR'
+              kind: 'YEAR',
             },
             {
               category: 'Illegal Search',
@@ -755,8 +755,8 @@ describe('Social Graph preview pane selectors', function () {
                   id: '123456',
                   previewImageUrl: 'https://assets.documentcloud.org/documents/3518950/pages/CRID-294088.gif',
                   title: 'CRID 294088 CR',
-                  url: 'https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html'
-                }
+                  url: 'https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html',
+                },
               ],
               timelineIdx: undefined,
             },
@@ -765,7 +765,7 @@ describe('Social Graph preview pane selectors', function () {
             sourceOfficerName: 'Jerome Finnigan',
             targetOfficerName: 'Edward May',
             coaccusedCount: 1,
-          }
+          },
         },
       });
     });
@@ -786,11 +786,11 @@ describe('Social Graph preview pane selectors', function () {
                 'victims': [
                   {
                     'gender': 'Male',
-                    'race': 'Black'
+                    'race': 'Black',
                   },
                   {
                     'gender': 'Male',
-                    'race': 'White'
+                    'race': 'White',
                   },
                 ],
                 'coaccused': [
@@ -805,9 +805,9 @@ describe('Social Graph preview pane selectors', function () {
                       'percentile_trr': '0.0000',
                       'percentile_allegation': '88.9038',
                       'percentile_allegation_civilian': '49.4652',
-                      'percentile_allegation_internal': '85.8654'
-                    }
-                  }
+                      'percentile_allegation_internal': '85.8654',
+                    },
+                  },
                 ],
               },
               {
@@ -823,21 +823,21 @@ describe('Social Graph preview pane selectors', function () {
                     title: 'CRID 294088 CR',
                     'file_type': 'document',
                     'id': '123456',
-                  }
+                  },
                 ],
                 'officer_ids': [123, 456, 789],
               },
             ],
             graphData: {
-              'list_event': ['2003-02-17', '2003-11-26']
+              'list_event': ['2003-02-17', '2003-11-26'],
             },
             selectedCrid: '123456',
             selectedEdge: {
               sourceUid: 123,
               targetUid: 456,
             },
-          }
-        }
+          },
+        },
       };
       getNetworkPreviewPaneData(state).should.eql({
         type: NETWORK_PREVIEW_PANE.CR,
@@ -866,12 +866,12 @@ describe('Social Graph preview pane selectors', function () {
                 {
                   'axis': 'Civilian Allegations',
                   'value': 49.4652,
-                }
+                },
               ],
               radarColor: '#f9946b',
-            }
+            },
           ],
-        }
+        },
       });
     });
   });

@@ -77,7 +77,7 @@ import {
 import { getSocialGraphData } from './pinboard-page/social-graph';
 import { getSocialGraphBigData } from './pinboard-page/big-social-graph';
 import { pinboardGeographicCrsData, pinboardGeographicTrrsData } from './pinboard-page/geographic-data';
-import { socialGraphGeographicCrsData, socialGraphGeographicTrrsData, } from './social-graph-page/geographic-data';
+import { socialGraphGeographicCrsData, socialGraphGeographicTrrsData } from './social-graph-page/geographic-data';
 import getRelevantCoaccusals, {
   getFirstRelevantCoaccusals,
   filterPinnedOfficers,
@@ -128,7 +128,7 @@ let mailChimpUrl = MAIL_CHIMP_URL.slice(1);
 axiosMockClient.onPost(mailChimpUrl, { email: 'valid@email.com' }).reply(200, { 'success': true });
 axiosMockClient.onPost(mailChimpUrl, { email: 'invalid@email.com' })
   .reply(400, {
-    'detail': 'invalid@email.com looks fake or invalid, please enter a real email address.', 'success': false
+    'detail': 'invalid@email.com looks fake or invalid, please enter a real email address.', 'success': false,
   });
 
 axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'Ke', contentType: 'OFFICER' } }).reply(() => {

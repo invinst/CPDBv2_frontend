@@ -10,7 +10,7 @@ import {
   turnOffDocumentRequestInstructionEditMode,
   turnOnDocumentRequestInstructionEditMode,
   turnOnNewDocumentNotificationEditMode,
-  turnOffNewDocumentNotificationEditMode
+  turnOffNewDocumentNotificationEditMode,
 } from 'actions/cr-page';
 import { updatePage } from 'actions/cms';
 import { getCMSFields } from 'selectors/cms';
@@ -63,8 +63,8 @@ const editWrapperStateProps = (stateProps, dispatchProps, ownProps) => {
       sectionEditModeOn: stateProps.editModeOn[editType],
       onSaveForm: dispatchProps.onSaveForm,
       turnOnSectionEditMode: turnOnSectionEditMode,
-      turnOffSectionEditMode: turnOffSectionEditMode
-    }
+      turnOffSectionEditMode: turnOffSectionEditMode,
+    },
   };
 };
 

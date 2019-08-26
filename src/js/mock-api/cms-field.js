@@ -7,7 +7,7 @@ export const landingPageCMSFields = {
     RichTextFieldFactory.build({ name: 'navbar_subtitle' }),
     RichTextFieldFactory.build({ name: 'demo_video_text' }, { blockTexts: ['What is CPDP?'] }),
   ],
-  meta: {}
+  meta: {},
 };
 
 export const officerPageCMSFields = {
@@ -18,5 +18,5 @@ export const officerPageCMSFields = {
     RichTextFieldFactory.build({ name: 'scale_sub_description' }, { blockTexts: ['scale sub description'] }),
     RichTextFieldFactory.build({ name: 'no_data_explain_text' }, { blockTexts: ['no data explain text'] }),
   ],
-  meta: {}
+  meta: {},
 };

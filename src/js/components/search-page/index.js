@@ -13,7 +13,7 @@ import { generatePinboardUrl } from 'utils/pinboard';
 import SearchMainPanel from './search-main-panel';
 import HoverableButton from 'components/common/hoverable-button-without-inline-style';
 import {
-  ROOT_PATH, SEARCH_ALIAS_EDIT_PATH, SEARCH_BOX, MORE_BUTTON, RECENT_CONTENT_TYPE
+  ROOT_PATH, SEARCH_ALIAS_EDIT_PATH, SEARCH_BOX, MORE_BUTTON, RECENT_CONTENT_TYPE,
 } from 'utils/constants';
 import { showIntercomLauncher } from 'utils/intercom';
 import * as IntercomTracking from 'utils/intercom-tracking';
@@ -236,7 +236,7 @@ export default class SearchPage extends Component {
 
 SearchPage.propTypes = {
   location: PropTypes.shape({
-    pathname: PropTypes.string
+    pathname: PropTypes.string,
   }),
   focusedItem: PropTypes.object,
   getSuggestion: PropTypes.func,
@@ -274,7 +274,7 @@ SearchPage.defaultProps = {
   trackRecentSuggestion: noop,
   changeSearchQuery: noop,
   location: {
-    pathname: '/'
+    pathname: '/',
   },
   searchTermsHidden: true,
   selectTag: (...args) => {},
@@ -283,5 +283,5 @@ SearchPage.defaultProps = {
   resetSearchTermNavigation: noop,
   firstItem: {},
   toast: {},
-  createPinboard: noop
+  createPinboard: noop,
 };

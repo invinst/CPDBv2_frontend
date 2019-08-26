@@ -12,7 +12,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  updatePinboardInfo
+  updatePinboardInfo,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PinboardInfo);

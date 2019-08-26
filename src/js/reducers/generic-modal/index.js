@@ -4,5 +4,5 @@ import activeModal from './active-modal';
 
 
 export default combineReducers({
-  activeModal
+  activeModal,
 });

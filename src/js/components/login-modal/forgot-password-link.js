@@ -22,7 +22,7 @@ class ForgotPasswordLink extends Component {
 
 ForgotPasswordLink.propTypes = {
   onClick: PropTypes.func,
-  hovering: PropTypes.bool
+  hovering: PropTypes.bool,
 };
 
 export default Hoverable(ForgotPasswordLink);

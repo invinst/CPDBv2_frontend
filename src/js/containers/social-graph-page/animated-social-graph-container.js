@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import {
   getSocialGraphTimelineIdx,
-  getSocialGraphRefreshIntervalId
+  getSocialGraphRefreshIntervalId,
 } from 'selectors/social-graph-page/network-timeline';
 import { AnimatedSocialGraphWithSpinner } from 'components/common/animated-social-graph';
 import {

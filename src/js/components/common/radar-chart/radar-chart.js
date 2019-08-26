@@ -44,7 +44,7 @@ export default class RadarChart extends Component {
         r: r,
         angle: this.angle(i),
         x: r * Math.cos(angleSlice * i + Math.PI / 2),
-        y: r * Math.sin(angleSlice * i + Math.PI / 2)
+        y: r * Math.sin(angleSlice * i + Math.PI / 2),
       };
     });
   }
@@ -168,7 +168,7 @@ RadarChart.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
       axis: PropTypes.string.isRequired,
-      value: PropTypes.number.isRequired
+      value: PropTypes.number.isRequired,
     })
   ),
   backgroundColor: PropTypes.string,
@@ -188,7 +188,7 @@ RadarChart.propTypes = {
   legendText: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
-    PropTypes.element
+    PropTypes.element,
   ]),
   strokeWidth: PropTypes.number,
   fadeOutLegend: PropTypes.bool,

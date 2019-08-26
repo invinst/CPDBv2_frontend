@@ -10,12 +10,12 @@ export default class EditModeItem extends Component {
       onClick,
       redirectLink,
       redirectUrl,
-      children
+      children,
     } = this.props;
 
     const commonWrapperProps = {
       className,
-      onClick
+      onClick,
     };
 
     let result;
@@ -37,5 +37,5 @@ EditModeItem.propTypes = {
   onClick: PropTypes.func,
   redirectLink: PropTypes.string,
   redirectUrl: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.node,
 };

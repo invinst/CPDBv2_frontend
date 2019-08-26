@@ -4,7 +4,7 @@ import LoginModalButton from './login-modal-button';
 import {
   innerWrapperStyle, headerStyle, subHeaderStyle,
   emailInputWrapperStyle, labelStyle, emailInputStyle,
-  errorMessageStyle
+  errorMessageStyle,
 } from './forgot-password-modal.style';
 import FadeMotion from 'components/animation/fade-motion';
 
@@ -12,7 +12,7 @@ class ForgotPasswordModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      disabled: true
+      disabled: true,
     };
     this.handleResetPassword = this.handleResetPassword.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -24,7 +24,7 @@ class ForgotPasswordModal extends Component {
   componentWillReceiveProps(newProps) {
     if (!newProps.show && this.props.show) {
       this.setState({
-        disabled: true
+        disabled: true,
       });
     }
   }
@@ -46,7 +46,7 @@ class ForgotPasswordModal extends Component {
   handleInputChange() {
     if (!!this.emailInput.value === this.state.disabled) {
       this.setState({
-        disabled: !this.emailInput.value
+        disabled: !this.emailInput.value,
       });
     }
   }
@@ -93,7 +93,7 @@ class ForgotPasswordModal extends Component {
 ForgotPasswordModal.propTypes = {
   onResetPassword: PropTypes.func,
   errorMessage: PropTypes.string,
-  show: PropTypes.bool
+  show: PropTypes.bool,
 };
 
 export default ForgotPasswordModal;

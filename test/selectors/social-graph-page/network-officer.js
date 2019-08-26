@@ -38,7 +38,7 @@ describe('Social Graph page selectors', function () {
           'percentile_allegation_civilian': '97.0',
           'percentile_allegation_internal': '82.0',
         },
-        'honorable_mention_percentile': '70'
+        'honorable_mention_percentile': '70',
       };
 
       officerDetailTransform(officer).should.eql({
@@ -54,7 +54,7 @@ describe('Social Graph page selectors', function () {
           ],
           visualTokenBackground: '#f52524',
           textColor: '#DFDFDF',
-        }
+        },
       });
     });
   });
@@ -101,9 +101,9 @@ describe('Social Graph page selectors', function () {
                   'percentile_allegation_internal': '32.0',
                 },
               },
-            ]
-          }
-        }
+            ],
+          },
+        },
       };
       const expectedSortedNetworkOfficers = [
         {
@@ -119,7 +119,7 @@ describe('Social Graph page selectors', function () {
             ],
             visualTokenBackground: '#f52524',
             textColor: '#DFDFDF',
-          }
+          },
         },
         {
           id: 456,
@@ -134,7 +134,7 @@ describe('Social Graph page selectors', function () {
             ],
             visualTokenBackground: '#f52524',
             textColor: '#DFDFDF',
-          }
+          },
         },
         {
           id: 789,
@@ -149,8 +149,8 @@ describe('Social Graph page selectors', function () {
             ],
             visualTokenBackground: '#dc2c30',
             textColor: '#DFDFDF',
-          }
-        }
+          },
+        },
       ];
       sortedNetworkOfficersSelector(state, {}).should.eql(expectedSortedNetworkOfficers);
     });
@@ -196,9 +196,9 @@ describe('Social Graph page selectors', function () {
                   'percentile_allegation_internal': '32.0',
                 },
               },
-            ]
-          }
-        }
+            ],
+          },
+        },
       };
       const expectedSortedNetworkOfficers = [
         {
@@ -214,7 +214,7 @@ describe('Social Graph page selectors', function () {
             ],
             visualTokenBackground: '#f52524',
             textColor: '#DFDFDF',
-          }
+          },
         },
         {
           id: 123,
@@ -229,7 +229,7 @@ describe('Social Graph page selectors', function () {
             ],
             visualTokenBackground: '#f52524',
             textColor: '#DFDFDF',
-          }
+          },
         },
         {
           id: 789,
@@ -244,8 +244,8 @@ describe('Social Graph page selectors', function () {
             ],
             visualTokenBackground: '#dc2c30',
             textColor: '#DFDFDF',
-          }
-        }
+          },
+        },
       ];
       const props = { sortedOfficerIds: [456, 123, 789] };
       sortedNetworkOfficersSelector(state, props).should.eql(expectedSortedNetworkOfficers);
@@ -256,14 +256,14 @@ describe('Social Graph page selectors', function () {
     it('should return requesting status', function () {
       getNetworkOfficersRequesting({
         socialGraphPage: {
-          networkData: { networkOfficersRequesting: false }
-        }
+          networkData: { networkOfficersRequesting: false },
+        },
       }).should.be.false();
 
       getNetworkOfficersRequesting({
         socialGraphPage: {
-          networkData: { networkOfficersRequesting: true }
-        }
+          networkData: { networkOfficersRequesting: true },
+        },
       }).should.be.true();
     });
   });

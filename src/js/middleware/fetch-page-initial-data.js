@@ -7,7 +7,7 @@ import {
 } from 'utils/constants';
 import {
   getOfficerId, getCRID, getTRRId, getUnitName,
-  getDocDedupCRID, getDocumentId, getPinboardID
+  getDocDedupCRID, getDocumentId, getPinboardID,
 } from 'utils/location';
 import { hasCommunitiesSelector, hasClusterGeoJsonData } from 'selectors/landing-page/heat-map';
 import { hasCitySummarySelector } from 'selectors/landing-page/city-summary';

@@ -6,8 +6,8 @@ describe('Social Graph page selectors', function () {
     it('should return correct current main tab', function () {
       const state = {
         socialGraphPage: {
-          currentMainTab: 'NETWORK'
-        }
+          currentMainTab: 'NETWORK',
+        },
       };
       getCurrentMainTab(state).should.eql('NETWORK');
     });
@@ -18,9 +18,9 @@ describe('Social Graph page selectors', function () {
       const state = {
         socialGraphPage: {
           networkData: {
-            currentNetworkTab: 'Timeline'
-          }
-        }
+            currentNetworkTab: 'Timeline',
+          },
+        },
       };
       getCurrentNetworkTab(state).should.eql('Timeline');
     });
@@ -31,9 +31,9 @@ describe('Social Graph page selectors', function () {
       const state = {
         socialGraphPage: {
           networkData: {
-            showTimelineTab: true
-          }
-        }
+            showTimelineTab: true,
+          },
+        },
       };
       getShowTimelineTab(state).should.be.true();
     });

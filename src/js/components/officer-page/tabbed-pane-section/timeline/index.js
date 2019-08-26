@@ -100,7 +100,7 @@ Timeline.propTypes = {
   popup: PropTypes.object,
   filterCount: PropTypes.object,
   pathname: PropTypes.string,
-  onTrackingAttachment: PropTypes.func
+  onTrackingAttachment: PropTypes.func,
 };
 
 Timeline.defaultProps = {

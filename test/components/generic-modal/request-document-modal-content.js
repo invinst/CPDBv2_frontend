@@ -8,7 +8,7 @@ import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
   scryRenderedDOMComponentsWithClass,
-  Simulate
+  Simulate,
 } from 'react-addons-test-utils';
 import { spy, stub, useFakeTimers } from 'sinon';
 import { StyleRoot } from 'radium';
@@ -38,7 +38,7 @@ describe('RequestDocumentModalContent component', function () {
       sectionEditModeOn: false,
       onSaveForm: spy(),
       turnOnSectionEditMode: spy(),
-      turnOffSectionEditMode: spy()
+      turnOffSectionEditMode: spy(),
     };
     element = renderIntoDocument(
       <RequestDocumentModalContent
@@ -69,7 +69,7 @@ describe('RequestDocumentModalContent component', function () {
       sectionEditModeOn: false,
       onSaveForm: spy(),
       turnOnSectionEditMode: spy(),
-      turnOffSectionEditMode: spy()
+      turnOffSectionEditMode: spy(),
     };
     element = renderIntoDocument(
       <RequestDocumentModalContent

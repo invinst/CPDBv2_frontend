@@ -5,5 +5,5 @@ import * as constants from 'utils/constants';
 
 export default handleActions({
   [constants.FIRST_PAGE_GEOGRAPHIC_TRRS_REQUEST_SUCCESS]: (state, action) => action.payload['results'],
-  [constants.GEOGRAPHIC_TRRS_REQUEST_SUCCESS]: (state, action) => concat(state, action.payload['results'])
+  [constants.GEOGRAPHIC_TRRS_REQUEST_SUCCESS]: (state, action) => concat(state, action.payload['results']),
 }, []);

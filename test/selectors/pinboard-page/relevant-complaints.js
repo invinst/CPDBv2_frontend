@@ -22,10 +22,10 @@ describe('RelevantComplaints selectors', function () {
             'percentile_trr': '83.0024',
             'percentile_allegation': '99.2282',
             'percentile_allegation_civilian': '99.1579',
-            'percentile_allegation_internal': '70.0568'
-          }
+            'percentile_allegation_internal': '70.0568',
+          },
         }],
-        'point': { 'lon': -87.6427175, 'lat': 41.7756769 }
+        'point': { 'lon': -87.6427175, 'lat': 41.7756769 },
       };
       const complaint2 = {
         'crid': '1082207',
@@ -41,8 +41,8 @@ describe('RelevantComplaints selectors', function () {
             'percentile_trr': '0.0000',
             'percentile_allegation': '87.2187',
             'percentile_allegation_civilian': '74.8804',
-            'percentile_allegation_internal': '61.1521'
-          }
+            'percentile_allegation_internal': '61.1521',
+          },
         }, {
           'id': 26640,
           'rank': 'Police Officer',
@@ -53,10 +53,10 @@ describe('RelevantComplaints selectors', function () {
             'percentile_trr': '56.6663',
             'percentile_allegation': '68.2549',
             'percentile_allegation_civilian': '72.3141',
-            'percentile_allegation_internal': '0.0000'
-          }
+            'percentile_allegation_internal': '0.0000',
+          },
         }],
-        'point': { 'lon': -87.6097074, 'lat': 41.6600254 }
+        'point': { 'lon': -87.6097074, 'lat': 41.6600254 },
       };
       const complaints = [complaint1, complaint2];
       const state = {
@@ -66,7 +66,7 @@ describe('RelevantComplaints selectors', function () {
             count: 444,
             pagination: {
               next: '/pinboards/66ef1560/relevant-complaints/?limit=20&offset=20',
-              previous: null
+              previous: null,
             },
           },
           pinItemFromPreviewPane: {
@@ -74,7 +74,7 @@ describe('RelevantComplaints selectors', function () {
             id: '1085121',
             isPinned: true,
           },
-        }
+        },
       };
 
       relevantComplaintsSelector(state).should.eql([{
@@ -91,7 +91,7 @@ describe('RelevantComplaints selectors', function () {
             items: [
               { axis: 'Use of Force Reports', value: 83.0024 },
               { axis: 'Officer Allegations', value: 70.0568 },
-              { axis: 'Civilian Allegations', value: 99.1579 }
+              { axis: 'Civilian Allegations', value: 99.1579 },
             ],
             visualTokenBackground: '#f52524',
             textColor: '#DFDFDF',
@@ -114,7 +114,7 @@ describe('RelevantComplaints selectors', function () {
             items: [
               { axis: 'Use of Force Reports', value: 0 },
               { axis: 'Officer Allegations', value: 61.1521 },
-              { axis: 'Civilian Allegations', value: 74.8804 }
+              { axis: 'Civilian Allegations', value: 74.8804 },
             ],
             visualTokenBackground: '#fb7045',
             textColor: '#231F20',
@@ -128,7 +128,7 @@ describe('RelevantComplaints selectors', function () {
             items: [
               { axis: 'Use of Force Reports', value: 56.6663 },
               { axis: 'Officer Allegations', value: 0 },
-              { axis: 'Civilian Allegations', value: 72.3141 }
+              { axis: 'Civilian Allegations', value: 72.3141 },
             ],
             visualTokenBackground: '#f34339',
             textColor: '#231F20',
@@ -151,8 +151,8 @@ describe('RelevantComplaints selectors', function () {
               next: '/pinboards/66ef1560/relevant-complaints/?limit=10&offset=20',
               previous: '/pinboards/66ef1560/relevant-complaints/?',
             },
-          }
-        }
+          },
+        },
       };
 
       relevantComplaintsNextParamsSelector(state).should.eql({ limit: '10', offset: '20' });
@@ -175,10 +175,10 @@ describe('RelevantComplaints selectors', function () {
             'percentile_trr': '83.0024',
             'percentile_allegation': '99.2282',
             'percentile_allegation_civilian': '99.1579',
-            'percentile_allegation_internal': '70.0568'
-          }
+            'percentile_allegation_internal': '70.0568',
+          },
         }],
-        'point': { 'lon': -87.6427175, 'lat': 41.7756769 }
+        'point': { 'lon': -87.6427175, 'lat': 41.7756769 },
       }, {
         'crid': '1082207',
         'category': 'Operation/Personnel Violations',
@@ -193,8 +193,8 @@ describe('RelevantComplaints selectors', function () {
             'percentile_trr': '0.0000',
             'percentile_allegation': '87.2187',
             'percentile_allegation_civilian': '74.8804',
-            'percentile_allegation_internal': '61.1521'
-          }
+            'percentile_allegation_internal': '61.1521',
+          },
         }, {
           'id': 26640,
           'rank': 'Police Officer',
@@ -205,10 +205,10 @@ describe('RelevantComplaints selectors', function () {
             'percentile_trr': '56.6663',
             'percentile_allegation': '68.2549',
             'percentile_allegation_civilian': '72.3141',
-            'percentile_allegation_internal': '0.0000'
-          }
+            'percentile_allegation_internal': '0.0000',
+          },
         }],
-        'point': { 'lon': -87.6097074, 'lat': 41.6600254 }
+        'point': { 'lon': -87.6097074, 'lat': 41.6600254 },
       }];
       const state = {
         pinboardPage: {
@@ -217,10 +217,10 @@ describe('RelevantComplaints selectors', function () {
             count: 444,
             pagination: {
               next: '/pinboards/66ef1560/relevant-complaints/?limit=20&offset=20',
-              previous: null
+              previous: null,
             },
-          }
-        }
+          },
+        },
       };
 
       relevantComplaintsHasMoreSelector(state).should.be.true();
@@ -241,10 +241,10 @@ describe('RelevantComplaints selectors', function () {
             'percentile_trr': '83.0024',
             'percentile_allegation': '99.2282',
             'percentile_allegation_civilian': '99.1579',
-            'percentile_allegation_internal': '70.0568'
-          }
+            'percentile_allegation_internal': '70.0568',
+          },
         }],
-        'point': { 'lon': -87.6427175, 'lat': 41.7756769 }
+        'point': { 'lon': -87.6427175, 'lat': 41.7756769 },
       }, {
         'crid': '1082207',
         'category': 'Operation/Personnel Violations',
@@ -259,8 +259,8 @@ describe('RelevantComplaints selectors', function () {
             'percentile_trr': '0.0000',
             'percentile_allegation': '87.2187',
             'percentile_allegation_civilian': '74.8804',
-            'percentile_allegation_internal': '61.1521'
-          }
+            'percentile_allegation_internal': '61.1521',
+          },
         }, {
           'id': 26640,
           'rank': 'Police Officer',
@@ -271,10 +271,10 @@ describe('RelevantComplaints selectors', function () {
             'percentile_trr': '56.6663',
             'percentile_allegation': '68.2549',
             'percentile_allegation_civilian': '72.3141',
-            'percentile_allegation_internal': '0.0000'
-          }
+            'percentile_allegation_internal': '0.0000',
+          },
         }],
-        'point': { 'lon': -87.6097074, 'lat': 41.6600254 }
+        'point': { 'lon': -87.6097074, 'lat': 41.6600254 },
       }];
       const state = {
         pinboardPage: {
@@ -283,10 +283,10 @@ describe('RelevantComplaints selectors', function () {
             count: 2,
             pagination: {
               next: '/pinboards/66ef1560/relevant-complaints/?limit=20&offset=20',
-              previous: null
+              previous: null,
             },
-          }
-        }
+          },
+        },
       };
 
       relevantComplaintsHasMoreSelector(state).should.be.false();

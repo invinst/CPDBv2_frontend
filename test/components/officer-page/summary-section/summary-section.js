@@ -23,7 +23,7 @@ describe('SummarySection component', function () {
     const summaryFields = scryRenderedComponentsWithType(instance, SummaryField);
     summaryFields.should.have.length(7);
     map(summaryFields, field => field.props.label).should.eql([
-      'Year of Birth', 'Race', 'Sex', 'Badge', 'Rank', 'Unit', 'Career'
+      'Year of Birth', 'Race', 'Sex', 'Badge', 'Rank', 'Unit', 'Career',
     ]);
   });
 

@@ -12,8 +12,8 @@ describe('crid reducer', function () {
     const action = {
       type: '@@router/LOCATION_CHANGE',
       payload: {
-        pathname: '/complaint/1/2/'
-      }
+        pathname: '/complaint/1/2/',
+      },
     };
 
     crid('some state', action).should.eql('1');
@@ -23,12 +23,11 @@ describe('crid reducer', function () {
     const action = {
       type: '@@router/LOCATION_CHANGE',
       payload: {
-        pathname: '/wrongpath/1/2/'
-      }
+        pathname: '/wrongpath/1/2/',
+      },
     };
 
     crid('some state', action).should.eql('some state');
   });
 });
-
 

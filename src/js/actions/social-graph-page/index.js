@@ -9,7 +9,7 @@ export const requestSocialGraphNetwork = (params) => get(
   [
     constants.SOCIAL_GRAPH_NETWORK_REQUEST_START,
     constants.SOCIAL_GRAPH_NETWORK_REQUEST_SUCCESS,
-    constants.SOCIAL_GRAPH_NETWORK_REQUEST_FAILURE
+    constants.SOCIAL_GRAPH_NETWORK_REQUEST_FAILURE,
   ]
 )(params);
 
@@ -18,7 +18,7 @@ export const requestSocialGraphAllegations = (params) => get(
   [
     constants.SOCIAL_GRAPH_ALLEGATIONS_REQUEST_START,
     constants.SOCIAL_GRAPH_ALLEGATIONS_REQUEST_SUCCESS,
-    constants.SOCIAL_GRAPH_ALLEGATIONS_REQUEST_FAILURE
+    constants.SOCIAL_GRAPH_ALLEGATIONS_REQUEST_FAILURE,
   ]
 )(params);
 
@@ -27,7 +27,7 @@ export const requestFirstPageSocialGraphGeographicCrs = (params) => get(
   [
     constants.FIRST_PAGE_GEOGRAPHIC_CRS_REQUEST_START,
     constants.FIRST_PAGE_GEOGRAPHIC_CRS_REQUEST_SUCCESS,
-    constants.FIRST_PAGE_GEOGRAPHIC_CRS_REQUEST_FAILURE
+    constants.FIRST_PAGE_GEOGRAPHIC_CRS_REQUEST_FAILURE,
   ]
 )(params);
 
@@ -36,7 +36,7 @@ export const requestOtherPagesSocialGraphGeographicCrs = (params) => get(
   [
     constants.GEOGRAPHIC_CRS_REQUEST_START,
     constants.GEOGRAPHIC_CRS_REQUEST_SUCCESS,
-    constants.GEOGRAPHIC_CRS_REQUEST_FAILURE
+    constants.GEOGRAPHIC_CRS_REQUEST_FAILURE,
   ]
 )(params);
 
@@ -45,7 +45,7 @@ export const requestFirstPageSocialGraphGeographicTrrs = (params) => get(
   [
     constants.FIRST_PAGE_GEOGRAPHIC_TRRS_REQUEST_START,
     constants.FIRST_PAGE_GEOGRAPHIC_TRRS_REQUEST_SUCCESS,
-    constants.FIRST_PAGE_GEOGRAPHIC_TRRS_REQUEST_FAILURE
+    constants.FIRST_PAGE_GEOGRAPHIC_TRRS_REQUEST_FAILURE,
   ]
 )(params);
 
@@ -54,7 +54,7 @@ export const requestOtherPagesSocialGraphGeographicTrrs = (params) => get(
   [
     constants.GEOGRAPHIC_TRRS_REQUEST_START,
     constants.GEOGRAPHIC_TRRS_REQUEST_SUCCESS,
-    constants.GEOGRAPHIC_TRRS_REQUEST_FAILURE
+    constants.GEOGRAPHIC_TRRS_REQUEST_FAILURE,
   ]
 )(params);
 
@@ -63,7 +63,7 @@ export const requestFirstPageSocialGraphGeographicCrsPreviewPane = (params) => g
   [
     constants.FIRST_PAGE_GEOGRAPHIC_CRS_PREVIEW_PANE_REQUEST_START,
     constants.FIRST_PAGE_GEOGRAPHIC_CRS_PREVIEW_PANE_REQUEST_SUCCESS,
-    constants.FIRST_PAGE_GEOGRAPHIC_CRS_PREVIEW_PANE_REQUEST_FAILURE
+    constants.FIRST_PAGE_GEOGRAPHIC_CRS_PREVIEW_PANE_REQUEST_FAILURE,
   ]
 )(merge({ detail: true }, params));
 
@@ -72,7 +72,7 @@ export const requestOtherPagesSocialGraphGeographicCrsPreviewPane = (params) => 
   [
     constants.GEOGRAPHIC_CRS_PREVIEW_PANE_REQUEST_START,
     constants.GEOGRAPHIC_CRS_PREVIEW_PANE_REQUEST_SUCCESS,
-    constants.GEOGRAPHIC_CRS_PREVIEW_PANE_REQUEST_FAILURE
+    constants.GEOGRAPHIC_CRS_PREVIEW_PANE_REQUEST_FAILURE,
   ]
 )(merge({ detail: true }, params));
 
@@ -81,7 +81,7 @@ export const requestFirstPageSocialGraphGeographicTrrsPreviewPane = (params) => 
   [
     constants.FIRST_PAGE_GEOGRAPHIC_TRRS_PREVIEW_PANE_REQUEST_START,
     constants.FIRST_PAGE_GEOGRAPHIC_TRRS_PREVIEW_PANE_REQUEST_SUCCESS,
-    constants.FIRST_PAGE_GEOGRAPHIC_TRRS_PREVIEW_PANE_REQUEST_FAILURE
+    constants.FIRST_PAGE_GEOGRAPHIC_TRRS_PREVIEW_PANE_REQUEST_FAILURE,
   ]
 )(merge({ detail: true }, params));
 
@@ -90,7 +90,7 @@ export const requestOtherPagesSocialGraphGeographicTrrsPreviewPane = (params) =>
   [
     constants.GEOGRAPHIC_TRRS_PREVIEW_PANE_REQUEST_START,
     constants.GEOGRAPHIC_TRRS_PREVIEW_PANE_REQUEST_SUCCESS,
-    constants.GEOGRAPHIC_TRRS_PREVIEW_PANE_REQUEST_FAILURE
+    constants.GEOGRAPHIC_TRRS_PREVIEW_PANE_REQUEST_FAILURE,
   ]
 )(merge({ detail: true }, params));
 
@@ -99,7 +99,7 @@ export const requestSocialGraphOfficers = (params) => get(
   [
     constants.SOCIAL_GRAPH_OFFICERS_REQUEST_START,
     constants.SOCIAL_GRAPH_OFFICERS_REQUEST_SUCCESS,
-    constants.SOCIAL_GRAPH_OFFICERS_REQUEST_FAILURE
+    constants.SOCIAL_GRAPH_OFFICERS_REQUEST_FAILURE,
   ]
 )(params);
 

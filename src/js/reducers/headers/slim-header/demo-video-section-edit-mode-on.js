@@ -12,5 +12,5 @@ export default handleActions({
       return false;
     }
     return state;
-  }
+  },
 }, false);

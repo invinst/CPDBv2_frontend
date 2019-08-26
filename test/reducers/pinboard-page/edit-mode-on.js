@@ -19,7 +19,7 @@ describe('summary reducer', function () {
       },
       {
         type: PINBOARD_EDIT_MODE,
-        payload: { editType: PINBOARD_EDIT_TYPES.EMPTY_PINBOARD_DESCRIPTION, mode: true }
+        payload: { editType: PINBOARD_EDIT_TYPES.EMPTY_PINBOARD_DESCRIPTION, mode: true },
       }
     ).should.eql( {
       [PINBOARD_EDIT_TYPES.EMPTY_PINBOARD_TITLE]: false,
@@ -33,7 +33,7 @@ describe('summary reducer', function () {
       },
       {
         type: PINBOARD_EDIT_MODE,
-        payload: { editType: PINBOARD_EDIT_TYPES.EMPTY_PINBOARD_TITLE, mode: false }
+        payload: { editType: PINBOARD_EDIT_TYPES.EMPTY_PINBOARD_TITLE, mode: false },
       }
     ).should.eql( {
       [PINBOARD_EDIT_TYPES.EMPTY_PINBOARD_TITLE]: false,
@@ -49,7 +49,7 @@ describe('summary reducer', function () {
       },
       {
         type: LOCATION_CHANGE,
-        payload: { pathname: '/pinboard/abcd1234/' }
+        payload: { pathname: '/pinboard/abcd1234/' },
       }
     ).should.eql({
       [PINBOARD_EDIT_TYPES.EMPTY_PINBOARD_TITLE]: false,
@@ -63,7 +63,7 @@ describe('summary reducer', function () {
       },
       {
         type: LOCATION_CHANGE,
-        payload: { pathname: '/edit/pinboard/abcd1234/' }
+        payload: { pathname: '/edit/pinboard/abcd1234/' },
       }
     ).should.eql({
       [PINBOARD_EDIT_TYPES.EMPTY_PINBOARD_TITLE]: true,

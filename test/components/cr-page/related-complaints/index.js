@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  renderIntoDocument, findRenderedComponentWithType
+  renderIntoDocument, findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
@@ -18,17 +18,17 @@ describe('RelatedComplaints component', function () {
         relatedByCategory: {
           pagination: {},
           cards: {
-            cards: []
-          }
+            cards: [],
+          },
         },
         relatedByOfficer: {
           pagination: {},
           cards: {
-            cards: []
-          }
-        }
-      }
-    }
+            cards: [],
+          },
+        },
+      },
+    },
   });
 
   afterEach(function () {

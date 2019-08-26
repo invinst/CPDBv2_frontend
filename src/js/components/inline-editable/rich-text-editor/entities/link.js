@@ -3,7 +3,7 @@ import { Entity } from 'draft-js';
 
 import MoreLink from 'components/common/more-link';
 import ResponsiveStyleComponent, {
-  DESKTOP, TABLET, EXTRA_WIDE
+  DESKTOP, TABLET, EXTRA_WIDE,
 } from 'components/responsive/responsive-style-component';
 import { ENTITY_LINK } from 'utils/constants';
 import { linkStyle, pinkLinkStyle, linkWrapperStyle } from './link.style';
@@ -16,7 +16,7 @@ class Link extends Component {
       return {
         [DESKTOP]: styleFromContext,
         [TABLET]: styleFromContext,
-        [EXTRA_WIDE]: styleFromContext
+        [EXTRA_WIDE]: styleFromContext,
       };
     } else {
       return styleFromContext;
@@ -53,13 +53,13 @@ class Link extends Component {
 
 Link.propTypes = {
   entityKey: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 Link.contextTypes = {
   editModeOn: PropTypes.bool,
   draftEntityStyle: PropTypes.object,
-  sectionEditModeOn: PropTypes.bool
+  sectionEditModeOn: PropTypes.bool,
 };
 
 export default Link;

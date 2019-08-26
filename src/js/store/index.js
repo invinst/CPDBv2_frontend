@@ -38,7 +38,7 @@ function configureStore(initialState) {
       createOrUpdatePinboard,
       restorePinboardSession,
     ),
-    persistState(()=>{}, localStorageConfig)
+    persistState(()=>{}, localStorageConfig),
   ];
 
   /* istanbul ignore next */

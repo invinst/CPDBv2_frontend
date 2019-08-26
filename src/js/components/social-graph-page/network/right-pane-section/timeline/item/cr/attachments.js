@@ -48,5 +48,5 @@ Attachments.propTypes = {
 };
 
 Attachments.defaultProps = {
-  onTrackingAttachment: () => {}
+  onTrackingAttachment: () => {},
 };

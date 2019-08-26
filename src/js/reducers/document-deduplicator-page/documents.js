@@ -15,12 +15,12 @@ export default handleActions({
       if (state.crid === cridVal) {
         return {
           data: { ...state.data, ...newRows },
-          crid: cridVal
+          crid: cridVal,
         };
       }
       return {
         data: newRows,
-        crid: cridVal
+        crid: cridVal,
       };
     },
   [constants.DOCUMENT_VISIBILITY_TOGGLE_REQUEST_SUCCESS]:
@@ -31,7 +31,7 @@ export default handleActions({
       }
       return {
         data: { ...state.data },
-        crid: state.crid
+        crid: state.crid,
       };
-    }
+    },
 }, { data: {}, crid: '' });

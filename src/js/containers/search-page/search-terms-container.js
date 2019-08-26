@@ -5,7 +5,7 @@ import { move, resetNavigation } from 'actions/search-page/search-terms';
 import {
   focusedSearchTermItemSelector,
   totalItemCountSelector,
-  navigationKeySelector
+  navigationKeySelector,
 } from 'selectors/search-page/search-terms/navigation';
 import { categoriesSelector } from 'selectors/search-page/search-terms/categories';
 
@@ -16,7 +16,7 @@ function mapStateToProps(state, ownProps) {
     categories: categoriesSelector(state),
     focusedItem: focusedSearchTermItemSelector(state),
     totalItemCount: totalItemCountSelector(state),
-    navigationKeys: navigationKeySelector(state)
+    navigationKeys: navigationKeySelector(state),
   };
 }
 

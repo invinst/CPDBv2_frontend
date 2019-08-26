@@ -10,7 +10,7 @@ describe('currentMainTab reducer', function () {
   it('should handle CHANGE_NETWORK_TAB', function () {
     currentMainTab(undefined, {
       type: CHANGE_SOCIAL_GRAPH_MAIN_TAB,
-      payload: 'GEOGRAPHIC'
+      payload: 'GEOGRAPHIC',
     }).should.eql('GEOGRAPHIC');
   });
 });

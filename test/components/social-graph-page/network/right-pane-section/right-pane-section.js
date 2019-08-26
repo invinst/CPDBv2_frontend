@@ -23,7 +23,7 @@ describe('RightPaneSection component', function () {
     socialGraphPage: {
       networkData: {
         graphData: {
-          officers: []
+          officers: [],
         },
         networkAllegations: [],
         networkOfficers: [],
@@ -33,7 +33,7 @@ describe('RightPaneSection component', function () {
   });
   const location = {
     'pathname': '/social-graph/',
-    'search': '?unit_id=123'
+    'search': '?unit_id=123',
   };
   let instance;
 

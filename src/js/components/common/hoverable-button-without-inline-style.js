@@ -22,7 +22,7 @@ HoverableButtonWithoutInlineStyle.propTypes = {
   disabledClassName: PropTypes.string,
   onClick: PropTypes.func,
   children: PropTypes.node,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
 };
 
 HoverableButtonWithoutInlineStyle.defaultProps = {

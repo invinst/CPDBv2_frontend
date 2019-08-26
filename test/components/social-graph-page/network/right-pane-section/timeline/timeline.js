@@ -20,7 +20,7 @@ describe('Timeline component', function () {
       kind: 'YEAR',
       year: 2005,
       hasData: true,
-      key: '12345'
+      key: '12345',
     },
     {
       kind: 'CR',
@@ -31,7 +31,7 @@ describe('Timeline component', function () {
       attachments: [],
       key: '123456',
       timelineIdx: 0,
-    }
+    },
   ];
 
   afterEach(function () {
@@ -60,7 +60,7 @@ describe('Timeline component', function () {
         attachments: [],
         key: '654321',
         timelineIdx: 1,
-      }
+      },
     ];
     instance = renderIntoDocument(
       <Timeline

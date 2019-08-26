@@ -25,33 +25,33 @@ export default class Item extends Component {
 
     const componentInfoMap = {
       [NEW_TIMELINE_ITEMS.CR]: {
-        component: <Cr { ...this.props }/>
+        component: <Cr { ...this.props }/>,
       },
       [NEW_TIMELINE_ITEMS.FORCE]: {
-        component: <Trr { ...this.props }/>
+        component: <Trr { ...this.props }/>,
       },
       [NEW_TIMELINE_ITEMS.AWARD]: {
-        component: <Award { ...this.props }/>
+        component: <Award { ...this.props }/>,
       },
       [NEW_TIMELINE_ITEMS.UNIT_CHANGE]: {
         className: 'timeline-special-item',
-        component: <UnitChange { ...this.props }/>
+        component: <UnitChange { ...this.props }/>,
       },
       [NEW_TIMELINE_ITEMS.RANK_CHANGE]: {
         className: 'timeline-special-item',
-        component: <RankChange { ...this.props }/>
+        component: <RankChange { ...this.props }/>,
       },
       [NEW_TIMELINE_ITEMS.JOINED]: {
         className: 'timeline-special-item',
-        component: <Joined { ...this.props }/>
+        component: <Joined { ...this.props }/>,
       },
       [NEW_TIMELINE_ITEMS.YEAR]: {
         className: item.hasData ? 'has-data' : '',
-        component: <Year { ...this.props }/>
+        component: <Year { ...this.props }/>,
       },
       [NEW_TIMELINE_ITEMS.EMPTY]: {
         className: 'no-print',
-        component: <Empty { ...this.props }/>
+        component: <Empty { ...this.props }/>,
       },
     };
 

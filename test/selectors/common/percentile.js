@@ -45,7 +45,7 @@ describe('visualTokenBackground', function () {
     const percentile = {
       'percentile_allegation_civilian': '78.12',
       'percentile_allegation_internal': '80.20',
-      'percentile_trr': '92.35'
+      'percentile_trr': '92.35',
     };
     visualTokenBackground(percentile).should.eql('#dc2c30');
   });

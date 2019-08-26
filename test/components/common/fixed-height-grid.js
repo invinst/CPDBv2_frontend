@@ -5,7 +5,7 @@ import FixedHeightGrid from 'components/common/fixed-height-grid';
 import { unmountComponentSuppressError } from 'utils/test';
 import {
   scryRenderedDOMComponentsWithClass,
-  renderIntoDocument
+  renderIntoDocument,
 } from 'react-addons-test-utils';
 
 

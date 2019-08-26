@@ -76,17 +76,17 @@ describe('GeographicMap component', function () {
       requestOtherPagesSocialGraphGeographicTrrsStub.should.be.calledWith({
         'limit': 100,
         'offset': 100,
-        'unit_id': '123'
+        'unit_id': '123',
       });
       requestOtherPagesSocialGraphGeographicCrsPreviewPaneStub.should.be.calledWith({
         'limit': 150,
         'offset': 150,
-        'unit_id': '123'
+        'unit_id': '123',
       });
       requestOtherPagesSocialGraphGeographicTrrsPreviewPaneStub.should.be.calledWith({
         'limit': 200,
         'offset': 200,
-        'unit_id': '123'
+        'unit_id': '123',
       });
       done();
     }, 50);
@@ -182,7 +182,7 @@ describe('GeographicMap component', function () {
       address: '66XX S HALSTED ST, CHICAGO IL',
       victims: ['Hispanic, Female', 'Hispanic, Female, Age 48'],
       coaccused: 2,
-      to: '/complaint/123456/'
+      to: '/complaint/123456/',
     };
     instance = renderIntoDocument(
       <GeographicMap
@@ -204,7 +204,7 @@ describe('GeographicMap component', function () {
       address: '66XX S HALSTED ST, CHICAGO IL',
       victims: ['Hispanic, Female', 'Hispanic, Female, Age 48'],
       coaccused: 2,
-      to: '/complaint/123456/'
+      to: '/complaint/123456/',
     };
     instance = renderIntoDocument(
       <GeographicMap updateGeographicCrid={ updateGeographicCridStub } allegation={ allegation } />
@@ -214,13 +214,13 @@ describe('GeographicMap component', function () {
     updateGeographicCridStub.should.be.calledWith(null);
   });
 
-  it('should call updateGeographicCrid when clicking outside and allegation exists', function () {
+  it('should call updateGeographicTrrId when clicking outside and TRR exists', function () {
     const updateGeographicTrrIdStub = stub();
     const trr = {
       category: 'Firearm',
       incidentDate: '2006-10-24',
       address: '66XX S HALSTED ST, CHICAGO IL',
-      to: '/trr/123456/'
+      to: '/trr/123456/',
     };
     instance = renderIntoDocument(
       <GeographicMap updateGeographicTrrId={ updateGeographicTrrIdStub } trr={ trr } />
@@ -238,7 +238,7 @@ describe('GeographicMap component', function () {
       address: '66XX S HALSTED ST, CHICAGO IL',
       victims: ['Hispanic, Female', 'Hispanic, Female, Age 48'],
       coaccused: 2,
-      to: '/complaint/123456/'
+      to: '/complaint/123456/',
     };
     instance = renderIntoDocument(<GeographicMap allegation={ allegation }/>);
     scryRenderedComponentsWithType(instance, CRPane).should.have.length(1);

@@ -200,7 +200,7 @@ export default class SocialGraph extends Component {
           uid: officer.id,
           fname: officer.fullName,
           color: officer.visualTokenBackground,
-          degree: 0
+          degree: 0,
         };
         nodes.push(officerData);
         officerHash[officer.id] = index;
@@ -231,7 +231,7 @@ export default class SocialGraph extends Component {
           nodesData[objKey] = {
             source: officerIndex1,
             target: officerIndex2,
-            weight: row.accussedCount
+            weight: row.accussedCount,
           };
         }
         nodesData[objKey]['className'] = (rowDate.getTime() === curDate.getTime()) ? 'current-link' : '';

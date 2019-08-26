@@ -21,12 +21,12 @@ describe('mapCrsDataTotalCount reducer', function () {
             'kind': 'CR',
             'point': {
               'lon': -87,
-              'lat': 35
+              'lat': 35,
             },
           },
         ],
         count: 10,
-      }
+      },
     }).should.eql(10);
   });
 });

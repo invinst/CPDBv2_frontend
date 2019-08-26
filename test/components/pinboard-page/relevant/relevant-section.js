@@ -60,11 +60,11 @@ describe('RelevantSection component', function () {
         items: [
           { axis: 'Use of Force Reports', value: 0 },
           { axis: 'Officer Allegations', value: 85.8654 },
-          { axis: 'Civilian Allegations', value: 49.4652 }
+          { axis: 'Civilian Allegations', value: 49.4652 },
         ],
         visualTokenBackground: '#f9946b',
         textColor: '#231F20',
-      }
+      },
     }];
     const complaints = [{
       crid: '1082207',

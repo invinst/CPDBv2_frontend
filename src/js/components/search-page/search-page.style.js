@@ -7,7 +7,7 @@ import {
   clayGray,
   whiteTwoColor,
   sproutColor,
-  japaneseLaurelColor
+  japaneseLaurelColor,
 } from 'utils/styles';
 
 
@@ -53,15 +53,15 @@ const _cancelButtonStyle = (searchTermsHidden) => ({
   width: '41px',
   cursor: 'pointer',
   position: 'relative',
-  top: '6px'
+  top: '6px',
 });
 
 export const cancelButtonStyle = (searchTermsHidden) => ({
   base: _cancelButtonStyle(searchTermsHidden),
   hover: {
     ..._cancelButtonStyle(searchTermsHidden),
-    color: softBlackColor
-  }
+    color: softBlackColor,
+  },
 });
 
 export const searchMainPanelWrapperStyle = {

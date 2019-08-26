@@ -1,7 +1,7 @@
 import React from 'react';
 import MediaQuery from 'react-responsive';
 import {
-  renderIntoDocument, scryRenderedComponentsWithType, findRenderedDOMComponentWithTag
+  renderIntoDocument, scryRenderedComponentsWithType, findRenderedDOMComponentWithTag,
 } from 'react-addons-test-utils';
 import { TABLET } from 'utils/constants';
 

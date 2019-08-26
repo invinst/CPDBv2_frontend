@@ -1,7 +1,7 @@
 import {
   previewPaneInfoSelector,
   totalItemCountSelector,
-  focusedResultItemSelector
+  focusedResultItemSelector,
 } from 'selectors/search-page/search-results/navigation';
 import { RawOfficerSuggestion } from 'utils/test/factories/suggestion';
 import { MORE_BUTTON, SEARCH_BOX } from 'utils/constants';
@@ -23,16 +23,16 @@ describe('search page navigation selector', function () {
                 name: 'Jerome Turbyville',
                 race: 'White',
                 url: 'https://example.com',
-                to: '/officer/29033'
-              })
-            ]
+                to: '/officer/29033',
+              }),
+            ],
           },
           navigation: {
-            itemIndex: 4
+            itemIndex: 4,
           },
           searchTerms: {
-            hidden: true
-          }
+            hidden: true,
+          },
         },
         pinboardPage: {
           pinboard: {
@@ -40,9 +40,9 @@ describe('search page navigation selector', function () {
             title: 'pinboard',
             'officer_ids': ['29033'],
             crids: [],
-            'trr_ids': []
-          }
-        }
+            'trr_ids': [],
+          },
+        },
       }).should.deepEqual({
         id: '29033',
         to: '/officer/29033',
@@ -61,14 +61,14 @@ describe('search page navigation selector', function () {
           suggestionGroups: {
             'OFFICER': [],
             'UNIT': [],
-            'CO-ACCUSED': []
+            'CO-ACCUSED': [],
           },
           navigation: {
-            itemIndex: 0
+            itemIndex: 0,
           },
           searchTerms: {
-            hidden: true
-          }
+            hidden: true,
+          },
         },
         pinboardPage: {
           pinboard: {},
@@ -80,7 +80,7 @@ describe('search page navigation selector', function () {
         text: undefined,
         recentText: undefined,
         uniqueKey: SEARCH_BOX,
-        url: undefined
+        url: undefined,
       });
     });
 
@@ -91,14 +91,14 @@ describe('search page navigation selector', function () {
           suggestionGroups: {
             'OFFICER': RawOfficerSuggestion.buildList(6),
             'UNIT': [],
-            'CO-ACCUSED': []
+            'CO-ACCUSED': [],
           },
           navigation: {
-            itemIndex: 6
+            itemIndex: 6,
           },
           searchTerms: {
-            hidden: true
-          }
+            hidden: true,
+          },
         },
         pinboardPage: {
           pinboard: {},
@@ -148,10 +148,10 @@ describe('search page navigation selector', function () {
             items: [
               { axis: 'Use of Force Reports', value: 90 },
               { axis: 'Officer Allegations', value: 91 },
-              { axis: 'Civilian Allegations', value: 92 }
+              { axis: 'Civilian Allegations', value: 92 },
             ],
             visualTokenBackground: '#f52524',
-            textColor: '#DFDFDF'
+            textColor: '#DFDFDF',
           },
           race: 'White',
           rank: 'Police Officer',
@@ -179,11 +179,11 @@ describe('search page navigation selector', function () {
           suggestionGroups: {
             'OFFICER': [focusedSuggestion],
             'UNIT': [],
-            'CO-ACCUSED': []
+            'CO-ACCUSED': [],
           },
           navigation: {
-            itemIndex: 1
-          }
+            itemIndex: 1,
+          },
         },
         pinboardPage: {
           pinboard: {
@@ -191,9 +191,9 @@ describe('search page navigation selector', function () {
             title: 'pinboard',
             'officer_ids': ['29033'],
             crids: [],
-            'trr_ids': []
-          }
-        }
+            'trr_ids': [],
+          },
+        },
       }).should.deepEqual(info);
     });
   });
@@ -206,9 +206,9 @@ describe('search page navigation selector', function () {
           suggestionGroups: {
             'OFFICER': RawOfficerSuggestion.buildList(3),
             'UNIT': [],
-            'CO-ACCUSED': []
-          }
-        }
+            'CO-ACCUSED': [],
+          },
+        },
       }).should.equal(4);
     });
   });

@@ -3,7 +3,7 @@ import { get, filter, map } from 'lodash';
 
 import {
   wrapperStyle, memberWrapperStyle, activeStatusStyle, totalStatusStyle, facetStyle, columnWrapperStyle,
-  cellStyle, countStyle, nameStyle, genderWrapperStyle, genderCellStyle
+  cellStyle, countStyle, nameStyle, genderWrapperStyle, genderCellStyle,
 } from './member-aggregate-section.style';
 
 const _getEntries = (facets, name) => get(filter(facets, facet => facet.name === name), '0.entries', []);
@@ -89,5 +89,5 @@ export default class MemberAggregateSection extends Component {
 MemberAggregateSection.propTypes = {
   activeMembers: PropTypes.number,
   totalMembers: PropTypes.number,
-  memberFacets: PropTypes.array
+  memberFacets: PropTypes.array,
 };

@@ -6,7 +6,6 @@ import { unmountComponentSuppressError } from 'utils/test';
 import PropsStateRerender from 'components/common/higher-order/props-state-rerender';
 
 
-
 describe('PropsStateRerender component', function () {
   let instance;
   let callback;

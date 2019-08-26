@@ -11,19 +11,19 @@ describe('DocumentsOverviewPage documents reducer', function () {
     documents({
       data: {
         '1': {
-          id: 1
+          id: 1,
         },
         '3': {
-          id: 3
-        }
+          id: 3,
+        },
       },
-      match: 'term'
+      match: 'term',
     }, {
-      type: '@@router/LOCATION_CHANGE'
+      type: '@@router/LOCATION_CHANGE',
     }
     ).should.deepEqual({
       data: {},
-      match: ''
+      match: '',
     });
   });
 
@@ -31,76 +31,76 @@ describe('DocumentsOverviewPage documents reducer', function () {
     documents({
       data: {
         '1': {
-          id: 1
+          id: 1,
         },
         '3': {
-          id: 3
-        }
+          id: 3,
+        },
       },
-      match: 'term'
+      match: 'term',
     }, {
       type: constants.DOCUMENT_OVERVIEW_REQUEST_SUCCESS,
       payload: {
         results: [{
-          id: 1
+          id: 1,
         }, {
-          id: 2
-        }]
+          id: 2,
+        }],
       },
       request: {
         params: {
-          match: 'term'
-        }
-      }
+          match: 'term',
+        },
+      },
     }
     ).should.deepEqual({
       data: {
         '1': {
-          id: 1
+          id: 1,
         },
         '2': {
-          id: 2
+          id: 2,
         },
         '3': {
-          id: 3
-        }
+          id: 3,
+        },
       },
-      match: 'term'
+      match: 'term',
     });
 
     documents({
       data: {
         '1': {
-          id: 1
+          id: 1,
         },
         '3': {
-          id: 3
-        }
+          id: 3,
+        },
       },
-      match: 'term'
+      match: 'term',
     }, {
       type: constants.DOCUMENT_OVERVIEW_REQUEST_SUCCESS,
       payload: {
         results: [{
-          id: 1
+          id: 1,
         }, {
-          id: 2
-        }]
+          id: 2,
+        }],
       },
       request: {
-        params: {}
-      }
+        params: {},
+      },
     }
     ).should.deepEqual({
       data: {
         '1': {
-          id: 1
+          id: 1,
         },
         '2': {
-          id: 2
-        }
+          id: 2,
+        },
       },
-      match: ''
+      match: '',
     });
   });
 });

@@ -1,3 +1,3 @@
 export const linkStyle = {
-  textDecoration: 'none'
+  textDecoration: 'none',
 };

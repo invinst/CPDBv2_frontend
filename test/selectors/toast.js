@@ -6,17 +6,17 @@ describe('Toast selectors', function () {
     it('should return toast with correct format', function () {
       getToast({ toast: { isPinned: false, type: 'CR' } }).should.eql({
         actionType: 'added',
-        type: 'CR'
+        type: 'CR',
       });
 
       getToast({ toast: { isPinned: true, type: 'CR' } }).should.eql({
         actionType: 'removed',
-        type: 'CR'
+        type: 'CR',
       });
 
       getToast({ toast: { isPinned: false, type: 'UNIT > OFFICERS' } }).should.eql({
         actionType: 'added',
-        type: 'Officer'
+        type: 'Officer',
       });
     });
   });

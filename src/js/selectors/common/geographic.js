@@ -3,7 +3,7 @@ import { get } from 'lodash';
 
 export const crMapMarkersTransform = geographicDatum => ({
   point: get(geographicDatum, 'point', {
-    lon: 0, lat: 0
+    lon: 0, lat: 0,
   }),
   date: geographicDatum.date,
   kind: geographicDatum.kind,
@@ -13,7 +13,7 @@ export const crMapMarkersTransform = geographicDatum => ({
 
 export const trrMapMarkerTransform = geographicDatum => ({
   point: get(geographicDatum, 'point', {
-    lon: 0, lat: 0
+    lon: 0, lat: 0,
   }),
   date: geographicDatum.date,
   kind: geographicDatum.kind,

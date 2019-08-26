@@ -3,7 +3,7 @@ import reducer from 'reducers/inline-alias-admin-page';
 import {
   SET_ALIAS_ADMIN_PAGE_CONTENT,
   UPDATE_ALIAS_REQUEST_START,
-  UPDATE_ALIAS_REQUEST_FAILURE
+  UPDATE_ALIAS_REQUEST_FAILURE,
 } from 'actions/inline-alias-admin-page';
 
 describe('inlineAliasAdminPage reducer', function () {
@@ -19,61 +19,61 @@ describe('inlineAliasAdminPage reducer', function () {
         type: 'officer',
         text: 'John Wayne',
         description: 'Badge #000',
-        existingAliases: []
-      }
+        existingAliases: [],
+      },
     }).should.eql({
       id: '123',
       type: 'officer',
       text: 'John Wayne',
       description: 'Badge #000',
       existingAliases: [],
-      errorMessage: ''
+      errorMessage: '',
     });
   });
 
   it('should set errorMessage when "update alias" request fails with a single string as error message', function () {
     reducer({
       foo: 'bar',
-      errorMessage: ''
+      errorMessage: '',
     }, {
       type: UPDATE_ALIAS_REQUEST_FAILURE,
       payload: {
-        message: 'Something went really wrong'
-      }
+        message: 'Something went really wrong',
+      },
     }).should.eql({
       foo: 'bar',
-      errorMessage: 'Something went really wrong'
+      errorMessage: 'Something went really wrong',
     });
   });
 
   it('should set errorMessage when "update alias" request fails with an object as error message', function () {
     reducer({
       foo: 'bar',
-      errorMessage: ''
+      errorMessage: '',
     }, {
       type: UPDATE_ALIAS_REQUEST_FAILURE,
       payload: {
         message: {
           aliases: ['Error one.', 'Error two.'],
-          dummy: ['Error three.', 'Error four.']
-        }
-      }
+          dummy: ['Error three.', 'Error four.'],
+        },
+      },
     }).should.eql({
       foo: 'bar',
-      errorMessage: 'aliases: Error one. Error two. - dummy: Error three. Error four.'
+      errorMessage: 'aliases: Error one. Error two. - dummy: Error three. Error four.',
     });
   });
 
   it('should empty errorMessage when "update alias" request starts', function () {
     reducer({
       foo: 'bar',
-      errorMessage: 'Something went wrong'
+      errorMessage: 'Something went wrong',
     }, {
       type: UPDATE_ALIAS_REQUEST_START,
-      payload: {}
+      payload: {},
     }).should.eql({
       foo: 'bar',
-      errorMessage: ''
+      errorMessage: '',
     });
   });
 });

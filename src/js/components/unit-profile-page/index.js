@@ -32,9 +32,9 @@ export default class UnitProfilePage extends Component {
 UnitProfilePage.propTypes = {
   unitName: PropTypes.string,
   summary: PropTypes.object,
-  scrollPosition: PropTypes.string
+  scrollPosition: PropTypes.string,
 };
 
 UnitProfilePage.defaultProps = {
-  summary: {}
+  summary: {},
 };

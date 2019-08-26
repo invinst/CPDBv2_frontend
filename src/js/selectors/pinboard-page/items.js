@@ -31,7 +31,7 @@ const crPinnedTransform = (cr, updatingItem={}) => ({
   incidentDate: cr['incident_date'],
   category: cr['category'],
   point: cr['point'],
-  isPinStatusChanging: updatingItem.type === 'CR' && updatingItem.id === cr['crid']
+  isPinStatusChanging: updatingItem.type === 'CR' && updatingItem.id === cr['crid'],
 });
 
 const trrPinnedTransform = (trr, updatingItem={}) => ({
@@ -41,7 +41,7 @@ const trrPinnedTransform = (trr, updatingItem={}) => ({
   category: trr['category'],
   trrDate: trr['trr_datetime'],
   point: trr['point'],
-  isPinStatusChanging: updatingItem.type === 'TRR' && updatingItem.id === trr['id'].toString()
+  isPinStatusChanging: updatingItem.type === 'TRR' && updatingItem.id === trr['id'].toString(),
 });
 
 export const pinnedOfficersSelector = createSelector(

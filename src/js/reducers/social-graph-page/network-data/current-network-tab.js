@@ -4,7 +4,7 @@ import { isEmpty } from 'lodash';
 import {
   CHANGE_NETWORK_TAB,
   NETWORK_TAB_NAMES,
-  SOCIAL_GRAPH_ALLEGATIONS_REQUEST_SUCCESS
+  SOCIAL_GRAPH_ALLEGATIONS_REQUEST_SUCCESS,
 } from 'utils/constants';
 
 
@@ -15,5 +15,5 @@ export default handleActions({
       return NETWORK_TAB_NAMES.OFFICERS;
     }
     return state;
-  }
+  },
 }, NETWORK_TAB_NAMES.TIMELINE);

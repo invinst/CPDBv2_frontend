@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import should from 'should';
 import {
-  renderIntoDocument, findRenderedComponentWithType, scryRenderedComponentsWithType
+  renderIntoDocument, findRenderedComponentWithType, scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 import draftJs, { Entity } from 'draft-js';
 import { spy } from 'sinon';

@@ -13,7 +13,7 @@ describe('scrollPosition reducer', function () {
   it('should handle UPDATE_SHAREABLE_PAGE_SCROLL_POSITION', function () {
     scrollPosition(undefined, {
       type: UPDATE_SHAREABLE_PAGE_SCROLL_POSITION,
-      payload: 'middle'
+      payload: 'middle',
     }).should.eql('middle');
   });
 });

@@ -47,15 +47,15 @@ const editWrapperStateProps = (stateProps, dispatchProps, ownProps) => {
       sectionEditModeOn: stateProps.editModeOn[PINBOARD_EDIT_TYPES.EMPTY_PINBOARD_TITLE],
       onSaveForm: dispatchProps.onSaveForm,
       turnOnSectionEditMode: dispatchProps.turnOnEmptyPinboardTitleEditMode,
-      turnOffSectionEditMode: dispatchProps.turnOffEmptyPinboardTitleEditMode
+      turnOffSectionEditMode: dispatchProps.turnOffEmptyPinboardTitleEditMode,
     },
     emptyPinboardDescriptionEditWrapperStateProps: {
       fields: stateProps.editableFields,
       sectionEditModeOn: stateProps.editModeOn[PINBOARD_EDIT_TYPES.EMPTY_PINBOARD_DESCRIPTION],
       onSaveForm: dispatchProps.onSaveForm,
       turnOnSectionEditMode: dispatchProps.turnOnEmptyPinboardDescriptionEditMode,
-      turnOffSectionEditMode: dispatchProps.turnOffEmptyPinboardDescriptionEditMode
-    }
+      turnOffSectionEditMode: dispatchProps.turnOffEmptyPinboardDescriptionEditMode,
+    },
   };
 };
 

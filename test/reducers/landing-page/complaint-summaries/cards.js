@@ -10,7 +10,7 @@ describe('cardsReducer', function () {
   it('should handle RECENT_COMPLAINT_SUMMARIES_REQUEST_SUCCESS', function () {
     cardsReducer([], {
       type: constants.RECENT_COMPLAINT_SUMMARIES_REQUEST_SUCCESS,
-      payload: [1, 2, 3]
+      payload: [1, 2, 3],
     }).should.eql([1, 2, 3]);
   });
 });

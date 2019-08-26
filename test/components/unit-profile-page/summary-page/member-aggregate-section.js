@@ -11,7 +11,7 @@ describe('MemberAggregateSection component', function () {
     const memberFacets = [
       { name: 'race', entries: [{ name: 'White', count: 1 }] },
       { name: 'age', entries: [{ name: '21-30', count: 1 }] },
-      { name: 'gender', entries: [{ name: 'Male', count: 1 }] }
+      { name: 'gender', entries: [{ name: 'Male', count: 1 }] },
     ];
 
     const instance = renderIntoDocument(

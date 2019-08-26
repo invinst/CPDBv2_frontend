@@ -20,7 +20,7 @@ export const fetchDocuments = cancelOldRequest(
     [
       constants.DOCUMENT_OVERVIEW_REQUEST_START,
       constants.DOCUMENT_OVERVIEW_REQUEST_SUCCESS,
-      constants.DOCUMENT_OVERVIEW_REQUEST_FAILURE
+      constants.DOCUMENT_OVERVIEW_REQUEST_FAILURE,
     ],
     source.token
   )({ ...params })
@@ -32,7 +32,7 @@ export const fetchDocumentsAuthenticated = cancelOldRequest(
     [
       constants.DOCUMENT_OVERVIEW_REQUEST_START,
       constants.DOCUMENT_OVERVIEW_REQUEST_SUCCESS,
-      constants.DOCUMENT_OVERVIEW_REQUEST_FAILURE
+      constants.DOCUMENT_OVERVIEW_REQUEST_FAILURE,
     ],
     source.token
   )({ ...params })

@@ -210,9 +210,9 @@ class PinboardSection extends Section {
 }
 
 class PinboardPinnedSection extends Section {
-  officers = new PinnedOfficers()
-  crs = new PinnedCRs()
-  trrs = new PinnedTRRs()
+  officers = new PinnedOfficers();
+  crs = new PinnedCRs();
+  trrs = new PinnedTRRs();
 
   constructor() {
     super();

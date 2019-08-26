@@ -53,8 +53,8 @@ const editWrapperStateProps = (stateProps, dispatchProps, ownProps) => {
       sectionEditModeOn: stateProps.editModeOn[CR_EDIT_TYPES.NO_ATTACHMENT_TEXT],
       onSaveForm: dispatchProps.onSaveForm,
       turnOnSectionEditMode: dispatchProps.turnOnNoAttachmentTextEditMode,
-      turnOffSectionEditMode: dispatchProps.turnOffNoAttachmentTextEditMode
-    }
+      turnOffSectionEditMode: dispatchProps.turnOffNoAttachmentTextEditMode,
+    },
   };
 };
 

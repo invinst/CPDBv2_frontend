@@ -16,7 +16,7 @@ describe('items reducer', function () {
 
   it('should handle CHANGE_OFFICER_ID', function () {
     items([1, 2, 3], {
-      type: CHANGE_OFFICER_ID
+      type: CHANGE_OFFICER_ID,
     }).should.eql([]);
   });
 });

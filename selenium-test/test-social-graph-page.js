@@ -158,7 +158,7 @@ describe('Social Graph Page', function () {
       '1998-11-17',
       '1999-02-08',
       '1999-07-22',
-      '2006-03-15'
+      '2006-03-15',
     ];
     toggleTimelineButton.getAttribute('class').should.equal('toggle-timeline-btn pause-icon');
     browser.waitUntil(function () {
@@ -477,7 +477,7 @@ describe('Social Graph Page', function () {
       'Matthew Brandon',
       'Tracy Hughes',
       'William Roberison',
-      'Estella Perez-Stanford'
+      'Estella Perez-Stanford',
     ];
     const finalOrderedOfficers = map(
       socialGraphPage.officersSection.officerRows(), officerRow => officerRow.getText()
@@ -504,7 +504,7 @@ describe('Social Graph Page', function () {
       'Matthew Brandon',
       'Sean Brandon',
       'Tracy Hughes',
-      'William Roberison'
+      'William Roberison',
     ];
     browser.moveToObject(socialGraphPage.animatedSocialGraphSection.timelineSlider.selector);
     browser.buttonPress();

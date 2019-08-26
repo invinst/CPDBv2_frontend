@@ -74,7 +74,7 @@ describe('NetworkGraph component', function () {
     requestSocialGraphNetworkStub.should.be.calledWith({
       'unit_id': '232',
       'threshold': 2,
-      'complaint_origin': 'CIVILIAN'
+      'complaint_origin': 'CIVILIAN',
     });
   });
 
@@ -91,7 +91,7 @@ describe('NetworkGraph component', function () {
     requestSocialGraphNetworkStub.should.be.calledWith({
       'officer_ids': '123,456,789',
       'threshold': 2,
-      'complaint_origin': 'CIVILIAN'
+      'complaint_origin': 'CIVILIAN',
     });
   });
 
@@ -109,7 +109,7 @@ describe('NetworkGraph component', function () {
     requestSocialGraphNetworkStub.should.be.calledWith({
       'pinboard_id': '5cd06f2b',
       'threshold': 2,
-      'complaint_origin': 'CIVILIAN'
+      'complaint_origin': 'CIVILIAN',
     });
   });
 
@@ -138,7 +138,7 @@ describe('NetworkGraph component', function () {
     requestSocialGraphAllegationsStub.should.be.calledWith({
       'unit_id': '232',
       'threshold': 2,
-      'complaint_origin': 'CIVILIAN'
+      'complaint_origin': 'CIVILIAN',
     });
   });
 
@@ -155,7 +155,7 @@ describe('NetworkGraph component', function () {
     requestSocialGraphAllegationsStub.should.be.calledWith({
       'officer_ids': '123,456,789',
       'threshold': 2,
-      'complaint_origin': 'CIVILIAN'
+      'complaint_origin': 'CIVILIAN',
     });
   });
 
@@ -185,7 +185,7 @@ describe('NetworkGraph component', function () {
     requestSocialGraphOfficersStub.should.be.calledWith({
       'officer_ids': '123,456,789',
       'threshold': 2,
-      'complaint_origin': 'CIVILIAN'
+      'complaint_origin': 'CIVILIAN',
     });
   });
 
@@ -202,7 +202,7 @@ describe('NetworkGraph component', function () {
     requestSocialGraphOfficersStub.should.be.calledWith({
       'unit_id': '232',
       'threshold': 2,
-      'complaint_origin': 'CIVILIAN'
+      'complaint_origin': 'CIVILIAN',
     });
   });
 
@@ -288,7 +288,7 @@ describe('NetworkGraph component', function () {
     requestSocialGraphNetworkStub.should.be.calledWith({
       'officer_ids': '123,456,789',
       'threshold': 2,
-      'complaint_origin': 'CIVILIAN'
+      'complaint_origin': 'CIVILIAN',
     });
 
     const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
@@ -297,7 +297,7 @@ describe('NetworkGraph component', function () {
     requestSocialGraphNetworkStub.should.be.calledWith({
       'officer_ids': '123,456,789',
       'threshold': 3,
-      'complaint_origin': 'ALL'
+      'complaint_origin': 'ALL',
     });
   });
 
@@ -371,7 +371,7 @@ describe('NetworkGraph component', function () {
           ],
           visualTokenBackground: '#f52524',
           textColor: '#DFDFDF',
-        }
+        },
       },
     };
     instance = renderIntoDocument(
@@ -392,7 +392,7 @@ describe('NetworkGraph component', function () {
             date: 2003,
             hasData: true,
             key: '294088-YEAR-2003',
-            kind: 'YEAR'
+            kind: 'YEAR',
           },
           {
             category: 'Illegal Search',
@@ -408,8 +408,8 @@ describe('NetworkGraph component', function () {
                 id: '123456',
                 previewImageUrl: 'https://assets.documentcloud.org/documents/3518950/pages/CRID-294088.gif',
                 title: 'CRID 294088 CR',
-                url: 'https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html'
-              }
+                url: 'https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html',
+              },
             ],
             timelineIdx: 1,
           },
@@ -418,7 +418,7 @@ describe('NetworkGraph component', function () {
           sourceOfficerName: 'Jerome Finnigan',
           targetOfficerName: 'Edward May',
           coaccusedCount: 6,
-        }
+        },
       },
     };
     instance = renderIntoDocument(
@@ -538,7 +538,7 @@ describe('NetworkGraph component', function () {
           ],
           visualTokenBackground: '#f52524',
           textColor: '#DFDFDF',
-        }
+        },
       },
     };
     instance = renderIntoDocument(
@@ -585,7 +585,7 @@ describe('NetworkGraph component', function () {
                 'percentile': {
                   'percentile_trr': '78.2707',
                   'percentile_allegation_civilian': '97.8772',
-                  'percentile_allegation_internal': '61.1521'
+                  'percentile_allegation_internal': '61.1521',
                 },
               },
               {
@@ -594,7 +594,7 @@ describe('NetworkGraph component', function () {
                 'percentile': {
                   'percentile_trr': '78.2707',
                   'percentile_allegation_civilian': '97.8772',
-                  'percentile_allegation_internal': '61.1521'
+                  'percentile_allegation_internal': '61.1521',
                 },
               },
             ],
@@ -610,7 +610,7 @@ describe('NetworkGraph component', function () {
                 'officer_id_2': 2,
                 'incident_date': '1989-10-03',
                 'accussed_count': 2,
-              }
+              },
             ],
             'list_event': ['1988-10-03', '1989-10-03'],
           },

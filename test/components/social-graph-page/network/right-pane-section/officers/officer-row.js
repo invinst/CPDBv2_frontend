@@ -23,11 +23,11 @@ describe('OfficerRow component', function () {
       items: [
         { axis: 'Use of Force Reports', value: 92.3 },
         { axis: 'Officer Allegations', value: 82 },
-        { axis: 'Civilian Allegations', value: 97 }
+        { axis: 'Civilian Allegations', value: 97 },
       ],
       visualTokenBackground: '#f52524',
-      textColor: '#DFDFDF'
-    }
+      textColor: '#DFDFDF',
+    },
   };
   let instance;
 

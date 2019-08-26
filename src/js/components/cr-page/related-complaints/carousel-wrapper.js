@@ -64,10 +64,10 @@ CarouselWrapper.propTypes = {
   crid: PropTypes.string,
   distance: PropTypes.string,
   match: PropTypes.string,
-  fetchRelatedComplaints: PropTypes.func
+  fetchRelatedComplaints: PropTypes.func,
 };
 
 CarouselWrapper.defaultProps = {
   cards: [],
-  fetchRelatedComplaints: () => {}
+  fetchRelatedComplaints: () => {},
 };

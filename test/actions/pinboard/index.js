@@ -37,7 +37,7 @@ describe('pinboard actions', function () {
     cancel = spy();
     stub(CancelToken, 'source').returns({
       token: 'token',
-      cancel
+      cancel,
     });
   });
 
@@ -94,9 +94,9 @@ describe('pinboard actions', function () {
               'officer_ids': [],
               crids: ['abc'],
               'trr_ids': [1],
-            }
-          }
-        }
+            },
+          },
+        },
       });
     });
 
@@ -134,9 +134,9 @@ describe('pinboard actions', function () {
               'officer_ids': ['1'],
               crids: [],
               'trr_ids': ['1'],
-            }
-          }
-        }
+            },
+          },
+        },
       });
     });
 
@@ -253,8 +253,8 @@ describe('pinboard actions', function () {
             params: undefined,
             adapter: null,
             cancelToken: undefined,
-          }
-        }
+          },
+        },
       });
     });
   });
@@ -274,8 +274,8 @@ describe('pinboard actions', function () {
             params: undefined,
             adapter: null,
             cancelToken: 'token',
-          }
-        }
+          },
+        },
       });
     });
   });
@@ -295,8 +295,8 @@ describe('pinboard actions', function () {
             params: undefined,
             adapter: null,
             cancelToken: 'token',
-          }
-        }
+          },
+        },
       });
     });
   });
@@ -316,8 +316,8 @@ describe('pinboard actions', function () {
             params: undefined,
             adapter: null,
             cancelToken: 'token',
-          }
-        }
+          },
+        },
       });
     });
   });
@@ -337,8 +337,8 @@ describe('pinboard actions', function () {
             params: undefined,
             adapter: null,
             cancelToken: 'token',
-          }
-        }
+          },
+        },
       });
     });
   });
@@ -358,8 +358,8 @@ describe('pinboard actions', function () {
             params: { 'pinboard_id': '268a5e58' },
             adapter: null,
             cancelToken: 'token',
-          }
-        }
+          },
+        },
       });
     });
   });
@@ -379,8 +379,8 @@ describe('pinboard actions', function () {
             params: { 'pinboard_id': '268a5e58' },
             adapter: null,
             cancelToken: 'token',
-          }
-        }
+          },
+        },
       });
     });
   });
@@ -400,8 +400,8 @@ describe('pinboard actions', function () {
             params: { 'pinboard_id': '268a5e58' },
             adapter: null,
             cancelToken: 'token',
-          }
-        }
+          },
+        },
       });
     });
   });
@@ -421,8 +421,8 @@ describe('pinboard actions', function () {
             params: { 'pinboard_id': '268a5e58' },
             adapter: null,
             cancelToken: 'token',
-          }
-        }
+          },
+        },
       });
     });
   });
@@ -442,8 +442,8 @@ describe('pinboard actions', function () {
             params: undefined,
             adapter: null,
             cancelToken: 'token',
-          }
-        }
+          },
+        },
       });
     });
 
@@ -464,8 +464,8 @@ describe('pinboard actions', function () {
             params: undefined,
             adapter: null,
             cancelToken: 'token',
-          }
-        }
+          },
+        },
       });
     });
   });
@@ -485,8 +485,8 @@ describe('pinboard actions', function () {
             params: undefined,
             adapter: null,
             cancelToken: 'token',
-          }
-        }
+          },
+        },
       });
     });
 
@@ -507,8 +507,8 @@ describe('pinboard actions', function () {
             params: undefined,
             adapter: null,
             cancelToken: 'token',
-          }
-        }
+          },
+        },
       });
     });
   });
@@ -528,8 +528,8 @@ describe('pinboard actions', function () {
             params: undefined,
             adapter: null,
             cancelToken: 'token',
-          }
-        }
+          },
+        },
       });
     });
 
@@ -550,8 +550,8 @@ describe('pinboard actions', function () {
             params: undefined,
             adapter: null,
             cancelToken: 'token',
-          }
-        }
+          },
+        },
       });
     });
   });
@@ -570,8 +570,8 @@ describe('pinboard actions', function () {
             params: undefined,
             adapter: null,
             cancelToken: undefined,
-          }
-        }
+          },
+        },
       });
     });
   });
@@ -613,7 +613,7 @@ describe('pinboard actions', function () {
           id: 1,
           type: 'OFFICER',
           mode: constants.PINBOARD_ITEM_REMOVE_MODE.STATE_ONLY,
-        }
+        },
       });
     });
   });

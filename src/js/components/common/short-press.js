@@ -50,5 +50,5 @@ ShortPress.propTypes = {
 };
 
 ShortPress.defaultProps = {
-  action: noop
+  action: noop,
 };

@@ -63,7 +63,7 @@ describe('OfficerCard component', function () {
     removeItemInPinboardPage.should.be.calledOnce();
     removeItemInPinboardPage.should.be.calledWith({
       type: 'OFFICER',
-      id: 123
+      id: 123,
     });
   });
 
@@ -191,7 +191,7 @@ describe('OfficerCardWithUndo component', function () {
     removeItemInPinboardPage.should.be.calledWith({
       id: 123,
       type: 'OFFICER',
-      mode: PINBOARD_ITEM_REMOVE_MODE.API_ONLY
+      mode: PINBOARD_ITEM_REMOVE_MODE.API_ONLY,
     });
   });
 });

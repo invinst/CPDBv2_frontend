@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   renderIntoDocument,
-  findRenderedComponentWithType
+  findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 import { spy, stub } from 'sinon';
 
@@ -28,8 +28,8 @@ describe('DocumentDeduplicatorPage DocumentsTable component', function () {
         date: 'Jan 10, 2019',
         viewsCount: 1,
         downloadsCount: 1,
-        show: true
-      }
+        show: true,
+      },
     ];
     instance = renderIntoDocument(
       <DocumentsTable rows={ rows } />
@@ -48,13 +48,13 @@ describe('DocumentDeduplicatorPage DocumentsTable component', function () {
         date: 'Jan 10, 2019',
         viewsCount: 1,
         downloadsCount: 1,
-        show: true
-      }
+        show: true,
+      },
     ];
     const nextParams = {
       crid: 1000000,
       limit: 1,
-      offset: 1
+      offset: 1,
     };
     const fetchDocumentsByCRID = stub().returns({ catch: stub() });
 
@@ -80,8 +80,8 @@ describe('DocumentDeduplicatorPage DocumentsTable component', function () {
         date: 'Jan 10, 2019',
         viewsCount: 1,
         downloadsCount: 1,
-        show: true
-      }
+        show: true,
+      },
     ];
     const setDocumentShow = spy();
 
@@ -99,7 +99,7 @@ describe('DocumentDeduplicatorPage DocumentsTable component', function () {
       date: 'Jan 10, 2019',
       viewsCount: 1,
       downloadsCount: 1,
-      show: true
+      show: true,
     });
   });
 });

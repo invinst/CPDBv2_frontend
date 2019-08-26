@@ -17,7 +17,7 @@ describe('trrItems > removingItemsReducer', function () {
         payload: {
           type: 'TRR',
           id: '002',
-        }
+        },
       }
     ).should.deepEqual(['001', '002']);
 
@@ -28,7 +28,7 @@ describe('trrItems > removingItemsReducer', function () {
         payload: {
           type: 'ANOTHER',
           id: '002',
-        }
+        },
       }
     ).should.deepEqual(['001']);
   });
@@ -40,8 +40,8 @@ describe('trrItems > removingItemsReducer', function () {
         type: constants.REMOVE_ITEM_FROM_PINBOARD_STATE,
         payload: {
           type: 'TRR',
-          id: '001'
-        }
+          id: '001',
+        },
       }
     ).should.deepEqual([]);
 
@@ -51,8 +51,8 @@ describe('trrItems > removingItemsReducer', function () {
         type: constants.REMOVE_ITEM_FROM_PINBOARD_STATE,
         payload: {
           type: 'ANOTHER',
-          id: '001'
-        }
+          id: '001',
+        },
       }
     ).should.deepEqual(['001']);
   });
@@ -64,8 +64,8 @@ describe('trrItems > removingItemsReducer', function () {
         type: constants.ADD_ITEM_TO_PINBOARD_STATE,
         payload: {
           type: 'TRR',
-          id: '001'
-        }
+          id: '001',
+        },
       }
     ).should.deepEqual([]);
 
@@ -75,8 +75,8 @@ describe('trrItems > removingItemsReducer', function () {
         type: constants.ADD_ITEM_TO_PINBOARD_STATE,
         payload: {
           type: 'ANOTHER',
-          id: '001'
-        }
+          id: '001',
+        },
       }
     ).should.deepEqual(['001']);
   });

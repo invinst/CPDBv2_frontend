@@ -262,7 +262,7 @@ describe('Pinboard Page', function () {
         '1998-11-17',
         '1999-02-08',
         '1999-07-22',
-        '2006-03-15'
+        '2006-03-15',
       ];
       toggleTimelineButton.getAttribute('class').should.equal('toggle-timeline-btn pause-icon');
       browser.waitUntil(function () {

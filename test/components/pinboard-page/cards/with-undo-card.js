@@ -6,7 +6,7 @@ import { renderIntoDocument,
   findRenderedDOMComponentWithClass,
   scryRenderedComponentsWithType,
   scryRenderedDOMComponentsWithClass,
-  Simulate
+  Simulate,
 } from 'react-addons-test-utils';
 import { spy, useFakeTimers } from 'sinon';
 
@@ -33,7 +33,7 @@ describe('withUndoCard higher-order component', function () {
       'rank': 'Officer as Detective',
       'full_name': 'James David',
       'complaint_count': '10',
-    }
+    },
   };
 
   afterEach(function () {
@@ -107,7 +107,7 @@ describe('withUndoCard higher-order component', function () {
             'rank': 'Officer as Detective',
             'full_name': 'James David',
             'complaint_count': '10',
-          }
+          },
         });
       });
 

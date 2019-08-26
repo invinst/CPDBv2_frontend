@@ -4,7 +4,7 @@ import ClipboardButton from 'react-clipboard.js';
 import {
   findRenderedComponentWithType, renderIntoDocument,
   scryRenderedComponentsWithType, scryRenderedDOMComponentsWithClass,
-  Simulate
+  Simulate,
 } from 'react-addons-test-utils';
 import config from 'config';
 

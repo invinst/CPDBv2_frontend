@@ -19,13 +19,13 @@ export class Dropdown extends Component {
 
     this.state = {
       open: false,
-      selectedIndex: indexOf(options, defaultValue)
+      selectedIndex: indexOf(options, defaultValue),
     };
   }
 
   handleClick() {
     this.setState({
-      open: !this.state.open
+      open: !this.state.open,
     });
   }
 
@@ -36,14 +36,14 @@ export class Dropdown extends Component {
       onChange(options[index]);
       this.setState({
         selectedIndex: index,
-        open: false
+        open: false,
       });
     }
   }
 
   handleBlur() {
     this.setState({
-      open: false
+      open: false,
     });
   }
 

@@ -17,14 +17,14 @@ export default class RelevantComplaintCard extends Component {
     } = this.props;
     const complaintFields = [
       'crid', 'incidentDate', 'category', 'point', 'officers',
-      'point', 'rawData'
+      'point', 'rawData',
     ];
 
     const leftChild = (
       <div
         className={ styles.relevantComplaintMap }
         style={ point ? {
-          background: `url("${getComplaintMapUrl(point.lat, point.lon, 130, 176)}") no-repeat center/cover`
+          background: `url("${getComplaintMapUrl(point.lat, point.lon, 130, 176)}") no-repeat center/cover`,
         }: null }
       />
     );
@@ -47,7 +47,7 @@ RelevantComplaintCard.propTypes = {
   officers: PropTypes.arrayOf(PropTypes.object),
   point: PropTypes.shape({
     lat: PropTypes.number,
-    lon: PropTypes.number
+    lon: PropTypes.number,
   }),
   addItemInPinboardPage: PropTypes.func,
   focusItem: PropTypes.func,

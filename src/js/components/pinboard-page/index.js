@@ -162,7 +162,7 @@ PinboardPage.propTypes = {
   routes: PropTypes.array,
   pushBreadcrumbs: PropTypes.func,
   location: PropTypes.shape({
-    pathname: PropTypes.string
+    pathname: PropTypes.string,
   }),
   updatePathName: PropTypes.func,
   addOrRemoveItemInPinboardFromPreviewPane: PropTypes.func,

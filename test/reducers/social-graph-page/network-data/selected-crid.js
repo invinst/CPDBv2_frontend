@@ -16,21 +16,21 @@ describe('selectedCrid reducer', function () {
   it('should handle UPDATE_SOCIAL_GRAPH_SELECTED_CRID', function () {
     selectedCrid([], {
       type: UPDATE_SOCIAL_GRAPH_SELECTED_CRID,
-      payload: 123
+      payload: 123,
     }).should.eql(123);
   });
 
   it('should handle UPDATE_SOCIAL_GRAPH_SELECTED_EDGE', function () {
     should(selectedCrid([], {
       type: UPDATE_SOCIAL_GRAPH_SELECTED_EDGE,
-      payload: 123
+      payload: 123,
     })).be.null();
   });
 
   it('should handle UPDATE_SELECTED_OFFICER_ID', function () {
     should(selectedCrid([], {
       type: UPDATE_SELECTED_OFFICER_ID,
-      payload: 123
+      payload: 123,
     })).be.null();
   });
 });

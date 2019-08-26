@@ -4,5 +4,5 @@ import active from './active';
 
 
 export default combineReducers({
-  active
+  active,
 });

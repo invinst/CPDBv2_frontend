@@ -24,7 +24,7 @@ export const getFirstRelevantCoaccusals = (pinboardId, count) => {
         'id': 4,
         'unit_name': '004',
         'description': 'District 004',
-        'long_unit_name': 'Unit 004'
+        'long_unit_name': 'Unit 004',
       },
       'percentile': {
         'year': 2010,
@@ -47,7 +47,7 @@ export const getFirstRelevantCoaccusals = (pinboardId, count) => {
       rank: 'Officer',
       'full_name': 'Baudilio Lopez',
       'coaccusal_count': 47,
-    })
+    }),
   ];
   coaccusals.results = fixedCoaccusals.concat(coaccusals.results).slice(0, 20);
   return coaccusals;

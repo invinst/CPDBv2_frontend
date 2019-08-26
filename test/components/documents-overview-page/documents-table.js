@@ -24,8 +24,8 @@ describe('DocumentsOverviewPage DocumentsTable component', function () {
     const rows = [
       {
         id: 1,
-        kind: constants.DOCUMENTS_SEARCH_ITEMS.DOCUMENT
-      }
+        kind: constants.DOCUMENTS_SEARCH_ITEMS.DOCUMENT,
+      },
     ];
     instance = renderIntoDocument(
       <DocumentsTable rows={ rows } />
@@ -38,8 +38,8 @@ describe('DocumentsOverviewPage DocumentsTable component', function () {
     const rows = [
       {
         id: 1,
-        kind: constants.DOCUMENTS_SEARCH_ITEMS.DOCUMENT
-      }
+        kind: constants.DOCUMENTS_SEARCH_ITEMS.DOCUMENT,
+      },
     ];
     const onCRLinkClick = spy();
     instance = renderWithContext(
@@ -52,7 +52,7 @@ describe('DocumentsOverviewPage DocumentsTable component', function () {
       id: 1,
       kind: constants.DOCUMENTS_SEARCH_ITEMS.DOCUMENT,
       onCRLinkClick: onCRLinkClick,
-      editModeOn: true
+      editModeOn: true,
     });
   });
 
@@ -61,8 +61,8 @@ describe('DocumentsOverviewPage DocumentsTable component', function () {
       {
         id: '01-2019',
         kind: constants.DOCUMENTS_SEARCH_ITEMS.MONTH_SEPARATOR,
-        text: 'Jan 2019'
-      }
+        text: 'Jan 2019',
+      },
     ];
     instance = renderIntoDocument(
       <DocumentsTable rows={ rows } />
@@ -72,7 +72,7 @@ describe('DocumentsOverviewPage DocumentsTable component', function () {
     row.props.should.containEql({
       id: '01-2019',
       kind: constants.DOCUMENTS_SEARCH_ITEMS.MONTH_SEPARATOR,
-      text: 'Jan 2019'
+      text: 'Jan 2019',
     });
   });
 
@@ -81,16 +81,16 @@ describe('DocumentsOverviewPage DocumentsTable component', function () {
       {
         id: '01-2019',
         kind: constants.DOCUMENTS_SEARCH_ITEMS.MONTH_SEPARATOR,
-        text: 'Jan 2019'
+        text: 'Jan 2019',
       },
       {
         id: 1,
-        kind: constants.DOCUMENTS_SEARCH_ITEMS.DOCUMENT
-      }
+        kind: constants.DOCUMENTS_SEARCH_ITEMS.DOCUMENT,
+      },
     ];
     const nextParams = {
       limit: 1,
-      offset: 1
+      offset: 1,
     };
     const fetchDocuments = stub().returns({ catch: stub() });
 
@@ -110,16 +110,16 @@ describe('DocumentsOverviewPage DocumentsTable component', function () {
       {
         id: '01-2019',
         kind: constants.DOCUMENTS_SEARCH_ITEMS.MONTH_SEPARATOR,
-        text: 'Jan 2019'
+        text: 'Jan 2019',
       },
       {
         id: 1,
-        kind: constants.DOCUMENTS_SEARCH_ITEMS.DOCUMENT
-      }
+        kind: constants.DOCUMENTS_SEARCH_ITEMS.DOCUMENT,
+      },
     ];
     const nextParams = {
       limit: 1,
-      offset: 1
+      offset: 1,
     };
     const fetchDocumentsAuthenticated = stub().returns({ catch: stub() });
 

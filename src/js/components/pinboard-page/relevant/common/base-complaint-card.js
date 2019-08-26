@@ -93,7 +93,7 @@ BaseComplaintCard.propTypes = {
 
 BaseComplaintCard.defaultProps = {
   focusItem: noop,
-  rawData: {}
+  rawData: {},
 };
 
 export default BaseComplaintCard;

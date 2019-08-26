@@ -3,7 +3,7 @@ import {
   Simulate,
   renderIntoDocument,
   findRenderedDOMComponentWithTag,
-  findRenderedDOMComponentWithClass
+  findRenderedDOMComponentWithClass,
 } from 'react-addons-test-utils';
 import { stub } from 'sinon';
 

@@ -5,7 +5,7 @@ import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithTag,
   findRenderedDOMComponentWithClass,
-  Simulate
+  Simulate,
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 
@@ -31,7 +31,7 @@ describe('RelevantDocumentCard component', function () {
       items: [
         { axis: 'Use of Force Reports', value: 63.0035 },
         { axis: 'Officer Allegations', value: 88.3297 },
-        { axis: 'Civilian Allegations', value: 98.7841 }
+        { axis: 'Civilian Allegations', value: 98.7841 },
       ],
     },
   }, {
@@ -45,7 +45,7 @@ describe('RelevantDocumentCard component', function () {
       items: [
         { axis: 'Use of Force Reports', value: 78.2707 },
         { axis: 'Officer Allegations', value: 0 },
-        { axis: 'Civilian Allegations', value: 98.5549 }
+        { axis: 'Civilian Allegations', value: 98.5549 },
       ],
     },
   }, {

@@ -1,7 +1,7 @@
 import previewPaneTrrsData from 'reducers/social-graph-page/geographic-data/preview-pane-trrs-data';
 import {
   FIRST_PAGE_GEOGRAPHIC_TRRS_PREVIEW_PANE_REQUEST_SUCCESS,
-  GEOGRAPHIC_TRRS_PREVIEW_PANE_REQUEST_SUCCESS
+  GEOGRAPHIC_TRRS_PREVIEW_PANE_REQUEST_SUCCESS,
 } from 'utils/constants';
 
 
@@ -24,28 +24,28 @@ describe('previewPaneCrsData reducer', function () {
             'victims': [
               {
                 'gender': 'Male',
-                'race': ''
+                'race': '',
               },
               {
                 'gender': 'Male',
-                'race': ''
+                'race': '',
               },
               {
                 'gender': 'Male',
-                'race': ''
+                'race': '',
               },
               {
                 'gender': 'Male',
-                'race': 'Black'
+                'race': 'Black',
               },
               {
                 'gender': 'Male',
-                'race': ''
-              }
-            ]
-          }
+                'race': '',
+              },
+            ],
+          },
         ],
-      }
+      },
     }).should.eql([
       {
         'date': '2007-04-25',
@@ -56,26 +56,26 @@ describe('previewPaneCrsData reducer', function () {
         'victims': [
           {
             'gender': 'Male',
-            'race': ''
+            'race': '',
           },
           {
             'gender': 'Male',
-            'race': ''
+            'race': '',
           },
           {
             'gender': 'Male',
-            'race': ''
+            'race': '',
           },
           {
             'gender': 'Male',
-            'race': 'Black'
+            'race': 'Black',
           },
           {
             'gender': 'Male',
-            'race': ''
-          }
-        ]
-      }
+            'race': '',
+          },
+        ],
+      },
     ]);
   });
 
@@ -93,28 +93,28 @@ describe('previewPaneCrsData reducer', function () {
             'victims': [
               {
                 'gender': 'Male',
-                'race': ''
+                'race': '',
               },
               {
                 'gender': 'Male',
-                'race': ''
+                'race': '',
               },
               {
                 'gender': 'Male',
-                'race': ''
+                'race': '',
               },
               {
                 'gender': 'Male',
-                'race': 'Black'
+                'race': 'Black',
               },
               {
                 'gender': 'Male',
-                'race': ''
-              }
-            ]
-          }
+                'race': '',
+              },
+            ],
+          },
         ],
-      }
+      },
     }).should.eql([
       {
         'date': '2007-04-25',
@@ -125,26 +125,26 @@ describe('previewPaneCrsData reducer', function () {
         'victims': [
           {
             'gender': 'Male',
-            'race': ''
+            'race': '',
           },
           {
             'gender': 'Male',
-            'race': ''
+            'race': '',
           },
           {
             'gender': 'Male',
-            'race': ''
+            'race': '',
           },
           {
             'gender': 'Male',
-            'race': 'Black'
+            'race': 'Black',
           },
           {
             'gender': 'Male',
-            'race': ''
-          }
-        ]
-      }
+            'race': '',
+          },
+        ],
+      },
     ]);
   });
 });

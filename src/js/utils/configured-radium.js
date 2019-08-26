@@ -13,8 +13,8 @@ export default function ConfiguredRadium(component) {
         Radium.Plugins.keyframes,
         Radium.Plugins.visited,
         Radium.Plugins.prefix,
-        Radium.Plugins.checkProps
-      ]
+        Radium.Plugins.checkProps,
+      ],
     })(component);
   }
   return Radium()(component);

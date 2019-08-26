@@ -109,5 +109,5 @@ class SlimHeader extends Header {
 
 module.exports = {
   TopHeader,
-  SlimHeader
+  SlimHeader,
 };

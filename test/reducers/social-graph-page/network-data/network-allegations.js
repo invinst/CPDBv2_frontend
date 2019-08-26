@@ -15,21 +15,21 @@ describe('networkAllegations reducer', function () {
         'incident_date': '1988-10-03',
         'most_common_category': {
           'category': 'Use of Force',
-          'allegation_name': 'Miscellaneous'
-        }
+          'allegation_name': 'Miscellaneous',
+        },
       },
       {
         'crid': 456,
         'incident_date': '1989-14-05',
         'most_common_category': {
           'category': 'Illegal Search',
-        }
-      }
+        },
+      },
     ];
 
     networkAllegations([], {
       type: SOCIAL_GRAPH_ALLEGATIONS_REQUEST_SUCCESS,
-      payload: graphAllegationsData
+      payload: graphAllegationsData,
     }).should.eql(graphAllegationsData);
   });
 });

@@ -65,7 +65,7 @@ export default class ListWidget extends Component {
 ListWidget.defaultProps = {
   typeName: 'allegation',
   showAvatar: true,
-  showItemArrow: false
+  showItemArrow: false,
 };
 
 ListWidget.propTypes = {
@@ -74,7 +74,7 @@ ListWidget.propTypes = {
     name: PropTypes.string,
     count: PropTypes.number,
     image: PropTypes.string.optional,
-    url: PropTypes.string.optional
+    url: PropTypes.string.optional,
   })),
   title: PropTypes.string,
   typeName: PropTypes.string,

@@ -28,5 +28,5 @@ Bubble.propTypes = {
   className: PropTypes.string,
   onMouseOver: PropTypes.func,
   onMouseOut: PropTypes.func,
-  children: PropTypes.node
+  children: PropTypes.node,
 };

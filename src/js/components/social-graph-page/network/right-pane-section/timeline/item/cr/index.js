@@ -33,5 +33,5 @@ export default class Cr extends Component {
 Cr.propTypes = {
   item: PropTypes.object,
   pathname: PropTypes.string,
-  onTrackingAttachment: PropTypes.func
+  onTrackingAttachment: PropTypes.func,
 };

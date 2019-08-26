@@ -29,6 +29,6 @@ export const buildEditStateFields = fields => (
     name: name,
     value: RawContentStateFactory.build(
       {}, { blockTexts: texts }
-    )
+    ),
   }))
 );

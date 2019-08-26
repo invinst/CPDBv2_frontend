@@ -14,7 +14,7 @@ describe('DocumentsOverviewPage documentsOrder reducer', function () {
         match: 'term',
       },
       {
-        type: '@@router/LOCATION_CHANGE'
+        type: '@@router/LOCATION_CHANGE',
       }
     ).should.deepEqual({ data: [], match: '' });
   });
@@ -30,18 +30,18 @@ describe('DocumentsOverviewPage documentsOrder reducer', function () {
         payload: {
           results: [
             {
-              id: 3
+              id: 3,
             },
             {
-              id: 2
-            }
-          ]
+              id: 2,
+            },
+          ],
         },
         request: {
           params: {
-            match: 'term'
-          }
-        }
+            match: 'term',
+          },
+        },
       }
     ).should.deepEqual({ data: [1, 3, 2], match: 'term' });
 
@@ -55,16 +55,16 @@ describe('DocumentsOverviewPage documentsOrder reducer', function () {
         payload: {
           results: [
             {
-              id: 3
+              id: 3,
             },
             {
-              id: 2
-            }
-          ]
+              id: 2,
+            },
+          ],
         },
         request: {
-          params: {}
-        }
+          params: {},
+        },
       }
     ).should.deepEqual({ data: [3, 2], match: '' });
   });

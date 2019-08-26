@@ -10,8 +10,8 @@ const createLocationChangeAction = (pathname) => ({
   type: '@@router/LOCATION_CHANGE',
   payload: {
     pathname: pathname,
-    query: extractQuery(pathname)
-  }
+    query: extractQuery(pathname),
+  },
 });
 
 
@@ -19,14 +19,14 @@ const buildStore = () => ({
   _state: {
     pinboardPage: {
       pinboard: {
-        id: 'id'
-      }
-    }
+        id: 'id',
+      },
+    },
   },
   getState() {
     return this._state;
   },
-  dispatch: stub().usingPromise(Promise).resolves('abc')
+  dispatch: stub().usingPromise(Promise).resolves('abc'),
 });
 
 describe('fetchLatestRetrievedPinboard middleware', () => {
@@ -39,7 +39,7 @@ describe('fetchLatestRetrievedPinboard middleware', () => {
 
   it('should not dispatch if action is not location change', () => {
     const action = {
-      type: 'another action'
+      type: 'another action',
     };
     let dispatched;
 

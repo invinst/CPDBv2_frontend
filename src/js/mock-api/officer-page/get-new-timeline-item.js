@@ -5,7 +5,7 @@ const timelineItems = [
     'unit_description': 'District 007',
     rank: 'Police Officer',
     date: '2006-03-01',
-    'award_type': 'Honorable Mention'
+    'award_type': 'Honorable Mention',
   },
   {
     'trr_id': 1,
@@ -15,7 +15,7 @@ const timelineItems = [
     'unit_description': 'District 007',
     rank: 'Police Officer',
     date: '2005-12-17',
-    'firearm_used': false
+    'firearm_used': false,
   },
   {
     'trr_id': 2,
@@ -25,14 +25,14 @@ const timelineItems = [
     'unit_description': 'District 007',
     rank: 'Police Officer',
     date: '2005-03-17',
-    'firearm_used': false
+    'firearm_used': false,
   },
   {
     'unit_name': '007',
     kind: 'UNIT_CHANGE',
     'unit_description': 'District 007',
     rank: 'Police Officer',
-    date: '2005-01-07'
+    date: '2005-01-07',
   },
   {
     'trr_id': 3,
@@ -42,7 +42,7 @@ const timelineItems = [
     'unit_description': 'Mobile Strike Force',
     rank: 'Police Officer',
     date: '2004-12-17',
-    'firearm_used': true
+    'firearm_used': true,
   },
   {
     category: 'Illegal Search',
@@ -72,8 +72,8 @@ const timelineItems = [
         url: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/262463136&amp',
         title: 'Audio Clip',
         'file_type': 'audio',
-      }
-    ]
+      },
+    ],
   },
   {
     category: 'Criminal Misconduct',
@@ -103,15 +103,15 @@ const timelineItems = [
         'preview_image_url': 'https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p1-normal.gif',
         title: 'CRID 294088 CR',
         'file_type': 'document',
-      }
-    ]
+      },
+    ],
   },
   {
     'unit_name': '153',
     kind: 'UNIT_CHANGE',
     'unit_description': 'Mobile Strike Force',
     rank: 'Police Officer',
-    date: '2000-04-28'
+    date: '2000-04-28',
   },
   {
     'unit_name': '153',
@@ -125,13 +125,13 @@ const timelineItems = [
     kind: 'JOINED',
     'unit_description': 'Recruit Training Section',
     rank: 'Detective',
-    date: '2000-02-05'
-  }
+    date: '2000-02-05',
+  },
 ];
 
 const results = {
   '1': timelineItems,
-  '1234': []
+  '1234': [],
 };
 
 export default (officerId = 1) => results[`${officerId}`];

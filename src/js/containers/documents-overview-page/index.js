@@ -14,13 +14,13 @@ function mapStateToProps(state, ownProps) {
     ...ownProps,
     documents: documentsSelector(state),
     hasMore: hasMoreSelector(state),
-    nextParams: nextParamsSelector(state)
+    nextParams: nextParamsSelector(state),
   };
 }
 
 const mapDispatchToProps = {
   fetchDocuments,
-  fetchDocumentsAuthenticated
+  fetchDocumentsAuthenticated,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DocumentsPage);

@@ -18,7 +18,7 @@ describe('officerCardTransform', function () {
         'percentile_allegation': '91.5',
         'percentile_allegation_civilian': '97.0',
         'percentile_allegation_internal': '82.0',
-        'percentile_trr': '92.3'
+        'percentile_trr': '92.3',
       },
     }).should.eql({
       id: 1,
@@ -34,13 +34,13 @@ describe('officerCardTransform', function () {
       percentile: {
         items: [{
           'axis': 'Use of Force Reports',
-          'value': 92.3
+          'value': 92.3,
         }, {
           'axis': 'Officer Allegations',
-          'value': 82
+          'value': 82,
         }, {
           'axis': 'Civilian Allegations',
-          'value': 97
+          'value': 97,
         }],
         textColor: '#DFDFDF',
         visualTokenBackground: '#f52524',
@@ -65,13 +65,13 @@ describe('officerCardTransform', function () {
         'percentile_allegation': '91.0',
         'percentile_allegation_civilian': '97.0',
         'percentile_allegation_internal': '82.0',
-        'percentile_trr': '92.0'
+        'percentile_trr': '92.0',
       }, {
         'year': 2007,
         'percentile_allegation': '91.5',
         'percentile_allegation_civilian': '97.0',
         'percentile_allegation_internal': '82.0',
-        'percentile_trr': '92.3'
+        'percentile_trr': '92.3',
       }],
     }).should.eql({
       id: 1,
@@ -87,13 +87,13 @@ describe('officerCardTransform', function () {
       percentile: {
         items: [{
           'axis': 'Use of Force Reports',
-          'value': 92.3
+          'value': 92.3,
         }, {
           'axis': 'Officer Allegations',
-          'value': 82
+          'value': 82,
         }, {
           'axis': 'Civilian Allegations',
-          'value': 97
+          'value': 97,
         }],
         textColor: '#DFDFDF',
         visualTokenBackground: '#f52524',

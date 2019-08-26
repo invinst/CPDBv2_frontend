@@ -11,20 +11,20 @@ export default class RightLinks extends Component {
     const links = [
       {
         name: 'Data',
-        url: config.v1Url
+        url: config.v1Url,
       },
       {
         name: 'Q&A',
-        url: QA_LINK
+        url: QA_LINK,
       },
       {
         name: 'Documents',
-        url: '/documents/'
+        url: '/documents/',
       },
       {
         name: 'Pinboard',
-        url: '/pinboard/'
-      }
+        url: '/pinboard/',
+      },
     ];
 
     const tags = links.map((link, index) => (

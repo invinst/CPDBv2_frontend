@@ -12,7 +12,7 @@ describe('trrId reducer', function () {
   it('should handle UPDATE_GEOGRAPHIC_TRR_ID', function () {
     trrId([], {
       type: UPDATE_GEOGRAPHIC_TRR_ID,
-      payload: 123
+      payload: 123,
     }).should.eql(123);
   });
 });

@@ -20,7 +20,7 @@ const searchPage = combineReducers({
   navigation,
   query,
   searchTerms,
-  pagination
+  pagination,
 });
 
 export default searchPage;

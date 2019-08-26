@@ -11,7 +11,7 @@ export default class SearchMainPanel extends Component {
   render() {
     const {
       contentType, query, editModeOn, aliasEditModeOn,
-      handleSelect, tags, onEmptyPinboardButtonClick
+      handleSelect, tags, onEmptyPinboardButtonClick,
     } = this.props;
 
     return (

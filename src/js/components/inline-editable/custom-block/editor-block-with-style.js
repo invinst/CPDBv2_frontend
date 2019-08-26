@@ -22,11 +22,11 @@ class EditorBlockWithStyle extends EditorBlock {
 
 EditorBlockWithStyle.propTypes = {
   offsetKey: PropTypes.string,
-  blockProps: PropTypes.object
+  blockProps: PropTypes.object,
 };
 
 EditorBlockWithStyle.contextTypes = {
-  draftEditorBlockStyle: PropTypes.object
+  draftEditorBlockStyle: PropTypes.object,
 };
 
 export default ConfiguredRadium(EditorBlockWithStyle);

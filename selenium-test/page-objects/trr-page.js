@@ -12,7 +12,7 @@ class OfficerSection extends Section {
       officerRow: '//a[contains(@class, "trr-officer-row")]',
       unitLinkItem: '//a[contains(@class, "link-item")]',
       officerProfileButton: ('//div[contains(@class, "navigation-button") and ./span/text()="View Profile"]'),
-      unitProfileButton: ('//div[contains(@class, "navigation-button") and ./span/text()="View Unit"]')
+      unitProfileButton: ('//div[contains(@class, "navigation-button") and ./span/text()="View Unit"]'),
     });
   }
 }
@@ -22,7 +22,7 @@ class TRRInfoSection extends Section {
     super();
 
     this.prepareElementGetters({
-      documentRequestButton: '.test--attachment-request'
+      documentRequestButton: '.test--attachment-request',
     });
   }
 }

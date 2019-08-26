@@ -33,10 +33,10 @@ export default class SearchBar extends Component {
 
 SearchBar.propTypes = {
   onChange: PropTypes.func,
-  value: PropTypes.string
+  value: PropTypes.string,
 };
 
 SearchBar.defaultProps = {
   onChange: () => {},
-  value: ''
+  value: '',
 };

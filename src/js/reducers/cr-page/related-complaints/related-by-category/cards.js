@@ -6,7 +6,7 @@ import { cardsState, defaultCardsState } from 'reducers/cr-page/related-complain
 
 export default handleActions(
   {
-    [constants.RELATED_COMPLAINTS_BY_CATEGORY_REQUEST_SUCCESS]: cardsState
+    [constants.RELATED_COMPLAINTS_BY_CATEGORY_REQUEST_SUCCESS]: cardsState,
   },
   defaultCardsState
 );

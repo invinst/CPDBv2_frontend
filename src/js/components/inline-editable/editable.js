@@ -16,5 +16,5 @@ export default class Editable extends Component {
 Editable.propTypes = {
   editModeOn: PropTypes.bool,
   presenterElement: PropTypes.element,
-  editorElement: PropTypes.element
+  editorElement: PropTypes.element,
 };

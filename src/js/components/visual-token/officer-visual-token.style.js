@@ -1,7 +1,7 @@
 export const wrapperStyle = {
   display: 'inline-block',
   overflow: 'hidden',
-  position: 'relative'
+  position: 'relative',
 };
 
 export const imgStyle = {
@@ -10,7 +10,7 @@ export const imgStyle = {
   left: 0,
   width: '100%',
   height: '100%',
-  transform: 'scale(1.8)'
+  transform: 'scale(1.8)',
 };
 
 export const backgroundStyle = backgroundColor => ({
@@ -19,5 +19,5 @@ export const backgroundStyle = backgroundColor => ({
   left: 0,
   width: '100%',
   height: '100%',
-  backgroundColor
+  backgroundColor,
 });

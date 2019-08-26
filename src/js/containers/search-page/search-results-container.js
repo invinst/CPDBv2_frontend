@@ -17,7 +17,7 @@ import {
 } from 'selectors/search-page/search-results/suggestion-groups';
 import {
   previewPaneInfoSelector,
-  totalItemCountSelector
+  totalItemCountSelector,
 } from 'selectors/search-page/search-results/navigation';
 import { getFocusedItem } from 'selectors/search-page';
 import { addOrRemoveItemInPinboard } from 'actions/pinboard';

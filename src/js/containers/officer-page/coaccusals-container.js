@@ -8,7 +8,7 @@ import { coaccusalGroupsSelector } from 'selectors/officer-page/coaccusals';
 
 function mapStateToProps(state, ownProps) {
   return {
-    coaccusalGroups: coaccusalGroupsSelector(state)
+    coaccusalGroups: coaccusalGroupsSelector(state),
   };
 }
 

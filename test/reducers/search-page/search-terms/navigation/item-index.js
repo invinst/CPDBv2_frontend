@@ -12,14 +12,14 @@ describe('itemIndex reducer', function () {
     it('resets to first position by default', function () {
       itemIndex(2, {
         type: SEARCH_TERMS_NAVIGATION_RESET,
-        payload: undefined
+        payload: undefined,
       }).should.deepEqual(1);
     });
 
     it('resets to a position', function () {
       itemIndex(2, {
         type: SEARCH_TERMS_NAVIGATION_RESET,
-        payload: 3
+        payload: 3,
       }).should.deepEqual(3);
     });
   });
@@ -29,8 +29,8 @@ describe('itemIndex reducer', function () {
       itemIndex(1, {
         type: SEARCH_TERMS_NAVIGATION_DOWN,
         payload: {
-          totalItemCount: 2
-        }
+          totalItemCount: 2,
+        },
       }).should.deepEqual(1);
     });
 
@@ -38,8 +38,8 @@ describe('itemIndex reducer', function () {
       itemIndex(0, {
         type: SEARCH_TERMS_NAVIGATION_DOWN,
         payload: {
-          totalItemCount: 2
-        }
+          totalItemCount: 2,
+        },
       }).should.deepEqual(1);
     });
   });
@@ -49,8 +49,8 @@ describe('itemIndex reducer', function () {
       itemIndex(-1, {
         type: SEARCH_TERMS_NAVIGATION_UP,
         payload: {
-          totalItemCount: 2
-        }
+          totalItemCount: 2,
+        },
       }).should.deepEqual(-1);
     });
 
@@ -58,8 +58,8 @@ describe('itemIndex reducer', function () {
       itemIndex( 1, {
         type: SEARCH_TERMS_NAVIGATION_UP,
         payload: {
-          totalItemCount: 2
-        }
+          totalItemCount: 2,
+        },
       }).should.deepEqual(0);
     });
   });
@@ -70,7 +70,7 @@ describe('itemIndex reducer', function () {
       const navigationKeys = ['key-1', 'key-2', uniqueKey];
       itemIndex(1, {
         type: SEARCH_TERMS_NAVIGATION_SET,
-        payload: { navigationKeys, uniqueKey }
+        payload: { navigationKeys, uniqueKey },
       }).should.deepEqual(2);
     });
   });

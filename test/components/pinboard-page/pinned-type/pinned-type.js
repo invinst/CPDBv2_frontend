@@ -39,7 +39,7 @@ describe('PinnedType component', function () {
           race: 'White',
           gender: 'Male',
           rank: 'Police Officer',
-          percentile: {}
+          percentile: {},
         }, {
           id: 2,
           'full_name': 'Daryl Mack',
@@ -50,7 +50,7 @@ describe('PinnedType component', function () {
           race: 'White',
           gender: 'Male',
           rank: 'Police Officer',
-          percentile: {}
+          percentile: {},
         }],
       },
       crItems: {
@@ -81,7 +81,7 @@ describe('PinnedType component', function () {
           point: { 'lon': 1.0, 'lat': 1.0 },
         }],
       },
-    }
+    },
   });
 
   afterEach(function () {
