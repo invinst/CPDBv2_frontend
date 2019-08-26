@@ -31,7 +31,8 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  onSaveForm: updateDocument,
+  onSaveFormTitle: updateDocument('title'),
+  onSaveFormContent: updateDocument('content'),
   turnOnDocumentPageTitleEditMode: turnOnDocumentPageTitleEditMode,
   turnOffDocumentPageTitleEditMode: turnOffDocumentPageTitleEditMode,
   turnOnDocumentTextContentEditMode: turnOnDocumentTextContentEditMode,
@@ -52,14 +53,14 @@ const editWrapperStateProps = (stateProps, dispatchProps, ownProps) => {
     titleEditWrapperStateProps: {
       fields: stateProps.editableFields,
       sectionEditModeOn: stateProps.titleEditModeOn,
-      onSaveForm: dispatchProps.onSaveForm,
+      onSaveForm: dispatchProps.onSaveFormTitle,
       turnOnSectionEditMode: dispatchProps.turnOnDocumentPageTitleEditMode,
       turnOffSectionEditMode: dispatchProps.turnOffDocumentPageTitleEditMode,
     },
     textContentEditWrapperStateProps: {
       fields: stateProps.editableFields,
       sectionEditModeOn: stateProps.textContentEditModeOn,
-      onSaveForm: dispatchProps.onSaveForm,
+      onSaveForm: dispatchProps.onSaveFormContent,
       turnOnSectionEditMode: dispatchProps.turnOnDocumentTextContentEditMode,
       turnOffSectionEditMode: dispatchProps.turnOffDocumentTextContentEditMode,
     },

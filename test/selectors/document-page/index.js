@@ -91,7 +91,8 @@ describe('Document selectors', function () {
           { name: 'CRID / UID', value: 'CR 1083633', to: '/complaint/1083633/' },
           {
             name: 'Source',
-            value: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf',
+            value: 'chicagocopa.org',
+            tooltip: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf',
             url: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf',
           },
           { name: 'Crawler', value: 'Chicago COPA' },
@@ -129,7 +130,8 @@ describe('Document selectors', function () {
           { name: 'CRID / UID', value: 'CR 1083633', to: '/complaint/1083633/' },
           {
             name: 'Source',
-            value: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf',
+            value: 'chicagocopa.org',
+            tooltip: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf',
             url: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf',
           },
           { name: 'Crawler', value: 'Chicago COPA' },

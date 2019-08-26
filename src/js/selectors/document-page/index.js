@@ -2,6 +2,8 @@ import { createSelector } from 'reselect';
 import moment from 'moment';
 import { isUndefined } from 'lodash';
 
+import { getDomainName } from 'utils/url';
+
 
 const getData = state => state.documentPage.data;
 export const getTitleEditModeOn = state => state.documentPage.titleEditModeOn;
@@ -12,7 +14,12 @@ export const documentSelector = createSelector(
   (data) => {
     const infoItems = [
       { name: 'CRID / UID', value: `CR ${ data.crid }`, to: `/complaint/${data.crid}/` },
-      { name: 'Source', value: data['original_url'], url: data['original_url'] },
+      {
+        name: 'Source',
+        value: getDomainName(data['original_url']),
+        url: data['original_url'],
+        tooltip: data['original_url'],
+      },
       { name: 'Crawler', value: data['crawler_name'] },
       { name: 'Date', value: moment(data['created_at']).format('MMM D, YYYY') },
     ];
