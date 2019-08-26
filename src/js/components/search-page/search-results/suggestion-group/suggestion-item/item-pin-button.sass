@@ -13,28 +13,30 @@
   height: 26px
   background-position: center
   background-repeat: no-repeat
-  background-size: contain
   background-image: url('/img/ic-plus-bold.svg')
   background-size: 12px 12px
   background-color: $snow-color
   box-sizing: border-box
 
-  &:hover, &.is-pinned
+  &:hover
     background-color: $pudding-matcha
-    border: 1px solid $pudding-matcha
     background-image: url('/img/ic-plus-green.svg')
+    border: none
 
   &.is-pinned
+    background-image: url('/img/ic-minus.svg')
+    background-color: $snow-color
+
     &::after
       @extend %pin-action-hint
       content: url('/img/ic-pin.svg')
       height: 16px
       width: 12px
-    
+
     &:hover
-      background-color: $snow-color
-      background-image: url('/img/ic-minus.svg')
-    
+      background-image: url('/img/ic-minus-dark-grey.svg')
+      border: solid 1px $white-two-color
+
       &::after
         @extend %pin-action-hint
         content: 'Unpin?'
