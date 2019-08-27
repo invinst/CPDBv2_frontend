@@ -114,6 +114,7 @@ describe('OfficerPage component', function () {
     );
 
     const shareableHeader = findRenderedComponentWithType(instance, ShareableHeaderContainer);
+    shareableHeader.props.buttonType.should.eql('menu');
     shareableHeader.props.Menu.should.eql(DownloadMenuContainer);
     shareableHeader.props.buttonText.should.eql('Download');
   });

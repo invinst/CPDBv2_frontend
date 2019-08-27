@@ -1,4 +1,4 @@
-import { softBlackColor, sugarCaneColor, clayGray, accentColor } from 'utils/styles';
+import { softBlackColor, sugarCaneColor, boulderColor, accentColor } from 'utils/styles';
 
 
 export const searchInputStyle = {
@@ -18,14 +18,14 @@ export const searchInputStyle = {
     padding: 0,
   },
   placeholder: {
-    color: clayGray,
+    color: boulderColor,
     fontSize: '14px',
   },
 };
 
 const _searchTermsButtonStyle = (searchTermsHidden) => ({
   position: 'absolute',
-  color: searchTermsHidden ? accentColor : clayGray,
+  color: searchTermsHidden ? accentColor : boulderColor,
   right: '16px',
   lineHeight: '32px',
   fontSize: '13px',

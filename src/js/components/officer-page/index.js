@@ -8,7 +8,7 @@ import SummarySection from './summary-section';
 import MetricsSection from './metrics-section';
 import TabbedPaneSection from './tabbed-pane-section';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
-import { POPUP_NAMES } from 'utils/constants';
+import { POPUP_NAMES, SHAREABLE_HEADER_BUTTON_TYPE } from 'utils/constants';
 import styles from './officer-page.sass';
 import Printable from 'components/common/higher-order/printable';
 import PrintNotes from 'components/common/print-notes';
@@ -63,6 +63,7 @@ class OfficerPage extends Component {
       <DocumentMeta title={ pageTitle } description={ pageDescription }>
         <div className={ styles.officerPage }>
           <ShareableHeaderContainer
+            buttonType={ SHAREABLE_HEADER_BUTTON_TYPE.MENU }
             Menu={ DownloadMenuContainer }
             buttonText='Download'
             onOpen={ () => GATracking.trackOfficerDownloadMenu(officerId, 'open') }

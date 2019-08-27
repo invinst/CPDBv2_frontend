@@ -1,4 +1,4 @@
-import { softBlackColor, clayGray, whiteTwoColor } from 'utils/styles';
+import { softBlackColor, boulderColor, whiteTwoColor } from 'utils/styles';
 
 
 export const wrapperStyle = {
@@ -30,7 +30,7 @@ export const listItemStyle = {
 };
 
 export const itemKeyStyle = {
-  color: clayGray,
+  color: boulderColor,
   width: '96px',
   float: 'left',
 };

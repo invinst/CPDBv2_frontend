@@ -1,4 +1,4 @@
-import { mediumGrayColor, accentColor, wildSandColor } from 'utils/styles';
+import { boulderColor, accentColor, wildSandColor } from 'utils/styles';
 
 const baseStyle = {
   cursor: 'pointer',
@@ -20,7 +20,7 @@ export const buttonStyle = {
   },
   disabled: {
     ...baseStyle,
-    color: mediumGrayColor,
+    color: boulderColor,
     cursor: 'default',
   },
 };
