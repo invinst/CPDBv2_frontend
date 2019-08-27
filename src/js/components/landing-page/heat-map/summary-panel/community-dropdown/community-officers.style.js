@@ -1,4 +1,4 @@
-import { sanFranciscoTextFamily, softBlackColor, whiteTwoColor, clayGray } from 'utils/styles';
+import { sanFranciscoTextFamily, softBlackColor, whiteTwoColor, boulderColor } from 'utils/styles';
 import { imgUrl } from 'utils/static-assets';
 
 export const officersWrapperStyle = {
@@ -33,7 +33,7 @@ export const officerItemStyle = isLast => ({
 });
 
 export const complaintsCountStyle = {
-  color: clayGray,
+  color: boulderColor,
   fontWeight: 300,
 };
 

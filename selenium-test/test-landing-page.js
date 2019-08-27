@@ -226,7 +226,7 @@ describe('landing page', function () {
       navBar.searchBox.mainElement.getCssProperty('background-color').value.should.eql('rgba(255,255,255,1)');
       navBar.searchBox.searchMagnifyingGlassPath.getAttribute('fill').should.eql('#005EF4');
       navBar.searchBox.searchText.getCssProperty('color').value.should.eql('rgba(0,94,244,1)');
-      navBar.searchBox.searchTerm.getCssProperty('color').value.should.eql('rgba(143,143,143,1)');
+      navBar.searchBox.searchTerm.getCssProperty('color').value.should.eql('rgba(118,118,118,1)');
       navBar.rightLinks.data.getCssProperty('color').value.should.eql('rgba(0,94,244,1)');
       navBar.rightLinks.qa.getCssProperty('color').value.should.eql('rgba(0,94,244,1)');
       navBar.rightLinks.documents.getCssProperty('color').value.should.eql('rgba(0,94,244,1)');
@@ -248,7 +248,7 @@ describe('landing page', function () {
       navBar.searchBox.mainElement.getCssProperty('background-color').value.should.eql('rgba(255,255,255,1)');
       navBar.searchBox.searchMagnifyingGlassPath.getAttribute('fill').should.eql('#767676');
       navBar.searchBox.searchText.getCssProperty('color').value.should.eql('rgba(118,118,118,1)');
-      navBar.searchBox.searchTerm.getCssProperty('color').value.should.eql('rgba(143,143,143,1)');
+      navBar.searchBox.searchTerm.getCssProperty('color').value.should.eql('rgba(118,118,118,1)');
       navBar.rightLinks.data.getCssProperty('color').value.should.eql('rgba(118,118,118,1)');
       navBar.rightLinks.qa.getCssProperty('color').value.should.eql('rgba(118,118,118,1)');
       navBar.rightLinks.documents.getCssProperty('color').value.should.eql('rgba(118,118,118,1)');

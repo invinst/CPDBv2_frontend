@@ -1,4 +1,4 @@
-import { whiteTwoColor, softBlackColor, brightOrangeTwoColor, clayGray } from 'utils/styles';
+import { whiteTwoColor, softBlackColor, brightOrangeTwoColor, boulderColor } from 'utils/styles';
 
 
 export const wrapperStyle = (isFirst) => ({
@@ -11,7 +11,7 @@ export const wrapperStyle = (isFirst) => ({
 
 
 export const valueStyle = (active, isHighlight) => {
-  let color = !active ? clayGray : softBlackColor;
+  let color = !active ? boulderColor : softBlackColor;
   if (isHighlight && active) {
     color = brightOrangeTwoColor;
   }
@@ -25,7 +25,7 @@ export const valueStyle = (active, isHighlight) => {
 };
 
 export const nameStyle = (active) => ({
-  color: active ? softBlackColor : clayGray,
+  color: active ? softBlackColor : boulderColor,
   lineHeight: '18px',
 });
 
@@ -34,6 +34,6 @@ export const descriptionStyle = {
   textAlign: 'center',
   width: '100%',
   lineHeight: '14px',
-  color: clayGray,
+  color: boulderColor,
   marginTop: '2px',
 };

@@ -1,4 +1,4 @@
-import { clayGray, softBlackColor, whiteTwoColor } from 'utils/styles';
+import { boulderColor, softBlackColor, whiteTwoColor } from 'utils/styles';
 
 
 export const containerStyle = {
@@ -26,7 +26,7 @@ export const imgStyle = {
 };
 
 export const subTitleStyle = {
-  color: clayGray,
+  color: boulderColor,
   fontSize: '14px',
   marginTop: '8px',
   marginBottom: 0,

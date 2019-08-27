@@ -1,5 +1,5 @@
 import {
-  sanFranciscoTextFamily, softBlackColor, whiteTwoColor, bostonRed, clayGray, sugarCaneColor,
+  sanFranciscoTextFamily, softBlackColor, whiteTwoColor, bostonRed, boulderColor, sugarCaneColor,
 } from 'utils/styles';
 import { imgUrl } from 'utils/static-assets';
 
@@ -71,7 +71,7 @@ export const categoryStyle = (isLast) => ({
   fontFamily: sanFranciscoTextFamily,
   fontWeight: 300,
   fontSize: '14px',
-  color: clayGray,
+  color: boulderColor,
 });
 
 export const categoryNameStyle = {
