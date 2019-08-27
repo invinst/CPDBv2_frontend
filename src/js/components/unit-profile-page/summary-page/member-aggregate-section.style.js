@@ -1,4 +1,4 @@
-import { sanFranciscoTextFamily, softBlackColor, greyishColor, whiteTwoColor, mediumGrayColor } from 'utils/styles';
+import { sanFranciscoTextFamily, softBlackColor, boulderColor, whiteTwoColor, mediumGrayColor } from 'utils/styles';
 
 
 export const wrapperStyle = {
@@ -19,7 +19,7 @@ export const activeStatusStyle = {
 
 export const totalStatusStyle = {
   ..._statusStyle,
-  color: greyishColor,
+  color: boulderColor,
 };
 
 export const memberWrapperStyle = {

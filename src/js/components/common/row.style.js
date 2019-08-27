@@ -1,4 +1,4 @@
-import { whiteTwoColor, sanFranciscoTextFamily, greyishColor, softBlackColor, accentColor } from 'utils/styles';
+import { whiteTwoColor, sanFranciscoTextFamily, boulderColor, softBlackColor, accentColor } from 'utils/styles';
 
 
 export const wrapperStyle = (hasBorderBottom) => ({
@@ -8,7 +8,7 @@ export const wrapperStyle = (hasBorderBottom) => ({
 });
 
 export const labelStyle = (width, hovering) => ({
-  color: hovering ? accentColor : greyishColor,
+  color: hovering ? accentColor : boulderColor,
   fontWeight: 400,
   display: 'inline-block',
   width: `${width}px`,
