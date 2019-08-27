@@ -81,6 +81,7 @@ describe('store', function () {
         pagination: {},
         contentType: null,
         recentSuggestions: [],
+        recentSuggestionsRequested: false,
         tags: [],
         query: '',
         searchTerms: {

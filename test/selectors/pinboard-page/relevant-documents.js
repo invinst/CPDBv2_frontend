@@ -122,7 +122,7 @@ describe('RelevantDocuments selectors', function () {
             },
           }],
           isPinStatusChanging: false,
-          rawData: allegation1,
+          recentItemData: allegation1,
         },
         pinned: false,
       },
@@ -136,7 +136,7 @@ describe('RelevantDocuments selectors', function () {
           officers: [],
           point: null,
           isPinStatusChanging: true,
-          rawData: allegation2,
+          recentItemData: allegation2,
         },
         pinned: true,
       }]);

@@ -1,21 +1,47 @@
 import React, { Component, PropTypes } from 'react';
+import { noop } from 'lodash';
 
-import RecentSuggestionItem from './recent-suggestion-item';
 import BlockTitle from 'components/common/block-title';
 import './recent-suggestion.sass';
+import SuggestionItem from 'components/search-page/search-results/suggestion-group/suggestion-item';
+import { navigateToSearchItem } from 'utils/navigate-to-search-item';
 
 
 export default class RecentSuggestion extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(suggestion) {
+    const { saveToRecent } = this.props;
+    navigateToSearchItem(suggestion, (suggestion) => {
+      saveToRecent({
+        type: suggestion.type,
+        id: suggestion.id,
+        data: suggestion.recentItemData,
+      });
+    });
+  }
+
   render() {
-    const { recentSuggestions } = this.props;
+    const { recentSuggestions, addOrRemoveItemInPinboard, saveToRecent } = this.props;
     return (
       <div
         className='recent-suggestions'>
         <BlockTitle>RECENT</BlockTitle>
         <div>
           {
-            recentSuggestions.map((entry, index) => (
-              <RecentSuggestionItem key={ index } entry={ entry } />
+            recentSuggestions.map((suggestion) => (
+              <SuggestionItem
+                key={ suggestion.uniqueKey }
+                suggestion={ suggestion }
+                showPinButtonArea={ true }
+                addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
+                saveToRecent={ saveToRecent }
+                clickItem={ this.handleClick }
+              />
             ))
           }
         </div>
@@ -26,8 +52,12 @@ export default class RecentSuggestion extends Component {
 
 RecentSuggestion.defaultProps = {
   recentSuggestions: [],
+  addOrRemoveItemInPinboard: noop,
+  saveToRecent: noop,
 };
 
 RecentSuggestion.propTypes = {
   recentSuggestions: PropTypes.array,
+  addOrRemoveItemInPinboard: PropTypes.func,
+  saveToRecent: PropTypes.func,
 };

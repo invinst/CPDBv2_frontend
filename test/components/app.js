@@ -52,6 +52,7 @@ describe('App component', function () {
           ],
         }],
       },
+      recentSuggestions: [],
     },
     cms: {
       pages: {},
