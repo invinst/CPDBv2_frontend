@@ -1,6 +1,5 @@
 import {
-  sanFranciscoTextFamily, softBlackColor, mediumGrayColor, whiteTwoColor,
-  sugarCaneColor, accentColor,
+  sanFranciscoTextFamily, softBlackColor, boulderColor, whiteTwoColor, sugarCaneColor, accentColor,
 } from 'utils/styles';
 
 
@@ -22,7 +21,7 @@ export const unitNameWrapperStyle = (scrollPosition) => ({
 export const unitNameStyle = (scrollPosition) => ({
   fontSize: '18px',
   fontWeight: 500,
-  color: scrollPosition === 'bottom' ? 'white' : mediumGrayColor,
+  color: scrollPosition === 'bottom' ? 'white' : boulderColor,
 });
 
 export const wrapperStyle = (scrollPosition) => ({

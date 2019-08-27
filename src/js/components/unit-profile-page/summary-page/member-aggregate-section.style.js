@@ -1,4 +1,4 @@
-import { sanFranciscoTextFamily, softBlackColor, boulderColor, whiteTwoColor, mediumGrayColor } from 'utils/styles';
+import { sanFranciscoTextFamily, softBlackColor, boulderColor, whiteTwoColor } from 'utils/styles';
 
 
 export const wrapperStyle = {
@@ -35,7 +35,7 @@ export const facetStyle = {
   paddingTop: '11px',
   paddingBottom: '12px',
   fontSize: '14px',
-  color: mediumGrayColor,
+  color: boulderColor,
 };
 
 export const columnWrapperStyle = orientation => ({
@@ -62,7 +62,7 @@ export const countStyle = {
 };
 
 export const nameStyle = {
-  color: mediumGrayColor,
+  color: boulderColor,
 };
 
 export const genderWrapperStyle = {
