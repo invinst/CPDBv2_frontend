@@ -92,6 +92,7 @@ class TimelineSection extends Section {
     super();
 
     this.prepareElementGetters({
+      allegationRow: '//div[contains(@class, "item__item")]',
       allegationItem: '//div[contains(@class, "item__item")][7]',
       firstYearItem: '//div[contains(@class, "item__item")][1]//div[@class="date"]',
       firstAllegationItem: '//div[contains(@class, "item__item")][2]',
@@ -101,10 +102,6 @@ class TimelineSection extends Section {
       timelineItemDateActive: '//div[contains(@class, "timeline__timeline")]//div[contains(@class, "active")]' +
         '//span[@class="date"]',
     });
-  }
-
-  allegationRowCount() {
-    return $$('//div[contains(@class, "item__item")]').length;
   }
 }
 

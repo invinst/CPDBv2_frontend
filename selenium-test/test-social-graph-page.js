@@ -282,7 +282,7 @@ describe('Social Graph Page', function () {
 
   it('should render timeline section and show preview pane when click on timeline item', function () {
     waitForGraphAnimationEnd(browser, socialGraphPage);
-    socialGraphPage.timelineSection.allegationRowCount().should.eql(83);
+    socialGraphPage.timelineSection.allegationRow.count.should.eql(83);
 
     socialGraphPage.timelineSection.firstYearItem.getText().should.eql('1990');
     socialGraphPage.timelineSection.firstAllegationCategory.getText().should.eql('Use Of Force');
