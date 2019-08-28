@@ -16,20 +16,18 @@ export default class EditableTagsInput extends Component {
     return (
       <div className={ cx(styles.editableTagsInput, className) }>
         <div className='editable-tags-title'>{ title }</div>
-        <div>
-          <EditWrapperStateProvider { ...editWrapperStateProps }>
-            <HoverableEditWrapper className={ hoverableClassName }>
-              <SimpleTagEditable fieldName={ fieldName } />
-            </HoverableEditWrapper>
-          </EditWrapperStateProvider>
-          {
-            hasNextUntaggedDocument && (
-              <a className='next-untagged-document-button' href={ `/document/${nextDocumentId}/` }>
-                Next untagged document
-              </a>
-            )
-          }
-        </div>
+        <EditWrapperStateProvider { ...editWrapperStateProps }>
+          <HoverableEditWrapper className={ hoverableClassName }>
+            <SimpleTagEditable fieldName={ fieldName } />
+          </HoverableEditWrapper>
+        </EditWrapperStateProvider>
+        {
+          hasNextUntaggedDocument && (
+            <a className='next-untagged-document-button' href={ `/document/${nextDocumentId}/` }>
+              Next untagged document
+            </a>
+          )
+        }
       </div>
     );
   }
