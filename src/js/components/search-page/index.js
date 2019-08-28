@@ -80,11 +80,11 @@ export default class SearchPage extends Component {
     if (this.props.toast !== nextProps.toast) {
       const { type, actionType } = nextProps.toast;
 
-      this.showToast(`${type} ${actionType}`);
+      this.showToast(`${type} ${actionType}`, actionType);
     }
   }
 
-  showToast(message) {
+  showToast(message, className) {
     const TopRightTransition = cssTransition({
       enter: 'toast-enter',
       exit: 'toast-exit',
@@ -93,7 +93,7 @@ export default class SearchPage extends Component {
     });
 
     toast(message, {
-      className: 'toast-wrapper',
+      className: `toast-wrapper ${className}`,
       bodyClassName: 'toast-body',
       transition: TopRightTransition,
     });
