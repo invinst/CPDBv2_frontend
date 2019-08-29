@@ -7,6 +7,7 @@ import { getDomainName } from 'utils/url';
 
 const getData = state => state.documentPage.data;
 export const getTitleEditModeOn = state => state.documentPage.titleEditModeOn;
+export const getTagsEditModeOn = state => state.documentPage.tagsEditModeOn;
 export const getTextContentEditModeOn = state => state.documentPage.textContentEditModeOn;
 
 export const documentSelector = createSelector(
@@ -37,6 +38,7 @@ export const documentSelector = createSelector(
     return {
       attachmentId: data.id,
       title: data.title,
+      tags: data.tags,
       fullText: data['text_content'],
       url: data.url,
       previewImageUrl: data['preview_image_url'],
@@ -59,21 +61,28 @@ export const documentSelector = createSelector(
 
 export const documentEditableFieldsSelector = createSelector(
   documentSelector,
-  documentAttrs => ({
-    attachmentId: {
-      type: 'number',
-      key: 'id',
-      value: documentAttrs.attachmentId,
-    },
-    title: {
-      type: 'string',
-      key: 'title',
-      value: documentAttrs.title || '',
-    },
-    textContent: {
-      type: 'string',
-      key: 'text_content',
-      value: documentAttrs.fullText || '',
-    },
-  })
+  documentAttrs => {
+    return {
+      attachmentId: {
+        type: 'number',
+        key: 'id',
+        value: documentAttrs.attachmentId,
+      },
+      title: {
+        type: 'string',
+        key: 'title',
+        value: documentAttrs.title || '',
+      },
+      tags: {
+        type: 'array',
+        key: 'tags',
+        value: documentAttrs.tags || [],
+      },
+      textContent: {
+        type: 'string',
+        key: 'text_content',
+        value: documentAttrs.fullText || '',
+      },
+    };
+  }
 );

@@ -45,6 +45,7 @@ import fetchDocumentsByCRID from './document-deduplicator-page/fetch-documents-b
 import searchDocuments from './documents-overview-page/search-documents';
 import fetchDocuments from './documents-overview-page/fetch-documents';
 import fetchDocumentByID from './document-page/fetch-document-by-id';
+import updateDocumentByID from './document-page/update-document-by-id';
 import fetchDocumentsAuthenticated from './documents-overview-page/fetch-documents-authenticated';
 import { getCrawlersData, getNextCrawlersData } from './crawlers-page/crawlers-page';
 import {
@@ -146,8 +147,6 @@ axiosMockClient.onGet(`${DOCUMENTS_URL}`, { params: { crid: '1000000', limit: un
 
 axiosMockClient.onGet(`${DOCUMENTS_URL}`, { params: { match: '123457' } }).reply(200, searchDocuments());
 
-axiosMockClient.onPatch(`${DOCUMENTS_URL}1/`).reply(200, { show: false });
-
 axiosMockClient.onGet(
   `${DOCUMENTS_URL}`,
   { headers: { 'Authorization': 'Token 055a5575c1832e9123cd546fe0cfdc8607f8680c' } }
@@ -159,6 +158,13 @@ axiosMockClient.onGet(`${DOCUMENTS_URL}1/`).reply(function (config) {
   const authenticated = config.headers['Authorization'] === 'Token 055a5575c1832e9123cd546fe0cfdc8607f8680c';
   return [200, fetchDocumentByID(authenticated)];
 });
+
+axiosMockClient.onPatch(`${DOCUMENTS_URL}1/`, { 'show': false }).reply(200, { show: false });
+
+axiosMockClient.onPatch(
+  `${DOCUMENTS_URL}1/`,
+  updateDocumentByID.updateParams
+).reply(200, updateDocumentByID.updatedDocumentData);
 
 axiosMockClient.onGet(CRAWLERS_API_URL).reply(function (config) {
   return [200, (config.params && config.params.offset === '20') ? getNextCrawlersData() : getCrawlersData()];

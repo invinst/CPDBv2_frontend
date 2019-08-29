@@ -189,8 +189,9 @@ describe('store', function () {
       },
       documentPage: {
         data: {},
-        textContentEditModeOn: false,
         titleEditModeOn: false,
+        tagsEditModeOn: false,
+        textContentEditModeOn: false,
       },
       genericModal: {
         activeModal: null,
