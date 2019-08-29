@@ -28,6 +28,7 @@ export default (authenticated) => {
       'views_count': 1000,
       'downloads_count': 100,
       'notifications_count': 10,
+      'next_document_id': 2,
     };
   return unauthenticatedData;
 };

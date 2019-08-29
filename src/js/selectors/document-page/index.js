@@ -39,6 +39,7 @@ export const documentSelector = createSelector(
       attachmentId: data.id,
       title: data.title,
       tags: data.tags,
+      nextDocumentId: data['next_document_id'],
       fullText: data['text_content'],
       url: data.url,
       previewImageUrl: data['preview_image_url'],

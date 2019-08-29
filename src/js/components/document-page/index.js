@@ -30,6 +30,7 @@ export default class DocumentPage extends Component {
       textContentEditWrapperStateProps,
       isSignedIn,
       infoItems,
+      nextDocumentId,
     } = this.props;
 
     const displayedDocuments = slice(linkedDocuments, 0, 11);
@@ -89,6 +90,7 @@ export default class DocumentPage extends Component {
                     title='Tags'
                     fieldName='tags'
                     editWrapperStateProps={ tagsEditWrapperStateProps }
+                    nextDocumentId={ nextDocumentId }
                   />
                 ) : null
               }
@@ -129,4 +131,5 @@ DocumentPage.propTypes = {
   textContentEditWrapperStateProps: PropTypes.object,
   isSignedIn: PropTypes.bool,
   infoItems: PropTypes.array,
+  nextDocumentId: PropTypes.number,
 };

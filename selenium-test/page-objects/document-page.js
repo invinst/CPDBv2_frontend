@@ -23,6 +23,7 @@ class TagsSection extends Section {
       tagDeleteBtns: '//span[@class="react-tagsinput-tag"]//a[@class="react-tagsinput-remove"]',
       firstTagDeleteBtn: '//span[@class="react-tagsinput-tag"][1]//a[@class="react-tagsinput-remove"]',
       tagsInputTextbox: '//*[@class="react-tagsinput-input"]',
+      nextUntaggedDocumentButton: '//a[@class="next-untagged-document-button"]',
     });
   }
 }
