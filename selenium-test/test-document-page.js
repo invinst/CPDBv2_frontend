@@ -111,22 +111,26 @@ describe('Document page', function () {
       browser.keys('Enter');
       documentPage.tagsSection.tagsInputTextbox.setValue('copa');
       browser.keys('Enter');
-
       documentPage.tagsSection.cancelButton.click();
-
       documentPage.tagsSection.tags.count.should.equal(2);
       documentPage.tagsSection.firstTag.getText().should.equal('hospital');
       documentPage.tagsSection.secondTag.getText().should.equal('tactical');
 
       browser.moveToObject(documentPage.tagsSection.tagsInput.selector);
       documentPage.tagsSection.editButton.click();
-      documentPage.tagsSection.firstTagDeleteBtn.click();
+      documentPage.tagsSection.tagsInputTextbox.setValue('This is a tag with more than 20 characters');
+      browser.keys('Enter');
+      browser.moveToObject(documentPage.tagsSection.tagsInput.selector);
+      documentPage.tagsSection.saveButton.click();
+      documentPage.tagsSection.errorMessages.getText().should.equal(
+        'Ensure this field has no more than 20 characters.'
+      );
 
+      documentPage.tagsSection.firstTagDeleteBtn.click();
       documentPage.tagsSection.tagsInputTextbox.setValue('chicago');
       browser.keys('Enter');
       documentPage.tagsSection.tagsInputTextbox.setValue('copa');
       browser.keys('Enter');
-
       browser.moveToObject(documentPage.tagsSection.tagsInput.selector);
       documentPage.tagsSection.saveButton.click();
 
@@ -135,6 +139,7 @@ describe('Document page', function () {
       documentPage.tagsSection.cancelButton.count.should.equal(0);
       documentPage.tagsSection.editButton.count.should.equal(1);
       documentPage.tagsSection.tagDeleteBtns.count.should.equal(0);
+      documentPage.tagsSection.errorMessages.count.should.equal(0);
 
       documentPage.tagsSection.tags.count.should.equal(3);
       documentPage.tagsSection.firstTag.getText().should.equal('tactical');

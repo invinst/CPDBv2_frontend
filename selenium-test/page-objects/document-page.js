@@ -24,6 +24,7 @@ class TagsSection extends Section {
       firstTagDeleteBtn: '//span[@class="react-tagsinput-tag"][1]//a[@class="react-tagsinput-remove"]',
       tagsInputTextbox: '//*[@class="react-tagsinput-input"]',
       nextUntaggedDocumentButton: '//a[@class="next-untagged-document-button"]',
+      errorMessages: '//*[@class="error-messages"]',
     });
   }
 }

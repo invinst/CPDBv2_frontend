@@ -4,6 +4,7 @@ import {
   getTitleEditModeOn,
   getTagsEditModeOn,
   getTextContentEditModeOn,
+  getTagsErrorMessages,
   documentSelector,
   documentEditableFieldsSelector,
 } from 'selectors/document-page';
@@ -37,6 +38,16 @@ describe('Document selectors', function () {
           textContentEditModeOn: true,
         },
       }).should.eql(true);
+    });
+  });
+
+  describe('getTagsErrorMessages', function () {
+    it('should return correct result', function () {
+      getTagsErrorMessages({
+        documentPage: {
+          tagsErrorMessages: ['This is error message 1.', 'This is error message 2.'],
+        },
+      }).should.eql(['This is error message 1.', 'This is error message 2.']);
     });
   });
 

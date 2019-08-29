@@ -163,8 +163,13 @@ axiosMockClient.onPatch(`${DOCUMENTS_URL}1/`, { 'show': false }).reply(200, { sh
 
 axiosMockClient.onPatch(
   `${DOCUMENTS_URL}1/`,
-  updateDocumentByID.updateParams
-).reply(200, updateDocumentByID.updatedDocumentData);
+  updateDocumentByID.success.updateParams
+).reply(200, updateDocumentByID.success.updatedDocumentData);
+
+axiosMockClient.onPatch(
+  `${DOCUMENTS_URL}1/`,
+  updateDocumentByID.failure.updateParamsFailure
+).reply(400, updateDocumentByID.failure.updatedDocumentDataFailure);
 
 axiosMockClient.onGet(CRAWLERS_API_URL).reply(function (config) {
   return [200, (config.params && config.params.offset === '20') ? getNextCrawlersData() : getCrawlersData()];

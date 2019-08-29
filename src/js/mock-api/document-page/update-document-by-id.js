@@ -5,6 +5,13 @@ const updateParams = {
   'tags': ['tactical', 'chicago', 'copa'],
 };
 
+const updateParamsFailure = {
+  'id': 1,
+  'title': 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)',
+  'text_content': 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE',
+  'tags': ['hospital', 'tactical', 'This is a tag with more than 20 characters'],
+};
+
 const updatedDocumentData = {
   'id': 1,
   'crid': '1083633',
@@ -29,7 +36,19 @@ const updatedDocumentData = {
   ...updateParams,
 };
 
+const updatedDocumentDataFailure = {
+  message: {
+    tags: ['Ensure this field has no more than 20 characters.'],
+  },
+};
+
 export default {
-  updateParams: updateParams,
-  updatedDocumentData: updatedDocumentData,
+  success: {
+    updateParams: updateParams,
+    updatedDocumentData: updatedDocumentData,
+  },
+  failure: {
+    updateParamsFailure: updateParamsFailure,
+    updatedDocumentDataFailure: updatedDocumentDataFailure,
+  },
 };
