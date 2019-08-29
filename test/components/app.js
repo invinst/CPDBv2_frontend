@@ -27,49 +27,49 @@ describe('App component', function () {
     adapter: 'adapter',
     landingPage: {
       activityGrid: {
-        cards: []
-      }
+        cards: [],
+      },
     },
     searchPage: {
       tags: [],
       navigation: {},
       searchTerms: {
-        hidden: true
-      }
+        hidden: true,
+      },
     },
     cms: {
-      pages: {}
+      pages: {},
     },
     officerPage: {
       summary: {},
       newTimeline: {},
       percentile: {
         isRequesting: false,
-        items: []
+        items: [],
       },
       editModeOn: {
         [OFFICER_EDIT_TYPES.TRIANGLE]: false,
         [OFFICER_EDIT_TYPES.SCALE]: false,
         [OFFICER_EDIT_TYPES.NO_DATA_RADAR_CHART]: false,
       },
-      zipFileUrl: { withDocs: false, withoutDocs: false }
+      zipFileUrl: { withDocs: false, withoutDocs: false },
     },
     genericModal: {
-      activeModal: null
+      activeModal: null,
     },
     videoModal: {
-      active: false
+      active: false,
     },
     breadcrumb: {
-      breadcrumbs: []
+      breadcrumbs: [],
     },
     headers: {
       shareableHeader: {
-        scrollPosition: 'top'
+        scrollPosition: 'top',
       },
       slimHeader: {
-        logoSectionEditModeOn: false
-      }
+        logoSectionEditModeOn: false,
+      },
     },
     popups: [],
   });

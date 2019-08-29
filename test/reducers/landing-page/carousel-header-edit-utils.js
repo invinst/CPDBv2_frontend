@@ -3,7 +3,7 @@ import {
   CAROUSEL_TYPES,
   LOCATION_CHANGE,
   TURN_ON_CAROUSEL_HEADER_EDIT_MODE,
-  TURN_OFF_CAROUSEL_HEADER_EDIT_MODE
+  TURN_OFF_CAROUSEL_HEADER_EDIT_MODE,
 } from 'utils/constants';
 
 
@@ -22,19 +22,19 @@ describe('carousel header edit utils', () => {
     it('should return true if payload is ACTIVITY', () => {
       headerEditModeOnActivityReducer(undefined, {
         type: TURN_ON_CAROUSEL_HEADER_EDIT_MODE,
-        payload: CAROUSEL_TYPES.ACTIVITY
+        payload: CAROUSEL_TYPES.ACTIVITY,
       }).should.eql(true);
     });
 
     it('should not change if payload is not ACTIVITY', () => {
       headerEditModeOnActivityReducer(false, {
         type: TURN_ON_CAROUSEL_HEADER_EDIT_MODE,
-        payload: CAROUSEL_TYPES.COMPLAINT
+        payload: CAROUSEL_TYPES.COMPLAINT,
       }).should.eql(false);
 
       headerEditModeOnActivityReducer(true, {
         type: TURN_ON_CAROUSEL_HEADER_EDIT_MODE,
-        payload: CAROUSEL_TYPES.COMPLAINT
+        payload: CAROUSEL_TYPES.COMPLAINT,
       }).should.eql(true);
     });
   });
@@ -43,19 +43,19 @@ describe('carousel header edit utils', () => {
     it('should return true if payload is ACTIVITY', () => {
       headerEditModeOnActivityReducer(undefined, {
         type: TURN_OFF_CAROUSEL_HEADER_EDIT_MODE,
-        payload: CAROUSEL_TYPES.ACTIVITY
+        payload: CAROUSEL_TYPES.ACTIVITY,
       }).should.eql(false);
     });
 
     it('should not change if payload is not ACTIVITY', () => {
       headerEditModeOnActivityReducer(false, {
         type: TURN_OFF_CAROUSEL_HEADER_EDIT_MODE,
-        payload: CAROUSEL_TYPES.COMPLAINT
+        payload: CAROUSEL_TYPES.COMPLAINT,
       }).should.eql(false);
 
       headerEditModeOnActivityReducer(true, {
         type: TURN_OFF_CAROUSEL_HEADER_EDIT_MODE,
-        payload: CAROUSEL_TYPES.COMPLAINT
+        payload: CAROUSEL_TYPES.COMPLAINT,
       }).should.eql(true);
     });
   });
@@ -64,15 +64,15 @@ describe('carousel header edit utils', () => {
     headerEditModeOnActivityReducer(true, {
       type: LOCATION_CHANGE,
       payload: {
-        pathname: '/123'
-      }
+        pathname: '/123',
+      },
     }).should.be.false();
 
     headerEditModeOnActivityReducer(true, {
       type: LOCATION_CHANGE,
       payload: {
-        pathname: '/edit/123'
-      }
+        pathname: '/edit/123',
+      },
     }).should.be.true();
   });
 });

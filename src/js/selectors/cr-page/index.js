@@ -97,7 +97,7 @@ const getCoaccusedSelector = createSelector(
       [
         sortByOfficerInBreadcrumb(breadcrumbs),
         sortByOfficerFinding,
-        sortByOfficerComplaint
+        sortByOfficerComplaint,
       ]
     );
   }
@@ -120,13 +120,13 @@ const getInvolvementsSelector = createSelector(
         radarAxes: [
           { axis: 'trr', value: parseFloat(obj['percentile_trr']) },
           { axis: 'internal', value: parseFloat(obj['percentile_allegation_internal']) },
-          { axis: 'civilian', value: parseFloat(obj['percentile_allegation_civilian']) }
+          { axis: 'civilian', value: parseFloat(obj['percentile_allegation_civilian']) },
         ],
         radarColor: getVisualTokenOIGBackground(
           parseFloat(obj['percentile_allegation_civilian']),
           parseFloat(obj['percentile_allegation_internal']),
           parseFloat(obj['percentile_trr'])
-        )
+        ),
       };
 
       if (type === 'investigator') {
@@ -140,7 +140,7 @@ const getInvolvementsSelector = createSelector(
           extraInfo: `
             ${obj['allegation_count']} ${pluralize('allegation', obj['allegation_count'])}
             ${obj['sustained_count']} sustained
-          `
+          `,
         };
       }
 
@@ -178,7 +178,7 @@ export const contentSelector = createSelector(
       previewImageUrl: attachment['preview_image_url'],
       fileType: attachment['file_type'],
       id: attachment['id'],
-    }))
+    })),
   })
 );
 

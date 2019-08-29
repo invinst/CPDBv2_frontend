@@ -11,7 +11,7 @@ import CancelUpdateButtons from 'components/inline-editable/editable-section/edi
 
 class LinkContextWrapper extends ContextWrapper {}
 LinkContextWrapper.childContextTypes = {
-  editModeOn: PropTypes.bool
+  editModeOn: PropTypes.bool,
 };
 
 describe('EditToggle component', function () {

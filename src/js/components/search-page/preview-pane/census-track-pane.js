@@ -32,23 +32,23 @@ export default class CensusTrackPane extends Component {
       raceCount: [
         {
           race: 'White',
-          count: '46.8%'
+          count: '46.8%',
         },
         {
           race: 'Black',
-          count: '46.8%'
+          count: '46.8%',
         },
         {
           race: 'Asian',
-          count: '46.8%'
+          count: '46.8%',
         },
         {
           race: 'Hispanic',
-          count: '46.8%'
+          count: '46.8%',
         },
         {
           race: 'Others',
-          count: '46.8%'
+          count: '46.8%',
         },
       ],
       medianIncome: '$60,400',

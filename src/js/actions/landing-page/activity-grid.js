@@ -8,7 +8,7 @@ export const requestActivityGrid = get(
   [
     constants.ACTIVITY_GRID_REQUEST_START,
     constants.ACTIVITY_GRID_REQUEST_SUCCESS,
-    constants.ACTIVITY_GRID_REQUEST_FAILURE
+    constants.ACTIVITY_GRID_REQUEST_FAILURE,
   ]
 );
 

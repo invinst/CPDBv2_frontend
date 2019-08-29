@@ -11,5 +11,5 @@ export default combineReducers({
   heatMap,
   officersByAllegation,
   recentDocument,
-  complaintSummaries
+  complaintSummaries,
 });

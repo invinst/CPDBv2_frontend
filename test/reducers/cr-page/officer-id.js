@@ -12,8 +12,8 @@ describe('cr-page officerId reducer', function () {
     const action = {
       type: '@@router/LOCATION_CHANGE',
       payload: {
-        pathname: '/complaint/1/2/'
-      }
+        pathname: '/complaint/1/2/',
+      },
     };
 
     officerId('some state', action).should.eql(2);
@@ -23,12 +23,11 @@ describe('cr-page officerId reducer', function () {
     const action = {
       type: '@@router/LOCATION_CHANGE',
       payload: {
-        pathname: '/wrongpath/1/2/'
-      }
+        pathname: '/wrongpath/1/2/',
+      },
     };
 
     officerId('some state', action).should.eql('some state');
   });
 });
-
 

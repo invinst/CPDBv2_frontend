@@ -26,11 +26,11 @@ describe('MarkerTooltip component', function () {
         victims={ [{
           'gender': 'male',
           'race': 'White',
-          'age': 35
+          'age': 35,
         }, {
           'gender': 'female',
           'race': 'Black',
-          'age': 42
+          'age': 42,
         }] }
       />
     );
@@ -51,11 +51,11 @@ describe('MarkerTooltip component', function () {
         victims={ [{
           'gender': 'male',
           'race': 'Unknown',
-          'age': 35
+          'age': 35,
         }, {
           'gender': 'female',
           'race': 'Black',
-          'age': null
+          'age': null,
         }] }
       />
     );

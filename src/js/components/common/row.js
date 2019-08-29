@@ -32,11 +32,11 @@ Row.propTypes = {
   hasBorderBottom: PropTypes.bool,
   labelWidth: PropTypes.number,
   contentWidth: PropTypes.number,
-  hovering: PropTypes.bool
+  hovering: PropTypes.bool,
 };
 
 Row.defaultProps = {
   hasBorderBottom: true,
   labelWidth: 175,
-  hovering: false
+  hovering: false,
 };

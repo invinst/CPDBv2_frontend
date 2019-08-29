@@ -13,7 +13,7 @@ function mapStateToProps(state, ownProps) {
 
 const mapDispatchToProps = {
   openRequestDocumentModal,
-  closeModal
+  closeModal,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(GenericModal));

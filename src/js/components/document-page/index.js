@@ -11,6 +11,7 @@ import EditableTextBox from './editable-text-box';
 import EditableTagsInput from './editable-tags-input';
 import FooterContainer from 'containers/footer-container';
 import { SHAREABLE_HEADER_BUTTON_TYPE } from 'utils/constants';
+import OutboundLink from 'components/common/outbound-link';
 
 
 export default class DocumentPage extends Component {
@@ -40,14 +41,14 @@ export default class DocumentPage extends Component {
           <ShareableHeaderContainer buttonType={ SHAREABLE_HEADER_BUTTON_TYPE.NONE } />
           <div className='document-wrapper'>
             <div className='document-side-bar'>
-              <a className='document-thumbnail' href={ url }>
+              <OutboundLink className='document-thumbnail' href={ url }>
                 <img className='document-thumbnail-img' src={ previewImageUrl } alt='thumbnail' />
                 {
                   pageCount !== 0 ? (
                     <span className='document-thumbnail-page-count'>{ `${ pluralize('page', pageCount, true) }` }</span>
                   ) : null
                 }
-              </a>
+              </OutboundLink>
               <SimpleListWidget className='document-info' items={ infoItems } />
               <div className='linked-documents'>
                 <div className='linked-documents-title'>Linked Documents ({ linkedDocuments.length })</div>

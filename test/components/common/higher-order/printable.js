@@ -43,9 +43,9 @@ describe('Printable component', function () {
       value: () => {
         return {
           matches: true,
-          addListener: addListenerSpy
+          addListener: addListenerSpy,
         };
-      }
+      },
     });
 
     instance = renderIntoDocument(<PrintableDummy/>);

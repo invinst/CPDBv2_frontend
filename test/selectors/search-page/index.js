@@ -11,8 +11,8 @@ describe('getFocusedItem', function () {
       searchPage: {
         searchTerms: {
           hidden: true,
-        }
-      }
+        },
+      },
     };
     getFocusedItem(state);
     stubFocusedResultItemSelector.calledWith(state).should.be.true();
@@ -25,8 +25,8 @@ describe('getFocusedItem', function () {
       searchPage: {
         searchTerms: {
           hidden: false,
-        }
-      }
+        },
+      },
     };
     getFocusedItem(state);
     stubFocusedSearchTermItemSelector.calledWith(state).should.be.true();

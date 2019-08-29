@@ -11,7 +11,7 @@ describe('breadcrumbCachedFullName reducer', function () {
   it('should handle OFFICER_SUMMARY_REQUEST_SUCCESS', function () {
     breadcrumbCachedFullName(undefined, {
       type: OFFICER_SUMMARY_REQUEST_SUCCESS,
-      payload: { 'full_name': 'Mr. Foo' }
+      payload: { 'full_name': 'Mr. Foo' },
     }).should.eql('Mr. Foo');
   });
 });

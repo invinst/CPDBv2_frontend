@@ -6,7 +6,7 @@ import {
   findRenderedDOMComponentWithTag,
   renderIntoDocument,
   scryRenderedDOMComponentsWithTag,
-  Simulate
+  Simulate,
 } from 'react-addons-test-utils';
 import { spy, stub } from 'sinon';
 import { browserHistory } from 'react-router';
@@ -36,10 +36,10 @@ describe('SearchPage component', function () {
         hidden: true,
         navigation: {
           itemIndex: 0,
-        }
+        },
       },
-      pagination: {}
-    }
+      pagination: {},
+    },
   });
 
   beforeEach(function () {
@@ -201,7 +201,7 @@ describe('SearchPage component', function () {
 
   it('should push search into breadcrumbs', function () {
     const location = {
-      pathname: '/search', search: '/', action: 'POP'
+      pathname: '/search', search: '/', action: 'POP',
     };
     const params = {};
     const routes = [];

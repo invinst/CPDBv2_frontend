@@ -13,7 +13,7 @@ describe('officersReducer', function () {
       payload: {
         id: '1234',
         title: 'CRID 1083633 Report',
-      }
+      },
     }).should.eql({
       id: '1234',
       title: 'CRID 1083633 Report',
@@ -28,7 +28,7 @@ describe('officersReducer', function () {
       payload: {
         id: '1234',
         'text_content': 'New content',
-      }
+      },
     }).should.eql({
       'text_content': 'New content',
       id: '1234',
@@ -39,8 +39,8 @@ describe('officersReducer', function () {
     const action = {
       type: '@@router/LOCATION_CHANGE',
       payload: {
-        pathname: '/officer/1/timeline/'
-      }
+        pathname: '/officer/1/timeline/',
+      },
     };
 
     dataReducer('some state', action).should.eql({});

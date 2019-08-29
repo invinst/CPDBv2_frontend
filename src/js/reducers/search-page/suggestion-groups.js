@@ -9,7 +9,7 @@ export default handleActions({
   [LOCATION_CHANGE]: () => ({ meta: {} }),
   [constants.SUGGESTION_REQUEST_START]: (state, action) => ({ meta: {} }),
   [constants.SUGGESTION_REQUEST_SUCCESS]: (state, action) => ({
-    ...omitBy(action.payload, isEmpty), meta: { url: action.request.url }
+    ...omitBy(action.payload, isEmpty), meta: { url: action.request.url },
   }),
   [constants.SUGGESTION_REQUEST_FAILURE]: (state, action) => state,
   [constants.SUGGESTION_SINGLE_REQUEST_START]: (state, action) => state,
@@ -18,8 +18,8 @@ export default handleActions({
     return {
       ...state,
       [contentType]: unionBy(state[contentType], action.payload.results, 'id'),
-      meta: { url: action.request.url }
+      meta: { url: action.request.url },
     };
   },
-  [constants.SUGGESTION_SINGLE_REQUEST_FAILURE]: (state, action) => state
+  [constants.SUGGESTION_SINGLE_REQUEST_FAILURE]: (state, action) => state,
 }, { meta: {} });

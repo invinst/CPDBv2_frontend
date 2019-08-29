@@ -25,7 +25,7 @@ describe('MetricsColumn', function () {
         name: 'Sustained',
         description: '0 Disciplined',
         highlightValue: true,
-      }
+      },
     ];
     instance = renderIntoDocument(<MetricsColumn metrics={ metrics }/>);
 

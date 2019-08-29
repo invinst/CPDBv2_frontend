@@ -4,4 +4,3 @@ import { searchTermsSelector } from 'selectors/search-page/search-terms/categori
 
 export const hiddenSelector = createSelector(searchTermsSelector, searchTerms => searchTerms.hidden);
 
-

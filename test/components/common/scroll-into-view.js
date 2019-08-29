@@ -75,12 +75,12 @@ describe('ScrollIntoView component', function () {
       stub(document, 'getElementsByClassName').returns([{
         getBoundingClientRect: () => ({
           top: 10,
-          height: 40
-        })
+          height: 40,
+        }),
       }]);
       stub(instance.scrollerRef.view, 'getBoundingClientRect').returns({
         top: 20,
-        height: 100
+        height: 100,
       });
       stub(instance.scrollerRef, 'getScrollTop').returns(10);
       should(instance.getDesiredOffset({ focusedClassName: 'next' })).eql(0);
@@ -90,12 +90,12 @@ describe('ScrollIntoView component', function () {
       stub(document, 'getElementsByClassName').returns([{
         getBoundingClientRect: () => ({
           top: 90,
-          height: 40
-        })
+          height: 40,
+        }),
       }]);
       stub(instance.scrollerRef.view, 'getBoundingClientRect').returns({
         top: 20,
-        height: 100
+        height: 100,
       });
       stub(instance.scrollerRef, 'getScrollTop').returns(10);
       should(instance.getDesiredOffset({ focusedClassName: 'next' })).eql(20);
@@ -105,12 +105,12 @@ describe('ScrollIntoView component', function () {
       stub(document, 'getElementsByClassName').returns([{
         getBoundingClientRect: () => ({
           top: 90,
-          height: 20
-        })
+          height: 20,
+        }),
       }]);
       stub(instance.scrollerRef.view, 'getBoundingClientRect').returns({
         top: 20,
-        height: 100
+        height: 100,
       });
       should(instance.getDesiredOffset({ focusedClassName: 'next' })).eql(null);
     });

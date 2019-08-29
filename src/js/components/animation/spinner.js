@@ -21,7 +21,7 @@ class Spinner extends Component {
 }
 
 Spinner.propTypes = {
-  style: PropTypes.object
+  style: PropTypes.object,
 };
 
 export default ConfiguredRadium(Spinner);

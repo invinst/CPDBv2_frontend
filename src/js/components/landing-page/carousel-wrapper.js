@@ -61,11 +61,11 @@ export default function withCarousel(
     editWrapperStateProps: PropTypes.object,
     openCardInNewPage: PropTypes.bool,
     onTrackingAttachment: PropTypes.func,
-    className: PropTypes.string
+    className: PropTypes.string,
   };
 
   Wrapper.defaultProps = {
-    openCardInNewPage: false
+    openCardInNewPage: false,
   };
 
   return Wrapper;

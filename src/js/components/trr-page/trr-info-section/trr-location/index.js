@@ -50,10 +50,10 @@ TRRLocation.propTypes = {
   incidentDate: PropTypes.string,
   beat: PropTypes.string,
   locationType: PropTypes.string,
-  point: PropTypes.object
+  point: PropTypes.object,
 };
 
 TRRLocation.contextTypes = {
-  printMode: PropTypes.bool
+  printMode: PropTypes.bool,
 };
 export default TRRLocation;

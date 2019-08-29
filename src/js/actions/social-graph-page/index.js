@@ -7,6 +7,6 @@ export const requestSocialGraph = (params) => get(
   [
     constants.SOCIAL_GRAPH_REQUEST_START,
     constants.SOCIAL_GRAPH_REQUEST_SUCCESS,
-    constants.SOCIAL_GRAPH_REQUEST_FAILURE
+    constants.SOCIAL_GRAPH_REQUEST_FAILURE,
   ]
 )(params);

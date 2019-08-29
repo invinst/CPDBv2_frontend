@@ -12,7 +12,7 @@ export default class HeatMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedId: 0
+      selectedId: 0,
     };
     this.setSelectedCommunity = this.setSelectedCommunity.bind(this);
   }
@@ -23,7 +23,7 @@ export default class HeatMap extends Component {
     community && GATracking.trackCommunityClick(community.name);
 
     this.setState({
-      selectedId: id
+      selectedId: id,
     });
   }
 
@@ -60,5 +60,5 @@ export default class HeatMap extends Component {
 HeatMap.propTypes = {
   communities: PropTypes.array,
   communityGeoJSON: PropTypes.object,
-  clusterGeoJson: PropTypes.object
+  clusterGeoJson: PropTypes.object,
 };

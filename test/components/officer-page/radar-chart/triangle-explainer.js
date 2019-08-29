@@ -49,18 +49,18 @@ describe('TriangleExplainer components', function () {
         'triangle_description': {
           type: 'rich_text',
           name: 'triangle_description',
-          value: RawContentStateFactory.build({}, { blockTexts: ['triangle description'] })
+          value: RawContentStateFactory.build({}, { blockTexts: ['triangle description'] }),
         },
         'triangle_sub_description': {
           type: 'rich_text',
           name: 'triangle_sub_description',
-          value: RawContentStateFactory.build({}, { blockTexts: ['triangle sub description'] })
-        }
+          value: RawContentStateFactory.build({}, { blockTexts: ['triangle sub description'] }),
+        },
       },
       sectionEditModeOn: true,
       onSaveForm: spy(),
       turnOnSectionEditMode: spy(),
-      turnOffSectionEditMode: spy()
+      turnOffSectionEditMode: spy(),
     };
 
     instance = renderIntoDocument(

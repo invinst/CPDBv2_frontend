@@ -4,7 +4,7 @@ import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
   scryRenderedDOMComponentsWithClass,
-  scryRenderedComponentsWithType
+  scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
@@ -28,19 +28,19 @@ describe('TRRPage component', function () {
     page: 'trr',
     title: 'Force Category',
     text: 'See CPD\'s official [Use of Force Model]' +
-      '(http://directives.chicagopolice.org/directives/data/a7a57be2-128ff3f0-ae912-8fff-cec11383d806e05f.html)'
+      '(http://directives.chicagopolice.org/directives/data/a7a57be2-128ff3f0-ae912-8fff-cec11383d806e05f.html)',
   }, {
     name: 'type_of_force',
     page: 'trr',
     title: 'Type of Force',
     text: 'See CPD\'s official [Use of Force Model]' +
-      '(http://directives.chicagopolice.org/directives/data/a7a57be2-128ff3f0-ae912-8fff-cec11383d806e05f.html)'
+      '(http://directives.chicagopolice.org/directives/data/a7a57be2-128ff3f0-ae912-8fff-cec11383d806e05f.html)',
   }];
 
   const store = MockStore()({
     popups,
     breadcrumb: {
-      breadcrumbs: []
+      breadcrumbs: [],
     },
     trrPage: {
       editModeOn: false,

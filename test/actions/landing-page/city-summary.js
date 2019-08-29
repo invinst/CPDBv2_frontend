@@ -8,16 +8,16 @@ describe('getCitySummary action', function () {
       types: [
         constants.CITY_SUMMARY_REQUEST_START,
         constants.CITY_SUMMARY_REQUEST_SUCCESS,
-        constants.CITY_SUMMARY_REQUEST_FAILURE
+        constants.CITY_SUMMARY_REQUEST_FAILURE,
       ],
       payload: {
         request: {
           url: constants.CITY_SUMMARY_API_URL,
           params: undefined,
           adapter: null,
-          cancelToken: undefined
-        }
-      }
+          cancelToken: undefined,
+        },
+      },
     });
   });
 });

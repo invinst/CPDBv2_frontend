@@ -8,7 +8,7 @@ import navigation from './navigation';
 const searchTerms = combineReducers({
   hidden,
   categories,
-  navigation
+  navigation,
 });
 
 export default searchTerms;

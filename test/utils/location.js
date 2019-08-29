@@ -10,7 +10,7 @@ import {
   serializeFilterParams,
   officerPath,
   getUnitName,
-  getDocDedupCRID
+  getDocDedupCRID,
 } from 'utils/location';
 
 
@@ -94,12 +94,12 @@ describe('location utils', function () {
     it('should return object params to url string', function () {
       serializeFilterParams({
         'age': '51+',
-        'category': 'Illegal Search'
+        'category': 'Illegal Search',
       }).should.eql('age=51%2B&category=Illegal%20Search');
 
       serializeFilterParams({
         'age': '41-50',
-        'category': 'Illegal Search'
+        'category': 'Illegal Search',
       }, '?').should.eql('?age=41-50&category=Illegal%20Search');
     });
   });

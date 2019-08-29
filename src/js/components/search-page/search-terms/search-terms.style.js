@@ -48,11 +48,11 @@ export const wrapperStyle = {
   container: {
     height: 'calc(100vh - 54px)',
     width: 'calc(100% - 320px)',
-    display: 'inline-block'
+    display: 'inline-block',
   },
   view: {
     overflowY: 'scroll',
     overflowX: 'hidden',
-    marginBottom: 0
-  }
+    marginBottom: 0,
+  },
 };

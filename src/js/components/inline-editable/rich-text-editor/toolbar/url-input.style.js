@@ -7,13 +7,13 @@ export const inputStyle = {
     fontFamily: sanFranciscoTextFamily,
     background: 'white',
     fontWeight: 300,
-    fontSize: '16px'
+    fontSize: '16px',
   },
   placeholder: {
     fontFamily: sanFranciscoTextFamily,
     fontSize: '16px',
     fontWeight: 300,
     color: accentColor,
-    opacity: .5
-  }
+    opacity: .5,
+  },
 };

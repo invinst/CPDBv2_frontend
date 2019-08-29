@@ -20,7 +20,7 @@ function mapStateToProps(state, ownProps) {
 const mapDispatchToProps = {
   onSaveForm: updatePage(constants.LANDING_PAGE_ID),
   turnOnSectionEditMode: turnOnLogoSectionEditMode,
-  turnOffSectionEditMode: turnOffLogoSectionEditMode
+  turnOffSectionEditMode: turnOffLogoSectionEditMode,
 };
 
 export default connect(

@@ -19,7 +19,7 @@ export default class AnimatedSocialGraph extends Component {
     this.state = {
       timelineIdx: 0,
       searchInputText: '',
-      refreshIntervalId: null
+      refreshIntervalId: null,
     };
 
     this.startTimelineFromBeginning = this.startTimelineFromBeginning.bind(this);

@@ -14,7 +14,7 @@ export default class Diagram extends Component {
     const sets = [
       { sets: ['A'], size: 4 },
       { sets: ['B'], size: 4 },
-      { sets: ['A', 'B'], size: 1 }
+      { sets: ['A', 'B'], size: 1 },
     ];
     const chart = VennDiagram().width(194).height(134);
 

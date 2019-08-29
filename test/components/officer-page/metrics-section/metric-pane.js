@@ -2,7 +2,7 @@ import React from 'react';
 import {
   findRenderedDOMComponentWithClass,
   renderIntoDocument,
-  findRenderedComponentWithType
+  findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 
 import MetricPane from 'components/officer-page/metrics-section/metric-pane';

@@ -10,7 +10,7 @@ class Header extends Section {
     this.prepareElementGetters({
       unitName: '.test--unit-name',
       summaryButton: '//a[@class="test--header-button"][text()="Summary"]',
-      activeButton: '.test--header-button-active'
+      activeButton: '.test--header-button-active',
     });
   }
 }
@@ -30,7 +30,7 @@ class MemberAggregateSection extends Section {
 
     this.prepareElementGetters({
       status: '.test--member-aggregate-status',
-      ...facetGetters
+      ...facetGetters,
     });
   }
 }
@@ -51,7 +51,7 @@ class ComplaintAggregateSection extends Section {
 
     this.prepareElementGetters({
       status: '.test--complaint-aggregate-status',
-      ...facetGetters
+      ...facetGetters,
     });
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   findRenderedComponentWithType, renderIntoDocument,
-  scryRenderedComponentsWithType, Simulate, findRenderedDOMComponentWithClass
+  scryRenderedComponentsWithType, Simulate, findRenderedDOMComponentWithClass,
 } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
@@ -32,10 +32,10 @@ describe('OfficerPage component', function () {
         [OFFICER_EDIT_TYPES.TRIANGLE]: false,
         [OFFICER_EDIT_TYPES.SCALE]: false,
         [OFFICER_EDIT_TYPES.NO_DATA_RADAR_CHART]: false,
-      }
+      },
     },
     breadcrumb: {
-      breadcrumbs: []
+      breadcrumbs: [],
     },
     popups: [],
   });
@@ -114,6 +114,7 @@ describe('OfficerPage component', function () {
     );
 
     const shareableHeader = findRenderedComponentWithType(instance, ShareableHeaderContainer);
+    shareableHeader.props.buttonType.should.eql('menu');
     shareableHeader.props.Menu.should.eql(DownloadMenuContainer);
     shareableHeader.props.buttonText.should.eql('Download');
   });

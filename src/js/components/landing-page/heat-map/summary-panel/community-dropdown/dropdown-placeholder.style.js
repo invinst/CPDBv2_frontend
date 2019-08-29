@@ -10,7 +10,7 @@ export const wrapperStyle = {
   fontWeight: 300,
   color: accentColor,
   padding: '23px 16px 11px 16px',
-  cursor: 'pointer'
+  cursor: 'pointer',
 };
 
 export const firstRowStyle = {
@@ -19,13 +19,13 @@ export const firstRowStyle = {
 
 export const secondRowStyle = {
   paddingTop: '9px',
-  borderTop: `1px solid ${accentColor}`
+  borderTop: `1px solid ${accentColor}`,
 };
 
 export const firstRowTextStyle = {
   display: 'inline-block',
   width: 'calc(100% - 14px)',
-  verticalAlign: 'middle'
+  verticalAlign: 'middle',
 };
 
 export const arrowDownStyle = {
@@ -33,5 +33,5 @@ export const arrowDownStyle = {
   verticalAlign: 'middle',
   width: '14px',
   height: '9px',
-  background: `url("${imgUrl('arrow-down-blue.svg')}") 0px 0px no-repeat scroll`
+  background: `url("${imgUrl('arrow-down-blue.svg')}") 0px 0px no-repeat scroll`,
 };

@@ -11,7 +11,7 @@ import styles from './documents-table.sass';
 
 const rowMap = {
   [constants.DOCUMENTS_SEARCH_ITEMS.DOCUMENT]: DocumentRow,
-  [constants.DOCUMENTS_SEARCH_ITEMS.MONTH_SEPARATOR]: MonthSeparator
+  [constants.DOCUMENTS_SEARCH_ITEMS.MONTH_SEPARATOR]: MonthSeparator,
 };
 
 export default class DocumentsTable extends Component {
@@ -71,9 +71,9 @@ DocumentsTable.propTypes = {
 };
 
 DocumentsTable.defaultProps = {
-  rows: []
+  rows: [],
 };
 
 DocumentsTable.contextTypes = {
-  editModeOn: PropTypes.bool
+  editModeOn: PropTypes.bool,
 };

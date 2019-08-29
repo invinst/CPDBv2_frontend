@@ -11,7 +11,7 @@ export default class ExpandTransition extends React.Component {
     super(props);
     this.state = {
       childHeight: null,
-      prevKey: null
+      prevKey: null,
     };
     this.expanded = false;
   }
@@ -48,7 +48,7 @@ export default class ExpandTransition extends React.Component {
         if (component) {
           this.setState({
             childHeight: innerHeight(ReactDOM.findDOMNode(component)),
-            prevKey: this.props.childKey
+            prevKey: this.props.childKey,
           });
         }
       };
@@ -64,7 +64,7 @@ export default class ExpandTransition extends React.Component {
           styles={ this.props.childKey ?
             [{
               key: String(this.props.childKey),
-              style: { height: spring(this.state.childHeight, defaultConfig()), x: 1 }
+              style: { height: spring(this.state.childHeight, defaultConfig()), x: 1 },
             }]
             : [] }>
           { (interpolatedStyles) => {
@@ -98,5 +98,5 @@ ExpandTransition.propTypes = {
   onExpansionBegin: PropTypes.func,
 
   // called when child is fully closed (it's height is 0 and childKey is null)
-  onFullyClosed: PropTypes.func
+  onFullyClosed: PropTypes.func,
 };

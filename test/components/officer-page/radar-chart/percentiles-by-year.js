@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  renderIntoDocument, scryRenderedDOMComponentsWithClass, scryRenderedComponentsWithType
+  renderIntoDocument, scryRenderedDOMComponentsWithClass, scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 
 import PercentilesByYear from 'components/officer-page/radar-chart/explainer/percentiles-by-year';
@@ -26,16 +26,16 @@ describe('PercentilesByYear components', function () {
       items: [
         { 'axis': 'Use of Force Report', value: 20 },
         { 'axis': 'Internal Complaints', value: 30 },
-        { 'axis': 'Civilian Complaint', value: 40 }
-      ]
+        { 'axis': 'Civilian Complaint', value: 40 },
+      ],
     }, {
       year: 2016,
       visualTokenBackground: 'yellow',
       items: [
         { 'axis': 'Use of Force Report', value: 40 },
         { 'axis': 'Internal Complaints', value: 50 },
-        { 'axis': 'Civilian Complaint', value: 60 }
-      ]
+        { 'axis': 'Civilian Complaint', value: 60 },
+      ],
     }];
     instance = renderIntoDocument(
       <PercentilesByYear yearlyRadarChartData={ data }/>
@@ -56,16 +56,16 @@ describe('PercentilesByYear components', function () {
       items: [
         { 'axis': 'Use of Force Report', value: 20 },
         { 'axis': 'Internal Complaints', value: 0 },
-        { 'axis': 'Civilian Complaint', value: NaN }
-      ]
+        { 'axis': 'Civilian Complaint', value: NaN },
+      ],
     }, {
       year: 2016,
       visualTokenBackground: 'yellow',
       items: [
         { 'axis': 'Use of Force Report', value: NaN },
         { 'axis': 'Internal Complaints', value: 40 },
-        { 'axis': 'Civilian Complaint', value: 0 }
-      ]
+        { 'axis': 'Civilian Complaint', value: 0 },
+      ],
     }];
     instance = renderIntoDocument(
       <PercentilesByYear yearlyRadarChartData={ data }/>

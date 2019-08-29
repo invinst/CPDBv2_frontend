@@ -21,7 +21,7 @@ describe('summary reducer', function () {
       },
       {
         type: OFFICER_EDIT_MODE,
-        payload: { editType: OFFICER_EDIT_TYPES.SCALE, mode: true }
+        payload: { editType: OFFICER_EDIT_TYPES.SCALE, mode: true },
       }
     ).should.eql( {
       [OFFICER_EDIT_TYPES.TRIANGLE]: false,
@@ -37,7 +37,7 @@ describe('summary reducer', function () {
       },
       {
         type: OFFICER_EDIT_MODE,
-        payload: { editType: OFFICER_EDIT_TYPES.TRIANGLE, mode: false }
+        payload: { editType: OFFICER_EDIT_TYPES.TRIANGLE, mode: false },
       }
     ).should.eql( {
       [OFFICER_EDIT_TYPES.TRIANGLE]: false,
@@ -55,7 +55,7 @@ describe('summary reducer', function () {
       },
       {
         type: LOCATION_CHANGE,
-        payload: { pathname: '/officer/1/' }
+        payload: { pathname: '/officer/1/' },
       }
     ).should.eql({
       [OFFICER_EDIT_TYPES.TRIANGLE]: false,
@@ -71,7 +71,7 @@ describe('summary reducer', function () {
       },
       {
         type: LOCATION_CHANGE,
-        payload: { pathname: '/edit/officer/1/' }
+        payload: { pathname: '/edit/officer/1/' },
       }
     ).should.eql({
       [OFFICER_EDIT_TYPES.TRIANGLE]: true,

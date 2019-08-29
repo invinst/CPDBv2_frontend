@@ -6,7 +6,7 @@ import RouteTransition from 'components/animation/route-transition';
 import {
   unmountComponentSuppressError,
   withAnimationDisabled,
-  reRender
+  reRender,
 } from 'utils/test';
 
 
@@ -90,12 +90,12 @@ describe('RouteTransition component', function () {
       const testChildren = [
         {
           path: '/path1',
-          text: 'a b c'
+          text: 'a b c',
         },
         {
           path: '/path2',
-          text: 'd e f'
-        }
+          text: 'd e f',
+        },
       ];
 
       element = render(

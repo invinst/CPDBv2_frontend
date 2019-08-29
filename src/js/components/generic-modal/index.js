@@ -17,7 +17,7 @@ const contentMappings = {
 };
 
 const customClassMapping = {
-  LOG_FILE: 'large-modal'
+  LOG_FILE: 'large-modal',
 };
 
 class GenericModal extends React.Component {
@@ -53,7 +53,7 @@ class GenericModal extends React.Component {
 GenericModal.propTypes = {
   activeModal: PropTypes.string,
   closeModal: PropTypes.func,
-  location: PropTypes.object
+  location: PropTypes.object,
 };
 
 export default GenericModal;

@@ -38,7 +38,7 @@ import {
   EMBED_OFFICERS_PATH,
   TRACKER_ALL_DOCUMENTS_PATH,
   TRACKER_DOCUMENTS_OVERVIEW_PATH,
-  SOCIAL_GRAPH_PATH
+  SOCIAL_GRAPH_PATH,
 } from 'utils/constants';
 import configureStore from 'store';
 import history from 'utils/history';

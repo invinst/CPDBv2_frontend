@@ -3,7 +3,7 @@ import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
   findRenderedComponentWithType,
-  Simulate
+  Simulate,
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 import { browserHistory } from 'react-router';
@@ -58,7 +58,7 @@ describe('DocumentsOverviewPage DocumentRow component', function () {
     let counter = findRenderedComponentWithType(instance, Counter);
     counter.props.should.containEql({
       viewsCount: 20,
-      downloadsCount: 30
+      downloadsCount: 30,
     });
   });
 
@@ -70,7 +70,7 @@ describe('DocumentsOverviewPage DocumentRow component', function () {
     let crLink = findRenderedComponentWithType(instance, CRLink);
     crLink.props.should.containEql({
       crid: '1',
-      documentsCount: 2
+      documentsCount: 2,
     });
   });
 

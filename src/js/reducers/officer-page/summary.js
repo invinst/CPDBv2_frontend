@@ -7,5 +7,5 @@ export default handleActions({
   [OFFICER_SUMMARY_REQUEST_SUCCESS]: (state, action) => (
     { ...state, ...action.payload }
   ),
-  [CHANGE_OFFICER_ID]: () => ({})
+  [CHANGE_OFFICER_ID]: () => ({}),
 }, {});

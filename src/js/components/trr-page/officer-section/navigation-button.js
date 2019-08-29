@@ -17,5 +17,5 @@ export default class NavigationButton extends Component {
 }
 
 NavigationButton.propTypes = {
-  text: PropTypes.string
+  text: PropTypes.string,
 };

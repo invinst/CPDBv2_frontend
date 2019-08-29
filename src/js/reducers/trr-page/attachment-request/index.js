@@ -5,5 +5,5 @@ import subscribedTRRIds from './subscribed-trr-ids';
 
 export default combineReducers({
   request,
-  subscribedTRRIds
+  subscribedTRRIds,
 });

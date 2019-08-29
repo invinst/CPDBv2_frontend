@@ -31,7 +31,7 @@ export default class SuggestionItemBase extends Component {
       id, text,
       type: type.toLowerCase(),
       description: subText,
-      existingAliases: tags
+      existingAliases: tags,
     });
   }
 
@@ -110,7 +110,7 @@ export default class SuggestionItemBase extends Component {
         `suggestion-item-${uniqueKey}`,
         { 'test--focused': isFocused }
       ),
-      onClick: this.handleClick.bind(this)
+      onClick: this.handleClick.bind(this),
     };
 
     let result;

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  renderIntoDocument, scryRenderedDOMComponentsWithClass, findRenderedDOMComponentWithClass
+  renderIntoDocument, scryRenderedDOMComponentsWithClass, findRenderedDOMComponentWithClass,
 } from 'react-addons-test-utils';
 
 import CRItem from 'components/search-page/search-results/suggestion-group/suggestion-item/cr';

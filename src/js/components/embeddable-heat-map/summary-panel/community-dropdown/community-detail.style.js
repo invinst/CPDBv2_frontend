@@ -1,13 +1,13 @@
 import {
   softBlackColor, bostonRed, sanFranciscoTextFamily,
-  whiteTwoColor, accentColor, hawkesBlue
+  whiteTwoColor, accentColor, hawkesBlue,
 } from 'utils/styles';
 import { imgUrl } from 'utils/static-assets';
 
 
 export const communityWrapperStyle = {
   padding: '16px 16px 0 16px',
-  backgroundColor: 'white'
+  backgroundColor: 'white',
 };
 
 export const headerStyle = {
@@ -15,7 +15,7 @@ export const headerStyle = {
   fontFamily: sanFranciscoTextFamily,
   fontWeight: 400,
   fontSize: '14px',
-  textTransform: 'uppercase'
+  textTransform: 'uppercase',
 };
 
 export const allegationDisciplineStyle = {
@@ -27,14 +27,14 @@ export const allegationTextStyle = {
   color: softBlackColor,
   fontFamily: sanFranciscoTextFamily,
   fontWeight: 400,
-  fontSize: '14px'
+  fontSize: '14px',
 };
 
 export const disciplineTextStyle = {
   color: bostonRed,
   fontFamily: sanFranciscoTextFamily,
   fontWeight: 400,
-  fontSize: '14px'
+  fontSize: '14px',
 };
 
 export const learnMoreStyle = {
@@ -45,13 +45,13 @@ export const learnMoreStyle = {
   fontSize: '14px',
   fontWeight: 400,
   backgroundColor: hawkesBlue,
-  display: 'block'
+  display: 'block',
 };
 
 export const learnMoreTextStyle = {
   width: 'calc(100% - 8px)',
   display: 'inline-block',
-  verticalAlign: 'middle'
+  verticalAlign: 'middle',
 };
 
 export const rightArrowBlueStyle = {
@@ -59,7 +59,7 @@ export const rightArrowBlueStyle = {
   display: 'inline-block',
   verticalAlign: 'middle',
   width: '8px',
-  height: '13px'
+  height: '13px',
 };
 
 export const closeButtonStyle = {
@@ -68,11 +68,11 @@ export const closeButtonStyle = {
   verticalAlign: 'middle',
   width: '14px',
   height: '14px',
-  cursor: 'pointer'
+  cursor: 'pointer',
 };
 
 export const headerTextStyle = {
   display: 'inline-block',
   verticalAlign: 'middle',
-  width: 'calc(100% - 14px)'
+  width: 'calc(100% - 14px)',
 };

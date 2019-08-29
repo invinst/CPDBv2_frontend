@@ -19,7 +19,7 @@ class ArticleHeader extends Component {
       <ResponsiveStyleComponent
         responsiveStyle={ {
           [DESKTOP]: { header: [articleHeaderStyle] },
-          [TABLET]: { header: [articleHeaderStyle, headerTabletStyle] }
+          [TABLET]: { header: [articleHeaderStyle, headerTabletStyle] },
         } }>
         { this.renderWithResponsiveStyle.bind(this) }
       </ResponsiveStyleComponent>
@@ -29,7 +29,7 @@ class ArticleHeader extends Component {
 
 ArticleHeader.propTypes = {
   children: PropTypes.node,
-  style: PropTypes.object
+  style: PropTypes.object,
 };
 
 export default ConfiguredRadium(ArticleHeader);

@@ -14,7 +14,7 @@ describe('LogFileModalContent component', function () {
     const crawler = {
       crawlerName: 'PORTAL_COPA',
       logUrl: 'https://lvh.me/log',
-      recentRunAt: '2019-03-04'
+      recentRunAt: '2019-03-04',
     };
 
     let instance = renderIntoDocument(
@@ -32,7 +32,7 @@ describe('LogFileModalContent component', function () {
     const crawler = {
       crawlerName: 'PORTAL_COPA',
       logUrl: 'https://lvh.me/log',
-      recentRunAt: '2019-03-04'
+      recentRunAt: '2019-03-04',
     };
 
     let instance = renderIntoDocument(

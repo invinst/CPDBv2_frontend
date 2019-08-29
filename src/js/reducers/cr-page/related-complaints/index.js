@@ -5,5 +5,5 @@ import relatedByOfficer from './related-by-officer';
 
 export default combineReducers({
   relatedByCategory,
-  relatedByOfficer
+  relatedByOfficer,
 });

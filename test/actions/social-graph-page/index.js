@@ -18,8 +18,8 @@ describe('socialGraph actions', function () {
             params: { 'unit_id': 123, 'threshold': 2, 'show_civil_only': true },
             adapter: null,
             cancelToken: undefined,
-          }
-        }
+          },
+        },
       });
     });
   });

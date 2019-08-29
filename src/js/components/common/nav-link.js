@@ -22,11 +22,11 @@ class NavigationLink extends React.Component {
 NavigationLink.propTypes = {
   children: PropTypes.node,
   href: PropTypes.string,
-  isActive: PropTypes.bool
+  isActive: PropTypes.bool,
 };
 
 NavigationLink.defaultProps = {
-  isActive: false
+  isActive: false,
 };
 
 export default ConfiguredRadium(NavigationLink);

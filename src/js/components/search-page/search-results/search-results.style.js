@@ -3,7 +3,7 @@ import {
   girlyPink,
   concreteColor,
   pinkishWhiteColor,
-  deepGirlyPink
+  deepGirlyPink,
 } from 'utils/styles';
 
 
@@ -13,12 +13,12 @@ export const resultWrapperStyle = {
   position: 'relative',
   height: 'calc(100% - 4px)',
   width: 'calc(100% - 321px)',
-  display: 'inline-block'
+  display: 'inline-block',
 };
 
 export const columnWrapperStyle = {
   overflow: 'hidden',
-  height: '100%'
+  height: '100%',
 };
 
 export const plusWrapperStyle = {
@@ -34,7 +34,7 @@ export const plusWrapperStyle = {
   marginBottom: '20px',
   width: '40%',
   minWidth: '480px',
-  margin: 'auto'
+  margin: 'auto',
 };
 
 export const plusSignStyle = {
@@ -45,19 +45,19 @@ export const plusSignStyle = {
   position: 'relative',
   display: 'block',
   top: '50%',
-  transform: 'translateY(-50%)'
+  transform: 'translateY(-50%)',
 };
 
 export const suggestionResultsStyle = aliasEditModeOn => ({
   position: 'relative',
   height: 'calc(100% - 45px)',
   backgroundColor: aliasEditModeOn ? girlyPink : concreteColor,
-  overflow: 'hidden'
+  overflow: 'hidden',
 });
 
 export const actionBarStyle = {
   textAlign: 'right',
-  padding: '0 16px'
+  padding: '0 16px',
 };
 
 export const cancelButtonStyle = {
@@ -69,7 +69,7 @@ export const cancelButtonStyle = {
   backgroundColor: deepGirlyPink,
   color: 'inherit',
   margin: '11px 0',
-  border: 'none'
+  border: 'none',
 };
 
 export const loadingStyle = {
@@ -77,5 +77,5 @@ export const loadingStyle = {
   backgroundColor: concreteColor,
   paddingTop: '38px',
   paddingLeft: '16px',
-  fontSize: '14px'
+  fontSize: '14px',
 };

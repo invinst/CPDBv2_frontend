@@ -32,7 +32,7 @@ describe('SocialGraph', function () {
     { fullName: 'Tracy Hughes', id: 12737 },
     { fullName: 'Donnell Calhoun', id: 3663 },
     { fullName: 'Hardy White', id: 30466 },
-    { fullName: 'Matthew Brandon', id: 2675 }
+    { fullName: 'Matthew Brandon', id: 2675 },
   ];
   const coaccusedData = [
     { officerId1: 2675, officerId2: 24157, incidentDate: '1990-01-09T00:00:00Z', accussedCount: 2 },
@@ -143,7 +143,7 @@ describe('SocialGraph', function () {
     { officerId1: 3663, officerId2: 4269, incidentDate: '2003-10-25T00:00:00Z', accussedCount: 3 },
     { officerId1: 2671, officerId2: 15956, incidentDate: '2006-03-15T00:00:00Z', accussedCount: 16 },
     { officerId1: 2671, officerId2: 15956, incidentDate: '2006-09-11T00:00:00Z', accussedCount: 17 },
-    { officerId1: 2671, officerId2: 15956, incidentDate: '2008-01-11T00:00:00Z', accussedCount: 18 }
+    { officerId1: 2671, officerId2: 15956, incidentDate: '2008-01-11T00:00:00Z', accussedCount: 18 },
   ];
   const listEvent = [
     '1990-01-09 00:00:00+00:00',
@@ -210,7 +210,7 @@ describe('SocialGraph', function () {
     '2003-10-25 00:00:00+00:00',
     '2006-03-15 00:00:00+00:00',
     '2006-09-11 00:00:00+00:00',
-    '2008-01-11 00:00:00+00:00'
+    '2008-01-11 00:00:00+00:00',
   ];
 
   afterEach(function () {
@@ -250,7 +250,7 @@ describe('SocialGraph', function () {
       { id: 16, fname: 'Tracy Hughes', uid: 12737, degree: 0, group: 0 },
       { id: 17, fname: 'Donnell Calhoun', uid: 3663, degree: 10, group: 5 },
       { id: 18, fname: 'Hardy White', uid: 30466, degree: 6, group: 6 },
-      { id: 19, fname: 'Matthew Brandon', uid: 2675, degree: 1, group: 0 }
+      { id: 19, fname: 'Matthew Brandon', uid: 2675, degree: 1, group: 0 },
     ];
 
     const expectedLinks = [
@@ -290,7 +290,7 @@ describe('SocialGraph', function () {
       { sourceUid: 3663, targetUid: 31945, weight: 5, color: smokeGray },
       { sourceUid: 4269, targetUid: 31945, weight: 5, color: smokeGray },
       { sourceUid: 3663, targetUid: 4269, weight: 3, color: smokeGray },
-      { sourceUid: 2671, targetUid: 15956, weight: 18, color: bostonRed }
+      { sourceUid: 2671, targetUid: 15956, weight: 18, color: bostonRed },
     ];
 
     const expectedLinkedByIndex = {
@@ -390,7 +390,7 @@ describe('SocialGraph', function () {
       { id: 16, fname: 'Tracy Hughes', uid: 12737, degree: 0, group: 0 },
       { id: 17, fname: 'Donnell Calhoun', uid: 3663, degree: 1, group: 0 },
       { id: 18, fname: 'Hardy White', uid: 30466, degree: 2, group: 9 },
-      { id: 19, fname: 'Matthew Brandon', uid: 2675, degree: 1, group: 0 }
+      { id: 19, fname: 'Matthew Brandon', uid: 2675, degree: 1, group: 0 },
     ];
 
     const expectedLinks = [

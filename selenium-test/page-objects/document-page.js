@@ -5,7 +5,7 @@ import Section from './sections/section';
 import LoginScreen from './sections/login-screen';
 
 const getInfoItemSelector = (text) =>
-  `//div[contains(@class, "document-info")]/*[@class="list-item" and span[text()="${text}"]]`;
+  `//div[contains(@class, "document-info")]//*[@class="list-item" and span[text()="${text}"]]`;
 
 class TagsSection extends Section {
   constructor() {
