@@ -33,5 +33,5 @@ export default class CRLink extends Component {
 CRLink.propTypes = {
   crid: PropTypes.string,
   documentsCount: PropTypes.number,
-  onCRLinkClick: PropTypes.func
+  onCRLinkClick: PropTypes.func,
 };

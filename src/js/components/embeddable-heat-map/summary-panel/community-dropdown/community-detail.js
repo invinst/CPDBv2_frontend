@@ -6,7 +6,7 @@ import {
   communityWrapperStyle, headerStyle, allegationDisciplineStyle,
   allegationTextStyle, disciplineTextStyle, headerTextStyle,
   learnMoreStyle, learnMoreTextStyle, rightArrowBlueStyle,
-  closeButtonStyle
+  closeButtonStyle,
 } from './community-detail.style';
 import CommunityOfficers from './community-officers';
 import OutboundLink from 'components/common/outbound-link';
@@ -65,5 +65,5 @@ export default class CommunityDetail extends Component {
 
 CommunityDetail.propTypes = {
   community: PropTypes.object,
-  closeDetail: PropTypes.func
+  closeDetail: PropTypes.func,
 };

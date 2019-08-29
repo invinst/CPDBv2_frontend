@@ -4,7 +4,7 @@ import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
   findRenderedDOMComponentWithTag, renderIntoDocument,
-  Simulate
+  Simulate,
 } from 'react-addons-test-utils';
 import Mousetrap from 'mousetrap';
 
@@ -14,7 +14,7 @@ import {
   contentWrapperStyle,
   maximumStyle,
   mediumStyle,
-  minimumStyle
+  minimumStyle,
 } from 'components/search-page/search-terms/search-terms.style';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import SearchTermItemPane from 'components/search-page/preview-pane/search-term-item-pane';
@@ -36,10 +36,10 @@ describe('SearchTerms component', function () {
           name: 'Communities',
           description: 'Chicago is divided.',
           callToActionType: 'view_all',
-          link: 'https://data.cpdp.co/url-mediator/session-builder?community=<name>'
-        }
-      ]
-    }
+          link: 'https://data.cpdp.co/url-mediator/session-builder?community=<name>',
+        },
+      ],
+    },
   ];
   const navigationKeys = ['category-Geography', 'Geography-Communities'];
 
@@ -138,7 +138,7 @@ describe('SearchTerms component', function () {
         id: 'category',
         name: 'Some item',
         description: 'This is item for testing',
-        uniqueKey: 'category-some-item'
+        uniqueKey: 'category-some-item',
       };
 
       instance = renderIntoDocument(<SearchTerms focusedItem={ focusedItem } />);
@@ -151,7 +151,7 @@ describe('SearchTerms component', function () {
         id: 'category',
         name: 'Some item',
         description: 'This is item for testing. [Google](http://www.google.com)',
-        uniqueKey: 'category-some-item'
+        uniqueKey: 'category-some-item',
       };
 
       instance = renderIntoDocument(<SearchTerms focusedItem={ focusedItem } />);

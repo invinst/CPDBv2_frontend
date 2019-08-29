@@ -69,7 +69,7 @@ Attachments.propTypes = {
   attachments: PropTypes.array,
   changeOfficerTab: PropTypes.func,
   pathname: PropTypes.string,
-  onTrackingAttachment: PropTypes.func
+  onTrackingAttachment: PropTypes.func,
 };
 
 Attachments.defaultProps = {

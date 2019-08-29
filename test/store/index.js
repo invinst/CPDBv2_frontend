@@ -20,7 +20,7 @@ function setUp() {
   return {
     store,
     getCurrentState,
-    unsubscribe
+    unsubscribe,
   };
 }
 
@@ -33,50 +33,50 @@ describe('store', function () {
         activityGrid: {
           cards: [],
           isRequesting: false,
-          headerEditModeOn: false
+          headerEditModeOn: false,
         },
         officersByAllegation: {
           cards: [],
           isRequesting: false,
-          headerEditModeOn: false
+          headerEditModeOn: false,
         },
         recentDocument: {
           cards: [],
           isRequesting: false,
-          headerEditModeOn: false
+          headerEditModeOn: false,
         },
         complaintSummaries: {
           cards: [],
           isRequesting: false,
-          headerEditModeOn: false
+          headerEditModeOn: false,
         },
         heatMap: {
           citySummary: {},
           communities: null,
-          clusterGeoJson: null
-        }
+          clusterGeoJson: null,
+        },
       },
       authentication: {
         loginErrorMessage: null,
         loginSuccessMessage: null,
         forgotPasswordErrorMessage: null,
         apiAccessToken: null,
-        showForgotPasswordModal: false
+        showForgotPasswordModal: false,
       },
       appContent: null,
       cms: {
-        pages: {}
+        pages: {},
       },
       pageLoading: false,
       popups: [],
       routing: {
-        locationBeforeTransitions: null
+        locationBeforeTransitions: null,
       },
       searchPage: {
         navigation: { 'itemIndex': 0 },
         isRequesting: false,
         suggestionGroups: {
-          meta: {}
+          meta: {},
         },
         pagination: {},
         contentType: null,
@@ -87,9 +87,9 @@ describe('store', function () {
           categories: [],
           hidden: true,
           navigation: {
-            itemIndex: 0
-          }
-        }
+            itemIndex: 0,
+          },
+        },
       },
       inlineAliasAdminPage: {},
       crPage: {
@@ -99,45 +99,45 @@ describe('store', function () {
         attachmentRequest: {
           request: {
             isRequested: false,
-            message: ''
+            message: '',
           },
-          subscribedCRIDs: {}
+          subscribedCRIDs: {},
         },
         relatedComplaints: {
           relatedByCategory: {
             count: 0,
             pagination: {
               next: null,
-              previous: null
+              previous: null,
             },
             cards: {
               meta: {
                 crPageCrid: null,
-                distance: null
+                distance: null,
               },
-              cards: []
-            }
+              cards: [],
+            },
           },
           relatedByOfficer: {
             count: 0,
             pagination: {
               next: null,
-              previous: null
+              previous: null,
             },
             cards: {
               meta: {
                 crPageCrid: null,
-                distance: null
+                distance: null,
               },
-              cards: []
-            }
-          }
+              cards: [],
+            },
+          },
         },
         editModeOn: {
           [CR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: false,
           [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false,
           [CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION]: false,
-        }
+        },
       },
       trrPage: {
         trrId: null,
@@ -153,7 +153,7 @@ describe('store', function () {
         editModeOn: {
           [TRR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: false,
           [TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false,
-        }
+        },
       },
       crs: {},
       officerPage: {
@@ -167,25 +167,25 @@ describe('store', function () {
         newTimeline: {
           filter: {
             label: 'ALL',
-            kind: ['CR', 'FORCE', 'AWARD']
+            kind: ['CR', 'FORCE', 'AWARD'],
           },
           isRequesting: false,
-          items: []
+          items: [],
         },
         coaccusals: {
           isRequesting: false,
-          items: []
+          items: [],
         },
         editModeOn: {
           [OFFICER_EDIT_TYPES.TRIANGLE]: false,
           [OFFICER_EDIT_TYPES.SCALE]: false,
           [OFFICER_EDIT_TYPES.NO_DATA_RADAR_CHART]: false,
         },
-        zipFileUrl: { withDocs: '', withoutDocs: '' }
+        zipFileUrl: { withDocs: '', withoutDocs: '' },
       },
       unitProfilePage: {
         isRequesting: false,
-        summary: {}
+        summary: {},
       },
       documentPage: {
         data: {},
@@ -195,58 +195,58 @@ describe('store', function () {
         textContentEditModeOn: false,
       },
       genericModal: {
-        activeModal: null
+        activeModal: null,
       },
       breadcrumb: {
-        breadcrumbs: []
+        breadcrumbs: [],
       },
       breadcrumbsMapping: {},
       headers: {
         shareableHeader: {
-          scrollPosition: null
+          scrollPosition: null,
         },
         slimHeader: {
           demoVideoSectionEditModeOn: false,
           logoSectionEditModeOn: false,
           videoInfo: [],
-        }
+        },
       },
       embed: {
-        officers: []
+        officers: [],
       },
       documentsOverviewPage: {
         documents: {
           data: {},
-          match: ''
+          match: '',
         },
         documentsOrder: {
           data: [],
-          match: ''
+          match: '',
         },
-        pagination: {}
+        pagination: {},
       },
       documentDeduplicatorPage: {
         documents: {
           data: {},
-          crid: ''
+          crid: '',
         },
         documentsOrder: {
           data: [],
-          crid: ''
+          crid: '',
         },
-        pagination: {}
+        pagination: {},
       },
       crawlersPage: {
         crawlers: [],
         currentCrawlerId: null,
-        pagination: {}
+        pagination: {},
       },
       socialGraphPage: {
-        graphData: {}
+        graphData: {},
       },
       videoModal: {
         active: false,
-      }
+      },
     });
   });
 });

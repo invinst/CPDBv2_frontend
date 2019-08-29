@@ -2,7 +2,7 @@ import React from 'react';
 import { renderIntoDocument,
   findRenderedDOMComponentWithClass,
   findRenderedComponentWithType,
-  scryRenderedComponentsWithType
+  scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 
 import RankPane from 'components/search-page/preview-pane/rank-pane';

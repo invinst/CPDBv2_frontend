@@ -24,7 +24,7 @@ ToolbarButton.propTypes = {
   icon: PropTypes.string,
   activeIcon: PropTypes.string,
   onClick: PropTypes.func,
-  active: PropTypes.bool
+  active: PropTypes.bool,
 };
 
 export default Hoverable(ToolbarButton);

@@ -10,7 +10,7 @@ export default class TRRInfoSection extends Component {
   render() {
     const {
       trrLocation, trrDetail, trrDocument, openRequestTRRDocumentModal,
-      popup, pathName, noAttachmentTextEditWrapperStateProps
+      popup, pathName, noAttachmentTextEditWrapperStateProps,
     } = this.props;
     return (
       <div className={ style.trrInfoSection }>

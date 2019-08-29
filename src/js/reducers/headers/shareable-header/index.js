@@ -4,5 +4,5 @@ import scrollPosition from './scroll-position';
 
 
 export default combineReducers({
-  scrollPosition
+  scrollPosition,
 });

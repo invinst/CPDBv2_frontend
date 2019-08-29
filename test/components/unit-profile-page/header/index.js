@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  renderIntoDocument, findRenderedDOMComponentWithClass, findRenderedComponentWithType
+  renderIntoDocument, findRenderedDOMComponentWithClass, findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';

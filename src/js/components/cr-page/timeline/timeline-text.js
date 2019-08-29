@@ -38,11 +38,11 @@ export default class TimelineText extends Component {
 TimelineText.propTypes = {
   startDate: PropTypes.string,
   endDate: PropTypes.string,
-  incidentDate: PropTypes.string
+  incidentDate: PropTypes.string,
 };
 
 TimelineText.defaultProps = {
   startDate: '',
   endDate: '',
-  incidentDate: ''
+  incidentDate: '',
 };

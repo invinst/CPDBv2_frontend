@@ -6,7 +6,7 @@ import {
   renderIntoDocument,
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass
+  scryRenderedDOMComponentsWithClass,
 } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
@@ -50,23 +50,23 @@ describe('GenericModal component', function () {
     const store = MockStore()({
       cms: { pages: {} },
       breadcrumb: {
-        breadcrumbs: []
+        breadcrumbs: [],
       },
       crPage: {
         crid: '123456',
         attachmentRequest: {
-          request: {}
+          request: {},
         },
         editModeOn: {
           [CR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: false,
           [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false,
-        }
+        },
       },
       crs: {
         '123456': {
-          attachments: []
-        }
-      }
+          attachments: [],
+        },
+      },
     });
     const closeModal = () => {};
 
@@ -87,14 +87,14 @@ describe('GenericModal component', function () {
     const store = MockStore()({
       cms: { pages: {} },
       breadcrumb: {
-        breadcrumbs: []
+        breadcrumbs: [],
       },
       crawlersPage: {
         crawlers: [{
           'log_url': 'https://lvh.me/log',
           'crawler_name': 'COPA_CRAWLER',
         }],
-      }
+      },
     });
     const closeModal = () => {};
 
@@ -114,17 +114,17 @@ describe('GenericModal component', function () {
     const store = MockStore()({
       cms: { pages: {} },
       breadcrumb: {
-        breadcrumbs: []
+        breadcrumbs: [],
       },
       crPage: {
         crid: '123456',
         attachmentRequest: {
-          request: {}
+          request: {},
         },
         editModeOn: {
           [CR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: false,
           [CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION]: false,
-        }
+        },
       },
       crs: {
         '123456': {
@@ -133,9 +133,9 @@ describe('GenericModal component', function () {
             previewImageUrl: 'https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p1-normal.gif',
             fileType: 'document',
             id: '123',
-          }]
-        }
-      }
+          }],
+        },
+      },
     });
     const closeModal = () => {};
 
@@ -156,17 +156,17 @@ describe('GenericModal component', function () {
     const store = MockStore()({
       cms: { pages: {} },
       breadcrumb: {
-        breadcrumbs: []
+        breadcrumbs: [],
       },
       trrPage: {
         attachmentRequest: {
-          request: {}
+          request: {},
         },
         editModeOn: {
           [CR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: false,
           [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false,
-        }
-      }
+        },
+      },
     });
     const closeModal = () => {};
 

@@ -18,7 +18,7 @@ import {
   turnOnDocumentTagsEditMode,
   turnOffDocumentTagsEditMode,
   turnOnDocumentTextContentEditMode,
-  turnOffDocumentTextContentEditMode
+  turnOffDocumentTextContentEditMode,
 } from 'actions/document-page';
 
 
@@ -37,7 +37,9 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  onSaveForm: updateDocument,
+  onSaveFormTitle: updateDocument('title'),
+  onSaveFormContent: updateDocument('content'),
+  onSaveFormTags: updateDocument('tags'),
   turnOnDocumentPageTitleEditMode: turnOnDocumentPageTitleEditMode,
   turnOffDocumentPageTitleEditMode: turnOffDocumentPageTitleEditMode,
   turnOnDocumentTagsEditMode: turnOnDocumentTagsEditMode,
@@ -57,28 +59,28 @@ const editWrapperStateProps = (stateProps, dispatchProps, ownProps) => {
       'turnOnDocumentTagsEditMode',
       'turnOffDocumentTagsEditMode',
       'turnOnDocumentTextContentEditMode',
-      'turnOffDocumentTextContentEditMode'
+      'turnOffDocumentTextContentEditMode',
     ]),
     titleEditWrapperStateProps: {
       fields: stateProps.editableFields,
       sectionEditModeOn: stateProps.titleEditModeOn,
-      onSaveForm: dispatchProps.onSaveForm,
+      onSaveForm: dispatchProps.onSaveFormTitle,
       turnOnSectionEditMode: dispatchProps.turnOnDocumentPageTitleEditMode,
-      turnOffSectionEditMode: dispatchProps.turnOffDocumentPageTitleEditMode
+      turnOffSectionEditMode: dispatchProps.turnOffDocumentPageTitleEditMode,
     },
     tagsEditWrapperStateProps: {
       fields: stateProps.editableFields,
       sectionEditModeOn: stateProps.tagsEditModeOn,
-      onSaveForm: dispatchProps.onSaveForm,
+      onSaveForm: dispatchProps.onSaveFormTags,
       turnOnSectionEditMode: dispatchProps.turnOnDocumentTagsEditMode,
-      turnOffSectionEditMode: dispatchProps.turnOffDocumentTagsEditMode
+      turnOffSectionEditMode: dispatchProps.turnOffDocumentTagsEditMode,
     },
     textContentEditWrapperStateProps: {
       fields: stateProps.editableFields,
       sectionEditModeOn: stateProps.textContentEditModeOn,
-      onSaveForm: dispatchProps.onSaveForm,
+      onSaveForm: dispatchProps.onSaveFormContent,
       turnOnSectionEditMode: dispatchProps.turnOnDocumentTextContentEditMode,
-      turnOffSectionEditMode: dispatchProps.turnOffDocumentTextContentEditMode
+      turnOffSectionEditMode: dispatchProps.turnOffDocumentTextContentEditMode,
     },
   };
 };

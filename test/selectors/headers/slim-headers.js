@@ -11,17 +11,17 @@ describe('Slim header selectors', function () {
       getLogoSectionEditModeOn({
         headers: {
           slimHeader: {
-            logoSectionEditModeOn: true
-          }
-        }
+            logoSectionEditModeOn: true,
+          },
+        },
       }).should.be.true();
 
       getLogoSectionEditModeOn({
         headers: {
           slimHeader: {
-            logoSectionEditModeOn: false
-          }
-        }
+            logoSectionEditModeOn: false,
+          },
+        },
       }).should.be.false();
     });
   });
@@ -31,17 +31,17 @@ describe('Slim header selectors', function () {
       getDemoVideoSectionEditModeOn({
         headers: {
           slimHeader: {
-            demoVideoSectionEditModeOn: true
-          }
-        }
+            demoVideoSectionEditModeOn: true,
+          },
+        },
       }).should.be.true();
 
       getDemoVideoSectionEditModeOn({
         headers: {
           slimHeader: {
-            demoVideoSectionEditModeOn: false
-          }
-        }
+            demoVideoSectionEditModeOn: false,
+          },
+        },
       }).should.be.false();
     });
   });
@@ -74,10 +74,10 @@ describe('Slim header selectors', function () {
               width: 1920,
               height: 1080,
               tags: 'chicago, police',
-              'embed_privacy': 'anywhere'
-            }]
-          }
-        }
+              'embed_privacy': 'anywhere',
+            }],
+          },
+        },
       }).should.be.true();
     });
 
@@ -85,9 +85,9 @@ describe('Slim header selectors', function () {
       hasVideoInfoSelector({
         headers: {
           slimHeader: {
-            videoInfo: []
-          }
-        }
+            videoInfo: [],
+          },
+        },
       }).should.be.false();
     });
   });
@@ -102,9 +102,9 @@ describe('Slim header selectors', function () {
               'thumbnail_small': 'https://i.vimeocdn.com/video/797111186_100x75.jpg',
               'thumbnail_medium': 'https://i.vimeocdn.com/video/797111186_200x150.jpg',
               'thumbnail_large': 'https://i.vimeocdn.com/video/797111186_640.jpg',
-            }]
-          }
-        }
+            }],
+          },
+        },
       }).should.equal('https://i.vimeocdn.com/video/797111186_100x75.jpg');
     });
 
@@ -116,9 +116,9 @@ describe('Slim header selectors', function () {
               id: 285002059,
               'thumbnail_medium': 'https://i.vimeocdn.com/video/797111186_200x150.jpg',
               'thumbnail_large': 'https://i.vimeocdn.com/video/797111186_640.jpg',
-            }]
-          }
-        }
+            }],
+          },
+        },
       }).should.equal('https://i.vimeocdn.com/video/797111186_200x150.jpg');
     });
 
@@ -129,9 +129,9 @@ describe('Slim header selectors', function () {
             videoInfo: [{
               id: 285002059,
               'thumbnail_large': 'https://i.vimeocdn.com/video/797111186_640.jpg',
-            }]
-          }
-        }
+            }],
+          },
+        },
       }).should.equal('https://i.vimeocdn.com/video/797111186_640.jpg');
     });
 
@@ -144,9 +144,9 @@ describe('Slim header selectors', function () {
               'thumbnail_small': 'https://i.vimeocdn.com/video/797111186_100x75.webp',
               'thumbnail_medium': 'https://i.vimeocdn.com/video/797111186_200x150.webp',
               'thumbnail_large': 'https://i.vimeocdn.com/video/797111186_640.webp',
-            }]
-          }
-        }
+            }],
+          },
+        },
       }).should.equal('https://i.vimeocdn.com/video/797111186_100x75.png');
     });
   });

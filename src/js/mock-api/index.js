@@ -51,7 +51,7 @@ import { getCrawlersData, getNextCrawlersData } from './crawlers-page/crawlers-p
 import {
   getDefaultSocialGraphData,
   getOfficerComplaintSocialGraphData,
-  getThresholdThreeSocialGraphData
+  getThresholdThreeSocialGraphData,
 } from './social-graph-page/social-graph-page';
 import { modalVideoInfo } from './headers/slim-header';
 
@@ -91,7 +91,7 @@ let mailChimpUrl = MAIL_CHIMP_URL.slice(1);
 axiosMockClient.onPost(mailChimpUrl, { email: 'valid@email.com' }).reply(200, { 'success': true });
 axiosMockClient.onPost(mailChimpUrl, { email: 'invalid@email.com' })
   .reply(400, {
-    'detail': 'invalid@email.com looks fake or invalid, please enter a real email address.', 'success': false
+    'detail': 'invalid@email.com looks fake or invalid, please enter a real email address.', 'success': false,
   });
 
 axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'Ke', contentType: 'OFFICER' } }).reply(() => {

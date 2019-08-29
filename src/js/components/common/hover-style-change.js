@@ -6,7 +6,7 @@ export default class HoverStyleChange extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hover: false
+      hover: false,
     };
     this.onMouseOut = () => { this.setState({ hover: false }); };
     this.onMouseOver = () => { this.setState({ hover: true }); };
@@ -35,5 +35,5 @@ export default class HoverStyleChange extends Component {
 
 HoverStyleChange.propTypes = {
   children: PropTypes.element,
-  styleChange: PropTypes.object
+  styleChange: PropTypes.object,
 };

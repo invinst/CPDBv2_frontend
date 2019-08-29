@@ -10,7 +10,7 @@ export default function (ComponentClass) {
       this._beforePrint = this._beforePrint.bind(this);
       this._afterPrint = this._afterPrint.bind(this);
       this.state = {
-        printMode: false
+        printMode: false,
       };
     }
 

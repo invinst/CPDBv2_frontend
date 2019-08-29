@@ -25,7 +25,7 @@ describe('EditableSection component', function () {
   const fields = {
     a: RichTextFieldFactory.build({ name: 'a' }, { blockTexts: ['A'] }),
     b: StringFieldFactory.build({ name: 'b', value: 'B' }),
-    c: FieldFactory.build({ name: 'officers', type: 'officers_list', value: [{ id: 1, fullName: 'Foo' }] })
+    c: FieldFactory.build({ name: 'officers', type: 'officers_list', value: [{ id: 1, fullName: 'Foo' }] }),
   };
 
   afterEach(function () {
@@ -49,7 +49,7 @@ describe('EditableSection component', function () {
       sectionEditModeOn: true,
       turnOffSectionEditMode,
       turnOnSectionEditMode,
-      onSaveForm: instance.handleSaveForm
+      onSaveForm: instance.handleSaveForm,
     });
     subComponent.props.fieldProps.a.value.getCurrentContent().getFirstBlock().getText()
       .should.eql('A');
@@ -94,7 +94,7 @@ describe('EditableSection component', function () {
     const rootEl = document.createElement('DIV');
     instance = render(<WrappedComponent/>, rootEl);
     instance = render(<WrappedComponent fields={ {
-      a: RichTextFieldFactory.build({}, { blockTexts: ['b'] })
+      a: RichTextFieldFactory.build({}, { blockTexts: ['b'] }),
     } }/>, rootEl);
     instance.state.fields.a.value.getCurrentContent().getFirstBlock().getText().should.eql('b');
   });
@@ -103,7 +103,7 @@ describe('EditableSection component', function () {
     const rootEl = document.createElement('DIV');
     instance = render(<WrappedComponent/>, rootEl);
     instance = render(<WrappedComponent fields={ {
-      a: null
+      a: null,
     } }/>, rootEl);
     should.not.exist(instance.state.fields.a);
   });

@@ -4,7 +4,7 @@ import WidgetWrapper, {
   HeaderWidget,
   GeoInfoWidget,
   AllegationCountWidget,
-  ListWidget
+  ListWidget,
 } from './widgets';
 import { roundedPercentile } from 'utils/calculations';
 

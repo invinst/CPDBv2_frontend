@@ -12,5 +12,5 @@ export default handleActions({
     return (action.payload.message || {})['tags'] || null;
   },
   [UPDATE_DOCUMENT_PAGE_REQUEST_START]: (state, action) => null,
-  [UPDATE_DOCUMENT_PAGE_REQUEST_SUCCESS]: (state, action) => null
+  [UPDATE_DOCUMENT_PAGE_REQUEST_SUCCESS]: (state, action) => null,
 }, null);

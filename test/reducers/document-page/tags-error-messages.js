@@ -21,8 +21,8 @@ describe('tagsErrorMessages reducer', function () {
         payload: {
           message: {
             tags: ['This is error message.'],
-          }
-        }
+          },
+        },
       }
     ).should.eql(['This is error message.']);
   });
@@ -32,7 +32,7 @@ describe('tagsErrorMessages reducer', function () {
       { tagsErrorMessages: ['This is error message.'] },
       {
         type: UPDATE_DOCUMENT_PAGE_REQUEST_START,
-        payload: {}
+        payload: {},
       }
     )).be.null();
   });
@@ -42,7 +42,7 @@ describe('tagsErrorMessages reducer', function () {
       { tagsErrorMessages: ['This is error message.'] },
       {
         type: UPDATE_DOCUMENT_PAGE_REQUEST_SUCCESS,
-        payload: {}
+        payload: {},
       }
     )).be.null();
   });

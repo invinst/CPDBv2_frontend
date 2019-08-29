@@ -33,7 +33,7 @@ describe('Dropdown component', function () {
     );
     instance.state.should.eql({
       open: false,
-      selectedIndex: 0
+      selectedIndex: 0,
     });
   });
 
@@ -45,7 +45,7 @@ describe('Dropdown component', function () {
       />
     );
     instance.setState({
-      open: true
+      open: true,
     });
     findRenderedDOMComponentWithClass(instance, 'test--dropdown-menu');
 
@@ -82,7 +82,7 @@ describe('Dropdown component', function () {
     );
     const dropdown = findRenderedComponentWithType(instance, Dropdown);
     dropdown.setState({
-      open: true
+      open: true,
     });
 
     const firstMenuItem = scryRenderedDOMComponentsWithClass(instance, 'test--dropdown-menu-item')[0];
@@ -102,7 +102,7 @@ describe('Dropdown component', function () {
       />
     );
     instance.setState({
-      open: true
+      open: true,
     });
 
     const dropdownDOM = findDOMNode(instance);

@@ -432,7 +432,7 @@ describe('Search Page', function () {
     it('should display gradient when window height is small', function () {
       browser.setViewportSize({
         width: 1000,
-        height: 800
+        height: 800,
       });
       searchPage.input.waitForVisible();
       searchPage.input.setValue('Ke');
@@ -446,7 +446,7 @@ describe('Search Page', function () {
     it('should not display gradient when content is fully shown', function () {
       browser.setViewportSize({
         width: 1000,
-        height: 1200
+        height: 1200,
       });
       searchPage.input.waitForVisible();
       searchPage.input.setValue('Ke');
@@ -465,7 +465,7 @@ describe('Search Page', function () {
       searchPage.officerPreviewPaneSection.neighborhoodPane.waitForVisible();
       searchPage.officerPreviewPaneSection.listMostOfficers.count.should.eql(2);
       searchPage.officerPreviewPaneSection.listMostOfficers.click();
-      browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/$/);
+      browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/$/);
     });
 
     it('should go to data tool when click anywhere', function () {
@@ -491,7 +491,7 @@ describe('Search Page', function () {
       searchPage.rankPreviewPaneSection.previewPane.waitForVisible();
       searchPage.rankPreviewPaneSection.listMostOfficers.count.should.eql(2);
       searchPage.rankPreviewPaneSection.listMostOfficers.click();
-      browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/$/);
+      browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/$/);
     });
   });
 
@@ -520,7 +520,7 @@ describe('Search Page', function () {
     it('should display gradient when window height is small', function () {
       browser.setViewportSize({
         width: 1000,
-        height: 500
+        height: 500,
       });
       searchPage.crPreviewPaneSection.gradient.waitForVisible();
     });
@@ -532,7 +532,7 @@ describe('Search Page', function () {
 
     it('should redirect to officer profile when clicking on officer item', function () {
       searchPage.crPreviewPaneSection.accusedOfficers.click();
-      browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/$/);
+      browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/$/);
     });
   });
 });

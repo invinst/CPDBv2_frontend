@@ -8,7 +8,7 @@ const BlockTitle = ({ children, ...props }) => (
 );
 
 BlockTitle.propTypes = {
-  children: PropTypes.string
+  children: PropTypes.string,
 };
 
 export default BlockTitle;

@@ -15,8 +15,9 @@ import {
   TURN_OFF_DOCUMENT_TEXT_CONTENT_EDIT_MODE,
   UPDATE_DOCUMENT_PAGE_REQUEST_START,
   UPDATE_DOCUMENT_PAGE_REQUEST_SUCCESS,
-  UPDATE_DOCUMENT_PAGE_REQUEST_FAILURE
+  UPDATE_DOCUMENT_PAGE_REQUEST_FAILURE,
 } from 'utils/constants';
+import { trackDocumentEdit } from 'utils/google_analytics_tracking';
 
 
 export const fetchDocument = documentId => (authenticatedGet(
@@ -36,18 +37,20 @@ export const turnOnDocumentTextContentEditMode = createAction(TURN_ON_DOCUMENT_T
 
 export const turnOffDocumentTextContentEditMode = createAction(TURN_OFF_DOCUMENT_TEXT_CONTENT_EDIT_MODE, () => {});
 
-export const updateDocument = obj => {
+export const updateDocument = fieldName => obj => {
   const data = chain(obj.fields)
     .keyBy('key')
     .mapValues('value')
     .value();
+
+  trackDocumentEdit(data.id, fieldName);
 
   return authenticatedPatch(
     `${DOCUMENTS_URL}${data.id}/`,
     [
       UPDATE_DOCUMENT_PAGE_REQUEST_START,
       UPDATE_DOCUMENT_PAGE_REQUEST_SUCCESS,
-      UPDATE_DOCUMENT_PAGE_REQUEST_FAILURE
+      UPDATE_DOCUMENT_PAGE_REQUEST_FAILURE,
     ]
   )(data);
 };

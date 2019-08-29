@@ -13,11 +13,11 @@ describe('UnitProfilePage component', function () {
   const mockStore = MockStore();
   const store = mockStore({
     unitProfilePage: {
-      summary: {}
+      summary: {},
     },
     breadcrumb: {
-      breadcrumbs: []
-    }
+      breadcrumbs: [],
+    },
   });
   let instance;
 

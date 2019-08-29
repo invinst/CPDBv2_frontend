@@ -7,7 +7,7 @@ describe('edit-mode-on reducer', function () {
   it('should have initial state', function () {
     editModeOn(undefined, {}).should.eql({
       [TRR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: false,
-      [TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false
+      [TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false,
     });
   });
 
@@ -15,29 +15,29 @@ describe('edit-mode-on reducer', function () {
     editModeOn(
       {
         [TRR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: false,
-        [TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false
+        [TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false,
       },
       {
         type: TRR_EDIT_MODE,
-        payload: { editType: TRR_EDIT_TYPES.NO_ATTACHMENT_TEXT, mode: true }
+        payload: { editType: TRR_EDIT_TYPES.NO_ATTACHMENT_TEXT, mode: true },
       }
     ).should.eql( {
       [TRR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: true,
-      [TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false
+      [TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false,
     });
 
     editModeOn(
       {
         [TRR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: true,
-        [TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false
+        [TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false,
       },
       {
         type: TRR_EDIT_MODE,
-        payload: { editType: TRR_EDIT_TYPES.NO_ATTACHMENT_TEXT, mode: false }
+        payload: { editType: TRR_EDIT_TYPES.NO_ATTACHMENT_TEXT, mode: false },
       }
     ).should.eql( {
       [TRR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: false,
-      [TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false
+      [TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false,
     });
   });
 
@@ -45,29 +45,29 @@ describe('edit-mode-on reducer', function () {
     editModeOn(
       {
         [TRR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: true,
-        [TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: true
+        [TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: true,
       },
       {
         type: LOCATION_CHANGE,
-        payload: { pathname: '/trr/1/' }
+        payload: { pathname: '/trr/1/' },
       }
     ).should.eql({
       [TRR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: false,
-      [TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false
+      [TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false,
     });
 
     editModeOn(
       {
         [TRR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: true,
-        [TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: true
+        [TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: true,
       },
       {
         type: LOCATION_CHANGE,
-        payload: { pathname: '/edit/trr/1/' }
+        payload: { pathname: '/edit/trr/1/' },
       }
     ).should.eql({
       [TRR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: true,
-      [TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: true
+      [TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: true,
     });
   });
 });

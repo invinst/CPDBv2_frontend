@@ -1,6 +1,6 @@
 import {
   sanFranciscoTextFamily, softBlackColor, mediumGrayColor, whiteTwoColor,
-  sugarCaneColor, accentColor
+  sugarCaneColor, accentColor,
 } from 'utils/styles';
 
 
@@ -16,20 +16,20 @@ export const unitNameWrapperStyle = (scrollPosition) => ({
   color: scrollPosition === 'bottom' ? sugarCaneColor: softBlackColor,
   display: 'inline-block',
   float: 'left',
-  paddingTop: '8px'
+  paddingTop: '8px',
 });
 
 export const unitNameStyle = (scrollPosition) => ({
   fontSize: '18px',
   fontWeight: 500,
-  color: scrollPosition === 'bottom' ? 'white' : mediumGrayColor
+  color: scrollPosition === 'bottom' ? 'white' : mediumGrayColor,
 });
 
 export const wrapperStyle = (scrollPosition) => ({
   height: `${height}px`,
   margin: '0px 16px',
   boxSizing: 'border-box',
-  borderBottom: scrollPosition === 'bottom' ? 'none': `solid 1px ${whiteTwoColor}`
+  borderBottom: scrollPosition === 'bottom' ? 'none': `solid 1px ${whiteTwoColor}`,
 });
 
 export const outerStyle = (scrollPosition) => {
@@ -40,18 +40,18 @@ export const outerStyle = (scrollPosition) => {
       right: 0,
       zIndex: 2,
       top: `${shareableHeaderHeight}px`,
-      backgroundColor: accentColor
+      backgroundColor: accentColor,
     };
   }
 
   return {
     position: 'relative',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   };
 };
 
 export const outerPlaceHolderStyle = (scrollPosition) => ({
   position: 'relative',
   height: `${height}px`,
-  display: scrollPosition === 'bottom' ? 'inherit' : 'none'
+  display: scrollPosition === 'bottom' ? 'inherit' : 'none',
 });

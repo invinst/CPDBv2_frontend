@@ -9,9 +9,9 @@ export const clientConfig = {
   responseType: 'json',
   headers: {
     common: {
-      'X-CSRFToken': Cookies.get('csrftoken')
-    }
-  }
+      'X-CSRFToken': Cookies.get('csrftoken'),
+    },
+  },
 };
 
 const client = axios.create(clientConfig);

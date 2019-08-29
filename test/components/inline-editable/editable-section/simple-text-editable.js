@@ -2,7 +2,7 @@ import React from 'react';
 import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithTag,
-  Simulate
+  Simulate,
 } from 'react-addons-test-utils';
 import { spy } from 'sinon';
 
@@ -28,8 +28,8 @@ describe('SimpleTextEditable component', function () {
             editModeOn: true,
             value: 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)',
             onChange: onChangeSpy,
-          }
-        }
+          },
+        },
       },
       <SimpleTextEditable className='simple-text-editable' fieldName='title' placeholder='Title'/>
     );

@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import * as constants from 'utils/constants';
 import {
   turnOnCarouselComplaintHeaderEditMode,
-  turnOffCarouselComplaintHeaderEditMode
+  turnOffCarouselComplaintHeaderEditMode,
 } from 'actions/landing-page/complaint-summaries';
 import {
   cardsSelector,
-  getCarouselComplaintHeaderEditModeOn
+  getCarouselComplaintHeaderEditModeOn,
 } from 'selectors/landing-page/complaint-summaries';
 import ComplaintSummaries from 'components/landing-page/complaint-summaries';
 import { getCMSFields } from 'selectors/cms';
@@ -20,14 +20,14 @@ function mapStateToProps(state, ownProps) {
     cards: cardsSelector(state),
     fields: getCMSFields(constants.LANDING_PAGE_ID)(state),
     sectionEditModeOn: getCarouselComplaintHeaderEditModeOn(state),
-    pathname: ownProps.pathname
+    pathname: ownProps.pathname,
   };
 }
 
 const mapDispatchToProps = {
   onSaveForm: updatePage(constants.LANDING_PAGE_ID),
   turnOnSectionEditMode: turnOnCarouselComplaintHeaderEditMode,
-  turnOffSectionEditMode: turnOffCarouselComplaintHeaderEditMode
+  turnOffSectionEditMode: turnOffCarouselComplaintHeaderEditMode,
 };
 
 export default connect(

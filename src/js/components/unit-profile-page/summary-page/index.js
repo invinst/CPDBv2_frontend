@@ -9,7 +9,7 @@ import { wrapperStyle } from './summary-page.style.js';
 export default class SummaryPage extends Component {
   render() {
     const {
-      activeMembers, totalMembers, memberFacets, complaintCount, sustainedComplaintCount, complaintFacets
+      activeMembers, totalMembers, memberFacets, complaintCount, sustainedComplaintCount, complaintFacets,
     } = this.props;
     return (
       <ResponsiveFluidWidthComponent>
@@ -31,5 +31,5 @@ SummaryPage.propTypes = {
   memberFacets: PropTypes.array,
   complaintCount: PropTypes.number,
   sustainedComplaintCount: PropTypes.number,
-  complaintFacets: PropTypes.array
+  complaintFacets: PropTypes.array,
 };

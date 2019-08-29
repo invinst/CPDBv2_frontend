@@ -5,7 +5,7 @@ import {
   SUGGESTION_REQUEST_SUCCESS,
   SUGGESTION_REQUEST_START,
   LOCATION_CHANGE,
-  SEARCH_CATEGORIES
+  SEARCH_CATEGORIES,
 } from 'utils/constants';
 
 
@@ -15,5 +15,5 @@ export default handleActions({
   [LOCATION_CHANGE]: (state, action) => {
     const contentType = action.payload.query.type;
     return SEARCH_CATEGORIES.includes(contentType) ? [contentType] : state;
-  }
+  },
 }, []);

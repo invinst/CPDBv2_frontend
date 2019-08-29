@@ -16,16 +16,16 @@ describe('officer new timeline actions', function () {
         types: [
           OFFICER_NEW_TIMELINE_ITEMS_REQUEST_START,
           OFFICER_NEW_TIMELINE_ITEMS_REQUEST_SUCCESS,
-          OFFICER_NEW_TIMELINE_ITEMS_REQUEST_FAILURE
+          OFFICER_NEW_TIMELINE_ITEMS_REQUEST_FAILURE,
         ],
         payload: {
           request: {
             url: `${OFFICER_URL}123/new-timeline-items/`,
             params: undefined,
             adapter: null,
-            cancelToken: undefined
-          }
-        }
+            cancelToken: undefined,
+          },
+        },
       });
     });
   });
@@ -34,7 +34,7 @@ describe('officer new timeline actions', function () {
     it('should return the right action', function () {
       changeFilter('COMPLAINTS').should.eql({
         type: OFFICER_NEW_TIMELINE_ITEMS_CHANGE_FILTER,
-        payload: 'COMPLAINTS'
+        payload: 'COMPLAINTS',
       });
     });
   });

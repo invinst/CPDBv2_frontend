@@ -13,7 +13,7 @@ describe('documents overview page actions', function () {
     cancel = spy();
     stub(CancelToken, 'source').returns({
       token: 'token',
-      cancel
+      cancel,
     });
   });
 
@@ -27,16 +27,16 @@ describe('documents overview page actions', function () {
         types: [
           constants.DOCUMENT_OVERVIEW_REQUEST_START,
           constants.DOCUMENT_OVERVIEW_REQUEST_SUCCESS,
-          constants.DOCUMENT_OVERVIEW_REQUEST_FAILURE
+          constants.DOCUMENT_OVERVIEW_REQUEST_FAILURE,
         ],
         payload: {
           request: {
             url: constants.DOCUMENTS_URL,
             params: {},
             adapter: null,
-            cancelToken: 'token'
-          }
-        }
+            cancelToken: 'token',
+          },
+        },
       });
     });
 
@@ -45,18 +45,18 @@ describe('documents overview page actions', function () {
         types: [
           constants.DOCUMENT_OVERVIEW_REQUEST_START,
           constants.DOCUMENT_OVERVIEW_REQUEST_SUCCESS,
-          constants.DOCUMENT_OVERVIEW_REQUEST_FAILURE
+          constants.DOCUMENT_OVERVIEW_REQUEST_FAILURE,
         ],
         payload: {
           request: {
             url: constants.DOCUMENTS_URL,
             params: {
-              match: '1001'
+              match: '1001',
             },
             adapter: null,
-            cancelToken: 'token'
-          }
-        }
+            cancelToken: 'token',
+          },
+        },
       });
     });
 
@@ -74,7 +74,7 @@ describe('documents overview page actions', function () {
         types: [
           constants.DOCUMENT_OVERVIEW_REQUEST_START,
           constants.DOCUMENT_OVERVIEW_REQUEST_SUCCESS,
-          constants.DOCUMENT_OVERVIEW_REQUEST_FAILURE
+          constants.DOCUMENT_OVERVIEW_REQUEST_FAILURE,
         ],
         payload: {
           request: {
@@ -83,10 +83,10 @@ describe('documents overview page actions', function () {
             adapter: null,
             cancelToken: 'token',
             headers: {
-              Authorization: 'Token authenticated_token'
-            }
-          }
-        }
+              Authorization: 'Token authenticated_token',
+            },
+          },
+        },
       });
       Cookies.get.restore();
     });
@@ -97,21 +97,21 @@ describe('documents overview page actions', function () {
         types: [
           constants.DOCUMENT_OVERVIEW_REQUEST_START,
           constants.DOCUMENT_OVERVIEW_REQUEST_SUCCESS,
-          constants.DOCUMENT_OVERVIEW_REQUEST_FAILURE
+          constants.DOCUMENT_OVERVIEW_REQUEST_FAILURE,
         ],
         payload: {
           request: {
             url: constants.DOCUMENTS_URL,
             params: {
-              match: '1001'
+              match: '1001',
             },
             adapter: null,
             cancelToken: 'token',
             headers: {
-              Authorization: 'Token authenticated_token'
-            }
-          }
-        }
+              Authorization: 'Token authenticated_token',
+            },
+          },
+        },
       });
       Cookies.get.restore();
     });

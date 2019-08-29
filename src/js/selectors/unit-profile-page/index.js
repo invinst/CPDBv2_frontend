@@ -17,14 +17,14 @@ export const summarySelector = createSelector(
     memberFacets: _sortRecords(get(memberRecords, 'facets', [])),
     complaintCount: get(complaintRecords, 'count', 0),
     sustainedComplaintCount: get(complaintRecords, 'sustained_count', 0),
-    complaintFacets: _facetsToCamelCase(_sortRecords(get(complaintRecords, 'facets', [])))
+    complaintFacets: _facetsToCamelCase(_sortRecords(get(complaintRecords, 'facets', []))),
   })
 );
 
 const _sortRecords = records => (
   map(records, ({ name, entries }) => ({
     name,
-    entries: sortBy(entries, ['name'])
+    entries: sortBy(entries, ['name']),
   }))
 );
 
@@ -34,7 +34,7 @@ const _facetsToCamelCase = facets => (
     entries: map(entries, entry => ({
       name: entry.name,
       count: entry.count,
-      sustainedCount: entry['sustained_count']
-    }))
+      sustainedCount: entry['sustained_count'],
+    })),
   }))
 );

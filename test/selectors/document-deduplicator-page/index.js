@@ -1,7 +1,7 @@
 import {
   documentsSelector,
   hasMoreSelector,
-  nextParamsSelector
+  nextParamsSelector,
 } from 'selectors/document-deduplicator-page';
 
 
@@ -11,7 +11,7 @@ describe('Document deduplicator page selectors', function () {
       const state = {
         documentDeduplicatorPage: {
           documentsOrder: {
-            data: [1, 4677]
+            data: [1, 4677],
           },
           documents: {
             data: {
@@ -25,7 +25,7 @@ describe('Document deduplicator page selectors', function () {
                 'downloads_count': 1,
                 'file_type': 'document',
                 'url': 'http://document/link/4677',
-                show: true
+                show: true,
               },
               '1': {
                 id: 1,
@@ -37,11 +37,11 @@ describe('Document deduplicator page selectors', function () {
                 'downloads_count': 1,
                 'file_type': 'document',
                 'url': 'http://document/link/1',
-                show: true
-              }
-            }
-          }
-        }
+                show: true,
+              },
+            },
+          },
+        },
       };
 
       documentsSelector(state).should.eql([
@@ -55,7 +55,7 @@ describe('Document deduplicator page selectors', function () {
           downloadsCount: 1,
           fileType: 'document',
           url: 'http://document/link/1',
-          show: true
+          show: true,
         },
         {
           id: 4677,
@@ -67,8 +67,8 @@ describe('Document deduplicator page selectors', function () {
           downloadsCount: 1,
           fileType: 'document',
           url: 'http://document/link/4677',
-          show: true
-        }
+          show: true,
+        },
       ]);
     });
   });
@@ -78,9 +78,9 @@ describe('Document deduplicator page selectors', function () {
       const state = {
         documentDeduplicatorPage: {
           pagination: {
-            next: 'https://api.com/docs/?limit=20&offset=40'
-          }
-        }
+            next: 'https://api.com/docs/?limit=20&offset=40',
+          },
+        },
       };
 
       hasMoreSelector(state).should.eql(true);
@@ -90,9 +90,9 @@ describe('Document deduplicator page selectors', function () {
       const state = {
         documentDeduplicatorPage: {
           pagination: {
-            next: null
-          }
-        }
+            next: null,
+          },
+        },
       };
 
       hasMoreSelector(state).should.eql(false);
@@ -104,14 +104,14 @@ describe('Document deduplicator page selectors', function () {
       const state = {
         documentDeduplicatorPage: {
           pagination: {
-            next: 'https://api.com/docs/?limit=20&offset=40'
-          }
-        }
+            next: 'https://api.com/docs/?limit=20&offset=40',
+          },
+        },
       };
 
       nextParamsSelector(state).should.eql({
         limit: '20',
-        offset: '40'
+        offset: '40',
       });
     });
   });

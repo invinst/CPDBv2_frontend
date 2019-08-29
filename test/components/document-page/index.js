@@ -27,11 +27,11 @@ describe('DocumentPage component', function () {
   const state = {
     headers: {
       shareableHeader: {
-        scrollPosition: null
+        scrollPosition: null,
       },
     },
     breadcrumb: {
-      breadcrumbs: []
+      breadcrumbs: [],
     },
     routing: {
       locationBeforeTransitions: {
@@ -40,8 +40,8 @@ describe('DocumentPage component', function () {
         hash: '',
         action: 'POP',
         key: '7g7rqv',
-        query: {}
-      }
+        query: {},
+      },
     },
     documentPage: {
       isRequesting: false,
@@ -59,46 +59,46 @@ describe('DocumentPage component', function () {
         'crawler_name': 'Chicago COPA',
         'linked_documents': [{
           'id': 14192,
-          'preview_image_url': 'https://assets.documentcloud.org/documents/5680385/pages/CRID-1083633.gif'
+          'preview_image_url': 'https://assets.documentcloud.org/documents/5680385/pages/CRID-1083633.gif',
         }, {
           'id': 14188,
-          'preview_image_url': 'https://assets.documentcloud.org/documents/5680389/pages/CRID-1083633.gif'
+          'preview_image_url': 'https://assets.documentcloud.org/documents/5680389/pages/CRID-1083633.gif',
         }, {
           'id': 14191,
-          'preview_image_url': 'https://assets.documentcloud.org/documents/5680386/pages/CRID-1083633.gif'
+          'preview_image_url': 'https://assets.documentcloud.org/documents/5680386/pages/CRID-1083633.gif',
         }, {
           'id': 14189,
-          'preview_image_url': 'https://assets.documentcloud.org/documents/5680388/pages/CRID-1083633.gif'
+          'preview_image_url': 'https://assets.documentcloud.org/documents/5680388/pages/CRID-1083633.gif',
         }, {
           'id': 14190,
-          'preview_image_url': 'https://assets.documentcloud.org/documents/5680387/pages/CRID-1083633.gif'
+          'preview_image_url': 'https://assets.documentcloud.org/documents/5680387/pages/CRID-1083633.gif',
         }, {
           'id': 17570,
-          'preview_image_url': 'https://assets.documentcloud.org/documents/5670367/pages/CRID-1083633.gif'
+          'preview_image_url': 'https://assets.documentcloud.org/documents/5670367/pages/CRID-1083633.gif',
         }, {
           'id': 17571,
-          'preview_image_url': 'https://assets.documentcloud.org/documents/5670366/pages/CRID-1083633.gif'
+          'preview_image_url': 'https://assets.documentcloud.org/documents/5670366/pages/CRID-1083633.gif',
         }, {
           'id': 17890,
-          'preview_image_url': 'https://assets.documentcloud.org/documents/5670371/pages/CRID-1083633.gif'
+          'preview_image_url': 'https://assets.documentcloud.org/documents/5670371/pages/CRID-1083633.gif',
         }, {
           'id': 17891,
-          'preview_image_url': 'https://assets.documentcloud.org/documents/5670368/pages/CRID-1083633.gif'
+          'preview_image_url': 'https://assets.documentcloud.org/documents/5670368/pages/CRID-1083633.gif',
         }, {
           'id': 17892,
-          'preview_image_url': 'https://assets.documentcloud.org/documents/5670370/pages/CRID-1083633.gif'
+          'preview_image_url': 'https://assets.documentcloud.org/documents/5670370/pages/CRID-1083633.gif',
         }, {
           'id': 17893,
-          'preview_image_url': 'https://assets.documentcloud.org/documents/5670369/pages/CRID-1083633.gif'
+          'preview_image_url': 'https://assets.documentcloud.org/documents/5670369/pages/CRID-1083633.gif',
         }, {
           'id': 17894,
-          'preview_image_url': 'https://assets.documentcloud.org/documents/5670494/pages/CRID-1083633.gif'
+          'preview_image_url': 'https://assets.documentcloud.org/documents/5670494/pages/CRID-1083633.gif',
         }, {
           'id': 17895,
-          'preview_image_url': 'https://assets.documentcloud.org/documents/5670495/pages/CRID-1083633.gif'
+          'preview_image_url': 'https://assets.documentcloud.org/documents/5670495/pages/CRID-1083633.gif',
         }, {
           'id': 17896,
-          'preview_image_url': 'https://assets.documentcloud.org/documents/5670496/pages/CRID-1083633.gif'
+          'preview_image_url': 'https://assets.documentcloud.org/documents/5670496/pages/CRID-1083633.gif',
         }],
         'pages': 5,
         'last_updated_by': 'John Doe',
@@ -108,7 +108,7 @@ describe('DocumentPage component', function () {
       },
       titleEditModeOn: false,
       tagsEditModeOn: false,
-      textContentEditModeOn: false
+      textContentEditModeOn: false,
     },
   };
 
@@ -159,8 +159,9 @@ describe('DocumentPage component', function () {
       { name: 'CRID / UID', value: 'CR 1083633', to: '/complaint/1083633/' },
       {
         name: 'Source',
-        value: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf',
-        url: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf'
+        value: 'chicagocopa.org',
+        tooltip: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf',
+        url: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf',
       },
       { name: 'Crawler', value: 'Chicago COPA' },
       { name: 'Date', value: 'Jan 9, 2019' },
@@ -212,23 +213,23 @@ describe('DocumentPage component', function () {
       attachmentId: {
         type: 'number',
         key: 'id',
-        value: 14193
+        value: 14193,
       },
       title: {
         type: 'string',
         key: 'title',
-        value: 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)'
+        value: 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)',
       },
       tags: {
         type: 'array',
         key: 'tags',
-        value: ['tag1', 'tag2']
+        value: ['tag1', 'tag2'],
       },
       textContent: {
         type: 'string',
         key: 'text_content',
-        value: 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE'
-      }
+        value: 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE',
+      },
     });
 
     const editableTextContent = editableTextBoxes[1];
@@ -239,23 +240,23 @@ describe('DocumentPage component', function () {
       attachmentId: {
         type: 'number',
         key: 'id',
-        value: 14193
+        value: 14193,
       },
       title: {
         type: 'string',
         key: 'title',
-        value: 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)'
+        value: 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)',
       },
       tags: {
         type: 'array',
         key: 'tags',
-        value: ['tag1', 'tag2']
+        value: ['tag1', 'tag2'],
       },
       textContent: {
         type: 'string',
         key: 'text_content',
-        value: 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE'
-      }
+        value: 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE',
+      },
     });
 
     const lastEdited = findRenderedDOMComponentWithClass(instance, 'main-section-last-edited');

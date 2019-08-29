@@ -18,38 +18,38 @@ describe('PrintAttachments component', function () {
         title: 'Audio Clip',
         url: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/263786121',
         previewImageUrl: 'lvh.me',
-        fileType: 'audio'
+        fileType: 'audio',
       },
       {
         title: 'Audio Clip',
         url: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/263786121',
         previewImageUrl: 'lvh.me',
-        fileType: 'audio'
+        fileType: 'audio',
       },
       {
         title: 'Video Clip',
         url: 'https://player.vimeo.com/video/166377991',
         previewImageUrl: 'lvh.me',
-        fileType: 'video'
+        fileType: 'video',
       },
       {
         title: 'Document',
         url: 'https://www.documentcloud.org/documents/3108640/CRID-1078616-TRR-Rialmo.pdf',
         previewImageUrl: 'lvh.me',
-        fileType: 'document'
+        fileType: 'document',
       },
       {
         title: 'Document',
         url: 'https://www.documentcloud.org/documents/3108640/CRID-1078616-TRR-Rialmo.pdf',
         previewImageUrl: 'lvh.me',
-        fileType: 'document'
+        fileType: 'document',
       },
       {
         title: 'Document',
         url: 'https://www.documentcloud.org/documents/3108640/CRID-1078616-TRR-Rialmo.pdf',
         previewImageUrl: 'lvh.me',
-        fileType: 'document'
-      }
+        fileType: 'document',
+      },
     ];
     instance = renderIntoDocument(<PrintAttachments items={ items }/>);
     scryRenderedDOMComponentsWithClass(instance, 'attachments-content').should.have.length(1);

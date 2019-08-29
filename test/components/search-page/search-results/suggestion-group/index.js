@@ -2,7 +2,7 @@ import React from 'react';
 import { stub, spy } from 'sinon';
 import InfiniteScroll from 'react-infinite-scroller';
 import {
-  renderIntoDocument, scryRenderedComponentsWithType, findRenderedComponentWithType
+  renderIntoDocument, scryRenderedComponentsWithType, findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 
@@ -59,7 +59,7 @@ describe('SuggestionGroup component', function () {
         header='OFFICER'
         showMoreButton={ true }
         focusedItem={ {
-          uniqueKey: `${MORE_BUTTON}-OFFICER`
+          uniqueKey: `${MORE_BUTTON}-OFFICER`,
         } }
       />
     );
@@ -71,7 +71,7 @@ describe('SuggestionGroup component', function () {
     const searchText = 'abc';
     const nextParams = {
       limit: 20,
-      offset: 20
+      offset: 20,
     };
     const getSuggestionWithContentType = stub().returns({ catch: stub() });
 

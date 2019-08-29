@@ -11,8 +11,8 @@ describe('complaint-summaries selectors', function () {
   beforeEach(function () {
     state = {
       landingPage: {
-        complaintSummaries: {}
-      }
+        complaintSummaries: {},
+      },
     };
   });
 
@@ -24,7 +24,7 @@ describe('complaint-summaries selectors', function () {
 
     it('should drop out unknown category', function () {
       state.landingPage.complaintSummaries.cards = [RawComplaintSummaryFactory.build({
-        'category_names': ['Use Of Forces', 'Unknown']
+        'category_names': ['Use Of Forces', 'Unknown'],
       })];
       const result = cardsSelector(state);
       result[0].categoryNames.should.have.length(1);

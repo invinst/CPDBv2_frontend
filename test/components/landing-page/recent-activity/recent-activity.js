@@ -3,7 +3,7 @@ import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
   scryRenderedComponentsWithType,
-  findRenderedComponentWithType
+  findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 import { unmountComponentSuppressError } from 'utils/test';
 import { findDOMNode } from 'react-dom';
@@ -57,9 +57,9 @@ describe('Recent Activity components', function () {
         'percentileAllegation': '99.987',
         'percentileAllegationCivilian': '99.984',
         'percentileAllegationInternal': '99.675',
-        'percentileTrr': '70.069'
+        'percentileTrr': '70.069',
       },
-      'backgroundColor': '#f0201e'
+      'backgroundColor': '#f0201e',
     },
     'officer2': {
       'id': 3454,
@@ -72,10 +72,10 @@ describe('Recent Activity components', function () {
         'percentileAllegation': '99.924',
         'percentileAllegationCivilian': '99.908',
         'percentileAllegationInternal': '99.566',
-        'percentileTrr': '74.440'
+        'percentileTrr': '74.440',
       },
-      'backgroundColor': '#f0201e'
-    }
+      'backgroundColor': '#f0201e',
+    },
   }];
 
   beforeEach(function () {
@@ -129,7 +129,7 @@ describe('Recent Activity components', function () {
       <RecentActivity cards={ [
         OfficerCardFactory.build({ kind: 'single_officer' }),
         OfficerCardFactory.build({ kind: 'single_officer' }),
-        OfficerCardFactory.build({ kind: 'single_officer' })
+        OfficerCardFactory.build({ kind: 'single_officer' }),
       ] }/>
     );
     const carousel = findRenderedComponentWithType(instance, Carousel);

@@ -6,10 +6,10 @@ export const buttonStyle = {
   borderRadius: '3px',
   marginRight: '10px',
   padding: '5px 7px',
-  cursor: 'pointer'
+  cursor: 'pointer',
 };
 
 export const hoverButtonStyle = {
   ...buttonStyle,
-  backgroundColor: tomatoPinkColor
+  backgroundColor: tomatoPinkColor,
 };

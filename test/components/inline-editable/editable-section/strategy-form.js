@@ -12,8 +12,8 @@ describe('StrategyForm component', function () {
     selectedStrategyId: 1,
     strategies: [
       { id: 1, name: 'a' },
-      { id: 2, name: 'b' }
-    ]
+      { id: 2, name: 'b' },
+    ],
   };
 
   afterEach(function () {

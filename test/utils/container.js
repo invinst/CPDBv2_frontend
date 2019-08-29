@@ -6,18 +6,18 @@ describe('Container utils', function () {
       const stateProps = {
         fields: 'field prop',
         sectionEditModeOn: true,
-        anotherStateProp: 'a'
+        anotherStateProp: 'a',
       };
 
       const dispatchProps = {
         onSaveForm: 'save form',
         turnOnSectionEditMode: 'turn on',
         turnOffSectionEditMode: 'turn off',
-        anotherDispatchProps: 'b'
+        anotherDispatchProps: 'b',
       };
 
       const ownProps = {
-        style: 'style props'
+        style: 'style props',
       };
 
       mergeEditWrapperStateProps(stateProps, dispatchProps, ownProps).should.eql({
@@ -29,8 +29,8 @@ describe('Container utils', function () {
           sectionEditModeOn: true,
           onSaveForm: 'save form',
           turnOnSectionEditMode: 'turn on',
-          turnOffSectionEditMode: 'turn off'
-        }
+          turnOffSectionEditMode: 'turn off',
+        },
       });
     });
   });

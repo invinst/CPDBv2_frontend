@@ -3,7 +3,7 @@ import { each } from 'lodash';
 
 import authenticationForgotPasswordErrorMessage from 'reducers/authentication/forgot-password-error-message';
 import {
-  RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILURE, RESET_PASSWORD_REQUEST
+  RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILURE, RESET_PASSWORD_REQUEST,
 } from 'utils/constants';
 
 
@@ -16,14 +16,14 @@ describe('authenticationForgotPasswordErrorMessage reducer', function () {
     const message = 'message';
     authenticationForgotPasswordErrorMessage(undefined, {
       type: RESET_PASSWORD_FAILURE,
-      payload: { message }
+      payload: { message },
     }).should.eql(message);
   });
 
   it('should return null on RESET_PASSWORD_SUCCESS, RESET_PASSWORD_REQUEST', function () {
     each([RESET_PASSWORD_SUCCESS, RESET_PASSWORD_REQUEST], (type) => {
       should(authenticationForgotPasswordErrorMessage(undefined, {
-        type: type
+        type: type,
       })).be.null();
     });
   });

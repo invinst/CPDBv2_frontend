@@ -12,7 +12,7 @@ import styles from './officer-card.sass';
 
 export class OfficerCard extends Component {
   renderExtraInfo() {
-    const { birthYear, race, gender, } = this.props;
+    const { birthYear, race, gender } = this.props;
     const age = getCurrentAge(birthYear);
     const ageString = age ? `${age}-year-old` : '';
     const extraInfo = `${ageString} ${race} ${gender}`;
@@ -116,7 +116,7 @@ OfficerCard.propTypes = {
 };
 
 OfficerCard.defaultProps = {
-  openCardInNewPage: false
+  openCardInNewPage: false,
 };
 
 export default OfficerCard;

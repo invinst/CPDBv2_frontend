@@ -6,5 +6,5 @@ import summary from './summary';
 
 export default combineReducers({
   isRequesting,
-  summary
+  summary,
 });

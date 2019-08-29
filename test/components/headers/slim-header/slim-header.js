@@ -23,7 +23,7 @@ class SlimHeaderContextWrapper extends ContextWrapper {
 }
 
 SlimHeaderContextWrapper.childContextTypes = {
-  editModeOn: PropTypes.bool
+  editModeOn: PropTypes.bool,
 };
 
 describe('SlimHeader component', function () {
@@ -35,10 +35,10 @@ describe('SlimHeader component', function () {
       pages: {
         'landing-page': {
           fields: {
-            'navbar_title': RichTextFieldFactory.build({ name: 'navbar_title' })
-          }
-        }
-      }
+            'navbar_title': RichTextFieldFactory.build({ name: 'navbar_title' }),
+          },
+        },
+      },
     },
     headers: {
       slimHeader: {
@@ -47,8 +47,8 @@ describe('SlimHeader component', function () {
         videoInfo: [{
           'thumbnail_small': 'https://i.vimeocdn.com/video/797111186_100x75.webp',
         }],
-      }
-    }
+      },
+    },
   });
 
   beforeEach(function () {
@@ -130,7 +130,7 @@ describe('SlimHeader component', function () {
       );
       let externalLinks = scryRenderedDOMComponentsWithClass(element, 'right-link');
       const dummyEvent = {
-        stopPropagation: spy()
+        stopPropagation: spy(),
       };
       Simulate.click(externalLinks[0], dummyEvent);
       dummyEvent.stopPropagation.called.should.be.true();

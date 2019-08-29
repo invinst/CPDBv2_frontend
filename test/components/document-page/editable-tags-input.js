@@ -1,9 +1,9 @@
 import React from 'react';
-
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
   findRenderedComponentWithType,
+  scryRenderedDOMComponentsWithClass,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
@@ -26,9 +26,9 @@ describe('EditableTagsInput component', function () {
         tags: {
           type: 'array',
           key: 'tags',
-          value: ['tag1', 'tag2']
+          value: ['tag1', 'tag2'],
         },
-      }
+      },
     };
 
     instance = renderIntoDocument(
@@ -37,6 +37,7 @@ describe('EditableTagsInput component', function () {
         title='Tags title'
         fieldName='tags'
         editWrapperStateProps={ editWrapperStateProps }
+        nextDocumentId={ 12345 }
       />
     );
 
@@ -50,6 +51,33 @@ describe('EditableTagsInput component', function () {
 
     const simpleTagsEditable = findRenderedComponentWithType(hoverableEditWrapper, SimpleTagsEditable);
     simpleTagsEditable.props.fieldName.should.eql('tags');
+
+    const nextUntaggedDocumentButton = findRenderedDOMComponentWithClass(instance, 'next-untagged-document-button');
+    nextUntaggedDocumentButton.textContent.should.eql('Next untagged document');
+    nextUntaggedDocumentButton.href.should.containEql('/document/12345/');
+  });
+
+  it('should not render next untagged document button if there is no nextDocumentId', function () {
+    const editWrapperStateProps = {
+      fields: {
+        tags: {
+          type: 'array',
+          key: 'tags',
+          value: ['tag1', 'tag2'],
+        },
+      },
+    };
+
+    instance = renderIntoDocument(
+      <EditableTagsInput
+        className='editable-tags-input'
+        title='Tags title'
+        fieldName='tags'
+        editWrapperStateProps={ editWrapperStateProps }
+      />
+    );
+
+    scryRenderedDOMComponentsWithClass(instance, 'next-untagged-document-button').should.have.length(0);
   });
 
   it('should show error message(s) if there are errorMessages', function () {
@@ -58,9 +86,9 @@ describe('EditableTagsInput component', function () {
         tags: {
           type: 'array',
           key: 'tags',
-          value: ['tag1', 'tag2']
+          value: ['tag1', 'tag2'],
         },
-      }
+      },
     };
 
     instance = renderIntoDocument(

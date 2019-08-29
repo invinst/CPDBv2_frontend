@@ -19,7 +19,7 @@ export default class PercentilesByYear extends Component {
     const radarConfig = {
       hideAxisText: true,
       showGrid: false,
-      showSpineLine: false
+      showSpineLine: false,
     };
 
     const data = yearlyRadarChartData ? [].concat(yearlyRadarChartData).reverse() : [];
@@ -63,9 +63,9 @@ PercentilesByYear.propTypes = {
       visualTokenBackground: PropTypes.string,
       items: PropTypes.arrayOf(PropTypes.shape({
         axis: PropTypes.string,
-        value: PropTypes.number
+        value: PropTypes.number,
       })),
-      year: PropTypes.number
+      year: PropTypes.number,
     })
-  )
+  ),
 };

@@ -18,7 +18,7 @@ import {
   OfficerPane,
   RankPane,
   SearchTermItemPane,
-  CRPane
+  CRPane,
 } from 'components/search-page/preview-pane';
 
 
@@ -130,7 +130,7 @@ describe('PreviewPane component', function () {
           incidentDate: 'JUL 2, 2012',
           address: '14XX W 63RD ST, CHICAGO IL 60636',
           victims: ['Hispanic, Female', 'Hispanic, Female, Age 48'],
-          coaccused: []
+          coaccused: [],
         } }
       />
     );
@@ -148,7 +148,7 @@ describe('PreviewPane component', function () {
           incidentDate: 'JUL 2, 2012',
           address: '14XX W 63RD ST, CHICAGO IL 60636',
           victims: ['Hispanic, Female', 'Hispanic, Female, Age 48'],
-          coaccused: []
+          coaccused: [],
         } }
       />
     );
@@ -166,7 +166,7 @@ describe('PreviewPane component', function () {
           incidentDate: 'JUL 2, 2012',
           address: '14XX W 63RD ST, CHICAGO IL 60636',
           victims: ['Hispanic, Female', 'Hispanic, Female, Age 48'],
-          coaccused: []
+          coaccused: [],
         } }
       />
     );

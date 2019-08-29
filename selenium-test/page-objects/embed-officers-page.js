@@ -10,7 +10,7 @@ class EmbedOfficersCarouselSection extends Section {
     this.prepareElementGetters({
       leftArrow: '//div[@class="test--embed-officers-carousel"]//*[contains(@class, "test--carousel-arrow-left")]',
       rightArrow: '//div[@class="test--embed-officers-carousel"]//*[contains(@class, "test--carousel-arrow-right")]',
-      cards: '//div[@class="test--embed-officers-carousel"]//a[contains(@class, "officer-card__officer-card")]'
+      cards: '//div[@class="test--embed-officers-carousel"]//a[contains(@class, "officer-card__officer-card")]',
     });
   }
 }
@@ -23,7 +23,7 @@ class EmbedOfficersPage extends Page {
 
     this.prepareElementGetters({
       title: '.test--embed-officers-title',
-      description: '.test--embed-officers-description'
+      description: '.test--embed-officers-description',
     });
   }
 

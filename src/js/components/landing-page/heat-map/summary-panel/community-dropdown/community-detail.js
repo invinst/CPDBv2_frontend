@@ -6,7 +6,7 @@ import {
   communityWrapperStyle, headerStyle, allegationDisciplineStyle,
   allegationTextStyle, disciplineTextStyle, headerTextStyle,
   learnMoreStyle, learnMoreTextStyle, rightArrowBlueStyle,
-  closeButtonStyle
+  closeButtonStyle,
 } from './community-detail.style';
 import CommunityRacePopulation from './community-race-population';
 import CommunityOfficers from './community-officers';
@@ -40,7 +40,7 @@ export default class CommunityDetail extends Component {
     const { closeDetail } = this.props;
     const {
       name, allegationCount, disciplineCount, population, medianIncome,
-      raceCount, mostComplaintsOfficers
+      raceCount, mostComplaintsOfficers,
     } = this.getCommunity();
 
     return (
@@ -70,5 +70,5 @@ export default class CommunityDetail extends Component {
 
 CommunityDetail.propTypes = {
   community: PropTypes.object,
-  closeDetail: PropTypes.func
+  closeDetail: PropTypes.func,
 };

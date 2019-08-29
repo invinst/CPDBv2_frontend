@@ -52,5 +52,5 @@ export default class CirclesSVG extends Component {
 CirclesSVG.propTypes = {
   startDate: PropTypes.string,
   endDate: PropTypes.string,
-  incidentDate: PropTypes.string
+  incidentDate: PropTypes.string,
 };

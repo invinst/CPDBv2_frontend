@@ -11,7 +11,7 @@ export default class SearchMainPanel extends Component {
   render() {
     const {
       tags, contentType, recentSuggestions, query, editModeOn,
-      officerCards, requestActivityGrid, aliasEditModeOn, handleSelect, isRequesting
+      officerCards, requestActivityGrid, aliasEditModeOn, handleSelect, isRequesting,
     } = this.props;
 
     return (
@@ -58,5 +58,5 @@ SearchMainPanel.propTypes = {
 };
 
 SearchMainPanel.defaultProps = {
-  handleSelect: () => {}
+  handleSelect: () => {},
 };

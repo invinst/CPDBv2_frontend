@@ -1,7 +1,7 @@
 import should from 'should';
 
 import {
-  communityGeoJSONSelector, communitiesSelector, getClusterGeoJson, hasClusterGeoJsonData
+  communityGeoJSONSelector, communitiesSelector, getClusterGeoJson, hasClusterGeoJsonData,
 } from 'selectors/landing-page/heat-map';
 import { rawCommunityFactory, raceCountFactory, rawComplaintOfficerFactory } from 'utils/test/factories/heat-map';
 
@@ -21,20 +21,20 @@ describe('Heat map selectors', function () {
               'most_complaints_officers': [rawComplaintOfficerFactory.build({
                 'complaints_count': 1,
                 'full_name': 'Jerome Finnigan',
-                id: 1
+                id: 1,
               })],
               name: 'Hyde Park',
               population: 1500,
               'race_count': [raceCountFactory.build({
                 race: 'Black',
-                count: 50
-              })]
-            })
-          }]
+                count: 50,
+              })],
+            }),
+          }],
         },
-        clusterGeoJson: 'abc'
-      }
-    }
+        clusterGeoJson: 'abc',
+      },
+    },
   };
 
   describe('communityGeoJSONSelector', function () {
@@ -58,19 +58,19 @@ describe('Heat map selectors', function () {
             }],
             raceCount: [{
               race: 'Black',
-              count: '100%'
-            }]
-          }
-        }]
+              count: '100%',
+            }],
+          },
+        }],
       });
     });
     it('should return null when receive null', function () {
       should(communityGeoJSONSelector({
         landingPage: {
           heatMap: {
-            communities: null
-          }
-        }
+            communities: null,
+          },
+        },
       })).eql(null);
     });
   });
@@ -93,9 +93,9 @@ describe('Heat map selectors', function () {
           }],
           raceCount: [{
             race: 'Black',
-            count: '100%'
-          }]
-        }
+            count: '100%',
+          }],
+        },
       ]);
     });
 
@@ -103,9 +103,9 @@ describe('Heat map selectors', function () {
       should(communitiesSelector({
         landingPage: {
           heatMap: {
-            communities: null
-          }
-        }
+            communities: null,
+          },
+        },
       })).eql(null);
     });
   });
@@ -125,9 +125,9 @@ describe('Heat map selectors', function () {
       hasClusterGeoJsonData({
         landingPage: {
           heatMap: {
-            clusterGeoJson: null
-          }
-        }
+            clusterGeoJson: null,
+          },
+        },
       }).should.be.false();
     });
   });

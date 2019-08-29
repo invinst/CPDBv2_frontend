@@ -14,13 +14,13 @@ export default class RelatedComplaints extends Component {
     super(props);
 
     this.state = {
-      selectedDistance: '0.5mi'
+      selectedDistance: '0.5mi',
     };
   }
 
   handleDistanceChange(value) {
     this.setState({
-      selectedDistance: findKey(DISTANCE_OPTIONS, v => v === value)
+      selectedDistance: findKey(DISTANCE_OPTIONS, v => v === value),
     });
   }
 
@@ -62,5 +62,5 @@ export default class RelatedComplaints extends Component {
 }
 
 RelatedComplaints.propTypes = {
-  crid: PropTypes.string
+  crid: PropTypes.string,
 };

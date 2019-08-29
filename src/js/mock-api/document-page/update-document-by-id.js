@@ -23,10 +23,10 @@ const updatedDocumentData = {
   'crawler_name': 'Chicago COPA',
   'linked_documents': [{
     'id': 14192,
-    'preview_image_url': 'https://assets.documentcloud.org/documents/5680385/pages/CRID-1083633.gif'
+    'preview_image_url': 'https://assets.documentcloud.org/documents/5680385/pages/CRID-1083633.gif',
   }, {
     'id': 14188,
-    'preview_image_url': 'https://assets.documentcloud.org/documents/5680389/pages/CRID-1083633.gif'
+    'preview_image_url': 'https://assets.documentcloud.org/documents/5680389/pages/CRID-1083633.gif',
   }],
   'pages': 5,
   'last_updated_by': 'John Doe',
@@ -38,17 +38,17 @@ const updatedDocumentData = {
 
 const updatedDocumentDataFailure = {
   message: {
-    tags: ['Ensure this field has no more than 20 characters.']
-  }
+    tags: ['Ensure this field has no more than 20 characters.'],
+  },
 };
 
 export default {
   success: {
     updateParams: updateParams,
-    updatedDocumentData: updatedDocumentData
+    updatedDocumentData: updatedDocumentData,
   },
   failure: {
     updateParamsFailure: updateParamsFailure,
-    updatedDocumentDataFailure: updatedDocumentDataFailure
-  }
+    updatedDocumentDataFailure: updatedDocumentDataFailure,
+  },
 };

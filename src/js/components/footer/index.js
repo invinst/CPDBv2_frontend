@@ -15,16 +15,16 @@ class Footer extends React.Component {
     const links = [
       {
         name: 'Legal',
-        onClick: openLegalDisclaimerModal
+        onClick: openLegalDisclaimerModal,
       },
       {
         name: 'GitHub',
-        externalHref: 'https://github.com/invinst/'
+        externalHref: 'https://github.com/invinst/',
       },
       {
         name: 'Contact',
-        onClick: () => { showIntercomMessages(true); }
-      }
+        onClick: () => { showIntercomMessages(true); },
+      },
     ];
 
     return (
@@ -59,7 +59,7 @@ Footer.propTypes = {
 };
 
 Footer.defaultProps = {
-  style: {}
+  style: {},
 };
 
 export default NoRerender(Footer);

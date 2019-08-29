@@ -29,5 +29,5 @@ export default class Complaint extends Component {
 
 Complaint.propTypes = {
   complaint: PropTypes.object,
-  onTrackingAttachment: PropTypes.func
+  onTrackingAttachment: PropTypes.func,
 };

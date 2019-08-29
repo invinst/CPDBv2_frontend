@@ -29,11 +29,11 @@ HoverableButton.propTypes = {
   style: PropTypes.object,
   onClick: PropTypes.func,
   children: PropTypes.node,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
 };
 
 HoverableButton.defaultProps = {
-  style: {}
+  style: {},
 };
 
 export default Hoverable(HoverableButton);

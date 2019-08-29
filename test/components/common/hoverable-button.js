@@ -9,7 +9,7 @@ describe('HoverableButton component', function () {
   const style = {
     hover: { color: 'red' },
     base: { color: 'blue' },
-    disabled: { color: 'yellow' }
+    disabled: { color: 'yellow' },
   };
 
   afterEach(function () {

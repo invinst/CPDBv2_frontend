@@ -4,7 +4,7 @@ import {
   renderIntoDocument,
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
-  scryRenderedComponentsWithType, Simulate
+  scryRenderedComponentsWithType, Simulate,
 } from 'react-addons-test-utils';
 import { stub, useFakeTimers } from 'sinon';
 
@@ -27,7 +27,7 @@ describe('AnimatedRadarChart components', function () {
       { axis: 'Internal Complaints', value: 10 },
     ],
     textColor: 'black',
-    visualTokenBackground: 'white'
+    visualTokenBackground: 'white',
   }, {
     year: 2016,
     items: [
@@ -36,7 +36,7 @@ describe('AnimatedRadarChart components', function () {
       { axis: 'Internal Complaints', value: 60 },
     ],
     textColor: 'black',
-    visualTokenBackground: 'white'
+    visualTokenBackground: 'white',
   }, {
     year: 2017,
     items: [
@@ -45,7 +45,7 @@ describe('AnimatedRadarChart components', function () {
       { axis: 'Internal Complaints', value: 60 },
     ],
     textColor: 'black',
-    visualTokenBackground: 'white'
+    visualTokenBackground: 'white',
   }];
 
   afterEach(function () {
@@ -67,7 +67,7 @@ describe('AnimatedRadarChart components', function () {
         { axis: 'Internal Complaints', value: 10 },
       ],
       textColor: 'black',
-      visualTokenBackground: 'white'
+      visualTokenBackground: 'white',
     }, {
       year: 2016,
       items: [
@@ -76,7 +76,7 @@ describe('AnimatedRadarChart components', function () {
         { axis: 'Internal Complaints', value: 60 },
       ],
       textColor: 'black',
-      visualTokenBackground: 'white'
+      visualTokenBackground: 'white',
     }];
     instance = renderIntoDocument(<AnimatedRadarChart officerId={ 123 } data={ missingData }/>);
     const noDataRadarChart = findRenderedComponentWithType(instance, RadarChart);
@@ -190,7 +190,7 @@ describe('AnimatedRadarChart components', function () {
           { axis: 'Internal Complaints', value: 10 },
         ],
         textColor: 'black',
-        visualTokenBackground: 'white'
+        visualTokenBackground: 'white',
       }, {
         year: 2014,
         items: [
@@ -199,7 +199,7 @@ describe('AnimatedRadarChart components', function () {
           { axis: 'Internal Complaints', value: 10 },
         ],
         textColor: 'black',
-        visualTokenBackground: 'white'
+        visualTokenBackground: 'white',
       }, {
         year: 2015,
         items: [
@@ -208,7 +208,7 @@ describe('AnimatedRadarChart components', function () {
           { axis: 'Internal Complaints', value: 10 },
         ],
         textColor: 'black',
-        visualTokenBackground: 'white'
+        visualTokenBackground: 'white',
       }, {
         year: 2016,
         items: [
@@ -217,7 +217,7 @@ describe('AnimatedRadarChart components', function () {
           { axis: 'Internal Complaints', value: 60 },
         ],
         textColor: 'black',
-        visualTokenBackground: 'white'
+        visualTokenBackground: 'white',
       }, {
         year: 2017,
         items: [
@@ -226,7 +226,7 @@ describe('AnimatedRadarChart components', function () {
           { axis: 'Internal Complaints', value: NaN },
         ],
         textColor: 'black',
-        visualTokenBackground: 'white'
+        visualTokenBackground: 'white',
       }];
       instance = renderIntoDocument(<AnimatedRadarChart officerId={ 123 } data={ missingData }/>);
 

@@ -2,7 +2,7 @@ import React from 'react';
 import {
   renderIntoDocument,
   scryRenderedComponentsWithType,
-  scryRenderedDOMComponentsWithClass
+  scryRenderedDOMComponentsWithClass,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
