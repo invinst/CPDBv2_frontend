@@ -312,7 +312,7 @@ export const newTimelineItemsSelector = createSelector(
   }
 );
 
-export const filterCount = createSelector(
+export const filterCountSelector = createSelector(
   getItems,
   items => {
     let count = cloneDeep(NEW_TIMELINE_FILTERS);

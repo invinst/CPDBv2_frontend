@@ -10,7 +10,7 @@ import Menu from 'components/common/dropdown/menu';
 import { unmountComponentSuppressError } from 'utils/test';
 
 
-describe('Dropdown component', function () {
+describe('Menu component', function () {
   let instance;
 
   afterEach(function () {

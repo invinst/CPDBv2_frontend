@@ -13,7 +13,7 @@ import {
   yearItem,
   applyFilter,
   markLatestUnit,
-  filterCount,
+  filterCountSelector,
 } from 'selectors/officer-page/new-timeline';
 import { NEW_TIMELINE_FILTERS } from 'utils/constants';
 import { imgUrl } from 'utils/static-assets';
@@ -1724,7 +1724,7 @@ describe('Officer new timeline selectors', function () {
     });
   });
 
-  describe('filterCount', function () {
+  describe('filterCountSelector', function () {
     it('should return correct kindCount', function () {
       const state = {
         officerPage: {
@@ -1849,7 +1849,7 @@ describe('Officer new timeline selectors', function () {
           },
         },
       };
-      filterCount(state).should.eql({
+      filterCountSelector(state).should.eql({
         'CRS': 3,
         'FORCE': 3,
         'AWARDS': 1,
