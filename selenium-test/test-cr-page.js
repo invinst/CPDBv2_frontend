@@ -70,7 +70,7 @@ describe('CR page', function () {
 
   it('should navigate to officer page when we click on police witness item', function () {
     crPage.policeWitness.firstItem.click();
-    browser.getUrl().should.match(/\/officer\/3\/[\-a-z]+\/?$/);
+    browser.getUrl().should.match(/\/officer\/3\/[-a-z]+\/?$/);
   });
 
   it('should show request document modal when clicks on "Request Document"', function () {

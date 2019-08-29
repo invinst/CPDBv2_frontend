@@ -5,7 +5,7 @@ import {
   getTagsEditModeOn,
   getTextContentEditModeOn,
   documentSelector,
-  documentEditableFieldsSelector
+  documentEditableFieldsSelector,
 } from 'selectors/document-page';
 import { omit } from 'lodash';
 
@@ -15,7 +15,7 @@ describe('Document selectors', function () {
       getTitleEditModeOn({
         documentPage: {
           titleEditModeOn: true,
-        }
+        },
       }).should.eql(true);
     });
   });
@@ -25,7 +25,7 @@ describe('Document selectors', function () {
       getTagsEditModeOn({
         documentPage: {
           tagsEditModeOn: true,
-        }
+        },
       }).should.eql(true);
     });
   });
@@ -35,7 +35,7 @@ describe('Document selectors', function () {
       getTextContentEditModeOn({
         documentPage: {
           textContentEditModeOn: true,
-        }
+        },
       }).should.eql(true);
     });
   });
@@ -67,10 +67,10 @@ describe('Document selectors', function () {
           'crawler_name': 'Chicago COPA',
           'linked_documents': [{
             'id': 14192,
-            'preview_image_url': 'https://assets.documentcloud.org/documents/5680385/pages/CRID-1083633.gif'
+            'preview_image_url': 'https://assets.documentcloud.org/documents/5680385/pages/CRID-1083633.gif',
           }, {
             'id': 14188,
-            'preview_image_url': 'https://assets.documentcloud.org/documents/5680389/pages/CRID-1083633.gif'
+            'preview_image_url': 'https://assets.documentcloud.org/documents/5680389/pages/CRID-1083633.gif',
           }],
           'pages': 5,
           'last_updated_by': 'John Doe',
@@ -79,7 +79,7 @@ describe('Document selectors', function () {
           'notifications_count': 10,
         },
         titleEditModeOn: false,
-        textContentEditModeOn: false
+        textContentEditModeOn: false,
       },
     };
 
@@ -97,18 +97,19 @@ describe('Document selectors', function () {
         lastUpdatedBy: 'John Doe',
         linkedDocuments: [{
           id: 14192,
-          previewImageUrl: 'https://assets.documentcloud.org/documents/5680385/pages/CRID-1083633.gif'
+          previewImageUrl: 'https://assets.documentcloud.org/documents/5680385/pages/CRID-1083633.gif',
         }, {
           id: 14188,
-          previewImageUrl: 'https://assets.documentcloud.org/documents/5680389/pages/CRID-1083633.gif'
+          previewImageUrl: 'https://assets.documentcloud.org/documents/5680389/pages/CRID-1083633.gif',
         }],
         lastEditedDateTime: 'at 08:50PM on Feb 28, 2019',
         infoItems: [
           { name: 'CRID / UID', value: 'CR 1083633', to: '/complaint/1083633/' },
           {
             name: 'Source',
-            value: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf',
-            url: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf'
+            value: 'chicagocopa.org',
+            tooltip: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf',
+            url: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf',
           },
           { name: 'Crawler', value: 'Chicago COPA' },
           { name: 'Date', value: 'Jan 9, 2019' },
@@ -137,18 +138,19 @@ describe('Document selectors', function () {
         lastUpdatedBy: 'John Doe',
         linkedDocuments: [{
           id: 14192,
-          previewImageUrl: 'https://assets.documentcloud.org/documents/5680385/pages/CRID-1083633.gif'
+          previewImageUrl: 'https://assets.documentcloud.org/documents/5680385/pages/CRID-1083633.gif',
         }, {
           id: 14188,
-          previewImageUrl: 'https://assets.documentcloud.org/documents/5680389/pages/CRID-1083633.gif'
+          previewImageUrl: 'https://assets.documentcloud.org/documents/5680389/pages/CRID-1083633.gif',
         }],
         lastEditedDateTime: 'at 08:50PM on Feb 28, 2019',
         infoItems: [
           { name: 'CRID / UID', value: 'CR 1083633', to: '/complaint/1083633/' },
           {
             name: 'Source',
-            value: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf',
-            url: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf'
+            value: 'chicagocopa.org',
+            tooltip: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf',
+            url: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf',
           },
           { name: 'Crawler', value: 'Chicago COPA' },
           { name: 'Date', value: 'Jan 9, 2019' },
@@ -169,29 +171,29 @@ describe('Document selectors', function () {
             'text_content': 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE',
           },
           titleEditModeOn: false,
-          textContentEditModeOn: false
+          textContentEditModeOn: false,
         },
       }).should.eql({
         attachmentId: {
           type: 'number',
           key: 'id',
-          value: 14193
+          value: 14193,
         },
         title: {
           type: 'string',
           key: 'title',
-          value: 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)'
+          value: 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)',
         },
         tags: {
           type: 'array',
           key: 'tags',
-          value: ['123', '456']
+          value: ['123', '456'],
         },
         textContent: {
           type: 'string',
           key: 'text_content',
-          value: 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE'
-        }
+          value: 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE',
+        },
       });
     });
 
@@ -204,29 +206,29 @@ describe('Document selectors', function () {
           },
           titleEditModeOn: false,
           tagsEditModeOn: false,
-          textContentEditModeOn: false
+          textContentEditModeOn: false,
         },
       }).should.eql({
         attachmentId: {
           type: 'number',
           key: 'id',
-          value: 14193
+          value: 14193,
         },
         title: {
           type: 'string',
           key: 'title',
-          value: ''
+          value: '',
         },
         tags: {
           type: 'array',
           key: 'tags',
-          value: []
+          value: [],
         },
         textContent: {
           type: 'string',
           key: 'text_content',
-          value: ''
-        }
+          value: '',
+        },
       });
     });
   });

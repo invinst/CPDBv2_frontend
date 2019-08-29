@@ -38,7 +38,7 @@ class InlineHeaderSection extends Component {
 
 InlineHeaderSection.propTypes = {
   type: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  editWrapperStateProps: PropTypes.object
+  editWrapperStateProps: PropTypes.object,
 };
 
 export default InlineHeaderSection;

@@ -27,14 +27,14 @@ describe('TimelineText component', function () {
     assertTextBlockContent(instance, [
       [
         'Jan 12, 2010',
-        'Incident Occurs'
+        'Incident Occurs',
       ], [
         'Jan 20, 2010',
-        'Complaint Filed'
+        'Complaint Filed',
       ], [
         'Feb 18, 2010',
-        'Investigation Closed'
-      ]
+        'Investigation Closed',
+      ],
     ]);
   });
 
@@ -46,11 +46,11 @@ describe('TimelineText component', function () {
       [
         'Jan 20, 2010',
         'Incident Occurs',
-        'Complaint Filed'
+        'Complaint Filed',
       ], [
         'Feb 18, 2010',
-        'Investigation Closed'
-      ]
+        'Investigation Closed',
+      ],
     ]);
   });
 
@@ -63,10 +63,10 @@ describe('TimelineText component', function () {
       [
         'Jan 20, 2010',
         'Incident Occurs',
-        'Complaint Filed'
+        'Complaint Filed',
       ], [
-        'Investigation Closed'
-      ]
+        'Investigation Closed',
+      ],
     ]);
   });
 });

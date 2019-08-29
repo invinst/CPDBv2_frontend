@@ -7,7 +7,7 @@ describe('searchPage reducer', function () {
       navigation: { 'itemIndex': 0 },
       isRequesting: false,
       suggestionGroups: {
-        meta: {}
+        meta: {},
       },
       contentType: null,
       recentSuggestions: [],
@@ -15,12 +15,12 @@ describe('searchPage reducer', function () {
         categories: [],
         hidden: true,
         navigation: {
-          itemIndex: 0
-        }
+          itemIndex: 0,
+        },
       },
       tags: [],
       query: '',
-      pagination: {}
+      pagination: {},
     });
   });
 });

@@ -4,7 +4,7 @@ import { whiteTwoColor, sanFranciscoTextFamily, greyishColor, softBlackColor, ac
 export const wrapperStyle = (hasBorderBottom) => ({
   fontFamily: sanFranciscoTextFamily,
   fontSize: '14px',
-  borderBottom: hasBorderBottom ? `solid 1px ${whiteTwoColor}` : '0'
+  borderBottom: hasBorderBottom ? `solid 1px ${whiteTwoColor}` : '0',
 });
 
 export const labelStyle = (width, hovering) => ({
@@ -13,11 +13,11 @@ export const labelStyle = (width, hovering) => ({
   display: 'inline-block',
   width: `${width}px`,
   padding: '11px 0',
-  verticalAlign: 'middle'
+  verticalAlign: 'middle',
 });
 
 export const contentStyle = (width, hovering) => ({
   color: hovering ? accentColor : softBlackColor,
   verticalAlign: 'middle',
-  width: width ? `${width}px` : null
+  width: width ? `${width}px` : null,
 });

@@ -9,21 +9,21 @@ describe('officersByAllegationIsRequesting reducer', function () {
 
   it('should handle OFFICERS_BY_ALLEGATION_REQUEST_START', function () {
     officersByAllegationIsRequesting(undefined, {
-      type: constants.OFFICERS_BY_ALLEGATION_REQUEST_START
+      type: constants.OFFICERS_BY_ALLEGATION_REQUEST_START,
     }).should.be.true();
   });
 
   it('should handle OFFICERS_BY_ALLEGATION_REQUEST_SUCCESS', function () {
     officersByAllegationIsRequesting(true, {
       type: constants.OFFICERS_BY_ALLEGATION_REQUEST_SUCCESS,
-      payload: [1, 2, 3]
+      payload: [1, 2, 3],
     }).should.be.false();
   });
 
   it('should handle OFFICERS_BY_ALLEGATION_FAILURE', function () {
     officersByAllegationIsRequesting(true, {
       type: constants.OFFICERS_BY_ALLEGATION_REQUEST_FAILURE,
-      payload: new Error('Load failed')
+      payload: new Error('Load failed'),
     }).should.be.false();
   });
 });

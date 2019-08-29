@@ -11,76 +11,76 @@ describe('Document deduplicator page documents reducer', function () {
     documents({
       data: {
         '1': {
-          id: 1
+          id: 1,
         },
         '3': {
-          id: 3
-        }
+          id: 3,
+        },
       },
-      crid: '1000000'
+      crid: '1000000',
     }, {
       type: constants.DOCUMENT_DEDUPLICATOR_REQUEST_SUCCESS,
       payload: {
         results: [{
-          id: 1
+          id: 1,
         }, {
-          id: 2
-        }]
+          id: 2,
+        }],
       },
       request: {
         params: {
-          crid: '1000000'
-        }
-      }
+          crid: '1000000',
+        },
+      },
     }
     ).should.deepEqual({
       data: {
         '1': {
-          id: 1
+          id: 1,
         },
         '2': {
-          id: 2
+          id: 2,
         },
         '3': {
-          id: 3
-        }
+          id: 3,
+        },
       },
-      crid: '1000000'
+      crid: '1000000',
     });
 
     documents({
       data: {
         '1': {
-          id: 1
+          id: 1,
         },
         '3': {
-          id: 3
-        }
+          id: 3,
+        },
       },
-      crid: '1000000'
+      crid: '1000000',
     }, {
       type: constants.DOCUMENT_DEDUPLICATOR_REQUEST_SUCCESS,
       payload: {
         results: [{
-          id: 1
+          id: 1,
         }, {
-          id: 2
-        }]
+          id: 2,
+        }],
       },
       request: {
-        params: {}
-      }
+        params: {},
+      },
     }
     ).should.deepEqual({
       data: {
         '1': {
-          id: 1
+          id: 1,
         },
         '2': {
-          id: 2
-        }
+          id: 2,
+        },
       },
-      crid: ''
+      crid: '',
     });
   });
 
@@ -89,27 +89,27 @@ describe('Document deduplicator page documents reducer', function () {
       data: {
         '1': {
           id: 1,
-          show: true
-        }
+          show: true,
+        },
       },
-      crid: '1000000'
+      crid: '1000000',
     }, {
       type: constants.DOCUMENT_VISIBILITY_TOGGLE_REQUEST_SUCCESS,
       payload: {
-        show: false
+        show: false,
       },
       request: {
-        url: 'http://localhost/api/v2/attachments/1/'
-      }
+        url: 'http://localhost/api/v2/attachments/1/',
+      },
     }
     ).should.deepEqual({
       data: {
         '1': {
           id: 1,
-          show: false
-        }
+          show: false,
+        },
       },
-      crid: '1000000'
+      crid: '1000000',
     });
   });
 });

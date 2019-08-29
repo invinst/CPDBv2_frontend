@@ -12,7 +12,7 @@ import styles from './coaccused-card.sass';
 
 export class CoaccusedCard extends Component {
   renderExtraInfo() {
-    const { birthYear, race, gender, } = this.props;
+    const { birthYear, race, gender } = this.props;
     const age = getCurrentAge(birthYear);
     const ageString = age ? `${age}-year-old` : '';
     const extraInfo = `${ageString} ${race} ${gender}`;
@@ -134,7 +134,7 @@ CoaccusedCard.propTypes = {
 };
 
 CoaccusedCard.defaultProps = {
-  openCardInNewPage: false
+  openCardInNewPage: false,
 };
 
 CoaccusedCard.contextTypes = {

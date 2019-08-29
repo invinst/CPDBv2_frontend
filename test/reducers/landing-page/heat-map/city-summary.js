@@ -10,13 +10,13 @@ describe('citySummary reducer', function () {
   it('should handle CITY_SUMMARY_REQUEST_START', function () {
     citySummary({
       'allegation_count': 10,
-      'discipline_count': 5
+      'discipline_count': 5,
     }, {
       type: constants.CITY_SUMMARY_REQUEST_START,
-      payload: {}
+      payload: {},
     }).should.eql({
       'allegation_count': 10,
-      'discipline_count': 5
+      'discipline_count': 5,
     });
   });
 
@@ -25,24 +25,24 @@ describe('citySummary reducer', function () {
       type: constants.CITY_SUMMARY_REQUEST_SUCCESS,
       payload: {
         'allegation_count': 10,
-        'discipline_count': 5
-      }
+        'discipline_count': 5,
+      },
     }).should.eql({
       'allegation_count': 10,
-      'discipline_count': 5
+      'discipline_count': 5,
     });
   });
 
   it('should handle CITY_SUMMARY_REQUEST_FAILURE', function () {
     citySummary({
       'allegation_count': 10,
-      'discipline_count': 5
+      'discipline_count': 5,
     }, {
       type: constants.CITY_SUMMARY_REQUEST_FAILURE,
-      payload: {}
+      payload: {},
     }).should.eql({
       'allegation_count': 10,
-      'discipline_count': 5
+      'discipline_count': 5,
     });
   });
 });

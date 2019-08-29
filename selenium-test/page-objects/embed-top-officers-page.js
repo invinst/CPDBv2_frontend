@@ -12,7 +12,7 @@ class OfficersByAllegationCarouselSection extends Section {
         '//*[contains(@class, "test--carousel-arrow-left")]',
       rightArrow: '//div[contains(@class, "test--landing-carousel-allegation")]' +
         '//*[contains(@class, "test--carousel-arrow-right")]',
-      cards: '//div[contains(@class, "test--landing-carousel-allegation")]//a[contains(@class, "officer-card")]'
+      cards: '//div[contains(@class, "test--landing-carousel-allegation")]//a[contains(@class, "officer-card")]',
     });
   }
 }

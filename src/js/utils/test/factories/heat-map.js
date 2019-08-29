@@ -25,7 +25,7 @@ export const communityFactory = new Factory()
   .attr('population', () => random.number().toLocaleString())
   .attr('raceCount', () => [
     raceCountFactory.build({ race: 'White' }),
-    raceCountFactory.build({ race: 'Black' })
+    raceCountFactory.build({ race: 'Black' }),
   ])
   .attr('mostComplaintsOfficers', () => mostComplaintOfficerFactory.buildList(3));
 
@@ -44,6 +44,6 @@ export const rawCommunityFactory = new Factory()
   .attr('population', () => random.number().toLocaleString())
   .attr('race_count', () => [
     raceCountFactory.build({ race: 'White' }),
-    raceCountFactory.build({ race: 'Black' })
+    raceCountFactory.build({ race: 'Black' }),
   ])
   .attr('most_complaints_officers', () => rawComplaintOfficerFactory.buildList(3));

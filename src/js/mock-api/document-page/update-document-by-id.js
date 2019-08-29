@@ -1,4 +1,5 @@
 const updateParams = {
+  'id': 1,
   'title': 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)',
   'text_content': 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE',
   'tags': ['tactical', 'chicago', 'copa'],
@@ -15,10 +16,10 @@ const updatedDocumentData = {
   'crawler_name': 'Chicago COPA',
   'linked_documents': [{
     'id': 14192,
-    'preview_image_url': 'https://assets.documentcloud.org/documents/5680385/pages/CRID-1083633.gif'
+    'preview_image_url': 'https://assets.documentcloud.org/documents/5680385/pages/CRID-1083633.gif',
   }, {
     'id': 14188,
-    'preview_image_url': 'https://assets.documentcloud.org/documents/5680389/pages/CRID-1083633.gif'
+    'preview_image_url': 'https://assets.documentcloud.org/documents/5680389/pages/CRID-1083633.gif',
   }],
   'pages': 5,
   'last_updated_by': 'John Doe',
@@ -30,5 +31,5 @@ const updatedDocumentData = {
 
 export default {
   updateParams: updateParams,
-  updatedDocumentData: updatedDocumentData
+  updatedDocumentData: updatedDocumentData,
 };

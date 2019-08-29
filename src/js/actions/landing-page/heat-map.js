@@ -8,7 +8,7 @@ export const getCommunities = get(
   [
     constants.COMMUNITY_REQUEST_START,
     constants.COMMUNITY_REQUEST_SUCCESS,
-    constants.COMMUNITY_REQUEST_FAILURE
+    constants.COMMUNITY_REQUEST_FAILURE,
   ]
 );
 
@@ -17,6 +17,6 @@ export const getClusterGeoJson = get(
   [
     constants.CLUSTER_GEO_REQUEST_START,
     constants.CLUSTER_GEO_REQUEST_SUCCESS,
-    constants.CLUSTER_GEO_REQUEST_FAILURE
+    constants.CLUSTER_GEO_REQUEST_FAILURE,
   ]
 );

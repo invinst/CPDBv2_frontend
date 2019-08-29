@@ -14,14 +14,14 @@ describe('isRequesting reducer', function () {
   it('should handle CR_REQUEST_SUCCESS', function () {
     isRequesting(true, {
       type: CR_REQUEST_SUCCESS,
-      payload: [1, 2, 3]
+      payload: [1, 2, 3],
     }).should.be.false();
   });
 
   it('should handle CR_REQUEST_FAILURE', function () {
     isRequesting(true, {
       type: CR_REQUEST_FAILURE,
-      payload: new Error('Load failed')
+      payload: new Error('Load failed'),
     }).should.be.false();
   });
 });

@@ -6,23 +6,23 @@ export const underlineWrapperStyle = {
   left: 0,
   right: 0,
   top: 0,
-  bottom: 0
+  bottom: 0,
 };
 
 export const baseCommonStyle = {
   textDecoration: 'none',
   position: 'relative',
-  lineHeight: 'initial'
+  lineHeight: 'initial',
 };
 
 export const baseStyle = {
   ...baseCommonStyle,
-  color: softBlackColor
+  color: softBlackColor,
 };
 
 export const baseHoverStyle = {
   ...baseCommonStyle,
-  color: accentColor
+  color: accentColor,
 };
 
 export const underlineCommonStyle = {
@@ -31,16 +31,16 @@ export const underlineCommonStyle = {
   height: '4px',
   bottom: '-4px',
   position: 'relative',
-  verticalAlign: 'baseline'
+  verticalAlign: 'baseline',
 };
 
 export const underlineStyle = {
   ...underlineCommonStyle,
-  backgroundColor: silverSandColor
+  backgroundColor: silverSandColor,
 };
 
 export const underlineHoverStyle = {
   ...underlineCommonStyle,
   backgroundColor: accentColor,
-  opacity: '.2'
+  opacity: '.2',
 };

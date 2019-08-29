@@ -61,13 +61,13 @@ export default class RadarExplainer extends Component {
   navigateLeft() {
     const textLength = NAVIGATION_TEXTS.length;
     this.setState({
-      currentPaneIndex: (this.state.currentPaneIndex - 1 + textLength) % textLength
+      currentPaneIndex: (this.state.currentPaneIndex - 1 + textLength) % textLength,
     });
   }
 
   navigateRight() {
     this.setState({
-      currentPaneIndex: (this.state.currentPaneIndex + 1) % NAVIGATION_TEXTS.length
+      currentPaneIndex: (this.state.currentPaneIndex + 1) % NAVIGATION_TEXTS.length,
     });
   }
 

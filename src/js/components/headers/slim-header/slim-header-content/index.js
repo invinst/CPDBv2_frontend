@@ -69,7 +69,7 @@ SlimHeaderContent.defaultProps = {
   style: {},
   disableTop: false,
   position: 'top',
-  pathname: '/'
+  pathname: '/',
 };
 
 export default SlimHeaderContent;

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
@@ -27,9 +26,9 @@ describe('EditableTagsInput component', function () {
         tags: {
           type: 'array',
           key: 'tags',
-          value: ['tag1', 'tag2']
+          value: ['tag1', 'tag2'],
         },
-      }
+      },
     };
 
     instance = renderIntoDocument(
@@ -64,9 +63,9 @@ describe('EditableTagsInput component', function () {
         tags: {
           type: 'array',
           key: 'tags',
-          value: ['tag1', 'tag2']
+          value: ['tag1', 'tag2'],
         },
-      }
+      },
     };
 
     instance = renderIntoDocument(

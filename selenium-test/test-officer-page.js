@@ -14,7 +14,7 @@ describe('officer page', function () {
   beforeEach(function () {
     browser.setViewportSize({
       width: 1000,
-      height: 500
+      height: 500,
     });
     officerPage.open();
   });
@@ -22,7 +22,7 @@ describe('officer page', function () {
   afterEach(function () {
     browser.setViewportSize({
       width: 1000,
-      height: 1000
+      height: 1000,
     });
   });
 
@@ -119,7 +119,7 @@ describe('officer page', function () {
     it('should responsive', function () {
       browser.setViewportSize({
         width: 300,
-        height: 600
+        height: 600,
       });
       officerPage.radarChartSection.lastAxisTitle.waitForVisible();
     });
@@ -138,7 +138,7 @@ describe('officer page', function () {
       beforeEach(function () {
         browser.setViewportSize({
           width: 1000,
-          height: 500
+          height: 500,
         });
         officerPage.open(noDataRadarChartOfficerId);
       });
@@ -213,7 +213,7 @@ describe('officer page', function () {
 
         browser.setViewportSize({
           width: 800,
-          height: 500
+          height: 500,
         });
 
         percentileByYear.getText().should.containEql('Use Of Force');
@@ -230,7 +230,7 @@ describe('officer page', function () {
       browser.getUrl().should.match(/\/complaint\/\w+\/$/);
 
       header.breadcrumbs.secondItem.click();
-      browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/?$/);
+      browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/?$/);
     });
 
     it('should go to attachment source page when clicking on the attachment thumbnail', function () {
@@ -254,7 +254,7 @@ describe('officer page', function () {
       browser.getUrl().should.match(/\/trr\/\d+\/$/);
 
       header.breadcrumbs.secondItem.click();
-      browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/?$/);
+      browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/?$/);
     });
 
     describe('Timeline filter', function () {

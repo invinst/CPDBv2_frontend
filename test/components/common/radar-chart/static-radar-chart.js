@@ -29,14 +29,14 @@ describe('StaticRadarChart component', function () {
       {
         axis: 'C',
         value: 20,
-      }
+      },
     ];
     const props = {
       data: data,
       width: 456,
       height: 432,
       radius: 123,
-      someProps: 'someProps'
+      someProps: 'someProps',
     };
 
     instance = renderIntoDocument(<StaticRadarChart { ...props }/>);
@@ -58,14 +58,14 @@ describe('StaticRadarChart component', function () {
       {
         axis: 'C',
         value: 20,
-      }
+      },
     ];
     const props = {
       data: missingData,
       width: 456,
       height: 432,
       radius: 123,
-      someProps: 'someProps'
+      someProps: 'someProps',
     };
 
     instance = renderIntoDocument(<StaticRadarChart { ...props }/>);
@@ -101,14 +101,14 @@ describe('StaticRadarChart component', function () {
       {
         axis: 'C',
         value: 20,
-      }
+      },
     ];
     const props = {
       data: data,
       width: 456,
       height: 432,
       radius: 123,
-      someProps: 'someProps'
+      someProps: 'someProps',
     };
     instance = renderWithContext(context, <StaticRadarChart { ...props }/>);
     const radarChart = findRenderedComponentWithType(instance, RadarChart);

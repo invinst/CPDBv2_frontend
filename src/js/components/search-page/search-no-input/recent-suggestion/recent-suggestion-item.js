@@ -33,7 +33,7 @@ class RecentSuggestionItem extends Component {
     );
 
     const linkStyle = {
-      textDecoration: 'none'
+      textDecoration: 'none',
     };
 
     if (entry.to) {
@@ -49,13 +49,13 @@ class RecentSuggestionItem extends Component {
 }
 
 RecentSuggestionItem.defaultProps = {
-  entry: {}
+  entry: {},
 };
 
 RecentSuggestionItem.propTypes = {
   entry: PropTypes.object,
   hovering: PropTypes.bool,
-  isLast: PropTypes.bool
+  isLast: PropTypes.bool,
 };
 
 export default Hoverable(RecentSuggestionItem);

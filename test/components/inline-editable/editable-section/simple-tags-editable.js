@@ -1,5 +1,5 @@
 import React from 'react';
-import { findRenderedComponentWithType, } from 'react-addons-test-utils';
+import { findRenderedComponentWithType } from 'react-addons-test-utils';
 import { spy } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
@@ -25,8 +25,8 @@ describe('SimpleTagsEditable component', function () {
             editModeOn: true,
             value: ['tag1', 'tag2'],
             onChange: onChangeSpy,
-          }
-        }
+          },
+        },
       },
       <SimpleTagsEditable fieldName='tags'/>
     );

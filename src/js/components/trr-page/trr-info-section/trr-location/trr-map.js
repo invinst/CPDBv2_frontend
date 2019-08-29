@@ -28,5 +28,5 @@ export default class TRRMap extends Component {
 
 TRRMap.propTypes = {
   lat: PropTypes.number,
-  lng: PropTypes.number
+  lng: PropTypes.number,
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import {
-  renderIntoDocument, Simulate, findRenderedDOMComponentWithClass, findRenderedComponentWithType
+  renderIntoDocument, Simulate, findRenderedDOMComponentWithClass, findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 import { stub, spy } from 'sinon';
 

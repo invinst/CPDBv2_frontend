@@ -20,7 +20,7 @@ export default class MetricPane extends Component {
             {
               'active': active,
               'dashed-border': dashedBorder,
-              'highlight-value': highlightValue
+              'highlight-value': highlightValue,
             }
           )
         }

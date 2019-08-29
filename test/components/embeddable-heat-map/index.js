@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { stub } from 'sinon';
 import {
-  renderIntoDocument, findRenderedComponentWithType
+  renderIntoDocument, findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 
@@ -19,9 +19,9 @@ describe('HeatMap component', function () {
   const store = MockStore()({
     landingPage: {
       heatMap: {
-        citySummary: CitySummaryFactory.build()
-      }
-    }
+        citySummary: CitySummaryFactory.build(),
+      },
+    },
   });
 
   afterEach(function () {
@@ -42,7 +42,7 @@ describe('HeatMap component', function () {
     stub(GATracking, 'trackCommunityClick');
     const communities = [{
       id: 10,
-      name: 'Westwood'
+      name: 'Westwood',
     }];
     instance = renderIntoDocument(
       <Provider store={ store }>

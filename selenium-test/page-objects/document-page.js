@@ -5,27 +5,24 @@ import Section from './sections/section';
 import LoginScreen from './sections/login-screen';
 
 const getInfoItemSelector = (text) =>
-  `//div[contains(@class, "document-info")]/*[@class="list-item" and span[text()="${text}"]]`;
+  `//div[contains(@class, "document-info")]//*[@class="list-item" and span[text()="${text}"]]`;
 
 class TagsSection extends Section {
   constructor() {
-    super();
+    super('', '//div[contains(@class, "main-section-tags")]');
 
     this.prepareElementGetters({
-      tagsInput: '//div[contains(@class, "main-section-tags")]//div[contains(@class, "simple-tag-editable")]',
-      tags: '//div[contains(@class, "main-section-tags")]//span[@class="react-tagsinput-tag"]',
-      editButton: '//div[contains(@class, "main-section-tags")]' +
-        '//a[contains(@class, "hoverable-edit-wrapper-button") and text()="Edit"]',
-      saveButton: '//div[contains(@class, "main-section-tags")]' +
-        '//a[contains(@class, "hoverable-edit-wrapper-button") and text()="Save"]',
-      cancelButton: '//div[contains(@class, "main-section-tags")]' +
-        '//a[contains(@class, "hoverable-edit-wrapper-button") and text()="Cancel"]',
-      firstTag: '//div[contains(@class, "main-section-tags")]//span[@class="react-tagsinput-tag"][1]',
-      secondTag: '//div[contains(@class, "main-section-tags")]//span[@class="react-tagsinput-tag"][2]',
-      thirdTag: '//div[contains(@class, "main-section-tags")]//span[@class="react-tagsinput-tag"][3]',
-      firstTagDeleteBtn: '//div[contains(@class, "main-section-tags")]' +
-        '//span[@class="react-tagsinput-tag"][1]//a[@class="react-tagsinput-remove"]',
-      tagsInputTextbox: '.main-section-tags .react-tagsinput-input',
+      tagsInput: '//div[contains(@class, "simple-tag-editable")]',
+      tags: '//span[@class="react-tagsinput-tag"]',
+      editButton: '//a[contains(@class, "hoverable-edit-wrapper-button") and text()="Edit"]',
+      saveButton: '//a[contains(@class, "hoverable-edit-wrapper-button") and text()="Save"]',
+      cancelButton: '//a[contains(@class, "hoverable-edit-wrapper-button") and text()="Cancel"]',
+      firstTag: '//span[@class="react-tagsinput-tag"][1]',
+      secondTag: '//span[@class="react-tagsinput-tag"][2]',
+      thirdTag: '//span[@class="react-tagsinput-tag"][3]',
+      tagDeleteBtns: '//span[@class="react-tagsinput-tag"]//a[@class="react-tagsinput-remove"]',
+      firstTagDeleteBtn: '//span[@class="react-tagsinput-tag"][1]//a[@class="react-tagsinput-remove"]',
+      tagsInputTextbox: '//*[@class="react-tagsinput-input"]',
       nextUntaggedDocumentButton: '//a[@class="next-untagged-document-button"]',
     });
   }

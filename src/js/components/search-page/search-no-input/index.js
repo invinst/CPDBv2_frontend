@@ -36,5 +36,5 @@ export default class SuggestionNoInput extends Component {
 SuggestionNoInput.propTypes = {
   recentSuggestions: PropTypes.array,
   officerCards: PropTypes.array,
-  requestActivityGrid: PropTypes.func
+  requestActivityGrid: PropTypes.func,
 };

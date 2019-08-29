@@ -4,7 +4,7 @@ import {
   crMapMarkersTransform,
   trrMapMarkerTransform,
   rawMapMarkersSelector,
-  hasMapMarkersSelector
+  hasMapMarkersSelector,
 } from 'selectors/officer-page/map';
 
 
@@ -16,7 +16,7 @@ describe('Officer map selectors', function () {
     subcategory: 'Search Of Premise Without Warrant',
     point: {
       lat: 41.918008,
-      lon: -87.73173299999999
+      lon: -87.73173299999999,
     },
     crid: '1045343',
     'unit_description': 'Mobile Strike Force',
@@ -28,8 +28,8 @@ describe('Officer map selectors', function () {
     victims: [{
       gender: 'Male',
       race: 'White',
-      age: 35
-    }]
+      age: 35,
+    }],
   };
   const exoneratedCr = {
     category: 'Illegal Search',
@@ -38,7 +38,7 @@ describe('Officer map selectors', function () {
     subcategory: 'Search Of Premise Without Warrant',
     point: {
       lat: 41.7630623832,
-      lon: -87.67122688239999
+      lon: -87.67122688239999,
     },
     crid: '294619',
     'unit_description': 'Mobile Strike Force',
@@ -51,9 +51,9 @@ describe('Officer map selectors', function () {
       {
         url: 'https://www.documentcloud.org/documents/3518948-CRID-294619-CR.html',
         'preview_image_url': 'https://assets.documentcloud.org/documents/3518948/pages/CRID-294619-CR-p1-normal.gif',
-        title: 'CRID 294619 CR'
-      }
-    ]
+        title: 'CRID 294619 CR',
+      },
+    ],
   };
   const trr = {
     'trr_id': '123456',
@@ -66,7 +66,7 @@ describe('Officer map selectors', function () {
     'firearm_used': true,
     point: {
       lat: 35.3,
-      lon: 50.5
+      lon: 50.5,
     },
   };
   const unitChange = {
@@ -74,7 +74,7 @@ describe('Officer map selectors', function () {
     kind: 'UNIT_CHANGE',
     'unit_description': 'District 007',
     rank: 'Police Officer',
-    date: '1993-01-07'
+    date: '1993-01-07',
   };
 
   describe('crMapMarkersTransform', function () {
@@ -86,7 +86,7 @@ describe('Officer map selectors', function () {
         subcategory: 'Association With Felon',
         point: {
           lat: 41.887673,
-          lon: -87.62355
+          lon: -87.62355,
         },
         crid: '1002787',
         'unit_description': 'Mobile Strike Force',
@@ -99,24 +99,24 @@ describe('Officer map selectors', function () {
           {
             gender: 'Male',
             age: null,
-            race: 'Hispanic'
+            race: 'Hispanic',
           },
           {
             gender: 'Female',
             age: null,
-            race: 'White'
+            race: 'White',
           },
           {
             gender: 'Male',
             age: 46,
-            race: 'Hispanic'
-          }
-        ]
+            race: 'Hispanic',
+          },
+        ],
       };
       crMapMarkersTransform(crItem).should.eql({
         point: {
           lat: 41.887673,
-          lon: -87.62355
+          lon: -87.62355,
         },
         kind: 'CR',
         finding: 'Not Sustained',
@@ -126,17 +126,17 @@ describe('Officer map selectors', function () {
           {
             gender: 'Male',
             age: null,
-            race: 'Hispanic'
+            race: 'Hispanic',
           },
           {
             gender: 'Female',
             age: null,
-            race: 'White'
+            race: 'White',
           },
           {
             gender: 'Male',
             age: 46,
-            race: 'Hispanic'
+            race: 'Hispanic',
           },
         ],
         coaccused: 1,
@@ -154,13 +154,13 @@ describe('Officer map selectors', function () {
         'firearm_used': false,
         point: {
           lat: 50,
-          lon: -87
-        }
+          lon: -87,
+        },
       };
       trrMapMarkerTransform(trrItem).should.eql({
         point: {
           lat: 50,
-          lon: -87
+          lon: -87,
         },
         kind: 'FORCE',
         id: '56789',
@@ -183,7 +183,7 @@ describe('Officer map selectors', function () {
             unit: {
               'unit_name': '153',
               id: 112,
-              description: 'Mobile Strike Force'
+              description: 'Mobile Strike Force',
             },
             'complaint_percentile': 99.98,
             'major_award_count': 0,
@@ -200,9 +200,9 @@ describe('Officer map selectors', function () {
             'honorable_mention_count': 1,
             url: 'https://beta.cpdb.co/officer/jerome-finnigan/8562',
             gender: 'Male',
-            race: 'White'
-          }
-        }
+            race: 'White',
+          },
+        },
       };
       mapLegendSelector(state).should.eql({
         unsustainedCount: 36,
@@ -217,9 +217,9 @@ describe('Officer map selectors', function () {
       const state = {
         officerPage: {
           newTimeline: {
-            items: [sustainedCr, exoneratedCr, trr, unitChange]
-          }
-        }
+            items: [sustainedCr, exoneratedCr, trr, unitChange],
+          },
+        },
       };
       rawMapMarkersSelector(state).should.eql([sustainedCr, trr]);
     });
@@ -230,14 +230,14 @@ describe('Officer map selectors', function () {
       const state = {
         officerPage: {
           newTimeline: {
-            items: [sustainedCr, exoneratedCr, trr, unitChange]
-          }
-        }
+            items: [sustainedCr, exoneratedCr, trr, unitChange],
+          },
+        },
       };
       mapMarkersSelector(state).should.eql([{
         point: {
           lat: 41.918008,
-          lon: -87.73173299999999
+          lon: -87.73173299999999,
         },
         kind: 'CR',
         finding: 'Sustained',
@@ -246,13 +246,13 @@ describe('Officer map selectors', function () {
         victims: [{
           gender: 'Male',
           race: 'White',
-          age: 35
+          age: 35,
         }],
         coaccused: 6,
       }, {
         point: {
           lat: 35.3,
-          lon: 50.5
+          lon: 50.5,
         },
         kind: 'FORCE',
         id: '123456',
@@ -266,9 +266,9 @@ describe('Officer map selectors', function () {
       const state = {
         officerPage: {
           newTimeline: {
-            items: []
-          }
-        }
+            items: [],
+          },
+        },
       };
       hasMapMarkersSelector(state).should.be.false();
     });
@@ -277,9 +277,9 @@ describe('Officer map selectors', function () {
       const state = {
         officerPage: {
           newTimeline: {
-            items: [sustainedCr, exoneratedCr, trr, unitChange]
-          }
-        }
+            items: [sustainedCr, exoneratedCr, trr, unitChange],
+          },
+        },
       };
       hasMapMarkersSelector(state).should.be.true();
     });

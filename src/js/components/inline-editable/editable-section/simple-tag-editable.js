@@ -43,5 +43,5 @@ SimpleTagEditable.propTypes = {
 };
 
 SimpleTagEditable.contextTypes = {
-  fieldContexts: PropTypes.object
+  fieldContexts: PropTypes.object,
 };

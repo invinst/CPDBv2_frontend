@@ -25,5 +25,5 @@ export default class SuggestionNoResult extends Component {
 
 
 SuggestionNoResult.propTypes = {
-  searchText: PropTypes.string
+  searchText: PropTypes.string,
 };

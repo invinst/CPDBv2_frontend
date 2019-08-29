@@ -17,8 +17,8 @@ export default handleActions({
     } else {
       return {
         data: newRows,
-        match: matchVal
+        match: matchVal,
       };
     }
-  }
+  },
 }, { data: {}, match: '' });

@@ -11,8 +11,8 @@ describe('activity-grid selectors', function () {
   beforeEach(function () {
     state = {
       landingPage: {
-        activityGrid: {}
-      }
+        activityGrid: {},
+      },
     };
   });
 

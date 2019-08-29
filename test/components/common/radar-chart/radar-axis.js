@@ -30,7 +30,7 @@ describe('RadarAxis component', function () {
       {
         axis: 'c',
         value: 20,
-      }
+      },
     ];
     instance = renderIntoDocument(
       <RadarAxis radius={ 100 } data={ data } showAxisTitle={ true }/>
@@ -56,7 +56,7 @@ describe('RadarAxis component', function () {
       {
         axis: 'c',
         value: 20,
-      }
+      },
     ];
     instance = renderIntoDocument(
       <RadarAxis radius={ 100 } data={ data } showAxisTitle={ true }/>
@@ -85,7 +85,7 @@ describe('RadarAxis component', function () {
       {
         axis: 'c',
         value: 20,
-      }
+      },
     ];
     instance = renderIntoDocument(
       <RadarAxis radius={ 100 } data={ data } showAxisValue={ true }/>
@@ -111,7 +111,7 @@ describe('RadarAxis component', function () {
       {
         axis: 'c',
         value: 20,
-      }
+      },
     ];
     instance = renderIntoDocument(
       <RadarAxis radius={ 100 } data={ data } showAxisTitle={ true }/>
@@ -137,7 +137,7 @@ describe('RadarAxis component', function () {
       {
         axis: 'c',
         value: 0,
-      }
+      },
     ];
     instance = renderIntoDocument(
       <RadarAxis radius={ 100 } data={ data } showAxisValue={ true } showValueWithSuffix={ true }/>

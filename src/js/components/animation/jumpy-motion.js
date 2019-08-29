@@ -6,7 +6,7 @@ export default class JumpyMotion extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      startMotion: false
+      startMotion: false,
     };
   }
 
@@ -30,13 +30,13 @@ export default class JumpyMotion extends Component {
         defaultStyle={ { translateY: 0 } }
         style={ {
           // "enter" transition effect: slide up from 15px under
-          translateY: startMotion ? translateY : spring(0, presets.stiff)
+          translateY: startMotion ? translateY : spring(0, presets.stiff),
         } }
       >
         {
           (style) => (
             <div style={ {
-              transform: `translateY(${style.translateY}px)`
+              transform: `translateY(${style.translateY}px)`,
             } }>
               { children }
             </div>
@@ -50,9 +50,9 @@ export default class JumpyMotion extends Component {
 JumpyMotion.propTypes = {
   isActive: PropTypes.bool,
   translateY: PropTypes.number,
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 JumpyMotion.defaultProps = {
-  translateY: 15
+  translateY: 15,
 };

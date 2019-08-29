@@ -57,9 +57,9 @@ ScaleExplainer.propTypes = {
   radarChartData: PropTypes.arrayOf(
     PropTypes.shape({
       axis: PropTypes.string,
-      value: PropTypes.number
+      value: PropTypes.number,
     })
   ),
   year: PropTypes.number,
-  editWrapperStateProps: PropTypes.object
+  editWrapperStateProps: PropTypes.object,
 };

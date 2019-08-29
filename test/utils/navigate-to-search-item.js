@@ -5,7 +5,6 @@ import { navigateToSearchItem } from 'utils/navigate-to-search-item';
 import * as GATracking from 'utils/google_analytics_tracking';
 
 
-
 describe('navigate to search item utils', function () {
   describe('navigateToSearchItem', function () {
     it('should call history push if to property is defined', function () {

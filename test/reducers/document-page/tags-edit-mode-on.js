@@ -21,21 +21,21 @@ describe('tagsEditModeOn reducer', function () {
 
   it('should handle LOCATION_CHANGE', function () {
     tagsEditModeOn(false, {
-      type: LOCATION_CHANGE
+      type: LOCATION_CHANGE,
     }).should.be.false();
 
     tagsEditModeOn(true, {
       type: LOCATION_CHANGE,
       payload: {
-        pathname: '/document/1234'
-      }
+        pathname: '/document/1234',
+      },
     }).should.be.false();
 
     tagsEditModeOn(true, {
       type: LOCATION_CHANGE,
       payload: {
-        pathname: '/edit/document/1234'
-      }
+        pathname: '/edit/document/1234',
+      },
     }).should.be.true();
   });
 });

@@ -2,7 +2,7 @@ import React from 'react';
 import {
   renderIntoDocument,
   findRenderedComponentWithType,
-  scryRenderedComponentsWithType
+  scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 import { spy } from 'sinon';
@@ -54,18 +54,18 @@ describe('ScaleExplainer components', function () {
         'scale_description': {
           type: 'rich_text',
           name: 'scale_description',
-          value: RawContentStateFactory.build({}, { blockTexts: ['scale description'] })
+          value: RawContentStateFactory.build({}, { blockTexts: ['scale description'] }),
         },
         'scale_sub_description': {
           type: 'rich_text',
           name: 'scale_sub_description',
-          value: RawContentStateFactory.build({}, { blockTexts: ['scale sub description'] })
-        }
+          value: RawContentStateFactory.build({}, { blockTexts: ['scale sub description'] }),
+        },
       },
       sectionEditModeOn: true,
       onSaveForm: spy(),
       turnOnSectionEditMode: spy(),
-      turnOffSectionEditMode: spy()
+      turnOffSectionEditMode: spy(),
     };
 
     instance = renderIntoDocument(

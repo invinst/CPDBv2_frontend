@@ -1,7 +1,7 @@
 import {
   documentsSelector,
   hasMoreSelector,
-  nextParamsSelector
+  nextParamsSelector,
 } from 'selectors/documents-overview-page';
 
 import * as constants from 'utils/constants';
@@ -41,20 +41,20 @@ describe('DocumentsOverviewPage selectors', function () {
                 'documents_count': 2,
                 'file_type': 'document',
                 'url': 'http://document/link/2',
-              }
-            }
+              },
+            },
           },
           documentsOrder: {
-            data: [2, 1]
-          }
-        }
+            data: [2, 1],
+          },
+        },
       };
 
       documentsSelector(state).should.eql([
         {
           kind: constants.DOCUMENTS_SEARCH_ITEMS.MONTH_SEPARATOR,
           text: 'Jan 2017',
-          id: '01-2017'
+          id: '01-2017',
         },
         {
           id: 2,
@@ -73,7 +73,7 @@ describe('DocumentsOverviewPage selectors', function () {
         {
           kind: constants.DOCUMENTS_SEARCH_ITEMS.MONTH_SEPARATOR,
           text: 'Feb 2017',
-          id: '02-2017'
+          id: '02-2017',
         },
         {
           id: 1,
@@ -88,7 +88,7 @@ describe('DocumentsOverviewPage selectors', function () {
           documentsCount: 0,
           fileType: 'document',
           url: 'http://document/link/1',
-        }
+        },
       ]);
     });
   });
@@ -98,9 +98,9 @@ describe('DocumentsOverviewPage selectors', function () {
       const state = {
         documentsOverviewPage: {
           pagination: {
-            next: 'https://api.com/docs/?limit=20&offset=40'
-          }
-        }
+            next: 'https://api.com/docs/?limit=20&offset=40',
+          },
+        },
       };
 
       hasMoreSelector(state).should.eql(true);
@@ -110,9 +110,9 @@ describe('DocumentsOverviewPage selectors', function () {
       const state = {
         documentsOverviewPage: {
           pagination: {
-            next: null
-          }
-        }
+            next: null,
+          },
+        },
       };
 
       hasMoreSelector(state).should.eql(false);
@@ -124,14 +124,14 @@ describe('DocumentsOverviewPage selectors', function () {
       const state = {
         documentsOverviewPage: {
           pagination: {
-            next: 'https://api.com/docs/?limit=20&offset=40'
-          }
-        }
+            next: 'https://api.com/docs/?limit=20&offset=40',
+          },
+        },
       };
 
       nextParamsSelector(state).should.eql({
         limit: '20',
-        offset: '40'
+        offset: '40',
       });
     });
   });

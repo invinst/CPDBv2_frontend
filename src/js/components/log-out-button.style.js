@@ -11,13 +11,13 @@ const _baseStyle = {
   borderRadius: '3px',
   marginLeft: '50px',
   padding: '5px 7px',
-  cursor: 'pointer'
+  cursor: 'pointer',
 };
 
 export const style = {
   base: _baseStyle,
   hover: {
     ..._baseStyle,
-    backgroundColor: tomatoPinkColor
-  }
+    backgroundColor: tomatoPinkColor,
+  },
 };

@@ -15,7 +15,7 @@ export default class LinkTextEditable extends Component {
     return {
       editModeOn: editModeOn || fieldContext.editModeOn,
       value: value || fieldContext.value,
-      onChange: onChange || fieldContext.onChange
+      onChange: onChange || fieldContext.onChange,
     };
   }
 
@@ -56,13 +56,13 @@ LinkTextEditable.propTypes = {
   value: PropTypes.object,
   placeholder: PropTypes.string,
   to: PropTypes.string,
-  fieldname: PropTypes.string
+  fieldname: PropTypes.string,
 };
 
 LinkTextEditable.defaultProps = {
-  style: {}
+  style: {},
 };
 
 LinkTextEditable.contextTypes = {
-  fieldContexts: PropTypes.object
+  fieldContexts: PropTypes.object,
 };

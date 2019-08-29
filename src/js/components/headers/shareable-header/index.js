@@ -36,7 +36,7 @@ export default class ShareableHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      position: 'top'
+      position: 'top',
     };
 
     this.handleScroll = this.handleScroll.bind(this);
@@ -113,11 +113,11 @@ ShareableHeader.propTypes = {
 ShareableHeader.defaultProps = {
   params: {},
   location: {
-    pathname: ''
+    pathname: '',
   },
   routes: [],
   hasHeaderButton: true,
-  buttonType: constants.SHAREABLE_HEADER_BUTTON_TYPE.MENU,
+  buttonType: constants.SHAREABLE_HEADER_BUTTON_TYPE.NONE,
   onOpen: () => {},
   onClose: () => {},
 };

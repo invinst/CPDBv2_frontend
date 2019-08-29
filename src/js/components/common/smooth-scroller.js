@@ -6,7 +6,7 @@ import MinimalScrollBars from 'components/common/minimal-scroll-bars';
 
 const SCROLL_PROPERTY = {
   left: 'scrollLeft',
-  top: 'scrollTop'
+  top: 'scrollTop',
 };
 
 
@@ -45,7 +45,7 @@ export default class SmoothScroller extends Component {
             const scrollerProps = {
               style,
               [SCROLL_PROPERTY[direction]]: scrollOffset,
-              onScrollerRef: this.handleScrollerElementRef
+              onScrollerRef: this.handleScrollerElementRef,
             };
 
             return (
@@ -63,7 +63,7 @@ export default class SmoothScroller extends Component {
 SmoothScroller.defaultProps = {
   directionMargin: 0,
   direction: 'top',
-  onScrollerRef: () => {}
+  onScrollerRef: () => {},
 };
 
 SmoothScroller.propTypes = {
@@ -72,5 +72,5 @@ SmoothScroller.propTypes = {
   selectedOffset: PropTypes.number,
   direction: PropTypes.string,
   directionMargin: PropTypes.number,
-  onScrollerRef: PropTypes.func
+  onScrollerRef: PropTypes.func,
 };

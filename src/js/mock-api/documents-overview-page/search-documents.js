@@ -13,7 +13,7 @@ export default () => ({
       'downloads_count': 1000,
       'show': false,
       'crid': '123457',
-      'documents_count': '1'
-    }
-  ]
+      'documents_count': '1',
+    },
+  ],
 });

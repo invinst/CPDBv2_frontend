@@ -41,7 +41,7 @@ export default class WardPane extends Component {
 }
 
 WardPane.defaultProps = {
-  alderman: null
+  alderman: null,
 };
 
 WardPane.propTypes = {
@@ -52,5 +52,4 @@ WardPane.propTypes = {
   alderman: PropTypes.string,
   url: PropTypes.string.isRequired,
 };
-
 

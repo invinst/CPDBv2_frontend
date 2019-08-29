@@ -16,9 +16,9 @@ describe('SummaryPanel component', function () {
   const store = MockStore()({
     landingPage: {
       heatMap: {
-        citySummary: CitySummaryFactory.build()
-      }
-    }
+        citySummary: CitySummaryFactory.build(),
+      },
+    },
   });
 
   afterEach(function () {

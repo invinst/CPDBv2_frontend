@@ -10,16 +10,16 @@ describe('heatmap actions', function () {
         types: [
           constants.CLUSTER_GEO_REQUEST_START,
           constants.CLUSTER_GEO_REQUEST_SUCCESS,
-          constants.CLUSTER_GEO_REQUEST_FAILURE
+          constants.CLUSTER_GEO_REQUEST_FAILURE,
         ],
         payload: {
           request: {
             url: clusterGeoJSONPath,
             params: undefined,
             adapter: null,
-            cancelToken: undefined
-          }
-        }
+            cancelToken: undefined,
+          },
+        },
       });
     });
   });
@@ -30,16 +30,16 @@ describe('heatmap actions', function () {
         types: [
           constants.COMMUNITY_REQUEST_START,
           constants.COMMUNITY_REQUEST_SUCCESS,
-          constants.COMMUNITY_REQUEST_FAILURE
+          constants.COMMUNITY_REQUEST_FAILURE,
         ],
         payload: {
           request: {
             url: communityGeoJSONPath,
             params: undefined,
             adapter: null,
-            cancelToken: undefined
-          }
-        }
+            cancelToken: undefined,
+          },
+        },
       });
     });
   });

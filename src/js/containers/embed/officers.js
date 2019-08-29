@@ -16,7 +16,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  requestOfficers: requestEmbedOfficers
+  requestOfficers: requestEmbedOfficers,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EmbedOfficers);

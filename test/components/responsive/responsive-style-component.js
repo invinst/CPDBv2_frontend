@@ -24,7 +24,7 @@ describe('ResponsiveStyleComponent component', function () {
         [EXTRA_WIDE]: obj1,
         [DESKTOP]: obj2,
         [TABLET]: obj3,
-        [MOBILE]: obj4
+        [MOBILE]: obj4,
       } }>
         { children }
       </ResponsiveStyleComponent>

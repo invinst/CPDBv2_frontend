@@ -13,8 +13,8 @@ describe('trackingMiddleware', function () {
     const dispatchAction = {
       type: '@@router/LOCATION_CHANGE',
       payload: {
-        pathname: 'abc'
-      }
+        pathname: 'abc',
+      },
     };
 
     trackingMiddleware({})(action => dispatched = action)(dispatchAction);
@@ -31,7 +31,7 @@ describe('trackingMiddleware', function () {
     let dispatched;
     const dispatchAction = {
       type: constants.CHANGE_SEARCH_QUERY,
-      payload: 'abc'
+      payload: 'abc',
     };
 
     trackingMiddleware({})(action => dispatched = action)(dispatchAction);
@@ -49,8 +49,8 @@ describe('trackingMiddleware', function () {
     const dispatchAction = {
       type: constants.SUGGESTION_SINGLE_REQUEST_SUCCESS,
       payload: {
-        count: 203
-      }
+        count: 203,
+      },
     };
 
     trackingMiddleware({})(action => dispatched = action)(dispatchAction);
@@ -69,8 +69,8 @@ describe('trackingMiddleware', function () {
       type: constants.SUGGESTION_REQUEST_SUCCESS,
       payload: {
         'COMMUNITY': [1, 2],
-        'CR': [1]
-      }
+        'CR': [1],
+      },
     };
 
     trackingMiddleware({})(action => dispatched = action)(dispatchAction);

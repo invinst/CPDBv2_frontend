@@ -5,7 +5,7 @@ import {
   Simulate,
   findRenderedDOMComponentWithClass,
   findRenderedComponentWithType,
-  scryRenderedComponentsWithType
+  scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 import { stub } from 'sinon';
 
