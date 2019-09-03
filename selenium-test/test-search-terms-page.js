@@ -86,7 +86,7 @@ describe('Search terms page', function () {
     browser.keys('ArrowDown');
     browser.scroll(0, 9999);
 
-    searchTermsPage.previewPane.title.isVisibleWithinViewport().should.be.true();
+    searchTermsPage.previewPane.title.isDisplayedInViewport().should.be.true();
   });
 
   it('should focus on the search box by default', function () {
@@ -120,12 +120,12 @@ describe('Search terms page', function () {
     browser.keys('ArrowDown');
 
     searchPage.clearSearchButton.click();
-    searchTermsPage.searchTermsToggle.waitForVisible();
+    searchTermsPage.searchTermsToggle.waitForDisplayed();
     searchTermsPage.searchTermsToggle.click();
 
     browser.getUrl().should.match(/\/search\/terms\/$/);
 
-    searchTermsPage.input.waitForVisible();
+    searchTermsPage.input.waitForDisplayed();
     searchPage.input.setValue('Some other ');
     browser.keys('T');
 

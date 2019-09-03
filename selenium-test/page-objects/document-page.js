@@ -58,7 +58,7 @@ class DocumentPage extends Page {
 
   open(id=1, login=false) {
     super.open(`${ login ? '/edit': '' }/document/${id}/`);
-    browser.element('body').waitForVisible();
+    $('body').waitForDisplayed();
     login && this.loginScreen.login();
   }
 }
