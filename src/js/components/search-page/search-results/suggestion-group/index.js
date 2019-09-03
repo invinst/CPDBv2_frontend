@@ -57,7 +57,7 @@ export default class SuggestionGroup extends Component {
   }
 
   renderMoreButton() {
-    const { header, focusedItem, onLoadMore, showMoreButton, } = this.props;
+    const { header, focusedItem, onLoadMore, showMoreButton } = this.props;
 
     if (showMoreButton)
       return (
@@ -73,7 +73,7 @@ export default class SuggestionGroup extends Component {
   render() {
     const {
       singleContent,
-      focusedItem
+      focusedItem,
     } = this.props;
 
     if (singleContent) {
@@ -120,6 +120,6 @@ SuggestionGroup.defaultProps = {
   focusedItem: {},
   header: '',
   getSuggestionWithContentType: () => ({
-    catch: noop
-  })
+    catch: noop,
+  }),
 };

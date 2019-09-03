@@ -23,7 +23,7 @@ class PinnedOfficers extends Section {
   }
 
   officerCards() {
-    return browser.elements(this.officerCardSelector).value;
+    return $$(this.officerCardSelector);
   }
 }
 
@@ -44,7 +44,7 @@ class PinnedCRs extends Section {
   }
 
   crCards() {
-    return browser.elements(this.crCardSelector).value;
+    return $$(this.crCardSelector);
   }
 }
 
@@ -66,7 +66,7 @@ class PinnedTRRs extends Section {
   }
 
   trrCards() {
-    return browser.elements(this.trrCardSelector).value;
+    return $$(this.trrCardSelector);
   }
 }
 
@@ -87,15 +87,15 @@ class AnimatedSocialGraphSection extends Section {
   }
 
   graphNodes() {
-    return browser.elements('(//*[name()="circle" and contains(@class, "node")])').value;
+    return $$('(//*[name()="circle" and contains(@class, "node")])');
   }
 
   graphLinks() {
-    return browser.elements('(//*[name()="line" and contains(@class, "link")])').value;
+    return $$('(//*[name()="line" and contains(@class, "link")])');
   }
 
   graphLabels() {
-    return browser.elements('(//*[name()="text" and @class="node-label"])').value;
+    return $$('(//*[name()="text" and @class="node-label"])');
   }
 }
 
@@ -165,7 +165,7 @@ class RelevantDocumentsSection extends BaseRelevantSection {
   }
 
   documentCards() {
-    return browser.elements(this.documentCardSection.mainElementSelector).value;
+    return $$(this.documentCardSection.mainElementSelector);
   }
 }
 
@@ -178,7 +178,7 @@ class RelevantComplaintsSection extends BaseRelevantSection {
   }
 
   complaintCards() {
-    return browser.elements(this.complaintCardSection.mainElementSelector).value;
+    return $$(this.complaintCardSection.mainElementSelector);
   }
 }
 
@@ -191,7 +191,7 @@ class RelevantCoaccusalsSection extends BaseRelevantSection {
   }
 
   coaccusalCards() {
-    return browser.elements(this.coaccusalCardSection.mainElementSelector).value;
+    return $$(this.coaccusalCardSection.mainElementSelector);
   }
 }
 
@@ -210,9 +210,9 @@ class PinboardSection extends Section {
 }
 
 class PinboardPinnedSection extends Section {
-  officers = new PinnedOfficers()
-  crs = new PinnedCRs()
-  trrs = new PinnedTRRs()
+  officers = new PinnedOfficers();
+  crs = new PinnedCRs();
+  trrs = new PinnedTRRs();
 
   constructor() {
     super();

@@ -12,7 +12,7 @@ describe('crid reducer', function () {
   it('should handle UPDATE_GEOGRAPHIC_CRID', function () {
     crid([], {
       type: UPDATE_GEOGRAPHIC_CRID,
-      payload: 123
+      payload: 123,
     }).should.eql(123);
   });
 });

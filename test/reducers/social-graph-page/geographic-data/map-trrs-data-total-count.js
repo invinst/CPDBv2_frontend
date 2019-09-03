@@ -21,12 +21,12 @@ describe('mapTrrsDataTotalCount reducer', function () {
             'kind': 'TRR',
             'point': {
               'lon': -87,
-              'lat': 35
+              'lat': 35,
             },
           },
         ],
         count: 5,
-      }
+      },
     }).should.eql(5);
   });
 });

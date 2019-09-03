@@ -29,7 +29,7 @@ class CRPage extends Component {
       crid, coaccused, complainants, alreadyRequested, category, subcategory,
       incidentDate, point, address, crLocation, beat, involvements, attachments,
       openRequestDocumentModal, summary, victims, startDate, endDate, popup, pathname, notes,
-      noAttachmentTextEditWrapperStateProps, onTrackingAttachment
+      noAttachmentTextEditWrapperStateProps, onTrackingAttachment,
     } = this.props;
 
     const { printMode } = this.context;
@@ -138,7 +138,7 @@ CRPage.propTypes = {
 CRPage.defaultProps = {
   victims: [],
   complainants: [],
-  coaccused: []
+  coaccused: [],
 };
 
 CRPage.contextTypes = {

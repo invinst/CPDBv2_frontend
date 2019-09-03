@@ -51,7 +51,7 @@ Cr.propTypes = {
   officerId: PropTypes.number,
   changeOfficerTab: PropTypes.func,
   pathname: PropTypes.string,
-  onTrackingAttachment: PropTypes.func
+  onTrackingAttachment: PropTypes.func,
 };
 
 Cr.contextTypes = {

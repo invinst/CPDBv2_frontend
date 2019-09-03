@@ -68,6 +68,7 @@ class RightLinksSection extends Section {
       data: '//a[text()="Data"]',
       qa: '//a[text()="Q&A"]',
       documents: '//a[text()="Documents"]',
+      pinboard: '//a[text()="Pinboard"]',
     });
   }
 }
@@ -108,5 +109,5 @@ class SlimHeader extends Header {
 
 module.exports = {
   TopHeader,
-  SlimHeader
+  SlimHeader,
 };

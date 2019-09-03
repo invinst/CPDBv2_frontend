@@ -14,12 +14,12 @@ class LoginScreen extends Section {
       forgotPasswordButton: '.test--forgot-password-link',
       forgotPasswordModal: '.test--forgot-password-modal',
       emailInput: '.test--login-modal .email-input-wrapper input',
-      resetPasswordButton: '.test--reset-password'
+      resetPasswordButton: '.test--reset-password',
     });
   }
 
   enterCredentials(username, password) {
-    this.loginModal.waitForVisible(20000);
+    this.loginModal.waitForDisplayed(20000);
     reliableSetValue(this.loginNameInput, username);
     reliableSetValue(this.loginPasswordInput, password);
   }

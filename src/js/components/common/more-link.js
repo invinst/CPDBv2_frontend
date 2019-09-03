@@ -47,11 +47,11 @@ MoreLink.propTypes = {
   children: PropTypes.node,
   style: PropTypes.object,
   hovering: PropTypes.bool,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
 };
 
 MoreLink.defaultProps = {
-  style: {}
+  style: {},
 };
 
 export default Hoverable(ConfiguredRadium(MoreLink));

@@ -114,7 +114,7 @@ describe('Marker component', function () {
   it('should toggle popup when hovering', function () {
     const stubMapboxMarker = {
       getPopup: stub().returns({
-        isOpen: stub().returns(false)
+        isOpen: stub().returns(false),
       }),
       togglePopup: stub(),
     };
@@ -144,7 +144,7 @@ describe('Marker component', function () {
   it('should toggle popup when unhovering', function () {
     const stubMapboxMarker = {
       getPopup: stub().returns({
-        isOpen: stub().returns(true)
+        isOpen: stub().returns(true),
       }),
       togglePopup: stub(),
     };
@@ -175,7 +175,7 @@ describe('Marker component', function () {
     const tabletStub = stub(isMobile, 'tablet').value(true);
     const stubMapboxMarker = {
       getPopup: stub().returns({
-        isOpen: stub().returns(false)
+        isOpen: stub().returns(false),
       }),
       togglePopup: stub(),
     };

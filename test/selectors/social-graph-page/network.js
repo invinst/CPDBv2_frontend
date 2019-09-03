@@ -27,7 +27,7 @@ describe('Social Graph page selectors', function () {
                   'percentile': {
                     'percentile_trr': '78.2707',
                     'percentile_allegation_civilian': '97.8772',
-                    'percentile_allegation_internal': '61.1521'
+                    'percentile_allegation_internal': '61.1521',
                   },
                 },
                 {
@@ -36,13 +36,13 @@ describe('Social Graph page selectors', function () {
                   'percentile': {
                     'percentile_trr': '80',
                     'percentile_allegation_civilian': '85',
-                    'percentile_allegation_internal': '90'
+                    'percentile_allegation_internal': '90',
                   },
-                }
-              ]
-            }
-          }
-        }
+                },
+              ],
+            },
+          },
+        },
       };
 
       officersSelector(state).should.eql(
@@ -50,13 +50,13 @@ describe('Social Graph page selectors', function () {
           {
             fullName: 'Jerome Finnigan',
             id: 1,
-            visualTokenBackground: '#f0201e'
+            visualTokenBackground: '#f0201e',
           },
           {
             fullName: 'Edward May',
             id: 2,
-            visualTokenBackground: '#f0201e'
-          }
+            visualTokenBackground: '#f0201e',
+          },
         ]
       );
     });
@@ -80,23 +80,23 @@ describe('Social Graph page selectors', function () {
                   'officer_id_2': 4,
                   'incident_date': '1990-10-03',
                   'accussed_count': 5,
-                }
-              ]
+                },
+              ],
             },
-          }
-        }
+          },
+        },
       };
 
       coaccusedDataSelector(state).should.eql([{
         officerId1: 1,
         officerId2: 2,
         incidentDate: '1988-10-03',
-        accussedCount: 1
+        accussedCount: 1,
       }, {
         officerId1: 3,
         officerId2: 4,
         incidentDate: '1990-10-03',
-        accussedCount: 5
+        accussedCount: 5,
       }]);
     });
   });
@@ -117,11 +117,11 @@ describe('Social Graph page selectors', function () {
                 '1991-01-15',
                 '1991-02-18',
                 '1991-02-20',
-                '1991-03-06'
-              ]
-            }
-          }
-        }
+                '1991-03-06',
+              ],
+            },
+          },
+        },
       };
 
       getListEvent(state).should.eql([
@@ -134,7 +134,7 @@ describe('Social Graph page selectors', function () {
         '1991-01-15',
         '1991-02-18',
         '1991-02-20',
-        '1991-03-06'
+        '1991-03-06',
       ]);
     });
   });
@@ -170,14 +170,14 @@ describe('Social Graph page selectors', function () {
         'preview_image_url': 'http://lvh.me/preview/image/url',
         'title': 'Document Title',
         'url': 'http://lvh.me/document/url',
-        'id': 456789
+        'id': 456789,
       };
       attachmentTransform(attachment).should.eql({
         fileType: 'document',
         previewImageUrl: 'http://lvh.me/preview/image/url',
         title: 'Document Title',
         url: 'http://lvh.me/document/url',
-        id: 456789
+        id: 456789,
       });
     });
   });
@@ -192,7 +192,7 @@ describe('Social Graph page selectors', function () {
         category: 'Use of Force',
         subcategory: 'Subcategory',
         attachments: [],
-        key: '123456'
+        key: '123456',
       };
 
       yearItem(baseItem, 2007, true).should.eql({
@@ -231,7 +231,7 @@ describe('Social Graph page selectors', function () {
           date: 2012,
           hasData: false,
           key: '2-YEAR-2012',
-        }
+        },
       ]);
     });
   });
@@ -250,7 +250,7 @@ describe('Social Graph page selectors', function () {
           date: 'MAR 1',
           kind: 'CR',
           key: 2,
-        }
+        },
       ];
 
       fillYears(items).should.eql([
@@ -289,7 +289,7 @@ describe('Social Graph page selectors', function () {
           date: 'MAR 1',
           kind: 'CR',
           key: 2,
-        }
+        },
       ]);
     });
 
@@ -306,7 +306,7 @@ describe('Social Graph page selectors', function () {
           incidentDate: 'MAR 1',
           kind: 'CR',
           key: 2,
-        }
+        },
       ];
 
       fillYears(sameYearItems).should.eql([
@@ -316,7 +316,7 @@ describe('Social Graph page selectors', function () {
           hasData: true,
           key: '1-YEAR-2014',
         },
-        ...sameYearItems
+        ...sameYearItems,
       ]);
     });
   });
@@ -347,20 +347,20 @@ describe('Social Graph page selectors', function () {
                     title: 'CRID 294088 CR',
                     'file_type': 'document',
                     'id': '123456',
-                  }
+                  },
                 ],
                 'officer_ids': [123, 456, 789],
               },
             ],
             graphData: {
-              'list_event': ['2003-02-17', '2003-11-26']
+              'list_event': ['2003-02-17', '2003-11-26'],
             },
             selectedEdge: {
               sourceUid: 123,
               targetUid: 456,
-            }
-          }
-        }
+            },
+          },
+        },
       };
       edgeCoaccusalsItemsSelector(state).should.eql([
         {
@@ -376,7 +376,7 @@ describe('Social Graph page selectors', function () {
               title: 'CRID 294088 CR',
               'file_type': 'document',
               'id': '123456',
-            }
+            },
           ],
           'officer_ids': [123, 456, 789],
         },
@@ -393,7 +393,7 @@ describe('Social Graph page selectors', function () {
               {
                 'most_common_category': {
                   category: 'Criminal Misconduct',
-                  'allegation_name': 'Theft'
+                  'allegation_name': 'Theft',
                 },
                 crid: '260131',
                 'incident_date': '2003-02-17',
@@ -402,7 +402,7 @@ describe('Social Graph page selectors', function () {
               {
                 'most_common_category': {
                   category: 'Illegal Search',
-                  'allegation_name': 'Search Of Premise Without Warrant'
+                  'allegation_name': 'Search Of Premise Without Warrant',
                 },
                 crid: '294088',
                 'incident_date': '2003-11-26',
@@ -414,20 +414,20 @@ describe('Social Graph page selectors', function () {
                     title: 'CRID 294088 CR',
                     'file_type': 'document',
                     'id': '123456',
-                  }
+                  },
                 ],
                 'officer_ids': [123, 456, 789],
               },
             ],
             graphData: {
-              'list_event': ['2003-02-17', '2003-11-26']
+              'list_event': ['2003-02-17', '2003-11-26'],
             },
             selectedEdge: {
               sourceUid: 123,
               targetUid: 456,
-            }
-          }
-        }
+            },
+          },
+        },
       };
       selectedEdgeDataSelector(state).should.eql({
         sourceUid: 123,
@@ -441,14 +441,14 @@ describe('Social Graph page selectors', function () {
     it('should return requesting status', function () {
       getRequesting({
         socialGraphPage: {
-          networkData: { requesting: false }
-        }
+          networkData: { requesting: false },
+        },
       }).should.be.false();
 
       getRequesting({
         socialGraphPage: {
-          networkData: { requesting: true }
-        }
+          networkData: { requesting: true },
+        },
       }).should.be.true();
     });
   });

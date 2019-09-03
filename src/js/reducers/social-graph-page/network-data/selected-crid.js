@@ -3,7 +3,7 @@ import { handleActions } from 'redux-actions';
 import {
   UPDATE_SOCIAL_GRAPH_SELECTED_CRID,
   UPDATE_SELECTED_OFFICER_ID,
-  UPDATE_SOCIAL_GRAPH_SELECTED_EDGE
+  UPDATE_SOCIAL_GRAPH_SELECTED_EDGE,
 } from 'utils/constants';
 
 

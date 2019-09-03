@@ -32,10 +32,10 @@ RadarLegend.propTypes = {
   content: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
-    PropTypes.element
+    PropTypes.element,
   ]),
 };
 
 RadarLegend.defaultProps = {
-  fadeOut: false
+  fadeOut: false,
 };

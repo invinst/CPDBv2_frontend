@@ -51,5 +51,5 @@ export const pairingCardTransform = card => ({
   kind: card['kind'],
   coaccusalCount: card['coaccusal_count'],
   officer1: simpleOfficerTransform(card['officer1']),
-  officer2: simpleOfficerTransform(card['officer2'])
+  officer2: simpleOfficerTransform(card['officer2']),
 });

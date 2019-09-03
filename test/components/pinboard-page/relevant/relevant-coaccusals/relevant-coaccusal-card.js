@@ -40,9 +40,9 @@ describe('RelevantCoaccusalCard component', function () {
           officerId: 123,
           year: 2015,
           items: [
-            { axis: 'Use of Force Reports', value: 20.6, },
-            { axis: 'Officer Allegations', value: 10.1, },
-            { axis: 'Civilian Allegations', value: 52.5, },
+            { axis: 'Use of Force Reports', value: 20.6 },
+            { axis: 'Officer Allegations', value: 10.1 },
+            { axis: 'Civilian Allegations', value: 52.5 },
           ],
           visualTokenBackground: '#ed7467',
         } }
@@ -62,9 +62,9 @@ describe('RelevantCoaccusalCard component', function () {
 
     const radarChart = findRenderedComponentWithType(instance, StaticRadarChart);
     radarChart.props.data.should.eql([
-      { axis: 'Use of Force Reports', value: 20.6, },
-      { axis: 'Officer Allegations', value: 10.1, },
-      { axis: 'Civilian Allegations', value: 52.5, },
+      { axis: 'Use of Force Reports', value: 20.6 },
+      { axis: 'Officer Allegations', value: 10.1 },
+      { axis: 'Civilian Allegations', value: 52.5 },
     ]);
     radarChart.props.width.should.eql(148);
     radarChart.props.height.should.eql(60);
@@ -95,7 +95,7 @@ describe('RelevantCoaccusalCard component', function () {
           'percentile_allegation_internal': 10.1,
           'percentile_allegation_civilian': 52.5,
         },
-      }
+      },
     });
   });
 
@@ -169,7 +169,7 @@ describe('RelevantCoaccusalCard component', function () {
           'percentile_allegation_internal': 10.1,
           'percentile_allegation_civilian': 52.5,
         },
-      }
+      },
     });
   });
 
@@ -302,7 +302,7 @@ describe('RelevantCoaccusalCard component', function () {
           'percentile_allegation_internal': 10.1,
           'percentile_allegation_civilian': 52.5,
         },
-      }
+      },
     });
   });
 });

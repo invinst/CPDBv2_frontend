@@ -4,7 +4,7 @@ import itemIndex from './item-index';
 
 
 const navigation = combineReducers({
-  itemIndex
+  itemIndex,
 });
 
 export default navigation;

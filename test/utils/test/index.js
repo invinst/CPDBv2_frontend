@@ -26,7 +26,7 @@ describe('utils/test', function () {
     }
 
     Dummy.propTypes = {
-      children: PropTypes.node
+      children: PropTypes.node,
     };
 
     it('should re-render component on the same parent node', function () {

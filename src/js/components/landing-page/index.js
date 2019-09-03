@@ -17,7 +17,7 @@ import styles from './landing-page.sass';
 class LandingPage extends Component {
   componentDidMount() {
     this.props.resetBreadcrumbs({
-      breadcrumbs: []
+      breadcrumbs: [],
     });
   }
 
@@ -55,7 +55,7 @@ LandingPage.propTypes = {
 };
 
 LandingPage.contextTypes = {
-  editModeOn: PropTypes.bool
+  editModeOn: PropTypes.bool,
 };
 
 export default ConfiguredRadium(LandingPage);

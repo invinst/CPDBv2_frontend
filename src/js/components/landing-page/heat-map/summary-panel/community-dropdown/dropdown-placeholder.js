@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 
 import {
-  wrapperStyle, firstRowStyle, secondRowStyle, arrowDownStyle, firstRowTextStyle
+  wrapperStyle, firstRowStyle, secondRowStyle, arrowDownStyle, firstRowTextStyle,
 } from './dropdown-placeholder.style';
 
 
@@ -29,5 +29,5 @@ export default class DropdownPlaceholder extends Component {
 }
 
 DropdownPlaceholder.propTypes = {
-  openDropdown: PropTypes.func
+  openDropdown: PropTypes.func,
 };

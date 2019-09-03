@@ -7,7 +7,7 @@ import {
   findRenderedDOMComponentWithTag,
   renderIntoDocument,
   scryRenderedDOMComponentsWithTag,
-  Simulate
+  Simulate,
 } from 'react-addons-test-utils';
 import { spy, stub } from 'sinon';
 import Mousetrap from 'mousetrap';
@@ -41,14 +41,14 @@ describe('SearchPage component', function () {
         hidden: true,
         navigation: {
           itemIndex: 0,
-        }
+        },
       },
       pagination: {},
     },
     pinboardPage: {
       pinboard: null,
     },
-    toast: {}
+    toast: {},
   };
   const store = MockStore()(state);
 
@@ -221,7 +221,7 @@ describe('SearchPage component', function () {
 
   it('should push search into breadcrumbs', function () {
     const location = {
-      pathname: '/search', search: '/', action: 'POP'
+      pathname: '/search', search: '/', action: 'POP',
     };
     const params = {};
     const routes = [];
@@ -569,7 +569,7 @@ describe('SearchPage component', function () {
       type: 'CR',
     }));
 
-    showToastStub.should.be.called();
+    showToastStub.should.be.calledWith('CR removed', 'removed');
   });
 
   it('should handle when click on pinboard button if pinboard is not exist', function (done) {
@@ -577,8 +577,8 @@ describe('SearchPage component', function () {
     const createPinboard = stub().usingPromise(Promise).resolves({
       payload: {
         id: '5cd06f2b',
-        url: '/pinboard/5cd06f2b/'
-      }
+        url: '/pinboard/5cd06f2b/',
+      },
     });
 
     instance = renderIntoDocument(

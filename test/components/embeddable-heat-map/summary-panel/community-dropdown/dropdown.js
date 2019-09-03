@@ -3,7 +3,7 @@ import { spy } from 'sinon';
 import { findDOMNode } from 'react-dom';
 import {
   renderIntoDocument, findRenderedComponentWithType, Simulate,
-  scryRenderedDOMComponentsWithClass, findRenderedDOMComponentWithClass
+  scryRenderedDOMComponentsWithClass, findRenderedDOMComponentWithClass,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
@@ -25,7 +25,7 @@ describe('Dropdown component', function () {
       <Dropdown
         communities={ [
           communityFactory.build({ name: 'Hyde Park' }),
-          communityFactory.build({ name: 'Lincoln Square' })
+          communityFactory.build({ name: 'Lincoln Square' }),
         ] }
       />
     );
@@ -39,7 +39,7 @@ describe('Dropdown component', function () {
       <Dropdown
         communities={ [
           communityFactory.build({ name: 'Hyde Park' }),
-          communityFactory.build({ name: 'Lincoln Square' })
+          communityFactory.build({ name: 'Lincoln Square' }),
         ] }
       />
     );
@@ -57,7 +57,7 @@ describe('Dropdown component', function () {
         selectCommunity={ selectCommunity }
         communities={ [
           communityFactory.build({ id: 101 }),
-          communityFactory.build()
+          communityFactory.build(),
         ] }
       />
     );
@@ -79,7 +79,7 @@ describe('Dropdown component', function () {
   it('should select first filtered community', function () {
     const communities = [
       communityFactory.build({ id: 301 }),
-      communityFactory.build({ id: 302 })
+      communityFactory.build({ id: 302 }),
     ];
     const selectCommunity = spy();
     instance = renderIntoDocument(

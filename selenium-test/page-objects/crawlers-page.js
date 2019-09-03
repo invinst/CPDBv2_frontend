@@ -30,14 +30,9 @@ class TableSection extends Section {
       recentRunAtHeader: '(//*[@class="header-col"])[1]',
       numNewDocumentsHeader: '(//*[@class="header-col"])[2]',
       numDocumentsHeader: '(//*[@class="header-col"])[3]',
-      numSuccessfulRuns: '(//*[@class="header-col"])[4]'
+      numSuccessfulRuns: '(//*[@class="header-col"])[4]',
+      row: '//div[contains(@class, "crawler-row")]',
     });
-  }
-
-  rowCount() {
-    return browser.elements(
-      '(//div[contains(@class, "crawler-row")])'
-    ).value.length;
   }
 }
 

@@ -17,17 +17,17 @@ export default class PreviewPane extends Component {
       [NETWORK_PREVIEW_PANE.OFFICER]: {
         component: OfficerPane,
         customClassName: 'officer-preview-link',
-        defaultProps: { pinnable: false, yScrollable: true }
+        defaultProps: { pinnable: false, yScrollable: true },
       },
       [NETWORK_PREVIEW_PANE.EDGE_COACCUSALS]: {
         component: EdgeCoaccusalsPane,
         customClassName: 'edge-coaccusals-preview-link',
-        customProps: ['location', 'onTrackingAttachment', 'updateSelectedCrid']
+        customProps: ['location', 'onTrackingAttachment', 'updateSelectedCrid'],
       },
       [NETWORK_PREVIEW_PANE.CR]: {
         component: CRPane,
         customClassName: 'cr-preview-pane cr-preview-link',
-        defaultProps: { yScrollable: true }
+        defaultProps: { yScrollable: true },
       },
     };
 

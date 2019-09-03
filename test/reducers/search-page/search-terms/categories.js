@@ -13,20 +13,20 @@ describe('categories reducer', function () {
 
   it('should handle SEARCH_TERMS_CATEGORIES_REQUEST_START', function () {
     categories('abc', {
-      type: SEARCH_TERMS_CATEGORIES_REQUEST_START
+      type: SEARCH_TERMS_CATEGORIES_REQUEST_START,
     }).should.eql('abc');
   });
 
   it('should handle SEARCH_TERMS_CATEGORIES_REQUEST_FAILURE', function () {
     categories('abc', {
-      type: SEARCH_TERMS_CATEGORIES_REQUEST_FAILURE
+      type: SEARCH_TERMS_CATEGORIES_REQUEST_FAILURE,
     }).should.eql('abc');
   });
 
   it('should handle SEARCH_TERMS_CATEGORIES_REQUEST_SUCCESS', function () {
     categories('abc', {
       type: SEARCH_TERMS_CATEGORIES_REQUEST_SUCCESS,
-      payload: 'def'
+      payload: 'def',
     }).should.eql('def');
   });
 });

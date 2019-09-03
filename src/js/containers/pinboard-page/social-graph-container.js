@@ -19,7 +19,7 @@ function mapStateToProps(state, ownProps) {
     timelineIdx: getPinboardTimelineIdx(state),
     refreshIntervalId: getPinboardRefreshIntervalId(state),
     expandedLink: getExpandedLink(state.pathname),
-    isVisible: ownProps.isVisible
+    isVisible: ownProps.isVisible,
   };
 }
 

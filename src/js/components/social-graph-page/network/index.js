@@ -124,7 +124,7 @@ export default class NetworkGraph extends Component {
     let requestParams;
     if (!isEmpty(pinboardId)) {
       requestParams = {
-        'pinboard_id': pinboardId, 'threshold': thresholdValue, 'complaint_origin': complaintOrigin
+        'pinboard_id': pinboardId, 'threshold': thresholdValue, 'complaint_origin': complaintOrigin,
       };
     } else if (!isEmpty(unitId)) {
       requestParams = { 'unit_id': unitId, 'threshold': thresholdValue, 'complaint_origin': complaintOrigin };
@@ -132,7 +132,7 @@ export default class NetworkGraph extends Component {
       requestParams = {
         'officer_ids': officerIds,
         'threshold': thresholdValue,
-        'complaint_origin': complaintOrigin
+        'complaint_origin': complaintOrigin,
       };
     }
 

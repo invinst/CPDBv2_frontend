@@ -30,7 +30,7 @@ describe('RadarChart component', function () {
     {
       axis: 'C',
       value: 20,
-    }
+    },
   ];
 
   afterEach(() => {

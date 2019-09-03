@@ -5,7 +5,7 @@ import {
   findRenderedComponentWithType,
   scryRenderedDOMComponentsWithClass,
   scryRenderedComponentsWithType,
-  Simulate
+  Simulate,
 } from 'react-addons-test-utils';
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import { findDOMNode } from 'react-dom';
@@ -49,7 +49,7 @@ describe('Carousel component', function () {
       'birthYear': 1974,
       'complaintPercentile': 84.5,
       'race': 'Hispanic',
-      'gender': 'Male'
+      'gender': 'Male',
     }, {
       'id': 2,
       'fullName': 'Jerome Finnagan',
@@ -58,7 +58,7 @@ describe('Carousel component', function () {
       'birthYear': 1979,
       'complaintPercentile': 94.5,
       'race': 'White',
-      'gender': 'Male'
+      'gender': 'Male',
     }];
 
     instance = renderIntoDocument(carouselComponent(data));
@@ -99,7 +99,7 @@ describe('Carousel component', function () {
     swiper.props.onSnapIndexChange({
       isEnd: false,
       isBeginning: false,
-      activeIndex: 1
+      activeIndex: 1,
     });
     instance.state.displayLeftArrow.should.be.true();
     instance.state.displayRightArrow.should.be.true();
@@ -110,7 +110,7 @@ describe('Carousel component', function () {
     instance = renderIntoDocument(carouselComponent(data));
     instance.setState({
       displayLeftArrow: true,
-      displayRightArrow: true
+      displayRightArrow: true,
     });
 
     const rightArrow = findRenderedDOMComponentWithClass(
@@ -151,12 +151,12 @@ describe('Carousel component', function () {
       {
         hasMore: true,
         loadMore: loadMoreSpy,
-        threshold: 2
+        threshold: 2,
       }
     ));
     instance.setState({
       slideIndex: 7,
-      displayRightArrow: true
+      displayRightArrow: true,
     });
 
     const rightArrow = findRenderedDOMComponentWithClass(
@@ -174,7 +174,7 @@ describe('Carousel component', function () {
       {
         hasMore: true,
         loadMore: loadMoreSpy,
-        threshold: 2
+        threshold: 2,
       }
     ));
 
@@ -182,7 +182,7 @@ describe('Carousel component', function () {
     swiper.props.onSnapIndexChange({
       isEnd: true,
       isBeginning: true,
-      activeIndex: 1
+      activeIndex: 1,
     });
 
     loadMoreSpy.called.should.be.true();
@@ -195,7 +195,7 @@ describe('Carousel component', function () {
       {
         hasMore: true,
         loadMore: loadMoreSpy,
-        threshold: 2
+        threshold: 2,
       }
     ));
 

@@ -23,7 +23,7 @@ describe('DocumentDeduplicatorPage Toggle component', function () {
 
     const toggle = findDOMNode(instance);
     const dummyEvent = {
-      stopPropagation: stub()
+      stopPropagation: stub(),
     };
     Simulate.click(toggle, dummyEvent);
 

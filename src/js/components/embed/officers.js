@@ -3,7 +3,7 @@ import { isEmpty, omit } from 'lodash';
 
 import {
   wrapperStyle, carouselStyle, itemStyle,
-  headerWrapperStyle, titleStyle, descriptionStyle
+  headerWrapperStyle, titleStyle, descriptionStyle,
 } from './officers.style';
 import { showIntercomLauncher } from 'utils/intercom';
 import OfficerCard from 'components/common/officer-card';

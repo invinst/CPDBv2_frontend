@@ -8,6 +8,7 @@ import crPage from './page-objects/cr-page';
 describe('CR page', function () {
   beforeEach(function () {
     crPage.open();
+    browser.setWindowRect(0, 0, 900, 1000);
   });
 
   it('should display complaint content', function () {
@@ -16,7 +17,7 @@ describe('CR page', function () {
     crPage.incidentDate.getText().should.equal('Sep 23, 2003');
 
     crPage.accusedOfficers.title.getText().should.equal('25 ACCUSED OFFICERS');
-    crPage.accusedOfficers.cardCount().should.equal(25);
+    crPage.accusedOfficers.card.count.should.equal(25);
     crPage.accusedOfficers.firstCard.rank.getText().should.equal('Officer');
     crPage.accusedOfficers.firstCard.name.getText().should.equal('Ridchard Sullivan');
     crPage.accusedOfficers.firstCard.metric.getText().should.equal('43 allegations 1 sustained');
@@ -29,7 +30,7 @@ describe('CR page', function () {
     crPage.summarySection.firstComplainant.getText().should.equal('Black, Male, Age 53');
     crPage.summarySection.summary.getText().should.equal('Summary');
 
-    crPage.attachments.cardCount().should.equal(10);
+    crPage.attachments.card.count.should.equal(10);
     crPage.attachments.firstCard.title.getText().should.equal('CR Document');
     crPage.attachments.firstCard.element.getAttribute('href').should.equal('http://cr-document.com/');
 
@@ -37,9 +38,9 @@ describe('CR page', function () {
       'Sep 23, 2003\nIncident Occurs\nComplaint Filed\nMar 16, 2004\nInvestigation Closed'
     );
 
-    crPage.investigator.itemCount().should.equal(2);
+    crPage.investigator.item.count.should.equal(2);
     crPage.investigator.firstItem.getText().should.equal('Bernadette Kelly\nCPD');
-    crPage.policeWitness.itemCount().should.equal(2);
+    crPage.policeWitness.item.count.should.equal(2);
     crPage.policeWitness.firstItem.getText().should.equal('Raymond Piwinicki\n3 allegations 0 sustained');
 
     crPage.location.address.getText().should.equal('3510 Michigan Ave, Chicago, IL 60653');
@@ -48,9 +49,9 @@ describe('CR page', function () {
   });
 
   it('should show full list of accused officers when click on show more button', function () {
-    crPage.accusedOfficers.showMoreButton.isVisible().should.be.true();
+    crPage.accusedOfficers.showMoreButton.isDisplayed().should.be.true();
     crPage.accusedOfficers.showMoreButton.click();
-    crPage.accusedOfficers.showMoreButton.isVisible().should.be.false();
+    crPage.accusedOfficers.showMoreButton.isDisplayed().should.be.false();
   });
 
   it('should navigate to officer page when we click on accused officer card', function () {
@@ -70,57 +71,57 @@ describe('CR page', function () {
 
   it('should navigate to officer page when we click on police witness item', function () {
     crPage.policeWitness.firstItem.click();
-    browser.getUrl().should.match(/\/officer\/3\/[\-a-z]+\/?$/);
+    browser.getUrl().should.match(/\/officer\/3\/[-a-z]+\/?$/);
   });
 
   it('should show request document modal when clicks on "Request Document"', function () {
     crPage.attachments.documentRequestButton.click();
-    crPage.documentRequestModal.emailInput.waitForVisible();
+    crPage.documentRequestModal.emailInput.waitForDisplayed();
   });
 
   it('should accept valid email, and close modal after 1.5s', function () {
     crPage.attachments.documentRequestButton.click();
-    crPage.documentRequestModal.emailInput.waitForVisible();
+    crPage.documentRequestModal.emailInput.waitForDisplayed();
     crPage.documentRequestModal.emailInput.setValue('valid@email.com');
     crPage.documentRequestModal.submitButton.click();
-    crPage.documentRequestModal.messageBox.waitForVisible();
+    crPage.documentRequestModal.messageBox.waitForDisplayed();
     crPage.documentRequestModal.messageBox.getText().should.equal('Thanks for subscribing.');
-    browser.waitForVisible('.generic-modal-content', 2000, true);
+    crPage.documentRequestModal.content.waitForDisplayed(2000, true);
     crPage.attachments.documentRequestButton.getText().should.equal('Documents Requested   ✔');
   });
 
   it('should ignore invalid email', function () {
     crPage.attachments.documentRequestButton.click();
-    crPage.documentRequestModal.emailInput.waitForVisible();
+    crPage.documentRequestModal.emailInput.waitForDisplayed();
     crPage.documentRequestModal.emailInput.setValue('invalid@email.com');
     crPage.documentRequestModal.submitButton.click();
-    crPage.documentRequestModal.messageBox.waitForVisible();
+    crPage.documentRequestModal.messageBox.waitForDisplayed();
     crPage.documentRequestModal.messageBox.getText().should.equal('Sorry, we can not subscribe your email');
   });
 
   describe('related by categories carousel', function () {
     it('should show more complaints cards when click right arrow', function () {
-      crPage.relatedByCategoriesCarousel.cardAtIndex(6).isVisibleWithinViewport().should.be.false();
+      crPage.relatedByCategoriesCarousel.cardAtIndex(6).isDisplayedInViewport().should.be.false();
       crPage.relatedByCategoriesCarousel.rightArrow.click();
-      crPage.relatedByCategoriesCarousel.cardAtIndex(6).waitForVisible(true);
+      crPage.relatedByCategoriesCarousel.cardAtIndex(6).waitForDisplayed(true);
     });
 
     it('should show previous complaints when click left arrow', function () {
       crPage.relatedByCategoriesCarousel.rightArrow.click();
-      crPage.relatedByCategoriesCarousel.cardAtIndex(6).waitForVisible();
-      crPage.relatedByCategoriesCarousel.cardAtIndex(1).isVisibleWithinViewport().should.be.false();
+      crPage.relatedByCategoriesCarousel.cardAtIndex(6).waitForDisplayed();
+      crPage.relatedByCategoriesCarousel.cardAtIndex(1).waitForDisplayedInViewport(5000, true);
       crPage.relatedByCategoriesCarousel.leftArrow.click();
-      crPage.relatedByCategoriesCarousel.cardAtIndex(1).waitForVisible();
+      crPage.relatedByCategoriesCarousel.cardAtIndex(1).waitForDisplayed();
     });
 
     it('should slide back to beginning when change distance', function () {
       crPage.relatedByCategoriesCarousel.rightArrow.click();
-      crPage.relatedByCategoriesCarousel.cardAtIndex(6).waitForVisible();
+      crPage.relatedByCategoriesCarousel.cardAtIndex(6).waitForDisplayed();
       crPage.distanceDropdown.button.click();
-      crPage.distanceDropdown.options.waitForVisible();
+      crPage.distanceDropdown.options.waitForDisplayed();
       crPage.distanceDropdown.getOption('5 MILES').click();
-      crPage.relatedByCategoriesCarousel.cardAtIndex(1).waitForVisible();
-      crPage.relatedByCategoriesCarousel.cardAtIndex(6).isVisibleWithinViewport().should.be.false();
+      crPage.relatedByCategoriesCarousel.cardAtIndex(1).waitForDisplayed();
+      crPage.relatedByCategoriesCarousel.cardAtIndex(6).waitForDisplayedInViewport(5000, true);
     });
 
     it('should load more cards when slide to threshold', function () {
@@ -130,7 +131,7 @@ describe('CR page', function () {
       crPage.relatedByCategoriesCarousel.rightArrow.click();
       crPage.relatedByCategoriesCarousel.rightArrow.click();
       crPage.relatedByCategoriesCarousel.rightArrow.click();
-      crPage.relatedByCategoriesCarousel.rightArrow.waitForVisible();
+      crPage.relatedByCategoriesCarousel.rightArrow.waitForDisplayed();
       crPage.relatedByCategoriesCarousel.cards.count.should.equal(40);
     });
   });

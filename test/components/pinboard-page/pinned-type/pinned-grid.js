@@ -65,7 +65,7 @@ describe('PinnedGrid component', function () {
       race: 'White',
       gender: 'Male',
       rank: 'Police Officer',
-      percentile: {}
+      percentile: {},
     }, {
       id: 2,
       type: 'OFFICER',
@@ -79,7 +79,7 @@ describe('PinnedGrid component', function () {
       race: 'White',
       gender: 'Male',
       rank: 'Police Officer',
-      percentile: {}
+      percentile: {},
     }];
     const focusItem = spy();
 

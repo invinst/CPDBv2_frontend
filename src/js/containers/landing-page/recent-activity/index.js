@@ -8,7 +8,7 @@ import { updatePage } from 'actions/cms';
 import { mergeEditWrapperStateProps } from 'utils/container';
 import {
   turnOffCarouselActivityHeaderEditMode,
-  turnOnCarouselActivityHeaderEditMode
+  turnOnCarouselActivityHeaderEditMode,
 } from 'actions/landing-page/activity-grid';
 
 
@@ -17,7 +17,7 @@ function mapStateToProps(state, ownProps) {
     cards: cardsSelector(state, ownProps),
     fields: getCMSFields(constants.LANDING_PAGE_ID)(state),
     pathname: ownProps.pathname,
-    sectionEditModeOn: getCarouselActivityHeaderEditModeOn(state)
+    sectionEditModeOn: getCarouselActivityHeaderEditModeOn(state),
   };
 }
 

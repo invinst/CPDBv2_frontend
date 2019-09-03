@@ -19,9 +19,7 @@ describe('Document page', function () {
       const updatedDate = moment(updatedAt).format('MMM D, YYYY');
 
       documentPage.crid.getText().should.endWith('CR 1083633');
-      documentPage.source.getText().should.endWith(
-        'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf'
-      );
+      documentPage.source.getText().should.endWith('chicagocopa.org');
       documentPage.crawler.getText().should.endWith('Chicago COPA');
       documentPage.date.getText().should.endWith(createdAt);
       documentPage.pageCount.getText().should.equal('5 pages');
@@ -37,9 +35,9 @@ describe('Document page', function () {
         `This document was last edited by John Doe at ${ updatedTime } on ${ updatedDate }`
       );
 
-      documentPage.views.waitForVisible(10000, true);
-      documentPage.notifications.waitForVisible(10000, true);
-      documentPage.downloads.waitForVisible(10000, true);
+      documentPage.views.waitForDisplayed(10000, true);
+      documentPage.notifications.waitForDisplayed(10000, true);
+      documentPage.downloads.waitForDisplayed(10000, true);
     });
 
     it('should go to CR page when the user clicks on crid', function () {
@@ -49,7 +47,7 @@ describe('Document page', function () {
 
     it('should open the pdf when the user clicks on the big thumbnail', function () {
       documentPage.thumbnail.click();
-      browser.getUrl().should.equal(
+      browser.switchWindow(
         'https://assets.documentcloud.org/documents/5680384/CRID-1083633-CR-CRID-1083633-CR-Tactical.pdf'
       );
     });
@@ -73,9 +71,7 @@ describe('Document page', function () {
 
       documentPage.pageCount.getText().should.equal('5 pages');
       documentPage.crid.getText().should.endWith('CR 1083633');
-      documentPage.source.getText().should.endWith(
-        'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf'
-      );
+      documentPage.source.getText().should.endWith('chicagocopa.org');
       documentPage.crawler.getText().should.endWith('Chicago COPA');
       documentPage.date.getText().should.endWith(createdAt);
       documentPage.linkedDocumentsTitle.getText().should.equal('Linked Documents (2)');
@@ -83,6 +79,9 @@ describe('Document page', function () {
       documentPage.documentTitle.getText().should.equal(
         'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)'
       );
+      documentPage.tagsSection.tags.count.should.equal(2);
+      documentPage.tagsSection.firstTag.getText().should.equal('hospital');
+      documentPage.tagsSection.secondTag.getText().should.equal('tactical');
       documentPage.documentText.getText().should.equal(
         'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE'
       );
@@ -94,6 +93,61 @@ describe('Document page', function () {
       documentPage.views.getText().should.endWith('1,000');
       documentPage.downloads.getText().should.endWith('100');
       documentPage.notifications.getText().should.endWith('10');
+    });
+
+    it('should be able to update document tags', function () {
+      documentPage.tagsSection.tags.count.should.equal(2);
+      documentPage.tagsSection.firstTag.getText().should.equal('hospital');
+      documentPage.tagsSection.secondTag.getText().should.equal('tactical');
+      documentPage.tagsSection.tagDeleteBtns.count.should.equal(0);
+
+      documentPage.tagsSection.tagsInput.moveTo();
+      documentPage.tagsSection.editButton.click();
+      documentPage.tagsSection.tagDeleteBtns.count.should.equal(2);
+      documentPage.tagsSection.firstTagDeleteBtn.click();
+      documentPage.tagsSection.tagsInputTextbox.setValue('chicago');
+      browser.keys('Enter');
+      documentPage.tagsSection.tagsInputTextbox.setValue('copa');
+      browser.keys('Enter');
+      documentPage.tagsSection.cancelButton.click();
+      documentPage.tagsSection.tags.count.should.equal(2);
+      documentPage.tagsSection.firstTag.getText().should.equal('hospital');
+      documentPage.tagsSection.secondTag.getText().should.equal('tactical');
+
+      documentPage.tagsSection.tagsInput.moveTo();
+      documentPage.tagsSection.editButton.click();
+      documentPage.tagsSection.tagsInputTextbox.setValue('This is a tag with more than 20 characters');
+      browser.keys('Enter');
+      documentPage.tagsSection.tagsInput.moveTo();
+      documentPage.tagsSection.saveButton.click();
+      documentPage.tagsSection.errorMessages.getText().should.equal(
+        'Ensure this field has no more than 20 characters.'
+      );
+
+      documentPage.tagsSection.firstTagDeleteBtn.click();
+      documentPage.tagsSection.tagsInputTextbox.setValue('chicago');
+      browser.keys('Enter');
+      documentPage.tagsSection.tagsInputTextbox.setValue('copa');
+      browser.keys('Enter');
+      documentPage.tagsSection.tagsInput.moveTo();
+      documentPage.tagsSection.saveButton.click();
+
+      documentPage.tagsSection.tagsInput.moveTo();
+      documentPage.tagsSection.saveButton.count.should.equal(0);
+      documentPage.tagsSection.cancelButton.count.should.equal(0);
+      documentPage.tagsSection.editButton.count.should.equal(1);
+      documentPage.tagsSection.tagDeleteBtns.count.should.equal(0);
+      documentPage.tagsSection.errorMessages.count.should.equal(0);
+
+      documentPage.tagsSection.tags.count.should.equal(3);
+      documentPage.tagsSection.firstTag.getText().should.equal('tactical');
+      documentPage.tagsSection.secondTag.getText().should.equal('chicago');
+      documentPage.tagsSection.thirdTag.getText().should.equal('copa');
+    });
+
+    it('should go to next untagged document when clicking on next-untagged document tag', function () {
+      documentPage.tagsSection.nextUntaggedDocumentButton.click();
+      browser.getUrl().should.containEql('/document/2/');
     });
 
     it('should go to document dedup page when the user clicks on link documents section', function () {

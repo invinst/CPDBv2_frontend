@@ -8,7 +8,7 @@ function mapStateToProps(state) {
   return {
     communityGeoJSON: communityGeoJSONSelector(state),
     communities: communitiesSelector(state),
-    clusterGeoJson: getClusterGeoJson(state)
+    clusterGeoJson: getClusterGeoJson(state),
   };
 }
 

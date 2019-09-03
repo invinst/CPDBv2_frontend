@@ -2,7 +2,7 @@ import {
   singleCardTransform,
   simpleOfficerTransform,
   pairingCardTransform,
-  cardTransform
+  cardTransform,
 } from 'selectors/landing-page/common';
 
 
@@ -24,7 +24,7 @@ describe('common selectors', function () {
       'percentile_allegation_internal': '99.675',
       year: 2018,
     },
-    kind: 'single_officer'
+    kind: 'single_officer',
   };
   const undefinedSingleOfficerCard = {
     id: '8562',
@@ -60,7 +60,7 @@ describe('common selectors', function () {
         'percentile_allegation': '99.924',
         'percentile_allegation_internal': '99.566',
         year: 2018,
-      }
+      },
     },
     officer1: {
       id: 8562,
@@ -75,8 +75,8 @@ describe('common selectors', function () {
         'percentile_allegation': '99.987',
         'percentile_allegation_internal': '99.675',
         year: 2018,
-      }
-    }
+      },
+    },
   };
   const officerInfo = {
     id: '8562',
@@ -123,22 +123,22 @@ describe('common selectors', function () {
           'items': [
             {
               'axis': 'Use of Force Reports',
-              'value': 70.069
+              'value': 70.069,
             },
             {
               'axis': 'Officer Allegations',
-              'value': 99.675
+              'value': 99.675,
             },
             {
               'axis': 'Civilian Allegations',
-              'value': 99.984
-            }
+              'value': 99.984,
+            },
           ],
           textColor: '#DFDFDF',
           visualTokenBackground: '#f0201e',
-          year: 2018
+          year: 2018,
         },
-        kind: 'single_officer'
+        kind: 'single_officer',
       });
     });
   });
@@ -156,9 +156,9 @@ describe('common selectors', function () {
           percentileAllegation: '99.987',
           percentileAllegationCivilian: '99.984',
           percentileAllegationInternal: '99.675',
-          percentileTrr: '70.069'
+          percentileTrr: '70.069',
         },
-        backgroundColor: '#f0201e'
+        backgroundColor: '#f0201e',
       });
     });
 
@@ -174,9 +174,9 @@ describe('common selectors', function () {
           percentileAllegation: '99.987',
           percentileAllegationCivilian: '99.984',
           percentileAllegationInternal: '99.675',
-          percentileTrr: '70.069'
+          percentileTrr: '70.069',
         },
-        backgroundColor: '#f0201e'
+        backgroundColor: '#f0201e',
       });
     });
   });
@@ -197,9 +197,9 @@ describe('common selectors', function () {
             percentileAllegation: '99.987',
             percentileAllegationCivilian: '99.984',
             percentileAllegationInternal: '99.675',
-            percentileTrr: '70.069'
+            percentileTrr: '70.069',
           },
-          backgroundColor: '#f0201e'
+          backgroundColor: '#f0201e',
         },
         officer2: {
           id: 3454,
@@ -212,10 +212,10 @@ describe('common selectors', function () {
             percentileAllegation: '99.924',
             percentileAllegationCivilian: '99.908',
             percentileAllegationInternal: '99.566',
-            percentileTrr: '74.440'
+            percentileTrr: '74.440',
           },
-          backgroundColor: '#f0201e'
-        }
+          backgroundColor: '#f0201e',
+        },
       });
     });
   });
@@ -237,22 +237,22 @@ describe('common selectors', function () {
           'items': [
             {
               'axis': 'Use of Force Reports',
-              'value': 70.069
+              'value': 70.069,
             },
             {
               'axis': 'Officer Allegations',
-              'value': 99.675
+              'value': 99.675,
             },
             {
               'axis': 'Civilian Allegations',
-              'value': 99.984
-            }
+              'value': 99.984,
+            },
           ],
           textColor: '#DFDFDF',
           visualTokenBackground: '#f0201e',
-          year: 2018
+          year: 2018,
         },
-        kind: undefined
+        kind: undefined,
       });
     });
 
@@ -272,22 +272,22 @@ describe('common selectors', function () {
           'items': [
             {
               'axis': 'Use of Force Reports',
-              'value': 70.069
+              'value': 70.069,
             },
             {
               'axis': 'Officer Allegations',
-              'value': 99.675
+              'value': 99.675,
             },
             {
               'axis': 'Civilian Allegations',
-              'value': 99.984
-            }
+              'value': 99.984,
+            },
           ],
           textColor: '#DFDFDF',
           visualTokenBackground: '#f0201e',
-          year: 2018
+          year: 2018,
         },
-        kind: 'single_officer'
+        kind: 'single_officer',
       });
     });
 
@@ -306,9 +306,9 @@ describe('common selectors', function () {
             percentileAllegation: '99.987',
             percentileAllegationCivilian: '99.984',
             percentileAllegationInternal: '99.675',
-            percentileTrr: '70.069'
+            percentileTrr: '70.069',
           },
-          backgroundColor: '#f0201e'
+          backgroundColor: '#f0201e',
         },
         officer2: {
           id: 3454,
@@ -321,10 +321,10 @@ describe('common selectors', function () {
             percentileAllegation: '99.924',
             percentileAllegationCivilian: '99.908',
             percentileAllegationInternal: '99.566',
-            percentileTrr: '74.440'
+            percentileTrr: '74.440',
           },
-          backgroundColor: '#f0201e'
-        }
+          backgroundColor: '#f0201e',
+        },
       });
     });
   });

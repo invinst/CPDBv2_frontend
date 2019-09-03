@@ -21,10 +21,10 @@ describe('document decuplicator page actions', function () {
             adapter: null,
             cancelToken: undefined,
             headers: {
-              Authorization: 'Token authenticated_token'
-            }
-          }
-        }
+              Authorization: 'Token authenticated_token',
+            },
+          },
+        },
       });
       Cookies.get.restore();
     });
@@ -45,10 +45,10 @@ describe('document decuplicator page actions', function () {
             adapter: null,
             method: 'patch',
             headers: {
-              Authorization: 'Token authenticated_token'
-            }
-          }
-        }
+              Authorization: 'Token authenticated_token',
+            },
+          },
+        },
       });
       Cookies.get.restore();
     });

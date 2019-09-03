@@ -9,5 +9,5 @@ export default handleActions({
     remove(state, (suggestion) => (isEqual(suggestion, action.payload)));
     remove(state, isEmpty);
     return slice([action.payload].concat(state), 0, 10);
-  }
+  },
 }, []);

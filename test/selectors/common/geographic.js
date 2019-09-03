@@ -12,7 +12,7 @@ describe('GeographicData selectors', function () {
         kind: 'CR',
         point: {
           lat: 41.887673,
-          lon: -87.62355
+          lon: -87.62355,
         },
         crid: '1002787',
         date: 'MAR 17, 2012',
@@ -20,7 +20,7 @@ describe('GeographicData selectors', function () {
       crMapMarkersTransform(crItem).should.eql({
         point: {
           lat: 41.887673,
-          lon: -87.62355
+          lon: -87.62355,
         },
         kind: 'CR',
         id: '1002787',
@@ -39,14 +39,14 @@ describe('GeographicData selectors', function () {
         'firearm_used': false,
         point: {
           lat: 50,
-          lon: -87
+          lon: -87,
         },
         date: 'MAR 17, 2012',
       };
       trrMapMarkerTransform(trrItem).should.eql({
         point: {
           lat: 50,
-          lon: -87
+          lon: -87,
         },
         kind: 'FORCE',
         id: '56789',

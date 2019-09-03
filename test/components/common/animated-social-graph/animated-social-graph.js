@@ -6,7 +6,7 @@ import {
   renderIntoDocument,
   scryRenderedComponentsWithType,
   scryRenderedDOMComponentsWithClass,
-  Simulate
+  Simulate,
 } from 'react-addons-test-utils';
 import Slider from 'rc-slider';
 
@@ -22,12 +22,12 @@ describe('AnimatedSocialGraph component', function () {
   const officers = [
     {
       fullName: 'Jerome Finnigan',
-      id: 1
+      id: 1,
     },
     {
       fullName: 'Edward May',
-      id: 2
-    }
+      id: 2,
+    },
   ];
   const coaccusedData = [
     {
@@ -35,7 +35,7 @@ describe('AnimatedSocialGraph component', function () {
       officerId2: 2,
       incidentDate: '1988-10-03',
       accussedCount: 1,
-    }
+    },
   ];
   const listEvent = [
     '1988-10-03',
@@ -47,7 +47,7 @@ describe('AnimatedSocialGraph component', function () {
     '1991-01-15',
     '1991-02-18',
     '1991-02-20',
-    '1991-03-06'
+    '1991-03-06',
   ];
 
 

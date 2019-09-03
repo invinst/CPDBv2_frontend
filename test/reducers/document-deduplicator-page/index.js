@@ -6,13 +6,13 @@ describe('Document deduplicator page reducer', function () {
     docDedupPageReducer(undefined, {}).should.deepEqual({
       documents: {
         data: {},
-        crid: ''
+        crid: '',
       },
       documentsOrder: {
         data: [],
-        crid: ''
+        crid: '',
       },
-      pagination: {}
+      pagination: {},
     });
   });
 });

@@ -13,7 +13,7 @@ class ContextWrapper extends Component {
 
 ContextWrapper.propTypes = {
   context: PropTypes.object,
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default ContextWrapper;

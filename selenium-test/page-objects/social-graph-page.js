@@ -47,15 +47,15 @@ class AnimatedSocialGraphSection extends Section {
   }
 
   graphNodes() {
-    return browser.elements('(//*[name()="circle" and contains(@class, "node")])').value;
+    return $$('(//*[name()="circle" and contains(@class, "node")])');
   }
 
   graphLinks() {
-    return browser.elements('(//*[name()="line" and contains(@class, "link")])').value;
+    return $$('(//*[name()="line" and contains(@class, "link")])');
   }
 
   graphLabels() {
-    return browser.elements('(//*[name()="text" and @class="node-label"])').value;
+    return $$('(//*[name()="text" and @class="node-label"])');
   }
 }
 
@@ -83,7 +83,7 @@ class OfficersSection extends Section {
   }
 
   officerRows() {
-    return browser.elements('//div[contains(@class, "officer-row")]').value;
+    return $$('//div[contains(@class, "officer-row")]');
   }
 }
 
@@ -92,6 +92,7 @@ class TimelineSection extends Section {
     super();
 
     this.prepareElementGetters({
+      allegationRow: '//div[contains(@class, "item__item")]',
       allegationItem: '//div[contains(@class, "item__item")][7]',
       firstYearItem: '//div[contains(@class, "item__item")][1]//div[@class="date"]',
       firstAllegationItem: '//div[contains(@class, "item__item")][2]',
@@ -101,10 +102,6 @@ class TimelineSection extends Section {
       timelineItemDateActive: '//div[contains(@class, "timeline__timeline")]//div[contains(@class, "active")]' +
         '//span[@class="date"]',
     });
-  }
-
-  allegationRowCount() {
-    return browser.elements('//div[contains(@class, "item__item")]').value.length;
   }
 }
 
@@ -122,7 +119,7 @@ class PreviewPaneSection extends Section {
   }
 
   edgeCoaccusalsItems() {
-    return browser.elements('//div[contains(@class, "item__item")]').value;
+    return $$('//div[contains(@class, "item__item")]');
   }
 }
 

@@ -13,7 +13,7 @@ describe('clusterGeoJson reducer', function () {
     clusterGeoJson(
       'state',
       {
-        type: constants.CLUSTER_GEO_REQUEST_START
+        type: constants.CLUSTER_GEO_REQUEST_START,
       }
     ).should.eql('state');
   });
@@ -23,7 +23,7 @@ describe('clusterGeoJson reducer', function () {
       {},
       {
         type: constants.CLUSTER_GEO_REQUEST_SUCCESS,
-        payload: 'payload'
+        payload: 'payload',
       }
     ).should.eql('payload');
   });
@@ -32,7 +32,7 @@ describe('clusterGeoJson reducer', function () {
     clusterGeoJson(
       'state',
       {
-        type: constants.CLUSTER_GEO_REQUEST_FAILURE
+        type: constants.CLUSTER_GEO_REQUEST_FAILURE,
       }
     ).should.eql('state');
   });

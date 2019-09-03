@@ -19,8 +19,8 @@ describe('RelevantCoaccusals selectors', function () {
           'percentile_trr': '0.0000',
           'percentile_allegation': '88.9038',
           'percentile_allegation_civilian': '49.4652',
-          'percentile_allegation_internal': '85.8654'
-        }
+          'percentile_allegation_internal': '85.8654',
+        },
       };
       const rawCoaccusal2 = {
         'id': 2433,
@@ -33,8 +33,8 @@ describe('RelevantCoaccusals selectors', function () {
           'percentile_trr': '38.9028',
           'percentile_allegation': '86.0456',
           'percentile_allegation_civilian': '81.8766',
-          'percentile_allegation_internal': '88.3297'
-        }
+          'percentile_allegation_internal': '88.3297',
+        },
       };
 
       const coaccusals = [rawCoaccusal1, rawCoaccusal2];
@@ -46,14 +46,14 @@ describe('RelevantCoaccusals selectors', function () {
             count: 444,
             pagination: {
               next: '/pinboards/66ef1560/relevant-coaccusals/?limit=20&offset=20',
-              previous: null
+              previous: null,
             },
           },
           pinItemFromPreviewPane: {
             type: 'OFFICER',
             id: 2433,
           },
-        }
+        },
       };
 
       relevantCoaccusalsSelector(state).should.eql([{
@@ -67,7 +67,7 @@ describe('RelevantCoaccusals selectors', function () {
           items: [
             { axis: 'Use of Force Reports', value: 0 },
             { axis: 'Officer Allegations', value: 85.8654 },
-            { axis: 'Civilian Allegations', value: 49.4652 }
+            { axis: 'Civilian Allegations', value: 49.4652 },
           ],
           visualTokenBackground: '#f9946b',
           textColor: '#231F20',
@@ -85,10 +85,10 @@ describe('RelevantCoaccusals selectors', function () {
           items: [
             { axis: 'Use of Force Reports', value: 38.9028 },
             { axis: 'Officer Allegations', value: 88.3297 },
-            { axis: 'Civilian Allegations', value: 81.8766 }
+            { axis: 'Civilian Allegations', value: 81.8766 },
           ],
           visualTokenBackground: '#f64016',
-          textColor: '#231F20'
+          textColor: '#231F20',
         },
         isPinStatusChanging: true,
         rawData: rawCoaccusal2,
@@ -107,8 +107,8 @@ describe('RelevantCoaccusals selectors', function () {
               next: '/pinboards/66ef1560/relevant-coaccusals/?limit=10&offset=20',
               previous: '/pinboards/66ef1560/relevant-coaccusals/?',
             },
-          }
-        }
+          },
+        },
       };
 
       relevantCoaccusalsNextParamsSelector(state).should.eql({ limit: '10', offset: '20' });
@@ -127,8 +127,8 @@ describe('RelevantCoaccusals selectors', function () {
           'percentile_trr': '0.0000',
           'percentile_allegation': '88.9038',
           'percentile_allegation_civilian': '49.4652',
-          'percentile_allegation_internal': '85.8654'
-        }
+          'percentile_allegation_internal': '85.8654',
+        },
       },
       {
         'id': 2433,
@@ -140,8 +140,8 @@ describe('RelevantCoaccusals selectors', function () {
           'percentile_trr': '38.9028',
           'percentile_allegation': '86.0456',
           'percentile_allegation_civilian': '81.8766',
-          'percentile_allegation_internal': '88.3297'
-        }
+          'percentile_allegation_internal': '88.3297',
+        },
       }];
       const state = {
         pinboardPage: {
@@ -150,10 +150,10 @@ describe('RelevantCoaccusals selectors', function () {
             count: 444,
             pagination: {
               next: '/pinboards/66ef1560/relevant-coaccusals/?limit=20&offset=20',
-              previous: null
+              previous: null,
             },
-          }
-        }
+          },
+        },
       };
 
       relevantCoaccusalsHasMoreSelector(state).should.be.true();
@@ -170,8 +170,8 @@ describe('RelevantCoaccusals selectors', function () {
           'percentile_trr': '0.0000',
           'percentile_allegation': '88.9038',
           'percentile_allegation_civilian': '49.4652',
-          'percentile_allegation_internal': '85.8654'
-        }
+          'percentile_allegation_internal': '85.8654',
+        },
       },
       {
         'id': 2433,
@@ -183,8 +183,8 @@ describe('RelevantCoaccusals selectors', function () {
           'percentile_trr': '38.9028',
           'percentile_allegation': '86.0456',
           'percentile_allegation_civilian': '81.8766',
-          'percentile_allegation_internal': '88.3297'
-        }
+          'percentile_allegation_internal': '88.3297',
+        },
       }];
       const state = {
         pinboardPage: {
@@ -193,10 +193,10 @@ describe('RelevantCoaccusals selectors', function () {
             count: 2,
             pagination: {
               next: '/pinboards/66ef1560/relevant-coaccusals/?limit=20&offset=20',
-              previous: null
+              previous: null,
             },
-          }
-        }
+          },
+        },
       };
 
       relevantCoaccusalsHasMoreSelector(state).should.be.false();

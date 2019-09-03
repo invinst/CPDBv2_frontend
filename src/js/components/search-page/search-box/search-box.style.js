@@ -9,18 +9,18 @@ export const searchInputStyle = {
     fontSize: '14px',
     verticalAlign: 'top',
     fontWeight: 300,
-    backgroundColor: sugarCaneColor
+    backgroundColor: sugarCaneColor,
   },
   wrapper: {
     boxSizing: 'border-box',
     width: '100%',
     height: '32px',
-    padding: 0
+    padding: 0,
   },
   placeholder: {
     color: clayGray,
-    fontSize: '14px'
-  }
+    fontSize: '14px',
+  },
 };
 
 const _searchTermsButtonStyle = (searchTermsHidden) => ({
@@ -30,20 +30,20 @@ const _searchTermsButtonStyle = (searchTermsHidden) => ({
   lineHeight: '32px',
   fontSize: '13px',
   fontWeight: 300,
-  cursor: 'pointer'
+  cursor: 'pointer',
 });
 
 export const searchTermsButtonStyle = (searchTermsHidden) => ({
   base: _searchTermsButtonStyle(searchTermsHidden),
   hover: {
     ..._searchTermsButtonStyle(searchTermsHidden),
-    color: accentColor
-  }
+    color: accentColor,
+  },
 });
 
 export const wrapperStyle = {
   position: 'relative',
   width: 'calc(100% - 64px)',
   display: 'inline-block',
-  marginRight: '23px'
+  marginRight: '23px',
 };

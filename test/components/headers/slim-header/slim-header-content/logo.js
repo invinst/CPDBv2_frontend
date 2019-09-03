@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import {
   renderIntoDocument,
   scryRenderedComponentsWithType,
-  findRenderedComponentWithType
+  findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 import MediaQuery from 'react-responsive';
 
@@ -37,7 +37,7 @@ describe('Logo component', function () {
   it('should render LinkTextEditable when screen width greater than 830', function () {
     const mediaQuery = scryRenderedComponentsWithType(instance, MediaQuery)[0];
     mediaQuery.setState({
-      matches: true
+      matches: true,
     });
 
     const linkTextEditable = findRenderedComponentWithType(instance, LinkTextEditable);
@@ -50,7 +50,7 @@ describe('Logo component', function () {
   it('should render Link when screen width smaller than 830', function () {
     const mediaQuery = scryRenderedComponentsWithType(instance, MediaQuery)[0];
     mediaQuery.setState({
-      matches: false
+      matches: false,
     });
 
     const link = findRenderedComponentWithType(instance, Link);
@@ -62,7 +62,7 @@ describe('Logo component', function () {
   it('should render navbar subtitle when screen width greater than 950', function () {
     const mediaQuery = scryRenderedComponentsWithType(instance, MediaQuery)[1];
     mediaQuery.setState({
-      matches: true
+      matches: true,
     });
 
     const richTextEditable = findRenderedComponentWithType(instance, RichTextEditable);
@@ -74,7 +74,7 @@ describe('Logo component', function () {
   it('should not render navbar subtitle when screen width smaller than 950', function () {
     const mediaQuery = scryRenderedComponentsWithType(instance, MediaQuery)[1];
     mediaQuery.setState({
-      matches: false
+      matches: false,
     });
 
     scryRenderedComponentsWithType(instance, RichTextEditable).should.have.length(0);

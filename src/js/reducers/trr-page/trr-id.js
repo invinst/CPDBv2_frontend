@@ -9,5 +9,5 @@ export default handleActions({
       return state;
     }
     return currentValue;
-  }
+  },
 }, null);

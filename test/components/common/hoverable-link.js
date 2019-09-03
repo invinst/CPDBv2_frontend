@@ -33,7 +33,7 @@ describe('HoverableLink component', function () {
 
   it('should trigger stopPropagation event when click', function () {
     const dummyEvent = {
-      stopPropagation: stub()
+      stopPropagation: stub(),
     };
     instance = renderIntoDocument(<HoverableLink href='http://cpdb.lvh.me/' style={ style } />);
     const link = findRenderedDOMComponentWithClass(instance, 'link--transition');

@@ -44,5 +44,5 @@ TextWithInlineSearchAlias.propTypes = {
   text: PropTypes.string,
   aliasEditModeOn: PropTypes.bool,
   setAliasAdminPageContent: PropTypes.func,
-  content: PropTypes.object
+  content: PropTypes.object,
 };

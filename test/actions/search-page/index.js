@@ -3,7 +3,7 @@ import { CancelToken } from 'axios';
 
 import {
   getSuggestion, selectTag, toggleSearchMode, trackRecentSuggestion,
-  move, getSuggestionWithContentType, SUGGESTION_URL
+  move, getSuggestionWithContentType, SUGGESTION_URL,
 } from 'actions/search-page';
 import * as constants from 'utils/constants';
 import { resetNavigation } from 'actions/search-page';
@@ -16,7 +16,7 @@ describe('suggestion action', function () {
     cancel = spy();
     stub(CancelToken, 'source').returns({
       token: 'token',
-      cancel
+      cancel,
     });
   });
 
@@ -38,9 +38,9 @@ describe('suggestion action', function () {
             url: SUGGESTION_URL,
             params: { term: 'abc' },
             adapter: null,
-            cancelToken: 'token'
-          }
-        }
+            cancelToken: 'token',
+          },
+        },
       });
     });
 
@@ -54,7 +54,7 @@ describe('suggestion action', function () {
   describe('getSuggestionWithContentType', function () {
     it('should return correct action', function () {
       getSuggestionWithContentType('abc', {
-        contentType: 'xyz'
+        contentType: 'xyz',
       }).should.deepEqual({
         types: [
           constants.SUGGESTION_SINGLE_REQUEST_START,
@@ -67,12 +67,12 @@ describe('suggestion action', function () {
             url: `${SUGGESTION_URL}single/`,
             params: {
               contentType: 'xyz',
-              term: 'abc'
+              term: 'abc',
             },
             adapter: null,
-            cancelToken: 'token'
-          }
-        }
+            cancelToken: 'token',
+          },
+        },
       });
     });
   });
@@ -81,7 +81,7 @@ describe('suggestion action', function () {
     it('should return correct action', function () {
       selectTag('abc').should.deepEqual({
         type: constants.SELECT_TAG,
-        payload: 'abc'
+        payload: 'abc',
       });
     });
   });
@@ -90,7 +90,7 @@ describe('suggestion action', function () {
     it('should return correct action', function () {
       toggleSearchMode().should.deepEqual({
         type: constants.OPEN_SEARCH_PAGE,
-        payload: undefined
+        payload: undefined,
       });
     });
   });
@@ -108,8 +108,8 @@ describe('suggestion action', function () {
           contentType,
           text,
           url,
-          to
-        }
+          to,
+        },
       });
     });
   });
@@ -119,8 +119,8 @@ describe('suggestion action', function () {
       move('up', 2).should.deepEqual({
         type: constants.SEARCH_NAVIGATION_UP,
         payload: {
-          totalItemCount: 2
-        }
+          totalItemCount: 2,
+        },
       });
     });
 
@@ -128,8 +128,8 @@ describe('suggestion action', function () {
       move('down', 2).should.deepEqual({
         type: constants.SEARCH_NAVIGATION_DOWN,
         payload: {
-          totalItemCount: 2
-        }
+          totalItemCount: 2,
+        },
       });
     });
   });
@@ -138,7 +138,7 @@ describe('suggestion action', function () {
     it('should return SEARCH_NAVIGATION_RESET', function () {
       resetNavigation().should.deepEqual({
         type: constants.SEARCH_NAVIGATION_RESET,
-        payload: undefined
+        payload: undefined,
       });
     });
   });

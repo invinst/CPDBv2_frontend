@@ -23,7 +23,7 @@ describe('EdgeCoaccusalsPane component', function () {
         kind: 'YEAR',
         year: 2005,
         hasData: true,
-        key: '12345'
+        key: '12345',
       },
       {
         kind: 'CR',
@@ -34,7 +34,7 @@ describe('EdgeCoaccusalsPane component', function () {
         attachments: [],
         key: '123456',
         timelineIdx: 0,
-      }
+      },
     ];
     const info = {
       sourceOfficerName: 'Jerome Finnigan',

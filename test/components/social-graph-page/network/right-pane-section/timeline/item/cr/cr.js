@@ -2,7 +2,7 @@ import React from 'react';
 import {
   renderIntoDocument,
   scryRenderedComponentsWithType,
-  findRenderedDOMComponentWithClass
+  findRenderedDOMComponentWithClass,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
@@ -32,7 +32,7 @@ describe('Cr component', function () {
       previewImageUrl: 'https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p3-normal.gif',
       fileType: 'document',
     }],
-    key: '123456'
+    key: '123456',
   };
 
   afterEach(function () {

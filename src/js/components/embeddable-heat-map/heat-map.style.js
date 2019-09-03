@@ -1,6 +1,6 @@
 export const wrapperStyle = {
   position: 'relative',
-  overflow: 'hidden'
+  overflow: 'hidden',
 };
 
 export const summaryPanelMinimumStyle = {
@@ -23,7 +23,7 @@ export const summaryPanelMaximumStyle = {
 };
 
 export const communityMapMinimumStyle = {
-  height: '148px'
+  height: '148px',
 };
 
 export const communityMapMediumStyle = {

@@ -29,7 +29,7 @@ export const attachmentTransform = attachment => ({
   previewImageUrl: attachment['preview_image_url'],
   title: attachment['title'],
   url: attachment['url'],
-  id: attachment['id']
+  id: attachment['id'],
 });
 
 export const allegationTransform = item => {

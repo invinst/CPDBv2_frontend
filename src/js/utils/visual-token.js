@@ -18,7 +18,7 @@ export const getVisualTokenOIGBackground = (civilPercentile, internalPercentile,
   const { LIGHT_COLOR, DARK_COLOR, COLOR_TEXT_LIGHT_SCHEME } = constants.OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT;
   const key = [
     scalePercentile(civilPercentile),
-    scalePercentile(useOfForcePercentile)
+    scalePercentile(useOfForcePercentile),
   ].join('');
   return {
     backgroundColor: key !== '00' ?

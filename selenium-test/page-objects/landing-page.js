@@ -15,7 +15,7 @@ class CollaborateSection extends Section {
       headerTitle: '//*[@class="test--collaborate-section-header"]//div[@data-block="true"]',
       cancelButton: '//div[@class="test--collaborate-section"]//a[contains(@class, "cancel-button")]',
       updateButton: '//div[@class="test--collaborate-section"]//a[contains(@class, "update-button")]',
-      content: '//div[@class="test--collaborate-section-content"]//div[@data-contents="true"]'
+      content: '//div[@class="test--collaborate-section-content"]//div[@data-contents="true"]',
     });
   }
 }
@@ -56,7 +56,7 @@ class OfficersByAllegationCarouselSection extends Section {
       rightArrow: '//div[@class="test--landing-carousel-allegation landing-page-carousel"]' +
         '//*[contains(@class, "test--carousel-arrow-right")]',
       cards: '//div[@class="test--landing-carousel-allegation landing-page-carousel"]' +
-        '//a[contains(@class, "officer-card")]'
+        '//a[contains(@class, "officer-card")]',
     });
   }
 }
@@ -70,7 +70,7 @@ class RecentDocumentCarouselSection extends Section {
       rightArrow: '//div[@class="test--landing-carousel-document landing-page-carousel"]' +
         '//*[contains(@class, "test--carousel-arrow-right")]',
       cards: '//div[@class="test--landing-carousel-document landing-page-carousel"]' +
-        '//a[contains(@class, "document-card__document-card")]'
+        '//a[contains(@class, "document-card__document-card")]',
     });
   }
 }
@@ -84,7 +84,7 @@ class ComplaintSummariesCarouselSection extends Section {
       rightArrow: '//div[@class="test--landing-carousel-complaint landing-page-carousel"]' +
         '//*[contains(@class, "test--carousel-arrow-right")]',
       cards: '//div[@class="test--landing-carousel-complaint landing-page-carousel"]' +
-        '//a[contains(@class, "complaint-summary-card")]'
+        '//a[contains(@class, "complaint-summary-card")]',
     });
   }
 }
@@ -106,13 +106,12 @@ class CitySummary extends Section {
     this.prepareElementGetters({
       header: '.test--city-summary-header',
       allegationDiscipline: '.test--allegation-discipline-count',
-      mostCommonComplaints: '.test--most-common-complaints'
+      mostCommonComplaints: '.test--most-common-complaints',
     });
   }
 
   tapBottom() {
-    browser.moveToObject('.test--city-summary', 100, 370);
-    browser.buttonPress();
+    $('.test--city-summary').clickAt(100, 370);
   }
 }
 
@@ -123,7 +122,7 @@ class CommunityDetail extends Section {
       closeBtn: '.test--community-close-btn',
       allegationDiscipline: '.test--community-allegation-discipline',
       v1Link: '.test--community-v1-link',
-      firstOfficer: '(//a[@class="test--community-officer"])[1]'
+      firstOfficer: '(//a[@class="test--community-officer"])[1]',
     });
   }
 }
@@ -134,7 +133,7 @@ class Dropdown extends Section {
     this.prepareElementGetters({
       dropdownUpArrow: '.test--dropdown-up-arrow',
       textInput: '.test--dropdown-text-input',
-      dropdownItems: '.test--dropdown-item'
+      dropdownItems: '.test--dropdown-item',
     });
   }
 }
@@ -145,7 +144,7 @@ class HeatMapSection extends Section {
     this.prepareElementGetters({
       dropdownPlaceholder: '.test--dropdown-placeholder',
       complaintCategory: '.test--complaint-category',
-      searchTermsLink: '.test--dropdown-search-terms'
+      searchTermsLink: '.test--dropdown-search-terms',
     });
   }
 

@@ -19,11 +19,11 @@ describe('mapTrrsData reducer', function () {
             'kind': 'TRR',
             'point': {
               'lon': -87,
-              'lat': 35
+              'lat': 35,
             },
-          }
+          },
         ],
-      }
+      },
     }).should.eql([
       {
         'date': '2007-04-25',
@@ -32,9 +32,9 @@ describe('mapTrrsData reducer', function () {
         'kind': 'TRR',
         'point': {
           'lon': -87,
-          'lat': 35
+          'lat': 35,
         },
-      }
+      },
     ]);
   });
 
@@ -50,11 +50,11 @@ describe('mapTrrsData reducer', function () {
             'kind': 'TRR',
             'point': {
               'lon': -87,
-              'lat': 35
+              'lat': 35,
             },
-          }
-        ]
-      }
+          },
+        ],
+      },
     }).should.eql([
       {
         'date': '2007-04-25',
@@ -63,9 +63,9 @@ describe('mapTrrsData reducer', function () {
         'kind': 'TRR',
         'point': {
           'lon': -87,
-          'lat': 35
+          'lat': 35,
         },
-      }
+      },
     ]);
   });
 });

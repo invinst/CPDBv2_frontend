@@ -9,7 +9,7 @@ const cardTransform = (card) => ({
   crid: card['crid'],
   incidentDate: card['incident_date'],
   categoryNames: filter(card['category_names'], cat => cat !== 'Unknown'),
-  summary: card['summary']
+  summary: card['summary'],
 });
 
 export const hasCards = createSelector(

@@ -15,14 +15,14 @@ describe('selectedEdge reducer', function () {
   it('should handle UPDATE_SOCIAL_GRAPH_SELECTED_EDGE', function () {
     selectedEdge([], {
       type: UPDATE_SOCIAL_GRAPH_SELECTED_EDGE,
-      payload: 123
+      payload: 123,
     }).should.eql(123);
   });
 
   it('should handle UPDATE_SELECTED_OFFICER_ID', function () {
     should(selectedEdge([], {
       type: UPDATE_SELECTED_OFFICER_ID,
-      payload: 123
+      payload: 123,
     })).be.null();
   });
 });

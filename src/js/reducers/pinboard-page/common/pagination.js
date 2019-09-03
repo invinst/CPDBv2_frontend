@@ -19,12 +19,12 @@ const createItemsReducer = (successType, customItemsHandler) => handleActions(
 );
 
 const createCountReducer = (successType) => handleActions({
-  [successType]: (state, action) => (action.payload.count)
+  [successType]: (state, action) => (action.payload.count),
 }, 0);
 
 const createPaginationReducer = (successType, failureType) => handleActions({
   [successType]: (state, { payload: { next, previous } }) => ({ next, previous }),
-  [failureType]: (state, action) => ({ next: null, previous: null })
+  [failureType]: (state, action) => ({ next: null, previous: null }),
 }, { next: null, previous: null });
 
 

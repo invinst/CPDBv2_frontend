@@ -13,7 +13,7 @@ describe('graphData reducer', function () {
       payload: {
         officers: [{
           'full_name': 'Jerome Finnigan',
-          'id': '13759'
+          'id': '13759',
         }, {
           'full_name': 'Edward May',
           'id': '27557',
@@ -22,16 +22,16 @@ describe('graphData reducer', function () {
           'officer_id_1': 13759,
           'officer_id_2': 27557,
           'incident_date': '1988-10-03',
-          'accussed_count': 1
+          'accussed_count': 1,
         }],
         'list_event': [
           '1988-10-03',
         ],
-      }
+      },
     }).should.eql({
       officers: [{
         'full_name': 'Jerome Finnigan',
-        'id': '13759'
+        'id': '13759',
       }, {
         'full_name': 'Edward May',
         'id': '27557',
@@ -40,7 +40,7 @@ describe('graphData reducer', function () {
         'officer_id_1': 13759,
         'officer_id_2': 27557,
         'incident_date': '1988-10-03',
-        'accussed_count': 1
+        'accussed_count': 1,
       }],
       'list_event': [
         '1988-10-03',

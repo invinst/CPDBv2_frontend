@@ -19,12 +19,12 @@ export default class RightPaneSection extends Component {
       [NETWORK_TAB_NAMES.TIMELINE]: {
         component: SocialGraphTimelineContainer,
         show: showTimelineTab,
-        componentProps: ['location']
+        componentProps: ['location'],
       },
       [NETWORK_TAB_NAMES.OFFICERS]: {
         component: SocialGraphOfficersContainer,
         show: true,
-        componentProps: ['sortedOfficerIds']
+        componentProps: ['sortedOfficerIds'],
       },
     };
 

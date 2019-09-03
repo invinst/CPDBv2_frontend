@@ -13,7 +13,7 @@ describe('PrintNotes selector', function () {
       { name: 'honorable_mention', title: 'Honorable Mention', text: 'This is honorable mention note' },
       { name: 'major_award', title: 'Major Award', text: 'This is major award note' },
       { name: 'civilian_compliment', title: 'Civilian Compliment', text: 'This is civilian compliment note' },
-    ]
+    ],
   };
 
   describe('getInfoNotes', function () {

@@ -19,9 +19,9 @@ const getWithConfig = (config=() => ({})) => (url, types, cancelToken) => ((para
       params,
       adapter,
       cancelToken,
-      ...config()
-    }
-  }
+      ...config(),
+    },
+  },
 }));
 
 export const get = getWithConfig();
@@ -38,9 +38,9 @@ const postWithConfig = (config=() => ({})) => (url, types) => ((data, adapter=ge
       url,
       data,
       adapter,
-      ...config()
-    }
-  }
+      ...config(),
+    },
+  },
 }));
 
 export const post = postWithConfig();
@@ -55,9 +55,9 @@ const patchWithConfig = (config=() => ({})) => (url, types) => ((data, adapter=g
       url,
       data,
       adapter,
-      ...config()
-    }
-  }
+      ...config(),
+    },
+  },
 }));
 
 export const patch = patchWithConfig();
@@ -72,9 +72,9 @@ const putWithConfig = (config=() => ({})) => (url, types) => ((data, adapter=get
       url,
       data,
       adapter,
-      ...config()
-    }
-  }
+      ...config(),
+    },
+  },
 }));
 
 export const put = putWithConfig();

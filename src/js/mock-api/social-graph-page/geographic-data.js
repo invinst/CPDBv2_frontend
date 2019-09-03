@@ -11,13 +11,13 @@ export const socialGraphGeographicCrsData = {
       'victims': [
         {
           'gender': 'Female',
-          'race': 'Black'
+          'race': 'Black',
         },
         {
           'gender': 'Female',
-          'race': 'Black'
-        }
-      ]
+          'race': 'Black',
+        },
+      ],
     },
     {
       'date': '1981-05-31',
@@ -27,9 +27,9 @@ export const socialGraphGeographicCrsData = {
       'kind': 'CR',
       'point': {
         'lon': -87.6183565,
-        'lat': 41.8095411
+        'lat': 41.8095411,
       },
-      'victims': []
+      'victims': [],
     },
     {
       'date': '1981-05-31',
@@ -39,9 +39,9 @@ export const socialGraphGeographicCrsData = {
       'kind': 'CR',
       'point': {
         'lon': -87.6183565,
-        'lat': 41.8095411
+        'lat': 41.8095411,
       },
-      'victims': []
+      'victims': [],
     },
     {
       'date': '1986-02-15',
@@ -51,9 +51,9 @@ export const socialGraphGeographicCrsData = {
       'kind': 'CR',
       'point': {
         'lon': -87.6276846,
-        'lat': 41.8683196
+        'lat': 41.8683196,
       },
-      'victims': []
+      'victims': [],
     },
     {
       'date': '1987-05-21',
@@ -63,11 +63,11 @@ export const socialGraphGeographicCrsData = {
       'kind': 'CR',
       'point': {
         'lon': -87.705456,
-        'lat': 41.873988
+        'lat': 41.873988,
       },
-      'victims': []
+      'victims': [],
     },
-  ]
+  ],
 };
 
 export const socialGraphGeographicTrrsData = {
@@ -82,8 +82,8 @@ export const socialGraphGeographicTrrsData = {
       'firearm_used': false,
       'point': {
         'lon': -87.613242,
-        'lat': 41.6445969
-      }
+        'lat': 41.6445969,
+      },
     },
     {
       'trr_id': 6238,
@@ -93,8 +93,8 @@ export const socialGraphGeographicTrrsData = {
       'firearm_used': false,
       'point': {
         'lon': -87.6013364,
-        'lat': 41.6936152
-      }
+        'lat': 41.6936152,
+      },
     },
-  ]
+  ],
 };

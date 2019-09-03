@@ -65,7 +65,7 @@ export default class Attachments extends Component {
 }
 
 Attachments.defaultProps = {
-  items: []
+  items: [],
 };
 
 Attachments.propTypes = {

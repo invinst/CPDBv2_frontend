@@ -3,7 +3,7 @@ import {
   renderIntoDocument,
   findRenderedComponentWithType,
   findRenderedDOMComponentWithTag,
-  Simulate
+  Simulate,
 } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
@@ -23,8 +23,8 @@ describe('DocumentsOverviewPage component', function () {
   let instance;
   const store = MockStore()({
     breadcrumb: {
-      breadcrumbs: []
-    }
+      breadcrumbs: [],
+    },
   });
 
   afterEach(function () {
@@ -43,7 +43,7 @@ describe('DocumentsOverviewPage component', function () {
     shareableHeaderContainer.props.should.containEql({
       buttonType: constants.SHAREABLE_HEADER_BUTTON_TYPE.LINK,
       buttonText: 'Crawlers',
-      to: '/crawlers/'
+      to: '/crawlers/',
     });
     findRenderedComponentWithType(instance, LinkHeaderButton).should.be.ok();
   });
@@ -63,12 +63,12 @@ describe('DocumentsOverviewPage component', function () {
       {
         id: '01-2019',
         kind: constants.DOCUMENTS_SEARCH_ITEMS.MONTH_SEPARATOR,
-        text: 'Jan 2019'
+        text: 'Jan 2019',
       },
       {
         id: 1,
-        kind: constants.DOCUMENTS_SEARCH_ITEMS.DOCUMENT
-      }
+        kind: constants.DOCUMENTS_SEARCH_ITEMS.DOCUMENT,
+      },
     ];
     const fetchDocuments = spy();
     const fetchDocumentsAuthenticated = spy();

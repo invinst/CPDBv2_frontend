@@ -9,7 +9,7 @@ export const updatePage = pageid => data => authenticatedPatch(
   [
     constants.UPDATE_CMS_PAGE_REQUEST_START,
     constants.UPDATE_CMS_PAGE_REQUEST_SUCCESS,
-    constants.UPDATE_CMS_PAGE_REQUEST_FAILURE
+    constants.UPDATE_CMS_PAGE_REQUEST_FAILURE,
   ]
 )(data);
 
@@ -18,7 +18,7 @@ export const fetchPage = pageid => get(
   [
     constants.CMS_PAGE_REQUEST_START,
     constants.CMS_PAGE_REQUEST_SUCCESS,
-    constants.CMS_PAGE_REQUEST_FAILURE
+    constants.CMS_PAGE_REQUEST_FAILURE,
   ]
 );
 

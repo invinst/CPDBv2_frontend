@@ -84,6 +84,6 @@ CategoryColumn.propTypes = {
 
 CategoryColumn.defaultProps = {
   focusedItem: {
-    uniqueKey: null
-  }
+    uniqueKey: null,
+  },
 };

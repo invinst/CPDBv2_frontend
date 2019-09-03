@@ -12,7 +12,7 @@ describe('refreshIntervalId reducer', function () {
   it('should handle UPDATE_SOCIAL_GRAPH_REFRESH_INTERVAL_ID', function () {
     refreshIntervalId(null, {
       type: UPDATE_SOCIAL_GRAPH_REFRESH_INTERVAL_ID,
-      payload: 1234
+      payload: 1234,
     }).should.eql(1234);
   });
 });

@@ -45,7 +45,7 @@ describe('PinboardPage component', function () {
     requesting: false,
     items: [],
     count: 0,
-    pagination: { next: null, previous: null }
+    pagination: { next: null, previous: null },
   };
 
   const createPinboardPage = (pinboard, editModeOn) => ({
@@ -86,8 +86,8 @@ describe('PinboardPage component', function () {
       pages: {
         'pinboard-page': {
           fields,
-        }
-      }
+        },
+      },
     },
   });
 
@@ -167,7 +167,7 @@ describe('PinboardPage component', function () {
         'officer_ids': [1],
         crids: ['abc'],
         'trr_ids': [1],
-      }
+      },
     });
 
     replaceStub.should.be.calledWith('/pinboard/66ef1560/title/');
@@ -179,12 +179,12 @@ describe('PinboardPage component', function () {
     const pinboard = {
       'id': '5cd06f2b',
       'title': 'Pinboard title',
-      'url': '/pinboard/5cd06f2b/pinboard-title/'
+      'url': '/pinboard/5cd06f2b/pinboard-title/',
     };
     const updatedPinboard = {
       'id': '5cd06f2b',
       'title': 'Pinboard title',
-      'url': '/pinboard/5cd06f2b/updated-title/'
+      'url': '/pinboard/5cd06f2b/updated-title/',
     };
     const state = {
       pinboardPage: createPinboardPage(pinboard),
@@ -211,7 +211,7 @@ describe('PinboardPage component', function () {
   it('should render PinnedSection component and SearchBar component', function () {
     const pinboard = {
       'id': '5cd06f2b',
-      'crids': ['123']
+      'crids': ['123'],
     };
 
     const pinboardPage = () => (
@@ -266,11 +266,11 @@ describe('PinboardPage component', function () {
       'example_pinboards': [{
         id: '66ef1561',
         title: 'Pinboard 1',
-        description: 'Description 1'
+        description: 'Description 1',
       }, {
         id: '66ef1562',
         title: 'Pinboard 2',
-        description: 'Description 2'
+        description: 'Description 2',
       }],
     };
 
@@ -299,11 +299,11 @@ describe('PinboardPage component', function () {
     emptyPinboard.props.examplePinboards.should.eql([{
       id: '66ef1561',
       title: 'Pinboard 1',
-      description: 'Description 1'
+      description: 'Description 1',
     }, {
       id: '66ef1562',
       title: 'Pinboard 2',
-      description: 'Description 2'
+      description: 'Description 2',
     }]);
 
     findRenderedComponentWithType(instance, FooterContainer);

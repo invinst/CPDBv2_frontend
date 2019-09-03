@@ -15,9 +15,9 @@ describe('dom utils', function () {
           {
             getBoundingClientRect() {
               return { height: 10 };
-            }
-          }
-        ]
+            },
+          },
+        ],
       };
     };
 

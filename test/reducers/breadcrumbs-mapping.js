@@ -13,8 +13,8 @@ describe('breadcrumbsMapping', function () {
       type: constants.OFFICER_SUMMARY_REQUEST_SUCCESS,
       payload: {
         id: '123',
-        'full_name': 'Ronald Hernandez'
-      }
+        'full_name': 'Ronald Hernandez',
+      },
     }).should.eql({ '/officer/123/': 'Ronald Hernandez' });
   });
 
@@ -22,8 +22,8 @@ describe('breadcrumbsMapping', function () {
     breadcrumbsMapping({}, {
       type: constants.CR_REQUEST_SUCCESS,
       payload: {
-        crid: '456'
-      }
+        crid: '456',
+      },
     }).should.eql({ '/complaint/456/': 'CR 456' });
   });
 
@@ -32,8 +32,8 @@ describe('breadcrumbsMapping', function () {
       type: constants.UNIT_PROFILE_SUMMARY_REQUEST_SUCCESS,
       payload: {
         description: 'Mobile strike force',
-        'unit_name': '001'
-      }
+        'unit_name': '001',
+      },
     }).should.eql({ '/unit/001/': '001 Mobile strike force' });
   });
 
@@ -42,7 +42,7 @@ describe('breadcrumbsMapping', function () {
       type: constants.TRR_REQUEST_SUCCESS,
       payload: {
         id: '123',
-      }
+      },
     }).should.eql({ '/trr/123/': 'TRR 123' });
   });
 
@@ -51,9 +51,9 @@ describe('breadcrumbsMapping', function () {
       type: constants.DOCUMENT_DEDUPLICATOR_REQUEST_SUCCESS,
       request: {
         params: {
-          crid: 1000000
-        }
-      }
+          crid: 1000000,
+        },
+      },
     }).should.eql({ '/documents/crid/1000000/': '#1000000 document deduplicator' });
   });
 
@@ -63,7 +63,7 @@ describe('breadcrumbsMapping', function () {
       payload: {
         id: '1234',
         title: 'CRID 1083633 Report',
-      }
+      },
     }).should.eql({ '/document/1234/': 'CRID 1083633 Report' });
   });
 
@@ -73,7 +73,7 @@ describe('breadcrumbsMapping', function () {
       payload: {
         id: '1234',
         title: 'CRID 1083633 Report',
-      }
+      },
     }).should.eql({ '/document/1234/': 'CRID 1083633 Report' });
   });
 
@@ -83,7 +83,7 @@ describe('breadcrumbsMapping', function () {
       payload: {
         id: 'b3380b9b',
         title: 'My pinboard',
-      }
+      },
     }).should.eql({ '/pinboard/b3380b9b/': 'Pinboard - My pinboard' });
   });
 
@@ -93,7 +93,7 @@ describe('breadcrumbsMapping', function () {
       payload: {
         id: 'b3380b9b',
         title: '',
-      }
+      },
     }).should.eql({ '/pinboard/b3380b9b/': 'Pinboard' });
   });
 
@@ -103,7 +103,7 @@ describe('breadcrumbsMapping', function () {
       payload: {
         id: 'b3380b9b',
         title: 'My pinboard',
-      }
+      },
     }).should.eql({ '/pinboard/b3380b9b/': 'Pinboard - My pinboard' });
   });
 
@@ -113,7 +113,7 @@ describe('breadcrumbsMapping', function () {
       payload: {
         id: 'b3380b9b',
         title: '',
-      }
+      },
     }).should.eql({ '/pinboard/b3380b9b/': 'Pinboard' });
   });
 });

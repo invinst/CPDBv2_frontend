@@ -9,11 +9,11 @@ export default class Crossmark extends Component {
   render() {
     const { style } = this.props;
     const defaultStyle = {
-      strokeDashoffset: 13.1522
+      strokeDashoffset: 13.1522,
     };
 
     const motionStyle = {
-      strokeDashoffset: spring(2, defaultConfig())
+      strokeDashoffset: spring(2, defaultConfig()),
     };
 
     return (
@@ -36,5 +36,5 @@ export default class Crossmark extends Component {
 }
 
 Crossmark.propTypes = {
-  style: PropTypes.object
+  style: PropTypes.object,
 };

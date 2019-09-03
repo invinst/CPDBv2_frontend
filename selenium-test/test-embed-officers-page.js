@@ -3,7 +3,6 @@
 import should from 'should';
 
 import embedOfficersPage from './page-objects/embed-officers-page';
-import { switchToRecentTab } from './utils';
 
 
 should.config.checkProtoEql = false;
@@ -20,15 +19,15 @@ describe('embed top officers page', function () {
       embedOfficersPage.description.getText().should.eql('Some description');
 
       embedOfficersPage.embedOfficersCarousel.cards.count.should.equal(3);
-      embedOfficersPage.embedOfficersCarousel.rightArrow.waitForVisible();
-      embedOfficersPage.embedOfficersCarousel.leftArrow.waitForVisible(2000, true);
+      embedOfficersPage.embedOfficersCarousel.rightArrow.waitForDisplayed();
+      embedOfficersPage.embedOfficersCarousel.leftArrow.waitForDisplayed(2000, true);
     });
 
     it('should go to officer summary page when click to card', function () {
       const firstCard = embedOfficersPage.embedOfficersCarousel.cards;
       firstCard.click();
-      switchToRecentTab();
-      browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/?$/);
+      browser.switchWindow('/officer/');
+      browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/?$/);
     });
   });
 });

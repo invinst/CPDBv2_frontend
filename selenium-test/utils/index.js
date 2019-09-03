@@ -4,7 +4,7 @@ import { map } from 'lodash';
 
 
 export const extractText = function (elements) {
-  return map(elements.value, function (element) { return browser.elementIdText(element.ELEMENT).value; });
+  return map(elements, function (element) { return browser.elementIdText(element.ELEMENT); });
 };
 
 export const retry = function (action, valid, retries=1) {
@@ -32,7 +32,7 @@ export const getRequestCount = url => {
   const result = browser.execute(function (url) {
     return window.requestCount(url);
   }, url);
-  return result.value;
+  return result;
 };
 
 export const selectText = selector => {
@@ -71,22 +71,4 @@ export const selectText = selector => {
     selection.empty();
     selection.addRange(range);
   }, selector);
-};
-
-export const switchToRecentTab = () => {
-  const handles = browser.getTabIds();
-  const oldUrl = browser.getUrl();
-  browser.switchTab(handles[handles.length - 1]);
-  browser.waitUntil(
-    () => {
-      try {
-        return browser.getUrl() !== oldUrl;
-      }
-      catch (err) {
-        return false;
-      }
-    },
-    5000,
-    'Cannot switch to the recent tab.'
-  );
 };

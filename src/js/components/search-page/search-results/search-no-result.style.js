@@ -8,13 +8,13 @@ export const groupHeaderStyle = {
   height: '8px',
   fontSize: '14px',
   fontFamily: sanFranciscoTextFamily,
-  letterSpacing: '0.5px'
+  letterSpacing: '0.5px',
 };
 
 export const suggestionGroupStyle = {
   display: 'inline-block',
   verticalAlign: 'top',
-  paddingLeft: '16px'
+  paddingLeft: '16px',
 };
 
 export const noResultItemStyle = {
@@ -24,9 +24,9 @@ export const noResultItemStyle = {
   padding: '6px 0',
   borderBottom: `1px solid ${whiteTwoColor}`,
   width: '415px',
-  height: '32px'
+  height: '32px',
 };
 
 export const aHrefStyle = {
-  textDecoration: 'none'
+  textDecoration: 'none',
 };

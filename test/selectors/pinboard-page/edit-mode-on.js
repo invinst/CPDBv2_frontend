@@ -6,12 +6,12 @@ describe('editModeOn', function () {
       pinboardPage: {
         editModeOn: {
           EMPTY_PINBOARD_TITLE: false,
-          EMPTY_PINBOARD_DESCRIPTION: false
+          EMPTY_PINBOARD_DESCRIPTION: false,
         },
-      }
+      },
     }).should.eql({
       EMPTY_PINBOARD_TITLE: false,
-      EMPTY_PINBOARD_DESCRIPTION: false
+      EMPTY_PINBOARD_DESCRIPTION: false,
     });
   });
 });

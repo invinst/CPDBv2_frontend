@@ -112,7 +112,7 @@ SearchTerms.defaultProps = {
   move: noop,
   resetNavigation: noop,
   focusedItem: {
-    uniqueKey: ''
+    uniqueKey: '',
   },
   categories: [],
   onEmptyPinboardButtonClick: noop,

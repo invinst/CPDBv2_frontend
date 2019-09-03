@@ -131,7 +131,7 @@ describe('PreviewPane component', function () {
           incidentDate: 'JUL 2, 2012',
           address: '14XX W 63RD ST, CHICAGO IL 60636',
           victims: ['Hispanic, Female', 'Hispanic, Female, Age 48'],
-          coaccused: []
+          coaccused: [],
         } }
       />
     );
@@ -149,7 +149,7 @@ describe('PreviewPane component', function () {
           incidentDate: 'JUL 2, 2012',
           address: '14XX W 63RD ST, CHICAGO IL 60636',
           victims: ['Hispanic, Female', 'Hispanic, Female, Age 48'],
-          coaccused: []
+          coaccused: [],
         } }
       />
     );
@@ -167,7 +167,7 @@ describe('PreviewPane component', function () {
           incidentDate: 'JUL 2, 2012',
           address: '14XX W 63RD ST, CHICAGO IL 60636',
           victims: ['Hispanic, Female', 'Hispanic, Female, Age 48'],
-          coaccused: []
+          coaccused: [],
         } }
       />
     );
@@ -190,10 +190,10 @@ describe('PreviewPane component', function () {
             radarAxes: [
               { axis: 'Use of Force Reports', value: 72.1094 },
               { axis: 'Officer Allegations', value: 61.1521 },
-              { axis: 'Civilian Allegations', value: 98.5549 }
+              { axis: 'Civilian Allegations', value: 98.5549 },
             ],
             radarColor: '#f0201e',
-            count: 93
+            count: 93,
           },
           to: '/trr/123456/',
         } }
@@ -218,10 +218,10 @@ describe('PreviewPane component', function () {
             radarAxes: [
               { axis: 'Use of Force Reports', value: 72.1094 },
               { axis: 'Officer Allegations', value: 61.1521 },
-              { axis: 'Civilian Allegations', value: 98.5549 }
+              { axis: 'Civilian Allegations', value: 98.5549 },
             ],
             radarColor: '#f0201e',
-            count: 93
+            count: 93,
           },
           to: '/trr/123456/',
         } }

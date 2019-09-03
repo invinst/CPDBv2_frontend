@@ -11,8 +11,8 @@ describe('officers-by-allegation selectors', function () {
   beforeEach(function () {
     state = {
       landingPage: {
-        officersByAllegation: {}
-      }
+        officersByAllegation: {},
+      },
     };
   });
 

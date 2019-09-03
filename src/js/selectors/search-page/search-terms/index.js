@@ -7,4 +7,3 @@ export const hiddenSelector = createSelector(
   query => query !== ''
 );
 
-

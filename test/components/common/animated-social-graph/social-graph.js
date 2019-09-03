@@ -31,7 +31,7 @@ describe('SocialGraph', function () {
     { fullName: 'Tracy Hughes', id: 12737 },
     { fullName: 'Donnell Calhoun', id: 3663 },
     { fullName: 'Hardy White', id: 30466 },
-    { fullName: 'Matthew Brandon', id: 2675 }
+    { fullName: 'Matthew Brandon', id: 2675 },
   ];
   const coaccusedData = [
     { officerId1: 2675, officerId2: 24157, incidentDate: '1990-01-09', accussedCount: 2 },
@@ -142,7 +142,7 @@ describe('SocialGraph', function () {
     { officerId1: 3663, officerId2: 4269, incidentDate: '2003-10-25', accussedCount: 3 },
     { officerId1: 2671, officerId2: 15956, incidentDate: '2006-03-15', accussedCount: 16 },
     { officerId1: 2671, officerId2: 15956, incidentDate: '2006-09-11', accussedCount: 17 },
-    { officerId1: 2671, officerId2: 15956, incidentDate: '2008-01-11', accussedCount: 18 }
+    { officerId1: 2671, officerId2: 15956, incidentDate: '2008-01-11', accussedCount: 18 },
   ];
   const listEvent = [
     '1990-01-09',
@@ -209,7 +209,7 @@ describe('SocialGraph', function () {
     '2003-10-25',
     '2006-03-15',
     '2006-09-11',
-    '2008-01-11'
+    '2008-01-11',
   ];
 
   afterEach(function () {
@@ -249,7 +249,7 @@ describe('SocialGraph', function () {
       { id: 16, fname: 'Tracy Hughes', uid: 12737, degree: 0 },
       { id: 17, fname: 'Donnell Calhoun', uid: 3663, degree: 10 },
       { id: 18, fname: 'Hardy White', uid: 30466, degree: 6 },
-      { id: 19, fname: 'Matthew Brandon', uid: 2675, degree: 1 }
+      { id: 19, fname: 'Matthew Brandon', uid: 2675, degree: 1 },
     ];
 
     const expectedLinks = [
@@ -289,7 +289,7 @@ describe('SocialGraph', function () {
       { sourceUid: 3663, targetUid: 31945, weight: 5, className: '' },
       { sourceUid: 4269, targetUid: 31945, weight: 5, className: '' },
       { sourceUid: 3663, targetUid: 4269, weight: 3, className: '' },
-      { sourceUid: 2671, targetUid: 15956, weight: 18, className: 'current-link' }
+      { sourceUid: 2671, targetUid: 15956, weight: 18, className: 'current-link' },
     ];
 
     const expectedLinkedByIndex = {
@@ -387,7 +387,7 @@ describe('SocialGraph', function () {
       { id: 16, fname: 'Tracy Hughes', uid: 12737, degree: 0 },
       { id: 17, fname: 'Donnell Calhoun', uid: 3663, degree: 1 },
       { id: 18, fname: 'Hardy White', uid: 30466, degree: 2 },
-      { id: 19, fname: 'Matthew Brandon', uid: 2675, degree: 1 }
+      { id: 19, fname: 'Matthew Brandon', uid: 2675, degree: 1 },
     ];
 
     const expectedLinks = [
@@ -761,7 +761,7 @@ describe('SocialGraph', function () {
 
     const expectedSortedOfficerIds = [
       3663, 21194, 4269, 31945, 30466, 14045, 4881, 30209, 28805, 12176,
-      22861, 8138, 15956, 11580, 2671, 2675, 24157, 22297, 2171, 12737
+      22861, 8138, 15956, 11580, 2671, 2675, 24157, 22297, 2171, 12737,
     ];
     updateSortedOfficerIdsSpy.should.be.calledWith(expectedSortedOfficerIds);
   });

@@ -38,7 +38,7 @@ describe('Pinboard reducer', function () {
           'officer_ids': [1],
           crids: ['abc'],
           'trr_ids': [1],
-        }
+        },
       }
     ).should.deepEqual({
       id: '66ef1560',
@@ -101,13 +101,13 @@ describe('Pinboard reducer', function () {
           'example_pinboards': [{
             id: '66ef1561',
             title: 'Pinboard 1',
-            description: 'Description 1'
+            description: 'Description 1',
           }, {
             id: '66ef1562',
             title: 'Pinboard 2',
-            description: 'Description 2'
+            description: 'Description 2',
           }],
-        }
+        },
       }
     ).should.deepEqual({
       'id': '66ef1560',
@@ -121,11 +121,11 @@ describe('Pinboard reducer', function () {
       'example_pinboards': [{
         id: '66ef1561',
         title: 'Pinboard 1',
-        description: 'Description 1'
+        description: 'Description 1',
       }, {
         id: '66ef1562',
         title: 'Pinboard 2',
-        description: 'Description 2'
+        description: 'Description 2',
       }],
     });
   });
@@ -144,7 +144,7 @@ describe('Pinboard reducer', function () {
       },
       {
         type: constants.PINBOARD_UPDATE_REQUEST_FAILURE,
-        payload: {}
+        payload: {},
       }
     ).should.deepEqual({
       'id': '66ef1560',
@@ -173,7 +173,7 @@ describe('Pinboard reducer', function () {
           'officer_ids': [1],
           crids: ['abc'],
           'trr_ids': [1],
-        }
+        },
       }
     ).should.deepEqual({
       'id': null,
@@ -196,7 +196,7 @@ describe('Pinboard reducer', function () {
           'officer_ids': [1],
           crids: ['abc'],
           'trr_ids': [1],
-        }
+        },
       }
     ).should.deepEqual({
       'id': '66ef1560',
@@ -223,7 +223,7 @@ describe('Pinboard reducer', function () {
           'officer_ids': [1],
           crids: ['abc'],
           'trr_ids': [1],
-        }
+        },
       }
     ).should.deepEqual({
       id: '66ef1560',
@@ -242,7 +242,7 @@ describe('Pinboard reducer', function () {
         type: constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_SUCCESS,
         payload: {
           id: '66ef1560',
-        }
+        },
       }
     ).should.deepEqual({
       id: '66ef1560',
@@ -265,7 +265,7 @@ describe('Pinboard reducer', function () {
         payload: {
           type: 'OFFICER',
           id: '1',
-        }
+        },
       }
     ).should.deepEqual({
       id: null,
@@ -274,7 +274,7 @@ describe('Pinboard reducer', function () {
       'officer_ids': [2, 1],
       crids: [],
       'trr_ids': [],
-      needRefreshData: true
+      needRefreshData: true,
     });
   });
 
@@ -293,7 +293,7 @@ describe('Pinboard reducer', function () {
         payload: {
           type: 'OFFICER',
           id: '1',
-        }
+        },
       }
     ).should.deepEqual({
       id: '66ef1560',
@@ -302,7 +302,7 @@ describe('Pinboard reducer', function () {
       'officer_ids': [2, 1, 3],
       crids: [],
       'trr_ids': [],
-      needRefreshData: true
+      needRefreshData: true,
     });
   });
 
@@ -321,7 +321,7 @@ describe('Pinboard reducer', function () {
         payload: {
           type: 'CR',
           id: '1',
-        }
+        },
       }
     ).should.deepEqual({
       id: null,
@@ -330,7 +330,7 @@ describe('Pinboard reducer', function () {
       'officer_ids': [2],
       crids: ['1'],
       'trr_ids': [],
-      needRefreshData: true
+      needRefreshData: true,
     });
   });
 
@@ -349,7 +349,7 @@ describe('Pinboard reducer', function () {
         payload: {
           type: 'CR',
           id: '1',
-        }
+        },
       }
     ).should.deepEqual({
       id: '66ef1560',
@@ -358,7 +358,7 @@ describe('Pinboard reducer', function () {
       'officer_ids': [2, 1, 3],
       crids: ['2', '1'],
       'trr_ids': [],
-      needRefreshData: true
+      needRefreshData: true,
     });
   });
 
@@ -377,7 +377,7 @@ describe('Pinboard reducer', function () {
         payload: {
           type: 'TRR',
           id: '1',
-        }
+        },
       }
     ).should.deepEqual({
       id: null,
@@ -386,7 +386,7 @@ describe('Pinboard reducer', function () {
       'officer_ids': [2],
       crids: [],
       'trr_ids': [1],
-      needRefreshData: true
+      needRefreshData: true,
     });
   });
 
@@ -405,7 +405,7 @@ describe('Pinboard reducer', function () {
         payload: {
           type: 'TRR',
           id: '1',
-        }
+        },
       }
     ).should.deepEqual({
       id: '66ef1560',
@@ -414,7 +414,7 @@ describe('Pinboard reducer', function () {
       'officer_ids': [4, 5],
       crids: [],
       'trr_ids': [2, 1, 3],
-      needRefreshData: true
+      needRefreshData: true,
     });
   });
 
@@ -434,7 +434,7 @@ describe('Pinboard reducer', function () {
         payload: {
           type: 'OFFICER',
           id: '1',
-        }
+        },
       }
     ).should.deepEqual({
       id: null,
@@ -443,7 +443,7 @@ describe('Pinboard reducer', function () {
       'officer_ids': [2],
       crids: [],
       'trr_ids': [],
-      needRefreshData: true
+      needRefreshData: true,
     });
   });
 
@@ -462,7 +462,7 @@ describe('Pinboard reducer', function () {
         payload: {
           type: 'OFFICER',
           id: '5',
-        }
+        },
       }
     ).should.deepEqual({
       id: '66ef1560',
@@ -471,7 +471,7 @@ describe('Pinboard reducer', function () {
       'officer_ids': [2, 1, 3],
       crids: [],
       'trr_ids': [],
-      needRefreshData: true
+      needRefreshData: true,
     });
   });
 
@@ -490,7 +490,7 @@ describe('Pinboard reducer', function () {
         payload: {
           type: 'CR',
           id: '1',
-        }
+        },
       }
     ).should.deepEqual({
       id: null,
@@ -499,7 +499,7 @@ describe('Pinboard reducer', function () {
       'officer_ids': [2],
       crids: ['3', '2'],
       'trr_ids': [],
-      needRefreshData: true
+      needRefreshData: true,
     });
   });
 
@@ -518,7 +518,7 @@ describe('Pinboard reducer', function () {
         payload: {
           type: 'CR',
           id: '5',
-        }
+        },
       }
     ).should.deepEqual({
       id: '66ef1560',
@@ -527,7 +527,7 @@ describe('Pinboard reducer', function () {
       'officer_ids': [2, 1, 3],
       crids: ['2', '1'],
       'trr_ids': [],
-      needRefreshData: true
+      needRefreshData: true,
     });
   });
 
@@ -546,7 +546,7 @@ describe('Pinboard reducer', function () {
         payload: {
           type: 'TRR',
           id: '1',
-        }
+        },
       }
     ).should.deepEqual({
       id: null,
@@ -555,7 +555,7 @@ describe('Pinboard reducer', function () {
       'officer_ids': [2],
       crids: [],
       'trr_ids': [7, 8],
-      needRefreshData: true
+      needRefreshData: true,
     });
   });
 
@@ -574,7 +574,7 @@ describe('Pinboard reducer', function () {
         payload: {
           type: 'TRR',
           id: '7',
-        }
+        },
       }
     ).should.deepEqual({
       id: '66ef1560',
@@ -583,7 +583,7 @@ describe('Pinboard reducer', function () {
       'officer_ids': [4, 5],
       crids: [],
       'trr_ids': [2, 1, 3],
-      needRefreshData: true
+      needRefreshData: true,
     });
   });
 
@@ -603,7 +603,7 @@ describe('Pinboard reducer', function () {
           type: 'TRR',
           id: '7',
           mode: constants.PINBOARD_ITEM_REMOVE_MODE.STATE_ONLY,
-        }
+        },
       }
     ).should.deepEqual({
       id: '66ef1560',
@@ -612,7 +612,7 @@ describe('Pinboard reducer', function () {
       'officer_ids': [4, 5],
       crids: [],
       'trr_ids': [2, 1, 3],
-      needRefreshData: false
+      needRefreshData: false,
     });
   });
 
@@ -631,7 +631,7 @@ describe('Pinboard reducer', function () {
         payload: {
           type: 'OFFICER',
           ids: ['4', '3', '2'],
-        }
+        },
       }
     ).should.deepEqual({
       id: null,
@@ -658,7 +658,7 @@ describe('Pinboard reducer', function () {
         payload: {
           type: 'CR',
           ids: ['4', '3', '2'],
-        }
+        },
       }
     ).should.deepEqual({
       id: null,
@@ -685,7 +685,7 @@ describe('Pinboard reducer', function () {
         payload: {
           type: 'TRR',
           ids: ['4', '3', '2', '1'],
-        }
+        },
       }
     ).should.deepEqual({
       id: null,
@@ -712,7 +712,7 @@ describe('Pinboard reducer', function () {
         payload: {
           attr: 'description',
           value: 'Updated Description',
-        }
+        },
       }
     ).should.deepEqual({
       id: null,
@@ -739,7 +739,7 @@ describe('Pinboard reducer', function () {
         payload: {
           attr: 'description',
           value: 'Updated Description',
-        }
+        },
       }
     ).should.deepEqual({
       id: '12345678',
@@ -748,7 +748,7 @@ describe('Pinboard reducer', function () {
       'officer_ids': [10, 11, 12, 13, 14],
       crids: [],
       'trr_ids': [1, 2, 3, 4],
-      needRefreshData: false
+      needRefreshData: false,
     });
   });
 });

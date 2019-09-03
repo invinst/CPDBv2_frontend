@@ -75,7 +75,7 @@ describe('LocationCard component', function () {
     removeItemInPinboardPage.should.be.calledOnce();
     removeItemInPinboardPage.should.be.calledWith({
       type: 'CR',
-      id: '123'
+      id: '123',
     });
   });
 

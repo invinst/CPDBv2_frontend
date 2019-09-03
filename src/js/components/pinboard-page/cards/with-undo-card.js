@@ -29,7 +29,7 @@ export default function withUndoCard(
       super(props);
 
       this.state = {
-        status: DISPLAY
+        status: DISPLAY,
       };
       this.act = this.act.bind(this);
       this.actOnDelay = this.actOnDelay.bind(this);
@@ -45,23 +45,23 @@ export default function withUndoCard(
 
     act(item) {
       this.setState({
-        status: REMOVING
+        status: REMOVING,
       });
 
       get(this.props, actionName, noop)({
         ...item,
-        mode: PINBOARD_ITEM_REMOVE_MODE.API_ONLY
+        mode: PINBOARD_ITEM_REMOVE_MODE.API_ONLY,
       });
       this.removingItem = item;
 
       this.countdown = setTimeout(() => {
         this.setState({
-          status: REMOVED
+          status: REMOVED,
         });
 
         get(this.props, actionName, noop)({
           ...item,
-          mode: PINBOARD_ITEM_REMOVE_MODE.STATE_ONLY
+          mode: PINBOARD_ITEM_REMOVE_MODE.STATE_ONLY,
         });
         this.removingItem = undefined;
       }, UNDO_CARD_VISIBLE_TIME);
@@ -69,12 +69,12 @@ export default function withUndoCard(
 
     actOnDelay(item) {
       this.setState({
-        status: REMOVING
+        status: REMOVING,
       });
 
       this.countdown = setTimeout(() => {
         this.setState({
-          status: REMOVED
+          status: REMOVED,
         });
 
         get(this.props, actionName, noop)(item);
@@ -95,7 +95,7 @@ export default function withUndoCard(
       clearTimeout(this.countdown);
 
       this.setState({
-        status: DISPLAY
+        status: DISPLAY,
       });
 
       if (!isRequestDelay) {

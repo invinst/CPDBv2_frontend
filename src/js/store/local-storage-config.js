@@ -3,8 +3,8 @@ export default {
     /* istanbul ignore next */
     return (state) => ({
       searchPage: {
-        recentSuggestions: state.searchPage.recentSuggestions
-      }
+        recentSuggestions: state.searchPage.recentSuggestions,
+      },
     });
-  }
+  },
 };

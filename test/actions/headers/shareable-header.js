@@ -6,7 +6,7 @@ describe('shareableHeader actions', function () {
     it('should return right action', function () {
       updateShareablePageScrollPosition('middle').should.eql({
         type: UPDATE_SHAREABLE_PAGE_SCROLL_POSITION,
-        payload: 'middle'
+        payload: 'middle',
       });
     });
   });

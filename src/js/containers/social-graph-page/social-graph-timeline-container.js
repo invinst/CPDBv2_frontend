@@ -11,7 +11,7 @@ import {
 import { trackingClickAttachment } from 'actions/common/analytic';
 import {
   updateSocialGraphTimelineIdxFromTimelineTab,
-  updateSocialGraphSelectedCrid
+  updateSocialGraphSelectedCrid,
 } from 'actions/social-graph-page';
 
 

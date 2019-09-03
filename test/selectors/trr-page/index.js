@@ -4,7 +4,7 @@ import {
   trrDetailSelector,
   trrDocumentSelector,
   trrLocationSelector,
-  getEditModeOn
+  getEditModeOn,
 } from 'selectors/trr-page';
 
 
@@ -13,8 +13,8 @@ describe('TRR page selectors', function () {
     it('should return crid', function () {
       const state = {
         trrPage: {
-          trrId: 123
-        }
+          trrId: 123,
+        },
       };
       getTRRId(state).should.eql('123');
     });
@@ -23,7 +23,7 @@ describe('TRR page selectors', function () {
   describe('getEditModeOn', function () {
     it('should return officer name', function () {
       getEditModeOn({
-        trrPage: { editModeOn: { a: true } }
+        trrPage: { editModeOn: { a: true } },
       }).should.eql({ a: true });
     });
   });
@@ -36,8 +36,8 @@ describe('TRR page selectors', function () {
             'officer_assigned_beat': 'some beat',
             'officer_on_duty': true,
             'officer_in_uniform': true,
-          }
-        }
+          },
+        },
       };
       officerSelector(state).should.eql({});
     });
@@ -46,9 +46,9 @@ describe('TRR page selectors', function () {
       const state = {
         trrPage: {
           data: {
-            officer: {}
-          }
-        }
+            officer: {},
+          },
+        },
       };
       officerSelector(state).should.eql({
         officerId: undefined,
@@ -66,7 +66,7 @@ describe('TRR page selectors', function () {
           items: [
             { axis: 'Use of Force Reports', value: NaN },
             { axis: 'Officer Allegations', value: NaN },
-            { axis: 'Civilian Allegations', value: NaN }
+            { axis: 'Civilian Allegations', value: NaN },
           ],
           visualTokenBackground: undefined,
           textColor: '#231F20',
@@ -101,8 +101,8 @@ describe('TRR page selectors', function () {
             'officer_assigned_beat': 'some beat',
             'officer_on_duty': true,
             'officer_in_uniform': true,
-          }
-        }
+          },
+        },
       };
       officerSelector(state).should.eql({
         officerId: 123,
@@ -120,7 +120,7 @@ describe('TRR page selectors', function () {
           items: [
             { axis: 'Use of Force Reports', value: 99.9 },
             { axis: 'Officer Allegations', value: 11.1 },
-            { axis: 'Civilian Allegations', value: 22.2 }
+            { axis: 'Civilian Allegations', value: 22.2 },
           ],
           visualTokenBackground: '#e85050',
           textColor: '#231F20',
@@ -142,8 +142,8 @@ describe('TRR page selectors', function () {
             'subject_age': 37,
             'force_category': 'Other',
             'force_types': ['Verbal Commands'],
-          }
-        }
+          },
+        },
       };
 
       trrDetailSelector(state).should.eql({
@@ -161,8 +161,8 @@ describe('TRR page selectors', function () {
             'subject_gender': 'Male',
             'force_category': 'Other',
             'force_types': ['Verbal Commands'],
-          }
-        }
+          },
+        },
       }).should.eql({
         subjectDemographic: 'White, Male',
         category: 'Other',
@@ -176,8 +176,8 @@ describe('TRR page selectors', function () {
             'subject_age': 37,
             'force_category': 'Other',
             'force_types': ['Verbal Commands'],
-          }
-        }
+          },
+        },
       }).should.eql({
         subjectDemographic: 'White, 37 years old',
         category: 'Other',
@@ -191,8 +191,8 @@ describe('TRR page selectors', function () {
             'subject_age': 37,
             'force_category': 'Other',
             'force_types': ['Verbal Commands'],
-          }
-        }
+          },
+        },
       }).should.eql({
         subjectDemographic: 'Male, 37 years old',
         category: 'Other',
@@ -209,9 +209,9 @@ describe('TRR page selectors', function () {
           attachmentRequest: {
             subscribedTRRIds: {
               123: true,
-            }
+            },
           },
-        }
+        },
       }).should.eql({ alreadyRequested: true });
 
       trrDocumentSelector({
@@ -220,79 +220,10 @@ describe('TRR page selectors', function () {
           attachmentRequest: {
             subscribedTRRIds: {
               123: true,
-            }
+            },
           },
-        }
+        },
       }).should.eql({ alreadyRequested: false });
-    });
-  });
-
-  describe('trrDetailSelector', function () {
-    it('should select correctly', function () {
-      const state = {
-        trrPage: {
-          data: {
-            'subject_race': 'White',
-            'subject_gender': 'Male',
-            'subject_age': 37,
-            'force_category': 'Other',
-            'force_types': ['Verbal Commands'],
-          }
-        }
-      };
-
-      trrDetailSelector(state).should.eql({
-        subjectDemographic: 'White, Male, 37 years old',
-        category: 'Other',
-        forceTypes: ['Verbal Commands'],
-      });
-    });
-
-    it('should cover missing data cases', function () {
-      trrDetailSelector({
-        trrPage: {
-          data: {
-            'subject_race': 'White',
-            'subject_gender': 'Male',
-            'force_category': 'Other',
-            'force_types': ['Verbal Commands'],
-          }
-        }
-      }).should.eql({
-        subjectDemographic: 'White, Male',
-        category: 'Other',
-        forceTypes: ['Verbal Commands'],
-      });
-
-      trrDetailSelector({
-        trrPage: {
-          data: {
-            'subject_race': 'White',
-            'subject_age': 37,
-            'force_category': 'Other',
-            'force_types': ['Verbal Commands'],
-          }
-        }
-      }).should.eql({
-        subjectDemographic: 'White, 37 years old',
-        category: 'Other',
-        forceTypes: ['Verbal Commands'],
-      });
-
-      trrDetailSelector({
-        trrPage: {
-          data: {
-            'subject_gender': 'Male',
-            'subject_age': 37,
-            'force_category': 'Other',
-            'force_types': ['Verbal Commands'],
-          }
-        }
-      }).should.eql({
-        subjectDemographic: 'Male, 37 years old',
-        category: 'Other',
-        forceTypes: ['Verbal Commands'],
-      });
     });
   });
 
@@ -309,8 +240,8 @@ describe('TRR page selectors', function () {
               'lat': 41.7508596,
               'lng': -87.6533166,
             },
-          }
-        }
+          },
+        },
       }).should.eql({
         incidentDate: 'JAN 1, 2001',
         address: '34XX Douglas Blvd',
@@ -321,32 +252,6 @@ describe('TRR page selectors', function () {
           'lng': -87.6533166,
         },
       });
-    });
-  });
-
-  describe('trrDocumentSelector', function () {
-    it('should select correctly', function () {
-      trrDocumentSelector({
-        trrPage: {
-          trrId: 123,
-          attachmentRequest: {
-            subscribedTRRIds: {
-              123: true,
-            }
-          },
-        }
-      }).should.eql({ alreadyRequested: true });
-
-      trrDocumentSelector({
-        trrPage: {
-          trrId: 456,
-          attachmentRequest: {
-            subscribedTRRIds: {
-              123: true,
-            }
-          },
-        }
-      }).should.eql({ alreadyRequested: false });
     });
   });
 });

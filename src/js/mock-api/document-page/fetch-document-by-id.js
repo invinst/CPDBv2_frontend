@@ -11,11 +11,12 @@ const unauthenticatedData = {
   'crawler_name': 'Chicago COPA',
   'linked_documents': [{
     'id': 14192,
-    'preview_image_url': 'https://assets.documentcloud.org/documents/5680385/pages/CRID-1083633.gif'
+    'preview_image_url': 'https://assets.documentcloud.org/documents/5680385/pages/CRID-1083633.gif',
   }, {
     'id': 14188,
-    'preview_image_url': 'https://assets.documentcloud.org/documents/5680389/pages/CRID-1083633.gif'
+    'preview_image_url': 'https://assets.documentcloud.org/documents/5680389/pages/CRID-1083633.gif',
   }],
+  'tags': ['hospital', 'tactical'],
   'pages': 5,
   'last_updated_by': 'John Doe',
 };
@@ -27,6 +28,7 @@ export default (authenticated) => {
       'views_count': 1000,
       'downloads_count': 100,
       'notifications_count': 10,
+      'next_document_id': 2,
     };
   return unauthenticatedData;
 };

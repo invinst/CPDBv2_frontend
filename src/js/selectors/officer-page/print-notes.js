@@ -3,7 +3,7 @@ import { filter, includes, indexOf, sortBy } from 'lodash';
 
 export const getInfoNotes = state => {
   const noteNames = [
-    'salary', 'allegation', 'trr', 'civilian_compliment', 'sustained', 'major_award', 'honorable_mention'
+    'salary', 'allegation', 'trr', 'civilian_compliment', 'sustained', 'major_award', 'honorable_mention',
   ];
   return getNotes(state, noteNames);
 };

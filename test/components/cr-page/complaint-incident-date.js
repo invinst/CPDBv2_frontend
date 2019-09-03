@@ -3,7 +3,7 @@ import React from 'react';
 import { unmountComponentSuppressError } from 'utils/test';
 import {
   renderIntoDocument,
-  findRenderedDOMComponentWithClass, scryRenderedComponentsWithType
+  findRenderedDOMComponentWithClass, scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 import ComplaintIncidentDate from 'components/cr-page/complaint-incident-date';
 

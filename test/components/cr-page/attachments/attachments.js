@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   findRenderedComponentWithType, renderIntoDocument,
-  scryRenderedComponentsWithType
+  scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 import { spy } from 'sinon';
@@ -30,7 +30,7 @@ describe('AttachmentsTab component', function () {
       sectionEditModeOn: false,
       onSaveForm: spy(),
       turnOnSectionEditMode: spy(),
-      turnOffSectionEditMode: spy()
+      turnOffSectionEditMode: spy(),
     };
 
     instance = renderIntoDocument(

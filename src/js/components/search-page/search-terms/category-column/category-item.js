@@ -16,7 +16,7 @@ export class CategoryItem extends Component {
       'hovering',
       'item.name',
       'isFocused',
-      'itemUniqueKey'
+      'itemUniqueKey',
     ];
 
     return reduce(keys, (memo, key) => (
@@ -62,14 +62,14 @@ CategoryItem.propTypes = {
   item: PropTypes.object,
   hovering: PropTypes.bool,
   isFocused: PropTypes.bool,
-  itemUniqueKey: PropTypes.string
+  itemUniqueKey: PropTypes.string,
 };
 
 CategoryItem.defaultProps = {
   item: {},
   isFocused: false,
   hovering: false,
-  itemUniqueKey: ''
+  itemUniqueKey: '',
 };
 
 export default Hoverable(CategoryItem);

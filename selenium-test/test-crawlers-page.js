@@ -7,6 +7,7 @@ import crawlersPage from './page-objects/crawlers-page';
 
 describe('Crawlers Page', function () {
   beforeEach(function () {
+    browser.setWindowRect(0, 0, 1000, 900);
     crawlersPage.open();
   });
 
@@ -28,10 +29,10 @@ describe('Crawlers Page', function () {
 
   it('should open log file modal when click on crawler row and close it when click on close button', function () {
     crawlersPage.tableSection.firstCrawlerRow.click();
-    crawlersPage.tableSection.logFileModal.waitForVisible();
+    crawlersPage.tableSection.logFileModal.waitForDisplayed();
     crawlersPage.tableSection.logFileModalTitle.getText().should.equal('SUMMARY_REPORTS_COPA - 2019-02-20');
     crawlersPage.tableSection.logFileCloseButton.click();
-    crawlersPage.tableSection.logFileModal.waitForVisible(1000, true);
+    crawlersPage.tableSection.logFileModal.waitForDisplayed(1000, true);
   });
 
   it('should go to document page when click on Documents button', function () {
@@ -39,13 +40,13 @@ describe('Crawlers Page', function () {
     browser.getUrl().should.containEql('/documents/');
   });
 
-  it('should able to scroll and should not open log file model when click on no log url crawler row', function () {
-    crawlersPage.tableSection.rowCount().should.equal(20);
+  it('should be able to scroll and should not open log file model when click on no log url crawler row', function () {
+    crawlersPage.tableSection.row.count.should.equal(20);
 
     browser.scroll(0, 9999);
     browser.pause(1000);
 
-    crawlersPage.tableSection.rowCount().should.equal(25);
+    crawlersPage.tableSection.row.count.should.equal(25);
     crawlersPage.tableSection.lastCrawlerName.getText().should.equal('DOCUMENTCLOUD');
     crawlersPage.tableSection.lastRecentRunAt.getText().should.equal('2018-11-29');
     crawlersPage.tableSection.lastNumNewDocuments.getText().should.equal('0');
@@ -53,6 +54,6 @@ describe('Crawlers Page', function () {
     crawlersPage.tableSection.lastSuccessfulRuns.getText().should.equal('1');
 
     crawlersPage.tableSection.lastCrawlerRow.click();
-    crawlersPage.tableSection.logFileModal.waitForVisible(1000, true);
+    crawlersPage.tableSection.logFileModal.waitForDisplayed(1000, true);
   });
 });

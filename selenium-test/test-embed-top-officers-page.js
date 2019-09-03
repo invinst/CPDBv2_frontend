@@ -3,7 +3,6 @@
 import should from 'should';
 
 import embedTopOfficersPage from './page-objects/embed-top-officers-page';
-import { switchToRecentTab } from './utils';
 
 
 should.config.checkProtoEql = false;
@@ -17,15 +16,15 @@ describe('embed top officers page', function () {
   describe('Officers By Allegation carousel', function () {
     it('should show initial carousel', function () {
       embedTopOfficersPage.officersByAllegationCarousel.cards.count.should.equal(48);
-      embedTopOfficersPage.officersByAllegationCarousel.rightArrow.waitForVisible();
-      embedTopOfficersPage.officersByAllegationCarousel.leftArrow.waitForVisible(2000, true);
+      embedTopOfficersPage.officersByAllegationCarousel.rightArrow.waitForDisplayed();
+      embedTopOfficersPage.officersByAllegationCarousel.leftArrow.waitForDisplayed(2000, true);
     });
 
     it('should go to officer summary page when click to card', function () {
       const firstCard = embedTopOfficersPage.officersByAllegationCarousel.cards;
       firstCard.click();
-      switchToRecentTab();
-      browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/?$/);
+      browser.switchWindow('/officer/');
+      browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/?$/);
     });
   });
 });

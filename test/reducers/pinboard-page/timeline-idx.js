@@ -10,7 +10,7 @@ describe('timelineIdx reducer', function () {
   it('should handle UPDATE_PINBOARD_TIMELINE_IDX', function () {
     timelineIdx(19, {
       type: UPDATE_PINBOARD_TIMELINE_IDX,
-      payload: 20
+      payload: 20,
     }).should.eql(20);
   });
 });

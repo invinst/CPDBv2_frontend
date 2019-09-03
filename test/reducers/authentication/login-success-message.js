@@ -3,7 +3,7 @@ import { each } from 'lodash';
 
 import authenticationLoginSuccessMessage from 'reducers/authentication/login-success-message';
 import {
-  SIGNIN_REQUEST, RESET_PASSWORD_SUCCESS, SIGNIN_REQUEST_SUCCESS, SIGNIN_REQUEST_FAILURE
+  SIGNIN_REQUEST, RESET_PASSWORD_SUCCESS, SIGNIN_REQUEST_SUCCESS, SIGNIN_REQUEST_FAILURE,
 } from 'utils/constants';
 
 
@@ -16,7 +16,7 @@ describe('authenticationLoginSuccessMessage reducer', function () {
     const message = 'message';
     authenticationLoginSuccessMessage(undefined, {
       type: RESET_PASSWORD_SUCCESS,
-      payload: { message }
+      payload: { message },
     }).should.eql(message);
   });
 
@@ -25,7 +25,7 @@ describe('authenticationLoginSuccessMessage reducer', function () {
       [SIGNIN_REQUEST, SIGNIN_REQUEST_SUCCESS, SIGNIN_REQUEST_FAILURE],
       (type) => {
         should(authenticationLoginSuccessMessage(undefined, {
-          type: type
+          type: type,
         })).be.null();
       }
     );

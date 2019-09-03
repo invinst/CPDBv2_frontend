@@ -2,7 +2,7 @@ import React from 'react';
 import { noop } from 'lodash';
 import {
   renderIntoDocument, Simulate,
-  findRenderedComponentWithType, findRenderedDOMComponentWithClass
+  findRenderedComponentWithType, findRenderedDOMComponentWithClass,
 } from 'react-addons-test-utils';
 import Mousestrap from 'mousetrap';
 import { spy, stub } from 'sinon';
@@ -35,7 +35,7 @@ describe('withPinnableItem component', function () {
         tags: ['tag'],
         to: '/',
         url: '/',
-        uniqueKey: ''
+        uniqueKey: '',
       },
       isFocused: false,
       aliasEditModeOn: false,
@@ -48,8 +48,8 @@ describe('withPinnableItem component', function () {
       const nextProps = {
         isFocused: props.isFocused,
         suggestion: {
-          text: 'changed'
-        }
+          text: 'changed',
+        },
       };
 
       instance.shouldComponentUpdate(nextProps).should.be.true();
@@ -133,7 +133,7 @@ describe('withPinnableItem component', function () {
         tags: ['tag'],
         to: '/',
         url: '/',
-        uniqueKey: ''
+        uniqueKey: '',
       },
       isFocused: false,
       aliasEditModeOn: false,

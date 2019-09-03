@@ -2,7 +2,7 @@ import mapCrsData from 'reducers/pinboard-page/geographic-data/map-crs-data';
 import {
   PINBOARD_GEOGRAPHIC_FETCH_REQUEST_START,
   FIRST_PAGE_PINBOARD_GEOGRAPHIC_CRS_FETCH_REQUEST_SUCCESS,
-  PINBOARD_GEOGRAPHIC_CRS_FETCH_REQUEST_SUCCESS
+  PINBOARD_GEOGRAPHIC_CRS_FETCH_REQUEST_SUCCESS,
 } from 'utils/constants';
 
 
@@ -22,9 +22,9 @@ describe('mapCrsData reducer', function () {
           'kind': 'CR',
           'point': {
             'lon': -87,
-            'lat': 35
+            'lat': 35,
           },
-        }
+        },
       ],
     }, {
       type: PINBOARD_GEOGRAPHIC_FETCH_REQUEST_START,
@@ -38,11 +38,11 @@ describe('mapCrsData reducer', function () {
             'kind': 'CR',
             'point': {
               'lon': -87,
-              'lat': 35
+              'lat': 35,
             },
-          }
+          },
         ],
-      }
+      },
     }).should.eql([]);
   });
 
@@ -59,11 +59,11 @@ describe('mapCrsData reducer', function () {
             'kind': 'CR',
             'point': {
               'lon': -87,
-              'lat': 35
+              'lat': 35,
             },
-          }
+          },
         ],
-      }
+      },
     }).should.eql([
       {
         'date': '2007-04-25',
@@ -73,9 +73,9 @@ describe('mapCrsData reducer', function () {
         'kind': 'CR',
         'point': {
           'lon': -87,
-          'lat': 35
+          'lat': 35,
         },
-      }
+      },
     ]);
   });
 
@@ -92,11 +92,11 @@ describe('mapCrsData reducer', function () {
             'kind': 'CR',
             'point': {
               'lon': -87,
-              'lat': 35
+              'lat': 35,
             },
-          }
-        ]
-      }
+          },
+        ],
+      },
     }).should.eql([
       {
         'date': '2007-04-25',
@@ -106,9 +106,9 @@ describe('mapCrsData reducer', function () {
         'kind': 'CR',
         'point': {
           'lon': -87,
-          'lat': 35
+          'lat': 35,
         },
-      }
+      },
     ]);
   });
 });

@@ -35,7 +35,7 @@ describe('OfficerSection component', function () {
       items: [
         { axis: 'Use of Force Reports', value: 99.9 },
         { axis: 'Officer Allegations', value: 11.1 },
-        { axis: 'Civilian Allegations', value: 22.2 }
+        { axis: 'Civilian Allegations', value: 22.2 },
       ],
       visualTokenBackground: '#ed6154',
       textColor: '#231F20',
@@ -55,7 +55,7 @@ describe('OfficerSection component', function () {
     radarChart.props.data.should.eql([
       { axis: 'Use of Force Reports', value: 99.9 },
       { axis: 'Officer Allegations', value: 11.1 },
-      { axis: 'Civilian Allegations', value: 22.2 }
+      { axis: 'Civilian Allegations', value: 22.2 },
     ]);
 
     findRenderedDOMComponentWithClass(instance, 'trr-officer-full-name').textContent.should.eql('Ronald Watts');
@@ -132,7 +132,7 @@ describe('OfficerSection component', function () {
         items: [
           { axis: 'Use of Force Reports', value: 99.9 },
           { axis: 'Officer Allegations', value: 11.1 },
-          { axis: 'Civilian Allegations', value: 22.2 }
+          { axis: 'Civilian Allegations', value: 22.2 },
         ],
         visualTokenBackground: '#ed6154',
         textColor: '#231F20',

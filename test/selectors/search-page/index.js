@@ -10,7 +10,7 @@ describe('getFocusedItem', function () {
     const state = {
       searchPage: {
         query: 'Ke',
-      }
+      },
     };
     getFocusedItem(state);
     stubFocusedResultItemSelector.calledWith(state).should.be.true();
@@ -22,7 +22,7 @@ describe('getFocusedItem', function () {
     const state = {
       searchPage: {
         query: '',
-      }
+      },
     };
     getFocusedItem(state);
     stubFocusedSearchTermItemSelector.calledWith(state).should.be.true();

@@ -2,7 +2,7 @@ import React from 'react';
 import {
   renderIntoDocument,
   findRenderedComponentWithType,
-  scryRenderedComponentsWithType
+  scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 import { spy } from 'sinon';
@@ -57,7 +57,7 @@ describe('ScaleExplainer components', function () {
       sectionEditModeOn: true,
       onSaveForm: spy(),
       turnOnSectionEditMode: spy(),
-      turnOffSectionEditMode: spy()
+      turnOffSectionEditMode: spy(),
     };
 
     instance = renderIntoDocument(

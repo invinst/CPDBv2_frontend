@@ -29,7 +29,7 @@ describe('PreviewPane component', function () {
         sourceOfficerName: 'Jerome Finnigan',
         targetOfficerName: 'Edward May',
         coaccusedCount: 10,
-      }
+      },
 
     };
     instance = renderIntoDocument(
@@ -64,10 +64,10 @@ describe('PreviewPane component', function () {
             {
               'axis': 'Civilian Allegations',
               'value': 49.4652,
-            }
+            },
           ],
           radarColor: '#f9946b',
-        }
+        },
       ],
     };
     instance = renderIntoDocument(<PreviewPane data={ data } type={ NETWORK_PREVIEW_PANE.CR } />);

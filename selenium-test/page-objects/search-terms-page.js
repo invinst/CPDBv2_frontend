@@ -31,15 +31,15 @@ class CategoryMainPanelSection extends Section {
   }
 
   getColumnNames() {
-    return map(browser.elements('.test--category-header').value, ({ getText }) => (getText()));
+    return map($$('.test--category-header'), ({ getText }) => (getText()));
   }
 
   getCategoryHeader(headerIndex) {
-    return browser.elements(`(//div[contains(@class, 'test--category-header')])[${headerIndex + 1}]`);
+    return $(`(//div[contains(@class, 'test--category-header')])[${headerIndex + 1}]`);
   }
 
   getItemInColumn(columnIndex, itemIndex) {
-    return browser.elements(`(
+    return $(`(
         //div[contains(@class, 'test--category-column')][${columnIndex + 1}]
         //div[contains(@class, 'test--category-item')]
       )[${itemIndex + 1}]
@@ -52,11 +52,11 @@ class CategoryMainPanelSection extends Section {
   }
 
   getCategoryNameAtItem(itemIndex) {
-    return browser.element(`${this.getCategoryItemSelector(itemIndex)}//div[@class='link--transition']`);
+    return $(`${this.getCategoryItemSelector(itemIndex)}//div[@class='link--transition']`);
   }
 
   getCategoryDescriptionAtItem(itemIndex) {
-    return browser.element(`${this.getCategoryItemSelector(itemIndex)}//div[@class='test--category-item-description']`);
+    return $(`${this.getCategoryItemSelector(itemIndex)}//div[@class='test--category-item-description']`);
   }
 }
 

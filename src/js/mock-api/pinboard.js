@@ -15,7 +15,7 @@ const emptyPinboard = {
     'description': 'Skullcap Crew is a nickname given to a group of five Chicago Police officers in a gang tactical...',
     'id': '22e66085',
     'title': 'Skullcap Crew',
-  }]
+  }],
 };
 
 export const createPinboard = () => ({
@@ -77,7 +77,7 @@ export const updatePinboardTitleParams = () => ({
 
 export const updatedPinboardTitle = () => ({
   'id': '5cd06f2b',
-  ...updatePinboardTitleParams()
+  ...updatePinboardTitleParams(),
 });
 
 export const updatePinboardDescriptionParams = () => ({
@@ -90,5 +90,5 @@ export const updatePinboardDescriptionParams = () => ({
 
 export const updatedPinboardDescription = () => ({
   'id': '5cd06f2b',
-  ...updatePinboardDescriptionParams()
+  ...updatePinboardDescriptionParams(),
 });

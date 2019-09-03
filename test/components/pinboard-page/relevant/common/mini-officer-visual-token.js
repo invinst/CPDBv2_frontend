@@ -21,9 +21,9 @@ describe('MiniVisualToken component', function () {
       officerId: 1,
       year: 2015,
       items: [
-        { axis: 'Use of Force Reports', value: 20.6, },
-        { axis: 'Officer Allegations', value: 10.1, },
-        { axis: 'Civilian Allegations', value: 52.5, },
+        { axis: 'Use of Force Reports', value: 20.6 },
+        { axis: 'Officer Allegations', value: 10.1 },
+        { axis: 'Civilian Allegations', value: 52.5 },
       ],
       visualTokenBackground: '#ed7467',
       textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
@@ -42,9 +42,9 @@ describe('MiniVisualToken component', function () {
     radarChart.props.showSpineLine.should.be.false();
     radarChart.props.backgroundColor.should.eql('#ed7467');
     radarChart.props.data.should.eql([
-      { axis: 'Use of Force Reports', value: 20.6, },
-      { axis: 'Officer Allegations', value: 10.1, },
-      { axis: 'Civilian Allegations', value: 52.5, },
+      { axis: 'Use of Force Reports', value: 20.6 },
+      { axis: 'Officer Allegations', value: 10.1 },
+      { axis: 'Civilian Allegations', value: 52.5 },
     ]);
     radarChart.props.width.should.eql(22);
     radarChart.props.height.should.eql(22);

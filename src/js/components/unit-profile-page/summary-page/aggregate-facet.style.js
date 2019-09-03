@@ -3,13 +3,13 @@ import { mediumGrayColor, hardBlackColor, whiteTwoColor, brightOrangeTwoColor } 
 
 export const wrapperStyle = {
   borderTop: `solid 1px ${whiteTwoColor}`,
-  position: 'relative'
+  position: 'relative',
 };
 
 export const aggregateNameStyle = {
   fontWeight: 500,
   color: mediumGrayColor,
-  padding: '11px 0'
+  padding: '11px 0',
 };
 
 export const entryStyle = isFirstEntry => ({
@@ -17,24 +17,24 @@ export const entryStyle = isFirstEntry => ({
   paddingBottom: '9.5px',
   letterSpacing: 'normal',
   fontWeight: 400,
-  borderTop: isFirstEntry ? '0' : `solid 1px ${whiteTwoColor}`
+  borderTop: isFirstEntry ? '0' : `solid 1px ${whiteTwoColor}`,
 });
 
 export const countStyle = {
   color: hardBlackColor,
   display: 'inline-block',
-  width: '45px'
+  width: '45px',
 };
 
 export const sustainedCountStyle = sustainedCount => ({
   color: brightOrangeTwoColor,
   opacity: sustainedCount === 0 ? 0.36 : 1,
   display: 'inline-block',
-  width: '32px'
+  width: '32px',
 });
 
 export const nameStyle = {
   color: mediumGrayColor,
   fontWeight: 300,
-  display: 'inline-block'
+  display: 'inline-block',
 };

@@ -51,7 +51,7 @@ export default class Timeline extends Component {
 
     this.scrollController = new ScrollMagic.Controller(
       {
-        container: ReactDOM.findDOMNode(this.refs.scrollContainer)
+        container: ReactDOM.findDOMNode(this.refs.scrollContainer),
       }
     );
 
@@ -61,7 +61,7 @@ export default class Timeline extends Component {
           triggerElement: `#trigger-${item.timelineIdx}`,
           offset: -50,
           triggerHook: 0,
-          duration: 57
+          duration: 57,
         }).on('enter', (event) => {
           this.handleScroll(item);
         }).addTo(this.scrollController);

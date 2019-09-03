@@ -12,7 +12,7 @@ export default class Swiper extends Component {
       onSnapIndexChange,
       onUpdate,
       slideNextTransitionStart,
-      slidePrevTransitionStart
+      slidePrevTransitionStart,
     } = this.props;
     this.swiper = new SwiperJs(this.el, {
       slidesPerView: 'auto',
@@ -25,7 +25,7 @@ export default class Swiper extends Component {
           onSnapIndexChange({
             activeIndex,
             isEnd,
-            isBeginning
+            isBeginning,
           });
         },
         update: () => {
@@ -33,7 +33,7 @@ export default class Swiper extends Component {
           const { isBeginning, isEnd } = this.swiper;
           onUpdate({
             isEnd,
-            isBeginning
+            isBeginning,
           });
         },
         transitionStart: () => {
@@ -44,7 +44,7 @@ export default class Swiper extends Component {
         },
         slideNextTransitionStart: slideNextTransitionStart,
         slidePrevTransitionStart: slidePrevTransitionStart,
-      }
+      },
     });
   }
 
@@ -72,7 +72,7 @@ export default class Swiper extends Component {
 
     const childProps = {
       ...child.props,
-      className: classnames('swiper-slide', child.props.className)
+      className: classnames('swiper-slide', child.props.className),
     };
 
     return React.cloneElement(child, childProps);
@@ -99,12 +99,12 @@ Swiper.propTypes = {
   slidePrevTransitionStart: PropTypes.func,
   children: PropTypes.node,
   onUpdate: PropTypes.func,
-  slideIndex: PropTypes.number
+  slideIndex: PropTypes.number,
 };
 
 Swiper.defaultProps = {
   onUpdate: () => {},
   onSnapIndexChange: () => {},
   slideNextTransitionStart: () => {},
-  slidePrevTransitionStart: () => {}
+  slidePrevTransitionStart: () => {},
 };

@@ -2,7 +2,7 @@ import createRequestingReducer from 'reducers/common/requesting';
 import {
   PINBOARD_OFFICERS_FETCH_REQUEST_SUCCESS,
   PINBOARD_OFFICERS_FETCH_REQUEST_START,
-  PINBOARD_OFFICERS_FETCH_REQUEST_FAILURE
+  PINBOARD_OFFICERS_FETCH_REQUEST_FAILURE,
 } from 'utils/constants';
 
 export default createRequestingReducer(

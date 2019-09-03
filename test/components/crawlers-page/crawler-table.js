@@ -5,7 +5,7 @@ import {
   scryRenderedDOMComponentsWithClass,
   findRenderedDOMComponentWithClass,
   findRenderedComponentWithType,
-  scryRenderedComponentsWithType
+  scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 import InfiniteScroll from 'react-infinite-scroller';
 
@@ -28,13 +28,13 @@ describe('CrawlerTable component', function () {
       crawlerName: 'SUMMARY_REPORTS_COPA',
       numDocuments: 5,
       numNewDocuments: 1,
-      recentRunAt: '2019-02-20'
+      recentRunAt: '2019-02-20',
     }, {
       id: 110,
       crawlerName: 'SUMMARY_REPORTS_COPA',
       numDocuments: 7,
       numNewDocuments: 2,
-      recentRunAt: '2019-02-20'
+      recentRunAt: '2019-02-20',
     }];
     const nextParams = { limit: '20', offset: '20' };
     instance = renderIntoDocument(
@@ -69,17 +69,17 @@ describe('CrawlerTable component', function () {
       crawlerName: 'SUMMARY_REPORTS_COPA',
       numDocuments: 5,
       numNewDocuments: 1,
-      recentRunAt: '2019-02-20'
+      recentRunAt: '2019-02-20',
     }, {
       id: 110,
       crawlerName: 'SUMMARY_REPORTS_COPA',
       numDocuments: 7,
       numNewDocuments: 2,
-      recentRunAt: '2019-02-20'
+      recentRunAt: '2019-02-20',
     }];
     const nextParams = {
       limit: 1,
-      offset: 1
+      offset: 1,
     };
 
     const requestCrawlersStub = stub().returns({ catch: stub() });

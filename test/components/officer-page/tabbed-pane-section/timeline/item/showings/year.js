@@ -1,5 +1,5 @@
 import React from 'react';
-import { findRenderedDOMComponentWithClass, renderIntoDocument, } from 'react-addons-test-utils';
+import { findRenderedDOMComponentWithClass, renderIntoDocument } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import Year from 'components/officer-page/tabbed-pane-section/timeline/item/showings/year';

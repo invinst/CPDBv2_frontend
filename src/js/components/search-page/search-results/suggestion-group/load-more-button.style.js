@@ -4,7 +4,7 @@ import {
   glitterColor,
   clayGray,
   whiteTwoColor,
-  sugarCaneColor
+  sugarCaneColor,
 } from 'utils/styles';
 
 
@@ -25,5 +25,5 @@ export const loadMoreButtonTextStyle = (hovering, isFocused) => ({
   padding: '11px 0',
   height: '100%',
   boxSizing: 'border-box',
-  textAlign: 'center'
+  textAlign: 'center',
 });

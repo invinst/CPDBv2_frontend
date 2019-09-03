@@ -10,15 +10,15 @@ import {
   trackRecentSuggestion,
   resetNavigation as resetSearchResultNavigation,
   changeSearchQuery,
-  getSuggestionWithContentType
+  getSuggestionWithContentType,
 } from 'actions/search-page';
 import { createPinboard } from 'actions/pinboard';
 import {
-  requestSearchTermCategories, resetNavigation as resetSearchTermNavigation
+  requestSearchTermCategories, resetNavigation as resetSearchTermNavigation,
 } from 'actions/search-page/search-terms';
 import { getFocusedItem } from 'selectors/search-page';
 import {
-  suggestionTagsSelector, isEmptySelector, firstItemSelector
+  suggestionTagsSelector, isEmptySelector, firstItemSelector,
 } from 'selectors/search-page/search-results/suggestion-groups';
 import { hiddenSelector } from 'selectors/search-page/search-terms';
 import { singleCardsSelector } from 'selectors/landing-page/activity-grid';
@@ -30,7 +30,7 @@ import { getToast } from 'selectors/toast';
 
 function mapStateToProps(state, ownProps) {
   const {
-    contentType, query, isRequesting
+    contentType, query, isRequesting,
   } = state.searchPage;
   const { children } = ownProps;
   const focusedItem = getFocusedItem(state);

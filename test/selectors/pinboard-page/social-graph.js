@@ -23,7 +23,7 @@ describe('PinboardPage selectors', function () {
                   'percentile': {
                     'percentile_trr': '78.2707',
                     'percentile_allegation_civilian': '97.8772',
-                    'percentile_allegation_internal': '61.1521'
+                    'percentile_allegation_internal': '61.1521',
                   },
                 },
                 {
@@ -32,9 +32,9 @@ describe('PinboardPage selectors', function () {
                   'percentile': {
                     'percentile_trr': '80',
                     'percentile_allegation_civilian': '85',
-                    'percentile_allegation_internal': '90'
+                    'percentile_allegation_internal': '90',
                   },
-                }
+                },
               ],
               'coaccused_data': [
                 {
@@ -48,7 +48,7 @@ describe('PinboardPage selectors', function () {
                   'officer_id_2': 4,
                   'incident_date': '1990-10-03',
                   'accussed_count': 5,
-                }
+                },
               ],
               'list_event': [
                 '1988-10-03',
@@ -60,11 +60,11 @@ describe('PinboardPage selectors', function () {
                 '1991-01-15',
                 '1991-02-18',
                 '1991-02-20',
-                '1991-03-06'
-              ]
-            }
-          }
-        }
+                '1991-03-06',
+              ],
+            },
+          },
+        },
       };
 
       graphDataSelector(state).should.eql({
@@ -72,27 +72,27 @@ describe('PinboardPage selectors', function () {
           {
             fullName: 'Jerome Finnigan',
             id: 1,
-            visualTokenBackground: '#f0201e'
+            visualTokenBackground: '#f0201e',
           },
           {
             fullName: 'Edward May',
             id: 2,
-            visualTokenBackground: '#f0201e'
-          }
+            visualTokenBackground: '#f0201e',
+          },
         ],
         coaccusedData: [
           {
             officerId1: 1,
             officerId2: 2,
             incidentDate: '1988-10-03',
-            accussedCount: 1
+            accussedCount: 1,
           },
           {
             officerId1: 3,
             officerId2: 4,
             incidentDate: '1990-10-03',
-            accussedCount: 5
-          }
+            accussedCount: 5,
+          },
         ],
         listEvent: [
           '1988-10-03',
@@ -104,8 +104,8 @@ describe('PinboardPage selectors', function () {
           '1991-01-15',
           '1991-02-18',
           '1991-02-20',
-          '1991-03-06'
-        ]
+          '1991-03-06',
+        ],
       });
     });
   });
@@ -136,14 +136,14 @@ describe('PinboardPage selectors', function () {
     it('should return requesting status', function () {
       getSocialGraphRequesting({
         pinboardPage: {
-          graphData: { requesting: false, data: {} }
-        }
+          graphData: { requesting: false, data: {} },
+        },
       }).should.be.false();
 
       getSocialGraphRequesting({
         pinboardPage: {
-          graphData: { requesting: true, data: {}, }
-        }
+          graphData: { requesting: true, data: {} },
+        },
       }).should.be.true();
     });
   });
@@ -169,7 +169,7 @@ describe('PinboardPage selectors', function () {
           'officer_id_2': 4,
           'incident_date': '1990-10-03',
           'accussed_count': 5,
-        }
+        },
       ];
       const state = {
         pinboardPage: {
@@ -183,17 +183,17 @@ describe('PinboardPage selectors', function () {
                   'percentile': {
                     'percentile_trr': '78.2707',
                     'percentile_allegation_civilian': '97.8772',
-                    'percentile_allegation_internal': '61.1521'
+                    'percentile_allegation_internal': '61.1521',
                   },
                 },
               ],
               'coaccused_data': coaccusedData,
               'list_event': [
                 '1988-10-03',
-              ]
-            }
-          }
-        }
+              ],
+            },
+          },
+        },
       };
 
       getCoaccusedData(state).should.eql(coaccusedData);

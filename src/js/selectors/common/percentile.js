@@ -18,7 +18,7 @@ export const extractPercentile = (percentile) => {
     items: [
       { axis: 'Use of Force Reports', value: trrPercentile },
       { axis: 'Officer Allegations', value: internalPercentile },
-      { axis: 'Civilian Allegations', value: civilianPercentile }
+      { axis: 'Civilian Allegations', value: civilianPercentile },
     ],
     visualTokenBackground: backgroundColor,
     textColor,

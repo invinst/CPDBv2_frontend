@@ -1,11 +1,11 @@
 import { softBlackColor } from 'utils/styles';
 
 export const columnWrapperStyle = {
-  verticalAlign: 'top'
+  verticalAlign: 'top',
 };
 
 export const itemsWrapperStyle = {
-  whiteSpace: 'nowrap'
+  whiteSpace: 'nowrap',
 };
 
 export const headerStyle = {

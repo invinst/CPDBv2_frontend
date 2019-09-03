@@ -35,7 +35,7 @@ export default class SummarySection extends Component {
       unitName,
       unitDescription,
       birthYear,
-      currentSalary
+      currentSalary,
     } = this.props.officerSummary;
     const { popup, pathName } = this.props;
 
@@ -103,5 +103,5 @@ SummarySection.propTypes = {
 };
 
 SummarySection.defaultProps = {
-  officerSummary: {}
+  officerSummary: {},
 };

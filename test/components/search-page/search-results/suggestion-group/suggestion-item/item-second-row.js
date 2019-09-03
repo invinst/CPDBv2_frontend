@@ -4,7 +4,7 @@ import should from 'should';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import {
-  getOfficerSecondRowContent, getCRSecondRowContent
+  getOfficerSecondRowContent, getCRSecondRowContent,
 } from 'components/search-page/search-results/suggestion-group/suggestion-item/item-second-row';
 
 
@@ -45,7 +45,7 @@ describe('getCRSecondRowContent', function () {
 
   it('should return null if subText is empty', function () {
     const params = {
-      suggestion: {}
+      suggestion: {},
     };
 
     should(getCRSecondRowContent(params)).be.null();
@@ -54,8 +54,8 @@ describe('getCRSecondRowContent', function () {
   it('should return span with dangerouslySetInnerHTML setting', function () {
     const params = {
       suggestion: {
-        subText: 'subText'
-      }
+        subText: 'subText',
+      },
     };
 
     class TestComponent extends Component {

@@ -10,13 +10,13 @@ export const fetchRelatedComplaints = (crid, params) => {
     actionTypes = [
       constants.RELATED_COMPLAINTS_BY_CATEGORY_REQUEST_START,
       constants.RELATED_COMPLAINTS_BY_CATEGORY_REQUEST_SUCCESS,
-      constants.RELATED_COMPLAINTS_BY_CATEGORY_REQUEST_FAILURE
+      constants.RELATED_COMPLAINTS_BY_CATEGORY_REQUEST_FAILURE,
     ];
   } else {
     actionTypes = [
       constants.RELATED_COMPLAINTS_BY_OFFICER_REQUEST_START,
       constants.RELATED_COMPLAINTS_BY_OFFICER_REQUEST_SUCCESS,
-      constants.RELATED_COMPLAINTS_BY_OFFICER_REQUEST_FAILURE
+      constants.RELATED_COMPLAINTS_BY_OFFICER_REQUEST_FAILURE,
     ];
   }
   const queryString = map(entries(params), ([key, val]) => `${key}=${val}`).join('&');

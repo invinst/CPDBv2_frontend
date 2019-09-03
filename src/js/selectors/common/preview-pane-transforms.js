@@ -7,7 +7,7 @@ import { roundedPercentile } from 'utils/calculations';
 import { DATE_FORMAT, FULL_MONTH_DATE_FORMAT } from 'utils/constants';
 import { getDemographicString } from 'utils/victims';
 import {
-  navigationItemTransform as previewPaneNavigationItemTransform
+  navigationItemTransform as previewPaneNavigationItemTransform,
 } from './navigation-item-transform';
 
 
@@ -27,7 +27,7 @@ export const previewPaneTransform = item => {
   const transform = get(previewPaneTransformMap, type, () => {});
   return {
     type,
-    data: { ...transform(item), isPinned: get(item, 'isPinned', false) }
+    data: { ...transform(item), isPinned: get(item, 'isPinned', false) },
   };
 };
 
@@ -199,7 +199,7 @@ const getCRTexts = (item) => {
   const dateText = item['incident_date'] ? ` • ${moment(item['incident_date']).format(FULL_MONTH_DATE_FORMAT)}` : '';
   return {
     text: `CR # ${item.crid}${dateText}`,
-    recentText: `CR # ${item.crid}${dateText}`
+    recentText: `CR # ${item.crid}${dateText}`,
   };
 };
 const getTRRTexts = (item) => ({ text: item['force_type'] || 'Unknown', recentText: item.id });
@@ -227,7 +227,7 @@ const uniqueKeyMap = {
   'DATE > TRR': 'DATE-TRR',
   'UNIT > OFFICERS': 'UNIT-OFFICERS',
   'DATE > OFFICERS': 'DATE-OFFICERS',
-  'INVESTIGATOR > CR': 'INVESTIGATOR-CR'
+  'INVESTIGATOR > CR': 'INVESTIGATOR-CR',
 };
 
 const baseItemTransform = (item) => ({
@@ -244,7 +244,7 @@ export const searchResultItemTransform = (item) => ({
   tags: get(item, 'tags', []),
   itemIndex: item.itemIndex || 1,
   isPinned: item.isPinned,
-  ...get(previewPaneTransformMap, item.type, () => {})(item)
+  ...get(previewPaneTransformMap, item.type, () => {})(item),
 });
 
 export const navigationItemTransform = item => ({
