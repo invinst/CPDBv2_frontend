@@ -9,8 +9,9 @@ import {
   Simulate,
 } from 'react-addons-test-utils';
 
-import { Dropdown } from 'components/common/dropdown';
+import Dropdown from 'components/common/dropdown';
 import { unmountComponentSuppressError } from 'utils/test';
+import styles from 'components/common/dropdown/menu.sass';
 
 
 describe('Dropdown component', function () {
@@ -18,10 +19,6 @@ describe('Dropdown component', function () {
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
-  });
-
-  it('should be renderable', function () {
-    Dropdown.should.be.renderable();
   });
 
   it('should have correct default state', function () {
@@ -47,7 +44,7 @@ describe('Dropdown component', function () {
     instance.setState({
       open: true,
     });
-    findRenderedDOMComponentWithClass(instance, 'dropdown-menu');
+    findRenderedDOMComponentWithClass(instance, styles.dropdownMenu);
 
     const menuItems = scryRenderedDOMComponentsWithClass(instance, 'dropdown-menu-item');
     menuItems.should.have.length(2);
@@ -67,7 +64,7 @@ describe('Dropdown component', function () {
     const firstMenuItem = scryRenderedDOMComponentsWithClass(instance, 'dropdown-menu-item')[0];
     Simulate.click(firstMenuItem);
 
-    scryRenderedDOMComponentsWithClass(instance, 'dropdown-menu').should.have.length(0);
+    scryRenderedDOMComponentsWithClass(instance, styles.dropdownMenu).should.have.length(0);
     scryRenderedDOMComponentsWithClass(instance, 'dropdown-menu-item').should.have.length(0);
   });
 
@@ -108,7 +105,7 @@ describe('Dropdown component', function () {
     const dropdownDOM = findDOMNode(instance);
     Simulate.blur(dropdownDOM);
 
-    scryRenderedDOMComponentsWithClass(instance, 'dropdown-menu').should.have.length(0);
+    scryRenderedDOMComponentsWithClass(instance, styles.dropdownMenu).should.have.length(0);
     scryRenderedDOMComponentsWithClass(instance, 'dropdown-menu-item').should.have.length(0);
 
     onChangeStub.should.not.be.called();

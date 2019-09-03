@@ -26,11 +26,11 @@ class SummarySection extends Section {
 
 class Filter extends Section {
   constructor() {
-    super();
+    super('', '//div[contains(@class, "timeline-filter")]');
 
     this.prepareElementGetters({
-      button: '.timeline-filter .dropdown-button',
-      menu: '.timeline-filter .dropdown-menu',
+      button: '//div[@class="dropdown-button"]',
+      menu: '//div[contains(@class, "dropdown-menu")]',
       crs: '(//div[@class="dropdown-menu-item"])[1]',
       sustained: '(//div[@class="dropdown-menu-item"])[2]',
       force: '(//div[@class="dropdown-menu-item"])[3]',
