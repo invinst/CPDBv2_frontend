@@ -23,6 +23,7 @@ describe('Header', function () {
 
     it('should display log out button and log out when we click on', function () {
       landingPage.topHeader.navBar.logOutButton.waitForDisplayed();
+      browser.getCookies(['apiAccessToken'])[0].value.should.equal('055a5575c1832e9123cd546fe0cfdc8607f8680c');
       landingPage.topHeader.navBar.logOutButton.click();
       landingPage.loginScreen.loginModal.waitForDisplayed();
       browser.getCookies(['apiAccessToken']).should.be.empty();
