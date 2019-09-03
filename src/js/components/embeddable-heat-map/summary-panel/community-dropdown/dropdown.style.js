@@ -17,7 +17,7 @@ export const arrowUpStyle = {
   width: '13px',
   height: '8px',
   background: `url("${imgUrl('arrow-up-blue.svg')}") 0px 0px no-repeat scroll`,
-  cursor: 'pointer'
+  cursor: 'pointer',
 };
 
 export const inputStyle = {
@@ -29,8 +29,8 @@ export const inputStyle = {
     fontSize: '14px',
     fontWeight: 400,
     fontFamily: sanFranciscoTextFamily,
-    background: 'white'
-  }
+    background: 'white',
+  },
 };
 
 export const dropdownStyle = {
@@ -40,8 +40,8 @@ export const dropdownStyle = {
     position: 'relative',
     zIndex: 3,
     height: '479px',
-    boxSizing: 'border-box'
-  }
+    boxSizing: 'border-box',
+  },
 };
 
 export const dropdownItemStyle = isLast => ({

@@ -4,6 +4,6 @@ export default () => RawTRRFactory.build({
   'id': 1,
   officer: RawTRROfficerFactory.build({
     'id': 1,
-    'full_name': 'Bernadette Kelly'
-  })
+    'full_name': 'Bernadette Kelly',
+  }),
 });

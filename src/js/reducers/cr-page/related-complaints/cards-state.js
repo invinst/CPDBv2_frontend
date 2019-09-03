@@ -10,17 +10,17 @@ export const cardsState = (state, action) => {
     return {
       meta: {
         crPageCrid,
-        distance
+        distance,
       },
-      cards: [...state.cards, ...results]
+      cards: [...state.cards, ...results],
     };
   } else {
     return {
       meta: {
         crPageCrid,
-        distance
+        distance,
       },
-      cards: action.payload.results
+      cards: action.payload.results,
     };
   }
 };

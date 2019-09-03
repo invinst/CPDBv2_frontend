@@ -4,13 +4,13 @@ import {
   summarySelector,
   getCurrentTab,
   getEditModeOn,
-  getZipFileUrl
+  getZipFileUrl,
 } from 'selectors/officer-page';
 
 
 describe('officer page selectors', function () {
   let state = {
-    officerPage: {}
+    officerPage: {},
   };
 
   beforeEach(function () {
@@ -29,7 +29,7 @@ describe('officer page selectors', function () {
   describe('getEditModeOn', function () {
     it('should return officer name', function () {
       getEditModeOn({
-        officerPage: { editModeOn: { a: true } }
+        officerPage: { editModeOn: { a: true } },
       }).should.eql({ a: true });
     });
   });
@@ -42,7 +42,7 @@ describe('officer page selectors', function () {
 
     it('should return zip file url without docs by default', function () {
       getZipFileUrl({
-        officerPage: { zipFileUrl: { withDocs: '', withoutDocs: 'lvh.me/without-docs.zip' } }
+        officerPage: { zipFileUrl: { withDocs: '', withoutDocs: 'lvh.me/without-docs.zip' } },
       }).should.be.eql('lvh.me/without-docs.zip');
     });
 
@@ -58,7 +58,7 @@ describe('officer page selectors', function () {
     const summary = {
       'unit': {
         'unit_name': 'unit',
-        'description': 'description'
+        'description': 'description',
       },
       'rank': 'rank',
       'date_of_appt': '2015-09-23',
@@ -68,7 +68,7 @@ describe('officer page selectors', function () {
       'historic_badges': ['1', '2'],
       'birth_year': 1991,
       'current_salary': 100000,
-      'has_unique_name': true
+      'has_unique_name': true,
     };
 
     it('should return summary', function () {
@@ -87,7 +87,7 @@ describe('officer page selectors', function () {
         careerDuration: 'SEP 23, 2015 — Present',
         birthYear: 1991,
         currentSalary: 100000,
-        hasUniqueName: true
+        hasUniqueName: true,
       });
     });
 
@@ -149,7 +149,7 @@ describe('officer page selectors', function () {
         'percentiles': [
           { 'year': 2015, 'percentile_trr': 8.0 },
           { 'year': 2016, 'percentile_trr': 9.0 },
-        ]
+        ],
       };
 
       state.officerPage = { summary: { a: 'b', ...metrics } };

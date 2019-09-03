@@ -7,7 +7,7 @@ import { roundedPercentile } from 'utils/calculations';
 import { FULL_MONTH_DATE_FORMAT } from 'utils/constants';
 import { getDemographicString } from 'utils/victims';
 import {
-  navigationItemTransform as searchTermNavigationItemTransform
+  navigationItemTransform as searchTermNavigationItemTransform,
 } from 'selectors/search-page/search-terms/transforms';
 
 
@@ -27,7 +27,7 @@ export const previewPaneTransform = item => {
   const transform = get(searchResultTransformMap, type, () => {});
   return {
     type,
-    data: transform(item)
+    data: transform(item),
   };
 };
 
@@ -119,7 +119,7 @@ const crTransform = (item) => {
 const trrTransform = (item) => {
   const dateText = item['trr_datetime'] ? ` - ${moment(item['trr_datetime']).format(FULL_MONTH_DATE_FORMAT)}` : '';
   return {
-    subText: `TRR # ${item.id}${dateText}`
+    subText: `TRR # ${item.id}${dateText}`,
   };
 };
 
@@ -179,7 +179,7 @@ const getCRTexts = (item) => {
   const dateText = item['incident_date'] ? ` - ${moment(item['incident_date']).format(FULL_MONTH_DATE_FORMAT)}` : '';
   return {
     text: `CR # ${item.crid}${dateText}`,
-    recentText: `CR # ${item.crid}${dateText}`
+    recentText: `CR # ${item.crid}${dateText}`,
   };
 };
 const getTRRTexts = (item) => ({ text: item['force_type'] || 'Unknown', recentText: item.id });
@@ -207,7 +207,7 @@ const uniqueKeyMap = {
   'DATE > TRR': 'DATE-TRR',
   'UNIT > OFFICERS': 'UNIT-OFFICERS',
   'DATE > OFFICERS': 'DATE-OFFICERS',
-  'INVESTIGATOR > CR': 'INVESTIGATOR-CR'
+  'INVESTIGATOR > CR': 'INVESTIGATOR-CR',
 };
 
 const baseItemTransform = (item) => ({
@@ -216,14 +216,14 @@ const baseItemTransform = (item) => ({
   to: get(item, 'to'),
   url: get(item, 'url'),
   uniqueKey: get(item, 'uniqueKey', `${uniqueKeyMap[item.type] || item.type}-${item.id}`),
-  ...get(textsMap, item.type, getBaseTexts)(item)
+  ...get(textsMap, item.type, getBaseTexts)(item),
 });
 
 export const searchResultItemTransform = (item) => ({
   ...baseItemTransform(item),
   tags: get(item, 'tags', []),
   itemIndex: item.itemIndex || 1,
-  ...get(searchResultTransformMap, item.type, () => {})(item)
+  ...get(searchResultTransformMap, item.type, () => {})(item),
 });
 
 export const navigationItemTransform = item => ({

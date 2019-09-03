@@ -8,7 +8,7 @@ export const wrapperStyle = {
   height: '100%',
   boxSizing: 'border-box',
   display: 'inline-block',
-  verticalAlign: 'top'
+  verticalAlign: 'top',
 };
 
 export const titleStyle = {
@@ -16,10 +16,10 @@ export const titleStyle = {
   fontSize: '26px',
   fontWeight: 500,
   color: `${softBlackColor}`,
-  margin: '48px 16px 16px 16px'
+  margin: '48px 16px 16px 16px',
 };
 
 export const visualTokenStyle = {
   width: '320px',
-  height: '320px'
+  height: '320px',
 };

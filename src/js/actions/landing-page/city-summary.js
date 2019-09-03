@@ -7,6 +7,6 @@ export const getCitySummary = get(
   [
     constants.CITY_SUMMARY_REQUEST_START,
     constants.CITY_SUMMARY_REQUEST_SUCCESS,
-    constants.CITY_SUMMARY_REQUEST_FAILURE
+    constants.CITY_SUMMARY_REQUEST_FAILURE,
   ]
 );

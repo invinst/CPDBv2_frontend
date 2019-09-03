@@ -9,7 +9,7 @@ export default class DownloadMenu extends React.Component {
   render() {
     const {
       officerId, zipFileUrl, zipFileUrlWithDocs,
-      fetchOfficerZipFileUrl, fetchOfficerZipWithDocsFileUrl
+      fetchOfficerZipFileUrl, fetchOfficerZipWithDocsFileUrl,
     } = this.props;
 
     return (

@@ -12,13 +12,13 @@ export default handleActions({
     if (state.match === matchVal) {
       return {
         data: state.data.concat(docIds),
-        match: matchVal
+        match: matchVal,
       };
     } else {
       return {
         data: docIds,
-        match: matchVal
+        match: matchVal,
       };
     }
-  }
+  },
 }, { data: [], match: '' });

@@ -9,5 +9,5 @@ import { CAROUSEL_TYPES } from 'utils/constants';
 export default combineReducers({
   cards,
   isRequesting,
-  headerEditModeOn: headerEditModeOn(CAROUSEL_TYPES.ACTIVITY)
+  headerEditModeOn: headerEditModeOn(CAROUSEL_TYPES.ACTIVITY),
 });

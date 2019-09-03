@@ -2,7 +2,7 @@ import React from 'react';
 
 import Row from 'components/trr-page/trr-info-section/trr-detail/row';
 import {
-  renderIntoDocument, findRenderedComponentWithType, findRenderedDOMComponentWithClass
+  renderIntoDocument, findRenderedComponentWithType, findRenderedDOMComponentWithClass,
 } from 'react-addons-test-utils';
 import { unmountComponentSuppressError } from 'utils/test';
 import Popup from 'components/common/popup';

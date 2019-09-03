@@ -4,7 +4,7 @@ import {
   renderIntoDocument,
   findRenderedComponentWithType,
   findRenderedDOMComponentWithTag,
-  Simulate
+  Simulate,
 } from 'react-addons-test-utils';
 import { spy, stub } from 'sinon';
 
@@ -104,7 +104,7 @@ describe('SearchBox component', function () {
           url: 'url',
           to: 'to',
           text: 'officer 1',
-          recentText: 'Kevin'
+          recentText: 'Kevin',
         };
 
 

@@ -29,25 +29,25 @@ describe('MapboxGL component', function () {
     const sources = [{
       name: 'abc',
       type: 'geojson',
-      data: 'path/to/geojson'
+      data: 'path/to/geojson',
     }];
     const layers = [{
       id: 'heatmap-layer',
       type: 'heatmap',
       source: 'abc',
-      paint: {}
+      paint: {},
     }];
     instance = renderIntoDocument(<MapboxGL sources={ sources } layers={ layers }/>);
     setTimeout(() => {
       instance._mapBox.addSource.calledWith('abc', {
         type: 'geojson',
-        data: 'path/to/geojson'
+        data: 'path/to/geojson',
       }).should.be.true();
       instance._mapBox.addLayer.calledWith({
         id: 'heatmap-layer',
         type: 'heatmap',
         source: 'abc',
-        paint: {}
+        paint: {},
       }).should.be.true();
       done();
     }, 100);

@@ -16,7 +16,7 @@ export default class InvolvementItem extends Component {
       },
       'police_witness': {
         name: 'POLICE WITNESSES',
-      }
+      },
     };
 
     return (

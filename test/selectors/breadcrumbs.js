@@ -12,11 +12,11 @@ describe('breadcrumbs selectors', function () {
       breadcrumbTextSelector(
         {
           breadcrumbsMapping: {
-            '/complaint/345/': 'CR 345'
-          }
+            '/complaint/345/': 'CR 345',
+          },
         },
         {
-          url: '/complaint/345'
+          url: '/complaint/345',
         }
       ).should.eql('CR 345');
     });
@@ -25,11 +25,11 @@ describe('breadcrumbs selectors', function () {
       breadcrumbTextSelector(
         {
           breadcrumbsMapping: {
-            '/officer/1234/': 'Ronald Hernandez'
-          }
+            '/officer/1234/': 'Ronald Hernandez',
+          },
         },
         {
-          url: '/edit/officer/1234/ronald-hernandez/'
+          url: '/edit/officer/1234/ronald-hernandez/',
         }
       ).should.eql('Ronald Hernandez');
     });

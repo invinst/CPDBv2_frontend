@@ -6,7 +6,7 @@ export default class HoverableEditWrapper extends Component {
   render() {
     const { children, style, className } = this.props;
     const {
-      editModeOn, sectionEditModeOn, turnOnSectionEditMode, turnOffSectionEditMode, onSaveForm
+      editModeOn, sectionEditModeOn, turnOnSectionEditMode, turnOffSectionEditMode, onSaveForm,
     } = this.context;
 
     if (editModeOn) {
@@ -59,5 +59,5 @@ HoverableEditWrapper.contextTypes = {
   sectionEditModeOn: PropTypes.bool,
   turnOnSectionEditMode: PropTypes.func,
   turnOffSectionEditMode: PropTypes.func,
-  onSaveForm: PropTypes.func
+  onSaveForm: PropTypes.func,
 };

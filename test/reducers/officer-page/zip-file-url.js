@@ -4,7 +4,7 @@ import {
   OFFICER_FETCH_ZIP_FILE_URL_REQUEST_START,
   OFFICER_FETCH_ZIP_FILE_URL_REQUEST_SUCCESS,
   OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_START,
-  OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_SUCCESS
+  OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_SUCCESS,
 } from 'utils/constants';
 
 
@@ -24,16 +24,16 @@ describe('zipFileUrl reducer', function () {
   it('should handle OFFICER_FETCH_ZIP_FILE_URL_REQUEST_START', function () {
     zipFileUrl(defaultState, {
       type: OFFICER_FETCH_ZIP_FILE_URL_REQUEST_START,
-      payload: null
+      payload: null,
     }).should.eql(defaultState);
 
     zipFileUrl(
       {
-        withDocs: 'lvh.me/file-with-docs.zip', withoutDocs: 'abc'
+        withDocs: 'lvh.me/file-with-docs.zip', withoutDocs: 'abc',
       },
       {
         type: OFFICER_FETCH_ZIP_FILE_URL_REQUEST_START,
-        payload: {}
+        payload: {},
       }
     ).should.eql({ withDocs: 'lvh.me/file-with-docs.zip', withoutDocs: '' });
   });
@@ -41,16 +41,16 @@ describe('zipFileUrl reducer', function () {
   it('should handle OFFICER_FETCH_ZIP_FILE_URL_REQUEST_SUCCESS', function () {
     zipFileUrl(defaultState, {
       type: OFFICER_FETCH_ZIP_FILE_URL_REQUEST_SUCCESS,
-      payload: 'lvh.me/file.zip'
+      payload: 'lvh.me/file.zip',
     }).should.eql({ withDocs: '', withoutDocs: 'lvh.me/file.zip' });
 
     zipFileUrl(
       {
-        withDocs: 'lvh.me/file-with-docs.zip', withoutDocs: 'abc'
+        withDocs: 'lvh.me/file-with-docs.zip', withoutDocs: 'abc',
       },
       {
         type: OFFICER_FETCH_ZIP_FILE_URL_REQUEST_SUCCESS,
-        payload: 'lvh.me/file.zip'
+        payload: 'lvh.me/file.zip',
       }
     ).should.eql({ withDocs: 'lvh.me/file-with-docs.zip', withoutDocs: 'lvh.me/file.zip' });
   });
@@ -58,16 +58,16 @@ describe('zipFileUrl reducer', function () {
   it('should handle OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_START', function () {
     zipFileUrl(defaultState, {
       type: OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_START,
-      payload: null
+      payload: null,
     }).should.eql(defaultState);
 
     zipFileUrl(
       {
-        withDocs: 'abc', withoutDocs: 'lvh.me/file.zip'
+        withDocs: 'abc', withoutDocs: 'lvh.me/file.zip',
       },
       {
         type: OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_START,
-        payload: {}
+        payload: {},
       }
     ).should.eql({ withDocs: '', withoutDocs: 'lvh.me/file.zip' });
   });
@@ -75,16 +75,16 @@ describe('zipFileUrl reducer', function () {
   it('should handle OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_SUCCESS', function () {
     zipFileUrl(defaultState, {
       type: OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_SUCCESS,
-      payload: 'lvh.me/file-with-docs.zip'
+      payload: 'lvh.me/file-with-docs.zip',
     }).should.eql({ withDocs: 'lvh.me/file-with-docs.zip', withoutDocs: '' });
 
     zipFileUrl(
       {
-        withDocs: 'abc', withoutDocs: 'lvh.me/file.zip'
+        withDocs: 'abc', withoutDocs: 'lvh.me/file.zip',
       },
       {
         type: OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_SUCCESS,
-        payload: 'lvh.me/file-with-docs.zip'
+        payload: 'lvh.me/file-with-docs.zip',
       }
     ).should.eql({ withDocs: 'lvh.me/file-with-docs.zip', withoutDocs: 'lvh.me/file.zip' });
   });

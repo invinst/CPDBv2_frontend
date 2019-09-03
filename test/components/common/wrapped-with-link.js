@@ -10,6 +10,7 @@ import {
 
 import { unmountComponentSuppressError } from 'utils/test';
 import WrappedWithLink from 'components/common/wrapped-with-link';
+import OutboundLink from 'components/common/outbound-link';
 
 
 describe('WrappedWithLink component', function () {
@@ -35,7 +36,7 @@ describe('WrappedWithLink component', function () {
     scryRenderedDOMComponentsWithClass(instance, 'test--wrapped-with-link-child');
   });
 
-  it('should render anchor when url is passed', function () {
+  it('should render OutboundLink when url is passed', function () {
     instance = renderIntoDocument(
       <WrappedWithLink
         url={ '/some/external/link' }
@@ -45,10 +46,9 @@ describe('WrappedWithLink component', function () {
       </WrappedWithLink>
     );
 
-    const anchor = findRenderedDOMComponentWithTag(instance, 'a');
-    anchor.getAttribute('href').should.eql('/some/external/link');
-    anchor.getAttribute('target').should.eql('_blank');
-    anchor.getAttribute('class').should.eql('external-link');
+    const link = findRenderedComponentWithType(instance, OutboundLink);
+    link.props.href.should.eql('/some/external/link');
+    link.props.className.should.eql('external-link');
     scryRenderedDOMComponentsWithClass(instance, 'test--wrapped-with-link-child');
   });
 

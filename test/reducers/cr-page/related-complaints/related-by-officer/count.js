@@ -9,8 +9,8 @@ describe('related complaints by officer count reducer', function () {
     const action = {
       type: 'RELATED_COMPLAINTS_BY_OFFICER_REQUEST_SUCCESS',
       payload: {
-        count: 123
-      }
+        count: 123,
+      },
     };
 
     count({}, action).should.eql(123);

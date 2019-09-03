@@ -2,17 +2,26 @@ import { createSelector } from 'reselect';
 import moment from 'moment';
 import { isUndefined } from 'lodash';
 
+import { getDomainName } from 'utils/url';
+
 
 const getData = state => state.documentPage.data;
 export const getTitleEditModeOn = state => state.documentPage.titleEditModeOn;
+export const getTagsEditModeOn = state => state.documentPage.tagsEditModeOn;
 export const getTextContentEditModeOn = state => state.documentPage.textContentEditModeOn;
+export const getTagsErrorMessages = state => state.documentPage.tagsErrorMessages;
 
 export const documentSelector = createSelector(
   [getData],
   (data) => {
     const infoItems = [
       { name: 'CRID / UID', value: `CR ${ data.crid }`, to: `/complaint/${data.crid}/` },
-      { name: 'Source', value: data['original_url'], url: data['original_url'] },
+      {
+        name: 'Source',
+        value: getDomainName(data['original_url']),
+        url: data['original_url'],
+        tooltip: data['original_url'],
+      },
       { name: 'Crawler', value: data['crawler_name'] },
       { name: 'Date', value: moment(data['created_at']).format('MMM D, YYYY') },
     ];
@@ -30,6 +39,8 @@ export const documentSelector = createSelector(
     return {
       attachmentId: data.id,
       title: data.title,
+      tags: data.tags,
+      nextDocumentId: data['next_document_id'],
       fullText: data['text_content'],
       url: data.url,
       previewImageUrl: data['preview_image_url'],
@@ -52,21 +63,28 @@ export const documentSelector = createSelector(
 
 export const documentEditableFieldsSelector = createSelector(
   documentSelector,
-  documentAttrs => ({
-    attachmentId: {
-      type: 'number',
-      key: 'id',
-      value: documentAttrs.attachmentId
-    },
-    title: {
-      type: 'string',
-      key: 'title',
-      value: documentAttrs.title || ''
-    },
-    textContent: {
-      type: 'string',
-      key: 'text_content',
-      value: documentAttrs.fullText || ''
-    }
-  })
+  documentAttrs => {
+    return {
+      attachmentId: {
+        type: 'number',
+        key: 'id',
+        value: documentAttrs.attachmentId,
+      },
+      title: {
+        type: 'string',
+        key: 'title',
+        value: documentAttrs.title || '',
+      },
+      tags: {
+        type: 'array',
+        key: 'tags',
+        value: documentAttrs.tags || [],
+      },
+      textContent: {
+        type: 'string',
+        key: 'text_content',
+        value: documentAttrs.fullText || '',
+      },
+    };
+  }
 );

@@ -2,7 +2,7 @@ import React from 'react';
 import {
   renderIntoDocument,
   findRenderedComponentWithType,
-  scryRenderedComponentsWithType
+  scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 
 import CommunityPane from 'components/search-page/preview-pane/community-pane';
@@ -11,7 +11,7 @@ import {
   GeoInfoWidget,
   AllegationCountWidget,
   ListWidget,
-  CallToActionWidget
+  CallToActionWidget,
 } from 'components/search-page/preview-pane/widgets';
 import { unmountComponentSuppressError } from 'utils/test';
 

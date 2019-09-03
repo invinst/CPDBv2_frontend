@@ -1,7 +1,7 @@
 import {
   CR_EDIT_MODE,
   CR_EDIT_TYPES,
-  LOCATION_CHANGE
+  LOCATION_CHANGE,
 } from 'utils/constants';
 import { handleActions } from 'redux-actions';
 import { editModeOn } from 'utils/edit-path';
@@ -23,5 +23,5 @@ export default handleActions({
       return defaultState;
     }
     return state;
-  }
+  },
 }, defaultState);

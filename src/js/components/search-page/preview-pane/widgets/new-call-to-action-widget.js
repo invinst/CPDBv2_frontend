@@ -17,9 +17,9 @@ export default class NewCallToActionWidget extends Component {
 }
 
 NewCallToActionWidget.defaultProps = {
-  text: 'View on the Data Tool'
+  text: 'View on the Data Tool',
 };
 
 NewCallToActionWidget.propTypes = {
-  text: PropTypes.string
+  text: PropTypes.string,
 };

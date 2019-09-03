@@ -20,7 +20,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  requestSocialGraph
+  requestSocialGraph,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SocialGraphPage);

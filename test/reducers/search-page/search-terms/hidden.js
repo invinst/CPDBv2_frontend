@@ -10,15 +10,15 @@ describe('hidden reducer', function () {
     hidden(false, {
       type: '@@router/LOCATION_CHANGE',
       payload: {
-        pathname: '/search/'
-      }
+        pathname: '/search/',
+      },
     }).should.eql(true);
 
     hidden(true, {
       type: '@@router/LOCATION_CHANGE',
       payload: {
-        pathname: '/search/terms/'
-      }
+        pathname: '/search/terms/',
+      },
     }).should.eql(false);
   });
 });

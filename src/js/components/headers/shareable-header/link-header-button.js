@@ -23,10 +23,10 @@ export default class LinkHeaderButton extends React.Component {
 
 LinkHeaderButton.propTypes = {
   buttonText: PropTypes.string,
-  to: PropTypes.string
+  to: PropTypes.string,
 };
 
 LinkHeaderButton.defaultProps = {
   buttonText: 'Click',
-  to: ''
+  to: '',
 };

@@ -1,5 +1,5 @@
 import {
-  sanFranciscoTextFamily, softBlackColor, whiteTwoColor, bostonRed, clayGray, sugarCaneColor
+  sanFranciscoTextFamily, softBlackColor, whiteTwoColor, bostonRed, clayGray, sugarCaneColor,
 } from 'utils/styles';
 import { imgUrl } from 'utils/static-assets';
 
@@ -21,32 +21,32 @@ export const headerStyle = {
 };
 
 export const allegationDisciplineLinkStyle = {
-  display: 'block'
+  display: 'block',
 };
 
 export const allegationDisciplineStyle = {
   padding: '10px 0',
-  borderBottom: `1px solid ${ whiteTwoColor }`
+  borderBottom: `1px solid ${ whiteTwoColor }`,
 };
 
 export const allegationDisciplineCountStyle = {
   display: 'inline-block',
   width: 'calc(100% - 8px)',
-  verticalAlign: 'middle'
+  verticalAlign: 'middle',
 };
 
 export const allegationTextStyle = {
   color: softBlackColor,
   fontSize: '26px',
   fontWeight: 400,
-  fontFamily: sanFranciscoTextFamily
+  fontFamily: sanFranciscoTextFamily,
 };
 
 export const disciplineTextStyle = {
   color: bostonRed,
   fontSize: '26px',
   fontWeight: 400,
-  fontFamily: sanFranciscoTextFamily
+  fontFamily: sanFranciscoTextFamily,
 };
 
 export const mostCommonComplaintStyle = {
@@ -54,13 +54,13 @@ export const mostCommonComplaintStyle = {
   fontFamily: sanFranciscoTextFamily,
   fontWeight: 500,
   fontSize: '14px',
-  color: softBlackColor
+  color: softBlackColor,
 };
 
 export const categoryTextWrapper = {
   display: 'inline-block',
   verticalAlign: 'middle',
-  width: 'calc(100% - 8px)'
+  width: 'calc(100% - 8px)',
 };
 
 export const categoryStyle = (isLast) => ({
@@ -71,12 +71,12 @@ export const categoryStyle = (isLast) => ({
   fontFamily: sanFranciscoTextFamily,
   fontWeight: 300,
   fontSize: '14px',
-  color: clayGray
+  color: clayGray,
 });
 
 export const categoryNameStyle = {
   fontWeight: 400,
-  color: softBlackColor
+  color: softBlackColor,
 };
 
 export const rightArrowStyle = {
@@ -84,7 +84,7 @@ export const rightArrowStyle = {
   display: 'inline-block',
   verticalAlign: 'middle',
   width: '8px',
-  height: '13px'
+  height: '13px',
 };
 
 export const clickReceiver = {
@@ -92,5 +92,5 @@ export const clickReceiver = {
   width: '100%',
   height: '100%',
   top: 0,
-  left: 0
+  left: 0,
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  renderIntoDocument, findRenderedComponentWithType, Simulate, findRenderedDOMComponentWithTag
+  renderIntoDocument, findRenderedComponentWithType, Simulate, findRenderedDOMComponentWithTag,
 } from 'react-addons-test-utils';
 import { spy } from 'sinon';
 

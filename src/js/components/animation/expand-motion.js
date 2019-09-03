@@ -11,7 +11,7 @@ export default class ExpandMotion extends Component {
     super(props);
 
     this.state = {
-      childHeight: 0
+      childHeight: 0,
     };
 
     this.handleChildrenRef = this.handleChildrenRef.bind(this);
@@ -45,7 +45,7 @@ export default class ExpandMotion extends Component {
           }
 
           return React.cloneElement(
-            this.props.children, { ref: this.handleChildrenRef, style: { height: `${height}px` }
+            this.props.children, { ref: this.handleChildrenRef, style: { height: `${height}px` },
             });
         } }
       </Motion>
@@ -55,5 +55,5 @@ export default class ExpandMotion extends Component {
 
 ExpandMotion.propTypes = {
   children: PropTypes.node,
-  show: PropTypes.bool
+  show: PropTypes.bool,
 };

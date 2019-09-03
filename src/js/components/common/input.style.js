@@ -6,14 +6,14 @@ export const inputStyle = (paddingVertical, paddingHorizontal) => ({
   boxSizing: 'border-box',
   border: 'none',
   width: '100%',
-  height: '100%'
+  height: '100%',
 });
 
 export const wrapperStyle = (width, height) => ({
   display: 'inline-block',
   height: `${height}px`,
   width: `${width}px`,
-  position: 'relative'
+  position: 'relative',
 });
 
 export const placeholderStyle = (height, paddingVertical, paddingHorizontal) => ({
@@ -22,5 +22,5 @@ export const placeholderStyle = (height, paddingVertical, paddingHorizontal) => 
   pointerEvents: 'none',
   top: `${paddingVertical}px`,
   left: `${paddingHorizontal}px`,
-  height: `${height - paddingVertical * 2}px`
+  height: `${height - paddingVertical * 2}px`,
 });

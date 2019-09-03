@@ -41,5 +41,5 @@ TRRDocument.propTypes = {
 
 TRRDocument.defaultProps = {
   alreadyRequested: false,
-  openRequestTRRDocumentModal: () => {}
+  openRequestTRRDocumentModal: () => {},
 };

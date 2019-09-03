@@ -28,7 +28,7 @@ describe('Map component', function () {
       gender: 'male',
       race: 'White',
       age: 32,
-    }]
+    }],
   }, {
     point: {
       lat: 42.112567,

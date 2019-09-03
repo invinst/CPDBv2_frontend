@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   findRenderedComponentWithType, renderIntoDocument,
-  scryRenderedComponentsWithType
+  scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 import { spy } from 'sinon';
@@ -30,13 +30,13 @@ describe('AttachmentsTab component', function () {
           name: 'no_attachment_text',
           value: RawContentStateFactory.build(
             {}, { blockTexts: ['There are no documents that have been made public yet.'] }
-          )
-        }
+          ),
+        },
       },
       sectionEditModeOn: false,
       onSaveForm: spy(),
       turnOnSectionEditMode: spy(),
-      turnOffSectionEditMode: spy()
+      turnOffSectionEditMode: spy(),
     };
 
     instance = renderIntoDocument(

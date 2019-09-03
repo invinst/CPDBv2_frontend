@@ -10,7 +10,7 @@ import {
   turnOffNoDataRadarChartExplainEditMode,
   requestCreateOfficerZipFile,
   fetchOfficerZipWithDocsFileUrl,
-  fetchOfficerZipFileUrl
+  fetchOfficerZipFileUrl,
 } from 'actions/officer-page';
 import {
   CHANGE_OFFICER_ID,
@@ -29,7 +29,7 @@ import {
   OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_FAILURE,
   OFFICER_FETCH_ZIP_FILE_URL_REQUEST_START,
   OFFICER_FETCH_ZIP_FILE_URL_REQUEST_SUCCESS,
-  OFFICER_FETCH_ZIP_FILE_URL_REQUEST_FAILURE
+  OFFICER_FETCH_ZIP_FILE_URL_REQUEST_FAILURE,
 } from 'utils/constants';
 
 
@@ -43,9 +43,9 @@ describe('officerPage actions', function () {
             url: `${OFFICER_URL}123/summary/`,
             params: undefined,
             adapter: null,
-            cancelToken: undefined
-          }
-        }
+            cancelToken: undefined,
+          },
+        },
       });
     });
   });
@@ -54,7 +54,7 @@ describe('officerPage actions', function () {
     it('should return the right action', function () {
       changeOfficerId(123).should.eql({
         type: CHANGE_OFFICER_ID,
-        payload: 123
+        payload: 123,
       });
     });
   });
@@ -63,7 +63,7 @@ describe('officerPage actions', function () {
     it('should return the right action', function () {
       changeOfficerTab('TIMELINE').should.eql({
         type: CHANGE_OFFICER_TAB,
-        payload: 'TIMELINE'
+        payload: 'TIMELINE',
       });
     });
   });
@@ -72,7 +72,7 @@ describe('officerPage actions', function () {
     it('should return correct action', function () {
       turnOnTriangleExplainEditMode().should.eql({
         type: OFFICER_EDIT_MODE,
-        payload: { editType: OFFICER_EDIT_TYPES.TRIANGLE, mode: true }
+        payload: { editType: OFFICER_EDIT_TYPES.TRIANGLE, mode: true },
       });
     });
   });
@@ -81,7 +81,7 @@ describe('officerPage actions', function () {
     it('should return correct action', function () {
       turnOffTriangleExplainEditMode().should.eql({
         type: OFFICER_EDIT_MODE,
-        payload: { editType: OFFICER_EDIT_TYPES.TRIANGLE, mode: false }
+        payload: { editType: OFFICER_EDIT_TYPES.TRIANGLE, mode: false },
       });
     });
   });
@@ -90,7 +90,7 @@ describe('officerPage actions', function () {
     it('should return correct action', function () {
       turnOnScaleExplainEditMode().should.eql({
         type: OFFICER_EDIT_MODE,
-        payload: { editType: OFFICER_EDIT_TYPES.SCALE, mode: true }
+        payload: { editType: OFFICER_EDIT_TYPES.SCALE, mode: true },
       });
     });
   });
@@ -99,7 +99,7 @@ describe('officerPage actions', function () {
     it('should return correct action', function () {
       turnOffScaleExplainEditMode().should.eql({
         type: OFFICER_EDIT_MODE,
-        payload: { editType: OFFICER_EDIT_TYPES.SCALE, mode: false }
+        payload: { editType: OFFICER_EDIT_TYPES.SCALE, mode: false },
       });
     });
   });
@@ -108,7 +108,7 @@ describe('officerPage actions', function () {
     it('should return correct action', function () {
       turnOnNoDataRadarChartExplainEditMode().should.eql({
         type: OFFICER_EDIT_MODE,
-        payload: { editType: OFFICER_EDIT_TYPES.NO_DATA_RADAR_CHART, mode: true }
+        payload: { editType: OFFICER_EDIT_TYPES.NO_DATA_RADAR_CHART, mode: true },
       });
     });
   });
@@ -117,7 +117,7 @@ describe('officerPage actions', function () {
     it('should return correct action', function () {
       turnOffNoDataRadarChartExplainEditMode().should.eql({
         type: OFFICER_EDIT_MODE,
-        payload: { editType: OFFICER_EDIT_TYPES.NO_DATA_RADAR_CHART, mode: false }
+        payload: { editType: OFFICER_EDIT_TYPES.NO_DATA_RADAR_CHART, mode: false },
       });
     });
   });
@@ -128,16 +128,16 @@ describe('officerPage actions', function () {
         types: [
           OFFICER_CREATE_ZIP_FILE_REQUEST_START,
           OFFICER_CREATE_ZIP_FILE_REQUEST_SUCCESS,
-          OFFICER_CREATE_ZIP_FILE_REQUEST_FAILURE
+          OFFICER_CREATE_ZIP_FILE_REQUEST_FAILURE,
         ],
         payload: {
           request: {
             url: `${OFFICER_URL}123/create-zip-file/`,
             params: undefined,
             adapter: null,
-            cancelToken: undefined
-          }
-        }
+            cancelToken: undefined,
+          },
+        },
       });
     });
   });
@@ -148,16 +148,16 @@ describe('officerPage actions', function () {
         types: [
           OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_START,
           OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_SUCCESS,
-          OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_FAILURE
+          OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_FAILURE,
         ],
         payload: {
           request: {
             url: `${OFFICER_URL}123/request-download/`,
             params: { 'with-docs': true, 'retry-counter': 1 },
             adapter: null,
-            cancelToken: undefined
-          }
-        }
+            cancelToken: undefined,
+          },
+        },
       });
     });
   });
@@ -168,16 +168,16 @@ describe('officerPage actions', function () {
         types: [
           OFFICER_FETCH_ZIP_FILE_URL_REQUEST_START,
           OFFICER_FETCH_ZIP_FILE_URL_REQUEST_SUCCESS,
-          OFFICER_FETCH_ZIP_FILE_URL_REQUEST_FAILURE
+          OFFICER_FETCH_ZIP_FILE_URL_REQUEST_FAILURE,
         ],
         payload: {
           request: {
             url: `${OFFICER_URL}123/request-download/`,
             params: { 'with-docs': false, 'retry-counter': 1 },
             adapter: null,
-            cancelToken: undefined
-          }
-        }
+            cancelToken: undefined,
+          },
+        },
       });
     });
   });

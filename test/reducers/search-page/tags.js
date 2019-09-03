@@ -11,7 +11,7 @@ describe('searchPage.tags reducer', function () {
   it('should return clear tags when SUGGESTION_REQUEST_START', function () {
     tags(['a', 'b'], {
       type: SUGGESTION_REQUEST_START,
-      payload: {}
+      payload: {},
     }).should.deepEqual([]);
   });
 
@@ -20,8 +20,8 @@ describe('searchPage.tags reducer', function () {
       type: SUGGESTION_REQUEST_SUCCESS,
       payload: {
         'a': [{}],
-        'b': [{}]
-      }
+        'b': [{}],
+      },
     }).should.deepEqual(['a', 'b']);
   });
 
@@ -30,13 +30,13 @@ describe('searchPage.tags reducer', function () {
       type: SUGGESTION_REQUEST_SUCCESS,
       payload: {
         'a': [{}],
-        'b': [{}]
+        'b': [{}],
       },
       request: {
         params: {
-          contentType: 'b'
-        }
-      }
+          contentType: 'b',
+        },
+      },
     }).should.deepEqual(['a', 'b']);
   });
 
@@ -45,9 +45,9 @@ describe('searchPage.tags reducer', function () {
       type: LOCATION_CHANGE,
       payload: {
         query: {
-          type: 'COMMUNITY'
-        }
-      }
+          type: 'COMMUNITY',
+        },
+      },
     }).should.eql(['COMMUNITY']);
   });
 
@@ -56,9 +56,9 @@ describe('searchPage.tags reducer', function () {
       type: LOCATION_CHANGE,
       payload: {
         query: {
-          type: 'COMMUNITY'
-        }
-      }
+          type: 'COMMUNITY',
+        },
+      },
     }).should.eql(['COMMUNITY']);
   });
 });

@@ -18,8 +18,8 @@ describe('crawlersPage actions', function () {
             params: { limit: '20', offset: '20' },
             adapter: null,
             cancelToken: undefined,
-          }
-        }
+          },
+        },
       });
     });
   });

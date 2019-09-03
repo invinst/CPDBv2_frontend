@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import WidgetWrapper, {
   HeaderWidget,
   AllegationCountWidget,
-  ListWidget
+  ListWidget,
 } from './widgets';
 
 
@@ -90,5 +90,4 @@ export default class ZipCodePane extends Component {
     );
   }
 }
-
 

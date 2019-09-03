@@ -37,7 +37,7 @@ class CopyLinkButton extends React.Component {
 CopyLinkButton.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
-  text: PropTypes.string
+  text: PropTypes.string,
 };
 
 export default ConfiguredRadium(CopyLinkButton);

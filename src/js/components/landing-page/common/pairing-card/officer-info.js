@@ -42,7 +42,7 @@ OfficerInfo.propTypes = {
 };
 
 OfficerInfo.defaultProps = {
-  rightOfficer: false
+  rightOfficer: false,
 };
 
 export default OfficerInfo;

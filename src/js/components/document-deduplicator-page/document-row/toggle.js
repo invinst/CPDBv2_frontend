@@ -28,5 +28,5 @@ export default class Toggle extends Component {
 Toggle.propTypes = {
   on: PropTypes.bool,
   onChange: PropTypes.func,
-  children: PropTypes.node
+  children: PropTypes.node,
 };

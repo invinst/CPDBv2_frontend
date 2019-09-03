@@ -8,10 +8,10 @@ import { defaultConfig } from 'utils/spring-presets';
 export default class CheckMark extends Component {
   render() {
     const defaultStyle = {
-      strokeDashoffset: 30
+      strokeDashoffset: 30,
     };
     const motionStyle = {
-      strokeDashoffset: spring(2, defaultConfig())
+      strokeDashoffset: spring(2, defaultConfig()),
     };
     const { style } = this.props;
 
@@ -37,5 +37,5 @@ export default class CheckMark extends Component {
 }
 
 CheckMark.propTypes = {
-  style: PropTypes.object
+  style: PropTypes.object,
 };

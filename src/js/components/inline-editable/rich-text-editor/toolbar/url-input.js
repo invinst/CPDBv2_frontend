@@ -47,5 +47,5 @@ UrlInput.propTypes = {
   onMouseOut: PropTypes.func,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
 };

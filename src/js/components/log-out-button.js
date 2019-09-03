@@ -20,5 +20,5 @@ export default class LogOutButton extends Component {
 
 LogOutButton.propTypes = {
   show: PropTypes.bool,
-  logOut: PropTypes.func
+  logOut: PropTypes.func,
 };

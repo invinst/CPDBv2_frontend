@@ -9,21 +9,21 @@ describe('recentDocumentIsRequesting reducer', function () {
 
   it('should handle RECENT_DOCUMENT_REQUEST_START', function () {
     recentDocumentIsRequesting(undefined, {
-      type: constants.RECENT_DOCUMENT_REQUEST_START
+      type: constants.RECENT_DOCUMENT_REQUEST_START,
     }).should.be.true();
   });
 
   it('should handle RECENT_DOCUMENT_REQUEST_SUCCESS', function () {
     recentDocumentIsRequesting(true, {
       type: constants.RECENT_DOCUMENT_REQUEST_SUCCESS,
-      payload: [1, 2, 3]
+      payload: [1, 2, 3],
     }).should.be.false();
   });
 
   it('should handle RECENT_DOCUMENT_FAILURE', function () {
     recentDocumentIsRequesting(true, {
       type: constants.RECENT_DOCUMENT_REQUEST_FAILURE,
-      payload: new Error('Load failed')
+      payload: new Error('Load failed'),
     }).should.be.false();
   });
 });

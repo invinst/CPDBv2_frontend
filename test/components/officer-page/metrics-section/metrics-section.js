@@ -2,7 +2,7 @@ import React from 'react';
 import {
   renderIntoDocument,
   scryRenderedComponentsWithType,
-  findRenderedDOMComponentWithClass
+  findRenderedDOMComponentWithClass,
 } from 'react-addons-test-utils';
 
 import MetricsSection from 'components/officer-page/metrics-section';

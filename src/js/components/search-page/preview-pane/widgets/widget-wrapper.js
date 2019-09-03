@@ -30,12 +30,12 @@ export default class WidgetWrapper extends Component {
 WidgetWrapper.defaultProps = {
   className: '',
   callToAction: {},
-  maxHeight: 990
+  maxHeight: 990,
 };
 
 WidgetWrapper.propTypes = {
   className: PropTypes.string,
   children: PropTypes.arrayOf(PropTypes.element),
   callToAction: PropTypes.object,
-  maxHeight: PropTypes.number
+  maxHeight: PropTypes.number,
 };

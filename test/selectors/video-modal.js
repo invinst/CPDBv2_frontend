@@ -5,8 +5,8 @@ describe('Video modal selectors', function () {
     it('should return correct state', function () {
       isVideoModalActive({
         videoModal: {
-          active: true
-        }
+          active: true,
+        },
       }).should.be.true();
     });
   });

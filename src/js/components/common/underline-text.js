@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
-  baseStyle, underlineStyle, underlineWrapperStyle, underlineHoverStyle, baseHoverStyle
+  baseStyle, underlineStyle, underlineWrapperStyle, underlineHoverStyle, baseHoverStyle,
 } from './underline-text.style';
 
 
@@ -37,16 +37,16 @@ UnderlineText.propTypes = {
   style: PropTypes.shape({
     base: PropTypes.shape({
       base: PropTypes.object,
-      hover: PropTypes.object
+      hover: PropTypes.object,
     }),
     underline: PropTypes.shape({
       base: PropTypes.object,
-      hover: PropTypes.object
-    })
+      hover: PropTypes.object,
+    }),
   }),
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
 };
 
 UnderlineText.defaultProps = {
-  style: {}
+  style: {},
 };

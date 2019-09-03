@@ -5,13 +5,13 @@ describe('showLoginModalSelector', function () {
   it('should show login modal when not signed in and edit mode on', function () {
     const state = {
       authentication: {
-        apiAccessToken: null
-      }
+        apiAccessToken: null,
+      },
     };
     const props = {
       location: {
-        pathname: '/edit/'
-      }
+        pathname: '/edit/',
+      },
     };
     showLoginModalSelector(state, props).should.be.true();
   });
@@ -19,13 +19,13 @@ describe('showLoginModalSelector', function () {
   it('should not show login modal when signed in', function () {
     const state = {
       authentication: {
-        apiAccessToken: '123'
-      }
+        apiAccessToken: '123',
+      },
     };
     const props = {
       location: {
-        pathname: '/edit/'
-      }
+        pathname: '/edit/',
+      },
     };
     showLoginModalSelector(state, props).should.be.false();
   });
@@ -33,13 +33,13 @@ describe('showLoginModalSelector', function () {
   it('should not show login modal when not on edit path', function () {
     const state = {
       authentication: {
-        apiAccessToken: null
-      }
+        apiAccessToken: null,
+      },
     };
     const props = {
       location: {
-        pathname: '/abc/'
-      }
+        pathname: '/abc/',
+      },
     };
     showLoginModalSelector(state, props).should.be.false();
   });

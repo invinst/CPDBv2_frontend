@@ -4,7 +4,7 @@ import {
   renderIntoDocument,
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
-  scryRenderedComponentsWithType
+  scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import Breadcrumbs from 'redux-breadcrumb-trail';
@@ -17,6 +17,7 @@ import HeaderButton from 'components/headers/shareable-header/header-button';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import LinkHeaderButton from 'components/headers/shareable-header/link-header-button';
 import * as constants from 'utils/constants';
+import { SHAREABLE_HEADER_BUTTON_TYPE } from 'utils/constants';
 
 
 describe('ShareableHeader component', function () {
@@ -25,8 +26,8 @@ describe('ShareableHeader component', function () {
   const mockStore = MockStore();
   const store = mockStore({
     breadcrumb: {
-      breadcrumbs: []
-    }
+      breadcrumbs: [],
+    },
   });
 
   class CustomMenu extends React.Component {
@@ -40,7 +41,12 @@ describe('ShareableHeader component', function () {
     this.stubOnClose = stub();
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <ShareableHeaderContainer Menu={ CustomMenu } onOpen={ this.stubOnOpen } onClose={ this.stubOnClose }/>
+        <ShareableHeaderContainer
+          buttonType={ SHAREABLE_HEADER_BUTTON_TYPE.MENU }
+          Menu={ CustomMenu }
+          onOpen={ this.stubOnOpen }
+          onClose={ this.stubOnClose }
+        />
       </Provider>
     );
     element = findRenderedComponentWithType(instance, ShareableHeader);
@@ -97,8 +103,8 @@ describe('ShareableHeader component with button components', function () {
   const mockStore = MockStore();
   const store = mockStore({
     breadcrumb: {
-      breadcrumbs: []
-    }
+      breadcrumbs: [],
+    },
   });
 
   afterEach(function () {
@@ -141,8 +147,8 @@ describe('ShareableHeader global click listener', function () {
   const mockStore = MockStore();
   const store = mockStore({
     breadcrumb: {
-      breadcrumbs: []
-    }
+      breadcrumbs: [],
+    },
   });
 
   beforeEach(function () {
@@ -179,8 +185,8 @@ describe('ShareableHeader global scroll listener', function () {
   const mockStore = MockStore();
   const store = mockStore({
     breadcrumb: {
-      breadcrumbs: []
-    }
+      breadcrumbs: [],
+    },
   });
 
   beforeEach(function () {
@@ -210,6 +216,4 @@ describe('ShareableHeader global scroll listener', function () {
     window.removeEventListener.calledWith('scroll', element.handleScroll).should.be.true();
   });
 });
-
-
 

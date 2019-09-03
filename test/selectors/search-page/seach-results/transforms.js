@@ -12,14 +12,14 @@ describe('search page transforms', function () {
         to: '/complaint/123/',
         'incident_date': '2012-07-02',
         highlight: {
-          summary: ['the officer pointed a gun at the victim']
+          summary: ['the officer pointed a gun at the victim'],
         },
         category: 'Use Of Force',
         'sub_category': 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
         address: '14XX W 63RD ST, CHICAGO IL 60636',
         'victims': [
           { 'gender': 'Female', 'race': 'Hispanic' },
-          { 'gender': 'Female', 'race': 'Hispanic', 'age': 48 }
+          { 'gender': 'Female', 'race': 'Hispanic', 'age': 48 },
         ],
         'coaccused': [
           {
@@ -29,9 +29,9 @@ describe('search page transforms', function () {
               'id': 180838,
               'percentile_trr': '72.1094',
               'percentile_allegation_civilian': '98.5549',
-              'percentile_allegation_internal': '61.1521'
+              'percentile_allegation_internal': '61.1521',
             },
-            'allegation_count': 93
+            'allegation_count': 93,
           },
           {
             'id': 7544,
@@ -40,11 +40,11 @@ describe('search page transforms', function () {
               'id': 180839,
               'percentile_trr': '0.0000',
               'percentile_allegation_civilian': '24.1180',
-              'percentile_allegation_internal': '0.0000'
+              'percentile_allegation_internal': '0.0000',
             },
-            'allegation_count': 1
-          }
-        ]
+            'allegation_count': 1,
+          },
+        ],
       }).should.deepEqual({
         type: 'CR',
         id: 1,
@@ -68,10 +68,10 @@ describe('search page transforms', function () {
           radarAxes: [
             { axis: 'Use of Force Reports', value: 72.1094 },
             { axis: 'Officer Allegations', value: 61.1521 },
-            { axis: 'Civilian Allegations', value: 98.5549 }
+            { axis: 'Civilian Allegations', value: 98.5549 },
           ],
           radarColor: '#f0201e',
-          count: 93
+          count: 93,
         }, {
           id: 7544,
           name: 'Dominique Dunigan',
@@ -79,10 +79,10 @@ describe('search page transforms', function () {
           radarAxes: [
             { axis: 'Use of Force Reports', value: 0 },
             { axis: 'Officer Allegations', value: 0 },
-            { axis: 'Civilian Allegations', value: 24.118 }
+            { axis: 'Civilian Allegations', value: 24.118 },
           ],
           radarColor: '#f5c5a2',
-          count: 1
+          count: 1,
         }],
       });
     });
@@ -98,7 +98,7 @@ describe('search page transforms', function () {
         'sub_category': 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
         address: '14XX W 63RD ST, CHICAGO IL 60636',
         'victims': [],
-        'coaccused': []
+        'coaccused': [],
       }).should.deepEqual({
         type: 'CR',
         id: 1,
@@ -133,7 +133,7 @@ describe('search page transforms', function () {
         'coaccused': [],
         highlight: {
           'text_content': ['first text orc match', 'second orc text match'],
-        }
+        },
       }).should.deepEqual({
         type: 'CR',
         id: 1,
@@ -169,7 +169,7 @@ describe('search page transforms', function () {
         highlight: {
           summary: ['the officer pointed a gun at the victim', 'second match'],
           'text_content': ['first text orc match', 'second orc text match'],
-        }
+        },
       }).should.deepEqual({
         type: 'CR',
         id: 1,
@@ -232,7 +232,7 @@ describe('search page transforms', function () {
           'full_name': 'John Watts',
           'allegation_count': 10,
         },
-        'police_hq': '22nd'
+        'police_hq': '22nd',
       }).should.deepEqual({
         type: 'WARD',
         data: {
@@ -252,8 +252,8 @@ describe('search page transforms', function () {
             count: 10,
             url: '/officer/123/john-watts/',
           },
-          policeHQ: '22nd'
-        }
+          policeHQ: '22nd',
+        },
       });
     });
 
@@ -274,9 +274,9 @@ describe('search page transforms', function () {
           to: '/search/?terms=123456abcd&type=123456ABCD',
           url: '',
           type: 'SEARCH-TERMS',
-          uniqueKey: 'SEARCH-TERMS-123456-abcd'
+          uniqueKey: 'SEARCH-TERMS-123456-abcd',
         },
-        type: 'SEARCH-TERMS'
+        type: 'SEARCH-TERMS',
       });
     });
 
@@ -312,10 +312,10 @@ describe('search page transforms', function () {
             items: [
               { axis: 'Use of Force Reports', value: 90 },
               { axis: 'Officer Allegations', value: 91 },
-              { axis: 'Civilian Allegations', value: 92 }
+              { axis: 'Civilian Allegations', value: 92 },
             ],
             visualTokenBackground: '#f52524',
-            textColor: '#DFDFDF'
+            textColor: '#DFDFDF',
           },
           race: 'White',
           rank: 'Police Officer',
@@ -338,7 +338,7 @@ describe('search page transforms', function () {
       };
       previewPaneTransform({
         type: 'UNIT > OFFICERS',
-        ...focusedSuggestion
+        ...focusedSuggestion,
       }).should.deepEqual(info);
     });
 
@@ -349,8 +349,8 @@ describe('search page transforms', function () {
         'active_officers_count': 11,
         'officers_most_complaints': [
           { id: 1, count: 2, name: 'Hulk' },
-          { id: 2, count: 1, name: 'Peter Parker' }
-        ]
+          { id: 2, count: 1, name: 'Peter Parker' },
+        ],
       });
       const info = {
         data: {
@@ -363,7 +363,7 @@ describe('search page transforms', function () {
             'radarAxes': [
               { 'axis': 'Use of Force Reports', 'value': NaN },
               { 'axis': 'Officer Allegations', 'value': NaN },
-              { 'axis': 'Civilian Allegations', 'value': NaN }
+              { 'axis': 'Civilian Allegations', 'value': NaN },
             ],
             'radarColor': undefined,
             'url': '/officer/1/hulk/',
@@ -374,17 +374,17 @@ describe('search page transforms', function () {
             'radarAxes': [
               { 'axis': 'Use of Force Reports', 'value': NaN },
               { 'axis': 'Officer Allegations', 'value': NaN },
-              { 'axis': 'Civilian Allegations', 'value': NaN }
+              { 'axis': 'Civilian Allegations', 'value': NaN },
             ],
             'radarColor': undefined,
-            'url': '/officer/2/peter-parker/'
-          }]
+            'url': '/officer/2/peter-parker/',
+          }],
         },
         type: 'RANK',
       };
       previewPaneTransform({
         type: 'RANK',
-        ...focusedSuggestion
+        ...focusedSuggestion,
       }).should.deepEqual(info);
     });
   });

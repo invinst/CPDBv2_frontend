@@ -9,21 +9,21 @@ describe('activityGridIsRequesting reducer', function () {
 
   it('should handle ACTIVITY_GRID_REQUEST_START', function () {
     activityGridIsRequesting(undefined, {
-      type: constants.ACTIVITY_GRID_REQUEST_START
+      type: constants.ACTIVITY_GRID_REQUEST_START,
     }).should.be.true();
   });
 
   it('should handle ACTIVITY_GRID_REQUEST_SUCCESS', function () {
     activityGridIsRequesting(true, {
       type: constants.ACTIVITY_GRID_REQUEST_SUCCESS,
-      payload: [1, 2, 3]
+      payload: [1, 2, 3],
     }).should.be.false();
   });
 
   it('should handle ACTIVITY_GRID_REQUEST_FAILURE', function () {
     activityGridIsRequesting(true, {
       type: constants.ACTIVITY_GRID_REQUEST_FAILURE,
-      payload: new Error('Load failed')
+      payload: new Error('Load failed'),
     }).should.be.false();
   });
 });
