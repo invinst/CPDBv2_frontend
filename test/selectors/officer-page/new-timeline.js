@@ -1053,7 +1053,26 @@ describe('Officer new timeline selectors', function () {
         unitName: 'Unit 153',
         unitDescription: 'Mobile Strike Force',
         year: 2003,
-        key: 3,
+        key: 4,
+      },
+      {
+        date: 'FEB 28',
+        kind: 'RANK_CHANGE',
+        oldRank: 'Detective',
+        rank: 'Police Officer',
+        unitName: 'Unit 007',
+        unitDescription: 'District 007',
+        year: 2002,
+        key: 5,
+      },
+      {
+        date: 'FEB 5',
+        year: 2000,
+        unitName: 'Unit 007',
+        unitDescription: 'District 007',
+        kind: 'JOINED',
+        rank: 'Detective',
+        key: 6,
       },
     ];
 
@@ -1098,13 +1117,43 @@ describe('Officer new timeline selectors', function () {
           unitName: 'Unit 153',
           unitDescription: 'Mobile Strike Force',
           year: 2003,
-          key: 3,
+          key: 4,
+        },
+        {
+          date: 'FEB 28',
+          kind: 'RANK_CHANGE',
+          oldRank: 'Detective',
+          rank: 'Police Officer',
+          unitName: 'Unit 007',
+          unitDescription: 'District 007',
+          year: 2002,
+          key: 5,
+        },
+        {
+          date: 'FEB 5',
+          year: 2000,
+          unitName: 'Unit 007',
+          unitDescription: 'District 007',
+          kind: 'JOINED',
+          rank: 'Detective',
+          key: 6,
         },
       ]);
     });
 
     it('should render sustained complaint items only', function () {
       applyFilter(NEW_TIMELINE_FILTERS.SUSTAINED, items).should.eql([
+        {
+          date: 'JAN 7',
+          key: 2,
+          kind: 'UNIT_CHANGE',
+          oldUnitDescription: 'Mobile Strike Force',
+          oldUnitName: 'Unit 153',
+          rank: 'Police Officer',
+          unitDescription: 'District 007',
+          unitName: 'Unit 007',
+          year: 2005,
+        },
         {
           attachments: [],
           category: 'Illegal Search',
@@ -1118,7 +1167,26 @@ describe('Officer new timeline selectors', function () {
           unitName: 'Unit 153',
           unitDescription: 'Mobile Strike Force',
           year: 2003,
-          key: 3,
+          key: 4,
+        },
+        {
+          date: 'FEB 28',
+          kind: 'RANK_CHANGE',
+          oldRank: 'Detective',
+          rank: 'Police Officer',
+          unitName: 'Unit 007',
+          unitDescription: 'District 007',
+          year: 2002,
+          key: 5,
+        },
+        {
+          date: 'FEB 5',
+          year: 2000,
+          unitName: 'Unit 007',
+          unitDescription: 'District 007',
+          kind: 'JOINED',
+          rank: 'Detective',
+          key: 6,
         },
       ]);
     });

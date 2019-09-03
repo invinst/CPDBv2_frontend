@@ -280,6 +280,16 @@ describe('officer page', function () {
         officerPage.tabbedPaneSection.timelineSection.filter.crs.click();
 
         officerPage.tabbedPaneSection.timelineSection.crItem.waitForVisible();
+        officerPage.tabbedPaneSection.timelineSection.crItem.count.should.eql(2);
+        officerPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.awardItem.waitForVisible(1000, true);
+      });
+
+      it('should filter sustained', function () {
+        officerPage.tabbedPaneSection.timelineSection.filter.sustained.click();
+
+        officerPage.tabbedPaneSection.timelineSection.crItem.waitForVisible();
+        officerPage.tabbedPaneSection.timelineSection.crItem.count.should.eql(1);
         officerPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible(1000, true);
         officerPage.tabbedPaneSection.timelineSection.awardItem.waitForVisible(1000, true);
       });
