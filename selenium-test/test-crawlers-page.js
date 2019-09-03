@@ -41,13 +41,12 @@ describe('Crawlers Page', function () {
   });
 
   it('should be able to scroll and should not open log file model when click on no log url crawler row', function () {
-    // browser.pause(999000);
-    crawlersPage.tableSection.rowCount().should.equal(20);
+    crawlersPage.tableSection.row.count.should.equal(20);
 
     browser.scroll(0, 9999);
     browser.pause(1000);
 
-    crawlersPage.tableSection.rowCount().should.equal(25);
+    crawlersPage.tableSection.row.count.should.equal(25);
     crawlersPage.tableSection.lastCrawlerName.getText().should.equal('DOCUMENTCLOUD');
     crawlersPage.tableSection.lastRecentRunAt.getText().should.equal('2018-11-29');
     crawlersPage.tableSection.lastNumNewDocuments.getText().should.equal('0');
