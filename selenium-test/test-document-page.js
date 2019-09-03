@@ -101,7 +101,7 @@ describe('Document page', function () {
       documentPage.tagsSection.secondTag.getText().should.equal('tactical');
       documentPage.tagsSection.tagDeleteBtns.count.should.equal(0);
 
-      browser.moveToObject(documentPage.tagsSection.tagsInput.selector);
+      documentPage.tagsSection.tagsInput.moveTo();
       documentPage.tagsSection.editButton.click();
       documentPage.tagsSection.tagDeleteBtns.count.should.equal(2);
       documentPage.tagsSection.firstTagDeleteBtn.click();
@@ -114,11 +114,11 @@ describe('Document page', function () {
       documentPage.tagsSection.firstTag.getText().should.equal('hospital');
       documentPage.tagsSection.secondTag.getText().should.equal('tactical');
 
-      browser.moveToObject(documentPage.tagsSection.tagsInput.selector);
+      documentPage.tagsSection.tagsInput.moveTo();
       documentPage.tagsSection.editButton.click();
       documentPage.tagsSection.tagsInputTextbox.setValue('This is a tag with more than 20 characters');
       browser.keys('Enter');
-      browser.moveToObject(documentPage.tagsSection.tagsInput.selector);
+      documentPage.tagsSection.tagsInput.moveTo();
       documentPage.tagsSection.saveButton.click();
       documentPage.tagsSection.errorMessages.getText().should.equal(
         'Ensure this field has no more than 20 characters.'
@@ -129,10 +129,10 @@ describe('Document page', function () {
       browser.keys('Enter');
       documentPage.tagsSection.tagsInputTextbox.setValue('copa');
       browser.keys('Enter');
-      browser.moveToObject(documentPage.tagsSection.tagsInput.selector);
+      documentPage.tagsSection.tagsInput.moveTo();
       documentPage.tagsSection.saveButton.click();
 
-      browser.moveToObject(documentPage.tagsSection.tagsInput.selector);
+      documentPage.tagsSection.tagsInput.moveTo();
       documentPage.tagsSection.saveButton.count.should.equal(0);
       documentPage.tagsSection.cancelButton.count.should.equal(0);
       documentPage.tagsSection.editButton.count.should.equal(1);
