@@ -1,0 +1,36 @@
+@import 'variables'
+
+\:local(.editable-tags-input)
+  margin-bottom: 40px
+  font-size: 14px
+
+  .editable-tags-title
+    color: $boulder-color
+    margin-bottom: 7px
+    line-height: 18px
+    box-sizing: border-box
+
+  .next-untagged-document-button
+    display: inline-block
+    vertical-align: top
+    margin-left: 16px
+    line-height: 28px
+    border-radius: 2px
+    padding: 0 8px
+    border: solid 1px $white-two-color
+    color: $accent-color
+    background-color: $hawkes-blue
+
+    &:hover
+      color: white
+      background-color: $accent-color
+
+  .error-messages
+    color: red
+    font-weight: 300
+    font-size: 13px
+    padding-top: 10px
+
+\:local(.has-next-untagged-document)
+  display: inline-block
+  width: calc(100% - 199px)

@@ -2,7 +2,9 @@ import moment from 'moment-timezone';
 
 import {
   getTitleEditModeOn,
+  getTagsEditModeOn,
   getTextContentEditModeOn,
+  getTagsErrorMessages,
   documentSelector,
   documentEditableFieldsSelector,
 } from 'selectors/document-page';
@@ -19,6 +21,16 @@ describe('Document selectors', function () {
     });
   });
 
+  describe('getTagsEditModeOn', function () {
+    it('should return correct result', function () {
+      getTagsEditModeOn({
+        documentPage: {
+          tagsEditModeOn: true,
+        },
+      }).should.eql(true);
+    });
+  });
+
   describe('getTextContentEditModeOn', function () {
     it('should return correct result', function () {
       getTextContentEditModeOn({
@@ -26,6 +38,16 @@ describe('Document selectors', function () {
           textContentEditModeOn: true,
         },
       }).should.eql(true);
+    });
+  });
+
+  describe('getTagsErrorMessages', function () {
+    it('should return correct result', function () {
+      getTagsErrorMessages({
+        documentPage: {
+          tagsErrorMessages: ['This is error message 1.', 'This is error message 2.'],
+        },
+      }).should.eql(['This is error message 1.', 'This is error message 2.']);
     });
   });
 
@@ -45,6 +67,8 @@ describe('Document selectors', function () {
           'id': 14193,
           'crid': '1083633',
           'title': 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)',
+          'tags': ['tag1', 'tag2'],
+          'next_document_id': 14192,
           'text_content': 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE',
           'url': 'https://assets.documentcloud.org/documents/5680384/CRID-1083633-CR-CRID-1083633-CR-Tactical.pdf',
           'preview_image_url': 'https://assets.documentcloud.org/documents/5680384/pages/CRID-1083633.gif',
@@ -69,10 +93,13 @@ describe('Document selectors', function () {
         textContentEditModeOn: false,
       },
     };
+
     it('should return correct result', function () {
       documentSelector(state).should.eql({
         attachmentId: 14193,
         title: 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)',
+        tags: ['tag1', 'tag2'],
+        nextDocumentId: 14192,
         fullText: 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE',
         url: 'https://assets.documentcloud.org/documents/5680384/CRID-1083633-CR-CRID-1083633-CR-Tactical.pdf',
         previewImageUrl: 'https://assets.documentcloud.org/documents/5680384/pages/CRID-1083633.gif',
@@ -112,6 +139,8 @@ describe('Document selectors', function () {
       documentSelector(newState).should.eql({
         attachmentId: 14193,
         title: 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)',
+        tags: ['tag1', 'tag2'],
+        nextDocumentId: 14192,
         fullText: 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE',
         url: 'https://assets.documentcloud.org/documents/5680384/CRID-1083633-CR-CRID-1083633-CR-Tactical.pdf',
         previewImageUrl: 'https://assets.documentcloud.org/documents/5680384/pages/CRID-1083633.gif',
@@ -149,6 +178,7 @@ describe('Document selectors', function () {
           data: {
             'id': 14193,
             'title': 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)',
+            'tags': ['123', '456'],
             'text_content': 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE',
           },
           titleEditModeOn: false,
@@ -164,6 +194,11 @@ describe('Document selectors', function () {
           type: 'string',
           key: 'title',
           value: 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)',
+        },
+        tags: {
+          type: 'array',
+          key: 'tags',
+          value: ['123', '456'],
         },
         textContent: {
           type: 'string',
@@ -181,6 +216,7 @@ describe('Document selectors', function () {
             'id': 14193,
           },
           titleEditModeOn: false,
+          tagsEditModeOn: false,
           textContentEditModeOn: false,
         },
       }).should.eql({
@@ -193,6 +229,11 @@ describe('Document selectors', function () {
           type: 'string',
           key: 'title',
           value: '',
+        },
+        tags: {
+          type: 'array',
+          key: 'tags',
+          value: [],
         },
         textContent: {
           type: 'string',
