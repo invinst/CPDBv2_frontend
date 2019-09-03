@@ -3,6 +3,7 @@ import { noop } from 'lodash';
 
 import styles from './short-press.sass';
 
+const PRESS_POSITION_THRESHOLD = 20;
 
 export default class ShortPress extends Component {
   constructor(props) {
@@ -12,16 +13,23 @@ export default class ShortPress extends Component {
     this.handleButtonRelease = this.handleButtonRelease.bind(this);
 
     this.mouseDownTime = undefined;
+    this.mouseDownPosition = undefined;
   }
 
-  handleButtonPress() {
+  handleButtonPress(event) {
     this.mouseDownTime = new Date();
+    this.mouseDownPosition = { x: event.screenX, y: event.screenY };
   }
 
-  handleButtonRelease() {
+  handleButtonRelease(event) {
+    const xPosition = event.screenX;
+    const yPosition = event.screenY;
     const { action } = this.props;
 
-    if (new Date() - this.mouseDownTime < 250) {
+    if (new Date() - this.mouseDownTime < 250
+      && Math.abs(xPosition - this.mouseDownPosition.x) <= PRESS_POSITION_THRESHOLD
+      && Math.abs(yPosition - this.mouseDownPosition.y) <= PRESS_POSITION_THRESHOLD
+    ) {
       action();
     }
 
