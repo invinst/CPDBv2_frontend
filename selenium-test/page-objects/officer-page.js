@@ -186,7 +186,7 @@ class OfficerPage extends Page {
   open(id=1, name, tab) {
     const url = ['/officer', id, name, tab].filter(Boolean).join('/') + '/';
     super.open(url);
-    browser.element('body').waitForVisible();
+    $('body').waitForDisplayed();
   }
 }
 

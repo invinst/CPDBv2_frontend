@@ -4,7 +4,6 @@ require('should');
 const moment = require('moment');
 
 import documentPage from './page-objects/document-page';
-import { switchToRecentTab } from './utils';
 
 
 describe('Document page', function () {
@@ -36,9 +35,9 @@ describe('Document page', function () {
         `This document was last edited by John Doe at ${ updatedTime } on ${ updatedDate }`
       );
 
-      documentPage.views.waitForVisible(10000, true);
-      documentPage.notifications.waitForVisible(10000, true);
-      documentPage.downloads.waitForVisible(10000, true);
+      documentPage.views.waitForDisplayed(10000, true);
+      documentPage.notifications.waitForDisplayed(10000, true);
+      documentPage.downloads.waitForDisplayed(10000, true);
     });
 
     it('should go to CR page when the user clicks on crid', function () {
@@ -48,8 +47,7 @@ describe('Document page', function () {
 
     it('should open the pdf when the user clicks on the big thumbnail', function () {
       documentPage.thumbnail.click();
-      switchToRecentTab();
-      browser.getUrl().should.equal(
+      browser.switchWindow(
         'https://assets.documentcloud.org/documents/5680384/CRID-1083633-CR-CRID-1083633-CR-Tactical.pdf'
       );
     });
@@ -103,7 +101,7 @@ describe('Document page', function () {
       documentPage.tagsSection.secondTag.getText().should.equal('tactical');
       documentPage.tagsSection.tagDeleteBtns.count.should.equal(0);
 
-      browser.moveToObject(documentPage.tagsSection.tagsInput.selector);
+      documentPage.tagsSection.tagsInput.moveTo();
       documentPage.tagsSection.editButton.click();
       documentPage.tagsSection.tagDeleteBtns.count.should.equal(2);
       documentPage.tagsSection.firstTagDeleteBtn.click();
@@ -116,11 +114,11 @@ describe('Document page', function () {
       documentPage.tagsSection.firstTag.getText().should.equal('hospital');
       documentPage.tagsSection.secondTag.getText().should.equal('tactical');
 
-      browser.moveToObject(documentPage.tagsSection.tagsInput.selector);
+      documentPage.tagsSection.tagsInput.moveTo();
       documentPage.tagsSection.editButton.click();
       documentPage.tagsSection.tagsInputTextbox.setValue('This is a tag with more than 20 characters');
       browser.keys('Enter');
-      browser.moveToObject(documentPage.tagsSection.tagsInput.selector);
+      documentPage.tagsSection.tagsInput.moveTo();
       documentPage.tagsSection.saveButton.click();
       documentPage.tagsSection.errorMessages.getText().should.equal(
         'Ensure this field has no more than 20 characters.'
@@ -131,10 +129,10 @@ describe('Document page', function () {
       browser.keys('Enter');
       documentPage.tagsSection.tagsInputTextbox.setValue('copa');
       browser.keys('Enter');
-      browser.moveToObject(documentPage.tagsSection.tagsInput.selector);
+      documentPage.tagsSection.tagsInput.moveTo();
       documentPage.tagsSection.saveButton.click();
 
-      browser.moveToObject(documentPage.tagsSection.tagsInput.selector);
+      documentPage.tagsSection.tagsInput.moveTo();
       documentPage.tagsSection.saveButton.count.should.equal(0);
       documentPage.tagsSection.cancelButton.count.should.equal(0);
       documentPage.tagsSection.editButton.count.should.equal(1);

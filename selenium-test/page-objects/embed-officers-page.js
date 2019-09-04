@@ -29,7 +29,7 @@ class EmbedOfficersPage extends Page {
 
   open(url) {
     super.open(url);
-    browser.element('body').waitForVisible();
+    $('body').waitForDisplayed();
   }
 }
 

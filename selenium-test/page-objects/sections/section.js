@@ -32,8 +32,8 @@ export default class Section {
           if (selector) {
             Object.defineProperty(this, key, {
               get: function () {
-                const element = browser.element(selector);
-                element.count = browser.elements(selector).value.length;
+                const element = $(selector);
+                element.count = $$(selector).length;
                 element.selector = selector;
                 return element;
               },
