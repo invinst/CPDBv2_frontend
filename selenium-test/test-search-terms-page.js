@@ -29,7 +29,7 @@ describe('Search terms page', function () {
   });
 
   it('should navigate to Search page when user type in something in search box', function () {
-    searchPage.input.waitForVisible();
+    searchPage.input.waitForDisplayed();
     searchPage.input.setValue('Ke');
     browser.getUrl().should.match(/\/search\/$/);
   });
@@ -59,7 +59,7 @@ describe('Search terms page', function () {
     browser.keys('ArrowDown');
     browser.keys('ArrowUp');
 
-    searchTermsPage.previewPane.title.waitForVisible(1000, true);
+    searchTermsPage.previewPane.title.waitForDisplayed(1000, true);
   });
 
   it('should show PreviewPane when navigating to SearchTerms items', function () {
@@ -86,11 +86,11 @@ describe('Search terms page', function () {
     browser.keys('ArrowDown');
     browser.scroll(0, 9999);
 
-    searchTermsPage.previewPane.title.isVisibleWithinViewport().should.be.true();
+    searchTermsPage.previewPane.title.isDisplayedInViewport().should.be.true();
   });
 
   it('should focus on the search box by default', function () {
-    searchTermsPage.input.waitForVisible();
+    searchTermsPage.input.waitForDisplayed();
 
     browser.keys('A');
 
@@ -98,14 +98,14 @@ describe('Search terms page', function () {
   });
 
   it('should focus on nothing after unfocused the input', function () {
-    searchTermsPage.input.waitForVisible();
+    searchTermsPage.input.waitForDisplayed();
     searchTermsPage.title.click();
 
-    searchTermsPage.categoryMainPanel.focusedItem.waitForVisible(2000, true);
+    searchTermsPage.categoryMainPanel.focusedItem.waitForDisplayed(2000, true);
   });
 
   it('should focus back to search box when go to search page', function () {
-    searchTermsPage.input.waitForVisible();
+    searchTermsPage.input.waitForDisplayed();
 
     browser.keys('ArrowDown');
 
@@ -114,18 +114,18 @@ describe('Search terms page', function () {
     browser.getUrl().should.match(/\/search\/$/);
 
     searchPage.input.setValue('Ke');
-    searchPage.suggestionGroup.waitForVisible();
+    searchPage.suggestionGroup.waitForDisplayed();
 
     browser.keys('ArrowDown');
     browser.keys('ArrowDown');
 
     searchPage.clearSearchButton.click();
-    searchTermsPage.searchTermsToggle.waitForVisible();
+    searchTermsPage.searchTermsToggle.waitForDisplayed();
     searchTermsPage.searchTermsToggle.click();
 
     browser.getUrl().should.match(/\/search\/terms\/$/);
 
-    searchTermsPage.input.waitForVisible();
+    searchTermsPage.input.waitForDisplayed();
     searchPage.input.setValue('Some other ');
     browser.keys('T');
 

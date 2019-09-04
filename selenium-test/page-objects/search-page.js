@@ -116,12 +116,12 @@ class SearchPage extends Page {
       result = `${result}?terms=${query}`;
     }
     super.open(result);
-    browser.element('body').waitForVisible();
+    $('body').waitForDisplayed();
   }
 
   openWithEditMode() {
     super.open('/edit/search/');
-    browser.element('body').waitForVisible();
+    $('body').waitForDisplayed();
   }
 }
 

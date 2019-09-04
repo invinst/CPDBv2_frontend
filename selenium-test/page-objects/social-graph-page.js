@@ -27,11 +27,11 @@ class AnimatedSocialGraphSection extends Section {
   }
 
   graphNodes() {
-    return browser.elements('(//*[@class="node"])').value;
+    return $$('(//*[name()="circle" and @class="node"])');
   }
 
   graphLinks() {
-    return browser.elements('(//*[@class="link"])').value;
+    return $$('(//*[name()="line" and @class="link"])');
   }
 }
 
@@ -40,7 +40,7 @@ class SocialGraphPage extends Page {
 
   open() {
     super.open('/social-graph/?unit_id=123&title=Live test social graph title');
-    browser.element('body').waitForVisible();
+    $('body').waitForDisplayed();
   }
 }
 

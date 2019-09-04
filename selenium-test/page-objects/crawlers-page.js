@@ -35,9 +35,9 @@ class TableSection extends Section {
   }
 
   rowCount() {
-    return browser.elements(
+    return $$(
       '(//div[contains(@class, "crawler-row")])'
-    ).value.length;
+    ).length;
   }
 }
 
@@ -46,7 +46,7 @@ class CrawlersPage extends Page {
 
   open() {
     super.open('/crawlers/');
-    browser.element('body').waitForVisible();
+    $('body').waitForDisplayed();
   }
 }
 

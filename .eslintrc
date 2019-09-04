@@ -156,11 +156,13 @@
     "plugins": [
         "react",
         "babel",
-        "mocha"
+        "mocha",
+        "wdio"
     ],
     "extends": [
         "eslint:recommended",
-        "plugin:mocha/recommended"
+        "plugin:mocha/recommended",
+        "plugin:wdio/recommended"
     ],
     "globals": {
         "Intercom": false,

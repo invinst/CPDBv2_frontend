@@ -9,7 +9,7 @@ describe('Documents Overview page', function () {
 
   it('should display documents separated by month and year', function () {
     docOverviewPage.open({}, true);
-    docOverviewPage.docTable.waitForVisible();
+    docOverviewPage.docTable.waitForDisplayed();
 
     docOverviewPage.firstMonthSeparator.getText().should.equal('JAN 2019');
 
@@ -34,21 +34,21 @@ describe('Documents Overview page', function () {
 
   it('should not display document counts if in non-admin mode', function () {
     docOverviewPage.open({}, false);
-    docOverviewPage.docTable.waitForVisible();
+    docOverviewPage.docTable.waitForDisplayed();
 
-    docOverviewPage.firstDocViews.waitForVisible(undefined, true);
-    docOverviewPage.firstDocDownloads.waitForVisible(undefined, true);
+    docOverviewPage.firstDocViews.waitForDisplayed(undefined, true);
+    docOverviewPage.firstDocDownloads.waitForDisplayed(undefined, true);
 
-    docOverviewPage.secondDocViews.waitForVisible(undefined, true);
-    docOverviewPage.secondDocDownloads.waitForVisible(undefined, true);
+    docOverviewPage.secondDocViews.waitForDisplayed(undefined, true);
+    docOverviewPage.secondDocDownloads.waitForDisplayed(undefined, true);
   });
 
   it('should display documents whose title or crid match the searched text', function () {
     docOverviewPage.open();
-    docOverviewPage.searchBox.waitForVisible();
+    docOverviewPage.searchBox.waitForDisplayed();
     docOverviewPage.searchBox.setValue('123457');
 
-    docOverviewPage.docTable.waitForVisible();
+    docOverviewPage.docTable.waitForDisplayed();
     docOverviewPage.firstDocTitle.getText().should.equal('CRID #123457 COPA');
     docOverviewPage.firstDocCRID.getText().should.equal('CR 123457');
   });
@@ -83,7 +83,7 @@ describe('Documents Overview page', function () {
 
   it('should display filtered documents when accessed with url that has query parameter', function () {
     docOverviewPage.open({ match: '123457' });
-    docOverviewPage.docTable.waitForVisible();
+    docOverviewPage.docTable.waitForDisplayed();
 
     docOverviewPage.firstDocTitle.getText().should.equal('CRID #123457 COPA');
     docOverviewPage.firstDocCRID.getText().should.equal('CR 123457');
