@@ -83,7 +83,7 @@ describe('breadcrumbsMapping', function () {
       payload: {
         id: 'b3380b9b',
         title: 'Simple Title',
-      }
+      },
     }).should.eql({ '/pinboard/b3380b9b/': 'Pinboard - Simple Title' });
   });
 
@@ -133,7 +133,7 @@ describe('breadcrumbsMapping', function () {
       payload: {
         id: 'b3380b9b',
         title: '',
-      }
+      },
     }).should.eql({ '/pinboard/b3380b9b/': 'Pinboard' });
   });
 });
