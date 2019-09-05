@@ -1,6 +1,6 @@
 import * as loginModalStyle from './login-modal.style';
 import {
-  sanFranciscoTextFamily, softBlackColor, mediumGrayColor, greyColor,
+  sanFranciscoTextFamily, softBlackColor, boulderColor, greyColor,
 } from 'utils/styles';
 
 export const innerWrapperStyle = {
@@ -29,7 +29,7 @@ export const headerStyle = {
 
 export const subHeaderStyle = {
   textAlign: 'center',
-  color: mediumGrayColor,
+  color: boulderColor,
   marginBottom: '39px',
 };
 

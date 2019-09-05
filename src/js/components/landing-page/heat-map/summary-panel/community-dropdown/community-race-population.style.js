@@ -1,4 +1,4 @@
-import { sugarCaneColor, sanFranciscoTextFamily, clayGray } from 'utils/styles';
+import { sugarCaneColor, sanFranciscoTextFamily, boulderColor } from 'utils/styles';
 
 export const racePopulationStyle = {
   backgroundColor: sugarCaneColor,
@@ -18,7 +18,7 @@ export const columnStyle = {
 };
 
 export const labelTextStyle = {
-  color: clayGray,
+  color: boulderColor,
   paddingBottom: '3px',
 };
 
@@ -38,7 +38,7 @@ export const raceItemStyle = {
 export const raceTextStyle = {
   display: 'inline-block',
   width: '50%',
-  color: clayGray,
+  color: boulderColor,
   fontWeight: 300,
 };
 

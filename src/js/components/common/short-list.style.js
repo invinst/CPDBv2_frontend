@@ -1,4 +1,4 @@
-import { clayGray } from 'utils/styles';
+import { boulderColor } from 'utils/styles';
 
 export const wrapperStyle = {
   margin: '8px 0 8px 16px',
@@ -6,7 +6,7 @@ export const wrapperStyle = {
 };
 export const labelStyle = {
   width: '110px',
-  color: clayGray,
+  color: boulderColor,
   textTransform: 'capitalize',
 };
 export const contentStyle = {};

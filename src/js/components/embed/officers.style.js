@@ -1,4 +1,4 @@
-import { clayGray, softBlackColor } from 'utils/styles';
+import { boulderColor, softBlackColor } from 'utils/styles';
 
 
 export const wrapperStyle = {
@@ -42,5 +42,5 @@ export const descriptionStyle = {
   fontSize: '14px',
   textAlign: 'left',
   fontWeight: 300,
-  color: clayGray,
+  color: boulderColor,
 };
