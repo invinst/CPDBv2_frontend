@@ -86,7 +86,7 @@ import officerPage from './page-objects/officer-page';
 describe('officer summary page', function () {
     it('should display officer summary', function () {
         officerPage.open('/officer/1234/');
-        officerPage.summarySection.officerName.waitForVisible();
+        officerPage.summarySection.officerName.waitForDisplayed();
     });
 });
 

@@ -2,10 +2,30 @@ var historyApiFallback = require('connect-history-api-fallback');
 var browserSync = require('browser-sync').create();
 const webpack = require('webpack');
 const webpackConfig = require('./webpack.config');
+const initCommands = require('./selenium-test/custom-commands');
 
 
 exports.config = {
-
+  // ==================================
+  // Where should your test be launched
+  // ==================================
+  //
+  runner: 'local',
+  //
+  // =====================
+  // Server Configurations
+  // =====================
+  // Host address of the running Selenium server. This information is usually obsolete as
+  // WebdriverIO automatically connects to localhost. Also if you are using one of the
+  // supported cloud services like Sauce Labs, Browserstack or Testing Bot you also don't
+  // need to define host and port information because WebdriverIO can figure that out
+  // according to your user and key information. However if you are using a private Selenium
+  // backend you should define the host address, port, and path here.
+  //
+  hostname: 'localhost',
+  port: 4444,
+  path: '/wd/hub',
+  //
   //
   // ==================
   // Specify Test Files
@@ -41,7 +61,7 @@ exports.config = {
   // and 30 processes will get spawned. The property handles how many capabilities
   // from the same test should run tests.
   //
-  maxInstances: 1,
+  maxInstances: 3,
   //
   // If you have trouble getting all important capabilities together, check out the
   // Sauce Labs platform configurator - a great tool to configure your capabilities:
@@ -199,8 +219,10 @@ exports.config = {
   //
   // Gets executed before test execution begins. At this point you can access all global
   // variables, such as `browser`. It is the perfect place to define custom commands.
-  // before: function (capabilities, specs) {
-  // },
+  before: function (capabilities, specs) {
+    require('should');
+    initCommands();
+  },
   //
   // Hook that gets executed before the suite starts
   // beforeSuite: function (suite) {
@@ -218,10 +240,7 @@ exports.config = {
   //
   // Function to be executed before a test (in Mocha/Jasmine) or a step (in Cucumber) starts.
   beforeTest: function (test) {
-    browser.setViewportSize({
-      width: 1000,
-      height: 1000
-    });
+    browser.setWindowRect(0, 0, 1000, 1000);
   },
   //
   // Runs before a WebdriverIO command gets executed.
@@ -258,15 +277,16 @@ exports.config = {
   seleniumArgs: {
     drivers: {
       chrome: {
-        version: '2.36',
-        baseURL: 'https://chromedriver.storage.googleapis.com'
+        version: '76.0.3809.126',
+        arch: process.arch,
       }
     }
   },
   seleniumInstallArgs: {
     drivers: {
       chrome: {
-        version: '2.36',
+        version: '76.0.3809.126',
+        arch: process.arch,
         baseURL: 'https://chromedriver.storage.googleapis.com'
       }
     }

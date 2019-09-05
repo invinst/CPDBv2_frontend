@@ -5,7 +5,9 @@ import DocumentPage from 'components/document-page';
 import {
   documentSelector,
   getTitleEditModeOn,
+  getTagsEditModeOn,
   getTextContentEditModeOn,
+  getTagsErrorMessages,
   documentEditableFieldsSelector,
 } from 'selectors/document-page';
 import { updateDocument } from 'actions/document-page';
@@ -13,6 +15,8 @@ import { isSignedIn } from 'selectors/log-out';
 import {
   turnOnDocumentPageTitleEditMode,
   turnOffDocumentPageTitleEditMode,
+  turnOnDocumentTagsEditMode,
+  turnOffDocumentTagsEditMode,
   turnOnDocumentTextContentEditMode,
   turnOffDocumentTextContentEditMode,
 } from 'actions/document-page';
@@ -25,16 +29,21 @@ function mapStateToProps(state, ownProps) {
     ...documentAttrs,
     editableFields: documentEditableFieldsSelector(state),
     titleEditModeOn: getTitleEditModeOn(state),
+    tagsEditModeOn: getTagsEditModeOn(state),
     textContentEditModeOn: getTextContentEditModeOn(state),
     isSignedIn: isSignedIn(state),
+    tagsErrorMessages: getTagsErrorMessages(state),
   };
 }
 
 const mapDispatchToProps = {
   onSaveFormTitle: updateDocument('title'),
   onSaveFormContent: updateDocument('content'),
+  onSaveFormTags: updateDocument('tags'),
   turnOnDocumentPageTitleEditMode: turnOnDocumentPageTitleEditMode,
   turnOffDocumentPageTitleEditMode: turnOffDocumentPageTitleEditMode,
+  turnOnDocumentTagsEditMode: turnOnDocumentTagsEditMode,
+  turnOffDocumentTagsEditMode: turnOffDocumentTagsEditMode,
   turnOnDocumentTextContentEditMode: turnOnDocumentTextContentEditMode,
   turnOffDocumentTextContentEditMode: turnOffDocumentTextContentEditMode,
 };
@@ -42,11 +51,13 @@ const mapDispatchToProps = {
 const editWrapperStateProps = (stateProps, dispatchProps, ownProps) => {
   return {
     ...ownProps,
-    ...omit(stateProps, ['editableFields', 'titleEditModeOn', 'textContentEditModeOn']),
+    ...omit(stateProps, ['editableFields', 'titleEditModeOn', 'tagsEditModeOn', 'textContentEditModeOn']),
     ...omit(dispatchProps, [
       'onSaveForm',
       'turnOnDocumentPageTitleEditMode',
       'turnOffDocumentPageTitleEditMode',
+      'turnOnDocumentTagsEditMode',
+      'turnOffDocumentTagsEditMode',
       'turnOnDocumentTextContentEditMode',
       'turnOffDocumentTextContentEditMode',
     ]),
@@ -56,6 +67,13 @@ const editWrapperStateProps = (stateProps, dispatchProps, ownProps) => {
       onSaveForm: dispatchProps.onSaveFormTitle,
       turnOnSectionEditMode: dispatchProps.turnOnDocumentPageTitleEditMode,
       turnOffSectionEditMode: dispatchProps.turnOffDocumentPageTitleEditMode,
+    },
+    tagsEditWrapperStateProps: {
+      fields: stateProps.editableFields,
+      sectionEditModeOn: stateProps.tagsEditModeOn,
+      onSaveForm: dispatchProps.onSaveFormTags,
+      turnOnSectionEditMode: dispatchProps.turnOnDocumentTagsEditMode,
+      turnOffSectionEditMode: dispatchProps.turnOffDocumentTagsEditMode,
     },
     textContentEditWrapperStateProps: {
       fields: stateProps.editableFields,

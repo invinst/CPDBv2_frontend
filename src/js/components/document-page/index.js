@@ -2,13 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import DocumentMeta from 'react-document-meta';
 import { Link } from 'react-router';
 import pluralize from 'pluralize';
-
 import { slice } from 'lodash';
 
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import styles from './document-page.sass';
 import SimpleListWidget from './simple-list-widget';
 import EditableTextBox from './editable-text-box';
+import EditableTagsInput from './editable-tags-input';
 import FooterContainer from 'containers/footer-container';
 import { SHAREABLE_HEADER_BUTTON_TYPE } from 'utils/constants';
 import OutboundLink from 'components/common/outbound-link';
@@ -26,9 +26,12 @@ export default class DocumentPage extends Component {
       lastUpdatedBy,
       lastEditedDateTime,
       titleEditWrapperStateProps,
+      tagsEditWrapperStateProps,
       textContentEditWrapperStateProps,
       isSignedIn,
       infoItems,
+      nextDocumentId,
+      tagsErrorMessages,
     } = this.props;
 
     const displayedDocuments = slice(linkedDocuments, 0, 11);
@@ -81,6 +84,18 @@ export default class DocumentPage extends Component {
                 fieldName='title'
                 editWrapperStateProps={ titleEditWrapperStateProps }
               />
+              {
+                isSignedIn ? (
+                  <EditableTagsInput
+                    className='main-section-tags'
+                    title='Tags'
+                    fieldName='tags'
+                    editWrapperStateProps={ tagsEditWrapperStateProps }
+                    nextDocumentId={ nextDocumentId }
+                    errorMessages={ tagsErrorMessages }
+                  />
+                ) : null
+              }
               <EditableTextBox
                 className='main-section-full-text'
                 title='Full-text OCR'
@@ -114,7 +129,10 @@ DocumentPage.propTypes = {
   lastUpdatedBy: PropTypes.string,
   lastEditedDateTime: PropTypes.string,
   titleEditWrapperStateProps: PropTypes.object,
+  tagsEditWrapperStateProps: PropTypes.object,
   textContentEditWrapperStateProps: PropTypes.object,
   isSignedIn: PropTypes.bool,
   infoItems: PropTypes.array,
+  nextDocumentId: PropTypes.number,
+  tagsErrorMessages: PropTypes.array,
 };

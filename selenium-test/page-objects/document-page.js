@@ -1,12 +1,37 @@
 'use strict';
 
 import Page from './page';
+import Section from './sections/section';
 import LoginScreen from './sections/login-screen';
 
 const getInfoItemSelector = (text) =>
   `//div[contains(@class, "document-info")]//*[@class="list-item" and span[text()="${text}"]]`;
 
+class TagsSection extends Section {
+  constructor() {
+    super('', '//div[contains(@class, "main-section-tags")]');
+
+    this.prepareElementGetters({
+      tagsInput: '//div[contains(@class, "simple-tag-editable")]',
+      tags: '//span[@class="react-tagsinput-tag"]',
+      editButton: '//a[contains(@class, "hoverable-edit-wrapper-button") and text()="Edit"]',
+      saveButton: '//a[contains(@class, "hoverable-edit-wrapper-button") and text()="Save"]',
+      cancelButton: '//a[contains(@class, "hoverable-edit-wrapper-button") and text()="Cancel"]',
+      firstTag: '//span[@class="react-tagsinput-tag"][1]',
+      secondTag: '//span[@class="react-tagsinput-tag"][2]',
+      thirdTag: '//span[@class="react-tagsinput-tag"][3]',
+      tagDeleteBtns: '//span[@class="react-tagsinput-tag"]//a[@class="react-tagsinput-remove"]',
+      firstTagDeleteBtn: '//span[@class="react-tagsinput-tag"][1]//a[@class="react-tagsinput-remove"]',
+      tagsInputTextbox: '//*[@class="react-tagsinput-input"]',
+      nextUntaggedDocumentButton: '//a[@class="next-untagged-document-button"]',
+      errorMessages: '//*[@class="error-messages"]',
+    });
+  }
+}
+
 class DocumentPage extends Page {
+  tagsSection = new TagsSection();
+
   constructor() {
     super();
 
@@ -33,7 +58,7 @@ class DocumentPage extends Page {
 
   open(id=1, login=false) {
     super.open(`${ login ? '/edit': '' }/document/${id}/`);
-    browser.element('body').waitForVisible();
+    $('body').waitForDisplayed();
     login && this.loginScreen.login();
   }
 }

@@ -10,8 +10,8 @@ describe('Rich text editor', function () {
   beforeEach(function () {
     landingPage.open();
     landingPage.openEditMode();
-    browser.moveToObject(landingPage.topHeader.topBar.logo.subtitle.selector);
-    landingPage.topHeader.topBar.logo.editButton.waitForVisible();
+    landingPage.topHeader.topBar.logo.subtitle.moveTo();
+    landingPage.topHeader.topBar.logo.editButton.waitForDisplayed();
     landingPage.topHeader.topBar.logo.editButton.click();
     selectText(landingPage.topHeader.topBar.logo.subtitle.selector);
   });
@@ -23,22 +23,22 @@ describe('Rich text editor', function () {
 
   describe('Toolbar', function () {
     it('should show when select text', function () {
-      landingPage.richTextToolbar.element.waitForVisible();
+      landingPage.richTextToolbar.element.waitForDisplayed();
     });
 
     it('should hide when click away', function () {
-      browser.element('body').click();
-      landingPage.richTextToolbar.element.waitForVisible(2000, true);
+      $('body').click();
+      landingPage.richTextToolbar.element.waitForDisplayed(2000, true);
     });
 
     describe('bold button', function () {
       beforeEach(function () {
-        landingPage.richTextToolbar.boldButton.waitForVisible();
+        landingPage.richTextToolbar.boldButton.waitForDisplayed();
         landingPage.richTextToolbar.boldButton.click();
       });
 
       it('should make text bold when clicked', function () {
-        landingPage.topHeader.topBar.logo.boldTextSpan.waitForVisible();
+        landingPage.topHeader.topBar.logo.boldTextSpan.waitForDisplayed();
       });
 
       it('should make text not bold when clicked on again', function () {
@@ -46,25 +46,25 @@ describe('Rich text editor', function () {
         // sometime when this happens, the whole Toolbar disappears. This should be fixed in the future. For now, we
         // just reselect the text to make the toolbar appear again.
         selectText(landingPage.topHeader.topBar.logo.subtitle.selector);
-        landingPage.richTextToolbar.boldButton.waitForVisible();
+        landingPage.richTextToolbar.boldButton.waitForDisplayed();
         landingPage.richTextToolbar.boldButton.click();
-        landingPage.topHeader.topBar.logo.boldTextSpan.waitForVisible(2000, true);
+        landingPage.topHeader.topBar.logo.boldTextSpan.waitForDisplayed(2000, true);
       });
     });
 
     describe('italic button', function () {
       beforeEach(function () {
-        landingPage.richTextToolbar.italicButton.waitForVisible();
+        landingPage.richTextToolbar.italicButton.waitForDisplayed();
         landingPage.richTextToolbar.italicButton.click();
       });
 
       it('should make text italic when clicked', function () {
-        landingPage.topHeader.topBar.logo.italicTextSpan.waitForVisible();
+        landingPage.topHeader.topBar.logo.italicTextSpan.waitForDisplayed();
       });
 
       it('should make text not italic when clicked on again', function () {
         landingPage.richTextToolbar.italicButton.click();
-        landingPage.topHeader.topBar.logo.italicTextSpan.waitForVisible(2000, true);
+        landingPage.topHeader.topBar.logo.italicTextSpan.waitForDisplayed(2000, true);
       });
     });
 
@@ -76,21 +76,21 @@ describe('Rich text editor', function () {
       });
 
       it('should show url input when clicked on', function () {
-        landingPage.richTextToolbar.urlInput.waitForVisible();
+        landingPage.richTextToolbar.urlInput.waitForDisplayed();
       });
 
       it('should hide url input when clicked on again', function () {
         landingPage.richTextToolbar.linkButton.click();
-        landingPage.richTextToolbar.urlInput.waitForVisible(2000, true);
+        landingPage.richTextToolbar.urlInput.waitForDisplayed(2000, true);
       });
 
       describe('url input', function () {
         it('should toggle link when url input is add/remove', function () {
           landingPage.richTextToolbar.urlInput.setValue('h');
-          landingPage.topHeader.topBar.logo.linkTextSpan.waitForVisible();
+          landingPage.topHeader.topBar.logo.linkTextSpan.waitForDisplayed();
 
           browser.keys('Backspace');
-          landingPage.topHeader.topBar.logo.linkTextSpan.waitForVisible(2000, true);
+          landingPage.topHeader.topBar.logo.linkTextSpan.waitForDisplayed(2000, true);
         });
 
         it('should show empty input when selecting a fresh block of text', function () {
@@ -109,13 +109,13 @@ describe('Rich text editor', function () {
           landingPage.richTextToolbar.urlInput.setValue('h');
           landingPage.richTextToolbar.linkButton.click();
 
-          landingPage.topHeader.topBar.logo.linkTextSpan.waitForVisible(2000, true);
+          landingPage.topHeader.topBar.logo.linkTextSpan.waitForDisplayed(2000, true);
         });
 
         it('should hide both toolbar and url input when click outside', function () {
-          browser.element('body').click();
+          $('body').click();
 
-          landingPage.richTextToolbar.element.waitForVisible(2000, true);
+          landingPage.richTextToolbar.element.waitForDisplayed(2000, true);
         });
       });
     });

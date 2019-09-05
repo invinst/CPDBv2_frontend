@@ -7,6 +7,8 @@ import {
   turnOnDocumentTextContentEditMode,
   turnOffDocumentTextContentEditMode,
   updateDocument,
+  turnOnDocumentTagsEditMode,
+  turnOffDocumentTagsEditMode,
 } from 'actions/document-page';
 import {
   DOCUMENTS_URL,
@@ -20,6 +22,8 @@ import {
   TURN_OFF_DOCUMENT_TITLE_EDIT_MODE,
   TURN_ON_DOCUMENT_TEXT_CONTENT_EDIT_MODE,
   TURN_OFF_DOCUMENT_TEXT_CONTENT_EDIT_MODE,
+  TURN_ON_TAGS_EDIT_MODE,
+  TURN_OFF_TAGS_EDIT_MODE,
 } from 'utils/constants';
 import * as GA from 'utils/google_analytics_tracking';
 
@@ -116,6 +120,24 @@ describe('DocumentPage actions', function () {
     it('should return correct action', function () {
       turnOffDocumentTextContentEditMode().should.eql({
         type: TURN_OFF_DOCUMENT_TEXT_CONTENT_EDIT_MODE,
+        payload: undefined,
+      });
+    });
+  });
+
+  describe('turnOnDocumentTagsEditMode action', function () {
+    it('should return correct action', function () {
+      turnOnDocumentTagsEditMode().should.eql({
+        type: TURN_ON_TAGS_EDIT_MODE,
+        payload: undefined,
+      });
+    });
+  });
+
+  describe('turnOffDocumentTagsEditMode action', function () {
+    it('should return correct action', function () {
+      turnOffDocumentTagsEditMode().should.eql({
+        type: TURN_OFF_TAGS_EDIT_MODE,
         payload: undefined,
       });
     });

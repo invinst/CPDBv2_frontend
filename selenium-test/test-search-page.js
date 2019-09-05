@@ -6,7 +6,6 @@ import { times } from 'lodash';
 
 import searchPage from './page-objects/search-page';
 import landingPage from './page-objects/landing-page';
-import { switchToRecentTab } from './utils';
 
 
 describe('Landing Page to Search Page', function () {
@@ -16,7 +15,7 @@ describe('Landing Page to Search Page', function () {
 
   it('should activate search page with correct query when user types anything from landing page', function () {
     browser.keys('foobar');
-    searchPage.input.waitForVisible();
+    searchPage.input.waitForDisplayed();
     landingPage.currentBasePath.should.equal('/search/');
     searchPage.input.getValue().should.containEql('foobar');
   });
@@ -28,27 +27,27 @@ describe('Search Page', function () {
   });
 
   it('should show result when user type in', function () {
-    searchPage.input.waitForVisible();
+    searchPage.input.waitForDisplayed();
     searchPage.input.setValue('Ke');
 
-    searchPage.suggestionGroup.waitForVisible();
+    searchPage.suggestionGroup.waitForDisplayed();
     searchPage.page.getText().should.containEql('OFFICER');
     searchPage.page.getText().should.containEql('NEIGHBORHOOD');
-    searchPage.firstOfficerResult.waitForVisible();
+    searchPage.firstOfficerResult.waitForDisplayed();
     searchPage.firstOfficerResult.getText().should.containEql('Bernadette Kelly'); // officer name
     searchPage.firstOfficerResult.getText().should.containEql('45 year old, White, Male, '); // officer demographic
     searchPage.firstOfficerResult.getText().should.containEql('10 Complaints, '); // officer complaints
     searchPage.firstOfficerResult.getText().should.containEql('2 Sustained'); // officer sustained
 
-    searchPage.firstNeighborhoodResult.waitForVisible();
+    searchPage.firstNeighborhoodResult.waitForDisplayed();
     searchPage.firstNeighborhoodResult.getText().should.containEql('Kenwood'); // neighborhood
   });
 
   it('should able to show trr and cr results', function () {
-    searchPage.input.waitForVisible();
+    searchPage.input.waitForDisplayed();
     searchPage.input.setValue('Ke');
 
-    searchPage.crResultsSection.results.waitForVisible();
+    searchPage.crResultsSection.results.waitForDisplayed();
     searchPage.suggestionTags.getText().should.containEql('CR');
     searchPage.suggestionTags.getText().should.containEql('TRR');
 
@@ -66,10 +65,10 @@ describe('Search Page', function () {
   });
 
   it('should able to show INVESTIGATOR > CR results', function () {
-    searchPage.input.waitForVisible();
+    searchPage.input.waitForDisplayed();
     searchPage.input.setValue('Kelly');
 
-    searchPage.investigatorCRResultsSection.results.waitForVisible();
+    searchPage.investigatorCRResultsSection.results.waitForDisplayed();
     searchPage.suggestionTags.getText().should.containEql('INVESTIGATOR > CR');
 
     searchPage.investigatorCRResultsSection.results.count.should.equal(2);
@@ -84,10 +83,10 @@ describe('Search Page', function () {
   });
 
   it('should able to show date > trr and date > cr results', function () {
-    searchPage.input.waitForVisible();
+    searchPage.input.waitForDisplayed();
     searchPage.input.setValue('2004/04/23');
 
-    searchPage.dateCRResultsSection.results.waitForVisible();
+    searchPage.dateCRResultsSection.results.waitForDisplayed();
     searchPage.suggestionTags.getText().should.containEql('DATE > CR');
     searchPage.suggestionTags.getText().should.containEql('DATE > TRR');
 
@@ -106,10 +105,10 @@ describe('Search Page', function () {
   });
 
   it('should able to show DATE > OFFICERS results', function () {
-    searchPage.input.waitForVisible();
+    searchPage.input.waitForDisplayed();
     searchPage.input.setValue('2004/04/23');
 
-    searchPage.dateOfficerResultsSection.results.waitForVisible();
+    searchPage.dateOfficerResultsSection.results.waitForDisplayed();
     searchPage.suggestionTags.getText().should.containEql('DATE > OFFICERS');
 
     searchPage.dateOfficerResultsSection.results.count.should.equal(2);
@@ -125,10 +124,10 @@ describe('Search Page', function () {
   });
 
   it('should able to show RANK results', function () {
-    searchPage.input.waitForVisible();
+    searchPage.input.waitForDisplayed();
     searchPage.input.setValue('rank');
 
-    searchPage.rankResultsSection.results.waitForVisible();
+    searchPage.rankResultsSection.results.waitForDisplayed();
     searchPage.rankResultsSection.results.count.should.equal(2);
 
     searchPage.rankResultsSection.firstResultText.getText().should.equal('Officer');
@@ -136,11 +135,9 @@ describe('Search Page', function () {
   });
 
   it('should able to show SEARCH-TERMS results', function () {
-    searchPage.input.waitForVisible();
+    searchPage.input.waitForDisplayed();
     searchPage.input.setValue('Geography');
-
-    searchPage.searchTermsResultsSection.results.waitForVisible();
-
+    searchPage.searchTermsResultsSection.results.waitForDisplayed();
     searchPage.searchTermsResultsSection.results.count.should.equal(1);
     searchPage.searchTermsResultsSection.firstResultText.getText().should.equal('Geography - Communities');
     searchPage.searchTermsResultsSection.firstResultText.click();
@@ -153,12 +150,12 @@ describe('Search Page', function () {
   });
 
   it('should show filtered result when user clicks "Show more results"', function () {
-    searchPage.input.waitForVisible();
+    searchPage.input.waitForDisplayed();
     searchPage.input.setValue('Ke');
 
-    searchPage.suggestionGroup.waitForVisible();
+    searchPage.suggestionGroup.waitForDisplayed();
     searchPage.firstLoadMoreButton.click();
-    searchPage.contentWrapper.waitForVisible();
+    searchPage.contentWrapper.waitForDisplayed();
     searchPage.contentWrapper.getText().should.containEql('OFFICER');
     searchPage.contentWrapper.getText().should.containEql('Bernadette Kelly');
     searchPage.contentWrapper.getText().should.containEql('Charles Kelly'); // another officer
@@ -166,16 +163,16 @@ describe('Search Page', function () {
   });
 
   it('should show filtered result when user presses enter when focusing on "Show more results"', function () {
-    searchPage.input.waitForVisible();
+    searchPage.input.waitForDisplayed();
     searchPage.input.setValue('Ke');
 
-    searchPage.suggestionGroup.waitForVisible();
+    searchPage.suggestionGroup.waitForDisplayed();
 
     times(6, () => browser.keys('ArrowDown'));
     browser.keys('Enter');
     browser.pause(100);
 
-    searchPage.contentWrapper.waitForVisible();
+    searchPage.contentWrapper.waitForDisplayed();
     const content = searchPage.contentWrapper.getText();
     content.should.containEql('OFFICER');
     content.should.containEql('Bernadette Kelly');
@@ -184,13 +181,13 @@ describe('Search Page', function () {
   });
 
   it('should show filtered result when user select tag', function () {
-    searchPage.input.waitForVisible();
+    searchPage.input.waitForDisplayed();
     searchPage.input.setValue('Ke');
 
-    searchPage.suggestionGroup.waitForVisible();
+    searchPage.suggestionGroup.waitForDisplayed();
     searchPage.firstSuggestionTag.click();
     browser.pause(100);
-    searchPage.contentWrapper.waitForVisible();
+    searchPage.contentWrapper.waitForDisplayed();
     const content = searchPage.contentWrapper.getText();
     content.should.containEql('OFFICER');
     content.should.containEql('Bernadette Kelly');
@@ -199,42 +196,42 @@ describe('Search Page', function () {
   });
 
   it('should show DataTool suggestions when no result return', function () {
-    searchPage.input.waitForVisible();
+    searchPage.input.waitForDisplayed();
     searchPage.input.setValue('noresult');
 
-    searchPage.contentWrapper.waitForVisible();
-    searchPage.suggestionTags.waitForVisible();
+    searchPage.contentWrapper.waitForDisplayed();
+    searchPage.suggestionTags.waitForDisplayed();
     browser.pause(100);
     searchPage.contentWrapper.getText().should.containEql('DATA TOOL');
     searchPage.firstSuggestionTag.getText().should.containEql('Data Tool');
   });
 
   it('should trigger officer summary page when click on officer then press Enter', function () {
-    searchPage.input.waitForVisible();
+    searchPage.input.waitForDisplayed();
     searchPage.input.setValue('Ke');
 
-    searchPage.secondOfficerResult.waitForVisible();
+    searchPage.secondOfficerResult.waitForDisplayed();
     searchPage.secondOfficerResult.click();
     browser.keys('Enter');
     searchPage.currentBasePath.should.eql('/officer/2/john-kelly/');
   });
 
   it('should trigger officer summary page when click on co-accused then press Enter', function () {
-    searchPage.input.waitForVisible();
+    searchPage.input.waitForDisplayed();
     searchPage.input.setValue('Ke');
 
-    searchPage.firstCoAccusedResult.waitForVisible();
+    searchPage.firstCoAccusedResult.waitForDisplayed();
     searchPage.firstCoAccusedResult.click();
     browser.keys('Enter');
     searchPage.currentBasePath.should.eql('/officer/1/bernadette-kelly/');
   });
 
   it('should focus on clicked item', function () {
-    searchPage.input.waitForVisible();
+    searchPage.input.waitForDisplayed();
     searchPage.input.setValue('Ke');
 
-    searchPage.suggestionGroup.waitForVisible();
-    searchPage.secondOfficerResult.waitForVisible();
+    searchPage.suggestionGroup.waitForDisplayed();
+    searchPage.secondOfficerResult.waitForDisplayed();
 
     searchPage.secondOfficerResult.getAttribute('class').should.not.containEql('test--focused');
 
@@ -244,15 +241,15 @@ describe('Search Page', function () {
   });
 
   it('should focus on search result items correctly after changing to single content result page', function () {
-    searchPage.input.waitForVisible();
+    searchPage.input.waitForDisplayed();
     searchPage.input.setValue('Ke');
 
-    searchPage.suggestionGroup.waitForVisible();
-    searchPage.secondLoadMoreButton.waitForVisible();
+    searchPage.suggestionGroup.waitForDisplayed();
+    searchPage.secondLoadMoreButton.waitForDisplayed();
     searchPage.secondLoadMoreButton.click();
 
-    searchPage.secondLoadMoreButton.waitForVisible(1000, true);
-    searchPage.secondNeighborhoodResult.waitForVisible();
+    searchPage.secondLoadMoreButton.waitForDisplayed(1000, true);
+    searchPage.secondNeighborhoodResult.waitForDisplayed();
 
     searchPage.secondNeighborhoodResult.getAttribute('class').should.not.containEql('test--focused');
 
@@ -268,10 +265,10 @@ describe('Search Page', function () {
       });
       searchPage.open();
 
-      searchPage.input.waitForVisible();
+      searchPage.input.waitForDisplayed();
       searchPage.input.setValue('Ke');
 
-      searchPage.firstOfficerResult.waitForVisible();
+      searchPage.firstOfficerResult.waitForDisplayed();
       searchPage.firstOfficerResult.getText().should.containEql('Bernadette Kelly');
     });
 
@@ -279,7 +276,7 @@ describe('Search Page', function () {
       searchPage.firstOfficerResult.click();
 
       searchPage.open();
-      searchPage.recentSuggestions.waitForVisible();
+      searchPage.recentSuggestions.waitForDisplayed();
       searchPage.recentSuggestions.getText().should.containEql('Bernadette Kelly');
     });
 
@@ -287,7 +284,7 @@ describe('Search Page', function () {
       browser.keys('Enter');
 
       searchPage.open();
-      searchPage.recentSuggestions.waitForVisible();
+      searchPage.recentSuggestions.waitForDisplayed();
       searchPage.recentSuggestions.getText().should.containEql('Bernadette Kelly');
     });
   });
@@ -298,14 +295,14 @@ describe('Search Page', function () {
     });
     searchPage.open();
 
-    searchPage.recentSuggestions.waitForVisible(20000, true);
+    searchPage.recentSuggestions.waitForDisplayed(20000, true);
   });
 
   it('should go back to previous page when user click on back button', function () {
     landingPage.open();
     searchPage.open();
     searchPage.backButton.click();
-    searchPage.backButton.waitForVisible(20000, true);
+    searchPage.backButton.waitForDisplayed(20000, true);
 
     landingPage.currentBasePath.should.equal('/');
   });
@@ -319,20 +316,20 @@ describe('Search Page', function () {
   });
 
   it('should follow the first link when user press enter after typing', function () {
-    searchPage.input.waitForVisible();
+    searchPage.input.waitForDisplayed();
     searchPage.input.setValue('Ke');
 
-    searchPage.suggestionGroup.waitForVisible();
-    searchPage.contentWrapper.waitForVisible();
+    searchPage.suggestionGroup.waitForDisplayed();
+    searchPage.contentWrapper.waitForDisplayed();
     browser.keys('Enter');
     searchPage.currentBasePath.should.equal('/officer/1/bernadette-kelly/');
   });
 
   it('should not follow the v1 url when user press enter and there is no results', function () {
-    searchPage.input.waitForVisible();
+    searchPage.input.waitForDisplayed();
     searchPage.input.setValue('noresult');
 
-    searchPage.contentWrapper.waitForVisible();
+    searchPage.contentWrapper.waitForDisplayed();
     browser.pause(500);
     const url = browser.getUrl();
     browser.keys('Enter');
@@ -345,24 +342,24 @@ describe('Search Page', function () {
     });
 
     searchPage.open();
-    searchPage.input.waitForVisible();
+    searchPage.input.waitForDisplayed();
     searchPage.input.setValue('Ke');
 
-    searchPage.suggestionGroup.waitForVisible();
-    searchPage.contentWrapper.waitForVisible();
+    searchPage.suggestionGroup.waitForDisplayed();
+    searchPage.contentWrapper.waitForDisplayed();
     browser.keys('Enter');
 
     searchPage.open();
-    searchPage.recentSuggestions.waitForVisible();
+    searchPage.recentSuggestions.waitForDisplayed();
     searchPage.recentSuggestions.getText().should.containEql('Bernadette Kelly');
   });
 
   it('should navigates between the result when user press the navigation keys', function () {
-    searchPage.input.waitForVisible();
+    searchPage.input.waitForDisplayed();
     searchPage.input.setValue('Ke');
 
-    searchPage.suggestionGroup.waitForVisible();
-    searchPage.contentWrapper.waitForVisible();
+    searchPage.suggestionGroup.waitForDisplayed();
+    searchPage.contentWrapper.waitForDisplayed();
     searchPage.firstOfficerResult.getAttribute('class').should.containEql('test--focused');
     searchPage.secondOfficerResult.getAttribute('class').should.not.containEql('test--focused');
 
@@ -374,11 +371,11 @@ describe('Search Page', function () {
   });
 
   it('should focus on More button after the last suggestion item when user press the navigation keys', function () {
-    searchPage.input.waitForVisible();
+    searchPage.input.waitForDisplayed();
     searchPage.input.setValue('Ke');
 
-    searchPage.suggestionGroup.waitForVisible();
-    searchPage.contentWrapper.waitForVisible();
+    searchPage.suggestionGroup.waitForDisplayed();
+    searchPage.contentWrapper.waitForDisplayed();
 
     searchPage.firstLoadMoreButton.getAttribute('class').should.not.containEql('test--focused');
 
@@ -388,7 +385,7 @@ describe('Search Page', function () {
   });
 
   it('should focus on the search box by default', function () {
-    searchPage.input.waitForVisible();
+    searchPage.input.waitForDisplayed();
     searchPage.input.setValue('Ke');
 
     browser.keys('T');
@@ -397,10 +394,10 @@ describe('Search Page', function () {
   });
 
   it('should follow the first result url when user hit ENTER', function () {
-    searchPage.input.waitForVisible();
+    searchPage.input.waitForDisplayed();
     searchPage.input.setValue('Ke');
 
-    searchPage.firstOfficerResult.waitForVisible();
+    searchPage.firstOfficerResult.waitForDisplayed();
     browser.keys('Enter');
 
     searchPage.currentBasePath.should.eql('/officer/1/bernadette-kelly/');
@@ -408,10 +405,10 @@ describe('Search Page', function () {
 
   describe('Search box button', function () {
     it('should clear the query when clicked', function () {
-      searchPage.input.waitForVisible();
+      searchPage.input.waitForDisplayed();
       searchPage.input.setValue('Ke');
 
-      searchPage.clearSearchButton.waitForVisible();
+      searchPage.clearSearchButton.waitForDisplayed();
 
       searchPage.clearSearchButton.click();
       searchPage.input.getValue().should.containEql('');
@@ -430,65 +427,61 @@ describe('Search Page', function () {
 
   describe('OfficerPreviewPane', function () {
     it('should display gradient when window height is small', function () {
-      browser.setViewportSize({
-        width: 1000,
-        height: 800,
-      });
-      searchPage.input.waitForVisible();
+      browser.setWindowRect(0, 0, 1000, 800);
+      searchPage.input.waitForDisplayed();
       searchPage.input.setValue('Ke');
-      searchPage.clearSearchButton.waitForVisible();
-      searchPage.firstOfficerResult.waitForVisible();
+      searchPage.clearSearchButton.waitForDisplayed();
+      searchPage.firstOfficerResult.waitForDisplayed();
 
-      searchPage.officerPreviewPaneSection.wrapper.waitForVisible();
-      searchPage.officerPreviewPaneSection.gradient.waitForVisible();
+      searchPage.officerPreviewPaneSection.wrapper.waitForDisplayed();
+      searchPage.officerPreviewPaneSection.gradient.waitForDisplayed();
     });
 
     it('should not display gradient when content is fully shown', function () {
-      browser.setViewportSize({
-        width: 1000,
-        height: 1200,
-      });
-      searchPage.input.waitForVisible();
+      browser.setWindowRect(0, 0, 1000, 2400);
+      searchPage.input.waitForDisplayed();
       searchPage.input.setValue('Ke');
-      searchPage.clearSearchButton.waitForVisible();
-      searchPage.firstOfficerResult.waitForVisible();
-      searchPage.officerPreviewPaneSection.wrapper.waitForVisible();
-      searchPage.officerPreviewPaneSection.gradient.waitForVisible(1000, true);
+      searchPage.clearSearchButton.waitForDisplayed();
+      searchPage.firstOfficerResult.waitForDisplayed();
+      searchPage.officerPreviewPaneSection.wrapper.waitForDisplayed();
+      searchPage.officerPreviewPaneSection.gradient.waitForDisplayed(1000, true);
     });
 
     it('should redirect to officer profile when clicking on officer item', function () {
-      searchPage.input.waitForVisible();
+      searchPage.input.waitForDisplayed();
       searchPage.input.setValue('Ke');
-      searchPage.firstNeighborhoodResult.waitForVisible();
+      searchPage.firstNeighborhoodResult.waitForDisplayed();
       searchPage.firstNeighborhoodResult.click();
 
-      searchPage.officerPreviewPaneSection.neighborhoodPane.waitForVisible();
+      searchPage.officerPreviewPaneSection.neighborhoodPane.waitForDisplayed();
       searchPage.officerPreviewPaneSection.listMostOfficers.count.should.eql(2);
       searchPage.officerPreviewPaneSection.listMostOfficers.click();
       browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/$/);
     });
 
     it('should go to data tool when click anywhere', function () {
-      searchPage.input.waitForVisible();
+      searchPage.input.waitForDisplayed();
       searchPage.input.setValue('Ke');
-      searchPage.firstNeighborhoodResult.waitForVisible();
+      searchPage.firstNeighborhoodResult.waitForDisplayed();
       searchPage.firstNeighborhoodResult.click();
 
-      searchPage.officerPreviewPaneSection.neighborhoodPane.waitForVisible();
+      searchPage.officerPreviewPaneSection.neighborhoodPane.waitForDisplayed();
       searchPage.officerPreviewPaneSection.neighborhoodPane.click();
-      switchToRecentTab();
+      browser.switchWindow('http://lvh.me/url-mediator/session-builder');
       browser.getUrl().should.eql('http://lvh.me/url-mediator/session-builder?neighborhood=SomeNeighborhood');
+      browser.closeWindow();
+      browser.switchWindow('localhost');
     });
   });
 
   describe('RankPreviewPane', function () {
     it('should redirect to officer profile when clicking on officer item', function () {
-      searchPage.input.waitForVisible();
+      searchPage.input.waitForDisplayed();
       searchPage.input.setValue('rank');
-      searchPage.rankResultsSection.firstResultText.waitForVisible();
+      searchPage.rankResultsSection.firstResultText.waitForDisplayed();
       searchPage.rankResultsSection.firstResultText.click();
 
-      searchPage.rankPreviewPaneSection.previewPane.waitForVisible();
+      searchPage.rankPreviewPaneSection.previewPane.waitForDisplayed();
       searchPage.rankPreviewPaneSection.listMostOfficers.count.should.eql(2);
       searchPage.rankPreviewPaneSection.listMostOfficers.click();
       browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/$/);
@@ -497,10 +490,10 @@ describe('Search Page', function () {
 
   describe('CRPreviewPane', function () {
     beforeEach(function () {
-      searchPage.input.waitForVisible();
+      searchPage.input.waitForDisplayed();
       searchPage.input.setValue('CR only');
-      searchPage.crResultsSection.firstResultText.waitForVisible();
-      searchPage.crPreviewPaneSection.wrapper.waitForVisible();
+      searchPage.crResultsSection.firstResultText.waitForDisplayed();
+      searchPage.crPreviewPaneSection.wrapper.waitForDisplayed();
     });
 
     it('should render enough content', function () {
@@ -518,11 +511,8 @@ describe('Search Page', function () {
     });
 
     it('should display gradient when window height is small', function () {
-      browser.setViewportSize({
-        width: 1000,
-        height: 500,
-      });
-      searchPage.crPreviewPaneSection.gradient.waitForVisible();
+      browser.setWindowRect(0, 0, 1000, 500);
+      searchPage.crPreviewPaneSection.gradient.waitForDisplayed();
     });
 
     it('should go to cr page when being clicked', function () {
@@ -545,10 +535,10 @@ describe('Search Page in edit mode', function () {
 
   it('should go to alias admin page when click on alias button of current item', function () {
     searchPage.input.setValue('Ke');
-    searchPage.plusSign.waitForVisible();
+    searchPage.plusSign.waitForDisplayed();
     searchPage.plusSign.click();
     searchPage.input.setValue('Ke');
-    searchPage.firstAliasButton.waitForVisible();
+    searchPage.firstAliasButton.waitForDisplayed();
     searchPage.firstAliasButton.click();
     browser.getUrl().should.match(/\/edit\/search\/alias\/form\/$/);
   });
@@ -557,7 +547,7 @@ describe('Search Page in edit mode', function () {
 describe('Search Page with query parameter', function () {
   it('should able to show INVESTIGATOR > CR results via query parameter', function () {
     searchPage.open('Kelly');
-    searchPage.investigatorCRResultsSection.results.waitForVisible();
+    searchPage.investigatorCRResultsSection.results.waitForDisplayed();
     searchPage.suggestionTags.getText().should.containEql('INVESTIGATOR > CR');
     searchPage.investigatorCRResultsSection.results.count.should.equal(2);
     searchPage.investigatorCRResultsSection.firstResultText.getText().should.equal('CR # CR123456 - April 23, 2004');

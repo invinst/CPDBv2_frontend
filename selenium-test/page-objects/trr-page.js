@@ -43,7 +43,7 @@ class TRRPage extends Page {
 
   open(id=1) {
     super.open(`/trr/${id}/`);
-    browser.element('body').waitForVisible();
+    $('body').waitForDisplayed();
   }
 }
 
