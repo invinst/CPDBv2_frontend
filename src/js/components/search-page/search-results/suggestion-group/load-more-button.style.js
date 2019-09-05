@@ -1,4 +1,4 @@
-import { sanFranciscoTextFamily, accentColor, glitterColor, clayGray, whiteTwoColor } from 'utils/styles';
+import { sanFranciscoTextFamily, accentColor, glitterColor, boulderColor, whiteTwoColor } from 'utils/styles';
 
 
 export const loadMoreButtonStyle = (hovering, isFocused) => ({
@@ -13,7 +13,7 @@ export const loadMoreButtonTextStyle = (hovering, isFocused) => ({
   fontWeight: 500,
   fontSize: '14px',
   fontFamily: sanFranciscoTextFamily,
-  color: isFocused ? accentColor : (hovering ? accentColor : clayGray),
+  color: isFocused ? accentColor : (hovering ? accentColor : boulderColor),
   borderBottom: `1px solid ${whiteTwoColor}`,
   padding: '11px 0',
   height: '100%',

@@ -1,4 +1,4 @@
-import { mediumGrayColor, hardBlackColor, whiteTwoColor, brightOrangeTwoColor } from 'utils/styles';
+import { boulderColor, hardBlackColor, whiteTwoColor, brightOrangeTwoColor } from 'utils/styles';
 
 
 export const wrapperStyle = {
@@ -8,7 +8,7 @@ export const wrapperStyle = {
 
 export const aggregateNameStyle = {
   fontWeight: 500,
-  color: mediumGrayColor,
+  color: boulderColor,
   padding: '11px 0',
 };
 
@@ -34,7 +34,7 @@ export const sustainedCountStyle = sustainedCount => ({
 });
 
 export const nameStyle = {
-  color: mediumGrayColor,
+  color: boulderColor,
   fontWeight: 300,
   display: 'inline-block',
 };

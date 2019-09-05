@@ -1,17 +1,15 @@
-import {
-  mediumGrayColor, altoColor,
-} from 'utils/styles';
+import { boulderColor, altoColor } from 'utils/styles';
 
 export const forgotPasswordLinkStyle = {
   base: {
     base: {
       cursor: 'pointer',
-      color: mediumGrayColor,
+      color: boulderColor,
       marginLeft: '20px',
     },
     hover: {
       cursor: 'pointer',
-      color: mediumGrayColor,
+      color: boulderColor,
       marginLeft: '20px',
     },
   },
