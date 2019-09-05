@@ -163,9 +163,9 @@ class CarouselSection extends Section {
 class DistanceDropdown extends Section {
   constructor() {
     super();
-    this.optionClassName = 'test--dropdown-menu-item';
+    this.optionClassName = 'dropdown-menu-item';
     this.prepareElementGetters({
-      button: '.test--dropdown-button',
+      button: '.dropdown-button',
       options: `.${this.optionClassName}`,
     });
   }

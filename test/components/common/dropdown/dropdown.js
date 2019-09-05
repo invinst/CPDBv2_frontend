@@ -9,8 +9,9 @@ import {
   Simulate,
 } from 'react-addons-test-utils';
 
-import { Dropdown } from 'components/common/dropdown';
+import Dropdown from 'components/common/dropdown';
 import { unmountComponentSuppressError } from 'utils/test';
+import styles from 'components/common/dropdown/menu.sass';
 
 
 describe('Dropdown component', function () {
@@ -18,10 +19,6 @@ describe('Dropdown component', function () {
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
-  });
-
-  it('should be renderable', function () {
-    Dropdown.should.be.renderable();
   });
 
   it('should have correct default state', function () {
@@ -47,9 +44,9 @@ describe('Dropdown component', function () {
     instance.setState({
       open: true,
     });
-    findRenderedDOMComponentWithClass(instance, 'test--dropdown-menu');
+    findRenderedDOMComponentWithClass(instance, styles.dropdownMenu);
 
-    const menuItems = scryRenderedDOMComponentsWithClass(instance, 'test--dropdown-menu-item');
+    const menuItems = scryRenderedDOMComponentsWithClass(instance, 'dropdown-menu-item');
     menuItems.should.have.length(2);
     menuItems[0].textContent.should.eql('2');
     menuItems[1].textContent.should.eql('3');
@@ -62,13 +59,13 @@ describe('Dropdown component', function () {
         options={ ['1', '2', '3'] }
       />
     );
-    Simulate.click(findRenderedDOMComponentWithClass(instance, 'test--dropdown-button'));
+    Simulate.click(findRenderedDOMComponentWithClass(instance, 'dropdown-button'));
 
-    const firstMenuItem = scryRenderedDOMComponentsWithClass(instance, 'test--dropdown-menu-item')[0];
+    const firstMenuItem = scryRenderedDOMComponentsWithClass(instance, 'dropdown-menu-item')[0];
     Simulate.click(firstMenuItem);
 
-    scryRenderedDOMComponentsWithClass(instance, 'test--dropdown-menu').should.have.length(0);
-    scryRenderedDOMComponentsWithClass(instance, 'test--dropdown-menu-item').should.have.length(0);
+    scryRenderedDOMComponentsWithClass(instance, styles.dropdownMenu).should.have.length(0);
+    scryRenderedDOMComponentsWithClass(instance, 'dropdown-menu-item').should.have.length(0);
   });
 
   it('should invoke onChange when selected item is changed', function () {
@@ -85,7 +82,7 @@ describe('Dropdown component', function () {
       open: true,
     });
 
-    const firstMenuItem = scryRenderedDOMComponentsWithClass(instance, 'test--dropdown-menu-item')[0];
+    const firstMenuItem = scryRenderedDOMComponentsWithClass(instance, 'dropdown-menu-item')[0];
     Simulate.click(firstMenuItem);
 
     dropdown.state.selectedIndex.should.eql(1);
@@ -108,8 +105,8 @@ describe('Dropdown component', function () {
     const dropdownDOM = findDOMNode(instance);
     Simulate.blur(dropdownDOM);
 
-    scryRenderedDOMComponentsWithClass(instance, 'test--dropdown-menu').should.have.length(0);
-    scryRenderedDOMComponentsWithClass(instance, 'test--dropdown-menu-item').should.have.length(0);
+    scryRenderedDOMComponentsWithClass(instance, styles.dropdownMenu).should.have.length(0);
+    scryRenderedDOMComponentsWithClass(instance, 'dropdown-menu-item').should.have.length(0);
 
     onChangeStub.should.not.be.called();
   });
