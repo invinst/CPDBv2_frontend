@@ -77,6 +77,16 @@ describe('breadcrumbsMapping', function () {
     }).should.eql({ '/document/1234/': 'CRID 1083633 Report' });
   });
 
+  it('should store pinboard breadcrumb text when successfully creating pinboard ', function () {
+    breadcrumbsMapping({}, {
+      type: constants.PINBOARD_CREATE_REQUEST_SUCCESS,
+      payload: {
+        id: 'b3380b9b',
+        title: 'Simple Title',
+      }
+    }).should.eql({ '/pinboard/b3380b9b/': 'Pinboard - Simple Title' });
+  });
+
   it('should store pinboard breadcrumb text when successfully fetch pinboard page', function () {
     breadcrumbsMapping({}, {
       type: constants.PINBOARD_FETCH_REQUEST_SUCCESS,
@@ -114,6 +124,16 @@ describe('breadcrumbsMapping', function () {
         id: 'b3380b9b',
         title: '',
       },
+    }).should.eql({ '/pinboard/b3380b9b/': 'Pinboard' });
+  });
+
+  it('should store pinboard breadcrumb text when successfully retrieve latest pinboard but without title', function () {
+    breadcrumbsMapping({}, {
+      type: constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_SUCCESS,
+      payload: {
+        id: 'b3380b9b',
+        title: '',
+      }
     }).should.eql({ '/pinboard/b3380b9b/': 'Pinboard' });
   });
 });
