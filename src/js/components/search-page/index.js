@@ -148,8 +148,10 @@ export default class SearchPage extends Component {
 
   handleGoBack(e) {
     // Since mousetrap just send here an empty object, we might need this for the test to be passed
+    const { onCancel } = this.props;
     !isEmpty(e) && e.preventDefault();
-    browserHistory.push(ROOT_PATH);
+    // browserHistory.push(ROOT_PATH);
+    onCancel();
   }
 
   handleSelect(newContentType) {
@@ -183,19 +185,19 @@ export default class SearchPage extends Component {
     const {
       query, searchTermsHidden, contentType, tags,
       editModeOn, officerCards, requestActivityGrid,
-      changeSearchQuery, focusedItem, firstItem, trackRecentSuggestion,
+      changeSearchQuery, focusedItem, firstItem, trackRecentSuggestion, className, onCancel,
     } = this.props;
 
     return (
       <DocumentMeta title='CPDP'>
         <div
-          className={ cx('search-page', { 'edit-mode-on': aliasEditModeOn }) }>
-          <div className={ cx('search-box-wrapper', { 'edit-mode-on': aliasEditModeOn }) }>
+          className={ cx('search-page', className, { 'edit-mode-on': aliasEditModeOn }) }>
+          <div className={ cx('search-bar-wrapper', { 'edit-mode-on': aliasEditModeOn }) }>
             <div className={
-              cx('search-box', { 'has-bottom-border': query !== '' })
+              cx('search-bar', { 'has-bottom-border': query !== '' })
             }>
               <SearchBox
-                onEscape={ this.handleGoBack }
+                onEscape={ onCancel }
                 onChange={ this.handleChange }
                 firstSuggestionItem={ firstItem }
                 value={ query }
@@ -209,7 +211,7 @@ export default class SearchPage extends Component {
                 className={
                   cx('searchbar__button--back', 'cancel-button', { 'search-terms-hidden': searchTermsHidden })
                 }
-                onClick={ this.handleGoBack }>
+                onClick={ onCancel }>
                 Cancel
               </HoverableButton>
             </div>
@@ -263,6 +265,7 @@ SearchPage.propTypes = {
   isRequesting: PropTypes.bool,
   toast: PropTypes.object,
   createPinboard: PropTypes.func,
+  onCancel: PropTypes.func,
 };
 
 /* istanbul ignore next */

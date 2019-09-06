@@ -9,7 +9,7 @@ export const searchInputStyle = {
     fontSize: '14px',
     verticalAlign: 'top',
     fontWeight: 300,
-    backgroundColor: sugarCaneColor,
+    backgroundColor: 'transparent',
   },
   wrapper: {
     boxSizing: 'border-box',
@@ -18,7 +18,7 @@ export const searchInputStyle = {
     padding: 0,
   },
   placeholder: {
-    color: boulderColor,
+    // color: boulderColor,
     fontSize: '14px',
   },
 };

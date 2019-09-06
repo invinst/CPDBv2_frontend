@@ -1,6 +1,11 @@
 @import 'variables'
 
+$animation-duration: 1s
+
 \:local(.landing-page)
+  &.hide
+    display: none
+
   .landing-page-carousel-wrapper
     background-color: $sugar-cane-color
     padding: 16px 0 0 16px
@@ -13,3 +18,62 @@
 
       &:last-child
         margin-bottom: 0
+
+\:local(.search-page)
+  &.animation
+    animation-duration: $animation-duration
+    animation-name: goUp
+    animation-fill-mode: forwards
+    color: $boulder-color
+
+    .search-main-panel-wrapper
+      opacity: 0
+      animation-duration: $animation-duration
+      animation-delay: calc(#{$animation-duration} / 2)
+      animation-name: fadeInSearchMainPanel
+      animation-fill-mode: forwards
+
+    .search-box
+      animation-duration: $animation-duration
+      animation-name: changeSearchBox
+      animation-fill-mode: forwards
+
+    .search-bar
+      animation-duration: $animation-duration
+      animation-name: changeSearchBarBackground
+      animation-fill-mode: forwards
+
+  &.hide
+    display: none
+
+@keyframes goUp
+  from
+    color: $accent-color
+    transform: translateY(88px)
+
+  to
+    color: $boulder-color
+    transform: translateY(0)
+
+@keyframes fadeInSearchMainPanel
+  from
+    opacity: 0
+
+  to
+    opacity: 1
+
+@keyframes changeSearchBox
+  from
+    background-color: white
+
+  to
+    background-color: $wild-sand
+
+@keyframes changeSearchBarBackground
+  from
+    background-color: $wild-sand
+    padding: 0 16px 0 16px
+
+  to
+    background-color: white
+    padding: 8px 16px 9px 16px

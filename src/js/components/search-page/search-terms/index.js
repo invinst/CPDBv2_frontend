@@ -61,10 +61,9 @@ export default class SearchTerms extends Component {
   }
 
   render() {
-    const { onEmptyPinboardButtonClick, aliasEditModeOn, focusedItem } = this.props;
-
+    const { onEmptyPinboardButtonClick, aliasEditModeOn, focusedItem, className } = this.props;
     return (
-      <div className={ style.wrapper }>
+      <div className={ cx(style.wrapper, className) }>
         <PinboardBar onEmptyPinboardButtonClick={ onEmptyPinboardButtonClick } />
         <div className={ cx('search-term-wrapper', { 'edit-mode-on': aliasEditModeOn } ) }>
           <ScrollIntoView focusedItemClassName={ `term-item-${get(focusedItem, 'uniqueKey', '').replace(' ', '-')}` }>

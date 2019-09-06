@@ -18,7 +18,7 @@ class SlimHeaderContent extends Component {
   }
 
   render() {
-    const { pathname, editModeOn, style, className } = this.props;
+    const { pathname, editModeOn, style, className, onSearchBoxClick } = this.props;
     const position = this.getPosition();
 
     return (
@@ -47,7 +47,7 @@ class SlimHeaderContent extends Component {
               <div className='vertically-aligned-header-item'>
                 <RightLinks position={ position } />
               </div>
-              <SearchBox position={ position }/>
+              <SearchBox position={ position } onClick={ onSearchBoxClick }/>
             </div>
           </div>
         </div>

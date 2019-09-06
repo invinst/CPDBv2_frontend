@@ -8,13 +8,20 @@ import styles from './search-box.sass';
 import { accentColor, boulderColor } from 'utils/styles';
 
 export default class SearchBox extends Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
   handleClick(e) {
-    pushPathPreserveEditMode(`/${SEARCH_PATH}`);
+    const { onClick } = this.props;
+    // pushPathPreserveEditMode(`/${SEARCH_PATH}`);
+    onClick();
     e.stopPropagation();
   }
 
   render() {
-    const { position } = this.props;
+    const { position, onClick } = this.props;
     const magnifyingGlassColors = {
       top: accentColor,
       middle: boulderColor,

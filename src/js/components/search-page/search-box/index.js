@@ -39,7 +39,7 @@ export default class SearchBox extends Component {
     };
 
     return (
-      <div style={ wrapperStyle }>
+      <div className='search-box' style={ wrapperStyle }>
         <TextInput
           autoFocus={ true }
           style={ searchInputStyle }
