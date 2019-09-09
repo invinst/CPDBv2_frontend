@@ -17,6 +17,7 @@ import { showIntercomLauncher } from 'utils/intercom';
 import * as IntercomTracking from 'utils/intercom-tracking';
 import 'toast.css';
 import './search-page.sass';
+import { scrollToTop } from 'utils/dom';
 
 
 const DEFAULT_SUGGESTION_LIMIT = 9;

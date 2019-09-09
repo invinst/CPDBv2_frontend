@@ -14,7 +14,7 @@ import RecentDocumentContainer from 'containers/landing-page/recent-document';
 import OfficersByAllegationContainer from 'containers/landing-page/officers-by-allegation';
 import styles from './landing-page.sass';
 import SearchPageContainer from 'containers/search-page';
-import { scrollToTop } from 'utils/dom';
+import { calculatePosition, scrollToTop } from 'utils/dom';
 
 
 class LandingPage extends Component {
@@ -46,6 +46,7 @@ class LandingPage extends Component {
 
   showSearchTerm(showing, initial=false) {
     const { pushBreadcrumbs, resetBreadcrumbs, params, routes } = this.props;
+
     this.setState({
       initial: initial,
       searchPageShowing: showing,
@@ -69,6 +70,7 @@ class LandingPage extends Component {
   renderWithResponsiveStyle(style) {
     const { pathname } = this.props.location;
     const { searchPageShowing, initial } = this.state;
+    const position = calculatePosition(88);
     return (
       <div>
         <div
@@ -90,7 +92,7 @@ class LandingPage extends Component {
         </div>
         <SearchPageContainer
           className={
-            cx(styles.searchPage, {
+            cx(styles.searchPage, position, {
               'animation-in': !initial && searchPageShowing,
               initial,
               hide: !searchPageShowing,

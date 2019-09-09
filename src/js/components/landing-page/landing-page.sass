@@ -1,6 +1,6 @@
 @import 'variables'
 
-$animation-duration: 1s
+$animation-duration: 0.5s
 
 \:local(.landing-page)
   &.hide
@@ -40,9 +40,6 @@ $animation-duration: 1s
 
   &.animation-in
     color: $boulder-color
-    animation-duration: $animation-duration
-    animation-name: goUp
-    animation-fill-mode: forwards
 
     .search-main-panel-wrapper
       opacity: 0
@@ -56,14 +53,38 @@ $animation-duration: 1s
       animation-name: changeSearchBox
       animation-fill-mode: forwards
 
-    .search-bar
+    &.top
       animation-duration: $animation-duration
-      animation-name: changeSearchBarBackground
+      animation-name: goUp
       animation-fill-mode: forwards
+
+    &.bottom
+      animation-duration: $animation-duration
+      animation-name: goUpFromBottom
+      animation-fill-mode: forwards
+
+      .search-box
+        animation-duration: $animation-duration
+        animation-name: changeSearchBoxBottom
+        animation-fill-mode: forwards
+
+      .search-bar
+        animation-duration: $animation-duration
+        animation-name: changeSearchBarBackgroundBottom
+        animation-fill-mode: forwards
 
 @keyframes goUp
   from
     color: $accent-color
+    transform: translateY(88px)
+
+  to
+    color: $boulder-color
+    transform: translateY(0)
+
+@keyframes goUpFromBottom
+  from
+    color: white
     transform: translateY(88px)
 
   to
@@ -84,11 +105,17 @@ $animation-duration: 1s
   to
     background-color: $wild-sand
 
-@keyframes changeSearchBarBackground
+@keyframes changeSearchBoxBottom
   from
+    background-color: $accent-color
+
+  to
     background-color: $wild-sand
-    padding: 0 16px 0 16px
+
+
+@keyframes changeSearchBarBackgroundBottom
+  from
+    background-color: $accent-color
 
   to
     background-color: white
-    padding: 8px 16px 9px 16px
