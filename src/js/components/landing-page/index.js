@@ -14,6 +14,7 @@ import RecentDocumentContainer from 'containers/landing-page/recent-document';
 import OfficersByAllegationContainer from 'containers/landing-page/officers-by-allegation';
 import styles from './landing-page.sass';
 import SearchPageContainer from 'containers/search-page';
+import { scrollToTop } from 'utils/dom';
 
 
 class LandingPage extends Component {
@@ -21,48 +22,62 @@ class LandingPage extends Component {
     super(props);
     this.showSearchTerm = this.showSearchTerm.bind(this);
     this.state = {
+      initial: true,
       searchPageShowing: false,
     };
   }
 
   componentDidMount() {
+    const { resetBreadcrumbs } = this.props;
     const { pathname } = this.props.location;
 
     if (pathname.match(/search/)) {
-      this.showSearchTerm(true);
+      this.showSearchTerm(true, true);
     } else {
-      this.props.resetBreadcrumbs({
-        breadcrumbs: [],
-      });
+      resetBreadcrumbs({ breadcrumbs: [] });
     }
   }
 
-  showSearchTerm(showing) {
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.searchPageShowing !== this.state.searchPageShowing) {
+      scrollToTop();
+    }
+  }
+
+  showSearchTerm(showing, initial=false) {
     const { pushBreadcrumbs, resetBreadcrumbs, params, routes } = this.props;
     this.setState({
+      initial: initial,
       searchPageShowing: showing,
     });
 
     if (showing) {
+      history.replaceState({}, '', '/search/');
       const searchLocations = { pathname: '/search/' };
       const searchRoutes = [
         routes[0], {
           breadcrumb: 'Search',
           breadcrumbKey: 'search/',
         }];
-
       pushBreadcrumbs({ location: searchLocations, params, routes: searchRoutes });
     } else {
+      history.replaceState({}, '', '/');
       resetBreadcrumbs({ breadcrumbs: [] });
     }
   }
 
   renderWithResponsiveStyle(style) {
     const { pathname } = this.props.location;
-    const { searchPageShowing } = this.state;
+    const { searchPageShowing, initial } = this.state;
     return (
       <div>
-        <div className={ cx(styles.landingPage, { hide: searchPageShowing }) }>
+        <div
+          className={
+            cx(styles.landingPage, {
+              'animation-in': !initial && !searchPageShowing,
+              hide: searchPageShowing,
+            })
+          }>
           <SlimHeader pathname={ pathname } onSearchBoxClick={ () => this.showSearchTerm(true) }/>
           <HeatMap/>
           <div className='landing-page-carousel-wrapper'>
@@ -74,7 +89,13 @@ class LandingPage extends Component {
           <FooterContainer/>
         </div>
         <SearchPageContainer
-          className={ cx(styles.searchPage, { hide: !searchPageShowing, animation: searchPageShowing }) }
+          className={
+            cx(styles.searchPage, {
+              'animation-in': !initial && searchPageShowing,
+              initial,
+              hide: !searchPageShowing,
+            })
+          }
           onCancel={ () => this.showSearchTerm(false) }
         />
       </div>

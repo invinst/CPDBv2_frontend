@@ -6,6 +6,11 @@ $animation-duration: 1s
   &.hide
     display: none
 
+  &.animation-in
+    animation-duration: $animation-duration
+    animation-name: fadeIn
+    animation-fill-mode: forwards
+
   .landing-page-carousel-wrapper
     background-color: $sugar-cane-color
     padding: 16px 0 0 16px
@@ -20,17 +25,30 @@ $animation-duration: 1s
         margin-bottom: 0
 
 \:local(.search-page)
-  &.animation
+  &.initial
+    color: $boulder-color
+
+    .search-box
+      background-color: $wild-sand
+
+    .search-bar
+      background-color: white
+      padding: 8px 16px 9px 16px
+
+  &.hide
+    display: none
+
+  &.animation-in
+    color: $boulder-color
     animation-duration: $animation-duration
     animation-name: goUp
     animation-fill-mode: forwards
-    color: $boulder-color
 
     .search-main-panel-wrapper
       opacity: 0
       animation-duration: $animation-duration
       animation-delay: calc(#{$animation-duration} / 2)
-      animation-name: fadeInSearchMainPanel
+      animation-name: fadeIn
       animation-fill-mode: forwards
 
     .search-box
@@ -43,9 +61,6 @@ $animation-duration: 1s
       animation-name: changeSearchBarBackground
       animation-fill-mode: forwards
 
-  &.hide
-    display: none
-
 @keyframes goUp
   from
     color: $accent-color
@@ -55,7 +70,7 @@ $animation-duration: 1s
     color: $boulder-color
     transform: translateY(0)
 
-@keyframes fadeInSearchMainPanel
+@keyframes fadeIn
   from
     opacity: 0
 
