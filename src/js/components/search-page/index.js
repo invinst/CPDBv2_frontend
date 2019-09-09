@@ -12,9 +12,7 @@ import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import { generatePinboardUrl } from 'utils/pinboard';
 import SearchMainPanel from './search-main-panel';
 import HoverableButton from 'components/common/hoverable-button-without-inline-style';
-import {
-  ROOT_PATH, SEARCH_ALIAS_EDIT_PATH, SEARCH_BOX, MORE_BUTTON, RECENT_CONTENT_TYPE,
-} from 'utils/constants';
+import { SEARCH_ALIAS_EDIT_PATH, SEARCH_BOX, MORE_BUTTON, RECENT_CONTENT_TYPE } from 'utils/constants';
 import { showIntercomLauncher } from 'utils/intercom';
 import * as IntercomTracking from 'utils/intercom-tracking';
 import 'toast.css';
@@ -39,8 +37,7 @@ export default class SearchPage extends Component {
   }
 
   componentDidMount() {
-    const { query, location, params, routes, pushBreadcrumbs, contentType } = this.props;
-    pushBreadcrumbs({ location, params, routes });
+    const { query, contentType } = this.props;
 
     LayeredKeyBinding.bind('esc', this.handleGoBack);
     LayeredKeyBinding.bind('enter', this.handleViewItem);
@@ -255,9 +252,6 @@ SearchPage.propTypes = {
   officerCards: PropTypes.array,
   requestActivityGrid: PropTypes.func,
   searchTermsHidden: PropTypes.bool,
-  params: PropTypes.object,
-  routes: PropTypes.array,
-  pushBreadcrumbs: PropTypes.func,
   resetSearchResultNavigation: PropTypes.func,
   resetSearchTermNavigation: PropTypes.func,
   firstItem: PropTypes.object,
@@ -281,7 +275,6 @@ SearchPage.defaultProps = {
   },
   searchTermsHidden: true,
   selectTag: (...args) => {},
-  pushBreadcrumbs: (...args) => {},
   resetSearchResultNavigation: noop,
   resetSearchTermNavigation: noop,
   firstItem: {},

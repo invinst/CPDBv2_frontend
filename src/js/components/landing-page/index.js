@@ -26,19 +26,39 @@ class LandingPage extends Component {
   }
 
   componentDidMount() {
-    this.props.resetBreadcrumbs({
-      breadcrumbs: [],
-    });
+    const { pathname } = this.props.location;
+
+    if (pathname.match(/search/)) {
+      this.showSearchTerm(true);
+    } else {
+      this.props.resetBreadcrumbs({
+        breadcrumbs: [],
+      });
+    }
   }
 
   showSearchTerm(showing) {
+    const { pushBreadcrumbs, resetBreadcrumbs, params, routes } = this.props;
     this.setState({
       searchPageShowing: showing,
     });
+
+    if (showing) {
+      const searchLocations = { pathname: '/search/' };
+      const searchRoutes = [
+        routes[0], {
+          breadcrumb: 'Search',
+          breadcrumbKey: 'search/',
+        }];
+
+      pushBreadcrumbs({ location: searchLocations, params, routes: searchRoutes });
+    } else {
+      resetBreadcrumbs({ breadcrumbs: [] });
+    }
   }
 
   renderWithResponsiveStyle(style) {
-    const { pathname } = this.props;
+    const { pathname } = this.props.location;
     const { searchPageShowing } = this.state;
     return (
       <div>
@@ -74,7 +94,16 @@ class LandingPage extends Component {
 
 LandingPage.propTypes = {
   resetBreadcrumbs: PropTypes.func,
-  pathname: PropTypes.string,
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+  }),
+  params: PropTypes.object,
+  routes: PropTypes.array,
+  pushBreadcrumbs: PropTypes.func,
+};
+
+LandingPage.defaultProps = {
+  pushBreadcrumbs: (...args) => {},
 };
 
 LandingPage.contextTypes = {
