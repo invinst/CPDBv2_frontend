@@ -1,9 +1,7 @@
 import React, { PropTypes, Component } from 'react';
-import { Motion, spring } from 'react-motion';
 
 import { calculatePosition } from 'utils/dom';
 import SlimHeaderContent from './slim-header-content';
-import styles from './slim-header.sass';
 
 
 export class SlimHeader extends Component {
@@ -41,51 +39,12 @@ export class SlimHeader extends Component {
       return null;
     }
 
-    const isTop = position === 'top';
-    const isBottom = position === 'bottom';
-
-    const defaultStyle = {
-      translateY: isTop ? 100 : 0,
-      backgroundR: isBottom ? 0 : 255,
-      backgroundG: isBottom ? 94 : 255,
-      backgroundB: isBottom ? 244 : 255,
-    };
-    const style = {
-      translateY: spring(isTop ? 100 : 0),
-      backgroundR: spring(isBottom ? 0 : 255),
-      backgroundG: spring(isBottom ? 94 : 255),
-      backgroundB: spring(isBottom ? 244 : 255),
-    };
-
     return (
-      <div>
-        <SlimHeaderContent
-          className='test--top-slim-header'
-          position='top'
-          pathname={ pathname }
-          editModeOn={ editModeOn }
-        />
-        <Motion defaultStyle={ defaultStyle } style={ style }>
-          { ({ translateY, backgroundR, backgroundG, backgroundB }) => {
-            const r = Math.round(backgroundR);
-            const g = Math.round(backgroundG);
-            const b = Math.round(backgroundB);
-            return (
-              <SlimHeaderContent
-                className={ styles.stickySlimHeader }
-                position={ position }
-                pathname={ pathname }
-                editModeOn={ editModeOn }
-                style={ {
-                  transform: `translateY(-${translateY}%)`,
-                  backgroundColor: `rgb(${r}, ${g}, ${b})`,
-                } }
-                disableTop={ true }
-              />
-            );
-          } }
-        </Motion>
-      </div>
+      <SlimHeaderContent
+        position={ position }
+        pathname={ pathname }
+        editModeOn={ editModeOn }
+      />
     );
   }
 }
