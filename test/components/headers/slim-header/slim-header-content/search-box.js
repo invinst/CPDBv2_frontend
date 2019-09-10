@@ -60,7 +60,6 @@ describe('SearchBox component', function () {
   });
 
   it('should go to search page when being clicked', function () {
-    const pushPathPreserveEditMode = stub(editPathUtils, 'pushPathPreserveEditMode');
     const stopPropagation = spy();
 
     instance = renderIntoDocument(<SearchBox position='top'/>);
@@ -68,9 +67,5 @@ describe('SearchBox component', function () {
     Simulate.click(findDOMNode(instance), { stopPropagation });
 
     stopPropagation.should.be.calledOnce();
-    pushPathPreserveEditMode.should.be.calledOnce();
-    pushPathPreserveEditMode.should.be.calledWith('/search/');
-
-    pushPathPreserveEditMode.restore();
   });
 });

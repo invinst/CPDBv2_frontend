@@ -42,3 +42,7 @@ SearchBox.propTypes = {
   position: PropTypes.string,
   onClick: PropTypes.func,
 };
+
+SearchBox.defaultProps = {
+  onClick: () => {},
+};

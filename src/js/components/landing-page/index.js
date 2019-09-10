@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import DocumentMeta from 'react-document-meta';
 import cx from 'classnames';
+import { get } from 'lodash';
 
 import ResponsiveStyleComponent from 'components/responsive/responsive-style-component';
 import ConfiguredRadium from 'utils/configured-radium';
@@ -68,7 +69,7 @@ class LandingPage extends Component {
   }
 
   renderWithResponsiveStyle(style) {
-    const { pathname } = this.props.location;
+    const pathname = get(this.props, 'location.pathname', '');
     const { searchPageShowing, initial } = this.state;
     const position = calculatePosition(88);
     return (
