@@ -70,6 +70,7 @@ SlimHeaderContent.defaultProps = {
   disableTop: false,
   position: 'top',
   pathname: '/',
+  onSearchBoxClick: () => {},
 };
 
 export default SlimHeaderContent;

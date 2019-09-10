@@ -1,8 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import cx from 'classnames';
 
-import { SEARCH_PATH } from 'utils/constants';
-import { pushPathPreserveEditMode } from 'utils/edit-path';
 import MagnifyingGlass from 'components/common/icons/magnifying-glass';
 import styles from './search-box.sass';
 import { accentColor, boulderColor } from 'utils/styles';
@@ -15,13 +13,12 @@ export default class SearchBox extends Component {
 
   handleClick(e) {
     const { onClick } = this.props;
-    // pushPathPreserveEditMode(`/${SEARCH_PATH}`);
     onClick();
     e.stopPropagation();
   }
 
   render() {
-    const { position, onClick } = this.props;
+    const { position } = this.props;
     const magnifyingGlassColors = {
       top: accentColor,
       middle: boulderColor,
@@ -43,4 +40,5 @@ export default class SearchBox extends Component {
 
 SearchBox.propTypes = {
   position: PropTypes.string,
+  onClick: PropTypes.func,
 };

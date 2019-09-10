@@ -95,10 +95,12 @@ export class SlimHeader extends Component {
 SlimHeader.propTypes = {
   show: PropTypes.bool,
   pathname: PropTypes.string,
+  onSearchBoxClick: PropTypes.func,
 };
 
 SlimHeader.defaultProps = {
   show: true,
+  onSearchBoxClick: () => {},
 };
 
 SlimHeader.contextTypes = {

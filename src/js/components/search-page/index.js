@@ -17,7 +17,6 @@ import { showIntercomLauncher } from 'utils/intercom';
 import * as IntercomTracking from 'utils/intercom-tracking';
 import 'toast.css';
 import './search-page.sass';
-import { scrollToTop } from 'utils/dom';
 
 
 const DEFAULT_SUGGESTION_LIMIT = 9;
@@ -261,6 +260,7 @@ SearchPage.propTypes = {
   toast: PropTypes.object,
   createPinboard: PropTypes.func,
   onCancel: PropTypes.func,
+  className: PropTypes.string,
 };
 
 /* istanbul ignore next */

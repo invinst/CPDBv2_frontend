@@ -1,4 +1,4 @@
-import { softBlackColor, sugarCaneColor, boulderColor, accentColor } from 'utils/styles';
+import { softBlackColor, boulderColor, accentColor } from 'utils/styles';
 
 
 export const searchInputStyle = {

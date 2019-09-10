@@ -104,6 +104,7 @@ SearchTerms.propTypes = {
   resetNavigation: PropTypes.func,
   recentSuggestions: PropTypes.array,
   onEmptyPinboardButtonClick: PropTypes.func,
+  className: PropTypes.string,
 };
 
 SearchTerms.defaultProps = {
