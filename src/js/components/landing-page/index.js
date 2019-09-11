@@ -28,6 +28,7 @@ class LandingPage extends Component {
   componentDidMount() {
     this.initial = false;
     this.updateBreadCrumbs();
+    this.previousSearchPageShowing = this.getSearchPageShowing();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -52,19 +53,22 @@ class LandingPage extends Component {
     }
   }
 
+  getSearchPageShowing() {
+    const { pathname } = this.props.location;
+    return pathname === `/${SEARCH_PATH}` || (pathname !== '/' ? this.previousSearchPageShowing : false);
+  }
+
   render() {
     const pathname = get(this.props, 'location.pathname', '');
     const position = calculatePosition(88);
-    const searchPageShowing = pathname === `/${SEARCH_PATH}` ||
-      (pathname !== '/' ? this.previousSearchPageShowing : false);
-    this.previousSearchPageShowing = searchPageShowing;
+    const searchPageShowing = this.getSearchPageShowing();
 
     return (
       <DocumentMeta title='CPDP'>
         <div
           className={
             cx(styles.landingPage, {
-              'animation-in': !this.initial && !searchPageShowing,
+              'animation-in': !this.initial && !searchPageShowing && this.previousSearchPageShowing,
               hide: searchPageShowing,
             })
           }>
@@ -81,7 +85,7 @@ class LandingPage extends Component {
         <SearchPageContainer
           className={
             cx(styles.searchPage, position, {
-              'animation-in': !this.initial && searchPageShowing,
+              'animation-in': !this.initial && searchPageShowing && !this.previousSearchPageShowing,
               initial: this.initial,
               hide: !searchPageShowing,
             })

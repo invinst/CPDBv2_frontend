@@ -158,7 +158,7 @@ export default class SearchPage extends Component {
   }
 
   handleGoBack(e) {
-    e.preventDefault();
+    !isEmpty(e) && e.preventDefault();
     browserHistory.push(ROOT_PATH);
   }
 

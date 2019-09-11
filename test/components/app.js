@@ -113,7 +113,7 @@ describe('App component', function () {
         <App
           toggleEditMode={ toggleEditMode }
           location={ location }
-          appContent='/'>
+        >
           <ChildComponent/>
         </App>
       </Provider>
@@ -134,7 +134,7 @@ describe('App component', function () {
           toggleSearchMode={ toggleSearchMode }
           changeSearchQuery={ changeSearchQuery }
           location={ location }
-          appContent='/'>
+        >
           <ChildComponent/>
         </App>
       </Provider>
@@ -158,7 +158,7 @@ describe('App component', function () {
           toggleSearchMode={ toggleSearchMode }
           changeSearchQuery={ changeSearchQuery }
           location={ location }
-          appContent='/'>
+        >
           <ChildComponent/>
         </App>
       </Provider>
@@ -172,10 +172,7 @@ describe('App component', function () {
   it('should not display header if children is a "headerless page"', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <App
-          location={ location }
-          appContent='/'
-        >
+        <App location={ location }>
           <SearchPageContainer location={ location } routes={ [] }/>
         </App>
       </Provider>
@@ -187,10 +184,7 @@ describe('App component', function () {
   it('should display ShareableHeader if children is a shareable page', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <App
-          location={ location }
-          appContent='/'
-        >
+        <App location={ location }>
           <OfficerPageContainer location={ { query: {}, pathname: '/' } } />
         </App>
       </Provider>
@@ -202,10 +196,7 @@ describe('App component', function () {
   it('should render ToastContainer', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <App
-          location={ location }
-          appContent='/'
-        >
+        <App location={ location }>
           <OfficerPageContainer location={ { query: {}, pathname: '/' } } />
         </App>
       </Provider>

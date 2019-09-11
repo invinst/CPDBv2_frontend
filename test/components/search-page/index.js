@@ -219,24 +219,6 @@ describe('SearchPage component', function () {
     );
   });
 
-  it('should push search into breadcrumbs', function () {
-    const location = {
-      pathname: '/search', search: '/', action: 'POP',
-    };
-    const params = {};
-    const routes = [];
-    const stubPushBreadcrumbs = stub();
-
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchPage
-          location={ location } params={ params } routes={ routes } pushBreadcrumbs={ stubPushBreadcrumbs }
-        />
-      </Provider>
-    );
-    stubPushBreadcrumbs.calledWith({ location, params, routes }).should.be.true();
-  });
-
   it('should call api with content type when user select a tag', function () {
     const selectTagSpy = spy();
     const tags = ['a', 'b'];

@@ -63,7 +63,6 @@ describe('store', function () {
         apiAccessToken: null,
         showForgotPasswordModal: false,
       },
-      appContent: null,
       cms: {
         pages: {},
       },

@@ -6,10 +6,9 @@ import {
   findRenderedDOMComponentWithClass,
   findRenderedComponentWithType,
 } from 'react-addons-test-utils';
-import { spy, stub } from 'sinon';
+import { spy } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import * as editPathUtils from 'utils/edit-path';
 import SearchBox from 'components/headers/slim-header/slim-header-content/search-box';
 import MagnifyingGlass from 'components/common/icons/magnifying-glass';
 import styles from 'components/headers/slim-header/slim-header-content/search-box.sass';
