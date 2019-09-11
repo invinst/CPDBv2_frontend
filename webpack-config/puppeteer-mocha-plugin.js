@@ -76,7 +76,7 @@ function substituteString(msg, ...subs) {
   const stringParts = [];
   let i = 0;
   let tempStr = '';
-  while (i < msg.length) {
+  while (msg && i < msg.length) {
     const nextTwoChars = msg.slice(i, i+2);
     if (nextTwoChars === '%s' || nextTwoChars === '%d') {
       stringParts.push(tempStr);

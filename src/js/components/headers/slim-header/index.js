@@ -33,7 +33,7 @@ export class SlimHeader extends Component {
   }
 
   render() {
-    const { show, pathname, onSearchBoxClick } = this.props;
+    const { show, pathname } = this.props;
     const { editModeOn } = this.context;
     const { position } = this.state;
 
@@ -64,7 +64,6 @@ export class SlimHeader extends Component {
           position='top'
           pathname={ pathname }
           editModeOn={ editModeOn }
-          onSearchBoxClick={ onSearchBoxClick }
         />
         <Motion defaultStyle={ defaultStyle } style={ style }>
           { ({ translateY, backgroundR, backgroundG, backgroundB }) => {
@@ -82,7 +81,6 @@ export class SlimHeader extends Component {
                   backgroundColor: `rgb(${r}, ${g}, ${b})`,
                 } }
                 disableTop={ true }
-                onSearchBoxClick={ onSearchBoxClick }
               />
             );
           } }
@@ -95,7 +93,6 @@ export class SlimHeader extends Component {
 SlimHeader.propTypes = {
   show: PropTypes.bool,
   pathname: PropTypes.string,
-  onSearchBoxClick: PropTypes.func,
 };
 
 SlimHeader.defaultProps = {

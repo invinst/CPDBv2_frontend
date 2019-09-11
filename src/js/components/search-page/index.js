@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import { debounce, isEmpty, noop } from 'lodash';
 import { Promise } from 'es6-promise';
-import DocumentMeta from 'react-document-meta';
 import { toast, cssTransition } from 'react-toastify';
 import cx from 'classnames';
 
@@ -12,7 +11,7 @@ import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import { generatePinboardUrl } from 'utils/pinboard';
 import SearchMainPanel from './search-main-panel';
 import HoverableButton from 'components/common/hoverable-button-without-inline-style';
-import { SEARCH_ALIAS_EDIT_PATH, SEARCH_BOX, MORE_BUTTON, RECENT_CONTENT_TYPE } from 'utils/constants';
+import { SEARCH_ALIAS_EDIT_PATH, SEARCH_BOX, MORE_BUTTON, RECENT_CONTENT_TYPE, ROOT_PATH } from 'utils/constants';
 import { showIntercomLauncher } from 'utils/intercom';
 import * as IntercomTracking from 'utils/intercom-tracking';
 import 'toast.css';
@@ -37,10 +36,12 @@ export default class SearchPage extends Component {
   }
 
   componentDidMount() {
-    const { query, contentType } = this.props;
+    const { query, contentType, hide } = this.props;
 
-    LayeredKeyBinding.bind('esc', this.handleGoBack);
-    LayeredKeyBinding.bind('enter', this.handleViewItem);
+    if (!hide) {
+      LayeredKeyBinding.bind('esc', this.handleGoBack);
+      LayeredKeyBinding.bind('enter', this.handleViewItem);
+    }
 
     this.sendSearchQuery(query, contentType);
 
@@ -67,9 +68,22 @@ export default class SearchPage extends Component {
     this.handleToastChange(nextProps);
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (!prevProps.hide && this.props.hide) {
+      LayeredKeyBinding.unbind('esc');
+      LayeredKeyBinding.unbind('enter');
+    }
+    if (prevProps.hide && !this.props.hide) {
+      LayeredKeyBinding.bind('esc', this.handleGoBack);
+      LayeredKeyBinding.bind('enter', this.handleViewItem);
+    }
+  }
+
   componentWillUnmount() {
-    LayeredKeyBinding.unbind('esc');
-    LayeredKeyBinding.unbind('enter');
+    if (!this.props.hide) {
+      LayeredKeyBinding.unbind('esc');
+      LayeredKeyBinding.unbind('enter');
+    }
     showIntercomLauncher(true);
   }
 
@@ -144,11 +158,8 @@ export default class SearchPage extends Component {
   }
 
   handleGoBack(e) {
-    // Since mousetrap just send here an empty object, we might need this for the test to be passed
-    const { onCancel } = this.props;
-    !isEmpty(e) && e.preventDefault();
-    // browserHistory.push(ROOT_PATH);
-    onCancel();
+    e.preventDefault();
+    browserHistory.push(ROOT_PATH);
   }
 
   handleSelect(newContentType) {
@@ -180,55 +191,53 @@ export default class SearchPage extends Component {
   render() {
     const aliasEditModeOn = this.props.location.pathname.startsWith(`/edit/${SEARCH_ALIAS_EDIT_PATH}`);
     const {
-      query, searchTermsHidden, contentType, tags,
+      hide, query, searchTermsHidden, contentType, tags,
       editModeOn, officerCards, requestActivityGrid,
-      changeSearchQuery, focusedItem, firstItem, trackRecentSuggestion, className, onCancel,
+      changeSearchQuery, focusedItem, firstItem, trackRecentSuggestion, className,
     } = this.props;
 
     return (
-      <DocumentMeta title='CPDP'>
-        <div
-          className={ cx('search-page', className, { 'edit-mode-on': aliasEditModeOn }) }>
-          <div className={ cx('search-bar-wrapper', { 'edit-mode-on': aliasEditModeOn }) }>
-            <div className={
-              cx('search-bar', { 'has-bottom-border': query !== '' })
-            }>
-              <SearchBox
-                onEscape={ onCancel }
-                onChange={ this.handleChange }
-                firstSuggestionItem={ firstItem }
-                value={ query }
-                searchTermsHidden={ searchTermsHidden }
-                changeSearchQuery={ changeSearchQuery }
-                focused={ focusedItem.uniqueKey === SEARCH_BOX }
-                resetNavigation={ this.resetNavigation }
-                trackRecentSuggestion={ trackRecentSuggestion }
-              />
-              <HoverableButton
-                className={
-                  cx('searchbar__button--back', 'cancel-button', { 'search-terms-hidden': searchTermsHidden })
-                }
-                onClick={ onCancel }>
-                Cancel
-              </HoverableButton>
-            </div>
-          </div>
-          <div className='search-main-panel-wrapper'>
-            <SearchMainPanel
-              contentType={ contentType }
-              query={ query }
-              editModeOn={ editModeOn }
-              aliasEditModeOn={ aliasEditModeOn }
-              officerCards={ officerCards }
-              requestActivityGrid={ requestActivityGrid }
+      <div
+        className={ cx('search-page', className, { 'edit-mode-on': aliasEditModeOn }) }>
+        <div className={ cx('search-bar-wrapper', { 'edit-mode-on': aliasEditModeOn }) }>
+          <div className={
+            cx('search-bar', { 'has-bottom-border': query !== '' })
+          }>
+            <SearchBox
+              onEscape={ this.handleGoBack }
+              onChange={ this.handleChange }
+              firstSuggestionItem={ firstItem }
+              value={ query }
               searchTermsHidden={ searchTermsHidden }
-              handleSelect={ this.handleSelect }
-              tags={ tags }
-              onEmptyPinboardButtonClick={ this.handleEmptyPinboardButtonClick }
+              changeSearchQuery={ changeSearchQuery }
+              focused={ !hide && focusedItem.uniqueKey === SEARCH_BOX }
+              resetNavigation={ this.resetNavigation }
+              trackRecentSuggestion={ trackRecentSuggestion }
             />
+            <HoverableButton
+              className={
+                cx('searchbar__button--back', 'cancel-button', { 'search-terms-hidden': searchTermsHidden })
+              }
+              onClick={ this.handleGoBack }>
+              Cancel
+            </HoverableButton>
           </div>
         </div>
-      </DocumentMeta>
+        <div className='search-main-panel-wrapper'>
+          <SearchMainPanel
+            contentType={ contentType }
+            query={ query }
+            editModeOn={ editModeOn }
+            aliasEditModeOn={ aliasEditModeOn }
+            officerCards={ officerCards }
+            requestActivityGrid={ requestActivityGrid }
+            searchTermsHidden={ searchTermsHidden }
+            handleSelect={ this.handleSelect }
+            tags={ tags }
+            onEmptyPinboardButtonClick={ this.handleEmptyPinboardButtonClick }
+          />
+        </div>
+      </div>
     );
   }
 }
@@ -259,8 +268,8 @@ SearchPage.propTypes = {
   isRequesting: PropTypes.bool,
   toast: PropTypes.object,
   createPinboard: PropTypes.func,
-  onCancel: PropTypes.func,
   className: PropTypes.string,
+  hide: PropTypes.bool,
 };
 
 /* istanbul ignore next */

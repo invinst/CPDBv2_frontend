@@ -3,9 +3,7 @@ import DocumentMeta from 'react-document-meta';
 import cx from 'classnames';
 import { get } from 'lodash';
 
-import ResponsiveStyleComponent from 'components/responsive/responsive-style-component';
 import ConfiguredRadium from 'utils/configured-radium';
-
 import ComplaintSummariesContainer from 'containers/landing-page/complaint-summaries';
 import SlimHeader from 'components/headers/slim-header';
 import FooterContainer from 'containers/footer-container';
@@ -16,73 +14,62 @@ import OfficersByAllegationContainer from 'containers/landing-page/officers-by-a
 import styles from './landing-page.sass';
 import SearchPageContainer from 'containers/search-page';
 import { calculatePosition, scrollToTop } from 'utils/dom';
+import { SEARCH_PATH } from 'utils/constants';
 
 
 class LandingPage extends Component {
   constructor(props) {
     super(props);
-    this.showSearchTerm = this.showSearchTerm.bind(this);
-    this.state = {
-      initial: true,
-      searchPageShowing: false,
-    };
+
+    this.initial = true;
+    this.previousSearchPageShowing = null;
   }
 
   componentDidMount() {
-    const { resetBreadcrumbs } = this.props;
-    const { pathname } = this.props.location;
-
-    if (pathname.match(/search/)) {
-      this.showSearchTerm(true, true);
-    } else {
-      resetBreadcrumbs({ breadcrumbs: [] });
-    }
+    this.initial = false;
+    this.updateBreadCrumbs();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.searchPageShowing !== this.state.searchPageShowing) {
+    if (get(prevState, 'location.pathname') !== get(this.props, 'location.pathname')) {
       scrollToTop();
+      this.updateBreadCrumbs();
     }
   }
 
-  showSearchTerm(showing, initial=false) {
-    const { pushBreadcrumbs, resetBreadcrumbs, params, routes } = this.props;
+  updateBreadCrumbs() {
+    const { resetBreadcrumbs, pushBreadcrumbs, params, routes, location } = this.props;
 
-    this.setState({
-      initial: initial,
-      searchPageShowing: showing,
-    });
-
-    if (showing) {
-      history.replaceState({}, '', '/search/');
-      const searchLocations = { pathname: '/search/' };
+    if (location.pathname.match(/search/)) {
       const searchRoutes = [
         routes[0], {
           breadcrumb: 'Search',
           breadcrumbKey: 'search/',
         }];
-      pushBreadcrumbs({ location: searchLocations, params, routes: searchRoutes });
-    } else {
-      history.replaceState({}, '', '/');
+      pushBreadcrumbs({ location, params, routes: searchRoutes });
+    } else if (location.pathname === '/') {
       resetBreadcrumbs({ breadcrumbs: [] });
     }
   }
 
-  renderWithResponsiveStyle(style) {
+  render() {
     const pathname = get(this.props, 'location.pathname', '');
-    const { searchPageShowing, initial } = this.state;
     const position = calculatePosition(88);
+    const searchPageShowing = pathname === `/${SEARCH_PATH}` ||
+      (pathname !== '/' ? this.previousSearchPageShowing : false);
+    this.previousSearchPageShowing = searchPageShowing;
+
     return (
-      <div>
+      <DocumentMeta title='CPDP'>
         <div
           className={
             cx(styles.landingPage, {
-              'animation-in': !initial && !searchPageShowing,
+              'animation-in': !this.initial && !searchPageShowing,
               hide: searchPageShowing,
             })
           }>
-          <SlimHeader pathname={ pathname } onSearchBoxClick={ () => this.showSearchTerm(true) }/>
-          <HeatMap/>
+          <SlimHeader pathname={ pathname }/>
+          <HeatMap hide={ searchPageShowing }/>
           <div className='landing-page-carousel-wrapper'>
             <OfficersByAllegationContainer className='landing-page-carousel' pathname={ pathname }/>
             <RecentActivityContainer className='landing-page-carousel' pathname={ pathname }/>
@@ -94,23 +81,13 @@ class LandingPage extends Component {
         <SearchPageContainer
           className={
             cx(styles.searchPage, position, {
-              'animation-in': !initial && searchPageShowing,
-              initial,
+              'animation-in': !this.initial && searchPageShowing,
+              initial: this.initial,
               hide: !searchPageShowing,
             })
           }
-          onCancel={ () => this.showSearchTerm(false) }
+          hide={ !searchPageShowing }
         />
-      </div>
-    );
-  }
-
-  render() {
-    return (
-      <DocumentMeta title='CPDP'>
-        <ResponsiveStyleComponent responsiveStyle={ {} }>
-          { this.renderWithResponsiveStyle.bind(this) }
-        </ResponsiveStyleComponent>
       </DocumentMeta>
     );
   }

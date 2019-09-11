@@ -4,6 +4,8 @@ import cx from 'classnames';
 import MagnifyingGlass from 'components/common/icons/magnifying-glass';
 import styles from './search-box.sass';
 import { accentColor, boulderColor } from 'utils/styles';
+import { pushPathPreserveEditMode } from 'utils/edit-path';
+import { SEARCH_PATH } from 'utils/constants';
 
 export default class SearchBox extends Component {
   constructor(props) {
@@ -12,8 +14,7 @@ export default class SearchBox extends Component {
   }
 
   handleClick(e) {
-    const { onClick } = this.props;
-    onClick();
+    pushPathPreserveEditMode(`/${SEARCH_PATH}`);
     e.stopPropagation();
   }
 
@@ -40,9 +41,4 @@ export default class SearchBox extends Component {
 
 SearchBox.propTypes = {
   position: PropTypes.string,
-  onClick: PropTypes.func,
-};
-
-SearchBox.defaultProps = {
-  onClick: () => {},
 };

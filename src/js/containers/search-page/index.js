@@ -31,13 +31,14 @@ function mapStateToProps(state, ownProps) {
   const {
     contentType, query, isRequesting,
   } = state.searchPage;
-  const { children } = ownProps;
+  const { children, hide } = ownProps;
   const focusedItem = getFocusedItem(state);
 
   return {
     isRequesting,
     query,
     children,
+    hide,
     tags: suggestionTagsSelector(state),
     contentType,
     isEmpty: isEmptySelector(state),
