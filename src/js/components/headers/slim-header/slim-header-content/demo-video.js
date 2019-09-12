@@ -35,7 +35,7 @@ class DemoVideo extends Component {
         </EditWrapperStateProvider>
         <div className='demo-video-button' onClick={ this.handleWatchVideoButtonClick }>
           <img className='demo-video-thumbnail' src={ videoThumbnailUrl } />
-          <img className='demo-video-play-button' src='/img/video-play-button.svg' width={ 32 } height={ 32 } />
+          <img className='demo-video-play-button' src='/img/video-play-button.svg' width={ 14.5 } height={ 16.5 } />
         </div>
       </div>
     );

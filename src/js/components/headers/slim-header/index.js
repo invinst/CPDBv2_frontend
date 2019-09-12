@@ -24,7 +24,7 @@ export class SlimHeader extends Component {
 
   recalculatePosition() {
     // offset must equal the height of top bar so that the navbar is always visible
-    const newPosition = calculatePosition(88);
+    const newPosition = calculatePosition(80);
     if (newPosition !== this.state.position) {
       this.setState({ position: newPosition });
     }

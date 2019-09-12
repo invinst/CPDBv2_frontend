@@ -2,25 +2,23 @@
 @import 'common'
 
 \:local(.slim-header)
-  height: 128px
+  height: 136px
   width: 100%
 
   .header-content
     box-sizing: border-box
-    width: inherit
+    width: 100%
     font-size: 14px
     line-height: 18px
-    height: 128px
     background-color: white
 
     .top-bar-wrapper
-      box-shadow: 0 1px 1px 0 $black13-color
       position: relative
       z-index: 2
 
     .top-bar
-      height: 88px
-      padding: 0 8px 0 16px
+      height: 80px
+      padding: 0 8px 0 14px
       max-width: 1440px
       margin: 0 auto
       box-sizing: border-box
@@ -28,11 +26,10 @@
     .navbar-wrapper
       position: relative
       z-index: 1
-      background-color: $sugar-cane-color
-      box-shadow: 0 1px 2px 0 $black15-color
+      box-shadow: 0 1px 1px 0 $black15-color
 
     .navbar
-      height: 40px
+      height: 56px
       max-width: 1440px
       margin: 0 auto
 
@@ -41,12 +38,13 @@
       float: right
 
     .logo
-      @extend %vertical-align-middle
+      padding-top: 20px
       display: inline-block
+      line-height: 16px
 
     &.middle
       position: fixed
-      top: -88px
+      top: -80px
       left: 0
       right: 0
       z-index: 20

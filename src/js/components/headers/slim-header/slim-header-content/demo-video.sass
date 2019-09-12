@@ -5,7 +5,7 @@
   float: right
   font-weight: 300
   padding-top: 8px
-  height: 88px
+  height: 100%
   box-sizing: border-box
 
   .demo-video-text
@@ -16,7 +16,7 @@
     vertical-align: top
 
     .demo-video-text-input
-      color: $accent-color
+      color: $boulder-color
       padding: 8px 0
       min-width: 100px
 
@@ -25,13 +25,12 @@
     position: relative
 
     .demo-video-thumbnail
-      width: 100px
-      height: 62px
+      width: 97px
+      height: 72px
       display: inline-block
       cursor: pointer
-      outline: solid 5px $accent-color50
+      border: solid 1px $white-two-color
       box-sizing: border-box
-      margin: 5px 5px 0 0
 
     .demo-video-play-button
       @extend %vertical-align-middle
@@ -44,7 +43,7 @@
 
   &.bottom
     .demo-video-thumbnail
-      outline: solid 5px $white50-color
+      border: solid 1px $white50-color
 
     .demo-video-text
       .demo-video-text-input
