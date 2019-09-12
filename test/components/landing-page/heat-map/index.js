@@ -46,7 +46,7 @@ describe('HeatMap component', function () {
     }];
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <HeatMap communities={ communities }/>
+        <HeatMap communities={ communities } hide={ true }/>
       </Provider>
     );
     const heatMap = findRenderedComponentWithType(instance, HeatMap);
@@ -59,6 +59,7 @@ describe('HeatMap component', function () {
 
     const communityMap = findRenderedComponentWithType(heatMap, CommunityMap);
     communityMap.props.selectCommunity(0);
+    communityMap.props.hide.should.be.true();
     heatMap.state.selectedId.should.eql(0);
     GATracking.trackCommunityClick.restore();
   });

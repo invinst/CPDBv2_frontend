@@ -97,7 +97,6 @@ SlimHeader.propTypes = {
 
 SlimHeader.defaultProps = {
   show: true,
-  onSearchBoxClick: () => {},
 };
 
 SlimHeader.contextTypes = {

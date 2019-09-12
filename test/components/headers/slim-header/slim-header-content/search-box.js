@@ -6,9 +6,10 @@ import {
   findRenderedDOMComponentWithClass,
   findRenderedComponentWithType,
 } from 'react-addons-test-utils';
-import { spy } from 'sinon';
+import { spy, stub } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
+import * as editPathUtils from 'utils/edit-path';
 import SearchBox from 'components/headers/slim-header/slim-header-content/search-box';
 import MagnifyingGlass from 'components/common/icons/magnifying-glass';
 import styles from 'components/headers/slim-header/slim-header-content/search-box.sass';
@@ -59,6 +60,7 @@ describe('SearchBox component', function () {
   });
 
   it('should go to search page when being clicked', function () {
+    const pushPathPreserveEditMode = stub(editPathUtils, 'pushPathPreserveEditMode');
     const stopPropagation = spy();
 
     instance = renderIntoDocument(<SearchBox position='top'/>);
@@ -66,5 +68,10 @@ describe('SearchBox component', function () {
     Simulate.click(findDOMNode(instance), { stopPropagation });
 
     stopPropagation.should.be.calledOnce();
+
+    pushPathPreserveEditMode.should.be.calledOnce();
+    pushPathPreserveEditMode.should.be.calledWith('/search/');
+
+    pushPathPreserveEditMode.restore();
   });
 });

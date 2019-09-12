@@ -297,11 +297,10 @@ describe('LandingPage component', function () {
         <LandingPage
           resetBreadcrumbs={ stubResetBreadcrumbs }
           pushBreadcrumbs={ stubPushBreadcrumbs }
-          location={ { pathname: '/search/' } }
+          location={ { pathname: '/' } }
           params={ {} }
           routes={ [
             { breadcrumb: 'cpdp', breadcrumbKey: '/' },
-            { breadcrumb: 'Search', breadcrumbKey: 'search/' },
           ] }
         />
       </Provider>
@@ -310,12 +309,44 @@ describe('LandingPage component', function () {
     const landingPageContent = findRenderedDOMComponentWithClass(instance, styles.landingPage);
     const searchPage = findRenderedComponentWithType(instance, SearchPage);
 
-    landingPageContent.getAttribute('class').should.containEql('hide').and.not.containEql('animation-in');
-    searchPage.props.className.should.containEql('top').and.containEql('initial')
-      .not.containEql('animation-in').and.not.containEql('hide');
-    scrollToTopStub.should.not.be.called();
+    landingPageContent.getAttribute('class').should.not.containEql('animation-in').and.not.containEql('hide');
+    searchPage.props.className.should.containEql('initial').and.containEql('top').and.containEql('hide')
+      .and.not.containEql('animation-in');
 
+    scrollToTopStub.should.not.be.called();
+    stubResetBreadcrumbs.should.be.calledOnce();
+    stubPushBreadcrumbs.should.not.be.called();
+    scrollToTopStub.resetHistory();
+    stubResetBreadcrumbs.resetHistory();
     stubPushBreadcrumbs.resetHistory();
+
+    instance = reRender(
+      <Provider store={ store }>
+        <LandingPage
+          resetBreadcrumbs={ stubResetBreadcrumbs }
+          pushBreadcrumbs={ stubPushBreadcrumbs }
+          location={ { pathname: '/search/' } }
+          params={ {} }
+          routes={ [
+            { breadcrumb: 'cpdp', breadcrumbKey: '/' },
+            { breadcrumb: 'Search', breadcrumbKey: 'search/' },
+          ] }
+        />
+      </Provider>,
+      instance
+    );
+
+    landingPageContent.getAttribute('class').should.containEql('hide').and.not.containEql('animation-in');
+    searchPage.props.className.should.containEql('top').and.containEql('animation-in')
+      .not.containEql('initial').and.not.containEql('hide');
+
+    scrollToTopStub.should.be.called();
+    stubResetBreadcrumbs.should.not.be.called();
+    stubPushBreadcrumbs.should.be.calledOnce();
+    scrollToTopStub.resetHistory();
+    stubResetBreadcrumbs.resetHistory();
+    stubPushBreadcrumbs.resetHistory();
+
     instance = reRender(
       <Provider store={ store }>
         <LandingPage

@@ -36,6 +36,7 @@ class LandingPage extends Component {
       scrollToTop();
       this.updateBreadCrumbs();
     }
+    this.previousSearchPageShowing = this.getSearchPageShowing();
   }
 
   updateBreadCrumbs() {
@@ -55,7 +56,13 @@ class LandingPage extends Component {
 
   getSearchPageShowing() {
     const { pathname } = this.props.location;
-    return pathname === `/${SEARCH_PATH}` || (pathname !== '/' ? this.previousSearchPageShowing : false);
+
+    if (pathname === `/${SEARCH_PATH}`)
+      return true;
+    if (pathname === '/')
+      return false;
+    else
+      return this.previousSearchPageShowing;
   }
 
   render() {

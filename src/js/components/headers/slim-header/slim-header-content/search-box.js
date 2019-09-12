@@ -1,18 +1,13 @@
 import React, { PropTypes, Component } from 'react';
 import cx from 'classnames';
 
+import { SEARCH_PATH } from 'utils/constants';
+import { pushPathPreserveEditMode } from 'utils/edit-path';
 import MagnifyingGlass from 'components/common/icons/magnifying-glass';
 import styles from './search-box.sass';
 import { accentColor, boulderColor } from 'utils/styles';
-import { pushPathPreserveEditMode } from 'utils/edit-path';
-import { SEARCH_PATH } from 'utils/constants';
 
 export default class SearchBox extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
   handleClick(e) {
     pushPathPreserveEditMode(`/${SEARCH_PATH}`);
     e.stopPropagation();
