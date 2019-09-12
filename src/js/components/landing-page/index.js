@@ -91,10 +91,9 @@ class LandingPage extends Component {
         </div>
         <SearchPageContainer
           className={
-            cx(styles.searchPage, position, {
+            cx(position, {
               'animation-in': !this.initial && searchPageShowing && !this.previousSearchPageShowing,
               initial: this.initial,
-              hide: !searchPageShowing,
             })
           }
           hide={ !searchPageShowing }

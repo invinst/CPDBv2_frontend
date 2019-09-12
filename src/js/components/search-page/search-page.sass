@@ -1,6 +1,8 @@
 @import 'variables'
 
-.search-page
+$animation-duration: 0.5s
+
+\:local(.search-page)
   min-height: 100vh
   font-family: $san-francisco-text-family
   background: white
@@ -46,6 +48,54 @@
   .search-main-panel-wrapper
     padding-top: 50px
 
+  &.initial
+    color: $boulder-color
+
+    .search-box
+      background-color: $wild-sand
+
+    .search-bar
+      background-color: white
+      padding: 8px 16px 9px 16px
+
+  &.hide
+    display: none
+
+  &.animation-in
+    color: $boulder-color
+
+    .search-main-panel-wrapper
+      opacity: 0
+      animation-duration: $animation-duration
+      animation-delay: calc(#{$animation-duration} / 2)
+      animation-name: fadeIn
+      animation-fill-mode: forwards
+
+    .search-box
+      animation-duration: $animation-duration
+      animation-name: changeSearchBox
+      animation-fill-mode: forwards
+
+    &.top
+      animation-duration: $animation-duration
+      animation-name: goUp
+      animation-fill-mode: forwards
+
+    &.bottom
+      animation-duration: $animation-duration
+      animation-name: goUpFromBottom
+      animation-fill-mode: forwards
+
+      .search-box
+        animation-duration: $animation-duration
+        animation-name: changeSearchBoxBottom
+        animation-fill-mode: forwards
+
+      .search-bar
+        animation-duration: $animation-duration
+        animation-name: changeSearchBarBackgroundBottom
+        animation-fill-mode: forwards
+
 .toast-wrapper
   background-color: $sprout
   border-radius: 2px
@@ -65,3 +115,50 @@
   font-family: $san-francisco-text-family
   font-weight: 300
   font-size: 14px
+
+@keyframes goUp
+  from
+    color: $accent-color
+    transform: translateY(88px)
+
+  to
+    color: $boulder-color
+    transform: translateY(0)
+
+@keyframes goUpFromBottom
+  from
+    color: white
+    transform: translateY(88px)
+
+  to
+    color: $boulder-color
+    transform: translateY(0)
+
+@keyframes fadeIn
+  from
+    opacity: 0
+
+  to
+    opacity: 1
+
+@keyframes changeSearchBox
+  from
+    background-color: white
+
+  to
+    background-color: $wild-sand
+
+@keyframes changeSearchBoxBottom
+  from
+    background-color: $accent-color
+
+  to
+    background-color: $wild-sand
+
+
+@keyframes changeSearchBarBackgroundBottom
+  from
+    background-color: $accent-color
+
+  to
+    background-color: white

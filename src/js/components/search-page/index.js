@@ -15,7 +15,7 @@ import { SEARCH_ALIAS_EDIT_PATH, SEARCH_BOX, MORE_BUTTON, RECENT_CONTENT_TYPE, R
 import { showIntercomLauncher } from 'utils/intercom';
 import * as IntercomTracking from 'utils/intercom-tracking';
 import 'toast.css';
-import './search-page.sass';
+import styles from './search-page.sass';
 
 
 const DEFAULT_SUGGESTION_LIMIT = 9;
@@ -198,7 +198,7 @@ export default class SearchPage extends Component {
 
     return (
       <div
-        className={ cx('search-page', className, { 'edit-mode-on': aliasEditModeOn }) }>
+        className={ cx(styles.searchPage, className, { 'edit-mode-on': aliasEditModeOn, hide }) }>
         <div className={ cx('search-bar-wrapper', { 'edit-mode-on': aliasEditModeOn }) }>
           <div className={
             cx('search-bar', { 'has-bottom-border': query !== '' })
