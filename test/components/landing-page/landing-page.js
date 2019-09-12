@@ -157,6 +157,55 @@ describe('LandingPage component', function () {
           location={ { pathname: '/search/' } }
           params={ {} }
           routes={ [
+            { breadcrumb: 'cpdp', breadcrumbKey: '/' },
+            { breadcrumb: 'Search', breadcrumbKey: 'search/' },
+          ] }
+        />
+      </Provider>
+    );
+
+    const landingPageContent = findRenderedDOMComponentWithClass(instance, styles.landingPage);
+    landingPageContent.getAttribute('class').should.containEql('hide').and.not.containEql('animation-in');
+
+    const searchPage = findRenderedComponentWithType(instance, SearchPage);
+    searchPage.props.className.should.containEql('initial').and.not.containEql('hide')
+      .and.not.containEql('animation-in');
+  });
+
+  it('should able to open landing page edit mode', function () {
+    const stubResetBreadcrumbs = spy();
+
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <LandingPage
+          resetBreadcrumbs={ stubResetBreadcrumbs }
+          location={ { pathname: '/edit/' } }
+          params={ {} }
+          routes={ [
+            { breadcrumb: 'cpdp', breadcrumbKey: '/' },
+          ] }
+        />
+      </Provider>
+    );
+
+    const landingPageContent = findRenderedDOMComponentWithClass(instance, styles.landingPage);
+    const searchPage = findRenderedComponentWithType(instance, SearchPage);
+
+    landingPageContent.getAttribute('class').should.not.containEql('animation-in').and.not.containEql('hide');
+    searchPage.props.className.should.containEql('initial').and.containEql('top').and.containEql('hide')
+      .and.not.containEql('animation-in');
+  });
+
+  it('should able to open search page edit mode', function () {
+    const stubResetBreadcrumbs = spy();
+
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <LandingPage
+          resetBreadcrumbs={ stubResetBreadcrumbs }
+          location={ { pathname: '/edit/search/' } }
+          params={ {} }
+          routes={ [
             { breadcrumb: 'Search', breadcrumbKey: 'search/' },
             { breadcrumb: 'cpdp', breadcrumbKey: '/' },
           ] }

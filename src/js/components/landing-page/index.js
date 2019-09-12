@@ -57,9 +57,9 @@ class LandingPage extends Component {
   getSearchPageShowing() {
     const { pathname } = this.props.location;
 
-    if (pathname === `/${SEARCH_PATH}`)
+    if (pathname === `/${SEARCH_PATH}` || pathname === `/edit/${SEARCH_PATH}`)
       return true;
-    if (pathname === '/')
+    if (pathname === '/' || pathname === '/edit/')
       return false;
     else
       return this.previousSearchPageShowing;
