@@ -42,7 +42,7 @@
       display: inline-block
       line-height: 16px
 
-    &.middle
+    &.middle, &.bottom
       position: fixed
       top: -80px
       left: 0
@@ -52,15 +52,4 @@
       background-color: white
 
     &.bottom
-      position: fixed
-      top: 0
-      left: 0
-      right: 0
-      z-index: 20
       cursor: pointer
-      background-color: $accent-color
-      animation-fill-mode: forwards
-      transition: top 0.5s
-
-      .navbar-wrapper
-        background-color: transparent
