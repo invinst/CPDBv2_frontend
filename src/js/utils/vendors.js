@@ -1,4 +1,5 @@
 import 'mapbox-gl.css';
+import muuri from 'muuri';
 
 /* istanbul ignore next */
 import TwitterWidgetsLoader from 'twitter-widgets';
@@ -8,6 +9,7 @@ import { spy, stub } from 'sinon';
 import config from 'config';
 import { MAPBOX_ACCESS_TOKEN } from 'utils/constants';
 
+let _Muuri = muuri;
 
 export function loadTwitter(cb) {
   if (global.Mocha !== undefined) {
@@ -62,6 +64,7 @@ if (config.appEnv === 'live-test' || global.mocha !== undefined) {
       this.setLngLat = setLngLatSpy;
       this.addTo = addToSpy;
       this.setPopup = setPopupSpy;
+      this.remove = removeSpy;
     }
   }
 
@@ -77,4 +80,22 @@ if (config.appEnv === 'live-test' || global.mocha !== undefined) {
   _mapboxgl.NavigationControl = navigationControlSpy;
 }
 
+if (global.mocha !== undefined) {
+  const muuriAdd = spy();
+  const muuriRemove = spy();
+  const muuriDestroy = spy();
+  const muuriOn = spy();
+  class MuuriClass {
+    constructor() {
+      this.add = muuriAdd;
+      this.remove = muuriRemove;
+      this.on = muuriOn;
+      this.destroy = muuriDestroy;
+    }
+  }
+
+  _Muuri = MuuriClass;
+}
+
 export const mapboxgl = _mapboxgl;
+export const Muuri = _Muuri;

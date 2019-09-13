@@ -34,6 +34,15 @@ describe('search page navigation selector', function () {
             hidden: true,
           },
         },
+        pinboardPage: {
+          pinboard: {
+            id: '123456',
+            title: 'pinboard',
+            'officer_ids': ['29033'],
+            crids: [],
+            'trr_ids': [],
+          },
+        },
       }).should.deepEqual({
         id: '29033',
         to: '/officer/29033',
@@ -61,6 +70,9 @@ describe('search page navigation selector', function () {
             hidden: true,
           },
         },
+        pinboardPage: {
+          pinboard: {},
+        },
       }).should.deepEqual({
         id: undefined,
         to: undefined,
@@ -87,6 +99,9 @@ describe('search page navigation selector', function () {
           searchTerms: {
             hidden: true,
           },
+        },
+        pinboardPage: {
+          pinboard: {},
         },
       }).should.deepEqual({
         id: 'OFFICER',
@@ -119,6 +134,7 @@ describe('search page navigation selector', function () {
       });
       const info = {
         data: {
+          id: '29033',
           fullName: 'Jerome Turbyville',
           age: 48,
           appointedDate: 'DEC 13, 1999',
@@ -128,7 +144,6 @@ describe('search page navigation selector', function () {
           civilianComplimentCount: 4,
           gender: 'Male',
           lastPercentile: {
-            officerId: undefined,
             year: undefined,
             items: [
               { axis: 'Use of Force Reports', value: 90 },
@@ -154,6 +169,7 @@ describe('search page navigation selector', function () {
           trrCount: undefined,
           trrPercentile: 90,
           to: '/officer/29033/',
+          isPinned: true,
         },
         type: 'OFFICER',
       };
@@ -167,6 +183,15 @@ describe('search page navigation selector', function () {
           },
           navigation: {
             itemIndex: 1,
+          },
+        },
+        pinboardPage: {
+          pinboard: {
+            id: '123456',
+            title: 'pinboard',
+            'officer_ids': ['29033'],
+            crids: [],
+            'trr_ids': [],
           },
         },
       }).should.deepEqual(info);

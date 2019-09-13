@@ -30,7 +30,9 @@ describe('suggestion action', function () {
         types: [
           constants.SUGGESTION_REQUEST_START,
           constants.SUGGESTION_REQUEST_SUCCESS,
-          constants.SUGGESTION_REQUEST_FAILURE],
+          constants.SUGGESTION_REQUEST_FAILURE,
+          constants.SUGGESTION_REQUEST_CANCELLED,
+        ],
         payload: {
           request: {
             url: SUGGESTION_URL,
@@ -58,6 +60,7 @@ describe('suggestion action', function () {
           constants.SUGGESTION_SINGLE_REQUEST_START,
           constants.SUGGESTION_SINGLE_REQUEST_SUCCESS,
           constants.SUGGESTION_SINGLE_REQUEST_FAILURE,
+          constants.SUGGESTION_SINGLE_REQUEST_CANCELLED,
         ],
         payload: {
           request: {

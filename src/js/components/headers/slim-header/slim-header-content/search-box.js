@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import cx from 'classnames';
 
-import { SEARCH_PATH, SEARCH_TERMS_PATH } from 'utils/constants';
+import { SEARCH_PATH } from 'utils/constants';
 import { pushPathPreserveEditMode } from 'utils/edit-path';
 import MagnifyingGlass from 'components/common/icons/magnifying-glass';
 import styles from './search-box.sass';
@@ -9,7 +9,7 @@ import { accentColor, boulderColor } from 'utils/styles';
 
 export default class SearchBox extends Component {
   handleClick(e) {
-    pushPathPreserveEditMode(`/${SEARCH_PATH}${SEARCH_TERMS_PATH}`);
+    pushPathPreserveEditMode(`/${SEARCH_PATH}`);
     e.stopPropagation();
   }
 

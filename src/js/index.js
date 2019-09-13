@@ -11,6 +11,8 @@ import Perf from 'react-addons-perf';
 
 import 'babel-polyfill';
 import 'polyfill';
+import 'web-animations-js';
+
 import config from 'config';
 import RouterRoot from 'components/router-root';
 

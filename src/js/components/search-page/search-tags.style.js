@@ -1,4 +1,4 @@
-import { whiteTwoColor, softBlackColor, boulderColor } from 'utils/styles';
+import { softBlackColor, boulderColor } from 'utils/styles';
 
 export const tagStyle = (selected) => ({
   display: 'inline-block',
@@ -13,12 +13,14 @@ export const dataToolTagStyle = {
   cursor: 'default',
 };
 
-export const tagsWrapperHeight = 44;
+export const tagsWrapperHeight = 54;
 
 export const tagsWrapperStyle = {
-  padding: '11px 0 11px 0',
+  padding: '16px 0 16px 0',
   height: `${tagsWrapperHeight}px`,
   boxSizing: 'border-box',
   width: '100%',
-  borderBottom: `1px solid ${whiteTwoColor}`,
+  overflow: 'hidden',
+  display: 'inline-block',
+  whiteSpace: 'nowrap',
 };

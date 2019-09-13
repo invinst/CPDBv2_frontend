@@ -12,7 +12,7 @@ import StaticRadarChart from 'components/common/radar-chart';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
 import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
-import { RawContentStateFactory } from 'utils/test/factories/draft';
+import { buildEditStateFields } from 'utils/test/factories/draft';
 
 
 describe('TriangleExplainer components', function () {
@@ -45,18 +45,10 @@ describe('TriangleExplainer components', function () {
 
   it('should render editable content', function () {
     const editWrapperStateProps = {
-      fields: {
-        'triangle_description': {
-          type: 'rich_text',
-          name: 'triangle_description',
-          value: RawContentStateFactory.build({}, { blockTexts: ['triangle description'] }),
-        },
-        'triangle_sub_description': {
-          type: 'rich_text',
-          name: 'triangle_sub_description',
-          value: RawContentStateFactory.build({}, { blockTexts: ['triangle sub description'] }),
-        },
-      },
+      fields: buildEditStateFields({
+        'triangle_description': ['triangle description'],
+        'triangle_sub_description': ['triangle sub description'],
+      }),
       sectionEditModeOn: true,
       onSaveForm: spy(),
       turnOnSectionEditMode: spy(),

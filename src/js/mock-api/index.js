@@ -18,7 +18,12 @@ import {
   POPUP_API_URL,
   DOCUMENTS_URL,
   CRAWLERS_API_URL,
-  SOCIAL_GRAPH_API_URL,
+  SOCIAL_GRAPH_NETWORK_API_URL,
+  PINBOARDS_URL,
+  SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
+  SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL,
+  SOCIAL_GRAPH_OFFICERS_API_URL,
+  SOCIAL_GRAPH_ALLEGATIONS_API_URL,
   MODAL_VIDEO_INFO,
 } from 'utils/constants';
 import { communityGeoJSONPath } from 'utils/static-assets';
@@ -50,10 +55,43 @@ import fetchDocumentsAuthenticated from './documents-overview-page/fetch-documen
 import { getCrawlersData, getNextCrawlersData } from './crawlers-page/crawlers-page';
 import {
   getDefaultSocialGraphData,
+  getDefaultOfficerSocialGraphData,
   getOfficerComplaintSocialGraphData,
   getThresholdThreeSocialGraphData,
 } from './social-graph-page/social-graph-page';
+import { getDefaultSocialGraphOfficersData } from './social-graph-page/officers-data';
+import { getDefaultSocialGraphAllegationsData } from './social-graph-page/allegations-data';
+import {
+  createPinboard,
+  getOrCreateEmptyPinboard,
+  updatePinboard,
+  updatePinboardTitleParams,
+  updatedPinboardTitle,
+  updatePinboardDescriptionParams,
+  updatedPinboardDescription,
+} from './pinboard';
+import {
+  fetchPinboardComplaints,
+  fetchPinboardOfficers,
+  fetchPinboardTRRs,
+} from './pinboard-page/fetch-pinned-items';
+import { getSocialGraphData } from './pinboard-page/social-graph';
+import { getSocialGraphBigData } from './pinboard-page/big-social-graph';
+import { pinboardGeographicCrsData, pinboardGeographicTrrsData } from './pinboard-page/geographic-data';
+import { socialGraphGeographicCrsData, socialGraphGeographicTrrsData } from './social-graph-page/geographic-data';
+import getRelevantCoaccusals, {
+  getFirstRelevantCoaccusals,
+  filterPinnedOfficers,
+} from 'mock-api/pinboard-page/relevant-coaccusals';
+import getRelevantDocuments, {
+  getFirstRelevantDocuments,
+} from 'mock-api/pinboard-page/relevant-documents';
+import getRelevantComplaints, {
+  getFirstRelevantComplaints,
+  filterPinnedComplaints,
+} from 'mock-api/pinboard-page/relevant-complaints';
 import { modalVideoInfo } from './headers/slim-header';
+
 
 const SEARCH_API_URL = /^suggestion\/$/;
 const SEARCH_SINGLE_API_URL = /^suggestion\/single\/$/;
@@ -176,19 +214,144 @@ axiosMockClient.onGet(CRAWLERS_API_URL).reply(function (config) {
 });
 
 axiosMockClient.onGet(
-  SOCIAL_GRAPH_API_URL,
-  { params: { 'threshold': 2, 'show_civil_only': true, 'unit_id': '123' } }
+  SOCIAL_GRAPH_NETWORK_API_URL,
+  { params: { 'threshold': 2, 'complaint_origin': 'CIVILIAN', 'unit_id': '123' } }
 ).reply(200, getDefaultSocialGraphData());
 
 axiosMockClient.onGet(
-  SOCIAL_GRAPH_API_URL,
-  { params: { 'threshold': 2, 'show_civil_only': false, 'unit_id': '123' } }
+  SOCIAL_GRAPH_NETWORK_API_URL,
+  { params: { 'threshold': 2, 'complaint_origin': 'OFFICER', 'unit_id': '123' } }
+).reply(200, getDefaultOfficerSocialGraphData());
+
+axiosMockClient.onGet(
+  SOCIAL_GRAPH_NETWORK_API_URL,
+  { params: { 'threshold': 2, 'complaint_origin': 'ALL', 'unit_id': '123' } }
 ).reply(200, getOfficerComplaintSocialGraphData());
 
 axiosMockClient.onGet(
-  SOCIAL_GRAPH_API_URL,
-  { params: { 'threshold': 3, 'show_civil_only': false, 'unit_id': '123' } }
+  SOCIAL_GRAPH_NETWORK_API_URL,
+  { params: { 'threshold': 3, 'complaint_origin': 'ALL', 'unit_id': '123' } }
 ).reply(200, getThresholdThreeSocialGraphData());
+
+axiosMockClient.onPost(`${PINBOARDS_URL}`).reply(201, createPinboard());
+
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/`).reply(200, getOrCreateEmptyPinboard('5cd06f2b'));
+
+axiosMockClient.onPut(`${PINBOARDS_URL}5cd06f2b/`).reply(function (config) {
+  const pinboard = JSON.parse(config.data);
+  pinboard.id = '5cd06f2b';
+  pinboard['officer_ids'] = (pinboard['officer_ids'] || []).map(id => parseInt(id));
+  pinboard['trr_ids'] = (pinboard['trr_ids'] || []).map(id => parseInt(id));
+  const newPinboard = updatePinboard(pinboard);
+  return [200, newPinboard];
+});
+
+axiosMockClient.onPut(`${PINBOARDS_URL}5cd06f2b/`, updatePinboardTitleParams()).reply(200, updatedPinboardTitle());
+
+axiosMockClient.onPut(
+  `${PINBOARDS_URL}5cd06f2b/`, updatePinboardDescriptionParams()
+).reply(200, updatedPinboardDescription());
+
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/complaints/`).reply(200, fetchPinboardComplaints());
+
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/officers/`).reply(200, fetchPinboardOfficers());
+
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/trrs/`).reply(200, fetchPinboardTRRs());
+
+axiosMockClient.onGet(`${SOCIAL_GRAPH_NETWORK_API_URL}?pinboard_id=5cd06f2b`).reply(200, getSocialGraphData());
+axiosMockClient.onGet(
+  SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
+  { params: { 'pinboard_id': '5cd06f2b' } }
+).reply(200, pinboardGeographicCrsData);
+axiosMockClient.onGet(
+  SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL,
+  { params: { 'pinboard_id': '5cd06f2b' } }
+).reply(200, pinboardGeographicTrrsData);
+
+axiosMockClient.onGet(
+  SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
+  { params: { 'unit_id': '123' } }
+).reply(200, socialGraphGeographicCrsData);
+
+axiosMockClient.onGet(
+  SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL,
+  { params: { 'unit_id': '123' } }
+).reply(200, socialGraphGeographicTrrsData);
+
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-coaccusals/?`).reply(function () {
+  const currentPinboard = getOrCreateEmptyPinboard('5cd06f2b');
+  const relevantCoaccusals = getFirstRelevantCoaccusals('5cd06f2b', 50);
+  return [200, filterPinnedOfficers(relevantCoaccusals, currentPinboard)];
+});
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-coaccusals/?limit=20&offset=20`).reply(
+  200, getRelevantCoaccusals('5cd06f2b', 20, 20, 50)
+);
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-coaccusals/?limit=20&offset=40`).reply(
+  200, getRelevantCoaccusals('5cd06f2b', 20, 40, 50)
+);
+
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-documents/?`).reply(
+  200, getFirstRelevantDocuments('5cd06f2b', 50)
+);
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-documents/?limit=20&offset=20`).reply(
+  200, getRelevantDocuments('5cd06f2b', 20, 20, 50)
+);
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-documents/?limit=20&offset=40`).reply(
+  200, getRelevantDocuments('5cd06f2b', 20, 40, 50)
+);
+
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-complaints/?`).reply(function () {
+  const currentPinboard = getOrCreateEmptyPinboard('5cd06f2b');
+  const relevantComplaints = getFirstRelevantComplaints('5cd06f2b', 50);
+  return [200, filterPinnedComplaints(relevantComplaints, currentPinboard)];
+});
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-complaints/?limit=20&offset=20`).reply(
+  200, getRelevantComplaints('5cd06f2b', 20, 20, 50)
+);
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-complaints/?limit=20&offset=40`).reply(
+  200, getRelevantComplaints('5cd06f2b', 20, 40, 50)
+);
+
+axiosMockClient.onGet(`${PINBOARDS_URL}abcd1234/`).reply(200, getOrCreateEmptyPinboard('abcd1234'));
+
+axiosMockClient.onGet(`${PINBOARDS_URL}latest-retrieved-pinboard/`, { params: {} }).reply(200, {});
+axiosMockClient.onGet(`${PINBOARDS_URL}latest-retrieved-pinboard/`, { params: { 'create': false } }).reply(200, {});
+axiosMockClient.onGet(
+  `${PINBOARDS_URL}latest-retrieved-pinboard/`,
+  { params: { 'create': true } }
+).reply(200, getOrCreateEmptyPinboard('abcd1234'));
+
+axiosMockClient.onGet(
+  SOCIAL_GRAPH_OFFICERS_API_URL,
+  { params: { 'threshold': 2, 'complaint_origin': 'CIVILIAN', 'unit_id': '123' } }
+).reply(200, getDefaultSocialGraphOfficersData());
+
+axiosMockClient.onGet(
+  SOCIAL_GRAPH_ALLEGATIONS_API_URL,
+  { params: { 'threshold': 2, 'complaint_origin': 'CIVILIAN', 'unit_id': '123' } }
+).reply(200, getDefaultSocialGraphAllegationsData());
+
+axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/`).reply(200, getOrCreateEmptyPinboard('3664a7ea'));
+
+axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/complaints/`).reply(200, fetchPinboardComplaints());
+
+axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/officers/`).reply(200, fetchPinboardOfficers());
+
+axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/trrs/`).reply(200, fetchPinboardTRRs());
+
+axiosMockClient.onGet(`${SOCIAL_GRAPH_NETWORK_API_URL}?pinboard_id=3664a7ea`).reply(200, getSocialGraphBigData());
+
+axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/relevant-coaccusals/?`).reply(
+  200, getFirstRelevantCoaccusals('3664a7ea', 50)
+);
+
+axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/relevant-documents/?`).reply(
+  200, getFirstRelevantDocuments('3664a7ea', 50)
+);
+
+axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/relevant-complaints/?`).reply(
+  200, getFirstRelevantComplaints('3664a7ea', 50)
+);
 
 /*istanbul ignore next*/
 export function getMockAdapter() {

@@ -47,7 +47,6 @@ class DocumentsOverviewPage extends Page {
     }
 
     super.open(url);
-    $('body').waitForDisplayed();
   }
 }
 

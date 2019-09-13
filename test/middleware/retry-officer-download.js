@@ -31,6 +31,8 @@ describe('retryOfficerDownloadMiddleware', function () {
 
       clock.tick(1200);
       store.dispatch.calledWith(fetchOfficerZipFileUrl('123', 2));
+
+      clock.restore();
     }
   );
 
@@ -51,6 +53,8 @@ describe('retryOfficerDownloadMiddleware', function () {
 
       clock.tick(1200);
       store.dispatch.calledWith(fetchOfficerZipWithDocsFileUrl('123', 2));
+
+      clock.restore();
     }
   );
 
@@ -68,6 +72,8 @@ describe('retryOfficerDownloadMiddleware', function () {
 
     clock.tick(1200);
     store.dispatch.should.not.be.called();
+
+    clock.restore();
   });
 
   it(
@@ -87,6 +93,8 @@ describe('retryOfficerDownloadMiddleware', function () {
 
       clock.tick(1200);
       store.dispatch.should.not.be.called();
+
+      clock.restore();
     }
   );
 });

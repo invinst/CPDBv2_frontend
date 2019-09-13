@@ -1,9 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 
+import { pushPathPreserveEditMode } from 'utils/edit-path';
+import * as constants from 'utils/constants';
 import TextInput from 'components/common/input';
 import { navigateToSearchItem } from 'utils/navigate-to-search-item';
-import ToggleButton from './toggle-button';
 import { searchInputStyle, wrapperStyle } from './search-box.style';
+import CloseButton from './close-btn';
+
 
 export default class SearchBox extends Component {
   constructor(props) {
@@ -18,10 +21,13 @@ export default class SearchBox extends Component {
     });
   }
 
+  handleCloseButtonClick() {
+    this.props.changeSearchQuery('');
+    pushPathPreserveEditMode(constants.SEARCH_PATH);
+  }
+
   render() {
-    const {
-      value, onChange, onEscape, focused, resetNavigation, searchTermsHidden, changeSearchQuery,
-    } = this.props;
+    const { value, onChange, onEscape, focused, resetNavigation } = this.props;
 
     const keyPressHandlers = {
       esc: onEscape,
@@ -48,10 +54,13 @@ export default class SearchBox extends Component {
           className='test--search-page-input'
           focused={ focused }
         />
-        <ToggleButton value={ value }
-          searchTermsHidden={ searchTermsHidden }
-          changeSearchQuery={ changeSearchQuery }
-        />
+        {
+          (value !== '') &&
+            <CloseButton
+              className='test--search-close-button'
+              onClick={ () => this.handleCloseButtonClick() }
+            />
+        }
       </div>
     );
   }

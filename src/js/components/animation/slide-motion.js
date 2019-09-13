@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Motion, spring } from 'react-motion';
 
-import { faster } from 'utils/spring-presets';
-
 
 export default class SlideMotion extends Component {
   render() {
@@ -14,7 +12,7 @@ export default class SlideMotion extends Component {
 
     return (
       <Motion defaultStyle={ { translateX: show ? 0 : offsetX } }
-        style={ { translateX: spring(show ? 0 : offsetX, faster) } }>
+        style={ { translateX: spring(show ? 0 : offsetX) } }>
         { ({ translateX }) => {
           if (translateX === offsetX && !show) {
             return null;

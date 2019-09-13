@@ -25,6 +25,8 @@ import documentsOverviewPage from './documents-overview-page';
 import documentDeduplicatorPage from './document-deduplicator-page';
 import crawlersPage from './crawlers-page';
 import socialGraphPage from './social-graph-page';
+import pinboardPage from './pinboard-page';
+import toast from './toast';
 import videoModal from './video-modal';
 
 
@@ -54,5 +56,7 @@ export default combineReducers({
   documentDeduplicatorPage,
   crawlersPage,
   socialGraphPage,
+  pinboardPage,
+  toast,
   videoModal,
 });

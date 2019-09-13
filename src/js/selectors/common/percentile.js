@@ -14,7 +14,6 @@ export const extractPercentile = (percentile) => {
     trrPercentile
   );
   return {
-    officerId: percentile['officer_id'],
     year: percentile['year'],
     items: [
       { axis: 'Use of Force Reports', value: trrPercentile },
@@ -24,4 +23,20 @@ export const extractPercentile = (percentile) => {
     visualTokenBackground: backgroundColor,
     textColor,
   };
+};
+
+export const visualTokenBackground = (percentile) => {
+  if (!percentile) return null;
+
+  const internalPercentile = parseFloat(percentile['percentile_allegation_internal']);
+  const civilianPercentile = parseFloat(percentile['percentile_allegation_civilian']);
+  const trrPercentile = parseFloat(percentile['percentile_trr']);
+
+  const { backgroundColor } = getVisualTokenOIGBackground(
+    civilianPercentile,
+    internalPercentile,
+    trrPercentile
+  );
+
+  return backgroundColor;
 };

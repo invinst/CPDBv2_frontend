@@ -30,6 +30,7 @@ class AccusedOfficerSection extends Section {
 
     this.prepareElementGetters({
       title: '.accused-officer-title',
+      card: '//a[contains(@class, "coaccused-card")]',
       lastCard: '(//*[contains(@class, "coaccused-card")])[last()]',
       showMoreButton: '.show-more-button-container',
       popup: '.test--accused-officer .popup',
@@ -38,10 +39,6 @@ class AccusedOfficerSection extends Section {
       popupText: '.test--accused-officer .tooltip-text',
       popupCloseButton: '.test--accused-officer .popup-close-button',
     });
-  }
-
-  cardCount() {
-    return $$('//a[contains(@class, "coaccused-card")]').length;
   }
 }
 
@@ -77,47 +74,31 @@ class AttachmentsSection extends Section {
     super();
     this.prepareElementGetters({
       documentRequestButton: '.test--attachment-request',
+      card: '.test--attachment-card',
     });
-  }
-
-  cardCount() {
-    return $$('.test--attachment-card').length;
   }
 }
 
 
 class InvestigatorSection extends Section {
   constructor() {
-    super();
+    super('', '//*[contains(@class, "test--involvement-investigator")]');
     this.prepareElementGetters({
-      firstItem: '(//*[contains(@class, "test--involvement-investigator")]' +
-        '//*[contains(@class, "test--officer-row")])[1]',
-      secondItem: '(//*[contains(@class, "test--involvement-investigator")]' +
-        '//*[contains(@class, "test--officer-row")])[2]',
+      item: '//*[contains(@class, "test--officer-row")]',
+      firstItem: '(//*[contains(@class, "test--officer-row")])[1]',
+      secondItem: '(//*[contains(@class, "test--officer-row")])[2]',
     });
-  }
-
-  itemCount() {
-    return $$(
-      '(//*[contains(@class, "test--involvement-investigator")]//*[contains(@class, "test--officer-row")])'
-    ).length;
   }
 }
 
 
 class PoliceWitnessSection extends Section {
   constructor() {
-    super();
+    super('', '//*[contains(@class, "test--involvement-police_witness")]');
     this.prepareElementGetters({
-      firstItem: '(//*[contains(@class, "test--involvement-police_witness")]' +
-        '//*[contains(@class, "test--officer-row")])[1]',
+      item: '//*[contains(@class, "test--officer-row")]',
+      firstItem: '(//*[contains(@class, "test--officer-row")])[1]',
     });
-  }
-
-  itemCount() {
-    return $$(
-      '(//*[contains(@class, "test--involvement-police_witness")]//*[contains(@class, "test--officer-row")])'
-    ).length;
   }
 }
 
@@ -203,7 +184,6 @@ class CRPage extends Page {
 
   open(id = 1000000) {
     super.open(`/complaint/${id}/1/`);
-    $('body').waitForDisplayed();
   }
 }
 

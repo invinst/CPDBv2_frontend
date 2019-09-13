@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect';
-import { map, get, reduce, defaults, sortBy, kebabCase, isNil, isEmpty } from 'lodash';
+import { map, get, reduce, defaults, sortBy, kebabCase, isNil, isEmpty, compact } from 'lodash';
 import pluralize from 'pluralize';
 
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
-import { getBreadcrumb } from '../breadcrumbs';
+import { getBreadcrumb } from 'selectors/breadcrumbs';
 import { getFindingOutcomeMix } from './finding-outcome-mix';
 import { officerCardTransform } from 'selectors/common/officer-card';
 import { getDemographicString } from 'utils/victims';
@@ -58,7 +58,7 @@ const getComplainantStringSelector = createSelector(
 
 const getVictimStringSelector = createSelector(
   getVictims,
-  (victims) => map(victims, (victim) => getDemographicString(victim))
+  (victims) => compact(map(victims, getDemographicString))
 );
 
 const getTransformedCoaccused = createSelector(
@@ -167,8 +167,8 @@ export const contentSelector = createSelector(
     crLocation: cr.location,
     beat: cr.beat,
     summary: cr.summary,
-    category: get(cr, 'most_common_category.category') || 'Unknown',
-    subcategory: get(cr, 'most_common_category.allegation_name') || 'Unknown',
+    category: get(cr, 'most_common_category.category', 'Unknown'),
+    subcategory: get(cr, 'most_common_category.allegation_name', 'Unknown'),
     startDate: cr['start_date'],
     endDate: cr['end_date'],
     involvements,

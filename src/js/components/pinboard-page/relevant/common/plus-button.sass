@@ -1,0 +1,18 @@
+@import 'variables'
+
+\:local(.plus-button)
+  position: absolute
+  top: 0
+  right: 0
+  width: 30px
+  height: 30px
+  cursor: pointer
+  background: url(/img/ic-green-plus-white-circle.svg) no-repeat center
+  background-size: 14px 14px
+
+  &.dark-mode
+    background-image: url(/img/ic-darker-green-plus-white-circle.svg)
+
+
+  &:hover
+    background-image: url(/img/ic-white-plus-green-circle.svg)

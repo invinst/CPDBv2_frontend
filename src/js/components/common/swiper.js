@@ -55,10 +55,8 @@ export default class Swiper extends Component {
   }
 
   componentDidUpdate() {
-    const { slideIndex, children } = this.props;
-    if (this.swiper.slides.length !== children.length) {
-      this.swiper.update();
-    }
+    const { slideIndex } = this.props;
+    this.swiper.update();
     this.swiper.slideTo(slideIndex);
   }
 

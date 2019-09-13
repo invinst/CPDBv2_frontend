@@ -1,0 +1,47 @@
+\:local(.map)
+  width: 100%
+  position: relative
+  height: 625px
+
+  .map-tab
+    width: 100%
+    height: 100%
+    margin: 0 auto
+
+  .load-data-spinner
+    position: absolute
+    width: 60px
+    height: 60px
+    bottom: 16px
+    right: 16px
+
+  &.officer-allegations-map
+    .map-tab
+      width: calc(100% - 32px)
+
+  &.pinboard-map
+    height: 453px
+
+  &.social-graph-map
+    height: 100vh
+
+    .load-data-spinner
+      width: 160px
+      height: 160px
+
+  .map-marker
+    &:hover
+      z-index: 10
+
+    &.cr-marker
+      z-index: 0
+
+    &.force-marker
+      z-index: 1
+
+
+\:local(.allegation-map-loading)
+  margin: 0 auto
+  display: block
+  width: 176px
+  height: 454px
