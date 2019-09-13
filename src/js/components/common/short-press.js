@@ -4,6 +4,7 @@ import { noop } from 'lodash';
 import styles from './short-press.sass';
 
 const PRESS_POSITION_THRESHOLD = 20;
+const MOUSE_DOWN_TIME_THRESHOLD = 250;
 
 export default class ShortPress extends Component {
   constructor(props) {
@@ -26,7 +27,7 @@ export default class ShortPress extends Component {
     const yPosition = event.screenY;
     const { action } = this.props;
 
-    if (new Date() - this.mouseDownTime < 250
+    if (new Date() - this.mouseDownTime <= MOUSE_DOWN_TIME_THRESHOLD
       && Math.abs(xPosition - this.mouseDownPosition.x) <= PRESS_POSITION_THRESHOLD
       && Math.abs(yPosition - this.mouseDownPosition.y) <= PRESS_POSITION_THRESHOLD
     ) {
