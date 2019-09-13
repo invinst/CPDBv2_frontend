@@ -2,7 +2,7 @@
 
 import Page from './page';
 import Section from './sections/section';
-import { TopHeader, SlimHeader } from './sections/header';
+import { Header } from './sections/header';
 import Footer from './sections/footer';
 import RichTextToolbar from './sections/rich-text-toolbar';
 
@@ -163,8 +163,7 @@ class SearchSection extends Section {
 }
 
 class LandingPage extends Page {
-  topHeader = new TopHeader();
-  slimHeader = new SlimHeader();
+  header = new Header();
   footer = new Footer();
   richTextToolbar = new RichTextToolbar();
   collaborateSection = new CollaborateSection();

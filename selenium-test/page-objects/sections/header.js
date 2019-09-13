@@ -84,29 +84,17 @@ class NavBarSection extends Section {
 }
 
 class Header extends Section {
-  constructor(parentSelector, mainElementSelector) {
-    super(parentSelector, mainElementSelector);
+  constructor(parentSelector) {
+    super(parentSelector, '//div[contains(@class, "slim-header-content__slim-header")]');
 
     this.prepareElementGetters({
+      content: '//div[contains(@class, "header-content") and not(contains(@class, "slim-header"))]',
       topBar: TopBarSection,
       navBar: NavBarSection,
     });
   }
 }
 
-class TopHeader extends Header {
-  constructor(parentSelector) {
-    super(parentSelector, '//div[@class="test--top-slim-header"]');
-  }
-}
-
-class SlimHeader extends Header {
-  constructor(parentSelector) {
-    super(parentSelector, '//div[contains(@class, "slim-header__sticky-slim-header")]');
-  }
-}
-
 module.exports = {
-  TopHeader,
-  SlimHeader,
+  Header,
 };

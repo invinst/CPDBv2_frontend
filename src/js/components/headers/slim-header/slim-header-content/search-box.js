@@ -18,7 +18,7 @@ export default class SearchBox extends Component {
     const magnifyingGlassColors = {
       top: accentColor,
       middle: boulderColor,
-      bottom: boulderColor,
+      bottom: accentColor,
     };
 
     return (
