@@ -67,6 +67,11 @@ class ResultsSection extends Section {
       previewPaneButton: '(//a[@class="test--call-to-action"])',
     });
   }
+
+  resultsCount(key) {
+    return $$(`//a[contains(@class, "suggestion-item-${key}")]`).length;
+  }
+
 }
 
 class SearchPage extends Page {
@@ -77,6 +82,7 @@ class SearchPage extends Page {
   investigatorCRResultsSection = new ResultsSection('INVESTIGATOR-CR');
   dateTRRResultsSection = new ResultsSection('DATE-TRR');
   dateOfficerResultsSection = new ResultsSection('DATE-OFFICERS');
+  officerResultsSection = new ResultsSection('OFFICER');
   crResultsSection = new ResultsSection('CR');
   trrResultsSection = new ResultsSection('TRR');
   rankResultsSection = new ResultsSection('RANK');
@@ -122,6 +128,14 @@ class SearchPage extends Page {
   openWithEditMode() {
     super.open('/edit/search/');
     $('body').waitForDisplayed();
+  }
+
+  suggestionTag(index) {
+    return $$(`//div[@class="suggestion-tags"]//span[${index}]`)[0];
+  }
+
+  suggestionTagCount() {
+    return $$('//div[@class="suggestion-tags"]//span').length;
   }
 }
 

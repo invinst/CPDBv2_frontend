@@ -1,4 +1,5 @@
 import Enum from 'enum';
+import { kebabCase } from 'lodash';
 
 import {
   darkSilverSandColor, skepticColor, jaggedIceColor, romanticColor, porcelainColor, botticelliColor,
@@ -397,6 +398,12 @@ export const SEARCH_CATEGORIES = [
   'UNIT > OFFICERS', 'CR', 'INVESTIGATOR > CR', 'TRR', 'BEAT', 'POLICE-DISTRICT', 'WARD', 'SCHOOL-GROUND', 'UNIT',
   'RANK', 'ZIP-CODE',
 ];
+
+export const SEARCH_CATEGORY_PREFIXES = SEARCH_CATEGORIES.reduce((result, searchCategory) => {
+  return { ...result, [searchCategory]: kebabCase(searchCategory) };
+}, {});
+
+export const SEARCH_QUERY_PREFIX_REGEX = new RegExp(`^(${Object.values(SEARCH_CATEGORY_PREFIXES).join('|')}):`);
 
 export const OFFICER_EDIT_MODE = 'OFFICER_EDIT_MODE';
 export const OFFICER_EDIT_TYPES = new Enum(['TRIANGLE', 'SCALE', 'NO_DATA_RADAR_CHART']);
