@@ -20,7 +20,7 @@ export default class Timeline extends Component {
   }
 
   renderHeader() {
-    const { popup, filterCount, pathname } = this.props;
+    const { popup, filterCount, pathname, selectedFilter } = this.props;
     const options = values(mapValues(NEW_TIMELINE_FILTERS, 'label'));
     const labels = map(
       NEW_TIMELINE_FILTERS,
@@ -46,7 +46,7 @@ export default class Timeline extends Component {
         <div className='showing-content-header'>
           <div className='showing-text'>SHOWING</div>
           <Dropdown
-            defaultValue={ NEW_TIMELINE_FILTERS.ALL.label }
+            defaultValue={ selectedFilter.label }
             onChange={ this.handleDropdownChange }
             options={ options }
             className='timeline-filter'
@@ -100,9 +100,11 @@ Timeline.propTypes = {
   filterCount: PropTypes.object,
   pathname: PropTypes.string,
   onTrackingAttachment: PropTypes.func,
+  selectedFilter: PropTypes.object,
 };
 
 Timeline.defaultProps = {
   items: [],
   filterCount: {},
+  selectedFilter: {},
 };
