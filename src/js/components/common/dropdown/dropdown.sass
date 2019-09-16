@@ -1,0 +1,42 @@
+@import 'variables'
+
+\:local(.dropdown)
+  display: inline-block
+  text-align: center
+  margin: 0 4px 0 6px
+  position: relative
+  -webkit-user-select: none
+  -moz-user-select: none
+  -ms-user-select: none
+  user-select: none
+
+  &:focus
+    outline: none
+
+  .dropdown-button
+    font-size: 14px
+    color: $accent-color
+    background-color: $hawkes-blue
+    padding: 6px 8px
+    display: inline-block
+    box-sizing: border-box
+    cursor: pointer
+    border-radius: 2px
+    position: relative
+    width: 100%
+
+    &:hover
+      color: $soft-black-color
+
+    .dropdown-button-text
+      display: inline-block
+      width: calc(100% - 30px)
+
+  .dropdown-arrow
+    background: url('/img/arrow-down-blue.svg') 0 0 no-repeat scroll
+    width: 14px
+    height: 9px
+    display: inline-block
+
+    &.open
+      background: url('/img/arrow-up-blue.svg') 0 0 no-repeat scroll

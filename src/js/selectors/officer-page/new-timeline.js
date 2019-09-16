@@ -1,5 +1,4 @@
 import {
-  concat,
   difference,
   filter,
   get,
@@ -9,9 +8,10 @@ import {
   rangeRight,
   slice,
   values,
-  isUndefined,
   cloneDeep,
   map,
+  keys,
+  every,
 } from 'lodash';
 import moment from 'moment';
 import { createSelector } from 'reselect';
@@ -210,33 +210,16 @@ export const fillRankChange = (items) => {
   return items;
 };
 
-const filterByKind = (selectedFilter, items) => {
-  const unremovableKinds = difference(values(NEW_TIMELINE_ITEMS), NEW_TIMELINE_FILTERS.ALL.kind);
-  const filteredKinds = selectedFilter.kind;
-  const displayKinds = concat(unremovableKinds, filteredKinds);
-
-  return filter(items, (item) => includes(displayKinds, item.kind));
-};
-
 export const applyFilter = (selectedFilter, items) => {
-  let results = [];
-  let cloneSelectedFilter = cloneDeep(selectedFilter);
-  delete cloneSelectedFilter.label;
-  delete cloneSelectedFilter.kind;
+  const allKinds = values(NEW_TIMELINE_ITEMS);
+  const alwaysShownKinds = difference(allKinds, NEW_TIMELINE_FILTERS.ALL.kind);
 
-  if (!isUndefined(selectedFilter.kind)) {
-    results = filterByKind(selectedFilter, items);
-  }
+  const keptKinds = selectedFilter.kind || allKinds;
+  const criteria = difference(keys(selectedFilter), ['label', 'kind']);
+  const matchCriteria = item => includes(keptKinds, item.kind) &&
+      every(criteria.map(criterion => includes(selectedFilter[criterion], item[criterion])));
 
-  if (isEmpty(cloneSelectedFilter)) {
-    return results;
-  }
-
-  Object.keys(cloneSelectedFilter).map(key => {
-    results = filter(results, result => includes(selectedFilter[key], result[key]));
-  });
-
-  return results;
+  return filter(items, item => includes(alwaysShownKinds, item.kind) || matchCriteria(item));
 };
 
 export const markLatestUnit = (items) => {
@@ -312,7 +295,7 @@ export const newTimelineItemsSelector = createSelector(
   }
 );
 
-export const filterCount = createSelector(
+export const filterCountSelector = createSelector(
   getItems,
   items => {
     let count = cloneDeep(NEW_TIMELINE_FILTERS);

@@ -10,7 +10,7 @@ import Menu from 'components/common/dropdown/menu';
 import { unmountComponentSuppressError } from 'utils/test';
 
 
-describe('Dropdown component', function () {
+describe('Menu component', function () {
   let instance;
 
   afterEach(function () {
@@ -26,7 +26,7 @@ describe('Dropdown component', function () {
       />
     );
 
-    const secondMenuItem = scryRenderedDOMComponentsWithClass(instance, 'test--dropdown-menu-item')[1];
+    const secondMenuItem = scryRenderedDOMComponentsWithClass(instance, 'dropdown-menu-item')[1];
     Simulate.click(secondMenuItem);
 
     onSelectStub.should.be.calledWith(1);

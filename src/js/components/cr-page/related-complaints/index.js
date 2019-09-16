@@ -35,10 +35,10 @@ export default class RelatedComplaints extends Component {
             <div className='related-complaints-filter'>
               WITHIN
               <Dropdown
+                className='distance-filter'
                 defaultValue={ DISTANCE_OPTIONS[selectedDistance] }
                 options={ values(DISTANCE_OPTIONS) }
                 onChange={ this.handleDistanceChange.bind(this) }
-                width={ 109 }
               />
               OF CR { crid }
             </div>

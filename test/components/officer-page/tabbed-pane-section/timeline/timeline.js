@@ -74,9 +74,9 @@ describe('Timeline component', function () {
       />
     );
 
-    const dropdownButton = findRenderedDOMComponentWithClass(instance, 'test--dropdown-button');
+    const dropdownButton = findRenderedDOMComponentWithClass(instance, 'dropdown-button');
     Simulate.click(dropdownButton);
-    const options = scryRenderedDOMComponentsWithClass(instance, 'test--dropdown-menu-item');
+    const options = scryRenderedDOMComponentsWithClass(instance, 'dropdown-menu-item');
     Simulate.click(options[0]);
 
     changeFilterStub.calledWith({
