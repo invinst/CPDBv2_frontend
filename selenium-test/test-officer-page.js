@@ -8,6 +8,22 @@ import { selectText } from './utils';
 
 const noDataRadarChartOfficerId = 2;
 
+function showingComplaints(officerPage) {
+  officerPage.tabbedPaneSection.timelineSection.filter.button.getText().should.containEql('COMPLAINTS');
+  officerPage.tabbedPaneSection.timelineSection.crItem.waitForDisplayed();
+  officerPage.tabbedPaneSection.timelineSection.crItem.count.should.eql(2);
+  officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed(1000, true);
+  officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed(1000, true);
+  return true;
+}
+
+function showingAllEvents(officerPage) {
+  officerPage.tabbedPaneSection.timelineSection.filter.button.getText().should.containEql('ALL');
+  officerPage.tabbedPaneSection.timelineSection.crItem.waitForDisplayed();
+  officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed();
+  officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed();
+  return true;
+}
 
 describe('officer page', function () {
 
@@ -261,10 +277,7 @@ describe('officer page', function () {
       it('should filter complaints', function () {
         officerPage.tabbedPaneSection.timelineSection.filter.crs.click();
 
-        officerPage.tabbedPaneSection.timelineSection.crItem.waitForDisplayed();
-        officerPage.tabbedPaneSection.timelineSection.crItem.count.should.eql(2);
-        officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed(1000, true);
-        officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed(1000, true);
+        showingComplaints(officerPage).should.be.true();
       });
 
       it('should filter sustained', function () {
@@ -305,6 +318,29 @@ describe('officer page', function () {
       it('should close the menu when blurring', function () {
         officerPage.tabbedPaneSection.timelineSection.yearItem.click();
         officerPage.tabbedPaneSection.timelineSection.filter.menu.waitForDisplayed(1000, true);
+      });
+
+      it('should keep selected filter when changing tab', function () {
+        officerPage.tabbedPaneSection.timelineSection.filter.crs.click();
+
+        showingComplaints(officerPage).should.be.true();
+
+        officerPage.tabbedPaneSection.coaccusalsTabName.click();
+        officerPage.tabbedPaneSection.timelineTabName.click();
+
+        showingComplaints(officerPage).should.be.true();
+      });
+
+      it('should reset filter when navigating to another officer page', function () {
+        officerPage.tabbedPaneSection.timelineSection.filter.crs.click();
+
+        showingComplaints(officerPage).should.be.true();
+
+        officerPage.tabbedPaneSection.coaccusalsTabName.click();
+        officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalCard.click();
+
+        browser.getUrl().should.containEql('officer/2/');
+        showingAllEvents(officerPage).should.be.true();
       });
     });
   });
