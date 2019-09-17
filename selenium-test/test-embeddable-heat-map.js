@@ -2,7 +2,6 @@
 
 import 'should';
 
-import { switchToRecentTab } from './utils';
 import embeddableHeatMapPage from './page-objects/embeddable-heat-map-page';
 
 
@@ -22,15 +21,16 @@ describe('Heat map', function () {
     });
 
     it('should go to v1 complain category when click on the complaints', function () {
-      browser.elements(embeddableHeatMapPage.heatMapSection.complaintCategory.selector).value[0].click();
-      switchToRecentTab();
+      $$(embeddableHeatMapPage.heatMapSection.complaintCategory.selector)[0].click();
+      browser.switchWindow('/url-mediator/session-builder');
       browser.getUrl().should.match(/\/url-mediator\/session-builder\?cat__category=/);
     });
 
     it('should go to v1 datatool when click on allegation count', function () {
       const v2Url = browser.getUrl();
       embeddableHeatMapPage.heatMapSection.citySummary.allegationDiscipline.click();
-      switchToRecentTab();
+
+      browser.switchWindow('cpdb');
       browser.getUrl().should.not.equal(v2Url);
     });
   });

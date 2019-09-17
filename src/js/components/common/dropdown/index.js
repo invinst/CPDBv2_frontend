@@ -1,13 +1,12 @@
 import React, { Component, PropTypes } from 'react';
-import classNames from 'classnames';
+import cx from 'classnames';
 import { indexOf } from 'lodash';
 
-import Hoverable from 'components/common/higher-order/hoverable';
 import Menu from './menu';
-import { arrowStyle, defaultButtonStyle, wrapperStyle, defaultButtonTextStyle } from './dropdown.style';
+import styles from './dropdown.sass';
 
 
-export class Dropdown extends Component {
+export default class Dropdown extends Component {
   constructor(props) {
     super(props);
 
@@ -48,34 +47,29 @@ export class Dropdown extends Component {
   }
 
   render() {
-    const { buttonStyle, className, menuItemStyle, menuStyle, options, width, hovering, labels } = this.props;
+    const { className, options, labels } = this.props;
     const { selectedIndex, open } = this.state;
 
     return (
       <div
-        style={ wrapperStyle }
+        className={ cx(styles.dropdown, className) }
         onBlur={ this.handleBlur }
-        className={ classNames('dropdown', className) }
         tabIndex='-1'
       >
         <div
-          className='test--dropdown-button'
-          style={ { ...defaultButtonStyle(width, hovering), ...buttonStyle } }
+          className='dropdown-button'
           onClick={ this.handleClick }
         >
-          <span style={ defaultButtonTextStyle(width - 30) }>
+          <span className='dropdown-button-text'>
             { labels ? labels[selectedIndex] : options[selectedIndex] }
           </span>
-          <span style={ arrowStyle(open) } />
+          <span className={ cx('dropdown-arrow', { open }) } />
         </div>
         {
           open ? (
             <Menu
-              menuItemStyle={ menuItemStyle }
-              menuStyle={ menuStyle }
               onSelect={ this.handleSelect }
               options={ options }
-              width={ width }
               selectedIndex={ selectedIndex }
               labels={ labels }
             />
@@ -87,14 +81,10 @@ export class Dropdown extends Component {
 }
 
 Dropdown.propTypes = {
-  buttonStyle: PropTypes.object,
-  menuItemStyle: PropTypes.object,
-  menuStyle: PropTypes.object,
   onChange: PropTypes.func,
   options: PropTypes.array,
   defaultValue: PropTypes.string,
   className: PropTypes.string,
-  width: PropTypes.number,
   hovering: PropTypes.bool,
   labels: PropTypes.array,
 };
@@ -103,5 +93,3 @@ Dropdown.defaultProps = {
   options: [],
   onChange: () => {},
 };
-
-export default Hoverable(Dropdown);

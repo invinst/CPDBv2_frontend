@@ -22,7 +22,7 @@ class EmbedTopOfficersPage extends Page {
 
   open() {
     super.open('/embed/top-officers-page');
-    browser.element('body').waitForVisible();
+    $('body').waitForDisplayed();
   }
 }
 

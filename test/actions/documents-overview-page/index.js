@@ -79,7 +79,9 @@ describe('documents overview page actions', function () {
         payload: {
           request: {
             url: constants.DOCUMENTS_URL,
-            params: {},
+            params: {
+              authenticated: true,
+            },
             adapter: null,
             cancelToken: 'token',
             headers: {
@@ -104,6 +106,7 @@ describe('documents overview page actions', function () {
             url: constants.DOCUMENTS_URL,
             params: {
               match: '1001',
+              authenticated: true,
             },
             adapter: null,
             cancelToken: 'token',

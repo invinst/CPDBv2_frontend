@@ -4,7 +4,7 @@ require('should');
 
 import officerPage from './page-objects/officer-page';
 import header from './page-objects/shareable-header';
-import { selectText, switchToRecentTab } from './utils';
+import { selectText } from './utils';
 
 const noDataRadarChartOfficerId = 2;
 
@@ -12,18 +12,11 @@ const noDataRadarChartOfficerId = 2;
 describe('officer page', function () {
 
   beforeEach(function () {
-    browser.setViewportSize({
-      width: 1000,
-      height: 500,
-    });
     officerPage.open();
   });
 
   afterEach(function () {
-    browser.setViewportSize({
-      width: 1000,
-      height: 1000,
-    });
+    browser.setWindowRect(0, 0, 1000, 1000);
   });
 
   it('should display officer summary', function () {
@@ -61,7 +54,7 @@ describe('officer page', function () {
   });
 
   it('should display the timeline by default', function () {
-    officerPage.tabbedPaneSection.menu.waitForVisible();
+    officerPage.tabbedPaneSection.menu.waitForDisplayed();
 
     const tabbedPaneMenuText = officerPage.tabbedPaneSection.menu.getText();
     tabbedPaneMenuText.should.containEql('TIMELINE');
@@ -78,83 +71,77 @@ describe('officer page', function () {
     headerText.should.containEql('ALL');
     headerText.should.containEql('DATE');
 
-    officerPage.tabbedPaneSection.timelineSection.crItem.waitForVisible();
-    officerPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible();
-    officerPage.tabbedPaneSection.timelineSection.awardItem.waitForVisible();
-    officerPage.tabbedPaneSection.timelineSection.unitChangeItem.waitForVisible();
-    officerPage.tabbedPaneSection.timelineSection.joinedItem.waitForVisible();
-    officerPage.tabbedPaneSection.timelineSection.yearItem.waitForVisible();
-    officerPage.tabbedPaneSection.timelineSection.emptyItem.waitForVisible();
+    officerPage.tabbedPaneSection.timelineSection.crItem.waitForDisplayed();
+    officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed();
+    officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed();
+    officerPage.tabbedPaneSection.timelineSection.unitChangeItem.waitForDisplayed();
+    officerPage.tabbedPaneSection.timelineSection.joinedItem.waitForDisplayed();
+    officerPage.tabbedPaneSection.timelineSection.yearItem.waitForDisplayed();
+    officerPage.tabbedPaneSection.timelineSection.emptyItem.waitForDisplayed();
   });
 
   it('should change tab when click on tab name', function () {
-    officerPage.tabbedPaneSection.menu.waitForVisible();
-    officerPage.tabbedPaneSection.timelineSection.header.waitForVisible();
+    officerPage.tabbedPaneSection.menu.waitForDisplayed();
+    officerPage.tabbedPaneSection.timelineSection.header.waitForDisplayed();
 
     officerPage.tabbedPaneSection.mapTabName.click();
 
-    officerPage.tabbedPaneSection.timelineSection.header.waitForVisible(10000, true);
-    officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalGroupName.waitForVisible(10000, true);
+    officerPage.tabbedPaneSection.timelineSection.header.waitForDisplayed(10000, true);
+    officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalGroupName.waitForDisplayed(10000, true);
 
     officerPage.tabbedPaneSection.coaccusalsTabName.click();
 
-    officerPage.tabbedPaneSection.timelineSection.header.waitForVisible(10000, true);
-    officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalGroupName.waitForVisible();
-    officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalCard.waitForVisible();
+    officerPage.tabbedPaneSection.timelineSection.header.waitForDisplayed(10000, true);
+    officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalGroupName.waitForDisplayed();
+    officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalCard.waitForDisplayed();
   });
 
   it('should redirect to correct path name when only officer id is provided', function () {
     officerPage.open(1);
-    officerPage.summarySection.officerName.waitForVisible();
+    officerPage.summarySection.officerName.waitForDisplayed();
     browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/?$/);
   });
 
   it('should redirect to correct path name when the officer name is incorrect', function () {
     browser.url('/officer/1/somethingwrong/');
-    officerPage.summarySection.officerName.waitForVisible();
+    officerPage.summarySection.officerName.waitForDisplayed();
     browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/?$/);
   });
 
   describe('Radar Chart', function () {
     it('should responsive', function () {
-      browser.setViewportSize({
-        width: 300,
-        height: 600,
-      });
-      officerPage.radarChartSection.lastAxisTitle.waitForVisible();
+      browser.setWindowRect(0, 0, 300, 600);
+      officerPage.radarChartSection.lastAxisTitle.waitForDisplayed();
     });
 
     it('should open radar chart explainer when being clicked and closeable', function () {
       officerPage.radarChartSection.radarChartPlaceHolder.click();
 
-      officerPage.radarChartSection.explainerSection.leftNavigation.waitForVisible();
+      officerPage.radarChartSection.explainerSection.leftNavigation.waitForDisplayed();
 
       officerPage.radarChartSection.explainerSection.closeExplainerButton.click();
 
-      officerPage.radarChartSection.explainerSection.leftNavigation.waitForVisible(10000, true);
+      officerPage.radarChartSection.explainerSection.leftNavigation.waitForDisplayed(10000, true);
     });
 
     context('not enough data for radar chart', function () {
       beforeEach(function () {
-        browser.setViewportSize({
-          width: 1000,
-          height: 500,
-        });
+        browser.setWindowRect(0, 0, 1000, 500);
         officerPage.open(noDataRadarChartOfficerId);
       });
 
       it('should show NoDataRadarChart', function () {
-        officerPage.radarChartSection.noDataRadarChartSection.component.waitForVisible();
+        officerPage.radarChartSection.noDataRadarChartSection.component.waitForDisplayed();
         officerPage.radarChartSection.noDataRadarChartSection.noDataText.getText().should.eql('no data explain text');
       });
 
       it('should not open radar chart explainer when being clicked', function () {
-        officerPage.radarChartSection.noDataRadarChartSection.component.waitForVisible();
-        officerPage.radarChartSection.radarChartPlaceHolder.waitForVisible(2000, true);
+        officerPage.radarChartSection.noDataRadarChartSection.component.waitForDisplayed();
+        officerPage.radarChartSection.radarChartPlaceHolder.waitForDisplayed(2000, true);
 
         officerPage.radarChartSection.noDataRadarChartSection.component.click();
         officerPage.radarChartSection.component.click();
-        officerPage.radarChartSection.explainerSection.component.waitForVisible(10000, true);
+        officerPage.radarChartSection.explainerSection.component.waitForDisplayed(10000, true);
       });
     });
 
@@ -162,43 +149,43 @@ describe('officer page', function () {
       it('should navigate correctly between explainers when clicking on left and right navigations', function () {
         officerPage.radarChartSection.radarChartPlaceHolder.click();
 
-        officerPage.radarChartSection.explainerSection.triangleExplainer.waitForVisible();
+        officerPage.radarChartSection.explainerSection.triangleExplainer.waitForDisplayed();
         officerPage.radarChartSection.explainerSection.leftNavigation.getText().should.eql('Percentiles by year');
         officerPage.radarChartSection.explainerSection.rightNavigation.getText().should.eql('What is the scale?');
 
         officerPage.radarChartSection.explainerSection.leftNavigation.click();
 
-        officerPage.radarChartSection.explainerSection.percentileByYear.waitForVisible();
+        officerPage.radarChartSection.explainerSection.percentileByYear.waitForDisplayed();
         officerPage.radarChartSection.explainerSection.leftNavigation.getText().should.eql('What is the scale?');
         officerPage.radarChartSection.explainerSection.rightNavigation.getText().should.eql('What is this triangle?');
 
         officerPage.radarChartSection.explainerSection.leftNavigation.click();
 
-        officerPage.radarChartSection.explainerSection.scaleExplainer.waitForVisible();
+        officerPage.radarChartSection.explainerSection.scaleExplainer.waitForDisplayed();
         officerPage.radarChartSection.explainerSection.leftNavigation.getText().should.eql('What is this triangle?');
         officerPage.radarChartSection.explainerSection.rightNavigation.getText().should.eql('Percentiles by year');
 
         officerPage.radarChartSection.explainerSection.leftNavigation.click();
 
-        officerPage.radarChartSection.explainerSection.triangleExplainer.waitForVisible();
+        officerPage.radarChartSection.explainerSection.triangleExplainer.waitForDisplayed();
         officerPage.radarChartSection.explainerSection.leftNavigation.getText().should.eql('Percentiles by year');
         officerPage.radarChartSection.explainerSection.rightNavigation.getText().should.eql('What is the scale?');
 
         officerPage.radarChartSection.explainerSection.rightNavigation.click();
 
-        officerPage.radarChartSection.explainerSection.scaleExplainer.waitForVisible();
+        officerPage.radarChartSection.explainerSection.scaleExplainer.waitForDisplayed();
         officerPage.radarChartSection.explainerSection.leftNavigation.getText().should.eql('What is this triangle?');
         officerPage.radarChartSection.explainerSection.rightNavigation.getText().should.eql('Percentiles by year');
 
         officerPage.radarChartSection.explainerSection.rightNavigation.click();
 
-        officerPage.radarChartSection.explainerSection.percentileByYear.waitForVisible();
+        officerPage.radarChartSection.explainerSection.percentileByYear.waitForDisplayed();
         officerPage.radarChartSection.explainerSection.leftNavigation.getText().should.eql('What is the scale?');
         officerPage.radarChartSection.explainerSection.rightNavigation.getText().should.eql('What is this triangle?');
 
         officerPage.radarChartSection.explainerSection.rightNavigation.click();
 
-        officerPage.radarChartSection.explainerSection.triangleExplainer.waitForVisible();
+        officerPage.radarChartSection.explainerSection.triangleExplainer.waitForDisplayed();
         officerPage.radarChartSection.explainerSection.leftNavigation.getText().should.eql('Percentiles by year');
         officerPage.radarChartSection.explainerSection.rightNavigation.getText().should.eql('What is the scale?');
       });
@@ -211,10 +198,7 @@ describe('officer page', function () {
 
         percentileByYear.getText().should.containEql('Use Of Force\nReports');
 
-        browser.setViewportSize({
-          width: 800,
-          height: 500,
-        });
+        browser.setWindowRect(0, 0, 800, 500);
 
         percentileByYear.getText().should.containEql('Use Of Force');
         percentileByYear.getText().should.not.containEql('Reports');
@@ -224,7 +208,7 @@ describe('officer page', function () {
 
   describe('Timeline', function () {
     it('should go to cr page when clicking on an cr timeline item', function () {
-      officerPage.tabbedPaneSection.timelineSection.crItem.waitForVisible();
+      officerPage.tabbedPaneSection.timelineSection.crItem.waitForDisplayed();
       officerPage.tabbedPaneSection.timelineSection.crItem.click();
 
       browser.getUrl().should.match(/\/complaint\/\w+\/$/);
@@ -234,21 +218,19 @@ describe('officer page', function () {
     });
 
     it('should go to attachment source page when clicking on the attachment thumbnail', function () {
-      officerPage.tabbedPaneSection.timelineSection.attachmentThumbnail.waitForVisible();
+      officerPage.tabbedPaneSection.timelineSection.attachmentThumbnail.waitForDisplayed();
       officerPage.tabbedPaneSection.timelineSection.attachmentThumbnail.click();
-      const tabIds = browser.getTabIds();
-      browser.switchTab(tabIds[tabIds.length - 1]).pause(2000);
-      browser.getUrl().should.eql('https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html');
+      browser.switchWindow('https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html');
     });
 
     it('should go to attachment tab when clicking on the more attachment', function () {
-      officerPage.tabbedPaneSection.timelineSection.moreAttachment.waitForVisible();
+      officerPage.tabbedPaneSection.timelineSection.moreAttachment.waitForDisplayed();
       officerPage.tabbedPaneSection.timelineSection.moreAttachment.click();
-      officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForVisible();
+      officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForDisplayed();
     });
 
     it('should go to trr page when clicking on an trr timeline item', function () {
-      officerPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible();
+      officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed();
       officerPage.tabbedPaneSection.timelineSection.trrItem.click();
 
       browser.getUrl().should.match(/\/trr\/\d+\/$/);
@@ -259,72 +241,82 @@ describe('officer page', function () {
 
     describe('Timeline filter', function () {
       beforeEach(function () {
-        officerPage.tabbedPaneSection.timelineSection.filter.button.waitForVisible();
+        officerPage.tabbedPaneSection.timelineSection.filter.button.waitForDisplayed();
         officerPage.tabbedPaneSection.timelineSection.filter.button.click();
       });
 
       afterEach(function () {
-        officerPage.tabbedPaneSection.timelineSection.unitChangeItem.waitForVisible();
-        officerPage.tabbedPaneSection.timelineSection.joinedItem.waitForVisible();
-        officerPage.tabbedPaneSection.timelineSection.yearItem.waitForVisible();
-        officerPage.tabbedPaneSection.timelineSection.emptyItem.waitForVisible();
+        officerPage.tabbedPaneSection.timelineSection.unitChangeItem.waitForDisplayed();
+        officerPage.tabbedPaneSection.timelineSection.joinedItem.waitForDisplayed();
+        officerPage.tabbedPaneSection.timelineSection.yearItem.waitForDisplayed();
+        officerPage.tabbedPaneSection.timelineSection.emptyItem.waitForDisplayed();
       });
 
       it('should filter all events by by default', function () {
-        officerPage.tabbedPaneSection.timelineSection.crItem.waitForVisible();
-        officerPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible();
-        officerPage.tabbedPaneSection.timelineSection.awardItem.waitForVisible();
+        officerPage.tabbedPaneSection.timelineSection.crItem.waitForDisplayed();
+        officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed();
+        officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed();
       });
 
       it('should filter complaints', function () {
         officerPage.tabbedPaneSection.timelineSection.filter.crs.click();
 
-        officerPage.tabbedPaneSection.timelineSection.crItem.waitForVisible();
-        officerPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible(1000, true);
-        officerPage.tabbedPaneSection.timelineSection.awardItem.waitForVisible(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.crItem.waitForDisplayed();
+        officerPage.tabbedPaneSection.timelineSection.crItem.count.should.eql(2);
+        officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed(1000, true);
+      });
+
+      it('should filter sustained', function () {
+        officerPage.tabbedPaneSection.timelineSection.filter.sustained.click();
+
+        officerPage.tabbedPaneSection.timelineSection.crItem.waitForDisplayed();
+        officerPage.tabbedPaneSection.timelineSection.crItem.count.should.eql(1);
+        officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed(1000, true);
       });
 
       it('should filter TRRs', function () {
         officerPage.tabbedPaneSection.timelineSection.filter.force.click();
 
-        officerPage.tabbedPaneSection.timelineSection.crItem.waitForVisible(1000, true);
-        officerPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible();
-        officerPage.tabbedPaneSection.timelineSection.awardItem.waitForVisible(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.crItem.waitForDisplayed(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed();
+        officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed(1000, true);
       });
 
       it('should filter awards', function () {
         officerPage.tabbedPaneSection.timelineSection.filter.awards.click();
 
-        officerPage.tabbedPaneSection.timelineSection.crItem.waitForVisible(1000, true);
-        officerPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible(1000, true);
-        officerPage.tabbedPaneSection.timelineSection.awardItem.waitForVisible();
+        officerPage.tabbedPaneSection.timelineSection.crItem.waitForDisplayed(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed();
       });
 
       it('should filter rank/unit changes', function () {
         officerPage.tabbedPaneSection.timelineSection.filter.changes.click();
 
-        officerPage.tabbedPaneSection.timelineSection.crItem.waitForVisible(1000, true);
-        officerPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible(1000, true);
-        officerPage.tabbedPaneSection.timelineSection.awardItem.waitForVisible(1000, true);
-        officerPage.tabbedPaneSection.timelineSection.rankChangeItem.waitForVisible();
-        officerPage.tabbedPaneSection.timelineSection.unitChangeItem.waitForVisible();
+        officerPage.tabbedPaneSection.timelineSection.crItem.waitForDisplayed(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.rankChangeItem.waitForDisplayed();
+        officerPage.tabbedPaneSection.timelineSection.unitChangeItem.waitForDisplayed();
       });
 
       it('should close the menu when blurring', function () {
         officerPage.tabbedPaneSection.timelineSection.yearItem.click();
-        officerPage.tabbedPaneSection.timelineSection.filter.menu.waitForVisible(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.filter.menu.waitForDisplayed(1000, true);
       });
     });
   });
 
   describe('Coaccusals', function () {
     it('should navigate to officer page when clicking on a CoaccusalCard', function () {
-      officerPage.tabbedPaneSection.timelineSection.header.waitForVisible();
+      officerPage.tabbedPaneSection.timelineSection.header.waitForDisplayed();
 
       browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/$/);
 
       officerPage.tabbedPaneSection.coaccusalsTabName.click();
-      officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalGroupName.waitForVisible();
+      officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalGroupName.waitForDisplayed();
       officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalCard.click();
 
       browser.getUrl().should.match(/\/officer\/2\/john-kelly\/$/);
@@ -337,16 +329,15 @@ describe('officer page', function () {
     });
 
     it('should go to complaint page when clicking on the complaint heading', function () {
-      officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForVisible();
+      officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForDisplayed();
       officerPage.tabbedPaneSection.attachmentsSection.attachmentHeading.click();
       browser.getUrl().should.match(/\/complaint\/294088\/$/);
     });
 
     it('should go to attachment source page when clicking on the complaint attachment', function () {
-      officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForVisible();
+      officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForDisplayed();
       officerPage.tabbedPaneSection.attachmentsSection.attachment.click();
-      switchToRecentTab();
-      browser.getUrl().should.eql('https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html');
+      browser.switchWindow('https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html');
     });
   });
 
@@ -355,7 +346,7 @@ describe('officer page', function () {
       beforeEach(function () {
         officerPage.open(noDataRadarChartOfficerId);
         officerPage.openEditMode();
-        browser.moveToObject(officerPage.radarChartSection.noDataRadarChartSection.noDataText.selector);
+        officerPage.radarChartSection.noDataRadarChartSection.noDataText.moveTo();
         officerPage.radarChartSection.noDataRadarChartSection.editButton.click();
       });
 
@@ -374,7 +365,7 @@ describe('officer page', function () {
       });
 
       it('should be editable', function () {
-        browser.moveToObject(officerPage.radarChartSection.explainerSection.triangleExplainerText.selector);
+        officerPage.radarChartSection.explainerSection.triangleExplainerText.moveTo();
         officerPage.radarChartSection.explainerSection.triangleEditButton.click();
 
         const triangleExplainerText = officerPage.radarChartSection.explainerSection.triangleExplainerText;
@@ -389,7 +380,7 @@ describe('officer page', function () {
 
 
         officerPage.radarChartSection.explainerSection.rightNavigation.click();
-        browser.moveToObject(officerPage.radarChartSection.explainerSection.scaleExplainerText.selector);
+        officerPage.radarChartSection.explainerSection.scaleExplainerText.moveTo();
         officerPage.radarChartSection.explainerSection.scaleEditButton.click();
 
         const scaleExplainerText = officerPage.radarChartSection.explainerSection.scaleExplainerText;
@@ -408,27 +399,27 @@ describe('officer page', function () {
   describe('Route tab', function () {
     it('should open tab corresponding to url suffix', function () {
       officerPage.open(1, 'bernadette-kelly', 'map');
-      officerPage.tabbedPaneSection.mapSection.map.waitForVisible();
+      officerPage.tabbedPaneSection.mapSection.map.waitForDisplayed();
       browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/map\/$/);
 
       officerPage.open(1, 'bernadette-kelly', 'coaccusals');
-      officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalCard.waitForVisible();
+      officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalCard.waitForDisplayed();
       browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/coaccusals\/$/);
 
       officerPage.open(1, 'bernadette-kelly', 'documents');
-      officerPage.tabbedPaneSection.attachmentsSection.attachment.waitForVisible();
+      officerPage.tabbedPaneSection.attachmentsSection.attachment.waitForDisplayed();
       browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/documents\/$/);
 
       officerPage.open(1, '', 'documents');
-      officerPage.tabbedPaneSection.attachmentsSection.attachment.waitForVisible();
+      officerPage.tabbedPaneSection.attachmentsSection.attachment.waitForDisplayed();
       browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/documents\/$/);
 
       officerPage.open(1, 'bernadette-wrong-name', 'documents');
-      officerPage.tabbedPaneSection.attachmentsSection.attachment.waitForVisible();
+      officerPage.tabbedPaneSection.attachmentsSection.attachment.waitForDisplayed();
       browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/documents\/$/);
 
       officerPage.open(1, 'bernadette-kelly', 'wrong-tab');
-      officerPage.tabbedPaneSection.timelineSection.header.waitForVisible();
+      officerPage.tabbedPaneSection.timelineSection.header.waitForDisplayed();
       browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/$/);
     });
 

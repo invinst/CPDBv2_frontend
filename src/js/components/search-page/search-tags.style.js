@@ -1,12 +1,11 @@
-import { whiteTwoColor, softBlackColor, clayGray } from 'utils/styles';
-
+import { whiteTwoColor, softBlackColor, boulderColor } from 'utils/styles';
 
 export const tagStyle = (selected) => ({
   display: 'inline-block',
   marginRight: '24px',
   fontSize: '14px',
   cursor: 'pointer',
-  color: selected ? softBlackColor : clayGray,
+  color: selected ? softBlackColor : boulderColor,
 });
 
 export const dataToolTagStyle = {

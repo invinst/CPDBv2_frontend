@@ -26,16 +26,16 @@ class SummarySection extends Section {
 
 class Filter extends Section {
   constructor() {
-    super();
+    super('', '//div[contains(@class, "timeline-filter")]');
 
     this.prepareElementGetters({
-      button: '.test--timeline-filter .test--dropdown-button',
-      menu: '.test--timeline-filter .test--dropdown-menu',
-      crs: '(//div[@class="test--dropdown-menu-item"])[1]',
-      sustained: '(//div[@class="test--dropdown-menu-item"])[2]',
-      force: '(//div[@class="test--dropdown-menu-item"])[3]',
-      awards: '(//div[@class="test--dropdown-menu-item"])[4]',
-      changes: '(//div[@class="test--dropdown-menu-item"])[5]',
+      button: '//div[@class="dropdown-button"]',
+      menu: '//div[contains(@class, "dropdown-menu")]',
+      crs: '(//div[@class="dropdown-menu-item"])[1]',
+      sustained: '(//div[@class="dropdown-menu-item"])[2]',
+      force: '(//div[@class="dropdown-menu-item"])[3]',
+      awards: '(//div[@class="dropdown-menu-item"])[4]',
+      changes: '(//div[@class="dropdown-menu-item"])[5]',
     });
   }
 }
@@ -186,7 +186,7 @@ class OfficerPage extends Page {
   open(id=1, name, tab) {
     const url = ['/officer', id, name, tab].filter(Boolean).join('/') + '/';
     super.open(url);
-    browser.element('body').waitForVisible();
+    $('body').waitForDisplayed();
   }
 }
 
