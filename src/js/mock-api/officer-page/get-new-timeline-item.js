@@ -85,7 +85,7 @@ const timelineItems = [
     rank: 'Police Officer',
     date: '2003-02-17',
     coaccused: 4,
-    finding: 'Unfounded',
+    finding: 'Sustained',
     outcome: 'No Action Taken',
     attachments: [
       {

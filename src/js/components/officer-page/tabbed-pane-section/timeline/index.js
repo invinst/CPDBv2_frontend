@@ -49,8 +49,7 @@ export default class Timeline extends Component {
             defaultValue={ NEW_TIMELINE_FILTERS.ALL.label }
             onChange={ this.handleDropdownChange }
             options={ options }
-            className='test--timeline-filter'
-            width={ 176 }
+            className='timeline-filter'
             labels={ labels }
           />
         </div>

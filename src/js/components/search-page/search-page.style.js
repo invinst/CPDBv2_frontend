@@ -4,7 +4,7 @@ import {
   lightGirlyPink,
   accentColor,
   softBlackColor,
-  clayGray,
+  boulderColor,
   whiteTwoColor,
   sproutColor,
   japaneseLaurelColor,
@@ -49,7 +49,7 @@ export const searchBoxStyle = (aliasEditModeOn, hasBottomBorder) => {
 const _cancelButtonStyle = (searchTermsHidden) => ({
   display: 'inline-block',
   fontSize: '13px',
-  color: searchTermsHidden ? clayGray : accentColor,
+  color: searchTermsHidden ? boulderColor : accentColor,
   width: '41px',
   cursor: 'pointer',
   position: 'relative',

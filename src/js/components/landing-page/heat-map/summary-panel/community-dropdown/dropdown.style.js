@@ -1,4 +1,4 @@
-import { accentColor, whiteTwoColor, sanFranciscoTextFamily, greyishColor } from 'utils/styles';
+import { accentColor, whiteTwoColor, sanFranciscoTextFamily, boulderColor } from 'utils/styles';
 import { imgUrl } from 'utils/static-assets';
 
 
@@ -46,7 +46,7 @@ export const dropdownStyle = {
 
 export const dropdownItemStyle = isLast => ({
   borderBottom: isLast ? 0 : `1px solid ${whiteTwoColor}`,
-  color: greyishColor,
+  color: boulderColor,
   fontSize: '14px',
   fontWeight: 400,
   fontFamily: sanFranciscoTextFamily,

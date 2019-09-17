@@ -18,13 +18,14 @@ export default class DocumentsOverviewPage extends Component {
   }
 
   handleSearchChange(text) {
+    const { pathname } = this.props.location;
     if (this.state.searchText === text)
       return;
     this.setState({ searchText: text });
     if (text.trim() === '') {
-      browserHistory.push('/documents/');
+      browserHistory.push(pathname);
     } else {
-      browserHistory.push(`/documents/?match=${text}`);
+      browserHistory.push(`${pathname}?match=${text}`);
     }
   }
 

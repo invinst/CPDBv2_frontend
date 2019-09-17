@@ -35,6 +35,6 @@ export const fetchDocumentsAuthenticated = cancelOldRequest(
       constants.DOCUMENT_OVERVIEW_REQUEST_FAILURE,
     ],
     source.token
-  )({ ...params })
+  )({ ...params, authenticated: true })
 );
 

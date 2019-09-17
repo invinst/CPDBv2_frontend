@@ -1,8 +1,8 @@
-import { sanFranciscoTextFamily, whiteTwoColor, softBlackColor, greyishColor } from 'utils/styles';
+import { sanFranciscoTextFamily, whiteTwoColor, softBlackColor, boulderColor } from 'utils/styles';
 
 
 export const groupHeaderStyle = {
-  color: greyishColor,
+  color: boulderColor,
   marginTop: '38px',
   marginBottom: '18px',
   height: '8px',

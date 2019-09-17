@@ -107,8 +107,8 @@ describe('OfficerCard component', function () {
     const card = findRenderedDOMComponentWithClass(instance, 'officer-card-body');
     const cardNode = findDOMNode(card);
 
-    Simulate.mouseDown(cardNode);
-    Simulate.mouseUp(cardNode);
+    Simulate.mouseDown(cardNode, { screenX: 0, screenY: 0 });
+    Simulate.mouseUp(cardNode, { screenX: 0, screenY: 0 });
 
     focusItem.calledWith({ type: 'OFFICER', 'id': 123 }).should.be.true();
   });

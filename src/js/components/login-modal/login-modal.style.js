@@ -1,5 +1,5 @@
 import {
-  softBlackColor, sanFranciscoTextFamily, mediumGrayColor,
+  softBlackColor, sanFranciscoTextFamily, boulderColor,
   accentColor, greyColor, burntOrangeColor, trueGreenColor,
 } from 'utils/styles';
 
@@ -45,7 +45,7 @@ export const passwordInputStyle = {
 
 export const labelStyle = {
   display: 'inline-block',
-  color: mediumGrayColor,
+  color: boulderColor,
   width: '81px',
 };
 
@@ -53,7 +53,7 @@ export const signInButtonStyle = {
   base: {
     cursor: 'pointer',
     float: 'right',
-    color: mediumGrayColor,
+    color: boulderColor,
   },
   hover: {
     cursor: 'pointer',
