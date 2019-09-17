@@ -1,5 +1,6 @@
 import { isPinboardRestoredSelector } from 'selectors/pinboard-page/pinboard';
 import { fetchLatestRetrievedPinboard } from 'actions/pinboard';
+import { isEmpty } from 'lodash';
 
 
 export default store => next => action => {
@@ -7,7 +8,7 @@ export default store => next => action => {
 
   if (action.type === '@@router/LOCATION_CHANGE') {
     const state = store.getState();
-    if (!isPinboardRestoredSelector(state)) {
+    if (!isPinboardRestoredSelector(state) && isEmpty(action.payload.query)) {
       store.dispatch(fetchLatestRetrievedPinboard({ create: action.payload.pathname === '/pinboard/' }));
     }
   }

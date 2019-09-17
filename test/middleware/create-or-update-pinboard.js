@@ -1,5 +1,6 @@
 import { Promise } from 'es6-promise';
 import { stub, useFakeTimers } from 'sinon';
+import { Toastify } from 'utils/vendors';
 
 import createOrUpdatePinboard from 'middleware/create-or-update-pinboard';
 import * as constants from 'utils/constants';
@@ -670,7 +671,7 @@ describe('createOrUpdatePinboard middleware', function () {
   it('should handle @@router/LOCATION_CHANGE and dispatch createPinboard', function (done) {
     const action = {
       type: '@@router/LOCATION_CHANGE',
-      payload: null,
+      payload: {},
     };
     const store = createStore(PinboardFactory.build({
       'id': null,
@@ -703,7 +704,7 @@ describe('createOrUpdatePinboard middleware', function () {
   it('should handle @@router/LOCATION_CHANGE and dispatch updatePinboard', function (done) {
     const action = {
       type: '@@router/LOCATION_CHANGE',
-      payload: null,
+      payload: {},
     };
     const store = createStore(PinboardFactory.build({
       'id': '66ef1560',
@@ -736,7 +737,7 @@ describe('createOrUpdatePinboard middleware', function () {
   it('should handle @@router/LOCATION_CHANGE and do nothing if not saving', function () {
     const action = {
       type: '@@router/LOCATION_CHANGE',
-      payload: null,
+      payload: {},
     };
     const store = createStore(PinboardFactory.build({
       'id': '66ef1560',
@@ -749,5 +750,127 @@ describe('createOrUpdatePinboard middleware', function () {
     dispatched.should.eql(action);
 
     store.dispatch.should.not.be.called();
+  });
+
+  it('should handle @@router/LOCATION_CHANGE with no pinboard id but query', function () {
+    const action = {
+      type: '@@router/LOCATION_CHANGE',
+      payload: {
+        query: {
+          'officer-ids': '1,3,4,5,0',
+          crids: '1053673',
+          'trr-ids': ',0,1',
+        },
+      },
+    };
+    const store = createStore(PinboardFactory.build({
+      'id': null,
+      'officer_ids': [],
+      'saving': false,
+    }));
+
+    let dispatched;
+    createOrUpdatePinboard(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+
+    store.dispatch.should.be.calledWith(createPinboard({
+      officerIds: [1, 3, 4, 5, 0],
+      crids: ['1053673'],
+      trrIds: [0, 1],
+    }));
+  });
+
+  it('should handle PINBOARD_CREATE_REQUEST_SUCCESS and may show toast', function () {
+    Toastify.toast.resetHistory();
+    Toastify.toast.should.not.be.called();
+
+    const action = {
+      type: 'PINBOARD_CREATE_REQUEST_SUCCESS',
+      payload: {
+        id: 'abc123',
+        'officer_ids': [1, 2, 3],
+        crids: ['1053673'],
+        'trr_ids': [1],
+      },
+    };
+    const store = createStore(PinboardFactory.build({
+      'id': null,
+      'saving': false,
+    }));
+
+    let dispatched;
+    createOrUpdatePinboard(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+
+    Toastify.toast.should.be.calledThrice();
+    Toastify.toast.should.be.calledWith('3 out of 3 officers were added to this pinboard.');
+    Toastify.toast.should.be.calledWith('1 out of 1 allegation were added to this pinboard.');
+    Toastify.toast.should.be.calledWith('1 out of 1 TRR were added to this pinboard.');
+
+    Toastify.toast.resetHistory();
+  });
+
+  it('should handle PINBOARD_CREATE_REQUEST_SUCCESS and may not show any toast', function () {
+    Toastify.toast.resetHistory();
+    Toastify.toast.should.not.be.called();
+
+    const action = {
+      type: 'PINBOARD_CREATE_REQUEST_SUCCESS',
+      payload: {
+        id: 'abc123',
+        'officer_ids': [],
+        crids: [],
+        'trr_ids': [],
+      },
+    };
+    const store = createStore(PinboardFactory.build({
+      'id': null,
+      'saving': false,
+    }));
+
+    let dispatched;
+    createOrUpdatePinboard(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+
+    Toastify.toast.should.not.be.called();
+
+    Toastify.toast.resetHistory();
+  });
+
+  it('should handle PINBOARD_CREATE_REQUEST_SUCCESS and may show not found toasts', function () {
+    Toastify.toast.resetHistory();
+    Toastify.toast.should.not.be.called();
+
+    const action = {
+      type: 'PINBOARD_CREATE_REQUEST_SUCCESS',
+      payload: {
+        id: 'abc123',
+        'officer_ids': [],
+        crids: ['1053673'],
+        'trr_ids': [],
+        'not_found_items': {
+          'officer_ids': [],
+          crids: ['xyz567', 'tyu890'],
+          'trr_ids': [3, 99],
+        },
+      },
+    };
+    const store = createStore(PinboardFactory.build({
+      'id': null,
+      'saving': false,
+    }));
+
+    let dispatched;
+    createOrUpdatePinboard(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+
+    Toastify.toast.should.be.calledTwice();
+    Toastify.toast.should.be.calledWith(
+      '1 out of 3 allegations were added to this pinboard. ' +
+      '2 out of 3 allegation IDS could not be recognized (xyz567, tyu890).'
+    );
+    Toastify.toast.should.be.calledWith('2 out of 2 TRR IDS could not be recognized (3, 99).');
+
+    Toastify.toast.resetHistory();
   });
 });

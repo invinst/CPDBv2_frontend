@@ -27,10 +27,22 @@ export default handleActions({
     isPinboardRestored: true,
   }),
   [constants.PINBOARD_CREATE_REQUEST_SUCCESS]: (state, action) => {
+    const notFoundOfficerIds = _.get(action.payload, 'not_found_items.officer_ids', []);
+    const notFoundCrids = _.get(action.payload, 'not_found_items.crids', []);
+    const notFoundTrrIds = _.get(action.payload, 'not_found_items.trr_ids', []);
+
+    const officerIds = _.difference(_.get(state, 'officer_ids', []), notFoundOfficerIds);
+    const crids = _.difference(_.get(state, 'crids', []), notFoundCrids);
+    const trrIds = _.difference(_.get(state, 'trr_ids', []), notFoundTrrIds);
+
     return {
       ...state,
+      'officer_ids': officerIds,
+      crids,
+      'trr_ids': trrIds,
       id: action.payload.id,
       saving: false,
+      isPinboardRestored: true,
     };
   },
   [constants.PINBOARD_CREATE_REQUEST_FAILURE]: (state, action) => {
@@ -54,6 +66,7 @@ export default handleActions({
   },
   [constants.PINBOARD_CREATE_REQUEST_START]: (state, action) => ({
     ...state,
+    ..._.get(action.payload, 'request.data', {}),
     saving: true,
   }),
   [constants.PINBOARD_UPDATE_REQUEST_START]: (state, action) => ({
