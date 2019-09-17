@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { noop } from 'lodash';
 
-import BlockTitle from 'components/common/block-title';
 import './recent-suggestion.sass';
 import SuggestionItem from 'components/search-page/search-results/suggestion-group/suggestion-item';
 import { navigateToSearchItem } from 'utils/navigate-to-search-item';
@@ -30,7 +29,7 @@ export default class RecentSuggestion extends Component {
     return (
       <div
         className='recent-suggestions'>
-        <BlockTitle>RECENT</BlockTitle>
+        <div className='recent-header'>RECENT</div>
         <div>
           {
             recentSuggestions.map((suggestion) => (
