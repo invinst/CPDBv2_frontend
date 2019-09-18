@@ -208,9 +208,6 @@ describe('landing page', function () {
       topBar.demoVideo.titleText.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
       topBar.demoVideo.titleText.getText().should.eql('What is CPDP?');
       topBar.demoVideo.playButtonThumbnail.getCSSProperty('border').value.should.eql('1px solid rgb(219, 219, 219)');
-      topBar.demoVideo.playButtonThumbnail.getAttribute('src').should.eql(
-        'https://i.vimeocdn.com/video/797111186_100x75.jpg'
-      );
 
       const navBar = header.navBar;
       navBar.mainElement.waitForDisplayed();

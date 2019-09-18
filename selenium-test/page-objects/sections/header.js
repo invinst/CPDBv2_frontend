@@ -29,7 +29,7 @@ class DemoVideoSection extends Section {
     this.prepareElementGetters({
       titleText: '//div[contains(@class, "demo-video-text-input")]',
       playButton: playButtonSelector,
-      playButtonThumbnail: `${ playButtonSelector }//img[@class="demo-video-thumbnail"]`,
+      playButtonThumbnail: `${ playButtonSelector }//div[@class="demo-video-thumbnail"]`,
     });
   }
 }
@@ -55,7 +55,6 @@ class SearchBoxSection extends Section {
       searchMagnifyingGlassPath: `${searchMagnifyingGlassSelector}//*[name()="path"]`,
       searchText: '//span[@class="search-box-search-text"]',
       searchTerm: '//span[@class="search-box-term"]',
-      playButtonThumbnail: '//div[@class="demo-video-button"]//img[@class="demo-video-thumbnail"]',
     });
   }
 }
