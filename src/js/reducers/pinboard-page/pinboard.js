@@ -64,11 +64,17 @@ export default handleActions({
       saving: false,
     };
   },
-  [constants.PINBOARD_CREATE_REQUEST_START]: (state, action) => ({
-    ...state,
-    ..._.get(action.payload, 'request.data', {}),
-    saving: true,
-  }),
+  [constants.PINBOARD_CREATE_REQUEST_START]: (state, action) => {
+    const creatingData = _.get(action.payload, 'request.data', {});
+    creatingData['officer_ids'] = _.map(creatingData['officer_ids'], _.parseInt);
+    creatingData['trr_ids'] = _.map(creatingData['trr_ids'], _.parseInt);
+
+    return {
+      ...state,
+      ...creatingData,
+      saving: true,
+    };
+  },
   [constants.PINBOARD_UPDATE_REQUEST_START]: (state, action) => ({
     ...state,
     saving: true,

@@ -218,9 +218,9 @@ describe('Pinboard reducer', function () {
             data: {
               title: 'Title',
               description: 'Description',
-              'officer_ids': [1],
+              'officer_ids': ['1'],
               crids: ['abc'],
-              'trr_ids': [1],
+              'trr_ids': ['1'],
             },
           },
         },
