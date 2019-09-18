@@ -162,7 +162,7 @@ describe('Search Page', function () {
 
     searchPage.officerResultsSection.firstResultText.getText().should.equal('Jerome Finnigan');
     searchPage.searchCommunityResultsSection.firstResultText.getText().should.equal('Loop');
-    searchPage.crResultsSection.firstResultText.getText().should.equal('CR # CR123 - April 23, 2004');
+    searchPage.crResultsSection.firstResultText.getText().should.equal('CR # CR123 • April 23, 2004');
     searchPage.trrResultsSection.firstResultText.getText().should.equal('Member Presence');
 
     searchPage.suggestionTags.waitForDisplayed();
@@ -195,8 +195,8 @@ describe('Search Page', function () {
     searchPage.input.getValue().should.eql('cr:jerome');
     searchPage.crResultsSection.results.waitForDisplayed();
     searchPage.crResultsSection.resultsCount('CR').should.equal(2);
-    searchPage.crResultsSection.firstResultText.getText().should.equal('CR # CR123 - April 23, 2004');
-    searchPage.crResultsSection.secondResultText.getText().should.equal('CR # CR456 - November 12, 2006');
+    searchPage.crResultsSection.firstResultText.getText().should.equal('CR # CR123 • April 23, 2004');
+    searchPage.crResultsSection.secondResultText.getText().should.equal('CR # CR456 • November 12, 2006');
     searchPage.officerResultsSection.results.waitForDisplayed(500, true);
     searchPage.searchCommunityResultsSection.results.waitForDisplayed(500, true);
     searchPage.trrResultsSection.results.waitForDisplayed(500, true);
