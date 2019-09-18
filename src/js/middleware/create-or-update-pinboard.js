@@ -116,16 +116,16 @@ function dispatchFetchPinboardPageData(store, pinboardId) {
 
 function formatMessage(foundIds, notFoundIds, itemType) {
   let message = '';
+  if (!notFoundIds.length)
+    return '';
 
   if (foundIds.length) {
     const totalString = pluralize(itemType, foundIds.length + notFoundIds.length, true);
     message += ` ${ foundIds.length } out of ${ totalString } were added to this pinboard.`;
   }
 
-  if (notFoundIds.length) {
-    const totalString = pluralize(`${itemType} ID`, foundIds.length + notFoundIds.length, true);
-    message += ` ${ notFoundIds.length } out of ${ totalString } could not be recognized (${notFoundIds.join(', ')}).`;
-  }
+  const totalString = pluralize(`${itemType} ID`, foundIds.length + notFoundIds.length, true);
+  message += ` ${ notFoundIds.length } out of ${ totalString } could not be recognized (${notFoundIds.join(', ')}).`;
   return message.trim();
 }
 

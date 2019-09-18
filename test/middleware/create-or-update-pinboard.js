@@ -780,7 +780,7 @@ describe('createOrUpdatePinboard middleware', function () {
     }));
   });
 
-  it('should handle PINBOARD_CREATE_REQUEST_SUCCESS and may show toast', function () {
+  it('should handle PINBOARD_CREATE_REQUEST_SUCCESS and may not show toast if everything is going well', function () {
     Toastify.toast.resetHistory();
     Toastify.toast.should.not.be.called();
 
@@ -802,10 +802,7 @@ describe('createOrUpdatePinboard middleware', function () {
     createOrUpdatePinboard(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
 
-    Toastify.toast.should.be.calledThrice();
-    Toastify.toast.should.be.calledWith('3 out of 3 officers were added to this pinboard.');
-    Toastify.toast.should.be.calledWith('1 out of 1 allegation were added to this pinboard.');
-    Toastify.toast.should.be.calledWith('1 out of 1 TRR were added to this pinboard.');
+    Toastify.toast.should.not.be.called();
 
     Toastify.toast.resetHistory();
   });
