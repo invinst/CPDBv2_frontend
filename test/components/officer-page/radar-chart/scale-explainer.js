@@ -13,7 +13,7 @@ import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-st
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 import ScaleExplainer from 'components/officer-page/radar-chart/explainer/scale-explainer';
 import StaticRadarChart from 'components/common/radar-chart';
-import { RawContentStateFactory } from 'utils/test/factories/draft';
+import { buildEditStateFields } from 'utils/test/factories/draft';
 
 
 describe('ScaleExplainer components', function () {
@@ -50,18 +50,10 @@ describe('ScaleExplainer components', function () {
 
   it('should render editable content', function () {
     const editWrapperStateProps = {
-      fields: {
-        'scale_description': {
-          type: 'rich_text',
-          name: 'scale_description',
-          value: RawContentStateFactory.build({}, { blockTexts: ['scale description'] }),
-        },
-        'scale_sub_description': {
-          type: 'rich_text',
-          name: 'scale_sub_description',
-          value: RawContentStateFactory.build({}, { blockTexts: ['scale sub description'] }),
-        },
-      },
+      fields: buildEditStateFields({
+        'scale_description': ['scale description'],
+        'scale_sub_description': ['scale sub description'],
+      }),
       sectionEditModeOn: true,
       onSaveForm: spy(),
       turnOnSectionEditMode: spy(),

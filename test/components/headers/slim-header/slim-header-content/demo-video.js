@@ -3,7 +3,8 @@ import { findDOMNode } from 'react-dom';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
-  Simulate, findRenderedComponentWithType,
+  findRenderedComponentWithType,
+  Simulate,
 } from 'react-addons-test-utils';
 import { stub } from 'sinon';
 

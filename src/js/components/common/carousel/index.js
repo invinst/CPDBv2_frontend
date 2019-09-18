@@ -29,7 +29,7 @@ export default class Carousel extends Component {
   componentWillReceiveProps(nextProps) {
     const { children } = this.props;
     if (
-      children.length >= nextProps.children.length ||
+      children.length > nextProps.children.length ||
       !isEqual(children, nextProps.children.slice(0, children.length))
     ) {
       this.slideTo(0);
@@ -66,15 +66,22 @@ export default class Carousel extends Component {
     onNavigate('left');
   }
 
+  loadMore() {
+    const { hasMore, loadMore } = this.props;
+    hasMore && loadMore();
+  }
+
   slideTo(slideIndex) {
-    const { loadMore, children, threshold, hasMore } = this.props;
-    if (hasMore && children.length - slideIndex <= threshold) {
-      loadMore();
+    const { children, threshold } = this.props;
+    if (children.length - slideIndex <= threshold) {
+      this.loadMore();
     }
     this.setState({ slideIndex });
   }
 
   onSnapIndexChange({ isEnd, isBeginning, activeIndex }) {
+    isEnd && this.loadMore();
+
     this.setState({
       slideIndex: isEnd ? this.state.slideIndex : activeIndex,
       displayLeftArrow: !isBeginning,
@@ -83,6 +90,8 @@ export default class Carousel extends Component {
   }
 
   updateArrows({ isEnd, isBeginning }) {
+    isEnd && this.loadMore();
+
     this.setState({
       displayLeftArrow: !isBeginning,
       displayRightArrow: !isEnd,

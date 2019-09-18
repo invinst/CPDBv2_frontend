@@ -1,0 +1,70 @@
+@import 'variables'
+
+\:local(.wrapper)
+  background-color: $sugar-cane-color
+  padding-top: 8px
+
+\:local(.officer-pane)
+  margin: 0 8px
+  border-radius: 2px
+  border: solid 1px $white-two-color
+  background-color: white
+
+  .pin-button
+    background-color: $sugar-cane-color
+    border: solid 1px $white-two-color
+    border-radius: 2px
+    color: $soft-black-color
+    display: block
+    font-size: 14px
+    font-weight: 400
+    height: 40px
+    margin: 8px 8px 0 8px
+    position: relative
+    outline: inherit
+    width: calc(100% - 16px)
+
+    &::after
+      background-image: url('/img/ic-plus-bold.svg')
+      background-size: 12px 12px
+      content: ''
+      position: absolute
+      pointer-events: none
+      left: 16px
+      top: 14px
+      height: 12px
+      width: 12px
+
+    &.is-pinned
+      &::after
+        background-image: url('/img/ic-minus.svg')
+
+  .view-officer-profile-button
+    background-color: $hawkes-blue
+    border: none
+    border-radius: 2px
+    color: $blue-ribbon
+    font-size: 14px
+    font-weight: 400
+    height: 40px
+    margin: 8px
+    position: relative
+    outline: inherit
+    width: calc(100% - 16px)
+
+    &::after
+      position: absolute
+      pointer-events: none
+      right: 7.6px
+      top: 14px
+      content: url('/img/disclosure-indicator-blue.svg')
+      height: 16px
+      width: 12px
+
+  .gradient
+    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(245, 244, 244, 1) 90%)
+    bottom: 100px
+    height: 150px
+    left: 0
+    position: absolute
+    width: 100%

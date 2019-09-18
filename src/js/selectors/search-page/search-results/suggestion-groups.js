@@ -1,10 +1,11 @@
 import { createSelector } from 'reselect';
-import { indexOf, isEmpty, head, keys, map, omitBy, pick, sortBy } from 'lodash';
+import { indexOf, isEmpty, head, keys, map, omitBy, pick, sortBy, cloneDeep } from 'lodash';
 
 import * as constants from 'utils/constants';
-import { searchResultItemTransform } from './transforms';
+import { searchResultItemTransform } from 'selectors/common/preview-pane-transforms';
 import extractQuery from 'utils/extract-query';
 import { dataToolSearchUrl } from 'utils/v1-url';
+import { pinboardItemsSelector } from 'selectors/pinboard-page/pinboard';
 
 
 const itemsPerCategory = 5;
@@ -12,7 +13,7 @@ const itemsPerCategory = 5;
 const getSuggestionGroups = state => state.searchPage.suggestionGroups;
 const getSuggestionTags = state => state.searchPage.tags;
 const getSuggestionContentType = state => state.searchPage.contentType;
-const getQuery = state => state.searchPage.query;
+export const getQuery = state => state.searchPage.query;
 const getPagination = state => state.searchPage.pagination;
 
 
@@ -83,6 +84,26 @@ export const slicedSuggestionGroupsSelector = createSelector(
   }
 );
 
+const pinnedItemTypeMap = {
+  'CR': 'CR',
+  'DATE > CR': 'CR',
+  'INVESTIGATOR > CR': 'CR',
+  'OFFICER': 'OFFICER',
+  'UNIT > OFFICERS': 'OFFICER',
+  'DATE > OFFICERS': 'OFFICER',
+  'TRR': 'TRR',
+  'DATE > TRR': 'TRR',
+};
+
+export const getPinnedItem = (item, pinboardItems) => {
+  const pinnedItemType = pinnedItemTypeMap[item.type];
+  const pinnedItem = cloneDeep(item);
+  pinnedItem.isPinned =
+    (pinboardItems.hasOwnProperty(pinnedItemType)) &&
+    (pinboardItems[pinnedItemType].indexOf(item.id) !== -1);
+  return pinnedItem;
+};
+
 export const isEmptySelector = createSelector(
   slicedSuggestionGroupsSelector,
   suggestionGroups => !suggestionGroups.length
@@ -90,10 +111,11 @@ export const isEmptySelector = createSelector(
 
 export const searchResultGroupsSelector = createSelector(
   slicedSuggestionGroupsSelector,
-  groups => map(groups, ({ header, items, canLoadMore }) => ({
+  pinboardItemsSelector,
+  (groups, pinboardItems) => map(groups, ({ header, items, canLoadMore }) => ({
     header,
     canLoadMore,
-    items: map(items, item => searchResultItemTransform(item)),
+    items: map(items, item => searchResultItemTransform(getPinnedItem(item, pinboardItems))),
   }))
 );
 

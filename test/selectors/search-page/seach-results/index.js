@@ -60,6 +60,9 @@ describe('search page results selector', function () {
             ],
           },
         },
+        pinboardPage: {
+          pinboard: null,
+        },
       }).should.deepEqual([
         {
           header: 'OFFICER',
@@ -75,6 +78,7 @@ describe('search page results selector', function () {
             'fullName': 'Jerome Turbyville',
             'gender': 'Male',
             'id': '29033',
+            'isPinned': false,
             'itemIndex': 1,
             'lastPercentile': {
               'items': [
@@ -91,7 +95,6 @@ describe('search page results selector', function () {
                   'value': 92,
                 },
               ],
-              'officerId': undefined,
               'textColor': '#DFDFDF',
               'visualTokenBackground': '#f52524',
               'year': undefined,
@@ -142,6 +145,13 @@ describe('search page results selector', function () {
             })],
           },
         },
+        pinboardPage: {
+          pinboard: {
+            'officer_ids': [],
+            crids: ['1001'],
+            'trr_ids': [],
+          },
+        },
       }).should.deepEqual([
         {
           header: 'CR',
@@ -149,8 +159,9 @@ describe('search page results selector', function () {
           items: [{
             type: 'CR',
             id: '1001',
-            text: 'CR # 1234 - April 23, 2004',
-            recentText: 'CR # 1234 - April 23, 2004',
+            isPinned: true,
+            text: 'CR # 1234 • April 23, 2004',
+            recentText: 'CR # 1234 • April 23, 2004',
             subText: 'the officer pointed a gun at the victim',
             category: 'Use Of Force',
             subCategory: 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
@@ -186,6 +197,9 @@ describe('search page results selector', function () {
             })],
           },
         },
+        pinboardPage: {
+          pinboard: null,
+        },
       }).should.deepEqual([
         {
           header: 'CR',
@@ -193,6 +207,7 @@ describe('search page results selector', function () {
           items: [{
             type: 'CR',
             id: '1001',
+            isPinned: false,
             text: 'CR # 1234',
             recentText: 'CR # 1234',
             subText: '',
@@ -232,6 +247,9 @@ describe('search page results selector', function () {
             })],
           },
         },
+        pinboardPage: {
+          pinboard: null,
+        },
       }).should.deepEqual([
         {
           header: 'DATE > CR',
@@ -239,8 +257,9 @@ describe('search page results selector', function () {
           items: [{
             type: 'DATE > CR',
             id: '1001',
-            text: 'CR # 1234 - April 23, 2004',
-            recentText: 'CR # 1234 - April 23, 2004',
+            isPinned: false,
+            text: 'CR # 1234 • April 23, 2004',
+            recentText: 'CR # 1234 • April 23, 2004',
             subText: 'the police pointed a knife at the victim',
             to: '',
             url: '',
@@ -278,6 +297,9 @@ describe('search page results selector', function () {
             })],
           },
         },
+        pinboardPage: {
+          pinboard: null,
+        },
       }).should.deepEqual([
         {
           header: 'DATE > CR',
@@ -285,6 +307,7 @@ describe('search page results selector', function () {
           items: [{
             type: 'DATE > CR',
             id: '1001',
+            isPinned: false,
             text: 'CR # 1234',
             recentText: 'CR # 1234',
             subText: 'the police pointed a knife at the victim',
@@ -331,6 +354,9 @@ describe('search page results selector', function () {
             ],
           },
         },
+        pinboardPage: {
+          pinboard: null,
+        },
       }).should.deepEqual([
         {
           header: 'DATE > OFFICERS',
@@ -346,6 +372,7 @@ describe('search page results selector', function () {
             'fullName': 'Jerome Finnigan',
             'gender': 'Male',
             'id': '29033',
+            'isPinned': false,
             'itemIndex': 1,
             'lastPercentile': {
               'items': [
@@ -362,7 +389,6 @@ describe('search page results selector', function () {
                   'value': 92,
                 },
               ],
-              'officerId': undefined,
               'textColor': '#DFDFDF',
               'visualTokenBackground': '#f52524',
               'year': undefined,
@@ -399,8 +425,33 @@ describe('search page results selector', function () {
           tags: [],
           suggestionGroups: {
             'TRR': [RawTRRSuggestion.build(
-              { id: '1001', 'force_type': null, 'trr_datetime': null }
+              {
+                id: '1001',
+                'force_type': null,
+                'trr_datetime': '2004-04-23',
+                'firearm_used': true,
+                address: '14XX W 63RD ST, CHICAGO IL 60636',
+                officer: {
+                  'id': 16567,
+                  'full_name': 'Baudilio Lopez',
+                  'percentile': {
+                    'id': 180838,
+                    'percentile_trr': '72.1094',
+                    'percentile_allegation_civilian': '98.5549',
+                    'percentile_allegation_internal': '61.1521',
+                  },
+                  'allegation_count': 93,
+                },
+                to: '/trr/123456/',
+              }
             )],
+          },
+        },
+        pinboardPage: {
+          pinboard: {
+            'officer_ids': ['1001'],
+            crids: ['1001'],
+            'trr_ids': ['1001'],
           },
         },
       }).should.deepEqual([
@@ -410,10 +461,26 @@ describe('search page results selector', function () {
           items: [{
             type: 'TRR',
             id: '1001',
+            isPinned: true,
             text: 'Unknown',
             recentText: '1001',
-            subText: 'TRR # 1001',
-            to: '',
+            subText: 'TRR # 1001 - April 23, 2004',
+            category: 'Firearm',
+            address: '14XX W 63RD ST, CHICAGO IL 60636',
+            incidentDate: 'Apr 23, 2004',
+            officer: {
+              id: 16567,
+              name: 'Baudilio Lopez',
+              url: '/officer/16567/baudilio-lopez/',
+              radarAxes: [
+                { axis: 'Use of Force Reports', value: 72.1094 },
+                { axis: 'Officer Allegations', value: 61.1521 },
+                { axis: 'Civilian Allegations', value: 98.5549 },
+              ],
+              radarColor: '#f0201e',
+              count: 93,
+            },
+            to: '/trr/123456/',
             url: '',
             tags: [],
             uniqueKey: 'TRR-1001',
@@ -428,9 +495,33 @@ describe('search page results selector', function () {
         searchPage: {
           tags: [],
           suggestionGroups: {
-            'TRR': [RawTRRSuggestion.build(
-              { id: '1001', 'force_type': 'Member Presence', 'trr_datetime': '2004-04-23' }
-            )],
+            'TRR': [{
+              id: '1001',
+              'force_type': null,
+              'incident_date': null,
+              'firearm_used': true,
+              address: '14XX W 63RD ST, CHICAGO IL 60636',
+              officer: {
+                'id': 16567,
+                'full_name': 'Baudilio Lopez',
+                'percentile': {
+                  'id': 180838,
+                  'percentile_trr': '72.1094',
+                  'percentile_allegation_civilian': '98.5549',
+                  'percentile_allegation_internal': '61.1521',
+                },
+                'allegation_count': 93,
+              },
+              to: '/trr/123456/',
+              url: '',
+            }],
+          },
+        },
+        pinboardPage: {
+          pinboard: {
+            'officer_ids': ['1001'],
+            crids: ['1001'],
+            'trr_ids': [],
           },
         },
       }).should.deepEqual([
@@ -440,10 +531,26 @@ describe('search page results selector', function () {
           items: [{
             type: 'TRR',
             id: '1001',
-            text: 'Member Presence',
+            isPinned: false,
+            text: 'Unknown',
             recentText: '1001',
-            subText: 'TRR # 1001 - April 23, 2004',
-            to: '',
+            subText: 'TRR # 1001',
+            category: 'Firearm',
+            address: '14XX W 63RD ST, CHICAGO IL 60636',
+            incidentDate: '',
+            officer: {
+              id: 16567,
+              name: 'Baudilio Lopez',
+              url: '/officer/16567/baudilio-lopez/',
+              radarAxes: [
+                { axis: 'Use of Force Reports', value: 72.1094 },
+                { axis: 'Officer Allegations', value: 61.1521 },
+                { axis: 'Civilian Allegations', value: 98.5549 },
+              ],
+              radarColor: '#f0201e',
+              count: 93,
+            },
+            to: '/trr/123456/',
             url: '',
             tags: [],
             uniqueKey: 'TRR-1001',
@@ -459,8 +566,33 @@ describe('search page results selector', function () {
           tags: [],
           suggestionGroups: {
             'DATE > TRR': [RawTRRSuggestion.build(
-              { id: '1001', 'force_type': null, 'trr_datetime': null }
+              {
+                id: '1001',
+                'force_type': 'Member Presence',
+                'trr_datetime': '2004-04-23',
+                'firearm_used': true,
+                address: '14XX W 63RD ST, CHICAGO IL 60636',
+                officer: {
+                  'id': 16567,
+                  'full_name': 'Baudilio Lopez',
+                  'percentile': {
+                    'id': 180838,
+                    'percentile_trr': '72.1094',
+                    'percentile_allegation_civilian': '98.5549',
+                    'percentile_allegation_internal': '61.1521',
+                  },
+                  'allegation_count': 93,
+                },
+                to: '/trr/123456/',
+              }
             )],
+          },
+        },
+        pinboardPage: {
+          pinboard: {
+            'officer_ids': ['1001'],
+            crids: ['1001'],
+            'trr_ids': ['1001'],
           },
         },
       }).should.deepEqual([
@@ -469,11 +601,27 @@ describe('search page results selector', function () {
           canLoadMore: false,
           items: [{
             type: 'DATE > TRR',
+            isPinned: true,
             id: '1001',
-            text: 'Unknown',
+            text: 'Member Presence',
             recentText: '1001',
-            subText: 'TRR # 1001',
-            to: '',
+            subText: 'TRR # 1001 - April 23, 2004',
+            category: 'Firearm',
+            address: '14XX W 63RD ST, CHICAGO IL 60636',
+            incidentDate: 'Apr 23, 2004',
+            officer: {
+              id: 16567,
+              name: 'Baudilio Lopez',
+              url: '/officer/16567/baudilio-lopez/',
+              radarAxes: [
+                { axis: 'Use of Force Reports', value: 72.1094 },
+                { axis: 'Officer Allegations', value: 61.1521 },
+                { axis: 'Civilian Allegations', value: 98.5549 },
+              ],
+              radarColor: '#f0201e',
+              count: 93,
+            },
+            to: '/trr/123456/',
             url: '',
             tags: [],
             uniqueKey: 'DATE-TRR-1001',
@@ -488,9 +636,33 @@ describe('search page results selector', function () {
         searchPage: {
           tags: [],
           suggestionGroups: {
-            'DATE > TRR': [RawTRRSuggestion.build(
-              { id: '1001', 'force_type': 'Member Presence', 'trr_datetime': '2004-04-23' }
-            )],
+            'DATE > TRR': [{
+              id: '1001',
+              'force_type': null,
+              'incident_date': null,
+              'firearm_used': true,
+              address: '14XX W 63RD ST, CHICAGO IL 60636',
+              officer: {
+                'id': 16567,
+                'full_name': 'Baudilio Lopez',
+                'percentile': {
+                  'id': 180838,
+                  'percentile_trr': '72.1094',
+                  'percentile_allegation_civilian': '98.5549',
+                  'percentile_allegation_internal': '61.1521',
+                },
+                'allegation_count': 93,
+              },
+              to: '/trr/123456/',
+              url: '',
+            }],
+          },
+        },
+        pinboardPage: {
+          pinboard: {
+            'officer_ids': ['1001'],
+            crids: ['1001'],
+            'trr_ids': ['1002'],
           },
         },
       }).should.deepEqual([
@@ -500,10 +672,26 @@ describe('search page results selector', function () {
           items: [{
             type: 'DATE > TRR',
             id: '1001',
-            text: 'Member Presence',
+            isPinned: false,
+            text: 'Unknown',
             recentText: '1001',
-            subText: 'TRR # 1001 - April 23, 2004',
-            to: '',
+            subText: 'TRR # 1001',
+            category: 'Firearm',
+            address: '14XX W 63RD ST, CHICAGO IL 60636',
+            incidentDate: '',
+            officer: {
+              id: 16567,
+              name: 'Baudilio Lopez',
+              url: '/officer/16567/baudilio-lopez/',
+              radarAxes: [
+                { axis: 'Use of Force Reports', value: 72.1094 },
+                { axis: 'Officer Allegations', value: 61.1521 },
+                { axis: 'Civilian Allegations', value: 98.5549 },
+              ],
+              radarColor: '#f0201e',
+              count: 93,
+            },
+            to: '/trr/123456/',
             url: '',
             tags: [],
             uniqueKey: 'DATE-TRR-1001',
@@ -523,6 +711,13 @@ describe('search page results selector', function () {
             ],
           },
         },
+        pinboardPage: {
+          pinboard: {
+            'officer_ids': ['1001'],
+            crids: ['1001'],
+            'trr_ids': ['1001'],
+          },
+        },
       }).should.deepEqual([
         {
           header: 'UNIT',
@@ -530,6 +725,7 @@ describe('search page results selector', function () {
           items: [{
             type: 'UNIT',
             id: '1001',
+            isPinned: false,
             text: 'description',
             recentText: 'description',
             to: 'to',
@@ -552,6 +748,13 @@ describe('search page results selector', function () {
             ],
           },
         },
+        pinboardPage: {
+          pinboard: {
+            'officer_ids': ['1001'],
+            crids: ['1001'],
+            'trr_ids': ['1001'],
+          },
+        },
       }).should.deepEqual([
         {
           header: 'UNIT',
@@ -559,6 +762,7 @@ describe('search page results selector', function () {
           items: [{
             type: 'UNIT',
             id: '1001',
+            isPinned: false,
             text: 'Unit 001',
             recentText: 'Unit 001',
             to: 'to',
@@ -579,6 +783,9 @@ describe('search page results selector', function () {
             'OFFICER': RawOfficerSuggestion.buildList(10),
             'CO-ACCUSED': RawOfficerSuggestion.buildList(3),
           },
+        },
+        pinboardPage: {
+          pinboard: null,
         },
       });
 
@@ -601,6 +808,9 @@ describe('search page results selector', function () {
           },
           contentType: 'OFFICER',
         },
+        pinboardPage: {
+          pinboard: null,
+        },
       });
 
       officerGroup.header.should.equal('OFFICER');
@@ -616,6 +826,9 @@ describe('search page results selector', function () {
             'OFFICER': [],
             'CO-ACCUSED': RawOfficerSuggestion.buildList(3),
           },
+        },
+        pinboardPage: {
+          pinboard: null,
         },
       });
 
@@ -633,6 +846,9 @@ describe('search page results selector', function () {
             'CO-ACCUSED': RawOfficerSuggestion.buildList(3),
           },
         },
+        pinboardPage: {
+          pinboard: null,
+        },
       });
 
       groups.length.should.equal(1);
@@ -647,6 +863,9 @@ describe('search page results selector', function () {
             'OFFICER': RawOfficerSuggestion.buildList(10),
           },
           contentType: null,
+        },
+        pinboardPage: {
+          pinboard: null,
         },
       });
 
@@ -699,6 +918,13 @@ describe('search page results selector', function () {
             ],
           },
         },
+        pinboardPage: {
+          pinboard: {
+            'officer_ids': ['317'],
+            crids: ['317'],
+            'trr_ids': ['317'],
+          },
+        },
       });
       groups.should.eql([{
         header: 'COMMUNITY',
@@ -706,6 +932,7 @@ describe('search page results selector', function () {
         items: [{
           type: 'COMMUNITY',
           id: 317,
+          isPinned: false,
           text: 'Roseland',
           recentText: 'Roseland',
           to: undefined,
@@ -875,6 +1102,9 @@ describe('search page results selector', function () {
           query: 'abc',
           suggestionGroups: {},
         },
+        pinboardPage: {
+          pinboard: null,
+        },
       }).should.deepEqual({
         url: '/v1/abc/',
         isDataToolSearchUrl: true,
@@ -903,6 +1133,9 @@ describe('search page results selector', function () {
               RawCRSuggestion.build(),
             ],
           },
+        },
+        pinboardPage: {
+          pinboard: null,
         },
       }).should.deepEqual({
         to: 'officer1',

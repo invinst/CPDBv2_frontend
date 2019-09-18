@@ -1,0 +1,67 @@
+@import 'variables'
+
+.search-page
+  min-height: 100vh
+  font-family: $san-francisco-text-family
+  background: white
+
+  &.edit-mode-on
+    background: $light-girly-pink
+
+  .search-box-wrapper
+    background-color: white
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
+    z-index: 1
+    height: 50px
+
+    &.edit-mode-on
+      background-color: $girly-pink
+
+  .search-box
+    padding: 8px 0 9px 0
+    margin: 0 16px
+    width: calc(100% - 32px)
+
+    &.has-bottom-border
+      border-bottom: 1px solid $white-two-color
+
+  .cancel-button
+    display: inline-block
+    font-size: 13px
+    color: $accent-color
+    width: 41px
+    cursor: pointer
+    position: relative
+    top: 6px
+
+    &.search-terms-hidden
+      color: $boulder-color
+
+    &:hover
+      color: $soft-black-color
+
+  .search-main-panel-wrapper
+    padding-top: 50px
+
+.toast-wrapper
+  background-color: $sprout
+  border-radius: 2px
+  color: $japanese-laurel
+  line-height: 40px
+  min-height: 40px
+  padding: 0
+  text-align: center
+  width: auto
+  box-shadow: 0 1px 2px 0 $light-black-color
+
+  &.removed
+    background-color: $wild-sand
+    color: $soft-black-color
+
+.toast-body
+  font-family: $san-francisco-text-family
+  font-weight: 300
+  font-size: 14px

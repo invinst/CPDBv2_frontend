@@ -13,6 +13,8 @@ import fetchPageInitialData from 'middleware/fetch-page-initial-data';
 import redirectOfficerAlias from 'middleware/redirect-officer-alias';
 import updatePathName from 'middleware/path-name';
 import retryOfficerDownloadMiddleware from 'middleware/retry-officer-downloads';
+import createOrUpdatePinboard from 'middleware/create-or-update-pinboard';
+import restorePinboardSession from 'middleware/restore-pinboard-session';
 import config from 'config';
 
 const localStorageVersion = localStorage.getItem('CPDB_LOCALSTORAGE_VERSION', null);
@@ -24,10 +26,17 @@ if (config.localStorageVersion !== localStorageVersion) {
 function configureStore(initialState) {
   const composeArgs = [
     applyMiddleware(
-      thunk, configuredAxiosMiddleware, searchPath, tracking,
-      routerMiddleware(browserHistory), fetchPageInitialData,
-      redirectOfficerAlias, updatePathName,
-      retryOfficerDownloadMiddleware
+      thunk,
+      configuredAxiosMiddleware,
+      searchPath,
+      tracking,
+      routerMiddleware(browserHistory),
+      fetchPageInitialData,
+      redirectOfficerAlias,
+      updatePathName,
+      retryOfficerDownloadMiddleware,
+      createOrUpdatePinboard,
+      restorePinboardSession,
     ),
     persistState(()=>{}, localStorageConfig),
   ];

@@ -63,7 +63,6 @@ class UnitSummaryPage extends Page {
 
   open() {
     super.open('/unit/001/');
-    $('body').waitForDisplayed();
   }
 }
 

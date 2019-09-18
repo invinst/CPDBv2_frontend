@@ -178,7 +178,6 @@ class LandingPage extends Page {
 
   open() {
     super.open('/');
-    $('body').waitForDisplayed();
   }
 }
 

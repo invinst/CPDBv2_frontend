@@ -17,7 +17,7 @@ describe('CR page', function () {
     crPage.incidentDate.getText().should.equal('Sep 23, 2003');
 
     crPage.accusedOfficers.title.getText().should.equal('25 ACCUSED OFFICERS');
-    crPage.accusedOfficers.cardCount().should.equal(25);
+    crPage.accusedOfficers.card.count.should.equal(25);
     crPage.accusedOfficers.firstCard.rank.getText().should.equal('Officer');
     crPage.accusedOfficers.firstCard.name.getText().should.equal('Ridchard Sullivan');
     crPage.accusedOfficers.firstCard.metric.getText().should.equal('43 allegations 1 sustained');
@@ -30,7 +30,7 @@ describe('CR page', function () {
     crPage.summarySection.firstComplainant.getText().should.equal('Black, Male, Age 53');
     crPage.summarySection.summary.getText().should.equal('Summary');
 
-    crPage.attachments.cardCount().should.equal(10);
+    crPage.attachments.card.count.should.equal(10);
     crPage.attachments.firstCard.title.getText().should.equal('CR Document');
     crPage.attachments.firstCard.element.getAttribute('href').should.equal('http://cr-document.com/');
 
@@ -38,9 +38,9 @@ describe('CR page', function () {
       'Sep 23, 2003\nIncident Occurs\nComplaint Filed\nMar 16, 2004\nInvestigation Closed'
     );
 
-    crPage.investigator.itemCount().should.equal(2);
+    crPage.investigator.item.count.should.equal(2);
     crPage.investigator.firstItem.getText().should.equal('Bernadette Kelly\nCPD');
-    crPage.policeWitness.itemCount().should.equal(2);
+    crPage.policeWitness.item.count.should.equal(2);
     crPage.policeWitness.firstItem.getText().should.equal('Raymond Piwinicki\n3 allegations 0 sustained');
 
     crPage.location.address.getText().should.equal('3510 Michigan Ave, Chicago, IL 60653');

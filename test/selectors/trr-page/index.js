@@ -62,7 +62,6 @@ describe('TRR page selectors', function () {
         gender: undefined,
         careerDuration: '',
         percentile: {
-          officerId: undefined,
           year: undefined,
           items: [
             { axis: 'Use of Force Reports', value: NaN },
@@ -117,7 +116,6 @@ describe('TRR page selectors', function () {
         gender: 'Male',
         careerDuration: 'DEC 13, 1999 — DEC 23, 2015',
         percentile: {
-          officerId: undefined,
           year: undefined,
           items: [
             { axis: 'Use of Force Reports', value: 99.9 },

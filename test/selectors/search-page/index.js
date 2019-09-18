@@ -9,9 +9,7 @@ describe('getFocusedItem', function () {
     const stubFocusedResultItemSelector = stub(searchResultsNavigation, 'focusedResultItemSelector');
     const state = {
       searchPage: {
-        searchTerms: {
-          hidden: true,
-        },
+        query: 'Ke',
       },
     };
     getFocusedItem(state);
@@ -23,9 +21,7 @@ describe('getFocusedItem', function () {
     const stubFocusedSearchTermItemSelector = stub(searchTermsNavigation, 'focusedSearchTermItemSelector');
     const state = {
       searchPage: {
-        searchTerms: {
-          hidden: false,
-        },
+        query: '',
       },
     };
     getFocusedItem(state);

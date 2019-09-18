@@ -1,6 +1,6 @@
 @import 'variables'
 
-$bottom-button-wrapper-width: 105px
+$bottom-button-wrapper-width: 120px
 
 \:local(.hoverable-edit-wrapper)
   position: relative
@@ -14,8 +14,9 @@ $bottom-button-wrapper-width: 105px
       position: absolute
       z-index: 1
       right: calc(50% - #{$bottom-button-wrapper-width} / 2)
-      bottom: -28px
+      bottom: -26px
       min-width: $bottom-button-wrapper-width
+      text-align: center
 
     .top-button-wrapper
       position: absolute
@@ -34,15 +35,20 @@ $bottom-button-wrapper-width: 105px
     background-color: $misty-rose-color
     pointer-events: auto
     padding: 5px 7px
-    border-radius: 3px
-    border-left: 1px solid $fashion-pink-color
-    border-bottom: 1px solid $fashion-pink-color
+    border: 1px solid $fashion-pink-color
+    border-top: none
     color: white
     font-family: $san-francisco-text-family
     font-size: 14px
+    line-height: 14px
     cursor: pointer
     font-weight: 300
     display: inline-block
+    margin-right: 1px
 
     &:hover
       background-color: $tomato-pink-color
+
+    &.edit-button
+      border-right: none
+      margin-right: 0

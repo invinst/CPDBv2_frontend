@@ -6,6 +6,7 @@ import style from './download-menu-item.sass';
 import { imgUrl } from 'utils/static-assets';
 import { OFFICER_DOWNLOAD_KINDS, OFFICER_DOWNLOAD_TRACKING_ACTIONS } from 'utils/constants';
 import * as GATracking from 'utils/google_analytics_tracking';
+import LoadingSpinner from 'components/common/loading-spinner';
 
 
 const textMap = {
@@ -54,7 +55,7 @@ export default class DownloadMenuItem extends React.Component {
         <div className='request-download'>{ textMap[kind] }</div>
         {
           this.state.requested ? (
-            <img className='download-menu-item-img' src={ imgUrl('loading.svg') } alt='downloading' />
+            <LoadingSpinner className='download-menu-item-img'/>
           ) : (
             <img className='download-menu-item-img' src={ imgUrl('download.svg') } alt='download' />
           )
