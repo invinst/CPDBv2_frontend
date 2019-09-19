@@ -14,12 +14,31 @@ import {
   applyFilter,
   markLatestUnit,
   filterCountSelector,
+  getSelectedFilter,
 } from 'selectors/officer-page/new-timeline';
-import { NEW_TIMELINE_FILTERS } from 'utils/constants';
+import { NEW_TIMELINE_FILTERS, NEW_TIMELINE_ITEMS } from 'utils/constants';
 import { imgUrl } from 'utils/static-assets';
 
 
 describe('Officer new timeline selectors', function () {
+  describe('getSelectedFilter', function () {
+    it('should return selected filter', function () {
+      getSelectedFilter({
+        officerPage: {
+          newTimeline: {
+            filter: {
+              label: 'COMPLAINTS',
+              kind: [NEW_TIMELINE_ITEMS.CR],
+            },
+          },
+        },
+      }).should.eql({
+        label: 'COMPLAINTS',
+        kind: [NEW_TIMELINE_ITEMS.CR],
+      });
+    });
+  });
+
   describe('baseTransform', function () {
     it('should return correct item', function () {
       const item = {
