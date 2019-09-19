@@ -1,6 +1,5 @@
 import { Promise } from 'es6-promise';
 import * as _ from 'lodash';
-import pluralize from 'pluralize';
 import { Toastify } from 'utils/vendors';
 
 import {
@@ -12,7 +11,6 @@ import {
   UPDATE_PINBOARD_INFO,
   PINBOARD_ITEM_REMOVE_MODE,
   SAVE_PINBOARD_WITHOUT_CHANGING_STATE,
-  PINBOARD_CREATE_REQUEST_SUCCESS,
 } from 'utils/constants';
 import {
   createPinboard,
@@ -37,6 +35,7 @@ import {
 } from 'actions/pinboard';
 import { showToast } from 'actions/toast';
 import loadPaginatedData from 'utils/load-paginated-data';
+import pinboardStyles from 'components/pinboard-page/pinboard-page.sass';
 
 const getIds = (query, key) => _.get(query, key, '').split(',').filter(_.identity);
 const getPinboardFromQuery = (query) => ({
@@ -79,11 +78,12 @@ const MAX_RETRIES = 60;
 const RETRY_DELAY = 1000;
 let retries = 0;
 
-function dispatchUpdateOrCreatePinboard(store, currentPinboard) {
+function dispatchUpdateOrCreatePinboard(store, currentPinboard, successCallBack=_.noop) {
   const updateOrCreatePinboard = _.isNil(currentPinboard.id) ? createPinboard : updatePinboard;
   store.dispatch(updateOrCreatePinboard(currentPinboard)).then(result => {
     retries = 0;
     store.dispatch(savePinboard(result.payload));
+    successCallBack(result.payload);
   }).catch(() => {
     if (retries < MAX_RETRIES) {
       retries += 1;
@@ -113,20 +113,49 @@ function dispatchFetchPinboardPageData(store, pinboardId) {
   store.dispatch(fetchPinboardRelevantComplaints(pinboardId));
 }
 
-
 function formatMessage(foundIds, notFoundIds, itemType) {
   let message = '';
   if (!notFoundIds.length)
     return '';
 
+  const total = foundIds.length + notFoundIds.length;
   if (foundIds.length) {
-    const totalString = pluralize(itemType, foundIds.length + notFoundIds.length, true);
-    message += ` ${ foundIds.length } out of ${ totalString } were added to this pinboard.`;
+    message += ` ${ foundIds.length } out of ${total} ${total === 1 ? itemType : `${itemType}s`} ` +
+      'were added to this pinboard.';
   }
-
-  const totalString = pluralize(`${itemType} ID`, foundIds.length + notFoundIds.length, true);
-  message += ` ${ notFoundIds.length } out of ${ totalString } could not be recognized (${notFoundIds.join(', ')}).`;
+  message += ` ${ notFoundIds.length } out of ${total} ${itemType} ${total === 1 ? 'ID': 'IDs'} ` +
+    `could not be recognized (${notFoundIds.join(', ')}).`;
   return message.trim();
+}
+
+function showCreatedToasts(payload) {
+  const foundOfficerIds = _.get(payload, 'officer_ids', []);
+  const foundCrids = _.get(payload, 'crids', []);
+  const foundTrrIds = _.get(payload, 'trr_ids', []);
+
+  const notFoundOfficerIds = _.get(payload, 'not_found_items.officer_ids', []);
+  const notFoundCrids = _.get(payload, 'not_found_items.crids', []);
+  const notFoundTrrIds = _.get(payload, 'not_found_items.trr_ids', []);
+
+  const creatingMessages = [];
+  creatingMessages.push(formatMessage(foundOfficerIds, notFoundOfficerIds, 'officer'));
+  creatingMessages.push(formatMessage(foundCrids, notFoundCrids, 'allegation'));
+  creatingMessages.push(formatMessage(foundTrrIds, notFoundTrrIds, 'TRR'));
+
+  const TopRightTransition = Toastify.cssTransition({
+    enter: 'toast-enter',
+    exit: 'toast-exit',
+    duration: 500,
+    appendPosition: true,
+  });
+  creatingMessages.filter(_.identity).forEach(message =>
+    Toastify.toast(message, {
+      className: pinboardStyles.pinboardPageToast,
+      bodyClassName: 'toast-body',
+      transition: TopRightTransition,
+      autoClose: false,
+    })
+  );
 }
 
 export default store => next => action => {
@@ -214,38 +243,8 @@ export default store => next => action => {
 
     const hasQuery = action.payload.query && !_.isEmpty(action.payload.query);
     if (_.isNil(pinboard.id) && hasQuery) {
-      dispatchUpdateOrCreatePinboard(store, getPinboardFromQuery(action.payload.query));
+      dispatchUpdateOrCreatePinboard(store, getPinboardFromQuery(action.payload.query), showCreatedToasts);
     }
-  }
-
-  if (action.type === PINBOARD_CREATE_REQUEST_SUCCESS) {
-    const foundOfficerIds = _.get(action.payload, 'officer_ids', []);
-    const foundCrids = _.get(action.payload, 'crids', []);
-    const foundTrrIds = _.get(action.payload, 'trr_ids', []);
-
-    const notFoundOfficerIds = _.get(action.payload, 'not_found_items.officer_ids', []);
-    const notFoundCrids = _.get(action.payload, 'not_found_items.crids', []);
-    const notFoundTrrIds = _.get(action.payload, 'not_found_items.trr_ids', []);
-
-    const creatingMessages = [];
-    creatingMessages.push(formatMessage(foundOfficerIds, notFoundOfficerIds, 'officer'));
-    creatingMessages.push(formatMessage(foundCrids, notFoundCrids, 'allegation'));
-    creatingMessages.push(formatMessage(foundTrrIds, notFoundTrrIds, 'TRR'));
-
-    const TopRightTransition = Toastify.cssTransition({
-      enter: 'toast-enter',
-      exit: 'toast-exit',
-      duration: 500,
-      appendPosition: true,
-    });
-    creatingMessages.filter(_.identity).forEach(message =>
-      Toastify.toast(message, {
-        className: 'toast-wrapper',
-        bodyClassName: 'toast-body',
-        transition: TopRightTransition,
-        autoClose: 5000,
-      })
-    );
   }
 
   return next(action);

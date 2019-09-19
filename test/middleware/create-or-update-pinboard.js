@@ -27,7 +27,7 @@ import PinboardFactory from 'utils/test/factories/pinboard';
 
 
 describe('createOrUpdatePinboard middleware', function () {
-  const createStore = (pinboard, pathname='') => ({
+  const createStore = (pinboard, pathname='', dispatchResults='abc') => ({
     getState: () => {
       return {
         pinboardPage: {
@@ -51,7 +51,7 @@ describe('createOrUpdatePinboard middleware', function () {
         pathname,
       };
     },
-    dispatch: stub().usingPromise(Promise).resolves('abc'),
+    dispatch: stub().usingPromise(Promise).resolves(dispatchResults),
   });
 
   it('should not dispatch any action if action is not adding or removing items', function () {
@@ -752,122 +752,112 @@ describe('createOrUpdatePinboard middleware', function () {
     store.dispatch.should.not.be.called();
   });
 
-  it('should handle @@router/LOCATION_CHANGE with no pinboard id but query', function () {
+  it('should handle @@router/LOCATION_CHANGE with query to create pinboard but may not show toasts', function (done) {
     const action = {
       type: '@@router/LOCATION_CHANGE',
       payload: {
         query: {
-          'officer-ids': '1,3,4,5,0',
+          'officer-ids': '1,3,4,5',
           crids: '1053673',
-          'trr-ids': ',0,1',
+          'trr-ids': '1,2',
         },
       },
     };
-    const store = createStore(PinboardFactory.build({
-      'id': null,
-      'officer_ids': [],
-      'saving': false,
-    }));
+    const store = createStore(
+      PinboardFactory.build({
+        'id': null,
+        'officer_ids': [],
+        'saving': false,
+      }),
+      '/pinboard/?officer-ids=1,3,4,5&crids=1053673&trr-ids=1,2',
+      {
+        payload: {
+          id: 'abc123',
+          'officer_ids': [1, 3, 4, 5],
+          crids: ['1053673'],
+          'trr_ids': [1, 2],
+        },
+      }
+    );
 
     let dispatched;
     createOrUpdatePinboard(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
 
     store.dispatch.should.be.calledWith(createPinboard({
-      officerIds: [1, 3, 4, 5, 0],
+      officerIds: [1, 3, 4, 5],
       crids: ['1053673'],
-      trrIds: [0, 1],
+      trrIds: [1, 2],
     }));
-  });
 
-  it('should handle PINBOARD_CREATE_REQUEST_SUCCESS and may not show toast if everything is going well', function () {
-    Toastify.toast.resetHistory();
-    Toastify.toast.should.not.be.called();
-
-    const action = {
-      type: 'PINBOARD_CREATE_REQUEST_SUCCESS',
-      payload: {
-        id: 'abc123',
-        'officer_ids': [1, 2, 3],
-        crids: ['1053673'],
-        'trr_ids': [1],
+    setTimeout(
+      () => {
+        Toastify.toast.should.not.be.called();
+        Toastify.toast.resetHistory();
+        done();
       },
-    };
-    const store = createStore(PinboardFactory.build({
-      'id': null,
-      'saving': false,
-    }));
-
-    let dispatched;
-    createOrUpdatePinboard(store)(action => dispatched = action)(action);
-    dispatched.should.eql(action);
-
-    Toastify.toast.should.not.be.called();
-
-    Toastify.toast.resetHistory();
+      50
+    );
   });
 
-  it('should handle PINBOARD_CREATE_REQUEST_SUCCESS and may not show any toast', function () {
+  it('should handle @@router/LOCATION_CHANGE to create pinboard and show toast', function (done) {
     Toastify.toast.resetHistory();
     Toastify.toast.should.not.be.called();
 
     const action = {
-      type: 'PINBOARD_CREATE_REQUEST_SUCCESS',
+      type: '@@router/LOCATION_CHANGE',
       payload: {
-        id: 'abc123',
-        'officer_ids': [],
-        crids: [],
-        'trr_ids': [],
-      },
-    };
-    const store = createStore(PinboardFactory.build({
-      'id': null,
-      'saving': false,
-    }));
-
-    let dispatched;
-    createOrUpdatePinboard(store)(action => dispatched = action)(action);
-    dispatched.should.eql(action);
-
-    Toastify.toast.should.not.be.called();
-
-    Toastify.toast.resetHistory();
-  });
-
-  it('should handle PINBOARD_CREATE_REQUEST_SUCCESS and may show not found toasts', function () {
-    Toastify.toast.resetHistory();
-    Toastify.toast.should.not.be.called();
-
-    const action = {
-      type: 'PINBOARD_CREATE_REQUEST_SUCCESS',
-      payload: {
-        id: 'abc123',
-        'officer_ids': [],
-        crids: ['1053673'],
-        'trr_ids': [],
-        'not_found_items': {
-          'officer_ids': [],
-          crids: ['xyz567', 'tyu890'],
-          'trr_ids': [3, 99],
+        query: {
+          'officer-ids': '1',
+          crids: 'xyz567,1053673,tyu890',
+          'trr-ids': '3,99',
         },
       },
     };
-    const store = createStore(PinboardFactory.build({
-      'id': null,
-      'saving': false,
-    }));
+    const store = createStore(
+      PinboardFactory.build({
+        'id': null,
+        'saving': false,
+      }),
+      '/pinboard/?officer-id=1&crids=xyz567,1053673,tyu890&trr-ids=3,99',
+      {
+        payload: {
+          id: 'abc123',
+          'officer_ids': [1],
+          crids: ['1053673'],
+          'trr_ids': [],
+          'not_found_items': {
+            'officer_ids': [],
+            crids: ['xyz567', 'tyu890'],
+            'trr_ids': [3, 99],
+          },
+        },
+      }
+    );
 
     let dispatched;
     createOrUpdatePinboard(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
 
-    Toastify.toast.should.be.calledTwice();
-    Toastify.toast.should.be.calledWith(
-      '1 out of 3 allegations were added to this pinboard. ' +
-      '2 out of 3 allegation IDS could not be recognized (xyz567, tyu890).'
-    );
-    Toastify.toast.should.be.calledWith('2 out of 2 TRR IDS could not be recognized (3, 99).');
+    store.dispatch.should.be.calledWith(createPinboard({
+      officerIds: [1],
+      crids: ['xyz567', '1053673', 'tyu890'],
+      trrIds: [3, 99],
+    }));
 
-    Toastify.toast.resetHistory();
+    setTimeout(
+      () => {
+        Toastify.toast.should.be.calledTwice();
+        Toastify.toast.should.be.calledWith(
+          '1 out of 3 allegations were added to this pinboard. ' +
+          '2 out of 3 allegation IDs could not be recognized (xyz567, tyu890).'
+        );
+        Toastify.toast.should.be.calledWith('2 out of 2 TRR IDs could not be recognized (3, 99).');
+
+        Toastify.toast.resetHistory();
+        done();
+      },
+      50
+    );
   });
 });
