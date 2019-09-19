@@ -94,7 +94,7 @@ describe('DocumentsOverviewPage component', function () {
     spy(browserHistory, 'push');
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <DocumentsOverviewPage/>
+        <DocumentsOverviewPage location={ { pathname: '/documents/' } }/>
       </Provider>
     );
 
@@ -112,7 +112,7 @@ describe('DocumentsOverviewPage component', function () {
   it('should not change url if search text hasnt changed', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <DocumentsOverviewPage/>
+        <DocumentsOverviewPage location={ { pathname: '/documents/' } }/>
       </Provider>
     );
     const documentsOverviewPage = findRenderedComponentWithType(instance, DocumentsOverviewPage);
@@ -132,7 +132,7 @@ describe('DocumentsOverviewPage component', function () {
   it('should not include match param in url when search text is empty', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <DocumentsOverviewPage/>
+        <DocumentsOverviewPage location={ { pathname: '/documents/' } }/>
       </Provider>
     );
     const documentsOverviewPage = findRenderedComponentWithType(instance, DocumentsOverviewPage);
