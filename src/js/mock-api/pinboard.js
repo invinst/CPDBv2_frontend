@@ -18,14 +18,18 @@ const emptyPinboard = {
   }],
 };
 
-export const createPinboard = () => ({
-  'id': '5cd06f2b',
-  'title': '',
-  'officer_ids': [1],
-  'crids': [],
-  'trr_ids': [],
-  'description': '',
-});
+export const createPinboard = (id='5cd06f2b', officerIds=[1], crids=[], trrIds=[], notFoundItems) => {
+  const withNotFoundItems = notFoundItems ? { 'not_found_items': notFoundItems } : {};
+  return {
+    'id': id,
+    'title': '',
+    'officer_ids': officerIds,
+    'crids': crids,
+    'trr_ids': trrIds,
+    'description': '',
+    ...withNotFoundItems,
+  };
+};
 
 const pinboards = {
   '5cd06f2b': {

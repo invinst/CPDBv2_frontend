@@ -651,3 +651,38 @@ describe('No Id Pinboard Page', function () {
     pinboardPage.emptyPinboardSection.mainElement.waitForDisplayed();
   });
 });
+
+describe('Session Generator Pinboard Page', function () {
+  it('should create new pinboard by query', function () {
+    pinboardPage.openByQuery([1, 2], ['5678123'], [3, 2]);
+    browser.getUrl().should.match(/\/pinboard\/ffff6666\//);
+
+    const officers = pinboardPage.pinnedSection.officers;
+    const crs = pinboardPage.pinnedSection.crs;
+    const trrs = pinboardPage.pinnedSection.trrs;
+
+    officers.officerCards().should.have.length(2);
+    crs.crCards().should.have.length(1);
+    trrs.trrCards().should.have.length(2);
+  });
+
+  it('should create new pinboard by query with some not-found -items', function () {
+    pinboardPage.openByQuery([1, 2], ['987654', '5678123'], [9, 7]);
+    browser.getUrl().should.match(/\/pinboard\/eeee7777\//);
+
+    pinboardPage.firstToast.waitForText(
+      '1 out of 2 allegations were added to this pinboard. 1 out of 2 allegation IDs could not be recognized (987654).'
+    );
+    pinboardPage.secondToast.waitForText(
+      '2 out of 2 TRR IDs could not be recognized (9, 7).'
+    );
+
+    const officers = pinboardPage.pinnedSection.officers;
+    const crs = pinboardPage.pinnedSection.crs;
+    const trrs = pinboardPage.pinnedSection.trrs;
+
+    officers.officerCards().should.have.length(2);
+    crs.crCards().should.have.length(1);
+    trrs.trrCards().should.have.length(0);
+  });
+});
