@@ -14,6 +14,7 @@ import Timeline from 'components/officer-page/tabbed-pane-section/timeline';
 import Dropdown from 'components/common/dropdown';
 import Popup from 'components/common/popup';
 import Item from 'components/officer-page/tabbed-pane-section/timeline/item';
+import { NEW_TIMELINE_FILTERS } from 'utils/constants';
 
 
 describe('Timeline component', function () {
@@ -24,7 +25,7 @@ describe('Timeline component', function () {
   });
 
   it('should render headers correctly', function () {
-    instance = renderIntoDocument(<Timeline />);
+    instance = renderIntoDocument(<Timeline selectedFilter={ NEW_TIMELINE_FILTERS.ALL }/>);
     findRenderedDOMComponentWithClass(instance, 'rank-header').textContent.should.containEql('RANK');
     findRenderedDOMComponentWithClass(instance, 'unit-header').textContent.should.containEql('UNIT');
     const contentHeader = findRenderedDOMComponentWithClass(instance, 'showing-content-header');
@@ -57,7 +58,7 @@ describe('Timeline component', function () {
 
   it('should render dropdown with correct order', function () {
     instance = renderIntoDocument(
-      <Timeline />
+      <Timeline selectedFilter={ NEW_TIMELINE_FILTERS.ALL }/>
     );
     const dropdown = findRenderedComponentWithType(instance, Dropdown);
     dropdown.props.defaultValue.should.eql('ALL');
@@ -70,6 +71,7 @@ describe('Timeline component', function () {
     const changeFilterStub = stub();
     instance = renderIntoDocument(
       <Timeline
+        selectedFilter={ NEW_TIMELINE_FILTERS.ALL }
         changeFilter={ changeFilterStub }
       />
     );
