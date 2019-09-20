@@ -394,7 +394,12 @@ describe('PinboardPage component', function () {
     overlay.getAttribute('aria-hidden').should.equal('true');
 
     document.body.classList.should.have.length(2);
+    document.body.classList.contains('body-fixed-viewport').should.be.true();
     document.body.classList.contains('body-scrollable').should.be.true();
+
+    unmountComponentSuppressError(instance);
+
+    document.body.classList.contains('body-fixed-viewport').should.be.false();
   });
 
   it('should display overlay if there is focused item', function () {
@@ -438,6 +443,7 @@ describe('PinboardPage component', function () {
     overlay.getAttribute('aria-hidden').should.equal('false');
 
     document.body.classList.should.have.length(2);
+    document.body.classList.contains('body-fixed-viewport').should.be.true();
     document.body.classList.contains('body-not-scrollable').should.be.true();
   });
 
@@ -481,12 +487,14 @@ describe('PinboardPage component', function () {
     const overlay = findRenderedDOMComponentWithClass(instance, 'overlay');
     overlay.getAttribute('aria-hidden').should.equal('false');
     document.body.classList.should.have.length(2);
+    document.body.classList.contains('body-fixed-viewport').should.be.true();
     document.body.classList.contains('body-not-scrollable').should.be.true();
 
     Simulate.click(overlay);
 
     overlay.getAttribute('aria-hidden').should.equal('true');
     document.body.classList.should.have.length(2);
+    document.body.classList.contains('body-fixed-viewport').should.be.true();
     document.body.classList.contains('body-scrollable').should.be.true();
   });
 
