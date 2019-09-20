@@ -1,6 +1,5 @@
 import { Promise } from 'es6-promise';
 import * as _ from 'lodash';
-import { Toastify } from 'utils/vendors';
 
 import {
   ADD_OR_REMOVE_ITEM_IN_PINBOARD,
@@ -35,7 +34,9 @@ import {
 } from 'actions/pinboard';
 import { showToast } from 'actions/toast';
 import loadPaginatedData from 'utils/load-paginated-data';
+import { Toastify } from 'utils/vendors';
 import pinboardStyles from 'components/pinboard-page/pinboard-page.sass';
+
 
 const getIds = (query, key) => _.get(query, key, '').split(',').filter(_.identity);
 const getPinboardFromQuery = (query) => ({

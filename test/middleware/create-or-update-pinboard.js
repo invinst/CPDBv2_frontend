@@ -1,6 +1,5 @@
 import { Promise } from 'es6-promise';
 import { stub, useFakeTimers } from 'sinon';
-import { Toastify } from 'utils/vendors';
 
 import createOrUpdatePinboard from 'middleware/create-or-update-pinboard';
 import * as constants from 'utils/constants';
@@ -24,6 +23,7 @@ import {
   handleRemovingItemInPinboardPage,
 } from 'actions/pinboard';
 import PinboardFactory from 'utils/test/factories/pinboard';
+import { Toastify } from 'utils/vendors';
 
 
 describe('createOrUpdatePinboard middleware', function () {
