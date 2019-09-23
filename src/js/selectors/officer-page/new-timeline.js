@@ -20,7 +20,7 @@ import { NEW_TIMELINE_FILTERS, NEW_TIMELINE_ITEMS, ATTACHMENT_TYPES } from 'util
 import { imgUrl } from 'utils/static-assets';
 
 
-const getSelectedFilter = (state) => get(state, 'officerPage.newTimeline.filter', '');
+export const getSelectedFilter = (state) => get(state, 'officerPage.newTimeline.filter', {});
 export const getItems = (state) => get(state, 'officerPage.newTimeline.items', []);
 
 
