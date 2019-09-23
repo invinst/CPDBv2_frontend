@@ -1387,7 +1387,7 @@ describe('Officer new timeline selectors', function () {
         officerPage: {
           newTimeline: {
             filter: {
-              label: 'ALL',
+              label: 'All',
               kind: ['CR', 'FORCE', 'AWARD'],
             },
             items: [

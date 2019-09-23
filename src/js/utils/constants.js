@@ -467,28 +467,28 @@ export const DOCUMENTS_SEARCH_ITEMS = {
 
 export const NEW_TIMELINE_FILTERS = {
   ALL: {
-    label: 'ALL',
+    label: 'All',
     kind: [NEW_TIMELINE_ITEMS.CR, NEW_TIMELINE_ITEMS.FORCE, NEW_TIMELINE_ITEMS.AWARD],
   },
   CRS: {
-    label: 'COMPLAINTS',
+    label: 'Complaints',
     kind: [NEW_TIMELINE_ITEMS.CR],
   },
   SUSTAINED: {
-    label: 'SUSTAINED',
+    label: 'Sustained',
     kind: [NEW_TIMELINE_ITEMS.CR],
     finding: ['Sustained'],
   },
   FORCE: {
-    label: 'USE OF FORCE',
+    label: 'Use Of Force',
     kind: [NEW_TIMELINE_ITEMS.FORCE],
   },
   AWARDS: {
-    label: 'AWARDS',
+    label: 'Awards',
     kind: [NEW_TIMELINE_ITEMS.AWARD],
   },
   RANK_UNIT_CHANGES: {
-    label: 'RANK/UNIT CHANGES',
+    label: 'Rank/Unit Changes',
     kind: [],
   },
 };
