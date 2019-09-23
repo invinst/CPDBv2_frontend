@@ -262,7 +262,7 @@ describe('landing page', function () {
     });
 
     it('should go to pinboard page when clicking on pinboard tag', function () {
-      const navBar = landingPage.topHeader.navBar;
+      const navBar = landingPage.header.navBar;
       navBar.mainElement.waitForDisplayed();
       navBar.rightLinks.pinboard.click();
       pinboardPage.emptyPinboardSection.mainElement.waitForDisplayed();
