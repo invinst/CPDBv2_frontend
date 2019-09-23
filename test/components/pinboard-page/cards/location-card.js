@@ -109,8 +109,8 @@ describe('LocationCard component', function () {
     const card = findRenderedDOMComponentWithClass(instance, 'location-card-body');
     const cardNode = findDOMNode(card);
 
-    Simulate.mouseDown(cardNode);
-    Simulate.mouseUp(cardNode);
+    Simulate.mouseDown(cardNode, { screenX: 0, screenY: 0 });
+    Simulate.mouseUp(cardNode, { screenX: 0, screenY: 0 });
 
     focusItem.calledWith({ type: 'CR', id: '123456' }).should.be.true();
   });

@@ -160,7 +160,8 @@ axiosMockClient.onGet(
   `${CR_URL}1000000/related-complaints/?distance=0.5mi&match=categories&offset=20`
 ).reply(200, getCRRelatedComplaintsData({ match: 'categories', distance: '0.5mi', nextOffset: 40 }));
 
-axiosMockClient.onGet(`${OFFICER_URL}1/new-timeline-items/`).reply(200, getNewTimelineItemsData());
+axiosMockClient.onGet(`${OFFICER_URL}1/new-timeline-items/`).reply(200, getNewTimelineItemsData(1));
+axiosMockClient.onGet(`${OFFICER_URL}2/new-timeline-items/`).reply(200, getNewTimelineItemsData(2));
 axiosMockClient.onGet(`${OFFICER_URL}1/coaccusals/`).reply(200, getCoaccusalsData());
 
 axiosMockClient.onGet(`${UNIT_PROFILE_URL}001/summary/`).reply(200, getUnitSummaryData());

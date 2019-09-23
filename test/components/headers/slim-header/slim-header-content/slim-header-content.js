@@ -46,14 +46,11 @@ describe('SlimHeaderContent component', function () {
           pathname='/'
           editModeOn={ false }
           disableTop={ false }
-          className='custom-class-name'
         />
       </Provider>
     );
 
     const header = findRenderedComponentWithType(element, SlimHeaderContent);
-    const headerDom = findDOMNode(header);
-    headerDom.getAttribute('class').should.eql('custom-class-name');
 
     const logo = findRenderedComponentWithType(header, Logo);
     logo.props.position.should.equal('top');
@@ -67,26 +64,6 @@ describe('SlimHeaderContent component', function () {
 
     findRenderedComponentWithType(header, RightLinks).props.position.should.equal('top');
     findRenderedComponentWithType(header, SearchBox).props.position.should.equal('top');
-  });
-
-  it('should have correct position', function () {
-    element = renderIntoDocument(
-      <Provider store={ storeMock } >
-        <SlimHeaderContent position='bottom'/>
-      </Provider>
-    );
-    const header = findRenderedComponentWithType(element, SlimHeaderContent);
-    header.getPosition().should.equal('bottom');
-  });
-
-  it('should set position to middle if disabled top', function () {
-    element = renderIntoDocument(
-      <Provider store={ storeMock } >
-        <SlimHeaderContent position='top' disableTop={ true }/>
-      </Provider>
-    );
-    const header = findRenderedComponentWithType(element, SlimHeaderContent);
-    header.getPosition().should.equal('middle');
   });
 
   it('should scroll to top when being clicked and position is bottom', function () {
