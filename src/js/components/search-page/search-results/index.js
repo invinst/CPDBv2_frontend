@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { map, noop, get } from 'lodash';
+import { map, noop, get, isEqual, isEmpty } from 'lodash';
 import cx from 'classnames';
 
 import SuggestionGroup from './suggestion-group';
@@ -27,6 +27,13 @@ export default class SuggestionResults extends Component {
         move(direction, this.props.totalItemCount);
       }
     )));
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { focusedItem } = nextProps;
+
+    this.scrollIntoItemClassName = !isEmpty(focusedItem) && !isEqual(focusedItem, this.props.focusedItem) ?
+      `suggestion-item-${get(focusedItem, 'uniqueKey', '')}` : '';
   }
 
   componentWillUnmount() {
@@ -103,25 +110,16 @@ export default class SuggestionResults extends Component {
   }
 
   renderContent() {
-    const { singleContent, editModeOn, focusedItem } = this.props;
+    const { editModeOn } = this.props;
 
-    if (singleContent)
-      return (
-        <div className='content-wrapper'>
+    return (
+      <div className='content-wrapper'>
+        <ScrollIntoView focusedItemClassName={ this.scrollIntoItemClassName }>
           { editModeOn ? this.renderActionBar() : null }
           { this.renderGroups() }
-        </div>
-      );
-    else {
-      return (
-        <div className='content-wrapper'>
-          <ScrollIntoView focusedItemClassName={ `suggestion-item-${get(focusedItem, 'uniqueKey', '')}` }>
-            { editModeOn ? this.renderActionBar() : null }
-            { this.renderGroups() }
-          </ScrollIntoView>
-        </div>
-      );
-    }
+        </ScrollIntoView>
+      </div>
+    );
   }
 
   render() {
