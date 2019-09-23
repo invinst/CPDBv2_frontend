@@ -10,15 +10,15 @@ describe('Rich text editor', function () {
   beforeEach(function () {
     landingPage.open();
     landingPage.openEditMode();
-    landingPage.topHeader.topBar.logo.subtitle.moveTo();
-    landingPage.topHeader.topBar.logo.editButton.waitForDisplayed();
-    landingPage.topHeader.topBar.logo.editButton.click();
-    selectText(landingPage.topHeader.topBar.logo.subtitle.selector);
+    landingPage.header.topBar.logo.subtitle.moveTo();
+    landingPage.header.topBar.logo.editButton.waitForDisplayed();
+    landingPage.header.topBar.logo.editButton.click();
+    selectText(landingPage.header.topBar.logo.subtitle.selector);
   });
 
   it('text should be editable', function () {
     browser.keys('abcdef');
-    landingPage.topHeader.topBar.logo.subtitle.getText().should.containEql('abcdef');
+    landingPage.header.topBar.logo.subtitle.getText().should.containEql('abcdef');
   });
 
   describe('Toolbar', function () {
@@ -38,17 +38,17 @@ describe('Rich text editor', function () {
       });
 
       it('should make text bold when clicked', function () {
-        landingPage.topHeader.topBar.logo.boldTextSpan.waitForDisplayed();
+        landingPage.header.topBar.logo.boldTextSpan.waitForDisplayed();
       });
 
       it('should make text not bold when clicked on again', function () {
         // There is a rare case when the text barely fills one line that when it is bold, it becomes 2 lines. And
         // sometime when this happens, the whole Toolbar disappears. This should be fixed in the future. For now, we
         // just reselect the text to make the toolbar appear again.
-        selectText(landingPage.topHeader.topBar.logo.subtitle.selector);
+        selectText(landingPage.header.topBar.logo.subtitle.selector);
         landingPage.richTextToolbar.boldButton.waitForDisplayed();
         landingPage.richTextToolbar.boldButton.click();
-        landingPage.topHeader.topBar.logo.boldTextSpan.waitForDisplayed(2000, true);
+        landingPage.header.topBar.logo.boldTextSpan.waitForDisplayed(2000, true);
       });
     });
 
@@ -59,19 +59,19 @@ describe('Rich text editor', function () {
       });
 
       it('should make text italic when clicked', function () {
-        landingPage.topHeader.topBar.logo.italicTextSpan.waitForDisplayed();
+        landingPage.header.topBar.logo.italicTextSpan.waitForDisplayed();
       });
 
       it('should make text not italic when clicked on again', function () {
         landingPage.richTextToolbar.italicButton.click();
-        landingPage.topHeader.topBar.logo.italicTextSpan.waitForDisplayed(2000, true);
+        landingPage.header.topBar.logo.italicTextSpan.waitForDisplayed(2000, true);
       });
     });
 
     describe('link button', function () {
       beforeEach(function () {
         landingPage.expandRootTopMargin(); //preventing the urlInput from hiding away
-        selectText(landingPage.topHeader.topBar.logo.subtitleFirstLine.selector);
+        selectText(landingPage.header.topBar.logo.subtitleFirstLine.selector);
         landingPage.richTextToolbar.linkButton.click();
       });
 
@@ -87,10 +87,10 @@ describe('Rich text editor', function () {
       describe('url input', function () {
         it('should toggle link when url input is add/remove', function () {
           landingPage.richTextToolbar.urlInput.setValue('h');
-          landingPage.topHeader.topBar.logo.linkTextSpan.waitForDisplayed();
+          landingPage.header.topBar.logo.linkTextSpan.waitForDisplayed();
 
           browser.keys('Backspace');
-          landingPage.topHeader.topBar.logo.linkTextSpan.waitForDisplayed(2000, true);
+          landingPage.header.topBar.logo.linkTextSpan.waitForDisplayed(2000, true);
         });
 
         it('should show empty input when selecting a fresh block of text', function () {
@@ -99,9 +99,9 @@ describe('Rich text editor', function () {
 
         it('should show existing url when selecting a link', function () {
           landingPage.richTextToolbar.urlInput.setValue('h');
-          landingPage.topHeader.topBar.logo.subtitle.click();
+          landingPage.header.topBar.logo.subtitle.click();
 
-          selectText(landingPage.topHeader.topBar.logo.subtitleFirstLine.selector);
+          selectText(landingPage.header.topBar.logo.subtitleFirstLine.selector);
           landingPage.richTextToolbar.urlInput.getValue().should.equal('h');
         });
 
@@ -109,7 +109,7 @@ describe('Rich text editor', function () {
           landingPage.richTextToolbar.urlInput.setValue('h');
           landingPage.richTextToolbar.linkButton.click();
 
-          landingPage.topHeader.topBar.logo.linkTextSpan.waitForDisplayed(2000, true);
+          landingPage.header.topBar.logo.linkTextSpan.waitForDisplayed(2000, true);
         });
 
         it('should hide both toolbar and url input when click outside', function () {

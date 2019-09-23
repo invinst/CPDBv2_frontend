@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 import { Provider } from 'react-redux';
 import {
   renderIntoDocument,
-  scryRenderedComponentsWithType,
   scryRenderedDOMComponentsWithTag,
   findRenderedComponentWithType,
   scryRenderedDOMComponentsWithClass,
@@ -190,7 +189,7 @@ describe('SlimHeader component', function () {
       const slimHeader = findRenderedComponentWithType(element, SlimHeader);
       slimHeader.setState({ position: 'top' });
 
-      const slimHeaderContent = scryRenderedComponentsWithType(element, SlimHeaderContent)[0];
+      const slimHeaderContent = findRenderedComponentWithType(element, SlimHeaderContent);
       slimHeaderContent.props.position.should.eql('top');
       slimHeaderContent.props.pathname.should.eql('/');
       slimHeaderContent.props.editModeOn.should.eql(false);
@@ -211,16 +210,11 @@ describe('SlimHeader component', function () {
       const slimHeader = findRenderedComponentWithType(element, SlimHeader);
       slimHeader.setState({ position: 'middle' });
 
-      const slimHeaderContent = scryRenderedComponentsWithType(element, SlimHeaderContent)[1];
+      const slimHeaderContent = findRenderedComponentWithType(element, SlimHeaderContent);
 
       slimHeaderContent.props.position.should.eql('middle');
       slimHeaderContent.props.pathname.should.eql('/');
       slimHeaderContent.props.editModeOn.should.eql(false);
-      slimHeaderContent.props.disableTop.should.eql(true);
-      slimHeaderContent.props.style.should.eql({
-        transform: 'translateY(-100%)',
-        backgroundColor: 'rgb(255, 255, 255)',
-      });
     });
 
     it('should be rendered with correct props and style in the bottom of the page', function (done) {
@@ -238,11 +232,10 @@ describe('SlimHeader component', function () {
       const slimHeader = findRenderedComponentWithType(element, SlimHeader);
       slimHeader.setState({ position: 'bottom' });
       setTimeout(function () {
-        const slimHeaderContent = scryRenderedComponentsWithType(element, SlimHeaderContent)[1];
+        const slimHeaderContent = findRenderedComponentWithType(element, SlimHeaderContent);
         slimHeaderContent.props.position.should.eql('bottom');
         slimHeaderContent.props.pathname.should.eql('/');
         slimHeaderContent.props.editModeOn.should.eql(false);
-        slimHeaderContent.props.disableTop.should.eql(true);
         done();
       }, 500);
     });
