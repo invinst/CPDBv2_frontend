@@ -6,6 +6,9 @@ import {
   turnOffEmptyPinboardTitleEditMode,
   turnOnEmptyPinboardDescriptionEditMode,
   turnOffEmptyPinboardDescriptionEditMode,
+  fetchPinboards,
+  showPinboardsList,
+  hidePinboardList,
 } from 'actions/pinboard-page';
 import {
   PINBOARD_PAGE_REDIRECT,
@@ -14,6 +17,7 @@ import {
   PINBOARD_EDIT_MODE,
   PINBOARD_EDIT_TYPES,
 } from 'utils/constants';
+import * as constants from '../../../src/js/utils/constants';
 
 
 describe('pinboard-page actions', function () {
@@ -76,6 +80,44 @@ describe('pinboard-page actions', function () {
       turnOffEmptyPinboardDescriptionEditMode().should.eql({
         type: PINBOARD_EDIT_MODE,
         payload: { editType: PINBOARD_EDIT_TYPES.EMPTY_PINBOARD_DESCRIPTION, mode: false },
+      });
+    });
+  });
+
+  describe('fetchPinboards', function () {
+    it('should return correct action', function () {
+      fetchPinboards().should.deepEqual({
+        types: [
+          constants.PINBOARDS_FETCH_REQUEST_START,
+          constants.PINBOARDS_FETCH_REQUEST_SUCCESS,
+          constants.PINBOARDS_FETCH_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: constants.PINBOARDS_URL,
+            params: undefined,
+            adapter: null,
+            cancelToken: undefined,
+          },
+        },
+      });
+    });
+  });
+
+  describe('showPinboardsList action', function () {
+    it('should return correct action', function () {
+      showPinboardsList().should.eql({
+        type: constants.HIDE_SHOW_PINBOARDS_LIST,
+        payload: true,
+      });
+    });
+  });
+
+  describe('hidePinboardList action', function () {
+    it('should return correct action', function () {
+      hidePinboardList().should.eql({
+        type: constants.HIDE_SHOW_PINBOARDS_LIST,
+        payload: false,
       });
     });
   });

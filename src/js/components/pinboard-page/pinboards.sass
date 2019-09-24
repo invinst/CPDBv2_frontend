@@ -1,0 +1,59 @@
+@import 'variables'
+
+\:local(.pinboards)
+  z-index: 1001
+  position: fixed
+  top: 0
+  right: 0
+  width: 320px
+  height: 100vh
+  background-color: $sugar-cane-color
+
+  .pinboards-title
+    background-color: white
+    padding: 48px 8px 17px 8px
+    line-height: 31px
+    font-size: 26px
+
+    .new-pinboard-btn
+      width: 48px
+      height: 32px
+      display: inline-block
+      border: 1px solid $white-two-color
+      box-sizing: border-box
+      background: url('/img/ic-plus.svg') no-repeat center
+      float: right
+
+  .pinboard-item
+    display: block
+    height: 64px
+    box-sizing: border-box
+    background-color: white
+    padding: 16px 16px 16px 12px
+
+    .pinboard-title
+      color: $accent-color
+      font-weight: 300
+      line-height: 16px
+      margin-bottom: 2px
+
+    .pinboard-created-at
+      color: $boulder-color
+      font-size: 12px
+      line-height: 14px
+
+    &.untitled-pinboard
+      .pinboard-created-at
+        color: $accent-color
+        font-size: 14px
+        line-height: 32px
+
+    &:hover
+      background-color: $corn-silk-color
+
+      .pinboard-title
+        color: $soft-black-color
+
+      &.untitled-pinboard
+        .pinboard-created-at
+          color: $soft-black-color

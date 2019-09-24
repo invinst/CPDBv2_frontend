@@ -606,6 +606,33 @@ describe('Pinboard Page', function () {
       );
     });
   });
+
+  context('manage pinboards', function () {
+    beforeEach(function () {
+      pinboardPage.open();
+    });
+
+    it('should render the pinboards list', function () {
+      pinboardPage.managePinboardsSection.pinboardsListButton.click();
+
+      pinboardPage.managePinboardsSection.pinboardsTitle.getText().should.equal('Pinboards');
+      pinboardPage.managePinboardsSection.pinboardItems().should.have.length(2);
+
+      pinboardPage.managePinboardsSection.firstPinboardItemTitle.getText().should.equal('Pinboard title');
+      pinboardPage.managePinboardsSection.firstPinboardItemCreatedAt.getText().should.equal('Created Sep 12, 2019');
+
+      pinboardPage.managePinboardsSection.secondPinboardItemTitle.getText().should.equal('');
+      pinboardPage.managePinboardsSection.secondPinboardItemCreatedAt.getText().should.equal('Created Oct 15, 2019');
+    });
+
+    it('should go to pinboard detail page when clicking on pinboard item', function () {
+      pinboardPage.managePinboardsSection.pinboardsListButton.click();
+      pinboardPage.managePinboardsSection.secondPinboardItemCreatedAt.click();
+      browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
+      pinboardPage.pinboardSection.title.getText().should.equal('');
+      pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
+    });
+  });
 });
 
 describe('Undo card', function () {

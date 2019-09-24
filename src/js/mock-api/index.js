@@ -63,6 +63,7 @@ import { getDefaultSocialGraphOfficersData } from './social-graph-page/officers-
 import { getDefaultSocialGraphAllegationsData } from './social-graph-page/allegations-data';
 import {
   createPinboard,
+  pinboardsList,
   getOrCreateEmptyPinboard,
   updatePinboard,
   updatePinboardTitleParams,
@@ -261,6 +262,10 @@ axiosMockClient.onGet(
   { params: { 'threshold': 3, 'complaint_origin': 'ALL', 'unit_id': '123' } }
 ).reply(200, getThresholdThreeSocialGraphData());
 
+axiosMockClient.onGet(PINBOARDS_URL).reply(200, pinboardsList);
+
+axiosMockClient.onPost(PINBOARDS_URL).reply(201, createPinboard());
+
 axiosMockClient.onPost(
   `${PINBOARDS_URL}`,
   {
@@ -389,6 +394,8 @@ axiosMockClient.onGet(
 ).reply(200, getDefaultSocialGraphAllegationsData());
 
 axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/`).reply(200, getOrCreateEmptyPinboard('3664a7ea'));
+
+axiosMockClient.onGet(`${PINBOARDS_URL}77edc128/`).reply(200, getOrCreateEmptyPinboard('77edc128'));
 
 axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/complaints/`).reply(200, fetchPinboardComplaints());
 

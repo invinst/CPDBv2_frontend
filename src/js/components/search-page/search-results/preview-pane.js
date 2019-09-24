@@ -17,6 +17,7 @@ import {
   TRRPane,
 } from 'components/common/preview-pane';
 import styles from './preview-pane.sass';
+import withOverlay from 'common/with-overlay';
 
 
 export default class PreviewPane extends Component {
@@ -92,3 +93,5 @@ PreviewPane.defaultProps = {
   yScrollable: false,
   addOrRemoveItemInPinboard: noop,
 };
+
+export const PreviewPaneWithOverlay = withOverlay(PreviewPane);

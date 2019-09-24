@@ -209,6 +209,26 @@ class PinboardSection extends Section {
   }
 }
 
+class ManagePinboardsSection extends Section {
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      pinboardsListButton: '.pinboards-list-btn',
+      pinboardsList: '.pinboards-list',
+      pinboardsTitle: '.pinboards-list .pinboards-title',
+      firstPinboardItemTitle: '//a[contains(@class, "pinboard-item")][1]//div[@class="pinboard-title"]',
+      firstPinboardItemCreatedAt: '//a[contains(@class, "pinboard-item")][1]//div[@class="pinboard-created-at"]',
+      secondPinboardItemTitle: '//a[contains(@class, "pinboard-item")][2]//div[@class="pinboard-title"]',
+      secondPinboardItemCreatedAt: '//a[contains(@class, "pinboard-item")][2]//div[@class="pinboard-created-at"]',
+    });
+  }
+
+  pinboardItems() {
+    return $$('.pinboards-list .pinboard-item');
+  }
+}
+
 class PinboardPinnedSection extends Section {
   officers = new PinnedOfficers();
   crs = new PinnedCRs();
@@ -307,6 +327,7 @@ class PinboardPage extends Page {
   animatedSocialGraphSection = new AnimatedSocialGraphSection();
   geographicSection = new GeographicSection();
   pinboardSection = new PinboardSection();
+  managePinboardsSection = new ManagePinboardsSection();
   relevantDocumentsSection = new RelevantDocumentsSection();
   relevantCoaccusalsSection = new RelevantCoaccusalsSection();
   relevantComplaintsSection = new RelevantComplaintsSection();

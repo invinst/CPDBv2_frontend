@@ -58,7 +58,7 @@ export default class SearchBar extends Component {
   }
 
   render() {
-    const { shareable } = this.props;
+    const { shareable, customButtons } = this.props;
     return (
       <div
         onClick={ this.goToSearchPage }
@@ -69,14 +69,17 @@ export default class SearchBar extends Component {
             <div className='search-term'>
               Search
             </div>
-            { !shareable ? null : (
-              <div
-                className='share-button'
-                onClick={ this.handleShareButtonClick }>
-                Share
-                { this.renderShareMenu() }
-              </div>
-            ) }
+            <div className='right-buttons'>
+              { !shareable ? null : (
+                <div
+                  className='share-button'
+                  onClick={ this.handleShareButtonClick }>
+                  Share
+                  { this.renderShareMenu() }
+                </div>
+              ) }
+              { customButtons }
+            </div>
           </div>
         </div>
       </div>
@@ -86,6 +89,7 @@ export default class SearchBar extends Component {
 
 SearchBar.propTypes = {
   shareable: PropTypes.bool,
+  customButtons: PropTypes.element,
 };
 
 SearchBar.defaultProps = {

@@ -74,4 +74,10 @@ describe('SearchBar component', function () {
 
     scryRenderedDOMComponentsWithClass(instance, 'share-button').should.have.length(0);
   });
+
+  it('should render custom buttons', function () {
+    instance = renderIntoDocument(<SearchBar customButtons={ <div className='custom-buttons' /> } />);
+
+    scryRenderedDOMComponentsWithClass(instance, 'custom-buttons').should.have.length(1);
+  });
 });

@@ -31,6 +31,19 @@ export const createPinboard = (id='5cd06f2b', officerIds=[1], crids=[], trrIds=[
   };
 };
 
+export const pinboardsList = [
+  {
+    'id': '5cd06f2b',
+    'title': 'Pinboard title',
+    'created_at': '2019-09-12',
+  },
+  {
+    'id': '77edc128',
+    'title': '',
+    'created_at': '2019-10-15',
+  },
+];
+
 const pinboards = {
   '5cd06f2b': {
     'id': '5cd06f2b',
@@ -47,6 +60,14 @@ const pinboards = {
     'crids': ['1234567'],
     'trr_ids': [1234],
     'description': 'Pinboard Description',
+  },
+  '77edc128': {
+    'id': '77edc128',
+    'title': '',
+    'officer_ids': [1234],
+    'crids': ['1234567'],
+    'trr_ids': [1234],
+    'description': 'Description for 77edc128',
   },
   'abcd1234': emptyPinboard,
 };
