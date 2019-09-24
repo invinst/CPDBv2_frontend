@@ -166,16 +166,6 @@ describe('SearchPage component', function () {
     this.browserHistoryPush.calledWith('/').should.be.true();
   });
 
-  it('should have correct className', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchPage className='test--additional-class-name' hide={ true }/>
-      </Provider>
-    );
-
-    findDOMNode(instance).getAttribute('class').should.containEql('test--additional-class-name').and.containEql('hide');
-  });
-
   it('should bind and unbind esc and enter keys when mounted but not hide', function () {
     const bindSpy = spy(LayeredKeyBinding, 'bind');
     const unbindSpy = spy(LayeredKeyBinding, 'unbind');

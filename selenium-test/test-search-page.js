@@ -31,8 +31,8 @@ describe('Search Page', function () {
     searchPage.input.setValue('Ke');
 
     searchPage.suggestionGroup.waitForDisplayed();
-    searchPage.page.getText().should.containEql('OFFICER');
-    searchPage.page.getText().should.containEql('NEIGHBORHOOD');
+    searchPage.suggestionTags.getText().should.containEql('OFFICER');
+    searchPage.suggestionTags.getText().should.containEql('NEIGHBORHOOD');
     searchPage.firstOfficerResult.waitForDisplayed();
     searchPage.firstOfficerResult.getText().should.containEql('Bernadette Kelly'); // officer name
     searchPage.firstOfficerResult.getText().should.containEql('45 year old, White, Male, '); // officer demographic

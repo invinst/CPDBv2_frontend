@@ -277,6 +277,8 @@ SearchPage.propTypes = {
   createPinboard: PropTypes.func,
   className: PropTypes.string,
   hide: PropTypes.bool,
+  position: PropTypes.string,
+  animationIn: PropTypes.bool,
 };
 
 /* istanbul ignore next */

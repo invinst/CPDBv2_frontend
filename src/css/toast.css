@@ -1,5 +1,5 @@
 .Toastify__toast-container--top-right {
-    top: 100px;
+    top: 106px;
     right: 12px;
 }
 
@@ -14,19 +14,19 @@
 @keyframes slideInDown {
     from {
         transform: translate3d(0, -100vh, 0);
-        visibility: visible; 
+        visibility: visible;
     }
     to {
-        transform: translate3d(0, 0, 0); 
-    } 
+        transform: translate3d(0, 0, 0);
+    }
 }
 
 @keyframes fadeOut {
-    0% { 
-        opacity: 1; 
+    0% {
+        opacity: 1;
     }
-    100% { 
-        opacity: 0; 
+    100% {
+        opacity: 0;
         display: none;
     }
 }

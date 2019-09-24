@@ -81,6 +81,8 @@ SearchBox.propTypes = {
   focused: PropTypes.bool,
   resetNavigation: PropTypes.func,
   trackRecentSuggestion: PropTypes.func,
+  position: PropTypes.string,
+  animationIn: PropTypes.bool,
 };
 
 SearchBox.defaultProps = {

@@ -107,15 +107,13 @@ class SearchPage extends Page {
   constructor() {
     super();
     this.prepareElementGetters({
-      input: '.test--search-page-input',
-      page: '.search-page',
+      input: '.search-box-text-input',
       suggestionGroup: '.test--suggestion-group',
       suggestionTags: '.suggestion-tags',
       firstSuggestionTag: '.suggestion-tags span',
       contentWrapper: '.content-wrapper',
       recentSuggestions: '.recent-suggestions',
       backButton: '.searchbar__button--back',
-      searchTermsToggle: '.test--toggle-button',
       clearSearchButton: '.test--search-close-button',
       firstOfficerResult: '.test--suggestion-group .suggestion-item-OFFICER-1',
       firstOfficerPinButton:
