@@ -1,7 +1,5 @@
 @import 'variables'
 
-$animation-duration: 0.5s
-
 \:local(.search-page)
   min-height: 100vh
   font-family: $san-francisco-text-family
@@ -44,55 +42,21 @@ $animation-duration: 0.5s
     &:hover
       color: $soft-black-color
 
-  .search-box
-    .search-box-text-input + div
-       color: $accent-color
-
   &.hide
     display: none
 
   &.animation-in
-    color: $boulder-color
-
-    .search-main-panel-wrapper
+    .search-main-panel-wrapper, .cancel-button
       opacity: 0
       animation-duration: $animation-duration
       animation-delay: calc(#{$animation-duration} / 2)
       animation-name: fadeIn
       animation-fill-mode: forwards
 
-    .search-box
-      animation-duration: $animation-duration
-      animation-name: changeSearchBox
-      animation-fill-mode: forwards
-
-      .cancel-button
-        animation-duration: $animation-duration
-        animation-delay: calc(#{$animation-duration} / 2)
-        animation-name: fadeIn
-        animation-fill-mode: forwards
-
     &.top
       animation-duration: $animation-duration
       animation-name: goUp
       animation-fill-mode: forwards
-
-      .search-bar
-        animation-duration: $animation-duration
-        animation-name: changeSearchBar
-        animation-fill-mode: forwards
-
-    &.middle
-      .search-box
-        .magnifying-glass path
-          animation-duration: $animation-duration
-          animation-name: changeSearchBoxGlassColor
-          animation-fill-mode: forwards
-
-        .search-box-text-input + div
-          animation-duration: $animation-duration
-          animation-name: changeSearchBoxTextInputColor
-          animation-fill-mode: forwards
 
 .toast-wrapper
   background-color: $sprout
@@ -129,38 +93,3 @@ $animation-duration: 0.5s
 
   to
     opacity: 1
-
-@keyframes changeSearchBox
-  from
-    width: 512px
-
-  to
-    width: calc(100% - 58px)
-
-@keyframes changeSearchBoxBottom
-  from
-    background-color: $accent-color
-
-  to
-    background-color: $wild-sand
-
-@keyframes changeSearchBarBackgroundBottom
-  from
-    background-color: $accent-color
-
-  to
-    background-color: white
-
-@keyframes changeSearchBoxGlassColor
-  from
-    fill: $boulder-color
-
-  to
-    fill: $accent-color
-
-@keyframes changeSearchBoxTextInputColor
-  from
-    color: $boulder-color
-
-  to
-    color: $accent-color

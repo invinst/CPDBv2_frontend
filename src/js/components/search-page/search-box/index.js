@@ -30,7 +30,7 @@ export default class SearchBox extends Component {
   }
 
   render() {
-    const { value, onChange, onEscape, focused, resetNavigation, className } = this.props;
+    const { value, onChange, onEscape, focused, resetNavigation, className, position, animationIn } = this.props;
 
     const keyPressHandlers = {
       esc: onEscape,
@@ -42,8 +42,8 @@ export default class SearchBox extends Component {
     };
 
     return (
-      <div className={ cx(className, styles.searchBox) }>
-        <MagnifyingGlass className='magnifying-glass' size={ 12 }/>
+      <div className={ cx(className, position, styles.searchBox, { 'animation-in': animationIn }) }>
+        <MagnifyingGlass className={ cx('magnifying-glass', position, { 'animation-in': animationIn }) } size={ 12 }/>
         <TextInput
           autoFocus={ true }
           style={ searchInputStyle }
@@ -55,7 +55,7 @@ export default class SearchBox extends Component {
           keyPressHandlers={ keyPressHandlers }
           keyPressWithBlurHandlers={ keyPressWithBlurHandlers }
           spellCheck={ false }
-          className='search-box-text-input'
+          className={ cx('search-box-text-input', position, { 'animation-in': animationIn }) }
           focused={ focused }
         />
         {

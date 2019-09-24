@@ -90,12 +90,9 @@ class LandingPage extends Component {
           <FooterContainer/>
         </div>
         <SearchPageContainer
-          className={
-            cx(position, {
-              'animation-in': !this.initial && searchPageShowing && !this.previousSearchPageShowing,
-            })
-          }
           hide={ !searchPageShowing }
+          position={ position }
+          animationIn={ !this.initial && searchPageShowing && !this.previousSearchPageShowing }
         />
       </DocumentMeta>
     );

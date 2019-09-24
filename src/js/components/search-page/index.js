@@ -193,12 +193,15 @@ export default class SearchPage extends Component {
     const {
       hide, query, searchTermsHidden, contentType, tags,
       editModeOn, officerCards, requestActivityGrid,
-      changeSearchQuery, focusedItem, firstItem, trackRecentSuggestion, className,
+      changeSearchQuery, focusedItem, firstItem, trackRecentSuggestion, position, animationIn,
     } = this.props;
 
     return (
       <div
-        className={ cx(styles.searchPage, className, { 'edit-mode-on': aliasEditModeOn, hide }) }>
+        className={
+          cx(styles.searchPage, position, { 'edit-mode-on': aliasEditModeOn, hide, 'animation-in': animationIn })
+        }
+      >
         <div className={ cx('search-bar-wrapper', { 'edit-mode-on': aliasEditModeOn }) }>
           <div className={
             cx('search-bar', { 'has-bottom-border': query !== '' })
@@ -214,12 +217,15 @@ export default class SearchPage extends Component {
               resetNavigation={ this.resetNavigation }
               trackRecentSuggestion={ trackRecentSuggestion }
               className={ 'search-box' }
+              position={ position }
+              animationIn={ animationIn }
             />
             <HoverableButton
               className={
                 cx('searchbar__button--back', 'cancel-button', { 'search-terms-hidden': searchTermsHidden })
               }
-              onClick={ this.handleGoBack }>
+              onClick={ this.handleGoBack }
+            >
               Cancel
             </HoverableButton>
           </div>

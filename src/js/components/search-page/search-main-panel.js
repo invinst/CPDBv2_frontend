@@ -7,7 +7,6 @@ import './search-main-panel.sass';
 
 
 export default class SearchMainPanel extends Component {
-
   render() {
     const {
       contentType, query, editModeOn, aliasEditModeOn,
