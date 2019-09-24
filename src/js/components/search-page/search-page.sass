@@ -17,15 +17,13 @@ $animation-duration: 0.5s
     left: 0
     width: 100%
     z-index: 1
-    height: 50px
 
     &.edit-mode-on
       background-color: $girly-pink
 
   .search-bar
-    padding: 8px 16px 9px 16px
+    padding: 8px 16px 8px 16px
     width: calc(100% - 32px)
-
 
     &.has-bottom-border
       border-bottom: 1px solid $white-two-color
@@ -34,10 +32,11 @@ $animation-duration: 0.5s
     display: inline-block
     font-size: 13px
     color: $accent-color
-    width: 41px
+    width: 42px
     cursor: pointer
-    position: relative
-    top: 6px
+    position: absolute
+    top: 20px
+    right: 16px
 
     &.search-terms-hidden
       color: $boulder-color
@@ -45,18 +44,9 @@ $animation-duration: 0.5s
     &:hover
       color: $soft-black-color
 
-  .search-main-panel-wrapper
-    padding-top: 50px
-
-  &.initial
-    color: $boulder-color
-
-    .search-box
-      background-color: $wild-sand
-
-    .search-bar
-      background-color: white
-      padding: 8px 16px 9px 16px
+  .search-box
+    .search-box-text-input + div
+       color: $accent-color
 
   &.hide
     display: none
@@ -76,25 +66,33 @@ $animation-duration: 0.5s
       animation-name: changeSearchBox
       animation-fill-mode: forwards
 
+      .cancel-button
+        animation-duration: $animation-duration
+        animation-delay: calc(#{$animation-duration} / 2)
+        animation-name: fadeIn
+        animation-fill-mode: forwards
+
     &.top
       animation-duration: $animation-duration
       animation-name: goUp
       animation-fill-mode: forwards
 
-    &.bottom
-      animation-duration: $animation-duration
-      animation-name: goUpFromBottom
-      animation-fill-mode: forwards
-
-      .search-box
-        animation-duration: $animation-duration
-        animation-name: changeSearchBoxBottom
-        animation-fill-mode: forwards
-
       .search-bar
         animation-duration: $animation-duration
-        animation-name: changeSearchBarBackgroundBottom
+        animation-name: changeSearchBar
         animation-fill-mode: forwards
+
+    &.middle
+      .search-box
+        .magnifying-glass path
+          animation-duration: $animation-duration
+          animation-name: changeSearchBoxGlassColor
+          animation-fill-mode: forwards
+
+        .search-box-text-input + div
+          animation-duration: $animation-duration
+          animation-name: changeSearchBoxTextInputColor
+          animation-fill-mode: forwards
 
 .toast-wrapper
   background-color: $sprout
@@ -119,16 +117,7 @@ $animation-duration: 0.5s
 @keyframes goUp
   from
     color: $accent-color
-    transform: translateY(88px)
-
-  to
-    color: $boulder-color
-    transform: translateY(0)
-
-@keyframes goUpFromBottom
-  from
-    color: white
-    transform: translateY(88px)
+    transform: translateY(80px)
 
   to
     color: $boulder-color
@@ -143,10 +132,10 @@ $animation-duration: 0.5s
 
 @keyframes changeSearchBox
   from
-    background-color: white
+    width: 512px
 
   to
-    background-color: $wild-sand
+    width: calc(100% - 58px)
 
 @keyframes changeSearchBoxBottom
   from
@@ -155,10 +144,23 @@ $animation-duration: 0.5s
   to
     background-color: $wild-sand
 
-
 @keyframes changeSearchBarBackgroundBottom
   from
     background-color: $accent-color
 
   to
     background-color: white
+
+@keyframes changeSearchBoxGlassColor
+  from
+    fill: $boulder-color
+
+  to
+    fill: $accent-color
+
+@keyframes changeSearchBoxTextInputColor
+  from
+    color: $boulder-color
+
+  to
+    color: $accent-color

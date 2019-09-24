@@ -93,7 +93,6 @@ class LandingPage extends Component {
           className={
             cx(position, {
               'animation-in': !this.initial && searchPageShowing && !this.previousSearchPageShowing,
-              initial: this.initial,
             })
           }
           hide={ !searchPageShowing }

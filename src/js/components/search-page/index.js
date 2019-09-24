@@ -213,6 +213,7 @@ export default class SearchPage extends Component {
               focused={ !hide && focusedItem.uniqueKey === SEARCH_BOX }
               resetNavigation={ this.resetNavigation }
               trackRecentSuggestion={ trackRecentSuggestion }
+              className={ 'search-box' }
             />
             <HoverableButton
               className={

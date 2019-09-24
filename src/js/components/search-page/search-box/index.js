@@ -1,11 +1,14 @@
 import React, { Component, PropTypes } from 'react';
+import cx from 'classnames';
 
 import { pushPathPreserveEditMode } from 'utils/edit-path';
 import * as constants from 'utils/constants';
 import TextInput from 'components/common/input';
 import { navigateToSearchItem } from 'utils/navigate-to-search-item';
-import { searchInputStyle, wrapperStyle } from './search-box.style';
+import { searchInputStyle } from './search-box.style';
 import CloseButton from './close-btn';
+import styles from './search-box.sass';
+import MagnifyingGlass from 'components/common/icons/magnifying-glass';
 
 
 export default class SearchBox extends Component {
@@ -27,7 +30,7 @@ export default class SearchBox extends Component {
   }
 
   render() {
-    const { value, onChange, onEscape, focused, resetNavigation } = this.props;
+    const { value, onChange, onEscape, focused, resetNavigation, className } = this.props;
 
     const keyPressHandlers = {
       esc: onEscape,
@@ -39,19 +42,20 @@ export default class SearchBox extends Component {
     };
 
     return (
-      <div className='search-box' style={ wrapperStyle }>
+      <div className={ cx(className, styles.searchBox) }>
+        <MagnifyingGlass className='magnifying-glass' size={ 12 }/>
         <TextInput
           autoFocus={ true }
           style={ searchInputStyle }
-          placeholder='Search Chicago'
+          placeholder='Search'
           onChange={ onChange }
-          paddingVertical={ 8 }
-          paddingHorizontal={ 9 }
+          paddingVertical={ 12 }
+          paddingHorizontal={ 37 }
           value={ value }
           keyPressHandlers={ keyPressHandlers }
           keyPressWithBlurHandlers={ keyPressWithBlurHandlers }
           spellCheck={ false }
-          className='test--search-page-input'
+          className='search-box-text-input'
           focused={ focused }
         />
         {
@@ -67,6 +71,7 @@ export default class SearchBox extends Component {
 }
 
 SearchBox.propTypes = {
+  className: PropTypes.string,
   onChange: PropTypes.func,
   onEscape: PropTypes.func,
   firstSuggestionItem: PropTypes.object,
