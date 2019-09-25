@@ -405,6 +405,11 @@ describe('Search Page', function () {
     searchPage.currentBasePath.should.eql('/officer/1/bernadette-kelly/');
   });
 
+  it('should render landing page but hide', function () {
+    landingPage.header.content.waitForExist();
+    landingPage.header.content.waitForDisplayed(1000, true);
+  });
+
   describe('Search box button', function () {
     it('should clear the query when clicked', function () {
       searchPage.input.waitForDisplayed();
