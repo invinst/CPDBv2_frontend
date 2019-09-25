@@ -104,6 +104,13 @@ axiosMockClient.onGet(
   return [200, singleGroupSuggestions.officerOffset10];
 });
 
+axiosMockClient.onGet(
+  SEARCH_SINGLE_API_URL,
+  { params: { term: 'jerome', contentType: 'OFFICER', offset: '20' } },
+).reply(() => {
+  return [200, singleGroupSuggestions.officerOffset20];
+});
+
 axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'jerome', contentType: 'CR' } }).reply(() => {
   return [200, singleGroupSuggestions.cr];
 });

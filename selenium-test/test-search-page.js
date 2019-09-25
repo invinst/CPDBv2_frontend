@@ -174,7 +174,7 @@ describe('Search Page', function () {
     searchPage.suggestionTag(1).click();
     searchPage.input.getValue().should.eql('officer:jerome');
     searchPage.officerResultsSection.results.waitForDisplayed();
-    searchPage.officerResultsSection.resultsCount('OFFICER').should.equal(10);
+    searchPage.officerResultsSection.resultsCount('OFFICER').should.equal(20);
     searchPage.officerResultsSection.firstResultText.getText().should.equal('Jerome Finnigan');
     searchPage.officerResultsSection.secondResultText.getText().should.equal('Edward May');
     searchPage.searchCommunityResultsSection.results.waitForDisplayed(500, true);
@@ -222,7 +222,7 @@ describe('Search Page', function () {
     searchPage.suggestionTag(3).getText().should.equal('CR');
     searchPage.suggestionTag(4).getText().should.equal('TRR');
 
-    searchPage.officerResultsSection.resultsCount('OFFICER').should.equal(10);
+    searchPage.officerResultsSection.resultsCount('OFFICER').should.equal(20);
     searchPage.officerResultsSection.firstResultText.getText().should.equal('Jerome Finnigan');
     searchPage.officerResultsSection.secondResultText.getText().should.equal('Edward May');
     searchPage.searchCommunityResultsSection.results.waitForDisplayed(500, true);
@@ -245,10 +245,15 @@ describe('Search Page', function () {
     searchPage.firstLoadMoreButton.click();
 
     searchPage.input.getValue().should.eql('officer:jerome');
-    searchPage.officerResultsSection.resultsCount('OFFICER').should.equal(10);
+    searchPage.officerResultsSection.resultsCount('OFFICER').should.equal(20);
 
-    times(11, () => browser.keys('ArrowDown'));
-    searchPage.officerResultsSection.resultsCount('OFFICER').should.equal(15);
+    times(21, () => browser.keys('ArrowDown'));
+
+    browser.waitUntil(function () {
+      return searchPage.officerResultsSection.resultsCount('OFFICER') === 25;
+    }, 2000, 'expected officer suggestions are 25');
+    searchPage.officerResultsSection.resultsCount('OFFICER').should.equal(25);
+
     searchPage.contentWrapper.waitForDisplayed();
     const content = searchPage.contentWrapper.getText();
     content.should.containEql('OFFICER');
@@ -658,7 +663,7 @@ describe('Search Page with query parameter', function () {
     searchPage.suggestionTag(3).getText().should.equal('CR');
     searchPage.suggestionTag(4).getText().should.equal('TRR');
 
-    searchPage.officerResultsSection.resultsCount('OFFICER').should.equal(10);
+    searchPage.officerResultsSection.resultsCount('OFFICER').should.equal(20);
     searchPage.officerResultsSection.firstResultText.getText().should.equal('Jerome Finnigan');
     searchPage.officerResultsSection.secondResultText.getText().should.equal('Edward May');
     searchPage.searchCommunityResultsSection.results.waitForDisplayed(500, true);
