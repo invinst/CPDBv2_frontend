@@ -71,7 +71,6 @@ class ResultsSection extends Section {
   resultsCount(key) {
     return $$(`//a[contains(@class, "suggestion-item-${key}")]`).length;
   }
-
 }
 
 class SearchPage extends Page {
