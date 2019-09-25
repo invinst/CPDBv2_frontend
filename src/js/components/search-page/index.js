@@ -275,7 +275,6 @@ SearchPage.propTypes = {
   isRequesting: PropTypes.bool,
   toast: PropTypes.object,
   createPinboard: PropTypes.func,
-  className: PropTypes.string,
   hide: PropTypes.bool,
   position: PropTypes.string,
   animationIn: PropTypes.bool,
