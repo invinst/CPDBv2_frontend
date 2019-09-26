@@ -632,14 +632,6 @@ describe('Search Page with pinboard functionalities', function () {
     searchPage.pinboardButton.getText().should.eql('Your pinboard is empty');
   });
 
-  it('should display pinboard button that links to pinboard page when pinboard is not empty', function () {
-    searchPage.open('Ke');
-    searchPage.suggestionGroup.waitForDisplayed();
-    searchPage.firstOfficerPinButton.click();
-    searchPage.pinboardButton.click();
-    browser.getUrl().should.match(/pinboard\/5cd06f2b\/pinboard-title\/$/);
-  });
-
   it('should display pinboard tooltip bar when not search', function () {
     const tip = 'Create collections of officers, complaint records, and tactical reponse reports using search.';
     searchPage.open('');
@@ -654,7 +646,7 @@ describe('Search Page with pinboard functionalities', function () {
     searchPage.suggestionGroup.waitForDisplayed();
 
     searchPage.pinboardButton.click();
-    browser.getUrl().should.match(/pinboard\/5cd06f2b\/pinboard-title\/$/);
+    browser.getUrl().should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/);
   });
 });
 
