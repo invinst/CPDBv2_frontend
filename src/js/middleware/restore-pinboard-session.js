@@ -8,7 +8,10 @@ export default store => next => action => {
 
   if (action.type === '@@router/LOCATION_CHANGE') {
     const state = store.getState();
-    if (!isPinboardRestoredSelector(state) && isEmpty(action.payload.query)) {
+    if (
+      !isPinboardRestoredSelector(state)
+      && (isEmpty(action.payload.query) || !action.payload.pathname.match(/\/pinboard\//))
+    ) {
       store.dispatch(fetchLatestRetrievedPinboard({ create: action.payload.pathname === '/pinboard/' }));
     }
   }
