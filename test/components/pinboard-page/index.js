@@ -445,6 +445,11 @@ describe('PinboardPage component', function () {
     document.body.classList.should.have.length(2);
     document.body.classList.contains('body-fixed-viewport').should.be.true();
     document.body.classList.contains('body-not-scrollable').should.be.true();
+
+    unmountComponentSuppressError(instance);
+
+    document.body.classList.contains('body-fixed-viewport').should.be.false();
+    document.body.classList.contains('body-not-scrollable').should.be.false();
   });
 
   it('should handle on overlay click', function () {
