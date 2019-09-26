@@ -345,6 +345,20 @@ describe('Search Page', function () {
         searchPage.recentSuggestionItem(index + 1).getText().should.equal(expectedText);
       });
 
+      searchPage.pinboardButton.getText().should.eql('Pinboard (0)');
+
+      browser.scroll(0, -2000);
+      browser.pause(500);
+      searchPage.firstRecentPinButton.click();
+      searchPage.secondRecentPinButton.click();
+      searchPage.thirdRecentPinButton.click();
+      searchPage.pinboardButton.getText().should.eql('Pinboard (3)');
+
+      searchPage.firstRecentPinButton.click();
+      searchPage.secondRecentPinButton.click();
+      searchPage.thirdRecentPinButton.click();
+      searchPage.pinboardButton.getText().should.eql('Pinboard (0)');
+
       searchPage.open();
 
       const newExpectedRecentSuggestions = [
