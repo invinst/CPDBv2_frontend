@@ -30,12 +30,12 @@ export default class RelevantCoaccusalCard extends Component {
   }
 
   handleAddItemToPinboard() {
-    const { id, rawData, addItemInPinboardPage } = this.props;
+    const { id, recentItemData, addItemInPinboardPage } = this.props;
 
     addItemInPinboardPage({
       type: 'OFFICER',
       id,
-      rawData,
+      recentItemData,
     });
   }
 
@@ -88,14 +88,14 @@ RelevantCoaccusalCard.propTypes = {
   addItemInPinboardPage: PropTypes.func,
   focusItem: PropTypes.func,
   isPinStatusChanging: PropTypes.bool,
-  rawData: PropTypes.object,
+  recentItemData: PropTypes.object,
 };
 
 RelevantCoaccusalCard.defaultProps = {
   addItemInPinboardPage: noop,
   focusItem: noop,
   isPinStatusChanging: false,
-  rawData: {},
+  recentItemData: {},
 };
 
 

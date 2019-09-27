@@ -15,9 +15,13 @@ export default class SearchBox extends Component {
   }
 
   handleEnter() {
-    const { trackRecentSuggestion } = this.props;
-    navigateToSearchItem(this.props.firstSuggestionItem, ({ to, url, type, recentText }) => {
-      trackRecentSuggestion(type, recentText, url, to);
+    const { saveToRecent } = this.props;
+    navigateToSearchItem(this.props.firstSuggestionItem, (item) => {
+      saveToRecent({
+        type: item.type,
+        id: item.id,
+        data: item.recentItemData,
+      });
     });
   }
 
@@ -75,11 +79,11 @@ SearchBox.propTypes = {
   changeSearchQuery: PropTypes.func,
   focused: PropTypes.bool,
   resetNavigation: PropTypes.func,
-  trackRecentSuggestion: PropTypes.func,
+  saveToRecent: PropTypes.func,
 };
 
 SearchBox.defaultProps = {
   value: '',
   focused: false,
-  trackRecentSuggestion: () => {},
+  saveToRecent: () => {},
 };

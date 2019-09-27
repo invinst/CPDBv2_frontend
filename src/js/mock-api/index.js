@@ -25,6 +25,7 @@ import {
   SOCIAL_GRAPH_OFFICERS_API_URL,
   SOCIAL_GRAPH_ALLEGATIONS_API_URL,
   MODAL_VIDEO_INFO,
+  RECENT_SEARCH_ITEMS_API_URL,
 } from 'utils/constants';
 import { communityGeoJSONPath } from 'utils/static-assets';
 import getCRData from './cr-page/get-data';
@@ -42,7 +43,7 @@ import getCoaccusalsData from './officer-page/get-coaccusals';
 import getNewTimelineItemsData from './officer-page/get-new-timeline-item';
 import getSummaryData, { noPercentileOfficerSummary } from './officer-page/get-summary';
 import getTRRData from './trr-page/get-data';
-import getSearchTermsData from './search-terms-page';
+import getSearchTermsData, { recentSearchItems } from './search-terms-page';
 import getUnitSummaryData from './unit-profile-page/get-summary';
 import { getCRPopup } from './popup';
 import { getCommunity } from './community';
@@ -350,9 +351,14 @@ axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/relevant-documents/?`).reply(
   200, getFirstRelevantDocuments('3664a7ea', 50)
 );
 
-axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/relevant-complaints/?`).reply(
-  200, getFirstRelevantComplaints('3664a7ea', 50)
+axiosMockClient.onGet(
+  RECENT_SEARCH_ITEMS_API_URL,
+  { params: { 'officer_ids': ['1', '123'], 'crids': ['CR123', 'CR456', 'CR123456'], 'trr_ids': ['123', '456'] } },
+).reply(
+  200, recentSearchItems,
 );
+
+axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/trrs/`).reply(200, fetchPinboardTRRs());
 
 /*istanbul ignore next*/
 export function getMockAdapter() {

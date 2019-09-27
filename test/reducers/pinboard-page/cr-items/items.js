@@ -29,7 +29,7 @@ describe('crItemsReducer', function () {
         payload: {
           type: 'CR',
           id: '2',
-          rawData: {
+          recentItemData: {
             'crid': '2',
             'incident_date': 'Apr 4, 2017',
             'most_common_category': 'Use Of Force',
@@ -55,7 +55,7 @@ describe('crItemsReducer', function () {
         payload: {
           type: 'CR',
           id: '1',
-          rawData: {
+          recentItemData: {
             'crid': '1',
             'incident_date': 'Apr 4, 2017',
             'most_common_category': 'Use Of Force',
@@ -74,7 +74,7 @@ describe('crItemsReducer', function () {
         payload: {
           type: 'OFFICER',
           id: '2',
-          rawData: {
+          recentItemData: {
             'id': 2,
             'full_name': 'Jerome Finnigan',
             'rank': 'Officer',

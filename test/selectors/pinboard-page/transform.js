@@ -84,7 +84,7 @@ describe('Pinboard Page transform selectors', function () {
             },
           }],
           isPinStatusChanging: false,
-          rawData: allegation,
+          recentItemData: allegation,
         },
         pinned: false,
       });
@@ -115,7 +115,7 @@ describe('Pinboard Page transform selectors', function () {
           officers: [],
           point: null,
           isPinStatusChanging: false,
-          rawData: allegation,
+          recentItemData: allegation,
         },
         pinned: true,
       });
@@ -190,7 +190,7 @@ describe('Pinboard Page transform selectors', function () {
             percentile: null,
           }],
           isPinStatusChanging: false,
-          rawData: allegation,
+          recentItemData: allegation,
         },
         pinned: false,
       });
@@ -231,7 +231,7 @@ describe('Pinboard Page transform selectors', function () {
           textColor: '#231F20',
         },
         isPinStatusChanging: false,
-        rawData: coaccusal,
+        recentItemData: coaccusal,
       });
     });
   });
@@ -279,7 +279,7 @@ describe('Pinboard Page transform selectors', function () {
           },
         }],
         isPinStatusChanging: false,
-        rawData: complaint,
+        recentItemData: complaint,
       });
     });
   });

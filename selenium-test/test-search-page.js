@@ -100,7 +100,7 @@ describe('Search Page', function () {
     searchPage.dateTRRResultsSection.results.count.should.equal(2);
     searchPage.dateTRRResultsSection.firstResultText.getText().should.equal('Member Presence');
     searchPage.dateTRRResultsSection.firstResultSubText.getText().should.equal('TRR # 123 - April 23, 2004');
-    searchPage.dateTRRResultsSection.secondResultText.getText().should.equal('Unknown');
+    searchPage.dateTRRResultsSection.secondResultText.getText().should.equal('Physical Force - Holding');
     searchPage.dateTRRResultsSection.secondResultSubText.getText().should.equal('TRR # 456 - April 23, 2004');
   });
 
@@ -262,31 +262,124 @@ describe('Search Page', function () {
   describe('should show the recent search', function () {
     beforeEach(function () {
       browser.execute(() => {
-        window.localStorage.clear();
+        window.localStorage.removeItem('redux');
       });
-      searchPage.open();
-
-      searchPage.input.waitForDisplayed();
-      searchPage.input.setValue('Ke');
-
-      searchPage.firstOfficerResult.waitForDisplayed();
-      searchPage.firstOfficerResult.getText().should.containEql('Bernadette Kelly');
     });
 
+    const backToSearch = () => {
+      searchPage.searchBreadcrumb.waitForDisplayed();
+      searchPage.searchBreadcrumb.click();
+    };
+    const performSearch = (term) => {
+      searchPage.input.waitForDisplayed();
+      searchPage.input.setValue(term);
+    };
+    const clearSearchInput = () => searchPage.clearSearchButton.click();
+
+    const clickOnSearchResultItem = (suggestionGroupSelector, expectedText, isFirstResult=false) => {
+      suggestionGroupSelector.waitForDisplayed();
+      suggestionGroupSelector.getText().should.containEql(expectedText);
+      suggestionGroupSelector.click();
+      if (!isFirstResult) {
+        suggestionGroupSelector.click();
+      }
+    };
+
     it('when click on result item', function () {
-      searchPage.firstOfficerResult.click();
+      performSearch('Geography');
+      clickOnSearchResultItem(searchPage.firstSearchTermsResult, 'Geography - Communities', true);
+
+      clearSearchInput();
+      performSearch('Kelly');
+      clickOnSearchResultItem(searchPage.firstInvestigatorCrResult, 'CR # CR123456 • April 23, 2004');
+
+      backToSearch();
+      performSearch('2004/04/23');
+      clickOnSearchResultItem(searchPage.secondDateCrResult, 'CR # CR456 • April 23, 2004');
+
+      backToSearch();
+      performSearch('2004/04/23');
+      clickOnSearchResultItem(searchPage.secondDateTrrResult, 'Physical Force - Holding');
+
+      backToSearch();
+      performSearch('2004/04/23');
+      clickOnSearchResultItem(searchPage.firstDateOfficerResult, 'Jerome Finnigan');
+
+      backToSearch();
+      performSearch('Ke');
+      clickOnSearchResultItem(searchPage.firstNeighborhoodResult, 'Kenwood');
+
+      browser.switchWindow('/search/');
+      clearSearchInput();
+      performSearch('rank');
+      clickOnSearchResultItem(searchPage.firstRankResult, 'Officer');
+
+      clearSearchInput();
+      performSearch('Ke');
+      clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly', true);
+
+      backToSearch();
+      performSearch('Ke');
+      clickOnSearchResultItem(searchPage.firstCrResult, 'CR # CR123 • April 23, 2004');
+
+      backToSearch();
+      performSearch('Ke');
+      clickOnSearchResultItem(searchPage.firstTrrResult, 'Member Presence');
+
+      const expectedRecentSuggestions = [
+        'Member Presence\nTRR # 123 - April 27, 2004',
+        'CR # CR123 • April 23, 2004',
+        'Bernadette Kelly\n45 year old, White, Male, 10 Complaints, 2 Sustained',
+        'Officer\nRank',
+        'Kenwood\nNeighborhood',
+        'Jerome Finnigan\n42 year old, White, Male, 20 Complaints, 0 Sustained',
+        'Physical Force - Holding\nTRR # 456 - April 23, 2004',
+        'CR # CR456 • April 23, 2004',
+        'CR # CR123456 • April 23, 2004',
+        'Geography - Communities\nSearch Terms',
+      ];
+
+      backToSearch();
+
+      expectedRecentSuggestions.forEach((expectedText, index) => {
+        searchPage.recentSuggestionItem(index + 1).getText().should.equal(expectedText);
+      });
 
       searchPage.open();
-      searchPage.recentSuggestions.waitForDisplayed();
-      searchPage.recentSuggestions.getText().should.containEql('Bernadette Kelly');
+
+      const newExpectedRecentSuggestions = [
+        'Member Presence\nTRR # 123 - April 27, 2009',
+        'CR # CR123 • April 23, 2005',
+        'Bernadette Kelly\n45 year old, White, Male, 12 Complaints, 3 Sustained',
+        'Officer\nRank',
+        'Kenwood\nNeighborhood',
+        'Jerome Finnigan\n42 year old, White, Male, 22 Complaints, 2 Sustained',
+        'Physical Force - Holding\nTRR # 456 - April 23, 2010',
+        'CR # CR456 • April 23, 2006',
+        'CR # CR123456 • April 23, 2007',
+        'Geography - Communities\nSearch Terms',
+      ];
+
+      newExpectedRecentSuggestions.forEach((expectedText, index) => {
+        searchPage.recentSuggestionItem(index + 1).getText().should.equal(expectedText);
+      });
     });
 
     it('when hit enter on result item', function () {
+      performSearch('Ke');
+      searchPage.secondOfficerResult.waitForDisplayed();
+      searchPage.secondOfficerResult.getText().should.containEql('John Kelly');
+      browser.keys('ArrowDown');
+      browser.keys('ArrowDown');
       browser.keys('Enter');
 
-      searchPage.open();
+      searchPage.searchBreadcrumb.waitForDisplayed();
+      searchPage.searchBreadcrumb.click();
+
       searchPage.recentSuggestions.waitForDisplayed();
-      searchPage.recentSuggestions.getText().should.containEql('Bernadette Kelly');
+      searchPage.recentSuggestionItem(1).getText().should.equal(
+        'John Kelly\n37 year old, White, Female, 5 Complaints, 1 Sustained'
+      );
     });
   });
 
@@ -352,8 +445,9 @@ describe('Search Page', function () {
     browser.keys('Enter');
 
     searchPage.open();
-    searchPage.recentSuggestions.waitForDisplayed();
-    searchPage.recentSuggestions.getText().should.containEql('Bernadette Kelly');
+    searchPage.recentSuggestionItem(1).getText().should.equal(
+      'Bernadette Kelly\n45 year old, White, Male, 10 Complaints, 2 Sustained'
+    );
   });
 
   it('should navigates between the result when user press the navigation keys', function () {

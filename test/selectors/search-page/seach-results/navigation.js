@@ -24,6 +24,7 @@ describe('search page navigation selector', function () {
                 race: 'White',
                 url: 'https://example.com',
                 to: '/officer/29033',
+                'birth_year': 1983,
               }),
             ],
           },
@@ -51,6 +52,39 @@ describe('search page navigation selector', function () {
         recentText: 'Jerome Turbyville',
         uniqueKey: 'CO-ACCUSED-29033',
         url: 'https://example.com',
+        recentItemData: {
+          id: '29033',
+          name: 'Jerome Turbyville',
+          race: 'White',
+          url: 'https://example.com',
+          to: '/officer/29033',
+          'appointed_date': '1999-12-13',
+          'resignation_date': null,
+          badge: '5922',
+          gender: 'Male',
+          tags: [],
+          'birth_year': 1983,
+          rank: 'Police Officer',
+          unit: {},
+          'allegation_count': 20,
+          'civilian_compliment_count': 4,
+          'sustained_count': 0,
+          'discipline_count': 1,
+          'major_award_count': 0,
+          'honorable_mention_count': 0,
+          'honorable_mention_percentile': 10.01,
+          percentiles: [
+            {
+              'percentile_trr': '90',
+              'percentile_allegation_civilian': '92',
+              'percentile_allegation': '93',
+              'percentile_allegation_internal': '91',
+            },
+          ],
+          type: 'CO-ACCUSED',
+          itemIndex: 4,
+          isPinned: false,
+        },
       });
     });
 
@@ -81,6 +115,10 @@ describe('search page navigation selector', function () {
         recentText: undefined,
         uniqueKey: SEARCH_BOX,
         url: undefined,
+        recentItemData: {
+          uniqueKey: 'SEARCH_BOX',
+          isPinned: false,
+        },
       });
     });
 
@@ -111,6 +149,11 @@ describe('search page navigation selector', function () {
         type: MORE_BUTTON,
         uniqueKey: `${MORE_BUTTON}-OFFICER`,
         url: undefined,
+        recentItemData: {
+          id: 'OFFICER',
+          type: 'MORE_BUTTON',
+          isPinned: false,
+        },
       });
     });
   });

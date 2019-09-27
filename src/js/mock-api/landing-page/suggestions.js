@@ -68,7 +68,7 @@ export const groupedSuggestions = {
     'CR': [
       RawCRSuggestion.build(
         {
-          id: '1',
+          id: 'CR123',
           crid: 'CR123',
           to: '/complaint/CR123/',
           category: 'Lockup Procedures',
@@ -107,7 +107,7 @@ export const groupedSuggestions = {
       ),
       RawCRSuggestion.build(
         {
-          id: '2',
+          id: 'CR456',
           crid: 'CR456',
           to: '/complaint/CR456/',
           highlight: {},
@@ -201,7 +201,7 @@ export const groupedSuggestions = {
     'DATE > CR': [
       RawCRSuggestion.build(
         {
-          id: '1',
+          id: 'CR123',
           crid: 'CR123',
           to: '/complaint/CR123/',
           category: 'Lockup Procedures',
@@ -215,7 +215,7 @@ export const groupedSuggestions = {
       ),
       RawCRSuggestion.build(
         {
-          id: '2',
+          id: 'CR456',
           crid: 'CR456',
           to: '/complaint/CR456/',
           'incident_date': '2004-04-23',
@@ -280,7 +280,7 @@ export const groupedSuggestions = {
         {
           id: '456',
           to: '/trr/456/',
-          'force_type': null,
+          'force_type': 'Physical Force - Holding',
           'trr_datetime': '2004-04-23',
           'category': 'Firearm',
           'address': '4000 Michigan Ave',
@@ -364,7 +364,7 @@ export const groupedSuggestions = {
     'INVESTIGATOR > CR': [
       RawCRSuggestion.build(
         {
-          id: '1',
+          id: 'CR123456',
           crid: 'CR123456',
           to: '/complaint/CR123456/',
           category: 'Lockup Procedures',
@@ -511,8 +511,8 @@ export const singleGroupSuggestions = {
     previous: null,
     next: 'http://my/api/?contentType=OFFICER&offset=20',
     results: [
-      RawOfficerSuggestion.build({ name: 'Bernadette Kelly' }),
-      RawOfficerSuggestion.build({ name: 'Charles Kelly' }),
+      RawOfficerSuggestion.build({ id: '8562', name: 'Bernadette Kelly' }),
+      RawOfficerSuggestion.build({ id: '8563', name: 'Charles Kelly' }),
       ...RawOfficerSuggestion.buildList(18),
     ],
   },

@@ -73,7 +73,7 @@ describe('RelevantCoaccusals selectors', function () {
           textColor: '#231F20',
         },
         isPinStatusChanging: false,
-        rawData: rawCoaccusal1,
+        recentItemData: rawCoaccusal1,
       }, {
         id: 2433,
         rank: 'Police Officer',
@@ -91,7 +91,7 @@ describe('RelevantCoaccusals selectors', function () {
           textColor: '#231F20',
         },
         isPinStatusChanging: true,
-        rawData: rawCoaccusal2,
+        recentItemData: rawCoaccusal2,
       }]);
     });
   });

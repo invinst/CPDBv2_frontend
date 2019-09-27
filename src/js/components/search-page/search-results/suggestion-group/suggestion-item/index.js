@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { get, reduce } from 'lodash';
+import { get, isEqual, reduce } from 'lodash';
 
 import withPinnableItem from './with-pinnable-item';
 import { getOfficerSecondRowContent, getCRSecondRowContent } from './item-second-row';
@@ -26,12 +26,11 @@ export default class SuggestionItem extends Component {
     const keys = [
       'isFocused',
       'aliasEditModeOn',
-      'suggestion.uniqueKey',
-      'suggestion.isPinned',
+      'suggestion',
     ];
 
     return reduce(keys, (memo, key) => (
-      memo || get(nextProps, key) !== get(this.props, key)
+      memo || !isEqual(get(nextProps, key), get(this.props, key))
     ), false);
   }
 
@@ -49,6 +48,8 @@ SuggestionItem.propTypes = {
   isFocused: PropTypes.bool,
   aliasEditModeOn: PropTypes.bool,
   selectItem: PropTypes.func,
+  addOrRemoveItemInPinboard: PropTypes.func,
+  saveToRecent: PropTypes.func,
 };
 
 SuggestionItem.defaultProps = {
