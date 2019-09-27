@@ -11,7 +11,7 @@ import Mousetrap from 'mousetrap';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
 
-import { unmountComponentSuppressError } from 'utils/test';
+import { unmountComponentSuppressError, reRender } from 'utils/test';
 import { getThisYear } from 'utils/date';
 import PreviewPane from 'components/search-page/search-results/preview-pane';
 import SearchResults from 'components/search-page/search-results';
@@ -19,6 +19,7 @@ import SearchNoResult from 'components/search-page/search-results/search-no-resu
 import SuggestionGroup from 'components/search-page/search-results/suggestion-group';
 import SearchTags from 'components/search-page/search-tags';
 import PinboardButton from 'components/search-page/pinboard/pinboard-button';
+import ScrollIntoView from 'components/common/scroll-into-view';
 
 
 describe('SearchResults component', function () {
@@ -223,6 +224,59 @@ describe('SearchResults component', function () {
       previewPane.props.visualTokenImg.should.eql('http://test.img');
       previewPane.props.visualTokenBackgroundColor.should.eql('#fafafa');
       previewPane.props.title.should.eql('John Wang');
+    });
+  });
+
+  describe('ScrollIntoView', function () {
+    it('should render ScrollIntoView with focusedItem changes', function () {
+      instance = renderIntoDocument(
+        <Provider store={ store }>
+          <SearchResults/>
+        </Provider>
+      );
+
+      instance = reRender(
+        <Provider store={ store }>
+          <SearchResults focusedItem={ { uniqueKey: 'CR-1001' } } />
+        </Provider>,
+        instance,
+      );
+      const scrollIntoView = findRenderedComponentWithType(instance, ScrollIntoView);
+      scrollIntoView.props.focusedItemClassName.should.eql('suggestion-item-CR-1001');
+    });
+
+    it('should render ScrollIntoView with focusedItem does not change', function () {
+      instance = renderIntoDocument(
+        <Provider store={ store }>
+          <SearchResults focusedItem={ { uniqueKey: 'CR-1001' } } />
+        </Provider>
+      );
+
+      instance = reRender(
+        <Provider store={ store }>
+          <SearchResults focusedItem={ { uniqueKey: 'CR-1001' } } />
+        </Provider>,
+        instance,
+      );
+      const scrollIntoView = findRenderedComponentWithType(instance, ScrollIntoView);
+      scrollIntoView.props.focusedItemClassName.should.eql('');
+    });
+
+    it('should render ScrollIntoView with focusedItem changes to empty', function () {
+      instance = renderIntoDocument(
+        <Provider store={ store }>
+          <SearchResults focusedItem={ { uniqueKey: 'CR-1001' } } />
+        </Provider>
+      );
+
+      instance = reRender(
+        <Provider store={ store }>
+          <SearchResults/>
+        </Provider>,
+        instance,
+      );
+      const scrollIntoView = findRenderedComponentWithType(instance, ScrollIntoView);
+      scrollIntoView.props.focusedItemClassName.should.eql('');
     });
   });
 });

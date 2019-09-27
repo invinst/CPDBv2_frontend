@@ -1,16 +1,28 @@
 import React, { Component, PropTypes } from 'react';
-import { map, get, noop } from 'lodash';
+import { map, noop } from 'lodash';
 import InfiniteScroll from 'react-infinite-scroller';
 
 import { groupHeaderStyle, wrapperStyle } from './suggestion-group.style';
 import SuggestionItem from './suggestion-item';
 import LoadMoreButton from './load-more-button';
 import { MORE_BUTTON } from 'utils/constants';
-import ScrollIntoView from 'components/common/scroll-into-view';
 
 export default class SuggestionGroup extends Component {
   componentDidMount() {
+    this.fetchSingleResults();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { singleContent } = this.props;
+
+    if (singleContent && singleContent !== prevProps.singleContent) {
+      this.fetchSingleResults();
+    }
+  }
+
+  fetchSingleResults() {
     const { getSuggestionWithContentType, searchText, singleContent, header } = this.props;
+
     if (singleContent) {
       getSuggestionWithContentType(searchText, { contentType: header }).catch(noop);
     }
@@ -39,7 +51,7 @@ export default class SuggestionGroup extends Component {
         loadMore={ () => getSuggestionWithContentType(searchText, { ...nextParams }) }
         initialLoad={ false }
         hasMore={ hasMore }
-        useWindow={ false }>
+        useWindow={ true }>
         {
           map(suggestions, (suggestion) => (
             <SuggestionItem
@@ -57,9 +69,9 @@ export default class SuggestionGroup extends Component {
   }
 
   renderMoreButton() {
-    const { header, focusedItem, onLoadMore, showMoreButton } = this.props;
+    const { singleContent, header, focusedItem, onLoadMore, showMoreButton } = this.props;
 
-    if (showMoreButton)
+    if (!singleContent && showMoreButton)
       return (
         <LoadMoreButton
           onLoadMore={ onLoadMore }
@@ -71,30 +83,15 @@ export default class SuggestionGroup extends Component {
   }
 
   render() {
-    const {
-      singleContent,
-      focusedItem,
-    } = this.props;
+    const { singleContent } = this.props;
 
-    if (singleContent) {
-      return (
-        <div className='test--suggestion-group' style={ wrapperStyle(singleContent) }>
-          <ScrollIntoView focusedItemClassName={ `suggestion-item-${get(focusedItem, 'uniqueKey', '')}` }>
-            { this.renderHeader() }
-            { this.renderResults() }
-          </ScrollIntoView>
-        </div>
-      );
-    }
-    else {
-      return (
-        <div style={ wrapperStyle(singleContent) } className='test--suggestion-group'>
-          { this.renderHeader() }
-          { this.renderResults() }
-          { this.renderMoreButton() }
-        </div>
-      );
-    }
+    return (
+      <div style={ wrapperStyle(singleContent) } className='test--suggestion-group'>
+        { this.renderHeader() }
+        { this.renderResults() }
+        { this.renderMoreButton() }
+      </div>
+    );
   }
 }
 
