@@ -1,7 +1,7 @@
 'use strict';
 
 require('should');
-import { map, countBy, filter } from 'lodash';
+import { map, countBy, filter, times } from 'lodash';
 
 import pinboardPage from './page-objects/pinboard-page';
 
@@ -29,6 +29,15 @@ describe('Pinboard Page', function () {
     pinboardPage.open();
     pinboardPage.headerQALink.click();
     browser.getUrl().should.containEql('http://how.cpdp.works/');
+  });
+
+  it('should open pinboard instead of latest retrieved pinboard', function () {
+    pinboardPage.open('5cd06f2b');
+    times(20, () => {
+      browser.getUrl().should.not.match(/\/pinboard\/abcd5678\//);
+      browser.pause(50);
+    });
+    browser.getUrl().should.match(/\/pinboard\/5cd06f2b\//);
   });
 
   context('pinboard pinned section', function () {

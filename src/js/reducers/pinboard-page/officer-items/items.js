@@ -11,7 +11,7 @@ import {
 
 
 const toRawOfficer = (item) => {
-  return item.rawData;
+  return item.recentItemData;
 };
 
 export default handleActions({

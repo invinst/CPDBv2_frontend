@@ -32,6 +32,82 @@ describe('SearchTerms component', function () {
     unmountComponentSuppressError(instance);
   });
 
+  describe('componentDidMount', function () {
+    describe('fetchRecentSearchItems', function () {
+      it('should be called if recentSuggestionIds is not empty and recentSuggestionsRequested is false', () => {
+        const fetchRecentSearchItemsSpy = spy();
+        const recentSuggestionIds = {
+          officerIds: [8562],
+          crids: ['123456'],
+          trrIds: [456789],
+        };
+        instance = renderIntoDocument(
+          <Provider store={ store }>
+            <SearchTerms
+              recentSuggestionIds={ recentSuggestionIds }
+              fetchRecentSearchItems={ fetchRecentSearchItemsSpy }
+              recentSuggestionsRequested={ false }
+            />
+          </Provider>
+        );
+        fetchRecentSearchItemsSpy.should.be.calledWith(
+          [8562],
+          ['123456'],
+          [456789],
+        );
+      });
+
+      it('should not be called if recentSuggestionIds is empty', () => {
+        const fetchRecentSearchItemsSpy = spy();
+        instance = renderIntoDocument(
+          <Provider store={ store }>
+            <SearchTerms
+              recentSuggestionIds={ {} }
+              fetchRecentSearchItems={ fetchRecentSearchItemsSpy }
+              recentSuggestionsRequested={ false }
+            />
+          </Provider>
+        );
+        fetchRecentSearchItemsSpy.should.not.be.called();
+      });
+
+      it('should not be called if recentSuggestionsRequested is true', () => {
+        const fetchRecentSearchItemsSpy = spy();
+        const recentSuggestionIds = {
+          officerIds: [8562],
+          crids: ['123456'],
+          trrIds: [456789],
+        };
+        instance = renderIntoDocument(
+          <Provider store={ store }>
+            <SearchTerms
+              recentSuggestionIds={ recentSuggestionIds }
+              fetchRecentSearchItems={ fetchRecentSearchItemsSpy }
+              recentSuggestionsRequested={ true }
+            />
+          </Provider>
+        );
+        fetchRecentSearchItemsSpy.should.not.be.called();
+      });
+    });
+
+    describe('fetchedEmptyRecentSearchItems', function () {
+      it('should be called if recentSuggestionsRequested is false and recentSuggestionIds is empty', function () {
+        const fetchedEmptyRecentSearchItemsSpy = spy();
+        instance = renderIntoDocument(
+          <Provider store={ store }>
+            <SearchTerms
+              recentSuggestionIds={ {} }
+              fetchedEmptyRecentSearchItems={ fetchedEmptyRecentSearchItemsSpy }
+              recentSuggestionsRequested={ false }
+            />
+          </Provider>
+        );
+        fetchedEmptyRecentSearchItemsSpy.should.be.called();
+      });
+    });
+  });
+
   it('should be able to render CategoryColumn', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
@@ -108,7 +184,10 @@ describe('SearchTerms component', function () {
   describe('RecentSuggestion component', function () {
     it('should render RecentSuggestion component if recentSuggestions is not null', function () {
       const recentSuggestions = [{
-        contentType: 'OFFICER',
+        type: 'OFFICER',
+        id: 1,
+        name: 'Jerome Finnigan',
+        badge: 'Badge #123456',
         text: 'Mark Farmer',
         to: '/officer/8257/mark-farmer/',
       }];

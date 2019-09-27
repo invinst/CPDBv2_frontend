@@ -70,18 +70,22 @@ export default function withPinnableItem(
 
     handleClick(e) {
       e.preventDefault();
-      const { selectItem, isFocused } = this.props;
+      const { suggestion, selectItem, clickItem, isFocused } = this.props;
 
-      if (!isFocused)
-        selectItem();
-      else
-      // Trigger Enter, so they share behaviour and only search-page handle logic
-      // `components/search-page/index.js` -> handleViewItem()
-        trigger('enter');
+      if (clickItem)
+        clickItem(suggestion);
+      else {
+        if (!isFocused)
+          selectItem();
+        else
+        // Trigger Enter, so they share behaviour and only search-page handle logic
+        // `components/search-page/index.js` -> handleViewItem()
+          trigger('enter');
+      }
     }
 
     renderContent() {
-      const { isFocused, suggestion, addOrRemoveItemInPinboard } = this.props;
+      const { isFocused, suggestion, addOrRemoveItemInPinboard, showPinButtonArea } = this.props;
 
       return (
         <div className={ styles.innerWrapper }>
@@ -93,7 +97,7 @@ export default function withPinnableItem(
                 item={ suggestion }
               />
             }
-            <div className={ styles.twoRowsWrapper }>
+            <div className={ cx(styles.twoRowsWrapper, { 'show-pin-button-area': !isPinnable && showPinButtonArea }) }>
               { this.renderFirstRow() }
               { this.renderSecondRow() }
             </div>
@@ -131,6 +135,7 @@ export default function withPinnableItem(
     aliasEditModeOn: PropTypes.bool,
     setAliasAdminPageContent: PropTypes.func,
     selectItem: PropTypes.func,
+    clickItem: PropTypes.func,
   };
 
   return _Base;

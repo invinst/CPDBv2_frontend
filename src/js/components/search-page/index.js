@@ -11,7 +11,9 @@ import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import { generatePinboardUrl } from 'utils/pinboard';
 import SearchMainPanel from './search-main-panel';
 import HoverableButton from 'components/common/hoverable-button-without-inline-style';
-import { SEARCH_ALIAS_EDIT_PATH, SEARCH_BOX, MORE_BUTTON, RECENT_CONTENT_TYPE, ROOT_PATH } from 'utils/constants';
+import { SEARCH_ALIAS_EDIT_PATH,
+  SEARCH_BOX,
+  MORE_BUTTON, RECENT_CONTENT_TYPE, ROOT_PATH } from 'utils/constants';
 import { showIntercomLauncher } from 'utils/intercom';
 import * as IntercomTracking from 'utils/intercom-tracking';
 import 'toast.css';
@@ -122,9 +124,13 @@ export default class SearchPage extends Component {
   }
 
   goToItem(item) {
-    const { trackRecentSuggestion } = this.props;
-    navigateToSearchItem(item, ({ to, url, type, recentText }) => {
-      trackRecentSuggestion(type, recentText, url, to);
+    const { saveToRecent } = this.props;
+    navigateToSearchItem(item, (item) => {
+      saveToRecent({
+        type: item.type,
+        id: item.id,
+        data: item.recentItemData,
+      });
     });
   }
 
@@ -193,7 +199,7 @@ export default class SearchPage extends Component {
     const {
       hide, query, searchTermsHidden, contentType, tags,
       editModeOn, officerCards, requestActivityGrid,
-      changeSearchQuery, focusedItem, firstItem, trackRecentSuggestion, animationIn, location,
+      changeSearchQuery, focusedItem, firstItem, saveToRecent, animationIn, location,
     } = this.props;
     const aliasEditModeOn = location.pathname.startsWith(`/edit/${SEARCH_ALIAS_EDIT_PATH}`);
     const position = calculateSlimHeaderPosition();
@@ -217,7 +223,7 @@ export default class SearchPage extends Component {
               changeSearchQuery={ changeSearchQuery }
               focused={ !hide && focusedItem.uniqueKey === SEARCH_BOX }
               resetNavigation={ this.resetNavigation }
-              trackRecentSuggestion={ trackRecentSuggestion }
+              saveToRecent={ saveToRecent }
               className={ 'search-box' }
               position={ position }
               animationIn={ animationIn }
@@ -259,7 +265,6 @@ SearchPage.propTypes = {
   getSuggestion: PropTypes.func,
   getSuggestionWithContentType: PropTypes.func,
   selectTag: PropTypes.func,
-  trackRecentSuggestion: PropTypes.func,
   contentType: PropTypes.string,
   isEmpty: PropTypes.bool,
   router: PropTypes.object,
@@ -277,6 +282,7 @@ SearchPage.propTypes = {
   isRequesting: PropTypes.bool,
   toast: PropTypes.object,
   createPinboard: PropTypes.func,
+  saveToRecent: PropTypes.func,
   hide: PropTypes.bool,
   animationIn: PropTypes.bool,
 };
@@ -287,7 +293,6 @@ SearchPage.defaultProps = {
   focusedItem: {},
   getSuggestion: () => new Promise(noop),
   getSuggestionWithContentType: () => new Promise(noop),
-  trackRecentSuggestion: noop,
   changeSearchQuery: noop,
   location: {
     pathname: '/',
@@ -299,4 +304,5 @@ SearchPage.defaultProps = {
   firstItem: {},
   toast: {},
   createPinboard: noop,
+  saveToRecent: noop,
 };

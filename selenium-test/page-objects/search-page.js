@@ -107,6 +107,7 @@ class SearchPage extends Page {
   constructor() {
     super();
     this.prepareElementGetters({
+      searchBreadcrumb: '(//ul[@class="breadcrumbs"]//li[contains(@class, "breadcrumbs-item")])[2]',
       input: '.search-box-text-input',
       suggestionGroup: '.test--suggestion-group',
       suggestionTags: '.suggestion-tags',
@@ -122,7 +123,7 @@ class SearchPage extends Page {
       firstNeighborhoodResult: '.test--suggestion-group .suggestion-item-NEIGHBORHOOD-1',
       secondNeighborhoodResult: '.test--suggestion-group .suggestion-item-NEIGHBORHOOD-2',
       firstCoAccusedResult: '.test--suggestion-group .suggestion-item-CO-ACCUSED-1',
-      firstRankResult: '.test--suggestion-group .suggestion-item-RANK-1',
+      firstRankResult: '.test--suggestion-group .suggestion-item-RANK-Officer',
       searchHint: '.search-hint',
       firstLoadMoreButton: '(//div[contains(@class, "test--load-more-button")])[1]',
       secondLoadMoreButton: '(//div[contains(@class, "test--load-more-button")])[2]',
@@ -131,7 +132,24 @@ class SearchPage extends Page {
       pinboardButton: '.test--pinboard-button',
       pinboardBar: '//div[starts-with(@class, "pinboard-bar")]',
       toast: '.Toastify__toast-body',
+      firstCrResult: '.test--suggestion-group .suggestion-item-CR-CR123',
+      secondDateCrResult: '.test--suggestion-group .suggestion-item-DATE-CR-CR456',
+      firstTrrResult: '.test--suggestion-group .suggestion-item-TRR-123',
+      secondDateTrrResult: '.test--suggestion-group .suggestion-item-DATE-TRR-456',
+      firstDateOfficerResult: '.test--suggestion-group .suggestion-item-DATE-OFFICERS-123',
+      firstInvestigatorCrResult: '.test--suggestion-group .suggestion-item-INVESTIGATOR-CR-CR123456',
+      firstSearchTermsResult: '.test--suggestion-group .suggestion-item-SEARCH-TERMS-community',
+      firstRecentPinButton:
+        '//a[contains(@class, "suggestion-item-TRR-123")]//span[starts-with(@class, "item-pin-button")]',
+      secondRecentPinButton:
+        '//a[contains(@class, "suggestion-item-CR-CR123")]//span[starts-with(@class, "item-pin-button")]',
+      thirdRecentPinButton:
+        '//a[contains(@class, "suggestion-item-OFFICER-1")]//span[starts-with(@class, "item-pin-button")]',
     });
+  }
+
+  recentSuggestionItem(index) {
+    return $$(`.recent-suggestions a:nth-child(${index})`)[0];
   }
 
   open(query = '') {

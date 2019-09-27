@@ -46,7 +46,7 @@ describe('RelevantCoaccusalCard component', function () {
           ],
           visualTokenBackground: '#ed7467',
         } }
-        rawData={ {
+        recentItemData={ {
           'id': 123,
           'full_name': 'Jerome Finnigan',
           'rank': 'Officer',
@@ -85,7 +85,7 @@ describe('RelevantCoaccusalCard component', function () {
     addItemInPinboardPageStub.should.calledWith({
       type: 'OFFICER',
       id: 123,
-      rawData: {
+      recentItemData: {
         'id': 123,
         'full_name': 'Jerome Finnigan',
         'rank': 'Officer',
@@ -139,7 +139,7 @@ describe('RelevantCoaccusalCard component', function () {
         rank='Officer'
         coaccusalCount={ 1 }
         percentile={ {} }
-        rawData={ {
+        recentItemData={ {
           'id': 123,
           'full_name': 'Jerome Finnigan',
           'rank': 'Officer',
@@ -159,7 +159,7 @@ describe('RelevantCoaccusalCard component', function () {
     addItemInPinboardPageStub.calledWith({
       type: 'OFFICER',
       id: 123,
-      rawData: {
+      recentItemData: {
         'id': 123,
         'full_name': 'Jerome Finnigan',
         'rank': 'Officer',
@@ -250,7 +250,7 @@ describe('RelevantCoaccusalCard component', function () {
         complaintCount={ 1 }
         percentile={ {} }
         addItemInPinboardPage={ addItemInPinboardPage }
-        rawData={ {
+        recentItemData={ {
           'id': 123,
           'full_name': 'Jerome Finnigan',
           'rank': 'Officer',
@@ -274,7 +274,7 @@ describe('RelevantCoaccusalCard component', function () {
         percentile={ {} }
         addItemInPinboardPage={ addItemInPinboardPage }
         isPinStatusChanging={ true }
-        rawData={ {
+        recentItemData={ {
           'id': 123,
           'full_name': 'Jerome Finnigan',
           'rank': 'Officer',
@@ -292,7 +292,7 @@ describe('RelevantCoaccusalCard component', function () {
     addItemInPinboardPage.should.be.calledWith({
       type: 'OFFICER',
       id: 123,
-      rawData: {
+      recentItemData: {
         'id': 123,
         'full_name': 'Jerome Finnigan',
         'rank': 'Officer',

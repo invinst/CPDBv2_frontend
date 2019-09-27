@@ -44,6 +44,7 @@ describe('SearchPage component', function () {
           itemIndex: 0,
         },
       },
+      recentSuggestions: [],
       pagination: {},
     },
     pinboardPage: {
@@ -629,6 +630,7 @@ describe('SearchPage component', function () {
 
   it('should show toast on toast prop change', function () {
     const showToastStub = spy(SearchPage.prototype, 'showToast');
+    const searchPageStub = stub(SearchPage.prototype, 'componentDidMount');
 
     const store = createStore(RootReducer, state);
 
@@ -638,18 +640,19 @@ describe('SearchPage component', function () {
       </Provider>
     );
 
+
     instance = renderIntoDocument(
       <Router history={ createMemoryHistory() }>
         <Route path='/' component={ searchPage } />
       </Router>
     );
-
     store.dispatch(showToast({
       isPinned: true,
       type: 'CR',
     }));
 
     showToastStub.should.be.calledWith('CR removed', 'removed');
+    searchPageStub.restore();
   });
 
   it('should handle when click on pinboard button if pinboard is not exist', function (done) {

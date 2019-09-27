@@ -3,9 +3,11 @@ import { indexOf, isEmpty, head, keys, map, omitBy, pick, sortBy, cloneDeep } fr
 
 import * as constants from 'utils/constants';
 import { searchResultItemTransform } from 'selectors/common/preview-pane-transforms';
+import { navigationItemTransform } from 'selectors/common/search-item-transforms';
 import extractQuery from 'utils/extract-query';
 import { dataToolSearchUrl } from 'utils/v1-url';
 import { pinboardItemsSelector } from 'selectors/pinboard-page/pinboard';
+import { isItemPinned, getQuery } from 'selectors/search-page/common';
 
 
 const itemsPerCategory = 5;
@@ -13,7 +15,6 @@ const itemsPerCategory = 5;
 const getSuggestionGroups = state => state.searchPage.suggestionGroups;
 const getSuggestionTags = state => state.searchPage.tags;
 const getSuggestionContentType = state => state.searchPage.contentType;
-export const getQuery = state => state.searchPage.query;
 const getPagination = state => state.searchPage.pagination;
 
 export const suggestionTagsSelector = createSelector(
@@ -92,9 +93,7 @@ const pinnedItemTypeMap = {
 export const getPinnedItem = (item, pinboardItems) => {
   const pinnedItemType = pinnedItemTypeMap[item.type];
   const pinnedItem = cloneDeep(item);
-  pinnedItem.isPinned =
-    (pinboardItems.hasOwnProperty(pinnedItemType)) &&
-    (pinboardItems[pinnedItemType].indexOf(item.id) !== -1);
+  pinnedItem.isPinned = isItemPinned(pinnedItemType, item.id, pinboardItems);
   return pinnedItem;
 };
 
@@ -114,24 +113,19 @@ export const searchResultGroupsSelector = createSelector(
 );
 
 export const firstItemSelector = createSelector(
-  searchResultGroupsSelector,
+  slicedSuggestionGroupsSelector,
   getQuery,
-  (suggestionGroups, query) => {
-    if (suggestionGroups.length === 0) {
+  (groups, query) => {
+    if (groups.length === 0) {
       return {
         url: dataToolSearchUrl(query),
         isDataToolSearchUrl: true,
       };
     } else {
-      const firstGroup = head(suggestionGroups);
+      const firstGroup = head(groups);
       const firstRecord = head(firstGroup.items);
 
-      return {
-        to: firstRecord.to,
-        url: firstRecord.url,
-        recentText: firstRecord.recentText,
-        type: firstGroup.header,
-      };
+      return navigationItemTransform(firstRecord);
     }
   }
 );

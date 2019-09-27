@@ -6,10 +6,10 @@ import {
   getSuggestion,
   selectTag,
   toggleSearchMode,
-  trackRecentSuggestion,
   resetNavigation as resetSearchResultNavigation,
   changeSearchQuery,
   getSuggestionWithContentType,
+  saveToRecent,
 } from 'actions/search-page';
 import { createPinboard } from 'actions/pinboard';
 import {
@@ -32,7 +32,6 @@ function mapStateToProps(state, ownProps) {
     contentType, query, isRequesting,
   } = state.searchPage;
   const { children, hide } = ownProps;
-  const focusedItem = getFocusedItem(state);
 
   return {
     isRequesting,
@@ -42,7 +41,7 @@ function mapStateToProps(state, ownProps) {
     tags: suggestionTagsSelector(state),
     contentType,
     isEmpty: isEmptySelector(state),
-    focusedItem: focusedItem,
+    focusedItem: getFocusedItem(state),
     officerCards: singleCardsSelector(state),
     editModeOn: editModeOnSelector(state, ownProps),
     searchTermsHidden: hiddenSelector(state),
@@ -57,7 +56,7 @@ const mapDispatchToProps = {
   getSuggestionWithContentType,
   selectTag,
   toggleSearchMode,
-  trackRecentSuggestion,
+  saveToRecent,
   changeSearchQuery,
   resetSearchResultNavigation,
   requestActivityGrid,

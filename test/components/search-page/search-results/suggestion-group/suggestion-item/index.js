@@ -20,15 +20,15 @@ describe('SuggestionItem component', function () {
 
   describe('shouldComponentUpdate', function () {
     it('should return true if props are changed', function () {
-      instance = renderIntoDocument(<SuggestionItem suggestion={ { type: 'type' } }/>);
+      instance = renderIntoDocument(<SuggestionItem suggestion={ { type: 'type', attr: 'value' } }/>);
       instance.shouldComponentUpdate({ isFocused: true }).should.be.true();
       instance.shouldComponentUpdate({ aliasEditModeOn: true }).should.be.true();
-      instance.shouldComponentUpdate({ suggestion: { uniqueKey: 'OFFICER-123' } }).should.be.true();
+      instance.shouldComponentUpdate({ suggestion: { type: 'type', attr: 'new value' } }).should.be.true();
     });
 
     it('should return false if props are unchanged', function () {
       instance = renderIntoDocument(<SuggestionItem suggestion={ { type: 'type' } }/>);
-      instance.shouldComponentUpdate({}).should.be.false();
+      instance.shouldComponentUpdate({ suggestion: { type: 'type' } }).should.be.false();
     });
   });
 
