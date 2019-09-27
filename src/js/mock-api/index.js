@@ -315,9 +315,13 @@ axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-complaints/?limit=20&of
 );
 
 axiosMockClient.onGet(`${PINBOARDS_URL}abcd1234/`).reply(200, getOrCreateEmptyPinboard('abcd1234'));
+axiosMockClient.onGet(`${PINBOARDS_URL}abcd5678/`).reply(200, getOrCreateEmptyPinboard('abcd5678'));
 
 axiosMockClient.onGet(`${PINBOARDS_URL}latest-retrieved-pinboard/`, { params: {} }).reply(200, {});
-axiosMockClient.onGet(`${PINBOARDS_URL}latest-retrieved-pinboard/`, { params: { 'create': false } }).reply(200, {});
+axiosMockClient.onGet(
+  `${PINBOARDS_URL}latest-retrieved-pinboard/`,
+  { params: { 'create': false } }
+).reply(200, getOrCreateEmptyPinboard('abcd5678'));
 axiosMockClient.onGet(
   `${PINBOARDS_URL}latest-retrieved-pinboard/`,
   { params: { 'create': true } }
