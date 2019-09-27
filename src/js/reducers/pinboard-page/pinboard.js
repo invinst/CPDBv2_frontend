@@ -66,8 +66,12 @@ export default handleActions({
   },
   [constants.PINBOARD_CREATE_REQUEST_START]: (state, action) => {
     const creatingData = _.get(action.payload, 'request.data', {});
-    creatingData['officer_ids'] = _.map(creatingData['officer_ids'], _.parseInt);
-    creatingData['trr_ids'] = _.map(creatingData['trr_ids'], _.parseInt);
+    if (creatingData['officer_ids']) {
+      creatingData['officer_ids'] = _.map(creatingData['officer_ids'], _.parseInt);
+    }
+    if (creatingData['trr_ids']) {
+      creatingData['trr_ids'] = _.map(creatingData['trr_ids'], _.parseInt);
+    }
 
     return {
       ...state,

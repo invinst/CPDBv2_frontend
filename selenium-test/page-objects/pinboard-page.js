@@ -215,17 +215,21 @@ class ManagePinboardsSection extends Section {
 
     this.prepareElementGetters({
       pinboardsListButton: '.pinboards-list-btn',
-      pinboardsList: '.pinboards-list',
-      pinboardsTitle: '.pinboards-list .pinboards-title',
-      firstPinboardItemTitle: '//a[contains(@class, "pinboard-item")][1]//div[@class="pinboard-title"]',
-      firstPinboardItemCreatedAt: '//a[contains(@class, "pinboard-item")][1]//div[@class="pinboard-created-at"]',
-      secondPinboardItemTitle: '//a[contains(@class, "pinboard-item")][2]//div[@class="pinboard-title"]',
-      secondPinboardItemCreatedAt: '//a[contains(@class, "pinboard-item")][2]//div[@class="pinboard-created-at"]',
+      newPinboardButton: '.new-pinboard-btn',
+      firstDuplicatePinboardButton: '(//a[contains(@class, "duplicate-pinboard-btn")])[1]',
+      newPinboardMenuButton: '.new-pinboard-menu-btn',
+      createNewPinboardButton: '(//div[contains(@class, "new-pinboard-link")])',
+      duplicateCurrentPinboardButton: '(//div[contains(@class, "duplicate-current-pinboard-link")])',
+      pinboardsTitle: '//div[@class="pinboards-title"]',
+      firstPinboardItemTitle: '//div[contains(@class, "pinboard-item")][1]//div[@class="pinboard-title"]',
+      firstPinboardItemCreatedAt: '//div[contains(@class, "pinboard-item")][1]//div[@class="pinboard-created-at"]',
+      secondPinboardItemTitle: '//div[contains(@class, "pinboard-item")][2]//div[@class="pinboard-title"]',
+      secondPinboardItemCreatedAt: '//div[contains(@class, "pinboard-item")][2]//div[@class="pinboard-created-at"]',
     });
   }
 
   pinboardItems() {
-    return $$('.pinboards-list .pinboard-item');
+    return $$('.pinboard-item');
   }
 }
 

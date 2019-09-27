@@ -17,7 +17,7 @@ import {
   TRRPane,
 } from 'components/common/preview-pane';
 import styles from './preview-pane.sass';
-import withOverlay from 'common/with-overlay';
+import withOverlay from 'components/common/with-overlay';
 
 
 export default class PreviewPane extends Component {

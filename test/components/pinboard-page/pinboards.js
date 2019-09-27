@@ -1,10 +1,12 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass,
+  scryRenderedDOMComponentsWithClass, Simulate,
 } from 'react-addons-test-utils';
-import { spy } from 'sinon';
+import { Promise } from 'es6-promise';
+import { spy, stub } from 'sinon';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import Pinboards from 'components/pinboard-page/pinboards';
@@ -28,8 +30,13 @@ describe('Pinboards component', function () {
     },
   ];
 
+  beforeEach(function () {
+    this.browserHistoryPush = stub(browserHistory, 'push');
+  });
+
   afterEach(function () {
     unmountComponentSuppressError(instance);
+    this.browserHistoryPush.restore();
   });
 
   it('should render pinboard items', function () {
@@ -45,11 +52,9 @@ describe('Pinboards component', function () {
     const pinboardTitles = scryRenderedDOMComponentsWithClass(instance, 'pinboard-title');
     const pinboardCreatedAts = scryRenderedDOMComponentsWithClass(instance, 'pinboard-created-at');
 
-    pinboardItems[0].getAttribute('href').should.eql('/pinboard/1/pinboard-title/');
     pinboardTitles[0].textContent.should.eql('Pinboard Title');
     pinboardCreatedAts[0].textContent.should.eql('Created Sep 12, 2019');
 
-    pinboardItems[1].getAttribute('href').should.eql('/pinboard/2/untitled-pinboard/');
     pinboardTitles[1].textContent.should.eql('');
     pinboardCreatedAts[1].textContent.should.eql('Created Oct 15, 2019');
   });
@@ -80,5 +85,96 @@ describe('Pinboards component', function () {
 
       fetchPinboardsSpy.should.be.called();
     });
+  });
+
+  it('should render new-pinboard-btn', function (done) {
+    const createNewEmptyPinboardStub = stub().usingPromise(Promise).resolves({
+      payload: {
+        id: '5cd06f2b',
+        title: 'Pinboard title',
+      },
+    });
+    const handleCloseSpy = spy();
+    instance = renderIntoDocument(
+      <Pinboards
+        isShown={ true }
+        pinboards={ pinboards }
+        createNewEmptyPinboard={ createNewEmptyPinboardStub }
+        handleClose={ handleCloseSpy }
+      />
+    );
+
+    const newPinboardLink = findRenderedDOMComponentWithClass(instance, 'new-pinboard-btn');
+    Simulate.click(newPinboardLink);
+    createNewEmptyPinboardStub.should.be.called();
+
+    setTimeout(() => {
+      handleCloseSpy.should.be.called();
+      this.browserHistoryPush.should.be.calledWith('/pinboard/5cd06f2b/pinboard-title/');
+      done();
+    }, 50);
+  });
+
+  it('should render duplicate-pinboard-btn', function (done) {
+    const duplicatePinboardStub = stub().usingPromise(Promise).resolves({
+      payload: {
+        id: '5cd06f2b',
+        title: 'Pinboard title',
+      },
+    });
+    const handleCloseSpy = spy();
+    instance = renderIntoDocument(
+      <Pinboards
+        isShown={ true }
+        pinboards={
+          [
+            {
+              id: '1',
+              title: 'Pinboard Title',
+              createdAt: 'Sep 12, 2019',
+              url: '/pinboard/1/pinboard-title/',
+            },
+          ]
+        }
+        duplicatePinboard={ duplicatePinboardStub }
+        handleClose={ handleCloseSpy }
+      />
+    );
+
+    const duplicatePinboardBtn = findRenderedDOMComponentWithClass(instance, 'duplicate-pinboard-btn');
+    Simulate.click(duplicatePinboardBtn);
+    duplicatePinboardStub.should.be.called();
+
+    setTimeout(() => {
+      handleCloseSpy.should.be.called();
+      this.browserHistoryPush.should.be.calledWith('/pinboard/5cd06f2b/pinboard-title/');
+      done();
+    }, 50);
+  });
+
+  it('should show pinboard detail page when clicking on pinboard item', function () {
+    const handleCloseSpy = spy();
+    instance = renderIntoDocument(
+      <Pinboards
+        isShown={ true }
+        pinboards={
+          [
+            {
+              id: '1',
+              title: 'Pinboard Title',
+              createdAt: 'Sep 12, 2019',
+              url: '/pinboard/1/pinboard-title/',
+            },
+          ]
+        }
+        handleClose={ handleCloseSpy }
+      />
+    );
+
+    const pinboardItem = findRenderedDOMComponentWithClass(instance, 'pinboard-item');
+    Simulate.click(pinboardItem);
+    handleCloseSpy.should.be.called();
+
+    this.browserHistoryPush.calledWith('/pinboard/1/pinboard-title/').should.be.true();
   });
 });

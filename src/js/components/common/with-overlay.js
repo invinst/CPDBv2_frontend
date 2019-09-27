@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { noop, omit } from 'lodash';
+import { noop } from 'lodash';
 
 import styles from './with-overlay.sass';
 
@@ -28,7 +28,7 @@ function withOverlay(ContentComponent) {
             aria-hidden={ !isShown }
             onClick={ handleClose }
           />
-          <ContentComponent { ...omit(this.props, 'handleClose') } />
+          <ContentComponent { ...this.props } />
         </div>
       );
     }

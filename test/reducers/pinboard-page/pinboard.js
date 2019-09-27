@@ -236,6 +236,44 @@ describe('Pinboard reducer', function () {
     });
   });
 
+  it('should handle PINBOARD_CREATE_REQUEST_START without default values', function () {
+    pinboardReducer(
+      {
+        'id': null,
+        'officer_ids': [],
+        crids: [],
+        'trr_ids': [],
+        'saving': false,
+      },
+      {
+        type: constants.PINBOARD_CREATE_REQUEST_START,
+        payload: {
+          request: {
+            method: 'post',
+            url: 'http://api.cpdp.co/api/v2/pinboards/',
+            data: {
+              title: 'Title',
+              description: 'Description',
+              'officer_ids': undefined,
+              crids: undefined,
+              'trr_ids': undefined,
+              'source_pinboard_id': undefined,
+            },
+          },
+        },
+      }
+    ).should.deepEqual({
+      'id': null,
+      title: 'Title',
+      description: 'Description',
+      'officer_ids': undefined,
+      crids: undefined,
+      'trr_ids': undefined,
+      'source_pinboard_id': undefined,
+      'saving': true,
+    });
+  });
+
   it('should handle PINBOARD_UPDATE_REQUEST_START', function () {
     pinboardReducer(
       {

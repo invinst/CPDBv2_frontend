@@ -36,7 +36,6 @@ import {
   PINBOARD_EDIT_TYPES,
 } from 'utils/constants';
 import PinboardPage from 'components/pinboard-page';
-import PreviewPane from 'components/search-page/search-results/preview-pane';
 import EmptyPinboardPage from 'components/pinboard-page/empty-pinboard';
 import { buildEditStateFields } from 'utils/test/factories/draft';
 
@@ -232,8 +231,14 @@ describe('PinboardPage component', function () {
     findRenderedComponentWithType(instance, PinnedOfficersContainer);
     findRenderedComponentWithType(instance, PinnedCRsContainer);
     findRenderedComponentWithType(instance, PinnedTRRsContainer);
-    findRenderedComponentWithType(instance, SearchBar);
     findRenderedComponentWithType(instance, PinboardsContainer);
+    const pinboardPageComponent = findRenderedComponentWithType(instance, PinboardPage);
+    const searchBar = findRenderedComponentWithType(instance, SearchBar);
+    const customButtons = searchBar.props.customButtons;
+    customButtons.props.pinboardId.should.eql('5cd06f2b');
+    customButtons.props.showPinboardsList.should.eql(pinboardPageComponent.props.showPinboardsList);
+    customButtons.props.createNewEmptyPinboard.should.eql(pinboardPageComponent.props.createNewEmptyPinboard);
+    customButtons.props.duplicatePinboard.should.eql(pinboardPageComponent.props.duplicatePinboard);
   });
 
   it('should render pinboard page correctly', function () {

@@ -8,7 +8,7 @@ import { hasMapMarkersSelector } from 'selectors/pinboard-page/geographic-data';
 import { getCurrentTab, pinboardPaneSectionRequestingSelector } from 'selectors/pinboard-page/pinboard-pane-section';
 import { shouldRedirect } from 'selectors/pinboard-page/redirect';
 import { focusedItemSelector } from 'selectors/pinboard-page/focused-item';
-import { changePinboardTab } from 'actions/pinboard';
+import { changePinboardTab, createNewEmptyPinboard, duplicatePinboard } from 'actions/pinboard';
 import {
   focusItem,
   addOrRemoveItemInPinboardFromPreviewPane,
@@ -38,6 +38,8 @@ const mapDispatchToProps = {
   updatePathName,
   addOrRemoveItemInPinboardFromPreviewPane,
   showPinboardsList,
+  createNewEmptyPinboard,
+  duplicatePinboard,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PinboardPage));

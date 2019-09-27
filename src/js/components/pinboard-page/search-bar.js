@@ -74,7 +74,6 @@ export default class SearchBar extends Component {
                 <div
                   className='share-button'
                   onClick={ this.handleShareButtonClick }>
-                  Share
                   { this.renderShareMenu() }
                 </div>
               ) }

@@ -27,7 +27,7 @@ describe('SearchBar component', function () {
     searchBoxParent.className.should.not.containEql('short');
 
     findRenderedDOMComponentWithClass(instance, 'search-term').textContent.should.eql('Search');
-    findRenderedDOMComponentWithClass(instance, 'share-button').textContent.should.eql('Share');
+    findRenderedDOMComponentWithClass(instance, 'share-button');
   });
 
   it('should hide share menu by default', function () {

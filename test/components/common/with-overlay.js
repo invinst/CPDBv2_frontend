@@ -1,5 +1,4 @@
 import React from 'react';
-import should from 'should';
 import {
   renderIntoDocument,
   findRenderedComponentWithType,
@@ -30,7 +29,7 @@ describe('withOverlay component', function () {
     const content = findRenderedComponentWithType(instance, Children);
     content.props.isShown.should.be.true();
     content.props.attr.should.equal('attr');
-    should(content.props.handleClose).be.undefined();
+    content.props.handleClose.should.equal(handleCloseSpy);
 
     const overlay = findRenderedDOMComponentWithClass(instance, 'overlay');
     overlay.getAttribute('aria-hidden').should.equal('false');
@@ -48,7 +47,7 @@ describe('withOverlay component', function () {
     const content = findRenderedComponentWithType(instance, Children);
     content.props.isShown.should.be.false();
     content.props.attr.should.equal('attr');
-    should(content.props.handleClose).be.undefined();
+    content.props.handleClose.should.equal(handleCloseSpy);
 
     const overlay = findRenderedDOMComponentWithClass(instance, 'overlay');
     overlay.getAttribute('aria-hidden').should.equal('true');

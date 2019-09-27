@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import cx from 'classnames';
 import TrackVisibility from 'react-on-screen';
-import { isEmpty, noop } from 'lodash';
+import { isEmpty, noop, get } from 'lodash';
 
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import SearchBar from './search-bar';
@@ -124,7 +124,14 @@ export default class PinboardPage extends Component {
   }
 
   render() {
-    const { initialRequested, isEmptyPinboard, showPinboardsList } = this.props;
+    const {
+      pinboard,
+      initialRequested,
+      isEmptyPinboard,
+      showPinboardsList,
+      createNewEmptyPinboard,
+      duplicatePinboard,
+    } = this.props;
 
     if (!initialRequested) {
       return null;
@@ -136,7 +143,14 @@ export default class PinboardPage extends Component {
           <Header />
           <SearchBar
             shareable={ !isEmptyPinboard }
-            customButtons={ <ManagePinboardsButtons showPinboardsList={ showPinboardsList }/> }
+            customButtons={
+              <ManagePinboardsButtons
+                pinboardId={ get(pinboard, 'id') }
+                showPinboardsList={ showPinboardsList }
+                createNewEmptyPinboard={ createNewEmptyPinboard }
+                duplicatePinboard={ duplicatePinboard }
+              />
+            }
           />
         </div>
         { this.renderContent() }
@@ -167,6 +181,8 @@ PinboardPage.propTypes = {
   addOrRemoveItemInPinboardFromPreviewPane: PropTypes.func,
   requesting: PropTypes.bool,
   showPinboardsList: PropTypes.func,
+  createNewEmptyPinboard: PropTypes.func,
+  duplicatePinboard: PropTypes.func,
 };
 
 PinboardPage.defaultProps = {
@@ -175,4 +191,6 @@ PinboardPage.defaultProps = {
   pushBreadcrumbs: noop,
   addOrRemoveItemInPinboardFromPreviewPane: noop,
   showPinboardsList: noop,
+  createNewEmptyPinboard: noop,
+  duplicatePinboard: noop,
 };
