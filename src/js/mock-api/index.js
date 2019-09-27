@@ -72,6 +72,11 @@ import {
   updatedPinboardDescription,
 } from './pinboard';
 import {
+  ffff6666Complaints,
+  ffff6666Officers,
+  ffff6666TRRs,
+  eeee7777Complaints,
+  eeee7777Officers,
   fetchPinboardComplaints,
   fetchPinboardOfficers,
   fetchPinboardTRRs,
@@ -235,6 +240,23 @@ axiosMockClient.onGet(
   { params: { 'threshold': 3, 'complaint_origin': 'ALL', 'unit_id': '123' } }
 ).reply(200, getThresholdThreeSocialGraphData());
 
+axiosMockClient.onPost(
+  `${PINBOARDS_URL}`,
+  {
+    'officer_ids': [1, 2],
+    'crids': ['5678123'],
+    'trr_ids': [3, 2],
+  }
+).reply(201, createPinboard('ffff6666', [1, 2], ['5678123'], [3, 2]));
+
+axiosMockClient.onPost(
+  `${PINBOARDS_URL}`,
+  {
+    'officer_ids': [1, 2],
+    'crids': ['987654', '5678123'],
+    'trr_ids': [9, 7],
+  }
+).reply(201, createPinboard('eeee7777', [1, 2], ['5678123'], [], { 'crids': ['987654'], 'trr_ids': [9, 7] }));
 axiosMockClient.onPost(`${PINBOARDS_URL}`).reply(201, createPinboard());
 
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/`).reply(200, getOrCreateEmptyPinboard('5cd06f2b'));
@@ -259,6 +281,14 @@ axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/complaints/`).reply(200, fetchPi
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/officers/`).reply(200, fetchPinboardOfficers());
 
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/trrs/`).reply(200, fetchPinboardTRRs());
+
+axiosMockClient.onGet(`${PINBOARDS_URL}ffff6666/officers/`).reply(200, ffff6666Officers);
+axiosMockClient.onGet(`${PINBOARDS_URL}ffff6666/complaints/`).reply(200, ffff6666Complaints);
+axiosMockClient.onGet(`${PINBOARDS_URL}ffff6666/trrs/`).reply(200, ffff6666TRRs);
+
+axiosMockClient.onGet(`${PINBOARDS_URL}eeee7777/officers/`).reply(200, eeee7777Officers);
+axiosMockClient.onGet(`${PINBOARDS_URL}eeee7777/complaints/`).reply(200, eeee7777Complaints);
+axiosMockClient.onGet(`${PINBOARDS_URL}eeee7777/trrs/`).reply(200, []);
 
 axiosMockClient.onGet(`${SOCIAL_GRAPH_NETWORK_API_URL}?pinboard_id=5cd06f2b`).reply(200, getSocialGraphData());
 axiosMockClient.onGet(

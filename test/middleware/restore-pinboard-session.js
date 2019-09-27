@@ -89,4 +89,24 @@ describe('fetchLatestRetrievedPinboard middleware', () => {
 
     store.dispatch.calledWith(fetchLatestRetrievedPinboard({ create: true })).should.be.true();
   });
+
+  it('should not dispatch fetchLatestRetrievedPinboard if there is no pinboard id but query exists', () => {
+    const action = createLocationChangeAction('/pinboard/?officer-ids=1,3,4,5,0&crids=1053673&trr-ids=,0,1');
+
+    let dispatched;
+    restorePinboardSession(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+
+    store.dispatch.should.not.be.called();
+  });
+
+  it('should fetchLatestRetrievedPinboard if there is query but not on pinboard page', () => {
+    const action = createLocationChangeAction('/search/?officer-ids=1,3,4,5,0&crids=1053673&trr-ids=,0,1');
+
+    let dispatched;
+    restorePinboardSession(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+
+    store.dispatch.should.be.called();
+  });
 });
