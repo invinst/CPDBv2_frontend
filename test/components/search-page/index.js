@@ -28,6 +28,7 @@ import SearchBox from 'components/search-page/search-box';
 import { MORE_BUTTON, RECENT_CONTENT_TYPE } from 'utils/constants';
 import * as IntercomTracking from 'utils/intercom-tracking';
 import { showToast } from 'actions/toast';
+import * as LayeredKeyBinding from 'utils/layered-key-binding';
 
 
 describe('SearchPage component', function () {
@@ -165,6 +166,103 @@ describe('SearchPage component', function () {
     this.browserHistoryPush.calledWith('/').should.be.true();
   });
 
+  it('should bind and unbind esc and enter keys when mounted but not hide', function () {
+    const bindSpy = spy(LayeredKeyBinding, 'bind');
+    const unbindSpy = spy(LayeredKeyBinding, 'unbind');
+
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <SearchPage hide={ true }/>
+      </Provider>
+    );
+
+    const searchPage = findRenderedComponentWithType(instance, SearchPage);
+
+    bindSpy.should.not.be.calledWith('esc', searchPage.handleGoBack);
+    bindSpy.should.not.be.calledWith('enter', searchPage.handleViewItem);
+
+    unmountComponentSuppressError(instance);
+
+    unbindSpy.should.not.be.calledWith('esc');
+    unbindSpy.should.not.be.calledWith('enter');
+
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <SearchPage hide={ false }/>
+      </Provider>
+    );
+
+    const newSearchPage = findRenderedComponentWithType(instance, SearchPage);
+
+    bindSpy.should.be.calledWith('esc', newSearchPage.handleGoBack);
+    bindSpy.should.be.calledWith('enter', newSearchPage.handleViewItem);
+
+    unmountComponentSuppressError(instance);
+
+    unbindSpy.should.be.calledWith('esc');
+    unbindSpy.should.be.calledWith('enter');
+
+    bindSpy.restore();
+    unbindSpy.restore();
+  });
+
+  it('should bind and unbind when update hide prop', function () {
+    const bindSpy = spy(LayeredKeyBinding, 'bind');
+    const unbindSpy = spy(LayeredKeyBinding, 'unbind');
+
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <SearchPage hide={ true }/>
+      </Provider>
+    );
+
+    const searchPage = findRenderedComponentWithType(instance, SearchPage);
+
+    bindSpy.should.not.be.calledWith('esc', searchPage.handleGoBack);
+    bindSpy.should.not.be.calledWith('enter', searchPage.handleViewItem);
+    unbindSpy.should.not.be.calledWith('esc');
+    unbindSpy.should.not.be.calledWith('enter');
+
+    instance = reRender(
+      <Provider store={ store }>
+        <SearchPage hide={ false }/>
+      </Provider>,
+      instance
+    );
+
+    const newSearchPage = findRenderedComponentWithType(instance, SearchPage);
+
+    bindSpy.should.be.calledWith('esc', newSearchPage.handleGoBack);
+    bindSpy.should.be.calledWith('enter', newSearchPage.handleViewItem);
+    unbindSpy.should.not.be.calledWith('esc');
+    unbindSpy.should.not.be.calledWith('enter');
+
+    instance = reRender(
+      <Provider store={ store }>
+        <SearchPage hide={ true }/>
+      </Provider>,
+      instance
+    );
+
+    unbindSpy.should.be.calledWith('esc');
+    unbindSpy.should.be.calledWith('enter');
+    unbindSpy.resetHistory();
+
+    instance = reRender(
+      <Provider store={ store }>
+        <SearchPage hide={ false }/>
+      </Provider>,
+      instance
+    );
+
+    unmountComponentSuppressError(instance);
+    unbindSpy.should.be.calledWith('esc');
+    unbindSpy.should.be.calledWith('enter');
+
+    unbindSpy.restore();
+    bindSpy.restore();
+  });
+
   it('should not change the current search path when user type in search box', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
@@ -218,24 +316,6 @@ describe('SearchPage component', function () {
         navigateToSearchItem.restore();
       }
     );
-  });
-
-  it('should push search into breadcrumbs', function () {
-    const location = {
-      pathname: '/search', search: '/', action: 'POP',
-    };
-    const params = {};
-    const routes = [];
-    const stubPushBreadcrumbs = stub();
-
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchPage
-          location={ location } params={ params } routes={ routes } pushBreadcrumbs={ stubPushBreadcrumbs }
-        />
-      </Provider>
-    );
-    stubPushBreadcrumbs.calledWith({ location, params, routes }).should.be.true();
   });
 
   it('should call api with content type when user select a tag', function () {

@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import moment from 'moment';
-import { filter, isUndefined, map, startCase, toLower } from 'lodash';
+import { filter, isUndefined, map, startCase, toLower, get } from 'lodash';
 
 import { pinboardItemsSelector } from 'selectors/pinboard-page/pinboard';
 import { officerUrl } from 'utils/url-util';
@@ -49,7 +49,7 @@ const recentItemFormatterMapping = {
   'TRR': trrTransform,
 };
 
-const getRecentSuggestions = (state) => state.searchPage.recentSuggestions;
+const getRecentSuggestions = (state) => get(state, 'searchPage.recentSuggestions', []);
 export const getRecentSuggestionsRequested = (state) => state.searchPage.recentSuggestionsRequested;
 
 export const recentSuggestionsSelector = createSelector(

@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { push as pushBreadcrumbs } from 'redux-breadcrumb-trail';
 
 import SearchPage from 'components/search-page';
 import {
@@ -32,12 +31,13 @@ function mapStateToProps(state, ownProps) {
   const {
     contentType, query, isRequesting,
   } = state.searchPage;
-  const { children } = ownProps;
+  const { children, hide } = ownProps;
 
   return {
     isRequesting,
     query,
     children,
+    hide,
     tags: suggestionTagsSelector(state),
     contentType,
     isEmpty: isEmptySelector(state),
@@ -61,7 +61,6 @@ const mapDispatchToProps = {
   resetSearchResultNavigation,
   requestActivityGrid,
   requestSearchTermCategories,
-  pushBreadcrumbs,
   resetSearchTermNavigation,
   createPinboard,
 };

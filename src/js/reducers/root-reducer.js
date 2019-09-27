@@ -5,7 +5,6 @@ import { reducer as breadcrumb } from 'redux-breadcrumb-trail';
 import landingPage from './landing-page';
 import searchPage from './search-page';
 import authentication from './authentication';
-import appContent from './app-content';
 import crs from './crs';
 import officerPage from './officer-page';
 import crPage from './cr-page';
@@ -34,7 +33,6 @@ export default combineReducers({
   landingPage,
   searchPage,
   authentication,
-  appContent,
   crs,
   routing: routerReducer,
   officerPage,

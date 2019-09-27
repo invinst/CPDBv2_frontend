@@ -43,6 +43,7 @@ if (config.appEnv === 'live-test' || global.mocha !== undefined) {
   const setLngLatSpy = spy();
   const setPopupSpy = spy();
   const addToSpy = spy();
+  const resizeSpy = spy();
 
   class MockMap {
     constructor() {
@@ -55,6 +56,7 @@ if (config.appEnv === 'live-test' || global.mocha !== undefined) {
       this.setFilter = setFilterSpy;
       this.addControl = addControlSpy;
       this.remove = removeSpy;
+      this.resize = resizeSpy;
     }
     on() {
       arguments[arguments.length - 1]();

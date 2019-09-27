@@ -16,7 +16,6 @@ describe('Pinboard Page', function () {
   it('should go to search page when the search bar is clicked', function () {
     pinboardPage.open();
     pinboardPage.searchBar.click();
-    $('.search-page').waitForDisplayed();
     browser.getUrl().should.endWith('/search/');
   });
 

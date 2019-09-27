@@ -1,11 +1,14 @@
 import React, { Component, PropTypes } from 'react';
+import cx from 'classnames';
 
 import { pushPathPreserveEditMode } from 'utils/edit-path';
 import * as constants from 'utils/constants';
 import TextInput from 'components/common/input';
 import { navigateToSearchItem } from 'utils/navigate-to-search-item';
-import { searchInputStyle, wrapperStyle } from './search-box.style';
+import { searchInputStyle } from './search-box.style';
 import CloseButton from './close-btn';
+import styles from './search-box.sass';
+import MagnifyingGlass from 'components/common/icons/magnifying-glass';
 
 
 export default class SearchBox extends Component {
@@ -31,7 +34,7 @@ export default class SearchBox extends Component {
   }
 
   render() {
-    const { value, onChange, onEscape, focused, resetNavigation } = this.props;
+    const { value, onChange, onEscape, focused, resetNavigation, className, position, animationIn } = this.props;
 
     const keyPressHandlers = {
       esc: onEscape,
@@ -43,19 +46,20 @@ export default class SearchBox extends Component {
     };
 
     return (
-      <div style={ wrapperStyle }>
+      <div className={ cx(className, position, styles.searchBox, { 'animation-in': animationIn }) }>
+        <MagnifyingGlass className={ cx('magnifying-glass', position, { 'animation-in': animationIn }) } size={ 12 }/>
         <TextInput
           autoFocus={ true }
           style={ searchInputStyle }
-          placeholder='Search Chicago'
+          placeholder='Search'
           onChange={ onChange }
-          paddingVertical={ 8 }
-          paddingHorizontal={ 9 }
+          paddingVertical={ 12 }
+          paddingHorizontal={ 37 }
           value={ value }
           keyPressHandlers={ keyPressHandlers }
           keyPressWithBlurHandlers={ keyPressWithBlurHandlers }
           spellCheck={ false }
-          className='test--search-page-input'
+          className={ cx('search-box-text-input', position, { 'animation-in': animationIn }) }
           focused={ focused }
         />
         {
@@ -71,6 +75,7 @@ export default class SearchBox extends Component {
 }
 
 SearchBox.propTypes = {
+  className: PropTypes.string,
   onChange: PropTypes.func,
   onEscape: PropTypes.func,
   firstSuggestionItem: PropTypes.object,
@@ -80,6 +85,8 @@ SearchBox.propTypes = {
   focused: PropTypes.bool,
   resetNavigation: PropTypes.func,
   saveToRecent: PropTypes.func,
+  position: PropTypes.string,
+  animationIn: PropTypes.bool,
 };
 
 SearchBox.defaultProps = {

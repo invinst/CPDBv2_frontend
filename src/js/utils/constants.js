@@ -851,3 +851,5 @@ export const RECENT_SEARCH_COMPONENT_TYPE_MAPPING = {
   'INVESTIGATOR > CR': 'CR',
   'DATE > TRR': 'TRR',
 };
+
+export const HEADER_TOP_BAR_HEIGHT = 80;

@@ -4,6 +4,7 @@ import should from 'should';
 import { times } from 'lodash';
 
 import landingPage from './page-objects/landing-page';
+import searchPage from './page-objects/search-page';
 import header from './page-objects/shareable-header';
 import pinboardPage from './page-objects/pinboard-page';
 
@@ -83,6 +84,88 @@ describe('landing page', function () {
     browser.url('/something/really/wrong/');
     $('body').waitForDisplayed();
     landingPage.currentBasePath.should.eql('/');
+  });
+
+  describe('Switch to Search Page Transition', function () {
+    beforeEach(function () {
+      browser.setWindowRect(0, 0, 1000, 1000);
+      searchPage.input.waitForExist();
+      searchPage.input.waitForDisplayed(1000, true);
+    });
+
+    it('should show search page and hide landing page when clicking on search box', function () {
+      const searchBox = landingPage.header.navBar.searchBox;
+      searchBox.mainElement.click();
+
+      searchPage.input.waitForDisplayed(2000);
+      landingPage.header.content.waitForDisplayed(2000, true);
+      landingPage.header.content.waitForExist();
+    });
+
+    it('should expand search input when clicking on search box', function () {
+      const searchBox = landingPage.header.navBar.searchBox;
+
+      searchBox.mainElement.getCSSProperty('width').value.should.equal('512px');
+
+      searchBox.mainElement.click();
+
+      const beginningWidthString = searchPage.input.getCSSProperty('width').value;
+      const beginningWidth = parseFloat(beginningWidthString.slice(0, beginningWidthString.length - 2));
+      beginningWidth.should.aboveOrEqual(512).and.below(900);
+
+      searchPage.input.waitForCSSProperty(
+        'width',
+        value => parseFloat(value.slice(0, value.length - 2)) === 893,
+        1000
+      );
+    });
+
+    it('should move search box up when lading page position is top and clicking on search box', function () {
+      const searchBox = landingPage.header.navBar.searchBox;
+      searchBox.mainElement.click();
+
+      browser.waitUntil(
+        () => searchPage.input.getLocation('y') > 70,
+        500,
+        'Search box does not start moving up from lower position',
+        10
+      );
+
+      const topYLocation = 9;
+      browser.waitUntil(
+        () => searchPage.input.getLocation('y') === topYLocation,
+        1000,
+        'Search box does not end moving up at top',
+        10
+      );
+      searchPage.input.getLocation('y').should.equal(topYLocation);
+    });
+
+    it('should not move search page up when lading page is not at top', function () {
+      browser.scroll(0, 500); // must scroll pass the top bar
+      browser.pause(1000);
+
+      const header = landingPage.header;
+      header.content.getCSSProperty('position').value.should.eql('fixed');
+      header.content.getCSSProperty('top').value.should.eql('-80px');
+      header.navBar.searchBox.searchText.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
+
+      header.navBar.searchBox.mainElement.click();
+
+      const topYLocation = 9;
+      browser.pause(10);
+      searchPage.input.getLocation('y').should.equal(topYLocation);
+      browser.pause(10);
+      searchPage.input.getLocation('y').should.equal(topYLocation);
+      browser.pause(10);
+      searchPage.input.getLocation('y').should.equal(topYLocation);
+
+      searchPage.input.waitForCSSProperty(
+        'width',
+        value => parseFloat(value.slice(0, value.length - 2)) === 893,
+        1000
+      );
+    });
   });
 
   describe('Recent Activity carousel', function () {

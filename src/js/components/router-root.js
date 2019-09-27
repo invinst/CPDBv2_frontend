@@ -69,7 +69,7 @@ export default class RouterRoot extends Component {
               breadcrumb={ BreadcrumbItemContainer } />
             <Route
               path={ SEARCH_PATH }
-              component={ SearchPageContainer }
+              component={ LandingPageContainer }
               breadcrumb='Search' />
             <Route
               path={ STANDALONE_CR_PATH }

@@ -68,6 +68,7 @@ describe('SearchBox component', function () {
     Simulate.click(findDOMNode(instance), { stopPropagation });
 
     stopPropagation.should.be.calledOnce();
+
     pushPathPreserveEditMode.should.be.calledOnce();
     pushPathPreserveEditMode.should.be.calledWith('/search/');
 
