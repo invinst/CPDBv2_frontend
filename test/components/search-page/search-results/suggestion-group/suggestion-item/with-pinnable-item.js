@@ -103,7 +103,7 @@ describe('withPinnableItem component', function () {
       selectItemSpy.called.should.be.true();
     });
 
-    it('should trigger ENTER event if focused', function () {
+    it('should trigger ENTER event if focused and has selectItem', function () {
       const suggestion = {
         uniqueKey: '123',
         type: 'type',
@@ -112,13 +112,37 @@ describe('withPinnableItem component', function () {
       instance = renderIntoDocument(
         <ComponentType
           suggestion={ suggestion }
-          isFocused={ true }/>
+          isFocused={ true }
+          selectItem={ () => {} }
+        />
       );
       const element = findRenderedDOMComponentWithClass(instance, 'suggestion-item-123');
       Simulate.click(element);
       triggerStub.withArgs('enter').called.should.be.true();
 
       triggerStub.restore();
+    });
+
+    it('should trigger clickItem there is clickItem', function () {
+      const clickItemSpy = spy();
+      const suggestion = {
+        id: 1,
+        type: 'OFFICER',
+        name: 'Jerome Finnigan',
+        badge: 'Badge #123456',
+        uniqueKey: '123',
+      };
+      instance = renderIntoDocument(
+        <ComponentType
+          suggestion={ suggestion }
+          clickItem={ clickItemSpy }
+          selectItem={ () => {} }
+        />
+      );
+      const element = findRenderedDOMComponentWithClass(instance, 'suggestion-item-123');
+      Simulate.click(element);
+
+      clickItemSpy.should.be.calledWith(suggestion);
     });
   });
 

@@ -60,6 +60,16 @@ describe('fetchLatestRetrievedPinboard middleware', () => {
     store.dispatch.called.should.be.false();
   });
 
+  it('should not dispatch if location change is pinboard detail page', () => {
+    const action = createLocationChangeAction('/pinboard/5cd06f2b/');
+
+    let dispatched;
+    restorePinboardSession(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+
+    store.dispatch.called.should.be.false();
+  });
+
   it('should dispatch fetchLatestRetrievedPinboard with create is false if not on no id pinboard page', () => {
     const action = createLocationChangeAction('');
 

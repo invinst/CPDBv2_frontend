@@ -8,21 +8,34 @@ import {
   navigationKeySelector,
 } from 'selectors/search-page/search-terms/navigation';
 import { categoriesSelector } from 'selectors/search-page/search-terms/categories';
+import {
+  recentSuggestionsSelector,
+  recentSuggestionIdsSelector,
+  getRecentSuggestionsRequested,
+} from 'selectors/search-page/search-results/recent-suggestions';
+import { addOrRemoveItemInPinboard } from 'actions/pinboard';
+import { saveToRecent, fetchRecentSearchItems, fetchedEmptyRecentSearchItems } from 'actions/search-page';
 
 
 function mapStateToProps(state, ownProps) {
   return {
-    recentSuggestions: state.searchPage.recentSuggestions,
+    recentSuggestions: recentSuggestionsSelector(state),
     categories: categoriesSelector(state),
     focusedItem: focusedSearchTermItemSelector(state),
     totalItemCount: totalItemCountSelector(state),
     navigationKeys: navigationKeySelector(state),
+    recentSuggestionIds: recentSuggestionIdsSelector(state),
+    recentSuggestionsRequested: getRecentSuggestionsRequested(state),
   };
 }
 
 const mapDispatchToProps = {
   move,
   resetNavigation,
+  addOrRemoveItemInPinboard,
+  saveToRecent,
+  fetchRecentSearchItems,
+  fetchedEmptyRecentSearchItems,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchTerms);

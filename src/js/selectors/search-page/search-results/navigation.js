@@ -2,7 +2,8 @@ import { createSelector } from 'reselect';
 import { flatten, concat } from 'lodash';
 
 import * as constants from 'utils/constants';
-import { navigationItemTransform, previewPaneTransform } from 'selectors/common/preview-pane-transforms';
+import { previewPaneTransform } from 'selectors/common/preview-pane-transforms';
+import { navigationItemTransform } from 'selectors/common/search-item-transforms';
 import { slicedSuggestionGroupsSelector, getPinnedItem } from './suggestion-groups';
 import { pinboardItemsSelector } from 'selectors/pinboard-page/pinboard';
 

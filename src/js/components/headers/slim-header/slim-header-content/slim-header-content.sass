@@ -2,51 +2,54 @@
 @import 'common'
 
 \:local(.slim-header)
-  box-sizing: border-box
-  width: inherit
-  font-size: 14px
-  line-height: 18px
-  height: 128px
+  height: 136px
+  width: 100%
 
-  .top-bar-wrapper
-    box-shadow: 0 1px 1px 0 $black13-color
-    position: relative
-    z-index: 2
-
-  .top-bar
-    height: 88px
-    padding: 0 8px 0 16px
-    max-width: 1440px
-    margin: 0 auto
+  .header-content
     box-sizing: border-box
-
-  .navbar-wrapper
-    position: relative
-    z-index: 1
-    background-color: $sugar-cane-color
-    box-shadow: 0 1px 2px 0 $black15-color
-
-  .navbar
-    height: 40px
-    max-width: 1440px
-    margin: 0 auto
-
-  .vertically-aligned-header-item
-    @extend %vertical-align-middle
-    float: right
-
-  .logo
-    @extend %vertical-align-middle
-    display: inline-block
-
-  &.middle
-    height: 40px
+    width: 100%
+    font-size: 14px
+    line-height: 18px
+    background-color: white
 
     .top-bar-wrapper
-      display: none
+      position: relative
+      z-index: 2
 
-  &.bottom
-    cursor: pointer
+    .top-bar
+      height: 80px
+      padding: 0 8px 0 14px
+      max-width: 1440px
+      margin: 0 auto
+      box-sizing: border-box
 
     .navbar-wrapper
-      background-color: transparent
+      position: relative
+      z-index: 1
+      box-shadow: 0 1px 1px 0 $black15-color
+
+    .navbar
+      height: 56px
+      max-width: 1440px
+      margin: 0 auto
+
+    .vertically-aligned-header-item
+      @extend %vertical-align-middle
+      float: right
+
+    .logo
+      padding-top: 20px
+      display: inline-block
+      line-height: 16px
+
+    &.middle, &.bottom
+      position: fixed
+      top: -80px
+      left: 0
+      right: 0
+      z-index: 20
+      transition: top 0.5s
+      background-color: white
+
+    &.bottom
+      cursor: pointer

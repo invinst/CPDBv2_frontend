@@ -126,25 +126,42 @@ describe('SearchBox component', function () {
     });
 
     it('should push first result to when user hit ENTER if to is set', function () {
-      const trackRecentSuggestion = spy();
+      const saveToRecentSpy = spy();
+      const recentItemData = {
+        'id': 123,
+        'full_name': 'Jerome Finnigan',
+        'rank': 'Officer',
+        'complaint_count': 22,
+        'percentile': {
+          'percentile_trr': 20.6,
+          'percentile_allegation_internal': 10.1,
+          'percentile_allegation_civilian': 52.5,
+        },
+      };
       const firstSuggestionItem =
         {
           type: 'OFFICER',
+          id: 1,
           url: 'url',
           to: 'to',
           text: 'officer 1',
           recentText: 'Kevin',
+          recentItemData: recentItemData,
         };
 
 
       instance = renderIntoDocument(
-        <SearchBox firstSuggestionItem={ firstSuggestionItem } trackRecentSuggestion={ trackRecentSuggestion }/>
+        <SearchBox firstSuggestionItem={ firstSuggestionItem } saveToRecent={ saveToRecentSpy }/>
       );
 
       const input = findRenderedComponentWithType(instance, TextInput);
       input.mousetrap.trigger('enter');
       this.browserHistoryPush.calledWith('to').should.be.true();
-      trackRecentSuggestion.calledWith('OFFICER', 'Kevin', 'url', 'to').should.be.true();
+      saveToRecentSpy.should.be.calledWith({
+        type: 'OFFICER',
+        id: 1,
+        data: recentItemData,
+      });
     });
   });
 });

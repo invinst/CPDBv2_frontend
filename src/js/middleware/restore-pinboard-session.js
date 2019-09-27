@@ -10,6 +10,7 @@ export default store => next => action => {
     const state = store.getState();
     if (
       !isPinboardRestoredSelector(state)
+      && !action.payload.pathname.match(/\/pinboard\/[a-fA-F0-9]+\//)
       && (isEmpty(action.payload.query) || !action.payload.pathname.match(/\/pinboard\//))
     ) {
       store.dispatch(fetchLatestRetrievedPinboard({ create: action.payload.pathname === '/pinboard/' }));

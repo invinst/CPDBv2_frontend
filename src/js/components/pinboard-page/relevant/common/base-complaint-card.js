@@ -15,10 +15,10 @@ export class BaseComplaintCard extends Component {
 
   handleClick(e) {
     e.preventDefault();
-    const { addItemInPinboardPage, rawData } = this.props;
+    const { addItemInPinboardPage, recentItemData } = this.props;
     addItemInPinboardPage({
       type: 'CR',
-      rawData,
+      recentItemData,
       id: this.props.crid,
     });
   }
@@ -88,12 +88,12 @@ BaseComplaintCard.propTypes = {
   addItemInPinboardPage: PropTypes.func,
   pinned: PropTypes.bool,
   focusItem: PropTypes.func,
-  rawData: PropTypes.object,
+  recentItemData: PropTypes.object,
 };
 
 BaseComplaintCard.defaultProps = {
   focusItem: noop,
-  rawData: {},
+  recentItemData: {},
 };
 
 export default BaseComplaintCard;

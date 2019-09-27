@@ -13,7 +13,9 @@ import { generatePinboardUrl } from 'utils/pinboard';
 import SearchMainPanel from './search-main-panel';
 import HoverableButton from 'components/common/hoverable-button-without-inline-style';
 import {
-  ROOT_PATH, SEARCH_ALIAS_EDIT_PATH, SEARCH_BOX, MORE_BUTTON, RECENT_CONTENT_TYPE,
+  ROOT_PATH, SEARCH_ALIAS_EDIT_PATH,
+  SEARCH_BOX,
+  MORE_BUTTON, RECENT_CONTENT_TYPE,
 } from 'utils/constants';
 import { showIntercomLauncher } from 'utils/intercom';
 import * as IntercomTracking from 'utils/intercom-tracking';
@@ -39,7 +41,15 @@ export default class SearchPage extends Component {
   }
 
   componentDidMount() {
-    const { query, location, params, routes, pushBreadcrumbs, contentType } = this.props;
+    const {
+      query,
+      location,
+      params,
+      routes,
+      pushBreadcrumbs,
+      contentType,
+    } = this.props;
+
     pushBreadcrumbs({ location, params, routes });
 
     LayeredKeyBinding.bind('esc', this.handleGoBack);
@@ -110,9 +120,13 @@ export default class SearchPage extends Component {
   }
 
   goToItem(item) {
-    const { trackRecentSuggestion } = this.props;
-    navigateToSearchItem(item, ({ to, url, type, recentText }) => {
-      trackRecentSuggestion(type, recentText, url, to);
+    const { saveToRecent } = this.props;
+    navigateToSearchItem(item, (item) => {
+      saveToRecent({
+        type: item.type,
+        id: item.id,
+        data: item.recentItemData,
+      });
     });
   }
 
@@ -183,7 +197,7 @@ export default class SearchPage extends Component {
     const {
       query, searchTermsHidden, contentType, tags,
       editModeOn, officerCards, requestActivityGrid,
-      changeSearchQuery, focusedItem, firstItem, trackRecentSuggestion,
+      changeSearchQuery, focusedItem, firstItem, saveToRecent,
     } = this.props;
 
     return (
@@ -203,7 +217,7 @@ export default class SearchPage extends Component {
                 changeSearchQuery={ changeSearchQuery }
                 focused={ focusedItem.uniqueKey === SEARCH_BOX }
                 resetNavigation={ this.resetNavigation }
-                trackRecentSuggestion={ trackRecentSuggestion }
+                saveToRecent={ saveToRecent }
               />
               <HoverableButton
                 className={
@@ -242,7 +256,6 @@ SearchPage.propTypes = {
   getSuggestion: PropTypes.func,
   getSuggestionWithContentType: PropTypes.func,
   selectTag: PropTypes.func,
-  trackRecentSuggestion: PropTypes.func,
   contentType: PropTypes.string,
   isEmpty: PropTypes.bool,
   router: PropTypes.object,
@@ -263,6 +276,7 @@ SearchPage.propTypes = {
   isRequesting: PropTypes.bool,
   toast: PropTypes.object,
   createPinboard: PropTypes.func,
+  saveToRecent: PropTypes.func,
 };
 
 /* istanbul ignore next */
@@ -271,7 +285,6 @@ SearchPage.defaultProps = {
   focusedItem: {},
   getSuggestion: () => new Promise(noop),
   getSuggestionWithContentType: () => new Promise(noop),
-  trackRecentSuggestion: noop,
   changeSearchQuery: noop,
   location: {
     pathname: '/',
@@ -284,4 +297,5 @@ SearchPage.defaultProps = {
   firstItem: {},
   toast: {},
   createPinboard: noop,
+  saveToRecent: noop,
 };

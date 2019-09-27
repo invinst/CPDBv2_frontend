@@ -17,7 +17,7 @@ export default class RelevantComplaintCard extends Component {
     } = this.props;
     const complaintFields = [
       'crid', 'incidentDate', 'category', 'point', 'officers',
-      'point', 'rawData',
+      'point', 'recentItemData',
     ];
 
     const leftChild = (

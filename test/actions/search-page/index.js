@@ -2,8 +2,14 @@ import { stub, spy } from 'sinon';
 import { CancelToken } from 'axios';
 
 import {
-  getSuggestion, selectTag, toggleSearchMode, trackRecentSuggestion,
-  move, getSuggestionWithContentType, SUGGESTION_URL,
+  getSuggestion,
+  selectTag,
+  toggleSearchMode,
+  move,
+  SUGGESTION_URL,
+  getSuggestionWithContentType,
+  fetchRecentSearchItems,
+  fetchedEmptyRecentSearchItems,
 } from 'actions/search-page';
 import * as constants from 'utils/constants';
 import { resetNavigation } from 'actions/search-page';
@@ -95,25 +101,6 @@ describe('suggestion action', function () {
     });
   });
 
-  describe('trackRecentSuggestion', function () {
-    it('should return correct action', function () {
-      const contentType = 'contentType';
-      const text = 'text';
-      const url = 'url';
-      const to = 'to';
-
-      trackRecentSuggestion(contentType, text, url, to).should.deepEqual({
-        type: constants.TRACK_RECENT_SUGGESTION,
-        payload: {
-          contentType,
-          text,
-          url,
-          to,
-        },
-      });
-    });
-  });
-
   describe('move', function () {
     it('should return SEARCH_NAVIGATION_UP', function () {
       move('up', 2).should.deepEqual({
@@ -138,6 +125,39 @@ describe('suggestion action', function () {
     it('should return SEARCH_NAVIGATION_RESET', function () {
       resetNavigation().should.deepEqual({
         type: constants.SEARCH_NAVIGATION_RESET,
+        payload: undefined,
+      });
+    });
+  });
+
+  describe('fetchRecentSearchItems', function () {
+    it('should return right action', function () {
+      fetchRecentSearchItems([8562], ['271235'], [123]).should.eql({
+        types: [
+          constants.FETCH_RECENT_SEARCH_ITEMS_START,
+          constants.FETCH_RECENT_SEARCH_ITEMS_SUCCESS,
+          constants.FETCH_RECENT_SEARCH_ITEMS_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: constants.RECENT_SEARCH_ITEMS_API_URL,
+            params: {
+              'officer_ids': [8562],
+              crids: ['271235'],
+              'trr_ids': [123],
+            },
+            adapter: null,
+            cancelToken: undefined,
+          },
+        },
+      });
+    });
+  });
+
+  describe('fetchedEmptyRecentSearchItems', function () {
+    it('should return right action', function () {
+      fetchedEmptyRecentSearchItems().should.eql({
+        type: constants.FETCHED_EMPTY_RECENT_SEARCH_ITEMS,
         payload: undefined,
       });
     });
