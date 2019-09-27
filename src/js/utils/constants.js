@@ -836,3 +836,5 @@ export const MODAL_VIDEO_INFO = {
   CHANNEL: 'vimeo',
   VIDEO_ID: '285002059',
 };
+
+export const HEADER_TOP_BAR_HEIGHT = 80;

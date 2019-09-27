@@ -13,7 +13,7 @@ import RecentDocumentContainer from 'containers/landing-page/recent-document';
 import OfficersByAllegationContainer from 'containers/landing-page/officers-by-allegation';
 import styles from './landing-page.sass';
 import SearchPageContainer from 'containers/search-page';
-import { calculatePosition, scrollToTop } from 'utils/dom';
+import { scrollToTop } from 'utils/dom';
 import { SEARCH_PATH } from 'utils/constants';
 
 
@@ -67,7 +67,6 @@ class LandingPage extends Component {
 
   render() {
     const pathname = get(this.props, 'location.pathname', '');
-    const position = calculatePosition(88);
     const searchPageShowing = this.getSearchPageShowing();
 
     return (
@@ -91,7 +90,6 @@ class LandingPage extends Component {
         </div>
         <SearchPageContainer
           hide={ !searchPageShowing }
-          position={ position }
           animationIn={ !this.initial && searchPageShowing && !this.previousSearchPageShowing }
         />
       </DocumentMeta>

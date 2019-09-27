@@ -16,6 +16,7 @@ import { showIntercomLauncher } from 'utils/intercom';
 import * as IntercomTracking from 'utils/intercom-tracking';
 import 'toast.css';
 import styles from './search-page.sass';
+import { calculateSlimHeaderPosition } from 'utils/dom';
 
 
 const DEFAULT_SUGGESTION_LIMIT = 9;
@@ -189,12 +190,13 @@ export default class SearchPage extends Component {
   }
 
   render() {
-    const aliasEditModeOn = this.props.location.pathname.startsWith(`/edit/${SEARCH_ALIAS_EDIT_PATH}`);
     const {
       hide, query, searchTermsHidden, contentType, tags,
       editModeOn, officerCards, requestActivityGrid,
-      changeSearchQuery, focusedItem, firstItem, trackRecentSuggestion, position, animationIn,
+      changeSearchQuery, focusedItem, firstItem, trackRecentSuggestion, animationIn, location,
     } = this.props;
+    const aliasEditModeOn = location.pathname.startsWith(`/edit/${SEARCH_ALIAS_EDIT_PATH}`);
+    const position = calculateSlimHeaderPosition();
 
     return (
       <div
@@ -276,7 +278,6 @@ SearchPage.propTypes = {
   toast: PropTypes.object,
   createPinboard: PropTypes.func,
   hide: PropTypes.bool,
-  position: PropTypes.string,
   animationIn: PropTypes.bool,
 };
 

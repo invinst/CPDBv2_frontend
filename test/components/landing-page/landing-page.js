@@ -143,7 +143,6 @@ describe('LandingPage component', function () {
     findRenderedComponentWithType(documentMeta, Footer).should.be.ok();
 
     const searchPage = findRenderedComponentWithType(instance, SearchPage);
-    searchPage.props.position.should.eql('top');
     searchPage.props.animationIn.should.be.false();
     searchPage.props.hide.should.be.true();
   });
@@ -169,7 +168,6 @@ describe('LandingPage component', function () {
     landingPageContent.getAttribute('class').should.containEql('hide').and.not.containEql('animation-in');
 
     const searchPage = findRenderedComponentWithType(instance, SearchPage);
-    searchPage.props.position.should.eql('top');
     searchPage.props.animationIn.should.be.false();
     searchPage.props.hide.should.be.false();
   });
@@ -194,7 +192,6 @@ describe('LandingPage component', function () {
     const searchPage = findRenderedComponentWithType(instance, SearchPage);
 
     landingPageContent.getAttribute('class').should.not.containEql('animation-in').and.not.containEql('hide');
-    searchPage.props.position.should.eql('top');
     searchPage.props.animationIn.should.be.false();
     searchPage.props.hide.should.be.true();
   });
@@ -220,7 +217,6 @@ describe('LandingPage component', function () {
     landingPageContent.getAttribute('class').should.containEql('hide').and.not.containEql('animation-in');
 
     const searchPage = findRenderedComponentWithType(instance, SearchPage);
-    searchPage.props.position.should.eql('top');
     searchPage.props.animationIn.should.be.false();
     searchPage.props.hide.should.be.false();
   });
@@ -246,7 +242,6 @@ describe('LandingPage component', function () {
     const searchPage = findRenderedComponentWithType(instance, SearchPage);
 
     landingPageContent.getAttribute('class').should.not.containEql('animation-in').and.not.containEql('hide');
-    searchPage.props.position.should.eql('top');
     searchPage.props.animationIn.should.be.false();
     searchPage.props.hide.should.be.true();
     scrollToTopStub.should.not.be.called();
@@ -269,7 +264,6 @@ describe('LandingPage component', function () {
     );
 
     landingPageContent.getAttribute('class').should.containEql('hide').and.not.containEql('animation-in');
-    searchPage.props.position.should.eql('top');
     searchPage.props.animationIn.should.be.true();
     searchPage.props.hide.should.be.false();
 
@@ -311,7 +305,6 @@ describe('LandingPage component', function () {
     const searchPage = findRenderedComponentWithType(instance, SearchPage);
 
     landingPageContent.getAttribute('class').should.containEql('hide').and.not.containEql('animation-in');
-    searchPage.props.position.should.eql('top');
     searchPage.props.animationIn.should.be.false();
     searchPage.props.hide.should.be.false();
     scrollToTopStub.should.not.be.called();
@@ -333,7 +326,6 @@ describe('LandingPage component', function () {
     );
 
     landingPageContent.getAttribute('class').should.containEql('animation-in').and.not.containEql('hide');
-    searchPage.props.position.should.eql('top');
     searchPage.props.animationIn.should.be.false();
     searchPage.props.hide.should.be.true();
 
@@ -367,7 +359,6 @@ describe('LandingPage component', function () {
     const searchPage = findRenderedComponentWithType(instance, SearchPage);
 
     landingPageContent.getAttribute('class').should.not.containEql('animation-in').and.not.containEql('hide');
-    searchPage.props.position.should.eql('top');
     searchPage.props.animationIn.should.be.false();
     searchPage.props.hide.should.be.true();
 
@@ -395,7 +386,6 @@ describe('LandingPage component', function () {
     );
 
     landingPageContent.getAttribute('class').should.containEql('hide').and.not.containEql('animation-in');
-    searchPage.props.position.should.eql('top');
     searchPage.props.animationIn.should.be.true();
     searchPage.props.hide.should.be.false();
 
@@ -424,7 +414,6 @@ describe('LandingPage component', function () {
     );
 
     landingPageContent.getAttribute('class').should.containEql('hide').and.not.containEql('animation-in');
-    searchPage.props.position.should.eql('top');
     searchPage.props.animationIn.should.be.false();
     searchPage.props.hide.should.be.false();
 
@@ -458,7 +447,6 @@ describe('LandingPage component', function () {
     const searchPage = findRenderedComponentWithType(instance, SearchPage);
 
     landingPageContent.getAttribute('class').should.not.containEql('animation-in').and.not.containEql('hide');
-    searchPage.props.position.should.eql('top');
     searchPage.props.animationIn.should.be.false();
     searchPage.props.hide.should.be.true();
     scrollToTopStub.should.not.be.called();
@@ -483,7 +471,6 @@ describe('LandingPage component', function () {
     );
 
     landingPageContent.getAttribute('class').should.not.containEql('animation-in').and.not.containEql('hide');
-    searchPage.props.position.should.eql('top');
     searchPage.props.animationIn.should.be.false();
     searchPage.props.hide.should.be.true();
 

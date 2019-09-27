@@ -1,5 +1,7 @@
 import { sumBy } from 'lodash';
 
+import { HEADER_TOP_BAR_HEIGHT } from 'utils/constants';
+
 // Disable scroll restoration feature from Chrome
 // which has undesirable behaviors for our SPA
 /* istanbul ignore next */
@@ -47,6 +49,10 @@ export function calculatePosition(offset = 0) {
   } else {
     return 'middle';
   }
+}
+
+export function calculateSlimHeaderPosition() {
+  return calculatePosition(HEADER_TOP_BAR_HEIGHT);
 }
 
 export function disableBodyScroll() {
