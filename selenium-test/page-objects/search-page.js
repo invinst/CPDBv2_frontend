@@ -141,6 +141,12 @@ class SearchPage extends Page {
       firstDateOfficerResult: '.test--suggestion-group .suggestion-item-DATE-OFFICERS-123',
       firstInvestigatorCrResult: '.test--suggestion-group .suggestion-item-INVESTIGATOR-CR-CR123456',
       firstSearchTermsResult: '.test--suggestion-group .suggestion-item-SEARCH-TERMS-community',
+      firstRecentPinButton:
+        '//a[contains(@class, "suggestion-item-TRR-123")]//span[starts-with(@class, "item-pin-button")]',
+      secondRecentPinButton:
+        '//a[contains(@class, "suggestion-item-CR-CR123")]//span[starts-with(@class, "item-pin-button")]',
+      thirdRecentPinButton:
+        '//a[contains(@class, "suggestion-item-OFFICER-1")]//span[starts-with(@class, "item-pin-button")]',
     });
   }
 
