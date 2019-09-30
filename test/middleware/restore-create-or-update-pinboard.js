@@ -765,25 +765,14 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
       Toastify.toast.resetHistory();
     });
 
-    it('should handle @@router/LOCATION_CHANGE with query to create pinboard but may not show toasts', function (done) {
-      const action = {
-        type: '@@router/LOCATION_CHANGE',
-        payload: {
-          query: {
-            'officer-ids': '1,3,4,5',
-            crids: '1053673',
-            'trr-ids': '1,2',
-          },
-          pathname: '/pinboard/?officer-ids=1,3,4,5&crids=1053673&trr-ids=1,2',
-        },
-      };
+    const testCreatePinboardWith = (action, pathname, done) => {
       const store = createStore(
         PinboardFactory.build({
           'id': null,
           'officer_ids': [],
           'saving': false,
         }),
-        '/pinboard/?officer-ids=1,3,4,5&crids=1053673&trr-ids=1,2',
+        pathname,
         {
           payload: {
             id: 'abc123',
@@ -812,9 +801,26 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
         },
         50,
       );
+    };
+
+    it('should handle @@router/LOCATION_CHANGE with query to create pinboard but may not show toasts', function (done) {
+      const pathname = '/pinboard/?officer-ids=1,3,4,5&crids=1053673&trr-ids=1,2';
+      const action = {
+        type: '@@router/LOCATION_CHANGE',
+        payload: {
+          query: {
+            'officer-ids': '1,3,4,5',
+            crids: '1053673',
+            'trr-ids': '1,2',
+          },
+          pathname,
+        },
+      };
+      testCreatePinboardWith(action, pathname, done);
     });
 
     it('should accept params without s', function (done) {
+      const pathname = '/pinboard/?officer-id=1,3,4,5&crid=1053673&trr-id=1,2';
       const action = {
         type: '@@router/LOCATION_CHANGE',
         payload: {
@@ -823,46 +829,14 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
             crid: '1053673',
             'trr-id': '1,2',
           },
-          pathname: '/pinboard/?officer-id=1,3,4,5&crid=1053673&trr-id=1,2',
+          pathname,
         },
       };
-      const store = createStore(
-        PinboardFactory.build({
-          'id': null,
-          'officer_ids': [],
-          'saving': false,
-        }),
-        '/pinboard/?officer-id=1,3,4,5&crid=1053673&trr_id=1,2',
-        {
-          payload: {
-            id: 'abc123',
-            'officer_ids': [1, 3, 4, 5],
-            crids: ['1053673'],
-            'trr_ids': [1, 2],
-          },
-        },
-      );
-
-      let dispatched;
-      restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
-      dispatched.should.eql(action);
-
-      store.dispatch.should.be.calledWith(createPinboard({
-        officerIds: [1, 3, 4, 5],
-        crids: ['1053673'],
-        trrIds: [1, 2],
-      }));
-
-      setTimeout(
-        () => {
-          Toastify.toast.should.not.be.called();
-          done();
-        },
-        50,
-      );
+      testCreatePinboardWith(action, pathname, done);
     });
 
     it('should accept params with under score', function (done) {
+      const pathname = '/pinboard/?officer_ids=1,3,4,5&crid=1053673&trr_ids=1,2';
       const action = {
         type: '@@router/LOCATION_CHANGE',
         payload: {
@@ -871,46 +845,14 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
             crid: '1053673',
             'trr_ids': '1,2',
           },
-          pathname: '/pinboard/?officer_ids=1,3,4,5&crid=1053673&trr_ids=1,2',
+          pathname,
         },
       };
-      const store = createStore(
-        PinboardFactory.build({
-          'id': null,
-          'officer_ids': [],
-          'saving': false,
-        }),
-        '/pinboard/?officer_ids=1,3,4,5&crid=1053673&trr_ids=1,2',
-        {
-          payload: {
-            id: 'abc123',
-            'officer_ids': [1, 3, 4, 5],
-            crids: ['1053673'],
-            'trr_ids': [1, 2],
-          },
-        },
-      );
-
-      let dispatched;
-      restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
-      dispatched.should.eql(action);
-
-      store.dispatch.should.be.calledWith(createPinboard({
-        officerIds: [1, 3, 4, 5],
-        crids: ['1053673'],
-        trrIds: [1, 2],
-      }));
-
-      setTimeout(
-        () => {
-          Toastify.toast.should.not.be.called();
-          done();
-        },
-        50,
-      );
+      testCreatePinboardWith(action, pathname, done);
     });
 
     it('should accept camelCase params', function (done) {
+      const pathname = '/pinboard/?officerId=1,3,4,5&crids=1053673&trrIds=1,2';
       const action = {
         type: '@@router/LOCATION_CHANGE',
         payload: {
@@ -919,46 +861,14 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
             crids: '1053673',
             'trrIds': '1,2',
           },
-          pathname: '/pinboard/?officerId=1,3,4,5&crids=1053673&trrIds=1,2',
+          pathname,
         },
       };
-      const store = createStore(
-        PinboardFactory.build({
-          'id': null,
-          'officer_ids': [],
-          'saving': false,
-        }),
-        '/pinboard/?officerId=1,3,4,5&crids=1053673&trrIds=1,2',
-        {
-          payload: {
-            id: 'abc123',
-            'officer_ids': [1, 3, 4, 5],
-            crids: ['1053673'],
-            'trr_ids': [1, 2],
-          },
-        },
-      );
-
-      let dispatched;
-      restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
-      dispatched.should.eql(action);
-
-      store.dispatch.should.be.calledWith(createPinboard({
-        officerIds: [1, 3, 4, 5],
-        crids: ['1053673'],
-        trrIds: [1, 2],
-      }));
-
-      setTimeout(
-        () => {
-          Toastify.toast.should.not.be.called();
-          done();
-        },
-        50,
-      );
+      testCreatePinboardWith(action, pathname, done);
     });
 
     it('should accept params with some capitalizing mistakes', function (done) {
+      const pathname = '/pinboard/?officeR-ids=1,3,4,5&CRids=1053673&tRRIds=1,2';
       const action = {
         type: '@@router/LOCATION_CHANGE',
         payload: {
@@ -967,43 +877,10 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
             CRids: '1053673',
             'tRRIds': '1,2',
           },
-          pathname: '/pinboard/?officeR-ids=1,3,4,5&CRids=1053673&tRRIds=1,2',
+          pathname,
         },
       };
-      const store = createStore(
-        PinboardFactory.build({
-          'id': null,
-          'officer_ids': [],
-          'saving': false,
-        }),
-        '/pinboard/?officeR-ids=1,3,4,5&CRids=1053673&tRRIds=1,2',
-        {
-          payload: {
-            id: 'abc123',
-            'officer_ids': [1, 3, 4, 5],
-            crids: ['1053673'],
-            'trr_ids': [1, 2],
-          },
-        },
-      );
-
-      let dispatched;
-      restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
-      dispatched.should.eql(action);
-
-      store.dispatch.should.be.calledWith(createPinboard({
-        officerIds: [1, 3, 4, 5],
-        crids: ['1053673'],
-        trrIds: [1, 2],
-      }));
-
-      setTimeout(
-        () => {
-          Toastify.toast.should.not.be.called();
-          done();
-        },
-        50,
-      );
+      testCreatePinboardWith(action, pathname, done);
     });
 
     it('should handle @@router/LOCATION_CHANGE to create pinboard and show toast', function (done) {
@@ -1069,6 +946,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
     });
 
     it('should skip invalid param and show invalid param message', function (done) {
+      const pathname = '/pinboard/?officer-ids=1&crids=xyz567,1053673,tyu890&trr-ids=3,99&invalid-param=1,2';
       const action = {
         type: '@@router/LOCATION_CHANGE',
         payload: {
@@ -1078,7 +956,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
             'trr-ids': '3,99',
             'invalid-param': '1,2',
           },
-          pathname: '/pinboard/?officer-ids=1&crids=xyz567,1053673,tyu890&trr-ids=3,99&invalid-param=1,2',
+          pathname,
         },
       };
       const store = createStore(
@@ -1086,7 +964,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
           'id': null,
           'saving': false,
         }),
-        '/pinboard/?officer-ids=1&crids=xyz567,1053673,tyu890&trr-ids=3,99&invalid-param=1,2',
+        pathname,
         {
           payload: {
             id: 'abc123',
@@ -1130,6 +1008,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
     });
 
     it('should skip invalid params and show invalid params message', function (done) {
+      const pathname = '/pinboard/?officer-ids=1&crids=xyz567,1053673,tyu890&invalid-param-a=1,2&invalid-param-b=2,1';
       const action = {
         type: '@@router/LOCATION_CHANGE',
         payload: {
@@ -1139,7 +1018,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
             'invalid-param-a': '1,2',
             'invalid-param-b': '2,1',
           },
-          pathname: '/pinboard/?officer-ids=1&crids=xyz567,1053673,tyu890&invalid-param-a=1,2&invalid-param-b=2,1',
+          pathname,
         },
       };
       const store = createStore(
@@ -1147,7 +1026,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
           'id': null,
           'saving': false,
         }),
-        '/pinboard/?officer-ids=1&crids=xyz567,1053673,tyu890&invalid-param-a=1,2&invalid-param-b=2,1',
+        pathname,
         {
           payload: {
             id: 'abc123',
@@ -1188,6 +1067,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
     });
 
     it('should fetchLatestRetrievedPinboard and show redirect message if no valid params', function (done) {
+      const pathname = '/pinboard/?invalid-param-a=1,2&invalid-param-a=2,1';
       const action = {
         type: '@@router/LOCATION_CHANGE',
         payload: {
@@ -1195,7 +1075,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
             'invalid-param-a': '1,2',
             'invalid-param-b': '2,1',
           },
-          pathname: '/pinboard/?invalid-param-a=1,2&invalid-param-a=2,1',
+          pathname,
         },
       };
       const store = createStore(
@@ -1203,7 +1083,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
           'id': null,
           'saving': false,
         }),
-        '/pinboard/?invalid-param-a=1,2&invalid-param-a=2,1',
+        pathname,
         {
           payload: {
             id: 'abc123',
