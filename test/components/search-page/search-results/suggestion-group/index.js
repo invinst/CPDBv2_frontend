@@ -99,6 +99,7 @@ describe('SuggestionGroup component', function () {
     );
     const infiniteScroll = findRenderedComponentWithType(instance, InfiniteScroll);
     infiniteScroll.props.useWindow.should.be.true();
+    infiniteScroll.props.initialLoad.should.be.true();
     infiniteScroll.props.loadMore();
     getSuggestionWithContentType.calledWith(searchText, nextParams).should.be.true();
   });

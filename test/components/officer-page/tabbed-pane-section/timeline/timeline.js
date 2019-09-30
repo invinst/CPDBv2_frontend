@@ -30,7 +30,7 @@ describe('Timeline component', function () {
     findRenderedDOMComponentWithClass(instance, 'unit-header').textContent.should.containEql('UNIT');
     const contentHeader = findRenderedDOMComponentWithClass(instance, 'showing-content-header');
     contentHeader.textContent.should.containEql('SHOWING');
-    contentHeader.textContent.should.containEql('ALL');
+    contentHeader.textContent.should.containEql('All');
     findRenderedDOMComponentWithClass(instance, 'date-header').textContent.should.containEql('DATE');
   });
 
@@ -61,9 +61,9 @@ describe('Timeline component', function () {
       <Timeline selectedFilter={ NEW_TIMELINE_FILTERS.ALL }/>
     );
     const dropdown = findRenderedComponentWithType(instance, Dropdown);
-    dropdown.props.defaultValue.should.eql('ALL');
+    dropdown.props.defaultValue.should.eql('All');
     dropdown.props.options.should.eql([
-      'ALL', 'COMPLAINTS', 'SUSTAINED', 'USE OF FORCE', 'AWARDS', 'RANK/UNIT CHANGES',
+      'All', 'Complaints', 'Sustained', 'Use Of Force', 'Awards', 'Rank/Unit Changes',
     ]);
   });
 
@@ -82,7 +82,7 @@ describe('Timeline component', function () {
     Simulate.click(options[0]);
 
     changeFilterStub.calledWith({
-      label: 'COMPLAINTS',
+      label: 'Complaints',
       kind: ['CR'],
     }).should.be.true();
   });

@@ -3,7 +3,7 @@ import { stub } from 'sinon';
 import {
   isEmptySelector, suggestionTagsSelector, searchResultGroupsSelector,
   hasMoreSelector, nextParamsSelector, isShowingSingleContentTypeSelector,
-  firstItemSelector,
+  firstItemSelector, queryPrefixSelector,
 } from 'selectors/search-page/search-results/suggestion-groups';
 import { RawOfficerSuggestion, RawCRSuggestion, RawTRRSuggestion } from 'utils/test/factories/suggestion';
 import * as v1UrlUtils from 'utils/v1-url';
@@ -983,6 +983,17 @@ describe('search page results selector', function () {
           ],
         }],
       }]);
+    });
+  });
+
+  describe('queryPrefixSelector', function () {
+    it('should return correct query prefix', function () {
+      const state = {
+        searchPage: {
+          contentType: 'DATE > OFFICERS',
+        },
+      };
+      queryPrefixSelector(state).should.equal('date-officers');
     });
   });
 

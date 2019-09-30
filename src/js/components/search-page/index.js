@@ -33,19 +33,18 @@ export default class SearchPage extends Component {
     this.resetNavigation = this.resetNavigation.bind(this);
 
     this.getSuggestion = debounce(this.props.getSuggestion, 100);
-    this.getSuggestionWithContentType = debounce(this.props.getSuggestionWithContentType, 100);
     this.handleEmptyPinboardButtonClick = this.handleEmptyPinboardButtonClick.bind(this);
   }
 
   componentDidMount() {
-    const { query, contentType, hide } = this.props;
+    const { query, hide } = this.props;
 
     if (!hide) {
       LayeredKeyBinding.bind('esc', this.handleGoBack);
       LayeredKeyBinding.bind('enter', this.handleViewItem);
     }
 
-    this.sendSearchQuery(query, contentType);
+    this.sendSearchQuery(query);
 
     IntercomTracking.trackSearchPage();
     showIntercomLauncher(false);
@@ -53,19 +52,15 @@ export default class SearchPage extends Component {
 
   componentWillReceiveProps(nextProps) {
     const {
-      query, isRequesting, isEmpty, contentType, selectTag,
+      query, isRequesting, isEmpty,
     } = nextProps;
 
     const queryChanged = query !== this.props.query;
     const suggestionGroupsEmpty = !this.props.isEmpty && isEmpty;
 
     if (!isRequesting && (queryChanged || suggestionGroupsEmpty)) {
-      this.sendSearchQuery(query, contentType);
+      this.sendSearchQuery(query);
     }
-
-    if (!isRequesting && suggestionGroupsEmpty)
-      selectTag(null);
-
 
     this.handleToastChange(nextProps);
   }
@@ -112,13 +107,9 @@ export default class SearchPage extends Component {
     });
   }
 
-  sendSearchQuery(query, contentType) {
+  sendSearchQuery(query) {
     if (query) {
-      if (contentType) {
-        this.getSuggestionWithContentType(query, { contentType });
-      } else {
-        this.getSuggestion(query, { limit: DEFAULT_SUGGESTION_LIMIT });
-      }
+      this.getSuggestion(query, { limit: DEFAULT_SUGGESTION_LIMIT });
     }
   }
 
@@ -153,14 +144,9 @@ export default class SearchPage extends Component {
   }
 
   handleChange({ currentTarget: { value } }) {
-    const { changeSearchQuery, selectTag } = this.props;
+    const { changeSearchQuery } = this.props;
 
     changeSearchQuery(value);
-    selectTag(null);
-
-    if (value) {
-      this.getSuggestion(value, { limit: DEFAULT_SUGGESTION_LIMIT });
-    }
   }
 
   handleGoBack(e) {
@@ -197,10 +183,12 @@ export default class SearchPage extends Component {
   render() {
     const aliasEditModeOn = this.props.location.pathname.startsWith(`/edit/${SEARCH_ALIAS_EDIT_PATH}`);
     const {
-      hide, query, searchTermsHidden, contentType, tags,
+      hide, query, queryPrefix, searchTermsHidden, contentType, tags,
       editModeOn, officerCards, requestActivityGrid,
       changeSearchQuery, focusedItem, firstItem, saveToRecent, position, animationIn,
     } = this.props;
+
+    const searchText = `${queryPrefix ? `${queryPrefix}:` : ''}${query}`;
 
     return (
       <div
@@ -216,7 +204,7 @@ export default class SearchPage extends Component {
               onEscape={ this.handleGoBack }
               onChange={ this.handleChange }
               firstSuggestionItem={ firstItem }
-              value={ query }
+              value={ searchText }
               searchTermsHidden={ searchTermsHidden }
               changeSearchQuery={ changeSearchQuery }
               focused={ !hide && focusedItem.uniqueKey === SEARCH_BOX }
@@ -261,9 +249,9 @@ SearchPage.propTypes = {
   }),
   focusedItem: PropTypes.object,
   getSuggestion: PropTypes.func,
-  getSuggestionWithContentType: PropTypes.func,
   selectTag: PropTypes.func,
   contentType: PropTypes.string,
+  queryPrefix: PropTypes.string,
   isEmpty: PropTypes.bool,
   router: PropTypes.object,
   query: PropTypes.string,
@@ -291,7 +279,6 @@ SearchPage.defaultProps = {
   contentType: null,
   focusedItem: {},
   getSuggestion: () => new Promise(noop),
-  getSuggestionWithContentType: () => new Promise(noop),
   changeSearchQuery: noop,
   location: {
     pathname: '/',

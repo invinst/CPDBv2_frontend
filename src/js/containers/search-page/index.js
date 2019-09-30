@@ -8,7 +8,6 @@ import {
   toggleSearchMode,
   resetNavigation as resetSearchResultNavigation,
   changeSearchQuery,
-  getSuggestionWithContentType,
   saveToRecent,
 } from 'actions/search-page';
 import { createPinboard } from 'actions/pinboard';
@@ -17,7 +16,7 @@ import {
 } from 'actions/search-page/search-terms';
 import { getFocusedItem } from 'selectors/search-page';
 import {
-  suggestionTagsSelector, isEmptySelector, firstItemSelector,
+  suggestionTagsSelector, isEmptySelector, firstItemSelector, queryPrefixSelector,
 } from 'selectors/search-page/search-results/suggestion-groups';
 import { hiddenSelector } from 'selectors/search-page/search-terms';
 import { singleCardsSelector } from 'selectors/landing-page/activity-grid';
@@ -36,6 +35,7 @@ function mapStateToProps(state, ownProps) {
   return {
     isRequesting,
     query,
+    queryPrefix: queryPrefixSelector(state),
     children,
     hide,
     tags: suggestionTagsSelector(state),
@@ -53,7 +53,6 @@ function mapStateToProps(state, ownProps) {
 
 const mapDispatchToProps = {
   getSuggestion,
-  getSuggestionWithContentType,
   selectTag,
   toggleSearchMode,
   saveToRecent,

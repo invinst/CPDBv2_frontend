@@ -17,6 +17,12 @@ const getSuggestionTags = state => state.searchPage.tags;
 const getSuggestionContentType = state => state.searchPage.contentType;
 const getPagination = state => state.searchPage.pagination;
 
+
+export const queryPrefixSelector = createSelector(
+  getSuggestionContentType,
+  (contentType) => constants.SEARCH_CATEGORY_PREFIXES[contentType],
+);
+
 export const suggestionTagsSelector = createSelector(
   getSuggestionTags,
   getQuery,

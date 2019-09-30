@@ -4,7 +4,6 @@ import { Router, createMemoryHistory, Route, browserHistory } from 'react-router
 import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
-  findRenderedDOMComponentWithTag,
   renderIntoDocument,
   scryRenderedDOMComponentsWithTag,
   Simulate,
@@ -66,81 +65,30 @@ describe('SearchPage component', function () {
     this.debounceStub.restore();
   });
 
-  it('should call get suggestion api when change search input', function () {
-    const getSuggestion = stub().returns({ catch: spy() });
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchPage getSuggestion={ getSuggestion } />
-      </Provider>
-    );
-    const searchInput = findRenderedDOMComponentWithTag(instance, 'input');
-    searchInput.value = 'a';
-
-    Simulate.change(searchInput);
-
-    getSuggestion.should.be.calledWith('a', { limit: 9 });
-  });
-
   it('should not call get suggestion api when query is empty', function () {
     const getSuggestionSpy = stub().returns({ catch: spy() });
-    const getSuggestionWithContentTypeSpy = stub().returns({ catch: spy() });
     instance = renderIntoDocument(
       <Provider store={ store }>
         <SearchPage
           getSuggestion={ getSuggestionSpy }
-          getSuggestionWithContentType={ getSuggestionWithContentTypeSpy }
           query=''
         />
       </Provider>
     );
     getSuggestionSpy.should.not.be.called();
-    getSuggestionWithContentTypeSpy.should.not.be.called();
   });
 
   it('should call get suggestion api when query is set', function () {
     const getSuggestionSpy = stub().returns({ catch: spy() });
-    const getSuggestionWithContentTypeSpy = stub().returns({ catch: spy() });
     instance = renderIntoDocument(
       <Provider store={ store }>
         <SearchPage
           getSuggestion={ getSuggestionSpy }
-          getSuggestionWithContentType={ getSuggestionWithContentTypeSpy }
           query='a'
         />
       </Provider>
     );
     getSuggestionSpy.should.be.calledWith('a', { limit: 9 });
-    getSuggestionWithContentTypeSpy.should.not.be.called();
-  });
-
-  it('should call get suggestion api with contentType when query and contentType not empty', function () {
-    const getSuggestionSpy = stub().returns({ catch: spy() });
-    const getSuggestionWithContentTypeSpy = stub().returns({ catch: spy() });
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchPage
-          getSuggestion={ getSuggestionSpy }
-          getSuggestionWithContentType={ getSuggestionWithContentTypeSpy }
-          query='a'
-          contentType='OFFICER'
-        />
-      </Provider>
-    );
-    getSuggestionSpy.should.not.be.called();
-    getSuggestionWithContentTypeSpy.should.be.calledWith('a', { contentType: 'OFFICER' });
-  });
-
-  it('should clear all tags when user remove all text', function () {
-    const selectTag = spy();
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchPage selectTag={ selectTag } />
-      </Provider>
-    );
-    const searchInput = findRenderedDOMComponentWithTag(instance, 'input');
-    searchInput.value = '';
-    Simulate.change(searchInput);
-    selectTag.calledWith(null).should.be.true();
   });
 
   it('should call browserHistory.push when user click on searchbar__button--back', function () {
@@ -274,6 +222,16 @@ describe('SearchPage component', function () {
     this.browserHistoryPush.called.should.be.false();
   });
 
+  it('should change the search box with correct text if there is queryPrefix', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <SearchPage query='jerome' queryPrefix='officer'/>
+      </Provider>
+    );
+    const searchBox = findRenderedComponentWithType(instance, SearchBox);
+    searchBox.props.value.should.eql('officer:jerome');
+  });
+
   describe('handleViewItem', function () {
     it('should use browserHistory.push() if visiting focused item with internal link', function () {
       instance = renderIntoDocument(
@@ -398,38 +356,6 @@ describe('SearchPage component', function () {
       resetSearchResultNavigation.calledWith(1).should.be.true();
     });
 
-  it('should deselect tag and call getSuggestion when the selected tag has no data', function () {
-    const selectTagSpy = spy();
-    const getSuggestionSpy = stub().returns({ catch: spy() });
-
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchPage
-          suggestionGroups={ ['abc'] }
-          isEmpty={ false }
-          selectTag={ selectTagSpy }
-          getSuggestion={ getSuggestionSpy } />
-      </Provider>
-    );
-    selectTagSpy.resetHistory();
-    getSuggestionSpy.resetHistory();
-
-    reRender(
-      <Provider store={ store }>
-        <SearchPage
-          suggestionGroups={ [] }
-          isEmpty={ true }
-          query='abc'
-          selectTag={ selectTagSpy }
-          getSuggestion={ getSuggestionSpy } />
-      </Provider>,
-      instance
-    );
-
-    selectTagSpy.calledWith(null).should.be.true();
-    getSuggestionSpy.calledWith('abc', { limit: 9 }).should.be.true();
-  });
-
   it('should not deselect tag and call getSuggestion while requesting', function () {
     const selectTagSpy = spy();
     const getSuggestionSpy = stub().returns({ catch: spy() });
@@ -496,45 +422,6 @@ describe('SearchPage component', function () {
 
     selectTagSpy.should.not.be.called();
     getSuggestionSpy.calledWith('abc', { limit: 9 }).should.be.true();
-  });
-
-  it('should call getSuggestionWithType when query changed and contentType is set', function () {
-    const selectTagSpy = spy();
-    const getSuggestionSpy = stub().returns({ catch: spy() });
-    const getSuggestionWithContentTypeSpy = stub().returns({ catch: spy() });
-
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchPage
-          suggestionGroups={ ['abc'] }
-          isEmpty={ false }
-          isRequesting={ false }
-          selectTag={ selectTagSpy }
-          getSuggestion={ getSuggestionSpy }
-          getSuggestionWithContentType={ getSuggestionWithContentTypeSpy } />
-      </Provider>
-    );
-    selectTagSpy.resetHistory();
-    getSuggestionSpy.resetHistory();
-
-    reRender(
-      <Provider store={ store }>
-        <SearchPage
-          suggestionGroups={ ['abc'] }
-          isEmpty={ false }
-          isRequesting={ false }
-          contentType='OFFICER'
-          query='abc'
-          selectTag={ selectTagSpy }
-          getSuggestion={ getSuggestionSpy }
-          getSuggestionWithContentType={ getSuggestionWithContentTypeSpy } />
-      </Provider>,
-      instance
-    );
-
-    selectTagSpy.should.not.be.called();
-    getSuggestionSpy.should.not.be.called();
-    getSuggestionWithContentTypeSpy.calledWith('abc', { contentType: 'OFFICER' }).should.be.true();
   });
 
   it('should not call api when query changed to emtpy', function () {

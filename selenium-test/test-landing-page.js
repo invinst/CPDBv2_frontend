@@ -103,6 +103,7 @@ describe('landing page', function () {
     });
 
     it('should expand search input when clicking on search box', function () {
+      const SEARCH_INPUT_WIDTH_AFTER_EXPAND = 893;
       const searchBox = landingPage.header.navBar.searchBox;
 
       searchBox.mainElement.getCSSProperty('width').value.should.equal('512px');
@@ -111,11 +112,11 @@ describe('landing page', function () {
 
       const beginningWidthString = searchPage.input.getCSSProperty('width').value;
       const beginningWidth = parseFloat(beginningWidthString.slice(0, beginningWidthString.length - 2));
-      beginningWidth.should.aboveOrEqual(512).and.below(900);
+      beginningWidth.should.aboveOrEqual(512).and.below(SEARCH_INPUT_WIDTH_AFTER_EXPAND);
 
       searchPage.input.waitForCSSProperty(
         'width',
-        value => parseFloat(value.slice(0, value.length - 2)) === 893,
+        value => parseFloat(value.slice(0, value.length - 2)) === SEARCH_INPUT_WIDTH_AFTER_EXPAND,
         1000
       );
     });
