@@ -1,7 +1,7 @@
 import { Promise } from 'es6-promise';
 import { stub } from 'sinon';
 
-import restorePinboardSession from 'middleware/restore-pinboard-session';
+import restorePinboardSession from 'middleware/restore-create-or-update-pinboard';
 import { fetchLatestRetrievedPinboard } from 'actions/pinboard';
 import extractQuery from 'utils/extract-query';
 

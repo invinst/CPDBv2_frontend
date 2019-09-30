@@ -1,7 +1,7 @@
 import { Promise } from 'es6-promise';
 import { stub, useFakeTimers } from 'sinon';
 
-import createOrUpdatePinboard from 'middleware/create-or-update-pinboard';
+import restoreCreateOrUpdatePinboard from 'middleware/restore-create-or-update-pinboard';
 import * as constants from 'utils/constants';
 import {
   createPinboard,
@@ -26,7 +26,7 @@ import PinboardFactory from 'utils/test/factories/pinboard';
 import { Toastify } from 'utils/vendors';
 
 
-describe('createOrUpdatePinboard middleware', function () {
+describe('restoreCreateOrUpdatePinboard middleware', function () {
   const createStore = (pinboard, pathname='', dispatchResults='abc') => ({
     getState: () => {
       return {
@@ -61,7 +61,7 @@ describe('createOrUpdatePinboard middleware', function () {
     const store = createStore();
     let dispatched;
 
-    createOrUpdatePinboard(store)(action => dispatched = action)(action);
+    restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
     store.dispatch.called.should.be.false();
   });
@@ -77,7 +77,7 @@ describe('createOrUpdatePinboard middleware', function () {
     };
     const store = createStore(PinboardFactory.build());
     let dispatched;
-    createOrUpdatePinboard(store)(action => dispatched = action)(action);
+    restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
 
     store.dispatch.should.be.calledWith(updatePinboardInfoState({
@@ -106,7 +106,7 @@ describe('createOrUpdatePinboard middleware', function () {
     const store = createStore(PinboardFactory.build());
 
     let dispatched;
-    createOrUpdatePinboard(store)(action => dispatched = action)(action);
+    restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
 
     store.dispatch.should.be.calledWith(orderPinboardState({
@@ -135,7 +135,7 @@ describe('createOrUpdatePinboard middleware', function () {
     const store = createStore(PinboardFactory.build());
 
     let dispatched;
-    createOrUpdatePinboard(store)(action => dispatched = action)(action);
+    restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
 
     store.dispatch.should.be.calledWith(addItemToPinboardState({
@@ -165,7 +165,7 @@ describe('createOrUpdatePinboard middleware', function () {
     const store = createStore(PinboardFactory.build());
 
     let dispatched;
-    createOrUpdatePinboard(store)(action => dispatched = action)(action);
+    restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
 
     store.dispatch.should.be.calledWith(removeItemFromPinboardState({
@@ -194,7 +194,7 @@ describe('createOrUpdatePinboard middleware', function () {
     const store = createStore(PinboardFactory.build());
 
     let dispatched;
-    createOrUpdatePinboard(store)(action => dispatched = action)(action);
+    restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
 
     store.dispatch.should.be.calledWith(addItemToPinboardState({
@@ -222,7 +222,7 @@ describe('createOrUpdatePinboard middleware', function () {
     const store = createStore(PinboardFactory.build());
 
     let dispatched;
-    createOrUpdatePinboard(store)(action => dispatched = action)(action);
+    restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
 
     store.dispatch.should.be.calledWith(removeItemFromPinboardState({
@@ -251,7 +251,7 @@ describe('createOrUpdatePinboard middleware', function () {
     const store = createStore(PinboardFactory.build());
 
     let dispatched;
-    createOrUpdatePinboard(store)(action => dispatched = action)(action);
+    restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
 
     store.dispatch.should.be.calledWith(handleRemovingItemInPinboardPage({
@@ -281,7 +281,7 @@ describe('createOrUpdatePinboard middleware', function () {
     const store = createStore(PinboardFactory.build());
 
     let dispatched;
-    createOrUpdatePinboard(store)(action => dispatched = action)(action);
+    restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
 
     store.dispatch.should.be.calledWith(removeItemFromPinboardState(action.payload));
@@ -336,7 +336,7 @@ describe('createOrUpdatePinboard middleware', function () {
     };
 
     let dispatched;
-    createOrUpdatePinboard(store)(action => dispatched = action)(action);
+    restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
 
     store.dispatch.should.be.calledWith(updatePinboard({
@@ -379,7 +379,7 @@ describe('createOrUpdatePinboard middleware', function () {
       }));
 
       let dispatched;
-      createOrUpdatePinboard(store)(action => dispatched = action)(action);
+      restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
       dispatched.should.eql(action);
 
       store.dispatch.should.be.calledWith(createPinboard({
@@ -412,7 +412,7 @@ describe('createOrUpdatePinboard middleware', function () {
       }));
 
       let dispatched;
-      createOrUpdatePinboard(store)(action => dispatched = action)(action);
+      restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
       dispatched.should.eql(action);
 
       store.dispatch.should.be.calledWith(updatePinboard({
@@ -445,7 +445,7 @@ describe('createOrUpdatePinboard middleware', function () {
       }));
 
       let dispatched;
-      createOrUpdatePinboard(store)(action => dispatched = action)(action);
+      restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
       dispatched.should.eql(action);
 
       store.dispatch.should.not.be.called();
@@ -466,7 +466,7 @@ describe('createOrUpdatePinboard middleware', function () {
       }));
 
       let dispatched;
-      createOrUpdatePinboard(store)(action => dispatched = action)(action);
+      restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
       dispatched.should.eql(action);
 
       store.dispatch.should.be.called();
@@ -503,7 +503,7 @@ describe('createOrUpdatePinboard middleware', function () {
       }));
 
       let dispatched;
-      createOrUpdatePinboard(store)(action => dispatched = action)(action);
+      restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
       dispatched.should.eql(action);
 
       store.dispatch.should.not.be.called();
@@ -528,7 +528,7 @@ describe('createOrUpdatePinboard middleware', function () {
       );
 
       let dispatched;
-      createOrUpdatePinboard(store)(action => dispatched = action)(action);
+      restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
       dispatched.should.eql(action);
 
       store.dispatch.should.be.calledWith(fetchPinboardSocialGraph('66ef1560'));
@@ -580,7 +580,7 @@ describe('createOrUpdatePinboard middleware', function () {
       const clock = useFakeTimers();
 
       let dispatched;
-      createOrUpdatePinboard(store)(action => dispatched = action)(action);
+      restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
       dispatched.should.eql(action);
 
       store.dispatch.should.be.calledOnce();
@@ -627,7 +627,7 @@ describe('createOrUpdatePinboard middleware', function () {
         dispatch: stub().usingPromise(Promise).resolves('abc'),
       };
 
-      createOrUpdatePinboard(store)(action => action)(action);
+      restoreCreateOrUpdatePinboard(store)(action => action)(action);
 
       const failingStore = {
         getState: () => {
@@ -649,7 +649,7 @@ describe('createOrUpdatePinboard middleware', function () {
 
       function repeatSave(count) {
         if (count < 61) {
-          createOrUpdatePinboard(failingStore)(action => action)(action);
+          restoreCreateOrUpdatePinboard(failingStore)(action => action)(action);
           realSetTimeout(
             () => {
               clock.tick(2000);
@@ -680,7 +680,7 @@ describe('createOrUpdatePinboard middleware', function () {
     }));
 
     let dispatched;
-    createOrUpdatePinboard(store)(action => dispatched = action)(action);
+    restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
 
     store.dispatch.should.be.calledWith(createPinboard({
@@ -713,7 +713,7 @@ describe('createOrUpdatePinboard middleware', function () {
     }));
 
     let dispatched;
-    createOrUpdatePinboard(store)(action => dispatched = action)(action);
+    restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
 
     store.dispatch.should.be.calledWith(updatePinboard({
@@ -746,7 +746,7 @@ describe('createOrUpdatePinboard middleware', function () {
     }));
 
     let dispatched;
-    createOrUpdatePinboard(store)(action => dispatched = action)(action);
+    restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
 
     store.dispatch.should.not.be.called();
@@ -781,7 +781,7 @@ describe('createOrUpdatePinboard middleware', function () {
     );
 
     let dispatched;
-    createOrUpdatePinboard(store)(action => dispatched = action)(action);
+    restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
 
     store.dispatch.should.be.calledWith(createPinboard({
@@ -836,7 +836,7 @@ describe('createOrUpdatePinboard middleware', function () {
     );
 
     let dispatched;
-    createOrUpdatePinboard(store)(action => dispatched = action)(action);
+    restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
 
     store.dispatch.should.be.calledWith(createPinboard({
