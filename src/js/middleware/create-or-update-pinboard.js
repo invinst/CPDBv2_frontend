@@ -39,11 +39,23 @@ import pinboardStyles from 'components/pinboard-page/pinboard-page.sass';
 
 
 const getIds = (query, key) => _.get(query, key, '').split(',').filter(_.identity);
-const getPinboardFromQuery = (query) => ({
-  'officerIds': getIds(query, 'officer-ids').map(id => parseInt(id)),
-  'crids': getIds(query, 'crids'),
-  'trrIds': getIds(query, 'trr-ids').map(id => parseInt(id)),
-});
+const isParam = (param, validators) => validators.includes(_.toLower(_.camelCase(param)));
+
+const getPinboardFromQuery = (query) => {
+  const result = {};
+  _.keys(query).forEach(param => {
+    if (isParam(param, ['officerid', 'officerids'])) {
+      result.officerIds = getIds(query, param).map(id => parseInt(id));
+    }
+    if (isParam(param, ['crid', 'crids'])) {
+      result.crids = getIds(query, param);
+    }
+    if (isParam(param, ['trrid', 'trrids'])) {
+      result.trrIds = getIds(query, param).map(id => parseInt(id));
+    }
+  });
+  return result;
+};
 
 const getRequestPinboard = (state, pinboard=undefined) => {
   if (pinboard === undefined) {
