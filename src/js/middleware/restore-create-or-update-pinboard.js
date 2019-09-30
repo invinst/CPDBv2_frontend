@@ -45,7 +45,11 @@ const isParam = (param, validators) => validators.includes(_.toLower(_.camelCase
 
 const getPinboardFromQuery = (query) => {
   const invalidParams = [];
-  const pinboardFromQuery = {};
+  const pinboardFromQuery = {
+    officerIds: [],
+    crids: [],
+    trrIds: [],
+  };
   _.keys(query).forEach(param => {
     if (isParam(param, ['officerid', 'officerids'])) {
       pinboardFromQuery.officerIds = getIds(query, param).map(id => parseInt(id));
@@ -145,7 +149,7 @@ function formatMessage(foundIds, notFoundIds, itemType) {
 }
 
 const formatInvalidParamMessage = (invalidParams) =>
-  `${invalidParams.join(', ')} ${pluralize('is', invalidParams.length)} not recognized`;
+  `${invalidParams.join(', ')} ${pluralize('is', invalidParams.length)} not recognized.`;
 
 const TopRightTransition = Toastify.cssTransition({
   enter: 'toast-enter',
@@ -264,10 +268,12 @@ export default store => next => action => {
       const { pinboardFromQuery, invalidParams } = getPinboardFromQuery(action.payload.query);
       _.isEmpty(invalidParams) || showPinboardToast(formatInvalidParamMessage(invalidParams));
 
-      if (!_.isEmpty(pinboardFromQuery))
+      const { officerIds, crids, trrIds } = pinboardFromQuery;
+      const isEmptyPinboard = _.isEmpty(officerIds) && _.isEmpty(crids) && _.isEmpty(trrIds);
+      if (!isEmptyPinboard)
         dispatchUpdateOrCreatePinboard(store, pinboardFromQuery, showCreatedToasts);
       else {
-        _.isEmpty(action.payload.query) || showPinboardToast('Redirected to latest pinboard');
+        _.isEmpty(action.payload.query) || showPinboardToast('Redirected to latest pinboard.');
         store.dispatch(fetchLatestRetrievedPinboard({ create: true }));
       }
     } else if (!isPinboardRestoredSelector(state) && !onPinboardPage) {
