@@ -762,14 +762,20 @@ export const singleGroupSuggestions = {
     ],
   },
   officer: {
-    count: 15,
+    count: 25,
     previous: null,
     next: 'http://my/api/?contentType=OFFICER&offset=10',
     results: officerSuggestions,
   },
   officerOffset10: {
-    count: 15,
-    previous: null,
+    count: 25,
+    previous: 'http://my/api/?contentType=OFFICER',
+    next: 'http://my/api/?contentType=OFFICER&offset=20',
+    results: RawOfficerSuggestion.buildList(10),
+  },
+  officerOffset20: {
+    count: 25,
+    previous: 'http://my/api/?contentType=OFFICER&offset=10',
     next: null,
     results: RawOfficerSuggestion.buildList(5),
   },

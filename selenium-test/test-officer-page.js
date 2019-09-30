@@ -9,7 +9,7 @@ import { selectText } from './utils';
 const noDataRadarChartOfficerId = 2;
 
 function showingComplaints(officerPage) {
-  officerPage.tabbedPaneSection.timelineSection.filter.button.getText().should.containEql('COMPLAINTS');
+  officerPage.tabbedPaneSection.timelineSection.filter.button.getText().should.containEql('Complaints');
   officerPage.tabbedPaneSection.timelineSection.crItem.waitForDisplayed();
   officerPage.tabbedPaneSection.timelineSection.crItem.count.should.eql(2);
   officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed(1000, true);
@@ -18,7 +18,7 @@ function showingComplaints(officerPage) {
 }
 
 function showingAllEvents(officerPage) {
-  officerPage.tabbedPaneSection.timelineSection.filter.button.getText().should.containEql('ALL');
+  officerPage.tabbedPaneSection.timelineSection.filter.button.getText().should.containEql('All');
   officerPage.tabbedPaneSection.timelineSection.crItem.waitForDisplayed();
   officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed();
   officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed();
@@ -84,7 +84,7 @@ describe('officer page', function () {
     headerText.should.containEql('RANK');
     headerText.should.containEql('UNIT');
     headerText.should.containEql('SHOWING');
-    headerText.should.containEql('ALL');
+    headerText.should.containEql('All');
     headerText.should.containEql('DATE');
 
     officerPage.tabbedPaneSection.timelineSection.crItem.waitForDisplayed();

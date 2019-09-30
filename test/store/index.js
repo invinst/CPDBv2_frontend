@@ -166,7 +166,7 @@ describe('store', function () {
         summary: {},
         newTimeline: {
           filter: {
-            label: 'ALL',
+            label: 'All',
             kind: ['CR', 'FORCE', 'AWARD'],
           },
           isRequesting: false,
