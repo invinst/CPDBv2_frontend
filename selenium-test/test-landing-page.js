@@ -103,7 +103,7 @@ describe('landing page', function () {
     });
 
     it('should expand search input when clicking on search box', function () {
-      const SEARCH_INPUT_WIDTH_AFTER_EXPAND = 908;
+      const SEARCH_INPUT_WIDTH_AFTER_EXPAND = 893;
       const searchBox = landingPage.header.navBar.searchBox;
 
       searchBox.mainElement.getCSSProperty('width').value.should.equal('512px');
