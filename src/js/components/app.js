@@ -1,6 +1,6 @@
 import { StyleRoot } from 'radium';
 import { locationShape } from 'react-router/lib/PropTypes';
-import React, { PropTypes, cloneElement } from 'react';
+import React, { PropTypes } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -17,11 +17,6 @@ toast.configure();
 
 
 export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.prevChildren = null;
-  }
-
   getChildContext() {
     return { adapter: getMockAdapter() };
   }
@@ -50,20 +45,13 @@ export default class App extends React.Component {
     ALPHA_NUMBERIC.map(LayeredKeyBinding.unbind);
   }
 
-  children() {
-    const { children, location } = this.props;
-    this.prevChildren = cloneElement(children, { pathname: location.pathname });
-    return this.prevChildren;
-  }
-
   render() {
-    const { location, appContent } = this.props;
-    const children = this.children();
+    const { location, children } = this.props;
 
     return (
       <StyleRoot>
         <EditModeProvider location={ location }>
-          <RouteTransition pathname={ appContent }>
+          <RouteTransition pathname={ location.pathname }>
             { children }
           </RouteTransition>
           <LoginModalContainer location={ location }/>
@@ -87,7 +75,6 @@ App.childContextTypes = {
 
 App.propTypes = {
   children: PropTypes.node,
-  appContent: PropTypes.string,
   params: PropTypes.object,
   receiveTokenFromCookie: PropTypes.func,
   showLoginModal: PropTypes.bool,

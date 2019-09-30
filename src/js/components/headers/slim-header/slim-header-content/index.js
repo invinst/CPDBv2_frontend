@@ -12,22 +12,16 @@ import DemoVideoContainer from 'containers/headers/slim-header/demo-video-contai
 
 
 class SlimHeaderContent extends Component {
-  getPosition() {
-    const { position, disableTop } = this.props;
-    return (position === 'top' && disableTop) ? 'middle' : position;
-  }
-
   render() {
-    const { pathname, editModeOn, style, className } = this.props;
-    const position = this.getPosition();
+    const { pathname, editModeOn, position } = this.props;
 
     return (
       <div
-        className={ className }
+        className={ styles.slimHeader }
         onClick={ position === 'bottom' ? scrollToTop : noop }
-        style={ style }
       >
-        <div className={ cx(styles.slimHeader, position) }>
+        <div className='placeholder'/>
+        <div className={ cx('header-content', position) }>
           <div className='top-bar-wrapper'>
             <div className='top-bar'>
               <div className='logo'>
@@ -60,14 +54,9 @@ SlimHeaderContent.propTypes = {
   position: PropTypes.string,
   pathname: PropTypes.string,
   editModeOn: PropTypes.bool,
-  style: PropTypes.object,
-  disableTop: PropTypes.bool,
-  className: PropTypes.string,
 };
 
 SlimHeaderContent.defaultProps = {
-  style: {},
-  disableTop: false,
   position: 'top',
   pathname: '/',
 };

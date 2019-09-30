@@ -126,7 +126,7 @@ export default store => next => action => {
       getCMSContent(OFFICER_PAGE_ID);
     }
 
-    else if (action.payload.pathname.match(/^\/(edit\/?)?$/)) {
+    else if (action.payload.pathname.match(/^\/((edit|search)\/?)?$/)) {
       if (!hasCommunitiesSelector(state)) {
         dispatches.push(store.dispatch(getCommunities()));
       }
@@ -154,6 +154,8 @@ export default store => next => action => {
       if (!hasVideoInfoSelector(state)) {
         dispatches.push(store.dispatch(fetchVideoInfo()));
       }
+
+      dispatches.push(store.dispatch(requestSearchTermCategories()));
     }
 
     else if (action.payload.pathname.match(/complaint\/\w+/)) {
@@ -183,10 +185,6 @@ export default store => next => action => {
 
     else if (action.payload.pathname.match(/document\/\d+/)) {
       handleFetchingDocumentPage(dispatches, store, action.payload.pathname);
-    }
-
-    else if (action.payload.pathname.match(/search/)) {
-      dispatches.push(store.dispatch(requestSearchTermCategories()));
     }
 
     else if (action.payload.pathname.match(/embed\/top-officers/)) {

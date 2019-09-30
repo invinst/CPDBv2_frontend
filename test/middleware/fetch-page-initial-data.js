@@ -231,6 +231,23 @@ describe('fetchPageInitialData middleware', function () {
     store.dispatch.calledWith(fetchVideoInfo()).should.be.true();
   });
 
+  it('should dispatch fetch data for landing page when go to /search/', function () {
+    const action = createLocationChangeAction('/search/');
+    let dispatched;
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+
+    store.dispatch.calledWith(fetchPage(LANDING_PAGE_ID)()).should.be.true();
+    store.dispatch.calledWith(getCommunities()).should.be.true();
+    store.dispatch.calledWith(getCitySummary()).should.be.true();
+    store.dispatch.calledWith(getClusterGeoJson()).should.be.true();
+    store.dispatch.calledWith(requestOfficersByAllegation()).should.be.true();
+    store.dispatch.calledWith(requestActivityGrid()).should.be.true();
+    store.dispatch.calledWith(getRecentDocument()).should.be.true();
+    store.dispatch.calledWith(getComplaintSummaries()).should.be.true();
+    store.dispatch.calledWith(fetchVideoInfo()).should.be.true();
+  });
+
   it('should dispatch fetch cr data if crid change', function () {
     const locationChangeAction = createLocationChangeAction('/complaint/2/');
     let dispatched;
@@ -265,6 +282,15 @@ describe('fetchPageInitialData middleware', function () {
 
   it('should dispatch requestSearchTermCategories', function () {
     const action = createLocationChangeAction('/search/');
+    let dispatched;
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(requestSearchTermCategories()).should.be.true();
+  });
+
+  it('should dispatch requestSearchTermCategories when going to /', function () {
+    const action = createLocationChangeAction('/');
     let dispatched;
 
     fetchPageInitialData(store)(action => dispatched = action)(action);

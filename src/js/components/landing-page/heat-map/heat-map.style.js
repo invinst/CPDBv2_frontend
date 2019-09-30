@@ -1,6 +1,7 @@
 export const wrapperStyle = {
   position: 'relative',
   overflow: 'hidden',
+  width: '100%',
 };
 
 export const minimumStyle = {

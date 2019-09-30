@@ -1,15 +1,14 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { push as pushBreadcrumbs } from 'redux-breadcrumb-trail';
 
 import SearchPage from 'components/search-page';
 import {
   getSuggestion,
   selectTag,
   toggleSearchMode,
-  trackRecentSuggestion,
   resetNavigation as resetSearchResultNavigation,
   changeSearchQuery,
+  saveToRecent,
 } from 'actions/search-page';
 import { createPinboard } from 'actions/pinboard';
 import {
@@ -31,18 +30,18 @@ function mapStateToProps(state, ownProps) {
   const {
     contentType, query, isRequesting,
   } = state.searchPage;
-  const { children } = ownProps;
-  const focusedItem = getFocusedItem(state);
+  const { children, hide } = ownProps;
 
   return {
     isRequesting,
     query,
     queryPrefix: queryPrefixSelector(state),
     children,
+    hide,
     tags: suggestionTagsSelector(state),
     contentType,
     isEmpty: isEmptySelector(state),
-    focusedItem: focusedItem,
+    focusedItem: getFocusedItem(state),
     officerCards: singleCardsSelector(state),
     editModeOn: editModeOnSelector(state, ownProps),
     searchTermsHidden: hiddenSelector(state),
@@ -56,12 +55,11 @@ const mapDispatchToProps = {
   getSuggestion,
   selectTag,
   toggleSearchMode,
-  trackRecentSuggestion,
+  saveToRecent,
   changeSearchQuery,
   resetSearchResultNavigation,
   requestActivityGrid,
   requestSearchTermCategories,
-  pushBreadcrumbs,
   resetSearchTermNavigation,
   createPinboard,
 };

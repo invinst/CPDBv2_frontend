@@ -3,7 +3,7 @@ import { withRouter } from 'react-router';
 import React from 'react';
 
 import TimeLine from 'components/officer-page/tabbed-pane-section/timeline';
-import { newTimelineItemsSelector, filterCountSelector } from 'selectors/officer-page/new-timeline';
+import { newTimelineItemsSelector, filterCountSelector, getSelectedFilter } from 'selectors/officer-page/new-timeline';
 import { changeFilter } from 'actions/officer-page/new-timeline';
 import { trackingClickAttachment } from 'actions/common/analytic';
 import { getOfficerId } from 'selectors/officer-page';
@@ -18,6 +18,7 @@ function mapStateToProps(state, ownProps) {
     popup: popupSelector(state),
     filterCount: filterCountSelector(state),
     pathname: getPathname(state),
+    selectedFilter: getSelectedFilter(state),
   };
 }
 

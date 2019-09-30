@@ -11,7 +11,7 @@ import { SearchTermCategoryItem } from 'utils/test/factories/search-terms';
 const officerSuggestions = [
   RawOfficerSuggestion.build(
     {
-      id: '1',
+      id: '8562',
       name: 'Jerome Finnigan',
       to: '/officer/1/jerome-finnigan/',
       'allegation_count': 10,
@@ -23,7 +23,7 @@ const officerSuggestions = [
   ),
   RawOfficerSuggestion.build(
     {
-      id: '2',
+      id: '8563',
       name: 'Edward May',
       to: '/officer/2/edward-may/',
       'allegation_count': 5,
@@ -205,7 +205,7 @@ export const groupedSuggestions = {
     'CR': [
       RawCRSuggestion.build(
         {
-          id: '1',
+          id: 'CR123',
           crid: 'CR123',
           to: '/complaint/CR123/',
           category: 'Lockup Procedures',
@@ -244,7 +244,7 @@ export const groupedSuggestions = {
       ),
       RawCRSuggestion.build(
         {
-          id: '2',
+          id: 'CR456',
           crid: 'CR456',
           to: '/complaint/CR456/',
           highlight: {},
@@ -338,7 +338,7 @@ export const groupedSuggestions = {
     'DATE > CR': [
       RawCRSuggestion.build(
         {
-          id: '1',
+          id: 'CR123',
           crid: 'CR123',
           to: '/complaint/CR123/',
           category: 'Lockup Procedures',
@@ -352,7 +352,7 @@ export const groupedSuggestions = {
       ),
       RawCRSuggestion.build(
         {
-          id: '2',
+          id: 'CR456',
           crid: 'CR456',
           to: '/complaint/CR456/',
           'incident_date': '2004-04-23',
@@ -417,7 +417,7 @@ export const groupedSuggestions = {
         {
           id: '456',
           to: '/trr/456/',
-          'force_type': null,
+          'force_type': 'Physical Force - Holding',
           'trr_datetime': '2004-04-23',
           'category': 'Firearm',
           'address': '4000 Michigan Ave',
@@ -501,7 +501,7 @@ export const groupedSuggestions = {
     'INVESTIGATOR > CR': [
       RawCRSuggestion.build(
         {
-          id: '1',
+          id: 'CR123456',
           crid: 'CR123456',
           to: '/complaint/CR123456/',
           category: 'Lockup Procedures',

@@ -29,7 +29,7 @@ class DemoVideoSection extends Section {
     this.prepareElementGetters({
       titleText: '//div[contains(@class, "demo-video-text-input")]',
       playButton: playButtonSelector,
-      playButtonThumbnail: `${ playButtonSelector }//img[@class="demo-video-thumbnail"]`,
+      playButtonThumbnail: `${ playButtonSelector }//div[@class="demo-video-thumbnail"]`,
     });
   }
 }
@@ -55,7 +55,6 @@ class SearchBoxSection extends Section {
       searchMagnifyingGlassPath: `${searchMagnifyingGlassSelector}//*[name()="path"]`,
       searchText: '//span[@class="search-box-search-text"]',
       searchTerm: '//span[@class="search-box-term"]',
-      playButtonThumbnail: '//div[@class="demo-video-button"]//img[@class="demo-video-thumbnail"]',
     });
   }
 }
@@ -85,29 +84,17 @@ class NavBarSection extends Section {
 }
 
 class Header extends Section {
-  constructor(parentSelector, mainElementSelector) {
-    super(parentSelector, mainElementSelector);
+  constructor(parentSelector) {
+    super(parentSelector, '//div[contains(@class, "slim-header-content__slim-header")]');
 
     this.prepareElementGetters({
+      content: '//div[contains(@class, "header-content") and not(contains(@class, "slim-header"))]',
       topBar: TopBarSection,
       navBar: NavBarSection,
     });
   }
 }
 
-class TopHeader extends Header {
-  constructor(parentSelector) {
-    super(parentSelector, '//div[@class="test--top-slim-header"]');
-  }
-}
-
-class SlimHeader extends Header {
-  constructor(parentSelector) {
-    super(parentSelector, '//div[contains(@class, "slim-header__sticky-slim-header")]');
-  }
-}
-
 module.exports = {
-  TopHeader,
-  SlimHeader,
+  Header,
 };

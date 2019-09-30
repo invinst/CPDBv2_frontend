@@ -16,7 +16,13 @@ import style from './search-terms.sass';
 
 export default class SearchTerms extends Component {
   componentDidMount() {
-    const { move } = this.props;
+    const {
+      move,
+      recentSuggestionIds,
+      fetchRecentSearchItems,
+      recentSuggestionsRequested,
+      fetchedEmptyRecentSearchItems,
+    } = this.props;
     SEARCH_TERMS_NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.bind(
       direction,
       (event) => {
@@ -26,6 +32,15 @@ export default class SearchTerms extends Component {
       }
     )));
     IntercomTracking.trackSearchTerms();
+
+    if (!recentSuggestionsRequested) {
+      if (isEmpty(recentSuggestionIds)) {
+        fetchedEmptyRecentSearchItems();
+      } else {
+        const { officerIds, crids, trrIds } = recentSuggestionIds;
+        fetchRecentSearchItems(officerIds, crids, trrIds);
+      }
+    }
   }
 
   componentWillUnmount() {
@@ -49,11 +64,15 @@ export default class SearchTerms extends Component {
   }
 
   renderRecentSuggestion() {
-    const { recentSuggestions } = this.props;
+    const { recentSuggestions, addOrRemoveItemInPinboard, saveToRecent } = this.props;
 
     if (!isEmpty(recentSuggestions)) {
       return (
-        <RecentSuggestion recentSuggestions={ recentSuggestions }/>
+        <RecentSuggestion
+          recentSuggestions={ recentSuggestions }
+          addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
+          saveToRecent={ saveToRecent }
+        />
       );
     }
 
@@ -61,10 +80,9 @@ export default class SearchTerms extends Component {
   }
 
   render() {
-    const { onEmptyPinboardButtonClick, aliasEditModeOn, focusedItem } = this.props;
-
+    const { onEmptyPinboardButtonClick, aliasEditModeOn, focusedItem, className } = this.props;
     return (
-      <div className={ style.wrapper }>
+      <div className={ cx(style.wrapper, className) }>
         <PinboardBar onEmptyPinboardButtonClick={ onEmptyPinboardButtonClick } />
         <div className={ cx('search-term-wrapper', { 'edit-mode-on': aliasEditModeOn } ) }>
           <ScrollIntoView focusedItemClassName={ `term-item-${get(focusedItem, 'uniqueKey', '').replace(' ', '-')}` }>
@@ -105,6 +123,13 @@ SearchTerms.propTypes = {
   resetNavigation: PropTypes.func,
   recentSuggestions: PropTypes.array,
   onEmptyPinboardButtonClick: PropTypes.func,
+  addOrRemoveItemInPinboard: PropTypes.func,
+  saveToRecent: PropTypes.func,
+  fetchRecentSearchItems: PropTypes.func,
+  recentSuggestionIds: PropTypes.object,
+  recentSuggestionsRequested: PropTypes.bool,
+  fetchedEmptyRecentSearchItems: PropTypes.func,
+  className: PropTypes.string,
 };
 
 SearchTerms.defaultProps = {
@@ -116,4 +141,10 @@ SearchTerms.defaultProps = {
   },
   categories: [],
   onEmptyPinboardButtonClick: noop,
+  addOrRemoveItemInPinboard: noop,
+  saveToRecent: noop,
+  fetchRecentSearchItems: noop,
+  recentSuggestionIds: {},
+  recentSuggestionsRequested: false,
+  fetchedEmptyRecentSearchItems: noop,
 };

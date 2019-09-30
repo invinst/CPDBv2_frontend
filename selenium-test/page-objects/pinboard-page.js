@@ -322,6 +322,8 @@ class PinboardPage extends Page {
       header: '.pinboard-header .header-parent',
       headerTitle: '.pinboard-header .header-title',
       headerQALink: '//div[@class="pinboard-header"]//div[@class="menu-item" and text()="Q&A"]',
+      firstToast: '.Toastify__toast:first-child',
+      secondToast: '.Toastify__toast:nth-child(2)',
     });
   }
 
@@ -329,6 +331,10 @@ class PinboardPage extends Page {
     const url = id ? `/pinboard/${id}/pinboard-title/` : '/pinboard/';
 
     super.open(url);
+  }
+
+  openByQuery(officerIds=[], crids=[], trrIds=[]) {
+    super.open(`/pinboard/?officer-ids=${officerIds.join()}&crids=${crids.join()}&trr-ids=${trrIds.join()}`);
   }
 }
 

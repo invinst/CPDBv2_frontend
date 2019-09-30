@@ -54,13 +54,17 @@ export const changeSearchQuery = createAction(constants.CHANGE_SEARCH_QUERY);
 
 export const move = moveFunction(constants.SEARCH_NAVIGATION_UP, constants.SEARCH_NAVIGATION_DOWN);
 
-export const trackRecentSuggestion = (contentType, text, url, to) =>
-  createAction(constants.TRACK_RECENT_SUGGESTION)({
-    contentType,
-    text,
-    to,
-    url,
-  });
-
 export const resetNavigation = createAction(constants.SEARCH_NAVIGATION_RESET);
 export const setSearchNavigation = createAction(constants.SEARCH_NAVIGATION_SET);
+
+export const fetchRecentSearchItems = (officerIds, crids, trrIds) => get(
+  constants.RECENT_SEARCH_ITEMS_API_URL,
+  [
+    constants.FETCH_RECENT_SEARCH_ITEMS_START,
+    constants.FETCH_RECENT_SEARCH_ITEMS_SUCCESS,
+    constants.FETCH_RECENT_SEARCH_ITEMS_FAILURE,
+  ],
+)({ 'officer_ids': officerIds, crids: crids, 'trr_ids': trrIds });
+
+export const fetchedEmptyRecentSearchItems = createAction(constants.FETCHED_EMPTY_RECENT_SEARCH_ITEMS);
+export const saveToRecent = createAction(constants.SEARCH_SAVE_TO_RECENT);

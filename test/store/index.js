@@ -63,7 +63,6 @@ describe('store', function () {
         apiAccessToken: null,
         showForgotPasswordModal: false,
       },
-      appContent: null,
       cms: {
         pages: {},
       },
@@ -81,6 +80,7 @@ describe('store', function () {
         pagination: {},
         contentType: null,
         recentSuggestions: [],
+        recentSuggestionsRequested: false,
         tags: [],
         query: '',
         searchTerms: {
