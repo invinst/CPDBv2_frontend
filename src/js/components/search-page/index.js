@@ -35,17 +35,16 @@ export default class SearchPage extends Component {
     this.resetNavigation = this.resetNavigation.bind(this);
 
     this.getSuggestion = debounce(this.props.getSuggestion, 100);
-    this.getSuggestionWithContentType = debounce(this.props.getSuggestionWithContentType, 100);
   }
 
   componentDidMount() {
-    const { query, location, params, routes, pushBreadcrumbs, contentType } = this.props;
+    const { query, location, params, routes, pushBreadcrumbs } = this.props;
     pushBreadcrumbs({ location, params, routes });
 
     LayeredKeyBinding.bind('esc', this.handleGoBack);
     LayeredKeyBinding.bind('enter', this.handleViewItem);
 
-    this.sendSearchQuery(query, contentType);
+    this.sendSearchQuery(query);
 
     IntercomTracking.trackSearchPage();
     showIntercomLauncher(false);
@@ -53,7 +52,7 @@ export default class SearchPage extends Component {
 
   componentWillReceiveProps(nextProps) {
     const {
-      location, params, routes, pushBreadcrumbs, query, isRequesting, isEmpty, contentType, selectTag,
+      location, params, routes, pushBreadcrumbs, query, isRequesting, isEmpty,
     } = nextProps;
     pushBreadcrumbs({ location, params, routes });
 
@@ -61,11 +60,8 @@ export default class SearchPage extends Component {
     const suggestionGroupsEmpty = !this.props.isEmpty && isEmpty;
 
     if (!isRequesting && (queryChanged || suggestionGroupsEmpty)) {
-      this.sendSearchQuery(query, contentType);
+      this.sendSearchQuery(query);
     }
-
-    if (!isRequesting && suggestionGroupsEmpty)
-      selectTag(null);
   }
 
   componentWillUnmount() {
@@ -74,13 +70,9 @@ export default class SearchPage extends Component {
     showIntercomLauncher(true);
   }
 
-  sendSearchQuery(query, contentType) {
+  sendSearchQuery(query) {
     if (query) {
-      if (contentType) {
-        this.getSuggestionWithContentType(query, { contentType });
-      } else {
-        this.getSuggestion(query, { limit: DEFAULT_SUGGESTION_LIMIT });
-      }
+      this.getSuggestion(query, { limit: DEFAULT_SUGGESTION_LIMIT });
     }
   }
 
@@ -111,17 +103,12 @@ export default class SearchPage extends Component {
   }
 
   handleChange({ currentTarget: { value } }) {
-    const { changeSearchQuery, selectTag, searchTermsHidden } = this.props;
+    const { changeSearchQuery, searchTermsHidden } = this.props;
 
     if (!searchTermsHidden) {
       browserHistory.push(`/${constants.SEARCH_PATH}`);
     }
     changeSearchQuery(value);
-    selectTag(null);
-
-    if (value) {
-      this.getSuggestion(value, { limit: DEFAULT_SUGGESTION_LIMIT }).catch(() => {});
-    }
   }
 
   handleGoBack(e) {
@@ -146,10 +133,12 @@ export default class SearchPage extends Component {
   render() {
     const aliasEditModeOn = this.props.location.pathname.startsWith(`/edit/${SEARCH_ALIAS_EDIT_PATH}`);
     const {
-      query, searchTermsHidden, tags, contentType, recentSuggestions,
+      query, searchTermsHidden, tags, contentType, recentSuggestions, queryPrefix,
       editModeOn, officerCards, requestActivityGrid,
       children, changeSearchQuery, focusedItem, firstItem, trackRecentSuggestion, isRequesting,
     } = this.props;
+
+    const searchText = `${queryPrefix ? `${queryPrefix}:` : ''}${query}`;
 
     return (
       <DocumentMeta title='CPDP'>
@@ -161,7 +150,7 @@ export default class SearchPage extends Component {
               onEscape={ this.handleGoBack }
               onChange={ this.handleChange }
               firstSuggestionItem={ firstItem }
-              value={ query }
+              value={ searchText }
               searchTermsHidden={ searchTermsHidden }
               changeSearchQuery={ changeSearchQuery }
               focused={ focusedItem.uniqueKey === SEARCH_BOX }
@@ -208,10 +197,10 @@ SearchPage.propTypes = {
   tags: PropTypes.array,
   recentSuggestions: PropTypes.array,
   getSuggestion: PropTypes.func,
-  getSuggestionWithContentType: PropTypes.func,
   selectTag: PropTypes.func,
   trackRecentSuggestion: PropTypes.func,
   contentType: PropTypes.string,
+  queryPrefix: PropTypes.string,
   isEmpty: PropTypes.bool,
   router: PropTypes.object,
   query: PropTypes.string,
@@ -235,7 +224,6 @@ SearchPage.defaultProps = {
   contentType: null,
   focusedItem: {},
   getSuggestion: () => new Promise(() => {}),
-  getSuggestionWithContentType: () => new Promise(() => {}),
   trackRecentSuggestion: () => {},
   changeSearchQuery: () => {},
   location: {

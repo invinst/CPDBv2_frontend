@@ -40,7 +40,6 @@ import getTRRData from './trr-page/get-data';
 import getSearchTermsData from './search-terms-page';
 import getUnitSummaryData from './unit-profile-page/get-summary';
 import { getCRPopup } from './popup';
-import { getCommunity } from './community';
 import fetchDocumentsByCRID from './document-deduplicator-page/fetch-documents-by-crid';
 import searchDocuments from './documents-overview-page/search-documents';
 import fetchDocuments from './documents-overview-page/fetch-documents';
@@ -94,14 +93,39 @@ axiosMockClient.onPost(mailChimpUrl, { email: 'invalid@email.com' })
     'detail': 'invalid@email.com looks fake or invalid, please enter a real email address.', 'success': false,
   });
 
-axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'Ke', contentType: 'OFFICER' } }).reply(() => {
-  return [200, singleGroupSuggestions.default];
+axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'jerome', contentType: 'OFFICER' } }).reply(() => {
+  return [200, singleGroupSuggestions.officer];
 });
-axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'Ke', contentType: 'NEIGHBORHOOD' } }).reply(() => {
-  return [200, singleGroupSuggestions.neighborhoods];
+
+axiosMockClient.onGet(
+  SEARCH_SINGLE_API_URL,
+  { params: { term: 'jerome', contentType: 'OFFICER', offset: '10' } },
+).reply(() => {
+  return [200, singleGroupSuggestions.officerOffset10];
 });
-axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'Ke', contentType: 'OFFICER', offset: '20' } })
-  .reply(() => { return [200, singleGroupSuggestions.offset20]; });
+
+axiosMockClient.onGet(
+  SEARCH_SINGLE_API_URL,
+  { params: { term: 'jerome', contentType: 'OFFICER', offset: '20' } },
+).reply(() => {
+  return [200, singleGroupSuggestions.officerOffset20];
+});
+
+axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'jerome', contentType: 'CR' } }).reply(() => {
+  return [200, singleGroupSuggestions.cr];
+});
+
+axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'jerome', contentType: 'TRR' } }).reply(() => {
+  return [200, singleGroupSuggestions.trr];
+});
+
+axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'jerome', contentType: 'COMMUNITY' } }).reply(() => {
+  return [200, singleGroupSuggestions.community1];
+});
+
+axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'community', contentType: 'COMMUNITY' } }).reply(() => {
+  return [200, singleGroupSuggestions.community2];
+});
 
 axiosMockClient.onGet(SEARCH_API_URL).reply(function (config) {
   return [200, groupedSuggestions[config.params.contentType || config.params.term] || groupedSuggestions['default']];
@@ -139,9 +163,6 @@ axiosMockClient.onGet(`${SLUG_PAGE_API_URL}officer-page/`).reply(200, officerPag
 axiosMockClient.onGet(`https://vimeo.com/api/v2/video/${MODAL_VIDEO_INFO.VIDEO_ID}.json`).reply(200, modalVideoInfo);
 
 axiosMockClient.onGet(`${POPUP_API_URL}?page=complaint`).reply(200, getCRPopup());
-
-axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'community', contentType: 'COMMUNITY' } })
-  .reply(() => { return [200, getCommunity()]; });
 
 axiosMockClient.onGet(`${DOCUMENTS_URL}`, { params: { crid: '1000000', limit: undefined, offset: undefined } })
   .reply(200, fetchDocumentsByCRID());

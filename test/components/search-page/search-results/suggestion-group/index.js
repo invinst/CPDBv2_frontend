@@ -80,7 +80,10 @@ describe('SuggestionGroup component', function () {
         getSuggestionWithContentType={ getSuggestionWithContentType }
         searchText={ searchText } nextParams={ nextParams } hasMore={ true }/>
     );
-    findRenderedComponentWithType(instance, InfiniteScroll).props.loadMore();
+    const infiniteScroll = findRenderedComponentWithType(instance, InfiniteScroll);
+    infiniteScroll.props.useWindow.should.be.false();
+    infiniteScroll.props.initialLoad.should.be.true();
+    infiniteScroll.props.loadMore();
     getSuggestionWithContentType.calledWith(searchText, nextParams).should.be.true();
   });
 
