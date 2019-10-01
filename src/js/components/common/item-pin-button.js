@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import cx from 'classnames';
 
 import withPinnable from 'components/common/with-pinnable';
-import styles from './item-pin-button.sass';
+import styles from 'components/common/item-pin-button.sass';
 
 
 class ItemPinButton extends Component {

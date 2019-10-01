@@ -9,8 +9,7 @@ import { unmountComponentSuppressError } from 'utils/test';
 import { findDOMNode } from 'react-dom';
 import { stub } from 'sinon';
 
-import ItemPinButton from
-  'components/search-page/search-results/suggestion-group/suggestion-item/item-pin-button';
+import ItemPinButton from 'components/common/item-pin-button';
 
 
 describe('ItemPinButton component', function () {

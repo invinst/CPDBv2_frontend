@@ -6,7 +6,7 @@ import cx from 'classnames';
 import JumpyMotion from 'components/animation/jumpy-motion';
 import TextWithInlineSearchAlias from './text-with-inline-search-alias';
 import EditModeItem from './edit-mode-item';
-import ItemPinButton from './item-pin-button';
+import ItemPinButton from 'components/common/item-pin-button';
 import styles from './with-pinnable-item.sass';
 
 
