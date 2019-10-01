@@ -27,12 +27,12 @@ export default class Carousel extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { children } = this.props;
+    const { children, resetPosition } = this.props;
     if (
       children.length > nextProps.children.length ||
       !isEqual(children, nextProps.children.slice(0, children.length))
     ) {
-      this.slideTo(0);
+      resetPosition && this.slideTo(0);
     }
   }
 
@@ -141,6 +141,7 @@ Carousel.propTypes = {
   threshold: PropTypes.number,
   spaceBetween: PropTypes.number,
   arrowClassName: PropTypes.string,
+  resetPosition: PropTypes.bool,
 };
 
 Carousel.defaultProps = {
@@ -149,4 +150,5 @@ Carousel.defaultProps = {
   style: {},
   loadMore: () => {},
   onNavigate: () => {},
+  resetPosition: true,
 };

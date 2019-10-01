@@ -52,7 +52,9 @@ export default function withCarousel(
           <Carousel
             style={ carouselStyle }
             childWidth={ 232 }
-            onNavigate={ this.handleNavigate.bind(this) }>
+            onNavigate={ this.handleNavigate.bind(this) }
+            resetPosition={ false }
+          >
             { slideElements }
           </Carousel>
         </div>
