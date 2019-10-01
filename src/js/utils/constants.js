@@ -859,4 +859,15 @@ export const RECENT_SEARCH_COMPONENT_TYPE_MAPPING = {
   'DATE > TRR': 'TRR',
 };
 
+export const PINNED_ITEM_TYPES = {
+  'CR': 'CR',
+  'DATE > CR': 'CR',
+  'INVESTIGATOR > CR': 'CR',
+  'OFFICER': 'OFFICER',
+  'UNIT > OFFICERS': 'OFFICER',
+  'DATE > OFFICERS': 'OFFICER',
+  'TRR': 'TRR',
+  'DATE > TRR': 'TRR',
+};
+
 export const HEADER_TOP_BAR_HEIGHT = 80;

@@ -7,7 +7,7 @@ import { officerUrl } from 'utils/url-util';
 import { getCurrentAge } from 'utils/date';
 import { navigationItemTransform } from 'selectors/common/search-item-transforms';
 import { FULL_MONTH_DATE_FORMAT } from 'utils/constants';
-import { isItemPinned } from 'selectors/search-page/common';
+import { isItemPinned } from 'selectors/pinboard-page/pinboard';
 
 
 const defaultRecentSuggestionItemTransform = item => ({

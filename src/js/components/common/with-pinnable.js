@@ -18,7 +18,7 @@ export default function withPinnable(WrappedComponent) {
 
       addOrRemoveItemInPinboard({
         type: type,
-        id: id,
+        id: String(id),
         isPinned: isPinned,
       });
     }

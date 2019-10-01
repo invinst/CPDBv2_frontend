@@ -1,4 +1,4 @@
-import { get, map, isEmpty, every } from 'lodash';
+import { every, get, isEmpty, map } from 'lodash';
 import { createSelector } from 'reselect';
 
 import { generatePinboardUrl } from 'utils/pinboard';
@@ -41,6 +41,11 @@ export const pinboardItemsSelector = createSelector(
     'TRR': trrIds,
   })
 );
+
+export const isItemPinned = (pinnedItemType, id, pinboardItems) => {
+  return (pinboardItems.hasOwnProperty(pinnedItemType)) &&
+    (pinboardItems[pinnedItemType].indexOf(String(id)) !== -1);
+};
 
 export const pinboardICRIDsSelector = createSelector(
   getPinboard,

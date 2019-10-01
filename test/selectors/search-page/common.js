@@ -1,4 +1,5 @@
-import { getQuery, isItemPinned } from 'selectors/search-page/common';
+import { getQuery } from 'selectors/search-page/common';
+import { isItemPinned } from 'selectors/pinboard-page/pinboard';
 
 
 describe('SearchPage common selectors', function () {

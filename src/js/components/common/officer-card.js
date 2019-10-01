@@ -8,6 +8,8 @@ import { getCurrentAge } from 'utils/date';
 import StaticRadarChart from 'components/common/radar-chart';
 import { roundedPercentile } from 'utils/calculations';
 import styles from './officer-card.sass';
+import ItemPinButton from 'components/common/item-pin-button';
+import { PINNED_ITEM_TYPES } from 'utils/constants';
 
 
 export class OfficerCard extends Component {
@@ -55,6 +57,8 @@ export class OfficerCard extends Component {
       rank,
       footer,
       className,
+      addOrRemoveItemInPinboard,
+      isPinned,
     } = this.props;
     const officerSlug = kebabCase(fullName);
     const chartData = percentile && percentile.items;
@@ -73,6 +77,15 @@ export class OfficerCard extends Component {
         target={ openCardInNewPage ? '_blank' : null }
         className={ cx(styles.officerCard, className) }
       >
+        <ItemPinButton
+          className='officer-card-pinned-button'
+          addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
+          item={ {
+            type: PINNED_ITEM_TYPES.OFFICER,
+            id: officerId,
+            isPinned: isPinned,
+          } }
+        />
         <div className='no-print radar-chart-wrapper'>
           <StaticRadarChart data={ chartData } { ...radarConfig } />
         </div>
@@ -113,6 +126,8 @@ OfficerCard.propTypes = {
   rank: PropTypes.string,
   footer: PropTypes.object,
   className: PropTypes.string,
+  addOrRemoveItemInPinboard: PropTypes.func,
+  isPinned: PropTypes.bool,
 };
 
 OfficerCard.defaultProps = {
