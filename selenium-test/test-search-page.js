@@ -146,53 +146,148 @@ describe('Search Page', function () {
     searchPage.searchTermsResultsSection.previewPaneButton.click();
     browser.pause(600);
     browser.getUrl().should.containEql('/search/?terms=community&type=COMMUNITY');
+    searchPage.input.getValue().should.eql('community:community');
     searchPage.searchCommunityResultsSection.firstResultText.getText().should.equal('Austin');
   });
 
-  it('should show filtered result when user clicks "Show more results"', function () {
+  it('should able to show single search results', function () {
     searchPage.input.waitForDisplayed();
-    searchPage.input.setValue('Ke');
+    searchPage.input.setValue('jerome');
+
+    searchPage.officerResultsSection.results.waitForDisplayed();
+    searchPage.searchCommunityResultsSection.results.waitForDisplayed();
+    searchPage.crResultsSection.results.waitForDisplayed();
+    searchPage.trrResultsSection.results.waitForDisplayed();
+
+    searchPage.officerResultsSection.firstResultText.getText().should.equal('Jerome Finnigan');
+    searchPage.searchCommunityResultsSection.firstResultText.getText().should.equal('Loop');
+    searchPage.crResultsSection.firstResultText.getText().should.equal('CR # CR123 - April 23, 2004');
+    searchPage.trrResultsSection.firstResultText.getText().should.equal('Member Presence');
+
+    searchPage.suggestionTags.waitForDisplayed();
+    searchPage.suggestionTagCount().should.equal(4);
+    searchPage.suggestionTag(1).getText().should.equal('OFFICER');
+    searchPage.suggestionTag(2).getText().should.equal('COMMUNITY');
+    searchPage.suggestionTag(3).getText().should.equal('CR');
+    searchPage.suggestionTag(4).getText().should.equal('TRR');
+
+    searchPage.suggestionTag(1).click();
+    searchPage.input.getValue().should.eql('officer:jerome');
+    searchPage.officerResultsSection.results.waitForDisplayed();
+    searchPage.officerResultsSection.resultsCount('OFFICER').should.equal(20);
+    searchPage.officerResultsSection.firstResultText.getText().should.equal('Jerome Finnigan');
+    searchPage.officerResultsSection.secondResultText.getText().should.equal('Edward May');
+    searchPage.searchCommunityResultsSection.results.waitForDisplayed(500, true);
+    searchPage.crResultsSection.results.waitForDisplayed(500, true);
+    searchPage.trrResultsSection.results.waitForDisplayed(500, true);
+
+    searchPage.suggestionTag(2).click();
+    searchPage.input.getValue().should.eql('community:jerome');
+    searchPage.searchCommunityResultsSection.results.waitForDisplayed();
+    searchPage.searchCommunityResultsSection.resultsCount('COMMUNITY').should.equal(1);
+    searchPage.searchCommunityResultsSection.firstResultText.getText().should.equal('Loop');
+    searchPage.officerResultsSection.results.waitForDisplayed(500, true);
+    searchPage.crResultsSection.results.waitForDisplayed(500, true);
+    searchPage.trrResultsSection.results.waitForDisplayed(500, true);
+
+    searchPage.suggestionTag(3).click();
+    searchPage.input.getValue().should.eql('cr:jerome');
+    searchPage.crResultsSection.results.waitForDisplayed();
+    searchPage.crResultsSection.resultsCount('CR').should.equal(2);
+    searchPage.crResultsSection.firstResultText.getText().should.equal('CR # CR123 - April 23, 2004');
+    searchPage.crResultsSection.secondResultText.getText().should.equal('CR # CR456 - November 12, 2006');
+    searchPage.officerResultsSection.results.waitForDisplayed(500, true);
+    searchPage.searchCommunityResultsSection.results.waitForDisplayed(500, true);
+    searchPage.trrResultsSection.results.waitForDisplayed(500, true);
+
+    searchPage.suggestionTag(4).click();
+    searchPage.input.getValue().should.eql('trr:jerome');
+    searchPage.trrResultsSection.results.waitForDisplayed();
+    searchPage.trrResultsSection.resultsCount('TRR').should.equal(2);
+    searchPage.trrResultsSection.firstResultText.getText().should.equal('Member Presence');
+    searchPage.trrResultsSection.secondResultText.getText().should.equal('Verbal Commands');
+    searchPage.officerResultsSection.results.waitForDisplayed(500, true);
+    searchPage.searchCommunityResultsSection.results.waitForDisplayed(500, true);
+    searchPage.crResultsSection.results.waitForDisplayed(500, true);
+  });
+
+  it('should able to show single search results with prefix query', function () {
+    searchPage.input.waitForDisplayed();
+    searchPage.input.setValue('officer:jerome');
+
+    searchPage.officerResultsSection.results.waitForDisplayed();
+    searchPage.suggestionTagCount().should.equal(4);
+    searchPage.suggestionTag(1).getText().should.equal('OFFICER');
+    searchPage.suggestionTag(2).getText().should.equal('COMMUNITY');
+    searchPage.suggestionTag(3).getText().should.equal('CR');
+    searchPage.suggestionTag(4).getText().should.equal('TRR');
+
+    searchPage.officerResultsSection.resultsCount('OFFICER').should.equal(20);
+    searchPage.officerResultsSection.firstResultText.getText().should.equal('Jerome Finnigan');
+    searchPage.officerResultsSection.secondResultText.getText().should.equal('Edward May');
+    searchPage.searchCommunityResultsSection.results.waitForDisplayed(500, true);
+    searchPage.crResultsSection.results.waitForDisplayed(500, true);
+    searchPage.trrResultsSection.results.waitForDisplayed(500, true);
+  });
+
+  it('should show filtered result when user clicks "More"', function () {
+    browser.setWindowRect(0, 0, 900, 600);
+    searchPage.input.waitForDisplayed();
+    searchPage.input.setValue('jerome');
 
     searchPage.suggestionGroup.waitForDisplayed();
+    searchPage.suggestionTagCount().should.equal(4);
+    searchPage.suggestionTag(1).getText().should.equal('OFFICER');
+    searchPage.suggestionTag(2).getText().should.equal('COMMUNITY');
+    searchPage.suggestionTag(3).getText().should.equal('CR');
+    searchPage.suggestionTag(4).getText().should.equal('TRR');
+
     searchPage.firstLoadMoreButton.click();
+
+    searchPage.input.getValue().should.eql('officer:jerome');
+    searchPage.officerResultsSection.resultsCount('OFFICER').should.equal(20);
+
+    times(21, () => browser.keys('ArrowDown'));
+
+    browser.waitUntil(function () {
+      return searchPage.officerResultsSection.resultsCount('OFFICER') === 25;
+    }, 2000, 'expected officer suggestions are 25');
+    searchPage.officerResultsSection.resultsCount('OFFICER').should.equal(25);
+
     searchPage.contentWrapper.waitForDisplayed();
-    searchPage.contentWrapper.getText().should.containEql('OFFICER');
-    searchPage.contentWrapper.getText().should.containEql('Bernadette Kelly');
-    searchPage.contentWrapper.getText().should.containEql('Charles Kelly'); // another officer
-    searchPage.contentWrapper.getText().should.not.containEql('NEIGHBORHOOD');
+    const content = searchPage.contentWrapper.getText();
+    content.should.containEql('OFFICER');
+    content.should.containEql('Jerome Finnigan');
+    content.should.containEql('Edward May'); // another officer
+    searchPage.searchCommunityResultsSection.results.waitForDisplayed(500, true);
+    searchPage.crResultsSection.results.waitForDisplayed(500, true);
+    searchPage.trrResultsSection.results.waitForDisplayed(500, true);
   });
 
   it('should show filtered result when user presses enter when focusing on "Show more results"', function () {
     searchPage.input.waitForDisplayed();
-    searchPage.input.setValue('Ke');
+    searchPage.input.setValue('jerome');
 
     searchPage.suggestionGroup.waitForDisplayed();
+    searchPage.suggestionTagCount().should.equal(4);
+    searchPage.suggestionTag(1).getText().should.equal('OFFICER');
+    searchPage.suggestionTag(2).getText().should.equal('COMMUNITY');
+    searchPage.suggestionTag(3).getText().should.equal('CR');
+    searchPage.suggestionTag(4).getText().should.equal('TRR');
 
     times(6, () => browser.keys('ArrowDown'));
     browser.keys('Enter');
     browser.pause(100);
 
     searchPage.contentWrapper.waitForDisplayed();
+    searchPage.input.getValue().should.eql('officer:jerome');
     const content = searchPage.contentWrapper.getText();
     content.should.containEql('OFFICER');
-    content.should.containEql('Bernadette Kelly');
-    content.should.containEql('Charles Kelly'); // another officer
-    content.should.not.containEql('NEIGHBORHOOD');
-  });
-
-  it('should show filtered result when user select tag', function () {
-    searchPage.input.waitForDisplayed();
-    searchPage.input.setValue('Ke');
-
-    searchPage.suggestionGroup.waitForDisplayed();
-    searchPage.firstSuggestionTag.click();
-    browser.pause(100);
-    searchPage.contentWrapper.waitForDisplayed();
-    const content = searchPage.contentWrapper.getText();
-    content.should.containEql('OFFICER');
-    content.should.containEql('Bernadette Kelly');
-    content.should.containEql('Charles Kelly'); // another officer
-    content.should.not.containEql('NEIGHBORHOOD');
+    content.should.containEql('Jerome Finnigan');
+    content.should.containEql('Edward May'); // another officer
+    searchPage.searchCommunityResultsSection.results.waitForDisplayed(500, true);
+    searchPage.crResultsSection.results.waitForDisplayed(500, true);
+    searchPage.trrResultsSection.results.waitForDisplayed(500, true);
   });
 
   it('should show DataTool suggestions when no result return', function () {
@@ -556,5 +651,23 @@ describe('Search Page with query parameter', function () {
     );
     searchPage.investigatorCRResultsSection.secondResultText.getText().should.equal('CR # CR654321');
     searchPage.investigatorCRResultsSection.secondResultSubText.getText().should.equal('');
+  });
+
+  it('should able to show OFFICERS results via query parameter', function () {
+    searchPage.open('officer:jerome');
+
+    searchPage.officerResultsSection.results.waitForDisplayed();
+    searchPage.suggestionTagCount().should.equal(4);
+    searchPage.suggestionTag(1).getText().should.equal('OFFICER');
+    searchPage.suggestionTag(2).getText().should.equal('COMMUNITY');
+    searchPage.suggestionTag(3).getText().should.equal('CR');
+    searchPage.suggestionTag(4).getText().should.equal('TRR');
+
+    searchPage.officerResultsSection.resultsCount('OFFICER').should.equal(20);
+    searchPage.officerResultsSection.firstResultText.getText().should.equal('Jerome Finnigan');
+    searchPage.officerResultsSection.secondResultText.getText().should.equal('Edward May');
+    searchPage.searchCommunityResultsSection.results.waitForDisplayed(500, true);
+    searchPage.crResultsSection.results.waitForDisplayed(500, true);
+    searchPage.trrResultsSection.results.waitForDisplayed(500, true);
   });
 });

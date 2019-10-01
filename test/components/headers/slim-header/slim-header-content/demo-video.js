@@ -25,7 +25,7 @@ describe('DemoVideo component', function () {
       <DemoVideo
         position='top'
         openVideoModal={ openVideoModalStub }
-        videoThumbnailUrl='https://i.vimeocdn.com/video/797111186_100x75.webp'/>
+      />
     );
 
     findDOMNode(instance).getAttribute('class').should.containEql('top');
@@ -33,11 +33,9 @@ describe('DemoVideo component', function () {
     richTextEditable.props.className.should.equal('demo-video-text-input');
     richTextEditable.props.placeholder.should.equal('What is CPDP?');
     richTextEditable.props.fieldname.should.equal('demo_video_text');
-    findRenderedDOMComponentWithClass(instance, 'demo-video-thumbnail').getAttribute('src').should.eql(
-      'https://i.vimeocdn.com/video/797111186_100x75.webp'
-    );
+    findRenderedDOMComponentWithClass(instance, 'demo-video-thumbnail').should.be.ok();
     findRenderedDOMComponentWithClass(instance, 'demo-video-play-button').getAttribute('src').should.eql(
-      '/img/video-play-button.svg'
+      '/img/ic-play.svg'
     );
   });
 
@@ -48,7 +46,7 @@ describe('DemoVideo component', function () {
       <DemoVideo
         position='top'
         openVideoModal={ openVideoModalStub }
-        videoThumbnailUrl='https://i.vimeocdn.com/video/797111186_100x75.webp'/>
+      />
     );
     const videoButton = findRenderedDOMComponentWithClass(instance, 'demo-video-button');
 

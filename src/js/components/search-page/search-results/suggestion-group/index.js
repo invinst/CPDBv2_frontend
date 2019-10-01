@@ -36,7 +36,7 @@ export default class SuggestionGroup extends Component {
     return (
       <InfiniteScroll
         loadMore={ () => getSuggestionWithContentType(searchText, { ...nextParams }) }
-        initialLoad={ false }
+        initialLoad={ true }
         hasMore={ hasMore }
         useWindow={ false }>
         {

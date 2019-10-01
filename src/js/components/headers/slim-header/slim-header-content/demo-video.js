@@ -21,7 +21,7 @@ class DemoVideo extends Component {
   }
 
   render() {
-    const { position, videoThumbnailUrl, editWrapperStateProps } = this.props;
+    const { position, editWrapperStateProps } = this.props;
     return (
       <div className={ cx(styles.demoVideo, position) }>
         <EditWrapperStateProvider { ...editWrapperStateProps }>
@@ -34,8 +34,8 @@ class DemoVideo extends Component {
           </HoverableEditWrapper>
         </EditWrapperStateProvider>
         <div className='demo-video-button' onClick={ this.handleWatchVideoButtonClick }>
-          <img className='demo-video-thumbnail' src={ videoThumbnailUrl } />
-          <img className='demo-video-play-button' src='/img/video-play-button.svg' width={ 32 } height={ 32 } />
+          <div className='demo-video-thumbnail'/>
+          <img className='demo-video-play-button' src='/img/ic-play.svg' width={ 14 } height={ 17 } />
         </div>
       </div>
     );
@@ -45,7 +45,6 @@ class DemoVideo extends Component {
 DemoVideo.propTypes = {
   position: PropTypes.string,
   openVideoModal: PropTypes.func,
-  videoThumbnailUrl: PropTypes.string,
   editWrapperStateProps: PropTypes.object,
 };
 
