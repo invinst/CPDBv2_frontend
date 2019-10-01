@@ -7,11 +7,14 @@ import styles from 'components/common/item-pin-button.sass';
 
 class ItemPinButton extends Component {
   render() {
-    const { className } = this.props;
+    const { className, showHint } = this.props;
     const { isPinned } = this.props.item;
 
     return (
-      <span className={ cx(styles.wrapper, { 'is-pinned': isPinned }, className) } />
+      <div className={ cx(styles.itemPinButton, { 'is-pinned': isPinned }, className) }>
+        <div className='pin-button' />
+        { showHint && <div className='pin-action-hint'> Unpin? </div> }
+      </div>
     );
   }
 }
@@ -24,6 +27,11 @@ ItemPinButton.propTypes = {
   }),
   addOrRemoveItemInPinboard: PropTypes.func,
   className: PropTypes.string,
+  showHint: PropTypes.bool,
+};
+
+ItemPinButton.defaultProps = {
+  showHint: true,
 };
 
 export default withPinnable(ItemPinButton);

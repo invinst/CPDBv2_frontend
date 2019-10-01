@@ -80,6 +80,7 @@ export class OfficerCard extends Component {
         <ItemPinButton
           className='officer-card-pinned-button'
           addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
+          showHint={ false }
           item={ {
             type: PINNED_ITEM_TYPES.OFFICER,
             id: officerId,
