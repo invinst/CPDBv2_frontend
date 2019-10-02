@@ -10,6 +10,7 @@ import { roundedPercentile } from 'utils/calculations';
 import styles from './officer-card.sass';
 import ItemPinButton from 'components/common/item-pin-button';
 import { PINNED_ITEM_TYPES } from 'utils/constants';
+import pinButtonStyles from 'components/common/item-pin-button.sass';
 
 
 export class OfficerCard extends Component {
@@ -78,7 +79,7 @@ export class OfficerCard extends Component {
         className={ cx(styles.officerCard, className) }
       >
         <ItemPinButton
-          className='officer-card-pinned-button'
+          className={ pinButtonStyles.cardPinnedButton }
           addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
           showHint={ false }
           item={ {

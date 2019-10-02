@@ -2,6 +2,8 @@ import { get } from 'lodash';
 
 import { createSelector } from 'reselect';
 import { formatDate } from 'utils/date';
+import { createWithIsPinnedSelector } from 'selectors/landing-page/common';
+import { PINNED_ITEM_TYPES } from 'utils/constants';
 
 
 export const getCarouselDocumentHeaderEditModeOn = state => state.landingPage.recentDocument.headerEditModeOn;
@@ -22,7 +24,8 @@ export const hasCards = createSelector(
   cards => cards.length > 0
 );
 
-export const cardsSelector = createSelector(
-  [getCards],
-  cards => cards.map(cardTransform)
+export const cardsSelector = createWithIsPinnedSelector(
+  getCards,
+  PINNED_ITEM_TYPES.CR,
+  cardTransform,
 );

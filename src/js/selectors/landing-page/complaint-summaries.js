@@ -1,5 +1,7 @@
 import { createSelector } from 'reselect';
-import { shuffle, filter } from 'lodash';
+import { filter } from 'lodash';
+import { createWithIsPinnedSelector, shuffled } from 'selectors/landing-page/common';
+import { PINNED_ITEM_TYPES } from 'utils/constants';
 
 
 export const getCarouselComplaintHeaderEditModeOn = state => state.landingPage.complaintSummaries.headerEditModeOn;
@@ -17,11 +19,8 @@ export const hasCards = createSelector(
   cards => cards.length > 0
 );
 
-export const cardsSelector = createSelector(
-  [getCards],
-  cards => {
-    const upperHalf = shuffle(cards.slice(0, 12));
-    const lowerHalf = shuffle(cards.slice(12));
-    return upperHalf.concat(lowerHalf).map(cardTransform);
-  }
+export const cardsSelector = createWithIsPinnedSelector(
+  shuffled(getCards),
+  PINNED_ITEM_TYPES.CR,
+  cardTransform,
 );

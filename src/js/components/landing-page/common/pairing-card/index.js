@@ -4,14 +4,31 @@ import { Link } from 'react-router';
 import PairingChart from 'components/landing-page/common/pairing-card/pairing-chart';
 import style from './pairing-card.sass';
 import OfficerInfo from 'components/landing-page/common/pairing-card/officer-info';
+import ItemPinButton from 'components/common/item-pin-button';
+import pinButtonStyles from 'components/common/item-pin-button.sass';
+import { PINNED_ITEM_TYPES } from 'utils/constants';
 
 
 export default class PairingCard extends Component {
   render() {
-    const { officer1, officer2, coaccusalCount } = this.props;
+    const { officer1, officer2, coaccusalCount, addOrRemoveItemInPinboard } = this.props;
 
     return (
       <div className={ style.pairingCard }>
+        <ItemPinButton
+          className={ pinButtonStyles.cardPinnedButton }
+          addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
+          showHint={ false }
+          items={ [{
+            type: PINNED_ITEM_TYPES.OFFICER,
+            id: officer1.id,
+            isPinned: officer1.isPinned,
+          }, {
+            type: PINNED_ITEM_TYPES.OFFICER,
+            id: officer2.id,
+            isPinned: officer2.isPinned,
+          }] }
+        />
         <Link
           to={ `/officer/${officer1.id}/` }
           className='half-pane officer-info-left-hover-sibling'
@@ -40,4 +57,5 @@ PairingCard.propTypes = {
   officer1: PropTypes.object,
   officer2: PropTypes.object,
   coaccusalCount: PropTypes.number,
+  addOrRemoveItemInPinboard: PropTypes.func,
 };

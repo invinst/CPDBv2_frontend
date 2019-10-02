@@ -159,7 +159,7 @@ export default class SearchPage extends Component {
     const aliasEditModeOn = this.props.location.pathname.startsWith(`/edit/${SEARCH_ALIAS_EDIT_PATH}`);
     const {
       hide, query, queryPrefix, searchTermsHidden, contentType, tags,
-      editModeOn, officerCards, requestActivityGrid,
+      editModeOn, requestActivityGrid,
       changeSearchQuery, focusedItem, firstItem, saveToRecent, position, animationIn,
     } = this.props;
 
@@ -205,7 +205,6 @@ export default class SearchPage extends Component {
             query={ query }
             editModeOn={ editModeOn }
             aliasEditModeOn={ aliasEditModeOn }
-            officerCards={ officerCards }
             requestActivityGrid={ requestActivityGrid }
             searchTermsHidden={ searchTermsHidden }
             handleSelect={ this.handleSelect }
@@ -233,7 +232,6 @@ SearchPage.propTypes = {
   changeSearchQuery: PropTypes.func,
   children: PropTypes.node,
   editModeOn: PropTypes.bool,
-  officerCards: PropTypes.array,
   requestActivityGrid: PropTypes.func,
   searchTermsHidden: PropTypes.bool,
   resetSearchResultNavigation: PropTypes.func,

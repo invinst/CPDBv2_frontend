@@ -19,7 +19,6 @@ import {
   suggestionTagsSelector, isEmptySelector, firstItemSelector, queryPrefixSelector,
 } from 'selectors/search-page/search-results/suggestion-groups';
 import { hiddenSelector } from 'selectors/search-page/search-terms';
-import { singleCardsSelector } from 'selectors/landing-page/activity-grid';
 import { requestActivityGrid } from 'actions/landing-page/activity-grid';
 import editModeOnSelector from 'selectors/edit-mode-on';
 import { getPinboard } from 'selectors/pinboard-page/pinboard';
@@ -41,7 +40,6 @@ function mapStateToProps(state, ownProps) {
     contentType,
     isEmpty: isEmptySelector(state),
     focusedItem: getFocusedItem(state),
-    officerCards: singleCardsSelector(state),
     editModeOn: editModeOnSelector(state, ownProps),
     searchTermsHidden: hiddenSelector(state),
     firstItem: firstItemSelector(state),

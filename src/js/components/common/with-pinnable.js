@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { noop } from 'lodash';
+import { noop, every, isEmpty } from 'lodash';
 
 
 export default function withPinnable(WrappedComponent) {
@@ -13,13 +13,17 @@ export default function withPinnable(WrappedComponent) {
       e.preventDefault();
       e.stopPropagation();
 
-      const { addOrRemoveItemInPinboard, item } = this.props;
-      const { type, id, isPinned } = item;
+      const { addOrRemoveItemInPinboard, items, item } = this.props;
+      const addOrRemoveItems = isEmpty(items) ? [item] : items;
+      const allIsPinned = every(addOrRemoveItems, item => item.isPinned);
 
-      addOrRemoveItemInPinboard({
-        type: type,
-        id: String(id),
-        isPinned: isPinned,
+      addOrRemoveItems.forEach(item => {
+        if (item.isPinned === allIsPinned)
+          addOrRemoveItemInPinboard({
+            type: item.type,
+            id: String(item.id),
+            isPinned: item.isPinned,
+          });
       });
     }
 
@@ -35,6 +39,7 @@ export default function withPinnable(WrappedComponent) {
   _Base.propTypes = {
     addOrRemoveItemInPinboard: PropTypes.func,
     item: PropTypes.object,
+    items: PropTypes.array,
   };
 
   _Base.defaultProps = {
@@ -44,6 +49,7 @@ export default function withPinnable(WrappedComponent) {
       id: '',
       isPinned: false,
     },
+    items: [],
   };
 
   return _Base;

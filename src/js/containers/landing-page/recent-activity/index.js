@@ -10,6 +10,7 @@ import {
   turnOffCarouselActivityHeaderEditMode,
   turnOnCarouselActivityHeaderEditMode,
 } from 'actions/landing-page/activity-grid';
+import { addOrRemoveItemInPinboard } from 'actions/pinboard';
 
 
 function mapStateToProps(state, ownProps) {
@@ -25,6 +26,7 @@ const mapDispatchToProps = {
   onSaveForm: updatePage(constants.LANDING_PAGE_ID),
   turnOnSectionEditMode: turnOnCarouselActivityHeaderEditMode,
   turnOffSectionEditMode: turnOffCarouselActivityHeaderEditMode,
+  addOrRemoveItemInPinboard: addOrRemoveItemInPinboard,
 };
 
 export default connect(
