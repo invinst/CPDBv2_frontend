@@ -61,8 +61,6 @@ export default class SearchPage extends Component {
     if (!isRequesting && (queryChanged || suggestionGroupsEmpty)) {
       this.sendSearchQuery(query);
     }
-
-    this.handleToastChange(nextProps);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -82,29 +80,6 @@ export default class SearchPage extends Component {
       LayeredKeyBinding.unbind('enter');
     }
     showIntercomLauncher(true);
-  }
-
-  handleToastChange(nextProps) {
-    if (this.props.toast !== nextProps.toast) {
-      const { type, actionType } = nextProps.toast;
-
-      this.showToast(`${type} ${actionType}`, actionType);
-    }
-  }
-
-  showToast(message, className) {
-    const TopRightTransition = cssTransition({
-      enter: 'toast-enter',
-      exit: 'toast-exit',
-      duration: 500,
-      appendPosition: true,
-    });
-
-    toast(message, {
-      className: `toast-wrapper ${className}`,
-      bodyClassName: 'toast-body',
-      transition: TopRightTransition,
-    });
   }
 
   sendSearchQuery(query) {
@@ -266,7 +241,6 @@ SearchPage.propTypes = {
   firstItem: PropTypes.object,
   tags: PropTypes.array,
   isRequesting: PropTypes.bool,
-  toast: PropTypes.object,
   createPinboard: PropTypes.func,
   saveToRecent: PropTypes.func,
   hide: PropTypes.bool,
@@ -288,7 +262,6 @@ SearchPage.defaultProps = {
   resetSearchResultNavigation: noop,
   resetSearchTermNavigation: noop,
   firstItem: {},
-  toast: {},
   createPinboard: noop,
   saveToRecent: noop,
 };

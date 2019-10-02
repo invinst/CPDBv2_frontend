@@ -1,7 +1,7 @@
 import { StyleRoot } from 'radium';
 import { locationShape } from 'react-router/lib/PropTypes';
 import React, { PropTypes } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
+import { cssTransition, toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { getMockAdapter } from 'mock-api';
@@ -20,6 +20,10 @@ toast.configure();
 export default class App extends React.Component {
   getChildContext() {
     return { adapter: getMockAdapter() };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.handleToastChange(nextProps);
   }
 
   componentWillMount() {
@@ -44,6 +48,29 @@ export default class App extends React.Component {
   componentWillUnmount() {
     LayeredKeyBinding.unbind('esc');
     ALPHA_NUMBERIC.map(LayeredKeyBinding.unbind);
+  }
+
+  showToast(message, className) {
+    const TopRightTransition = cssTransition({
+      enter: 'toast-enter',
+      exit: 'toast-exit',
+      duration: 500,
+      appendPosition: true,
+    });
+
+    toast(message, {
+      className: `toast-wrapper ${className}`,
+      bodyClassName: 'toast-body',
+      transition: TopRightTransition,
+    });
+  }
+
+  handleToastChange(nextProps) {
+    if (this.props.toast !== nextProps.toast) {
+      const { type, actionType } = nextProps.toast;
+
+      this.showToast(`${type} ${actionType}`, actionType);
+    }
   }
 
   render() {
@@ -84,6 +111,7 @@ App.propTypes = {
   toggleEditMode: PropTypes.func,
   toggleSearchMode: PropTypes.func,
   changeSearchQuery: PropTypes.func,
+  toast: PropTypes.object,
 };
 
 App.defaultProps = {
@@ -91,8 +119,7 @@ App.defaultProps = {
   location: {
     pathname: '',
   },
-  receiveTokenFromCookie: () => {
-  },
-  changeSearchQuery: () => {
-  },
+  receiveTokenFromCookie: () => {},
+  changeSearchQuery: () => {},
+  toast: {},
 };
