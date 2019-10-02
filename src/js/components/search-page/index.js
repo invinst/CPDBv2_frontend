@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import { debounce, isEmpty, noop } from 'lodash';
 import { Promise } from 'es6-promise';
-import { toast, cssTransition } from 'react-toastify';
 import cx from 'classnames';
 
 import SearchBox from './search-box';
