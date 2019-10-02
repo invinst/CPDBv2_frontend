@@ -13,6 +13,7 @@ describe('officers-by-allegation selectors', function () {
       landingPage: {
         officersByAllegation: {},
       },
+      pinboardPage: { pinboard: null },
     };
   });
 

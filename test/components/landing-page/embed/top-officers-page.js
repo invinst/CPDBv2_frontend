@@ -22,6 +22,7 @@ describe('Embed top officers page', function () {
     cms: {
       pages: {},
     },
+    pinboardPage: { pinboard: {} },
   });
   let instance;
 

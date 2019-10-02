@@ -13,6 +13,7 @@ describe('complaint-summaries selectors', function () {
       landingPage: {
         complaintSummaries: {},
       },
+      pinboardPage: { pinboard: null },
     };
   });
 

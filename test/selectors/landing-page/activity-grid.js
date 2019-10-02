@@ -13,6 +13,7 @@ describe('activity-grid selectors', function () {
       landingPage: {
         activityGrid: {},
       },
+      pinboardPage: { pinboard: null },
     };
   });
 
@@ -49,6 +50,7 @@ describe('activity-grid selectors', function () {
         gender: 'female',
         percentile: null,
         kind: 'single_officer',
+        isPinned: false,
       }]);
     });
 

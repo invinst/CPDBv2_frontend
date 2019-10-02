@@ -10,6 +10,7 @@ describe('Officer coaccusals selectors', function () {
             items: [],
           },
         },
+        pinboardPage: { pinboard: null },
       }).should.be.empty();
     });
 
@@ -78,6 +79,7 @@ describe('Officer coaccusals selectors', function () {
             ],
           },
         },
+        pinboardPage: { pinboard: null },
       };
 
       coaccusalGroupsSelector(state).should.eql([
@@ -96,6 +98,7 @@ describe('Officer coaccusals selectors', function () {
               gender: 'male',
               coaccusalCount: 4,
               rank: 'Po As Detective',
+              isPinned: false,
               percentile: {
                 items: [
                   {
@@ -128,6 +131,7 @@ describe('Officer coaccusals selectors', function () {
               gender: 'male',
               coaccusalCount: 2,
               rank: 'Po As Detective',
+              isPinned: false,
               percentile: {
                 items: [
                   {
@@ -165,6 +169,7 @@ describe('Officer coaccusals selectors', function () {
               gender: 'male',
               coaccusalCount: 1,
               rank: 'Police Officer',
+              isPinned: false,
               percentile: {
                 items: [
                   {

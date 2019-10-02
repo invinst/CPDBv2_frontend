@@ -10,6 +10,7 @@ describe('recent-document selectors', function () {
       landingPage: {
         recentDocument: {},
       },
+      pinboardPage: { pinboard: null },
     };
   });
 
