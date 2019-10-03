@@ -4,12 +4,14 @@ import muuri from 'muuri';
 /* istanbul ignore next */
 import TwitterWidgetsLoader from 'twitter-widgets';
 import _mapboxgl from 'mapbox-gl';
+import * as _toastify from 'react-toastify';
 import { spy, stub } from 'sinon';
 
 import config from 'config';
 import { MAPBOX_ACCESS_TOKEN } from 'utils/constants';
 
 let _Muuri = muuri;
+let _Toastify = _toastify;
 
 export function loadTwitter(cb) {
   if (global.Mocha !== undefined) {
@@ -41,6 +43,7 @@ if (config.appEnv === 'live-test' || global.mocha !== undefined) {
   const setLngLatSpy = spy();
   const setPopupSpy = spy();
   const addToSpy = spy();
+  const resizeSpy = spy();
 
   class MockMap {
     constructor() {
@@ -53,6 +56,7 @@ if (config.appEnv === 'live-test' || global.mocha !== undefined) {
       this.setFilter = setFilterSpy;
       this.addControl = addControlSpy;
       this.remove = removeSpy;
+      this.resize = resizeSpy;
     }
     on() {
       arguments[arguments.length - 1]();
@@ -95,7 +99,15 @@ if (global.mocha !== undefined) {
   }
 
   _Muuri = MuuriClass;
+
+  const toastSpy = spy();
+  const cssTransitionSpy = spy();
+  _Toastify = {
+    toast: toastSpy,
+    cssTransition: cssTransitionSpy,
+  };
 }
 
 export const mapboxgl = _mapboxgl;
 export const Muuri = _Muuri;
+export const Toastify = _Toastify;

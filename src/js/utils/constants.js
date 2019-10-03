@@ -1,4 +1,5 @@
 import Enum from 'enum';
+import { kebabCase } from 'lodash';
 
 import {
   darkSilverSandColor, skepticColor, jaggedIceColor, romanticColor, porcelainColor, botticelliColor,
@@ -96,6 +97,7 @@ export const SOCIAL_GRAPH_OFFICERS_API_URL = `${V2_ROOT_PATH}social-graph/office
 export const SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL = `${V2_ROOT_PATH}social-graph/geographic-crs/`;
 export const SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL = `${V2_ROOT_PATH}social-graph/geographic-trrs/`;
 export const PINBOARDS_URL = `${V2_ROOT_PATH}pinboards/`;
+export const RECENT_SEARCH_ITEMS_API_URL = 'suggestion/recent-search-items/';
 
 export const OFFICER_SUMMARY_REQUEST_START = 'OFFICER_SUMMARY_REQUEST_START';
 export const OFFICER_SUMMARY_REQUEST_SUCCESS = 'OFFICER_SUMMARY_REQUEST_SUCCESS';
@@ -327,7 +329,6 @@ export const DOCUMENT_OVERVIEW_REQUEST_FAILURE = 'DOCUMENT_OVERVIEW_REQUEST_FAIL
 
 export const SELECT_TAG = 'SELECT_TAG';
 export const CHANGE_SEARCH_QUERY = 'CHANGE_SEARCH_QUERY';
-export const TRACK_RECENT_SUGGESTION = 'TRACK_RECENT_SUGGESTION';
 export const SEARCH_NAVIGATION_UP = 'SEARCH_NAVIGATION_UP';
 export const SEARCH_NAVIGATION_DOWN = 'SEARCH_NAVIGATION_DOWN';
 export const SEARCH_NAVIGATION_RESET = 'SEARCH_NAVIGATION_RESET';
@@ -559,6 +560,12 @@ export const SEARCH_CATEGORIES = [
   'RANK', 'ZIP-CODE',
 ];
 
+export const SEARCH_CATEGORY_PREFIXES = SEARCH_CATEGORIES.reduce((result, searchCategory) => {
+  return { ...result, [searchCategory]: kebabCase(searchCategory) };
+}, {});
+
+export const SEARCH_QUERY_PREFIX_REGEX = new RegExp(`^(${Object.values(SEARCH_CATEGORY_PREFIXES).join('|')}):`);
+
 export const OFFICER_EDIT_MODE = 'OFFICER_EDIT_MODE';
 export const OFFICER_EDIT_TYPES = new Enum(['TRIANGLE', 'SCALE', 'NO_DATA_RADAR_CHART']);
 
@@ -632,28 +639,28 @@ export const DOCUMENTS_SEARCH_ITEMS = {
 
 export const NEW_TIMELINE_FILTERS = {
   ALL: {
-    label: 'ALL',
+    label: 'All',
     kind: [NEW_TIMELINE_ITEMS.CR, NEW_TIMELINE_ITEMS.FORCE, NEW_TIMELINE_ITEMS.AWARD],
   },
   CRS: {
-    label: 'COMPLAINTS',
+    label: 'Complaints',
     kind: [NEW_TIMELINE_ITEMS.CR],
   },
   SUSTAINED: {
-    label: 'SUSTAINED',
+    label: 'Sustained',
     kind: [NEW_TIMELINE_ITEMS.CR],
     finding: ['Sustained'],
   },
   FORCE: {
-    label: 'USE OF FORCE',
+    label: 'Use Of Force',
     kind: [NEW_TIMELINE_ITEMS.FORCE],
   },
   AWARDS: {
-    label: 'AWARDS',
+    label: 'Awards',
     kind: [NEW_TIMELINE_ITEMS.AWARD],
   },
   RANK_UNIT_CHANGES: {
-    label: 'RANK/UNIT CHANGES',
+    label: 'Rank/Unit Changes',
     kind: [],
   },
 };
@@ -836,3 +843,20 @@ export const MODAL_VIDEO_INFO = {
   CHANNEL: 'vimeo',
   VIDEO_ID: '285002059',
 };
+
+export const SEARCH_SAVE_TO_RECENT = 'SEARCH_SAVE_TO_RECENT';
+
+export const FETCH_RECENT_SEARCH_ITEMS_START = 'FETCH_RECENT_SEARCH_ITEMS_START';
+export const FETCH_RECENT_SEARCH_ITEMS_SUCCESS = 'FETCH_RECENT_SEARCH_ITEMS_SUCCESS';
+export const FETCH_RECENT_SEARCH_ITEMS_FAILURE = 'FETCH_RECENT_SEARCH_ITEMS_FAILURE';
+export const FETCHED_EMPTY_RECENT_SEARCH_ITEMS = 'FETCHED_EMPTY_RECENT_SEARCH_ITEMS';
+
+export const RECENT_SEARCH_COMPONENT_TYPE_MAPPING = {
+  'DATE > OFFICERS': 'OFFICER',
+  'UNIT > OFFICERS': 'OFFICER',
+  'DATE > CR': 'CR',
+  'INVESTIGATOR > CR': 'CR',
+  'DATE > TRR': 'TRR',
+};
+
+export const HEADER_TOP_BAR_HEIGHT = 80;

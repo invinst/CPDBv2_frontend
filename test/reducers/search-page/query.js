@@ -15,6 +15,13 @@ describe('isRequesting reducer', function () {
     }).should.eql('john');
   });
 
+  it('should handle CHANGE_SEARCH_QUERY with prefix', function () {
+    query(null, {
+      type: CHANGE_SEARCH_QUERY,
+      payload: 'officer:jerome',
+    }).should.eql('jerome');
+  });
+
   it('should handle LOCATION_CHANGE', function () {
     query(null, {
       type: LOCATION_CHANGE,
@@ -24,5 +31,16 @@ describe('isRequesting reducer', function () {
         },
       },
     }).should.eql('new term');
+  });
+
+  it('should handle LOCATION_CHANGE with prefix', function () {
+    query(null, {
+      type: LOCATION_CHANGE,
+      payload: {
+        query: {
+          terms: 'cr:123456',
+        },
+      },
+    }).should.eql('123456');
   });
 });

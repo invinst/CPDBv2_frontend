@@ -1,7 +1,7 @@
 'use strict';
 
 require('should');
-import { map, countBy, filter } from 'lodash';
+import { map, countBy, filter, times } from 'lodash';
 
 import pinboardPage from './page-objects/pinboard-page';
 
@@ -16,7 +16,6 @@ describe('Pinboard Page', function () {
   it('should go to search page when the search bar is clicked', function () {
     pinboardPage.open();
     pinboardPage.searchBar.click();
-    $('.search-page').waitForDisplayed();
     browser.getUrl().should.endWith('/search/');
   });
 
@@ -30,6 +29,15 @@ describe('Pinboard Page', function () {
     pinboardPage.open();
     pinboardPage.headerQALink.click();
     browser.getUrl().should.containEql('http://how.cpdp.works/');
+  });
+
+  it('should open pinboard instead of latest retrieved pinboard', function () {
+    pinboardPage.open('5cd06f2b');
+    times(20, () => {
+      browser.getUrl().should.not.match(/\/pinboard\/abcd5678\//);
+      browser.pause(50);
+    });
+    browser.getUrl().should.match(/\/pinboard\/5cd06f2b\//);
   });
 
   context('pinboard pinned section', function () {
@@ -649,5 +657,40 @@ describe('No Id Pinboard Page', function () {
 
   it('should render pinboard return by latest-retrieved-pinboard', function () {
     pinboardPage.emptyPinboardSection.mainElement.waitForDisplayed();
+  });
+});
+
+describe('Session Generator Pinboard Page', function () {
+  it('should create new pinboard by query', function () {
+    pinboardPage.openByQuery([1, 2], ['5678123'], [3, 2]);
+    browser.getUrl().should.match(/\/pinboard\/ffff6666\//);
+
+    const officers = pinboardPage.pinnedSection.officers;
+    const crs = pinboardPage.pinnedSection.crs;
+    const trrs = pinboardPage.pinnedSection.trrs;
+
+    officers.officerCards().should.have.length(2);
+    crs.crCards().should.have.length(1);
+    trrs.trrCards().should.have.length(2);
+  });
+
+  it('should create new pinboard by query with some not-found -items', function () {
+    pinboardPage.openByQuery([1, 2], ['987654', '5678123'], [9, 7]);
+    browser.getUrl().should.match(/\/pinboard\/eeee7777\//);
+
+    pinboardPage.firstToast.waitForText(
+      '1 out of 2 allegations were added to this pinboard. 1 out of 2 allegation IDs could not be recognized (987654).'
+    );
+    pinboardPage.secondToast.waitForText(
+      '2 out of 2 TRR IDs could not be recognized (9, 7).'
+    );
+
+    const officers = pinboardPage.pinnedSection.officers;
+    const crs = pinboardPage.pinnedSection.crs;
+    const trrs = pinboardPage.pinnedSection.trrs;
+
+    officers.officerCards().should.have.length(2);
+    crs.crCards().should.have.length(1);
+    trrs.trrCards().should.have.length(0);
   });
 });

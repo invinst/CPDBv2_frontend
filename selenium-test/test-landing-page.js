@@ -4,6 +4,7 @@ import should from 'should';
 import { times } from 'lodash';
 
 import landingPage from './page-objects/landing-page';
+import searchPage from './page-objects/search-page';
 import header from './page-objects/shareable-header';
 import pinboardPage from './page-objects/pinboard-page';
 
@@ -83,6 +84,89 @@ describe('landing page', function () {
     browser.url('/something/really/wrong/');
     $('body').waitForDisplayed();
     landingPage.currentBasePath.should.eql('/');
+  });
+
+  describe('Switch to Search Page Transition', function () {
+    beforeEach(function () {
+      browser.setWindowRect(0, 0, 1000, 1000);
+      searchPage.input.waitForExist();
+      searchPage.input.waitForDisplayed(1000, true);
+    });
+
+    it('should show search page and hide landing page when clicking on search box', function () {
+      const searchBox = landingPage.header.navBar.searchBox;
+      searchBox.mainElement.click();
+
+      searchPage.input.waitForDisplayed(2000);
+      landingPage.header.content.waitForDisplayed(2000, true);
+      landingPage.header.content.waitForExist();
+    });
+
+    it('should expand search input when clicking on search box', function () {
+      const SEARCH_INPUT_WIDTH_AFTER_EXPAND = 893;
+      const searchBox = landingPage.header.navBar.searchBox;
+
+      searchBox.mainElement.getCSSProperty('width').value.should.equal('512px');
+
+      searchBox.mainElement.click();
+
+      const beginningWidthString = searchPage.input.getCSSProperty('width').value;
+      const beginningWidth = parseFloat(beginningWidthString.slice(0, beginningWidthString.length - 2));
+      beginningWidth.should.aboveOrEqual(512).and.below(SEARCH_INPUT_WIDTH_AFTER_EXPAND);
+
+      searchPage.input.waitForCSSProperty(
+        'width',
+        value => parseFloat(value.slice(0, value.length - 2)) === SEARCH_INPUT_WIDTH_AFTER_EXPAND,
+        1000
+      );
+    });
+
+    it('should move search box up when lading page position is top and clicking on search box', function () {
+      const searchBox = landingPage.header.navBar.searchBox;
+      searchBox.mainElement.click();
+
+      browser.waitUntil(
+        () => searchPage.input.getLocation('y') > 70,
+        500,
+        'Search box does not start moving up from lower position',
+        10
+      );
+
+      const topYLocation = 9;
+      browser.waitUntil(
+        () => searchPage.input.getLocation('y') === topYLocation,
+        1000,
+        'Search box does not end moving up at top',
+        10
+      );
+      searchPage.input.getLocation('y').should.equal(topYLocation);
+    });
+
+    it('should not move search page up when lading page is not at top', function () {
+      browser.scroll(0, 500); // must scroll pass the top bar
+      browser.pause(1000);
+
+      const header = landingPage.header;
+      header.content.getCSSProperty('position').value.should.eql('fixed');
+      header.content.getCSSProperty('top').value.should.eql('-80px');
+      header.navBar.searchBox.searchText.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
+
+      header.navBar.searchBox.mainElement.click();
+
+      const topYLocation = 9;
+      browser.pause(10);
+      searchPage.input.getLocation('y').should.equal(topYLocation);
+      browser.pause(10);
+      searchPage.input.getLocation('y').should.equal(topYLocation);
+      browser.pause(10);
+      searchPage.input.getLocation('y').should.equal(topYLocation);
+
+      searchPage.input.waitForCSSProperty(
+        'width',
+        value => parseFloat(value.slice(0, value.length - 2)) === 893,
+        1000
+      );
+    });
   });
 
   describe('Recent Activity carousel', function () {
@@ -198,26 +282,21 @@ describe('landing page', function () {
     });
 
     it('should render correctly at the top of the page', function () {
-      const header = landingPage.topHeader;
-      header.mainElement.getCSSProperty('position').value.should.eql('static');
+      const header = landingPage.header;
+      header.content.getCSSProperty('position').value.should.eql('static');
       header.mainElement.getCSSProperty('background-color').value.should.eql('rgba(0,0,0,0)');
 
       const topBar = header.topBar;
       topBar.mainElement.waitForDisplayed();
       topBar.logo.title.getCSSProperty('color').value.should.eql('rgba(35,31,32,1)');
       topBar.logo.subtitle.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
-      topBar.demoVideo.titleText.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      topBar.demoVideo.titleText.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
       topBar.demoVideo.titleText.getText().should.eql('What is CPDP?');
-      topBar.demoVideo.playButtonThumbnail.getCSSProperty('outline').value.should.eql('rgba(0,94,244,0.5)solid5px');
-      topBar.demoVideo.playButtonThumbnail.getAttribute('src').should.eql(
-        'https://i.vimeocdn.com/video/797111186_100x75.jpg'
-      );
+      topBar.demoVideo.playButtonThumbnail.getCSSProperty('border').value.should.eql('1px solid rgb(219, 219, 219)');
 
       const navBar = header.navBar;
       navBar.mainElement.waitForDisplayed();
-      navBar.mainElement.getCSSProperty('background-color').value.should.eql('rgba(245,244,244,1)');
-      navBar.searchBox.mainElement.getCSSProperty('background-color').value.should.eql('rgba(255,255,255,1)');
-      navBar.searchBox.mainElement.getCSSProperty('background-color').value.should.eql('rgba(255,255,255,1)');
+      navBar.searchBox.mainElement.getCSSProperty('background-color').value.should.eql('rgba(245,244,244,1)');
       navBar.searchBox.searchMagnifyingGlassPath.getAttribute('fill').should.eql('#005EF4');
       navBar.searchBox.searchText.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
       navBar.searchBox.searchTerm.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
@@ -228,19 +307,16 @@ describe('landing page', function () {
     });
 
     it('should render correctly at the middle of the page', function () {
-      browser.scroll(0, 100); // must scroll pass the top bar
+      browser.scroll(0, 500); // must scroll pass the top bar
       browser.pause(1000);
 
-      const header = landingPage.slimHeader;
-      header.mainElement.getCSSProperty('position').value.should.eql('fixed');
-
-      const topBar = header.topBar;
-      topBar.mainElement.waitForDisplayed(1000, true);
+      const header = landingPage.header;
+      header.content.getCSSProperty('position').value.should.eql('fixed');
+      header.content.getCSSProperty('top').value.should.eql('-80px');
 
       const navBar = header.navBar;
       navBar.mainElement.waitForDisplayed();
-      navBar.mainElement.getCSSProperty('background-color').value.should.eql('rgba(245,244,244,1)');
-      navBar.searchBox.mainElement.getCSSProperty('background-color').value.should.eql('rgba(255,255,255,1)');
+      navBar.searchBox.mainElement.getCSSProperty('background-color').value.should.eql('rgba(245,244,244,1)');
       navBar.searchBox.searchMagnifyingGlassPath.getAttribute('fill').should.eql('#767676');
       navBar.searchBox.searchText.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
       navBar.searchBox.searchTerm.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
@@ -254,35 +330,23 @@ describe('landing page', function () {
       browser.scroll(0, 9999);
       browser.pause(2000);
 
-      const header = landingPage.slimHeader;
-      header.mainElement.getCSSProperty('position').value.should.eql('fixed');
-      header.mainElement.getCSSProperty('background-color').value.should.eql('rgba(0,94,244,1)');
-
-      const topBar = header.topBar;
-      topBar.mainElement.waitForDisplayed();
-      topBar.logo.title.getCSSProperty('color').value.should.eql('rgba(255,255,255,1)');
-      topBar.logo.subtitle.getCSSProperty('color').value.should.eql('rgba(255,255,255,0.7)');
-      topBar.demoVideo.titleText.getCSSProperty('color').value.should.eql('rgba(255,255,255,1)');
-      topBar.demoVideo.playButtonThumbnail.getCSSProperty('outline').value.should.eql('rgba(255,255,255,0.5)solid5px');
-      topBar.demoVideo.playButtonThumbnail.getAttribute('src').should.eql(
-        'https://i.vimeocdn.com/video/797111186_100x75.jpg'
-      );
+      const header = landingPage.header;
+      header.content.getCSSProperty('position').value.should.eql('fixed');
 
       const navBar = header.navBar;
       navBar.mainElement.waitForDisplayed();
-      navBar.mainElement.getCSSProperty('background-color').value.should.eql('rgba(0,0,0,0)');
-      navBar.searchBox.mainElement.getCSSProperty('background-color').value.should.eql('rgba(0,0,0,0)');
-      navBar.searchBox.searchMagnifyingGlassPath.getAttribute('fill').should.eql('white');
-      navBar.searchBox.searchText.getCSSProperty('color').value.should.eql('rgba(255,255,255,1)');
-      navBar.searchBox.searchTerm.getCSSProperty('color').value.should.eql('rgba(255,255,255,1)');
-      navBar.rightLinks.data.getCSSProperty('color').value.should.eql('rgba(255,255,255,1)');
-      navBar.rightLinks.qa.getCSSProperty('color').value.should.eql('rgba(255,255,255,1)');
-      navBar.rightLinks.documents.getCSSProperty('color').value.should.eql('rgba(255,255,255,1)');
-      navBar.rightLinks.pinboard.getCSSProperty('color').value.should.eql('rgba(255,255,255,1)');
+      navBar.searchBox.mainElement.getCSSProperty('background-color').value.should.eql('rgba(245,244,244,1)');
+      navBar.searchBox.searchMagnifyingGlassPath.getAttribute('fill').should.eql('#005EF4');
+      navBar.searchBox.searchText.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.searchBox.searchTerm.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
+      navBar.rightLinks.data.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.rightLinks.qa.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.rightLinks.documents.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.rightLinks.pinboard.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
     });
 
     it('should go to pinboard page when clicking on pinboard tag', function () {
-      const navBar = landingPage.topHeader.navBar;
+      const navBar = landingPage.header.navBar;
       navBar.mainElement.waitForDisplayed();
       navBar.rightLinks.pinboard.click();
       pinboardPage.emptyPinboardSection.mainElement.waitForDisplayed();

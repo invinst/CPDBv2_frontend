@@ -56,7 +56,7 @@ describe('SearchBox component', function () {
 
     const magnifyingGlass = findRenderedComponentWithType(instance, MagnifyingGlass);
     magnifyingGlass.props.className.should.equal('search-box-magnifying-glass');
-    magnifyingGlass.props.color.should.equal('white');
+    magnifyingGlass.props.color.should.equal('#005EF4');
   });
 
   it('should go to search page when being clicked', function () {
@@ -68,6 +68,7 @@ describe('SearchBox component', function () {
     Simulate.click(findDOMNode(instance), { stopPropagation });
 
     stopPropagation.should.be.calledOnce();
+
     pushPathPreserveEditMode.should.be.calledOnce();
     pushPathPreserveEditMode.should.be.calledWith('/search/');
 

@@ -25,6 +25,7 @@ import {
   SOCIAL_GRAPH_OFFICERS_API_URL,
   SOCIAL_GRAPH_ALLEGATIONS_API_URL,
   MODAL_VIDEO_INFO,
+  RECENT_SEARCH_ITEMS_API_URL,
 } from 'utils/constants';
 import { communityGeoJSONPath } from 'utils/static-assets';
 import getCRData from './cr-page/get-data';
@@ -42,10 +43,9 @@ import getCoaccusalsData from './officer-page/get-coaccusals';
 import getNewTimelineItemsData from './officer-page/get-new-timeline-item';
 import getSummaryData, { noPercentileOfficerSummary } from './officer-page/get-summary';
 import getTRRData from './trr-page/get-data';
-import getSearchTermsData from './search-terms-page';
+import getSearchTermsData, { recentSearchItems } from './search-terms-page';
 import getUnitSummaryData from './unit-profile-page/get-summary';
 import { getCRPopup } from './popup';
-import { getCommunity } from './community';
 import fetchDocumentsByCRID from './document-deduplicator-page/fetch-documents-by-crid';
 import searchDocuments from './documents-overview-page/search-documents';
 import fetchDocuments from './documents-overview-page/fetch-documents';
@@ -71,6 +71,11 @@ import {
   updatedPinboardDescription,
 } from './pinboard';
 import {
+  ffff6666Complaints,
+  ffff6666Officers,
+  ffff6666TRRs,
+  eeee7777Complaints,
+  eeee7777Officers,
   fetchPinboardComplaints,
   fetchPinboardOfficers,
   fetchPinboardTRRs,
@@ -132,14 +137,39 @@ axiosMockClient.onPost(mailChimpUrl, { email: 'invalid@email.com' })
     'detail': 'invalid@email.com looks fake or invalid, please enter a real email address.', 'success': false,
   });
 
-axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'Ke', contentType: 'OFFICER' } }).reply(() => {
-  return [200, singleGroupSuggestions.default];
+axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'jerome', contentType: 'OFFICER' } }).reply(() => {
+  return [200, singleGroupSuggestions.officer];
 });
-axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'Ke', contentType: 'NEIGHBORHOOD' } }).reply(() => {
-  return [200, singleGroupSuggestions.neighborhoods];
+
+axiosMockClient.onGet(
+  SEARCH_SINGLE_API_URL,
+  { params: { term: 'jerome', contentType: 'OFFICER', offset: '10' } },
+).reply(() => {
+  return [200, singleGroupSuggestions.officerOffset10];
 });
-axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'Ke', contentType: 'OFFICER', offset: '20' } })
-  .reply(() => { return [200, singleGroupSuggestions.offset20]; });
+
+axiosMockClient.onGet(
+  SEARCH_SINGLE_API_URL,
+  { params: { term: 'jerome', contentType: 'OFFICER', offset: '20' } },
+).reply(() => {
+  return [200, singleGroupSuggestions.officerOffset20];
+});
+
+axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'jerome', contentType: 'CR' } }).reply(() => {
+  return [200, singleGroupSuggestions.cr];
+});
+
+axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'jerome', contentType: 'TRR' } }).reply(() => {
+  return [200, singleGroupSuggestions.trr];
+});
+
+axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'jerome', contentType: 'COMMUNITY' } }).reply(() => {
+  return [200, singleGroupSuggestions.community1];
+});
+
+axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'community', contentType: 'COMMUNITY' } }).reply(() => {
+  return [200, singleGroupSuggestions.community2];
+});
 
 axiosMockClient.onGet(SEARCH_API_URL).reply(function (config) {
   return [200, groupedSuggestions[config.params.contentType || config.params.term] || groupedSuggestions['default']];
@@ -160,7 +190,8 @@ axiosMockClient.onGet(
   `${CR_URL}1000000/related-complaints/?distance=0.5mi&match=categories&offset=20`
 ).reply(200, getCRRelatedComplaintsData({ match: 'categories', distance: '0.5mi', nextOffset: 40 }));
 
-axiosMockClient.onGet(`${OFFICER_URL}1/new-timeline-items/`).reply(200, getNewTimelineItemsData());
+axiosMockClient.onGet(`${OFFICER_URL}1/new-timeline-items/`).reply(200, getNewTimelineItemsData(1));
+axiosMockClient.onGet(`${OFFICER_URL}2/new-timeline-items/`).reply(200, getNewTimelineItemsData(2));
 axiosMockClient.onGet(`${OFFICER_URL}1/coaccusals/`).reply(200, getCoaccusalsData());
 
 axiosMockClient.onGet(`${UNIT_PROFILE_URL}001/summary/`).reply(200, getUnitSummaryData());
@@ -176,9 +207,6 @@ axiosMockClient.onGet(`${SLUG_PAGE_API_URL}officer-page/`).reply(200, officerPag
 axiosMockClient.onGet(`https://vimeo.com/api/v2/video/${MODAL_VIDEO_INFO.VIDEO_ID}.json`).reply(200, modalVideoInfo);
 
 axiosMockClient.onGet(`${POPUP_API_URL}?page=complaint`).reply(200, getCRPopup());
-
-axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'community', contentType: 'COMMUNITY' } })
-  .reply(() => { return [200, getCommunity()]; });
 
 axiosMockClient.onGet(`${DOCUMENTS_URL}`, { params: { crid: '1000000', limit: undefined, offset: undefined } })
   .reply(200, fetchDocumentsByCRID());
@@ -233,6 +261,23 @@ axiosMockClient.onGet(
   { params: { 'threshold': 3, 'complaint_origin': 'ALL', 'unit_id': '123' } }
 ).reply(200, getThresholdThreeSocialGraphData());
 
+axiosMockClient.onPost(
+  `${PINBOARDS_URL}`,
+  {
+    'officer_ids': [1, 2],
+    'crids': ['5678123'],
+    'trr_ids': [3, 2],
+  }
+).reply(201, createPinboard('ffff6666', [1, 2], ['5678123'], [3, 2]));
+
+axiosMockClient.onPost(
+  `${PINBOARDS_URL}`,
+  {
+    'officer_ids': [1, 2],
+    'crids': ['987654', '5678123'],
+    'trr_ids': [9, 7],
+  }
+).reply(201, createPinboard('eeee7777', [1, 2], ['5678123'], [], { 'crids': ['987654'], 'trr_ids': [9, 7] }));
 axiosMockClient.onPost(`${PINBOARDS_URL}`).reply(201, createPinboard());
 
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/`).reply(200, getOrCreateEmptyPinboard('5cd06f2b'));
@@ -257,6 +302,14 @@ axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/complaints/`).reply(200, fetchPi
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/officers/`).reply(200, fetchPinboardOfficers());
 
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/trrs/`).reply(200, fetchPinboardTRRs());
+
+axiosMockClient.onGet(`${PINBOARDS_URL}ffff6666/officers/`).reply(200, ffff6666Officers);
+axiosMockClient.onGet(`${PINBOARDS_URL}ffff6666/complaints/`).reply(200, ffff6666Complaints);
+axiosMockClient.onGet(`${PINBOARDS_URL}ffff6666/trrs/`).reply(200, ffff6666TRRs);
+
+axiosMockClient.onGet(`${PINBOARDS_URL}eeee7777/officers/`).reply(200, eeee7777Officers);
+axiosMockClient.onGet(`${PINBOARDS_URL}eeee7777/complaints/`).reply(200, eeee7777Complaints);
+axiosMockClient.onGet(`${PINBOARDS_URL}eeee7777/trrs/`).reply(200, []);
 
 axiosMockClient.onGet(`${SOCIAL_GRAPH_NETWORK_API_URL}?pinboard_id=5cd06f2b`).reply(200, getSocialGraphData());
 axiosMockClient.onGet(
@@ -313,9 +366,13 @@ axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-complaints/?limit=20&of
 );
 
 axiosMockClient.onGet(`${PINBOARDS_URL}abcd1234/`).reply(200, getOrCreateEmptyPinboard('abcd1234'));
+axiosMockClient.onGet(`${PINBOARDS_URL}abcd5678/`).reply(200, getOrCreateEmptyPinboard('abcd5678'));
 
 axiosMockClient.onGet(`${PINBOARDS_URL}latest-retrieved-pinboard/`, { params: {} }).reply(200, {});
-axiosMockClient.onGet(`${PINBOARDS_URL}latest-retrieved-pinboard/`, { params: { 'create': false } }).reply(200, {});
+axiosMockClient.onGet(
+  `${PINBOARDS_URL}latest-retrieved-pinboard/`,
+  { params: { 'create': false } }
+).reply(200, getOrCreateEmptyPinboard('abcd5678'));
 axiosMockClient.onGet(
   `${PINBOARDS_URL}latest-retrieved-pinboard/`,
   { params: { 'create': true } }
@@ -349,9 +406,14 @@ axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/relevant-documents/?`).reply(
   200, getFirstRelevantDocuments('3664a7ea', 50)
 );
 
-axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/relevant-complaints/?`).reply(
-  200, getFirstRelevantComplaints('3664a7ea', 50)
+axiosMockClient.onGet(
+  RECENT_SEARCH_ITEMS_API_URL,
+  { params: { 'officer_ids': ['1', '123'], 'crids': ['CR123', 'CR456', 'CR123456'], 'trr_ids': ['123', '456'] } },
+).reply(
+  200, recentSearchItems,
 );
+
+axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/trrs/`).reply(200, fetchPinboardTRRs());
 
 /*istanbul ignore next*/
 export function getMockAdapter() {

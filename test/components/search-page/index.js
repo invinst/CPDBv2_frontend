@@ -4,7 +4,6 @@ import { Router, createMemoryHistory, Route, browserHistory } from 'react-router
 import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
-  findRenderedDOMComponentWithTag,
   renderIntoDocument,
   scryRenderedDOMComponentsWithTag,
   Simulate,
@@ -28,6 +27,7 @@ import SearchBox from 'components/search-page/search-box';
 import { MORE_BUTTON, RECENT_CONTENT_TYPE } from 'utils/constants';
 import * as IntercomTracking from 'utils/intercom-tracking';
 import { showToast } from 'actions/toast';
+import * as LayeredKeyBinding from 'utils/layered-key-binding';
 
 
 describe('SearchPage component', function () {
@@ -43,6 +43,7 @@ describe('SearchPage component', function () {
           itemIndex: 0,
         },
       },
+      recentSuggestions: [],
       pagination: {},
     },
     pinboardPage: {
@@ -64,81 +65,30 @@ describe('SearchPage component', function () {
     this.debounceStub.restore();
   });
 
-  it('should call get suggestion api when change search input', function () {
-    const getSuggestion = stub().returns({ catch: spy() });
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchPage getSuggestion={ getSuggestion } />
-      </Provider>
-    );
-    const searchInput = findRenderedDOMComponentWithTag(instance, 'input');
-    searchInput.value = 'a';
-
-    Simulate.change(searchInput);
-
-    getSuggestion.should.be.calledWith('a', { limit: 9 });
-  });
-
   it('should not call get suggestion api when query is empty', function () {
     const getSuggestionSpy = stub().returns({ catch: spy() });
-    const getSuggestionWithContentTypeSpy = stub().returns({ catch: spy() });
     instance = renderIntoDocument(
       <Provider store={ store }>
         <SearchPage
           getSuggestion={ getSuggestionSpy }
-          getSuggestionWithContentType={ getSuggestionWithContentTypeSpy }
           query=''
         />
       </Provider>
     );
     getSuggestionSpy.should.not.be.called();
-    getSuggestionWithContentTypeSpy.should.not.be.called();
   });
 
   it('should call get suggestion api when query is set', function () {
     const getSuggestionSpy = stub().returns({ catch: spy() });
-    const getSuggestionWithContentTypeSpy = stub().returns({ catch: spy() });
     instance = renderIntoDocument(
       <Provider store={ store }>
         <SearchPage
           getSuggestion={ getSuggestionSpy }
-          getSuggestionWithContentType={ getSuggestionWithContentTypeSpy }
           query='a'
         />
       </Provider>
     );
     getSuggestionSpy.should.be.calledWith('a', { limit: 9 });
-    getSuggestionWithContentTypeSpy.should.not.be.called();
-  });
-
-  it('should call get suggestion api with contentType when query and contentType not empty', function () {
-    const getSuggestionSpy = stub().returns({ catch: spy() });
-    const getSuggestionWithContentTypeSpy = stub().returns({ catch: spy() });
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchPage
-          getSuggestion={ getSuggestionSpy }
-          getSuggestionWithContentType={ getSuggestionWithContentTypeSpy }
-          query='a'
-          contentType='OFFICER'
-        />
-      </Provider>
-    );
-    getSuggestionSpy.should.not.be.called();
-    getSuggestionWithContentTypeSpy.should.be.calledWith('a', { contentType: 'OFFICER' });
-  });
-
-  it('should clear all tags when user remove all text', function () {
-    const selectTag = spy();
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchPage selectTag={ selectTag } />
-      </Provider>
-    );
-    const searchInput = findRenderedDOMComponentWithTag(instance, 'input');
-    searchInput.value = '';
-    Simulate.change(searchInput);
-    selectTag.calledWith(null).should.be.true();
   });
 
   it('should call browserHistory.push when user click on searchbar__button--back', function () {
@@ -164,6 +114,103 @@ describe('SearchPage component', function () {
     this.browserHistoryPush.calledWith('/').should.be.true();
   });
 
+  it('should bind and unbind esc and enter keys when mounted but not hide', function () {
+    const bindSpy = spy(LayeredKeyBinding, 'bind');
+    const unbindSpy = spy(LayeredKeyBinding, 'unbind');
+
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <SearchPage hide={ true }/>
+      </Provider>
+    );
+
+    const searchPage = findRenderedComponentWithType(instance, SearchPage);
+
+    bindSpy.should.not.be.calledWith('esc', searchPage.handleGoBack);
+    bindSpy.should.not.be.calledWith('enter', searchPage.handleViewItem);
+
+    unmountComponentSuppressError(instance);
+
+    unbindSpy.should.not.be.calledWith('esc');
+    unbindSpy.should.not.be.calledWith('enter');
+
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <SearchPage hide={ false }/>
+      </Provider>
+    );
+
+    const newSearchPage = findRenderedComponentWithType(instance, SearchPage);
+
+    bindSpy.should.be.calledWith('esc', newSearchPage.handleGoBack);
+    bindSpy.should.be.calledWith('enter', newSearchPage.handleViewItem);
+
+    unmountComponentSuppressError(instance);
+
+    unbindSpy.should.be.calledWith('esc');
+    unbindSpy.should.be.calledWith('enter');
+
+    bindSpy.restore();
+    unbindSpy.restore();
+  });
+
+  it('should bind and unbind when update hide prop', function () {
+    const bindSpy = spy(LayeredKeyBinding, 'bind');
+    const unbindSpy = spy(LayeredKeyBinding, 'unbind');
+
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <SearchPage hide={ true }/>
+      </Provider>
+    );
+
+    const searchPage = findRenderedComponentWithType(instance, SearchPage);
+
+    bindSpy.should.not.be.calledWith('esc', searchPage.handleGoBack);
+    bindSpy.should.not.be.calledWith('enter', searchPage.handleViewItem);
+    unbindSpy.should.not.be.calledWith('esc');
+    unbindSpy.should.not.be.calledWith('enter');
+
+    instance = reRender(
+      <Provider store={ store }>
+        <SearchPage hide={ false }/>
+      </Provider>,
+      instance
+    );
+
+    const newSearchPage = findRenderedComponentWithType(instance, SearchPage);
+
+    bindSpy.should.be.calledWith('esc', newSearchPage.handleGoBack);
+    bindSpy.should.be.calledWith('enter', newSearchPage.handleViewItem);
+    unbindSpy.should.not.be.calledWith('esc');
+    unbindSpy.should.not.be.calledWith('enter');
+
+    instance = reRender(
+      <Provider store={ store }>
+        <SearchPage hide={ true }/>
+      </Provider>,
+      instance
+    );
+
+    unbindSpy.should.be.calledWith('esc');
+    unbindSpy.should.be.calledWith('enter');
+    unbindSpy.resetHistory();
+
+    instance = reRender(
+      <Provider store={ store }>
+        <SearchPage hide={ false }/>
+      </Provider>,
+      instance
+    );
+
+    unmountComponentSuppressError(instance);
+    unbindSpy.should.be.calledWith('esc');
+    unbindSpy.should.be.calledWith('enter');
+
+    unbindSpy.restore();
+    bindSpy.restore();
+  });
+
   it('should not change the current search path when user type in search box', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
@@ -173,6 +220,16 @@ describe('SearchPage component', function () {
     const searchBox = findRenderedComponentWithType(instance, SearchBox);
     searchBox.props.onChange({ currentTarget: { value: 'jer' } });
     this.browserHistoryPush.called.should.be.false();
+  });
+
+  it('should change the search box with correct text if there is queryPrefix', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <SearchPage query='jerome' queryPrefix='officer'/>
+      </Provider>
+    );
+    const searchBox = findRenderedComponentWithType(instance, SearchBox);
+    searchBox.props.value.should.eql('officer:jerome');
   });
 
   describe('handleViewItem', function () {
@@ -217,24 +274,6 @@ describe('SearchPage component', function () {
         navigateToSearchItem.restore();
       }
     );
-  });
-
-  it('should push search into breadcrumbs', function () {
-    const location = {
-      pathname: '/search', search: '/', action: 'POP',
-    };
-    const params = {};
-    const routes = [];
-    const stubPushBreadcrumbs = stub();
-
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchPage
-          location={ location } params={ params } routes={ routes } pushBreadcrumbs={ stubPushBreadcrumbs }
-        />
-      </Provider>
-    );
-    stubPushBreadcrumbs.calledWith({ location, params, routes }).should.be.true();
   });
 
   it('should call api with content type when user select a tag', function () {
@@ -317,38 +356,6 @@ describe('SearchPage component', function () {
       resetSearchResultNavigation.calledWith(1).should.be.true();
     });
 
-  it('should deselect tag and call getSuggestion when the selected tag has no data', function () {
-    const selectTagSpy = spy();
-    const getSuggestionSpy = stub().returns({ catch: spy() });
-
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchPage
-          suggestionGroups={ ['abc'] }
-          isEmpty={ false }
-          selectTag={ selectTagSpy }
-          getSuggestion={ getSuggestionSpy } />
-      </Provider>
-    );
-    selectTagSpy.resetHistory();
-    getSuggestionSpy.resetHistory();
-
-    reRender(
-      <Provider store={ store }>
-        <SearchPage
-          suggestionGroups={ [] }
-          isEmpty={ true }
-          query='abc'
-          selectTag={ selectTagSpy }
-          getSuggestion={ getSuggestionSpy } />
-      </Provider>,
-      instance
-    );
-
-    selectTagSpy.calledWith(null).should.be.true();
-    getSuggestionSpy.calledWith('abc', { limit: 9 }).should.be.true();
-  });
-
   it('should not deselect tag and call getSuggestion while requesting', function () {
     const selectTagSpy = spy();
     const getSuggestionSpy = stub().returns({ catch: spy() });
@@ -415,45 +422,6 @@ describe('SearchPage component', function () {
 
     selectTagSpy.should.not.be.called();
     getSuggestionSpy.calledWith('abc', { limit: 9 }).should.be.true();
-  });
-
-  it('should call getSuggestionWithType when query changed and contentType is set', function () {
-    const selectTagSpy = spy();
-    const getSuggestionSpy = stub().returns({ catch: spy() });
-    const getSuggestionWithContentTypeSpy = stub().returns({ catch: spy() });
-
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchPage
-          suggestionGroups={ ['abc'] }
-          isEmpty={ false }
-          isRequesting={ false }
-          selectTag={ selectTagSpy }
-          getSuggestion={ getSuggestionSpy }
-          getSuggestionWithContentType={ getSuggestionWithContentTypeSpy } />
-      </Provider>
-    );
-    selectTagSpy.resetHistory();
-    getSuggestionSpy.resetHistory();
-
-    reRender(
-      <Provider store={ store }>
-        <SearchPage
-          suggestionGroups={ ['abc'] }
-          isEmpty={ false }
-          isRequesting={ false }
-          contentType='OFFICER'
-          query='abc'
-          selectTag={ selectTagSpy }
-          getSuggestion={ getSuggestionSpy }
-          getSuggestionWithContentType={ getSuggestionWithContentTypeSpy } />
-      </Provider>,
-      instance
-    );
-
-    selectTagSpy.should.not.be.called();
-    getSuggestionSpy.should.not.be.called();
-    getSuggestionWithContentTypeSpy.calledWith('abc', { contentType: 'OFFICER' }).should.be.true();
   });
 
   it('should not call api when query changed to emtpy', function () {
@@ -549,6 +517,7 @@ describe('SearchPage component', function () {
 
   it('should show toast on toast prop change', function () {
     const showToastStub = spy(SearchPage.prototype, 'showToast');
+    const searchPageStub = stub(SearchPage.prototype, 'componentDidMount');
 
     const store = createStore(RootReducer, state);
 
@@ -558,18 +527,19 @@ describe('SearchPage component', function () {
       </Provider>
     );
 
+
     instance = renderIntoDocument(
       <Router history={ createMemoryHistory() }>
         <Route path='/' component={ searchPage } />
       </Router>
     );
-
     store.dispatch(showToast({
       isPinned: true,
       type: 'CR',
     }));
 
     showToastStub.should.be.calledWith('CR removed', 'removed');
+    searchPageStub.restore();
   });
 
   it('should handle when click on pinboard button if pinboard is not exist', function (done) {

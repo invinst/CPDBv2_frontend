@@ -133,6 +133,14 @@ export const CRSuggestion = Factory.define('CRSuggestion')
   .attr('type', 'CR');
 
 /* istanbul ignore next */
+export const CommunitySuggestion = Factory.define('CommunitySuggestion')
+  .attr('name', () => `${name.firstName()}`)
+  .attr('area_type', 'community')
+  .attr('url', `http://localhost:8001/url-mediator/session-builder?community=${name.firstName()}`)
+  .attr('allegation_count', () => random.number())
+  .attr('tags', ['community']);
+
+/* istanbul ignore next */
 export const DateCRSuggestion = Factory.define('DateCRSuggestion')
   .extend('CRSuggestionBase')
   .attr('type', 'DATE > CR');

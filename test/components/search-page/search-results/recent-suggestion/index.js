@@ -1,15 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router';
 
 import {
-  findRenderedComponentWithType,
-  findRenderedDOMComponentWithTag,
   renderIntoDocument,
+  scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import RecentSuggestionItem from 'components/search-page/search-results/recent-suggestion/recent-suggestion-item';
-import Row from 'components/common/row';
+import { OfficerSuggestion } from 'utils/test/factories/suggestion';
+import SuggestionItem from 'components/search-page/search-results/suggestion-group/suggestion-item';
+import RecentSuggestion from 'components/search-page/search-results/recent-suggestion';
 
 
 describe('RecentSuggestion component', function () {
@@ -19,32 +18,10 @@ describe('RecentSuggestion component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should render Row with label', function () {
+  it('should render SuggestionItem', function () {
     instance = renderIntoDocument(
-      <RecentSuggestionItem entry={ { contentType: 'something' } }/>
+      <RecentSuggestion recentSuggestions={ OfficerSuggestion.buildList(3) }/>
     );
-
-    let row = findRenderedComponentWithType(instance, Row);
-    row.props.label.should.eql('Something');
-  });
-
-  it('should render Link when there is entry.to', function () {
-    instance = renderIntoDocument(
-      <RecentSuggestionItem entry={ { contentType: 'something', to: '/some/path' } }/>
-    );
-
-    let link = findRenderedComponentWithType(instance, Link);
-    link.props.to.should.eql('/some/path');
-  });
-
-  it('should render a tag when there is no entry.to', function () {
-    instance = renderIntoDocument(
-      <RecentSuggestionItem
-        entry={ { contentType: 'something', url: 'http://localhost/some/url' } }
-      />
-    );
-
-    let link = findRenderedDOMComponentWithTag(instance, 'a');
-    link.href.should.eql('http://localhost/some/url');
+    scryRenderedComponentsWithType(instance, SuggestionItem).should.have.length(3);
   });
 });

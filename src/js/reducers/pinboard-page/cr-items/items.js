@@ -10,7 +10,7 @@ import {
 } from 'utils/constants';
 
 
-const toRawCR = item => item.rawData;
+const toRawCR = item => item.recentItemData;
 
 export default handleActions({
   [PINBOARD_COMPLAINTS_FETCH_REQUEST_SUCCESS]: (state, action) => action.payload,

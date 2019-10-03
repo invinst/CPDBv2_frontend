@@ -1,6 +1,16 @@
 @import 'variables'
 
+$animation-duration: 0.5s
+
 \:local(.landing-page)
+  &.hide
+    display: none
+
+  &.animation-in
+    animation-duration: $animation-duration
+    animation-name: fadeIn
+    animation-fill-mode: forwards
+
   .landing-page-carousel-wrapper
     background-color: $sugar-cane-color
     padding: 16px 0 0 16px

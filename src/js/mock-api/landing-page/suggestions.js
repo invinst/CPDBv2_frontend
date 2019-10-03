@@ -4,9 +4,146 @@ import {
   RawCRSuggestion,
   RawTRRSuggestion,
   RawRankSuggestion,
+  CommunitySuggestion,
 } from 'utils/test/factories/suggestion';
 import { SearchTermCategoryItem } from 'utils/test/factories/search-terms';
 
+const officerSuggestions = [
+  RawOfficerSuggestion.build(
+    {
+      id: '8562',
+      name: 'Jerome Finnigan',
+      to: '/officer/1/jerome-finnigan/',
+      'allegation_count': 10,
+      'sustained_count': 2,
+      'birth_year': 1972,
+      race: 'White',
+      gender: 'Male',
+    }
+  ),
+  RawOfficerSuggestion.build(
+    {
+      id: '8563',
+      name: 'Edward May',
+      to: '/officer/2/edward-may/',
+      'allegation_count': 5,
+      'sustained_count': 1,
+      'birth_year': 1980,
+      race: 'White',
+      gender: 'Female',
+    }
+  ),
+  ...RawOfficerSuggestion.buildList(8),
+];
+
+const crSuggestions = [
+  RawCRSuggestion.build(
+    {
+      id: '1',
+      crid: 'CR123',
+      to: '/complaint/CR123/',
+      category: 'Lockup Procedures',
+      'sub_category': 'Reports',
+      'incident_date': '2004-04-23',
+      highlight: {
+        summary: ['an officer named Kelly caught the victim'],
+      },
+      address: '14XX W 63RD ST, CHICAGO IL 60636',
+      'victims': [
+        { 'gender': 'Female', 'race': 'Hispanic' },
+        { 'gender': 'Female', 'race': 'Hispanic', 'age': 48 },
+      ],
+      'coaccused': [{
+        'id': 16567,
+        'full_name': 'Baudilio Lopez',
+        'percentile': {
+          'id': 16567,
+          'percentile_trr': '72.1094',
+          'percentile_allegation_civilian': '98.5549',
+          'percentile_allegation_internal': '61.1521',
+        },
+        'allegation_count': 93,
+      }, {
+        'id': 16568,
+        'full_name': 'Baudilio Lopez',
+        'percentile': {
+          'id': 16568,
+          'percentile_trr': '72.1094',
+          'percentile_allegation_civilian': '98.5549',
+          'percentile_allegation_internal': '61.1521',
+        },
+        'allegation_count': 93,
+      }],
+    }
+  ),
+  RawCRSuggestion.build(
+    {
+      id: '2',
+      crid: 'CR456',
+      to: '/complaint/CR456/',
+      highlight: {},
+      'incident_date': '2006-11-12',
+      category: 'Operation/Personnel Violations',
+      'sub_category': 'Reports',
+      address: '14XX W 63RD ST, CHICAGO IL 60636',
+      'victims': [
+        { 'gender': 'Female', 'race': 'Hispanic' },
+        { 'gender': 'Female', 'race': 'Hispanic' },
+      ],
+      'coaccused': [
+        {
+          'id': 16567,
+          'full_name': 'Baudilio Lopez',
+          'percentile': {
+            'id': 180838,
+            'percentile_trr': '72.1094',
+            'percentile_allegation_civilian': '98.5549',
+            'percentile_allegation_internal': '61.1521',
+          },
+          'allegation_count': 93,
+        },
+        {
+          'id': 7544,
+          'full_name': 'Dominique Dunigan',
+          'percentile': {
+            'id': 180839,
+            'percentile_trr': '0.0000',
+            'percentile_allegation_civilian': '24.1180',
+            'percentile_allegation_internal': '0.0000',
+          },
+          'allegation_count': 1,
+        },
+      ],
+    }
+  ),
+];
+
+const trrSuggestions = [
+  RawTRRSuggestion.build(
+    {
+      id: '123',
+      to: '/trr/123/',
+      'force_type': 'Member Presence',
+      'trr_datetime': '2004-04-27',
+    }
+  ),
+  RawTRRSuggestion.build(
+    {
+      id: '456',
+      to: '/trr/456/',
+      'force_type': 'Verbal Commands',
+      'trr_datetime': '2005-04-27',
+    }
+  ),
+];
+
+const community1Suggestions = [
+  CommunitySuggestion.build({ name: 'Loop' }),
+];
+
+const community2Suggestions = [
+  CommunitySuggestion.build({ name: 'Austin' }),
+];
 
 export const groupedSuggestions = {
   'default': {
@@ -68,7 +205,7 @@ export const groupedSuggestions = {
     'CR': [
       RawCRSuggestion.build(
         {
-          id: '1',
+          id: 'CR123',
           crid: 'CR123',
           to: '/complaint/CR123/',
           category: 'Lockup Procedures',
@@ -107,7 +244,7 @@ export const groupedSuggestions = {
       ),
       RawCRSuggestion.build(
         {
-          id: '2',
+          id: 'CR456',
           crid: 'CR456',
           to: '/complaint/CR456/',
           highlight: {},
@@ -201,7 +338,7 @@ export const groupedSuggestions = {
     'DATE > CR': [
       RawCRSuggestion.build(
         {
-          id: '1',
+          id: 'CR123',
           crid: 'CR123',
           to: '/complaint/CR123/',
           category: 'Lockup Procedures',
@@ -215,7 +352,7 @@ export const groupedSuggestions = {
       ),
       RawCRSuggestion.build(
         {
-          id: '2',
+          id: 'CR456',
           crid: 'CR456',
           to: '/complaint/CR456/',
           'incident_date': '2004-04-23',
@@ -280,7 +417,7 @@ export const groupedSuggestions = {
         {
           id: '456',
           to: '/trr/456/',
-          'force_type': null,
+          'force_type': 'Physical Force - Holding',
           'trr_datetime': '2004-04-23',
           'category': 'Firearm',
           'address': '4000 Michigan Ave',
@@ -364,7 +501,7 @@ export const groupedSuggestions = {
     'INVESTIGATOR > CR': [
       RawCRSuggestion.build(
         {
-          id: '1',
+          id: 'CR123456',
           crid: 'CR123456',
           to: '/complaint/CR123456/',
           category: 'Lockup Procedures',
@@ -503,19 +640,113 @@ export const groupedSuggestions = {
       ),
     ],
   },
+  'community': {
+    'COMMUNITY': community2Suggestions,
+    'RANK': [
+      RawRankSuggestion.build(
+        {
+          name: 'Officer',
+          'active_officers_count': 2,
+        }
+      ),
+      RawRankSuggestion.build(
+        {
+          name: 'Chief',
+          'active_officers_count': 3,
+        }
+      ),
+    ],
+    'CR': [
+      RawCRSuggestion.build(
+        {
+          id: '1',
+          crid: 'CR123',
+          to: '/complaint/CR123/',
+          category: 'Lockup Procedures',
+          'sub_category': 'Reports',
+          'incident_date': '2004-04-23',
+          highlight: {
+            summary: ['an officer named Kelly caught the victim'],
+          },
+          address: '14XX W 63RD ST, CHICAGO IL 60636',
+          'victims': [
+            { 'gender': 'Female', 'race': 'Hispanic' },
+            { 'gender': 'Female', 'race': 'Hispanic', 'age': 48 },
+          ],
+          'coaccused': [{
+            'id': 16567,
+            'full_name': 'Baudilio Lopez',
+            'percentile': {
+              'id': 16567,
+              'percentile_trr': '72.1094',
+              'percentile_allegation_civilian': '98.5549',
+              'percentile_allegation_internal': '61.1521',
+            },
+            'allegation_count': 93,
+          }, {
+            'id': 16568,
+            'full_name': 'Baudilio Lopez',
+            'percentile': {
+              'id': 16568,
+              'percentile_trr': '72.1094',
+              'percentile_allegation_civilian': '98.5549',
+              'percentile_allegation_internal': '61.1521',
+            },
+            'allegation_count': 93,
+          }],
+        }
+      ),
+      RawCRSuggestion.build(
+        {
+          id: '2',
+          crid: 'CR456',
+          to: '/complaint/CR456/',
+          highlight: {},
+          'incident_date': '2006-11-12',
+          category: 'Operation/Personnel Violations',
+          'sub_category': 'Reports',
+          address: '14XX W 63RD ST, CHICAGO IL 60636',
+          'victims': [
+            { 'gender': 'Female', 'race': 'Hispanic' },
+            { 'gender': 'Female', 'race': 'Hispanic' },
+          ],
+          'coaccused': [
+            {
+              'id': 16567,
+              'full_name': 'Baudilio Lopez',
+              'percentile': {
+                'id': 180838,
+                'percentile_trr': '72.1094',
+                'percentile_allegation_civilian': '98.5549',
+                'percentile_allegation_internal': '61.1521',
+              },
+              'allegation_count': 93,
+            },
+            {
+              'id': 7544,
+              'full_name': 'Dominique Dunigan',
+              'percentile': {
+                'id': 180839,
+                'percentile_trr': '0.0000',
+                'percentile_allegation_civilian': '24.1180',
+                'percentile_allegation_internal': '0.0000',
+              },
+              'allegation_count': 1,
+            },
+          ],
+        }
+      ),
+    ],
+  },
+  'jerome': {
+    'OFFICER': officerSuggestions,
+    'CR': crSuggestions,
+    'TRR': trrSuggestions,
+    'COMMUNITY': community1Suggestions,
+  },
 };
 
 export const singleGroupSuggestions = {
-  'default': {
-    count: 30,
-    previous: null,
-    next: 'http://my/api/?contentType=OFFICER&offset=20',
-    results: [
-      RawOfficerSuggestion.build({ name: 'Bernadette Kelly' }),
-      RawOfficerSuggestion.build({ name: 'Charles Kelly' }),
-      ...RawOfficerSuggestion.buildList(18),
-    ],
-  },
   neighborhoods: {
     count: 7,
     previous: null,
@@ -530,10 +761,46 @@ export const singleGroupSuggestions = {
       RawNeighborhoodSuggestion.build({ id: '7', name: 'Auburn Gresham' }),
     ],
   },
-  offset20: {
-    count: 30,
+  officer: {
+    count: 25,
+    previous: null,
+    next: 'http://my/api/?contentType=OFFICER&offset=10',
+    results: officerSuggestions,
+  },
+  officerOffset10: {
+    count: 25,
+    previous: 'http://my/api/?contentType=OFFICER',
+    next: 'http://my/api/?contentType=OFFICER&offset=20',
+    results: RawOfficerSuggestion.buildList(10),
+  },
+  officerOffset20: {
+    count: 25,
+    previous: 'http://my/api/?contentType=OFFICER&offset=10',
+    next: null,
+    results: RawOfficerSuggestion.buildList(5),
+  },
+  cr: {
+    count: 2,
     previous: null,
     next: null,
-    results: RawOfficerSuggestion.buildList(10),
+    results: crSuggestions,
+  },
+  trr: {
+    count: 2,
+    previous: null,
+    next: null,
+    results: trrSuggestions,
+  },
+  community1: {
+    count: 1,
+    previous: null,
+    next: null,
+    results: community1Suggestions,
+  },
+  community2: {
+    count: 1,
+    previous: null,
+    next: null,
+    results: community2Suggestions,
   },
 };

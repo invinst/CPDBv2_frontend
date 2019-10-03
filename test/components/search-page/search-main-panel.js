@@ -26,6 +26,7 @@ describe('SearchMainPanel component', function () {
           itemIndex: 0,
         },
       },
+      recentSuggestions: [],
       pagination: {},
     },
     pinboardPage: {

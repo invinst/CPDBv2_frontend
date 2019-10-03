@@ -58,6 +58,7 @@ export default class PinboardPage extends Component {
 
   componentWillUnmount() {
     document.body.classList.remove('body-fixed-viewport');
+    document.body.classList.remove('body-not-scrollable');
   }
 
   handleOverlayClick() {

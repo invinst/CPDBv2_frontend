@@ -28,6 +28,18 @@ function initCommands() {
   );
 
   browser.addCommand(
+    'waitForCSSProperty',
+    function (attr, verifier, timeout) {
+      browser.waitUntil(
+        () => verifier(this.getCSSProperty(attr).value),
+        timeout,
+        `${this.selector} still does not satisfy ${verifier} after ${timeout || '{waitforTimeout}'}ms`
+      );
+    },
+    true
+  );
+
+  browser.addCommand(
     'clickAt',
     function (x, y) {
       const location = this.getLocation();

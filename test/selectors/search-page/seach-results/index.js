@@ -3,7 +3,7 @@ import { stub } from 'sinon';
 import {
   isEmptySelector, suggestionTagsSelector, searchResultGroupsSelector,
   hasMoreSelector, nextParamsSelector, isShowingSingleContentTypeSelector,
-  firstItemSelector,
+  firstItemSelector, queryPrefixSelector,
 } from 'selectors/search-page/search-results/suggestion-groups';
 import { RawOfficerSuggestion, RawCRSuggestion, RawTRRSuggestion } from 'utils/test/factories/suggestion';
 import * as v1UrlUtils from 'utils/v1-url';
@@ -986,6 +986,17 @@ describe('search page results selector', function () {
     });
   });
 
+  describe('queryPrefixSelector', function () {
+    it('should return correct query prefix', function () {
+      const state = {
+        searchPage: {
+          contentType: 'DATE > OFFICERS',
+        },
+      };
+      queryPrefixSelector(state).should.equal('date-officers');
+    });
+  });
+
   describe('suggestionTagsSelector', function () {
     it('should output correct order', function () {
       suggestionTagsSelector({
@@ -1104,18 +1115,25 @@ describe('search page results selector', function () {
     });
 
     it('should return first item of first suggestion group', function () {
+      const firstItemData = RawOfficerSuggestion.build({
+        id: '29033',
+        race: 'White',
+        name: 'Jerome Turbyville',
+        sex: 'Male',
+        'birth_year': 1969,
+        to: '/officer/29033/',
+        'allegation_count': 10,
+        'sustained_count': 2,
+        'major_award_count': 2,
+        'honorable_mention_count': 2,
+        'honorable_mention_percentile': 72.2,
+      });
       firstItemSelector({
         searchPage: {
           tags: [],
           suggestionGroups: {
             'OFFICER': [
-              RawOfficerSuggestion.build({
-                id: '1',
-                to: 'officer1',
-                url: '/officer/1/',
-                name: 'officer1',
-                type: 'OFFICER',
-              }),
+              firstItemData,
               ...RawOfficerSuggestion.buildList(2),
             ],
             'CR': [
@@ -1127,10 +1145,18 @@ describe('search page results selector', function () {
           pinboard: null,
         },
       }).should.deepEqual({
-        to: 'officer1',
-        url: '/officer/1/',
-        recentText: 'officer1',
+        to: '/officer/29033/',
+        url: '',
+        text: 'Jerome Turbyville',
+        recentText: 'Jerome Turbyville',
         type: 'OFFICER',
+        id: '29033',
+        uniqueKey: 'OFFICER-29033',
+        recentItemData: {
+          ...firstItemData,
+          type: 'OFFICER',
+          itemIndex: 1,
+        },
       });
     });
   });

@@ -76,9 +76,8 @@ class SearchTermsPage extends Page {
     this.bottomLinks = new BottomLinksSection();
     this.previewPane = new PreviewPane();
     this.prepareElementGetters({
-      input: '.test--search-page-input',
+      input: '.search-box-text-input',
       title: '.search-term-title',
-      searchTermsToggle: '.test--toggle-button',
       clearSearchButton: '.test--search-close-button',
     });
   }
