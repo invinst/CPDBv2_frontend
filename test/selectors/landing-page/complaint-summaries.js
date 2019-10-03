@@ -13,7 +13,7 @@ describe('complaint-summaries selectors', function () {
       landingPage: {
         complaintSummaries: {},
       },
-      pinboardPage: { pinboard: null },
+      pinboardPage: { pinboard: { crids: ['1', '2', '3'] } },
     };
   });
 
@@ -30,6 +30,16 @@ describe('complaint-summaries selectors', function () {
       const result = cardsSelector(state);
       result[0].categoryNames.should.have.length(1);
       result[0].categoryNames[0].should.eql('Use Of Forces');
+    });
+
+    it('should add isPinned attr', function () {
+      state.landingPage.complaintSummaries.cards = [
+        RawComplaintSummaryFactory.build({ 'crid': '1' }),
+        RawComplaintSummaryFactory.build({ 'crid': '99' }),
+      ];
+      const result = cardsSelector(state);
+      result.should.have.length(2);
+      [result[0].isPinned, result[1].isPinned].sort().should.be.eql([false, true]);
     });
 
     it('should shuffle cards', function () {

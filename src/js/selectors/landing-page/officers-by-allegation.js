@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
-import { cardTransform, createWithIsPinnedSelector, shuffled } from './common';
+import { cardTransform, shuffled } from './common';
 import { PINNED_ITEM_TYPES } from 'utils/constants';
+import { createWithIsPinnedSelector } from 'selectors/common/pinboard';
 
 
 export const getCarouselAllegationHeaderEditModeOn = state => state.landingPage.officersByAllegation.headerEditModeOn;

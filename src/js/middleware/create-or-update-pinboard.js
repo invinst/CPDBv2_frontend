@@ -35,7 +35,6 @@ import {
 import loadPaginatedData from 'utils/load-paginated-data';
 import { Toastify } from 'utils/vendors';
 import pinboardStyles from 'components/pinboard-page/pinboard-page.sass';
-import { toast } from 'react-toastify';
 
 
 const getIds = (query, key) => _.get(query, key, '').split(',').filter(_.identity);
@@ -129,7 +128,7 @@ function formatMessage(foundIds, notFoundIds, itemType) {
   return message.trim();
 }
 
-const TopRightTransition = Toastify.cssTransition({
+export const TopRightTransition = Toastify.cssTransition({
   enter: 'toast-enter',
   exit: 'toast-exit',
   duration: 500,
@@ -175,7 +174,7 @@ function showAddOrRemoveItemToast(payload) {
   const { isPinned, type } = payload;
   const actionType = isPinned ? 'removed' : 'added';
 
-  toast(`${TOAST_TYPE_MAP[type]} ${actionType}`, {
+  Toastify.toast(`${TOAST_TYPE_MAP[type]} ${actionType}`, {
     className: `toast-wrapper ${actionType}`,
     bodyClassName: 'toast-body',
     transition: TopRightTransition,

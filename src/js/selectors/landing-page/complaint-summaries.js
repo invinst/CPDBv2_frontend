@@ -1,7 +1,8 @@
 import { createSelector } from 'reselect';
 import { filter } from 'lodash';
-import { createWithIsPinnedSelector, shuffled } from 'selectors/landing-page/common';
+import { shuffled } from 'selectors/landing-page/common';
 import { PINNED_ITEM_TYPES } from 'utils/constants';
+import { createWithIsPinnedSelector } from 'selectors/common/pinboard';
 
 
 export const getCarouselComplaintHeaderEditModeOn = state => state.landingPage.complaintSummaries.headerEditModeOn;

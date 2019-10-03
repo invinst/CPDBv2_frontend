@@ -13,7 +13,7 @@ describe('activity-grid selectors', function () {
       landingPage: {
         activityGrid: {},
       },
-      pinboardPage: { pinboard: null },
+      pinboardPage: { pinboard: { 'officer_ids': ['1', '2', '3'] } },
     };
   });
 
@@ -25,7 +25,19 @@ describe('activity-grid selectors', function () {
 
     it('should transform correctly', function () {
       state.landingPage.activityGrid.cards = [{
-        id: '1',
+        id: 1,
+        'full_name': 'someone',
+        'visual_token_background_color': 'red',
+        'complaint_count': 10,
+        'sustained_count': 5,
+        'complaint_percentile': 80,
+        'birth_year': 1970,
+        race: 'Black',
+        rank: 'Police Officer',
+        gender: 'Female',
+        kind: 'single_officer',
+      }, {
+        id: 9,
         'full_name': 'someone',
         'visual_token_background_color': 'red',
         'complaint_count': 10,
@@ -37,21 +49,42 @@ describe('activity-grid selectors', function () {
         gender: 'Female',
         kind: 'single_officer',
       }];
-      cardsSelector(state).should.eql([{
-        id: '1',
-        officerId: '1',
-        fullName: 'someone',
-        complaintCount: 10,
-        sustainedCount: 5,
-        complaintPercentile: 80,
-        birthYear: 1970,
-        race: 'black',
-        rank: 'Police Officer',
-        gender: 'female',
-        percentile: null,
-        kind: 'single_officer',
-        isPinned: false,
-      }]);
+      const expectation = {
+        1: {
+          id: 1,
+          officerId: 1,
+          fullName: 'someone',
+          complaintCount: 10,
+          sustainedCount: 5,
+          complaintPercentile: 80,
+          birthYear: 1970,
+          race: 'black',
+          rank: 'Police Officer',
+          gender: 'female',
+          percentile: null,
+          kind: 'single_officer',
+          isPinned: true,
+        },
+        9: {
+          id: 9,
+          officerId: 9,
+          fullName: 'someone',
+          complaintCount: 10,
+          sustainedCount: 5,
+          complaintPercentile: 80,
+          birthYear: 1970,
+          race: 'black',
+          rank: 'Police Officer',
+          gender: 'female',
+          percentile: null,
+          kind: 'single_officer',
+          isPinned: false,
+        },
+      };
+
+      const cards = cardsSelector(state);
+      cards.should.have.length(2);
+      cards.forEach(card => card.should.eql(expectation[card.id]));
     });
 
     it('should shuffle cards', function () {
@@ -65,7 +98,6 @@ describe('activity-grid selectors', function () {
 
       stubShuffle.restore();
     });
-
   });
 
   describe('hasCards', function () {

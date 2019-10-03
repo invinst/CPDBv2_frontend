@@ -3,7 +3,9 @@ import {
   simpleOfficerTransform,
   pairingCardTransform,
   cardTransform,
+  shuffled,
 } from 'selectors/landing-page/common';
+import { range, some, isEqual } from 'lodash';
 
 
 describe('common selectors', function () {
@@ -217,6 +219,18 @@ describe('common selectors', function () {
           backgroundColor: '#f0201e',
         },
       });
+    });
+  });
+
+  describe('shuffled', function () {
+    it('should return a selector which shuffles items', function () {
+      const storeState = { items: range(40) };
+      const itemsSelector = state => state.items;
+      const shuffledItemsSelector = shuffled(itemsSelector);
+      const results = range(30).map(() => shuffledItemsSelector(storeState));
+
+      some(results.map(result => !isEqual(result, storeState.items))).should.be.true();
+      results.map(result => result.sort().should.be.eql(storeState.items.sort()));
     });
   });
 

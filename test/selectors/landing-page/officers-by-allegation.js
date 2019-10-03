@@ -13,7 +13,7 @@ describe('officers-by-allegation selectors', function () {
       landingPage: {
         officersByAllegation: {},
       },
-      pinboardPage: { pinboard: null },
+      pinboardPage: { pinboard: { 'officer_ids': ['1', '2', '3'] } },
     };
   });
 
@@ -21,6 +21,17 @@ describe('officers-by-allegation selectors', function () {
     it('should return a list of cards', function () {
       state.landingPage.officersByAllegation.cards = RawOfficerCardFactory.buildList(40);
       cardsSelector(state).should.have.length(40);
+    });
+
+    it('should add isPinned attr', function () {
+      state.landingPage.officersByAllegation.cards = [
+        RawOfficerCardFactory.build({ id: 1 }),
+        RawOfficerCardFactory.build({ id: 99 }),
+      ];
+
+      const cards = cardsSelector(state);
+      cards.should.have.length(2);
+      [cards[0].isPinned, cards[1].isPinned].sort().should.be.eql([false, true]);
     });
 
     it('should shuffle cards', function () {

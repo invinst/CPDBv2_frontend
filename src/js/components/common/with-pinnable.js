@@ -1,7 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { noop, every, isEmpty } from 'lodash';
-import { PINNED_ITEM_TYPES } from 'utils/constants';
-
 
 export default function withPinnable(WrappedComponent) {
   class _Base extends Component {
@@ -18,12 +16,12 @@ export default function withPinnable(WrappedComponent) {
       const addOrRemoveItems = isEmpty(items) ? [item] : items;
       const allIsPinned = every(addOrRemoveItems, item => item.isPinned);
 
-      addOrRemoveItems.forEach(item => {
-        if (item.isPinned === allIsPinned)
+      addOrRemoveItems.forEach(addOrRemoveItem => {
+        if (addOrRemoveItem.isPinned === allIsPinned)
           addOrRemoveItemInPinboard({
-            type: item.type,
-            id: item.type === PINNED_ITEM_TYPES.CR ? String(item.id) : item.id,
-            isPinned: item.isPinned,
+            type: addOrRemoveItem.type,
+            id: addOrRemoveItem.id,
+            isPinned: addOrRemoveItem.isPinned,
           });
       });
     }

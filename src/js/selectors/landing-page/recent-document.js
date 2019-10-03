@@ -2,8 +2,8 @@ import { get } from 'lodash';
 
 import { createSelector } from 'reselect';
 import { formatDate } from 'utils/date';
-import { createWithIsPinnedSelector } from 'selectors/landing-page/common';
 import { PINNED_ITEM_TYPES } from 'utils/constants';
+import { createWithIsPinnedSelector } from 'selectors/common/pinboard';
 
 
 export const getCarouselDocumentHeaderEditModeOn = state => state.landingPage.recentDocument.headerEditModeOn;

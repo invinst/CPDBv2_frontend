@@ -79,7 +79,7 @@ describe('Officer coaccusals selectors', function () {
             ],
           },
         },
-        pinboardPage: { pinboard: null },
+        pinboardPage: { pinboard: { 'officer_ids': ['1', '2'] } },
       };
 
       coaccusalGroupsSelector(state).should.eql([
@@ -98,7 +98,7 @@ describe('Officer coaccusals selectors', function () {
               gender: 'male',
               coaccusalCount: 4,
               rank: 'Po As Detective',
-              isPinned: false,
+              isPinned: true,
               percentile: {
                 items: [
                   {
@@ -131,7 +131,7 @@ describe('Officer coaccusals selectors', function () {
               gender: 'male',
               coaccusalCount: 2,
               rank: 'Po As Detective',
-              isPinned: false,
+              isPinned: true,
               percentile: {
                 items: [
                   {

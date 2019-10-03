@@ -40,4 +40,5 @@ export default class Coaccusals extends Component {
 
 Coaccusals.propTypes = {
   coaccusalGroups: PropTypes.array,
+  addOrRemoveItemInPinboard: PropTypes.func,
 };

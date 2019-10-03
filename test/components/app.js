@@ -203,6 +203,11 @@ describe('App component', function () {
       </Provider>
     );
 
-    findRenderedComponentWithType(instance, ToastContainer).should.be.ok();
+    const toastContainer = findRenderedComponentWithType(instance, ToastContainer);
+    toastContainer.props.pauseOnFocusLoss.should.be.false();
+    toastContainer.props.closeButton.should.be.false();
+    toastContainer.props.hideProgressBar.should.be.true();
+    toastContainer.props.autoClose.should.equal(3000);
+    toastContainer.props.className.should.equal('landing');
   });
 });
