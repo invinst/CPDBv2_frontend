@@ -1,5 +1,5 @@
 import {
-  mapLegendSelector,
+  geographicDataLoadingSelector,
   mapMarkersSelector,
   hasMapMarkersSelector,
   geographicDataRequestingSelector,
@@ -7,8 +7,8 @@ import {
 
 
 describe('GeographicData selectors', function () {
-  describe('mapLegendSelector', function () {
-    it('should return correct legend info', function () {
+  describe('geographicDataLoadingSelector', function () {
+    it('should return true if geographic data is loading', function () {
       const state = {
         pinboardPage: {
           geographicData: {
@@ -54,12 +54,56 @@ describe('GeographicData selectors', function () {
           },
         },
       };
-      mapLegendSelector(state).should.eql({
-        allegationCount: 3,
-        useOfForceCount: 2,
-        allegationLoading: true,
-        useOfForceLoading: false,
-      });
+      geographicDataLoadingSelector(state).should.be.true();
+    });
+
+    it('should return false if geographic data is loaded', function () {
+      const state = {
+        pinboardPage: {
+          geographicData: {
+            mapCrsDataTotalCount: 3,
+            mapTrrsDataTotalCount: 2,
+            mapCrsData: [
+              {
+                category: 'Illegal Search',
+                kind: 'CR',
+
+                crid: '294619',
+                'coaccused_count': 9,
+              },
+              {
+                category: 'Illegal Search',
+                kind: 'CR',
+
+                crid: '294620',
+                'coaccused_count': 10,
+              },
+              {
+                category: 'Illegal Search',
+                kind: 'CR',
+
+                crid: '294621',
+                'coaccused_count': 11,
+              },
+            ],
+            mapTrrsData: [
+              {
+                'trr_id': '123456',
+                kind: 'FORCE',
+                taser: false,
+                'firearm_used': true,
+              },
+              {
+                'trr_id': '654321',
+                kind: 'FORCE',
+                taser: true,
+                'firearm_used': false,
+              },
+            ],
+          },
+        },
+      };
+      geographicDataLoadingSelector(state).should.be.false();
     });
   });
 
@@ -146,11 +190,30 @@ describe('GeographicData selectors', function () {
       hasMapMarkersSelector(state).should.be.false();
     });
 
-    it('should return true if have marker', function () {
+    it('should return false if have marker and requesting', function () {
       const state = {
         pinboardPage: {
           geographicData: {
-            requesting: false,
+            crsRequesting: true,
+            trrsRequesting: true,
+            mapCrsData: [{
+              category: 'Illegal Search',
+              kind: 'CR',
+              crid: '1045343',
+              'coaccused_count': 6,
+            }],
+          },
+        },
+      };
+      hasMapMarkersSelector(state).should.be.false();
+    });
+
+    it('should return true if have marker and not requesting', function () {
+      const state = {
+        pinboardPage: {
+          geographicData: {
+            crsRequesting: false,
+            trrsRequesting: false,
             mapCrsData: [{
               category: 'Illegal Search',
               kind: 'CR',

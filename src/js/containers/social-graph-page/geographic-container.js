@@ -31,7 +31,7 @@ function mapStateToProps(state, ownProps) {
     unitId: ownProps.location.query['unit_id'],
     allegation: geographicAllegationSelector(state),
     trr: geographicTRRSelector(state),
-    pinboardId: ownProps.location.query['pinboard_id'],
+    pinboardId: ownProps.pinboardId,
     isRequested: isRequestedSelector(state),
   };
 }

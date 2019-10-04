@@ -63,13 +63,11 @@ export default class AnimatedSocialGraph extends Component {
   }
 
   intervalTickTimeline() {
-    const { timelineIdx, isVisible, updateTimelineIdx } = this.props;
-    if (isVisible) {
-      if (timelineIdx < this.props.listEvent.length - 1) {
-        updateTimelineIdx(timelineIdx + 1);
-      } else {
-        this.stopTimeline();
-      }
+    const { timelineIdx, updateTimelineIdx } = this.props;
+    if (timelineIdx < this.props.listEvent.length - 1) {
+      updateTimelineIdx(timelineIdx + 1);
+    } else {
+      this.stopTimeline();
     }
   }
 
@@ -78,19 +76,8 @@ export default class AnimatedSocialGraph extends Component {
     updateTimelineIdx(value);
   }
 
-  rightControlButton() {
-    const { expandedLink, customRightControlButton } = this.props;
-
-    return (
-      <div className='custom-right-control-buttons-container'>
-        { expandedLink && (<a href={ expandedLink } className='expanded-mode-btn' />) }
-        { customRightControlButton }
-      </div>
-    );
-  }
-
   graphControlPanel() {
-    const { listEvent, isVisible, timelineIdx, refreshIntervalId } = this.props;
+    const { listEvent, timelineIdx, refreshIntervalId, customRightControlButton } = this.props;
     if (listEvent) {
       const numOfEvents = listEvent.length;
 
@@ -117,11 +104,11 @@ export default class AnimatedSocialGraph extends Component {
             />
             <div className='graph-actions'>
               <button
-                className={ cx('toggle-timeline-btn', (refreshIntervalId && isVisible) ? 'pause-icon' : 'play-icon') }
+                className={ cx('toggle-timeline-btn', (refreshIntervalId) ? 'pause-icon' : 'play-icon') }
                 onClick={ this.toggleTimeline }
               />
               <span className='current-date-label'>{ currentDateString }</span>
-              { this.rightControlButton() }
+              <div className='custom-right-control-buttons-container'>{ customRightControlButton }</div>
               <div className='clearfix'/>
             </div>
           </div>
@@ -142,6 +129,7 @@ export default class AnimatedSocialGraph extends Component {
       updateSelectedEdge,
       updateSortedOfficerIds,
       performResizeGraph,
+      showGraphControlPanel,
     } = this.props;
 
     return (
@@ -162,7 +150,7 @@ export default class AnimatedSocialGraph extends Component {
             performResizeGraph={ performResizeGraph }
           />
         }
-        { this.graphControlPanel() }
+        { showGraphControlPanel && this.graphControlPanel() }
       </div>
     );
   }
@@ -172,27 +160,25 @@ AnimatedSocialGraph.propTypes = {
   officers: PropTypes.array,
   coaccusedData: PropTypes.array,
   listEvent: PropTypes.array,
-  hasIntercom: PropTypes.bool,
   selectedOfficerId: PropTypes.number,
   updateSelectedOfficerId: PropTypes.func,
   selectedEdge: PropTypes.object,
   updateSelectedEdge: PropTypes.func,
-  expandedLink: PropTypes.string,
   timelineIdx: PropTypes.number,
   updateTimelineIdx: PropTypes.func,
   refreshIntervalId: PropTypes.number,
-  isVisible: PropTypes.bool,
   updateRefreshIntervalId: PropTypes.func,
   updateSortedOfficerIds: PropTypes.func,
   customRightControlButton: PropTypes.node,
   performResizeGraph: PropTypes.bool,
+  showGraphControlPanel: PropTypes.bool,
 };
 
 AnimatedSocialGraph.defaultProps = {
-  isVisible: true,
   updateTimelineIdx: noop,
   updateRefreshIntervalId: noop,
   updateSelectedEdge: noop,
+  showGraphControlPanel: true,
 };
 
 export const AnimatedSocialGraphWithSpinner = withLoadingSpinner(AnimatedSocialGraph, styles.socialGraphLoading);

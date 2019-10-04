@@ -1,13 +1,11 @@
 import { createSelector } from 'reselect';
 
 import { officerTransform, coaccusedDataTransform } from 'selectors/common/social-graph';
-import { getPinboardID } from 'utils/location';
 
 const getOfficers = state => state.pinboardPage.graphData.data['officers'] || [];
 export const getCoaccusedData = state => state.pinboardPage.graphData.data['coaccused_data'] || [];
 const getListEvent = state => state.pinboardPage.graphData.data['list_event'] || [];
 export const getSocialGraphRequesting = state => state.pinboardPage.graphData.requesting;
-export const getExpandedLink = (url) => `/social-graph/?pinboard_id=${getPinboardID(url)}`;
 
 const officersSelector = createSelector(
   [getOfficers],

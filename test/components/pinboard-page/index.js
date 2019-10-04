@@ -24,7 +24,6 @@ import PinnedTRRsContainer from 'containers/pinboard-page/pinned-trrs';
 import PinboardPageContainer from 'containers/pinboard-page';
 import RelevantSectionContainer from 'containers/pinboard-page/relevant-section';
 import SearchBar from 'components/pinboard-page/search-bar';
-import { PinboardPaneSectionWithSpinner } from 'components/pinboard-page/pinboard-pane-section';
 import RootReducer from 'reducers/root-reducer';
 import FooterContainer from 'containers/footer-container';
 import {
@@ -50,7 +49,7 @@ describe('PinboardPage component', function () {
 
   const createPinboardPage = (pinboard, editModeOn) => ({
     graphData: { requesting: false, data: {} },
-    geographicData: { requesting: false, data: [] },
+    geographicData: { requesting: false, mapCrsData: [], mapTrrsData: [] },
     currentTab: 'NETWORK',
     relevantDocuments: defaultPaginationState,
     relevantCoaccusals: defaultPaginationState,
@@ -252,8 +251,6 @@ describe('PinboardPage component', function () {
       </Router>
     );
 
-    findRenderedComponentWithType(instance, PinboardPaneSectionWithSpinner);
-
     findRenderedComponentWithType(instance, RelevantSectionContainer);
     const footer = findRenderedComponentWithType(instance, FooterContainer);
     footer.props.className.should.eql('footer');
@@ -288,7 +285,6 @@ describe('PinboardPage component', function () {
 
     findDOMNode(findRenderedComponentWithType(instance, PinboardPage)).className.should.containEql('empty');
 
-    scryRenderedComponentsWithType(instance, PinboardPaneSectionWithSpinner).should.have.length(0);
     scryRenderedDOMComponentsWithClass(instance, 'pinboard-title').should.have.length(0);
     scryRenderedDOMComponentsWithClass(instance, 'pinboard-description').should.have.length(0);
     scryRenderedComponentsWithType(instance, RelevantSectionContainer).should.have.length(0);

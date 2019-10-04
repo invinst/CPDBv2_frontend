@@ -37,7 +37,8 @@ import {
   EMBED_OFFICERS_PATH,
   TRACKER_ALL_DOCUMENTS_PATH,
   TRACKER_DOCUMENTS_OVERVIEW_PATH,
-  SOCIAL_GRAPH_PATH,
+  DATA_VISUALIZATION_SOCIAL_GRAPH_PATH,
+  DATA_VISUALIZATION_GEOGRAPHIC_PATH,
   PINBOARD_PATH,
 } from 'utils/constants';
 import configureStore from 'store';
@@ -116,7 +117,10 @@ export default class RouterRoot extends Component {
               component={ DocumentDeduplicatorContainer }
               breadcrumb={ BreadcrumbItemContainer }/>
             <Route
-              path={ SOCIAL_GRAPH_PATH }
+              path={ DATA_VISUALIZATION_SOCIAL_GRAPH_PATH }
+              component={ SocialGraphContainer }/>
+            <Route
+              path={ DATA_VISUALIZATION_GEOGRAPHIC_PATH }
               component={ SocialGraphContainer }/>
             <Route
               path={ TRACKER_DOCUMENTS_OVERVIEW_PATH }

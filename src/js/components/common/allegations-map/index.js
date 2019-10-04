@@ -10,6 +10,7 @@ import Legend from './legend';
 import MarkerTooltip from './marker-tooltip';
 import Marker from './marker';
 import styles from './allegations-map.sass';
+import LoadingSpinner from 'components/common/loading-spinner';
 import withLoadingSpinner from 'components/common/with-loading-spinner';
 
 const MARKERS_PER_PAGE = 200;
@@ -38,7 +39,7 @@ export default class AllegationsMap extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     const { legend, markers } = this.props;
-    return legend !== nextProps.legend || markers !== nextProps.markers;
+    return !isEqual(legend, nextProps.legend) || !isEqual(markers, nextProps.markers);
   }
 
   loadMarkersPerPages(startIndex=0) {
@@ -128,12 +129,16 @@ export default class AllegationsMap extends Component {
   }
 
   render() {
-    const { mapCustomClassName, legend } = this.props;
+    const { mapCustomClassName, legend, showLegends, geographicDataLoading } = this.props;
 
     return (
       <div className={ cx(styles.map, mapCustomClassName) }>
         <div ref={ this.gotRef.bind(this) } className='map-tab'/>
-        <Legend legend={ legend } />
+        {
+          showLegends ?
+            <Legend legend={ legend } /> :
+            geographicDataLoading && <LoadingSpinner className='data-loading-spinner' />
+        }
       </div>
     );
   }
@@ -183,11 +188,14 @@ AllegationsMap.propTypes = {
   handleClickCRMarker: PropTypes.func,
   handleClickTRRMarker: PropTypes.func,
   clearAllMarkers: PropTypes.bool,
+  showLegends: PropTypes.bool,
+  geographicDataLoading: PropTypes.bool,
 };
 
 AllegationsMap.defaultProps = {
   legend: {},
   markers: [],
   clearAllMarkers: true,
+  showLegends: true,
 };
 export const AllegationsMapWithSpinner = withLoadingSpinner(AllegationsMap, styles.allegationMapLoading);

@@ -33,7 +33,7 @@ import {
   handleRemovingItemInPinboardPage,
 } from 'actions/pinboard';
 import { showToast } from 'actions/toast';
-import loadPaginatedData from 'utils/load-paginated-data';
+import { loadPaginatedData } from 'utils/load-paginated-data';
 import { Toastify } from 'utils/vendors';
 import pinboardStyles from 'components/pinboard-page/pinboard-page.sass';
 

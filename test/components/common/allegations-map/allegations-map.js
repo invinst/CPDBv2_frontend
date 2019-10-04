@@ -1,5 +1,5 @@
 import React from 'react';
-import { values, concat, times } from 'lodash';
+import { values, concat, times, cloneDeep } from 'lodash';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
@@ -68,8 +68,45 @@ describe('Map component', function () {
     unmountComponentSuppressError(instance);
   });
 
+  describe('shouldComponentUpdate', function () {
+    it('should return true if props are changed', function () {
+      const newLegend = {
+        allegationCount: 18,
+        sustainedCount: 5,
+        useOfForceCount: 3,
+      };
+      const newMarkers = [
+        {
+          point: {
+            lat: 43.012567,
+            lon: -89.680291,
+          },
+          kind: 'CR',
+          finding: 'Sustained',
+          id: 'C123456',
+          category: 'False Arrest',
+          coaccused: 5,
+          victims: [{
+            gender: 'male',
+            race: 'White',
+            age: 32,
+          }],
+        },
+      ];
+      instance = renderIntoDocument(<AllegationsMap legend={ legend } markers={ markers }/>);
+      instance.shouldComponentUpdate({ legend: newLegend, markers }).should.be.true();
+      instance.shouldComponentUpdate({ legend, markers: newMarkers }).should.be.true();
+      instance.shouldComponentUpdate({ legend: newLegend, markers: newMarkers }).should.be.true();
+    });
+
+    it('should return false if props are unchanged', function () {
+      instance = renderIntoDocument(<AllegationsMap legend={ legend } markers={ markers } />);
+      instance.shouldComponentUpdate({ legend: cloneDeep(legend), markers: cloneDeep(markers) }).should.be.false();
+    });
+  });
+
   it('should render officer map and legend', function () {
-    instance = renderIntoDocument(<AllegationsMap legend={ legend } markers={ markers } />);
+    instance = renderIntoDocument(<AllegationsMap legend={ legend } markers={ markers } showLegends={ true }/>);
 
     findRenderedDOMComponentWithClass(instance, mapStyles.map);
     findRenderedDOMComponentWithClass(instance, legendStyles.legend);
@@ -98,12 +135,12 @@ describe('Map component', function () {
   it('should rerender with clearAllMarkers is true', function () {
     const marker = new mapboxgl.Marker();
     marker.remove.resetHistory();
-    instance = renderIntoDocument(<AllegationsMap legend={ legend } markers={ markers } />);
+    instance = renderIntoDocument(<AllegationsMap legend={ legend } markers={ markers } showLegends={ true }/>);
     findRenderedDOMComponentWithClass(instance, mapStyles.map);
     findRenderedDOMComponentWithClass(instance, legendStyles.legend);
 
     values(instance.currentMarkers).should.have.length(3);
-    instance = reRender(<AllegationsMap legend={ legend } markers={ markers } />, instance);
+    instance = reRender(<AllegationsMap legend={ legend } markers={ markers } showLegends={ true }/>, instance);
     findRenderedDOMComponentWithClass(instance, mapStyles.map);
     findRenderedDOMComponentWithClass(instance, legendStyles.legend);
     marker.remove.callCount.should.equal(3);
@@ -157,5 +194,30 @@ describe('Map component', function () {
       values(instance.currentMarkers).should.have.length(201);
       done();
     }, 100);
+  });
+
+  it('should show data loading spinner if showLegends is false and geographicDataLoading is true', function () {
+    instance = renderIntoDocument(
+      <AllegationsMap
+        legend={ legend }
+        markers={ markers }
+        showLegends={ false }
+        geographicDataLoading={ true }
+      />
+    );
+    const loadingSpinner = findRenderedComponentWithType(instance, LoadingSpinner);
+    loadingSpinner.props.className.should.equal('data-loading-spinner');
+  });
+
+  it('should not show data loading spinner if both showLegends and geographicDataLoading are false', function () {
+    instance = renderIntoDocument(
+      <AllegationsMap
+        legend={ legend }
+        markers={ markers }
+        showLegends={ false }
+        geographicDataLoading={ false }
+      />
+    );
+    scryRenderedComponentsWithType(instance, LoadingSpinner).should.have.length(0);
   });
 });

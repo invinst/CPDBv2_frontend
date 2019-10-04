@@ -258,7 +258,7 @@ describe('store', function () {
           networkAllegationsRequesting: false,
           networkOfficersRequesting: false,
         },
-        currentMainTab: 'NETWORK',
+        currentMainTab: 'SOCIAL_GRAPH',
         geographicData: {
           crid: null,
           trrId: null,
@@ -293,7 +293,6 @@ describe('store', function () {
           crsRequesting: false,
           trrsRequesting: false,
         },
-        currentTab: null,
         relevantDocuments: {
           requesting: false,
           items: [],

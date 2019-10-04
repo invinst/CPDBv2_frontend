@@ -75,14 +75,7 @@ class AnimatedSocialGraphSection extends Section {
     super();
 
     this.prepareElementGetters({
-      coaccusalsThresholdText: '(//p[contains(@class, "coaccusals-threshold-text")])',
-      toggleTimelineButton: '(//button[contains(@class, "toggle-timeline-btn")])',
-      startDate: '(//div[contains(@class, "start-date-label")])',
-      endDate: '(//div[contains(@class, "end-date-label")])',
-      currentDate: '(//span[contains(@class, "current-date-label")])',
-      timelineSlider: '(//div[contains(@class, "test--timeline-slider")])',
       biggestGraphNode: '(//*[@r="7"])',
-      playButton: '(//button[contains(@class, "play-icon")])',
     });
   }
 
@@ -202,9 +195,8 @@ class PinboardSection extends Section {
     this.prepareElementGetters({
       title: '.pinboard-title',
       description: '.pinboard-description',
-      pinboardPaneMenu: '(//div[contains(@class, "pinboard-pane-section-menu")])',
-      networkPaneName: '//span[contains(@class, "pinboard-pane-tab-name")][1]',
-      geographicPaneName: '//span[contains(@class, "pinboard-pane-tab-name")][2]',
+      socialGraphExpandButton: '(//a[@class="expanded-mode-btn"])[1]',
+      geographicExpandButton: '(//a[@class="expanded-mode-btn"])[2]',
     });
   }
 }
@@ -216,19 +208,6 @@ class PinboardPinnedSection extends Section {
 
   constructor() {
     super();
-  }
-}
-
-class GeographicSection extends Section {
-  constructor() {
-    super();
-
-    this.prepareElementGetters({
-      complaintText: '//div[contains(@class, "legend__legend")]//div[1]//span[contains(@class, "legend-row-text")]',
-      trrText: '//div[contains(@class, "legend__legend")]//div[2]//span[contains(@class, "legend-row-text")]',
-      complaintNumber: '//div[contains(@class, "legend__legend")]//div[1]//span[contains(@class, "legend-row-number")]',
-      trrNumber: '//div[contains(@class, "legend__legend")]//div[2]//span[contains(@class, "legend-row-number")]',
-    });
   }
 }
 
@@ -305,7 +284,6 @@ class OfficerPreviewPane extends Section {
 class PinboardPage extends Page {
   pinnedSection = new PinboardPinnedSection();
   animatedSocialGraphSection = new AnimatedSocialGraphSection();
-  geographicSection = new GeographicSection();
   pinboardSection = new PinboardSection();
   relevantDocumentsSection = new RelevantDocumentsSection();
   relevantCoaccusalsSection = new RelevantCoaccusalsSection();
@@ -324,6 +302,7 @@ class PinboardPage extends Page {
       headerQALink: '//div[@class="pinboard-header"]//div[@class="menu-item" and text()="Q&A"]',
       firstToast: '.Toastify__toast:first-child',
       secondToast: '.Toastify__toast:nth-child(2)',
+      geographicMap: '//div[starts-with(@class, "allegations-map")]',
     });
   }
 

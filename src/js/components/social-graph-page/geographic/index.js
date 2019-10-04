@@ -5,7 +5,7 @@ import cx from 'classnames';
 import styles from './geographic.sass';
 import AllegationsMap from 'components/common/allegations-map';
 import PreviewPane from 'components/social-graph-page/geographic/preview-pane';
-import loadPaginatedData from 'utils/load-paginated-data';
+import { loadPaginatedData } from 'utils/load-paginated-data';
 
 
 export default class GeographicMap extends Component {

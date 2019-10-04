@@ -22,7 +22,7 @@ function mapStateToProps(state, ownProps) {
   return {
     officerIds: ownProps.location.query['officer_ids'],
     unitId: ownProps.location.query['unit_id'],
-    pinboardId: ownProps.location.query['pinboard_id'],
+    pinboardId: ownProps.pinboardId,
     title: ownProps.location.query['title'],
     showTimelineTab: getShowTimelineTab(state),
     currentNetworkTab: getCurrentNetworkTab(state),

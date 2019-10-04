@@ -2,7 +2,6 @@ import {
   graphDataSelector,
   getPinboardTimelineIdx,
   getPinboardRefreshIntervalId,
-  getExpandedLink,
   getSocialGraphRequesting,
   getCoaccusedData,
 } from 'selectors/pinboard-page/social-graph';
@@ -147,13 +146,6 @@ describe('PinboardPage selectors', function () {
       }).should.be.true();
     });
   });
-
-  describe('getExpandedLink', function () {
-    it('should url correctly', function () {
-      getExpandedLink('/pinboard/123/').should.eql('/social-graph/?pinboard_id=123');
-    });
-  });
-
 
   describe('getCoaccusedData', function () {
     it('should return coaccused data data correctly', function () {

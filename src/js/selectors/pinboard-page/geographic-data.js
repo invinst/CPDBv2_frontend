@@ -1,4 +1,4 @@
-import { isEmpty, concat } from 'lodash';
+import { concat, isEmpty } from 'lodash';
 import { createSelector } from 'reselect';
 
 import { crMapMarkersTransform, trrMapMarkerTransform } from 'selectors/common/geographic';
@@ -14,23 +14,21 @@ export const geographicDataRequestingSelector = createSelector(
   (crsRequesting, trrsRequesting) => crsRequesting || trrsRequesting
 );
 
-export const mapLegendSelector = createSelector(
+export const geographicDataLoadingSelector = createSelector(
   getGeographicCrs,
   getGeographicTrrs,
   (state) => state.pinboardPage.geographicData.mapCrsDataTotalCount,
   (state) => state.pinboardPage.geographicData.mapTrrsDataTotalCount,
-  (geographicCrs, geographicTrrs, crsTotalCount, trrsTotalCount) => ({
-    allegationCount: geographicCrs.length,
-    useOfForceCount: geographicTrrs.length,
-    allegationLoading: geographicCrs.length !== crsTotalCount,
-    useOfForceLoading: geographicTrrs.length !== trrsTotalCount,
-  })
+  (geographicCrs, geographicTrrs, crsTotalCount, trrsTotalCount) => (
+    geographicCrs.length !== crsTotalCount || geographicTrrs.length !== trrsTotalCount
+  )
 );
 
 export const hasMapMarkersSelector = createSelector(
+  geographicDataRequestingSelector,
   getGeographicCrs,
   getGeographicTrrs,
-  (geographicCrs, geographicTrrs) => !isEmpty(geographicCrs) || !isEmpty(geographicTrrs)
+  (requesting, geographicCrs, geographicTrrs) => !requesting && (!isEmpty(geographicCrs) || !isEmpty(geographicTrrs))
 );
 
 export const mapMarkersSelector = createSelector(

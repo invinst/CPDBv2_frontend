@@ -4,9 +4,9 @@ import {
   graphDataSelector,
   getPinboardTimelineIdx,
   getPinboardRefreshIntervalId,
-  getExpandedLink,
+  getSocialGraphRequesting,
 } from 'selectors/pinboard-page/social-graph';
-import AnimatedSocialGraph from 'components/common/animated-social-graph';
+import { AnimatedSocialGraphWithSpinner } from 'components/common/animated-social-graph';
 import { updatePinboardTimelineIdx, updatePinboardRefreshIntervalId } from 'actions/pinboard-page';
 
 
@@ -15,11 +15,9 @@ function mapStateToProps(state, ownProps) {
     officers: graphDataSelector(state).officers,
     coaccusedData: graphDataSelector(state).coaccusedData,
     listEvent: graphDataSelector(state).listEvent,
-    hasIntercom: true,
     timelineIdx: getPinboardTimelineIdx(state),
     refreshIntervalId: getPinboardRefreshIntervalId(state),
-    expandedLink: getExpandedLink(state.pathname),
-    isVisible: ownProps.isVisible,
+    requesting: getSocialGraphRequesting(state),
   };
 }
 
@@ -29,4 +27,4 @@ const mapDispatchToProps = {
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(AnimatedSocialGraph);
+export default connect(mapStateToProps, mapDispatchToProps)(AnimatedSocialGraphWithSpinner);

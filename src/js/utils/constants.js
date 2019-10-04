@@ -38,7 +38,8 @@ export const EMBED_TOP_OFFICERS_PATH = 'embed/top-officers-page';
 export const EMBED_OFFICERS_PATH = 'embed/officers';
 export const TRACKER_ALL_DOCUMENTS_PATH = 'documents/crid/:crid';
 export const TRACKER_DOCUMENTS_OVERVIEW_PATH = 'documents/';
-export const SOCIAL_GRAPH_PATH = 'social-graph/';
+export const DATA_VISUALIZATION_SOCIAL_GRAPH_PATH = 'social-graph/(pinboard/:pinboardId)';
+export const DATA_VISUALIZATION_GEOGRAPHIC_PATH = 'geographic/(pinboard/:pinboardId)';
 export const PINBOARD_PATH = 'pinboard(/:pinboardId)(/:pinboardTitle)';
 
 export const ROOT_EDIT_REGEX = /^\/(?:edit\/)?$/;
@@ -768,13 +769,6 @@ export const OFFICER_DOWNLOAD_TRACKING_ACTIONS = {
 
 export const PINBOARD_HEX_ID_LENGTH = 8;
 
-export const PINBOARD_PAGE_TAB_NAMES = {
-  NETWORK: 'NETWORK',
-  GEOGRAPHIC: 'GEOGRAPHIC',
-};
-
-export const CHANGE_PINBOARD_TAB = 'CHANGE_PINBOARD_TAB';
-
 export const UNDO_CARD_VISIBLE_TIME = 4000;
 
 export const CHANGE_NETWORK_TAB = 'CHANGE_NETWORK_TAB';
@@ -784,8 +778,8 @@ export const NETWORK_TAB_NAMES = {
   TIMELINE: 'Timeline',
 };
 
-export const SOCIAL_GRAPH_MAIN_TAB_NAMES = {
-  NETWORK: 'NETWORK',
+export const DATA_VISUALIZATION_TAB_NAMES = {
+  SOCIAL_GRAPH: 'SOCIAL_GRAPH',
   GEOGRAPHIC: 'GEOGRAPHIC',
 };
 
