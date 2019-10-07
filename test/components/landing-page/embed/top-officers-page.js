@@ -37,7 +37,9 @@ describe('Embed top officers page', function () {
       </Provider>
     );
 
-    findRenderedComponentWithType(instance, OfficersByAllegationContainer).should.be.ok();
+    const officersByAllegationContainer = findRenderedComponentWithType(instance, OfficersByAllegationContainer);
+    officersByAllegationContainer.props.openCardInNewPage.should.be.true();
+    officersByAllegationContainer.props.pinnable.should.be.false();
   });
 
   describe('Intercom', function () {

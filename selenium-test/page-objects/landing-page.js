@@ -5,19 +5,7 @@ import Section from './sections/section';
 import { Header } from './sections/header';
 import Footer from './sections/footer';
 import RichTextToolbar from './sections/rich-text-toolbar';
-
-
-class CarouselSection extends Section {
-  constructor(parentSelector='', mainElementSelector, cardSelector) {
-    super(parentSelector, mainElementSelector);
-    this.prepareElementGetters({
-      leftArrow: '//*[contains(@class, "test--carousel-arrow-left")]',
-      rightArrow: '//*[contains(@class, "test--carousel-arrow-right")]',
-      firstPinButton: `${cardSelector}//div[contains(@class, "item-pin-button__item-pin-button")]`,
-      cards: cardSelector,
-    });
-  }
-}
+import CarouselSection from './sections/carousel';
 
 class RecentActivityCarouselSection extends CarouselSection {
   constructor() {

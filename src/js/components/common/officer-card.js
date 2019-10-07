@@ -60,6 +60,7 @@ export class OfficerCard extends Component {
       className,
       addOrRemoveItemInPinboard,
       isPinned,
+      pinnable,
     } = this.props;
     const officerSlug = kebabCase(fullName);
     const chartData = percentile && percentile.items;
@@ -78,16 +79,18 @@ export class OfficerCard extends Component {
         target={ openCardInNewPage ? '_blank' : null }
         className={ cx(styles.officerCard, className) }
       >
-        <ItemPinButton
-          className={ pinButtonStyles.cardPinnedButton }
-          addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
-          showHint={ false }
-          item={ {
-            type: PINNED_ITEM_TYPES.OFFICER,
-            id: officerId,
-            isPinned: isPinned,
-          } }
-        />
+        {
+          pinnable && <ItemPinButton
+            className={ pinButtonStyles.cardPinnedButton }
+            addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
+            showHint={ false }
+            item={ {
+              type: PINNED_ITEM_TYPES.OFFICER,
+              id: officerId,
+              isPinned: isPinned,
+            } }
+          />
+        }
         <div className='no-print radar-chart-wrapper'>
           <StaticRadarChart data={ chartData } { ...radarConfig } />
         </div>
@@ -130,10 +133,12 @@ OfficerCard.propTypes = {
   className: PropTypes.string,
   addOrRemoveItemInPinboard: PropTypes.func,
   isPinned: PropTypes.bool,
+  pinnable: PropTypes.bool,
 };
 
 OfficerCard.defaultProps = {
   openCardInNewPage: false,
+  pinnable: true,
 };
 
 export default OfficerCard;

@@ -59,7 +59,6 @@ describe('CarouselWrapper component', function () {
     const pathname = lorem.word();
     const openCardInNewPage = random.boolean();
 
-
     instance = renderIntoDocument(
       <CarouselWithCustomCardComponent
         cards={ [1, 2, 3] }
@@ -67,6 +66,7 @@ describe('CarouselWrapper component', function () {
         addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
         onTrackingAttachment={ onTrackingAttachment }
         pathname={ pathname }
+        pinnable={ false }
       />,
     );
     const testCards = scryRenderedComponentsWithType(instance, TestCardComponent);
@@ -77,6 +77,7 @@ describe('CarouselWrapper component', function () {
       item.props.onTrackingAttachment.should.be.eql(onTrackingAttachment);
       item.props.pathname.should.be.eql(pathname);
       item.props.openCardInNewPage.should.be.eql(openCardInNewPage);
+      item.props.pinnable.should.be.eql(false);
     });
   });
 });

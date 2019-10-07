@@ -19,7 +19,7 @@ export default function withCarousel(
       const {
         className, cards, editWrapperStateProps,
         pathname, openCardInNewPage, onTrackingAttachment,
-        addOrRemoveItemInPinboard,
+        addOrRemoveItemInPinboard, pinnable,
       } = this.props;
 
       const slideElements = cards.map((card, index) => {
@@ -36,6 +36,7 @@ export default function withCarousel(
               pathname={ pathname }
               onTrackingAttachment={ onTrackingAttachment }
               addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
+              pinnable={ pinnable }
             />
           </div>
         );
@@ -70,10 +71,12 @@ export default function withCarousel(
     onTrackingAttachment: PropTypes.func,
     addOrRemoveItemInPinboard: PropTypes.func,
     className: PropTypes.string,
+    pinnable: PropTypes.bool,
   };
 
   Wrapper.defaultProps = {
     openCardInNewPage: false,
+    pinnable: true,
   };
 
   return Wrapper;

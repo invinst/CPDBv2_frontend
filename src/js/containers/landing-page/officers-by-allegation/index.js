@@ -20,6 +20,7 @@ function mapStateToProps(state, ownProps) {
     openCardInNewPage: ownProps.openCardInNewPage,
     fields: getCMSFields(constants.LANDING_PAGE_ID)(state),
     sectionEditModeOn: getCarouselAllegationHeaderEditModeOn(state),
+    pinnable: ownProps.pinnable,
   };
 }
 

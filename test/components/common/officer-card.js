@@ -6,6 +6,7 @@ import {
   renderIntoDocument,
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
+  scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 import { spy } from 'sinon';
 import { random } from 'faker';
@@ -92,5 +93,14 @@ describe('OfficerCard component', function () {
     itemPinButton.props.addOrRemoveItemInPinboard.should.equal(addOrRemoveItemInPinboard);
     itemPinButton.props.showHint.should.be.false();
     itemPinButton.props.item.should.eql({ type: PINNED_ITEM_TYPES.OFFICER, id, isPinned });
+  });
+
+  it('should not render pin button if not pinnable', function () {
+    instance = renderIntoDocument(
+      <OfficerCard
+        pinnable={ false }
+      />,
+    );
+    scryRenderedComponentsWithType(instance, ItemPinButton).should.have.length(0);
   });
 });
