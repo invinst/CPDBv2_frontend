@@ -1,12 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import cx from 'classnames';
-import { isEmpty, noop } from 'lodash';
+import { noop } from 'lodash';
 
 import styles from './pinboards.sass';
 import withOverlay from 'components/common/with-overlay';
 import SlideMotion from 'components/animation/slide-motion';
 import { redirectToCreatedPinboard } from 'utils/pinboard';
-import { browserHistory } from 'react-router';
+import PinboardItem from './pinboard-item';
 
 
 class Pinboards extends Component {
@@ -33,26 +32,8 @@ class Pinboards extends Component {
     });
   }
 
-  handleDuplicatePinboard(e, pinboardId) {
-    const { duplicatePinboard, handleClose } = this.props;
-
-    duplicatePinboard(pinboardId).then((response) => {
-      handleClose();
-      redirectToCreatedPinboard(response);
-    });
-
-    e.stopPropagation();
-  }
-
-  handlePinboardItemClick(url) {
-    const { handleClose } = this.props;
-
-    handleClose();
-    browserHistory.push(url);
-  }
-
   render() {
-    const { pinboards, isShown } = this.props;
+    const { pinboards, isShown, duplicatePinboard, handleClose } = this.props;
 
     return (
       <SlideMotion show={ isShown } offsetX={ 100 }>
@@ -63,20 +44,12 @@ class Pinboards extends Component {
           </div>
           {
             pinboards.map((pinboard) => (
-              <div
+              <PinboardItem
                 key={ pinboard.id }
-                className={ cx('pinboard-item', { 'untitled-pinboard': isEmpty(pinboard.title) }) }
-                onClick={ () => this.handlePinboardItemClick(pinboard.url) }
-              >
-                <div className='pinboard-info'>
-                  <div className='pinboard-title'>{ pinboard.title }</div>
-                  <div className='pinboard-created-at'>Created { pinboard.createdAt }</div>
-                </div>
-                <a
-                  className='duplicate-pinboard-btn'
-                  title='Duplicate'
-                  onClick={ (e) => this.handleDuplicatePinboard(e, pinboard.id) } />
-              </div>
+                pinboard={ pinboard }
+                duplicatePinboard={ duplicatePinboard }
+                handleClose={ handleClose }
+              />
             ))
           }
         </div>
