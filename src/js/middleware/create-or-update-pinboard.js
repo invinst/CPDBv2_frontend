@@ -128,7 +128,7 @@ function formatMessage(foundIds, notFoundIds, itemType) {
   return message.trim();
 }
 
-export const TopRightTransition = Toastify.cssTransition({
+const TopRightTransition = Toastify.cssTransition({
   enter: 'toast-enter',
   exit: 'toast-exit',
   duration: 500,

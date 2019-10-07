@@ -1,7 +1,7 @@
 import { Promise } from 'es6-promise';
 import { stub, useFakeTimers } from 'sinon';
 
-import createOrUpdatePinboard, { TopRightTransition } from 'middleware/create-or-update-pinboard';
+import createOrUpdatePinboard from 'middleware/create-or-update-pinboard';
 import * as constants from 'utils/constants';
 import {
   createPinboard,
@@ -210,7 +210,12 @@ describe('createOrUpdatePinboard middleware', function () {
     Toastify.toast.should.be.calledWith('CR added', {
       className: 'toast-wrapper added',
       bodyClassName: 'toast-body',
-      transition: TopRightTransition,
+      transition: Toastify.cssTransition({
+        enter: 'toast-enter',
+        exit: 'toast-exit',
+        duration: 500,
+        appendPosition: true,
+      }),
     });
     Toastify.toast.resetHistory();
   });
@@ -242,7 +247,12 @@ describe('createOrUpdatePinboard middleware', function () {
     Toastify.toast.should.be.calledWith('CR removed', {
       className: 'toast-wrapper removed',
       bodyClassName: 'toast-body',
-      transition: TopRightTransition,
+      transition: Toastify.cssTransition({
+        enter: 'toast-enter',
+        exit: 'toast-exit',
+        duration: 500,
+        appendPosition: true,
+      }),
     });
     Toastify.toast.resetHistory();
   });

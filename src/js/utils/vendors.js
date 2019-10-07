@@ -101,7 +101,8 @@ if (global.mocha !== undefined) {
   _Muuri = MuuriClass;
 
   const toastSpy = spy();
-  const cssTransitionSpy = spy();
+  const cssTransitionSpy = stub();
+  cssTransitionSpy.returnsArg(0);
   _Toastify = {
     toast: toastSpy,
     cssTransition: cssTransitionSpy,
