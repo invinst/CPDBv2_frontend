@@ -15,6 +15,7 @@ import { updatePage } from 'actions/cms';
 import { trackingClickAttachment } from 'actions/common/analytic';
 import { getCMSFields } from 'selectors/cms';
 import { getEditModeOn } from 'selectors/cr-page';
+import { addOrRemoveItemInPinboard } from 'actions/pinboard';
 
 
 function mapStateToProps(state, ownProps) {
@@ -37,6 +38,7 @@ const mapDispatchToProps = {
   turnOnNoAttachmentTextEditMode,
   turnOffNoAttachmentTextEditMode,
   onTrackingAttachment: trackingClickAttachment,
+  addOrRemoveItemInPinboard,
 };
 
 const editWrapperStateProps = (stateProps, dispatchProps, ownProps) => {
