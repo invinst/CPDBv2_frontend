@@ -252,8 +252,7 @@ describe('Carousel component', function () {
 
     instance = reRender(
       carouselComponent(OfficerCardFactory.buildList(3), { resetPosition: false }),
-      instance,
-
+      instance
     );
     instance.state.slideIndex.should.eql(5);
   });

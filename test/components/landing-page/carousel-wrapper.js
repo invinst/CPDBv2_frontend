@@ -73,11 +73,11 @@ describe('CarouselWrapper component', function () {
 
     testCards.should.have.length(3);
     testCards.forEach(item => {
-      item.props.addOrRemoveItemInPinboard.should.be.eql(addOrRemoveItemInPinboard);
-      item.props.onTrackingAttachment.should.be.eql(onTrackingAttachment);
-      item.props.pathname.should.be.eql(pathname);
-      item.props.openCardInNewPage.should.be.eql(openCardInNewPage);
-      item.props.pinnable.should.be.eql(false);
+      item.props.addOrRemoveItemInPinboard.should.be.equal(addOrRemoveItemInPinboard);
+      item.props.onTrackingAttachment.should.be.equal(onTrackingAttachment);
+      item.props.pathname.should.be.equal(pathname);
+      item.props.openCardInNewPage.should.be.equal(openCardInNewPage);
+      item.props.pinnable.should.be.false();
     });
   });
 });
