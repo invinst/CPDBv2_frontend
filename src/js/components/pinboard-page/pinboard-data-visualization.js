@@ -18,13 +18,13 @@ export default class PinboardDataVisualization extends Component {
     return (
       <div className={ styles.pinboardDataVisualization }>
         <div className='visualization-item'>
-          <SocialGraphContainer showGraphControlPanel={ false } />
+          <SocialGraphContainer />
           <a href={ this.expandedLink('social-graph') } className='expanded-mode-btn'>Expand</a>
         </div>
         {
           hasMapMarker &&
           (<div className='visualization-item'>
-            <GeographicContainer showLegends={ false }/>
+            <GeographicContainer />
             <a href={ this.expandedLink('geographic') } className='expanded-mode-btn'>Expand</a>
           </div>)
         }

@@ -153,7 +153,7 @@ export default class GeographicMap extends Component {
 
 GeographicMap.propTypes = {
   legend: PropTypes.object,
-  markers: PropTypes.array,
+  markers: PropTypes.object,
   mainTabsContent: PropTypes.node,
   requestFirstPageSocialGraphGeographicCrs: PropTypes.func,
   requestOtherPagesSocialGraphGeographicCrs: PropTypes.func,

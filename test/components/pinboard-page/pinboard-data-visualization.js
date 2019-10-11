@@ -66,7 +66,7 @@ describe('PinboardDataVisualization component', function () {
     findRenderedComponentWithType(instance, AnimatedSocialGraph).should.be.ok();
     findRenderedComponentWithType(instance, AllegationsMap).should.be.ok();
 
-    const expandedModeButton =scryRenderedDOMComponentsWithClass(instance, 'expanded-mode-btn');
+    const expandedModeButton = scryRenderedDOMComponentsWithClass(instance, 'expanded-mode-btn');
     expandedModeButton.should.have.length(2);
     expandedModeButton[0].href.should.containEql('/social-graph/pinboard/1234abcd/');
     expandedModeButton[1].href.should.containEql('/geographic/pinboard/1234abcd/');

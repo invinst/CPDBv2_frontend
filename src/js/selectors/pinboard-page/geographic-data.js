@@ -1,4 +1,4 @@
-import { concat, isEmpty } from 'lodash';
+import { isEmpty } from 'lodash';
 import { createSelector } from 'reselect';
 
 import { crMapMarkersTransform, trrMapMarkerTransform } from 'selectors/common/geographic';
@@ -28,14 +28,14 @@ export const hasMapMarkersSelector = createSelector(
   geographicDataRequestingSelector,
   getGeographicCrs,
   getGeographicTrrs,
-  (requesting, geographicCrs, geographicTrrs) => !requesting && (!isEmpty(geographicCrs) || !isEmpty(geographicTrrs))
+  (requesting, geographicCrs, geographicTrrs) => requesting || (!isEmpty(geographicCrs) || !isEmpty(geographicTrrs))
 );
 
 export const mapMarkersSelector = createSelector(
   getGeographicCrs,
   getGeographicTrrs,
-  (geographicCrs, geographicTrrs) => concat(
-    geographicCrs.map(marker => crMapMarkersTransform(marker)),
-    geographicTrrs.map(marker => trrMapMarkerTransform(marker)),
-  )
+  (geographicCrs, geographicTrrs) => ({
+    crs: geographicCrs.map(marker => crMapMarkersTransform(marker)),
+    trrs: geographicTrrs.map(marker => trrMapMarkerTransform(marker)),
+  })
 );

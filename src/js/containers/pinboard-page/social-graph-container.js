@@ -12,6 +12,7 @@ import { updatePinboardTimelineIdx, updatePinboardRefreshIntervalId } from 'acti
 
 function mapStateToProps(state, ownProps) {
   return {
+    showGraphControlPanel: false,
     officers: graphDataSelector(state).officers,
     coaccusedData: graphDataSelector(state).coaccusedData,
     listEvent: graphDataSelector(state).listEvent,

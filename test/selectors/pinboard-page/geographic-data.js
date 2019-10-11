@@ -149,34 +149,42 @@ describe('GeographicData selectors', function () {
           },
         },
       };
-      mapMarkersSelector(state).should.eql([{
-        point: {
-          lat: 41.918008,
-          lon: -87.73173299999999,
-        },
-        kind: 'CR',
-        id: '1045343',
-        category: 'Illegal Search',
-        date: 'MAR 17, 2012',
-      }, {
-        category: 'Illegal Search',
-        kind: 'CR',
-        point: {
-          lat: 41.7630623832,
-          lon: -87.67122688239999,
-        },
-        id: '294619',
-        date: 'MAR 20, 2013',
-      }, {
-        point: {
-          lat: 35.3,
-          lon: 50.5,
-        },
-        kind: 'FORCE',
-        id: '123456',
-        category: 'Firearm',
-        date: 'MAY 12, 2015',
-      }]);
+      mapMarkersSelector(state).should.eql({
+        crs: [
+          {
+            point: {
+              lat: 41.918008,
+              lon: -87.73173299999999,
+            },
+            kind: 'CR',
+            id: '1045343',
+            category: 'Illegal Search',
+            date: 'MAR 17, 2012',
+          },
+          {
+            category: 'Illegal Search',
+            kind: 'CR',
+            point: {
+              lat: 41.7630623832,
+              lon: -87.67122688239999,
+            },
+            id: '294619',
+            date: 'MAR 20, 2013',
+          },
+        ],
+        trrs: [
+          {
+            point: {
+              lat: 35.3,
+              lon: 50.5,
+            },
+            kind: 'FORCE',
+            id: '123456',
+            category: 'Firearm',
+            date: 'MAY 12, 2015',
+          },
+        ],
+      });
     });
   });
 
@@ -190,22 +198,17 @@ describe('GeographicData selectors', function () {
       hasMapMarkersSelector(state).should.be.false();
     });
 
-    it('should return false if have marker and requesting', function () {
+    it('should return true if does not have marker and requesting is true', function () {
       const state = {
         pinboardPage: {
           geographicData: {
             crsRequesting: true,
             trrsRequesting: true,
-            mapCrsData: [{
-              category: 'Illegal Search',
-              kind: 'CR',
-              crid: '1045343',
-              'coaccused_count': 6,
-            }],
+            mapCrsData: [],
           },
         },
       };
-      hasMapMarkersSelector(state).should.be.false();
+      hasMapMarkersSelector(state).should.be.true();
     });
 
     it('should return true if have marker and not requesting', function () {
