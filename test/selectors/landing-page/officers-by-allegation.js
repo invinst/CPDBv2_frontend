@@ -45,7 +45,6 @@ describe('officers-by-allegation selectors', function () {
 
       stubShuffle.restore();
     });
-
   });
 
   describe('hasCards', function () {

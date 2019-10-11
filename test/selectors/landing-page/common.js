@@ -1,3 +1,5 @@
+import { range, some, isEqual, sortBy } from 'lodash';
+
 import {
   singleCardTransform,
   simpleOfficerTransform,
@@ -5,7 +7,6 @@ import {
   cardTransform,
   shuffled,
 } from 'selectors/landing-page/common';
-import { range, some, isEqual } from 'lodash';
 
 
 describe('common selectors', function () {
@@ -230,7 +231,10 @@ describe('common selectors', function () {
       const results = range(30).map(() => shuffledItemsSelector(storeState));
 
       some(results.map(result => !isEqual(result, storeState.items))).should.be.true();
-      results.map(result => result.sort().should.be.eql(storeState.items.sort()));
+      results.forEach(result => {
+        sortBy(result.slice(0, 12)).should.eql(storeState.items.slice(0, 12));
+        sortBy(result.slice(12)).should.eql(storeState.items.slice(12));
+      });
     });
   });
 
