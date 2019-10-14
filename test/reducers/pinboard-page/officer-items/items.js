@@ -296,4 +296,16 @@ describe('Pinboard officerItemsReducer', function () {
       'percentile': null,
     }]);
   });
+
+  it('should handle LOCATION_CHANGE', function () {
+    officerItemsReducer(
+      [{ 'id': '1' }],
+      {
+        type: constants.LOCATION_CHANGE,
+        payload: [
+          { 'id': '2' }, { 'id': '3' },
+        ],
+      }
+    ).should.deepEqual([]);
+  });
 });

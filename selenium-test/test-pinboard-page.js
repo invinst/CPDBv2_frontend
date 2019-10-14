@@ -606,6 +606,75 @@ describe('Pinboard Page', function () {
       );
     });
   });
+
+  context('manage pinboards', function () {
+    beforeEach(function () {
+      pinboardPage.open();
+    });
+
+    it('should render the pinboards list', function () {
+      pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+
+      pinboardPage.pinboardsListSection.pinboardsTitle.getText().should.equal('Pinboards');
+      pinboardPage.pinboardsListSection.pinboardItems().should.have.length(2);
+
+      pinboardPage.pinboardsListSection.firstPinboardItemTitle.getText().should.equal('Pinboard title');
+      pinboardPage.pinboardsListSection.firstPinboardItemCreatedAt.getText().should.equal('Created Sep 12, 2019');
+
+      pinboardPage.pinboardsListSection.secondPinboardItemTitle.getText().should.equal('');
+      pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.getText().should.equal('Created Oct 15, 2019');
+    });
+
+    it('should go to pinboard detail page when clicking on pinboard item', function () {
+      pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+      pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
+      browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
+      pinboardPage.pinboardSection.title.getText().should.equal('');
+      pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
+    });
+
+    it('should create an empty pinboard when clicking on create new pinboard button in menu', function () {
+      pinboardPage.managePinboardsButtonsSection.newPinboardMenuButton.click();
+      pinboardPage.managePinboardsButtonsSection.createNewPinboardButton.click();
+      browser.getUrl().should.containEql('/pinboard/87e31b82/untitled-pinboard/');
+      pinboardPage.emptyPinboardSection.firstExample.getText().should.containEql('Watts Crew');
+      pinboardPage.emptyPinboardSection.secondExample.getText().should.containEql('Skullcap Crew');
+    });
+
+    it('should duplicate current pinboard when clicking on Duplicate this pinboard button', function () {
+      pinboardPage.managePinboardsButtonsSection.newPinboardMenuButton.click();
+      pinboardPage.managePinboardsButtonsSection.duplicateCurrentPinboardButton.click();
+      browser.getUrl().should.containEql('/pinboard/ceea8ea3/pinboard-title/');
+      pinboardPage.pinboardSection.title.getText().should.containEql('Pinboard Title');
+      pinboardPage.pinboardSection.description.getText().should.containEql('Pinboard Description');
+    });
+
+    it('should create an empty pinboard when clicking on plus button in pinboard list', function () {
+      pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+      pinboardPage.pinboardsListSection.createNewPinboardButton.click();
+      browser.getUrl().should.containEql('/pinboard/87e31b82/untitled-pinboard/');
+      pinboardPage.emptyPinboardSection.firstExample.getText().should.containEql('Watts Crew');
+      pinboardPage.emptyPinboardSection.secondExample.getText().should.containEql('Skullcap Crew');
+    });
+
+    it('should duplicate current pinboard when clicking on duplicate button in pinboard list', function () {
+      pinboardPage.openByQuery([1, 2], ['5678123'], [3, 2]);
+
+      pinboardPage.pinnedSection.officers.officerCards().should.have.length(2);
+      pinboardPage.pinnedSection.crs.crCards().should.have.length(1);
+      pinboardPage.pinnedSection.trrs.trrCards().should.have.length(2);
+
+      pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+      pinboardPage.pinboardsListSection.firstDuplicatePinboardButton.click();
+      browser.getUrl().should.containEql('/pinboard/ceea8ea3/pinboard-title/');
+      pinboardPage.pinboardSection.title.getText().should.containEql('Pinboard Title');
+      pinboardPage.pinboardSection.description.getText().should.containEql('Pinboard Description');
+
+      pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
+      pinboardPage.pinnedSection.crs.crCards().should.have.length(1);
+      pinboardPage.pinnedSection.trrs.trrCards().should.have.length(1);
+    });
+  });
 });
 
 describe('Undo card', function () {

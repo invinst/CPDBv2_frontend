@@ -27,7 +27,7 @@ describe('SearchBar component', function () {
     searchBoxParent.className.should.not.containEql('short');
 
     findRenderedDOMComponentWithClass(instance, 'search-term').textContent.should.eql('Search');
-    findRenderedDOMComponentWithClass(instance, 'share-button').textContent.should.eql('Share');
+    findRenderedDOMComponentWithClass(instance, 'share-button');
   });
 
   it('should hide share menu by default', function () {
@@ -73,5 +73,11 @@ describe('SearchBar component', function () {
     instance = renderIntoDocument(<SearchBar shareable={ false }/>);
 
     scryRenderedDOMComponentsWithClass(instance, 'share-button').should.have.length(0);
+  });
+
+  it('should render custom buttons', function () {
+    instance = renderIntoDocument(<SearchBar customButtons={ <div className='custom-buttons' /> } />);
+
+    scryRenderedDOMComponentsWithClass(instance, 'custom-buttons').should.have.length(1);
   });
 });
