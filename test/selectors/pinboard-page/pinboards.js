@@ -1,11 +1,11 @@
 import {
-  getPinboards,
+  pinboardsSelector,
   getShowPinboardsList,
 } from 'selectors/pinboard-page/pinboards';
 
 
 describe('Pinboards selectors', function () {
-  describe('getPinboards', function () {
+  describe('pinboardsSelector', function () {
     it('should return pinboards with correct format', function () {
       const state = {
         pinboardPage: {
@@ -24,7 +24,7 @@ describe('Pinboards selectors', function () {
         },
       };
 
-      getPinboards(state).should.eql([
+      pinboardsSelector(state).should.eql([
         {
           id: '1',
           title: 'Pinboard Title',

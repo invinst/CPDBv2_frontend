@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
-import { getPinboards, getShowPinboardsList } from 'selectors/pinboard-page/pinboards';
+import { pinboardsSelector, getShowPinboardsList } from 'selectors/pinboard-page/pinboards';
 import PinboardsWithOverlay from 'components/pinboard-page/pinboards';
 import { fetchPinboards, hidePinboardList } from 'actions/pinboard-page';
 import { createNewEmptyPinboard, duplicatePinboard } from 'actions/pinboard';
@@ -10,7 +10,7 @@ import { createNewEmptyPinboard, duplicatePinboard } from 'actions/pinboard';
 function mapStateToProps(state, ownProps) {
   return {
     ...ownProps,
-    pinboards: getPinboards(state),
+    pinboards: pinboardsSelector(state),
     isShown: getShowPinboardsList(state),
   };
 }

@@ -209,18 +209,27 @@ class PinboardSection extends Section {
   }
 }
 
-class ManagePinboardsSection extends Section {
+class ManagePinboardsButtonsSection extends Section {
   constructor() {
     super();
 
     this.prepareElementGetters({
       pinboardsListButton: '.pinboards-list-btn',
-      newPinboardButton: '.new-pinboard-btn',
-      firstDuplicatePinboardButton: '(//a[contains(@class, "duplicate-pinboard-btn")])[1]',
       newPinboardMenuButton: '.new-pinboard-menu-btn',
-      createNewPinboardButton: '(//div[contains(@class, "new-pinboard-link")])',
-      duplicateCurrentPinboardButton: '(//div[contains(@class, "duplicate-current-pinboard-link")])',
-      pinboardsTitle: '//div[@class="pinboards-title"]',
+      createNewPinboardButton: '.new-pinboard-link',
+      duplicateCurrentPinboardButton: '.duplicate-current-pinboard-link',
+    });
+  }
+}
+
+class PinboardsListSection extends Section {
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      pinboardsTitle: '.pinboards-title',
+      createNewPinboardButton: '.new-pinboard-btn',
+      firstDuplicatePinboardButton: '(//a[contains(@class, "duplicate-pinboard-btn")])[1]',
       firstPinboardItemTitle: '//div[contains(@class, "pinboard-item")][1]//div[@class="pinboard-title"]',
       firstPinboardItemCreatedAt: '//div[contains(@class, "pinboard-item")][1]//div[@class="pinboard-created-at"]',
       secondPinboardItemTitle: '//div[contains(@class, "pinboard-item")][2]//div[@class="pinboard-title"]',
@@ -331,7 +340,8 @@ class PinboardPage extends Page {
   animatedSocialGraphSection = new AnimatedSocialGraphSection();
   geographicSection = new GeographicSection();
   pinboardSection = new PinboardSection();
-  managePinboardsSection = new ManagePinboardsSection();
+  managePinboardsButtonsSection = new ManagePinboardsButtonsSection();
+  pinboardsListSection = new PinboardsListSection();
   relevantDocumentsSection = new RelevantDocumentsSection();
   relevantCoaccusalsSection = new RelevantCoaccusalsSection();
   relevantComplaintsSection = new RelevantComplaintsSection();

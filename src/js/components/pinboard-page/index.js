@@ -154,7 +154,7 @@ export default class PinboardPage extends Component {
           />
         </div>
         { this.renderContent() }
-        { <PinboardsContainer /> }
+        <PinboardsContainer />
         <FooterContainer className='footer' />
       </div>
     );

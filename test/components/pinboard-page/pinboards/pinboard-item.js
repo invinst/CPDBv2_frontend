@@ -36,8 +36,8 @@ describe('PinboardItem component', function () {
       <PinboardItem pinboard={ pinboard } />
     );
 
-    findRenderedDOMComponentWithClass(instance, 'pinboard-title').textContent.should.eql('Pinboard Title');
-    findRenderedDOMComponentWithClass(instance, 'pinboard-created-at').textContent.should.eql('Created Sep 12, 2019');
+    findRenderedDOMComponentWithClass(instance, 'pinboard-title').textContent.should.equal('Pinboard Title');
+    findRenderedDOMComponentWithClass(instance, 'pinboard-created-at').textContent.should.equal('Created Sep 12, 2019');
   });
 
   it('should render duplicate-pinboard-btn', function (done) {

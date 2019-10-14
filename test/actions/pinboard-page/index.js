@@ -16,8 +16,12 @@ import {
   UPDATE_PINBOARD_REFRESH_INTERVAL_ID,
   PINBOARD_EDIT_MODE,
   PINBOARD_EDIT_TYPES,
+  PINBOARDS_FETCH_REQUEST_START,
+  PINBOARDS_FETCH_REQUEST_SUCCESS,
+  PINBOARDS_FETCH_REQUEST_FAILURE,
+  PINBOARDS_URL,
+  HIDE_SHOW_PINBOARDS_LIST,
 } from 'utils/constants';
-import * as constants from '../../../src/js/utils/constants';
 
 
 describe('pinboard-page actions', function () {
@@ -86,15 +90,15 @@ describe('pinboard-page actions', function () {
 
   describe('fetchPinboards', function () {
     it('should return correct action', function () {
-      fetchPinboards().should.deepEqual({
+      fetchPinboards().should.eql({
         types: [
-          constants.PINBOARDS_FETCH_REQUEST_START,
-          constants.PINBOARDS_FETCH_REQUEST_SUCCESS,
-          constants.PINBOARDS_FETCH_REQUEST_FAILURE,
+          PINBOARDS_FETCH_REQUEST_START,
+          PINBOARDS_FETCH_REQUEST_SUCCESS,
+          PINBOARDS_FETCH_REQUEST_FAILURE,
         ],
         payload: {
           request: {
-            url: constants.PINBOARDS_URL,
+            url: PINBOARDS_URL,
             params: undefined,
             adapter: null,
             cancelToken: undefined,
@@ -107,7 +111,7 @@ describe('pinboard-page actions', function () {
   describe('showPinboardsList action', function () {
     it('should return correct action', function () {
       showPinboardsList().should.eql({
-        type: constants.HIDE_SHOW_PINBOARDS_LIST,
+        type: HIDE_SHOW_PINBOARDS_LIST,
         payload: true,
       });
     });
@@ -116,7 +120,7 @@ describe('pinboard-page actions', function () {
   describe('hidePinboardList action', function () {
     it('should return correct action', function () {
       hidePinboardList().should.eql({
-        type: constants.HIDE_SHOW_PINBOARDS_LIST,
+        type: HIDE_SHOW_PINBOARDS_LIST,
         payload: false,
       });
     });

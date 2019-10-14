@@ -613,45 +613,45 @@ describe('Pinboard Page', function () {
     });
 
     it('should render the pinboards list', function () {
-      pinboardPage.managePinboardsSection.pinboardsListButton.click();
+      pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
 
-      pinboardPage.managePinboardsSection.pinboardsTitle.getText().should.equal('Pinboards');
-      pinboardPage.managePinboardsSection.pinboardItems().should.have.length(2);
+      pinboardPage.pinboardsListSection.pinboardsTitle.getText().should.equal('Pinboards');
+      pinboardPage.pinboardsListSection.pinboardItems().should.have.length(2);
 
-      pinboardPage.managePinboardsSection.firstPinboardItemTitle.getText().should.equal('Pinboard title');
-      pinboardPage.managePinboardsSection.firstPinboardItemCreatedAt.getText().should.equal('Created Sep 12, 2019');
+      pinboardPage.pinboardsListSection.firstPinboardItemTitle.getText().should.equal('Pinboard title');
+      pinboardPage.pinboardsListSection.firstPinboardItemCreatedAt.getText().should.equal('Created Sep 12, 2019');
 
-      pinboardPage.managePinboardsSection.secondPinboardItemTitle.getText().should.equal('');
-      pinboardPage.managePinboardsSection.secondPinboardItemCreatedAt.getText().should.equal('Created Oct 15, 2019');
+      pinboardPage.pinboardsListSection.secondPinboardItemTitle.getText().should.equal('');
+      pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.getText().should.equal('Created Oct 15, 2019');
     });
 
     it('should go to pinboard detail page when clicking on pinboard item', function () {
-      pinboardPage.managePinboardsSection.pinboardsListButton.click();
-      pinboardPage.managePinboardsSection.secondPinboardItemCreatedAt.click();
+      pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+      pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
       browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
       pinboardPage.pinboardSection.title.getText().should.equal('');
       pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
     });
 
-    it('should create an empty pinboard when clicking on Create new pinboard button', function () {
-      pinboardPage.managePinboardsSection.newPinboardMenuButton.click();
-      pinboardPage.managePinboardsSection.createNewPinboardButton.click();
+    it('should create an empty pinboard when clicking on create new pinboard button in menu', function () {
+      pinboardPage.managePinboardsButtonsSection.newPinboardMenuButton.click();
+      pinboardPage.managePinboardsButtonsSection.createNewPinboardButton.click();
       browser.getUrl().should.containEql('/pinboard/87e31b82/untitled-pinboard/');
       pinboardPage.emptyPinboardSection.firstExample.getText().should.containEql('Watts Crew');
       pinboardPage.emptyPinboardSection.secondExample.getText().should.containEql('Skullcap Crew');
     });
 
     it('should duplicate current pinboard when clicking on Duplicate this pinboard button', function () {
-      pinboardPage.managePinboardsSection.newPinboardMenuButton.click();
-      pinboardPage.managePinboardsSection.duplicateCurrentPinboardButton.click();
+      pinboardPage.managePinboardsButtonsSection.newPinboardMenuButton.click();
+      pinboardPage.managePinboardsButtonsSection.duplicateCurrentPinboardButton.click();
       browser.getUrl().should.containEql('/pinboard/ceea8ea3/pinboard-title/');
       pinboardPage.pinboardSection.title.getText().should.containEql('Pinboard Title');
       pinboardPage.pinboardSection.description.getText().should.containEql('Pinboard Description');
     });
 
     it('should create an empty pinboard when clicking on plus button in pinboard list', function () {
-      pinboardPage.managePinboardsSection.pinboardsListButton.click();
-      pinboardPage.managePinboardsSection.newPinboardButton.click();
+      pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+      pinboardPage.pinboardsListSection.createNewPinboardButton.click();
       browser.getUrl().should.containEql('/pinboard/87e31b82/untitled-pinboard/');
       pinboardPage.emptyPinboardSection.firstExample.getText().should.containEql('Watts Crew');
       pinboardPage.emptyPinboardSection.secondExample.getText().should.containEql('Skullcap Crew');
@@ -664,8 +664,8 @@ describe('Pinboard Page', function () {
       pinboardPage.pinnedSection.crs.crCards().should.have.length(1);
       pinboardPage.pinnedSection.trrs.trrCards().should.have.length(2);
 
-      pinboardPage.managePinboardsSection.pinboardsListButton.click();
-      pinboardPage.managePinboardsSection.firstDuplicatePinboardButton.click();
+      pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+      pinboardPage.pinboardsListSection.firstDuplicatePinboardButton.click();
       browser.getUrl().should.containEql('/pinboard/ceea8ea3/pinboard-title/');
       pinboardPage.pinboardSection.title.getText().should.containEql('Pinboard Title');
       pinboardPage.pinboardSection.description.getText().should.containEql('Pinboard Description');

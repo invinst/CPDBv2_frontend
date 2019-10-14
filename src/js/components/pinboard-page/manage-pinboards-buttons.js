@@ -64,12 +64,12 @@ export default class ManagePinboardsButtons extends Component {
           {
             showNewPinboardMenu && (
               <div className='new-pinboard-menu'>
-                <div className='menu-item new-pinboard-link' onClick={ this.handleCreateNewEmptyPinboard }>
+                <a className='menu-item new-pinboard-link' onClick={ this.handleCreateNewEmptyPinboard }>
                   Create new pinboard
-                </div>
-                <div className='menu-item duplicate-current-pinboard-link' onClick={ this.handleDuplicatePinboard }>
+                </a>
+                <a className='menu-item duplicate-current-pinboard-link' onClick={ this.handleDuplicatePinboard }>
                   Duplicate this pinboard
-                </div>
+                </a>
               </div>
             )
           }
