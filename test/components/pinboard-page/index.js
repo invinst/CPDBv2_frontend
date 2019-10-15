@@ -25,8 +25,10 @@ import PinboardPageContainer from 'containers/pinboard-page';
 import RelevantSectionContainer from 'containers/pinboard-page/relevant-section';
 import SearchBar from 'components/pinboard-page/search-bar';
 import { PinboardPaneSectionWithSpinner } from 'components/pinboard-page/pinboard-pane-section';
+import { PreviewPaneWithOverlay } from 'components/search-page/search-results/preview-pane';
 import RootReducer from 'reducers/root-reducer';
 import FooterContainer from 'containers/footer-container';
+import PinboardsContainer from 'containers/pinboard-page/pinboards-container';
 import {
   PINBOARD_PAGE_REDIRECT,
   PINBOARD_PAGE_FOCUS_ITEM,
@@ -34,10 +36,8 @@ import {
   PINBOARD_EDIT_TYPES,
 } from 'utils/constants';
 import PinboardPage from 'components/pinboard-page';
-import PreviewPane from 'components/search-page/search-results/preview-pane';
 import EmptyPinboardPage from 'components/pinboard-page/empty-pinboard';
 import { buildEditStateFields } from 'utils/test/factories/draft';
-
 
 describe('PinboardPage component', function () {
   let instance;
@@ -63,6 +63,7 @@ describe('PinboardPage component', function () {
     focusedItem: {},
     pinboard,
     editModeOn,
+    pinboards: [],
   });
 
   const defaultFields = buildEditStateFields({
@@ -230,7 +231,14 @@ describe('PinboardPage component', function () {
     findRenderedComponentWithType(instance, PinnedOfficersContainer);
     findRenderedComponentWithType(instance, PinnedCRsContainer);
     findRenderedComponentWithType(instance, PinnedTRRsContainer);
-    findRenderedComponentWithType(instance, SearchBar);
+    findRenderedComponentWithType(instance, PinboardsContainer);
+    const pinboardPageComponent = findRenderedComponentWithType(instance, PinboardPage);
+    const searchBar = findRenderedComponentWithType(instance, SearchBar);
+    const customButtons = searchBar.props.customButtons;
+    customButtons.props.pinboardId.should.eql('5cd06f2b');
+    customButtons.props.showPinboardsList.should.eql(pinboardPageComponent.props.showPinboardsList);
+    customButtons.props.createNewEmptyPinboard.should.eql(pinboardPageComponent.props.createNewEmptyPinboard);
+    customButtons.props.duplicatePinboard.should.eql(pinboardPageComponent.props.duplicatePinboard);
   });
 
   it('should render pinboard page correctly', function () {
@@ -333,123 +341,59 @@ describe('PinboardPage component', function () {
     stubPushBreadcrumbs.calledWith({ location, params, routes }).should.be.true();
   });
 
-  it('should contain overlay and preview pane', function () {
+  it('should render PreviewPaneWithOverlay if there is no focused item by default', function () {
     const pinboard = {
       title: 'This is pinboard title',
       description: 'This is pinboard description',
-      crids: ['123'],
     };
 
-    const pinboardPage = () => (
+    instance = renderIntoDocument(
       <Provider store={ createStore(pinboard) }>
-        <PinboardPageContainer />
+        <PinboardPage initialRequested={ true } focusedItem={ {} }/>
       </Provider>
     );
 
-    instance = renderIntoDocument(
-      <Router history={ createMemoryHistory() }>
-        <Route path='/' component={ pinboardPage } />
-      </Router>
-    );
-
-    findRenderedDOMComponentWithClass(instance, 'overlay').should.be.ok();
-    findRenderedComponentWithType(instance, PreviewPane).should.be.ok();
+    const pinboardPage = findRenderedComponentWithType(instance, PinboardPage);
+    const previewPaneWithOverlay = findRenderedComponentWithType(instance, PreviewPaneWithOverlay);
+    previewPaneWithOverlay.props.isShown.should.be.false();
+    previewPaneWithOverlay.props.handleClose.should.be.eql(pinboardPage.handleOverlayClick);
+    previewPaneWithOverlay.props.yScrollable.should.be.true();
+    previewPaneWithOverlay.props.addOrRemoveItemInPinboard.should.be.eql(pinboardPage.handlePinChangedOnPreviewPane);
   });
 
-  it('should hide overlay if there is no focused item by default', function () {
+
+  it('should render PreviewPaneWithOverlay if there is focused item', function () {
     const pinboard = {
       title: 'This is pinboard title',
       description: 'This is pinboard description',
-      crids: ['123'],
     };
 
-    const pinboardPageData = createPinboardPage(pinboard);
-    set(pinboardPageData, 'crItems', [{ 'crid': '123' }]);
-
-    const state = {
-      pinboardPage: pinboardPageData,
-      pathname: 'pinboard/5cd06f2b',
-    };
-
-    const store = ReduxCreateStore(RootReducer, state);
-
-    const pinboardPage = () => (
-      <Provider store={ store }>
-        <PinboardPageContainer />
-      </Provider>
-    );
-
-    instance = renderIntoDocument(
-      <Router history={ createMemoryHistory() }>
-        <Route path='/' component={ pinboardPage } />
-      </Router>
-    );
-
-    store.dispatch({
-      type: PINBOARD_PAGE_FOCUS_ITEM,
-      payload: {},
-    });
-
-    const overlay = findRenderedDOMComponentWithClass(instance, 'overlay');
-    overlay.getAttribute('aria-hidden').should.equal('true');
-
-    document.body.classList.should.have.length(2);
-    document.body.classList.contains('body-fixed-viewport').should.be.true();
-    document.body.classList.contains('body-scrollable').should.be.true();
-
-    unmountComponentSuppressError(instance);
-
-    document.body.classList.contains('body-fixed-viewport').should.be.false();
-  });
-
-  it('should display overlay if there is focused item', function () {
-    const pinboard = {
-      title: 'This is pinboard title',
-      description: 'This is pinboard description',
-      crids: ['123'],
-    };
-
-    const pinboardPageData = createPinboardPage(pinboard);
-    set(pinboardPageData, 'crItems', { requesting: false, items: [{ 'crid': '123' }] });
-
-    const state = {
-      pinboardPage: pinboardPageData,
-      pathname: 'pinboard/5cd06f2b',
-    };
-
-    const store = ReduxCreateStore(RootReducer, state);
-
-    const pinboardPage = () => (
-      <Provider store={ store }>
-        <PinboardPageContainer />
-      </Provider>
-    );
-
-    instance = renderIntoDocument(
-      <Router history={ createMemoryHistory() }>
-        <Route path='/' component={ pinboardPage } />
-      </Router>
-    );
-
-    store.dispatch({
-      type: PINBOARD_PAGE_FOCUS_ITEM,
-      payload: {
-        type: 'CR',
-        id: '123',
+    const focusedItem = {
+      type: 'CR',
+      data: {
+        address: '49XX South KARLOV AVE, CHICAGO ILLINOIS 60632',
+        category: 'Unknown',
+        coaccused: [],
+        incidentDate: 'MAY 9, 2016',
+        isPinned: true,
+        subCategory: 'Unknown',
+        subText: '',
+        to: '/complaint/1080449/',
       },
-    });
+    };
 
-    const overlay = findRenderedDOMComponentWithClass(instance, 'overlay');
-    overlay.getAttribute('aria-hidden').should.equal('false');
+    instance = renderIntoDocument(
+      <Provider store={ createStore(pinboard) }>
+        <PinboardPage initialRequested={ true } focusedItem={ focusedItem }/>
+      </Provider>
+    );
 
-    document.body.classList.should.have.length(2);
-    document.body.classList.contains('body-fixed-viewport').should.be.true();
-    document.body.classList.contains('body-not-scrollable').should.be.true();
-
-    unmountComponentSuppressError(instance);
-
-    document.body.classList.contains('body-fixed-viewport').should.be.false();
-    document.body.classList.contains('body-not-scrollable').should.be.false();
+    const pinboardPage = findRenderedComponentWithType(instance, PinboardPage);
+    const previewPaneWithOverlay = findRenderedComponentWithType(instance, PreviewPaneWithOverlay);
+    previewPaneWithOverlay.props.isShown.should.be.true();
+    previewPaneWithOverlay.props.handleClose.should.be.eql(pinboardPage.handleOverlayClick);
+    previewPaneWithOverlay.props.yScrollable.should.be.true();
+    previewPaneWithOverlay.props.addOrRemoveItemInPinboard.should.be.eql(pinboardPage.handlePinChangedOnPreviewPane);
   });
 
   it('should handle on overlay click', function () {
@@ -489,18 +433,13 @@ describe('PinboardPage component', function () {
       },
     });
 
-    const overlay = findRenderedDOMComponentWithClass(instance, 'overlay');
-    overlay.getAttribute('aria-hidden').should.equal('false');
-    document.body.classList.should.have.length(2);
-    document.body.classList.contains('body-fixed-viewport').should.be.true();
-    document.body.classList.contains('body-not-scrollable').should.be.true();
+    const previewPaneWithOverlay = findRenderedComponentWithType(instance, PreviewPaneWithOverlay);
+    previewPaneWithOverlay.props.isShown.should.be.true();
 
+    const overlay = scryRenderedDOMComponentsWithClass(instance, 'overlay')[0];
     Simulate.click(overlay);
 
-    overlay.getAttribute('aria-hidden').should.equal('true');
-    document.body.classList.should.have.length(2);
-    document.body.classList.contains('body-fixed-viewport').should.be.true();
-    document.body.classList.contains('body-scrollable').should.be.true();
+    previewPaneWithOverlay.props.isShown.should.be.false();
   });
 
   it('should handle when pin status is changed from preview pane', function () {
@@ -548,5 +487,24 @@ describe('PinboardPage component', function () {
     });
 
     handlePinChangedOnPreviewPane.restore();
+  });
+
+  it('should add and remove body-fixed-viewport to body when did mount and unmount', function () {
+    const pinboard = {
+      title: 'This is pinboard title',
+      description: 'This is pinboard description',
+    };
+
+    instance = renderIntoDocument(
+      <Provider store={ createStore(pinboard) }>
+        <PinboardPage initialRequested={ true } />
+      </Provider>
+    );
+
+    document.body.classList.contains('body-fixed-viewport').should.be.true();
+
+    unmountComponentSuppressError(instance);
+
+    document.body.classList.contains('body-fixed-viewport').should.be.false();
   });
 });

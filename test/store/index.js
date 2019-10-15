@@ -314,6 +314,8 @@ describe('store', function () {
         },
         redirect: false,
         initialRequested: false,
+        pinboards: [],
+        isShownPinboardsList: false,
         officerItems: { requesting: false, items: [], removingItems: [] },
         crItems: { requesting: false, items: [], removingItems: [] },
         trrItems: { requesting: false, items: [], removingItems: [] },

@@ -1,3 +1,4 @@
+import { browserHistory } from 'react-router';
 import { kebabCase, isEmpty, isNil, includes, parseInt, identity } from 'lodash';
 
 
@@ -13,4 +14,13 @@ export const generatePinboardUrl = pinboard => {
 
 export const getFormatId = (attr) => {
   return includes(['officer_ids', 'trr_ids'], attr) ? parseInt : identity;
+};
+
+export const redirectToCreatedPinboard = (response) => {
+  const pinboard = response.payload;
+  const url = generatePinboardUrl(pinboard);
+
+  if (!isEmpty(url)) {
+    browserHistory.push(url);
+  }
 };
