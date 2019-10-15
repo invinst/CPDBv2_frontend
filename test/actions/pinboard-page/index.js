@@ -6,6 +6,9 @@ import {
   turnOffEmptyPinboardTitleEditMode,
   turnOnEmptyPinboardDescriptionEditMode,
   turnOffEmptyPinboardDescriptionEditMode,
+  fetchPinboards,
+  showPinboardsList,
+  hidePinboardList,
 } from 'actions/pinboard-page';
 import {
   PINBOARD_PAGE_REDIRECT,
@@ -13,6 +16,11 @@ import {
   UPDATE_PINBOARD_REFRESH_INTERVAL_ID,
   PINBOARD_EDIT_MODE,
   PINBOARD_EDIT_TYPES,
+  PINBOARDS_FETCH_REQUEST_START,
+  PINBOARDS_FETCH_REQUEST_SUCCESS,
+  PINBOARDS_FETCH_REQUEST_FAILURE,
+  PINBOARDS_URL,
+  HIDE_SHOW_PINBOARDS_LIST,
 } from 'utils/constants';
 
 
@@ -76,6 +84,44 @@ describe('pinboard-page actions', function () {
       turnOffEmptyPinboardDescriptionEditMode().should.eql({
         type: PINBOARD_EDIT_MODE,
         payload: { editType: PINBOARD_EDIT_TYPES.EMPTY_PINBOARD_DESCRIPTION, mode: false },
+      });
+    });
+  });
+
+  describe('fetchPinboards', function () {
+    it('should return correct action', function () {
+      fetchPinboards().should.eql({
+        types: [
+          PINBOARDS_FETCH_REQUEST_START,
+          PINBOARDS_FETCH_REQUEST_SUCCESS,
+          PINBOARDS_FETCH_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: PINBOARDS_URL,
+            params: undefined,
+            adapter: null,
+            cancelToken: undefined,
+          },
+        },
+      });
+    });
+  });
+
+  describe('showPinboardsList action', function () {
+    it('should return correct action', function () {
+      showPinboardsList().should.eql({
+        type: HIDE_SHOW_PINBOARDS_LIST,
+        payload: true,
+      });
+    });
+  });
+
+  describe('hidePinboardList action', function () {
+    it('should return correct action', function () {
+      hidePinboardList().should.eql({
+        type: HIDE_SHOW_PINBOARDS_LIST,
+        payload: false,
       });
     });
   });

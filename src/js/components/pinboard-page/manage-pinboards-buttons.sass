@@ -1,0 +1,55 @@
+@import 'variables'
+
+
+\:local(.manage-pinboards-buttons)
+  display: inline-block
+
+  .new-pinboard-menu-btn, .pinboards-list-btn
+    width: 48px
+    height: 32px
+    display: inline-block
+    border: 1px solid $white-two-color
+    box-sizing: border-box
+    margin-left: 8px
+    border-radius: 2px
+
+  .pinboards-list-btn
+    background: url('/img/ic-list.svg') no-repeat center
+
+  .new-pinboard-menu-btn
+    background: url('/img/ic-plus.svg') no-repeat center
+
+    &.close-btn
+      border: none
+      background: $accent-color url('/img/ic-x-alt.svg') no-repeat center
+
+  .new-pinboard-btn-container
+    position: relative
+    display: inline-block
+
+    .new-pinboard-menu
+      background-color: white
+      width: 320px
+      padding: 0 16px
+      border-radius: 4px
+      border: solid 1px $white-two-color
+      box-sizing: border-box
+      position: absolute
+      right: 0
+      top: 34px
+
+      .menu-item
+        padding: 19px 0 19px 24px
+        line-height: 16px
+        font-weight: 300
+        color: $accent-color
+        display: block
+
+        &.new-pinboard-link
+          background: url('/img/ic-file.svg') no-repeat center left
+
+        &.duplicate-current-pinboard-link
+          background: url('/img/ic-copy.svg') no-repeat center left
+
+      .menu-item + .menu-item
+        border-top: solid 1px $white-two-color

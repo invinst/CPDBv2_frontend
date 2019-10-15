@@ -10,6 +10,8 @@ import crItems from './cr-items';
 import trrItems from './trr-items';
 import redirect from './redirect';
 import pinboard from './pinboard';
+import pinboards from './pinboards';
+import isShownPinboardsList from './is-shown-pinboards-list';
 import focusedItem from './focused-item';
 import timelineIdx from './timeline_idx';
 import refreshIntervalId from './refresh-interval-id';
@@ -29,6 +31,8 @@ export default combineReducers({
   trrItems,
   redirect,
   pinboard,
+  pinboards,
+  isShownPinboardsList,
   focusedItem,
   timelineIdx,
   refreshIntervalId,

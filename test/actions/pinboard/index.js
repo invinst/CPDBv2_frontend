@@ -3,6 +3,8 @@ import { spy, stub } from 'sinon';
 
 import {
   createPinboard,
+  createNewEmptyPinboard,
+  duplicatePinboard,
   updatePinboard,
   addItemToPinboardState,
   removeItemFromPinboardState,
@@ -94,6 +96,7 @@ describe('pinboard actions', function () {
               'officer_ids': [],
               crids: ['abc'],
               'trr_ids': [1],
+              'source_pinboard_id': undefined,
             },
           },
         },
@@ -103,6 +106,68 @@ describe('pinboard actions', function () {
     it('should cancel old fetch requests if new request is called', function () {
       createPinboard({ officerIds: [], crids: ['abc'], trrIds: [1] });
       createPinboard({ officerIds: [], crids: ['abc'], trrIds: [1] });
+      cancel.called.should.be.true();
+    });
+  });
+
+  describe('createNewEmptyPinboard', function () {
+    it('should return correct action', function () {
+      createNewEmptyPinboard().should.deepEqual({
+        types: [
+          constants.PINBOARD_CREATE_REQUEST_START,
+          constants.PINBOARD_CREATE_REQUEST_SUCCESS,
+          constants.PINBOARD_CREATE_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: constants.PINBOARDS_URL,
+            method: 'post',
+            adapter: null,
+            data: {
+              'officer_ids': [],
+              crids: [],
+              'trr_ids': [],
+              'source_pinboard_id': undefined,
+            },
+          },
+        },
+      });
+    });
+
+    it('should cancel old fetch requests if new request is called', function () {
+      createNewEmptyPinboard();
+      createNewEmptyPinboard();
+      cancel.called.should.be.true();
+    });
+  });
+
+  describe('duplicatePinboard', function () {
+    it('should return correct action', function () {
+      duplicatePinboard('adg234r6').should.deepEqual({
+        types: [
+          constants.PINBOARD_CREATE_REQUEST_START,
+          constants.PINBOARD_CREATE_REQUEST_SUCCESS,
+          constants.PINBOARD_CREATE_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: constants.PINBOARDS_URL,
+            method: 'post',
+            adapter: null,
+            data: {
+              'officer_ids': undefined,
+              crids: undefined,
+              'trr_ids': undefined,
+              'source_pinboard_id': 'adg234r6',
+            },
+          },
+        },
+      });
+    });
+
+    it('should cancel old fetch requests if new request is called', function () {
+      duplicatePinboard('adg234r6');
+      duplicatePinboard('adg234r6');
       cancel.called.should.be.true();
     });
   });

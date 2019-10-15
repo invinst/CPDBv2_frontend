@@ -99,4 +99,16 @@ describe('Pinboard trrItemsReducer', function () {
       }
     ).should.deepEqual([{ 'id': 1 }, { 'id': 2 }]);
   });
+
+  it('should handle LOCATION_CHANGE', function () {
+    trrItemsReducer(
+      [{ 'id': '1' }],
+      {
+        type: constants.LOCATION_CHANGE,
+        payload: [
+          { 'id': '2' }, { 'id': '3' },
+        ],
+      }
+    ).should.deepEqual([]);
+  });
 });

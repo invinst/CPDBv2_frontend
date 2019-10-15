@@ -6,6 +6,7 @@ import {
   REMOVE_ITEM_IN_PINBOARD_PAGE,
   ORDER_PINBOARD,
   PINBOARD_ITEM_REMOVE_MODE,
+  LOCATION_CHANGE,
 } from 'utils/constants';
 
 export default handleActions({
@@ -28,4 +29,5 @@ export default handleActions({
     }
     return currentItems;
   },
+  [LOCATION_CHANGE]: (state, action) => [],
 }, []);

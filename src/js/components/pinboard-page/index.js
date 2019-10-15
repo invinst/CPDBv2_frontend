@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import cx from 'classnames';
-import { isEmpty, noop } from 'lodash';
+import { isEmpty, noop, get } from 'lodash';
 
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import SearchBar from './search-bar';
@@ -13,8 +13,10 @@ import PinnedOfficersContainer from 'containers/pinboard-page/pinned-officers';
 import PinnedCRsContainer from 'containers/pinboard-page/pinned-crs';
 import PinnedTRRsContainer from 'containers/pinboard-page/pinned-trrs';
 import FooterContainer from 'containers/footer-container';
+import PinboardsContainer from 'containers/pinboard-page/pinboards-container';
 import EmptyPinboardContainer from 'containers/pinboard-page/empty-pinboard';
-import PreviewPane from 'components/search-page/search-results/preview-pane';
+import { PreviewPaneWithOverlay } from 'components/search-page/search-results/preview-pane';
+import ManagePinboardsButtons from 'components/pinboard-page/manage-pinboards-buttons';
 import PinboardDataVisualization from 'components/pinboard-page/pinboard-data-visualization';
 
 
@@ -30,16 +32,6 @@ export default class PinboardPage extends Component {
     const { location, params, routes, pushBreadcrumbs } = this.props;
     pushBreadcrumbs({ location, params, routes });
     document.body.classList.add('body-fixed-viewport');
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (isEmpty(nextProps.focusedItem)) {
-      document.body.classList.remove('body-not-scrollable');
-      document.body.classList.add('body-scrollable');
-    } else {
-      document.body.classList.add('body-not-scrollable');
-      document.body.classList.remove('body-scrollable');
-    }
   }
 
   componentDidUpdate(prevProps) {
@@ -74,11 +66,25 @@ export default class PinboardPage extends Component {
     addOrRemoveItemInPinboardFromPreviewPane(item);
   }
 
+  renderPreviewPane() {
+    const { focusedItem } = this.props;
+
+    return (
+      <PreviewPaneWithOverlay
+        isShown={ !isEmpty(focusedItem) }
+        handleClose={ this.handleOverlayClick }
+        customClass='preview-pane'
+        yScrollable={ true }
+        addOrRemoveItemInPinboard={ this.handlePinChangedOnPreviewPane }
+        { ...focusedItem }
+      />
+    );
+  }
+
   renderContent() {
     const {
       pinboard,
       isEmptyPinboard,
-      focusedItem,
       hasMapMarker,
     } = this.props;
 
@@ -100,25 +106,20 @@ export default class PinboardPage extends Component {
           </div>
         </div>
         <RelevantSectionContainer />
-
-        <div
-          className='overlay'
-          aria-hidden={ isEmpty(focusedItem) }
-          onClick={ this.handleOverlayClick }
-        />
-
-        <PreviewPane
-          customClass='preview-pane'
-          yScrollable={ true }
-          addOrRemoveItemInPinboard={ this.handlePinChangedOnPreviewPane }
-          { ...focusedItem }
-        />
+        { this.renderPreviewPane() }
       </div>
     );
   }
 
   render() {
-    const { initialRequested, isEmptyPinboard } = this.props;
+    const {
+      pinboard,
+      initialRequested,
+      isEmptyPinboard,
+      showPinboardsList,
+      createNewEmptyPinboard,
+      duplicatePinboard,
+    } = this.props;
 
     if (!initialRequested) {
       return null;
@@ -128,9 +129,20 @@ export default class PinboardPage extends Component {
       <div className={ cx(styles.pinboardPage, { 'empty': isEmptyPinboard } ) }>
         <div className='pinboard-header'>
           <Header />
-          <SearchBar shareable={ !isEmptyPinboard }/>
+          <SearchBar
+            shareable={ !isEmptyPinboard }
+            customButtons={
+              <ManagePinboardsButtons
+                pinboardId={ get(pinboard, 'id') }
+                showPinboardsList={ showPinboardsList }
+                createNewEmptyPinboard={ createNewEmptyPinboard }
+                duplicatePinboard={ duplicatePinboard }
+              />
+            }
+          />
         </div>
         { this.renderContent() }
+        <PinboardsContainer />
         <FooterContainer className='footer' />
       </div>
     );
@@ -153,6 +165,9 @@ PinboardPage.propTypes = {
   }),
   updatePathName: PropTypes.func,
   addOrRemoveItemInPinboardFromPreviewPane: PropTypes.func,
+  showPinboardsList: PropTypes.func,
+  createNewEmptyPinboard: PropTypes.func,
+  duplicatePinboard: PropTypes.func,
 };
 
 PinboardPage.defaultProps = {
@@ -160,4 +175,7 @@ PinboardPage.defaultProps = {
   focusItem: noop,
   pushBreadcrumbs: noop,
   addOrRemoveItemInPinboardFromPreviewPane: noop,
+  showPinboardsList: noop,
+  createNewEmptyPinboard: noop,
+  duplicatePinboard: noop,
 };

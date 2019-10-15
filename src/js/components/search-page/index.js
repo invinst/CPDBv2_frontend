@@ -8,7 +8,7 @@ import cx from 'classnames';
 import SearchBox from './search-box';
 import { navigateToSearchItem } from 'utils/navigate-to-search-item';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
-import { generatePinboardUrl } from 'utils/pinboard';
+import { redirectToCreatedPinboard } from 'utils/pinboard';
 import SearchMainPanel from './search-main-panel';
 import HoverableButton from 'components/common/hoverable-button-without-inline-style';
 import { SEARCH_ALIAS_EDIT_PATH,
@@ -168,16 +168,9 @@ export default class SearchPage extends Component {
   }
 
   handleEmptyPinboardButtonClick() {
-    const { createPinboard } = this.props;
+    const { createNewEmptyPinboard } = this.props;
 
-    createPinboard({ 'officerIds': [], crids: [], 'trrIds': [] }).then(response => {
-      const pinboard = response.payload;
-      const url = generatePinboardUrl(pinboard);
-
-      if (!isEmpty(url)) {
-        browserHistory.push(url);
-      }
-    });
+    createNewEmptyPinboard().then(redirectToCreatedPinboard);
   }
 
   render() {
@@ -267,7 +260,7 @@ SearchPage.propTypes = {
   tags: PropTypes.array,
   isRequesting: PropTypes.bool,
   toast: PropTypes.object,
-  createPinboard: PropTypes.func,
+  createNewEmptyPinboard: PropTypes.func,
   saveToRecent: PropTypes.func,
   hide: PropTypes.bool,
   position: PropTypes.string,
@@ -289,6 +282,6 @@ SearchPage.defaultProps = {
   resetSearchTermNavigation: noop,
   firstItem: {},
   toast: {},
-  createPinboard: noop,
+  createNewEmptyPinboard: noop,
   saveToRecent: noop,
 };

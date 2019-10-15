@@ -63,6 +63,7 @@ import { getDefaultSocialGraphOfficersData } from './social-graph-page/officers-
 import { getDefaultSocialGraphAllegationsData } from './social-graph-page/allegations-data';
 import {
   createPinboard,
+  pinboardsList,
   getOrCreateEmptyPinboard,
   updatePinboard,
   updatePinboardTitleParams,
@@ -96,6 +97,7 @@ import getRelevantComplaints, {
   filterPinnedComplaints,
 } from 'mock-api/pinboard-page/relevant-complaints';
 import { modalVideoInfo } from './headers/slim-header';
+import PinboardFactory from 'utils/test/factories/pinboard';
 
 
 const SEARCH_API_URL = /^suggestion\/$/;
@@ -261,6 +263,24 @@ axiosMockClient.onGet(
   { params: { 'threshold': 3, 'complaint_origin': 'ALL', 'unit_id': '123' } }
 ).reply(200, getThresholdThreeSocialGraphData());
 
+axiosMockClient.onGet(PINBOARDS_URL).reply(200, pinboardsList);
+
+axiosMockClient.onPost(
+  PINBOARDS_URL,
+  {
+    'officer_ids': [],
+    'crids': [],
+    'trr_ids': [],
+  }
+).reply(201, createPinboard('87e31b82'));
+
+axiosMockClient.onPost(
+  PINBOARDS_URL,
+  {
+    'source_pinboard_id': '5cd06f2b',
+  }
+).reply(201, PinboardFactory.build({ id: 'ceea8ea3', title: 'Pinboard Title' }));
+
 axiosMockClient.onPost(
   `${PINBOARDS_URL}`,
   {
@@ -282,6 +302,10 @@ axiosMockClient.onPost(`${PINBOARDS_URL}`).reply(201, createPinboard());
 
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/`).reply(200, getOrCreateEmptyPinboard('5cd06f2b'));
 
+axiosMockClient.onGet(`${PINBOARDS_URL}87e31b82/`).reply(200, getOrCreateEmptyPinboard('87e31b82'));
+
+axiosMockClient.onGet(`${PINBOARDS_URL}ceea8ea3/`).reply(200, getOrCreateEmptyPinboard('ceea8ea3'));
+
 axiosMockClient.onPut(`${PINBOARDS_URL}5cd06f2b/`).reply(function (config) {
   const pinboard = JSON.parse(config.data);
   pinboard.id = '5cd06f2b';
@@ -302,6 +326,10 @@ axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/complaints/`).reply(200, fetchPi
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/officers/`).reply(200, fetchPinboardOfficers());
 
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/trrs/`).reply(200, fetchPinboardTRRs());
+
+axiosMockClient.onGet(`${PINBOARDS_URL}ceea8ea3/officers/`).reply(200, fetchPinboardOfficers());
+axiosMockClient.onGet(`${PINBOARDS_URL}ceea8ea3/complaints/`).reply(200, fetchPinboardComplaints());
+axiosMockClient.onGet(`${PINBOARDS_URL}ceea8ea3/trrs/`).reply(200, fetchPinboardTRRs());
 
 axiosMockClient.onGet(`${PINBOARDS_URL}ffff6666/officers/`).reply(200, ffff6666Officers);
 axiosMockClient.onGet(`${PINBOARDS_URL}ffff6666/complaints/`).reply(200, ffff6666Complaints);
@@ -402,6 +430,8 @@ axiosMockClient.onGet(
 ).reply(200, getDefaultSocialGraphAllegationsData());
 
 axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/`).reply(200, getOrCreateEmptyPinboard('3664a7ea'));
+
+axiosMockClient.onGet(`${PINBOARDS_URL}77edc128/`).reply(200, getOrCreateEmptyPinboard('77edc128'));
 
 axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/complaints/`).reply(200, fetchPinboardComplaints());
 
