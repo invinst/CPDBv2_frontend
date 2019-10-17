@@ -33,7 +33,7 @@ export default class SocialGraphPage extends Component {
     const {
       currentTab,
       location,
-      pinboardId,
+      params,
     } = this.props;
     const tabbedPaneMap = {
       [DATA_VISUALIZATION_TAB_NAMES.SOCIAL_GRAPH]: NetworkContainer,
@@ -44,7 +44,7 @@ export default class SocialGraphPage extends Component {
       <div className={ styles.socialGraphPage }>
         {
           CurrentComponent &&
-          <CurrentComponent location={ location } mainTabsContent={ this.renderMainTabs() } pinboardId={ pinboardId }/>
+          <CurrentComponent location={ location } mainTabsContent={ this.renderMainTabs() } params={ params }/>
         }
       </div>
     );
@@ -54,7 +54,12 @@ export default class SocialGraphPage extends Component {
 SocialGraphPage.propTypes = {
   pinboardId: PropTypes.string,
   location: PropTypes.object,
+  params: PropTypes.object,
   currentTab: PropTypes.string,
   changeMainTab: PropTypes.func,
   updatePathName: PropTypes.func,
+};
+
+SocialGraphPage.defaultProps = {
+  params: {},
 };

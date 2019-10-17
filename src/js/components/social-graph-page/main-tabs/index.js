@@ -7,11 +7,6 @@ import { DATA_VISUALIZATION_TAB_NAMES } from 'utils/constants';
 
 
 export default class MainTabs extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
   handleClick(tabName) {
     const { changeTab, updatePathName, pinboardId, query } = this.props;
 

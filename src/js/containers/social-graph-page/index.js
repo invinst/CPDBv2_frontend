@@ -8,6 +8,7 @@ import { updatePathName } from 'actions/path-name';
 function mapStateToProps(state, ownProps) {
   return {
     location: ownProps.location,
+    params: ownProps.params,
     currentTab: getCurrentMainTab(state),
     pinboardId: ownProps.params.pinboardId || ownProps.location.query['pinboard_id'],
   };

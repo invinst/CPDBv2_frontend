@@ -38,6 +38,9 @@ describe('SocialGraphPage component', function () {
       'title': '',
     },
   };
+  const params = {
+    pinboardId: '12345678',
+  };
   let instance;
 
   afterEach(function () {
@@ -51,6 +54,7 @@ describe('SocialGraphPage component', function () {
           currentTab={ DATA_VISUALIZATION_TAB_NAMES.SOCIAL_GRAPH }
           location={ location }
           pinboardId='12345678'
+          params={ params }
         />
       </Provider>
     );
@@ -68,6 +72,7 @@ describe('SocialGraphPage component', function () {
           currentTab={ DATA_VISUALIZATION_TAB_NAMES.GEOGRAPHIC }
           location={ location }
           pinboardId='12345678'
+          params={ params }
         />
       </Provider>
     );

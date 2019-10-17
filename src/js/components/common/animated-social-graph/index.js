@@ -51,11 +51,11 @@ export default class AnimatedSocialGraph extends Component {
   }
 
   toggleTimeline() {
-    const { timelineIdx, updateTimelineIdx, refreshIntervalId } = this.props;
+    const { timelineIdx, updateTimelineIdx, refreshIntervalId, listEvent } = this.props;
     if (refreshIntervalId) {
       this.stopTimeline();
     } else {
-      if (timelineIdx === this.props.listEvent.length - 1) {
+      if (timelineIdx === listEvent.length - 1) {
         updateTimelineIdx(0);
       }
       this.startTimeline();
@@ -63,8 +63,8 @@ export default class AnimatedSocialGraph extends Component {
   }
 
   intervalTickTimeline() {
-    const { timelineIdx, updateTimelineIdx } = this.props;
-    if (timelineIdx < this.props.listEvent.length - 1) {
+    const { timelineIdx, updateTimelineIdx, listEvent } = this.props;
+    if (timelineIdx < listEvent.length - 1) {
       updateTimelineIdx(timelineIdx + 1);
     } else {
       this.stopTimeline();
