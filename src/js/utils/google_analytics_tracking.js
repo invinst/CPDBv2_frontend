@@ -47,6 +47,34 @@ export const trackSearchResultsCount = (count) => {
   });
 };
 
+export const trackSingleSearchResults = (contentType, query, resultsCount) => {
+  global.ga('send', {
+    hitType: 'event',
+    eventCategory: contentType,
+    eventAction: 'single_search',
+    evenLabel: query,
+    eventValue: resultsCount,
+  });
+};
+
+const _trackSearchFocusedItem = (contentType, query, itemId) => {
+  global.ga('send', {
+    hitType: 'event',
+    eventCategory: contentType,
+    eventAction: 'view_search_preview',
+    evenLabel: itemId,
+  });
+
+  global.ga('send', {
+    hitType: 'event',
+    eventCategory: contentType,
+    eventAction: 'view_search_preview_with_query',
+    evenLabel: `${ itemId } - ${ query }`,
+  });
+};
+
+export const trackSearchFocusedItem = throttle(_trackSearchFocusedItem, 500, { 'leading': false });
+
 export function trackSearchQuery(query) {
   this.throttledSearchQueryGA = this.throttledSearchQueryGA || throttle(global.ga, 500, { 'leading': false });
   this.throttledSearchQueryGA('send', {
