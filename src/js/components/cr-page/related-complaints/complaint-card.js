@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import cx from 'classnames';
+import { toLower } from 'lodash';
 
 import { mapStyle } from './complaint-card.style';
 import * as GATracking from 'utils/google_analytics_tracking';
@@ -22,8 +23,17 @@ class ComplaintCard extends Component {
     }
   }
 
+  renderSection(label, text, classnameSuffix) {
+    return (
+      <div className={ `section test--carousel-${classnameSuffix || toLower(label)}` }>
+        <div className='section-label'>{ label }</div>
+        <div className='section-content nowrap-text'>{ text }</div>
+      </div>
+    );
+  }
+
   render() {
-    const { crid, lat, lon, categories, complainants, accused } = this.props;
+    const { crid, lat, lon, categories, complainants, accused, incidentDate } = this.props;
 
     return (
       <Link
@@ -32,28 +42,10 @@ class ComplaintCard extends Component {
         onClick={ this.handleClick } >
         <div className='complaint-card-map' style={ mapStyle(lat, lon) } />
         <div className='content'>
-          <div className='section'>
-            <div className='section-label'>CR { crid }</div>
-            <div className='section-content nowrap-text'>{ categories }</div>
-          </div>
-          {
-            complainants
-              ? (
-                <div className='section test--carousel-complainant'>
-                  <div className='section-label'>Complainant</div>
-                  <div className='section-content nowrap-text'>{ complainants }</div>
-                </div>
-              ) : null
-          }
-          {
-            accused
-              ? (
-                <div className='section test--carousel-accused'>
-                  <div className='section-label'>Accused</div>
-                  <div className='section-content accused'>{ accused }</div>
-                </div>
-              ) : null
-          }
+          { this.renderSection(`CR ${ crid }`, categories, 'id-cat') }
+          { incidentDate && this.renderSection('Date', incidentDate) }
+          { complainants && this.renderSection('Complainant', complainants) }
+          { accused && this.renderSection('Accused', accused) }
         </div>
       </Link>
     );
