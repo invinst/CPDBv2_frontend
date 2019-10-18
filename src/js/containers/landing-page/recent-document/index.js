@@ -11,6 +11,7 @@ import {
   turnOnCarouselDocumentHeaderEditMode,
   turnOffCarouselDocumentHeaderEditMode,
 } from 'actions/landing-page/recent-document';
+import { addOrRemoveItemInPinboard } from 'actions/pinboard';
 
 
 function mapStateToProps(state, ownProps) {
@@ -27,6 +28,7 @@ const mapDispatchToProps = {
   turnOnSectionEditMode: turnOnCarouselDocumentHeaderEditMode,
   turnOffSectionEditMode: turnOffCarouselDocumentHeaderEditMode,
   onTrackingAttachment: trackingClickAttachment,
+  addOrRemoveItemInPinboard: addOrRemoveItemInPinboard,
 };
 
 export default connect(

@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import { debounce, isEmpty, noop } from 'lodash';
 import { Promise } from 'es6-promise';
-import { toast, cssTransition } from 'react-toastify';
 import cx from 'classnames';
 
 import SearchBox from './search-box';
@@ -61,8 +60,6 @@ export default class SearchPage extends Component {
     if (!isRequesting && (queryChanged || suggestionGroupsEmpty)) {
       this.sendSearchQuery(query);
     }
-
-    this.handleToastChange(nextProps);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -82,29 +79,6 @@ export default class SearchPage extends Component {
       LayeredKeyBinding.unbind('enter');
     }
     showIntercomLauncher(true);
-  }
-
-  handleToastChange(nextProps) {
-    if (this.props.toast !== nextProps.toast) {
-      const { type, actionType } = nextProps.toast;
-
-      this.showToast(`${type} ${actionType}`, actionType);
-    }
-  }
-
-  showToast(message, className) {
-    const TopRightTransition = cssTransition({
-      enter: 'toast-enter',
-      exit: 'toast-exit',
-      duration: 500,
-      appendPosition: true,
-    });
-
-    toast(message, {
-      className: `toast-wrapper ${className}`,
-      bodyClassName: 'toast-body',
-      transition: TopRightTransition,
-    });
   }
 
   sendSearchQuery(query) {
@@ -177,7 +151,7 @@ export default class SearchPage extends Component {
     const aliasEditModeOn = this.props.location.pathname.startsWith(`/edit/${SEARCH_ALIAS_EDIT_PATH}`);
     const {
       hide, query, queryPrefix, searchTermsHidden, contentType, tags,
-      editModeOn, officerCards, requestActivityGrid,
+      editModeOn, requestActivityGrid,
       changeSearchQuery, focusedItem, firstItem, saveToRecent, position, animationIn,
     } = this.props;
 
@@ -223,7 +197,6 @@ export default class SearchPage extends Component {
             query={ query }
             editModeOn={ editModeOn }
             aliasEditModeOn={ aliasEditModeOn }
-            officerCards={ officerCards }
             requestActivityGrid={ requestActivityGrid }
             searchTermsHidden={ searchTermsHidden }
             handleSelect={ this.handleSelect }
@@ -251,7 +224,6 @@ SearchPage.propTypes = {
   changeSearchQuery: PropTypes.func,
   children: PropTypes.node,
   editModeOn: PropTypes.bool,
-  officerCards: PropTypes.array,
   requestActivityGrid: PropTypes.func,
   searchTermsHidden: PropTypes.bool,
   resetSearchResultNavigation: PropTypes.func,
@@ -261,6 +233,7 @@ SearchPage.propTypes = {
   isRequesting: PropTypes.bool,
   toast: PropTypes.object,
   createNewEmptyPinboard: PropTypes.func,
+  createPinboard: PropTypes.func,
   saveToRecent: PropTypes.func,
   hide: PropTypes.bool,
   position: PropTypes.string,
@@ -283,5 +256,6 @@ SearchPage.defaultProps = {
   firstItem: {},
   toast: {},
   createNewEmptyPinboard: noop,
+  createPinboard: noop,
   saveToRecent: noop,
 };

@@ -68,10 +68,11 @@ class TimelineSection extends Section {
 class CoaccusalsSection extends Section {
   constructor() {
     super();
-
+    const firstCoaccusalCardSelector = '//a[contains(@class, "officer-card")]';
     this.prepareElementGetters({
       firstCoaccusalGroupName: '//span[contains(@class, "coaccusals-group-name")][1]',
-      firstCoaccusalCard: '//a[contains(@class, "officer-card")]',
+      firstCoaccusalCard: firstCoaccusalCardSelector,
+      firstPinButton: `${firstCoaccusalCardSelector}//div[contains(@class, "item-pin-button__item-pin-button")]`,
     });
   }
 }
@@ -180,6 +181,8 @@ class OfficerPage extends Page {
 
     this.prepareElementGetters({
       element: '.test--bottom-sheet-wrapper',
+      lastToast: '(//div[contains(@class, "Toastify__toast-body")])[last()]',
+      landingPageBreadCrumb: '//a[@class="breadcrumbs-item-link" and .="cpdp"]',
     });
   }
 

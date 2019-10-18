@@ -1,4 +1,4 @@
-import { get, map, isEmpty, every } from 'lodash';
+import { every, get, isEmpty, map, includes } from 'lodash';
 import { createSelector } from 'reselect';
 
 import { generatePinboardUrl } from 'utils/pinboard';
@@ -14,7 +14,7 @@ const countPinnedItems = pinboard => {
 };
 
 export const getPinboard = createSelector(
-  state => state.pinboardPage.pinboard,
+  state => get(state, 'pinboardPage.pinboard', {}),
   pinboard => ({
     id: get(pinboard, 'id', null) !== null ? pinboard['id'].toString() : null,
     title: get(pinboard, 'title', ''),
@@ -41,6 +41,8 @@ export const pinboardItemsSelector = createSelector(
     'TRR': trrIds,
   })
 );
+
+export const isItemPinned = (pinnedItemType, id, pinboardItems) => includes(pinboardItems[pinnedItemType], String(id));
 
 export const pinboardICRIDsSelector = createSelector(
   getPinboard,

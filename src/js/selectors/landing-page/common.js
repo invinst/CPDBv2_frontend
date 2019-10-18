@@ -1,9 +1,10 @@
-import { toLower } from 'lodash';
+import { shuffle, toLower } from 'lodash';
 
 import { ACTIVITY_GRID_CARD_TYPES } from 'utils/constants';
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
 import { getCurrentAge } from 'utils/date';
 import { officerCardTransform } from 'selectors/common/officer-card';
+import { createSelector } from 'reselect';
 
 
 export const singleCardTransform = card => ({
@@ -53,3 +54,12 @@ export const pairingCardTransform = card => ({
   officer1: simpleOfficerTransform(card['officer1']),
   officer2: simpleOfficerTransform(card['officer2']),
 });
+
+export const shuffled = (selector) => createSelector(
+  selector,
+  cards => {
+    const upperHalf = shuffle(cards.slice(0, 12));
+    const lowerHalf = shuffle(cards.slice(12));
+    return upperHalf.concat(lowerHalf);
+  }
+);

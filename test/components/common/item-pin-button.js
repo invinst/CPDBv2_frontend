@@ -9,8 +9,7 @@ import { unmountComponentSuppressError } from 'utils/test';
 import { findDOMNode } from 'react-dom';
 import { stub } from 'sinon';
 
-import ItemPinButton from
-  'components/search-page/search-results/suggestion-group/suggestion-item/item-pin-button';
+import ItemPinButton from 'components/common/item-pin-button';
 
 
 describe('ItemPinButton component', function () {
@@ -32,7 +31,7 @@ describe('ItemPinButton component', function () {
     scryRenderedDOMComponentsWithClass(instance, 'is-pinned').length.should.be.equal(0);
   });
 
-  it('should call addOrRemoveItemInPinboard action when cliked on', function () {
+  it('should call addOrRemoveItemInPinboard action when clicked on', function () {
     const addOrRemoveItemInPinboard = stub();
     instance = renderIntoDocument(
       <ItemPinButton
@@ -45,5 +44,29 @@ describe('ItemPinButton component', function () {
       id: '1',
       isPinned: false,
     }).should.be.true();
+  });
+
+  it('should have class is-pinned if all items inPinned are true', function () {
+    instance = renderIntoDocument(<ItemPinButton items={ [{ isPinned: true }, { isPinned: true }] }/>);
+
+    findRenderedDOMComponentWithClass(instance, 'is-pinned').should.be.ok();
+  });
+
+  it('should not have class is-pinned if not all items inPinned are true', function () {
+    instance = renderIntoDocument(<ItemPinButton items={ [{ isPinned: false }, { isPinned: true }] }/>);
+
+    scryRenderedDOMComponentsWithClass(instance, 'is-pinned').length.should.be.equal(0);
+  });
+
+  it('should render pin action hint if showHint is true', function () {
+    instance = renderIntoDocument(<ItemPinButton />);
+
+    findRenderedDOMComponentWithClass(instance, 'pin-action-hint').should.be.ok();
+  });
+
+  it('should not render pin action hint if showHint is false', function () {
+    instance = renderIntoDocument(<ItemPinButton showHint={ false }/>);
+
+    scryRenderedDOMComponentsWithClass(instance, 'pin-action-hint').length.should.be.equal(0);
   });
 });

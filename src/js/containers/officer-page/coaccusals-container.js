@@ -4,6 +4,7 @@ import React from 'react';
 
 import Coaccusals from 'components/officer-page/tabbed-pane-section/coaccusals';
 import { coaccusalGroupsSelector } from 'selectors/officer-page/coaccusals';
+import { addOrRemoveItemInPinboard } from 'actions/pinboard';
 
 
 function mapStateToProps(state, ownProps) {
@@ -12,4 +13,8 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-export default withRouter(connect(mapStateToProps)(Coaccusals));
+const mapDispatchToProps = {
+  addOrRemoveItemInPinboard: addOrRemoveItemInPinboard,
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Coaccusals));

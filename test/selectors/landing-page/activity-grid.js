@@ -1,7 +1,7 @@
 import lodash from 'lodash';
 import { spy } from 'sinon';
 
-import { cardsSelector, hasCards, singleCardsSelector } from 'selectors/landing-page/activity-grid';
+import { cardsSelector, hasCards } from 'selectors/landing-page/activity-grid';
 import { RawOfficerCardFactory } from 'utils/test/factories/activity-grid.js';
 
 
@@ -13,6 +13,7 @@ describe('activity-grid selectors', function () {
       landingPage: {
         activityGrid: {},
       },
+      pinboardPage: { pinboard: { 'officer_ids': ['1', '2', '3'] } },
     };
   });
 
@@ -24,7 +25,19 @@ describe('activity-grid selectors', function () {
 
     it('should transform correctly', function () {
       state.landingPage.activityGrid.cards = [{
-        id: '1',
+        id: 1,
+        'full_name': 'someone',
+        'visual_token_background_color': 'red',
+        'complaint_count': 10,
+        'sustained_count': 5,
+        'complaint_percentile': 80,
+        'birth_year': 1970,
+        race: 'Black',
+        rank: 'Police Officer',
+        gender: 'Female',
+        kind: 'single_officer',
+      }, {
+        id: 9,
         'full_name': 'someone',
         'visual_token_background_color': 'red',
         'complaint_count': 10,
@@ -36,20 +49,42 @@ describe('activity-grid selectors', function () {
         gender: 'Female',
         kind: 'single_officer',
       }];
-      cardsSelector(state).should.eql([{
-        id: '1',
-        officerId: '1',
-        fullName: 'someone',
-        complaintCount: 10,
-        sustainedCount: 5,
-        complaintPercentile: 80,
-        birthYear: 1970,
-        race: 'black',
-        rank: 'Police Officer',
-        gender: 'female',
-        percentile: null,
-        kind: 'single_officer',
-      }]);
+      const expectation = {
+        1: {
+          id: 1,
+          officerId: 1,
+          fullName: 'someone',
+          complaintCount: 10,
+          sustainedCount: 5,
+          complaintPercentile: 80,
+          birthYear: 1970,
+          race: 'black',
+          rank: 'Police Officer',
+          gender: 'female',
+          percentile: null,
+          kind: 'single_officer',
+          isPinned: true,
+        },
+        9: {
+          id: 9,
+          officerId: 9,
+          fullName: 'someone',
+          complaintCount: 10,
+          sustainedCount: 5,
+          complaintPercentile: 80,
+          birthYear: 1970,
+          race: 'black',
+          rank: 'Police Officer',
+          gender: 'female',
+          percentile: null,
+          kind: 'single_officer',
+          isPinned: false,
+        },
+      };
+
+      const cards = cardsSelector(state);
+      cards.should.have.length(2);
+      cards.forEach(card => card.should.eql(expectation[card.id]));
     });
 
     it('should shuffle cards', function () {
@@ -63,7 +98,6 @@ describe('activity-grid selectors', function () {
 
       stubShuffle.restore();
     });
-
   });
 
   describe('hasCards', function () {
@@ -75,38 +109,6 @@ describe('activity-grid selectors', function () {
     it('should return false if activityGrid does not have data', function () {
       state.landingPage.activityGrid.cards = [];
       hasCards(state).should.be.false();
-    });
-  });
-
-  describe('singleCardsSelector', function () {
-    it('should return correct officer cards', function () {
-      state.landingPage.activityGrid.cards = [{
-        id: '1',
-        'full_name': 'someone',
-        'visual_token_background_color': 'red',
-        'complaint_count': 10,
-        'sustained_count': 5,
-        'complaint_percentile': 80,
-        'birth_year': 1970,
-        race: 'Black',
-        rank: 'Police Officer',
-        gender: 'Female',
-        kind: 'single_officer',
-      }];
-      singleCardsSelector(state).should.eql([{
-        id: '1',
-        officerId: '1',
-        fullName: 'someone',
-        complaintCount: 10,
-        sustainedCount: 5,
-        complaintPercentile: 80,
-        birthYear: 1970,
-        race: 'black',
-        rank: 'Police Officer',
-        gender: 'female',
-        percentile: null,
-        kind: 'single_officer',
-      }]);
     });
   });
 });

@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
-import { shuffle, filter } from 'lodash';
 
-import { cardTransform } from './common';
-import { ACTIVITY_GRID_CARD_TYPES } from 'utils/constants';
+import { cardTransform, shuffled } from './common';
+import { PINNED_ITEM_TYPES } from 'utils/constants';
+import { createWithIsPinnedSelector } from 'selectors/common/pinboard';
 
 
 const getCards = state => state.landingPage.activityGrid.cards;
@@ -13,19 +13,8 @@ export const hasCards = createSelector(
   cards => cards.length > 0
 );
 
-const processCard = (cards, cardType) => {
-  const filteredCards = cardType ? filter(cards, ['kind', cardType]) : cards;
-  const upperHalf = shuffle(filteredCards.slice(0, 12));
-  const lowerHalf = shuffle(filteredCards.slice(12));
-  return upperHalf.concat(lowerHalf).map(cardTransform);
-};
-
-export const cardsSelector = createSelector(
-  getCards,
-  cards => processCard(cards)
-);
-
-export const singleCardsSelector = createSelector(
-  getCards,
-  cards => processCard(cards, ACTIVITY_GRID_CARD_TYPES.OFFICER)
+export const cardsSelector = createWithIsPinnedSelector(
+  shuffled(getCards),
+  PINNED_ITEM_TYPES.OFFICER,
+  cardTransform,
 );

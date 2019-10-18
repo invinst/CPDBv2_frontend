@@ -6,9 +6,8 @@ import styles from './coaccusals.sass';
 
 
 export default class Coaccusals extends Component {
-
   render() {
-    const { coaccusalGroups } = this.props;
+    const { coaccusalGroups, addOrRemoveItemInPinboard } = this.props;
 
     return (
       <div className={ styles.coaccusals }>
@@ -25,7 +24,9 @@ export default class Coaccusals extends Component {
                       { ...coaccusal }
                       key={ cardIndex }
                       className={ styles.officerCard }
-                      footer={ <OfficerCardFooter coaccusalCount={ coaccusal.coaccusalCount } /> }/>
+                      footer={ <OfficerCardFooter coaccusalCount={ coaccusal.coaccusalCount } /> }
+                      addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
+                    />
                   ))
                 }
               </div>
@@ -39,4 +40,5 @@ export default class Coaccusals extends Component {
 
 Coaccusals.propTypes = {
   coaccusalGroups: PropTypes.array,
+  addOrRemoveItemInPinboard: PropTypes.func,
 };
