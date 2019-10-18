@@ -658,7 +658,7 @@ describe('Pinboard Page', function () {
     });
 
     it('should duplicate current pinboard when clicking on duplicate button in pinboard list', function () {
-      pinboardPage.openByQuery([1, 2], ['5678123'], [3, 2]);
+      pinboardPage.openByQuery('?officer-ids=1,2&crids=5678123&trr-ids=3,2');
 
       pinboardPage.pinnedSection.officers.officerCards().should.have.length(2);
       pinboardPage.pinnedSection.crs.crCards().should.have.length(1);
