@@ -41,16 +41,20 @@
     margin-left: 11px
     font-weight: 100
 
-  .share-button
+  .right-buttons
     position: absolute
-    right: 14px
-    font-weight: 300
-    cursor: pointer
-    height: 100%
-    line-height: 41px
+    right: 0
+    top: 0
+    padding: 6px 16px 6px 0
 
-    &:hover
-      color: $soft-black-color
+    .share-button
+      width: 48px
+      height: 32px
+      display: inline-block
+      border: 1px solid $white-two-color
+      box-sizing: border-box
+      position: relative
+      background: url('/img/ic-share.svg') no-repeat center
 
   .share-menu
     position: absolute
@@ -59,8 +63,8 @@
     padding: 0
     border-radius: 4px
     box-shadow: 0 1px 2px 0 $black15-color
-    right: 0
     top: 30px
+    right: 0
 
     .share-menu-item
       width: 100%
@@ -74,9 +78,7 @@
       border: none
 
     .copy-link-icon
-      background-image: url('/img/link_icon_2x.png')
-      background-position: center
-      background-repeat: no-repeat
+      background: url('/img/link_icon_2x.png') no-repeat center
       background-size: contain
       width: 16px
       height: 16px

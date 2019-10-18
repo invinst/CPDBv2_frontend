@@ -10,7 +10,7 @@ import {
   changeSearchQuery,
   saveToRecent,
 } from 'actions/search-page';
-import { createPinboard } from 'actions/pinboard';
+import { createNewEmptyPinboard } from 'actions/pinboard';
 import {
   requestSearchTermCategories, resetNavigation as resetSearchTermNavigation,
 } from 'actions/search-page/search-terms';
@@ -57,7 +57,7 @@ const mapDispatchToProps = {
   requestActivityGrid,
   requestSearchTermCategories,
   resetSearchTermNavigation,
-  createPinboard,
+  createNewEmptyPinboard,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchPage));

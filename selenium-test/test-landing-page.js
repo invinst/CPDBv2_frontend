@@ -127,7 +127,7 @@ describe('landing page', function () {
       searchBox.mainElement.click();
 
       browser.waitUntil(
-        () => searchPage.input.getLocation('y') > 70,
+        () => searchPage.input.getLocation('y') > 50,
         500,
         'Search box does not start moving up from lower position',
         10

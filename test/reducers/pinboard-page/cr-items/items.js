@@ -243,4 +243,16 @@ describe('crItemsReducer', function () {
       'point': { 'lon': 1.0, 'lat': 2.0 },
     }]);
   });
+
+  it('should handle LOCATION_CHANGE', function () {
+    crItemsReducer(
+      [{ 'crid': '1' }],
+      {
+        type: constants.LOCATION_CHANGE,
+        payload: [
+          { 'crid': '2' }, { 'crid': '3' },
+        ],
+      }
+    ).should.deepEqual([]);
+  });
 });

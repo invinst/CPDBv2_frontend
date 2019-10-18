@@ -514,7 +514,7 @@ describe('SearchPage component', function () {
 
   it('should handle when click on pinboard button if pinboard is not exist', function (done) {
     const store = createStore(RootReducer, state);
-    const createPinboard = stub().usingPromise(Promise).resolves({
+    const createNewEmptyPinboardStub = stub().usingPromise(Promise).resolves({
       payload: {
         id: '5cd06f2b',
         url: '/pinboard/5cd06f2b/',
@@ -524,7 +524,7 @@ describe('SearchPage component', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
         <SearchPage
-          createPinboard={ createPinboard }
+          createNewEmptyPinboard={ createNewEmptyPinboardStub }
         />
       </Provider>
     );
@@ -532,7 +532,7 @@ describe('SearchPage component', function () {
     const searchPage = findRenderedComponentWithType(instance, SearchPage);
     searchPage.handleEmptyPinboardButtonClick();
 
-    createPinboard.calledWith({ officerIds: [], trrIds: [], crids: [] }).should.be.true();
+    createNewEmptyPinboardStub.should.be.called();
 
     setTimeout(() => {
       this.browserHistoryPush.called.should.be.true();
