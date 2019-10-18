@@ -730,8 +730,7 @@ describe('No Id Pinboard Page', function () {
 });
 
 describe('Session Generator Pinboard Page', function () {
-  it('should create new pinboard by query', function () {
-    pinboardPage.openByQuery([1, 2], ['5678123'], [3, 2]);
+  const showingPinboardffff6666 = () => {
     browser.getUrl().should.match(/\/pinboard\/ffff6666\//);
 
     const officers = pinboardPage.pinnedSection.officers;
@@ -741,10 +740,15 @@ describe('Session Generator Pinboard Page', function () {
     officers.officerCards().should.have.length(2);
     crs.crCards().should.have.length(1);
     trrs.trrCards().should.have.length(2);
+  };
+
+  it('should create new pinboard by query', function () {
+    pinboardPage.openByQuery('?officer-ids=1,2&crids=5678123&trr-ids=3,2');
+    showingPinboardffff6666();
   });
 
-  it('should create new pinboard by query with some not-found -items', function () {
-    pinboardPage.openByQuery([1, 2], ['987654', '5678123'], [9, 7]);
+  it('should create new pinboard by query with some not-found items', function () {
+    pinboardPage.openByQuery('?officer-ids=1,2&crids=987654,5678123&trr-ids=9,7');
     browser.getUrl().should.match(/\/pinboard\/eeee7777\//);
 
     pinboardPage.firstToast.waitForText(
@@ -761,5 +765,47 @@ describe('Session Generator Pinboard Page', function () {
     officers.officerCards().should.have.length(2);
     crs.crCards().should.have.length(1);
     trrs.trrCards().should.have.length(0);
+  });
+
+  it('should accept params without s', function () {
+    pinboardPage.openByQuery('?officer-id=1,2&crid=5678123&trr-id=3,2');
+    showingPinboardffff6666();
+  });
+
+  it('should accept params with under score', function () {
+    pinboardPage.openByQuery('?officer_ids=1,2&crid=5678123&trr_id=3,2');
+    showingPinboardffff6666();
+  });
+
+  it('should accept camelCase params', function () {
+    pinboardPage.openByQuery('?officerIds=1,2&crids=5678123&trrId=3,2');
+    showingPinboardffff6666();
+  });
+
+  it('should accept params with some capitalizing mistakes', function () {
+    pinboardPage.openByQuery('?officerID=1,2&CRids=5678123&tRRIds=3,2');
+    showingPinboardffff6666();
+  });
+
+  it('should skip invalid param and show invalid param message', function () {
+    pinboardPage.openByQuery('?officer_ids=1,2&crid=5678123&trr_id=3,2&invalid-param=1,2');
+    showingPinboardffff6666();
+
+    pinboardPage.firstToast.waitForText('invalid-param is not recognized.');
+  });
+
+  it('should skip invalid params and show invalid params message', function () {
+    pinboardPage.openByQuery('?officer_ids=1,2&crid=5678123&trr_id=3,2&invalid-param-a=1,2&invalid-param-b=1,2');
+    showingPinboardffff6666();
+
+    pinboardPage.firstToast.waitForText('invalid-param-a, invalid-param-b are not recognized.');
+  });
+
+  it('should show redirect message and redirect to latest pinboard if no valid params', function () {
+    pinboardPage.openByQuery('?invalid-param-a=1,2&invalid-param-b=1,2');
+    browser.getUrl().should.match(/\/pinboard\/abcd1234\//);
+
+    pinboardPage.firstToast.waitForText('invalid-param-a, invalid-param-b are not recognized.');
+    pinboardPage.secondToast.waitForText('Redirected to latest pinboard.');
   });
 });
