@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import cx from 'classnames';
-import { toLower } from 'lodash';
 
 import { mapStyle } from './complaint-card.style';
 import * as GATracking from 'utils/google_analytics_tracking';
@@ -23,9 +22,9 @@ class ComplaintCard extends Component {
     }
   }
 
-  renderSection(label, text, classnameSuffix) {
+  renderSection(label, text) {
     return (
-      <div className={ `section test--carousel-${classnameSuffix || toLower(label)}` }>
+      <div className='section'>
         <div className='section-label'>{ label }</div>
         <div className='section-content nowrap-text'>{ text }</div>
       </div>
@@ -39,10 +38,11 @@ class ComplaintCard extends Component {
       <Link
         className={ cx(styles.complaintCard, 'swiper-slide', 'test--carousel-card') }
         to={ `/complaint/${crid}/` }
-        onClick={ this.handleClick } >
+        onClick={ this.handleClick }
+      >
         <div className='complaint-card-map' style={ mapStyle(lat, lon) } />
         <div className='content'>
-          { this.renderSection(`CR ${ crid }`, categories, 'id-cat') }
+          { this.renderSection(`CR ${ crid }`, categories) }
           { incidentDate && this.renderSection('Date', incidentDate) }
           { complainants && this.renderSection('Complainant', complainants) }
           { accused && this.renderSection('Accused', accused) }
@@ -61,6 +61,7 @@ ComplaintCard.propTypes = {
   accused: PropTypes.string,
   match: PropTypes.string,
   sourceCRID: PropTypes.string,
+  incidentDate: PropTypes.string,
 };
 
 export { itemWidth } from './complaint-card.style';
