@@ -184,14 +184,14 @@ describe('SearchResults component', function () {
       wrapper.setProps({
         children: (
           <SearchResults
-            focusedItem={ { type, uniqueKey: 'CR-1001', [itemId]: '123' } }
+            focusedItem={ { type, uniqueKey: 'CR-1001', [itemId]: '123', itemRank: 2 } }
             searchText='searchText'
           />
         ),
       });
 
       GATracking.trackSearchFocusedItem.should.be.calledOnce();
-      GATracking.trackSearchFocusedItem.should.be.calledWith(type, 'searchText', '123');
+      GATracking.trackSearchFocusedItem.should.be.calledWith(type, 'searchText', '123', 2);
       GATracking.trackSearchFocusedItem.resetHistory();
     }
 

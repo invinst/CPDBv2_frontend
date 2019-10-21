@@ -52,24 +52,26 @@ export const trackSingleSearchResults = (contentType, query, resultsCount) => {
     hitType: 'event',
     eventCategory: contentType,
     eventAction: 'single_search',
-    evenLabel: query,
+    eventLabel: query,
     eventValue: resultsCount,
   });
 };
 
-const _trackSearchFocusedItem = (contentType, query, itemId) => {
+const _trackSearchFocusedItem = (contentType, query, itemId, rank) => {
   global.ga('send', {
     hitType: 'event',
     eventCategory: contentType,
     eventAction: 'view_search_preview',
-    evenLabel: itemId,
+    eventLabel: itemId,
+    eventValue: rank,
   });
 
   global.ga('send', {
     hitType: 'event',
     eventCategory: contentType,
     eventAction: 'view_search_preview_with_query',
-    evenLabel: `${ itemId } - ${ query }`,
+    eventLabel: `${ itemId } - ${ query }`,
+    eventValue: rank,
   });
 };
 

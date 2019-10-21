@@ -62,10 +62,10 @@ export default class SuggestionResults extends Component {
     const { focusedItem: prevFocusedItem } = prevProps;
 
     if (!isEqual(focusedItem, prevFocusedItem)) {
-      const { type } = focusedItem;
+      const { type, itemRank } = focusedItem;
       const itemId = focusedItem[previewPaneIdFieldMapping[type]];
       if (itemId)
-        GATracking.trackSearchFocusedItem(type, searchText, itemId);
+        GATracking.trackSearchFocusedItem(type, searchText, itemId, itemRank);
     }
   }
 

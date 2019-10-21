@@ -71,7 +71,7 @@ describe('GATracking utils', function () {
         hitType: 'event',
         eventCategory: 'contentType',
         eventAction: 'single_search',
-        evenLabel: 'query',
+        eventLabel: 'query',
         eventValue: 123,
       });
     });
@@ -81,8 +81,8 @@ describe('GATracking utils', function () {
     it('should send event analytic at most once in 500ms', function () {
       const clock = useFakeTimers();
 
-      GATracking.trackSearchFocusedItem('contentType', 'query', 'itemId1');
-      GATracking.trackSearchFocusedItem('contentType', 'query', 'itemId2');
+      GATracking.trackSearchFocusedItem('contentType', 'query', 'itemId1', 1);
+      GATracking.trackSearchFocusedItem('contentType', 'query', 'itemId2', 2);
       clock.tick(550);
 
       global.ga.should.be.calledTwice();
@@ -90,13 +90,15 @@ describe('GATracking utils', function () {
         hitType: 'event',
         eventCategory: 'contentType',
         eventAction: 'view_search_preview',
-        evenLabel: 'itemId2',
+        eventLabel: 'itemId2',
+        eventValue: 2,
       });
       global.ga.should.be.calledWith('send', {
         hitType: 'event',
         eventCategory: 'contentType',
         eventAction: 'view_search_preview_with_query',
-        evenLabel: 'itemId2 - query',
+        eventLabel: 'itemId2 - query',
+        eventValue: 2,
       });
 
       clock.tick(1000);
