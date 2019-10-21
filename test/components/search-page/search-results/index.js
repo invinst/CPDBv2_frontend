@@ -175,18 +175,20 @@ describe('SearchResults component', function () {
     });
 
     function testTrackingFocusedItem(type, itemId) {
-      instance = renderIntoDocument(
+      const wrapper = mount(
         <Provider store={ store }>
           <SearchResults/>
         </Provider>,
       );
 
-      instance = reRender(
-        <Provider store={ store }>
-          <SearchResults focusedItem={ { type, uniqueKey: 'CR-1001', [itemId]: '123' } } searchText='searchText' />
-        </Provider>,
-        instance,
-      );
+      wrapper.setProps({
+        children: (
+          <SearchResults
+            focusedItem={ { type, uniqueKey: 'CR-1001', [itemId]: '123' } }
+            searchText='searchText'
+          />
+        ),
+      });
 
       GATracking.trackSearchFocusedItem.should.be.calledOnce();
       GATracking.trackSearchFocusedItem.should.be.calledWith(type, 'searchText', '123');
@@ -215,18 +217,17 @@ describe('SearchResults component', function () {
 
     it('should not send GA tracking if the focused item is not changed', function () {
       const focusedItem = { type: 'OFFICER', uniqueKey: 'CR-1001', id: '123' };
-      instance = renderIntoDocument(
+      const wrapper = mount(
         <Provider store={ store }>
           <SearchResults focusedItem={ focusedItem }/>
         </Provider>,
       );
 
-      instance = reRender(
-        <Provider store={ store }>
+      wrapper.setProps({
+        children: (
           <SearchResults focusedItem={ focusedItem } searchText='searchText' />
-        </Provider>,
-        instance,
-      );
+        ),
+      });
 
       GATracking.trackSearchFocusedItem.should.not.be.called();
     });
