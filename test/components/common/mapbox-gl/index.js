@@ -2,7 +2,7 @@ import React from 'react';
 import { unmountComponentAtNode, findDOMNode } from 'react-dom';
 import { renderIntoDocument } from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError } from 'utils/test';
+import { reRender, unmountComponentSuppressError } from 'utils/test';
 import MapboxGL from 'components/common/mapbox-gl';
 import { mapboxgl } from 'utils/vendors';
 
@@ -57,5 +57,14 @@ describe('MapboxGL component', function () {
     instance = renderIntoDocument(<MapboxGL/>);
     unmountComponentAtNode(findDOMNode(instance).parentNode);
     instance._mapBox.remove.called.should.be.true();
+  });
+
+  it('should resize when previously is hidden', function () {
+    instance = renderIntoDocument(<MapboxGL hide={ true }/>);
+    instance._mapBox.resize.should.not.be.called();
+
+    reRender(<MapboxGL hide={ false }/>, instance);
+
+    instance._mapBox.resize.should.be.calledOnce();
   });
 });

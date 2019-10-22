@@ -5,7 +5,6 @@ import { reducer as breadcrumb } from 'redux-breadcrumb-trail';
 import landingPage from './landing-page';
 import searchPage from './search-page';
 import authentication from './authentication';
-import appContent from './app-content';
 import crs from './crs';
 import officerPage from './officer-page';
 import crPage from './cr-page';
@@ -25,6 +24,7 @@ import documentsOverviewPage from './documents-overview-page';
 import documentDeduplicatorPage from './document-deduplicator-page';
 import crawlersPage from './crawlers-page';
 import socialGraphPage from './social-graph-page';
+import pinboardPage from './pinboard-page';
 import videoModal from './video-modal';
 
 
@@ -32,7 +32,6 @@ export default combineReducers({
   landingPage,
   searchPage,
   authentication,
-  appContent,
   crs,
   routing: routerReducer,
   officerPage,
@@ -54,5 +53,6 @@ export default combineReducers({
   documentDeduplicatorPage,
   crawlersPage,
   socialGraphPage,
+  pinboardPage,
   videoModal,
 });

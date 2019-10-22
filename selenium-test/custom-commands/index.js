@@ -4,6 +4,29 @@ function initCommands() {
   });
 
   browser.addCommand(
+    'waitForUrl',
+    function (validator, timeout, interval=50) {
+      try {
+        browser.waitUntil(
+          () => {
+            try {
+              validator(browser.getUrl());
+              return true;
+            } catch (e) {
+              return false;
+            }
+          },
+          timeout,
+          interval
+        );
+      } catch (e) {
+        // print validator error message
+        validator(browser.getUrl());
+      }
+    }
+  );
+
+  browser.addCommand(
     'waitForText',
     function (text, timeout, reverse=false) {
       browser.waitUntil(
@@ -22,6 +45,18 @@ function initCommands() {
         () => this.isDisplayedInViewport() !== reverse,
         timeout,
         `${this.selector} is still ${reverse ? '' : 'not'} in viewport after ${timeout || '{waitforTimeout}'}ms`
+      );
+    },
+    true
+  );
+
+  browser.addCommand(
+    'waitForCSSProperty',
+    function (attr, verifier, timeout) {
+      browser.waitUntil(
+        () => verifier(this.getCSSProperty(attr).value),
+        timeout,
+        `${this.selector} still does not satisfy ${verifier} after ${timeout || '{waitforTimeout}'}ms`
       );
     },
     true

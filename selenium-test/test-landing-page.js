@@ -4,16 +4,19 @@ import should from 'should';
 import { times } from 'lodash';
 
 import landingPage from './page-objects/landing-page';
+import searchPage from './page-objects/search-page';
 import header from './page-objects/shareable-header';
+import pinboardPage from './page-objects/pinboard-page';
 
 
 should.config.checkProtoEql = false;
+
 
 describe('landing page', function () {
 
   beforeEach(function () {
     landingPage.open();
-    browser.pause(500);
+    landingPage.header.content.waitForDisplayed();
   });
 
   it('should enter edit mode when press ESCAPE', function () {
@@ -84,10 +87,92 @@ describe('landing page', function () {
     landingPage.currentBasePath.should.eql('/');
   });
 
+  describe('Switch to Search Page Transition', function () {
+    beforeEach(function () {
+      browser.setWindowRect(0, 0, 1000, 1000);
+      searchPage.input.waitForExist();
+      searchPage.input.waitForDisplayed(1000, true);
+    });
+
+    it('should show search page and hide landing page when clicking on search box', function () {
+      const searchBox = landingPage.header.navBar.searchBox;
+      searchBox.mainElement.click();
+
+      searchPage.input.waitForDisplayed(2000);
+      landingPage.header.content.waitForDisplayed(2000, true);
+      landingPage.header.content.waitForExist();
+    });
+
+    it('should expand search input when clicking on search box', function () {
+      const SEARCH_INPUT_WIDTH_AFTER_EXPAND = 893;
+      const searchBox = landingPage.header.navBar.searchBox;
+
+      searchBox.mainElement.getCSSProperty('width').value.should.equal('512px');
+
+      searchBox.mainElement.click();
+
+      const beginningWidthString = searchPage.input.getCSSProperty('width').value;
+      const beginningWidth = parseFloat(beginningWidthString.slice(0, beginningWidthString.length - 2));
+      beginningWidth.should.aboveOrEqual(512).and.below(SEARCH_INPUT_WIDTH_AFTER_EXPAND);
+
+      searchPage.input.waitForCSSProperty(
+        'width',
+        value => parseFloat(value.slice(0, value.length - 2)) === SEARCH_INPUT_WIDTH_AFTER_EXPAND,
+        1000
+      );
+    });
+
+    it('should move search box up when lading page position is top and clicking on search box', function () {
+      const searchBox = landingPage.header.navBar.searchBox;
+      searchBox.mainElement.click();
+
+      browser.waitUntil(
+        () => searchPage.input.getLocation('y') > 50,
+        500,
+        'Search box does not start moving up from lower position',
+        10
+      );
+
+      const topYLocation = 9;
+      browser.waitUntil(
+        () => searchPage.input.getLocation('y') === topYLocation,
+        1000,
+        'Search box does not end moving up at top',
+        10
+      );
+      searchPage.input.getLocation('y').should.equal(topYLocation);
+    });
+
+    it('should not move search page up when lading page is not at top', function () {
+      browser.scroll(0, 500); // must scroll pass the top bar
+      browser.pause(1000);
+
+      const header = landingPage.header;
+      header.content.getCSSProperty('position').value.should.eql('fixed');
+      header.content.getCSSProperty('top').value.should.eql('-80px');
+      header.navBar.searchBox.searchText.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
+
+      header.navBar.searchBox.mainElement.click();
+
+      const topYLocation = 9;
+      browser.pause(10);
+      searchPage.input.getLocation('y').should.equal(topYLocation);
+      browser.pause(10);
+      searchPage.input.getLocation('y').should.equal(topYLocation);
+      browser.pause(10);
+      searchPage.input.getLocation('y').should.equal(topYLocation);
+
+      searchPage.input.waitForCSSProperty(
+        'width',
+        value => parseFloat(value.slice(0, value.length - 2)) === 893,
+        1000
+      );
+    });
+  });
+
   describe('Recent Activity carousel', function () {
     it('should show initial carousel', function () {
-      browser.pause();
-      landingPage.recentActivityCarousel.officerCards.count.should.equal(2);
+      landingPage.recentActivityCarousel.cards.count.should.equal(2);
       landingPage.recentActivityCarousel.rightArrow.waitForDisplayed();
       landingPage.recentActivityCarousel.leftArrow.waitForDisplayed(2000, true);
     });
@@ -99,17 +184,15 @@ describe('landing page', function () {
 
     describe('Officer cards', function () {
       it('should go to officer summary page when clicking on officer card', function () {
-        const firstCard = landingPage.recentActivityCarousel.officerCards;
+        const firstCard = landingPage.recentActivityCarousel.cards;
         firstCard.click();
-        browser.pause(500);
-        browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/?$/);
+        browser.waitForUrl(url => url.should.match(/\/officer\/\d+\/[-a-z]+\/?$/), 500);
       });
 
       it('should go back to the landing page when click on the cpdp breadcrumb', function () {
-        const firstCard = landingPage.recentActivityCarousel.officerCards;
+        const firstCard = landingPage.recentActivityCarousel.cards;
         firstCard.click();
-        browser.pause(500);
-        browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/?$/);
+        browser.waitForUrl(url => url.should.match(/\/officer\/\d+\/[-a-z]+\/?$/), 500);
 
         header.breadcrumbs.firstItem.click();
         browser.getUrl().should.match(/\//);
@@ -122,8 +205,7 @@ describe('landing page', function () {
 
         const firstPairCardLeftHalf = landingPage.recentActivityCarousel.firstPairCardLeftHalf;
         firstPairCardLeftHalf.click();
-        browser.pause(500);
-        browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/?$/);
+        browser.waitForUrl(url => url.should.match(/\/officer\/\d+\//), 500);
 
         browser.setWindowRect(0, 0, 1000, 1000);
       });
@@ -131,8 +213,7 @@ describe('landing page', function () {
       it('should go to officer summary page when clicking on right half of the pair card', function () {
         const firstPairCardRightHalf = landingPage.recentActivityCarousel.firstPairCardRightHalf;
         firstPairCardRightHalf.click();
-        browser.pause(500);
-        browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/?$/);
+        browser.waitForUrl(url => url.should.match(/\/officer\/\d+\//), 500);
       });
     });
   });
@@ -147,8 +228,7 @@ describe('landing page', function () {
     it('should go to officer summary page when click to card', function () {
       const firstCard = landingPage.officersByAllegationCarousel.cards;
       firstCard.click();
-      browser.pause(500);
-      browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/?$/);
+      browser.waitForUrl(url => url.should.match(/\/officer\/\d+\/[-a-z]+\/?$/), 500);
     });
   });
 
@@ -162,8 +242,7 @@ describe('landing page', function () {
     it('should go to cr page when click to card', function () {
       const firstCard = landingPage.recentDocumentCarousel.cards;
       firstCard.click();
-      browser.pause(500);
-      browser.getUrl().should.match(/\/complaint\/\w+\/$/);
+      browser.waitForUrl(url => url.should.match(/\/complaint\/\w+\/$/), 500);
     });
   });
 
@@ -177,8 +256,7 @@ describe('landing page', function () {
     it('should go to cr page when click to card', function () {
       const firstCard = landingPage.complaintSummariesCarousel.cards;
       firstCard.click();
-      browser.pause(500);
-      browser.getUrl().should.match(/\/complaint\/\w+\/$/);
+      browser.waitForUrl(url => url.should.match(/\/complaint\/\w+\/$/), 500);
     });
 
     it('should navigate to the last slide by clicking right arrow', function () {
@@ -218,6 +296,7 @@ describe('landing page', function () {
       navBar.rightLinks.data.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
       navBar.rightLinks.qa.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
       navBar.rightLinks.documents.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.rightLinks.pinboard.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
     });
 
     it('should render correctly at the middle of the page', function () {
@@ -237,6 +316,7 @@ describe('landing page', function () {
       navBar.rightLinks.data.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
       navBar.rightLinks.qa.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
       navBar.rightLinks.documents.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
+      navBar.rightLinks.pinboard.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
     });
 
     it('should render correctly at the bottom of the page', function () {
@@ -255,15 +335,112 @@ describe('landing page', function () {
       navBar.rightLinks.data.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
       navBar.rightLinks.qa.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
       navBar.rightLinks.documents.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.rightLinks.pinboard.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
     });
 
-    it('should go to search term page when clicking anywhere in the search box', function () {
+    it('should go to pinboard page when clicking on pinboard tag', function () {
+      const navBar = landingPage.header.navBar;
+      navBar.mainElement.waitForDisplayed();
+      navBar.rightLinks.pinboard.click();
+      pinboardPage.emptyPinboardSection.mainElement.waitForDisplayed();
+      browser.getUrl().should.endWith('/pinboard/abcd1234/untitled-pinboard/');
+    });
+
+    it('should go to search page when clicking anywhere in the search box', function () {
       landingPage.searchSection.mainElement.click();
-      browser.getUrl().should.containEql('/search/terms/');
+      browser.getUrl().should.containEql('/search/');
 
       landingPage.open();
       landingPage.searchSection.sectionSearchTerm.click();
-      browser.getUrl().should.containEql('/search/terms/');
+      browser.getUrl().should.containEql('/search/');
+    });
+  });
+
+  describe('Pinboard function', function () {
+    const checkPinToast = (parentSelector, messagePrefix) => {
+      //Pin item
+      parentSelector.firstPinButton.waitForDisplayed();
+      parentSelector.firstPinButton.click();
+
+      //Check toast
+      landingPage.lastToast.waitForDisplayed();
+      landingPage.lastToast.waitForText(`${messagePrefix} added`);
+
+      //Go to Search Page and check for pinboard item counts
+      landingPage.searchSection.mainElement.click();
+      searchPage.pinboardButton.waitForText('Pinboard (1)');
+      searchPage.backButton.click();
+
+      //Unpin item
+      parentSelector.firstPinButton.waitForDisplayed();
+      parentSelector.firstPinButton.click();
+
+      //Check toast
+      landingPage.lastToast.waitForDisplayed();
+      landingPage.lastToast.waitForText(`${messagePrefix} removed`);
+
+      //Go to Search Page and check for pinboard item counts
+      landingPage.searchSection.mainElement.click();
+      searchPage.pinboardButton.waitForText('Pinboard (0)');
+      searchPage.backButton.click();
+    };
+
+    const checkPairCardPinToast = (selector, messagePrefix) => {
+      selector.firstPairCardPinButton.waitForDisplayed();
+      selector.firstPairCardPinButton.click();
+
+      landingPage.lastToast.waitForDisplayed();
+      landingPage.lastToast.waitForText(`${messagePrefix} added`);
+      landingPage.secondLastToast.waitForDisplayed();
+      landingPage.secondLastToast.waitForText(`${messagePrefix} added`);
+
+      selector.firstPairCardPinButton.click();
+
+      landingPage.lastToast.waitForDisplayed();
+      landingPage.lastToast.waitForText(`${messagePrefix} removed`);
+      landingPage.secondLastToast.waitForDisplayed();
+      landingPage.secondLastToast.waitForText(`${messagePrefix} removed`);
+    };
+
+    it('should display toast when pinning cards', function () {
+      checkPinToast(landingPage.recentActivityCarousel, 'Officer');
+      checkPinToast(landingPage.officersByAllegationCarousel, 'Officer');
+      checkPairCardPinToast(landingPage.recentActivityCarousel, 'Officer');
+      checkPinToast(landingPage.recentDocumentCarousel, 'CR');
+      checkPinToast(landingPage.complaintSummariesCarousel, 'CR');
+    });
+
+    it('should show only 1 toast if one officer of the pairing card was already pinned', function () {
+      landingPage.recentActivityCarousel.firstPinButton.waitForDisplayed();
+      landingPage.recentActivityCarousel.firstPinButton.click();
+
+      landingPage.toast.waitForDisplayed();
+      landingPage.toast.waitForText('Officer added');
+      landingPage.toast.waitForDisplayed(5000, true);
+
+      landingPage.searchSection.mainElement.click();
+      searchPage.pinboardButton.waitForText('Pinboard (1)');
+      searchPage.backButton.click();
+
+      landingPage.recentActivityCarousel.firstPairCardPinButton.click();
+
+      landingPage.lastToast.waitForDisplayed();
+      landingPage.lastToast.waitForText('Officer added');
+      landingPage.secondLastToast.waitForDisplayed(2000, true);
+
+      landingPage.searchSection.mainElement.click();
+      searchPage.pinboardButton.waitForText('Pinboard (2)');
+      searchPage.backButton.click();
+
+      landingPage.recentActivityCarousel.firstPairCardPinButton.click();
+
+      landingPage.lastToast.waitForDisplayed();
+      landingPage.lastToast.waitForText('Officer removed');
+      landingPage.secondLastToast.waitForDisplayed();
+      landingPage.secondLastToast.waitForText('Officer removed');
+
+      landingPage.searchSection.mainElement.click();
+      searchPage.pinboardButton.waitForText('Pinboard (0)');
     });
   });
 });

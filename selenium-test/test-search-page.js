@@ -31,8 +31,8 @@ describe('Search Page', function () {
     searchPage.input.setValue('Ke');
 
     searchPage.suggestionGroup.waitForDisplayed();
-    searchPage.page.getText().should.containEql('OFFICER');
-    searchPage.page.getText().should.containEql('NEIGHBORHOOD');
+    searchPage.suggestionTags.getText().should.containEql('OFFICER');
+    searchPage.suggestionTags.getText().should.containEql('NEIGHBORHOOD');
     searchPage.firstOfficerResult.waitForDisplayed();
     searchPage.firstOfficerResult.getText().should.containEql('Bernadette Kelly'); // officer name
     searchPage.firstOfficerResult.getText().should.containEql('45 year old, White, Male, '); // officer demographic
@@ -52,9 +52,9 @@ describe('Search Page', function () {
     searchPage.suggestionTags.getText().should.containEql('TRR');
 
     searchPage.crResultsSection.results.count.should.equal(2);
-    searchPage.crResultsSection.firstResultText.getText().should.equal('CR # CR123 - April 23, 2004');
+    searchPage.crResultsSection.firstResultText.getText().should.equal('CR # CR123 • April 23, 2004');
     searchPage.crResultsSection.firstResultSubText.getText().should.equal('an officer named Kelly caught the victim');
-    searchPage.crResultsSection.secondResultText.getText().should.equal('CR # CR456 - November 12, 2006');
+    searchPage.crResultsSection.secondResultText.getText().should.equal('CR # CR456 • November 12, 2006');
     searchPage.crResultsSection.secondResultSubText.getText().should.equal('');
 
     searchPage.trrResultsSection.results.count.should.equal(2);
@@ -72,7 +72,7 @@ describe('Search Page', function () {
     searchPage.suggestionTags.getText().should.containEql('INVESTIGATOR > CR');
 
     searchPage.investigatorCRResultsSection.results.count.should.equal(2);
-    searchPage.investigatorCRResultsSection.firstResultText.getText().should.equal('CR # CR123456 - April 23, 2004');
+    searchPage.investigatorCRResultsSection.firstResultText.getText().should.equal('CR # CR123456 • April 23, 2004');
     searchPage.investigatorCRResultsSection.firstResultSubText.getText().should.equal(
       'an officer named Kelly caught the victim'
     );
@@ -91,16 +91,16 @@ describe('Search Page', function () {
     searchPage.suggestionTags.getText().should.containEql('DATE > TRR');
 
     searchPage.dateCRResultsSection.results.count.should.equal(2);
-    searchPage.dateCRResultsSection.firstResultText.getText().should.equal('CR # CR123 - April 23, 2004');
+    searchPage.dateCRResultsSection.firstResultText.getText().should.equal('CR # CR123 • April 23, 2004');
     searchPage.dateCRResultsSection.firstResultSubText.getText().should.equal('');
-    searchPage.dateCRResultsSection.secondResultText.getText().should.equal('CR # CR456 - April 23, 2004');
+    searchPage.dateCRResultsSection.secondResultText.getText().should.equal('CR # CR456 • April 23, 2004');
     searchPage.dateCRResultsSection.secondResultSubText.getText().should.equal('');
     searchPage.crPreviewPaneSection.callToAction.getText().should.eql('View Complaint Record');
 
     searchPage.dateTRRResultsSection.results.count.should.equal(2);
     searchPage.dateTRRResultsSection.firstResultText.getText().should.equal('Member Presence');
     searchPage.dateTRRResultsSection.firstResultSubText.getText().should.equal('TRR # 123 - April 23, 2004');
-    searchPage.dateTRRResultsSection.secondResultText.getText().should.equal('Unknown');
+    searchPage.dateTRRResultsSection.secondResultText.getText().should.equal('Physical Force - Holding');
     searchPage.dateTRRResultsSection.secondResultSubText.getText().should.equal('TRR # 456 - April 23, 2004');
   });
 
@@ -139,6 +139,7 @@ describe('Search Page', function () {
     searchPage.input.setValue('Geography');
     searchPage.searchTermsResultsSection.results.waitForDisplayed();
     searchPage.searchTermsResultsSection.results.count.should.equal(1);
+
     searchPage.searchTermsResultsSection.firstResultText.getText().should.equal('Geography - Communities');
     searchPage.searchTermsResultsSection.firstResultText.click();
     searchPage.searchTermsResultsSection.previewPaneTitle.getText().should.containEql('Communities');
@@ -161,7 +162,7 @@ describe('Search Page', function () {
 
     searchPage.officerResultsSection.firstResultText.getText().should.equal('Jerome Finnigan');
     searchPage.searchCommunityResultsSection.firstResultText.getText().should.equal('Loop');
-    searchPage.crResultsSection.firstResultText.getText().should.equal('CR # CR123 - April 23, 2004');
+    searchPage.crResultsSection.firstResultText.getText().should.equal('CR # CR123 • April 23, 2004');
     searchPage.trrResultsSection.firstResultText.getText().should.equal('Member Presence');
 
     searchPage.suggestionTags.waitForDisplayed();
@@ -194,8 +195,8 @@ describe('Search Page', function () {
     searchPage.input.getValue().should.eql('cr:jerome');
     searchPage.crResultsSection.results.waitForDisplayed();
     searchPage.crResultsSection.resultsCount('CR').should.equal(2);
-    searchPage.crResultsSection.firstResultText.getText().should.equal('CR # CR123 - April 23, 2004');
-    searchPage.crResultsSection.secondResultText.getText().should.equal('CR # CR456 - November 12, 2006');
+    searchPage.crResultsSection.firstResultText.getText().should.equal('CR # CR123 • April 23, 2004');
+    searchPage.crResultsSection.secondResultText.getText().should.equal('CR # CR456 • November 12, 2006');
     searchPage.officerResultsSection.results.waitForDisplayed(500, true);
     searchPage.searchCommunityResultsSection.results.waitForDisplayed(500, true);
     searchPage.trrResultsSection.results.waitForDisplayed(500, true);
@@ -356,31 +357,138 @@ describe('Search Page', function () {
   describe('should show the recent search', function () {
     beforeEach(function () {
       browser.execute(() => {
-        window.localStorage.clear();
+        window.localStorage.removeItem('redux');
       });
-      searchPage.open();
-
-      searchPage.input.waitForDisplayed();
-      searchPage.input.setValue('Ke');
-
-      searchPage.firstOfficerResult.waitForDisplayed();
-      searchPage.firstOfficerResult.getText().should.containEql('Bernadette Kelly');
     });
 
+    const backToSearch = () => {
+      searchPage.searchBreadcrumb.waitForDisplayed();
+      searchPage.searchBreadcrumb.click();
+    };
+    const performSearch = (term) => {
+      searchPage.input.waitForDisplayed();
+      searchPage.input.setValue(term);
+    };
+    const clearSearchInput = () => searchPage.clearSearchButton.click();
+
+    const clickOnSearchResultItem = (suggestionGroupSelector, expectedText, isFirstResult=false) => {
+      suggestionGroupSelector.waitForDisplayed();
+      suggestionGroupSelector.getText().should.containEql(expectedText);
+      suggestionGroupSelector.click();
+      if (!isFirstResult) {
+        suggestionGroupSelector.click();
+      }
+    };
+
     it('when click on result item', function () {
-      searchPage.firstOfficerResult.click();
+      performSearch('Geography');
+      clickOnSearchResultItem(searchPage.firstSearchTermsResult, 'Geography - Communities', true);
+
+      clearSearchInput();
+      performSearch('Kelly');
+      clickOnSearchResultItem(searchPage.firstInvestigatorCrResult, 'CR # CR123456 • April 23, 2004');
+
+      backToSearch();
+      performSearch('2004/04/23');
+      clickOnSearchResultItem(searchPage.secondDateCrResult, 'CR # CR456 • April 23, 2004');
+
+      backToSearch();
+      performSearch('2004/04/23');
+      clickOnSearchResultItem(searchPage.secondDateTrrResult, 'Physical Force - Holding');
+
+      backToSearch();
+      performSearch('2004/04/23');
+      clickOnSearchResultItem(searchPage.firstDateOfficerResult, 'Jerome Finnigan');
+
+      backToSearch();
+      performSearch('Ke');
+      clickOnSearchResultItem(searchPage.firstNeighborhoodResult, 'Kenwood');
+
+      browser.switchWindow('/search/');
+      clearSearchInput();
+      performSearch('rank');
+      clickOnSearchResultItem(searchPage.firstRankResult, 'Officer');
+
+      clearSearchInput();
+      performSearch('Ke');
+      clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly', true);
+
+      backToSearch();
+      performSearch('Ke');
+      clickOnSearchResultItem(searchPage.firstCrResult, 'CR # CR123 • April 23, 2004');
+
+      backToSearch();
+      performSearch('Ke');
+      clickOnSearchResultItem(searchPage.firstTrrResult, 'Member Presence');
+
+      const expectedRecentSuggestions = [
+        'Member Presence\nTRR # 123 - April 27, 2004',
+        'CR # CR123 • April 23, 2004',
+        'Bernadette Kelly\n45 year old, White, Male, 10 Complaints, 2 Sustained',
+        'Officer\nRank',
+        'Kenwood\nNeighborhood',
+        'Jerome Finnigan\n42 year old, White, Male, 20 Complaints, 0 Sustained',
+        'Physical Force - Holding\nTRR # 456 - April 23, 2004',
+        'CR # CR456 • April 23, 2004',
+        'CR # CR123456 • April 23, 2004',
+        'Geography - Communities\nSearch Terms',
+      ];
+
+      backToSearch();
+
+      expectedRecentSuggestions.forEach((expectedText, index) => {
+        searchPage.recentSuggestionItem(index + 1).getText().should.equal(expectedText);
+      });
+
+      searchPage.pinboardButton.getText().should.eql('Pinboard (0)');
+
+      browser.scroll(0, -2000);
+      browser.pause(500);
+      searchPage.firstRecentPinButton.click();
+      searchPage.secondRecentPinButton.click();
+      searchPage.thirdRecentPinButton.click();
+      searchPage.pinboardButton.getText().should.eql('Pinboard (3)');
+
+      searchPage.firstRecentPinButton.click();
+      searchPage.secondRecentPinButton.click();
+      searchPage.thirdRecentPinButton.click();
+      searchPage.pinboardButton.getText().should.eql('Pinboard (0)');
 
       searchPage.open();
-      searchPage.recentSuggestions.waitForDisplayed();
-      searchPage.recentSuggestions.getText().should.containEql('Bernadette Kelly');
+
+      const newExpectedRecentSuggestions = [
+        'Member Presence\nTRR # 123 - April 27, 2009',
+        'CR # CR123 • April 23, 2005',
+        'Bernadette Kelly\n45 year old, White, Male, 12 Complaints, 3 Sustained',
+        'Officer\nRank',
+        'Kenwood\nNeighborhood',
+        'Jerome Finnigan\n42 year old, White, Male, 22 Complaints, 2 Sustained',
+        'Physical Force - Holding\nTRR # 456 - April 23, 2010',
+        'CR # CR456 • April 23, 2006',
+        'CR # CR123456 • April 23, 2007',
+        'Geography - Communities\nSearch Terms',
+      ];
+
+      newExpectedRecentSuggestions.forEach((expectedText, index) => {
+        searchPage.recentSuggestionItem(index + 1).getText().should.equal(expectedText);
+      });
     });
 
     it('when hit enter on result item', function () {
+      performSearch('Ke');
+      searchPage.secondOfficerResult.waitForDisplayed();
+      searchPage.secondOfficerResult.getText().should.containEql('John Kelly');
+      browser.keys('ArrowDown');
+      browser.keys('ArrowDown');
       browser.keys('Enter');
 
-      searchPage.open();
+      searchPage.searchBreadcrumb.waitForDisplayed();
+      searchPage.searchBreadcrumb.click();
+
       searchPage.recentSuggestions.waitForDisplayed();
-      searchPage.recentSuggestions.getText().should.containEql('Bernadette Kelly');
+      searchPage.recentSuggestionItem(1).getText().should.equal(
+        'John Kelly\n37 year old, White, Female, 5 Complaints, 1 Sustained'
+      );
     });
   });
 
@@ -406,6 +514,7 @@ describe('Search Page', function () {
     landingPage.open();
     searchPage.open();
     browser.keys('Escape');
+    browser.pause(500);
 
     landingPage.currentBasePath.should.equal('/');
   });
@@ -445,8 +554,9 @@ describe('Search Page', function () {
     browser.keys('Enter');
 
     searchPage.open();
-    searchPage.recentSuggestions.waitForDisplayed();
-    searchPage.recentSuggestions.getText().should.containEql('Bernadette Kelly');
+    searchPage.recentSuggestionItem(1).getText().should.equal(
+      'Bernadette Kelly\n45 year old, White, Male, 10 Complaints, 2 Sustained'
+    );
   });
 
   it('should navigates between the result when user press the navigation keys', function () {
@@ -498,6 +608,96 @@ describe('Search Page', function () {
     searchPage.currentBasePath.should.eql('/officer/1/bernadette-kelly/');
   });
 
+  context('After getting back to landing page', function () {
+    beforeEach(function () {
+      browser.setWindowRect(0, 0, 1000, 1000);
+      landingPage.header.content.waitForExist();
+      landingPage.header.content.waitForDisplayed(1000, true);
+      searchPage.input.waitForDisplayed(1000);
+
+      searchPage.backButton.click();
+
+      landingPage.header.content.waitForDisplayed(1000);
+      searchPage.input.waitForExist();
+      searchPage.input.waitForDisplayed(1000, true);
+    });
+
+    it('should show search page and hide landing page when clicking on search box', function () {
+      const searchBox = landingPage.header.navBar.searchBox;
+      searchBox.mainElement.click();
+
+      searchPage.input.waitForDisplayed(2000);
+      landingPage.header.content.waitForDisplayed(2000, true);
+      landingPage.header.content.waitForExist();
+    });
+
+    it('should expand search input when clicking on search box', function () {
+      const SEARCH_INPUT_WIDTH_AFTER_EXPAND = 893;
+      const searchBox = landingPage.header.navBar.searchBox;
+
+      searchBox.mainElement.getCSSProperty('width').value.should.equal('512px');
+
+      searchBox.mainElement.click();
+
+      const beginningWidthString = searchPage.input.getCSSProperty('width').value;
+      const beginningWidth = parseFloat(beginningWidthString.slice(0, beginningWidthString.length - 2));
+      beginningWidth.should.aboveOrEqual(512).and.below(SEARCH_INPUT_WIDTH_AFTER_EXPAND);
+
+      searchPage.input.waitForCSSProperty(
+        'width',
+        value => parseFloat(value.slice(0, value.length - 2)) === SEARCH_INPUT_WIDTH_AFTER_EXPAND,
+        1000
+      );
+    });
+
+    it('should move search box up when lading page position is top and clicking on search box', function () {
+      const searchBox = landingPage.header.navBar.searchBox;
+      searchBox.mainElement.click();
+
+      browser.waitUntil(
+        () => searchPage.input.getLocation('y') > 50,
+        500,
+        'Search box does not start moving up from lower position',
+        10
+      );
+
+      const topYLocation = 9;
+      browser.waitUntil(
+        () => searchPage.input.getLocation('y') === topYLocation,
+        1000,
+        'Search box does not end moving up at top',
+        10
+      );
+      searchPage.input.getLocation('y').should.equal(topYLocation);
+    });
+
+    it('should not move search page up when lading page is not at top', function () {
+      browser.scroll(0, 500); // must scroll pass the top bar
+      browser.pause(1000);
+
+      const header = landingPage.header;
+      header.content.getCSSProperty('position').value.should.eql('fixed');
+      header.content.getCSSProperty('top').value.should.eql('-80px');
+      header.navBar.searchBox.searchText.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
+
+      header.navBar.searchBox.mainElement.click();
+
+      const topYLocation = 9;
+      browser.pause(10);
+      searchPage.input.getLocation('y').should.equal(topYLocation);
+      browser.pause(10);
+      searchPage.input.getLocation('y').should.equal(topYLocation);
+      browser.pause(10);
+      searchPage.input.getLocation('y').should.equal(topYLocation);
+
+      searchPage.input.waitForCSSProperty(
+        'width',
+        value => parseFloat(value.slice(0, value.length - 2)) === 893,
+        1000
+      );
+    });
+  });
+
   describe('Search box button', function () {
     it('should clear the query when clicked', function () {
       searchPage.input.waitForDisplayed();
@@ -507,16 +707,6 @@ describe('Search Page', function () {
 
       searchPage.clearSearchButton.click();
       searchPage.input.getValue().should.containEql('');
-    });
-
-    it('should open search terms page when clicked', function () {
-      searchPage.searchTermsToggle.getText().should.equal('What can I search?');
-      searchPage.searchTermsToggle.click();
-      searchPage.searchTermsToggle.getText().should.equal('Hide Search terms');
-      browser.getUrl().should.match(/\/search\/terms\/$/);
-      searchPage.searchTermsToggle.click();
-      searchPage.searchTermsToggle.getText().should.equal('What can I search?');
-      browser.getUrl().should.not.match(/\/search\/terms\/$/);
     });
   });
 
@@ -566,6 +756,43 @@ describe('Search Page', function () {
       browser.getUrl().should.eql('http://lvh.me/url-mediator/session-builder?neighborhood=SomeNeighborhood');
       browser.closeWindow();
       browser.switchWindow('localhost');
+    });
+
+    it('should redirect to officer page when click on view profile button', function () {
+      searchPage.input.waitForDisplayed();
+      searchPage.input.setValue('Ke');
+
+      searchPage.officerPreviewPaneSection.viewOfficerButton.waitForDisplayed();
+      searchPage.officerPreviewPaneSection.viewOfficerButton.click();
+      browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/$/);
+    });
+
+    it('should add/remove officer to/from pinboard when click on pin button', function () {
+      searchPage.input.waitForDisplayed();
+      searchPage.input.setValue('Ke');
+
+      searchPage.officerPreviewPaneSection.pinButton.waitForDisplayed();
+      searchPage.pinboardButton.getText().should.eql('Your pinboard is empty');
+
+      searchPage.officerPreviewPaneSection.pinButton.click();
+      searchPage.pinboardButton.getText().should.eql('Pinboard (1)');
+
+      searchPage.toast.waitForDisplayed();
+      browser.waitUntil(function () {
+        return searchPage.toast.isDisplayed() === false;
+      }, 5000, 'Toast is not removed properly');
+
+      searchPage.officerPreviewPaneSection.pinButton.click();
+      searchPage.pinboardButton.getText().should.eql('Your pinboard is empty');
+    });
+
+    it('should redirect to unit page when click on unit item on officer info widget', function () {
+      searchPage.input.waitForDisplayed();
+      searchPage.input.setValue('Ke');
+
+      searchPage.officerPreviewPaneSection.unitItem.waitForDisplayed();
+      searchPage.officerPreviewPaneSection.unitItem.click();
+      browser.getUrl().should.match(/\/unit\/\d+\/$/);
     });
   });
 
@@ -620,6 +847,37 @@ describe('Search Page', function () {
       browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/$/);
     });
   });
+
+  describe('TRRPreviewPane', function () {
+    beforeEach(function () {
+      searchPage.input.waitForDisplayed();
+      searchPage.input.setValue('2004/04/23');
+      searchPage.dateTRRResultsSection.firstResultText.waitForDisplayed();
+      searchPage.dateTRRResultsSection.firstResultText.click();
+      searchPage.trrPreviewPaneSection.wrapper.waitForDisplayed();
+    });
+
+    it('should render enough content', function () {
+      searchPage.trrPreviewPaneSection.callToAction.getText().should.eql('View Tactical Response Report');
+      searchPage.trrPreviewPaneSection.title.getText().should.eql('Taser');
+      searchPage.trrPreviewPaneSection.incidentDate.getText().should.eql('Apr 23, 2004');
+      searchPage.trrPreviewPaneSection.address.getText().should.eql('3000 Michigan Ave');
+      searchPage.trrPreviewPaneSection.officerHeader.getText().should.eql('OFFICER');
+      searchPage.trrPreviewPaneSection.officerLink.count.should.eql(1);
+      searchPage.trrPreviewPaneSection.officerName.getText().should.equal('Jesse Pinkman');
+      searchPage.trrPreviewPaneSection.officerAllegationCount.getText().should.equal('1 allegation');
+    });
+
+    it('should go to trr page when being clicked', function () {
+      searchPage.trrPreviewPaneSection.callToAction.click();
+      browser.getUrl().should.match(/\/trr\/\w+\/$/);
+    });
+
+    it('should redirect to officer profile when clicking on officer item', function () {
+      searchPage.trrPreviewPaneSection.officerLink.click();
+      browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/$/);
+    });
+  });
 });
 
 describe('Search Page in edit mode', function () {
@@ -645,7 +903,7 @@ describe('Search Page with query parameter', function () {
     searchPage.investigatorCRResultsSection.results.waitForDisplayed();
     searchPage.suggestionTags.getText().should.containEql('INVESTIGATOR > CR');
     searchPage.investigatorCRResultsSection.results.count.should.equal(2);
-    searchPage.investigatorCRResultsSection.firstResultText.getText().should.equal('CR # CR123456 - April 23, 2004');
+    searchPage.investigatorCRResultsSection.firstResultText.getText().should.equal('CR # CR123456 • April 23, 2004');
     searchPage.investigatorCRResultsSection.firstResultSubText.getText().should.equal(
       'an officer named Kelly caught the victim'
     );
@@ -669,5 +927,54 @@ describe('Search Page with query parameter', function () {
     searchPage.searchCommunityResultsSection.results.waitForDisplayed(500, true);
     searchPage.crResultsSection.results.waitForDisplayed(500, true);
     searchPage.trrResultsSection.results.waitForDisplayed(500, true);
+  });
+});
+
+describe('Search Page with pinboard functionalities', function () {
+  it('should display pinboard button with correct text when items are added/removed', function () {
+    searchPage.open('Ke');
+    searchPage.suggestionGroup.waitForDisplayed();
+    searchPage.pinboardButton.getText().should.eql('Your pinboard is empty');
+
+    searchPage.firstOfficerPinButton.click();
+    searchPage.pinboardButton.getText().should.eql('Pinboard (1)');
+
+    searchPage.firstOfficerPinButton.click();
+    searchPage.pinboardButton.getText().should.eql('Your pinboard is empty');
+  });
+
+  it('should display pinboard tooltip bar when not search', function () {
+    const tip = 'Create collections of officers, complaint records, and tactical reponse reports using search.';
+    searchPage.open('');
+    searchPage.pinboardBar.waitForDisplayed();
+    searchPage.pinboardBar.getText().should.containEql(tip);
+
+    searchPage.pinboardButton.getText().should.eql('Pinboard (0)');
+  });
+
+  it('should redirect to Pinboard page when click on pinboard button', function () {
+    searchPage.open('Ke');
+    searchPage.suggestionGroup.waitForDisplayed();
+
+    searchPage.pinboardButton.click();
+    browser.getUrl().should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/);
+  });
+});
+
+describe('Search Page toast', function () {
+  it('should display toast in few seconds when items are added/removed', function () {
+    searchPage.open('Ke');
+
+    searchPage.suggestionGroup.waitForDisplayed();
+    searchPage.firstOfficerPinButton.click();
+
+    searchPage.toast.waitForDisplayed();
+    searchPage.toast.waitForText('Officer added');
+
+    searchPage.toast.waitForDisplayed(5000, true);
+
+    searchPage.firstOfficerPinButton.click();
+    searchPage.toast.waitForDisplayed();
+    searchPage.toast.waitForText('Officer removed');
   });
 });

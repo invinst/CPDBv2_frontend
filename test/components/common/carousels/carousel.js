@@ -24,7 +24,8 @@ describe('Carousel component', function () {
     <Carousel
       onNavigate={ onNavigateSpy }
       childWidth={ 232 }
-      style={ { width: '1000px' } } { ...props }>
+      style={ { width: '1000px' } } { ...props }
+    >
       { data.map(({ id, ...attr }) => (
         <OfficerCard key={ id } { ...attr } officerId={ id }/>
       )) }
@@ -96,7 +97,11 @@ describe('Carousel component', function () {
     instance.state.displayLeftArrow = false;
     instance.state.displayRightArrow = false;
     const swiper = findRenderedComponentWithType(instance, Swiper);
-    swiper.props.onSnapIndexChange(true, true);
+    swiper.props.onSnapIndexChange({
+      isEnd: false,
+      isBeginning: false,
+      activeIndex: 1,
+    });
     instance.state.displayLeftArrow.should.be.true();
     instance.state.displayRightArrow.should.be.true();
   });
@@ -163,6 +168,44 @@ describe('Carousel component', function () {
     loadMoreSpy.called.should.be.true();
   });
 
+  it('should call loadMore when reach end with onSnapIndexChange', function () {
+    const loadMoreSpy = spy();
+    instance = renderIntoDocument(carouselComponent(
+      OfficerCardFactory.buildList(10),
+      {
+        hasMore: true,
+        loadMore: loadMoreSpy,
+        threshold: 2,
+      }
+    ));
+
+    const swiper = findRenderedComponentWithType(instance, Swiper);
+    swiper.props.onSnapIndexChange({
+      isEnd: true,
+      isBeginning: true,
+      activeIndex: 1,
+    });
+
+    loadMoreSpy.called.should.be.true();
+  });
+
+  it('should call loadMore when reach end with onUpdate', function () {
+    const loadMoreSpy = spy();
+    instance = renderIntoDocument(carouselComponent(
+      OfficerCardFactory.buildList(10),
+      {
+        hasMore: true,
+        loadMore: loadMoreSpy,
+        threshold: 2,
+      }
+    ));
+
+    const swiper = findRenderedComponentWithType(instance, Swiper);
+    swiper.props.onUpdate({ isEnd: true, isBeginning: true });
+
+    loadMoreSpy.called.should.be.true();
+  });
+
   it('should slide back when receive more children but new data', function () {
     instance = renderIntoDocument(carouselComponent(
       OfficerCardFactory.buildList(10)
@@ -199,5 +242,18 @@ describe('Carousel component', function () {
       instance
     );
     instance.state.slideIndex.should.eql(0);
+  });
+
+  it('should not slide back when if resetPosition is false', function () {
+    instance = renderIntoDocument(
+      carouselComponent(OfficerCardFactory.buildList(10), { resetPosition: false })
+    );
+    instance.setState({ slideIndex: 5 });
+
+    instance = reRender(
+      carouselComponent(OfficerCardFactory.buildList(3), { resetPosition: false }),
+      instance
+    );
+    instance.state.slideIndex.should.eql(5);
   });
 });

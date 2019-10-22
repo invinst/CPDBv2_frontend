@@ -102,7 +102,6 @@ describe('TRRPage component', function () {
           { axis: 'Officer Allegations', value: 11.1 },
           { axis: 'Civilian Allegations', value: 22.2 },
         ],
-        officerId: undefined,
         textColor: '#231F20',
         visualTokenBackground: '#e85050',
         year: undefined,

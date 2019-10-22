@@ -21,6 +21,10 @@ export default class RightLinks extends Component {
         name: 'Documents',
         url: '/documents/',
       },
+      {
+        name: 'Pinboard',
+        url: '/pinboard/',
+      },
     ];
 
     const tags = links.map((link, index) => (

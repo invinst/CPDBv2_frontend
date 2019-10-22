@@ -14,10 +14,12 @@ describe('embed top officers page', function () {
   });
 
   describe('Officers By Allegation carousel', function () {
-    it('should show initial carousel', function () {
+    it('should show initial carousel without pin button', function () {
       embedTopOfficersPage.officersByAllegationCarousel.cards.count.should.equal(48);
       embedTopOfficersPage.officersByAllegationCarousel.rightArrow.waitForDisplayed();
       embedTopOfficersPage.officersByAllegationCarousel.leftArrow.waitForDisplayed(2000, true);
+      embedTopOfficersPage.officersByAllegationCarousel.leftArrow.waitForDisplayed(2000, true);
+      embedTopOfficersPage.officersByAllegationCarousel.firstPinButton.waitForDisplayed(2000, true);
     });
 
     it('should go to officer summary page when click to card', function () {

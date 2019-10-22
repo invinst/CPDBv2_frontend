@@ -138,7 +138,7 @@ describe('SlimHeader component', function () {
 
   describe('recalculatePosition', function () {
     beforeEach(function () {
-      stub(domUtils, 'calculatePosition');
+      stub(domUtils, 'calculateSlimHeaderPosition');
       element = renderIntoDocument(
         <Provider store={ store }>
           <SlimHeaderContextWrapper context={ { editModeOn: false } }>
@@ -151,23 +151,23 @@ describe('SlimHeader component', function () {
     });
 
     afterEach(function () {
-      domUtils.calculatePosition.restore();
+      domUtils.calculateSlimHeaderPosition.restore();
     });
 
     it('should remain in top position', function () {
-      domUtils.calculatePosition.returns('top');
+      domUtils.calculateSlimHeaderPosition.returns('top');
       this.slimHeader.recalculatePosition();
       this.slimHeader.state.position.should.eql('top');
     });
 
     it('should transition to middle position', function () {
-      domUtils.calculatePosition.returns('middle');
+      domUtils.calculateSlimHeaderPosition.returns('middle');
       this.slimHeader.recalculatePosition();
       this.slimHeader.state.position.should.eql('middle');
     });
 
     it('should transition to bottom position', function () {
-      domUtils.calculatePosition.returns('bottom');
+      domUtils.calculateSlimHeaderPosition.returns('bottom');
       this.slimHeader.recalculatePosition();
       this.slimHeader.state.position.should.eql('bottom');
     });

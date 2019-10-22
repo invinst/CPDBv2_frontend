@@ -2,9 +2,12 @@ import { createSelector } from 'reselect';
 import { indexOf, isEmpty, head, keys, map, omitBy, pick, sortBy } from 'lodash';
 
 import * as constants from 'utils/constants';
-import { searchResultItemTransform } from './transforms';
+import { searchResultItemTransform } from 'selectors/common/preview-pane-transforms';
+import { navigationItemTransform } from 'selectors/common/search-item-transforms';
 import extractQuery from 'utils/extract-query';
 import { dataToolSearchUrl } from 'utils/v1-url';
+import { isItemPinned, pinboardItemsSelector } from 'selectors/pinboard-page/pinboard';
+import { getQuery } from 'selectors/search-page/common';
 
 
 const itemsPerCategory = 5;
@@ -12,7 +15,6 @@ const itemsPerCategory = 5;
 const getSuggestionGroups = state => state.searchPage.suggestionGroups;
 const getSuggestionTags = state => state.searchPage.tags;
 const getSuggestionContentType = state => state.searchPage.contentType;
-const getQuery = state => state.searchPage.query;
 const getPagination = state => state.searchPage.pagination;
 
 
@@ -83,6 +85,14 @@ export const slicedSuggestionGroupsSelector = createSelector(
   }
 );
 
+export const getPinnedItem = (item, pinboardItems) => {
+  const pinnedItemType = constants.PINNED_ITEM_TYPES[item.type];
+  return {
+    ...item,
+    isPinned: isItemPinned(pinnedItemType, item.id, pinboardItems),
+  };
+};
+
 export const isEmptySelector = createSelector(
   slicedSuggestionGroupsSelector,
   suggestionGroups => !suggestionGroups.length
@@ -90,32 +100,28 @@ export const isEmptySelector = createSelector(
 
 export const searchResultGroupsSelector = createSelector(
   slicedSuggestionGroupsSelector,
-  groups => map(groups, ({ header, items, canLoadMore }) => ({
+  pinboardItemsSelector,
+  (groups, pinboardItems) => map(groups, ({ header, items, canLoadMore }) => ({
     header,
     canLoadMore,
-    items: map(items, item => searchResultItemTransform(item)),
+    items: map(items, item => searchResultItemTransform(getPinnedItem(item, pinboardItems))),
   }))
 );
 
 export const firstItemSelector = createSelector(
-  searchResultGroupsSelector,
+  slicedSuggestionGroupsSelector,
   getQuery,
-  (suggestionGroups, query) => {
-    if (suggestionGroups.length === 0) {
+  (groups, query) => {
+    if (groups.length === 0) {
       return {
         url: dataToolSearchUrl(query),
         isDataToolSearchUrl: true,
       };
     } else {
-      const firstGroup = head(suggestionGroups);
+      const firstGroup = head(groups);
       const firstRecord = head(firstGroup.items);
 
-      return {
-        to: firstRecord.to,
-        url: firstRecord.url,
-        recentText: firstRecord.recentText,
-        type: firstGroup.header,
-      };
+      return navigationItemTransform(firstRecord);
     }
   }
 );

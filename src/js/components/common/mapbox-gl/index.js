@@ -49,7 +49,7 @@ export default class MapboxGL extends Component {
     });
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     this.mapBoxLoaded.then(() => {
       this.updateSource();
       this.updateLayer();
@@ -59,6 +59,10 @@ export default class MapboxGL extends Component {
         throw reason;
       }
     });
+
+    if (prevProps.hide && !this.props.hide) {
+      this._mapBox.resize();
+    }
   }
 
   componentWillUnmount() {
@@ -113,6 +117,7 @@ MapboxGL.propTypes = {
   sources: PropTypes.array,
   layers: PropTypes.array,
   sourceDataLoaded: PropTypes.func,
+  hide: PropTypes.bool,
 };
 
 MapboxGL.defaultProps = {

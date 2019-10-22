@@ -9,6 +9,7 @@ import Mousetrap from 'mousetrap';
 import React, { Component } from 'react';
 import MockStore from 'redux-mock-store';
 import { spy } from 'sinon';
+import { ToastContainer } from 'react-toastify';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import App from 'components/app';
@@ -35,7 +36,23 @@ describe('App component', function () {
       navigation: {},
       searchTerms: {
         hidden: true,
+        navigation: {
+          itemIndex: 0,
+        },
+        categories: [{
+          name: 'Geography',
+          items: [
+            {
+              id: 'community',
+              name: 'Communities',
+              description: 'Chicago is divided.',
+              callToActionType: 'view_all',
+              link: 'https://data.cpdp.co/url-mediator/session-builder?community=<name>',
+            },
+          ],
+        }],
       },
+      recentSuggestions: [],
     },
     cms: {
       pages: {},
@@ -72,6 +89,10 @@ describe('App component', function () {
       },
     },
     popups: [],
+    pinboardPage: {
+      pinboard: null,
+    },
+    toast: {},
   });
   const location = { pathname: '/', search: '/', action: 'POP' };
 
@@ -93,7 +114,7 @@ describe('App component', function () {
         <App
           toggleEditMode={ toggleEditMode }
           location={ location }
-          appContent='/'>
+        >
           <ChildComponent/>
         </App>
       </Provider>
@@ -114,7 +135,7 @@ describe('App component', function () {
           toggleSearchMode={ toggleSearchMode }
           changeSearchQuery={ changeSearchQuery }
           location={ location }
-          appContent='/'>
+        >
           <ChildComponent/>
         </App>
       </Provider>
@@ -138,7 +159,7 @@ describe('App component', function () {
           toggleSearchMode={ toggleSearchMode }
           changeSearchQuery={ changeSearchQuery }
           location={ location }
-          appContent='/'>
+        >
           <ChildComponent/>
         </App>
       </Provider>
@@ -152,10 +173,7 @@ describe('App component', function () {
   it('should not display header if children is a "headerless page"', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <App
-          location={ location }
-          appContent='/'
-        >
+        <App location={ location }>
           <SearchPageContainer location={ location } routes={ [] }/>
         </App>
       </Provider>
@@ -167,15 +185,29 @@ describe('App component', function () {
   it('should display ShareableHeader if children is a shareable page', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <App
-          location={ location }
-          appContent='/'
-        >
+        <App location={ location }>
           <OfficerPageContainer location={ { query: {}, pathname: '/' } } />
         </App>
       </Provider>
     );
     scryRenderedComponentsWithType(instance, SlimHeader).length.should.eql(0);
     findRenderedComponentWithType(instance, ShareableHeader);
+  });
+
+  it('should render ToastContainer', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <App location={ location }>
+          <OfficerPageContainer location={ { query: {}, pathname: '/' } } />
+        </App>
+      </Provider>
+    );
+
+    const toastContainer = findRenderedComponentWithType(instance, ToastContainer);
+    toastContainer.props.pauseOnFocusLoss.should.be.false();
+    toastContainer.props.closeButton.should.be.false();
+    toastContainer.props.hideProgressBar.should.be.true();
+    toastContainer.props.autoClose.should.equal(3000);
+    toastContainer.props.className.should.equal('landing');
   });
 });

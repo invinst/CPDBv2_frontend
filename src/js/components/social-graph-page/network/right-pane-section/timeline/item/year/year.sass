@@ -1,0 +1,30 @@
+@import 'variables'
+
+$has-data-height: 64px
+$no-data-height: 32px
+
+\:local(.wrapper)
+  display: inline-block
+  width: 100%
+  padding: 0 16px 0 8px
+  box-sizing: border-box
+  vertical-align: top
+
+  .content
+    height: $has-data-height
+    line-height: $has-data-height - 1px
+
+    .date
+      text-align: right
+      font-size: 18px
+      color: $soft-black-color
+      font-weight: 400
+      padding-top: 10px
+
+    &.no-data
+      height: $no-data-height
+      line-height: $no-data-height - 1px
+
+      .date
+        font-size: 14px
+        padding-top: 1px

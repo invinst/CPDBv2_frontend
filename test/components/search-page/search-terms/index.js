@@ -2,79 +2,143 @@ import React from 'react';
 import { spy, stub } from 'sinon';
 import {
   findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass,
-  findRenderedDOMComponentWithTag, renderIntoDocument,
-  Simulate,
+  scryRenderedComponentsWithType,
+  renderIntoDocument,
 } from 'react-addons-test-utils';
 import Mousetrap from 'mousetrap';
+import { Provider } from 'react-redux';
+import MockStore from 'redux-mock-store';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import SearchTerms from 'components/search-page/search-terms';
-import {
-  contentWrapperStyle,
-  maximumStyle,
-  mediumStyle,
-  minimumStyle,
-} from 'components/search-page/search-terms/search-terms.style';
-import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
-import SearchTermItemPane from 'components/search-page/preview-pane/search-term-item-pane';
+import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component-without-inline-style';
 import { SearchTermCategory } from 'utils/test/factories/search-terms';
-import * as domUtils from 'utils/dom';
 import CategoryColumn from 'components/search-page/search-terms/category-column';
-import MinimalScrollBars from 'components/common/minimal-scroll-bars';
 import * as IntercomTracking from 'utils/intercom-tracking';
+import RecentSuggestion from 'components/search-page/search-results/recent-suggestion';
+import PinboardBar from 'components/search-page/pinboard/pinboard-bar';
 
 
 describe('SearchTerms component', function () {
   let instance;
-  const categories = [
-    {
-      name: 'Geography',
-      items: [
-        {
-          id: 'community',
-          name: 'Communities',
-          description: 'Chicago is divided.',
-          callToActionType: 'view_all',
-          link: 'https://data.cpdp.co/url-mediator/session-builder?community=<name>',
-        },
-      ],
+
+  const store = MockStore()({
+    pinboardPage: {
+      pinboard: null,
     },
-  ];
-  const navigationKeys = ['category-Geography', 'Geography-Communities'];
+  });
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should renderable', function () {
-    SearchTerms.should.be.renderable();
+  describe('componentDidMount', function () {
+    describe('fetchRecentSearchItems', function () {
+      it('should be called if recentSuggestionIds is not empty and recentSuggestionsRequested is false', () => {
+        const fetchRecentSearchItemsSpy = spy();
+        const recentSuggestionIds = {
+          officerIds: [8562],
+          crids: ['123456'],
+          trrIds: [456789],
+        };
+        instance = renderIntoDocument(
+          <Provider store={ store }>
+            <SearchTerms
+              recentSuggestionIds={ recentSuggestionIds }
+              fetchRecentSearchItems={ fetchRecentSearchItemsSpy }
+              recentSuggestionsRequested={ false }
+            />
+          </Provider>
+        );
+        fetchRecentSearchItemsSpy.should.be.calledWith(
+          [8562],
+          ['123456'],
+          [456789],
+        );
+      });
+
+      it('should not be called if recentSuggestionIds is empty', () => {
+        const fetchRecentSearchItemsSpy = spy();
+        instance = renderIntoDocument(
+          <Provider store={ store }>
+            <SearchTerms
+              recentSuggestionIds={ {} }
+              fetchRecentSearchItems={ fetchRecentSearchItemsSpy }
+              recentSuggestionsRequested={ false }
+            />
+          </Provider>
+        );
+        fetchRecentSearchItemsSpy.should.not.be.called();
+      });
+
+      it('should not be called if recentSuggestionsRequested is true', () => {
+        const fetchRecentSearchItemsSpy = spy();
+        const recentSuggestionIds = {
+          officerIds: [8562],
+          crids: ['123456'],
+          trrIds: [456789],
+        };
+        instance = renderIntoDocument(
+          <Provider store={ store }>
+            <SearchTerms
+              recentSuggestionIds={ recentSuggestionIds }
+              fetchRecentSearchItems={ fetchRecentSearchItemsSpy }
+              recentSuggestionsRequested={ true }
+            />
+          </Provider>
+        );
+        fetchRecentSearchItemsSpy.should.not.be.called();
+      });
+    });
+
+    describe('fetchedEmptyRecentSearchItems', function () {
+      it('should be called if recentSuggestionsRequested is false and recentSuggestionIds is empty', function () {
+        const fetchedEmptyRecentSearchItemsSpy = spy();
+        instance = renderIntoDocument(
+          <Provider store={ store }>
+            <SearchTerms
+              recentSuggestionIds={ {} }
+              fetchedEmptyRecentSearchItems={ fetchedEmptyRecentSearchItemsSpy }
+              recentSuggestionsRequested={ false }
+            />
+          </Provider>
+        );
+        fetchedEmptyRecentSearchItemsSpy.should.be.called();
+      });
+    });
   });
 
   it('should be able to render CategoryColumn', function () {
     instance = renderIntoDocument(
-      <SearchTerms categories={ SearchTermCategory.buildList(1) } />
+      <Provider store={ store }>
+        <SearchTerms categories={ SearchTermCategory.buildList(1) } />
+      </Provider>
     );
     const categoryColumn = findRenderedComponentWithType(instance, CategoryColumn);
     categoryColumn.should.be.ok();
   });
 
-  it('should render MinimalScrollBars', function () {
+  it('should render PinboardBar', function () {
     instance = renderIntoDocument(
-      <SearchTerms categories={ SearchTermCategory.buildList(1) } />
+      <Provider store={ store }>
+        <SearchTerms />
+      </Provider>
     );
-    findRenderedComponentWithType(instance, MinimalScrollBars).should.be.ok();
+
+    findRenderedComponentWithType(instance, PinboardBar);
   });
 
   it('should render ResponsiveFluidWidthComponent with correct props', function () {
     instance = renderIntoDocument(
-      <SearchTerms />
+      <Provider store={ store }>
+        <SearchTerms />
+      </Provider>
     );
     const responsiveComponent = findRenderedComponentWithType(instance, ResponsiveFluidWidthComponent);
-    responsiveComponent.props.style.should.eql(contentWrapperStyle);
-    responsiveComponent.props.minimumStyle.should.eql(minimumStyle);
-    responsiveComponent.props.mediumStyle.should.eql(mediumStyle);
-    responsiveComponent.props.maximumStyle.should.eql(maximumStyle);
+    responsiveComponent.props.className.should.eql('content-wrapper');
+    responsiveComponent.props.minimumClassName.should.eql('minimum');
+    responsiveComponent.props.mediumClassName.should.eql('medium');
+    responsiveComponent.props.maximumClassName.should.eql('maximum');
     responsiveComponent.props.minWidthThreshold.should.eql(1020);
     responsiveComponent.props.maxWidthThreshold.should.eql(1760);
   });
@@ -84,7 +148,9 @@ describe('SearchTerms component', function () {
     const totalItemCount = 3;
     const direction = 'up';
     instance = renderIntoDocument(
-      <SearchTerms move={ move } totalItemCount={ totalItemCount } />
+      <Provider store={ store }>
+        <SearchTerms move={ move } totalItemCount={ totalItemCount } />
+      </Provider>
     );
     Mousetrap.trigger(direction);
     move.calledWith(direction, totalItemCount).should.be.true();
@@ -95,69 +161,55 @@ describe('SearchTerms component', function () {
     const totalItemCount = 3;
     const direction = 'down';
     instance = renderIntoDocument(
-      <SearchTerms move={ move } totalItemCount={ totalItemCount } />
+      <Provider store={ store }>
+        <SearchTerms move={ move } totalItemCount={ totalItemCount } />
+      </Provider>
     );
     Mousetrap.trigger(direction);
     move.calledWith(direction, totalItemCount).should.be.true();
   });
 
-  it('should trigger setNavigation when click on a search term item', function () {
-    const setNavigation = spy();
-
-    instance = renderIntoDocument(
-      <SearchTerms setNavigation={ setNavigation } categories={ categories } navigationKeys={ navigationKeys }/>
-    );
-
-    const searchTerms = findRenderedComponentWithType(instance, SearchTerms);
-
-    Simulate.click(findRenderedDOMComponentWithClass(searchTerms, 'test--category-item'));
-    setNavigation.calledWith({ navigationKeys, uniqueKey: 'Geography-community' }).should.be.true();
-  });
-
   it('should resetNavigation to 0 when unmounted', function () {
     const resetNavigation = spy();
     instance = renderIntoDocument(
-      <SearchTerms resetNavigation={ resetNavigation }/>
+      <Provider store={ store }>
+        <SearchTerms resetNavigation={ resetNavigation }/>
+      </Provider>
     );
     unmountComponentSuppressError(instance);
 
     resetNavigation.calledWith(0).should.be.true();
   });
 
-  describe('after keyboard navigation', function () {
-    beforeEach(function () {
-      this.scrollToElementStub = stub(domUtils, 'scrollToElement');
+  describe('RecentSuggestion component', function () {
+    it('should render RecentSuggestion component if recentSuggestions is not null', function () {
+      const recentSuggestions = [{
+        type: 'OFFICER',
+        id: 1,
+        name: 'Jerome Finnigan',
+        badge: 'Badge #123456',
+        text: 'Mark Farmer',
+        to: '/officer/8257/mark-farmer/',
+      }];
+
+      instance = renderIntoDocument(
+        <Provider store={ store }>
+          <SearchTerms recentSuggestions={ recentSuggestions }/>
+        </Provider>
+      );
+
+      const recentSuggestionsComp = findRenderedComponentWithType(instance, RecentSuggestion);
+      recentSuggestionsComp.props.recentSuggestions.should.eql(recentSuggestions);
     });
 
-    afterEach(function () {
-      this.scrollToElementStub.restore();
-    });
+    it('should not render RecentSuggestion component if recentSuggestions is null', function () {
+      instance = renderIntoDocument(
+        <Provider store={ store }>
+          <SearchTerms recentSuggestions={ [] }/>
+        </Provider>
+      );
 
-    it('should render preview pane for the focused item', function () {
-      const focusedItem = {
-        id: 'category',
-        name: 'Some item',
-        description: 'This is item for testing',
-        uniqueKey: 'category-some-item',
-      };
-
-      instance = renderIntoDocument(<SearchTerms focusedItem={ focusedItem } />);
-      const previewPane = findRenderedComponentWithType(instance, SearchTermItemPane);
-      previewPane.should.be.ok();
-    });
-
-    it('should render preview pane with markdown link', function () {
-      const focusedItem = {
-        id: 'category',
-        name: 'Some item',
-        description: 'This is item for testing. [Google](http://www.google.com)',
-        uniqueKey: 'category-some-item',
-      };
-
-      instance = renderIntoDocument(<SearchTerms focusedItem={ focusedItem } />);
-      const previewPaneDescription = findRenderedComponentWithType(instance, SearchTermItemPane);
-      const description = findRenderedDOMComponentWithTag(previewPaneDescription, 'a');
-      description.getAttribute('href').should.containEql('http://www.google.com');
+      scryRenderedComponentsWithType(instance, RecentSuggestion).should.have.length(0);
     });
   });
 
@@ -172,7 +224,9 @@ describe('SearchTerms component', function () {
 
     it('should track Intercom with search page', function () {
       instance = renderIntoDocument(
-        <SearchTerms/>
+        <Provider store={ store }>
+          <SearchTerms/>
+        </Provider>
       );
       IntercomTracking.trackSearchTerms.called.should.be.true();
     });

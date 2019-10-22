@@ -6,7 +6,6 @@ import AppContainer from 'containers/app-container';
 import LandingPageContainer from 'containers/landing-page';
 import CollaborationPage from 'components/collaboration-page/collaboration-page';
 import SearchPageContainer from 'containers/search-page';
-import SearchTermsContainer from 'containers/search-page/search-terms-container';
 import OfficerPageContainer from 'containers/officer-page';
 import UnitProfilePageContainer from 'containers/unit-profile-page';
 import CRPageContainer from 'containers/cr-page';
@@ -20,10 +19,10 @@ import EmbedOfficersContainer from 'containers/embed/officers';
 import DocumentDeduplicatorContainer from 'containers/document-deduplicator-page';
 import DocumentsOverviewContainer from 'containers/documents-overview-page';
 import SocialGraphContainer from 'containers/social-graph-page';
+import PinboardPageContainer from 'containers/pinboard-page';
 import {
   COLLAB_PATH,
   SEARCH_PATH,
-  SEARCH_TERMS_PATH,
   OFFICER_PATH,
   CR_PATH_SUFFIX,
   TTR_PATH,
@@ -39,6 +38,7 @@ import {
   TRACKER_ALL_DOCUMENTS_PATH,
   TRACKER_DOCUMENTS_OVERVIEW_PATH,
   SOCIAL_GRAPH_PATH,
+  PINBOARD_PATH,
 } from 'utils/constants';
 import configureStore from 'store';
 import history from 'utils/history';
@@ -69,13 +69,8 @@ export default class RouterRoot extends Component {
               breadcrumb={ BreadcrumbItemContainer } />
             <Route
               path={ SEARCH_PATH }
-              component={ SearchPageContainer }
-              breadcrumb='Search'>
-              <Route
-                path={ SEARCH_TERMS_PATH }
-                component={ SearchTermsContainer }
-                useParentBreadcrumb={ true }/>
-            </Route>
+              component={ LandingPageContainer }
+              breadcrumb='Search' />
             <Route
               path={ STANDALONE_CR_PATH }
               component={ CRPageContainer }
@@ -127,6 +122,11 @@ export default class RouterRoot extends Component {
               path={ TRACKER_DOCUMENTS_OVERVIEW_PATH }
               component={ DocumentsOverviewContainer }
               breadcrumb='Documents Overview'/>
+            <Route
+              path={ PINBOARD_PATH }
+              component={ PinboardPageContainer }
+              breadcrumb={ BreadcrumbItemContainer }
+            />
             <Redirect from='*' to='/'/>
           </Route>
         </Router>

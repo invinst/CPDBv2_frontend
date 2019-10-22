@@ -9,6 +9,7 @@ import navigation from './navigation';
 import query from './query';
 import searchTerms from './search-terms';
 import pagination from './pagination';
+import recentSuggestionsRequested from './recent-suggestions-requested';
 
 
 const searchPage = combineReducers({
@@ -21,6 +22,7 @@ const searchPage = combineReducers({
   query,
   searchTerms,
   pagination,
+  recentSuggestionsRequested,
 });
 
 export default searchPage;

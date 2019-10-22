@@ -1,25 +1,22 @@
 import React, { Component, PropTypes } from 'react';
-import moment from 'moment';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import Autocomplete from 'react-autocomplete';
-import { isEmpty } from 'lodash';
+import { isEmpty, noop } from 'lodash';
 import cx from 'classnames';
 
 import SocialGraph from './social-graph';
 import styles from './animated-social-graph.sass';
 import sliderStyles from 'components/common/slider.sass';
+import withLoadingSpinner from 'components/common/with-loading-spinner';
 
-const AMINATE_SPEED = 150;
+const ANIMATE_SPEED = 150;
 
 
 export default class AnimatedSocialGraph extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      timelineIdx: 0,
       searchInputText: '',
-      refreshIntervalId: null,
     };
 
     this.startTimelineFromBeginning = this.startTimelineFromBeginning.bind(this);
@@ -27,9 +24,6 @@ export default class AnimatedSocialGraph extends Component {
     this.stopTimeline = this.stopTimeline.bind(this);
     this.intervalTickTimeline = this.intervalTickTimeline.bind(this);
     this.handleDateSliderChange = this.handleDateSliderChange.bind(this);
-    this.handleHighlightNodeUidChange = this.handleHighlightNodeUidChange.bind(this);
-    this.handleHighlightNodeUidSelect = this.handleHighlightNodeUidSelect.bind(this);
-    this.handleSearchClick = this.handleSearchClick.bind(this);
   }
 
   componentWillUnmount() {
@@ -37,79 +31,73 @@ export default class AnimatedSocialGraph extends Component {
   }
 
   startTimeline() {
-    this.setState({ refreshIntervalId: setInterval(this.intervalTickTimeline, AMINATE_SPEED) });
+    const { updateRefreshIntervalId } = this.props;
+    updateRefreshIntervalId(setInterval(this.intervalTickTimeline, ANIMATE_SPEED));
   }
 
   stopTimeline() {
-    const { refreshIntervalId } = this.state;
+    const { refreshIntervalId, updateRefreshIntervalId } = this.props;
     if (refreshIntervalId) {
       clearInterval(refreshIntervalId);
-      this.setState({ refreshIntervalId: null });
+      updateRefreshIntervalId(null);
     }
   }
 
   startTimelineFromBeginning() {
+    const { updateTimelineIdx } = this.props;
     this.stopTimeline();
-    this.setState({ timelineIdx: 0 });
+    updateTimelineIdx(0);
     this.startTimeline();
   }
 
   toggleTimeline() {
-    const { timelineIdx } = this.state;
-    if (this.state.refreshIntervalId) {
+    const { timelineIdx, updateTimelineIdx, refreshIntervalId } = this.props;
+    if (refreshIntervalId) {
       this.stopTimeline();
     } else {
       if (timelineIdx === this.props.listEvent.length - 1) {
-        this.setState({ timelineIdx: 0 });
+        updateTimelineIdx(0);
       }
       this.startTimeline();
     }
   }
 
   intervalTickTimeline() {
-    const { timelineIdx } = this.state;
-    if (timelineIdx < this.props.listEvent.length - 1) {
-      this.setState({ timelineIdx: timelineIdx + 1 });
-    } else {
-      this.stopTimeline();
+    const { timelineIdx, isVisible, updateTimelineIdx } = this.props;
+    if (isVisible) {
+      if (timelineIdx < this.props.listEvent.length - 1) {
+        updateTimelineIdx(timelineIdx + 1);
+      } else {
+        this.stopTimeline();
+      }
     }
   }
 
   handleDateSliderChange(value) {
-    this.setState({ timelineIdx: value });
+    const { updateTimelineIdx } = this.props;
+    updateTimelineIdx(value);
   }
 
-  handleHighlightNodeUidChange(event) {
-    this.setState({ searchInputText: event.target.value });
-  }
+  rightControlButton() {
+    const { expandedLink, customRightControlButton } = this.props;
 
-  handleHighlightNodeUidSelect(value) {
-    this.setState({ searchInputText: value });
-  }
-
-  handleSearchClick() {
-    this.setState((state) => {
-      return { clickSearchState: !state.clickSearchState };
-    });
-  }
-
-  formatDate(dateIndex) {
-    const { listEvent } = this.props;
-    const dateString = listEvent[dateIndex];
-    if (dateString)
-      return moment(dateString, 'YYYY-MM-DD').format('YYYY-MM-DD');
+    return (
+      <div className='custom-right-control-buttons-container'>
+        { expandedLink && (<a href={ expandedLink } className='expanded-mode-btn' />) }
+        { customRightControlButton }
+      </div>
+    );
   }
 
   graphControlPanel() {
-    const { listEvent } = this.props;
-    const { timelineIdx, refreshIntervalId } = this.state;
+    const { listEvent, isVisible, timelineIdx, refreshIntervalId } = this.props;
     if (listEvent) {
       const numOfEvents = listEvent.length;
 
       if (numOfEvents > 1) {
-        const currentDateString = this.formatDate(timelineIdx);
-        let startDateLabel = this.formatDate(0);
-        let endDateLabel = this.formatDate(numOfEvents - 1);
+        const currentDateString = listEvent[timelineIdx];
+        let startDateLabel = listEvent[0];
+        let endDateLabel = listEvent[numOfEvents - 1];
 
         return (
           <div className='graph-control-panel'>
@@ -128,11 +116,12 @@ export default class AnimatedSocialGraph extends Component {
               className={ cx(sliderStyles.slider, 'test--timeline-slider') }
             />
             <div className='graph-actions'>
-              <button className='toggle-timeline-btn' onClick={ this.toggleTimeline }>
-                <div className={ refreshIntervalId ? 'pause-icon' : 'play-icon' }/>
-              </button>
+              <button
+                className={ cx('toggle-timeline-btn', (refreshIntervalId && isVisible) ? 'pause-icon' : 'play-icon') }
+                onClick={ this.toggleTimeline }
+              />
               <span className='current-date-label'>{ currentDateString }</span>
-              { this.searchForm() }
+              { this.rightControlButton() }
               <div className='clearfix'/>
             </div>
           </div>
@@ -141,53 +130,19 @@ export default class AnimatedSocialGraph extends Component {
     }
   }
 
-  searchForm() {
-    const { officers } = this.props;
-    const { searchInputText } = this.state;
-    const customMenuStyle = {
-      borderRadius: '3px',
-      boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
-      background: 'rgba(255, 255, 255, 0.9)',
-      padding: '2px 0',
-      fontSize: '90%',
-      position: 'absolute',
-      left: '0',
-      top: 'auto',
-      zIndex: 999,
-      bottom: '26px',
-      maxHeight: '300px',
-      overflow: 'auto',
-    };
-
-    if (officers) {
-      return (
-        <div className='graph-search-form'>
-          <div className='graph-search-input-container'>
-            <Autocomplete
-              shouldItemRender={ (item, value) => item.fullName.toLowerCase().indexOf(value.toLowerCase()) > -1 }
-              getItemValue={ (item) => item.fullName }
-              items={ officers }
-              renderItem={ (item, isHighlighted) =>
-                <div style={ { background: isHighlighted ? 'lightgray' : 'white' } }>
-                  { item.fullName }
-                </div>
-              }
-              menuStyle={ customMenuStyle }
-              inputProps={ { placeholder: 'Search', className: 'graph-search-input' } }
-              value={ searchInputText }
-              onChange={ this.handleHighlightNodeUidChange }
-              onSelect={ this.handleHighlightNodeUidSelect }
-            />
-          </div>
-          <button className='graph-search-btn' onClick={ this.handleSearchClick }/>
-        </div>
-      );
-    }
-  }
-
   render() {
-    const { officers, coaccusedData, listEvent } = this.props;
-    const { timelineIdx, searchInputText, refreshIntervalId, clickSearchState } = this.state;
+    const {
+      officers,
+      coaccusedData,
+      listEvent,
+      timelineIdx,
+      selectedOfficerId,
+      updateSelectedOfficerId,
+      selectedEdge,
+      updateSelectedEdge,
+      updateSortedOfficerIds,
+      performResizeGraph,
+    } = this.props;
 
     return (
       <div className={ styles.animatedSocialGraph }>
@@ -198,10 +153,13 @@ export default class AnimatedSocialGraph extends Component {
             listEvent={ listEvent }
             timelineIdx={ timelineIdx }
             startTimelineFromBeginning={ this.startTimelineFromBeginning }
-            collideNodes={ !refreshIntervalId }
             stopTimeline={ this.stopTimeline }
-            searchText={ searchInputText }
-            clickSearchState={ clickSearchState }
+            selectedOfficerId={ selectedOfficerId }
+            updateSelectedOfficerId={ updateSelectedOfficerId }
+            selectedEdge={ selectedEdge }
+            updateSelectedEdge={ updateSelectedEdge }
+            updateSortedOfficerIds={ updateSortedOfficerIds }
+            performResizeGraph={ performResizeGraph }
           />
         }
         { this.graphControlPanel() }
@@ -214,4 +172,27 @@ AnimatedSocialGraph.propTypes = {
   officers: PropTypes.array,
   coaccusedData: PropTypes.array,
   listEvent: PropTypes.array,
+  hasIntercom: PropTypes.bool,
+  selectedOfficerId: PropTypes.number,
+  updateSelectedOfficerId: PropTypes.func,
+  selectedEdge: PropTypes.object,
+  updateSelectedEdge: PropTypes.func,
+  expandedLink: PropTypes.string,
+  timelineIdx: PropTypes.number,
+  updateTimelineIdx: PropTypes.func,
+  refreshIntervalId: PropTypes.number,
+  isVisible: PropTypes.bool,
+  updateRefreshIntervalId: PropTypes.func,
+  updateSortedOfficerIds: PropTypes.func,
+  customRightControlButton: PropTypes.node,
+  performResizeGraph: PropTypes.bool,
 };
+
+AnimatedSocialGraph.defaultProps = {
+  isVisible: true,
+  updateTimelineIdx: noop,
+  updateRefreshIntervalId: noop,
+  updateSelectedEdge: noop,
+};
+
+export const AnimatedSocialGraphWithSpinner = withLoadingSpinner(AnimatedSocialGraph, styles.socialGraphLoading);

@@ -24,9 +24,9 @@ describe('Heat map', function () {
       landingPage.heatMapSection.dropdown.textInput.isFocused().should.be.true();
     });
 
-    it('should go to /search/terms/ when click on link in placeholder', function () {
+    it('should go to /search/ when click on link in placeholder', function () {
       landingPage.heatMapSection.searchTermsLink.click();
-      browser.getUrl().should.match(/\/search\/terms\/$/);
+      browser.getUrl().should.match(/\/search\/$/);
     });
 
     it('should go to v1 complain category when click on the complaints', function () {

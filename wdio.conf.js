@@ -61,7 +61,7 @@ exports.config = {
   // and 30 processes will get spawned. The property handles how many capabilities
   // from the same test should run tests.
   //
-  maxInstances: 3,
+  maxInstances: 2,
   //
   // If you have trouble getting all important capabilities together, check out the
   // Sauce Labs platform configurator - a great tool to configure your capabilities:
@@ -71,18 +71,18 @@ exports.config = {
     // maxInstances can get overwritten per capability. So if you have an in-house Selenium
     // grid with only 5 firefox instances available you can make sure that not more than
     // 5 instances get started at a time.
-    browserName: 'chrome'
+    browserName: 'chrome',
+    'goog:chromeOptions': {
+      // to run chrome headless the following flags are required
+      // (see https://developers.google.com/web/updates/2017/04/headless-chrome)
+      // args: ['--headless', '--disable-gpu'],
+    },
   }],
   //
   // ===================
   // Test Configurations
   // ===================
   // Define all options that are relevant for the WebdriverIO instance here
-  //
-  // By default WebdriverIO commands are executed in a synchronous way using
-  // the wdio-sync package. If you still want to run your tests in an async way
-  // e.g. using promises you can set the sync option to false.
-  sync: true,
   //
   // Level of logging verbosity: silent | verbose | command | data | result | error
   logLevel: 'error',

@@ -1,0 +1,57 @@
+@import 'variables'
+
+\:local(.item-pin-button)
+  .pin-button
+    border-radius: 2px
+    border: solid 1px $white-two-color
+    width: 26px
+    height: 26px
+    background-position: center
+    background-repeat: no-repeat
+    background-image: url('/img/ic-plus-bold.svg')
+    background-size: 12px 12px
+    background-color: $snow-color
+    box-sizing: border-box
+
+    &:hover
+      background-color: $pudding-matcha
+      background-image: url('/img/ic-plus-green.svg')
+      border: none
+
+  .pin-action-hint
+    display: none
+    position: absolute
+    pointer-events: none
+    right: 16px
+    top: 9px
+
+  &.is-pinned
+    .pin-button
+      background-image: url('/img/ic-minus.svg')
+      background-color: $snow-color
+
+      &:hover
+        background-image: url('/img/ic-minus-dark-grey.svg')
+        border: solid 1px $white-two-color
+
+        ~.pin-action-hint
+          display: unset
+          content: unset
+          color: $boulder-color
+          font-size: 12px
+          font-weight: 400
+          line-height: 1.17
+          width: auto
+
+    .pin-action-hint
+      display: unset
+      content: url('/img/ic-pin.svg')
+      height: 16px
+      width: 12px
+
+\:local(.card-pinned-button)
+  position: absolute
+  top: 8px
+  right: 8px
+  cursor: pointer
+  z-index: 1
