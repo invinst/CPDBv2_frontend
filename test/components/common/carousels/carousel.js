@@ -24,7 +24,8 @@ describe('Carousel component', function () {
     <Carousel
       onNavigate={ onNavigateSpy }
       childWidth={ 232 }
-      style={ { width: '1000px' } } { ...props }>
+      style={ { width: '1000px' } } { ...props }
+    >
       { data.map(({ id, ...attr }) => (
         <OfficerCard key={ id } { ...attr } officerId={ id }/>
       )) }
@@ -241,5 +242,18 @@ describe('Carousel component', function () {
       instance
     );
     instance.state.slideIndex.should.eql(0);
+  });
+
+  it('should not slide back when if resetPosition is false', function () {
+    instance = renderIntoDocument(
+      carouselComponent(OfficerCardFactory.buildList(10), { resetPosition: false })
+    );
+    instance.setState({ slideIndex: 5 });
+
+    instance = reRender(
+      carouselComponent(OfficerCardFactory.buildList(3), { resetPosition: false }),
+      instance
+    );
+    instance.state.slideIndex.should.eql(5);
   });
 });

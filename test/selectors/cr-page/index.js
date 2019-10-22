@@ -1,5 +1,5 @@
 import should from 'should';
-import { map } from 'lodash';
+import { map, find } from 'lodash';
 
 import {
   contentSelector,
@@ -122,7 +122,31 @@ describe('CR page selectors', function () {
           visualTokenBackground: '#f52524',
           year: 2007,
         },
+        isPinned: false,
       }]);
+    });
+
+    it('should return list of coaccused with isPinned', function () {
+      const state = buildState({
+        crs: {
+          '123': {
+            coaccused: [
+              CoaccusedFactory.build({ id: 1 }),
+              CoaccusedFactory.build({ id: 2 }),
+            ],
+          },
+        },
+        crPage: { crid: 123 },
+        pinboardPage: {
+          pinboard: {
+            'officer_ids': ['1'],
+          },
+        },
+      });
+
+      const coaccusals = contentSelector(state).coaccused;
+      find(coaccusals, { id: 1 }).isPinned.should.be.true();
+      find(coaccusals, { id: 2 }).isPinned.should.be.false();
     });
 
     it('should prioritize officers user visited', function () {

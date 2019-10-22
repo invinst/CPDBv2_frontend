@@ -8,6 +8,9 @@ import { getCurrentAge } from 'utils/date';
 import StaticRadarChart from 'components/common/radar-chart';
 import { roundedPercentile } from 'utils/calculations';
 import styles from './coaccused-card.sass';
+import pinButtonStyles from 'components/common/item-pin-button.sass';
+import { PINNED_ITEM_TYPES } from 'utils/constants';
+import ItemPinButton from 'components/common/item-pin-button';
 
 
 export class CoaccusedCard extends Component {
@@ -60,6 +63,8 @@ export class CoaccusedCard extends Component {
       disciplined,
       category,
       findingOutcomeMix,
+      addOrRemoveItemInPinboard,
+      isPinned,
     } = this.props;
     const officerSlug = kebabCase(fullName);
     const { printMode } = this.context;
@@ -80,6 +85,16 @@ export class CoaccusedCard extends Component {
         target={ openCardInNewPage ? '_blank' : null }
         className={ cx(styles.coaccusedCard, className) }
       >
+        <ItemPinButton
+          className={ pinButtonStyles.cardPinnedButton }
+          addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
+          showHint={ false }
+          item={ {
+            type: PINNED_ITEM_TYPES.OFFICER,
+            id: officerId,
+            isPinned: isPinned,
+          } }
+        />
         <div className='coaccused-card-info'>
           <div className='coaccused-card-header'>
             <div className='no-print radar-chart-wrapper'>
@@ -131,6 +146,8 @@ CoaccusedCard.propTypes = {
   disciplined: PropTypes.bool,
   category: PropTypes.string,
   findingOutcomeMix: PropTypes.string,
+  addOrRemoveItemInPinboard: PropTypes.func,
+  isPinned: PropTypes.bool,
 };
 
 CoaccusedCard.defaultProps = {

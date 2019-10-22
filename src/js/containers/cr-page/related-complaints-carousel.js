@@ -5,6 +5,7 @@ import {
   cardSelector, countSelector, nextParamsSelector, hasMoreSelector,
 } from 'selectors/cr-page/related-complaints';
 import { fetchRelatedComplaints } from 'actions/cr-page/related-complaints';
+import { addOrRemoveItemInPinboard } from 'actions/pinboard';
 
 
 function mapStateToProps(state, ownProps) {
@@ -19,6 +20,7 @@ function mapStateToProps(state, ownProps) {
 
 const mapDispatchToProps = {
   fetchRelatedComplaints: fetchRelatedComplaints,
+  addOrRemoveItemInPinboard,
 };
 
 export default connect(

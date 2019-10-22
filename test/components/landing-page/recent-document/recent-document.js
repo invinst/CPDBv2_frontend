@@ -17,7 +17,6 @@ import * as GATracking from 'utils/google_analytics_tracking';
 
 describe('Recent Document components', function () {
   let instance;
-  let consoleStub;
   const data = [{
     'crid': '111',
     'title': 'CR document 1',
@@ -34,13 +33,8 @@ describe('Recent Document components', function () {
     'category': 'Conduct Unbecoming (Off- Duty)',
   }];
 
-  beforeEach(function () {
-    consoleStub = stub(console, 'error'); // suppress console.error `Carousel`
-  });
-
   afterEach(function () {
     unmountComponentSuppressError(instance);
-    consoleStub.restore();
   });
 
   it('should render appropriately', function () {

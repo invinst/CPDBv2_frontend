@@ -4,6 +4,7 @@ import {
   pinboardICRIDsSelector,
   isEmptyPinboardSelector,
   examplePinboardsSelector,
+  isItemPinned,
 } from 'selectors/pinboard-page/pinboard';
 import PinboardFactory from 'utils/test/factories/pinboard';
 
@@ -250,6 +251,22 @@ describe('Pinboard selectors', function () {
       };
 
       examplePinboardsSelector(state).should.eql([]);
+    });
+  });
+
+  describe('isItemPinned', function () {
+    const pinboardItems = {
+      'OFFICER': ['8562', '8563'],
+      'CR': ['C12345'],
+      'TRR': [],
+    };
+
+    it('should return true if item was added to pinboard', function () {
+      isItemPinned('OFFICER', 8562, pinboardItems).should.be.true();
+    });
+
+    it('should return false if item was not added to pinboard', function () {
+      isItemPinned('CR', '123456', pinboardItems).should.be.false();
     });
   });
 });

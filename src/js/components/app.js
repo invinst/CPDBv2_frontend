@@ -12,6 +12,7 @@ import VideoModalContainer from 'containers/video-modal-container';
 import RouteTransition from 'containers/animation/route-transition';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import { ALPHA_NUMBERIC } from 'utils/constants';
+import { getPageRoot } from 'utils/url';
 
 toast.configure();
 
@@ -63,6 +64,7 @@ export default class App extends React.Component {
           closeButton={ false }
           hideProgressBar={ true }
           autoClose={ 3000 }
+          className={ getPageRoot(location.pathname) }
         />
       </StyleRoot>
     );
@@ -89,8 +91,6 @@ App.defaultProps = {
   location: {
     pathname: '',
   },
-  receiveTokenFromCookie: () => {
-  },
-  changeSearchQuery: () => {
-  },
+  receiveTokenFromCookie: () => {},
+  changeSearchQuery: () => {},
 };

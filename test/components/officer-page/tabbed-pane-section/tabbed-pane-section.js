@@ -26,6 +26,7 @@ describe('TabbedPaneSection component', function () {
       coaccusals: [],
     },
     popups: [],
+    pinboardPage: { pinboard: null },
   });
   let instance;
 

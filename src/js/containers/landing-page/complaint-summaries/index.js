@@ -13,6 +13,7 @@ import ComplaintSummaries from 'components/landing-page/complaint-summaries';
 import { getCMSFields } from 'selectors/cms';
 import { updatePage } from 'actions/cms';
 import { mergeEditWrapperStateProps } from 'utils/container';
+import { addOrRemoveItemInPinboard } from 'actions/pinboard';
 
 
 function mapStateToProps(state, ownProps) {
@@ -28,6 +29,7 @@ const mapDispatchToProps = {
   onSaveForm: updatePage(constants.LANDING_PAGE_ID),
   turnOnSectionEditMode: turnOnCarouselComplaintHeaderEditMode,
   turnOffSectionEditMode: turnOffCarouselComplaintHeaderEditMode,
+  addOrRemoveItemInPinboard: addOrRemoveItemInPinboard,
 };
 
 export default connect(

@@ -331,7 +331,6 @@ describe('store', function () {
       videoModal: {
         active: false,
       },
-      toast: {},
     });
   });
 });

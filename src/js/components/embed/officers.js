@@ -47,6 +47,7 @@ export default class Officers extends Component {
                     cardStyle={ { width: '232px', margin: 0 } }
                     visualTokenStyle={ { height: '100px' } }
                     openCardInNewPage={ true }
+                    pinnable={ false }
                   />
                 </div>
               )
