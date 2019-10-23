@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
-import { debounce, isEmpty, noop } from 'lodash';
+import { throttle, isEmpty, noop } from 'lodash';
 import { Promise } from 'es6-promise';
 import cx from 'classnames';
 
@@ -31,7 +31,7 @@ export default class SearchPage extends Component {
     this.handleSelect = this.handleSelect.bind(this);
     this.resetNavigation = this.resetNavigation.bind(this);
 
-    this.getSuggestion = debounce(this.props.getSuggestion, 100);
+    this.getSuggestion = throttle(this.props.getSuggestion, 500, { 'leading': false });
     this.handleEmptyPinboardButtonClick = this.handleEmptyPinboardButtonClick.bind(this);
   }
 
@@ -51,13 +51,12 @@ export default class SearchPage extends Component {
 
   componentWillReceiveProps(nextProps) {
     const {
-      query, isRequesting, isEmpty,
+      query,
     } = nextProps;
 
     const queryChanged = query !== this.props.query;
-    const suggestionGroupsEmpty = !this.props.isEmpty && isEmpty;
 
-    if (!isRequesting && (queryChanged || suggestionGroupsEmpty)) {
+    if (queryChanged) {
       this.sendSearchQuery(query);
     }
   }
@@ -218,7 +217,6 @@ SearchPage.propTypes = {
   selectTag: PropTypes.func,
   contentType: PropTypes.string,
   queryPrefix: PropTypes.string,
-  isEmpty: PropTypes.bool,
   router: PropTypes.object,
   query: PropTypes.string,
   changeSearchQuery: PropTypes.func,
