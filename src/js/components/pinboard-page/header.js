@@ -23,7 +23,7 @@ const MENU_ITEMS = [
     to: '/documents/',
   },
   {
-    name: 'Pinboard',
+    name: 'Pinboards',
   },
 ];
 
@@ -42,7 +42,7 @@ export default class Header extends Component {
     const items = MENU_ITEMS.map((item) => (
       <div
         key={ item.name }
-        className={ cx('menu-item', { 'highlight': item.name === 'Pinboard' }) }
+        className={ cx('menu-item', { 'highlight': item.name === 'Pinboards' }) }
         onClick={ e => this.handleItemClick(e, item) }
       >
         { item.name }

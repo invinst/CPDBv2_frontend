@@ -16,7 +16,7 @@ import {
 } from 'actions/search-page/search-terms';
 import { getFocusedItem } from 'selectors/search-page';
 import {
-  suggestionTagsSelector, isEmptySelector, firstItemSelector, queryPrefixSelector,
+  suggestionTagsSelector, firstItemSelector, queryPrefixSelector,
 } from 'selectors/search-page/search-results/suggestion-groups';
 import { hiddenSelector } from 'selectors/search-page/search-terms';
 import { requestActivityGrid } from 'actions/landing-page/activity-grid';
@@ -38,7 +38,6 @@ function mapStateToProps(state, ownProps) {
     hide,
     tags: suggestionTagsSelector(state),
     contentType,
-    isEmpty: isEmptySelector(state),
     focusedItem: getFocusedItem(state),
     editModeOn: editModeOnSelector(state, ownProps),
     searchTermsHidden: hiddenSelector(state),

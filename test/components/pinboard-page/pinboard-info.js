@@ -35,7 +35,7 @@ describe('PinboardInfo component', function () {
     const pinboardTitle = autosaveTextareaInputs[0];
     pinboardTitle.props.className.should.eql('pinboard-title');
     pinboardTitle.props.value.should.eql('This is pinboard title');
-    pinboardTitle.props.placeholder.should.eql('Title your pinboard');
+    pinboardTitle.props.placeholder.should.eql('Give your pinboard a title');
     pinboardTitle.props.fieldType.should.eql('title');
     pinboardTitle.props.save.should.eql(updatePinboardInfoStub);
     pinboardTitle.props.textareaLineHeight.should.eql(31);
@@ -44,7 +44,7 @@ describe('PinboardInfo component', function () {
     pinboardDescription.props.className.should.eql('pinboard-description');
     pinboardDescription.props.value.should.eql('This is pinboard description');
     pinboardDescription.props.placeholder.should.eql(
-      'Now, click here to write a brief description of your pinboard.'
+      'When you’re ready, add a description for your pinboard here.'
     );
     pinboardDescription.props.fieldType.should.eql('description');
     pinboardDescription.props.save.should.eql(updatePinboardInfoStub);
