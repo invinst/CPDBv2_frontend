@@ -1,0 +1,71 @@
+@import 'variables'
+
+$row-fixed-width: 81
+$table-min-width: 960
+
+%cell
+  overflow: hidden
+  display: inline-block
+  vertical-align: top
+  box-sizing: border-box
+  transition: color 0.2s ease-in-out
+
+@function flexible-column($min-width)
+  @return calc((100% - #{$row-fixed-width}px) * (#{$min-width} / (#{$table-min-width} - #{$row-fixed-width})))
+
+\:local(.row)
+  background-color: $snow-color
+  height: 80px
+  margin-left: 16px
+  margin-right: 16px
+  min-width: #{$table-min-width}px
+  text-align: left
+  margin-bottom: 2px
+  cursor: pointer
+  transition: background-color 0.2s ease-in-out
+  font-weight: 200
+
+  .pinboard-thumbnail
+    @extend %cell
+    width: 39px
+    margin-top: 14px
+    margin-left: 16px
+    margin-right: 26px
+    height: 52px
+    background-position: center
+    background-repeat: no-repeat
+    background-size: contain
+    background-color: grey
+
+  .pinboard-title
+    @extend %cell
+    height: 100%
+    display: inline-flex
+    flex-direction: column
+    justify-content: center
+    padding-right: 50px
+    font-weight: 400
+    color: $soft-black-color
+    min-width: 306px
+    width: flexible-column(306)
+
+  .pinboard-id
+    @extend %cell
+    margin-top: 31px
+    padding-right: 50px
+    min-width: 188px
+    width: flexible-column(188)
+
+  .pinboard-pinned
+    @extend %cell
+    margin-top: 31px
+    min-width: 306px
+    width: flexible-column(306)
+
+  .pinboard-date
+    @extend %cell
+    margin-top: 31px
+    text-align: right
+    min-width: 76px
+    width: flexible-column(76)
+    padding-right: 15px

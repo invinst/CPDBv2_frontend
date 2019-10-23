@@ -1,0 +1,74 @@
+@import 'variables'
+
+$header-fixed-width: 81
+$table-min-width: 960
+$horizontal-margin: 32px
+
+\:local(.table)
+  width: calc(100% - #{$horizontal-margin})
+  min-width: calc(#{$table-min-width}px + #{$horizontal-margin})
+  margin-left: calc(#{$horizontal-margin} / 2)
+  margin-right: calc(#{$horizontal-margin} / 2)
+  font-size: 14px
+  color: $boulder-color
+
+%headerCol
+  font-weight: 300
+  text-align: left
+  display: inline-block
+  height: 100%
+  vertical-align: top
+  box-sizing: border-box
+
+@function flexible-column($min-width)
+  @return calc((100% - #{$header-fixed-width}px) * (#{$min-width} / (#{$table-min-width} - #{$header-fixed-width})))
+
+\:local(.headerRow)
+  background-color: white
+  text-transform: uppercase
+  height: 69px
+  box-sizing: border-box
+  padding-top: 26px
+  position: relative
+  padding-left: 16px
+  padding-right: 16px
+
+  .header-thumbnail
+    @extend %headerCol
+    width: 81px
+
+  .header-title
+    @extend %headerCol
+    min-width: 306px
+    width: flexible-column(306)
+
+  .header-id
+    @extend %headerCol
+    min-width: 188px
+    width: flexible-column(188)
+
+  .header-pinned
+    @extend %headerCol
+    min-width: 306px
+    width: flexible-column(306)
+
+  .header-date
+    @extend %headerCol
+    text-align: right
+    padding-right: 15px
+    min-width: 76px
+    width: flexible-column(76)
+
+\:local(.rowsWrapper)
+  background-color: $sugar-cane-color
+  border: 1.25px solid $white-two-color
+  border-radius: 3px
+  margin-top: 1.25px
+  margin-bottom: 20px
+  padding-bottom: 33px
+
+  .month-separator:first-child
+    height: 64px
+    padding-top: 23px
+    background-color: transparent
+
