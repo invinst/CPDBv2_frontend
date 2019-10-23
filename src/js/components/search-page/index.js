@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
-import { debounce, isEmpty } from 'lodash';
+import { throttle, isEmpty } from 'lodash';
 import { Promise } from 'es6-promise';
 import DocumentMeta from 'react-document-meta';
 
@@ -34,7 +34,7 @@ export default class SearchPage extends Component {
     this.handleSelect = this.handleSelect.bind(this);
     this.resetNavigation = this.resetNavigation.bind(this);
 
-    this.getSuggestion = debounce(this.props.getSuggestion, 100);
+    this.getSuggestion = throttle(this.props.getSuggestion, 500, { 'leading': false });
   }
 
   componentDidMount() {
@@ -52,14 +52,13 @@ export default class SearchPage extends Component {
 
   componentWillReceiveProps(nextProps) {
     const {
-      location, params, routes, pushBreadcrumbs, query, isRequesting, isEmpty,
+      location, params, routes, pushBreadcrumbs, query,
     } = nextProps;
     pushBreadcrumbs({ location, params, routes });
 
     const queryChanged = query !== this.props.query;
-    const suggestionGroupsEmpty = !this.props.isEmpty && isEmpty;
 
-    if (!isRequesting && (queryChanged || suggestionGroupsEmpty)) {
+    if (queryChanged) {
       this.sendSearchQuery(query);
     }
   }
@@ -201,7 +200,6 @@ SearchPage.propTypes = {
   trackRecentSuggestion: PropTypes.func,
   contentType: PropTypes.string,
   queryPrefix: PropTypes.string,
-  isEmpty: PropTypes.bool,
   router: PropTypes.object,
   query: PropTypes.string,
   changeSearchQuery: PropTypes.func,
