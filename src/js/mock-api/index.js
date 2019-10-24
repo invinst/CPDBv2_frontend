@@ -277,9 +277,9 @@ axiosMockClient.onPost(
 axiosMockClient.onPost(
   PINBOARDS_URL,
   {
-    'source_pinboard_id': '5cd06f2b',
+    'source_pinboard_id': 'ceea8ea3',
   }
-).reply(201, PinboardFactory.build({ id: 'ceea8ea3', title: 'Pinboard Title' }));
+).reply(201, PinboardFactory.build({ id: '5cd06f2b', title: 'Pinboard Title' }));
 
 axiosMockClient.onPost(
   `${PINBOARDS_URL}`,
@@ -313,6 +313,14 @@ axiosMockClient.onPut(`${PINBOARDS_URL}5cd06f2b/`).reply(function (config) {
   pinboard['trr_ids'] = (pinboard['trr_ids'] || []).map(id => parseInt(id));
   const newPinboard = updatePinboard(pinboard);
   return [200, newPinboard];
+});
+
+axiosMockClient.onPut(`${PINBOARDS_URL}ceea8ea3/`).reply(function () {
+  return new Promise(function (resolve, reject) {
+    setTimeout(function () {
+      resolve([504, {}]);
+    }, 1000);
+  });
 });
 
 axiosMockClient.onPut(`${PINBOARDS_URL}5cd06f2b/`, updatePinboardTitleParams()).reply(200, updatedPinboardTitle());

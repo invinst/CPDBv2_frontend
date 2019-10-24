@@ -1,10 +1,12 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
+import { browserHistory, Router, Route, createMemoryHistory } from 'react-router';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
   Simulate,
 } from 'react-addons-test-utils';
+import MockStore from 'redux-mock-store';
+import { Provider } from 'react-redux';
 import { Promise } from 'es6-promise';
 import { spy, stub } from 'sinon';
 
@@ -13,6 +15,13 @@ import PinboardItem from 'components/pinboard-page/pinboards/pinboard-item';
 
 
 describe('PinboardItem component', function () {
+  const store = MockStore()({
+    pinboardPage: {
+      pinboard: {
+        saving: false,
+      },
+    },
+  });
   let instance;
 
   const pinboard = {
@@ -33,7 +42,9 @@ describe('PinboardItem component', function () {
 
   it('should render correctly', function () {
     instance = renderIntoDocument(
-      <PinboardItem pinboard={ pinboard } />
+      <Provider store={ store }>
+        <PinboardItem pinboard={ pinboard } />
+      </Provider>
     );
 
     findRenderedDOMComponentWithClass(instance, 'pinboard-title').textContent.should.equal('Pinboard Title');
@@ -48,20 +59,28 @@ describe('PinboardItem component', function () {
       },
     });
     const handleCloseSpy = spy();
-    instance = renderIntoDocument(
-      <PinboardItem
-        isShown={ true }
-        pinboard={
-          {
-            id: '1',
-            title: 'Pinboard Title',
-            createdAt: 'Sep 12, 2019',
-            url: '/pinboard/1/pinboard-title/',
+    const pinboardItem = () => (
+      <Provider store={ store }>
+        <PinboardItem
+          isShown={ true }
+          pinboard={
+            {
+              id: '1',
+              title: 'Pinboard Title',
+              createdAt: 'Sep 12, 2019',
+              url: '/pinboard/1/pinboard-title/',
+            }
           }
-        }
-        duplicatePinboard={ duplicatePinboardStub }
-        handleClose={ handleCloseSpy }
-      />
+          duplicatePinboard={ duplicatePinboardStub }
+          handleClose={ handleCloseSpy }
+        />
+      </Provider>
+    );
+
+    instance = renderIntoDocument(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ pinboardItem } />
+      </Router>
     );
 
     const duplicatePinboardBtn = findRenderedDOMComponentWithClass(instance, 'duplicate-pinboard-btn');
@@ -78,17 +97,19 @@ describe('PinboardItem component', function () {
   it('should show pinboard detail page when clicking on pinboard item', function () {
     const handleCloseSpy = spy();
     instance = renderIntoDocument(
-      <PinboardItem
-        pinboard={
-          {
-            id: '1',
-            title: 'Pinboard Title',
-            createdAt: 'Sep 12, 2019',
-            url: '/pinboard/1/pinboard-title/',
+      <Provider store={ store }>
+        <PinboardItem
+          pinboard={
+            {
+              id: '1',
+              title: 'Pinboard Title',
+              createdAt: 'Sep 12, 2019',
+              url: '/pinboard/1/pinboard-title/',
+            }
           }
-        }
-        handleClose={ handleCloseSpy }
-      />
+          handleClose={ handleCloseSpy }
+        />
+      </Provider>
     );
 
     const pinboardItem = findRenderedDOMComponentWithClass(instance, 'pinboard-item');

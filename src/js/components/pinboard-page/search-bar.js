@@ -60,25 +60,18 @@ export default class SearchBar extends Component {
   render() {
     const { shareable, customButtons } = this.props;
     return (
-      <div
-        onClick={ this.goToSearchPage }
-        className={ styles.wrapper }>
-        <div className={ cx(responsiveContainerStyles.responsiveContainer, 'inner-wrapper') }>
-          <div className='search-box-parent'>
-            <div className='search-icon' />
-            <div className='search-term'>
-              Search
-            </div>
-            <div className='right-buttons'>
-              { !shareable ? null : (
-                <div
-                  className='share-button'
-                  onClick={ this.handleShareButtonClick }>
-                  { this.renderShareMenu() }
-                </div>
-              ) }
-              { customButtons }
-            </div>
+      <div className={ styles.wrapper }>
+        <div className={ cx(responsiveContainerStyles.responsiveContainer, 'search-box-parent') }>
+          <div className='search-input' onClick={ this.goToSearchPage }>Search</div>
+          <div className='right-buttons'>
+            { !shareable ? null : (
+              <div
+                className='share-button'
+                onClick={ this.handleShareButtonClick }>
+                { this.renderShareMenu() }
+              </div>
+            ) }
+            { customButtons }
           </div>
         </div>
       </div>

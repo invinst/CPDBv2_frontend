@@ -33,7 +33,7 @@ export const createPinboard = (id='5cd06f2b', officerIds=[1], crids=[], trrIds=[
 
 export const pinboardsList = [
   {
-    'id': '5cd06f2b',
+    'id': 'ceea8ea3',
     'title': 'Pinboard title',
     'created_at': '2019-09-12',
   },

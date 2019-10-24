@@ -28,6 +28,11 @@ export const getPinboard = createSelector(
   })
 );
 
+export const pinboardSavingSelector = createSelector(
+  state => get(state, 'pinboardPage.pinboard', {}),
+  pinboard => get(pinboard, 'saving', false),
+);
+
 export const isPinboardRestoredSelector = createSelector(
   state => state.pinboardPage.pinboard,
   pinboard => get(pinboard, 'isPinboardRestored', false),

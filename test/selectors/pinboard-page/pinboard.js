@@ -1,5 +1,6 @@
 import {
   getPinboard,
+  pinboardSavingSelector,
   pinboardItemsSelector,
   pinboardICRIDsSelector,
   isEmptyPinboardSelector,
@@ -110,6 +111,35 @@ describe('Pinboard selectors', function () {
           isPinboardRestored: false,
         });
       });
+    });
+  });
+
+  describe('pinboardSavingSelector', function () {
+    it('should return false of null pinboard', function () {
+      const state = { pinboardPage: { pinboard: null } };
+      pinboardSavingSelector(state).should.be.false();
+    });
+
+    it('should return pinboard saving value', function () {
+      let state = {
+        pinboardPage: {
+          pinboard: {
+            saving: true,
+          },
+        },
+      };
+
+      pinboardSavingSelector(state).should.be.true();
+
+      state = {
+        pinboardPage: {
+          pinboard: {
+            saving: false,
+          },
+        },
+      };
+
+      pinboardSavingSelector(state).should.be.false();
     });
   });
 

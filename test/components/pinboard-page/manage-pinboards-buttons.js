@@ -3,17 +3,26 @@ import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
   scryRenderedDOMComponentsWithClass,
-  Simulate,
+  Simulate, findRenderedComponentWithType,
 } from 'react-addons-test-utils';
+import MockStore from 'redux-mock-store';
+import { Provider } from 'react-redux';
 import { spy, stub } from 'sinon';
 import { Promise } from 'es6-promise';
-import { browserHistory } from 'react-router';
+import { browserHistory, Router, Route, createMemoryHistory } from 'react-router';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import ManagePinboardsButtons from 'components/pinboard-page/manage-pinboards-buttons';
 
 
 describe('ManagePinboardsButtons component', function () {
+  const store = MockStore()({
+    pinboardPage: {
+      pinboard: {
+        saving: false,
+      },
+    },
+  });
   let instance;
 
   beforeEach(function () {
@@ -29,7 +38,9 @@ describe('ManagePinboardsButtons component', function () {
     const showPinboardsListSpy = spy();
 
     instance = renderIntoDocument(
-      <ManagePinboardsButtons showPinboardsList={ showPinboardsListSpy } />
+      <Provider store={ store }>
+        <ManagePinboardsButtons showPinboardsList={ showPinboardsListSpy } />
+      </Provider>
     );
 
     const showPinboardsListButton = findRenderedDOMComponentWithClass(instance, 'pinboards-list-btn');
@@ -39,19 +50,28 @@ describe('ManagePinboardsButtons component', function () {
   });
 
   it('should render new pinboard button', function () {
-    instance = renderIntoDocument(
-      <ManagePinboardsButtons />
+    const managePinboardsButtons = () => (
+      <Provider store={ store }>
+        <ManagePinboardsButtons />
+      </Provider>
     );
 
+    instance = renderIntoDocument(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ managePinboardsButtons } />
+      </Router>
+    );
+
+    const managePinboardsButtonsComponent = findRenderedComponentWithType(instance, ManagePinboardsButtons);
     scryRenderedDOMComponentsWithClass(instance, 'new-pinboard-menu').should.have.length(0);
     const newPinboardButton = findRenderedDOMComponentWithClass(instance, 'new-pinboard-menu-btn');
     Simulate.click(newPinboardButton);
 
-    instance.state.showNewPinboardMenu.should.be.true();
+    managePinboardsButtonsComponent.state.showNewPinboardMenu.should.be.true();
     findRenderedDOMComponentWithClass(instance, 'new-pinboard-menu');
     Simulate.click(newPinboardButton);
 
-    instance.state.showNewPinboardMenu.should.be.false();
+    managePinboardsButtonsComponent.state.showNewPinboardMenu.should.be.false();
     scryRenderedDOMComponentsWithClass(instance, 'new-pinboard-menu').should.have.length(0);
   });
 
@@ -62,8 +82,17 @@ describe('ManagePinboardsButtons component', function () {
         title: 'Pinboard title',
       },
     });
+
+    const managePinboardsButtons = () => (
+      <Provider store={ store }>
+        <ManagePinboardsButtons createNewEmptyPinboard={ createNewEmptyPinboardStub }/>
+      </Provider>
+    );
+
     instance = renderIntoDocument(
-      <ManagePinboardsButtons createNewEmptyPinboard={ createNewEmptyPinboardStub }/>
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ managePinboardsButtons } />
+      </Router>
     );
 
     const newPinboardButton = findRenderedDOMComponentWithClass(instance, 'new-pinboard-menu-btn');
@@ -85,8 +114,17 @@ describe('ManagePinboardsButtons component', function () {
         title: 'Pinboard title',
       },
     });
+
+    const managePinboardsButtons = () => (
+      <Provider store={ store }>
+        <ManagePinboardsButtons pinboardId='66ef1560' duplicatePinboard={ duplicatePinboardStub }/>
+      </Provider>
+    );
+
     instance = renderIntoDocument(
-      <ManagePinboardsButtons pinboardId='66ef1560' duplicatePinboard={ duplicatePinboardStub }/>
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ managePinboardsButtons } />
+      </Router>
     );
 
     const newPinboardButton = findRenderedDOMComponentWithClass(instance, 'new-pinboard-menu-btn');
