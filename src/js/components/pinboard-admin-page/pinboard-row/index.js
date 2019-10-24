@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import cx from 'classnames';
-import pluralize from 'pluralize';
 
 import styles from './pinboard-row.sass';
 
@@ -10,24 +9,16 @@ export default class PinboardRow extends Component {
       id,
       title,
       createdAt,
-      editModeOn,
-      officersCount,
-      allegationsCount,
-      trrsCount,
+      pinnedCount,
+      isHeader,
     } = this.props;
 
     return (
-      <div
-        className={ cx(styles.row, { 'edit-mode': editModeOn }) }>
-        <span className='pinboard-thumbnail'/>
-        <span className='pinboard-id'>{ id }</span>
-        <span className='pinboard-title'>{ title }</span>
-        <span className='pinboard-pinned'>
-          <span>{ `${pluralize('officer', officersCount, true)}, ` }</span>
-          <span>{ `${pluralize('allegation', allegationsCount, true)} and ` }</span>
-          <span>{ pluralize('TRR', trrsCount, true) }</span>
-        </span>
-        <span className='pinboard-date'>{ createdAt }</span>
+      <div className={ cx(styles.row, { 'header': isHeader }) }>
+        <span className='cell pinboard-id'>{ id }</span>
+        <span className='cell pinboard-title'>{ title }</span>
+        <span className='cell pinboard-pinned'>{ pinnedCount }</span>
+        <span className='cell pinboard-date'>{ createdAt }</span>
       </div>
     );
   }
@@ -35,9 +26,8 @@ export default class PinboardRow extends Component {
 
 PinboardRow.propTypes = {
   id: PropTypes.string,
-  thumbnail: PropTypes.string,
   title: PropTypes.string,
   createdAt: PropTypes.string,
-  editModeOn: PropTypes.bool,
-  url: PropTypes.string,
+  pinnedCount: PropTypes.string,
+  isHeader: PropTypes.bool,
 };

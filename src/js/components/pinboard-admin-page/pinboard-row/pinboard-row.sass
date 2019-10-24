@@ -1,17 +1,13 @@
 @import 'variables'
 
-$row-fixed-width: 81
 $table-min-width: 960
 
-%cell
-  overflow: hidden
-  display: inline-block
-  vertical-align: top
-  box-sizing: border-box
-  transition: color 0.2s ease-in-out
+@mixin flexible-column($min-width)
+  min-width: $min-width
+  width: calc(100% * (#{$min-width} / #{$table-min-width}))
 
-@function flexible-column($min-width)
-  @return calc((100% - #{$row-fixed-width}px) * (#{$min-width} / (#{$table-min-width} - #{$row-fixed-width})))
+%headerCel
+  font-weight: 300
 
 \:local(.row)
   background-color: $snow-color
@@ -25,47 +21,44 @@ $table-min-width: 960
   transition: background-color 0.2s ease-in-out
   font-weight: 200
 
-  .pinboard-thumbnail
-    @extend %cell
-    width: 39px
-    margin-top: 14px
-    margin-left: 16px
-    margin-right: 26px
-    height: 52px
-    background-position: center
-    background-repeat: no-repeat
-    background-size: contain
-    background-color: grey
+  &.header
+    background-color: white
+    text-transform: uppercase
+    height: 69px
+    position: relative
 
-  .pinboard-title
-    @extend %cell
-    height: 100%
+    .cell
+      font-weight: 300
+
+    .pinboard-title
+      font-weight: 300
+      color: inherit
+
+  .cell
+    overflow: hidden
     display: inline-flex
     flex-direction: column
     justify-content: center
-    padding-right: 50px
-    font-weight: 400
-    color: $soft-black-color
-    min-width: 306px
-    width: flexible-column(306)
+    vertical-align: top
+    box-sizing: border-box
+    transition: color 0.2s ease-in-out
+    height: calc(100% - 16px)
+    margin: 8px 0
 
   .pinboard-id
-    @extend %cell
-    margin-top: 31px
-    padding-right: 50px
-    min-width: 188px
-    width: flexible-column(188)
+    @include flexible-column(120)
+    padding-left: 16px
+
+  .pinboard-title
+    @include flexible-column(400)
+    font-weight: 400
+    color: $soft-black-color
 
   .pinboard-pinned
-    @extend %cell
-    margin-top: 31px
-    min-width: 306px
-    width: flexible-column(306)
+    @include flexible-column(360)
 
   .pinboard-date
-    @extend %cell
-    margin-top: 31px
+    @include flexible-column(80)
     text-align: right
-    min-width: 76px
-    width: flexible-column(76)
     padding-right: 15px
+

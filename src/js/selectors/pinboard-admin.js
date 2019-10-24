@@ -1,5 +1,6 @@
+import pluralize from 'pluralize';
 import { createSelector } from 'reselect';
-import { get, each, map } from 'lodash';
+import { get, each } from 'lodash';
 import moment from 'moment';
 
 import { PINBOARDS_SEARCH_ITEMS } from 'utils/constants';
@@ -12,9 +13,11 @@ const pinboardTransform = pinboard => ({
   id: get(pinboard, 'id', null) !== null ? pinboard['id'].toString() : null,
   title: pinboard.title || 'Untitled Pinboard',
   createdAt: moment(pinboard['created_at']).format('MMM DD'),
-  officersCount: pinboard['officers_count'],
-  allegationsCount: pinboard['allegations_count'],
-  trrsCount: pinboard['trrs_count'],
+  pinnedCount: (
+    `${ pluralize('officer', pinboard['officers_count'], true) }, ` +
+    `${ pluralize('allegation', pinboard['allegations_count'], true) } and ` +
+    `${ pluralize('TRR', pinboard['trrs_count'], true) }`
+  ),
   kind: PINBOARDS_SEARCH_ITEMS.PINBOARD,
 });
 

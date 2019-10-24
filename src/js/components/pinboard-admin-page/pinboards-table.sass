@@ -1,11 +1,9 @@
 @import 'variables'
 
-$header-fixed-width: 81
 $table-min-width: 960
 $horizontal-margin: 32px
 
 \:local(.table)
-  width: calc(100% - #{$horizontal-margin})
   min-width: calc(#{$table-min-width}px + #{$horizontal-margin})
   margin-left: calc(#{$horizontal-margin} / 2)
   margin-right: calc(#{$horizontal-margin} / 2)
@@ -21,7 +19,7 @@ $horizontal-margin: 32px
   box-sizing: border-box
 
 @function flexible-column($min-width)
-  @return calc((100% - #{$header-fixed-width}px) * (#{$min-width} / (#{$table-min-width} - #{$header-fixed-width})))
+  @return calc(100% * (#{$min-width} / #{$table-min-width}))
 
 \:local(.headerRow)
   background-color: white
@@ -30,34 +28,31 @@ $horizontal-margin: 32px
   box-sizing: border-box
   padding-top: 26px
   position: relative
-  padding-left: 16px
-  padding-right: 16px
-
-  .header-thumbnail
-    @extend %headerCol
-    width: 81px
-
-  .header-title
-    @extend %headerCol
-    min-width: 306px
-    width: flexible-column(306)
+  margin-left: 16px
+  margin-right: 16px
 
   .header-id
     @extend %headerCol
-    min-width: 188px
-    width: flexible-column(188)
+    min-width: 120px
+    width: flexible-column(120)
+    padding-left: 16px
+
+  .header-title
+    @extend %headerCol
+    min-width: 400px
+    width: flexible-column(400)
 
   .header-pinned
     @extend %headerCol
-    min-width: 306px
-    width: flexible-column(306)
+    min-width: 330px
+    width: flexible-column(360)
 
   .header-date
     @extend %headerCol
     text-align: right
     padding-right: 15px
     min-width: 76px
-    width: flexible-column(76)
+    width: flexible-column(80)
 
 \:local(.rowsWrapper)
   background-color: $sugar-cane-color
