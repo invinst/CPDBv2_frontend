@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 
-import * as constants from 'utils/constants';
 import PinboardsTable from './pinboards-table';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 
@@ -16,11 +15,7 @@ export default class PinboardAdminPage extends Component {
 
     return (
       <div>
-        <ShareableHeaderContainer
-          buttonType={ constants.SHAREABLE_HEADER_BUTTON_TYPE.LINK }
-          buttonText='Crawlers'
-          to='/crawlers/'
-        />
+        <ShareableHeaderContainer/>
         <PinboardsTable
           rows={ pinboards }
           hasMore={ hasMore }

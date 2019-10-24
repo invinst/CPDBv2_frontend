@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
-import * as _ from 'lodash';
+import { map } from 'lodash';
 import InfiniteScroll from 'react-infinite-scroller';
 
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import PinboardRow from './pinboard-row';
 import MonthSeparator from 'components/common/table/month-separator';
 import { PINBOARDS_SEARCH_ITEMS } from 'utils/constants';
-import styles from 'components/pinboard-admin-page/pinboards-table.sass';
+import styles from './pinboards-table.sass';
 
 const rowMap = {
   [PINBOARDS_SEARCH_ITEMS.PINBOARD]: PinboardRow,
@@ -27,7 +27,7 @@ export default class PinboardsTable extends Component {
             hasMore={ hasMore }
             useWindow={ true }>
             {
-              _.map(rows, row => {
+              map(rows, row => {
                 const Element = rowMap[row.kind];
                 return <Element key={ row.id } { ...row }/>;
               })
