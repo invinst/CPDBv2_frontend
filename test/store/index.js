@@ -1,5 +1,7 @@
 import configureStore from 'store';
 import { OFFICER_EDIT_TYPES, CR_EDIT_TYPES, TRR_EDIT_TYPES } from 'utils/constants';
+import pinboardAdminPage from 'reducers/pinboard-admin-page';
+import allPinboards from 'reducers/pinboard-admin-page/all-pinboards';
 
 
 function setUp() {
@@ -326,6 +328,14 @@ describe('store', function () {
         editModeOn: {
           EMPTY_PINBOARD_DESCRIPTION: false,
           EMPTY_PINBOARD_TITLE: false,
+        },
+      },
+      pinboardAdminPage: {
+        allPinboards: {
+          requesting: false,
+          items: [],
+          count: 0,
+          pagination: { next: null, previous: null },
         },
       },
       videoModal: {
