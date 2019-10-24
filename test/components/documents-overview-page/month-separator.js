@@ -5,7 +5,7 @@ import {
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import MonthSeparator from 'components/documents-overview-page/month-separator';
+import MonthSeparator from 'components/common/table/month-separator';
 
 
 describe('DocumentsOverviewPage MonthSeparator component', function () {

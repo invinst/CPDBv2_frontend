@@ -4,7 +4,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import PinboardRow from './pinboard-row';
-import MonthSeparator from './month-separator';
+import MonthSeparator from 'components/common/table/month-separator';
 import { PINBOARDS_SEARCH_ITEMS } from 'utils/constants';
 import styles from 'components/pinboard-admin-page/pinboards-table.sass';
 

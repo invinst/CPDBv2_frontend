@@ -9,7 +9,7 @@ import { spy, stub } from 'sinon';
 import { unmountComponentSuppressError, renderWithContext } from 'utils/test';
 import DocumentsTable from 'components/documents-overview-page/documents-table';
 import DocumentRow from 'components/documents-overview-page/document-row';
-import MonthSeparator from 'components/documents-overview-page/month-separator';
+import MonthSeparator from 'components/common/table/month-separator';
 import * as constants from 'utils/constants';
 
 
