@@ -1,5 +1,6 @@
 import { Promise } from 'es6-promise';
 import { stub, useFakeTimers } from 'sinon';
+import { browserHistory } from 'react-router';
 
 import restoreCreateOrUpdatePinboard from 'middleware/restore-create-or-update-pinboard';
 import * as constants from 'utils/constants';
@@ -188,6 +189,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
 
   it('should handle ADD_OR_REMOVE_ITEM_IN_PINBOARD and show adding toast', function () {
     Toastify.toast.resetHistory();
+    const browserHistoryPush = stub(browserHistory, 'push');
 
     const action = {
       type: constants.ADD_OR_REMOVE_ITEM_IN_PINBOARD,
@@ -197,7 +199,10 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
         isPinned: false,
       },
     };
-    const store = createStore(PinboardFactory.build());
+    const store = createStore(PinboardFactory.build({
+      'id': '66ef1560',
+      'title': 'Pinboard Title',
+    }));
 
     let dispatched;
     restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
@@ -210,21 +215,26 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
     }));
 
     Toastify.toast.should.be.calledOnce();
-    Toastify.toast.should.be.calledWith('CR added', {
-      className: 'toast-wrapper added',
-      bodyClassName: 'toast-body',
-      transition: Toastify.cssTransition({
+    Toastify.toast.getCall(0).args[0].should.eql('CR added');
+    Toastify.toast.getCall(0).args[1]['className'].should.eql('toast-wrapper added');
+    Toastify.toast.getCall(0).args[1]['bodyClassName'].should.eql('toast-body');
+    Toastify.toast.getCall(0).args[1]['transition'].should.eql(
+      Toastify.cssTransition({
         enter: 'toast-enter',
         exit: 'toast-exit',
         duration: 500,
         appendPosition: true,
       }),
-    });
+    );
+    Toastify.toast.getCall(0).args[1]['onClick']();
+    browserHistoryPush.should.be.calledWith('/pinboard/66ef1560/pinboard-title/');
     Toastify.toast.resetHistory();
+    browserHistoryPush.restore();
   });
 
   it('should handle ADD_OR_REMOVE_ITEM_IN_PINBOARD and show removing toast', function () {
     Toastify.toast.resetHistory();
+    const browserHistoryPush = stub(browserHistory, 'push');
 
     const action = {
       type: constants.ADD_OR_REMOVE_ITEM_IN_PINBOARD,
@@ -234,7 +244,10 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
         isPinned: true,
       },
     };
-    const store = createStore(PinboardFactory.build());
+    const store = createStore(PinboardFactory.build({
+      'id': '66ef1560',
+      'title': 'Pinboard Title',
+    }));
 
     let dispatched;
     restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
@@ -247,17 +260,21 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
     }));
 
     Toastify.toast.should.be.calledOnce();
-    Toastify.toast.should.be.calledWith('CR removed', {
-      className: 'toast-wrapper removed',
-      bodyClassName: 'toast-body',
-      transition: Toastify.cssTransition({
+    Toastify.toast.getCall(0).args[0].should.eql('CR removed');
+    Toastify.toast.getCall(0).args[1]['className'].should.eql('toast-wrapper removed');
+    Toastify.toast.getCall(0).args[1]['bodyClassName'].should.eql('toast-body');
+    Toastify.toast.getCall(0).args[1]['transition'].should.eql(
+      Toastify.cssTransition({
         enter: 'toast-enter',
         exit: 'toast-exit',
         duration: 500,
         appendPosition: true,
       }),
-    });
+    );
+    Toastify.toast.getCall(0).args[1]['onClick']();
+    browserHistoryPush.should.be.calledWith('/pinboard/66ef1560/pinboard-title/');
     Toastify.toast.resetHistory();
+    browserHistoryPush.restore();
   });
 
   it('should handle ADD_ITEM_IN_PINBOARD_PAGE and dispatch addItemToPinboardState', function (done) {

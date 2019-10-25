@@ -1,6 +1,7 @@
 import { Promise } from 'es6-promise';
 import * as _ from 'lodash';
 import pluralize from 'pluralize';
+import { browserHistory } from 'react-router';
 
 import {
   ADD_OR_REMOVE_ITEM_IN_PINBOARD,
@@ -39,6 +40,7 @@ import loadPaginatedData from 'utils/load-paginated-data';
 import { Toastify } from 'utils/vendors';
 import pinboardStyles from 'components/pinboard-page/pinboard-page.sass';
 import { isPinboardRestoredSelector } from 'selectors/pinboard-page/pinboard';
+import { generatePinboardUrl } from 'utils/pinboard';
 
 
 const getIds = (query, key) => _.get(query, key, '').split(',').filter(_.identity);
@@ -193,14 +195,18 @@ const TOAST_TYPE_MAP = {
   'DATE > TRR': 'TRR',
 };
 
-function showAddOrRemoveItemToast(payload) {
+function showAddOrRemoveItemToast(store, payload) {
   const { isPinned, type } = payload;
   const actionType = isPinned ? 'removed' : 'added';
+
+  const state = store.getState();
+  const currentPinboard = getRequestPinboard(state);
 
   Toastify.toast(`${TOAST_TYPE_MAP[type]} ${actionType}`, {
     className: `toast-wrapper ${actionType}`,
     bodyClassName: 'toast-body',
     transition: TopRightTransition,
+    onClick: () => browserHistory.push(generatePinboardUrl(currentPinboard)),
   });
 }
 
@@ -219,7 +225,7 @@ export default store => next => action => {
     promises.push(store.dispatch(addOrRemove(action.payload)));
 
     if (action.type === ADD_OR_REMOVE_ITEM_IN_PINBOARD) {
-      showAddOrRemoveItemToast(action.payload);
+      showAddOrRemoveItemToast(store, action.payload);
     }
 
     Promise.all(promises).finally(() => {

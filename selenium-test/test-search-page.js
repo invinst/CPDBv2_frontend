@@ -977,4 +977,35 @@ describe('Search Page toast', function () {
     searchPage.toast.waitForDisplayed();
     searchPage.toast.waitForText('Officer removed');
   });
+
+  it('should go to pinboard detail page when clicking on added toast', function () {
+    searchPage.open('Ke');
+
+    searchPage.suggestionGroup.waitForDisplayed();
+    searchPage.firstOfficerPinButton.click();
+
+    searchPage.toast.waitForDisplayed();
+    searchPage.toast.waitForText('Officer added');
+    searchPage.toast.click();
+    browser.getUrl().should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/);
+  });
+
+  it('should go to pinboard detail page when clicking on removed toast', function () {
+    searchPage.open('Ke');
+
+    searchPage.suggestionGroup.waitForDisplayed();
+    searchPage.firstOfficerPinButton.click();
+
+    searchPage.toast.waitForDisplayed();
+    searchPage.toast.waitForText('Officer added');
+
+    searchPage.toast.waitForDisplayed(5000, true);
+
+    searchPage.firstOfficerPinButton.click();
+    searchPage.toast.waitForDisplayed();
+    searchPage.toast.waitForText('Officer removed');
+
+    searchPage.toast.click();
+    browser.getUrl().should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/);
+  });
 });
