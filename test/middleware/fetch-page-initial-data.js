@@ -48,6 +48,7 @@ import {
   redirect,
 } from 'actions/pinboard-page';
 import { fetchVideoInfo } from 'actions/headers/slim-header';
+import * as pinboardAdminAction from 'actions/pinboard-admin';
 
 
 const createLocationChangeAction = (pathname) => ({
@@ -499,5 +500,27 @@ describe('fetchPageInitialData middleware', function () {
     dispatched.should.eql(action);
 
     store.dispatch.calledWith(redirect(true)).should.be.true();
+  });
+
+  it('should dispatch fetchAllPinboards when location changes', function () {
+    const action = createLocationChangeAction('/view-all-pinboards/');
+    let dispatched;
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(pinboardAdminAction.fetchAllPinboards()).should.be.true();
+  });
+
+  it('should dispatch fetchAllPinboards when signing in successfully', function () {
+    const store = buildStore();
+    _.set(store._state, 'pathname', '/view-all-pinboards/');
+    const action = createSignInRequestSuccessAction();
+    let dispatched;
+    const fetchAllPinboardsStub = stub(pinboardAdminAction, 'fetchAllPinboards');
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(fetchAllPinboardsStub()).should.be.true();
+    fetchAllPinboardsStub.restore();
   });
 });

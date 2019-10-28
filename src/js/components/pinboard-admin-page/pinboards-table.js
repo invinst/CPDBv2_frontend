@@ -49,7 +49,3 @@ PinboardsTable.propTypes = {
 PinboardsTable.defaultProps = {
   rows: [],
 };
-
-PinboardsTable.contextTypes = {
-  editModeOn: PropTypes.bool,
-};

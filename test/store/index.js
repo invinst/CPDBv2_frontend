@@ -1,7 +1,5 @@
 import configureStore from 'store';
 import { OFFICER_EDIT_TYPES, CR_EDIT_TYPES, TRR_EDIT_TYPES } from 'utils/constants';
-import pinboardAdminPage from 'reducers/pinboard-admin-page';
-import allPinboards from 'reducers/pinboard-admin-page/all-pinboards';
 
 
 function setUp() {

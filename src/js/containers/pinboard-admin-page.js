@@ -4,16 +4,16 @@ import { fetchAllPinboards } from 'actions/pinboard-admin';
 import PinboardAdminPage from 'components/pinboard-admin-page';
 import {
   allPinboardsSelector,
-  allPinboardsNextParamsSelector,
-  allPinboardsHasMoreSelector,
+  nextParamsSelector,
+  hasMoreSelector,
 } from 'selectors/pinboard-admin';
 
 
 function mapStateToProps(state, ownProps) {
   return {
     pinboards: allPinboardsSelector(state),
-    nextParams: allPinboardsNextParamsSelector(state),
-    hasMore: allPinboardsHasMoreSelector(state),
+    nextParams: nextParamsSelector(state),
+    hasMore: hasMoreSelector(state),
   };
 }
 
