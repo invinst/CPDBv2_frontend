@@ -16,7 +16,7 @@ export const nextParamsSelector = createSelector(
 
 export const hasMoreSelector = createSelector(
   getAllPinboards,
-  pinboards => pinboards.items.length < pinboards.pagination.count
+  pinboards => pinboards.items.length < pinboards.count
 );
 
 const pinboardTransform = pinboard => ({

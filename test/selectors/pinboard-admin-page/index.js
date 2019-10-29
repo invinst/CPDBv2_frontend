@@ -111,9 +111,7 @@ describe('pinboardAdminPages selectors', function () {
               { id: 'dddd4444' },
               { id: 'eeee5555' },
             ],
-            pagination: {
-              count: 10,
-            },
+            count: 10,
           },
         },
       };
