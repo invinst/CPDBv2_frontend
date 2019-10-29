@@ -2,7 +2,7 @@ import {
   allPinboardsSelector,
   hasMoreSelector,
   nextParamsSelector,
-} from 'selectors/pinboard-admin';
+} from 'selectors/pinboard-admin-page';
 
 
 describe('pinboardAdminPages selectors', function () {

@@ -6,7 +6,7 @@ import {
   allPinboardsSelector,
   nextParamsSelector,
   hasMoreSelector,
-} from 'selectors/pinboard-admin';
+} from 'selectors/pinboard-admin-page';
 
 
 function mapStateToProps(state, ownProps) {
