@@ -335,6 +335,7 @@ describe('store', function () {
           count: 0,
           pagination: { next: null, previous: null },
         },
+        isLoading: false,
       },
       videoModal: {
         active: false,

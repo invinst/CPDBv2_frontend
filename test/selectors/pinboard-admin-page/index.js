@@ -1,7 +1,10 @@
+import { random } from 'faker';
+
 import {
   allPinboardsSelector,
   hasMoreSelector,
   nextParamsSelector,
+  getIsLoading,
 } from 'selectors/pinboard-admin-page';
 
 
@@ -77,6 +80,19 @@ describe('pinboardAdminPages selectors', function () {
           kind: 'PINBOARD',
         },
       ]);
+    });
+  });
+
+  describe('getIsLoading', function () {
+    it('should return pinboards with correct format', function () {
+      const isLoading = random.boolean();
+      const state = {
+        pinboardAdminPage: {
+          isLoading,
+        },
+      };
+
+      getIsLoading(state).should.eql(isLoading);
     });
   });
 

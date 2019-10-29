@@ -41,6 +41,7 @@ describe('PinboardAdminPage', function () {
           hasMore={ hasMore }
           nextParams={ nextParams }
           fetchPinboards={ fetchPinboards }
+          isLoading={ true }
         />
       </Provider>
     );
@@ -53,5 +54,6 @@ describe('PinboardAdminPage', function () {
     table.props.hasMore.should.equal(hasMore);
     table.props.nextParams.should.eql(nextParams);
     table.props.fetchPinboards.should.eql(fetchPinboards);
+    table.props.isLoading.should.be.true();
   });
 });

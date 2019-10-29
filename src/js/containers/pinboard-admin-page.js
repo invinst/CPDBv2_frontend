@@ -6,6 +6,7 @@ import {
   allPinboardsSelector,
   nextParamsSelector,
   hasMoreSelector,
+  getIsLoading,
 } from 'selectors/pinboard-admin-page';
 
 
@@ -14,6 +15,7 @@ function mapStateToProps(state, ownProps) {
     pinboards: allPinboardsSelector(state),
     nextParams: nextParamsSelector(state),
     hasMore: hasMoreSelector(state),
+    isLoading: getIsLoading(state),
   };
 }
 

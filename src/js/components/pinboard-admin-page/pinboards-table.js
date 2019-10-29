@@ -15,7 +15,7 @@ const rowMap = {
 
 export default class PinboardsTable extends Component {
   render() {
-    const { rows, hasMore, nextParams, fetchPinboards } = this.props;
+    const { rows, hasMore, nextParams, fetchPinboards, isLoading } = this.props;
     return (
       <div className={ responsiveContainerStyles.responsiveContainer }>
         <div className={ styles.table }>
@@ -23,8 +23,7 @@ export default class PinboardsTable extends Component {
           <InfiniteScroll
             className={ styles.rowsWrapper }
             loadMore={ () => hasMore ? fetchPinboards(nextParams) : null }
-            initialLoad={ true }
-            hasMore={ hasMore }
+            hasMore={ !isLoading && hasMore }
             useWindow={ true }>
             {
               map(rows, row => {
@@ -44,8 +43,10 @@ PinboardsTable.propTypes = {
   hasMore: PropTypes.bool,
   nextParams: PropTypes.object,
   fetchPinboards: PropTypes.func,
+  isLoading: PropTypes.bool,
 };
 
 PinboardsTable.defaultProps = {
   rows: [],
+  isLoading: false,
 };

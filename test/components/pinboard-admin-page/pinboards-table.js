@@ -60,7 +60,6 @@ describe('PinboardsTable', function () {
     header.props.createdAt.should.be.equal('Date');
 
     const infiniteScroll = findRenderedComponentWithType(instance, InfiniteScroll);
-    infiniteScroll.props.initialLoad.should.be.true();
     infiniteScroll.props.hasMore.should.be.true();
     infiniteScroll.props.useWindow.should.be.true();
 
@@ -77,5 +76,37 @@ describe('PinboardsTable', function () {
     pinboardInfoRow.props.title.should.be.equal('Untitled Pinboard');
     pinboardInfoRow.props.pinnedCount.should.be.equal('3 officers, 1 allegation and 0 TRRS');
     pinboardInfoRow.props.createdAt.should.be.equal('Oct 18');
+  });
+
+  it('should not load more items if it is loading', function () {
+    const rows = [
+      {
+        id: moment(date.past()).format('MM-YYYY'),
+        kind: PINBOARDS_SEARCH_ITEMS.MONTH_SEPARATOR,
+        text: moment(date.past()).format('MMM YYYY'),
+      },
+      {
+        id: 'abc123',
+        kind: PINBOARDS_SEARCH_ITEMS.PINBOARD,
+        title: 'Untitled Pinboard',
+        createdAt: 'Oct 18',
+        pinnedCount: '3 officers, 1 allegation and 0 TRRS',
+      },
+    ];
+    const nextParams = { offset: 20, limit: 30 };
+    const fetchPinboards = spy();
+
+    instance = renderIntoDocument(
+      <PinboardsTable
+        rows={ rows }
+        hasMore={ true }
+        nextParams={ nextParams }
+        fetchPinboards={ fetchPinboards }
+        isLoading={ true }
+      />
+    );
+
+    const infiniteScroll = findRenderedComponentWithType(instance, InfiniteScroll);
+    infiniteScroll.props.hasMore.should.be.false();
   });
 });

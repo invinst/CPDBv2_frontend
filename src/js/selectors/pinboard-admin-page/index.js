@@ -9,6 +9,8 @@ import extractQuery from 'utils/extract-query';
 
 export const getAllPinboards = state => state.pinboardAdminPage.allPinboards;
 
+export const getIsLoading = state => state.pinboardAdminPage.isLoading;
+
 export const nextParamsSelector = createSelector(
   getAllPinboards,
   pinboards => extractQuery(pinboards.pagination.next)

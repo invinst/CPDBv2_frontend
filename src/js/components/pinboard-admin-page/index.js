@@ -11,6 +11,7 @@ export default class PinboardAdminPage extends Component {
       hasMore,
       nextParams,
       fetchPinboards,
+      isLoading,
     } = this.props;
 
     return (
@@ -21,6 +22,7 @@ export default class PinboardAdminPage extends Component {
           hasMore={ hasMore }
           nextParams={ nextParams }
           fetchPinboards={ fetchPinboards }
+          isLoading={ isLoading }
         />
       </div>
     );
@@ -32,8 +34,10 @@ PinboardAdminPage.propTypes = {
   hasMore: PropTypes.bool,
   nextParams: PropTypes.object,
   fetchPinboards: PropTypes.func,
+  isLoading: PropTypes.bool,
 };
 
 PinboardAdminPage.defaultProps = {
   pinboards: [],
+  isLoading: false,
 };
