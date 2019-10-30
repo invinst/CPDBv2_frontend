@@ -14,16 +14,16 @@ export default class PinboardLink extends Component {
   }
 
   handleClick(e) {
-    const { saving, onClick } = this.props;
+    const { hasPendingChanges, onClick } = this.props;
     e.stopPropagation();
-    if (!saving || window.confirm(CONFIRM_MESSAGE)) {
+    if (!hasPendingChanges || window.confirm(CONFIRM_MESSAGE)) {
       onClick(e);
     }
   }
 
   render() {
     const { customComponent } = this.props;
-    const componentProps = omit(this.props, 'onClick', 'saving', 'customComponent');
+    const componentProps = omit(this.props, 'onClick', 'hasPendingChanges', 'customComponent');
     const ContentComponent = customComponent || Link;
 
     return (
@@ -33,6 +33,6 @@ export default class PinboardLink extends Component {
 }
 
 PinboardLink.propTypes = {
-  saving: PropTypes.bool,
+  hasPendingChanges: PropTypes.bool,
   customComponent: PropTypes.string,
 };

@@ -28,6 +28,7 @@ import {
   fetchLatestRetrievedPinboard,
   savePinboardWithoutChangingState,
   handleRemovingItemInPinboardPage,
+  setPinboardHasPendingChanges,
 } from 'actions/pinboard';
 import * as constants from 'utils/constants';
 
@@ -285,6 +286,15 @@ describe('pinboard actions', function () {
           description: 'Description',
           isPinboardRestored: false,
         },
+      });
+    });
+  });
+
+  describe('setPinboardHasPendingChanges', function () {
+    it('should return correct action', function () {
+      setPinboardHasPendingChanges(true).should.deepEqual({
+        type: constants.SET_PINBOARD_HAS_PENDING_CHANGES,
+        payload: true,
       });
     });
   });

@@ -315,13 +315,33 @@ axiosMockClient.onPut(`${PINBOARDS_URL}5cd06f2b/`).reply(function (config) {
   return [200, newPinboard];
 });
 
-axiosMockClient.onPut(`${PINBOARDS_URL}ceea8ea3/`).reply(function () {
+axiosMockClient.onPut(
+  `${PINBOARDS_URL}ceea8ea3/`,
+  {
+    'title': 'Pinboard Title',
+    'officer_ids': [],
+    'crids': ['1234567'],
+    'trr_ids': ['1234'],
+    'description': 'Pinboard Description',
+  }
+).reply(function () {
   return new Promise(function (resolve, reject) {
     setTimeout(function () {
-      resolve([504, {}]);
-    }, 1000);
+      resolve([200, {}]);
+    }, 2000);
   });
 });
+
+axiosMockClient.onPut(
+  `${PINBOARDS_URL}ceea8ea3/`,
+  {
+    'title': 'Pinboard Title',
+    'officer_ids': ['1234'],
+    'crids': [],
+    'trr_ids': ['1234'],
+    'description': 'Pinboard Description',
+  }
+).reply(function () { return [500, []]; });
 
 axiosMockClient.onPut(`${PINBOARDS_URL}5cd06f2b/`, updatePinboardTitleParams()).reply(200, updatedPinboardTitle());
 
@@ -442,6 +462,10 @@ axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/relevant-coaccusals/?`).reply(
 
 axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/relevant-documents/?`).reply(
   200, getFirstRelevantDocuments('3664a7ea', 50)
+);
+
+axiosMockClient.onGet(`${PINBOARDS_URL}ceea8ea3/relevant-documents/?`).reply(
+  200, getFirstRelevantDocuments('ceea8ea3', 50)
 );
 
 axiosMockClient.onGet(

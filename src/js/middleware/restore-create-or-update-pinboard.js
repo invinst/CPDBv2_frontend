@@ -33,6 +33,7 @@ import {
   performFetchPinboardRelatedData,
   handleRemovingItemInPinboardPage,
   fetchLatestRetrievedPinboard,
+  setPinboardHasPendingChanges,
 } from 'actions/pinboard';
 import loadPaginatedData from 'utils/load-paginated-data';
 import { Toastify } from 'utils/vendors';
@@ -203,6 +204,13 @@ function showAddOrRemoveItemToast(payload) {
   });
 }
 
+function setHasPendingChangesIfNeeded(store, hasPendingChanges) {
+  const state = store.getState();
+  const currentHasPendingChanges = _.get(state.pinboardPage.pinboard, 'hasPendingChanges');
+  if (currentHasPendingChanges !== hasPendingChanges)
+    store.dispatch(setPinboardHasPendingChanges(hasPendingChanges));
+}
+
 export default store => next => action => {
   if (action.type === ADD_OR_REMOVE_ITEM_IN_PINBOARD || action.type === ADD_ITEM_IN_PINBOARD_PAGE) {
     let promises = [];
@@ -223,6 +231,7 @@ export default store => next => action => {
     const { mode } = action.payload;
     switch (mode) {
       case PINBOARD_ITEM_REMOVE_MODE.API_ONLY:
+        setHasPendingChangesIfNeeded(store, true);
         store.dispatch(handleRemovingItemInPinboardPage(action.payload));
         store.dispatch(savePinboardWithoutChangingState(action.payload));
         break;
@@ -254,6 +263,7 @@ export default store => next => action => {
     const pinboard = getRequestPinboard(state);
 
     store.dispatch(updatePinboard(pinboard)).then(result => {
+      setHasPendingChangesIfNeeded(store, false);
       dispatchFetchPinboardPageData(store, result.payload.id);
     });
   }
@@ -269,8 +279,12 @@ export default store => next => action => {
       const savedPinboard = getRequestPinboard(state, action.payload);
 
       if (_.isEmpty(action.payload) || !_.isEqual(currentPinboard, savedPinboard)) {
+        setHasPendingChangesIfNeeded(store, true);
+
         dispatchUpdateOrCreatePinboard(store, currentPinboard);
       } else {
+        setHasPendingChangesIfNeeded(store, false);
+
         if (_.startsWith(state.pathname, '/pinboard/') && pinboardId && pinboard.needRefreshData) {
           dispatchFetchPinboardPageData(store, pinboardId);
         }

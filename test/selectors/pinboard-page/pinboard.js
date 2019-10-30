@@ -1,6 +1,6 @@
 import {
   getPinboard,
-  pinboardSavingSelector,
+  hasPendingChangesSelector,
   pinboardItemsSelector,
   pinboardICRIDsSelector,
   isEmptyPinboardSelector,
@@ -114,32 +114,32 @@ describe('Pinboard selectors', function () {
     });
   });
 
-  describe('pinboardSavingSelector', function () {
+  describe('hasPendingChangesSelector', function () {
     it('should return false of null pinboard', function () {
       const state = { pinboardPage: { pinboard: null } };
-      pinboardSavingSelector(state).should.be.false();
+      hasPendingChangesSelector(state).should.be.false();
     });
 
-    it('should return pinboard saving value', function () {
+    it('should return pinboard hasPendingChanges value', function () {
       let state = {
         pinboardPage: {
           pinboard: {
-            saving: true,
+            hasPendingChanges: true,
           },
         },
       };
 
-      pinboardSavingSelector(state).should.be.true();
+      hasPendingChangesSelector(state).should.be.true();
 
       state = {
         pinboardPage: {
           pinboard: {
-            saving: false,
+            hasPendingChanges: false,
           },
         },
       };
 
-      pinboardSavingSelector(state).should.be.false();
+      hasPendingChangesSelector(state).should.be.false();
     });
   });
 

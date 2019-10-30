@@ -608,11 +608,7 @@ describe('Pinboard Page', function () {
   });
 
   context('manage pinboards', function () {
-    beforeEach(function () {
-      pinboardPage.open('ceea8ea3');
-    });
-
-    const updatePinboard = function () {
+    const removeOfficerFromPinboard = function () {
       pinboardPage.pinnedSection.officers.firstCardUnpinBtn.click();
       pinboardPage.pinnedSection.officers.undoCard.waitForDisplayed();
       browser.pause(500);
@@ -631,6 +627,7 @@ describe('Pinboard Page', function () {
     };
 
     it('should render the pinboards list', function () {
+      pinboardPage.open('ceea8ea3');
       pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
 
       pinboardPage.pinboardsListSection.pinboardsTitle.getText().should.equal('Pinboards');
@@ -645,6 +642,7 @@ describe('Pinboard Page', function () {
 
     context('clicking on pinboard item', function () {
       it('should go to pinboard detail page', function () {
+        pinboardPage.open('ceea8ea3');
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
         pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
         browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
@@ -652,8 +650,23 @@ describe('Pinboard Page', function () {
         pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
       });
 
-      it('should go to pinboard detail page if pinboard is saving and user confirm yes', function () {
-        updatePinboard();
+      it('should go to pinboard detail page if it is saving with long api call and user confirm yes', function () {
+        pinboardPage.open('ceea8ea3');
+        removeOfficerFromPinboard();
+        pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+        pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
+        expectAlertContent(browser);
+        browser.acceptAlert();
+        browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
+        pinboardPage.pinboardSection.title.getText().should.equal('');
+        pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
+      });
+
+      it('should go to pinboard detail page if pinboard is saving with error and user confirm yes', function () {
+        pinboardPage.open('ceea8ea3');
+        pinboardPage.pinnedSection.crs.firstCardUnpinBtn.click();
+        browser.pause(500);
+
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
         pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
         expectAlertContent(browser);
@@ -664,16 +677,59 @@ describe('Pinboard Page', function () {
       });
 
       it('should still in current page if pinboard is saving and user confirm no', function () {
-        updatePinboard();
+        pinboardPage.open('ceea8ea3');
+        removeOfficerFromPinboard();
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
         pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
         expectAlertContent(browser);
         browser.dismissAlert();
         expectStillInCurrentPinboardPage(browser);
       });
+
+      it('should go to pinboard detail page if pinboard is saved', function () {
+        pinboardPage.open('ceea8ea3');
+        pinboardPage.pinnedSection.officers.firstCardUnpinBtn.click();
+        browser.pause(2500);
+
+        pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+        pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
+        browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
+        pinboardPage.pinboardSection.title.getText().should.equal('');
+        pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
+      });
+
+      it('should go to pinboard detail page if users add relevant item success', function () {
+        pinboardPage.open('5cd06f2b');
+        pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.plusButton.click();
+        browser.pause(4500);
+
+        pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+        pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
+        browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
+        pinboardPage.pinboardSection.title.getText().should.equal('');
+        pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
+      });
+
+      it('should go to pinboard detail page if users add relevant item error and confirm yes', function () {
+        pinboardPage.open('ceea8ea3');
+        pinboardPage.relevantDocumentsSection.documentCardSection.plusButton.click();
+        browser.pause(4500);
+
+        pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+        pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
+        expectAlertContent(browser);
+        browser.acceptAlert();
+        browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
+        pinboardPage.pinboardSection.title.getText().should.equal('');
+        pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
+      });
     });
 
     context('clicking on create new pinboard button in menu', function () {
+      beforeEach(function () {
+        pinboardPage.open('ceea8ea3');
+      });
+
       it('should create an empty pinboard', function () {
         pinboardPage.managePinboardsButtonsSection.newPinboardMenuButton.click();
         pinboardPage.managePinboardsButtonsSection.createNewPinboardButton.click();
@@ -683,7 +739,7 @@ describe('Pinboard Page', function () {
       });
 
       it('should create an empty pinboard if pinboard is saving and user confirm yes', function () {
-        updatePinboard();
+        removeOfficerFromPinboard();
         pinboardPage.managePinboardsButtonsSection.newPinboardMenuButton.click();
         pinboardPage.managePinboardsButtonsSection.createNewPinboardButton.click();
         expectAlertContent(browser);
@@ -694,7 +750,7 @@ describe('Pinboard Page', function () {
       });
 
       it('should still in current page if pinboard is saving and user confirm no', function () {
-        updatePinboard();
+        removeOfficerFromPinboard();
         pinboardPage.managePinboardsButtonsSection.newPinboardMenuButton.click();
         pinboardPage.managePinboardsButtonsSection.createNewPinboardButton.click();
         expectAlertContent(browser);
@@ -704,6 +760,10 @@ describe('Pinboard Page', function () {
     });
 
     context('clicking on Duplicate this pinboard button', function () {
+      beforeEach(function () {
+        pinboardPage.open('ceea8ea3');
+      });
+
       it('should duplicate current pinboard', function () {
         pinboardPage.managePinboardsButtonsSection.newPinboardMenuButton.click();
         pinboardPage.managePinboardsButtonsSection.duplicateCurrentPinboardButton.click();
@@ -713,7 +773,7 @@ describe('Pinboard Page', function () {
       });
 
       it('should duplicate current pinboard if pinboard is saving and user confirm yes', function () {
-        updatePinboard();
+        removeOfficerFromPinboard();
         pinboardPage.managePinboardsButtonsSection.newPinboardMenuButton.click();
         pinboardPage.managePinboardsButtonsSection.duplicateCurrentPinboardButton.click();
         expectAlertContent(browser);
@@ -724,7 +784,7 @@ describe('Pinboard Page', function () {
       });
 
       it('should still in current page if pinboard is saving and user confirm no', function () {
-        updatePinboard();
+        removeOfficerFromPinboard();
         pinboardPage.managePinboardsButtonsSection.newPinboardMenuButton.click();
         pinboardPage.managePinboardsButtonsSection.duplicateCurrentPinboardButton.click();
         expectAlertContent(browser);
@@ -734,6 +794,10 @@ describe('Pinboard Page', function () {
     });
 
     context('clicking on plus button in pinboard list', function () {
+      beforeEach(function () {
+        pinboardPage.open('ceea8ea3');
+      });
+
       it('should create an empty pinboard', function () {
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
         pinboardPage.pinboardsListSection.createNewPinboardButton.click();
@@ -743,7 +807,7 @@ describe('Pinboard Page', function () {
       });
 
       it('should create an empty pinboard if pinboard is saving and user confirm yes', function () {
-        updatePinboard();
+        removeOfficerFromPinboard();
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
         pinboardPage.pinboardsListSection.createNewPinboardButton.click();
         expectAlertContent(browser);
@@ -754,7 +818,7 @@ describe('Pinboard Page', function () {
       });
 
       it('should still in current page if pinboard is saving and user confirm no', function () {
-        updatePinboard();
+        removeOfficerFromPinboard();
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
         pinboardPage.pinboardsListSection.createNewPinboardButton.click();
         expectAlertContent(browser);
@@ -764,6 +828,10 @@ describe('Pinboard Page', function () {
     });
 
     context('clicking on duplicate button in pinboard list', function () {
+      beforeEach(function () {
+        pinboardPage.open('ceea8ea3');
+      });
+
       it('should duplicate selected pinboard', function () {
         pinboardPage.openByQuery('?officer-ids=1,2&crids=5678123&trr-ids=3,2');
 
@@ -783,7 +851,7 @@ describe('Pinboard Page', function () {
       });
 
       it('should duplicate selected pinboard if pinboard is saving and user confirm yes', function () {
-        updatePinboard();
+        removeOfficerFromPinboard();
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
         pinboardPage.pinboardsListSection.firstDuplicatePinboardButton.click();
         expectAlertContent(browser);
@@ -794,7 +862,7 @@ describe('Pinboard Page', function () {
       });
 
       it('should still in current page if pinboard is saving and user confirm no', function () {
-        updatePinboard();
+        removeOfficerFromPinboard();
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
         pinboardPage.pinboardsListSection.firstDuplicatePinboardButton.click();
         expectAlertContent(browser);

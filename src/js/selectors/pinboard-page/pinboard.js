@@ -28,9 +28,9 @@ export const getPinboard = createSelector(
   })
 );
 
-export const pinboardSavingSelector = createSelector(
+export const hasPendingChangesSelector = createSelector(
   state => get(state, 'pinboardPage.pinboard', {}),
-  pinboard => get(pinboard, 'saving', false),
+  pinboard => get(pinboard, 'hasPendingChanges', false),
 );
 
 export const isPinboardRestoredSelector = createSelector(

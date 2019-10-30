@@ -22,6 +22,7 @@ import {
   savePinboardWithoutChangingState,
   handleRemovingItemInPinboardPage,
   fetchLatestRetrievedPinboard,
+  setPinboardHasPendingChanges,
 } from 'actions/pinboard';
 import PinboardFactory from 'utils/test/factories/pinboard';
 import { Toastify } from 'utils/vendors';
@@ -329,6 +330,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
     let dispatched;
     restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
+    store.dispatch.should.be.calledWith(setPinboardHasPendingChanges(true));
 
     store.dispatch.should.be.calledWith(handleRemovingItemInPinboardPage({
       id: '123',
@@ -380,6 +382,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
               'officer_ids': [123, 456],
               'saving': false,
               'needRefreshData': true,
+              'hasPendingChanges': true,
             }),
             officerItems: {
               items: [],
@@ -426,6 +429,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
 
     setTimeout(
       () => {
+        store.dispatch.should.be.calledWith(setPinboardHasPendingChanges(false));
         store.dispatch.should.be.calledWith(fetchPinboardSocialGraph('66ef1560'));
         store.dispatch.should.be.calledWith(fetchPinboardGeographic());
         store.dispatch.should.be.calledWith(fetchFirstPagePinboardGeographicCrs({ 'pinboard_id': '66ef1560' }));
@@ -457,6 +461,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
       let dispatched;
       restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
       dispatched.should.eql(action);
+      store.dispatch.should.be.calledWith(setPinboardHasPendingChanges(true));
 
       store.dispatch.should.be.calledWith(createPinboard({
         id: null,
@@ -481,15 +486,19 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
         type: constants.SAVE_PINBOARD,
         payload: null,
       };
+
       const store = createStore(PinboardFactory.build({
         'id': '66ef1560',
         'officer_ids': [123, 456],
         'saving': false,
+        'hasPendingChanges': true,
       }));
 
       let dispatched;
       restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
       dispatched.should.eql(action);
+
+      store.dispatch.should.be.calledOnce();
 
       store.dispatch.should.be.calledWith(updatePinboard({
         id: '66ef1560',
@@ -576,13 +585,15 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
         'id': '66ef1560',
         'officer_ids': [123, 456],
         'saving': false,
+        'hasPendingChanges': true,
       }));
 
       let dispatched;
       restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
       dispatched.should.eql(action);
 
-      store.dispatch.should.not.be.called();
+      store.dispatch.should.be.calledOnce();
+      store.dispatch.should.be.calledWith(setPinboardHasPendingChanges(false));
     });
 
     it('should fetch data at end the loop when being on the pinboard page', function () {
@@ -599,6 +610,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
           'officer_ids': [123, 456],
           'saving': false,
           'needRefreshData': true,
+          'hasPendingChanges': true,
         }),
         '/pinboard/66ef1560/'
       );
@@ -606,6 +618,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
       let dispatched;
       restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
       dispatched.should.eql(action);
+      store.dispatch.should.be.calledWith(setPinboardHasPendingChanges(false));
 
       store.dispatch.should.be.calledWith(fetchPinboardSocialGraph('66ef1560'));
       store.dispatch.should.be.calledWith(fetchPinboardGeographic());
@@ -630,6 +643,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
                 'id': '66ef1560',
                 'officer_ids': [123, 456],
                 'saving': false,
+                'hasPendingChanges': true,
               }),
               officerItems: {
                 items: [],
@@ -696,6 +710,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
                 'id': '66ef1560',
                 'officer_ids': [123, 456],
                 'saving': false,
+                'hasPendingChanges': true,
               }),
             },
           };
@@ -713,6 +728,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
                 'id': '66ef1560',
                 'officer_ids': [123, 456],
                 'saving': false,
+                'hasPendingChanges': true,
               }),
             },
           };

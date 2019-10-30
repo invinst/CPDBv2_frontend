@@ -128,4 +128,10 @@ export default handleActions({
       needRefreshData: false,
     };
   },
+  [constants.SET_PINBOARD_HAS_PENDING_CHANGES]: (state, action) => {
+    return {
+      ...state,
+      hasPendingChanges: action.payload,
+    };
+  },
 }, defaultState);
