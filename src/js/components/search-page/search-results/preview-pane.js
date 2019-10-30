@@ -15,6 +15,7 @@ import {
   SearchTermItemPane,
   CRPane,
   TRRPane,
+  PinboardPane,
 } from 'components/common/preview-pane';
 import styles from './preview-pane.sass';
 import withOverlay from 'components/common/with-overlay';
@@ -59,6 +60,7 @@ export default class PreviewPane extends Component {
       'INVESTIGATOR > CR': crPaneFunc,
       TRR: trrPaneFunc,
       'DATE > TRR': trrPaneFunc,
+      'PINBOARD': () => <PinboardPane { ...data } />,
     };
     return get(paneTypes, type, () => null)();
   }

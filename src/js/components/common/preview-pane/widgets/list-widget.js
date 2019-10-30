@@ -28,7 +28,7 @@ export default class ListWidget extends Component {
       items && items.length > 0 ? (
         <div className={ cx(styles.listWidget, wrapperClassName) }>
           <h5 className='list-widget-header'>{ title }</h5>
-          <ul className='list-widget-list'>
+          <ul className={ cx('list-widget-list', { 'show-avatar': showAvatar }) }>
             { items.map((item) => (
               wrapWithLink(
                 (
@@ -47,7 +47,12 @@ export default class ListWidget extends Component {
                     ) }
                     <div className='list-widget-list-item-info'>
                       <p className='list-widget-list-item-name'>{ item.name }</p>
-                      <p className='list-widget-list-item-count'>{ pluralize(typeName, item.count, true) }</p>
+                      {
+                        item.count && (
+                          <p className='list-widget-list-item-count'>{ pluralize(typeName, item.count, true) }</p>
+                        )
+                      }
+                      <p className='list-widget-list-item-count'>{ item.subText }</p>
                     </div>
                     { showItemArrow ? <div className='list-widget-list-item-arrow'/> : null }
                   </li>

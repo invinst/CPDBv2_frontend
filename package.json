@@ -148,6 +148,7 @@
     "react-dom": "^15.3.2",
     "react-infinite-scroller": "^1.0.4",
     "react-input-autosize": "^2.2.1",
+    "react-lines-ellipsis": "^0.14.1",
     "react-markdown": "^3.2.0",
     "react-modal-video": "^1.2.2",
     "react-motion": "^0.5.2",

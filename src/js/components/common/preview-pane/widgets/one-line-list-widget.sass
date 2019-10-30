@@ -1,0 +1,41 @@
+@import 'variables'
+
+$title-width: 115px
+
+\:local(.one-line-list-widget)
+  list-style: none
+  padding: 0 8px
+  margin: 0
+  border: 1px solid $alto-color
+  background-color: white
+
+  .list-item
+    //line-height: 18px
+    border-top: 1px solid $white-two-color
+    padding: 10px 0
+    position: relative
+
+    &:first-child
+      border-top: none
+
+    %item-text
+      float: left
+      font-size: 14px
+      font-weight: 400
+
+    .list-item-title
+      @extend %item-text
+      color: $boulder-color
+      width: $title-width
+
+    .list-item-text
+      @extend %item-text
+      overflow: hidden
+      text-align: center
+      text-overflow: ellipsis
+      width: 100%
+      white-space: nowrap
+
+      &.has-title
+        width: calc(100% - #{$title-width})
+        text-align: left

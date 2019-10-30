@@ -52,7 +52,7 @@
       .list-widget-list-item-info
         display: inline-block
         vertical-align: middle
-        width: calc(100% - 7px - 50px)
+        width: calc(100% - 7px)
 
         .list-widget-list-item-name
           margin: 0
@@ -67,6 +67,10 @@
         width: 7px
         vertical-align: middle
         background: url('/img/disclosure-indicator.svg') no-repeat scroll center transparent
+
+    &.show-avatar
+      .list-widget-list-item-info
+        width: calc(100% - 7px - 50px)
 
     > .list-widget-list-item:last-child
       border-bottom: none

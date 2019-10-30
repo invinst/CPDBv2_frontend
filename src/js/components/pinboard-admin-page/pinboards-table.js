@@ -15,7 +15,7 @@ const rowMap = {
 
 export default class PinboardsTable extends Component {
   render() {
-    const { rows, hasMore, nextParams, fetchPinboards, isLoading } = this.props;
+    const { rows, hasMore, nextParams, fetchPinboards, isLoading, focusItem } = this.props;
     return (
       <div className={ responsiveContainerStyles.responsiveContainer }>
         <div className={ styles.table }>
@@ -28,7 +28,7 @@ export default class PinboardsTable extends Component {
             {
               map(rows, row => {
                 const Element = rowMap[row.kind];
-                return <Element key={ row.id } { ...row }/>;
+                return <Element key={ row.id } onClick={ () => focusItem(row) } { ...row }/>;
               })
             }
           </InfiniteScroll>

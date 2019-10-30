@@ -11,10 +11,11 @@ export default class PinboardRow extends Component {
       createdAt,
       pinnedCount,
       isHeader,
+      onClick,
     } = this.props;
 
     return (
-      <div className={ cx(styles.row, { 'header': isHeader }) }>
+      <div className={ cx(styles.row, { 'header': isHeader }) } onClick={ onClick }>
         <span className='cell pinboard-id'>{ id }</span>
         <span className='cell pinboard-title'>{ title }</span>
         <span className='cell pinboard-pinned'>{ pinnedCount }</span>
@@ -30,4 +31,5 @@ PinboardRow.propTypes = {
   createdAt: PropTypes.string,
   pinnedCount: PropTypes.string,
   isHeader: PropTypes.bool,
+  onClick: PropTypes.func,
 };
