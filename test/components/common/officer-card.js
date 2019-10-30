@@ -6,11 +6,17 @@ import {
   renderIntoDocument,
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
+  scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
+import { spy } from 'sinon';
+import { random } from 'faker';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import OfficerCard from 'components/common/officer-card';
 import RadarChart from 'components/common/radar-chart/radar-chart';
+import ItemPinButton from 'components/common/item-pin-button';
+import pinButtonStyles from 'components/common/item-pin-button.sass';
+import { PINNED_ITEM_TYPES } from 'utils/constants';
 
 
 describe('OfficerCard component', function () {
@@ -67,5 +73,34 @@ describe('OfficerCard component', function () {
 
     const link = findRenderedComponentWithType(instance, Link);
     link.props.target.should.eql('_blank');
+  });
+
+  it('should render ItemPinButton with correct props', function () {
+    const addOrRemoveItemInPinboard = spy();
+    const id = random.number({ min: 10, max: 1000 });
+    const isPinned = random.boolean();
+
+    instance = renderIntoDocument(
+      <OfficerCard
+        officerId={ id }
+        isPinned={ isPinned }
+        addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
+      />
+    );
+
+    const itemPinButton = findRenderedComponentWithType(instance, ItemPinButton);
+    itemPinButton.props.className.should.equal(pinButtonStyles.cardPinnedButton);
+    itemPinButton.props.addOrRemoveItemInPinboard.should.equal(addOrRemoveItemInPinboard);
+    itemPinButton.props.showHint.should.be.false();
+    itemPinButton.props.item.should.eql({ type: PINNED_ITEM_TYPES.OFFICER, id, isPinned });
+  });
+
+  it('should not render pin button if not pinnable', function () {
+    instance = renderIntoDocument(
+      <OfficerCard
+        pinnable={ false }
+      />,
+    );
+    scryRenderedComponentsWithType(instance, ItemPinButton).should.have.length(0);
   });
 });

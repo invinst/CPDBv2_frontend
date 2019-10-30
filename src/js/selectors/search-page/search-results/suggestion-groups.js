@@ -1,13 +1,13 @@
 import { createSelector } from 'reselect';
-import { indexOf, isEmpty, head, keys, map, omitBy, pick, sortBy, cloneDeep } from 'lodash';
+import { indexOf, isEmpty, head, keys, map, omitBy, pick, sortBy } from 'lodash';
 
 import * as constants from 'utils/constants';
 import { searchResultItemTransform } from 'selectors/common/preview-pane-transforms';
 import { navigationItemTransform } from 'selectors/common/search-item-transforms';
 import extractQuery from 'utils/extract-query';
 import { dataToolSearchUrl } from 'utils/v1-url';
-import { pinboardItemsSelector } from 'selectors/pinboard-page/pinboard';
-import { isItemPinned, getQuery } from 'selectors/search-page/common';
+import { isItemPinned, pinboardItemsSelector } from 'selectors/pinboard-page/pinboard';
+import { getQuery } from 'selectors/search-page/common';
 
 
 const itemsPerCategory = 5;
@@ -85,22 +85,12 @@ export const slicedSuggestionGroupsSelector = createSelector(
   }
 );
 
-const pinnedItemTypeMap = {
-  'CR': 'CR',
-  'DATE > CR': 'CR',
-  'INVESTIGATOR > CR': 'CR',
-  'OFFICER': 'OFFICER',
-  'UNIT > OFFICERS': 'OFFICER',
-  'DATE > OFFICERS': 'OFFICER',
-  'TRR': 'TRR',
-  'DATE > TRR': 'TRR',
-};
-
 export const getPinnedItem = (item, pinboardItems) => {
-  const pinnedItemType = pinnedItemTypeMap[item.type];
-  const pinnedItem = cloneDeep(item);
-  pinnedItem.isPinned = isItemPinned(pinnedItemType, item.id, pinboardItems);
-  return pinnedItem;
+  const pinnedItemType = constants.PINNED_ITEM_TYPES[item.type];
+  return {
+    ...item,
+    isPinned: isItemPinned(pinnedItemType, item.id, pinboardItems),
+  };
 };
 
 export const isEmptySelector = createSelector(

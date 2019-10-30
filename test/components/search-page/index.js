@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { Router, createMemoryHistory, Route, browserHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
@@ -8,16 +8,14 @@ import {
   scryRenderedDOMComponentsWithTag,
   Simulate,
 } from 'react-addons-test-utils';
-import { spy, stub } from 'sinon';
+import { spy, stub, useFakeTimers } from 'sinon';
 import Mousetrap from 'mousetrap';
-import lodash from 'lodash';
 import MockStore from 'redux-mock-store';
 import RootReducer from 'reducers/root-reducer';
 import { createStore } from 'redux';
 import { Promise } from 'es6-promise';
 
 import * as navigateUtils from 'utils/navigate-to-search-item';
-import SearchPageContainer from 'containers/search-page';
 import SearchPage from 'components/search-page';
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import * as intercomUtils from 'utils/intercom';
@@ -26,7 +24,6 @@ import SearchTags from 'components/search-page/search-tags';
 import SearchBox from 'components/search-page/search-box';
 import { MORE_BUTTON, RECENT_CONTENT_TYPE } from 'utils/constants';
 import * as IntercomTracking from 'utils/intercom-tracking';
-import { showToast } from 'actions/toast';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 
 
@@ -49,23 +46,20 @@ describe('SearchPage component', function () {
     pinboardPage: {
       pinboard: null,
     },
-    toast: {},
   };
   const store = MockStore()(state);
 
   beforeEach(function () {
     this.browserHistoryPush = stub(browserHistory, 'push');
-    // Stub lodash.debounce() so that it returns the input function as-is
-    this.debounceStub = stub(lodash, 'debounce').callsFake(func => func);
   });
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
     this.browserHistoryPush.restore();
-    this.debounceStub.restore();
   });
 
   it('should not call get suggestion api when query is empty', function () {
+    const clock = useFakeTimers();
     const getSuggestionSpy = stub().returns({ catch: spy() });
     instance = renderIntoDocument(
       <Provider store={ store }>
@@ -75,10 +69,15 @@ describe('SearchPage component', function () {
         />
       </Provider>
     );
+    clock.tick(600);
+
     getSuggestionSpy.should.not.be.called();
+
+    clock.restore();
   });
 
   it('should call get suggestion api when query is set', function () {
+    const clock = useFakeTimers();
     const getSuggestionSpy = stub().returns({ catch: spy() });
     instance = renderIntoDocument(
       <Provider store={ store }>
@@ -88,7 +87,11 @@ describe('SearchPage component', function () {
         />
       </Provider>
     );
+    clock.tick(600);
+
     getSuggestionSpy.should.be.calledWith('a', { limit: 9 });
+
+    clock.restore();
   });
 
   it('should call browserHistory.push when user click on searchbar__button--back', function () {
@@ -356,75 +359,88 @@ describe('SearchPage component', function () {
       resetSearchResultNavigation.calledWith(1).should.be.true();
     });
 
-  it('should not deselect tag and call getSuggestion while requesting', function () {
-    const selectTagSpy = spy();
+  it('should not call getSuggestion while query does not change', function () {
+    const clock = useFakeTimers();
     const getSuggestionSpy = stub().returns({ catch: spy() });
 
     instance = renderIntoDocument(
       <Provider store={ store }>
         <SearchPage
           suggestionGroups={ ['abc'] }
-          isEmpty={ false }
           isRequesting={ false }
-          selectTag={ selectTagSpy }
+          query='abc'
           getSuggestion={ getSuggestionSpy } />
       </Provider>
     );
-    selectTagSpy.resetHistory();
+
+    clock.tick(600);
+    getSuggestionSpy.should.be.calledOnce();
     getSuggestionSpy.resetHistory();
 
     reRender(
       <Provider store={ store }>
         <SearchPage
           suggestionGroups={ [] }
-          isEmpty={ true }
           isRequesting={ true }
           query='abc'
-          selectTag={ selectTagSpy }
           getSuggestion={ getSuggestionSpy } />
       </Provider>,
       instance
     );
 
-    selectTagSpy.should.not.be.called();
+    clock.tick(600);
+
     getSuggestionSpy.should.not.be.called();
+
+    clock.restore();
   });
 
-  it('should not deselect tag when suggestions is not empty', function () {
-    const selectTagSpy = spy();
+  it('should throttle getSuggestion calls and only keep the call with the latest query', function () {
+    const clock = useFakeTimers();
     const getSuggestionSpy = stub().returns({ catch: spy() });
 
     instance = renderIntoDocument(
       <Provider store={ store }>
         <SearchPage
           suggestionGroups={ ['abc'] }
-          isEmpty={ false }
           isRequesting={ false }
-          selectTag={ selectTagSpy }
+          query='abc'
           getSuggestion={ getSuggestionSpy } />
       </Provider>
     );
-    selectTagSpy.resetHistory();
-    getSuggestionSpy.resetHistory();
 
     reRender(
       <Provider store={ store }>
         <SearchPage
-          suggestionGroups={ ['abc'] }
-          isEmpty={ false }
-          isRequesting={ false }
-          query='abc'
-          selectTag={ selectTagSpy }
+          suggestionGroups={ [] }
+          isRequesting={ true }
+          query='abcd'
           getSuggestion={ getSuggestionSpy } />
       </Provider>,
       instance
     );
 
-    selectTagSpy.should.not.be.called();
-    getSuggestionSpy.calledWith('abc', { limit: 9 }).should.be.true();
+    reRender(
+      <Provider store={ store }>
+        <SearchPage
+          suggestionGroups={ [] }
+          isRequesting={ true }
+          query='abcde'
+          getSuggestion={ getSuggestionSpy } />
+      </Provider>,
+      instance
+    );
+
+    clock.tick(600);
+
+    getSuggestionSpy.should.be.calledOnce();
+    getSuggestionSpy.should.be.calledWith('abcde', { limit: 9 });
+
+    clock.restore();
   });
 
   it('should not call api when query changed to emtpy', function () {
+    const clock = useFakeTimers();
     const selectTagSpy = spy();
     const getSuggestionSpy = stub().returns({ catch: spy() });
     const getSuggestionWithContentTypeSpy = stub().returns({ catch: spy() });
@@ -442,6 +458,9 @@ describe('SearchPage component', function () {
       </Provider>
     );
     selectTagSpy.resetHistory();
+
+    clock.tick(600);
+    getSuggestionSpy.should.be.calledOnce();
     getSuggestionSpy.resetHistory();
 
     reRender(
@@ -459,9 +478,13 @@ describe('SearchPage component', function () {
       instance
     );
 
+    clock.tick(600);
+
     selectTagSpy.should.not.be.called();
     getSuggestionSpy.should.not.be.called();
     getSuggestionWithContentTypeSpy.should.not.be.called();
+
+    clock.restore();
   });
 
   describe('Intercom', function () {
@@ -513,33 +536,6 @@ describe('SearchPage component', function () {
         IntercomTracking.trackSearchPage.called.should.be.true();
       });
     });
-  });
-
-  it('should show toast on toast prop change', function () {
-    const showToastStub = spy(SearchPage.prototype, 'showToast');
-    const searchPageStub = stub(SearchPage.prototype, 'componentDidMount');
-
-    const store = createStore(RootReducer, state);
-
-    const searchPage = () => (
-      <Provider store={ store }>
-        <SearchPageContainer />
-      </Provider>
-    );
-
-
-    instance = renderIntoDocument(
-      <Router history={ createMemoryHistory() }>
-        <Route path='/' component={ searchPage } />
-      </Router>
-    );
-    store.dispatch(showToast({
-      isPinned: true,
-      type: 'CR',
-    }));
-
-    showToastStub.should.be.calledWith('CR removed', 'removed');
-    searchPageStub.restore();
   });
 
   it('should handle when click on pinboard button if pinboard is not exist', function (done) {

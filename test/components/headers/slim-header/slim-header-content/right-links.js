@@ -39,6 +39,6 @@ describe('RightLinks component', function () {
 
     tags[3].getAttribute('class').should.equal('right-link top');
     tags[3].getAttribute('href').should.equal('/pinboard/');
-    tags[3].textContent.should.equal('Pinboard');
+    tags[3].textContent.should.equal('Pinboards');
   });
 });

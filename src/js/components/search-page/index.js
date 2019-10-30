@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
-import { debounce, isEmpty, noop } from 'lodash';
+import { throttle, isEmpty, noop } from 'lodash';
 import { Promise } from 'es6-promise';
-import { toast, cssTransition } from 'react-toastify';
 import cx from 'classnames';
 
 import SearchBox from './search-box';
@@ -32,7 +31,7 @@ export default class SearchPage extends Component {
     this.handleSelect = this.handleSelect.bind(this);
     this.resetNavigation = this.resetNavigation.bind(this);
 
-    this.getSuggestion = debounce(this.props.getSuggestion, 100);
+    this.getSuggestion = throttle(this.props.getSuggestion, 500, { 'leading': false });
     this.handleEmptyPinboardButtonClick = this.handleEmptyPinboardButtonClick.bind(this);
   }
 
@@ -52,17 +51,14 @@ export default class SearchPage extends Component {
 
   componentWillReceiveProps(nextProps) {
     const {
-      query, isRequesting, isEmpty,
+      query,
     } = nextProps;
 
     const queryChanged = query !== this.props.query;
-    const suggestionGroupsEmpty = !this.props.isEmpty && isEmpty;
 
-    if (!isRequesting && (queryChanged || suggestionGroupsEmpty)) {
+    if (queryChanged) {
       this.sendSearchQuery(query);
     }
-
-    this.handleToastChange(nextProps);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -82,29 +78,6 @@ export default class SearchPage extends Component {
       LayeredKeyBinding.unbind('enter');
     }
     showIntercomLauncher(true);
-  }
-
-  handleToastChange(nextProps) {
-    if (this.props.toast !== nextProps.toast) {
-      const { type, actionType } = nextProps.toast;
-
-      this.showToast(`${type} ${actionType}`, actionType);
-    }
-  }
-
-  showToast(message, className) {
-    const TopRightTransition = cssTransition({
-      enter: 'toast-enter',
-      exit: 'toast-exit',
-      duration: 500,
-      appendPosition: true,
-    });
-
-    toast(message, {
-      className: `toast-wrapper ${className}`,
-      bodyClassName: 'toast-body',
-      transition: TopRightTransition,
-    });
   }
 
   sendSearchQuery(query) {
@@ -177,7 +150,7 @@ export default class SearchPage extends Component {
     const aliasEditModeOn = this.props.location.pathname.startsWith(`/edit/${SEARCH_ALIAS_EDIT_PATH}`);
     const {
       hide, query, queryPrefix, searchTermsHidden, contentType, tags,
-      editModeOn, officerCards, requestActivityGrid,
+      editModeOn, requestActivityGrid,
       changeSearchQuery, focusedItem, firstItem, saveToRecent, position, animationIn,
     } = this.props;
 
@@ -223,7 +196,6 @@ export default class SearchPage extends Component {
             query={ query }
             editModeOn={ editModeOn }
             aliasEditModeOn={ aliasEditModeOn }
-            officerCards={ officerCards }
             requestActivityGrid={ requestActivityGrid }
             searchTermsHidden={ searchTermsHidden }
             handleSelect={ this.handleSelect }
@@ -245,13 +217,11 @@ SearchPage.propTypes = {
   selectTag: PropTypes.func,
   contentType: PropTypes.string,
   queryPrefix: PropTypes.string,
-  isEmpty: PropTypes.bool,
   router: PropTypes.object,
   query: PropTypes.string,
   changeSearchQuery: PropTypes.func,
   children: PropTypes.node,
   editModeOn: PropTypes.bool,
-  officerCards: PropTypes.array,
   requestActivityGrid: PropTypes.func,
   searchTermsHidden: PropTypes.bool,
   resetSearchResultNavigation: PropTypes.func,
@@ -261,6 +231,7 @@ SearchPage.propTypes = {
   isRequesting: PropTypes.bool,
   toast: PropTypes.object,
   createNewEmptyPinboard: PropTypes.func,
+  createPinboard: PropTypes.func,
   saveToRecent: PropTypes.func,
   hide: PropTypes.bool,
   position: PropTypes.string,
@@ -283,5 +254,6 @@ SearchPage.defaultProps = {
   firstItem: {},
   toast: {},
   createNewEmptyPinboard: noop,
+  createPinboard: noop,
   saveToRecent: noop,
 };

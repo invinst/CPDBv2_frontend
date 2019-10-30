@@ -14,7 +14,7 @@ import withPinnableItem
 import TextWithInlineSearchAlias
   from 'components/search-page/search-results/suggestion-group/suggestion-item/text-with-inline-search-alias';
 import EditModeItem from 'components/search-page/search-results/suggestion-group/suggestion-item/edit-mode-item';
-import ItemPinButton from 'components/search-page/search-results/suggestion-group/suggestion-item/item-pin-button';
+import ItemPinButton from 'components/common/item-pin-button';
 
 
 describe('withPinnableItem component', function () {

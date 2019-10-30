@@ -10,6 +10,7 @@ import {
   turnOffCarouselAllegationHeaderEditMode,
   turnOnCarouselAllegationHeaderEditMode,
 } from 'actions/landing-page/officers-by-allegation';
+import { addOrRemoveItemInPinboard } from 'actions/pinboard';
 
 
 function mapStateToProps(state, ownProps) {
@@ -19,6 +20,7 @@ function mapStateToProps(state, ownProps) {
     openCardInNewPage: ownProps.openCardInNewPage,
     fields: getCMSFields(constants.LANDING_PAGE_ID)(state),
     sectionEditModeOn: getCarouselAllegationHeaderEditModeOn(state),
+    pinnable: ownProps.pinnable,
   };
 }
 
@@ -26,6 +28,7 @@ const mapDispatchToProps = {
   onSaveForm: updatePage(constants.LANDING_PAGE_ID),
   turnOnSectionEditMode: turnOnCarouselAllegationHeaderEditMode,
   turnOffSectionEditMode: turnOffCarouselAllegationHeaderEditMode,
+  addOrRemoveItemInPinboard: addOrRemoveItemInPinboard,
 };
 
 export default connect(

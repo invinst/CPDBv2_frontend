@@ -3,6 +3,8 @@
 require('should');
 
 import crPage from './page-objects/cr-page';
+import landingPage from './page-objects/landing-page';
+import searchPage from './page-objects/search-page';
 
 
 describe('CR page', function () {
@@ -55,7 +57,7 @@ describe('CR page', function () {
   });
 
   it('should navigate to officer page when we click on accused officer card', function () {
-    crPage.accusedOfficers.firstCard.element.click();
+    crPage.accusedOfficers.firstCard.mainElement.click();
     browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/$/);
   });
 
@@ -133,6 +135,52 @@ describe('CR page', function () {
       crPage.relatedByCategoriesCarousel.rightArrow.click();
       crPage.relatedByCategoriesCarousel.rightArrow.waitForDisplayed();
       crPage.relatedByCategoriesCarousel.cards.count.should.equal(40);
+    });
+  });
+
+  describe('Pinboard function', function () {
+    it('should display toast when pinning a coaccusal', function () {
+      crPage.accusedOfficers.firstCard.pinButton.click();
+      crPage.lastToast.waitForDisplayed();
+      crPage.lastToast.waitForText('Officer added');
+
+      crPage.landingPageBreadCrumb.click();
+      landingPage.searchSection.mainElement.waitForDisplayed();
+      landingPage.searchSection.mainElement.click();
+      searchPage.pinboardButton.waitForText('Pinboard (1)');
+      browser.back();
+      browser.back();
+
+      crPage.accusedOfficers.firstCard.pinButton.click();
+      crPage.lastToast.waitForDisplayed();
+      crPage.lastToast.waitForText('Officer removed');
+
+      crPage.landingPageBreadCrumb.click();
+      landingPage.searchSection.mainElement.waitForDisplayed();
+      landingPage.searchSection.mainElement.click();
+      searchPage.pinboardButton.waitForText('Pinboard (0)');
+    });
+
+    it('should display toast when pinning a related complaint', function () {
+      crPage.relatedByCategoriesCarousel.firstPinButton.click();
+      crPage.lastToast.waitForDisplayed();
+      crPage.lastToast.waitForText('CR added');
+
+      crPage.landingPageBreadCrumb.click();
+      landingPage.searchSection.mainElement.waitForDisplayed();
+      landingPage.searchSection.mainElement.click();
+      searchPage.pinboardButton.waitForText('Pinboard (1)');
+      browser.back();
+      browser.back();
+
+      crPage.relatedByCategoriesCarousel.firstPinButton.click();
+      crPage.lastToast.waitForDisplayed();
+      crPage.lastToast.waitForText('CR removed');
+
+      crPage.landingPageBreadCrumb.click();
+      landingPage.searchSection.mainElement.waitForDisplayed();
+      landingPage.searchSection.mainElement.click();
+      searchPage.pinboardButton.waitForText('Pinboard (0)');
     });
   });
 });

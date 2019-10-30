@@ -14,13 +14,14 @@ describe('embed top officers page', function () {
   });
 
   describe('Officers By Allegation carousel', function () {
-    it('should show title, description and initial carousel', function () {
+    it('should show title, description, initial carousel and should not show pin button', function () {
       embedOfficersPage.title.getText().should.eql('Some title');
       embedOfficersPage.description.getText().should.eql('Some description');
 
       embedOfficersPage.embedOfficersCarousel.cards.count.should.equal(3);
       embedOfficersPage.embedOfficersCarousel.rightArrow.waitForDisplayed();
       embedOfficersPage.embedOfficersCarousel.leftArrow.waitForDisplayed(2000, true);
+      embedOfficersPage.embedOfficersCarousel.firstPinButton.waitForDisplayed(2000, true);
     });
 
     it('should go to officer summary page when click to card', function () {

@@ -7,6 +7,8 @@ import { getBreadcrumb } from 'selectors/breadcrumbs';
 import { getFindingOutcomeMix } from './finding-outcome-mix';
 import { officerCardTransform } from 'selectors/common/officer-card';
 import { getDemographicString } from 'utils/victims';
+import { createWithIsPinnedSelector } from 'selectors/common/pinboard';
+import { PINNED_ITEM_TYPES } from 'utils/constants';
 
 
 export const getEditModeOn = state => state.crPage.editModeOn;
@@ -61,9 +63,10 @@ const getVictimStringSelector = createSelector(
   (victims) => compact(map(victims, getDemographicString))
 );
 
-const getTransformedCoaccused = createSelector(
+const getTransformedCoaccused = createWithIsPinnedSelector(
   getCoaccused,
-  (coaccusedList) => coaccusedList.map(coaccused => ({
+  PINNED_ITEM_TYPES.OFFICER,
+  coaccused => ({
     ...officerCardTransform(coaccused),
     coaccusedCount: coaccused['coaccused_count'],
     findingOutcomeMix: getFindingOutcomeMix(coaccused['final_finding'], coaccused['final_outcome']),
@@ -72,7 +75,7 @@ const getTransformedCoaccused = createSelector(
     recommendedOutcome: coaccused['recommended_outcome'],
     category: coaccused['category'] || 'Unknown',
     disciplined: coaccused['disciplined'],
-  }))
+  })
 );
 
 const sortByOfficerInBreadcrumb = breadcrumbs => officer => {

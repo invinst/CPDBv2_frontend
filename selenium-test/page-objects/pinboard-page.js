@@ -347,8 +347,8 @@ class PinboardPage extends Page {
     super.open(url);
   }
 
-  openByQuery(officerIds=[], crids=[], trrIds=[]) {
-    super.open(`/pinboard/?officer-ids=${officerIds.join()}&crids=${crids.join()}&trr-ids=${trrIds.join()}`);
+  openByQuery(queryString) {
+    super.open(`/pinboard/${queryString}`);
   }
 }
 

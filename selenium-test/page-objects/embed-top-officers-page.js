@@ -1,19 +1,16 @@
 'use strict';
 
 import Page from './page';
-import Section from './sections/section';
+import CarouselSection from './sections/carousel';
 
 
-class OfficersByAllegationCarouselSection extends Section {
+class OfficersByAllegationCarouselSection extends CarouselSection {
   constructor() {
-    super();
-    this.prepareElementGetters({
-      leftArrow: '//div[contains(@class, "test--landing-carousel-allegation")]' +
-        '//*[contains(@class, "test--carousel-arrow-left")]',
-      rightArrow: '//div[contains(@class, "test--landing-carousel-allegation")]' +
-        '//*[contains(@class, "test--carousel-arrow-right")]',
-      cards: '//div[contains(@class, "test--landing-carousel-allegation")]//a[contains(@class, "officer-card")]',
-    });
+    super(
+      '',
+      '//div[contains(@class, "test--landing-carousel-allegation")]',
+      '//a[contains(@class, "officer-card")]',
+    );
   }
 }
 

@@ -14,7 +14,7 @@ class OfficerPreviewPaneSection extends Section {
       neighborhoodPane: '.test--preview-pane-neighborhood',
       listMostOfficers: '//*[starts-with(@class, "preview-pane")]//*[contains(@class,"list-widget-item-link")]',
       previewPane: '//div[starts-with(@class, "preview-pane")]',
-      pinButton: '.pin-button',
+      pinButton: '//div[starts-with(@class, "preview-pane")]//*[contains(@class,"pin-button")]',
       viewOfficerButton: '.view-officer-profile-button',
       unitItem: 'li.has-link',
     });
@@ -123,7 +123,7 @@ class SearchPage extends Page {
       clearSearchButton: '.test--search-close-button',
       firstOfficerResult: '.test--suggestion-group .suggestion-item-OFFICER-1',
       firstOfficerPinButton:
-        '//a[contains(@class, "suggestion-item-OFFICER-1")]//span[starts-with(@class, "item-pin-button")]',
+        '//a[contains(@class, "suggestion-item-OFFICER-1")]//div[contains(@class, "item-pin-button__item-pin-button")]',
       secondOfficerResult: '.test--suggestion-group .suggestion-item-OFFICER-2',
       firstNeighborhoodResult: '.test--suggestion-group .suggestion-item-NEIGHBORHOOD-1',
       secondNeighborhoodResult: '.test--suggestion-group .suggestion-item-NEIGHBORHOOD-2',
@@ -145,11 +145,11 @@ class SearchPage extends Page {
       firstInvestigatorCrResult: '.test--suggestion-group .suggestion-item-INVESTIGATOR-CR-CR123456',
       firstSearchTermsResult: '.test--suggestion-group .suggestion-item-SEARCH-TERMS-community',
       firstRecentPinButton:
-        '//a[contains(@class, "suggestion-item-TRR-123")]//span[starts-with(@class, "item-pin-button")]',
+        '//a[contains(@class, "suggestion-item-TRR-123")]//div[contains(@class, "item-pin-button__item-pin-button")]',
       secondRecentPinButton:
-        '//a[contains(@class, "suggestion-item-CR-CR123")]//span[starts-with(@class, "item-pin-button")]',
+        '//a[contains(@class, "suggestion-item-CR-CR123")]//div[contains(@class, "item-pin-button__item-pin-button")]',
       thirdRecentPinButton:
-        '//a[contains(@class, "suggestion-item-OFFICER-1")]//span[starts-with(@class, "item-pin-button")]',
+        '//a[contains(@class, "suggestion-item-OFFICER-1")]//div[contains(@class, "item-pin-button__item-pin-button")]',
     });
   }
 

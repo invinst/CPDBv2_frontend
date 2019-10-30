@@ -5,87 +5,55 @@ import Section from './sections/section';
 import { Header } from './sections/header';
 import Footer from './sections/footer';
 import RichTextToolbar from './sections/rich-text-toolbar';
+import CarouselSection from './sections/carousel';
 
-
-class CollaborateSection extends Section {
+class RecentActivityCarouselSection extends CarouselSection {
   constructor() {
-    super();
+    super(
+      '',
+      '//div[@class="test--landing-carousel-activity landing-page-carousel"]',
+      '//a[contains(@class, "officer-card")]'
+    );
     this.prepareElementGetters({
-      editToggle: '//div[@class="test--collaborate-section"]//a[@class="test--more-link"]',
-      headerTitle: '//*[@class="test--collaborate-section-header"]//div[@data-block="true"]',
-      cancelButton: '//div[@class="test--collaborate-section"]//a[contains(@class, "cancel-button")]',
-      updateButton: '//div[@class="test--collaborate-section"]//a[contains(@class, "update-button")]',
-      content: '//div[@class="test--collaborate-section-content"]//div[@data-contents="true"]',
+      pairCards: '//div[contains(@class, "pairing-card__pairing-card")]',
+      firstPairCard: '(//div[contains(@class, "pairing-card__pairing-card")])[1]',
+      firstPairCardLeftHalf: '(//div[contains(@class, "pairing-card__pairing-card")])[1]' +
+        '//a[contains(@class, "half-pane")][1]',
+      firstPairCardRightHalf: '(//div[contains(@class, "pairing-card__pairing-card")])[1]' +
+        '//a[contains(@class, "half-pane")][2]',
+      firstPairCardPinButton: '(//div[contains(@class, "pairing-card__pairing-card")])[1]' +
+        '//div[contains(@class, "item-pin-button__item-pin-button")]',
     });
   }
 }
 
-class RecentActivityCarouselSection extends Section {
+class OfficersByAllegationCarouselSection extends CarouselSection {
   constructor() {
-    super();
-    this.prepareElementGetters({
-      leftArrow: '//div[@class="test--landing-carousel-activity landing-page-carousel"]' +
-        '//*[contains(@class, "test--carousel-arrow-left")]',
-      rightArrow: '//div[@class="test--landing-carousel-activity landing-page-carousel"]' +
-        '//*[contains(@class, "test--carousel-arrow-right")]',
-      officerCards: '//div[@class="test--landing-carousel-activity landing-page-carousel"]' +
-        '//a[contains(@class, "officer-card")]',
-      pairCards: '//div[@class="test--landing-carousel-activity landing-page-carousel"]' +
-        '//div[contains(@class, "pairing-card__pairing-card")]',
-      firstPairCard:
-        '(//div[@class="test--landing-carousel-activity landing-page-carousel"]' +
-        '//div[contains(@class, "pairing-card__pairing-card")])[1]',
-      firstPairCardLeftHalf: '' +
-        '((//div[@class="test--landing-carousel-activity landing-page-carousel"]' +
-        '//div[contains(@class, "pairing-card__pairing-card")])[1]' +
-        '//a[contains(@class, "half-pane")])[1]',
-      firstPairCardRightHalf: '' +
-        '((//div[@class="test--landing-carousel-activity landing-page-carousel"]' +
-        '//div[contains(@class, "pairing-card__pairing-card")])[1]' +
-        '//a[contains(@class, "half-pane")])[2]',
-    });
+    super(
+      '',
+      '//div[@class="test--landing-carousel-allegation landing-page-carousel"]',
+      '//a[contains(@class, "officer-card")]',
+    );
   }
 }
 
-class OfficersByAllegationCarouselSection extends Section {
+class RecentDocumentCarouselSection extends CarouselSection {
   constructor() {
-    super();
-    this.prepareElementGetters({
-      leftArrow: '//div[@class="test--landing-carousel-allegation landing-page-carousel"]' +
-        '//*[contains(@class, "test--carousel-arrow-left")]',
-      rightArrow: '//div[@class="test--landing-carousel-allegation landing-page-carousel"]' +
-        '//*[contains(@class, "test--carousel-arrow-right")]',
-      cards: '//div[@class="test--landing-carousel-allegation landing-page-carousel"]' +
-        '//a[contains(@class, "officer-card")]',
-    });
+    super(
+      '',
+      '//div[@class="test--landing-carousel-document landing-page-carousel"]',
+      '//a[contains(@class, "document-card__document-card")]'
+    );
   }
 }
 
-class RecentDocumentCarouselSection extends Section {
+class ComplaintSummariesCarouselSection extends CarouselSection {
   constructor() {
-    super();
-    this.prepareElementGetters({
-      leftArrow: '//div[@class="test--landing-carousel-document landing-page-carousel"]' +
-        '//*[contains(@class, "test--carousel-arrow-left")]',
-      rightArrow: '//div[@class="test--landing-carousel-document landing-page-carousel"]' +
-        '//*[contains(@class, "test--carousel-arrow-right")]',
-      cards: '//div[@class="test--landing-carousel-document landing-page-carousel"]' +
-        '//a[contains(@class, "document-card__document-card")]',
-    });
-  }
-}
-
-class ComplaintSummariesCarouselSection extends Section {
-  constructor() {
-    super();
-    this.prepareElementGetters({
-      leftArrow: '//div[@class="test--landing-carousel-complaint landing-page-carousel"]' +
-        '//*[contains(@class, "test--carousel-arrow-left")]',
-      rightArrow: '//div[@class="test--landing-carousel-complaint landing-page-carousel"]' +
-        '//*[contains(@class, "test--carousel-arrow-right")]',
-      cards: '//div[@class="test--landing-carousel-complaint landing-page-carousel"]' +
-        '//a[contains(@class, "complaint-summary-card")]',
-    });
+    super(
+      '',
+      '//div[@class="test--landing-carousel-complaint landing-page-carousel"]',
+      '//a[contains(@class, "complaint-summary-card")]',
+    );
   }
 }
 
@@ -166,7 +134,6 @@ class LandingPage extends Page {
   header = new Header();
   footer = new Footer();
   richTextToolbar = new RichTextToolbar();
-  collaborateSection = new CollaborateSection();
   recentActivityCarousel = new RecentActivityCarouselSection();
   officersByAllegationCarousel = new OfficersByAllegationCarouselSection();
   complaintSummariesCarousel = new ComplaintSummariesCarouselSection();
@@ -174,6 +141,15 @@ class LandingPage extends Page {
   genericModalSection = new GenericModalSection();
   heatMapSection = new HeatMapSection();
   searchSection = new SearchSection();
+
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      toast: '.Toastify__toast-body',
+      lastToast: '(//div[contains(@class, "Toastify__toast-body")])[last()]',
+      secondLastToast: '(//div[contains(@class, "Toastify__toast-body")])[last() - 1]',
+    });
+  }
 
   open() {
     super.open('/');

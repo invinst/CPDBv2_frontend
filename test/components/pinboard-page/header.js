@@ -34,14 +34,14 @@ describe('Pinboard Header component', function () {
     menuItems[0].textContent.should.eql('Data');
     menuItems[1].textContent.should.eql('Q&A');
     menuItems[2].textContent.should.eql('Documents');
-    menuItems[3].textContent.should.eql('Pinboard');
+    menuItems[3].textContent.should.eql('Pinboards');
   });
 
-  it('should highlight Pinboard link', function () {
+  it('should highlight Pinboards link', function () {
     instance = renderIntoDocument(<Header />);
 
     const highlightedMenuItems = findRenderedDOMComponentWithClass(instance, 'highlight');
-    highlightedMenuItems.textContent.should.eql('Pinboard');
+    highlightedMenuItems.textContent.should.eql('Pinboards');
   });
 
   context('clicking on a menu item', function () {

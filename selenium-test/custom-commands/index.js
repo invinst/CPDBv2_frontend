@@ -4,6 +4,29 @@ function initCommands() {
   });
 
   browser.addCommand(
+    'waitForUrl',
+    function (validator, timeout, interval=50) {
+      try {
+        browser.waitUntil(
+          () => {
+            try {
+              validator(browser.getUrl());
+              return true;
+            } catch (e) {
+              return false;
+            }
+          },
+          timeout,
+          interval
+        );
+      } catch (e) {
+        // print validator error message
+        validator(browser.getUrl());
+      }
+    }
+  );
+
+  browser.addCommand(
     'waitForText',
     function (text, timeout, reverse=false) {
       browser.waitUntil(

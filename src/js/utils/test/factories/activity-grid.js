@@ -22,7 +22,7 @@ export const RawOfficerCardFactory = Factory.define('RawOfficerCardFactory')
   .attr('kind', 'single_officer');
 
 /* istanbul ignore next */
-const RawPairCardOfficerFactory = Factory.define('RawPairCardOfficerFactory')
+export const RawPairCardOfficerFactory = Factory.define('RawPairCardOfficerFactory')
   .sequence('id')
   .attr('birth_year', () => date.past().getFullYear())
   .attr('full_name', name.findName)
