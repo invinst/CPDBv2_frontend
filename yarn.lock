@@ -8482,6 +8482,11 @@ react-clipboard.js@^1.1.2:
     clipboard "^1.6.1"
     prop-types "^15.5.0"
 
+react-collapse@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/react-collapse/-/react-collapse-5.0.0.tgz#6e62da4750866d1668a3426a79df4535543487e6"
+  integrity sha512-VpNmFZIUhHcl2Xqt9+N9PpjK14J6DyF56mdFn9Ci+3WqR+duQrQ0U2cuaMXw0VrHWLy/pACFX/bGSMVe303gNQ==
+
 react-custom-scrollbars@^4.2.1:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/react-custom-scrollbars/-/react-custom-scrollbars-4.2.1.tgz#830fd9502927e97e8a78c2086813899b2a8b66db"
@@ -8554,11 +8559,6 @@ react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
-
-react-lines-ellipsis@^0.14.1:
-  version "0.14.1"
-  resolved "https://registry.yarnpkg.com/react-lines-ellipsis/-/react-lines-ellipsis-0.14.1.tgz#dbc045b9c3bd0c46d2c1dee893d46e9260d53969"
-  integrity sha512-4nEDEzzfXy2bqRhLc00DWYb39FKIpGqaIIh/YT3KdHyM9pqD8cSfDSCdGy657sB12alCdT7cKK48Uk0OsRMvHQ==
 
 react-markdown@^3.2.0:
   version "3.6.0"

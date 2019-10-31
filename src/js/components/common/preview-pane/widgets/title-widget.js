@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import LinesEllipsis from 'react-lines-ellipsis';
+import Truncate from 'react-truncate';
 
 import styles from './title-widget.sass';
 
@@ -10,13 +10,7 @@ export default class HeaderWidget extends Component {
     return (
       <div className={ styles.titleWidget }>
         <div className='header-widget-title'>{ title }</div>
-        <LinesEllipsis
-          className='header-widget-subtitle'
-          text={ subtitle }
-          maxLine={ 3 }
-          basedOn='words'
-          style={ { whiteSpace: 'pre-wrap' } }
-        />
+        <Truncate className='header-widget-subtitle' lines={ 3 } trimWhitespace={ true }>{ subtitle }</Truncate>
       </div>
     );
   }
