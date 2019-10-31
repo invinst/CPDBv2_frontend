@@ -650,42 +650,6 @@ describe('Pinboard Page', function () {
         pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
       });
 
-      it('should go to pinboard detail page if it is saving with long api call and user confirm yes', function () {
-        pinboardPage.open('ceea8ea3');
-        removeOfficerFromPinboard();
-        pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
-        pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
-        expectAlertContent(browser);
-        browser.acceptAlert();
-        browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
-        pinboardPage.pinboardSection.title.getText().should.equal('');
-        pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
-      });
-
-      it('should go to pinboard detail page if pinboard is saving with error and user confirm yes', function () {
-        pinboardPage.open('ceea8ea3');
-        pinboardPage.pinnedSection.crs.firstCardUnpinBtn.click();
-        browser.pause(500);
-
-        pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
-        pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
-        expectAlertContent(browser);
-        browser.acceptAlert();
-        browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
-        pinboardPage.pinboardSection.title.getText().should.equal('');
-        pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
-      });
-
-      it('should still in current page if pinboard is saving and user confirm no', function () {
-        pinboardPage.open('ceea8ea3');
-        removeOfficerFromPinboard();
-        pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
-        pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
-        expectAlertContent(browser);
-        browser.dismissAlert();
-        expectStillInCurrentPinboardPage(browser);
-      });
-
       it('should go to pinboard detail page if pinboard is saved', function () {
         pinboardPage.open('ceea8ea3');
         pinboardPage.pinnedSection.officers.firstCardUnpinBtn.click();
@@ -698,7 +662,8 @@ describe('Pinboard Page', function () {
         pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
       });
 
-      it('should go to pinboard detail page if users add relevant item success', function () {
+
+      it('should go to pinboard detail page if users add relevant item and pinboard is saved', function () {
         pinboardPage.open('5cd06f2b');
         pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.plusButton.click();
         browser.pause(4500);
@@ -710,18 +675,80 @@ describe('Pinboard Page', function () {
         pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
       });
 
-      it('should go to pinboard detail page if users add relevant item error and confirm yes', function () {
-        pinboardPage.open('ceea8ea3');
-        pinboardPage.relevantDocumentsSection.documentCardSection.plusButton.click();
-        browser.pause(4500);
+      context('pinboard is saving', function () {
+        context('users confirm yes', function () {
+          it('should go to pinboard detail page (pinboard is saving with long api call)', function () {
+            pinboardPage.open('ceea8ea3');
+            removeOfficerFromPinboard();
+            pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+            pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
+            expectAlertContent(browser);
+            browser.acceptAlert();
+            browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
+            pinboardPage.pinboardSection.title.getText().should.equal('');
+            pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
+          });
 
-        pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
-        pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
-        expectAlertContent(browser);
-        browser.acceptAlert();
-        browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
-        pinboardPage.pinboardSection.title.getText().should.equal('');
-        pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
+          it('should go to pinboard detail page (users remove pinned items and pinboard saving errors)', function () {
+            pinboardPage.open('ceea8ea3');
+            pinboardPage.pinnedSection.crs.firstCardUnpinBtn.click();
+            browser.pause(500);
+
+            pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+            pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
+            expectAlertContent(browser);
+            browser.acceptAlert();
+            browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
+            pinboardPage.pinboardSection.title.getText().should.equal('');
+            pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
+          });
+
+          it('should go to pinboard detail page (users add relevant item and pinboard saving errors)', function () {
+            pinboardPage.open('ceea8ea3');
+            pinboardPage.relevantDocumentsSection.documentCardSection.plusButton.click();
+            browser.pause(4500);
+
+            pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+            pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
+            expectAlertContent(browser);
+            browser.acceptAlert();
+            browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
+            pinboardPage.pinboardSection.title.getText().should.equal('');
+            pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
+          });
+
+          it('should go to pinboard detail page and click on pinboard item again will not show alert', function () {
+            pinboardPage.open('ceea8ea3');
+            pinboardPage.pinnedSection.officers.firstCardUnpinBtn.click();
+            browser.pause(500);
+
+            pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+            pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
+            expectAlertContent(browser);
+            browser.acceptAlert();
+            browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
+            pinboardPage.pinboardSection.title.getText().should.equal('');
+            pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
+
+            pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+            pinboardPage.pinboardsListSection.firstPinboardItemCreatedAt.click();
+            browser.getUrl().should.containEql('/pinboard/ceea8ea3/pinboard-title/');
+            pinboardPage.pinboardSection.title.getText().should.equal('Pinboard Title');
+            pinboardPage.pinboardSection.description.getText().should.equal('Pinboard Description');
+          });
+        });
+
+        context('user confirm no', function () {
+          it('should still in current page', function () {
+            pinboardPage.open('ceea8ea3');
+            removeOfficerFromPinboard();
+            pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+            pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
+            expectAlertContent(browser);
+            browser.dismissAlert();
+            expectStillInCurrentPinboardPage(browser);
+          });
+        });
       });
     });
 

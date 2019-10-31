@@ -274,14 +274,16 @@ describe('store', function () {
       },
       pinboardPage: {
         pinboard: {
-          crids: [],
-          description: '',
           id: null,
-          isPinboardRestored: false,
-          'officer_ids': [],
-          saving: false,
           title: '',
+          description: '',
+          crids: [],
+          'officer_ids': [],
           'trr_ids': [],
+          saving: false,
+          needRefreshData: false,
+          hasPendingChanges: false,
+          isPinboardRestored: false,
         },
         graphData: { requesting: false, data: {} },
         geographicData: {

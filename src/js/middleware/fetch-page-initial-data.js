@@ -55,7 +55,7 @@ import {
   fetchPinboardRelevantCoaccusals,
   fetchPinboardRelevantComplaints,
 } from 'actions/pinboard';
-import { redirect } from 'actions/pinboard-page';
+import { redirect, changePinboard } from 'actions/pinboard-page';
 import loadPaginatedData from 'utils/load-paginated-data';
 import { fetchVideoInfo } from 'actions/headers/slim-header';
 import { hasVideoInfoSelector } from 'selectors/headers/slim-header';
@@ -256,6 +256,7 @@ export default store => next => action => {
           store.dispatch(fetchPinboardRelevantCoaccusals(idOnPath));
           store.dispatch(fetchPinboardRelevantComplaints(idOnPath));
         } else {
+          dispatches.push(store.dispatch(changePinboard()));
           dispatches.push(store.dispatch(redirect(true)));
           dispatches.push(store.dispatch(fetchPinboard(idOnPath)));
         }

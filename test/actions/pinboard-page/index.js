@@ -1,5 +1,6 @@
 import {
   redirect,
+  changePinboard,
   updatePinboardTimelineIdx,
   updatePinboardRefreshIntervalId,
   turnOnEmptyPinboardTitleEditMode,
@@ -12,6 +13,7 @@ import {
 } from 'actions/pinboard-page';
 import {
   PINBOARD_PAGE_REDIRECT,
+  CHANGE_PINBOARD,
   UPDATE_PINBOARD_TIMELINE_IDX,
   UPDATE_PINBOARD_REFRESH_INTERVAL_ID,
   PINBOARD_EDIT_MODE,
@@ -30,6 +32,15 @@ describe('pinboard-page actions', function () {
       redirect(false).should.eql({
         type: PINBOARD_PAGE_REDIRECT,
         payload: false,
+      });
+    });
+  });
+
+  describe('changePinboard', function () {
+    it('should return correct action', function () {
+      changePinboard().should.eql({
+        type: CHANGE_PINBOARD,
+        payload: undefined,
       });
     });
   });

@@ -48,6 +48,7 @@ import {
   redirect,
 } from 'actions/pinboard-page';
 import { fetchVideoInfo } from 'actions/headers/slim-header';
+import { changePinboard } from 'actions/pinboard-page';
 
 
 const createLocationChangeAction = (pathname) => ({
@@ -459,7 +460,7 @@ describe('fetchPageInitialData middleware', function () {
     store.dispatch.should.be.calledWith(fetchPinboardRelevantComplaints('268a5e58'));
   });
 
-  it('should dispatch redirect, fetchPinboard if requesting does not equal ID in state', function () {
+  it('should dispatch redirect, changePinboard, fetchPinboard if requesting does not equal ID in state', function () {
     const store = buildStore();
     _.set(store._state, 'pinboardPage.pinboard.id', '268a5e58');
     const action = createLocationChangeAction('/pinboard/5cd06f2b/');
@@ -467,6 +468,7 @@ describe('fetchPageInitialData middleware', function () {
 
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
+    store.dispatch.calledWith(changePinboard()).should.be.true();
     store.dispatch.calledWith(redirect(true)).should.be.true();
     store.dispatch.calledWith(fetchPinboard('5cd06f2b')).should.be.true();
   });

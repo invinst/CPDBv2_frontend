@@ -4,6 +4,12 @@ import * as _ from 'lodash';
 import * as constants from 'utils/constants';
 import { getFormatId } from 'utils/pinboard';
 
+const DEFAULT_PINBOARD_STATUSES = {
+  saving: false,
+  needRefreshData: false,
+  hasPendingChanges: false,
+  isPinboardRestored: false,
+};
 
 const defaultState = {
   'id': null,
@@ -12,8 +18,7 @@ const defaultState = {
   'crids': [],
   'trr_ids': [],
   'description': '',
-  'saving': false,
-  'isPinboardRestored': false,
+  ...DEFAULT_PINBOARD_STATUSES,
 };
 
 export default handleActions({
@@ -132,6 +137,12 @@ export default handleActions({
     return {
       ...state,
       hasPendingChanges: action.payload,
+    };
+  },
+  [constants.CHANGE_PINBOARD]: (state, action) => {
+    return {
+      ...state,
+      ...DEFAULT_PINBOARD_STATUSES,
     };
   },
 }, defaultState);

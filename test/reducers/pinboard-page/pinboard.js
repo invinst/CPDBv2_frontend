@@ -15,6 +15,8 @@ describe('Pinboard reducer', function () {
       'description': '',
       'saving': false,
       'isPinboardRestored': false,
+      'needRefreshData': false,
+      'hasPendingChanges': false,
     });
   });
 
@@ -867,6 +869,34 @@ describe('Pinboard reducer', function () {
       crids: [],
       'trr_ids': [1, 2, 3, 4],
       hasPendingChanges: true,
+    });
+  });
+
+  it('should handle CHANGE_PINBOARD', function () {
+    pinboardReducer(
+      {
+        id: '12345678',
+        title: 'Pinboard Title',
+        description: 'Pinboard Description',
+        'officer_ids': [10, 11, 12, 13, 14],
+        crids: [],
+        'trr_ids': [1, 2, 3, 4],
+      },
+      {
+        type: constants.CHANGE_PINBOARD,
+        payload: undefined,
+      },
+    ).should.deepEqual({
+      id: '12345678',
+      title: 'Pinboard Title',
+      description: 'Pinboard Description',
+      'officer_ids': [10, 11, 12, 13, 14],
+      crids: [],
+      'trr_ids': [1, 2, 3, 4],
+      saving: false,
+      needRefreshData: false,
+      hasPendingChanges: false,
+      isPinboardRestored: false,
     });
   });
 });
