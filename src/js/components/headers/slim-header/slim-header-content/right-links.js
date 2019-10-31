@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import config from 'config';
 import cx from 'classnames';
+import { Link } from 'react-router';
 
 import { QA_LINK } from 'utils/constants';
 import styles from 'components/headers/slim-header/slim-header-content/right-links.sass';
@@ -11,31 +12,43 @@ export default class RightLinks extends Component {
     const links = [
       {
         name: 'Data',
-        url: config.v1Url,
+        itemComponent: 'a',
+        attrs: {
+          href: config.v1Url,
+        },
       },
       {
         name: 'Q&A',
-        url: QA_LINK,
+        itemComponent: 'a',
+        attrs: {
+          href: QA_LINK,
+        },
       },
       {
         name: 'Documents',
-        url: '/documents/',
+        itemComponent: Link,
+        attrs: {
+          to: '/documents/',
+        },
       },
       {
         name: 'Pinboards',
-        url: '/pinboard/',
+        itemComponent: Link,
+        attrs: {
+          to: '/pinboard/',
+        },
       },
     ];
 
     const tags = links.map((link, index) => (
-      <a
+      <link.itemComponent
         className={ cx('right-link', position) }
         onClick={ e => { e.stopPropagation(); } }
         key={ index }
-        href={ link.url }
+        { ...link.attrs }
       >
         { link.name }
-      </a>
+      </link.itemComponent>
     ));
 
     return (

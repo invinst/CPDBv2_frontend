@@ -283,7 +283,6 @@ describe('store', function () {
           saving: false,
           needRefreshData: false,
           hasPendingChanges: false,
-          isPinboardRestored: false,
         },
         graphData: { requesting: false, data: {} },
         geographicData: {
@@ -315,6 +314,7 @@ describe('store', function () {
           pagination: { next: null, previous: null },
         },
         redirect: false,
+        pinnedItemsRequested: false,
         initialRequested: false,
         pinboards: [],
         isShownPinboardsList: false,

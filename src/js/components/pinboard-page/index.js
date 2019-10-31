@@ -19,6 +19,7 @@ import PinboardsContainer from 'containers/pinboard-page/pinboards-container';
 import EmptyPinboardContainer from 'containers/pinboard-page/empty-pinboard';
 import { PreviewPaneWithOverlay } from 'components/search-page/search-results/preview-pane';
 import ManagePinboardsButtons from 'components/pinboard-page/manage-pinboards-buttons';
+import LoadingSpinner from 'components/common/loading-spinner';
 
 
 export default class PinboardPage extends Component {
@@ -37,10 +38,10 @@ export default class PinboardPage extends Component {
 
   componentDidUpdate(prevProps) {
     const { pinboard } = prevProps;
-    const { pinboard: currentPinboard, shouldRedirect, updatePathName } = this.props;
-
+    const { pinboard: currentPinboard, shouldRedirect, updatePathName, location } = this.props;
     if (currentPinboard.url !== '') {
-      if (shouldRedirect && pinboard.id !== currentPinboard.id) {
+      if (shouldRedirect && (pinboard.id !== currentPinboard.id ||
+          (location.pathname === '/pinboard/' && !isEmpty(currentPinboard.id)))) {
         browserHistory.replace(currentPinboard.url);
       } else if (currentPinboard.url !== pinboard.url) {
         updatePathName(currentPinboard.url);
@@ -126,15 +127,20 @@ export default class PinboardPage extends Component {
   render() {
     const {
       pinboard,
-      initialRequested,
+      pinboardPageLoading,
       isEmptyPinboard,
       showPinboardsList,
       createNewEmptyPinboard,
       duplicatePinboard,
+      initialRequested,
     } = this.props;
 
     if (!initialRequested) {
       return null;
+    }
+
+    if (pinboardPageLoading) {
+      return <LoadingSpinner className={ styles.pinboardLoading } />;
     }
 
     return (
@@ -169,6 +175,7 @@ PinboardPage.propTypes = {
   hasMapMarker: PropTypes.bool,
   shouldRedirect: PropTypes.bool,
   initialRequested: PropTypes.bool,
+  pinboardPageLoading: PropTypes.bool,
   isEmptyPinboard: PropTypes.bool,
   focusedItem: PropTypes.object,
   focusItem: PropTypes.func,
@@ -187,6 +194,7 @@ PinboardPage.propTypes = {
 
 PinboardPage.defaultProps = {
   focusedItem: {},
+  pinboard: {},
   focusItem: noop,
   pushBreadcrumbs: noop,
   addOrRemoveItemInPinboardFromPreviewPane: noop,
