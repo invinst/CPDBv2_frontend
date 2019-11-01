@@ -4,7 +4,7 @@ import {
   getPinboardRefreshIntervalId,
   getExpandedLink,
   getSocialGraphRequesting,
-  getCoaccusedData,
+  isCoaccusedDataEmptySelector,
 } from 'selectors/pinboard-page/social-graph';
 
 
@@ -196,7 +196,7 @@ describe('PinboardPage selectors', function () {
         },
       };
 
-      getCoaccusedData(state).should.eql(coaccusedData);
+      isCoaccusedDataEmptySelector(state).should.eql(coaccusedData);
     });
   });
 });

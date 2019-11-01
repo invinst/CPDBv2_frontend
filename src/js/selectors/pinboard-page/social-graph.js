@@ -1,32 +1,36 @@
 import { createSelector } from 'reselect';
+import { get, isEmpty } from 'lodash';
 
 import { officerTransform, coaccusedDataTransform } from 'selectors/common/social-graph';
 import { getPinboardID } from 'utils/location';
+import { getRawPinboard } from 'selectors/pinboard-page/pinboard';
 
-const getOfficers = state => state.pinboardPage.graphData.data['officers'] || [];
-export const getCoaccusedData = state => state.pinboardPage.graphData.data['coaccused_data'] || [];
-const getListEvent = state => state.pinboardPage.graphData.data['list_event'] || [];
 export const getSocialGraphRequesting = state => state.pinboardPage.graphData.requesting;
-export const getExpandedLink = (url) => `/social-graph/?pinboard_id=${getPinboardID(url)}`;
+export const getExpandedLink = url => `/social-graph/?pinboard_id=${getPinboardID(url)}`;
+export const getCachedData = state => get(state, 'pinboardPage.graphData.cachedData', {});
 
-const officersSelector = createSelector(
-  [getOfficers],
-  officers => officers.map(officerTransform)
+export const isCoaccusedDataEmptySelector = createSelector(
+  getCachedData,
+  getRawPinboard,
+  (cachedData, pinboard) => isEmpty(get(cachedData[pinboard.id], 'coaccused_data', []))
 );
 
-const coaccusedDataSelector = createSelector(
-  [getCoaccusedData],
-  coaccusedData => coaccusedData.map(coaccusedDataTransform)
+const dataFormatter = data => ({
+  officers: get(data, 'officers', []).map(officerTransform),
+  coaccusedData: get(data, 'coaccused_data', []).map(coaccusedDataTransform),
+  listEvent: get(data, 'list_event', []),
+});
+
+export const graphDataSelector = (id) => createSelector(
+  getCachedData,
+  cachedData => dataFormatter(cachedData[id])
 );
 
-export const graphDataSelector = (state) => {
-  return {
-    officers: officersSelector(state),
-    coaccusedData: coaccusedDataSelector(state),
-    listEvent: getListEvent(state),
-  };
-};
+export const currentGraphDataSelector = createSelector(
+  getCachedData,
+  getRawPinboard,
+  (cachedData, pinboard) => dataFormatter(cachedData[pinboard.id])
+);
 
 export const getPinboardTimelineIdx = state => state.pinboardPage.timelineIdx;
-
 export const getPinboardRefreshIntervalId = state => state.pinboardPage.refreshIntervalId;

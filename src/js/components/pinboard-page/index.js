@@ -89,6 +89,7 @@ export default class PinboardPage extends Component {
       hasMapMarker,
       isEmptyPinboard,
       requesting,
+      pinboard,
     } = this.props;
 
     if (isEmptyPinboard) {
@@ -108,6 +109,7 @@ export default class PinboardPage extends Component {
                 currentTab={ currentTab }
                 hasMapMarker={ hasMapMarker }
                 requesting={ requesting }
+                pinboardId={ pinboard.id }
               />
             </TrackVisibility>
           </div>

@@ -28,7 +28,7 @@ export default class PreviewPane extends Component {
   }
 
   renderPane() {
-    const { data, type, yScrollable, addOrRemoveItemInPinboard } = this.props;
+    const { data, type, yScrollable, addOrRemoveItemInPinboard, fetchPinboardSocialGraph, cachedSocialGraphData } = this.props;
     const officerPaneFunc = () => <OfficerPane { ...data }
       yScrollable={ yScrollable }
       type={ type }
@@ -60,7 +60,7 @@ export default class PreviewPane extends Component {
       'INVESTIGATOR > CR': crPaneFunc,
       TRR: trrPaneFunc,
       'DATE > TRR': trrPaneFunc,
-      'PINBOARD': () => <PinboardPane { ...data } />,
+      'PINBOARD': () => <PinboardPane { ...data } { ...this.props }/>,
     };
     return get(paneTypes, type, () => null)();
   }
@@ -95,12 +95,14 @@ PreviewPane.propTypes = {
   yScrollable: PropTypes.bool,
   dynamicHeight: PropTypes.bool,
   addOrRemoveItemInPinboard: PropTypes.func,
+  fetchPinboardSocialGraph: PropTypes.func,
 };
 
 PreviewPane.defaultProps = {
   data: {},
   yScrollable: false,
   addOrRemoveItemInPinboard: noop,
+  fetchPinboardSocialGraph: noop,
   dynamicHeight: false,
 };
 

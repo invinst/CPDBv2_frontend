@@ -10,6 +10,7 @@ import pluralize from 'pluralize';
 
 import styles from './social-graph.sass';
 import { greyishColor } from 'utils/styles';
+import withLoadingSpinner from 'components/common/with-loading-spinner';
 
 const DEFAULT_GRAPH_WIDTH = 800;
 const DEFAULT_GRAPH_HEIGHT = 500;
@@ -65,9 +66,12 @@ export default class SocialGraph extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { coaccusedData, timelineIdx, selectedOfficerId, selectedEdge, performResizeGraph } = this.props;
+    const { pinboardId, coaccusedData, timelineIdx, selectedOfficerId, selectedEdge, performResizeGraph } = this.props;
 
-    if (!isEqual(prevProps.coaccusedData, coaccusedData)) {
+    if (
+      !isEqual(prevProps.coaccusedData, coaccusedData)
+      || pinboardId !== prevProps.pinboardId
+    ) {
       this.drawGraph();
     } else {
       if (prevProps.timelineIdx !== timelineIdx) {
@@ -509,12 +513,14 @@ export default class SocialGraph extends Component {
 
   render() {
     return (
-      <div ref={ chart => this.chart = chart } className={ styles.socialGraph } />
+      <div ref={ chart => this.chart = chart } className={ cx(styles.socialGraph, this.props.className) } />
     );
   }
 }
 
 SocialGraph.propTypes = {
+  pinboardId: PropTypes.string,
+  className: PropTypes.string,
   officers: PropTypes.array.isRequired,
   coaccusedData: PropTypes.array.isRequired,
   listEvent: PropTypes.array.isRequired,
@@ -533,3 +539,5 @@ SocialGraph.defaultProps = {
   startTimelineFromBeginning: () => {},
   stopTimeline: () => {},
 };
+
+export const SocialGraphWithSpinner = withLoadingSpinner(SocialGraph, styles.socialGraphLoading);

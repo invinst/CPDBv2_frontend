@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 
-import data from './data';
+import cachedData from './cached-data';
 import requesting from './requesting';
 
 
 export default combineReducers({
-  data,
+  cachedData,
   requesting,
 });

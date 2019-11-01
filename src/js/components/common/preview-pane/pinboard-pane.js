@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import pluralize from 'pluralize';
+import { isEmpty, isNil } from 'lodash';
 
 import {
   NewWidgetWrapper,
@@ -8,9 +9,21 @@ import {
   OneLineListWidget,
 } from 'components/common/preview-pane/widgets';
 import styles from './pinboard-pane.sass';
+import StaticSocialGraphContainer from 'containers/pinboard-page/static-social-graph-container';
+import SocialGraphContainer from 'containers/pinboard-page/social-graph-container';
 
 
 export default class PinboardPane extends Component {
+  componentDidMount() {
+    const { id, fetchPinboardSocialGraph, cachedSocialGraphData } = this.props;
+    isEmpty(cachedSocialGraphData[id]) && fetchPinboardSocialGraph(id);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { fetchPinboardSocialGraph, cachedSocialGraphData } = this.props;
+    !isNil(nextProps.id) && isEmpty(cachedSocialGraphData[nextProps.id]) && fetchPinboardSocialGraph(nextProps.id);
+  }
+
   render() {
     const {
       id,
@@ -38,6 +51,10 @@ export default class PinboardPane extends Component {
             { title: 'Created at', text: fullCreatedAt },
           ] }
         />
+        <div className='static-social-graph'>
+          <StaticSocialGraphContainer pinboardId={ id } className='social-graph'/>
+        </div>
+
         <ListWidget
           key={ `pinboard-${id}-officer` }
           title={ `${pluralize('Pinned officer', officersCount, true )}` }
@@ -74,4 +91,5 @@ PinboardPane.propTypes = {
   recentOfficers: PropTypes.array,
   recentAllegations: PropTypes.array,
   recentTrrs: PropTypes.array,
+  fetchPinboardSocialGraph: PropTypes.func,
 };

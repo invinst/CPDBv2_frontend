@@ -4,6 +4,8 @@ import { createSelector } from 'reselect';
 import { generatePinboardUrl } from 'utils/pinboard';
 
 
+export const getRawPinboard = state => get(state, 'pinboardPage.pinboard', {});
+
 const countPinnedItems = pinboard => {
   if (pinboard === null) {
     return 0;
@@ -14,7 +16,7 @@ const countPinnedItems = pinboard => {
 };
 
 export const getPinboard = createSelector(
-  state => get(state, 'pinboardPage.pinboard', {}),
+  getRawPinboard,
   pinboard => ({
     id: get(pinboard, 'id', null) !== null ? pinboard['id'].toString() : null,
     title: get(pinboard, 'title', ''),

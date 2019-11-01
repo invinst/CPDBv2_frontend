@@ -2,7 +2,7 @@ import { isEmpty, isNull } from 'lodash';
 import { createSelector } from 'reselect';
 
 import { geographicDataRequestingSelector, hasMapMarkersSelector } from './geographic-data';
-import { getSocialGraphRequesting, getCoaccusedData } from './social-graph';
+import { getSocialGraphRequesting, isCoaccusedDataEmptySelector } from './social-graph';
 import { PINBOARD_PAGE_TAB_NAMES } from 'utils/constants';
 
 
@@ -14,11 +14,11 @@ export const pinboardPaneSectionRequestingSelector = createSelector(
 
 export const defaultTabSelector = createSelector(
   pinboardPaneSectionRequestingSelector,
-  getCoaccusedData,
+  isCoaccusedDataEmptySelector,
   hasMapMarkersSelector,
-  (pinboardPaneSectionRequesting, coaccusedData, hasMapMarkers) => {
+  (pinboardPaneSectionRequesting, isCoaccusedDataEmpty, hasMapMarkers) => {
     if (!pinboardPaneSectionRequesting) {
-      if (isEmpty(coaccusedData) && hasMapMarkers) {
+      if (isCoaccusedDataEmpty && hasMapMarkers) {
         return PINBOARD_PAGE_TAB_NAMES.GEOGRAPHIC;
       } else {
         return PINBOARD_PAGE_TAB_NAMES.NETWORK;
