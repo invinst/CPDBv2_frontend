@@ -19,6 +19,12 @@
     padding: 0
     margin: 0
 
+    .list-widget-list-item
+      padding: 12px 0
+      border-bottom: 1px solid $white-two-color
+      list-style-type: none
+      box-sizing: border-box
+
     .list-widget-item-link
       text-decoration: none
       color: inherit
@@ -29,17 +35,6 @@
       &:last-child
         .list-widget-list-item
           border-bottom: none
-
-    .list-widget-list-item
-      padding: 12px 0
-      border-bottom: 1px solid $white-two-color
-      list-style-type: none
-      box-sizing: border-box
-
-      .list-widget-list-item-first
-        margin-right: 12px
-        height: 32px
-        float: left
 
       .list-widget-list-item-chart-wrapper
         display: inline-block
@@ -74,3 +69,10 @@
 
     > .list-widget-list-item:last-child
       border-bottom: none
+
+  .collapsed-toggle
+    cursor: pointer
+    padding: 8px 0
+
+    &:hover
+      color: $accent-color

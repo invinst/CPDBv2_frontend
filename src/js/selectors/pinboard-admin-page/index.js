@@ -24,7 +24,7 @@ export const hasMoreSelector = createSelector(
 );
 
 const crTransform = (cr) => ({
-  crid: cr.crid,
+  id: cr.crid,
   name: cr.category,
   subText: formatDate(cr['incident_date'], false),
   url: `/complaint/${cr.crid}/`,

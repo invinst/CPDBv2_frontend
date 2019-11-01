@@ -51,6 +51,7 @@ export default class PinboardAdminPage extends Component {
           handleClose={ this.handleOverlayClick }
           customClass='preview-pane'
           yScrollable={ true }
+          dynamicHeight={ true }
           type='PINBOARD'
           data={ focusedItem }
         />

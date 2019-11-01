@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import pluralize from 'pluralize';
 
 import {
   NewWidgetWrapper,
@@ -29,30 +30,33 @@ export default class PinboardPane extends Component {
         className={ styles.pinboardPane }
         callToAction={ { url: `/pinboard/${id}`, text: 'View Pinboard' } }
         yScrollable={ true }
+        isClickable={ false }
       >
         <TitleWidget title={ title } subtitle={ description }/>
         <OneLineListWidget
           items={ [
             { title: 'Created at', text: fullCreatedAt },
-            { title: 'Pinned Officers', text: officersCount },
-            { title: 'Pinned CRs', text: allegationsCount },
-            { title: 'Pinned TRRs', text: trrsCount },
           ] }
         />
         <ListWidget
-          typeName={ 'allegation' }
-          title='Recently pinned officers'
+          key={ `pinboard-${id}-officer` }
+          title={ `${pluralize('Pinned officer', officersCount, true )}` }
           items={ recentOfficers }
+          collapsable={ true }
         />
         <ListWidget
-          title='Recently pinned allegations'
+          key={ `pinboard-${id}-allegation` }
+          title={ `${pluralize('Pinned allegation', allegationsCount, true )}` }
           items={ recentAllegations }
           showAvatar={ false }
+          collapsable={ true }
         />
         <ListWidget
-          title='Recently pinned TRRs'
+          key={ `pinboard-${id}-trr` }
+          title={ `${pluralize('Pinned TRR', trrsCount, true )}` }
           items={ recentTrrs }
           showAvatar={ false }
+          collapsable={ true }
         />
       </NewWidgetWrapper>
     );
