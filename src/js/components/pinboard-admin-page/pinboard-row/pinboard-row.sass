@@ -3,7 +3,7 @@
 $table-min-width: 960
 
 @mixin flexible-column($min-width)
-  min-width: $min-width
+  min-width: #{$min-width}px
   width: calc(100% * (#{$min-width} / #{$table-min-width}))
 
 \:local(.row)
@@ -18,11 +18,20 @@ $table-min-width: 960
   transition: background-color 0.2s ease-in-out
   font-weight: 200
 
+  &:hover
+    &.header
+      .cell
+        color: unset
+
+    .cell
+      color: $accent-color
+
   &.header
     background-color: white
     text-transform: uppercase
     height: 69px
     position: relative
+    cursor: default
 
     .cell
       font-weight: 300
