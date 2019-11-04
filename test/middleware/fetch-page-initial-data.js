@@ -44,11 +44,9 @@ import {
   fetchPinboardRelevantCoaccusals,
   fetchPinboardRelevantComplaints,
 } from 'actions/pinboard';
-import {
-  redirect,
-} from 'actions/pinboard-page';
+import { redirect } from 'actions/pinboard-page';
 import { fetchVideoInfo } from 'actions/headers/slim-header';
-import * as pinboardAdminAction from 'actions/pinboard-admin';
+import * as pinboardAdminAction from 'actions/pinboard-admin-page';
 
 
 const createLocationChangeAction = (pathname) => ({

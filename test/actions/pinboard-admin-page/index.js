@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 import { stub } from 'sinon';
 
-import { fetchAllPinboards } from 'actions/pinboard-admin';
+import { fetchAllPinboards } from 'actions/pinboard-admin-page';
 import {
   ALL_PINBOARD_REQUEST_FAILURE,
   ALL_PINBOARD_REQUEST_START,

@@ -56,7 +56,7 @@ import {
   fetchPinboardRelevantComplaints,
 } from 'actions/pinboard';
 import { redirect } from 'actions/pinboard-page';
-import { fetchAllPinboards } from 'actions/pinboard-admin';
+import { fetchAllPinboards } from 'actions/pinboard-admin-page';
 import loadPaginatedData from 'utils/load-paginated-data';
 import { fetchVideoInfo } from 'actions/headers/slim-header';
 import { hasVideoInfoSelector } from 'selectors/headers/slim-header';

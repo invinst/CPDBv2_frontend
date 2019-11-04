@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { fetchAllPinboards } from 'actions/pinboard-admin';
+import { fetchAllPinboards } from 'actions/pinboard-admin-page';
 import { fetchPinboardSocialGraph } from 'actions/pinboard';
 import PinboardAdminPage from 'components/pinboard-admin-page';
 import {
@@ -9,7 +9,7 @@ import {
   hasMoreSelector,
   getIsLoading,
 } from 'selectors/pinboard-admin-page';
-import { getCachedData } from 'selectors/pinboard-page/social-graph';
+import { cachedDataIDsSelector } from 'selectors/pinboard-page/social-graph';
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -17,7 +17,7 @@ function mapStateToProps(state, ownProps) {
     nextParams: nextParamsSelector(state),
     hasMore: hasMoreSelector(state),
     isLoading: getIsLoading(state),
-    cachedSocialGraphData: getCachedData(state),
+    cachedDataIDs: cachedDataIDsSelector(state),
   };
 }
 

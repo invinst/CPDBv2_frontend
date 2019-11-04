@@ -33,7 +33,7 @@ export default class PinboardAdminPage extends Component {
       fetchPinboards,
       isLoading,
       fetchPinboardSocialGraph,
-      cachedSocialGraphData,
+      cachedDataIDs,
     } = this.props;
     const { focusedItem } = this.state;
 
@@ -55,7 +55,7 @@ export default class PinboardAdminPage extends Component {
           yScrollable={ true }
           dynamicHeight={ true }
           fetchPinboardSocialGraph={ fetchPinboardSocialGraph }
-          cachedSocialGraphData={ cachedSocialGraphData }
+          cachedDataIDs={ cachedDataIDs }
           type='PINBOARD'
           data={ focusedItem }
         />
@@ -71,6 +71,7 @@ PinboardAdminPage.propTypes = {
   fetchPinboards: PropTypes.func,
   isLoading: PropTypes.bool,
   fetchPinboardSocialGraph: PropTypes.func,
+  cachedDataIDs: PropTypes.array,
 };
 
 PinboardAdminPage.defaultProps = {

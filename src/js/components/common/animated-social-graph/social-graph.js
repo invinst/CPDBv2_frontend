@@ -521,9 +521,9 @@ export default class SocialGraph extends Component {
 SocialGraph.propTypes = {
   pinboardId: PropTypes.string,
   className: PropTypes.string,
-  officers: PropTypes.array.isRequired,
-  coaccusedData: PropTypes.array.isRequired,
-  listEvent: PropTypes.array.isRequired,
+  officers: PropTypes.array,
+  coaccusedData: PropTypes.array,
+  listEvent: PropTypes.array,
   timelineIdx: PropTypes.number,
   startTimelineFromBeginning: PropTypes.func,
   stopTimeline: PropTypes.func,

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import pluralize from 'pluralize';
-import { isEmpty, isNil } from 'lodash';
+import { includes } from 'lodash';
 
 import {
   NewWidgetWrapper,
@@ -10,18 +10,19 @@ import {
 } from 'components/common/preview-pane/widgets';
 import styles from './pinboard-pane.sass';
 import StaticSocialGraphContainer from 'containers/pinboard-page/static-social-graph-container';
-import SocialGraphContainer from 'containers/pinboard-page/social-graph-container';
 
 
 export default class PinboardPane extends Component {
   componentDidMount() {
-    const { id, fetchPinboardSocialGraph, cachedSocialGraphData } = this.props;
-    isEmpty(cachedSocialGraphData[id]) && fetchPinboardSocialGraph(id);
+    this.fetchPinboardSocialGraph(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    const { fetchPinboardSocialGraph, cachedSocialGraphData } = this.props;
-    !isNil(nextProps.id) && isEmpty(cachedSocialGraphData[nextProps.id]) && fetchPinboardSocialGraph(nextProps.id);
+    this.fetchPinboardSocialGraph(nextProps);
+  }
+
+  fetchPinboardSocialGraph({ id, fetchPinboardSocialGraph, cachedDataIDs }) {
+    !includes(cachedDataIDs, id) && fetchPinboardSocialGraph(id);
   }
 
   render() {
@@ -92,4 +93,9 @@ PinboardPane.propTypes = {
   recentAllegations: PropTypes.array,
   recentTrrs: PropTypes.array,
   fetchPinboardSocialGraph: PropTypes.func,
+  cachedDataIDs: PropTypes.array,
+};
+
+PinboardPane.defaultProps = {
+  fetchPinboardSocialGraph: () => {},
 };

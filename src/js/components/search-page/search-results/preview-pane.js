@@ -28,7 +28,7 @@ export default class PreviewPane extends Component {
   }
 
   renderPane() {
-    const { data, type, yScrollable, addOrRemoveItemInPinboard, fetchPinboardSocialGraph, cachedSocialGraphData } = this.props;
+    const { data, type, yScrollable, addOrRemoveItemInPinboard } = this.props;
     const officerPaneFunc = () => <OfficerPane { ...data }
       yScrollable={ yScrollable }
       type={ type }

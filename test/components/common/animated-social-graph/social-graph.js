@@ -513,7 +513,7 @@ describe('SocialGraph', function () {
     round(graphNode2.y, 2).should.eql(418.08);
   });
 
-  it('should call drawGraph again when componentDidUpdate', function () {
+  it('should call drawGraph again when coaccusedData has changed', function () {
     const smallCoaccusedData = [
       { officerId1: 2675, officerId2: 24157, incidentDate: '1990-01-09', accussedCount: 2 },
       { officerId1: 11580, officerId2: 30466, incidentDate: '1991-02-20', accussedCount: 2 },
@@ -551,6 +551,18 @@ describe('SocialGraph', function () {
 
     instance.data.nodes.should.have.length(20);
     instance.data.links.should.have.length(37);
+  });
+
+  it('should call drawGraph again when pinboardId has changed', function () {
+    const drawGraphStub = stub(SocialGraph.prototype, 'drawGraph');
+
+    instance = renderIntoDocument(<SocialGraph pinboardId='aaaa1111'/>);
+    drawGraphStub.resetHistory();
+
+    reRender(<SocialGraph pinboardId='bbbb2222'/>, instance);
+    drawGraphStub.should.be.calledOnce();
+
+    drawGraphStub.restore();
   });
 
   it('should not draw graph when officers is empty', function () {
