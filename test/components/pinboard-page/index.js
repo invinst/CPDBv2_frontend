@@ -49,7 +49,7 @@ describe('PinboardPage component', function () {
   };
 
   const createPinboardPage = (pinboard, editModeOn) => ({
-    graphData: { requesting: false, data: {} },
+    graphData: { requesting: false, cachedData: {} },
     geographicData: { requesting: false, data: [] },
     currentTab: 'NETWORK',
     relevantDocuments: defaultPaginationState,

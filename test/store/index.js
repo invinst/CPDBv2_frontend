@@ -283,7 +283,7 @@ describe('store', function () {
           title: '',
           'trr_ids': [],
         },
-        graphData: { requesting: false, data: {} },
+        graphData: { requesting: false, cachedData: {} },
         geographicData: {
           clearAllMarkers: false,
           mapCrsData: [],

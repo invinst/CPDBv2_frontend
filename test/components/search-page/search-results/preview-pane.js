@@ -21,6 +21,7 @@ import {
   CRPane,
   TRRPane,
 } from 'components/common/preview-pane';
+import styles from 'components/search-page/search-results/preview-pane.sass';
 
 
 describe('PreviewPane component', function () {
@@ -247,5 +248,31 @@ describe('PreviewPane component', function () {
     );
     const instanceDOM = findRenderedDOMComponentWithClass(instance, 'test--preview-pane');
     instanceDOM.childNodes.should.have.length(0);
+  });
+
+  it('should add yScrollable class name to wrapper', function () {
+    instance = renderIntoDocument(
+      <PreviewPane
+        type='OFFICER'
+        data={ { name: 'Officer' } }
+        yScrollable={ true }
+      />
+    );
+
+    const wrapper = findRenderedDOMComponentWithClass(instance, styles.previewPaneWrapper);
+    wrapper.getAttribute('class').should.containEql(styles.yScrollable);
+  });
+
+  it('should add dynamic-height class name to wrapper', function () {
+    instance = renderIntoDocument(
+      <PreviewPane
+        type='OFFICER'
+        data={ { name: 'Officer' } }
+        dynamicHeight={ true }
+      />
+    );
+
+    const wrapper = findRenderedDOMComponentWithClass(instance, styles.previewPaneWrapper);
+    wrapper.getAttribute('class').should.containEql('dynamic-height');
   });
 });

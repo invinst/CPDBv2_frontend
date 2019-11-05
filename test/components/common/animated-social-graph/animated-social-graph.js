@@ -10,7 +10,7 @@ import {
 } from 'react-addons-test-utils';
 import Slider from 'rc-slider';
 
-import { reRender, unmountComponentSuppressError } from 'utils/test';
+import { unmountComponentSuppressError } from 'utils/test';
 import AnimatedSocialGraph, { AnimatedSocialGraphWithSpinner } from 'components/common/animated-social-graph';
 import SocialGraph from 'components/common/animated-social-graph/social-graph';
 import LoadingSpinner from 'components/common/loading-spinner';

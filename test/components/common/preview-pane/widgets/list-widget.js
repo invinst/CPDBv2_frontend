@@ -18,7 +18,7 @@ import ListWidget from 'components/common/preview-pane/widgets/list-widget';
 import ListWidgetItem from 'components/common/preview-pane/widgets/list-widget/list-widget-item';
 
 
-describe.only('ListWidget', () => {
+describe('ListWidget', () => {
   let instance;
 
   afterEach(function () {

@@ -12,8 +12,8 @@ export default class OneLineListWidget extends Component {
       <ul className={ styles.oneLineListWidget }>
         { items.map((item, index) => (
           <li className='list-item' key={ index }>
-            <span className='list-item-title'> { item.title }</span>
-            <span className={ cx('list-item-text', { 'has-title': !isEmpty(item.title) }) }> { item.text }</span>
+            <span className='list-item-title'>{ item.title }</span>
+            <span className={ cx('list-item-text', { 'has-title': !isEmpty(item.title) }) }>{ item.text }</span>
             <div className='clearfix'/>
           </li>
         )) }

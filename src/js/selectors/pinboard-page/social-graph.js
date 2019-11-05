@@ -3,7 +3,7 @@ import { get, isEmpty, keys } from 'lodash';
 
 import { officerTransform, coaccusedDataTransform } from 'selectors/common/social-graph';
 import { getPinboardID } from 'utils/location';
-import { getRawPinboard } from 'selectors/pinboard-page/pinboard';
+import { currentPinboardIdSelector } from 'selectors/pinboard-page/pinboard';
 
 export const getSocialGraphRequesting = state => state.pinboardPage.graphData.requesting;
 export const getExpandedLink = url => `/social-graph/?pinboard_id=${getPinboardID(url)}`;
@@ -16,8 +16,8 @@ export const cachedDataIDsSelector = createSelector(
 
 export const isCoaccusedDataEmptySelector = createSelector(
   getCachedData,
-  getRawPinboard,
-  (cachedData, pinboard) => isEmpty(get(cachedData[pinboard.id], 'coaccused_data', []))
+  currentPinboardIdSelector,
+  (cachedData, pinboardId) => isEmpty(get(cachedData, `${pinboardId}.coaccused_data`, []))
 );
 
 const dataFormatter = data => ({
@@ -26,15 +26,16 @@ const dataFormatter = data => ({
   listEvent: get(data, 'list_event', []),
 });
 
-export const graphDataSelector = (id) => createSelector(
+export const graphDataSelector = createSelector(
   getCachedData,
-  cachedData => dataFormatter(cachedData[id])
+  (_, props) => props.pinboardId,
+  (cachedData, pinboardId) => dataFormatter(cachedData[pinboardId])
 );
 
 export const currentGraphDataSelector = createSelector(
   getCachedData,
-  getRawPinboard,
-  (cachedData, pinboard) => dataFormatter(cachedData[pinboard.id])
+  currentPinboardIdSelector,
+  (cachedData, pinboardId) => dataFormatter(cachedData[pinboardId])
 );
 
 export const getPinboardTimelineIdx = state => state.pinboardPage.timelineIdx;

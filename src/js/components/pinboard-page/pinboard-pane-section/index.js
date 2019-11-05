@@ -16,7 +16,6 @@ export default class PinboardPaneSection extends Component {
       changePinboardTab,
       hasMapMarker,
       isVisible,
-      pinboardId,
     } = this.props;
     const pinboardPaneMap = {
       [PINBOARD_PAGE_TAB_NAMES.NETWORK]: {
@@ -53,7 +52,6 @@ export default class PinboardPaneSection extends Component {
 }
 
 PinboardPaneSection.propTypes = {
-  pinboardId: PropTypes.string,
   currentTab: PropTypes.string,
   changePinboardTab: PropTypes.func,
   hasMapMarker: PropTypes.bool,

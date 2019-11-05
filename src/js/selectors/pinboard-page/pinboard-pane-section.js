@@ -1,4 +1,4 @@
-import { isEmpty, isNull } from 'lodash';
+import { isNull } from 'lodash';
 import { createSelector } from 'reselect';
 
 import { geographicDataRequestingSelector, hasMapMarkersSelector } from './geographic-data';

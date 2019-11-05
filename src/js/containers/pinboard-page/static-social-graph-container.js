@@ -5,7 +5,7 @@ import { SocialGraphWithSpinner } from 'components/common/animated-social-graph/
 
 
 function mapStateToProps(state, ownProps) {
-  const data = graphDataSelector(ownProps.pinboardId)(state);
+  const data = graphDataSelector(state, ownProps);
 
   return {
     ...ownProps,

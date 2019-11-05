@@ -7,7 +7,6 @@ import { PINBOARDS_SEARCH_ITEMS } from 'utils/constants';
 import extractQuery from 'utils/extract-query';
 import { officerMostComplaintTransform } from 'selectors/common/preview-pane-transforms';
 import { formatDate } from 'utils/date';
-import { hasCachedData } from 'selectors/pinboard-page/social-graph';
 
 
 export const getAllPinboards = state => state.pinboardAdminPage.allPinboards;
