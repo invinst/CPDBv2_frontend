@@ -1,0 +1,28 @@
+@import 'variables'
+@import 'list-widget-item'
+
+\:local(.list-widget)
+  padding: 18px 16px 8px 16px
+  background-color: white
+  border: 1px solid $alto-color
+  border-radius: 2px
+  margin: 8px 0
+  box-sizing: border-box
+
+  .list-widget-header
+    font-size: 14px
+    font-weight: 600
+    line-height: 18px
+    margin: 0 0 6px
+    text-transform: uppercase
+
+  .list-widget-list
+    padding: 0
+    margin: 0
+
+  .collapsed-toggle
+    cursor: pointer
+    padding: 8px 0
+
+    &:hover
+      color: $accent-color
