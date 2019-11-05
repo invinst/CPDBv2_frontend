@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import pluralize from 'pluralize';
 import cx from 'classnames';
-import { UnmountClosed, Collapse } from 'react-collapse';
+import Collapse, { Panel } from 'rc-collapse';
 import { slice, isEmpty, isNil } from 'lodash';
+import 'rc-collapse/assets/index.css';
 
 import ListWidgetItem from './list-widget-item';
 import styles from './list-widget.sass';
@@ -52,18 +53,19 @@ export default class ListWidget extends Component {
         <div className={ cx(styles.listWidget, wrapperClassName) }>
           <h5 className='list-widget-header'>{ title }</h5>
           <ul className='list-widget-list'>
-            { firstThreeItems.map(this.renderItem) }
-            <UnmountClosed isOpened={ !this.state.collapsed }>
-              { restItems.map(this.renderItem) }
-            </UnmountClosed>
+            <div className='list-widget-first-items'>
+              { firstThreeItems.map(this.renderItem) }
+            </div>
+            {
+              collapsable && !isEmpty(restItems) ? (
+                <Collapse className='list-widget-collapse'>
+                  <Panel header='View more'>
+                    { restItems.map(this.renderItem) }
+                  </Panel>
+                </Collapse>
+              ) : restItems.map(this.renderItem)
+            }
           </ul>
-          {
-            collapsable && !isEmpty(restItems) && (
-              <div className='collapsed-toggle' onClick={ this.toggleCollapsed }>
-                View { this.state.collapsed ? 'more' : 'less' }
-              </div>
-            )
-          }
         </div>
       ) : <div/>
     );

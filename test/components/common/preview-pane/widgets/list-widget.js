@@ -1,5 +1,6 @@
 import React from 'react';
 import { spy } from 'sinon';
+import Collapse, { Panel } from 'rc-collapse';
 
 import {
   renderIntoDocument,
@@ -17,7 +18,7 @@ import ListWidget from 'components/common/preview-pane/widgets/list-widget';
 import ListWidgetItem from 'components/common/preview-pane/widgets/list-widget/list-widget-item';
 
 
-describe('ListWidget', () => {
+describe.only('ListWidget', () => {
   let instance;
 
   afterEach(function () {
@@ -182,57 +183,57 @@ describe('ListWidget', () => {
       },
     ];
 
-    it('should not render View more button when collapsable but there are only 3 items or less', function () {
+    it('should not render Collapse when not collapsable', function () {
+      instance = renderIntoDocument(
+        <ListWidget
+          typeName='allegation'
+          items={ items }
+          title='TITLE'
+          collapsable={ false }
+        />,
+      );
+
+      scryRenderedComponentsWithType(instance, Collapse).should.have.length(0);
+      scryRenderedComponentsWithType(instance, ListWidgetItem).should.have.length(4);
+    });
+    it('should not render Panel when collapsable but there are only 3 items or less', function () {
       instance = renderIntoDocument(
         <ListWidget
           typeName='allegation'
           items={ items.slice(0, 3) }
           title='TITLE'
           collapsable={ true }
-        />
+        />,
       );
 
-      scryRenderedDOMComponentsWithClass(instance, 'collapsed-toggle').should.have.length(0);
+      scryRenderedComponentsWithType(instance, Panel).should.have.length(0);
     });
 
-    it('should render View more button when collapsable and having more than 3 items', function () {
+    it('should render Collapse when collapsable and having more than 3 items', function (done) {
       instance = renderIntoDocument(
         <ListWidget
           typeName='allegation'
           items={ items }
           title='TITLE'
           collapsable={ true }
-        />
+        />,
       );
 
-      const viewMoreButton = findRenderedDOMComponentWithClass(instance, 'collapsed-toggle');
-      viewMoreButton.textContent.should.equal('View more');
+      const collapse = findRenderedComponentWithType(instance, Collapse);
+      const panel = findRenderedComponentWithType(collapse, Panel);
+      const header = findRenderedDOMComponentWithClass(collapse, 'rc-collapse-header');
 
+      panel.props.header.should.equal('View more');
+      scryRenderedComponentsWithType(collapse, ListWidgetItem).should.have.length(0);
       scryRenderedComponentsWithType(instance, ListWidgetItem).should.have.length(3);
-    });
 
-    it.only('should show all or hide some items when clicking on collapsed toggle', function (done) {
-      instance = renderIntoDocument(
-        <ListWidget
-          typeName='allegation'
-          items={ items }
-          title='TITLE'
-          collapsable={ true }
-        />
-      );
+      Simulate.click(header);
 
-      scryRenderedComponentsWithType(instance, ListWidgetItem).should.have.length(3);
-      const collapsedToggle = findRenderedDOMComponentWithClass(instance, 'collapsed-toggle');
-      collapsedToggle.textContent.should.equal('View more');
-
-      Simulate.click(collapsedToggle);
-      scryRenderedComponentsWithType(instance, ListWidgetItem).should.have.length(4);
-      collapsedToggle.textContent.should.equal('View less');
-
-      Simulate.click(collapsedToggle);
-      instance.state.collapsed ? console.warn('instance.state.collapsed'): null;
-      scryRenderedComponentsWithType(instance, ListWidgetItem).should.have.length(3);
-      collapsedToggle.textContent.should.equal('View more');
+      setTimeout(() => {
+        scryRenderedComponentsWithType(collapse, ListWidgetItem).should.have.length(1);
+        scryRenderedComponentsWithType(instance, ListWidgetItem).should.have.length(4);
+        done();
+      }, 500);
     });
   });
 });
