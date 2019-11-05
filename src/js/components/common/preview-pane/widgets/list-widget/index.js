@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import pluralize from 'pluralize';
 import cx from 'classnames';
-import { UnmountClosed } from 'react-collapse';
+import { UnmountClosed, Collapse } from 'react-collapse';
 import { slice, isEmpty, isNil } from 'lodash';
 
 import ListWidgetItem from './list-widget-item';
@@ -82,7 +82,9 @@ ListWidget.propTypes = {
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     name: PropTypes.string,
     count: PropTypes.number,
-    image: PropTypes.string.optional,
+    radarAxes: PropTypes.array,
+    radarColor: PropTypes.string,
+    subText: PropTypes.string,
     url: PropTypes.string.optional,
   })),
   title: PropTypes.string,

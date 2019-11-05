@@ -20,7 +20,7 @@ import {
 import styles from 'components/common/preview-pane/pinboard-pane.sass';
 
 
-describe.only('PinboardPane component', function () {
+describe('PinboardPane component', function () {
   let instance;
 
   afterEach(function () {

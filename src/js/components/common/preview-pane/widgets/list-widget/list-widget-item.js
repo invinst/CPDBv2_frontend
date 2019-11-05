@@ -20,7 +20,7 @@ const wrapWithLink = (component, url) => (
 
 export default class ListWidgetItem extends Component {
   render() {
-    const { url, subText, radarAxes, radarColor, showAvatar, showItemArrow } = this.props;
+    const { name, url, subText, radarAxes, radarColor, showAvatar, showItemArrow } = this.props;
 
     return wrapWithLink(
       <li className={ styles.listWidgetItem }>
