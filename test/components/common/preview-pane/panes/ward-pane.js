@@ -6,7 +6,7 @@ import {
   scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 
-import WardPane from 'components/common/preview-pane/ward-pane';
+import WardPane from 'components/common/preview-pane/panes/ward-pane';
 import {
   HeaderWidget,
   SeparatorWidget,

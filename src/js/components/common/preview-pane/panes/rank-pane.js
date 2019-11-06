@@ -5,7 +5,7 @@ import WidgetWrapper, {
   HeaderWidget,
   ListWidget,
   SeparatorWidget,
-} from './widgets';
+} from '../widgets';
 import style from './rank-pane.sass';
 
 

@@ -5,7 +5,7 @@ import {
   scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 
-import ZipCodePane from 'components/common/preview-pane/zip-code-pane';
+import ZipCodePane from 'components/common/preview-pane/panes/zip-code-pane';
 import {
   HeaderWidget,
   AllegationCountWidget,

@@ -9,7 +9,7 @@ import MockStore from 'redux-mock-store';
 import { stub } from 'sinon';
 
 import { reRender, unmountComponentSuppressError } from 'utils/test';
-import { PinboardPane } from 'components/common/preview-pane';
+import { PinboardPane } from 'components/common/preview-pane/panes';
 import StaticSocialGraphContainer from 'containers/pinboard-page/static-social-graph-container';
 import {
   ListWidget,
@@ -17,7 +17,7 @@ import {
   TitleWidget,
   NewWidgetWrapper,
 } from 'components/common/preview-pane/widgets';
-import styles from 'components/common/preview-pane/pinboard-pane.sass';
+import styles from 'components/common/preview-pane/panes/pinboard-pane.sass';
 
 
 describe('PinboardPane component', function () {

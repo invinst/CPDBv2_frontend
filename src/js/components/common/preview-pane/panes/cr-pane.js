@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import pluralize from 'pluralize';
 import { isEmpty } from 'lodash';
 
-import { NewWidgetWrapper, ListWidget } from './widgets';
+import { NewWidgetWrapper, ListWidget } from '../widgets';
 import Demographics from 'components/common/demographics';
 import styles from './cr-pane.sass';
 

@@ -3,7 +3,7 @@ import { isEmpty } from 'lodash';
 
 import PinboardsTable from './pinboards-table';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
-import { PreviewPaneWithOverlay } from 'components/search-page/search-results/preview-pane';
+import { PreviewPaneWithOverlay } from 'components/common/preview-pane';
 import styles from './pinboard-admin-page.sass';
 
 

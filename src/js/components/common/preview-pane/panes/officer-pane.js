@@ -9,7 +9,7 @@ import {
   NewOfficerInfoWidget as OfficerInfoWidget,
   NewMetricWidget as MetricWidget,
   PinButton,
-} from './widgets';
+} from '../widgets';
 import styles from './officer-pane.sass';
 
 export default class OfficerPane extends Component {

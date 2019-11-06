@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import { NewWidgetWrapper, ListWidget } from './widgets';
+import { NewWidgetWrapper, ListWidget } from '../widgets';
 import styles from './trr-pane.sass';
 
 

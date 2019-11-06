@@ -6,7 +6,7 @@ import {
   scryRenderedDOMComponentsWithClass,
 } from 'react-addons-test-utils';
 
-import TRRPane from 'components/common/preview-pane/trr-pane';
+import TRRPane from 'components/common/preview-pane/panes/trr-pane';
 import { NewWidgetWrapper, ListWidget } from 'components/common/preview-pane/widgets';
 import { unmountComponentSuppressError } from 'utils/test';
 

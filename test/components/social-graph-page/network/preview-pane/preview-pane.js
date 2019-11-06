@@ -4,8 +4,8 @@ import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-
 import { unmountComponentSuppressError } from 'utils/test/index';
 import { NETWORK_PREVIEW_PANE } from 'utils/constants';
 import PreviewPane from 'components/social-graph-page/network/preview-pane/index';
-import OfficerPane from 'components/common/preview-pane/officer-pane';
-import CRPane from 'components/common/preview-pane/cr-pane';
+import OfficerPane from 'components/common/preview-pane/panes/officer-pane';
+import CRPane from 'components/common/preview-pane/panes/cr-pane';
 import EdgeCoaccusalsPane from 'components/social-graph-page/network/preview-pane/edge-coaccusals-pane';
 
 

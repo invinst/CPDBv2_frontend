@@ -13,7 +13,7 @@ import { unmountComponentSuppressError } from 'utils/test';
 import PinboardAdminPage from 'components/pinboard-admin-page';
 import PinboardsTable from 'components/pinboard-admin-page/pinboards-table';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
-import { PreviewPaneWithOverlay } from 'components/search-page/search-results/preview-pane';
+import { PreviewPaneWithOverlay } from 'components/common/preview-pane';
 import { PINBOARDS_SEARCH_ITEMS } from 'utils/constants';
 
 

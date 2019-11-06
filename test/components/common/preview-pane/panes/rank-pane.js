@@ -5,7 +5,7 @@ import { renderIntoDocument,
   scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 
-import RankPane from 'components/common/preview-pane/rank-pane';
+import RankPane from 'components/common/preview-pane/panes/rank-pane';
 import {
   HeaderWidget,
   ListWidget,

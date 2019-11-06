@@ -4,7 +4,7 @@ import WidgetWrapper, {
   HeaderWidget,
   AllegationCountWidget,
   ListWidget,
-} from './widgets';
+} from '../widgets';
 
 
 export default class ZipCodePane extends Component {

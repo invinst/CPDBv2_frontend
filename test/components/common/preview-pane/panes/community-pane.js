@@ -5,17 +5,18 @@ import {
   scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 
-import NeighborhoodPane from 'components/common/preview-pane/neighborhood-pane';
+import CommunityPane from 'components/common/preview-pane/panes/community-pane';
 import {
   HeaderWidget,
+  GeoInfoWidget,
+  AllegationCountWidget,
   ListWidget,
   CallToActionWidget,
-  SeparatorWidget,
 } from 'components/common/preview-pane/widgets';
 import { unmountComponentSuppressError } from 'utils/test';
 
 
-describe('NeighborhoodPane component', () => {
+describe('CommunityPane component', () => {
   let instance;
 
   afterEach(function () {
@@ -24,24 +25,28 @@ describe('NeighborhoodPane component', () => {
 
   it('should contain the sub components', () => {
     instance = renderIntoDocument(
-      <NeighborhoodPane
-        url='https://staging.cpdb.co/data/L2B5ML/citizens-police-data-project'
-        mostCommonComplaint={ [{
-          id: 1,
-          name: 'name',
-          count: 1,
-        }] }
+      <CommunityPane
         officersMostComplaint={ [{
           id: 1,
           name: 'name',
           count: 1,
         }] }
-        name={ 'neighborhood' }
-        allegationCount={ 123 }
+        medianIncome={ '1000' }
+        population={ '100' }
+        raceCount={ [] }
+        allegationCount={ 100 }
+        mostCommonComplaint={ [{
+          id: 1,
+          name: 'name',
+          count: 1,
+        }] }
+        name={ 'community' }
+        url={ 'url' }
       />
     );
     findRenderedComponentWithType(instance, HeaderWidget);
-    findRenderedComponentWithType(instance, SeparatorWidget);
+    findRenderedComponentWithType(instance, GeoInfoWidget);
+    findRenderedComponentWithType(instance, AllegationCountWidget);
     scryRenderedComponentsWithType(instance, ListWidget).should.have.length(2);
     findRenderedComponentWithType(instance, CallToActionWidget);
   });

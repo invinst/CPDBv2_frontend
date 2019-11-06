@@ -7,7 +7,7 @@ import {
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import PreviewPane from 'components/search-page/search-results/preview-pane';
+import PreviewPane from 'components/common/preview-pane';
 import {
   CommunityPane,
   NeighborhoodPane,
@@ -20,8 +20,8 @@ import {
   SearchTermItemPane,
   CRPane,
   TRRPane,
-} from 'components/common/preview-pane';
-import styles from 'components/search-page/search-results/preview-pane.sass';
+} from 'components/common/preview-pane/panes';
+import styles from 'components/common/preview-pane/preview-pane.sass';
 
 
 describe('PreviewPane component', function () {

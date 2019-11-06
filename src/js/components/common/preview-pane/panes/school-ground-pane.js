@@ -5,7 +5,7 @@ import WidgetWrapper, {
   AllegationCountWidget,
   ListWidget,
   SeparatorWidget,
-} from './widgets';
+} from '../widgets';
 
 
 export default class SchoolGroundPane extends Component {

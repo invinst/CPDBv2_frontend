@@ -6,7 +6,7 @@ import {
   scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 
-import PoliceDistrictPane from 'components/common/preview-pane/police-district-pane';
+import PoliceDistrictPane from 'components/common/preview-pane/panes/police-district-pane';
 import WidgetWrapper, {
   HeaderWidget,
   GeoInfoWidget,

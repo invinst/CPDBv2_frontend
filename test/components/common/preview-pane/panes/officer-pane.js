@@ -11,7 +11,7 @@ import { stub } from 'sinon';
 import { browserHistory } from 'react-router';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
-import { OfficerPane as OfficerPane } from 'components/common/preview-pane';
+import { OfficerPane as OfficerPane } from 'components/common/preview-pane/panes';
 import {
   NewVisualTokenWidget as VisualTokenWidget,
   NewOfficerInfoWidget as OfficerInfoWidget,

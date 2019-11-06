@@ -5,7 +5,7 @@ import WidgetWrapper, {
   GeoInfoWidget,
   AllegationCountWidget,
   ListWidget,
-} from './widgets';
+} from '../widgets';
 
 
 export default class CommunityPane extends Component {

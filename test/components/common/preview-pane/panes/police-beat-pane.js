@@ -6,7 +6,7 @@ import {
   scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 
-import PoliceBeatPane from 'components/common/preview-pane/police-beat-pane';
+import PoliceBeatPane from 'components/common/preview-pane/panes/police-beat-pane';
 import { unmountComponentSuppressError } from 'utils/test';
 import {
   HeaderWidget,

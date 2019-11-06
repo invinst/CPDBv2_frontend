@@ -25,7 +25,7 @@ import PinboardPageContainer from 'containers/pinboard-page';
 import RelevantSectionContainer from 'containers/pinboard-page/relevant-section';
 import SearchBar from 'components/pinboard-page/search-bar';
 import { PinboardPaneSectionWithSpinner } from 'components/pinboard-page/pinboard-pane-section';
-import { PreviewPaneWithOverlay } from 'components/search-page/search-results/preview-pane';
+import { PreviewPaneWithOverlay } from 'components/common/preview-pane';
 import RootReducer from 'reducers/root-reducer';
 import FooterContainer from 'containers/footer-container';
 import PinboardsContainer from 'containers/pinboard-page/pinboards-container';

@@ -6,7 +6,7 @@ import WidgetWrapper, {
   TextWidget,
   AllegationCountWidget,
   ListWidget,
-} from './widgets';
+} from '../widgets';
 
 
 export default class WardPane extends Component {

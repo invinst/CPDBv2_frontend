@@ -4,7 +4,7 @@ import { renderIntoDocument,
   scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 
-import CensusTrackPane from 'components/common/preview-pane/census-track-pane';
+import CensusTrackPane from 'components/common/preview-pane/panes/census-track-pane';
 import {
   HeaderWidget,
   GeoInfoWidget,

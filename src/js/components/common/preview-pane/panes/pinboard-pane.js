@@ -7,7 +7,7 @@ import {
   TitleWidget,
   ListWidget,
   OneLineListWidget,
-} from 'components/common/preview-pane/widgets';
+} from '../widgets';
 import styles from './pinboard-pane.sass';
 import StaticSocialGraphContainer from 'containers/pinboard-page/static-social-graph-container';
 
