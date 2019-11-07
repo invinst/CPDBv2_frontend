@@ -1,5 +1,7 @@
 'use strict';
 
+import moment from 'moment';
+
 require('should');
 
 import pinboardAdminPage from './page-objects/pinboard-admin-page';
@@ -59,6 +61,8 @@ describe('Pinboard Admin Page', function () {
       });
 
       it('should open after clicking on a pinboard row', function () {
+        const createdAt = moment('2019-11-04T09:12:20.798703Z').format('lll');
+
         pinboardAdminPage.pinboardPreviewPane.callToAction.getText().should.equal('View Pinboard');
         pinboardAdminPage.pinboardPreviewPane.title.getText().should.equal('Pinboard 18a5b091 Title');
         pinboardAdminPage.pinboardPreviewPane.description.getText().should.equal(
@@ -67,7 +71,7 @@ describe('Pinboard Admin Page', function () {
           'can he added'
         );
         pinboardAdminPage.pinboardPreviewPane.info.createdAtTitle.getText().should.equal('Created at');
-        pinboardAdminPage.pinboardPreviewPane.info.createdAtValue.getText().should.equal('Nov 4, 2019 4:12 PM');
+        pinboardAdminPage.pinboardPreviewPane.info.createdAtValue.getText().should.equal(createdAt);
         pinboardAdminPage.pinboardPreviewPane.socialGraph.isDisplayed().should.be.true();
 
         const pinnedOfficers = pinboardAdminPage.pinboardPreviewPane.pinnedOfficers;
