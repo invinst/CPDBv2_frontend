@@ -1,4 +1,5 @@
 import { random } from 'faker';
+import moment from 'moment-timezone';
 
 import {
   allPinboardsSelector,
@@ -165,6 +166,10 @@ describe('pinboardAdminPages selectors', function () {
   });
 
   describe('allPinboardsSelector', function () {
+    beforeEach(function () {
+      moment.tz.setDefault('America/Chicago');
+    });
+
     it('should return all pinboards with correct format', function () {
       const state = {
         pinboardAdminPage: {
@@ -269,7 +274,7 @@ describe('pinboardAdminPages selectors', function () {
           title: 'My pinboard',
           description: '',
           createdAt: 'Nov 04',
-          fullCreatedAt: 'Nov 4, 2019 4:12 PM',
+          fullCreatedAt: 'Nov 4, 2019 3:12 AM',
           pinnedCount: '1 officer, 2 allegations and 3 TRRS',
           officersCount: 1,
           allegationsCount: 2,
@@ -329,7 +334,7 @@ describe('pinboardAdminPages selectors', function () {
           title: 'Untitled Pinboard',
           description: '',
           createdAt: 'Nov 01',
-          fullCreatedAt: 'Nov 1, 2019 4:36 PM',
+          fullCreatedAt: 'Nov 1, 2019 4:36 AM',
           pinnedCount: '1 officer, 0 allegations and 0 TRRS',
           officersCount: 1,
           allegationsCount: 0,
@@ -362,7 +367,7 @@ describe('pinboardAdminPages selectors', function () {
           title: 'Untitled Pinboard',
           description: '',
           createdAt: 'Nov 01',
-          fullCreatedAt: 'Nov 1, 2018 4:36 PM',
+          fullCreatedAt: 'Nov 1, 2018 4:36 AM',
           pinnedCount: '0 officers, 0 allegations and 0 TRRS',
           officersCount: 0,
           allegationsCount: 0,
