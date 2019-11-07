@@ -22,10 +22,13 @@ class ComplaintCard extends Component {
     }
   }
 
-  renderSection(label, text) {
+  renderSection(label, text, subLabel) {
     return (
       <div className='section'>
-        <div className='section-label'>{ label }</div>
+        <div className='section-label'>
+          <span>{ label }</span>
+          { subLabel && <span className='section-sub-label'>{ subLabel }</span> }
+        </div>
         <div className='section-content nowrap-text'>{ text }</div>
       </div>
     );
@@ -42,8 +45,7 @@ class ComplaintCard extends Component {
       >
         <div className='complaint-card-map' style={ mapStyle(lat, lon) } />
         <div className='content'>
-          { this.renderSection(`CR ${ crid }`, categories) }
-          { incidentDate && this.renderSection('Date', incidentDate) }
+          { this.renderSection(`CR ${ crid }`, categories, incidentDate) }
           { complainants && this.renderSection('Complainant', complainants) }
           { accused && this.renderSection('Accused', accused) }
         </div>

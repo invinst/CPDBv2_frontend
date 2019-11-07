@@ -42,15 +42,13 @@ describe('ComplaintCard component', function () {
       );
       const sections = scryRenderedDOMComponentsWithClass(instance, 'section');
 
-      sections.should.have.length(4);
-      sections[0].textContent.should.containEql('10799008');
+      sections.should.have.length(3);
+      sections[0].textContent.should.containEql('10799008').and.containEql('Oct 7, 2008');
       sections[0].textContent.should.containEql('Use Of Force');
-      sections[1].textContent.should.containEql('Date');
-      sections[1].textContent.should.containEql('Oct 7, 2008');
-      sections[2].textContent.should.containEql('Complainant');
-      sections[2].textContent.should.containEql('R. Rose');
-      sections[3].textContent.should.containEql('Accused');
-      sections[3].textContent.should.containEql('B. Bolton');
+      sections[1].textContent.should.containEql('Complainant');
+      sections[1].textContent.should.containEql('R. Rose');
+      sections[2].textContent.should.containEql('Accused');
+      sections[2].textContent.should.containEql('B. Bolton');
     });
 
     it('should track click event', function () {
