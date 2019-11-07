@@ -114,7 +114,7 @@ describe('PinboardPane component', function () {
 
     const widgetWrapper = findRenderedComponentWithType(instance, NewWidgetWrapper);
     widgetWrapper.props.className.should.equal(styles.pinboardPane);
-    widgetWrapper.props.callToAction.should.eql({ url: '/pinboard/18a5b091', text: 'View Pinboard' });
+    widgetWrapper.props.callToAction.should.eql({ to: '/pinboard/18a5b091/', text: 'View Pinboard' });
     widgetWrapper.props.yScrollable.should.be.true();
     widgetWrapper.props.isClickable.should.be.false();
 

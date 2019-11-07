@@ -42,7 +42,7 @@ export default class PinboardPane extends Component {
     return (
       <NewWidgetWrapper
         className={ styles.pinboardPane }
-        callToAction={ { url: `/pinboard/${id}`, text: 'View Pinboard' } }
+        callToAction={ { to: `/pinboard/${id}/`, text: 'View Pinboard' } }
         yScrollable={ true }
         isClickable={ false }
       >

@@ -1,3 +1,5 @@
+import { get } from 'lodash';
+
 import config from 'config';
 import axiosMockClient from 'utils/axios-mock-client';
 import {
@@ -20,6 +22,7 @@ import {
   CRAWLERS_API_URL,
   SOCIAL_GRAPH_NETWORK_API_URL,
   PINBOARDS_URL,
+  ALL_PINBOARD_URL,
   SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
   SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL,
   SOCIAL_GRAPH_OFFICERS_API_URL,
@@ -96,6 +99,7 @@ import getRelevantComplaints, {
   getFirstRelevantComplaints,
   filterPinnedComplaints,
 } from 'mock-api/pinboard-page/relevant-complaints';
+import { emptyPagination, firstPage, secondPage } from 'mock-api/pinboard-admin-page/all-pinbooards';
 import { modalVideoInfo } from './headers/slim-header';
 import PinboardFactory from 'utils/test/factories/pinboard';
 
@@ -339,7 +343,13 @@ axiosMockClient.onGet(`${PINBOARDS_URL}eeee7777/officers/`).reply(200, eeee7777O
 axiosMockClient.onGet(`${PINBOARDS_URL}eeee7777/complaints/`).reply(200, eeee7777Complaints);
 axiosMockClient.onGet(`${PINBOARDS_URL}eeee7777/trrs/`).reply(200, []);
 
-axiosMockClient.onGet(`${SOCIAL_GRAPH_NETWORK_API_URL}?pinboard_id=5cd06f2b`).reply(200, getSocialGraphData());
+axiosMockClient.onGet(
+  `${SOCIAL_GRAPH_NETWORK_API_URL}?pinboard_id=5cd06f2b`
+).reply(200, getSocialGraphData('5cd06f2b'));
+axiosMockClient.onGet(
+  `${SOCIAL_GRAPH_NETWORK_API_URL}?pinboard_id=18a5b091`
+).reply(200, getSocialGraphData('18a5b091'));
+
 axiosMockClient.onGet(
   SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
   { params: { 'pinboard_id': '5cd06f2b' } }
@@ -395,6 +405,7 @@ axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-complaints/?limit=20&of
 
 axiosMockClient.onGet(`${PINBOARDS_URL}abcd1234/`).reply(200, getOrCreateEmptyPinboard('abcd1234'));
 axiosMockClient.onGet(`${PINBOARDS_URL}abcd5678/`).reply(200, getOrCreateEmptyPinboard('abcd5678'));
+axiosMockClient.onGet(`${PINBOARDS_URL}18a5b091/`).reply(200, getOrCreateEmptyPinboard('18a5b091'));
 
 axiosMockClient.onGet(`${PINBOARDS_URL}latest-retrieved-pinboard/`, { params: {} }).reply(200, {});
 axiosMockClient.onGet(
@@ -426,7 +437,9 @@ axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/officers/`).reply(200, fetchPinb
 
 axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/trrs/`).reply(200, fetchPinboardTRRs());
 
-axiosMockClient.onGet(`${SOCIAL_GRAPH_NETWORK_API_URL}?pinboard_id=3664a7ea`).reply(200, getSocialGraphBigData());
+axiosMockClient.onGet(
+  `${SOCIAL_GRAPH_NETWORK_API_URL}?pinboard_id=3664a7ea`
+).reply(200, getSocialGraphBigData('3664a7ea'));
 
 axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/relevant-coaccusals/?`).reply(
   200, getFirstRelevantCoaccusals('3664a7ea', 50)
@@ -435,6 +448,19 @@ axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/relevant-coaccusals/?`).reply(
 axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/relevant-documents/?`).reply(
   200, getFirstRelevantDocuments('3664a7ea', 50)
 );
+
+axiosMockClient.onGet(ALL_PINBOARD_URL).reply(function (config) {
+  const authenticated = config.headers['Authorization'] === 'Token 055a5575c1832e9123cd546fe0cfdc8607f8680c';
+
+  if (authenticated) {
+    const offset = get(config, 'params.offset');
+    if (offset === '10') {
+      return [200, secondPage];
+    }
+    return [200, firstPage];
+  }
+  return [200, emptyPagination];
+});
 
 axiosMockClient.onGet(
   RECENT_SEARCH_ITEMS_API_URL,
