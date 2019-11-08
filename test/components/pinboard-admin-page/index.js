@@ -32,7 +32,9 @@ describe('PinboardAdminPage', function () {
     const fetchPinboardSocialGraph = spy();
     const cachedDataIDs = ['aaaa1111', 'bbbb2222'];
     const store = MockStore()({
-      pinboardPage: { graphData: { cachedData: {} } },
+      pinboardPage: {
+        graphData: { cachedData: {} },
+      },
       breadcrumb: {
         breadcrumbs: [],
       },
@@ -83,5 +85,46 @@ describe('PinboardAdminPage', function () {
     pinboardAdminPage.handleOverlayClick();
     previewPane.props.isShown.should.be.false();
     previewPane.props.data.should.be.empty();
+  });
+
+  describe('componentDidMount', function () {
+    const store = MockStore()({
+      pinboardPage: {
+        graphData: { cachedData: {} },
+      },
+      breadcrumb: {
+        breadcrumbs: [],
+      },
+    });
+
+    it('should openLoginModal if not logged in', function () {
+      const spyOpenLoginModal = spy();
+
+      instance = renderIntoDocument(
+        <Provider store={ store }>
+          <PinboardAdminPage
+            openLoginModal={ spyOpenLoginModal }
+            isSignedIn={ false }
+          />
+        </Provider>
+      );
+
+      spyOpenLoginModal.should.be.calledOnce();
+    });
+
+    it('should not openLoginModal if already logged in', function () {
+      const spyOpenLoginModal = spy();
+
+      instance = renderIntoDocument(
+        <Provider store={ store }>
+          <PinboardAdminPage
+            openLoginModal={ spyOpenLoginModal }
+            isSignedIn={ true }
+          />
+        </Provider>
+      );
+
+      spyOpenLoginModal.should.not.be.called();
+    });
   });
 });

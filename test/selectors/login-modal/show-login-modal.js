@@ -16,15 +16,44 @@ describe('showLoginModalSelector', function () {
     showLoginModalSelector(state, props).should.be.true();
   });
 
+  it('should show login modal when not signed in and openLoginModal', function () {
+    const state = {
+      authentication: {
+        openLoginModal: true,
+      },
+    };
+    const props = {
+      location: {
+        pathname: '/abc/',
+      },
+    };
+    showLoginModalSelector(state, props).should.be.true();
+  });
+
   it('should not show login modal when signed in', function () {
     const state = {
       authentication: {
         apiAccessToken: '123',
+        openLoginModal: true,
       },
     };
     const props = {
       location: {
         pathname: '/edit/',
+      },
+    };
+    showLoginModalSelector(state, props).should.be.false();
+  });
+
+  it('should not show login modal when not openLoginModal', function () {
+    const state = {
+      authentication: {
+        openLoginModal: false,
+      },
+    };
+    const props = {
+      location: {
+        pathname: '/abc/',
       },
     };
     showLoginModalSelector(state, props).should.be.false();

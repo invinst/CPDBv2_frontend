@@ -62,6 +62,7 @@ describe('store', function () {
         forgotPasswordErrorMessage: null,
         apiAccessToken: null,
         showForgotPasswordModal: false,
+        openLoginModal: false,
       },
       cms: {
         pages: {},

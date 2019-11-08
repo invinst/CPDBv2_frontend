@@ -5,6 +5,7 @@ import loginErrorMessage from './login-error-message';
 import loginSuccessMessage from './login-success-message';
 import forgotPasswordErrorMessage from './forgot-password-error-message';
 import apiAccessToken from './api-access-token';
+import openLoginModal from './open-login-modal';
 
 
 export default combineReducers({
@@ -13,4 +14,5 @@ export default combineReducers({
   forgotPasswordErrorMessage,
   apiAccessToken,
   showForgotPasswordModal,
+  openLoginModal,
 });
