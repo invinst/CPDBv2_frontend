@@ -67,10 +67,10 @@ export default class PreviewPane extends Component {
 
 
   render() {
-    const { data, customClass, yScrollable, dynamicHeight } = this.props;
+    const { data, customClass, yScrollable, dynamicHeight, isShown } = this.props;
 
     return (
-      <SlideMotion show={ !isEmpty(data) } offsetX={ 100 }>
+      <SlideMotion show={ isShown && !isEmpty(data) } offsetX={ 100 }>
         <div className={
           cx(
             styles.previewPaneWrapper,
@@ -96,6 +96,7 @@ PreviewPane.propTypes = {
   dynamicHeight: PropTypes.bool,
   addOrRemoveItemInPinboard: PropTypes.func,
   fetchPinboardSocialGraph: PropTypes.func,
+  isShown: PropTypes.bool,
 };
 
 PreviewPane.defaultProps = {
@@ -104,6 +105,7 @@ PreviewPane.defaultProps = {
   addOrRemoveItemInPinboard: noop,
   fetchPinboardSocialGraph: noop,
   dynamicHeight: false,
+  isShown: true,
 };
 
 export const PreviewPaneWithOverlay = withOverlay(PreviewPane);

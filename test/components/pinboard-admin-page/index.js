@@ -84,7 +84,7 @@ describe('PinboardAdminPage', function () {
 
     pinboardAdminPage.handleOverlayClick();
     previewPane.props.isShown.should.be.false();
-    previewPane.props.data.should.be.empty();
+    previewPane.props.data.should.eql({ id: 123 });
   });
 
   describe('componentDidMount', function () {

@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { isEmpty } from 'lodash';
 
 import PinboardsTable from './pinboards-table';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
@@ -11,6 +10,7 @@ export default class PinboardAdminPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isShowingPreviewPane: false,
       focusedItem: {},
     };
     this.handleOverlayClick = this.handleOverlayClick.bind(this);
@@ -24,11 +24,11 @@ export default class PinboardAdminPage extends Component {
   }
 
   focusItem(focusedItem) {
-    this.setState({ focusedItem });
+    this.setState({ focusedItem, isShowingPreviewPane: true });
   }
 
   handleOverlayClick() {
-    this.focusItem({});
+    this.setState({ isShowingPreviewPane: false });
   }
 
   render() {
@@ -41,7 +41,7 @@ export default class PinboardAdminPage extends Component {
       fetchPinboardSocialGraph,
       cachedDataIDs,
     } = this.props;
-    const { focusedItem } = this.state;
+    const { focusedItem, isShowingPreviewPane } = this.state;
 
     return (
       <div className={ styles.pinboardAdminPage }>
@@ -55,7 +55,7 @@ export default class PinboardAdminPage extends Component {
           focusItem={ this.focusItem }
         />
         <PreviewPaneWithOverlay
-          isShown={ !isEmpty(focusedItem) }
+          isShown={ isShowingPreviewPane }
           handleClose={ this.handleOverlayClick }
           customClass='preview-pane'
           yScrollable={ true }

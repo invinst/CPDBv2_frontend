@@ -238,6 +238,13 @@ describe('PreviewPane component', function () {
     scryRenderedDOMComponentsWithClass(instance, 'test--preview-pane').should.have.length(0);
   });
 
+  it('should not display any component if isShown is false', function () {
+    instance = renderIntoDocument(
+      <PreviewPane customClass='test--preview-pane' data={ { id: 123 } } isShown={ false }/>
+    );
+    scryRenderedDOMComponentsWithClass(instance, 'test--preview-pane').should.have.length(0);
+  });
+
   it('should not render if type is not in the list', function () {
     instance = renderIntoDocument(
       <PreviewPane
