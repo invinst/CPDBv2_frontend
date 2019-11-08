@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import pluralize from 'pluralize';
-import { includes } from 'lodash';
+import { includes, isNil } from 'lodash';
 
 import {
   NewWidgetWrapper,
@@ -22,7 +22,7 @@ export default class PinboardPane extends Component {
   }
 
   fetchPinboardSocialGraph({ id, fetchPinboardSocialGraph, cachedDataIDs }) {
-    !includes(cachedDataIDs, id) && fetchPinboardSocialGraph(id);
+    !isNil(id) && !includes(cachedDataIDs, id) && fetchPinboardSocialGraph(id);
   }
 
   render() {
