@@ -13,6 +13,19 @@ describe('Pinboard Admin Page', function () {
     pinboardAdminPage.open();
   });
 
+  it('should show login modal to unauthenticated user', function () {
+    pinboardAdminPage.loginScreen.loginModal.waitForDisplayed();
+
+    browser.keys('Escape');
+    browser.waitForUrl(url => url.should.match(/\/edit\/view-all-pinboards\/$/), 500);
+    pinboardAdminPage.loginScreen.loginModal.waitForDisplayed();
+
+    browser.keys('Escape');
+    browser.waitForUrl(url => url.should.not.match(/\/edit\//), 500);
+    browser.getUrl().should.match(/\/view-all-pinboards\/$/);
+    pinboardAdminPage.loginScreen.loginModal.waitForDisplayed();
+  });
+
   it('should show no pinboards to unauthenticated user', function () {
     pinboardAdminPage.pinboardTables.pinboardRows.count.should.equal(0);
 
@@ -29,7 +42,8 @@ describe('Pinboard Admin Page', function () {
 
   context('Authenticated', function () {
     beforeEach(function () {
-      pinboardAdminPage.openEditMode();
+      pinboardAdminPage.loginScreen.loginModal.waitForDisplayed();
+      pinboardAdminPage.loginScreen.login();
     });
 
     it('should show latest pinboards info', function () {
