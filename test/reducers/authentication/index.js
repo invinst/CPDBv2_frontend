@@ -9,7 +9,6 @@ describe('authentication reducer', function () {
       forgotPasswordErrorMessage: null,
       apiAccessToken: null,
       showForgotPasswordModal: false,
-      openLoginModal: false,
     });
   });
 });

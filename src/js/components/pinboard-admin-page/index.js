@@ -17,12 +17,6 @@ export default class PinboardAdminPage extends Component {
     this.focusItem = this.focusItem.bind(this);
   }
 
-  componentDidMount() {
-    const { openLoginModal, location, isSignedIn } = this.props;
-
-    isSignedIn || openLoginModal(location.pathname);
-  }
-
   focusItem(focusedItem) {
     this.setState({ focusedItem, isShowingPreviewPane: true });
   }
@@ -78,17 +72,9 @@ PinboardAdminPage.propTypes = {
   isLoading: PropTypes.bool,
   fetchPinboardSocialGraph: PropTypes.func,
   cachedDataIDs: PropTypes.array,
-  isSignedIn: PropTypes.bool,
-  location: PropTypes.object,
-  openLoginModal: PropTypes.func,
 };
 
 PinboardAdminPage.defaultProps = {
   pinboards: [],
   isLoading: false,
-  isSignedIn: false,
-  location: {
-    pathname: '',
-  },
-  openLoginModal: () => {},
 };
