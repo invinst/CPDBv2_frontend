@@ -1,22 +1,10 @@
 import React from 'react';
-import { unmountComponentSuppressError } from 'utils/test';
-import {
-  renderIntoDocument,
-  scryRenderedDOMComponentsWithClass,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
 import RadarAxis from 'components/common/radar-chart/radar-axis';
 
 
 describe('RadarAxis component', function () {
-  let instance;
-
-  afterEach(function () {
-    if (instance) {
-      unmountComponentSuppressError(instance);
-    }
-  });
-
   it('should draw 3 lines if have 3 axis titles', () => {
     const data = [
       {
@@ -32,15 +20,15 @@ describe('RadarAxis component', function () {
         value: 20,
       },
     ];
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <RadarAxis radius={ 100 } data={ data } showAxisTitle={ true }/>
     );
 
-    const items = scryRenderedDOMComponentsWithClass(instance, 'test--radar-axis-text');
+    const items = wrapper.find('.test--radar-axis-text');
 
-    items[0].textContent.should.be.eql('a');
-    items[1].textContent.should.be.eql('b');
-    items[2].textContent.should.be.eql('c');
+    items.at(0).text().should.equal('a');
+    items.at(1).text().should.equal('b');
+    items.at(2).text().should.equal('c');
   });
 
   it('should show the last word in a new line if the title contains 2 words or more', function () {
@@ -58,18 +46,18 @@ describe('RadarAxis component', function () {
         value: 20,
       },
     ];
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <RadarAxis radius={ 100 } data={ data } showAxisTitle={ true }/>
     );
 
-    const texts = scryRenderedDOMComponentsWithClass(instance, 'test--radar-axis-text');
+    const texts = wrapper.find('.test--radar-axis-text');
 
-    const lines = texts[0].querySelectorAll('tspan');
+    const lines = texts.at(0).find('tspan');
     lines.should.have.length(2);
-    lines[0].textContent.should.be.eql('Title is');
-    lines[1].textContent.should.be.eql('1');
+    lines.at(0).text().should.equal('Title is');
+    lines.at(1).text().should.equal('1');
 
-    texts[1].querySelectorAll('tspan').should.have.length(2);
+    texts.at(1).find('tspan').should.have.length(2);
   });
 
   it('should show axis values if showAxisValue is true', function () {
@@ -87,15 +75,15 @@ describe('RadarAxis component', function () {
         value: 20,
       },
     ];
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <RadarAxis radius={ 100 } data={ data } showAxisValue={ true }/>
     );
 
-    const items = scryRenderedDOMComponentsWithClass(instance, 'test--radar-axis-text');
+    const items = wrapper.find('.test--radar-axis-text');
     items.should.have.length(3);
-    items[0].textContent.should.be.eql('0');
-    items[1].textContent.should.be.eql('50');
-    items[2].textContent.should.be.eql('20');
+    items.at(0).text().should.equal('0');
+    items.at(1).text().should.equal('50');
+    items.at(2).text().should.equal('20');
   });
 
   it('should show axis titles if showAxisTitle is true', function () {
@@ -113,15 +101,15 @@ describe('RadarAxis component', function () {
         value: 20,
       },
     ];
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <RadarAxis radius={ 100 } data={ data } showAxisTitle={ true }/>
     );
 
-    const items = scryRenderedDOMComponentsWithClass(instance, 'test--radar-axis-text');
+    const items = wrapper.find('.test--radar-axis-text');
     items.should.have.length(3);
-    items[0].textContent.should.be.eql('Title is1');
-    items[1].textContent.should.be.eql('b');
-    items[2].textContent.should.be.eql('c');
+    items.at(0).text().should.equal('Title is1');
+    items.at(1).text().should.equal('b');
+    items.at(2).text().should.equal('c');
   });
 
   it('should be able to show percentile suffix and hide if value is zero', function () {
@@ -139,13 +127,13 @@ describe('RadarAxis component', function () {
         value: 0,
       },
     ];
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <RadarAxis radius={ 100 } data={ data } showAxisValue={ true } showValueWithSuffix={ true }/>
     );
 
-    const items = scryRenderedDOMComponentsWithClass(instance, 'test--radar-axis-text');
+    const items = wrapper.find('.test--radar-axis-text');
     items.should.have.length(2);
-    items[0].textContent.should.be.eql('11th percentile');
-    items[1].textContent.should.be.eql('21st percentile');
+    items.at(0).text().should.equal('11th percentile');
+    items.at(1).text().should.equal('21st percentile');
   });
 });

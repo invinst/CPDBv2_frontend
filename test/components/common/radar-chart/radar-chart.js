@@ -1,23 +1,15 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  scryRenderedComponentsWithType,
-  findRenderedComponentWithType,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import RadarChart from 'components/common/radar-chart/radar-chart';
 import RadarArea from 'components/common/radar-chart/radar-area';
 import RadarLegend from 'components/common/radar-chart/radar-legend';
 import RadarAxis from 'components/common/radar-chart/radar-axis';
 import RadarSpineLine from 'components/common/radar-chart/radar-spine-line';
 import RadarGrid from 'components/common/radar-chart/radar-grid';
-import { reRender } from 'utils/test';
 
 
 describe('RadarChart component', function () {
-  let instance;
   const data = [
     {
       axis: 'A',
@@ -33,44 +25,40 @@ describe('RadarChart component', function () {
     },
   ];
 
-  afterEach(() => {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should be renderable', () => {
     RadarChart.should.be.renderable();
   });
 
   it('should render default radar chart if data provided', () => {
-    instance = renderIntoDocument(<RadarChart data={ data }/>);
-    findRenderedComponentWithType(instance, RadarArea);
-    findRenderedComponentWithType(instance, RadarSpineLine);
-    findRenderedComponentWithType(instance, RadarLegend);
+    const wrapper = shallow(<RadarChart data={ data }/>);
+    wrapper.find(RadarArea).exists().should.be.true();
+    wrapper.find(RadarSpineLine).exists().should.be.true();
+    wrapper.find(RadarLegend).exists().should.be.true();
 
-    findRenderedDOMComponentWithClass(instance, 'test--radar').getAttribute('style')
-      .should.containEql('background-color: rgb(253, 250, 242)');
-    findRenderedDOMComponentWithClass(instance, 'test--radar-boundary-area');
+    wrapper.find('.test--radar').prop('style')
+      .should.containEql({ backgroundColor: '#FDFAF2' });
+    wrapper.find('.test--radar-boundary-area').exists().should.be.true();
   });
 
   it('should show RadarAxis if there is data and showAxisTitle || showAxisValue', function () {
-    instance = renderIntoDocument(<RadarChart data={ data } showAxisTitle={ true }/>);
-    findRenderedComponentWithType(instance, RadarAxis);
+    const wrapper = shallow(<RadarChart data={ data } showAxisTitle={ true }/>);
+    wrapper.find(RadarAxis).exists().should.be.true();
 
-    instance = reRender(<RadarChart data={ data }/>, instance);
-    scryRenderedComponentsWithType(instance, RadarAxis).should.have.length(0);
+    wrapper.setProps({ data, showAxisTitle: false, showAxisValue: false });
+    wrapper.find(RadarAxis).exists().should.be.false();
 
-    instance = renderIntoDocument(<RadarChart data={ data } showAxisValue={ true }/>);
-    findRenderedComponentWithType(instance, RadarAxis);
+    const wrapper2 = shallow(<RadarChart data={ data } showAxisValue={ true }/>);
+    wrapper2.find(RadarAxis).exists().should.be.true();
   });
 
   it('should render grid if showGrid is true', function () {
-    instance = renderIntoDocument(<RadarChart data={ data } showGrid={ true }/>);
-    findRenderedComponentWithType(instance, RadarGrid);
+    const wrapper = shallow(<RadarChart data={ data } showGrid={ true }/>);
+    wrapper.find(RadarGrid).exists().should.be.true();
   });
 
   it('should hide spline line if showSpineLine is set to false', function () {
-    instance = renderIntoDocument(<RadarChart data={ data } showSpineLine={ false }/>);
-    scryRenderedComponentsWithType(instance, RadarSpineLine).should.have.length(0);
+    const wrapper = shallow(<RadarChart data={ data } showSpineLine={ false }/>);
+    wrapper.find(RadarSpineLine).exists().should.be.false();
   });
 
   it('should render with the given aspect ratio config props', () => {
@@ -79,16 +67,16 @@ describe('RadarChart component', function () {
       height: 100,
       radius: 164,
     };
-    instance = renderIntoDocument(<RadarChart data={ data } { ...config } />);
-    const elementDOM = findRenderedDOMComponentWithClass(instance, 'test--radar');
-    elementDOM.getAttribute('viewBox').should.eql('0 0 232 100');
+    const wrapper = shallow(<RadarChart data={ data } { ...config } />);
+    const elementDOM = wrapper.find('.test--radar');
+    elementDOM.prop('viewBox').should.equal('0 0 232 100');
   });
 
   it('should change background color backgroundColor is true ', () => {
-    instance = renderIntoDocument(<RadarChart data={ data } backgroundColor='red'/>);
+    const wrapper = shallow(<RadarChart data={ data } backgroundColor='red'/>);
 
-    findRenderedDOMComponentWithClass(instance, 'test--radar').getAttribute('style')
-      .should.containEql('background-color: red');
+    wrapper.find('.test--radar').prop('style')
+      .should.containEql({ backgroundColor: 'red' });
   });
 
   it('should position radar chart with offsetTop', function () {

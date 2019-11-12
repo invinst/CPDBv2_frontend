@@ -1,16 +1,9 @@
 import React from 'react';
-import { unmountComponentSuppressError } from 'utils/test';
+import { shallow } from 'enzyme';
 import RadarArea from 'components/common/radar-chart/radar-area';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass,
-} from 'react-addons-test-utils';
 
 
 describe('RadarArea components', function () {
-  let instance;
-
   const rPoints = [{
     angle: 1,
     r: 2,
@@ -25,36 +18,27 @@ describe('RadarArea components', function () {
     value: 99.99,
   }];
 
-  afterEach(function () {
-    if (instance) {
-      unmountComponentSuppressError(instance);
-    }
-  });
-
-  it('should be renderable', function () {
-    RadarArea.should.be.renderable();
-  });
 
   it('should render if data provided', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <RadarArea rPoints={ rPoints }/>
     );
-    findRenderedDOMComponentWithClass(instance, 'test--radar-wrapper');
-    findRenderedDOMComponentWithClass(instance, 'test--radar-radar-area');
-    findRenderedDOMComponentWithClass(instance, 'test--radar-stroke');
-    scryRenderedDOMComponentsWithClass(instance, 'test--radar-value-text').should.have.length(0);
+    wrapper.find('.test--radar-wrapper').exists().should.be.true();
+    wrapper.find('.test--radar-radar-area').exists().should.be.true();
+    wrapper.find('.test--radar-stroke').exists().should.be.true();
+    wrapper.find('.test--radar-value-text').exists().should.be.false();
   });
 
   it('should be able to render stroke with custom strokeWidth', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <RadarArea rPoints={ rPoints } strokeWidth={ 12 }/>
     );
-    const radarStroke = findRenderedDOMComponentWithClass(instance, 'test--radar-stroke');
-    radarStroke.getAttribute('style').should.containEql('stroke-width: 12');
+    const radarStroke = wrapper.find('.test--radar-stroke');
+    radarStroke.prop('style').should.containEql({ strokeWidth: 12 });
   });
 
   it('should not display radar area and stroke when rPoints is not valid', () => {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <RadarArea rPoints={ [
         { angle: 0, r: NaN },
         { angle: 0, r: 12 },
@@ -62,12 +46,12 @@ describe('RadarArea components', function () {
       ] }
       />
     );
-    scryRenderedDOMComponentsWithClass(instance, 'test--radar-radar-area').should.have.length(0);
+    wrapper.find('.test--radar-value-text').exists().should.be.false();
   });
 
   it('should render radar area with custom radarMainAreaOpacity', function () {
-    instance = renderIntoDocument(<RadarArea rPoints={ rPoints } radarMainAreaOpacity={ 0.5 }/>);
-    const radarArea = findRenderedDOMComponentWithClass(instance, 'test--radar-radar-area');
-    radarArea.getAttribute('style').should.containEql('fill-opacity: 0.5');
+    const wrapper = shallow(<RadarArea rPoints={ rPoints } radarMainAreaOpacity={ 0.5 }/>);
+    const radarArea = wrapper.find('.test--radar-radar-area');
+    radarArea.prop('style').should.containEql({ fillOpacity: 0.5 });
   });
 });
