@@ -20,6 +20,7 @@ describe('authentication actions', function () {
             adapter: null,
             data: data,
             method: 'post',
+            cancelToken: undefined,
           },
         },
       });
@@ -37,6 +38,7 @@ describe('authentication actions', function () {
             adapter: null,
             data: data,
             method: 'post',
+            cancelToken: undefined,
           },
         },
       });

@@ -442,33 +442,5 @@ describe('landing page', function () {
       landingPage.searchSection.mainElement.click();
       searchPage.pinboardButton.waitForText('Pinboard (0)');
     });
-
-    it('should go to pinboard detail page when clicking on added toast', function () {
-      landingPage.recentActivityCarousel.firstPinButton.waitForDisplayed();
-      landingPage.recentActivityCarousel.firstPinButton.click();
-
-      landingPage.toast.waitForDisplayed();
-      landingPage.toast.waitForText('Officer added');
-
-      landingPage.toast.click();
-      browser.getUrl().should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/);
-    });
-
-    it('should go to pinboard detail page when clicking on removed toast', function () {
-      landingPage.recentActivityCarousel.firstPinButton.waitForDisplayed();
-      landingPage.recentActivityCarousel.firstPinButton.click();
-
-      landingPage.toast.waitForDisplayed();
-      landingPage.toast.waitForText('Officer added');
-
-      landingPage.toast.waitForDisplayed(5000, true);
-
-      landingPage.recentActivityCarousel.firstPinButton.click();
-      landingPage.toast.waitForDisplayed();
-      landingPage.toast.waitForText('Officer removed');
-
-      landingPage.toast.click();
-      browser.getUrl().should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/);
-    });
   });
 });

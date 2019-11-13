@@ -5,10 +5,12 @@ import {
   scryRenderedDOMComponentsWithTag,
   findRenderedComponentWithType,
   scryRenderedDOMComponentsWithClass,
+  scryRenderedComponentsWithType,
   Simulate,
 } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import { stub, spy } from 'sinon';
+import { Link } from 'react-router';
 
 import { SlimHeader } from 'components/headers/slim-header';
 import { unmountComponentSuppressError } from 'utils/test';
@@ -113,9 +115,9 @@ describe('SlimHeader component', function () {
       </Provider>
     );
 
-    const links = scryRenderedDOMComponentsWithTag(element, 'a');
-    const link = links.filter(link => link.textContent === 'Documents')[0];
-    link.getAttribute('href').should.eql('/documents/');
+    const links = scryRenderedComponentsWithType(element, Link);
+    const link = links.filter(link => link.props.children === 'Documents')[0];
+    link.props.to.should.eql('/documents/');
   });
 
   describe('External links', function () {

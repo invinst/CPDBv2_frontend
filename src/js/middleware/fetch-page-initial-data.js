@@ -40,25 +40,11 @@ import { fetchDocumentsByCRID } from 'actions/document-deduplicator-page';
 import { fetchDocuments, fetchDocumentsAuthenticated } from 'actions/documents-overview-page';
 import { cancelledByUser } from 'utils/axios-client';
 import { requestCrawlers } from 'actions/crawlers-page';
-import {
-  fetchPinboard,
-  fetchPinboardComplaints,
-  fetchPinboardOfficers,
-  fetchPinboardTRRs,
-  fetchPinboardSocialGraph,
-  fetchPinboardGeographic,
-  fetchFirstPagePinboardGeographicCrs,
-  fetchOtherPagesPinboardGeographicCrs,
-  fetchFirstPagePinboardGeographicTrrs,
-  fetchOtherPagesPinboardGeographicTrrs,
-  fetchPinboardRelevantDocuments,
-  fetchPinboardRelevantCoaccusals,
-  fetchPinboardRelevantComplaints,
-} from 'actions/pinboard';
-import { redirect, changePinboard } from 'actions/pinboard-page';
-import loadPaginatedData from 'utils/load-paginated-data';
+import { fetchPinboard } from 'actions/pinboard';
+import { redirect } from 'actions/pinboard-page';
 import { fetchVideoInfo } from 'actions/headers/slim-header';
 import { hasVideoInfoSelector } from 'selectors/headers/slim-header';
+import { dispatchFetchPinboardPageData, dispatchFetchPinboardPinnedItems } from 'utils/pinboard';
 
 let prevPathname = '';
 
@@ -227,36 +213,19 @@ export default store => next => action => {
 
     else if (action.payload.pathname.match(/\/pinboard\/([a-fA-F0-9]+\/)?/)) {
       const idOnPath = getPinboardID(action.payload.pathname);
-      const idInStore = getPinboard(state).id;
+      const pinboard = getPinboard(state);
+      const idInStore = pinboard.id;
       if (!idOnPath) {
         dispatches.push(store.dispatch(redirect(true)));
       } else if (idOnPath.length === PINBOARD_HEX_ID_LENGTH) {
         if (idOnPath === idInStore) {
           dispatches.push(store.dispatch(redirect(false)));
-          dispatches.push(store.dispatch(fetchPinboard(idOnPath)));
-
-          store.dispatch(fetchPinboardComplaints(idOnPath));
-          store.dispatch(fetchPinboardOfficers(idOnPath));
-          store.dispatch(fetchPinboardTRRs(idOnPath));
-          store.dispatch(fetchPinboardSocialGraph(idOnPath));
-          store.dispatch(fetchPinboardGeographic());
-          loadPaginatedData(
-            { 'pinboard_id': idOnPath },
-            fetchFirstPagePinboardGeographicCrs,
-            fetchOtherPagesPinboardGeographicCrs,
-            store,
-          );
-          loadPaginatedData(
-            { 'pinboard_id': idOnPath },
-            fetchFirstPagePinboardGeographicTrrs,
-            fetchOtherPagesPinboardGeographicTrrs,
-            store,
-          );
-          store.dispatch(fetchPinboardRelevantDocuments(idOnPath));
-          store.dispatch(fetchPinboardRelevantCoaccusals(idOnPath));
-          store.dispatch(fetchPinboardRelevantComplaints(idOnPath));
+          if (!pinboard.hasPendingChanges) {
+            dispatches.push(store.dispatch(fetchPinboard(idOnPath)));
+            dispatchFetchPinboardPinnedItems(store, idOnPath);
+            dispatchFetchPinboardPageData(store, idOnPath);
+          }
         } else {
-          dispatches.push(store.dispatch(changePinboard()));
           dispatches.push(store.dispatch(redirect(true)));
           dispatches.push(store.dispatch(fetchPinboard(idOnPath)));
         }

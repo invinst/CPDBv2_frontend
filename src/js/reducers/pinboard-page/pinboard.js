@@ -8,7 +8,6 @@ const DEFAULT_PINBOARD_STATUSES = {
   saving: false,
   needRefreshData: false,
   hasPendingChanges: false,
-  isPinboardRestored: false,
 };
 
 const defaultState = {
@@ -22,13 +21,24 @@ const defaultState = {
 };
 
 export default handleActions({
+  [constants.PINBOARD_FETCH_REQUEST_START]: (state, action) => ({
+    ...state,
+    ...DEFAULT_PINBOARD_STATUSES,
+  }),
   [constants.PINBOARD_FETCH_REQUEST_SUCCESS]: (state, action) => ({
     ...state,
     ...action.payload,
+    ...DEFAULT_PINBOARD_STATUSES,
+    isPinboardRestored: true,
+  }),
+  [constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_START]: (state, action) => ({
+    ...state,
+    ...DEFAULT_PINBOARD_STATUSES,
   }),
   [constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_SUCCESS]: (state, action) => ({
     ...state,
     ...action.payload,
+    ...DEFAULT_PINBOARD_STATUSES,
     isPinboardRestored: true,
   }),
   [constants.PINBOARD_CREATE_REQUEST_SUCCESS]: (state, action) => {
@@ -137,12 +147,6 @@ export default handleActions({
     return {
       ...state,
       hasPendingChanges: action.payload,
-    };
-  },
-  [constants.CHANGE_PINBOARD]: (state, action) => {
-    return {
-      ...state,
-      ...DEFAULT_PINBOARD_STATUSES,
     };
   },
 }, defaultState);

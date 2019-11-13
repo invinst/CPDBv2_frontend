@@ -2,8 +2,10 @@ import React from 'react';
 import { findDOMNode } from 'react-dom';
 import {
   renderIntoDocument,
+  scryRenderedComponentsWithType,
   scryRenderedDOMComponentsWithTag,
 } from 'react-addons-test-utils';
+import { Link } from 'react-router';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import RightLinks from 'components/headers/slim-header/slim-header-content/right-links';
@@ -23,7 +25,7 @@ describe('RightLinks component', function () {
     findDOMNode(instance).getAttribute('class').should.equal(styles.rightLinks);
 
     const tags = scryRenderedDOMComponentsWithTag(instance, 'a');
-    tags.should.have.length(4);
+    const links = scryRenderedComponentsWithType(instance, Link);
 
     tags[0].getAttribute('class').should.equal('right-link top');
     tags[0].getAttribute('href').should.equal('http://cpdb.lvh.me');
@@ -33,12 +35,12 @@ describe('RightLinks component', function () {
     tags[1].getAttribute('href').should.equal('http://how.cpdp.works/');
     tags[1].textContent.should.equal('Q&A');
 
-    tags[2].getAttribute('class').should.equal('right-link top');
-    tags[2].getAttribute('href').should.equal('/documents/');
-    tags[2].textContent.should.equal('Documents');
+    links[0].props.className.should.equal('right-link top');
+    links[0].props.to.should.equal('/documents/');
+    links[0].props.children.should.equal('Documents');
 
-    tags[3].getAttribute('class').should.equal('right-link top');
-    tags[3].getAttribute('href').should.equal('/pinboard/');
-    tags[3].textContent.should.equal('Pinboards');
+    links[1].props.className.should.equal('right-link top');
+    links[1].props.to.should.equal('/pinboard/');
+    links[1].props.children.should.equal('Pinboards');
   });
 });
