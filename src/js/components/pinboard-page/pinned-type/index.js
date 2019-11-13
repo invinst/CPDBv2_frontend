@@ -35,6 +35,7 @@ PinnedType.propTypes = {
   title: PropTypes.string,
   items: PropTypes.array,
   removeItemInPinboardPage: PropTypes.func,
+  completeRemoveItemFromPinboard: PropTypes.func,
   addItemInPinboardPage: PropTypes.func,
   orderPinboard: PropTypes.func,
   requesting: PropTypes.bool,
@@ -44,4 +45,5 @@ PinnedType.propTypes = {
 PinnedType.defaultProps = {
   items: [],
   addItemInPinboardPage: noop,
+  completeRemoveItemFromPinboard: noop,
 };

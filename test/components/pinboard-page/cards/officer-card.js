@@ -13,7 +13,6 @@ import OfficerCard, { OfficerCardWithUndo } from 'components/pinboard-page/cards
 import ItemUnpinButton from 'components/pinboard-page/cards/item-unpin-button';
 import StaticRadarChart from 'components/common/radar-chart';
 import ShortPress from 'components/common/short-press';
-import { PINBOARD_ITEM_REMOVE_MODE } from 'utils/constants';
 
 
 describe('OfficerCard component', function () {
@@ -191,7 +190,6 @@ describe('OfficerCardWithUndo component', function () {
     removeItemInPinboardPage.should.be.calledWith({
       id: 123,
       type: 'OFFICER',
-      mode: PINBOARD_ITEM_REMOVE_MODE.API_ONLY,
     });
   });
 });

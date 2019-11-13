@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { get, noop, omit } from 'lodash';
 import cx from 'classnames';
 
-import { UNDO_CARD_THEMES, UNDO_CARD_VISIBLE_TIME, PINBOARD_ITEM_REMOVE_MODE } from 'utils/constants';
+import { UNDO_CARD_THEMES, UNDO_CARD_VISIBLE_TIME } from 'utils/constants';
 import styles from './with-undo-card.sass';
 
 const DISPLAY = 'DISPLAY';
@@ -14,6 +14,7 @@ const defaultSettings = {
   hasWrapper: false,
   isRequestDelay: true,
   revertActionName: null,
+  completeActionName: null,
 };
 
 export default function withUndoCard(
@@ -44,14 +45,13 @@ export default function withUndoCard(
     }
 
     act(item) {
+      const { completeActionName } = settings;
+
       this.setState({
         status: REMOVING,
       });
 
-      get(this.props, actionName, noop)({
-        ...item,
-        mode: PINBOARD_ITEM_REMOVE_MODE.API_ONLY,
-      });
+      get(this.props, actionName, noop)(item);
       this.removingItem = item;
 
       this.countdown = setTimeout(() => {
@@ -59,10 +59,8 @@ export default function withUndoCard(
           status: REMOVED,
         });
 
-        get(this.props, actionName, noop)({
-          ...item,
-          mode: PINBOARD_ITEM_REMOVE_MODE.STATE_ONLY,
-        });
+        get(this.props, completeActionName, noop)(item);
+
         this.removingItem = undefined;
       }, UNDO_CARD_VISIBLE_TIME);
     }

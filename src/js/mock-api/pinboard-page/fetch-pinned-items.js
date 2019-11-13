@@ -252,4 +252,13 @@ export const ffff6666TRRs = [
   },
 ];
 
+export const ceea8ea3UpdatedOfficer = {
+  'id': 'ceea8ea3',
+  'title': 'Pinboard Title',
+  'officer_ids': [],
+  'crids': ['1234567'],
+  'trr_ids': ['1234'],
+  'description': 'Pinboard Description',
+};
+
 export const fetchPinboardOfficers9778a2ec = () => ([]);

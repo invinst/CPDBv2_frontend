@@ -10,8 +10,6 @@ import {
   ORDER_PINBOARD,
   SAVE_PINBOARD,
   UPDATE_PINBOARD_INFO,
-  PINBOARD_ITEM_REMOVE_MODE,
-  SAVE_PINBOARD_WITHOUT_CHANGING_STATE,
 } from 'utils/constants';
 import {
   createPinboard,
@@ -21,17 +19,14 @@ import {
   orderPinboardState,
   updatePinboardInfoState,
   savePinboard,
-  savePinboardWithoutChangingState,
   performFetchPinboardRelatedData,
-  handleRemovingItemInPinboardPage,
   fetchLatestRetrievedPinboard,
-  setPinboardHasPendingChanges,
 } from 'actions/pinboard';
 import { Toastify } from 'utils/vendors';
 import { dispatchFetchPinboardPageData, dispatchFetchPinboardPinnedItems, isEmptyPinboard } from 'utils/pinboard';
 import pinboardStyles from 'components/pinboard-page/pinboard-page.sass';
 import { isPinboardRestoredSelector } from 'selectors/pinboard-page/pinboard';
-import { generatePinboardUrl } from 'utils/pinboard';
+import { generatePinboardUrl, getRequestPinboard } from 'utils/pinboard';
 
 
 const getIds = (query, key) => _.get(query, key, '').split(',').filter(_.identity);
@@ -56,36 +51,6 @@ const getPinboardFromQuery = (query) => {
     }
   });
   return { pinboardFromQuery, invalidParams };
-};
-
-const getRequestPinboard = (state, pinboard=undefined) => {
-  if (pinboard === undefined) {
-    pinboard = state.pinboardPage.pinboard;
-  }
-
-  const removingItems = {
-    officerItems: _.get(state, 'pinboardPage.officerItems.removingItems', []),
-    crItems: _.get(state, 'pinboardPage.crItems.removingItems', []),
-    trrItems: _.get(state, 'pinboardPage.trrItems.removingItems', []),
-  };
-
-  const transformPinboard = {
-    id: _.get(pinboard, 'id', null),
-    title: _.get(pinboard, 'title', ''),
-    officerIds: _.map(_.get(pinboard, 'officer_ids', []), id => (id.toString())),
-    crids: _.get(pinboard, 'crids', []),
-    trrIds: _.map(_.get(pinboard, 'trr_ids', []), id => (id.toString())),
-    description: _.get(pinboard, 'description', ''),
-  };
-
-  transformPinboard.officerIds = _.filter(transformPinboard.officerIds,
-    id => removingItems.officerItems.indexOf(id) === -1);
-  transformPinboard.crids = _.filter(transformPinboard.crids,
-    id => removingItems.crItems.indexOf(id) === -1);
-  transformPinboard.trrIds = _.filter(transformPinboard.trrIds,
-    id => removingItems.trrItems.indexOf(id) === -1);
-
-  return transformPinboard;
 };
 
 const MAX_RETRIES = 60;
@@ -170,7 +135,7 @@ function showAddOrRemoveItemToast(store, payload) {
   const actionType = isPinned ? 'removed' : 'added';
 
   const state = store.getState();
-  const pinboard = getRequestPinboard(state);
+  const pinboard = getRequestPinboard(state.pinboardPage.pinboard);
   const url = _.isNull(pinboard.id) ? '/pinboard/' : generatePinboardUrl(pinboard);
 
   Toastify.toast(`${TOAST_TYPE_MAP[type]} ${actionType}`, {
@@ -179,13 +144,6 @@ function showAddOrRemoveItemToast(store, payload) {
     transition: TopRightTransition,
     onClick: () => browserHistory.push(url),
   });
-}
-
-function setHasPendingChangesIfNeeded(store, hasPendingChanges) {
-  const state = store.getState();
-  const currentHasPendingChanges = _.get(state.pinboardPage.pinboard, 'hasPendingChanges');
-  if (currentHasPendingChanges !== hasPendingChanges)
-    store.dispatch(setPinboardHasPendingChanges(hasPendingChanges));
 }
 
 export default store => next => action => {
@@ -204,22 +162,9 @@ export default store => next => action => {
   }
 
   if (action.type === REMOVE_ITEM_IN_PINBOARD_PAGE) {
-    const { mode } = action.payload;
-    switch (mode) {
-      case PINBOARD_ITEM_REMOVE_MODE.API_ONLY:
-        setHasPendingChangesIfNeeded(store, true);
-        store.dispatch(handleRemovingItemInPinboardPage(action.payload));
-        store.dispatch(savePinboardWithoutChangingState(action.payload));
-        break;
-      case PINBOARD_ITEM_REMOVE_MODE.STATE_ONLY:
-        store.dispatch(removeItemFromPinboardState(action.payload));
-        break;
-      default:
-        Promise.all([store.dispatch(removeItemFromPinboardState(action.payload))]).finally(() => {
-          store.dispatch(savePinboard());
-        });
-        break;
-    }
+    Promise.all([store.dispatch(removeItemFromPinboardState(action.payload))]).finally(() => {
+      store.dispatch(savePinboard());
+    });
   }
 
   if (action.type === UPDATE_PINBOARD_INFO) {
@@ -234,34 +179,17 @@ export default store => next => action => {
     });
   }
 
-  if (action.type === SAVE_PINBOARD_WITHOUT_CHANGING_STATE) {
-    const state = store.getState();
-    const pinboard = getRequestPinboard(state);
-
-    store.dispatch(updatePinboard(pinboard)).then(result => {
-      setHasPendingChangesIfNeeded(store, false);
-      store.dispatch(performFetchPinboardRelatedData());
-      dispatchFetchPinboardPageData(store, result.payload.id);
-    });
-  }
-
   if (action.type === SAVE_PINBOARD) {
     const state = store.getState();
     const pinboard = state.pinboardPage.pinboard;
 
-    const currentPinboard = getRequestPinboard(state);
+    const currentPinboard = getRequestPinboard(pinboard);
     const pinboardId = currentPinboard.id;
 
     if (!pinboard.saving) {
-      const savedPinboard = getRequestPinboard(state, action.payload);
-
-      if (_.isEmpty(action.payload) || !_.isEqual(currentPinboard, savedPinboard)) {
-        setHasPendingChangesIfNeeded(store, true);
-
+      if (pinboard.hasPendingChanges) {
         dispatchUpdateOrCreatePinboard(store, currentPinboard);
       } else {
-        setHasPendingChangesIfNeeded(store, false);
-
         if (_.startsWith(state.pathname, '/pinboard/') && pinboardId) {
           if (!state.pinboardPage.pinnedItemsRequested) {
             dispatchFetchPinboardPinnedItems(store, pinboardId);

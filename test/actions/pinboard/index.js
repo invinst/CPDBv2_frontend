@@ -27,9 +27,6 @@ import {
   removeItemInPinboardPage,
   addItemInPinboardPage,
   fetchLatestRetrievedPinboard,
-  savePinboardWithoutChangingState,
-  handleRemovingItemInPinboardPage,
-  setPinboardHasPendingChanges,
 } from 'actions/pinboard';
 import * as constants from 'utils/constants';
 
@@ -291,15 +288,6 @@ describe('pinboard actions', function () {
           description: 'Description',
           isPinboardRestored: false,
         },
-      });
-    });
-  });
-
-  describe('setPinboardHasPendingChanges', function () {
-    it('should return correct action', function () {
-      setPinboardHasPendingChanges(true).should.deepEqual({
-        type: constants.SET_PINBOARD_HAS_PENDING_CHANGES,
-        payload: true,
       });
     });
   });
@@ -651,48 +639,6 @@ describe('pinboard actions', function () {
             adapter: null,
             cancelToken: undefined,
           },
-        },
-      });
-    });
-  });
-
-  describe('savePinboardWithoutChangingState', function () {
-    it('should return correct action', function () {
-      savePinboardWithoutChangingState({
-        id: 1,
-        title: 'Pinboard Title',
-        'officer_ids': [12],
-        crids: ['abc'],
-        'trr_ids': [1],
-        description: 'Description',
-        isPinboardRestored: false,
-      }).should.deepEqual({
-        type: constants.SAVE_PINBOARD_WITHOUT_CHANGING_STATE,
-        payload: {
-          id: 1,
-          title: 'Pinboard Title',
-          'officer_ids': [12],
-          crids: ['abc'],
-          'trr_ids': [1],
-          description: 'Description',
-          isPinboardRestored: false,
-        },
-      });
-    });
-  });
-
-  describe('handleRemovingItemInPinboardPage', function () {
-    it('should return correct action', function () {
-      handleRemovingItemInPinboardPage({
-        id: 1,
-        type: 'OFFICER',
-        mode: constants.PINBOARD_ITEM_REMOVE_MODE.STATE_ONLY,
-      }).should.deepEqual({
-        type: constants.HANDLE_REMOVING_ITEM_IN_PINBOARD_PAGE,
-        payload: {
-          id: 1,
-          type: 'OFFICER',
-          mode: constants.PINBOARD_ITEM_REMOVE_MODE.STATE_ONLY,
         },
       });
     });

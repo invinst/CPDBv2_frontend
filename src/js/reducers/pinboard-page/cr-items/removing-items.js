@@ -2,14 +2,15 @@ import { handleActions } from 'redux-actions';
 import { filter } from 'lodash';
 
 import {
-  HANDLE_REMOVING_ITEM_IN_PINBOARD_PAGE,
   REMOVE_ITEM_FROM_PINBOARD_STATE,
+  COMPLETE_REMOVE_ITEM_FROM_PINBOARD,
   ADD_ITEM_TO_PINBOARD_STATE,
+  LOCATION_CHANGE,
 } from 'utils/constants';
 
 
 export default handleActions({
-  [HANDLE_REMOVING_ITEM_IN_PINBOARD_PAGE]: (state, action) => {
+  [REMOVE_ITEM_FROM_PINBOARD_STATE]: (state, action) => {
     const currentItems = state;
     const { id, type } = action.payload;
 
@@ -19,7 +20,7 @@ export default handleActions({
     }
     return currentItems;
   },
-  [REMOVE_ITEM_FROM_PINBOARD_STATE]: (state, action) => {
+  [COMPLETE_REMOVE_ITEM_FROM_PINBOARD]: (state, action) => {
     const currentItems = state;
     const { id, type } = action.payload;
 
@@ -39,4 +40,5 @@ export default handleActions({
 
     return currentItems;
   },
+  [LOCATION_CHANGE]: (state, action) => [],
 }, []);
