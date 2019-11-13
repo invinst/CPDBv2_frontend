@@ -124,6 +124,10 @@ class SearchPage extends Page {
       firstOfficerResult: '.test--suggestion-group .suggestion-item-OFFICER-1',
       firstOfficerPinButton:
         '//a[contains(@class, "suggestion-item-OFFICER-1")]//div[contains(@class, "item-pin-button__item-pin-button")]',
+      secondOfficerPinButton:
+        '//a[contains(@class, "suggestion-item-OFFICER-2")]//div[contains(@class, "item-pin-button__item-pin-button")]',
+      thirdOfficerPinButton:
+        '//a[contains(@class, "suggestion-item-OFFICER-3")]//div[contains(@class, "item-pin-button__item-pin-button")]',
       secondOfficerResult: '.test--suggestion-group .suggestion-item-OFFICER-2',
       firstNeighborhoodResult: '.test--suggestion-group .suggestion-item-NEIGHBORHOOD-1',
       secondNeighborhoodResult: '.test--suggestion-group .suggestion-item-NEIGHBORHOOD-2',

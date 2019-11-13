@@ -1,5 +1,21 @@
 import { browserHistory } from 'react-router';
-import { kebabCase, isEmpty, isNil, includes, parseInt, identity } from 'lodash';
+import { kebabCase, isEmpty, isNil, includes, parseInt, identity, every } from 'lodash';
+
+import {
+  fetchFirstPagePinboardGeographicCrs,
+  fetchFirstPagePinboardGeographicTrrs,
+  fetchOtherPagesPinboardGeographicCrs,
+  fetchOtherPagesPinboardGeographicTrrs,
+  fetchPinboardGeographic,
+  fetchPinboardRelevantCoaccusals,
+  fetchPinboardRelevantComplaints,
+  fetchPinboardRelevantDocuments,
+  fetchPinboardComplaints,
+  fetchPinboardOfficers,
+  fetchPinboardTRRs,
+  fetchPinboardSocialGraph,
+} from 'actions/pinboard';
+import loadPaginatedData from 'utils/load-paginated-data';
 
 
 export const generatePinboardUrl = pinboard => {
@@ -23,4 +39,35 @@ export const redirectToCreatedPinboard = (response) => {
   if (!isEmpty(url)) {
     browserHistory.push(url);
   }
+};
+
+export const dispatchFetchPinboardPageData = (store, pinboardId) => {
+  store.dispatch(fetchPinboardSocialGraph(pinboardId));
+  store.dispatch(fetchPinboardGeographic());
+  loadPaginatedData(
+    { 'pinboard_id': pinboardId },
+    fetchFirstPagePinboardGeographicCrs,
+    fetchOtherPagesPinboardGeographicCrs,
+    store,
+  );
+  loadPaginatedData(
+    { 'pinboard_id': pinboardId },
+    fetchFirstPagePinboardGeographicTrrs,
+    fetchOtherPagesPinboardGeographicTrrs,
+    store,
+  );
+  store.dispatch(fetchPinboardRelevantDocuments(pinboardId));
+  store.dispatch(fetchPinboardRelevantCoaccusals(pinboardId));
+  store.dispatch(fetchPinboardRelevantComplaints(pinboardId));
+};
+
+export const dispatchFetchPinboardPinnedItems = (store, pinboardId) => {
+  store.dispatch(fetchPinboardComplaints(pinboardId));
+  store.dispatch(fetchPinboardOfficers(pinboardId));
+  store.dispatch(fetchPinboardTRRs(pinboardId));
+};
+
+export const isEmptyPinboard = pinboard => {
+  const { officerIds, crids, trrIds } = pinboard;
+  return every([officerIds, crids, trrIds], isEmpty);
 };

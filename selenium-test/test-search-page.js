@@ -6,6 +6,8 @@ import { times } from 'lodash';
 
 import searchPage from './page-objects/search-page';
 import landingPage from './page-objects/landing-page';
+import pinboardPage from './page-objects/pinboard-page';
+import { setupMockApiFile, restoreMockApiFile } from './utils';
 
 
 describe('Landing Page to Search Page', function () {
@@ -953,11 +955,15 @@ describe('Search Page with pinboard functionalities', function () {
   });
 
   it('should redirect to Pinboard page when click on pinboard button', function () {
+    setupMockApiFile('search-page/search-page-mock-api.js');
+
     searchPage.open('Ke');
     searchPage.suggestionGroup.waitForDisplayed();
 
     searchPage.pinboardButton.click();
     browser.getUrl().should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/);
+
+    restoreMockApiFile();
   });
 });
 
@@ -976,5 +982,104 @@ describe('Search Page toast', function () {
     searchPage.firstOfficerPinButton.click();
     searchPage.toast.waitForDisplayed();
     searchPage.toast.waitForText('Officer removed');
+  });
+
+  context('create new pinboard', function () {
+    it('should go to pinboard detail page when clicking on success added toast', function () {
+      searchPage.open('Ke');
+
+      searchPage.suggestionGroup.waitForDisplayed();
+      searchPage.firstOfficerPinButton.click();
+
+      searchPage.toast.waitForDisplayed();
+      searchPage.toast.waitForText('Officer added');
+      searchPage.toast.click();
+      browser.getUrl().should.match(/pinboard\/e25aa777\/untitled-pinboard\/$/);
+      pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
+    });
+
+    it('should go to pinboard detail page when clicking on error added toast', function () {
+      searchPage.open('Ke');
+
+      searchPage.suggestionGroup.waitForDisplayed();
+      searchPage.secondOfficerPinButton.click();
+
+      searchPage.toast.waitForDisplayed();
+      searchPage.toast.waitForText('Officer added');
+      searchPage.toast.click();
+      browser.getUrl().should.match(/pinboard\/$/);
+      browser.waitForUrl(url => url.should.match(/pinboard\/e25aa888\/untitled-pinboard\/$/), 2500);
+      pinboardPage.pinnedSection.officers.title.waitForDisplayed();
+      pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
+    });
+
+    it('should go to pinboard detail page when clicking on long api call added toast', function () {
+      searchPage.open('Ke');
+
+      searchPage.suggestionGroup.waitForDisplayed();
+      searchPage.thirdOfficerPinButton.click();
+
+      searchPage.toast.waitForDisplayed();
+      searchPage.toast.waitForText('Officer added');
+      searchPage.toast.click();
+      browser.getUrl().should.match(/pinboard\/$/);
+      browser.waitForUrl(url => url.should.match(/pinboard\/e25aa999\/untitled-pinboard\/$/), 1500);
+      pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
+    });
+  });
+
+  context('update current pinboard', function () {
+    it('should go to pinboard detail page when clicking on success removed toast', function () {
+      pinboardPage.open('abcd5678');
+      pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
+
+      pinboardPage.searchBar.click();
+      searchPage.input.setValue('Ke');
+
+      searchPage.suggestionGroup.waitForDisplayed();
+      searchPage.firstOfficerPinButton.click();
+      searchPage.toast.waitForDisplayed();
+      searchPage.toast.waitForText('Officer removed');
+
+      searchPage.toast.click();
+      browser.getUrl().should.match(/pinboard\/abcd5678\/pinboard-title\/$/);
+      pinboardPage.pinnedSection.officers.officerCards().should.have.length(0);
+    });
+
+    it('should go to pinboard detail page when clicking on error added toast', function () {
+      pinboardPage.open('abcd8765');
+      pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
+
+      pinboardPage.searchBar.click();
+      searchPage.input.setValue('Ke');
+
+      searchPage.suggestionGroup.waitForDisplayed();
+      searchPage.secondOfficerPinButton.click();
+      searchPage.toast.waitForDisplayed();
+      searchPage.toast.waitForText('Officer added');
+
+      searchPage.toast.click();
+      browser.getUrl().should.match(/pinboard\/abcd8765\/pinboard-title\/$/);
+      pinboardPage.pinnedSection.officers.title.waitForDisplayed();
+      pinboardPage.pinnedSection.officers.officerCards().should.have.length(2);
+    });
+
+    it('should go to pinboard detail page when clicking on long api call added toast ', function () {
+      pinboardPage.open('dcab5678');
+      pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
+
+      pinboardPage.searchBar.click();
+      searchPage.input.setValue('Ke');
+
+      searchPage.suggestionGroup.waitForDisplayed();
+      searchPage.thirdOfficerPinButton.click();
+      searchPage.toast.waitForDisplayed();
+      searchPage.toast.waitForText('Officer added');
+
+      searchPage.toast.click();
+      browser.pause(2500);
+      browser.getUrl().should.match(/pinboard\/dcab5678\/pinboard-title\/$/);
+      pinboardPage.pinnedSection.officers.officerCards().should.have.length(2);
+    });
   });
 });

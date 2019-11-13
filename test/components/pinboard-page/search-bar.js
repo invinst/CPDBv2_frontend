@@ -5,7 +5,6 @@ import {
   scryRenderedDOMComponentsWithClass,
   Simulate,
 } from 'react-addons-test-utils';
-import { findDOMNode } from 'react-dom';
 import { stub } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
@@ -26,7 +25,7 @@ describe('SearchBar component', function () {
     const searchBoxParent = findRenderedDOMComponentWithClass(instance, 'search-box-parent');
     searchBoxParent.className.should.not.containEql('short');
 
-    findRenderedDOMComponentWithClass(instance, 'search-term').textContent.should.eql('Search');
+    findRenderedDOMComponentWithClass(instance, 'search-input').textContent.should.eql('Search');
     findRenderedDOMComponentWithClass(instance, 'share-button');
   });
 
@@ -62,9 +61,8 @@ describe('SearchBar component', function () {
 
   it('should go to search page on clicked', function () {
     instance = renderIntoDocument(<SearchBar />);
-    const searchBar = findDOMNode(instance);
     let pushPathStub = stub(editPath, 'pushPathPreserveEditMode');
-    Simulate.click(searchBar);
+    Simulate.click(findRenderedDOMComponentWithClass(instance, 'search-input'));
     pushPathStub.calledWith('/search/').should.be.true();
     pushPathStub.restore();
   });

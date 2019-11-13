@@ -1,10 +1,12 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
+import { browserHistory, Router, Route, createMemoryHistory } from 'react-router';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
   scryRenderedDOMComponentsWithClass, Simulate,
 } from 'react-addons-test-utils';
+import MockStore from 'redux-mock-store';
+import { Provider } from 'react-redux';
 import { Promise } from 'es6-promise';
 import { spy, stub } from 'sinon';
 
@@ -13,6 +15,13 @@ import Pinboards from 'components/pinboard-page/pinboards';
 
 
 describe('Pinboards component', function () {
+  const store = MockStore()({
+    pinboardPage: {
+      pinboard: {
+        saving: false,
+      },
+    },
+  });
   let instance;
 
   const pinboards = [
@@ -41,7 +50,9 @@ describe('Pinboards component', function () {
 
   it('should render pinboard items', function () {
     instance = renderIntoDocument(
-      <Pinboards pinboards={ pinboards } isShown={ true } />
+      <Provider store={ store }>
+        <Pinboards pinboards={ pinboards } isShown={ true } />
+      </Provider>
     );
 
     findRenderedDOMComponentWithClass(instance, 'pinboards-title').textContent.should.eql('Pinboards');
@@ -73,13 +84,17 @@ describe('Pinboards component', function () {
       const fetchPinboardsSpy = spy();
 
       instance = renderIntoDocument(
-        <Pinboards pinboards={ pinboards } isShown={ false } fetchPinboards={ fetchPinboardsSpy } />
+        <Provider store={ store }>
+          <Pinboards pinboards={ pinboards } isShown={ false } fetchPinboards={ fetchPinboardsSpy } />
+        </Provider>
       );
 
       fetchPinboardsSpy.should.not.be.called();
 
       instance = reRender(
-        <Pinboards pinboards={ pinboards } isShown={ true } fetchPinboards={ fetchPinboardsSpy } />,
+        <Provider store={ store }>
+          <Pinboards pinboards={ pinboards } isShown={ true } fetchPinboards={ fetchPinboardsSpy } />
+        </Provider>,
         instance,
       );
 
@@ -95,13 +110,22 @@ describe('Pinboards component', function () {
       },
     });
     const handleCloseSpy = spy();
+
+    const pinboardsList = () => (
+      <Provider store={ store }>
+        <Pinboards
+          isShown={ true }
+          pinboards={ pinboards }
+          createNewEmptyPinboard={ createNewEmptyPinboardStub }
+          handleClose={ handleCloseSpy }
+        />
+      </Provider>
+    );
+
     instance = renderIntoDocument(
-      <Pinboards
-        isShown={ true }
-        pinboards={ pinboards }
-        createNewEmptyPinboard={ createNewEmptyPinboardStub }
-        handleClose={ handleCloseSpy }
-      />
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ pinboardsList } />
+      </Router>
     );
 
     const newPinboardLink = findRenderedDOMComponentWithClass(instance, 'new-pinboard-btn');

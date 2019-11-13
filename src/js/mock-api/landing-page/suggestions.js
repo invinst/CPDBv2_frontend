@@ -175,7 +175,20 @@ export const groupedSuggestions = {
           'birth_year': 1980,
           race: 'White',
           gender: 'Female',
-        }),
+        }
+      ),
+      RawOfficerSuggestion.build(
+        {
+          id: '3',
+          name: 'Edward may',
+          to: '/officer/3/edward-may/',
+          'allegation_count': 8,
+          'sustained_count': 2,
+          'birth_year': 1984,
+          race: 'White',
+          gender: 'Female',
+        }
+      ),
       ...RawOfficerSuggestion.buildList(8),
     ],
     'CO-ACCUSED': [
