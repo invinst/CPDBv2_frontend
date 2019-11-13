@@ -107,6 +107,7 @@ describe('async-action', function () {
             method: 'post',
             data,
             adapter: null,
+            cancelToken: undefined,
           },
         },
       });
@@ -131,6 +132,7 @@ describe('async-action', function () {
             headers: {
               Authorization: 'Token authenticated_token',
             },
+            cancelToken: undefined,
           },
         },
       });
@@ -199,6 +201,7 @@ describe('async-action', function () {
             method: 'put',
             data,
             adapter: null,
+            cancelToken: undefined,
           },
         },
       });
@@ -223,6 +226,7 @@ describe('async-action', function () {
             headers: {
               Authorization: 'Token authenticated_token',
             },
+            cancelToken: undefined,
           },
         },
       });

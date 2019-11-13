@@ -19,7 +19,11 @@ export default class PinboardButton extends Component {
     const { pinboard, onEmptyPinboardButtonClick } = this.props;
 
     if (isEmpty(pinboard.id)) {
-      onEmptyPinboardButtonClick();
+      if (pinboard.hasPendingChanges) {
+        browserHistory.push('/pinboard/');
+      } else {
+        onEmptyPinboardButtonClick();
+      }
     } else {
       browserHistory.push(pinboard.url);
     }

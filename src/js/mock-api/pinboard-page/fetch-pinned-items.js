@@ -55,6 +55,60 @@ export const fetchPinboardOfficers = () => ([
   },
 ]);
 
+export const dcab5678Officers = [
+  {
+    'id': '1',
+    'full_name': 'Bernadette Kelly',
+    'race': 'White',
+    'gender': 'Male',
+    'complaint_count': 12,
+    'sustained_count': 3,
+    'birth_year': 1972,
+  },
+  {
+    'id': '3',
+    'full_name': 'Edward May',
+    'race': 'White',
+    'gender': 'Male',
+    'complaint_count': 15,
+    'sustained_count': 3,
+    'birth_year': 1975,
+  },
+];
+
+export const abcd8765Officers = [
+  {
+    'id': '1',
+    'full_name': 'Bernadette Kelly',
+    'race': 'White',
+    'gender': 'Male',
+    'complaint_count': 12,
+    'sustained_count': 3,
+    'birth_year': 1972,
+  },
+];
+
+export const abcd8765OUpdatedfficers = [
+  {
+    'id': '1',
+    'full_name': 'Bernadette Kelly',
+    'race': 'White',
+    'gender': 'Male',
+    'complaint_count': 12,
+    'sustained_count': 3,
+    'birth_year': 1972,
+  },
+  {
+    'id': '2',
+    'full_name': 'Edward May',
+    'race': 'White',
+    'gender': 'Male',
+    'complaint_count': 15,
+    'sustained_count': 3,
+    'birth_year': 1975,
+  },
+];
+
 export const ffff6666Officers = [
   {
     'id': 1,

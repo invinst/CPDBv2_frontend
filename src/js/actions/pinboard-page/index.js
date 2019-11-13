@@ -12,7 +12,6 @@ import {
   PINBOARDS_FETCH_REQUEST_START,
   PINBOARDS_FETCH_REQUEST_SUCCESS,
   PINBOARDS_FETCH_REQUEST_FAILURE,
-  CHANGE_PINBOARD,
 } from 'utils/constants';
 import { createChangeEditModeAction } from 'actions/cms';
 import * as constants from 'utils/constants';
@@ -20,8 +19,6 @@ import { get } from 'actions/common/async-action';
 
 
 export const redirect = createAction(PINBOARD_PAGE_REDIRECT);
-
-export const changePinboard = createAction(CHANGE_PINBOARD);
 
 export const focusItem = createAction(PINBOARD_PAGE_FOCUS_ITEM);
 

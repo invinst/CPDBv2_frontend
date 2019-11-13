@@ -3,6 +3,7 @@ import { spy, stub } from 'sinon';
 
 import {
   createPinboard,
+  createNewPinboard,
   createNewEmptyPinboard,
   duplicatePinboard,
   updatePinboard,
@@ -99,6 +100,7 @@ describe('pinboard actions', function () {
               'trr_ids': [1],
               'source_pinboard_id': undefined,
             },
+            cancelToken: 'token',
           },
         },
       });
@@ -115,9 +117,9 @@ describe('pinboard actions', function () {
     it('should return correct action', function () {
       createNewEmptyPinboard().should.deepEqual({
         types: [
-          constants.PINBOARD_CREATE_REQUEST_START,
-          constants.PINBOARD_CREATE_REQUEST_SUCCESS,
-          constants.PINBOARD_CREATE_REQUEST_FAILURE,
+          constants.PINBOARD_CREATE_NEW_REQUEST_START,
+          constants.PINBOARD_CREATE_NEW_REQUEST_SUCCESS,
+          constants.PINBOARD_CREATE_NEW_REQUEST_FAILURE,
         ],
         payload: {
           request: {
@@ -130,6 +132,7 @@ describe('pinboard actions', function () {
               'trr_ids': [],
               'source_pinboard_id': undefined,
             },
+            cancelToken: 'token',
           },
         },
       });
@@ -146,9 +149,9 @@ describe('pinboard actions', function () {
     it('should return correct action', function () {
       duplicatePinboard('adg234r6').should.deepEqual({
         types: [
-          constants.PINBOARD_CREATE_REQUEST_START,
-          constants.PINBOARD_CREATE_REQUEST_SUCCESS,
-          constants.PINBOARD_CREATE_REQUEST_FAILURE,
+          constants.PINBOARD_CREATE_NEW_REQUEST_START,
+          constants.PINBOARD_CREATE_NEW_REQUEST_SUCCESS,
+          constants.PINBOARD_CREATE_NEW_REQUEST_FAILURE,
         ],
         payload: {
           request: {
@@ -161,6 +164,7 @@ describe('pinboard actions', function () {
               'trr_ids': undefined,
               'source_pinboard_id': 'adg234r6',
             },
+            cancelToken: 'token',
           },
         },
       });
@@ -201,6 +205,7 @@ describe('pinboard actions', function () {
               crids: [],
               'trr_ids': ['1'],
             },
+            cancelToken: 'token',
           },
         },
       });
@@ -327,7 +332,7 @@ describe('pinboard actions', function () {
             url: `${constants.PINBOARDS_URL}5cd06f2b/`,
             params: undefined,
             adapter: null,
-            cancelToken: undefined,
+            cancelToken: 'token',
           },
         },
       });
@@ -688,6 +693,32 @@ describe('pinboard actions', function () {
           id: 1,
           type: 'OFFICER',
           mode: constants.PINBOARD_ITEM_REMOVE_MODE.STATE_ONLY,
+        },
+      });
+    });
+  });
+
+  describe('createNewPinboard', function () {
+    it('should return correct action', function () {
+      createNewPinboard({ officerIds: [], crids: ['abc'], trrIds: [1] }).should.deepEqual({
+        types: [
+          constants.PINBOARD_CREATE_NEW_REQUEST_START,
+          constants.PINBOARD_CREATE_NEW_REQUEST_SUCCESS,
+          constants.PINBOARD_CREATE_NEW_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: constants.PINBOARDS_URL,
+            method: 'post',
+            adapter: null,
+            data: {
+              'officer_ids': [],
+              crids: ['abc'],
+              'trr_ids': [1],
+              'source_pinboard_id': undefined,
+            },
+            cancelToken: 'token',
+          },
         },
       });
     });

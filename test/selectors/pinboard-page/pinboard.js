@@ -6,6 +6,7 @@ import {
   isEmptyPinboardSelector,
   examplePinboardsSelector,
   isItemPinned,
+  pinboardPageLoadingSelector,
 } from 'selectors/pinboard-page/pinboard';
 import PinboardFactory from 'utils/test/factories/pinboard';
 
@@ -24,6 +25,7 @@ describe('Pinboard selectors', function () {
         url: '',
         itemsCount: 0,
         isPinboardRestored: false,
+        hasPendingChanges: false,
       });
     });
 
@@ -38,6 +40,7 @@ describe('Pinboard selectors', function () {
             'trr_ids': [1],
             description: 'Description',
             isPinboardRestored: false,
+            hasPendingChanges: true,
           }),
         },
       };
@@ -52,6 +55,7 @@ describe('Pinboard selectors', function () {
         url: '/pinboard/1/pinboard-title/',
         itemsCount: 3,
         isPinboardRestored: false,
+        hasPendingChanges: true,
       });
     });
 
@@ -67,6 +71,7 @@ describe('Pinboard selectors', function () {
               'trr_ids': [1],
               description: 'Description',
               isPinboardRestored: false,
+              hasPendingChanges: true,
             }),
           },
         };
@@ -81,6 +86,7 @@ describe('Pinboard selectors', function () {
           url: '/pinboard/1/untitled-pinboard/',
           itemsCount: 3,
           isPinboardRestored: false,
+          hasPendingChanges: true,
         });
       });
 
@@ -95,6 +101,7 @@ describe('Pinboard selectors', function () {
               'trr_ids': [1],
               description: 'Description',
               isPinboardRestored: false,
+              hasPendingChanges: false,
             }),
           },
         };
@@ -109,6 +116,7 @@ describe('Pinboard selectors', function () {
           url: '/pinboard/1/untitled-pinboard/',
           itemsCount: 3,
           isPinboardRestored: false,
+          hasPendingChanges: false,
         });
       });
     });
@@ -297,6 +305,86 @@ describe('Pinboard selectors', function () {
 
     it('should return false if item was not added to pinboard', function () {
       isItemPinned('CR', '123456', pinboardItems).should.be.false();
+    });
+  });
+
+  describe('pinboardPageLoadingSelector', function () {
+    context('should return true', function () {
+      it('if pinboard has id and hasPendingChanges is true', function () {
+        const state = {
+          pinboardPage: {
+            pinboard: PinboardFactory.build({
+              id: null,
+              title: 'Pinboard Title',
+              'officer_ids': [12],
+              crids: ['abc'],
+              'trr_ids': [1],
+              description: 'Description',
+              isPinboardRestored: false,
+              hasPendingChanges: true,
+            }),
+          },
+        };
+        pinboardPageLoadingSelector(state).should.be.true();
+      });
+
+      it('if pinboard does not have id, but hasPendingChanges and pinnedItemsRequested is false', function () {
+        const state = {
+          pinboardPage: {
+            pinboard: PinboardFactory.build({
+              id: 1,
+              title: 'Pinboard Title',
+              'officer_ids': [12],
+              crids: ['abc'],
+              'trr_ids': [1],
+              description: 'Description',
+              isPinboardRestored: false,
+              hasPendingChanges: true,
+            }),
+          },
+          pinnedItemsRequested: false,
+        };
+        pinboardPageLoadingSelector(state).should.be.true();
+      });
+    });
+
+    context('should return false', function () {
+      it('if pinboard does not have id, and hasPendingChanges is false', function () {
+        const state = {
+          pinboardPage: {
+            pinboard: PinboardFactory.build({
+              id: 1,
+              title: 'Pinboard Title',
+              'officer_ids': [12],
+              crids: ['abc'],
+              'trr_ids': [1],
+              description: 'Description',
+              isPinboardRestored: false,
+              hasPendingChanges: false,
+            }),
+          },
+        };
+        pinboardPageLoadingSelector(state).should.be.false();
+      });
+
+      it('if pinboard does not have id, and hasPendingChanges and pinnedItemsRequested is true', function () {
+        const state = {
+          pinboardPage: {
+            pinboard: PinboardFactory.build({
+              id: 1,
+              title: 'Pinboard Title',
+              'officer_ids': [12],
+              crids: ['abc'],
+              'trr_ids': [1],
+              description: 'Description',
+              isPinboardRestored: false,
+              hasPendingChanges: false,
+            }),
+          },
+          pinnedItemsRequested: true,
+        };
+        pinboardPageLoadingSelector(state).should.be.false();
+      });
     });
   });
 });
