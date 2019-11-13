@@ -56,10 +56,10 @@ export const pinboardICRIDsSelector = createSelector(
 );
 
 export const getInitialRequested = state => get(state, 'pinboardPage.initialRequested', false);
-export const setPinnedItemsRequested = state => get(state, 'pinboardPage.pinnedItemsRequested', false);
+const getPinnedItemsRequested = state => get(state, 'pinboardPage.pinnedItemsRequested', false);
 export const pinboardPageLoadingSelector = createSelector(
   getPinboard,
-  setPinnedItemsRequested,
+  getPinnedItemsRequested,
   (pinboard, pinnedItemsRequested) => {
     return (isEmpty(pinboard.id) && pinboard.hasPendingChanges)
       || (!isEmpty(pinboard.id) && pinboard.hasPendingChanges && !pinnedItemsRequested);

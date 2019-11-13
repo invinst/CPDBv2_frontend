@@ -127,12 +127,12 @@ export default class PinboardPage extends Component {
   render() {
     const {
       pinboard,
+      initialRequested,
       pinboardPageLoading,
       isEmptyPinboard,
       showPinboardsList,
       createNewEmptyPinboard,
       duplicatePinboard,
-      initialRequested,
     } = this.props;
 
     if (!initialRequested) {

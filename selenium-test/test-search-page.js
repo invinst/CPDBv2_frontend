@@ -1,6 +1,5 @@
 'use strict';
 
-
 require('should');
 
 import { times } from 'lodash';
