@@ -27,7 +27,7 @@ describe('pinboardAdminPages selectors', function () {
                 'officers_count': 1,
                 'allegations_count': 2,
                 'trrs_count': 3,
-                'recent_officers': [
+                'officers': [
                   {
                     'percentile_allegation': '44.8403',
                     year: 1993,
@@ -36,7 +36,7 @@ describe('pinboardAdminPages selectors', function () {
                     count: 2,
                   },
                 ],
-                'recent_allegations': [
+                'allegations': [
                   {
                     crid: 'C201453',
                     category: 'Use Of Force',
@@ -48,7 +48,7 @@ describe('pinboardAdminPages selectors', function () {
                     'incident_date': '2008-05-14',
                   },
                 ],
-                'recent_trrs': [
+                'trrs': [
                   {
                     id: 121,
                     'trr_datetime': '2004-02-23',
@@ -74,7 +74,7 @@ describe('pinboardAdminPages selectors', function () {
                 'officers_count': 1,
                 'allegations_count': 0,
                 'trrs_count': 0,
-                'recent_officers': [
+                'officers': [
                   {
                     'percentile_allegation': '44.8403',
                     year: 1993,
@@ -83,8 +83,8 @@ describe('pinboardAdminPages selectors', function () {
                     count: 2,
                   },
                 ],
-                'recent_allegations': [],
-                'recent_trrs': [],
+                'allegations': [],
+                'trrs': [],
               },
             ],
           },
@@ -101,7 +101,7 @@ describe('pinboardAdminPages selectors', function () {
             'officers_count': 1,
             'allegations_count': 2,
             'trrs_count': 3,
-            'recent_officers': [
+            'officers': [
               {
                 'percentile_allegation': '44.8403',
                 year: 1993,
@@ -110,7 +110,7 @@ describe('pinboardAdminPages selectors', function () {
                 count: 2,
               },
             ],
-            'recent_allegations': [
+            'allegations': [
               {
                 crid: 'C201453',
                 category: 'Use Of Force',
@@ -122,7 +122,7 @@ describe('pinboardAdminPages selectors', function () {
                 'incident_date': '2008-05-14',
               },
             ],
-            'recent_trrs': [
+            'trrs': [
               {
                 id: 121,
                 'trr_datetime': '2004-02-23',
@@ -148,7 +148,7 @@ describe('pinboardAdminPages selectors', function () {
             'officers_count': 1,
             'allegations_count': 0,
             'trrs_count': 0,
-            'recent_officers': [
+            'officers': [
               {
                 'percentile_allegation': '44.8403',
                 year: 1993,
@@ -157,8 +157,8 @@ describe('pinboardAdminPages selectors', function () {
                 count: 2,
               },
             ],
-            'recent_allegations': [],
-            'recent_trrs': [],
+            'allegations': [],
+            'trrs': [],
           },
         ],
       });
@@ -183,7 +183,7 @@ describe('pinboardAdminPages selectors', function () {
                 'officers_count': 1,
                 'allegations_count': 2,
                 'trrs_count': 3,
-                'recent_officers': [
+                'officers': [
                   {
                     'percentile_allegation_civilian': '52',
                     'percentile_trr': '53',
@@ -194,7 +194,7 @@ describe('pinboardAdminPages selectors', function () {
                     count: 2,
                   },
                 ],
-                'recent_allegations': [
+                'allegations': [
                   {
                     crid: 'C201453',
                     category: 'Use Of Force',
@@ -206,7 +206,7 @@ describe('pinboardAdminPages selectors', function () {
                     'incident_date': '2008-05-14',
                   },
                 ],
-                'recent_trrs': [
+                'trrs': [
                   {
                     id: 121,
                     'trr_datetime': '2004-02-23',
@@ -232,7 +232,7 @@ describe('pinboardAdminPages selectors', function () {
                 'officers_count': 1,
                 'allegations_count': 0,
                 'trrs_count': 0,
-                'recent_officers': [
+                'officers': [
                   {
                     'percentile_allegation_civilian': '92',
                     'percentile_trr': '93',
@@ -243,8 +243,8 @@ describe('pinboardAdminPages selectors', function () {
                     count: 2,
                   },
                 ],
-                'recent_allegations': [],
-                'recent_trrs': [],
+                'allegations': [],
+                'trrs': [],
               },
               {
                 id: 'f0e5eba7',
@@ -254,9 +254,9 @@ describe('pinboardAdminPages selectors', function () {
                 'officers_count': 0,
                 'allegations_count': 0,
                 'trrs_count': 0,
-                'recent_officers': [],
-                'recent_allegations': [],
-                'recent_trrs': [],
+                'officers': [],
+                'allegations': [],
+                'trrs': [],
               },
             ],
           },

@@ -18,7 +18,7 @@ export const firstPage = {
       'officers_count': 10,
       'allegations_count': 8,
       'trrs_count': 9,
-      'recent_officers': [
+      'officers': [
         {
           'percentile_trr': '0.0000',
           'percentile_allegation_civilian': '95.4256',
@@ -120,7 +120,7 @@ export const firstPage = {
           'count': 34,
         },
       ],
-      'recent_allegations': [
+      'allegations': [
         {
           'crid': '306637',
           'category': 'Use Of Force',
@@ -162,7 +162,7 @@ export const firstPage = {
           'incident_date': '2016-03-26',
         },
       ],
-      'recent_trrs': [
+      'trrs': [
         {
           'id': 2236,
           'trr_datetime': '2004-07-05',
@@ -218,7 +218,7 @@ export const firstPage = {
       'officers_count': 1,
       'allegations_count': 0,
       'trrs_count': 0,
-      'recent_officers': [
+      'officers': [
         {
           'percentile_allegation': '44.8403',
           'year': 1993,
@@ -227,8 +227,8 @@ export const firstPage = {
           'count': 2,
         },
       ],
-      'recent_allegations': [],
-      'recent_trrs': [],
+      'allegations': [],
+      'trrs': [],
     },
     {
       'id': 'b490bb08',
@@ -238,7 +238,7 @@ export const firstPage = {
       'officers_count': 1,
       'allegations_count': 0,
       'trrs_count': 0,
-      'recent_officers': [
+      'officers': [
         {
           'percentile_allegation': '44.8403',
           'year': 1993,
@@ -247,8 +247,8 @@ export const firstPage = {
           'count': 2,
         },
       ],
-      'recent_allegations': [],
-      'recent_trrs': [],
+      'allegations': [],
+      'trrs': [],
     },
     {
       'id': '0c21666d',
@@ -258,7 +258,7 @@ export const firstPage = {
       'officers_count': 1,
       'allegations_count': 0,
       'trrs_count': 0,
-      'recent_officers': [
+      'officers': [
         {
           'percentile_allegation': '44.8403',
           'year': 1993,
@@ -267,8 +267,8 @@ export const firstPage = {
           'count': 2,
         },
       ],
-      'recent_allegations': [],
-      'recent_trrs': [],
+      'allegations': [],
+      'trrs': [],
     },
     {
       'id': '8e931154',
@@ -278,7 +278,7 @@ export const firstPage = {
       'officers_count': 4,
       'allegations_count': 1,
       'trrs_count': 0,
-      'recent_officers': [
+      'officers': [
         {
           'percentile_trr': '64.3694',
           'percentile_allegation_civilian': '99.9778',
@@ -320,14 +320,14 @@ export const firstPage = {
           'count': 34,
         },
       ],
-      'recent_allegations': [
+      'allegations': [
         {
           'crid': '1079817',
           'category': 'Domestic',
           'incident_date': '2016-03-26',
         },
       ],
-      'recent_trrs': [],
+      'trrs': [],
     },
     {
       'id': 'c27053fc',
@@ -337,7 +337,7 @@ export const firstPage = {
       'officers_count': 4,
       'allegations_count': 1,
       'trrs_count': 0,
-      'recent_officers': [
+      'officers': [
         {
           'percentile_trr': '64.3694',
           'percentile_allegation_civilian': '99.9778',
@@ -379,14 +379,14 @@ export const firstPage = {
           'count': 34,
         },
       ],
-      'recent_allegations': [
+      'allegations': [
         {
           'crid': '1079817',
           'category': 'Domestic',
           'incident_date': '2016-03-26',
         },
       ],
-      'recent_trrs': [],
+      'trrs': [],
     },
     {
       'id': 'f89e4312',
@@ -396,7 +396,7 @@ export const firstPage = {
       'officers_count': 10,
       'allegations_count': 8,
       'trrs_count': 9,
-      'recent_officers': [
+      'officers': [
         {
           'percentile_trr': '0.0000',
           'percentile_allegation_civilian': '95.4256',
@@ -498,7 +498,7 @@ export const firstPage = {
           'count': 34,
         },
       ],
-      'recent_allegations': [
+      'allegations': [
         {
           'crid': '306637',
           'category': 'Use Of Force',
@@ -540,7 +540,7 @@ export const firstPage = {
           'incident_date': '2016-03-26',
         },
       ],
-      'recent_trrs': [
+      'trrs': [
         {
           'id': 2236,
           'trr_datetime': '2004-07-05',
@@ -596,7 +596,7 @@ export const firstPage = {
       'officers_count': 8,
       'allegations_count': 1,
       'trrs_count': 0,
-      'recent_officers': [
+      'officers': [
         {
           'percentile_trr': '64.3694',
           'percentile_allegation_civilian': '99.9778',
@@ -675,14 +675,14 @@ export const firstPage = {
           'count': 34,
         },
       ],
-      'recent_allegations': [
+      'allegations': [
         {
           'crid': '1079817',
           'category': 'Domestic',
           'incident_date': '2016-03-26',
         },
       ],
-      'recent_trrs': [],
+      'trrs': [],
     },
     {
       'id': '361ee7cc',
@@ -692,7 +692,7 @@ export const firstPage = {
       'officers_count': 1,
       'allegations_count': 0,
       'trrs_count': 0,
-      'recent_officers': [
+      'officers': [
         {
           'percentile_allegation': '44.8403',
           'year': 1993,
@@ -701,8 +701,8 @@ export const firstPage = {
           'count': 2,
         },
       ],
-      'recent_allegations': [],
-      'recent_trrs': [],
+      'allegations': [],
+      'trrs': [],
     },
     {
       'id': 'c08762fa',
@@ -712,7 +712,7 @@ export const firstPage = {
       'officers_count': 4,
       'allegations_count': 1,
       'trrs_count': 0,
-      'recent_officers': [
+      'officers': [
         {
           'percentile_trr': '64.3694',
           'percentile_allegation_civilian': '99.9778',
@@ -754,14 +754,14 @@ export const firstPage = {
           'count': 34,
         },
       ],
-      'recent_allegations': [
+      'allegations': [
         {
           'crid': '1079817',
           'category': 'Domestic',
           'incident_date': '2016-03-26',
         },
       ],
-      'recent_trrs': [],
+      'trrs': [],
     },
   ],
 };
@@ -779,7 +779,7 @@ export const secondPage = {
       'officers_count': 4,
       'allegations_count': 1,
       'trrs_count': 0,
-      'recent_officers': [
+      'officers': [
         {
           'percentile_trr': '64.3694',
           'percentile_allegation_civilian': '99.9778',
@@ -821,14 +821,14 @@ export const secondPage = {
           'count': 34,
         },
       ],
-      'recent_allegations': [
+      'allegations': [
         {
           'crid': '1079817',
           'category': 'Domestic',
           'incident_date': '2016-03-26',
         },
       ],
-      'recent_trrs': [],
+      'trrs': [],
     },
     {
       'id': 'dbba9e8a',
@@ -838,7 +838,7 @@ export const secondPage = {
       'officers_count': 4,
       'allegations_count': 1,
       'trrs_count': 0,
-      'recent_officers': [
+      'officers': [
         {
           'percentile_trr': '64.3694',
           'percentile_allegation_civilian': '99.9778',
@@ -880,14 +880,14 @@ export const secondPage = {
           'count': 34,
         },
       ],
-      'recent_allegations': [
+      'allegations': [
         {
           'crid': '1079817',
           'category': 'Domestic',
           'incident_date': '2016-03-26',
         },
       ],
-      'recent_trrs': [],
+      'trrs': [],
     },
     {
       'id': 'bb06b63f',
@@ -897,7 +897,7 @@ export const secondPage = {
       'officers_count': 4,
       'allegations_count': 1,
       'trrs_count': 0,
-      'recent_officers': [
+      'officers': [
         {
           'percentile_trr': '64.3694',
           'percentile_allegation_civilian': '99.9778',
@@ -939,14 +939,14 @@ export const secondPage = {
           'count': 34,
         },
       ],
-      'recent_allegations': [
+      'allegations': [
         {
           'crid': '1079817',
           'category': 'Domestic',
           'incident_date': '2016-03-26',
         },
       ],
-      'recent_trrs': [],
+      'trrs': [],
     },
     {
       'id': '716b9c2e',
@@ -956,7 +956,7 @@ export const secondPage = {
       'officers_count': 4,
       'allegations_count': 1,
       'trrs_count': 0,
-      'recent_officers': [
+      'officers': [
         {
           'percentile_trr': '64.3694',
           'percentile_allegation_civilian': '99.9778',
@@ -998,14 +998,14 @@ export const secondPage = {
           'count': 34,
         },
       ],
-      'recent_allegations': [
+      'allegations': [
         {
           'crid': '1079817',
           'category': 'Domestic',
           'incident_date': '2016-03-26',
         },
       ],
-      'recent_trrs': [],
+      'trrs': [],
     },
     {
       'id': '8b03afdb',
@@ -1015,7 +1015,7 @@ export const secondPage = {
       'officers_count': 4,
       'allegations_count': 1,
       'trrs_count': 0,
-      'recent_officers': [
+      'officers': [
         {
           'percentile_trr': '64.3694',
           'percentile_allegation_civilian': '99.9778',
@@ -1057,14 +1057,14 @@ export const secondPage = {
           'count': 34,
         },
       ],
-      'recent_allegations': [
+      'allegations': [
         {
           'crid': '1079817',
           'category': 'Domestic',
           'incident_date': '2016-03-26',
         },
       ],
-      'recent_trrs': [],
+      'trrs': [],
     },
     {
       'id': '1674980b',
@@ -1074,7 +1074,7 @@ export const secondPage = {
       'officers_count': 7,
       'allegations_count': 2,
       'trrs_count': 0,
-      'recent_officers': [
+      'officers': [
         {
           'percentile_trr': '0.0000',
           'percentile_allegation_civilian': '99.9696',
@@ -1146,7 +1146,7 @@ export const secondPage = {
           'count': 20,
         },
       ],
-      'recent_allegations': [
+      'allegations': [
         {
           'crid': '1045602',
           'category': 'Domestic',
@@ -1158,7 +1158,7 @@ export const secondPage = {
           'incident_date': '2010-02-19',
         },
       ],
-      'recent_trrs': [],
+      'trrs': [],
     },
     {
       'id': 'd9ad7128',
@@ -1168,7 +1168,7 @@ export const secondPage = {
       'officers_count': 4,
       'allegations_count': 1,
       'trrs_count': 0,
-      'recent_officers': [
+      'officers': [
         {
           'percentile_trr': '64.3694',
           'percentile_allegation_civilian': '99.9778',
@@ -1210,14 +1210,14 @@ export const secondPage = {
           'count': 34,
         },
       ],
-      'recent_allegations': [
+      'allegations': [
         {
           'crid': '1079817',
           'category': 'Domestic',
           'incident_date': '2016-03-26',
         },
       ],
-      'recent_trrs': [],
+      'trrs': [],
     },
     {
       'id': 'ede05683',
@@ -1227,7 +1227,7 @@ export const secondPage = {
       'officers_count': 5,
       'allegations_count': 4,
       'trrs_count': 0,
-      'recent_officers': [
+      'officers': [
         {
           'percentile_trr': '0.0000',
           'percentile_allegation_civilian': '99.9696',
@@ -1279,7 +1279,7 @@ export const secondPage = {
           'count': 36,
         },
       ],
-      'recent_allegations': [
+      'allegations': [
         {
           'crid': '1079959',
           'category': 'Verbal Abuse',
@@ -1301,7 +1301,7 @@ export const secondPage = {
           'incident_date': '2008-04-12',
         },
       ],
-      'recent_trrs': [],
+      'trrs': [],
     },
     {
       'id': '438702d5',
@@ -1311,7 +1311,7 @@ export const secondPage = {
       'officers_count': 22,
       'allegations_count': 7,
       'trrs_count': 1,
-      'recent_officers': [
+      'officers': [
         {
           'percentile_trr': '0.0000',
           'percentile_allegation_civilian': '99.9696',
@@ -1525,7 +1525,7 @@ export const secondPage = {
           'count': 6,
         },
       ],
-      'recent_allegations': [
+      'allegations': [
         {
           'crid': '271236',
           'category': 'Criminal Misconduct',
@@ -1562,7 +1562,7 @@ export const secondPage = {
           'incident_date': '2012-04-26',
         },
       ],
-      'recent_trrs': [
+      'trrs': [
         {
           'id': 123,
           'trr_datetime': '2004-02-24',
@@ -1578,7 +1578,7 @@ export const secondPage = {
       'officers_count': 34,
       'allegations_count': 4,
       'trrs_count': 0,
-      'recent_officers': [
+      'officers': [
         {
           'percentile_trr': '64.3694',
           'percentile_allegation_civilian': '99.9778',
@@ -1916,7 +1916,7 @@ export const secondPage = {
           'count': 6,
         },
       ],
-      'recent_allegations': [
+      'allegations': [
         {
           'crid': '1053673',
           'category': 'False Arrest',
@@ -1938,7 +1938,7 @@ export const secondPage = {
           'incident_date': '2016-01-26',
         },
       ],
-      'recent_trrs': [],
+      'trrs': [],
     },
   ],
 };
