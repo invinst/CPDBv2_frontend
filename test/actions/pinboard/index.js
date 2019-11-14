@@ -398,8 +398,8 @@ describe('pinboard actions', function () {
         ],
         payload: {
           request: {
-            url: `${constants.SOCIAL_GRAPH_NETWORK_API_URL}?pinboard_id=268a5e58`,
-            params: undefined,
+            url: constants.SOCIAL_GRAPH_NETWORK_API_URL,
+            params: { 'pinboard_id': '268a5e58' },
             adapter: null,
             cancelToken: 'token',
           },

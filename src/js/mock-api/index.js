@@ -344,11 +344,13 @@ axiosMockClient.onGet(`${PINBOARDS_URL}eeee7777/complaints/`).reply(200, eeee777
 axiosMockClient.onGet(`${PINBOARDS_URL}eeee7777/trrs/`).reply(200, []);
 
 axiosMockClient.onGet(
-  `${SOCIAL_GRAPH_NETWORK_API_URL}?pinboard_id=5cd06f2b`
-).reply(200, getSocialGraphData('5cd06f2b'));
+  SOCIAL_GRAPH_NETWORK_API_URL,
+  { params: { 'pinboard_id': '5cd06f2b' } }
+).reply(200, getSocialGraphData());
 axiosMockClient.onGet(
-  `${SOCIAL_GRAPH_NETWORK_API_URL}?pinboard_id=18a5b091`
-).reply(200, getSocialGraphData('18a5b091'));
+  SOCIAL_GRAPH_NETWORK_API_URL,
+  { params: { 'pinboard_id': '18a5b091' } }
+).reply(200, getSocialGraphData());
 
 axiosMockClient.onGet(
   SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
@@ -438,8 +440,9 @@ axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/officers/`).reply(200, fetchPinb
 axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/trrs/`).reply(200, fetchPinboardTRRs());
 
 axiosMockClient.onGet(
-  `${SOCIAL_GRAPH_NETWORK_API_URL}?pinboard_id=3664a7ea`
-).reply(200, getSocialGraphBigData('3664a7ea'));
+  SOCIAL_GRAPH_NETWORK_API_URL,
+  { params: { 'pinboard_id': '3664a7ea' } }
+).reply(200, getSocialGraphBigData());
 
 axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/relevant-coaccusals/?`).reply(
   200, getFirstRelevantCoaccusals('3664a7ea', 50)

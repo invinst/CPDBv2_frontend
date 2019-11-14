@@ -345,8 +345,7 @@ const listEvent = [
   '2008-01-11',
 ];
 
-export const getSocialGraphBigData = (pinboardId) => ({
-  'pinboard_id': pinboardId,
+export const getSocialGraphBigData = () => ({
   'officers': officers,
   'coaccused_data': coaccusedData,
   'list_event': listEvent,

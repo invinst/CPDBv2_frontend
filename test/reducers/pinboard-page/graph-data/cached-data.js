@@ -13,27 +13,26 @@ describe('cachedDataReducer', function () {
     cachedDataReducer(
       {
         'cdef6789': {
-          'pinboard_id': 'cdef6789',
           title: 'Cached Pinboard Title',
           description: '',
         },
       },
       {
         type: PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_SUCCESS,
+        request: {
+          params: { 'pinboard_id': 'abcd1234' },
+        },
         payload: {
-          'pinboard_id': 'abcd1234',
           title: 'Pinboard Title',
           description: '',
         },
       }
     ).should.be.eql({
       'cdef6789': {
-        'pinboard_id': 'cdef6789',
         title: 'Cached Pinboard Title',
         description: '',
       },
       'abcd1234': {
-        'pinboard_id': 'abcd1234',
         title: 'Pinboard Title',
         description: '',
       },
