@@ -10,6 +10,7 @@ import {
 } from '../widgets';
 import styles from './pinboard-pane.sass';
 import StaticSocialGraphContainer from 'containers/pinboard-page/static-social-graph-container';
+import { generatePinboardUrl } from 'utils/pinboard';
 
 
 export default class PinboardPane extends Component {
@@ -42,7 +43,7 @@ export default class PinboardPane extends Component {
     return (
       <NewWidgetWrapper
         className={ styles.pinboardPane }
-        callToAction={ { to: `/pinboard/${id}/`, text: 'View Pinboard' } }
+        callToAction={ { to: generatePinboardUrl({ id, title }), text: 'View Pinboard' } }
         yScrollable={ true }
         isClickable={ false }
       >

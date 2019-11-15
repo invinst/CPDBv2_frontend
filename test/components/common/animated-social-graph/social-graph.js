@@ -553,13 +553,51 @@ describe('SocialGraph', function () {
     instance.data.links.should.have.length(37);
   });
 
-  it('should call drawGraph again when pinboardId has changed', function () {
+  it('should call drawGraph again when officers has changed', function () {
     const drawGraphStub = stub(SocialGraph.prototype, 'drawGraph');
 
-    instance = renderIntoDocument(<SocialGraph pinboardId='aaaa1111'/>);
+    instance = renderIntoDocument(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+      />
+    );
     drawGraphStub.resetHistory();
 
-    reRender(<SocialGraph pinboardId='bbbb2222'/>, instance);
+    reRender(
+      <SocialGraph
+        officers={ [] }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+      />,
+      instance
+    );
+    drawGraphStub.should.be.calledOnce();
+
+    drawGraphStub.restore();
+  });
+
+  it('should call drawGraph again when listEvent has changed', function () {
+    const drawGraphStub = stub(SocialGraph.prototype, 'drawGraph');
+
+    instance = renderIntoDocument(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+      />
+    );
+    drawGraphStub.resetHistory();
+
+    reRender(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ [] }
+      />,
+      instance
+    );
     drawGraphStub.should.be.calledOnce();
 
     drawGraphStub.restore();

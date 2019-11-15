@@ -66,11 +66,14 @@ export default class SocialGraph extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { pinboardId, coaccusedData, timelineIdx, selectedOfficerId, selectedEdge, performResizeGraph } = this.props;
+    const {
+      coaccusedData, timelineIdx, selectedOfficerId, selectedEdge, performResizeGraph, officers, listEvent,
+    } = this.props;
 
     if (
       !isEqual(prevProps.coaccusedData, coaccusedData)
-      || pinboardId !== prevProps.pinboardId
+      || !isEqual(prevProps.officers, officers)
+      || !isEqual(prevProps.listEvent, listEvent)
     ) {
       this.drawGraph();
     } else {
@@ -519,7 +522,6 @@ export default class SocialGraph extends Component {
 }
 
 SocialGraph.propTypes = {
-  pinboardId: PropTypes.string,
   className: PropTypes.string,
   officers: PropTypes.array,
   coaccusedData: PropTypes.array,

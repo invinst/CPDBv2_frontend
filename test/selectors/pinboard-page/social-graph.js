@@ -16,8 +16,9 @@ describe('PinboardPage selectors', function () {
         pinboardPage: {
           graphData: {
             requesting: false,
-            cachedData: {
-              'abcd1234': {
+            cachedData: [
+              {
+                'pinboard_id': 'abcd1234',
                 officers: [
                   {
                     'full_name': 'Jerome Finnigan',
@@ -65,7 +66,7 @@ describe('PinboardPage selectors', function () {
                   '1991-03-06',
                 ],
               },
-            },
+            ],
           },
         },
       };
@@ -123,8 +124,9 @@ describe('PinboardPage selectors', function () {
           },
           graphData: {
             requesting: false,
-            cachedData: {
-              'abcd1234': {
+            cachedData: [
+              {
+                'pinboard_id': 'abcd1234',
                 officers: [
                   {
                     'full_name': 'Jerome Finnigan',
@@ -172,7 +174,7 @@ describe('PinboardPage selectors', function () {
                   '1991-03-06',
                 ],
               },
-            },
+            ],
           },
         },
       };
@@ -246,13 +248,13 @@ describe('PinboardPage selectors', function () {
     it('should return requesting status', function () {
       getSocialGraphRequesting({
         pinboardPage: {
-          graphData: { requesting: false, cachedData: {} },
+          graphData: { requesting: false, cachedData: [] },
         },
       }).should.be.false();
 
       getSocialGraphRequesting({
         pinboardPage: {
-          graphData: { requesting: true, cachedData: {} },
+          graphData: { requesting: true, cachedData: [] },
         },
       }).should.be.true();
     });
@@ -286,8 +288,9 @@ describe('PinboardPage selectors', function () {
           pinboard: { id: '1234abcd' },
           graphData: {
             requesting: false,
-            cachedData: {
-              '1234abcd': {
+            cachedData: [
+              {
+                'pinboard_id': '1234abcd',
                 officers: [
                   {
                     'full_name': 'Jerome Finnigan',
@@ -304,7 +307,7 @@ describe('PinboardPage selectors', function () {
                   '1988-10-03',
                 ],
               },
-            },
+            ],
           },
         },
       };
@@ -332,8 +335,9 @@ describe('PinboardPage selectors', function () {
           pinboard: { id: '1234abcd' },
           graphData: {
             requesting: false,
-            cachedData: {
-              '5678bbbb': {
+            cachedData: [
+              {
+                'pinboard_Id': '5678bbbb',
                 officers: [
                   {
                     'full_name': 'Jerome Finnigan',
@@ -350,7 +354,7 @@ describe('PinboardPage selectors', function () {
                   '1988-10-03',
                 ],
               },
-            },
+            ],
           },
         },
       };
@@ -364,8 +368,9 @@ describe('PinboardPage selectors', function () {
           pinboard: { id: '1234abcd' },
           graphData: {
             requesting: false,
-            cachedData: {
-              '1234abcd': {
+            cachedData: [
+              {
+                'pinboard_id': '1234abcd',
                 officers: [
                   {
                     'full_name': 'Jerome Finnigan',
@@ -382,7 +387,7 @@ describe('PinboardPage selectors', function () {
                   '1988-10-03',
                 ],
               },
-            },
+            ],
           },
         },
       };
