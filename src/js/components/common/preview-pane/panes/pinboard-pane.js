@@ -54,7 +54,7 @@ export default class PinboardPane extends Component {
           ] }
         />
         <div className='static-social-graph'>
-          <StaticSocialGraphContainer pinboardId={ id } className='social-graph'/>
+          <StaticSocialGraphContainer key={ id } pinboardId={ id } className='social-graph'/>
         </div>
 
         <ListWidget

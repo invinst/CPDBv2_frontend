@@ -6,7 +6,7 @@ import {
 } from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
-import { stub } from 'sinon';
+import { stub, spy } from 'sinon';
 
 import { reRender, unmountComponentSuppressError } from 'utils/test';
 import { PinboardPane } from 'components/common/preview-pane/panes';
@@ -267,5 +267,37 @@ describe('PinboardPane component', function () {
 
     stubFetchPinboardSocialGraph.should.be.calledOnce();
     stubFetchPinboardSocialGraph.should.be.calledWith('dbca4321');
+  });
+
+  it('should mount a new StaticSocialGraphContainer when change pinboard id', function () {
+    const store = MockStore()({
+      pinboardPage: {
+        graphData: {
+          cachedData: {},
+        },
+      },
+    });
+    const componentWillUnmountSpy = spy(StaticSocialGraphContainer.prototype, 'componentWillUnmount');
+
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <PinboardPane
+          cachedDataIDs={ ['abcd1234'] }
+          id='abcd1234'
+        />
+      </Provider>
+    );
+
+    reRender(
+      <Provider store={ store }>
+        <PinboardPane
+          cachedDataIDs={ ['abcd1234'] }
+          id='dbca4321'
+        />
+      </Provider>,
+      instance
+    );
+
+    componentWillUnmountSpy.should.be.calledOnce();
   });
 });
