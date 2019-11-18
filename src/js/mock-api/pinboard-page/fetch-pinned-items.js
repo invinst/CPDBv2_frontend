@@ -15,6 +15,7 @@ export const ffff6666Complaints = [{
 }];
 
 export const eeee7777Complaints = ffff6666Complaints;
+export const eeee8888Complaints = ffff6666Complaints;
 
 export const fetchPinboardOfficers = () => ([
   {
@@ -185,6 +186,7 @@ export const ffff6666Officers = [
 ];
 
 export const eeee7777Officers = ffff6666Officers;
+export const eeee8888Officers = ffff6666Officers;
 
 export const fetchPinboardTRRs = () => ([
   {

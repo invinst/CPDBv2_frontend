@@ -40,12 +40,15 @@ const isParam = (param, validators) => validators.includes(_.toLower(_.camelCase
 const getPinboardFromQuery = (query) => {
   const invalidParams = [];
   const pinboardFromQuery = {
+    title: '',
     officerIds: [],
     crids: [],
     trrIds: [],
   };
   _.keys(query).forEach(param => {
-    if (isParam(param, ['officerid', 'officerids'])) {
+    if (isParam(param, 'title')) {
+      pinboardFromQuery.title = query[param];
+    } else if (isParam(param, ['officerid', 'officerids'])) {
       pinboardFromQuery.officerIds = getIds(query, param).map(id => parseInt(id));
     } else if (isParam(param, ['crid', 'crids'])) {
       pinboardFromQuery.crids = getIds(query, param);
@@ -284,7 +287,7 @@ export default store => next => action => {
       const { pinboardFromQuery, invalidParams } = getPinboardFromQuery(action.payload.query);
       _.isEmpty(invalidParams) || showPinboardToast(formatInvalidParamMessage(invalidParams));
 
-      if (!isEmptyPinboard(pinboardFromQuery))
+      if (!isEmptyPinboard(pinboardFromQuery) || pinboardFromQuery.title)
         dispatchUpdateOrCreatePinboard(store, pinboardFromQuery, showCreatedToasts);
       else {
         _.isEmpty(action.payload.query) || showPinboardToast('Redirected to latest pinboard.');
