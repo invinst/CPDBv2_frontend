@@ -13,6 +13,7 @@
     <script type="text/javascript">
       var GA_TRACKING_ID = '<%= GA_TRACKING_ID %>';
       var INTERCOM_ID = '<%= INTERCOM_ID %>';
+      var CLICKY_TRACKING_ID = '<%= CLICKY_TRACKING_ID %>';
     </script>
     <!-- Google Analytics -->
     <script>
@@ -42,9 +43,9 @@
     <div id='root'>
     </div>
     <!-- Clicky -->
-    <script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101221747);</script>
+    <script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(CLICKY_TRACKING_ID);</script>
     <script async src="//static.getclicky.com/js"></script>
-    <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/101221747ns.gif" /></p></noscript>
+    <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/<%= CLICKY_TRACKING_ID %>ns.gif" /></p></noscript>
     <!-- End Clicky -->
     <!-- Intercom.io -->
     <script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/p51vy1rb';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()</script>
