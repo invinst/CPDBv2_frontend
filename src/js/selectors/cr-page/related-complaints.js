@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 import { compact } from 'lodash';
 
 import extractQuery from 'utils/extract-query';
+import { formatDate } from 'utils/date';
 
 
 const getRelatedComplaintsByCategory = state => state.crPage.relatedComplaints.relatedByCategory;
@@ -37,6 +38,7 @@ const cardTransform = (card) => ({
     ({ age, gender, race }) => compact([race, gender, age ? `Age ${age}` : null]).join(' ')
   ).join(', '),
   accused: card['coaccused'].join(', '),
+  incidentDate: formatDate(card['incident_date'], false),
 });
 
 const cardByCategorySelector = createSelector(
