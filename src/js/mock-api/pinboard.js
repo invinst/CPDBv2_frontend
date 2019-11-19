@@ -1,7 +1,7 @@
 import { has } from 'lodash';
 
-const emptyPinboard = {
-  'id': 'abcd1234',
+export const emptyPinboard = (id='abcd1234') => ({
+  'id': id,
   'title': '',
   'officer_ids': [],
   'crids': [],
@@ -16,7 +16,7 @@ const emptyPinboard = {
     'id': '22e66085',
     'title': 'Skullcap Crew',
   }],
-};
+});
 
 export const createPinboard = (id='5cd06f2b', officerIds=[1], crids=[], trrIds=[], notFoundItems) => {
   const withNotFoundItems = notFoundItems ? { 'not_found_items': notFoundItems } : {};
@@ -33,7 +33,7 @@ export const createPinboard = (id='5cd06f2b', officerIds=[1], crids=[], trrIds=[
 
 export const pinboardsList = [
   {
-    'id': '5cd06f2b',
+    'id': 'ceea8ea3',
     'title': 'Pinboard title',
     'created_at': '2019-09-12',
   },
@@ -94,19 +94,60 @@ const pinboards = {
     'trr_ids': [1234],
     'description': 'Description for 77edc128',
   },
-  'abcd1234': emptyPinboard,
+  'abcd5678': {
+    'id': 'abcd5678',
+    'title': 'Pinboard Title',
+    'officer_ids': [1],
+    'crids': [],
+    'trr_ids': [],
+    'description': 'Description for abcd5678',
+  },
+  'abcd8765': {
+    'id': 'abcd8765',
+    'title': 'Pinboard Title',
+    'officer_ids': [1],
+    'crids': [],
+    'trr_ids': [],
+    'description': 'Description for abcd8765',
+  },
+  'dcab5678': {
+    'id': 'dcab5678',
+    'title': 'Pinboard Title',
+    'officer_ids': [1],
+    'crids': [],
+    'trr_ids': [],
+    'description': 'Description for dcab5678',
+  },
+  'e25aa777': {
+    'id': 'e25aa777',
+    'title': '',
+    'officer_ids': [1],
+    'crids': [],
+    'trr_ids': [],
+    'description': 'Description for e25aa777',
+  },
+  'e25aa888': {
+    'id': 'e25aa888',
+    'title': '',
+    'officer_ids': [2],
+    'crids': [],
+    'trr_ids': [],
+    'description': 'Description for e25aa888',
+  },
+  'e25aa999': {
+    'id': 'e25aa999',
+    'title': '',
+    'officer_ids': [3],
+    'crids': [],
+    'trr_ids': [],
+    'description': 'Description for e25aa999',
+  },
+  'abcd1234': emptyPinboard(),
 };
 
 export function getOrCreateEmptyPinboard(pinboardId='5cd06f2b') {
   if (!has(pinboards, pinboardId)) {
-    pinboards[pinboardId] = {
-      'id': pinboardId,
-      'title': '',
-      'officer_ids': [],
-      'crids': [],
-      'trr_ids': [],
-      'description': '',
-    };
+    pinboards[pinboardId] = emptyPinboard(pinboardId);
   }
   return pinboards[pinboardId];
 }

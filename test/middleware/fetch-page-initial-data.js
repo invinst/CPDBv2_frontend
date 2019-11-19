@@ -2,6 +2,7 @@ import { Promise } from 'es6-promise';
 import { stub } from 'sinon';
 import * as _ from 'lodash';
 import extractQuery from 'utils/extract-query';
+import { CancelToken } from 'axios';
 
 import fetchPageInitialData from 'middleware/fetch-page-initial-data';
 import { changeOfficerId, fetchOfficerSummary, requestCreateOfficerZipFile } from 'actions/officer-page';
@@ -440,13 +441,14 @@ describe('fetchPageInitialData middleware', function () {
   it('should get all pinboard data if requesting ID equals ID in state', function () {
     const store = buildStore();
     _.set(store._state, 'pinboardPage.pinboard.id', '268a5e58');
+    _.set(store._state, 'pinboardPage.pinboard.hasPendingChanges', false);
+    _.set(store._state, 'pinboardPage.pinboard.officer_ids', [1]);
     const action = createLocationChangeAction('/pinboard/268a5e58/');
     let dispatched;
 
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
     store.dispatch.calledWith(redirect(false)).should.be.true();
-    store.dispatch.calledWith(fetchPinboard('268a5e58')).should.be.true();
     store.dispatch.calledWith(fetchPinboardComplaints('268a5e58')).should.be.true();
     store.dispatch.calledWith(fetchPinboardOfficers('268a5e58')).should.be.true();
     store.dispatch.calledWith(fetchPinboardTRRs('268a5e58')).should.be.true();
@@ -460,6 +462,7 @@ describe('fetchPageInitialData middleware', function () {
   });
 
   it('should dispatch redirect, fetchPinboard if requesting does not equal ID in state', function () {
+    const cancelTokenSource = stub(CancelToken, 'source');
     const store = buildStore();
     _.set(store._state, 'pinboardPage.pinboard.id', '268a5e58');
     const action = createLocationChangeAction('/pinboard/5cd06f2b/');
@@ -469,6 +472,7 @@ describe('fetchPageInitialData middleware', function () {
     dispatched.should.eql(action);
     store.dispatch.calledWith(redirect(true)).should.be.true();
     store.dispatch.calledWith(fetchPinboard('5cd06f2b')).should.be.true();
+    cancelTokenSource.restore();
   });
 
   it('should not dispatch fetchPinboard if requesting ID is not valid', function () {

@@ -14,7 +14,8 @@ describe('Pinboard reducer', function () {
       'trr_ids': [],
       'description': '',
       'saving': false,
-      'isPinboardRestored': false,
+      'needRefreshData': false,
+      'hasPendingChanges': false,
     });
   });
 
@@ -325,6 +326,10 @@ describe('Pinboard reducer', function () {
       'officer_ids': [1],
       crids: ['abc'],
       'trr_ids': [1],
+      hasPendingChanges: false,
+      isPinboardRestored: true,
+      needRefreshData: false,
+      saving: false,
     });
   });
 
@@ -340,6 +345,9 @@ describe('Pinboard reducer', function () {
     ).should.deepEqual({
       id: '66ef1560',
       isPinboardRestored: true,
+      hasPendingChanges: false,
+      needRefreshData: false,
+      saving: false,
     });
   });
 
@@ -842,6 +850,83 @@ describe('Pinboard reducer', function () {
       crids: [],
       'trr_ids': [1, 2, 3, 4],
       needRefreshData: false,
+    });
+  });
+
+  it('should handle SET_PINBOARD_HAS_PENDING_CHANGES', function () {
+    pinboardReducer(
+      {
+        id: '12345678',
+        title: 'Pinboard Title',
+        description: 'Pinboard Description',
+        'officer_ids': [10, 11, 12, 13, 14],
+        crids: [],
+        'trr_ids': [1, 2, 3, 4],
+      },
+      {
+        type: constants.SET_PINBOARD_HAS_PENDING_CHANGES,
+        payload: true,
+      },
+    ).should.deepEqual({
+      id: '12345678',
+      title: 'Pinboard Title',
+      description: 'Pinboard Description',
+      'officer_ids': [10, 11, 12, 13, 14],
+      crids: [],
+      'trr_ids': [1, 2, 3, 4],
+      hasPendingChanges: true,
+    });
+  });
+
+  it('should handle PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_START', function () {
+    pinboardReducer(
+      {
+        id: '12345678',
+        title: 'Pinboard Title',
+        description: 'Pinboard Description',
+        'officer_ids': [10, 11, 12, 13, 14],
+        crids: [],
+        'trr_ids': [1, 2, 3, 4],
+      },
+      {
+        type: constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_START,
+      },
+    ).should.deepEqual({
+      id: '12345678',
+      title: 'Pinboard Title',
+      description: 'Pinboard Description',
+      'officer_ids': [10, 11, 12, 13, 14],
+      crids: [],
+      'trr_ids': [1, 2, 3, 4],
+      saving: false,
+      needRefreshData: false,
+      hasPendingChanges: false,
+    });
+  });
+
+  it('should handle PINBOARD_FETCH_REQUEST_START', function () {
+    pinboardReducer(
+      {
+        id: '12345678',
+        title: 'Pinboard Title',
+        description: 'Pinboard Description',
+        'officer_ids': [10, 11, 12, 13, 14],
+        crids: [],
+        'trr_ids': [1, 2, 3, 4],
+      },
+      {
+        type: constants.PINBOARD_FETCH_REQUEST_START,
+      },
+    ).should.deepEqual({
+      id: '12345678',
+      title: 'Pinboard Title',
+      description: 'Pinboard Description',
+      'officer_ids': [10, 11, 12, 13, 14],
+      crids: [],
+      'trr_ids': [1, 2, 3, 4],
+      saving: false,
+      needRefreshData: false,
+      hasPendingChanges: false,
     });
   });
 });

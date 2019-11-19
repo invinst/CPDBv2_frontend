@@ -1,5 +1,7 @@
 import { Promise } from 'es6-promise';
 import { stub, useFakeTimers } from 'sinon';
+import { browserHistory } from 'react-router';
+import { CancelToken } from 'axios';
 
 import restoreCreateOrUpdatePinboard from 'middleware/restore-create-or-update-pinboard';
 import * as constants from 'utils/constants';
@@ -22,6 +24,10 @@ import {
   savePinboardWithoutChangingState,
   handleRemovingItemInPinboardPage,
   fetchLatestRetrievedPinboard,
+  setPinboardHasPendingChanges,
+  fetchPinboardOfficers,
+  fetchPinboardComplaints,
+  fetchPinboardTRRs,
 } from 'actions/pinboard';
 import PinboardFactory from 'utils/test/factories/pinboard';
 import { Toastify } from 'utils/vendors';
@@ -54,6 +60,14 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
       };
     },
     dispatch: stub().usingPromise(Promise).resolves(dispatchResults),
+  });
+
+  beforeEach(function () {
+    this.cancelTokenSource = stub(CancelToken, 'source');
+  });
+
+  afterEach(function () {
+    this.cancelTokenSource.restore();
   });
 
   it('should not dispatch any action if action is not adding or removing items', function () {
@@ -185,7 +199,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
     );
   });
 
-  it('should handle ADD_OR_REMOVE_ITEM_IN_PINBOARD and show adding toast', function () {
+  it('should handle ADD_OR_REMOVE_ITEM_IN_PINBOARD and show adding toast', function (done) {
     Toastify.toast.resetHistory();
 
     const action = {
@@ -196,7 +210,10 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
         isPinned: false,
       },
     };
-    const store = createStore(PinboardFactory.build());
+    const store = createStore(PinboardFactory.build({
+      'id': null,
+      'title': '',
+    }));
 
     let dispatched;
     restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
@@ -208,21 +225,32 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
       isPinned: false,
     }));
 
-    Toastify.toast.should.be.calledOnce();
-    Toastify.toast.should.be.calledWith('CR added', {
-      className: 'toast-wrapper added',
-      bodyClassName: 'toast-body',
-      transition: Toastify.cssTransition({
-        enter: 'toast-enter',
-        exit: 'toast-exit',
-        duration: 500,
-        appendPosition: true,
-      }),
-    });
+    setTimeout(
+      () => {
+        const browserHistoryPush = stub(browserHistory, 'push');
+        Toastify.toast.should.be.calledOnce();
+        Toastify.toast.getCall(0).args[0].should.eql('CR added');
+        Toastify.toast.getCall(0).args[1]['className'].should.eql('toast-wrapper added');
+        Toastify.toast.getCall(0).args[1]['bodyClassName'].should.eql('toast-body');
+        Toastify.toast.getCall(0).args[1]['transition'].should.eql(
+          Toastify.cssTransition({
+            enter: 'toast-enter',
+            exit: 'toast-exit',
+            duration: 500,
+            appendPosition: true,
+          }),
+        );
+        Toastify.toast.getCall(0).args[1]['onClick']();
+        browserHistoryPush.should.be.calledWith('/pinboard/');
+        browserHistoryPush.restore();
+        done();
+      },
+      50
+    );
     Toastify.toast.resetHistory();
   });
 
-  it('should handle ADD_OR_REMOVE_ITEM_IN_PINBOARD and show removing toast', function () {
+  it('should handle ADD_OR_REMOVE_ITEM_IN_PINBOARD and show removing toast', function (done) {
     Toastify.toast.resetHistory();
 
     const action = {
@@ -233,7 +261,10 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
         isPinned: true,
       },
     };
-    const store = createStore(PinboardFactory.build());
+    const store = createStore(PinboardFactory.build({
+      'id': '66ef1560',
+      'title': 'Pinboard Title',
+    }));
 
     let dispatched;
     restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
@@ -245,17 +276,28 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
       isPinned: true,
     }));
 
-    Toastify.toast.should.be.calledOnce();
-    Toastify.toast.should.be.calledWith('CR removed', {
-      className: 'toast-wrapper removed',
-      bodyClassName: 'toast-body',
-      transition: Toastify.cssTransition({
-        enter: 'toast-enter',
-        exit: 'toast-exit',
-        duration: 500,
-        appendPosition: true,
-      }),
-    });
+    setTimeout(
+      () => {
+        const browserHistoryPush = stub(browserHistory, 'push');
+        Toastify.toast.should.be.calledOnce();
+        Toastify.toast.getCall(0).args[0].should.eql('CR removed');
+        Toastify.toast.getCall(0).args[1]['className'].should.eql('toast-wrapper removed');
+        Toastify.toast.getCall(0).args[1]['bodyClassName'].should.eql('toast-body');
+        Toastify.toast.getCall(0).args[1]['transition'].should.eql(
+          Toastify.cssTransition({
+            enter: 'toast-enter',
+            exit: 'toast-exit',
+            duration: 500,
+            appendPosition: true,
+          }),
+        );
+        Toastify.toast.getCall(0).args[1]['onClick']();
+        browserHistoryPush.should.be.calledWith('/pinboard/66ef1560/pinboard-title/');
+        browserHistoryPush.restore();
+        done();
+      },
+      50
+    );
     Toastify.toast.resetHistory();
   });
 
@@ -329,6 +371,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
     let dispatched;
     restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
+    store.dispatch.should.be.calledWith(setPinboardHasPendingChanges(true));
 
     store.dispatch.should.be.calledWith(handleRemovingItemInPinboardPage({
       id: '123',
@@ -380,6 +423,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
               'officer_ids': [123, 456],
               'saving': false,
               'needRefreshData': true,
+              'hasPendingChanges': true,
             }),
             officerItems: {
               items: [],
@@ -426,6 +470,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
 
     setTimeout(
       () => {
+        store.dispatch.should.be.calledWith(setPinboardHasPendingChanges(false));
         store.dispatch.should.be.calledWith(fetchPinboardSocialGraph('66ef1560'));
         store.dispatch.should.be.calledWith(fetchPinboardGeographic());
         store.dispatch.should.be.calledWith(fetchFirstPagePinboardGeographicCrs({ 'pinboard_id': '66ef1560' }));
@@ -457,6 +502,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
       let dispatched;
       restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
       dispatched.should.eql(action);
+      store.dispatch.should.be.calledWith(setPinboardHasPendingChanges(true));
 
       store.dispatch.should.be.calledWith(createPinboard({
         id: null,
@@ -481,15 +527,19 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
         type: constants.SAVE_PINBOARD,
         payload: null,
       };
+
       const store = createStore(PinboardFactory.build({
         'id': '66ef1560',
         'officer_ids': [123, 456],
         'saving': false,
+        'hasPendingChanges': true,
       }));
 
       let dispatched;
       restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
       dispatched.should.eql(action);
+
+      store.dispatch.should.be.calledOnce();
 
       store.dispatch.should.be.calledWith(updatePinboard({
         id: '66ef1560',
@@ -525,6 +575,61 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
       dispatched.should.eql(action);
 
       store.dispatch.should.not.be.called();
+    });
+
+    it('should fetch pinboard pinned items if pinnedItemsRequested is false', function () {
+      const action = {
+        type: constants.SAVE_PINBOARD,
+        payload: PinboardFactory.build({
+          'id': '66ef1560',
+          'officer_ids': [123, 456],
+          'saving': false,
+          'needRefreshData': true,
+          'hasPendingChanges': true,
+        }),
+      };
+
+      const store = {
+        getState: () => {
+          return {
+            pinboardPage: {
+              pinboard: PinboardFactory.build({
+                'id': '66ef1560',
+                'officer_ids': [123, 456],
+                'saving': false,
+                'needRefreshData': true,
+                'hasPendingChanges': true,
+              }),
+              officerItems: {
+                items: [],
+                removingItems: ['123'],
+                requesting: false,
+              },
+              crItems: {
+                items: [],
+                removingItems: [],
+                requesting: false,
+              },
+              trrItems: {
+                items: [],
+                removingItems: [],
+                requesting: false,
+              },
+              pinnedItemsRequested: false,
+            },
+            pathname: '/pinboard/66ef1561/untitled/pinboard/',
+          };
+        },
+        dispatch: stub().usingPromise(Promise).resolves('abc'),
+      };
+
+      let dispatched;
+      restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
+      dispatched.should.eql(action);
+
+      store.dispatch.should.be.calledWith(fetchPinboardOfficers('66ef1560'));
+      store.dispatch.should.be.calledWith(fetchPinboardComplaints('66ef1560'));
+      store.dispatch.should.be.calledWith(fetchPinboardTRRs('66ef1560'));
     });
 
     it('should dispatch updatePinboard when not up to date', function (done) {
@@ -576,13 +681,15 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
         'id': '66ef1560',
         'officer_ids': [123, 456],
         'saving': false,
+        'hasPendingChanges': true,
       }));
 
       let dispatched;
       restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
       dispatched.should.eql(action);
 
-      store.dispatch.should.not.be.called();
+      store.dispatch.should.be.calledOnce();
+      store.dispatch.should.be.calledWith(setPinboardHasPendingChanges(false));
     });
 
     it('should fetch data at end the loop when being on the pinboard page', function () {
@@ -599,6 +706,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
           'officer_ids': [123, 456],
           'saving': false,
           'needRefreshData': true,
+          'hasPendingChanges': true,
         }),
         '/pinboard/66ef1560/'
       );
@@ -606,6 +714,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
       let dispatched;
       restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
       dispatched.should.eql(action);
+      store.dispatch.should.be.calledWith(setPinboardHasPendingChanges(false));
 
       store.dispatch.should.be.calledWith(fetchPinboardSocialGraph('66ef1560'));
       store.dispatch.should.be.calledWith(fetchPinboardGeographic());
@@ -630,6 +739,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
                 'id': '66ef1560',
                 'officer_ids': [123, 456],
                 'saving': false,
+                'hasPendingChanges': true,
               }),
               officerItems: {
                 items: [],
@@ -696,6 +806,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
                 'id': '66ef1560',
                 'officer_ids': [123, 456],
                 'saving': false,
+                'hasPendingChanges': true,
               }),
             },
           };
@@ -713,6 +824,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
                 'id': '66ef1560',
                 'officer_ids': [123, 456],
                 'saving': false,
+                'hasPendingChanges': true,
               }),
             },
           };
@@ -742,76 +854,6 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
 
       repeatSave(0);
     });
-  });
-
-  it('should handle @@router/LOCATION_CHANGE and dispatch createPinboard', function (done) {
-    const action = {
-      type: '@@router/LOCATION_CHANGE',
-      payload: {
-        pathname: 'pinboard/abcd1234/',
-      },
-    };
-    const store = createStore(PinboardFactory.build({
-      'id': null,
-      'officer_ids': [123, 456],
-      'saving': true,
-    }));
-
-    let dispatched;
-    restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
-    dispatched.should.eql(action);
-
-    store.dispatch.should.be.calledWith(createPinboard({
-      id: null,
-      title: '',
-      description: '',
-      officerIds: ['123', '456'],
-      crids: [],
-      trrIds: [],
-    }));
-
-    setTimeout(
-      () => {
-        store.dispatch.should.be.calledWith(savePinboard());
-        done();
-      },
-      50
-    );
-  });
-
-  it('should handle @@router/LOCATION_CHANGE and dispatch updatePinboard', function (done) {
-    const action = {
-      type: '@@router/LOCATION_CHANGE',
-      payload: {
-        pathname: 'pinboard/abcd1234/',
-      },
-    };
-    const store = createStore(PinboardFactory.build({
-      'id': '66ef1560',
-      'officer_ids': [123, 456],
-      'saving': true,
-    }));
-
-    let dispatched;
-    restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
-    dispatched.should.eql(action);
-
-    store.dispatch.should.be.calledWith(updatePinboard({
-      id: '66ef1560',
-      title: '',
-      description: '',
-      officerIds: ['123', '456'],
-      crids: [],
-      trrIds: [],
-    }));
-
-    setTimeout(
-      () => {
-        store.dispatch.should.be.calledWith(savePinboard());
-        done();
-      },
-      50
-    );
   });
 
   it('should handle @@router/LOCATION_CHANGE and do nothing if not saving and isPinboardRestored', function () {

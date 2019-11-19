@@ -30,7 +30,7 @@ export const authenticatedGet = getWithConfig(authorizationHeaders);
 
 export const withoutCredentialsGet = getWithConfig(() => ({ withCredentials: false }));
 
-const postWithConfig = (config=() => ({})) => (url, types) => ((data, adapter=getMockAdapter()) => ({
+const postWithConfig = (config=() => ({})) => (url, types, cancelToken) => ((data, adapter=getMockAdapter()) => ({
   types,
   payload: {
     request: {
@@ -38,6 +38,7 @@ const postWithConfig = (config=() => ({})) => (url, types) => ((data, adapter=ge
       url,
       data,
       adapter,
+      cancelToken,
       ...config(),
     },
   },
@@ -64,7 +65,7 @@ export const patch = patchWithConfig();
 
 export const authenticatedPatch = patchWithConfig(authorizationHeaders);
 
-const putWithConfig = (config=() => ({})) => (url, types) => ((data, adapter=getMockAdapter()) => ({
+const putWithConfig = (config=() => ({})) => (url, types, cancelToken) => ((data, adapter=getMockAdapter()) => ({
   types,
   payload: {
     request: {
@@ -72,6 +73,7 @@ const putWithConfig = (config=() => ({})) => (url, types) => ((data, adapter=get
       url,
       data,
       adapter,
+      cancelToken,
       ...config(),
     },
   },

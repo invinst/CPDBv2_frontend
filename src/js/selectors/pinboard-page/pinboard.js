@@ -1,7 +1,7 @@
-import { every, get, isEmpty, map, includes } from 'lodash';
+import { get, isEmpty, map, includes } from 'lodash';
 import { createSelector } from 'reselect';
 
-import { generatePinboardUrl } from 'utils/pinboard';
+import { generatePinboardUrl, isEmptyPinboard } from 'utils/pinboard';
 
 
 const countPinnedItems = pinboard => {
@@ -25,7 +25,13 @@ export const getPinboard = createSelector(
     url: generatePinboardUrl(pinboard),
     itemsCount: countPinnedItems(pinboard),
     isPinboardRestored: get(pinboard, 'isPinboardRestored', false),
+    hasPendingChanges: get(pinboard, 'hasPendingChanges', false),
   })
+);
+
+export const hasPendingChangesSelector = createSelector(
+  state => get(state, 'pinboardPage.pinboard', {}),
+  pinboard => get(pinboard, 'hasPendingChanges', false),
 );
 
 export const isPinboardRestoredSelector = createSelector(
@@ -50,10 +56,19 @@ export const pinboardICRIDsSelector = createSelector(
 );
 
 export const getInitialRequested = state => get(state, 'pinboardPage.initialRequested', false);
+const getPinnedItemsRequested = state => get(state, 'pinboardPage.pinnedItemsRequested', false);
+export const pinboardPageLoadingSelector = createSelector(
+  getPinboard,
+  getPinnedItemsRequested,
+  (pinboard, pinnedItemsRequested) => {
+    return (isEmpty(pinboard.id) && pinboard.hasPendingChanges)
+      || (!isEmpty(pinboard.id) && pinboard.hasPendingChanges && !pinnedItemsRequested);
+  }
+);
 
 export const isEmptyPinboardSelector = createSelector(
   getPinboard,
-  ({ officerIds, crids, trrIds }) => every([officerIds, crids, trrIds], isEmpty)
+  isEmptyPinboard,
 );
 
 export const examplePinboardsSelector = createSelector(

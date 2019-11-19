@@ -22,6 +22,7 @@ module.exports = Object.assign({}, baseConfig, {
         'GA_TRACKING_ID': 'UA-XXXXX-Y',
         'INTERCOM_ID': 'gbsby1ik',
         'DISABLE_SEARCH_INDEX': true,
+        'CLICKY_TRACKING_ID': '000000000',
       }
     })
   ]
