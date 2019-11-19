@@ -25,8 +25,22 @@ class ComplaintCard extends Component {
     }
   }
 
+  renderSection(label, text, subLabel) {
+    return (
+      <div className='section'>
+        <div className='section-label'>
+          <span>{ label }</span>
+          { subLabel && <span className='section-sub-label'>{ subLabel }</span> }
+        </div>
+        <div className='section-content nowrap-text'>{ text }</div>
+      </div>
+    );
+  }
+
   render() {
-    const { crid, lat, lon, categories, complainants, accused, addOrRemoveItemInPinboard, isPinned } = this.props;
+    const {
+      crid, lat, lon, categories, complainants, accused, addOrRemoveItemInPinboard, isPinned, incidentDate,
+    } = this.props;
 
     return (
       <Link
@@ -46,28 +60,9 @@ class ComplaintCard extends Component {
         />
         <div className='complaint-card-map' style={ mapStyle(lat, lon) } />
         <div className='content'>
-          <div className='section'>
-            <div className='section-label'>CR { crid }</div>
-            <div className='section-content nowrap-text'>{ categories }</div>
-          </div>
-          {
-            complainants
-              ? (
-                <div className='section test--carousel-complainant'>
-                  <div className='section-label'>Complainant</div>
-                  <div className='section-content nowrap-text'>{ complainants }</div>
-                </div>
-              ) : null
-          }
-          {
-            accused
-              ? (
-                <div className='section test--carousel-accused'>
-                  <div className='section-label'>Accused</div>
-                  <div className='section-content accused'>{ accused }</div>
-                </div>
-              ) : null
-          }
+          { this.renderSection(`CR ${ crid }`, categories, incidentDate) }
+          { complainants && this.renderSection('Complainant', complainants) }
+          { accused && this.renderSection('Accused', accused) }
         </div>
       </Link>
     );
@@ -85,6 +80,7 @@ ComplaintCard.propTypes = {
   sourceCRID: PropTypes.string,
   addOrRemoveItemInPinboard: PropTypes.func,
   isPinned: PropTypes.bool,
+  incidentDate: PropTypes.string,
 };
 
 export { itemWidth } from './complaint-card.style';
