@@ -10,6 +10,7 @@ import {
   ORDER_PINBOARD,
   SAVE_PINBOARD,
   UPDATE_PINBOARD_INFO,
+  PINBOARD_UPDATE_FROM_SOURCE_REQUEST_SUCCESS,
 } from 'utils/constants';
 import {
   createPinboard,
@@ -204,6 +205,14 @@ export default store => next => action => {
         }
       }
     }
+  }
+
+  if (action.type === PINBOARD_UPDATE_FROM_SOURCE_REQUEST_SUCCESS) {
+    const state = store.getState();
+    const pinboardId = state.pinboardPage.pinboard.id;
+
+    dispatchFetchPinboardPinnedItems(store, pinboardId);
+    dispatchFetchPinboardPageData(store, pinboardId);
   }
 
   if (action.type === '@@router/LOCATION_CHANGE') {

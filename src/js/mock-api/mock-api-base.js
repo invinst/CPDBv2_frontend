@@ -733,6 +733,37 @@ axiosMockClient.onGet(
   200, recentSearchItems,
 );
 
+const updatedFromSourceFirstExamplePinboard = {
+  'id': 'abcd1234',
+  'title': 'Watts Crew',
+  'officer_ids': [1],
+  'crids': [],
+  'trr_ids': [],
+  'description': 'Officers with at least 10 complaints against them generate 64% of all complaints.',
+};
+const updatedFromSourceSecondExamplePinboard = {
+  'id': 'abcd1234',
+  'title': 'Skullcap Crew',
+  'officer_ids': [2],
+  'crids': [],
+  'trr_ids': [],
+  'description': 'Skullcap Crew is a nickname given to a group of five Chicago Police officers in a gang...',
+};
+axiosMockClient.onPut(
+  `${PINBOARDS_URL}abcd1234/`,
+  { 'source_pinboard_id': 'b20c2c36' }
+).reply((config) => {
+  return [200, updatedFromSourceFirstExamplePinboard];
+});
+
+axiosMockClient.onPut(
+  `${PINBOARDS_URL}abcd1234/`,
+  { 'source_pinboard_id': '22e66085' }
+).reply((config) => {
+  return [200, updatedFromSourceSecondExamplePinboard];
+});
+axiosMockClient.onGet(`${PINBOARDS_URL}abcd1234/officers/`).reply(200, fetchPinboardOfficers());
+
 axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/trrs/`).reply(200, fetchPinboardTRRs());
 
 axiosMockClient.onPost(`${PINBOARDS_URL}`).reply(201, createPinboard());

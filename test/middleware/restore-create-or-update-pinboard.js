@@ -1218,5 +1218,65 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
 
       store.dispatch.should.be.calledWith(fetchLatestRetrievedPinboard({ create: false }));
     });
+
+    it('should handle PINBOARD_UPDATE_FROM_SOURCE_REQUEST_SUCCESS', function () {
+      const action = {
+        type: constants.PINBOARD_UPDATE_FROM_SOURCE_REQUEST_SUCCESS,
+        payload: PinboardFactory.build({
+          'id': '66ef1560',
+          'officer_ids': [123, 456],
+          'saving': false,
+          'needRefreshData': true,
+          'hasPendingChanges': false,
+        }),
+      };
+
+      const store = {
+        getState: () => {
+          return {
+            pinboardPage: {
+              pinboard: PinboardFactory.build({
+                'id': '66ef1560',
+                'officer_ids': [123, 456],
+                'saving': false,
+                'needRefreshData': true,
+                'hasPendingChanges': false,
+              }),
+              officerItems: {
+                items: [],
+                removingItems: ['123'],
+                requesting: false,
+              },
+              crItems: {
+                items: [],
+                requesting: false,
+              },
+              trrItems: {
+                items: [],
+                requesting: false,
+              },
+              pinnedItemsRequested: false,
+            },
+            pathname: '/pinboard/66ef1561/untitled/pinboard/',
+          };
+        },
+        dispatch: stub().usingPromise(Promise).resolves('abc'),
+      };
+
+      let dispatched;
+      restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
+      dispatched.should.eql(action);
+
+      store.dispatch.should.be.calledWith(fetchPinboardOfficers('66ef1560'));
+      store.dispatch.should.be.calledWith(fetchPinboardComplaints('66ef1560'));
+      store.dispatch.should.be.calledWith(fetchPinboardTRRs('66ef1560'));
+      store.dispatch.should.be.calledWith(fetchPinboardSocialGraph('66ef1560'));
+      store.dispatch.should.be.calledWith(fetchPinboardGeographic());
+      store.dispatch.should.be.calledWith(fetchFirstPagePinboardGeographicCrs({ 'pinboard_id': '66ef1560' }));
+      store.dispatch.should.be.calledWith(fetchFirstPagePinboardGeographicTrrs({ 'pinboard_id': '66ef1560' }));
+      store.dispatch.should.be.calledWith(fetchPinboardRelevantDocuments('66ef1560'));
+      store.dispatch.should.be.calledWith(fetchPinboardRelevantCoaccusals('66ef1560'));
+      store.dispatch.should.be.calledWith(fetchPinboardRelevantComplaints('66ef1560'));
+    });
   });
 });

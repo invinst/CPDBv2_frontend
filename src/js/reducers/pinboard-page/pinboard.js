@@ -30,7 +30,6 @@ export default handleActions({
     ...DEFAULT_PINBOARD_STATUSES,
   }),
   [constants.PINBOARD_FETCH_REQUEST_SUCCESS]: (state, action) => ({
-    ...state,
     ...action.payload,
     ...DEFAULT_PINBOARD_STATUSES,
     isPinboardRestored: true,
@@ -40,7 +39,6 @@ export default handleActions({
     ...DEFAULT_PINBOARD_STATUSES,
   }),
   [constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_SUCCESS]: (state, action) => ({
-    ...state,
     ...action.payload,
     ...DEFAULT_PINBOARD_STATUSES,
     isPinboardRestored: true,
@@ -78,6 +76,13 @@ export default handleActions({
       saving: false,
       hasPendingChanges: hasPendingChanges(state, action.payload),
       'example_pinboards': action.payload['example_pinboards'],
+    };
+  },
+  [constants.PINBOARD_UPDATE_FROM_SOURCE_REQUEST_SUCCESS]: (state, action) => {
+    return {
+      ...action.payload,
+      ...DEFAULT_PINBOARD_STATUSES,
+      isPinboardRestored: true,
     };
   },
   [constants.PINBOARD_UPDATE_REQUEST_FAILURE]: (state, action) => {

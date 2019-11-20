@@ -221,6 +221,62 @@ describe('Pinboard reducer', function () {
     });
   });
 
+  it('should handle PINBOARD_UPDATE_FROM_SOURCE_REQUEST_SUCCESS', function () {
+    pinboardReducer(
+      {
+        'id': '66ef1560',
+        'title': '',
+        'officer_ids': [],
+        'crids': [],
+        'trr_ids': [],
+        'description': '',
+        'saving': true,
+        'isPinboardRestored': false,
+        hasPendingChanges: false,
+      },
+      {
+        type: constants.PINBOARD_UPDATE_FROM_SOURCE_REQUEST_SUCCESS,
+        payload: {
+          id: '66ef1560',
+          title: 'Title',
+          description: 'Description',
+          'officer_ids': [1],
+          crids: ['abc'],
+          'trr_ids': [1],
+          'example_pinboards': [{
+            id: '66ef1561',
+            title: 'Pinboard 1',
+            description: 'Description 1',
+          }, {
+            id: '66ef1562',
+            title: 'Pinboard 2',
+            description: 'Description 2',
+          }],
+        },
+      }
+    ).should.deepEqual({
+      id: '66ef1560',
+      title: 'Title',
+      description: 'Description',
+      'officer_ids': [1],
+      crids: ['abc'],
+      'trr_ids': [1],
+      'example_pinboards': [{
+        id: '66ef1561',
+        title: 'Pinboard 1',
+        description: 'Description 1',
+      }, {
+        id: '66ef1562',
+        title: 'Pinboard 2',
+        description: 'Description 2',
+      }],
+      saving: false,
+      needRefreshData: false,
+      hasPendingChanges: false,
+      isPinboardRestored: true,
+    });
+  });
+
   it('should handle PINBOARD_UPDATE_REQUEST_FAILURE', function () {
     pinboardReducer(
       {
