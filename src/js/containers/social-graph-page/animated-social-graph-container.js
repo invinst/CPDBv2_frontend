@@ -12,9 +12,7 @@ import {
   updateSocialGraphSelectedEdge,
 } from 'actions/social-graph-page';
 import {
-  officersSelector,
-  coaccusedDataSelector,
-  getListEvent,
+  graphDataSelector,
   getSelectedOfficerId,
   selectedEdgeDataSelector,
   getRequesting,
@@ -22,12 +20,13 @@ import {
 
 
 function mapStateToProps(state, ownProps) {
+  const graphData = graphDataSelector(state);
   return {
     performResizeGraph: ownProps.performResizeGraph,
     customRightControlButton: ownProps.customRightControlButton,
-    officers: officersSelector(state),
-    coaccusedData: coaccusedDataSelector(state),
-    listEvent: getListEvent(state),
+    officers: graphData.officers,
+    coaccusedData: graphData.coaccusedData,
+    listEvent: graphData.listEvent,
     timelineIdx: getSocialGraphTimelineIdx(state),
     refreshIntervalId: getSocialGraphRefreshIntervalId(state),
     selectedOfficerId: getSelectedOfficerId(state),

@@ -5,7 +5,6 @@ import {
   isEmptyPinboardSelector,
   examplePinboardsSelector,
   isItemPinned,
-  currentPinboardIdSelector,
 } from 'selectors/pinboard-page/pinboard';
 import PinboardFactory from 'utils/test/factories/pinboard';
 
@@ -268,25 +267,6 @@ describe('Pinboard selectors', function () {
 
     it('should return false if item was not added to pinboard', function () {
       isItemPinned('CR', '123456', pinboardItems).should.be.false();
-    });
-  });
-
-  describe('currentPinboardIdSelector', function () {
-    it('should return current pinboard Id', function () {
-      const state = {
-        pinboardPage: {
-          pinboard: PinboardFactory.build({
-            id: 'abcd1234',
-            title: 'Pinboard Title',
-            'officer_ids': [12],
-            crids: ['abc'],
-            'trr_ids': [1],
-            description: 'Description',
-            isPinboardRestored: false,
-          }),
-        },
-      };
-      currentPinboardIdSelector(state).should.equal('abcd1234');
     });
   });
 });

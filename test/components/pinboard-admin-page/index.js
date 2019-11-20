@@ -25,14 +25,25 @@ describe('PinboardAdminPage', function () {
   });
 
   it('should render correctly', function () {
-    const pinboards = [{ id: 1, kind: PINBOARDS_SEARCH_ITEMS.PINBOARD, officerIds: [123] }];
+    const pinboards = [
+      {
+        id: 'abcd1234',
+        kind: PINBOARDS_SEARCH_ITEMS.PINBOARD,
+        officerIds: [123],
+      },
+    ];
     const hasMore = random.boolean();
     const nextParams = { offset: 20, limit: 30 };
     const fetchPinboards = spy();
-    const fetchPinboardSocialGraph = spy();
+    const fetchPinboardStaticSocialGraph = spy();
     const cachedDataIDs = ['aaaa1111', 'bbbb2222'];
     const store = MockStore()({
-      pinboardPage: { graphData: { cachedData: {} } },
+      pinboardAdminPage: {
+        graphData: {
+          cachedData: {},
+          requesting: false,
+        },
+      },
       breadcrumb: {
         breadcrumbs: [],
       },
@@ -45,7 +56,7 @@ describe('PinboardAdminPage', function () {
           hasMore={ hasMore }
           nextParams={ nextParams }
           fetchPinboards={ fetchPinboards }
-          fetchPinboardSocialGraph={ fetchPinboardSocialGraph }
+          fetchPinboardStaticSocialGraph={ fetchPinboardStaticSocialGraph }
           isLoading={ true }
           cachedDataIDs={ cachedDataIDs }
         />
@@ -71,7 +82,7 @@ describe('PinboardAdminPage', function () {
     previewPane.props.customClass.should.equal('preview-pane');
     previewPane.props.yScrollable.should.be.true();
     previewPane.props.dynamicHeight.should.be.true();
-    previewPane.props.fetchPinboardSocialGraph.should.eql(fetchPinboardSocialGraph);
+    previewPane.props.fetchPinboardStaticSocialGraph.should.eql(fetchPinboardStaticSocialGraph);
     previewPane.props.cachedDataIDs.should.eql(cachedDataIDs);
     previewPane.props.type.should.equal('PINBOARD');
     previewPane.props.data.should.be.empty();

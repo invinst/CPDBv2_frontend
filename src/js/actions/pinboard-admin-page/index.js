@@ -3,9 +3,12 @@ import {
   ALL_PINBOARD_REQUEST_START,
   ALL_PINBOARD_REQUEST_SUCCESS,
   ALL_PINBOARD_URL,
+  SOCIAL_GRAPH_NETWORK_API_URL,
+  PINBOARD_STATIC_SOCIAL_GRAPH_FETCH_REQUEST_START,
+  PINBOARD_STATIC_SOCIAL_GRAPH_FETCH_REQUEST_SUCCESS,
+  PINBOARD_STATIC_SOCIAL_GRAPH_FETCH_REQUEST_FAILURE,
 } from 'utils/constants';
-import { authenticatedGet } from 'actions/common/async-action';
-
+import { authenticatedGet, get } from 'actions/common/async-action';
 
 export const fetchAllPinboards = params => authenticatedGet(
   ALL_PINBOARD_URL,
@@ -15,3 +18,12 @@ export const fetchAllPinboards = params => authenticatedGet(
     ALL_PINBOARD_REQUEST_FAILURE,
   ]
 )(params);
+
+export const fetchPinboardStaticSocialGraph = id => get(
+  SOCIAL_GRAPH_NETWORK_API_URL,
+  [
+    PINBOARD_STATIC_SOCIAL_GRAPH_FETCH_REQUEST_START,
+    PINBOARD_STATIC_SOCIAL_GRAPH_FETCH_REQUEST_SUCCESS,
+    PINBOARD_STATIC_SOCIAL_GRAPH_FETCH_REQUEST_FAILURE,
+  ]
+)({ 'pinboard_id': id, 'static': true });

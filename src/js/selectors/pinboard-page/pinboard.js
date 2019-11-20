@@ -15,11 +15,6 @@ const countPinnedItems = pinboard => {
     get(pinboard, 'trr_ids', []).length;
 };
 
-export const currentPinboardIdSelector = createSelector(
-  getRawPinboard,
-  pinboard => pinboard.id,
-);
-
 export const getPinboard = createSelector(
   getRawPinboard,
   pinboard => ({

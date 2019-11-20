@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { fetchAllPinboards } from 'actions/pinboard-admin-page';
-import { fetchPinboardSocialGraph } from 'actions/pinboard';
+import { fetchPinboardStaticSocialGraph } from 'actions/pinboard-admin-page';
 import PinboardAdminPage from 'components/pinboard-admin-page';
 import {
   allPinboardsSelector,
@@ -9,7 +9,7 @@ import {
   hasMoreSelector,
   getIsLoading,
 } from 'selectors/pinboard-admin-page';
-import { cachedDataIDsSelector } from 'selectors/pinboard-page/social-graph';
+import { cachedDataIDsSelector } from 'selectors/pinboard-admin-page/social-graph';
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -23,7 +23,7 @@ function mapStateToProps(state, ownProps) {
 
 const mapDispatchToProps = {
   fetchPinboards: fetchAllPinboards,
-  fetchPinboardSocialGraph,
+  fetchPinboardStaticSocialGraph,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PinboardAdminPage);

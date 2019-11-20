@@ -283,7 +283,10 @@ describe('store', function () {
           title: '',
           'trr_ids': [],
         },
-        graphData: { requesting: false, cachedData: [] },
+        graphData: {
+          requesting: false,
+          data: {},
+        },
         geographicData: {
           clearAllMarkers: false,
           mapCrsData: [],
@@ -336,6 +339,10 @@ describe('store', function () {
           pagination: { next: null, previous: null },
         },
         isLoading: false,
+        graphData: {
+          requesting: false,
+          cachedData: [],
+        },
       },
       videoModal: {
         active: false,

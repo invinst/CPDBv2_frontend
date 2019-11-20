@@ -9,21 +9,21 @@ import {
   OneLineListWidget,
 } from '../widgets';
 import styles from './pinboard-pane.sass';
-import StaticSocialGraphContainer from 'containers/pinboard-page/static-social-graph-container';
+import StaticSocialGraphContainer from 'containers/pinboard-admin-page/static-social-graph-container';
 import { generatePinboardUrl } from 'utils/pinboard';
 
 
 export default class PinboardPane extends Component {
   componentDidMount() {
-    this.fetchPinboardSocialGraph(this.props);
+    this.fetchPinboardStaticSocialGraph(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.fetchPinboardSocialGraph(nextProps);
+    this.fetchPinboardStaticSocialGraph(nextProps);
   }
 
-  fetchPinboardSocialGraph({ id, fetchPinboardSocialGraph, cachedDataIDs }) {
-    !isNil(id) && !includes(cachedDataIDs, id) && fetchPinboardSocialGraph(id);
+  fetchPinboardStaticSocialGraph({ id, fetchPinboardStaticSocialGraph, cachedDataIDs }) {
+    !isNil(id) && !includes(cachedDataIDs, id) && fetchPinboardStaticSocialGraph(id);
   }
 
   render() {
@@ -93,10 +93,10 @@ PinboardPane.propTypes = {
   recentOfficers: PropTypes.array,
   recentAllegations: PropTypes.array,
   recentTrrs: PropTypes.array,
-  fetchPinboardSocialGraph: PropTypes.func,
+  fetchPinboardStaticSocialGraph: PropTypes.func,
   cachedDataIDs: PropTypes.array,
 };
 
 PinboardPane.defaultProps = {
-  fetchPinboardSocialGraph: () => {},
+  fetchPinboardStaticSocialGraph: () => {},
 };

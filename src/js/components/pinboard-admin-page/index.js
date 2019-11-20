@@ -32,7 +32,7 @@ export default class PinboardAdminPage extends Component {
       nextParams,
       fetchPinboards,
       isLoading,
-      fetchPinboardSocialGraph,
+      fetchPinboardStaticSocialGraph,
       cachedDataIDs,
     } = this.props;
     const { focusedItem, isShowingPreviewPane } = this.state;
@@ -54,7 +54,7 @@ export default class PinboardAdminPage extends Component {
           customClass='preview-pane'
           yScrollable={ true }
           dynamicHeight={ true }
-          fetchPinboardSocialGraph={ fetchPinboardSocialGraph }
+          fetchPinboardStaticSocialGraph={ fetchPinboardStaticSocialGraph }
           cachedDataIDs={ cachedDataIDs }
           type='PINBOARD'
           data={ focusedItem }
@@ -70,7 +70,7 @@ PinboardAdminPage.propTypes = {
   nextParams: PropTypes.object,
   fetchPinboards: PropTypes.func,
   isLoading: PropTypes.bool,
-  fetchPinboardSocialGraph: PropTypes.func,
+  fetchPinboardStaticSocialGraph: PropTypes.func,
   cachedDataIDs: PropTypes.array,
 };
 

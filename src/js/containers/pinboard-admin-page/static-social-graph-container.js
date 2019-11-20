@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { graphDataSelector, getSocialGraphRequesting } from 'selectors/pinboard-page/social-graph';
+import { graphDataSelector, getSocialGraphRequesting } from 'selectors/pinboard-admin-page/social-graph';
 import { SocialGraphWithSpinner } from 'components/common/animated-social-graph/social-graph';
 
 
@@ -12,7 +12,7 @@ function mapStateToProps(state, ownProps) {
     officers: data.officers,
     coaccusedData: data.coaccusedData,
     listEvent: data.listEvent,
-    timelineIdx: data.listEvent.length - 1,
+    timelineIdx: 0,
     requesting: getSocialGraphRequesting(state),
   };
 }

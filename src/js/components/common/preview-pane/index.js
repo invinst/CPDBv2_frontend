@@ -95,7 +95,7 @@ PreviewPane.propTypes = {
   yScrollable: PropTypes.bool,
   dynamicHeight: PropTypes.bool,
   addOrRemoveItemInPinboard: PropTypes.func,
-  fetchPinboardSocialGraph: PropTypes.func,
+  fetchPinboardStaticSocialGraph: PropTypes.func,
   isShown: PropTypes.bool,
 };
 
@@ -103,7 +103,7 @@ PreviewPane.defaultProps = {
   data: {},
   yScrollable: false,
   addOrRemoveItemInPinboard: noop,
-  fetchPinboardSocialGraph: noop,
+  fetchPinboardStaticSocialGraph: noop,
   dynamicHeight: false,
   isShown: true,
 };

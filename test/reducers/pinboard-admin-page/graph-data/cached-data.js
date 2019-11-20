@@ -1,7 +1,7 @@
 import should from 'should';
 
-import cachedDataReducer from 'reducers/pinboard-page/graph-data/cached-data';
-import { PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_SUCCESS } from 'utils/constants';
+import cachedDataReducer from 'reducers/pinboard-admin-page/graph-data/cached-data';
+import { PINBOARD_STATIC_SOCIAL_GRAPH_FETCH_REQUEST_SUCCESS } from 'utils/constants';
 
 
 describe('cachedDataReducer', function () {
@@ -9,7 +9,7 @@ describe('cachedDataReducer', function () {
     should(cachedDataReducer(undefined, {})).be.empty();
   });
 
-  it('should handle PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_SUCCESS', function () {
+  it('should handle PINBOARD_STATIC_SOCIAL_GRAPH_FETCH_REQUEST_SUCCESS', function () {
     cachedDataReducer(
       [
         {
@@ -19,7 +19,7 @@ describe('cachedDataReducer', function () {
         },
       ],
       {
-        type: PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_SUCCESS,
+        type: PINBOARD_STATIC_SOCIAL_GRAPH_FETCH_REQUEST_SUCCESS,
         request: {
           params: { 'pinboard_id': 'abcd1234' },
         },
@@ -70,9 +70,34 @@ describe('cachedDataReducer', function () {
           description: '',
           'pinboard_id': 'cdef6785',
         },
+        {
+          title: 'Cached Pinboard Title',
+          description: '',
+          'pinboard_id': 'cdef6786',
+        },
+        {
+          title: 'Cached Pinboard Title',
+          description: '',
+          'pinboard_id': 'cdef6787',
+        },
+        {
+          title: 'Cached Pinboard Title',
+          description: '',
+          'pinboard_id': 'cdef6788',
+        },
+        {
+          title: 'Cached Pinboard Title',
+          description: '',
+          'pinboard_id': 'cdef6789',
+        },
+        {
+          title: 'Cached Pinboard Title',
+          description: '',
+          'pinboard_id': 'cdef6790',
+        },
       ],
       {
-        type: PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_SUCCESS,
+        type: PINBOARD_STATIC_SOCIAL_GRAPH_FETCH_REQUEST_SUCCESS,
         request: {
           params: { 'pinboard_id': 'abcd1234' },
         },
@@ -101,6 +126,31 @@ describe('cachedDataReducer', function () {
         title: 'Cached Pinboard Title',
         description: '',
         'pinboard_id': 'cdef6785',
+      },
+      {
+        title: 'Cached Pinboard Title',
+        description: '',
+        'pinboard_id': 'cdef6786',
+      },
+      {
+        title: 'Cached Pinboard Title',
+        description: '',
+        'pinboard_id': 'cdef6787',
+      },
+      {
+        title: 'Cached Pinboard Title',
+        description: '',
+        'pinboard_id': 'cdef6788',
+      },
+      {
+        title: 'Cached Pinboard Title',
+        description: '',
+        'pinboard_id': 'cdef6789',
+      },
+      {
+        title: 'Cached Pinboard Title',
+        description: '',
+        'pinboard_id': 'cdef6790',
       },
       {
         title: 'Pinboard Title',

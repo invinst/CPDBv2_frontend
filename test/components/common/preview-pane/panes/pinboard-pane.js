@@ -10,7 +10,7 @@ import { stub, spy } from 'sinon';
 
 import { reRender, unmountComponentSuppressError } from 'utils/test';
 import { PinboardPane } from 'components/common/preview-pane/panes';
-import StaticSocialGraphContainer from 'containers/pinboard-page/static-social-graph-container';
+import StaticSocialGraphContainer from 'containers/pinboard-admin-page/static-social-graph-container';
 import {
   ListWidget,
   OneLineListWidget,
@@ -29,9 +29,10 @@ describe('PinboardPane component', function () {
 
   it('should render correctly', function () {
     const store = MockStore()({
-      pinboardPage: {
+      pinboardAdminPage: {
         graphData: {
-          cachedData: {},
+          data: {},
+          requesting: false,
         },
       },
     });
@@ -147,133 +148,138 @@ describe('PinboardPane component', function () {
     listWidgets[2].props.collapsable.should.be.true();
   });
 
-  it('should fetchPinboardSocialGraph when mounted', function () {
+  it('should fetchPinboardStaticSocialGraph when mounted', function () {
     const store = MockStore()({
-      pinboardPage: {
+      pinboardAdminPage: {
         graphData: {
           cachedData: {},
+          requesting: false,
         },
       },
     });
-    const stubFetchPinboardSocialGraph = stub();
+    const stubFetchPinboardStaticSocialGraph = stub();
 
     instance = renderIntoDocument(
       <Provider store={ store }>
         <PinboardPane
           cachedDataIDs={ ['abcd1234'] }
           id='dbca4321'
-          fetchPinboardSocialGraph={ stubFetchPinboardSocialGraph }
+          fetchPinboardStaticSocialGraph={ stubFetchPinboardStaticSocialGraph }
         />
       </Provider>
     );
 
-    stubFetchPinboardSocialGraph.should.be.calledOnce();
-    stubFetchPinboardSocialGraph.should.be.calledWith('dbca4321');
+    stubFetchPinboardStaticSocialGraph.should.be.calledOnce();
+    stubFetchPinboardStaticSocialGraph.should.be.calledWith('dbca4321');
   });
 
-  it('should not fetchPinboardSocialGraph if no pinboard id', function () {
+  it('should not fetchPinboardStaticSocialGraph if no pinboard id', function () {
     const store = MockStore()({
-      pinboardPage: {
+      pinboardAdminPage: {
         graphData: {
           cachedData: {},
+          requesting: false,
         },
       },
     });
-    const stubFetchPinboardSocialGraph = stub();
+    const stubFetchPinboardStaticSocialGraph = stub();
 
     instance = renderIntoDocument(
       <Provider store={ store }>
         <PinboardPane
           cachedDataIDs={ ['abcd1234'] }
           id={ undefined }
-          fetchPinboardSocialGraph={ stubFetchPinboardSocialGraph }
+          fetchPinboardStaticSocialGraph={ stubFetchPinboardStaticSocialGraph }
         />
       </Provider>
     );
 
-    stubFetchPinboardSocialGraph.should.not.be.called();
+    stubFetchPinboardStaticSocialGraph.should.not.be.called();
   });
 
-  it('should not fetchPinboardSocialGraph when changing to no pinboard id', function () {
+  it('should not fetchPinboardStaticSocialGraph when changing to no pinboard id', function () {
     const store = MockStore()({
-      pinboardPage: {
+      pinboardAdminPage: {
         graphData: {
           cachedData: {},
+          requesting: false,
         },
       },
     });
-    const stubFetchPinboardSocialGraph = stub();
+    const stubFetchPinboardStaticSocialGraph = stub();
 
     instance = renderIntoDocument(
       <Provider store={ store }>
         <PinboardPane
           cachedDataIDs={ ['abcd1234'] }
           id='dbca4321'
-          fetchPinboardSocialGraph={ stubFetchPinboardSocialGraph }
+          fetchPinboardStaticSocialGraph={ stubFetchPinboardStaticSocialGraph }
         />
       </Provider>
     );
 
-    stubFetchPinboardSocialGraph.should.be.calledOnce();
-    stubFetchPinboardSocialGraph.should.be.calledWith('dbca4321');
-    stubFetchPinboardSocialGraph.resetHistory();
+    stubFetchPinboardStaticSocialGraph.should.be.calledOnce();
+    stubFetchPinboardStaticSocialGraph.should.be.calledWith('dbca4321');
+    stubFetchPinboardStaticSocialGraph.resetHistory();
 
     instance = reRender(
       <Provider store={ store }>
         <PinboardPane
           cachedDataIDs={ ['abcd1234'] }
           id={ undefined }
-          fetchPinboardSocialGraph={ stubFetchPinboardSocialGraph }
+          fetchPinboardStaticSocialGraph={ stubFetchPinboardStaticSocialGraph }
         />
       </Provider>,
       instance
     );
 
-    stubFetchPinboardSocialGraph.should.not.be.called();
+    stubFetchPinboardStaticSocialGraph.should.not.be.called();
   });
 
-  it('should fetchPinboardSocialGraph when receiving props', function () {
+  it('should fetchPinboardStaticSocialGraph when receiving props', function () {
     const store = MockStore()({
-      pinboardPage: {
+      pinboardAdminPage: {
         graphData: {
           cachedData: {},
+          requesting: false,
         },
       },
     });
-    const stubFetchPinboardSocialGraph = stub();
+    const stubFetchPinboardStaticSocialGraph = stub();
 
     instance = renderIntoDocument(
       <Provider store={ store }>
         <PinboardPane
           cachedDataIDs={ ['abcd1234'] }
           id='abcd1234'
-          fetchPinboardSocialGraph={ stubFetchPinboardSocialGraph }
+          fetchPinboardStaticSocialGraph={ stubFetchPinboardStaticSocialGraph }
         />
       </Provider>
     );
 
-    stubFetchPinboardSocialGraph.should.not.be.called();
+    stubFetchPinboardStaticSocialGraph.should.not.be.called();
 
     reRender(
       <Provider store={ store }>
         <PinboardPane
           cachedDataIDs={ ['abcd1234'] }
           id='dbca4321'
-          fetchPinboardSocialGraph={ stubFetchPinboardSocialGraph }
+          fetchPinboardStaticSocialGraph={ stubFetchPinboardStaticSocialGraph }
         />
       </Provider>,
       instance
     );
 
-    stubFetchPinboardSocialGraph.should.be.calledOnce();
-    stubFetchPinboardSocialGraph.should.be.calledWith('dbca4321');
+    stubFetchPinboardStaticSocialGraph.should.be.calledOnce();
+    stubFetchPinboardStaticSocialGraph.should.be.calledWith('dbca4321');
   });
 
   it('should mount a new StaticSocialGraphContainer when change pinboard id', function () {
     const store = MockStore()({
-      pinboardPage: {
+      pinboardAdminPage: {
         graphData: {
           cachedData: {},
+          requesting: false,
         },
       },
     });
