@@ -1,7 +1,11 @@
 import Cookies from 'js-cookie';
 import { stub } from 'sinon';
 
-import { fetchAllPinboards, fetchPinboardStaticSocialGraph } from 'actions/pinboard-admin-page';
+import {
+  fetchAllPinboards,
+  fetchPinboardStaticSocialGraph,
+  clearPinboardStaticSocialGraphCache,
+} from 'actions/pinboard-admin-page';
 import {
   ALL_PINBOARD_REQUEST_FAILURE,
   ALL_PINBOARD_REQUEST_START,
@@ -11,6 +15,7 @@ import {
   PINBOARD_STATIC_SOCIAL_GRAPH_FETCH_REQUEST_SUCCESS,
   PINBOARD_STATIC_SOCIAL_GRAPH_FETCH_REQUEST_FAILURE,
   SOCIAL_GRAPH_NETWORK_API_URL,
+  CLEAR_PINBOARD_STATIC_SOCIAL_GRAPH_CACHE,
 } from 'utils/constants';
 
 
@@ -58,6 +63,15 @@ describe('pinboard admin page actions', function () {
             cancelToken: undefined,
           },
         },
+      });
+    });
+  });
+
+  describe('clearPinboardStaticSocialGraphCache', function () {
+    it('should return correct action', function () {
+      clearPinboardStaticSocialGraphCache().should.eql({
+        type: CLEAR_PINBOARD_STATIC_SOCIAL_GRAPH_CACHE,
+        payload: undefined,
       });
     });
   });

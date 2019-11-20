@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { fetchAllPinboards } from 'actions/pinboard-admin-page';
+import { fetchAllPinboards, clearPinboardStaticSocialGraphCache } from 'actions/pinboard-admin-page';
 import { fetchPinboardStaticSocialGraph } from 'actions/pinboard-admin-page';
 import PinboardAdminPage from 'components/pinboard-admin-page';
 import {
@@ -24,6 +24,7 @@ function mapStateToProps(state, ownProps) {
 const mapDispatchToProps = {
   fetchPinboards: fetchAllPinboards,
   fetchPinboardStaticSocialGraph,
+  clearPinboardStaticSocialGraphCache,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PinboardAdminPage);

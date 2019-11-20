@@ -1,3 +1,4 @@
+import { createAction } from 'redux-actions';
 import {
   ALL_PINBOARD_REQUEST_FAILURE,
   ALL_PINBOARD_REQUEST_START,
@@ -7,6 +8,7 @@ import {
   PINBOARD_STATIC_SOCIAL_GRAPH_FETCH_REQUEST_START,
   PINBOARD_STATIC_SOCIAL_GRAPH_FETCH_REQUEST_SUCCESS,
   PINBOARD_STATIC_SOCIAL_GRAPH_FETCH_REQUEST_FAILURE,
+  CLEAR_PINBOARD_STATIC_SOCIAL_GRAPH_CACHE,
 } from 'utils/constants';
 import { authenticatedGet, get } from 'actions/common/async-action';
 
@@ -27,3 +29,5 @@ export const fetchPinboardStaticSocialGraph = id => get(
     PINBOARD_STATIC_SOCIAL_GRAPH_FETCH_REQUEST_FAILURE,
   ]
 )({ 'pinboard_id': id, 'static': true });
+
+export const clearPinboardStaticSocialGraphCache = createAction(CLEAR_PINBOARD_STATIC_SOCIAL_GRAPH_CACHE);

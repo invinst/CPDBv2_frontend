@@ -1,12 +1,30 @@
 import should from 'should';
 
 import cachedDataReducer from 'reducers/pinboard-admin-page/graph-data/cached-data';
-import { PINBOARD_STATIC_SOCIAL_GRAPH_FETCH_REQUEST_SUCCESS } from 'utils/constants';
+import {
+  PINBOARD_STATIC_SOCIAL_GRAPH_FETCH_REQUEST_SUCCESS,
+  CLEAR_PINBOARD_STATIC_SOCIAL_GRAPH_CACHE,
+} from 'utils/constants';
 
 
 describe('cachedDataReducer', function () {
   it('should have initial state', function () {
     should(cachedDataReducer(undefined, {})).be.empty();
+  });
+
+  it('should handle CLEAR_PINBOARD_STATIC_SOCIAL_GRAPH_CACHE', function () {
+    should(cachedDataReducer(
+      [
+        {
+          title: 'Cached Pinboard Title',
+          description: '',
+          'pinboard_id': 'cdef6789',
+        },
+      ],
+      {
+        type: CLEAR_PINBOARD_STATIC_SOCIAL_GRAPH_CACHE,
+      }
+    )).be.empty();
   });
 
   it('should handle PINBOARD_STATIC_SOCIAL_GRAPH_FETCH_REQUEST_SUCCESS', function () {

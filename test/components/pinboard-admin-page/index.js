@@ -9,12 +9,14 @@ import { random } from 'faker';
 import { spy } from 'sinon';
 import should from 'should';
 
-import { unmountComponentSuppressError } from 'utils/test';
+import { reRender, unmountComponentSuppressError } from 'utils/test';
 import PinboardAdminPage from 'components/pinboard-admin-page';
 import PinboardsTable from 'components/pinboard-admin-page/pinboards-table';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import { PreviewPaneWithOverlay } from 'components/common/preview-pane';
 import { PINBOARDS_SEARCH_ITEMS } from 'utils/constants';
+import PinboardPageContainer from 'containers/pinboard-page';
+import { createMemoryHistory, Route, Router } from 'react-router';
 
 
 describe('PinboardAdminPage', function () {
@@ -94,5 +96,76 @@ describe('PinboardAdminPage', function () {
     pinboardAdminPage.handleOverlayClick();
     previewPane.props.isShown.should.be.false();
     previewPane.props.data.should.eql({ id: 123 });
+  });
+
+  it('should call clearPinboardStaticSocialGraphCache when componentWillUnmount', function () {
+    const defaultPaginationState = {
+      requesting: false,
+      items: [],
+      count: 0,
+      pagination: { next: null, previous: null },
+    };
+
+    const pinboardAdminStore = MockStore()({
+      pinboardAdminPage: {
+        graphData: {
+          cachedData: {},
+          requesting: false,
+        },
+      },
+      breadcrumb: {
+        breadcrumbs: [],
+      },
+    });
+
+    const pinboardStore = MockStore()({
+      breadcrumb: {
+        breadcrumbs: [],
+      },
+      pinboardPage: {
+        graphData: { requesting: false, cachedData: {} },
+        geographicData: { requesting: false, data: [] },
+        currentTab: 'NETWORK',
+        relevantDocuments: defaultPaginationState,
+        relevantCoaccusals: defaultPaginationState,
+        relevantComplaints: defaultPaginationState,
+        crItems: { requesting: false, items: [] },
+        officerItems: { requesting: false, items: [] },
+        trrItems: { requesting: false, items: [] },
+        redirect: false,
+        initialRequested: true,
+        focusedItem: {},
+        pinboard: {
+          'id': '5cd06f2b',
+          'title': 'Pinboard title',
+        },
+        editModeOn: false,
+        pinboards: [],
+      },
+      pathname: 'pinboard/5cd06f2b',
+    });
+
+    const spyClearPinboardStaticSocialGraphCache = spy();
+
+    instance = renderIntoDocument(
+      <Provider store={ pinboardAdminStore }>
+        <PinboardAdminPage clearPinboardStaticSocialGraphCache={ spyClearPinboardStaticSocialGraphCache }/>
+      </Provider>
+    );
+
+    const pinboardPage = () => (
+      <Provider store={ pinboardStore }>
+        <PinboardPageContainer />
+      </Provider>
+    );
+
+    reRender(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ pinboardPage } />
+      </Router>,
+      instance
+    );
+
+    spyClearPinboardStaticSocialGraphCache.should.be.calledOnce();
   });
 });

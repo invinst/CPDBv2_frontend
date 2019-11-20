@@ -1,6 +1,9 @@
 import { handleActions } from 'redux-actions';
 
-import { PINBOARD_STATIC_SOCIAL_GRAPH_FETCH_REQUEST_SUCCESS } from 'utils/constants';
+import {
+  PINBOARD_STATIC_SOCIAL_GRAPH_FETCH_REQUEST_SUCCESS,
+  CLEAR_PINBOARD_STATIC_SOCIAL_GRAPH_CACHE,
+} from 'utils/constants';
 
 const CACHE_CAP = 10;
 export default handleActions({
@@ -11,4 +14,5 @@ export default handleActions({
       return allData.slice(allData.length - CACHE_CAP);
     return allData;
   },
+  [CLEAR_PINBOARD_STATIC_SOCIAL_GRAPH_CACHE]: (state, action) => [],
 }, []);

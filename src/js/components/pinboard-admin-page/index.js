@@ -17,6 +17,11 @@ export default class PinboardAdminPage extends Component {
     this.focusItem = this.focusItem.bind(this);
   }
 
+  componentWillUnmount() {
+    const { clearPinboardStaticSocialGraphCache } = this.props;
+    clearPinboardStaticSocialGraphCache();
+  }
+
   focusItem(focusedItem) {
     this.setState({ focusedItem, isShowingPreviewPane: true });
   }
@@ -71,10 +76,13 @@ PinboardAdminPage.propTypes = {
   fetchPinboards: PropTypes.func,
   isLoading: PropTypes.bool,
   fetchPinboardStaticSocialGraph: PropTypes.func,
+  clearPinboardStaticSocialGraphCache: PropTypes.func,
   cachedDataIDs: PropTypes.array,
 };
 
 PinboardAdminPage.defaultProps = {
   pinboards: [],
   isLoading: false,
+  fetchPinboards: () => {},
+  fetchPinboardStaticSocialGraph: () => {},
 };
