@@ -23,6 +23,7 @@ export const removeItemFromPinboardState = createAction(constants.REMOVE_ITEM_FR
 export const orderPinboardState = createAction(constants.ORDER_PINBOARD_STATE);
 export const updatePinboardInfoState = createAction(constants.UPDATE_PINBOARD_INFO_STATE);
 export const savePinboard = createAction(constants.SAVE_PINBOARD);
+export const setPinboardHasPendingChanges = createAction(constants.SET_PINBOARD_HAS_PENDING_CHANGES);
 export const savePinboardWithoutChangingState = createAction(constants.SAVE_PINBOARD_WITHOUT_CHANGING_STATE);
 export const handleRemovingItemInPinboardPage = createAction(constants.HANDLE_REMOVING_ITEM_IN_PINBOARD_PAGE);
 
@@ -44,13 +45,26 @@ export const createPinboard = cancelFetchRequests(
       constants.PINBOARD_CREATE_REQUEST_START,
       constants.PINBOARD_CREATE_REQUEST_SUCCESS,
       constants.PINBOARD_CREATE_REQUEST_FAILURE,
-    ]
+    ],
+    pinboardSource && pinboardSource.token
   )({ 'officer_ids': officerIds, 'crids': crids, 'trr_ids': trrIds, 'source_pinboard_id': sourcePinboardId })
 );
 
-export const createNewEmptyPinboard = () => createPinboard({ 'officerIds': [], 'crids': [], 'trrIds': [] });
+export const createNewPinboard = cancelFetchRequests(
+  ({ officerIds, crids, trrIds, sourcePinboardId }) => post(
+    constants.PINBOARDS_URL,
+    [
+      constants.PINBOARD_CREATE_NEW_REQUEST_START,
+      constants.PINBOARD_CREATE_NEW_REQUEST_SUCCESS,
+      constants.PINBOARD_CREATE_NEW_REQUEST_FAILURE,
+    ],
+    pinboardSource && pinboardSource.token
+  )({ 'officer_ids': officerIds, 'crids': crids, 'trr_ids': trrIds, 'source_pinboard_id': sourcePinboardId })
+);
 
-export const duplicatePinboard = (sourcePinboardId) => createPinboard({ sourcePinboardId });
+export const createNewEmptyPinboard = () => createNewPinboard({ 'officerIds': [], 'crids': [], 'trrIds': [] });
+
+export const duplicatePinboard = (sourcePinboardId) => createNewPinboard({ sourcePinboardId });
 
 export const updatePinboard = cancelFetchRequests(
   ({ id, title, description, officerIds, crids, trrIds }) => put(
@@ -59,18 +73,22 @@ export const updatePinboard = cancelFetchRequests(
       constants.PINBOARD_UPDATE_REQUEST_START,
       constants.PINBOARD_UPDATE_REQUEST_SUCCESS,
       constants.PINBOARD_UPDATE_REQUEST_FAILURE,
-    ]
+    ],
+    pinboardSource && pinboardSource.token
   )({ title: title, description: description, 'officer_ids': officerIds, crids: crids, 'trr_ids': trrIds })
 );
 
-export const fetchPinboard = id => get(
-  `${constants.PINBOARDS_URL}${id}/`,
-  [
-    constants.PINBOARD_FETCH_REQUEST_START,
-    constants.PINBOARD_FETCH_REQUEST_SUCCESS,
-    constants.PINBOARD_FETCH_REQUEST_FAILURE,
-  ]
-)();
+export const fetchPinboard = cancelFetchRequests(
+  id => get(
+    `${constants.PINBOARDS_URL}${id}/`,
+    [
+      constants.PINBOARD_FETCH_REQUEST_START,
+      constants.PINBOARD_FETCH_REQUEST_SUCCESS,
+      constants.PINBOARD_FETCH_REQUEST_FAILURE,
+    ],
+    pinboardSource && pinboardSource.token
+  )()
+);
 
 export const fetchPinboardSocialGraph = id => get(
   constants.SOCIAL_GRAPH_NETWORK_API_URL,

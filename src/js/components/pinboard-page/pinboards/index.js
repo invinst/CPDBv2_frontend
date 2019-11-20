@@ -6,6 +6,7 @@ import withOverlay from 'components/common/with-overlay';
 import SlideMotion from 'components/animation/slide-motion';
 import { redirectToCreatedPinboard } from 'utils/pinboard';
 import PinboardItem from './pinboard-item';
+import PinboardLinkContainer from 'containers/pinboard-page/pinboard-link-container';
 
 
 class Pinboards extends Component {
@@ -40,7 +41,10 @@ class Pinboards extends Component {
         <div className={ styles.pinboards }>
           <div className='pinboards-title'>
             Pinboards
-            <a className='new-pinboard-btn' title='Add new' onClick={ this.handleCreateNewEmptyPinboard } />
+            <PinboardLinkContainer
+              className='new-pinboard-btn'
+              title='Add new'
+              onClick={ this.handleCreateNewEmptyPinboard } />
           </div>
           {
             pinboards.map((pinboard) => (

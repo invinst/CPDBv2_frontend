@@ -4,6 +4,7 @@ import cx from 'classnames';
 
 import styles from './manage-pinboards-buttons.sass';
 import { redirectToCreatedPinboard } from 'utils/pinboard';
+import PinboardLinkContainer from 'containers/pinboard-page/pinboard-link-container';
 
 
 export default class ManagePinboardsButtons extends Component {
@@ -64,12 +65,16 @@ export default class ManagePinboardsButtons extends Component {
           {
             showNewPinboardMenu && (
               <div className='new-pinboard-menu'>
-                <a className='menu-item new-pinboard-link' onClick={ this.handleCreateNewEmptyPinboard }>
+                <PinboardLinkContainer
+                  className='menu-item new-pinboard-link'
+                  onClick={ this.handleCreateNewEmptyPinboard }>
                   Create new pinboard
-                </a>
-                <a className='menu-item duplicate-current-pinboard-link' onClick={ this.handleDuplicatePinboard }>
+                </PinboardLinkContainer>
+                <PinboardLinkContainer
+                  className='menu-item duplicate-current-pinboard-link'
+                  onClick={ this.handleDuplicatePinboard }>
                   Duplicate this pinboard
-                </a>
+                </PinboardLinkContainer>
               </div>
             )
           }

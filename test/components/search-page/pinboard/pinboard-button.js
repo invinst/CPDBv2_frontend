@@ -56,7 +56,6 @@ describe('PinboardButton component', function () {
 
   it('should call onEmptyPinboardButtonClick if we click on the button when pinboard id is null', function () {
     const onEmptyPinboardButtonClick = spy();
-
     instance = renderIntoDocument(
       <PinboardButton
         onEmptyPinboardButtonClick={ onEmptyPinboardButtonClick }
@@ -67,7 +66,7 @@ describe('PinboardButton component', function () {
     onEmptyPinboardButtonClick.called.should.be.true();
   });
 
-  it('should redirect if we click on the button when pinboard is exist', function () {
+  it('should redirect if we click on the button when pinboard exists', function () {
     const browserHistoryPush = stub(browserHistory, 'push');
 
     instance = renderIntoDocument(
@@ -80,8 +79,25 @@ describe('PinboardButton component', function () {
     );
 
     Simulate.click(findDOMNode(instance));
-    browserHistoryPush.called.should.be.true();
+    browserHistoryPush.should.be.calledWith('/pinboard/1/title/');
+    browserHistoryPush.restore();
+  });
 
+  it('should redirect to /pinboard/ if pinboard_id is null and hasPendingChanges when clicking on button', function () {
+    const browserHistoryPush = stub(browserHistory, 'push');
+
+    instance = renderIntoDocument(
+      <PinboardButton pinboard={ {
+        id: null,
+        itemsCount: 2,
+        url: '/pinboard/1/title/',
+        isPinboardRestored: true,
+        hasPendingChanges: true,
+      } }/>
+    );
+
+    Simulate.click(findDOMNode(instance));
+    browserHistoryPush.should.be.calledWith('/pinboard/');
     browserHistoryPush.restore();
   });
 });

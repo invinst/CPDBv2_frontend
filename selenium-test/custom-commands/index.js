@@ -100,6 +100,12 @@ function initCommands() {
     }, _key, _value);
   });
 
+  browser.addCommand('removeLocalStorage', (_key) => {
+    browser.execute(function (key) {
+      return this.localStorage.removeItem(key);
+    }, _key);
+  });
+
   browser.addCommand('getLocalStorage', _key => {
     return browser.execute(function (key) {
       return this.localStorage.getItem(key);

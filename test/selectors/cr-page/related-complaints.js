@@ -20,6 +20,7 @@ describe('related complaints selectors', function () {
                     'category_names': ['a', 'b'],
                     'point': { lat: 1, lon: 2 },
                     coaccused: ['c', 'd'],
+                    'incident_date': '2016-02-23',
                   }],
                 },
               },
@@ -37,6 +38,7 @@ describe('related complaints selectors', function () {
         complainants: 'white male Age 43',
         accused: 'c, d',
         isPinned: false,
+        incidentDate: 'Feb 23, 2016',
       }]);
     });
 

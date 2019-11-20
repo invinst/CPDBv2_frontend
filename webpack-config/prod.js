@@ -20,6 +20,7 @@ let config = Object.assign({}, baseConfig, {
         'GA_TRACKING_ID': 'UA-63671047-2',
         'INTERCOM_ID': 'p51vy1rb',
         'DISABLE_SEARCH_INDEX': false,
+        'CLICKY_TRACKING_ID': '101220048',
       }
     })
   ]

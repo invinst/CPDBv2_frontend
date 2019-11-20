@@ -274,14 +274,15 @@ describe('store', function () {
       },
       pinboardPage: {
         pinboard: {
-          crids: [],
-          description: '',
           id: null,
-          isPinboardRestored: false,
-          'officer_ids': [],
-          saving: false,
           title: '',
+          description: '',
+          crids: [],
+          'officer_ids': [],
           'trr_ids': [],
+          saving: false,
+          needRefreshData: false,
+          hasPendingChanges: false,
         },
         graphData: {
           requesting: false,
@@ -316,6 +317,7 @@ describe('store', function () {
           pagination: { next: null, previous: null },
         },
         redirect: false,
+        pinnedItemsRequested: false,
         initialRequested: false,
         pinboards: [],
         isShownPinboardsList: false,

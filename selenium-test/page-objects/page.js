@@ -10,6 +10,13 @@ export default class Page extends Section {
     super();
 
     this.loginScreen = new LoginScreen();
+    this.prepareElementGetters({
+      clickyScript: '//script[@src="//static.getclicky.com/js"]',
+      clickySiteIdsScript: '//script[' +
+        'text()="var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(CLICKY_TRACKING_ID);"]',
+      clickyNoJavascriptGIF:
+        '//noscript[contains(text(), \'<img alt="Clicky" width="1" height="1" src="//in.getclicky.com/\')]',
+    });
   }
 
   open(path) {

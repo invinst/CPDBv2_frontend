@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react';
+import { browserHistory } from 'react-router';
 import cx from 'classnames';
 import { isEmpty, noop } from 'lodash';
 
 import { redirectToCreatedPinboard } from 'utils/pinboard';
-import { browserHistory } from 'react-router';
+import PinboardLinkContainer from 'containers/pinboard-page/pinboard-link-container';
 
 
 export default class PinboardItem extends Component {
@@ -36,7 +37,8 @@ export default class PinboardItem extends Component {
     const { pinboard } = this.props;
 
     return (
-      <div
+      <PinboardLinkContainer
+        customComponent='div'
         className={ cx('pinboard-item', { 'untitled-pinboard': isEmpty(pinboard.title) }) }
         onClick={ this.handlePinboardItemClick }
       >
@@ -44,11 +46,11 @@ export default class PinboardItem extends Component {
           <div className='pinboard-title'>{ pinboard.title }</div>
           <div className='pinboard-created-at'>Created { pinboard.createdAt }</div>
         </div>
-        <a
+        <PinboardLinkContainer
           className='duplicate-pinboard-btn'
           title='Duplicate'
           onClick={ this.handleDuplicatePinboard } />
-      </div>
+      </PinboardLinkContainer>
     );
   }
 }

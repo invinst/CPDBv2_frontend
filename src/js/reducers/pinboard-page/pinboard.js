@@ -4,6 +4,11 @@ import * as _ from 'lodash';
 import * as constants from 'utils/constants';
 import { getFormatId } from 'utils/pinboard';
 
+const DEFAULT_PINBOARD_STATUSES = {
+  saving: false,
+  needRefreshData: false,
+  hasPendingChanges: false,
+};
 
 const defaultState = {
   'id': null,
@@ -12,18 +17,28 @@ const defaultState = {
   'crids': [],
   'trr_ids': [],
   'description': '',
-  'saving': false,
-  'isPinboardRestored': false,
+  ...DEFAULT_PINBOARD_STATUSES,
 };
 
 export default handleActions({
+  [constants.PINBOARD_FETCH_REQUEST_START]: (state, action) => ({
+    ...state,
+    ...DEFAULT_PINBOARD_STATUSES,
+  }),
   [constants.PINBOARD_FETCH_REQUEST_SUCCESS]: (state, action) => ({
     ...state,
     ...action.payload,
+    ...DEFAULT_PINBOARD_STATUSES,
+    isPinboardRestored: true,
+  }),
+  [constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_START]: (state, action) => ({
+    ...state,
+    ...DEFAULT_PINBOARD_STATUSES,
   }),
   [constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_SUCCESS]: (state, action) => ({
     ...state,
     ...action.payload,
+    ...DEFAULT_PINBOARD_STATUSES,
     isPinboardRestored: true,
   }),
   [constants.PINBOARD_CREATE_REQUEST_SUCCESS]: (state, action) => {
@@ -126,6 +141,12 @@ export default handleActions({
     return {
       ...state,
       needRefreshData: false,
+    };
+  },
+  [constants.SET_PINBOARD_HAS_PENDING_CHANGES]: (state, action) => {
+    return {
+      ...state,
+      hasPendingChanges: action.payload,
     };
   },
 }, defaultState);

@@ -44,7 +44,7 @@ describe('PinboardInfo component', function () {
     pinboardDescription.props.className.should.eql('pinboard-description');
     pinboardDescription.props.value.should.eql('This is pinboard description');
     pinboardDescription.props.placeholder.should.eql(
-      'When you’re ready, add a description for your pinboard here.'
+      'When you’re ready, add a description for your pinboard here'
     );
     pinboardDescription.props.fieldType.should.eql('description');
     pinboardDescription.props.save.should.eql(updatePinboardInfoStub);

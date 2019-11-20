@@ -8684,10 +8684,10 @@ react-themeable@^1.1.0:
   dependencies:
     object-assign "^3.0.0"
 
-react-toastify@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-5.1.0.tgz#aefe1f084bf4733f083423f013d24242cb63c482"
-  integrity sha512-0kVAAE7VO609EeXLVaFHDTc6Bnd/OUAb7rrRAwMsHeaThKEhH+WEQEPftTjuA4rP59K0QhCnWu4Ds2hXAcFxaw==
+react-toastify@^5.4.0:
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-5.4.0.tgz#29501618d02cc25329c32bfd7cfeed19b532b2ef"
+  integrity sha512-0cdPq1gyxAcYu0KiDPOYp9nNiqIFDWoi7nyoaSw496DElUnNlcjhc7Aduz8CXrGTRugvjuXd3eplUvFaCeQMNA==
   dependencies:
     "@babel/runtime" "^7.4.2"
     classnames "^2.2.6"
