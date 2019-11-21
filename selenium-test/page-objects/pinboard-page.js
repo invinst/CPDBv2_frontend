@@ -37,7 +37,7 @@ class PinnedCRs extends Section {
 
     this.prepareElementGetters({
       title: `${sectionSelector}/div[@class="type-title"]`,
-      firstCardUnpinBtn: `${firstCardSelector}/div[starts-with(@class, "item-unpin-button")]`,
+      firstCardUnpinBtn: `${firstCardSelector}//span[starts-with(@class, "item-unpin-button")]`,
       firstCardDate: `${firstCardSelector}//span[@class="location-card-date"]`,
       firstCardCategory: `${firstCardSelector}//span[@class="location-card-category"]`,
     });

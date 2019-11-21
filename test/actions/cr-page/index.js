@@ -50,6 +50,7 @@ describe('CRPage actions', function () {
             },
             method: 'post',
             adapter: null,
+            cancelToken: undefined,
           },
         },
       });

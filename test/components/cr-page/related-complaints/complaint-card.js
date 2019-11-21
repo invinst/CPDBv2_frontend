@@ -24,15 +24,35 @@ describe('ComplaintCard component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  describe('complainant section', function () {
-    it('should not render complainant carousel when there is no data', function () {
-      instance = renderIntoDocument(<ComplaintCard />);
-      scryRenderedDOMComponentsWithClass(instance, 'test--carousel-complainant').should.have.length(0);
+  describe('Content', function () {
+    it('should only render crid and categories when there is no extra data', function () {
+      instance = renderIntoDocument(<ComplaintCard crid='10799008' categories='Use Of Force'/>);
+      const sections = scryRenderedDOMComponentsWithClass(instance, 'section');
+
+      sections.should.have.length(1);
+      sections[0].textContent.should.containEql('10799008');
+      sections[0].textContent.should.containEql('Use Of Force');
     });
 
-    it('should render complainant carousel if complainant prop is provided', function () {
-      instance = renderIntoDocument(<ComplaintCard complainants='R. Rose' />);
-      scryRenderedDOMComponentsWithClass(instance, 'test--carousel-complainant').should.have.length(1);
+    it('should render enough content', function () {
+      instance = renderIntoDocument(
+        <ComplaintCard
+          crid='10799008'
+          categories='Use Of Force'
+          incidentDate='Oct 7, 2008'
+          complainants='R. Rose'
+          accused='B. Bolton'
+        />
+      );
+      const sections = scryRenderedDOMComponentsWithClass(instance, 'section');
+
+      sections.should.have.length(3);
+      sections[0].textContent.should.containEql('10799008').and.containEql('Oct 7, 2008');
+      sections[0].textContent.should.containEql('Use Of Force');
+      sections[1].textContent.should.containEql('Complainant');
+      sections[1].textContent.should.containEql('R. Rose');
+      sections[2].textContent.should.containEql('Accused');
+      sections[2].textContent.should.containEql('B. Bolton');
     });
 
     it('should track click event', function () {
@@ -50,43 +70,11 @@ describe('ComplaintCard component', function () {
           <Route path='/' component={ complaintCard } />
         </Router>
       );
-      Simulate.click(findRenderedDOMComponentWithClass(instance, 'test--carousel-card'));
+
+      Simulate.click(findRenderedDOMComponentWithClass(instance, 'content'));
       stubTrackRelatedByCategoryClick.should.be.calledWith('01234', '56789');
 
       stubTrackRelatedByCategoryClick.restore();
-    });
-  });
-
-  describe('accused section', function () {
-    it('should not render complainant carousel when there is no data', function () {
-      instance = renderIntoDocument(<ComplaintCard />);
-      scryRenderedDOMComponentsWithClass(instance, 'test--carousel-accused').should.have.length(0);
-    });
-
-    it('should render accused carousel if accused prop is provided', function () {
-      instance = renderIntoDocument(<ComplaintCard accused='B. Bolton' />);
-      scryRenderedDOMComponentsWithClass(instance, 'test--carousel-accused').should.have.length(1);
-    });
-
-    it('should track click event', function () {
-      const stubTrackRelatedByAccusedClick = stub(GATracking, 'trackRelatedByAccusedClick');
-      const complaintCard = () => (
-        <ComplaintCard
-          complainants='R. Rose'
-          sourceCRID='01234'
-          crid='56789'
-          match='officers'
-        />
-      );
-      instance = renderIntoDocument(
-        <Router history={ createMemoryHistory() }>
-          <Route path='/' component={ complaintCard } />
-        </Router>
-      );
-      Simulate.click(findRenderedDOMComponentWithClass(instance, 'test--carousel-card'));
-      stubTrackRelatedByAccusedClick.should.be.calledWith('01234', '56789');
-
-      stubTrackRelatedByAccusedClick.restore();
     });
 
     it('should render ItemPinButton with correct props', function () {

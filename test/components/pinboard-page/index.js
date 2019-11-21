@@ -14,7 +14,6 @@ import { stub, spy } from 'sinon';
 import * as ReactRouter from 'react-router';
 import { Router, createMemoryHistory, Route } from 'react-router';
 import { createStore as ReduxCreateStore } from 'redux';
-import should from 'should';
 import { set } from 'lodash';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
@@ -37,6 +36,7 @@ import {
 import PinboardPage from 'components/pinboard-page';
 import EmptyPinboardPage from 'components/pinboard-page/empty-pinboard';
 import { buildEditStateFields } from 'utils/test/factories/draft';
+import LoadingSpinner from 'components/common/loading-spinner';
 
 describe('PinboardPage component', function () {
   let instance;
@@ -95,7 +95,7 @@ describe('PinboardPage component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should render nothing if initialRequested is false', function () {
+  it('should render LoadingSpinner if pinboardPageLoading is true', function () {
     const pinboard = {
       'id': '5cd06f2b',
       'title': 'Pinboard title',
@@ -105,7 +105,8 @@ describe('PinboardPage component', function () {
       pinboardPage: createPinboardPage(pinboard),
       pathname: 'pinboard/5cd06f2b',
     };
-    state.pinboardPage.initialRequested = false;
+    state.pinboardPage.initialRequested = true;
+    state.pinboardPage.pinboard.hasPendingChanges = true;
 
     const store = ReduxCreateStore(RootReducer, state);
 
@@ -121,7 +122,7 @@ describe('PinboardPage component', function () {
       </Router>
     );
 
-    should(findDOMNode(instance)).be.null();
+    scryRenderedComponentsWithType(instance, LoadingSpinner).should.have.length(1);
   });
 
   it('should replace url when shouldRedirect is True after updating', function () {
@@ -145,9 +146,12 @@ describe('PinboardPage component', function () {
       </Provider>
     );
 
+    const history = createMemoryHistory();
+    history.push('/pinboard/');
+
     instance = renderIntoDocument(
-      <Router history={ createMemoryHistory() }>
-        <Route path='/' component={ pinboardPage } />
+      <Router history={ history }>
+        <Route path='/pinboard/' component={ pinboardPage } />
       </Router>
     );
 
@@ -156,7 +160,7 @@ describe('PinboardPage component', function () {
       payload: true,
     });
 
-    replaceStub.should.not.be.called();
+    replaceStub.should.be.calledWith('/pinboard/5cd06f2b/pinboard-title/');
 
     store.dispatch({
       type: PINBOARD_FETCH_REQUEST_SUCCESS,

@@ -72,3 +72,12 @@ export const selectText = selector => {
     selection.addRange(range);
   }, selector);
 };
+
+export const setupMockApiFile = (mockApiFile) => {
+  browser.url('');
+  browser.setLocalStorage('TEST_MOCK_API_FILE', mockApiFile);
+};
+
+export const restoreMockApiFile = () => {
+  browser.removeLocalStorage('TEST_MOCK_API_FILE');
+};

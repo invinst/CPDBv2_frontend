@@ -12,4 +12,5 @@ export default Factory.define('pinboard')
   .attr('description', '')
   .attr('saving', () => false)
   .attr('isPinboardRestored', () => false)
-  .attr('needRefreshData', () => false);
+  .attr('needRefreshData', () => false)
+  .attr('hasPendingChanges', () => false);

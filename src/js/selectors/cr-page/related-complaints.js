@@ -4,6 +4,7 @@ import { compact } from 'lodash';
 import extractQuery from 'utils/extract-query';
 import { createWithIsPinnedSelector } from 'selectors/common/pinboard';
 import { PINNED_ITEM_TYPES } from 'utils/constants';
+import { formatDate } from 'utils/date';
 
 
 const getRelatedComplaintsByCategory = state => state.crPage.relatedComplaints.relatedByCategory;
@@ -39,6 +40,7 @@ const cardTransform = (card) => ({
     ({ age, gender, race }) => compact([race, gender, age ? `Age ${age}` : null]).join(' ')
   ).join(', '),
   accused: card['coaccused'].join(', '),
+  incidentDate: formatDate(card['incident_date'], false),
 });
 
 const cardByCategorySelector = createWithIsPinnedSelector(
