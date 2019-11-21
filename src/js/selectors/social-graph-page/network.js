@@ -2,11 +2,10 @@ import { compact, filter, get, includes, indexOf, isEmpty, rangeRight, slice } f
 import { createSelector } from 'reselect';
 import moment from 'moment';
 
-import { officerTransform, coaccusedDataTransform } from 'selectors/common/social-graph';
+import { graphDataFormatter } from 'selectors/common/social-graph';
 import { NEW_TIMELINE_ITEMS } from 'utils/constants';
 
 export const getGraphDataOfficers = state => state.socialGraphPage.networkData.graphData['officers'] || [];
-export const getCoaccusedData = state => state.socialGraphPage.networkData.graphData['coaccused_data'] || [];
 export const getListEvent = state => state.socialGraphPage.networkData.graphData['list_event'] || [];
 export const getNetworkAllegations = state => state.socialGraphPage.networkData.networkAllegations;
 export const getSelectedOfficerId = state => state.socialGraphPage.networkData.selectedOfficerId;
@@ -14,14 +13,10 @@ export const getSelectedEdge = state => state.socialGraphPage.networkData.select
 export const getSelectedCrid = state => state.socialGraphPage.networkData.selectedCrid;
 export const getRequesting = state => state.socialGraphPage.networkData.requesting;
 
-export const officersSelector = createSelector(
-  [getGraphDataOfficers],
-  officers => officers.map(officerTransform)
-);
 
-export const coaccusedDataSelector = createSelector(
-  [getCoaccusedData],
-  coaccusedData => coaccusedData.map(coaccusedDataTransform)
+export const graphDataSelector = createSelector(
+  state => state.socialGraphPage.networkData.graphData,
+  data => graphDataFormatter(data)
 );
 
 export const attachmentTransform = attachment => ({

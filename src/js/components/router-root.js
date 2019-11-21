@@ -20,6 +20,7 @@ import DocumentDeduplicatorContainer from 'containers/document-deduplicator-page
 import DocumentsOverviewContainer from 'containers/documents-overview-page';
 import SocialGraphContainer from 'containers/social-graph-page';
 import PinboardPageContainer from 'containers/pinboard-page';
+import PinboardAdminPageContainer from 'containers/pinboard-admin-page';
 import {
   COLLAB_PATH,
   SEARCH_PATH,
@@ -39,6 +40,7 @@ import {
   TRACKER_DOCUMENTS_OVERVIEW_PATH,
   SOCIAL_GRAPH_PATH,
   PINBOARD_PATH,
+  PINBOARD_ADMIN_PATH,
 } from 'utils/constants';
 import configureStore from 'store';
 import history from 'utils/history';
@@ -126,6 +128,11 @@ export default class RouterRoot extends Component {
               path={ PINBOARD_PATH }
               component={ PinboardPageContainer }
               breadcrumb={ BreadcrumbItemContainer }
+            />
+            <Route
+              path={ PINBOARD_ADMIN_PATH }
+              component={ PinboardAdminPageContainer }
+              breadcrumb='View all pinboards'
             />
             <Redirect from='*' to='/'/>
           </Route>
