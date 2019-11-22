@@ -18,6 +18,7 @@ export const TRRCardWithUndo = withUndoCard(
   'removeItemInPinboardPage',
   {
     isRequestDelay: false,
+    completeActionName: 'completeRemoveItemInPinboardPage',
     revertActionName: 'addItemInPinboardPage',
   },
 );

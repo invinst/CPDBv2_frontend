@@ -149,16 +149,9 @@ describe('withUndoCard higher-order component', function () {
         removeItemInPinboardPage.should.be.calledWith({
           type: 'OFFICER',
           id: 123,
-          mode: constants.PINBOARD_ITEM_REMOVE_MODE.API_ONLY,
         });
 
         clock.tick(constants.UNDO_CARD_VISIBLE_TIME);
-
-        removeItemInPinboardPage.should.be.calledWith({
-          type: 'OFFICER',
-          id: 123,
-          mode: constants.PINBOARD_ITEM_REMOVE_MODE.STATE_ONLY,
-        });
       });
 
       it('should revert action if user click undo', function () {
@@ -179,17 +172,10 @@ describe('withUndoCard higher-order component', function () {
         removeItemInPinboardPage.should.be.calledWith({
           type: 'OFFICER',
           id: 123,
-          mode: constants.PINBOARD_ITEM_REMOVE_MODE.API_ONLY,
         });
 
         const undoButton = findRenderedDOMComponentWithClass(instance, 'undo-button');
         Simulate.click(undoButton);
-
-        removeItemInPinboardPage.calledWith({
-          type: 'OFFICER',
-          id: 123,
-          mode: constants.PINBOARD_ITEM_REMOVE_MODE.STATE_ONLY,
-        }).should.be.false();
 
         addItemInPinboardPage.should.be.calledWith({
           type: 'OFFICER',

@@ -10,6 +10,7 @@ import {
   dispatchFetchPinboardPageData,
   dispatchFetchPinboardPinnedItems,
   isEmptyPinboard,
+  getRequestPinboard,
 } from 'utils/pinboard';
 import PinboardFactory from 'utils/test/factories/pinboard';
 import {
@@ -158,6 +159,38 @@ describe('pinboard utils', function () {
         trrIds: [],
       };
       isEmptyPinboard(pinboard).should.be.false();
+    });
+  });
+
+  describe('getRequestPinboard', function () {
+    it('should return default pinboard', function () {
+      getRequestPinboard({}).should.deepEqual({
+        id: null,
+        title: '',
+        officerIds: [],
+        crids: [],
+        trrIds: [],
+        description: '',
+      });
+    });
+
+    it('should return correct requested pinboard', function () {
+      const pinboard = {
+        'id': 'abcd1234',
+        'title': 'Pinboard Title',
+        'officer_ids': [1, 2, 3],
+        'crids': ['123456'],
+        'trr_ids': [4, 5, 6],
+        'description': 'Pinboard Description',
+      };
+      getRequestPinboard(pinboard).should.deepEqual({
+        id: 'abcd1234',
+        title: 'Pinboard Title',
+        officerIds: ['1', '2', '3'],
+        crids: ['123456'],
+        trrIds: ['4', '5', '6'],
+        description: 'Pinboard Description',
+      });
     });
   });
 });

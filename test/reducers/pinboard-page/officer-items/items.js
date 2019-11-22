@@ -128,7 +128,7 @@ describe('Pinboard officerItemsReducer', function () {
     ).should.deepEqual([{ 'id': 1 }]);
   });
 
-  it('should handle REMOVE_ITEM_IN_PINBOARD_PAGE with payload.type is OFFICER', function () {
+  it('should handle COMPLETE_REMOVE_ITEM_FROM_PINBOARD with payload.type is OFFICER', function () {
     officerItemsReducer(
       [{
         'id': 1,
@@ -142,7 +142,7 @@ describe('Pinboard officerItemsReducer', function () {
         'id': 3,
       }],
       {
-        type: constants.REMOVE_ITEM_IN_PINBOARD_PAGE,
+        type: constants.COMPLETE_REMOVE_ITEM_FROM_PINBOARD,
         payload: {
           type: 'OFFICER',
           id: '2',
@@ -225,7 +225,7 @@ describe('Pinboard officerItemsReducer', function () {
         payload: {
           type: 'OFFICER',
           id: '2',
-          mode: constants.PINBOARD_ITEM_REMOVE_MODE.API_ONLY,
+          keepUndoCard: true,
         },
       }
     ).should.deepEqual([{

@@ -88,6 +88,7 @@ import {
   dcab5678Officers,
   abcd8765Officers,
   abcd8765OUpdatedfficers,
+  ceea8ea3UpdatedOfficer,
 } from './pinboard-page/fetch-pinned-items';
 import { getSocialGraphData } from './pinboard-page/social-graph';
 import { getSocialGraphBigData } from './pinboard-page/big-social-graph';
@@ -383,7 +384,7 @@ axiosMockClient.onPut(
 ).reply(function () {
   return new Promise(function (resolve, reject) {
     setTimeout(function () {
-      resolve([200, {}]);
+      resolve([200, ceea8ea3UpdatedOfficer]);
     }, 2000);
   });
 });

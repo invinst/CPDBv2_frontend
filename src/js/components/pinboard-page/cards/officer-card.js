@@ -92,6 +92,7 @@ export const OfficerCardWithUndo = withUndoCard(
   'removeItemInPinboardPage',
   {
     isRequestDelay: false,
+    completeActionName: 'completeRemoveItemInPinboardPage',
     revertActionName: 'addItemInPinboardPage',
   }
 );
