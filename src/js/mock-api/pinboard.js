@@ -18,11 +18,11 @@ export const emptyPinboard = (id='abcd1234') => ({
   }],
 });
 
-export const createPinboard = (id='5cd06f2b', officerIds=[1], crids=[], trrIds=[], notFoundItems) => {
+export const createPinboard = (id='5cd06f2b', officerIds=[1], crids=[], trrIds=[], notFoundItems, title='') => {
   const withNotFoundItems = notFoundItems ? { 'not_found_items': notFoundItems } : {};
   return {
     'id': id,
-    'title': '',
+    'title': title,
     'officer_ids': officerIds,
     'crids': crids,
     'trr_ids': trrIds,

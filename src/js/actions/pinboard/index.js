@@ -39,7 +39,7 @@ const cancelFetchRequests = (newRequest) => (...args) => {
 };
 
 export const createPinboard = cancelFetchRequests(
-  ({ officerIds, crids, trrIds, sourcePinboardId }) => post(
+  ({ title, officerIds, crids, trrIds, sourcePinboardId }) => post(
     constants.PINBOARDS_URL,
     [
       constants.PINBOARD_CREATE_REQUEST_START,
@@ -47,7 +47,7 @@ export const createPinboard = cancelFetchRequests(
       constants.PINBOARD_CREATE_REQUEST_FAILURE,
     ],
     pinboardSource && pinboardSource.token
-  )({ 'officer_ids': officerIds, 'crids': crids, 'trr_ids': trrIds, 'source_pinboard_id': sourcePinboardId })
+  )({ title, 'officer_ids': officerIds, 'crids': crids, 'trr_ids': trrIds, 'source_pinboard_id': sourcePinboardId })
 );
 
 export const createNewPinboard = cancelFetchRequests(
