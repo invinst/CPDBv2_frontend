@@ -48,7 +48,7 @@ class CRPreviewPaneSection extends Section {
       firstVictim: '//div[contains(@class, "demographic__demographic")][1]',
       secondVictim: '//div[contains(@class, "demographic__demographic")][2]',
       accusedText: '.list-widget-header',
-      accusedOfficers: '.list-widget-item-link',
+      accusedOfficers: '//*[contains(@class, "list-widget-item-link")]',
     });
   }
 }
@@ -63,7 +63,7 @@ class TRRPreviewPaneSection extends Section {
       incidentDate: '//div[@class="trr-preview-pane-info-row"][1]',
       address: '//div[@class="trr-preview-pane-info-row"][2]',
       officerHeader: '.list-widget-header',
-      officerLink: '.list-widget-item-link',
+      officerLink: '//*[contains(@class, "list-widget-item-link")]',
       officerName: '.list-widget-list-item-name',
       officerAllegationCount: '.list-widget-list-item-count',
     });

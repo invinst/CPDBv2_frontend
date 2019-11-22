@@ -80,7 +80,7 @@ describe('pinboard actions', function () {
 
   describe('createPinboard', function () {
     it('should return correct action', function () {
-      createPinboard({ officerIds: [], crids: ['abc'], trrIds: [1] }).should.deepEqual({
+      createPinboard({ title: 'Pinboard title', officerIds: [], crids: ['abc'], trrIds: [1] }).should.deepEqual({
         types: [
           constants.PINBOARD_CREATE_REQUEST_START,
           constants.PINBOARD_CREATE_REQUEST_SUCCESS,
@@ -92,6 +92,7 @@ describe('pinboard actions', function () {
             method: 'post',
             adapter: null,
             data: {
+              title: 'Pinboard title',
               'officer_ids': [],
               crids: ['abc'],
               'trr_ids': [1],
@@ -401,8 +402,8 @@ describe('pinboard actions', function () {
         ],
         payload: {
           request: {
-            url: `${constants.SOCIAL_GRAPH_NETWORK_API_URL}?pinboard_id=268a5e58`,
-            params: undefined,
+            url: constants.SOCIAL_GRAPH_NETWORK_API_URL,
+            params: { 'pinboard_id': '268a5e58' },
             adapter: null,
             cancelToken: 'token',
           },

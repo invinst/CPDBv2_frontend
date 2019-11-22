@@ -17,7 +17,7 @@ import { unmountComponentSuppressError } from 'utils/test';
 import NetworkGraph from 'components/social-graph-page/network';
 import AnimatedSocialGraphContainer from 'containers/social-graph-page/animated-social-graph-container';
 import RightPaneSection from 'components/social-graph-page/network/right-pane-section';
-import OfficerPane from 'components/common/preview-pane/officer-pane';
+import OfficerPane from 'components/common/preview-pane/panes/officer-pane';
 import EdgeCoaccusalsPane from 'components/social-graph-page/network/preview-pane/edge-coaccusals-pane';
 import * as intercomUtils from 'utils/intercom';
 import { NETWORK_PREVIEW_PANE } from 'utils/constants';

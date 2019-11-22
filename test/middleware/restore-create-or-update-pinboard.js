@@ -743,6 +743,19 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
     });
 
     const testCreatePinboardWith = (action, pathname, done) => {
+      testCreatePinboardWithRawPinboard(
+        action, pathname, done,
+        {
+          id: 'abc123',
+          title: '',
+          'officer_ids': [1, 3, 4, 5],
+          crids: ['1053673'],
+          'trr_ids': [1, 2],
+        },
+      );
+    };
+
+    const testCreatePinboardWithRawPinboard = (action, pathname, done, rawPinboard) => {
       const store = createStore(
         PinboardFactory.build({
           'id': null,
@@ -750,14 +763,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
           'saving': false,
         }),
         pathname,
-        {
-          payload: {
-            id: 'abc123',
-            'officer_ids': [1, 3, 4, 5],
-            crids: ['1053673'],
-            'trr_ids': [1, 2],
-          },
-        },
+        { payload: rawPinboard },
       );
 
       let dispatched;
@@ -765,9 +771,10 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
       dispatched.should.eql(action);
 
       store.dispatch.should.be.calledWith(createPinboard({
-        officerIds: [1, 3, 4, 5],
-        crids: ['1053673'],
-        trrIds: [1, 2],
+        title: rawPinboard['title'],
+        officerIds: rawPinboard['officer_ids'],
+        crids: rawPinboard['crids'],
+        trrIds: rawPinboard['trr_ids'],
       }));
 
       setTimeout(
@@ -901,6 +908,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
       dispatched.should.eql(action);
 
       store.dispatch.should.be.calledWith(createPinboard({
+        title: '',
         officerIds: [1],
         crids: ['xyz567', '1053673', 'tyu890'],
         trrIds: [3, 99],
@@ -962,6 +970,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
       dispatched.should.eql(action);
 
       store.dispatch.should.be.calledWith(createPinboard({
+        title: '',
         officerIds: [1],
         crids: ['xyz567', '1053673', 'tyu890'],
         trrIds: [3, 99],
@@ -1023,6 +1032,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
       dispatched.should.eql(action);
 
       store.dispatch.should.be.calledWith(createPinboard({
+        title: '',
         officerIds: [1],
         crids: ['xyz567', '1053673', 'tyu890'],
         trrIds: [],
@@ -1040,6 +1050,32 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
           done();
         },
         50,
+      );
+    });
+
+    it('should accept title params', function (done) {
+      const pathname = '/pinboard/?title=This+is+testing-pinboard&officer-id=1,3,4,5';
+      const action = {
+        type: '@@router/LOCATION_CHANGE',
+        payload: {
+          query: {
+            title: 'This is testing pinboard',
+            'officer-id': '1,3,4,5',
+          },
+          pathname,
+        },
+      };
+      testCreatePinboardWithRawPinboard(
+        action,
+        pathname,
+        done,
+        {
+          title: 'This is testing pinboard',
+          'officer_ids': [1, 3, 4, 5],
+          'source_pinboard_id': undefined,
+          crids: [],
+          'trr_ids': [],
+        },
       );
     });
 

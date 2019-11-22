@@ -1,6 +1,6 @@
 import { reject } from 'lodash';
 
-import createPaginationReducer from './common/pagination';
+import createPaginationReducer from 'reducers/common/pagination';
 import * as constants from 'utils/constants';
 
 

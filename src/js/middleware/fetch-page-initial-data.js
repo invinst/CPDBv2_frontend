@@ -42,6 +42,7 @@ import { cancelledByUser } from 'utils/axios-client';
 import { requestCrawlers } from 'actions/crawlers-page';
 import { fetchPinboard } from 'actions/pinboard';
 import { redirect } from 'actions/pinboard-page';
+import { fetchAllPinboards } from 'actions/pinboard-admin-page';
 import { fetchVideoInfo } from 'actions/headers/slim-header';
 import { hasVideoInfoSelector } from 'selectors/headers/slim-header';
 import { dispatchFetchPinboardPageData, dispatchFetchPinboardPinnedItems } from 'utils/pinboard';
@@ -83,6 +84,8 @@ export default store => next => action => {
       handleFetchingDocumentPage(dispatches, store, state.pathname);
     } else if (state.pathname.match(/\/documents\//)) {
       handleFetchingDocumentsOverviewPage(dispatches, store, state, action, fetchDocumentsAuthenticated);
+    } else if (state.pathname.match(/\/view-all-pinboards\//)) {
+      store.dispatch(fetchAllPinboards());
     }
   }
 
@@ -232,6 +235,10 @@ export default store => next => action => {
       }
 
       getCMSContent(PINBOARD_PAGE_ID);
+    }
+
+    else if (action.payload.pathname.match(/\/view-all-pinboards\//)) {
+      store.dispatch(fetchAllPinboards());
     }
 
     prevPathname = action.payload.pathname;

@@ -33,8 +33,12 @@ export default class Section {
             Object.defineProperty(this, key, {
               get: function () {
                 const element = $(selector);
-                element.count = $$(selector).length;
                 element.selector = selector;
+                Object.defineProperty(element, 'count', {
+                  get: function () {
+                    return $$(selector).length;
+                  },
+                });
                 return element;
               },
             });

@@ -13,7 +13,7 @@ import MockStore from 'redux-mock-store';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import { getThisYear } from 'utils/date';
-import PreviewPane from 'components/search-page/search-results/preview-pane';
+import PreviewPane from 'components/common/preview-pane';
 import SearchResults from 'components/search-page/search-results';
 import SearchNoResult from 'components/search-page/search-results/search-no-result';
 import SuggestionGroup from 'components/search-page/search-results/suggestion-group';
