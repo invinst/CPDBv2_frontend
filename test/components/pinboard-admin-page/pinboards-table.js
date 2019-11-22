@@ -57,6 +57,7 @@ describe('PinboardsTable', function () {
     header.props.id.should.be.equal('ID');
     header.props.title.should.be.equal('Pinboard');
     header.props.pinnedCount.should.be.equal('Pinned items');
+    header.props.childCount.should.be.equal('Children');
     header.props.createdAt.should.be.equal('Date');
 
     const infiniteScroll = findRenderedComponentWithType(instance, InfiniteScroll);

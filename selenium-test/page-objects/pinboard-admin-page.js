@@ -38,8 +38,10 @@ class PinboardInfo extends Section {
     super(parentSelector, mainElementSelector);
 
     this.prepareElementGetters({
-      createdAtTitle: '//span[@class="list-item-title"]',
-      createdAtValue: '//span[@class="list-item-text has-title"]',
+      createdAtTitle: '(//span[@class="list-item-title"])[1]',
+      createdAtValue: '(//span[@class="list-item-text has-title"])[1]',
+      childrenTitle: '(//span[@class="list-item-title"])[2]',
+      childrenValue: '(//span[@class="list-item-text has-title"])[2]',
     });
   }
 }
@@ -69,6 +71,7 @@ class PinboardRow extends Section {
       id: '//span[@class="cell pinboard-id"]',
       title: '//span[@class="cell pinboard-title"]',
       pinned: '//span[@class="cell pinboard-pinned"]',
+      children: '//span[@class="cell pinboard-children"]',
       date: '//span[@class="cell pinboard-date"]',
     });
   }

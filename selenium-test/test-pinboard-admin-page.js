@@ -53,11 +53,13 @@ describe('Pinboard Admin Page', function () {
       firstPinboardRow.id.getText().should.equal('18a5b091');
       firstPinboardRow.title.getText().should.equal('Pinboard 18a5b091 Title');
       firstPinboardRow.pinned.getText().should.equal('10 officers, 8 allegations and 9 TRRS');
+      firstPinboardRow.children.getText().should.equal('2');
       firstPinboardRow.date.getText().should.equal('Nov 04');
 
       secondPinboardRow.id.getText().should.equal('f0e5eba4');
       secondPinboardRow.title.getText().should.equal('Untitled Pinboard');
       secondPinboardRow.pinned.getText().should.equal('1 officer, 0 allegations and 0 TRRS');
+      secondPinboardRow.children.getText().should.equal('3');
       secondPinboardRow.date.getText().should.equal('Nov 01');
     });
 
@@ -86,6 +88,8 @@ describe('Pinboard Admin Page', function () {
         );
         pinboardAdminPage.pinboardPreviewPane.info.createdAtTitle.getText().should.equal('Created at');
         pinboardAdminPage.pinboardPreviewPane.info.createdAtValue.getText().should.equal(createdAt);
+        pinboardAdminPage.pinboardPreviewPane.info.childrenTitle.getText().should.equal('Children');
+        pinboardAdminPage.pinboardPreviewPane.info.childrenValue.getText().should.equal('2');
         pinboardAdminPage.pinboardPreviewPane.socialGraph.isDisplayed().should.be.true();
 
         const pinnedOfficers = pinboardAdminPage.pinboardPreviewPane.pinnedOfficers;

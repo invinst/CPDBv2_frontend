@@ -18,6 +18,7 @@ export const firstPage = {
       'officers_count': 10,
       'allegations_count': 8,
       'trrs_count': 9,
+      'child_pinboard_count': 2,
       'officers': [
         {
           'percentile_trr': '0.0000',
@@ -218,6 +219,7 @@ export const firstPage = {
       'officers_count': 1,
       'allegations_count': 0,
       'trrs_count': 0,
+      'child_pinboard_count': 3,
       'officers': [
         {
           'percentile_allegation': '44.8403',
@@ -238,6 +240,7 @@ export const firstPage = {
       'officers_count': 1,
       'allegations_count': 0,
       'trrs_count': 0,
+      'child_pinboard_count': 0,
       'officers': [
         {
           'percentile_allegation': '44.8403',
@@ -258,6 +261,7 @@ export const firstPage = {
       'officers_count': 1,
       'allegations_count': 0,
       'trrs_count': 0,
+      'child_pinboard_count': 0,
       'officers': [
         {
           'percentile_allegation': '44.8403',
@@ -278,6 +282,7 @@ export const firstPage = {
       'officers_count': 4,
       'allegations_count': 1,
       'trrs_count': 0,
+      'child_pinboard_count': 0,
       'officers': [
         {
           'percentile_trr': '64.3694',
@@ -337,6 +342,7 @@ export const firstPage = {
       'officers_count': 4,
       'allegations_count': 1,
       'trrs_count': 0,
+      'child_pinboard_count': 0,
       'officers': [
         {
           'percentile_trr': '64.3694',
@@ -596,6 +602,7 @@ export const firstPage = {
       'officers_count': 8,
       'allegations_count': 1,
       'trrs_count': 0,
+      'child_pinboard_count': 0,
       'officers': [
         {
           'percentile_trr': '64.3694',
@@ -692,6 +699,7 @@ export const firstPage = {
       'officers_count': 1,
       'allegations_count': 0,
       'trrs_count': 0,
+      'child_pinboard_count': 0,
       'officers': [
         {
           'percentile_allegation': '44.8403',
@@ -712,6 +720,7 @@ export const firstPage = {
       'officers_count': 4,
       'allegations_count': 1,
       'trrs_count': 0,
+      'child_pinboard_count': 0,
       'officers': [
         {
           'percentile_trr': '64.3694',
@@ -779,6 +788,7 @@ export const secondPage = {
       'officers_count': 4,
       'allegations_count': 1,
       'trrs_count': 0,
+      'child_pinboard_count': 0,
       'officers': [
         {
           'percentile_trr': '64.3694',
@@ -838,6 +848,7 @@ export const secondPage = {
       'officers_count': 4,
       'allegations_count': 1,
       'trrs_count': 0,
+      'child_pinboard_count': 0,
       'officers': [
         {
           'percentile_trr': '64.3694',
@@ -897,6 +908,7 @@ export const secondPage = {
       'officers_count': 4,
       'allegations_count': 1,
       'trrs_count': 0,
+      'child_pinboard_count': 0,
       'officers': [
         {
           'percentile_trr': '64.3694',
@@ -956,6 +968,7 @@ export const secondPage = {
       'officers_count': 4,
       'allegations_count': 1,
       'trrs_count': 0,
+      'child_pinboard_count': 0,
       'officers': [
         {
           'percentile_trr': '64.3694',
@@ -1015,6 +1028,7 @@ export const secondPage = {
       'officers_count': 4,
       'allegations_count': 1,
       'trrs_count': 0,
+      'child_pinboard_count': 0,
       'officers': [
         {
           'percentile_trr': '64.3694',
@@ -1074,6 +1088,7 @@ export const secondPage = {
       'officers_count': 7,
       'allegations_count': 2,
       'trrs_count': 0,
+      'child_pinboard_count': 0,
       'officers': [
         {
           'percentile_trr': '0.0000',
@@ -1168,6 +1183,7 @@ export const secondPage = {
       'officers_count': 4,
       'allegations_count': 1,
       'trrs_count': 0,
+      'child_pinboard_count': 0,
       'officers': [
         {
           'percentile_trr': '64.3694',
@@ -1227,6 +1243,7 @@ export const secondPage = {
       'officers_count': 5,
       'allegations_count': 4,
       'trrs_count': 0,
+      'child_pinboard_count': 0,
       'officers': [
         {
           'percentile_trr': '0.0000',
@@ -1578,6 +1595,7 @@ export const secondPage = {
       'officers_count': 34,
       'allegations_count': 4,
       'trrs_count': 0,
+      'child_pinboard_count': 0,
       'officers': [
         {
           'percentile_trr': '64.3694',
