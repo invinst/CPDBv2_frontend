@@ -1,4 +1,5 @@
 import { visualTokenBackground } from './percentile';
+import { get } from 'lodash';
 
 
 export const officerTransform = officer => ({
@@ -12,4 +13,10 @@ export const coaccusedDataTransform = coaccusedDatum => ({
   officerId2: coaccusedDatum['officer_id_2'],
   incidentDate: coaccusedDatum['incident_date'],
   accussedCount: coaccusedDatum['accussed_count'],
+});
+
+export const graphDataFormatter = data => ({
+  officers: get(data, 'officers', []).map(officerTransform),
+  coaccusedData: get(data, 'coaccused_data', []).map(coaccusedDataTransform),
+  listEvent: get(data, 'list_event', []),
 });

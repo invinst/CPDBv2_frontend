@@ -5,7 +5,6 @@ import moment from 'moment';
 import { generatePinboardUrl } from 'utils/pinboard';
 import { DATE_FORMAT } from 'utils/constants';
 
-
 export const pinboardsSelector = createSelector(
   state => state.pinboardPage.pinboards,
   pinboards => pinboards.map(pinboard => ({

@@ -43,4 +43,40 @@ describe('showLoginModalSelector', function () {
     };
     showLoginModalSelector(state, props).should.be.false();
   });
+
+  it('should show login modal when on pinboard admin path', function () {
+    const state = {
+      authentication: {
+        apiAccessToken: null,
+      },
+    };
+    showLoginModalSelector(state, {
+      location: {
+        pathname: '/view-all-pinboards/',
+      },
+    }).should.be.true();
+    showLoginModalSelector(state, {
+      location: {
+        pathname: '/edit/view-all-pinboards/',
+      },
+    }).should.be.true();
+  });
+
+  it('should not show login modal when on pinboard admin path but signed in', function () {
+    const state = {
+      authentication: {
+        apiAccessToken: '123',
+      },
+    };
+    showLoginModalSelector(state, {
+      location: {
+        pathname: '/view-all-pinboards/',
+      },
+    }).should.be.false();
+    showLoginModalSelector(state, {
+      location: {
+        pathname: '/edit/view-all-pinboards/',
+      },
+    }).should.be.false();
+  });
 });

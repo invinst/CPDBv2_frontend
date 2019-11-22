@@ -32,15 +32,17 @@ export default class NewWidgetWrapper extends Component {
   }
 
   render() {
-    const { callToAction, className, children, yScrollable } = this.props;
-    const { to, url, text } = callToAction;
+    const { callToAction, className, children, yScrollable, isClickable } = this.props;
+    const { text, to, url } = callToAction;
 
     return (
-      <WrapperLink url={ url } to={ to }>
+      <WrapperLink url={ isClickable ? url : undefined } to={ isClickable ? to : undefined }>
         <div className={ `${styles.newWidgetWrapper} ${className}` }>
           { url || to ? (
             <div className='new-call-to-action-widget-container'>
-              <NewCallToActionWidget text={ text }/>
+              <WrapperLink url={ !isClickable ? url : undefined } to={ !isClickable ? to : undefined }>
+                <NewCallToActionWidget text={ text }/>
+              </WrapperLink>
             </div>
           ) : null
           }
@@ -62,6 +64,7 @@ NewWidgetWrapper.defaultProps = {
   className: '',
   callToAction: {},
   yScrollable: false,
+  isClickable: true,
 };
 
 NewWidgetWrapper.propTypes = {
@@ -69,4 +72,5 @@ NewWidgetWrapper.propTypes = {
   children: PropTypes.node,
   callToAction: PropTypes.object,
   yScrollable: PropTypes.bool,
+  isClickable: PropTypes.bool,
 };

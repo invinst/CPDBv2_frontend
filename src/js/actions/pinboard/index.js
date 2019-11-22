@@ -91,7 +91,7 @@ export const fetchPinboard = cancelFetchRequests(
 );
 
 export const fetchPinboardSocialGraph = id => get(
-  `${constants.SOCIAL_GRAPH_NETWORK_API_URL}?pinboard_id=${id}`,
+  constants.SOCIAL_GRAPH_NETWORK_API_URL,
   [
     constants.PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_START,
     constants.PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_SUCCESS,
@@ -99,7 +99,7 @@ export const fetchPinboardSocialGraph = id => get(
     constants.PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_CANCELLED,
   ],
   pinboardSource && pinboardSource.token
-)();
+)({ 'pinboard_id': id });
 
 export const fetchPinboardGeographic = createAction(constants.PINBOARD_GEOGRAPHIC_FETCH_REQUEST_START);
 
