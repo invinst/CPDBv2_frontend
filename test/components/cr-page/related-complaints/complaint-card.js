@@ -5,7 +5,7 @@ import { spy, stub } from 'sinon';
 import { random } from 'faker';
 
 import ComplaintCard from 'components/cr-page/related-complaints/complaint-card';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 import ItemPinButton from 'components/common/item-pin-button';
 import pinButtonStyles from 'components/common/item-pin-button.sass';
 import { PINNED_ITEM_TYPES } from 'utils/constants';
@@ -44,7 +44,7 @@ describe('ComplaintCard component', function () {
     });
 
     it('should track click event', function () {
-      const stubTrackRelatedByCategoryClick = stub(GATracking, 'trackRelatedByCategoryClick');
+      const stubTrackRelatedByCategoryClick = stub(tracking, 'trackRelatedByCategoryClick');
       const complaintCard = () => (
         <ComplaintCard
           complainants='R. Rose'

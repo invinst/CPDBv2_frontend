@@ -1,7 +1,15 @@
 import { throttle } from 'lodash';
 
 
-export const trackSwipeLanddingPageCarousel = (direction, type) => {
+function clickyLog(title, type) {
+  if (type)
+    global.clicky.log(document.location.pathname, title, type);
+  else
+    global.clicky.log(document.location.pathname, title);
+}
+
+export const trackSwipeLandingPageCarousel = (direction, type) => {
+  global.clicky.log('/', `swipe_${direction}_${type}`);
   global.ga('send', {
     hitType: 'event',
     eventCategory: 'landing_page_carousel',
@@ -11,6 +19,7 @@ export const trackSwipeLanddingPageCarousel = (direction, type) => {
 };
 
 export const trackOutboundLink = (url, windowName) => {
+  clickyLog(url, 'outbound');
   global.ga('send', {
     hitType: 'event',
     eventCategory: 'outbound',
@@ -26,7 +35,6 @@ export const trackOutboundLink = (url, windowName) => {
   });
 
   if (windowName) {
-    /* istanbul ignore next */
     window.open(url, windowName);
   }
 };
@@ -39,6 +47,7 @@ export const trackPageView = (pathname) => {
 };
 
 export const trackSearchResultsCount = (count) => {
+  clickyLog(`num_results: ${count}`);
   global.ga('send', {
     hitType: 'event',
     eventCategory: 'search',
@@ -48,7 +57,10 @@ export const trackSearchResultsCount = (count) => {
 };
 
 export function trackSearchQuery(query) {
+  this.throttledClickyLog = this.throttledClickyLog || throttle(clickyLog, 500, { 'leading': false });
   this.throttledSearchQueryGA = this.throttledSearchQueryGA || throttle(global.ga, 500, { 'leading': false });
+
+  this.throttledClickyLog(`change_query: ${query}`);
   this.throttledSearchQueryGA('send', {
     hitType: 'event',
     eventCategory: 'search',
@@ -58,6 +70,7 @@ export function trackSearchQuery(query) {
 }
 
 export const trackCommunityClick = (communityName) => {
+  clickyLog(`community: ${communityName}`);
   global.ga('send', {
     hitType: 'event',
     eventCategory: 'community',
@@ -67,6 +80,7 @@ export const trackCommunityClick = (communityName) => {
 };
 
 export const trackOpenExplainer = (officerId) => {
+  clickyLog(`open_visual_token_explainer: ${officerId}`);
   global.ga('send', {
     hitType: 'event',
     eventCategory: 'visual_token_explainer',
@@ -76,6 +90,7 @@ export const trackOpenExplainer = (officerId) => {
 };
 
 export const trackOfficerDownload = (officerId, action, label) => {
+  clickyLog(`officer_data: ${officerId}`, 'download');
   global.ga('send', {
     hitType: 'event',
     eventCategory: 'officer_data',
@@ -86,6 +101,7 @@ export const trackOfficerDownload = (officerId, action, label) => {
 };
 
 export const trackOfficerDownloadMenu = (officerId, action) => {
+  clickyLog(`open_officer_download_menu: ${officerId}`);
   global.ga('send', {
     hitType: 'event',
     eventCategory: 'officer_download_menu',
@@ -95,6 +111,7 @@ export const trackOfficerDownloadMenu = (officerId, action) => {
 };
 
 export const trackRelatedByCategoryClick = (sourceCRID, targetCRID) => {
+  clickyLog(`related_by_category: Source CRID ${sourceCRID} - Target CRID ${targetCRID}`);
   global.ga('send', {
     hitType: 'event',
     eventCategory: 'related_by_category',
@@ -104,6 +121,7 @@ export const trackRelatedByCategoryClick = (sourceCRID, targetCRID) => {
 };
 
 export const trackRelatedByAccusedClick = (sourceCRID, targetCRID) => {
+  clickyLog(`related_by_accused: Source CRID ${sourceCRID} - Target CRID ${targetCRID}`);
   global.ga('send', {
     hitType: 'event',
     eventCategory: 'related_by_accused',
@@ -113,6 +131,7 @@ export const trackRelatedByAccusedClick = (sourceCRID, targetCRID) => {
 };
 
 export const trackAttachmentClick = (sourceUrl, targetUrl) => {
+  clickyLog(`attachment_click: Source URL ${sourceUrl} - Target URL ${targetUrl}`);
   global.ga('send', {
     hitType: 'event',
     eventCategory: 'attachment_click',
@@ -122,6 +141,7 @@ export const trackAttachmentClick = (sourceUrl, targetUrl) => {
 };
 
 export const trackPopupButtonClick = (sourceUrl, popupName) => {
+  clickyLog(`popup_click: ${sourceUrl} - ${popupName}`);
   global.ga('send', {
     hitType: 'event',
     eventCategory: 'popup_click',
@@ -131,6 +151,7 @@ export const trackPopupButtonClick = (sourceUrl, popupName) => {
 };
 
 export const trackDocumentEdit = (documentID, documentField) => {
+  clickyLog(`document_edit: Document ID ${documentID} - Field ${documentField}`);
   global.ga('send', {
     hitType: 'event',
     eventCategory: 'document_edit',

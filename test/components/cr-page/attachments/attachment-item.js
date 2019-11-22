@@ -3,12 +3,12 @@ import { shallow } from 'enzyme';
 import { stub } from 'sinon';
 
 import AttachmentItem from 'components/cr-page/attachments/attachment-item';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 
 
 describe('AttachmentItem component', function () {
   it('should track click event', function () {
-    const stubTrackAttachmentClick = stub(GATracking, 'trackAttachmentClick');
+    const stubTrackAttachmentClick = stub(tracking, 'trackAttachmentClick');
     const wrapper = shallow(
       <AttachmentItem
         url='https://www.documentcloud.org/documents/4769822-CRID-1002813-CR.html'

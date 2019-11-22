@@ -2,12 +2,12 @@ import { stub } from 'sinon';
 
 import trackingMiddleware from 'middleware/tracking';
 import * as constants from 'utils/constants';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 
 
 describe('trackingMiddleware', function () {
   it('should send pageview event on LOCATION_CHANGE', function () {
-    stub(GATracking, 'trackPageView');
+    stub(tracking, 'trackPageView');
 
     let dispatched;
     const dispatchAction = {
@@ -20,13 +20,13 @@ describe('trackingMiddleware', function () {
     trackingMiddleware({})(action => dispatched = action)(dispatchAction);
 
     dispatched.should.eql(dispatchAction);
-    GATracking.trackPageView.should.be.calledWith('abc');
+    tracking.trackPageView.should.be.calledWith('abc');
 
-    GATracking.trackPageView.restore();
+    tracking.trackPageView.restore();
   });
 
   it('should send pageview event on CHANGE_SEARCH_QUERY', function () {
-    stub(GATracking, 'trackSearchQuery');
+    stub(tracking, 'trackSearchQuery');
 
     let dispatched;
     const dispatchAction = {
@@ -37,13 +37,13 @@ describe('trackingMiddleware', function () {
     trackingMiddleware({})(action => dispatched = action)(dispatchAction);
 
     dispatched.should.eql(dispatchAction);
-    GATracking.trackSearchQuery.should.be.calledWith('abc');
+    tracking.trackSearchQuery.should.be.calledWith('abc');
 
-    GATracking.trackSearchQuery.restore();
+    tracking.trackSearchQuery.restore();
   });
 
   it('should send pageview event on SUGGESTION_SINGLE_REQUEST_SUCCESS', function () {
-    stub(GATracking, 'trackSearchResultsCount');
+    stub(tracking, 'trackSearchResultsCount');
 
     let dispatched;
     const dispatchAction = {
@@ -56,13 +56,13 @@ describe('trackingMiddleware', function () {
     trackingMiddleware({})(action => dispatched = action)(dispatchAction);
 
     dispatched.should.eql(dispatchAction);
-    GATracking.trackSearchResultsCount.should.be.calledWith(203);
+    tracking.trackSearchResultsCount.should.be.calledWith(203);
 
-    GATracking.trackSearchResultsCount.restore();
+    tracking.trackSearchResultsCount.restore();
   });
 
   it('should send pageview event on SUGGESTION_REQUEST_SUCCESS', function () {
-    stub(GATracking, 'trackSearchResultsCount');
+    stub(tracking, 'trackSearchResultsCount');
 
     let dispatched;
     const dispatchAction = {
@@ -76,8 +76,8 @@ describe('trackingMiddleware', function () {
     trackingMiddleware({})(action => dispatched = action)(dispatchAction);
 
     dispatched.should.eql(dispatchAction);
-    GATracking.trackSearchResultsCount.should.be.calledWith(3);
+    tracking.trackSearchResultsCount.should.be.calledWith(3);
 
-    GATracking.trackSearchResultsCount.restore();
+    tracking.trackSearchResultsCount.restore();
   });
 });
