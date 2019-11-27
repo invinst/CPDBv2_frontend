@@ -1,18 +1,11 @@
 import React, { Component, PropTypes } from 'react';
+import { shallow, mount } from 'enzyme';
 import { spy, useFakeTimers } from 'sinon';
-import { renderIntoDocument, findRenderedDOMComponentWithClass } from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import Printable from 'components/common/higher-order/printable';
 
 
 describe('Printable component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   class Dummy extends Component {
     render() {
       return <div />;
@@ -28,11 +21,12 @@ describe('Printable component', function () {
   it('should render header correctly', function () {
     const clock = useFakeTimers(new Date(2018, 9, 27));
 
-    instance = renderIntoDocument(<PrintableDummy printHeader='Dummy title'/>);
+    const wrapper = shallow(<PrintableDummy printHeader='Dummy title'/>);
+    const instance = wrapper.instance();
     instance._mediaPrintListener({ matches: true });
-    findRenderedDOMComponentWithClass(instance, 'left-header').textContent.should.eql('Dummy title');
-    findRenderedDOMComponentWithClass(instance, 'printable-as-of').textContent.should.eql('AS OF');
-    findRenderedDOMComponentWithClass(instance, 'printable-date').textContent.should.eql('10/27/2018');
+    wrapper.find('.left-header').text().should.equal('Dummy title');
+    wrapper.find('.printable-as-of').text().should.equal('AS OF');
+    wrapper.find('.printable-date').text().should.equal('10/27/2018');
 
     clock.restore();
   });
@@ -48,18 +42,21 @@ describe('Printable component', function () {
       },
     });
 
-    instance = renderIntoDocument(<PrintableDummy/>);
-    addListenerSpy.calledWith(instance._mediaPrintListener).should.be.true();
+    const wrapper = mount(<PrintableDummy/>);
+    const instance = wrapper.instance();
+    addListenerSpy.should.be.calledWith(instance._mediaPrintListener);
   });
 
   it('should add onbeforeprint & onafterprint listener', function () {
-    instance = renderIntoDocument(<PrintableDummy/>);
+    const wrapper = shallow(<PrintableDummy/>);
+    const instance = wrapper.instance();
     window.onbeforeprint.should.be.eql(instance._beforePrint);
     window.onafterprint.should.be.eql(instance._afterPrint);
   });
 
   it('should set printMode state when _mediaPrintListener is called', function () {
-    instance = renderIntoDocument(<PrintableDummy/>);
+    const wrapper = shallow(<PrintableDummy/>);
+    const instance = wrapper.instance();
 
     instance._mediaPrintListener({ matches: true });
     instance.state.printMode.should.be.true();
@@ -69,7 +66,8 @@ describe('Printable component', function () {
   });
 
   it('should set printMode when _beforePrint & _afterPrint is called', function () {
-    instance = renderIntoDocument(<PrintableDummy/>);
+    const wrapper = shallow(<PrintableDummy/>);
+    const instance = wrapper.instance();
 
     instance._beforePrint();
     instance.state.printMode.should.be.true();

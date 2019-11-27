@@ -1,16 +1,8 @@
 import React from 'react';
-import {
-  Simulate,
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass,
-} from 'react-addons-test-utils';
-import { findDOMNode } from 'react-dom';
+import { shallow, mount } from 'enzyme';
 import { stub } from 'sinon';
 import { browserHistory } from 'react-router';
 
-import { unmountComponentSuppressError, reRender } from 'utils/test';
 import { OfficerPane as OfficerPane } from 'components/common/preview-pane/panes';
 import {
   NewVisualTokenWidget as VisualTokenWidget,
@@ -20,7 +12,6 @@ import {
 
 
 describe('OfficerPane component', () => {
-  let instance;
   const officer = {
     id: 123456,
     fullName: 'John Watts',
@@ -57,73 +48,68 @@ describe('OfficerPane component', () => {
     isPinned: true,
   };
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should contain the sub components', () => {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <OfficerPane
         { ...officer }
       />
     );
 
-    const visualToken = findRenderedComponentWithType(instance, VisualTokenWidget);
-    const officerInfo = findRenderedComponentWithType(instance, OfficerInfoWidget);
-    const metric = findRenderedComponentWithType(instance, MetricWidget);
+    const visualToken = wrapper.find(VisualTokenWidget);
+    const officerInfo = wrapper.find(OfficerInfoWidget);
+    const metric = wrapper.find(MetricWidget);
 
-
-    visualToken.props.items.should.eql([
+    visualToken.prop('items').should.eql([
       { axis: 'a', value: 10 },
       { axis: 'b', value: 20 },
       { axis: 'c', value: 30 },
     ]);
-    visualToken.props.visualTokenBackground.should.eql('#ffffff');
+    visualToken.prop('visualTokenBackground').should.equal('#ffffff');
 
-    officerInfo.props.fullName.should.eql('John Watts');
-    officerInfo.props.appointedDate.should.eql('05-08-2018');
-    officerInfo.props.resignationDate.should.eql('05-12-2019');
-    officerInfo.props.age.should.eql(28);
-    officerInfo.props.unit.should.eql({
+    officerInfo.prop('fullName').should.equal('John Watts');
+    officerInfo.prop('appointedDate').should.equal('05-08-2018');
+    officerInfo.prop('resignationDate').should.equal('05-12-2019');
+    officerInfo.prop('age').should.equal(28);
+    officerInfo.prop('unit').should.eql({
       id: 1,
       unitName: '001',
       description: 'Unit 001',
     });
-    officerInfo.props.rank.should.eql('Police Officer');
-    officerInfo.props.badge.should.eql('012');
-    officerInfo.props.race.should.eql('black');
-    officerInfo.props.gender.should.eql('Male');
+    officerInfo.prop('rank').should.equal('Police Officer');
+    officerInfo.prop('badge').should.equal('012');
+    officerInfo.prop('race').should.equal('black');
+    officerInfo.prop('gender').should.equal('Male');
 
-    metric.props.metrics.should.containEql({
+    metric.prop('metrics').should.containEql({
       name: 'Allegations',
       value: 1,
       description: 'More than 10% of other officers',
     });
-    metric.props.metrics.should.containEql({
+    metric.prop('metrics').should.containEql({
       name: 'Sustained',
       value: 'N/A',
       isHighlight: true,
       description: '0 Disciplined',
     });
-    metric.props.metrics.should.containEql({
+    metric.prop('metrics').should.containEql({
       name: 'Use of Force Reports',
       value: 5,
       description: 'More than 78% of other officers',
     });
-    metric.props.metrics.should.containEql({
+    metric.prop('metrics').should.containEql({
       name: 'Major Awards',
       value: 1,
     });
-    metric.props.metrics.should.containEql({
+    metric.prop('metrics').should.containEql({
       name: 'Honorable Mentions',
       value: 3,
       description: 'More than 99.3% of other officers',
     });
-    findDOMNode(metric).textContent.should.containEql('2CivilianCompliments');
+    metric.render().text().should.containEql('2CivilianCompliments');
   });
 
   it('should hide percentile description if its value is zero', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <OfficerPane
         { ...officer }
         complaintPercentile={ 0 }
@@ -132,19 +118,19 @@ describe('OfficerPane component', () => {
       />
     );
 
-    const metric = findRenderedComponentWithType(instance, MetricWidget);
+    const metric = wrapper.find(MetricWidget);
 
-    metric.props.metrics.should.containEql({
+    metric.prop('metrics').should.containEql({
       name: 'Allegations',
       value: 1,
       description: '',
     });
-    metric.props.metrics.should.containEql({
+    metric.prop('metrics').should.containEql({
       name: 'Honorable Mentions',
       value: 3,
       description: '',
     });
-    metric.props.metrics.should.containEql({
+    metric.prop('metrics').should.containEql({
       name: 'Honorable Mentions',
       value: 3,
       description: '',
@@ -152,7 +138,7 @@ describe('OfficerPane component', () => {
   });
 
   it('should hide percentile description if its value is null', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <OfficerPane
         { ...officer }
         complaintPercentile={ null }
@@ -161,19 +147,19 @@ describe('OfficerPane component', () => {
       />
     );
 
-    const metric = findRenderedComponentWithType(instance, MetricWidget);
+    const metric = wrapper.find(MetricWidget);
 
-    metric.props.metrics.should.containEql({
+    metric.prop('metrics').should.containEql({
       name: 'Allegations',
       value: 1,
       description: '',
     });
-    metric.props.metrics.should.containEql({
+    metric.prop('metrics').should.containEql({
       name: 'Honorable Mentions',
       value: 3,
       description: '',
     });
-    metric.props.metrics.should.containEql({
+    metric.prop('metrics').should.containEql({
       name: 'Honorable Mentions',
       value: 3,
       description: '',
@@ -181,7 +167,7 @@ describe('OfficerPane component', () => {
   });
 
   it('should render pin and view officer profile buttons', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <OfficerPane
         { ...officer }
         complaintPercentile={ null }
@@ -190,12 +176,12 @@ describe('OfficerPane component', () => {
       />
     );
 
-    findRenderedDOMComponentWithClass(instance, 'pin-button').should.be.ok();
-    findRenderedDOMComponentWithClass(instance, 'view-officer-profile-button').should.be.ok();
+    wrapper.find('.pin-button').exists().should.be.true();
+    wrapper.find('.view-officer-profile-button').exists().should.be.true();
   });
 
   it('should not render pin button if not pinnable', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <OfficerPane
         { ...officer }
         complaintPercentile={ null }
@@ -205,14 +191,14 @@ describe('OfficerPane component', () => {
       />
     );
 
-    scryRenderedDOMComponentsWithClass(instance, 'pin-button').should.have.length(0);
-    findRenderedDOMComponentWithClass(instance, 'view-officer-profile-button').should.be.ok();
+    wrapper.find('.pin-button').should.have.length(0);
+    wrapper.find('.view-officer-profile-button').exists().should.be.true();
   });
 
   it('should add or remove item to/from pinboard when click on pin button', function () {
     const addOrRemoveItemInPinboardStub = stub();
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <OfficerPane
         { ...officer }
         complaintPercentile={ null }
@@ -224,8 +210,8 @@ describe('OfficerPane component', () => {
       />
     );
 
-    let pinButton = findRenderedDOMComponentWithClass(instance, 'pin-button');
-    Simulate.click(pinButton);
+    let pinButton = wrapper.find('.pin-button');
+    pinButton.simulate('click');
 
     addOrRemoveItemInPinboardStub.calledWith({
       type: 'OFFICER',
@@ -233,20 +219,19 @@ describe('OfficerPane component', () => {
       isPinned: false,
     }).should.be.true();
 
-    reRender(
-      <OfficerPane
-        { ...officer }
-        complaintPercentile={ null }
-        honorableMentionPercentile={ null }
-        trrPercentile={ null }
-        type={ 'OFFICER' }
-        addOrRemoveItemInPinboard={ addOrRemoveItemInPinboardStub }
-        isPinned={ true }
-      />, instance
-    );
+    wrapper.setProps({
+      ...officer,
+      complaintPercentile: null,
+      honorableMentionPercentile: null,
+      trrPercentile: null,
+      type: 'OFFICER',
+      addOrRemoveItemInPinboard:
+      addOrRemoveItemInPinboardStub,
+      isPinned: true,
+    });
 
-    pinButton = findRenderedDOMComponentWithClass(instance, 'pin-button');
-    Simulate.click(pinButton);
+    pinButton = wrapper.find('.pin-button');
+    pinButton.simulate('click');
 
     addOrRemoveItemInPinboardStub.calledWith({
       type: 'OFFICER',
@@ -258,7 +243,7 @@ describe('OfficerPane component', () => {
   it('should redirect to officer page when click on View officer profile button', function () {
     const browserHistoryPush = stub(browserHistory, 'push');
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <OfficerPane
         { ...officer }
         complaintPercentile={ null }
@@ -269,10 +254,10 @@ describe('OfficerPane component', () => {
       />
     );
 
-    const viewProfileButton = findRenderedDOMComponentWithClass(instance, 'view-officer-profile-button');
-    Simulate.click(viewProfileButton);
+    const viewProfileButton = wrapper.find('.view-officer-profile-button');
+    viewProfileButton.simulate('click');
 
-    browserHistoryPush.calledWith('some_url').should.be.true();
+    browserHistoryPush.should.be.calledWith('some_url');
 
     browserHistoryPush.restore();
   });

@@ -1,12 +1,6 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  findRenderedComponentWithType,
-  scryRenderedDOMComponentsWithClass,
-} from 'react-addons-test-utils';
+import { shallow, mount } from 'enzyme';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import PreviewPane from 'components/common/preview-pane';
 import {
   CommunityPane,
@@ -25,104 +19,98 @@ import styles from 'components/common/preview-pane/preview-pane.sass';
 
 
 describe('PreviewPane component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render CommunityPane component', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PreviewPane
         type='COMMUNITY'
         data={ { name: 'Community' } }
       />
     );
-    findRenderedComponentWithType(instance, CommunityPane);
+    wrapper.find(CommunityPane).exists().should.be.true();
   });
 
   it('should render NeighborhoodPane', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PreviewPane
         type='NEIGHBORHOOD'
         data={ { name: 'Neighborhood' } }
       />
     );
-    findRenderedComponentWithType(instance, NeighborhoodPane);
+    wrapper.find(NeighborhoodPane).exists().should.be.true();
   });
 
   it('should render OfficerPane', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PreviewPane
         type='OFFICER'
         data={ { name: 'Officer' } }
       />
     );
-    findRenderedComponentWithType(instance, OfficerPane).should.be.ok();
+    wrapper.find(OfficerPane).should.be.ok();
   });
 
   it('should render WardPane', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PreviewPane
         type='WARD'
         data={ { name: 'Ward' } }
       />
     );
-    findRenderedComponentWithType(instance, WardPane);
+    wrapper.find(WardPane).exists().should.be.true();
   });
 
   it('should render PoliceBeatPane', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PreviewPane
         type='BEAT'
         data={ { name: 'Beat' } }
       />
     );
-    findRenderedComponentWithType(instance, PoliceBeatPane);
+    wrapper.find(PoliceBeatPane).exists().should.be.true();
   });
 
   it('should render PoliceDistrictPane', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PreviewPane
         type='POLICE-DISTRICT'
         data={ { name: 'Police District' } }
       />
     );
-    findRenderedComponentWithType(instance, PoliceDistrictPane);
+    wrapper.find(PoliceDistrictPane).exists().should.be.true();
   });
 
   it('should render SchoolGroundPane', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PreviewPane
         type='SCHOOL-GROUND'
         data={ { name: 'School Ground' } }
       />
     );
-    findRenderedComponentWithType(instance, SchoolGroundPane);
+    wrapper.find(SchoolGroundPane).exists().should.be.true();
   });
 
   it('should render RankPane', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PreviewPane
         type='RANK'
         data={ { name: 'Chief' } }
       />
     );
-    findRenderedComponentWithType(instance, RankPane);
+    wrapper.find(RankPane).exists().should.be.true();
   });
 
   it('should render SearchTermItemPane', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PreviewPane
         type={ 'SEARCH-TERMS' }
         data={ { name: 'Search Terms' } }
       />
     );
-    findRenderedComponentWithType(instance, SearchTermItemPane);
+    wrapper.find(SearchTermItemPane).exists().should.be.true();
   });
 
   it('should render CRPane', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PreviewPane
         type='CR'
         data={ {
@@ -136,11 +124,11 @@ describe('PreviewPane component', function () {
         } }
       />
     );
-    findRenderedComponentWithType(instance, CRPane);
+    wrapper.find(CRPane).exists().should.be.true();
   });
 
   it('should render CRPane for Date > CR', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PreviewPane
         type='DATE > CR'
         data={ {
@@ -154,11 +142,11 @@ describe('PreviewPane component', function () {
         } }
       />
     );
-    findRenderedComponentWithType(instance, CRPane);
+    wrapper.find(CRPane).exists().should.be.true();
   });
 
   it('should render CRPane for INVESTIGATOR > CR', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PreviewPane
         type='INVESTIGATOR > CR'
         data={ {
@@ -172,11 +160,11 @@ describe('PreviewPane component', function () {
         } }
       />
     );
-    findRenderedComponentWithType(instance, CRPane);
+    wrapper.find(CRPane).exists().should.be.true();
   });
 
   it('should render TRRPane for TRR', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PreviewPane
         type='TRR'
         data={ {
@@ -200,11 +188,11 @@ describe('PreviewPane component', function () {
         } }
       />
     );
-    findRenderedComponentWithType(instance, TRRPane).should.be.ok();
+    wrapper.find(TRRPane).should.be.ok();
   });
 
   it('should render TRRPane for Date > TRR', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PreviewPane
         type='DATE > TRR'
         data={ {
@@ -228,37 +216,37 @@ describe('PreviewPane component', function () {
         } }
       />
     );
-    findRenderedComponentWithType(instance, TRRPane).should.be.ok();
+    wrapper.find(TRRPane).should.be.ok();
   });
 
   it('should not display any component if the data is empty', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <PreviewPane customClass='test--preview-pane'/>
     );
-    scryRenderedDOMComponentsWithClass(instance, 'test--preview-pane').should.have.length(0);
+    wrapper.find('.test--preview-pane').exists().should.be.false();
   });
 
   it('should not display any component if isShown is false', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <PreviewPane customClass='test--preview-pane' data={ { id: 123 } } isShown={ false }/>
     );
-    scryRenderedDOMComponentsWithClass(instance, 'test--preview-pane').should.have.length(0);
+    wrapper.find('.test--preview-pane').exists().should.be.false();
   });
 
   it('should not render if type is not in the list', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <PreviewPane
         data={ { name: 'Community' } }
         type='NOT_FOUND'
         customClass='test--preview-pane'
       />
     );
-    const instanceDOM = findRenderedDOMComponentWithClass(instance, 'test--preview-pane');
+    const instanceDOM = wrapper.find('.test--preview-pane').getDOMNode();
     instanceDOM.childNodes.should.have.length(0);
   });
 
   it('should add yScrollable class name to wrapper', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PreviewPane
         type='OFFICER'
         data={ { name: 'Officer' } }
@@ -266,12 +254,12 @@ describe('PreviewPane component', function () {
       />
     );
 
-    const wrapper = findRenderedDOMComponentWithClass(instance, styles.previewPaneWrapper);
-    wrapper.getAttribute('class').should.containEql(styles.yScrollable);
+    const previewPaneWrapper = wrapper.find(`.${styles.previewPaneWrapper}`);
+    previewPaneWrapper.prop('className').should.containEql(styles.yScrollable);
   });
 
   it('should add dynamic-height class name to wrapper', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PreviewPane
         type='OFFICER'
         data={ { name: 'Officer' } }
@@ -279,7 +267,7 @@ describe('PreviewPane component', function () {
       />
     );
 
-    const wrapper = findRenderedDOMComponentWithClass(instance, styles.previewPaneWrapper);
-    wrapper.getAttribute('class').should.containEql('dynamic-height');
+    const previewPaneWrapper = wrapper.find(`.${styles.previewPaneWrapper}`);
+    previewPaneWrapper.prop('className').should.containEql('dynamic-height');
   });
 });

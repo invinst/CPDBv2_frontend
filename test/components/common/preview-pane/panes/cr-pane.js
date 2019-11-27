@@ -1,24 +1,12 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  findRenderedComponentWithType,
-  scryRenderedDOMComponentsWithClass,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
 import CRPane from 'components/common/preview-pane/panes/cr-pane';
 import { NewWidgetWrapper, ListWidget } from 'components/common/preview-pane/widgets';
 import Demographics from 'components/common/demographics';
-import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('CRPane component', () => {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should contain the sub components', () => {
     const accusedOfficers = [{
       id: 16567,
@@ -44,7 +32,7 @@ describe('CRPane component', () => {
       count: 1,
     }];
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <CRPane
         to='/complaint/123/'
         category='Use Of Force'
@@ -56,37 +44,37 @@ describe('CRPane component', () => {
       />
     );
 
-    const wrapper = findRenderedComponentWithType(instance, NewWidgetWrapper);
-    wrapper.props.callToAction.should.eql({
+    const widgetWrapper = wrapper.find(NewWidgetWrapper);
+    widgetWrapper.prop('callToAction').should.eql({
       to: '/complaint/123/',
       text: 'View Complaint Record',
     });
 
-    const title = findRenderedDOMComponentWithClass(instance, 'cr-preview-pane-title-title');
-    title.textContent.should.eql('Use Of Force');
-    const subTitle = findRenderedDOMComponentWithClass(instance, 'cr-preview-pane-title-subtitle');
-    subTitle.textContent.should.eql('Excessive Force - Use Of Firearm / Off Duty - No Injury');
+    const title = wrapper.find('.cr-preview-pane-title-title');
+    title.text().should.equal('Use Of Force');
+    const subTitle = wrapper.find('.cr-preview-pane-title-subtitle');
+    subTitle.text().should.equal('Excessive Force - Use Of Firearm / Off Duty - No Injury');
 
-    const infoRows = scryRenderedDOMComponentsWithClass(instance, 'cr-preview-pane-info-row');
-    infoRows[0].textContent.should.eql('JUL 2, 2012');
-    infoRows[1].textContent.should.eql('14XX W 63RD ST, CHICAGO IL 60636');
+    const infoRows = wrapper.find('.cr-preview-pane-info-row');
+    infoRows.at(0).text().should.equal('JUL 2, 2012');
+    infoRows.at(1).text().should.equal('14XX W 63RD ST, CHICAGO IL 60636');
 
-    const demographics = findRenderedComponentWithType(instance, Demographics);
-    demographics.props.className.should.eql('cr-preview-pane-victims');
-    demographics.props.persons.should.eql(['Hispanic, Female', 'Hispanic, Female, Age 48']);
-    const victimsText = findRenderedDOMComponentWithClass(instance, 'cr-preview-pane-victims-text');
-    victimsText.textContent.should.eql('VICTIMS');
+    const demographics = wrapper.find(Demographics);
+    demographics.prop('className').should.equal('cr-preview-pane-victims');
+    demographics.prop('persons').should.eql(['Hispanic, Female', 'Hispanic, Female, Age 48']);
+    const victimsText = wrapper.find('.cr-preview-pane-victims-text');
+    victimsText.text().should.equal('VICTIMS');
 
-    const accused = findRenderedComponentWithType(instance, ListWidget);
-    accused.props.typeName.should.eql('allegation');
-    accused.props.title.should.eql('ACCUSED OFFICERS');
-    accused.props.items.should.eql(accusedOfficers);
-    accused.props.showItemArrow.should.be.false();
-    accused.props.wrapperClassName.should.eql('cr-preview-pane-accused');
+    const accused = wrapper.find(ListWidget);
+    accused.prop('typeName').should.equal('allegation');
+    accused.prop('title').should.equal('ACCUSED OFFICERS');
+    accused.prop('items').should.eql(accusedOfficers);
+    accused.prop('showItemArrow').should.be.false();
+    accused.prop('wrapperClassName').should.equal('cr-preview-pane-accused');
   });
 
   it('should pluralize content', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <CRPane
         to='/complaint/123/'
         category='Use Of Force'
@@ -109,14 +97,14 @@ describe('CRPane component', () => {
       />
     );
 
-    const victimsText = findRenderedDOMComponentWithClass(instance, 'cr-preview-pane-victims-text');
-    victimsText.textContent.should.eql('VICTIM');
-    const accused = findRenderedComponentWithType(instance, ListWidget);
-    accused.props.title.should.eql('ACCUSED OFFICER');
+    const victimsText = wrapper.find('.cr-preview-pane-victims-text');
+    victimsText.text().should.equal('VICTIM');
+    const accused = wrapper.find(ListWidget);
+    accused.prop('title').should.equal('ACCUSED OFFICER');
   });
 
   it('should not display victims section if there are victims are not passed in', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <CRPane
         to='/complaint/123/'
         category='Use Of Force'
@@ -138,14 +126,14 @@ describe('CRPane component', () => {
       />
     );
 
-    const victimsText = scryRenderedDOMComponentsWithClass(instance, 'cr-preview-pane-victims-text');
-    victimsText.length.should.eql(0);
-    const accused = scryRenderedDOMComponentsWithClass(instance, 'cr-preview-pane-victims');
-    accused.length.should.eql(0);
+    const victimsText = wrapper.find('.cr-preview-pane-victims-text');
+    victimsText.length.should.equal(0);
+    const accused = wrapper.find('.cr-preview-pane-victims');
+    accused.length.should.equal(0);
   });
 
   it('should not display victims section if there are no victims', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <CRPane
         to='/complaint/123/'
         category='Use Of Force'
@@ -168,10 +156,10 @@ describe('CRPane component', () => {
       />
     );
 
-    const victimsText = scryRenderedDOMComponentsWithClass(instance, 'cr-preview-pane-victims-text');
-    victimsText.length.should.eql(0);
-    const accused = scryRenderedDOMComponentsWithClass(instance, 'cr-preview-pane-victims');
-    accused.length.should.eql(0);
+    const victimsText = wrapper.find('.cr-preview-pane-victims-text');
+    victimsText.length.should.equal(0);
+    const accused = wrapper.find('.cr-preview-pane-victims');
+    accused.length.should.equal(0);
   });
 
   it('should not render address section if there is no address', function () {
@@ -198,7 +186,7 @@ describe('CRPane component', () => {
       radarColor: '#f5c5a2',
       count: 1,
     }];
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <CRPane
         to='/complaint/123/'
         category='Use Of Force'
@@ -208,6 +196,6 @@ describe('CRPane component', () => {
         coaccused={ accusedOfficers }
       />
     );
-    scryRenderedDOMComponentsWithClass(instance, 'cr-preview-pane-address').should.have.length(0);
+    wrapper.find('.cr-preview-pane-address').should.have.length(0);
   });
 });

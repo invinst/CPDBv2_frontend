@@ -1,53 +1,47 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 import { spy } from 'sinon';
-import { findDOMNode } from 'react-dom';
-import { renderIntoDocument, Simulate, findRenderedComponentWithType } from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import HoverableRequestDocumentButton, {
   RequestDocumentButton,
 } from 'components/common/request-document-button';
 
 
 describe('RequestDocumentButton component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render "Request Documents" if not alreadyRequested', function () {
-    instance = renderIntoDocument(<HoverableRequestDocumentButton alreadyRequested={ false }/>);
-    findDOMNode(instance).textContent.should.containEql('Request Documents');
+    const wrapper = shallow(<HoverableRequestDocumentButton alreadyRequested={ false }/>);
+    wrapper.text().should.containEql('Request Documents');
   });
 
   it('should render "New Document Notifications" if not alreadyRequested and hasData', function () {
-    instance = renderIntoDocument(<HoverableRequestDocumentButton alreadyRequested={ false } hasData={ true }/>);
-    findDOMNode(instance).textContent.should.containEql('New Document Notifications');
+    const wrapper = shallow(<HoverableRequestDocumentButton alreadyRequested={ false } hasData={ true }/>);
+    wrapper.text().should.containEql('New Document Notifications');
   });
 
   it('should render "Documents Requested" if alreadyRequested', function () {
-    instance = renderIntoDocument(<HoverableRequestDocumentButton alreadyRequested={ true }/>);
-    findDOMNode(instance).textContent.should.containEql('Documents Requested');
+    const wrapper = shallow(<HoverableRequestDocumentButton alreadyRequested={ true }/>);
+    wrapper.text().should.containEql('Documents Requested');
   });
 
   it('should call openRequestDocumentModal when clicked on', function () {
     const func = spy();
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <HoverableRequestDocumentButton alreadyRequested={ false } openRequestDocumentModal={ func }/>
     );
-    instance = findRenderedComponentWithType(instance, RequestDocumentButton);
-    Simulate.click(findDOMNode(instance));
-    func.called.should.be.true();
+    const instance = wrapper.find(RequestDocumentButton);
+
+    instance.simulate('click');
+    func.should.be.called();
   });
 
   it('should do nothing when clicked on if the document is requested', function () {
     const func = spy();
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <HoverableRequestDocumentButton alreadyRequested={ true } openRequestDocumentModal={ func }/>
     );
-    instance = findRenderedComponentWithType(instance, RequestDocumentButton);
-    Simulate.click(findDOMNode(instance));
+    const instance = wrapper.find(RequestDocumentButton);
+
+    instance.simulate('click');
     func.called.should.be.false();
   });
 });

@@ -1,21 +1,10 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  scryRenderedDOMComponentsWithClass,
-  findRenderedDOMComponentWithClass,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import ShortList from 'components/common/short-list';
 
 
 describe('ShortList component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render correctly', function () {
     const data = [
       ['unit', '001'],
@@ -25,22 +14,22 @@ describe('ShortList component', function () {
       ['sex', 'male'],
     ];
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <ShortList
         title={ 'David The Officer' }
         data={ data }
       />
     );
 
-    const title = findRenderedDOMComponentWithClass(instance, 'test--short-list-title');
-    title.textContent.should.eql('David The Officer');
+    const title = wrapper.find('.test--short-list-title');
+    title.text().should.equal('David The Officer');
 
-    const rows = scryRenderedDOMComponentsWithClass(instance, 'test--short-list-row');
-    rows[0].textContent.should.eql('unit001');
-    rows[1].textContent.should.eql('rankbig guy');
-    rows[2].textContent.should.eql('2017 salary$50,000');
-    rows[3].textContent.should.eql('raceNot Available');
-    rows[4].textContent.should.eql('sexmale');
+    const rows = wrapper.find('.test--short-list-row');
+    rows.at(0).text().should.equal('unit001');
+    rows.at(1).text().should.equal('rankbig guy');
+    rows.at(2).text().should.equal('2017 salary$50,000');
+    rows.at(3).text().should.equal('raceNot Available');
+    rows.at(4).text().should.equal('sexmale');
   });
 
 });

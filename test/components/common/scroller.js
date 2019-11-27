@@ -1,55 +1,49 @@
 import React from 'react';
+import { mount } from 'enzyme';
 import { stub } from 'sinon';
-import { renderIntoDocument } from 'react-addons-test-utils';
-import { findDOMNode } from 'react-dom';
 
-import { unmountComponentSuppressError, reRender } from 'utils/test';
 import Scroller from 'components/common/scroller';
 
 
 describe('Scroller component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
-  it('should renderable', function () {
-    Scroller.should.be.renderable();
-  });
-
   it('should give back its element', function () {
     let element;
-    instance = renderIntoDocument(<Scroller onElementRef={ el => element = el }/>);
-    element.should.eql(instance.element);
-    element.should.eql(findDOMNode(instance));
+    const wrapper = mount(<Scroller onElementRef={ el => element = el }/>);
+    element.should.eql(wrapper.instance().element);
+    element.should.eql(wrapper.getDOMNode());
   });
 
-  it('should set its element scrollTop when receive a new scrollTop', function () {
-    stub(Scroller.prototype, 'handleElementRef');
-    instance = renderIntoDocument(
-      <Scroller scrollTop={ 0 }/>
-    );
-    instance.element = stub();
-    instance = reRender(
-      <Scroller scrollTop={ 10 }/>,
-      instance
-    );
-    instance.element.scrollTop.should.eql(10);
-    Scroller.prototype.handleElementRef.restore();
-  });
+  context('handleElementRef stubbed', function () {
+    beforeEach(function () {
+      stub(Scroller.prototype, 'handleElementRef');
+    });
 
-  it('should set its element scrollLeft when receive a new scrollLeft', function () {
-    stub(Scroller.prototype, 'handleElementRef');
-    instance = renderIntoDocument(
-      <Scroller scrollLeft={ 0 }/>
-    );
-    instance.element = stub();
-    instance = reRender(
-      <Scroller scrollLeft={ 10 }/>,
-      instance
-    );
-    instance.element.scrollLeft.should.eql(10);
-    Scroller.prototype.handleElementRef.restore();
+    afterEach(function () {
+      Scroller.prototype.handleElementRef.restore();
+    });
+
+    it('should set its element scrollTop when receive a new scrollTop', function () {
+      const wrapper = mount(
+        <Scroller scrollTop={ 0 }/>
+      );
+      const instance = wrapper.instance();
+
+      instance.element = stub();
+      wrapper.setProps({ scrollTop: 10 });
+
+      instance.element.scrollTop.should.equal(10);
+    });
+
+    it('should set its element scrollLeft when receive a new scrollLeft', function () {
+      const wrapper = mount(
+        <Scroller scrollLeft={ 0 }/>
+      );
+      const instance = wrapper.instance();
+
+      instance.element = stub();
+      wrapper.setProps({ scrollLeft: 10 });
+
+      instance.element.scrollLeft.should.equal(10);
+    });
   });
 });

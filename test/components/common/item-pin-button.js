@@ -1,44 +1,31 @@
 import React from 'react';
-import {
-  renderIntoDocument, Simulate,
-  findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass,
-}
-  from 'react-addons-test-utils';
-import { unmountComponentSuppressError } from 'utils/test';
-import { findDOMNode } from 'react-dom';
+import { mount } from 'enzyme';
 import { stub } from 'sinon';
 
 import ItemPinButton from 'components/common/item-pin-button';
 
 
 describe('ItemPinButton component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should have class is-pinned if item.isPinned is true', function () {
-    instance = renderIntoDocument(<ItemPinButton item={ { isPinned: true } } />);
+    const wrapper = mount(<ItemPinButton item={ { isPinned: true } } />);
 
-    findRenderedDOMComponentWithClass(instance, 'is-pinned').should.be.ok();
+    wrapper.find('.is-pinned').exists().should.be.true();
   });
 
   it('should not have class is-pinned if item.isPinned is false', function () {
-    instance = renderIntoDocument(<ItemPinButton item={ { isPinned: false } } />);
+    const wrapper = mount(<ItemPinButton item={ { isPinned: false } } />);
 
-    scryRenderedDOMComponentsWithClass(instance, 'is-pinned').length.should.be.equal(0);
+    wrapper.find('.is-pinned').length.should.equal(0);
   });
 
   it('should call addOrRemoveItemInPinboard action when clicked on', function () {
     const addOrRemoveItemInPinboard = stub();
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <ItemPinButton
         addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
         item={ { isPinned: false, type: 'CR', id: '1' } } />
     );
-    Simulate.click(findDOMNode(instance));
+    wrapper.simulate('click');
     addOrRemoveItemInPinboard.calledWith({
       type: 'CR',
       id: '1',
@@ -47,26 +34,26 @@ describe('ItemPinButton component', function () {
   });
 
   it('should have class is-pinned if all items inPinned are true', function () {
-    instance = renderIntoDocument(<ItemPinButton items={ [{ isPinned: true }, { isPinned: true }] }/>);
+    const wrapper = mount(<ItemPinButton items={ [{ isPinned: true }, { isPinned: true }] }/>);
 
-    findRenderedDOMComponentWithClass(instance, 'is-pinned').should.be.ok();
+    wrapper.find('.is-pinned').exists().should.be.true();
   });
 
   it('should not have class is-pinned if not all items inPinned are true', function () {
-    instance = renderIntoDocument(<ItemPinButton items={ [{ isPinned: false }, { isPinned: true }] }/>);
+    const wrapper = mount(<ItemPinButton items={ [{ isPinned: false }, { isPinned: true }] }/>);
 
-    scryRenderedDOMComponentsWithClass(instance, 'is-pinned').length.should.be.equal(0);
+    wrapper.find('.is-pinned').length.should.equal(0);
   });
 
   it('should render pin action hint if showHint is true', function () {
-    instance = renderIntoDocument(<ItemPinButton />);
+    const wrapper = mount(<ItemPinButton />);
 
-    findRenderedDOMComponentWithClass(instance, 'pin-action-hint').should.be.ok();
+    wrapper.find('.pin-action-hint').exists().should.be.true();
   });
 
   it('should not render pin action hint if showHint is false', function () {
-    instance = renderIntoDocument(<ItemPinButton showHint={ false }/>);
+    const wrapper = mount(<ItemPinButton showHint={ false }/>);
 
-    scryRenderedDOMComponentsWithClass(instance, 'pin-action-hint').length.should.be.equal(0);
+    wrapper.find('.pin-action-hint').length.should.equal(0);
   });
 });

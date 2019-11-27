@@ -1,30 +1,14 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 import { spy } from 'sinon';
 import Collapse, { Panel } from 'rc-collapse';
-
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass,
-  scryRenderedComponentsWithType,
-  scryRenderedDOMComponentsWithClass,
-  Simulate,
-} from 'react-addons-test-utils';
-import { findDOMNode } from 'react-dom';
 import { Link } from 'react-router';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import ListWidget from 'components/common/preview-pane/widgets/list-widget';
 import ListWidgetItem from 'components/common/preview-pane/widgets/list-widget/list-widget-item';
 
 
 describe('ListWidget', () => {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should contain number of allegations', function () {
     const complaintCategories = [
       {
@@ -38,19 +22,18 @@ describe('ListWidget', () => {
         'count': 32,
       },
     ];
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <ListWidget
         typeName='allegation'
         items={ complaintCategories }
         title='TITLE'
       />
     );
-    const instanceDOM = findDOMNode(instance);
-    const categories = instanceDOM.getElementsByTagName('li');
-    categories[0].textContent.should.containEql('Category Name 1');
-    categories[0].textContent.should.containEql('90 allegations');
-    categories[1].textContent.should.containEql('Category Name 2');
-    categories[1].textContent.should.containEql('32 allegations');
+    const categories = wrapper.find('li');
+    categories.at(0).text().should.containEql('Category Name 1');
+    categories.at(0).text().should.containEql('90 allegations');
+    categories.at(1).text().should.containEql('Category Name 2');
+    categories.at(1).text().should.containEql('32 allegations');
   });
 
   it('should render Link if url is available', function () {
@@ -67,15 +50,15 @@ describe('ListWidget', () => {
         'count': 32,
       },
     ];
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <ListWidget
         typeName='allegation'
         items={ complaintCategories }
         title='TITLE'
       />
     );
-    const firstListItem = findRenderedComponentWithType(instance, Link);
-    firstListItem.props.to.should.eql('url_1');
+    const firstListItem = wrapper.find(Link);
+    firstListItem.prop('to').should.equal('url_1');
   });
 
   it('should stopPropagation on event when clicking on Link', function () {
@@ -87,16 +70,16 @@ describe('ListWidget', () => {
         'url': 'url_1',
       },
     ];
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <ListWidget
         typeName='allegation'
         items={ complaintCategories }
         title='TITLE'
       />
     );
-    const link = findRenderedComponentWithType(instance, Link);
+    const link = wrapper.find(Link);
     const eventSpy = { stopPropagation: spy() };
-    link.props.onClick(eventSpy);
+    link.prop('onClick')(eventSpy);
     eventSpy.stopPropagation.should.be.called();
   });
 
@@ -112,7 +95,7 @@ describe('ListWidget', () => {
       'name': 'Category Name 2',
       'count': 32,
     }];
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <ListWidget
         typeName='allegation'
         items={ complaintCategories }
@@ -120,15 +103,15 @@ describe('ListWidget', () => {
         showItemArrow={ true }
       />
     );
-    scryRenderedDOMComponentsWithClass(instance, 'list-widget-list-item-arrow').should.have.length(2);
+    wrapper.find('.list-widget-list-item-arrow').should.have.length(2);
   });
 
   it('should not display when items is empty', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <ListWidget items={ [] } typeName='allegation'/>,
     );
-    scryRenderedDOMComponentsWithClass(instance, 'list-widget-header').should.have.length(0);
-    scryRenderedDOMComponentsWithClass(instance, 'list-widget-list').should.have.length(0);
+    wrapper.find('.list-widget-header').should.have.length(0);
+    wrapper.find('.list-widget-list').should.have.length(0);
   });
 
   describe('collapsable', function () {
@@ -184,7 +167,7 @@ describe('ListWidget', () => {
     ];
 
     it('should not render Collapse when not collapsable', function () {
-      instance = renderIntoDocument(
+      const wrapper = shallow(
         <ListWidget
           typeName='allegation'
           items={ items }
@@ -193,11 +176,11 @@ describe('ListWidget', () => {
         />,
       );
 
-      scryRenderedComponentsWithType(instance, Collapse).should.have.length(0);
-      scryRenderedComponentsWithType(instance, ListWidgetItem).should.have.length(4);
+      wrapper.find(Collapse).exists().should.be.false();
+      wrapper.find(ListWidgetItem).should.have.length(4);
     });
     it('should not render Panel when collapsable but there are only 3 items or less', function () {
-      instance = renderIntoDocument(
+      const wrapper = shallow(
         <ListWidget
           typeName='allegation'
           items={ items.slice(0, 3) }
@@ -206,11 +189,11 @@ describe('ListWidget', () => {
         />,
       );
 
-      scryRenderedComponentsWithType(instance, Panel).should.have.length(0);
+      wrapper.find(Panel).exists().should.be.false();
     });
 
     it('should render Collapse when collapsable and having more than 3 items', function (done) {
-      instance = renderIntoDocument(
+      const wrapper = mount(
         <ListWidget
           typeName='allegation'
           items={ items }
@@ -219,19 +202,19 @@ describe('ListWidget', () => {
         />,
       );
 
-      const collapse = findRenderedComponentWithType(instance, Collapse);
-      const panel = findRenderedComponentWithType(collapse, Panel);
-      const header = findRenderedDOMComponentWithClass(collapse, 'rc-collapse-header');
+      const collapse = wrapper.find(Collapse);
+      const panel = collapse.find(Panel);
+      const header = collapse.find('.rc-collapse-header');
 
-      panel.props.header.should.equal('View more');
-      scryRenderedComponentsWithType(collapse, ListWidgetItem).should.have.length(0);
-      scryRenderedComponentsWithType(instance, ListWidgetItem).should.have.length(3);
+      panel.prop('header').should.equal('View more');
+      collapse.find(ListWidgetItem).exists().should.be.false();
+      wrapper.find(ListWidgetItem).should.have.length(3);
 
-      Simulate.click(header);
+      header.simulate('click');
 
       setTimeout(() => {
-        scryRenderedComponentsWithType(collapse, ListWidgetItem).should.have.length(1);
-        scryRenderedComponentsWithType(instance, ListWidgetItem).should.have.length(4);
+        collapse.find(ListWidgetItem).exists().should.be.true();
+        wrapper.find(ListWidgetItem).should.have.length(4);
         done();
       }, 500);
     });

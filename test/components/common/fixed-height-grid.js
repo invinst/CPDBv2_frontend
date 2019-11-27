@@ -1,27 +1,16 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 
 import FixedHeightGrid from 'components/common/fixed-height-grid';
 
-import { unmountComponentSuppressError } from 'utils/test';
-import {
-  scryRenderedDOMComponentsWithClass,
-  renderIntoDocument,
-} from 'react-addons-test-utils';
-
-
 describe('FixedHeightGrid component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
 
   it('should be renderable', function () {
     FixedHeightGrid.should.be.renderable();
   });
 
   it('should render children in chunks depending on available height', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <FixedHeightGrid
         childHeight={ 10 }
         availableHeight={ 23 }
@@ -30,10 +19,10 @@ describe('FixedHeightGrid component', function () {
       </FixedHeightGrid>
     );
 
-    const columns = scryRenderedDOMComponentsWithClass(instance, 'test--fixed-height-grid-column');
-    columns.length.should.eql(3);
-    columns[0].textContent.should.containEql('onetwo');
-    columns[1].textContent.should.containEql('threefour');
-    columns[2].textContent.should.containEql('five');
+    const columns = wrapper.find('.test--fixed-height-grid-column');
+    columns.length.should.equal(3);
+    columns.at(0).text().should.containEql('onetwo');
+    columns.at(1).text().should.containEql('threefour');
+    columns.at(2).text().should.containEql('five');
   });
 });

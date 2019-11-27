@@ -1,57 +1,45 @@
 import React from 'react';
-import {
-  Simulate,
-  renderIntoDocument,
-  findRenderedDOMComponentWithTag,
-  findRenderedDOMComponentWithClass,
-} from 'react-addons-test-utils';
+import { shallow, mount } from 'enzyme';
 import { stub } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import HoverableButton from 'components/common/hoverable-button-without-inline-style';
 
 describe('HoverableButtonWithoutInlineStyle component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render a tag and its children', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <HoverableButton>
         <span className='test--class-name' />
       </HoverableButton>
     );
 
-    findRenderedDOMComponentWithTag(instance, 'a').should.be.ok();
-    findRenderedDOMComponentWithClass(instance, 'test--class-name').should.be.ok();
+    wrapper.find('a').exists().should.be.true();
+    wrapper.find('.test--class-name').exists().should.be.true();
   });
 
   it('should handle onClick', function () {
     const onClickStub = stub();
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <HoverableButton onClick={ onClickStub }>
         <span className='test--class-name' />
       </HoverableButton>
     );
 
-    const childComponent = findRenderedDOMComponentWithClass(instance, 'test--class-name');
-    Simulate.click(childComponent);
+    const childComponent = wrapper.find('.test--class-name');
+    childComponent.simulate('click');
 
     onClickStub.should.be.called();
   });
 
   it('should disable onClick if disabled', function () {
     const onClickStub = stub();
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <HoverableButton onClick={ onClickStub } disabled={ true }>
         <span className='test--class-name' />
       </HoverableButton>
     );
 
-    const childComponent = findRenderedDOMComponentWithClass(instance, 'test--class-name');
-    Simulate.click(childComponent);
+    const childComponent = wrapper.find('.test--class-name');
+    childComponent.simulate('click');
 
     onClickStub.should.not.be.called();
   });

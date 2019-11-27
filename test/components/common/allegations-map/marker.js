@@ -1,28 +1,16 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 import { stub } from 'sinon';
-import {
-  renderIntoDocument,
-  scryRenderedDOMComponentsWithClass,
-  Simulate,
-} from 'react-addons-test-utils';
 import { browserHistory } from 'react-router';
-import { findDOMNode } from 'react-dom';
 import isMobile from 'ismobilejs';
 
-import { unmountComponentSuppressError, reRender } from 'utils/test';
 import HoverableMarker, { Marker } from 'components/common/allegations-map/marker';
 import styles from 'components/common/allegations-map/marker.sass';
 
 
 describe('Marker component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render marker component', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <HoverableMarker
         id={ '123' }
         kind={ 'CR' }
@@ -30,12 +18,12 @@ describe('Marker component', function () {
         hovering={ false }
       />
     );
-    scryRenderedDOMComponentsWithClass(instance, styles.marker).should.have.length(1);
+    wrapper.find(`.${styles.marker}`).exists().should.be.true();
   });
 
   it('should open CR page when clicked', function () {
     const stubPush = stub(browserHistory, 'push');
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Marker
         id={ '123' }
         kind={ 'CR' }
@@ -43,21 +31,21 @@ describe('Marker component', function () {
         hovering={ false }
       />
     );
-    Simulate.click(findDOMNode(instance));
+    wrapper.simulate('click');
     stubPush.should.be.calledWith('/complaint/123/');
     stubPush.restore();
   });
 
   it('should open TRR page when clicked', function () {
     const stubPush = stub(browserHistory, 'push');
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Marker
         id={ '123' }
         kind={ 'FORCE' }
         hovering={ false }
       />
     );
-    Simulate.click(findDOMNode(instance));
+    wrapper.simulate('click');
     stubPush.should.be.calledWith('/trr/123/');
     stubPush.restore();
   });
@@ -65,7 +53,7 @@ describe('Marker component', function () {
   it('should not open CR page when clicked if device is tablet', function () {
     const tabletStub = stub(isMobile, 'tablet').value(true);
     const stubPush = stub(browserHistory, 'push');
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Marker
         id={ '123' }
         kind={ 'CR' }
@@ -73,7 +61,7 @@ describe('Marker component', function () {
         hovering={ false }
       />
     );
-    Simulate.click(findDOMNode(instance));
+    wrapper.simulate('click');
     stubPush.should.not.be.called();
     stubPush.restore();
     tabletStub.restore();
@@ -82,7 +70,7 @@ describe('Marker component', function () {
   it('should call handClickCRMarker if kind is CR', function () {
     const handleClickCRMarkerStub = stub();
     const handleClickTRRMarkerStub = stub();
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Marker
         id='123'
         kind='CR'
@@ -90,7 +78,7 @@ describe('Marker component', function () {
         handleClickTRRMarker={ handleClickTRRMarkerStub }
       />
     );
-    Simulate.click(findDOMNode(instance));
+    wrapper.simulate('click');
     handleClickCRMarkerStub.should.be.calledWith('123');
     handleClickTRRMarkerStub.should.be.calledWith(null);
   });
@@ -98,7 +86,7 @@ describe('Marker component', function () {
   it('should call handClickTRRMarker if kind is FORCE', function () {
     const handleClickCRMarkerStub = stub();
     const handleClickTRRMarkerStub = stub();
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Marker
         id='123'
         kind='FORCE'
@@ -106,7 +94,7 @@ describe('Marker component', function () {
         handleClickTRRMarker={ handleClickTRRMarkerStub }
       />
     );
-    Simulate.click(findDOMNode(instance));
+    wrapper.simulate('click');
     handleClickTRRMarkerStub.should.be.calledWith('123');
     handleClickCRMarkerStub.should.be.calledWith(null);
   });
@@ -119,7 +107,7 @@ describe('Marker component', function () {
       togglePopup: stub(),
     };
     //default
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Marker
         id={ '123' }
         kind={ 'CR' }
@@ -129,15 +117,13 @@ describe('Marker component', function () {
       />
     );
     //hover
-    instance = reRender(
-      <Marker
-        id={ '123' }
-        kind={ 'CR' }
-        finding={ 'Sustained' }
-        hovering={ true }
-        mapboxMarker={ stubMapboxMarker }
-      />, instance
-    );
+    wrapper.setProps({
+      id: '123',
+      kind: 'CR',
+      finding: 'Sustained',
+      hovering: true,
+      mapboxMarker: stubMapboxMarker,
+    });
     stubMapboxMarker.togglePopup.should.be.calledOnce();
   });
 
@@ -149,7 +135,7 @@ describe('Marker component', function () {
       togglePopup: stub(),
     };
     //default
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Marker
         id={ '123' }
         kind={ 'CR' }
@@ -159,15 +145,13 @@ describe('Marker component', function () {
       />
     );
     //unhover
-    instance = reRender(
-      <Marker
-        id={ '123' }
-        kind={ 'CR' }
-        finding={ 'Sustained' }
-        hovering={ false }
-        mapboxMarker={ stubMapboxMarker }
-      />, instance
-    );
+    wrapper.setProps({
+      id: '123',
+      kind: 'CR',
+      finding: 'Sustained',
+      hovering: false,
+      mapboxMarker: stubMapboxMarker,
+    });
     stubMapboxMarker.togglePopup.should.be.calledOnce();
   });
 
@@ -180,7 +164,7 @@ describe('Marker component', function () {
       togglePopup: stub(),
     };
     //default
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Marker
         id={ '123' }
         kind={ 'CR' }
@@ -190,15 +174,13 @@ describe('Marker component', function () {
       />
     );
     //hover
-    instance = reRender(
-      <Marker
-        id={ '123' }
-        kind={ 'CR' }
-        finding={ 'Sustained' }
-        hovering={ true }
-        mapboxMarker={ stubMapboxMarker }
-      />, instance
-    );
+    wrapper.setProps({
+      id: '123',
+      kind: 'CR',
+      finding: 'Sustained',
+      hovering: true,
+      mapboxMarker: stubMapboxMarker,
+    });
     stubMapboxMarker.togglePopup.should.not.be.called();
     tabletStub.restore();
   });

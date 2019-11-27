@@ -1,27 +1,14 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 import { Link } from 'react-router';
 
-import {
-  renderIntoDocument,
-  scryRenderedDOMComponentsWithClass,
-  findRenderedComponentWithType,
-  findRenderedDOMComponentWithTag,
-} from 'react-addons-test-utils';
-
-import { unmountComponentSuppressError } from 'utils/test';
 import WrappedWithLink from 'components/common/wrapped-with-link';
 import OutboundLink from 'components/common/outbound-link';
 
 
 describe('WrappedWithLink component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render Link when to is passed', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <WrappedWithLink
         to={ '/some/internal/link' }
         className='internal-link'
@@ -30,14 +17,14 @@ describe('WrappedWithLink component', function () {
       </WrappedWithLink>
     );
 
-    const link = findRenderedComponentWithType(instance, Link);
-    link.props.to.should.eql('/some/internal/link');
-    link.props.className.should.eql('internal-link');
-    scryRenderedDOMComponentsWithClass(instance, 'test--wrapped-with-link-child');
+    const link = wrapper.find(Link);
+    link.prop('to').should.equal('/some/internal/link');
+    link.prop('className').should.equal('internal-link');
+    wrapper.find('.test--wrapped-with-link-child').exists().should.be.true();
   });
 
   it('should render OutboundLink when url is passed', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <WrappedWithLink
         url={ '/some/external/link' }
         className='external-link'
@@ -46,14 +33,14 @@ describe('WrappedWithLink component', function () {
       </WrappedWithLink>
     );
 
-    const link = findRenderedComponentWithType(instance, OutboundLink);
-    link.props.href.should.eql('/some/external/link');
-    link.props.className.should.eql('external-link');
-    scryRenderedDOMComponentsWithClass(instance, 'test--wrapped-with-link-child');
+    const link = wrapper.find(OutboundLink);
+    link.prop('href').should.equal('/some/external/link');
+    link.prop('className').should.equal('external-link');
+    wrapper.find('.test--wrapped-with-link-child').exists().should.be.true();
   });
 
   it('should render div when to or url are not passed', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <WrappedWithLink
         className='normal-div'
       >
@@ -61,8 +48,7 @@ describe('WrappedWithLink component', function () {
       </WrappedWithLink>
     );
 
-    const division = findRenderedDOMComponentWithTag(instance, 'div');
-    division.getAttribute('class').should.eql('normal-div');
-    scryRenderedDOMComponentsWithClass(instance, 'test--wrapped-with-link-child');
+    wrapper.find('div').prop('className').should.equal('normal-div');
+    wrapper.find('.test--wrapped-with-link-child').exists().should.be.true();
   });
 });

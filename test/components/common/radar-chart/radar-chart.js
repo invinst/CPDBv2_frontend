@@ -85,9 +85,8 @@ describe('RadarChart component', function () {
       height: 100,
       radius: 164,
     };
-    instance = renderIntoDocument(<RadarChart data={ data } offsetTop={ 3 } { ...config }/>);
+    const wrapper = shallow(<RadarChart data={ data } offsetTop={ 3 } { ...config }/>);
 
-    findRenderedDOMComponentWithClass(instance, 'test--radar-chart-transform').getAttribute('transform')
-      .should.containEql('translate(116 37)');
+    wrapper.find('.test--radar-chart-transform').prop('transform').should.containEql('translate(116 37)');
   });
 });

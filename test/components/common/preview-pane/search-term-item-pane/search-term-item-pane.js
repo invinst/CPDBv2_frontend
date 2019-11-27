@@ -1,54 +1,43 @@
 import React from 'react';
-import {
-  findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass,
-  renderIntoDocument,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
 
-import { unmountComponentSuppressError } from 'utils/test';
 import SearchTermItemPane from 'components/common/preview-pane/panes/search-term-item-pane';
 import CallToAction from 'components/common/preview-pane/panes/search-term-item-pane/call-to-action';
 import SlideMotion from 'components/animation/slide-motion';
 
 
 describe('SearchTermItemPane component', function () {
-  let instance;
   const name = 'item name';
   const description = 'some description';
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
 
   it('should be renderable if focused item has name', function () {
     SearchTermItemPane.should.be.renderable({ name: 'some name' });
   });
 
   it('should render correctly', function () {
-    instance = renderIntoDocument(<SearchTermItemPane name={ name } description={ description } id={ name }/>);
+    const wrapper = shallow(<SearchTermItemPane name={ name } description={ description } id={ name }/>);
 
-    const titleComponent = findRenderedDOMComponentWithClass(instance, 'test--preview-pane-title');
-    titleComponent.textContent.should.eql('item name');
+    const titleComponent = wrapper.find('.test--preview-pane-title');
+    titleComponent.text().should.equal('item name');
 
-    const descriptionComponent = findRenderedDOMComponentWithClass(instance, 'test--preview-pane-description');
-    descriptionComponent.textContent.should.eql('some description');
+    const descriptionComponent = wrapper.find('.test--preview-pane-description').render();
+    descriptionComponent.text().should.equal('some description');
 
-    const callToAction = findRenderedComponentWithType(instance, CallToAction);
-    callToAction.should.be.ok();
+    wrapper.find(CallToAction).exists().should.be.true();
   });
 
   it('should render SlideMotion with show property is true when name is not empty', function () {
-    instance = renderIntoDocument(<SearchTermItemPane name={ name } description={ description } id={ name }/>);
+    const wrapper = shallow(<SearchTermItemPane name={ name } description={ description } id={ name }/>);
 
-    const slideMotion = findRenderedComponentWithType(instance, SlideMotion);
-    slideMotion.props.show.should.eql(true);
+    const slideMotion = wrapper.find(SlideMotion);
+    slideMotion.prop('show').should.be.true();
   });
 
   it('should render SlideMotion with show property is false when name is empty', function () {
-    instance = renderIntoDocument(<SearchTermItemPane name='' id=''/>);
+    const wrapper = shallow(<SearchTermItemPane name='' id=''/>);
 
-    const slideMotion = findRenderedComponentWithType(instance, SlideMotion);
-    slideMotion.props.show.should.eql(false);
+    const slideMotion = wrapper.find(SlideMotion);
+    slideMotion.prop('show').should.be.false();
   });
 });

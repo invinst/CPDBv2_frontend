@@ -1,22 +1,11 @@
 import React from 'react';
-import { findRenderedDOMComponentWithTag, renderIntoDocument } from 'react-addons-test-utils';
+import { mount } from 'enzyme';
 
 import MagnifyingGlass from 'components/common/icons/magnifying-glass';
-import { unmountComponentSuppressError } from 'utils/test';
 
 describe('MagnifyingGlass component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
-  it('should be renderable', function () {
-    MagnifyingGlass.should.be.renderable();
-  });
-
   it('should render with correct props', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <MagnifyingGlass
         className='magnifying-glass'
         color='#00EEFF'
@@ -24,12 +13,12 @@ describe('MagnifyingGlass component', function () {
       />
     );
 
-    const svg = findRenderedDOMComponentWithTag(instance, 'svg');
-    svg.getAttribute('class').should.containEql('magnifying-glass');
-    svg.getAttribute('width').should.eql('12');
-    svg.getAttribute('height').should.eql('12');
+    const svg = wrapper.find('svg');
+    svg.getDOMNode().getAttribute('class').should.containEql('magnifying-glass');
+    svg.getDOMNode().getAttribute('width').should.equal('12');
+    svg.getDOMNode().getAttribute('height').should.equal('12');
 
-    const path = findRenderedDOMComponentWithTag(instance, 'path');
-    path.getAttribute('fill').should.eql('#00EEFF');
+    const path = wrapper.find('path');
+    path.getDOMNode().getAttribute('fill').should.equal('#00EEFF');
   });
 });

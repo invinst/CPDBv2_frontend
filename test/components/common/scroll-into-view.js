@@ -1,18 +1,11 @@
 import React from 'react';
+import { mount } from 'enzyme';
 import { stub } from 'sinon';
-import { renderIntoDocument } from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError, reRender } from 'utils/test';
 import ScrollIntoView from 'components/common/scroll-into-view';
 
 
 describe('ScrollIntoView component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should renderable', function () {
     ScrollIntoView.should.be.renderable();
   });
@@ -22,18 +15,13 @@ describe('ScrollIntoView component', function () {
     const scrollIntoViewStub = stub();
     stub(document, 'getElementsByClassName').returns([{ scrollIntoView: scrollIntoViewStub }]);
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <ScrollIntoView>
         <div className={ focusedItemClassName } />
       </ScrollIntoView>
     );
 
-    reRender(
-      <ScrollIntoView focusedItemClassName={ focusedItemClassName }>
-        <div className={ focusedItemClassName } />
-      </ScrollIntoView>,
-      instance
-    );
+    wrapper.setProps({ focusedItemClassName });
 
     scrollIntoViewStub.should.be.calledWith({
       behavior: 'smooth',

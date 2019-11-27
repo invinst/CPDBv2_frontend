@@ -1,15 +1,8 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 import { values, concat, times } from 'lodash';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  findRenderedComponentWithType,
-  scryRenderedComponentsWithType,
-  scryRenderedDOMComponentsWithClass,
-} from 'react-addons-test-utils';
-import { mapboxgl } from 'utils/vendors';
 
-import { unmountComponentSuppressError, reRender } from 'utils/test';
+import { mapboxgl } from 'utils/vendors';
 import AllegationsMap, { AllegationsMapWithSpinner } from 'components/common/allegations-map';
 import Legend from 'components/common/allegations-map/legend';
 import mapStyles from 'components/common/allegations-map/allegations-map.sass';
@@ -18,7 +11,6 @@ import LoadingSpinner from 'components/common/loading-spinner';
 
 
 describe('Map component', function () {
-  let instance;
   const legend = {
     allegationCount: 20,
     sustainedCount: 3,
@@ -64,56 +56,52 @@ describe('Map component', function () {
     category: 'Use of Force Report',
   }];
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render officer map and legend', function () {
-    instance = renderIntoDocument(<AllegationsMap legend={ legend } markers={ markers } />);
+    const wrapper = mount(<AllegationsMap legend={ legend } markers={ markers } />);
 
-    findRenderedDOMComponentWithClass(instance, mapStyles.map);
-    findRenderedDOMComponentWithClass(instance, legendStyles.legend);
+    wrapper.find(`.${mapStyles.map}`).exists().should.be.true();
+    wrapper.find(`.${legendStyles.legend}`).exists().should.be.true();
   });
 
   context('WithSpinner', function () {
     it('should render only loading spinner if requesting is true ', function () {
-      instance = renderIntoDocument(<AllegationsMapWithSpinner legend={ legend } requesting={ true } />);
+      const wrapper = shallow(<AllegationsMapWithSpinner legend={ legend } requesting={ true } />);
 
-      const loadingSpinner = findRenderedComponentWithType(instance, LoadingSpinner);
-      loadingSpinner.props.className.should.equal(mapStyles.allegationMapLoading);
+      const loadingSpinner = wrapper.find(LoadingSpinner);
+      loadingSpinner.prop('className').should.equal(mapStyles.allegationMapLoading);
 
-      scryRenderedComponentsWithType(instance, AllegationsMap).should.have.length(0);
-      scryRenderedComponentsWithType(instance, Legend).should.have.length(0);
-      scryRenderedDOMComponentsWithClass(instance, 'map-tab').should.have.length(0);
+      wrapper.find(AllegationsMap).exists().should.be.false();
+      wrapper.find(Legend).exists().should.be.false();
+      wrapper.find('.map-tab').should.have.length(0);
     });
 
     it('should not render loading spinner if requesting is false', function () {
-      instance = renderIntoDocument(<AllegationsMapWithSpinner legend={ legend } requesting={ false } />);
+      const wrapper = shallow(<AllegationsMapWithSpinner legend={ legend } requesting={ false } />);
 
-      scryRenderedComponentsWithType(instance, LoadingSpinner).should.have.length(0);
-      findRenderedComponentWithType(instance, AllegationsMap);
+      wrapper.find(LoadingSpinner).exists().should.be.false();
+      wrapper.find(AllegationsMap).exists().should.be.true();
     });
   });
 
   it('should rerender with clearAllMarkers is true', function () {
     const marker = new mapboxgl.Marker();
     marker.remove.resetHistory();
-    instance = renderIntoDocument(<AllegationsMap legend={ legend } markers={ markers } />);
-    findRenderedDOMComponentWithClass(instance, mapStyles.map);
-    findRenderedDOMComponentWithClass(instance, legendStyles.legend);
+    const wrapper = mount(<AllegationsMap legend={ legend } markers={ markers } />);
+    wrapper.find(`.${mapStyles.map}`).exists().should.be.true();
+    wrapper.find(`.${legendStyles.legend}`).exists().should.be.true();
+    values(wrapper.instance().currentMarkers).should.have.length(3);
 
-    values(instance.currentMarkers).should.have.length(3);
-    instance = reRender(<AllegationsMap legend={ legend } markers={ markers } />, instance);
-    findRenderedDOMComponentWithClass(instance, mapStyles.map);
-    findRenderedDOMComponentWithClass(instance, legendStyles.legend);
-    marker.remove.callCount.should.equal(3);
+    wrapper.setProps({ legend, markers });
+    wrapper.find(`.${mapStyles.map}`).exists().should.be.true();
+    wrapper.find(`.${legendStyles.legend}`).exists().should.be.true();
+    marker.remove.should.be.calledThrice();
   });
 
   it('should rerender with clearAllMarkers is false', function () {
     const marker = new mapboxgl.Marker();
     marker.remove.resetHistory();
-    instance = renderIntoDocument(<AllegationsMap legend={ legend } markers={ markers } />);
-    values(instance.currentMarkers).should.have.length(3);
+    const wrapper = mount(<AllegationsMap legend={ legend } markers={ markers } />);
+    values(wrapper.instance().currentMarkers).should.have.length(3);
 
     const newMarkers = [{
       point: {
@@ -132,13 +120,14 @@ describe('Map component', function () {
       }],
     }];
 
-    instance = reRender(
-      <AllegationsMap legend={ legend } markers={ concat(newMarkers, markers) } clearAllMarkers={ false } />,
-      instance
-    );
+    wrapper.setProps({
+      legend,
+      markers: concat(newMarkers, markers),
+      clearAllMarkers: false,
+    });
 
-    values(instance.currentMarkers).should.have.length(4);
-    marker.remove.callCount.should.equal(0);
+    values(wrapper.instance().currentMarkers).should.have.length(4);
+    marker.remove.should.not.be.called();
   });
 
   it('should render loadMarkersPerPages when componentDidMount', function (done) {
@@ -151,10 +140,10 @@ describe('Map component', function () {
       kind: 'CR',
     });
     const markers = times(201, createMarker);
-    instance = renderIntoDocument(<AllegationsMap legend={ legend } markers={ markers } />);
+    const wrapper = mount(<AllegationsMap legend={ legend } markers={ markers } />);
 
     setTimeout(() => {
-      values(instance.currentMarkers).should.have.length(201);
+      values(wrapper.instance().currentMarkers).should.have.length(201);
       done();
     }, 100);
   });

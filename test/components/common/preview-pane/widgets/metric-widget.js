@@ -1,22 +1,11 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  scryRenderedComponentsWithType,
-  scryRenderedDOMComponentsWithClass,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
 import { MetricWidget } from 'components/common/preview-pane/widgets';
 import MetricWidgetItem from 'components/common/preview-pane/widgets/metric-widget-item';
-import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('MetricWidget component', () => {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should contain number of MetricWidgetItem components', () => {
     const metrics = [
       {
@@ -31,10 +20,10 @@ describe('MetricWidget component', () => {
         isHighlight: true,
       },
     ];
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <MetricWidget metrics={ metrics }/>
     );
-    scryRenderedComponentsWithType(instance, MetricWidgetItem).should.have.lengthOf(2);
+    wrapper.find(MetricWidgetItem).should.have.lengthOf(2);
   });
 
   it('should split into groups with the length of 2', () => {
@@ -55,9 +44,9 @@ describe('MetricWidget component', () => {
         description: 'description3',
       },
     ];
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <MetricWidget metrics={ metrics }/>
     );
-    scryRenderedDOMComponentsWithClass(instance, 'test--metric-widget-chunk').should.have.lengthOf(2);
+    wrapper.find('.test--metric-widget-chunk').should.have.lengthOf(2);
   });
 });

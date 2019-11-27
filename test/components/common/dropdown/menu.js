@@ -1,33 +1,22 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 import { stub } from 'sinon';
-import {
-  renderIntoDocument,
-  scryRenderedDOMComponentsWithClass,
-  Simulate,
-} from 'react-addons-test-utils';
 
 import Menu from 'components/common/dropdown/menu';
-import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('Menu component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should invoke onSelect when clicking on an item', function () {
     const onSelectStub = stub();
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Menu
         onSelect={ onSelectStub }
         options={ ['1', '2', '3'] }
       />
     );
 
-    const secondMenuItem = scryRenderedDOMComponentsWithClass(instance, 'dropdown-menu-item')[1];
-    Simulate.click(secondMenuItem);
+    const secondMenuItem = wrapper.find('.dropdown-menu-item').at(1);
+    secondMenuItem.simulate('click');
 
     onSelectStub.should.be.calledWith(1);
   });
