@@ -1,163 +1,67 @@
 import React from 'react';
-import MockStore from 'redux-mock-store';
-import {
-  renderIntoDocument,
-  scryRenderedComponentsWithType,
-  findRenderedComponentWithType,
-} from 'react-addons-test-utils';
-import { Provider } from 'react-redux';
+import { shallow } from 'enzyme';
 
 import CRPage from 'components/cr-page';
 import SummaryRow from 'components/cr-page/summary-row';
 import ComplaintCategory from 'components/cr-page/complaint-category';
 import ComplaintIncidentDate from 'components/cr-page/complaint-incident-date';
 import RelatedComplaints from 'components/cr-page/related-complaints';
-import { unmountComponentSuppressError } from 'utils/test';
 import PrintNotes from 'components/common/print-notes';
 
 
 describe('CRPage component', function () {
-  let instance;
-  const store = MockStore()({
-    breadcrumb: {
-      breadcrumbs: [],
-    },
-    crPage: {
-      relatedComplaints: {
-        relatedByCategory: {
-          pagination: {},
-          cards: {
-            cards: [],
-          },
-        },
-        relatedByOfficer: {
-          pagination: {},
-          cards: {
-            cards: [],
-          },
-        },
-      },
-    },
-  });
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
-  it('should render victims row when there are victims', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <CRPage victims={ ['Black, Male, Age 51'] } />
-      </Provider>
+  it('should render correctly', function () {
+    const wrapper = shallow(
+      <CRPage
+        crid={ '123456' }
+        category='Some category'
+        subcategory='Some subcategory'
+        incidentDate='2012-12-05'
+        address='3000 Michigan Ave, Chicago IL'
+        victims={ ['Black, Male, Age 51'] }
+        complainants={ ['Black, Male, Age 51'] }
+        summary='abc'
+      />
     );
-    const rowLabels = scryRenderedComponentsWithType(instance, SummaryRow).map(element => element.props.label);
-    rowLabels.indexOf('VICTIM').should.not.eql(-1);
+    const crPage = shallow(wrapper.find('CRPage').get(0), { context: { printMode: false } });
+
+    const complaintCategory = crPage.find(ComplaintCategory);
+    complaintCategory.prop('category').should.eql('Some category');
+    complaintCategory.prop('subcategory').should.eql('Some subcategory');
+
+    const complaintIncidentDate = crPage.find(ComplaintIncidentDate);
+    complaintIncidentDate.prop('incidentDate').should.eql('2012-12-05');
+
+    const relatedComplaints = crPage.find(RelatedComplaints);
+    relatedComplaints.prop('crid').should.eql('123456');
+
+    const rowLabels = crPage.find(SummaryRow).map(element => element.prop('label'));
+    rowLabels.should.containEql('VICTIM').and.containEql('COMPLAINANT').and.containEql('SUMMARY');
   });
 
-  it('should render complainants row when there are complainants', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <CRPage complainants={ ['Black, Male, Age 51'] } />
-      </Provider>
-    );
-    const rowLabels = scryRenderedComponentsWithType(instance, SummaryRow).map(element => element.props.label);
-    rowLabels.indexOf('COMPLAINANT').should.not.eql(-1);
-  });
-
-  it('should render summary row when there are summary', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <CRPage summary='abc' />
-      </Provider>
-    );
-    const rowLabels = scryRenderedComponentsWithType(instance, SummaryRow).map(element => element.props.label);
-    rowLabels.indexOf('SUMMARY').should.not.eql(-1);
-  });
-
-  it('should not render victims row when there are no victims', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <CRPage />
-      </Provider>
-    );
-    const rowLabels = scryRenderedComponentsWithType(instance, SummaryRow).map(element => element.props.label);
-    rowLabels.indexOf('VICTIM').should.eql(-1);
-  });
-
-  it('should not render complainants row when there are no complainants', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <CRPage />
-      </Provider>
-    );
-    const rowLabels = scryRenderedComponentsWithType(instance, SummaryRow).map(element => element.props.label);
-    rowLabels.indexOf('COMPLAINANT').should.eql(-1);
-  });
-
-  it('should not render summary row when there are no summary', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <CRPage />
-      </Provider>
-    );
-    const rowLabels = scryRenderedComponentsWithType(instance, SummaryRow).map(element => element.props.label);
-    rowLabels.indexOf('SUMMARY').should.eql(-1);
-  });
-
-  it('should render ComplaintCategory', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <CRPage />
-      </Provider>
-    );
-    findRenderedComponentWithType(instance, ComplaintCategory);
-  });
-
-  it('should render incident date', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <CRPage incidentDate='2012-12-05' />
-      </Provider>
-    );
-
-    findRenderedComponentWithType(instance, ComplaintIncidentDate).should.be.ok();
-  });
-
-  it('should render RelatedComplaints when there is address', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <CRPage address='3000 Michigan Ave, Chicago IL'/>
-      </Provider>
-    );
-    findRenderedComponentWithType(instance, RelatedComplaints);
-  });
-
-  it('should not render RelatedComplaints when there is no address', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <CRPage address=''/>
-      </Provider>
-    );
-    scryRenderedComponentsWithType(instance, RelatedComplaints).should.have.length(0);
+  it('should not render some parts when missing information', function () {
+    const wrapper = shallow(<CRPage />);
+    const crPage = shallow(wrapper.find('CRPage').get(0), { context: { printMode: false } });
+    const rowLabels = crPage.find(SummaryRow).map(element => element.prop('label'));
+    rowLabels.should.not.containEql('VICTIM').and.not.containEql('COMPLAINANT').and.not.containEql('SUMMARY');
+    crPage.find(RelatedComplaints).exists().should.be.false();
   });
 
   it('should not render PrintNotes component when printMode is false', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <CRPage />
-      </Provider>
-    );
-    findRenderedComponentWithType(instance, CRPage).setState({ printMode: false });
-    scryRenderedComponentsWithType(instance, PrintNotes).should.have.length(0);
+    const wrapper = shallow(<CRPage />);
+    wrapper.setState({ printMode: false });
+    wrapper.instance().getChildContext().should.eql({ printMode: false });
+
+    const crPage = shallow(wrapper.find('CRPage').get(0), { context: { printMode: false } });
+    crPage.find(PrintNotes).exists().should.be.false();
   });
 
   it('should render PrintNotes component when printMode is true', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <CRPage />
-      </Provider>
-    );
-    findRenderedComponentWithType(instance, CRPage).setState({ printMode: true });
-    scryRenderedComponentsWithType(instance, PrintNotes).should.have.length(1);
+    const wrapper = shallow(<CRPage />);
+    wrapper.setState({ printMode: true });
+    wrapper.instance().getChildContext().should.eql({ printMode: true });
+
+    const crPage = shallow(wrapper.find('CRPage').get(0), { context: { printMode: true } });
+    crPage.find(PrintNotes).exists().should.be.true();
   });
 });

@@ -1,13 +1,10 @@
 import React from 'react';
-import {
-  findRenderedComponentWithType, renderIntoDocument,
-  scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
-import { findDOMNode } from 'react-dom';
+import { shallow, mount } from 'enzyme';
 import { spy } from 'sinon';
 
-import { unmountComponentSuppressError, renderWithContext } from 'utils/test';
 import Attachments from 'components/cr-page/attachments';
+import AttachmentHeader from 'components/cr-page/attachments/headers/attachment-header';
+import NoAttachmentHeader from 'components/cr-page/attachments/headers/no-attachment-header';
 import PrintAttachments from 'components/cr-page/attachments/print-attachments';
 import { buildEditStateFields } from 'utils/test/factories/draft';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
@@ -16,12 +13,6 @@ import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-st
 
 
 describe('AttachmentsTab component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should show editable "no documents" message if no items', function () {
     const noAttachmentTextEditWrapperStateProps = {
       fields: buildEditStateFields({
@@ -33,30 +24,37 @@ describe('AttachmentsTab component', function () {
       turnOffSectionEditMode: spy(),
     };
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Attachments noAttachmentTextEditWrapperStateProps={ noAttachmentTextEditWrapperStateProps }/>
     );
-    findDOMNode(instance).innerText.should.containEql(
+    wrapper.text().should.containEql(
       'There are no documents that have been made public yet.'
     );
 
-    const editWrapperStateProvider = findRenderedComponentWithType(instance, EditWrapperStateProvider);
-    const hoverableEditWrapper = findRenderedComponentWithType(editWrapperStateProvider, HoverableEditWrapper);
-    const editableNoDocumentText = findRenderedComponentWithType(hoverableEditWrapper, RichTextEditable);
-    editableNoDocumentText.props.fieldname.should.equal('no_attachment_text');
+    const editWrapperStateProvider = wrapper.find(EditWrapperStateProvider);
+    const hoverableEditWrapper = editWrapperStateProvider.find(HoverableEditWrapper);
+    const editableNoDocumentText = hoverableEditWrapper.find(RichTextEditable);
+    editableNoDocumentText.prop('fieldname').should.equal('no_attachment_text');
 
   });
 
-  it('should render if has items and items is not empty', function () {
+  it('should render AttachmentHeader if has items and items is not empty', function () {
     const items = [{ title: 'abc', url: 'def', previewImageUrl: 'pre' }];
-    instance = renderIntoDocument(<Attachments items={ items }/>);
-    scryRenderedComponentsWithType(instance, Attachments).should.have.length(1);
+    const wrapper = shallow(<Attachments items={ items }/>);
+    wrapper.find(AttachmentHeader).exists().should.be.true();
+    wrapper.find(NoAttachmentHeader).exists().should.be.false();
+  });
+
+  it('should render NoAttachmentHeader if items is empty', function () {
+    const wrapper = shallow(<Attachments />);
+    wrapper.find(AttachmentHeader).exists().should.be.false();
+    wrapper.find(NoAttachmentHeader).exists().should.be.true();
   });
 
   it('should render PrintAttachment if printMode is true', function () {
     const items = [{ title: 'abc', url: 'def', previewImageUrl: 'pre' }];
     const context = { printMode: true };
-    instance = renderWithContext(context, <Attachments items={ items }/>);
-    scryRenderedComponentsWithType(instance, PrintAttachments).should.have.length(1);
+    const wrapper = shallow(<Attachments items={ items }/>, { context: context });
+    wrapper.find(PrintAttachments).should.have.length(1);
   });
 });

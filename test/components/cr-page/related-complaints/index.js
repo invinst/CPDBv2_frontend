@@ -1,17 +1,13 @@
 import React from 'react';
-import {
-  renderIntoDocument, findRenderedComponentWithType,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import RelatedComplaints from 'components/cr-page/related-complaints';
 import Dropdown from 'components/common/dropdown';
 
 
 describe('RelatedComplaints component', function () {
-  let instance;
   const store = MockStore()({
     crPage: {
       relatedComplaints: {
@@ -31,20 +27,17 @@ describe('RelatedComplaints component', function () {
     },
   });
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should set new distance when change dropdown value', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Provider store={ store }>
         <RelatedComplaints />
       </Provider>
     );
 
-    instance = findRenderedComponentWithType(instance, RelatedComplaints);
-    const dropdown = findRenderedComponentWithType(instance, Dropdown);
-    dropdown.props.onChange('5 MILES');
-    instance.state.selectedDistance.should.eql('5mi');
+    const relatedComplaints = shallow(wrapper.get(0));
+    relatedComplaints.state('selectedDistance').should.equal('0.5mi');
+    const dropdown = relatedComplaints.find(Dropdown);
+    dropdown.prop('onChange')('5 MILES');
+    relatedComplaints.state('selectedDistance').should.equal('5mi');
   });
 });
