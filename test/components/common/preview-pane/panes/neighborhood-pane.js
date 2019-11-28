@@ -31,7 +31,7 @@ describe('NeighborhoodPane component', function () {
 
     const widgetWrapper = wrapper.find(WidgetWrapper);
     widgetWrapper.prop('callToAction').should.eql({
-      url: 'https://staging.cpdb.co/data/L2B5ML/citizens-police-data-project'
+      url: 'https://staging.cpdb.co/data/L2B5ML/citizens-police-data-project',
     });
     widgetWrapper.prop('maxHeight').should.equal(750);
 

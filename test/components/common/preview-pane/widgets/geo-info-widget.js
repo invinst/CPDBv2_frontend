@@ -26,6 +26,6 @@ describe('GeoInfoWidget component', () => {
         raceCount={ [] }
       />
     );
-    wrapper.find(CommunityRacePopulation).exists().should.be.false();
+    should(wrapper.getNode()).be.null();
   });
 });

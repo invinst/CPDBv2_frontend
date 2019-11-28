@@ -1,10 +1,6 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 import { stub } from 'sinon';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  Simulate,
-} from 'react-addons-test-utils';
 
 import LogFileModalContent from 'components/generic-modal/log-file-modal-content';
 
@@ -17,12 +13,12 @@ describe('LogFileModalContent component', function () {
       recentRunAt: '2019-03-04',
     };
 
-    let instance = renderIntoDocument(
+    const wrapper = shallow(
       <LogFileModalContent crawler={ crawler } />
     );
 
-    findRenderedDOMComponentWithClass(instance, 'modal-title').textContent.should.eql('PORTAL_COPA - 2019-03-04');
-    findRenderedDOMComponentWithClass(instance, 'embed-content').getAttribute('src').should.be.eql(
+    wrapper.find('.modal-title').text().should.equal('PORTAL_COPA - 2019-03-04');
+    wrapper.find('.embed-content').prop('src').should.be.eql(
       'https://lvh.me/log'
     );
   });
@@ -35,12 +31,12 @@ describe('LogFileModalContent component', function () {
       recentRunAt: '2019-03-04',
     };
 
-    let instance = renderIntoDocument(
+    const wrapper = shallow(
       <LogFileModalContent crawler={ crawler } closeModal={ closeModalStub } />
     );
 
-    const closeButton = findRenderedDOMComponentWithClass(instance, 'log-file-close-button');
-    Simulate.click(closeButton);
-    closeModalStub.called.should.be.true();
+    const closeButton = wrapper.find('.log-file-close-button');
+    closeButton.simulate('click');
+    closeModalStub.should.be.called();
   });
 });

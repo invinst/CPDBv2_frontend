@@ -1,14 +1,7 @@
 import React from 'react';
-import { findDOMNode } from 'react-dom';
-import {
-  Simulate,
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  findRenderedComponentWithType,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 import { spy, stub } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import * as editPathUtils from 'utils/edit-path';
 import SearchBox from 'components/headers/slim-header/slim-header-content/search-box';
 import MagnifyingGlass from 'components/common/icons/magnifying-glass';
@@ -17,55 +10,49 @@ import { accentColor, boulderColor } from 'utils/styles';
 
 
 describe('SearchBox component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render at top correctly', function () {
-    instance = renderIntoDocument(<SearchBox position='top'/>);
+    const wrapper = shallow(<SearchBox position='top'/>);
 
-    findDOMNode(instance).getAttribute('class').should.equal(`${styles.searchBox} top`);
-    findRenderedDOMComponentWithClass(instance, 'search-box-search-text').textContent.should.equal('Search');
-    findRenderedDOMComponentWithClass(instance, 'search-box-term').textContent.should.equal('What can I search?');
+    wrapper.prop('className').should.equal(`${styles.searchBox} top`);
+    wrapper.find('.search-box-search-text').text().should.equal('Search');
+    wrapper.find('.search-box-term').text().should.equal('What can I search?');
 
-    const magnifyingGlass = findRenderedComponentWithType(instance, MagnifyingGlass);
-    magnifyingGlass.props.className.should.equal('search-box-magnifying-glass');
-    magnifyingGlass.props.color.should.equal(accentColor);
+    const magnifyingGlass = wrapper.find(MagnifyingGlass);
+    magnifyingGlass.prop('className').should.equal('search-box-magnifying-glass');
+    magnifyingGlass.prop('color').should.equal(accentColor);
   });
 
   it('should render at middle correctly', function () {
-    instance = renderIntoDocument(<SearchBox position='middle'/>);
+    const wrapper = shallow(<SearchBox position='middle'/>);
 
-    findDOMNode(instance).getAttribute('class').should.equal(`${styles.searchBox} middle`);
-    findRenderedDOMComponentWithClass(instance, 'search-box-search-text').textContent.should.equal('Search');
-    findRenderedDOMComponentWithClass(instance, 'search-box-term').textContent.should.equal('What can I search?');
+    wrapper.prop('className').should.equal(`${styles.searchBox} middle`);
+    wrapper.find('.search-box-search-text').text().should.equal('Search');
+    wrapper.find('.search-box-term').text().should.equal('What can I search?');
 
-    const magnifyingGlass = findRenderedComponentWithType(instance, MagnifyingGlass);
-    magnifyingGlass.props.className.should.equal('search-box-magnifying-glass');
-    magnifyingGlass.props.color.should.equal(boulderColor);
+    const magnifyingGlass = wrapper.find(MagnifyingGlass);
+    magnifyingGlass.prop('className').should.equal('search-box-magnifying-glass');
+    magnifyingGlass.prop('color').should.equal(boulderColor);
   });
 
   it('should render at bottom correctly', function () {
-    instance = renderIntoDocument(<SearchBox position='bottom'/>);
+    const wrapper = shallow(<SearchBox position='bottom'/>);
 
-    findDOMNode(instance).getAttribute('class').should.equal(`${styles.searchBox} bottom`);
-    findRenderedDOMComponentWithClass(instance, 'search-box-search-text').textContent.should.equal('Search');
-    findRenderedDOMComponentWithClass(instance, 'search-box-term').textContent.should.equal('What can I search?');
+    wrapper.prop('className').should.equal(`${styles.searchBox} bottom`);
+    wrapper.find('.search-box-search-text').text().should.equal('Search');
+    wrapper.find('.search-box-term').text().should.equal('What can I search?');
 
-    const magnifyingGlass = findRenderedComponentWithType(instance, MagnifyingGlass);
-    magnifyingGlass.props.className.should.equal('search-box-magnifying-glass');
-    magnifyingGlass.props.color.should.equal('#005EF4');
+    const magnifyingGlass = wrapper.find(MagnifyingGlass);
+    magnifyingGlass.prop('className').should.equal('search-box-magnifying-glass');
+    magnifyingGlass.prop('color').should.equal('#005EF4');
   });
 
   it('should go to search page when being clicked', function () {
     const pushPathPreserveEditMode = stub(editPathUtils, 'pushPathPreserveEditMode');
     const stopPropagation = spy();
 
-    instance = renderIntoDocument(<SearchBox position='top'/>);
+    const wrapper = shallow(<SearchBox position='top'/>);
 
-    Simulate.click(findDOMNode(instance), { stopPropagation });
+    wrapper.simulate('click', { stopPropagation });
 
     stopPropagation.should.be.calledOnce();
 

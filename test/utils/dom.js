@@ -76,7 +76,7 @@ describe('dom utils', function () {
     });
   });
 
-  describe('setMetaAttribute', function () {
+  describe.skip('setMetaAttribute', function () {
     const headEl = document.getElementsByTagName('HEAD')[0];
 
     it('should change existing meta attribute', function () {

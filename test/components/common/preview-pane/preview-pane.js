@@ -46,7 +46,7 @@ describe('PreviewPane component', function () {
         data={ { name: 'Officer' } }
       />
     );
-    wrapper.find(OfficerPane).should.be.ok();
+    wrapper.find(OfficerPane).exists().should.be.true();
   });
 
   it('should render WardPane', function () {
@@ -188,7 +188,7 @@ describe('PreviewPane component', function () {
         } }
       />
     );
-    wrapper.find(TRRPane).should.be.ok();
+    wrapper.find(TRRPane).exists().should.be.true();
   });
 
   it('should render TRRPane for Date > TRR', function () {
@@ -216,7 +216,7 @@ describe('PreviewPane component', function () {
         } }
       />
     );
-    wrapper.find(TRRPane).should.be.ok();
+    wrapper.find(TRRPane).exists().should.be.true();
   });
 
   it('should not display any component if the data is empty', function () {

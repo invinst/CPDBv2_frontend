@@ -20,8 +20,8 @@ describe('DocumentsOverviewPage DocumentsTable component', function () {
     const wrapper = shallow(
       <DocumentsTable rows={ rows } />
     );
-    wrapper.find(InfiniteScroll).should.be.ok();
-    wrapper.find(DocumentRow).should.be.ok();
+    wrapper.find(InfiniteScroll).exists().should.be.true();
+    wrapper.find(DocumentRow).exists().should.be.true();
   });
 
   it('should pass correct props to DocumentRow component', function () {

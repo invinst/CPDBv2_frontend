@@ -39,7 +39,7 @@ describe('Dropdown component', function () {
   });
 
   it('should close menu when clicked on an item', function () {
-    const wrapper = shallow(
+    const wrapper = mount(
       <Dropdown
         defaultValue={ '1' }
         options={ ['1', '2', '3'] }
@@ -76,7 +76,7 @@ describe('Dropdown component', function () {
 
   it('should close menu when losing focus', function () {
     const onChangeStub = stub();
-    const wrapper = shallow(
+    const wrapper = mount(
       <Dropdown
         defaultValue={ '1' }
         onChange={ onChangeStub }

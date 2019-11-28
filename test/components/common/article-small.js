@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 
 import ArticleSmall from 'components/common/article-small';
 import ArticleHeader from 'components/common/article-header';
@@ -8,8 +8,8 @@ import ArticleHeader from 'components/common/article-header';
 describe('ArticleSmall component', function () {
   it('should render header if provided', function () {
     const testText = 'this should render';
-    const wrapper = shallow(<ArticleSmall header={ 'header' } paragraphs={ [testText] }/>);
-    wrapper.find(ArticleHeader).should.be.ok();
+    const wrapper = mount(<ArticleSmall header={ 'header' } paragraphs={ [testText] }/>);
+    wrapper.find(ArticleHeader).exists().should.be.true();
   });
 
   it('should render its children', function () {

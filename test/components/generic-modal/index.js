@@ -1,17 +1,9 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 import { spy } from 'sinon';
-import { findDOMNode } from 'react-dom';
-import {
-  Simulate,
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass,
-} from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import LegalDisclaimerModalContent from 'components/generic-modal/legal-disclaimer-modal-content';
 import GenericModal from 'components/generic-modal';
 import RequestDocumentModalContent from 'containers/cr-page/request-document-modal-container';
@@ -21,29 +13,21 @@ import { CR_EDIT_TYPES } from 'utils/constants';
 
 
 describe('GenericModal component', function () {
-  let element;
-
-  afterEach(function () {
-    if (element) {
-      unmountComponentSuppressError(element);
-    }
-  });
-
   it('should render nothing if activeModal is unavailable', function () {
-    element = renderIntoDocument(
+    const wrapper = shallow(
       <GenericModal activeModal={ null }/>
     );
 
-    scryRenderedDOMComponentsWithClass(element, 'generic-modal-content').should.have.length(0);
+    wrapper.find('.generic-modal-content').should.have.length(0);
   });
 
   it('should render Legal Disclaimer when activeModal matches', function () {
     const closeModal = () => {};
-    element = renderIntoDocument(
+    const wrapper = shallow(
       <GenericModal activeModal='LEGAL_DISCLAIMER' closeModal={ closeModal } />
     );
 
-    findRenderedComponentWithType(element, LegalDisclaimerModalContent).props.closeModal.should.equal(closeModal);
+    wrapper.find(LegalDisclaimerModalContent).prop('closeModal').should.equal(closeModal);
   });
 
   it('should render RequestDocumentModalContent for DOCUMENT_REQUEST when activeModal matches', function () {
@@ -70,7 +54,7 @@ describe('GenericModal component', function () {
     });
     const closeModal = () => {};
 
-    element = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <GenericModal
           location={ { pathname: '/complaint/123/' } }
@@ -80,7 +64,7 @@ describe('GenericModal component', function () {
       </Provider>
     );
 
-    findRenderedComponentWithType(element, RequestDocumentModalContent).props.closeModal.should.equal(closeModal);
+    wrapper.find(RequestDocumentModalContent).prop('closeModal').should.equal(closeModal);
   });
 
   it('should render Log File when activeModal matches', function () {
@@ -98,7 +82,7 @@ describe('GenericModal component', function () {
     });
     const closeModal = () => {};
 
-    element = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <GenericModal
           activeModal='LOG_FILE'
@@ -107,7 +91,7 @@ describe('GenericModal component', function () {
       </Provider>
     );
 
-    findRenderedComponentWithType(element, LogFileModalContent).props.closeModal.should.equal(closeModal);
+    wrapper.find(LogFileModalContent).prop('closeModal').should.equal(closeModal);
   });
 
   it('should render RequestDocumentModalContent for NEW_DOCUMENT_NOTIFICATIONS when activeModal matches', function () {
@@ -139,7 +123,7 @@ describe('GenericModal component', function () {
     });
     const closeModal = () => {};
 
-    element = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <GenericModal
           location={ { pathname: '/complaint/123/' } }
@@ -149,7 +133,7 @@ describe('GenericModal component', function () {
       </Provider>
     );
 
-    findRenderedComponentWithType(element, RequestDocumentModalContent).props.closeModal.should.equal(closeModal);
+    wrapper.find(RequestDocumentModalContent).prop('closeModal').should.equal(closeModal);
   });
 
   it('should render RequestTRRDocumentModalContent when activeModal matches', function () {
@@ -170,7 +154,7 @@ describe('GenericModal component', function () {
     });
     const closeModal = () => {};
 
-    element = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <GenericModal
           location={ { pathname: '/trr/123/' } }
@@ -180,28 +164,28 @@ describe('GenericModal component', function () {
       </Provider>
     );
 
-    findRenderedComponentWithType(element, RequestTRRDocumentModalContent).props.closeModal.should.equal(closeModal);
+    wrapper.find(RequestTRRDocumentModalContent).prop('closeModal').should.equal(closeModal);
   });
 
   it('should dispatch "close modal" action when overlay is clicked on', function () {
     const closeModal = spy();
-    element = renderIntoDocument(
+    const wrapper = shallow(
       <GenericModal activeModal='LEGAL_DISCLAIMER' closeModal={ closeModal } />
     );
 
-    Simulate.click(findDOMNode(element));
+    wrapper.simulate('click');
 
-    closeModal.called.should.be.true();
+    closeModal.should.be.called();
   });
 
   it('should not dispatch "close modal" action when modal content is clicked on', function () {
     const closeModal = spy();
-    element = renderIntoDocument(
+    const wrapper = shallow(
       <GenericModal activeModal='LEGAL_DISCLAIMER' closeModal={ closeModal } />
     );
 
-    const content = findRenderedDOMComponentWithClass(element, 'generic-modal-content');
-    Simulate.click(content);
+    const content = wrapper.find('.generic-modal-content');
+    content.simulate('click', { stopPropagation: () => {} });
 
     closeModal.called.should.be.false();
   });

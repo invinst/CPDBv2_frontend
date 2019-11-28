@@ -1,12 +1,6 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  findRenderedComponentWithType,
-  scryRenderedDOMComponentsWithClass,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
 import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
 import SimpleTagsEditable from 'components/inline-editable/editable-section/simple-tag-editable';
@@ -14,12 +8,6 @@ import EditableTagsInput from 'components/document-page/editable-tags-input';
 
 
 describe('EditableTagsInput component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render correctly', function () {
     const editWrapperStateProps = {
       fields: {
@@ -31,7 +19,7 @@ describe('EditableTagsInput component', function () {
       },
     };
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <EditableTagsInput
         className='editable-tags-input'
         title='Tags title'
@@ -41,20 +29,20 @@ describe('EditableTagsInput component', function () {
       />
     );
 
-    const tagsTitle = findRenderedDOMComponentWithClass(instance, 'editable-tags-title');
-    tagsTitle.textContent.should.eql('Tags title');
+    const tagsTitle = wrapper.find('.editable-tags-title');
+    tagsTitle.text().should.equal('Tags title');
 
-    const editWrapperStateProvider = findRenderedComponentWithType(instance, EditWrapperStateProvider);
-    editWrapperStateProvider.props.should.containEql(editWrapperStateProps);
+    const editWrapperStateProvider = wrapper.find(EditWrapperStateProvider);
+    editWrapperStateProvider.props().should.containEql(editWrapperStateProps);
 
-    const hoverableEditWrapper = findRenderedComponentWithType(editWrapperStateProvider, HoverableEditWrapper);
+    const hoverableEditWrapper = editWrapperStateProvider.find(HoverableEditWrapper);
 
-    const simpleTagsEditable = findRenderedComponentWithType(hoverableEditWrapper, SimpleTagsEditable);
-    simpleTagsEditable.props.fieldName.should.eql('tags');
+    const simpleTagsEditable = hoverableEditWrapper.find(SimpleTagsEditable);
+    simpleTagsEditable.prop('fieldName').should.equal('tags');
 
-    const nextUntaggedDocumentButton = findRenderedDOMComponentWithClass(instance, 'next-untagged-document-button');
-    nextUntaggedDocumentButton.textContent.should.eql('Next untagged document');
-    nextUntaggedDocumentButton.href.should.containEql('/document/12345/');
+    const nextUntaggedDocumentButton = wrapper.find('.next-untagged-document-button');
+    nextUntaggedDocumentButton.text().should.equal('Next untagged document');
+    nextUntaggedDocumentButton.prop('href').should.containEql('/document/12345/');
   });
 
   it('should not render next untagged document button if there is no nextDocumentId', function () {
@@ -68,7 +56,7 @@ describe('EditableTagsInput component', function () {
       },
     };
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <EditableTagsInput
         className='editable-tags-input'
         title='Tags title'
@@ -77,7 +65,7 @@ describe('EditableTagsInput component', function () {
       />
     );
 
-    scryRenderedDOMComponentsWithClass(instance, 'next-untagged-document-button').should.have.length(0);
+    wrapper.find('.next-untagged-document-button').should.have.length(0);
   });
 
   it('should show error message(s) if there are errorMessages', function () {
@@ -91,7 +79,7 @@ describe('EditableTagsInput component', function () {
       },
     };
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <EditableTagsInput
         className='editable-tags-input'
         title='Tags title'
@@ -100,7 +88,7 @@ describe('EditableTagsInput component', function () {
         errorMessages={ ['This is error message 1.', 'This is error message 2.'] }
       />
     );
-    const errorMessages = findRenderedDOMComponentWithClass(instance, 'error-messages');
-    errorMessages.textContent.should.eql('This is error message 1. This is error message 2.');
+    const errorMessages = wrapper.find('.error-messages');
+    errorMessages.text().should.equal('This is error message 1. This is error message 2.');
   });
 });

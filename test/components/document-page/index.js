@@ -1,18 +1,11 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 import { Router, createMemoryHistory, Route } from 'react-router';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass,
-  scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { omit, findIndex, slice, cloneDeep, set } from 'lodash';
 import moment from 'moment-timezone';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import DocumentPageContainer from 'containers/document-page';
 import ShareableHeader from 'components/headers/shareable-header';
 import FooterContainer from 'containers/footer-container';
@@ -22,8 +15,6 @@ import EditableTagsInput from 'components/document-page/editable-tags-input';
 
 
 describe('DocumentPage component', function () {
-  let instance;
-
   const state = {
     headers: {
       shareableHeader: {
@@ -52,53 +43,53 @@ describe('DocumentPage component', function () {
         'tags': ['tag1', 'tag2'],
         'text_content': 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE',
         'url': 'https://assets.documentcloud.org/documents/5680384/CRID-1083633-CR-CRID-1083633-CR-Tactical.pdf',
-        'preview_image_url': 'https://assets.documentcloud.org/documents/5680384/pages/CRID-1083633.gif',
+        'preview_image_url': 'https://assets.documentcloud.org/documents/4769607/pages/CRID-1052620-CR-p1-normal.gif',
         'original_url': 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf',
         'created_at': '2019-01-09T03:11:27.441718-06:00',
         'updated_at': '2019-02-28T20:50:10.161395-06:00',
         'crawler_name': 'Chicago COPA',
         'linked_documents': [{
           'id': 14192,
-          'preview_image_url': 'https://assets.documentcloud.org/documents/5680385/pages/CRID-1083633.gif',
+          'preview_image_url': 'https://assets.documentcloud.org/documents/4769275/pages/CRID-1075381-CR-p1-normal.gif',
         }, {
           'id': 14188,
-          'preview_image_url': 'https://assets.documentcloud.org/documents/5680389/pages/CRID-1083633.gif',
+          'preview_image_url': 'https://via.placeholder.com/133x176.gif',
         }, {
           'id': 14191,
-          'preview_image_url': 'https://assets.documentcloud.org/documents/5680386/pages/CRID-1083633.gif',
+          'preview_image_url': 'https://via.placeholder.com/133x176.gif',
         }, {
           'id': 14189,
-          'preview_image_url': 'https://assets.documentcloud.org/documents/5680388/pages/CRID-1083633.gif',
+          'preview_image_url': 'https://via.placeholder.com/133x176.gif',
         }, {
           'id': 14190,
-          'preview_image_url': 'https://assets.documentcloud.org/documents/5680387/pages/CRID-1083633.gif',
+          'preview_image_url': 'https://via.placeholder.com/133x176.gif',
         }, {
           'id': 17570,
-          'preview_image_url': 'https://assets.documentcloud.org/documents/5670367/pages/CRID-1083633.gif',
+          'preview_image_url': 'https://assets.documentcloud.org/documents/5777858/pages/CRID-312474-CPB-p1-normal.gif',
         }, {
           'id': 17571,
-          'preview_image_url': 'https://assets.documentcloud.org/documents/5670366/pages/CRID-1083633.gif',
+          'preview_image_url': 'https://via.placeholder.com/133x176.gif',
         }, {
           'id': 17890,
-          'preview_image_url': 'https://assets.documentcloud.org/documents/5670371/pages/CRID-1083633.gif',
+          'preview_image_url': 'https://via.placeholder.com/133x176.gif',
         }, {
           'id': 17891,
-          'preview_image_url': 'https://assets.documentcloud.org/documents/5670368/pages/CRID-1083633.gif',
+          'preview_image_url': 'https://via.placeholder.com/133x176.gif',
         }, {
           'id': 17892,
-          'preview_image_url': 'https://assets.documentcloud.org/documents/5670370/pages/CRID-1083633.gif',
+          'preview_image_url': 'https://via.placeholder.com/133x176.gif',
         }, {
           'id': 17893,
-          'preview_image_url': 'https://assets.documentcloud.org/documents/5670369/pages/CRID-1083633.gif',
+          'preview_image_url': 'https://assets.documentcloud.org/documents/4769733/pages/CRID-1042825-CR-p1-normal.gif',
         }, {
           'id': 17894,
-          'preview_image_url': 'https://assets.documentcloud.org/documents/5670494/pages/CRID-1083633.gif',
+          'preview_image_url': 'https://via.placeholder.com/133x176.gif',
         }, {
           'id': 17895,
-          'preview_image_url': 'https://assets.documentcloud.org/documents/5670495/pages/CRID-1083633.gif',
+          'preview_image_url': 'https://via.placeholder.com/133x176.gif',
         }, {
           'id': 17896,
-          'preview_image_url': 'https://assets.documentcloud.org/documents/5670496/pages/CRID-1083633.gif',
+          'preview_image_url': 'https://via.placeholder.com/133x176.gif',
         }],
         'pages': 5,
         'last_updated_by': 'John Doe',
@@ -120,7 +111,6 @@ describe('DocumentPage component', function () {
 
   afterEach(function () {
     moment.tz.setDefault();
-    unmountComponentSuppressError(instance);
   });
 
   it('should render correctly', function () {
@@ -130,32 +120,34 @@ describe('DocumentPage component', function () {
       </Provider>
     );
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Router history={ createMemoryHistory() }>
         <Route path='/' component={ recentDocument } />
       </Router>
     );
 
-    const header = findRenderedComponentWithType(instance, ShareableHeader);
-    header.props.buttonType.should.eql('none');
+    const header = wrapper.find(ShareableHeader);
+    header.prop('buttonType').should.equal('none');
 
-    findRenderedComponentWithType(instance, FooterContainer);
-    findRenderedDOMComponentWithClass(instance, 'document-side-bar');
+    wrapper.find(FooterContainer).exists().should.be.true();
+    wrapper.find('.document-side-bar').exists().should.be.true();
 
-    const thumbnail = findRenderedDOMComponentWithClass(instance, 'document-thumbnail');
-    thumbnail.href.should.eql(
+    const thumbnail = wrapper.find('.document-thumbnail');
+    thumbnail.prop('href').should.equal(
       'https://assets.documentcloud.org/documents/5680384/CRID-1083633-CR-CRID-1083633-CR-Tactical.pdf'
     );
 
-    const thumbnailImg = findRenderedDOMComponentWithClass(instance, 'document-thumbnail-img');
-    thumbnailImg.src.should.eql('https://assets.documentcloud.org/documents/5680384/pages/CRID-1083633.gif');
-    thumbnailImg.alt.should.eql('thumbnail');
+    const thumbnailImg = wrapper.find('.document-thumbnail-img');
+    thumbnailImg.prop('src').should.equal(
+      'https://assets.documentcloud.org/documents/4769607/pages/CRID-1052620-CR-p1-normal.gif'
+    );
+    thumbnailImg.prop('alt').should.equal('thumbnail');
 
-    const thumbnailPageCount = findRenderedDOMComponentWithClass(instance, 'document-thumbnail-page-count');
-    thumbnailPageCount.textContent.should.eql('5 pages');
+    const thumbnailPageCount = wrapper.find('.document-thumbnail-page-count');
+    thumbnailPageCount.text().should.equal('5 pages');
 
-    const simpleListWidget = findRenderedComponentWithType(instance, SimpleListWidget);
-    simpleListWidget.props.items.should.eql([
+    const simpleListWidget = wrapper.find(SimpleListWidget);
+    simpleListWidget.prop('items').should.eql([
       { name: 'CRID / UID', value: 'CR 1083633', to: '/complaint/1083633/' },
       {
         name: 'Source',
@@ -170,46 +162,44 @@ describe('DocumentPage component', function () {
       { name: 'Notifications', value: '10' },
     ]);
 
-    const linkDocumentsTitle = findRenderedDOMComponentWithClass(instance, 'linked-documents-title');
-    linkDocumentsTitle.textContent.should.eql('Linked Documents (14)');
+    const linkDocumentsTitle = wrapper.find('.linked-documents-title');
+    linkDocumentsTitle.text().should.equal('Linked Documents (14)');
 
-    const linkDocumentsContent = findRenderedDOMComponentWithClass(instance, 'linked-documents-content');
-    linkDocumentsContent.getAttribute('href').should.eql('/documents/?match=1083633/');
+    const linkDocumentsContent = wrapper.find('.linked-documents-content');
+    linkDocumentsContent.prop('href').should.equal('/documents/?match=1083633/');
 
-    const linkDisplayDocumentsThumbnails = scryRenderedDOMComponentsWithClass(instance, 'linked-documents-thumbnail');
+    const linkDisplayDocumentsThumbnails = wrapper.find('.linked-documents-thumbnail');
     linkDisplayDocumentsThumbnails.should.have.length(12);
 
-    const linkDisplayDocumentsThumbnailImgs = scryRenderedDOMComponentsWithClass(
-      instance, 'linked-documents-thumbnail-img'
-    );
+    const linkDisplayDocumentsThumbnailImgs = wrapper.find('.linked-documents-thumbnail-img');
     linkDisplayDocumentsThumbnailImgs.should.have.length(11);
 
-    linkDisplayDocumentsThumbnailImgs[0].src.should.eql(
-      'https://assets.documentcloud.org/documents/5680385/pages/CRID-1083633.gif'
+    linkDisplayDocumentsThumbnailImgs.at(0).prop('src').should.eql(
+      'https://assets.documentcloud.org/documents/4769275/pages/CRID-1075381-CR-p1-normal.gif'
     );
-    linkDisplayDocumentsThumbnailImgs[0].width.should.eql(40);
+    linkDisplayDocumentsThumbnailImgs.at(0).prop('width').should.equal('40');
 
-    linkDisplayDocumentsThumbnailImgs[5].src.should.eql(
-      'https://assets.documentcloud.org/documents/5670367/pages/CRID-1083633.gif'
+    linkDisplayDocumentsThumbnailImgs.at(5).prop('src').should.eql(
+      'https://assets.documentcloud.org/documents/5777858/pages/CRID-312474-CPB-p1-normal.gif'
     );
-    linkDisplayDocumentsThumbnailImgs[5].width.should.eql(40);
+    linkDisplayDocumentsThumbnailImgs.at(5).prop('width').should.equal('40');
 
-    linkDisplayDocumentsThumbnailImgs[10].src.should.eql(
-      'https://assets.documentcloud.org/documents/5670369/pages/CRID-1083633.gif'
+    linkDisplayDocumentsThumbnailImgs.at(10).prop('src').should.eql(
+      'https://assets.documentcloud.org/documents/4769733/pages/CRID-1042825-CR-p1-normal.gif'
     );
-    linkDisplayDocumentsThumbnailImgs[10].width.should.eql(40);
+    linkDisplayDocumentsThumbnailImgs.at(10).prop('width').should.equal('40');
 
-    const linkDocumentsMore = findRenderedDOMComponentWithClass(instance, 'linked-documents-more');
-    linkDocumentsMore.textContent.should.eql('+3');
+    const linkDocumentsMore = wrapper.find('.linked-documents-more');
+    linkDocumentsMore.text().should.equal('+3');
 
-    const editableTextBoxes = scryRenderedComponentsWithType(instance, EditableTextBox);
+    const editableTextBoxes = wrapper.find(EditableTextBox);
     editableTextBoxes.should.have.length(2);
 
-    const editableTitle = editableTextBoxes[0];
-    editableTitle.props.className.should.eql('main-section-title');
-    editableTitle.props.title.should.eql('Document Title');
-    editableTitle.props.fieldName.should.eql('title');
-    editableTitle.props.editWrapperStateProps.fields.should.eql({
+    const editableTitle = editableTextBoxes.at(0);
+    editableTitle.prop('className').should.equal('main-section-title');
+    editableTitle.prop('title').should.equal('Document Title');
+    editableTitle.prop('fieldName').should.equal('title');
+    editableTitle.prop('editWrapperStateProps').fields.should.eql({
       attachmentId: {
         type: 'number',
         key: 'id',
@@ -232,11 +222,11 @@ describe('DocumentPage component', function () {
       },
     });
 
-    const editableTextContent = editableTextBoxes[1];
-    editableTextContent.props.className.should.eql('main-section-full-text');
-    editableTextContent.props.title.should.eql('Full-text OCR');
-    editableTextContent.props.fieldName.should.eql('textContent');
-    editableTextContent.props.editWrapperStateProps.fields.should.eql({
+    const editableTextContent = editableTextBoxes.at(1);
+    editableTextContent.prop('className').should.equal('main-section-full-text');
+    editableTextContent.prop('title').should.equal('Full-text OCR');
+    editableTextContent.prop('fieldName').should.equal('textContent');
+    editableTextContent.prop('editWrapperStateProps').fields.should.eql({
       attachmentId: {
         type: 'number',
         key: 'id',
@@ -259,8 +249,8 @@ describe('DocumentPage component', function () {
       },
     });
 
-    const lastEdited = findRenderedDOMComponentWithClass(instance, 'main-section-last-edited');
-    lastEdited.textContent.should.eql('This document was last edited by John Doe at 08:50PM on Feb 28, 2019');
+    const lastEdited = wrapper.find('.main-section-last-edited');
+    lastEdited.text().should.equal('This document was last edited by John Doe at 08:50PM on Feb 28, 2019');
   });
 
   it('should not pass counts to SimpleListWidget when not available', function () {
@@ -270,41 +260,42 @@ describe('DocumentPage component', function () {
     );
     const newStore = MockStore()(newState);
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Provider store={ newStore }>
         <DocumentPageContainer />
       </Provider>
     );
 
-    const simpleListWidget = findRenderedComponentWithType(instance, SimpleListWidget);
+    const simpleListWidget = wrapper.find(SimpleListWidget);
     findIndex(simpleListWidget.props.items, ['name', 'Views']).should.eql(-1);
   });
 
   it('should not render more linked documents when there are less than 11 documents', function () {
-    state.documentPage.data['linked_documents'] = slice(state.documentPage.data['linked_documents'], 0, 5);
-    const newStore = MockStore()(state);
+    const newState = cloneDeep(state);
+    newState.documentPage.data['linked_documents'] = slice(newState.documentPage.data['linked_documents'], 0, 5);
+    const newStore = MockStore()(newState);
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ newStore }>
         <DocumentPageContainer />
       </Provider>
     );
 
-    scryRenderedDOMComponentsWithClass(instance, 'linked-documents-more').should.have.length(0);
+    wrapper.find('.linked-documents-more').should.have.length(0);
   });
 
   it('should not render "by" when there is no last updated user', function () {
     const newState = omit(state, 'documentPage.data.last_updated_by');
     const newStore = MockStore()(newState);
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ newStore }>
         <DocumentPageContainer />
       </Provider>
     );
 
-    const lastEdited = findRenderedDOMComponentWithClass(instance, 'main-section-last-edited');
-    lastEdited.textContent.should.eql('This document was last edited at 08:50PM on Feb 28, 2019');
+    const lastEdited = wrapper.find('.main-section-last-edited');
+    lastEdited.text().should.equal('This document was last edited at 08:50PM on Feb 28, 2019');
   });
 
   it('should link linked documents to dedup page if user is authenticated', function () {
@@ -318,14 +309,14 @@ describe('DocumentPage component', function () {
       </Provider>
     );
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Router history={ createMemoryHistory() }>
         <Route path='/' component={ recentDocument } />
       </Router>
     );
 
-    const linkDocumentsContent = findRenderedDOMComponentWithClass(instance, 'linked-documents-content');
-    linkDocumentsContent.getAttribute('href').should.eql('/documents/crid/1083633/');
+    const linkDocumentsContent = wrapper.find('.linked-documents-content');
+    linkDocumentsContent.prop('href').should.equal('/documents/crid/1083633/');
   });
 
   it('should render EditableTagsInput for authenticated users', function () {
@@ -339,13 +330,13 @@ describe('DocumentPage component', function () {
       </Provider>
     );
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Router history={ createMemoryHistory() }>
         <Route path='/' component={ recentDocument } />
       </Router>
     );
 
-    scryRenderedComponentsWithType(instance, EditableTagsInput).should.have.length(1);
+    wrapper.find(EditableTagsInput).should.have.length(1);
   });
 
   it('should not render EditableTagsInput for unauthenticated users', function () {
@@ -359,12 +350,12 @@ describe('DocumentPage component', function () {
       </Provider>
     );
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Router history={ createMemoryHistory() }>
         <Route path='/' component={ recentDocument } />
       </Router>
     );
 
-    scryRenderedComponentsWithType(instance, EditableTagsInput).should.have.length(0);
+    wrapper.find(EditableTagsInput).exists().should.be.false();
   });
 });

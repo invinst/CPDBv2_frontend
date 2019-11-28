@@ -26,7 +26,6 @@ describe('RadarArea components', function () {
     wrapper.find('.test--radar-wrapper').exists().should.be.true();
     wrapper.find('.test--radar-radar-area').exists().should.be.true();
     wrapper.find('.test--radar-stroke').exists().should.be.true();
-    wrapper.find('.test--radar-value-text').exists().should.be.false();
   });
 
   it('should be able to render stroke with custom strokeWidth', function () {
@@ -37,7 +36,7 @@ describe('RadarArea components', function () {
     radarStroke.prop('style').should.containEql({ strokeWidth: 12 });
   });
 
-  it('should not display radar area and stroke when rPoints is not valid', () => {
+  it('should not display radar area and stroke when rPoints is not valid', function () {
     const wrapper = shallow(
       <RadarArea rPoints={ [
         { angle: 0, r: NaN },
@@ -46,7 +45,8 @@ describe('RadarArea components', function () {
       ] }
       />
     );
-    wrapper.find('.test--radar-value-text').exists().should.be.false();
+    wrapper.find('.test--radar-radar-area').exists().should.be.false();
+    wrapper.find('.test--radar-stroke').exists().should.be.false();
   });
 
   it('should render radar area with custom radarMainAreaOpacity', function () {
