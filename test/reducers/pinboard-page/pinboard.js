@@ -437,21 +437,52 @@ describe('Pinboard reducer', function () {
     });
   });
 
-  it('should handle PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_SUCCESS', function () {
+  it('should handle PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_SUCCESS with payload is not empty', function () {
     pinboardReducer(
       {},
       {
         type: constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_SUCCESS,
         payload: {
           id: '66ef1560',
+          title: 'Title',
+          description: 'Description',
+          'officer_ids': [1],
+          crids: ['abc'],
+          'trr_ids': [1],
         },
       }
     ).should.deepEqual({
       id: '66ef1560',
-      isPinboardRestored: true,
-      hasPendingChanges: false,
-      needRefreshData: false,
+      title: 'Title',
+      description: 'Description',
+      'officer_ids': [1],
+      crids: ['abc'],
+      'trr_ids': [1],
       saving: false,
+      needRefreshData: false,
+      hasPendingChanges: false,
+      isPinboardRestored: true,
+    });
+  });
+
+  it('should handle PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_SUCCESS with payload is empty', function () {
+    pinboardReducer(
+      {},
+      {
+        type: constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_SUCCESS,
+        payload: {},
+      }
+    ).should.deepEqual({
+      id: null,
+      title: '',
+      'officer_ids': [],
+      crids: [],
+      'trr_ids': [],
+      description: '',
+      saving: false,
+      needRefreshData: false,
+      hasPendingChanges: false,
+      isPinboardRestored: true,
     });
   });
 
