@@ -6,6 +6,7 @@ import {
 } from 'react-addons-test-utils';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
+import { findDOMNode } from 'react-dom';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import PinboardBar from 'components/search-page/pinboard/pinboard-bar';
@@ -28,6 +29,7 @@ describe('PinboardBar component', function () {
       </Provider>
     );
 
+    findDOMNode(instance).className.should.containEql('pinboard-feature');
     findRenderedDOMComponentWithClass(instance, 'pinboard-tip');
     findRenderedComponentWithType(instance, PinboardButtonContainer);
   });

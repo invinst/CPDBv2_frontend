@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Router, Route, IndexRoute, Redirect } from 'react-router';
 import { Provider } from 'react-redux';
 
+import config from 'config';
 import AppContainer from 'containers/app-container';
 import LandingPageContainer from 'containers/landing-page';
 import CollaborationPage from 'components/collaboration-page/collaboration-page';
@@ -52,6 +53,8 @@ const store = configureStore();
 
 export default class RouterRoot extends Component {
   render() {
+    const { pinboard: enablePinboardFeature } = config.enableFeatures;
+
     return (
       <Provider store={ store }>
         <Router history={ history }>
@@ -128,16 +131,22 @@ export default class RouterRoot extends Component {
               path={ TRACKER_DOCUMENTS_OVERVIEW_PATH }
               component={ DocumentsOverviewContainer }
               breadcrumb='Documents Overview'/>
-            <Route
-              path={ PINBOARD_PATH }
-              component={ PinboardPageContainer }
-              breadcrumb={ BreadcrumbItemContainer }
-            />
-            <Route
-              path={ PINBOARD_ADMIN_PATH }
-              component={ PinboardAdminPageContainer }
-              breadcrumb='View all pinboards'
-            />
+            {
+              enablePinboardFeature &&
+              <Route
+                path={ PINBOARD_PATH }
+                component={ PinboardPageContainer }
+                breadcrumb={ BreadcrumbItemContainer }
+              />
+            }
+            {
+              enablePinboardFeature &&
+              <Route
+                path={ PINBOARD_ADMIN_PATH }
+                component={ PinboardAdminPageContainer }
+                breadcrumb='View all pinboards'
+              />
+            }
             <Redirect from='*' to='/'/>
           </Route>
         </Router>

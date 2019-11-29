@@ -10,7 +10,7 @@ class PinButton extends Component {
     const pinButtonText = isPinned ? 'Remove from pinboard' : 'Add to pinboard';
 
     return (
-      <button className={ className }>
+      <button className={ `pinboard-feature ${className}` }>
         { pinButtonText }
       </button>
     );
