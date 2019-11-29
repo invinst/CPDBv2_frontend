@@ -1,60 +1,46 @@
-import React, { PropTypes } from 'react';
-import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
+import React from 'react';
+import should from 'should';
+import { shallow, mount } from 'enzyme';
 import { spy } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
-import ContextWrapper from 'utils/test/components/context-wrapper';
 import EditToggle from 'components/inline-editable/editable-section/edit-toggle';
 import MoreLink from 'components/common/more-link';
 import CancelUpdateButtons from 'components/inline-editable/editable-section/edit-toggle/cancel-update-buttons';
 
 
-class LinkContextWrapper extends ContextWrapper {}
-LinkContextWrapper.childContextTypes = {
-  editModeOn: PropTypes.bool,
-};
-
 describe('EditToggle component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render edit link when section edit mode not on', function () {
     const turnOnSectionEditMode = spy();
-    instance = renderIntoDocument(
-      <LinkContextWrapper context={ { editModeOn: true } }>
-        <EditToggle sectionEditModeOn={ false } turnOnSectionEditMode={ turnOnSectionEditMode }/>
-      </LinkContextWrapper>
+    const wrapper = mount(
+      <EditToggle sectionEditModeOn={ false } turnOnSectionEditMode={ turnOnSectionEditMode }/>,
+      { context: { editModeOn: true } }
     );
-    const link = findRenderedComponentWithType(instance, MoreLink);
-    link.props.onClick();
+    const link = wrapper.find(MoreLink);
+    link.prop('onClick')();
     turnOnSectionEditMode.calledOnce.should.be.true();
   });
 
   it('should render nothing when edit mode off', function () {
-    instance = renderIntoDocument(
-      <LinkContextWrapper context={ { editModeOn: false } }>
-        <EditToggle/>
-      </LinkContextWrapper>
+    const wrapper = shallow(
+      <EditToggle/>,
+      { context: { editModeOn: false } }
     );
-    instance.should.displayNothing();
+    should(wrapper.type()).be.null();
   });
 
   it('should render buttons when section edit mode on', function () {
     const onSaveForm = spy();
     const turnOffSectionEditMode = spy();
-    instance = renderIntoDocument(
-      <LinkContextWrapper context={ { editModeOn: true } }>
-        <EditToggle
-          sectionEditModeOn={ true }
-          onSaveForm={ onSaveForm }
-          turnOffSectionEditMode={ turnOffSectionEditMode }/>
-      </LinkContextWrapper>
+    const wrapper = shallow(
+      <EditToggle
+        sectionEditModeOn={ true }
+        onSaveForm={ onSaveForm }
+        turnOffSectionEditMode={ turnOffSectionEditMode }
+      />,
+      { context: { editModeOn: true } }
     );
-    const buttons = findRenderedComponentWithType(instance, CancelUpdateButtons);
-    buttons.props.onUpdateClick.should.eql(onSaveForm);
-    buttons.props.onCancelClick.should.eql(turnOffSectionEditMode);
+    const buttons = wrapper.find(CancelUpdateButtons);
+    buttons.prop('onUpdateClick').should.eql(onSaveForm);
+    buttons.prop('onCancelClick').should.eql(turnOffSectionEditMode);
   });
 });

@@ -1,14 +1,10 @@
 import React from 'react';
-import { render } from 'react-dom';
+import { shallow, mount } from 'enzyme';
 import should from 'should';
-import {
-  renderIntoDocument, findRenderedComponentWithType, scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
 import draftJs, { Entity } from 'draft-js';
 import { spy } from 'sinon';
 
 import { ENTITY_LINK } from 'utils/constants';
-import { unmountComponentSuppressError } from 'utils/test';
 import { convertContentStateToEditorState, createLinkEntity, removeLinkEntity } from 'utils/draft';
 import { RawContentStateFactory } from 'utils/test/factories/draft';
 import Toolbar from 'components/inline-editable/rich-text-editor/toolbar';
@@ -17,45 +13,45 @@ import Bubble from 'components/inline-editable/rich-text-editor/toolbar/bubble';
 import UrlInput from 'components/inline-editable/rich-text-editor/toolbar/url-input';
 
 describe('Toolbar component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render when show is true', function () {
     const editorState = convertContentStateToEditorState(
       RawContentStateFactory.build()
     );
-    instance = renderIntoDocument(<Toolbar show={ true } editorState={ editorState }/>);
-    scryRenderedComponentsWithType(instance, ToolbarButton).length.should.eql(3);
-    findRenderedComponentWithType(instance, Bubble);
+    const wrapper = shallow(
+      <Toolbar show={ true } editorState={ editorState }/>
+    );
+    wrapper.find(ToolbarButton).length.should.equal(3);
+    wrapper.find(Bubble).exists().should.be.true();
   });
 
   it('should render nothing when show is false', function () {
-    instance = renderIntoDocument(<Toolbar show={ false }/>);
-    instance.should.displayNothing();
+    const wrapper = shallow(
+      <Toolbar show={ false }/>
+    );
+    should(wrapper.type()).be.null();
   });
 
   it('should toggle url input when click on link button', function () {
     const editorState = convertContentStateToEditorState(
       RawContentStateFactory.build()
     );
-    instance = renderIntoDocument(<Toolbar show={ true } editorState={ editorState }/>);
-    let buttons = scryRenderedComponentsWithType(instance, ToolbarButton);
-    let linkButton = buttons[2];
-    linkButton.props.onClick();
+    const wrapper = mount(
+      <Toolbar show={ true } editorState={ editorState }/>
+    );
+    let buttons = wrapper.find(ToolbarButton);
+    let linkButton = buttons.at(2);
+    linkButton.prop('onClick')();
 
     // button become "active" and url input show
-    linkButton.props.active.should.be.true();
-    instance.state.linkActive.should.be.true();
-    findRenderedComponentWithType(instance, UrlInput);
+    linkButton.prop('active').should.be.true();
+    wrapper.state('linkActive').should.be.true();
+    wrapper.find(UrlInput).exists().should.be.true();
 
-    linkButton.props.onClick();
+    linkButton.prop('onClick')();
 
     // button become "inactive" and url input stop showing
-    linkButton.props.active.should.be.false();
-    scryRenderedComponentsWithType(instance, UrlInput).length.should.eql(0);
+    linkButton.prop('active').should.be.false();
+    wrapper.find(UrlInput).length.should.equal(0);
   });
 
   it('should toggle text bold when click on bold button', function () {
@@ -63,20 +59,24 @@ describe('Toolbar component', function () {
       RawContentStateFactory.build()
     );
     const onChange = spy();
-    const rootEl = document.createElement('DIV');
-    instance = render(<Toolbar show={ true } editorState={ editorState } onChange={ onChange }/>, rootEl);
-    let buttons = scryRenderedComponentsWithType(instance, ToolbarButton);
-    let boldButton = buttons[0];
-    boldButton.props.active.should.be.false();
-    boldButton.props.onClick();
+    const wrapper = shallow(
+      <Toolbar show={ true } editorState={ editorState } onChange={ onChange }/>
+    );
+    let buttons = wrapper.find(ToolbarButton);
+    let boldButton = buttons.at(0);
+    boldButton.prop('active').should.be.false();
+    boldButton.prop('onClick')();
     editorState = onChange.args[0][0];
 
-    editorState.getCurrentInlineStyle().get('BOLD').should.be.eql('BOLD');
-
-    instance = render(<Toolbar show={ true } editorState={ editorState } onChange={ onChange }/>, rootEl);
-    boldButton = scryRenderedComponentsWithType(instance, ToolbarButton)[0];
-    boldButton.props.active.should.be.true();
-    boldButton.props.onClick();
+    editorState.getCurrentInlineStyle().get('BOLD').should.equal('BOLD');
+    wrapper.setProps({
+      show: true,
+      editorState,
+      onChange,
+    });
+    boldButton = wrapper.find(ToolbarButton).at(0);
+    boldButton.prop('active').should.be.true();
+    boldButton.prop('onClick')();
     editorState = onChange.args[1][0];
 
     should.not.exists(editorState.getCurrentInlineStyle().get('BOLD'));
@@ -87,20 +87,26 @@ describe('Toolbar component', function () {
       RawContentStateFactory.build()
     );
     const onChange = spy();
-    const rootEl = document.createElement('DIV');
-    instance = render(<Toolbar show={ true } editorState={ editorState } onChange={ onChange }/>, rootEl);
-    let buttons = scryRenderedComponentsWithType(instance, ToolbarButton);
-    let italicButton = buttons[1];
-    italicButton.props.active.should.be.false();
-    italicButton.props.onClick();
+
+    const wrapper = shallow(
+      <Toolbar show={ true } editorState={ editorState } onChange={ onChange }/>
+    );
+    let buttons = wrapper.find(ToolbarButton);
+    let italicButton = buttons.at(1);
+    italicButton.prop('active').should.be.false();
+    italicButton.prop('onClick')();
     editorState = onChange.args[0][0];
 
-    editorState.getCurrentInlineStyle().get('ITALIC').should.be.eql('ITALIC');
+    editorState.getCurrentInlineStyle().get('ITALIC').should.equal('ITALIC');
 
-    instance = render(<Toolbar show={ true } editorState={ editorState } onChange={ onChange }/>, rootEl);
-    italicButton = scryRenderedComponentsWithType(instance, ToolbarButton)[1];
-    italicButton.props.active.should.be.true();
-    italicButton.props.onClick();
+    wrapper.setProps({
+      show: true,
+      editorState,
+      onChange,
+    });
+    italicButton = wrapper.find(ToolbarButton).at(1);
+    italicButton.prop('active').should.be.true();
+    italicButton.prop('onClick')();
     editorState = onChange.args[1][0];
 
     should.not.exists(editorState.getCurrentInlineStyle().get('ITALIC'));
@@ -117,12 +123,14 @@ describe('Toolbar component', function () {
     editorState = draftJs.RichUtils.toggleLink(editorState, editorState.getSelection(), entityKey);
 
     const onChange = spy();
-    instance = renderIntoDocument(<Toolbar show={ true } editorState={ editorState } onChange={ onChange }/>);
-    instance.setState({ 'urlInputValue': 'abc' });
+    const wrapper = shallow(
+      <Toolbar show={ true } editorState={ editorState } onChange={ onChange }/>
+    );
+    wrapper.setState({ 'urlInputValue': 'abc' });
 
-    let buttons = scryRenderedComponentsWithType(instance, ToolbarButton);
-    let linkButton = buttons[2];
-    linkButton.props.onClick();
+    let buttons = wrapper.find(ToolbarButton);
+    let linkButton = buttons.at(2);
+    linkButton.prop('onClick')();
 
     // link entity should be removed
     editorState = onChange.args[0][0];
@@ -139,9 +147,11 @@ describe('Toolbar component', function () {
     editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
 
     const onChange = spy();
-    instance = renderIntoDocument(<Toolbar show={ true } editorState={ editorState } onChange={ onChange }/>);
-    instance.setState({ 'urlInputValue': null });
-    instance.state.linkActive.should.be.false();
+    const wrapper = shallow(
+      <Toolbar show={ true } editorState={ editorState } onChange={ onChange }/>
+    );
+    wrapper.setState({ 'urlInputValue': null });
+    wrapper.state('linkActive').should.be.false();
 
     // no changes made to editorState
     should.not.exist(onChange.args[0]);
@@ -151,12 +161,18 @@ describe('Toolbar component', function () {
     let editorState = convertContentStateToEditorState(
       RawContentStateFactory.build()
     );
-    const rootEl = document.createElement('DIV');
-    instance = render(<Toolbar show={ true } editorState={ editorState }/>, rootEl);
-    instance.setState({ linkActive: true });
+
+    const wrapper = shallow(
+      <Toolbar show={ true } editorState={ editorState }/>
+    );
+    wrapper.setState({ linkActive: true });
     editorState = draftJs.EditorState.createEmpty();
-    instance = render(<Toolbar show={ true } editorState={ editorState }/>, rootEl);
-    instance.state.linkActive.should.be.false();
+
+    wrapper.setProps({
+      show: true,
+      editorState,
+    });
+    wrapper.state('linkActive').should.be.false();
   });
 
   it('should give correct position style to bubble', function () {
@@ -177,13 +193,13 @@ describe('Toolbar component', function () {
     selection.addRange(range);
     const rect = range.getBoundingClientRect();
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Toolbar show={ true } editorState={ editorState }
         parentTop={ 0 } parentLeft={ 0 }/>
     );
-    const bubble = findRenderedComponentWithType(instance, Bubble);
-    bubble.props.style.top.should.eql(`${rect.top - 60}px`);
-    bubble.props.style.left.should.eql(`${rect.left + (rect.width - 150) / 2}px`);
+    const bubble = wrapper.find(Bubble);
+    bubble.prop('style').top.should.eql(`${rect.top - 60}px`);
+    bubble.prop('style').left.should.eql(`${rect.left + (rect.width - 150) / 2}px`);
   });
 
   it('should not give any position style to bubble if not selecting correct element', function () {
@@ -200,13 +216,13 @@ describe('Toolbar component', function () {
     range.setEnd(divEl, 1);
     selection.addRange(range);
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Toolbar show={ true } editorState={ editorState }
         parentTop={ 0 } parentLeft={ 0 }/>
     );
-    const bubble = findRenderedComponentWithType(instance, Bubble);
-    should.not.exists(bubble.props.style.top);
-    should.not.exists(bubble.props.style.left);
+    const bubble = wrapper.find(Bubble);
+    should.not.exists(bubble.prop('style').top);
+    should.not.exists(bubble.prop('style').left);
   });
 
   it('should create link entity if url input not empty', function () {
@@ -218,14 +234,14 @@ describe('Toolbar component', function () {
     let editorState = draftJs.EditorState.createWithContent(contentState);
     editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Toolbar show={ true } editorState={ editorState }
         parentTop={ 0 } parentLeft={ 0 } onChange={ onChange }/>
     );
-    instance.setState({ linkActive: true });
+    wrapper.setState({ linkActive: true });
 
-    const urlInput = findRenderedComponentWithType(instance, UrlInput);
-    urlInput.props.onChange('http://example.com');
+    const urlInput = wrapper.find(UrlInput);
+    urlInput.prop('onChange')('http://example.com');
 
     editorState = onChange.args[0][0];
 
@@ -233,8 +249,7 @@ describe('Toolbar component', function () {
     const linkInstance = Entity.get(entity);
     const { url } = linkInstance.getData();
 
-    linkInstance.should.be.ok();
-    url.should.eql('http://example.com');
+    url.should.equal('http://example.com');
   });
 
   it ('should remove link entity if url input empty', function () {
@@ -246,14 +261,14 @@ describe('Toolbar component', function () {
     let editorState = draftJs.EditorState.createWithContent(contentState);
     editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Toolbar show={ true } editorState={ editorState }
         parentTop={ 0 } parentLeft={ 0 } onChange={ onChange }/>
     );
-    instance.setState({ linkActive: true });
+    wrapper.setState({ linkActive: true });
 
-    const urlInput = findRenderedComponentWithType(instance, UrlInput);
-    urlInput.props.onChange('');
+    const urlInput = wrapper.find(UrlInput);
+    urlInput.prop('onChange')('');
 
     editorState = onChange.args[0][0];
     const entity = editorState.getCurrentContent().getFirstBlock().getEntityAt(1);
@@ -267,17 +282,17 @@ describe('Toolbar component', function () {
     const contentState = draftJs.ContentState.createFromText('abc');
     const editorState = draftJs.EditorState.createWithContent(contentState);
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Toolbar show={ true } editorState={ editorState }
         parentTop={ 0 } parentLeft={ 0 } onFocus={ onFocus }/>
     );
 
-    const buttons = scryRenderedComponentsWithType(instance, ToolbarButton);
-    const boldButton = buttons[0];
+    const buttons = wrapper.find(ToolbarButton);
+    const boldButton = buttons.at(0);
 
-    boldButton.props.onMouseOver();
+    boldButton.prop('onMouseOver')();
 
-    onFocus.called.should.be.true();
+    onFocus.should.be.called();
   });
 
   it('should handle blur on mouse out', function () {
@@ -286,17 +301,17 @@ describe('Toolbar component', function () {
     const contentState = draftJs.ContentState.createFromText('abc');
     const editorState = draftJs.EditorState.createWithContent(contentState);
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Toolbar show={ true } editorState={ editorState }
         parentTop={ 0 } parentLeft={ 0 } onBlur={ onBlur }/>
     );
 
-    const buttons = scryRenderedComponentsWithType(instance, ToolbarButton);
-    const boldButton = buttons[0];
+    const buttons = wrapper.find(ToolbarButton);
+    const boldButton = buttons.at(0);
 
-    boldButton.props.onMouseOut();
+    boldButton.prop('onMouseOut')();
 
-    onBlur.called.should.be.true();
+    onBlur.should.be.called();
   });
 
   it('should handle focus if url input is focus', function () {
@@ -308,16 +323,16 @@ describe('Toolbar component', function () {
     let editorState = draftJs.EditorState.createWithContent(contentState);
     editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Toolbar show={ true } editorState={ editorState }
         parentTop={ 0 } parentLeft={ 0 } onFocus={ onFocus }/>
     );
-    instance.setState({ linkActive: true });
+    wrapper.setState({ linkActive: true });
 
-    const urlInput = findRenderedComponentWithType(instance, UrlInput);
-    urlInput.props.onFocus('');
+    const urlInput = wrapper.find(UrlInput);
+    urlInput.prop('onFocus')('');
 
-    onFocus.called.should.be.true();
+    onFocus.should.be.called();
   });
 
   it('should handle blur if url input is blur', function () {
@@ -329,16 +344,16 @@ describe('Toolbar component', function () {
     let editorState = draftJs.EditorState.createWithContent(contentState);
     editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Toolbar show={ true } editorState={ editorState }
         parentTop={ 0 } parentLeft={ 0 } onBlur={ onBlur }/>
     );
-    instance.setState({ linkActive: true });
+    wrapper.setState({ linkActive: true });
 
-    const urlInput = findRenderedComponentWithType(instance, UrlInput);
-    urlInput.props.onBlur('');
+    const urlInput = wrapper.find(UrlInput);
+    urlInput.prop('onBlur')('');
 
-    onBlur.called.should.be.true();
+    onBlur.should.be.called();
   });
 
   it('should activate link button if a link entity is selected', function () {
@@ -348,20 +363,20 @@ describe('Toolbar component', function () {
     let editorState = draftJs.EditorState.createWithContent(contentState);
     editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
 
-    const rootEl = document.createElement('DIV');
-    instance = render(
+    const wrapper = shallow(
       <Toolbar show={ true } parentTop={ 0 } parentLeft={ 0 } editorState={ editorState }/>,
-      rootEl
     );
 
     editorState = createLinkEntity(editorState, { url: 'http://abc.com' });
 
-    instance = render(
-      <Toolbar show={ true } parentTop={ 0 } parentLeft={ 0 } editorState={ editorState }/>,
-      rootEl
-    );
-    instance.state.urlInputValue.should.eql('http://abc.com');
-    instance.state.linkActive.should.be.true();
+    wrapper.setProps({
+      show: true,
+      parentTop: 0,
+      parentLeft: 0,
+      editorState,
+    });
+    wrapper.state('urlInputValue').should.equal('http://abc.com');
+    wrapper.state('linkActive').should.be.true();
   });
 
   it('should deactivate link button if a link entity is not selected', function () {
@@ -372,19 +387,19 @@ describe('Toolbar component', function () {
     editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
     editorState = createLinkEntity(editorState, { url: 'http://abc.com' });
 
-    const rootEl = document.createElement('DIV');
-    instance = render(
+    const wrapper = shallow(
       <Toolbar show={ true } parentTop={ 0 } parentLeft={ 0 } editorState={ editorState }/>,
-      rootEl
     );
 
     editorState = removeLinkEntity(editorState);
 
-    instance = render(
-      <Toolbar show={ true } parentTop={ 0 } parentLeft={ 0 } editorState={ editorState }/>,
-      rootEl
-    );
-    instance.state.urlInputValue.should.eql('');
-    instance.state.linkActive.should.be.false();
+    wrapper.setProps({
+      show: true,
+      parentTop: 0,
+      parentLeft: 0,
+      editorState,
+    });
+    wrapper.state('urlInputValue').should.equal('');
+    wrapper.state('linkActive').should.be.false();
   });
 });

@@ -1,50 +1,51 @@
 import React from 'react';
-import {
-  renderIntoDocument, findRenderedComponentWithType, Simulate, findRenderedDOMComponentWithTag,
-} from 'react-addons-test-utils';
+import { shallow, mount } from 'enzyme';
+import should from 'should';
 import { spy } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import LinkPicker from 'components/inline-editable/link-picker';
 import HoverableButton from 'components/common/hoverable-button';
 
 describe('LinkPicker component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render nothing when not in edit mode', function () {
-    instance = renderIntoDocument(<LinkPicker editModeOn={ false }/>);
-    instance.should.displayNothing();
+    const wrapper = shallow(
+      <LinkPicker editModeOn={ false }/>,
+    );
+    should(wrapper.type()).be.null();
   });
 
   it('should render button when in edit mode', function () {
-    instance = renderIntoDocument(<LinkPicker editModeOn={ true }/>);
-    findRenderedComponentWithType(instance, HoverableButton);
+    const wrapper = shallow(
+      <LinkPicker editModeOn={ true }/>,
+    );
+    wrapper.find(HoverableButton).exists().should.be.true();
   });
 
   it('should show link input when click on button', function () {
-    instance = renderIntoDocument(<LinkPicker editModeOn={ true }/>);
-    Simulate.click(findRenderedDOMComponentWithTag(instance, 'a'));
-    findRenderedDOMComponentWithTag(instance, 'input');
+    const wrapper = mount(
+      <LinkPicker editModeOn={ true }/>,
+    );
+    wrapper.find('a').simulate('click');
+    wrapper.find('input').exists().should.be.true();
   });
 
   it('should trigger onChange when link is inputted', function () {
     const callback = spy();
-    instance = renderIntoDocument(<LinkPicker editModeOn={ true } onChange={ callback }/>);
-    instance.setState({ open: true });
-    const input = findRenderedDOMComponentWithTag(instance, 'input');
-    input.value = 'http://abc.com';
-    Simulate.change(input);
-    callback.calledWith('http://abc.com').should.be.true();
+    const wrapper = shallow(
+      <LinkPicker editModeOn={ true } onChange={ callback }/>,
+    );
+    wrapper.setState({ open: true });
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 'http://abc.com' } });
+    callback.should.be.calledWith('http://abc.com');
   });
 
   it('should set value on link input', function () {
-    instance = renderIntoDocument(<LinkPicker editModeOn={ true } value={ '123' }/>);
-    instance.setState({ open: true });
-    const input = findRenderedDOMComponentWithTag(instance, 'input');
-    input.value.should.eql('123');
+    const wrapper = shallow(
+      <LinkPicker editModeOn={ true } value={ '123' }/>,
+    );
+    wrapper.setState({ open: true });
+    const input = wrapper.find('input');
+    input.prop('value').should.equal('123');
   });
 });

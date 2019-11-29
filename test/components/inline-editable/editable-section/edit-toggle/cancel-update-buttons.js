@@ -1,19 +1,30 @@
 import React from 'react';
-import { renderIntoDocument } from 'react-addons-test-utils';
+import { mount } from 'enzyme';
+import { spy } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import CancelUpdateButtons from 'components/inline-editable/editable-section/edit-toggle/cancel-update-buttons';
+import HoverableButton from 'components/common/hoverable-button';
 
 describe('CancelUpdateButtons component', function () {
-  let instance;
+  it('should render HoverableButtons', function () {
+    const onCancelClickSpy = spy();
+    const onUpdateClickSpy = spy();
+    const wrapper = mount(
+      <CancelUpdateButtons onCancelClick={ onCancelClickSpy } onUpdateClick={ onUpdateClickSpy }/>
+    );
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
+    const hoverableButtons = wrapper.find(HoverableButton);
+    hoverableButtons.should.have.length(2);
 
-  it('should render', function () {
-    instance = renderIntoDocument(<CancelUpdateButtons/>);
-    instance.should.displaySomething();
+    const cancelButton = hoverableButtons.at(0);
+    cancelButton.text().should.equal('Cancel');
+    cancelButton.prop('className').should.equal('cancel-button');
+    cancelButton.prop('onClick').should.eql(onCancelClickSpy);
+
+    const updateButton = hoverableButtons.at(1);
+    updateButton.text().should.equal('Update');
+    updateButton.prop('className').should.equal('update-button');
+    updateButton.prop('onClick').should.eql(onUpdateClickSpy);
   });
 
   it('should trigger onCancelClick', function () {

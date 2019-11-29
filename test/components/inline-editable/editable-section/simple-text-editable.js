@@ -1,57 +1,47 @@
 import React from 'react';
-import {
-  findRenderedComponentWithType,
-  findRenderedDOMComponentWithTag,
-  Simulate,
-} from 'react-addons-test-utils';
+import { mount } from 'enzyme';
 import { spy } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
-import { renderWithContext } from 'utils/test';
 import SimpleTextEditable from 'components/inline-editable/editable-section/simple-text-editable';
 import Editable from 'components/inline-editable/editable';
 
 
 describe('SimpleTextEditable component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render with given context', function () {
     const onChangeSpy = spy();
-    instance = renderWithContext(
-      {
-        fieldContexts: {
-          'title': {
-            editModeOn: true,
-            value: 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)',
-            onChange: onChangeSpy,
-          },
+    const context = {
+      fieldContexts: {
+        'title': {
+          editModeOn: true,
+          value: 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)',
+          onChange: onChangeSpy,
         },
       },
-      <SimpleTextEditable className='simple-text-editable' fieldName='title' placeholder='Title'/>
+    };
+    const wrapper = mount(
+      <SimpleTextEditable className='simple-text-editable' fieldName='title' placeholder='Title'/>,
+      { context },
     );
 
-    const editable = findRenderedComponentWithType(instance, Editable);
-    editable.props.editModeOn.should.be.true();
+    const editable = wrapper.find(Editable);
+    editable.prop('editModeOn').should.be.true();
 
-    editable.props.presenterElement.props.className.should.containEql('simple-text-editable');
-    editable.props.presenterElement.props.placeholder.should.eql('Title');
-    editable.props.presenterElement.props.children.should.eql(
+    const presenterElement = editable.prop('presenterElement');
+
+    presenterElement.props.className.should.containEql('simple-text-editable');
+    presenterElement.props.placeholder.should.equal('Title');
+    presenterElement.props.children.should.equal(
       'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)'
     );
 
-    editable.props.presenterElement.props.className.should.eql('simple-text-editable');
-    editable.props.presenterElement.props.placeholder.should.eql('Title');
-    editable.props.presenterElement.props.children.should.eql(
+    presenterElement.props.className.should.containEql('simple-text-editable');
+    presenterElement.props.placeholder.should.equal('Title');
+    presenterElement.props.children.should.equal(
       'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)'
     );
 
-    const textArea = findRenderedDOMComponentWithTag(instance, 'textarea');
-    textArea.value = 'New Title';
-    Simulate.change(textArea);
+    const textArea = wrapper.find('textarea');
+    textArea.simulate('change', { target: { value: 'New Title' }});
     onChangeSpy.should.be.calledWith('New Title');
   });
 });
