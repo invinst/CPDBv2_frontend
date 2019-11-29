@@ -1,12 +1,6 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  scryRenderedComponentsWithType,
-  findRenderedDOMComponentWithClass,
-} from 'react-addons-test-utils';
+import { shallow, mount } from 'enzyme';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import Item from 'components/officer-page/tabbed-pane-section/timeline/item';
 import Year from 'components/officer-page/tabbed-pane-section/timeline/item/showings/year';
 import CR from 'components/officer-page/tabbed-pane-section/timeline/item/showings/cr';
@@ -18,12 +12,6 @@ import Empty from 'components/officer-page/tabbed-pane-section/timeline/item/sho
 
 
 describe('Item component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render item with correct kind', function () {
     const year = {
       date: '1994',
@@ -33,8 +21,8 @@ describe('Item component', function () {
       unitDescription: 'Mobile Strike Force',
       unitName: 'Unit 153',
     };
-    instance = renderIntoDocument(<Item item={ year }/>);
-    findRenderedComponentWithType(instance, Year);
+    const wrapper = shallow(<Item item={ year }/>);
+    wrapper.find(Year).exists().should.be.true();
   });
 
   it('should not render item with incorrect kind', function () {
@@ -42,9 +30,9 @@ describe('Item component', function () {
     const someItem = {
       kind: 'SOMEKIND',
     };
-    instance = renderIntoDocument(<Item item={ someItem }/>);
+    const wrapper = mount(<Item item={ someItem }/>);
     components.map(component => {
-      scryRenderedComponentsWithType(instance, component).should.have.length(0);
+      wrapper.find(component).exists().should.be.false();
     });
   });
 
@@ -58,12 +46,12 @@ describe('Item component', function () {
       isAfterUnitChange: true,
     };
 
-    instance = renderIntoDocument(<Item item={ item }/>);
+    const wrapper = shallow(<Item item={ item }/>);
 
-    const rank = findRenderedDOMComponentWithClass(instance, 'rank-change-content');
-    const unit = findRenderedDOMComponentWithClass(instance, 'unit-change-content');
+    const rank = wrapper.find('.rank-change-content');
+    const unit = wrapper.find('.unit-change-content');
 
-    rank.textContent.should.eql('Police Officer');
-    unit.textContent.should.eql('Unit 001');
+    rank.text().should.equal('Police Officer');
+    unit.text().should.equal('Unit 001');
   });
 });

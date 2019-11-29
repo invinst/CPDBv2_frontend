@@ -1,12 +1,7 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  scryRenderedDOMComponentsWithClass,
-  scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 import { stub } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import Coaccusals from 'components/officer-page/tabbed-pane-section/coaccusals';
 import styles from 'components/officer-page/tabbed-pane-section/coaccusals/coaccusals.sass';
 import OfficerCard from 'components/common/officer-card';
@@ -14,12 +9,7 @@ import OfficerCardFooter from 'components/officer-page/tabbed-pane-section/coacc
 
 
 describe('Coaccusals component', function () {
-  let instance;
   const addOrRemoveItemInPinboard = stub();
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
 
   it('should render enough groups and coaccusal cards', function () {
     const coaccusalGroups = [
@@ -71,25 +61,25 @@ describe('Coaccusals component', function () {
       coaccusalGroups[1].coaccusals[0].coaccusalCount,
     ];
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Coaccusals
         coaccusalGroups={ coaccusalGroups }
         addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
       />)
     ;
 
-    const groups = scryRenderedDOMComponentsWithClass(instance, 'coaccusals-group-name');
-    groups.length.should.eql(2);
-    groups[0].textContent.should.eql('COACCUSED 2-4 TIMES');
-    groups[1].textContent.should.eql('COACCUSED 1 TIME');
+    const groups = wrapper.find('.coaccusals-group-name');
+    groups.length.should.equal(2);
+    groups.at(0).text().should.equal('COACCUSED 2-4 TIMES');
+    groups.at(1).text().should.equal('COACCUSED 1 TIME');
 
-    const coaccusalCards = scryRenderedComponentsWithType(instance, OfficerCard);
-    coaccusalCards.length.should.eql(3);
+    const coaccusalCards = wrapper.find(OfficerCard);
+    coaccusalCards.length.should.equal(3);
     coaccusalCards.forEach((card, index) => {
-      card.props.className.should.eql(styles.officerCard);
-      card.props.addOrRemoveItemInPinboard.should.eql(addOrRemoveItemInPinboard);
-      card.props.footer.type.should.eql(OfficerCardFooter);
-      card.props.footer.props.coaccusalCount.should.eql(coaccusalCounts[index]);
+      card.prop('className').should.eql(styles.officerCard);
+      card.prop('addOrRemoveItemInPinboard').should.eql(addOrRemoveItemInPinboard);
+      card.prop('footer').type.should.eql(OfficerCardFooter);
+      card.prop('footer').props.coaccusalCount.should.eql(coaccusalCounts[index]);
     });
   });
 });

@@ -1,18 +1,11 @@
 import React from 'react';
-import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
 import MetricPane from 'components/officer-page/metrics-section/metric-pane';
 import MetricsColumn from 'components/officer-page/metrics-section/metrics-column';
-import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('MetricsColumn', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render enough MetricPanes', function () {
     const metrics = [
       {
@@ -27,8 +20,8 @@ describe('MetricsColumn', function () {
         highlightValue: true,
       },
     ];
-    instance = renderIntoDocument(<MetricsColumn metrics={ metrics }/>);
+    const wrapper = shallow(<MetricsColumn metrics={ metrics }/>);
 
-    scryRenderedComponentsWithType(instance, MetricPane).should.have.length(2);
+    wrapper.find(MetricPane).should.have.length(2);
   });
 });

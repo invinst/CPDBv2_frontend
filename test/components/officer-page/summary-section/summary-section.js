@@ -1,9 +1,5 @@
 import React from 'react';
-import { map } from 'lodash';
-import {
-  renderIntoDocument, scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
-import { findDOMNode } from 'react-dom';
+import { shallow, mount } from 'enzyme';
 
 import SummarySection from 'components/officer-page/summary-section';
 import SummaryField from 'components/officer-page/summary-section/summary-field';
@@ -14,15 +10,15 @@ import YearOld from 'components/officer-page/summary-section/year-old';
 
 describe('SummarySection component', function () {
   it('should render summary fields, YearOld, Salary and ViewUnitProfileButton', function () {
-    const instance = renderIntoDocument(<SummarySection/>);
+    const wrapper = mount(<SummarySection/>);
 
-    scryRenderedComponentsWithType(instance, YearOld).should.have.length(1);
-    scryRenderedComponentsWithType(instance, Salary).should.have.length(1);
-    scryRenderedComponentsWithType(instance, ViewUnitProfileButton).should.have.length(1);
+    wrapper.find(YearOld).should.have.length(1);
+    wrapper.find(Salary).should.have.length(1);
+    wrapper.find(ViewUnitProfileButton).should.have.length(1);
 
-    const summaryFields = scryRenderedComponentsWithType(instance, SummaryField);
+    const summaryFields = wrapper.find(SummaryField);
     summaryFields.should.have.length(7);
-    map(summaryFields, field => field.props.label).should.eql([
+    summaryFields.map(field => field.prop('label')).should.eql([
       'Year of Birth', 'Race', 'Sex', 'Badge', 'Rank', 'Unit', 'Career',
     ]);
   });
@@ -32,9 +28,9 @@ describe('SummarySection component', function () {
       badge: '1234',
       historicBadges: ['4321, 5678'],
     };
-    const instance = renderIntoDocument(<SummarySection officerSummary={ officerSummary }/>);
-    const summaryFields = scryRenderedComponentsWithType(instance, SummaryField);
-    findDOMNode(summaryFields[3]).textContent.should.containEql('1234, 4321, 5678');
+    const wrapper = shallow(<SummarySection officerSummary={ officerSummary }/>);
+    const summaryFields = wrapper.find(SummaryField);
+    summaryFields.at(3).dive().text().should.containEql('1234, 4321, 5678');
   });
 
   it('should only render historic badge when badge is empty', function () {
@@ -42,9 +38,9 @@ describe('SummarySection component', function () {
       badge: '',
       historicBadges: ['4321, 5678'],
     };
-    const instance = renderIntoDocument(<SummarySection officerSummary={ officerSummary }/>);
-    const summaryFields = scryRenderedComponentsWithType(instance, SummaryField);
-    findDOMNode(summaryFields[3]).textContent.should.containEql('4321, 5678');
+    const wrapper = shallow(<SummarySection officerSummary={ officerSummary }/>);
+    const summaryFields = wrapper.find(SummaryField);
+    summaryFields.at(3).dive().text().should.containEql('4321, 5678');
   });
 
   it('should only render badge when historic badge is empty', function () {
@@ -52,9 +48,9 @@ describe('SummarySection component', function () {
       badge: '1234',
       historicBadges: [],
     };
-    const instance = renderIntoDocument(<SummarySection officerSummary={ officerSummary }/>);
-    const summaryFields = scryRenderedComponentsWithType(instance, SummaryField);
-    findDOMNode(summaryFields[3]).textContent.should.containEql('1234');
+    const wrapper = shallow(<SummarySection officerSummary={ officerSummary }/>);
+    const summaryFields = wrapper.find(SummaryField);
+    summaryFields.at(3).dive().text().should.containEql('1234');
   });
 
   it('should render Unknown when both badge and historic badge are empty', function () {
@@ -62,8 +58,8 @@ describe('SummarySection component', function () {
       badge: '',
       historicBadges: [],
     };
-    const instance = renderIntoDocument(<SummarySection officerSummary={ officerSummary }/>);
-    const summaryFields = scryRenderedComponentsWithType(instance, SummaryField);
-    findDOMNode(summaryFields[3]).textContent.should.containEql('Unknown');
+    const wrapper = shallow(<SummarySection officerSummary={ officerSummary }/>);
+    const summaryFields = wrapper.find(SummaryField);
+    summaryFields.at(3).dive().text().should.containEql('Unknown');
   });
 });

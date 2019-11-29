@@ -1,16 +1,10 @@
 import React from 'react';
-import {
-  findRenderedComponentWithType,
-  renderIntoDocument,
-  scryRenderedDOMComponentsWithClass,
-  Simulate,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { stub } from 'sinon';
 
 import { OFFICER_PAGE_TAB_NAMES } from 'utils/constants';
-import { unmountComponentSuppressError } from 'utils/test';
 import TabbedPaneSection from 'components/officer-page/tabbed-pane-section';
 import Timeline from 'components/officer-page/tabbed-pane-section/timeline';
 import AllegationsMap from 'components/common/allegations-map';
@@ -28,35 +22,28 @@ describe('TabbedPaneSection component', function () {
     popups: [],
     pinboardPage: { pinboard: null },
   });
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
 
   it('should render Header with correct tab names with correct order', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <TabbedPaneSection
-          currentTab='TIMELINE'
-          hasComplaint={ true }
-          hasMapMarker={ true }
-          hasCoaccusal={ true }
-        />
-      </Provider>
+    const wrapper = shallow(
+      <TabbedPaneSection
+        currentTab='TIMELINE'
+        hasComplaint={ true }
+        hasMapMarker={ true }
+        hasCoaccusal={ true }
+      />
     );
 
-    const tabNames = scryRenderedDOMComponentsWithClass(instance, 'tabbed-pane-tab-name');
+    const tabNames = wrapper.find('.tabbed-pane-tab-name');
 
     tabNames.should.have.length(4);
-    tabNames[0].textContent.should.be.eql('TIMELINE');
-    tabNames[1].textContent.should.be.eql('MAP');
-    tabNames[2].textContent.should.be.eql('COACCUSALS');
-    tabNames[3].textContent.should.be.eql('DOCUMENTS');
+    tabNames.at(0).text().should.equal('TIMELINE');
+    tabNames.at(1).text().should.equal('MAP');
+    tabNames.at(2).text().should.equal('COACCUSALS');
+    tabNames.at(3).text().should.equal('DOCUMENTS');
   });
 
   it('should hide the tabs with no data', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Provider store={ store }>
         <TabbedPaneSection
           currentTab='TIMELINE'
@@ -65,57 +52,57 @@ describe('TabbedPaneSection component', function () {
           hasCoaccusal={ false }
         />
       </Provider>
-    );
+    ).dive();
 
-    const tabNames = scryRenderedDOMComponentsWithClass(instance, 'tabbed-pane-tab-name');
+    const tabNames = wrapper.find('.tabbed-pane-tab-name');
 
     tabNames.should.have.length(1);
-    tabNames[0].textContent.should.be.eql('TIMELINE');
+    tabNames.at(0).text().should.equal('TIMELINE');
   });
 
   it('should render timeline tab', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Provider store={ store }>
         <TabbedPaneSection currentTab={ OFFICER_PAGE_TAB_NAMES.TIMELINE }/>
       </Provider>
     );
 
-    findRenderedComponentWithType(instance, Timeline).should.be.ok();
+    wrapper.find(Timeline).should.be.ok();
   });
 
   it('should render map tab', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Provider store={ store }>
         <TabbedPaneSection currentTab={ OFFICER_PAGE_TAB_NAMES.MAP }/>
       </Provider>
     );
 
-    findRenderedComponentWithType(instance, AllegationsMap).should.be.ok();
+    wrapper.find(AllegationsMap).should.be.ok();
   });
 
   it('should render coaccusals tab', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Provider store={ store }>
         <TabbedPaneSection currentTab={ OFFICER_PAGE_TAB_NAMES.COACCUSALS }/>
       </Provider>
     );
 
-    findRenderedComponentWithType(instance, Coaccusals).should.be.ok();
+    wrapper.find(Coaccusals).should.be.ok();
   });
 
   it('should render attachment tab', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Provider store={ store }>
         <TabbedPaneSection currentTab={ OFFICER_PAGE_TAB_NAMES.ATTACHMENTS }/>
       </Provider>
     );
 
-    findRenderedComponentWithType(instance, AttachmentsTab).should.be.ok();
+    wrapper.find(AttachmentsTab).should.be.ok();
   });
 
   it('should call changeOfficerTab when clicking tab name', function () {
     const stubChangeOfficerTab = stub();
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Provider store={ store }>
         <TabbedPaneSection
           changeOfficerTab={ stubChangeOfficerTab }
@@ -126,8 +113,8 @@ describe('TabbedPaneSection component', function () {
       </Provider>
     );
 
-    const mapTab = scryRenderedDOMComponentsWithClass(instance, 'tabbed-pane-tab-name')[1];
-    Simulate.click(mapTab);
+    const mapTab = wrapper.dive().find('.tabbed-pane-tab-name').at(1);
+    mapTab.simulate('click');
 
     stubChangeOfficerTab.should.be.calledWith('MAP');
   });

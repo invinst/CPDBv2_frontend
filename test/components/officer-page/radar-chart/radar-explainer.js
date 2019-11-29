@@ -1,14 +1,7 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass,
-  Simulate,
-} from 'react-addons-test-utils';
-import { findDOMNode } from 'react-dom';
+import { shallow, mount } from 'enzyme';
 import { spy } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import RadarExplainer from 'components/officer-page/radar-chart/explainer';
 import LeftNavigation from 'components/officer-page/radar-chart/explainer/left-navigation';
 import RightNavigation from 'components/officer-page/radar-chart/explainer/right-navigation';
@@ -20,78 +13,63 @@ import rightNavigationStyles from 'components/officer-page/radar-chart/explainer
 
 
 describe('RadarExplainer components', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
-  it('should renderable', function () {
-    RadarExplainer.should.be.renderable();
-  });
-
   it('should render close button and TriangleExplainer as default', function () {
     const triangleEditWrapperStateProps = spy();
-    instance = renderIntoDocument(<RadarExplainer triangleEditWrapperStateProps={ triangleEditWrapperStateProps }/>);
+    const wrapper = shallow(<RadarExplainer triangleEditWrapperStateProps={ triangleEditWrapperStateProps }/>);
 
-    findRenderedDOMComponentWithClass(instance, 'radar-explainer-close-button');
-    findRenderedComponentWithType(instance, LeftNavigation);
-    findRenderedComponentWithType(instance, RightNavigation);
-    const triangleExplainer = findRenderedComponentWithType(instance, TriangleExplainer);
-    triangleExplainer.props.editWrapperStateProps.should.eql(triangleEditWrapperStateProps);
+    wrapper.find('.radar-explainer-close-button').exists().should.be.true();
+    const triangleExplainer = wrapper.find(TriangleExplainer);
+    triangleExplainer.prop('editWrapperStateProps').should.eql(triangleEditWrapperStateProps);
 
-    const instanceDOM = findDOMNode(instance);
-    instanceDOM.textContent.should.containEql('What is the scale?');
-    instanceDOM.textContent.should.containEql('Percentiles by year');
+    wrapper.find(LeftNavigation).dive().text().should.containEql('Percentiles by year');
+    wrapper.find(RightNavigation).dive().text().should.containEql('What is the scale?');
   });
 
   it('should change to ScaleExplainer when click to RightNavigation', function () {
     const scaleEditWrapperStateProps = spy();
-    instance = renderIntoDocument(<RadarExplainer scaleEditWrapperStateProps={ scaleEditWrapperStateProps }/>);
-    findRenderedComponentWithType(instance, TriangleExplainer);
-    instance.state.currentPaneIndex.should.eql(0);
-    const rightNavigationElm = findRenderedDOMComponentWithClass(instance, rightNavigationStyles.rightNavigation);
-    Simulate.click(rightNavigationElm);
-    instance.state.currentPaneIndex.should.eql(1);
-    const scaleExplainer = findRenderedComponentWithType(instance, ScaleExplainer);
-    scaleExplainer.props.editWrapperStateProps.should.eql(scaleEditWrapperStateProps);
+    const wrapper = mount(<RadarExplainer scaleEditWrapperStateProps={ scaleEditWrapperStateProps }/>);
+    wrapper.find(TriangleExplainer).exists().should.be.true();
+    wrapper.state('currentPaneIndex').should.equal(0);
+    const rightNavigationElm = wrapper.find(`.${rightNavigationStyles.rightNavigation}`);
+    rightNavigationElm.simulate('click');
+    wrapper.state('currentPaneIndex').should.equal(1);
+    const scaleExplainer = wrapper.find(ScaleExplainer);
+    scaleExplainer.prop('editWrapperStateProps').should.eql(scaleEditWrapperStateProps);
 
-    const instanceDOM = findDOMNode(instance);
-    instanceDOM.textContent.should.containEql('What is this triangle?');
-    instanceDOM.textContent.should.containEql('Percentiles by year');
+    wrapper.find(LeftNavigation).text().should.containEql('What is this triangle?');
+    wrapper.find(RightNavigation).text().should.containEql('Percentiles by year');
   });
 
   it('should change to PercentilesByYear when click to LeftNavigation', function () {
-    instance = renderIntoDocument(<RadarExplainer/>);
-    findRenderedComponentWithType(instance, TriangleExplainer);
-    instance.state.currentPaneIndex.should.eql(0);
-    const leftNavigationElm = findRenderedDOMComponentWithClass(instance, leftNavigationStyles.leftNavigation);
-    Simulate.click(leftNavigationElm);
-    instance.state.currentPaneIndex.should.eql(2);
-    findRenderedComponentWithType(instance, PercentilesByYearExplainer);
+    const wrapper = mount(<RadarExplainer/>);
+    wrapper.find(TriangleExplainer).exists().should.be.true();
+    wrapper.state('currentPaneIndex').should.equal(0);
+    const leftNavigationElm = wrapper.find(`.${leftNavigationStyles.leftNavigation}`);
+    leftNavigationElm.simulate('click');
+    wrapper.state('currentPaneIndex').should.equal(2);
+    wrapper.find(PercentilesByYearExplainer).exists().should.be.true();
 
-    const instanceDOM = findDOMNode(instance);
-    instanceDOM.textContent.should.containEql('What is this triangle?');
-    instanceDOM.textContent.should.containEql('What is the scale?');
+    wrapper.find(LeftNavigation).text().should.containEql('What is the scale?');
+    wrapper.find(RightNavigation).text().should.containEql('What is this triangle?');
   });
 
   it('should change to PercentilesByYear when click to RightNavigation two times', function () {
-    instance = renderIntoDocument(<RadarExplainer/>);
-    findRenderedComponentWithType(instance, TriangleExplainer);
-    instance.state.currentPaneIndex.should.eql(0);
-    const rightNavigationElm = findRenderedDOMComponentWithClass(instance, rightNavigationStyles.rightNavigation);
-    Simulate.click(rightNavigationElm);
-    Simulate.click(rightNavigationElm);
-    instance.state.currentPaneIndex.should.eql(2);
-    findRenderedComponentWithType(instance, PercentilesByYearExplainer);
+    const wrapper = mount(<RadarExplainer/>);
+    wrapper.find(TriangleExplainer).exists().should.be.true();
+    wrapper.state('currentPaneIndex').should.equal(0);
+    const rightNavigationElm = wrapper.find(`.${rightNavigationStyles.rightNavigation}`);
+    rightNavigationElm.simulate('click');
+    rightNavigationElm.simulate('click');
+    wrapper.state('currentPaneIndex').should.equal(2);
+    wrapper.find(PercentilesByYearExplainer).exists().should.be.true();
   });
 
 
   it('should invoke closeExplainer when clicking on close button', function () {
     const closeExplainerSpy = spy();
-    instance = renderIntoDocument(<RadarExplainer closeExplainer={ closeExplainerSpy }/>);
-    const closeButton = findRenderedDOMComponentWithClass(instance, 'radar-explainer-close-button');
-    Simulate.click(closeButton);
+    const wrapper = shallow(<RadarExplainer closeExplainer={ closeExplainerSpy }/>);
+    const closeButton = wrapper.find('.radar-explainer-close-button');
+    closeButton.simulate('click');
 
     closeExplainerSpy.should.be.calledOnce();
   });
