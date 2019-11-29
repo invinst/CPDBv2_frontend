@@ -86,7 +86,7 @@ describe('crItemsReducer', function () {
     ).should.deepEqual([{ 'crid': '1' }]);
   });
 
-  it('should handle REMOVE_ITEM_IN_PINBOARD_PAGE with payload.type is CR', function () {
+  it('should handle COMPLETE_REMOVE_ITEM_FROM_PINBOARD with payload.type is CR', function () {
     crItemsReducer(
       [{
         'crid': '1',
@@ -99,7 +99,7 @@ describe('crItemsReducer', function () {
         'crid': '3',
       }],
       {
-        type: constants.REMOVE_ITEM_IN_PINBOARD_PAGE,
+        type: constants.COMPLETE_REMOVE_ITEM_FROM_PINBOARD,
         payload: {
           type: 'CR',
           id: '2',
@@ -177,7 +177,7 @@ describe('crItemsReducer', function () {
         payload: {
           type: 'CR',
           id: '2',
-          mode: constants.PINBOARD_ITEM_REMOVE_MODE.API_ONLY,
+          keepUndoCard: true,
         },
       }
     ).should.deepEqual([{

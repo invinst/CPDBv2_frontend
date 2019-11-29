@@ -7,8 +7,8 @@ import {
 
 
 import { unmountComponentSuppressError } from 'utils/test';
-import SearchTermItemPane from 'components/common/preview-pane/search-term-item-pane';
-import CallToAction from 'components/common/preview-pane/search-term-item-pane/call-to-action';
+import SearchTermItemPane from 'components/common/preview-pane/panes/search-term-item-pane';
+import CallToAction from 'components/common/preview-pane/panes/search-term-item-pane/call-to-action';
 import SlideMotion from 'components/animation/slide-motion';
 
 

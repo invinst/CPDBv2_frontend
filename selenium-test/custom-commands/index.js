@@ -63,6 +63,18 @@ function initCommands() {
   );
 
   browser.addCommand(
+    'waitForCount',
+    function (count, timeout) {
+      browser.waitUntil(
+        () => this.count === count,
+        timeout,
+        `Expecting ${count} of ${this.selector} after ${timeout || '{waitforTimeout}'}ms`
+      );
+    },
+    true
+  );
+
+  browser.addCommand(
     'clickAt',
     function (x, y) {
       const location = this.getLocation();

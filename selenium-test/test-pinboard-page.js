@@ -927,6 +927,20 @@ describe('Session Generator Pinboard Page', function () {
     showingPinboardffff6666();
   });
 
+  it('should accept title param', function () {
+    pinboardPage.openByQuery('?officer-ids=1,2&crids=5678123&title=Preset+title+via+url');
+    browser.getUrl().should.match(/\/pinboard\/eeee8888\/preset-title-via-url\//);
+
+    pinboardPage.pinboardSection.title.getText().should.equal('Preset title via url');
+  });
+
+  it('should create empty pinboard if only title is provided', function () {
+    pinboardPage.openByQuery('?title=Empty+pinboard+with+preset+title+via+url');
+    browser.getUrl().should.match(/\/pinboard\/eeee9999\/empty-pinboard-with-preset-title-via-url\//);
+
+    pinboardPage.emptyPinboardSection.mainElement.waitForDisplayed();
+  });
+
   it('should create new pinboard by query with some not-found items', function () {
     pinboardPage.openByQuery('?officer-ids=1,2&crids=987654,5678123&trr-ids=9,7');
     browser.getUrl().should.match(/\/pinboard\/eeee7777\//);

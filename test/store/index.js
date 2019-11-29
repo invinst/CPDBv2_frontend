@@ -284,7 +284,10 @@ describe('store', function () {
           needRefreshData: false,
           hasPendingChanges: false,
         },
-        graphData: { requesting: false, data: {} },
+        graphData: {
+          requesting: false,
+          data: {},
+        },
         geographicData: {
           clearAllMarkers: false,
           mapCrsData: [],
@@ -327,6 +330,19 @@ describe('store', function () {
         editModeOn: {
           EMPTY_PINBOARD_DESCRIPTION: false,
           EMPTY_PINBOARD_TITLE: false,
+        },
+      },
+      pinboardAdminPage: {
+        allPinboards: {
+          requesting: false,
+          items: [],
+          count: 0,
+          pagination: { next: null, previous: null },
+        },
+        isLoading: false,
+        graphData: {
+          requesting: false,
+          cachedData: [],
         },
       },
       videoModal: {

@@ -138,6 +138,7 @@
     "pluralize": "^7.0.0",
     "query-string": "^4.2.3",
     "radium": "^0.18.1",
+    "rc-collapse": "^1.11.7",
     "rc-slider": "^8.6.6",
     "react": "^15.5.2",
     "react-autosuggest": "^8.0.0",

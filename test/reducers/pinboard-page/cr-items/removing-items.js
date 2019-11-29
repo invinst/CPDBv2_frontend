@@ -9,11 +9,11 @@ describe('crItems > removingItemsReducer', function () {
     should(removingItemsReducer(undefined, {})).eql([]);
   });
 
-  it('should handle HANDLE_REMOVING_ITEM_IN_PINBOARD_PAGE', function () {
+  it('should handle REMOVE_ITEM_FROM_PINBOARD_STATE', function () {
     removingItemsReducer(
       ['001'],
       {
-        type: constants.HANDLE_REMOVING_ITEM_IN_PINBOARD_PAGE,
+        type: constants.REMOVE_ITEM_FROM_PINBOARD_STATE,
         payload: {
           type: 'CR',
           id: '002',
@@ -24,7 +24,7 @@ describe('crItems > removingItemsReducer', function () {
     removingItemsReducer(
       ['001'],
       {
-        type: constants.HANDLE_REMOVING_ITEM_IN_PINBOARD_PAGE,
+        type: constants.REMOVE_ITEM_FROM_PINBOARD_STATE,
         payload: {
           type: 'ANOTHER',
           id: '002',
@@ -33,11 +33,11 @@ describe('crItems > removingItemsReducer', function () {
     ).should.deepEqual(['001']);
   });
 
-  it('should handle REMOVE_ITEM_FROM_PINBOARD_STATE', function () {
+  it('should handle COMPLETE_REMOVE_ITEM_FROM_PINBOARD', function () {
     removingItemsReducer(
       ['001'],
       {
-        type: constants.REMOVE_ITEM_FROM_PINBOARD_STATE,
+        type: constants.COMPLETE_REMOVE_ITEM_FROM_PINBOARD,
         payload: {
           type: 'CR',
           id: '001',
@@ -48,7 +48,7 @@ describe('crItems > removingItemsReducer', function () {
     removingItemsReducer(
       ['001'],
       {
-        type: constants.REMOVE_ITEM_FROM_PINBOARD_STATE,
+        type: constants.COMPLETE_REMOVE_ITEM_FROM_PINBOARD,
         payload: {
           type: 'ANOTHER',
           id: '001',
@@ -79,5 +79,14 @@ describe('crItems > removingItemsReducer', function () {
         },
       }
     ).should.deepEqual(['001']);
+  });
+
+  it('should handle LOCATION_CHANGE', function () {
+    removingItemsReducer(
+      ['001, 002'],
+      {
+        type: constants.LOCATION_CHANGE,
+      }
+    ).should.eql([]);
   });
 });

@@ -1,0 +1,54 @@
+@import 'variables'
+
+\:local(.list-widget-item-link)
+  text-decoration: none
+  color: inherit
+  display: inline-block
+  width: 100%
+
+  &:hover
+    color: $accent-color
+
+  &:last-child
+    \:local(.list-widget-item)
+      border-bottom: none
+
+  .list-widget-list-item-chart-wrapper
+    display: inline-block
+    vertical-align: middle
+    margin-right: 12px
+    width: 38px
+    height: 38px
+    border-radius: 2px
+
+  .list-widget-list-item-info
+    display: inline-block
+    vertical-align: middle
+    width: calc(100% - 7px)
+
+    &.show-avatar
+      width: calc(100% - 7px - 50px)
+
+    .list-widget-list-item-name
+      margin: 0
+
+    .list-widget-list-item-count
+      color: $boulder-color
+      margin: 1px 0 0
+
+  .list-widget-list-item-arrow
+    display: inline-block
+    height: 13px
+    width: 7px
+    vertical-align: middle
+    background: url('/img/disclosure-indicator.svg') no-repeat scroll center transparent
+
+.list-widget-first-items
+  \:local(.list-widget-item):last-child
+    border-bottom: none
+
+\:local(.list-widget-item)
+  padding: 12px 0
+  border-bottom: 1px solid $white-two-color
+  list-style-type: none
+  box-sizing: border-box

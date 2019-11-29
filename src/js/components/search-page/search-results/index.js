@@ -5,7 +5,7 @@ import cx from 'classnames';
 
 import SuggestionGroup from './suggestion-group';
 import SuggestionNoResult from './search-no-result';
-import PreviewPane from 'components/search-page/search-results/preview-pane';
+import PreviewPane from 'components/common/preview-pane';
 import * as constants from 'utils/constants';
 import { SEARCH_PAGE_NAVIGATION_KEYS } from 'utils/constants';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';

@@ -1,12 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import { map, get, isEqual, find, noop } from 'lodash';
+import { map, isEqual, find, noop } from 'lodash';
 import { Muuri } from 'utils/vendors';
 
 import { OfficerCardWithUndo as OfficerCard } from 'components/pinboard-page/cards/officer-card';
 import { CRCardWithUndo as CRCard } from 'components/pinboard-page/cards/cr-card';
 import { TRRCardWithUndo as TRRCard } from 'components/pinboard-page/cards/trr-card';
 import { getPageYBottomOffset, scrollByBottomOffset } from 'utils/navigation';
-import { PINBOARD_ITEM_REMOVE_MODE } from 'utils/constants';
 import styles from './pinned-grid.sass';
 
 
@@ -23,6 +22,7 @@ export default class PinnedGrid extends Component {
     this.rendered = false;
     this.updateOrder = this.updateOrder.bind(this);
     this.removeItemInPinboardPage = this.removeItemInPinboardPage.bind(this);
+    this.completeRemoveItemInPinboardPage = this.completeRemoveItemInPinboardPage.bind(this);
   }
 
   componentDidMount() {
@@ -69,15 +69,17 @@ export default class PinnedGrid extends Component {
   }
 
   removeItemInPinboardPage(item) {
-    const mode = get(item, 'mode', PINBOARD_ITEM_REMOVE_MODE.DEFAULT);
-    if (mode !== PINBOARD_ITEM_REMOVE_MODE.API_ONLY) {
-      this.gridMuuri.remove(this.itemElements[item.id]);
-    }
-
     setTimeout(
       () => this.props.removeItemInPinboardPage(item),
       200
     );
+  }
+
+  completeRemoveItemInPinboardPage(item) {
+    const { completeRemoveItemFromPinboard } = this.props;
+
+    this.gridMuuri.remove(this.itemElements[item.id]);
+    completeRemoveItemFromPinboard(item);
   }
 
   render() {
@@ -99,6 +101,7 @@ export default class PinnedGrid extends Component {
                 <Card
                   item={ item }
                   removeItemInPinboardPage={ this.removeItemInPinboardPage }
+                  completeRemoveItemInPinboardPage={ this.completeRemoveItemInPinboardPage }
                   addItemInPinboardPage={ addItemInPinboardPage }
                   focusItem={ focusItem }
                 />
@@ -115,6 +118,7 @@ PinnedGrid.propTypes = {
   type: PropTypes.string,
   items: PropTypes.array,
   removeItemInPinboardPage: PropTypes.func,
+  completeRemoveItemFromPinboard: PropTypes.func,
   addItemInPinboardPage: PropTypes.func,
   orderPinboard: PropTypes.func,
   focusItem: PropTypes.func,
@@ -122,4 +126,5 @@ PinnedGrid.propTypes = {
 
 PinnedGrid.defaultProps = {
   addItemInPinboardPage: noop,
+  completeRemoveItemFromPinboard: noop,
 };

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import {
-  graphDataSelector,
+  currentGraphDataSelector,
   getPinboardTimelineIdx,
   getPinboardRefreshIntervalId,
   getSocialGraphRequesting,
@@ -11,11 +11,14 @@ import { updatePinboardTimelineIdx, updatePinboardRefreshIntervalId } from 'acti
 
 
 function mapStateToProps(state, ownProps) {
+  const data = currentGraphDataSelector(state);
+
   return {
     showGraphControlPanel: false,
-    officers: graphDataSelector(state).officers,
-    coaccusedData: graphDataSelector(state).coaccusedData,
-    listEvent: graphDataSelector(state).listEvent,
+    officers: data.officers,
+    coaccusedData: data.coaccusedData,
+    listEvent: data.listEvent,
+    hasIntercom: true,
     timelineIdx: getPinboardTimelineIdx(state),
     refreshIntervalId: getPinboardRefreshIntervalId(state),
     requesting: getSocialGraphRequesting(state),
