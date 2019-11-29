@@ -1,56 +1,41 @@
 import React from 'react';
-import {
-  Simulate,
-  renderIntoDocument,
-  findRenderedComponentWithType,
-} from 'react-addons-test-utils';
-import { findDOMNode } from 'react-dom';
+import { shallow } from 'enzyme';
 import { stub } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import SearchBox from 'components/headers/slim-header/slim-header-content/search-box';
 import * as editPath from 'utils/edit-path' ;
 import MagnifyingGlass from 'components/common/icons/magnifying-glass';
 
 
 describe('SearchBox component', function () {
-  let instance;
-
   beforeEach(function () {
     this.stubPushPathPreserveEditMode = stub(editPath, 'pushPathPreserveEditMode');
   });
 
   afterEach(function () {
     this.stubPushPathPreserveEditMode.restore();
-    unmountComponentSuppressError(instance);
-  });
-
-  it('should be renderable', function () {
-    SearchBox.should.be.renderable();
   });
 
   it('should call pushPathPreserveEditMode with search path when user click on the search box', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <SearchBox />
     );
-    const searchBox = findDOMNode(instance);
-    Simulate.click(searchBox);
-    this.stubPushPathPreserveEditMode.calledWith('/search/').should.be.true();
+    wrapper.simulate('click', { stopPropagation: () => {} });
+    this.stubPushPathPreserveEditMode.should.be.calledWith('/search/');
   });
 
   it('should call pushPathPreserveEditMode with search path when user click on the search term', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <SearchBox />
     );
 
-    const searchBox = findDOMNode(instance);
-    Simulate.click(searchBox);
-    this.stubPushPathPreserveEditMode.calledWith('/search/').should.be.true();
+    wrapper.simulate('click', { stopPropagation: () => {} });
+    this.stubPushPathPreserveEditMode.should.be.calledWith('/search/');
   });
 
   it('should render MagnifyingGlass with correct color', function () {
-    instance = renderIntoDocument(<SearchBox magnifyingGlassColor={ 'white' } />);
-    const magnifyingGlass = findRenderedComponentWithType(instance, MagnifyingGlass);
-    magnifyingGlass.props.color.should.eql('#005EF4');
+    const wrapper = shallow(<SearchBox magnifyingGlassColor={ 'white' } />);
+    const magnifyingGlass = wrapper.find(MagnifyingGlass);
+    magnifyingGlass.prop('color').should.equal('#005EF4');
   });
 });

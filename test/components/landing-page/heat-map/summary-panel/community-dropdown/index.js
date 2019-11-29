@@ -1,8 +1,7 @@
 import React from 'react';
+import { mount } from 'enzyme';
 import { spy } from 'sinon';
-import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import { communityFactory } from 'utils/test/factories/heat-map';
 import CommunityDetail from 'components/landing-page/heat-map/summary-panel/community-dropdown/community-detail';
 import DropdownPlaceHolder from
@@ -12,12 +11,6 @@ import CommunityDropdown from 'components/landing-page/heat-map/summary-panel/co
 
 
 describe('CommunityDropdown component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should renderable', function () {
     CommunityDropdown.should.be.renderable();
   });
@@ -25,27 +18,27 @@ describe('CommunityDropdown component', function () {
   it('should render CommunityDetail if communityId is not 0', function () {
     const selectCommunity = spy();
     const community = communityFactory.build({ id: 1 });
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <CommunityDropdown
         communityId={ 1 }
         communities={ [community] }
         selectCommunity={ selectCommunity }/>
     );
-    const comDetail = findRenderedComponentWithType(instance, CommunityDetail);
+    const comDetail = wrapper.find(CommunityDetail);
 
-    comDetail.props.closeDetail();
+    comDetail.prop('closeDetail')();
     selectCommunity.calledWith(0).should.be.true();
 
-    comDetail.props.community.should.eql(community);
+    comDetail.prop('community').should.eql(community);
   });
 
   it('should render Dropdown if communityId is 0 and showDropdown is true', function () {
-    instance = renderIntoDocument(<CommunityDropdown showDropdown={ true } communityId={ 0 }/>);
-    findRenderedComponentWithType(instance, Dropdown).should.be.ok();
+    const wrapper = mount(<CommunityDropdown showDropdown={ true } communityId={ 0 }/>);
+    wrapper.find(Dropdown).exists().should.be.true();
   });
 
   it('should render DropdownPlaceholder otherwise', function () {
-    instance = renderIntoDocument(<CommunityDropdown showDropdown={ false } communityId={ 0 }/>);
-    findRenderedComponentWithType(instance, DropdownPlaceHolder).should.be.ok();
+    const wrapper = mount(<CommunityDropdown showDropdown={ false } communityId={ 0 }/>);
+    wrapper.find(DropdownPlaceHolder).exists().should.be.true();
   });
 });

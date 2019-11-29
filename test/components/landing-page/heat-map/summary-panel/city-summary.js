@@ -1,19 +1,10 @@
 import React from 'react';
-import { findDOMNode } from 'react-dom';
-import { each } from 'lodash';
-import { renderIntoDocument, findRenderedDOMComponentWithClass } from 'react-addons-test-utils';
+import { shallow, mount } from 'enzyme';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import CitySummary from 'components/landing-page/heat-map/summary-panel/city-summary';
 
 
 describe('CitySummary component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render most common complaints', function () {
     const mostCommonComplaints = [
       {
@@ -33,12 +24,11 @@ describe('CitySummary component', function () {
       mostCommonComplaints,
     };
 
-    instance = renderIntoDocument(<CitySummary citySummary={ citySummary } />);
+    const wrapper = mount(<CitySummary citySummary={ citySummary } />);
 
-    const element = findDOMNode(instance);
-    each(mostCommonComplaints, ({ name, count }) => {
-      element.textContent.should.containEql(name);
-      element.textContent.should.containEql(`${ count } allegations`);
+    mostCommonComplaints.forEach(({ name, count }) => {
+      wrapper.text().should.containEql(name);
+      wrapper.text().should.containEql(`${ count } allegations`);
     });
   });
 
@@ -50,21 +40,17 @@ describe('CitySummary component', function () {
           endYear: 2017,
         };
 
-        instance = renderIntoDocument(<CitySummary citySummary={ citySummary } />);
+        const wrapper = shallow(<CitySummary citySummary={ citySummary } />);
 
-        findRenderedDOMComponentWithClass(
-          instance, 'test--city-summary-header'
-        ).textContent.should.equal('CHICAGO 1999 - 2017');
+        wrapper.find('.test--city-summary-header').text().should.equal('CHICAGO 1999 - 2017');
       });
     });
 
     context('start year is empty', function () {
       it('should render header without period time', function () {
-        instance = renderIntoDocument(<CitySummary />);
+        const wrapper = shallow(<CitySummary />);
 
-        findRenderedDOMComponentWithClass(
-          instance, 'test--city-summary-header'
-        ).textContent.should.equal('CHICAGO');
+        wrapper.find('.test--city-summary-header').text().should.equal('CHICAGO');
       });
     });
   });

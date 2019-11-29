@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-} from 'react-addons-test-utils';
-import { unmountComponentSuppressError } from 'utils/test';
+import { shallow, mount } from 'enzyme';
 import { stub } from 'sinon';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
@@ -23,23 +19,14 @@ describe('Embed top officers page', function () {
       pages: {},
     },
     pinboardPage: { pinboard: {} },
-  });
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
-  it('should render OfficersByAllegationContainer', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <EmbedTopOfficersPage />
-      </Provider>
+  });it('should render OfficersByAllegationContainer', function () {
+    const wrapper = shallow(
+      <EmbedTopOfficersPage />
     );
 
-    const officersByAllegationContainer = findRenderedComponentWithType(instance, OfficersByAllegationContainer);
-    officersByAllegationContainer.props.openCardInNewPage.should.be.true();
-    officersByAllegationContainer.props.pinnable.should.be.false();
+    const officersByAllegationContainer = wrapper.find(OfficersByAllegationContainer);
+    officersByAllegationContainer.prop('openCardInNewPage').should.be.true();
+    officersByAllegationContainer.prop('pinnable').should.be.false();
   });
 
   describe('Intercom', function () {
@@ -52,7 +39,7 @@ describe('Embed top officers page', function () {
     });
 
     it('should hide intercom launcher when mounted', function () {
-      instance = renderIntoDocument(
+      mount(
         <Provider store={ store }>
           <EmbedTopOfficersPage />
         </Provider>
@@ -62,14 +49,14 @@ describe('Embed top officers page', function () {
     });
 
     it('should show intercom launcher again when unmounted', function () {
-      instance = renderIntoDocument(
+      const wrapper = mount(
         <Provider store={ store }>
           <EmbedTopOfficersPage />
         </Provider>
       );
 
       intercomUtils.showIntercomLauncher.resetHistory();
-      unmountComponentSuppressError(instance);
+      wrapper.unmount();
       intercomUtils.showIntercomLauncher.calledWith(true).should.be.true();
     });
   });

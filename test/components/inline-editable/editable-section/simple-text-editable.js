@@ -41,7 +41,7 @@ describe('SimpleTextEditable component', function () {
     );
 
     const textArea = wrapper.find('textarea');
-    textArea.simulate('change', { target: { value: 'New Title' }});
+    textArea.simulate('change', { target: { value: 'New Title' } });
     onChangeSpy.should.be.calledWith('New Title');
   });
 });

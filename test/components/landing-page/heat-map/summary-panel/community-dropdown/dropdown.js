@@ -1,12 +1,7 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 import { spy } from 'sinon';
-import { findDOMNode } from 'react-dom';
-import {
-  renderIntoDocument, findRenderedComponentWithType, Simulate,
-  scryRenderedDOMComponentsWithClass, findRenderedDOMComponentWithClass,
-} from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import { communityFactory } from 'utils/test/factories/heat-map';
 import TextInput from 'components/common/input';
 import Dropdown from 'components/landing-page/heat-map/summary-panel/community-dropdown/dropdown';
@@ -14,14 +9,8 @@ import MinimalScrollBars from 'components/common/minimal-scroll-bars';
 
 
 describe('Dropdown component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render all communities', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Dropdown
         communities={ [
           communityFactory.build({ name: 'Hyde Park' }),
@@ -29,13 +18,13 @@ describe('Dropdown component', function () {
         ] }
       />
     );
-    const element = findDOMNode(instance);
-    element.innerHTML.should.containEql('Hyde Park');
-    element.innerHTML.should.containEql('Lincoln Square');
+    const communities = wrapper.find(MinimalScrollBars).dive().dive();
+    communities.text().should.containEql('Hyde Park');
+    communities.text().should.containEql('Lincoln Square');
   });
 
   it('should filter out communities when user type in something', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Dropdown
         communities={ [
           communityFactory.build({ name: 'Hyde Park' }),
@@ -43,16 +32,16 @@ describe('Dropdown component', function () {
         ] }
       />
     );
-    const input = findRenderedComponentWithType(instance, TextInput);
-    input.props.onChange({ currentTarget: { value: 'hy' } });
-    const element = findDOMNode(instance);
-    element.innerHTML.should.containEql('Hyde Park');
-    element.innerHTML.should.not.containEql('Lincoln Square');
+    const input = wrapper.find(TextInput);
+    input.prop('onChange')({ currentTarget: { value: 'hy' } });
+
+    wrapper.text().should.containEql('Hyde Park');
+    wrapper.text().should.not.containEql('Lincoln Square');
   });
 
   it('should trigger selectCommunity', function () {
     const selectCommunity = spy();
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Dropdown
         selectCommunity={ selectCommunity }
         communities={ [
@@ -62,17 +51,17 @@ describe('Dropdown component', function () {
       />
     );
 
-    Simulate.click(scryRenderedDOMComponentsWithClass(instance, 'test--dropdown-item')[0]);
+    wrapper.find('.test--dropdown-item').at(0).simulate('click');
     selectCommunity.calledWith(101).should.be.true();
   });
 
   it('should trigger closeDropdown when click on arrow', function () {
     const closeDropdown = spy();
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Dropdown closeDropdown={ closeDropdown }/>
     );
 
-    Simulate.click(findRenderedDOMComponentWithClass(instance, 'test--dropdown-up-arrow'));
+    wrapper.find('.test--dropdown-up-arrow').simulate('click');
     closeDropdown.called.should.be.true();
   });
 
@@ -82,20 +71,20 @@ describe('Dropdown component', function () {
       communityFactory.build({ id: 302 }),
     ];
     const selectCommunity = spy();
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Dropdown
         communities={ communities }
         selectCommunity={ selectCommunity }
       />
     );
 
-    const input = findRenderedComponentWithType(instance, TextInput);
-    input.props.keyPressHandlers.enter();
+    const input = wrapper.find(TextInput);
+    input.prop('keyPressHandlers').enter();
     selectCommunity.calledWith(301).should.be.true();
   });
 
   it('should render MinimalScrollBars', function () {
-    instance = renderIntoDocument(<Dropdown/>);
-    findRenderedComponentWithType(instance, MinimalScrollBars).should.be.ok();
+    const wrapper = shallow(<Dropdown/>);
+    wrapper.find(MinimalScrollBars).exists().should.be.true();
   });
 });
