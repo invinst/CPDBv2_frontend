@@ -1,16 +1,11 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 import { date } from 'faker';
 import { spy } from 'sinon';
 import moment from 'moment';
 import should from 'should';
 import InfiniteScroll from 'react-infinite-scroller';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import PinboardsTable from 'components/pinboard-admin-page/pinboards-table';
 import PinboardRow from 'components/pinboard-admin-page/pinboard-row';
 import MonthSeparator from 'components/common/table/month-separator';
@@ -18,12 +13,6 @@ import { PINBOARDS_SEARCH_ITEMS } from 'utils/constants';
 
 
 describe('PinboardsTable', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render pinboard rows inside InfiniteScroll', function () {
     const rows = [
       {
@@ -42,7 +31,7 @@ describe('PinboardsTable', function () {
     const nextParams = { offset: 20, limit: 30 };
     const fetchPinboards = spy();
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PinboardsTable
         rows={ rows }
         hasMore={ true }
@@ -51,31 +40,31 @@ describe('PinboardsTable', function () {
       />
     );
 
-    const pinboardRows = scryRenderedComponentsWithType(instance, PinboardRow);
-    const header = pinboardRows[0];
-    header.props.isHeader.should.be.true();
-    header.props.id.should.be.equal('ID');
-    header.props.title.should.be.equal('Pinboard');
-    header.props.pinnedCount.should.be.equal('Pinned items');
-    header.props.createdAt.should.be.equal('Date');
+    const pinboardRows = wrapper.find(PinboardRow);
+    const header = pinboardRows.at(0);
+    header.prop('isHeader').should.be.true();
+    header.prop('id').should.equal('ID');
+    header.prop('title').should.equal('Pinboard');
+    header.prop('pinnedCount').should.equal('Pinned items');
+    header.prop('createdAt').should.equal('Date');
 
-    const infiniteScroll = findRenderedComponentWithType(instance, InfiniteScroll);
-    infiniteScroll.props.hasMore.should.be.true();
-    infiniteScroll.props.useWindow.should.be.true();
+    const infiniteScroll = wrapper.find(InfiniteScroll);
+    infiniteScroll.prop('hasMore').should.be.true();
+    infiniteScroll.prop('useWindow').should.be.true();
 
-    infiniteScroll.props.loadMore();
+    infiniteScroll.prop('loadMore')();
     fetchPinboards.should.be.calledOnce();
     fetchPinboards.should.be.calledWith(nextParams);
 
-    const monthSeparator = findRenderedComponentWithType(infiniteScroll, MonthSeparator);
-    monthSeparator.props.text.should.equal(rows[0].text);
+    const monthSeparator = infiniteScroll.find(MonthSeparator);
+    monthSeparator.prop('text').should.equal(rows[0].text);
 
-    const pinboardInfoRow = findRenderedComponentWithType(infiniteScroll, PinboardRow);
+    const pinboardInfoRow = infiniteScroll.find(PinboardRow);
     should(pinboardInfoRow.props.isHeader).be.undefined();
-    pinboardInfoRow.props.id.should.be.equal('abc123');
-    pinboardInfoRow.props.title.should.be.equal('Untitled Pinboard');
-    pinboardInfoRow.props.pinnedCount.should.be.equal('3 officers, 1 allegation and 0 TRRS');
-    pinboardInfoRow.props.createdAt.should.be.equal('Oct 18');
+    pinboardInfoRow.prop('id').should.equal('abc123');
+    pinboardInfoRow.prop('title').should.equal('Untitled Pinboard');
+    pinboardInfoRow.prop('pinnedCount').should.equal('3 officers, 1 allegation and 0 TRRS');
+    pinboardInfoRow.prop('createdAt').should.equal('Oct 18');
   });
 
   it('should not load more items if it is loading', function () {
@@ -96,7 +85,7 @@ describe('PinboardsTable', function () {
     const nextParams = { offset: 20, limit: 30 };
     const fetchPinboards = spy();
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PinboardsTable
         rows={ rows }
         hasMore={ true }
@@ -106,7 +95,7 @@ describe('PinboardsTable', function () {
       />
     );
 
-    const infiniteScroll = findRenderedComponentWithType(instance, InfiniteScroll);
-    infiniteScroll.props.hasMore.should.be.false();
+    const infiniteScroll = wrapper.find(InfiniteScroll);
+    infiniteScroll.prop('hasMore').should.be.false();
   });
 });

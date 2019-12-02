@@ -1,18 +1,10 @@
 import React from 'react';
-import {
-  findRenderedComponentWithType,
-  renderIntoDocument,
-  scryRenderedDOMComponentsWithClass,
-  findRenderedDOMComponentWithClass,
-  scryRenderedComponentsWithType,
-  Simulate,
-} from 'react-addons-test-utils';
+import { mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { stub } from 'sinon';
 
 import { PINBOARD_PAGE_TAB_NAMES } from 'utils/constants';
-import { unmountComponentSuppressError } from 'utils/test';
 import PinboardPaneSection, { PinboardPaneSectionWithSpinner } from 'components/pinboard-page/pinboard-pane-section';
 import AnimatedSocialGraph from 'components/common/animated-social-graph';
 import AllegationsMap from 'components/common/allegations-map';
@@ -53,14 +45,9 @@ describe('PinboardPaneSection component', function () {
       },
     },
   });
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
 
   it('should render Header with correct tab names with correct order', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <PinboardPaneSection
           currentTab='NETWORK'
@@ -69,17 +56,17 @@ describe('PinboardPaneSection component', function () {
       </Provider>
     );
 
-    const tabNames = scryRenderedDOMComponentsWithClass(instance, 'pinboard-pane-tab-name');
+    const tabNames = wrapper.find('.pinboard-pane-tab-name');
     tabNames.should.have.length(2);
-    tabNames[0].textContent.should.be.eql('NETWORK');
-    tabNames[1].textContent.should.be.eql('GEOGRAPHIC');
+    tabNames.at(0).text().should.equal('NETWORK');
+    tabNames.at(1).text().should.equal('GEOGRAPHIC');
 
-    const activeTab = findRenderedDOMComponentWithClass(instance, 'active');
-    activeTab.textContent.should.be.eql('NETWORK');
+    const activeTab = wrapper.find('.active');
+    activeTab.text().should.equal('NETWORK');
   });
 
   it('should render correct active tab', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <PinboardPaneSection
           currentTab='GEOGRAPHIC'
@@ -88,17 +75,17 @@ describe('PinboardPaneSection component', function () {
       </Provider>
     );
 
-    const tabNames = scryRenderedDOMComponentsWithClass(instance, 'pinboard-pane-tab-name');
+    const tabNames = wrapper.find('.pinboard-pane-tab-name');
     tabNames.should.have.length(2);
-    tabNames[0].textContent.should.be.eql('NETWORK');
-    tabNames[1].textContent.should.be.eql('GEOGRAPHIC');
+    tabNames.at(0).text().should.equal('NETWORK');
+    tabNames.at(1).text().should.equal('GEOGRAPHIC');
 
-    const activeTab = findRenderedDOMComponentWithClass(instance, 'active');
-    activeTab.textContent.should.be.eql('GEOGRAPHIC');
+    const activeTab = wrapper.find('.active');
+    activeTab.text().should.equal('GEOGRAPHIC');
   });
 
   it('should hide the tabs with no data', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <PinboardPaneSection
           currentTab='NETWORK'
@@ -107,35 +94,35 @@ describe('PinboardPaneSection component', function () {
       </Provider>
     );
 
-    const tabNames = scryRenderedDOMComponentsWithClass(instance, 'pinboard-pane-tab-name');
+    const tabNames = wrapper.find('.pinboard-pane-tab-name');
 
     tabNames.should.have.length(1);
-    tabNames[0].textContent.should.be.eql('NETWORK');
+    tabNames.at(0).text().should.equal('NETWORK');
   });
 
   it('should render network tab', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <PinboardPaneSection currentTab={ PINBOARD_PAGE_TAB_NAMES.NETWORK }/>
       </Provider>
     );
 
-    findRenderedComponentWithType(instance, AnimatedSocialGraph).should.be.ok();
+    wrapper.find(AnimatedSocialGraph).exists().should.be.true();
   });
 
   it('should render geographic tab', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <PinboardPaneSection currentTab={ PINBOARD_PAGE_TAB_NAMES.GEOGRAPHIC }/>
       </Provider>
     );
 
-    findRenderedComponentWithType(instance, AllegationsMap).should.be.ok();
+    wrapper.find(AllegationsMap).exists().should.be.true();
   });
 
   it('should call changePinboardTab when clicking tab name', function () {
     const stubChangePinboardTab = stub();
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <PinboardPaneSection
           changePinboardTab={ stubChangePinboardTab }
@@ -144,31 +131,31 @@ describe('PinboardPaneSection component', function () {
       </Provider>
     );
 
-    const geographicTab = scryRenderedDOMComponentsWithClass(instance, 'pinboard-pane-tab-name')[1];
-    Simulate.click(geographicTab);
+    const geographicTab = wrapper.find('.pinboard-pane-tab-name').at(1);
+    geographicTab.simulate('click');
 
     stubChangePinboardTab.should.be.calledWith('GEOGRAPHIC');
   });
 
   context('withLoadingSpinner', function () {
     it('should render LoadingSpinner only if requesting is true', function () {
-      instance = renderIntoDocument(
+      const wrapper = mount(
         <PinboardPaneSectionWithSpinner requesting={ true } />
       );
 
-      scryRenderedComponentsWithType(instance, PinboardPaneSection).should.have.length(0);
+      wrapper.find(PinboardPaneSection).exists().should.be.false();
 
-      const loadingSpinner = findRenderedComponentWithType(instance, LoadingSpinner);
-      loadingSpinner.props.className.should.equal(styles.pinboardPaneSectionLoading);
+      const loadingSpinner = wrapper.find(LoadingSpinner);
+      loadingSpinner.prop('className').should.equal(styles.pinboardPaneSectionLoading);
     });
 
     it('should not render LoadingSpinner if requesting is false', function () {
-      instance = renderIntoDocument(
+      const wrapper = mount(
         <PinboardPaneSectionWithSpinner requesting={ false }/>
       );
 
-      scryRenderedComponentsWithType(instance, PinboardPaneSection).should.have.length(1);
-      scryRenderedComponentsWithType(instance, LoadingSpinner).should.have.length(0);
+      wrapper.find(PinboardPaneSection).should.have.length(1);
+      wrapper.find(LoadingSpinner).exists().should.be.false();
     });
   });
 });

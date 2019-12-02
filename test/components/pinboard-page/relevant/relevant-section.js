@@ -1,13 +1,7 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  findRenderedComponentWithType,
-  scryRenderedDOMComponentsWithTag,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 import { spy } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import RelevantSection from 'components/pinboard-page/relevant';
 import RelevantDocuments from 'components/pinboard-page/relevant/relevant-documents';
 import RelevantCoaccusals from 'components/pinboard-page/relevant/relevant-coaccusals';
@@ -15,23 +9,17 @@ import RelevantComplaints from 'components/pinboard-page/relevant/relevant-compl
 
 
 describe('RelevantSection component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render nothing when no data', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <RelevantSection
         pinboardId='66ef1560'
-        documents={ {} }
-        coaccusals={ {} }
-        complaints={ {} }
+        documents={ [] }
+        coaccusals={ [] }
+        complaints={ [] }
       />
     );
 
-    scryRenderedDOMComponentsWithTag(instance, 'div').should.have.length(0);
+    wrapper.find('div').exists().should.be.false();
   });
 
   it('should render relevant rows correctly', function () {
@@ -74,7 +62,7 @@ describe('RelevantSection component', function () {
       officers: [],
     }];
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <RelevantSection
         pinboardId='66ef1560'
         fetchPinboardRelevantDocuments={ fetchPinboardRelevantDocuments }
@@ -96,33 +84,33 @@ describe('RelevantSection component', function () {
       />
     );
 
-    findRenderedDOMComponentWithClass(instance, 'relevant-title').textContent.should.equal('Relevant');
+    wrapper.find('.relevant-title').text().should.equal('Relevant');
 
-    const relevantDocuments = findRenderedComponentWithType(instance, RelevantDocuments);
-    relevantDocuments.props.pinboardId.should.equal('66ef1560');
-    relevantDocuments.props.documents.should.eql(documents);
-    relevantDocuments.props.nextParams.should.eql({ limit: 19, offset: 20 });
-    relevantDocuments.props.hasMore.should.be.true();
-    relevantDocuments.props.requesting.should.be.false();
-    relevantDocuments.props.fetchPinboardRelevantDocuments.should.equal(fetchPinboardRelevantDocuments);
-    relevantDocuments.props.addItemInPinboardPage.should.equal(addItemInPinboardPage);
+    const relevantDocuments = wrapper.find(RelevantDocuments);
+    relevantDocuments.prop('pinboardId').should.equal('66ef1560');
+    relevantDocuments.prop('documents').should.eql(documents);
+    relevantDocuments.prop('nextParams').should.eql({ limit: 19, offset: 20 });
+    relevantDocuments.prop('hasMore').should.be.true();
+    relevantDocuments.prop('requesting').should.be.false();
+    relevantDocuments.prop('fetchPinboardRelevantDocuments').should.equal(fetchPinboardRelevantDocuments);
+    relevantDocuments.prop('addItemInPinboardPage').should.equal(addItemInPinboardPage);
 
-    const relevantCoaccusals = findRenderedComponentWithType(instance, RelevantCoaccusals);
-    relevantCoaccusals.props.pinboardId.should.equal('66ef1560');
-    relevantCoaccusals.props.coaccusals.should.eql(coaccusals);
-    relevantCoaccusals.props.nextParams.should.eql({ limit: 21, offset: 22 });
-    relevantCoaccusals.props.hasMore.should.be.true();
-    relevantCoaccusals.props.requesting.should.be.false();
-    relevantCoaccusals.props.fetchPinboardRelevantCoaccusals.should.equal(fetchPinboardRelevantCoaccusals);
-    relevantCoaccusals.props.addItemInPinboardPage.should.equal(addItemInPinboardPage);
+    const relevantCoaccusals = wrapper.find(RelevantCoaccusals);
+    relevantCoaccusals.prop('pinboardId').should.equal('66ef1560');
+    relevantCoaccusals.prop('coaccusals').should.eql(coaccusals);
+    relevantCoaccusals.prop('nextParams').should.eql({ limit: 21, offset: 22 });
+    relevantCoaccusals.prop('hasMore').should.be.true();
+    relevantCoaccusals.prop('requesting').should.be.false();
+    relevantCoaccusals.prop('fetchPinboardRelevantCoaccusals').should.equal(fetchPinboardRelevantCoaccusals);
+    relevantCoaccusals.prop('addItemInPinboardPage').should.equal(addItemInPinboardPage);
 
-    const relevantComplaints = findRenderedComponentWithType(instance, RelevantComplaints);
-    relevantComplaints.props.pinboardId.should.equal('66ef1560');
-    relevantComplaints.props.complaints.should.eql(complaints);
-    relevantComplaints.props.nextParams.should.eql({ limit: 23, offset: 24 });
-    relevantComplaints.props.hasMore.should.be.true();
-    relevantComplaints.props.requesting.should.be.false();
-    relevantComplaints.props.fetchPinboardRelevantComplaints.should.equal(fetchPinboardRelevantComplaints);
-    relevantComplaints.props.addItemInPinboardPage.should.equal(addItemInPinboardPage);
+    const relevantComplaints = wrapper.find(RelevantComplaints);
+    relevantComplaints.prop('pinboardId').should.equal('66ef1560');
+    relevantComplaints.prop('complaints').should.eql(complaints);
+    relevantComplaints.prop('nextParams').should.eql({ limit: 23, offset: 24 });
+    relevantComplaints.prop('hasMore').should.be.true();
+    relevantComplaints.prop('requesting').should.be.false();
+    relevantComplaints.prop('fetchPinboardRelevantComplaints').should.equal(fetchPinboardRelevantComplaints);
+    relevantComplaints.prop('addItemInPinboardPage').should.equal(addItemInPinboardPage);
   });
 });

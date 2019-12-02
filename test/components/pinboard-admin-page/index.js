@@ -1,31 +1,19 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-} from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import { random } from 'faker';
 import { spy } from 'sinon';
 import should from 'should';
 
-import { reRender, unmountComponentSuppressError } from 'utils/test';
 import PinboardAdminPage from 'components/pinboard-admin-page';
 import PinboardsTable from 'components/pinboard-admin-page/pinboards-table';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import { PreviewPaneWithOverlay } from 'components/common/preview-pane';
 import { PINBOARDS_SEARCH_ITEMS } from 'utils/constants';
-import PinboardPageContainer from 'containers/pinboard-page';
-import { createMemoryHistory, Route, Router } from 'react-router';
 
 
 describe('PinboardAdminPage', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render correctly', function () {
     const pinboards = [
       {
@@ -51,61 +39,53 @@ describe('PinboardAdminPage', function () {
       },
     });
 
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <PinboardAdminPage
-          pinboards={ pinboards }
-          hasMore={ hasMore }
-          nextParams={ nextParams }
-          fetchPinboards={ fetchPinboards }
-          fetchPinboardStaticSocialGraph={ fetchPinboardStaticSocialGraph }
-          isLoading={ true }
-          cachedDataIDs={ cachedDataIDs }
-        />
-      </Provider>
+    const wrapper = shallow(
+      <PinboardAdminPage
+        pinboards={ pinboards }
+        hasMore={ hasMore }
+        nextParams={ nextParams }
+        fetchPinboards={ fetchPinboards }
+        fetchPinboardStaticSocialGraph={ fetchPinboardStaticSocialGraph }
+        isLoading={ true }
+        cachedDataIDs={ cachedDataIDs }
+      />
     );
+    const instance = wrapper.instance();
 
-    const pinboardAdminPage = findRenderedComponentWithType(instance, PinboardAdminPage);
+    const header = wrapper.find(ShareableHeaderContainer);
+    should(header.prop('buttonType')).be.undefined();
 
-    const header = findRenderedComponentWithType(instance, ShareableHeaderContainer);
-    should(header.props.buttonType).be.undefined();
+    const table = wrapper.find(PinboardsTable);
+    table.prop('rows').should.eql(pinboards);
+    table.prop('hasMore').should.equal(hasMore);
+    table.prop('nextParams').should.eql(nextParams);
+    table.prop('fetchPinboards').should.eql(fetchPinboards);
+    table.prop('isLoading').should.be.true();
+    table.prop('focusItem').should.eql(instance.focusItem);
 
-    const table = findRenderedComponentWithType(instance, PinboardsTable);
-    table.props.rows.should.eql(pinboards);
-    table.props.hasMore.should.equal(hasMore);
-    table.props.nextParams.should.eql(nextParams);
-    table.props.fetchPinboards.should.eql(fetchPinboards);
-    table.props.isLoading.should.be.true();
-    table.props.focusItem.should.eql(pinboardAdminPage.focusItem);
+    let previewPane = wrapper.find(PreviewPaneWithOverlay);
+    previewPane.prop('isShown').should.be.false();
+    previewPane.prop('handleClose').should.eql(instance.handleOverlayClick);
+    previewPane.prop('customClass').should.equal('preview-pane');
+    previewPane.prop('yScrollable').should.be.true();
+    previewPane.prop('dynamicHeight').should.be.true();
+    previewPane.prop('fetchPinboardStaticSocialGraph').should.eql(fetchPinboardStaticSocialGraph);
+    previewPane.prop('cachedDataIDs').should.eql(cachedDataIDs);
+    previewPane.prop('type').should.equal('PINBOARD');
+    previewPane.prop('data').should.be.empty();
 
-    const previewPane = findRenderedComponentWithType(instance, PreviewPaneWithOverlay);
-    previewPane.props.isShown.should.be.false();
-    previewPane.props.handleClose.should.eql(pinboardAdminPage.handleOverlayClick);
-    previewPane.props.customClass.should.equal('preview-pane');
-    previewPane.props.yScrollable.should.be.true();
-    previewPane.props.dynamicHeight.should.be.true();
-    previewPane.props.fetchPinboardStaticSocialGraph.should.eql(fetchPinboardStaticSocialGraph);
-    previewPane.props.cachedDataIDs.should.eql(cachedDataIDs);
-    previewPane.props.type.should.equal('PINBOARD');
-    previewPane.props.data.should.be.empty();
+    instance.focusItem({ id: 123 });
+    previewPane = wrapper.find(PreviewPaneWithOverlay);
+    previewPane.prop('isShown').should.be.true();
+    previewPane.prop('data').should.eql({ id: 123 });
 
-    pinboardAdminPage.focusItem({ id: 123 });
-    previewPane.props.isShown.should.be.true();
-    previewPane.props.data.should.eql({ id: 123 });
-
-    pinboardAdminPage.handleOverlayClick();
-    previewPane.props.isShown.should.be.false();
-    previewPane.props.data.should.eql({ id: 123 });
+    instance.handleOverlayClick();
+    previewPane = wrapper.find(PreviewPaneWithOverlay);
+    previewPane.prop('isShown').should.be.false();
+    previewPane.prop('data').should.eql({ id: 123 });
   });
 
   it('should call clearPinboardStaticSocialGraphCache when componentWillUnmount', function () {
-    const defaultPaginationState = {
-      requesting: false,
-      items: [],
-      count: 0,
-      pagination: { next: null, previous: null },
-    };
-
     const pinboardAdminStore = MockStore()({
       pinboardAdminPage: {
         graphData: {
@@ -118,53 +98,15 @@ describe('PinboardAdminPage', function () {
       },
     });
 
-    const pinboardStore = MockStore()({
-      breadcrumb: {
-        breadcrumbs: [],
-      },
-      pinboardPage: {
-        graphData: { requesting: false, cachedData: {} },
-        geographicData: { requesting: false, data: [] },
-        currentTab: 'NETWORK',
-        relevantDocuments: defaultPaginationState,
-        relevantCoaccusals: defaultPaginationState,
-        relevantComplaints: defaultPaginationState,
-        crItems: { requesting: false, items: [] },
-        officerItems: { requesting: false, items: [] },
-        trrItems: { requesting: false, items: [] },
-        redirect: false,
-        initialRequested: true,
-        focusedItem: {},
-        pinboard: {
-          'id': '5cd06f2b',
-          'title': 'Pinboard title',
-        },
-        editModeOn: false,
-        pinboards: [],
-      },
-      pathname: 'pinboard/5cd06f2b',
-    });
-
     const spyClearPinboardStaticSocialGraphCache = spy();
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ pinboardAdminStore }>
         <PinboardAdminPage clearPinboardStaticSocialGraphCache={ spyClearPinboardStaticSocialGraphCache }/>
       </Provider>
     );
 
-    const pinboardPage = () => (
-      <Provider store={ pinboardStore }>
-        <PinboardPageContainer />
-      </Provider>
-    );
-
-    reRender(
-      <Router history={ createMemoryHistory() }>
-        <Route path='/' component={ pinboardPage } />
-      </Router>,
-      instance
-    );
+    wrapper.unmount();
 
     spyClearPinboardStaticSocialGraphCache.should.be.calledOnce();
   });

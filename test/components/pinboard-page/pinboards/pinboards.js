@@ -1,16 +1,11 @@
 import React from 'react';
+import { mount } from 'enzyme';
 import { browserHistory, Router, Route, createMemoryHistory } from 'react-router';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass, Simulate,
-} from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { Promise } from 'es6-promise';
 import { spy, stub } from 'sinon';
 
-import { unmountComponentSuppressError, reRender } from 'utils/test';
 import Pinboards from 'components/pinboard-page/pinboards';
 
 
@@ -22,7 +17,6 @@ describe('Pinboards component', function () {
       },
     },
   });
-  let instance;
 
   const pinboards = [
     {
@@ -44,59 +38,55 @@ describe('Pinboards component', function () {
   });
 
   afterEach(function () {
-    unmountComponentSuppressError(instance);
     this.browserHistoryPush.restore();
   });
 
   it('should render pinboard items', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <Pinboards pinboards={ pinboards } isShown={ true } />
       </Provider>
     );
 
-    findRenderedDOMComponentWithClass(instance, 'pinboards-title').textContent.should.eql('Pinboards');
+    wrapper.find('.pinboards-title').text().should.equal('Pinboards');
 
-    const pinboardItems = scryRenderedDOMComponentsWithClass(instance, 'pinboard-item');
+    const pinboardItems = wrapper.find('.pinboard-item');
     pinboardItems.should.have.length(2);
 
-    const pinboardTitles = scryRenderedDOMComponentsWithClass(instance, 'pinboard-title');
-    const pinboardCreatedAts = scryRenderedDOMComponentsWithClass(instance, 'pinboard-created-at');
+    const pinboardTitles = wrapper.find('.pinboard-title');
+    const pinboardCreatedAts = wrapper.find('.pinboard-created-at');
 
-    pinboardTitles[0].textContent.should.eql('Pinboard Title');
-    pinboardCreatedAts[0].textContent.should.eql('Created Sep 12, 2019');
+    pinboardTitles.at(0).text().should.equal('Pinboard Title');
+    pinboardCreatedAts.at(0).text().should.equal('Created Sep 12, 2019');
 
-    pinboardTitles[1].textContent.should.eql('');
-    pinboardCreatedAts[1].textContent.should.eql('Created Oct 15, 2019');
+    pinboardTitles.at(1).text().should.equal('');
+    pinboardCreatedAts.at(1).text().should.equal('Created Oct 15, 2019');
   });
 
   it('should not render pinboard list if isShown is false', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Pinboards pinboards={ pinboards } isShown={ false } />
     );
 
-    scryRenderedDOMComponentsWithClass(instance, 'pinboards-title').should.have.length(0);
-    scryRenderedDOMComponentsWithClass(instance, 'pinboard-item').should.have.length(0);
+    wrapper.find('.pinboards-title').exists().should.be.false();
+    wrapper.find('.pinboard-item').exists().should.be.false();
   });
 
   describe('componentWillReceiveProps', function () {
     it('should fetchPinboards if isShow change from false to true', function () {
       const fetchPinboardsSpy = spy();
 
-      instance = renderIntoDocument(
+      const wrapper = mount(
         <Provider store={ store }>
-          <Pinboards pinboards={ pinboards } isShown={ false } fetchPinboards={ fetchPinboardsSpy } />
+          <Pinboards pinboards={ pinboards } isShown={ false } fetchPinboards={ fetchPinboardsSpy }/>
         </Provider>
       );
 
       fetchPinboardsSpy.should.not.be.called();
 
-      instance = reRender(
-        <Provider store={ store }>
-          <Pinboards pinboards={ pinboards } isShown={ true } fetchPinboards={ fetchPinboardsSpy } />
-        </Provider>,
-        instance,
-      );
+      wrapper.setProps({
+        children: <Pinboards pinboards={ pinboards } isShown={ true } fetchPinboards={ fetchPinboardsSpy }/>
+      });
 
       fetchPinboardsSpy.should.be.called();
     });
@@ -122,14 +112,14 @@ describe('Pinboards component', function () {
       </Provider>
     );
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Router history={ createMemoryHistory() }>
         <Route path='/' component={ pinboardsList } />
       </Router>
     );
 
-    const newPinboardLink = findRenderedDOMComponentWithClass(instance, 'new-pinboard-btn');
-    Simulate.click(newPinboardLink);
+    const newPinboardLink = wrapper.find('.new-pinboard-btn');
+    newPinboardLink.simulate('click');
     createNewEmptyPinboardStub.should.be.called();
 
     setTimeout(() => {

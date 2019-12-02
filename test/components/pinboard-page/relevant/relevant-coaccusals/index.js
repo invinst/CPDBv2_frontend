@@ -1,24 +1,13 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
+import { mount } from 'enzyme';
 import { stub } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import RelevantInfiniteCarousel from 'components/pinboard-page/relevant/common/relevant-infinite-carousel';
 import RelevantCoaccusals from 'components/pinboard-page/relevant/relevant-coaccusals';
 import RelevantCoaccusalCard from 'components/pinboard-page/relevant/relevant-coaccusals/relevant-coaccusal-card';
 
 
 describe('RelevantCoaccusals component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render enough content correctly', function () {
     const coaccusals = [{
       id: 123,
@@ -36,7 +25,7 @@ describe('RelevantCoaccusals component', function () {
     const addItemInPinboardPageStub = stub();
     const fetchPinboardRelevantCoaccusalsStub = stub();
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <RelevantCoaccusals
         requesting={ false }
         addItemInPinboardPage={ addItemInPinboardPageStub }
@@ -48,26 +37,26 @@ describe('RelevantCoaccusals component', function () {
       />
     );
 
-    const relevantInfiniteCarousel = findRenderedComponentWithType(instance, RelevantInfiniteCarousel);
-    relevantInfiniteCarousel.props.title.should.eql('COACCUSALS');
-    relevantInfiniteCarousel.props.childWidth.should.eql(148);
-    relevantInfiniteCarousel.props.hasMore.should.be.true();
-    relevantInfiniteCarousel.props.requesting.should.be.false();
+    const relevantInfiniteCarousel = wrapper.find(RelevantInfiniteCarousel);
+    relevantInfiniteCarousel.prop('title').should.equal('COACCUSALS');
+    relevantInfiniteCarousel.prop('childWidth').should.equal(148);
+    relevantInfiniteCarousel.prop('hasMore').should.be.true();
+    relevantInfiniteCarousel.prop('requesting').should.be.false();
 
-    const relevantCoaccusalCards = scryRenderedComponentsWithType(relevantInfiniteCarousel, RelevantCoaccusalCard);
+    const relevantCoaccusalCards = relevantInfiniteCarousel.find(RelevantCoaccusalCard);
     relevantCoaccusalCards.should.have.length(2);
-    relevantCoaccusalCards[0].props.id.should.eql(123);
-    relevantCoaccusalCards[0].props.fullName.should.eql('Jerome Finnigan');
-    relevantCoaccusalCards[0].props.percentile.should.eql({});
-    relevantCoaccusalCards[0].props.rank.should.eql('Officer');
-    relevantCoaccusalCards[0].props.coaccusalCount.should.eql(11);
-    relevantCoaccusalCards[1].props.id.should.eql(456);
-    relevantCoaccusalCards[1].props.fullName.should.eql('Jerome Turbyville');
-    relevantCoaccusalCards[1].props.percentile.should.eql({});
-    relevantCoaccusalCards[1].props.rank.should.eql('Police Officer');
-    relevantCoaccusalCards[1].props.coaccusalCount.should.eql(0);
+    relevantCoaccusalCards.at(0).prop('id').should.equal(123);
+    relevantCoaccusalCards.at(0).prop('fullName').should.equal('Jerome Finnigan');
+    relevantCoaccusalCards.at(0).prop('percentile').should.eql({});
+    relevantCoaccusalCards.at(0).prop('rank').should.equal('Officer');
+    relevantCoaccusalCards.at(0).prop('coaccusalCount').should.equal(11);
+    relevantCoaccusalCards.at(1).prop('id').should.equal(456);
+    relevantCoaccusalCards.at(1).prop('fullName').should.equal('Jerome Turbyville');
+    relevantCoaccusalCards.at(1).prop('percentile').should.eql({});
+    relevantCoaccusalCards.at(1).prop('rank').should.equal('Police Officer');
+    relevantCoaccusalCards.at(1).prop('coaccusalCount').should.equal(0);
 
-    relevantInfiniteCarousel.props.loadMore();
+    relevantInfiniteCarousel.prop('loadMore')();
     fetchPinboardRelevantCoaccusalsStub.should.be.calledOnce();
     fetchPinboardRelevantCoaccusalsStub.should.be.calledWith('66ef1560', { limit: 20, offset: 20 });
   });

@@ -1,15 +1,8 @@
 import React from 'react';
+import { mount } from 'enzyme';
 import { Link } from 'react-router';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  scryRenderedComponentsWithType,
-  findRenderedComponentWithType,
-} from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import EmptyPinboard from 'components/pinboard-page/empty-pinboard';
-import { findDOMNode } from 'react-dom';
 import { buildEditStateFields } from 'utils/test/factories/draft';
 import { spy } from 'sinon';
 import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
@@ -17,12 +10,6 @@ import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrap
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 
 describe('EmptyPinboard component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should have enough contents', function () {
     const fields = buildEditStateFields({
       'empty_pinboard_title': ['Get started'],
@@ -60,7 +47,7 @@ describe('EmptyPinboard component', function () {
       description: 'Description 2',
     }];
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <EmptyPinboard
         examplePinboards={ examplePinboards }
         emptyPinboardTitleEditWrapperStateProps={ emptyPinboardTitleEditWrapperStateProps }
@@ -68,49 +55,39 @@ describe('EmptyPinboard component', function () {
       />
     );
 
-    findDOMNode(instance).className.should.containEql('responsive-container');
+    wrapper.getDOMNode().getAttribute('class').should.containEql('responsive-container');
 
-    const editWrapperStateProviderTitle = scryRenderedComponentsWithType(instance, EditWrapperStateProvider)[0];
-    const hoverableEditWrapperTitle = findRenderedComponentWithType(
-      editWrapperStateProviderTitle, HoverableEditWrapper
-    );
-    const editableTitle = findRenderedComponentWithType(hoverableEditWrapperTitle, RichTextEditable);
-    editableTitle.props.fieldname.should.equal('empty_pinboard_title');
-    findDOMNode(editableTitle).textContent.should.equal('Get started');
+    const editWrapperStateProviderTitle = wrapper.find(EditWrapperStateProvider).at(0);
+    const hoverableEditWrapperTitle = editWrapperStateProviderTitle.find(HoverableEditWrapper);
+    const editableTitle = hoverableEditWrapperTitle.find(RichTextEditable);
+    editableTitle.prop('fieldname').should.equal('empty_pinboard_title');
+    editableTitle.text().should.equal('Get started');
 
-    const editWrapperStateProviderDescription = scryRenderedComponentsWithType(instance, EditWrapperStateProvider)[1];
-    const hoverableEditWrapperDescription = findRenderedComponentWithType(
-      editWrapperStateProviderDescription, HoverableEditWrapper
-    );
-    const editableDescription = findRenderedComponentWithType(hoverableEditWrapperDescription, RichTextEditable);
-    editableDescription.props.fieldname.should.equal('empty_pinboard_description');
-    findDOMNode(editableDescription).textContent.should.containEql(
+    const editWrapperStateProviderDescription = wrapper.find(EditWrapperStateProvider).at(1);
+    const hoverableEditWrapperDescription = editWrapperStateProviderDescription.find(HoverableEditWrapper);
+    const editableDescription = hoverableEditWrapperDescription.find(RichTextEditable);
+    editableDescription.prop('fieldname').should.equal('empty_pinboard_description');
+    editableDescription.text().should.containEql(
       'Use search to find officers and individual complaint records and ' +
       'press the plus button to add cards to your pinboard.'
     ).and.containEql(
       'Come back to the pinboard to give it a title and see a network map or discover relevant documents.'
     );
 
-    const examplePinboardLinks = scryRenderedComponentsWithType(instance, Link);
+    const examplePinboardLinks = wrapper.find(Link);
     examplePinboardLinks.should.have.length(2);
 
-    examplePinboardLinks[0].props.to.should.equal('/pinboard/66ef1561/');
-    findRenderedDOMComponentWithClass(
-      examplePinboardLinks[0], 'title'
-    ).textContent.should.equal('Pinboard 1');
-    findRenderedDOMComponentWithClass(
-      examplePinboardLinks[0], 'description'
-    ).textContent.should.equal('Description 1…');
+    const firstExamplePinboard = examplePinboardLinks.at(0);
+    firstExamplePinboard.prop('to').should.equal('/pinboard/66ef1561/');
+    firstExamplePinboard.find('.title').text().should.equal('Pinboard 1');
+    firstExamplePinboard.find('.description').text().should.equal('Description 1…');
 
-    examplePinboardLinks[1].props.to.should.equal('/pinboard/66ef1562/');
-    findRenderedDOMComponentWithClass(
-      examplePinboardLinks[1], 'title'
-    ).textContent.should.equal('Pinboard 2');
-    findRenderedDOMComponentWithClass(
-      examplePinboardLinks[1], 'description'
-    ).textContent.should.equal('Description 2…');
+    const secondExamplePinboard = examplePinboardLinks.at(1);
+    examplePinboardLinks.at(1).prop('to').should.equal('/pinboard/66ef1562/');
+    secondExamplePinboard.find('.title').text().should.equal('Pinboard 2');
+    secondExamplePinboard.find('.description').text().should.equal('Description 2…');
 
-    findRenderedDOMComponentWithClass(instance, 'arrow-head');
-    findRenderedDOMComponentWithClass(instance, 'arrow-shaft');
+    wrapper.find('.arrow-head').exists().should.be.true();
+    wrapper.find('.arrow-shaft').exists().should.be.true();
   });
 });
