@@ -1,16 +1,13 @@
 import React from 'react';
-import { renderIntoDocument } from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 import { stub } from 'sinon';
 
 import { MOBILE, TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
-import { unmountComponentSuppressError } from 'utils/test';
 import ResponsiveStyleComponent from 'components/responsive/responsive-style-component';
 
 describe('ResponsiveStyleComponent component', function () {
-  let instance;
 
   afterEach(function () {
-    unmountComponentSuppressError(instance);
   });
 
   it('should render children with corresponding style', function () {
@@ -19,7 +16,7 @@ describe('ResponsiveStyleComponent component', function () {
     const obj2 = {};
     const obj3 = {};
     const obj4 = {};
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <ResponsiveStyleComponent responsiveStyle={ {
         [EXTRA_WIDE]: obj1,
         [DESKTOP]: obj2,
@@ -29,9 +26,9 @@ describe('ResponsiveStyleComponent component', function () {
         { children }
       </ResponsiveStyleComponent>
     );
-    children.calledWith(obj1).should.be.true();
-    children.calledWith(obj2).should.be.true();
-    children.calledWith(obj3).should.be.true();
-    children.calledWith(obj4).should.be.true();
+    children.should.be.calledWith(obj1);
+    children.should.be.calledWith(obj2);
+    children.should.be.calledWith(obj3);
+    children.should.be.calledWith(obj4);
   });
 });

@@ -1,18 +1,10 @@
 import React from 'react';
-import {
-  findRenderedComponentWithType,
-  renderIntoDocument,
-  scryRenderedComponentsWithType,
-  findRenderedDOMComponentWithClass,
-} from 'react-addons-test-utils';
-import { findDOMNode } from 'react-dom';
+import { shallow, mount } from 'enzyme';
 import { spy, stub } from 'sinon';
 import Mousetrap from 'mousetrap';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
 
-import { unmountComponentSuppressError, reRender } from 'utils/test';
-import { getThisYear } from 'utils/date';
 import PreviewPane from 'components/common/preview-pane';
 import SearchResults from 'components/search-page/search-results';
 import SearchNoResult from 'components/search-page/search-results/search-no-result';
@@ -23,12 +15,6 @@ import ScrollIntoView from 'components/common/scroll-into-view';
 
 
 describe('SearchResults component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   const store = MockStore()({
     pinboardPage: {
       pinboard: null,
@@ -36,90 +22,78 @@ describe('SearchResults component', function () {
   });
 
   it('should render Loading when isRequesting', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchResults isRequesting={ true }/>
-      </Provider>
+    const wrapper = shallow(
+      <SearchResults isRequesting={ true }/>
     );
-    findDOMNode(instance).innerText.should.containEql('Loading...');
+    wrapper.text().should.containEql('Loading...');
   });
 
   it('should render SearchNoResult component when isEmpty', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchResults isEmpty={ true }/>
-      </Provider>
+    const wrapper = shallow(
+      <SearchResults isEmpty={ true }/>
     );
 
-    findRenderedComponentWithType(instance, SearchNoResult).should.be.ok();
+    wrapper.find(SearchNoResult).exists().should.be.true();
   });
 
   it('should render suggestionGroup components when data is available', function () {
     const suggestionGroups = [{ header: '1' }, { header: '2' }];
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchResults isEmpty={ false } suggestionGroups={ suggestionGroups }/>
-      </Provider>
+    const wrapper = shallow(
+      <SearchResults isEmpty={ false } suggestionGroups={ suggestionGroups }/>
     );
 
-    const renderedGroups = scryRenderedComponentsWithType(instance, SuggestionGroup);
+    const renderedGroups = wrapper.find(SuggestionGroup);
     renderedGroups.should.have.length(2);
-    renderedGroups[0].props.header.should.eql('1');
-    renderedGroups[1].props.header.should.eql('2');
+    renderedGroups.at(0).prop('header').should.equal('1');
+    renderedGroups.at(1).prop('header').should.equal('2');
   });
 
   it('should render SearchTags component', function () {
     const onSelect = spy();
 
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchResults
-          tags={ [] }
-          onSelect={ onSelect }
-          contentType='community'
-          isRequesting={ false }
-        />
-      </Provider>
+    const wrapper = shallow(
+      <SearchResults
+        tags={ [] }
+        onSelect={ onSelect }
+        contentType='community'
+        isRequesting={ false }
+      />
     );
 
-    const searchTags = findRenderedComponentWithType(instance, SearchTags);
-    searchTags.props.tags.should.eql([]);
-    searchTags.props.onSelect.should.eql(onSelect);
-    searchTags.props.selected.should.eql('community');
-    searchTags.props.isRequesting.should.eql(false);
+    const searchTags = wrapper.find(SearchTags);
+    searchTags.prop('tags').should.eql([]);
+    searchTags.prop('onSelect').should.eql(onSelect);
+    searchTags.prop('selected').should.equal('community');
+    searchTags.prop('isRequesting').should.eql(false);
   });
 
   it('should render PinboardButton component', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <SearchResults />
       </Provider>
     );
 
-    findRenderedComponentWithType(instance, PinboardButton);
+    wrapper.find(PinboardButton).exists().should.be.true();
   });
 
   context('in edit mode', function () {
     it('should render [+] sign when not aliasEditModeOn', function () {
-      instance = renderIntoDocument(
-        <Provider store={ store }>
-          <SearchResults editModeOn={ true } aliasEditModeOn={ false }/>
-        </Provider>
+      const wrapper = shallow(
+        <SearchResults editModeOn={ true } aliasEditModeOn={ false }/>
       );
 
-      const domNode = findDOMNode(instance);
-      domNode.textContent.should.containEql('[+]');
+      wrapper.find('.plus-sign-wrapper').exists().should.be.true();
+      wrapper.find('.action-bar').exists().should.be.false();
     });
 
     it('should not render [+] sign when in aliasEditModeOn', function () {
-      instance = renderIntoDocument(
-        <Provider store={ store }>
-          <SearchResults editModeOn={ true } aliasEditModeOn={ true }/>
-        </Provider>
+      const wrapper = shallow(
+        <SearchResults editModeOn={ true } aliasEditModeOn={ true }/>
       );
 
-      const domNode = findDOMNode(instance);
-      domNode.textContent.should.not.containEql('[+]');
+      wrapper.find('.plus-sign-wrapper').exists().should.be.false();
+      wrapper.find('.action-bar').exists().should.be.true();
     });
   });
 
@@ -127,48 +101,47 @@ describe('SearchResults component', function () {
     const move = spy();
     const totalItemCount = 3;
     const direction = 'up';
-    instance = renderIntoDocument(
+    mount(
       <Provider store={ store }>
         <SearchResults move={ move } totalItemCount={ totalItemCount }/>
       </Provider>
     );
     Mousetrap.trigger(direction);
-    move.calledWith(direction, totalItemCount).should.be.true();
+    move.should.be.calledWith(direction, totalItemCount);
   });
 
   it('should trigger move when down key pressed', function () {
     const move = spy();
     const totalItemCount = 3;
     const direction = 'down';
-    instance = renderIntoDocument(
+    mount(
       <Provider store={ store }>
         <SearchResults move={ move } totalItemCount={ totalItemCount }/>
       </Provider>
     );
     Mousetrap.trigger(direction);
-    move.calledWith(direction, totalItemCount).should.be.true();
+    move.should.be.calledWith(direction, totalItemCount);
   });
 
   it('should resetNavigation to 0 when unmounted', function () {
     const resetNavigation = spy();
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <SearchResults resetNavigation={ resetNavigation }/>
       </Provider>
     );
-    unmountComponentSuppressError(instance);
 
-    resetNavigation.calledWith(0).should.be.true();
+    wrapper.unmount();
+
+    resetNavigation.should.be.calledWith(0);
   });
 
   it('should be renderable when there is not single content', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchResults singleContent={ false }/>
-      </Provider>
+    const wrapper = shallow(
+      <SearchResults singleContent={ false }/>
     );
 
-    findRenderedDOMComponentWithClass(instance, 'content-wrapper');
+    wrapper.find('.content-wrapper').exists().should.be.true();
   });
 
   it('should be renderable if it is single content', function () {
@@ -178,105 +151,87 @@ describe('SearchResults component', function () {
     }];
     const getSuggestionWithContentType = stub().returns({ catch: stub() });
 
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchResults
-          singleContent={ true }
-          isEmpty={ false }
-          suggestionGroups={ suggestionGroups }
-          getSuggestionWithContentType={ getSuggestionWithContentType }/>
-      </Provider>
+    const wrapper = shallow(
+      <SearchResults
+        singleContent={ true }
+        isEmpty={ false }
+        suggestionGroups={ suggestionGroups }
+        getSuggestionWithContentType={ getSuggestionWithContentType }
+      />
     );
 
-    findRenderedDOMComponentWithClass(instance, 'content-wrapper');
+    wrapper.find('.content-wrapper').exists().should.be.true();
   });
 
   describe('Preview Pane', function () {
     it('should render PreviewPane when an officer is focused', function () {
       const previewPaneInfo = {
-        data: [
-          ['unit', '001'],
-          ['rank', null],
-          ['2017 salary', '$99,999'],
-          ['race', 'White'],
-          ['sex', 'Male'],
-        ],
+        data: {
+          unit: '001',
+          rank: null,
+          '2017 salary': '$99,999',
+          race: 'White',
+          sex: 'Male',
+        },
         title: 'John Wang',
         visualTokenBackgroundColor: '#fafafa',
         visualTokenImg: 'http://test.img',
       };
-      instance = renderIntoDocument(
-        <Provider store={ store }>
-          <SearchResults isEmpty={ false } previewPaneInfo={ previewPaneInfo }/>
-        </Provider>
+
+      const wrapper = shallow(
+        <SearchResults isEmpty={ false } previewPaneInfo={ previewPaneInfo }/>
       );
 
-      const previewPane = findRenderedComponentWithType(instance, PreviewPane);
-      const currentYear = getThisYear();
+      const previewPane = wrapper.find(PreviewPane);
 
-      previewPane.props.data.should.eql([
-        ['unit', '001'],
-        ['rank', null],
-        [`${currentYear} salary`, '$99,999'],
-        ['race', 'White'],
-        ['sex', 'Male'],
-      ]);
-      previewPane.props.visualTokenImg.should.eql('http://test.img');
-      previewPane.props.visualTokenBackgroundColor.should.eql('#fafafa');
-      previewPane.props.title.should.eql('John Wang');
+      previewPane.prop('data').should.eql({
+        unit: '001',
+        rank: null,
+        '2017 salary': '$99,999',
+        race: 'White',
+        sex: 'Male',
+      });
+      previewPane.prop('visualTokenImg').should.equal('http://test.img');
+      previewPane.prop('visualTokenBackgroundColor').should.equal('#fafafa');
+      previewPane.prop('title').should.equal('John Wang');
     });
   });
 
   describe('ScrollIntoView', function () {
     it('should render ScrollIntoView with focusedItem changes', function () {
-      instance = renderIntoDocument(
-        <Provider store={ store }>
-          <SearchResults/>
-        </Provider>
+      const wrapper = shallow(
+        <SearchResults/>
       );
 
-      instance = reRender(
-        <Provider store={ store }>
-          <SearchResults focusedItem={ { uniqueKey: 'CR-1001' } } />
-        </Provider>,
-        instance,
-      );
-      const scrollIntoView = findRenderedComponentWithType(instance, ScrollIntoView);
-      scrollIntoView.props.focusedItemClassName.should.eql('suggestion-item-CR-1001');
+      wrapper.setProps({
+        focusedItem: { uniqueKey: 'CR-1001' },
+      });
+
+      const scrollIntoView = wrapper.find(ScrollIntoView);
+      scrollIntoView.prop('focusedItemClassName').should.equal('suggestion-item-CR-1001');
     });
 
     it('should render ScrollIntoView with focusedItem does not change', function () {
-      instance = renderIntoDocument(
-        <Provider store={ store }>
-          <SearchResults focusedItem={ { uniqueKey: 'CR-1001' } } />
-        </Provider>
+      const wrapper = shallow(
+        <SearchResults focusedItem={ { uniqueKey: 'CR-1001' } } />
       );
 
-      instance = reRender(
-        <Provider store={ store }>
-          <SearchResults focusedItem={ { uniqueKey: 'CR-1001' } } />
-        </Provider>,
-        instance,
-      );
-      const scrollIntoView = findRenderedComponentWithType(instance, ScrollIntoView);
-      scrollIntoView.props.focusedItemClassName.should.eql('');
+      wrapper.setProps({
+        focusedItem: { uniqueKey: 'CR-1001' },
+      });
+
+      const scrollIntoView = wrapper.find(ScrollIntoView);
+      scrollIntoView.prop('focusedItemClassName').should.equal('');
     });
 
     it('should render ScrollIntoView with focusedItem changes to empty', function () {
-      instance = renderIntoDocument(
-        <Provider store={ store }>
-          <SearchResults focusedItem={ { uniqueKey: 'CR-1001' } } />
-        </Provider>
+      const wrapper = shallow(
+        <SearchResults focusedItem={ { uniqueKey: 'CR-1001' } } />
       );
 
-      instance = reRender(
-        <Provider store={ store }>
-          <SearchResults/>
-        </Provider>,
-        instance,
-      );
-      const scrollIntoView = findRenderedComponentWithType(instance, ScrollIntoView);
-      scrollIntoView.props.focusedItemClassName.should.eql('');
+      wrapper.setProps({});
+      const scrollIntoView = wrapper.find(ScrollIntoView);
+      scrollIntoView.prop('focusedItemClassName').should.equal('');
     });
   });
 });

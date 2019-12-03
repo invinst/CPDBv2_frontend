@@ -1,15 +1,10 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 import { spy, stub } from 'sinon';
-import {
-  findRenderedComponentWithType,
-  scryRenderedComponentsWithType,
-  renderIntoDocument,
-} from 'react-addons-test-utils';
 import Mousetrap from 'mousetrap';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import SearchTerms from 'components/search-page/search-terms';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component-without-inline-style';
 import { SearchTermCategory } from 'utils/test/factories/search-terms';
@@ -20,16 +15,10 @@ import PinboardBar from 'components/search-page/pinboard/pinboard-bar';
 
 
 describe('SearchTerms component', function () {
-  let instance;
-
   const store = MockStore()({
     pinboardPage: {
       pinboard: null,
     },
-  });
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
   });
 
   describe('componentDidMount', function () {
@@ -41,7 +30,7 @@ describe('SearchTerms component', function () {
           crids: ['123456'],
           trrIds: [456789],
         };
-        instance = renderIntoDocument(
+        mount(
           <Provider store={ store }>
             <SearchTerms
               recentSuggestionIds={ recentSuggestionIds }
@@ -59,7 +48,7 @@ describe('SearchTerms component', function () {
 
       it('should not be called if recentSuggestionIds is empty', () => {
         const fetchRecentSearchItemsSpy = spy();
-        instance = renderIntoDocument(
+        mount(
           <Provider store={ store }>
             <SearchTerms
               recentSuggestionIds={ {} }
@@ -78,7 +67,7 @@ describe('SearchTerms component', function () {
           crids: ['123456'],
           trrIds: [456789],
         };
-        instance = renderIntoDocument(
+        mount(
           <Provider store={ store }>
             <SearchTerms
               recentSuggestionIds={ recentSuggestionIds }
@@ -94,7 +83,7 @@ describe('SearchTerms component', function () {
     describe('fetchedEmptyRecentSearchItems', function () {
       it('should be called if recentSuggestionsRequested is false and recentSuggestionIds is empty', function () {
         const fetchedEmptyRecentSearchItemsSpy = spy();
-        instance = renderIntoDocument(
+        mount(
           <Provider store={ store }>
             <SearchTerms
               recentSuggestionIds={ {} }
@@ -109,76 +98,71 @@ describe('SearchTerms component', function () {
   });
 
   it('should be able to render CategoryColumn', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchTerms categories={ SearchTermCategory.buildList(1) } />
-      </Provider>
+    const wrapper = shallow(
+      <SearchTerms categories={ SearchTermCategory.buildList(1) } />
     );
-    const categoryColumn = findRenderedComponentWithType(instance, CategoryColumn);
-    categoryColumn.should.be.ok();
+    const categoryColumn = wrapper.find(CategoryColumn);
+    categoryColumn.exists().should.be.true();
   });
 
   it('should render PinboardBar', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchTerms />
-      </Provider>
+    const wrapper = shallow(
+      <SearchTerms />
     );
 
-    findRenderedComponentWithType(instance, PinboardBar);
+    wrapper.find(PinboardBar).exists().should.be.true();
   });
 
   it('should render ResponsiveFluidWidthComponent with correct props', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchTerms />
-      </Provider>
+    const wrapper = shallow(
+      <SearchTerms />
     );
-    const responsiveComponent = findRenderedComponentWithType(instance, ResponsiveFluidWidthComponent);
-    responsiveComponent.props.className.should.eql('content-wrapper');
-    responsiveComponent.props.minimumClassName.should.eql('minimum');
-    responsiveComponent.props.mediumClassName.should.eql('medium');
-    responsiveComponent.props.maximumClassName.should.eql('maximum');
-    responsiveComponent.props.minWidthThreshold.should.eql(1020);
-    responsiveComponent.props.maxWidthThreshold.should.eql(1760);
+    const responsiveComponent = wrapper.find(ResponsiveFluidWidthComponent);
+    responsiveComponent.prop('className').should.equal('content-wrapper');
+    responsiveComponent.prop('minimumClassName').should.equal('minimum');
+    responsiveComponent.prop('mediumClassName').should.equal('medium');
+    responsiveComponent.prop('maximumClassName').should.equal('maximum');
+    responsiveComponent.prop('minWidthThreshold').should.equal(1020);
+    responsiveComponent.prop('maxWidthThreshold').should.equal(1760);
   });
 
   it('should trigger move when up key pressed', function () {
     const move = spy();
     const totalItemCount = 3;
     const direction = 'up';
-    instance = renderIntoDocument(
+    mount(
       <Provider store={ store }>
         <SearchTerms move={ move } totalItemCount={ totalItemCount } />
       </Provider>
     );
     Mousetrap.trigger(direction);
-    move.calledWith(direction, totalItemCount).should.be.true();
+    move.should.be.calledWith(direction, totalItemCount);
   });
 
   it('should trigger move when down key pressed', function () {
     const move = spy();
     const totalItemCount = 3;
     const direction = 'down';
-    instance = renderIntoDocument(
+    mount(
       <Provider store={ store }>
         <SearchTerms move={ move } totalItemCount={ totalItemCount } />
       </Provider>
     );
     Mousetrap.trigger(direction);
-    move.calledWith(direction, totalItemCount).should.be.true();
+    move.should.be.calledWith(direction, totalItemCount);
   });
 
   it('should resetNavigation to 0 when unmounted', function () {
     const resetNavigation = spy();
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <SearchTerms resetNavigation={ resetNavigation }/>
       </Provider>
     );
-    unmountComponentSuppressError(instance);
 
-    resetNavigation.calledWith(0).should.be.true();
+    wrapper.unmount();
+
+    resetNavigation.should.be.calledWith(0);
   });
 
   describe('RecentSuggestion component', function () {
@@ -192,24 +176,20 @@ describe('SearchTerms component', function () {
         to: '/officer/8257/mark-farmer/',
       }];
 
-      instance = renderIntoDocument(
-        <Provider store={ store }>
-          <SearchTerms recentSuggestions={ recentSuggestions }/>
-        </Provider>
+      const wrapper = shallow(
+        <SearchTerms recentSuggestions={ recentSuggestions }/>
       );
 
-      const recentSuggestionsComp = findRenderedComponentWithType(instance, RecentSuggestion);
-      recentSuggestionsComp.props.recentSuggestions.should.eql(recentSuggestions);
+      const recentSuggestionsComp = wrapper.find(RecentSuggestion);
+      recentSuggestionsComp.prop('recentSuggestions').should.eql(recentSuggestions);
     });
 
     it('should not render RecentSuggestion component if recentSuggestions is null', function () {
-      instance = renderIntoDocument(
-        <Provider store={ store }>
-          <SearchTerms recentSuggestions={ [] }/>
-        </Provider>
+      const wrapper = shallow(
+        <SearchTerms recentSuggestions={ [] }/>
       );
 
-      scryRenderedComponentsWithType(instance, RecentSuggestion).should.have.length(0);
+      wrapper.find(RecentSuggestion).exists().should.be.false();
     });
   });
 
@@ -223,12 +203,12 @@ describe('SearchTerms component', function () {
     });
 
     it('should track Intercom with search page', function () {
-      instance = renderIntoDocument(
+      mount(
         <Provider store={ store }>
           <SearchTerms/>
         </Provider>
       );
-      IntercomTracking.trackSearchTerms.called.should.be.true();
+      IntercomTracking.trackSearchTerms.should.be.called();
     });
   });
 });
