@@ -15,6 +15,7 @@ export const ffff6666Complaints = [{
 }];
 
 export const eeee7777Complaints = ffff6666Complaints;
+export const eeee8888Complaints = ffff6666Complaints;
 
 export const fetchPinboardOfficers = () => ([
   {
@@ -185,6 +186,7 @@ export const ffff6666Officers = [
 ];
 
 export const eeee7777Officers = ffff6666Officers;
+export const eeee8888Officers = ffff6666Officers;
 
 export const fetchPinboardTRRs = () => ([
   {
@@ -251,5 +253,14 @@ export const ffff6666TRRs = [
     'to': '/trr/123456/',
   },
 ];
+
+export const ceea8ea3UpdatedOfficer = {
+  'id': 'ceea8ea3',
+  'title': 'Pinboard Title',
+  'officer_ids': [],
+  'crids': ['1234567'],
+  'trr_ids': ['1234'],
+  'description': 'Pinboard Description',
+};
 
 export const fetchPinboardOfficers9778a2ec = () => ([]);

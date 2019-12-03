@@ -1,4 +1,4 @@
-import { get, isEmpty, map, includes } from 'lodash';
+import { get, isEmpty, map, includes, every } from 'lodash';
 import { createSelector } from 'reselect';
 
 import { generatePinboardUrl, isEmptyPinboard } from 'utils/pinboard';
@@ -68,9 +68,18 @@ export const pinboardPageLoadingSelector = createSelector(
   }
 );
 
+const hasRemovingItemsSelector = createSelector(
+  state => get(state, 'pinboardPage.officerItems.removingItems', []),
+  state => get(state, 'pinboardPage.crItems.removingItems', []),
+  state => get(state, 'pinboardPage.trrItems.removingItems', []),
+  (officerRemovingItems, crRemovingItems, trrRemovingItems) =>
+    !every([officerRemovingItems, crRemovingItems, trrRemovingItems], isEmpty),
+);
+
 export const isEmptyPinboardSelector = createSelector(
   getPinboard,
-  isEmptyPinboard,
+  hasRemovingItemsSelector,
+  (pinboard, hasRemovingItems) => isEmptyPinboard(pinboard) && !hasRemovingItems,
 );
 
 export const examplePinboardsSelector = createSelector(

@@ -80,12 +80,15 @@ import {
   ffff6666TRRs,
   eeee7777Complaints,
   eeee7777Officers,
+  eeee8888Complaints,
+  eeee8888Officers,
   fetchPinboardComplaints,
   fetchPinboardOfficers,
   fetchPinboardTRRs,
   dcab5678Officers,
   abcd8765Officers,
   abcd8765OUpdatedfficers,
+  ceea8ea3UpdatedOfficer,
 } from './pinboard-page/fetch-pinned-items';
 import { getSocialGraphData } from './pinboard-page/social-graph';
 import { getSocialGraphBigData } from './pinboard-page/big-social-graph';
@@ -299,6 +302,7 @@ axiosMockClient.onPost(
 axiosMockClient.onPost(
   PINBOARDS_URL,
   {
+    title: '',
     'officer_ids': [1, 2],
     'crids': ['5678123'],
     'trr_ids': [3, 2],
@@ -308,6 +312,7 @@ axiosMockClient.onPost(
 axiosMockClient.onPost(
   PINBOARDS_URL,
   {
+    title: '',
     'officer_ids': [1, 2],
     'crids': ['987654', '5678123'],
     'trr_ids': [9, 7],
@@ -315,6 +320,34 @@ axiosMockClient.onPost(
 ).reply(
   updateLatestRetrievePinboardOnApiCall(
     201, createPinboard('eeee7777', [1, 2], ['5678123'], [], { 'crids': ['987654'], 'trr_ids': [9, 7] })
+  )
+);
+
+axiosMockClient.onPost(
+  PINBOARDS_URL,
+  {
+    title: 'Preset title via url',
+    'officer_ids': [1, 2],
+    'crids': ['5678123'],
+    'trr_ids': [],
+  }
+).reply(
+  updateLatestRetrievePinboardOnApiCall(
+    201, createPinboard('eeee8888', [1, 2], ['5678123'], [], undefined, 'Preset title via url')
+  )
+);
+
+axiosMockClient.onPost(
+  PINBOARDS_URL,
+  {
+    title: 'Empty pinboard with preset title via url',
+    'officer_ids': [],
+    'crids': [],
+    'trr_ids': [],
+  }
+).reply(
+  updateLatestRetrievePinboardOnApiCall(
+    201, createPinboard('eeee9999', [], [], [], undefined, 'Empty pinboard with preset title via url')
   )
 );
 
@@ -351,7 +384,7 @@ axiosMockClient.onPut(
 ).reply(function () {
   return new Promise(function (resolve, reject) {
     setTimeout(function () {
-      resolve([200, {}]);
+      resolve([200, ceea8ea3UpdatedOfficer]);
     }, 2000);
   });
 });
@@ -391,6 +424,14 @@ axiosMockClient.onGet(`${PINBOARDS_URL}eeee7777/officers/`).reply(200, eeee7777O
 axiosMockClient.onGet(`${PINBOARDS_URL}eeee7777/complaints/`).reply(200, eeee7777Complaints);
 axiosMockClient.onGet(`${PINBOARDS_URL}eeee7777/trrs/`).reply(200, []);
 
+axiosMockClient.onGet(`${PINBOARDS_URL}eeee8888/officers/`).reply(200, eeee8888Officers);
+axiosMockClient.onGet(`${PINBOARDS_URL}eeee8888/complaints/`).reply(200, eeee8888Complaints);
+axiosMockClient.onGet(`${PINBOARDS_URL}eeee8888/trrs/`).reply(200, []);
+
+axiosMockClient.onGet(`${PINBOARDS_URL}eeee9999/officers/`).reply(200, []);
+axiosMockClient.onGet(`${PINBOARDS_URL}eeee9999/complaints/`).reply(200, []);
+axiosMockClient.onGet(`${PINBOARDS_URL}eeee9999/trrs/`).reply(200, []);
+
 axiosMockClient.onGet(
   SOCIAL_GRAPH_NETWORK_API_URL,
   { params: { 'pinboard_id': '5cd06f2b' } }
@@ -399,7 +440,6 @@ axiosMockClient.onGet(
   SOCIAL_GRAPH_NETWORK_API_URL,
   { params: { 'pinboard_id': '18a5b091' } }
 ).reply(200, getSocialGraphData());
-
 axiosMockClient.onGet(
   SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
   { params: { 'pinboard_id': '5cd06f2b' } }
@@ -456,6 +496,7 @@ axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-complaints/?limit=20&of
 axiosMockClient.onPost(
   PINBOARDS_URL,
   {
+    title: '',
     'officer_ids': [1],
     'crids': [],
     'trr_ids': [],
@@ -464,6 +505,7 @@ axiosMockClient.onPost(
 axiosMockClient.onPost(
   PINBOARDS_URL,
   {
+    title: '',
     'officer_ids': [2],
     'crids': [],
     'trr_ids': [],
@@ -472,6 +514,7 @@ axiosMockClient.onPost(
 axiosMockClient.onPost(
   PINBOARDS_URL,
   {
+    title: '',
     'officer_ids': [2],
     'crids': [],
     'trr_ids': [],
@@ -480,6 +523,7 @@ axiosMockClient.onPost(
 axiosMockClient.onPost(
   PINBOARDS_URL,
   {
+    title: '',
     'officer_ids': [2],
     'crids': [],
     'trr_ids': [],
@@ -488,6 +532,7 @@ axiosMockClient.onPost(
 axiosMockClient.onPost(
   PINBOARDS_URL,
   {
+    title: '',
     'officer_ids': [3],
     'crids': [],
     'trr_ids': [],

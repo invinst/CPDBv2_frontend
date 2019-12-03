@@ -12,7 +12,6 @@ import { unmountComponentSuppressError } from 'utils/test';
 import CRCard, { CRCardWithUndo } from 'components/pinboard-page/cards/cr-card';
 import LocationCard from 'components/pinboard-page/cards/location-card';
 import ItemUnpinButton from 'components/pinboard-page/cards/item-unpin-button';
-import { PINBOARD_ITEM_REMOVE_MODE } from 'utils/constants';
 
 
 describe('CRCard component', function () {
@@ -77,7 +76,6 @@ describe('CRCardWithUndo component', function () {
     removeItemInPinboardPage.should.be.calledWith({
       id: 123,
       type: 'CR',
-      mode: PINBOARD_ITEM_REMOVE_MODE.API_ONLY,
     });
   });
 });
