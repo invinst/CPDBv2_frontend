@@ -752,16 +752,12 @@ const updatedFromSourceSecondExamplePinboard = {
 axiosMockClient.onPut(
   `${PINBOARDS_URL}abcd1234/`,
   { 'source_pinboard_id': 'b20c2c36' }
-).reply((config) => {
-  return [200, updatedFromSourceFirstExamplePinboard];
-});
+).reply(200, updatedFromSourceFirstExamplePinboard);
 
 axiosMockClient.onPut(
   `${PINBOARDS_URL}abcd1234/`,
   { 'source_pinboard_id': '22e66085' }
-).reply((config) => {
-  return [200, updatedFromSourceSecondExamplePinboard];
-});
+).reply(200, updatedFromSourceSecondExamplePinboard);
 axiosMockClient.onGet(`${PINBOARDS_URL}abcd1234/officers/`).reply(200, fetchPinboardOfficers());
 
 axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/trrs/`).reply(200, fetchPinboardTRRs());
