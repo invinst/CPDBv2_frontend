@@ -14,6 +14,8 @@ export default class EmptyPinboardPage extends Component {
       examplePinboards,
       emptyPinboardTitleEditWrapperStateProps,
       emptyPinboardDescriptionEditWrapperStateProps,
+      currentPinboardId,
+      updatePinboardFromSource,
     } = this.props;
     return (
       <div className={ responsiveContainerStyles.responsiveContainer }>
@@ -40,6 +42,8 @@ export default class EmptyPinboardPage extends Component {
               id={ pinboard.id }
               title={ pinboard.title }
               description={ pinboard.description }
+              currentPinboardId={ currentPinboardId }
+              updatePinboardFromSource={ updatePinboardFromSource }
             />
           )) }
           <div className='arrow-head'/>
@@ -54,4 +58,6 @@ EmptyPinboardPage.propTypes = {
   examplePinboards: PropTypes.array,
   emptyPinboardTitleEditWrapperStateProps: PropTypes.object,
   emptyPinboardDescriptionEditWrapperStateProps: PropTypes.object,
+  currentPinboardId: PropTypes.string,
+  updatePinboardFromSource: PropTypes.func,
 };

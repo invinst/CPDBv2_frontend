@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { omit } from 'lodash';
 
-import { examplePinboardsSelector } from 'selectors/pinboard-page/pinboard';
+import { examplePinboardsSelector, getPinboardId } from 'selectors/pinboard-page/pinboard';
 import EmptyPinboard from 'components/pinboard-page/empty-pinboard';
 import {
   turnOffEmptyPinboardDescriptionEditMode,
@@ -10,6 +10,7 @@ import {
   turnOnEmptyPinboardDescriptionEditMode,
   turnOnEmptyPinboardTitleEditMode,
 } from 'actions/pinboard-page';
+import { updatePinboardFromSource } from 'actions/pinboard';
 import { updatePage } from 'actions/cms';
 import { getCMSFields } from 'selectors/cms';
 import { PINBOARD_EDIT_TYPES, PINBOARD_PAGE_ID } from 'utils/constants';
@@ -18,12 +19,14 @@ import getEditModeOn from 'selectors/pinboard-page/edit-mode-on';
 
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
+  currentPinboardId: getPinboardId(state),
   examplePinboards: examplePinboardsSelector(state),
   editModeOn: getEditModeOn(state),
   editableFields: getCMSFields(PINBOARD_PAGE_ID)(state),
 });
 
 const mapDispatchToProps = {
+  updatePinboardFromSource,
   onSaveForm: updatePage(PINBOARD_PAGE_ID),
   turnOnEmptyPinboardTitleEditMode,
   turnOffEmptyPinboardTitleEditMode,

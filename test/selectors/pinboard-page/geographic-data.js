@@ -1,5 +1,5 @@
 import {
-  mapLegendSelector,
+  geographicDataLoadingSelector,
   mapMarkersSelector,
   hasMapMarkersSelector,
   geographicDataRequestingSelector,
@@ -7,8 +7,8 @@ import {
 
 
 describe('GeographicData selectors', function () {
-  describe('mapLegendSelector', function () {
-    it('should return correct legend info', function () {
+  describe('geographicDataLoadingSelector', function () {
+    it('should return true if geographic data is loading', function () {
       const state = {
         pinboardPage: {
           geographicData: {
@@ -54,12 +54,56 @@ describe('GeographicData selectors', function () {
           },
         },
       };
-      mapLegendSelector(state).should.eql({
-        allegationCount: 3,
-        useOfForceCount: 2,
-        allegationLoading: true,
-        useOfForceLoading: false,
-      });
+      geographicDataLoadingSelector(state).should.be.true();
+    });
+
+    it('should return false if geographic data is loaded', function () {
+      const state = {
+        pinboardPage: {
+          geographicData: {
+            mapCrsDataTotalCount: 3,
+            mapTrrsDataTotalCount: 2,
+            mapCrsData: [
+              {
+                category: 'Illegal Search',
+                kind: 'CR',
+
+                crid: '294619',
+                'coaccused_count': 9,
+              },
+              {
+                category: 'Illegal Search',
+                kind: 'CR',
+
+                crid: '294620',
+                'coaccused_count': 10,
+              },
+              {
+                category: 'Illegal Search',
+                kind: 'CR',
+
+                crid: '294621',
+                'coaccused_count': 11,
+              },
+            ],
+            mapTrrsData: [
+              {
+                'trr_id': '123456',
+                kind: 'FORCE',
+                taser: false,
+                'firearm_used': true,
+              },
+              {
+                'trr_id': '654321',
+                kind: 'FORCE',
+                taser: true,
+                'firearm_used': false,
+              },
+            ],
+          },
+        },
+      };
+      geographicDataLoadingSelector(state).should.be.false();
     });
   });
 
@@ -105,34 +149,42 @@ describe('GeographicData selectors', function () {
           },
         },
       };
-      mapMarkersSelector(state).should.eql([{
-        point: {
-          lat: 41.918008,
-          lon: -87.73173299999999,
-        },
-        kind: 'CR',
-        id: '1045343',
-        category: 'Illegal Search',
-        date: 'MAR 17, 2012',
-      }, {
-        category: 'Illegal Search',
-        kind: 'CR',
-        point: {
-          lat: 41.7630623832,
-          lon: -87.67122688239999,
-        },
-        id: '294619',
-        date: 'MAR 20, 2013',
-      }, {
-        point: {
-          lat: 35.3,
-          lon: 50.5,
-        },
-        kind: 'FORCE',
-        id: '123456',
-        category: 'Firearm',
-        date: 'MAY 12, 2015',
-      }]);
+      mapMarkersSelector(state).should.eql({
+        crs: [
+          {
+            point: {
+              lat: 41.918008,
+              lon: -87.73173299999999,
+            },
+            kind: 'CR',
+            id: '1045343',
+            category: 'Illegal Search',
+            date: 'MAR 17, 2012',
+          },
+          {
+            category: 'Illegal Search',
+            kind: 'CR',
+            point: {
+              lat: 41.7630623832,
+              lon: -87.67122688239999,
+            },
+            id: '294619',
+            date: 'MAR 20, 2013',
+          },
+        ],
+        trrs: [
+          {
+            point: {
+              lat: 35.3,
+              lon: 50.5,
+            },
+            kind: 'FORCE',
+            id: '123456',
+            category: 'Firearm',
+            date: 'MAY 12, 2015',
+          },
+        ],
+      });
     });
   });
 
@@ -146,11 +198,25 @@ describe('GeographicData selectors', function () {
       hasMapMarkersSelector(state).should.be.false();
     });
 
-    it('should return true if have marker', function () {
+    it('should return true if does not have marker and requesting is true', function () {
       const state = {
         pinboardPage: {
           geographicData: {
-            requesting: false,
+            crsRequesting: true,
+            trrsRequesting: true,
+            mapCrsData: [],
+          },
+        },
+      };
+      hasMapMarkersSelector(state).should.be.true();
+    });
+
+    it('should return true if have marker and not requesting', function () {
+      const state = {
+        pinboardPage: {
+          geographicData: {
+            crsRequesting: false,
+            trrsRequesting: false,
             mapCrsData: [{
               category: 'Illegal Search',
               kind: 'CR',

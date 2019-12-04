@@ -76,6 +76,18 @@ export const updatePinboard = cancelFetchRequests(
   )({ title: title, description: description, 'officer_ids': officerIds, crids: crids, 'trr_ids': trrIds })
 );
 
+export const updatePinboardFromSource = cancelFetchRequests(
+  (id, sourcePinboardId) => put(
+    `${constants.PINBOARDS_URL}${id}/`,
+    [
+      constants.PINBOARD_UPDATE_FROM_SOURCE_REQUEST_START,
+      constants.PINBOARD_UPDATE_FROM_SOURCE_REQUEST_SUCCESS,
+      constants.PINBOARD_UPDATE_FROM_SOURCE_REQUEST_FAILURE,
+    ],
+    pinboardSource && pinboardSource.token
+  )({ 'source_pinboard_id': sourcePinboardId })
+);
+
 export const fetchPinboard = cancelFetchRequests(
   id => get(
     `${constants.PINBOARDS_URL}${id}/`,
@@ -144,8 +156,6 @@ export const fetchOtherPagesPinboardGeographicTrrs = (params) => get(
   ],
   pinboardSource && pinboardSource.token
 )(params);
-
-export const changePinboardTab = createAction(constants.CHANGE_PINBOARD_TAB);
 
 export const fetchPinboardComplaints = id => get(
   `${constants.PINBOARDS_URL}${id}/complaints/`,
