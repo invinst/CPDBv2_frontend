@@ -2,7 +2,7 @@ import { Promise } from 'es6-promise';
 import { stub } from 'sinon';
 import { merge } from 'lodash';
 
-import loadPaginatedData from 'utils/load-paginated-data';
+import { loadPaginatedData } from 'utils/load-paginated-data';
 
 
 describe('loadPaginatedData utils', function () {

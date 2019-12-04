@@ -181,7 +181,6 @@ const officers = [
   },
 ];
 const coaccusedData = [
-  { 'officer_id_1': 2675, 'officer_id_2': 24157, 'incident_date': '1990-01-09', 'accussed_count': 2 },
   { 'officer_id_1': 11580, 'officer_id_2': 30466, 'incident_date': '1990-01-09', 'accussed_count': 2 },
   { 'officer_id_1': 22861, 'officer_id_2': 30466, 'incident_date': '1990-01-09', 'accussed_count': 2 },
   { 'officer_id_1': 11580, 'officer_id_2': 22861, 'incident_date': '1990-01-09', 'accussed_count': 2 },
@@ -263,6 +262,7 @@ const coaccusedData = [
   { 'officer_id_1': 3663, 'officer_id_2': 28805, 'incident_date': '2008-01-11', 'accussed_count': 7 },
   { 'officer_id_1': 3663, 'officer_id_2': 4269, 'incident_date': '2008-01-11', 'accussed_count': 3 },
   { 'officer_id_1': 2671, 'officer_id_2': 15956, 'incident_date': '2008-01-11', 'accussed_count': 6 },
+  { 'officer_id_1': 2675, 'officer_id_2': 24157, 'incident_date': '2008-01-11', 'accussed_count': 2 },
 ];
 const listEvent = [
   '1990-01-09',

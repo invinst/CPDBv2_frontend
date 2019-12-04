@@ -157,8 +157,6 @@ export const fetchOtherPagesPinboardGeographicTrrs = (params) => get(
   pinboardSource && pinboardSource.token
 )(params);
 
-export const changePinboardTab = createAction(constants.CHANGE_PINBOARD_TAB);
-
 export const fetchPinboardComplaints = id => get(
   `${constants.PINBOARDS_URL}${id}/complaints/`,
   [

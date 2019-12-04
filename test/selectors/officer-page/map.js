@@ -96,7 +96,7 @@ describe('Officer map selectors', function () {
           lon: -87.62355,
         },
         kind: 'CR',
-        finding: 'Sustained',
+        pointType: 'SUSTAINED-CR',
         id: '1002787',
         category: 'Conduct Unbecoming (Off-Duty)',
         date: '2007-01-18',
@@ -196,26 +196,33 @@ describe('Officer map selectors', function () {
           },
         },
       };
-      mapMarkersSelector(state).should.eql([{
-        point: {
-          lat: 41.918008,
-          lon: -87.73173299999999,
-        },
-        kind: 'CR',
-        finding: 'Sustained',
-        id: '1045343',
-        category: 'Illegal Search',
-        date: '2011-05-11',
-      }, {
-        point: {
-          lat: 35.3,
-          lon: 50.5,
-        },
-        kind: 'FORCE',
-        id: '123456',
-        category: 'Firearm',
-        date: '2004-12-17',
-      }]);
+      mapMarkersSelector(state).should.eql({
+        crs: [
+          {
+            point: {
+              lat: 41.918008,
+              lon: -87.73173299999999,
+            },
+            kind: 'CR',
+            pointType: 'SUSTAINED-CR',
+            id: '1045343',
+            category: 'Illegal Search',
+            date: '2011-05-11',
+          },
+        ],
+        trrs: [
+          {
+            point: {
+              lat: 35.3,
+              lon: 50.5,
+            },
+            kind: 'FORCE',
+            id: '123456',
+            category: 'Firearm',
+            date: '2004-12-17',
+          },
+        ],
+      });
     });
   });
 

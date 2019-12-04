@@ -1,4 +1,4 @@
-import { get, isUndefined, compact } from 'lodash';
+import { get, isUndefined } from 'lodash';
 import { createSelector } from 'reselect';
 
 import { getOfficerInfo } from 'selectors/officer-page';
@@ -35,8 +35,8 @@ export const crMapMarkersTransform = item => ({
     lon: 0, lat: 0,
   }),
   date: item.date,
-  finding: item.finding,
   kind: item.kind,
+  pointType: `${item.finding === 'Sustained' ? 'SUSTAINED-' : ''}${item.kind}`,
   id: item.crid,
   category: item.category,
 });
@@ -53,14 +53,16 @@ export const trrMapMarkerTransform = item => ({
 
 export const mapMarkersSelector = createSelector(
   rawMapMarkersSelector,
-  markers => compact(
-    markers.map(marker => {
-      if (marker.kind === MAP_ITEMS.CR) {
-        return crMapMarkersTransform(marker);
-      }
-      if (marker.kind === MAP_ITEMS.FORCE) {
-        return trrMapMarkerTransform(marker);
-      }
-    })
-  )
+  markers => {
+    const geographicCrs = markers.filter(marker => {
+      return marker.kind === MAP_ITEMS.CR;
+    });
+    const geographicTrrs = markers.filter(marker => {
+      return marker.kind === MAP_ITEMS.FORCE;
+    });
+    return {
+      crs: geographicCrs.map(crMapMarkersTransform),
+      trrs: geographicTrrs.map(trrMapMarkerTransform),
+    };
+  }
 );
