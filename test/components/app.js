@@ -1,17 +1,12 @@
 import 'polyfill';
+import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
 import Mousetrap from 'mousetrap';
 import React, { Component } from 'react';
 import MockStore from 'redux-mock-store';
 import { spy } from 'sinon';
 import { ToastContainer } from 'react-toastify';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import App from 'components/app';
 import ShareableHeader from 'components/headers/shareable-header';
 import SlimHeader from 'components/headers/slim-header';
@@ -21,7 +16,6 @@ import { OFFICER_EDIT_TYPES } from 'utils/constants';
 
 
 describe('App component', function () {
-  let instance;
   const mockStore = MockStore();
   const store = mockStore({
     authentication: {},
@@ -102,14 +96,10 @@ describe('App component', function () {
     }
   }
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should toggle edit mode when hit esc', function () {
     const toggleEditMode = spy();
 
-    instance = renderIntoDocument(
+    mount(
       <Provider store={ store }>
         <App
           toggleEditMode={ toggleEditMode }
@@ -122,14 +112,14 @@ describe('App component', function () {
 
     Mousetrap.trigger('esc');
 
-    toggleEditMode.calledWith('/').should.be.true();
+    toggleEditMode.should.be.calledWith('/');
   });
 
   it('should toggle search mode and change search query when press any key and not in search page', function () {
     const toggleSearchMode = spy();
     const changeSearchQuery = spy();
 
-    instance = renderIntoDocument(
+    mount(
       <Provider store={ store }>
         <App
           toggleSearchMode={ toggleSearchMode }
@@ -145,7 +135,7 @@ describe('App component', function () {
 
     toggleSearchMode.calledOnce.should.be.true();
     changeSearchQuery.calledOnce.should.be.true();
-    changeSearchQuery.calledWith('a').should.be.true();
+    changeSearchQuery.should.be.calledWith('a');
   });
 
   it('should not toggle search mode and change search query when press any key and be in search page', function () {
@@ -153,7 +143,7 @@ describe('App component', function () {
     const changeSearchQuery = spy();
     const location = { pathname: '/search/', search: '/', action: 'POP' };
 
-    instance = renderIntoDocument(
+    mount(
       <Provider store={ store }>
         <App
           toggleSearchMode={ toggleSearchMode }
@@ -171,31 +161,31 @@ describe('App component', function () {
   });
 
   it('should not display header if children is a "headerless page"', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <App location={ location }>
           <SearchPageContainer location={ location } routes={ [] }/>
         </App>
       </Provider>
     );
-    scryRenderedComponentsWithType(instance, SlimHeader).length.should.eql(0);
-    scryRenderedComponentsWithType(instance, ShareableHeader).length.should.eql(0);
+    wrapper.find(SlimHeader).length.should.equal(0);
+    wrapper.find(ShareableHeader).length.should.equal(0);
   });
 
   it('should display ShareableHeader if children is a shareable page', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <App location={ location }>
           <OfficerPageContainer location={ { query: {}, pathname: '/' } } />
         </App>
       </Provider>
     );
-    scryRenderedComponentsWithType(instance, SlimHeader).length.should.eql(0);
-    findRenderedComponentWithType(instance, ShareableHeader);
+    wrapper.find(SlimHeader).length.should.equal(0);
+    wrapper.find(ShareableHeader).exists().should.be.true();
   });
 
   it('should render ToastContainer', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <App location={ location }>
           <OfficerPageContainer location={ { query: {}, pathname: '/' } } />
@@ -203,11 +193,11 @@ describe('App component', function () {
       </Provider>
     );
 
-    const toastContainer = findRenderedComponentWithType(instance, ToastContainer);
-    toastContainer.props.pauseOnFocusLoss.should.be.false();
-    toastContainer.props.closeButton.should.be.false();
-    toastContainer.props.hideProgressBar.should.be.true();
-    toastContainer.props.autoClose.should.equal(3000);
-    toastContainer.props.className.should.equal('landing');
+    const toastContainer = wrapper.find(ToastContainer);
+    toastContainer.prop('pauseOnFocusLoss').should.be.false();
+    toastContainer.prop('closeButton').should.be.false();
+    toastContainer.prop('hideProgressBar').should.be.true();
+    toastContainer.prop('autoClose').should.equal(3000);
+    toastContainer.prop('className').should.equal('landing');
   });
 });
