@@ -9,7 +9,6 @@ import OfficerCard from 'components/pinboard-page/cards/officer-card';
 import TRRCard from 'components/pinboard-page/cards/trr-card';
 import * as vendors from 'utils/vendors';
 import * as navigation from 'utils/navigation';
-import { PINBOARD_ITEM_REMOVE_MODE } from 'utils/constants';
 
 
 describe('PinnedGrid component', function () {
@@ -202,11 +201,8 @@ describe('PinnedGrid component', function () {
     MuuriStub.restore();
   });
 
-  it('should remove item from the grid when removeItemInPinboardPage is called', function () {
+  it('should remove item when removeItemInPinboardPage is called', function () {
     const clock = useFakeTimers();
-    const muuri = new vendors.Muuri();
-    muuri.remove.resetHistory();
-
     const removeItemInPinboardPage = stub();
 
     const items = [{ 'id': '1' }, { 'id': '2' }];
@@ -219,51 +215,34 @@ describe('PinnedGrid component', function () {
     );
 
     instance.removeItemInPinboardPage({ 'id': '1' });
-
-    muuri.remove.should.be.calledWith(instance.itemElements['1']);
     removeItemInPinboardPage.should.not.be.called();
 
     clock.tick(250);
-
     removeItemInPinboardPage.should.be.calledWith({ 'id': '1' });
-
-    muuri.remove.resetHistory();
     clock.restore();
   });
 
-  it('should not remove item from the grid in API_ONLY mode', function () {
-    const clock = useFakeTimers();
+  it('should remove item from the grid when completeRemoveItemInPinboardPage is called', function () {
     const muuri = new vendors.Muuri();
     muuri.remove.resetHistory();
 
-    const removeItemInPinboardPage = stub();
+    const completeRemoveItemFromPinboard = stub();
 
     const items = [{ 'id': '1' }, { 'id': '2' }];
     instance = renderIntoDocument(
       <PinnedGrid
         type='OFFICER'
         items={ items }
-        removeItemInPinboardPage={ removeItemInPinboardPage }
+        completeRemoveItemFromPinboard={ completeRemoveItemFromPinboard }
       />
     );
 
-    instance.removeItemInPinboardPage({
-      id: '1',
-      mode: PINBOARD_ITEM_REMOVE_MODE.API_ONLY,
-    });
+    instance.completeRemoveItemInPinboardPage({ 'id': '1' });
 
-    muuri.remove.calledWith(instance.itemElements['1']).should.be.false();
-    removeItemInPinboardPage.should.not.be.called();
-
-    clock.tick(250);
-
-    removeItemInPinboardPage.should.be.calledWith({
-      id: '1',
-      mode: PINBOARD_ITEM_REMOVE_MODE.API_ONLY,
-    });
+    muuri.remove.should.be.calledWith(instance.itemElements['1']);
+    completeRemoveItemFromPinboard.should.be.calledWith({ 'id': '1' });
 
     muuri.remove.resetHistory();
-    clock.restore();
   });
 
   it('should invoke orderPinboard with type OFFICER when dragEnd', function () {

@@ -5,7 +5,7 @@ import cx from 'classnames';
 
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import DocumentRow from './document-row';
-import MonthSeparator from './month-separator';
+import MonthSeparator from 'components/common/table/month-separator';
 import * as constants from 'utils/constants';
 import styles from './documents-table.sass';
 

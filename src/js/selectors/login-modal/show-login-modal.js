@@ -1,10 +1,13 @@
 import { createSelector } from 'reselect';
 
-import editModeOnSelector from 'selectors/edit-mode-on';
+import editModeOnSelector, { openLoginByDefaultSelector } from 'selectors/edit-mode-on';
 
 
 const isSignedIn = state => !!state.authentication.apiAccessToken;
 
-export default createSelector(editModeOnSelector,
+export default createSelector(
+  editModeOnSelector,
+  openLoginByDefaultSelector,
   isSignedIn,
-  (editModeOn, isSignedIn) => editModeOn && !isSignedIn);
+  (editModeOn, openLoginByDefault, isSignedIn) => (editModeOn || openLoginByDefault) && !isSignedIn
+);

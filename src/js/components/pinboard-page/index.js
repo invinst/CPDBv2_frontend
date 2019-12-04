@@ -17,7 +17,7 @@ import PinnedTRRsContainer from 'containers/pinboard-page/pinned-trrs';
 import FooterContainer from 'containers/footer-container';
 import PinboardsContainer from 'containers/pinboard-page/pinboards-container';
 import EmptyPinboardContainer from 'containers/pinboard-page/empty-pinboard';
-import { PreviewPaneWithOverlay } from 'components/search-page/search-results/preview-pane';
+import { PreviewPaneWithOverlay } from 'components/common/preview-pane';
 import ManagePinboardsButtons from 'components/pinboard-page/manage-pinboards-buttons';
 import LoadingSpinner from 'components/common/loading-spinner';
 

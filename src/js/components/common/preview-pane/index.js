@@ -1,13 +1,111 @@
-export { default as CommunityPane } from './community-pane';
-export { default as CensusTrackPane } from './census-track-pane';
-export { default as SchoolGroundPane } from './school-ground-pane';
-export { default as OfficerPane } from 'components/common/preview-pane/officer-pane';
-export { default as PoliceBeatPane } from './police-beat-pane';
-export { default as PoliceDistrictPane } from './police-district-pane';
-export { default as RankPane } from './rank-pane';
-export { default as WardPane } from './ward-pane';
-export { default as ZipCodePane } from './zip-code-pane';
-export { default as NeighborhoodPane } from './neighborhood-pane';
-export { default as SearchTermItemPane } from './search-term-item-pane';
-export { default as CRPane } from './cr-pane';
-export { default as TRRPane } from './trr-pane';
+import React, { Component, PropTypes } from 'react';
+import { isEmpty, get, noop } from 'lodash';
+import cx from 'classnames';
+
+import SlideMotion from 'components/animation/slide-motion';
+import {
+  OfficerPane,
+  CommunityPane,
+  NeighborhoodPane,
+  WardPane,
+  PoliceBeatPane,
+  PoliceDistrictPane,
+  SchoolGroundPane,
+  RankPane,
+  SearchTermItemPane,
+  CRPane,
+  TRRPane,
+  PinboardPane,
+} from 'components/common/preview-pane/panes';
+import styles from './preview-pane.sass';
+import withOverlay from 'components/common/with-overlay';
+
+
+export default class PreviewPane extends Component {
+  constructor(props) {
+    super(props);
+    this.renderPane = this.renderPane.bind(this);
+  }
+
+  renderPane() {
+    const { data, type, yScrollable, addOrRemoveItemInPinboard } = this.props;
+    const officerPaneFunc = () => <OfficerPane { ...data }
+      yScrollable={ yScrollable }
+      type={ type }
+      addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
+    />;
+    const crPaneFunc = () => <CRPane { ...data } yScrollable={ yScrollable }/>;
+    const trrPaneFunc = () => {
+      return (
+        <div className='trr-pane-wrapper'>
+          <TRRPane { ...data } yScrollable={ yScrollable } />
+        </div>
+      );
+    };
+
+    const paneTypes = {
+      'SEARCH-TERMS': () => <SearchTermItemPane { ...data } />,
+      OFFICER: officerPaneFunc,
+      'DATE > OFFICERS': officerPaneFunc,
+      'UNIT > OFFICERS': officerPaneFunc,
+      COMMUNITY: () => <CommunityPane { ...data } />,
+      NEIGHBORHOOD: () => <NeighborhoodPane { ...data } />,
+      WARD: () => <WardPane { ...data }/>,
+      BEAT: () => <PoliceBeatPane { ...data } />,
+      'POLICE-DISTRICT': () => <PoliceDistrictPane { ...data } />,
+      'SCHOOL-GROUND': () => <SchoolGroundPane { ...data } />,
+      RANK: () => <RankPane { ...data } />,
+      CR: crPaneFunc,
+      'DATE > CR': crPaneFunc,
+      'INVESTIGATOR > CR': crPaneFunc,
+      TRR: trrPaneFunc,
+      'DATE > TRR': trrPaneFunc,
+      'PINBOARD': () => <PinboardPane { ...data } { ...this.props }/>,
+    };
+    return get(paneTypes, type, () => null)();
+  }
+
+
+  render() {
+    const { data, customClass, yScrollable, dynamicHeight, isShown } = this.props;
+
+    return (
+      <SlideMotion show={ isShown && !isEmpty(data) } offsetX={ 100 }>
+        <div className={
+          cx(
+            styles.previewPaneWrapper,
+            customClass,
+            { [styles.yScrollable]: yScrollable, 'dynamic-height': dynamicHeight }
+          )
+        }>
+          {
+            this.renderPane()
+          }
+        </div>
+      </SlideMotion>
+    );
+
+  }
+}
+
+PreviewPane.propTypes = {
+  data: PropTypes.object,
+  type: PropTypes.string,
+  customClass: PropTypes.string,
+  yScrollable: PropTypes.bool,
+  dynamicHeight: PropTypes.bool,
+  addOrRemoveItemInPinboard: PropTypes.func,
+  fetchPinboardStaticSocialGraph: PropTypes.func,
+  isShown: PropTypes.bool,
+};
+
+PreviewPane.defaultProps = {
+  data: {},
+  yScrollable: false,
+  addOrRemoveItemInPinboard: noop,
+  fetchPinboardStaticSocialGraph: noop,
+  dynamicHeight: false,
+  isShown: true,
+};
+
+export const PreviewPaneWithOverlay = withOverlay(PreviewPane);

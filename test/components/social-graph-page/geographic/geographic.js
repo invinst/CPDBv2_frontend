@@ -13,7 +13,7 @@ import { unmountComponentSuppressError } from 'utils/test/index';
 import GeographicMap from 'components/social-graph-page/geographic/index';
 import AllegationsMap from 'components/common/allegations-map/index';
 import PreviewPane from 'components/social-graph-page/geographic/preview-pane';
-import CRPane from 'components/common/preview-pane/cr-pane';
+import CRPane from 'components/common/preview-pane/panes/cr-pane';
 
 
 describe('GeographicMap component', function () {

@@ -3,9 +3,9 @@ import { get, pick, merge } from 'lodash';
 import cx from 'classnames';
 
 import { NETWORK_PREVIEW_PANE } from 'utils/constants';
-import OfficerPane from 'components/common/preview-pane/officer-pane';
+import OfficerPane from 'components/common/preview-pane/panes/officer-pane';
 import EdgeCoaccusalsPane from './edge-coaccusals-pane';
-import CRPane from 'components/common/preview-pane/cr-pane';
+import CRPane from 'components/common/preview-pane/panes/cr-pane';
 import styles from './preview-pane.sass';
 
 

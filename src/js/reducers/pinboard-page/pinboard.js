@@ -2,7 +2,7 @@ import { handleActions } from 'redux-actions';
 import * as _ from 'lodash';
 
 import * as constants from 'utils/constants';
-import { getFormatId } from 'utils/pinboard';
+import { getFormatId, getRequestPinboard } from 'utils/pinboard';
 
 const DEFAULT_PINBOARD_STATUSES = {
   saving: false,
@@ -19,6 +19,10 @@ const defaultState = {
   'description': '',
   ...DEFAULT_PINBOARD_STATUSES,
 };
+
+const hasPendingChanges = (currentPinboard, pinboard) => (
+  _.isEmpty(pinboard) || !_.isEqual(getRequestPinboard(currentPinboard), getRequestPinboard(pinboard))
+);
 
 export default handleActions({
   [constants.PINBOARD_FETCH_REQUEST_START]: (state, action) => ({
@@ -50,7 +54,7 @@ export default handleActions({
     const crids = _.difference(_.get(state, 'crids', []), notFoundCrids);
     const trrIds = _.difference(_.get(state, 'trr_ids', []), notFoundTrrIds);
 
-    return {
+    const pinboard = {
       ...state,
       'officer_ids': officerIds,
       crids,
@@ -59,6 +63,8 @@ export default handleActions({
       saving: false,
       isPinboardRestored: true,
     };
+    pinboard.hasPendingChanges = hasPendingChanges(pinboard, action.payload);
+    return pinboard;
   },
   [constants.PINBOARD_CREATE_REQUEST_FAILURE]: (state, action) => {
     return {
@@ -70,6 +76,7 @@ export default handleActions({
     return {
       ...state,
       saving: false,
+      hasPendingChanges: hasPendingChanges(state, action.payload),
       'example_pinboards': action.payload['example_pinboards'],
     };
   },
@@ -102,6 +109,7 @@ export default handleActions({
     return {
       ...state,
       [action.payload.attr]: action.payload.value,
+      hasPendingChanges: true,
     };
   },
   [constants.ADD_ITEM_TO_PINBOARD_STATE]: (state, action) => {
@@ -112,11 +120,12 @@ export default handleActions({
     return {
       ...state,
       [attr]: _.includes(ids, newId) ? ids : ids.concat(newId),
+      hasPendingChanges: true,
       needRefreshData: true,
     };
   },
   [constants.REMOVE_ITEM_FROM_PINBOARD_STATE]: (state, action) => {
-    const { type, mode, id: payloadId } = action.payload;
+    const { type, id: payloadId } = action.payload;
     const attr = constants.PINBOARD_ATTR_MAP[type];
     let ids = state[attr] || [];
     const format = getFormatId(attr);
@@ -124,7 +133,8 @@ export default handleActions({
     return {
       ...state,
       [attr]: _.reject(ids, id => id === format(payloadId)),
-      needRefreshData: mode !== constants.PINBOARD_ITEM_REMOVE_MODE.STATE_ONLY,
+      hasPendingChanges: true,
+      needRefreshData: true,
     };
   },
   [constants.ORDER_PINBOARD_STATE]: (state, action) => {
@@ -135,18 +145,13 @@ export default handleActions({
     return {
       ...state,
       [attr]: _.map(ids, format),
+      hasPendingChanges: true,
     };
   },
   [constants.PERFORM_FETCH_PINBOARD_RELATED_DATA]: (state, action) => {
     return {
       ...state,
       needRefreshData: false,
-    };
-  },
-  [constants.SET_PINBOARD_HAS_PENDING_CHANGES]: (state, action) => {
-    return {
-      ...state,
-      hasPendingChanges: action.payload,
     };
   },
 }, defaultState);

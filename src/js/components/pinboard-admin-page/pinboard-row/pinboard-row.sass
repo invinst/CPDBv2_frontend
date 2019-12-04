@@ -1,0 +1,70 @@
+@import 'variables'
+
+$table-min-width: 960
+
+@mixin flexible-column($min-width)
+  min-width: #{$min-width}px
+  width: calc(100% * (#{$min-width} / #{$table-min-width}))
+
+\:local(.row)
+  background-color: $snow-color
+  height: 80px
+  margin-left: 16px
+  margin-right: 16px
+  min-width: #{$table-min-width}px
+  text-align: left
+  margin-bottom: 2px
+  cursor: pointer
+  transition: background-color 0.2s ease-in-out
+  font-weight: 200
+
+  &:hover
+    &.header
+      .cell
+        color: unset
+
+    .cell
+      color: $accent-color
+
+  &.header
+    background-color: white
+    text-transform: uppercase
+    height: 69px
+    position: relative
+    cursor: default
+
+    .cell
+      font-weight: 300
+
+    .pinboard-title
+      font-weight: 300
+      color: inherit
+
+  .cell
+    overflow: hidden
+    display: inline-flex
+    flex-direction: column
+    justify-content: center
+    vertical-align: top
+    box-sizing: border-box
+    transition: color 0.2s ease-in-out
+    height: calc(100% - 16px)
+    margin: 8px 0
+
+  .pinboard-id
+    @include flexible-column(120)
+    padding-left: 16px
+
+  .pinboard-title
+    @include flexible-column(400)
+    font-weight: 400
+    color: $soft-black-color
+
+  .pinboard-pinned
+    @include flexible-column(360)
+
+  .pinboard-date
+    @include flexible-column(80)
+    text-align: right
+    padding-right: 15px
+

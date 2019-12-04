@@ -3,19 +3,18 @@ import * as _ from 'lodash';
 
 import {
   PINBOARD_TRRS_FETCH_REQUEST_SUCCESS,
-  REMOVE_ITEM_IN_PINBOARD_PAGE,
+  COMPLETE_REMOVE_ITEM_FROM_PINBOARD,
   ORDER_PINBOARD,
-  PINBOARD_ITEM_REMOVE_MODE,
   LOCATION_CHANGE,
 } from 'utils/constants';
 
 export default handleActions({
   [PINBOARD_TRRS_FETCH_REQUEST_SUCCESS]: (state, action) => action.payload,
-  [REMOVE_ITEM_IN_PINBOARD_PAGE]: (state, action) => {
+  [COMPLETE_REMOVE_ITEM_FROM_PINBOARD]: (state, action) => {
     const currentItems = state;
-    const { id, type, mode } = action.payload;
+    const { id, type } = action.payload;
 
-    if (type === 'TRR' && mode !== PINBOARD_ITEM_REMOVE_MODE.API_ONLY) {
+    if (type === 'TRR') {
       return _.reject(currentItems, { id: _.parseInt(id) });
     }
     return currentItems;

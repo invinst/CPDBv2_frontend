@@ -29,7 +29,7 @@ export const previewPaneTransform = item => {
   };
 };
 
-const officerMostComplaintTransform = officer => {
+export const officerMostComplaintTransform = officer => {
   const percentile = extractPercentile(officer);
   return {
     id: officer.id,
