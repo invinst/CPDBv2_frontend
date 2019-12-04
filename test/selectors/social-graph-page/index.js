@@ -6,10 +6,10 @@ describe('Social Graph page selectors', function () {
     it('should return correct current main tab', function () {
       const state = {
         socialGraphPage: {
-          currentMainTab: 'NETWORK',
+          currentMainTab: 'SOCIAL_GRAPH',
         },
       };
-      getCurrentMainTab(state).should.eql('NETWORK');
+      getCurrentMainTab(state).should.eql('SOCIAL_GRAPH');
     });
   });
 

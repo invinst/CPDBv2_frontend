@@ -15,7 +15,7 @@ import {
   fetchPinboardTRRs,
   fetchPinboardSocialGraph,
 } from 'actions/pinboard';
-import loadPaginatedData from 'utils/load-paginated-data';
+import { loadPaginatedData } from 'utils/load-paginated-data';
 
 
 export const generatePinboardUrl = pinboard => {

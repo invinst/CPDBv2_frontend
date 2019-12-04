@@ -450,6 +450,19 @@ axiosMockClient.onGet(
 ).reply(200, pinboardGeographicTrrsData);
 
 axiosMockClient.onGet(
+  SOCIAL_GRAPH_NETWORK_API_URL,
+  { params: { 'threshold': 2, 'complaint_origin': 'CIVILIAN', 'pinboard_id': '5cd06f2b' } }
+).reply(200, getSocialGraphData());
+axiosMockClient.onGet(
+  SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
+  { params: { detail: true, 'pinboard_id': '5cd06f2b' } }
+).reply(200, pinboardGeographicCrsData);
+axiosMockClient.onGet(
+  SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL,
+  { params: { detail: true, 'pinboard_id': '5cd06f2b' } }
+).reply(200, pinboardGeographicTrrsData);
+
+axiosMockClient.onGet(
   SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
   { params: { 'unit_id': '123' } }
 ).reply(200, socialGraphGeographicCrsData);
@@ -732,6 +745,33 @@ axiosMockClient.onGet(
 ).reply(
   200, recentSearchItems,
 );
+
+const updatedFromSourceFirstExamplePinboard = {
+  'id': 'abcd1234',
+  'title': 'Watts Crew',
+  'officer_ids': [1],
+  'crids': [],
+  'trr_ids': [],
+  'description': 'Officers with at least 10 complaints against them generate 64% of all complaints.',
+};
+const updatedFromSourceSecondExamplePinboard = {
+  'id': 'abcd1234',
+  'title': 'Skullcap Crew',
+  'officer_ids': [2],
+  'crids': [],
+  'trr_ids': [],
+  'description': 'Skullcap Crew is a nickname given to a group of five Chicago Police officers in a gang...',
+};
+axiosMockClient.onPut(
+  `${PINBOARDS_URL}abcd1234/`,
+  { 'source_pinboard_id': 'b20c2c36' }
+).reply(200, updatedFromSourceFirstExamplePinboard);
+
+axiosMockClient.onPut(
+  `${PINBOARDS_URL}abcd1234/`,
+  { 'source_pinboard_id': '22e66085' }
+).reply(200, updatedFromSourceSecondExamplePinboard);
+axiosMockClient.onGet(`${PINBOARDS_URL}abcd1234/officers/`).reply(200, fetchPinboardOfficers());
 
 axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/trrs/`).reply(200, fetchPinboardTRRs());
 

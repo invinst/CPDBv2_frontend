@@ -66,6 +66,7 @@ describe('AnimatedSocialGraph component', function () {
     );
 
     scryRenderedComponentsWithType(instance, SocialGraph).should.have.length(1);
+    scryRenderedDOMComponentsWithClass(instance, 'graph-control-panel').should.have.length(1);
 
     const slider = findRenderedComponentWithType(instance, Slider);
     const currentDate = findRenderedDOMComponentWithClass(instance, 'current-date-label');
@@ -89,7 +90,6 @@ describe('AnimatedSocialGraph component', function () {
         refreshIntervalId={ null }
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
-        isVisible={ true }
         updateTimelineIdx={ updateTimelineIdxSpy }
       />
     );
@@ -101,6 +101,11 @@ describe('AnimatedSocialGraph component', function () {
 
   it('should not render graph control panel if there is no event', function () {
     instance = renderIntoDocument(<AnimatedSocialGraph/>);
+    scryRenderedDOMComponentsWithClass(instance, 'graph-control-panel').should.have.length(0);
+  });
+
+  it('should not render graph control panel if showGraphControlPanel is false', function () {
+    instance = renderIntoDocument(<AnimatedSocialGraph showGraphControlPanel={ false }/>);
     scryRenderedDOMComponentsWithClass(instance, 'graph-control-panel').should.have.length(0);
   });
 
@@ -273,20 +278,6 @@ describe('AnimatedSocialGraph component', function () {
     const stopTimelineSpy = spy(instance, 'stopTimeline');
     unmountComponentSuppressError(instance);
     stopTimelineSpy.called.should.be.true();
-  });
-
-  it('should render expanded-mode-btn with a link when expandedLink is present', function () {
-    instance = renderIntoDocument(
-      <AnimatedSocialGraph
-        officers={ officers }
-        coaccusedData={ coaccusedData }
-        listEvent={ listEvent }
-        expandedLink='expanded_link'
-      />
-    );
-
-    const expandedModeButton = findRenderedDOMComponentWithClass(instance, 'expanded-mode-btn');
-    expandedModeButton.getAttribute('href').should.eql('expanded_link');
   });
 
   it('should render customRightControlButton if present', function () {

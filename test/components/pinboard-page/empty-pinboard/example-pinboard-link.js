@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { stub } from 'sinon';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
   findRenderedComponentWithType,
+  findRenderedDOMComponentWithTag,
+  Simulate,
 } from 'react-addons-test-utils';
 import Truncate from 'react-truncate';
 
@@ -20,7 +22,7 @@ describe('ExamplePinboardLink component', function () {
   });
 
   it('should have enough contents', function () {
-
+    const updatePinboardFromSourceStub = stub();
     class TestComponent extends Component {
       render() {
         return <ExamplePinboardLink { ...this.props }/>;
@@ -32,19 +34,22 @@ describe('ExamplePinboardLink component', function () {
         id='66ef1561'
         title='Pinboard 1'
         description='Description 1'
+        currentPinboardId='abcd1234'
+        updatePinboardFromSource={ updatePinboardFromSourceStub }
       />
     );
 
-    const link = findRenderedComponentWithType(instance, Link);
-    link.props.to.should.equal('/pinboard/66ef1561/');
-    link.props.className.should.equal(styles.examplePinboardLink);
-    findRenderedDOMComponentWithClass(link, 'title').textContent.should.equal('Pinboard 1');
+    const link = findRenderedDOMComponentWithTag(instance, 'a');
+    link.className.should.equal(styles.examplePinboardLink);
+    findRenderedDOMComponentWithClass(instance, 'title').textContent.should.equal('Pinboard 1');
 
     const description = findRenderedComponentWithType(instance, Truncate);
     description.props.className.should.equal('description');
     description.props.lines.should.equal(3);
     description.props.children.should.equal('Description 1');
+    findRenderedDOMComponentWithClass(instance, 'arrow').should.be.ok();
 
-    findRenderedDOMComponentWithClass(link, 'arrow').should.be.ok();
+    Simulate.click(link);
+    updatePinboardFromSourceStub.should.be.calledWith('abcd1234', '66ef1561');
   });
 });
