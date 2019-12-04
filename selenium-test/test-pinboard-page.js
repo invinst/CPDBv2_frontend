@@ -890,12 +890,22 @@ describe('Empty Pinboard Page', function () {
 
   it('should go to Watts Crew pinboard page when clicking on Repeaters row', function () {
     pinboardPage.emptyPinboardSection.firstExample.click();
-    browser.getUrl().should.match(/pinboard\/b20c2c36\//);
+    browser.getUrl().should.match(/pinboard\/abcd1234\/watts-crew\//);
+    pinboardPage.pinboardSection.title.getValue().should.equal('Watts Crew');
+    pinboardPage.pinboardSection.description.getValue().should.equal(
+      'Officers with at least 10 complaints against them generate 64% of all complaints.'
+    );
+    pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
   });
 
   it('should go to Skullcap Crew pinboard page when clicking on Skullcap Crew row', function () {
     pinboardPage.emptyPinboardSection.secondExample.click();
-    browser.getUrl().should.match(/pinboard\/22e66085\//);
+    browser.getUrl().should.match(/pinboard\/abcd1234\/skullcap-crew\//);
+    pinboardPage.pinboardSection.title.getValue().should.equal('Skullcap Crew');
+    pinboardPage.pinboardSection.description.getValue().should.equal(
+      'Skullcap Crew is a nickname given to a group of five Chicago Police officers in a gang...'
+    );
+    pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
   });
 });
 

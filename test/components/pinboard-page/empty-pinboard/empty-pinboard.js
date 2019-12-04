@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
+  scryRenderedDOMComponentsWithClass,
   scryRenderedComponentsWithType,
   findRenderedComponentWithType,
+  scryRenderedDOMComponentsWithTag,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
@@ -91,24 +92,19 @@ describe('EmptyPinboard component', function () {
       'Come back to the pinboard to give it a title and see a network map or discover relevant documents.'
     );
 
-    const examplePinboardLinks = scryRenderedComponentsWithType(instance, Link);
+    const examplePinboardLinks = scryRenderedDOMComponentsWithTag(instance, 'a');
     examplePinboardLinks.should.have.length(2);
 
-    examplePinboardLinks[0].props.to.should.equal('/pinboard/66ef1561/');
-    findRenderedDOMComponentWithClass(
-      examplePinboardLinks[0], 'title'
-    ).textContent.should.equal('Pinboard 1');
-    findRenderedDOMComponentWithClass(
-      examplePinboardLinks[0], 'description'
-    ).textContent.should.equal('Description 1…');
+    const titles = scryRenderedDOMComponentsWithClass(instance, 'title');
+    const descriptions = scryRenderedDOMComponentsWithClass(instance, 'description');
+    titles.should.have.length(2);
+    descriptions.should.have.length(2);
 
-    examplePinboardLinks[1].props.to.should.equal('/pinboard/66ef1562/');
-    findRenderedDOMComponentWithClass(
-      examplePinboardLinks[1], 'title'
-    ).textContent.should.equal('Pinboard 2');
-    findRenderedDOMComponentWithClass(
-      examplePinboardLinks[1], 'description'
-    ).textContent.should.equal('Description 2…');
+    titles[0].textContent.should.equal('Pinboard 1');
+    descriptions[0].textContent.should.equal('Description 1…');
+
+    titles[1].textContent.should.equal('Pinboard 2');
+    descriptions[1].textContent.should.equal('Description 2…');
 
     findRenderedDOMComponentWithClass(instance, 'arrow-head');
     findRenderedDOMComponentWithClass(instance, 'arrow-shaft');
