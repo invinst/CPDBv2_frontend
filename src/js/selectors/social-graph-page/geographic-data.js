@@ -1,4 +1,4 @@
-import { find, isEmpty, concat } from 'lodash';
+import { find, isEmpty } from 'lodash';
 import { createSelector } from 'reselect';
 
 import {
@@ -31,10 +31,10 @@ export const mapLegendSelector = createSelector(
 export const mapMarkersSelector = createSelector(
   getGeographicCrs,
   getGeographicTrrs,
-  (geographicCrs, geographicTrrs) => concat(
-    geographicCrs.map(marker => crMapMarkersTransform(marker)),
-    geographicTrrs.map(marker => trrMapMarkerTransform(marker)),
-  )
+  (geographicCrs, geographicTrrs) => ({
+    crs: geographicCrs.map(marker => crMapMarkersTransform(marker)),
+    trrs: geographicTrrs.map(marker => trrMapMarkerTransform(marker)),
+  })
 );
 
 export const geographicAllegationSelector = createSelector(

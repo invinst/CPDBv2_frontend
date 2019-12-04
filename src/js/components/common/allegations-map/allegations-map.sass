@@ -20,7 +20,15 @@
       width: calc(100% - 32px)
 
   &.pinboard-map
-    height: 453px
+    width: 342px
+    height: 342px
+
+    .data-loading-spinner
+      position: absolute
+      top: 6px
+      right: 6px
+      width: 40px
+      height: 40px
 
   &.social-graph-map
     height: 100vh
@@ -41,7 +49,14 @@
 
 
 \:local(.allegation-map-loading)
-  margin: 0 auto
-  display: block
-  width: 176px
-  height: 454px
+  width: 160px
+  height: 160px
+  position: absolute
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+
+.pinboard-page
+  \:local(.allegation-map-loading)
+    width: 100px
+    height: 100px
