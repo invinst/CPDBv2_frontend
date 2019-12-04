@@ -1,26 +1,16 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import OfficerVisualToken from 'components/visual-token/officer-visual-token';
 
 describe('OfficerVisualToken component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render correctly', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <OfficerVisualToken
         backgroundColor='red'
       />
     );
-    const visualTokenElement = findRenderedDOMComponentWithClass(instance, 'test--officer-visual-token-background');
-    visualTokenElement.style.backgroundColor.should.eql('red');
+    const visualTokenElement = wrapper.find('.test--officer-visual-token-background');
+    visualTokenElement.prop('style').backgroundColor.should.equal('red');
   });
 });

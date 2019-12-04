@@ -1,5 +1,5 @@
 import React from 'react';
-import { renderIntoDocument, scryRenderedDOMComponentsWithClass } from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
 import MemberAggregateSection from 'components/unit-profile-page/summary-page/member-aggregate-section';
 
@@ -14,13 +14,16 @@ describe('MemberAggregateSection component', function () {
       { name: 'gender', entries: [{ name: 'Male', count: 1 }] },
     ];
 
-    const instance = renderIntoDocument(
-      <MemberAggregateSection activeMembers={ activeMembers }
-        totalMembers={ totalMembers } memberFacets={ memberFacets }/>
+    const wrapper = shallow(
+      <MemberAggregateSection
+        activeMembers={ activeMembers }
+        totalMembers={ totalMembers }
+        memberFacets={ memberFacets }
+      />
     );
 
-    scryRenderedDOMComponentsWithClass(instance, 'test--race-block').should.have.length(1);
-    scryRenderedDOMComponentsWithClass(instance, 'test--age-block').should.have.length(1);
-    scryRenderedDOMComponentsWithClass(instance, 'test--gender-block').should.have.length(1);
+    wrapper.find('.test--race-block').exists().should.have.length(1);
+    wrapper.find('.test--age-block').exists().should.have.length(1);
+    wrapper.find('.test--gender-block').exists().should.have.length(1);
   });
 });
