@@ -1,24 +1,16 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 import { stub } from 'sinon';
 import Slider from 'rc-slider';
-import {
-  findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass,
-  renderIntoDocument,
-  scryRenderedComponentsWithType,
-  scryRenderedDOMComponentsWithClass,
-  Simulate,
-} from 'react-addons-test-utils';
-import { findDOMNode } from 'react-dom';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import NetworkGraph from 'components/social-graph-page/network';
 import AnimatedSocialGraphContainer from 'containers/social-graph-page/animated-social-graph-container';
 import RightPaneSection from 'components/social-graph-page/network/right-pane-section';
 import OfficerPane from 'components/common/preview-pane/panes/officer-pane';
 import EdgeCoaccusalsPane from 'components/social-graph-page/network/preview-pane/edge-coaccusals-pane';
+import PreviewPane from 'components/social-graph-page/network/preview-pane';
 import * as intercomUtils from 'utils/intercom';
 import { NETWORK_PREVIEW_PANE } from 'utils/constants';
 
@@ -32,38 +24,31 @@ describe('NetworkGraph component', function () {
       },
     },
   });
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
 
   it('should render all sections correctly', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <NetworkGraph unitId='232' title='This is a Social Graph title.'/>
-      </Provider>
+    const wrapper = shallow(
+      <NetworkGraph unitId='232' title='This is a Social Graph title.'/>
     );
 
-    findRenderedDOMComponentWithClass(instance, 'social-graph-title').textContent.should.eql(
+    wrapper.find('.social-graph-title').text().should.eql(
       'This is a Social Graph title.'
     );
-    findRenderedDOMComponentWithClass(instance, 'coaccusals-threshold-text').textContent.should.eql(
+    wrapper.find('.coaccusals-threshold-text').text().should.eql(
       'Minimum Coaccusal Threshold'
     );
-    scryRenderedComponentsWithType(instance, AnimatedSocialGraphContainer).should.have.length(1);
-    scryRenderedComponentsWithType(instance, RightPaneSection).should.have.length(1);
-    const slider = findRenderedComponentWithType(instance, Slider);
-    slider.props.step.should.eql(1);
-    slider.props.min.should.eql(1);
-    slider.props.max.should.eql(4);
-    slider.props.defaultValue.should.eql(2);
-    slider.props.value.should.eql(2);
+    wrapper.find(AnimatedSocialGraphContainer).should.have.length(1);
+    wrapper.find(RightPaneSection).should.have.length(1);
+    const slider = wrapper.find(Slider);
+    slider.prop('step').should.equal(1);
+    slider.prop('min').should.equal(1);
+    slider.prop('max').should.equal(4);
+    slider.prop('defaultValue').should.equal(2);
+    slider.prop('value').should.equal(2);
   });
 
   it('should call requestSocialGraphNetwork with correct unitId when componentDidMount', function () {
     const requestSocialGraphNetworkStub = stub();
-    instance = renderIntoDocument(
+    mount(
       <Provider store={ store }>
         <NetworkGraph
           requestSocialGraphNetwork={ requestSocialGraphNetworkStub }
@@ -80,7 +65,7 @@ describe('NetworkGraph component', function () {
 
   it('should call requestSocialGraphNetwork with correct officerIds when componentDidMount', function () {
     const requestSocialGraphNetworkStub = stub();
-    instance = renderIntoDocument(
+    mount(
       <Provider store={ store }>
         <NetworkGraph
           requestSocialGraphNetwork={ requestSocialGraphNetworkStub }
@@ -98,7 +83,7 @@ describe('NetworkGraph component', function () {
 
   it('should call requestSocialGraphNetwork with correct pinboardId when componentDidMount', function () {
     const requestSocialGraphNetworkStub = stub();
-    instance = renderIntoDocument(
+    mount(
       <Provider store={ store }>
         <NetworkGraph
           requestSocialGraphNetwork={ requestSocialGraphNetworkStub }
@@ -115,7 +100,7 @@ describe('NetworkGraph component', function () {
 
   it('should not call requestSocialGraphNetwork if both unitId and officerIds are missing', function () {
     const requestSocialGraphNetworkStub = stub();
-    instance = renderIntoDocument(
+    shallow(
       <Provider store={ store }>
         <NetworkGraph
           requestSocialGraphNetwork={ requestSocialGraphNetworkStub }
@@ -127,7 +112,7 @@ describe('NetworkGraph component', function () {
 
   it('should call requestSocialGraphAllegations with correct unitId when componentDidMount', function () {
     const requestSocialGraphAllegationsStub = stub();
-    instance = renderIntoDocument(
+    mount(
       <Provider store={ store }>
         <NetworkGraph
           requestSocialGraphAllegations={ requestSocialGraphAllegationsStub }
@@ -144,7 +129,7 @@ describe('NetworkGraph component', function () {
 
   it('should call requestSocialGraphAllegations with correct officerIds when componentDidMount', function () {
     const requestSocialGraphAllegationsStub = stub();
-    instance = renderIntoDocument(
+    mount(
       <Provider store={ store }>
         <NetworkGraph
           requestSocialGraphAllegations={ requestSocialGraphAllegationsStub }
@@ -161,7 +146,7 @@ describe('NetworkGraph component', function () {
 
   it('should not call requestSocialGraphAllegations if both unitId and officerIds are missing', function () {
     const requestSocialGraphAllegationsStub = stub();
-    instance = renderIntoDocument(
+    mount(
       <Provider store={ store }>
         <NetworkGraph
           requestSocialGraphAllegations={ requestSocialGraphAllegationsStub }
@@ -174,7 +159,7 @@ describe('NetworkGraph component', function () {
 
   it('should call requestSocialGraphOfficer with correct officerIds when componentDidMount', function () {
     const requestSocialGraphOfficersStub = stub();
-    instance = renderIntoDocument(
+    mount(
       <Provider store={ store }>
         <NetworkGraph
           requestSocialGraphOfficers={ requestSocialGraphOfficersStub }
@@ -191,7 +176,7 @@ describe('NetworkGraph component', function () {
 
   it('should call requestSocialGraphOfficer with correct unitId when componentDidMount', function () {
     const requestSocialGraphOfficersStub = stub();
-    instance = renderIntoDocument(
+    mount(
       <Provider store={ store }>
         <NetworkGraph
           requestSocialGraphOfficers={ requestSocialGraphOfficersStub }
@@ -208,7 +193,7 @@ describe('NetworkGraph component', function () {
 
   it('should not call requestSocialGraphOfficer if both unitId and officerIds are missing', function () {
     const requestSocialGraphOfficersStub = stub();
-    instance = renderIntoDocument(
+    mount(
       <Provider store={ store }>
         <NetworkGraph
           requestSocialGraphOfficers={ requestSocialGraphOfficersStub }
@@ -221,7 +206,7 @@ describe('NetworkGraph component', function () {
   it('should hide Intercom launcher when componentDidMounted', function () {
     stub(intercomUtils, 'showIntercomLauncher');
 
-    instance = renderIntoDocument(
+    mount(
       <Provider store={ store }>
         <NetworkGraph/>
       </Provider>
@@ -233,13 +218,13 @@ describe('NetworkGraph component', function () {
 
   it('should add mousedown event when componentDidMounted', function () {
     stub(window, 'addEventListener');
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Provider store={ store }>
         <NetworkGraph/>
       </Provider>
     );
 
-    const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
+    const networkGraph = wrapper.find(NetworkGraph).dive();
     window.addEventListener.should.be.calledWith('mousedown', networkGraph.handleClickOutside);
     window.addEventListener.restore();
   });
@@ -247,13 +232,13 @@ describe('NetworkGraph component', function () {
   it('should show Intercom launcher again when componentWillUnmount', function () {
     stub(intercomUtils, 'showIntercomLauncher');
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <NetworkGraph/>
       </Provider>
     );
     intercomUtils.showIntercomLauncher.resetHistory();
-    unmountComponentSuppressError(instance);
+    wrapper.unmount();
     intercomUtils.showIntercomLauncher.should.be.calledWith(true);
 
     intercomUtils.showIntercomLauncher.restore();
@@ -261,22 +246,21 @@ describe('NetworkGraph component', function () {
 
   it('should remove mousedown event when componentWillUnmount', function () {
     stub(window, 'removeEventListener');
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <NetworkGraph/>
       </Provider>
     );
-    const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
+    const networkGraph = wrapper.find(NetworkGraph);
 
-    unmountComponentSuppressError(instance);
-
+    wrapper.unmount();
     window.removeEventListener.should.be.calledWith('mousedown', networkGraph.handleClickOutside);
     window.removeEventListener.restore();
   });
 
   it('should fetch data again when componentDidUpdate', function () {
     const requestSocialGraphNetworkStub = stub();
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <NetworkGraph
           requestSocialGraphNetwork={ requestSocialGraphNetworkStub }
@@ -291,7 +275,7 @@ describe('NetworkGraph component', function () {
       'complaint_origin': 'CIVILIAN',
     });
 
-    const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
+    const networkGraph = wrapper.find(NetworkGraph);
     networkGraph.setState({ complaintOrigin: 'ALL', thresholdValue: 3 });
 
     requestSocialGraphNetworkStub.should.be.calledWith({
@@ -302,34 +286,28 @@ describe('NetworkGraph component', function () {
   });
 
   it('should update complaint origin value when click on complaint origin label', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <NetworkGraph officerIds='123,456,789'/>
-      </Provider>
+    const wrapper = shallow(
+      <NetworkGraph officerIds='123,456,789'/>
     );
-    const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
-    const complaintOriginAll= scryRenderedDOMComponentsWithClass(networkGraph, 'complaint-origin-option')[0];
-    const complaintOriginOfficer = scryRenderedDOMComponentsWithClass(networkGraph, 'complaint-origin-option')[2];
-    networkGraph.state.complaintOrigin.should.eql('CIVILIAN');
-    Simulate.click(complaintOriginAll);
-    networkGraph.state.complaintOrigin.should.eql('ALL');
-    Simulate.click(complaintOriginOfficer);
-    networkGraph.state.complaintOrigin.should.eql('OFFICER');
+    const complaintOriginAll= wrapper.find('.complaint-origin-option').at(0);
+    const complaintOriginOfficer = wrapper.find('.complaint-origin-option').at(2);
+    wrapper.state('complaintOrigin').should.equal('CIVILIAN');
+    complaintOriginAll.simulate('click');
+    wrapper.state('complaintOrigin').should.equal('ALL');
+    complaintOriginOfficer.simulate('click');
+    wrapper.state('complaintOrigin').should.equal('OFFICER');
   });
 
   it('should update value when click on coaccusals threshold slider', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <NetworkGraph officerIds='123,456,789'/>
-      </Provider>
+    const wrapper = shallow(
+      <NetworkGraph officerIds='123,456,789'/>
     );
 
-    const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
-    networkGraph.state.thresholdValue.should.equal(2);
+    wrapper.state('thresholdValue').should.equal(2);
 
-    const coaccusalsThresholdSlider = findRenderedComponentWithType(instance, Slider);
-    coaccusalsThresholdSlider.props.onChange(3);
-    networkGraph.state.thresholdValue.should.equal(3);
+    const coaccusalsThresholdSlider = wrapper.find(Slider);
+    coaccusalsThresholdSlider.prop('onChange')(3);
+    wrapper.state('thresholdValue').should.equal(3);
   });
 
   it('should render officer preview-pane if there is selectedOfficerId', function () {
@@ -374,13 +352,13 @@ describe('NetworkGraph component', function () {
         },
       },
     };
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <NetworkGraph selectedOfficerId={ 123 } networkPreviewPaneData={ networkPreviewPaneData }/>
       </Provider>
     );
-    scryRenderedComponentsWithType(instance, OfficerPane).should.have.length(1);
-    scryRenderedComponentsWithType(instance, RightPaneSection).should.have.length(0);
+    wrapper.find(OfficerPane).should.have.length(1);
+    wrapper.find(RightPaneSection).exists().should.be.false();
   });
 
   it('should render edge coaccusals preview-pane if there is selectedEdge', function () {
@@ -421,25 +399,25 @@ describe('NetworkGraph component', function () {
         },
       },
     };
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <NetworkGraph selectedOfficerId={ 123 } networkPreviewPaneData={ networkPreviewPaneData }/>
       </Provider>
     );
-    scryRenderedComponentsWithType(instance, EdgeCoaccusalsPane).should.have.length(1);
-    scryRenderedComponentsWithType(instance, RightPaneSection).should.have.length(0);
+    wrapper.find(EdgeCoaccusalsPane).exists().should.be.true();
+    wrapper.find(RightPaneSection).exists().should.be.false();
   });
 
   it('should call updateSelectedOfficerId when clicking outside and there is selectedOfficerId', function () {
     const updateSelectedOfficerIdStub = stub();
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Provider store={ store }>
         <NetworkGraph updateSelectedOfficerId={ updateSelectedOfficerIdStub } selectedOfficerId={ 123 } />
       </Provider>
     );
-    const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
-    const leftSection = findRenderedDOMComponentWithClass(instance, 'left-section');
-    networkGraph.handleClickOutside({ target: findDOMNode(leftSection) });
+    const networkGraph = wrapper.find(NetworkGraph);
+    const leftSection = wrapper.find('.left-section');
+    networkGraph.handleClickOutside({ target: leftSection.getDOMNode() });
     updateSelectedOfficerIdStub.should.be.calledWith(null);
   });
 
@@ -450,14 +428,14 @@ describe('NetworkGraph component', function () {
       targetOfficerName: 'Edward May',
       coaccusedCount: 10,
     };
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Provider store={ store }>
         <NetworkGraph updateSelectedEdge={ updateSelectedEdgeStub } selectedEdge={ selectedEdge } />
       </Provider>
     );
-    const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
-    const leftSection = findRenderedDOMComponentWithClass(instance, 'left-section');
-    networkGraph.handleClickOutside({ target: findDOMNode(leftSection) });
+    const networkGraph = wrapper.find(NetworkGraph);
+    const leftSection = wrapper.find('.left-section');
+    networkGraph.handleClickOutside({ target: leftSection.getDOMNode() });
     updateSelectedEdgeStub.should.be.calledWith(null);
   });
 
@@ -468,7 +446,7 @@ describe('NetworkGraph component', function () {
       targetOfficerName: 'Edward May',
       coaccusedCount: 10,
     };
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Provider store={ store }>
         <NetworkGraph
           updateSelectedEdge={ updateSelectedEdgeStub }
@@ -477,22 +455,22 @@ describe('NetworkGraph component', function () {
         />
       </Provider>
     );
-    const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
-    const leftSection = findRenderedDOMComponentWithClass(instance, 'left-section');
-    networkGraph.handleClickOutside({ target: findDOMNode(leftSection) });
+    const networkGraph = wrapper.find(NetworkGraph);
+    const leftSection = wrapper.find('.left-section');
+    networkGraph.handleClickOutside({ target: leftSection.getDOMNode() });
     updateSelectedEdgeStub.should.not.be.called();
   });
 
   it('should call updateSelectedCrid when clicking outside and there is selectedCrid', function () {
     const updateSelectedCridStub = stub();
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Provider store={ store }>
         <NetworkGraph updateSelectedCrid={ updateSelectedCridStub } selectedCrid={ '123456' } />
       </Provider>
     );
-    const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
-    const leftSection = findRenderedDOMComponentWithClass(instance, 'left-section');
-    networkGraph.handleClickOutside({ target: findDOMNode(leftSection) });
+    const networkGraph = wrapper.find(NetworkGraph);
+    const leftSection = wrapper.find('.left-section');
+    networkGraph.handleClickOutside({ target: leftSection.getDOMNode() });
     updateSelectedCridStub.should.be.calledWith(null);
   });
 
@@ -534,43 +512,36 @@ describe('NetworkGraph component', function () {
             { axis: 'Use of Force Reports', value: 90 },
             { axis: 'Officer Allegations', value: 82 },
             { axis: 'Civilian Allegations', value: 97 },
-
           ],
           visualTokenBackground: '#f52524',
           textColor: '#DFDFDF',
         },
       },
     };
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <NetworkGraph
-          updateSelectedOfficerId={ updateSelectedOfficerIdStub }
-          updateSelectedCrid={ updateSelectedCridStub }
-          updateSelectedEdge={ updateSelectedEdgeStub }
-          selectedOfficerId={ 123 }
-          networkPreviewPaneData={ networkPreviewPaneData }
-        />
-      </Provider>
+    const wrapper = shallow(
+      <NetworkGraph
+        updateSelectedOfficerId={ updateSelectedOfficerIdStub }
+        updateSelectedCrid={ updateSelectedCridStub }
+        updateSelectedEdge={ updateSelectedEdgeStub }
+        selectedOfficerId={ 123 }
+        networkPreviewPaneData={ networkPreviewPaneData }
+      />
     );
-    const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
-    const officerPane = findRenderedComponentWithType(instance, OfficerPane);
-    networkGraph.handleClickOutside({ target: findDOMNode(officerPane) });
+    const previewPane = wrapper.find(PreviewPane);
+    wrapper.instance().handleClickOutside({ target: previewPane.render() });
     updateSelectedOfficerIdStub.should.not.be.called();
     updateSelectedCridStub.should.not.be.called();
     updateSelectedEdgeStub.should.not.be.called();
   });
 
   it('should update sortedOfficerIds state when calling updateSortedOfficerIds', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <NetworkGraph unitId='232'/>
-      </Provider>
+    const wrapper = shallow(
+      <NetworkGraph unitId='232'/>
     );
 
-    const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
-    networkGraph.state.sortedOfficerIds.should.eql([]);
-    networkGraph.updateSortedOfficerIds([123, 456, 789]);
-    networkGraph.state.sortedOfficerIds.should.eql([123, 456, 789]);
+    wrapper.state('sortedOfficerIds').should.eql([]);
+    wrapper.instance().updateSortedOfficerIds([123, 456, 789]);
+    wrapper.state('sortedOfficerIds').should.eql([123, 456, 789]);
   });
 
   it('should show/hide left sidebar and right sidebar when clicking on toggle sidebars button', function () {
@@ -617,61 +588,49 @@ describe('NetworkGraph component', function () {
         },
       },
     });
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <NetworkGraph officerIds='123,456,789'/>
       </Provider>
     );
 
-    const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
-    const toggleSidebarsButton = findRenderedDOMComponentWithClass(instance, 'toggle-sidebars-btn');
-    networkGraph.state.sidebarsStatus.should.equal('SHOW_BOTH');
-    scryRenderedDOMComponentsWithClass(instance, 'left-section').should.have.length(1);
-    scryRenderedDOMComponentsWithClass(instance, 'right-section').should.have.length(1);
+    const toggleSidebarsButton = wrapper.find('.toggle-sidebars-btn');
+    wrapper.find('.left-section').exists().should.be.true();
+    wrapper.find('.right-section').exists().should.be.true();
 
-    Simulate.click(toggleSidebarsButton);
-    networkGraph.state.sidebarsStatus.should.equal('SHOW_RIGHT');
-    scryRenderedDOMComponentsWithClass(instance, 'left-section').should.have.length(0);
-    scryRenderedDOMComponentsWithClass(instance, 'right-section').should.have.length(1);
+    toggleSidebarsButton.simulate('click');
+    wrapper.find('.left-section').exists().should.be.false();
+    wrapper.find('.right-section').exists().should.be.true();
 
-    Simulate.click(toggleSidebarsButton);
-    networkGraph.state.sidebarsStatus.should.equal('HIDE_BOTH');
-    scryRenderedDOMComponentsWithClass(instance, 'left-section').should.have.length(0);
-    scryRenderedDOMComponentsWithClass(instance, 'right-section').should.have.length(0);
+    toggleSidebarsButton.simulate('click');
+    wrapper.find('.left-section').exists().should.be.false();
+    wrapper.find('.right-section').exists().should.be.false();
 
-    Simulate.click(toggleSidebarsButton);
-    networkGraph.state.sidebarsStatus.should.equal('SHOW_LEFT');
-    scryRenderedDOMComponentsWithClass(instance, 'left-section').should.have.length(1);
-    scryRenderedDOMComponentsWithClass(instance, 'right-section').should.have.length(0);
+    toggleSidebarsButton.simulate('click');
+    wrapper.find('.left-section').exists().should.be.true();
+    wrapper.find('.right-section').exists().should.be.false();
   });
 
   it('should update performResizeGraph when sidebarsStatus state is difference after updating', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <NetworkGraph officerIds='123,456,789'/>
-      </Provider>
+    const wrapper = shallow(
+      <NetworkGraph officerIds='123,456,789'/>
     );
 
-    const animatedSocialGraph = findRenderedComponentWithType(instance, AnimatedSocialGraphContainer);
-    const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
+    wrapper.setState({ sidebarsStatus: 'SHOW_BOTH' });
+    wrapper.find(AnimatedSocialGraphContainer).prop('performResizeGraph').should.be.false();
 
-    networkGraph.setState({ sidebarsStatus: 'SHOW_BOTH' });
-    animatedSocialGraph.props.performResizeGraph.should.be.false();
-
-    networkGraph.setState({ sidebarsStatus: 'HIDE_BOTH' });
-    animatedSocialGraph.props.performResizeGraph.should.be.true();
+    wrapper.setState({ sidebarsStatus: 'HIDE_BOTH' });
+    wrapper.find(AnimatedSocialGraphContainer).prop('performResizeGraph').should.be.true();
   });
 
   it('should render mainTabsContent if there is mainTabsContent', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <NetworkGraph
-          unitId='232'
-          mainTabsContent={ <div className='main-tabs-content'>This is main tabs content</div> }
-        />
-      </Provider>
+    const wrapper = shallow(
+      <NetworkGraph
+        unitId='232'
+        mainTabsContent={ <div className='main-tabs-content'>This is main tabs content</div> }
+      />
     );
-    const mainTabsContent = findRenderedDOMComponentWithClass(instance, 'main-tabs-content');
-    mainTabsContent.textContent.should.eql('This is main tabs content');
+    const mainTabsContent = wrapper.find('.main-tabs-content');
+    mainTabsContent.text().should.equal('This is main tabs content');
   });
 });

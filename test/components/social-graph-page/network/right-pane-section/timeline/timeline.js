@@ -1,12 +1,7 @@
 import React from 'react';
-import {
-  findRenderedComponentWithType,
-  renderIntoDocument,
-  scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
+import { shallow, mount } from 'enzyme';
 import { spy, stub } from 'sinon';
 
-import { unmountComponentSuppressError, reRender } from 'utils/test';
 import Timeline, { TimelineWithSpinner } from 'components/social-graph-page/network/right-pane-section/timeline';
 import Item from 'components/social-graph-page/network/right-pane-section/timeline/item';
 import LoadingSpinner from 'components/common/loading-spinner';
@@ -14,7 +9,6 @@ import styles from 'components/social-graph-page/network/right-pane-section/time
 
 
 describe('Timeline component', function () {
-  let instance;
   const items = [
     {
       kind: 'YEAR',
@@ -34,18 +28,14 @@ describe('Timeline component', function () {
     },
   ];
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render correctly', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Timeline
         items={ items }
         pathname='/social-graph/'
       />
     );
-    const timelineItems = scryRenderedComponentsWithType(instance, Item);
+    const timelineItems = wrapper.find(Item);
     timelineItems.should.have.length(2);
   });
 
@@ -62,26 +52,23 @@ describe('Timeline component', function () {
         timelineIdx: 1,
       },
     ];
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Timeline
         items={ items }
         pathname='/social-graph/'
       />
     );
-    const addScrollEventsSpy = stub(instance, 'addScrollEvents');
-    reRender(
-      <Timeline
-        items={ newItem }
-        pathname='/social-graph/'
-      />,
-      instance
-    );
+    const addScrollEventsSpy = stub(wrapper.instance(), 'addScrollEvents');
+    wrapper.setProps({
+      items: newItem,
+      pathname: '/social-graph/',
+    });
     addScrollEventsSpy.should.be.called();
     addScrollEventsSpy.restore();
   });
 
   it('should scrollTo timeline item when trigger change from external', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Timeline
         items={ items }
         pathname='/social-graph/'
@@ -89,28 +76,25 @@ describe('Timeline component', function () {
         timelineIdxTriggerChange={ 0 }
       />
     );
-    const scrollControllerScrollToStub = stub(instance.scrollController, 'scrollTo');
-    reRender(
-      <Timeline
-        items={ items }
-        pathname='/social-graph/'
-        timelineIdx={ 0 }
-        timelineIdxTriggerChange={ 1 }
-      />,
-      instance
-    );
+    const scrollControllerScrollToStub = stub(wrapper.instance().scrollController, 'scrollTo');
+    wrapper.setProps({
+      items: items,
+      pathname: '/social-graph/',
+      timelineIdx: 0,
+      timelineIdxTriggerChange: 1,
+    });
     scrollControllerScrollToStub.should.be.calledWith('#trigger-0');
   });
 
   it('should destroy scrollController when componentWillUnmount', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Timeline
         items={ items }
         pathname='/social-graph/'
       />
     );
-    const scrollControllerDestroySpy = spy(instance.scrollController, 'destroy');
-    unmountComponentSuppressError(instance);
+    const scrollControllerDestroySpy = spy(wrapper.instance().scrollController, 'destroy');
+    wrapper.unmount();
     scrollControllerDestroySpy.should.be.calledWith(true);
   });
 
@@ -120,25 +104,22 @@ describe('Timeline component', function () {
       kind: 'CR',
       timelineIdx: 3,
     };
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Timeline
         items={ items }
         pathname='/social-graph/'
         timelineIdxTriggerChange={ 0 }
       />
     );
-    instance = reRender(
-      <Timeline
-        items={ items }
-        pathname='/social-graph/'
-        timelineIdx={ 2 }
-        refreshIntervalId={ 0 }
-        updateTimelineIdx={ updateTimelineIdxStub }
-        timelineIdxTriggerChange={ 0 }
-      />,
-      instance
-    );
-    instance.handleScroll(item);
+    wrapper.setProps({
+      items: items,
+      pathname: '/social-graph/',
+      timelineIdx: 2,
+      refreshIntervalId: 0,
+      updateTimelineIdx: updateTimelineIdxStub,
+      timelineIdxTriggerChange: 0,
+    });
+    wrapper.instance().handleScroll(item);
     updateTimelineIdxStub.should.be.calledWith(3);
   });
 
@@ -147,7 +128,7 @@ describe('Timeline component', function () {
       kind: 'CR',
       timelineIdx: 3,
     };
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Timeline
         items={ items }
         pathname='/social-graph/'
@@ -155,14 +136,14 @@ describe('Timeline component', function () {
         timelineIdx={ 3 }
       />
     );
-    instance.externalUpdate.should.be.true();
-    instance.handleScroll(item);
-    instance.externalUpdate.should.be.false();
+    wrapper.instance().externalUpdate.should.be.true();
+    wrapper.instance().handleScroll(item);
+    wrapper.instance().externalUpdate.should.be.false();
   });
 
   it('should call handleScroll when timeline reach ScrollMagic.Scene', function (done) {
     const handleScrollStub = stub(Timeline.prototype, 'handleScroll');
-    instance = renderIntoDocument(
+    mount(
       <Timeline
         items={ items }
         timelineIdx={ 0 }
@@ -178,7 +159,7 @@ describe('Timeline component', function () {
 
   context('withLoadingSpinner', function () {
     it('should render LoadingSpinner only if requesting is true', function () {
-      instance = renderIntoDocument(
+      const wrapper = shallow(
         <TimelineWithSpinner
           items={ items }
           timelineIdx={ 0 }
@@ -187,14 +168,14 @@ describe('Timeline component', function () {
         />
       );
 
-      scryRenderedComponentsWithType(instance, Timeline).should.have.length(0);
+      wrapper.find(Timeline).exists().should.be.false();
 
-      const loadingSpinner = findRenderedComponentWithType(instance, LoadingSpinner);
-      loadingSpinner.props.className.should.equal(styles.timelineLoading);
+      const loadingSpinner = wrapper.find(LoadingSpinner);
+      loadingSpinner.prop('className').should.equal(styles.timelineLoading);
     });
 
     it('should not render LoadingSpinner if requesting is false', function () {
-      instance = renderIntoDocument(
+      const wrapper = shallow(
         <TimelineWithSpinner
           items={ items }
           timelineIdx={ 0 }
@@ -203,8 +184,8 @@ describe('Timeline component', function () {
         />
       );
 
-      scryRenderedComponentsWithType(instance, Timeline).should.have.length(1);
-      scryRenderedComponentsWithType(instance, LoadingSpinner).should.have.length(0);
+      wrapper.find(Timeline).should.have.length(1);
+      wrapper.find(LoadingSpinner).exists().should.be.false();
     });
   });
 });

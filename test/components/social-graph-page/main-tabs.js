@@ -1,14 +1,9 @@
 import React from 'react';
+import { mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { stub } from 'sinon';
-import {
-  findRenderedDOMComponentWithClass,
-  renderIntoDocument,
-  Simulate,
-} from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import { SOCIAL_GRAPH_MAIN_TAB_NAMES } from 'utils/constants';
 import MainTabs from 'components/social-graph-page/main-tabs';
 
@@ -21,15 +16,10 @@ describe('MainTabs component', function () {
       geographicData: [],
     },
   });
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
 
   it('should call changeTab when clicking tab name', function () {
     const stubChangeTab = stub();
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <MainTabs
           changeTab={ stubChangeTab }
@@ -38,11 +28,11 @@ describe('MainTabs component', function () {
       </Provider>
     );
 
-    const networkTab = findRenderedDOMComponentWithClass(instance, 'social-graph-btn');
-    const geographicTab = findRenderedDOMComponentWithClass(instance, 'geographic-btn');
-    Simulate.click(geographicTab);
+    const networkTab = wrapper.find('.social-graph-btn');
+    const geographicTab = wrapper.find('.geographic-btn');
+    geographicTab.simulate('click');
     stubChangeTab.should.be.calledWith('GEOGRAPHIC');
-    Simulate.click(networkTab);
+    networkTab.simulate('click');
     stubChangeTab.should.be.calledWith('NETWORK');
   });
 });

@@ -1,17 +1,11 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  scryRenderedComponentsWithType,
-  findRenderedDOMComponentWithClass,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import Cr from 'components/social-graph-page/network/right-pane-section/timeline/item/cr';
 import Attachments from 'components/social-graph-page/network/right-pane-section/timeline/item/cr/attachments';
 
 
 describe('Cr component', function () {
-  let instance;
   const allegationItem = {
     kind: 'CR',
     crid: '123456',
@@ -35,21 +29,17 @@ describe('Cr component', function () {
     key: '123456',
   };
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render correctly', function () {
-    instance = renderIntoDocument(<Cr item={ allegationItem }/>);
-    const kind = findRenderedDOMComponentWithClass(instance, 'kind');
-    const date = findRenderedDOMComponentWithClass(instance, 'date');
-    const category = findRenderedDOMComponentWithClass(instance, 'category');
-    const finding = findRenderedDOMComponentWithClass(instance, 'subcategory');
-    kind.textContent.should.eql('C');
-    date.textContent.should.eql('OCT 8');
-    category.textContent.should.eql('Use of Force');
-    finding.textContent.should.eql('Excessive Force - Use Of Firearm / Off Duty - No Injury');
-    const attachments = scryRenderedComponentsWithType(instance, Attachments);
+    const wrapper = shallow(<Cr item={ allegationItem }/>);
+    const kind = wrapper.find('.kind');
+    const date = wrapper.find('.date');
+    const category = wrapper.find('.category');
+    const finding = wrapper.find('.subcategory');
+    kind.text().should.equal('C');
+    date.text().should.equal('OCT 8');
+    category.text().should.equal('Use of Force');
+    finding.text().should.equal('Excessive Force - Use Of Firearm / Off Duty - No Injury');
+    const attachments = wrapper.find(Attachments);
     attachments.should.have.length(1);
   });
 });

@@ -1,22 +1,11 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  scryRenderedComponentsWithType,
-  findRenderedDOMComponentWithClass,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import EdgeCoaccusalsPane from 'components/social-graph-page/network/preview-pane/edge-coaccusals-pane';
 import Item from 'components/social-graph-page/network/right-pane-section/timeline/item';
 
 
 describe('EdgeCoaccusalsPane component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render correctly', function () {
     const items = [
       {
@@ -41,16 +30,16 @@ describe('EdgeCoaccusalsPane component', function () {
       targetOfficerName: 'Edward May',
       coaccusedCount: 10,
     };
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <EdgeCoaccusalsPane
         items={ items }
         info={ info }
         pathname='/social-graph/'
       />
     );
-    const edgeItems = scryRenderedComponentsWithType(instance, Item);
-    const edgeHeader = findRenderedDOMComponentWithClass(instance, 'edge-coaccusals-pane-header');
+    const edgeItems = wrapper.find(Item);
+    const edgeHeader = wrapper.find('.edge-coaccusals-pane-header');
     edgeItems.should.have.length(2);
-    edgeHeader.textContent.should.eql('Jerome Finnigan & Edward May\'s 10 coaccusals');
+    edgeHeader.text().should.equal('Jerome Finnigan & Edward May\'s 10 coaccusals');
   });
 });
