@@ -1,8 +1,7 @@
 import React from 'react';
-import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 import { spy } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import TRRInfoSection from 'components/trr-page/trr-info-section';
 import TRRDetail from 'components/trr-page/trr-info-section/trr-detail';
 import TRRDocument from 'components/trr-page/trr-info-section/trr-document';
@@ -10,12 +9,6 @@ import TRRLocation from 'components/trr-page/trr-info-section/trr-location';
 
 
 describe('TRRInfoSection component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render TRRDetail, TRRDocument and TRRLocation', function () {
     const trrLocation = {
       address: '22XX Damen Ave',
@@ -33,8 +26,7 @@ describe('TRRInfoSection component', function () {
     };
     const openRequestTRRDocumentModal = spy();
 
-
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <TRRInfoSection
         trrDetail={ trrDetail }
         trrDocument={ trrDocument }
@@ -42,23 +34,23 @@ describe('TRRInfoSection component', function () {
         openRequestTRRDocumentModal={ openRequestTRRDocumentModal }
       />
     );
-    const detail = findRenderedComponentWithType(instance, TRRDetail);
-    const document = findRenderedComponentWithType(instance, TRRDocument);
-    const location = findRenderedComponentWithType(instance, TRRLocation);
+    const detail = wrapper.find(TRRDetail);
+    const document = wrapper.find(TRRDocument);
+    const location = wrapper.find(TRRLocation);
 
-    detail.props.subjectDemographic.should.eql('Black, Male, 21 years old');
-    detail.props.category.should.eql('Other');
-    detail.props.forceTypes.should.eql([
+    detail.prop('subjectDemographic').should.equal('Black, Male, 21 years old');
+    detail.prop('category').should.equal('Other');
+    detail.prop('forceTypes').should.eql([
       'Stiffened (Dead Weight)',
       'Did Not Follow Verbal Direction',
       'Imminent Threat Of Battery',
     ]);
 
-    document.props.alreadyRequested.should.be.false();
+    document.prop('alreadyRequested').should.be.false();
 
-    location.props.address.should.eql('22XX Damen Ave');
-    location.props.incidentDate.should.eql('APR 18, 2004');
-    location.props.beat.should.eql('1034');
-    location.props.locationType.should.eql('Police Facility/Veh Parking Lot');
+    location.prop('address').should.equal('22XX Damen Ave');
+    location.prop('incidentDate').should.equal('APR 18, 2004');
+    location.prop('beat').should.equal('1034');
+    location.prop('locationType').should.equal('Police Facility/Veh Parking Lot');
   });
 });

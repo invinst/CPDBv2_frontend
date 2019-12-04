@@ -1,41 +1,28 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 import { Link } from 'react-router';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  findRenderedComponentWithType,
-  scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
-import { findDOMNode } from 'react-dom';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import LinkItem from 'components/trr-page/officer-section/link-item';
 import NavigationButton from 'components/trr-page/officer-section/navigation-button';
 
 
 describe('LinkItem component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render title and value only if navigationText are not passed in', function () {
-    instance = renderIntoDocument(<LinkItem to='/path/to/' title='Some title' value='Some value'/>);
-    findRenderedComponentWithType(instance, Link).props.to.should.eql('/path/to/');
+    const wrapper = shallow(<LinkItem to='/path/to/' title='Some title' value='Some value'/>);
+    wrapper.find(Link).prop('to').should.equal('/path/to/');
 
-    findRenderedDOMComponentWithClass(instance, 'link-item-title').textContent.should.containEql('Some title');
-    findRenderedDOMComponentWithClass(instance, 'link-item-value').textContent.should.containEql('Some value');
-    scryRenderedComponentsWithType(instance, NavigationButton).should.have.length(0);
+    wrapper.find('.link-item-title').text().should.containEql('Some title');
+    wrapper.find('.link-item-value').text().should.containEql('Some value');
+    wrapper.find(NavigationButton).exists().should.be.false();
   });
 
   it('should have navigation-button-container class name to highlight NavigationButton when hovering', function () {
-    instance = renderIntoDocument(<LinkItem to='/path/to/' title='Some title' value='Some value'/>);
-    findDOMNode(instance).className.should.containEql('navigation-button-container');
+    const wrapper = shallow(<LinkItem to='/path/to/' title='Some title' value='Some value'/>);
+    wrapper.prop('className').should.containEql('navigation-button-container');
   });
 
   it('should render NavigationButton if navigationText are available', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <LinkItem
         title='Some title'
         value='Some value'
@@ -43,6 +30,6 @@ describe('LinkItem component', function () {
         hideBorder={ true }
       />
     );
-    findRenderedComponentWithType(instance, NavigationButton).props.text.should.eql('Some navigation text');
+    wrapper.find(NavigationButton).prop('text').should.equal('Some navigation text');
   });
 });
