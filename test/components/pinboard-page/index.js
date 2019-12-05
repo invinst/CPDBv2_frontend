@@ -23,8 +23,7 @@ import PinnedTRRsContainer from 'containers/pinboard-page/pinned-trrs';
 import PinboardPageContainer from 'containers/pinboard-page';
 import RelevantSectionContainer from 'containers/pinboard-page/relevant-section';
 import SearchBar from 'components/pinboard-page/search-bar';
-import { PinboardPaneSectionWithSpinner } from 'components/pinboard-page/pinboard-pane-section';
-import { PreviewPaneWithOverlay } from 'components/search-page/search-results/preview-pane';
+import { PreviewPaneWithOverlay } from 'components/common/preview-pane';
 import RootReducer from 'reducers/root-reducer';
 import FooterContainer from 'containers/footer-container';
 import PinboardsContainer from 'containers/pinboard-page/pinboards-container';
@@ -49,7 +48,7 @@ describe('PinboardPage component', function () {
   };
 
   const createPinboardPage = (pinboard, editModeOn) => ({
-    graphData: { requesting: false, data: {} },
+    graphData: { requesting: false, cachedData: {} },
     geographicData: { requesting: false, data: [] },
     currentTab: 'NETWORK',
     relevantDocuments: defaultPaginationState,
@@ -264,8 +263,6 @@ describe('PinboardPage component', function () {
       </Router>
     );
 
-    findRenderedComponentWithType(instance, PinboardPaneSectionWithSpinner);
-
     findRenderedComponentWithType(instance, RelevantSectionContainer);
     const footer = findRenderedComponentWithType(instance, FooterContainer);
     footer.props.className.should.eql('footer');
@@ -300,7 +297,6 @@ describe('PinboardPage component', function () {
 
     findDOMNode(findRenderedComponentWithType(instance, PinboardPage)).className.should.containEql('empty');
 
-    scryRenderedComponentsWithType(instance, PinboardPaneSectionWithSpinner).should.have.length(0);
     scryRenderedDOMComponentsWithClass(instance, 'pinboard-title').should.have.length(0);
     scryRenderedDOMComponentsWithClass(instance, 'pinboard-description').should.have.length(0);
     scryRenderedComponentsWithType(instance, RelevantSectionContainer).should.have.length(0);
@@ -453,7 +449,7 @@ describe('PinboardPage component', function () {
       'officer_ids': [123],
     };
     const pinboardPageData = createPinboardPage(pinboard);
-    set(pinboardPageData, 'officerItems', { requesting: false, items: [{ id: 123 }], removingItems: [] });
+    set(pinboardPageData, 'officerItems', { requesting: false, items: [{ id: 123 }] });
     const state = {
       pinboardPage: pinboardPageData,
       pathname: 'pinboard/5cd06f2b',

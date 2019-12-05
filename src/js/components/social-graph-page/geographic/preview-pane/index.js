@@ -3,8 +3,8 @@ import { isEmpty, get } from 'lodash';
 import cx from 'classnames';
 
 import SlideMotion from 'components/animation/slide-motion';
-import CRPane from 'components/common/preview-pane/cr-pane';
-import TRRPane from 'components/common/preview-pane/trr-pane';
+import CRPane from 'components/common/preview-pane/panes/cr-pane';
+import TRRPane from 'components/common/preview-pane/panes/trr-pane';
 import styles from './preview-pane.sass';
 
 

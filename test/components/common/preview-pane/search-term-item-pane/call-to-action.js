@@ -3,7 +3,7 @@ import { findDOMNode } from 'react-dom';
 import { findRenderedDOMComponentWithClass, renderIntoDocument } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import CallToAction from 'components/common/preview-pane/search-term-item-pane/call-to-action';
+import CallToAction from 'components/common/preview-pane/panes/search-term-item-pane/call-to-action';
 
 
 describe('CallToAction component', function () {

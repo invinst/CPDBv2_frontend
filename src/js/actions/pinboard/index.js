@@ -20,12 +20,10 @@ export const updatePinboardInfo = createAction(constants.UPDATE_PINBOARD_INFO);
 
 export const addItemToPinboardState = createAction(constants.ADD_ITEM_TO_PINBOARD_STATE);
 export const removeItemFromPinboardState = createAction(constants.REMOVE_ITEM_FROM_PINBOARD_STATE);
+export const completeRemoveItemFromPinboard = createAction(constants.COMPLETE_REMOVE_ITEM_FROM_PINBOARD);
 export const orderPinboardState = createAction(constants.ORDER_PINBOARD_STATE);
 export const updatePinboardInfoState = createAction(constants.UPDATE_PINBOARD_INFO_STATE);
 export const savePinboard = createAction(constants.SAVE_PINBOARD);
-export const setPinboardHasPendingChanges = createAction(constants.SET_PINBOARD_HAS_PENDING_CHANGES);
-export const savePinboardWithoutChangingState = createAction(constants.SAVE_PINBOARD_WITHOUT_CHANGING_STATE);
-export const handleRemovingItemInPinboardPage = createAction(constants.HANDLE_REMOVING_ITEM_IN_PINBOARD_PAGE);
 
 export const performFetchPinboardRelatedData = createAction(constants.PERFORM_FETCH_PINBOARD_RELATED_DATA);
 
@@ -39,7 +37,7 @@ const cancelFetchRequests = (newRequest) => (...args) => {
 };
 
 export const createPinboard = cancelFetchRequests(
-  ({ officerIds, crids, trrIds, sourcePinboardId }) => post(
+  ({ title, officerIds, crids, trrIds, sourcePinboardId }) => post(
     constants.PINBOARDS_URL,
     [
       constants.PINBOARD_CREATE_REQUEST_START,
@@ -47,7 +45,7 @@ export const createPinboard = cancelFetchRequests(
       constants.PINBOARD_CREATE_REQUEST_FAILURE,
     ],
     pinboardSource && pinboardSource.token
-  )({ 'officer_ids': officerIds, 'crids': crids, 'trr_ids': trrIds, 'source_pinboard_id': sourcePinboardId })
+  )({ title, 'officer_ids': officerIds, 'crids': crids, 'trr_ids': trrIds, 'source_pinboard_id': sourcePinboardId })
 );
 
 export const createNewPinboard = cancelFetchRequests(
@@ -78,6 +76,18 @@ export const updatePinboard = cancelFetchRequests(
   )({ title: title, description: description, 'officer_ids': officerIds, crids: crids, 'trr_ids': trrIds })
 );
 
+export const updatePinboardFromSource = cancelFetchRequests(
+  (id, sourcePinboardId) => put(
+    `${constants.PINBOARDS_URL}${id}/`,
+    [
+      constants.PINBOARD_UPDATE_FROM_SOURCE_REQUEST_START,
+      constants.PINBOARD_UPDATE_FROM_SOURCE_REQUEST_SUCCESS,
+      constants.PINBOARD_UPDATE_FROM_SOURCE_REQUEST_FAILURE,
+    ],
+    pinboardSource && pinboardSource.token
+  )({ 'source_pinboard_id': sourcePinboardId })
+);
+
 export const fetchPinboard = cancelFetchRequests(
   id => get(
     `${constants.PINBOARDS_URL}${id}/`,
@@ -91,7 +101,7 @@ export const fetchPinboard = cancelFetchRequests(
 );
 
 export const fetchPinboardSocialGraph = id => get(
-  `${constants.SOCIAL_GRAPH_NETWORK_API_URL}?pinboard_id=${id}`,
+  constants.SOCIAL_GRAPH_NETWORK_API_URL,
   [
     constants.PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_START,
     constants.PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_SUCCESS,
@@ -99,7 +109,7 @@ export const fetchPinboardSocialGraph = id => get(
     constants.PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_CANCELLED,
   ],
   pinboardSource && pinboardSource.token
-)();
+)({ 'pinboard_id': id });
 
 export const fetchPinboardGeographic = createAction(constants.PINBOARD_GEOGRAPHIC_FETCH_REQUEST_START);
 
@@ -146,8 +156,6 @@ export const fetchOtherPagesPinboardGeographicTrrs = (params) => get(
   ],
   pinboardSource && pinboardSource.token
 )(params);
-
-export const changePinboardTab = createAction(constants.CHANGE_PINBOARD_TAB);
 
 export const fetchPinboardComplaints = id => get(
   `${constants.PINBOARDS_URL}${id}/complaints/`,

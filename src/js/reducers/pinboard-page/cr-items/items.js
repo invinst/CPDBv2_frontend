@@ -5,8 +5,7 @@ import {
   PINBOARD_COMPLAINTS_FETCH_REQUEST_SUCCESS,
   ADD_ITEM_IN_PINBOARD_PAGE,
   ORDER_PINBOARD,
-  REMOVE_ITEM_IN_PINBOARD_PAGE,
-  PINBOARD_ITEM_REMOVE_MODE,
+  COMPLETE_REMOVE_ITEM_FROM_PINBOARD,
   LOCATION_CHANGE,
 } from 'utils/constants';
 
@@ -25,11 +24,11 @@ export default handleActions({
     }
     return currentItems;
   },
-  [REMOVE_ITEM_IN_PINBOARD_PAGE]: (state, action) => {
+  [COMPLETE_REMOVE_ITEM_FROM_PINBOARD]: (state, action) => {
     const currentItems = state;
-    const { id, type, mode } = action.payload;
+    const { id, type } = action.payload;
 
-    if (type === 'CR' && mode !== PINBOARD_ITEM_REMOVE_MODE.API_ONLY) {
+    if (type === 'CR') {
       return _.reject(currentItems, { crid: id });
     }
     return currentItems;

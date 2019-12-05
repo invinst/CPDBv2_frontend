@@ -68,9 +68,14 @@
 
 .pinboard-page
   \:local(.socialGraph)
-    height: 360px
-    border-top: 1px solid $white-two-color
+    height: 342px
+    width: 342px
 
-  .fullscreen
-    \:local(.socialGraph)
-      height: calc(100vh - 93px)
+
+\:local(.social-graph-loading)
+  width: 160px
+  height: 160px
+  position: absolute
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)

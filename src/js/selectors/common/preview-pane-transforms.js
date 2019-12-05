@@ -6,10 +6,7 @@ import { getCurrentAge, formatDate } from 'utils/date';
 import { roundedPercentile } from 'utils/calculations';
 import { DATE_FORMAT, FULL_MONTH_DATE_FORMAT } from 'utils/constants';
 import { getDemographicString } from 'utils/victims';
-import {
-  navigationItemTransform as previewPaneNavigationItemTransform,
-} from './navigation-item-transform';
-import { baseItemTransform } from './search-item-transforms';
+import { navigationItemTransform as previewPaneNavigationItemTransform } from './navigation-item-transform';
 
 
 const mappingRace = (race) => {
@@ -32,7 +29,7 @@ export const previewPaneTransform = item => {
   };
 };
 
-const officerMostComplaintTransform = officer => {
+export const officerMostComplaintTransform = officer => {
   const percentile = extractPercentile(officer);
   return {
     id: officer.id,
@@ -140,7 +137,6 @@ const trrTransform = (item) => {
 };
 
 export const officerTransform = (item) => {
-  const race = item['race'] === 'Unknown' ? null : item['race'];
   const lastPercentile =
     has(item, 'percentile') ? item['percentile'] :
       has(item, 'percentiles') ? last(item['percentiles']) :
@@ -149,13 +145,13 @@ export const officerTransform = (item) => {
   return {
     id: item['id'],
     fullName: item['name'] || item['full_name'],
-    appointedDate: formatDate(item['appointed_date']),
-    resignationDate: formatDate(item['resignation_date']),
+    appointedDate: formatDate(item['appointed_date'] || item['date_of_appt'] ),
+    resignationDate: formatDate(item['resignation_date'] || item['date_of_resignation']),
     badge: item['badge'],
     gender: item['gender'] || '',
     to: item['to'],
     age: getCurrentAge(item['birth_year']) || null,
-    race: race || '',
+    race: item['race'] === 'Unknown' ? '' : item['race'],
     rank: item['rank'],
     unit: {
       id: get(item['unit'], 'id'),
@@ -176,7 +172,7 @@ export const officerTransform = (item) => {
   };
 };
 
-const previewPaneTransformMap = {
+export const previewPaneTransformMap = {
   'SEARCH-TERMS': previewPaneNavigationItemTransform,
   'DATE > CR': crTransform,
   'DATE > TRR': trrTransform,
@@ -194,11 +190,3 @@ const previewPaneTransformMap = {
   RANK: rankTransform,
   'INVESTIGATOR > CR': crTransform,
 };
-
-export const searchResultItemTransform = (item) => ({
-  ...baseItemTransform(item),
-  tags: get(item, 'tags', []),
-  itemIndex: item.itemIndex || 1,
-  isPinned: item.isPinned,
-  ...get(previewPaneTransformMap, item.type, () => {})(item),
-});

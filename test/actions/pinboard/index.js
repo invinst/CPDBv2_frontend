@@ -27,9 +27,7 @@ import {
   removeItemInPinboardPage,
   addItemInPinboardPage,
   fetchLatestRetrievedPinboard,
-  savePinboardWithoutChangingState,
-  handleRemovingItemInPinboardPage,
-  setPinboardHasPendingChanges,
+  updatePinboardFromSource,
 } from 'actions/pinboard';
 import * as constants from 'utils/constants';
 
@@ -83,7 +81,7 @@ describe('pinboard actions', function () {
 
   describe('createPinboard', function () {
     it('should return correct action', function () {
-      createPinboard({ officerIds: [], crids: ['abc'], trrIds: [1] }).should.deepEqual({
+      createPinboard({ title: 'Pinboard title', officerIds: [], crids: ['abc'], trrIds: [1] }).should.deepEqual({
         types: [
           constants.PINBOARD_CREATE_REQUEST_START,
           constants.PINBOARD_CREATE_REQUEST_SUCCESS,
@@ -95,6 +93,7 @@ describe('pinboard actions', function () {
             method: 'post',
             adapter: null,
             data: {
+              title: 'Pinboard title',
               'officer_ids': [],
               crids: ['abc'],
               'trr_ids': [1],
@@ -295,15 +294,6 @@ describe('pinboard actions', function () {
     });
   });
 
-  describe('setPinboardHasPendingChanges', function () {
-    it('should return correct action', function () {
-      setPinboardHasPendingChanges(true).should.deepEqual({
-        type: constants.SET_PINBOARD_HAS_PENDING_CHANGES,
-        payload: true,
-      });
-    });
-  });
-
   describe('orderPinboard', function () {
     it('should return correct action', function () {
       orderPinboard({
@@ -413,8 +403,8 @@ describe('pinboard actions', function () {
         ],
         payload: {
           request: {
-            url: `${constants.SOCIAL_GRAPH_NETWORK_API_URL}?pinboard_id=268a5e58`,
-            params: undefined,
+            url: constants.SOCIAL_GRAPH_NETWORK_API_URL,
+            params: { 'pinboard_id': '268a5e58' },
             adapter: null,
             cancelToken: 'token',
           },
@@ -656,48 +646,6 @@ describe('pinboard actions', function () {
     });
   });
 
-  describe('savePinboardWithoutChangingState', function () {
-    it('should return correct action', function () {
-      savePinboardWithoutChangingState({
-        id: 1,
-        title: 'Pinboard Title',
-        'officer_ids': [12],
-        crids: ['abc'],
-        'trr_ids': [1],
-        description: 'Description',
-        isPinboardRestored: false,
-      }).should.deepEqual({
-        type: constants.SAVE_PINBOARD_WITHOUT_CHANGING_STATE,
-        payload: {
-          id: 1,
-          title: 'Pinboard Title',
-          'officer_ids': [12],
-          crids: ['abc'],
-          'trr_ids': [1],
-          description: 'Description',
-          isPinboardRestored: false,
-        },
-      });
-    });
-  });
-
-  describe('handleRemovingItemInPinboardPage', function () {
-    it('should return correct action', function () {
-      handleRemovingItemInPinboardPage({
-        id: 1,
-        type: 'OFFICER',
-        mode: constants.PINBOARD_ITEM_REMOVE_MODE.STATE_ONLY,
-      }).should.deepEqual({
-        type: constants.HANDLE_REMOVING_ITEM_IN_PINBOARD_PAGE,
-        payload: {
-          id: 1,
-          type: 'OFFICER',
-          mode: constants.PINBOARD_ITEM_REMOVE_MODE.STATE_ONLY,
-        },
-      });
-    });
-  });
-
   describe('createNewPinboard', function () {
     it('should return correct action', function () {
       createNewPinboard({ officerIds: [], crids: ['abc'], trrIds: [1] }).should.deepEqual({
@@ -716,6 +664,29 @@ describe('pinboard actions', function () {
               crids: ['abc'],
               'trr_ids': [1],
               'source_pinboard_id': undefined,
+            },
+            cancelToken: 'token',
+          },
+        },
+      });
+    });
+  });
+
+  describe('updatePinboardFromSource', function () {
+    it('should return correct action', function () {
+      updatePinboardFromSource('abcd1234', 'abcd5678').should.deepEqual({
+        types: [
+          constants.PINBOARD_UPDATE_FROM_SOURCE_REQUEST_START,
+          constants.PINBOARD_UPDATE_FROM_SOURCE_REQUEST_SUCCESS,
+          constants.PINBOARD_UPDATE_FROM_SOURCE_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: `${constants.PINBOARDS_URL}abcd1234/`,
+            method: 'put',
+            adapter: null,
+            data: {
+              'source_pinboard_id': 'abcd5678',
             },
             cancelToken: 'token',
           },

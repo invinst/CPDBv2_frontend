@@ -1,5 +1,5 @@
 import { browserHistory } from 'react-router';
-import { kebabCase, isEmpty, isNil, includes, parseInt, identity, every } from 'lodash';
+import { kebabCase, isEmpty, isNil, includes, parseInt, identity, every, get, map } from 'lodash';
 
 import {
   fetchFirstPagePinboardGeographicCrs,
@@ -15,7 +15,7 @@ import {
   fetchPinboardTRRs,
   fetchPinboardSocialGraph,
 } from 'actions/pinboard';
-import loadPaginatedData from 'utils/load-paginated-data';
+import { loadPaginatedData } from 'utils/load-paginated-data';
 
 
 export const generatePinboardUrl = pinboard => {
@@ -71,3 +71,12 @@ export const isEmptyPinboard = pinboard => {
   const { officerIds, crids, trrIds } = pinboard;
   return every([officerIds, crids, trrIds], isEmpty);
 };
+
+export const getRequestPinboard = pinboard => ({
+  id: get(pinboard, 'id', null),
+  title: get(pinboard, 'title', ''),
+  officerIds: map(get(pinboard, 'officer_ids', []), id => (id.toString())),
+  crids: get(pinboard, 'crids', []),
+  trrIds: map(get(pinboard, 'trr_ids', []), id => (id.toString())),
+  description: get(pinboard, 'description', ''),
+});

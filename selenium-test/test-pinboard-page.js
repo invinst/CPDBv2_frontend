@@ -4,12 +4,13 @@ require('should');
 import { map, countBy, filter, times } from 'lodash';
 
 import pinboardPage from './page-objects/pinboard-page';
+import socialGraphPage from './page-objects/social-graph-page';
 
 
 function waitForGraphAnimationEnd(browser, pinboardPage) {
   browser.waitUntil(function () {
-    return pinboardPage.animatedSocialGraphSection.currentDate.getText() === '2008-01-11';
-  }, 3000, 'expected timeline reaches end date after 1.65s');
+    return pinboardPage.animatedSocialGraphSection.graphLinks().length === 37;
+  }, 3000, 'expected graph reaches end after 1.65s');
 }
 
 describe('Pinboard Page', function () {
@@ -132,22 +133,17 @@ describe('Pinboard Page', function () {
     it('should render correctly', function () {
       pinboardPage.pinboardSection.title.getValue().should.equal('Pinboard Title');
       pinboardPage.pinboardSection.description.getValue().should.equal('Pinboard Description');
-      pinboardPage.pinboardSection.pinboardPaneMenu.waitForDisplayed();
-      const pinboardPaneMenuText = pinboardPage.pinboardSection.pinboardPaneMenu.getText();
-      pinboardPaneMenuText.should.containEql('NETWORK');
-      pinboardPaneMenuText.should.containEql('GEOGRAPHIC');
     });
 
     it('should update title and description after editing and out focusing them', function () {
       pinboardPage.pinboardSection.title.getValue().should.equal('Pinboard Title');
       pinboardPage.pinboardSection.description.getValue().should.equal('Pinboard Description');
       browser.getUrl().should.containEql('/pinboard-title/');
-      pinboardPage.pinboardSection.pinboardPaneMenu.waitForDisplayed();
       pinboardPage.pinboardSection.title.click();
       pinboardPage.pinboardSection.title.setValue('Updated Title');
       pinboardPage.pinboardSection.description.click();
       pinboardPage.pinboardSection.description.setValue('Updated Description');
-      pinboardPage.pinboardSection.networkPaneName.click();
+      pinboardPage.pinboardSection.title.click();
       pinboardPage.pinboardSection.title.getValue().should.equal('Updated Title');
       pinboardPage.pinboardSection.description.getValue().should.equal('Updated Description');
       browser.getUrl().should.containEql('/updated-title/');
@@ -160,8 +156,6 @@ describe('Pinboard Page', function () {
     });
 
     it('should render correctly', function () {
-      pinboardPage.animatedSocialGraphSection.startDate.getText().should.equal('1990-01-09');
-      pinboardPage.animatedSocialGraphSection.endDate.getText().should.equal('2008-01-11');
       waitForGraphAnimationEnd(browser, pinboardPage);
 
       const graphNodes = pinboardPage.animatedSocialGraphSection.graphNodes();
@@ -250,86 +244,49 @@ describe('Pinboard Page', function () {
       visibleGraphLinks.should.have.length(37);
     });
 
-    it('should pause timeline when click on toggle timeline button', function () {
-      const toggleTimelineButton = pinboardPage.animatedSocialGraphSection.toggleTimelineButton;
+    it('should go to corresponding social graph visualization page when clicking on expanded button', function () {
+      pinboardPage.pinboardSection.socialGraphExpandButton.click();
+      browser.getUrl().should.containEql('/social-graph/pinboard/5cd06f2b/');
+      socialGraphPage.animatedSocialGraphSection.coaccusalsThresholdText.getText().should.equal(
+        'Minimum Coaccusal Threshold'
+      );
+      socialGraphPage.animatedSocialGraphSection.startDate.getText().should.equal('1990-01-09');
+      socialGraphPage.animatedSocialGraphSection.endDate.getText().should.equal('2008-01-11');
 
-      waitForGraphAnimationEnd(browser, pinboardPage);
-      browser.waitUntil(function () {
-        return toggleTimelineButton.getAttribute('class') === 'toggle-timeline-btn play-icon';
-      });
-
-      toggleTimelineButton.click();
-
-      const middleDays = [
-        '1992-03-08',
-        '1994-01-10',
-        '1994-03-07',
-        '1994-03-12',
-        '1994-04-17',
-        '1998-11-17',
-        '1999-02-08',
-        '1999-07-22',
-        '2006-03-15',
-      ];
-      toggleTimelineButton.getAttribute('class').should.equal('toggle-timeline-btn pause-icon');
-      browser.waitUntil(function () {
-        return middleDays.indexOf(pinboardPage.animatedSocialGraphSection.currentDate.getText()) !== -1;
-      });
-
-      toggleTimelineButton.click();
-      toggleTimelineButton.getAttribute('class').should.equal('toggle-timeline-btn play-icon');
-
-      toggleTimelineButton.click();
-      waitForGraphAnimationEnd(browser, pinboardPage);
-    });
-
-    it('should change the graph when click on specific part of the timeline', function () {
-      waitForGraphAnimationEnd(browser, pinboardPage);
-      pinboardPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
-      pinboardPage.animatedSocialGraphSection.graphLinks().should.have.length(37);
-
-      pinboardPage.animatedSocialGraphSection.timelineSlider.click();
-      pinboardPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
-      pinboardPage.animatedSocialGraphSection.graphLinks().should.have.length(14);
-      const graphNodes = pinboardPage.animatedSocialGraphSection.graphNodes();
-      const groupsColors = countBy(map(
-        graphNodes,
-        (graphNode) => graphNode.getCSSProperty('fill').value
-      ));
-      const expectedGroupsColors = {
-        'rgb(253,94,76)': 6,
-        'rgb(244,162,152)': 6,
-        'rgb(249,211,195)': 5,
-        'rgb(243,42,41)': 1,
-        'rgb(255,80,80)': 1,
-        'rgb(243,173,173)': 1,
-      };
-      groupsColors.should.eql(expectedGroupsColors);
-    });
-  });
-
-  context('animatedSocialgraph off screen feature', function () {
-    it('should pause the timeline when invisible and continue to play when visible', function () {
-      pinboardPage.open('3664a7ea');
-      pinboardPage.animatedSocialGraphSection.playButton.waitForExist(200, true);
-
-      pinboardPage.relevantCoaccusalsSection.title.scrollIntoView();
-      pinboardPage.animatedSocialGraphSection.playButton.waitForExist(1000);
-
-      pinboardPage.pinboardSection.title.scrollIntoView();
-      pinboardPage.animatedSocialGraphSection.playButton.waitForExist(1000, true);
+      socialGraphPage.animatedSocialGraphSection.geographicTab.click();
+      browser.getUrl().should.containEql('/geographic/pinboard/5cd06f2b/');
+      socialGraphPage.geographicSection.complaintText.getText().should.eql('Complaint');
+      socialGraphPage.geographicSection.complaintNumber.getText().should.eql('5');
+      socialGraphPage.geographicSection.trrText.getText().should.eql('Use of Force Report');
+      socialGraphPage.geographicSection.trrNumber.getText().should.eql('2');
     });
   });
 
   context('Geographic section', function () {
     it('should render geographic section', function () {
       pinboardPage.open();
-      pinboardPage.pinboardSection.pinboardPaneMenu.waitForDisplayed();
-      pinboardPage.pinboardSection.geographicPaneName.click();
-      pinboardPage.geographicSection.complaintText.getText().should.equal('Complaint');
-      pinboardPage.geographicSection.complaintNumber.getText().should.equal('5');
-      pinboardPage.geographicSection.trrText.getText().should.equal('Use of Force Report');
-      pinboardPage.geographicSection.trrNumber.getText().should.equal('2');
+      pinboardPage.geographicMap.waitForDisplayed();
+    });
+
+    it('should go to corresponding geographic visualization page when clicking on expanded button', function () {
+      pinboardPage.open();
+      pinboardPage.geographicMap.waitForDisplayed();
+      pinboardPage.pinboardSection.geographicExpandButton.click();
+      browser.getUrl().should.containEql('/geographic/pinboard/5cd06f2b/');
+
+      socialGraphPage.animatedSocialGraphSection.mainTabs.waitForDisplayed();
+      socialGraphPage.geographicSection.complaintText.getText().should.eql('Complaint');
+      socialGraphPage.geographicSection.complaintNumber.getText().should.eql('5');
+      socialGraphPage.geographicSection.trrText.getText().should.eql('Use of Force Report');
+      socialGraphPage.geographicSection.trrNumber.getText().should.eql('2');
+
+      socialGraphPage.animatedSocialGraphSection.networkTab.click();
+      browser.getUrl().should.containEql('/social-graph/pinboard/5cd06f2b/');
+      socialGraphPage.animatedSocialGraphSection.coaccusalsThresholdText.getText().should.equal(
+        'Minimum Coaccusal Threshold'
+      );
+      socialGraphPage.animatedSocialGraphSection.startDate.getText().should.equal('1990-01-09');
+      socialGraphPage.animatedSocialGraphSection.endDate.getText().should.equal('2008-01-11');
     });
   });
 
@@ -933,12 +890,22 @@ describe('Empty Pinboard Page', function () {
 
   it('should go to Watts Crew pinboard page when clicking on Repeaters row', function () {
     pinboardPage.emptyPinboardSection.firstExample.click();
-    browser.getUrl().should.match(/pinboard\/b20c2c36\//);
+    browser.getUrl().should.match(/pinboard\/abcd1234\/watts-crew\//);
+    pinboardPage.pinboardSection.title.getValue().should.equal('Watts Crew');
+    pinboardPage.pinboardSection.description.getValue().should.equal(
+      'Officers with at least 10 complaints against them generate 64% of all complaints.'
+    );
+    pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
   });
 
   it('should go to Skullcap Crew pinboard page when clicking on Skullcap Crew row', function () {
     pinboardPage.emptyPinboardSection.secondExample.click();
-    browser.getUrl().should.match(/pinboard\/22e66085\//);
+    browser.getUrl().should.match(/pinboard\/abcd1234\/skullcap-crew\//);
+    pinboardPage.pinboardSection.title.getValue().should.equal('Skullcap Crew');
+    pinboardPage.pinboardSection.description.getValue().should.equal(
+      'Skullcap Crew is a nickname given to a group of five Chicago Police officers in a gang...'
+    );
+    pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
   });
 });
 
@@ -968,6 +935,20 @@ describe('Session Generator Pinboard Page', function () {
   it('should create new pinboard by query', function () {
     pinboardPage.openByQuery('?officer-ids=1,2&crids=5678123&trr-ids=3,2');
     showingPinboardffff6666();
+  });
+
+  it('should accept title param', function () {
+    pinboardPage.openByQuery('?officer-ids=1,2&crids=5678123&title=Preset+title+via+url');
+    browser.getUrl().should.match(/\/pinboard\/eeee8888\/preset-title-via-url\//);
+
+    pinboardPage.pinboardSection.title.getText().should.equal('Preset title via url');
+  });
+
+  it('should create empty pinboard if only title is provided', function () {
+    pinboardPage.openByQuery('?title=Empty+pinboard+with+preset+title+via+url');
+    browser.getUrl().should.match(/\/pinboard\/eeee9999\/empty-pinboard-with-preset-title-via-url\//);
+
+    pinboardPage.emptyPinboardSection.mainElement.waitForDisplayed();
   });
 
   it('should create new pinboard by query with some not-found items', function () {

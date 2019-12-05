@@ -19,6 +19,7 @@ export const CRCardWithUndo = withUndoCard(
   'removeItemInPinboardPage',
   {
     isRequestDelay: false,
+    completeActionName: 'completeRemoveItemInPinboardPage',
     revertActionName: 'addItemInPinboardPage',
   },
 );
