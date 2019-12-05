@@ -35,6 +35,7 @@ export default class PinboardPane extends Component {
       officersCount,
       allegationsCount,
       trrsCount,
+      childCount,
       recentOfficers,
       recentAllegations,
       recentTrrs,
@@ -51,6 +52,7 @@ export default class PinboardPane extends Component {
         <OneLineListWidget
           items={ [
             { title: 'Created at', text: fullCreatedAt },
+            { title: 'Children', text: childCount },
           ] }
         />
         <div className='static-social-graph'>
@@ -90,6 +92,7 @@ PinboardPane.propTypes = {
   officersCount: PropTypes.number,
   allegationsCount: PropTypes.number,
   trrsCount: PropTypes.number,
+  childCount: PropTypes.number,
   recentOfficers: PropTypes.array,
   recentAllegations: PropTypes.array,
   recentTrrs: PropTypes.array,

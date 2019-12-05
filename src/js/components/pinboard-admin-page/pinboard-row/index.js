@@ -10,6 +10,7 @@ export default class PinboardRow extends Component {
       title,
       createdAt,
       pinnedCount,
+      childCount,
       isHeader,
       onClick,
     } = this.props;
@@ -19,6 +20,7 @@ export default class PinboardRow extends Component {
         <span className='cell pinboard-id'>{ id }</span>
         <span className='cell pinboard-title'>{ title }</span>
         <span className='cell pinboard-pinned'>{ pinnedCount }</span>
+        <span className='cell pinboard-children'>{ childCount }</span>
         <span className='cell pinboard-date'>{ createdAt }</span>
       </div>
     );
@@ -30,6 +32,7 @@ PinboardRow.propTypes = {
   title: PropTypes.string,
   createdAt: PropTypes.string,
   pinnedCount: PropTypes.string,
+  childCount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   isHeader: PropTypes.bool,
   onClick: PropTypes.func,
 };

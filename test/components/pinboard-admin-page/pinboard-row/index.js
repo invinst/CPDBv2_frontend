@@ -22,6 +22,7 @@ describe('PinboardRow', function () {
     const id = random.word();
     const title = lorem.sentence(5);
     const pinnedCount = lorem.sentence(5);
+    const childCount = random.number();
     const createdAt = moment(date.past()).format('MMM YY');
 
     instance = renderIntoDocument(
@@ -29,6 +30,7 @@ describe('PinboardRow', function () {
         id={ id }
         title={ title }
         pinnedCount={ pinnedCount }
+        childCount={ childCount }
         createdAt={ createdAt }
         isHeader={ false }
       />
@@ -46,6 +48,10 @@ describe('PinboardRow', function () {
     const pinnedCountCell = findRenderedDOMComponentWithClass(instance, 'pinboard-pinned');
     pinnedCountCell.getAttribute('class').should.containEql('cell');
     pinnedCountCell.textContent.should.equal(pinnedCount);
+
+    const childCountCell = findRenderedDOMComponentWithClass(instance, 'pinboard-children');
+    childCountCell.getAttribute('class').should.containEql('cell');
+    childCountCell.textContent.should.equal(String(childCount));
 
     const dateCell = findRenderedDOMComponentWithClass(instance, 'pinboard-date');
     dateCell.getAttribute('class').should.containEql('cell');
