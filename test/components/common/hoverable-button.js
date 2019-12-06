@@ -16,7 +16,7 @@ describe('HoverableButton component', function () {
   });
 
   it('should trigger onClick', function () {
-    HoverableButton.should.triggerCallbackWhenClick('onClick', 'link--transition');
+    HoverableButton.should.triggerCallbackWhenClick('onClick', '.link--transition');
   });
 
   it('should display hover style when hovered', function () {
@@ -44,6 +44,6 @@ describe('HoverableButton component', function () {
   });
 
   it('should not trigger onClick when disabled', function () {
-    HoverableButton.should.not.triggerCallbackWhenClick('onClick', 'link--transition', { disabled: true });
+    HoverableButton.should.not.triggerCallbackWhenClick('onClick', '.link--transition', { disabled: true });
   });
 });

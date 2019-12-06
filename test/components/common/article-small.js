@@ -19,6 +19,6 @@ describe('ArticleSmall component', function () {
   });
 
   it('should trigger onClick', function () {
-    ArticleSmall.should.triggerCallbackWhenClick('onClick', 'article-small', { paragraphs: ['abc'] });
+    ArticleSmall.should.triggerCallbackWhenClick('onClick', '.article-small', { paragraphs: ['abc'] });
   });
 });

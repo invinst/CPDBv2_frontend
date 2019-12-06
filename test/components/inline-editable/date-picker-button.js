@@ -14,6 +14,6 @@ describe('DatePickerButton component', function () {
   });
 
   it('should trigger onClick', function () {
-    DatePickerButton.should.triggerCallbackWhenClick('onClick', 'hoverable-button');
+    DatePickerButton.should.triggerCallbackWhenClick('onClick', '.hoverable-button');
   });
 });
