@@ -109,6 +109,15 @@ describe('SearchPage component', function () {
   });
 
   it('should bind and unbind esc and enter keys when mounted/unmounted but not hide', function () {
+    const handleGoBackStub = stub();
+    const handleViewItemStub = stub();
+    const handleGoBackProtoStub = stub(
+      SearchPage.prototype, 'handleGoBack'
+    ).value({ bind: () => handleGoBackStub });
+    const handleViewItemProtoStub= stub(
+      SearchPage.prototype, 'handleViewItem'
+    ).value({ bind: () => handleViewItemStub });
+
     const bindSpy = spy(LayeredKeyBinding, 'bind');
     const unbindSpy = spy(LayeredKeyBinding, 'unbind');
 
@@ -118,10 +127,8 @@ describe('SearchPage component', function () {
       </Provider>
     );
 
-    const newSearchPage = wrapper.find(SearchPage);
-
-    bindSpy.should.be.calledWith('esc', newSearchPage.handleGoBack);
-    bindSpy.should.be.calledWith('enter', newSearchPage.handleViewItem);
+    bindSpy.should.be.calledWith('esc', handleGoBackStub);
+    bindSpy.should.be.calledWith('enter', handleViewItemStub);
 
     wrapper.unmount();
 
@@ -130,9 +137,20 @@ describe('SearchPage component', function () {
 
     bindSpy.restore();
     unbindSpy.restore();
+    handleGoBackProtoStub.restore();
+    handleViewItemProtoStub.restore();
   });
 
   it('should not bind and unbind esc and enter keys when mounted/unmounted but hide', function () {
+    const handleGoBackStub = stub();
+    const handleViewItemStub = stub();
+    const handleGoBackProtoStub = stub(
+      SearchPage.prototype, 'handleGoBack'
+    ).value({ bind: () => handleGoBackStub });
+    const handleViewItemProtoStub= stub(
+      SearchPage.prototype, 'handleViewItem'
+    ).value({ bind: () => handleViewItemStub });
+
     const bindSpy = spy(LayeredKeyBinding, 'bind');
     const unbindSpy = spy(LayeredKeyBinding, 'unbind');
 
@@ -142,10 +160,8 @@ describe('SearchPage component', function () {
       </Provider>
     );
 
-    const searchPage = wrapper.find(SearchPage);
-
-    bindSpy.should.not.be.calledWith('esc', searchPage.handleGoBack);
-    bindSpy.should.not.be.calledWith('enter', searchPage.handleViewItem);
+    bindSpy.should.not.be.calledWith('esc', handleGoBackStub);
+    bindSpy.should.not.be.calledWith('enter', handleViewItemStub);
 
     wrapper.unmount();
 
@@ -154,23 +170,30 @@ describe('SearchPage component', function () {
 
     bindSpy.restore();
     unbindSpy.restore();
+    handleGoBackProtoStub.restore();
+    handleViewItemProtoStub.restore();
   });
 
   it('should bind and unbind when update hide prop', function () {
+    const handleGoBackStub = stub();
+    const handleViewItemStub = stub();
+    const handleGoBackProtoStub = stub(
+      SearchPage.prototype, 'handleGoBack'
+    ).value({ bind: () => handleGoBackStub });
+    const handleViewItemProtoStub = stub(
+      SearchPage.prototype, 'handleViewItem'
+    ).value({ bind: () => handleViewItemStub });
     const bindSpy = spy(LayeredKeyBinding, 'bind');
     const unbindSpy = spy(LayeredKeyBinding, 'unbind');
 
-    const wrapper = shallow(
+    const wrapper = mount(
       <Provider store={ store }>
         <SearchPage hide={ true }/>
       </Provider>
     );
 
-    const searchPage = wrapper.find(SearchPage).dive();
-    const searchPageInstance = searchPage.instance();
-
-    bindSpy.should.not.be.calledWith('esc', searchPageInstance.handleGoBack);
-    bindSpy.should.not.be.calledWith('enter', searchPageInstance.handleViewItem);
+    bindSpy.should.not.be.calledWith('esc', handleGoBackStub);
+    bindSpy.should.not.be.calledWith('enter', handleViewItemStub);
     unbindSpy.should.not.be.calledWith('esc');
     unbindSpy.should.not.be.calledWith('enter');
 
@@ -178,11 +201,8 @@ describe('SearchPage component', function () {
       children: <SearchPage hide={ false }/>,
     });
 
-    const newSearchPage = wrapper.find(SearchPage).dive();
-    const newSearchPageInstance = newSearchPage.instance();
-
-    bindSpy.should.be.calledWith('esc', newSearchPageInstance.handleGoBack);
-    bindSpy.should.be.calledWith('enter', newSearchPageInstance.handleViewItem);
+    bindSpy.should.be.calledWith('esc', handleGoBackStub);
+    bindSpy.should.be.calledWith('enter', handleViewItemStub);
     unbindSpy.should.not.be.calledWith('esc');
     unbindSpy.should.not.be.calledWith('enter');
 
@@ -198,11 +218,15 @@ describe('SearchPage component', function () {
       children: <SearchPage hide={ false }/>,
     });
 
+    wrapper.unmount();
+
     unbindSpy.should.be.calledWith('esc');
     unbindSpy.should.be.calledWith('enter');
 
     unbindSpy.restore();
     bindSpy.restore();
+    handleGoBackProtoStub.restore();
+    handleViewItemProtoStub.restore();
   });
 
   it('should not change the current search path when user type in search box', function () {

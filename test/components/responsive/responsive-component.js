@@ -16,15 +16,15 @@ describe('ResponsiveComponent component', function () {
     );
     const mediaQueries = wrapper.find(MediaQuery);
     mediaQueries.at(0).prop('maxWidth').should.equal(767);
-    mediaQueries.at(0).children().prop('className').should.equal('mobile');
+    mediaQueries.at(0).prop('children').props.className.should.equal('mobile');
     mediaQueries.at(1).prop('maxWidth').should.equal(991);
     mediaQueries.at(1).prop('minWidth').should.equal(768);
-    mediaQueries.at(1).prop('children').prop('className').should.equal('tablet');
+    mediaQueries.at(1).prop('children').props.className.should.equal('tablet');
     mediaQueries.at(2).prop('minWidth').should.equal(992);
     mediaQueries.at(2).prop('maxWidth').should.equal(1199);
-    mediaQueries.at(2).prop('children').prop('className').should.equal('desktop');
+    mediaQueries.at(2).prop('children').props.className.should.equal('desktop');
     mediaQueries.at(3).prop('minWidth').should.equal(1200);
-    mediaQueries.at(3).prop('children').prop('className').should.equal('extraWide');
+    mediaQueries.at(3).prop('children').props.className.should.equal('extraWide');
   });
 
   it('should render according to certain screen size', function () {

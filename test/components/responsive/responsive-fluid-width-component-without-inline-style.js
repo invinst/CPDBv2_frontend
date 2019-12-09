@@ -6,10 +6,6 @@ import ResponsiveFluidWidthComponent from 'components/responsive/responsive-flui
 
 
 describe('ResponsiveFluidWidthComponentWithoutInlineStyle', function () {
-
-  afterEach(function () {
-  });
-
   it('should render responsively', function () {
     ResponsiveFluidWidthComponent.should.be.renderable();
     ResponsiveFluidWidthComponent.should.be.responsiveRenderable();

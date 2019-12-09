@@ -27,17 +27,6 @@ describe('PinboardAdminPage', function () {
     const fetchPinboards = spy();
     const fetchPinboardStaticSocialGraph = spy();
     const cachedDataIDs = ['aaaa1111', 'bbbb2222'];
-    const store = MockStore()({
-      pinboardAdminPage: {
-        graphData: {
-          cachedData: {},
-          requesting: false,
-        },
-      },
-      breadcrumb: {
-        breadcrumbs: [],
-      },
-    });
 
     const wrapper = shallow(
       <PinboardAdminPage

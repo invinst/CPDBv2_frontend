@@ -6,17 +6,13 @@ import { MOBILE, TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
 import ResponsiveStyleComponent from 'components/responsive/responsive-style-component';
 
 describe('ResponsiveStyleComponent component', function () {
-
-  afterEach(function () {
-  });
-
   it('should render children with corresponding style', function () {
     const children = stub().returns(<div/>);
     const obj1 = {};
     const obj2 = {};
     const obj3 = {};
     const obj4 = {};
-    const wrapper = shallow(
+    shallow(
       <ResponsiveStyleComponent responsiveStyle={ {
         [EXTRA_WIDE]: obj1,
         [DESKTOP]: obj2,

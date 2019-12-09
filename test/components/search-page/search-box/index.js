@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { browserHistory } from 'react-router';
 import { spy, stub } from 'sinon';
 
@@ -27,7 +27,10 @@ describe('SearchBox component', function () {
     input.prop('value').should.equal('wa');
     input.prop('keyPressHandlers').esc.should.eql(onEscape);
     input.prop('onChange').should.equal(onChange);
-    input.prop('keyPressWithBlurHandlers').should.have.key('down');
+    input.props().should.not.have.key('onBlur');
+    resetNavigation.should.not.be.called();
+    input.prop('keyPressWithBlurHandlers').down();
+    resetNavigation.should.be.calledOnce();
   });
 
   it('should call resetNavigation when pressing down in the text input and make it blur', function () {
@@ -39,11 +42,10 @@ describe('SearchBox component', function () {
       />
     );
 
-    const textInput = wrapper.find(TextInput).dive();
+    const textInputInstance = mount(wrapper.find(TextInput).get(0)).instance();
+    const blur = spy(textInputInstance.input, 'blur');
 
-    const blur = spy(textInput.instance().input, 'blur');
-
-    textInput.mousetrap.trigger('down');
+    textInputInstance.mousetrap.trigger('down');
 
     blur.should.be.called();
     resetNavigation.should.be.called();
@@ -58,19 +60,22 @@ describe('SearchBox component', function () {
       />
     );
 
-    const inputElement = wrapper.find('input');
-    inputElement.simulate('blur');
+    const textInput = mount(wrapper.find(TextInput).get(0));
+    const textInputInstance = textInput.instance();
+    const handleBlur = spy(textInputInstance, 'handleBlur');
 
-    resetNavigation.called.should.be.false();
+    textInput.find('input').simulate('focus');
+    textInput.find('input').simulate('blur');
+
+    handleBlur.should.be.calledOnce();
+    resetNavigation.should.not.be.called();
   });
 
   it('should render input with disabled spellcheck', function () {
-    const wrapper = shallow(
-      <SearchBox />
-    );
+    const wrapper = mount(<SearchBox />);
 
     const input = wrapper.find('input');
-    input.getAttribute('spellcheck').should.equal('false');
+    input.getDOMNode().getAttribute('spellcheck').should.equal('false');
   });
 
   it('should render close button when there is a search query', function () {
@@ -138,8 +143,10 @@ describe('SearchBox component', function () {
         <SearchBox firstSuggestionItem={ firstSuggestionItem } saveToRecent={ saveToRecentSpy }/>
       );
 
-      const input = wrapper.find(TextInput);
-      input.mousetrap.trigger('enter');
+      const textInput = mount(wrapper.find(TextInput).get(0));
+      const textInputInstance = textInput.instance();
+
+      textInputInstance.mousetrap.trigger('enter');
       this.browserHistoryPush.should.be.calledWith('to');
       saveToRecentSpy.should.be.calledWith({
         type: 'OFFICER',

@@ -137,7 +137,7 @@ describe('OfficerCardWithUndo component', function () {
       complaintCount: '10',
     };
     const wrapper = shallow(<OfficerCardWithUndo item={ item } />);
-    const unpinButton = wrapper.find(ItemUnpinButton);
+    const unpinButton = wrapper.dive().find(ItemUnpinButton).dive();
 
     unpinButton.simulate('click');
 
@@ -160,7 +160,7 @@ describe('OfficerCardWithUndo component', function () {
       />
     );
 
-    const unpinButton = wrapper.find(ItemUnpinButton);
+    const unpinButton = wrapper.dive().find(ItemUnpinButton).dive();
     unpinButton.simulate('click');
 
     removeItemInPinboardPage.should.be.calledWith({

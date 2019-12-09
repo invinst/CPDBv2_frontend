@@ -85,7 +85,7 @@ describe('Pinboards component', function () {
       fetchPinboardsSpy.should.not.be.called();
 
       wrapper.setProps({
-        children: <Pinboards pinboards={ pinboards } isShown={ true } fetchPinboards={ fetchPinboardsSpy }/>
+        children: <Pinboards pinboards={ pinboards } isShown={ true } fetchPinboards={ fetchPinboardsSpy }/>,
       });
 
       fetchPinboardsSpy.should.be.called();

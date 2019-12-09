@@ -38,7 +38,7 @@ describe('SlideMotion component', function () {
       wrapper.setProps({
         show: true,
       });
-      wrapper.find('div').exists().should.be.true()
+      wrapper.find('div').exists().should.be.true();
     });
   });
 });

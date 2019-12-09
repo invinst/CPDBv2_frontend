@@ -64,7 +64,7 @@ describe('Timeline component', function () {
       pathname: '/social-graph/',
     });
     addScrollEventsSpy.should.be.called();
-    addScrollEventsSpy.restore();
+    wrapper.unmount();
   });
 
   it('should scrollTo timeline item when trigger change from external', function () {

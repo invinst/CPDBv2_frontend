@@ -22,8 +22,8 @@ describe('MemberAggregateSection component', function () {
       />
     );
 
-    wrapper.find('.test--race-block').exists().should.have.length(1);
-    wrapper.find('.test--age-block').exists().should.have.length(1);
-    wrapper.find('.test--gender-block').exists().should.have.length(1);
+    wrapper.find('.test--race-block').exists().should.be.true();
+    wrapper.find('.test--age-block').exists().should.be.true();
+    wrapper.find('.test--gender-block').exists().should.be.true();
   });
 });

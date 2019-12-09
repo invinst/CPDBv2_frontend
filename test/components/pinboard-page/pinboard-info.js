@@ -32,17 +32,17 @@ describe('PinboardInfo component', function () {
     const pinboardDescription = autosaveTextareaInputs.at(1);
     pinboardDescription.prop('className').should.equal('pinboard-description');
     pinboardDescription.prop('value').should.equal('This is pinboard description');
-    pinboardDescription.prop('placeholder').should.eql(
+    pinboardDescription.prop('placeholder').should.equal(
       'When you’re ready, add a description for your pinboard here'
     );
     pinboardDescription.prop('fieldType').should.equal('description');
     pinboardDescription.prop('save').should.eql(updatePinboardInfoStub);
     pinboardDescription.prop('textareaLineHeight').should.equal(16);
 
-    wrapper.find('.pinboard-title').value.should.eql(
+    wrapper.find('.pinboard-title').prop('value').should.equal(
       'This is pinboard title'
     );
-    wrapper.find('.pinboard-description').value.should.eql(
+    wrapper.find('.pinboard-description').prop('value').should.equal(
       'This is pinboard description'
     );
   });

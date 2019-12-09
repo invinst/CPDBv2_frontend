@@ -104,17 +104,15 @@ describe('TRRPage component', function () {
   });
 
   it('should render category header, incident date and notes header when printing', function () {
-    const wrapper = mount(
-      <Provider store={ store }>
-        <TRRPage
-          trrId='123'
-          officer={ { officerId: 456 } }
-          trrDetail={ { category: 'Firearm' } }
-          trrLocation={ { incidentDate: 'Sep 23, 2003' } }
-          notes={ popups }
-        />
-      </Provider>,
-      { context: { printMode: true } }
+    const wrapper = shallow(
+      <TRRPage
+        trrId='123'
+        officer={ { officerId: 456 } }
+        trrDetail={ { category: 'Firearm' } }
+        trrLocation={ { incidentDate: 'Sep 23, 2003' } }
+        notes={ popups }
+      />,
+      { context: { printMode: true } },
     );
     wrapper.find('.trr-category-print').exists().should.be.true();
     wrapper.find('.trr-category-print').text().should.equal('Firearm');
@@ -122,22 +120,24 @@ describe('TRRPage component', function () {
     wrapper.find('.incident-date-title-print').text().should.equal('DATE OF INCIDENT');
     wrapper.find('.incident-date-value-print').text().should.equal('Sep 23, 2003');
 
-    wrapper.find(PrintNotes).exists().should.be.true();
-    wrapper.find('.notes-title').text().should.equal('Notes');
+    const printNotes = wrapper.find(PrintNotes).dive();
+    printNotes.exists().should.be.true();
+    printNotes.find('.notes-title').text().should.equal('Notes');
 
-    const noteContents = wrapper.find('.notes-content');
+    const noteContents = printNotes.find('.notes-content');
     noteContents.should.have.length(2);
-    noteContents.at(0).text().should.equal('Force Category: See CPD\'s official Use of Force Model');
-    noteContents.at(1).text().should.equal('Type of Force: See CPD\'s official Use of Force Model');
+    noteContents.at(0).render().text().should.equal('Force Category: See CPD\'s official Use of Force Model');
+    noteContents.at(1).render().text().should.equal('Type of Force: See CPD\'s official Use of Force Model');
 
-    const noteContentMarkdownLinks = wrapper.find(MarkdownLink);
-    noteContentMarkdownLinks.should.have.length(2);
-    noteContentMarkdownLinks.at(0).text().should.equal('Use of Force Model');
-    noteContentMarkdownLinks.at(0).href.should.eql(
+    const firstMarkdownLink = noteContents.at(0).dive().find(MarkdownLink);
+    firstMarkdownLink.render().text().should.equal('Use of Force Model');
+    firstMarkdownLink.prop('href').should.equal(
       'http://directives.chicagopolice.org/directives/data/a7a57be2-128ff3f0-ae912-8fff-cec11383d806e05f.html'
     );
-    noteContentMarkdownLinks.at(1).text().should.equal('Use of Force Model');
-    noteContentMarkdownLinks.at(1).href.should.eql(
+
+    const secondMarkdownLink = noteContents.at(1).dive().find(MarkdownLink);
+    secondMarkdownLink.render().text().should.equal('Use of Force Model');
+    secondMarkdownLink.prop('href').should.equal(
       'http://directives.chicagopolice.org/directives/data/a7a57be2-128ff3f0-ae912-8fff-cec11383d806e05f.html'
     );
   });

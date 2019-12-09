@@ -7,10 +7,6 @@ import scrollBarWidth from 'utils/scrollbar-width';
 
 
 describe('ResponsiveFluidWidthComponent', function () {
-
-  afterEach(function () {
-  });
-
   it('should render responsively', function () {
     ResponsiveFluidWidthComponent.should.be.renderable();
     ResponsiveFluidWidthComponent.should.be.responsiveRenderable();
@@ -21,9 +17,8 @@ describe('ResponsiveFluidWidthComponent', function () {
       <ResponsiveFluidWidthComponent />
     );
     const nodes = wrapper.find(MediaQuery);
-    const node = nodes.filter(n => n.props.maxWidth === 767).at(0);
-    const div = node.props.children;
-    div.prop('style').width.should.eql(`${767 - scrollBarWidth}px`);
+    const node = nodes.filterWhere(n => n.prop('maxWidth') === 767).at(0);
+    node.children().prop('style').width.should.equal(`${767 - scrollBarWidth}px`);
   });
 
   it('should render MediaQuery with correct width', function () {

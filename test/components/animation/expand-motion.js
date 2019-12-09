@@ -1,7 +1,8 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow, mount, render } from 'enzyme';
 import { stub } from 'sinon';
 import should from 'should';
+import { Motion } from 'react-motion';
 
 import { withAnimationDisabled } from 'utils/test';
 import * as utilsDom from 'utils/dom';
@@ -31,20 +32,20 @@ describe('ExpandMotion component', function () {
 
   context('animation enabled', function () {
     it('should render nothing initially if show is false', function () {
-      const wrapper = mount(
+      const wrapper = render(
         <ExpandMotion show={ false }><p/></ExpandMotion>
       );
-      should(wrapper.type()).be.null();
+      wrapper.html().should.equal('');
     });
 
-    it('should render chilren in full height eventually', function (done) {
+    it('should render children in full height eventually', function (done) {
       stub(utilsDom, 'innerHeight').returns(100);
-      const wrapper = shallow(
+      const wrapper = mount(
         <ExpandMotion show={ true }><div/></ExpandMotion>
       );
       setTimeout(() => {
         wrapper.state('childHeight').should.equal(100);
-        wrapper.prop('style').height.should.equal('100px');
+        wrapper.find(Motion).prop('style').height.val.should.equal(100);
         utilsDom.innerHeight.restore();
         done();
       }, 1000);
