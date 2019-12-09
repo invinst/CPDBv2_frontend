@@ -13,6 +13,6 @@ describe('ComplaintIncidentDate component', function () {
 
   it('should render nothing if incident date is not present', function () {
     const wrapper = shallow(<ComplaintIncidentDate />);
-    wrapper.find('cr-incident-date-value').should.have.length(0);
+    wrapper.find('.cr-incident-date-value').exists().should.be.false();
   });
 });

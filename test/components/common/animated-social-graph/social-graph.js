@@ -412,7 +412,7 @@ describe('SocialGraph', function () {
     const instance = wrapper.instance();
     const graphNodes = instance.data.nodes;
 
-    graphNodes.length.should.equal(expectedNodes.length);
+    graphNodes.should.have.length(expectedNodes.length);
     for (let index=0; index < graphNodes.length; index++) {
       const expectedNode = expectedNodes[index];
       const graphNode = graphNodes[index];

@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { spy } from 'sinon';
+import should from 'should';
 
 import RelevantSection from 'components/pinboard-page/relevant';
 import RelevantDocuments from 'components/pinboard-page/relevant/relevant-documents';
@@ -19,7 +20,7 @@ describe('RelevantSection component', function () {
       />
     );
 
-    wrapper.find('div').exists().should.be.false();
+    should(wrapper.type()).be.null();
   });
 
   it('should render relevant rows correctly', function () {

@@ -65,7 +65,7 @@ describe('EditableTagsInput component', function () {
       />
     );
 
-    wrapper.find('.next-untagged-document-button').should.have.length(0);
+    wrapper.find('.next-untagged-document-button').exists().should.be.false();
   });
 
   it('should show error message(s) if there are errorMessages', function () {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { stub } from 'sinon';
+import should from 'should';
 
 import * as GATracking from 'utils/google_analytics_tracking';
 import Attachments from 'components/social-graph-page/network/right-pane-section/timeline/item/cr/attachments';
@@ -27,7 +28,7 @@ describe('Attachments component', function () {
     attachmentImage.prop('style').backgroundImage.should.eql(
       'url(https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p1-normal.gif)'
     );
-    wrapper.find('.document').should.have.length(1);
+    wrapper.find('.image.document').exists().should.be.true();
   });
 
   it('should render file types of attachments correctly', function () {
@@ -37,7 +38,7 @@ describe('Attachments component', function () {
       fileType: 'video',
     }];
     const wrapper = shallow(<Attachments attachments={ videoAttachments } />);
-    wrapper.find('.image-document').exists().should.be.false();
+    wrapper.find('.image.document').exists().should.be.false();
   });
 
   it('should open new attachment file tab when click on attachment', function () {
@@ -53,7 +54,7 @@ describe('Attachments component', function () {
 
   it('should render null when there are no attachments', function () {
     const wrapper = shallow(<Attachments attachments={ [] } />);
-    wrapper.find('..test-wrapper').exists().should.be.false();
+    should(wrapper.type()).be.null();
   });
 
   it('should track click event', function () {

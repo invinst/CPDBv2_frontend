@@ -21,6 +21,7 @@ describe('TRRLocation component', function () {
   it('should render date and location info correctly', function () {
     const wrapper = shallow(<TRRLocation { ...trrLocation } printMode={ false }/>);
 
+    wrapper.find('.trr-location-info').exists().should.be.true();
     const titles = wrapper.find('.info-block-title');
     titles.should.have.length(2);
     titles.at(0).text().should.equal('DATE OF INCIDENT');
@@ -44,7 +45,7 @@ describe('TRRLocation component', function () {
     const map = wrapper.find(TRRMap);
 
     map.prop('lat').should.equal(41.7508596);
-    map.prop('lng').should.eql(-87.6533166);
+    map.prop('lng').should.equal(-87.6533166);
   });
 
   it('should show hide and rearrange contents when printing', function () {

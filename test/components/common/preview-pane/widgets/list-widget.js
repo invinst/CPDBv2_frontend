@@ -110,8 +110,8 @@ describe('ListWidget', () => {
     const wrapper = shallow(
       <ListWidget items={ [] } typeName='allegation'/>,
     );
-    wrapper.find('.list-widget-header').should.have.length(0);
-    wrapper.find('.list-widget-list').should.have.length(0);
+    wrapper.find('.list-widget-header').exists().should.be.false();
+    wrapper.find('.list-widget-list').exists().should.be.false();
   });
 
   describe('collapsable', function () {
@@ -192,7 +192,20 @@ describe('ListWidget', () => {
       wrapper.find(Panel).exists().should.be.false();
     });
 
-    it('should render Collapse when collapsable and having more than 3 items', function (done) {
+    it('should render Collapse when collapsable and having more than 3 items', function () {
+      const wrapper = shallow(
+        <ListWidget
+          typeName='allegation'
+          items={ items }
+          title='TITLE'
+          collapsable={ true }
+        />,
+      );
+
+      wrapper.find(Collapse).exists().should.be.true();
+    });
+
+    it('should render show more items when clicking on View more', function (done) {
       const wrapper = mount(
         <ListWidget
           typeName='allegation'

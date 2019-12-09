@@ -34,7 +34,7 @@ describe('ShareMenu component', function () {
 
     // should close menu on click
     link.simulate('click');
-    wrapper.find('share-button-item').should.have.length(0);
+    this.stubCloseShareMenu.should.be.calledOnce();
   });
 
   it('should render facebook share link', function () {
@@ -44,6 +44,6 @@ describe('ShareMenu component', function () {
 
     // should close menu on click
     link.simulate('click');
-    wrapper.find('share-button-item').should.have.length(0);
+    this.stubCloseShareMenu.should.be.calledOnce();
   });
 });

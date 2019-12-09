@@ -30,7 +30,7 @@ describe('FadeTransition component', function () {
       wrapper.find('.child1').exists().should.be.true();
       wrapper.find('.child2').exists().should.be.true();
       setTimeout(() => {
-        wrapper.find('.child1').length.should.equal(0);
+        wrapper.find('.child1').exists().should.be.false();
         wrapper.find('.child2').exists().should.be.true();
         callback();
       }, 500);

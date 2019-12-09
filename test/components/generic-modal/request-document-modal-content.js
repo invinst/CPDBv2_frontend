@@ -94,7 +94,7 @@ describe('RequestDocumentModalContent component', function () {
     const wrapper = mount(
       <RequestDocumentModalContent message={ 'Thanks you' } />
     );
-    wrapper.find('.request-document-message-box').length.should.equal(0);
+    wrapper.find('.request-document-message-box').exists().should.be.false();
     wrapper.setState({ warning: true });
     const messageBoxElement = wrapper.find('.request-document-message-box');
     messageBoxElement.text().should.equal('Thanks you');

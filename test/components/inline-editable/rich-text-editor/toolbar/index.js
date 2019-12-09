@@ -20,7 +20,7 @@ describe('Toolbar component', function () {
     const wrapper = shallow(
       <Toolbar show={ true } editorState={ editorState }/>
     );
-    wrapper.find(ToolbarButton).length.should.equal(3);
+    wrapper.find(ToolbarButton).should.have.length(3);
     wrapper.find(Bubble).exists().should.be.true();
   });
 
@@ -51,7 +51,7 @@ describe('Toolbar component', function () {
 
     // button become "inactive" and url input stop showing
     linkButton.prop('active').should.be.false();
-    wrapper.find(UrlInput).length.should.equal(0);
+    wrapper.find(UrlInput).exists().should.be.false();
   });
 
   it('should toggle text bold when click on bold button', function () {

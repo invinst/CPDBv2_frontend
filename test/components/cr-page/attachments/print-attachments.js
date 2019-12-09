@@ -45,7 +45,7 @@ describe('PrintAttachments component', function () {
       },
     ];
     const wrapper = shallow(<PrintAttachments items={ items }/>);
-    wrapper.find('.attachments-content').should.have.length(1);
+    wrapper.find('.attachments-content').exists().should.be.true();
     const attachmentTypes = wrapper.find('.attachment-type');
     attachmentTypes.should.have.length(3);
     attachmentTypes.at(0).text().should.equal('Audio (2)');
@@ -55,6 +55,6 @@ describe('PrintAttachments component', function () {
 
   it('should render nothing if items is empty', function () {
     const wrapper = shallow(<PrintAttachments items={ [] }/>);
-    wrapper.find('.attachments-content').should.have.length(0);
+    wrapper.find('.attachments-content').exists().should.be.false();
   });
 });

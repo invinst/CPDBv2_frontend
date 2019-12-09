@@ -31,7 +31,7 @@ describe('PoliceBeatPane component', () => {
     header.render().text().should.containEql('POLICE BEAT #22');
     wrapper.find(SeparatorWidget).exists().should.be.true();
     wrapper.find(TextWidget).exists().should.be.true();
-    wrapper.find(ListWidget).should.have.length(1);
+    wrapper.find(ListWidget).exists().should.be.true();
   });
 
   it('should display Police-District HQ if available', () => {

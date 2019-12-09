@@ -81,7 +81,7 @@ describe('DocumentDeduplicatorPage DocumentRow component', function () {
       { context: { editModeOn: true } }
     );
 
-    let toggle = wrapper.find(Toggle);
+    const toggle = wrapper.find(Toggle);
     toggle.props().should.containEql({
       on: true,
       children: 'show',

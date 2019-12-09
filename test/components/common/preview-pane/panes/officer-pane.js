@@ -191,7 +191,7 @@ describe('OfficerPane component', () => {
       />
     );
 
-    wrapper.find('.pin-button').should.have.length(0);
+    wrapper.find('.pin-button').exists().should.be.false();
     wrapper.find('.view-officer-profile-button').exists().should.be.true();
   });
 

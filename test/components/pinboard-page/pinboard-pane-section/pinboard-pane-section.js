@@ -154,7 +154,7 @@ describe('PinboardPaneSection component', function () {
         <PinboardPaneSectionWithSpinner requesting={ false }/>
       );
 
-      wrapper.find(PinboardPaneSection).should.have.length(1);
+      wrapper.find(PinboardPaneSection).exists().should.be.true();
       wrapper.find(LoadingSpinner).exists().should.be.false();
     });
   });

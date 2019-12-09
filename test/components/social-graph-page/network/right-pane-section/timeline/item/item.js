@@ -32,7 +32,7 @@ describe('Item component', function () {
       />
     );
     const allegationRow = wrapper.find(Cr);
-    allegationRow.should.have.length(1);
+    allegationRow.exists().should.be.true();
   });
 
   it('should render year item correctly', function () {
@@ -42,7 +42,7 @@ describe('Item component', function () {
       />
     );
     const yearRow = wrapper.find(Year);
-    yearRow.should.have.length(1);
+    yearRow.exists().should.be.true();
   });
 
   describe('shouldComponentUpdate', function () {

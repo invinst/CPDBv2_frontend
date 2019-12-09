@@ -24,7 +24,7 @@ describe('OneLineListWidget component', function () {
     items.at(0).find('.list-item-text.has-title').at(0).text().should.equal('Text 0');
     items.at(0).children().last().prop('className').should.equal('clearfix');
 
-    items.at(1).find('.list-item-text.has-title').should.have.length(0);
+    items.at(1).find('.list-item-text.has-title').exists().should.be.false();
     items.at(1).find('.list-item-text').at(0).text().should.equal('Text 1');
     items.at(1).children().last().prop('className').should.equal('clearfix');
   });

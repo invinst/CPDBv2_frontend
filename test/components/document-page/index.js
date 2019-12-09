@@ -281,7 +281,7 @@ describe('DocumentPage component', function () {
       </Provider>
     );
 
-    wrapper.find('.linked-documents-more').should.have.length(0);
+    wrapper.find('.linked-documents-more').exists().should.be.false();
   });
 
   it('should not render "by" when there is no last updated user', function () {
@@ -336,7 +336,7 @@ describe('DocumentPage component', function () {
       </Router>
     );
 
-    wrapper.find(EditableTagsInput).should.have.length(1);
+    wrapper.find(EditableTagsInput).exists().should.be.true();
   });
 
   it('should not render EditableTagsInput for unauthenticated users', function () {

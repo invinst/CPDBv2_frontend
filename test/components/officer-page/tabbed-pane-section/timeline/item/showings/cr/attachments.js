@@ -96,7 +96,7 @@ describe('Attachments component', function () {
 
   it('should render an empty span when attachments is empty', function () {
     const wrapper = shallow(<Attachments attachments={ [] }/>);
-    wrapper.find(`.${styles.attachments}`).should.have.length(1);
+    wrapper.find(`.${styles.attachments}`).exists().should.be.true();
   });
 
   it('should track attachment click event', function () {

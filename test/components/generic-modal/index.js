@@ -18,7 +18,7 @@ describe('GenericModal component', function () {
       <GenericModal activeModal={ null }/>
     );
 
-    wrapper.find('.generic-modal-content').should.have.length(0);
+    wrapper.find('.generic-modal-content').exists().should.be.false();
   });
 
   it('should render Legal Disclaimer when activeModal matches', function () {

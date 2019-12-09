@@ -184,7 +184,7 @@ describe('Timeline component', function () {
         />
       );
 
-      wrapper.find(Timeline).should.have.length(1);
+      wrapper.find(Timeline).exists().should.be.true();
       wrapper.find(LoadingSpinner).exists().should.be.false();
     });
   });

@@ -110,7 +110,7 @@ describe('PinboardPage component', function () {
       </Router>
     );
 
-    wrapper.find(LoadingSpinner).should.have.length(1);
+    wrapper.find(LoadingSpinner).exists().should.be.true();
   });
 
   it('should replace url when shouldRedirect is True after updating', function () {

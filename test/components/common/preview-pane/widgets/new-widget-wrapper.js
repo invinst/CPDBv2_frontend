@@ -27,7 +27,7 @@ describe('NewWidgetWrapper component', function () {
   });
 
   it('should not display overlay gradient if scrollable', function () {
-    const wrapper = shallow(
+    const wrapper = mount(
       <NewWidgetWrapper yScrollable={ true }>
         <TextWidget title='title'/>
       </NewWidgetWrapper>

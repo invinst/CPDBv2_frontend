@@ -87,7 +87,7 @@ describe('AnimatedSocialGraph component', function () {
 
   it('should not render graph control panel if there is no event', function () {
     const wrapper = shallow(<AnimatedSocialGraph/>);
-    wrapper.find('.graph-control-panel').should.have.length(0);
+    wrapper.find('.graph-control-panel').exists().should.be.false();
   });
 
   context('withLoadingSpinner', function () {
@@ -118,7 +118,7 @@ describe('AnimatedSocialGraph component', function () {
         />
       );
 
-      wrapper.find(AnimatedSocialGraph).should.have.length(1);
+      wrapper.find(AnimatedSocialGraph).exists().should.be.true();
       wrapper.find(LoadingSpinner).exists().should.be.false();
     });
   });

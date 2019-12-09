@@ -17,14 +17,10 @@ describe('SearchBar component', function () {
     wrapper.find('.share-button').exists().should.be.true();
   });
 
-  it('should hide share menu by default', function () {
-    const wrapper = shallow(<SearchBar />);
-
-    wrapper.find('.share-menu').exists().should.be.false();
-  });
-
   it('should render share menu if share button is clicked', function () {
     const wrapper = mount(<SearchBar />);
+
+    wrapper.find('.share-menu').exists().should.be.false();
 
     wrapper.find('.share-button').simulate('click');
     wrapper.find('.share-menu').exists().should.be.true();
@@ -64,6 +60,6 @@ describe('SearchBar component', function () {
   it('should render custom buttons', function () {
     const wrapper = shallow(<SearchBar customButtons={ <div className='custom-buttons' /> } />);
 
-    wrapper.find('.custom-buttons').should.have.length(1);
+    wrapper.find('.custom-buttons').exists().should.be.true();
   });
 });

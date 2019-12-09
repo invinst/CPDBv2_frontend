@@ -16,6 +16,6 @@ describe('CensusTrackPane component', () => {
     wrapper.find(HeaderWidget).exists().should.be.true();
     wrapper.find(GeoInfoWidget).exists().should.be.true();
     wrapper.find(AllegationCountWidget).exists().should.be.true();
-    wrapper.find(ListWidget).should.have.length(1);
+    wrapper.find(ListWidget).exists().should.be.true();
   });
 });

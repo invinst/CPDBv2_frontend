@@ -20,7 +20,7 @@ describe('FixedHeightGrid component', function () {
     );
 
     const columns = wrapper.find('.test--fixed-height-grid-column');
-    columns.length.should.equal(3);
+    columns.should.have.length(3);
     columns.at(0).text().should.containEql('onetwo');
     columns.at(1).text().should.containEql('threefour');
     columns.at(2).text().should.containEql('five');

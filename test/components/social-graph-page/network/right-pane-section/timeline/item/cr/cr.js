@@ -40,6 +40,6 @@ describe('Cr component', function () {
     category.text().should.equal('Use of Force');
     finding.text().should.equal('Excessive Force - Use Of Firearm / Off Duty - No Injury');
     const attachments = wrapper.find(Attachments);
-    attachments.should.have.length(1);
+    attachments.exists().should.be.true();
   });
 });

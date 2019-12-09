@@ -55,6 +55,6 @@ describe('AttachmentsTab component', function () {
     const items = [{ title: 'abc', url: 'def', previewImageUrl: 'pre' }];
     const context = { printMode: true };
     const wrapper = shallow(<Attachments items={ items }/>, { context: context });
-    wrapper.find(PrintAttachments).should.have.length(1);
+    wrapper.find(PrintAttachments).exists().should.be.true();
   });
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { stub } from 'sinon';
@@ -61,43 +61,43 @@ describe('TabbedPaneSection component', function () {
   });
 
   it('should render timeline tab', function () {
-    const wrapper = shallow(
+    const wrapper = mount(
       <Provider store={ store }>
         <TabbedPaneSection currentTab={ OFFICER_PAGE_TAB_NAMES.TIMELINE }/>
       </Provider>
     );
 
-    wrapper.find(Timeline).should.be.ok();
+    wrapper.find(Timeline).exists().should.be.true();
   });
 
   it('should render map tab', function () {
-    const wrapper = shallow(
+    const wrapper = mount(
       <Provider store={ store }>
         <TabbedPaneSection currentTab={ OFFICER_PAGE_TAB_NAMES.MAP }/>
       </Provider>
     );
 
-    wrapper.find(AllegationsMap).should.be.ok();
+    wrapper.find(AllegationsMap).exists().should.be.true();
   });
 
   it('should render coaccusals tab', function () {
-    const wrapper = shallow(
+    const wrapper = mount(
       <Provider store={ store }>
         <TabbedPaneSection currentTab={ OFFICER_PAGE_TAB_NAMES.COACCUSALS }/>
       </Provider>
     );
 
-    wrapper.find(Coaccusals).should.be.ok();
+    wrapper.find(Coaccusals).exists().should.be.true();
   });
 
   it('should render attachment tab', function () {
-    const wrapper = shallow(
+    const wrapper = mount(
       <Provider store={ store }>
         <TabbedPaneSection currentTab={ OFFICER_PAGE_TAB_NAMES.ATTACHMENTS }/>
       </Provider>
     );
 
-    wrapper.find(AttachmentsTab).should.be.ok();
+    wrapper.find(AttachmentsTab).exists().should.be.true();
   });
 
   it('should call changeOfficerTab when clicking tab name', function () {

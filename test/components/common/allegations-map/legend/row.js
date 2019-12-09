@@ -36,6 +36,6 @@ describe('Row component', function () {
         loading={ true }
       />
     );
-    wrapper.find(LoadingSpinner).should.have.length(1);
+    wrapper.find(LoadingSpinner).exists().should.be.true();
   });
 });

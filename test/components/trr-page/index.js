@@ -114,7 +114,6 @@ describe('TRRPage component', function () {
       />,
       { context: { printMode: true } },
     );
-    wrapper.find('.trr-category-print').exists().should.be.true();
     wrapper.find('.trr-category-print').text().should.equal('Firearm');
     wrapper.find('.incident-date-print').exists().should.be.true();
     wrapper.find('.incident-date-title-print').text().should.equal('DATE OF INCIDENT');

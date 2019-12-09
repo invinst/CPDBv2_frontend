@@ -242,7 +242,7 @@ describe('PreviewPane component', function () {
       />
     );
     const instanceDOM = wrapper.find('.test--preview-pane').getDOMNode();
-    instanceDOM.childNodes.should.have.length(0);
+    instanceDOM.childNodes.exists().should.be.false();
   });
 
   it('should add yScrollable class name to wrapper', function () {

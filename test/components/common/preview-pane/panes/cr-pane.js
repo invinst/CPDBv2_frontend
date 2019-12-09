@@ -97,10 +97,8 @@ describe('CRPane component', () => {
       />
     );
 
-    const victimsText = wrapper.find('.cr-preview-pane-victims-text');
-    victimsText.text().should.equal('VICTIM');
-    const accused = wrapper.find(ListWidget);
-    accused.prop('title').should.equal('ACCUSED OFFICER');
+    wrapper.find('.cr-preview-pane-victims-text').text().should.equal('VICTIM');
+    wrapper.find(ListWidget).prop('title').should.equal('ACCUSED OFFICER');
   });
 
   it('should not display victims section if there are victims are not passed in', function () {
@@ -126,10 +124,8 @@ describe('CRPane component', () => {
       />
     );
 
-    const victimsText = wrapper.find('.cr-preview-pane-victims-text');
-    victimsText.length.should.equal(0);
-    const accused = wrapper.find('.cr-preview-pane-victims');
-    accused.length.should.equal(0);
+    wrapper.find('.cr-preview-pane-victims-text').exists().should.be.false();
+    wrapper.find('.cr-preview-pane-victims').exists().should.be.false();
   });
 
   it('should not display victims section if there are no victims', function () {
@@ -156,10 +152,8 @@ describe('CRPane component', () => {
       />
     );
 
-    const victimsText = wrapper.find('.cr-preview-pane-victims-text');
-    victimsText.length.should.equal(0);
-    const accused = wrapper.find('.cr-preview-pane-victims');
-    accused.length.should.equal(0);
+    wrapper.find('.cr-preview-pane-victims-text').exists().should.be.false();
+    wrapper.find('.cr-preview-pane-victims').exists().should.be.false();
   });
 
   it('should not render address section if there is no address', function () {
@@ -196,6 +190,6 @@ describe('CRPane component', () => {
         coaccused={ accusedOfficers }
       />
     );
-    wrapper.find('.cr-preview-pane-address').should.have.length(0);
+    wrapper.find('.cr-preview-pane-address').exists().should.be.false();
   });
 });

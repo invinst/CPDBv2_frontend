@@ -8,8 +8,8 @@ describe('SummaryField component', function () {
   it('should display field label and value and right-child', function () {
     const wrapper = shallow(<SummaryField />);
 
-    wrapper.find('.summary-field-label').should.have.length(1);
-    wrapper.find('.summary-field-value').should.have.length(1);
-    wrapper.find('.summary-field-extra-info').should.have.length(1);
+    wrapper.find('.summary-field-label').exists().should.be.true();
+    wrapper.find('.summary-field-value').exists().should.be.true();
+    wrapper.find('.summary-field-extra-info').exists().should.be.true();
   });
 });

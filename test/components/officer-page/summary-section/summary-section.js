@@ -12,9 +12,9 @@ describe('SummarySection component', function () {
   it('should render summary fields, YearOld, Salary and ViewUnitProfileButton', function () {
     const wrapper = mount(<SummarySection/>);
 
-    wrapper.find(YearOld).should.have.length(1);
-    wrapper.find(Salary).should.have.length(1);
-    wrapper.find(ViewUnitProfileButton).should.have.length(1);
+    wrapper.find(YearOld).exists().should.be.true();
+    wrapper.find(Salary).exists().should.be.true();
+    wrapper.find(ViewUnitProfileButton).exists().should.be.true();
 
     const summaryFields = wrapper.find(SummaryField);
     summaryFields.should.have.length(7);

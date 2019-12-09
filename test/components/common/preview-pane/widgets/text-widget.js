@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import should from 'should';
 
 import TextWidget from 'components/common/preview-pane/widgets/text-widget';
 
@@ -18,6 +19,6 @@ describe('TextWidget component', () => {
     const wrapper = shallow(
       <TextWidget title={ 'CURRENT ALDERMAN' } content={ '' }/>
     );
-    wrapper.find('.test--text-widget').should.have.length(0);
+    should(wrapper.type()).be.null();
   });
 });

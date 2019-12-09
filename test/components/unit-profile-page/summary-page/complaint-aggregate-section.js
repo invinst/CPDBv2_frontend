@@ -14,6 +14,6 @@ describe('ComplaintAggregateSection component', function () {
     const wrapper = shallow(
       <ComplaintAggregateSection facets={ facets }/>
     );
-    wrapper.find(AggregateFacet).should.have.length(1);
+    wrapper.find(AggregateFacet).exists().should.be.true();
   });
 });

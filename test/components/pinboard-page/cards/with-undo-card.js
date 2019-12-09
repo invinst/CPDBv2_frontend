@@ -31,7 +31,7 @@ describe('withUndoCard higher-order component', function () {
       <OfficerCardWithUndo item={ item } />
     );
 
-    wrapper.find(OfficerCard).should.have.length(1);
+    wrapper.find(OfficerCard).exists().should.be.true();
     wrapper.find('.test--undo-card').exists().should.be.false();
   });
 
@@ -43,7 +43,7 @@ describe('withUndoCard higher-order component', function () {
     const unpinButton = wrapper.find(ItemUnpinButton);
     unpinButton.simulate('click');
 
-    wrapper.find('.test--undo-card').should.have.length(1);
+    wrapper.find('.test--undo-card').exists().should.be.true();
     wrapper.find(OfficerCard).exists().should.be.false();
   });
 

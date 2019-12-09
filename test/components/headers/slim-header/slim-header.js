@@ -62,7 +62,7 @@ describe('SlimHeader component', function () {
         </SlimHeaderContextWrapper>
       </Provider>
     );
-    wrapper.find('.test--slim-header').length.should.equal(0);
+    wrapper.find('.test--slim-header').exists().should.be.false();
   });
 
   it('should render Q&A link', function () {

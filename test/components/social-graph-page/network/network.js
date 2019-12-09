@@ -37,8 +37,8 @@ describe('NetworkGraph component', function () {
     wrapper.find('.coaccusals-threshold-text').text().should.eql(
       'Minimum Coaccusal Threshold'
     );
-    wrapper.find(AnimatedSocialGraphContainer).should.have.length(1);
-    wrapper.find(RightPaneSection).should.have.length(1);
+    wrapper.find(AnimatedSocialGraphContainer).exists().should.be.true();
+    wrapper.find(RightPaneSection).exists().should.be.true();
     const slider = wrapper.find(Slider);
     slider.prop('step').should.equal(1);
     slider.prop('min').should.equal(1);
@@ -362,7 +362,7 @@ describe('NetworkGraph component', function () {
         <NetworkGraph selectedOfficerId={ 123 } networkPreviewPaneData={ networkPreviewPaneData }/>
       </Provider>
     );
-    wrapper.find(OfficerPane).should.have.length(1);
+    wrapper.find(OfficerPane).exists().should.be.true();
     wrapper.find(RightPaneSection).exists().should.be.false();
   });
 

@@ -168,8 +168,8 @@ describe('App component', function () {
         </App>
       </Provider>
     );
-    wrapper.find(SlimHeader).length.should.equal(0);
-    wrapper.find(ShareableHeader).length.should.equal(0);
+    wrapper.find(SlimHeader).exists().should.be.false();
+    wrapper.find(ShareableHeader).exists().should.be.false();
   });
 
   it('should display ShareableHeader if children is a shareable page', function () {
@@ -180,7 +180,7 @@ describe('App component', function () {
         </App>
       </Provider>
     );
-    wrapper.find(SlimHeader).length.should.equal(0);
+    wrapper.find(SlimHeader).exists().should.be.false();
     wrapper.find(ShareableHeader).exists().should.be.true();
   });
 

@@ -54,7 +54,7 @@ describe('RouteTransition component', function () {
           </RouteTransition>
         );
 
-        wrapper.find('.test--sample-div').length.should.equal(1);
+        wrapper.find('.test--sample-div').exists().should.be.true();
       });
     });
   });

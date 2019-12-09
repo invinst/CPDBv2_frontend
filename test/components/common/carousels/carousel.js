@@ -53,7 +53,7 @@ describe('Carousel component', function () {
     items.should.have.length(2);
     items.at(0).text().should.containEql('Manuel Guzman');
     items.at(1).text().should.containEql('Jerome Finnagan');
-    wrapper.find('.test--carousel-arrow-left').should.have.length(0);
+    wrapper.find('.test--carousel-arrow-left').exists().should.be.false();
   });
 
   it('should call updateSlidesPerGroup when mounted', function () {

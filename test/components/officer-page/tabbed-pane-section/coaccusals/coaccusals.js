@@ -69,12 +69,12 @@ describe('Coaccusals component', function () {
     ;
 
     const groups = wrapper.find('.coaccusals-group-name');
-    groups.length.should.equal(2);
+    groups.should.have.length(2);
     groups.at(0).text().should.equal('COACCUSED 2-4 TIMES');
     groups.at(1).text().should.equal('COACCUSED 1 TIME');
 
     const coaccusalCards = wrapper.find(OfficerCard);
-    coaccusalCards.length.should.equal(3);
+    coaccusalCards.should.have.length(3);
     coaccusalCards.forEach((card, index) => {
       card.prop('className').should.eql(styles.officerCard);
       card.prop('addOrRemoveItemInPinboard').should.eql(addOrRemoveItemInPinboard);

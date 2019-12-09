@@ -32,7 +32,7 @@ describe('DownloadMenu component', function () {
       wrapper.simulate('click');
 
       wrapper.find(LoadingSpinner).exists().should.be.true();
-      wrapper.find('img').should.have.length(0);
+      wrapper.find('img').exists().should.be.false();
 
       fetchOfficerZipFileUrlStub.should.be.calledWith(123);
     }

@@ -4,7 +4,6 @@ import { values, concat, times } from 'lodash';
 
 import { mapboxgl } from 'utils/vendors';
 import AllegationsMap, { AllegationsMapWithSpinner } from 'components/common/allegations-map';
-import Legend from 'components/common/allegations-map/legend';
 import mapStyles from 'components/common/allegations-map/allegations-map.sass';
 import legendStyles from 'components/common/allegations-map/legend/legend.sass';
 import LoadingSpinner from 'components/common/loading-spinner';
@@ -71,8 +70,6 @@ describe('Map component', function () {
       loadingSpinner.prop('className').should.equal(mapStyles.allegationMapLoading);
 
       wrapper.find(AllegationsMap).exists().should.be.false();
-      wrapper.find(Legend).exists().should.be.false();
-      wrapper.find('.map-tab').should.have.length(0);
     });
 
     it('should not render loading spinner if requesting is false', function () {

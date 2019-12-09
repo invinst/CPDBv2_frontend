@@ -15,7 +15,7 @@ describe('ItemPinButton component', function () {
   it('should not have class is-pinned if item.isPinned is false', function () {
     const wrapper = mount(<ItemPinButton item={ { isPinned: false } } />);
 
-    wrapper.find('.is-pinned').length.should.equal(0);
+    wrapper.find('.is-pinned').exists().should.be.false();
   });
 
   it('should call addOrRemoveItemInPinboard action when clicked on', function () {
@@ -42,7 +42,7 @@ describe('ItemPinButton component', function () {
   it('should not have class is-pinned if not all items inPinned are true', function () {
     const wrapper = mount(<ItemPinButton items={ [{ isPinned: false }, { isPinned: true }] }/>);
 
-    wrapper.find('.is-pinned').length.should.equal(0);
+    wrapper.find('.is-pinned').exists().should.be.false();
   });
 
   it('should render pin action hint if showHint is true', function () {
@@ -54,6 +54,6 @@ describe('ItemPinButton component', function () {
   it('should not render pin action hint if showHint is false', function () {
     const wrapper = mount(<ItemPinButton showHint={ false }/>);
 
-    wrapper.find('.pin-action-hint').length.should.equal(0);
+    wrapper.find('.pin-action-hint').exists().should.be.false();
   });
 });

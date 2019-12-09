@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { stub } from 'sinon';
+import should from 'should';
 
 import RelevantInfiniteCarousel from 'components/pinboard-page/relevant/common/relevant-infinite-carousel';
 import Carousel from 'components/common/carousel';
@@ -47,8 +48,7 @@ describe('RelevantInfiniteCarousel component', function () {
         requesting={ false }
       />
     );
-
-    wrapper.find('div').exists().should.be.false();
+    should(wrapper.type()).be.null();
   });
 
   it('should render LoadingSpinner if there is no child and questing is true', function () {
