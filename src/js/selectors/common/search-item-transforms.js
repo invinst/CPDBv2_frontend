@@ -2,6 +2,7 @@ import { get } from 'lodash';
 import moment from 'moment';
 
 import { FULL_MONTH_DATE_FORMAT } from 'utils/constants';
+import { previewPaneTransformMap } from './preview-pane-transforms';
 
 const getBaseTexts = (item) => ({ text: item.name, recentText: item.name });
 const getCRTexts = (item) => {
@@ -51,4 +52,12 @@ export const baseItemTransform = (item) => ({
 export const navigationItemTransform = item => ({
   ...baseItemTransform(item),
   recentItemData: item,
+});
+
+export const searchResultItemTransform = (item) => ({
+  ...baseItemTransform(item),
+  tags: get(item, 'tags', []),
+  itemIndex: item.itemIndex || 1,
+  isPinned: item.isPinned,
+  ...get(previewPaneTransformMap, item.type, () => {})(item),
 });

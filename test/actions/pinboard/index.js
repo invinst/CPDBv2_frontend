@@ -27,6 +27,7 @@ import {
   removeItemInPinboardPage,
   addItemInPinboardPage,
   fetchLatestRetrievedPinboard,
+  updatePinboardFromSource,
 } from 'actions/pinboard';
 import * as constants from 'utils/constants';
 
@@ -663,6 +664,29 @@ describe('pinboard actions', function () {
               crids: ['abc'],
               'trr_ids': [1],
               'source_pinboard_id': undefined,
+            },
+            cancelToken: 'token',
+          },
+        },
+      });
+    });
+  });
+
+  describe('updatePinboardFromSource', function () {
+    it('should return correct action', function () {
+      updatePinboardFromSource('abcd1234', 'abcd5678').should.deepEqual({
+        types: [
+          constants.PINBOARD_UPDATE_FROM_SOURCE_REQUEST_START,
+          constants.PINBOARD_UPDATE_FROM_SOURCE_REQUEST_SUCCESS,
+          constants.PINBOARD_UPDATE_FROM_SOURCE_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: `${constants.PINBOARDS_URL}abcd1234/`,
+            method: 'put',
+            adapter: null,
+            data: {
+              'source_pinboard_id': 'abcd5678',
             },
             cancelToken: 'token',
           },

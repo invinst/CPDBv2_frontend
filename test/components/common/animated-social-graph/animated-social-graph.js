@@ -52,6 +52,7 @@ describe('AnimatedSocialGraph component', function () {
     );
 
     wrapper.find(SocialGraph).exists().should.be.true();
+    wrapper.find('.graph-control-panel').exists().should.be.true();
 
     const slider = wrapper.find(Slider);
     const currentDate = wrapper.find('.current-date-label');
@@ -75,7 +76,6 @@ describe('AnimatedSocialGraph component', function () {
         refreshIntervalId={ null }
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
-        isVisible={ true }
         updateTimelineIdx={ updateTimelineIdxSpy }
       />
     );
@@ -87,6 +87,11 @@ describe('AnimatedSocialGraph component', function () {
 
   it('should not render graph control panel if there is no event', function () {
     const wrapper = shallow(<AnimatedSocialGraph/>);
+    wrapper.find('.graph-control-panel').exists().should.be.false();
+  });
+
+  it('should not render graph control panel if showGraphControlPanel is false', function () {
+    const wrapper = shallow(<AnimatedSocialGraph showGraphControlPanel={ false }/>);
     wrapper.find('.graph-control-panel').exists().should.be.false();
   });
 
@@ -259,20 +264,6 @@ describe('AnimatedSocialGraph component', function () {
     wrapper.unmount();
     stopTimelineSpy.should.be.called();
     stopTimelineSpy.restore();
-  });
-
-  it('should render expanded-mode-btn with a link when expandedLink is present', function () {
-    const wrapper = shallow(
-      <AnimatedSocialGraph
-        officers={ officers }
-        coaccusedData={ coaccusedData }
-        listEvent={ listEvent }
-        expandedLink='expanded_link'
-      />
-    );
-
-    const expandedModeButton = wrapper.find('.expanded-mode-btn');
-    expandedModeButton.prop('href').should.equal('expanded_link');
   });
 
   it('should render customRightControlButton if present', function () {

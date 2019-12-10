@@ -46,6 +46,7 @@ describe('PinboardsTable', function () {
     header.prop('id').should.equal('ID');
     header.prop('title').should.equal('Pinboard');
     header.prop('pinnedCount').should.equal('Pinned items');
+    header.prop('childCount').should.be.equal('Children');
     header.prop('createdAt').should.equal('Date');
 
     const infiniteScroll = wrapper.find(InfiniteScroll);

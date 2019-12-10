@@ -183,6 +183,7 @@ describe('pinboardAdminPages selectors', function () {
                 'officers_count': 1,
                 'allegations_count': 2,
                 'trrs_count': 3,
+                'child_pinboard_count': 1,
                 'officers': [
                   {
                     'percentile_allegation_civilian': '52',
@@ -232,6 +233,7 @@ describe('pinboardAdminPages selectors', function () {
                 'officers_count': 1,
                 'allegations_count': 0,
                 'trrs_count': 0,
+                'child_pinboard_count': 0,
                 'officers': [
                   {
                     'percentile_allegation_civilian': '92',
@@ -254,6 +256,7 @@ describe('pinboardAdminPages selectors', function () {
                 'officers_count': 0,
                 'allegations_count': 0,
                 'trrs_count': 0,
+                'child_pinboard_count': 3,
                 'officers': [],
                 'allegations': [],
                 'trrs': [],
@@ -279,6 +282,7 @@ describe('pinboardAdminPages selectors', function () {
           officersCount: 1,
           allegationsCount: 2,
           trrsCount: 3,
+          childCount: 1,
           recentOfficers: [
             {
               count: 2,
@@ -339,6 +343,7 @@ describe('pinboardAdminPages selectors', function () {
           officersCount: 1,
           allegationsCount: 0,
           trrsCount: 0,
+          childCount: 0,
           recentOfficers: [
             {
               count: 2,
@@ -372,6 +377,7 @@ describe('pinboardAdminPages selectors', function () {
           officersCount: 0,
           allegationsCount: 0,
           trrsCount: 0,
+          childCount: 3,
           recentOfficers: [],
           recentAllegations: [],
           recentTrrs: [],

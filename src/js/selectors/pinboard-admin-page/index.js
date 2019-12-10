@@ -51,6 +51,7 @@ const pinboardTransform = pinboard => ({
   officersCount: pinboard['officers_count'],
   allegationsCount: pinboard['allegations_count'],
   trrsCount: pinboard['trrs_count'],
+  childCount: pinboard['child_pinboard_count'],
   recentOfficers: get(pinboard, 'officers', []).map(officerMostComplaintTransform),
   recentAllegations: get(pinboard, 'allegations', []).map(crTransform),
   recentTrrs: get(pinboard, 'trrs', []).map(trrTransform),

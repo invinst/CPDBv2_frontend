@@ -7,10 +7,7 @@ import { mapboxgl } from 'utils/vendors';
 
 describe('MapboxGL component', function () {
   beforeEach(function () {
-    mapboxgl._addSourceSpy.resetHistory();
-    mapboxgl._addLayerSpy.resetHistory();
-    mapboxgl._getSourceSpy.resetHistory();
-    mapboxgl._removeSpy.resetHistory();
+    mapboxgl._resetHistory();
   });
 
   it('should add sources and layers on load', function (done) {

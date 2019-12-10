@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import { stub } from 'sinon';
 import { mount } from 'enzyme';
-import { Link } from 'react-router';
 import Truncate from 'react-truncate';
 
 import ExamplePinboardLink from 'components/pinboard-page/empty-pinboard/example-pinboard-link';
@@ -9,6 +9,7 @@ import styles from 'components/pinboard-page/empty-pinboard/example-pinboard-lin
 
 describe('ExamplePinboardLink component', function () {
   it('should have enough contents', function () {
+    const updatePinboardFromSourceStub = stub();
     class TestComponent extends Component {
       render() {
         return <ExamplePinboardLink { ...this.props }/>;
@@ -20,11 +21,12 @@ describe('ExamplePinboardLink component', function () {
         id='66ef1561'
         title='Pinboard 1'
         description='Description 1'
+        currentPinboardId='abcd1234'
+        updatePinboardFromSource={ updatePinboardFromSourceStub }
       />
     );
 
-    const link = wrapper.find(Link);
-    link.prop('to').should.equal('/pinboard/66ef1561/');
+    const link = wrapper.find('a');
     link.prop('className').should.equal(styles.examplePinboardLink);
     link.find('.title').text().should.equal('Pinboard 1');
 
@@ -33,6 +35,9 @@ describe('ExamplePinboardLink component', function () {
     description.prop('lines').should.equal(3);
     description.prop('children').should.equal('Description 1');
 
-    link.find('.arrow').exists().should.be.true();
+    wrapper.find('.arrow').exists().should.be.true();
+
+    link.simulate('click');
+    updatePinboardFromSourceStub.should.be.calledWith('abcd1234', '66ef1561');
   });
 });

@@ -12,8 +12,10 @@ describe('date module', function () {
       formatDate('2017-01-03', false).should.eql('Jan 3, 2017');
     });
 
-    it('should return null when cannot parse string to moment object', () => {
+    it('should return null when the string is null, undefined, empty or moment-unparsable', () => {
       should(formatDate(null)).be.null();
+      should(formatDate(undefined)).be.null();
+      should(formatDate('')).be.null();
       should(formatDate('fdsafdsa')).be.null();
     });
   });

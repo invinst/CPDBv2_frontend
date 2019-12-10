@@ -11,6 +11,7 @@ describe('PinboardRow', function () {
     const id = random.word();
     const title = lorem.sentence(5);
     const pinnedCount = lorem.sentence(5);
+    const childCount = random.number();
     const createdAt = moment(date.past()).format('MMM YY');
 
     const wrapper = shallow(
@@ -18,6 +19,7 @@ describe('PinboardRow', function () {
         id={ id }
         title={ title }
         pinnedCount={ pinnedCount }
+        childCount={ childCount }
         createdAt={ createdAt }
         isHeader={ false }
       />
@@ -35,6 +37,10 @@ describe('PinboardRow', function () {
     const pinnedCountCell = wrapper.find('.pinboard-pinned');
     pinnedCountCell.prop('className').should.containEql('cell');
     pinnedCountCell.text().should.equal(pinnedCount);
+
+    const childCountCell = wrapper.find('.pinboard-children');
+    childCountCell.prop('className').should.containEql('cell');
+    childCountCell.text().should.equal(String(childCount));
 
     const dateCell = wrapper.find('.pinboard-date');
     dateCell.prop('className').should.containEql('cell');

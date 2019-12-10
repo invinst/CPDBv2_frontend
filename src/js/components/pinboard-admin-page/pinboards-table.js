@@ -19,7 +19,14 @@ export default class PinboardsTable extends Component {
     return (
       <div className={ responsiveContainerStyles.responsiveContainer }>
         <div className={ styles.table }>
-          <PinboardRow isHeader={ true } id='ID' title='Pinboard' pinnedCount='Pinned items' createdAt='Date'/>
+          <PinboardRow
+            isHeader={ true }
+            id='ID'
+            title='Pinboard'
+            pinnedCount='Pinned items'
+            childCount='Children'
+            createdAt='Date'
+          />
           <InfiniteScroll
             className={ styles.rowsWrapper }
             loadMore={ () => hasMore ? fetchPinboards(nextParams) : null }

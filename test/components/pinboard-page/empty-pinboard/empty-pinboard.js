@@ -1,6 +1,5 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { Link } from 'react-router';
 
 import EmptyPinboard from 'components/pinboard-page/empty-pinboard';
 import { buildEditStateFields } from 'utils/test/factories/draft';
@@ -74,18 +73,19 @@ describe('EmptyPinboard component', function () {
       'Come back to the pinboard to give it a title and see a network map or discover relevant documents.'
     );
 
-    const examplePinboardLinks = wrapper.find(Link);
+    const examplePinboardLinks = wrapper.find('a');
     examplePinboardLinks.should.have.length(2);
 
-    const firstExamplePinboard = examplePinboardLinks.at(0);
-    firstExamplePinboard.prop('to').should.equal('/pinboard/66ef1561/');
-    firstExamplePinboard.find('.title').text().should.equal('Pinboard 1');
-    firstExamplePinboard.find('.description').text().should.equal('Description 1…');
+    const titles = wrapper.find('.title');
+    const descriptions = wrapper.find('.description');
+    titles.should.have.length(2);
+    descriptions.should.have.length(2);
 
-    const secondExamplePinboard = examplePinboardLinks.at(1);
-    examplePinboardLinks.at(1).prop('to').should.equal('/pinboard/66ef1562/');
-    secondExamplePinboard.find('.title').text().should.equal('Pinboard 2');
-    secondExamplePinboard.find('.description').text().should.equal('Description 2…');
+    titles.at(0).text().should.equal('Pinboard 1');
+    descriptions.at(0).text().should.equal('Description 1…');
+
+    titles.at(1).text().should.equal('Pinboard 2');
+    descriptions.at(1).text().should.equal('Description 2…');
 
     wrapper.find('.arrow-head').exists().should.be.true();
     wrapper.find('.arrow-shaft').exists().should.be.true();

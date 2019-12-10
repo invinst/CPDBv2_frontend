@@ -14,7 +14,6 @@ import PinnedTRRsContainer from 'containers/pinboard-page/pinned-trrs';
 import PinboardPageContainer from 'containers/pinboard-page';
 import RelevantSectionContainer from 'containers/pinboard-page/relevant-section';
 import SearchBar from 'components/pinboard-page/search-bar';
-import { PinboardPaneSectionWithSpinner } from 'components/pinboard-page/pinboard-pane-section';
 import { PreviewPaneWithOverlay } from 'components/common/preview-pane';
 import RootReducer from 'reducers/root-reducer';
 import FooterContainer from 'containers/footer-container';
@@ -250,8 +249,6 @@ describe('PinboardPage component', function () {
       </Router>
     );
 
-    wrapper.find(PinboardPaneSectionWithSpinner).exists().should.be.true();
-
     wrapper.find(RelevantSectionContainer).exists().should.be.true();
     const footer = wrapper.find(FooterContainer);
     footer.prop('className').should.equal('footer');
@@ -286,7 +283,6 @@ describe('PinboardPage component', function () {
 
     wrapper.find(EmptyPinboardContainer).exists().should.be.true();
 
-    wrapper.find(PinboardPaneSectionWithSpinner).exists().should.be.false();
     wrapper.find('.pinboard-title').exists().should.be.false();
     wrapper.find('.pinboard-description').exists().should.be.false();
     wrapper.find(RelevantSectionContainer).exists().should.be.false();

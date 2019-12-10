@@ -31,6 +31,8 @@ export const getPinboard = createSelector(
   })
 );
 
+export const getPinboardId = state => get(state, 'pinboardPage.pinboard.id');
+
 export const hasPendingChangesSelector = createSelector(
   state => get(state, 'pinboardPage.pinboard', {}),
   pinboard => get(pinboard, 'hasPendingChanges', false),
