@@ -503,22 +503,44 @@ describe('Search Page', function () {
     searchPage.recentSuggestions.waitForDisplayed(20000, true);
   });
 
-  it('should go back to previous page when user click on back button', function () {
+  it('should go back to landing page when user click on cancel button', function () {
     landingPage.open();
-    searchPage.open();
+    landingPage.header.navBar.searchBox.mainElement.click();
+    searchPage.backButton.waitForDisplayed();
     searchPage.backButton.click();
     searchPage.backButton.waitForDisplayed(20000, true);
 
     landingPage.currentBasePath.should.equal('/');
   });
 
-  it('should go back to previous page when user hit ESCAPE with focus on search input', function () {
+  it('should go back to landing page when user hit ESCAPE with focus on search input', function () {
     landingPage.open();
-    searchPage.open();
+    landingPage.header.navBar.searchBox.mainElement.click();
+    searchPage.backButton.waitForDisplayed();
     browser.keys('Escape');
     browser.pause(500);
 
     landingPage.currentBasePath.should.equal('/');
+  });
+
+  it('should go back to pinboard page when user click on cancel button', function () {
+    pinboardPage.open('abcd8765');
+    pinboardPage.searchBar.click();
+    searchPage.backButton.waitForDisplayed();
+    searchPage.backButton.click();
+    searchPage.backButton.waitForDisplayed(20000, true);
+
+    browser.getUrl().should.match(/pinboard\/abcd8765\/pinboard-title\/$/);
+  });
+
+  it('should go back to pinboard page when user hit ESCAPE with focus on search input', function () {
+    pinboardPage.open('abcd8765');
+    pinboardPage.searchBar.click();
+    searchPage.backButton.waitForDisplayed();
+    browser.keys('Escape');
+    searchPage.backButton.waitForDisplayed(20000, true);
+
+    browser.getUrl().should.match(/pinboard\/abcd8765\/pinboard-title\/$/);
   });
 
   it('should follow the first link when user press enter after typing', function () {

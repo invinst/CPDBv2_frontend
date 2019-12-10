@@ -97,13 +97,14 @@ describe('SearchPage component', function () {
   it('should call browserHistory.push when user click on searchbar__button--back', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <SearchPage />
+        <SearchPage cancelPathname='/pinboard/123abc/'/>
       </Provider>
     );
 
     const backButton = findRenderedDOMComponentWithClass(instance, 'searchbar__button--back');
     Simulate.click(backButton);
-    this.browserHistoryPush.calledWith('/').should.be.true();
+    this.browserHistoryPush.should.be.calledOnce();
+    this.browserHistoryPush.should.be.calledWith('/pinboard/123abc/');
   });
 
   it('should call router.goBack when user hit ESCAPE', function () {
