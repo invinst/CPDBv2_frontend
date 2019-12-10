@@ -236,13 +236,23 @@ describe('PreviewPane component', function () {
   it('should not render if type is not in the list', function () {
     const wrapper = mount(
       <PreviewPane
-        data={ { name: 'Community' } }
+        data={ {
+          to: '/complaint/123/',
+          category: 'Use Of Force',
+          subCategory: 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
+          incidentDate: 'JUL 2, 2012',
+          address: '14XX W 63RD ST, CHICAGO IL 60636',
+          victims: ['Hispanic, Female', 'Hispanic, Female, Age 48'],
+          coaccused: [],
+        } }
         type='NOT_FOUND'
         customClass='test--preview-pane'
       />
     );
-    const instanceDOM = wrapper.find('.test--preview-pane').getDOMNode();
-    instanceDOM.childNodes.exists().should.be.false();
+
+
+    const paneWrapper = wrapper.find('.test--preview-pane');
+    paneWrapper.children().exists().should.be.false();
   });
 
   it('should add yScrollable class name to wrapper', function () {
