@@ -28,7 +28,14 @@ import {
   isEmptyPinboard,
 } from 'utils/pinboard';
 import { isPinboardRestoredSelector } from 'selectors/pinboard-page/pinboard';
-import { showInvalidParamToasts, showAddOrRemoveItemToast, showCreatedToasts, showPinboardToast } from 'utils/toast';
+import {
+  showInvalidParamToasts,
+  showAddOrRemoveItemToast,
+  showCreatedToasts,
+  showPinboardToast,
+  showNotClosableToast,
+} from 'utils/toast';
+import { Toastify } from 'utils/vendors';
 
 
 const getIds = (query, key) => get(query, key, '').split(',').filter(identity);
@@ -58,9 +65,40 @@ const getPinboardFromQuery = (query) => {
   return { pinboardFromQuery, invalidParams };
 };
 
-const MAX_RETRIES = 60;
 const RETRY_DELAY = 1000;
+const MAX_RETRIES = 60;
 let retries = 0;
+
+const CONNECTION_RETRY_DELAY = 100;
+const MAX_CONNECTION_RETRIES = 3;
+let internetConnectionRetries = 0;
+let reconnectingToastId;
+
+function handleConnectionLostOrRetry(store) {
+  if (window.navigator.onLine) {
+    if (retries < MAX_RETRIES) {
+      retries += 1;
+      setTimeout(() => store.dispatch(savePinboard()), RETRY_DELAY);
+    }
+  } else if (!reconnectingToastId) {
+    if (internetConnectionRetries < MAX_CONNECTION_RETRIES) {
+      internetConnectionRetries += 1;
+      setTimeout(() => store.dispatch(savePinboard()), CONNECTION_RETRY_DELAY);
+    } else {
+      internetConnectionRetries = 0;
+      retries = 0;
+      reconnectingToastId = showNotClosableToast('Connection lost. Trying to saving ...');
+    }
+  }
+}
+
+function handleBackToOnline(store) {
+  if (reconnectingToastId) {
+    store.dispatch(savePinboard());
+    reconnectingToastId && Toastify.toast.dismiss(reconnectingToastId);
+    reconnectingToastId = undefined;
+  }
+}
 
 function dispatchUpdateOrCreatePinboard(store, currentPinboard, successCallBack=noop) {
   const updateOrCreatePinboard = isNil(currentPinboard.id) ? createPinboard : updatePinboard;
@@ -68,100 +106,98 @@ function dispatchUpdateOrCreatePinboard(store, currentPinboard, successCallBack=
     retries = 0;
     store.dispatch(savePinboard(result.payload));
     successCallBack(result.payload);
-  }).catch(() => {
-    if (retries < MAX_RETRIES) {
-      retries += 1;
-      setTimeout(() => store.dispatch(savePinboard()), RETRY_DELAY);
-    }
-  });
+  }).catch(() => handleConnectionLostOrRetry(store));
 }
 
-export default store => next => action => {
-  if (action.type === ADD_OR_REMOVE_ITEM_IN_PINBOARD || action.type === ADD_ITEM_IN_PINBOARD_PAGE) {
-    let promises = [];
+export default store => {
+  window.addEventListener('online', () => handleBackToOnline(store));
+  return next => action => {
+    if (action.type === ADD_OR_REMOVE_ITEM_IN_PINBOARD || action.type === ADD_ITEM_IN_PINBOARD_PAGE) {
+      let promises = [];
 
-    const addOrRemove = action.payload.isPinned ? removeItemFromPinboardState : addItemToPinboardState;
-    promises.push(store.dispatch(addOrRemove(action.payload)));
+      const addOrRemove = action.payload.isPinned ? removeItemFromPinboardState : addItemToPinboardState;
+      promises.push(store.dispatch(addOrRemove(action.payload)));
 
-    Promise.all(promises).finally(() => {
-      store.dispatch(savePinboard());
-      if (action.type === ADD_OR_REMOVE_ITEM_IN_PINBOARD) {
-        const { isPinned, type } = action.payload;
-        const pinboard = store.getState().pinboardPage.pinboard;
-        showAddOrRemoveItemToast(pinboard, isPinned, type);
-      }
-    });
-  }
+      Promise.all(promises).finally(() => {
+        store.dispatch(savePinboard());
+        if (action.type === ADD_OR_REMOVE_ITEM_IN_PINBOARD) {
+          const { isPinned, type } = action.payload;
+          const pinboard = store.getState().pinboardPage.pinboard;
+          showAddOrRemoveItemToast(pinboard, isPinned, type);
+        }
+      });
+    }
 
-  if (action.type === REMOVE_ITEM_IN_PINBOARD_PAGE) {
-    Promise.all([store.dispatch(removeItemFromPinboardState(action.payload))]).finally(() => {
-      store.dispatch(savePinboard());
-    });
-  }
+    if (action.type === REMOVE_ITEM_IN_PINBOARD_PAGE) {
+      Promise.all([store.dispatch(removeItemFromPinboardState(action.payload))]).finally(() => {
+        store.dispatch(savePinboard());
+      });
+    }
 
-  if (action.type === UPDATE_PINBOARD_INFO) {
-    Promise.all([store.dispatch(updatePinboardInfoState(action.payload))]).finally(() => {
-      store.dispatch(savePinboard());
-    });
-  }
+    if (action.type === UPDATE_PINBOARD_INFO) {
+      Promise.all([store.dispatch(updatePinboardInfoState(action.payload))]).finally(() => {
+        store.dispatch(savePinboard());
+      });
+    }
 
-  if (action.type === ORDER_PINBOARD) {
-    Promise.all([store.dispatch(orderPinboardState(action.payload))]).finally(() => {
-      store.dispatch(savePinboard());
-    });
-  }
+    if (action.type === ORDER_PINBOARD) {
+      Promise.all([store.dispatch(orderPinboardState(action.payload))]).finally(() => {
+        store.dispatch(savePinboard());
+      });
+    }
 
-  if (action.type === SAVE_PINBOARD) {
-    const state = store.getState();
-    const pinboard = state.pinboardPage.pinboard;
+    if (action.type === SAVE_PINBOARD) {
+      const state = store.getState();
+      const pinboard = state.pinboardPage.pinboard;
 
-    const currentPinboard = getRequestPinboard(pinboard);
-    const pinboardId = currentPinboard.id;
+      const currentPinboard = getRequestPinboard(pinboard);
+      const pinboardId = currentPinboard.id;
 
-    if (!pinboard.saving) {
-      if (pinboard.hasPendingChanges) {
-        dispatchUpdateOrCreatePinboard(store, currentPinboard);
-      } else {
-        if (startsWith(state.pathname, '/pinboard/') && pinboardId) {
-          if (!state.pinboardPage.pinnedItemsRequested) {
-            dispatchFetchPinboardPinnedItems(store, pinboardId);
-          }
-          if (pinboard.needRefreshData) {
-            store.dispatch(performFetchPinboardRelatedData());
-            dispatchFetchPinboardPageData(store, pinboardId);
+      if (!pinboard.saving) {
+        if (pinboard.hasPendingChanges) {
+          dispatchUpdateOrCreatePinboard(store, currentPinboard);
+        } else {
+          if (startsWith(state.pathname, '/pinboard/') && pinboardId) {
+            if (!state.pinboardPage.pinnedItemsRequested) {
+              dispatchFetchPinboardPinnedItems(store, pinboardId);
+            }
+            if (pinboard.needRefreshData) {
+              store.dispatch(performFetchPinboardRelatedData());
+              dispatchFetchPinboardPageData(store, pinboardId);
+            }
           }
         }
       }
     }
-  }
 
-  if (action.type === PINBOARD_UPDATE_FROM_SOURCE_REQUEST_SUCCESS) {
-    const state = store.getState();
-    const pinboardId = state.pinboardPage.pinboard.id;
+    if (action.type === PINBOARD_UPDATE_FROM_SOURCE_REQUEST_SUCCESS) {
+      const state = store.getState();
+      const pinboardId = state.pinboardPage.pinboard.id;
 
-    dispatchFetchPinboardPinnedItems(store, pinboardId);
-    dispatchFetchPinboardPageData(store, pinboardId);
-  }
-
-  if (action.type === '@@router/LOCATION_CHANGE') {
-    const state = store.getState();
-    const pinboard = state.pinboardPage.pinboard;
-    const onPinboardPage = action.payload.pathname.match(/\/pinboard\//);
-    const hasPinboardId = action.payload.pathname.match(/\/pinboard\/[a-fA-F0-9]+\//);
-    if (onPinboardPage && !hasPinboardId && !pinboard.hasPendingChanges) {
-      const { pinboardFromQuery, invalidParams } = getPinboardFromQuery(action.payload.query);
-      isEmpty(invalidParams) || showInvalidParamToasts(invalidParams);
-
-      if (!isEmptyPinboard(pinboardFromQuery) || pinboardFromQuery.title)
-        dispatchUpdateOrCreatePinboard(store, pinboardFromQuery, showCreatedToasts);
-      else {
-        isEmpty(action.payload.query) || showPinboardToast('Redirected to latest pinboard.');
-        store.dispatch(fetchLatestRetrievedPinboard({ create: true }));
-      }
-    } else if (!isPinboardRestoredSelector(state) && !onPinboardPage) {
-      store.dispatch(fetchLatestRetrievedPinboard({ create: false }));
+      dispatchFetchPinboardPinnedItems(store, pinboardId);
+      dispatchFetchPinboardPageData(store, pinboardId);
     }
-  }
 
-  return next(action);
+    if (action.type === '@@router/LOCATION_CHANGE') {
+      const state = store.getState();
+      const pinboard = state.pinboardPage.pinboard;
+      const onPinboardPage = action.payload.pathname.match(/\/pinboard\//);
+      const hasPinboardId = action.payload.pathname.match(/\/pinboard\/[a-fA-F0-9]+\//);
+      if (onPinboardPage && !hasPinboardId && !pinboard.hasPendingChanges) {
+        const { pinboardFromQuery, invalidParams } = getPinboardFromQuery(action.payload.query);
+        isEmpty(invalidParams) || showInvalidParamToasts(invalidParams);
+
+        if (!isEmptyPinboard(pinboardFromQuery) || pinboardFromQuery.title)
+          dispatchUpdateOrCreatePinboard(store, pinboardFromQuery, showCreatedToasts);
+        else {
+          isEmpty(action.payload.query) || showPinboardToast('Redirected to latest pinboard.');
+          store.dispatch(fetchLatestRetrievedPinboard({ create: true }));
+        }
+      } else if (!isPinboardRestoredSelector(state) && !onPinboardPage) {
+        store.dispatch(fetchLatestRetrievedPinboard({ create: false }));
+      }
+    }
+
+    return next(action);
+  };
 };
