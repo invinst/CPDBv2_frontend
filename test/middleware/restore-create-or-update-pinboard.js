@@ -29,6 +29,7 @@ import {
 import PinboardFactory from 'utils/test/factories/pinboard';
 import { Toastify } from 'utils/vendors';
 import extractQuery from 'utils/extract-query';
+import toastStyles from 'utils/toast.sass';
 
 
 describe('restoreCreateOrUpdatePinboard middleware', function () {
@@ -224,8 +225,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
         const browserHistoryPush = stub(browserHistory, 'push');
         Toastify.toast.should.be.calledOnce();
         Toastify.toast.getCall(0).args[0].should.eql('CR added');
-        Toastify.toast.getCall(0).args[1]['className'].should.eql('toast-wrapper added');
-        Toastify.toast.getCall(0).args[1]['bodyClassName'].should.eql('toast-body');
+        Toastify.toast.getCall(0).args[1]['className'].should.eql(`${toastStyles.toastWrapper} added`);
         Toastify.toast.getCall(0).args[1]['transition'].should.eql(
           Toastify.cssTransition({
             enter: 'toast-enter',
@@ -275,8 +275,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
         const browserHistoryPush = stub(browserHistory, 'push');
         Toastify.toast.should.be.calledOnce();
         Toastify.toast.getCall(0).args[0].should.eql('CR removed');
-        Toastify.toast.getCall(0).args[1]['className'].should.eql('toast-wrapper removed');
-        Toastify.toast.getCall(0).args[1]['bodyClassName'].should.eql('toast-body');
+        Toastify.toast.getCall(0).args[1]['className'].should.eql(`${toastStyles.toastWrapper} removed`);
         Toastify.toast.getCall(0).args[1]['transition'].should.eql(
           Toastify.cssTransition({
             enter: 'toast-enter',

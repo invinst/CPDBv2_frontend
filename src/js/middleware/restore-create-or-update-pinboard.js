@@ -1,37 +1,38 @@
 import { Promise } from 'es6-promise';
-import * as _ from 'lodash';
-import pluralize from 'pluralize';
-import { browserHistory } from 'react-router';
+import { get, keys, isNil, isEmpty, identity, noop, toLower, camelCase, startsWith } from 'lodash';
 
 import {
-  ADD_OR_REMOVE_ITEM_IN_PINBOARD,
-  REMOVE_ITEM_IN_PINBOARD_PAGE,
   ADD_ITEM_IN_PINBOARD_PAGE,
+  ADD_OR_REMOVE_ITEM_IN_PINBOARD,
   ORDER_PINBOARD,
+  PINBOARD_UPDATE_FROM_SOURCE_REQUEST_SUCCESS,
+  REMOVE_ITEM_IN_PINBOARD_PAGE,
   SAVE_PINBOARD,
   UPDATE_PINBOARD_INFO,
-  PINBOARD_UPDATE_FROM_SOURCE_REQUEST_SUCCESS,
 } from 'utils/constants';
 import {
-  createPinboard,
-  updatePinboard,
   addItemToPinboardState,
-  removeItemFromPinboardState,
-  orderPinboardState,
-  updatePinboardInfoState,
-  savePinboard,
-  performFetchPinboardRelatedData,
+  createPinboard,
   fetchLatestRetrievedPinboard,
+  orderPinboardState,
+  performFetchPinboardRelatedData,
+  removeItemFromPinboardState,
+  savePinboard,
+  updatePinboard,
+  updatePinboardInfoState,
 } from 'actions/pinboard';
-import { Toastify } from 'utils/vendors';
-import { dispatchFetchPinboardPageData, dispatchFetchPinboardPinnedItems, isEmptyPinboard } from 'utils/pinboard';
-import pinboardStyles from 'components/pinboard-page/pinboard-page.sass';
+import {
+  dispatchFetchPinboardPageData,
+  dispatchFetchPinboardPinnedItems,
+  getRequestPinboard,
+  isEmptyPinboard,
+} from 'utils/pinboard';
 import { isPinboardRestoredSelector } from 'selectors/pinboard-page/pinboard';
-import { generatePinboardUrl, getRequestPinboard } from 'utils/pinboard';
+import { showInvalidParamToasts, showAddOrRemoveItemToast, showCreatedToasts, showPinboardToast } from 'utils/toast';
 
 
-const getIds = (query, key) => _.get(query, key, '').split(',').filter(_.identity);
-const isParam = (param, validators) => validators.includes(_.toLower(_.camelCase(param)));
+const getIds = (query, key) => get(query, key, '').split(',').filter(identity);
+const isParam = (param, validators) => validators.includes(toLower(camelCase(param)));
 
 const getPinboardFromQuery = (query) => {
   const invalidParams = [];
@@ -41,7 +42,7 @@ const getPinboardFromQuery = (query) => {
     crids: [],
     trrIds: [],
   };
-  _.keys(query).forEach(param => {
+  keys(query).forEach(param => {
     if (isParam(param, 'title')) {
       pinboardFromQuery.title = query[param];
     } else if (isParam(param, ['officerid', 'officerids'])) {
@@ -61,8 +62,8 @@ const MAX_RETRIES = 60;
 const RETRY_DELAY = 1000;
 let retries = 0;
 
-function dispatchUpdateOrCreatePinboard(store, currentPinboard, successCallBack=_.noop) {
-  const updateOrCreatePinboard = _.isNil(currentPinboard.id) ? createPinboard : updatePinboard;
+function dispatchUpdateOrCreatePinboard(store, currentPinboard, successCallBack=noop) {
+  const updateOrCreatePinboard = isNil(currentPinboard.id) ? createPinboard : updatePinboard;
   store.dispatch(updateOrCreatePinboard(currentPinboard)).then(result => {
     retries = 0;
     store.dispatch(savePinboard(result.payload));
@@ -72,81 +73,6 @@ function dispatchUpdateOrCreatePinboard(store, currentPinboard, successCallBack=
       retries += 1;
       setTimeout(() => store.dispatch(savePinboard()), RETRY_DELAY);
     }
-  });
-}
-
-function formatMessage(foundIds, notFoundIds, itemType) {
-  let message = '';
-  if (!notFoundIds.length)
-    return '';
-
-  const total = foundIds.length + notFoundIds.length;
-  if (foundIds.length) {
-    message += ` ${ foundIds.length } out of ${total} ${total === 1 ? itemType : `${itemType}s`} ` +
-      'were added to this pinboard.';
-  }
-  message += ` ${ notFoundIds.length } out of ${total} ${itemType} ${total === 1 ? 'ID': 'IDs'} ` +
-    `could not be recognized (${notFoundIds.join(', ')}).`;
-  return message.trim();
-}
-
-const formatInvalidParamMessage = (invalidParams) =>
-  `${invalidParams.join(', ')} ${pluralize('is', invalidParams.length)} not recognized.`;
-
-const TopRightTransition = Toastify.cssTransition({
-  enter: 'toast-enter',
-  exit: 'toast-exit',
-  duration: 500,
-  appendPosition: true,
-});
-const showPinboardToast = (message) => Toastify.toast(message, {
-  className: pinboardStyles.pinboardPageToast,
-  bodyClassName: 'toast-body',
-  transition: TopRightTransition,
-  autoClose: false,
-});
-
-function showCreatedToasts(payload) {
-  const foundOfficerIds = _.get(payload, 'officer_ids', []);
-  const foundCrids = _.get(payload, 'crids', []);
-  const foundTrrIds = _.get(payload, 'trr_ids', []);
-
-  const notFoundOfficerIds = _.get(payload, 'not_found_items.officer_ids', []);
-  const notFoundCrids = _.get(payload, 'not_found_items.crids', []);
-  const notFoundTrrIds = _.get(payload, 'not_found_items.trr_ids', []);
-
-  const creatingMessages = [];
-  creatingMessages.push(formatMessage(foundOfficerIds, notFoundOfficerIds, 'officer'));
-  creatingMessages.push(formatMessage(foundCrids, notFoundCrids, 'allegation'));
-  creatingMessages.push(formatMessage(foundTrrIds, notFoundTrrIds, 'TRR'));
-
-  creatingMessages.filter(_.identity).forEach(showPinboardToast);
-}
-
-const TOAST_TYPE_MAP = {
-  'CR': 'CR',
-  'DATE > CR': 'CR',
-  'INVESTIGATOR > CR': 'CR',
-  'OFFICER': 'Officer',
-  'UNIT > OFFICERS': 'Officer',
-  'DATE > OFFICERS': 'Officer',
-  'TRR': 'TRR',
-  'DATE > TRR': 'TRR',
-};
-
-function showAddOrRemoveItemToast(store, payload) {
-  const { isPinned, type } = payload;
-  const actionType = isPinned ? 'removed' : 'added';
-
-  const state = store.getState();
-  const pinboard = state.pinboardPage.pinboard;
-  const url = generatePinboardUrl(pinboard) || '/pinboard/';
-
-  Toastify.toast(`${TOAST_TYPE_MAP[type]} ${actionType}`, {
-    className: `toast-wrapper ${actionType}`,
-    bodyClassName: 'toast-body',
-    transition: TopRightTransition,
-    onClick: () => browserHistory.push(url),
   });
 }
 
@@ -160,7 +86,9 @@ export default store => next => action => {
     Promise.all(promises).finally(() => {
       store.dispatch(savePinboard());
       if (action.type === ADD_OR_REMOVE_ITEM_IN_PINBOARD) {
-        showAddOrRemoveItemToast(store, action.payload);
+        const { isPinned, type } = action.payload;
+        const pinboard = store.getState().pinboardPage.pinboard;
+        showAddOrRemoveItemToast(pinboard, isPinned, type);
       }
     });
   }
@@ -194,7 +122,7 @@ export default store => next => action => {
       if (pinboard.hasPendingChanges) {
         dispatchUpdateOrCreatePinboard(store, currentPinboard);
       } else {
-        if (_.startsWith(state.pathname, '/pinboard/') && pinboardId) {
+        if (startsWith(state.pathname, '/pinboard/') && pinboardId) {
           if (!state.pinboardPage.pinnedItemsRequested) {
             dispatchFetchPinboardPinnedItems(store, pinboardId);
           }
@@ -222,12 +150,12 @@ export default store => next => action => {
     const hasPinboardId = action.payload.pathname.match(/\/pinboard\/[a-fA-F0-9]+\//);
     if (onPinboardPage && !hasPinboardId && !pinboard.hasPendingChanges) {
       const { pinboardFromQuery, invalidParams } = getPinboardFromQuery(action.payload.query);
-      _.isEmpty(invalidParams) || showPinboardToast(formatInvalidParamMessage(invalidParams));
+      isEmpty(invalidParams) || showInvalidParamToasts(invalidParams);
 
       if (!isEmptyPinboard(pinboardFromQuery) || pinboardFromQuery.title)
         dispatchUpdateOrCreatePinboard(store, pinboardFromQuery, showCreatedToasts);
       else {
-        _.isEmpty(action.payload.query) || showPinboardToast('Redirected to latest pinboard.');
+        isEmpty(action.payload.query) || showPinboardToast('Redirected to latest pinboard.');
         store.dispatch(fetchLatestRetrievedPinboard({ create: true }));
       }
     } else if (!isPinboardRestoredSelector(state) && !onPinboardPage) {

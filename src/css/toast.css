@@ -27,6 +27,12 @@
     margin-bottom: 8px;
 }
 
+.Toastify__toast-body {
+    font-family: "San Francisco Text", sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+}
+
 @keyframes slideInDown {
     from {
         transform: translate3d(0, -100vh, 0);
