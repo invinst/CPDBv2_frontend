@@ -1,4 +1,4 @@
-import cancelPathname from 'reducers/search-page/cancle-pathname';
+import cancelPathname from 'reducers/search-page/cancel-pathname';
 
 
 describe('cancelPathname reducer', function () {

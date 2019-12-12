@@ -6,7 +6,7 @@ import contentType from './content-type';
 import tags from './tags';
 import recentSuggestions from './recent-suggestions';
 import navigation from './navigation';
-import cancelPathname from './cancle-pathname';
+import cancelPathname from './cancel-pathname';
 import query from './query';
 import searchTerms from './search-terms';
 import pagination from './pagination';
