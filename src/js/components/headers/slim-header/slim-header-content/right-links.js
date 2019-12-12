@@ -34,6 +34,7 @@ export default class RightLinks extends Component {
       {
         name: 'Pinboards',
         itemComponent: Link,
+        className: 'pinboard-feature',
         attrs: {
           to: '/pinboard/',
         },
@@ -42,7 +43,7 @@ export default class RightLinks extends Component {
 
     const tags = links.map((link, index) => (
       <link.itemComponent
-        className={ cx('right-link', position) }
+        className={ cx('right-link', position, link.className) }
         onClick={ e => { e.stopPropagation(); } }
         key={ index }
         { ...link.attrs }

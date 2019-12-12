@@ -5,4 +5,5 @@ export default {
   localStorageVersion: '0',
   twitterBotName: '',
   apiDomain: `${global.location.protocol}//localhost:8000`,
+  enableFeatures: { pinboard: true },
 };
