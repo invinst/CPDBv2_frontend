@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import GeographicMap from 'components/social-graph-page/geographic';
 import {
   mapLegendSelector,
-  mapMarkersSelector,
+  mapMarkerGroupsSelector,
   geographicAllegationSelector,
   geographicTRRSelector,
   isRequestedSelector,
@@ -25,7 +25,7 @@ import {
 function mapStateToProps(state, ownProps) {
   return {
     legend: mapLegendSelector(state),
-    markers: mapMarkersSelector(state),
+    markerGroups: mapMarkerGroupsSelector(state),
     mainTabsContent: ownProps.mainTabsContent,
     officerIds: ownProps.location.query['officer_ids'],
     unitId: ownProps.location.query['unit_id'],
