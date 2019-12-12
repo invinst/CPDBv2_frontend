@@ -32,7 +32,9 @@ describe('PinboardButton component', function () {
       />
     );
 
-    findDOMNode(instance).textContent.should.eql('Your pinboard is empty');
+    const pinboardButton = findDOMNode(instance);
+    pinboardButton.className.should.containEql('pinboard-feature');
+    pinboardButton.textContent.should.equal('Your pinboard is empty');
   });
 
   it('should display "Pinboard (count)" when there are pinned items', function () {
@@ -44,7 +46,9 @@ describe('PinboardButton component', function () {
       } } />
     );
 
-    findDOMNode(instance).textContent.should.eql('Pinboard (2)');
+    const pinboardButton = findDOMNode(instance);
+    pinboardButton.className.should.containEql('pinboard-feature');
+    pinboardButton.textContent.should.equal('Pinboard (2)');
   });
 
   it('should not render if isPinboardRestored is false', function () {

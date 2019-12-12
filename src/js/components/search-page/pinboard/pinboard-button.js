@@ -38,14 +38,18 @@ export default class PinboardButton extends Component {
 
     if (pinboard.itemsCount === 0 && emptyText) {
       return (
-        <span className={ cx('test--pinboard-button', styles.pinboardNoItem) } onClick={ this.handleClick }>
+        <span className={
+          cx('pinboard-feature', 'test--pinboard-button', styles.pinboardNoItem) } onClick={ this.handleClick }
+        >
           Your pinboard is empty
         </span>
       );
     }
 
     return (
-      <span className={ cx('test--pinboard-button', styles.pinboardHasItems) } onClick={ this.handleClick }>
+      <span className={
+        cx('pinboard-feature', 'test--pinboard-button', styles.pinboardHasItems) } onClick={ this.handleClick }
+      >
         { `Pinboard (${pinboard.itemsCount})` }
       </span>
     );

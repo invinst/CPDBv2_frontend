@@ -81,3 +81,13 @@ export const setupMockApiFile = (mockApiFile) => {
 export const restoreMockApiFile = () => {
   browser.removeLocalStorage('TEST_MOCK_API_FILE');
 };
+
+export const setupPinboardEnabled = (value) => {
+  browser.url('');
+
+  browser.setLocalStorage('PINBOARD_ENABLED', value);
+};
+
+export const restorePinboardEnabled = () => {
+  browser.removeLocalStorage('PINBOARD_ENABLED');
+};
