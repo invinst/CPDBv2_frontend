@@ -6,6 +6,9 @@ import {
   renderIntoDocument,
   Simulate,
 } from 'react-addons-test-utils';
+import { browserHistory } from 'react-router';
+import * as GATracking from 'utils/google_analytics_tracking';
+import { CALL_TO_ACTION_TYPES } from 'utils/constants';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import HoverableCategoryItem, { CategoryItem } from 'components/search-page/search-terms/category-column/category-item';
@@ -23,16 +26,44 @@ describe('CategoryItem component', function () {
     HoverableCategoryItem.should.be.renderable({ isFocused: true });
   });
 
-  it('should call handleItemClick with itemUniqueKey', function () {
-    const handleItemClickStub = stub();
-    const itemUniqueKey = 'itemUniqueKey';
+  context('it should handle handleItemClick', function () {
+    it('should search for content type if the item type is VIEW_ALL', function () {
+      const pushStub = stub(browserHistory, 'push');
+      const item = {
+        'call_to_action_type': CALL_TO_ACTION_TYPES.VIEW_ALL,
+        'id': 'community',
+      };
 
-    instance = renderIntoDocument(
-      <HoverableCategoryItem handleItemClick={ handleItemClickStub } itemUniqueKey={ itemUniqueKey }/>
-    );
-    Simulate.click(findRenderedDOMComponentWithClass(instance, 'test--category-item'));
+      instance = renderIntoDocument(
+        <HoverableCategoryItem item={ item }/>
+      );
 
-    handleItemClickStub.calledWith(itemUniqueKey).should.be.true();
+      const categoryItem = findRenderedDOMComponentWithClass(instance, 'test--category-item');
+      Simulate.click(categoryItem);
+
+      pushStub.calledWith('/search/?terms=community&type=COMMUNITY').should.be.true();
+
+      pushStub.restore();
+    });
+
+    it('should track outbound link if the item type is LINK', function () {
+      const trackOutboundLinkStub = stub(GATracking, 'trackOutboundLink');
+      const item = {
+        'call_to_action_type': CALL_TO_ACTION_TYPES.LINK,
+        'link': 'link',
+      };
+
+      instance = renderIntoDocument(
+        <HoverableCategoryItem item={ item }/>
+      );
+
+      const categoryItem = findRenderedDOMComponentWithClass(instance, 'test--category-item');
+      Simulate.click(categoryItem);
+
+      trackOutboundLinkStub.calledWith('link', '_blank').should.be.true();
+
+      trackOutboundLinkStub.restore();
+    });
   });
 
   describe('shouldComponentUpdate', function () {

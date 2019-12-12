@@ -1,12 +1,7 @@
 import { Factory } from 'rosie';
-import { date, lorem, helpers, address, random, internet, name } from 'faker';
-import moment from 'moment';
+import { lorem, helpers, address, random, internet, name } from 'faker';
 
-
-/* istanbul ignore next */
-const dateGenerator = () => (moment(date.past()).format('YYYY-MM-DD'));
-/* istanbul ignore next */
-const percentileGenerator = () => (random.number({ min: 10, max: 1000 }) / 10.0);
+import { dateGenerator, percentileGenerator } from 'utils/test/factories/utils';
 
 
 /* istanbul ignore next */

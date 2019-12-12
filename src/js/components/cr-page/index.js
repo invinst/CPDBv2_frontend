@@ -29,7 +29,7 @@ class CRPage extends Component {
       crid, coaccused, complainants, alreadyRequested, category, subcategory,
       incidentDate, point, address, crLocation, beat, involvements, attachments,
       openRequestDocumentModal, summary, victims, startDate, endDate, popup, pathname, notes,
-      noAttachmentTextEditWrapperStateProps, onTrackingAttachment,
+      noAttachmentTextEditWrapperStateProps, onTrackingAttachment, addOrRemoveItemInPinboard,
     } = this.props;
 
     const { printMode } = this.context;
@@ -51,6 +51,7 @@ class CRPage extends Component {
               officers={ coaccused }
               popup={ get(popup, POPUP_NAMES.COMPLAINT.ACCUSED_OFFICER) }
               pathName={ pathname }
+              addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
             />
             <div className='complaint-info'>
               {
@@ -133,6 +134,7 @@ CRPage.propTypes = {
   notes: PropTypes.array,
   noAttachmentTextEditWrapperStateProps: PropTypes.object,
   onTrackingAttachment: PropTypes.func,
+  addOrRemoveItemInPinboard: PropTypes.func,
 };
 
 CRPage.defaultProps = {

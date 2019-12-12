@@ -1,3 +1,5 @@
+import { find } from 'lodash';
+
 import {
   cardSelector, countSelector, nextParamsSelector, hasMoreSelector,
 } from 'selectors/cr-page/related-complaints';
@@ -35,6 +37,7 @@ describe('related complaints selectors', function () {
         categories: 'a, b',
         complainants: 'white male Age 43',
         accused: 'c, d',
+        isPinned: false,
         incidentDate: 'Feb 23, 2016',
       }]);
     });
@@ -56,6 +59,42 @@ describe('related complaints selectors', function () {
           match: 'categories',
         }
       )[0].crid.should.eql(123);
+    });
+
+    it('should return results with correct isPinned', function () {
+      const state = {
+        pinboardPage: {
+          pinboard: {
+            'crids': ['1111', '3333'],
+          },
+        },
+        crPage: {
+          relatedComplaints: {
+            relatedByCategory: {
+              cards: {
+                cards: [
+                  RelatedComplaintFactory.build({ crid: '1111' }),
+                  RelatedComplaintFactory.build({ crid: '2222' }),
+                ],
+              },
+            },
+            relatedByOfficer: {
+              cards: {
+                cards: [
+                  RelatedComplaintFactory.build({ crid: '3333' }),
+                  RelatedComplaintFactory.build({ crid: '4444' }),
+                ],
+              },
+            },
+          },
+        },
+      };
+      const byCategories = cardSelector(state, { match: 'categories' });
+      const byOfficers = cardSelector(state, { match: 'officers' });
+      find(byCategories, { crid: '1111' }).isPinned.should.be.true();
+      find(byCategories, { crid: '2222' }).isPinned.should.be.false();
+      find(byOfficers, { crid: '3333' }).isPinned.should.be.true();
+      find(byOfficers, { crid: '4444' }).isPinned.should.be.false();
     });
   });
 

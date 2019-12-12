@@ -2,6 +2,8 @@ import { createSelector } from 'reselect';
 import { compact } from 'lodash';
 
 import extractQuery from 'utils/extract-query';
+import { createWithIsPinnedSelector } from 'selectors/common/pinboard';
+import { PINNED_ITEM_TYPES } from 'utils/constants';
 import { formatDate } from 'utils/date';
 
 
@@ -41,18 +43,24 @@ const cardTransform = (card) => ({
   incidentDate: formatDate(card['incident_date'], false),
 });
 
-const cardByCategorySelector = createSelector(
-  getRelatedComplaintsByCategory,
-  ({ cards }) => {
-    return cards.cards.map(cardTransform);
-  }
+const cardByCategorySelector = createWithIsPinnedSelector(
+  createSelector(
+    getRelatedComplaintsByCategory,
+    ({ cards }) => {
+      return cards.cards.map(cardTransform);
+    }
+  ),
+  PINNED_ITEM_TYPES.CR,
 );
 
-const cardByOfficerSelector = createSelector(
-  getRelatedComplaintsByOfficer,
-  ({ cards }) => {
-    return cards.cards.map(cardTransform);
-  }
+const cardByOfficerSelector = createWithIsPinnedSelector(
+  createSelector(
+    getRelatedComplaintsByOfficer,
+    ({ cards }) => {
+      return cards.cards.map(cardTransform);
+    },
+  ),
+  PINNED_ITEM_TYPES.CR,
 );
 
 const getRelatedComplaintsByCategoryHasMore = createSelector(

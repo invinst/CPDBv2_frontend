@@ -1,26 +1,22 @@
 import { connect } from 'react-redux';
 
 import SocialGraphPage from 'components/social-graph-page';
-import { requestSocialGraph } from 'actions/social-graph-page';
-import {
-  officersSelector,
-  coaccusedDataSelector,
-  getListEvent,
-} from 'selectors/social-graph-page';
+import { getCurrentMainTab } from 'selectors/social-graph-page';
+import { changeMainTab } from 'actions/social-graph-page';
+import { updatePathName } from 'actions/path-name';
 
 function mapStateToProps(state, ownProps) {
   return {
-    officerIds: ownProps.location.query['officer_ids'],
-    unitId: ownProps.location.query['unit_id'],
-    title: ownProps.location.query['title'],
-    officers: officersSelector(state),
-    coaccusedData: coaccusedDataSelector(state),
-    listEvent: getListEvent(state),
+    location: ownProps.location,
+    params: ownProps.params,
+    currentTab: getCurrentMainTab(state),
+    pinboardId: ownProps.params.pinboardId || ownProps.location.query['pinboard_id'],
   };
 }
 
 const mapDispatchToProps = {
-  requestSocialGraph,
+  changeMainTab,
+  updatePathName,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SocialGraphPage);

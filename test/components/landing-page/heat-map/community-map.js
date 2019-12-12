@@ -20,4 +20,9 @@ describe('CommunityMap component', function () {
       done();
     }, 100);
   });
+
+  it('should update when hide prop is changed', function () {
+    instance = renderIntoDocument(<CommunityMap hide={ true }/>);
+    instance.shouldComponentUpdate({ hide: false }).should.be.true();
+  });
 });

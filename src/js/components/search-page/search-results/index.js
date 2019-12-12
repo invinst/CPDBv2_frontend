@@ -1,24 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { map } from 'lodash';
+import { map, noop, get, isEqual, isEmpty } from 'lodash';
+import cx from 'classnames';
 
-import {
-  actionBarStyle,
-  cancelButtonStyle,
-  columnWrapperStyle,
-  loadingStyle,
-  plusSignStyle,
-  plusWrapperStyle,
-  resultWrapperStyle,
-  suggestionResultsStyle,
-} from './search-results.style';
 import SuggestionGroup from './suggestion-group';
 import SuggestionNoResult from './search-no-result';
-import PreviewPane from 'components/search-page/search-results/preview-pane';
+import PreviewPane from 'components/common/preview-pane';
 import * as constants from 'utils/constants';
 import { SEARCH_PAGE_NAVIGATION_KEYS } from 'utils/constants';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
+import SearchTags from 'components/search-page/search-tags';
+import PinboardButtonContainer from 'containers/search-page/pinboard-button-container';
 import ScrollIntoView from 'components/common/scroll-into-view';
+import style from './search-results.sass';
 
 
 export default class SuggestionResults extends Component {
@@ -33,6 +27,13 @@ export default class SuggestionResults extends Component {
         move(direction, this.props.totalItemCount);
       }
     )));
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { focusedItem } = nextProps;
+
+    this.scrollIntoItemClassName = !isEmpty(focusedItem) && !isEqual(focusedItem, this.props.focusedItem) ?
+      `suggestion-item-${get(focusedItem, 'uniqueKey', '')}` : '';
   }
 
   componentWillUnmount() {
@@ -56,6 +57,7 @@ export default class SuggestionResults extends Component {
       singleContent,
       nextParams,
       setSearchNavigation,
+      addOrRemoveItemInPinboard,
     } = this.props;
 
     if (isEmpty) {
@@ -80,7 +82,8 @@ export default class SuggestionResults extends Component {
         hasMore={ hasMore }
         searchText={ searchText }
         nextParams={ nextParams }
-        singleContent={ singleContent }/>
+        singleContent={ singleContent }
+        addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }/>
     ));
   }
 
@@ -89,61 +92,74 @@ export default class SuggestionResults extends Component {
 
     if (aliasEditModeOn) {
       return (
-        <div style={ actionBarStyle }>
+        <div className='action-bar'>
           <Link
             to={ `/edit/${constants.SEARCH_PATH}` }
-            style={ cancelButtonStyle }
-            className='test--cancel-alias-button'>
+            className='cancel-alias-button'>
             Cancel
           </Link>
         </div>
       );
     } else {
       return (
-        <div style={ plusWrapperStyle } className='test--plus-sign'>
-          <Link to={ `/edit/${constants.SEARCH_ALIAS_EDIT_PATH}` } style={ plusSignStyle }>[+]</Link>
+        <div className='plus-sign-wrapper'>
+          <Link to={ `/edit/${constants.SEARCH_ALIAS_EDIT_PATH}` } className='plus-sign'>[+]</Link>
         </div>
       );
     }
   }
 
   renderContent() {
-    const { singleContent, editModeOn, focusedItem } = this.props;
+    const { editModeOn } = this.props;
 
-    if (singleContent)
-      return (
-        <div className='content-wrapper' style={ columnWrapperStyle }>
+    return (
+      <div className='content-wrapper'>
+        <ScrollIntoView focusedItemClassName={ this.scrollIntoItemClassName }>
           { editModeOn ? this.renderActionBar() : null }
           { this.renderGroups() }
-        </div>
-      );
-    else {
-      return (
-        <div className='content-wrapper' style={ columnWrapperStyle }>
-          <ScrollIntoView focusedClassName={ `suggestion-item-${focusedItem.uniqueKey}` }>
-            { editModeOn ? this.renderActionBar() : null }
-            { this.renderGroups() }
-          </ScrollIntoView>
-        </div>
-      );
-    }
+        </ScrollIntoView>
+      </div>
+    );
   }
 
   render() {
-    const { isRequesting, aliasEditModeOn, previewPaneInfo } = this.props;
+    const {
+      isRequesting,
+      aliasEditModeOn,
+      previewPaneInfo,
+      tags,
+      onSelect,
+      contentType,
+      onEmptyPinboardButtonClick,
+      addOrRemoveItemInPinboard,
+    } = this.props;
 
     return (
-      <div style={ suggestionResultsStyle(aliasEditModeOn) }>
-        {
-          isRequesting ?
-            <div style={ loadingStyle }>
-              Loading...
-            </div> :
-            <div style={ resultWrapperStyle }>
-              { this.renderContent() }
-            </div>
-        }
-        <PreviewPane { ...previewPaneInfo }/>
+      <div className={ style.searchResults }>
+        <div className='buttons-wrapper'>
+          <SearchTags
+            tags={ tags }
+            onSelect={ onSelect }
+            selected={ contentType }
+            isRequesting={ isRequesting }
+          />
+          <PinboardButtonContainer
+            emptyText={ true }
+            onEmptyPinboardButtonClick={ onEmptyPinboardButtonClick }
+          />
+        </div>
+        <div className={ cx('suggestion-results', { 'edit-mode-on': aliasEditModeOn }) }>
+          {
+            isRequesting ?
+              <div className='loading'>
+                Loading...
+              </div> :
+              <div className='result-wrapper'>
+                { this.renderContent() }
+              </div>
+          }
+          <PreviewPane { ...previewPaneInfo } addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }/>
+        </div>
       </div>
     );
   }
@@ -156,6 +172,7 @@ SuggestionResults.propTypes = {
   isRequesting: PropTypes.bool,
   editModeOn: PropTypes.bool,
   onLoadMore: PropTypes.func,
+  onSelect: PropTypes.func,
   resetNavigation: PropTypes.func,
   setAliasAdminPageContent: PropTypes.func,
   isEmpty: PropTypes.bool,
@@ -169,11 +186,16 @@ SuggestionResults.propTypes = {
   move: PropTypes.func,
   totalItemCount: PropTypes.number,
   setSearchNavigation: PropTypes.func,
+  addOrRemoveItemInPinboard: PropTypes.func,
+  tags: PropTypes.array,
+  contentType: PropTypes.string,
+  onEmptyPinboardButtonClick: PropTypes.func,
 };
 
 SuggestionResults.defaultProps = {
   previewPaneInfo: {},
   focusedItem: {},
-  getSuggestionWithContentType: () => {},
-  resetNavigation: () => {},
+  getSuggestionWithContentType: noop,
+  resetNavigation: noop,
+  onEmptyPinboardButtonClick: noop,
 };

@@ -56,6 +56,9 @@ export default class MinimalScrollBars extends Component {
         renderView={ this.renderView.bind(this) }
         ref={ this.handleScrollerRef.bind(this) }
         style={ this.props.style.container }
+        renderTrackHorizontal={
+          props => <div { ...props } style={ { display: 'none' } } className='track-horizontal' />
+        }
         { ...rest }
       />
     );

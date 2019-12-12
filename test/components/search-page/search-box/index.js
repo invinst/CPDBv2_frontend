@@ -4,6 +4,7 @@ import {
   renderIntoDocument,
   findRenderedComponentWithType,
   findRenderedDOMComponentWithTag,
+  findRenderedDOMComponentWithClass,
   Simulate,
 } from 'react-addons-test-utils';
 import { spy, stub } from 'sinon';
@@ -11,6 +12,7 @@ import { spy, stub } from 'sinon';
 import TextInput from 'components/common/input';
 import SearchBox from 'components/search-page/search-box';
 import { unmountComponentSuppressError } from 'utils/test';
+import * as PathEditor from 'utils/edit-path';
 
 
 describe('SearchBox component', function () {
@@ -87,6 +89,33 @@ describe('SearchBox component', function () {
     input.getAttribute('spellcheck').should.eql('false');
   });
 
+  it('should render close button when there is a search query', function () {
+    instance = renderIntoDocument(
+      <SearchBox value='sa'/>
+    );
+    findRenderedDOMComponentWithClass(instance, 'test--search-close-button');
+  });
+
+  it('should changeSearchQuery to empty and go to search page on click close button', function () {
+    const changeSearchQuery = spy();
+    const pushPathPreserveEditMode = stub(PathEditor, 'pushPathPreserveEditMode');
+
+    instance = renderIntoDocument(
+      <SearchBox
+        value='sa'
+        changeSearchQuery={ changeSearchQuery }
+      />
+    );
+
+    const closeButton = findRenderedDOMComponentWithClass(instance, 'test--search-close-button');
+    Simulate.click(closeButton);
+
+    changeSearchQuery.calledWith('').should.be.true();
+    pushPathPreserveEditMode.calledWith('search/').should.be.true();
+
+    pushPathPreserveEditMode.restore();
+  });
+
   describe('Enter event handler', function () {
     beforeEach(function () {
       this.browserHistoryPush = stub(browserHistory, 'push');
@@ -97,25 +126,42 @@ describe('SearchBox component', function () {
     });
 
     it('should push first result to when user hit ENTER if to is set', function () {
-      const trackRecentSuggestion = spy();
+      const saveToRecentSpy = spy();
+      const recentItemData = {
+        'id': 123,
+        'full_name': 'Jerome Finnigan',
+        'rank': 'Officer',
+        'complaint_count': 22,
+        'percentile': {
+          'percentile_trr': 20.6,
+          'percentile_allegation_internal': 10.1,
+          'percentile_allegation_civilian': 52.5,
+        },
+      };
       const firstSuggestionItem =
         {
           type: 'OFFICER',
+          id: 1,
           url: 'url',
           to: 'to',
           text: 'officer 1',
           recentText: 'Kevin',
+          recentItemData: recentItemData,
         };
 
 
       instance = renderIntoDocument(
-        <SearchBox firstSuggestionItem={ firstSuggestionItem } trackRecentSuggestion={ trackRecentSuggestion }/>
+        <SearchBox firstSuggestionItem={ firstSuggestionItem } saveToRecent={ saveToRecentSpy }/>
       );
 
       const input = findRenderedComponentWithType(instance, TextInput);
       input.mousetrap.trigger('enter');
       this.browserHistoryPush.calledWith('to').should.be.true();
-      trackRecentSuggestion.calledWith('OFFICER', 'Kevin', 'url', 'to').should.be.true();
+      saveToRecentSpy.should.be.calledWith({
+        type: 'OFFICER',
+        id: 1,
+        data: recentItemData,
+      });
     });
   });
 });

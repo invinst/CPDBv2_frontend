@@ -3,17 +3,23 @@ import {
   findRenderedComponentWithType,
   renderIntoDocument,
   scryRenderedComponentsWithType,
+  findRenderedDOMComponentWithClass,
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 import { spy, stub } from 'sinon';
 import Mousetrap from 'mousetrap';
+import { Provider } from 'react-redux';
+import MockStore from 'redux-mock-store';
 
-import { unmountComponentSuppressError } from 'utils/test';
+import { unmountComponentSuppressError, reRender } from 'utils/test';
 import { getThisYear } from 'utils/date';
-import PreviewPane from 'components/search-page/search-results/preview-pane';
+import PreviewPane from 'components/common/preview-pane';
 import SearchResults from 'components/search-page/search-results';
 import SearchNoResult from 'components/search-page/search-results/search-no-result';
 import SuggestionGroup from 'components/search-page/search-results/suggestion-group';
+import SearchTags from 'components/search-page/search-tags';
+import PinboardButton from 'components/search-page/pinboard/pinboard-button';
+import ScrollIntoView from 'components/common/scroll-into-view';
 
 
 describe('SearchResults component', function () {
@@ -23,21 +29,26 @@ describe('SearchResults component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should be renderable', function () {
-    const suggestionGroups = [];
-    SearchResults.should.be.renderable({ suggestionGroups });
+  const store = MockStore()({
+    pinboardPage: {
+      pinboard: null,
+    },
   });
 
   it('should render Loading when isRequesting', function () {
     instance = renderIntoDocument(
-      <SearchResults isRequesting={ true }/>
+      <Provider store={ store }>
+        <SearchResults isRequesting={ true }/>
+      </Provider>
     );
     findDOMNode(instance).innerText.should.containEql('Loading...');
   });
 
   it('should render SearchNoResult component when isEmpty', function () {
     instance = renderIntoDocument(
-      <SearchResults isEmpty={ true }/>
+      <Provider store={ store }>
+        <SearchResults isEmpty={ true }/>
+      </Provider>
     );
 
     findRenderedComponentWithType(instance, SearchNoResult).should.be.ok();
@@ -46,7 +57,9 @@ describe('SearchResults component', function () {
   it('should render suggestionGroup components when data is available', function () {
     const suggestionGroups = [{ header: '1' }, { header: '2' }];
     instance = renderIntoDocument(
-      <SearchResults isEmpty={ false } suggestionGroups={ suggestionGroups }/>
+      <Provider store={ store }>
+        <SearchResults isEmpty={ false } suggestionGroups={ suggestionGroups }/>
+      </Provider>
     );
 
     const renderedGroups = scryRenderedComponentsWithType(instance, SuggestionGroup);
@@ -55,10 +68,43 @@ describe('SearchResults component', function () {
     renderedGroups[1].props.header.should.eql('2');
   });
 
+  it('should render SearchTags component', function () {
+    const onSelect = spy();
+
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <SearchResults
+          tags={ [] }
+          onSelect={ onSelect }
+          contentType='community'
+          isRequesting={ false }
+        />
+      </Provider>
+    );
+
+    const searchTags = findRenderedComponentWithType(instance, SearchTags);
+    searchTags.props.tags.should.eql([]);
+    searchTags.props.onSelect.should.eql(onSelect);
+    searchTags.props.selected.should.eql('community');
+    searchTags.props.isRequesting.should.eql(false);
+  });
+
+  it('should render PinboardButton component', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <SearchResults />
+      </Provider>
+    );
+
+    findRenderedComponentWithType(instance, PinboardButton);
+  });
+
   context('in edit mode', function () {
     it('should render [+] sign when not aliasEditModeOn', function () {
       instance = renderIntoDocument(
-        <SearchResults editModeOn={ true } aliasEditModeOn={ false }/>
+        <Provider store={ store }>
+          <SearchResults editModeOn={ true } aliasEditModeOn={ false }/>
+        </Provider>
       );
 
       const domNode = findDOMNode(instance);
@@ -67,7 +113,9 @@ describe('SearchResults component', function () {
 
     it('should not render [+] sign when in aliasEditModeOn', function () {
       instance = renderIntoDocument(
-        <SearchResults editModeOn={ true } aliasEditModeOn={ true }/>
+        <Provider store={ store }>
+          <SearchResults editModeOn={ true } aliasEditModeOn={ true }/>
+        </Provider>
       );
 
       const domNode = findDOMNode(instance);
@@ -80,7 +128,9 @@ describe('SearchResults component', function () {
     const totalItemCount = 3;
     const direction = 'up';
     instance = renderIntoDocument(
-      <SearchResults move={ move } totalItemCount={ totalItemCount }/>
+      <Provider store={ store }>
+        <SearchResults move={ move } totalItemCount={ totalItemCount }/>
+      </Provider>
     );
     Mousetrap.trigger(direction);
     move.calledWith(direction, totalItemCount).should.be.true();
@@ -91,7 +141,9 @@ describe('SearchResults component', function () {
     const totalItemCount = 3;
     const direction = 'down';
     instance = renderIntoDocument(
-      <SearchResults move={ move } totalItemCount={ totalItemCount }/>
+      <Provider store={ store }>
+        <SearchResults move={ move } totalItemCount={ totalItemCount }/>
+      </Provider>
     );
     Mousetrap.trigger(direction);
     move.calledWith(direction, totalItemCount).should.be.true();
@@ -100,7 +152,9 @@ describe('SearchResults component', function () {
   it('should resetNavigation to 0 when unmounted', function () {
     const resetNavigation = spy();
     instance = renderIntoDocument(
-      <SearchResults resetNavigation={ resetNavigation }/>
+      <Provider store={ store }>
+        <SearchResults resetNavigation={ resetNavigation }/>
+      </Provider>
     );
     unmountComponentSuppressError(instance);
 
@@ -108,7 +162,13 @@ describe('SearchResults component', function () {
   });
 
   it('should be renderable when there is not single content', function () {
-    SearchResults.should.be.renderable({ singleContent: false });
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <SearchResults singleContent={ false }/>
+      </Provider>
+    );
+
+    findRenderedDOMComponentWithClass(instance, 'content-wrapper');
   });
 
   it('should be renderable if it is single content', function () {
@@ -117,12 +177,18 @@ describe('SearchResults component', function () {
       header: 'OFFICER',
     }];
     const getSuggestionWithContentType = stub().returns({ catch: stub() });
-    SearchResults.should.be.renderable({
-      singleContent: true,
-      isEmpty: false,
-      suggestionGroups: suggestionGroups,
-      getSuggestionWithContentType: getSuggestionWithContentType,
-    });
+
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <SearchResults
+          singleContent={ true }
+          isEmpty={ false }
+          suggestionGroups={ suggestionGroups }
+          getSuggestionWithContentType={ getSuggestionWithContentType }/>
+      </Provider>
+    );
+
+    findRenderedDOMComponentWithClass(instance, 'content-wrapper');
   });
 
   describe('Preview Pane', function () {
@@ -140,7 +206,9 @@ describe('SearchResults component', function () {
         visualTokenImg: 'http://test.img',
       };
       instance = renderIntoDocument(
-        <SearchResults isEmpty={ false } previewPaneInfo={ previewPaneInfo }/>
+        <Provider store={ store }>
+          <SearchResults isEmpty={ false } previewPaneInfo={ previewPaneInfo }/>
+        </Provider>
       );
 
       const previewPane = findRenderedComponentWithType(instance, PreviewPane);
@@ -156,6 +224,59 @@ describe('SearchResults component', function () {
       previewPane.props.visualTokenImg.should.eql('http://test.img');
       previewPane.props.visualTokenBackgroundColor.should.eql('#fafafa');
       previewPane.props.title.should.eql('John Wang');
+    });
+  });
+
+  describe('ScrollIntoView', function () {
+    it('should render ScrollIntoView with focusedItem changes', function () {
+      instance = renderIntoDocument(
+        <Provider store={ store }>
+          <SearchResults/>
+        </Provider>
+      );
+
+      instance = reRender(
+        <Provider store={ store }>
+          <SearchResults focusedItem={ { uniqueKey: 'CR-1001' } } />
+        </Provider>,
+        instance,
+      );
+      const scrollIntoView = findRenderedComponentWithType(instance, ScrollIntoView);
+      scrollIntoView.props.focusedItemClassName.should.eql('suggestion-item-CR-1001');
+    });
+
+    it('should render ScrollIntoView with focusedItem does not change', function () {
+      instance = renderIntoDocument(
+        <Provider store={ store }>
+          <SearchResults focusedItem={ { uniqueKey: 'CR-1001' } } />
+        </Provider>
+      );
+
+      instance = reRender(
+        <Provider store={ store }>
+          <SearchResults focusedItem={ { uniqueKey: 'CR-1001' } } />
+        </Provider>,
+        instance,
+      );
+      const scrollIntoView = findRenderedComponentWithType(instance, ScrollIntoView);
+      scrollIntoView.props.focusedItemClassName.should.eql('');
+    });
+
+    it('should render ScrollIntoView with focusedItem changes to empty', function () {
+      instance = renderIntoDocument(
+        <Provider store={ store }>
+          <SearchResults focusedItem={ { uniqueKey: 'CR-1001' } } />
+        </Provider>
+      );
+
+      instance = reRender(
+        <Provider store={ store }>
+          <SearchResults/>
+        </Provider>,
+        instance,
+      );
+      const scrollIntoView = findRenderedComponentWithType(instance, ScrollIntoView);
+      scrollIntoView.props.focusedItemClassName.should.eql('');
     });
   });
 });

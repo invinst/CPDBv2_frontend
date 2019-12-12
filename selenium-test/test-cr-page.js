@@ -3,6 +3,8 @@
 require('should');
 
 import crPage from './page-objects/cr-page';
+import landingPage from './page-objects/landing-page';
+import searchPage from './page-objects/search-page';
 
 
 describe('CR page', function () {
@@ -17,7 +19,7 @@ describe('CR page', function () {
     crPage.incidentDate.getText().should.equal('Sep 23, 2003');
 
     crPage.accusedOfficers.title.getText().should.equal('25 ACCUSED OFFICERS');
-    crPage.accusedOfficers.cardCount().should.equal(25);
+    crPage.accusedOfficers.card.count.should.equal(25);
     crPage.accusedOfficers.firstCard.rank.getText().should.equal('Officer');
     crPage.accusedOfficers.firstCard.name.getText().should.equal('Ridchard Sullivan');
     crPage.accusedOfficers.firstCard.metric.getText().should.equal('43 allegations 1 sustained');
@@ -30,7 +32,7 @@ describe('CR page', function () {
     crPage.summarySection.firstComplainant.getText().should.equal('Black, Male, Age 53');
     crPage.summarySection.summary.getText().should.equal('Summary');
 
-    crPage.attachments.cardCount().should.equal(10);
+    crPage.attachments.card.count.should.equal(10);
     crPage.attachments.firstCard.title.getText().should.equal('CR Document');
     crPage.attachments.firstCard.element.getAttribute('href').should.equal('http://cr-document.com/');
 
@@ -38,9 +40,9 @@ describe('CR page', function () {
       'Sep 23, 2003\nIncident Occurs\nComplaint Filed\nMar 16, 2004\nInvestigation Closed'
     );
 
-    crPage.investigator.itemCount().should.equal(2);
+    crPage.investigator.item.count.should.equal(2);
     crPage.investigator.firstItem.getText().should.equal('Bernadette Kelly\nCPD');
-    crPage.policeWitness.itemCount().should.equal(2);
+    crPage.policeWitness.item.count.should.equal(2);
     crPage.policeWitness.firstItem.getText().should.equal('Raymond Piwinicki\n3 allegations 0 sustained');
 
     crPage.location.address.getText().should.equal('3510 Michigan Ave, Chicago, IL 60653');
@@ -55,7 +57,7 @@ describe('CR page', function () {
   });
 
   it('should navigate to officer page when we click on accused officer card', function () {
-    crPage.accusedOfficers.firstCard.element.click();
+    crPage.accusedOfficers.firstCard.mainElement.click();
     browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/$/);
   });
 
@@ -133,6 +135,52 @@ describe('CR page', function () {
       crPage.relatedByCategoriesCarousel.rightArrow.click();
       crPage.relatedByCategoriesCarousel.rightArrow.waitForDisplayed();
       crPage.relatedByCategoriesCarousel.cards.count.should.equal(40);
+    });
+  });
+
+  describe('Pinboard function', function () {
+    it('should display toast when pinning a coaccusal', function () {
+      crPage.accusedOfficers.firstCard.pinButton.click();
+      crPage.lastToast.waitForDisplayed();
+      crPage.lastToast.waitForText('Officer added');
+
+      crPage.landingPageBreadCrumb.click();
+      landingPage.searchSection.mainElement.waitForDisplayed();
+      landingPage.searchSection.mainElement.click();
+      searchPage.pinboardButton.waitForText('Pinboard (1)');
+      browser.back();
+      browser.back();
+
+      crPage.accusedOfficers.firstCard.pinButton.click();
+      crPage.lastToast.waitForDisplayed();
+      crPage.lastToast.waitForText('Officer removed');
+
+      crPage.landingPageBreadCrumb.click();
+      landingPage.searchSection.mainElement.waitForDisplayed();
+      landingPage.searchSection.mainElement.click();
+      searchPage.pinboardButton.waitForText('Pinboard (0)');
+    });
+
+    it('should display toast when pinning a related complaint', function () {
+      crPage.relatedByCategoriesCarousel.firstPinButton.click();
+      crPage.lastToast.waitForDisplayed();
+      crPage.lastToast.waitForText('CR added');
+
+      crPage.landingPageBreadCrumb.click();
+      landingPage.searchSection.mainElement.waitForDisplayed();
+      landingPage.searchSection.mainElement.click();
+      searchPage.pinboardButton.waitForText('Pinboard (1)');
+      browser.back();
+      browser.back();
+
+      crPage.relatedByCategoriesCarousel.firstPinButton.click();
+      crPage.lastToast.waitForDisplayed();
+      crPage.lastToast.waitForText('CR removed');
+
+      crPage.landingPageBreadCrumb.click();
+      landingPage.searchSection.mainElement.waitForDisplayed();
+      landingPage.searchSection.mainElement.click();
+      searchPage.pinboardButton.waitForText('Pinboard (0)');
     });
   });
 });

@@ -1,13 +1,33 @@
 import { handleActions } from 'redux-actions';
-import { remove, slice, isEqual, isEmpty } from 'lodash';
+import { find, slice, includes } from 'lodash';
 
-import { TRACK_RECENT_SUGGESTION } from 'utils/constants';
+import {
+  FETCH_RECENT_SEARCH_ITEMS_SUCCESS,
+  SEARCH_SAVE_TO_RECENT,
+  RECENT_SEARCH_COMPONENT_TYPE_MAPPING,
+} from 'utils/constants';
 
+const FETCHED_RECENT_SUGGESTION_TYPES = ['CR', 'OFFICER', 'TRR'];
+
+const matchRecentItem = (item, recentItem) => {
+  return item.type === recentItem.type && String(item.id) === String(recentItem.id);
+};
 
 export default handleActions({
-  [TRACK_RECENT_SUGGESTION]: (state, action) => {
-    remove(state, (suggestion) => (isEqual(suggestion, action.payload)));
-    remove(state, isEmpty);
-    return slice([action.payload].concat(state), 0, 10);
+  [SEARCH_SAVE_TO_RECENT]: (state, action) => {
+    const recentItem = action.payload;
+    recentItem.type = RECENT_SEARCH_COMPONENT_TYPE_MAPPING[recentItem.type] || recentItem.type;
+
+    const newData = (state || []).filter((item) => !matchRecentItem(item, recentItem));
+    newData.unshift(recentItem);
+    return slice(newData, 0, 10);
+  },
+  [FETCH_RECENT_SEARCH_ITEMS_SUCCESS]: (state, action) => {
+    return state.map((recentItem) => {
+      if (includes(FETCHED_RECENT_SUGGESTION_TYPES, recentItem.type)) {
+        recentItem.data = find(action.payload, (item) => matchRecentItem(item, recentItem));
+      }
+      return recentItem;
+    });
   },
 }, []);

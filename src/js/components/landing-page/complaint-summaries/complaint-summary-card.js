@@ -5,12 +5,15 @@ import moment from 'moment';
 import _ from 'lodash';
 
 import styles from './complaint-summary-card.sass';
+import { PINNED_ITEM_TYPES } from 'utils/constants';
+import ItemPinButton from 'components/common/item-pin-button';
+import pinButtonStyles from 'components/common/item-pin-button.sass';
 
 
 export default class ComplaintSummaryCard extends React.Component {
   render() {
 
-    const { summary, incidentDate, categoryNames, crid } = this.props;
+    const { summary, incidentDate, categoryNames, crid, addOrRemoveItemInPinboard, isPinned } = this.props;
     const categories = _.join(categoryNames, ', ');
 
     return (
@@ -18,6 +21,16 @@ export default class ComplaintSummaryCard extends React.Component {
         to={ `/complaint/${crid}/` }
         className={ styles.complaintSummaryCard }
       >
+        <ItemPinButton
+          className={ pinButtonStyles.cardPinnedButton }
+          addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
+          showHint={ false }
+          item={ {
+            type: PINNED_ITEM_TYPES.CR,
+            id: crid,
+            isPinned: isPinned,
+          } }
+        />
         <div className='complaint-summary-card-title'>
           <div className='complaint-summary-card-title-date'>
             { moment(incidentDate, 'YYYY-MM-DD').format('ll') }
@@ -38,4 +51,6 @@ ComplaintSummaryCard.propTypes = {
   summary: PropTypes.string,
   incidentDate: PropTypes.string,
   categoryNames: PropTypes.array,
+  addOrRemoveItemInPinboard: PropTypes.func,
+  isPinned: PropTypes.bool,
 };

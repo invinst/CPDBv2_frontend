@@ -21,7 +21,7 @@ export default class DropdownPlaceholder extends Component {
           <span style={ arrowDownStyle }/>
         </div>
         <div style={ secondRowStyle }>
-          or <Link to='/search/terms/' className='test--dropdown-search-terms'>see what you can search for</Link>
+          or <Link to='/search/' className='test--dropdown-search-terms'>see what you can search for</Link>
         </div>
       </div>
     );

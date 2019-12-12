@@ -10,6 +10,7 @@ describe('Officer coaccusals selectors', function () {
             items: [],
           },
         },
+        pinboardPage: { pinboard: null },
       }).should.be.empty();
     });
 
@@ -30,7 +31,6 @@ describe('Officer coaccusals selectors', function () {
                 'coaccusal_count': 4,
                 rank: 'Po As Detective',
                 'percentile': {
-                  'officer_id': 1,
                   'year': 2007,
                   'percentile_allegation': '99.987',
                   'percentile_allegation_civilian': '94.0',
@@ -50,7 +50,6 @@ describe('Officer coaccusals selectors', function () {
                 'coaccusal_count': 2,
                 rank: 'Po As Detective',
                 'percentile': {
-                  'officer_id': 2,
                   'year': 2007,
                   'percentile_allegation': '39.0',
                   'percentile_allegation_civilian': '83.0',
@@ -70,7 +69,6 @@ describe('Officer coaccusals selectors', function () {
                 'coaccusal_count': 1,
                 rank: 'Police Officer',
                 'percentile': {
-                  'officer_id': 3,
                   'year': 2007,
                   'percentile_allegation': '19.0',
                   'percentile_allegation_civilian': '73.0',
@@ -81,6 +79,7 @@ describe('Officer coaccusals selectors', function () {
             ],
           },
         },
+        pinboardPage: { pinboard: { 'officer_ids': ['1', '2'] } },
       };
 
       coaccusalGroupsSelector(state).should.eql([
@@ -99,6 +98,7 @@ describe('Officer coaccusals selectors', function () {
               gender: 'male',
               coaccusalCount: 4,
               rank: 'Po As Detective',
+              isPinned: true,
               percentile: {
                 items: [
                   {
@@ -114,7 +114,6 @@ describe('Officer coaccusals selectors', function () {
                     'value': 94,
                   },
                 ],
-                officerId: 1,
                 textColor: '#DFDFDF',
                 visualTokenBackground: '#f52524',
                 year: 2007,
@@ -132,6 +131,7 @@ describe('Officer coaccusals selectors', function () {
               gender: 'male',
               coaccusalCount: 2,
               rank: 'Po As Detective',
+              isPinned: true,
               percentile: {
                 items: [
                   {
@@ -147,7 +147,6 @@ describe('Officer coaccusals selectors', function () {
                     'value': 83,
                   },
                 ],
-                officerId: 2,
                 textColor: '#DFDFDF',
                 visualTokenBackground: '#f52524',
                 year: 2007,
@@ -170,6 +169,7 @@ describe('Officer coaccusals selectors', function () {
               gender: 'male',
               coaccusalCount: 1,
               rank: 'Police Officer',
+              isPinned: false,
               percentile: {
                 items: [
                   {
@@ -185,7 +185,6 @@ describe('Officer coaccusals selectors', function () {
                     'value': 73,
                   },
                 ],
-                officerId: 3,
                 textColor: '#DFDFDF',
                 visualTokenBackground: '#f32a29',
                 year: 2007,

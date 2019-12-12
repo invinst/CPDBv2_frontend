@@ -5,4 +5,5 @@ export default {
   twitterBotName: 'CPDPbot',
   heatMapContainer: 'https://cpdbv21777.blob.core.windows.net/heatmap/',
   apiDomain: `${global.location.protocol}//api.cpdp.co`,
+  enableFeatures: { pinboard: false },
 };

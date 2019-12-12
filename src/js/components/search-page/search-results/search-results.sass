@@ -1,0 +1,84 @@
+@import 'variables'
+
+\:local(.search-results)
+    height: '100%'
+
+    .result-wrapper
+      box-sizing: border-box
+      white-space: nowrap
+      position: relative
+      height: calc(100% - 4px)
+      width: calc(100% - 321px)
+      display: inline-block
+
+    .content-wrapper
+      overflow: hidden
+      height: 100%
+
+    .plus-sign-wrapper
+      height: 74px
+      text-align: center
+      font-size: 36px
+      color: $fashion-pink-color
+      font-weight: 600
+      background-color: $pinkish-white-color
+      box-sizing: border-box
+      cursor: pointer
+      margin-left: 16px
+      margin-bottom: 20px
+      width: 40%
+      min-width: 480px
+      margin: auto
+
+    .plus-sign
+      text-decoration: none
+      color: inherit
+      position: relative
+      display: block
+      top: 50%
+      transform: translateY(-50%)
+
+    .suggestion-results
+      position: relative
+      padding-top: 57px
+      background-color: $concrete-color
+
+      &.edit-mode-on
+        background-color: $girly-pink
+
+    .action-bar
+      text-align: right
+      padding: 0 16px
+
+    .cancel-alias-button
+      display: inline-block
+      margin-right: 24px
+      font-size: 14px
+      cursor: pointer
+      text-decoration: none
+      background-color: $deep-girly-pink
+      color: inherit
+      margin: 11px 0
+      border: none
+
+    .loading
+      box-sizing: border-box
+      white-space: nowrap
+      position: relative
+      width: calc(100% - 321px)
+      display: inline-block
+      background-color: $concrete-color
+      padding-top: 38px
+      padding-left: 16px
+      font-size: 14px
+      min-height: 100vh
+
+    .buttons-wrapper
+      background-color: white
+      height: 54px
+      padding: 0 16px
+      border-bottom: 2px solid $white-two-color
+      position: fixed
+      left: 0
+      z-index: 1
+      width: calc(100% - 32px)

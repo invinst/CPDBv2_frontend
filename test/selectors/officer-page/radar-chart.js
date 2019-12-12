@@ -28,7 +28,6 @@ describe('Officer radar chart selectors', function () {
     it('should return current percentile filter', function () {
       state.officerPage.summary.percentiles = [
         {
-          'officer_id': 1,
           year: 2006,
           'percentile_allegation_civilian': '66.251',
           'percentile_allegation_internal': '0.023',
@@ -36,7 +35,6 @@ describe('Officer radar chart selectors', function () {
           'percentile_allegation': '41.001',
         },
         {
-          'officer_id': 1,
           year: 2007,
           'percentile_allegation_civilian': '75.065',
           'percentile_allegation_internal': '0.022',
@@ -55,7 +53,6 @@ describe('Officer radar chart selectors', function () {
           'axis': 'Civilian Allegations',
           'value': 66.251,
         }],
-        'officerId': 1,
         textColor: '#231F20',
         visualTokenBackground: '#fc5d2c',
         'year': 2006,
@@ -70,7 +67,6 @@ describe('Officer radar chart selectors', function () {
           'axis': 'Civilian Allegations',
           'value': 75.065,
         }],
-        'officerId': 1,
         textColor: '#231F20',
         visualTokenBackground: '#fc5d2c',
         'year': 2007,

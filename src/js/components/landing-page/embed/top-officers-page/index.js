@@ -17,7 +17,7 @@ class EmbedTopOfficersPage extends Component {
   render() {
     return (
       <div style={ carouselStyle }>
-        <OfficersByAllegationContainer openCardInNewPage={ true }/>
+        <OfficersByAllegationContainer openCardInNewPage={ true } pinnable={ false }/>
       </div>
     );
   }

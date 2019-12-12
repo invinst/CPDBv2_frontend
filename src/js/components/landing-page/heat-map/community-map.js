@@ -15,21 +15,22 @@ export default class CommunityMap extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    const { communityId, communitySource, clusterSource } = this.props;
+    const { communityId, communitySource, clusterSource, hide } = this.props;
     return (
-      communityId !== nextProps.communityId || !communitySource || !clusterSource
+      hide !== nextProps.hide || communityId !== nextProps.communityId || !communitySource || !clusterSource
     );
   }
 
   renderMap(center) {
     const { hoverCommunity } = this.state;
-    const { selectCommunity, communityId, communitySource, clusterSource } = this.props;
+    const { selectCommunity, communityId, communitySource, clusterSource, hide } = this.props;
 
     /* istanbul ignore next */
     return (
       <MapboxGL
         style={ mapContainerStyle }
         center={ center }
+        hide={ hide }
         onClick={ [
           [() => selectCommunity(0)],
           ['community-fill', e => selectCommunity(e.features[0].properties.id)],
@@ -165,6 +166,7 @@ CommunityMap.propTypes = {
   communitySource: PropTypes.object,
   communityId: PropTypes.number,
   clusterSource: PropTypes.object,
+  hide: PropTypes.bool,
 };
 
 CommunityMap.defaultProps = {

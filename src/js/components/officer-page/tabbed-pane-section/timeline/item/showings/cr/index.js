@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import cx from 'classnames';
 
 import Attachments from './attachments';
-import baseStyles from '../base-item.sass';
+import baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/showings/base-item.sass';
 import styles from './cr.sass';
 
 

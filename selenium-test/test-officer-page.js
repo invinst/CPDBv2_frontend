@@ -1,9 +1,12 @@
 'use strict';
 
+
 require('should');
 
 import officerPage from './page-objects/officer-page';
 import header from './page-objects/shareable-header';
+import landingPage from './page-objects/landing-page';
+import searchPage from './page-objects/search-page';
 import { selectText } from './utils';
 
 const noDataRadarChartOfficerId = 2;
@@ -473,6 +476,42 @@ describe('officer page', function () {
 
       officerPage.tabbedPaneSection.timelineTabName.click();
       browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/$/);
+    });
+  });
+
+  describe('Pinboard function', function () {
+    it('should display toast when pinning officer', function () {
+      officerPage.tabbedPaneSection.timelineSection.header.waitForDisplayed();
+      officerPage.tabbedPaneSection.coaccusalsTabName.click();
+      officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalGroupName.waitForDisplayed();
+
+      officerPage.tabbedPaneSection.coaccusalsSection.firstPinButton.click();
+      officerPage.lastToast.waitForDisplayed();
+      officerPage.lastToast.waitForText('Officer added');
+
+      officerPage.landingPageBreadCrumb.click();
+      landingPage.searchSection.mainElement.waitForDisplayed();
+      landingPage.searchSection.mainElement.click();
+      searchPage.pinboardButton.waitForText('Pinboard (1)');
+    });
+
+    it('should display toast when unpinning officer', function () {
+      officerPage.tabbedPaneSection.timelineSection.header.waitForDisplayed();
+      officerPage.tabbedPaneSection.coaccusalsTabName.click();
+      officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalGroupName.waitForDisplayed();
+
+      officerPage.tabbedPaneSection.coaccusalsSection.firstPinButton.click();
+      officerPage.lastToast.waitForDisplayed();
+      officerPage.lastToast.waitForText('Officer added');
+
+      officerPage.tabbedPaneSection.coaccusalsSection.firstPinButton.click();
+      officerPage.lastToast.waitForDisplayed();
+      officerPage.lastToast.waitForText('Officer removed');
+
+      officerPage.landingPageBreadCrumb.click();
+      landingPage.searchSection.mainElement.waitForDisplayed();
+      landingPage.searchSection.mainElement.click();
+      searchPage.pinboardButton.waitForText('Pinboard (0)');
     });
   });
 });

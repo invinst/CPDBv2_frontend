@@ -4,13 +4,17 @@ import {
   renderIntoDocument,
   scryRenderedDOMComponentsWithClass,
   findRenderedDOMComponentWithClass,
-  Simulate,
+  Simulate, findRenderedComponentWithType,
 } from 'react-addons-test-utils';
-import { stub } from 'sinon';
+import { spy, stub } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import ComplaintCard from 'components/cr-page/related-complaints/complaint-card';
 import * as GATracking from 'utils/google_analytics_tracking';
+import { random } from 'faker';
+import ItemPinButton from 'components/common/item-pin-button';
+import pinButtonStyles from 'components/common/item-pin-button.sass';
+import { PINNED_ITEM_TYPES } from 'utils/constants';
 
 
 describe('ComplaintCard component', function () {
@@ -71,6 +75,26 @@ describe('ComplaintCard component', function () {
       stubTrackRelatedByCategoryClick.should.be.calledWith('01234', '56789');
 
       stubTrackRelatedByCategoryClick.restore();
+    });
+
+    it('should render ItemPinButton with correct props', function () {
+      const addOrRemoveItemInPinboard = spy();
+      const id = random.word();
+      const isPinned = random.boolean();
+
+      instance = renderIntoDocument(
+        <ComplaintCard
+          crid={ id }
+          isPinned={ isPinned }
+          addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
+        />
+      );
+
+      const itemPinButton = findRenderedComponentWithType(instance, ItemPinButton);
+      itemPinButton.props.className.should.equal(pinButtonStyles.cardPinnedButton);
+      itemPinButton.props.addOrRemoveItemInPinboard.should.equal(addOrRemoveItemInPinboard);
+      itemPinButton.props.showHint.should.be.false();
+      itemPinButton.props.item.should.eql({ type: PINNED_ITEM_TYPES.CR, id, isPinned });
     });
   });
 });

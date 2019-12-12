@@ -24,7 +24,7 @@ export default class AccusedOfficers extends Component {
   }
 
   render() {
-    const { officers, popup, pathName } = this.props;
+    const { officers, popup, pathName, addOrRemoveItemInPinboard } = this.props;
     const { expanded } = this.state;
     return (
       <div className={ cx(style.accusedOfficers, 'test--accused-officer', { 'expanded': expanded }) }>
@@ -44,7 +44,10 @@ export default class AccusedOfficers extends Component {
                   outcome={ officer.outcome }
                   recommendedOutcome={ officer.recommendedOutcome }
                 />
-                <CoaccusedCard { ...officer } />
+                <CoaccusedCard
+                  addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
+                  { ...officer }
+                />
               </div>
             ))
           }
@@ -70,6 +73,7 @@ AccusedOfficers.propTypes = {
   expanded: PropTypes.bool,
   popup: PropTypes.object,
   pathName: PropTypes.string,
+  addOrRemoveItemInPinboard: PropTypes.func,
 };
 
 AccusedOfficers.defaultProps = {

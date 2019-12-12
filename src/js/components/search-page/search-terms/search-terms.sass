@@ -1,0 +1,53 @@
+@import 'variables'
+
+\:local(.wrapper)
+  box-sizing: border-box
+  width: calc(100vw - 16px)
+  height: calc(100% - 94px)
+
+  .content-wrapper
+    box-sizing: border-box
+    white-space: nowrap
+    position: relative
+    width: calc(100% - #{$sidebar-width}px)
+    display: inline-block
+
+  .search-term-title
+    font-size: 26px
+    padding: 48px 0 22px 0
+    margin: 0 16px
+    font-weight: 300
+    color: $soft-black-color
+
+  .search-term-back-front-page-link
+    height: 18px
+    padding: 11px 0
+    font-size: 14px
+    font-weight: 300
+    color: $accent-color
+    display: block
+    text-decoration: none
+
+  .bottom-link-wrapper
+    padding: 128px 16px 0 16px
+
+  .minimum
+    width: 100%
+
+  .medium
+    max-width: 699px
+
+  .maximum
+    max-width: 1440px
+
+  .search-term-wrapper
+    padding-top: 54px
+    margin-bottom: 128px
+
+    &.edit-mode-on
+      background-color: $girly-pink
+
+.pinboard-disabled
+  \:local(.wrapper)
+    .search-term-wrapper
+      padding-top: 0

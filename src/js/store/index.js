@@ -13,22 +13,32 @@ import fetchPageInitialData from 'middleware/fetch-page-initial-data';
 import redirectOfficerAlias from 'middleware/redirect-officer-alias';
 import updatePathName from 'middleware/path-name';
 import retryOfficerDownloadMiddleware from 'middleware/retry-officer-downloads';
+import restoreCreateOrUpdatePinboard from 'middleware/restore-create-or-update-pinboard';
 import config from 'config';
 
 const localStorageVersion = localStorage.getItem('CPDB_LOCALSTORAGE_VERSION', null);
+const { pinboard: enablePinboardFeature } = config.enableFeatures;
 if (config.localStorageVersion !== localStorageVersion) {
   localStorage.clear();
   localStorage.setItem('CPDB_LOCALSTORAGE_VERSION', config.localStorageVersion);
 }
 
 function configureStore(initialState) {
+  let middleware = [
+    thunk,
+    configuredAxiosMiddleware,
+    searchPath,
+    tracking,
+    routerMiddleware(browserHistory),
+    fetchPageInitialData,
+    redirectOfficerAlias,
+    updatePathName,
+    retryOfficerDownloadMiddleware,
+  ];
+  if (enablePinboardFeature)
+    middleware = [...middleware, restoreCreateOrUpdatePinboard];
   const composeArgs = [
-    applyMiddleware(
-      thunk, configuredAxiosMiddleware, searchPath, tracking,
-      routerMiddleware(browserHistory), fetchPageInitialData,
-      redirectOfficerAlias, updatePathName,
-      retryOfficerDownloadMiddleware
-    ),
+    applyMiddleware(...middleware),
     persistState(()=>{}, localStorageConfig),
   ];
 
