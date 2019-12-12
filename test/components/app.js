@@ -4,9 +4,10 @@ import { Provider } from 'react-redux';
 import Mousetrap from 'mousetrap';
 import React, { Component } from 'react';
 import MockStore from 'redux-mock-store';
-import { spy } from 'sinon';
+import { spy, stub } from 'sinon';
 import { ToastContainer } from 'react-toastify';
 
+import config from 'config';
 import App from 'components/app';
 import ShareableHeader from 'components/headers/shareable-header';
 import SlimHeader from 'components/headers/slim-header';
@@ -199,5 +200,51 @@ describe('App component', function () {
     toastContainer.prop('hideProgressBar').should.be.true();
     toastContainer.prop('autoClose').should.equal(3000);
     toastContainer.prop('className').should.equal('landing');
+  });
+
+  context('enablePinboardFeature is false', function () {
+    beforeEach(function () {
+      this.enableFeaturePinboardStub = stub(config.enableFeatures, 'pinboard').value(false);
+    });
+
+    afterEach(function () {
+      this.enableFeaturePinboardStub.restore();
+    });
+
+    it('should add pinboard-disabled class name', function () {
+      const wrapper = mount(
+        <Provider store={ store }>
+          <App location={ location }>
+            <OfficerPageContainer location={ { query: {}, pathname: '/' } } />
+          </App>
+        </Provider>
+      );
+
+      const app = wrapper.find(App);
+      app.getDOMNode().className.should.containEql('pinboard-disabled');
+    });
+  });
+
+  context('enablePinboardFeature is true', function () {
+    beforeEach(function () {
+      this.enableFeaturePinboardStub = stub(config.enableFeatures, 'pinboard').value(true);
+    });
+
+    afterEach(function () {
+      this.enableFeaturePinboardStub.restore();
+    });
+
+    it('should add pinboard-disabled class name', function () {
+      const wrapper = mount(
+        <Provider store={ store }>
+          <App location={ location }>
+            <OfficerPageContainer location={ { query: {}, pathname: '/' } } />
+          </App>
+        </Provider>
+      );
+
+      const app = wrapper.find(App);
+      app.getDOMNode().className.should.not.containEql('pinboard-disabled');
+    });
   });
 });

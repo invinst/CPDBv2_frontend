@@ -3,12 +3,18 @@ import { mount } from 'enzyme';
 import { stub } from 'sinon';
 
 import ItemPinButton from 'components/common/item-pin-button';
+import styles from 'components/common/item-pin-button.sass';
 
 
 describe('ItemPinButton component', function () {
+  it('should render correctly', function () {
+    const wrapper = mount(<ItemPinButton item={ { isPinned: true } } />);
+    const pinButton = wrapper.find(`.${styles.itemPinButton}`);
+    pinButton.prop('className').should.containEql('pinboard-feature');
+  });
+
   it('should have class is-pinned if item.isPinned is true', function () {
     const wrapper = mount(<ItemPinButton item={ { isPinned: true } } />);
-
     wrapper.find('.is-pinned').exists().should.be.true();
   });
 

@@ -23,7 +23,7 @@ describe('Map component', function () {
     useOfForceCount: 1,
   };
 
-  const markers = {
+  const markerGroups = {
     crs: [
       {
         point: {
@@ -104,18 +104,18 @@ describe('Map component', function () {
         trrs: [],
       };
 
-      const wrapper = mount(<AllegationsMap legend={ legend } markers={ markers }/>);
+      const wrapper = mount(<AllegationsMap legend={ legend } markerGroups={ markerGroups }/>);
       const instance = wrapper.instance();
-      instance.shouldComponentUpdate({ legend: newLegend, markers }).should.be.true();
-      instance.shouldComponentUpdate({ legend, markers: newMarkers }).should.be.true();
-      instance.shouldComponentUpdate({ legend: newLegend, markers: newMarkers }).should.be.true();
+      instance.shouldComponentUpdate({ legend: newLegend, markerGroups }).should.be.true();
+      instance.shouldComponentUpdate({ legend, markerGroups: newMarkers }).should.be.true();
+      instance.shouldComponentUpdate({ legend: newLegend, markerGroups: newMarkers }).should.be.true();
     });
 
     it('should return false if props are unchanged', function () {
-      const wrapper = mount(<AllegationsMap legend={ legend } markers={ markers } />);
+      const wrapper = mount(<AllegationsMap legend={ legend } markerGroups={ markerGroups } />);
       wrapper.instance().shouldComponentUpdate({
         legend: cloneDeep(legend),
-        markers: cloneDeep(markers),
+        markerGroups: cloneDeep(markerGroups),
       }).should.be.false();
     });
   });
@@ -128,18 +128,18 @@ describe('Map component', function () {
       const wrapper = mount(
         <AllegationsMap
           legend={ legend }
-          markers={ markers }
+          markerGroups={ markerGroups }
         />
       );
 
       wrapper.setProps({
         legend: legend,
-        markers: markers,
+        markerGroups: markerGroups,
         clearAllMarkers: true,
       });
 
       resetMapSpy.should.be.called();
-      addMapLayersOnStyleLoadedSpy.should.be.calledWith(markers);
+      addMapLayersOnStyleLoadedSpy.should.be.calledWith(markerGroups);
       resetMapSpy.restore();
       addMapLayersOnStyleLoadedSpy.restore();
     });
@@ -164,13 +164,13 @@ describe('Map component', function () {
       const wrapper = mount(
         <AllegationsMap
           legend={ legend }
-          markers={ markers }
+          markerGroups={ markerGroups }
         />
       );
 
       wrapper.setProps({
         legend: legend,
-        markers: newMarkers,
+        markerGroups: newMarkers,
         clearAllMarkers: false,
       });
 
@@ -180,7 +180,9 @@ describe('Map component', function () {
   });
 
   it('should render officer map and legend', function () {
-    const wrapper = mount(<AllegationsMap legend={ legend } markers={ markers } showLegends={ true }/>);
+    const wrapper = mount(
+      <AllegationsMap legend={ legend } markerGroups={ markerGroups } showLegends={ true }/>
+    );
 
     wrapper.find(`.${mapStyles.map}`).exists().should.be.true();
     wrapper.find(`.${legendStyles.legend}`).exists().should.be.true();
@@ -218,12 +220,12 @@ describe('Map component', function () {
       id: index.toString(),
       kind: 'CR',
     });
-    const markers = {
+    const markerGroups = {
       crs: times(3, createMarker),
       trrs: [],
     };
-    mount(<AllegationsMap legend={ legend } markers={ markers } />);
-    addMapLayersOnStyleLoadedSpy.should.be.calledWith(markers);
+    mount(<AllegationsMap legend={ legend } markerGroups={ markerGroups } />);
+    addMapLayersOnStyleLoadedSpy.should.be.calledWith(markerGroups);
     addMapLayersOnStyleLoadedSpy.restore();
   });
 
@@ -231,7 +233,7 @@ describe('Map component', function () {
     const wrapper = mount(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ false }
         geographicDataLoading={ true }
       />
@@ -244,7 +246,7 @@ describe('Map component', function () {
     const wrapper = mount(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ false }
         geographicDataLoading={ false }
       />
@@ -268,7 +270,7 @@ describe('Map component', function () {
     const wrapper = mount(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ true }
         geographicDataLoading={ false }
       />
@@ -294,7 +296,7 @@ describe('Map component', function () {
     const wrapper = mount(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ true }
         geographicDataLoading={ false }
       />
@@ -321,7 +323,7 @@ describe('Map component', function () {
     const wrapper = mount(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ true }
         geographicDataLoading={ false }
         handleClickCRMarker={ handleClickCRMarkerStub }
@@ -350,7 +352,7 @@ describe('Map component', function () {
     const wrapper = mount(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ true }
         geographicDataLoading={ false }
         handleClickCRMarker={ handleClickCRMarkerStub }
@@ -395,7 +397,7 @@ describe('Map component', function () {
     const wrapper = mount(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ true }
         geographicDataLoading={ false }
       />
@@ -464,7 +466,7 @@ describe('Map component', function () {
 
       const wrapper = mount(
         <AllegationsMap
-          markers={ markers }
+          markerGroups={ markerGroups }
           geographicDataLoading={ false }
         />
       );
@@ -551,12 +553,12 @@ describe('Map component', function () {
       AllegationsMap.prototype.addMapLayersOnStyleLoaded.restore();
     });
 
-    it('should not add new layer if markers data is empty', function () {
+    it('should not add new layer if marker data is empty', function () {
       stub(AllegationsMap.prototype, 'addMapLayersOnStyleLoaded');
 
       const wrapper = mount(
         <AllegationsMap
-          markers={ markers }
+          markerGroups={ markerGroups }
           geographicDataLoading={ false }
         />
       );
@@ -627,7 +629,7 @@ describe('Map component', function () {
 
       const wrapper = mount(
         <AllegationsMap
-          markers={ markers }
+          markerGroups={ markerGroups }
           geographicDataLoading={ false }
         />
       );
@@ -666,7 +668,7 @@ describe('Map component', function () {
     const wrapper = mount(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ true }
         geographicDataLoading={ false }
       />
@@ -686,7 +688,7 @@ describe('Map component', function () {
     const wrapper = mount(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ true }
         geographicDataLoading={ false }
       />
@@ -716,7 +718,7 @@ describe('Map component', function () {
     const wrapper = mount(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ true }
         geographicDataLoading={ false }
       />
@@ -734,7 +736,7 @@ describe('Map component', function () {
     const wrapper = mount(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ true }
         geographicDataLoading={ false }
       />
@@ -743,7 +745,7 @@ describe('Map component', function () {
 
     instance.initMapData();
     instance.layerNames.should.eql([]);
-    instance.currentMarkers.should.eql({});
+    instance.currentMarkers.should.eql(new Set());
     instance.mapboxglLayerIndex.should.equal(0);
     instance.firstLayer.should.eql({});
     instance.hoveredState.should.eql({});
@@ -839,7 +841,7 @@ describe('Map component', function () {
     const wrapper = mount(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ true }
         geographicDataLoading={ false }
       />
@@ -847,7 +849,7 @@ describe('Map component', function () {
     const instance = wrapper.instance();
     addMapLayerSpy.resetHistory();
 
-    instance.addMapLayers(markers);
+    instance.addMapLayers(markerGroups);
     addMapLayerSpy.should.be.calledTwice();
     AllegationsMap.prototype.addMapLayer.restore();
   });
@@ -857,7 +859,7 @@ describe('Map component', function () {
     const wrapper = mount(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ true }
         geographicDataLoading={ false }
       />
@@ -887,7 +889,7 @@ describe('Map component', function () {
     const wrapper = mount(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ true }
         geographicDataLoading={ false }
       />
@@ -917,7 +919,7 @@ describe('Map component', function () {
     const wrapper = mount(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ true }
         geographicDataLoading={ false }
       />
@@ -926,7 +928,7 @@ describe('Map component', function () {
     addMapLayersStub.resetHistory();
 
     instance.map.isStyleLoaded.returns(true);
-    instance.addMapLayersOnStyleLoaded(markers);
+    instance.addMapLayersOnStyleLoaded(markerGroups);
     addMapLayersStub.should.be.calledOnce();
     addMapLayersStub.restore();
   });
@@ -935,7 +937,7 @@ describe('Map component', function () {
     const wrapper = mount(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         attributionControlPosition='bottom-left'
       />
     );

@@ -1,6 +1,6 @@
 import {
   mapLegendSelector,
-  mapMarkersSelector,
+  mapMarkerGroupsSelector,
   geographicAllegationSelector,
   geographicTRRSelector,
   isRequestedSelector,
@@ -64,7 +64,7 @@ describe('GeographicData selectors', function () {
     });
   });
 
-  describe('mapMarkersSelector', function () {
+  describe('mapMarkerGroupsSelector', function () {
     it('should return correct marker', function () {
       const firstCr = {
         category: 'Illegal Search',
@@ -105,7 +105,7 @@ describe('GeographicData selectors', function () {
           },
         },
       };
-      mapMarkersSelector(state).should.eql({
+      mapMarkerGroupsSelector(state).should.eql({
         crs: [
           {
             point: {

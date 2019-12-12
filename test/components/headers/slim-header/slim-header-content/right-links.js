@@ -27,7 +27,7 @@ describe('RightLinks component', function () {
     links.at(0).prop('to').should.equal('/documents/');
     links.at(0).prop('children').should.equal('Documents');
 
-    links.at(1).prop('className').should.equal('right-link top');
+    links.at(1).prop('className').should.equal('right-link top pinboard-feature');
     links.at(1).prop('to').should.equal('/pinboard/');
     links.at(1).prop('children').should.equal('Pinboards');
   });

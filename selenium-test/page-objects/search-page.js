@@ -85,6 +85,8 @@ class ResultsSection extends Section {
         //div[contains(@class, "test--second-row")])[2]`,
       previewPaneTitle: '(//div[@class="test--preview-pane-title"])',
       previewPaneButton: '(//a[@class="test--call-to-action"])',
+      firstPinButton: `(//a[contains(@class, "suggestion-item-${key}")]` +
+        '//div[contains(@class, "item-pin-button__item-pin-button")])[1]',
     });
   }
 
@@ -139,7 +141,7 @@ class SearchPage extends Page {
       plusSign: '(//div[contains(@class, "plus-sign-wrapper")])',
       firstAliasButton: '(//a[contains(@class, "test--create-alias-link")])[1]',
       pinboardButton: '.test--pinboard-button',
-      pinboardBar: '//div[starts-with(@class, "pinboard-bar")]',
+      pinboardBar: '//div[contains(@class, "pinboard-bar")]',
       toast: '.Toastify__toast-body',
       firstCrResult: '.test--suggestion-group .suggestion-item-CR-CR123',
       secondDateCrResult: '.test--suggestion-group .suggestion-item-DATE-CR-CR456',

@@ -17,25 +17,28 @@ import restoreCreateOrUpdatePinboard from 'middleware/restore-create-or-update-p
 import config from 'config';
 
 const localStorageVersion = localStorage.getItem('CPDB_LOCALSTORAGE_VERSION', null);
+const { pinboard: enablePinboardFeature } = config.enableFeatures;
 if (config.localStorageVersion !== localStorageVersion) {
   localStorage.clear();
   localStorage.setItem('CPDB_LOCALSTORAGE_VERSION', config.localStorageVersion);
 }
 
 function configureStore(initialState) {
+  let middleware = [
+    thunk,
+    configuredAxiosMiddleware,
+    searchPath,
+    tracking,
+    routerMiddleware(browserHistory),
+    fetchPageInitialData,
+    redirectOfficerAlias,
+    updatePathName,
+    retryOfficerDownloadMiddleware,
+  ];
+  if (enablePinboardFeature)
+    middleware = [...middleware, restoreCreateOrUpdatePinboard];
   const composeArgs = [
-    applyMiddleware(
-      thunk,
-      configuredAxiosMiddleware,
-      searchPath,
-      tracking,
-      routerMiddleware(browserHistory),
-      fetchPageInitialData,
-      redirectOfficerAlias,
-      updatePathName,
-      retryOfficerDownloadMiddleware,
-      restoreCreateOrUpdatePinboard,
-    ),
+    applyMiddleware(...middleware),
     persistState(()=>{}, localStorageConfig),
   ];
 

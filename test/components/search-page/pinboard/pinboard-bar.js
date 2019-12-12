@@ -11,6 +11,7 @@ describe('PinboardBar component', function () {
       <PinboardBar />
     );
 
+    wrapper.prop('className').should.containEql('pinboard-feature');
     wrapper.find('.pinboard-tip').exists().should.be.true();
     wrapper.find(PinboardButtonContainer).exists().should.be.true();
   });

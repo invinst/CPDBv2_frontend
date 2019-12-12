@@ -3,7 +3,9 @@ import { locationShape } from 'react-router/lib/PropTypes';
 import React, { PropTypes } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import cx from 'classnames';
 
+import config from 'config';
 import { getMockAdapter } from 'mock-api';
 import EditModeProvider from 'components/edit-mode-provider';
 import LoginModalContainer from 'containers/login-modal-container';
@@ -13,6 +15,7 @@ import RouteTransition from 'containers/animation/route-transition';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import { ALPHA_NUMBERIC } from 'utils/constants';
 import { getPageRoot } from 'utils/url';
+import styles from './app.sass';
 
 toast.configure();
 
@@ -48,9 +51,10 @@ export default class App extends React.Component {
 
   render() {
     const { location, children } = this.props;
+    const { pinboard: enablePinboardFeature } = config.enableFeatures;
 
     return (
-      <StyleRoot>
+      <StyleRoot className={ cx(styles.app, { 'pinboard-disabled': !enablePinboardFeature }) }>
         <EditModeProvider location={ location }>
           <RouteTransition pathname={ location.pathname }>
             { children }
