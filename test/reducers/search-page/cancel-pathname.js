@@ -28,7 +28,7 @@ describe('cancelPathname reducer', function () {
     cancelPathname('/pinboard/123abc/pinboard-title/', action).should.equal('/pinboard/123abc/pinboard-title/');
   });
 
-  it('should change back to landing path when @@router/LOCATION_CHANGE to some other pages', function () {
+  it('should change to officer page when @@router/LOCATION_CHANGE to officer page', function () {
     const action = {
       type: '@@router/LOCATION_CHANGE',
       payload: {
@@ -36,6 +36,6 @@ describe('cancelPathname reducer', function () {
       },
     };
 
-    cancelPathname('/pinboard/123abc/pinboard-title/', action).should.equal('/');
+    cancelPathname('/pinboard/123abc/pinboard-title/', action).should.equal('/officer/123/');
   });
 });

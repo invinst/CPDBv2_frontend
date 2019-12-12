@@ -553,6 +553,42 @@ describe('Search Page', function () {
     searchPage.currentBasePath.should.equal('/officer/1/bernadette-kelly/');
   });
 
+  it('should go back to officer page when user click on cancel button', function () {
+    searchPage.input.waitForDisplayed();
+    searchPage.input.setValue('Ke');
+
+    searchPage.secondOfficerResult.waitForDisplayed();
+    searchPage.secondOfficerResult.click();
+    browser.keys('Enter');
+    searchPage.currentBasePath.should.equal('/officer/2/john-kelly/');
+
+    searchPage.searchBreadcrumb.waitForDisplayed();
+    searchPage.searchBreadcrumb.click();
+    searchPage.backButton.waitForDisplayed();
+    searchPage.backButton.click();
+    searchPage.backButton.waitForDisplayed(20000, true);
+
+    browser.getUrl().should.match(/officer\/2\/john-kelly\/$/);
+  });
+
+  it('should go back to officer page when user hit ESCAPE with focus on search input', function () {
+    searchPage.input.waitForDisplayed();
+    searchPage.input.setValue('Ke');
+
+    searchPage.secondOfficerResult.waitForDisplayed();
+    searchPage.secondOfficerResult.click();
+    browser.keys('Enter');
+    searchPage.currentBasePath.should.equal('/officer/2/john-kelly/');
+
+    searchPage.searchBreadcrumb.waitForDisplayed();
+    searchPage.searchBreadcrumb.click();
+    searchPage.backButton.waitForDisplayed();
+    browser.keys('Escape');
+    searchPage.backButton.waitForDisplayed(20000, true);
+
+    browser.getUrl().should.match(/officer\/2\/john-kelly\/$/);
+  });
+
   it('should not follow the v1 url when user press enter and there is no results', function () {
     searchPage.input.waitForDisplayed();
     searchPage.input.setValue('noresult');
