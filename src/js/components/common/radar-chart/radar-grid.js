@@ -28,7 +28,7 @@ export default class RadarGrid extends Component {
       .radius((d) => d.value)
       .angle((d, i) => i * angleSlice - Math.PI);
 
-    const gridIndexes = outerGridOnly ? [LEVEL -1] : range(LEVEL);
+    const gridIndexes = outerGridOnly ? [LEVEL - 1] : range(LEVEL);
 
     return (
       <g className='test--radar-grid-wrapper'>

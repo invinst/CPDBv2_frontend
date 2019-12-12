@@ -26,5 +26,5 @@ export function withStoreContext(ComponentAAA, store) {
 }
 
 global.ga = () => {};
-global.clicky= { log: () => {} };
+global.clicky = { log: () => {} };
 window.Intercom = () => {};

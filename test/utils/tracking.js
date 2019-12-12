@@ -23,7 +23,7 @@ describe('tracking utils', function () {
         eventAction: 'swipe_left',
         eventLabel: 'type',
       });
-      global.clicky.log.should.be.calledWith('/', 'swipe_left_type');
+      global.clicky.log.should.be.calledWith(document.location.pathname, 'swipe_left_type');
     });
   });
 

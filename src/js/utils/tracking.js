@@ -1,15 +1,10 @@
 import { throttle } from 'lodash';
 
 
-function clickyLog(title, type) {
-  if (type)
-    global.clicky.log(document.location.pathname, title, type);
-  else
-    global.clicky.log(document.location.pathname, title);
-}
+const clickyLog = (title, type) => global.clicky.log(document.location.pathname, title, type);
 
 export const trackSwipeLandingPageCarousel = (direction, type) => {
-  global.clicky.log('/', `swipe_${direction}_${type}`);
+  clickyLog(`swipe_${direction}_${type}`);
   global.ga('send', {
     hitType: 'event',
     eventCategory: 'landing_page_carousel',
