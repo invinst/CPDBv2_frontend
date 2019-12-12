@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { stub } from 'sinon';
 import { browserHistory } from 'react-router';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 import { CALL_TO_ACTION_TYPES } from 'utils/constants';
 
 import HoverableCategoryItem, { CategoryItem } from 'components/search-page/search-terms/category-column/category-item';
@@ -35,7 +35,7 @@ describe('CategoryItem component', function () {
     });
 
     it('should track outbound link if the item type is LINK', function () {
-      const trackOutboundLinkStub = stub(GATracking, 'trackOutboundLink');
+      const trackOutboundLinkStub = stub(tracking, 'trackOutboundLink');
       const item = {
         'call_to_action_type': CALL_TO_ACTION_TYPES.LINK,
         'link': 'link',
