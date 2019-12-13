@@ -38,12 +38,12 @@ export const showPinboardToast = (message) => Toastify.toast(message, {
   autoClose: false,
 });
 
-export const showNotClosableToast = (message) => Toastify.toast(message, {
-  className: toastStyles.nonClickableToast,
+export const showNotAutoCloseToast = (message, onClick) => Toastify.toast(message, {
+  className: toastStyles.fixedWidthToast,
   transition: TopRightTransition,
   autoClose: false,
-  closeOnClick: false,
   draggable: false,
+  onClick,
 });
 
 export function showCreatedToasts(pinboardSavingResponse) {

@@ -33,7 +33,7 @@ import {
   showAddOrRemoveItemToast,
   showCreatedToasts,
   showPinboardToast,
-  showNotClosableToast,
+  showNotAutoCloseToast,
 } from 'utils/toast';
 import { Toastify } from 'utils/vendors';
 
@@ -85,14 +85,17 @@ function handleConnectionLostOrRetry(store) {
       internetConnectionRetries += 1;
       setTimeout(() => store.dispatch(savePinboard()), CONNECTION_RETRY_DELAY);
     } else {
-      internetConnectionRetries = 0;
       retries = 0;
-      reconnectingToastId = showNotClosableToast('Connection lost. Trying to saving ...');
+      internetConnectionRetries = 0;
+      reconnectingToastId = showNotAutoCloseToast(
+        'Connection lost. Trying to saving ...',
+        () => resumeSavingPinboard(store)
+      );
     }
   }
 }
 
-function handleBackToOnline(store) {
+function resumeSavingPinboard(store) {
   if (reconnectingToastId) {
     store.dispatch(savePinboard());
     reconnectingToastId && Toastify.toast.dismiss(reconnectingToastId);
@@ -110,7 +113,7 @@ function dispatchUpdateOrCreatePinboard(store, currentPinboard, successCallBack=
 }
 
 export default store => {
-  window.addEventListener('online', () => handleBackToOnline(store));
+  window.addEventListener('online', () => resumeSavingPinboard(store));
   return next => action => {
     if (action.type === ADD_OR_REMOVE_ITEM_IN_PINBOARD || action.type === ADD_ITEM_IN_PINBOARD_PAGE) {
       let promises = [];

@@ -3,7 +3,13 @@ import { stub } from 'sinon';
 
 import { Toastify } from 'utils/vendors';
 import toastStyles from 'utils/toast.sass';
-import { showPinboardToast, showAddOrRemoveItemToast, showCreatedToasts, showInvalidParamToasts } from 'utils/toast';
+import {
+  showPinboardToast,
+  showAddOrRemoveItemToast,
+  showCreatedToasts,
+  showInvalidParamToasts,
+  showNotAutoCloseToast,
+} from 'utils/toast';
 
 describe('Toast utils', function () {
   beforeEach(function () {
@@ -126,6 +132,20 @@ describe('Toast utils', function () {
       showInvalidParamToasts(['invalid-param-a', 'invalid-param-b']);
       Toastify.toast.should.be.calledOnce();
       Toastify.toast.should.be.calledWith('invalid-param-a, invalid-param-b are not recognized.');
+    });
+  });
+
+  describe('showNotAutoCloseToast', function () {
+    it('should show toast with autoClose is false', function () {
+      const onClick = stub();
+      showNotAutoCloseToast('toast message', onClick);
+
+      Toastify.toast.should.be.calledOnce();
+      Toastify.toast.getCall(0).args[0].should.equal('toast message');
+      Toastify.toast.getCall(0).args[1]['className'].should.equal(toastStyles.fixedWidthToast);
+      Toastify.toast.getCall(0).args[1]['autoClose'].should.be.false();
+      Toastify.toast.getCall(0).args[1]['draggable'].should.be.false();
+      Toastify.toast.getCall(0).args[1]['onClick'].should.be.eql(onClick);
     });
   });
 });
