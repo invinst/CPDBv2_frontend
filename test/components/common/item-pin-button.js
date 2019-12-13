@@ -10,6 +10,7 @@ import { findDOMNode } from 'react-dom';
 import { stub } from 'sinon';
 
 import ItemPinButton from 'components/common/item-pin-button';
+import styles from 'components/common/item-pin-button.sass';
 
 
 describe('ItemPinButton component', function () {
@@ -19,9 +20,14 @@ describe('ItemPinButton component', function () {
     unmountComponentSuppressError(instance);
   });
 
+  it('should render correctly', function () {
+    instance = renderIntoDocument(<ItemPinButton item={ { isPinned: true } } />);
+    const pinButton = findRenderedDOMComponentWithClass(instance, styles.itemPinButton);
+    pinButton.className.should.containEql('pinboard-feature');
+  });
+
   it('should have class is-pinned if item.isPinned is true', function () {
     instance = renderIntoDocument(<ItemPinButton item={ { isPinned: true } } />);
-
     findRenderedDOMComponentWithClass(instance, 'is-pinned').should.be.ok();
   });
 

@@ -28,12 +28,12 @@ export const mapLegendSelector = createSelector(
   })
 );
 
-export const mapMarkersSelector = createSelector(
+export const mapMarkerGroupsSelector = createSelector(
   getGeographicCrs,
   getGeographicTrrs,
   (geographicCrs, geographicTrrs) => ({
-    crs: geographicCrs.map(marker => crMapMarkersTransform(marker)),
-    trrs: geographicTrrs.map(marker => trrMapMarkerTransform(marker)),
+    crs: geographicCrs.map(crMapMarkersTransform),
+    trrs: geographicTrrs.map(trrMapMarkerTransform),
   })
 );
 

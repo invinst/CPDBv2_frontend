@@ -31,7 +31,7 @@ describe('Map component', function () {
     useOfForceCount: 1,
   };
 
-  const markers = {
+  const markerGroups = {
     crs: [
       {
         point: {
@@ -116,15 +116,17 @@ describe('Map component', function () {
         trrs: [],
       };
 
-      instance = renderIntoDocument(<AllegationsMap legend={ legend } markers={ markers }/>);
-      instance.shouldComponentUpdate({ legend: newLegend, markers }).should.be.true();
-      instance.shouldComponentUpdate({ legend, markers: newMarkers }).should.be.true();
-      instance.shouldComponentUpdate({ legend: newLegend, markers: newMarkers }).should.be.true();
+      instance = renderIntoDocument(<AllegationsMap legend={ legend } markerGroups={ markerGroups }/>);
+      instance.shouldComponentUpdate({ legend: newLegend, markerGroups }).should.be.true();
+      instance.shouldComponentUpdate({ legend, markerGroups: newMarkers }).should.be.true();
+      instance.shouldComponentUpdate({ legend: newLegend, markerGroups: newMarkers }).should.be.true();
     });
 
     it('should return false if props are unchanged', function () {
-      instance = renderIntoDocument(<AllegationsMap legend={ legend } markers={ markers } />);
-      instance.shouldComponentUpdate({ legend: cloneDeep(legend), markers: cloneDeep(markers) }).should.be.false();
+      instance = renderIntoDocument(<AllegationsMap legend={ legend } markerGroups={ markerGroups } />);
+      instance.shouldComponentUpdate(
+        { legend: cloneDeep(legend), markerGroups: cloneDeep(markerGroups) }
+      ).should.be.false();
     });
   });
 
@@ -136,20 +138,20 @@ describe('Map component', function () {
       instance = renderIntoDocument(
         <AllegationsMap
           legend={ legend }
-          markers={ markers }
+          markerGroups={ markerGroups }
         />
       );
 
       instance = reRender(
         <AllegationsMap
           legend={ legend }
-          markers={ markers }
+          markerGroups={ markerGroups }
           clearAllMarkers={ true }
         />,
         instance
       );
       resetMapSpy.should.be.called();
-      addMapLayersOnStyleLoadedSpy.should.be.calledWith(markers);
+      addMapLayersOnStyleLoadedSpy.should.be.calledWith(markerGroups);
       AllegationsMap.prototype.resetMap.restore();
       AllegationsMap.prototype.addMapLayersOnStyleLoaded.restore();
     });
@@ -174,14 +176,14 @@ describe('Map component', function () {
       instance = renderIntoDocument(
         <AllegationsMap
           legend={ legend }
-          markers={ markers }
+          markerGroups={ markerGroups }
         />
       );
 
       instance = reRender(
         <AllegationsMap
           legend={ legend }
-          markers={ newMarkers }
+          markerGroups={ newMarkers }
           clearAllMarkers={ false }
         />,
         instance
@@ -192,7 +194,9 @@ describe('Map component', function () {
   });
 
   it('should render officer map and legend', function () {
-    instance = renderIntoDocument(<AllegationsMap legend={ legend } markers={ markers } showLegends={ true }/>);
+    instance = renderIntoDocument(
+      <AllegationsMap legend={ legend } markerGroups={ markerGroups } showLegends={ true }/>
+    );
 
     findRenderedDOMComponentWithClass(instance, mapStyles.map);
     findRenderedDOMComponentWithClass(instance, legendStyles.legend);
@@ -228,12 +232,12 @@ describe('Map component', function () {
       id: index.toString(),
       kind: 'CR',
     });
-    const markers = {
+    const markerGroups = {
       crs: times(3, createMarker),
       trrs: [],
     };
-    instance = renderIntoDocument(<AllegationsMap legend={ legend } markers={ markers } />);
-    addMapLayersOnStyleLoadedSpy.should.be.calledWith(markers);
+    instance = renderIntoDocument(<AllegationsMap legend={ legend } markerGroups={ markerGroups } />);
+    addMapLayersOnStyleLoadedSpy.should.be.calledWith(markerGroups);
     AllegationsMap.prototype.addMapLayersOnStyleLoaded.restore();
   });
 
@@ -241,7 +245,7 @@ describe('Map component', function () {
     instance = renderIntoDocument(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ false }
         geographicDataLoading={ true }
       />
@@ -254,7 +258,7 @@ describe('Map component', function () {
     instance = renderIntoDocument(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ false }
         geographicDataLoading={ false }
       />
@@ -278,7 +282,7 @@ describe('Map component', function () {
     instance = renderIntoDocument(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ true }
         geographicDataLoading={ false }
       />
@@ -304,7 +308,7 @@ describe('Map component', function () {
     instance = renderIntoDocument(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ true }
         geographicDataLoading={ false }
       />
@@ -331,7 +335,7 @@ describe('Map component', function () {
     instance = renderIntoDocument(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ true }
         geographicDataLoading={ false }
         handleClickCRMarker={ handleClickCRMarkerStub }
@@ -360,7 +364,7 @@ describe('Map component', function () {
     instance = renderIntoDocument(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ true }
         geographicDataLoading={ false }
         handleClickCRMarker={ handleClickCRMarkerStub }
@@ -405,7 +409,7 @@ describe('Map component', function () {
     instance = renderIntoDocument(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ true }
         geographicDataLoading={ false }
       />
@@ -473,7 +477,7 @@ describe('Map component', function () {
 
       instance = renderIntoDocument(
         <AllegationsMap
-          markers={ markers }
+          markerGroups={ markerGroups }
           geographicDataLoading={ false }
         />
       );
@@ -559,12 +563,12 @@ describe('Map component', function () {
       AllegationsMap.prototype.addMapLayersOnStyleLoaded.restore();
     });
 
-    it('should not add new layer if markers data is empty', function () {
+    it('should not add new layer if marker data is empty', function () {
       stub(AllegationsMap.prototype, 'addMapLayersOnStyleLoaded');
 
       instance = renderIntoDocument(
         <AllegationsMap
-          markers={ markers }
+          markerGroups={ markerGroups }
           geographicDataLoading={ false }
         />
       );
@@ -635,7 +639,7 @@ describe('Map component', function () {
 
       instance = renderIntoDocument(
         <AllegationsMap
-          markers={ markers }
+          markerGroups={ markerGroups }
           geographicDataLoading={ false }
         />
       );
@@ -673,7 +677,7 @@ describe('Map component', function () {
     instance = renderIntoDocument(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ true }
         geographicDataLoading={ false }
       />
@@ -692,7 +696,7 @@ describe('Map component', function () {
     instance = renderIntoDocument(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ true }
         geographicDataLoading={ false }
       />
@@ -721,7 +725,7 @@ describe('Map component', function () {
     instance = renderIntoDocument(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ true }
         geographicDataLoading={ false }
       />
@@ -738,7 +742,7 @@ describe('Map component', function () {
     instance = renderIntoDocument(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ true }
         geographicDataLoading={ false }
       />
@@ -746,7 +750,7 @@ describe('Map component', function () {
 
     instance.initMapData();
     instance.layerNames.should.eql([]);
-    instance.currentMarkers.should.eql({});
+    instance.currentMarkers.should.eql(new Set());
     instance.mapboxglLayerIndex.should.eql(0);
     instance.firstLayer.should.eql({});
     instance.hoveredState.should.eql({});
@@ -838,14 +842,14 @@ describe('Map component', function () {
     instance = renderIntoDocument(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ true }
         geographicDataLoading={ false }
       />
     );
     addMapLayerSpy.resetHistory();
 
-    instance.addMapLayers(markers);
+    instance.addMapLayers(markerGroups);
     addMapLayerSpy.should.be.calledTwice();
     AllegationsMap.prototype.addMapLayer.restore();
   });
@@ -855,7 +859,7 @@ describe('Map component', function () {
     instance = renderIntoDocument(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ true }
         geographicDataLoading={ false }
       />
@@ -884,7 +888,7 @@ describe('Map component', function () {
     instance = renderIntoDocument(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ true }
         geographicDataLoading={ false }
       />
@@ -913,7 +917,7 @@ describe('Map component', function () {
     instance = renderIntoDocument(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         showLegends={ true }
         geographicDataLoading={ false }
       />
@@ -921,7 +925,7 @@ describe('Map component', function () {
     addMapLayersStub.resetHistory();
 
     instance.map.isStyleLoaded.returns(true);
-    instance.addMapLayersOnStyleLoaded(markers);
+    instance.addMapLayersOnStyleLoaded(markerGroups);
     addMapLayersStub.should.be.calledOnce();
     addMapLayersStub.restore();
   });
@@ -930,7 +934,7 @@ describe('Map component', function () {
     instance = renderIntoDocument(
       <AllegationsMap
         legend={ legend }
-        markers={ markers }
+        markerGroups={ markerGroups }
         attributionControlPosition='bottom-left'
       />
     );

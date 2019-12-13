@@ -142,7 +142,8 @@
         "browser": true,
         "node": true,
         "jquery": true,
-        "mocha": true
+        "mocha": true,
+        "es6": true
     },
     "parserOptions": {
         "ecmaVersion": 6,

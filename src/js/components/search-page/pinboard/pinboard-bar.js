@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { noop } from 'lodash';
+import cx from 'classnames';
 
 import styles from './pinboard-bar.sass';
 import PinboardButtonContainer from 'containers/search-page/pinboard-button-container';
@@ -13,7 +14,7 @@ export default class PinboardBar extends Component {
     const { onEmptyPinboardButtonClick } = this.props;
 
     return (
-      <div className={ styles.wrapper }>
+      <div className={ cx('pinboard-feature', styles.wrapper) }>
         <span className='pinboard-tip'>
           { PINBOARD_TIP }
         </span>

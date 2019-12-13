@@ -51,7 +51,7 @@ export const trrMapMarkerTransform = item => ({
   category: item['firearm_used'] ? 'Firearm' : item.taser ? 'Taser' : 'Use of Force Report',
 });
 
-export const mapMarkersSelector = createSelector(
+export const mapMarkerGroupsSelector = createSelector(
   rawMapMarkersSelector,
   markers => {
     const geographicCrs = markers.filter(marker => {

@@ -2,12 +2,12 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
 import AllegationsMap from 'components/common/allegations-map';
-import { mapLegendSelector, mapMarkersSelector } from 'selectors/officer-page/map';
+import { mapLegendSelector, mapMarkerGroupsSelector } from 'selectors/officer-page/map';
 
 function mapStateToProps(state, ownProps) {
   return {
     legend: mapLegendSelector(state),
-    markers: mapMarkersSelector(state),
+    markerGroups: mapMarkerGroupsSelector(state),
     mapCustomClassName: 'officer-allegations-map',
   };
 }
