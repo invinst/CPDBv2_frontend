@@ -33,7 +33,7 @@ import {
   showAddOrRemoveItemToast,
   showCreatedToasts,
   showPinboardToast,
-  showNotAutoCloseToast,
+  showAlertToast,
 } from 'utils/toast';
 import { Toastify } from 'utils/vendors';
 
@@ -79,6 +79,12 @@ function handleConnectionLostOrRetry(store) {
     if (retries < MAX_RETRIES) {
       retries += 1;
       setTimeout(() => store.dispatch(savePinboard()), RETRY_DELAY);
+    } else {
+      retries = 0;
+      showAlertToast(
+        'Failed to save pinboard. Click to try again!',
+        () => store.dispatch(savePinboard())
+      );
     }
   } else if (!reconnectingToastId) {
     if (internetConnectionRetries < MAX_CONNECTION_RETRIES) {
@@ -87,7 +93,7 @@ function handleConnectionLostOrRetry(store) {
     } else {
       retries = 0;
       internetConnectionRetries = 0;
-      reconnectingToastId = showNotAutoCloseToast(
+      reconnectingToastId = showAlertToast(
         'Connection lost. Trying to saving ...',
         () => resumeSavingPinboard(store)
       );

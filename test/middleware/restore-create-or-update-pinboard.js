@@ -694,6 +694,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
         dispatch: stub().usingPromise(Promise).rejects(new Error('abc')),
       };
 
+      stub(ToastUtils, 'showAlertToast').returns('toast-id');
       const realSetTimeout = setTimeout;
       const clock = useFakeTimers();
 
@@ -709,6 +710,18 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
           );
         } else {
           failingStore.dispatch.callCount.should.equal(121);
+          ToastUtils.showAlertToast.should.be.calledOnce();
+          ToastUtils.showAlertToast.should.be.calledWith('Failed to save pinboard. Click to try again!');
+
+          // click on the toast should try to resume saving pinboard
+          failingStore.dispatch.resetHistory();
+          const toastOnClick = ToastUtils.showAlertToast.getCall(0).args[1];
+          toastOnClick();
+
+          failingStore.dispatch.should.be.calledOnce();
+          failingStore.dispatch.should.be.calledWith(savePinboard());
+
+          ToastUtils.showAlertToast.restore();
           clock.restore();
           done();
         }
@@ -739,7 +752,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
       };
 
       window.addEventListener.restore();
-      stub(ToastUtils, 'showNotAutoCloseToast').returns('toast-id');
+      stub(ToastUtils, 'showAlertToast').returns('toast-id');
       Toastify.toast.dismiss.resetHistory();
       const onLineStub = stub(window.navigator, 'onLine').value(false);
       const realSetTimeout = setTimeout;
@@ -763,23 +776,23 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
         } else if (count === 3) {
           // Not show retrying toast within 3 retries
           connectionErrorStore.dispatch.callCount.should.equal(6);
-          ToastUtils.showNotAutoCloseToast.should.not.be.called();
+          ToastUtils.showAlertToast.should.not.be.called();
 
           connectionErrorStore.dispatch.resetHistory();
           delayNextSave(count);
         } else if (count === 4) {
           // show retrying toast at the 4th retry
           connectionErrorStore.dispatch.should.be.calledOnce();
-          ToastUtils.showNotAutoCloseToast.should.be.calledOnce();
-          ToastUtils.showNotAutoCloseToast.should.be.calledWith('Connection lost. Trying to saving ...');
+          ToastUtils.showAlertToast.should.be.calledOnce();
+          ToastUtils.showAlertToast.should.be.calledWith('Connection lost. Trying to saving ...');
 
           connectionErrorStore.dispatch.resetHistory();
-          ToastUtils.showNotAutoCloseToast.resetHistory();
+          ToastUtils.showAlertToast.resetHistory();
           delayNextSave(count);
         } else {
           // Not showing any second retrying toast
           connectionErrorStore.dispatch.should.be.calledOnce();
-          ToastUtils.showNotAutoCloseToast.should.not.be.called();
+          ToastUtils.showAlertToast.should.not.be.called();
 
           // saving pinboard when connection is back
           connectionErrorStore.dispatch.resetHistory();
@@ -804,7 +817,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
           Toastify.toast.dismiss.resetHistory();
           clock.restore();
           onLineStub.restore();
-          ToastUtils.showNotAutoCloseToast.restore();
+          ToastUtils.showAlertToast.restore();
           done();
         }
       }
@@ -834,7 +847,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
       };
 
       window.addEventListener.restore();
-      stub(ToastUtils, 'showNotAutoCloseToast').returns('toast-id');
+      stub(ToastUtils, 'showAlertToast').returns('toast-id');
       Toastify.toast.dismiss.resetHistory();
       const onLineStub = stub(window.navigator, 'onLine').value(false);
       const realSetTimeout = setTimeout;
@@ -858,21 +871,21 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
         } else if (count === 3) {
           // Not show retrying toast within 3 retries
           connectionErrorStore.dispatch.callCount.should.equal(6);
-          ToastUtils.showNotAutoCloseToast.should.not.be.called();
+          ToastUtils.showAlertToast.should.not.be.called();
 
           connectionErrorStore.dispatch.resetHistory();
           delayNextSave(count);
         } else if (count === 4) {
           // show retrying toast at the 4th retry
           connectionErrorStore.dispatch.should.be.calledOnce();
-          ToastUtils.showNotAutoCloseToast.should.be.calledOnce();
-          ToastUtils.showNotAutoCloseToast.should.be.calledWith('Connection lost. Trying to saving ...');
+          ToastUtils.showAlertToast.should.be.calledOnce();
+          ToastUtils.showAlertToast.should.be.calledWith('Connection lost. Trying to saving ...');
 
           // click on the toast should try to resume saving pinboard
-          const toastOnClick = ToastUtils.showNotAutoCloseToast.getCall(0).args[1];
+          const toastOnClick = ToastUtils.showAlertToast.getCall(0).args[1];
           connectionErrorStore.dispatch.resetHistory();
 
-          ToastUtils.showNotAutoCloseToast.resetHistory();
+          ToastUtils.showAlertToast.resetHistory();
           Toastify.toast.dismiss.should.not.be.called();
           toastOnClick();
 
@@ -885,7 +898,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
           Toastify.toast.dismiss.resetHistory();
           clock.restore();
           onLineStub.restore();
-          ToastUtils.showNotAutoCloseToast.restore();
+          ToastUtils.showAlertToast.restore();
           done();
         }
       }

@@ -38,8 +38,8 @@ export const showPinboardToast = (message) => Toastify.toast(message, {
   autoClose: false,
 });
 
-export const showNotAutoCloseToast = (message, onClick) => Toastify.toast(message, {
-  className: toastStyles.fixedWidthToast,
+export const showAlertToast = (message, onClick) => Toastify.toast(message, {
+  className: toastStyles.alertToast,
   transition: TopRightTransition,
   autoClose: false,
   draggable: false,

@@ -8,7 +8,7 @@ import {
   showAddOrRemoveItemToast,
   showCreatedToasts,
   showInvalidParamToasts,
-  showNotAutoCloseToast,
+  showAlertToast,
 } from 'utils/toast';
 
 describe('Toast utils', function () {
@@ -135,14 +135,14 @@ describe('Toast utils', function () {
     });
   });
 
-  describe('showNotAutoCloseToast', function () {
+  describe('showAlertToast', function () {
     it('should show toast with autoClose is false', function () {
       const onClick = stub();
-      showNotAutoCloseToast('toast message', onClick);
+      showAlertToast('toast message', onClick);
 
       Toastify.toast.should.be.calledOnce();
       Toastify.toast.getCall(0).args[0].should.equal('toast message');
-      Toastify.toast.getCall(0).args[1]['className'].should.equal(toastStyles.fixedWidthToast);
+      Toastify.toast.getCall(0).args[1]['className'].should.equal(toastStyles.alertToast);
       Toastify.toast.getCall(0).args[1]['autoClose'].should.be.false();
       Toastify.toast.getCall(0).args[1]['draggable'].should.be.false();
       Toastify.toast.getCall(0).args[1]['onClick'].should.be.eql(onClick);
