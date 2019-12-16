@@ -1,6 +1,8 @@
 import { Promise } from 'es6-promise';
 import { get, keys, isNil, isEmpty, identity, noop, toLower, camelCase, startsWith } from 'lodash';
 
+import config from 'config';
+
 import {
   ADD_ITEM_IN_PINBOARD_PAGE,
   ADD_OR_REMOVE_ITEM_IN_PINBOARD,
@@ -65,7 +67,7 @@ const getPinboardFromQuery = (query) => {
   return { pinboardFromQuery, invalidParams };
 };
 
-const RETRY_DELAY = 1000;
+const RETRY_DELAY = config.requestRetryDelay || 1000;
 const MAX_RETRIES = 60;
 let retries = 0;
 
@@ -94,7 +96,7 @@ function handleConnectionLostOrRetry(store) {
       retries = 0;
       internetConnectionRetries = 0;
       reconnectingToastId = showAlertToast(
-        'Connection lost. Trying to saving ...',
+        'Connection lost. Trying to save ...',
         () => resumeSavingPinboard(store)
       );
     }

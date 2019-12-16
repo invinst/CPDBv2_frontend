@@ -784,7 +784,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
           // show retrying toast at the 4th retry
           connectionErrorStore.dispatch.should.be.calledOnce();
           ToastUtils.showAlertToast.should.be.calledOnce();
-          ToastUtils.showAlertToast.should.be.calledWith('Connection lost. Trying to saving ...');
+          ToastUtils.showAlertToast.should.be.calledWith('Connection lost. Trying to save ...');
 
           connectionErrorStore.dispatch.resetHistory();
           ToastUtils.showAlertToast.resetHistory();
@@ -879,7 +879,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
           // show retrying toast at the 4th retry
           connectionErrorStore.dispatch.should.be.calledOnce();
           ToastUtils.showAlertToast.should.be.calledOnce();
-          ToastUtils.showAlertToast.should.be.calledWith('Connection lost. Trying to saving ...');
+          ToastUtils.showAlertToast.should.be.calledWith('Connection lost. Trying to save ...');
 
           // click on the toast should try to resume saving pinboard
           const toastOnClick = ToastUtils.showAlertToast.getCall(0).args[1];
