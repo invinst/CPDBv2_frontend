@@ -35,17 +35,17 @@ describe('SearchBox component', function () {
     );
     const searchBox = findDOMNode(instance);
     Simulate.click(searchBox);
-    this.stubPushPathPreserveEditMode.calledWith('/search/terms/').should.be.true();
+    this.stubPushPathPreserveEditMode.calledWith('/search/').should.be.true();
   });
 
-  it('should call pushPathPreserveEditMode with search term path when user click on the search term', function () {
+  it('should call pushPathPreserveEditMode with search path when user click on the search term', function () {
     instance = renderIntoDocument(
       <SearchBox />
     );
 
     const searchBox = findDOMNode(instance);
     Simulate.click(searchBox);
-    this.stubPushPathPreserveEditMode.calledWith('/search/terms/').should.be.true();
+    this.stubPushPathPreserveEditMode.calledWith('/search/').should.be.true();
   });
 
   it('should render MagnifyingGlass with correct color', function () {

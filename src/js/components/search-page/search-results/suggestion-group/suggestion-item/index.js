@@ -1,16 +1,24 @@
 import React, { PropTypes, Component } from 'react';
-import { get, reduce } from 'lodash';
+import { get, isEqual, reduce } from 'lodash';
 
-import OfficerItem from './officer';
-import CRItem from './cr';
-import SuggestionItemBase from './base';
+import withPinnableItem from './with-pinnable-item';
+import { getOfficerSecondRowContent, getCRSecondRowContent } from './item-second-row';
 
+
+export const OfficerItem = withPinnableItem(true, null, getOfficerSecondRowContent);
+export const CRItem = withPinnableItem(true, null, getCRSecondRowContent);
+export const TRRItem = withPinnableItem(true);
+export const UnpinnableItem = withPinnableItem(false);
 
 const COMPONENT_MAP = {
   OFFICER: OfficerItem,
   'DATE > OFFICERS': OfficerItem,
   'UNIT > OFFICERS': OfficerItem,
   CR: CRItem,
+  'DATE > CR': CRItem,
+  'INVESTIGATOR > CR': CRItem,
+  'TRR': TRRItem,
+  'DATE > TRR': TRRItem,
 };
 
 export default class SuggestionItem extends Component {
@@ -18,18 +26,17 @@ export default class SuggestionItem extends Component {
     const keys = [
       'isFocused',
       'aliasEditModeOn',
-      'suggestion.uniqueKey',
+      'suggestion',
     ];
 
     return reduce(keys, (memo, key) => (
-      memo || get(nextProps, key) !== get(this.props, key)
+      memo || !isEqual(get(nextProps, key), get(this.props, key))
     ), false);
   }
 
   render() {
     const { type } = this.props.suggestion;
-    const ComponentType = get(COMPONENT_MAP, type, SuggestionItemBase);
-
+    const ComponentType = get(COMPONENT_MAP, type, UnpinnableItem);
     return (
       <ComponentType { ...this.props }/>
     );
@@ -41,6 +48,8 @@ SuggestionItem.propTypes = {
   isFocused: PropTypes.bool,
   aliasEditModeOn: PropTypes.bool,
   selectItem: PropTypes.func,
+  addOrRemoveItemInPinboard: PropTypes.func,
+  saveToRecent: PropTypes.func,
 };
 
 SuggestionItem.defaultProps = {

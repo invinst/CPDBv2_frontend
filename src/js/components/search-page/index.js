@@ -1,25 +1,25 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
-import { throttle, isEmpty } from 'lodash';
+import { throttle, isEmpty, noop } from 'lodash';
 import { Promise } from 'es6-promise';
-import DocumentMeta from 'react-document-meta';
+import cx from 'classnames';
 
 import SearchBox from './search-box';
-import {
-  cancelButtonStyle,
-  searchBoxStyle,
-  searchContentWrapperStyle,
-} from './search-page.style.js';
 import { navigateToSearchItem } from 'utils/navigate-to-search-item';
-import * as constants from 'utils/constants';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
+import { redirectToCreatedPinboard } from 'utils/pinboard';
 import SearchMainPanel from './search-main-panel';
-import HoverableButton from 'components/common/hoverable-button';
+import HoverableButton from 'components/common/hoverable-button-without-inline-style';
 import {
-  ROOT_PATH, SEARCH_ALIAS_EDIT_PATH, SEARCH_BOX, MORE_BUTTON, RECENT_CONTENT_TYPE,
+  SEARCH_ALIAS_EDIT_PATH,
+  SEARCH_BOX,
+  MORE_BUTTON,
+  RECENT_CONTENT_TYPE,
 } from 'utils/constants';
 import { showIntercomLauncher } from 'utils/intercom';
 import * as IntercomTracking from 'utils/intercom-tracking';
+import 'toast.css';
+import styles from './search-page.sass';
 
 
 const DEFAULT_SUGGESTION_LIMIT = 9;
@@ -35,14 +35,16 @@ export default class SearchPage extends Component {
     this.resetNavigation = this.resetNavigation.bind(this);
 
     this.getSuggestion = throttle(this.props.getSuggestion, 500, { 'leading': false });
+    this.handleEmptyPinboardButtonClick = this.handleEmptyPinboardButtonClick.bind(this);
   }
 
   componentDidMount() {
-    const { query, location, params, routes, pushBreadcrumbs } = this.props;
-    pushBreadcrumbs({ location, params, routes });
+    const { query, hide } = this.props;
 
-    LayeredKeyBinding.bind('esc', this.handleGoBack);
-    LayeredKeyBinding.bind('enter', this.handleViewItem);
+    if (!hide) {
+      LayeredKeyBinding.bind('esc', this.handleGoBack);
+      LayeredKeyBinding.bind('enter', this.handleViewItem);
+    }
 
     this.sendSearchQuery(query);
 
@@ -52,9 +54,8 @@ export default class SearchPage extends Component {
 
   componentWillReceiveProps(nextProps) {
     const {
-      location, params, routes, pushBreadcrumbs, query,
+      query,
     } = nextProps;
-    pushBreadcrumbs({ location, params, routes });
 
     const queryChanged = query !== this.props.query;
 
@@ -63,9 +64,22 @@ export default class SearchPage extends Component {
     }
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (!prevProps.hide && this.props.hide) {
+      LayeredKeyBinding.unbind('esc');
+      LayeredKeyBinding.unbind('enter');
+    }
+    if (prevProps.hide && !this.props.hide) {
+      LayeredKeyBinding.bind('esc', this.handleGoBack);
+      LayeredKeyBinding.bind('enter', this.handleViewItem);
+    }
+  }
+
   componentWillUnmount() {
-    LayeredKeyBinding.unbind('esc');
-    LayeredKeyBinding.unbind('enter');
+    if (!this.props.hide) {
+      LayeredKeyBinding.unbind('esc');
+      LayeredKeyBinding.unbind('enter');
+    }
     showIntercomLauncher(true);
   }
 
@@ -76,9 +90,13 @@ export default class SearchPage extends Component {
   }
 
   goToItem(item) {
-    const { trackRecentSuggestion } = this.props;
-    navigateToSearchItem(item, ({ to, url, type, recentText }) => {
-      trackRecentSuggestion(type, recentText, url, to);
+    const { saveToRecent } = this.props;
+    navigateToSearchItem(item, (item) => {
+      saveToRecent({
+        type: item.type,
+        id: item.id,
+        data: item.recentItemData,
+      });
     });
   }
 
@@ -102,18 +120,15 @@ export default class SearchPage extends Component {
   }
 
   handleChange({ currentTarget: { value } }) {
-    const { changeSearchQuery, searchTermsHidden } = this.props;
+    const { changeSearchQuery } = this.props;
 
-    if (!searchTermsHidden) {
-      browserHistory.push(`/${constants.SEARCH_PATH}`);
-    }
     changeSearchQuery(value);
   }
 
   handleGoBack(e) {
-    // Since mousetrap just send here an empty object, we might need this for the test to be passed
     !isEmpty(e) && e.preventDefault();
-    browserHistory.push(ROOT_PATH);
+    const { cancelPathname } = this.props;
+    browserHistory.push(cancelPathname);
   }
 
   handleSelect(newContentType) {
@@ -129,22 +144,32 @@ export default class SearchPage extends Component {
     this.resetNavigation();
   }
 
+  handleEmptyPinboardButtonClick() {
+    const { createNewEmptyPinboard } = this.props;
+
+    createNewEmptyPinboard().then(redirectToCreatedPinboard);
+  }
+
   render() {
     const aliasEditModeOn = this.props.location.pathname.startsWith(`/edit/${SEARCH_ALIAS_EDIT_PATH}`);
     const {
-      query, searchTermsHidden, tags, contentType, recentSuggestions, queryPrefix,
-      editModeOn, officerCards, requestActivityGrid,
-      children, changeSearchQuery, focusedItem, firstItem, trackRecentSuggestion, isRequesting,
+      hide, query, queryPrefix, searchTermsHidden, contentType, tags,
+      editModeOn, requestActivityGrid,
+      changeSearchQuery, focusedItem, firstItem, saveToRecent, position, animationIn,
     } = this.props;
 
     const searchText = `${queryPrefix ? `${queryPrefix}:` : ''}${query}`;
 
     return (
-      <DocumentMeta title='CPDP'>
-        <div
-          className='search-page'
-          style={ searchContentWrapperStyle(aliasEditModeOn) }>
-          <div style={ searchBoxStyle(aliasEditModeOn) }>
+      <div
+        className={
+          cx(styles.searchPage, position, { 'edit-mode-on': aliasEditModeOn, hide, 'animation-in': animationIn })
+        }
+      >
+        <div className={ cx('search-bar-wrapper', { 'edit-mode-on': aliasEditModeOn }) }>
+          <div className={
+            cx('search-bar', { 'has-bottom-border': query !== '' })
+          }>
             <SearchBox
               onEscape={ this.handleGoBack }
               onChange={ this.handleChange }
@@ -152,38 +177,37 @@ export default class SearchPage extends Component {
               value={ searchText }
               searchTermsHidden={ searchTermsHidden }
               changeSearchQuery={ changeSearchQuery }
-              focused={ focusedItem.uniqueKey === SEARCH_BOX }
+              focused={ !hide && focusedItem.uniqueKey === SEARCH_BOX }
               resetNavigation={ this.resetNavigation }
-              trackRecentSuggestion={ trackRecentSuggestion }
+              saveToRecent={ saveToRecent }
+              className={ 'search-box' }
+              position={ position }
+              animationIn={ animationIn }
             />
             <HoverableButton
-              style={ cancelButtonStyle(searchTermsHidden) }
+              className={
+                cx('searchbar__button--back', 'cancel-button', { 'search-terms-hidden': searchTermsHidden })
+              }
               onClick={ this.handleGoBack }
-              className='searchbar__button--back'>
+            >
               Cancel
             </HoverableButton>
           </div>
-          <div>
-            {
-              children ?
-                children :
-                <SearchMainPanel
-                  tags={ tags }
-                  contentType={ contentType }
-                  recentSuggestions={ recentSuggestions }
-                  query={ query }
-                  editModeOn={ editModeOn }
-                  aliasEditModeOn={ aliasEditModeOn }
-                  officerCards={ officerCards }
-                  requestActivityGrid={ requestActivityGrid }
-                  searchTermsHidden={ searchTermsHidden }
-                  handleSelect={ this.handleSelect }
-                  isRequesting={ isRequesting }
-                />
-            }
-          </div>
         </div>
-      </DocumentMeta>
+        <div className='search-main-panel-wrapper'>
+          <SearchMainPanel
+            contentType={ contentType }
+            query={ query }
+            editModeOn={ editModeOn }
+            aliasEditModeOn={ aliasEditModeOn }
+            requestActivityGrid={ requestActivityGrid }
+            searchTermsHidden={ searchTermsHidden }
+            handleSelect={ this.handleSelect }
+            tags={ tags }
+            onEmptyPinboardButtonClick={ this.handleEmptyPinboardButtonClick }
+          />
+        </div>
+      </div>
     );
   }
 }
@@ -193,11 +217,8 @@ SearchPage.propTypes = {
     pathname: PropTypes.string,
   }),
   focusedItem: PropTypes.object,
-  tags: PropTypes.array,
-  recentSuggestions: PropTypes.array,
   getSuggestion: PropTypes.func,
   selectTag: PropTypes.func,
-  trackRecentSuggestion: PropTypes.func,
   contentType: PropTypes.string,
   queryPrefix: PropTypes.string,
   router: PropTypes.object,
@@ -205,32 +226,40 @@ SearchPage.propTypes = {
   changeSearchQuery: PropTypes.func,
   children: PropTypes.node,
   editModeOn: PropTypes.bool,
-  officerCards: PropTypes.array,
   requestActivityGrid: PropTypes.func,
   searchTermsHidden: PropTypes.bool,
-  isRequesting: PropTypes.bool,
-  params: PropTypes.object,
-  routes: PropTypes.array,
-  pushBreadcrumbs: PropTypes.func,
   resetSearchResultNavigation: PropTypes.func,
   resetSearchTermNavigation: PropTypes.func,
   firstItem: PropTypes.object,
+  tags: PropTypes.array,
+  isRequesting: PropTypes.bool,
+  toast: PropTypes.object,
+  createNewEmptyPinboard: PropTypes.func,
+  createPinboard: PropTypes.func,
+  saveToRecent: PropTypes.func,
+  hide: PropTypes.bool,
+  position: PropTypes.string,
+  animationIn: PropTypes.bool,
+  cancelPathname: PropTypes.string,
 };
 
 /* istanbul ignore next */
 SearchPage.defaultProps = {
   contentType: null,
   focusedItem: {},
-  getSuggestion: () => new Promise(() => {}),
-  trackRecentSuggestion: () => {},
-  changeSearchQuery: () => {},
+  getSuggestion: () => new Promise(noop),
+  changeSearchQuery: noop,
   location: {
     pathname: '/',
   },
   searchTermsHidden: true,
-  selectTag: (...args) => {},
-  pushBreadcrumbs: (...args) => {},
-  resetSearchResultNavigation: () => {},
-  resetSearchTermNavigation: () => {},
+  selectTag: () => {},
+  resetSearchResultNavigation: noop,
+  resetSearchTermNavigation: noop,
   firstItem: {},
+  toast: {},
+  createNewEmptyPinboard: noop,
+  createPinboard: noop,
+  saveToRecent: noop,
+  cancelPathname: '/',
 };

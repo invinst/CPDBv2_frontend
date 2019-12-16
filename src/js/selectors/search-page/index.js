@@ -6,3 +6,4 @@ export const getFocusedItem = (state) => {
   return hiddenSelector(state) ? focusedResultItemSelector(state) : focusedSearchTermItemSelector(state);
 };
 
+export const getCancelPathname = state => state.searchPage.cancelPathname;

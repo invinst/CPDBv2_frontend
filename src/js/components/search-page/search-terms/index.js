@@ -1,36 +1,28 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { map } from 'lodash';
-
+import { map, isEmpty, noop, get } from 'lodash';
+import cx from 'classnames';
 
 import CategoryColumn from './category-column';
-import {
-  bottomLinkStyle,
-  bottomLinksWrapperStyle,
-  contentWrapperStyle,
-  maximumStyle,
-  mediumStyle,
-  minimumStyle,
-  searchTermTitleStyle,
-  wrapperStyle,
-} from './search-terms.style.js';
-import { ROOT_PATH, SEARCH_PATH, SEARCH_TERMS_NAVIGATION_KEYS } from 'utils/constants';
-import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
+import { ROOT_PATH, SEARCH_TERMS_NAVIGATION_KEYS } from 'utils/constants';
+import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component-without-inline-style';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
-import SearchTermItemPane from '../preview-pane/search-term-item-pane';
-import ScrollIntoView from 'components/common/scroll-into-view';
 import * as IntercomTracking from 'utils/intercom-tracking';
+import RecentSuggestion from 'components/search-page/search-results/recent-suggestion';
+import PinboardBar from 'components/search-page/pinboard/pinboard-bar';
+import ScrollIntoView from 'components/common/scroll-into-view';
+import style from './search-terms.sass';
 
 
 export default class SearchTerms extends Component {
-
-  constructor(props) {
-    super(props);
-    this.handleItemClick = this.handleItemClick.bind(this);
-  }
-
   componentDidMount() {
-    const { move } = this.props;
+    const {
+      move,
+      recentSuggestionIds,
+      fetchRecentSearchItems,
+      recentSuggestionsRequested,
+      fetchedEmptyRecentSearchItems,
+    } = this.props;
     SEARCH_TERMS_NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.bind(
       direction,
       (event) => {
@@ -40,16 +32,20 @@ export default class SearchTerms extends Component {
       }
     )));
     IntercomTracking.trackSearchTerms();
+
+    if (!recentSuggestionsRequested) {
+      if (isEmpty(recentSuggestionIds)) {
+        fetchedEmptyRecentSearchItems();
+      } else {
+        const { officerIds, crids, trrIds } = recentSuggestionIds;
+        fetchRecentSearchItems(officerIds, crids, trrIds);
+      }
+    }
   }
 
   componentWillUnmount() {
     SEARCH_TERMS_NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.unbind(direction)));
     this.props.resetNavigation(0);
-  }
-
-  handleItemClick(uniqueKey) {
-    const { setNavigation, navigationKeys } = this.props;
-    setNavigation({ navigationKeys, uniqueKey });
   }
 
   renderColumns() {
@@ -62,65 +58,93 @@ export default class SearchTerms extends Component {
           name={ name }
           items={ items }
           focusedItem={ focusedItem }
-          handleItemClick={ this.handleItemClick }
         />
       ))
     );
   }
 
+  renderRecentSuggestion() {
+    const { recentSuggestions, addOrRemoveItemInPinboard, saveToRecent } = this.props;
+
+    if (!isEmpty(recentSuggestions)) {
+      return (
+        <RecentSuggestion
+          recentSuggestions={ recentSuggestions }
+          addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
+          saveToRecent={ saveToRecent }
+        />
+      );
+    }
+
+    return null;
+  }
+
   render() {
-    const { focusedItem } = this.props;
+    const { onEmptyPinboardButtonClick, aliasEditModeOn, focusedItem, className } = this.props;
     return (
-      <div>
-        <ScrollIntoView
-          style={ wrapperStyle }
-          focusedClassName={ `term-item-${focusedItem.uniqueKey.replace(' ', '-')}` }
-        >
-          <ResponsiveFluidWidthComponent
-            style={ contentWrapperStyle }
-            minimumStyle={ minimumStyle }
-            mediumStyle={ mediumStyle }
-            maximumStyle={ maximumStyle }
-            minWidthThreshold={ 1020 }
-            maxWidthThreshold={ 1760 }
-          >
-            <div>
-              <div style={ searchTermTitleStyle } className='test--search-term-title'>Search terms</div>
-              { this.renderColumns() }
-              <div style={ bottomLinksWrapperStyle }>
-                <Link style={ bottomLinkStyle } to={ ROOT_PATH } className='test--search-term-back-front-page-link'>
-                  Back to Front Page
-                </Link>
-                <Link style={ bottomLinkStyle } to={ SEARCH_PATH } className='test--search-term-back-search-page-link'>
-                  Search
-                </Link>
+      <div className={ cx(style.wrapper, className) }>
+        <PinboardBar onEmptyPinboardButtonClick={ onEmptyPinboardButtonClick } />
+        <div className={ cx('search-term-wrapper', { 'edit-mode-on': aliasEditModeOn } ) }>
+          <ScrollIntoView focusedItemClassName={ `term-item-${get(focusedItem, 'uniqueKey', '').replace(' ', '-')}` }>
+            { this.renderRecentSuggestion() }
+            <ResponsiveFluidWidthComponent
+              className='content-wrapper'
+              minimumClassName='minimum'
+              mediumClassName='medium'
+              maximumClassName='maximum'
+              minWidthThreshold={ 1020 }
+              maxWidthThreshold={ 1760 }
+            >
+              <div>
+                <div className='search-term-title'>
+                  Search Terms
+                </div>
+                { this.renderColumns() }
+                <div className='bottom-link-wrapper'>
+                  <Link to={ ROOT_PATH } className='search-term-back-front-page-link'>
+                    Back to Front Page
+                  </Link>
+                </div>
               </div>
-            </div>
-          </ResponsiveFluidWidthComponent>
-        </ScrollIntoView>
-        <SearchTermItemPane { ...focusedItem } />
+            </ResponsiveFluidWidthComponent>
+          </ScrollIntoView>
+        </div>
       </div>
     );
   }
 }
 
 SearchTerms.propTypes = {
+  aliasEditModeOn: PropTypes.bool,
   move: PropTypes.func,
   categories: PropTypes.array,
   focusedItem: PropTypes.object,
   totalItemCount: PropTypes.number,
   resetNavigation: PropTypes.func,
-  setNavigation: PropTypes.func,
-  navigationKeys: PropTypes.array,
+  recentSuggestions: PropTypes.array,
+  onEmptyPinboardButtonClick: PropTypes.func,
+  addOrRemoveItemInPinboard: PropTypes.func,
+  saveToRecent: PropTypes.func,
+  fetchRecentSearchItems: PropTypes.func,
+  recentSuggestionIds: PropTypes.object,
+  recentSuggestionsRequested: PropTypes.bool,
+  fetchedEmptyRecentSearchItems: PropTypes.func,
+  className: PropTypes.string,
 };
 
 SearchTerms.defaultProps = {
-  move: () => {},
-  resetNavigation: () => {},
-  setNavigation: () => {},
+  aliasEditModeOn: false,
+  move: noop,
+  resetNavigation: noop,
   focusedItem: {
     uniqueKey: '',
   },
-  navigationKeys: [],
   categories: [],
+  onEmptyPinboardButtonClick: noop,
+  addOrRemoveItemInPinboard: noop,
+  saveToRecent: noop,
+  fetchRecentSearchItems: noop,
+  recentSuggestionIds: {},
+  recentSuggestionsRequested: false,
+  fetchedEmptyRecentSearchItems: noop,
 };

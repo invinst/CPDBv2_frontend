@@ -4,12 +4,16 @@ import { stub, spy } from 'sinon';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
+  findRenderedDOMComponentWithTag,
+  scryRenderedDOMComponentsWithTag,
+  findRenderedComponentWithType,
   Simulate,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import DownloadMenuItem from 'components/headers/shareable-header/download-menu/download-menu-item';
 import * as GATracking from 'utils/google_analytics_tracking';
+import LoadingSpinner from 'components/common/loading-spinner';
 
 
 describe('DownloadMenu component', function () {
@@ -36,15 +40,14 @@ describe('DownloadMenu component', function () {
       const text = findRenderedDOMComponentWithClass(element, 'request-download');
       text.textContent.should.eql('Data only');
 
-      const downloadImg = findRenderedDOMComponentWithClass(element, 'download-menu-item-img');
+      const downloadImg = findRenderedDOMComponentWithTag(element, 'img');
       downloadImg.src.should.containEql('/img/download.svg');
       downloadImg.alt.should.eql('download');
 
       Simulate.click(findDOMNode(element));
 
-      const downloadingImg = findRenderedDOMComponentWithClass(element, 'download-menu-item-img');
-      downloadingImg.src.should.containEql('/img/loading.svg');
-      downloadingImg.alt.should.eql('downloading');
+      findRenderedComponentWithType(element, LoadingSpinner);
+      scryRenderedDOMComponentsWithTag(element, 'img').should.have.length(0);
 
       fetchOfficerZipFileUrlStub.should.be.calledWith(123);
     }

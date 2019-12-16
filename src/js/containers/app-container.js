@@ -11,7 +11,6 @@ import editModeOnSelector from 'selectors/edit-mode-on';
 function mapStateToProps(state, ownProps) {
   return {
     location: ownProps.location,
-    appContent: state.appContent,
     showLoginModal: showLoginModalSelector(state, ownProps),
     editModeOn: editModeOnSelector(state, ownProps),
   };

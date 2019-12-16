@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { concat, flatten, map } from 'lodash';
 
-import { navigationItemTransform } from './transforms';
+import { navigationItemTransform } from 'selectors/common/navigation-item-transform';
 import * as constants from 'utils/constants';
 import { categoriesSelector } from './categories';
 

@@ -1,49 +1,49 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { push as pushBreadcrumbs } from 'redux-breadcrumb-trail';
 
 import SearchPage from 'components/search-page';
 import {
   getSuggestion,
   selectTag,
   toggleSearchMode,
-  trackRecentSuggestion,
   resetNavigation as resetSearchResultNavigation,
   changeSearchQuery,
+  saveToRecent,
 } from 'actions/search-page';
+import { createNewEmptyPinboard } from 'actions/pinboard';
 import {
   requestSearchTermCategories, resetNavigation as resetSearchTermNavigation,
 } from 'actions/search-page/search-terms';
-import { getFocusedItem } from 'selectors/search-page';
+import { getCancelPathname, getFocusedItem } from 'selectors/search-page';
 import {
   suggestionTagsSelector, firstItemSelector, queryPrefixSelector,
 } from 'selectors/search-page/search-results/suggestion-groups';
 import { hiddenSelector } from 'selectors/search-page/search-terms';
-import { singleCardsSelector } from 'selectors/landing-page/activity-grid';
 import { requestActivityGrid } from 'actions/landing-page/activity-grid';
 import editModeOnSelector from 'selectors/edit-mode-on';
+import { getPinboard } from 'selectors/pinboard-page/pinboard';
 
 
 function mapStateToProps(state, ownProps) {
   const {
-    contentType, recentSuggestions, query, isRequesting,
+    contentType, query, isRequesting,
   } = state.searchPage;
-  const { children } = ownProps;
-  const focusedItem = getFocusedItem(state);
+  const { children, hide } = ownProps;
 
   return {
     isRequesting,
     query,
     queryPrefix: queryPrefixSelector(state),
     children,
+    hide,
     tags: suggestionTagsSelector(state),
     contentType,
-    focusedItem: focusedItem,
-    recentSuggestions,
-    officerCards: singleCardsSelector(state),
+    focusedItem: getFocusedItem(state),
     editModeOn: editModeOnSelector(state, ownProps),
     searchTermsHidden: hiddenSelector(state),
     firstItem: firstItemSelector(state),
+    pinboard: getPinboard(state),
+    cancelPathname: getCancelPathname(state),
   };
 }
 
@@ -51,13 +51,13 @@ const mapDispatchToProps = {
   getSuggestion,
   selectTag,
   toggleSearchMode,
-  trackRecentSuggestion,
+  saveToRecent,
   changeSearchQuery,
   resetSearchResultNavigation,
   requestActivityGrid,
   requestSearchTermCategories,
-  pushBreadcrumbs,
   resetSearchTermNavigation,
+  createNewEmptyPinboard,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchPage));

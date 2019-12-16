@@ -1,17 +1,16 @@
 'use strict';
 
 import Page from './page';
-import Section from './sections/section';
+import CarouselSection from './sections/carousel';
 
 
-class EmbedOfficersCarouselSection extends Section {
+class EmbedOfficersCarouselSection extends CarouselSection {
   constructor() {
-    super();
-    this.prepareElementGetters({
-      leftArrow: '//div[@class="test--embed-officers-carousel"]//*[contains(@class, "test--carousel-arrow-left")]',
-      rightArrow: '//div[@class="test--embed-officers-carousel"]//*[contains(@class, "test--carousel-arrow-right")]',
-      cards: '//div[@class="test--embed-officers-carousel"]//a[contains(@class, "officer-card__officer-card")]',
-    });
+    super(
+      '',
+      '//div[@class="test--embed-officers-carousel"]',
+      '//a[contains(@class, "officer-card__officer-card")]',
+    );
   }
 }
 
@@ -29,7 +28,6 @@ class EmbedOfficersPage extends Page {
 
   open(url) {
     super.open(url);
-    $('body').waitForDisplayed();
   }
 }
 

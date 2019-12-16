@@ -5,6 +5,9 @@ import cx from 'classnames';
 import { mapStyle } from './complaint-card.style';
 import * as GATracking from 'utils/google_analytics_tracking';
 import styles from './complaint-card.sass';
+import ItemPinButton from 'components/common/item-pin-button';
+import pinButtonStyles from 'components/common/item-pin-button.sass';
+import { PINNED_ITEM_TYPES } from 'utils/constants';
 
 
 class ComplaintCard extends Component {
@@ -35,7 +38,9 @@ class ComplaintCard extends Component {
   }
 
   render() {
-    const { crid, lat, lon, categories, complainants, accused, incidentDate } = this.props;
+    const {
+      crid, lat, lon, categories, complainants, accused, addOrRemoveItemInPinboard, isPinned, incidentDate,
+    } = this.props;
 
     return (
       <Link
@@ -43,6 +48,16 @@ class ComplaintCard extends Component {
         to={ `/complaint/${crid}/` }
         onClick={ this.handleClick }
       >
+        <ItemPinButton
+          className={ pinButtonStyles.cardPinnedButton }
+          addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
+          showHint={ false }
+          item={ {
+            type: PINNED_ITEM_TYPES.CR,
+            id: crid,
+            isPinned: isPinned,
+          } }
+        />
         <div className='complaint-card-map' style={ mapStyle(lat, lon) } />
         <div className='content'>
           { this.renderSection(`CR ${ crid }`, categories, incidentDate) }
@@ -63,6 +78,8 @@ ComplaintCard.propTypes = {
   accused: PropTypes.string,
   match: PropTypes.string,
   sourceCRID: PropTypes.string,
+  addOrRemoveItemInPinboard: PropTypes.func,
+  isPinned: PropTypes.bool,
   incidentDate: PropTypes.string,
 };
 

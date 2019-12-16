@@ -8,3 +8,5 @@ export const getDomainName = url => {
   const parsedUrl = URL(url);
   return takeRight(parsedUrl.hostname.split('.'), 2).join('.');
 };
+
+export const getPageRoot = url => url.split('/')[1] || 'landing';

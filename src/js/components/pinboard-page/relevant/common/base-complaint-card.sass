@@ -1,0 +1,85 @@
+@import 'variables'
+
+
+\:local(.base-complaint-card)
+  display: inline-block
+  box-sizing: border-box
+  border: solid 1px $mine-shaft-color
+  border-radius: 2px
+  width: 306px
+  height: 176px
+  font-weight: 300
+
+  &:last-of-type
+    margin-right: 0
+
+  &:hover
+    border: solid 1px $denim-50-color
+
+  .left-half
+    display: inline-block
+    height: 176px
+
+  .right-half
+    display: inline-block
+    position: relative
+    width: calc(100% - 130px)
+    height: 176px
+    vertical-align: top
+    color: white
+    font-size: 14px
+    font-weight: 300
+    padding : 8px 8px 8px 10px
+    box-sizing: border-box
+
+    .incident-date
+      font-size: 12px
+      color: $boulder-color
+      line-height: 14px
+
+    .category
+      height: 32px
+      word-wrap: break-word
+      margin-top: 2px
+
+    .top-officers
+      margin-top: 5px
+      height: 64px
+
+    .top-officer-row
+      height: 32px
+      padding-top: 5px
+      box-sizing: border-box
+
+    .top-officer-row-token
+      display: inline-block
+      vertical-align: middle
+      margin-right: 6px
+
+    .top-officer-row-officer-name
+      display: inline-block
+      text-overflow: ellipsis
+      white-space: nowrap
+      overflow: hidden
+      width: calc(100% - 28px)
+      vertical-align: top
+
+    .remaining-officers
+      height: 44px
+      box-sizing: border-box
+      padding: 9px 0
+      border-top: 1px solid $mine-shaft-color
+
+    .remaining-officer
+      margin-right: 2px
+
+    .not-showing-officer-count
+      display: inline-block
+      width: 36px
+      height: 22px
+      border-radius: 2px
+      background-color: $mine-shaft-color
+      font-size: 12px
+      vertical-align: top
+      text-align: center
+      line-height: 22px

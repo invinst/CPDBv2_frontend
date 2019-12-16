@@ -24,6 +24,7 @@ describe('search page navigation selector', function () {
                 race: 'White',
                 url: 'https://example.com',
                 to: '/officer/29033',
+                'birth_year': 1983,
               }),
             ],
           },
@@ -34,6 +35,15 @@ describe('search page navigation selector', function () {
             hidden: true,
           },
         },
+        pinboardPage: {
+          pinboard: {
+            id: '123456',
+            title: 'pinboard',
+            'officer_ids': ['29033'],
+            crids: [],
+            'trr_ids': [],
+          },
+        },
       }).should.deepEqual({
         id: '29033',
         to: '/officer/29033',
@@ -42,6 +52,39 @@ describe('search page navigation selector', function () {
         recentText: 'Jerome Turbyville',
         uniqueKey: 'CO-ACCUSED-29033',
         url: 'https://example.com',
+        recentItemData: {
+          id: '29033',
+          name: 'Jerome Turbyville',
+          race: 'White',
+          url: 'https://example.com',
+          to: '/officer/29033',
+          'appointed_date': '1999-12-13',
+          'resignation_date': null,
+          badge: '5922',
+          gender: 'Male',
+          tags: [],
+          'birth_year': 1983,
+          rank: 'Police Officer',
+          unit: {},
+          'allegation_count': 20,
+          'civilian_compliment_count': 4,
+          'sustained_count': 0,
+          'discipline_count': 1,
+          'major_award_count': 0,
+          'honorable_mention_count': 0,
+          'honorable_mention_percentile': 10.01,
+          percentiles: [
+            {
+              'percentile_trr': '90',
+              'percentile_allegation_civilian': '92',
+              'percentile_allegation': '93',
+              'percentile_allegation_internal': '91',
+            },
+          ],
+          type: 'CO-ACCUSED',
+          itemIndex: 4,
+          isPinned: false,
+        },
       });
     });
 
@@ -61,6 +104,9 @@ describe('search page navigation selector', function () {
             hidden: true,
           },
         },
+        pinboardPage: {
+          pinboard: {},
+        },
       }).should.deepEqual({
         id: undefined,
         to: undefined,
@@ -69,6 +115,10 @@ describe('search page navigation selector', function () {
         recentText: undefined,
         uniqueKey: SEARCH_BOX,
         url: undefined,
+        recentItemData: {
+          uniqueKey: 'SEARCH_BOX',
+          isPinned: false,
+        },
       });
     });
 
@@ -88,6 +138,9 @@ describe('search page navigation selector', function () {
             hidden: true,
           },
         },
+        pinboardPage: {
+          pinboard: {},
+        },
       }).should.deepEqual({
         id: 'OFFICER',
         to: undefined,
@@ -96,6 +149,11 @@ describe('search page navigation selector', function () {
         type: MORE_BUTTON,
         uniqueKey: `${MORE_BUTTON}-OFFICER`,
         url: undefined,
+        recentItemData: {
+          id: 'OFFICER',
+          type: 'MORE_BUTTON',
+          isPinned: false,
+        },
       });
     });
   });
@@ -119,6 +177,7 @@ describe('search page navigation selector', function () {
       });
       const info = {
         data: {
+          id: '29033',
           fullName: 'Jerome Turbyville',
           age: 48,
           appointedDate: 'DEC 13, 1999',
@@ -128,7 +187,6 @@ describe('search page navigation selector', function () {
           civilianComplimentCount: 4,
           gender: 'Male',
           lastPercentile: {
-            officerId: undefined,
             year: undefined,
             items: [
               { axis: 'Use of Force Reports', value: 90 },
@@ -154,6 +212,7 @@ describe('search page navigation selector', function () {
           trrCount: undefined,
           trrPercentile: 90,
           to: '/officer/29033/',
+          isPinned: true,
         },
         type: 'OFFICER',
       };
@@ -167,6 +226,15 @@ describe('search page navigation selector', function () {
           },
           navigation: {
             itemIndex: 1,
+          },
+        },
+        pinboardPage: {
+          pinboard: {
+            id: '123456',
+            title: 'pinboard',
+            'officer_ids': ['29033'],
+            crids: [],
+            'trr_ids': [],
           },
         },
       }).should.deepEqual(info);

@@ -72,3 +72,22 @@ export const selectText = selector => {
     selection.addRange(range);
   }, selector);
 };
+
+export const setupMockApiFile = (mockApiFile) => {
+  browser.url('');
+  browser.setLocalStorage('TEST_MOCK_API_FILE', mockApiFile);
+};
+
+export const restoreMockApiFile = () => {
+  browser.removeLocalStorage('TEST_MOCK_API_FILE');
+};
+
+export const setupPinboardEnabled = (value) => {
+  browser.url('');
+
+  browser.setLocalStorage('PINBOARD_ENABLED', value);
+};
+
+export const restorePinboardEnabled = () => {
+  browser.removeLocalStorage('PINBOARD_ENABLED');
+};

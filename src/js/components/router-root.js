@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Router, Route, IndexRoute, Redirect } from 'react-router';
 import { Provider } from 'react-redux';
 
+import config from 'config';
 import AppContainer from 'containers/app-container';
 import LandingPageContainer from 'containers/landing-page';
 import CollaborationPage from 'components/collaboration-page/collaboration-page';
 import SearchPageContainer from 'containers/search-page';
-import SearchTermsContainer from 'containers/search-page/search-terms-container';
 import OfficerPageContainer from 'containers/officer-page';
 import UnitProfilePageContainer from 'containers/unit-profile-page';
 import CRPageContainer from 'containers/cr-page';
@@ -20,10 +20,11 @@ import EmbedOfficersContainer from 'containers/embed/officers';
 import DocumentDeduplicatorContainer from 'containers/document-deduplicator-page';
 import DocumentsOverviewContainer from 'containers/documents-overview-page';
 import SocialGraphContainer from 'containers/social-graph-page';
+import PinboardPageContainer from 'containers/pinboard-page';
+import PinboardAdminPageContainer from 'containers/pinboard-admin-page';
 import {
   COLLAB_PATH,
   SEARCH_PATH,
-  SEARCH_TERMS_PATH,
   OFFICER_PATH,
   CR_PATH_SUFFIX,
   TTR_PATH,
@@ -38,7 +39,10 @@ import {
   EMBED_OFFICERS_PATH,
   TRACKER_ALL_DOCUMENTS_PATH,
   TRACKER_DOCUMENTS_OVERVIEW_PATH,
-  SOCIAL_GRAPH_PATH,
+  DATA_VISUALIZATION_SOCIAL_GRAPH_PATH,
+  DATA_VISUALIZATION_GEOGRAPHIC_PATH,
+  PINBOARD_PATH,
+  PINBOARD_ADMIN_PATH,
 } from 'utils/constants';
 import configureStore from 'store';
 import history from 'utils/history';
@@ -49,6 +53,8 @@ const store = configureStore();
 
 export default class RouterRoot extends Component {
   render() {
+    const { pinboard: enablePinboardFeature } = config.enableFeatures;
+
     return (
       <Provider store={ store }>
         <Router history={ history }>
@@ -69,13 +75,8 @@ export default class RouterRoot extends Component {
               breadcrumb={ BreadcrumbItemContainer } />
             <Route
               path={ SEARCH_PATH }
-              component={ SearchPageContainer }
-              breadcrumb='Search'>
-              <Route
-                path={ SEARCH_TERMS_PATH }
-                component={ SearchTermsContainer }
-                useParentBreadcrumb={ true }/>
-            </Route>
+              component={ LandingPageContainer }
+              breadcrumb='Search' />
             <Route
               path={ STANDALONE_CR_PATH }
               component={ CRPageContainer }
@@ -121,12 +122,31 @@ export default class RouterRoot extends Component {
               component={ DocumentDeduplicatorContainer }
               breadcrumb={ BreadcrumbItemContainer }/>
             <Route
-              path={ SOCIAL_GRAPH_PATH }
+              path={ DATA_VISUALIZATION_SOCIAL_GRAPH_PATH }
+              component={ SocialGraphContainer }/>
+            <Route
+              path={ DATA_VISUALIZATION_GEOGRAPHIC_PATH }
               component={ SocialGraphContainer }/>
             <Route
               path={ TRACKER_DOCUMENTS_OVERVIEW_PATH }
               component={ DocumentsOverviewContainer }
               breadcrumb='Documents Overview'/>
+            {
+              enablePinboardFeature &&
+              <Route
+                path={ PINBOARD_PATH }
+                component={ PinboardPageContainer }
+                breadcrumb={ BreadcrumbItemContainer }
+              />
+            }
+            {
+              enablePinboardFeature &&
+              <Route
+                path={ PINBOARD_ADMIN_PATH }
+                component={ PinboardAdminPageContainer }
+                breadcrumb='View all pinboards'
+              />
+            }
             <Redirect from='*' to='/'/>
           </Route>
         </Router>

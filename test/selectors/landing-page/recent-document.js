@@ -10,6 +10,7 @@ describe('recent-document selectors', function () {
       landingPage: {
         recentDocument: {},
       },
+      pinboardPage: { pinboard: { crids: ['1', '2', '3'] } },
     };
   });
 
@@ -17,6 +18,18 @@ describe('recent-document selectors', function () {
     it('should return a list of cards', function () {
       state.landingPage.recentDocument.cards = RawDocumentCardFactory.buildList(40);
       cardsSelector(state).should.have.length(40);
+    });
+
+    it('should add isPinned attr', function () {
+      state.landingPage.recentDocument.cards = [
+        RawDocumentCardFactory.build({ crid: '1' }),
+        RawDocumentCardFactory.build({ crid: '99' }),
+      ];
+
+      const cards = cardsSelector(state);
+      cards.should.have.length(2);
+      cards[0].isPinned.should.be.true();
+      cards[1].isPinned.should.be.false();
     });
   });
 

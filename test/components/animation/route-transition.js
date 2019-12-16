@@ -1,6 +1,10 @@
 import React from 'react';
 import { findDOMNode, render } from 'react-dom';
-import { renderIntoDocument, scryRenderedDOMComponentsWithClass } from 'react-addons-test-utils';
+import {
+  renderIntoDocument,
+  findRenderedDOMComponentWithClass,
+  scryRenderedDOMComponentsWithClass,
+} from 'react-addons-test-utils';
 
 import RouteTransition from 'components/animation/route-transition';
 import {
@@ -138,7 +142,93 @@ describe('RouteTransition component', function () {
     element.state.contents[0].key.should.eql('/span');
   });
 
-  it('should hide overlay once animation is done if theres no page loading', function (done) {
+  it('should render old children when changing from / to /search/', function () {
+    element = renderIntoDocument(
+      <RouteTransition pathname='/' pageLoading={ false }>
+        <p className='test--root-content'>LandingPage</p>
+      </RouteTransition>
+    );
+    element.state.contents.should.have.length(1);
+    element.state.contents[0].key.should.eql('/');
+    element.state.contents[0].opacity.should.eql(1);
+    findRenderedDOMComponentWithClass(element, 'test--root-content').textContent.should.eql('LandingPage');
+
+    element = reRender(
+      <RouteTransition pathname='/search/' pageLoading={ true }>
+        <p className='test--search-content'>SearchPage</p>
+      </RouteTransition>,
+      element
+    );
+    scryRenderedDOMComponentsWithClass(element, 'test--search-content').should.have.length(0);
+    element.state.contents.should.have.length(1);
+    findRenderedDOMComponentWithClass(element, 'test--root-content').textContent.should.eql('LandingPage');
+  });
+
+  it('should render old children when changing from /search/ to /', function () {
+    element = renderIntoDocument(
+      <RouteTransition pathname='/search/' pageLoading={ false }>
+        <p className='test--search-content'>SearchPage</p>
+      </RouteTransition>
+    );
+    element.state.contents.should.have.length(1);
+    element.state.contents[0].key.should.eql('search');
+    element.state.contents[0].opacity.should.eql(1);
+    findRenderedDOMComponentWithClass(element, 'test--search-content').textContent.should.eql('SearchPage');
+
+    element = reRender(
+      <RouteTransition pathname='/' pageLoading={ true }>
+        <p className='test--root-content'>LandingPage</p>
+      </RouteTransition>,
+      element
+    );
+    scryRenderedDOMComponentsWithClass(element, 'test--root-content').should.have.length(0);
+    element.state.contents.should.have.length(1);
+    findRenderedDOMComponentWithClass(element, 'test--search-content').textContent.should.eql('SearchPage');
+  });
+
+  it('should render old children when changing from / to /', function () {
+    element = renderIntoDocument(
+      <RouteTransition pathname='/' pageLoading={ false }>
+        <p className='test--root-content'>LandingPage</p>
+      </RouteTransition>
+    );
+    element.state.contents.should.have.length(1);
+    element.state.contents[0].key.should.eql('/');
+    element.state.contents[0].opacity.should.eql(1);
+    findRenderedDOMComponentWithClass(element, 'test--root-content').textContent.should.eql('LandingPage');
+
+    element = reRender(
+      <RouteTransition pathname='/' pageLoading={ true }>
+        <p className='test--second-root-content'>LandingPage 2</p>
+      </RouteTransition>,
+      element
+    );
+    scryRenderedDOMComponentsWithClass(element, 'test--second-root-content').should.have.length(0);
+    element.state.contents.should.have.length(1);
+    findRenderedDOMComponentWithClass(element, 'test--root-content').textContent.should.eql('LandingPage');
+  });
+
+  it('should render old children when changing from /search/ to /search/', function () {
+    element = renderIntoDocument(
+      <RouteTransition pathname='/search/' pageLoading={ false }>
+        <p className='test--search-content'>SearchPage</p>
+      </RouteTransition>,
+    );
+    element.state.contents.should.have.length(1);
+    findRenderedDOMComponentWithClass(element, 'test--search-content').textContent.should.eql('SearchPage');
+
+    element = reRender(
+      <RouteTransition pathname='/search/' pageLoading={ true }>
+        <p className='test--second-search-content'>SearchPage 2</p>
+      </RouteTransition>,
+      element,
+    );
+    scryRenderedDOMComponentsWithClass(element, 'test--second-search-content').should.have.length(0);
+    element.state.contents.should.have.length(1);
+    findRenderedDOMComponentWithClass(element, 'test--search-content').textContent.should.eql('SearchPage');
+  });
+
+  it('should hide overlay once animation is done if there is no page loading', function (done) {
     element = renderIntoDocument(
       <RouteTransition pathname='/p' pageLoading={ false }><p>abc</p></RouteTransition>
     );

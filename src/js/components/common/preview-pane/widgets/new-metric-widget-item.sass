@@ -1,0 +1,41 @@
+@import 'variables'
+
+\:local(.wrapper)
+  border-right: 0
+  float: left
+  height: 144px
+  padding: 0 5px
+  text-align: center
+  width: calc(50% - 11px)
+
+  &.is-first-item
+    border-right: 2px solid $white-two-color
+
+\:local(.value)
+  color: $boulder-color
+  font-size: 26px
+  line-height: 32px
+  margin-top: 30px
+  text-align: center
+
+  &.active
+    color: $soft-black-color
+
+    &.highlight
+      color: $bright-orange-color
+
+\:local(.name)
+  line-height: 18px
+  font-size: 14px
+  color: $boulder-color
+
+  &.active
+    color: $soft-black-color
+
+\:local(.description)
+  font-size: 12px
+  text-align: center
+  width: 100%
+  line-height: 14px
+  color: $boulder-color
+  margin-top: 2px

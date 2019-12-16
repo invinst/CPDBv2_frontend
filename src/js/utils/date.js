@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { isEmpty } from 'lodash';
 
 import config from 'config';
 
@@ -11,6 +12,10 @@ export const getThisYear = () => {
 };
 
 export const formatDate = (str, uppercase=true) => {
+  if (isEmpty(str)) {
+    return null;
+  }
+
   const date = moment(str);
   if (date.isValid()) {
     const formattedDate = date.format('ll');

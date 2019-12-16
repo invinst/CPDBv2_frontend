@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { Motion, spring } from 'react-motion';
-import { find } from 'lodash';
+import { find, difference, isEmpty } from 'lodash';
 
 import { defaultConfig } from 'utils/spring-presets';
 import { scrollToTop } from 'utils/dom';
@@ -26,19 +26,20 @@ export default class RouteTransition extends Component {
     const { pathname, pageLoading, children } = nextProps;
     const nextKey = this.getRouteTransitionKey(pathname);
     const prevKey = this.getRouteTransitionKey(this.props.pathname);
+
+    const betweenLandingAndSearchPage = isEmpty(difference(['/', 'search'], [nextKey, prevKey]));
+    if (betweenLandingAndSearchPage)
+      return;
+
     if (nextKey !== prevKey) {
       this.setState({
         showOverlay: true,
         contents: [
+          this.state.contents[0],
           {
             handler: children,
             key: nextKey,
             opacity: 0,
-          },
-          {
-            handler: this.props.children,
-            key: prevKey,
-            opacity: 1,
           },
         ],
       });
@@ -54,7 +55,8 @@ export default class RouteTransition extends Component {
           },
         ],
       });
-    } else {
+    }
+    else if (!['/', 'search'].includes(nextKey)) {
       let { contents } = this.state;
       const content = find(contents, obj => obj.key === nextKey);
       content.handler = children;

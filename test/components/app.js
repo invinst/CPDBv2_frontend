@@ -1,5 +1,6 @@
 import 'polyfill';
 import { Provider } from 'react-redux';
+import { findDOMNode } from 'react-dom';
 import {
   renderIntoDocument,
   findRenderedComponentWithType,
@@ -8,8 +9,10 @@ import {
 import Mousetrap from 'mousetrap';
 import React, { Component } from 'react';
 import MockStore from 'redux-mock-store';
-import { spy } from 'sinon';
+import { spy, stub } from 'sinon';
+import { ToastContainer } from 'react-toastify';
 
+import config from 'config';
 import { unmountComponentSuppressError } from 'utils/test';
 import App from 'components/app';
 import ShareableHeader from 'components/headers/shareable-header';
@@ -35,7 +38,23 @@ describe('App component', function () {
       navigation: {},
       searchTerms: {
         hidden: true,
+        navigation: {
+          itemIndex: 0,
+        },
+        categories: [{
+          name: 'Geography',
+          items: [
+            {
+              id: 'community',
+              name: 'Communities',
+              description: 'Chicago is divided.',
+              callToActionType: 'view_all',
+              link: 'https://data.cpdp.co/url-mediator/session-builder?community=<name>',
+            },
+          ],
+        }],
       },
+      recentSuggestions: [],
     },
     cms: {
       pages: {},
@@ -72,6 +91,10 @@ describe('App component', function () {
       },
     },
     popups: [],
+    pinboardPage: {
+      pinboard: null,
+    },
+    toast: {},
   });
   const location = { pathname: '/', search: '/', action: 'POP' };
 
@@ -93,7 +116,7 @@ describe('App component', function () {
         <App
           toggleEditMode={ toggleEditMode }
           location={ location }
-          appContent='/'>
+        >
           <ChildComponent/>
         </App>
       </Provider>
@@ -114,7 +137,7 @@ describe('App component', function () {
           toggleSearchMode={ toggleSearchMode }
           changeSearchQuery={ changeSearchQuery }
           location={ location }
-          appContent='/'>
+        >
           <ChildComponent/>
         </App>
       </Provider>
@@ -138,7 +161,7 @@ describe('App component', function () {
           toggleSearchMode={ toggleSearchMode }
           changeSearchQuery={ changeSearchQuery }
           location={ location }
-          appContent='/'>
+        >
           <ChildComponent/>
         </App>
       </Provider>
@@ -152,10 +175,7 @@ describe('App component', function () {
   it('should not display header if children is a "headerless page"', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <App
-          location={ location }
-          appContent='/'
-        >
+        <App location={ location }>
           <SearchPageContainer location={ location } routes={ [] }/>
         </App>
       </Provider>
@@ -167,15 +187,76 @@ describe('App component', function () {
   it('should display ShareableHeader if children is a shareable page', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <App
-          location={ location }
-          appContent='/'
-        >
+        <App location={ location }>
           <OfficerPageContainer location={ { query: {}, pathname: '/' } } />
         </App>
       </Provider>
     );
     scryRenderedComponentsWithType(instance, SlimHeader).length.should.eql(0);
     findRenderedComponentWithType(instance, ShareableHeader);
+  });
+
+  it('should render ToastContainer', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <App location={ location }>
+          <OfficerPageContainer location={ { query: {}, pathname: '/' } } />
+        </App>
+      </Provider>
+    );
+
+    const toastContainer = findRenderedComponentWithType(instance, ToastContainer);
+    toastContainer.props.pauseOnFocusLoss.should.be.false();
+    toastContainer.props.closeButton.should.be.false();
+    toastContainer.props.hideProgressBar.should.be.true();
+    toastContainer.props.autoClose.should.equal(3000);
+    toastContainer.props.className.should.equal('landing');
+  });
+
+
+  context('enablePinboardFeature is false', function () {
+    beforeEach(function () {
+      this.enableFeaturePinboardStub = stub(config.enableFeatures, 'pinboard').value(false);
+    });
+
+    afterEach(function () {
+      this.enableFeaturePinboardStub.restore();
+    });
+
+    it('should add pinboard-disabled class name', function () {
+      instance = renderIntoDocument(
+        <Provider store={ store }>
+          <App location={ location }>
+            <OfficerPageContainer location={ { query: {}, pathname: '/' } } />
+          </App>
+        </Provider>
+      );
+
+      const app = findRenderedComponentWithType(instance, App);
+      findDOMNode(app).className.should.containEql('pinboard-disabled');
+    });
+  });
+
+  context('enablePinboardFeature is true', function () {
+    beforeEach(function () {
+      this.enableFeaturePinboardStub = stub(config.enableFeatures, 'pinboard').value(true);
+    });
+
+    afterEach(function () {
+      this.enableFeaturePinboardStub.restore();
+    });
+
+    it('should add pinboard-disabled class name', function () {
+      instance = renderIntoDocument(
+        <Provider store={ store }>
+          <App location={ location }>
+            <OfficerPageContainer location={ { query: {}, pathname: '/' } } />
+          </App>
+        </Provider>
+      );
+
+      const app = findRenderedComponentWithType(instance, App);
+      findDOMNode(app).className.should.not.containEql('pinboard-disabled');
+    });
   });
 });

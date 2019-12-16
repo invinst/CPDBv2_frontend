@@ -3,8 +3,6 @@ import { push } from 'react-router-redux';
 import { editModeOn, editMode } from 'utils/edit-path';
 
 
-export const TOGGLE_EDIT_MODE = 'TOGGLE_EDIT_MODE';
-
 export const toggleEditMode = pathName => {
   let nextPathName;
   const isEditModeOn = editModeOn(pathName);

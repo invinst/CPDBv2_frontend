@@ -11,6 +11,7 @@ describe('searchPage reducer', function () {
       },
       contentType: null,
       recentSuggestions: [],
+      recentSuggestionsRequested: false,
       searchTerms: {
         categories: [],
         hidden: true,
@@ -21,6 +22,7 @@ describe('searchPage reducer', function () {
       tags: [],
       query: '',
       pagination: {},
+      cancelPathname: '/',
     });
   });
 });

@@ -5,7 +5,7 @@ class LogoSection extends Section {
   constructor(parentSelector) {
     super(parentSelector, '//div[@class="logo"]');
     this.prepareElementGetters({
-      editButton: '//span[@class="top-button-wrapper"]//a[@class="hoverable-edit-wrapper-button"]',
+      editButton: '//span[@class="top-button-wrapper"]//a[contains(@class, "hoverable-edit-wrapper-button")]',
       saveButton: '//span[@class="bottom-button-wrapper"]//a[@class="hoverable-edit-wrapper-button"]',
       cancelButton: '//span[@class="bottom-button-wrapper"]//a[@class="hoverable-edit-wrapper-button"][2]',
       title: '//*[contains(@class, "header-logo-title")]',
@@ -67,6 +67,7 @@ class RightLinksSection extends Section {
       data: '//a[text()="Data"]',
       qa: '//a[text()="Q&A"]',
       documents: '//a[text()="Documents"]',
+      pinboard: '//a[text()="Pinboards"]',
     });
   }
 }

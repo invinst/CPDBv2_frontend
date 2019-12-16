@@ -17,8 +17,9 @@ export default class CarouselWrapper extends Component {
   componentWillReceiveProps(nextProps) {
     const { crid, distance, match, fetchRelatedComplaints } = nextProps;
 
-    if (this.props.distance != distance) {
+    if (this.props.distance !== distance) {
       fetchRelatedComplaints(crid, { match, distance });
+      this.carousel && this.carousel.slideTo(0);
     }
   }
 
@@ -28,7 +29,7 @@ export default class CarouselWrapper extends Component {
   }
 
   render() {
-    const { count, cards, title, hasMore, match, crid } = this.props;
+    const { count, cards, title, hasMore, match, crid, addOrRemoveItemInPinboard } = this.props;
 
     return (
       <div className={ cx(styles.carouselWrapper, `test--related-by-${match}-carousel`) }>
@@ -37,6 +38,7 @@ export default class CarouselWrapper extends Component {
           <span className='carousel-wrapper-title'>{ title }</span>
         </div>
         <Carousel
+          ref={ carousel => this.carousel = carousel }
           loadMore={ this.loadMore.bind(this) }
           hasMore={ hasMore }
           childWidth={ itemWidth }
@@ -44,7 +46,13 @@ export default class CarouselWrapper extends Component {
         >
           {
             cards.map(card => (
-              <ComplaintCard key={ card.crid } { ...card } match={ match } sourceCRID={ crid } />
+              <ComplaintCard
+                key={ card.crid }
+                match={ match }
+                sourceCRID={ crid }
+                addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
+                { ...card }
+              />
             ))
           }
         </Carousel>
@@ -63,6 +71,7 @@ CarouselWrapper.propTypes = {
   distance: PropTypes.string,
   match: PropTypes.string,
   fetchRelatedComplaints: PropTypes.func,
+  addOrRemoveItemInPinboard: PropTypes.func,
 };
 
 CarouselWrapper.defaultProps = {

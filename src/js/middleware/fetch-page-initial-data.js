@@ -1,8 +1,14 @@
 import { Promise } from 'es6-promise';
 import { every, get } from 'lodash';
 
-import { LANDING_PAGE_ID, OFFICER_PAGE_ID, CR_PAGE_ID, TRR_PAGE_ID, SIGNIN_REQUEST_SUCCESS } from 'utils/constants';
-import { getOfficerId, getCRID, getTRRId, getUnitName, getDocDedupCRID, getDocumentId } from 'utils/location';
+import {
+  LANDING_PAGE_ID, OFFICER_PAGE_ID, CR_PAGE_ID, TRR_PAGE_ID, PINBOARD_PAGE_ID,
+  SIGNIN_REQUEST_SUCCESS, PINBOARD_HEX_ID_LENGTH,
+} from 'utils/constants';
+import {
+  getOfficerId, getCRID, getTRRId, getUnitName,
+  getDocDedupCRID, getDocumentId, getPinboardID,
+} from 'utils/location';
 import { hasCommunitiesSelector, hasClusterGeoJsonData } from 'selectors/landing-page/heat-map';
 import { hasCitySummarySelector } from 'selectors/landing-page/city-summary';
 import { hasCMSContent } from 'selectors/cms';
@@ -12,6 +18,7 @@ import { hasCards as hasRecentDocumentData } from 'selectors/landing-page/recent
 import { hasCards as hasComplaintSummaryData } from 'selectors/landing-page/complaint-summaries';
 import { getMatchParamater, getDocumentsOrder } from 'selectors/documents-overview-page';
 import { getCRIDParameter } from 'selectors/document-deduplicator-page';
+import { getPinboard } from 'selectors/pinboard-page/pinboard';
 import { getCitySummary } from 'actions/landing-page/city-summary';
 import { fetchOfficerSummary, changeOfficerId, requestCreateOfficerZipFile } from 'actions/officer-page';
 import { fetchNewTimelineItems } from 'actions/officer-page/new-timeline';
@@ -33,8 +40,12 @@ import { fetchDocumentsByCRID } from 'actions/document-deduplicator-page';
 import { fetchDocuments, fetchDocumentsAuthenticated } from 'actions/documents-overview-page';
 import { cancelledByUser } from 'utils/axios-client';
 import { requestCrawlers } from 'actions/crawlers-page';
+import { fetchPinboard } from 'actions/pinboard';
+import { redirect } from 'actions/pinboard-page';
+import { fetchAllPinboards } from 'actions/pinboard-admin-page';
 import { fetchVideoInfo } from 'actions/headers/slim-header';
 import { hasVideoInfoSelector } from 'selectors/headers/slim-header';
+import { dispatchFetchPinboardPageData, dispatchFetchPinboardPinnedItems } from 'utils/pinboard';
 
 let prevPathname = '';
 
@@ -73,6 +84,8 @@ export default store => next => action => {
       handleFetchingDocumentPage(dispatches, store, state.pathname);
     } else if (state.pathname.match(/\/documents\//)) {
       handleFetchingDocumentsOverviewPage(dispatches, store, state, action, fetchDocumentsAuthenticated);
+    } else if (state.pathname.match(/\/view-all-pinboards\//)) {
+      store.dispatch(fetchAllPinboards());
     }
   }
 
@@ -102,7 +115,7 @@ export default store => next => action => {
       getCMSContent(OFFICER_PAGE_ID);
     }
 
-    else if (action.payload.pathname.match(/^\/(edit\/?)?$/)) {
+    else if (action.payload.pathname.match(/^\/((edit|search)\/?)?$/)) {
       if (!hasCommunitiesSelector(state)) {
         dispatches.push(store.dispatch(getCommunities()));
       }
@@ -130,6 +143,8 @@ export default store => next => action => {
       if (!hasVideoInfoSelector(state)) {
         dispatches.push(store.dispatch(fetchVideoInfo()));
       }
+
+      dispatches.push(store.dispatch(requestSearchTermCategories()));
     }
 
     else if (action.payload.pathname.match(/complaint\/\w+/)) {
@@ -159,10 +174,6 @@ export default store => next => action => {
 
     else if (action.payload.pathname.match(/document\/\d+/)) {
       handleFetchingDocumentPage(dispatches, store, action.payload.pathname);
-    }
-
-    else if (action.payload.pathname.match(/search\/terms/)) {
-      dispatches.push(store.dispatch(requestSearchTermCategories()));
     }
 
     else if (action.payload.pathname.match(/embed\/top-officers/)) {
@@ -201,6 +212,33 @@ export default store => next => action => {
 
     else if (action.payload.pathname.match(/\/crawlers\//)) {
       dispatches.push(store.dispatch(requestCrawlers()));
+    }
+
+    else if (action.payload.pathname.match(/\/pinboard\/([a-fA-F0-9]+\/)?/)) {
+      const idOnPath = getPinboardID(action.payload.pathname);
+      const pinboard = getPinboard(state);
+      const idInStore = pinboard.id;
+      if (!idOnPath) {
+        dispatches.push(store.dispatch(redirect(true)));
+      } else if (idOnPath.length === PINBOARD_HEX_ID_LENGTH) {
+        if (idOnPath === idInStore) {
+          dispatches.push(store.dispatch(redirect(false)));
+          if (!pinboard.hasPendingChanges) {
+            dispatches.push(store.dispatch(fetchPinboard(idOnPath)));
+            dispatchFetchPinboardPinnedItems(store, idOnPath);
+            dispatchFetchPinboardPageData(store, idOnPath);
+          }
+        } else {
+          dispatches.push(store.dispatch(redirect(true)));
+          dispatches.push(store.dispatch(fetchPinboard(idOnPath)));
+        }
+      }
+
+      getCMSContent(PINBOARD_PAGE_ID);
+    }
+
+    else if (action.payload.pathname.match(/\/view-all-pinboards\//)) {
+      store.dispatch(fetchAllPinboards());
     }
 
     prevPathname = action.payload.pathname;

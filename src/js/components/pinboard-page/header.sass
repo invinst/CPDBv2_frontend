@@ -1,0 +1,79 @@
+@import 'variables'
+
+\:local(.wrapper)
+  height: 48px
+  background-color: $mine-shaft-color
+  color: $boulder-color
+  font-size: 14px
+
+  .header-title
+    display: block
+    box-sizing: border-box
+    padding-left: 16px
+    line-height: 40px
+    text-decoration: none
+    background-color: $sugar-cane-color
+    color: $boulder-color
+    border-radius: 2px 2px 0 0
+    box-shadow: inset 0 -2px 2px 0 rgba(0, 0, 0, 0.1)
+
+    &:visited, &:link
+      color: inherit
+
+    &:hover
+      background-color: $white-two-color
+      color: $soft-black-color
+
+  .inner-wrapper
+    position: relative
+    height: 100%
+    min-width: unset
+
+  .header-parent
+    position: absolute
+    bottom: 0
+    height: 40px
+    width: calc(100% - 28px)
+    margin: 0 14px
+    min-width: 305px
+    cursor: pointer
+
+  .right-menu
+    float: right
+    height: 100%
+    width: 100%
+    text-align: right
+    position: relative
+    top: -40px
+    z-index: 1
+    pointer-events: none
+
+    .menu-item
+      display: inline-block
+      height: 100%
+      line-height: 40px
+      margin-right: 5.38%
+      color: $boulder-color
+      pointer-events: auto
+
+      &:hover
+        color: $soft-black-color
+
+      &:last-child
+        margin-right: 16px
+
+      &.highlight
+        color: $soft-black-color
+        position: relative
+        cursor: default
+
+        &::after
+          content: ""
+          position: absolute
+          width: 8px
+          height: 8px
+          border-radius: 50%
+          background-color: $mine-shaft-color
+          display: inline-block
+          bottom: -3px
+          left: calc(50% - 4px)

@@ -13,7 +13,7 @@ import { OFFICER_PAGE_TAB_NAMES } from 'utils/constants';
 import { unmountComponentSuppressError } from 'utils/test';
 import TabbedPaneSection from 'components/officer-page/tabbed-pane-section';
 import Timeline from 'components/officer-page/tabbed-pane-section/timeline';
-import MapTab from 'components/officer-page/tabbed-pane-section/map';
+import AllegationsMap from 'components/common/allegations-map';
 import Coaccusals from 'components/officer-page/tabbed-pane-section/coaccusals';
 import AttachmentsTab from 'components/officer-page/tabbed-pane-section/attachments-tab';
 
@@ -26,6 +26,7 @@ describe('TabbedPaneSection component', function () {
       coaccusals: [],
     },
     popups: [],
+    pinboardPage: { pinboard: null },
   });
   let instance;
 
@@ -89,7 +90,7 @@ describe('TabbedPaneSection component', function () {
       </Provider>
     );
 
-    findRenderedComponentWithType(instance, MapTab).should.be.ok();
+    findRenderedComponentWithType(instance, AllegationsMap).should.be.ok();
   });
 
   it('should render coaccusals tab', function () {

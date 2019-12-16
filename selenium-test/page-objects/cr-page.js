@@ -1,35 +1,35 @@
 import Page from './page';
 import Section from './sections/section';
 import DocumentRequestModalSection from './sections/document-request-modal';
+import BaseCarouselSection from './sections/carousel';
 
 
 class AccusedOfficerCard extends Section {
-  constructor() {
-    super();
-
-    const firstCardSelector = '(//*[contains(@class, "coaccused-card__coaccused-card")])[1]';
+  constructor(index) {
+    super('', `(//*[contains(@class, "coaccused-card__coaccused-card")])[${index + 1}]`);
 
     this.prepareElementGetters({
-      element: firstCardSelector,
-      rank: `${firstCardSelector}//p[contains(@class, "coaccused-card-rank")]`,
-      name: `${firstCardSelector}//p[contains(@class, "coaccused-card-name")]`,
-      metric: `${firstCardSelector}//span[@class="test--officer-card-metric"]`,
-      percentile: `${firstCardSelector}//p[contains(@class, "test--officer-card-percentile")]`,
-      demographic: `${firstCardSelector}//div[contains(@class, "officer-card-demographic")]`,
-      category: `${firstCardSelector}//div[@class="accused-card-category"]`,
-      outcome: `${firstCardSelector}//div[contains(@class, "accused-card-outcome")]`,
+      rank: '//p[contains(@class, "coaccused-card-rank")]',
+      name: '//p[contains(@class, "coaccused-card-name")]',
+      metric: '//span[@class="test--officer-card-metric"]',
+      percentile: '//p[contains(@class, "test--officer-card-percentile")]',
+      demographic: '//div[contains(@class, "officer-card-demographic")]',
+      category: '//div[@class="accused-card-category"]',
+      outcome: '//div[contains(@class, "accused-card-outcome")]',
+      pinButton: '//div[contains(@class, "item-pin-button__item-pin-button")]',
     });
   }
 }
 
 class AccusedOfficerSection extends Section {
-  firstCard = new AccusedOfficerCard();
+  firstCard = new AccusedOfficerCard(0);
 
   constructor() {
     super();
 
     this.prepareElementGetters({
       title: '.accused-officer-title',
+      card: '//a[contains(@class, "coaccused-card")]',
       lastCard: '(//*[contains(@class, "coaccused-card")])[last()]',
       showMoreButton: '.show-more-button-container',
       popup: '.test--accused-officer .popup',
@@ -38,10 +38,6 @@ class AccusedOfficerSection extends Section {
       popupText: '.test--accused-officer .tooltip-text',
       popupCloseButton: '.test--accused-officer .popup-close-button',
     });
-  }
-
-  cardCount() {
-    return $$('//a[contains(@class, "coaccused-card")]').length;
   }
 }
 
@@ -77,47 +73,31 @@ class AttachmentsSection extends Section {
     super();
     this.prepareElementGetters({
       documentRequestButton: '.test--attachment-request',
+      card: '.test--attachment-card',
     });
-  }
-
-  cardCount() {
-    return $$('.test--attachment-card').length;
   }
 }
 
 
 class InvestigatorSection extends Section {
   constructor() {
-    super();
+    super('', '//*[contains(@class, "test--involvement-investigator")]');
     this.prepareElementGetters({
-      firstItem: '(//*[contains(@class, "test--involvement-investigator")]' +
-        '//*[contains(@class, "test--officer-row")])[1]',
-      secondItem: '(//*[contains(@class, "test--involvement-investigator")]' +
-        '//*[contains(@class, "test--officer-row")])[2]',
+      item: '//*[contains(@class, "test--officer-row")]',
+      firstItem: '(//*[contains(@class, "test--officer-row")])[1]',
+      secondItem: '(//*[contains(@class, "test--officer-row")])[2]',
     });
-  }
-
-  itemCount() {
-    return $$(
-      '(//*[contains(@class, "test--involvement-investigator")]//*[contains(@class, "test--officer-row")])'
-    ).length;
   }
 }
 
 
 class PoliceWitnessSection extends Section {
   constructor() {
-    super();
+    super('', '//*[contains(@class, "test--involvement-police_witness")]');
     this.prepareElementGetters({
-      firstItem: '(//*[contains(@class, "test--involvement-police_witness")]' +
-        '//*[contains(@class, "test--officer-row")])[1]',
+      item: '//*[contains(@class, "test--officer-row")]',
+      firstItem: '(//*[contains(@class, "test--officer-row")])[1]',
     });
-  }
-
-  itemCount() {
-    return $$(
-      '(//*[contains(@class, "test--involvement-police_witness")]//*[contains(@class, "test--officer-row")])'
-    ).length;
   }
 }
 
@@ -133,32 +113,18 @@ class LocationSection extends Section {
   }
 }
 
-
-class CarouselSection extends Section {
+class CarouselSection extends BaseCarouselSection {
   constructor(match) {
-    super();
-    this.carouselClassName = `test--related-by-${match}-carousel`;
-    this.cardClassName = 'test--carousel-card';
-    this.prepareElementGetters({
-      rightArrow: this.childCSSSelector('.test--carousel-arrow-right'),
-      leftArrow: this.childCSSSelector('.test--carousel-arrow-left'),
-      cards: this.childCSSSelector(`.${this.cardClassName}`),
-    });
+    super(
+      '',
+      `//div[contains(@class, "test--related-by-${match}-carousel")]`,
+      '//a[contains(@class, "test--carousel-card")]'
+    );
   }
-
-  childCSSSelector(selector) {
-    return `.${this.carouselClassName} ${selector}`;
-  }
-
   cardAtIndex(index) {
-    return $([
-      `(//*[contains(@class, "${this.carouselClassName}")]`,
-      `//*[contains(@class, "${this.cardClassName}")])`,
-      `[${index}]`,
-    ].join(''));
+    return $(`(${this.cards.selector})[${index}]`);
   }
 }
-
 
 class DistanceDropdown extends Section {
   constructor() {
@@ -198,12 +164,13 @@ class CRPage extends Page {
       category: '.test--cr-category-wrapper',
       incidentDate: '.cr-incident-date-value',
       investigationTimeline: '.investigator-timeline-text',
+      lastToast: '(//div[contains(@class, "Toastify__toast-body")])[last()]',
+      landingPageBreadCrumb: '//a[@class="breadcrumbs-item-link" and .="cpdp"]',
     });
   }
 
   open(id = 1000000) {
     super.open(`/complaint/${id}/1/`);
-    $('body').waitForDisplayed();
   }
 }
 

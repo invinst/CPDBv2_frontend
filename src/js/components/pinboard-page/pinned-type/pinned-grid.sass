@@ -1,0 +1,23 @@
+@import 'variables'
+
+\:local(.pinned-grid)
+  margin-top: 9px
+  overflow: hidden
+  position: relative
+
+  .pinned-grid-item
+    display: block
+    position: absolute
+    z-index: 1
+
+    &.muuri-item-dragging
+      z-index: 3
+
+    &.muuri-item-releasing
+      z-index: 2
+
+    &.muuri-item-hidden
+      z-index: 0
+
+  .item-content
+    position: relative

@@ -3,7 +3,8 @@ import { findDOMNode } from 'react-dom';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
-  Simulate, findRenderedComponentWithType,
+  findRenderedComponentWithType,
+  Simulate,
 } from 'react-addons-test-utils';
 import { stub } from 'sinon';
 
@@ -35,7 +36,7 @@ describe('DemoVideo component', function () {
     richTextEditable.props.fieldname.should.equal('demo_video_text');
     findRenderedDOMComponentWithClass(instance, 'demo-video-thumbnail').should.be.ok();
     findRenderedDOMComponentWithClass(instance, 'demo-video-play-button').getAttribute('src').should.eql(
-      '/img/ic-play.svg'
+      '/img/ic-play-big.svg'
     );
   });
 

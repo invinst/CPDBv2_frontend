@@ -6,9 +6,11 @@ import contentType from './content-type';
 import tags from './tags';
 import recentSuggestions from './recent-suggestions';
 import navigation from './navigation';
+import cancelPathname from './cancel-pathname';
 import query from './query';
 import searchTerms from './search-terms';
 import pagination from './pagination';
+import recentSuggestionsRequested from './recent-suggestions-requested';
 
 
 const searchPage = combineReducers({
@@ -18,9 +20,11 @@ const searchPage = combineReducers({
   tags,
   recentSuggestions,
   navigation,
+  cancelPathname,
   query,
   searchTerms,
   pagination,
+  recentSuggestionsRequested,
 });
 
 export default searchPage;
