@@ -10,9 +10,12 @@ import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import { redirectToCreatedPinboard } from 'utils/pinboard';
 import SearchMainPanel from './search-main-panel';
 import HoverableButton from 'components/common/hoverable-button-without-inline-style';
-import { SEARCH_ALIAS_EDIT_PATH,
+import {
+  SEARCH_ALIAS_EDIT_PATH,
   SEARCH_BOX,
-  MORE_BUTTON, RECENT_CONTENT_TYPE, ROOT_PATH } from 'utils/constants';
+  MORE_BUTTON,
+  RECENT_CONTENT_TYPE,
+} from 'utils/constants';
 import { showIntercomLauncher } from 'utils/intercom';
 import * as IntercomTracking from 'utils/intercom-tracking';
 import 'toast.css';
@@ -124,7 +127,8 @@ export default class SearchPage extends Component {
 
   handleGoBack(e) {
     !isEmpty(e) && e.preventDefault();
-    browserHistory.push(ROOT_PATH);
+    const { cancelPathname } = this.props;
+    browserHistory.push(cancelPathname);
   }
 
   handleSelect(newContentType) {
@@ -236,6 +240,7 @@ SearchPage.propTypes = {
   hide: PropTypes.bool,
   position: PropTypes.string,
   animationIn: PropTypes.bool,
+  cancelPathname: PropTypes.string,
 };
 
 /* istanbul ignore next */
@@ -248,7 +253,7 @@ SearchPage.defaultProps = {
     pathname: '/',
   },
   searchTermsHidden: true,
-  selectTag: (...args) => {},
+  selectTag: () => {},
   resetSearchResultNavigation: noop,
   resetSearchTermNavigation: noop,
   firstItem: {},
@@ -256,4 +261,5 @@ SearchPage.defaultProps = {
   createNewEmptyPinboard: noop,
   createPinboard: noop,
   saveToRecent: noop,
+  cancelPathname: '/',
 };

@@ -3,7 +3,7 @@ import { withRouter } from 'react-router';
 
 import { AllegationsMapWithSpinner } from 'components/common/allegations-map';
 import {
-  mapMarkersSelector,
+  mapMarkerGroupsSelector,
   getClearAllMarkers,
   geographicDataRequestingSelector,
   geographicDataLoadingSelector,
@@ -14,7 +14,7 @@ function mapStateToProps(state, ownProps) {
     showLegends: false,
     mapCustomClassName: 'pinboard-map',
     attributionControlPosition: 'top-left',
-    markers: mapMarkersSelector(state),
+    markerGroups: mapMarkerGroupsSelector(state),
     clearAllMarkers: getClearAllMarkers(state),
     requesting: geographicDataRequestingSelector(state),
     geographicDataLoading: geographicDataLoadingSelector(state),

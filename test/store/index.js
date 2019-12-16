@@ -83,6 +83,7 @@ describe('store', function () {
         recentSuggestionsRequested: false,
         tags: [],
         query: '',
+        cancelPathname: '/',
         searchTerms: {
           categories: [],
           hidden: true,

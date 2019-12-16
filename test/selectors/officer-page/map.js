@@ -1,6 +1,6 @@
 import {
   mapLegendSelector,
-  mapMarkersSelector,
+  mapMarkerGroupsSelector,
   crMapMarkersTransform,
   trrMapMarkerTransform,
   rawMapMarkersSelector,
@@ -187,7 +187,7 @@ describe('Officer map selectors', function () {
     });
   });
 
-  describe('mapMarkersSelector', function () {
+  describe('mapMarkerGroupsSelector', function () {
     it('should return correct marker', function () {
       const state = {
         officerPage: {
@@ -196,7 +196,7 @@ describe('Officer map selectors', function () {
           },
         },
       };
-      mapMarkersSelector(state).should.eql({
+      mapMarkerGroupsSelector(state).should.eql({
         crs: [
           {
             point: {

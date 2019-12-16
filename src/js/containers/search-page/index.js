@@ -14,7 +14,7 @@ import { createNewEmptyPinboard } from 'actions/pinboard';
 import {
   requestSearchTermCategories, resetNavigation as resetSearchTermNavigation,
 } from 'actions/search-page/search-terms';
-import { getFocusedItem } from 'selectors/search-page';
+import { getCancelPathname, getFocusedItem } from 'selectors/search-page';
 import {
   suggestionTagsSelector, firstItemSelector, queryPrefixSelector,
 } from 'selectors/search-page/search-results/suggestion-groups';
@@ -43,6 +43,7 @@ function mapStateToProps(state, ownProps) {
     searchTermsHidden: hiddenSelector(state),
     firstItem: firstItemSelector(state),
     pinboard: getPinboard(state),
+    cancelPathname: getCancelPathname(state),
   };
 }
 
