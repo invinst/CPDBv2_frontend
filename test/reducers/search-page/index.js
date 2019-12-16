@@ -22,6 +22,7 @@ describe('searchPage reducer', function () {
       tags: [],
       query: '',
       pagination: {},
+      cancelPathname: '/',
     });
   });
 });
