@@ -88,13 +88,14 @@ describe('SearchPage component', function () {
   it('should call browserHistory.push when user click on searchbar__button--back', function () {
     const wrapper = mount(
       <Provider store={ store }>
-        <SearchPage />
+        <SearchPage cancelPathname='/pinboard/123abc/'/>
       </Provider>
     );
 
     const backButton = wrapper.find('.searchbar__button--back');
     backButton.simulate('click');
-    this.browserHistoryPush.should.be.calledWith('/');
+    this.browserHistoryPush.should.be.calledOnce();
+    this.browserHistoryPush.should.be.calledWith('/pinboard/123abc/');
   });
 
   it('should call router.goBack when user hit ESCAPE', function () {
