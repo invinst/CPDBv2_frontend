@@ -1,43 +1,31 @@
 import React, { Component } from 'react';
-import {
-  renderIntoDocument,
-  scryRenderedDOMComponentsWithClass,
-  findRenderedComponentWithType,
-  scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 import { stub } from 'sinon';
 import { random, lorem } from 'faker';
 
 import Carousel from 'components/common/carousel';
-import { unmountComponentSuppressError } from 'utils/test';
 import withCarousel from 'components/landing-page/carousel-wrapper';
 import * as GATracking from 'utils/google_analytics_tracking';
 
 
 describe('CarouselWrapper component', function () {
-  let instance;
-
   const CarouselComponent = withCarousel(
     { 'abc': { CardComponent: 'div', itemWidth: 232 } },
     'abc',
   );
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render cards', function () {
-    instance = renderIntoDocument(<CarouselComponent cards={ [1, 2, 3] }/>);
-    scryRenderedDOMComponentsWithClass(instance, 'test--carousel--item').should.have.length(3);
+    const wrapper = shallow(<CarouselComponent cards={ [1, 2, 3] }/>);
+    wrapper.find('.test--carousel--item').should.have.length(3);
   });
 
   it('should send ga event when navigate on carousel', function () {
     stub(GATracking, 'trackSwipeLanddingPageCarousel');
-    instance = renderIntoDocument(<CarouselComponent cards={ [1, 2, 3] }/>);
-    const carousel = findRenderedComponentWithType(instance, Carousel);
-    carousel.props.resetPosition.should.be.false();
+    const wrapper = shallow(<CarouselComponent cards={ [1, 2, 3] }/>);
+    const carousel = wrapper.find(Carousel);
+    carousel.prop('resetPosition').should.be.false();
 
-    carousel.props.onNavigate('left');
+    carousel.prop('onNavigate')('left');
 
     GATracking.trackSwipeLanddingPageCarousel.should.be.calledWith('left', 'abc');
     GATracking.trackSwipeLanddingPageCarousel.restore();
@@ -59,7 +47,7 @@ describe('CarouselWrapper component', function () {
     const pathname = lorem.word();
     const openCardInNewPage = random.boolean();
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <CarouselWithCustomCardComponent
         cards={ [1, 2, 3] }
         openCardInNewPage={ openCardInNewPage }
@@ -69,15 +57,15 @@ describe('CarouselWrapper component', function () {
         pinnable={ false }
       />,
     );
-    const testCards = scryRenderedComponentsWithType(instance, TestCardComponent);
+    const testCards = wrapper.find(TestCardComponent);
 
     testCards.should.have.length(3);
     testCards.forEach(item => {
-      item.props.addOrRemoveItemInPinboard.should.be.equal(addOrRemoveItemInPinboard);
-      item.props.onTrackingAttachment.should.be.equal(onTrackingAttachment);
-      item.props.pathname.should.be.equal(pathname);
-      item.props.openCardInNewPage.should.be.equal(openCardInNewPage);
-      item.props.pinnable.should.be.false();
+      item.prop('addOrRemoveItemInPinboard').should.be.equal(addOrRemoveItemInPinboard);
+      item.prop('onTrackingAttachment').should.be.equal(onTrackingAttachment);
+      item.prop('pathname').should.be.equal(pathname);
+      item.prop('openCardInNewPage').should.be.equal(openCardInNewPage);
+      item.prop('pinnable').should.be.false();
     });
   });
 });

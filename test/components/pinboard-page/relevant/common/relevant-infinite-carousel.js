@@ -1,28 +1,17 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  findRenderedComponentWithType,
-  scryRenderedDOMComponentsWithTag,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 import { stub } from 'sinon';
+import should from 'should';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import RelevantInfiniteCarousel from 'components/pinboard-page/relevant/common/relevant-infinite-carousel';
 import Carousel from 'components/common/carousel';
 import LoadingSpinner from 'components/common/loading-spinner';
 
 
 describe('RelevantInfiniteCarousel component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render enough content', function () {
     const loadMoreStub = stub();
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <RelevantInfiniteCarousel
         childWidth={ 128 }
         title='RelevantInfiniteCarousel Title'
@@ -34,23 +23,23 @@ describe('RelevantInfiniteCarousel component', function () {
         <div className='test--child-2'/>
       </RelevantInfiniteCarousel>
     );
-    findRenderedDOMComponentWithClass(instance, 'relevant-infinite-carousel-title').textContent.should.eql(
+    wrapper.find('.relevant-infinite-carousel-title').text().should.eql(
       'RelevantInfiniteCarousel Title'
     );
 
-    const carousel = findRenderedComponentWithType(instance, Carousel);
-    carousel.props.childWidth.should.eql(128);
-    carousel.props.hasMore.should.be.true();
-    carousel.props.loadMore.should.eql(loadMoreStub);
-    carousel.props.arrowClassName.should.eql('relevant-carousel-arrow');
+    const carousel = wrapper.find(Carousel);
+    carousel.prop('childWidth').should.equal(128);
+    carousel.prop('hasMore').should.be.true();
+    carousel.prop('loadMore').should.eql(loadMoreStub);
+    carousel.prop('arrowClassName').should.equal('relevant-carousel-arrow');
 
-    findRenderedDOMComponentWithClass(carousel, 'test--child-1');
-    findRenderedDOMComponentWithClass(carousel, 'test--child-2');
+    carousel.find('test--child-1');
+    carousel.find('test--child-2');
   });
 
   it('should render nothing if there is no child', function () {
     const loadMoreStub = stub();
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <RelevantInfiniteCarousel
         childWidth={ 128 }
         title='RelevantInfiniteCarousel Title'
@@ -59,13 +48,12 @@ describe('RelevantInfiniteCarousel component', function () {
         requesting={ false }
       />
     );
-
-    scryRenderedDOMComponentsWithTag(instance, 'div').should.have.length(0);
+    should(wrapper.type()).be.null();
   });
 
   it('should render LoadingSpinner if there is no child and questing is true', function () {
     const loadMoreStub = stub();
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <RelevantInfiniteCarousel
         childWidth={ 128 }
         title='RelevantInfiniteCarousel Title'
@@ -75,8 +63,8 @@ describe('RelevantInfiniteCarousel component', function () {
       />
     );
 
-    const loadingSpinner = findRenderedComponentWithType(instance, LoadingSpinner);
-    loadingSpinner.props.className.should.containEql('relevant-carousel-loading');
-    loadingSpinner.props.fill.should.equal('white');
+    const loadingSpinner = wrapper.find(LoadingSpinner);
+    loadingSpinner.prop('className').should.containEql('relevant-carousel-loading');
+    loadingSpinner.prop('fill').should.equal('white');
   });
 });

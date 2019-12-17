@@ -20,7 +20,6 @@ const config = Object.assign({}, baseConfig, {
     historyApiFallback: true,
     hotOnly: true,
     port: 9966,
-    index: 'index.html'
   },
   cache: true,
   devtool: 'eval-source-map',

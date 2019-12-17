@@ -1,50 +1,43 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 import { Motion } from 'react-motion';
-import {
-  renderIntoDocument, scryRenderedComponentsWithType, scryRenderedDOMComponentsWithClass,
-} from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError, withAnimationDisabled } from 'utils/test';
+import { withAnimationDisabled } from 'utils/test';
 import FadeMotion from 'components/animation/fade-motion';
 
 
 describe('FadeMotion components', function () {
-  let instance;
   const children = () => <div className='test--sample-div' />;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
 
   context('animation disabled', function () {
     it('should render nothing if its show property is false', function () {
       withAnimationDisabled(() => {
-        instance = renderIntoDocument(
+        const wrapper = shallow(
           <FadeMotion show={ false } children={ children } />
         );
 
-        scryRenderedDOMComponentsWithClass(instance, 'test--sample-div').length.should.equal(0);
+        wrapper.find('.test--sample-div').exists().should.be.false();
       });
     });
 
-    it('shoulf render children if its show property is true', function () {
+    it('should render children if its show property is true', function () {
       withAnimationDisabled(() => {
-        instance = renderIntoDocument(
+        const wrapper = shallow(
           <FadeMotion show={ true } children={ children } />
         );
 
-        scryRenderedDOMComponentsWithClass(instance, 'test--sample-div').length.should.equal(1);
+        wrapper.find('.test--sample-div').exists().should.be.true();
       });
     });
   });
 
   context('animation enabled', function () {
     it('should render Motion component', function () {
-      instance = renderIntoDocument(
+      const wrapper = shallow(
         <FadeMotion show={ true } children={ children } />
       );
 
-      scryRenderedComponentsWithType(instance, Motion).length.should.equal(1);
+      wrapper.find(Motion).exists().should.be.true();
     });
   });
 });

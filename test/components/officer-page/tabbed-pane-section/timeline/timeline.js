@@ -1,15 +1,7 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  scryRenderedComponentsWithType,
-  findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass,
-  Simulate,
-} from 'react-addons-test-utils';
+import { shallow, mount } from 'enzyme';
 import { stub } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import Timeline from 'components/officer-page/tabbed-pane-section/timeline';
 import Dropdown from 'components/common/dropdown';
 import Popup from 'components/common/popup';
@@ -18,20 +10,14 @@ import { NEW_TIMELINE_FILTERS } from 'utils/constants';
 
 
 describe('Timeline component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render headers correctly', function () {
-    instance = renderIntoDocument(<Timeline selectedFilter={ NEW_TIMELINE_FILTERS.ALL }/>);
-    findRenderedDOMComponentWithClass(instance, 'rank-header').textContent.should.containEql('RANK');
-    findRenderedDOMComponentWithClass(instance, 'unit-header').textContent.should.containEql('UNIT');
-    const contentHeader = findRenderedDOMComponentWithClass(instance, 'showing-content-header');
-    contentHeader.textContent.should.containEql('SHOWING');
-    contentHeader.textContent.should.containEql('All');
-    findRenderedDOMComponentWithClass(instance, 'date-header').textContent.should.containEql('DATE');
+    const wrapper = shallow(<Timeline selectedFilter={ NEW_TIMELINE_FILTERS.ALL }/>);
+    wrapper.find('.rank-header').text().should.containEql('RANK');
+    wrapper.find('.unit-header').text().should.containEql('UNIT');
+    const contentHeader = wrapper.find('.showing-content-header');
+    contentHeader.find('.showing-text').text().should.containEql('SHOWING');
+    contentHeader.find(Dropdown).dive().text().should.containEql('All');
+    wrapper.find('.date-header').text().should.containEql('DATE');
   });
 
   it('should render rank and unit popups', function () {
@@ -46,45 +32,45 @@ describe('Timeline component', function () {
       },
     };
 
-    instance = renderIntoDocument(<Timeline popup={ popup } pathname='/officer/8562/jerome-finnigan/'/>);
-    const timelinePopup = scryRenderedComponentsWithType(instance, Popup);
-    timelinePopup[0].props.title.should.eql('Rank');
-    timelinePopup[0].props.text.should.eql('Some rank explanation');
-    timelinePopup[0].props.url.should.eql('/officer/8562/jerome-finnigan/');
-    timelinePopup[1].props.title.should.eql('Unit');
-    timelinePopup[1].props.text.should.eql('Some unit explanation');
-    timelinePopup[1].props.url.should.eql('/officer/8562/jerome-finnigan/');
+    const wrapper = shallow(<Timeline popup={ popup } pathname='/officer/8562/jerome-finnigan/'/>);
+    const timelinePopup = wrapper.find(Popup);
+    timelinePopup.at(0).prop('title').should.equal('Rank');
+    timelinePopup.at(0).prop('text').should.equal('Some rank explanation');
+    timelinePopup.at(0).prop('url').should.equal('/officer/8562/jerome-finnigan/');
+    timelinePopup.at(1).prop('title').should.equal('Unit');
+    timelinePopup.at(1).prop('text').should.equal('Some unit explanation');
+    timelinePopup.at(1).prop('url').should.equal('/officer/8562/jerome-finnigan/');
   });
 
   it('should render dropdown with correct order', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Timeline selectedFilter={ NEW_TIMELINE_FILTERS.ALL }/>
     );
-    const dropdown = findRenderedComponentWithType(instance, Dropdown);
-    dropdown.props.defaultValue.should.eql('All');
-    dropdown.props.options.should.eql([
+    const dropdown = wrapper.find(Dropdown);
+    dropdown.prop('defaultValue').should.equal('All');
+    dropdown.prop('options').should.eql([
       'All', 'Complaints', 'Sustained', 'Use Of Force', 'Awards', 'Rank/Unit Changes',
     ]);
   });
 
   it('should call changeFilter when clicking dropdown items', function () {
     const changeFilterStub = stub();
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Timeline
         selectedFilter={ NEW_TIMELINE_FILTERS.ALL }
         changeFilter={ changeFilterStub }
       />
     );
 
-    const dropdownButton = findRenderedDOMComponentWithClass(instance, 'dropdown-button');
-    Simulate.click(dropdownButton);
-    const options = scryRenderedDOMComponentsWithClass(instance, 'dropdown-menu-item');
-    Simulate.click(options[0]);
+    const dropdownButton = wrapper.find('.dropdown-button');
+    dropdownButton.simulate('click');
+    const options = wrapper.find('.dropdown-menu-item');
+    options.at(0).simulate('click');
 
-    changeFilterStub.calledWith({
+    changeFilterStub.should.be.calledWith({
       label: 'Complaints',
       kind: ['CR'],
-    }).should.be.true();
+    });
   });
 
   it('should render items correctly', function () {
@@ -114,7 +100,7 @@ describe('Timeline component', function () {
         unitName: 'Unit 153',
       },
     ];
-    instance = renderIntoDocument(<Timeline items={ items } />);
-    scryRenderedComponentsWithType(instance, Item).should.have.length(3);
+    const wrapper = shallow(<Timeline items={ items } />);
+    wrapper.find(Item).should.have.length(3);
   });
 });

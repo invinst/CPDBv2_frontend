@@ -1,30 +1,18 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
 import CommunityPane from 'components/common/preview-pane/panes/community-pane';
-import {
+import WidgetWrapper, {
   HeaderWidget,
   GeoInfoWidget,
   AllegationCountWidget,
   ListWidget,
-  CallToActionWidget,
 } from 'components/common/preview-pane/widgets';
-import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('CommunityPane component', () => {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should contain the sub components', () => {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <CommunityPane
         officersMostComplaint={ [{
           id: 1,
@@ -44,10 +32,14 @@ describe('CommunityPane component', () => {
         url={ 'url' }
       />
     );
-    findRenderedComponentWithType(instance, HeaderWidget);
-    findRenderedComponentWithType(instance, GeoInfoWidget);
-    findRenderedComponentWithType(instance, AllegationCountWidget);
-    scryRenderedComponentsWithType(instance, ListWidget).should.have.length(2);
-    findRenderedComponentWithType(instance, CallToActionWidget);
+
+    const widgetWrapper = wrapper.find(WidgetWrapper);
+    widgetWrapper.prop('callToAction').should.eql({ url: 'url' });
+    widgetWrapper.prop('maxHeight').should.equal(890);
+
+    wrapper.find(HeaderWidget).exists().should.be.true();
+    wrapper.find(GeoInfoWidget).exists().should.be.true();
+    wrapper.find(AllegationCountWidget).exists().should.be.true();
+    wrapper.find(ListWidget).should.have.length(2);
   });
 });

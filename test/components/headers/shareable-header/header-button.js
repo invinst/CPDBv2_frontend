@@ -1,12 +1,5 @@
 import React from 'react';
-import { unmountComponentSuppressError } from 'utils/test';
-import {
-  renderIntoDocument,
-  Simulate,
-  findRenderedDOMComponentWithClass,
-  findRenderedComponentWithType,
-  scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 import { stub } from 'sinon';
 
 import HeaderButton from 'components/headers/shareable-header/header-button';
@@ -14,12 +7,11 @@ import ShareMenu from 'components/headers/shareable-header/share-menu';
 
 
 describe('HeaderButton component', function () {
-  let element;
-
+  let wrapper;
   beforeEach(function () {
     this.stubOnOpen = stub();
     this.stubOnClose = stub();
-    element = renderIntoDocument(
+    wrapper = shallow(
       <HeaderButton
         scrollPosition='top'
         buttonText='Header button'
@@ -29,45 +21,39 @@ describe('HeaderButton component', function () {
     );
   });
 
-  afterEach(function () {
-    unmountComponentSuppressError(element);
-  });
-
   it('should be render contents', function () {
-    const shareButtonDOMElement = findRenderedDOMComponentWithClass(element, 'button');
-    shareButtonDOMElement.textContent.should.eql('Header button');
-    shareButtonDOMElement.className.should.containEql('top');
-    scryRenderedComponentsWithType(element, ShareMenu).should.have.length(0);
+    const shareButtonDOMElement = wrapper.find('.button');
+    shareButtonDOMElement.text().should.equal('Header button');
+    shareButtonDOMElement.hasClass('top').should.be.true();
+    wrapper.find(ShareMenu).exists().should.be.false();
   });
 
   it('should close "share" menu by default', function () {
-    element.state.shareMenuIsOpen.should.be.false();
-    scryRenderedComponentsWithType(element, ShareMenu).should.have.length(0);
+    wrapper.state('shareMenuIsOpen').should.be.false();
+    wrapper.find(ShareMenu).exists().should.be.false();
   });
 
   it('should toggle menu when being clicked', function () {
-    const shareButtonDOMElement = findRenderedDOMComponentWithClass(element, 'button');
-    scryRenderedComponentsWithType(element, ShareMenu).should.have.length(0);
-    Simulate.click(shareButtonDOMElement);
-    findRenderedComponentWithType(element, ShareMenu);
-    Simulate.click(shareButtonDOMElement);
-    scryRenderedComponentsWithType(element, ShareMenu).should.have.length(0);
+    wrapper.find(ShareMenu).exists().should.be.false();
+    wrapper.find('.button').simulate('click');
+    wrapper.find(ShareMenu).exists().should.be.true();
+    wrapper.find('.button').simulate('click', { stopPropagation: () => {} });
+    wrapper.find(ShareMenu).exists().should.be.false();
   });
 
   it('should call onOpen/onClose when opening/closing', function () {
-    const shareButtonDOMElement = findRenderedDOMComponentWithClass(element, 'button');
-    Simulate.click(shareButtonDOMElement);
+    wrapper.find('.button').simulate('click');
     this.stubOnOpen.should.be.calledOnce();
-    Simulate.click(shareButtonDOMElement);
+    wrapper.find('.button').simulate('click', { stopPropagation: () => {} });
     this.stubOnClose.should.be.calledOnce();
   });
 
   it('should add focus class name when shareMenuIsOpen', function () {
-    Simulate.click(findRenderedDOMComponentWithClass(element, 'button'));
+    wrapper.find('.button').simulate('click');
 
-    const shareButtonDOMElement = findRenderedDOMComponentWithClass(element, 'button');
-    shareButtonDOMElement.className.should.containEql('focus');
-    shareButtonDOMElement.className.should.not.containEql('top');
+    const shareButtonDOMElement = wrapper.find('.button');
+    shareButtonDOMElement.hasClass('focus').should.be.true();
+    shareButtonDOMElement.hasClass('top').should.be.false();
   });
 
   it('Should render custom menu', function () {
@@ -77,12 +63,12 @@ describe('HeaderButton component', function () {
       }
     }
 
-    element = renderIntoDocument(
+    const wrapper = shallow(
       <HeaderButton scrollPosition='top' buttonText='Header button' Menu={ CustomMenu }/>
     );
 
-    Simulate.click(findRenderedDOMComponentWithClass(element, 'button'));
+    wrapper.find('.button').simulate('click');
 
-    findRenderedComponentWithType(element, CustomMenu);
+    wrapper.find(CustomMenu).exists().should.be.true();
   });
 });

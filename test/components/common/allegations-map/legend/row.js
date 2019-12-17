@@ -1,23 +1,12 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
 import Row from 'components/common/allegations-map/legend/row';
-import { unmountComponentSuppressError } from 'utils/test';
 import LoadingSpinner from 'components/common/loading-spinner';
 
 describe('Row component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render row correctly', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Row
         ovalColor={ 'red' }
         ovalBorderColor={ 'black' }
@@ -28,15 +17,15 @@ describe('Row component', function () {
         loading={ false }
       />
     );
-    const rowText = findRenderedDOMComponentWithClass(instance, 'legend-row-text');
-    rowText.textContent.should.eql('Test Row');
-    const rowNumber = findRenderedDOMComponentWithClass(instance, 'legend-row-number');
-    rowNumber.textContent.should.eql('20');
-    scryRenderedComponentsWithType(instance, LoadingSpinner).should.have.length(0);
+    const rowText = wrapper.find('.legend-row-text');
+    rowText.text().should.equal('Test Row');
+    const rowNumber = wrapper.find('.legend-row-number');
+    rowNumber.text().should.equal('20');
+    wrapper.find(LoadingSpinner).exists().should.be.false();
   });
 
   it('should render row with loading spinner', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Row
         ovalColor={ 'red' }
         ovalBorderColor={ 'black' }
@@ -47,6 +36,6 @@ describe('Row component', function () {
         loading={ true }
       />
     );
-    scryRenderedComponentsWithType(instance, LoadingSpinner).should.have.length(1);
+    wrapper.find(LoadingSpinner).exists().should.be.true();
   });
 });

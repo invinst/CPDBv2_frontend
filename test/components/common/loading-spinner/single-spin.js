@@ -1,22 +1,13 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithTag,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import SingleSpin from 'components/common/loading-spinner/single-spin';
+import styles from 'components/common/loading-spinner/common.sass';
 
 
 describe('SingleSpin component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render enough content', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <SingleSpin
         transform='rotate(150 50 50)'
         begin='0.25s'
@@ -24,16 +15,16 @@ describe('SingleSpin component', function () {
       />
     );
 
-    const element = findRenderedDOMComponentWithTag(instance, 'g');
-    element.className.should.containEql('animation');
-    element.getAttribute('transform').should.containEql('rotate(150 50 50)');
+    const element = wrapper.find('g');
+    element.hasClass(styles.animation).should.be.true();
+    element.prop('transform').should.containEql('rotate(150 50 50)');
 
-    const rect = findRenderedDOMComponentWithTag(instance, 'rect');
-    rect.className.should.containEql('animation');
-    rect.getAttribute('fill').should.equal('#ACB123');
+    const rect = wrapper.find('rect');
+    rect.hasClass(styles.animation).should.be.true();
+    rect.prop('fill').should.equal('#ACB123');
 
-    const animate = findRenderedDOMComponentWithTag(instance, 'animate');
-    animate.className.should.containEql('animation');
-    animate.getAttribute('begin').should.equal('0.25s');
+    const animate = wrapper.find('animate');
+    animate.hasClass(styles.animation).should.be.true();
+    animate.prop('begin').should.equal('0.25s');
   });
 });

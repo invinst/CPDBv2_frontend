@@ -1,34 +1,24 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  Simulate,
-} from 'react-addons-test-utils';
-import { unmountComponentSuppressError } from 'utils/test';
+import { shallow } from 'enzyme';
 import { spy } from 'sinon';
+
 import Arrow from 'components/common/carousel/arrow';
 
 describe('Carousel Arrow component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Arrow direction='left' show={ true }/>
     );
-    findRenderedDOMComponentWithClass(instance, 'test--carousel-arrow-left').should.be.ok();
+    wrapper.find('.test--carousel-arrow-left').exists().should.be.true();
   });
 
   it('should have appropriate click handler', function () {
     const spyClickHandler = spy();
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Arrow direction='left' onClick={ spyClickHandler } show={ true }/>
     );
-    const arrowWrapper = findRenderedDOMComponentWithClass(instance, 'test--carousel-arrow-left');
-    Simulate.click(arrowWrapper);
-    spyClickHandler.called.should.be.true();
+    const arrowWrapper = wrapper.find('.test--carousel-arrow-left');
+    arrowWrapper.simulate('click');
+    spyClickHandler.should.be.called();
   });
 });

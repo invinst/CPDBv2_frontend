@@ -1,23 +1,13 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 import { spy, stub } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import DocumentsTable from 'components/document-deduplicator-page/documents-table';
 import DocumentRow from 'components/document-deduplicator-page/document-row';
 import InfiniteScroll from 'react-infinite-scroller';
 
 
 describe('DocumentDeduplicatorPage DocumentsTable component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render InfiniteScroll and DocumentRow components', function () {
     const rows = [
       {
@@ -31,11 +21,11 @@ describe('DocumentDeduplicatorPage DocumentsTable component', function () {
         show: true,
       },
     ];
-    instance = renderIntoDocument(
-      <DocumentsTable rows={ rows } />
+    const wrapper = shallow(
+      <DocumentsTable rows={ rows }/>,
     );
-    findRenderedComponentWithType(instance, InfiniteScroll).should.be.ok();
-    findRenderedComponentWithType(instance, DocumentRow).should.be.ok();
+    wrapper.find(InfiniteScroll).exists().should.be.true();
+    wrapper.find(DocumentRow).exists().should.be.true();
   });
 
   it('should load more on scroll to bottom', function () {
@@ -58,16 +48,16 @@ describe('DocumentDeduplicatorPage DocumentsTable component', function () {
     };
     const fetchDocumentsByCRID = stub().returns({ catch: stub() });
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <DocumentsTable
         rows={ rows }
         nextParams={ nextParams }
         hasMore={ true }
         fetchDocumentsByCRID={ fetchDocumentsByCRID }
-      />
+      />,
     );
-    findRenderedComponentWithType(instance, InfiniteScroll).props.loadMore();
-    fetchDocumentsByCRID.calledWith({ ...nextParams }).should.be.true();
+    wrapper.find(InfiniteScroll).prop('loadMore')();
+    fetchDocumentsByCRID.should.be.calledWith({ ...nextParams });
   });
 
   it('should pass correct props to DocumentRow component', function () {
@@ -85,12 +75,12 @@ describe('DocumentDeduplicatorPage DocumentsTable component', function () {
     ];
     const setDocumentShow = spy();
 
-    instance = renderIntoDocument(
-      <DocumentsTable rows={ rows } setDocumentShow={ setDocumentShow } />
+    const wrapper = shallow(
+      <DocumentsTable rows={ rows } setDocumentShow={ setDocumentShow }/>,
     );
 
-    let row = findRenderedComponentWithType(instance, DocumentRow);
-    row.props.should.containEql({
+    let row = wrapper.find(DocumentRow);
+    row.props().should.containEql({
       setDocumentShow: setDocumentShow,
       id: 1,
       title: 'ABC',

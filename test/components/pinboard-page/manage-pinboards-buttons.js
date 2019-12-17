@@ -1,17 +1,11 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass,
-  Simulate, findRenderedComponentWithType,
-} from 'react-addons-test-utils';
+import { mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { spy, stub } from 'sinon';
 import { Promise } from 'es6-promise';
 import { browserHistory, Router, Route, createMemoryHistory } from 'react-router';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import ManagePinboardsButtons from 'components/pinboard-page/manage-pinboards-buttons';
 
 
@@ -23,28 +17,26 @@ describe('ManagePinboardsButtons component', function () {
       },
     },
   });
-  let instance;
 
   beforeEach(function () {
     this.browserHistoryPush = stub(browserHistory, 'push');
   });
 
   afterEach(function () {
-    unmountComponentSuppressError(instance);
     this.browserHistoryPush.restore();
   });
 
   it('should render show pinboards list button', function () {
     const showPinboardsListSpy = spy();
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <ManagePinboardsButtons showPinboardsList={ showPinboardsListSpy } />
       </Provider>
     );
 
-    const showPinboardsListButton = findRenderedDOMComponentWithClass(instance, 'pinboards-list-btn');
-    Simulate.click(showPinboardsListButton);
+    const showPinboardsListButton = wrapper.find('.pinboards-list-btn');
+    showPinboardsListButton.simulate('click');
 
     showPinboardsListSpy.should.be.called();
   });
@@ -56,23 +48,20 @@ describe('ManagePinboardsButtons component', function () {
       </Provider>
     );
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Router history={ createMemoryHistory() }>
         <Route path='/' component={ managePinboardsButtons } />
       </Router>
     );
 
-    const managePinboardsButtonsComponent = findRenderedComponentWithType(instance, ManagePinboardsButtons);
-    scryRenderedDOMComponentsWithClass(instance, 'new-pinboard-menu').should.have.length(0);
-    const newPinboardButton = findRenderedDOMComponentWithClass(instance, 'new-pinboard-menu-btn');
-    Simulate.click(newPinboardButton);
+    wrapper.find('.new-pinboard-menu').exists().should.be.false();
+    const newPinboardButton = wrapper.find('.new-pinboard-menu-btn');
 
-    managePinboardsButtonsComponent.state.showNewPinboardMenu.should.be.true();
-    findRenderedDOMComponentWithClass(instance, 'new-pinboard-menu');
-    Simulate.click(newPinboardButton);
+    newPinboardButton.simulate('click');
+    wrapper.find('.new-pinboard-menu').exists().should.be.true();
 
-    managePinboardsButtonsComponent.state.showNewPinboardMenu.should.be.false();
-    scryRenderedDOMComponentsWithClass(instance, 'new-pinboard-menu').should.have.length(0);
+    newPinboardButton.simulate('click');
+    wrapper.find('.new-pinboard-menu').exists().should.be.false();
   });
 
   it('should render new-pinboard-link', function (done) {
@@ -89,16 +78,16 @@ describe('ManagePinboardsButtons component', function () {
       </Provider>
     );
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Router history={ createMemoryHistory() }>
         <Route path='/' component={ managePinboardsButtons } />
       </Router>
     );
 
-    const newPinboardButton = findRenderedDOMComponentWithClass(instance, 'new-pinboard-menu-btn');
-    Simulate.click(newPinboardButton);
-    const newPinboardLink = findRenderedDOMComponentWithClass(instance, 'new-pinboard-link');
-    Simulate.click(newPinboardLink);
+    const newPinboardButton = wrapper.find('.new-pinboard-menu-btn');
+    newPinboardButton.simulate('click');
+    const newPinboardLink = wrapper.find('.new-pinboard-link');
+    newPinboardLink.simulate('click');
     createNewEmptyPinboardStub.should.be.called();
 
     setTimeout(() => {
@@ -121,16 +110,16 @@ describe('ManagePinboardsButtons component', function () {
       </Provider>
     );
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Router history={ createMemoryHistory() }>
         <Route path='/' component={ managePinboardsButtons } />
       </Router>
     );
 
-    const newPinboardButton = findRenderedDOMComponentWithClass(instance, 'new-pinboard-menu-btn');
-    Simulate.click(newPinboardButton);
-    const newPinboardLink = findRenderedDOMComponentWithClass(instance, 'duplicate-current-pinboard-link');
-    Simulate.click(newPinboardLink);
+    const newPinboardButton = wrapper.find('.new-pinboard-menu-btn');
+    newPinboardButton.simulate('click');
+    const newPinboardLink = wrapper.find('.duplicate-current-pinboard-link');
+    newPinboardLink.simulate('click');
     duplicatePinboardStub.should.be.calledWith('66ef1560');
     setTimeout(() => {
       this.browserHistoryPush.should.be.calledWith('/pinboard/5cd06f2b/pinboard-title/');

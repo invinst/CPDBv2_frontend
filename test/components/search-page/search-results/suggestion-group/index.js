@@ -1,13 +1,9 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 import { stub, spy } from 'sinon';
 import InfiniteScroll from 'react-infinite-scroller';
-import {
-  renderIntoDocument, scryRenderedComponentsWithType, findRenderedComponentWithType,
-} from 'react-addons-test-utils';
-import { findDOMNode } from 'react-dom';
 
 import SuggestionGroup from 'components/search-page/search-results/suggestion-group';
-import { unmountComponentSuppressError, reRender } from 'utils/test';
 import { OfficerSuggestion } from 'utils/test/factories/suggestion';
 import SuggestionItem from 'components/search-page/search-results/suggestion-group/suggestion-item';
 import LoadMoreButton from 'components/search-page/search-results/suggestion-group/load-more-button';
@@ -15,46 +11,40 @@ import { MORE_BUTTON } from 'utils/constants';
 
 
 describe('SuggestionGroup component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render SuggestionItem', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <SuggestionGroup suggestions={ OfficerSuggestion.buildList(3) }/>
     );
-    scryRenderedComponentsWithType(instance, SuggestionItem).should.have.length(3);
+    wrapper.find(SuggestionItem).should.have.length(3);
   });
 
   it('should assign correct selectItem', function () {
     const setSearchNavigationHandler = spy();
     let itemIndex = 1;
     const suggestions = OfficerSuggestion.buildList(2).map((item) => ({ ...item, itemIndex: itemIndex++ }));
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <SuggestionGroup
         setSearchNavigation={ setSearchNavigationHandler }
         suggestions={ suggestions }/>
     );
-    const items = scryRenderedComponentsWithType(instance, SuggestionItem);
+    const items = wrapper.find(SuggestionItem);
     items.should.have.length(2);
-    items[0].props.selectItem();
+    items.at(0).prop('selectItem')();
     setSearchNavigationHandler.withArgs({ itemIndex: 1 }).calledOnce.should.be.true();
-    items[1].props.selectItem();
+    items.at(1).prop('selectItem')();
     setSearchNavigationHandler.withArgs({ itemIndex: 2 }).calledOnce.should.be.true();
   });
 
   describe('render more button', function () {
     it('should render `More` if showMoreButton is true', function () {
-      instance = renderIntoDocument(
+      const wrapper = shallow(
         <SuggestionGroup showMoreButton={ true }/>
       );
-      findDOMNode(instance).textContent.should.containEql('More');
+      wrapper.find(LoadMoreButton).exists().should.be.true();
     });
 
     it('should focus on showMoreButton when uniqueKeys are matched', function () {
-      instance = renderIntoDocument(
+      const wrapper = shallow(
         <SuggestionGroup
           header='OFFICER'
           showMoreButton={ true }
@@ -63,24 +53,24 @@ describe('SuggestionGroup component', function () {
           } }
         />
       );
-      const loadMoreButton = findRenderedComponentWithType(instance, LoadMoreButton);
-      loadMoreButton.props.isFocused.should.be.true();
+      const loadMoreButton = wrapper.find(LoadMoreButton);
+      loadMoreButton.prop('isFocused').should.be.true();
     });
 
     it('should render `More` if showMoreButton is false', function () {
-      instance = renderIntoDocument(
+      const wrapper = shallow(
         <SuggestionGroup showMoreButton={ false }/>
       );
 
-      scryRenderedComponentsWithType(instance, LoadMoreButton).should.have.length(0);
+      wrapper.find(LoadMoreButton).exists().should.be.false();
     });
 
     it('should render `More` if singleContent is true', function () {
-      instance = renderIntoDocument(
+      const wrapper = shallow(
         <SuggestionGroup showMoreButton={ true } singleContent={ true }/>
       );
 
-      scryRenderedComponentsWithType(instance, LoadMoreButton).should.have.length(0);
+      wrapper.find(LoadMoreButton).exists().should.be.false();
     });
   });
 
@@ -92,16 +82,16 @@ describe('SuggestionGroup component', function () {
     };
     const getSuggestionWithContentType = stub().returns({ catch: stub() });
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <SuggestionGroup
         getSuggestionWithContentType={ getSuggestionWithContentType }
         searchText={ searchText } nextParams={ nextParams } hasMore={ true }/>
     );
-    const infiniteScroll = findRenderedComponentWithType(instance, InfiniteScroll);
-    infiniteScroll.props.useWindow.should.be.true();
-    infiniteScroll.props.initialLoad.should.be.true();
-    infiniteScroll.props.loadMore();
-    getSuggestionWithContentType.calledWith(searchText, nextParams).should.be.true();
+    const infiniteScroll = wrapper.find(InfiniteScroll);
+    infiniteScroll.prop('useWindow').should.be.true();
+    infiniteScroll.prop('initialLoad').should.be.true();
+    infiniteScroll.prop('loadMore')();
+    getSuggestionWithContentType.should.be.calledWith(searchText, nextParams);
   });
 
   it('should call single content type api when single content is detected', function () {
@@ -110,7 +100,7 @@ describe('SuggestionGroup component', function () {
     const catchSpy = stub();
     const getSuggestionWithContentType = stub().returns({ catch: catchSpy });
 
-    instance = renderIntoDocument(
+    mount(
       <SuggestionGroup
         singleContent={ true }
         getSuggestionWithContentType={ getSuggestionWithContentType }
@@ -118,8 +108,8 @@ describe('SuggestionGroup component', function () {
         searchText={ searchText }/>
     );
 
-    getSuggestionWithContentType.calledWith(searchText, { contentType: header }).should.be.true();
-    catchSpy.called.should.be.true();
+    getSuggestionWithContentType.should.be.calledWith(searchText, { contentType: header });
+    catchSpy.should.be.called();
   });
 
   describe('componentDidUpdate', function () {
@@ -137,7 +127,7 @@ describe('SuggestionGroup component', function () {
       const catchSpy = stub();
       const getSuggestionWithContentType = stub().returns({ catch: catchSpy });
 
-      instance = renderIntoDocument(
+      const wrapper = mount(
         <SuggestionGroup
           singleContent={ false }
           getSuggestionWithContentType={ getSuggestionWithContentType }
@@ -146,37 +136,31 @@ describe('SuggestionGroup component', function () {
         />
       );
 
-      instance = reRender(
-        <SuggestionGroup
-          singleContent={ true }
-          getSuggestionWithContentType={ getSuggestionWithContentType }
-          header={ header }
-          searchText={ searchText }
-        />,
-        instance,
-      );
+      wrapper.setProps({
+        singleContent: true,
+        getSuggestionWithContentType: getSuggestionWithContentType,
+        header: header,
+        searchText: searchText,
+      });
 
-      getSuggestionWithContentType.calledWith(searchText, { contentType: header }).should.be.true();
-      catchSpy.called.should.be.true();
+      getSuggestionWithContentType.should.be.calledWith(searchText, { contentType: header });
+      catchSpy.should.be.called();
     });
 
     it('should not call single content type api when single content is changed to false', function () {
       const getSuggestionWithContentType = spy();
 
-      instance = renderIntoDocument(
+      const wrapper = shallow(
         <SuggestionGroup
           singleContent={ true }
           getSuggestionWithContentType={ getSuggestionWithContentType }
         />
       );
 
-      instance = reRender(
-        <SuggestionGroup
-          singleContent={ false }
-          getSuggestionWithContentType={ getSuggestionWithContentType }
-        />,
-        instance,
-      );
+      wrapper.setProps({
+        singleContent: false,
+        getSuggestionWithContentType: getSuggestionWithContentType,
+      });
 
       getSuggestionWithContentType.should.not.be.called();
     });
@@ -184,20 +168,17 @@ describe('SuggestionGroup component', function () {
     it('should not call single content type api when single content is not changed', function () {
       const getSuggestionWithContentType = spy();
 
-      instance = renderIntoDocument(
+      const wrapper = shallow(
         <SuggestionGroup
           singleContent={ true }
           getSuggestionWithContentType={ getSuggestionWithContentType }
         />
       );
 
-      instance = reRender(
-        <SuggestionGroup
-          singleContent={ true }
-          getSuggestionWithContentType={ getSuggestionWithContentType }
-        />,
-        instance,
-      );
+      wrapper.setProps({
+        singleContent: true,
+        getSuggestionWithContentType: getSuggestionWithContentType,
+      });
 
       getSuggestionWithContentType.should.not.be.called();
     });

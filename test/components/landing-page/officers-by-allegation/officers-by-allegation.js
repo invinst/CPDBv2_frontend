@@ -1,20 +1,11 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
-import { unmountComponentSuppressError } from 'utils/test';
-import { findDOMNode } from 'react-dom';
-import { stub } from 'sinon';
+import { mount } from 'enzyme';
 
 import OfficerCard from 'components/common/officer-card';
 import OfficersByAllegation from 'components/landing-page/officers-by-allegation';
 
 
 describe('Officers By Allegation components', function () {
-  let instance;
-  let consoleStub;
   const data = [{
     'id': 1,
     'visualTokenBackgroundColor': '#c6d4ec',
@@ -36,34 +27,25 @@ describe('Officers By Allegation components', function () {
     'gender': 'Male',
   }];
 
-  beforeEach(function () {
-    consoleStub = stub(console, 'error'); // suppress console.error `Carousel`
-  });
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-    consoleStub.restore();
-  });
-
   it('should render appropriately', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <OfficersByAllegation cards={ data } />
     );
 
-    findRenderedDOMComponentWithClass(instance, 'test--landing-carousel-allegation');
+    wrapper.find('.test--landing-carousel-allegation').exists().should.be.true();
 
-    const officerCards = scryRenderedComponentsWithType(instance, OfficerCard);
+    const officerCards = wrapper.find(OfficerCard);
     officerCards.should.have.length(2);
-    const officerCard1 = findDOMNode(officerCards[0]);
-    officerCard1.textContent.should.containEql('Manuel Guzman');
-    officerCard1.textContent.should.containEql('More than 99.5% of other officers');
-    officerCard1.textContent.should.containEql('56 Allegations');
-    officerCard1.textContent.should.containEql('30 Sustained');
+    const officerCard1 = officerCards.at(0);
+    officerCard1.text().should.containEql('Manuel Guzman');
+    officerCard1.text().should.containEql('More than 99.5% of other officers');
+    officerCard1.text().should.containEql('56 Allegations');
+    officerCard1.text().should.containEql('30 Sustained');
 
-    const officerCard2 = findDOMNode(officerCards[1]);
-    officerCard2.textContent.should.containEql('Jerome Finnagan');
-    officerCard2.textContent.should.containEql('55 Allegations');
-    officerCard2.textContent.should.containEql('22 Sustained');
-    officerCard2.textContent.should.containEql('More than 99.1% of other officers');
+    const officerCard2 = officerCards.at(1);
+    officerCard2.text().should.containEql('Jerome Finnagan');
+    officerCard2.text().should.containEql('55 Allegations');
+    officerCard2.text().should.containEql('22 Sustained');
+    officerCard2.text().should.containEql('More than 99.1% of other officers');
   });
 });

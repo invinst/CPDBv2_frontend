@@ -1,13 +1,8 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 import { Link } from 'react-router';
-import {
-  renderIntoDocument,
-  scryRenderedComponentsWithType,
-  findRenderedComponentWithType,
-} from 'react-addons-test-utils';
 import MediaQuery from 'react-responsive';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import Logo from 'components/headers/slim-header/slim-header-content/logo';
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
 import LinkTextEditable from 'components/inline-editable/editable-section/link-text-editable';
@@ -16,67 +11,64 @@ import styles from 'components/headers/slim-header/slim-header-content/logo.sass
 
 
 describe('Logo component', function () {
-  let instance;
-
+  let wrapper;
   beforeEach(function () {
-    instance = renderIntoDocument(
+    wrapper = shallow(
       <Logo position='top'/>
     );
   });
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should have correct class name', function () {
-    const hoverableEditWrapper = findRenderedComponentWithType(instance, HoverableEditWrapper);
-    hoverableEditWrapper.props.className.should.equal(`${styles.logo} top`);
+    const hoverableEditWrapper = wrapper.find(HoverableEditWrapper);
+    hoverableEditWrapper.prop('className').should.equal(`${styles.logo} top`);
   });
-
 
   it('should render LinkTextEditable when screen width greater than 830', function () {
-    const mediaQuery = scryRenderedComponentsWithType(instance, MediaQuery)[0];
+    const hoverableEditWrapper = wrapper.find(HoverableEditWrapper).dive();
+    const mediaQuery = hoverableEditWrapper.find(MediaQuery).at(0).dive();
     mediaQuery.setState({
       matches: true,
     });
 
-    const linkTextEditable = findRenderedComponentWithType(instance, LinkTextEditable);
-    linkTextEditable.props.className.should.equal('header-logo-title');
-    linkTextEditable.props.placeholder.should.equal('Title');
-    linkTextEditable.props.to.should.equal('/');
-    linkTextEditable.props.fieldname.should.equal('navbar_title');
+    const linkTextEditable = mediaQuery.find(LinkTextEditable);
+    linkTextEditable.prop('className').should.equal('header-logo-title');
+    linkTextEditable.prop('placeholder').should.equal('Title');
+    linkTextEditable.prop('to').should.equal('/');
+    linkTextEditable.prop('fieldname').should.equal('navbar_title');
   });
 
   it('should render Link when screen width smaller than 830', function () {
-    const mediaQuery = scryRenderedComponentsWithType(instance, MediaQuery)[0];
+    const hoverableEditWrapper = wrapper.find(HoverableEditWrapper).dive();
+    const mediaQuery = hoverableEditWrapper.find(MediaQuery).at(0).dive();
     mediaQuery.setState({
       matches: false,
     });
-
-    const link = findRenderedComponentWithType(instance, Link);
-    link.props.className.should.equal('header-logo-title');
-    link.props.to.should.equal('/');
-    link.props.children.should.equal('CPDP');
+    const link = mediaQuery.find(Link);
+    link.prop('className').should.equal('header-logo-title');
+    link.prop('to').should.equal('/');
+    link.prop('children').should.equal('CPDP');
   });
 
   it('should render navbar subtitle when screen width greater than 950', function () {
-    const mediaQuery = scryRenderedComponentsWithType(instance, MediaQuery)[1];
+    const hoverableEditWrapper = wrapper.find(HoverableEditWrapper).dive();
+    const mediaQuery = hoverableEditWrapper.find(MediaQuery).at(1).dive();
     mediaQuery.setState({
       matches: true,
     });
 
-    const richTextEditable = findRenderedComponentWithType(instance, RichTextEditable);
-    richTextEditable.props.className.should.equal('header-logo-subtitle');
-    richTextEditable.props.placeholder.should.equal('Subtitle');
-    richTextEditable.props.fieldname.should.equal('navbar_subtitle');
+    const richTextEditable = mediaQuery.find(RichTextEditable);
+    richTextEditable.prop('className').should.equal('header-logo-subtitle');
+    richTextEditable.prop('placeholder').should.equal('Subtitle');
+    richTextEditable.prop('fieldname').should.equal('navbar_subtitle');
   });
 
   it('should not render navbar subtitle when screen width smaller than 950', function () {
-    const mediaQuery = scryRenderedComponentsWithType(instance, MediaQuery)[1];
+    const hoverableEditWrapper = wrapper.find(HoverableEditWrapper).dive();
+    const mediaQuery = hoverableEditWrapper.find(MediaQuery).at(1).dive();
     mediaQuery.setState({
       matches: false,
     });
 
-    scryRenderedComponentsWithType(instance, RichTextEditable).should.have.length(0);
+    mediaQuery.find(RichTextEditable).exists().should.be.false();
   });
 });

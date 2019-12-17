@@ -1,23 +1,12 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  scryRenderedComponentsWithType,
-  findRenderedComponentWithType,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import TRRDetail from 'components/trr-page/trr-info-section/trr-detail';
 import Row from 'components/trr-page/trr-info-section/trr-detail/row';
 import Demographics from 'components/common/demographics';
 
 
 describe('TRRDetail component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render 3 Rows with correct order', function () {
     const trrDetail = {
       subjectDemographic: 'Black, Male, 21 years old',
@@ -25,25 +14,27 @@ describe('TRRDetail component', function () {
       forceTypes: ['Stiffened (Dead Weight)', 'Did Not Follow Verbal Direction', 'Imminent Threat Of Battery'],
     };
 
-    instance = renderIntoDocument(<TRRDetail{ ...trrDetail }/>);
+    const wrapper = shallow(
+      <TRRDetail{ ...trrDetail }/>
+    );
 
-    const rows = scryRenderedComponentsWithType(instance, Row);
-    const subjectRow = rows[0];
-    const categoryRow = rows[1];
-    const forceTypeRow = rows[2];
+    const rows = wrapper.find(Row);
+    const subjectRow = rows.at(0);
+    const categoryRow = rows.at(1);
+    const forceTypeRow = rows.at(2);
 
-    subjectRow.props.title.should.eql('subject');
-    subjectRow.props.borderValue.should.be.true();
-    subjectRow.props.twoRowsWhenPrint.should.be.true();
-    findRenderedComponentWithType(subjectRow, Demographics).props.persons.should.eql(['Black, Male, 21 years old']);
+    subjectRow.prop('title').should.equal('subject');
+    subjectRow.prop('borderValue').should.be.true();
+    subjectRow.prop('twoRowsWhenPrint').should.be.true();
+    subjectRow.find(Demographics).prop('persons').should.eql(['Black, Male, 21 years old']);
 
-    categoryRow.props.title.should.eql('force category');
-    categoryRow.props.borderValue.should.be.false();
-    categoryRow.props.children.should.eql('Other');
+    categoryRow.prop('title').should.equal('force category');
+    categoryRow.prop('borderValue').should.be.false();
+    categoryRow.prop('children').should.equal('Other');
 
-    forceTypeRow.props.title.should.eql('types of force');
-    forceTypeRow.props.borderValue.should.be.false();
-    forceTypeRow.props.children.should.eql(
+    forceTypeRow.prop('title').should.equal('types of force');
+    forceTypeRow.prop('borderValue').should.be.false();
+    forceTypeRow.prop('children').should.eql(
       'Stiffened (Dead Weight) ← Did Not Follow Verbal Direction ← Imminent Threat Of Battery'
     );
   });
@@ -54,11 +45,13 @@ describe('TRRDetail component', function () {
       category: 'Other',
     };
 
-    instance = renderIntoDocument(<TRRDetail{ ...trrDetail }/>);
-    const rows = scryRenderedComponentsWithType(instance, Row);
-    const forceTypeRow = rows[2];
+    const wrapper = shallow(
+      <TRRDetail{ ...trrDetail }/>
+    );
+    const rows = wrapper.find(Row);
+    const forceTypeRow = rows.at(2);
 
-    forceTypeRow.props.children.should.eql('');
+    forceTypeRow.prop('children').should.equal('');
   });
 
   it('should handle if the subjectDemographic is undefined', function () {
@@ -66,11 +59,13 @@ describe('TRRDetail component', function () {
       category: 'Other',
       forceTypes: ['Stiffened (Dead Weight)'],
     };
-    instance = renderIntoDocument(<TRRDetail{ ...trrDetail }/>);
-    const rows = scryRenderedComponentsWithType(instance, Row);
-    const subjectRow = rows[0];
+    const wrapper = shallow(
+      <TRRDetail{ ...trrDetail }/>
+    );
+    const rows = wrapper.find(Row);
+    const subjectRow = rows.at(0);
 
-    subjectRow.props.borderValue.should.be.false();
-    scryRenderedComponentsWithType(subjectRow, Demographics).should.have.length(0);
+    subjectRow.prop('borderValue').should.be.false();
+    subjectRow.find(Demographics).exists().should.be.false();
   });
 });

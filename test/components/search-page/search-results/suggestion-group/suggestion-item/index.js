@@ -1,7 +1,6 @@
 import React from 'react';
-import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import SuggestionItem, { OfficerItem, CRItem, TRRItem, UnpinnableItem }
   from 'components/search-page/search-results/suggestion-group/suggestion-item';
 import {
@@ -12,70 +11,65 @@ import {
 
 
 describe('SuggestionItem component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   describe('shouldComponentUpdate', function () {
     it('should return true if props are changed', function () {
-      instance = renderIntoDocument(<SuggestionItem suggestion={ { type: 'type', attr: 'value' } }/>);
+      const wrapper = shallow(<SuggestionItem suggestion={ { type: 'type', attr: 'value' } }/>);
+      const instance = wrapper.instance();
       instance.shouldComponentUpdate({ isFocused: true }).should.be.true();
       instance.shouldComponentUpdate({ aliasEditModeOn: true }).should.be.true();
       instance.shouldComponentUpdate({ suggestion: { type: 'type', attr: 'new value' } }).should.be.true();
     });
 
     it('should return false if props are unchanged', function () {
-      instance = renderIntoDocument(<SuggestionItem suggestion={ { type: 'type' } }/>);
-      instance.shouldComponentUpdate({ suggestion: { type: 'type' } }).should.be.false();
+      const wrapper = shallow(<SuggestionItem suggestion={ { type: 'type' } }/>);
+      wrapper.instance().shouldComponentUpdate({ suggestion: { type: 'type' } }).should.be.false();
     });
   });
 
   describe('render', function () {
     it('should render OfficerItem if type is OFFICER', function () {
-      instance = renderIntoDocument(<SuggestionItem suggestion={ OfficerSuggestion.build() }/>);
-      findRenderedComponentWithType(instance, OfficerItem).should.be.ok();
+      const wrapper = shallow(<SuggestionItem suggestion={ OfficerSuggestion.build() }/>);
+      wrapper.find(OfficerItem).exists().should.be.true();
     });
 
     it('should render OfficerItem if type is DATE > OFFICERS', function () {
-      instance = renderIntoDocument(<SuggestionItem suggestion={ DateOfficersSuggestion.build() }/>);
-      findRenderedComponentWithType(instance, OfficerItem).should.be.ok();
+      const wrapper = shallow(<SuggestionItem suggestion={ DateOfficersSuggestion.build() }/>);
+      wrapper.find(OfficerItem).exists().should.be.true();
     });
 
     it('should render OfficerItem if type is UNIT > OFFICERS', function () {
-      instance = renderIntoDocument(<SuggestionItem suggestion={ UnitOfficersSuggestion.build() }/>);
-      findRenderedComponentWithType(instance, OfficerItem).should.be.ok();
+      const wrapper = shallow(<SuggestionItem suggestion={ UnitOfficersSuggestion.build() }/>);
+      wrapper.find(OfficerItem).exists().should.be.true();
     });
 
     it('should render CRItem if type is CR', function () {
-      instance = renderIntoDocument(<SuggestionItem suggestion={ CRSuggestion.build() }/>);
-      findRenderedComponentWithType(instance, CRItem).should.be.ok();
+      const wrapper = shallow(<SuggestionItem suggestion={ CRSuggestion.build() }/>);
+      wrapper.find(CRItem).exists().should.be.true();
     });
 
     it('should render CRItem if type is DATE > CR', function () {
-      instance = renderIntoDocument(<SuggestionItem suggestion={ DateCRSuggestion.build() }/>);
-      findRenderedComponentWithType(instance, CRItem).should.be.ok();
+      const wrapper = shallow(<SuggestionItem suggestion={ DateCRSuggestion.build() }/>);
+      wrapper.find(CRItem).exists().should.be.true();
     });
 
     it('should render CRItem if type is INVESTIGATOR > CR', function () {
-      instance = renderIntoDocument(<SuggestionItem suggestion={ InvestigatorCRSuggestion.build() }/>);
-      findRenderedComponentWithType(instance, CRItem).should.be.ok();
+      const wrapper = shallow(<SuggestionItem suggestion={ InvestigatorCRSuggestion.build() }/>);
+      wrapper.find(CRItem).exists().should.be.true();
     });
 
     it('should render TRRItem if type is TRR', function () {
-      instance = renderIntoDocument(<SuggestionItem suggestion={ TRRSuggestion.build() }/>);
-      findRenderedComponentWithType(instance, TRRItem).should.be.ok();
+      const wrapper = shallow(<SuggestionItem suggestion={ TRRSuggestion.build() }/>);
+      wrapper.find(TRRItem).exists().should.be.true();
     });
 
     it('should render TRRItem if type is DATE > TRR', function () {
-      instance = renderIntoDocument(<SuggestionItem suggestion={ DateTRRSuggestion.build() }/>);
-      findRenderedComponentWithType(instance, TRRItem).should.be.ok();
+      const wrapper = shallow(<SuggestionItem suggestion={ DateTRRSuggestion.build() }/>);
+      wrapper.find(TRRItem).exists().should.be.true();
     });
 
     it('should render SuggestionItemBase otherwise', function () {
-      instance = renderIntoDocument(<SuggestionItem suggestion={ { type: 'type' } }/>);
-      findRenderedComponentWithType(instance, UnpinnableItem).should.be.ok();
+      const wrapper = shallow(<SuggestionItem suggestion={ { type: 'type' } }/>);
+      wrapper.find(UnpinnableItem).exists().should.be.true();
     });
   });
 });

@@ -1,61 +1,44 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  findRenderedDOMComponentWithTag,
-  Simulate,
-} from 'react-addons-test-utils';
+import { shallow, mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { spy } from 'sinon';
 import { browserHistory } from 'react-router';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import DocumentsTable from 'components/documents-overview-page/documents-table';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
-import LinkHeaderButton from 'components/headers/shareable-header/link-header-button';
 import DocumentsOverviewPage from 'components/documents-overview-page';
 import SearchBar from 'components/documents-overview-page/search-bar';
 import * as constants from 'utils/constants';
 
 
 describe('DocumentsOverviewPage component', function () {
-  let instance;
   const store = MockStore()({
     breadcrumb: {
       breadcrumbs: [],
     },
   });
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render ShareableHeaderContainer component with correct props', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <DocumentsOverviewPage />
-      </Provider>
+    const wrapper = shallow(
+      <DocumentsOverviewPage />
     );
 
-    let shareableHeaderContainer = findRenderedComponentWithType(instance, ShareableHeaderContainer);
+    const shareableHeaderContainer = wrapper.find(ShareableHeaderContainer);
 
-    shareableHeaderContainer.props.should.containEql({
+    shareableHeaderContainer.props().should.containEql({
       buttonType: constants.SHAREABLE_HEADER_BUTTON_TYPE.LINK,
       buttonText: 'Crawlers',
       to: '/crawlers/',
     });
-    findRenderedComponentWithType(instance, LinkHeaderButton).should.be.ok();
   });
 
   it('should render SearchBar component', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <DocumentsOverviewPage />
-      </Provider>
+    const wrapper = shallow(
+      <DocumentsOverviewPage />
     );
 
-    findRenderedComponentWithType(instance, SearchBar).should.be.ok();
+    wrapper.find(SearchBar).exists().should.be.true();
   });
 
   it('should render DocumentsTable component and pass correct props to it', function () {
@@ -73,7 +56,7 @@ describe('DocumentsOverviewPage component', function () {
     const fetchDocuments = spy();
     const fetchDocumentsAuthenticated = spy();
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <DocumentsOverviewPage
           documents={ documents }
@@ -82,8 +65,8 @@ describe('DocumentsOverviewPage component', function () {
       </Provider>
     );
 
-    let documentsTable = findRenderedComponentWithType(instance, DocumentsTable);
-    documentsTable.props.should.containEql({
+    let documentsTable = wrapper.find(DocumentsTable);
+    documentsTable.props().should.containEql({
       rows: documents,
       fetchDocuments: fetchDocuments,
       fetchDocumentsAuthenticated: fetchDocumentsAuthenticated,
@@ -92,60 +75,54 @@ describe('DocumentsOverviewPage component', function () {
 
   it('should change url if search text is changed', function () {
     spy(browserHistory, 'push');
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <DocumentsOverviewPage location={ { pathname: '/documents/' } }/>
       </Provider>
     );
 
-    const inputElement = findRenderedDOMComponentWithTag(instance, 'input');
-    inputElement.value = 'term';
-    Simulate.change(inputElement);
+    const inputElement = wrapper.find('input');
+    inputElement.simulate('change', { target: { value: 'term' } } );
 
-    const documentsOverviewPage = findRenderedComponentWithType(instance, DocumentsOverviewPage);
-    documentsOverviewPage.state.searchText.should.eql('term');
-
-    browserHistory.push.calledWith('/documents/?match=term').should.be.true();
+    browserHistory.push.should.be.calledWith('/documents/?match=term');
     browserHistory.push.restore();
   });
 
   it('should not change url if search text hasnt changed', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <DocumentsOverviewPage location={ { pathname: '/documents/' } }/>
       </Provider>
     );
-    const documentsOverviewPage = findRenderedComponentWithType(instance, DocumentsOverviewPage);
-    documentsOverviewPage.setState({ searchText: 'abc' });
     spy(browserHistory, 'push');
 
-    const inputElement = findRenderedDOMComponentWithTag(instance, 'input');
-    inputElement.value = 'abc';
-    Simulate.change(inputElement);
+    const inputElement = wrapper.find('input');
+    inputElement.simulate('change', { target: { value: 'abc' } } );
+    browserHistory.push.should.be.calledOnce();
+    browserHistory.push.resetHistory();
 
-    documentsOverviewPage.state.searchText.should.eql('abc');
+    inputElement.simulate('change', { target: { value: 'abc' } } );
 
-    browserHistory.push.called.should.be.false();
+    browserHistory.push.should.be.not.called();
     browserHistory.push.restore();
   });
 
   it('should not include match param in url when search text is empty', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <DocumentsOverviewPage location={ { pathname: '/documents/' } }/>
       </Provider>
     );
-    const documentsOverviewPage = findRenderedComponentWithType(instance, DocumentsOverviewPage);
-    documentsOverviewPage.setState({ searchText: 'abc' });
     spy(browserHistory, 'push');
 
-    const inputElement = findRenderedDOMComponentWithTag(instance, 'input');
-    inputElement.value = '';
-    Simulate.change(inputElement);
+    const inputElement = wrapper.find('input');
+    inputElement.simulate('change', { target: { value: 'abc' } } );
+    browserHistory.push.should.be.calledOnce();
+    browserHistory.push.resetHistory();
 
-    documentsOverviewPage.state.searchText.should.eql('');
+    inputElement.simulate('change', { target: { value: '' } } );
 
-    browserHistory.push.calledWith('/documents/').should.be.true();
+    browserHistory.push.should.be.calledWith('/documents/');
     browserHistory.push.restore();
   });
 });

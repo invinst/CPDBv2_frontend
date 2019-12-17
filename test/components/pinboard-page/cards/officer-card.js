@@ -1,14 +1,7 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass,
-  Simulate,
-} from 'react-addons-test-utils';
-import { findDOMNode } from 'react-dom';
+import { shallow, mount } from 'enzyme';
 import { spy } from 'sinon';
 
-import { unmountComponentSuppressError, reRender } from 'utils/test';
 import OfficerCard, { OfficerCardWithUndo } from 'components/pinboard-page/cards/officer-card';
 import ItemUnpinButton from 'components/pinboard-page/cards/item-unpin-button';
 import StaticRadarChart from 'components/common/radar-chart';
@@ -16,26 +9,20 @@ import ShortPress from 'components/common/short-press';
 
 
 describe('OfficerCard component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render correctly', function () {
     const item = {
       rank: 'Officer as Detective',
       fullName: 'James David',
       complaintCount: '10',
     };
-    instance = renderIntoDocument(<OfficerCard item={ item } />);
+    const wrapper = shallow(<OfficerCard item={ item } />);
 
-    findRenderedComponentWithType(instance, ItemUnpinButton);
-    findRenderedComponentWithType(instance, StaticRadarChart);
+    wrapper.find(ItemUnpinButton).exists().should.be.true();
+    wrapper.find(StaticRadarChart).exists().should.be.true();
 
-    findRenderedDOMComponentWithClass(instance, 'officer-rank').textContent.should.eql('Officer as Detective');
-    findRenderedDOMComponentWithClass(instance, 'officer-name').textContent.should.eql('James David');
-    findRenderedDOMComponentWithClass(instance, 'officer-complaints-count').textContent.should.eql('10 complaints');
+    wrapper.find('.officer-rank').text().should.equal('Officer as Detective');
+    wrapper.find('.officer-name').text().should.equal('James David');
+    wrapper.find('.officer-complaints-count').text().should.equal('10 complaints');
   });
 
   it('should invoke removeItemInPinboardPage when clicking on ItemUnpinButton', function () {
@@ -49,15 +36,15 @@ describe('OfficerCard component', function () {
       fullName: 'James David',
       complaintCount: '10',
     };
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <OfficerCard
         item={ item }
         removeItemInPinboardPage={ removeItemInPinboardPage }
       />
     );
-    const unpinButton = findRenderedComponentWithType(instance, ItemUnpinButton);
+    const unpinButton = wrapper.find(ItemUnpinButton);
 
-    Simulate.click(findDOMNode(unpinButton));
+    unpinButton.simulate('click');
 
     removeItemInPinboardPage.should.be.calledOnce();
     removeItemInPinboardPage.should.be.calledWith({
@@ -76,13 +63,13 @@ describe('OfficerCard component', function () {
       complaintCount: '10',
     };
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <OfficerCard
         item={ item }
       />
     );
 
-    findRenderedComponentWithType(instance, ShortPress).should.be.ok();
+    wrapper.find(ShortPress).exists().should.be.true();
   });
 
   it('should handle on focus', function () {
@@ -96,20 +83,18 @@ describe('OfficerCard component', function () {
     };
     const focusItem = spy();
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <OfficerCard
         item={ item }
         focusItem={ focusItem }
       />
     );
 
-    const card = findRenderedDOMComponentWithClass(instance, 'officer-card-body');
-    const cardNode = findDOMNode(card);
+    const card = wrapper.find('.officer-card-body');
+    card.simulate('mouseDown', { screenX: 0, screenY: 0 });
+    card.simulate('mouseUp', { screenX: 0, screenY: 0 });
 
-    Simulate.mouseDown(cardNode, { screenX: 0, screenY: 0 });
-    Simulate.mouseUp(cardNode, { screenX: 0, screenY: 0 });
-
-    focusItem.calledWith({ type: 'OFFICER', 'id': 123 }).should.be.true();
+    focusItem.should.be.calledWith({ type: 'OFFICER', 'id': 123 });
   });
 
   it('should remove item if pin status changed', function () {
@@ -121,7 +106,7 @@ describe('OfficerCard component', function () {
       complaintCount: '10',
     };
     const removeItemInPinboardPage = spy();
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <OfficerCard
         item={ item }
         removeItemInPinboardPage={ removeItemInPinboardPage }
@@ -129,13 +114,10 @@ describe('OfficerCard component', function () {
     );
 
     item.isPinStatusChanging = true;
-    reRender(
-      <OfficerCard
-        item={ item }
-        removeItemInPinboardPage={ removeItemInPinboardPage }
-      />,
-      instance
-    );
+    wrapper.setProps({
+      item: item,
+      removeItemInPinboardPage: removeItemInPinboardPage,
+    });
 
     removeItemInPinboardPage.should.be.calledWith({
       id: 123,
@@ -145,12 +127,6 @@ describe('OfficerCard component', function () {
 });
 
 describe('OfficerCardWithUndo component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render remove text correctly', function () {
     const item = {
       type: 'OFFICER',
@@ -160,12 +136,12 @@ describe('OfficerCardWithUndo component', function () {
       fullName: 'James David',
       complaintCount: '10',
     };
-    instance = renderIntoDocument(<OfficerCardWithUndo item={ item } />);
-    const unpinButton = findRenderedComponentWithType(instance, ItemUnpinButton);
+    const wrapper = shallow(<OfficerCardWithUndo item={ item } />);
+    const unpinButton = wrapper.dive().find(ItemUnpinButton).dive();
 
-    Simulate.click(findDOMNode(unpinButton));
+    unpinButton.simulate('click');
 
-    findRenderedDOMComponentWithClass(instance, 'text').textContent.should.eql('James David removed.');
+    wrapper.find('.text').text().should.equal('James David removed.');
   });
 
   it('should call action right away when user click on unpin button', function () {
@@ -177,15 +153,15 @@ describe('OfficerCardWithUndo component', function () {
       complaintCount: '10',
     };
     const removeItemInPinboardPage = spy();
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <OfficerCardWithUndo
         item={ item }
         removeItemInPinboardPage={ removeItemInPinboardPage }
       />
     );
 
-    const unpinButton = findRenderedComponentWithType(instance, ItemUnpinButton);
-    Simulate.click(findDOMNode(unpinButton));
+    const unpinButton = wrapper.dive().find(ItemUnpinButton).dive();
+    unpinButton.simulate('click');
 
     removeItemInPinboardPage.should.be.calledWith({
       id: 123,

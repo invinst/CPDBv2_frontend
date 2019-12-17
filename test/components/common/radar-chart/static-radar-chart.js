@@ -1,8 +1,7 @@
 import React from 'react';
-import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
 import should from 'should';
+import { shallow, mount } from 'enzyme';
 
-import { unmountComponentSuppressError, renderWithContext } from 'utils/test';
 import StaticRadarChart from 'components/common/radar-chart';
 import RadarChart from 'components/common/radar-chart/radar-chart';
 import RadarArea from 'components/common/radar-chart/radar-area';
@@ -10,12 +9,6 @@ import RadarGrid from 'components/common/radar-chart/radar-grid';
 
 
 describe('StaticRadarChart component', function () {
-  let instance;
-
-  afterEach(() => {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should be able to render RadarChart', () => {
     const data = [
       {
@@ -39,10 +32,10 @@ describe('StaticRadarChart component', function () {
       someProps: 'someProps',
     };
 
-    instance = renderIntoDocument(<StaticRadarChart { ...props }/>);
+    const wrapper = shallow(<StaticRadarChart { ...props }/>);
 
-    const radarChart = findRenderedComponentWithType(instance, RadarChart);
-    radarChart.props.should.containEql(props);
+    const radarChart = wrapper.find(RadarChart);
+    radarChart.props().should.containEql(props);
   });
 
   it('should render no data radar chart if some data is missing', () => {
@@ -69,24 +62,24 @@ describe('StaticRadarChart component', function () {
       someProps: 'someProps',
     };
 
-    instance = renderIntoDocument(<StaticRadarChart { ...props }/>);
+    const wrapper = mount(<StaticRadarChart { ...props }/>);
 
-    const noDataRadarChart = findRenderedComponentWithType(instance, RadarChart);
+    const noDataRadarChart = wrapper.find(RadarChart);
     should(noDataRadarChart.props.data).be.undefined();
-    noDataRadarChart.props.numMetrics.should.equal(3);
-    noDataRadarChart.props.backgroundColor.should.equal('#ADADAD');
-    noDataRadarChart.props.showGrid.should.be.true();
-    noDataRadarChart.props.outerGridOnly.should.be.true();
-    noDataRadarChart.props.gridColor.should.equal('#8F8F8F');
-    noDataRadarChart.props.strokeWidth.should.equal(0.6);
-    noDataRadarChart.props.boundaryAreaColor.should.equal('#ADADAD');
-    noDataRadarChart.props.offsetTop.should.equal(2);
+    noDataRadarChart.prop('numMetrics').should.equal(3);
+    noDataRadarChart.prop('backgroundColor').should.equal('#ADADAD');
+    noDataRadarChart.prop('showGrid').should.be.true();
+    noDataRadarChart.prop('outerGridOnly').should.be.true();
+    noDataRadarChart.prop('gridColor').should.equal('#8F8F8F');
+    noDataRadarChart.prop('strokeWidth').should.equal(0.6);
+    noDataRadarChart.prop('boundaryAreaColor').should.equal('#ADADAD');
+    noDataRadarChart.prop('offsetTop').should.equal(2);
 
-    findRenderedComponentWithType(instance, RadarArea);
-    const radarGrid = findRenderedComponentWithType(instance, RadarGrid);
-    radarGrid.props.outerGridOnly.should.be.true();
-    radarGrid.props.strokeColor.should.equal('#8F8F8F');
-    radarGrid.props.strokeWidth.should.equal(0.6);
+    wrapper.find(RadarArea).exists().should.be.true();
+    const radarGrid = wrapper.find(RadarGrid);
+    radarGrid.prop('outerGridOnly').should.be.true();
+    radarGrid.prop('strokeColor').should.equal('#8F8F8F');
+    radarGrid.prop('strokeWidth').should.equal(0.6);
   });
 
   it('should render RadarChart with more props in print mode', function () {
@@ -112,14 +105,14 @@ describe('StaticRadarChart component', function () {
       radius: 123,
       someProps: 'someProps',
     };
-    instance = renderWithContext(context, <StaticRadarChart { ...props }/>);
-    const radarChart = findRenderedComponentWithType(instance, RadarChart);
-    radarChart.props.textColor.should.eql('#231F20');
-    radarChart.props.backgroundColor.should.eql('#F5F4F4');
-    radarChart.props.gridColor.should.eql('#231F20');
-    radarChart.props.boundaryAreaColor.should.eql('#F5F4F4');
-    radarChart.props.gridOpacity.should.eql(0.5);
-    radarChart.props.strokeWidth.should.eql(0);
-    radarChart.props.radarMainAreaOpacity.should.eql(0.4);
+    const wrapper = shallow(<StaticRadarChart { ...props }/>, { context: context });
+    const radarChart = wrapper.find(RadarChart);
+    radarChart.prop('textColor').should.equal('#231F20');
+    radarChart.prop('backgroundColor').should.equal('#F5F4F4');
+    radarChart.prop('gridColor').should.equal('#231F20');
+    radarChart.prop('boundaryAreaColor').should.equal('#F5F4F4');
+    radarChart.prop('gridOpacity').should.equal(0.5);
+    radarChart.prop('strokeWidth').should.equal(0);
+    radarChart.prop('radarMainAreaOpacity').should.equal(0.4);
   });
 });

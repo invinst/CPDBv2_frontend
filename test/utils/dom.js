@@ -1,10 +1,10 @@
+import React from 'react';
 import { browserHistory } from 'react-router';
 import { stub, spy } from 'sinon';
 
 import {
   innerHeight, disableBodyScroll, enableBodyScroll, getCurrentPathname,
-  changePageTitle, setMetaAttribute, changePageDescription, viewportHeight,
-  scrollToElement,
+  changePageTitle, viewportHeight, scrollToElement,
 } from 'utils/dom';
 
 describe('dom utils', function () {
@@ -73,42 +73,6 @@ describe('dom utils', function () {
       changePageTitle('abc');
       const el = document.getElementsByTagName('TITLE')[0];
       el.textContent.should.equal('abc');
-    });
-  });
-
-  describe('setMetaAttribute', function () {
-    const headEl = document.getElementsByTagName('HEAD')[0];
-
-    it('should change existing meta attribute', function () {
-      const el = document.createElement('META');
-      el.setAttribute('name', 'description');
-      el.setAttribute('content', 'edf');
-      headEl.appendChild(el);
-      setMetaAttribute('description', 'abc');
-      el.getAttribute('content').should.equal('abc');
-      headEl.removeChild(el);
-    });
-
-    it('should create new meta element if none exist', function () {
-      setMetaAttribute('keywords', 'abc,edf');
-      const el = document.evaluate(
-        '//meta[@name="keywords"]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null
-      ).singleNodeValue;
-      el.getAttribute('content').should.equal('abc,edf');
-      headEl.removeChild(el);
-    });
-  });
-
-  describe('changePageDescription', function () {
-    const headEl = document.getElementsByTagName('HEAD')[0];
-
-    it('should change page meta description', function () {
-      changePageDescription('lorem ipsum');
-      const el = document.evaluate(
-        '//meta[@name="description"]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null
-      ).singleNodeValue;
-      el.getAttribute('content').should.equal('lorem ipsum');
-      headEl.removeChild(el);
     });
   });
 

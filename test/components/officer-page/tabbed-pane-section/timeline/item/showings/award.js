@@ -1,21 +1,10 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import Award from 'components/officer-page/tabbed-pane-section/timeline/item/showings/award';
 
 
 describe('Award component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
-
   it('should render item correctly', function () {
     const awardItem = {
       date: 'Jan 01',
@@ -29,14 +18,14 @@ describe('Award component', function () {
       category: 'Honorable Mention',
     };
 
-    instance = renderIntoDocument(<Award item={ awardItem } hasBorderBottom={ true } />);
+    const wrapper = shallow(<Award item={ awardItem } hasBorderBottom={ true } />);
 
-    const kind = findRenderedDOMComponentWithClass(instance, 'award-item-kind');
-    const category = findRenderedDOMComponentWithClass(instance, 'award-item-category');
-    const date = findRenderedDOMComponentWithClass(instance, 'award-item-date');
+    const kind = wrapper.find('.award-item-kind');
+    const category = wrapper.find('.award-item-category');
+    const date = wrapper.find('.award-item-date');
 
-    kind.textContent.should.eql('Award');
-    category.textContent.should.eql('Honorable Mention');
-    date.textContent.should.eql('Jan 01');
+    kind.text().should.equal('Award');
+    category.text().should.equal('Honorable Mention');
+    date.text().should.equal('Jan 01');
   });
 });

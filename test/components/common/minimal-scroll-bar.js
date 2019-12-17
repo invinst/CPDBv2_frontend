@@ -1,55 +1,46 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass,
-  scryRenderedDOMComponentsWithTag,
-} from 'react-addons-test-utils';
+import { mount } from 'enzyme';
 import { stub } from 'sinon';
 
-import { unmountComponentSuppressError, reRender } from 'utils/test';
 import MinimalScrollBars from 'components/common/minimal-scroll-bars';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 
 describe('MinimalScrollBars component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render correctly', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <MinimalScrollBars style={ { container: 'abc' } } viewClassName='some-view-class-name'/>
     );
 
-    const scrollbars = findRenderedComponentWithType(instance, Scrollbars);
-    scrollbars.props.style.should.eql('abc');
-    findRenderedDOMComponentWithClass(instance, 'test--minimal-scrollbars-vertical-thumb');
-    const scrollView = scryRenderedDOMComponentsWithTag(instance, 'div')[1];
-    scrollView.getAttribute('class').should.eql('some-view-class-name');
+    const scrollbars = wrapper.find(Scrollbars);
+    scrollbars.prop('style').should.equal('abc');
+    wrapper.find('.test--minimal-scrollbars-vertical-thumb').exists().should.be.true();
+    const scrollView = wrapper.find('div').at(1);
+    scrollView.prop('className').should.equal('some-view-class-name');
   });
 
   it('should set scrollTop when receive new value', function () {
-    instance = renderIntoDocument(<MinimalScrollBars scrollTop={ 10 } />);
+    const wrapper = mount(<MinimalScrollBars scrollTop={ 10 } />);
+    const instance = wrapper.instance();
     stub(instance.scrollerRef, 'scrollTop');
-    reRender(<MinimalScrollBars scrollTop={ 20 } />, instance);
-    instance.scrollerRef.scrollTop.calledWith(20).should.be.true();
+
+    wrapper.setProps({ scrollTop: 20 });
+
+    instance.scrollerRef.scrollTop.should.be.calledWith(20);
   });
 
   it('should set scrollLeft when receive new value', function () {
-    instance = renderIntoDocument(<MinimalScrollBars scrollLeft={ 10 } />);
+    const wrapper = mount(<MinimalScrollBars scrollLeft={ 10 } />);
+    const instance = wrapper.instance();
     stub(instance.scrollerRef, 'scrollLeft');
-    reRender(<MinimalScrollBars scrollLeft={ 20 } />, instance);
-    instance.scrollerRef.scrollLeft.calledWith(20).should.be.true();
+
+    wrapper.setProps({ scrollLeft: 20 });
+
+    instance.scrollerRef.scrollLeft.should.be.calledWith(20);
   });
 
   it('should not render vertical thumb when showThumb is false', function () {
-    instance = renderIntoDocument(<MinimalScrollBars showThumb={ false } />);
-    scryRenderedDOMComponentsWithClass(
-      instance, 'test--minimal-scrollbars-vertical-thumb'
-    ).should.have.length(0);
+    const wrapper = mount(<MinimalScrollBars showThumb={ false } />);
+    wrapper.find('.test--minimal-scrollbars-vertical-thumb').exists().should.be.false();
   });
 });

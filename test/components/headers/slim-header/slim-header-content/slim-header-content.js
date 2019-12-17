@@ -1,15 +1,9 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
-import { findDOMNode } from 'react-dom';
-import {
-  Simulate,
-  renderIntoDocument,
-  findRenderedComponentWithType,
-} from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import { stub } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import * as DomUtils from 'utils/dom';
 import LogOutButton from 'components/log-out-button';
 import SlimHeaderContent from 'components/headers/slim-header/slim-header-content';
@@ -20,7 +14,6 @@ import SearchBox from 'components/headers/slim-header/slim-header-content/search
 
 
 describe('SlimHeaderContent component', function () {
-  let element;
   const storeMock = MockStore()({
     authentication: {},
     cms: {
@@ -34,12 +27,8 @@ describe('SlimHeaderContent component', function () {
     },
   });
 
-  afterEach(function () {
-    unmountComponentSuppressError(element);
-  });
-
   it('should render correctly', function () {
-    element = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ storeMock } >
         <SlimHeaderContent
           position='top'
@@ -50,33 +39,30 @@ describe('SlimHeaderContent component', function () {
       </Provider>
     );
 
-    const header = findRenderedComponentWithType(element, SlimHeaderContent);
+    const header = wrapper.find(SlimHeaderContent);
 
-    const logo = findRenderedComponentWithType(header, Logo);
-    logo.props.position.should.equal('top');
-    logo.props.editModeOn.should.be.false();
+    const logo = header.find(Logo);
+    logo.prop('position').should.equal('top');
+    logo.prop('editModeOn').should.be.false();
 
-    const demoVideo = findRenderedComponentWithType(header, DemoVideo);
-    demoVideo.props.position.should.equal('top');
-    demoVideo.props.editModeOn.should.be.false();
+    const demoVideo = header.find(DemoVideo);
+    demoVideo.prop('position').should.equal('top');
+    demoVideo.prop('editModeOn').should.be.false();
 
-    findRenderedComponentWithType(header, LogOutButton);
+    header.find(LogOutButton).exists().should.be.true();
 
-    findRenderedComponentWithType(header, RightLinks).props.position.should.equal('top');
-    findRenderedComponentWithType(header, SearchBox).props.position.should.equal('top');
+    header.find(RightLinks).prop('position').should.equal('top');
+    header.find(SearchBox).prop('position').should.equal('top');
   });
 
   it('should scroll to top when being clicked and position is bottom', function () {
     const scrollToTopStub = stub(DomUtils, 'scrollToTop');
 
-    element = renderIntoDocument(
-      <Provider store={ storeMock } >
-        <SlimHeaderContent position='bottom'/>
-      </Provider>
+    const wrapper = shallow(
+      <SlimHeaderContent position='bottom'/>
     );
 
-    const header = findRenderedComponentWithType(element, SlimHeaderContent);
-    Simulate.click(findDOMNode(header));
+    wrapper.simulate('click');
 
     scrollToTopStub.should.be.calledOnce();
 
@@ -86,14 +72,14 @@ describe('SlimHeaderContent component', function () {
   it('should not scroll to top when being clicked if position is not bottom', function () {
     const scrollToTopStub = stub(DomUtils, 'scrollToTop');
 
-    element = renderIntoDocument(
+    const wrapper = shallow(
       <Provider store={ storeMock } >
         <SlimHeaderContent position='top'/>
       </Provider>
     );
 
-    const header = findRenderedComponentWithType(element, SlimHeaderContent);
-    Simulate.click(findDOMNode(header));
+    const header = wrapper.find(SlimHeaderContent);
+    header.simulate('click');
 
     scrollToTopStub.should.not.be.called();
 

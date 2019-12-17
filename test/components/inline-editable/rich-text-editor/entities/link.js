@@ -1,11 +1,8 @@
 import React from 'react';
+import { mount } from 'enzyme';
 import { stub } from 'sinon';
-import {
-  scryRenderedDOMComponentsWithTag, scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
 import { Entity } from 'draft-js';
 
-import { unmountComponentSuppressError, renderWithContext } from 'utils/test';
 import MoreLink from 'components/common/more-link';
 import { TABLET, DESKTOP, EXTRA_WIDE } from 'components/responsive/responsive-style-component';
 import { ENTITY_LINK } from 'utils/constants';
@@ -13,12 +10,6 @@ import Link from 'components/inline-editable/rich-text-editor/entities/link';
 
 
 describe('Link component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render MoreLink element while not in edit mode', function () {
     const entityKey = 'entityKey';
     const url = 'url';
@@ -28,9 +19,12 @@ describe('Link component', function () {
     const getStub = stub(Entity, 'get');
     getStub.withArgs(entityKey).returns({ getData: () => { return { url }; } });
 
-    instance = renderWithContext(context, <Link entityKey={ entityKey }/>);
-    const moreLinkElement = scryRenderedComponentsWithType(instance, MoreLink)[0];
-    moreLinkElement.props.href.should.eql(url);
+    const wrapper = mount(
+      <Link entityKey={ entityKey }/>,
+      { context: context },
+    );
+    const moreLinkElement = wrapper.find(MoreLink).at(0);
+    moreLinkElement.prop('href').should.eql(url);
     getStub.restore();
   });
 
@@ -43,9 +37,12 @@ describe('Link component', function () {
     const getStub = stub(Entity, 'get');
     getStub.withArgs(entityKey).returns({ getData: () => { return { url }; } });
 
-    instance = renderWithContext(context, <Link entityKey={ entityKey }/>);
+    const wrapper = mount(
+      <Link entityKey={ entityKey }/>,
+      { context: context },
+    );
 
-    scryRenderedDOMComponentsWithTag(instance, 'span').should.be.ok();
+    wrapper.find('span').exists().should.be.true();
     getStub.restore();
   });
 
@@ -57,9 +54,12 @@ describe('Link component', function () {
       },
     };
     stub(Entity, 'get').returns({ getData: () => { return { url: 'url' }; } });
-    instance = renderWithContext(context, <Link/>);
-    const moreLinkElement = scryRenderedComponentsWithType(instance, MoreLink)[0];
-    moreLinkElement.props.style.should.equal(style);
+    const wrapper = mount(
+      <Link/>,
+      { context: context }
+    );
+    const moreLinkElement = wrapper.find(MoreLink).at(0);
+    moreLinkElement.prop('style').should.equal(style);
     Entity.get.restore();
   });
 
@@ -75,9 +75,12 @@ describe('Link component', function () {
       },
     };
     stub(Entity, 'get').returns({ getData: () => { return { url: 'url' }; } });
-    instance = renderWithContext(context, <Link/>);
-    const moreLinkElement = scryRenderedComponentsWithType(instance, MoreLink)[0];
-    moreLinkElement.props.style.should.equal(style);
+    const wrapper = mount(
+      <Link/>,
+      { context: context }
+    );
+    const moreLinkElement = wrapper.find(MoreLink).at(0);
+    moreLinkElement.prop('style').should.equal(style);
     Entity.get.restore();
   });
 });

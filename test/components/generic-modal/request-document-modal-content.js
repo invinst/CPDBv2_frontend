@@ -1,17 +1,6 @@
 import React from 'react';
-import { findDOMNode } from 'react-dom';
-import { unmountComponentSuppressError } from 'utils/test';
-import {
-  renderIntoDocument,
-  scryRenderedDOMComponentsWithTag,
-  findRenderedDOMComponentWithTag,
-  findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass,
-  Simulate,
-} from 'react-addons-test-utils';
+import { mount } from 'enzyme';
 import { spy, stub, useFakeTimers } from 'sinon';
-import { StyleRoot } from 'radium';
 import * as intercomUtils from 'utils/intercom';
 
 import RequestDocumentModalContent from 'components/generic-modal/request-document-modal-content';
@@ -22,14 +11,6 @@ import RichTextEditable from 'components/inline-editable/editable-section/rich-t
 
 
 describe('RequestDocumentModalContent component', function () {
-  let element;
-
-  afterEach(function () {
-    if (element) {
-      unmountComponentSuppressError(element);
-    }
-  });
-
   it('should initial render form with text box for request document button', function () {
     const instructionEditWrapperStateProps = {
       fields: buildEditStateFields({
@@ -40,25 +21,24 @@ describe('RequestDocumentModalContent component', function () {
       turnOnSectionEditMode: spy(),
       turnOffSectionEditMode: spy(),
     };
-    element = renderIntoDocument(
+    const wrapper = mount(
       <RequestDocumentModalContent
         instructionEditWrapperStateProps={ instructionEditWrapperStateProps }
         hasData={ false }
       />
     );
-    const domElement = findDOMNode(element);
 
-    domElement.textContent.should.containEql('We’ll notify you when the document is made available.');
-    element.state.warning.should.be.false();
-    let inputDOMElements = scryRenderedDOMComponentsWithTag(element, 'input');
-    inputDOMElements[0].getAttribute('placeholder').should.be.eql('Your email');
-    inputDOMElements[1].getAttribute('value').should.be.eql('Request');
-    findRenderedDOMComponentWithTag(element, 'a').textContent.should.be.eql('Cancel');
+    wrapper.text().should.containEql('We’ll notify you when the document is made available.');
+    wrapper.state('warning').should.be.false();
+    let inputDOMElements = wrapper.find('input');
+    inputDOMElements.at(0).prop('placeholder').should.equal('Your email');
+    inputDOMElements.at(1).prop('value').should.equal('Request');
+    wrapper.find('a').text().should.equal('Cancel');
 
-    const editWrapperStateProvider = findRenderedComponentWithType(element, EditWrapperStateProvider);
-    const hoverableEditWrapper = findRenderedComponentWithType(editWrapperStateProvider, HoverableEditWrapper);
-    const editableNoDocumentText = findRenderedComponentWithType(hoverableEditWrapper, RichTextEditable);
-    editableNoDocumentText.props.fieldname.should.equal('document_request_instruction');
+    const editWrapperStateProvider = wrapper.find(EditWrapperStateProvider);
+    const hoverableEditWrapper = editWrapperStateProvider.find(HoverableEditWrapper);
+    const editableNoDocumentText = hoverableEditWrapper.find(RichTextEditable);
+    editableNoDocumentText.prop('fieldname').should.equal('document_request_instruction');
   });
 
   it('should initial render form with text box for new document notifications button', function () {
@@ -71,60 +51,58 @@ describe('RequestDocumentModalContent component', function () {
       turnOnSectionEditMode: spy(),
       turnOffSectionEditMode: spy(),
     };
-    element = renderIntoDocument(
+    const wrapper = mount(
       <RequestDocumentModalContent
         instructionEditWrapperStateProps={ instructionEditWrapperStateProps }
         hasData={ true }
       />
     );
-    const domElement = findDOMNode(element);
 
-    domElement.textContent.should.containEql('We’ll notify you when we have new documents.');
-    element.state.warning.should.be.false();
-    let inputDOMElements = scryRenderedDOMComponentsWithTag(element, 'input');
-    inputDOMElements[0].getAttribute('placeholder').should.be.eql('Your email');
-    inputDOMElements[1].getAttribute('value').should.be.eql('Request');
-    findRenderedDOMComponentWithTag(element, 'a').textContent.should.be.eql('Cancel');
+    wrapper.text().should.containEql('We’ll notify you when we have new documents.');
+    wrapper.state('warning').should.be.false();
+    let inputDOMElements = wrapper.find('input');
+    inputDOMElements.at(0).prop('placeholder').should.equal('Your email');
+    inputDOMElements.at(1).prop('value').should.equal('Request');
+    wrapper.find('a').text().should.equal('Cancel');
 
-    const editWrapperStateProvider = findRenderedComponentWithType(element, EditWrapperStateProvider);
-    const hoverableEditWrapper = findRenderedComponentWithType(editWrapperStateProvider, HoverableEditWrapper);
-    const editableNoDocumentText = findRenderedComponentWithType(hoverableEditWrapper, RichTextEditable);
-    editableNoDocumentText.props.fieldname.should.equal('new_document_notification');
+    const editWrapperStateProvider = wrapper.find(EditWrapperStateProvider);
+    const hoverableEditWrapper = editWrapperStateProvider.find(HoverableEditWrapper);
+    const editableNoDocumentText = hoverableEditWrapper.find(RichTextEditable);
+    editableNoDocumentText.prop('fieldname').should.equal('new_document_notification');
   });
 
   it('should call closeEvent when click to Close link', function () {
     const cancelClickHandler = spy();
-    element = renderIntoDocument(
+    const wrapper = mount(
       <RequestDocumentModalContent closeModal={ cancelClickHandler }/>
     );
-    const cancelDomElement = findRenderedDOMComponentWithTag(element, 'a');
-    cancelDomElement.textContent.should.be.eql('Cancel');
-    Simulate.click(cancelDomElement);
+    const cancelDomElement = wrapper.find('a');
+    cancelDomElement.text().should.equal('Cancel');
+    cancelDomElement.simulate('click');
     cancelClickHandler.calledOnce.should.be.true();
   });
 
   it('should show message if isRequested is true and have message', function () {
-    element = renderIntoDocument(
+    const wrapper = mount(
       <RequestDocumentModalContent message={ 'Thanks you' } isRequested={ true } />
     );
-    const messageBoxElement = findRenderedDOMComponentWithClass(element, 'request-document-message-box');
-    messageBoxElement.textContent.should.be.eql('Thanks you');
+    const messageBoxElement = wrapper.find('.request-document-message-box');
+    messageBoxElement.text().should.equal('Thanks you');
   });
 
   it('hide messageBox on startup but show if `warning` set to true; the email-input change background', function () {
-    element = renderIntoDocument(
+    const wrapper = mount(
       <RequestDocumentModalContent message={ 'Thanks you' } />
     );
-    scryRenderedDOMComponentsWithClass(element, 'request-document-message-box').length.should.eql(0);
-    element.setState({ warning: true });
-    const messageBoxElement = findRenderedDOMComponentWithClass(element, 'request-document-message-box');
-    messageBoxElement.textContent.should.eql('Thanks you');
+    wrapper.find('.request-document-message-box').exists().should.be.false();
+    wrapper.setState({ warning: true });
+    const messageBoxElement = wrapper.find('.request-document-message-box');
+    messageBoxElement.text().should.equal('Thanks you');
 
-    element.refs.email.className.should.containEql('emphasis');
+    wrapper.instance().refs.email.className.should.containEql('emphasis');
   });
 
   describe('Submit', function () {
-    let instance;
     let clock;
     let assertInCallbackTest;
 
@@ -135,9 +113,6 @@ describe('RequestDocumentModalContent component', function () {
 
     afterEach(function () {
       clock.restore();
-      if (instance) {
-        unmountComponentSuppressError(instance);
-      }
       intercomUtils.updateIntercomEmail.restore();
     });
 
@@ -162,47 +137,41 @@ describe('RequestDocumentModalContent component', function () {
         }).then(done);
       };
 
-      instance = renderIntoDocument(
-        <StyleRoot>
-          <RequestDocumentModalContent
-            message={ 'Default message' }
-            id={ 1 }
-            closeModal={ closeCallback }
-            onRequestDocument={ requestDocumentCallback }
-          />
-        </StyleRoot>);
+      requestForm = mount(
+        <RequestDocumentModalContent
+          message={ 'Default message' }
+          id={ 1 }
+          closeModal={ closeCallback }
+          onRequestDocument={ requestDocumentCallback }
+        />
+      );
 
-      requestForm = findRenderedComponentWithType(instance, RequestDocumentModalContent);
-      requestForm.state.warning.should.be.false();
-      let emailElement = requestForm.refs.email;
-      emailElement.value = 'abc@xyz.com';
-      Simulate.change(emailElement);
-      let formElement = findRenderedDOMComponentWithTag(requestForm, 'form');
-      Simulate.submit(formElement);
-
-      requestDocumentCallback.calledWith({ id: 1, email: 'abc@xyz.com' }).should.be.true();
+      requestForm.state('warning').should.be.false();
+      requestForm.instance().refs.email.value = 'abc@xyz.com';
+      const formElement = requestForm.find('form');
+      formElement.simulate('submit');
+      requestDocumentCallback.should.be.calledWith({ id: 1, email: 'abc@xyz.com' });
     }
 
     // TODO: BUG - when one case failed, then other case failed as well !
     it('- invalid email, should set "warning" state to true, show the messageBox', function (done) {
-
       assertInCallbackTest = function (requestForm) {
-        requestForm.state.should.containEql( { warning: true } );
+        requestForm.state('warning').should.be.true();
 
-        const messageBoxElement = findRenderedDOMComponentWithClass(requestForm, 'request-document-message-box');
-        messageBoxElement.textContent.should.be.eql('Default message');
-        intercomUtils.updateIntercomEmail.called.should.be.false();
+        const messageBoxElement = requestForm.find('.request-document-message-box');
+        messageBoxElement.text().should.equal('Default message');
+        intercomUtils.updateIntercomEmail.should.not.be.calledOnce();
       };
       submitRequestDocumentTest(assertInCallbackTest, done, true);
     });
 
     it('- valid email, should set "warning" state as false and call closeModal after 1.5s', function (done) {
       assertInCallbackTest = function (requestForm) {
-        requestForm.state.should.containEql( { warning: false } );
-        requestForm.props.closeModal.called.should.be.false();
+        requestForm.state('warning').should.be.false();
+        requestForm.prop('closeModal').should.not.be.calledOnce();
         clock.tick(1550);
-        requestForm.props.closeModal.calledOnce.should.be.true();
-        intercomUtils.updateIntercomEmail.calledWith('abc@xyz.com').should.be.true();
+        requestForm.prop('closeModal').should.be.calledOnce();
+        intercomUtils.updateIntercomEmail.should.be.calledWith('abc@xyz.com');
       };
       submitRequestDocumentTest(assertInCallbackTest, done);
     });

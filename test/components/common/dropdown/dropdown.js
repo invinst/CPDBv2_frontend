@@ -1,112 +1,96 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 import { stub } from 'sinon';
-import { findDOMNode } from 'react-dom';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass,
-  Simulate,
-} from 'react-addons-test-utils';
 
 import Dropdown from 'components/common/dropdown';
-import { unmountComponentSuppressError } from 'utils/test';
 import styles from 'components/common/dropdown/menu.sass';
 
 
 describe('Dropdown component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should have correct default state', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Dropdown
         defaultValue={ '1' }
         options={ ['1', '2', '3'] }
       />
     );
-    instance.state.should.eql({
+    wrapper.state().should.eql({
       open: false,
       selectedIndex: 0,
     });
   });
 
   it('should render menu items with options that are not selected', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Dropdown
         defaultValue={ '1' }
         options={ ['1', '2', '3'] }
       />
     );
-    instance.setState({
+    wrapper.setState({
       open: true,
     });
-    findRenderedDOMComponentWithClass(instance, styles.dropdownMenu);
+    wrapper.find(`.${styles.dropdownMenu}`).exists().should.be.true();
 
-    const menuItems = scryRenderedDOMComponentsWithClass(instance, 'dropdown-menu-item');
+    const menuItems = wrapper.find('.dropdown-menu-item');
     menuItems.should.have.length(2);
-    menuItems[0].textContent.should.eql('2');
-    menuItems[1].textContent.should.eql('3');
+    menuItems.at(0).text().should.equal('2');
+    menuItems.at(1).text().should.equal('3');
   });
 
   it('should close menu when clicked on an item', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Dropdown
         defaultValue={ '1' }
         options={ ['1', '2', '3'] }
       />
     );
-    Simulate.click(findRenderedDOMComponentWithClass(instance, 'dropdown-button'));
+    wrapper.find('.dropdown-button').simulate('click');
 
-    const firstMenuItem = scryRenderedDOMComponentsWithClass(instance, 'dropdown-menu-item')[0];
-    Simulate.click(firstMenuItem);
+    const firstMenuItem = wrapper.find('.dropdown-menu-item').at(0);
+    firstMenuItem.simulate('click');
 
-    scryRenderedDOMComponentsWithClass(instance, styles.dropdownMenu).should.have.length(0);
-    scryRenderedDOMComponentsWithClass(instance, 'dropdown-menu-item').should.have.length(0);
+    wrapper.find(`.${styles.dropdownMenu}`).exists().should.be.false();
+    wrapper.find('.dropdown-menu-item').exists().should.be.false();
   });
 
   it('should invoke onChange when selected item is changed', function () {
     const onChangeStub = stub();
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Dropdown
         defaultValue={ '1' }
         onChange={ onChangeStub }
         options={ ['1', '2', '3'] }
       />
     );
-    const dropdown = findRenderedComponentWithType(instance, Dropdown);
-    dropdown.setState({
+    wrapper.setState({
       open: true,
     });
 
-    const firstMenuItem = scryRenderedDOMComponentsWithClass(instance, 'dropdown-menu-item')[0];
-    Simulate.click(firstMenuItem);
+    const firstMenuItem = wrapper.find('.dropdown-menu-item').at(0);
+    firstMenuItem.simulate('click');
 
-    dropdown.state.selectedIndex.should.eql(1);
+    wrapper.state('selectedIndex').should.equal(1);
     onChangeStub.should.be.calledWith('2');
   });
 
   it('should close menu when losing focus', function () {
     const onChangeStub = stub();
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Dropdown
         defaultValue={ '1' }
         onChange={ onChangeStub }
         options={ ['1', '2', '3'] }
       />
     );
-    instance.setState({
+    wrapper.setState({
       open: true,
     });
 
-    const dropdownDOM = findDOMNode(instance);
-    Simulate.blur(dropdownDOM);
+    wrapper.simulate('blur');
 
-    scryRenderedDOMComponentsWithClass(instance, styles.dropdownMenu).should.have.length(0);
-    scryRenderedDOMComponentsWithClass(instance, 'dropdown-menu-item').should.have.length(0);
+    wrapper.find(`.${styles.dropdownMenu}`).exists().should.be.false();
+    wrapper.find('.dropdown-menu-item').exists().should.be.false();
 
     onChangeStub.should.not.be.called();
   });

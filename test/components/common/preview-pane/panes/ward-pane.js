@@ -1,32 +1,19 @@
 import React from 'react';
-import { findDOMNode } from 'react-dom';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
 import WardPane from 'components/common/preview-pane/panes/ward-pane';
-import {
+import WidgetWrapper, {
   HeaderWidget,
   SeparatorWidget,
   TextWidget,
   AllegationCountWidget,
   ListWidget,
-  CallToActionWidget,
 } from 'components/common/preview-pane/widgets';
-import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('WardPane component', () => {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should contain the sub components', () => {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <WardPane
         url='https://staging.cpdb.co/data/L2B5ML/citizens-police-data-project'
         name={ '22' }
@@ -36,12 +23,18 @@ describe('WardPane component', () => {
         to={ 'to' }
       />
     );
-    const header = findRenderedComponentWithType(instance, HeaderWidget);
-    findDOMNode(header).textContent.should.containEql('WARD #22');
-    findRenderedComponentWithType(instance, SeparatorWidget);
-    findRenderedComponentWithType(instance, TextWidget);
-    findRenderedComponentWithType(instance, AllegationCountWidget);
-    scryRenderedComponentsWithType(instance, ListWidget).should.have.length(2);
-    findRenderedComponentWithType(instance, CallToActionWidget);
+
+    const widgetWrapper = wrapper.find(WidgetWrapper);
+    widgetWrapper.prop('callToAction').should.eql({
+      url: 'https://staging.cpdb.co/data/L2B5ML/citizens-police-data-project',
+    });
+    widgetWrapper.prop('maxHeight').should.equal(830);
+
+    const header = wrapper.find(HeaderWidget);
+    header.render().text().should.containEql('WARD #22');
+    wrapper.find(SeparatorWidget).exists().should.be.true();
+    wrapper.find(TextWidget).exists().should.be.true();
+    wrapper.find(AllegationCountWidget).exists().should.be.true();
+    wrapper.find(ListWidget).should.have.length(2);
   });
 });

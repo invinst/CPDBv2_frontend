@@ -1,26 +1,15 @@
 import React from 'react';
-import { findDOMNode } from 'react-dom';
+import { shallow, mount } from 'enzyme';
 import { browserHistory } from 'react-router';
-import {
-  renderIntoDocument,
-  Simulate,
-} from 'react-addons-test-utils';
 import should from 'should';
 import { spy, stub } from 'sinon';
 
 import PinboardButton from 'components/search-page/pinboard/pinboard-button';
-import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('PinboardButton component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should not display "Your pinboard is empty" when there is no pinned item and emptyText is true', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PinboardButton
         pinboard={
           {
@@ -32,13 +21,12 @@ describe('PinboardButton component', function () {
       />
     );
 
-    const pinboardButton = findDOMNode(instance);
-    pinboardButton.className.should.containEql('pinboard-feature');
-    pinboardButton.textContent.should.equal('Your pinboard is empty');
+    wrapper.prop('className').should.containEql('pinboard-feature');
+    wrapper.text().should.equal('Your pinboard is empty');
   });
 
   it('should display "Pinboard (count)" when there are pinned items', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PinboardButton pinboard={ {
         itemsCount: 2,
         url: '/pinboard/1/title/',
@@ -46,34 +34,33 @@ describe('PinboardButton component', function () {
       } } />
     );
 
-    const pinboardButton = findDOMNode(instance);
-    pinboardButton.className.should.containEql('pinboard-feature');
-    pinboardButton.textContent.should.equal('Pinboard (2)');
+    wrapper.prop('className').should.containEql('pinboard-feature');
+    wrapper.text().should.equal('Pinboard (2)');
   });
 
   it('should not render if isPinboardRestored is false', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PinboardButton pinboard={ { isPinboardRestored: false } } />
     );
-    should(findDOMNode(instance)).be.null();
+    should(wrapper.type()).be.null();
   });
 
   it('should call onEmptyPinboardButtonClick if we click on the button when pinboard id is null', function () {
     const onEmptyPinboardButtonClick = spy();
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <PinboardButton
         onEmptyPinboardButtonClick={ onEmptyPinboardButtonClick }
       />
     );
 
-    Simulate.click(findDOMNode(instance));
-    onEmptyPinboardButtonClick.called.should.be.true();
+    wrapper.simulate('click');
+    onEmptyPinboardButtonClick.should.be.called();
   });
 
   it('should redirect if we click on the button when pinboard exists', function () {
     const browserHistoryPush = stub(browserHistory, 'push');
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <PinboardButton pinboard={ {
         id: '5cd06f2b',
         itemsCount: 2,
@@ -82,7 +69,7 @@ describe('PinboardButton component', function () {
       } }/>
     );
 
-    Simulate.click(findDOMNode(instance));
+    wrapper.simulate('click');
     browserHistoryPush.should.be.calledWith('/pinboard/1/title/');
     browserHistoryPush.restore();
   });
@@ -90,7 +77,7 @@ describe('PinboardButton component', function () {
   it('should redirect to /pinboard/ if pinboard_id is null and hasPendingChanges when clicking on button', function () {
     const browserHistoryPush = stub(browserHistory, 'push');
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <PinboardButton pinboard={ {
         id: null,
         itemsCount: 2,
@@ -100,7 +87,7 @@ describe('PinboardButton component', function () {
       } }/>
     );
 
-    Simulate.click(findDOMNode(instance));
+    wrapper.simulate('click');
     browserHistoryPush.should.be.calledWith('/pinboard/');
     browserHistoryPush.restore();
   });

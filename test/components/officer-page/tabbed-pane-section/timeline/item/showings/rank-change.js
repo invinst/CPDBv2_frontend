@@ -1,21 +1,10 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import RankChange from 'components/officer-page/tabbed-pane-section/timeline/item/showings/rank-change';
 
 
 describe('RankChange component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
-
   it('should render item correctly', function () {
     const rankChange = {
       date: 'APR 28',
@@ -23,14 +12,14 @@ describe('RankChange component', function () {
       rank: 'Detective',
     };
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <RankChange item={ rankChange } hasBorderBottom={ false } />
     );
 
-    const content = findRenderedDOMComponentWithClass(instance, 'rank-change-info');
-    const date = findRenderedDOMComponentWithClass(instance, 'rank-change-item-date');
+    const content = wrapper.find('.rank-change-info');
+    const date = wrapper.find('.rank-change-item-date');
 
-    content.textContent.should.eql('Officer → Detective');
-    date.textContent.should.eql('APR 28');
+    content.text().should.equal('Officer → Detective');
+    date.text().should.equal('APR 28');
   });
 });

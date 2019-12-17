@@ -1,19 +1,12 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
+import { stub } from 'sinon';
 
 import OutboundLink from 'components/common/outbound-link';
 import Attachment from 'components/officer-page/tabbed-pane-section/attachments-tab/complaint/attachment';
-import {
-  findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass,
-  renderIntoDocument, Simulate,
-} from 'react-addons-test-utils';
-
-import { unmountComponentSuppressError } from 'utils/test';
-import { stub } from 'sinon';
 
 
 describe('Attachment component', function () {
-  let instance;
   const attachment = {
     title: 'CRID 1071970 OCIR 2 of 3',
     url: 'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-3-of-3.html',
@@ -21,26 +14,24 @@ describe('Attachment component', function () {
     fileType: 'document',
   };
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render content correctly', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Attachment attachment={ attachment } hovering={ false } />
     );
 
-    const outboundLink = findRenderedComponentWithType(instance, OutboundLink);
-    outboundLink.props.href.should.eql('https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-3-of-3.html');
-    outboundLink.props.target.should.eql('_blank');
+    const outboundLink = wrapper.find(OutboundLink);
+    outboundLink.prop('href').should.equal(
+      'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-3-of-3.html'
+    );
+    outboundLink.prop('target').should.equal('_blank');
 
-    const previewImage = findRenderedDOMComponentWithClass(instance, 'attachment-preview-image');
-    previewImage.style.backgroundImage.should.eql(
-      'url("https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p1-normal.gif")'
+    const previewImage = wrapper.find('.attachment-preview-image');
+    previewImage.prop('style').backgroundImage.should.eql(
+      'url(https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p1-normal.gif)'
     );
 
-    const title = findRenderedDOMComponentWithClass(instance, 'attachment-title');
-    title.textContent.should.eql('CRID 1071970 OCIR 2 of 3');
+    const title = wrapper.find('.attachment-title');
+    title.text().should.equal('CRID 1071970 OCIR 2 of 3');
   });
 
   it('should render preview image correctly', function () {
@@ -51,11 +42,11 @@ describe('Attachment component', function () {
       fileType: 'video',
     };
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Attachment attachment={ videoAttachment }/>
     );
-    const previewImage = findRenderedDOMComponentWithClass(instance, 'attachment-preview-image');
-    previewImage.style.backgroundImage.should.eql('url("/src/img/ic-video.svg")');
+    const previewImage = wrapper.find('.attachment-preview-image');
+    previewImage.prop('style').backgroundImage.should.equal('url(/src/img/ic-video.svg)');
   });
 
   it('should track attachment click event', function () {
@@ -68,10 +59,10 @@ describe('Attachment component', function () {
       id: '123456',
     };
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Attachment attachment={ attachment } onTrackingAttachment={ stubOnTrackingAttachment } />
     );
-    Simulate.click(findRenderedDOMComponentWithClass(instance, 'attachment-preview-image'));
+    wrapper.find('.attachment-preview-image').simulate('click');
     stubOnTrackingAttachment.should.be.calledWith({
       attachmentId: '123456',
       sourcePage: 'Officer Page - Attachments Tab',

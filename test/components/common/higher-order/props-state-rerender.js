@@ -1,48 +1,47 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom';
+import { mount } from 'enzyme';
 import { spy } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import PropsStateRerender from 'components/common/higher-order/props-state-rerender';
 
 
 describe('PropsStateRerender component', function () {
-  let instance;
-  let callback;
+  let renderMock;
 
   class SubComponent extends Component {
     render() {
-      callback();
       return <div/>;
     }
   }
   const WrappedComponent = PropsStateRerender(SubComponent);
 
   beforeEach(function () {
-    callback = spy();
+    renderMock = spy(SubComponent.prototype, 'render');
   });
 
   afterEach(function () {
-    unmountComponentSuppressError(instance);
+    renderMock.restore();
   });
 
   it('should only re-render if props changed', function () {
-    const rootEl = document.createElement('DIV');
-    instance = render(<WrappedComponent a='b'/>, rootEl);
-    callback.args.length.should.eql(1);
-    instance = render(<WrappedComponent a='b'/>, rootEl);
-    callback.args.length.should.eql(1);
-    instance = render(<WrappedComponent a='c'/>, rootEl);
-    callback.args.length.should.eql(2);
+    const wrapper = mount(<WrappedComponent a='b'/>);
+    renderMock.should.be.calledOnce();
+
+    wrapper.setProps({ a: 'b' });
+    renderMock.should.be.calledOnce();
+
+    wrapper.setProps({ a: 'c' });
+    renderMock.should.be.calledTwice();
   });
 
   it('should only re-render if state changed', function () {
-    const rootEl = document.createElement('DIV');
-    instance = render(<WrappedComponent/>, rootEl);
-    callback.args.length.should.eql(1);
-    instance.setState({ c: 'd' });
-    callback.args.length.should.eql(2);
-    instance.setState({ c: 'd' });
-    callback.args.length.should.eql(2);
+    const wrapper = mount(<WrappedComponent/>);
+    renderMock.should.be.calledOnce();
+
+    wrapper.setState({ c: 'd' });
+    renderMock.should.be.calledTwice();
+
+    wrapper.setState({ c: 'd' });
+    renderMock.should.be.calledTwice();
   });
 });

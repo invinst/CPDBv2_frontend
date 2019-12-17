@@ -1,58 +1,39 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass,
-  Simulate,
-} from 'react-addons-test-utils';
-import { findDOMNode } from 'react-dom';
+import { shallow, mount } from 'enzyme';
 import { spy } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import CRCard, { CRCardWithUndo } from 'components/pinboard-page/cards/cr-card';
 import LocationCard from 'components/pinboard-page/cards/location-card';
 import ItemUnpinButton from 'components/pinboard-page/cards/item-unpin-button';
 
 
 describe('CRCard component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render LocationCard component', function () {
     const item = {
       incidentDate: '10-10-2010',
       category: 'Use Of Force',
     };
 
-    instance = renderIntoDocument(<CRCard item={ item }/>);
+    const wrapper = shallow(<CRCard item={ item }/>);
 
-    findRenderedComponentWithType(instance, LocationCard).should.be.ok();
+    wrapper.find(LocationCard).exists().should.be.true();
   });
 });
 
 
 describe('CRCardWithUndo component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render remove text correctly', function () {
     const item = {
       incidentDate: '10-10-2010',
       category: 'Use Of Force',
     };
 
-    instance = renderIntoDocument(<CRCardWithUndo item={ item } />);
-    const unpinButton = findRenderedComponentWithType(instance, ItemUnpinButton);
+    const wrapper = mount(<CRCardWithUndo item={ item } />);
+    const unpinButton = wrapper.find(ItemUnpinButton);
 
-    Simulate.click(findDOMNode(unpinButton));
+    unpinButton.simulate('click');
 
-    findRenderedDOMComponentWithClass(instance, 'text').textContent.should.eql('CR removed.');
+    wrapper.find('.text').text().should.equal('CR removed.');
   });
 
   it('should call action right away when user click on unpin button', function () {
@@ -63,15 +44,15 @@ describe('CRCardWithUndo component', function () {
       category: 'Use Of Force',
     };
     const removeItemInPinboardPage = spy();
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <CRCardWithUndo
         item={ item }
         removeItemInPinboardPage={ removeItemInPinboardPage }
       />
     );
 
-    const unpinButton = findRenderedComponentWithType(instance, ItemUnpinButton);
-    Simulate.click(findDOMNode(unpinButton));
+    const unpinButton = wrapper.find(ItemUnpinButton);
+    unpinButton.simulate('click');
 
     removeItemInPinboardPage.should.be.calledWith({
       id: 123,

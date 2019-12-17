@@ -22,7 +22,8 @@ const config = Object.assign(
       port: 9977,
       publicPath: '/',
       noInfo: false,
-      index: 'test.html'
+      index: 'test.html',
+      stats: 'errors-only'
     },
     mode: 'development',
     module: {
@@ -90,6 +91,11 @@ const config = Object.assign(
       new webpack.IgnorePlugin(/vertx/),
       new PuppeteerMochaPlugin()
     ],
+    externals: {
+      'react/lib/ExecutionEnvironment': 'react',
+      'react/lib/ReactContext': 'react',
+      'react/addons': 'react'
+    }
   }
 );
 

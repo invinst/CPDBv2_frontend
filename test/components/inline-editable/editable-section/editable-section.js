@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom';
+import { shallow } from 'enzyme';
 import should from 'should';
-import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
 import { spy, stub } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import { convertContentStateToEditorState } from 'utils/draft';
 import { RawContentStateFactory } from 'utils/test/factories/draft';
 import { FieldFactory, RichTextFieldFactory, StringFieldFactory } from 'utils/test/factories/field';
@@ -21,21 +19,16 @@ class SubComponent extends Component {
 const WrappedComponent = EditableSection(SubComponent);
 
 describe('EditableSection component', function () {
-  let instance;
   const fields = {
     a: RichTextFieldFactory.build({ name: 'a' }, { blockTexts: ['A'] }),
     b: StringFieldFactory.build({ name: 'b', value: 'B' }),
     c: FieldFactory.build({ name: 'officers', type: 'officers_list', value: [{ id: 1, fullName: 'Foo' }] }),
   };
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render subcomponent', function () {
     const turnOnSectionEditMode = () => {};
     const turnOffSectionEditMode = () => {};
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <WrappedComponent
         fields={ fields }
         sectionEditModeOn={ true }
@@ -43,68 +36,73 @@ describe('EditableSection component', function () {
         turnOffSectionEditMode={ turnOffSectionEditMode }
       />
     );
-    const subComponent = findRenderedComponentWithType(instance, SubComponent);
-    subComponent.props.sectionEditModeOn.should.be.true();
-    subComponent.props.editToggleProps.should.eql({
+    const subComponent = wrapper.find(SubComponent);
+    subComponent.prop('sectionEditModeOn').should.be.true();
+    subComponent.prop('editToggleProps').should.eql({
       sectionEditModeOn: true,
       turnOffSectionEditMode,
       turnOnSectionEditMode,
-      onSaveForm: instance.handleSaveForm,
+      onSaveForm: wrapper.instance().handleSaveForm,
     });
-    subComponent.props.fieldProps.a.value.getCurrentContent().getFirstBlock().getText()
-      .should.eql('A');
-    subComponent.props.fieldProps.a.editModeOn.should.be.true();
-    subComponent.props.fieldProps.b.value.should.eql('B');
-    subComponent.props.fieldProps.b.editModeOn.should.be.true();
+    subComponent.prop('fieldProps').a.value.getCurrentContent().getFirstBlock().getText().should.equal('A');
+    subComponent.prop('fieldProps').a.editModeOn.should.be.true();
+    subComponent.prop('fieldProps').b.value.should.equal('B');
+    subComponent.prop('fieldProps').b.editModeOn.should.be.true();
   });
 
   it('should update field to state', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <WrappedComponent
         fields={ fields }
       />
     );
-    const subComponent = findRenderedComponentWithType(instance, SubComponent);
-    subComponent.props.fieldProps.b.onChange('Bb');
-    instance.state.fields.b.value.should.eql('Bb');
+    const subComponent = wrapper.find(SubComponent);
+    subComponent.prop('fieldProps').b.onChange('Bb');
+    wrapper.state('fields').b.value.should.equal('Bb');
   });
 
   it('should trigger onSaveForm with serialized data', function () {
     const onSaveForm = stub().returns({ then: (fn) => then = fn });
     const turnOffSectionEditMode = spy();
     let then;
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <WrappedComponent
         turnOffSectionEditMode={ turnOffSectionEditMode }
         onSaveForm={ onSaveForm }
         fields={ fields }
       />
     );
-    const subComponent = findRenderedComponentWithType(instance, SubComponent);
-    subComponent.props.fieldProps.a.onChange(
+    const subComponent = wrapper.find(SubComponent);
+    subComponent.prop('fieldProps').a.onChange(
       convertContentStateToEditorState(RawContentStateFactory.build({}, { blockTexts: ['Aa'] }))
     );
-    subComponent.props.editToggleProps.onSaveForm();
-    onSaveForm.args[0][0].fields[0].value.blocks[0].text.should.eql('Aa');
+    subComponent.prop('editToggleProps').onSaveForm();
+    onSaveForm.args[0][0].fields[0].value.blocks[0].text.should.equal('Aa');
     then();
     turnOffSectionEditMode.calledOnce.should.be.true();
   });
 
   it('should deserialize fields it just receive', function () {
-    const rootEl = document.createElement('DIV');
-    instance = render(<WrappedComponent/>, rootEl);
-    instance = render(<WrappedComponent fields={ {
-      a: RichTextFieldFactory.build({}, { blockTexts: ['b'] }),
-    } }/>, rootEl);
-    instance.state.fields.a.value.getCurrentContent().getFirstBlock().getText().should.eql('b');
+    const wrapper = shallow(
+      <WrappedComponent/>
+    );
+    wrapper.setProps({
+      fields: {
+        a: RichTextFieldFactory.build({}, { blockTexts: ['b'] }),
+      },
+    });
+    wrapper.state('fields').a.value.getCurrentContent().getFirstBlock().getText().should.equal('b');
   });
 
   it('should not deserialze falsy field', function () {
-    const rootEl = document.createElement('DIV');
-    instance = render(<WrappedComponent/>, rootEl);
-    instance = render(<WrappedComponent fields={ {
-      a: null,
-    } }/>, rootEl);
-    should.not.exist(instance.state.fields.a);
+    const wrapper = shallow(
+      <WrappedComponent/>
+    );
+    wrapper.setProps({
+      fields: {
+        a: null,
+      },
+    });
+    should.not.exist(wrapper.state('fields').a);
   });
 });

@@ -1,29 +1,15 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 import { browserHistory, Router, Route, createMemoryHistory } from 'react-router';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  Simulate,
-} from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { Promise } from 'es6-promise';
 import { spy, stub } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import PinboardItem from 'components/pinboard-page/pinboards/pinboard-item';
 
 
 describe('PinboardItem component', function () {
-  const store = MockStore()({
-    pinboardPage: {
-      pinboard: {
-        saving: false,
-      },
-    },
-  });
-  let instance;
-
   const pinboard = {
     id: '1',
     title: 'Pinboard Title',
@@ -36,19 +22,16 @@ describe('PinboardItem component', function () {
   });
 
   afterEach(function () {
-    unmountComponentSuppressError(instance);
     this.browserHistoryPush.restore();
   });
 
   it('should render correctly', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <PinboardItem pinboard={ pinboard } />
-      </Provider>
+    const wrapper = shallow(
+      <PinboardItem pinboard={ pinboard } />
     );
 
-    findRenderedDOMComponentWithClass(instance, 'pinboard-title').textContent.should.equal('Pinboard Title');
-    findRenderedDOMComponentWithClass(instance, 'pinboard-created-at').textContent.should.equal('Created Sep 12, 2019');
+    wrapper.find('.pinboard-title').text().should.equal('Pinboard Title');
+    wrapper.find('.pinboard-created-at').text().should.equal('Created Sep 12, 2019');
   });
 
   it('should render duplicate-pinboard-btn', function (done) {
@@ -59,32 +42,32 @@ describe('PinboardItem component', function () {
       },
     });
     const handleCloseSpy = spy();
+    const store = MockStore()({
+      pinboardPage: {
+        pinboard: {
+          saving: false,
+        },
+      },
+    });
     const pinboardItem = () => (
       <Provider store={ store }>
         <PinboardItem
           isShown={ true }
-          pinboard={
-            {
-              id: '1',
-              title: 'Pinboard Title',
-              createdAt: 'Sep 12, 2019',
-              url: '/pinboard/1/pinboard-title/',
-            }
-          }
+          pinboard={ pinboard }
           duplicatePinboard={ duplicatePinboardStub }
           handleClose={ handleCloseSpy }
         />
       </Provider>
     );
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Router history={ createMemoryHistory() }>
         <Route path='/' component={ pinboardItem } />
       </Router>
     );
 
-    const duplicatePinboardBtn = findRenderedDOMComponentWithClass(instance, 'duplicate-pinboard-btn');
-    Simulate.click(duplicatePinboardBtn);
+    const duplicatePinboardBtn = wrapper.find('.duplicate-pinboard-btn');
+    duplicatePinboardBtn.simulate('click');
     duplicatePinboardStub.should.be.called();
 
     setTimeout(() => {
@@ -96,26 +79,16 @@ describe('PinboardItem component', function () {
 
   it('should show pinboard detail page when clicking on pinboard item', function () {
     const handleCloseSpy = spy();
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <PinboardItem
-          pinboard={
-            {
-              id: '1',
-              title: 'Pinboard Title',
-              createdAt: 'Sep 12, 2019',
-              url: '/pinboard/1/pinboard-title/',
-            }
-          }
-          handleClose={ handleCloseSpy }
-        />
-      </Provider>
+    const wrapper = shallow(
+      <PinboardItem
+        pinboard={ pinboard }
+        handleClose={ handleCloseSpy }
+      />,
     );
 
-    const pinboardItem = findRenderedDOMComponentWithClass(instance, 'pinboard-item');
-    Simulate.click(pinboardItem);
+    wrapper.simulate('click');
     handleCloseSpy.should.be.called();
 
-    this.browserHistoryPush.calledWith('/pinboard/1/pinboard-title/').should.be.true();
+    this.browserHistoryPush.should.be.calledWith('/pinboard/1/pinboard-title/');
   });
 });

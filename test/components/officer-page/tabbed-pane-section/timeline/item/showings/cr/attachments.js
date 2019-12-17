@@ -1,23 +1,15 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 import { stub } from 'sinon';
-import {
-  findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass,
-  renderIntoDocument,
-  scryRenderedDOMComponentsWithClass,
-  Simulate,
-} from 'react-addons-test-utils';
 
 import Attachments from 'components/officer-page/tabbed-pane-section/timeline/item/showings/cr/attachments';
 import OutboundLink from 'components/common/outbound-link';
 import * as domUtils from 'utils/dom';
-import { unmountComponentSuppressError } from 'utils/test';
 import * as GATracking from 'utils/google_analytics_tracking';
 import styles from 'components/officer-page/tabbed-pane-section/timeline/item/showings/cr/attachments.sass';
 
 
 describe('Attachments component', function () {
-  let instance;
   const attachments = [{
     url: 'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-1-of-3.html',
     previewImageUrl: 'https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p1-normal.gif',
@@ -32,27 +24,25 @@ describe('Attachments component', function () {
     fileType: 'document',
   }];
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render attachments correctly', function () {
-    instance = renderIntoDocument(<Attachments attachments={ attachments } />);
+    const wrapper = shallow(<Attachments attachments={ attachments } />);
 
-    const moreAttachment = findRenderedDOMComponentWithClass(instance, 'more-attachment');
-    const attachmentImage = findRenderedDOMComponentWithClass(instance, 'attachment-image');
-    const attachmentImageHref = findRenderedDOMComponentWithClass(instance, 'attachment-image-href');
-    const outboundLink = findRenderedComponentWithType(instance, OutboundLink);
+    const moreAttachment = wrapper.find('.more-attachment');
+    const attachmentImage = wrapper.find('.attachment-image');
+    const attachmentImageHref = wrapper.find('.attachment-image-href');
+    const outboundLink = wrapper.find(OutboundLink);
 
-    moreAttachment.textContent.should.eql('+2');
-    attachmentImage.style.backgroundImage.should.eql(
-      'url("https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p1-normal.gif")'
+    moreAttachment.text().should.equal('+2');
+    attachmentImage.prop('style').backgroundImage.should.eql(
+      'url(https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p1-normal.gif)'
     );
-    attachmentImageHref.getAttribute('href').should.eql(
+    attachmentImageHref.prop('href').should.eql(
       'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-1-of-3.html'
     );
-    outboundLink.props.href.should.eql('https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-1-of-3.html');
-    outboundLink.props.target.should.eql('_blank');
+    outboundLink.prop('href').should.equal(
+      'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-1-of-3.html'
+    );
+    outboundLink.prop('target').should.equal('_blank');
   });
 
   it('should render file types of attachments correctly', function () {
@@ -61,21 +51,21 @@ describe('Attachments component', function () {
       previewImageUrl: '/src/img/ic-video.svg',
       fileType: 'video',
     }];
-    const instance = renderIntoDocument(<Attachments attachments={ videoAttachments } />);
+    const wrapper = shallow(<Attachments attachments={ videoAttachments } />);
 
-    const attachmentImage = findRenderedDOMComponentWithClass(instance, 'attachment-image');
-    attachmentImage.style.backgroundImage.should.eql('url("/src/img/ic-video.svg")');
+    const attachmentImage = wrapper.find('.attachment-image');
+    attachmentImage.prop('style').backgroundImage.should.equal('url(/src/img/ic-video.svg)');
   });
 
   it('should call changeOfficerTab and scrollToElement', function () {
     const stubChangeOfficerTab = stub();
     const stubScrollToElement = stub(domUtils, 'scrollToElement');
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Attachments attachments={ attachments } changeOfficerTab={ stubChangeOfficerTab } />
     );
-    const moreAttachmentEl = findRenderedDOMComponentWithClass(instance, 'more-attachment');
-    Simulate.click(moreAttachmentEl);
+    const moreAttachmentEl = wrapper.find('.more-attachment');
+    moreAttachmentEl.simulate('click', { preventDefault: () => {}, stopPropagation: () => {} });
 
     stubChangeOfficerTab.should.be.calledWith('DOCUMENTS');
     stubScrollToElement.should.be.calledWith('.tabbed-pane-section', true, -40);
@@ -90,13 +80,13 @@ describe('Attachments component', function () {
       previewImageUrl: 'https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p2-normal.gif',
       fileType: 'document',
     }];
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Attachments
         attachments={ attachments }
         pathname='/complaint/123456/'
       />
     );
-    Simulate.click(findRenderedDOMComponentWithClass(instance, 'attachment-image-href'));
+    wrapper.find('.attachment-image-href').simulate('click');
     stubTrackAttachmentClick.should.be.calledWith(
       '/complaint/123456/',
       'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-2-of-3.html'
@@ -105,8 +95,8 @@ describe('Attachments component', function () {
   });
 
   it('should render an empty span when attachments is empty', function () {
-    instance = renderIntoDocument(<Attachments attachments={ [] }/>);
-    scryRenderedDOMComponentsWithClass(instance, styles.attachments).should.have.length(1);
+    const wrapper = shallow(<Attachments attachments={ [] }/>);
+    wrapper.find(`.${styles.attachments}`).exists().should.be.true();
   });
 
   it('should track attachment click event', function () {
@@ -118,13 +108,13 @@ describe('Attachments component', function () {
       id: '123456',
     }];
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Attachments
         attachments={ attachment }
         onTrackingAttachment={ stubOnTrackingAttachment }
       />
     );
-    Simulate.click(findRenderedDOMComponentWithClass(instance, 'attachment-image-href'));
+    wrapper.find('.attachment-image-href').simulate('click');
     stubOnTrackingAttachment.should.be.calledWith({
       attachmentId: '123456',
       sourcePage: 'Officer Page - Timeline Tab',

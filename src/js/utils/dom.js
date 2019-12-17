@@ -73,23 +73,6 @@ export function changePageTitle(title) {
   document.title = title;
 }
 
-export function setMetaAttribute(name, content) {
-  let metaEl = document.evaluate(
-    `//meta[@name="${name}"]`, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null
-  ).singleNodeValue;
-  if (metaEl === null) {
-    metaEl = document.createElement('META');
-    metaEl.setAttribute('name', name);
-    const headEl = document.getElementsByTagName('HEAD')[0];
-    headEl.appendChild(metaEl);
-  }
-  metaEl.setAttribute('content', content);
-}
-
-export function changePageDescription(description) {
-  setMetaAttribute('description', description);
-}
-
 export function scrollToElement(selector, alignToTop=true, offset=0) {
   const element = document.querySelector(selector);
   if (element) {

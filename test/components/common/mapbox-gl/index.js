@@ -1,25 +1,13 @@
 import React from 'react';
-import { unmountComponentAtNode, findDOMNode } from 'react-dom';
-import { renderIntoDocument } from 'react-addons-test-utils';
+import { mount } from 'enzyme';
 
-import { reRender, unmountComponentSuppressError } from 'utils/test';
 import MapboxGL from 'components/common/mapbox-gl';
 import { mapboxgl } from 'utils/vendors';
 
 
 describe('MapboxGL component', function () {
-  let instance;
-
   beforeEach(function () {
     mapboxgl._resetHistory();
-  });
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
-  it('should be renderable', function () {
-    MapboxGL.should.be.renderable();
   });
 
   it('should add sources and layers on load', function (done) {
@@ -34,7 +22,8 @@ describe('MapboxGL component', function () {
       source: 'abc',
       paint: {},
     }];
-    instance = renderIntoDocument(<MapboxGL sources={ sources } layers={ layers }/>);
+    const wrapper = mount(<MapboxGL sources={ sources } layers={ layers }/>);
+    const instance = wrapper.instance();
     setTimeout(() => {
       instance._mapBox.addSource.calledWith('abc', {
         type: 'geojson',
@@ -51,16 +40,18 @@ describe('MapboxGL component', function () {
   });
 
   it('should remove map on unmount', function () {
-    instance = renderIntoDocument(<MapboxGL/>);
-    unmountComponentAtNode(findDOMNode(instance).parentNode);
+    const wrapper = mount(<MapboxGL/>);
+    const instance = wrapper.instance();
+    wrapper.unmount();
     instance._mapBox.remove.called.should.be.true();
   });
 
   it('should resize when previously is hidden', function () {
-    instance = renderIntoDocument(<MapboxGL hide={ true }/>);
+    const wrapper = mount(<MapboxGL hide={ true }/>);
+    const instance = wrapper.instance();
     instance._mapBox.resize.should.not.be.called();
 
-    reRender(<MapboxGL hide={ false }/>, instance);
+    wrapper.setProps({ hide: false });
 
     instance._mapBox.resize.should.be.calledOnce();
   });

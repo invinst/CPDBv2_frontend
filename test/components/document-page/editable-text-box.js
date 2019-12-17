@@ -1,12 +1,6 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  findRenderedComponentWithType,
-} from 'react-addons-test-utils';
-
-import { unmountComponentSuppressError } from 'utils/test';
 import MinimalScrollBars from 'components/common/minimal-scroll-bars';
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
 import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
@@ -15,14 +9,8 @@ import EditableTextBox from 'components/document-page/editable-text-box';
 
 
 describe('EditableTextBox component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render correctly', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <EditableTextBox
         className='editable-textbox'
         title='Some title'
@@ -31,22 +19,22 @@ describe('EditableTextBox component', function () {
       />
     );
 
-    const title = findRenderedDOMComponentWithClass(instance, 'editable-text-box-title');
-    title.textContent.should.eql('Some title');
+    const title = wrapper.find('.editable-text-box-title');
+    title.text().should.equal('Some title');
 
-    const editWrapperStateProvider = findRenderedComponentWithType(instance, EditWrapperStateProvider);
-    editWrapperStateProvider.props.should.containEql({ someProp: 'some prop' });
+    const editWrapperStateProvider = wrapper.find(EditWrapperStateProvider);
+    editWrapperStateProvider.props().should.containEql({ someProp: 'some prop' });
 
-    const hoverableEditWrapper = findRenderedComponentWithType(editWrapperStateProvider, HoverableEditWrapper);
+    const hoverableEditWrapper = editWrapperStateProvider.find(HoverableEditWrapper);
 
-    const simpleTextEditable = findRenderedComponentWithType(hoverableEditWrapper, SimpleTextEditable);
-    simpleTextEditable.props.className.should.eql('editable-text-box-text');
-    simpleTextEditable.props.placeholder.should.eql('Some title');
-    simpleTextEditable.props.fieldName.should.eql('title');
+    const simpleTextEditable = hoverableEditWrapper.find(SimpleTextEditable);
+    simpleTextEditable.prop('className').should.equal('editable-text-box-text');
+    simpleTextEditable.prop('placeholder').should.equal('Some title');
+    simpleTextEditable.prop('fieldName').should.equal('title');
   });
 
   it('should render with multiline correctly', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <EditableTextBox
         className='editable-textbox'
         title='Some title'
@@ -59,24 +47,24 @@ describe('EditableTextBox component', function () {
       />
     );
 
-    const title = findRenderedDOMComponentWithClass(instance, 'editable-text-box-title');
-    title.textContent.should.eql('Some title');
+    const title = wrapper.find('.editable-text-box-title');
+    title.text().should.equal('Some title');
 
-    const editWrapperStateProvider = findRenderedComponentWithType(instance, EditWrapperStateProvider);
-    editWrapperStateProvider.props.should.containEql({
+    const editWrapperStateProvider = wrapper.find(EditWrapperStateProvider);
+    editWrapperStateProvider.props().should.containEql({
       someProp: 'some prop',
       sectionEditModeOn: false,
     });
 
-    const hoverableEditWrapper = findRenderedComponentWithType(editWrapperStateProvider, HoverableEditWrapper);
+    const hoverableEditWrapper = editWrapperStateProvider.find(HoverableEditWrapper);
 
-    const minimalScrollBar = findRenderedComponentWithType(hoverableEditWrapper, MinimalScrollBars);
-    minimalScrollBar.props.showThumb.should.be.true();
-    minimalScrollBar.props.viewClassName.should.be.eql('editable-text-box-scroll-view');
+    const minimalScrollBar = hoverableEditWrapper.find(MinimalScrollBars);
+    minimalScrollBar.prop('showThumb').should.be.true();
+    minimalScrollBar.prop('viewClassName').should.equal('editable-text-box-scroll-view');
 
-    const simpleTextEditable = findRenderedComponentWithType(minimalScrollBar, SimpleTextEditable);
-    simpleTextEditable.props.className.should.eql('editable-text-box-text-multiline');
-    simpleTextEditable.props.placeholder.should.eql('Some title');
-    simpleTextEditable.props.fieldName.should.eql('title');
+    const simpleTextEditable = minimalScrollBar.find(SimpleTextEditable);
+    simpleTextEditable.prop('className').should.equal('editable-text-box-text-multiline');
+    simpleTextEditable.prop('placeholder').should.equal('Some title');
+    simpleTextEditable.prop('fieldName').should.equal('title');
   });
 });

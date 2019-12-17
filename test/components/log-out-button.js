@@ -1,37 +1,36 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 import { spy } from 'sinon';
-import {
-  renderIntoDocument, findRenderedComponentWithType, scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
+import should from 'should';
 
 import LogOutButton from 'components/log-out-button';
 import { HoverableButton } from 'components/common/hoverable-button';
-import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('LogOutButton component', function () {
-  let instance;
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render log out button if its show property is true', function () {
-    instance = renderIntoDocument(<LogOutButton show={ true } />);
-    findRenderedComponentWithType(instance, HoverableButton);
+    const wrapper = shallow(
+      <LogOutButton show={ true } />
+    );
+    wrapper.exists().should.be.true();
   });
 
   it('should not render anything if its show property is false', function () {
-    instance = renderIntoDocument(<LogOutButton show={ false } />);
-    scryRenderedComponentsWithType(instance, HoverableButton).length.should.equal(0);
+    const wrapper = shallow(
+      <LogOutButton show={ false } />
+    );
+    should(wrapper.type()).be.null();
   });
 
   it('should handle on click', function () {
     const logOut = spy();
-    instance = renderIntoDocument(<LogOutButton show={ true } logOut={ logOut } />);
+    const wrapper = mount(
+      <LogOutButton show={ true } logOut={ logOut } />
+    );
 
-    const logOutButton = findRenderedComponentWithType(instance, HoverableButton);
-    logOutButton.props.onClick();
+    const logOutButton = wrapper.find(HoverableButton);
+    logOutButton.prop('onClick')();
 
-    logOut.called.should.be.true();
+    logOut.should.be.called();
   });
 });

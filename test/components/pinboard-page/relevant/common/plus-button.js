@@ -1,43 +1,33 @@
 import React from 'react';
-import { renderIntoDocument, Simulate } from 'react-addons-test-utils';
-import { findDOMNode } from 'react-dom';
+import { shallow } from 'enzyme';
 import { stub } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import PlusButton from 'components/pinboard-page/relevant/common/plus-button';
 
 
 describe('PlusButton component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render enough content', function () {
     const onClickStub = stub();
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PlusButton
         className='custom-class-name'
         onClick={ onClickStub }
       />
     );
-    const element = findDOMNode(instance);
-    element.getAttribute('class').should.containEql('custom-class-name');
+    wrapper.prop('className').should.containEql('custom-class-name');
 
-    Simulate.click(element);
+    wrapper.simulate('click');
     onClickStub.should.be.calledOnce();
   });
 
   it('should have dark mode', function () {
     const onClickStub = stub();
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PlusButton
         onClick={ onClickStub }
         darkMode={ true }
       />
     );
-    const element = findDOMNode(instance);
-    element.getAttribute('class').should.containEql('dark-mode');
+    wrapper.prop('className').should.containEql('dark-mode');
   });
 });

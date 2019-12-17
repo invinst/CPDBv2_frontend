@@ -1,17 +1,10 @@
 import React from 'react';
-import { renderIntoDocument, scryRenderedDOMComponentsWithClass } from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import PrintAttachments from 'components/cr-page/attachments/print-attachments';
 
 
 describe('PrintAttachments component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render if items is not empty', function () {
     const items = [
       {
@@ -51,17 +44,17 @@ describe('PrintAttachments component', function () {
         fileType: 'document',
       },
     ];
-    instance = renderIntoDocument(<PrintAttachments items={ items }/>);
-    scryRenderedDOMComponentsWithClass(instance, 'attachments-content').should.have.length(1);
-    const attachmentTypes = scryRenderedDOMComponentsWithClass(instance, 'attachment-type');
+    const wrapper = shallow(<PrintAttachments items={ items }/>);
+    wrapper.find('.attachments-content').exists().should.be.true();
+    const attachmentTypes = wrapper.find('.attachment-type');
     attachmentTypes.should.have.length(3);
-    attachmentTypes[0].textContent.should.eql('Audio (2)');
-    attachmentTypes[1].textContent.should.eql('Video (1)');
-    attachmentTypes[2].textContent.should.eql('Document (3)');
+    attachmentTypes.at(0).text().should.equal('Audio (2)');
+    attachmentTypes.at(1).text().should.equal('Video (1)');
+    attachmentTypes.at(2).text().should.equal('Document (3)');
   });
 
   it('should render nothing if items is empty', function () {
-    instance = renderIntoDocument(<PrintAttachments items={ [] }/>);
-    scryRenderedDOMComponentsWithClass(instance, 'attachments-content').should.have.length(0);
+    const wrapper = shallow(<PrintAttachments items={ [] }/>);
+    wrapper.find('.attachments-content').exists().should.be.false();
   });
 });

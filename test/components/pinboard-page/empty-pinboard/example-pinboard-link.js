@@ -1,26 +1,13 @@
 import React, { Component } from 'react';
 import { stub } from 'sinon';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  findRenderedComponentWithType,
-  findRenderedDOMComponentWithTag,
-  Simulate,
-} from 'react-addons-test-utils';
+import { mount } from 'enzyme';
 import Truncate from 'react-truncate';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import ExamplePinboardLink from 'components/pinboard-page/empty-pinboard/example-pinboard-link';
 import styles from 'components/pinboard-page/empty-pinboard/example-pinboard-link.sass';
 
 
 describe('ExamplePinboardLink component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should have enough contents', function () {
     const updatePinboardFromSourceStub = stub();
     class TestComponent extends Component {
@@ -29,7 +16,7 @@ describe('ExamplePinboardLink component', function () {
       }
     }
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <TestComponent
         id='66ef1561'
         title='Pinboard 1'
@@ -39,17 +26,18 @@ describe('ExamplePinboardLink component', function () {
       />
     );
 
-    const link = findRenderedDOMComponentWithTag(instance, 'a');
-    link.className.should.equal(styles.examplePinboardLink);
-    findRenderedDOMComponentWithClass(instance, 'title').textContent.should.equal('Pinboard 1');
+    const link = wrapper.find('a');
+    link.prop('className').should.equal(styles.examplePinboardLink);
+    link.find('.title').text().should.equal('Pinboard 1');
 
-    const description = findRenderedComponentWithType(instance, Truncate);
-    description.props.className.should.equal('description');
-    description.props.lines.should.equal(3);
-    description.props.children.should.equal('Description 1');
-    findRenderedDOMComponentWithClass(instance, 'arrow').should.be.ok();
+    const description = wrapper.find(Truncate);
+    description.prop('className').should.equal('description');
+    description.prop('lines').should.equal(3);
+    description.prop('children').should.equal('Description 1');
 
-    Simulate.click(link);
+    wrapper.find('.arrow').exists().should.be.true();
+
+    link.simulate('click');
     updatePinboardFromSourceStub.should.be.calledWith('abcd1234', '66ef1561');
   });
 });

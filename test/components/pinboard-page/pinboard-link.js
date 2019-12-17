@@ -1,25 +1,15 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithTag, Simulate,
-} from 'react-addons-test-utils';
+import { mount } from 'enzyme';
 import { spy, stub } from 'sinon';
 import { Router, Route, createMemoryHistory } from 'react-router';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import PinboardLink, { CONFIRM_MESSAGE } from 'components/pinboard-page/pinboard-link';
 
 
 describe('PinboardLink component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   describe('render', function () {
     it('should render correctly', function () {
-      instance = renderIntoDocument(
+      const wrapper = mount(
         <PinboardLink
           className='link-classname'
           title='Link title'>
@@ -27,14 +17,14 @@ describe('PinboardLink component', function () {
         </PinboardLink>
       );
 
-      const link = findRenderedDOMComponentWithTag(instance, 'a');
-      link.className.should.eql('link-classname');
-      link.title.should.eql('Link title');
-      link.textContent.should.eql('Click here');
+      const link = wrapper.find('a');
+      link.prop('className').should.equal('link-classname');
+      link.prop('title').should.equal('Link title');
+      link.text().should.equal('Click here');
     });
 
     it('should render correctly with customComponent', function () {
-      instance = renderIntoDocument(
+      const wrapper = mount(
         <PinboardLink
           customComponent='div'
           className='link-classname'
@@ -43,33 +33,14 @@ describe('PinboardLink component', function () {
         </PinboardLink>
       );
 
-      const link = findRenderedDOMComponentWithTag(instance, 'div');
-      link.className.should.eql('link-classname');
-      link.title.should.eql('Link title');
-      link.textContent.should.eql('Click here');
+      const link = wrapper.find('div');
+      link.prop('className').should.equal('link-classname');
+      link.prop('title').should.equal('Link title');
+      link.text().should.equal('Click here');
     });
   });
 
   describe('handleClick', function () {
-    it('should call onClick if saving is false', function () {
-      const onClickSpy = spy();
-      const pinboardLink = () => (
-        <PinboardLink
-          saving={ false }
-          onClick={ onClickSpy } />
-      );
-
-      instance = renderIntoDocument(
-        <Router history={ createMemoryHistory() }>
-          <Route path='/' component={ pinboardLink } />
-        </Router>
-      );
-
-      const link = findRenderedDOMComponentWithTag(instance, 'a');
-      Simulate.click(link);
-      onClickSpy.should.be.calledOnce();
-    });
-
     it('should show confirmation and call onClick if hasPendingChanges is true and user confirm yes', function () {
       const windowConfirmStub = stub(window, 'confirm');
       windowConfirmStub.withArgs(CONFIRM_MESSAGE).returns(true);
@@ -80,14 +51,14 @@ describe('PinboardLink component', function () {
           onClick={ onClickSpy } />
       );
 
-      instance = renderIntoDocument(
+      const wrapper = mount(
         <Router history={ createMemoryHistory() }>
           <Route path='/' component={ pinboardLink } />
         </Router>
       );
 
-      const link = findRenderedDOMComponentWithTag(instance, 'a');
-      Simulate.click(link);
+      const link = wrapper.find('a');
+      link.simulate('click');
       windowConfirmStub.withArgs(CONFIRM_MESSAGE).should.be.calledOnce();
       onClickSpy.should.be.calledOnce();
       windowConfirmStub.restore();
@@ -103,14 +74,14 @@ describe('PinboardLink component', function () {
           onClick={ onClickSpy } />
       );
 
-      instance = renderIntoDocument(
+      const wrapper = mount(
         <Router history={ createMemoryHistory() }>
           <Route path='/' component={ pinboardLink } />
         </Router>
       );
 
-      const link = findRenderedDOMComponentWithTag(instance, 'a');
-      Simulate.click(link);
+      const link = wrapper.find('a');
+      link.simulate('click');
       windowConfirmStub.withArgs(CONFIRM_MESSAGE).should.be.calledOnce();
       onClickSpy.should.not.be.called();
       windowConfirmStub.restore();

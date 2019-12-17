@@ -1,21 +1,9 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass,
-} from 'react-addons-test-utils';
-
-import { unmountComponentSuppressError } from 'utils/test';
+import { shallow, mount } from 'enzyme';
 import PrintNotes from 'components/common/print-notes';
 
 
 describe('PrintNotes component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render notes correctly', function () {
     let notes = [
       {
@@ -31,12 +19,12 @@ describe('PrintNotes component', function () {
         text: 'this is accused officer note.',
       },
     ];
-    instance = renderIntoDocument(<PrintNotes notes={ notes }/>);
-    findRenderedDOMComponentWithClass(instance, 'notes-title').textContent.should.eql('Notes');
-    const noteContents = scryRenderedDOMComponentsWithClass(instance, 'notes-content');
+    const wrapper = mount(<PrintNotes notes={ notes }/>);
+    wrapper.find('.notes-title').text().should.equal('Notes');
+    const noteContents = wrapper.find('.notes-content');
     noteContents.should.have.length(2);
-    noteContents[0].textContent.should.eql('Investigator: this is investigator note.');
-    noteContents[1].textContent.should.eql('Accused Officer: this is accused officer note.');
+    noteContents.at(0).text().should.equal('Investigator: this is investigator note.');
+    noteContents.at(1).text().should.equal('Accused Officer: this is accused officer note.');
   });
 
   it('should render into two columns if notes is greater than 4', function () {
@@ -78,8 +66,8 @@ describe('PrintNotes component', function () {
         text: 'this is major award note.',
       },
     ];
-    instance = renderIntoDocument(<PrintNotes notes={ notes }/>);
-    scryRenderedDOMComponentsWithClass(instance, 'notes-column').should.have.length(2);
-    scryRenderedDOMComponentsWithClass(instance, 'notes-content').should.have.length(6);
+    const wrapper = shallow(<PrintNotes notes={ notes }/>);
+    wrapper.find('.notes-column').should.have.length(2);
+    wrapper.find('.notes-content').should.have.length(6);
   });
 });

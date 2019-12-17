@@ -1,29 +1,19 @@
 import React from 'react';
+import { mount } from 'enzyme';
 import should from 'should';
-import {
-  renderIntoDocument,
-} from 'react-addons-test-utils';
-import { findDOMNode } from 'react-dom';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import Diagram from 'components/landing-page/common/pairing-card/pairing-chart/venn-diagram';
 
 
 describe('VennDiagram component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render 2 circles with correct path colors and the intersection', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Diagram
         background1={ 'red' }
         background2={ 'white' }
       />
     );
-    const instanceEl = findDOMNode(instance);
+    const instanceEl = wrapper.getDOMNode();
 
     // the circles
     const circles = instanceEl.querySelectorAll('.venn-circle');

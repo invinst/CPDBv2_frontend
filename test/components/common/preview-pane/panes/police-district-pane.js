@@ -1,10 +1,5 @@
 import React from 'react';
-import { findDOMNode } from 'react-dom';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
 import PoliceDistrictPane from 'components/common/preview-pane/panes/police-district-pane';
 import WidgetWrapper, {
@@ -12,18 +7,10 @@ import WidgetWrapper, {
   GeoInfoWidget,
   AllegationCountWidget,
   ListWidget,
-  CallToActionWidget,
 } from 'components/common/preview-pane/widgets';
-import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('PoliceDistrictPane component', () => {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should contain the sub components', () => {
     const mostComplaintOfficers = [
       { id: 1, name: 'Robert Seaberry', count: 59 },
@@ -31,7 +18,7 @@ describe('PoliceDistrictPane component', () => {
     ];
     const commander = { id: 123, name: 'Ernest Cato', count: 3 };
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PoliceDistrictPane
         name='Austin'
         raceCount={ [] }
@@ -44,45 +31,45 @@ describe('PoliceDistrictPane component', () => {
       />
     );
 
-    const wrapper = findRenderedComponentWithType(instance, WidgetWrapper);
-    wrapper.props.callToAction.url.should.eql('some_url');
+    const widgetWrapper = wrapper.find(WidgetWrapper);
+    widgetWrapper.prop('callToAction').url.should.equal('some_url');
+    widgetWrapper.prop('maxHeight').should.equal(830);
 
-    const header = findRenderedComponentWithType(instance, HeaderWidget);
-    const geo = findRenderedComponentWithType(instance, GeoInfoWidget);
-    const allegationCount = findRenderedComponentWithType(instance, AllegationCountWidget);
-    const widgets = scryRenderedComponentsWithType(instance, ListWidget);
-    findRenderedComponentWithType(instance, CallToActionWidget);
+    const header = wrapper.find(HeaderWidget);
+    const geo = wrapper.find(GeoInfoWidget);
+    const allegationCount = wrapper.find(AllegationCountWidget);
+    const widgets = wrapper.find(ListWidget);
 
-    findDOMNode(header).textContent.should.containEql('POLICE DISTRICT AUSTIN');
+    header.render().text().should.containEql('POLICE DISTRICT AUSTIN');
 
-    geo.props.raceCount.should.eql([]);
-    geo.props.population.should.eql(6789);
+    geo.prop('raceCount').should.eql([]);
+    geo.prop('population').should.equal(6789);
 
-    allegationCount.props.numOfAllegations.should.eql(1);
-    allegationCount.props.subTitle.should.eql('More than 10% of other districts');
-    allegationCount.props.url.should.eql('some_url');
+    allegationCount.prop('numOfAllegations').should.equal(1);
+    allegationCount.prop('subTitle').should.equal('More than 10% of other districts');
+    allegationCount.prop('url').should.equal('some_url');
 
     widgets.should.have.length(2);
 
-    widgets[0].props.typeName.should.eql('allegation');
-    widgets[0].props.title.should.eql('OFFICERS WITH MOST COMPLAINTS');
-    widgets[0].props.items.should.eql(
+    widgets.at(0).prop('typeName').should.equal('allegation');
+    widgets.at(0).prop('title').should.equal('OFFICERS WITH MOST COMPLAINTS');
+    widgets.at(0).prop('items').should.eql(
       [
         { id: 1, name: 'Robert Seaberry', count: 59 },
         { id: 2, name: 'Conray Jones', count: 32 },
       ]
     );
 
-    widgets[1].props.typeName.should.eql('allegation');
-    widgets[1].props.title.should.eql('DISTRICT COMMANDER');
-    widgets[1].props.items.should.eql([{ id: 123, name: 'Ernest Cato', count: 3 }]);
+    widgets.at(1).prop('typeName').should.equal('allegation');
+    widgets.at(1).prop('title').should.equal('DISTRICT COMMANDER');
+    widgets.at(1).prop('items').should.eql([{ id: 123, name: 'Ernest Cato', count: 3 }]);
   });
 
 
   it('should always pass districtCommander as array', function () {
-    instance = renderIntoDocument(<PoliceDistrictPane name='Austin'/>);
-    const widgets = scryRenderedComponentsWithType(instance, ListWidget);
+    const wrapper = shallow(<PoliceDistrictPane name='Austin'/>);
+    const widgets = wrapper.find(ListWidget);
 
-    widgets[1].props.items.should.eql([]);
+    widgets.at(1).prop('items').should.eql([]);
   });
 });
