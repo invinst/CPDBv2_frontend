@@ -51,18 +51,17 @@ export const trackSearchResultsCount = (count) => {
   });
 };
 
-export function trackSearchQuery(query) {
-  this.throttledClickyLog = this.throttledClickyLog || throttle(clickyLog, 500, { 'leading': false });
-  this.throttledSearchQueryGA = this.throttledSearchQueryGA || throttle(global.ga, 500, { 'leading': false });
-
-  this.throttledClickyLog(`change_query: ${query}`);
-  this.throttledSearchQueryGA('send', {
+function _trackSearchQuery(query) {
+  clickyLog(`change_query: ${query}`);
+  global.ga('send', {
     hitType: 'event',
     eventCategory: 'search',
     eventAction: 'change_query',
     eventLabel: query,
   });
 }
+
+export const trackSearchQuery = throttle(_trackSearchQuery, 500, { 'leading': false });
 
 export const trackCommunityClick = (communityName) => {
   clickyLog(`community: ${communityName}`);
