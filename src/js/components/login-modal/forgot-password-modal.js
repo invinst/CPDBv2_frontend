@@ -17,7 +17,7 @@ class ForgotPasswordModal extends Component {
     };
   }
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     if (!newProps.show && this.props.show) {
       this.setState({
         disabled: true,

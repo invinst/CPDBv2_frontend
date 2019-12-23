@@ -21,7 +21,7 @@ export default class Carousel extends Component {
     this.updateSlidesPerGroup();
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { children, resetPosition } = this.props;
     if (
       children.length > nextProps.children.length ||

@@ -22,7 +22,7 @@ class Toolbar extends Component {
     this.mouseOver = false;
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.editorState !== this.props.editorState) {
       const linkEntity = linkEntitySelected(nextProps.editorState);
       if (linkEntity) {

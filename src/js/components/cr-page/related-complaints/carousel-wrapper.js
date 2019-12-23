@@ -15,7 +15,7 @@ export default class CarouselWrapper extends Component {
     fetchRelatedComplaints(crid, { match, distance });
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { crid, distance, match, fetchRelatedComplaints } = nextProps;
 
     if (this.props.distance !== distance) {

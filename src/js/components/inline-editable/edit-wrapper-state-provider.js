@@ -24,7 +24,7 @@ export default class EditWrapperStateProvider extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
       fields: mapValues(nextProps.fields, this.deserializeField),
     });

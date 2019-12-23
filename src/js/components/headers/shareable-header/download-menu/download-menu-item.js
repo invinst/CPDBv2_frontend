@@ -24,7 +24,7 @@ export default class DownloadMenuItem extends React.Component {
     this.clickHandler = throttle(this.clickHandler, 1000, { 'trailing': false });
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { zipFileUrl } = this.props;
     if (nextProps.zipFileUrl && !zipFileUrl && this.state.requested)
       this.triggerDownload(nextProps.zipFileUrl);

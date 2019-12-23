@@ -11,7 +11,7 @@ export default class JumpyMotion extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (!this.props.isActive && nextProps.isActive) {
       this.setState({ startMotion: true });
       this.timeout = setTimeout(() => this.setState({ startMotion: false }), 10);

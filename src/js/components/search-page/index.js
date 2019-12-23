@@ -47,7 +47,7 @@ export default class SearchPage extends Component {
     showIntercomLauncher(false);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const {
       query,
     } = nextProps;

@@ -27,7 +27,7 @@ export default class PinnedGrid extends Component {
     this.initGrid();
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.bottomOffset = this.rendered ? getPageYBottomOffset() : null;
     this.rendered = true;
   }

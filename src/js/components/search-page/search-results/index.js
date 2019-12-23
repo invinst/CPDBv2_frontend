@@ -30,7 +30,7 @@ export default class SuggestionResults extends Component {
     )));
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { focusedItem } = nextProps;
 
     this.scrollIntoItemClassName = !isEmpty(focusedItem) && !isEqual(focusedItem, this.props.focusedItem) ?

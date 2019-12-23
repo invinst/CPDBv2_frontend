@@ -26,7 +26,7 @@ export default class App extends React.Component {
     return { adapter: getMockAdapter() };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     LayeredKeyBinding.bind('esc', () => this.props.toggleEditMode(this.props.location.pathname));
     ALPHA_NUMBERIC.forEach((letter) => {
       LayeredKeyBinding.bind(letter, () => {

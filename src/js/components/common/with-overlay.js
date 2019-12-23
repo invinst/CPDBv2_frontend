@@ -7,7 +7,7 @@ import styles from './with-overlay.sass';
 
 function withOverlay(ContentComponent) {
   class WithOverlay extends Component {
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
       if (nextProps.isShown) {
         document.body.classList.add('body-not-scrollable');
       } else {

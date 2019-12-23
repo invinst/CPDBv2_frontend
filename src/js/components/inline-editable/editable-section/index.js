@@ -23,7 +23,7 @@ export default function (SubComponent) {
       };
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
       this.setState({
         fields: mapValues(nextProps.fields, this.deserializeField),
       });

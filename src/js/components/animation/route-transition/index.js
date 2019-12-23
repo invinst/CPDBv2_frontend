@@ -23,7 +23,7 @@ export default class RouteTransition extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { pathname, pageLoading, children } = nextProps;
     const nextKey = this.getRouteTransitionKey(pathname);
     const prevKey = this.getRouteTransitionKey(this.props.pathname);

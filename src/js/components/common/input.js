@@ -52,7 +52,7 @@ export default class TextInput extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { focused, value } = nextProps;
 
     this.setState({ value });

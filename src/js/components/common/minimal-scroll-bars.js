@@ -7,7 +7,7 @@ import { thumbStyle } from './minimal-srcoll-bar.style';
 
 
 export default class MinimalScrollBars extends Component {
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.scrollTop !== this.props.scrollTop) {
       this.scrollerRef.scrollTop(nextProps.scrollTop);
     }

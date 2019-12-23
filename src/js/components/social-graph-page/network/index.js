@@ -66,7 +66,7 @@ export default class NetworkGraph extends Component {
     window.addEventListener('mousedown', this.handleClickOutside);
   }
 
-  componentWillUpdate(_, nextState) {
+  UNSAFE_componentWillUpdate(_, nextState) {
     const { sidebarsStatus } = this.state;
 
     this.performResizeGraph = sidebarsStatus !== nextState.sidebarsStatus;

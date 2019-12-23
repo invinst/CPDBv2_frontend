@@ -11,7 +11,7 @@ import PinboardLinkContainer from 'containers/pinboard-page/pinboard-link-contai
 
 
 class Pinboards extends Component {
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { isShown, fetchPinboards } = nextProps;
 
     if (!this.props.isShown && isShown) {

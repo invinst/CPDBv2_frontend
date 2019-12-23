@@ -19,7 +19,7 @@ export default class PinboardPane extends Component {
     this.fetchPinboardStaticSocialGraph(this.props);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.fetchPinboardStaticSocialGraph(nextProps);
   }
 

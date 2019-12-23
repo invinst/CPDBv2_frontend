@@ -19,7 +19,7 @@ export default class CommunityDetail extends Component {
     this.prevCommunity = {};
   }
 
-  componentWillReceiveProps() {
+  UNSAFE_componentWillReceiveProps() {
     this.prevCommunity = this.props.community || this.prevCommunity;
   }
 

@@ -23,7 +23,7 @@ export default class RichTextEditor extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.readOnly) {
       this.toolbarFocused = false;
       this.setState({

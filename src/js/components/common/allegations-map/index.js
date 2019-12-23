@@ -53,7 +53,7 @@ export default class AllegationsMap extends Component {
     this.addMapLayersOnStyleLoaded(this.props.markerGroups);
   }
 
-  componentWillReceiveProps(nextProps, nextState) {
+  UNSAFE_componentWillReceiveProps(nextProps, nextState) {
     if (nextProps.clearAllMarkers) {
       this.resetMap();
       this.addMapLayersOnStyleLoaded(nextProps.markerGroups);
