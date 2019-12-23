@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 import MapboxGL from 'components/common/mapbox-gl';
 import { mapContainerStyle } from './community-map.style.js';

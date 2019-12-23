@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import CrawlersTable from './crawlers-table';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';

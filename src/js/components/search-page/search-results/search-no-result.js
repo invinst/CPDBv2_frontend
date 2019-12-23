@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import { aHrefStyle, noResultItemStyle, suggestionGroupStyle, groupHeaderStyle } from './search-no-result.style';
 import { dataToolSearchUrl } from 'utils/v1-url';

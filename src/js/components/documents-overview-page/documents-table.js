@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import * as _ from 'lodash';
 import InfiniteScroll from 'react-infinite-scroller';
 import cx from 'classnames';

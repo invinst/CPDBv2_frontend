@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import DocumentMeta from 'react-document-meta';
 import cx from 'classnames';
 import { get } from 'lodash';

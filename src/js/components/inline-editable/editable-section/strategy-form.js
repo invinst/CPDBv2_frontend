@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import map from 'lodash/map';
 
 import { strategyFormStyle, numberEntriesStyle, strategySelectStyle } from './strategy-form.style';

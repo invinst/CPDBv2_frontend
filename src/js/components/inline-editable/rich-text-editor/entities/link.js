@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { Entity } from 'draft-js';
 
 import MoreLink from 'components/common/more-link';

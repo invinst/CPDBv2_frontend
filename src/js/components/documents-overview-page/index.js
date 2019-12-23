@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { locationShape } from 'react-router/lib/PropTypes';
 import * as _ from 'lodash';
 import { browserHistory } from 'react-router';

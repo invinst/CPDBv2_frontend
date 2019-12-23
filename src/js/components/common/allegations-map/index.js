@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { browserHistory } from 'react-router';
 import cx from 'classnames';

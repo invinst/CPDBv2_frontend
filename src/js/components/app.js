@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
 import { StyleRoot } from 'radium';
 import { locationShape } from 'react-router/lib/PropTypes';
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import cx from 'classnames';

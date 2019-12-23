@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import OfficerCard from 'components/common/officer-card';
 import OfficerCardFooter from './officer-card-footer';

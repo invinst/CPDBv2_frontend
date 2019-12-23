@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { map, compact, lowerCase, isEmpty } from 'lodash';
 import cx from 'classnames';
 import { browserHistory } from 'react-router';

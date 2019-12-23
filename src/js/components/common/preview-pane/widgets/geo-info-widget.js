@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import CommunityRacePopulation
   from 'components/landing-page/heat-map/summary-panel/community-dropdown/community-race-population';

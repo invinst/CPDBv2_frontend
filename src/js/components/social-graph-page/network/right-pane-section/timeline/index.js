@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import * as ScrollMagic from 'scrollmagic';
 import { isUndefined, isEqual, isEmpty } from 'lodash';
 import { throttle } from 'lodash';

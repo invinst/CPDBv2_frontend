@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { get, pick, merge } from 'lodash';
 import cx from 'classnames';
 

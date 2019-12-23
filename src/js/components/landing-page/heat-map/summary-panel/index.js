@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { Motion, spring } from 'react-motion';
 
 import { defaultConfig } from 'utils/spring-presets';

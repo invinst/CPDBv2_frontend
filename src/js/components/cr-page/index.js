@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import DocumentMeta from 'react-document-meta';
 import { get, isEmpty } from 'lodash';
 import cx from 'classnames';

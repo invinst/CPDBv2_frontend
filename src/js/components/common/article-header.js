@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import { articleHeaderStyle, headerTabletStyle } from './article-header.style';

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import ModalVideo from 'react-modal-video';
 
 import { MODAL_VIDEO_INFO } from 'utils/constants';

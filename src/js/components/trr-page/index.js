@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import DocumentMeta from 'react-document-meta';
 
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { get } from 'lodash';
 
 import MetricPane from 'components/officer-page/metrics-section/metric-pane';

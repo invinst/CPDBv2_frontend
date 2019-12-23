@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import currencyFormatter from 'currency-formatter';
 
 import Popup from 'components/common/popup';

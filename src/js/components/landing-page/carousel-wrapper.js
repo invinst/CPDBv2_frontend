@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 import Carousel from 'components/common/carousel';
 import EditModeProvider from 'components/edit-mode-provider';

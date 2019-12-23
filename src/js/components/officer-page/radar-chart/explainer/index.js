@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { get, findLast } from 'lodash';
 
 import TriangleExplainer from './triangle-explainer';

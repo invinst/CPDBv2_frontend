@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { map, isEqual, find, noop } from 'lodash';
 import { Muuri } from 'utils/vendors';
 

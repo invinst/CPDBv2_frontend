@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { isEmpty, isEqual } from 'lodash';
 import { trigger } from 'mousetrap';
 import cx from 'classnames';

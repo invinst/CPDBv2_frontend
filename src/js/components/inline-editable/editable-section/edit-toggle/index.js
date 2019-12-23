@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import MoreLink from 'components/common/more-link';
 import CancelUpdateButtons from './cancel-update-buttons';

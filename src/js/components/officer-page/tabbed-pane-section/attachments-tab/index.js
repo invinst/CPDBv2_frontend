@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import Complaint from './complaint';
 import styles from './attachments-tab.sass';

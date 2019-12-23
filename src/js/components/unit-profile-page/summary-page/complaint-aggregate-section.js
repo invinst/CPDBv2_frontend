@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { map } from 'lodash';
 
 import { wrapperStyle, countStyle, sustainedCountStyle } from './complaint-aggregate-section.style';

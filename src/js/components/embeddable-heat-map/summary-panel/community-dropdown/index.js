@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { find } from 'lodash';
 import { TransitionMotion, spring } from 'react-motion';
 

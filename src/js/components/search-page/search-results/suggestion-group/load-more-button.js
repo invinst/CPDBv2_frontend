@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import classnames from 'classnames';
 import Hoverable from 'components/common/higher-order/hoverable';
 import { loadMoreButtonStyle, loadMoreButtonTextStyle } from './load-more-button.style';

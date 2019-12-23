@@ -1,9 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { isEmpty, orderBy, isEqual, filter, map } from 'lodash';
 import moment from 'moment';
 import * as d3 from 'd3';
 import d3Tip from 'd3-tip';
+import PropTypes from 'prop-types';
 import 'rc-slider/assets/index.css';
 import cx from 'classnames';
 import pluralize from 'pluralize';

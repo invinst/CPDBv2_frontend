@@ -1,6 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import pluralize from 'pluralize';
 import cx from 'classnames';
+import PropTypes from 'prop-types';
 import Collapse, { Panel } from 'rc-collapse';
 import { slice, isEmpty, isNil } from 'lodash';
 import 'rc-collapse/assets/index.css';

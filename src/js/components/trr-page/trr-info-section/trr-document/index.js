@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import style from './trr-document.sass';
 import RequestDocumentButton from 'components/common/request-document-button';

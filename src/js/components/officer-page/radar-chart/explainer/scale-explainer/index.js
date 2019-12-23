@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import StaticRadarChart from 'components/common/radar-chart';
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';

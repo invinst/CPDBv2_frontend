@@ -1,5 +1,6 @@
 import OutboundLink from 'components/common/outbound-link';
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { QA_LINK } from 'utils/constants';
 import style from './legal-disclaimer-modal-content.sass';
 import { showIntercomMessages } from 'utils/intercom';

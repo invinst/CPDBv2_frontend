@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import UnderlineText from 'components/common/underline-text';
 import Hoverable from 'components/common/higher-order/hoverable';

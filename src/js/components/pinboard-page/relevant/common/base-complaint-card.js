@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { take, slice, noop } from 'lodash';
 
 import styles from './base-complaint-card.sass';

@@ -1,4 +1,5 @@
-import { Component, createElement, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import { Component, createElement } from 'react';
 import { isEqual } from 'lodash';
 
 

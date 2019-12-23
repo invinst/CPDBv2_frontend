@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { map, isEqual, filter } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import { outerWrapperStyle, innerWrapperStyle, borderStyle } from './article-expanded.style';

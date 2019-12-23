@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { find } from 'lodash';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';

@@ -1,6 +1,8 @@
 import 'babel-polyfill';
 
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+
+import React, { Component } from 'react';
 import { Editor, DefaultDraftBlockRenderMap, EditorState } from 'draft-js';
 
 import EditorBlockWithStyle from 'components/inline-editable/custom-block/editor-block-with-style';

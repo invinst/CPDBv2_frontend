@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import cx from 'classnames';
 
 import baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/showings/base-item.sass';
