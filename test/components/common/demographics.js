@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Demographics from 'components/common/demographics';
 
 

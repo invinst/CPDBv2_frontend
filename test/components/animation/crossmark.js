@@ -1,5 +1,3 @@
-import React from 'react';
-
 import CrossMark from 'components/animation/crossmark';
 
 

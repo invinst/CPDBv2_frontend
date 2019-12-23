@@ -1,5 +1,3 @@
-import React from 'react';
-
 import CheckMark from 'components/animation/checkmark';
 
 

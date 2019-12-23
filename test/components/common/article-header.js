@@ -1,5 +1,3 @@
-import React from 'react';
-
 import ArticleHeader from 'components/common/article-header';
 
 

@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import React from 'react';
 
 import UnitProfilePage from 'components/unit-profile-page';
 import { summarySelector } from 'selectors/unit-profile-page';

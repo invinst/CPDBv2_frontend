@@ -1,5 +1,3 @@
-import React from 'react';
-
 import CirclesSVG from 'components/cr-page/timeline/circles-svg';
 
 

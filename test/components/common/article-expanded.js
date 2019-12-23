@@ -1,5 +1,3 @@
-import React from 'react';
-
 import ArticleExpanded from 'components/common/article-expanded';
 
 

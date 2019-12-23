@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import React from 'react';
 
 import SummaryPage from 'components/unit-profile-page/summary-page';
 import { fetchUnitProfileSummary } from 'actions/unit-profile-page';

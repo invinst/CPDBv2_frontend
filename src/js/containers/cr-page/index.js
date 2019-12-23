@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import React from 'react';
 import { omit } from 'lodash';
 
 import { contentSelector, getCRID, getDocumentAlreadyRequested } from 'selectors/cr-page';
