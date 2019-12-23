@@ -7,13 +7,13 @@ import ResponsiveStyleComponent, { DESKTOP, TABLET } from 'components/responsive
 
 
 class ArticleHeader extends Component {
-  renderWithResponsiveStyle(style) {
+  renderWithResponsiveStyle = (style) => {
     return (
       <h6 style={ [style.header, this.props.style] }>
         { this.props.children }
       </h6>
     );
-  }
+  };
 
   render() {
     return (
@@ -22,7 +22,7 @@ class ArticleHeader extends Component {
           [DESKTOP]: { header: [articleHeaderStyle] },
           [TABLET]: { header: [articleHeaderStyle, headerTabletStyle] },
         } }>
-        { this.renderWithResponsiveStyle.bind(this) }
+        { this.renderWithResponsiveStyle }
       </ResponsiveStyleComponent>
     );
   }

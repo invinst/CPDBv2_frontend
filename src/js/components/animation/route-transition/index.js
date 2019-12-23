@@ -87,7 +87,7 @@ export default class RouteTransition extends Component {
     return pathname;
   }
 
-  handleOverlayTransitionEnd() {
+  handleOverlayTransitionEnd = () => {
     const { pageLoading, children, pathname } = this.props;
     if (!pageLoading && this.state.showOverlay) {
       setTimeout(() => {
@@ -104,7 +104,7 @@ export default class RouteTransition extends Component {
         });
       });
     }
-  }
+  };
 
   render() {
     const { showOverlay, contents } = this.state;
@@ -116,7 +116,7 @@ export default class RouteTransition extends Component {
     return (
       <div>
         <Motion
-          onRest={ this.handleOverlayTransitionEnd.bind(this) }
+          onRest={ this.handleOverlayTransitionEnd }
           defaultStyle={ { opacity: showOverlay ? 1 : 0 } }
           style={ { opacity: spring(showOverlay ? 1 : 0, defaultConfig()) } }>
           { ({ opacity }) => {

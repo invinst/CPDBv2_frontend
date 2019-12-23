@@ -5,10 +5,10 @@ import responsiveContainerStyles from 'components/common/responsive-container.sa
 import styles from './search-bar.sass';
 
 export default class SearchBar extends Component {
-  handleChange(event) {
+  handleChange = (event) => {
     const { onChange } = this.props;
     onChange(event.target.value);
-  }
+  };
 
   render() {
     const { value } = this.props;
@@ -19,7 +19,7 @@ export default class SearchBar extends Component {
             <div className='search-box-parent'>
               <input
                 value={ value }
-                onChange={ this.handleChange.bind(this) }
+                onChange={ this.handleChange }
                 type='text'
                 className={ styles.searchBox }
                 placeholder='Search' />

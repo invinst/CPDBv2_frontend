@@ -12,9 +12,9 @@ export default function withCarousel(
   CardComponentMap, type = '', extraCardAttr = {}
 ) {
   class Wrapper extends Component {
-    handleNavigate(direction) {
+    handleNavigate = (direction) => {
       GATracking.trackSwipeLanddingPageCarousel(direction, type.key || type);
-    }
+    };
 
     render() {
       const {
@@ -54,7 +54,7 @@ export default function withCarousel(
           <Carousel
             style={ carouselStyle }
             childWidth={ 232 }
-            onNavigate={ this.handleNavigate.bind(this) }
+            onNavigate={ this.handleNavigate }
             resetPosition={ false }
           >
             { slideElements }

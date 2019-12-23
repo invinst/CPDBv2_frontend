@@ -74,7 +74,7 @@ export default class LocationMap extends Component {
         center: [centerLng, centerLat],
         interactive: false,
       });
-      this.map.on('click', this.handleMapClick.bind(this));
+      this.map.on('click', this.handleMapClick);
       this.addMarker(lat, lng, markerEl);
     }
   }
@@ -95,13 +95,13 @@ export default class LocationMap extends Component {
     }
   }
 
-  handleMapClick(e) {
+  handleMapClick = (e) => {
     if (this.map.getZoom() === zoom1) {
       this.zoomIn();
     } else {
       this.zoomOut();
     }
-  }
+  };
 
   zoomIn() {
     const { lng, lat } = this.props;

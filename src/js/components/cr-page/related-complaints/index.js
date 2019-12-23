@@ -19,11 +19,11 @@ export default class RelatedComplaints extends Component {
     };
   }
 
-  handleDistanceChange(value) {
+  handleDistanceChange = (value) => {
     this.setState({
       selectedDistance: findKey(DISTANCE_OPTIONS, v => v === value),
     });
-  }
+  };
 
   render() {
     const { crid } = this.props;
@@ -39,7 +39,7 @@ export default class RelatedComplaints extends Component {
                 className='distance-filter'
                 defaultValue={ DISTANCE_OPTIONS[selectedDistance] }
                 options={ values(DISTANCE_OPTIONS) }
-                onChange={ this.handleDistanceChange.bind(this) }
+                onChange={ this.handleDistanceChange }
               />
               OF CR { crid }
             </div>

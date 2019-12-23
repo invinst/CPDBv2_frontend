@@ -6,10 +6,10 @@ import RelevantInfiniteCarousel from 'components/pinboard-page/relevant/common/r
 
 
 export default class RelevantDocuments extends Component {
-  loadMore() {
+  loadMore = () => {
     const { pinboardId, nextParams, fetchPinboardRelevantDocuments } = this.props;
     fetchPinboardRelevantDocuments(pinboardId, nextParams);
-  }
+  };
 
   render() {
     const { documents, hasMore, addItemInPinboardPage, requesting } = this.props;
@@ -18,7 +18,7 @@ export default class RelevantDocuments extends Component {
         title='DOCUMENTS'
         childWidth={ 306 }
         hasMore={ hasMore }
-        loadMore={ this.loadMore.bind(this) }
+        loadMore={ this.loadMore }
         className='relevant-documents'
         requesting={ requesting }
       >

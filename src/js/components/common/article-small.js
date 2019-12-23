@@ -35,7 +35,7 @@ class ArticleSmall extends Component {
     );
   }
 
-  renderWithResponsiveStyle(style) {
+  renderWithResponsiveStyle = (style) => {
     return (
       <div key={ style.screen } className='article-small link--transition'
         style={ style.wrapper } onClick={ this.props.onClick }>
@@ -45,7 +45,7 @@ class ArticleSmall extends Component {
         </div>
       </div>
     );
-  }
+  };
 
   render() {
     const { style, hoverable } = this.props;
@@ -63,7 +63,7 @@ class ArticleSmall extends Component {
             wrapper: [wrapperStyle, extraWideWrapperStyle, style.wrapper, hoverable && wrapperHoverStyle],
           },
         } }>
-        { this.renderWithResponsiveStyle.bind(this) }
+        { this.renderWithResponsiveStyle }
       </ResponsiveStyleComponent>
     );
   }

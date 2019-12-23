@@ -18,7 +18,7 @@ export default class DocumentsOverviewPage extends Component {
     };
   }
 
-  handleSearchChange(text) {
+  handleSearchChange = (text) => {
     const { pathname } = this.props.location;
     if (this.state.searchText === text)
       return;
@@ -28,7 +28,7 @@ export default class DocumentsOverviewPage extends Component {
     } else {
       browserHistory.push(`${pathname}?match=${text}`);
     }
-  }
+  };
 
   render() {
     const {
@@ -47,14 +47,14 @@ export default class DocumentsOverviewPage extends Component {
           to='/crawlers/' />
         <SearchBar
           value={ this.state.searchText }
-          onChange={ this.handleSearchChange.bind(this) }/>
+          onChange={ this.handleSearchChange }/>
         <DocumentsTable
           rows={ documents }
           hasMore={ hasMore }
           nextParams={ nextParams }
           fetchDocuments={ fetchDocuments }
           fetchDocumentsAuthenticated={ fetchDocumentsAuthenticated }
-          onCRLinkClick={ this.handleSearchChange.bind(this) }/>
+          onCRLinkClick={ this.handleSearchChange }/>
       </div>
     );
   }

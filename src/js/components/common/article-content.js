@@ -7,13 +7,13 @@ import { contentStyle, contentTabletStyle } from './article-content.style';
 
 
 class ArticleContent extends Component {
-  renderWithResponsiveStyle(style) {
+  renderWithResponsiveStyle = (style) => {
     return (
       <p style={ style.content }>
         { this.props.children }
       </p>
     );
-  }
+  };
 
   render() {
     return (
@@ -26,7 +26,7 @@ class ArticleContent extends Component {
             content: [contentStyle, this.props.style],
           },
         } }>
-        { this.renderWithResponsiveStyle.bind(this) }
+        { this.renderWithResponsiveStyle }
       </ResponsiveStyleComponent>
     );
   }

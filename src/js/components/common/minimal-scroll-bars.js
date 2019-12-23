@@ -22,7 +22,7 @@ export default class MinimalScrollBars extends Component {
     );
   };
 
-  renderView({ style }) {
+  renderView = ({ style }) => {
     const { viewClassName } = this.props;
     return (
       <div
@@ -30,12 +30,12 @@ export default class MinimalScrollBars extends Component {
         className={ viewClassName }
       />
     );
-  }
+  };
 
-  handleScrollerRef(el) {
+  handleScrollerRef = (el) => {
     this.scrollerRef = el;
     this.props.onScrollerRef(el);
-  }
+  };
 
   render() {
     const { showThumb } = this.props;
@@ -47,8 +47,8 @@ export default class MinimalScrollBars extends Component {
       <Scrollbars
         thumbSize={ 120 }
         renderThumbVertical={ showThumb ? this.renderThumb: () => <div/> }
-        renderView={ this.renderView.bind(this) }
-        ref={ this.handleScrollerRef.bind(this) }
+        renderView={ this.renderView }
+        ref={ this.handleScrollerRef }
         style={ this.props.style.container }
         renderTrackHorizontal={
           props => <div { ...props } style={ { display: 'none' } } className='track-horizontal' />

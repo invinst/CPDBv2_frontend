@@ -24,7 +24,7 @@ class Link extends Component {
     }
   }
 
-  renderWithResponsiveStyle(style) {
+  renderWithResponsiveStyle = (style) => {
     const { children, entityKey } = this.props;
     const { editModeOn, sectionEditModeOn } = this.context;
     const { url } = Entity.get(entityKey).getData();
@@ -40,13 +40,13 @@ class Link extends Component {
         { children }
       </span>
     );
-  }
+  };
 
   render() {
     return (
       <ResponsiveStyleComponent style={ linkWrapperStyle }
         responsiveStyle={ this.responsiveStyle() }>
-        { this.renderWithResponsiveStyle.bind(this) }
+        { this.renderWithResponsiveStyle }
       </ResponsiveStyleComponent>
     );
   }

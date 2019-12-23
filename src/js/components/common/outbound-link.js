@@ -5,7 +5,7 @@ import { trackOutboundLink } from 'utils/google_analytics_tracking';
 
 
 export default class OutboundLink extends Component {
-  handleClick(event) {
+  handleClick = (event) => {
     event.preventDefault();
     event.stopPropagation();
 
@@ -15,14 +15,14 @@ export default class OutboundLink extends Component {
     if (href) {
       trackOutboundLink(href, target);
     }
-  }
+  };
 
   render() {
     const { children, ...rest } = this.props;
     return (
       <a
         { ...rest }
-        onClick={ this.handleClick.bind(this) }
+        onClick={ this.handleClick }
       >
         { children }
       </a>

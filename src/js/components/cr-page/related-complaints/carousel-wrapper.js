@@ -24,10 +24,10 @@ export default class CarouselWrapper extends Component {
     }
   }
 
-  loadMore() {
+  loadMore = () => {
     const { crid, nextParams, fetchRelatedComplaints } = this.props;
     fetchRelatedComplaints(crid, nextParams);
-  }
+  };
 
   render() {
     const { count, cards, title, hasMore, match, crid, addOrRemoveItemInPinboard } = this.props;
@@ -40,7 +40,7 @@ export default class CarouselWrapper extends Component {
         </div>
         <Carousel
           ref={ carousel => this.carousel = carousel }
-          loadMore={ this.loadMore.bind(this) }
+          loadMore={ this.loadMore }
           hasMore={ hasMore }
           childWidth={ itemWidth }
           arrowClassName={ styles.carouselArrow }

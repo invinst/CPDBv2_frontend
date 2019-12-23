@@ -14,17 +14,17 @@ export default class Scroller extends Component {
     }
   }
 
-  handleElementRef(el) {
+  handleElementRef = (el) => {
     if (el) {
       this.element = el;
       this.props.onElementRef(el);
     }
-  }
+  };
 
   render() {
     const { style, children } = this.props;
     return (
-      <div style={ { ...wrapperStyle, ...style } } ref={ this.handleElementRef.bind(this) }>
+      <div style={ { ...wrapperStyle, ...style } } ref={ this.handleElementRef }>
         { children }
       </div>
     );

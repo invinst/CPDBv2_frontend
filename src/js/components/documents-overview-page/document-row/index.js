@@ -10,13 +10,13 @@ import { ATTACHMENT_TYPES } from 'utils/constants';
 import { trackOutboundLink } from 'utils/google_analytics_tracking';
 
 export default class DocumentRow extends Component {
-  handleClick() {
+  handleClick = () => {
     const { id, fileType, url } = this.props;
     if (fileType === ATTACHMENT_TYPES.DOCUMENT)
       browserHistory.push(`/document/${id}/`);
     else
       trackOutboundLink(url, '_blank');
-  }
+  };
 
   render() {
     const {
@@ -34,7 +34,7 @@ export default class DocumentRow extends Component {
 
     return (
       <div
-        onClick={ this.handleClick.bind(this) }
+        onClick={ this.handleClick }
         className={ cx(styles.row, { 'edit-mode': editModeOn }) }>
         <span
           className='document-thumbnail'

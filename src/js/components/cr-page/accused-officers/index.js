@@ -18,11 +18,11 @@ export default class AccusedOfficers extends Component {
     };
   }
 
-  handleExpandList() {
+  handleExpandList = () => {
     this.setState({
       expanded: true,
     });
-  }
+  };
 
   render() {
     const { officers, popup, pathName, addOrRemoveItemInPinboard } = this.props;
@@ -57,7 +57,7 @@ export default class AccusedOfficers extends Component {
           !expanded
             ? (
               <div className='show-more-button-container no-print'>
-                <span onClick={ this.handleExpandList.bind(this) } className='show-more-button'>
+                <span onClick={ this.handleExpandList } className='show-more-button'>
                   Show all accused officers
                 </span>
               </div>
