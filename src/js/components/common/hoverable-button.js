@@ -1,26 +1,24 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 
 import Hoverable from 'components/common/higher-order/hoverable';
 
 
-export class HoverableButton extends Component {
-  render() {
-    const { hovering, style, onClick, children, disabled, className } = this.props;
-    const buttonStyle = disabled ?
-      style.disabled :
-      (hovering ? style.hover : style.base);
-    const _className = classNames('link--transition', 'hoverable-button', className);
+export function HoverableButton(props) {
+  const { hovering, style, onClick, children, disabled, className } = props;
+  const buttonStyle = disabled ?
+    style.disabled :
+    (hovering ? style.hover : style.base);
+  const _className = classNames('link--transition', 'hoverable-button', className);
 
-    return (
-      <a
-        className={ _className }
-        onClick={ !disabled ? onClick : null }
-        style={ buttonStyle }>
-        { children }
-      </a>
-    );
-  }
+  return (
+    <a
+      className={ _className }
+      onClick={ !disabled ? onClick : null }
+      style={ buttonStyle }>
+      { children }
+    </a>
+  );
 }
 
 HoverableButton.propTypes = {

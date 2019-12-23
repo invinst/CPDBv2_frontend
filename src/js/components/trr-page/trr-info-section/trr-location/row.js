@@ -1,23 +1,21 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
 import style from './row.sass';
 
 
-export default class Row extends Component {
-  render() {
-    const { title, value } = this.props;
+export default function Row(props) {
+  const { title, value } = props;
 
-    return (
-      <div className={ style.trrLocationRow }>
-        <div className='trr-location-row-title'>
-          { title }
-        </div>
-        <div className='trr-location-row-value'>
-          { value }
-        </div>
+  return (
+    <div className={ style.trrLocationRow }>
+      <div className='trr-location-row-title'>
+        { title }
       </div>
-    );
-  }
+      <div className='trr-location-row-value'>
+        { value }
+      </div>
+    </div>
+  );
 }
 
 Row.propTypes = {

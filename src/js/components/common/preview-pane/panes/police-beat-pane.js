@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
 import WidgetWrapper, {
   HeaderWidget,
@@ -9,32 +9,30 @@ import WidgetWrapper, {
 } from '../widgets';
 
 
-export default class PoliceBeatPane extends Component {
-  render() {
-    const {
-      name,
-      allegationCount,
-      mostCommonComplaint,
-      url,
-      policeHQ,
-    } = this.props;
+export default function PoliceBeatPane(props) {
+  const {
+    name,
+    allegationCount,
+    mostCommonComplaint,
+    url,
+    policeHQ,
+  } = props;
 
-    const beatContent = policeHQ ? `${policeHQ} District Police Station` : '';
-    return (
-      <WidgetWrapper callToAction={ { url } } maxHeight={ 520 }>
-        <HeaderWidget title={ `POLICE BEAT #${name}` }/>
-        <SeparatorWidget/>
-        <AllegationCountWidget url={ url } numOfAllegations={ allegationCount }/>
-        <TextWidget title='THIS BEAT CONTAINS A POLICE HQ' content={ beatContent }/>
-        <ListWidget
-          items={ mostCommonComplaint }
-          typeName='allegation'
-          showAvatar={ false }
-          title='MOST COMMON COMPLAINTS'
-        />
-      </WidgetWrapper>
-    );
-  }
+  const beatContent = policeHQ ? `${policeHQ} District Police Station` : '';
+  return (
+    <WidgetWrapper callToAction={ { url } } maxHeight={ 520 }>
+      <HeaderWidget title={ `POLICE BEAT #${name}` }/>
+      <SeparatorWidget/>
+      <AllegationCountWidget url={ url } numOfAllegations={ allegationCount }/>
+      <TextWidget title='THIS BEAT CONTAINS A POLICE HQ' content={ beatContent }/>
+      <ListWidget
+        items={ mostCommonComplaint }
+        typeName='allegation'
+        showAvatar={ false }
+        title='MOST COMMON COMPLAINTS'
+      />
+    </WidgetWrapper>
+  );
 }
 
 PoliceBeatPane.propTypes = {

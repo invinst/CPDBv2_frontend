@@ -1,29 +1,27 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
 import style from './officer-info.sass';
 
 
-class OfficerInfo extends Component {
-  render() {
-    const { info, rightOfficer } = this.props;
-    const { fullName, age, race, gender, rank } = info;
+function OfficerInfo(props) {
+  const { info, rightOfficer } = props;
+  const { fullName, age, race, gender, rank } = info;
 
-    return (
-      <div
-        className={ `${style.officerInfo} ${rightOfficer ? 'right-officer': 'left-officer'}` }
-        onClick={ this.handleClick }
-      >
-        <div className='officer-info-upper'>
-          <div className='officer-info-text'>{ rank }</div>
-          <div className='officer-info-name'>{ fullName }</div>
-        </div>
-        <div className='officer-info-row-divider'/>
-        <div className='officer-info-personal-info'>
-          { age }-year-old { race } { gender }
-        </div>
+  return (
+    <div
+      className={ `${style.officerInfo} ${rightOfficer ? 'right-officer': 'left-officer'}` }
+      onClick={ this.handleClick }
+    >
+      <div className='officer-info-upper'>
+        <div className='officer-info-text'>{ rank }</div>
+        <div className='officer-info-name'>{ fullName }</div>
       </div>
-    );
-  }
+      <div className='officer-info-row-divider'/>
+      <div className='officer-info-personal-info'>
+        { age }-year-old { race } { gender }
+      </div>
+    </div>
+  );
 }
 
 OfficerInfo.propTypes = {

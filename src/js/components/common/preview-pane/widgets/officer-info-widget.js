@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { map, compact, lowerCase, isEmpty } from 'lodash';
 
 import {
@@ -12,71 +12,69 @@ import {
 } from './officer-info-widget.style';
 
 
-export default class OfficerInfoWidget extends Component {
-  render() {
-    const {
-      fullName,
-      age,
-      race,
-      gender,
-      badge,
-      rank,
-      unit,
-      appointedDate,
-      resignationDate,
-    } = this.props;
+export default function OfficerInfoWidget(props) {
+  const {
+    fullName,
+    age,
+    race,
+    gender,
+    badge,
+    rank,
+    unit,
+    appointedDate,
+    resignationDate,
+  } = props;
 
-    const ageString = age ? `${age} year old` : null;
-    const raceString = race ? lowerCase(race) : null;
-    const genderString = gender ? lowerCase(gender) : null;
-    const geographicInfo = compact([ageString, raceString, genderString]);
+  const ageString = age ? `${age} year old` : null;
+  const raceString = race ? lowerCase(race) : null;
+  const genderString = gender ? lowerCase(gender) : null;
+  const geographicInfo = compact([ageString, raceString, genderString]);
 
-    const listInfo = [
-      {
-        key: '',
-        value: !isEmpty(geographicInfo) ? `${geographicInfo.join(', ')}.` : null,
-      },
-      {
-        key: 'Badge',
-        value: badge,
-      },
-      {
-        key: 'Rank',
-        value: rank,
-      },
-      {
-        key: 'Unit',
-        value: unit.description || unit.unitName,
-        title: unit.description,
-      },
-      {
-        key: 'Career',
-        value: `${appointedDate || 'Unknown'} — ${resignationDate || 'Present'}`,
-      },
-    ];
+  const listInfo = [
+    {
+      key: '',
+      value: !isEmpty(geographicInfo) ? `${geographicInfo.join(', ')}.` : null,
+    },
+    {
+      key: 'Badge',
+      value: badge,
+    },
+    {
+      key: 'Rank',
+      value: rank,
+    },
+    {
+      key: 'Unit',
+      value: unit.description || unit.unitName,
+      title: unit.description,
+    },
+    {
+      key: 'Career',
+      value: `${appointedDate || 'Unknown'} — ${resignationDate || 'Present'}`,
+    },
+  ];
 
-    return (
-      <div style={ wrapperStyle }>
-        <h1 className='test--officer-name' style={ titleStyle }>{ fullName }</h1>
-        <ul style={ listStyle }>
-          {
-            map(listInfo, (metric) => metric.value ? (
-              <li style={ listItemStyle } key={ `item-${metric.key}` }>
-                { metric.key && <div style={ itemKeyStyle }>{ metric.key }</div> }
-                <div
-                  title={ metric.title }
-                  style={ itemValueStyle(!!metric.key) }
-                >
-                  { metric.value }
-                </div>
-                <div style={ clearfixStyle }/>
-              </li>
-            ) : null)
-          }
-        </ul>
-      </div>
-    );
-  }
+  return (
+    <div style={ wrapperStyle }>
+      <h1 className='test--officer-name' style={ titleStyle }>{ fullName }</h1>
+      <ul style={ listStyle }>
+        {
+          map(listInfo, (metric) => metric.value ? (
+            <li style={ listItemStyle } key={ `item-${metric.key}` }>
+              { metric.key && <div style={ itemKeyStyle }>{ metric.key }</div> }
+              <div
+                title={ metric.title }
+                style={ itemValueStyle(!!metric.key) }
+              >
+                { metric.value }
+              </div>
+              <div style={ clearfixStyle }/>
+            </li>
+          ) : null)
+        }
+      </ul>
+    </div>
+  );
 }
 
 OfficerInfoWidget.defaultProps = {

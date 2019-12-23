@@ -4,18 +4,16 @@ import ConfiguredRadium from 'utils/configured-radium';
 import { outerWrapperStyle, innerWrapperStyle, borderStyle } from './article-expanded.style';
 
 
-class ArticleExpanded extends React.Component {
-  render() {
-    return (
-      <div className={ this.props.className } style={ [outerWrapperStyle, this.props.style.outer] }>
-        <div style={ borderStyle }>
-          <div style={ [innerWrapperStyle, this.props.style.inner] }>
-            { this.props.children }
-          </div>
+function ArticleExpanded(props) {
+  return (
+    <div className={ props.className } style={ [outerWrapperStyle, props.style.outer] }>
+      <div style={ borderStyle }>
+        <div style={ [innerWrapperStyle, props.style.inner] }>
+          { props.children }
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 ArticleExpanded.propTypes = {

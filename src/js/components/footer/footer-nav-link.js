@@ -5,22 +5,20 @@ import OutboundLink from 'components/common/outbound-link';
 import styles from './foot-nav-link.sass';
 
 
-class FooterNavLink extends React.Component {
-  render() {
-    const { name, externalHref, onClick, className } = this.props;
+function FooterNavLink(props) {
+  const { name, externalHref, onClick, className } = props;
 
-    return (
-      <OutboundLink
-        href={ externalHref }
-        className={ cx(styles.footerNavLink, className) }
-        onClick={ onClick }
-        target='_blank'
-      >
-        { name }
-      </OutboundLink>
-    );
+  return (
+    <OutboundLink
+      href={ externalHref }
+      className={ cx(styles.footerNavLink, className) }
+      onClick={ onClick }
+      target='_blank'
+    >
+      { name }
+    </OutboundLink>
+  );
 
-  }
 }
 
 FooterNavLink.propTypes = {

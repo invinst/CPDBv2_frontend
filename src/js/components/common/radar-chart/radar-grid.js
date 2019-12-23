@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { range } from 'lodash';
 import { curveLinearClosed, radialLine } from 'd3-shape';
 import { scaleLinear } from 'd3-scale';
@@ -8,42 +8,40 @@ import { radarGridStyle } from './radar-grid.style';
 
 const LEVEL = 5;
 
-export default class RadarGrid extends Component {
-  render() {
-    const { radius, maxValue, numAxis, strokeWidth, strokeColor, opacity, outerGridOnly } = this.props;
+export default function RadarGrid(props) {
+  const { radius, maxValue, numAxis, strokeWidth, strokeColor, opacity, outerGridOnly } = props;
 
-    if (!numAxis)
-      return <g className='test--radar-grid-wrapper'/>;
+  if (!numAxis)
+    return <g className='test--radar-grid-wrapper'/>;
 
-    const angleSlice = Math.PI * 2 / numAxis;
+  const angleSlice = Math.PI * 2 / numAxis;
 
-    const rScale = scaleLinear()
-      .range([0, radius + strokeWidth])
-      .domain([0, maxValue]);
+  const rScale = scaleLinear()
+    .range([0, radius + strokeWidth])
+    .domain([0, maxValue]);
 
-    const maxValueScaled = rScale(maxValue);
+  const maxValueScaled = rScale(maxValue);
 
-    const radarLine = radialLine()
-      .curve(curveLinearClosed)
-      .radius((d) => d.value)
-      .angle((d, i) => i * angleSlice - Math.PI);
+  const radarLine = radialLine()
+    .curve(curveLinearClosed)
+    .radius((d) => d.value)
+    .angle((d, i) => i * angleSlice - Math.PI);
 
-    const gridIndexes = outerGridOnly ? [LEVEL -1] : range(LEVEL);
+  const gridIndexes = outerGridOnly ? [LEVEL -1] : range(LEVEL);
 
-    return (
-      <g className='test--radar-grid-wrapper'>
-        { gridIndexes.map((i) => (
-          <path
-            stroke={ strokeColor }
-            key={ `radar-grid-${i + 1}` }
-            className={ `test--radar-grid-${i + 1}` }
-            d={ radarLine(range(numAxis).map(() => ({ value: maxValueScaled * (i + 1) / LEVEL }))) }
-            style={ radarGridStyle(opacity) }
-          />
-        )) }
-      </g>
-    );
-  }
+  return (
+    <g className='test--radar-grid-wrapper'>
+      { gridIndexes.map((i) => (
+        <path
+          stroke={ strokeColor }
+          key={ `radar-grid-${i + 1}` }
+          className={ `test--radar-grid-${i + 1}` }
+          d={ radarLine(range(numAxis).map(() => ({ value: maxValueScaled * (i + 1) / LEVEL }))) }
+          style={ radarGridStyle(opacity) }
+        />
+      )) }
+    </g>
+  );
 }
 
 RadarGrid.defaultProps = {

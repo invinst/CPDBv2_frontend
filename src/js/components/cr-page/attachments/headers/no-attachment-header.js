@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react';
+import React, { PropTypes } from 'react';
 
 import RequestDocumentButton from 'components/common/request-document-button';
 import styles from './no-attachment-header.sass';
@@ -7,30 +7,28 @@ import RichTextEditable from 'components/inline-editable/editable-section/rich-t
 import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
 
 
-export default class NoAttachmentHeader extends Component {
-  render() {
-    const { openRequestDocumentModal, alreadyRequested, editWrapperStateProps } = this.props;
+export default function NoAttachmentHeader(props) {
+  const { openRequestDocumentModal, alreadyRequested, editWrapperStateProps } = props;
 
-    return (
-      <div className={ styles.noHeaderMessage }>
-        <EditWrapperStateProvider { ...editWrapperStateProps }>
-          <HoverableEditWrapper className='message'>
-            <RichTextEditable
-              placeholder='There are no documents that have been made public yet.'
-              fieldname='no_attachment_text'
-            />
-          </HoverableEditWrapper>
-        </EditWrapperStateProvider>
-        <div className='request-button'>
-          <RequestDocumentButton
-            alreadyRequested={ alreadyRequested }
-            openRequestDocumentModal={ openRequestDocumentModal }
-            hasData={ false }
+  return (
+    <div className={ styles.noHeaderMessage }>
+      <EditWrapperStateProvider { ...editWrapperStateProps }>
+        <HoverableEditWrapper className='message'>
+          <RichTextEditable
+            placeholder='There are no documents that have been made public yet.'
+            fieldname='no_attachment_text'
           />
-        </div>
+        </HoverableEditWrapper>
+      </EditWrapperStateProvider>
+      <div className='request-button'>
+        <RequestDocumentButton
+          alreadyRequested={ alreadyRequested }
+          openRequestDocumentModal={ openRequestDocumentModal }
+          hasData={ false }
+        />
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 NoAttachmentHeader.propTypes = {

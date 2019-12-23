@@ -1,20 +1,18 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 
 
-export class HoverableButtonWithoutInlineStyle extends Component {
-  render() {
-    const { onClick, children, disabled, className, disabledClassName } = this.props;
-    const _className = classNames('link--transition', 'hoverable-button', className, { [disabledClassName]: disabled });
+export function HoverableButtonWithoutInlineStyle(props) {
+  const { onClick, children, disabled, className, disabledClassName } = props;
+  const _className = classNames('link--transition', 'hoverable-button', className, { [disabledClassName]: disabled });
 
-    return (
-      <a
-        className={ _className }
-        onClick={ !disabled ? onClick : null }>
-        { children }
-      </a>
-    );
-  }
+  return (
+    <a
+      className={ _className }
+      onClick={ !disabled ? onClick : null }>
+      { children }
+    </a>
+  );
 }
 
 HoverableButtonWithoutInlineStyle.propTypes = {

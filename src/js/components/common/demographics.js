@@ -1,23 +1,21 @@
-import React, { PropTypes, Component } from 'react';
+import React, { PropTypes } from 'react';
 
 import styles from './demographic.sass';
 
-export default class Demographics extends Component {
-  render() {
-    const { persons, className } = this.props;
+export default function Demographics(props) {
+  const { persons, className } = props;
 
-    return (
-      <div className={ className }>
-        {
-          persons.map((person, ind) => (
-            <div key={ ind } className={ styles.demographic }>
-              { person }
-            </div>
-          ))
-        }
-      </div>
-    );
-  }
+  return (
+    <div className={ className }>
+      {
+        persons.map((person, ind) => (
+          <div key={ ind } className={ styles.demographic }>
+            { person }
+          </div>
+        ))
+      }
+    </div>
+  );
 }
 
 Demographics.propTypes = {

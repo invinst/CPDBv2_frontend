@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import cx from 'classnames';
 import { isEmpty } from 'lodash';
 
@@ -8,45 +8,43 @@ import SimplePopup from 'components/common/simple-popup';
 import { generatePopupId } from 'utils/popup';
 
 
-export default class SimpleListWidget extends Component {
-  render() {
-    const { items, className } = this.props;
+export default function SimpleListWidget(props) {
+  const { items, className } = props;
 
-    return (
-      items && items.length > 0 ? (
-        <div className={ cx(styles.simpleListWidget, className) }>
-          {
-            items.map((item, index) => {
-              const popupId = generatePopupId();
-              return (
-                <div key={ index }>
-                  {
-                    item.tooltip ? (
-                      <SimplePopup id={ popupId }>
-                        { item.tooltip }
-                      </SimplePopup>
-                    ) : null
-                  }
-                  <WrappedWithLink className='list-item' url={ item.url } to={ item.to }>
-                    <span className='list-item-name'>{ item.name }</span>
-                    <span
-                      className='list-item-value'
-                      data-tip={ !isEmpty(item.tooltip) }
-                      data-for={ popupId }
-                      data-event='mouseover'
-                      data-event-off='mouseleave'
-                    >
-                      { item.value }
-                    </span>
-                  </WrappedWithLink>
-                </div>
-              );
-            })
-          }
-        </div>
-      ) : null
-    );
-  }
+  return (
+    items && items.length > 0 ? (
+      <div className={ cx(styles.simpleListWidget, className) }>
+        {
+          items.map((item, index) => {
+            const popupId = generatePopupId();
+            return (
+              <div key={ index }>
+                {
+                  item.tooltip ? (
+                    <SimplePopup id={ popupId }>
+                      { item.tooltip }
+                    </SimplePopup>
+                  ) : null
+                }
+                <WrappedWithLink className='list-item' url={ item.url } to={ item.to }>
+                  <span className='list-item-name'>{ item.name }</span>
+                  <span
+                    className='list-item-value'
+                    data-tip={ !isEmpty(item.tooltip) }
+                    data-for={ popupId }
+                    data-event='mouseover'
+                    data-event-off='mouseleave'
+                  >
+                    { item.value }
+                  </span>
+                </WrappedWithLink>
+              </div>
+            );
+          })
+        }
+      </div>
+    ) : null
+  );
 }
 
 SimpleListWidget.propTypes = {

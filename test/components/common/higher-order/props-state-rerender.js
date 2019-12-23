@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { mount } from 'enzyme';
 import { spy } from 'sinon';
 
@@ -8,11 +8,10 @@ import PropsStateRerender from 'components/common/higher-order/props-state-reren
 describe('PropsStateRerender component', function () {
   let renderMock;
 
-  class SubComponent extends Component {
-    render() {
-      return <div/>;
-    }
+  function SubComponent(props) {
+    return <div/>;
   }
+
   const WrappedComponent = PropsStateRerender(SubComponent);
 
   beforeEach(function () {

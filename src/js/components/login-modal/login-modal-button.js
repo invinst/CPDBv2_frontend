@@ -1,19 +1,17 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
 import HoverableButton from 'components/common/hoverable-button';
 import { buttonStyle } from './login-modal-button.style';
 
 
-export default class LoginModalButton extends Component {
-  render() {
-    const { children, onClick, disabled, className } = this.props;
+export default function LoginModalButton(props) {
+  const { children, onClick, disabled, className } = props;
 
-    return (
-      <HoverableButton className={ className } onClick={ onClick } style={ buttonStyle } disabled={ disabled }>
-        { children }
-      </HoverableButton>
-    );
-  }
+  return (
+    <HoverableButton className={ className } onClick={ onClick } style={ buttonStyle } disabled={ disabled }>
+      { children }
+    </HoverableButton>
+  );
 }
 
 LoginModalButton.propTypes = {

@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { spy } from 'sinon';
 
 import { withStoreContext } from 'utils/test';
@@ -6,7 +6,7 @@ import { withStoreContext } from 'utils/test';
 describe('test utils', function () {
   describe('withStoreContext', function () {
     it('should return a new component which provide store context to its children', function () {
-      class TestComponent extends Component {}
+      function TestComponent(props) {}
       const store = spy();
       const TestComponentWithStore = withStoreContext(TestComponent, store);
 

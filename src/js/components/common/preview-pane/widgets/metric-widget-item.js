@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import {
   descriptionStyle,
   nameStyle,
@@ -7,25 +7,23 @@ import {
 } from './metric-widget-item.style';
 
 
-export default class MetricWidgetItem extends Component {
-  render() {
-    const { value, name, description, isHighlight, isFirstItem } = this.props;
-    const active = value > 0;
+export default function MetricWidgetItem(props) {
+  const { value, name, description, isHighlight, isFirstItem } = props;
+  const active = value > 0;
 
-    return (
-      <div style={ wrapperStyle(isFirstItem) }>
-        <div className='test--metric-widget-item-value' style={ valueStyle(active, isHighlight) }>
-          { value }
-        </div>
-        <div className='test--metric-widget-item-name' style={ nameStyle(active) }>
-          { name }
-        </div>
-        <div className='test--metric-widget-item-description' style={ descriptionStyle }>
-          { description }
-        </div>
+  return (
+    <div style={ wrapperStyle(isFirstItem) }>
+      <div className='test--metric-widget-item-value' style={ valueStyle(active, isHighlight) }>
+        { value }
       </div>
-    );
-  }
+      <div className='test--metric-widget-item-name' style={ nameStyle(active) }>
+        { name }
+      </div>
+      <div className='test--metric-widget-item-description' style={ descriptionStyle }>
+        { description }
+      </div>
+    </div>
+  );
 }
 
 MetricWidgetItem.defaultProps = {

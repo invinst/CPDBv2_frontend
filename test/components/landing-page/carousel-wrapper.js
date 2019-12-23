@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { shallow } from 'enzyme';
 import { stub } from 'sinon';
 import { random, lorem } from 'faker';
@@ -32,10 +32,8 @@ describe('CarouselWrapper component', function () {
   });
 
   it('should render cards with correct props', function () {
-    class TestCardComponent extends Component {
-      render() {
-        return <div/>;
-      }
+    function TestCardComponent(props) {
+      return <div/>;
     }
 
     const CarouselWithCustomCardComponent = withCarousel(

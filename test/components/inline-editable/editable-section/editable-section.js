@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { shallow } from 'enzyme';
 import should from 'should';
 import { spy, stub } from 'sinon';
@@ -9,13 +9,12 @@ import { FieldFactory, RichTextFieldFactory, StringFieldFactory } from 'utils/te
 import EditableSection from 'components/inline-editable/editable-section';
 
 
-class SubComponent extends Component {
-  render() {
-    return (
-      <div/>
-    );
-  }
+function SubComponent(props) {
+  return (
+    <div/>
+  );
 }
+
 const WrappedComponent = EditableSection(SubComponent);
 
 describe('EditableSection component', function () {

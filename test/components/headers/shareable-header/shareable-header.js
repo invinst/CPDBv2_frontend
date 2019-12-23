@@ -16,10 +16,8 @@ import { updateShareablePageScrollPosition } from 'actions/headers/shareable-hea
 
 
 describe('ShareableHeader component', function () {
-  class CustomMenu extends React.Component {
-    render() {
-      return <div/>;
-    }
+  function CustomMenu(props) {
+    return <div/>;
   }
 
   let wrapper, shareableHeader;

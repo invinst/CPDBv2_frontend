@@ -1,23 +1,21 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import cx from 'classnames';
 
 import baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/showings/base-item.sass';
 import styles from './year.sass';
 
 
-export default class Year extends Component {
-  render() {
-    const { date, hasData } = this.props.item;
+export default function Year(props) {
+  const { date, hasData } = props.item;
 
-    return (
-      <span className={ cx(baseStyles.baseItem, styles.year, { 'has-data': hasData }) }>
-        <div className='item-content year-item-item-content'>
-          <span className='item-date year-item-date'>{ date }</span>
-          <br className='clearfix' />
-        </div>
-      </span>
-    );
-  }
+  return (
+    <span className={ cx(baseStyles.baseItem, styles.year, { 'has-data': hasData }) }>
+      <div className='item-content year-item-item-content'>
+        <span className='item-date year-item-date'>{ date }</span>
+        <br className='clearfix' />
+      </div>
+    </span>
+  );
 }
 
 Year.propTypes = {

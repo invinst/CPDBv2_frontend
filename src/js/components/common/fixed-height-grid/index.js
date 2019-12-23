@@ -2,26 +2,24 @@ import React, { PropTypes } from 'react';
 import { chunk } from 'lodash';
 import { columnStyle } from './fixed-height-grid.style';
 
-class FixedHeightGrid extends React.Component {
-  render() {
-    const { children, childHeight, childWidth, availableHeight, style } = this.props;
-    const numberOfRows = Math.max(1, Math.floor(availableHeight / childHeight));
-    const columns = chunk(children, numberOfRows);
+function FixedHeightGrid(props) {
+  const { children, childHeight, childWidth, availableHeight, style } = props;
+  const numberOfRows = Math.max(1, Math.floor(availableHeight / childHeight));
+  const columns = chunk(children, numberOfRows);
 
-    return (
-      <div style={ style }>
-        { columns.map((column, index) => (
-          <div
-            className='test--fixed-height-grid-column'
-            key={ index }
-            style={ { ...columnStyle, width: childWidth } }
-          >
-            { column }
-          </div>
-        )) }
-      </div>
-    );
-  }
+  return (
+    <div style={ style }>
+      { columns.map((column, index) => (
+        <div
+          className='test--fixed-height-grid-column'
+          key={ index }
+          style={ { ...columnStyle, width: childWidth } }
+        >
+          { column }
+        </div>
+      )) }
+    </div>
+  );
 }
 
 FixedHeightGrid.propTypes = {

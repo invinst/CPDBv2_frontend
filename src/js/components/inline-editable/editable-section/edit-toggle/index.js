@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
 import MoreLink from 'components/common/more-link';
 import CancelUpdateButtons from './cancel-update-buttons';
@@ -8,34 +8,32 @@ import {
 } from './edit-toggle.style';
 
 
-class EditToggle extends Component {
-  render() {
-    const { turnOnSectionEditMode, turnOffSectionEditMode, onSaveForm, sectionEditModeOn, style } = this.props;
-    const { editModeOn } = this.context;
+function EditToggle(props) {
+  const { turnOnSectionEditMode, turnOffSectionEditMode, onSaveForm, sectionEditModeOn, style } = props;
+  const { editModeOn } = this.context;
 
-    if (!editModeOn) {
-      return null;
-    }
-
-    return (
-      <div className='test--edit-toggle' style={ { ...moreLinkWrapperStyle, ...style } }>
-        {
-          !sectionEditModeOn ?
-            <MoreLink
-              style={ {
-                base: { base: editLinkBaseStyle, hover: editLinkHoverStyle },
-                underline: { base: editLinkUnderlineBaseStyle, hover: editLinkUnderlineHoverStyle },
-              } }
-              onClick={ turnOnSectionEditMode }>
-              Edit
-            </MoreLink> :
-            <CancelUpdateButtons
-              onUpdateClick={ onSaveForm }
-              onCancelClick={ turnOffSectionEditMode }/>
-        }
-      </div>
-    );
+  if (!editModeOn) {
+    return null;
   }
+
+  return (
+    <div className='test--edit-toggle' style={ { ...moreLinkWrapperStyle, ...style } }>
+      {
+        !sectionEditModeOn ?
+          <MoreLink
+            style={ {
+              base: { base: editLinkBaseStyle, hover: editLinkHoverStyle },
+              underline: { base: editLinkUnderlineBaseStyle, hover: editLinkUnderlineHoverStyle },
+            } }
+            onClick={ turnOnSectionEditMode }>
+            Edit
+          </MoreLink> :
+          <CancelUpdateButtons
+            onUpdateClick={ onSaveForm }
+            onCancelClick={ turnOffSectionEditMode }/>
+      }
+    </div>
+  );
 }
 
 EditToggle.propTypes = {

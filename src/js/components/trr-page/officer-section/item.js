@@ -1,24 +1,22 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
 import style from './item.sass';
 
 
-export default class Item extends Component {
-  render() {
-    const { title, value, subValue } = this.props;
+export default function Item(props) {
+  const { title, value, subValue } = props;
 
-    return (
-      <div className={ style.item }>
-        <div className='item-title'>
-          { title }
-        </div>
-        <div className='item-value'>
-          <div className='value'>{ value }</div>
-          { subValue && <div className='item-sub-value'>{ subValue }</div> }
-        </div>
+  return (
+    <div className={ style.item }>
+      <div className='item-title'>
+        { title }
       </div>
-    );
-  }
+      <div className='item-value'>
+        <div className='value'>{ value }</div>
+        { subValue && <div className='item-sub-value'>{ subValue }</div> }
+      </div>
+    </div>
+  );
 }
 
 Item.propTypes = {

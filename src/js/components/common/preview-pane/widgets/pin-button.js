@@ -1,20 +1,18 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { noop } from 'lodash';
 
 import withPinnable from 'components/common/with-pinnable';
 
-class PinButton extends Component {
-  render() {
-    const { item, className } = this.props;
-    const { isPinned } = item;
-    const pinButtonText = isPinned ? 'Remove from pinboard' : 'Add to pinboard';
+function PinButton(props) {
+  const { item, className } = props;
+  const { isPinned } = item;
+  const pinButtonText = isPinned ? 'Remove from pinboard' : 'Add to pinboard';
 
-    return (
-      <button className={ `pinboard-feature ${className}` }>
-        { pinButtonText }
-      </button>
-    );
-  }
+  return (
+    <button className={ `pinboard-feature ${className}` }>
+      { pinButtonText }
+    </button>
+  );
 }
 
 PinButton.propTypes = {

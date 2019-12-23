@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import cx from 'classnames';
 import { every, isEmpty } from 'lodash';
 
@@ -6,18 +6,16 @@ import withPinnable from 'components/common/with-pinnable';
 import styles from 'components/common/item-pin-button.sass';
 
 
-class ItemPinButton extends Component {
-  render() {
-    const { className, showHint, item, items } = this.props;
-    const isPinned = every(isEmpty(items) ? [item] : items, item => item.isPinned);
+function ItemPinButton(props) {
+  const { className, showHint, item, items } = props;
+  const isPinned = every(isEmpty(items) ? [item] : items, item => item.isPinned);
 
-    return (
-      <div className={ cx('pinboard-feature', styles.itemPinButton, { 'is-pinned': isPinned }, className) }>
-        <div className='pin-button' />
-        { showHint && <div className='pin-action-hint'> Unpin? </div> }
-      </div>
-    );
-  }
+  return (
+    <div className={ cx('pinboard-feature', styles.itemPinButton, { 'is-pinned': isPinned }, className) }>
+      <div className='pin-button' />
+      { showHint && <div className='pin-action-hint'> Unpin? </div> }
+    </div>
+  );
 }
 
 ItemPinButton.propTypes = {

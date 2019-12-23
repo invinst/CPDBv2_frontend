@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { isEmpty } from 'lodash';
 import pluralize from 'pluralize';
 
@@ -7,38 +7,36 @@ import Item from 'components/social-graph-page/network/right-pane-section/timeli
 import { imgUrl } from 'utils/static-assets';
 
 
-export default class EdgeCoaccusalsPane extends Component {
-  render() {
-    const {
-      items,
-      pathname,
-      onTrackingAttachment,
-      info,
-      updateSelectedCrid,
-    } = this.props;
-    return (
-      <div className={ style.edgeCoaccusalsPane }>
-        <div className='edge-coaccusals-pane-header'>
-          { `${info.sourceOfficerName} & ${info.targetOfficerName}'s ` }
-          { `${info.coaccusedCount} ${pluralize('coaccusal', info.coaccusedCount)}` }
-        </div>
-        { isEmpty(items) && (<img className='loading-img' src={ imgUrl('loading.svg') } />) }
-        {
-          items.map((item) => {
-            return (
-              <Item
-                item={ item }
-                key={ item.key }
-                pathname={ pathname }
-                onTrackingAttachment={ onTrackingAttachment }
-                updateSelectedCrid={ updateSelectedCrid }
-              />
-            );
-          })
-        }
+export default function EdgeCoaccusalsPane(props) {
+  const {
+    items,
+    pathname,
+    onTrackingAttachment,
+    info,
+    updateSelectedCrid,
+  } = props;
+  return (
+    <div className={ style.edgeCoaccusalsPane }>
+      <div className='edge-coaccusals-pane-header'>
+        { `${info.sourceOfficerName} & ${info.targetOfficerName}'s ` }
+        { `${info.coaccusedCount} ${pluralize('coaccusal', info.coaccusedCount)}` }
       </div>
-    );
-  }
+      { isEmpty(items) && (<img className='loading-img' src={ imgUrl('loading.svg') } />) }
+      {
+        items.map((item) => {
+          return (
+            <Item
+              item={ item }
+              key={ item.key }
+              pathname={ pathname }
+              onTrackingAttachment={ onTrackingAttachment }
+              updateSelectedCrid={ updateSelectedCrid }
+            />
+          );
+        })
+      }
+    </div>
+  );
 }
 
 EdgeCoaccusalsPane.propTypes = {

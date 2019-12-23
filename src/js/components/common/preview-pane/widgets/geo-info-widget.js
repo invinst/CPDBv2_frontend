@@ -1,17 +1,15 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
 import CommunityRacePopulation
   from 'components/landing-page/heat-map/summary-panel/community-dropdown/community-race-population';
 import { geoInfoStyle } from './geo-info-widget.style';
 
 
-export default class GeoInfoWidget extends Component {
-  render() {
-    const { raceCount } = this.props;
-    return !!(raceCount && raceCount.length > 0) && (
-      <CommunityRacePopulation { ...this.props } extraStyle={ geoInfoStyle }/>
-    );
-  }
+export default function GeoInfoWidget(props) {
+  const { raceCount } = props;
+  return !!(raceCount && raceCount.length > 0) && (
+    <CommunityRacePopulation { ...props } extraStyle={ geoInfoStyle }/>
+  );
 }
 
 GeoInfoWidget.propTypes = {

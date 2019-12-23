@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import DocumentMeta from 'react-document-meta';
 import { get, isEmpty } from 'lodash';
 import cx from 'classnames';
@@ -23,91 +23,89 @@ import PrintNotes from 'components/common/print-notes';
 import PrintPreloadFonts from 'components/common/print-preload-fonts';
 
 
-class CRPage extends Component {
-  render() {
-    const {
-      crid, coaccused, complainants, alreadyRequested, category, subcategory,
-      incidentDate, point, address, crLocation, beat, involvements, attachments,
-      openRequestDocumentModal, summary, victims, startDate, endDate, popup, pathname, notes,
-      noAttachmentTextEditWrapperStateProps, onTrackingAttachment, addOrRemoveItemInPinboard,
-    } = this.props;
+function CRPage(props) {
+  const {
+    crid, coaccused, complainants, alreadyRequested, category, subcategory,
+    incidentDate, point, address, crLocation, beat, involvements, attachments,
+    openRequestDocumentModal, summary, victims, startDate, endDate, popup, pathname, notes,
+    noAttachmentTextEditWrapperStateProps, onTrackingAttachment, addOrRemoveItemInPinboard,
+  } = props;
 
-    const { printMode } = this.context;
+  const { printMode } = this.context;
 
-    const involvementItem = <Involvement involvements={ involvements }/>;
+  const involvementItem = <Involvement involvements={ involvements }/>;
 
-    return (
-      <DocumentMeta title={ `CR ${crid}` }>
-        <div className={ styles.crPage }>
-          <ShareableHeaderContainer/>
-          <div className={ cx(responsiveContainerStyles.responsiveContainer, 'top-content') }>
-            <h1 className='cr-title no-print'>CR { crid }</h1>
-            <ComplaintCategory
-              category={ category }
-              subcategory={ subcategory }
+  return (
+    <DocumentMeta title={ `CR ${crid}` }>
+      <div className={ styles.crPage }>
+        <ShareableHeaderContainer/>
+        <div className={ cx(responsiveContainerStyles.responsiveContainer, 'top-content') }>
+          <h1 className='cr-title no-print'>CR { crid }</h1>
+          <ComplaintCategory
+            category={ category }
+            subcategory={ subcategory }
+          />
+          <ComplaintIncidentDate incidentDate={ incidentDate }/>
+          <AccusedOfficers
+            officers={ coaccused }
+            popup={ get(popup, POPUP_NAMES.COMPLAINT.ACCUSED_OFFICER) }
+            pathName={ pathname }
+            addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
+          />
+          <div className='complaint-info'>
+            {
+              victims.length > 0
+                ? (
+                  <SummaryRow label='VICTIM' className='test--victims'>
+                    <Demographics persons={ victims } />
+                  </SummaryRow>
+                ) : null
+            }
+            {
+              complainants.length > 0
+                ? (
+                  <SummaryRow label='COMPLAINANT' className='test--complainant'>
+                    <Demographics persons={ complainants } />
+                  </SummaryRow>
+                ) : null
+            }
+            {
+              summary
+                ? (
+                  <SummaryRow label='SUMMARY'>
+                    <div className='cr-summary'>{ summary }</div>
+                  </SummaryRow>
+                ) : null
+            }
+            <Attachments
+              items={ attachments }
+              openRequestDocumentModal={ openRequestDocumentModal }
+              onTrackingAttachment={ onTrackingAttachment }
+              alreadyRequested={ alreadyRequested }
+              pathname={ pathname }
+              noAttachmentTextEditWrapperStateProps={ noAttachmentTextEditWrapperStateProps }
             />
-            <ComplaintIncidentDate incidentDate={ incidentDate }/>
-            <AccusedOfficers
-              officers={ coaccused }
-              popup={ get(popup, POPUP_NAMES.COMPLAINT.ACCUSED_OFFICER) }
-              pathName={ pathname }
-              addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
-            />
-            <div className='complaint-info'>
-              {
-                victims.length > 0
-                  ? (
-                    <SummaryRow label='VICTIM' className='test--victims'>
-                      <Demographics persons={ victims } />
-                    </SummaryRow>
-                  ) : null
-              }
-              {
-                complainants.length > 0
-                  ? (
-                    <SummaryRow label='COMPLAINANT' className='test--complainant'>
-                      <Demographics persons={ complainants } />
-                    </SummaryRow>
-                  ) : null
-              }
-              {
-                summary
-                  ? (
-                    <SummaryRow label='SUMMARY'>
-                      <div className='cr-summary'>{ summary }</div>
-                    </SummaryRow>
-                  ) : null
-              }
-              <Attachments
-                items={ attachments }
-                openRequestDocumentModal={ openRequestDocumentModal }
-                onTrackingAttachment={ onTrackingAttachment }
-                alreadyRequested={ alreadyRequested }
-                pathname={ pathname }
-                noAttachmentTextEditWrapperStateProps={ noAttachmentTextEditWrapperStateProps }
-              />
-              <div className='timeline-location-container'>
-                <div className='investigation-timeline'>
-                  <Timeline startDate={ startDate } endDate={ endDate } incidentDate={ incidentDate }/>
-                  { printMode ? null : involvementItem }
-                </div>
-                <div className='cr-location'>
-                  <Location point={ point } address={ address } location={ crLocation } beat={ beat }/>
-                </div>
-                <div className='clearfix'/>
+            <div className='timeline-location-container'>
+              <div className='investigation-timeline'>
+                <Timeline startDate={ startDate } endDate={ endDate } incidentDate={ incidentDate }/>
+                { printMode ? null : involvementItem }
               </div>
-              { printMode ? involvementItem : null }
-              { printMode ? <div className='clearfix'/> : null }
-              { printMode ? <PrintNotes notes={ notes } /> : null }
+              <div className='cr-location'>
+                <Location point={ point } address={ address } location={ crLocation } beat={ beat }/>
+              </div>
+              <div className='clearfix'/>
             </div>
+            { printMode ? involvementItem : null }
+            { printMode ? <div className='clearfix'/> : null }
+            { printMode ? <PrintNotes notes={ notes } /> : null }
           </div>
-          { !isEmpty(address) ? <RelatedComplaints crid={ crid } /> : null }
-          <FooterContainer className={ styles.crPageFooter }/>
-          <PrintPreloadFonts/>
         </div>
-      </DocumentMeta>
-    );
-  }
+        { !isEmpty(address) ? <RelatedComplaints crid={ crid } /> : null }
+        <FooterContainer className={ styles.crPageFooter }/>
+        <PrintPreloadFonts/>
+      </div>
+    </DocumentMeta>
+  );
 }
 
 CRPage.propTypes = {

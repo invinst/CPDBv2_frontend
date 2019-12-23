@@ -1,22 +1,20 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
 import styles from './left-navigation.sass';
 
 
-export default class LeftNavigation extends Component {
-  render() {
-    const { text, onClickHandler } = this.props;
+export default function LeftNavigation(props) {
+  const { text, onClickHandler } = props;
 
-    return (
-      <span
-        className={ styles.leftNavigation }
-        onClick={ onClickHandler }
-      >
-        <div className='left-arrow'/>
-        { text }
-      </span>
-    );
-  }
+  return (
+    <span
+      className={ styles.leftNavigation }
+      onClick={ onClickHandler }
+    >
+      <div className='left-arrow'/>
+      { text }
+    </span>
+  );
 }
 
 LeftNavigation.propTypes = {

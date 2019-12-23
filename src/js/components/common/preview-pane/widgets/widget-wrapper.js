@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import MediaQuery from 'react-responsive';
 import cx from 'classnames';
 
@@ -7,27 +7,25 @@ import WrapperLink from './wrapper-link';
 import styles from './widget-wrapper.sass';
 
 
-export default class WidgetWrapper extends Component {
-  render() {
-    const { maxHeight, callToAction, className, children, yScrollable } = this.props;
-    const { to, url, text } = callToAction;
+export default function WidgetWrapper(props) {
+  const { maxHeight, callToAction, className, children, yScrollable } = props;
+  const { to, url, text } = callToAction;
 
-    return (
-      <WrapperLink url={ url } to={ to }>
-        <div className={ cx(className, styles.wrapper) }>
-          <div className='responsive-container-common'>
-            { children }
-            { !yScrollable &&
-              <MediaQuery maxHeight={ maxHeight }>
-                <div className='gradient test--gradient' />
-              </MediaQuery>
-            }
-          </div>
-          { url || to ? <CallToActionWidget text={ text }/> : null }
+  return (
+    <WrapperLink url={ url } to={ to }>
+      <div className={ cx(className, styles.wrapper) }>
+        <div className='responsive-container-common'>
+          { children }
+          { !yScrollable &&
+            <MediaQuery maxHeight={ maxHeight }>
+              <div className='gradient test--gradient' />
+            </MediaQuery>
+          }
         </div>
-      </WrapperLink>
-    );
-  }
+        { url || to ? <CallToActionWidget text={ text }/> : null }
+      </div>
+    </WrapperLink>
+  );
 }
 
 WidgetWrapper.defaultProps = {

@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import DocumentMeta from 'react-document-meta';
 
 import Header from './header';
@@ -7,26 +7,24 @@ import SummaryPageContainer from 'containers/unit-profile-page/summary-page';
 import { pageWrapperStyle } from './unit-profile-page.style';
 
 
-export default class UnitProfilePage extends Component {
-  render() {
-    const { unitName, summary, scrollPosition } = this.props;
+export default function UnitProfilePage(props) {
+  const { unitName, summary, scrollPosition } = props;
 
-    return (
-      <DocumentMeta title={ `Unit ${unitName}` }>
-        <div>
-          <ShareableHeaderContainer />
-          <Header
-            unitName={ unitName }
-            unitDescription={ summary.description }
-            scrollPosition={ scrollPosition }
-          />
-          <div style={ pageWrapperStyle }>
-            <SummaryPageContainer unitName={ unitName } summary={ summary } />;
-          </div>
+  return (
+    <DocumentMeta title={ `Unit ${unitName}` }>
+      <div>
+        <ShareableHeaderContainer />
+        <Header
+          unitName={ unitName }
+          unitDescription={ summary.description }
+          scrollPosition={ scrollPosition }
+        />
+        <div style={ pageWrapperStyle }>
+          <SummaryPageContainer unitName={ unitName } summary={ summary } />;
         </div>
-      </DocumentMeta>
-    );
-  }
+      </div>
+    </DocumentMeta>
+  );
 }
 
 UnitProfilePage.propTypes = {

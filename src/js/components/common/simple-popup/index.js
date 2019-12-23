@@ -1,25 +1,23 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import ReactTooltip from 'react-tooltip';
 import cx from 'classnames';
 
 import styles from './simple-popup.sass';
 
 
-export default class SimplePopup extends Component {
-  render() {
-    const { id, children } = this.props;
+export default function SimplePopup(props) {
+  const { id, children } = props;
 
-    return (
-      <ReactTooltip
-        id={ id }
-        className={ cx('popup', styles.simplePopup) }
-        effect='solid'
-        type='light'
-      >
-        { children }
-      </ReactTooltip>
-    );
-  }
+  return (
+    <ReactTooltip
+      id={ id }
+      className={ cx('popup', styles.simplePopup) }
+      effect='solid'
+      type='light'
+    >
+      { children }
+    </ReactTooltip>
+  );
 }
 
 SimplePopup.propTypes = {

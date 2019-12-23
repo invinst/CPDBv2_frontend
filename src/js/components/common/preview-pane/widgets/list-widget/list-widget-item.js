@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import cx from 'classnames';
 
@@ -18,33 +18,31 @@ const wrapWithLink = (component, url) => (
   ) : component
 );
 
-export default class ListWidgetItem extends Component {
-  render() {
-    const { name, url, subText, radarAxes, radarColor, showAvatar, showItemArrow } = this.props;
+export default function ListWidgetItem(props) {
+  const { name, url, subText, radarAxes, radarColor, showAvatar, showItemArrow } = props;
 
-    return wrapWithLink(
-      <li className={ styles.listWidgetItem }>
-        { (showAvatar) && (
-          <div className='list-widget-list-item-chart-wrapper'>
-            <StaticRadarChart
-              width={ 38 }
-              height={ 38 }
-              radius={ 18 }
-              hideAxisText={ true }
-              data={ radarAxes }
-              backgroundColor={ radarColor }
-            />
-          </div>
-        ) }
-        <div className={ cx('list-widget-list-item-info', { 'show-avatar': showAvatar }) }>
-          <p className='list-widget-list-item-name'>{ name }</p>
-          <p className='list-widget-list-item-count'>{ subText }</p>
+  return wrapWithLink(
+    <li className={ styles.listWidgetItem }>
+      { (showAvatar) && (
+        <div className='list-widget-list-item-chart-wrapper'>
+          <StaticRadarChart
+            width={ 38 }
+            height={ 38 }
+            radius={ 18 }
+            hideAxisText={ true }
+            data={ radarAxes }
+            backgroundColor={ radarColor }
+          />
         </div>
-        { showItemArrow ? <div className='list-widget-list-item-arrow'/> : null }
-      </li>,
-      url
-    );
-  }
+      ) }
+      <div className={ cx('list-widget-list-item-info', { 'show-avatar': showAvatar }) }>
+        <p className='list-widget-list-item-name'>{ name }</p>
+        <p className='list-widget-list-item-count'>{ subText }</p>
+      </div>
+      { showItemArrow ? <div className='list-widget-list-item-arrow'/> : null }
+    </li>,
+    url
+  );
 }
 
 ListWidgetItem.defaultProps = {

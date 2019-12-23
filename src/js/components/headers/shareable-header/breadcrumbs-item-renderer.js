@@ -4,25 +4,23 @@ import cx from 'classnames';
 import styles from './breadcrumbs-item.sass';
 
 
-export default class BreadcrumbsItemRenderer extends React.Component {
-  render() {
-    let newChildren;
-    const { scrollPosition, children } = this.props;
-    const atBottom = scrollPosition === 'bottom';
+export default function BreadcrumbsItemRenderer(props) {
+  let newChildren;
+  const { scrollPosition, children } = props;
+  const atBottom = scrollPosition === 'bottom';
 
-    if (typeof children === 'string') {
-      newChildren = children;
-    }
-    else {
-      newChildren = React.cloneElement(children, {
-        style: children.props.style,
-        className: cx(children.props.className, 'breadcrumbs-item-link', { 'bottom': atBottom }),
-      });
-    }
-    return (
-      <li className={ cx(styles.breadcrumbsItem, { 'bottom': atBottom }) } >{ newChildren }</li>
-    );
+  if (typeof children === 'string') {
+    newChildren = children;
   }
+  else {
+    newChildren = React.cloneElement(children, {
+      style: children.props.style,
+      className: cx(children.props.className, 'breadcrumbs-item-link', { 'bottom': atBottom }),
+    });
+  }
+  return (
+    <li className={ cx(styles.breadcrumbsItem, { 'bottom': atBottom }) } >{ newChildren }</li>
+  );
 }
 
 BreadcrumbsItemRenderer.propTypes = {

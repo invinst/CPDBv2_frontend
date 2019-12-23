@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { compact, get } from 'lodash';
 import DocumentMeta from 'react-document-meta';
 import pluralize from 'pluralize';
@@ -18,89 +18,87 @@ import FooterContainer from 'containers/footer-container';
 import * as GATracking from 'utils/google_analytics_tracking';
 
 
-class OfficerPage extends Component {
-  render() {
-    const {
-      officerId,
-      officerSummary,
-      officerMetrics,
-      numAttachments,
-      officerName,
-      threeCornerPercentile,
-      changeOfficerTab,
-      currentTab,
-      hasComplaint,
-      hasMapMarker,
-      hasCoaccusal,
-      popup,
-      isRequesting,
-      triangleEditWrapperStateProps,
-      scaleEditWrapperStateProps,
-      noDataRadarChartEditWrapperStateProps,
-      pathName,
-      infoNotes,
-      timelineNotes,
-    } = this.props;
-    const { printMode } = this.context;
+function OfficerPage(props) {
+  const {
+    officerId,
+    officerSummary,
+    officerMetrics,
+    numAttachments,
+    officerName,
+    threeCornerPercentile,
+    changeOfficerTab,
+    currentTab,
+    hasComplaint,
+    hasMapMarker,
+    hasCoaccusal,
+    popup,
+    isRequesting,
+    triangleEditWrapperStateProps,
+    scaleEditWrapperStateProps,
+    noDataRadarChartEditWrapperStateProps,
+    pathName,
+    infoNotes,
+    timelineNotes,
+  } = props;
+  const { printMode } = this.context;
 
-    const pageTitle = compact([
-      officerSummary.rank === 'N/A' ? '' : officerSummary.rank,
-      officerName,
-    ]).join(' ');
+  const pageTitle = compact([
+    officerSummary.rank === 'N/A' ? '' : officerSummary.rank,
+    officerName,
+  ]).join(' ');
 
-    const hasUnknownBadge = (officerSummary.badge || 'Unknown') === 'Unknown';
-    const withBadge = officerSummary.hasUniqueName || hasUnknownBadge ?
-      '' :
-      `with Badge Number ${officerSummary.badge} `;
+  const hasUnknownBadge = (officerSummary.badge || 'Unknown') === 'Unknown';
+  const withBadge = officerSummary.hasUniqueName || hasUnknownBadge ?
+    '' :
+    `with Badge Number ${officerSummary.badge} `;
 
-    const pageDescription = `Officer ${officerName} of the Chicago Police Department ` +
-       withBadge +
-      `has ${pluralize('complaint', officerMetrics.allegationCount, true)}, ` +
-      `${pluralize('use of force report', officerMetrics.useOfForceCount, true)}, ` +
-      `and ${pluralize('original document', numAttachments, true)} available.`;
+  const pageDescription = `Officer ${officerName} of the Chicago Police Department ` +
+     withBadge +
+    `has ${pluralize('complaint', officerMetrics.allegationCount, true)}, ` +
+    `${pluralize('use of force report', officerMetrics.useOfForceCount, true)}, ` +
+    `and ${pluralize('original document', numAttachments, true)} available.`;
 
-    return (
-      <DocumentMeta title={ pageTitle } description={ pageDescription }>
-        <div className={ styles.officerPage }>
-          <ShareableHeaderContainer
-            buttonType={ SHAREABLE_HEADER_BUTTON_TYPE.MENU }
-            Menu={ DownloadMenuContainer }
-            buttonText='Download'
-            onOpen={ () => GATracking.trackOfficerDownloadMenu(officerId, 'open') }
+  return (
+    <DocumentMeta title={ pageTitle } description={ pageDescription }>
+      <div className={ styles.officerPage }>
+        <ShareableHeaderContainer
+          buttonType={ SHAREABLE_HEADER_BUTTON_TYPE.MENU }
+          Menu={ DownloadMenuContainer }
+          buttonText='Download'
+          onOpen={ () => GATracking.trackOfficerDownloadMenu(officerId, 'open') }
+        />
+        <div className='page-wrapper'>
+          <AnimatedRadarChart
+            officerId={ officerId }
+            data={ threeCornerPercentile }
+            isRequesting={ isRequesting }
+            triangleEditWrapperStateProps={ triangleEditWrapperStateProps }
+            scaleEditWrapperStateProps={ scaleEditWrapperStateProps }
+            noDataRadarChartEditWrapperStateProps={ noDataRadarChartEditWrapperStateProps }
+            noDataPopup={ get(popup, POPUP_NAMES.OFFICER.NO_DATA_RADAR_CHART) }
           />
-          <div className='page-wrapper'>
-            <AnimatedRadarChart
-              officerId={ officerId }
-              data={ threeCornerPercentile }
-              isRequesting={ isRequesting }
-              triangleEditWrapperStateProps={ triangleEditWrapperStateProps }
-              scaleEditWrapperStateProps={ scaleEditWrapperStateProps }
-              noDataRadarChartEditWrapperStateProps={ noDataRadarChartEditWrapperStateProps }
-              noDataPopup={ get(popup, POPUP_NAMES.OFFICER.NO_DATA_RADAR_CHART) }
-            />
-            <SummarySection
-              officerName={ officerName }
-              officerSummary={ officerSummary }
-              popup={ popup }
-              pathName={ pathName }
-            />
-          </div>
-          <MetricsSection metrics={ officerMetrics } popup={ popup } pathName={ pathName }/>
-          { printMode ? <PrintNotes notes={ infoNotes } /> : null }
-          <TabbedPaneSection
-            changeOfficerTab={ changeOfficerTab }
-            currentTab={ currentTab }
-            hasComplaint={ hasComplaint }
-            hasMapMarker={ hasMapMarker }
-            hasCoaccusal={ hasCoaccusal }
+          <SummarySection
+            officerName={ officerName }
+            officerSummary={ officerSummary }
+            popup={ popup }
+            pathName={ pathName }
           />
-          { printMode ? <PrintNotes notes={ timelineNotes } /> : null }
-          <FooterContainer className={ styles.officerPageFooter }/>
-          <PrintPreloadFonts/>
         </div>
-      </DocumentMeta>
-    );
-  }
+        <MetricsSection metrics={ officerMetrics } popup={ popup } pathName={ pathName }/>
+        { printMode ? <PrintNotes notes={ infoNotes } /> : null }
+        <TabbedPaneSection
+          changeOfficerTab={ changeOfficerTab }
+          currentTab={ currentTab }
+          hasComplaint={ hasComplaint }
+          hasMapMarker={ hasMapMarker }
+          hasCoaccusal={ hasCoaccusal }
+        />
+        { printMode ? <PrintNotes notes={ timelineNotes } /> : null }
+        <FooterContainer className={ styles.officerPageFooter }/>
+        <PrintPreloadFonts/>
+      </div>
+    </DocumentMeta>
+  );
 }
 
 OfficerPage.propTypes = {

@@ -1,17 +1,15 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
 import { wrapperStyle } from './header-widget.style';
 
 
-export default class HeaderWidget extends Component {
-  render() {
-    const { title } = this.props;
-    return (
-      <div className='test--header-widget' style={ wrapperStyle }>
-        { title }
-      </div>
-    );
-  }
+export default function HeaderWidget(props) {
+  const { title } = props;
+  return (
+    <div className='test--header-widget' style={ wrapperStyle }>
+      { title }
+    </div>
+  );
 }
 
 HeaderWidget.propTypes = {

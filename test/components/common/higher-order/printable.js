@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { shallow, mount } from 'enzyme';
 import { spy, useFakeTimers } from 'sinon';
 
@@ -6,10 +6,8 @@ import Printable from 'components/common/higher-order/printable';
 
 
 describe('Printable component', function () {
-  class Dummy extends Component {
-    render() {
-      return <div />;
-    }
+  function Dummy(props) {
+    return <div />;
   }
 
   Dummy.propTypes = {

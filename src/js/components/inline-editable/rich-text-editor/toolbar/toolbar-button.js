@@ -1,21 +1,19 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
 import Hoverable from 'components/common/higher-order/hoverable';
 import * as toolbarButtonStyle from './toolbar-button.style';
 
 
-export class ToolbarButton extends Component {
-  render() {
-    const { wrapperStyle, iconStyle } = toolbarButtonStyle;
-    const { className, hovering, icon, activeIcon, onClick, active } = this.props;
-    const iconToUse = active ? activeIcon : icon;
+export function ToolbarButton(props) {
+  const { wrapperStyle, iconStyle } = toolbarButtonStyle;
+  const { className, hovering, icon, activeIcon, onClick, active } = props;
+  const iconToUse = active ? activeIcon : icon;
 
-    return (
-      <div style={ wrapperStyle({ active, hovering }) } onClick={ onClick } className={ className }>
-        <div style={ iconStyle(iconToUse) }/>
-      </div>
-    );
-  }
+  return (
+    <div style={ wrapperStyle({ active, hovering }) } onClick={ onClick } className={ className }>
+      <div style={ iconStyle(iconToUse) }/>
+    </div>
+  );
 }
 
 ToolbarButton.propTypes = {

@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react';
+import React, { PropTypes } from 'react';
 import { map } from 'lodash';
 
 import {
@@ -6,30 +6,28 @@ import {
 } from './aggregate-facet.style';
 
 
-export default class AggregateFacet extends Component {
-  render() {
-    const { name, entries } = this.props;
+export default function AggregateFacet(props) {
+  const { name, entries } = props;
 
-    return (
-      <div className='test--aggregate-facet' style={ wrapperStyle }>
-        <div className='test--aggregate-facet-name' style={ aggregateNameStyle }>{ name.toUpperCase() }</div>
-        <div>
-          {
-            map(entries, ({ count, sustainedCount, name }, index) => {
-              return (
-                <div style={ entryStyle(index === 0) } key={ index }>
-                  <span className='test--entry-count' style={ countStyle }>{ count }</span>
-                  <span className='test--entry-sustained-count'
-                    style={ sustainedCountStyle(sustainedCount) }>{ sustainedCount }</span>
-                  <span className='test--entry-name' style={ nameStyle }>{ name }</span>
-                </div>
-              );
-            })
-          }
-        </div>
+  return (
+    <div className='test--aggregate-facet' style={ wrapperStyle }>
+      <div className='test--aggregate-facet-name' style={ aggregateNameStyle }>{ name.toUpperCase() }</div>
+      <div>
+        {
+          map(entries, ({ count, sustainedCount, name }, index) => {
+            return (
+              <div style={ entryStyle(index === 0) } key={ index }>
+                <span className='test--entry-count' style={ countStyle }>{ count }</span>
+                <span className='test--entry-sustained-count'
+                  style={ sustainedCountStyle(sustainedCount) }>{ sustainedCount }</span>
+                <span className='test--entry-name' style={ nameStyle }>{ name }</span>
+              </div>
+            );
+          })
+        }
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 AggregateFacet.propTypes = {

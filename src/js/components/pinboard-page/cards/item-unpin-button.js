@@ -1,17 +1,15 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
 import styles from './item-unpin-button.sass';
 
 
-export default class ItemUnpinButton extends Component {
-  render() {
-    return (
-      <span
-        className={ styles.itemUnpinButton }
-        onClick={ this.props.onClick }
-      />
-    );
-  }
+export default function ItemUnpinButton(props) {
+  return (
+    <span
+      className={ styles.itemUnpinButton }
+      onClick={ props.onClick }
+    />
+  );
 }
 
 ItemUnpinButton.propTypes = {

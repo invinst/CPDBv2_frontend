@@ -1,29 +1,27 @@
-import React, { PropTypes, Component } from 'react';
+import React, { PropTypes } from 'react';
 
 import { buttonStyle, iconStyle, dateStyle, hoveredButtonStyle } from './date-picker-button.style';
 import HoverableButton from 'components/common/hoverable-button';
 
 
-export default class DatePickerButton extends Component {
-  render() {
-    const { value, onClick } = this.props;
+export default function DatePickerButton(props) {
+  const { value, onClick } = props;
 
-    return (
-      <div>
-        <span style={ dateStyle }>
-          { value }
-        </span>
-        <HoverableButton
-          onClick={ onClick }
-          style={ {
-            base: buttonStyle,
-            hover: hoveredButtonStyle,
-          } }>
-          <span style={ iconStyle } />
-        </HoverableButton>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <span style={ dateStyle }>
+        { value }
+      </span>
+      <HoverableButton
+        onClick={ onClick }
+        style={ {
+          base: buttonStyle,
+          hover: hoveredButtonStyle,
+        } }>
+        <span style={ iconStyle } />
+      </HoverableButton>
+    </div>
+  );
 }
 
 DatePickerButton.propTypes = {

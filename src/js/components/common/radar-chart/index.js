@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
 import RadarChart from './radar-chart';
 import { hasEnoughRadarChartData } from 'utils/radar-chart';
@@ -15,34 +15,32 @@ const PRINT_RADAR_CHART_STYLES = {
   radarMainAreaOpacity: 0.4,
 };
 
-export default class StaticRadarChart extends Component {
-  render() {
-    const { data, width, height, radius, offsetTop } = this.props;
+export default function StaticRadarChart(props) {
+  const { data, width, height, radius, offsetTop } = props;
 
-    const { printMode } = this.context;
-    const radarChartPrintStyle = printMode ? PRINT_RADAR_CHART_STYLES : {};
+  const { printMode } = this.context;
+  const radarChartPrintStyle = printMode ? PRINT_RADAR_CHART_STYLES : {};
 
-    if (!hasEnoughRadarChartData(data)) {
-      return (
-        <RadarChart
-          numMetrics={ 3 }
-          width={ width }
-          height={ height }
-          radius={ radius }
-          backgroundColor={ greyishColor }
-          showGrid={ true }
-          outerGridOnly={ true }
-          gridColor={ clayGray }
-          strokeWidth={ 0.6 }
-          boundaryAreaColor={ greyishColor }
-          offsetTop={ offsetTop }
-          { ...radarChartPrintStyle }
-        />
-      );
-    }
-
-    return <RadarChart{ ...this.props } { ...radarChartPrintStyle }/>;
+  if (!hasEnoughRadarChartData(data)) {
+    return (
+      <RadarChart
+        numMetrics={ 3 }
+        width={ width }
+        height={ height }
+        radius={ radius }
+        backgroundColor={ greyishColor }
+        showGrid={ true }
+        outerGridOnly={ true }
+        gridColor={ clayGray }
+        strokeWidth={ 0.6 }
+        boundaryAreaColor={ greyishColor }
+        offsetTop={ offsetTop }
+        { ...radarChartPrintStyle }
+      />
+    );
   }
+
+  return <RadarChart{ ...props } { ...radarChartPrintStyle }/>;
 }
 
 

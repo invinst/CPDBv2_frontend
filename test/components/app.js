@@ -2,7 +2,7 @@ import 'polyfill';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import Mousetrap from 'mousetrap';
-import React, { Component } from 'react';
+import React from 'react';
 import MockStore from 'redux-mock-store';
 import { spy, stub } from 'sinon';
 import { ToastContainer } from 'react-toastify';
@@ -91,10 +91,8 @@ describe('App component', function () {
   });
   const location = { pathname: '/', search: '/', action: 'POP' };
 
-  class ChildComponent extends Component {
-    render() {
-      return <div/>;
-    }
+  function ChildComponent(props) {
+    return <div/>;
   }
 
   it('should toggle edit mode when hit esc', function () {

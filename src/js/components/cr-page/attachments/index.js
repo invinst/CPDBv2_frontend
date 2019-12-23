@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react';
+import React, { PropTypes } from 'react';
 import cx from 'classnames';
 
 import AttachmentHeader from './headers/attachment-header';
@@ -8,60 +8,58 @@ import AttachmentItem from './attachment-item';
 import styles from './attachments.sass';
 
 
-export default class Attachments extends Component {
-  render() {
-    const {
-      items,
-      openRequestDocumentModal,
-      alreadyRequested,
-      pathname,
-      noAttachmentTextEditWrapperStateProps,
-      onTrackingAttachment,
-    } = this.props;
+export default function Attachments(props) {
+  const {
+    items,
+    openRequestDocumentModal,
+    alreadyRequested,
+    pathname,
+    noAttachmentTextEditWrapperStateProps,
+    onTrackingAttachment,
+  } = props;
 
-    const { printMode } = this.context;
+  const { printMode } = this.context;
 
-    const hasData = items.length > 0;
+  const hasData = items.length > 0;
 
-    return (
-      printMode
-        ? (
-          <PrintAttachments items={ items }/>
-        ) : (
-          <div className={ cx(styles.attachmentsContainer, { 'has-data': hasData }) }>
-            <div className='attachments-content'>
+  return (
+    printMode
+      ? (
+        <PrintAttachments items={ items }/>
+      ) : (
+        <div className={ cx(styles.attachmentsContainer, { 'has-data': hasData }) }>
+          <div className='attachments-content'>
+            {
+              hasData
+                ? (
+                  <AttachmentHeader
+                    openRequestDocumentModal={ openRequestDocumentModal }
+                    alreadyRequested={ alreadyRequested }
+                  />
+                ) : (
+                  <NoAttachmentHeader
+                    openRequestDocumentModal={ openRequestDocumentModal }
+                    alreadyRequested={ alreadyRequested }
+                    editWrapperStateProps={ noAttachmentTextEditWrapperStateProps }
+                  />
+                )
+            }
+            <div className='attachments'>
               {
-                hasData
-                  ? (
-                    <AttachmentHeader
-                      openRequestDocumentModal={ openRequestDocumentModal }
-                      alreadyRequested={ alreadyRequested }
-                    />
-                  ) : (
-                    <NoAttachmentHeader
-                      openRequestDocumentModal={ openRequestDocumentModal }
-                      alreadyRequested={ alreadyRequested }
-                      editWrapperStateProps={ noAttachmentTextEditWrapperStateProps }
-                    />
-                  )
+                items.map((item, ind) => (
+                  <AttachmentItem
+                    key={ ind }
+                    { ...item }
+                    pathname={ pathname }
+                    onTrackingAttachment={ onTrackingAttachment }
+                  />
+                ))
               }
-              <div className='attachments'>
-                {
-                  items.map((item, ind) => (
-                    <AttachmentItem
-                      key={ ind }
-                      { ...item }
-                      pathname={ pathname }
-                      onTrackingAttachment={ onTrackingAttachment }
-                    />
-                  ))
-                }
-              </div>
             </div>
           </div>
-        )
-    );
-  }
+        </div>
+      )
+  );
 }
 
 Attachments.defaultProps = {

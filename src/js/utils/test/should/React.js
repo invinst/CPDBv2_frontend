@@ -1,4 +1,4 @@
-import React, { Component, createElement } from 'react';
+import React, { createElement } from 'react';
 import should from 'should';
 import { Provider } from 'react-redux';
 import { each, assign } from 'lodash';
@@ -57,11 +57,10 @@ should.Assertion.add('triggerCallbackWhenClick', function (callbackProp, target=
 });
 
 should.Assertion.add('renderSubComponent', function () {
-  class Dummy extends Component {
-    render() {
-      return <div/>;
-    }
+  function Dummy(props) {
+    return <div/>;
   }
+
   const DecoratedDummy = this.obj(Dummy);
   const wrapper = shallow(<DecoratedDummy a='b'/>);
   wrapper.find(Dummy).prop('a').should.equal('b');

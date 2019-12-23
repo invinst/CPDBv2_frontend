@@ -1,16 +1,14 @@
-import React, { PropTypes, Component } from 'react';
+import React, { PropTypes } from 'react';
 import cx from 'classnames';
 
 import styles from './plus-button.sass';
 
 
-export class PlusButton extends Component {
-  render() {
-    const { className, onClick, darkMode } = this.props;
-    return (
-      <div className={ cx(styles.plusButton, className, { 'dark-mode': darkMode }) } onClick={ onClick } />
-    );
-  }
+export function PlusButton(props) {
+  const { className, onClick, darkMode } = props;
+  return (
+    <div className={ cx(styles.plusButton, className, { 'dark-mode': darkMode }) } onClick={ onClick } />
+  );
 }
 
 PlusButton.propTypes = {

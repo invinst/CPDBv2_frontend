@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { shallow, mount } from 'enzyme';
 
 import Hoverable from 'components/common/higher-order/hoverable';
 
 
 describe('Hoverable component', function () {
-  class Dummy extends Component {
-    render() {
-      return <div/>;
-    }
+  function Dummy(props) {
+    return <div/>;
   }
+
   const HoverableDummy = Hoverable(Dummy);
 
   it('should pass hovering to children', function () {

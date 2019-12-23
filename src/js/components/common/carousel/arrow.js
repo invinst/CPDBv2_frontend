@@ -3,17 +3,15 @@ import cx from 'classnames';
 
 import styles from './arrow.sass';
 
-class Arrow extends React.Component {
-  render() {
-    const { direction, onClick, show, style, className } = this.props;
-    if (!show) return null;
-    return (
-      <button
-        className={ cx(styles.arrow, direction, className, `test--carousel-arrow-${direction}`) }
-        style={ { ...style } }
-        onClick={ () => onClick(direction) }/>
-    );
-  }
+function Arrow(props) {
+  const { direction, onClick, show, style, className } = props;
+  if (!show) return null;
+  return (
+    <button
+      className={ cx(styles.arrow, direction, className, `test--carousel-arrow-${direction}`) }
+      style={ { ...style } }
+      onClick={ () => onClick(direction) }/>
+  );
 }
 
 Arrow.propTypes = {
