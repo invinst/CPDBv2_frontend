@@ -50,6 +50,7 @@ PinboardsTable.propTypes = {
   nextParams: PropTypes.object,
   fetchPinboards: PropTypes.func,
   isLoading: PropTypes.bool,
+  focusItem: PropTypes.func,
 };
 
 PinboardsTable.defaultProps = {

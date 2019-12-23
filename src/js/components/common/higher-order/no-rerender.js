@@ -11,7 +11,7 @@ export default function (SubComponent) {
 
     render() {
       return (
-        <SubComponent {...this.props}>
+        <SubComponent { ...this.props }>
           {this.props.children}
         </SubComponent>
       );

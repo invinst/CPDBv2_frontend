@@ -43,7 +43,14 @@
         ],
         "camelcase": [
             2,
-            {"properties": "always"}
+            {
+                "properties": "always",
+                "allow": [
+                    "UNSAFE_componentWillMount",
+                    "UNSAFE_componentWillReceiveProps",
+                    "UNSAFE_componentWillUpdate"
+                ]
+            }
         ],
         "eol-last": [
             2
@@ -111,6 +118,7 @@
             }
 
         ],
+        "react/prefer-stateless-function": [2, { "ignorePureComponents": true }],
         "object-curly-spacing": [2, "always"],
         "computed-property-spacing": [2, "never"],
         "array-bracket-spacing": [2, "never"],

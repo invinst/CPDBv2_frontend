@@ -24,7 +24,7 @@ const EVENTS = {
 
 
 export default store => next => action => {
-  if (EVENTS.hasOwnProperty(action.type)) {
+  if (Object.prototype.hasOwnProperty.call(EVENTS, action.type)) {
     EVENTS[action.type](store, action);
   }
 

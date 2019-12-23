@@ -52,7 +52,7 @@ const config = Object.assign({}, baseConfig, {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['es2015', 'react']
+            presets: ['es2015', 'react', 'stage-0']
           }
         }
       },
