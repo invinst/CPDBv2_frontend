@@ -26,7 +26,9 @@ export default class App extends React.Component {
     return { adapter: getMockAdapter() };
   }
 
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
+    const { receiveTokenFromCookie } = this.props;
+
     LayeredKeyBinding.bind('esc', () => this.props.toggleEditMode(this.props.location.pathname));
     ALPHA_NUMBERIC.forEach((letter) => {
       LayeredKeyBinding.bind(letter, () => {
@@ -37,10 +39,6 @@ export default class App extends React.Component {
         }
       });
     });
-  }
-
-  componentDidMount() {
-    const { receiveTokenFromCookie } = this.props;
 
     receiveTokenFromCookie();
   }
