@@ -9,9 +9,9 @@ import {
 } from './edit-toggle.style';
 
 
-function EditToggle(props) {
+function EditToggle(props, context) {
   const { turnOnSectionEditMode, turnOffSectionEditMode, onSaveForm, sectionEditModeOn, style } = props;
-  const { editModeOn } = this.context;
+  const { editModeOn } = context;
 
   if (!editModeOn) {
     return null;

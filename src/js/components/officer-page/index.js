@@ -19,7 +19,7 @@ import FooterContainer from 'containers/footer-container';
 import * as GATracking from 'utils/google_analytics_tracking';
 
 
-function OfficerPage(props) {
+function OfficerPage(props, context) {
   const {
     officerId,
     officerSummary,
@@ -41,7 +41,7 @@ function OfficerPage(props) {
     infoNotes,
     timelineNotes,
   } = props;
-  const { printMode } = this.context;
+  const { printMode } = context;
 
   const pageTitle = compact([
     officerSummary.rank === 'N/A' ? '' : officerSummary.rank,

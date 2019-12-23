@@ -24,7 +24,7 @@ import PrintNotes from 'components/common/print-notes';
 import PrintPreloadFonts from 'components/common/print-preload-fonts';
 
 
-function CRPage(props) {
+function CRPage(props, context) {
   const {
     crid, coaccused, complainants, alreadyRequested, category, subcategory,
     incidentDate, point, address, crLocation, beat, involvements, attachments,
@@ -32,7 +32,7 @@ function CRPage(props) {
     noAttachmentTextEditWrapperStateProps, onTrackingAttachment, addOrRemoveItemInPinboard,
   } = props;
 
-  const { printMode } = this.context;
+  const { printMode } = context;
 
   const involvementItem = <Involvement involvements={ involvements }/>;
 

@@ -3,11 +3,11 @@ import React from 'react';
 import baseStyle from './hoverable-edit-wrapper.sass';
 
 
-export default function HoverableEditWrapper(props) {
+export default function HoverableEditWrapper(props, context) {
   const { children, style, className } = props;
   const {
     editModeOn, sectionEditModeOn, turnOnSectionEditMode, turnOffSectionEditMode, onSaveForm,
-  } = this.context;
+  } = context;
 
   if (editModeOn) {
     return (

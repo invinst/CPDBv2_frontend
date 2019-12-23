@@ -7,9 +7,9 @@ import baseStyles from 'components/officer-page/tabbed-pane-section/timeline/ite
 import styles from './trr.sass';
 
 
-export default function Trr(props) {
+export default function Trr(props, context) {
   const { item } = props;
-  const { printMode } = this.context;
+  const { printMode } = context;
 
   return (
     <Link className={ cx(baseStyles.baseItem, styles.trr) } to={ `/trr/${item.trrId}/` }>

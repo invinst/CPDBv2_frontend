@@ -6,9 +6,9 @@ import Row from './row';
 import TRRMap from './trr-map';
 
 
-function TRRLocation(props) {
+function TRRLocation(props, context) {
   const { address, incidentDate, beat, locationType, point } = props;
-  const { printMode } = this.context;
+  const { printMode } = context;
   const infoBlock = (
     <div className='info-block'>
       <h3 className={ 'info-block-title no-print' }>

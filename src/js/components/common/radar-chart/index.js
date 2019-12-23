@@ -16,10 +16,10 @@ const PRINT_RADAR_CHART_STYLES = {
   radarMainAreaOpacity: 0.4,
 };
 
-export default function StaticRadarChart(props) {
+export default function StaticRadarChart(props, context) {
   const { data, width, height, radius, offsetTop } = props;
 
-  const { printMode } = this.context;
+  const { printMode } = context;
   const radarChartPrintStyle = printMode ? PRINT_RADAR_CHART_STYLES : {};
 
   if (!hasEnoughRadarChartData(data)) {

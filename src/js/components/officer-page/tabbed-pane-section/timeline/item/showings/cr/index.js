@@ -8,9 +8,9 @@ import baseStyles from 'components/officer-page/tabbed-pane-section/timeline/ite
 import styles from './cr.sass';
 
 
-export default function Cr(props) {
+export default function Cr(props, context) {
   const { item, changeOfficerTab, pathname, onTrackingAttachment } = props;
-  const { printMode } = this.context;
+  const { printMode } = context;
 
   return (
     <Link

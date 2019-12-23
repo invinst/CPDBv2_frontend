@@ -13,13 +13,13 @@ import PrintNotes from 'components/common/print-notes';
 import PrintPreloadFonts from 'components/common/print-preload-fonts';
 
 
-export function TRRPage(props) {
+export function TRRPage(props, context) {
   const {
     trrId, officer, trrLocation, trrDetail, trrDocument,
     openRequestTRRDocumentModal, popup, pathName, notes,
     noAttachmentTextEditWrapperStateProps,
   } = props;
-  const { printMode } = this.context;
+  const { printMode } = context;
 
   return (
     <DocumentMeta title={ `TRR ${trrId}` }>

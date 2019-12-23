@@ -12,8 +12,8 @@ import { editMode } from 'utils/edit-path';
 import styles from 'components/headers/slim-header/slim-header-content/logo.sass';
 import { ROOT_PATH } from 'utils/constants';
 
-function Logo(props) {
-  const { editModeOn } = this.context;
+function Logo(props, context) {
+  const { editModeOn } = context;
   const { position, editWrapperStateProps } = props;
   const titleLink = editModeOn ? editMode(ROOT_PATH) : ROOT_PATH;
 

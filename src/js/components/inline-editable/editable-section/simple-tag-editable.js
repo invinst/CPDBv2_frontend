@@ -7,9 +7,9 @@ import Editable from 'components/inline-editable/editable';
 import styles from './simple-tag-editable.sass';
 
 
-export default function SimpleTagEditable(props) {
+export default function SimpleTagEditable(props, context) {
   const { fieldName } = props;
-  const { editModeOn, value, onChange } = get(this.context.fieldContexts, fieldName, {});
+  const { editModeOn, value, onChange } = get(context.fieldContexts, fieldName, {});
 
   return (
     <Editable

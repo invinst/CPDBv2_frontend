@@ -6,9 +6,9 @@ import baseStyles from 'components/officer-page/tabbed-pane-section/timeline/ite
 import styles from './joined.sass';
 
 
-export default function Joined(props) {
+export default function Joined(props, context) {
   const { item } = props;
-  const { printMode } = this.context;
+  const { printMode } = context;
 
   const unitString = item.unitName === 'Unassigned' ? '' : ` with ${item.unitName}`;
   const rankString = item.rank === 'Unknown' ? '' : ` as a ${item.rank}`;

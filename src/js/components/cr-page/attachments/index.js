@@ -9,7 +9,7 @@ import AttachmentItem from './attachment-item';
 import styles from './attachments.sass';
 
 
-export default function Attachments(props) {
+export default function Attachments(props, context) {
   const {
     items,
     openRequestDocumentModal,
@@ -19,7 +19,7 @@ export default function Attachments(props) {
     onTrackingAttachment,
   } = props;
 
-  const { printMode } = this.context;
+  const { printMode } = context;
 
   const hasData = items.length > 0;
 
