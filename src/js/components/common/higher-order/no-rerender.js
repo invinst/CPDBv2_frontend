@@ -9,7 +9,11 @@ export default function (SubComponent) {
     }
 
     render() {
-      return React.createElement(SubComponent, this.props, this.props.children);
+      return (
+        <SubComponent {...this.props}>
+          {this.props.children}
+        </SubComponent>
+      );
     }
   }
 
