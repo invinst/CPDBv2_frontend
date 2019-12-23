@@ -6,13 +6,6 @@ import { thumbStyle } from './minimal-srcoll-bar.style';
 
 
 export default class MinimalScrollBars extends Component {
-
-  constructor(props, ...rest) {
-    super(props, ...rest);
-
-    this.renderThumb = this.renderThumb.bind(this);
-  }
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.scrollTop !== this.props.scrollTop) {
       this.scrollerRef.scrollTop(nextProps.scrollTop);
@@ -22,11 +15,11 @@ export default class MinimalScrollBars extends Component {
     }
   }
 
-  renderThumb({ style, ...props }) {
+  renderThumb = ({ style, ...props }) => {
     return (
       <div className='test--minimal-scrollbars-vertical-thumb' style={ { ...style, ...thumbStyle } } { ...props } />
     );
-  }
+  };
 
   renderView({ style }) {
     const { viewClassName } = this.props;

@@ -6,9 +6,6 @@ export default function (ComponentClass) {
   class Printable extends Component {
     constructor(props) {
       super(props);
-      this._mediaPrintListener = this._mediaPrintListener.bind(this);
-      this._beforePrint = this._beforePrint.bind(this);
-      this._afterPrint = this._afterPrint.bind(this);
       this.state = {
         printMode: false,
       };
@@ -28,17 +25,17 @@ export default function (ComponentClass) {
       window.onafterprint = this._afterPrint;
     }
 
-    _beforePrint() {
+    _beforePrint = () => {
       this._updatePrintMode(true);
-    }
+    };
 
-    _afterPrint() {
+    _afterPrint = () => {
       this._updatePrintMode(false);
-    }
+    };
 
-    _mediaPrintListener(media) {
+    _mediaPrintListener = media => {
       this._updatePrintMode(media.matches);
-    }
+    };
 
     _updatePrintMode(printMode) {
       if (this.state.printMode !== printMode)

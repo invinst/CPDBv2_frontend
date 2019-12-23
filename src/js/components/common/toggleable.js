@@ -3,12 +3,7 @@ import React, { PropTypes } from 'react';
 
 export default function Toggleable(ComposedComponent) {
   class ToggleableComponent extends React.Component {
-    constructor(props) {
-      super(props);
-      this.onClick = this.onClick.bind(this);
-    }
-
-    onClick() {
+    onClick = () => {
       if (!this.props.active) {
         if (this.props.onOpen) {
           this.props.onOpen(this.props.identifier);
@@ -18,7 +13,7 @@ export default function Toggleable(ComposedComponent) {
           this.props.onClose(this.props.identifier);
         }
       }
-    }
+    };
 
     render() {
       return (

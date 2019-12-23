@@ -7,9 +7,6 @@ import * as inputStyles from './input.style';
 export default class TextInput extends Component {
   constructor(props) {
     super(props);
-    this.handleFocus = this.handleFocus.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
-    this.handleChange = this.handleChange.bind(this);
     this.state = {
       showPlaceholder: true,
       value: props.value,
@@ -63,23 +60,23 @@ export default class TextInput extends Component {
     }
   }
 
-  handleFocus(event) {
+  handleFocus = event => {
     const { onFocus } = this.props;
     this.setState({ showPlaceholder: !this.state.value });
     if (onFocus) {
       onFocus(event);
     }
-  }
+  };
 
-  handleBlur(event) {
+  handleBlur = event => {
     const { onBlur } = this.props;
     this.setState({ showPlaceholder: !this.state.value });
     if (onBlur) {
       onBlur(event);
     }
-  }
+  };
 
-  handleChange(event) {
+  handleChange = event => {
     const { onChange } = this.props;
     this.setState({
       showPlaceholder: !event.target.value,
@@ -88,7 +85,7 @@ export default class TextInput extends Component {
     if (onChange) {
       onChange(event);
     }
-  }
+  };
 
   focus() {
     this.input.focus();

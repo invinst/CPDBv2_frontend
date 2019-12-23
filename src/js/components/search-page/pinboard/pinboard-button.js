@@ -7,13 +7,7 @@ import styles from './pinboard-button.sass';
 
 
 export default class PinboardButton extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick(e) {
+  handleClick = e => {
     e.preventDefault();
 
     const { pinboard, onEmptyPinboardButtonClick } = this.props;
@@ -27,7 +21,7 @@ export default class PinboardButton extends Component {
     } else {
       browserHistory.push(pinboard.url);
     }
-  }
+  };
 
   render() {
     const { pinboard, emptyText } = this.props;

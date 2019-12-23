@@ -7,20 +7,15 @@ import styles from './officer-row.sass';
 
 
 export default class OfficerRow extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
   shouldComponentUpdate(nextProps) {
     const { officer } = this.props;
     return !isEqual(officer, nextProps.officer);
   }
 
-  handleClick() {
+  handleClick = () => {
     const { officer, updateSelectedOfficerId } = this.props;
     updateSelectedOfficerId(officer.id);
-  }
+  };
 
   render() {
     const { officer } = this.props;

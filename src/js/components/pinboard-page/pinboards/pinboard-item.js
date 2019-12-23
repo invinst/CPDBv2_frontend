@@ -8,14 +8,7 @@ import PinboardLinkContainer from 'containers/pinboard-page/pinboard-link-contai
 
 
 export default class PinboardItem extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleDuplicatePinboard = this.handleDuplicatePinboard.bind(this);
-    this.handlePinboardItemClick = this.handlePinboardItemClick.bind(this);
-  }
-
-  handleDuplicatePinboard(e) {
+  handleDuplicatePinboard = e => {
     const { pinboard, duplicatePinboard, handleClose } = this.props;
 
     duplicatePinboard(pinboard.id).then((response) => {
@@ -24,14 +17,14 @@ export default class PinboardItem extends Component {
     });
 
     e.stopPropagation();
-  }
+  };
 
-  handlePinboardItemClick() {
+  handlePinboardItemClick = () => {
     const { handleClose, pinboard } = this.props;
 
     handleClose();
     browserHistory.push(pinboard.url);
-  }
+  };
 
   render() {
     const { pinboard } = this.props;

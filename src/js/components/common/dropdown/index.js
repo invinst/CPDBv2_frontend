@@ -12,23 +12,19 @@ export default class Dropdown extends Component {
 
     const { options, defaultValue } = props;
 
-    this.handleClick = this.handleClick.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
-    this.handleSelect = this.handleSelect.bind(this);
-
     this.state = {
       open: false,
       selectedIndex: indexOf(options, defaultValue),
     };
   }
 
-  handleClick() {
+  handleClick = () => {
     this.setState({
       open: !this.state.open,
     });
-  }
+  };
 
-  handleSelect(index) {
+  handleSelect = index => {
     const { onChange, options } = this.props;
 
     if (index !== this.state.selectedIndex) {
@@ -38,13 +34,13 @@ export default class Dropdown extends Component {
         open: false,
       });
     }
-  }
+  };
 
-  handleBlur() {
+  handleBlur = () => {
     this.setState({
       open: false,
     });
-  }
+  };
 
   render() {
     const { className, options, labels } = this.props;

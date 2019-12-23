@@ -13,8 +13,6 @@ export default class PinboardAdminPage extends Component {
       isShowingPreviewPane: false,
       focusedItem: {},
     };
-    this.handleOverlayClick = this.handleOverlayClick.bind(this);
-    this.focusItem = this.focusItem.bind(this);
   }
 
   componentWillUnmount() {
@@ -22,13 +20,13 @@ export default class PinboardAdminPage extends Component {
     clearPinboardStaticSocialGraphCache();
   }
 
-  focusItem(focusedItem) {
+  focusItem = focusedItem => {
     this.setState({ focusedItem, isShowingPreviewPane: true });
-  }
+  };
 
-  handleOverlayClick() {
+  handleOverlayClick = () => {
     this.setState({ isShowingPreviewPane: false });
-  }
+  };
 
   render() {
     const {

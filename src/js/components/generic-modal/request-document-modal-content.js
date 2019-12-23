@@ -12,11 +12,10 @@ import RichTextEditable from 'components/inline-editable/editable-section/rich-t
 class RequestDocumentModalContent extends Component {
   constructor(props, context) {
     super(props, context);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.state = { warning: false };
   }
 
-  handleSubmit(e) {
+  handleSubmit = e => {
     e.preventDefault();
     const { onRequestDocument, id, closeModal } = this.props;
     const email = this.refs.email.value;
@@ -28,7 +27,7 @@ class RequestDocumentModalContent extends Component {
     }).catch(e => {
       this.setState({ warning: true });
     });
-  }
+  };
 
   render() {
     const { closeModal, message, isRequested, instructionEditWrapperStateProps, hasData } = this.props;

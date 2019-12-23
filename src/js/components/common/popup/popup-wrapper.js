@@ -11,12 +11,10 @@ export default class PopupWrapper extends Component {
   constructor(props) {
     super(props);
     this.tooltipId = generatePopupId();
-    this.hideOtherPopups = this.hideOtherPopups.bind(this);
-    this.afterShow = this.afterShow.bind(this);
   }
 
   /* istanbul ignore next */
-  hideOtherPopups() {
+  hideOtherPopups = () => {
     // We have live test for this function, so it's safe to ignore it
     const popups = document.getElementsByClassName('popup-button');
     for (let i = 0; i < popups.length; i++) {
@@ -24,13 +22,13 @@ export default class PopupWrapper extends Component {
         ReactTooltip.hide(popups[i]);
       }
     }
-  }
+  };
 
-  afterShow() {
+  afterShow = () => {
     const { trackingUrl, trackingId } = this.props;
     this.hideOtherPopups();
     GATracking.trackPopupButtonClick(trackingUrl, trackingId);
-  }
+  };
 
   render() {
     const { children, className, popupButtonClassName } = this.props;

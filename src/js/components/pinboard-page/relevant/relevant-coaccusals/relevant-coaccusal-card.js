@@ -10,26 +10,18 @@ import * as constants from 'utils/constants';
 
 
 export default class RelevantCoaccusalCard extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleAddItemToPinboard = this.handleAddItemToPinboard.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.handleFocus = this.handleFocus.bind(this);
-  }
-
   componentDidUpdate() {
     if (this.props.isPinStatusChanging) {
       this.handleAddItemToPinboard();
     }
   }
 
-  handleClick(e) {
+  handleClick = e => {
     e.preventDefault();
     this.handleAddItemToPinboard();
-  }
+  };
 
-  handleAddItemToPinboard() {
+  handleAddItemToPinboard = () => {
     const { id, recentItemData, addItemInPinboardPage } = this.props;
 
     addItemInPinboardPage({
@@ -37,12 +29,12 @@ export default class RelevantCoaccusalCard extends Component {
       id,
       recentItemData,
     });
-  }
+  };
 
-  handleFocus() {
+  handleFocus = () => {
     const { id, focusItem } = this.props;
     focusItem({ type: 'OFFICER', id });
-  }
+  };
 
   render() {
     const {

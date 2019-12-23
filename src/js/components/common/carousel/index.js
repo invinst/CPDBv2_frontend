@@ -14,12 +14,6 @@ export default class Carousel extends Component {
       displayRightArrow: true,
       displayLeftArrow: false,
     };
-
-    this.onSnapIndexChange = this.onSnapIndexChange.bind(this);
-    this.handleSlideNext = this.handleSlideNext.bind(this);
-    this.handleSlidePrev = this.handleSlidePrev.bind(this);
-    this.handleNavigate = this.handleNavigate.bind(this);
-    this.updateArrows = this.updateArrows.bind(this);
   }
 
   componentDidMount() {
@@ -47,24 +41,24 @@ export default class Carousel extends Component {
     this.slidesPerGroup = Math.max(Math.floor((width - arrowWidth) / slideWidth), 1);
   }
 
-  handleNavigate(direction) {
+  handleNavigate = direction => {
     const { slideIndex } = this.state;
     if (direction === 'right') {
       this.slideTo(slideIndex + this.slidesPerGroup);
     } else {
       this.slideTo(slideIndex - this.slidesPerGroup);
     }
-  }
+  };
 
-  handleSlideNext() {
+  handleSlideNext = () => {
     const { onNavigate } = this.props;
     onNavigate('right');
-  }
+  };
 
-  handleSlidePrev() {
+  handleSlidePrev = () => {
     const { onNavigate } = this.props;
     onNavigate('left');
-  }
+  };
 
   loadMore() {
     const { hasMore, loadMore } = this.props;
@@ -79,7 +73,7 @@ export default class Carousel extends Component {
     this.setState({ slideIndex });
   }
 
-  onSnapIndexChange({ isEnd, isBeginning, activeIndex }) {
+  onSnapIndexChange = ({ isEnd, isBeginning, activeIndex }) => {
     isEnd && this.loadMore();
 
     this.setState({
@@ -87,16 +81,16 @@ export default class Carousel extends Component {
       displayLeftArrow: !isBeginning,
       displayRightArrow: !isEnd,
     });
-  }
+  };
 
-  updateArrows({ isEnd, isBeginning }) {
+  updateArrows = ({ isEnd, isBeginning }) => {
     isEnd && this.loadMore();
 
     this.setState({
       displayLeftArrow: !isBeginning,
       displayRightArrow: !isEnd,
     });
-  }
+  };
 
   render() {
     const { children, style, spaceBetween, arrowClassName } = this.props;

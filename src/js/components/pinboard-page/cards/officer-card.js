@@ -10,13 +10,6 @@ import styles from './officer-card.sass';
 
 
 export default class OfficerCard extends Component {
-  constructor(props) {
-    super(props);
-
-    this.removeItem = this.removeItem.bind(this);
-    this.focusItem = this.focusItem.bind(this);
-  }
-
   componentDidUpdate() {
     const { item } = this.props;
 
@@ -25,17 +18,17 @@ export default class OfficerCard extends Component {
     }
   }
 
-  removeItem() {
+  removeItem = () => {
     const { item, removeItemInPinboardPage } = this.props;
     const { type, id } = item;
 
     removeItemInPinboardPage({ type, id });
-  }
+  };
 
-  focusItem() {
+  focusItem = () => {
     const { type, id } = this.props.item;
     this.props.focusItem({ type, id });
-  }
+  };
 
   render() {
     const { item } = this.props;

@@ -8,24 +8,17 @@ import styles from './location-card.sass';
 
 
 export default class LocationCard extends Component {
-  constructor(props) {
-    super(props);
-
-    this.removeItem = this.removeItem.bind(this);
-    this.focusItem = this.focusItem.bind(this);
-  }
-
-  removeItem() {
+  removeItem = () => {
     const { item, removeItemInPinboardPage } = this.props;
     const { type, id } = item;
 
     removeItemInPinboardPage({ type, id });
-  }
+  };
 
-  focusItem() {
+  focusItem = () => {
     const { type, id } = this.props.item;
     this.props.focusItem({ type, id });
-  }
+  };
 
   renderContent() {
     const { item, dateKey } = this.props;

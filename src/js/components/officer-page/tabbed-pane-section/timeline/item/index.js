@@ -15,11 +15,6 @@ import styles from './item.sass';
 
 
 export default class Item extends Component {
-  constructor(props) {
-    super(props);
-    this.renderChange = this.renderChange.bind(this);
-  }
-
   componentInfo() {
     const { item } = this.props;
 
@@ -58,7 +53,7 @@ export default class Item extends Component {
     return get(componentInfoMap, item.kind, {});
   }
 
-  renderChange(changeKind, current, display, text, isAfterChange) {
+  renderChange = (changeKind, current, display, text, isAfterChange) => {
     const { kind } = this.props.item;
     const isChangeItem = kind === changeKind;
 
@@ -78,7 +73,7 @@ export default class Item extends Component {
         }
       </span>
     );
-  }
+  };
 
   render() {
     const { className, component } = this.componentInfo();
@@ -115,7 +110,6 @@ export default class Item extends Component {
       </div>
     );
   }
-
 }
 
 Item.propTypes = {

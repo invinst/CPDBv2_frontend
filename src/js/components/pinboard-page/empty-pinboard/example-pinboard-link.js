@@ -5,15 +5,10 @@ import styles from 'components/pinboard-page/empty-pinboard/example-pinboard-lin
 
 
 export default class ExamplePinboardLink extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
+  handleClick = () => {
     const { id, currentPinboardId, updatePinboardFromSource } = this.props;
     updatePinboardFromSource(currentPinboardId, id);
-  }
+  };
 
   render() {
     const { title, description } = this.props;

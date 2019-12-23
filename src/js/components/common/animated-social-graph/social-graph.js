@@ -30,16 +30,6 @@ export default class SocialGraph extends Component {
     this.height = DEFAULT_GRAPH_HEIGHT;
 
     this.setInitialData();
-
-    this.resizeGraph = this.resizeGraph.bind(this);
-    this.tick = this.tick.bind(this);
-    this.connectedNodes = this.connectedNodes.bind(this);
-    this.collide = this.collide.bind(this);
-    this.handleNodeClick = this.handleNodeClick.bind(this);
-    this.handleEdgeClick = this.handleEdgeClick.bind(this);
-    this.handleMouseover = this.handleMouseover.bind(this);
-    this.handleEdgeMouseover = this.handleEdgeMouseover.bind(this);
-    this.handleEdgeMouseout = this.handleEdgeMouseout.bind(this);
   }
 
   componentDidMount() {
@@ -96,38 +86,38 @@ export default class SocialGraph extends Component {
     d3.select(window).on('resize', null);
   }
 
-  handleNodeClick(currentNode) {
+  handleNodeClick = currentNode => {
     const { updateSelectedOfficerId } = this.props;
     if (updateSelectedOfficerId) {
       this.tip.hide(currentNode);
       updateSelectedOfficerId(currentNode.uid);
     }
-  }
+  };
 
-  handleEdgeClick(currentEdge) {
+  handleEdgeClick = currentEdge => {
     const { updateSelectedEdge } = this.props;
     if (updateSelectedEdge) {
       updateSelectedEdge({ sourceUid: currentEdge.source.uid, targetUid: currentEdge.target.uid });
     }
-  }
+  };
 
-  handleMouseover(currentNode) {
+  handleMouseover = currentNode => {
     if (!currentNode.isSelectedNode) {
       this.tip.show(currentNode);
     }
-  }
+  };
 
-  handleEdgeMouseover(currentEdge) {
+  handleEdgeMouseover = currentEdge => {
     this.node.classed('edge-hover', function (graphNode) {
       return graphNode === currentEdge.source || graphNode === currentEdge.target;
     });
     this.link.classed('edge-hover', (graphLink) => currentEdge === graphLink);
-  }
+  };
 
-  handleEdgeMouseout() {
+  handleEdgeMouseout = () => {
     this.node.classed('edge-hover', false);
     this.link.classed('edge-hover', false);
-  }
+  };
 
   graphTooltip(graphNode) {
     return `<span>${graphNode.fname}</span>`;
@@ -179,7 +169,7 @@ export default class SocialGraph extends Component {
     startTimelineFromBeginning();
   }
 
-  resizeGraph() {
+  resizeGraph = () => {
     const chartDiv = d3.select(ReactDOM.findDOMNode(this.chart)).node();
     this.width = chartDiv.clientWidth;
     this.height = chartDiv.clientHeight;
@@ -194,7 +184,7 @@ export default class SocialGraph extends Component {
     this.svg.attr('width', this.width).attr('height', this.height);
     this.force.size([this.width, this.height]);
     this.force.start();
-  }
+  };
 
   _resetNodes() {
     const { officers } = this.props;
@@ -432,7 +422,7 @@ export default class SocialGraph extends Component {
     this.force.start();
   }
 
-  tick(e) {
+  tick = e => {
     // bounded graph
     this.node.attr('cx', (d) => {
       const nodeRadius = this.nodeRadius(d);
@@ -455,9 +445,9 @@ export default class SocialGraph extends Component {
 
     this._updateSelectedNodePosition();
     this._updateSelectedEdgePosition();
-  }
+  };
 
-  connectedNodes(currentNode) {
+  connectedNodes = currentNode => {
     const neighboring = (a, b) => this.data.linkedByIndex[a.index + ',' + b.index];
 
     if (this.toggleNode === 0) {
@@ -476,7 +466,7 @@ export default class SocialGraph extends Component {
       this.link.style('opacity', 1);
       this.toggleNode = 0;
     }
-  }
+  };
 
   filterAndRestart() {
     const { listEvent, timelineIdx } = this.props;
@@ -487,7 +477,7 @@ export default class SocialGraph extends Component {
     this.restart();
   }
 
-  collide() {
+  collide = () => {
     const quadtree = d3.geom.quadtree(this.data.nodes);
     return (currentNode) => {
       let r = this.nodeRadius(currentNode) + MAX_RADIUS,
@@ -512,7 +502,7 @@ export default class SocialGraph extends Component {
         return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
       });
     };
-  }
+  };
 
   render() {
     return (

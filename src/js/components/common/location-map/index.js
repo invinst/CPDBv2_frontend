@@ -16,7 +16,6 @@ const scrollTopMargin = 20; // this value depends on the height of ShareableHead
 export default class LocationMap extends Component {
   constructor(props) {
     super(props);
-    this.handleScroll = this.handleScroll.bind(this);
     this.prevTop = 0;
     this.prevBottom = 0;
   }
@@ -40,7 +39,7 @@ export default class LocationMap extends Component {
     removeEventListener('scroll', this.handleScroll);
   }
 
-  handleScroll(event) {
+  handleScroll = event => {
     /* istanbul ignore next */
     // Logic: zoom in the map if it closes to top or bottom of the current window
     if (this.map) {
@@ -61,7 +60,7 @@ export default class LocationMap extends Component {
       this.prevTop = top;
       this.prevBottom = bottom;
     }
-  }
+  };
 
   gotRef(el) {
     if (el && !this.map) {

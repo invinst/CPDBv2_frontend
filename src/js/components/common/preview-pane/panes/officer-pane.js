@@ -13,19 +13,13 @@ import {
 import styles from './officer-pane.sass';
 
 export default class OfficerPane extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleOnOfficerProfileClick = this.handleOnOfficerProfileClick.bind(this);
-  }
-
-  handleOnOfficerProfileClick() {
+  handleOnOfficerProfileClick = () => {
     const { to } = this.props;
 
     if (!isEmpty(to)) {
       browserHistory.push(to);
     }
-  }
+  };
 
   render() {
     const {

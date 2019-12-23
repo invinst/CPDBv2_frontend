@@ -20,9 +20,6 @@ export default class PinnedGrid extends Component {
     super(props);
 
     this.rendered = false;
-    this.updateOrder = this.updateOrder.bind(this);
-    this.removeItemInPinboardPage = this.removeItemInPinboardPage.bind(this);
-    this.completeRemoveItemInPinboardPage = this.completeRemoveItemInPinboardPage.bind(this);
   }
 
   componentDidMount() {
@@ -58,7 +55,7 @@ export default class PinnedGrid extends Component {
     this.gridMuuri.on('dragEnd', this.updateOrder);
   }
 
-  updateOrder() {
+  updateOrder = () => {
     const { orderPinboard, type, items } = this.props;
     const newIds = this.gridMuuri.getItems().map(item => item.getElement().getAttribute('data-id'));
     const currentIds = map(items, item => item.id);
@@ -66,21 +63,21 @@ export default class PinnedGrid extends Component {
     if (!isEqual(newIds, currentIds)) {
       orderPinboard({ type, ids: newIds });
     }
-  }
+  };
 
-  removeItemInPinboardPage(item) {
+  removeItemInPinboardPage = item => {
     setTimeout(
       () => this.props.removeItemInPinboardPage(item),
       200
     );
-  }
+  };
 
-  completeRemoveItemInPinboardPage(item) {
+  completeRemoveItemInPinboardPage = item => {
     const { completeRemoveItemFromPinboard } = this.props;
 
     this.gridMuuri.remove(this.itemElements[item.id]);
     completeRemoveItemFromPinboard(item);
-  }
+  };
 
   render() {
     const { type, items, focusItem, addItemInPinboardPage } = this.props;

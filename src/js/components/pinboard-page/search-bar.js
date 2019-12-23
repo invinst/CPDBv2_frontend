@@ -14,29 +14,26 @@ export default class SearchBar extends Component {
     this.state = {
       shareMenuOpen: false,
     };
-
-    this.handleShareButtonClick = this.handleShareButtonClick.bind(this);
-    this.closeShareMenu = this.closeShareMenu.bind(this);
   }
 
-  closeShareMenu(e) {
+  closeShareMenu = e => {
     if (this.state.shareMenuOpen) {
       this.setState({ shareMenuOpen: false });
       e.stopPropagation();
     }
-  }
+  };
 
   goToSearchPage(e) {
     pushPathPreserveEditMode(`/${SEARCH_PATH}`);
     e.stopPropagation();
   }
 
-  handleShareButtonClick(e) {
+  handleShareButtonClick = e => {
     this.setState((state, props) => ({
       shareMenuOpen: !state.shareMenuOpen,
     }));
     e.stopPropagation();
-  }
+  };
 
   renderShareMenu() {
     const shareMenu = (

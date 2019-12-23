@@ -7,16 +7,11 @@ import { imageStyle } from 'components/common/shared.style';
 
 
 export default class Attachment extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
+  handleClick = () => {
     const { onTrackingAttachment } = this.props;
     const { id } = this.props.attachment;
     onTrackingAttachment({ attachmentId: id, sourcePage: 'Officer Page - Attachments Tab', app: 'Frontend' });
-  }
+  };
 
   render() {
     const { title, url, previewImageUrl, fileType } = this.props.attachment;

@@ -9,17 +9,12 @@ import { PINNED_ITEM_TYPES } from 'utils/constants';
 
 
 export default class DocumentCard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
+  handleClick = () => {
     const { crid, pathname, onTrackingAttachment, id } = this.props;
     const url = `/complaint/${crid}/`;
     GATracking.trackAttachmentClick(pathname, url);
     onTrackingAttachment({ attachmentId: id, sourcePage: 'Landing Page', app: 'Frontend' });
-  }
+  };
 
   render() {
     const { previewImageUrl, crid, incidentDate, category, addOrRemoveItemInPinboard, isPinned } = this.props;

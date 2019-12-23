@@ -10,19 +10,16 @@ export default class ShortPress extends Component {
   constructor(props) {
     super(props);
 
-    this.handleButtonPress = this.handleButtonPress.bind(this);
-    this.handleButtonRelease = this.handleButtonRelease.bind(this);
-
     this.mouseDownTime = undefined;
     this.mouseDownPosition = undefined;
   }
 
-  handleButtonPress(event) {
+  handleButtonPress = event => {
     this.mouseDownTime = new Date();
     this.mouseDownPosition = { x: event.screenX, y: event.screenY };
-  }
+  };
 
-  handleButtonRelease(event) {
+  handleButtonRelease = event => {
     const xPosition = event.screenX;
     const yPosition = event.screenY;
     const { action } = this.props;
@@ -35,7 +32,7 @@ export default class ShortPress extends Component {
     }
 
     this.mouseDownTime = undefined;
-  }
+  };
 
   render() {
     const { children } = this.props;

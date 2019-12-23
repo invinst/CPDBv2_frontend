@@ -5,17 +5,12 @@ import { isEmpty } from 'lodash';
 import styles from './crawler-row.sass';
 
 export default class CrawlerRow extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
+  handleClick = () => {
     const { openLogFileModal, id, logUrl } = this.props;
     if (logUrl) {
       openLogFileModal(id);
     }
-  }
+  };
 
   render() {
     const { crawlerName, status, recentRunAt, numNewDocuments, numDocuments, numSuccessfulRun, logUrl } = this.props;

@@ -13,19 +13,17 @@ export default class LinkPicker extends Component {
     this.state = {
       open: false,
     };
-    this.handleTogglePopup = this.handleTogglePopup.bind(this);
-    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleTogglePopup() {
+  handleTogglePopup = () => {
     this.setState({
       open: !this.state.open,
     });
-  }
+  };
 
-  handleChange(event) {
+  handleChange = event => {
     this.props.onChange(event.target.value);
-  }
+  };
 
   render() {
     const { editModeOn, style } = this.props;

@@ -38,8 +38,6 @@ export default class ShareableHeader extends Component {
     this.state = {
       position: 'top',
     };
-
-    this.handleScroll = this.handleScroll.bind(this);
   }
 
   componentDidMount() {
@@ -52,13 +50,13 @@ export default class ShareableHeader extends Component {
     removeEventListener('scroll', this.handleScroll);
   }
 
-  handleScroll() {
+  handleScroll = () => {
     const newPosition = calculatePosition();
     if (newPosition !== this.state.position) {
       this.setState({ position: newPosition });
     }
     this.props.updateShareablePageScrollPosition(this.state.position);
-  }
+  };
 
   render() {
     const { location, routes, params, buttonType } = this.props;

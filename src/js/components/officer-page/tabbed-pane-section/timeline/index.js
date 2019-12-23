@@ -8,16 +8,10 @@ import Popup from 'components/common/popup';
 import styles from './timeline.sass';
 
 export default class Timeline extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleDropdownChange = this.handleDropdownChange.bind(this);
-  }
-
-  handleDropdownChange(label) {
+  handleDropdownChange = label => {
     const key = findKey(NEW_TIMELINE_FILTERS, ['label', label]);
     this.props.changeFilter(NEW_TIMELINE_FILTERS[key]);
-  }
+  };
 
   renderHeader() {
     const { popup, filterCount, pathname, selectedFilter } = this.props;

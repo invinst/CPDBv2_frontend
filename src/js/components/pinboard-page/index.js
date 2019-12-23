@@ -22,13 +22,6 @@ import PinboardDataVisualization from 'components/pinboard-page/pinboard-data-vi
 
 
 export default class PinboardPage extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleOverlayClick = this.handleOverlayClick.bind(this);
-    this.handlePinChangedOnPreviewPane = this.handlePinChangedOnPreviewPane.bind(this);
-  }
-
   componentDidMount() {
     const { location, params, routes, pushBreadcrumbs } = this.props;
     pushBreadcrumbs({ location, params, routes });
@@ -53,11 +46,11 @@ export default class PinboardPage extends Component {
     document.body.classList.remove('body-not-scrollable');
   }
 
-  handleOverlayClick() {
+  handleOverlayClick = () => {
     this.props.focusItem({});
-  }
+  };
 
-  handlePinChangedOnPreviewPane(item) {
+  handlePinChangedOnPreviewPane = item => {
     const {
       focusItem,
       addOrRemoveItemInPinboardFromPreviewPane,
@@ -65,7 +58,7 @@ export default class PinboardPage extends Component {
 
     focusItem({});
     addOrRemoveItemInPinboardFromPreviewPane(item);
-  }
+  };
 
   renderPreviewPane() {
     const { focusedItem } = this.props;

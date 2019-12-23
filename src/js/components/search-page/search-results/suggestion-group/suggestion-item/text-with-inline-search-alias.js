@@ -4,18 +4,12 @@ import * as constants from 'utils/constants';
 
 
 export default class TextWithInlineSearchAlias extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleAliasButtonClick = this.handleAliasButtonClick.bind(this);
-  }
-
-  handleAliasButtonClick(e) {
+  handleAliasButtonClick = e => {
     e.stopPropagation();
     const { setAliasAdminPageContent, content } = this.props;
 
     setAliasAdminPageContent(content);
-  }
+  };
 
   render() {
     const { textClassName, aliasClassName, text, aliasEditModeOn } = this.props;

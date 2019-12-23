@@ -13,11 +13,9 @@ export default class ExpandMotion extends Component {
     this.state = {
       childHeight: 0,
     };
-
-    this.handleChildrenRef = this.handleChildrenRef.bind(this);
   }
 
-  handleChildrenRef(component) {
+  handleChildrenRef = component => {
     const { childHeight } = this.state;
     if (component) {
       const newChildHeight = innerHeight(ReactDOM.findDOMNode(component));
@@ -25,7 +23,7 @@ export default class ExpandMotion extends Component {
         this.setState({ childHeight: newChildHeight });
       }
     }
-  }
+  };
 
   render() {
     const { show, children } = this.props;

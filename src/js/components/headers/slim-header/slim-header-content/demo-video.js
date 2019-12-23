@@ -8,17 +8,12 @@ import styles from './demo-video.sass';
 
 
 class DemoVideo extends Component {
-  constructor(props) {
-    super(props);
-    this.handleWatchVideoButtonClick = this.handleWatchVideoButtonClick.bind(this);
-  }
-
-  handleWatchVideoButtonClick(e) {
+  handleWatchVideoButtonClick = e => {
     e.stopPropagation();
 
     const { openVideoModal } = this.props;
     openVideoModal();
-  }
+  };
 
   render() {
     const { position, editWrapperStateProps } = this.props;

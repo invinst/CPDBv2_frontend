@@ -14,9 +14,6 @@ export default function (SubComponent) {
       this.state = {
         fields: mapValues(props.fields, this.deserializeField),
       };
-      this.handleUpdateFieldValue = this.handleUpdateFieldValue.bind(this);
-      this.handleSaveForm = this.handleSaveForm.bind(this);
-      this.fieldProps = this.fieldProps.bind(this);
     }
 
     getChildContext() {
@@ -67,13 +64,13 @@ export default function (SubComponent) {
       return field;
     }
 
-    handleSaveForm() {
+    handleSaveForm = () => {
       const data = map(values(this.state.fields), this.serializeField);
       this.props.onSaveForm({ fields: data })
         .then(() => this.props.turnOffSectionEditMode());
-    }
+    };
 
-    handleUpdateFieldValue(fieldName, fieldValue) {
+    handleUpdateFieldValue = (fieldName, fieldValue) => {
       const { fields } = this.state;
       const field = fields[fieldName];
 
@@ -86,16 +83,16 @@ export default function (SubComponent) {
           },
         },
       });
-    }
+    };
 
-    fieldProps(field, fieldName) {
+    fieldProps = (field, fieldName) => {
       const { sectionEditModeOn } = this.props;
       return {
         value: field && field.value,
         editModeOn: sectionEditModeOn,
         onChange: val => this.handleUpdateFieldValue(fieldName, val),
       };
-    }
+    };
 
     render() {
       const {

@@ -7,13 +7,7 @@ import PlusButton from 'components/pinboard-page/relevant/common/plus-button';
 
 
 export class BaseComplaintCard extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-    this.handleFocus = this.handleFocus.bind(this);
-  }
-
-  handleClick(e) {
+  handleClick = e => {
     e.preventDefault();
     const { addItemInPinboardPage, recentItemData } = this.props;
     addItemInPinboardPage({
@@ -21,12 +15,12 @@ export class BaseComplaintCard extends Component {
       recentItemData,
       id: this.props.crid,
     });
-  }
+  };
 
-  handleFocus() {
+  handleFocus = () => {
     const { crid, focusItem } = this.props;
     focusItem({ type: 'CR', id: crid });
-  }
+  };
 
   render() {
     const {

@@ -23,7 +23,6 @@ export default class HeatMap extends Component {
     this.state = {
       selectedId: 0,
     };
-    this.setSelectedCommunity = this.setSelectedCommunity.bind(this);
   }
 
   componentDidMount() {
@@ -34,7 +33,7 @@ export default class HeatMap extends Component {
     showIntercomLauncher(true);
   }
 
-  setSelectedCommunity(id) {
+  setSelectedCommunity = id => {
     const { communities } = this.props;
     const community = find(communities, obj => obj.id === id);
     community && GATracking.trackCommunityClick(community.name);
@@ -42,7 +41,7 @@ export default class HeatMap extends Component {
     this.setState({
       selectedId: id,
     });
-  }
+  };
 
   render() {
     const { selectedId } = this.state;

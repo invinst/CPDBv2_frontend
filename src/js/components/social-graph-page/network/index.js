@@ -57,11 +57,6 @@ export default class NetworkGraph extends Component {
       sortedOfficerIds: [],
       sidebarsStatus: DEFAULT_SIDEBARS_STATUS,
     };
-    this.handleSelectComplaintOrigin = this.handleSelectComplaintOrigin.bind(this);
-    this.handleChangeThresholdValue = this.handleChangeThresholdValue.bind(this);
-    this.handleClickOutside = this.handleClickOutside.bind(this);
-    this.updateSortedOfficerIds = this.updateSortedOfficerIds.bind(this);
-    this.handleToggleSidebarsButtonClick = this.handleToggleSidebarsButtonClick.bind(this);
   }
 
   componentDidMount() {
@@ -88,7 +83,7 @@ export default class NetworkGraph extends Component {
     window.removeEventListener('mousedown', this.handleClickOutside);
   }
 
-  handleClickOutside(event) {
+  handleClickOutside = event => {
     const {
       updateSelectedOfficerId,
       updateSelectedEdge,
@@ -109,7 +104,7 @@ export default class NetworkGraph extends Component {
         }
       }
     }
-  }
+  };
 
   fetchGraphData() {
     const {
@@ -143,17 +138,17 @@ export default class NetworkGraph extends Component {
     }
   }
 
-  handleSelectComplaintOrigin(value) {
+  handleSelectComplaintOrigin = value => {
     this.setState({ complaintOrigin: value });
-  }
+  };
 
-  handleChangeThresholdValue(value) {
+  handleChangeThresholdValue = value => {
     this.setState({ thresholdValue: value });
-  }
+  };
 
-  updateSortedOfficerIds(officerIds) {
+  updateSortedOfficerIds = officerIds => {
     this.setState({ sortedOfficerIds: officerIds });
-  }
+  };
 
   renderPreviewPane() {
     const {
@@ -191,9 +186,9 @@ export default class NetworkGraph extends Component {
     }
   }
 
-  handleToggleSidebarsButtonClick() {
+  handleToggleSidebarsButtonClick = () => {
     this.setState({ sidebarsStatus: this.sidebarsSettings().nextSidebarsStatus });
-  }
+  };
 
   toggleSidebarsButton() {
     return (

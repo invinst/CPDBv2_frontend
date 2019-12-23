@@ -17,49 +17,42 @@ class LoginModal extends Component {
     this.state = {
       disabled: true,
     };
-    this.handleSignIn = this.handleSignIn.bind(this);
-    this.handlePasswordKeyDown = this.handlePasswordKeyDown.bind(this);
-    this.handleForgotPassword = this.handleForgotPassword.bind(this);
-    this.renderContent = this.renderContent.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.focusNameInput = this.focusNameInput.bind(this);
-    this.focusPasswordInput = this.focusPasswordInput.bind(this);
   }
 
-  focusNameInput() {
+  focusNameInput = () => {
     this.nameInput.focus();
-  }
+  };
 
-  focusPasswordInput() {
+  focusPasswordInput = () => {
     this.passwordInput.focus();
-  }
+  };
 
-  handleSignIn() {
+  handleSignIn = () => {
     this.props.onSignIn({
       username: this.nameInput.value,
       password: this.passwordInput.value,
     });
-  }
+  };
 
-  handlePasswordKeyDown(event) {
+  handlePasswordKeyDown = event => {
     if (event.keyCode === 13) {
       this.handleSignIn();
     }
-  }
+  };
 
-  handleForgotPassword() {
+  handleForgotPassword = () => {
     this.props.onForgotPassword();
-  }
+  };
 
-  handleInputChange() {
+  handleInputChange = () => {
     if (!!(this.nameInput.value && this.passwordInput.value) === this.state.disabled) {
       this.setState({
         disabled: !(this.nameInput.value && this.passwordInput.value),
       });
     }
-  }
+  };
 
-  renderContent(opacity) {
+  renderContent = opacity => {
     const {
       loginErrorMessage, onResetPassword, forgotPasswordErrorMessage,
       loginSuccessMessage, showForgotPasswordModal,
@@ -105,7 +98,7 @@ class LoginModal extends Component {
           onResetPassword={ onResetPassword }/>
       </div>
     );
-  }
+  };
 
   render() {
     return (

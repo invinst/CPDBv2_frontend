@@ -10,25 +10,22 @@ export default class HeaderButton extends React.Component {
     this.state = {
       shareMenuIsOpen: false,
     };
-
-    this.closeShareMenu = this.closeShareMenu.bind(this);
-    this.openShareMenu = this.openShareMenu.bind(this);
   }
 
-  closeShareMenu(e) {
+  closeShareMenu = e => {
     if (this.state.shareMenuIsOpen) {
       const { onClose } = this.props;
       onClose();
       this.setState({ shareMenuIsOpen: false });
       e.stopPropagation();
     }
-  }
+  };
 
-  openShareMenu() {
+  openShareMenu = () => {
     const { onOpen } = this.props;
     onOpen();
     this.setState({ shareMenuIsOpen: true });
-  }
+  };
 
   render() {
     const { shareMenuIsOpen } = this.state;

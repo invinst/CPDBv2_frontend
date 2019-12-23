@@ -12,12 +12,7 @@ import MagnifyingGlass from 'components/common/icons/magnifying-glass';
 
 
 export default class SearchBox extends Component {
-  constructor(props) {
-    super(props);
-    this.handleEnter = this.handleEnter.bind(this);
-  }
-
-  handleEnter() {
+  handleEnter = () => {
     const { saveToRecent } = this.props;
     navigateToSearchItem(this.props.firstSuggestionItem, (item) => {
       saveToRecent({
@@ -26,7 +21,7 @@ export default class SearchBox extends Component {
         data: item.recentItemData,
       });
     });
-  }
+  };
 
   handleCloseButtonClick() {
     this.props.changeSearchQuery('');

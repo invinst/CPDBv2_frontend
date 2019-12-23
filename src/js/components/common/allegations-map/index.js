@@ -46,9 +46,6 @@ export default class AllegationsMap extends Component {
     super(props);
     this.initMapData();
     this.tooltip = new mapboxgl.Popup({ offset: 0, closeButton: false });
-
-    this.openTooltip = this.openTooltip.bind(this);
-    this.handleMarkerClick = this.handleMarkerClick.bind(this);
   }
 
   componentDidMount() {
@@ -100,7 +97,7 @@ export default class AllegationsMap extends Component {
     return `${ marker.kind }-${ marker.id }`;
   }
 
-  handleMarkerClick(e) {
+  handleMarkerClick = e => {
     const eventFeature = e.features[0];
     const markerProperties = eventFeature.properties;
 
@@ -120,9 +117,9 @@ export default class AllegationsMap extends Component {
       }
       browserHistory.push(markerProperties.url);
     }
-  }
+  };
 
-  openTooltip(e) {
+  openTooltip = e => {
     const eventFeature = e.features[0];
     const coordinates = eventFeature.geometry.coordinates.slice();
     const markerProperties = eventFeature.properties;
@@ -138,7 +135,7 @@ export default class AllegationsMap extends Component {
     this.tooltip.setLngLat(coordinates)
       .setHTML(ReactDOMServer.renderToString(tooltip))
       .addTo(this.map);
-  }
+  };
 
   mapMarkersData(markers) {
     const data = [];

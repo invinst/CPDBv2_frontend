@@ -9,13 +9,7 @@ import styles from './preview-pane.sass';
 
 
 export default class PreviewPane extends Component {
-  constructor(props) {
-    super(props);
-
-    this.renderPane = this.renderPane.bind(this);
-  }
-
-  renderPane() {
+  renderPane = () => {
     const { data, type } = this.props;
 
     const paneTypes = {
@@ -25,7 +19,7 @@ export default class PreviewPane extends Component {
     const ItemComponent = get(paneTypes, type, null);
     if (ItemComponent)
       return <ItemComponent { ...data } />;
-  }
+  };
 
   render() {
     const { data } = this.props;

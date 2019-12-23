@@ -9,14 +9,9 @@ import moment from 'moment';
 
 
 class DatePicker extends Component {
-  constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(value) {
+  handleChange = value => {
     this.props.onChange(value.format('YYYY-MM-DD'));
-  }
+  };
 
   render() {
     const { value, editModeOn } = this.props;

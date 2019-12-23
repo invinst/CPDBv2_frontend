@@ -28,14 +28,8 @@ const DEFAULT_SUGGESTION_LIMIT = 9;
 export default class SearchPage extends Component {
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleGoBack = this.handleGoBack.bind(this);
-    this.handleViewItem = this.handleViewItem.bind(this);
-    this.handleSelect = this.handleSelect.bind(this);
-    this.resetNavigation = this.resetNavigation.bind(this);
 
     this.getSuggestion = throttle(this.props.getSuggestion, 500, { 'leading': false });
-    this.handleEmptyPinboardButtonClick = this.handleEmptyPinboardButtonClick.bind(this);
   }
 
   componentDidMount() {
@@ -100,7 +94,7 @@ export default class SearchPage extends Component {
     });
   }
 
-  handleViewItem() {
+  handleViewItem = () => {
     const { focusedItem, firstItem } = this.props;
 
     // handle the case where user focuses on nothing
@@ -111,27 +105,27 @@ export default class SearchPage extends Component {
     } else {
       this.goToItem(focusedItem);
     }
-  }
+  };
 
-  resetNavigation(payload) {
+  resetNavigation = payload => {
     const { resetSearchResultNavigation, resetSearchTermNavigation, searchTermsHidden } = this.props;
     const resetNavigation = searchTermsHidden ? resetSearchResultNavigation : resetSearchTermNavigation;
     resetNavigation(payload);
-  }
+  };
 
-  handleChange({ currentTarget: { value } }) {
+  handleChange = ({ currentTarget: { value } }) => {
     const { changeSearchQuery } = this.props;
 
     changeSearchQuery(value);
-  }
+  };
 
-  handleGoBack(e) {
+  handleGoBack = e => {
     !isEmpty(e) && e.preventDefault();
     const { cancelPathname } = this.props;
     browserHistory.push(cancelPathname);
-  }
+  };
 
-  handleSelect(newContentType) {
+  handleSelect = newContentType => {
     const { contentType, selectTag } = this.props;
 
     if (newContentType === RECENT_CONTENT_TYPE) {
@@ -142,13 +136,13 @@ export default class SearchPage extends Component {
       selectTag(newContentType);
     }
     this.resetNavigation();
-  }
+  };
 
-  handleEmptyPinboardButtonClick() {
+  handleEmptyPinboardButtonClick = () => {
     const { createNewEmptyPinboard } = this.props;
 
     createNewEmptyPinboard().then(redirectToCreatedPinboard);
-  }
+  };
 
   render() {
     const aliasEditModeOn = this.props.location.pathname.startsWith(`/edit/${SEARCH_ALIAS_EDIT_PATH}`);

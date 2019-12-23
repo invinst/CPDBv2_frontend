@@ -15,14 +15,13 @@ export default class Dropdown extends Component {
     this.state = {
       filterText: '',
     };
-    this.filterDropdown = this.filterDropdown.bind(this);
   }
 
-  filterDropdown(event) {
+  filterDropdown = event => {
     this.setState({
       filterText: event.currentTarget.value,
     });
-  }
+  };
 
   getCommunities() {
     const { communities } = this.props;

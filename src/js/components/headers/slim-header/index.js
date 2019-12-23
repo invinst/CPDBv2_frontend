@@ -10,8 +10,6 @@ export class SlimHeader extends Component {
     this.state = {
       position: 'top',
     };
-
-    this.recalculatePosition = this.recalculatePosition.bind(this);
   }
 
   componentDidMount() {
@@ -22,12 +20,12 @@ export class SlimHeader extends Component {
     removeEventListener('scroll', this.recalculatePosition);
   }
 
-  recalculatePosition() {
+  recalculatePosition = () => {
     const newPosition = calculateSlimHeaderPosition();
     if (newPosition !== this.state.position) {
       this.setState({ position: newPosition });
     }
-  }
+  };
 
   render() {
     const { show, pathname } = this.props;

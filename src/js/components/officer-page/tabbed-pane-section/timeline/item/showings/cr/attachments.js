@@ -10,18 +10,13 @@ import styles from './attachments.sass';
 
 
 export default class Attachments extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
+  handleClick = () => {
     const { pathname, attachments, onTrackingAttachment } = this.props;
     const [firstAttachment] = attachments;
     const { url, id } = firstAttachment;
     GATracking.trackAttachmentClick(pathname, url);
     onTrackingAttachment({ attachmentId: id, sourcePage: 'Officer Page - Timeline Tab', app: 'Frontend' });
-  }
+  };
 
   render() {
     const { attachments, changeOfficerTab } = this.props;

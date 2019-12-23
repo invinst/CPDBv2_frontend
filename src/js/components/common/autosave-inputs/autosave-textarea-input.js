@@ -4,9 +4,6 @@ import React, { Component, PropTypes } from 'react';
 export default class AutosaveTextareaInput extends Component {
   constructor(props) {
     super(props);
-    this.handleBlur = this.handleBlur.bind(this);
-    this.handleResize = this.handleResize.bind(this);
-    this.handleChange = this.handleChange.bind(this);
     this.state = {
       currentValue: props.value,
     };
@@ -23,23 +20,23 @@ export default class AutosaveTextareaInput extends Component {
     textarea.rows = Math.floor(textarea.scrollHeight / textareaLineHeight);
   }
 
-  handleBlur() {
+  handleBlur = () => {
     const { save, fieldType, value } = this.props;
     const { currentValue } = this.state;
 
     if (save && currentValue !== value) {
       save({ attr: fieldType, value: currentValue });
     }
-  }
+  };
 
-  handleChange(event) {
+  handleChange = event => {
     this.adjustTextareaHeight(event.target);
     this.setState({ currentValue: event.target.value });
-  }
+  };
 
-  handleResize() {
+  handleResize = () => {
     this.textarea && this.adjustTextareaHeight(this.textarea);
-  }
+  };
 
   render() {
     const { currentValue } = this.state;

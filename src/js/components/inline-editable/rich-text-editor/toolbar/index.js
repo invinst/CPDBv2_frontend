@@ -19,14 +19,6 @@ class Toolbar extends Component {
     this.position = {};
     this.urlInputHasFocus = false;
     this.mouseOver = false;
-    this.handleLinkButtonClick = this.handleLinkButtonClick.bind(this);
-    this.handleBoldButtonClick = this.handleBoldButtonClick.bind(this);
-    this.handleItalicButtonClick = this.handleItalicButtonClick.bind(this);
-    this.handleUrlInputChange = this.handleUrlInputChange.bind(this);
-    this.handleMouseOver = this.handleMouseOver.bind(this);
-    this.handleMouseOut = this.handleMouseOut.bind(this);
-    this.handleUrlInputFocus = this.handleUrlInputFocus.bind(this);
-    this.handleUrlInputBlur = this.handleUrlInputBlur.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -41,7 +33,7 @@ class Toolbar extends Component {
     }
   }
 
-  handleLinkButtonClick() {
+  handleLinkButtonClick = () => {
     const { editorState, onChange } = this.props;
     const { linkActive, urlInputValue } = this.state;
     if (urlInputValue) {
@@ -50,9 +42,9 @@ class Toolbar extends Component {
     } else {
       this.setState({ linkActive: !linkActive });
     }
-  }
+  };
 
-  handleUrlInputChange(value) {
+  handleUrlInputChange = value => {
     let { editorState, onChange } = this.props;
 
     this.setState({ urlInputValue: value });
@@ -64,17 +56,17 @@ class Toolbar extends Component {
     }
 
     onChange(defocus(editorState));
-  }
+  };
 
-  handleBoldButtonClick() {
+  handleBoldButtonClick = () => {
     const { editorState, onChange } = this.props;
     onChange(RichUtils.toggleInlineStyle(editorState, 'BOLD'));
-  }
+  };
 
-  handleItalicButtonClick() {
+  handleItalicButtonClick = () => {
     const { editorState, onChange } = this.props;
     onChange(RichUtils.toggleInlineStyle(editorState, 'ITALIC'));
-  }
+  };
 
   currentSelectionRect() {
     const { editorState } = this.props;
@@ -104,33 +96,33 @@ class Toolbar extends Component {
     return this.position;
   }
 
-  handleMouseOver() {
+  handleMouseOver = () => {
     const { onFocus } = this.props;
     this.mouseOver = true;
     onFocus();
-  }
+  };
 
-  handleMouseOut() {
+  handleMouseOut = () => {
     const { onBlur } = this.props;
     this.mouseOver = false;
     if (!this.urlInputHasFocus) {
       onBlur();
     }
-  }
+  };
 
-  handleUrlInputFocus() {
+  handleUrlInputFocus = () => {
     const { onFocus } = this.props;
     this.urlInputHasFocus = true;
     onFocus();
-  }
+  };
 
-  handleUrlInputBlur() {
+  handleUrlInputBlur = () => {
     const { onBlur } = this.props;
     this.urlInputHasFocus = false;
     if (!this.mouseOver) {
       onBlur();
     }
-  }
+  };
 
   render() {
     const { editorState, show } = this.props;

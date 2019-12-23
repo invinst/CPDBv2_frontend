@@ -11,19 +11,14 @@ import { PINNED_ITEM_TYPES } from 'utils/constants';
 
 
 class ComplaintCard extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
+  handleClick = () => {
     const { sourceCRID, crid, match } = this.props;
     if (match === 'categories') {
       GATracking.trackRelatedByCategoryClick(sourceCRID, crid);
     } else if (match === 'officers') {
       GATracking.trackRelatedByAccusedClick(sourceCRID, crid);
     }
-  }
+  };
 
   renderSection(label, text, subLabel) {
     return (

@@ -4,14 +4,9 @@ import styles from './log-file-modal-content.sass';
 
 
 export default class LogFileModalContent extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
+  handleClick = () => {
     this.props.closeModal();
-  }
+  };
 
   render() {
     const { logUrl, crawlerName, recentRunAt } = this.props.crawler;

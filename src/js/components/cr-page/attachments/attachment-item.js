@@ -8,16 +8,11 @@ import styles from './attachment-item.sass';
 
 
 class AttachmentItem extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
+  handleClick = () => {
     const { pathname, url, onTrackingAttachment, id } = this.props;
     GATracking.trackAttachmentClick(pathname, url);
     onTrackingAttachment({ attachmentId: id, sourcePage: 'CR Page', app: 'Frontend' });
-  }
+  };
 
   render() {
     const { url, previewImageUrl, title, fileType } = this.props;

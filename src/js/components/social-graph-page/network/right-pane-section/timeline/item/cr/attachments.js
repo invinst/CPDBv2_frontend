@@ -7,13 +7,8 @@ import * as GATracking from 'utils/google_analytics_tracking';
 
 
 export default class Attachments extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
   // this is necessary at we cannot use nested anchors
-  handleClick(e) {
+  handleClick = e => {
     e.preventDefault();
     const { pathname, attachments, onTrackingAttachment } = this.props;
     const url = attachments[0].url;
@@ -21,7 +16,7 @@ export default class Attachments extends Component {
     GATracking.trackAttachmentClick(pathname, url);
     onTrackingAttachment({ attachmentId: id, sourcePage: 'Social Graph Page - Timeline Tab', app: 'Frontend' });
     window.open(url, '_blank');
-  }
+  };
 
   render() {
     const firstAttachment = this.props.attachments[0];

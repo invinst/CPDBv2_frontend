@@ -14,11 +14,6 @@ class ForgotPasswordModal extends Component {
     this.state = {
       disabled: true,
     };
-    this.handleResetPassword = this.handleResetPassword.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.renderContent = this.renderContent.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.focusEmailInput = this.focusEmailInput.bind(this);
   }
 
   componentWillReceiveProps(newProps) {
@@ -29,29 +24,29 @@ class ForgotPasswordModal extends Component {
     }
   }
 
-  focusEmailInput() {
+  focusEmailInput = () => {
     this.emailInput.focus();
-  }
+  };
 
-  handleResetPassword() {
+  handleResetPassword = () => {
     this.props.onResetPassword({ email: this.emailInput.value });
-  }
+  };
 
-  handleKeyDown(event) {
+  handleKeyDown = event => {
     if (event.keyCode === 13) {
       this.handleResetPassword();
     }
-  }
+  };
 
-  handleInputChange() {
+  handleInputChange = () => {
     if (!!this.emailInput.value === this.state.disabled) {
       this.setState({
         disabled: !this.emailInput.value,
       });
     }
-  }
+  };
 
-  renderContent(opacity) {
+  renderContent = opacity => {
     const { errorMessage } = this.props;
     const { disabled } = this.state;
 
@@ -78,7 +73,7 @@ class ForgotPasswordModal extends Component {
         </div>
       </div>
     );
-  }
+  };
 
   render() {
     const { show } = this.props;
