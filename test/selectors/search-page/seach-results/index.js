@@ -466,6 +466,7 @@ describe('search page results selector', function () {
             recentText: '1001',
             subText: 'TRR # 1001 - April 23, 2004',
             category: 'Firearm',
+            forceType: null,
             address: '14XX W 63RD ST, CHICAGO IL 60636',
             incidentDate: 'Apr 23, 2004',
             officer: {
@@ -536,6 +537,7 @@ describe('search page results selector', function () {
             recentText: '1001',
             subText: 'TRR # 1001',
             category: 'Firearm',
+            forceType: null,
             address: '14XX W 63RD ST, CHICAGO IL 60636',
             incidentDate: '',
             officer: {
@@ -607,6 +609,7 @@ describe('search page results selector', function () {
             recentText: '1001',
             subText: 'TRR # 1001 - April 23, 2004',
             category: 'Firearm',
+            forceType: 'Member Presence',
             address: '14XX W 63RD ST, CHICAGO IL 60636',
             incidentDate: 'Apr 23, 2004',
             officer: {
@@ -677,6 +680,7 @@ describe('search page results selector', function () {
             recentText: '1001',
             subText: 'TRR # 1001',
             category: 'Firearm',
+            forceType: null,
             address: '14XX W 63RD ST, CHICAGO IL 60636',
             incidentDate: '',
             officer: {

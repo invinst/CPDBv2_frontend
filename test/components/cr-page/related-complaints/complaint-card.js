@@ -69,11 +69,15 @@ describe('ComplaintCard component', function () {
       const addOrRemoveItemInPinboard = spy();
       const id = random.word();
       const isPinned = random.boolean();
+      const incidentDate = '2008-01-11';
+      const categories = 'Money / Property';
 
       const wrapper = shallow(
         <ComplaintCard
           crid={ id }
           isPinned={ isPinned }
+          incidentDate={ incidentDate }
+          categories={ categories }
           addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
         />
       );
@@ -82,7 +86,15 @@ describe('ComplaintCard component', function () {
       itemPinButton.prop('className').should.equal(pinButtonStyles.cardPinnedButton);
       itemPinButton.prop('addOrRemoveItemInPinboard').should.equal(addOrRemoveItemInPinboard);
       itemPinButton.prop('showHint').should.be.false();
-      itemPinButton.prop('item').should.eql({ type: PINNED_ITEM_TYPES.CR, id, isPinned });
+      itemPinButton.prop('item').should.eql(
+        {
+          type: PINNED_ITEM_TYPES.CR,
+          id,
+          isPinned,
+          incidentDate,
+          category: categories,
+        }
+      );
     });
   });
 });

@@ -125,11 +125,13 @@ const trrTransform = (item) => {
   const taser = item['taser'];
   const category = has(item, 'category') ? item['category'] :
     firearmUsed ? 'Firearm' : taser ? 'Taser' : 'Use of Force Report';
+  const forceType = item['force_type'];
 
   return {
     subText: `TRR # ${item.id}${dateText}`,
     to: item.to,
     category,
+    forceType,
     incidentDate,
     address: item.address,
     officer: officer ? accusedTransform(officer) : null,

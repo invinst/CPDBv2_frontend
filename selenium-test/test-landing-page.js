@@ -357,14 +357,16 @@ describe('landing page', function () {
   });
 
   describe('Pinboard function', function () {
-    const checkPinToast = (parentSelector, messagePrefix) => {
+    const checkPinToast = (parentSelector, patternPrefix) => {
+      const addedPattern = new RegExp(patternPrefix.source + /added.$/.source);
+      const removedPattern = new RegExp(patternPrefix.source + /removed.$/.source);
       //Pin item
       parentSelector.firstPinButton.waitForDisplayed();
       parentSelector.firstPinButton.click();
 
       //Check toast
       landingPage.lastToast.waitForDisplayed();
-      landingPage.lastToast.waitForText(`${messagePrefix} added`);
+      landingPage.lastToast.waitForTextMatch(addedPattern);
 
       //Go to Search Page and check for pinboard item counts
       landingPage.searchSection.mainElement.click();
@@ -377,7 +379,7 @@ describe('landing page', function () {
 
       //Check toast
       landingPage.lastToast.waitForDisplayed();
-      landingPage.lastToast.waitForText(`${messagePrefix} removed`);
+      landingPage.lastToast.waitForTextMatch(removedPattern);
 
       //Go to Search Page and check for pinboard item counts
       landingPage.searchSection.mainElement.click();
@@ -385,37 +387,45 @@ describe('landing page', function () {
       searchPage.backButton.click();
     };
 
-    const checkPairCardPinToast = (selector, messagePrefix) => {
+    const checkPairCardPinToast = (selector, patternPrefix) => {
+      const addedPattern = new RegExp(patternPrefix.source + /added.$/.source);
+      const removedPattern = new RegExp(patternPrefix.source + /removed.$/.source);
       selector.firstPairCardPinButton.waitForDisplayed();
       selector.firstPairCardPinButton.click();
 
       landingPage.lastToast.waitForDisplayed();
-      landingPage.lastToast.waitForText(`${messagePrefix} added`);
+      landingPage.lastToast.waitForTextMatch(addedPattern);
       landingPage.secondLastToast.waitForDisplayed();
-      landingPage.secondLastToast.waitForText(`${messagePrefix} added`);
+      landingPage.secondLastToast.waitForTextMatch(addedPattern);
 
       selector.firstPairCardPinButton.click();
 
       landingPage.lastToast.waitForDisplayed();
-      landingPage.lastToast.waitForText(`${messagePrefix} removed`);
+      landingPage.lastToast.waitForTextMatch(removedPattern);
       landingPage.secondLastToast.waitForDisplayed();
-      landingPage.secondLastToast.waitForText(`${messagePrefix} removed`);
+      landingPage.secondLastToast.waitForTextMatch(removedPattern);
     };
 
     it('should display toast when pinning cards', function () {
-      checkPinToast(landingPage.recentActivityCarousel, 'Officer');
-      checkPinToast(landingPage.officersByAllegationCarousel, 'Officer');
-      checkPairCardPinToast(landingPage.recentActivityCarousel, 'Officer');
-      checkPinToast(landingPage.recentDocumentCarousel, 'CR');
-      checkPinToast(landingPage.complaintSummariesCarousel, 'CR');
+      const officerPatternPrefix = /^[A-Za-z\s]+ [\d]+-year-old [A-Za-z\s]+,\nwith [\d]+ complaints, [\d]+ sustained /;
+      const crPatternPrefix = /^CR #[\w]+ categorized as [A-Za-z\s]+\nhappened in [\w\s]+, [\d]+ | [\d-]+ /;
+      checkPinToast(landingPage.recentActivityCarousel, officerPatternPrefix);
+      checkPinToast(landingPage.officersByAllegationCarousel, officerPatternPrefix);
+      checkPairCardPinToast(landingPage.recentActivityCarousel, officerPatternPrefix);
+      checkPinToast(landingPage.recentDocumentCarousel, crPatternPrefix);
+      checkPinToast(landingPage.complaintSummariesCarousel, crPatternPrefix);
     });
 
     it('should show only 1 toast if one officer of the pairing card was already pinned', function () {
+      const addedOfficerPattern =
+        /^[A-Za-z\s]+ [\d]+-year-old [A-Za-z\s]+,\nwith [\d]+ complaints, [\d]+ sustained added.$/;
+      const removedOfficerPattern =
+        /^[A-Za-z\s]+ [\d]+-year-old [A-Za-z\s]+,\nwith [\d]+ complaints, [\d]+ sustained removed.$/;
       landingPage.recentActivityCarousel.firstPinButton.waitForDisplayed();
       landingPage.recentActivityCarousel.firstPinButton.click();
 
       landingPage.toast.waitForDisplayed();
-      landingPage.toast.waitForText('Officer added');
+      landingPage.toast.waitForTextMatch(addedOfficerPattern);
       landingPage.toast.waitForDisplayed(5000, true);
 
       landingPage.searchSection.mainElement.click();
@@ -425,7 +435,7 @@ describe('landing page', function () {
       landingPage.recentActivityCarousel.firstPairCardPinButton.click();
 
       landingPage.lastToast.waitForDisplayed();
-      landingPage.lastToast.waitForText('Officer added');
+      landingPage.lastToast.waitForTextMatch(addedOfficerPattern);
       landingPage.secondLastToast.waitForDisplayed(2000, true);
 
       landingPage.searchSection.mainElement.click();
@@ -435,9 +445,9 @@ describe('landing page', function () {
       landingPage.recentActivityCarousel.firstPairCardPinButton.click();
 
       landingPage.lastToast.waitForDisplayed();
-      landingPage.lastToast.waitForText('Officer removed');
+      landingPage.lastToast.waitForTextMatch(removedOfficerPattern);
       landingPage.secondLastToast.waitForDisplayed();
-      landingPage.secondLastToast.waitForText('Officer removed');
+      landingPage.secondLastToast.waitForTextMatch(removedOfficerPattern);
 
       landingPage.searchSection.mainElement.click();
       searchPage.pinboardButton.waitForText('Pinboard (0)');

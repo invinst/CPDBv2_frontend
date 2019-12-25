@@ -54,11 +54,19 @@ describe('PairingCard component', function () {
       {
         type: PINNED_ITEM_TYPES.OFFICER,
         id: officer1.id,
+        fullName: officer1.fullName,
+        birthYear: officer1.birthYear,
+        race: officer1.race,
+        gender: officer1.gender,
         isPinned: true,
       },
       {
         type: PINNED_ITEM_TYPES.OFFICER,
         id: officer2.id,
+        fullName: officer2.fullName,
+        birthYear: officer2.birthYear,
+        race: officer2.race,
+        gender: officer2.gender,
         isPinned: false,
       },
     ]);

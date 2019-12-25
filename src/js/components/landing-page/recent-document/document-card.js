@@ -36,7 +36,9 @@ export default class DocumentCard extends React.Component {
           item={ {
             type: PINNED_ITEM_TYPES.CR,
             id: crid,
-            isPinned: isPinned,
+            isPinned,
+            incidentDate,
+            category,
           } }
         />
         <div className='document-card-thumbnail'>

@@ -92,7 +92,7 @@ describe('CR page selectors', function () {
         complaintCount: 15,
         sustainedCount: 1,
         complaintPercentile: 59.0,
-        birthYear: 1977,
+        age: '40-year-old',
         race: 'white',
         gender: 'male',
         coaccusedCount: 4,

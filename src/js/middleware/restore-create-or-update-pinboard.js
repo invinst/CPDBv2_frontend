@@ -1,3 +1,4 @@
+import React from 'react';
 import { Promise } from 'es6-promise';
 import { get, keys, isNil, isEmpty, identity, noop, toLower, camelCase, startsWith } from 'lodash';
 
@@ -32,10 +33,10 @@ import {
 import { isPinboardRestoredSelector } from 'selectors/pinboard-page/pinboard';
 import {
   showInvalidParamToasts,
-  showAddOrRemoveItemToast,
   showCreatedToasts,
   showPinboardToast,
   showAlertToast,
+  showAddOrRemoveItemToast,
 } from 'utils/toast';
 import { Toastify } from 'utils/vendors';
 
@@ -132,9 +133,7 @@ export default store => {
       Promise.all(promises).finally(() => {
         store.dispatch(savePinboard());
         if (action.type === ADD_OR_REMOVE_ITEM_IN_PINBOARD) {
-          const { isPinned, type } = action.payload;
-          const pinboard = store.getState().pinboardPage.pinboard;
-          showAddOrRemoveItemToast(pinboard, isPinned, type);
+          showAddOrRemoveItemToast(store, action.payload);
         }
       });
     }

@@ -140,9 +140,13 @@ describe('CR page', function () {
 
   describe('Pinboard function', function () {
     it('should display toast when pinning a coaccusal', function () {
+      const addedOfficerPattern =
+        /^[A-Za-z\s]+ [\d]+-year-old [A-Za-z\s]+,\nwith [\d]+ complaints, [\d]+ sustained added.$/;
+      const removedOfficerPattern =
+        /^[A-Za-z\s]+ [\d]+-year-old [A-Za-z\s]+,\nwith [\d]+ complaints, [\d]+ sustained removed.$/;
       crPage.accusedOfficers.firstCard.pinButton.click();
       crPage.lastToast.waitForDisplayed();
-      crPage.lastToast.waitForText('Officer added');
+      crPage.lastToast.waitForTextMatch(addedOfficerPattern);
 
       crPage.landingPageBreadCrumb.click();
       landingPage.searchSection.mainElement.waitForDisplayed();
@@ -153,7 +157,7 @@ describe('CR page', function () {
 
       crPage.accusedOfficers.firstCard.pinButton.click();
       crPage.lastToast.waitForDisplayed();
-      crPage.lastToast.waitForText('Officer removed');
+      crPage.lastToast.waitForTextMatch(removedOfficerPattern);
 
       crPage.landingPageBreadCrumb.click();
       landingPage.searchSection.mainElement.waitForDisplayed();
@@ -162,9 +166,11 @@ describe('CR page', function () {
     });
 
     it('should display toast when pinning a related complaint', function () {
+      const addedCrPattern = /^CR #[\w]+ categorized as [A-Za-z\s]+\nhappened in [\w\s]+, [\d]+ | [\d-]+ added.$/;
+      const removedCrPattern = /^CR #[\w]+ categorized as [A-Za-z\s]+\nhappened in [\w\s]+, [\d]+ | [\d-]+ removed.$/;
       crPage.relatedByCategoriesCarousel.firstPinButton.click();
       crPage.lastToast.waitForDisplayed();
-      crPage.lastToast.waitForText('CR added');
+      crPage.lastToast.waitForTextMatch(addedCrPattern);
 
       crPage.landingPageBreadCrumb.click();
       landingPage.searchSection.mainElement.waitForDisplayed();
@@ -175,7 +181,7 @@ describe('CR page', function () {
 
       crPage.relatedByCategoriesCarousel.firstPinButton.click();
       crPage.lastToast.waitForDisplayed();
-      crPage.lastToast.waitForText('CR removed');
+      crPage.lastToast.waitForTextMatch(removedCrPattern);
 
       crPage.landingPageBreadCrumb.click();
       landingPage.searchSection.mainElement.waitForDisplayed();

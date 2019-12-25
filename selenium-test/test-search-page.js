@@ -828,6 +828,10 @@ describe('Search Page', function () {
     });
 
     it('should add/remove officer to/from pinboard when click on pin button', function () {
+      const addedOfficerPattern =
+        /^[A-Za-z\s]+ [\d]+ [A-Za-z\s]+,\nwith [\d]+ complaints, [\d]+ sustained added.$/;
+      const removedOfficerPattern =
+        /^[A-Za-z\s]+ [\d]+ [A-Za-z\s]+,\nwith [\d]+ complaints, [\d]+ sustained removed.$/;
       searchPage.input.waitForDisplayed();
       searchPage.input.setValue('Ke');
 
@@ -835,14 +839,17 @@ describe('Search Page', function () {
       searchPage.pinboardButton.getText().should.eql('Your pinboard is empty');
 
       searchPage.officerPreviewPaneSection.pinButton.click();
+      // Move the cursor away from the toast to prevent it from displaying forever
+      searchPage.input.moveTo();
+
+      searchPage.toast.waitForTextMatch(addedOfficerPattern);
       searchPage.pinboardButton.getText().should.eql('Pinboard (1)');
 
       searchPage.toast.waitForDisplayed();
-      browser.waitUntil(function () {
-        return searchPage.toast.isDisplayed() === false;
-      }, 5000, 'Toast is not removed properly');
+      searchPage.toast.waitForDisplayed(5000, true);
 
       searchPage.officerPreviewPaneSection.pinButton.click();
+      searchPage.toast.waitForTextMatch(removedOfficerPattern);
       searchPage.pinboardButton.getText().should.eql('Your pinboard is empty');
     });
 
@@ -1033,13 +1040,18 @@ describe('Search Page toast', function () {
     searchPage.firstOfficerPinButton.click();
 
     searchPage.toast.waitForDisplayed();
-    searchPage.toast.waitForText('Officer added');
+    searchPage.toast.waitForText(
+      'Police Officer Bernadette Kelly 45 White Male,\nwith 10 complaints, 2 sustained added.'
+    );
+    browser.pause(1500);
 
     searchPage.toast.waitForDisplayed(5000, true);
 
     searchPage.firstOfficerPinButton.click();
     searchPage.toast.waitForDisplayed();
-    searchPage.toast.waitForText('Officer removed');
+    searchPage.toast.waitForText(
+      'Police Officer Bernadette Kelly 45 White Male,\nwith 10 complaints, 2 sustained removed.'
+    );
   });
 
   context('create new pinboard', function () {
@@ -1050,7 +1062,9 @@ describe('Search Page toast', function () {
       searchPage.firstOfficerPinButton.click();
 
       searchPage.toast.waitForDisplayed();
-      searchPage.toast.waitForText('Officer added');
+      searchPage.toast.waitForText(
+        'Police Officer Bernadette Kelly 45 White Male,\nwith 10 complaints, 2 sustained added.'
+      );
       searchPage.toast.click();
       browser.getUrl().should.match(/pinboard\/e25aa777\/untitled-pinboard\/$/);
       pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
@@ -1063,7 +1077,9 @@ describe('Search Page toast', function () {
       searchPage.secondOfficerPinButton.click();
 
       searchPage.toast.waitForDisplayed();
-      searchPage.toast.waitForText('Officer added');
+      searchPage.toast.waitForText(
+        'Police Officer John Kelly 37 White Female,\nwith 5 complaints, 1 sustained added.'
+      );
       searchPage.toast.click();
       browser.getUrl().should.match(/pinboard\/$/);
       browser.waitForUrl(url => url.should.match(/pinboard\/e25aa888\/untitled-pinboard\/$/), 2500);
@@ -1078,7 +1094,9 @@ describe('Search Page toast', function () {
       searchPage.thirdOfficerPinButton.click();
 
       searchPage.toast.waitForDisplayed();
-      searchPage.toast.waitForText('Officer added');
+      searchPage.toast.waitForText(
+        'Police Officer Edward may 33 White Female,\nwith 8 complaints, 2 sustained added.'
+      );
       searchPage.toast.click();
       browser.getUrl().should.match(/pinboard\/$/);
       browser.waitForUrl(url => url.should.match(/pinboard\/e25aa999\/untitled-pinboard\/$/), 1500);
@@ -1097,7 +1115,9 @@ describe('Search Page toast', function () {
       searchPage.suggestionGroup.waitForDisplayed();
       searchPage.firstOfficerPinButton.click();
       searchPage.toast.waitForDisplayed();
-      searchPage.toast.waitForText('Officer removed');
+      searchPage.toast.waitForText(
+        'Police Officer Bernadette Kelly 45 White Male,\nwith 10 complaints, 2 sustained removed.'
+      );
 
       searchPage.toast.click();
       browser.getUrl().should.match(/pinboard\/abcd5678\/pinboard-title\/$/);
@@ -1114,7 +1134,9 @@ describe('Search Page toast', function () {
       searchPage.suggestionGroup.waitForDisplayed();
       searchPage.secondOfficerPinButton.click();
       searchPage.toast.waitForDisplayed();
-      searchPage.toast.waitForText('Officer added');
+      searchPage.toast.waitForText(
+        'Police Officer John Kelly 37 White Female,\nwith 5 complaints, 1 sustained added.'
+      );
 
       searchPage.toast.click();
       browser.getUrl().should.match(/pinboard\/abcd8765\/pinboard-title\/$/);
@@ -1132,7 +1154,9 @@ describe('Search Page toast', function () {
       searchPage.suggestionGroup.waitForDisplayed();
       searchPage.thirdOfficerPinButton.click();
       searchPage.toast.waitForDisplayed();
-      searchPage.toast.waitForText('Officer added');
+      searchPage.toast.waitForText(
+        'Police Officer Edward may 33 White Female,\nwith 8 complaints, 2 sustained added.'
+      );
 
       searchPage.toast.click();
       browser.pause(2500);

@@ -140,6 +140,7 @@ describe('store', function () {
           [CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION]: false,
         },
       },
+      toasts: [],
       trrPage: {
         trrId: null,
         data: {},

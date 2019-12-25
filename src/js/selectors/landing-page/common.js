@@ -24,6 +24,8 @@ export const cardTransform = card => {
 
 export const simpleOfficerTransform = officer => {
   const percentile = officer.percentile;
+  const age = getCurrentAge(officer['birth_year']);
+  const ageString = age ? `${age}-year-old` : '';
 
   const background = getVisualTokenOIGBackground(
     parseFloat(percentile['percentile_allegation_civilian']),
@@ -34,10 +36,12 @@ export const simpleOfficerTransform = officer => {
   return {
     id: officer['id'],
     fullName: officer['full_name'],
-    age: officer['birth_year'] ? getCurrentAge(officer['birth_year']) : 'N/A',
+    age: ageString,
     race: officer['race'] ? toLower(officer['race']) : 'N/A',
     gender: officer['gender'] ? toLower(officer['gender']) : 'N/A',
     rank: officer['rank'],
+    complaintCount: officer['complaint_count'],
+    sustainedCount: officer['sustained_count'],
     percentile: {
       percentileAllegation: percentile['percentile_allegation'],
       percentileAllegationCivilian: percentile['percentile_allegation_civilian'],

@@ -48,6 +48,7 @@ import {
 import { redirect } from 'actions/pinboard-page';
 import { fetchVideoInfo } from 'actions/headers/slim-header';
 import * as pinboardAdminAction from 'actions/pinboard-admin-page';
+import { fetchToast } from 'actions/toast';
 
 
 const createLocationChangeAction = (pathname) => ({
@@ -115,6 +116,7 @@ const buildStore = () => ({
     pinboardPage: {
       pinboard: null,
     },
+    toasts: [],
   },
   getState() {
     return this._state;
@@ -524,5 +526,14 @@ describe('fetchPageInitialData middleware', function () {
     dispatched.should.eql(action);
     store.dispatch.calledWith(fetchAllPinboardsStub()).should.be.true();
     fetchAllPinboardsStub.restore();
+  });
+
+  it('should dispatch fetchToast when they do not exists', function () {
+    const action = createLocationChangeAction('/');
+    let dispatched;
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+
+    store.dispatch.calledWith(fetchToast()).should.be.true();
   });
 });

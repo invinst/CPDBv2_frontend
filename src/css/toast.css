@@ -31,6 +31,9 @@
     font-family: "San Francisco Text", sans-serif;
     font-weight: 300;
     font-size: 14px;
+    padding: 0 8px;
+    line-height: 16px;
+    white-space: pre-line;
 }
 
 @keyframes slideInDown {

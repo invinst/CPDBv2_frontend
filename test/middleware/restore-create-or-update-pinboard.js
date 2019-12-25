@@ -1,6 +1,5 @@
 import { Promise } from 'es6-promise';
 import { stub, useFakeTimers } from 'sinon';
-import { browserHistory } from 'react-router';
 import { CancelToken } from 'axios';
 
 import restoreCreateOrUpdatePinboard from 'middleware/restore-create-or-update-pinboard';
@@ -29,7 +28,6 @@ import {
 import PinboardFactory from 'utils/test/factories/pinboard';
 import { Toastify } from 'utils/vendors';
 import extractQuery from 'utils/extract-query';
-import toastStyles from 'utils/toast.sass';
 import * as ToastUtils from 'utils/toast';
 
 
@@ -53,6 +51,12 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
           },
         },
         pathname,
+        toasts: [
+          {
+            name: 'CR',
+            template: 'This is CR toast template',
+          },
+        ],
       };
     },
     dispatch: stub().usingPromise(Promise).resolves(dispatchResults),
@@ -197,15 +201,17 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
     );
   });
 
-  it('should handle ADD_OR_REMOVE_ITEM_IN_PINBOARD and show adding toast', function (done) {
-    Toastify.toast.resetHistory();
+  it('should handle ADD_OR_REMOVE_ITEM_IN_PINBOARD', function (done) {
+    const showAddOrRemoveItemToastStub = stub(ToastUtils, 'showAddOrRemoveItemToast');
 
     const action = {
       type: constants.ADD_OR_REMOVE_ITEM_IN_PINBOARD,
       payload: {
-        id: '123',
         type: 'CR',
         isPinned: false,
+        id: '123',
+        incidentDate: '2005-09-29',
+        category: 'Verbal Abuse',
       },
     };
     const store = createStore(PinboardFactory.build({
@@ -217,84 +223,14 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
     restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
 
-    store.dispatch.should.be.calledWith(addItemToPinboardState({
-      id: '123',
-      type: 'CR',
-      isPinned: false,
-    }));
-
     setTimeout(
       () => {
-        const browserHistoryPush = stub(browserHistory, 'push');
-        Toastify.toast.should.be.calledOnce();
-        Toastify.toast.getCall(0).args[0].should.eql('CR added');
-        Toastify.toast.getCall(0).args[1]['className'].should.eql(`${toastStyles.toastWrapper} added`);
-        Toastify.toast.getCall(0).args[1]['transition'].should.eql(
-          Toastify.cssTransition({
-            enter: 'toast-enter',
-            exit: 'toast-exit',
-            duration: 500,
-            appendPosition: true,
-          }),
-        );
-        Toastify.toast.getCall(0).args[1]['onClick']();
-        browserHistoryPush.should.be.calledWith('/pinboard/');
-        browserHistoryPush.restore();
+        showAddOrRemoveItemToastStub.should.be.calledWith(store, action.payload);
+        showAddOrRemoveItemToastStub.restore();
         done();
       },
       50
     );
-    Toastify.toast.resetHistory();
-  });
-
-  it('should handle ADD_OR_REMOVE_ITEM_IN_PINBOARD and show removing toast', function (done) {
-    Toastify.toast.resetHistory();
-
-    const action = {
-      type: constants.ADD_OR_REMOVE_ITEM_IN_PINBOARD,
-      payload: {
-        id: '123',
-        type: 'CR',
-        isPinned: true,
-      },
-    };
-    const store = createStore(PinboardFactory.build({
-      'id': '66ef1560',
-      'title': 'Pinboard Title',
-    }));
-
-    let dispatched;
-    restoreCreateOrUpdatePinboard(store)(action => dispatched = action)(action);
-    dispatched.should.eql(action);
-
-    store.dispatch.should.be.calledWith(removeItemFromPinboardState({
-      id: '123',
-      type: 'CR',
-      isPinned: true,
-    }));
-
-    setTimeout(
-      () => {
-        const browserHistoryPush = stub(browserHistory, 'push');
-        Toastify.toast.should.be.calledOnce();
-        Toastify.toast.getCall(0).args[0].should.eql('CR removed');
-        Toastify.toast.getCall(0).args[1]['className'].should.eql(`${toastStyles.toastWrapper} removed`);
-        Toastify.toast.getCall(0).args[1]['transition'].should.eql(
-          Toastify.cssTransition({
-            enter: 'toast-enter',
-            exit: 'toast-exit',
-            duration: 500,
-            appendPosition: true,
-          }),
-        );
-        Toastify.toast.getCall(0).args[1]['onClick']();
-        browserHistoryPush.should.be.calledWith('/pinboard/66ef1560/pinboard-title/');
-        browserHistoryPush.restore();
-        done();
-      },
-      50
-    );
-    Toastify.toast.resetHistory();
   });
 
   it('should handle ADD_ITEM_IN_PINBOARD_PAGE and dispatch addItemToPinboardState', function (done) {

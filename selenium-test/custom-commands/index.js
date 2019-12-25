@@ -40,6 +40,20 @@ function initCommands() {
   );
 
   browser.addCommand(
+    'waitForTextMatch',
+    function (pattern, timeout, reverse=false) {
+      this.waitForDisplayed(timeout);
+      browser.waitUntil(
+        () => (pattern.test(this.getText())) !== reverse,
+        timeout,
+        `${this.selector}'s text still ${reverse ? '' : 'not'}` +
+        `matches ${pattern} after ${timeout || '{waitforTimeout}'}ms`
+      );
+    },
+    true
+  );
+
+  browser.addCommand(
     'waitForDisplayedInViewport',
     function (timeout, reverse=false) {
       browser.waitUntil(

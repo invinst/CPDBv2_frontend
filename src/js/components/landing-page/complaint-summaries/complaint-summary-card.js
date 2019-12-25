@@ -28,7 +28,9 @@ export default class ComplaintSummaryCard extends React.Component {
           item={ {
             type: PINNED_ITEM_TYPES.CR,
             id: crid,
-            isPinned: isPinned,
+            isPinned,
+            incidentDate,
+            category: categories,
           } }
         />
         <div className='complaint-summary-card-title'>

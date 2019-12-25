@@ -27,6 +27,7 @@ import socialGraphPage from './social-graph-page';
 import pinboardPage from './pinboard-page';
 import pinboardAdminPage from './pinboard-admin-page';
 import videoModal from './video-modal';
+import toasts from './toasts';
 
 
 export default combineReducers({
@@ -57,4 +58,5 @@ export default combineReducers({
   pinboardPage,
   pinboardAdminPage,
   videoModal,
+  toasts,
 });

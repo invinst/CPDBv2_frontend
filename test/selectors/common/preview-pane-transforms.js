@@ -356,6 +356,7 @@ describe('previewPaneTransform', function () {
         'allegation_count': 93,
       },
       to: '/trr/123456/',
+      'force_type': 'Verbal Commands',
     };
 
     const expectedData = {
@@ -379,6 +380,7 @@ describe('previewPaneTransform', function () {
         },
         to: '/trr/123456/',
         isPinned: false,
+        forceType: 'Verbal Commands',
       },
     };
 

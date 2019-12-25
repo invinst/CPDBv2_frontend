@@ -58,6 +58,8 @@ describe('Complaint Summaries components', function () {
         type: PINNED_ITEM_TYPES.CR,
         id: data[index].crid,
         isPinned: data[index].isPinned,
+        incidentDate: data[index].incidentDate,
+        category: data[index].categoryNames.join(', '),
       });
     });
   });
