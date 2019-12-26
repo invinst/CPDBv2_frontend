@@ -12,10 +12,6 @@ import {
 } from 'utils/toast';
 
 describe('Toast utils', function () {
-  beforeEach(function () {
-    Toastify.toast.resetHistory();
-  });
-
   afterEach(function () {
     Toastify.toast.resetHistory();
   });

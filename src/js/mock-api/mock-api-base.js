@@ -778,7 +778,6 @@ axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/trrs/`).reply(200, fetchPinboard
 
 axiosMockClient.onPost(`${PINBOARDS_URL}`).reply(201, createPinboard());
 
-
 const notFoundError = [404, {}];
 mockUpdatePinboardError(axiosMockClient, '5cd0aaaa', 999, notFoundError);
 mockUpdatePinboardError(axiosMockClient, '5cd0bbbb', 150, notFoundError);
@@ -787,6 +786,5 @@ const networkError = Promise.reject(new Error('Network Error'));
 mockUpdatePinboardError(axiosMockClient, '5cd0dddd', 99, networkError);
 mockUpdatePinboardError(axiosMockClient, '5cd0eeee', 10, networkError);
 mockUpdatePinboardError(axiosMockClient, '5cd0ffff', 4, networkError);
-
 
 module.exports = axiosMockClient;
