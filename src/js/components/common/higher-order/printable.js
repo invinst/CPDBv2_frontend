@@ -82,5 +82,9 @@ export default function (ComponentClass) {
     printMode: PropTypes.bool,
   };
 
+  Printable.propTypes = {
+    printHeader: PropTypes.string,
+  };
+
   return Printable;
 }

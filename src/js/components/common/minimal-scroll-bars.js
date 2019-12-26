@@ -71,4 +71,5 @@ MinimalScrollBars.propTypes = {
   scrollTop: PropTypes.number,
   scrollLeft: PropTypes.number,
   viewClassName: PropTypes.string,
+  showThumb: PropTypes.bool,
 };

@@ -31,4 +31,5 @@ export default class PinboardLink extends Component {
 PinboardLink.propTypes = {
   hasPendingChanges: PropTypes.bool,
   customComponent: PropTypes.string,
+  onClick: PropTypes.func,
 };

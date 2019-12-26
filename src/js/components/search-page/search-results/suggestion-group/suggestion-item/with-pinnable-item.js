@@ -131,6 +131,7 @@ export default function withPinnableItem(
     setAliasAdminPageContent: PropTypes.func,
     selectItem: PropTypes.func,
     clickItem: PropTypes.func,
+    showPinButtonArea: PropTypes.bool,
   };
 
   return _Base;

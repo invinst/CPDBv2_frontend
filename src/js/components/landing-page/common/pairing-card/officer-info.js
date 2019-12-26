@@ -33,6 +33,7 @@ OfficerInfo.propTypes = {
     ]),
     gender: PropTypes.string,
     rank: PropTypes.string,
+    race: PropTypes.string,
   }),
   rightOfficer: PropTypes.bool,
 };

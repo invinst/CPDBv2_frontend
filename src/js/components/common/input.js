@@ -53,10 +53,15 @@ export default class TextInput extends Component {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    const { focused, value } = nextProps;
+    const { value } = nextProps;
 
     this.setState({ value });
-    if (!this.props.focused && focused) {
+  }
+
+  componentDidUpdate(prevProps) {
+    const { focused } = this.props;
+
+    if (!prevProps.focused && focused) {
       this.input.focus();
     }
   }

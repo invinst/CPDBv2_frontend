@@ -10,28 +10,6 @@ import { calculatePosition } from 'utils/dom';
 import styles from './shareable-header.sass';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 
-const getHeaderButton = (type, state, props) => {
-  switch (type) {
-    case constants.SHAREABLE_HEADER_BUTTON_TYPE.MENU: {
-      const { onOpen, onClose, Menu, buttonText } = props;
-      const { position } = state;
-      return (
-        <HeaderButton
-          scrollPosition={ position }
-          Menu={ Menu }
-          buttonText={ buttonText }
-          onOpen={ onOpen }
-          onClose={ onClose }
-        />
-      );
-    }
-    case constants.SHAREABLE_HEADER_BUTTON_TYPE.LINK:
-      return <LinkHeaderButton buttonText={ props.buttonText } to={ props.to } />;
-    case constants.SHAREABLE_HEADER_BUTTON_TYPE.NONE:
-    default:
-      return null;
-  }
-};
 
 export default class ShareableHeader extends Component {
   constructor(props) {
@@ -59,8 +37,31 @@ export default class ShareableHeader extends Component {
     this.props.updateShareablePageScrollPosition(this.state.position);
   };
 
+  headerButton() {
+    const { buttonType, onOpen, onClose, Menu, buttonText, to } = this.props;
+    switch (buttonType) {
+      case constants.SHAREABLE_HEADER_BUTTON_TYPE.MENU: {
+        const { position } = this.state;
+        return (
+          <HeaderButton
+            scrollPosition={ position }
+            Menu={ Menu }
+            buttonText={ buttonText }
+            onOpen={ onOpen }
+            onClose={ onClose }
+          />
+        );
+      }
+      case constants.SHAREABLE_HEADER_BUTTON_TYPE.LINK:
+        return <LinkHeaderButton buttonText={ buttonText } to={ to } />;
+      case constants.SHAREABLE_HEADER_BUTTON_TYPE.NONE:
+      default:
+        return null;
+    }
+  }
+
   render() {
-    const { location, routes, params, buttonType } = this.props;
+    const { location, routes, params } = this.props;
 
     const separatorRenderer = <li className='shareable-header-breadcrumb-separator'/>;
 
@@ -73,9 +74,7 @@ export default class ShareableHeader extends Component {
               className='shareable-header-nav-bar'
               ref={ el => { this.placeholderElement = el; } }
             >
-              {
-                getHeaderButton(buttonType, this.state, this.props)
-              }
+              { this.headerButton() }
               <Breadcrumbs
                 className='breadcrumbs'
                 routes={ routes }

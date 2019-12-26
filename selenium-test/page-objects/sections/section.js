@@ -21,7 +21,7 @@ export default class Section {
   prepareElementGetters(elements = {}) {
     elements.mainElement = '';
     forEach(keys(elements), key => {
-      if (Object.prototype.hasOwnProperty.call(this, key)) {
+      if (!Object.prototype.hasOwnProperty.call(this, key)) {
         if (typeof elements[key] === 'function') {
           Object.defineProperty(this, key, {
             value: new elements[key](this.mainElementSelector),
