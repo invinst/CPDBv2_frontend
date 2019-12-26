@@ -29,6 +29,8 @@ import {
 import PinboardFactory from 'utils/test/factories/pinboard';
 import { Toastify } from 'utils/vendors';
 import extractQuery from 'utils/extract-query';
+import toastStyles from 'utils/toast.sass';
+import * as ToastUtils from 'utils/toast';
 
 
 describe('restoreCreateOrUpdatePinboard middleware', function () {
@@ -58,10 +60,12 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
 
   beforeEach(function () {
     this.cancelTokenSource = stub(CancelToken, 'source');
+    stub(window, 'addEventListener');
   });
 
   afterEach(function () {
     this.cancelTokenSource.restore();
+    window.addEventListener.restore();
   });
 
   it('should not dispatch any action if action is not adding or removing items', function () {
@@ -224,8 +228,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
         const browserHistoryPush = stub(browserHistory, 'push');
         Toastify.toast.should.be.calledOnce();
         Toastify.toast.getCall(0).args[0].should.eql('CR added');
-        Toastify.toast.getCall(0).args[1]['className'].should.eql('toast-wrapper added');
-        Toastify.toast.getCall(0).args[1]['bodyClassName'].should.eql('toast-body');
+        Toastify.toast.getCall(0).args[1]['className'].should.eql(`${toastStyles.toastWrapper} added`);
         Toastify.toast.getCall(0).args[1]['transition'].should.eql(
           Toastify.cssTransition({
             enter: 'toast-enter',
@@ -275,8 +278,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
         const browserHistoryPush = stub(browserHistory, 'push');
         Toastify.toast.should.be.calledOnce();
         Toastify.toast.getCall(0).args[0].should.eql('CR removed');
-        Toastify.toast.getCall(0).args[1]['className'].should.eql('toast-wrapper removed');
-        Toastify.toast.getCall(0).args[1]['bodyClassName'].should.eql('toast-body');
+        Toastify.toast.getCall(0).args[1]['className'].should.eql(`${toastStyles.toastWrapper} removed`);
         Toastify.toast.getCall(0).args[1]['transition'].should.eql(
           Toastify.cssTransition({
             enter: 'toast-enter',
@@ -692,6 +694,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
         dispatch: stub().usingPromise(Promise).rejects(new Error('abc')),
       };
 
+      stub(ToastUtils, 'showAlertToast').returns('toast-id');
       const realSetTimeout = setTimeout;
       const clock = useFakeTimers();
 
@@ -707,7 +710,195 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
           );
         } else {
           failingStore.dispatch.callCount.should.equal(121);
+          ToastUtils.showAlertToast.should.be.calledOnce();
+          ToastUtils.showAlertToast.should.be.calledWith('Failed to save pinboard. Click to try again!');
+
+          // click on the toast should try to resume saving pinboard
+          failingStore.dispatch.resetHistory();
+          const toastOnClick = ToastUtils.showAlertToast.getCall(0).args[1];
+          toastOnClick();
+
+          failingStore.dispatch.should.be.calledOnce();
+          failingStore.dispatch.should.be.calledWith(savePinboard());
+
+          ToastUtils.showAlertToast.restore();
           clock.restore();
+          done();
+        }
+      }
+
+      repeatSave(0);
+    });
+
+    it('should handling internet connection lost and retry when online back', function (done) {
+      const action = {
+        type: constants.SAVE_PINBOARD,
+        payload: null,
+      };
+      const connectionErrorStore = {
+        getState: () => {
+          return {
+            pinboardPage: {
+              pinboard: PinboardFactory.build({
+                'id': '66ef1560',
+                'officer_ids': [123, 456],
+                'saving': false,
+                'hasPendingChanges': true,
+              }),
+            },
+          };
+        },
+        dispatch: stub().usingPromise(Promise).rejects(new Error('No internet connection')),
+      };
+
+      window.addEventListener.restore();
+      stub(ToastUtils, 'showAlertToast').returns('toast-id');
+      Toastify.toast.dismiss.resetHistory();
+      const onLineStub = stub(window.navigator, 'onLine').value(false);
+      const realSetTimeout = setTimeout;
+      const clock = useFakeTimers();
+
+      const actionHandler = restoreCreateOrUpdatePinboard(connectionErrorStore)(action => action);
+      const delayNextSave = count => {
+        actionHandler(action);
+        realSetTimeout(
+          () => {
+            clock.tick(200);
+            repeatSave(count + 1);
+          },
+          100,
+        );
+      };
+
+      function repeatSave(count) {
+        if (count < 3) {
+          delayNextSave(count);
+        } else if (count === 3) {
+          // Not show retrying toast within 3 retries
+          connectionErrorStore.dispatch.callCount.should.equal(6);
+          ToastUtils.showAlertToast.should.not.be.called();
+
+          connectionErrorStore.dispatch.resetHistory();
+          delayNextSave(count);
+        } else if (count === 4) {
+          // show retrying toast at the 4th retry
+          connectionErrorStore.dispatch.should.be.calledOnce();
+          ToastUtils.showAlertToast.should.be.calledOnce();
+          ToastUtils.showAlertToast.should.be.calledWith('Connection lost. Trying to save ...');
+
+          connectionErrorStore.dispatch.resetHistory();
+          ToastUtils.showAlertToast.resetHistory();
+          delayNextSave(count);
+        } else {
+          // Not showing any second retrying toast
+          connectionErrorStore.dispatch.should.be.calledOnce();
+          ToastUtils.showAlertToast.should.not.be.called();
+
+          // saving pinboard when connection is back
+          connectionErrorStore.dispatch.resetHistory();
+          onLineStub.value(true);
+          window.dispatchEvent(new Event('online'));
+
+          connectionErrorStore.dispatch.should.be.calledOnce();
+          connectionErrorStore.dispatch.should.be.calledWith(savePinboard());
+          Toastify.toast.dismiss.should.be.calledOnce();
+          Toastify.toast.dismiss.should.be.calledWith('toast-id');
+
+          // Don't try to save pinboard if there was no updates while offline
+          Toastify.toast.dismiss.resetHistory();
+          connectionErrorStore.dispatch.resetHistory();
+          onLineStub.value(true);
+          window.dispatchEvent(new Event('online'));
+
+          connectionErrorStore.dispatch.should.not.be.called();
+          Toastify.toast.dismiss.should.not.be.called();
+
+          stub(window, 'addEventListener');
+          Toastify.toast.dismiss.resetHistory();
+          clock.restore();
+          onLineStub.restore();
+          ToastUtils.showAlertToast.restore();
+          done();
+        }
+      }
+
+      repeatSave(0);
+    });
+
+    it('should handling internet connection lost and retry when click on the toast', function (done) {
+      const action = {
+        type: constants.SAVE_PINBOARD,
+        payload: null,
+      };
+      const connectionErrorStore = {
+        getState: () => {
+          return {
+            pinboardPage: {
+              pinboard: PinboardFactory.build({
+                'id': '66ef1560',
+                'officer_ids': [123, 456],
+                'saving': false,
+                'hasPendingChanges': true,
+              }),
+            },
+          };
+        },
+        dispatch: stub().usingPromise(Promise).rejects(new Error('No internet connection')),
+      };
+
+      window.addEventListener.restore();
+      stub(ToastUtils, 'showAlertToast').returns('toast-id');
+      Toastify.toast.dismiss.resetHistory();
+      const onLineStub = stub(window.navigator, 'onLine').value(false);
+      const realSetTimeout = setTimeout;
+      const clock = useFakeTimers();
+
+      const actionHandler = restoreCreateOrUpdatePinboard(connectionErrorStore)(action => action);
+      const delayNextSave = count => {
+        actionHandler(action);
+        realSetTimeout(
+          () => {
+            clock.tick(200);
+            repeatSave(count + 1);
+          },
+          100,
+        );
+      };
+
+      function repeatSave(count) {
+        if (count < 3) {
+          delayNextSave(count);
+        } else if (count === 3) {
+          // Not show retrying toast within 3 retries
+          connectionErrorStore.dispatch.callCount.should.equal(6);
+          ToastUtils.showAlertToast.should.not.be.called();
+
+          connectionErrorStore.dispatch.resetHistory();
+          delayNextSave(count);
+        } else if (count === 4) {
+          // show retrying toast at the 4th retry
+          connectionErrorStore.dispatch.should.be.calledOnce();
+          ToastUtils.showAlertToast.should.be.calledOnce();
+          ToastUtils.showAlertToast.should.be.calledWith('Connection lost. Trying to save ...');
+
+          // click on the toast should try to resume saving pinboard
+          const toastOnClick = ToastUtils.showAlertToast.getCall(0).args[1];
+          connectionErrorStore.dispatch.resetHistory();
+
+          ToastUtils.showAlertToast.resetHistory();
+          Toastify.toast.dismiss.should.not.be.called();
+          toastOnClick();
+
+          connectionErrorStore.dispatch.should.be.calledOnce();
+          connectionErrorStore.dispatch.should.be.calledWith(savePinboard());
+          Toastify.toast.dismiss.should.be.calledOnce();
+          Toastify.toast.dismiss.should.be.calledWith('toast-id');
+
+          stub(window, 'addEventListener');
+          Toastify.toast.dismiss.resetHistory();
+          clock.restore();
+          onLineStub.restore();
+          ToastUtils.showAlertToast.restore();
           done();
         }
       }
