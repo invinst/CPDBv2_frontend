@@ -123,21 +123,8 @@ describe('RequestDocumentModalContent component', function () {
         else { resolve(); }
       });
       let requestDocumentCallback = stub().returns(promise);
-      let requestForm;
 
-      const oldHandleSubmit = RequestDocumentModalContent.prototype.handleSubmit;
-      RequestDocumentModalContent.prototype.handleSubmit = function (event) {
-        event.preventDefault = spy();
-
-        const temp = oldHandleSubmit.call(this, event);
-        event.preventDefault.calledOnce.should.be.true();
-        temp.then(() => {
-          assertInCallbackTest(requestForm);
-          RequestDocumentModalContent.prototype.handleSubmit = oldHandleSubmit;
-        }).then(done);
-      };
-
-      requestForm = mount(
+      const requestForm = mount(
         <RequestDocumentModalContent
           message={ 'Default message' }
           id={ 1 }
@@ -146,8 +133,28 @@ describe('RequestDocumentModalContent component', function () {
         />
       );
 
+      const instance = requestForm.instance();
+
+      let handleSubmitStub;
+      let oldHandleSubmit = instance.handleSubmit;
+
+      handleSubmitStub = stub(instance, 'handleSubmit').callsFake(function (event) {
+        event.preventDefault = spy();
+        const handleSubmitCall = oldHandleSubmit.call(this, event);
+        event.preventDefault.calledOnce.should.be.true();
+
+        handleSubmitCall.then(() => {
+          requestForm.update();
+          assertInCallbackTest(requestForm);
+          handleSubmitStub.restore();
+        }).then(done);
+      });
+
+      requestForm.instance().forceUpdate();
+      requestForm.update();
+
       requestForm.state('warning').should.be.false();
-      requestForm.instance().refs.email.value = 'abc@xyz.com';
+      instance.refs.email.value = 'abc@xyz.com';
       const formElement = requestForm.find('form');
       formElement.simulate('submit');
       requestDocumentCallback.should.be.calledWith({ id: 1, email: 'abc@xyz.com' });

@@ -21,7 +21,7 @@ describe('CallToAction component', function () {
 
   it('should not render anything if callToActionType does not match', function () {
     const wrapper = shallow(<CallToAction callToActionType='abc' />);
-    should(wrapper.getNode()).be.null();
+    should(wrapper.getElement()).be.null();
   });
 
   it('should render enter button', function () {

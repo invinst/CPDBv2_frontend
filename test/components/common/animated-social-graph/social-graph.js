@@ -604,7 +604,6 @@ describe('SocialGraph', function () {
   });
 
   it('should call resizeGraph when performResizeGraph is true', function () {
-    const resizeGraphSpy = spy(SocialGraph.prototype, 'resizeGraph');
     const wrapper = mount(
       <SocialGraph
         officers={ officers }
@@ -612,6 +611,9 @@ describe('SocialGraph', function () {
         listEvent={ listEvent }
       />
     );
+    const instance = wrapper.instance();
+    const resizeGraphSpy = stub(instance, 'resizeGraph');
+
     wrapper.setProps({
       officers: officers,
       coaccusedData: coaccusedData,

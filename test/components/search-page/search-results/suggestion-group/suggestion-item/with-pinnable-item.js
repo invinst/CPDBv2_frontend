@@ -88,7 +88,7 @@ describe('withPinnableItem component', function () {
           selectItem={ selectItemSpy }
           isFocused={ false }/>
       );
-      const element = wrapper.find('.suggestion-item-123');
+      const element = wrapper.find('.suggestion-item-123').first();
       element.simulate('click');
       selectItemSpy.should.be.called();
     });
@@ -106,7 +106,7 @@ describe('withPinnableItem component', function () {
           selectItem={ () => {} }
         />
       );
-      const element = wrapper.find('.suggestion-item-123');
+      const element = wrapper.find('.suggestion-item-123').first();
       element.simulate('click');
       triggerStub.withArgs('enter').should.be.called();
 
@@ -129,7 +129,7 @@ describe('withPinnableItem component', function () {
           selectItem={ () => {} }
         />
       );
-      const element = wrapper.find('.suggestion-item-123');
+      const element = wrapper.find('.suggestion-item-123').first();
       element.simulate('click');
 
       clickItemSpy.should.be.calledWith(suggestion);

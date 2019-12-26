@@ -50,7 +50,7 @@ describe('Pinboards component', function () {
 
     wrapper.find('.pinboards-title').text().should.equal('Pinboards');
 
-    const pinboardItems = wrapper.find('.pinboard-item');
+    const pinboardItems = wrapper.find('.pinboard-item').hostNodes();
     pinboardItems.should.have.length(2);
 
     const pinboardTitles = wrapper.find('.pinboard-title');
@@ -118,7 +118,7 @@ describe('Pinboards component', function () {
       </Router>
     );
 
-    const newPinboardLink = wrapper.find('.new-pinboard-btn');
+    const newPinboardLink = wrapper.find('.new-pinboard-btn').first();
     newPinboardLink.simulate('click');
     createNewEmptyPinboardStub.should.be.called();
 

@@ -222,11 +222,13 @@ describe('AnimatedRadarChart components', function () {
       instance.animatedData[0].year.should.equal(2014);
 
       clock.tick(25);
+      wrapper.update();
       wrapper.state('transitionValue').should.equal(instance.velocity);
       wrapper.find(StaticRadarChart).prop('legendText').should.equal(2016);
       wrapper.find(StaticRadarChart).prop('fadeOutLegend').should.be.false();
 
       clock.tick(200);
+      wrapper.update();
       wrapper.find(StaticRadarChart).prop('legendText').should.equal(2016);
       wrapper.find(StaticRadarChart).prop('fadeOutLegend').should.be.true();
     });

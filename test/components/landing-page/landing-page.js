@@ -224,10 +224,9 @@ describe('LandingPage component', function () {
         location={ { pathname: '/' } }
         params={ {} }
         routes={ [{ breadcrumb: 'cpdp', breadcrumbKey: '/' }] }
-      />
+      />,
+      { disableLifecycleMethods: false },
     );
-    wrapper.instance().componentDidMount();
-
     let landingPageContent = wrapper.find(`.${styles.landingPage}`);
     let searchPage = wrapper.find(SearchPageContainer);
 
@@ -248,9 +247,6 @@ describe('LandingPage component', function () {
         { breadcrumb: 'Search', breadcrumbKey: 'search/' },
       ],
     });
-    // TODO: enzyme 2.x don't invoke componentDidUpdate and componentDidMount.
-    //  We should remove this invoke when upgrading to enzyme 3
-    wrapper.instance().componentDidUpdate();
 
     landingPageContent = wrapper.find(`.${styles.landingPage}`);
     searchPage = wrapper.find(SearchPageContainer);

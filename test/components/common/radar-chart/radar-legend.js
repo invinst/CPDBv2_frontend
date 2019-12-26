@@ -8,7 +8,7 @@ import RadarLegend from 'components/common/radar-chart/radar-legend';
 describe('RadarLegend components', function () {
   it('should display nothing if no content provided', () => {
     const wrapper = shallow(<RadarLegend/>);
-    should(wrapper.getNode()).be.null();
+    should(wrapper.getElement()).be.null();
   });
 
   it('should render if text is defined', () => {
@@ -26,6 +26,7 @@ describe('RadarLegend components', function () {
     );
     wrapper.find(Motion).exists().should.be.true();
     setTimeout(function () {
+      wrapper.update();
       const legendYearElement = wrapper.find('.test--radar-legend-content');
       legendYearElement.text().should.equal('2017');
       legendYearElement.prop('style').should.containEql({ visibility: 'hidden' });

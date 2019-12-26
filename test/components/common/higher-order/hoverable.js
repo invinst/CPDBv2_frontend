@@ -21,9 +21,8 @@ describe('Hoverable component', function () {
     const wrapper = mount(<HoverableDummy onMouseOver={ () => {} } onMouseOut={ () => {} }/>);
     const span = wrapper.find('span');
     span.simulate('mouseOver');
-    const dummy = wrapper.find(Dummy);
-    dummy.prop('hovering').should.be.true();
+    wrapper.find(Dummy).prop('hovering').should.be.true();
     span.simulate('mouseOut');
-    dummy.prop('hovering').should.be.false();
+    wrapper.find(Dummy).prop('hovering').should.be.false();
   });
 });

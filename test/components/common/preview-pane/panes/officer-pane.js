@@ -210,7 +210,7 @@ describe('OfficerPane component', () => {
       />
     );
 
-    let pinButton = wrapper.find('.pin-button');
+    let pinButton = wrapper.find('.pin-button').first();
     pinButton.simulate('click');
 
     addOrRemoveItemInPinboardStub.calledWith({
@@ -230,7 +230,7 @@ describe('OfficerPane component', () => {
       isPinned: true,
     });
 
-    pinButton = wrapper.find('.pin-button');
+    pinButton = wrapper.find('.pin-button').first();
     pinButton.simulate('click');
 
     addOrRemoveItemInPinboardStub.calledWith({

@@ -126,13 +126,13 @@ describe('DocumentPage component', function () {
       </Router>
     );
 
-    const header = wrapper.find(ShareableHeader);
+    const header = wrapper.find(ShareableHeader).first();
     header.prop('buttonType').should.equal('none');
 
     wrapper.find(FooterContainer).exists().should.be.true();
     wrapper.find('.document-side-bar').exists().should.be.true();
 
-    const thumbnail = wrapper.find('.document-thumbnail');
+    const thumbnail = wrapper.find('.document-thumbnail').first();
     thumbnail.prop('href').should.equal(
       'https://assets.documentcloud.org/documents/5680384/CRID-1083633-CR-CRID-1083633-CR-Tactical.pdf'
     );
@@ -165,7 +165,7 @@ describe('DocumentPage component', function () {
     const linkDocumentsTitle = wrapper.find('.linked-documents-title');
     linkDocumentsTitle.text().should.equal('Linked Documents (14)');
 
-    const linkDocumentsContent = wrapper.find('.linked-documents-content');
+    const linkDocumentsContent = wrapper.find('a.linked-documents-content');
     linkDocumentsContent.prop('href').should.equal('/documents/?match=1083633/');
 
     const linkDisplayDocumentsThumbnails = wrapper.find('.linked-documents-thumbnail');
@@ -315,7 +315,7 @@ describe('DocumentPage component', function () {
       </Router>
     );
 
-    const linkDocumentsContent = wrapper.find('.linked-documents-content');
+    const linkDocumentsContent = wrapper.find('a.linked-documents-content');
     linkDocumentsContent.prop('href').should.equal('/documents/crid/1083633/');
   });
 

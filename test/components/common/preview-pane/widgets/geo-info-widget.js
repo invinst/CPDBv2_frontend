@@ -26,6 +26,6 @@ describe('GeoInfoWidget component', () => {
         raceCount={ [] }
       />
     );
-    should(wrapper.getNode()).be.null();
+    should(wrapper.getElement()).be.null();
   });
 });

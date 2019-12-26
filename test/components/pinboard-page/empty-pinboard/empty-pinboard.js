@@ -77,7 +77,7 @@ describe('EmptyPinboard component', function () {
     examplePinboardLinks.should.have.length(2);
 
     const titles = wrapper.find('.title');
-    const descriptions = wrapper.find('.description');
+    const descriptions = wrapper.find('.description').hostNodes();
     titles.should.have.length(2);
     descriptions.should.have.length(2);
 

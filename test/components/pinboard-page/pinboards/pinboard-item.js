@@ -66,7 +66,7 @@ describe('PinboardItem component', function () {
       </Router>
     );
 
-    const duplicatePinboardBtn = wrapper.find('.duplicate-pinboard-btn');
+    const duplicatePinboardBtn = wrapper.find('.duplicate-pinboard-btn').first();
     duplicatePinboardBtn.simulate('click');
     duplicatePinboardStub.should.be.called();
 

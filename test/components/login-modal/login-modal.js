@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { stub, spy } from 'sinon';
+import should from 'should';
 
 import LoginModal from 'components/login-modal';
 import LoginModalButton from 'components/login-modal/login-modal-button';
@@ -10,8 +11,8 @@ import ForgotPasswordModal from 'components/login-modal/forgot-password-modal';
 
 describe('LoginModal component', function () {
   it('should not show when showLoginModal is false', function () {
-    const wrapper = shallow(<LoginModal showLoginModal={ false }/>);
-    wrapper.children().exists().should.be.false();
+    const wrapper = mount(<LoginModal showLoginModal={ false }/>);
+    should(wrapper.html()).be.null();
   });
 
   it('should focus name input when click on name input wrapper', function () {

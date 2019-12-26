@@ -64,7 +64,7 @@ export default class OfficerPane extends Component {
         name: 'Sustained',
         value: formatValue(sustainedCount),
         isHighlight: true,
-        description: !isNil(disciplineCount) && `${disciplineCount} Disciplined`,
+        description: !isNil(disciplineCount) ? `${disciplineCount} Disciplined` : '',
       },
       {
         name: 'Use of Force Reports',

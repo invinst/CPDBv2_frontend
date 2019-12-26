@@ -2,7 +2,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { Provider } from 'react-redux';
 import { browserHistory } from 'react-router';
-import { spy, stub, useFakeTimers } from 'sinon';
+import { spy, stub, useFakeTimers, match } from 'sinon';
 import Mousetrap from 'mousetrap';
 import MockStore from 'redux-mock-store';
 import RootReducer from 'reducers/root-reducer';
@@ -92,7 +92,7 @@ describe('SearchPage component', function () {
       </Provider>
     );
 
-    const backButton = wrapper.find('.searchbar__button--back');
+    const backButton = wrapper.find('.searchbar__button--back').first();
     backButton.simulate('click');
     this.browserHistoryPush.should.be.calledOnce();
     this.browserHistoryPush.should.be.calledWith('/pinboard/123abc/');
@@ -110,15 +110,6 @@ describe('SearchPage component', function () {
   });
 
   it('should bind and unbind esc and enter keys when mounted/unmounted but not hide', function () {
-    const handleGoBackStub = stub();
-    const handleViewItemStub = stub();
-    const handleGoBackProtoStub = stub(
-      SearchPage.prototype, 'handleGoBack'
-    ).value({ bind: () => handleGoBackStub });
-    const handleViewItemProtoStub= stub(
-      SearchPage.prototype, 'handleViewItem'
-    ).value({ bind: () => handleViewItemStub });
-
     const bindSpy = spy(LayeredKeyBinding, 'bind');
     const unbindSpy = spy(LayeredKeyBinding, 'unbind');
 
@@ -128,8 +119,9 @@ describe('SearchPage component', function () {
       </Provider>
     );
 
-    bindSpy.should.be.calledWith('esc', handleGoBackStub);
-    bindSpy.should.be.calledWith('enter', handleViewItemStub);
+    const instance = wrapper.find(SearchPage).instance();
+    bindSpy.should.be.calledWith('esc', instance.handleGoBack);
+    bindSpy.should.be.calledWith('enter', instance.handleViewItem);
 
     wrapper.unmount();
 
@@ -138,20 +130,9 @@ describe('SearchPage component', function () {
 
     bindSpy.restore();
     unbindSpy.restore();
-    handleGoBackProtoStub.restore();
-    handleViewItemProtoStub.restore();
   });
 
   it('should not bind and unbind esc and enter keys when mounted/unmounted but hide', function () {
-    const handleGoBackStub = stub();
-    const handleViewItemStub = stub();
-    const handleGoBackProtoStub = stub(
-      SearchPage.prototype, 'handleGoBack'
-    ).value({ bind: () => handleGoBackStub });
-    const handleViewItemProtoStub= stub(
-      SearchPage.prototype, 'handleViewItem'
-    ).value({ bind: () => handleViewItemStub });
-
     const bindSpy = spy(LayeredKeyBinding, 'bind');
     const unbindSpy = spy(LayeredKeyBinding, 'unbind');
 
@@ -161,8 +142,8 @@ describe('SearchPage component', function () {
       </Provider>
     );
 
-    bindSpy.should.not.be.calledWith('esc', handleGoBackStub);
-    bindSpy.should.not.be.calledWith('enter', handleViewItemStub);
+    bindSpy.should.not.be.calledWith('esc', match.any);
+    bindSpy.should.not.be.calledWith('enter', match.any);
 
     wrapper.unmount();
 
@@ -171,19 +152,9 @@ describe('SearchPage component', function () {
 
     bindSpy.restore();
     unbindSpy.restore();
-    handleGoBackProtoStub.restore();
-    handleViewItemProtoStub.restore();
   });
 
   it('should bind and unbind when update hide prop', function () {
-    const handleGoBackStub = stub();
-    const handleViewItemStub = stub();
-    const handleGoBackProtoStub = stub(
-      SearchPage.prototype, 'handleGoBack'
-    ).value({ bind: () => handleGoBackStub });
-    const handleViewItemProtoStub = stub(
-      SearchPage.prototype, 'handleViewItem'
-    ).value({ bind: () => handleViewItemStub });
     const bindSpy = spy(LayeredKeyBinding, 'bind');
     const unbindSpy = spy(LayeredKeyBinding, 'unbind');
 
@@ -193,8 +164,10 @@ describe('SearchPage component', function () {
       </Provider>
     );
 
-    bindSpy.should.not.be.calledWith('esc', handleGoBackStub);
-    bindSpy.should.not.be.calledWith('enter', handleViewItemStub);
+    const instance = wrapper.find(SearchPage).instance();
+
+    bindSpy.should.not.be.calledWith('esc', match.any);
+    bindSpy.should.not.be.calledWith('enter', match.any);
     unbindSpy.should.not.be.calledWith('esc');
     unbindSpy.should.not.be.calledWith('enter');
 
@@ -202,8 +175,8 @@ describe('SearchPage component', function () {
       children: <SearchPage hide={ false }/>,
     });
 
-    bindSpy.should.be.calledWith('esc', handleGoBackStub);
-    bindSpy.should.be.calledWith('enter', handleViewItemStub);
+    bindSpy.should.be.calledWith('esc', instance.handleGoBack);
+    bindSpy.should.be.calledWith('enter', instance.handleViewItem);
     unbindSpy.should.not.be.calledWith('esc');
     unbindSpy.should.not.be.calledWith('enter');
 
@@ -226,8 +199,7 @@ describe('SearchPage component', function () {
 
     unbindSpy.restore();
     bindSpy.restore();
-    handleGoBackProtoStub.restore();
-    handleViewItemProtoStub.restore();
+
   });
 
   it('should not change the current search path when user type in search box', function () {
@@ -263,17 +235,16 @@ describe('SearchPage component', function () {
     });
 
     it('should call handleSelect to show more suggestion items when entering on More button', function () {
-      const handleSelectStub = stub(SearchPage.prototype, 'handleSelect');
-      mount(
+      const wrapper = mount(
         <Provider store={ store }>
           <SearchPage
             focusedItem={ NavigationItem.build({ id: 'OFFICER', 'type': MORE_BUTTON }) }
           />
         </Provider>
       );
+      const handleSelectStub = stub(wrapper.find(SearchPage).instance(), 'handleSelect');
       Mousetrap.trigger('enter');
       handleSelectStub.calledWith('OFFICER');
-
       handleSelectStub.restore();
     });
 

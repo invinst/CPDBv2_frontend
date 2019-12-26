@@ -23,6 +23,7 @@ describe('Printable component', function () {
     const wrapper = shallow(<PrintableDummy printHeader='Dummy title'/>);
     const instance = wrapper.instance();
     instance._mediaPrintListener({ matches: true });
+    wrapper.update();
     wrapper.find('.left-header').text().should.equal('Dummy title');
     wrapper.find('.printable-as-of').text().should.equal('AS OF');
     wrapper.find('.printable-date').text().should.equal('10/27/2018');

@@ -64,11 +64,13 @@ describe('PinboardAdminPage', function () {
     previewPane.prop('data').should.be.empty();
 
     instance.focusItem({ id: 123 });
+    wrapper.update();
     previewPane = wrapper.find(PreviewPaneWithOverlay);
     previewPane.prop('isShown').should.be.true();
     previewPane.prop('data').should.eql({ id: 123 });
 
     instance.handleOverlayClick();
+    wrapper.update();
     previewPane = wrapper.find(PreviewPaneWithOverlay);
     previewPane.prop('isShown').should.be.false();
     previewPane.prop('data').should.eql({ id: 123 });

@@ -124,6 +124,7 @@ describe('RichTextEditor component', function () {
     editorState = EditorState.acceptSelection(editorState, selectionState);
 
     editor.prop('onChange')(editorState);
+    wrapper.update();
     wrapper.state('showToolbar').should.be.true();
     const toolbar = wrapper.find(Toolbar);
     const rect = wrapper.getDOMNode().getBoundingClientRect();

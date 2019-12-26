@@ -142,14 +142,19 @@ describe('Timeline component', function () {
   });
 
   it('should call handleScroll when timeline reach ScrollMagic.Scene', function (done) {
-    const handleScrollStub = stub(Timeline.prototype, 'handleScroll');
-    mount(
+    const componentDidMountStub = stub(Timeline.prototype, 'componentDidMount');
+    const wrapper = mount(
       <Timeline
         items={ items }
         timelineIdx={ 0 }
         timelineIdxTriggerChange={ 0 }
       />
     );
+    const instance = wrapper.instance();
+    const handleScrollStub = stub(instance, 'handleScroll');
+    componentDidMountStub.restore();
+    instance.componentDidMount();
+
     setTimeout(() => {
       handleScrollStub.should.be.calledWith(items[1]);
       handleScrollStub.restore();

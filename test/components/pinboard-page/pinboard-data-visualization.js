@@ -55,7 +55,7 @@ describe('PinboardDataVisualization component', function () {
     wrapper.find(AnimatedSocialGraph).exists().should.be.true();
     wrapper.find(AllegationsMap).exists().should.be.true();
 
-    const expandedModeButton = wrapper.find('.expanded-mode-btn');
+    const expandedModeButton = wrapper.find('.expanded-mode-btn').hostNodes();
     expandedModeButton.should.have.length(2);
     expandedModeButton.at(0).prop('href').should.containEql('/social-graph/pinboard/1234abcd/');
     expandedModeButton.at(1).prop('href').should.containEql('/geographic/pinboard/1234abcd/');

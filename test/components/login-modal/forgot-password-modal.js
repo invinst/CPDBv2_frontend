@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { stub, spy } from 'sinon';
+import should from 'should';
 
 import LoginModalButton from 'components/login-modal/login-modal-button';
 import ForgotPasswordModal from 'components/login-modal/forgot-password-modal';
@@ -9,7 +10,7 @@ import ForgotPasswordModal from 'components/login-modal/forgot-password-modal';
 describe('ForgotPasswordModal component', function () {
   it('should not show when show is false', function () {
     const wrapper = mount(<ForgotPasswordModal show={ false }/>);
-    wrapper.children().exists().should.be.false();
+    should(wrapper.html()).be.null();
   });
 
   it('should be disabled on receiving show false', function () {

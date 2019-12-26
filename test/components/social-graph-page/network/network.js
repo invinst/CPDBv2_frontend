@@ -218,22 +218,17 @@ describe('NetworkGraph component', function () {
   });
 
   it('should add mousedown event when componentDidMounted', function () {
-    const handleClickOutsideStub = stub();
-    const handleClickOutsideProtoStub = stub(
-      NetworkGraph.prototype, 'handleClickOutside'
-    ).value({ bind: () => handleClickOutsideStub });
     stub(window, 'addEventListener');
 
-    mount(
+    const wrapper = mount(
       <Provider store={ store }>
         <NetworkGraph/>
       </Provider>
     );
+    const instance = wrapper.find(NetworkGraph).instance();
 
-    window.addEventListener.should.be.calledWith('mousedown', handleClickOutsideStub);
-
+    window.addEventListener.should.be.calledWith('mousedown', instance.handleClickOutside);
     window.addEventListener.restore();
-    handleClickOutsideProtoStub.restore();
   });
 
   it('should show Intercom launcher again when componentWillUnmount', function () {
@@ -252,10 +247,6 @@ describe('NetworkGraph component', function () {
   });
 
   it('should remove mousedown event when componentWillUnmount', function () {
-    const handleClickOutsideStub = stub();
-    const handleClickOutsideProtoStub = stub(
-      NetworkGraph.prototype, 'handleClickOutside'
-    ).value({ bind: () => handleClickOutsideStub });
     stub(window, 'removeEventListener');
 
     const wrapper = mount(
@@ -263,12 +254,11 @@ describe('NetworkGraph component', function () {
         <NetworkGraph/>
       </Provider>
     );
+    const instance = wrapper.find(NetworkGraph).instance();
     wrapper.unmount();
 
-    window.removeEventListener.should.be.calledWith('mousedown', handleClickOutsideStub);
-
+    window.removeEventListener.should.be.calledWith('mousedown', instance.handleClickOutside);
     window.removeEventListener.restore();
-    handleClickOutsideProtoStub.restore();
   });
 
   it('should fetch data again when componentDidUpdate', function () {

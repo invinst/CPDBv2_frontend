@@ -419,7 +419,6 @@ describe('Map component', function () {
     it('should bind mouse enter, mouse leave and click events when calling addMapLayer', function () {
       const addMarkerHoverStateStub = stub(AllegationsMap.prototype, 'addMarkerHoverState');
       const removeMarkerHoverStateStub = stub(AllegationsMap.prototype, 'removeMarkerHoverState');
-      const openTooltipStub = stub(AllegationsMap.prototype, 'openTooltip');
       stub(AllegationsMap.prototype, 'addMapLayersOnStyleLoaded');
       const crMarkers = [
         {
@@ -473,6 +472,7 @@ describe('Map component', function () {
       const instance = wrapper.instance();
 
       const mapOnStub = stub(instance.map, 'on');
+      const openTooltipStub = stub(instance, 'openTooltip');
 
       instance.addMapLayer('crs', crMarkers);
 
@@ -547,9 +547,9 @@ describe('Map component', function () {
       mouseClickArgs[2].should.eql(instance.handleMarkerClick);
 
       mapOnStub.restore();
+      openTooltipStub.restore();
       AllegationsMap.prototype.addMarkerHoverState.restore();
       AllegationsMap.prototype.removeMarkerHoverState.restore();
-      AllegationsMap.prototype.openTooltip.restore();
       AllegationsMap.prototype.addMapLayersOnStyleLoaded.restore();
     });
 

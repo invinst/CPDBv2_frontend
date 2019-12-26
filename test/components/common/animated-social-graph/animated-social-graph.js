@@ -253,7 +253,6 @@ describe('AnimatedSocialGraph component', function () {
   });
 
   it('should call stopTimeline when componentWillUnmount', function () {
-    const stopTimelineSpy = spy(AnimatedSocialGraph.prototype, 'stopTimeline');
     const wrapper = shallow(
       <AnimatedSocialGraph
         officers={ officers }
@@ -261,6 +260,8 @@ describe('AnimatedSocialGraph component', function () {
         listEvent={ listEvent }
       />
     );
+    const instance = wrapper.instance();
+    const stopTimelineSpy = stub(instance, 'stopTimeline');
     wrapper.unmount();
     stopTimelineSpy.should.be.called();
     stopTimelineSpy.restore();

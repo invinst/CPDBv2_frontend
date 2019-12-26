@@ -86,7 +86,7 @@ describe('ManagePinboardsButtons component', function () {
 
     const newPinboardButton = wrapper.find('.new-pinboard-menu-btn');
     newPinboardButton.simulate('click');
-    const newPinboardLink = wrapper.find('.new-pinboard-link');
+    const newPinboardLink = wrapper.find('.new-pinboard-link').first();
     newPinboardLink.simulate('click');
     createNewEmptyPinboardStub.should.be.called();
 
@@ -118,7 +118,7 @@ describe('ManagePinboardsButtons component', function () {
 
     const newPinboardButton = wrapper.find('.new-pinboard-menu-btn');
     newPinboardButton.simulate('click');
-    const newPinboardLink = wrapper.find('.duplicate-current-pinboard-link');
+    const newPinboardLink = wrapper.find('.duplicate-current-pinboard-link').first();
     newPinboardLink.simulate('click');
     duplicatePinboardStub.should.be.calledWith('66ef1560');
     setTimeout(() => {

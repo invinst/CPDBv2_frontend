@@ -215,7 +215,7 @@ describe('ListWidget', () => {
         />,
       );
 
-      const collapse = wrapper.find(Collapse);
+      let collapse = wrapper.find(Collapse);
       const panel = collapse.find(Panel);
       const header = collapse.find('.rc-collapse-header');
 
@@ -226,6 +226,7 @@ describe('ListWidget', () => {
       header.simulate('click');
 
       setTimeout(() => {
+        collapse = wrapper.find(Collapse);
         collapse.find(ListWidgetItem).exists().should.be.true();
         wrapper.find(ListWidgetItem).should.have.length(4);
         done();

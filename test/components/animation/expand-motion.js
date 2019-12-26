@@ -35,7 +35,7 @@ describe('ExpandMotion component', function () {
       const wrapper = render(
         <ExpandMotion show={ false }><p/></ExpandMotion>
       );
-      wrapper.html().should.equal('');
+      should(wrapper.html()).be.null();
     });
 
     it('should render children in full height eventually', function (done) {

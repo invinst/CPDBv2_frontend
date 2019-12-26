@@ -2,7 +2,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
-import { stub, spy } from 'sinon';
+import { stub } from 'sinon';
 import * as ReactRouter from 'react-router';
 import { Router, createMemoryHistory, Route } from 'react-router';
 import { createStore as ReduxCreateStore } from 'redux';
@@ -39,9 +39,8 @@ describe('PinboardPage component', function () {
   };
 
   const createPinboardPage = (pinboard, editModeOn) => ({
-    graphData: { requesting: false, cachedData: {} },
-    geographicData: { requesting: false, data: [] },
-    currentTab: 'NETWORK',
+    graphData: { requesting: false },
+    geographicData: { crsRequesting: false, trrsRequesting: false, mapCrsData: [], mapTrrsData: [] },
     relevantDocuments: defaultPaginationState,
     relevantCoaccusals: defaultPaginationState,
     relevantComplaints: defaultPaginationState,
@@ -406,13 +405,15 @@ describe('PinboardPage component', function () {
         id: '123',
       },
     });
-
-    const previewPaneWithOverlay = wrapper.find(PreviewPaneWithOverlay);
+    wrapper.update();
+    let previewPaneWithOverlay = wrapper.find(PreviewPaneWithOverlay);
     previewPaneWithOverlay.prop('isShown').should.be.true();
 
     const overlay = wrapper.find('.overlay').at(0);
     overlay.simulate('click');
+    wrapper.update();
 
+    previewPaneWithOverlay = wrapper.find(PreviewPaneWithOverlay);
     previewPaneWithOverlay.prop('isShown').should.be.false();
   });
 
@@ -423,13 +424,21 @@ describe('PinboardPage component', function () {
       'officer_ids': [123],
     };
     const pinboardPageData = createPinboardPage(pinboard);
-    set(pinboardPageData, 'officerItems', { requesting: false, items: [{ id: 123 }] });
+    set(
+      pinboardPageData,
+      'officerItems',
+      {
+        requesting: false,
+        items: [
+          { id: 123, 'full_name': 'Officer name', 'appointed_date': '2010-10-21' },
+        ],
+      },
+    );
     const state = {
       pinboardPage: pinboardPageData,
       pathname: 'pinboard/5cd06f2b',
     };
     const store = ReduxCreateStore(RootReducer, state);
-    const handlePinChangedOnPreviewPane = spy(PinboardPage.prototype, 'handlePinChangedOnPreviewPane');
 
     const pinboardPage = () => (
       <Provider store={ store }>
@@ -451,7 +460,12 @@ describe('PinboardPage component', function () {
       },
     });
 
-    const pinButton = wrapper.find('.pin-button');
+    const instance = wrapper.find(PinboardPage).instance();
+    const handlePinChangedOnPreviewPane = stub(instance, 'handlePinChangedOnPreviewPane');
+    instance.forceUpdate();
+    wrapper.update();
+
+    const pinButton = wrapper.find('.pin-button').first();
     pinButton.simulate('click');
 
     handlePinChangedOnPreviewPane.should.be.calledWith({

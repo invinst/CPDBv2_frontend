@@ -38,9 +38,10 @@ describe('Toolbar component', function () {
     const wrapper = mount(
       <Toolbar show={ true } editorState={ editorState }/>
     );
-    let buttons = wrapper.find(ToolbarButton);
-    let linkButton = buttons.at(2);
+    let linkButton = wrapper.find(ToolbarButton).at(2);
     linkButton.prop('onClick')();
+    wrapper.update();
+    linkButton = wrapper.find(ToolbarButton).at(2);
 
     // button become "active" and url input show
     linkButton.prop('active').should.be.true();
@@ -48,6 +49,8 @@ describe('Toolbar component', function () {
     wrapper.find(UrlInput).exists().should.be.true();
 
     linkButton.prop('onClick')();
+    wrapper.update();
+    linkButton = wrapper.find(ToolbarButton).at(2);
 
     // button become "inactive" and url input stop showing
     linkButton.prop('active').should.be.false();
