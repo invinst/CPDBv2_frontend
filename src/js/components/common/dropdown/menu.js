@@ -7,7 +7,7 @@ import styles from './menu.sass';
 
 export default function Menu(props) {
   const { options, onSelect, selectedIndex } = props;
-  const labels = get(props, 'labels', props.options);
+  const labels = get(props, 'labels', options);
   return (
     <div className={ styles.dropdownMenu }>
       {

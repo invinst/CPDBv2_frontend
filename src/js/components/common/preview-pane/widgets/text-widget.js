@@ -5,11 +5,11 @@ import { wrapperStyle, titleStyle, contentStyle } from './text-widget.style';
 
 
 export default function TextWidget(props) {
-  const { content } = props;
+  const { content, title } = props;
   return !!(content) && (
     <div className='test--text-widget' style={ wrapperStyle }>
-      <p style={ titleStyle }>{ props.title }</p>
-      <p style={ contentStyle }>{ props.content }</p>
+      <p style={ titleStyle }>{ title }</p>
+      <p style={ contentStyle }>{ content }</p>
     </div>
   );
 }

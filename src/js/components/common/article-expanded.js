@@ -6,11 +6,13 @@ import { outerWrapperStyle, innerWrapperStyle, borderStyle } from './article-exp
 
 
 function ArticleExpanded(props) {
+  const { className, style, children } = props;
+
   return (
-    <div className={ props.className } style={ [outerWrapperStyle, props.style.outer] }>
+    <div className={ className } style={ [outerWrapperStyle, style.outer] }>
       <div style={ borderStyle }>
-        <div style={ [innerWrapperStyle, props.style.inner] }>
-          { props.children }
+        <div style={ [innerWrapperStyle, style.inner] }>
+          { children }
         </div>
       </div>
     </div>

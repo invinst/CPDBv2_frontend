@@ -15,8 +15,6 @@ function MoreLink(props) {
     return (
       <Link to={ to }
         className='test--more-link'
-        onMouseOver={ this.handleMouseOver }
-        onMouseOut={ this.handleMouseOut }
         style={ linkStyle }>
         <UnderlineText hovering={ hovering } style={ style }>
           { children }
@@ -29,8 +27,6 @@ function MoreLink(props) {
     <a href={ href }
       className='test--more-link'
       target='_blank'
-      onMouseOver={ this.handleMouseOver }
-      onMouseOut={ this.handleMouseOut }
       onClick={ onClick }
       style={ linkStyle }>
       <UnderlineText hovering={ hovering } style={ style }>

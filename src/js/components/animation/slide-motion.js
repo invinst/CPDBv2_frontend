@@ -19,7 +19,7 @@ export default function SlideMotion(props) {
         }
 
         return React.cloneElement(
-          props.children, {
+          children, {
             style: { ...children.props.style, transform: `translateX(${translateX}%)` },
           }
         );
