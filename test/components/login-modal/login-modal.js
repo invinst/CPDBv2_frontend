@@ -12,7 +12,7 @@ import ForgotPasswordModal from 'components/login-modal/forgot-password-modal';
 describe('LoginModal component', function () {
   it('should not show when showLoginModal is false', function () {
     const wrapper = mount(<LoginModal showLoginModal={ false }/>);
-    should(wrapper.html()).be.null();
+    should(wrapper.html()).be.empty();
   });
 
   it('should focus name input when click on name input wrapper', function () {

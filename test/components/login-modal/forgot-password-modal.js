@@ -10,7 +10,7 @@ import ForgotPasswordModal from 'components/login-modal/forgot-password-modal';
 describe('ForgotPasswordModal component', function () {
   it('should not show when show is false', function () {
     const wrapper = mount(<ForgotPasswordModal show={ false }/>);
-    should(wrapper.html()).be.null();
+    should(wrapper.html()).be.empty();
   });
 
   it('should be disabled on receiving show false', function () {

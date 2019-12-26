@@ -267,7 +267,8 @@ describe('NetworkGraph component', function () {
       <NetworkGraph
         requestSocialGraphNetwork={ requestSocialGraphNetworkStub }
         officerIds='123,456,789'
-      />
+      />,
+      { disableLifecycleMethods: false },
     );
 
     requestSocialGraphNetworkStub.resetHistory();

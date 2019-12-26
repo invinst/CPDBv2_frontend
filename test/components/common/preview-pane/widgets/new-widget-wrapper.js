@@ -21,6 +21,7 @@ describe('NewWidgetWrapper component', function () {
     wrapper.find(MediaQuery).prop('maxHeight').should.equal(146);
 
     wrapper.setProps({ callToAction: { text: 'back' } });
+    wrapper.update();
 
     wrapper.find(NewCallToActionWidget).exists().should.be.false();
     wrapper.find(MediaQuery).prop('maxHeight').should.equal(106);
