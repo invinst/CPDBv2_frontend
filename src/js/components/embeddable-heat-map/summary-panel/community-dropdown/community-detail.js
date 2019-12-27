@@ -16,11 +16,15 @@ import OutboundLink from 'components/common/outbound-link';
 export default class CommunityDetail extends Component {
   constructor(props) {
     super(props);
-    this.prevCommunity = {};
+    this.state = {
+      prevCommunity: {},
+    };
   }
 
-  UNSAFE_componentWillReceiveProps() {
-    this.prevCommunity = this.props.community || this.prevCommunity;
+  static getDerivedStateFromProps(props, state) {
+    if (!isEmpty(props.community))
+      return { prevCommunity: props.community };
+    return null;
   }
 
   shouldComponentUpdate(nextProps) {
@@ -33,7 +37,7 @@ export default class CommunityDetail extends Component {
     if (!isEmpty(community)) {
       return community;
     }
-    return this.prevCommunity;
+    return this.state.prevCommunity;
   }
 
   render() {

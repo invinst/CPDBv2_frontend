@@ -25,17 +25,18 @@ export default class LocationMap extends Component {
     addEventListener('scroll', this.handleScroll);
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps, nextState) {
-    const { lat, lng } = this.props;
+  componentDidUpdate(prevProps) {
+    const { lat, lng, markerEl } = this.props;
 
-    if (lat !== nextProps.lat || lng !== nextProps.lng) {
-      this.addMarker(nextProps.lat, nextProps.lng, nextProps.markerEl);
+    if (prevProps.lat !== lat || prevProps.lng !== lng) {
+      this.addMarker(lat, lng, markerEl);
 
       if (this.map.getZoom() === zoom2) {
         this.zoomOut();
       }
     }
   }
+
   componentWillUnmount() {
     removeEventListener('scroll', this.handleScroll);
   }

@@ -220,7 +220,7 @@ describe('Carousel component', function () {
   });
 
   it('should not slide back when if resetPosition is false', function () {
-    const wrapper = renderCarousel(OfficerCardFactory.buildList(10), { resetPosition: false });
+    const wrapper = renderCarousel(OfficerCardFactory.buildList(10), { resetPosition: true });
     wrapper.setState({ slideIndex: 5 });
 
     wrapper.setProps({

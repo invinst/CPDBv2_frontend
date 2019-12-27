@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { RichUtils } from 'draft-js';
+import { isEqual } from 'lodash';
 
 import { linkEntitySelected, getSelectionStartBlockKey, inlineStyleSelected } from 'utils/draft';
 import { getOffsetKey } from 'utils/rich-text';
@@ -14,6 +15,7 @@ class Toolbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      prevEditorState: null,
       linkActive: false,
       urlInputValue: '',
     };
@@ -22,16 +24,18 @@ class Toolbar extends Component {
     this.mouseOver = false;
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.editorState !== this.props.editorState) {
-      const linkEntity = linkEntitySelected(nextProps.editorState);
+  static getDerivedStateFromProps(props, state) {
+    const { editorState } = props;
+    if (editorState && !isEqual(editorState, state.prevEditorState)) {
+      const linkEntity = linkEntitySelected(editorState);
       if (linkEntity) {
         const { url } = linkEntity.getData();
-        this.setState({ urlInputValue: url, linkActive: true });
+        return { urlInputValue: url, linkActive: true, prevEditorState: editorState };
       } else {
-        this.setState({ urlInputValue: '', linkActive: false });
+        return { urlInputValue: '', linkActive: false, prevEditorState: editorState };
       }
     }
+    return { prevEditorState: editorState };
   }
 
   handleLinkButtonClick = () => {

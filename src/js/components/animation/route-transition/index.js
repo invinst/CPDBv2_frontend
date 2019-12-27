@@ -8,63 +8,6 @@ import { scrollToTop } from 'utils/dom';
 import { overlayStyle } from './route-transition.style';
 
 export default class RouteTransition extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      showOverlay: false,
-      contents: [
-        {
-          key: this.getRouteTransitionKey(props.pathname),
-          handler: props.children,
-          opacity: 1,
-        },
-      ],
-    };
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const { pathname, pageLoading, children } = nextProps;
-    const nextKey = this.getRouteTransitionKey(pathname);
-    const prevKey = this.getRouteTransitionKey(this.props.pathname);
-
-    const betweenLandingAndSearchPage = isEmpty(difference(['/', 'search'], [nextKey, prevKey]));
-    if (betweenLandingAndSearchPage)
-      return;
-
-    if (nextKey !== prevKey) {
-      this.setState({
-        showOverlay: true,
-        contents: [
-          this.state.contents[0],
-          {
-            handler: children,
-            key: nextKey,
-            opacity: 0,
-          },
-        ],
-      });
-    } else if (!pageLoading && this.props.pageLoading && this.overlayCompletelyCover) {
-      scrollToTop();
-      this.setState({
-        showOverlay: false,
-        contents: [
-          {
-            handler: this.props.children,
-            key: prevKey,
-            opacity: 1,
-          },
-        ],
-      });
-    }
-    else if (!['/', 'search'].includes(nextKey)) {
-      let { contents } = this.state;
-      const content = find(contents, obj => obj.key === nextKey);
-      content.handler = children;
-      this.setState({ contents });
-    }
-  }
-
   /**
    * Return the same key for some paths so that animation won't trigger
    *
@@ -72,7 +15,7 @@ export default class RouteTransition extends Component {
    *  - Complaint paths such as /complaint/234/456/ and /complaint/234/789/ should give the same key
    *  - Search paths such as /search/ and /search/terms/ should always give the same key
    */
-  getRouteTransitionKey(pathname) {
+  static getRouteTransitionKey(pathname) {
     pathname = pathname.replace(/^\/edit(.*)/, '$1');
     const patterns = [
       /.*(complaint\/\d+).*/,
@@ -87,24 +30,72 @@ export default class RouteTransition extends Component {
     return pathname;
   }
 
-  handleOverlayTransitionEnd = () => {
-    const { pageLoading, children, pathname } = this.props;
-    if (!pageLoading && this.state.showOverlay) {
-      setTimeout(() => {
-        scrollToTop();
-        this.setState({
-          showOverlay: false,
-          contents: [
-            {
-              handler: children,
-              key: this.getRouteTransitionKey(pathname),
-              opacity: 1,
-            },
-          ],
-        });
-      });
+  constructor(props) {
+    super(props);
+    this.state = {
+      showOverlay: false,
+      contents: [
+        {
+          key: RouteTransition.getRouteTransitionKey(props.pathname),
+          handler: props.children,
+          opacity: 1,
+        },
+      ],
+      prevKey: RouteTransition.getRouteTransitionKey(props.pathname),
+      prevPageLoading: props.pageLoading,
+    };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    const { children, pageLoading, pathname } = props;
+    const { prevKey, prevPageLoading, contents } = state;
+    const currentKey = RouteTransition.getRouteTransitionKey(pathname);
+
+    const betweenLandingAndSearchPage = isEmpty(difference(['/', 'search'], [currentKey, prevKey]));
+    if (betweenLandingAndSearchPage)
+      return;
+
+    if (currentKey !== prevKey) {
+      return {
+        showOverlay: true,
+        contents: [
+          contents[0],
+          {
+            handler: children,
+            key: currentKey,
+            opacity: 0,
+          },
+        ],
+        prevKey: currentKey,
+        prevPageLoading: pageLoading,
+      };
     }
-  };
+    else if (!pageLoading && prevPageLoading) {
+      scrollToTop();
+      return {
+        showOverlay: false,
+        contents: [
+          {
+            handler: children,
+            key: currentKey,
+            opacity: 1,
+          },
+        ],
+        prevKey: currentKey,
+        prevPageLoading: pageLoading,
+      };
+    }
+    else if (!['/', 'search'].includes(currentKey)) {
+      const content = find(contents, obj => obj.key === currentKey);
+      content.handler = children;
+      return {
+        contents,
+        prevKey: currentKey,
+        prevPageLoading: pageLoading,
+      };
+    }
+    return { prevPageLoading: pageLoading, prevKey: currentKey };
+  }
 
   render() {
     const { showOverlay, contents } = this.state;
@@ -116,20 +107,11 @@ export default class RouteTransition extends Component {
     return (
       <div>
         <Motion
-          onRest={ this.handleOverlayTransitionEnd }
           defaultStyle={ { opacity: showOverlay ? 1 : 0 } }
           style={ { opacity: spring(showOverlay ? 1 : 0, defaultConfig()) } }>
-          { ({ opacity }) => {
-            this.overlayCompletelyCover = false;
-            /* istanbul ignore next */
-            if (opacity === 0) {
-              return null;
-            } else if (opacity === 1) {
-              this.overlayCompletelyCover = true;
-            }
-
-            return <div style={ { ...overlayStyle, opacity } } />;
-          } }
+          {
+            ({ opacity }) => (opacity === 0) ? null : <div style={ { ...overlayStyle, opacity } } />
+          }
         </Motion>
         {
           contents.map(content => (

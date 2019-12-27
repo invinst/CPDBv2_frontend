@@ -22,6 +22,7 @@ class TagsSection extends Section {
       thirdTag: '//span[@class="react-tagsinput-tag"][3]',
       tagDeleteBtns: '//span[@class="react-tagsinput-tag"]//a[@class="react-tagsinput-remove"]',
       firstTagDeleteBtn: '//span[@class="react-tagsinput-tag"][1]//a[@class="react-tagsinput-remove"]',
+      thirdTagDeleteBtn: '//span[@class="react-tagsinput-tag"][3]//a[@class="react-tagsinput-remove"]',
       tagsInputTextbox: '//*[@class="react-tagsinput-input"]',
       nextUntaggedDocumentButton: '//a[@class="next-untagged-document-button"]',
       errorMessages: '//*[@class="error-messages"]',

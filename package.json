@@ -130,8 +130,9 @@
     "hammerjs": "^2.0.8",
     "ismobilejs": "^0.4.0",
     "js-cookie": "^2.1.3",
-    "lodash": "^4.17.13",
+    "lodash": "^4.17.15",
     "mapbox-gl": "^1.4.0",
+    "memoize-one": "^5.1.1",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.23",
     "mousetrap": "^1.6.1",
@@ -185,7 +186,8 @@
     "webpack/watchpack": "^1.6.0",
     "webpack-cli/findup-sync": "^4.0.0",
     "browser-sync/chokidar": "^3.3.0",
-    "babel-istanbul/js-yaml": "^3.13.1"
+    "babel-istanbul/js-yaml": "^3.13.1",
+    "draft-js/immutable": "3.8.2"
   },
   "nyc": {
     "exclude": [

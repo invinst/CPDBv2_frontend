@@ -16,7 +16,20 @@ import ScrollIntoView from 'components/common/scroll-into-view';
 import style from './search-results.sass';
 
 
-export default class SuggestionResults extends Component {
+export default class SearchResults extends Component {
+  state = {
+    prevFocusedItem: this.props.focusedItem,
+    scrollIntoItemClassName: '',
+  };
+
+  static getDerivedStateFromProps(props, state) {
+    const { focusedItem } = props;
+    const { prevFocusedItem } = state;
+    const scrollIntoItemClassName = !isEmpty(focusedItem) && !isEqual(focusedItem, prevFocusedItem) ?
+      `suggestion-item-${get(focusedItem, 'uniqueKey', '')}` : '';
+    return { prevFocusedItem: focusedItem, scrollIntoItemClassName };
+  }
+
   componentDidMount() {
     const { move } = this.props;
 
@@ -28,13 +41,6 @@ export default class SuggestionResults extends Component {
         move(direction, this.props.totalItemCount);
       }
     )));
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const { focusedItem } = nextProps;
-
-    this.scrollIntoItemClassName = !isEmpty(focusedItem) && !isEqual(focusedItem, this.props.focusedItem) ?
-      `suggestion-item-${get(focusedItem, 'uniqueKey', '')}` : '';
   }
 
   componentWillUnmount() {
@@ -115,7 +121,7 @@ export default class SuggestionResults extends Component {
 
     return (
       <div className='content-wrapper'>
-        <ScrollIntoView focusedItemClassName={ this.scrollIntoItemClassName }>
+        <ScrollIntoView focusedItemClassName={ this.state.scrollIntoItemClassName }>
           { editModeOn ? this.renderActionBar() : null }
           { this.renderGroups() }
         </ScrollIntoView>
@@ -166,7 +172,7 @@ export default class SuggestionResults extends Component {
   }
 }
 
-SuggestionResults.propTypes = {
+SearchResults.propTypes = {
   navigation: PropTypes.object,
   searchText: PropTypes.string,
   suggestionGroups: PropTypes.array,
@@ -193,7 +199,7 @@ SuggestionResults.propTypes = {
   onEmptyPinboardButtonClick: PropTypes.func,
 };
 
-SuggestionResults.defaultProps = {
+SearchResults.defaultProps = {
   previewPaneInfo: {},
   focusedItem: {},
   getSuggestionWithContentType: noop,

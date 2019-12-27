@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
 import { stub, spy } from 'sinon';
@@ -139,7 +139,7 @@ describe('PinboardPane component', function () {
     listWidgets.at(2).prop('collapsable').should.be.true();
   });
 
-  it('should fetchPinboardStaticSocialGraph when mounted', function () {
+  it('should fetchPinboardStaticSocialGraph when mounted with no cache data', function () {
     const store = MockStore()({
       pinboardAdminPage: {
         graphData: {
@@ -164,7 +164,7 @@ describe('PinboardPane component', function () {
     stubFetchPinboardStaticSocialGraph.should.be.calledWith('dbca4321');
   });
 
-  it('should not fetchPinboardStaticSocialGraph if no pinboard id', function () {
+  it('should not fetchPinboardStaticSocialGraph when mounted with cache data', function () {
     const store = MockStore()({
       pinboardAdminPage: {
         graphData: {
@@ -175,7 +175,31 @@ describe('PinboardPane component', function () {
     });
     const stubFetchPinboardStaticSocialGraph = stub();
 
-    shallow(
+    mount(
+      <Provider store={ store }>
+        <PinboardPane
+          cachedDataIDs={ ['abcd1234'] }
+          id='abcd1234'
+          fetchPinboardStaticSocialGraph={ stubFetchPinboardStaticSocialGraph }
+        />
+      </Provider>
+    );
+
+    stubFetchPinboardStaticSocialGraph.should.not.be.called();
+  });
+
+  it('should not fetchPinboardStaticSocialGraph when mounted if no pinboard id', function () {
+    const store = MockStore()({
+      pinboardAdminPage: {
+        graphData: {
+          cachedData: {},
+          requesting: false,
+        },
+      },
+    });
+    const stubFetchPinboardStaticSocialGraph = stub();
+
+    mount(
       <Provider store={ store }>
         <PinboardPane
           cachedDataIDs={ ['abcd1234'] }
@@ -215,13 +239,11 @@ describe('PinboardPane component', function () {
 
     wrapper.setProps({
       children: (
-        <Provider store={ store }>
-          <PinboardPane
-            cachedDataIDs={ ['abcd1234'] }
-            id={ undefined }
-            fetchPinboardStaticSocialGraph={ stubFetchPinboardStaticSocialGraph }
-          />
-        </Provider>
+        <PinboardPane
+          cachedDataIDs={ ['abcd1234'] }
+          id={ undefined }
+          fetchPinboardStaticSocialGraph={ stubFetchPinboardStaticSocialGraph }
+        />
       ),
     });
 
@@ -237,6 +259,7 @@ describe('PinboardPane component', function () {
         },
       },
     });
+
     const stubFetchPinboardStaticSocialGraph = stub();
 
     const wrapper = mount(
@@ -253,13 +276,11 @@ describe('PinboardPane component', function () {
 
     wrapper.setProps({
       children: (
-        <Provider store={ store }>
-          <PinboardPane
-            cachedDataIDs={ ['abcd1234'] }
-            id='dbca4321'
-            fetchPinboardStaticSocialGraph={ stubFetchPinboardStaticSocialGraph }
-          />
-        </Provider>
+        <PinboardPane
+          cachedDataIDs={ ['abcd1234'] }
+          id='dbca4321'
+          fetchPinboardStaticSocialGraph={ stubFetchPinboardStaticSocialGraph }
+        />
       ),
     });
 

@@ -14,21 +14,26 @@ export default class Carousel extends Component {
       slideIndex: 0,
       displayRightArrow: true,
       displayLeftArrow: false,
+      prevChildren: props.children,
     };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    const { children, resetPosition } = props;
+    const { prevChildren } = state;
+    if (
+      prevChildren.length > children.length ||
+      !isEqual(prevChildren, children.slice(0, prevChildren.length))
+    ) {
+      if (resetPosition) {
+        return { slideIndex: 0, prevChildren: children };
+      }
+    }
+    return { prevChildren: children };
   }
 
   componentDidMount() {
     this.updateSlidesPerGroup();
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const { children, resetPosition } = this.props;
-    if (
-      children.length > nextProps.children.length ||
-      !isEqual(children, nextProps.children.slice(0, children.length))
-    ) {
-      resetPosition && this.slideTo(0);
-    }
   }
 
   componentDidUpdate() {

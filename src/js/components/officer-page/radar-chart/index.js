@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { map, isEqual, filter } from 'lodash';
 import { scaleLinear } from 'd3-scale';
+import memoize from 'memoize-one';
 
 import Popup from 'components/common/popup';
 import StaticRadarChart from 'components/common/radar-chart';
@@ -22,9 +23,7 @@ export default class AnimatedRadarChart extends Component {
     this.velocity = 0.1;
     this.timer = null;
 
-    this.animatedData = this.getAnimatedData(props.data);
-
-    const transitionValue = context.printMode ? Math.max(this.animatedData.length - 1, 0) : 0;
+    const transitionValue = context.printMode ? Math.max(this.animatedData().length - 1, 0) : 0;
     this.state = {
       transitionValue: transitionValue,
       showExplainer: false,
@@ -33,12 +32,6 @@ export default class AnimatedRadarChart extends Component {
 
   componentDidMount() {
     this.startTimer();
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (!isEqual(this.props.data, nextProps.data)) {
-      this.animatedData = this.getAnimatedData(nextProps.data);
-    }
   }
 
   componentDidUpdate(prevProps) {
@@ -56,8 +49,11 @@ export default class AnimatedRadarChart extends Component {
     this.stopTimer();
   }
 
-  getAnimatedData(data) {
-    return filter(data, item => hasEnoughRadarChartData(item.items));
+  memoizeAnimatedData = memoize((data) => filter(data, item => hasEnoughRadarChartData(item.items)));
+
+  animatedData() {
+    const { data } = this.props;
+    return this.memoizeAnimatedData(data);
   }
 
   openExplainer = () => {
@@ -76,7 +72,7 @@ export default class AnimatedRadarChart extends Component {
   };
 
   animate = () => {
-    const maxValue = this.animatedData.length - 1;
+    const maxValue = this.animatedData().length - 1;
     this.setState({
       transitionValue: Math.min(this.state.transitionValue + this.velocity, maxValue),
     });
@@ -86,7 +82,7 @@ export default class AnimatedRadarChart extends Component {
   };
 
   startTimer() {
-    if (this.animatedData.length > 1 && !this.timer) {
+    if (this.animatedData().length > 1 && !this.timer) {
       this.timer = setInterval(() => this.animate(), this.interval);
     }
   }
@@ -98,23 +94,24 @@ export default class AnimatedRadarChart extends Component {
 
   getCurrentTransitionData = () => {
     const { transitionValue } = this.state;
+    const animatedData = this.animatedData();
 
-    if (this.animatedData.length < 2)
-      return this.animatedData[0];
+    if (animatedData.length < 2)
+      return animatedData[0];
 
-    const index = Math.min(Math.floor(transitionValue) + 1, this.animatedData.length - 1);
+    const index = Math.min(Math.floor(transitionValue) + 1, animatedData.length - 1);
 
-    const previousData = this.animatedData[index - 1].items;
+    const previousData = animatedData[index - 1].items;
 
     const color = scaleLinear()
       .domain([0, 1])
-      .range([this.animatedData[index - 1].visualTokenBackground, this.animatedData[index].visualTokenBackground]);
+      .range([animatedData[index - 1].visualTokenBackground, animatedData[index].visualTokenBackground]);
 
     const backgroundColor = color(transitionValue - (index - 1));
 
     return {
-      ...this.animatedData[index],
-      items: map(this.animatedData[index].items, (d, i) => ({
+      ...animatedData[index],
+      items: map(animatedData[index].items, (d, i) => ({
         ...d,
         value: (d.value - previousData[i].value) * (transitionValue - (index - 1)) + previousData[i].value,
       })),
@@ -135,7 +132,7 @@ export default class AnimatedRadarChart extends Component {
     if (this.timer) {
       this.stopTimer();
     }
-    const maxValue = this.animatedData.length - 1;
+    const maxValue = this.animatedData().length - 1;
     this.setState({ transitionValue: maxValue });
     this.startTimer();
   }
@@ -165,7 +162,7 @@ export default class AnimatedRadarChart extends Component {
             <StaticRadarChart
               textColor={ itemData.textColor }
               backgroundColor={ itemData.visualTokenBackground }
-              fadeOutLegend={ transitionValue >= (this.animatedData.length - 1) }
+              fadeOutLegend={ transitionValue >= (this.animatedData().length - 1) }
               legendText={ itemData.year }
               data={ itemData.items }
               showSpineLinePoint={ true }

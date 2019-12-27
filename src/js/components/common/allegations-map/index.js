@@ -53,20 +53,21 @@ export default class AllegationsMap extends Component {
     this.addMapLayersOnStyleLoaded(this.props.markerGroups);
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps, nextState) {
-    if (nextProps.clearAllMarkers) {
-      this.resetMap();
-      this.addMapLayersOnStyleLoaded(nextProps.markerGroups);
-    } else {
-      if (!isEqual(nextProps.markerGroups, this.props.markerGroups)) {
-        this.addMapLayersOnStyleLoaded(nextProps.markerGroups);
-      }
-    }
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
     const { legend, markerGroups } = this.props;
     return !isEqual(legend, nextProps.legend) || !isEqual(markerGroups, nextProps.markerGroups);
+  }
+
+  componentDidUpdate(prevProps) {
+    const { clearAllMarkers, markerGroups } = this.props;
+    if (clearAllMarkers) {
+      this.resetMap();
+      this.addMapLayersOnStyleLoaded(markerGroups);
+    } else {
+      if (!isEqual(prevProps.markerGroups, markerGroups)) {
+        this.addMapLayersOnStyleLoaded(markerGroups);
+      }
+    }
   }
 
   gotRef(el) {

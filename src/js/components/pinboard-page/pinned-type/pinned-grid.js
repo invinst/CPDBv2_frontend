@@ -27,12 +27,9 @@ export default class PinnedGrid extends Component {
     this.initGrid();
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    this.bottomOffset = this.rendered ? getPageYBottomOffset() : null;
-    this.rendered = true;
-  }
-
   componentDidUpdate(prevProps) {
+    const bottomOffset = this.rendered ? getPageYBottomOffset() : null;
+    this.rendered = true;
     const { items } = this.props;
     items.forEach(item => {
       if (!find(prevProps.items, { id: item.id })) {
@@ -40,7 +37,7 @@ export default class PinnedGrid extends Component {
       }
     });
 
-    this.bottomOffset && scrollByBottomOffset(this.bottomOffset);
+    bottomOffset && scrollByBottomOffset(bottomOffset);
   }
 
   componentWillUnmount() {

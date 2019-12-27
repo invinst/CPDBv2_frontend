@@ -20,31 +20,38 @@ export default class DownloadMenuItem extends React.Component {
     super(props);
     this.state = {
       requested: false,
+      preZipFileUrl: props.zipFileUrl,
     };
     this.clickHandler = throttle(this.clickHandler, 1000, { 'trailing': false });
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
+  static getDerivedStateFromProps(props, state) {
+    const { zipFileUrl } = props;
+    if (zipFileUrl && !state.preZipFileUrl)
+      return { requested: false, preZipFileUrl: zipFileUrl };
+    return null;
+  }
+
+  componentDidUpdate(prevProps) {
     const { zipFileUrl } = this.props;
-    if (nextProps.zipFileUrl && !zipFileUrl && this.state.requested)
-      this.triggerDownload(nextProps.zipFileUrl);
+    if (zipFileUrl && !prevProps.zipFileUrl)
+      this.triggerDownload(zipFileUrl);
   }
 
   triggerDownload(zipFileUrl) {
     const { officerId, kind } = this.props;
     GATracking.trackOfficerDownload(officerId, OFFICER_DOWNLOAD_TRACKING_ACTIONS.DOWNLOAD, kind);
     download(zipFileUrl);
-    this.setState({ requested: false });
   }
 
   clickHandler = () => {
     const { fetchOfficerZipFileUrl, officerId, zipFileUrl, kind } = this.props;
-    this.setState({ requested: true });
     if (zipFileUrl)
       this.triggerDownload(zipFileUrl);
     else {
       GATracking.trackOfficerDownload(officerId, OFFICER_DOWNLOAD_TRACKING_ACTIONS.REQUEST_DOWNLOAD_URLS, kind);
       fetchOfficerZipFileUrl(officerId);
+      this.setState({ requested: true });
     }
   };
 

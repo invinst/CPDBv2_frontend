@@ -82,15 +82,37 @@ describe('EditableSection component', function () {
   });
 
   it('should deserialize fields it just receive', function () {
+    const spyDeserializeField = spy(WrappedComponent, 'deserializeField');
     const wrapper = shallow(
       <WrappedComponent/>
     );
+    const newField = RichTextFieldFactory.build({}, { blockTexts: ['b'] });
+
     wrapper.setProps({
       fields: {
-        a: RichTextFieldFactory.build({}, { blockTexts: ['b'] }),
+        a: newField,
       },
     });
+    spyDeserializeField.should.be.called();
     wrapper.state('fields').a.value.getCurrentContent().getFirstBlock().getText().should.equal('b');
+    spyDeserializeField.resetHistory();
+
+    wrapper.setProps({
+      fields: {
+        a: newField,
+      },
+    });
+    spyDeserializeField.should.not.be.called();
+    wrapper.state('fields').a.value.getCurrentContent().getFirstBlock().getText().should.equal('b');
+
+    wrapper.setProps({
+      fields: {
+        a: RichTextFieldFactory.build({}, { blockTexts: ['c'] }),
+      },
+    });
+    spyDeserializeField.should.be.called();
+    wrapper.state('fields').a.value.getCurrentContent().getFirstBlock().getText().should.equal('c');
+    spyDeserializeField.restore();
   });
 
   it('should not deserialze falsy field', function () {
@@ -103,5 +125,58 @@ describe('EditableSection component', function () {
       },
     });
     should.not.exist(wrapper.state('fields').a);
+  });
+
+  it('should update fields on sectionEditModeOn change', function () {
+    const spyDeserializeField = spy(WrappedComponent, 'deserializeField');
+    const wrapper = shallow(
+      <WrappedComponent
+        fields={ {
+          'navbar_title': RichTextFieldFactory.build({}, { blockTexts: ['navbar title'] }),
+        } }
+        sectionEditModeOn={ true }
+      />
+    );
+
+    let navbarText = wrapper.state('fields')['navbar_title'].value.getCurrentContent().getFirstBlock().getText();
+
+    navbarText.should.equal('navbar title');
+
+    wrapper.setState({
+      fields: {
+        'navbar_title': WrappedComponent.deserializeField(
+          RichTextFieldFactory.build({}, { blockTexts: ['new navbar title'] })),
+      },
+    });
+
+    navbarText = wrapper.state('fields')['navbar_title'].value.getCurrentContent().getFirstBlock().getText();
+    navbarText.should.equal('new navbar title');
+    spyDeserializeField.resetHistory();
+
+    wrapper.setProps({
+      sectionEditModeOn: false,
+    });
+    spyDeserializeField.should.be.called();
+    navbarText = wrapper.state('fields')['navbar_title'].value.getCurrentContent().getFirstBlock().getText();
+    navbarText.should.equal('navbar title');
+
+    wrapper.setState({
+      fields: {
+        'navbar_title': WrappedComponent.deserializeField(
+          RichTextFieldFactory.build({}, { blockTexts: ['new navbar title'] })),
+      },
+    });
+
+    navbarText = wrapper.state('fields')['navbar_title'].value.getCurrentContent().getFirstBlock().getText();
+    navbarText.should.equal('new navbar title');
+    spyDeserializeField.resetHistory();
+
+    wrapper.setProps({
+      sectionEditModeOn: false,
+    });
+
+    spyDeserializeField.should.not.be.called();
+    navbarText = wrapper.state('fields')['navbar_title'].value.getCurrentContent().getFirstBlock().getText();
+    navbarText.should.equal('new navbar title');
   });
 });

@@ -11,7 +11,16 @@ export default class TextInput extends Component {
     this.state = {
       showPlaceholder: true,
       value: props.value,
+      prevValue: props.value,
     };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    const { value } = props;
+    if (value !== state.prevValue) {
+      return { value, prevValue: value };
+    }
+    return null;
   }
 
   componentDidMount() {
@@ -50,12 +59,6 @@ export default class TextInput extends Component {
         () => this.input.blur()
       )));
     }
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const { value } = nextProps;
-
-    this.setState({ value });
   }
 
   componentDidUpdate(prevProps) {

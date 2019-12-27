@@ -57,6 +57,17 @@ export default class NetworkGraph extends Component {
       thresholdValue: DEFAULT_THRESHOLD_VALUE,
       sortedOfficerIds: [],
       sidebarsStatus: DEFAULT_SIDEBARS_STATUS,
+      previousSidebarsStatus: DEFAULT_SIDEBARS_STATUS,
+      performResizeGraph: false,
+    };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    const { sidebarsStatus, previousSidebarsStatus } = state;
+
+    return {
+      performResizeGraph: (sidebarsStatus !== previousSidebarsStatus),
+      previousSidebarsStatus: sidebarsStatus,
     };
   }
 
@@ -64,12 +75,6 @@ export default class NetworkGraph extends Component {
     showIntercomLauncher(false);
     this.fetchGraphData();
     window.addEventListener('mousedown', this.handleClickOutside);
-  }
-
-  UNSAFE_componentWillUpdate(_, nextState) {
-    const { sidebarsStatus } = this.state;
-
-    this.performResizeGraph = sidebarsStatus !== nextState.sidebarsStatus;
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -271,12 +276,13 @@ export default class NetworkGraph extends Component {
   }
 
   render() {
+    const { performResizeGraph } = this.state;
     return (
       <div className={ cx(styles.networkGraph, this.sidebarsSettings().classname) }>
         { this.renderLeftSidebar() }
         <div className='graph-container'>
           <AnimatedSocialGraphContainer
-            performResizeGraph={ this.performResizeGraph }
+            performResizeGraph={ performResizeGraph }
             customRightControlButton={ this.toggleSidebarsButton() }
             updateSortedOfficerIds={ this.updateSortedOfficerIds }
           />

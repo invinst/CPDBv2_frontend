@@ -14,15 +14,15 @@ class ForgotPasswordModal extends Component {
     super(props);
     this.state = {
       disabled: true,
+      prevShow: props.show,
     };
   }
 
-  UNSAFE_componentWillReceiveProps(newProps) {
-    if (!newProps.show && this.props.show) {
-      this.setState({
-        disabled: true,
-      });
-    }
+  static getDerivedStateFromProps(props, state) {
+    const { show } = props;
+    if (!show && state.prevShow)
+      return { disabled: true, prevShow: show };
+    return { prevShow: show };
   }
 
   focusEmailInput = () => {

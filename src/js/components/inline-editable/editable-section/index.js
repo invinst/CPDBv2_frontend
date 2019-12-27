@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { map, values, mapValues } from 'lodash';
+import { map, values, mapValues, isEqual } from 'lodash';
 import { convertToRaw } from 'draft-js';
 
 import { wrapperStyle } from './editable-section.style';
@@ -10,26 +10,7 @@ import { officersToSnakeCase, officersToCamelCase } from 'utils/case-converting-
 
 export default function (SubComponent) {
   class EditableSection extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        fields: mapValues(props.fields, this.deserializeField),
-      };
-    }
-
-    getChildContext() {
-      return {
-        sectionEditModeOn: this.props.sectionEditModeOn,
-      };
-    }
-
-    UNSAFE_componentWillReceiveProps(nextProps) {
-      this.setState({
-        fields: mapValues(nextProps.fields, this.deserializeField),
-      });
-    }
-
-    deserializeField(field) {
+    static deserializeField(field) {
       if (!field) {
         return field;
       }
@@ -49,6 +30,30 @@ export default function (SubComponent) {
       return field;
     }
 
+    constructor(props) {
+      super(props);
+      this.state = {
+        fields: mapValues(props.fields, EditableSection.deserializeField),
+        prevFields: props.fields,
+        prevSectionEditModeOn: props.sectionEditModeOn,
+      };
+    }
+
+    getChildContext() {
+      return {
+        sectionEditModeOn: this.props.sectionEditModeOn,
+      };
+    }
+
+    static getDerivedStateFromProps(props, state) {
+      if (!isEqual(props.fields, state.prevFields) || props.sectionEditModeOn !== state.prevSectionEditModeOn)
+        return {
+          fields: mapValues(props.fields, EditableSection.deserializeField),
+          prevFields: props.fields,
+          prevSectionEditModeOn: props.sectionEditModeOn,
+        };
+      return null;
+    }
     serializeField(field) {
       switch (field.type) {
         case 'rich_text':

@@ -23,15 +23,6 @@ export default class RichTextEditor extends Component {
     };
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.readOnly) {
-      this.toolbarFocused = false;
-      this.setState({
-        showToolbar: false,
-      });
-    }
-  }
-
   handleToolbarBlur = () => {
     this.toolbarFocused = false;
     this.handleChange(this.props.editorState);
@@ -114,7 +105,7 @@ export default class RichTextEditor extends Component {
           editorState={ editorState }
           placeholder={ placeholder }/>
         {
-          !disableToolbar && (
+          !disableToolbar && !readOnly && (
             <Toolbar
               show={ showToolbar }
               parentLeft={ editorLeft }

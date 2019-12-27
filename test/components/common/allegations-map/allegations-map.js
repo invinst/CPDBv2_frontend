@@ -120,10 +120,25 @@ describe('Map component', function () {
     });
   });
 
-  describe('componentWillReceiveProps', function () {
+  describe('componentDidUpdate', function () {
     it('should call resetMap and addMapLayersOnStyleLoaded if next props clearAllMarkers is true', function () {
       const resetMapSpy = spy(AllegationsMap.prototype, 'resetMap');
       const addMapLayersOnStyleLoadedSpy = spy(AllegationsMap.prototype, 'addMapLayersOnStyleLoaded');
+
+      const newMarkers = {
+        crs: [],
+        trrs: [
+          {
+            point: {
+              lat: 42.212567,
+              lon: -87.280291,
+            },
+            kind: 'FORCE',
+            id: '1234',
+            category: 'Use of Force Report',
+          },
+        ],
+      };
 
       const wrapper = mount(
         <AllegationsMap
@@ -134,7 +149,7 @@ describe('Map component', function () {
 
       wrapper.setProps({
         legend: legend,
-        markerGroups: markerGroups,
+        markerGroups: newMarkers,
         clearAllMarkers: true,
       });
 

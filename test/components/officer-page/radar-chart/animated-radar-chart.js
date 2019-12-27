@@ -218,8 +218,8 @@ describe('AnimatedRadarChart components', function () {
       const instance = wrapper.instance();
 
       wrapper.state('transitionValue').should.equal(0);
-      instance.animatedData.should.have.length(2);
-      instance.animatedData[0].year.should.equal(2014);
+      instance.animatedData().should.have.length(2);
+      instance.animatedData()[0].year.should.equal(2014);
 
       clock.tick(25);
       wrapper.update();

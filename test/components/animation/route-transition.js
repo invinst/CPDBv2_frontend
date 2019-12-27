@@ -13,19 +13,18 @@ describe('RouteTransition component', function () {
           complaint for some officer
         </RouteTransition>
       );
-      const instance = wrapper.instance();
-      instance.getRouteTransitionKey('/complaint/1/2/').should.equal('complaint/1');
+      RouteTransition.getRouteTransitionKey('/complaint/1/2/').should.equal('complaint/1');
 
       wrapper.setProps({
         pathname: '/complaint/1/3/',
       });
 
-      instance.getRouteTransitionKey('/complaint/1/3/').should.equal('complaint/1');
+      RouteTransition.getRouteTransitionKey('/complaint/1/3/').should.equal('complaint/1');
 
       wrapper.setProps({
         pathname: '/complaint/1/',
       });
-      instance.getRouteTransitionKey('/complaint/1/').should.equal('complaint/1');
+      RouteTransition.getRouteTransitionKey('/complaint/1/').should.equal('complaint/1');
     });
 
     it('should give the same key for search paths', function () {
@@ -34,13 +33,12 @@ describe('RouteTransition component', function () {
           complaint for some officer
         </RouteTransition>
       );
-      const instance = wrapper.instance();
-      instance.getRouteTransitionKey('/search/').should.equal('search');
+      RouteTransition.getRouteTransitionKey('/search/').should.equal('search');
 
       wrapper.setProps({
         pathname: '/search/terms/',
       });
-      instance.getRouteTransitionKey('/search/terms/').should.equal('search');
+      RouteTransition.getRouteTransitionKey('/search/terms/').should.equal('search');
     });
   });
 
@@ -210,21 +208,23 @@ describe('RouteTransition component', function () {
     wrapper.find('.test--search-content').text().should.equal('SearchPage');
   });
 
-  it('should hide overlay once animation is done if there is no page loading', function (done) {
+  it('should render new children when pathname not changed and children added', function () {
     const wrapper = shallow(
-      <RouteTransition pathname='/p' pageLoading={ false }><p>abc</p></RouteTransition>
+      <RouteTransition pathname='/path1' pageLoading={ true }>
+        <p className='test--span-1'>P</p>
+      </RouteTransition>,
     );
-
     wrapper.setProps({
-      pathname: '/span',
-      pageLoading: false,
-      children: <span>abc</span>,
+      pathname: '/path2',
+      pageLoading: true,
+      children: <p className='test--span-2'>Span 2</p>,
     });
-    wrapper.state('showOverlay').should.be.true();
-    wrapper.instance().handleOverlayTransitionEnd();
-    setTimeout(() => {
-      wrapper.state('showOverlay').should.be.false();
-      done();
-    }, 50);
+    wrapper.setProps({
+      pathname: '/path2',
+      pageLoading: true,
+      children: <p className='test--span-3'>Span 3</p>,
+    });
+    wrapper.find('.test--span-1').exists().should.be.true();
+    wrapper.find('.test--span-3').exists().should.be.true();
   });
 });

@@ -13,7 +13,7 @@ import * as navigation from 'utils/navigation';
 describe('PinnedGrid component', function () {
   it('should render CR cards', function () {
     const items = [{
-      crid: '1000001',
+      id: '1000001',
       type: 'CR',
       isPinned: true,
       incidentDate: '2010-01-01',
@@ -21,7 +21,7 @@ describe('PinnedGrid component', function () {
       point: { 'lon': 1.0, 'lat': 1.0 },
       isPinStatusChanging: false,
     }, {
-      crid: '1000002',
+      id: '1000002',
       type: 'CR',
       isPinned: true,
       incidentDate: '2010-01-01',

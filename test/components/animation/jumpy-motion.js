@@ -11,7 +11,10 @@ describe('JumpyMotion component', function () {
   });
 
   it('should set state startMotion to true if become active and change back quickly', function (done) {
-    const wrapper = shallow(<JumpyMotion>abc</JumpyMotion>);
+    const wrapper = shallow(
+      <JumpyMotion>abc</JumpyMotion>,
+      { disableLifecycleMethods: false }
+    );
     wrapper.state('startMotion').should.be.false();
 
     wrapper.setProps({

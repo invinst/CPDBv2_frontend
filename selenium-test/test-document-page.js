@@ -124,6 +124,7 @@ describe('Document page', function () {
         'Ensure this field has no more than 20 characters.'
       );
 
+      documentPage.tagsSection.thirdTagDeleteBtn.click();
       documentPage.tagsSection.firstTagDeleteBtn.click();
       documentPage.tagsSection.tagsInputTextbox.setValue('chicago');
       browser.keys('Enter');

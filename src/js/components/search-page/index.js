@@ -47,24 +47,18 @@ export default class SearchPage extends Component {
     showIntercomLauncher(false);
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const {
-      query,
-    } = nextProps;
+  componentDidUpdate(prevProps) {
+    const { query, hide } = this.props;
 
-    const queryChanged = query !== this.props.query;
-
-    if (queryChanged) {
+    if (query !== prevProps.query) {
       this.sendSearchQuery(query);
     }
-  }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (!prevProps.hide && this.props.hide) {
+    if (!prevProps.hide && hide) {
       LayeredKeyBinding.unbind('esc');
       LayeredKeyBinding.unbind('enter');
     }
-    if (prevProps.hide && !this.props.hide) {
+    if (prevProps.hide && !hide) {
       LayeredKeyBinding.bind('esc', this.handleGoBack);
       LayeredKeyBinding.bind('enter', this.handleViewItem);
     }

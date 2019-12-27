@@ -123,4 +123,100 @@ describe('EditWrapperStateProvider component', function () {
     wrapper.state('fields')['navbar_title'].value.should.equal('changed value');
   });
 
+  it('should deserialize fields it just receive', function () {
+    const spyDeserializeField = spy(EditWrapperStateProvider, 'deserializeField');
+    const wrapper = shallow(
+      <EditWrapperStateProvider
+        fields={ {
+          'navbar_title': RichTextFieldFactory.build({}, { blockTexts: ['navbar title'] }),
+        } }
+      />
+    );
+
+    let navbarText = wrapper.state('fields')['navbar_title'].value.getCurrentContent().getFirstBlock().getText();
+    navbarText.should.equal('navbar title');
+    const newField = RichTextFieldFactory.build({}, { blockTexts: ['new navbar title'] });
+
+    wrapper.setProps({
+      fields: {
+        'navbar_title': newField,
+      },
+    });
+    spyDeserializeField.should.be.called();
+    navbarText = wrapper.state('fields')['navbar_title'].value.getCurrentContent().getFirstBlock().getText();
+    navbarText.should.equal('new navbar title');
+    spyDeserializeField.resetHistory();
+
+    wrapper.setProps({
+      fields: {
+        'navbar_title': newField,
+      },
+    });
+    spyDeserializeField.should.not.be.called();
+    navbarText = wrapper.state('fields')['navbar_title'].value.getCurrentContent().getFirstBlock().getText();
+    navbarText.should.equal('new navbar title');
+
+    wrapper.setProps({
+      fields: {
+        'navbar_title': RichTextFieldFactory.build({}, { blockTexts: ['navbar title!!!'] }),
+      },
+    });
+    spyDeserializeField.should.be.called();
+    navbarText = wrapper.state('fields')['navbar_title'].value.getCurrentContent().getFirstBlock().getText();
+    navbarText.should.equal('navbar title!!!');
+    spyDeserializeField.restore();
+  });
+
+  it('should update fields on sectionEditModeOn change', function () {
+    const spyDeserializeField = spy(EditWrapperStateProvider, 'deserializeField');
+    const wrapper = shallow(
+      <EditWrapperStateProvider
+        fields={ {
+          'navbar_title': RichTextFieldFactory.build({}, { blockTexts: ['navbar title'] }),
+        } }
+        sectionEditModeOn={ true }
+      />
+    );
+
+    let navbarText = wrapper.state('fields')['navbar_title'].value.getCurrentContent().getFirstBlock().getText();
+
+    navbarText.should.equal('navbar title');
+
+    wrapper.setState({
+      fields: {
+        'navbar_title': EditWrapperStateProvider.deserializeField(
+          RichTextFieldFactory.build({}, { blockTexts: ['new navbar title'] })),
+      },
+    });
+
+    navbarText = wrapper.state('fields')['navbar_title'].value.getCurrentContent().getFirstBlock().getText();
+    navbarText.should.equal('new navbar title');
+    spyDeserializeField.resetHistory();
+
+    wrapper.setProps({
+      sectionEditModeOn: false,
+    });
+    spyDeserializeField.should.be.called();
+    navbarText = wrapper.state('fields')['navbar_title'].value.getCurrentContent().getFirstBlock().getText();
+    navbarText.should.equal('navbar title');
+
+    wrapper.setState({
+      fields: {
+        'navbar_title': EditWrapperStateProvider.deserializeField(
+          RichTextFieldFactory.build({}, { blockTexts: ['new navbar title'] })),
+      },
+    });
+
+    navbarText = wrapper.state('fields')['navbar_title'].value.getCurrentContent().getFirstBlock().getText();
+    navbarText.should.equal('new navbar title');
+    spyDeserializeField.resetHistory();
+
+    wrapper.setProps({
+      sectionEditModeOn: false,
+    });
+
+    spyDeserializeField.should.not.be.called();
+    navbarText = wrapper.state('fields')['navbar_title'].value.getCurrentContent().getFirstBlock().getText();
+    navbarText.should.equal('new navbar title');
+  });
 });

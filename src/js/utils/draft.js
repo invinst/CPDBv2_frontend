@@ -1,4 +1,4 @@
-import { convertFromRaw, EditorState, genKey, Entity, RichUtils, convertToRaw } from 'draft-js';
+import { convertFromRaw, EditorState, genKey, RichUtils, convertToRaw } from 'draft-js';
 import { isEmpty, map, find, compact } from 'lodash';
 import moment from 'moment';
 
@@ -83,9 +83,10 @@ export const linkEntitySelected = (editorState) => {
   const contentBlock = editorState.getCurrentContent().getBlockForKey(blockKey);
 
   const entityKey = contentBlock.getEntityAt(selectionState.getAnchorOffset());
+  const contentState = editorState.getCurrentContent();
 
   if (entityKey != null) {
-    const entity = Entity.get(entityKey);
+    const entity = contentState.getEntity(entityKey);
 
     if (entity.getType() === ENTITY_LINK)
       return entity;
@@ -99,8 +100,9 @@ export const inlineStyleSelected = (editorState, type) => {
 };
 
 export const createLinkEntity = (editorState, data) => {
-  const entityKey = Entity.create(ENTITY_LINK, 'MUTABLE', data);
-  return RichUtils.toggleLink(editorState, editorState.getSelection(), entityKey);
+  const contentState = editorState.getCurrentContent();
+  contentState.createEntity(ENTITY_LINK, 'MUTABLE', data);
+  return RichUtils.toggleLink(editorState, editorState.getSelection(), contentState.getLastCreatedEntityKey());
 };
 
 export const removeLinkEntity = (editorState) =>

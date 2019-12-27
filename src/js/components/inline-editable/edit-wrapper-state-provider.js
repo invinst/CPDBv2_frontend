@@ -1,15 +1,32 @@
 import PropTypes from 'prop-types';
 import { Component } from 'react';
-import { mapValues, map, values } from 'lodash';
+import { mapValues, map, values, isEqual } from 'lodash';
 
 import { convertContentStateToEditorState, convertEditorStateToRaw } from 'utils/draft';
 
 
 export default class EditWrapperStateProvider extends Component {
+  static deserializeField(field) {
+    if (!field) {
+      return field;
+    }
+
+    switch (field.type) {
+      case 'rich_text':
+        return {
+          ...field,
+          value: convertContentStateToEditorState(field.value),
+        };
+    }
+    return field;
+  }
+
   constructor(props) {
     super(props);
     this.state = {
-      fields: mapValues(props.fields, this.deserializeField),
+      fields: mapValues(props.fields, EditWrapperStateProvider.deserializeField),
+      prevFields: props.fields,
+      prevSectionEditModeOn: props.sectionEditModeOn,
     };
   }
 
@@ -24,25 +41,14 @@ export default class EditWrapperStateProvider extends Component {
     };
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    this.setState({
-      fields: mapValues(nextProps.fields, this.deserializeField),
-    });
-  }
-
-  deserializeField(field) {
-    if (!field) {
-      return field;
-    }
-
-    switch (field.type) {
-      case 'rich_text':
-        return {
-          ...field,
-          value: convertContentStateToEditorState(field.value),
-        };
-    }
-    return field;
+  static getDerivedStateFromProps(props, state) {
+    if (!isEqual(props.fields, state.prevFields) || props.sectionEditModeOn !== state.prevSectionEditModeOn)
+      return {
+        fields: mapValues(props.fields, EditWrapperStateProvider.deserializeField),
+        prevFields: props.fields,
+        prevSectionEditModeOn: props.sectionEditModeOn,
+      };
+    return null;
   }
 
   serializeField(field) {

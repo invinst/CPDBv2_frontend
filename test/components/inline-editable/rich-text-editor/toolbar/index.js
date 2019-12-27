@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import should from 'should';
-import draftJs, { Entity } from 'draft-js';
+import draftJs from 'draft-js';
 import { spy } from 'sinon';
 
 import { ENTITY_LINK } from 'utils/constants';
@@ -122,8 +122,10 @@ describe('Toolbar component', function () {
     selectionState = selectionState.set('anchorOffset', 1).set('focusOffset', 2);
     let editorState = draftJs.EditorState.createWithContent(contentState);
     editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
-    const entityKey = draftJs.Entity.create(ENTITY_LINK, 'MUTABLE', { url: 'http://example.com' });
-    editorState = draftJs.RichUtils.toggleLink(editorState, editorState.getSelection(), entityKey);
+    contentState.createEntity(ENTITY_LINK, 'MUTABLE', { url: 'http://example.com' });
+    editorState = draftJs.RichUtils.toggleLink(
+      editorState, editorState.getSelection(), contentState.getLastCreatedEntityKey()
+    );
 
     const onChange = spy();
     const wrapper = shallow(
@@ -249,7 +251,7 @@ describe('Toolbar component', function () {
     editorState = onChange.args[0][0];
 
     const entity = editorState.getCurrentContent().getFirstBlock().getEntityAt(1);
-    const linkInstance = Entity.get(entity);
+    const linkInstance = contentState.getEntity(entity);
     const { url } = linkInstance.getData();
 
     url.should.equal('http://example.com');

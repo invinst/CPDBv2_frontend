@@ -16,14 +16,15 @@ import { generatePinboardUrl } from 'utils/pinboard';
 
 export default class PinboardPane extends Component {
   componentDidMount() {
-    this.fetchPinboardStaticSocialGraph(this.props);
+    this.performFetchPinboardStaticSocialGraph();
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    this.fetchPinboardStaticSocialGraph(nextProps);
+  componentDidUpdate() {
+    this.performFetchPinboardStaticSocialGraph();
   }
 
-  fetchPinboardStaticSocialGraph({ id, fetchPinboardStaticSocialGraph, cachedDataIDs }) {
+  performFetchPinboardStaticSocialGraph() {
+    const { id, fetchPinboardStaticSocialGraph, cachedDataIDs } = this.props;
     !isNil(id) && !includes(cachedDataIDs, id) && fetchPinboardStaticSocialGraph(id);
   }
 
