@@ -5,7 +5,7 @@ import OutboundLink from 'components/common/outbound-link';
 import { imageStyle } from 'components/common/shared.style';
 import { scrollToElement } from 'utils/dom';
 import { OFFICER_PAGE_TAB_NAMES } from 'utils/constants';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 import styles from './attachments.sass';
 
 
@@ -19,7 +19,7 @@ export default class Attachments extends Component {
     const { pathname, attachments, onTrackingAttachment } = this.props;
     const [firstAttachment] = attachments;
     const { url, id } = firstAttachment;
-    GATracking.trackAttachmentClick(pathname, url);
+    tracking.trackAttachmentClick(pathname, url);
     onTrackingAttachment({ attachmentId: id, sourcePage: 'Officer Page - Timeline Tab', app: 'Frontend' });
   }
 

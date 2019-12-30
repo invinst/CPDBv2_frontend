@@ -13,7 +13,7 @@ import SearchTags from 'components/search-page/search-tags';
 import PinboardButtonContainer from 'containers/search-page/pinboard-button-container';
 import ScrollIntoView from 'components/common/scroll-into-view';
 import style from './search-results.sass';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 
 
 const previewPaneIdFieldMapping = {
@@ -65,7 +65,7 @@ export default class SuggestionResults extends Component {
       const { type, itemRank } = focusedItem;
       const itemId = focusedItem[previewPaneIdFieldMapping[type]];
       if (itemId)
-        GATracking.trackSearchFocusedItem(type, searchText, itemId, itemRank);
+        tracking.trackSearchFocusedItem(type, searchText, itemId, itemRank);
     }
   }
 

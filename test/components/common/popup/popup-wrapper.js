@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { spy, stub } from 'sinon';
 import ReactTooltip from 'react-tooltip';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 
 import PopupWrapper from 'components/common/popup/popup-wrapper';
 
@@ -40,7 +40,7 @@ describe('PopupWrapper', function () {
 
   it('should hide other popups after shown', function () {
     const hideOtherPopups = stub(PopupWrapper.prototype, 'hideOtherPopups');
-    const trackPopupButtonClick = stub(GATracking, 'trackPopupButtonClick');
+    const trackPopupButtonClick = stub(tracking, 'trackPopupButtonClick');
     const wrapper = shallow(
       <PopupWrapper trackingUrl='tracking.url.co' trackingId='testingId'/>
     );

@@ -12,7 +12,7 @@ import SuggestionGroup from 'components/search-page/search-results/suggestion-gr
 import SearchTags from 'components/search-page/search-tags';
 import PinboardButton from 'components/search-page/pinboard/pinboard-button';
 import ScrollIntoView from 'components/common/scroll-into-view';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 
 
 describe('SearchResults component', function () {
@@ -167,11 +167,11 @@ describe('SearchResults component', function () {
 
   describe('tracking focused item', function () {
     beforeEach(function () {
-      stub(GATracking, 'trackSearchFocusedItem');
+      stub(tracking, 'trackSearchFocusedItem');
     });
 
     afterEach(function () {
-      GATracking.trackSearchFocusedItem.restore();
+      tracking.trackSearchFocusedItem.restore();
     });
 
     function testTrackingFocusedItem(type, itemId) {
@@ -190,9 +190,9 @@ describe('SearchResults component', function () {
         ),
       });
 
-      GATracking.trackSearchFocusedItem.should.be.calledOnce();
-      GATracking.trackSearchFocusedItem.should.be.calledWith(type, 'searchText', '123', 2);
-      GATracking.trackSearchFocusedItem.resetHistory();
+      tracking.trackSearchFocusedItem.should.be.calledOnce();
+      tracking.trackSearchFocusedItem.should.be.calledWith(type, 'searchText', '123', 2);
+      tracking.trackSearchFocusedItem.resetHistory();
     }
 
     it('should track the focused item', function () {
@@ -229,7 +229,7 @@ describe('SearchResults component', function () {
         ),
       });
 
-      GATracking.trackSearchFocusedItem.should.not.be.called();
+      tracking.trackSearchFocusedItem.should.not.be.called();
     });
   });
 

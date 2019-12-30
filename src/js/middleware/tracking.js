@@ -1,26 +1,26 @@
 import { reduce, values } from 'lodash';
 import { CHANGE_SEARCH_QUERY, SUGGESTION_REQUEST_SUCCESS, SUGGESTION_SINGLE_REQUEST_SUCCESS } from 'utils/constants';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 
 
 const EVENTS = {
   '@@router/LOCATION_CHANGE': (store, action) => {
-    GATracking.trackPageView(action.payload.pathname);
+    tracking.trackPageView(action.payload.pathname);
   },
 
   [CHANGE_SEARCH_QUERY]: (store, action) => {
-    GATracking.trackSearchQuery(action.payload);
+    tracking.trackSearchQuery(action.payload);
   },
 
   [SUGGESTION_SINGLE_REQUEST_SUCCESS]: (store, action) => {
     const { contentType, term } = action.request.params;
-    GATracking.trackSearchResultsCount(action.payload.count);
-    GATracking.trackSingleSearchResults(contentType, term, action.payload.results.length);
+    tracking.trackSearchResultsCount(action.payload.count);
+    tracking.trackSingleSearchResults(contentType, term, action.payload.results.length);
   },
 
   [SUGGESTION_REQUEST_SUCCESS]: (store, action) => {
     const count = reduce(values(action.payload), (sum, array) => sum + array.length, 0);
-    GATracking.trackSearchResultsCount(count);
+    tracking.trackSearchResultsCount(count);
   },
 };
 
