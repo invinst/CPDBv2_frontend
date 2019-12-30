@@ -63,6 +63,54 @@ describe('GATracking utils', function () {
     });
   });
 
+  describe('trackSingleSearchResults', function () {
+    it('should send event analytic', function () {
+      GATracking.trackSingleSearchResults('contentType', 'query', 123);
+
+      global.ga.should.be.calledWith('send', {
+        hitType: 'event',
+        eventCategory: 'contentType',
+        eventAction: 'single_search',
+        eventLabel: 'query',
+        eventValue: 123,
+      });
+    });
+  });
+
+  describe('trackSearchFocusedItem', function () {
+    it('should send event analytic at most once in 500ms', function () {
+      const clock = useFakeTimers();
+
+      GATracking.trackSearchFocusedItem('contentType', 'query', 'itemId1', 1);
+      GATracking.trackSearchFocusedItem('contentType', 'query', 'itemId2', 2);
+      clock.tick(550);
+
+      global.ga.should.be.calledTwice();
+      global.ga.should.be.calledWith('send', {
+        hitType: 'event',
+        eventCategory: 'contentType',
+        eventAction: 'suggestion_click',
+        eventLabel: 'itemId2',
+        eventValue: 2,
+      });
+      global.ga.should.be.calledWith('send', {
+        hitType: 'event',
+        eventCategory: 'contentType',
+        eventAction: 'suggestion_click_with_query',
+        eventLabel: 'itemId2 - query',
+        eventValue: 2,
+      });
+
+      clock.tick(1000);
+      GATracking.trackSearchFocusedItem('contentType', 'query', 'itemId3');
+      clock.tick(550);
+
+      global.ga.callCount.should.equal(4);
+
+      clock.restore();
+    });
+  });
+
   describe('trackSearchQuery', function () {
     it('should send event analytic at most once in 500ms', function () {
       const clock = useFakeTimers();

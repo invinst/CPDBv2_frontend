@@ -140,7 +140,7 @@ describe('BaseComplaintCard component', function () {
         officers={ [] }
         addItemInPinboardPage={ addItemInPinboardPage }
         pinned={ false }
-        recentItemData={ {
+        rawData={ {
           'crid': '123',
           'incident_date': 'Apr 4, 2015',
           'most_common_category': 'Unknown',
@@ -154,7 +154,7 @@ describe('BaseComplaintCard component', function () {
     addItemInPinboardPage.should.be.calledWith({
       type: 'CR',
       id: '123',
-      recentItemData: {
+      rawData: {
         'crid': '123',
         'incident_date': 'Apr 4, 2015',
         'most_common_category': 'Unknown',

@@ -88,6 +88,7 @@ describe('searchItemTransform', function () {
             'allegation_count': 1,
           },
         ],
+        itemRank: 1,
       }).should.deepEqual({
         type: 'CR',
         id: 1,
@@ -97,6 +98,7 @@ describe('searchItemTransform', function () {
         uniqueKey: 'CR-1',
         tags: [],
         itemIndex: 1,
+        itemRank: 1,
         text: 'CR # 123 • July 2, 2012',
         subText: 'the officer pointed a gun at the victim',
         recentText: 'CR # 123 • July 2, 2012',
@@ -171,6 +173,8 @@ describe('searchItemTransform', function () {
             'allegation_count': 1,
           },
         ],
+        itemRank: 3,
+        itemIndex: 3,
       }).should.deepEqual({
         type: 'CR',
         id: 1,
@@ -179,7 +183,8 @@ describe('searchItemTransform', function () {
         url: undefined,
         uniqueKey: 'CR-1',
         tags: [],
-        itemIndex: 1,
+        itemIndex: 3,
+        itemRank: 3,
         text: 'CR # 123 • July 2, 2012',
         subText: 'the officer pointed a gun at the victim',
         recentText: 'CR # 123 • July 2, 2012',
@@ -227,6 +232,7 @@ describe('searchItemTransform', function () {
         address: '14XX W 63RD ST, CHICAGO IL 60636',
         'victims': [],
         'coaccused': [],
+        itemRank: 1,
       }).should.deepEqual({
         type: 'CR',
         id: 1,
@@ -236,6 +242,7 @@ describe('searchItemTransform', function () {
         uniqueKey: 'CR-1',
         tags: [],
         itemIndex: 1,
+        itemRank: 1,
         text: 'CR # 123 • July 2, 2012',
         subText: '',
         recentText: 'CR # 123 • July 2, 2012',
@@ -264,6 +271,7 @@ describe('searchItemTransform', function () {
         highlight: {
           'text_content': ['first text orc match', 'second orc text match'],
         },
+        itemRank: 1,
       }).should.deepEqual({
         type: 'CR',
         id: 1,
@@ -273,6 +281,7 @@ describe('searchItemTransform', function () {
         uniqueKey: 'CR-1',
         tags: [],
         itemIndex: 1,
+        itemRank: 1,
         text: 'CR # 123 • July 2, 2012',
         subText: 'first text orc match',
         recentText: 'CR # 123 • July 2, 2012',
@@ -302,6 +311,7 @@ describe('searchItemTransform', function () {
           summary: ['the officer pointed a gun at the victim', 'second match'],
           'text_content': ['first text orc match', 'second orc text match'],
         },
+        itemRank: 1,
       }).should.deepEqual({
         type: 'CR',
         id: 1,
@@ -311,6 +321,7 @@ describe('searchItemTransform', function () {
         uniqueKey: 'CR-1',
         tags: [],
         itemIndex: 1,
+        itemRank: 1,
         text: 'CR # 123 • July 2, 2012',
         subText: 'the officer pointed a gun at the victim',
         recentText: 'CR # 123 • July 2, 2012',
@@ -332,6 +343,7 @@ describe('searchItemTransform', function () {
         description: 'This is community description',
         'category_name': 'Geography',
         'call_to_action_type': 'view_all',
+        itemRank: 1,
       }).should.deepEqual({
         type: 'SEARCH-TERMS',
         id: '1234abcd',
@@ -342,6 +354,7 @@ describe('searchItemTransform', function () {
         name: 'Communities',
         tags: [],
         itemIndex: 1,
+        itemRank: 1,
         description: 'This is community description',
         callToActionType: 'view_all',
         text: 'Geography - Communities',
