@@ -51,6 +51,36 @@ export const trackSearchResultsCount = (count) => {
   });
 };
 
+export const trackSingleSearchResults = (contentType, query, resultsCount) => {
+  global.ga('send', {
+    hitType: 'event',
+    eventCategory: contentType,
+    eventAction: 'single_search',
+    eventLabel: query,
+    eventValue: resultsCount,
+  });
+};
+
+const _trackSearchFocusedItem = (contentType, query, itemId, rank) => {
+  global.ga('send', {
+    hitType: 'event',
+    eventCategory: contentType,
+    eventAction: 'suggestion_click',
+    eventLabel: itemId,
+    eventValue: rank,
+  });
+
+  global.ga('send', {
+    hitType: 'event',
+    eventCategory: contentType,
+    eventAction: 'suggestion_click_with_query',
+    eventLabel: `${ itemId } - ${ query }`,
+    eventValue: rank,
+  });
+};
+
+export const trackSearchFocusedItem = throttle(_trackSearchFocusedItem, 500, { 'leading': false });
+
 function _trackSearchQuery(query) {
   clickyLog(`change_query: ${query}`);
   global.ga('send', {

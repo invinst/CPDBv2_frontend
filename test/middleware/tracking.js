@@ -50,7 +50,9 @@ describe('trackingMiddleware', function () {
       type: constants.SUGGESTION_SINGLE_REQUEST_SUCCESS,
       payload: {
         count: 203,
+        results: [],
       },
+      request: { params: {} },
     };
 
     trackingMiddleware({})(action => dispatched = action)(dispatchAction);
@@ -59,6 +61,27 @@ describe('trackingMiddleware', function () {
     tracking.trackSearchResultsCount.should.be.calledWith(203);
 
     tracking.trackSearchResultsCount.restore();
+  });
+
+  it('should trackSingleSearchResults on SUGGESTION_SINGLE_REQUEST_SUCCESS', function () {
+    stub(tracking, 'trackSingleSearchResults');
+
+    let dispatched;
+    const dispatchAction = {
+      type: constants.SUGGESTION_SINGLE_REQUEST_SUCCESS,
+      payload: {
+        count: 203,
+        results: [{ id: 1 }, { id: 2 }],
+      },
+      request: { params: { contentType: 'OFFICER', term: '123' } },
+    };
+
+    trackingMiddleware({})(action => dispatched = action)(dispatchAction);
+
+    dispatched.should.eql(dispatchAction);
+    tracking.trackSingleSearchResults.should.be.calledWith('OFFICER', '123', 2);
+
+    tracking.trackSingleSearchResults.restore();
   });
 
   it('should send pageview event on SUGGESTION_REQUEST_SUCCESS', function () {

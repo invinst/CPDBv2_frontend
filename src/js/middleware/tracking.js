@@ -13,7 +13,9 @@ const EVENTS = {
   },
 
   [SUGGESTION_SINGLE_REQUEST_SUCCESS]: (store, action) => {
+    const { contentType, term } = action.request.params;
     tracking.trackSearchResultsCount(action.payload.count);
+    tracking.trackSingleSearchResults(contentType, term, action.payload.results.length);
   },
 
   [SUGGESTION_REQUEST_SUCCESS]: (store, action) => {

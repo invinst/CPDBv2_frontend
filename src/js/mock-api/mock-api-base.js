@@ -108,6 +108,7 @@ import getRelevantComplaints, {
 import { emptyPagination, firstPage, secondPage } from 'mock-api/pinboard-admin-page/all-pinbooards';
 import { modalVideoInfo } from './headers/slim-header';
 import PinboardFactory from 'utils/test/factories/pinboard';
+import mockUpdatePinboardError from 'mock-api/pinboard-page/mock-update-pinboard-error';
 
 
 const SEARCH_API_URL = /^suggestion\/$/;
@@ -776,5 +777,14 @@ axiosMockClient.onGet(`${PINBOARDS_URL}abcd1234/officers/`).reply(200, fetchPinb
 axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/trrs/`).reply(200, fetchPinboardTRRs());
 
 axiosMockClient.onPost(`${PINBOARDS_URL}`).reply(201, createPinboard());
+
+const notFoundError = [404, {}];
+mockUpdatePinboardError(axiosMockClient, '5cd0aaaa', 999, notFoundError);
+mockUpdatePinboardError(axiosMockClient, '5cd0bbbb', 150, notFoundError);
+
+const networkError = Promise.reject(new Error('Network Error'));
+mockUpdatePinboardError(axiosMockClient, '5cd0dddd', 99, networkError);
+mockUpdatePinboardError(axiosMockClient, '5cd0eeee', 10, networkError);
+mockUpdatePinboardError(axiosMockClient, '5cd0ffff', 4, networkError);
 
 module.exports = axiosMockClient;
