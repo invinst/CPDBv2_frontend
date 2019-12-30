@@ -29,7 +29,7 @@ class DemoVideoSection extends Section {
     this.prepareElementGetters({
       titleText: '//div[contains(@class, "demo-video-text-input")]',
       playButton: playButtonSelector,
-      playButtonThumbnail: `${ playButtonSelector }//div[@class="demo-video-thumbnail"]`,
+      playButtonThumbnail: `${ playButtonSelector }//img[@class="demo-video-thumbnail"]`,
     });
   }
 }
