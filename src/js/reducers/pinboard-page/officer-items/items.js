@@ -10,10 +10,6 @@ import {
 } from 'utils/constants';
 
 
-const toRawOfficer = (item) => {
-  return item.recentItemData;
-};
-
 export default handleActions({
   [PINBOARD_OFFICERS_FETCH_REQUEST_SUCCESS]: (state, action) => action.payload,
   [ADD_ITEM_IN_PINBOARD_PAGE]: (state, action) => {
@@ -21,7 +17,7 @@ export default handleActions({
     const { type, id } = action.payload;
     if (type === 'OFFICER') {
       if (_.every(currentItems, currentItem => currentItem.id !== parseInt(id))) {
-        return currentItems.concat(toRawOfficer(action.payload));
+        return currentItems.concat(action.payload.rawData);
       }
     }
     return currentItems;

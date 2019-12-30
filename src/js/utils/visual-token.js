@@ -11,7 +11,7 @@ export const getVisualTokenShade = cr =>
   constants.VISUAL_TOKEN_COLOR_SCHEME[`${crScale(cr)}0`];
 
 export const scalePercentile = (val) => {
-  return val !== 0 ? parseInt((val - 0.0001) / 20) + 1: 0;
+  return val !== 0 ? parseInt((val - 0.0001) / 20) + 1 : 0;
 };
 
 export const getVisualTokenOIGBackground = (civilPercentile, internalPercentile, useOfForcePercentile) => {

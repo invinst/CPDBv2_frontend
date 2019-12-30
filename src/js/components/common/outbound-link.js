@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 
-import { trackOutboundLink } from 'utils/google_analytics_tracking';
+import { trackOutboundLink } from 'utils/tracking';
 
 
 export default class OutboundLink extends Component {

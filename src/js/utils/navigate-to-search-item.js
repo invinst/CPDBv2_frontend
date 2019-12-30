@@ -1,6 +1,6 @@
 import { browserHistory } from 'react-router';
 
-import { trackOutboundLink } from 'utils/google_analytics_tracking';
+import { trackOutboundLink } from 'utils/tracking';
 
 
 export const navigateToSearchItem = (item, beforeNavigate) => {

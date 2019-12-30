@@ -29,6 +29,7 @@ function initCommands() {
   browser.addCommand(
     'waitForText',
     function (text, timeout, reverse=false) {
+      this.waitForDisplayed(timeout);
       browser.waitUntil(
         () => (this.getText() === text) !== reverse,
         timeout,
