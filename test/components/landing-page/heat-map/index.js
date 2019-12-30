@@ -8,7 +8,7 @@ import HeatMap from 'components/landing-page/heat-map';
 import SummaryPanel from 'components/landing-page/heat-map/summary-panel';
 import CommunityMap from 'components/landing-page/heat-map/community-map';
 import { CitySummaryFactory } from 'utils/test/factories/heat-map';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 
 
 describe('HeatMap component', function () {
@@ -31,7 +31,7 @@ describe('HeatMap component', function () {
   });
 
   it('should set community id and send analytic event when selectCommunity triggers', function () {
-    stub(GATracking, 'trackCommunityClick');
+    stub(tracking, 'trackCommunityClick');
     const communities = [{
       id: 10,
       name: 'Westwood',
@@ -44,12 +44,12 @@ describe('HeatMap component', function () {
     const summaryPanel = wrapper.find(SummaryPanel);
     summaryPanel.prop('selectCommunity')(10);
     wrapper.state('selectedId').should.equal(10);
-    GATracking.trackCommunityClick.should.calledWith('Westwood');
+    tracking.trackCommunityClick.should.calledWith('Westwood');
 
     const communityMap = wrapper.find(CommunityMap);
     communityMap.prop('selectCommunity')(0);
     communityMap.prop('hide').should.be.true();
     wrapper.state('selectedId').should.equal(0);
-    GATracking.trackCommunityClick.restore();
+    tracking.trackCommunityClick.restore();
   });
 });

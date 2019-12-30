@@ -10,7 +10,7 @@ import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrap
 import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 import * as IntercomTracking from 'utils/intercom-tracking';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 import styles from './radar-chart.sass';
 
 
@@ -67,7 +67,7 @@ export default class AnimatedRadarChart extends Component {
   openExplainer() {
     const { officerId } = this.props;
 
-    GATracking.trackOpenExplainer(officerId);
+    tracking.trackOpenExplainer(officerId);
     IntercomTracking.trackOpenExplainer(officerId);
 
     this.endAnimation();

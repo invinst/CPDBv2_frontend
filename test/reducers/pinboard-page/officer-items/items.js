@@ -29,7 +29,7 @@ describe('Pinboard officerItemsReducer', function () {
         payload: {
           type: 'OFFICER',
           'id': 2,
-          recentItemData: {
+          rawData: {
             'id': 2,
             'full_name': 'Jerome Finnigan',
             'rank': 'Officer',
@@ -57,7 +57,7 @@ describe('Pinboard officerItemsReducer', function () {
         payload: {
           type: 'OFFICER',
           'id': 2,
-          recentItemData: {
+          rawData: {
             'id': 2,
             'full_name': 'Jerome Finnigan',
             'rank': 'Officer',
@@ -93,7 +93,7 @@ describe('Pinboard officerItemsReducer', function () {
         payload: {
           type: 'OFFICER',
           'id': 1,
-          recentItemData: {
+          rawData: {
             'id': 1,
             'full_name': 'Jerome Finnigan',
             'rank': 'Officer',
@@ -117,7 +117,7 @@ describe('Pinboard officerItemsReducer', function () {
         payload: {
           type: 'CR',
           id: '2',
-          recentItemData: {
+          rawData: {
             'crid': '2',
             'incident_date': 'Apr 4, 2017',
             'most_common_category': 'Use Of Force',

@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { stub, spy } from 'sinon';
 
 import DownloadMenuItem from 'components/headers/shareable-header/download-menu/download-menu-item';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 import LoadingSpinner from 'components/common/loading-spinner';
 
 
@@ -118,7 +118,7 @@ describe('DownloadMenu component', function () {
   it('should send google analytics when clicked', function () {
     const fetchOfficerZipFileUrlStub = stub();
     const triggerDownloadSpy = spy(DownloadMenuItem.prototype, 'triggerDownload');
-    const stubTrackOfficerDownload = stub(GATracking, 'trackOfficerDownload');
+    const stubTrackOfficerDownload = stub(tracking, 'trackOfficerDownload');
 
     const wrapper = shallow(
       <DownloadMenuItem

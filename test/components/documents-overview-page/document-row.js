@@ -7,13 +7,13 @@ import { stub } from 'sinon';
 import DocumentRow from 'components/documents-overview-page/document-row';
 import Counter from 'components/documents-overview-page/document-row/counter';
 import CRLink from 'components/documents-overview-page/document-row/cr-link';
-import * as GAUtils from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 
 
 describe('DocumentsOverviewPage DocumentRow component', function () {
   beforeEach(function () {
     this.browserHistoryPush = stub(browserHistory, 'push');
-    this.trackOutboundLink = stub(GAUtils, 'trackOutboundLink');
+    this.trackOutboundLink = stub(tracking, 'trackOutboundLink');
   });
 
   afterEach(function () {

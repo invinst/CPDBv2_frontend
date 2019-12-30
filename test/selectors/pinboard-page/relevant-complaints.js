@@ -98,7 +98,7 @@ describe('RelevantComplaints selectors', function () {
           },
         }],
         isPinStatusChanging: true,
-        recentItemData: complaint1,
+        rawData: complaint1,
       },
       {
         crid: '1082207',
@@ -135,7 +135,7 @@ describe('RelevantComplaints selectors', function () {
           },
         }],
         isPinStatusChanging: false,
-        recentItemData: complaint2,
+        rawData: complaint2,
       }]);
     });
   });

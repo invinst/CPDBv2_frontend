@@ -18,7 +18,7 @@ describe('withUndoCard higher-order component', function () {
     rank: 'Officer as Detective',
     fullName: 'James David',
     complaintCount: 10,
-    recentItemData: {
+    rawData: {
       'id': 123,
       'rank': 'Officer as Detective',
       'full_name': 'James David',
@@ -88,7 +88,7 @@ describe('withUndoCard higher-order component', function () {
         addItemInPinboardPage.should.be.calledWith({
           id: 123,
           type: 'OFFICER',
-          recentItemData: {
+          rawData: {
             'id': 123,
             'rank': 'Officer as Detective',
             'full_name': 'James David',

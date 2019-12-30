@@ -7,12 +7,12 @@ import { browserHistory } from 'react-router';
 import DocumentRow from 'components/document-deduplicator-page/document-row';
 import Toggle from 'components/document-deduplicator-page/document-row/toggle';
 import Counter from 'components/document-deduplicator-page/document-row/counter';
-import * as GAUtils from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 
 describe('DocumentDeduplicatorPage DocumentRow component', function () {
   beforeEach(function () {
     this.browserHistoryPush = stub(browserHistory, 'push');
-    this.trackOutboundLink = stub(GAUtils, 'trackOutboundLink');
+    this.trackOutboundLink = stub(tracking, 'trackOutboundLink');
   });
 
   afterEach(function () {
