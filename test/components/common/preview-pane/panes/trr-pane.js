@@ -1,23 +1,11 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  findRenderedComponentWithType,
-  scryRenderedDOMComponentsWithClass,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
 import TRRPane from 'components/common/preview-pane/panes/trr-pane';
 import { NewWidgetWrapper, ListWidget } from 'components/common/preview-pane/widgets';
-import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('TRRPane component', () => {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should contain the sub components', () => {
     const officer = {
       id: 16567,
@@ -32,7 +20,7 @@ describe('TRRPane component', () => {
       count: 93,
     };
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <TRRPane
         to='/trr/123/'
         category='Firearm'
@@ -42,24 +30,24 @@ describe('TRRPane component', () => {
       />
     );
 
-    const wrapper = findRenderedComponentWithType(instance, NewWidgetWrapper);
-    wrapper.props.callToAction.should.eql({
+    const widgetWrapper = wrapper.find(NewWidgetWrapper);
+    widgetWrapper.prop('callToAction').should.eql({
       to: '/trr/123/',
       text: 'View Tactical Response Report',
     });
 
-    const title = findRenderedDOMComponentWithClass(instance, 'trr-preview-pane-title-title');
-    title.textContent.should.eql('Firearm');
+    const title = wrapper.find('.trr-preview-pane-title-title');
+    title.text().should.equal('Firearm');
 
-    const infoRows = scryRenderedDOMComponentsWithClass(instance, 'trr-preview-pane-info-row');
-    infoRows[0].textContent.should.eql('JUL 2, 2012');
-    infoRows[1].textContent.should.eql('14XX W 63RD ST, CHICAGO IL 60636');
+    const infoRows = wrapper.find('.trr-preview-pane-info-row');
+    infoRows.at(0).text().should.equal('JUL 2, 2012');
+    infoRows.at(1).text().should.equal('14XX W 63RD ST, CHICAGO IL 60636');
 
-    const accused = findRenderedComponentWithType(instance, ListWidget);
-    accused.props.typeName.should.eql('allegation');
-    accused.props.title.should.eql('OFFICER');
-    accused.props.items.should.eql([officer]);
-    accused.props.showItemArrow.should.be.false();
-    accused.props.wrapperClassName.should.eql('trr-preview-pane-accused');
+    const accused = wrapper.find(ListWidget);
+    accused.prop('typeName').should.equal('allegation');
+    accused.prop('title').should.equal('OFFICER');
+    accused.prop('items').should.eql([officer]);
+    accused.prop('showItemArrow').should.be.false();
+    accused.prop('wrapperClassName').should.equal('trr-preview-pane-accused');
   });
 });

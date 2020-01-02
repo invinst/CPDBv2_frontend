@@ -1,16 +1,13 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 import { spy, stub } from 'sinon';
-import { renderIntoDocument } from 'react-addons-test-utils';
-import { findDOMNode } from 'react-dom';
 import { forOwn, find, filter, round } from 'lodash';
 import should from 'should';
 
-import { unmountComponentSuppressError, reRender } from 'utils/test';
 import SocialGraph from 'components/common/animated-social-graph/social-graph';
 
 
 describe('SocialGraph', function () {
-  let instance;
   const officers = [
     { fullName: 'Glenn Evans', id: 8138 },
     { fullName: 'Isaac Lee', id: 15956 },
@@ -212,14 +209,10 @@ describe('SocialGraph', function () {
     '2008-01-11',
   ];
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render all sections correctly', function () {
     const startTimelineFromBeginningStub = stub();
     const stopTimelineStub = stub();
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <SocialGraph
         officers={ officers }
         coaccusedData={ coaccusedData }
@@ -310,46 +303,46 @@ describe('SocialGraph', function () {
       { uid: 30466 },
     ];
 
+    const instance = wrapper.instance();
     const graphNodes = instance.data.nodes;
 
-    graphNodes.length.should.eql(expectedNodes.length);
-    for (let index=0; index < graphNodes.length; index++) {
+    graphNodes.should.have.length(expectedNodes.length);
+    graphNodes.forEach((graphNode, index) => {
       const expectedNode = expectedNodes[index];
-      const graphNode = graphNodes[index];
       forOwn(expectedNode, (value, key) => {
         graphNode[key].should.eql(value);
       });
-    }
+    });
 
     const graphLinks = instance.data.links;
-    graphLinks.length.should.eql(expectedLinks.length);
+    graphLinks.should.have.length(expectedLinks.length);
     graphLinks.forEach((graphLink) => {
       const expectedLink = find(expectedLinks, (link) => {
         return link.sourceUid === graphLink.source.uid && link.targetUid === graphLink.target.uid;
       });
 
-      graphLink.weight.should.eql(expectedLink.weight);
-      graphLink.className.should.eql(expectedLink.className);
+      graphLink.weight.should.equal(expectedLink.weight);
+      graphLink.className.should.equal(expectedLink.className);
     });
     instance.data.linkedByIndex.should.eql(expectedLinkedByIndex);
 
     const topNodes = instance.data.topNodes;
-    topNodes.length.should.eql(expectedTopNodes.length);
+    topNodes.should.have.length(expectedTopNodes.length);
 
     topNodes.forEach((topNode, index) => {
-      topNode.uid.should.eql(expectedTopNodes[index].uid);
+      topNode.uid.should.equal(expectedTopNodes[index].uid);
     });
 
-    findDOMNode(instance).getElementsByClassName('node').length.should.eql(expectedNodes.length);
-    findDOMNode(instance).getElementsByClassName('link').length.should.eql(expectedLinks.length);
-    findDOMNode(instance).getElementsByClassName('node-label').length.should.eql(expectedTopNodes.length);
+    wrapper.getDOMNode().getElementsByClassName('node').should.have.length(expectedNodes.length);
+    wrapper.getDOMNode().getElementsByClassName('link').should.have.length(expectedLinks.length);
+    wrapper.getDOMNode().getElementsByClassName('node-label').should.have.length(expectedTopNodes.length);
 
-    startTimelineFromBeginningStub.called.should.be.true();
-    stopTimelineStub.called.should.be.true();
+    startTimelineFromBeginningStub.should.be.called();
+    stopTimelineStub.should.be.called();
   });
 
   it('should re-render all sections correctly with timelineIdx change', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <SocialGraph
         officers={ officers }
         coaccusedData={ coaccusedData }
@@ -357,15 +350,12 @@ describe('SocialGraph', function () {
       />
     );
 
-    instance = reRender(
-      <SocialGraph
-        officers={ officers }
-        coaccusedData={ coaccusedData }
-        listEvent={ listEvent }
-        timelineIdx={ 14 }
-      />,
-      instance
-    );
+    wrapper.setProps({
+      officers: officers,
+      coaccusedData: coaccusedData,
+      listEvent: listEvent,
+      timelineIdx: 14,
+    });
 
     const expectedNodes = [
       { id: 0, fname: 'Glenn Evans', uid: 8138, degree: 0 },
@@ -419,10 +409,11 @@ describe('SocialGraph', function () {
       '7,12': 1, '7,2': 1, '7,3': 1, '7,7': 1, '8,11': 1, '8,18': 1, '8,8': 1, '9,9': 1,
     };
 
+    const instance = wrapper.instance();
     const graphNodes = instance.data.nodes;
 
-    graphNodes.length.should.eql(expectedNodes.length);
-    for (let index=0; index < graphNodes.length; index++) {
+    graphNodes.should.have.length(expectedNodes.length);
+    for (let index = 0; index < graphNodes.length; index++) {
       const expectedNode = expectedNodes[index];
       const graphNode = graphNodes[index];
       forOwn(expectedNode, (value, key) => {
@@ -431,52 +422,54 @@ describe('SocialGraph', function () {
     }
 
     const graphLinks = instance.data.links;
-    graphLinks.length.should.eql(expectedLinks.length);
+    graphLinks.should.have.length(expectedLinks.length);
     graphLinks.forEach((graphLink) => {
       const expectedLink = find(expectedLinks, (link) => {
         return link.sourceUid === graphLink.source.uid && link.targetUid === graphLink.target.uid;
       });
 
-      graphLink.weight.should.eql(expectedLink.weight);
-      graphLink.className.should.eql(expectedLink.className);
+      graphLink.weight.should.equal(expectedLink.weight);
+      graphLink.className.should.equal(expectedLink.className);
     });
     instance.data.linkedByIndex.should.eql(expectedLinkedByIndex);
 
     const topNodes = instance.data.topNodes;
-    topNodes.length.should.eql(expectedTopNodes.length);
+    topNodes.should.have.length(expectedTopNodes.length);
 
     topNodes.forEach((topNode, index) => {
-      topNode.uid.should.eql(expectedTopNodes[index].uid);
+      topNode.uid.should.equal(expectedTopNodes[index].uid);
     });
 
-    findDOMNode(instance).getElementsByClassName('node').length.should.eql(expectedNodes.length);
-    findDOMNode(instance).getElementsByClassName('link').length.should.eql(expectedLinks.length);
-    findDOMNode(instance).getElementsByClassName('node-label').length.should.eql(expectedTopNodes.length);
+    wrapper.getDOMNode().getElementsByClassName('node').should.have.length(expectedNodes.length);
+    wrapper.getDOMNode().getElementsByClassName('link').should.have.length(expectedLinks.length);
+    wrapper.getDOMNode().getElementsByClassName('node-label').should.have.length(expectedTopNodes.length);
   });
 
   it('should return tooltip info when call graphTooltip', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <SocialGraph
         officers={ officers }
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
       />
     );
-    instance.graphTooltip({ fname: 'Donnell Calhoun' }).should.eql('<span>Donnell Calhoun</span>');
+    const instance = wrapper.instance();
+    instance.graphTooltip({ fname: 'Donnell Calhoun' }).should.equal('<span>Donnell Calhoun</span>');
   });
 
   it('should show connected nodes when click on node', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <SocialGraph
         officers={ officers }
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
       />
     );
+    const instance = wrapper.instance();
 
     instance.connectedNodes({ index: 12 });
 
-    let graphNodes = findDOMNode(instance).getElementsByClassName('node');
+    let graphNodes = wrapper.getDOMNode().getElementsByClassName('node');
     let hideGraphNodes = filter(graphNodes, graphNode => graphNode.style.opacity === '0.1');
     let visibleGraphNodes = filter(graphNodes, graphNode => graphNode.style.opacity === '1');
     hideGraphNodes.should.have.length(12);
@@ -491,13 +484,14 @@ describe('SocialGraph', function () {
   });
 
   it('should resolves collisions between d and all other circles when call collide', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <SocialGraph
         officers={ officers }
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
       />
     );
+    const instance = wrapper.instance();
 
     const graphNode1 = { id: 7, fname: 'Gilbert Cobb', uid: 4881, degree: 5, x: 390, y: 405 };
     const graphNode2 = { id: 12, fname: 'Eugene Offett', uid: 21194, degree: 7, x: 387, y: 418 };
@@ -507,10 +501,10 @@ describe('SocialGraph', function () {
 
     instance.collide()(graphNode2);
 
-    round(graphNode1.x, 2).should.eql(390.02);
-    round(graphNode1.y, 2).should.eql(404.92);
-    round(graphNode2.x, 2).should.eql(386.98);
-    round(graphNode2.y, 2).should.eql(418.08);
+    round(graphNode1.x, 2).should.equal(390.02);
+    round(graphNode1.y, 2).should.equal(404.92);
+    round(graphNode2.x, 2).should.equal(386.98);
+    round(graphNode2.y, 2).should.equal(418.08);
   });
 
   it('should call drawGraph again when coaccusedData has changed', function () {
@@ -529,25 +523,23 @@ describe('SocialGraph', function () {
       { officerId1: 3663, officerId2: 21194, incidentDate: '1993-03-28', accussedCount: 2 },
     ];
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <SocialGraph
         officers={ officers }
         coaccusedData={ smallCoaccusedData }
         listEvent={ listEvent }
       />
     );
+    const instance = wrapper.instance();
 
     instance.data.nodes.should.have.length(20);
     instance.data.links.should.have.length(6);
 
-    instance = reRender(
-      <SocialGraph
-        officers={ officers }
-        coaccusedData={ coaccusedData }
-        listEvent={ listEvent }
-      />,
-      instance
-    );
+    wrapper.setProps({
+      officers: officers,
+      coaccusedData: coaccusedData,
+      listEvent: listEvent,
+    });
 
     instance.data.nodes.should.have.length(20);
     instance.data.links.should.have.length(37);
@@ -556,7 +548,7 @@ describe('SocialGraph', function () {
   it('should call drawGraph again when officers has changed', function () {
     const drawGraphStub = stub(SocialGraph.prototype, 'drawGraph');
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <SocialGraph
         officers={ officers }
         coaccusedData={ coaccusedData }
@@ -565,14 +557,11 @@ describe('SocialGraph', function () {
     );
     drawGraphStub.resetHistory();
 
-    reRender(
-      <SocialGraph
-        officers={ [] }
-        coaccusedData={ coaccusedData }
-        listEvent={ listEvent }
-      />,
-      instance
-    );
+    wrapper.setProps({
+      officers: [],
+      coaccusedData: coaccusedData,
+      listEvent: listEvent,
+    });
     drawGraphStub.should.be.calledOnce();
 
     drawGraphStub.restore();
@@ -581,7 +570,7 @@ describe('SocialGraph', function () {
   it('should call drawGraph again when listEvent has changed', function () {
     const drawGraphStub = stub(SocialGraph.prototype, 'drawGraph');
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <SocialGraph
         officers={ officers }
         coaccusedData={ coaccusedData }
@@ -590,56 +579,52 @@ describe('SocialGraph', function () {
     );
     drawGraphStub.resetHistory();
 
-    reRender(
-      <SocialGraph
-        officers={ officers }
-        coaccusedData={ coaccusedData }
-        listEvent={ [] }
-      />,
-      instance
-    );
+    wrapper.setProps({
+      officers: officers,
+      coaccusedData: coaccusedData,
+      listEvent: [],
+    });
     drawGraphStub.should.be.calledOnce();
 
     drawGraphStub.restore();
   });
 
   it('should not draw graph when officers is empty', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <SocialGraph
         officers={ [] }
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
       />
     );
+    const instance = wrapper.instance();
 
     should(instance.data.nodes).be.undefined();
     should(instance.data.links).be.undefined();
   });
 
   it('should call resizeGraph when performResizeGraph is true', function () {
-    instance = renderIntoDocument(
+    const resizeGraphSpy = spy(SocialGraph.prototype, 'resizeGraph');
+    const wrapper = mount(
       <SocialGraph
         officers={ officers }
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
       />
     );
-    const resizeGraphSpy = spy(instance, 'resizeGraph');
-    instance = reRender(
-      <SocialGraph
-        officers={ officers }
-        coaccusedData={ coaccusedData }
-        listEvent={ listEvent }
-        performResizeGraph={ true }
-      />,
-      instance
-    );
-    resizeGraphSpy.called.should.be.true();
+    wrapper.setProps({
+      officers: officers,
+      coaccusedData: coaccusedData,
+      listEvent: listEvent,
+      performResizeGraph: true,
+    });
+    resizeGraphSpy.should.be.called();
+    resizeGraphSpy.restore();
   });
 
   it('should call updateSelectedOfficerId when clicking on a graph node', function () {
     const updateSelectedOfficerIdStub = stub();
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <SocialGraph
         officers={ officers }
         coaccusedData={ coaccusedData }
@@ -647,13 +632,14 @@ describe('SocialGraph', function () {
         updateSelectedOfficerId={ updateSelectedOfficerIdStub }
       />
     );
+    const instance = wrapper.instance();
     const graphNode = instance.data.nodes[0];
     instance.handleNodeClick(graphNode);
     updateSelectedOfficerIdStub.should.be.calledWith(graphNode.uid);
   });
 
   it('should call _updateSelectedNode when componentDidUpdate', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <SocialGraph
         officers={ officers }
         coaccusedData={ coaccusedData }
@@ -661,35 +647,29 @@ describe('SocialGraph', function () {
       />
     );
 
-    instance = reRender(
-      <SocialGraph
-        officers={ officers }
-        coaccusedData={ coaccusedData }
-        listEvent={ listEvent }
-        selectedOfficerId={ 11580 }
-      />,
-      instance
-    );
+    wrapper.setProps({
+      officers: officers,
+      coaccusedData: coaccusedData,
+      listEvent: listEvent,
+      selectedOfficerId: 11580,
+    });
 
+    const instance = wrapper.instance();
     instance.selectedNodeLabel.box.should.have.length(1);
-    const selectedNodeLabel = findDOMNode(instance).getElementsByClassName('selected-node-label')[0];
-    findDOMNode(selectedNodeLabel).textContent.should.eql('John Hart');
+    const selectedNodeLabel = wrapper.getDOMNode().getElementsByClassName('selected-node-label')[0];
+    selectedNodeLabel.textContent.should.equal('John Hart');
 
-    instance = reRender(
-      <SocialGraph
-        officers={ officers }
-        coaccusedData={ coaccusedData }
-        listEvent={ listEvent }
-        selectedOfficerId={ 8138 }
-      />,
-      instance
-    );
-
-    findDOMNode(selectedNodeLabel).textContent.should.eql('Glenn Evans');
+    wrapper.setProps({
+      officers: officers,
+      coaccusedData: coaccusedData,
+      listEvent: listEvent,
+      selectedOfficerId: 8138,
+    });
+    wrapper.getDOMNode().getElementsByClassName('selected-node-label')[0].textContent.should.equal('Glenn Evans');
   });
 
   it('should call _updateSelectedEdge when componentDidUpdate', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <SocialGraph
         officers={ officers }
         coaccusedData={ coaccusedData }
@@ -698,56 +678,53 @@ describe('SocialGraph', function () {
       />
     );
 
-    instance = reRender(
-      <SocialGraph
-        officers={ officers }
-        coaccusedData={ coaccusedData }
-        listEvent={ listEvent }
-        selectedEdge={ { sourceUid: 2675, targetUid: 24157, coaccusedCount: 2 } }
-        timelineIdx={ listEvent.length - 1 }
-      />,
-      instance
-    );
-
+    wrapper.setProps({
+      officers: officers,
+      coaccusedData: coaccusedData,
+      listEvent: listEvent,
+      selectedEdge: { sourceUid: 2675, targetUid: 24157, coaccusedCount: 2 },
+      timelineIdx: listEvent.length - 1,
+    });
+    const instance = wrapper.instance();
     instance.selectedEdgeLabel.box.should.have.length(1);
-    const selectedEdgeLabel = findDOMNode(instance).getElementsByClassName('selected-edge-label')[0];
-    findDOMNode(selectedEdgeLabel).textContent.should.eql('2 coaccusals');
+    let selectedEdgeLabel = wrapper.getDOMNode().getElementsByClassName('selected-edge-label')[0];
+    selectedEdgeLabel.textContent.should.equal('2 coaccusals');
 
-    instance = reRender(
-      <SocialGraph
-        officers={ officers }
-        coaccusedData={ coaccusedData }
-        listEvent={ listEvent }
-        selectedEdge={ { sourceUid: 22861, targetUid: 30466, coaccusedCount: 3 } }
-        timelineIdx={ listEvent.length - 1 }
-      />,
-      instance
-    );
+    wrapper.setProps({
+      officers: officers,
+      coaccusedData: coaccusedData,
+      listEvent: listEvent,
+      selectedEdge: { sourceUid: 22861, targetUid: 30466, coaccusedCount: 3 },
+      timelineIdx: listEvent.length - 1,
+    });
 
-    findDOMNode(selectedEdgeLabel).textContent.should.eql('3 coaccusals');
+    selectedEdgeLabel = wrapper.getDOMNode().getElementsByClassName('selected-edge-label')[0];
+    selectedEdgeLabel.textContent.should.equal('3 coaccusals');
   });
 
   it('should call this.tip.show if isSelectedNode is false', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <SocialGraph
         officers={ officers }
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
       />
     );
+    const instance =wrapper.instance();
     const showTipStub = stub(instance.tip, 'show');
     instance.handleMouseover({ fullName: 'Glenn Evans', id: 8138 });
     showTipStub.should.be.called();
   });
 
   it('should not call this.tip.show if isSelectedNode is true', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <SocialGraph
         officers={ officers }
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
       />
     );
+    const instance =wrapper.instance();
     const showTipStub = stub(instance.tip, 'show');
     instance.handleMouseover({ fullName: 'Glenn Evans', id: 8138, isSelectedNode: true });
     showTipStub.should.not.be.called();
@@ -765,7 +742,7 @@ describe('SocialGraph', function () {
         fullName: 'Johnny Cavers',
       },
     };
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <SocialGraph
         officers={ officers }
         coaccusedData={ coaccusedData }
@@ -773,34 +750,36 @@ describe('SocialGraph', function () {
         updateSelectedEdge={ updateSelectedEdgeStub }
       />
     );
+    const instance = wrapper.instance();
     instance.handleEdgeClick(currentEdge);
     updateSelectedEdgeStub.should.be.calledWith({ sourceUid: 8138, targetUid: 4269 });
   });
 
   it('should add & remove edge-hover class to edge and corresponding nodes when mouseover and mouseout', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <SocialGraph
         officers={ officers }
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
       />
     );
+    const instance = wrapper.instance();
 
-    let hoveredEdge = instance.data.links[0];
+    const hoveredEdge = instance.data.links[0];
     instance.handleEdgeMouseover(hoveredEdge);
 
-    findDOMNode(instance).getElementsByClassName('link edge-hover').should.have.length(1);
-    findDOMNode(instance).getElementsByClassName('node edge-hover').should.have.length(2);
+    wrapper.getDOMNode().getElementsByClassName('link edge-hover').should.have.length(1);
+    wrapper.getDOMNode().getElementsByClassName('node edge-hover').should.have.length(2);
 
     instance.handleEdgeMouseout();
 
-    findDOMNode(instance).getElementsByClassName('link edge-hover').should.have.length(0);
-    findDOMNode(instance).getElementsByClassName('node edge-hover').should.have.length(0);
+    wrapper.getDOMNode().getElementsByClassName('link edge-hover').should.have.length(0);
+    wrapper.getDOMNode().getElementsByClassName('node edge-hover').should.have.length(0);
   });
 
   it('should call updateSortedOfficerIds', function () {
     const updateSortedOfficerIdsSpy = spy();
-    instance = renderIntoDocument(
+    mount(
       <SocialGraph
         officers={ officers }
         coaccusedData={ coaccusedData }

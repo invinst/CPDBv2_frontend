@@ -1,8 +1,7 @@
 import React from 'react';
-import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
+import { mount } from 'enzyme';
 import { stub, spy, useFakeTimers } from 'sinon';
 
-import { unmountComponentSuppressError, reRender } from 'utils/test';
 import PinnedGrid from 'components/pinboard-page/pinned-type/pinned-grid';
 import CRCard from 'components/pinboard-page/cards/cr-card';
 import OfficerCard from 'components/pinboard-page/cards/officer-card';
@@ -12,12 +11,6 @@ import * as navigation from 'utils/navigation';
 
 
 describe('PinnedGrid component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render CR cards', function () {
     const items = [{
       crid: '1000001',
@@ -38,16 +31,18 @@ describe('PinnedGrid component', function () {
     }];
     const focusItem = spy();
 
-    instance = renderIntoDocument(<PinnedGrid type='CR' items={ items } focusItem={ focusItem }/>);
+    const wrapper = mount(
+      <PinnedGrid type='CR' items={ items } focusItem={ focusItem }/>
+    );
 
-    const crCards = scryRenderedComponentsWithType(instance, CRCard);
+    const crCards = wrapper.find(CRCard);
     crCards.should.have.length(2);
 
-    crCards[0].props.item.should.eql(items[0]);
-    crCards[0].props.focusItem.should.eql(focusItem);
+    crCards.at(0).prop('item').should.eql(items[0]);
+    crCards.at(0).prop('focusItem').should.eql(focusItem);
 
-    crCards[1].props.item.should.eql(items[1]);
-    crCards[1].props.focusItem.should.eql(focusItem);
+    crCards.at(1).prop('item').should.eql(items[1]);
+    crCards.at(1).prop('focusItem').should.eql(focusItem);
   });
 
   it('should render OFFICER cards', function () {
@@ -82,16 +77,18 @@ describe('PinnedGrid component', function () {
     }];
     const focusItem = spy();
 
-    instance = renderIntoDocument(<PinnedGrid type='OFFICER' items={ items } focusItem={ focusItem }/>);
+    const wrapper = mount(
+      <PinnedGrid type='OFFICER' items={ items } focusItem={ focusItem }/>
+    );
 
-    const officerCards = scryRenderedComponentsWithType(instance, OfficerCard);
+    const officerCards = wrapper.find(OfficerCard);
     officerCards.should.have.length(2);
 
-    officerCards[0].props.item.should.eql(items[0]);
-    officerCards[0].props.focusItem.should.eql(focusItem);
+    officerCards.at(0).prop('item').should.eql(items[0]);
+    officerCards.at(0).prop('focusItem').should.eql(focusItem);
 
-    officerCards[1].props.item.should.eql(items[1]);
-    officerCards[1].props.focusItem.should.eql(focusItem);
+    officerCards.at(1).prop('item').should.eql(items[1]);
+    officerCards.at(1).prop('focusItem').should.eql(focusItem);
   });
 
   it('should render TRR cards', function () {
@@ -114,7 +111,7 @@ describe('PinnedGrid component', function () {
     }];
     const focusItem = spy();
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <PinnedGrid
         type='TRR'
         items={ items }
@@ -122,29 +119,31 @@ describe('PinnedGrid component', function () {
       />
     );
 
-    const trrCards = scryRenderedComponentsWithType(instance, TRRCard);
+    const trrCards = wrapper.find(TRRCard);
     trrCards.should.have.length(2);
 
-    trrCards[0].props.item.should.eql(items[0]);
-    trrCards[0].props.focusItem.should.eql(focusItem);
+    trrCards.at(0).prop('item').should.eql(items[0]);
+    trrCards.at(0).prop('focusItem').should.eql(focusItem);
 
-    trrCards[1].props.item.should.eql(items[1]);
-    trrCards[1].props.focusItem.should.eql(focusItem);
+    trrCards.at(1).prop('item').should.eql(items[1]);
+    trrCards.at(1).prop('focusItem').should.eql(focusItem);
   });
 
   it('should maintain the scroll position since second rerender', function () {
     stub(navigation, 'getPageYBottomOffset').returns(700);
     stub(navigation, 'scrollByBottomOffset');
 
-    instance = renderIntoDocument(<PinnedGrid type='TRR' items={ [{ 'id': '1' }] } />);
+    const wrapper = mount(
+      <PinnedGrid type='TRR' items={ [{ 'id': '1' }] } />
+    );
 
     const items = [{ 'id': '1' }, { 'id': '2' }];
-    instance = reRender(<PinnedGrid type='TRR' items={ items } />, instance);
+    wrapper.setProps({ type: 'TRR', items });
 
     navigation.scrollByBottomOffset.should.not.be.called();
 
     const otherItems = [{ 'id': '1' }, { 'id': '2' }, { 'id': '3' }];
-    instance = reRender(<PinnedGrid type='TRR' items={ otherItems } />, instance);
+    wrapper.setProps({ type: 'TRR', items: otherItems });
 
     navigation.scrollByBottomOffset.should.be.calledOnce();
     navigation.scrollByBottomOffset.should.be.calledWith(700);
@@ -153,7 +152,7 @@ describe('PinnedGrid component', function () {
     navigation.getPageYBottomOffset.restore();
     stub(navigation, 'getPageYBottomOffset').returns(400);
 
-    instance = reRender(<PinnedGrid type='TRR' items={ [{ 'id': '2' }] } />, instance);
+    wrapper.setProps({ type: 'TRR', items: [{ 'id': '2' }] });
 
     navigation.scrollByBottomOffset.should.be.calledOnce();
     navigation.scrollByBottomOffset.should.be.calledWith(400);
@@ -167,7 +166,10 @@ describe('PinnedGrid component', function () {
     const MuuriStub = stub(vendors, 'Muuri').callsFake(() => ({ 'on': onMuuriStub }));
 
     const items = [{ 'id': '1' }, { 'id': '2' }];
-    instance = renderIntoDocument(<PinnedGrid type='OFFICER' items={ items } />);
+    const wrapper = mount(
+      <PinnedGrid type='OFFICER' items={ items }/>
+    );
+    const instance = wrapper.instance();
 
     MuuriStub.should.be.calledWith(instance.grid, {
       itemClass: 'pinned-grid-item',
@@ -187,16 +189,18 @@ describe('PinnedGrid component', function () {
     }));
 
     const items = [{ 'id': '1' }, { 'id': '2' }];
-    instance = renderIntoDocument(<PinnedGrid type='OFFICER' items={ items } />);
+    const wrapper = mount(
+      <PinnedGrid type='OFFICER' items={ items }/>
+    );
 
     onMuuriStub.resetHistory();
     addMuuriStub.should.not.be.called();
 
     const newItems = [{ 'id': '1' }, { 'id': '2' }, { 'id': '3' }];
-    instance = reRender(<PinnedGrid type='OFFICER' items={ newItems } />, instance);
+    wrapper.setProps({ type: 'OFFICER', items: newItems });
 
     addMuuriStub.should.be.calledOnce();
-    addMuuriStub.should.be.calledWith(instance.itemElements['3']);
+    addMuuriStub.should.be.calledWith(wrapper.instance().itemElements['3']);
 
     MuuriStub.restore();
   });
@@ -206,7 +210,7 @@ describe('PinnedGrid component', function () {
     const removeItemInPinboardPage = stub();
 
     const items = [{ 'id': '1' }, { 'id': '2' }];
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <PinnedGrid
         type='OFFICER'
         items={ items }
@@ -214,7 +218,7 @@ describe('PinnedGrid component', function () {
       />
     );
 
-    instance.removeItemInPinboardPage({ 'id': '1' });
+    wrapper.instance().removeItemInPinboardPage({ 'id': '1' });
     removeItemInPinboardPage.should.not.be.called();
 
     clock.tick(250);
@@ -229,13 +233,14 @@ describe('PinnedGrid component', function () {
     const completeRemoveItemFromPinboard = stub();
 
     const items = [{ 'id': '1' }, { 'id': '2' }];
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <PinnedGrid
         type='OFFICER'
         items={ items }
         completeRemoveItemFromPinboard={ completeRemoveItemFromPinboard }
       />
     );
+    const instance = wrapper.instance();
 
     instance.completeRemoveItemInPinboardPage({ 'id': '1' });
 
@@ -253,7 +258,7 @@ describe('PinnedGrid component', function () {
     const orderPinboard = stub();
 
     const items = [{ 'id': 1 }, { 'id': 2 }];
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <PinnedGrid
         type='OFFICER'
         items={ items }
@@ -261,6 +266,7 @@ describe('PinnedGrid component', function () {
         orderPinboard={ orderPinboard }
       />
     );
+    const instance = wrapper.instance();
 
     muuri.on.should.be.calledWith('dragEnd', instance.updateOrder);
     instance.gridMuuri.getItems = () => [
@@ -281,7 +287,7 @@ describe('PinnedGrid component', function () {
     const orderPinboard = stub();
 
     const items = [{ 'id': 1 }, { 'id': 2 }];
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <PinnedGrid
         type='OFFICER'
         items={ items }
@@ -289,6 +295,7 @@ describe('PinnedGrid component', function () {
         orderPinboard={ orderPinboard }
       />
     );
+    const instance = wrapper.instance();
 
     muuri.on.should.be.calledWith('dragEnd', instance.updateOrder);
     instance.gridMuuri.getItems = () => [
@@ -307,7 +314,7 @@ describe('PinnedGrid component', function () {
     const orderPinboard = stub();
 
     const items = [{ 'id': '1' }, { 'id': '2' }];
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <PinnedGrid
         type='CR'
         items={ items }
@@ -315,6 +322,8 @@ describe('PinnedGrid component', function () {
         orderPinboard={ orderPinboard }
       />
     );
+    const instance = wrapper.instance();
+
     instance.gridMuuri.getItems = () => [
       { 'getElement': () => ({ 'getAttribute': () => '2' }) },
       { 'getElement': () => ({ 'getAttribute': () => '1' }) },
@@ -333,7 +342,7 @@ describe('PinnedGrid component', function () {
     const orderPinboard = stub();
 
     const items = [{ 'id': 1 }, { 'id': 2 }];
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <PinnedGrid
         type='TRR'
         items={ items }
@@ -341,6 +350,8 @@ describe('PinnedGrid component', function () {
         orderPinboard={ orderPinboard }
       />
     );
+    const instance = wrapper.instance();
+
     instance.gridMuuri.getItems = () => [
       { 'getElement': () => ({ 'getAttribute': () => 2 }) },
       { 'getElement': () => ({ 'getAttribute': () => 1 }) },
@@ -357,13 +368,13 @@ describe('PinnedGrid component', function () {
     muuri.destroy.resetHistory();
 
     const items = [{ 'id': 1 }, { 'id': 2 }];
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <PinnedGrid
         type='TRR'
         items={ items }
       />
     );
-    unmountComponentSuppressError(instance);
+    wrapper.unmount();
 
     muuri.destroy.should.be.calledOnce();
   });

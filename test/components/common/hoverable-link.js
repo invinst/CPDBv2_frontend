@@ -1,43 +1,31 @@
 import React from 'react';
+import { mount } from 'enzyme';
 import { stub } from 'sinon';
-
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithTag,
-  findRenderedComponentWithType,
-  Simulate, findRenderedDOMComponentWithClass,
-} from 'react-addons-test-utils';
 import { Link } from 'react-router';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import HoverableLink from 'components/common/hoverable-link';
 
 
 describe('HoverableLink component', function () {
-  let instance;
   const style = { base: {}, hover: {} };
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render tag a when href is available', function () {
-    instance = renderIntoDocument(<HoverableLink href='http://link.com' style={ style }/>);
-    findRenderedDOMComponentWithTag(instance, 'a');
+    const wrapper = mount(<HoverableLink href='http://link.com' style={ style }/>);
+    wrapper.find('a').exists().should.be.true();
   });
 
   it('should render Link a when href is not available', function () {
-    instance = renderIntoDocument(<HoverableLink to='/internal/link/' style={ style }/>);
-    findRenderedComponentWithType(instance, Link);
+    const wrapper = mount(<HoverableLink to='/internal/link/' style={ style }/>);
+    wrapper.find(Link).exists().should.be.true();
   });
 
   it('should trigger stopPropagation event when click', function () {
     const dummyEvent = {
       stopPropagation: stub(),
     };
-    instance = renderIntoDocument(<HoverableLink href='http://cpdb.lvh.me/' style={ style } />);
-    const link = findRenderedDOMComponentWithClass(instance, 'link--transition');
-    Simulate.click(link, dummyEvent);
+    const wrapper = mount(<HoverableLink href='http://cpdb.lvh.me/' style={ style } />);
+    const link = wrapper.find('.link--transition');
+    link.simulate('click', dummyEvent);
     dummyEvent.stopPropagation.should.be.called();
   });
 });

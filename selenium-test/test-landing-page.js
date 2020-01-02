@@ -168,6 +168,19 @@ describe('landing page', function () {
         1000
       );
     });
+
+    it('should dock the search bar and preview pane', function () {
+      landingPage.header.navBar.searchBox.mainElement.click();
+
+      searchPage.input.setValue('Ke');
+
+      browser.pause(1000);
+      browser.scroll(0, 9999);
+      browser.pause(1000);
+
+      searchPage.input.isDisplayedInViewport().should.be.true();
+      searchPage.officerPreviewPaneSection.viewOfficerButton.isDisplayedInViewport().should.be.true();
+    });
   });
 
   describe('Recent Activity carousel', function () {

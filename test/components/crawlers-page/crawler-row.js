@@ -1,26 +1,13 @@
 import React from 'react';
-import { findDOMNode } from 'react-dom';
-import {
-  renderIntoDocument,
-  scryRenderedDOMComponentsWithClass,
-  findRenderedDOMComponentWithClass,
-  Simulate,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 import { stub } from 'sinon';
 
 import CrawlerRow from 'components/crawlers-page/crawler-row';
-import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('CrawlerRow component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render failed crawler row correctly', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <CrawlerRow
         crawlerName='PORTAL_COPA'
         status='Failed'
@@ -32,21 +19,21 @@ describe('CrawlerRow component', function () {
       />
     );
 
-    const crawlerName = findRenderedDOMComponentWithClass(instance, 'crawler-col crawler-name');
-    const recentRunAt = findRenderedDOMComponentWithClass(instance, 'crawler-col recent-run failed');
-    const numNewDocuments = scryRenderedDOMComponentsWithClass(instance, 'crawler-col')[2];
-    const numDocuments = scryRenderedDOMComponentsWithClass(instance, 'crawler-col')[3];
-    const numSuccessfulRun = scryRenderedDOMComponentsWithClass(instance, 'crawler-col')[4];
+    const crawlerName = wrapper.find('.crawler-col.crawler-name');
+    const recentRunAt = wrapper.find('.crawler-col.recent-run.failed');
+    const numNewDocuments = wrapper.find('.crawler-col').at(2);
+    const numDocuments = wrapper.find('.crawler-col').at(3);
+    const numSuccessfulRun = wrapper.find('.crawler-col').at(4);
 
-    crawlerName.textContent.should.eql('PORTAL_COPA');
-    recentRunAt.textContent.should.eql('2019-02-20');
-    numNewDocuments.textContent.should.eql('5');
-    numDocuments.textContent.should.eql('10');
-    numSuccessfulRun.textContent.should.eql('2');
+    crawlerName.text().should.equal('PORTAL_COPA');
+    recentRunAt.text().should.equal('2019-02-20');
+    numNewDocuments.text().should.equal('5');
+    numDocuments.text().should.equal('10');
+    numSuccessfulRun.text().should.equal('2');
   });
 
   it('should render success crawler row correctly', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <CrawlerRow
         crawlerName='PORTAL_COPA'
         status='Success'
@@ -58,43 +45,41 @@ describe('CrawlerRow component', function () {
       />
     );
 
-    const crawlerName = findRenderedDOMComponentWithClass(instance, 'crawler-col crawler-name');
-    const recentRunAt = findRenderedDOMComponentWithClass(instance, 'crawler-col recent-run');
-    const numNewDocuments = scryRenderedDOMComponentsWithClass(instance, 'crawler-col')[2];
-    const numDocuments = scryRenderedDOMComponentsWithClass(instance, 'crawler-col')[3];
-    const numSuccessfulRun = scryRenderedDOMComponentsWithClass(instance, 'crawler-col')[4];
+    const crawlerName = wrapper.find('.crawler-col.crawler-name');
+    const recentRunAt = wrapper.find('.crawler-col.recent-run');
+    const numNewDocuments = wrapper.find('.crawler-col').at(2);
+    const numDocuments = wrapper.find('.crawler-col').at(3);
+    const numSuccessfulRun = wrapper.find('.crawler-col').at(4);
 
-    crawlerName.textContent.should.eql('PORTAL_COPA');
-    recentRunAt.textContent.should.eql('2019-02-20');
-    numNewDocuments.textContent.should.eql('5');
-    numDocuments.textContent.should.eql('10');
-    numSuccessfulRun.textContent.should.eql('2');
+    crawlerName.text().should.equal('PORTAL_COPA');
+    recentRunAt.text().should.equal('2019-02-20');
+    numNewDocuments.text().should.equal('5');
+    numDocuments.text().should.equal('10');
+    numSuccessfulRun.text().should.equal('2');
   });
 
   it('should call openLogFileModal action when click', function () {
     const openLogFileStub = stub();
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <CrawlerRow
         id={ 123 }
         logUrl='https://lvh.me/log'
         openLogFileModal={ openLogFileStub }
       />
     );
-    const crawlerRow = findDOMNode(instance);
-    Simulate.click(crawlerRow);
-    openLogFileStub.calledWith(123).should.be.true();
+    wrapper.simulate('click');
+    openLogFileStub.should.be.calledWith(123);
   });
 
   it('should not call openLogFileModal action when click if logUrl is empty', function () {
     const openLogFileStub = stub();
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <CrawlerRow
         id={ 123 }
         openLogFileModal={ openLogFileStub }
       />
     );
-    const crawlerRow = findDOMNode(instance);
-    Simulate.click(crawlerRow);
+    wrapper.simulate('click');
     openLogFileStub.should.not.be.called();
   });
 });

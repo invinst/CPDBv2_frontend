@@ -1,24 +1,17 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 import should from 'should';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass,
-  scryRenderedComponentsWithType, Simulate,
-} from 'react-addons-test-utils';
 import { stub, useFakeTimers } from 'sinon';
 
-import { unmountComponentSuppressError, reRender } from 'utils/test';
 import AnimatedRadarChart from 'components/officer-page/radar-chart';
 import RadarExplainer from 'components/officer-page/radar-chart/explainer';
 import StaticRadarChart from 'components/common/radar-chart';
 import RadarChart from 'components/common/radar-chart/radar-chart';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 import * as IntercomTracking from 'utils/intercom-tracking';
 
 
 describe('AnimatedRadarChart components', function () {
-  let instance;
   const data = [{
     year: 2015,
     items: [
@@ -48,14 +41,10 @@ describe('AnimatedRadarChart components', function () {
     visualTokenBackground: 'white',
   }];
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render NoDataRadarChart if no data', function () {
-    instance = renderIntoDocument(<AnimatedRadarChart officerId={ 123 }/>);
-    const noDataRadarChart = findRenderedComponentWithType(instance, RadarChart);
-    should(noDataRadarChart.props.data).be.undefined();
+    const wrapper = shallow(<AnimatedRadarChart officerId={ 123 }/>);
+    const noDataRadarChart = wrapper.find(StaticRadarChart).dive().find(RadarChart);
+    should(noDataRadarChart.prop('data')).be.undefined();
   });
 
   it('should render NoDataRadarChart if some data is missing', function () {
@@ -78,48 +67,45 @@ describe('AnimatedRadarChart components', function () {
       textColor: 'black',
       visualTokenBackground: 'white',
     }];
-    instance = renderIntoDocument(<AnimatedRadarChart officerId={ 123 } data={ missingData }/>);
-    const noDataRadarChart = findRenderedComponentWithType(instance, RadarChart);
-    should(noDataRadarChart.props.data).be.undefined();
+    const wrapper = shallow(<AnimatedRadarChart officerId={ 123 } data={ missingData }/>);
+    const noDataRadarChart = wrapper.find(StaticRadarChart).dive().find(RadarChart);
+    should(noDataRadarChart.prop('data')).be.undefined();
   });
 
   it('should render if data provided', function () {
-    instance = renderIntoDocument(<AnimatedRadarChart officerId={ 123 } data={ data }/>);
-    findRenderedComponentWithType(instance, StaticRadarChart);
-    findRenderedDOMComponentWithClass(instance, 'open-explainer-button');
-    scryRenderedComponentsWithType(instance, RadarExplainer).should.have.length(0);
+    const wrapper = shallow(<AnimatedRadarChart officerId={ 123 } data={ data }/>);
+    wrapper.find(StaticRadarChart).exists().should.be.true();
+    wrapper.find('.open-explainer-button').exists().should.be.true();
+    wrapper.find(RadarExplainer).exists().should.be.false();
   });
 
   it('should rerender if data change', function () {
-    instance = renderIntoDocument(<AnimatedRadarChart officerId={ 123 } data={ [data[0]] }/>);
+    const wrapper = mount(<AnimatedRadarChart officerId={ 123 } data={ [data[0]] }/>);
 
-    instance = reRender(
-      <AnimatedRadarChart officerId={ 123 } data={ data }/>,
-      instance
-    );
-    should(instance.timer).not.be.null();
+    wrapper.setProps({ officerId: 123, data: data });
+    should(wrapper.instance().timer).not.be.null();
   });
 
   it('should open the explainer clicking on the radar chart and track this event', function () {
-    stub(GATracking, 'trackOpenExplainer');
+    stub(tracking, 'trackOpenExplainer');
     stub(IntercomTracking, 'trackOpenExplainer');
 
-    instance = renderIntoDocument(<AnimatedRadarChart officerId={ 123 } data={ data }/>);
-    scryRenderedComponentsWithType(instance, RadarExplainer).should.have.length(0);
+    const wrapper = shallow(<AnimatedRadarChart officerId={ 123 } data={ data }/>);
+    wrapper.find(RadarExplainer).exists().should.be.false();
 
-    Simulate.click(findRenderedDOMComponentWithClass(instance, 'officer-radar-chart-placeholder'));
+    wrapper.find('.officer-radar-chart-placeholder').simulate('click');
 
-    findRenderedComponentWithType(instance, RadarExplainer);
-    GATracking.trackOpenExplainer.should.be.calledWith(123);
+    wrapper.find(RadarExplainer).exists().should.be.true();
+    tracking.trackOpenExplainer.should.be.calledWith(123);
     IntercomTracking.trackOpenExplainer.should.be.calledWith(123);
 
-    GATracking.trackOpenExplainer.restore();
+    tracking.trackOpenExplainer.restore();
     IntercomTracking.trackOpenExplainer.restore();
   });
 
   it('should not render StaticRadarChart if content is being requested', function () {
-    instance = renderIntoDocument(<AnimatedRadarChart officerId={ 123 } isRequesting={ true }/>);
-    scryRenderedComponentsWithType(instance, StaticRadarChart).should.have.length(0);
+    const wrapper = shallow(<AnimatedRadarChart officerId={ 123 } isRequesting={ true }/>);
+    wrapper.find(StaticRadarChart).exists().should.be.false();
   });
 
   describe('test animate', function () {
@@ -135,50 +121,50 @@ describe('AnimatedRadarChart components', function () {
 
     it('should not animate if data length is 1', function () {
       const compactData = [data[0]];
-      instance = renderIntoDocument(
+      const wrapper = shallow(
         <AnimatedRadarChart officerId={ 123 } data={ compactData }/>
       );
+      const instance = wrapper.instance();
 
       should(instance.timer).be.null();
       clock.tick(30);
       should(instance.timer).be.null();
-      instance.state.transitionValue.should.be.eql(0);
+      wrapper.state('transitionValue').should.equal(0);
     });
 
     it('should change transition value after mounting', function () {
-
-      instance = renderIntoDocument(
+      const wrapper = mount(
         <AnimatedRadarChart officerId={ 123 } data={ data }/>
       );
 
-      instance.state.transitionValue.should.eql(0);
+      wrapper.state('transitionValue').should.equal(0);
 
       clock.tick(25);
-      instance.state.transitionValue.should.eql(instance.velocity);
+      wrapper.state('transitionValue').should.equal(wrapper.instance().velocity);
 
       clock.tick(500);
-      instance.state.transitionValue.should.eql(2);
+      wrapper.state('transitionValue').should.equal(2);
 
     });
 
     it('should end animation and start animation again when the explainer is closed', function () {
-      instance = renderIntoDocument(<AnimatedRadarChart officerId={ 123 } data={ data }/>);
-      scryRenderedComponentsWithType(instance, RadarExplainer).should.have.length(0);
+      const wrapper = mount(<AnimatedRadarChart officerId={ 123 } data={ data }/>);
+      wrapper.find(RadarExplainer).exists().should.be.false();
 
-      Simulate.click(findRenderedDOMComponentWithClass(instance, 'officer-radar-chart-placeholder'));
+      wrapper.find('.officer-radar-chart-placeholder').simulate('click');
 
-      instance.state.transitionValue.should.eql(2);
+      wrapper.state('transitionValue').should.equal(2);
 
-      const explainer = findRenderedComponentWithType(instance, RadarExplainer);
-      const closeButton = findRenderedDOMComponentWithClass(explainer, 'radar-explainer-close-button');
+      const explainer = wrapper.find(RadarExplainer);
+      const closeButton = explainer.find('.radar-explainer-close-button');
 
-      Simulate.click(closeButton);
+      closeButton.simulate('click');
 
-      instance.state.transitionValue.should.eql(0);
-      scryRenderedComponentsWithType(instance, RadarExplainer).should.have.length(0);
+      wrapper.state('transitionValue').should.equal(0);
+      wrapper.find(RadarExplainer).exists().should.be.false();
 
       clock.tick(25);
-      instance.state.transitionValue.should.eql(instance.velocity);
+      wrapper.state('transitionValue').should.equal(wrapper.instance().velocity);
     });
 
     it('should not animate to years that data is missing', function () {
@@ -228,20 +214,21 @@ describe('AnimatedRadarChart components', function () {
         textColor: 'black',
         visualTokenBackground: 'white',
       }];
-      instance = renderIntoDocument(<AnimatedRadarChart officerId={ 123 } data={ missingData }/>);
+      const wrapper = mount(<AnimatedRadarChart officerId={ 123 } data={ missingData }/>);
+      const instance = wrapper.instance();
 
-      instance.state.transitionValue.should.equal(0);
+      wrapper.state('transitionValue').should.equal(0);
       instance.animatedData.should.have.length(2);
       instance.animatedData[0].year.should.equal(2014);
 
       clock.tick(25);
-      instance.state.transitionValue.should.eql(instance.velocity);
-      findRenderedComponentWithType(instance, StaticRadarChart).props.legendText.should.equal(2016);
-      findRenderedComponentWithType(instance, StaticRadarChart).props.fadeOutLegend.should.be.false();
+      wrapper.state('transitionValue').should.equal(instance.velocity);
+      wrapper.find(StaticRadarChart).prop('legendText').should.equal(2016);
+      wrapper.find(StaticRadarChart).prop('fadeOutLegend').should.be.false();
 
       clock.tick(200);
-      findRenderedComponentWithType(instance, StaticRadarChart).props.legendText.should.equal(2016);
-      findRenderedComponentWithType(instance, StaticRadarChart).props.fadeOutLegend.should.be.true();
+      wrapper.find(StaticRadarChart).prop('legendText').should.equal(2016);
+      wrapper.find(StaticRadarChart).prop('fadeOutLegend').should.be.true();
     });
   });
 });

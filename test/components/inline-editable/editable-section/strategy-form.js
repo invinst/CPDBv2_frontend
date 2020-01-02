@@ -1,12 +1,11 @@
 import React from 'react';
-import { renderIntoDocument, findRenderedDOMComponentWithTag, Simulate } from 'react-addons-test-utils';
+import should from 'should';
+import { shallow } from 'enzyme';
 import { spy } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import StrategyForm from 'components/inline-editable/editable-section/strategy-form';
 
 describe('StrategyForm component', function () {
-  let instance;
   const strategyFormValue = {
     poolSize: 10,
     selectedStrategyId: 1,
@@ -16,62 +15,60 @@ describe('StrategyForm component', function () {
     ],
   };
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render select and input when in edit mode', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <StrategyForm
         editModeOn={ true }
         value={ strategyFormValue }
       />
     );
-    const input = findRenderedDOMComponentWithTag(instance, 'input');
-    input.value.should.eql('10');
-    const select = findRenderedDOMComponentWithTag(instance, 'select');
-    select.value.should.eql('1');
-    const options = select.children;
-    options[0].value.should.eql('1');
-    options[0].innerText.should.eql('a');
-    options[0].tagName.should.eql('OPTION');
-    options[1].value.should.eql('2');
-    options[1].innerText.should.eql('b');
-    options[1].tagName.should.eql('OPTION');
+    const input = wrapper.find('input');
+    input.prop('value').should.equal(10);
+
+    const select = wrapper.find('select');
+    select.prop('value').should.equal(1);
+
+    const options = select.children();
+    options.at(0).prop('value').should.equal(1);
+    options.at(0).text().should.equal('a');
+    options.at(0).type().should.equal('option');
+    options.at(1).prop('value').should.equal(2);
+    options.at(1).text().should.equal('b');
+    options.at(1).type().should.equal('option');
   });
 
   it('should not render anything when not in edit mode', function () {
-    instance = renderIntoDocument(<StrategyForm editModeOn={ false }/>);
-    instance.should.displayNothing();
+    const wrapper = shallow(
+      <StrategyForm editModeOn={ false }/>
+    );
+    should(wrapper.type()).be.null();
   });
 
   it('should trigger onChange with new poolSize', function () {
     const onChange = spy();
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <StrategyForm
         onChange={ onChange }
         editModeOn={ true }
         value={ strategyFormValue }
       />
     );
-    const input = findRenderedDOMComponentWithTag(instance, 'input');
-    input.value = 15;
-    Simulate.change(input);
+    const input = wrapper.find('input');
+    input.simulate('change', { target: { value: 15 } });
     onChange.args[0][0].should.eql({ ...strategyFormValue, poolSize: 15 });
   });
 
   it('should trigger onChange with new selected strategy', function () {
     const onChange = spy();
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <StrategyForm
         onChange={ onChange }
         editModeOn={ true }
         value={ strategyFormValue }
       />
     );
-    const select = findRenderedDOMComponentWithTag(instance, 'select');
-    select.value = 2;
-    Simulate.change(select);
+    const select = wrapper.find('select');
+    select.simulate('change', { target: { value: 2 } });
     onChange.args[0][0].should.eql({ ...strategyFormValue, selectedStrategyId: 2 });
   });
 });

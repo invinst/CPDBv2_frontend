@@ -45,7 +45,7 @@ export const communityGeoJSONSelector = createSelector(
       ...feature,
       properties: transformCommunity(feature.properties),
     })),
-  }: null)
+  } : null)
 );
 
 export const communitiesSelector = createSelector(

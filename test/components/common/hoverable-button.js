@@ -1,55 +1,49 @@
 import React from 'react';
-import { renderIntoDocument, findRenderedDOMComponentWithTag } from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import { HoverableButton } from 'components/common/hoverable-button';
 
 describe('HoverableButton component', function () {
-  let instance;
   const style = {
     hover: { color: 'red' },
     base: { color: 'blue' },
     disabled: { color: 'yellow' },
   };
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render a tag', function () {
-    instance = renderIntoDocument(<HoverableButton/>);
-    findRenderedDOMComponentWithTag(instance, 'a');
+    const wrapper = shallow(<HoverableButton/>);
+    wrapper.find('a').exists().should.be.true();
   });
 
   it('should trigger onClick', function () {
-    HoverableButton.should.triggerCallbackWhenClick('onClick', 'link--transition');
+    HoverableButton.should.triggerCallbackWhenClick('onClick', '.link--transition');
   });
 
   it('should display hover style when hovered', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <HoverableButton hovering={ true } style={ style }/>
     );
-    const aTag = findRenderedDOMComponentWithTag(instance, 'a');
-    aTag.style.getPropertyValue('color').should.eql('red');
+    const aTag = wrapper.find('a');
+    aTag.prop('style').color.should.equal('red');
   });
 
   it('should display base style when not hovered', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <HoverableButton hovering={ false } style={ style }/>
     );
-    const aTag = findRenderedDOMComponentWithTag(instance, 'a');
-    aTag.style.getPropertyValue('color').should.eql('blue');
+    const aTag = wrapper.find('a');
+    aTag.prop('style').color.should.equal('blue');
   });
 
   it('should display disabled style when disabled', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <HoverableButton disabled={ true } style={ style }/>
     );
-    const aTag = findRenderedDOMComponentWithTag(instance, 'a');
-    aTag.style.getPropertyValue('color').should.eql('yellow');
+    const aTag = wrapper.find('a');
+    aTag.prop('style').color.should.equal('yellow');
   });
 
   it('should not trigger onClick when disabled', function () {
-    HoverableButton.should.not.triggerCallbackWhenClick('onClick', 'link--transition', { disabled: true });
+    HoverableButton.should.not.triggerCallbackWhenClick('onClick', '.link--transition', { disabled: true });
   });
 });

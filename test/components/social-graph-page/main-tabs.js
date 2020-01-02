@@ -1,14 +1,9 @@
 import React from 'react';
+import { mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { stub } from 'sinon';
-import {
-  findRenderedDOMComponentWithClass,
-  renderIntoDocument,
-  Simulate,
-} from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import { DATA_VISUALIZATION_TAB_NAMES } from 'utils/constants';
 import MainTabs from 'components/social-graph-page/main-tabs';
 
@@ -21,15 +16,10 @@ describe('MainTabs component', function () {
       geographicData: [],
     },
   });
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
 
   it('should call changeTab when clicking tab name', function () {
     const stubChangeTab = stub();
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <MainTabs
           changeTab={ stubChangeTab }
@@ -38,17 +28,17 @@ describe('MainTabs component', function () {
       </Provider>
     );
 
-    const networkTab = findRenderedDOMComponentWithClass(instance, 'social-graph-btn');
-    const geographicTab = findRenderedDOMComponentWithClass(instance, 'geographic-btn');
-    Simulate.click(geographicTab);
+    const networkTab = wrapper.find('.social-graph-btn');
+    const geographicTab = wrapper.find('.geographic-btn');
+    geographicTab.simulate('click');
     stubChangeTab.should.be.calledWith('GEOGRAPHIC');
-    Simulate.click(networkTab);
+    networkTab.simulate('click');
     stubChangeTab.should.be.calledWith('SOCIAL_GRAPH');
   });
 
   it('should call updatePathName when clicking tab name with pinboardId', function () {
     const stubUpdatePathName = stub();
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <MainTabs
           updatePathName={ stubUpdatePathName }
@@ -59,17 +49,17 @@ describe('MainTabs component', function () {
       </Provider>
     );
 
-    const networkTab = findRenderedDOMComponentWithClass(instance, 'social-graph-btn');
-    const geographicTab = findRenderedDOMComponentWithClass(instance, 'geographic-btn');
-    Simulate.click(geographicTab);
+    const networkTab = wrapper.find('.social-graph-btn');
+    const geographicTab = wrapper.find('.geographic-btn');
+    geographicTab.simulate('click');
     stubUpdatePathName.should.be.calledWith('/geographic/pinboard/1234abcd/');
-    Simulate.click(networkTab);
+    networkTab.simulate('click');
     stubUpdatePathName.should.be.calledWith('/social-graph/pinboard/1234abcd/');
   });
 
   it('should call updatePathName when clicking tab name with query', function () {
     const stubUpdatePathName = stub();
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <MainTabs
           updatePathName={ stubUpdatePathName }
@@ -79,11 +69,11 @@ describe('MainTabs component', function () {
       </Provider>
     );
 
-    const networkTab = findRenderedDOMComponentWithClass(instance, 'social-graph-btn');
-    const geographicTab = findRenderedDOMComponentWithClass(instance, 'geographic-btn');
-    Simulate.click(geographicTab);
+    const networkTab = wrapper.find('.social-graph-btn');
+    const geographicTab = wrapper.find('.geographic-btn');
+    geographicTab.simulate('click');
     stubUpdatePathName.should.be.calledWith('/geographic/?unit_id=123');
-    Simulate.click(networkTab);
+    networkTab.simulate('click');
     stubUpdatePathName.should.be.calledWith('/social-graph/?unit_id=123');
   });
 });

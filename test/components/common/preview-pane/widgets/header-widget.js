@@ -1,22 +1,15 @@
 import React from 'react';
-import { renderIntoDocument, findRenderedDOMComponentWithClass } from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
 import HeaderWidget from 'components/common/preview-pane/widgets/header-widget';
-import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('HeaderWidget component', () => {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should contains title', () => {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <HeaderWidget title={ 'Community Name' }/>
     );
-    const instanceDOM = findRenderedDOMComponentWithClass(instance, 'test--header-widget');
-    instanceDOM.textContent.should.containEql('Community Name');
+    const instanceDOM = wrapper.find('.test--header-widget');
+    instanceDOM.text().should.containEql('Community Name');
   });
 });

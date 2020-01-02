@@ -18,7 +18,7 @@ module.exports = distFolder => ({
   mode: 'production',
   entry: `${srcPath}/js/index`,
   resolve: {
-    extensions: ['.js'],
+    extensions: ['.js', '.json'],
     modules: [path.resolve(__dirname, '../src/css'), path.resolve(__dirname, '../src/js'), 'node_modules'],
     alias: {
       webworkify: 'webworkify-webpack',

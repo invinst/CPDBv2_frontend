@@ -48,7 +48,6 @@ PuppeteerMochaPlugin.prototype.ready = function () {
 };
 
 PuppeteerMochaPlugin.prototype.endTest = function (testsPassed, coverage) {
-  this.page.goto('http://lvh.me');
   if (!this.watchTest) {
     this.coverageReport(coverage);
     this.quit(testsPassed);
@@ -114,7 +113,7 @@ PuppeteerMochaPlugin.prototype.apply = function (compiler) {
         const mochaOpts = encodeURI(JSON.stringify(this.mochaOpts));
         const url = `http://localhost:${this.port}#${mochaOpts}`;
         log.info(`Visit url ${url}`);
-        this.page.goto(url);
+        this.page.reload({ waitUntil: ['networkidle0', 'domcontentloaded'] }).then(() => this.page.goto(url));
       });
     });
   });

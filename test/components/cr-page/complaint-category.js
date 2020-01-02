@@ -1,25 +1,15 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 
-import { unmountComponentSuppressError } from 'utils/test';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-} from 'react-addons-test-utils';
 import ComplaintCategory from 'components/cr-page/complaint-category';
 
 
 describe('ComplaintCategory component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render category and subcategory', function () {
-    instance = renderIntoDocument(<ComplaintCategory category='some category' subcategory='some subcategory' />);
-    const category = findRenderedDOMComponentWithClass(instance, 'cr-category');
-    category.textContent.should.containEql('some category');
-    const subCategory = findRenderedDOMComponentWithClass(instance, 'cr-subcategory');
-    subCategory.textContent.should.eql('some subcategory');
+    const wrapper = shallow(<ComplaintCategory category='some category' subcategory='some subcategory' />);
+    const category = wrapper.find('.cr-category');
+    category.text().should.containEql('some category');
+    const subCategory = wrapper.find('.cr-subcategory');
+    subCategory.text().should.equal('some subcategory');
   });
 });

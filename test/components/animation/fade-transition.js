@@ -1,45 +1,37 @@
 import React from 'react';
-import {
-  renderIntoDocument, findRenderedDOMComponentWithClass, scryRenderedDOMComponentsWithClass,
-} from 'react-addons-test-utils';
+import { mount } from 'enzyme';
 
-import { unmountComponentSuppressError, reRender, withAnimationDisabled } from 'utils/test';
+import { withAnimationDisabled } from 'utils/test';
 import FadeTransition from 'components/animation/fade-transition';
 
+
 describe('FadeTransition component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
-  it('should render it\'s children', function () {
-    instance = renderIntoDocument(
+  it('should render its children', function () {
+    const wrapper = mount(
       <FadeTransition>
         <div className='amazing-element' key='1'/>
       </FadeTransition>
     );
-    findRenderedDOMComponentWithClass(instance, 'amazing-element');
+    wrapper.find('.amazing-element').exists().should.be.true();
   });
 
   it('should fade-in new child and fade-out old child', function (callback) {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <FadeTransition>
         <div className='child1' key='1'/>
       </FadeTransition>
     );
 
-    instance = reRender(
-      <FadeTransition>
-        <div className='child2' key='2'/>
-      </FadeTransition>,
-      instance);
+    wrapper.setProps({
+      children: <div className='child2' key='2'/>,
+    });
+
     setTimeout(() => {
-      findRenderedDOMComponentWithClass(instance, 'child1');
-      findRenderedDOMComponentWithClass(instance, 'child2');
+      wrapper.find('.child1').exists().should.be.true();
+      wrapper.find('.child2').exists().should.be.true();
       setTimeout(() => {
-        scryRenderedDOMComponentsWithClass(instance, 'child1').length.should.equal(0);
-        findRenderedDOMComponentWithClass(instance, 'child2');
+        wrapper.find('.child1').exists().should.be.false();
+        wrapper.find('.child2').exists().should.be.true();
         callback();
       }, 500);
     },
@@ -48,12 +40,12 @@ describe('FadeTransition component', function () {
 
   it('should simply render it\'s children when animation is disabled', function () {
     withAnimationDisabled(() => {
-      instance = renderIntoDocument(
+      const wrapper = mount(
         <FadeTransition>
           <div className='child' key='1'/>
         </FadeTransition>
       );
-      findRenderedDOMComponentWithClass(instance, 'child');
+      wrapper.find('.child').exists().should.be.true();
     });
   });
 });

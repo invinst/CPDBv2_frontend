@@ -1,25 +1,13 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass,
-  findRenderedComponentWithType,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import PopupWrapper from 'components/common/popup/popup-wrapper';
 import CoaccusedPopup from 'components/cr-page/accused-officers/coaccused-popup';
 
 
 describe('CoaccusedPopup component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render PopupWrapper and content', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <CoaccusedPopup
         finding='Sustained'
         outcome='Reprimand'
@@ -27,26 +15,25 @@ describe('CoaccusedPopup component', function () {
       />
     );
 
-    const popup = findRenderedComponentWithType(instance, PopupWrapper);
-    popup.props.popupButtonClassName.should.eql('bottom-popup-button');
+    const popup = wrapper.find(PopupWrapper);
+    popup.prop('popupButtonClassName').should.equal('bottom-popup-button');
 
-    findRenderedDOMComponentWithClass(instance, 'coaccused-popup-title').textContent.should.eql(
+    wrapper.find('.coaccused-popup-title').text().should.equal(
       'ADDITIONAL INFORMATION'
     );
 
-    scryRenderedDOMComponentsWithClass(instance, 'coaccused-popup-row').should.have.length(3);
+    wrapper.find('.coaccused-popup-row').should.have.length(3);
 
-    const labels = scryRenderedDOMComponentsWithClass(instance, 'coaccused-popup-row-label');
+    const labels = wrapper.find('.coaccused-popup-row-label');
     labels.should.have.length(3);
-    labels[0].textContent.should.eql('Final Finding');
-    labels[1].textContent.should.eql('Recommended Outcome');
-    labels[2].textContent.should.eql('Final Outcome');
+    labels.at(0).text().should.equal('Final Finding');
+    labels.at(1).text().should.equal('Recommended Outcome');
+    labels.at(2).text().should.equal('Final Outcome');
 
-    const values = scryRenderedDOMComponentsWithClass(instance, 'coaccused-popup-row-value');
+    const values = wrapper.find('.coaccused-popup-row-value');
     values.should.have.length(3);
-    values[0].textContent.should.eql('Sustained');
-    values[1].textContent.should.eql('365 Day Suspension');
-    values[2].textContent.should.eql('Reprimand');
+    values.at(0).text().should.equal('Sustained');
+    values.at(1).text().should.equal('365 Day Suspension');
+    values.at(2).text().should.equal('Reprimand');
   });
-
 });

@@ -1,24 +1,12 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithTag,
-  scryRenderedDOMComponentsWithTag,
-} from 'react-addons-test-utils';
-import { findDOMNode } from 'react-dom';
+import { shallow } from 'enzyme';
 
 import { OfficerInfoWidget } from 'components/common/preview-pane/widgets';
-import { unmountComponentSuppressError } from 'utils/test';
 
 
-describe('OfficerInfoWidget component', () => {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
-  it('should display officer info', () => {
-    instance = renderIntoDocument(
+describe('OfficerInfoWidget component', function () {
+  it('should display officer info', function () {
+    const wrapper = shallow(
       <OfficerInfoWidget
         fullName='Timothy Parker'
         race='white'
@@ -30,18 +18,18 @@ describe('OfficerInfoWidget component', () => {
         appointedDate='JAN 7, 2017'
       />
     );
-    findRenderedDOMComponentWithTag(instance, 'h1').textContent.should.eql('Timothy Parker');
-    const listItem = scryRenderedDOMComponentsWithTag(instance, 'li');
+    wrapper.find('h1').text().should.equal('Timothy Parker');
+    const listItem = wrapper.find('li');
     listItem.should.have.length(5);
-    listItem[0].textContent.should.eql('37 year old, white, male.');
-    listItem[1].textContent.should.containEql('23');
-    listItem[2].textContent.should.containEql('Police Officer');
-    listItem[3].textContent.should.containEql('District 018');
-    listItem[4].textContent.should.containEql('JAN 7, 2017 — Present');
+    listItem.at(0).text().should.equal('37 year old, white, male.');
+    listItem.at(1).text().should.containEql('23');
+    listItem.at(2).text().should.containEql('Police Officer');
+    listItem.at(3).text().should.containEql('District 018');
+    listItem.at(4).text().should.containEql('JAN 7, 2017 — Present');
   });
 
-  it('should contain resignation date when resignationDate is not null', () => {
-    instance = renderIntoDocument(
+  it('should contain resignation date when resignationDate is not null', function () {
+    const wrapper = shallow(
       <OfficerInfoWidget
         fullName='Timothy Parker'
         race='white'
@@ -54,12 +42,12 @@ describe('OfficerInfoWidget component', () => {
         resignationDate='JAN 8, 2018'
       />
     );
-    const listItem = scryRenderedDOMComponentsWithTag(instance, 'li');
-    listItem[4].textContent.should.containEql('JAN 7, 2017 — JAN 8, 2018');
+    const listItem = wrapper.find('li');
+    listItem.at(4).text().should.containEql('JAN 7, 2017 — JAN 8, 2018');
   });
 
   it('should hide rank if it is null', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <OfficerInfoWidget
         fullName='Timothy Parker'
         age={ 37 }
@@ -69,15 +57,15 @@ describe('OfficerInfoWidget component', () => {
         appointedDate='JAN 7, 2017'
       />
     );
-    const listItem = scryRenderedDOMComponentsWithTag(instance, 'li');
+    const listItem = wrapper.find('li');
     listItem.should.have.length(4);
-    listItem[0].textContent.should.eql('37 year old, male.');
-    listItem[1].textContent.should.containEql('23');
-    listItem[2].textContent.should.containEql('District 018');
+    listItem.at(0).text().should.equal('37 year old, male.');
+    listItem.at(1).text().should.containEql('23');
+    listItem.at(2).text().should.containEql('District 018');
   });
 
   it('should hide demographic row if all age, gender, race is empty', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <OfficerInfoWidget
         fullName='Timothy Parker'
         badge='23'
@@ -85,9 +73,9 @@ describe('OfficerInfoWidget component', () => {
         appointedDate='JAN 7, 2017'
       />
     );
-    const listItem = scryRenderedDOMComponentsWithTag(instance, 'li');
+    const listItem = wrapper.find('li');
     listItem.should.have.length(3);
-    listItem[0].textContent.should.containEql('23');
-    findDOMNode(instance).textContent.should.not.containEql('year old');
+    listItem.at(0).text().should.containEql('23');
+    wrapper.text().should.not.containEql('year old');
   });
 });

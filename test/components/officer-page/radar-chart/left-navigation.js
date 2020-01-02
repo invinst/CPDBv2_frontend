@@ -1,39 +1,27 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  Simulate,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 import { stub } from 'sinon';
-import { findDOMNode } from 'react-dom';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import LeftNavigation from 'components/officer-page/radar-chart/explainer/left-navigation';
 import styles from 'components/officer-page/radar-chart/explainer/left-navigation.sass';
 
 
 describe('LeftNavigation components', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render correct content', function () {
-    instance = renderIntoDocument(<LeftNavigation text='Some text'/>);
+    const wrapper = shallow(<LeftNavigation text='Some text'/>);
 
-    findDOMNode(instance).textContent.should.eql('Some text');
+    wrapper.text().should.equal('Some text');
   });
 
   it('should invoke onClickHandler when being clicked', function () {
     const onClickHandlerStub = stub();
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <LeftNavigation onClickHandler={ onClickHandlerStub } text='Some text'/>
     );
 
-    const leftNavigationElm = findRenderedDOMComponentWithClass(instance, styles.leftNavigation);
-    Simulate.click(leftNavigationElm);
+    const leftNavigationElm = wrapper.find(`.${styles.leftNavigation}`);
+    leftNavigationElm.simulate('click');
 
     onClickHandlerStub.calledOnce.should.be.true();
   });

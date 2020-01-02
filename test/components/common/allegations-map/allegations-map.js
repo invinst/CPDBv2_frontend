@@ -1,20 +1,13 @@
 import React from 'react';
+import { mount } from 'enzyme';
 import isMobile from 'ismobilejs';
 import { times, cloneDeep } from 'lodash';
 import { stub, spy } from 'sinon';
 import { browserHistory } from 'react-router';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  findRenderedComponentWithType,
-  scryRenderedComponentsWithType,
-  scryRenderedDOMComponentsWithClass,
-} from 'react-addons-test-utils';
 import { mapboxgl } from 'utils/vendors';
 import ReactDOMServer from 'react-dom/server';
 import should from 'should';
 
-import { unmountComponentSuppressError, reRender } from 'utils/test';
 import AllegationsMap, { AllegationsMapWithSpinner } from 'components/common/allegations-map';
 import Legend from 'components/common/allegations-map/legend';
 import mapStyles from 'components/common/allegations-map/allegations-map.sass';
@@ -24,7 +17,6 @@ import MarkerTooltip from 'components/common/allegations-map/marker-tooltip';
 
 
 describe('Map component', function () {
-  let instance;
   const legend = {
     allegationCount: 20,
     sustainedCount: 3,
@@ -83,10 +75,6 @@ describe('Map component', function () {
     mapboxgl._resetHistory();
   });
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   describe('shouldComponentUpdate', function () {
     it('should return true if props are changed', function () {
       const newLegend = {
@@ -116,17 +104,19 @@ describe('Map component', function () {
         trrs: [],
       };
 
-      instance = renderIntoDocument(<AllegationsMap legend={ legend } markerGroups={ markerGroups }/>);
+      const wrapper = mount(<AllegationsMap legend={ legend } markerGroups={ markerGroups }/>);
+      const instance = wrapper.instance();
       instance.shouldComponentUpdate({ legend: newLegend, markerGroups }).should.be.true();
       instance.shouldComponentUpdate({ legend, markerGroups: newMarkers }).should.be.true();
       instance.shouldComponentUpdate({ legend: newLegend, markerGroups: newMarkers }).should.be.true();
     });
 
     it('should return false if props are unchanged', function () {
-      instance = renderIntoDocument(<AllegationsMap legend={ legend } markerGroups={ markerGroups } />);
-      instance.shouldComponentUpdate(
-        { legend: cloneDeep(legend), markerGroups: cloneDeep(markerGroups) }
-      ).should.be.false();
+      const wrapper = mount(<AllegationsMap legend={ legend } markerGroups={ markerGroups } />);
+      wrapper.instance().shouldComponentUpdate({
+        legend: cloneDeep(legend),
+        markerGroups: cloneDeep(markerGroups),
+      }).should.be.false();
     });
   });
 
@@ -135,25 +125,23 @@ describe('Map component', function () {
       const resetMapSpy = spy(AllegationsMap.prototype, 'resetMap');
       const addMapLayersOnStyleLoadedSpy = spy(AllegationsMap.prototype, 'addMapLayersOnStyleLoaded');
 
-      instance = renderIntoDocument(
+      const wrapper = mount(
         <AllegationsMap
           legend={ legend }
           markerGroups={ markerGroups }
         />
       );
 
-      instance = reRender(
-        <AllegationsMap
-          legend={ legend }
-          markerGroups={ markerGroups }
-          clearAllMarkers={ true }
-        />,
-        instance
-      );
+      wrapper.setProps({
+        legend: legend,
+        markerGroups: markerGroups,
+        clearAllMarkers: true,
+      });
+
       resetMapSpy.should.be.called();
       addMapLayersOnStyleLoadedSpy.should.be.calledWith(markerGroups);
-      AllegationsMap.prototype.resetMap.restore();
-      AllegationsMap.prototype.addMapLayersOnStyleLoaded.restore();
+      resetMapSpy.restore();
+      addMapLayersOnStyleLoadedSpy.restore();
     });
 
     it('should only call addMapLayersOnStyleLoaded if next props clearAllMarkers is false', function () {
@@ -173,52 +161,52 @@ describe('Map component', function () {
         ],
       };
 
-      instance = renderIntoDocument(
+      const wrapper = mount(
         <AllegationsMap
           legend={ legend }
           markerGroups={ markerGroups }
         />
       );
 
-      instance = reRender(
-        <AllegationsMap
-          legend={ legend }
-          markerGroups={ newMarkers }
-          clearAllMarkers={ false }
-        />,
-        instance
-      );
+      wrapper.setProps({
+        legend: legend,
+        markerGroups: newMarkers,
+        clearAllMarkers: false,
+      });
+
       addMapLayersOnStyleLoadedSpy.should.be.calledWith(newMarkers);
-      AllegationsMap.prototype.addMapLayersOnStyleLoaded.restore();
+      addMapLayersOnStyleLoadedSpy.restore();
     });
   });
 
   it('should render officer map and legend', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <AllegationsMap legend={ legend } markerGroups={ markerGroups } showLegends={ true }/>
     );
 
-    findRenderedDOMComponentWithClass(instance, mapStyles.map);
-    findRenderedDOMComponentWithClass(instance, legendStyles.legend);
+    wrapper.find(`.${mapStyles.map}`).exists().should.be.true();
+    wrapper.find(`.${legendStyles.legend}`).exists().should.be.true();
   });
 
   context('WithSpinner', function () {
     it('should render only loading spinner if requesting is true ', function () {
-      instance = renderIntoDocument(<AllegationsMapWithSpinner legend={ legend } requesting={ true } />);
+      const wrapper = mount(<AllegationsMapWithSpinner legend={ legend } requesting={ true } />);
 
-      const loadingSpinner = findRenderedComponentWithType(instance, LoadingSpinner);
-      loadingSpinner.props.className.should.equal(mapStyles.allegationMapLoading);
+      const loadingSpinner = wrapper.find(LoadingSpinner);
+      loadingSpinner.prop('className').should.equal(mapStyles.allegationMapLoading);
 
-      scryRenderedComponentsWithType(instance, AllegationsMap).should.have.length(0);
-      scryRenderedComponentsWithType(instance, Legend).should.have.length(0);
-      scryRenderedDOMComponentsWithClass(instance, 'map-tab').should.have.length(0);
+      wrapper.find(AllegationsMap).exists().should.be.false();
+      wrapper.find(Legend).exists().should.be.false();
+      wrapper.find('.map-tab').exists().should.be.false();
     });
 
     it('should not render loading spinner if requesting is false', function () {
-      instance = renderIntoDocument(<AllegationsMapWithSpinner legend={ legend } requesting={ false } />);
+      const wrapper = mount(<AllegationsMapWithSpinner legend={ legend } requesting={ false } />);
 
-      scryRenderedComponentsWithType(instance, LoadingSpinner).should.have.length(0);
-      findRenderedComponentWithType(instance, AllegationsMap);
+      wrapper.find(LoadingSpinner).exists().should.be.false();
+      wrapper.find(Legend).exists().should.be.true();
+      wrapper.find(AllegationsMap).exists().should.be.true();
+      wrapper.find('.map-tab').exists().should.be.true();
     });
   });
 
@@ -236,13 +224,13 @@ describe('Map component', function () {
       crs: times(3, createMarker),
       trrs: [],
     };
-    instance = renderIntoDocument(<AllegationsMap legend={ legend } markerGroups={ markerGroups } />);
+    mount(<AllegationsMap legend={ legend } markerGroups={ markerGroups } />);
     addMapLayersOnStyleLoadedSpy.should.be.calledWith(markerGroups);
-    AllegationsMap.prototype.addMapLayersOnStyleLoaded.restore();
+    addMapLayersOnStyleLoadedSpy.restore();
   });
 
   it('should show data loading spinner if showLegends is false and geographicDataLoading is true', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <AllegationsMap
         legend={ legend }
         markerGroups={ markerGroups }
@@ -250,12 +238,12 @@ describe('Map component', function () {
         geographicDataLoading={ true }
       />
     );
-    const loadingSpinner = findRenderedComponentWithType(instance, LoadingSpinner);
-    loadingSpinner.props.className.should.equal('data-loading-spinner');
+    const loadingSpinner = wrapper.find(LoadingSpinner);
+    loadingSpinner.prop('className').should.equal('data-loading-spinner');
   });
 
   it('should not show data loading spinner if both showLegends and geographicDataLoading are false', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <AllegationsMap
         legend={ legend }
         markerGroups={ markerGroups }
@@ -263,7 +251,7 @@ describe('Map component', function () {
         geographicDataLoading={ false }
       />
     );
-    scryRenderedComponentsWithType(instance, LoadingSpinner).should.have.length(0);
+    wrapper.find(LoadingSpinner).exists().should.be.false();
   });
 
   it('should open CR page when clicking on CR marker', function () {
@@ -279,7 +267,7 @@ describe('Map component', function () {
         },
       ],
     };
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <AllegationsMap
         legend={ legend }
         markerGroups={ markerGroups }
@@ -287,7 +275,7 @@ describe('Map component', function () {
         geographicDataLoading={ false }
       />
     );
-    instance.handleMarkerClick(event);
+    wrapper.instance().handleMarkerClick(event);
     stubPush.should.be.calledWith('/complaint/C123456/');
     stubPush.restore();
   });
@@ -305,7 +293,7 @@ describe('Map component', function () {
         },
       ],
     };
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <AllegationsMap
         legend={ legend }
         markerGroups={ markerGroups }
@@ -313,7 +301,7 @@ describe('Map component', function () {
         geographicDataLoading={ false }
       />
     );
-    instance.handleMarkerClick(event);
+    wrapper.instance().handleMarkerClick(event);
     stubPush.should.be.calledWith('/trr/123456/');
     stubPush.restore();
   });
@@ -332,7 +320,7 @@ describe('Map component', function () {
         },
       ],
     };
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <AllegationsMap
         legend={ legend }
         markerGroups={ markerGroups }
@@ -342,7 +330,7 @@ describe('Map component', function () {
         handleClickTRRMarker={ handleClickTRRMarkerStub }
       />
     );
-    instance.handleMarkerClick(event);
+    wrapper.instance().handleMarkerClick(event);
     handleClickCRMarkerStub.should.be.calledWith('C123456');
     handleClickTRRMarkerStub.should.be.calledWith(null);
   });
@@ -361,7 +349,7 @@ describe('Map component', function () {
         },
       ],
     };
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <AllegationsMap
         legend={ legend }
         markerGroups={ markerGroups }
@@ -371,7 +359,7 @@ describe('Map component', function () {
         handleClickTRRMarker={ handleClickTRRMarkerStub }
       />
     );
-    instance.handleMarkerClick(event);
+    wrapper.instance().handleMarkerClick(event);
     handleClickTRRMarkerStub.should.be.calledWith('123456');
     handleClickCRMarkerStub.should.be.calledWith(null);
   });
@@ -406,7 +394,7 @@ describe('Map component', function () {
       },
     ];
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <AllegationsMap
         legend={ legend }
         markerGroups={ markerGroups }
@@ -414,12 +402,13 @@ describe('Map component', function () {
         geographicDataLoading={ false }
       />
     );
+    const instance = wrapper.instance();
 
     const mapOnStub = stub(instance.map, 'on');
     instance.addMapLayer('crs', crMarkers);
     mapOnStub.should.be.called();
-    mapOnStub.getCall(0).args[0].should.eql('click');
-    mapOnStub.getCall(0).args[1].should.eql('layer-0');
+    mapOnStub.getCall(0).args[0].should.equal('click');
+    mapOnStub.getCall(0).args[1].should.equal('layer-0');
     mapOnStub.getCall(0).args[2].should.eql(instance.openTooltip);
     tabletStub.restore();
     mapOnStub.restore();
@@ -475,12 +464,13 @@ describe('Map component', function () {
         ],
       };
 
-      instance = renderIntoDocument(
+      const wrapper = mount(
         <AllegationsMap
           markerGroups={ markerGroups }
           geographicDataLoading={ false }
         />
       );
+      const instance = wrapper.instance();
 
       const mapOnStub = stub(instance.map, 'on');
 
@@ -532,28 +522,28 @@ describe('Map component', function () {
 
       instance.map.addLayer.should.be.called();
       const addLayerArg = instance.map.addLayer.getCall(0).args[0];
-      addLayerArg['id'].should.eql('layer-0');
-      addLayerArg['type'].should.eql('circle');
-      addLayerArg['source'].should.eql('layer-0');
+      addLayerArg['id'].should.equal('layer-0');
+      addLayerArg['type'].should.equal('circle');
+      addLayerArg['source'].should.equal('layer-0');
 
-      mapOnStub.callCount.should.eql(3);
+      mapOnStub.callCount.should.equal(3);
       const mouseEnterArgs = mapOnStub.getCall(0).args;
-      mouseEnterArgs[0].should.eql('mouseenter');
-      mouseEnterArgs[1].should.eql('layer-0');
+      mouseEnterArgs[0].should.equal('mouseenter');
+      mouseEnterArgs[1].should.equal('layer-0');
       mouseEnterArgs[2](event);
       addMarkerHoverStateStub.should.be.calledWith('layer-0', 1);
       openTooltipStub.should.be.calledWith(event);
 
       const mouseLeaveArgs = mapOnStub.getCall(1).args;
-      mouseLeaveArgs[0].should.eql('mouseleave');
-      mouseLeaveArgs[1].should.eql('layer-0');
+      mouseLeaveArgs[0].should.equal('mouseleave');
+      mouseLeaveArgs[1].should.equal('layer-0');
       mouseLeaveArgs[2]();
       removeMarkerHoverStateStub.should.be.called();
       instance.tooltip.remove.should.be.called();
 
       const mouseClickArgs = mapOnStub.getCall(2).args;
-      mouseClickArgs[0].should.eql('click');
-      mouseClickArgs[1].should.eql('layer-0');
+      mouseClickArgs[0].should.equal('click');
+      mouseClickArgs[1].should.equal('layer-0');
       mouseClickArgs[2].should.eql(instance.handleMarkerClick);
 
       mapOnStub.restore();
@@ -566,13 +556,13 @@ describe('Map component', function () {
     it('should not add new layer if marker data is empty', function () {
       stub(AllegationsMap.prototype, 'addMapLayersOnStyleLoaded');
 
-      instance = renderIntoDocument(
+      const wrapper = mount(
         <AllegationsMap
           markerGroups={ markerGroups }
           geographicDataLoading={ false }
         />
       );
-
+      const instance = wrapper.instance();
 
       instance.addMapLayer('crs', []);
 
@@ -637,12 +627,13 @@ describe('Map component', function () {
         },
       ];
 
-      instance = renderIntoDocument(
+      const wrapper = mount(
         <AllegationsMap
           markerGroups={ markerGroups }
           geographicDataLoading={ false }
         />
       );
+      const instance = wrapper.instance();
 
       instance.addMapLayer('crs', crMarkers1);
       should(instance.map.addLayer.getCall(0).args[1]).be.undefined();
@@ -674,7 +665,7 @@ describe('Map component', function () {
       kind: 'FORCE',
       category: 'Use of Force',
     };
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <AllegationsMap
         legend={ legend }
         markerGroups={ markerGroups }
@@ -682,6 +673,7 @@ describe('Map component', function () {
         geographicDataLoading={ false }
       />
     );
+    const instance = wrapper.instance();
 
     instance.getUrl(crMarker).should.equal('/complaint/C123456/');
     instance.getUrl(trrMarker).should.equal('/trr/123456/');
@@ -693,7 +685,7 @@ describe('Map component', function () {
       kind: 'CR',
       category: 'False Arrest',
     };
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <AllegationsMap
         legend={ legend }
         markerGroups={ markerGroups }
@@ -701,6 +693,7 @@ describe('Map component', function () {
         geographicDataLoading={ false }
       />
     );
+    const instance = wrapper.instance();
 
     instance.markerUid(crMarker).should.equal('CR-C123456');
   });
@@ -722,7 +715,7 @@ describe('Map component', function () {
         },
       ],
     };
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <AllegationsMap
         legend={ legend }
         markerGroups={ markerGroups }
@@ -730,6 +723,7 @@ describe('Map component', function () {
         geographicDataLoading={ false }
       />
     );
+    const instance = wrapper.instance();
 
     const tooltip = (<MarkerTooltip date='2007-12-05' category='False Arrest' url='/complaint/C123456/'/>);
     instance.openTooltip(event);
@@ -739,7 +733,7 @@ describe('Map component', function () {
   });
 
   it('should return initial data when calling initMapData', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <AllegationsMap
         legend={ legend }
         markerGroups={ markerGroups }
@@ -747,11 +741,12 @@ describe('Map component', function () {
         geographicDataLoading={ false }
       />
     );
+    const instance = wrapper.instance();
 
     instance.initMapData();
     instance.layerNames.should.eql([]);
     instance.currentMarkers.should.eql(new Set());
-    instance.mapboxglLayerIndex.should.eql(0);
+    instance.mapboxglLayerIndex.should.equal(0);
     instance.firstLayer.should.eql({});
     instance.hoveredState.should.eql({});
   });
@@ -759,7 +754,9 @@ describe('Map component', function () {
   it('should reset the map when calling resetMap', function () {
     const initMapDataSpy = spy(AllegationsMap.prototype, 'initMapData');
 
-    instance = renderIntoDocument(<AllegationsMap/>);
+    const wrapper = mount(<AllegationsMap/>);
+    const instance = wrapper.instance();
+
     initMapDataSpy.should.be.calledOnce();
     initMapDataSpy.resetHistory();
     instance.map.isStyleLoaded.returns(true);
@@ -770,7 +767,8 @@ describe('Map component', function () {
     initMapDataSpy.should.be.calledOnce();
     instance.map.removeLayer.should.be.calledWith('layer-0');
     instance.map.removeSource.should.be.calledWith('layer-0');
-    AllegationsMap.prototype.initMapData.restore();
+
+    initMapDataSpy.restore();
   });
 
   it('should return correct data when calling mapMarkersData', function () {
@@ -799,7 +797,8 @@ describe('Map component', function () {
         date: '2008-12-05',
       },
     ];
-    instance = renderIntoDocument(<AllegationsMap/>);
+    const wrapper = mount(<AllegationsMap/>);
+    const instance = wrapper.instance();
 
     instance.mapMarkersData(crMarkers).should.eql([
       {
@@ -839,7 +838,7 @@ describe('Map component', function () {
 
   it('should call addMapLayer when calling addMapLayers', function () {
     const addMapLayerSpy = spy(AllegationsMap.prototype, 'addMapLayer');
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <AllegationsMap
         legend={ legend }
         markerGroups={ markerGroups }
@@ -847,6 +846,7 @@ describe('Map component', function () {
         geographicDataLoading={ false }
       />
     );
+    const instance = wrapper.instance();
     addMapLayerSpy.resetHistory();
 
     instance.addMapLayers(markerGroups);
@@ -856,7 +856,7 @@ describe('Map component', function () {
 
   it('should add hover state for marker when calling addMarkerHoverState', function () {
     const removeMarkerHoverStateStub = stub(AllegationsMap.prototype, 'removeMarkerHoverState');
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <AllegationsMap
         legend={ legend }
         markerGroups={ markerGroups }
@@ -864,6 +864,7 @@ describe('Map component', function () {
         geographicDataLoading={ false }
       />
     );
+    const instance = wrapper.instance();
 
     instance.addMarkerHoverState('layer-0', 1);
     removeMarkerHoverStateStub.should.be.called();
@@ -885,7 +886,7 @@ describe('Map component', function () {
   });
 
   it('should remove hover state for marker when calling removeMarkerHoverState', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <AllegationsMap
         legend={ legend }
         markerGroups={ markerGroups }
@@ -893,6 +894,7 @@ describe('Map component', function () {
         geographicDataLoading={ false }
       />
     );
+    const instance = wrapper.instance();
 
     instance.hoveredState = {
       source: 'layer-0',
@@ -914,7 +916,7 @@ describe('Map component', function () {
 
   it('should add map layer when calling addMapLayersOnStyleLoaded', function () {
     const addMapLayersStub = stub(AllegationsMap.prototype, 'addMapLayers');
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <AllegationsMap
         legend={ legend }
         markerGroups={ markerGroups }
@@ -922,6 +924,7 @@ describe('Map component', function () {
         geographicDataLoading={ false }
       />
     );
+    const instance = wrapper.instance();
     addMapLayersStub.resetHistory();
 
     instance.map.isStyleLoaded.returns(true);
@@ -931,13 +934,14 @@ describe('Map component', function () {
   });
 
   it('should call addControl when component render', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <AllegationsMap
         legend={ legend }
         markerGroups={ markerGroups }
         attributionControlPosition='bottom-left'
       />
     );
+    const instance = wrapper.instance();
 
     instance.map.addControl.should.be.calledTwice();
     const attributionControlArgs = instance.map.addControl.getCall(0).args;

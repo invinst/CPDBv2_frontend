@@ -1,18 +1,10 @@
 import React from 'react';
-import { renderIntoDocument, findRenderedDOMComponentWithClass } from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import Joined from 'components/officer-page/tabbed-pane-section/timeline/item/showings/joined';
 
 
 describe('Joined component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
-
   it('should render item correctly', function () {
     const joinedItem = {
       date: 'DEC 5',
@@ -27,13 +19,13 @@ describe('Joined component', function () {
       year: 1988,
     };
 
-    instance = renderIntoDocument(<Joined item={ joinedItem } hasBorderBottom={ false } />);
+    const wrapper = shallow(<Joined item={ joinedItem } hasBorderBottom={ false } />);
 
-    const join = findRenderedDOMComponentWithClass(instance, 'joined-item-join');
-    const date = findRenderedDOMComponentWithClass(instance, 'joined-item-date');
+    const join = wrapper.find('.joined-item-join');
+    const date = wrapper.find('.joined-item-date');
 
-    join.textContent.should.eql('Joined Chicago Police Department with Unit 044 as a Police Officer');
-    date.textContent.should.eql('DEC 5');
+    join.text().should.equal('Joined Chicago Police Department with Unit 044 as a Police Officer');
+    date.text().should.equal('DEC 5');
   });
 
   it('should show correct content if unit name is Unassigned', function () {
@@ -50,13 +42,13 @@ describe('Joined component', function () {
       year: 1988,
     };
 
-    instance = renderIntoDocument(<Joined item={ joinedItem } hasBorderBottom={ false } />);
+    const wrapper = shallow(<Joined item={ joinedItem } hasBorderBottom={ false } />);
 
-    const join = findRenderedDOMComponentWithClass(instance, 'joined-item-join');
-    const date = findRenderedDOMComponentWithClass(instance, 'joined-item-date');
+    const join = wrapper.find('.joined-item-join');
+    const date = wrapper.find('.joined-item-date');
 
-    join.textContent.should.eql('Joined Chicago Police Department as a Police Officer');
-    date.textContent.should.eql('DEC 5');
+    join.text().should.equal('Joined Chicago Police Department as a Police Officer');
+    date.text().should.equal('DEC 5');
   });
 
   it('should show correct content if there is no rank', function () {
@@ -72,8 +64,8 @@ describe('Joined component', function () {
       rank: 'Unknown',
       year: 1988,
     };
-    instance = renderIntoDocument(<Joined item={ joinedItem } hasBorderBottom={ false } />);
-    const join = findRenderedDOMComponentWithClass(instance, 'joined-item-join');
-    join.textContent.should.eql('Joined Chicago Police Department');
+    const wrapper = shallow(<Joined item={ joinedItem } hasBorderBottom={ false } />);
+    const join = wrapper.find('.joined-item-join');
+    join.text().should.equal('Joined Chicago Police Department');
   });
 });

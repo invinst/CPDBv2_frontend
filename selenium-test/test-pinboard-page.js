@@ -1013,3 +1013,142 @@ describe('Session Generator Pinboard Page', function () {
     pinboardPage.secondToast.waitForText('Redirected to latest pinboard.');
   });
 });
+
+describe('Saving Pinboard Failure Handling', function () {
+  describe('Connection lost', function () {
+    it('should show connection lost toast', function () {
+      pinboardPage.open('5cd0dddd');
+
+      pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
+      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.officerName.getText().should.equal(
+        'Richard Sullivan'
+      );
+      pinboardPage.relevantCoaccusalsSection.coaccusalCards().should.have.length(20);
+
+      browser.setNetworkConditions({ latency: 0, throughput: 0, offline: true });
+      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.plusButton.click();
+
+      pinboardPage.firstToast.waitForText('Connection lost. Trying to save ...');
+
+      times(30, () => {
+        browser.pause(100);
+        pinboardPage.firstToast.waitForDisplayed();
+      });
+
+      browser.setNetworkConditions({}, 'No throttling');
+    });
+
+    it('should show connection lost toast and retry on click', function () {
+      pinboardPage.open('5cd0eeee');
+      pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
+      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.officerName.getText().should.equal(
+        'Richard Sullivan'
+      );
+      pinboardPage.relevantCoaccusalsSection.coaccusalCards().should.have.length(20);
+
+      browser.setNetworkConditions({ latency: 0, throughput: 0, offline: true });
+      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.plusButton.click();
+
+      pinboardPage.firstToast.waitForText('Connection lost. Trying to save ...');
+      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.officerName.getText().should.not.equal(
+        'Richard Sullivan'
+      );
+      pinboardPage.pinnedSection.officers.officerCards().should.have.length(2);
+      pinboardPage.relevantCoaccusalsSection.coaccusalCards().should.have.length(19);
+      browser.pause(500);
+
+      pinboardPage.firstToast.click();
+      pinboardPage.firstToast.waitForDisplayed(5000, true);
+      pinboardPage.firstToast.waitForText('Connection lost. Trying to save ...');
+      browser.pause(500);
+
+      pinboardPage.firstToast.click();
+      pinboardPage.firstToast.waitForDisplayed(5000, true);
+
+      times(10, () => {
+        browser.pause(100);
+        pinboardPage.firstToast.waitForDisplayed(5000, true);
+      });
+
+      browser.setNetworkConditions({}, 'No throttling');
+    });
+
+    it('should show connection lost toast and retry when online again', function () {
+      pinboardPage.open('5cd0ffff');
+
+      pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
+      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.officerName.getText().should.equal(
+        'Richard Sullivan',
+      );
+      pinboardPage.relevantCoaccusalsSection.coaccusalCards().should.have.length(20);
+
+      browser.setNetworkConditions({ latency: 0, throughput: 0, offline: true });
+      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.plusButton.click();
+
+      pinboardPage.firstToast.waitForText('Connection lost. Trying to save ...');
+      browser.pause(500);
+
+      browser.setNetworkConditions({}, 'No throttling');
+      pinboardPage.firstToast.waitForDisplayed(5000, true);
+
+      times(10, () => {
+        browser.pause(100);
+        pinboardPage.firstToast.waitForDisplayed(5000, true);
+      });
+    });
+  });
+
+  describe('request failure', function () {
+    it('should show saving failure toast', function () {
+      pinboardPage.open('5cd0aaaa');
+
+      pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
+      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.officerName.getText().should.equal(
+        'Richard Sullivan'
+      );
+      pinboardPage.relevantCoaccusalsSection.coaccusalCards().should.have.length(20);
+
+      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.plusButton.click();
+
+      pinboardPage.firstToast.waitForDisplayed(5000, true);
+      pinboardPage.firstToast.waitForText('Failed to save pinboard. Click to try again!', );
+
+      times(30, () => {
+        browser.pause(100);
+        pinboardPage.firstToast.waitForDisplayed();
+      });
+    });
+
+    it('should show saving failure toast and retry on click', function () {
+      pinboardPage.open('5cd0bbbb');
+      pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
+      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.officerName.getText().should.equal(
+        'Richard Sullivan'
+      );
+      pinboardPage.relevantCoaccusalsSection.coaccusalCards().should.have.length(20);
+
+      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.plusButton.click();
+
+      pinboardPage.firstToast.waitForText('Failed to save pinboard. Click to try again!');
+      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.officerName.getText().should.not.equal(
+        'Richard Sullivan'
+      );
+      pinboardPage.pinnedSection.officers.officerCards().should.have.length(2);
+      pinboardPage.relevantCoaccusalsSection.coaccusalCards().should.have.length(19);
+      browser.pause(500);
+
+      pinboardPage.firstToast.click();
+      pinboardPage.firstToast.waitForDisplayed(5000, true);
+      pinboardPage.firstToast.waitForText('Failed to save pinboard. Click to try again!');
+      browser.pause(500);
+
+      pinboardPage.firstToast.click();
+      pinboardPage.firstToast.waitForDisplayed(5000, true);
+
+      times(50, () => {
+        browser.pause(100);
+        pinboardPage.firstToast.waitForDisplayed(5000, true);
+      });
+    });
+  });
+});

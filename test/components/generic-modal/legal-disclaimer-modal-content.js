@@ -1,49 +1,35 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 import { spy } from 'sinon';
-import { unmountComponentSuppressError } from 'utils/test';
-import {
-  Simulate,
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass,
-} from 'react-addons-test-utils';
 
 import LegalDisclaimerModalContent from 'components/generic-modal/legal-disclaimer-modal-content';
 import * as intercomUtils from 'utils/intercom';
 
 
 describe('LegalDisclaimerModalContent component', function () {
-  let element;
-
-  afterEach(function () {
-    if (element) {
-      unmountComponentSuppressError(element);
-    }
-  });
-
   it('should render "I understand" link which closes modal on click', function () {
     const closeModal = spy();
-    element = renderIntoDocument(
+    const wrapper = shallow(
       <LegalDisclaimerModalContent closeModal={ closeModal }/>
     );
 
-    const iUnderstand = findRenderedDOMComponentWithClass(element, 'i-understand-link');
-    iUnderstand.innerText.should.eql('I understand');
+    const iUnderstand = wrapper.find('.i-understand-link');
+    iUnderstand.text().should.equal('I understand');
 
-    closeModal.called.should.be.false();
-    Simulate.click(iUnderstand);
-    closeModal.called.should.be.true();
+    closeModal.should.not.be.called();
+    iUnderstand.simulate('click');
+    closeModal.should.be.calledOnce();
   });
 
   it('should render external link to GitHub', function () {
-    element = renderIntoDocument(
+    const wrapper = shallow(
       <LegalDisclaimerModalContent />
     );
-    const links = scryRenderedDOMComponentsWithClass(element, 'legal-disclaimer-body-link');
-    const githubLink = links[1];
-    githubLink.innerText.should.eql('GitHub');
-    githubLink.getAttribute('href').should.eql('https://github.com/invinst/');
-    githubLink.getAttribute('target').should.eql('_blank');
+    const links = wrapper.find('.legal-disclaimer-body-link');
+    const githubLink = links.at(1).dive();
+    githubLink.text().should.equal('GitHub');
+    githubLink.prop('href').should.equal('https://github.com/invinst/');
+    githubLink.prop('target').should.equal('_blank');
   });
 
   describe('Contact link', function () {
@@ -54,16 +40,17 @@ describe('LegalDisclaimerModalContent component', function () {
     afterEach(function () {
       intercomUtils.showIntercomMessages.restore();
     });
+
     it('contact link should open Intercom chat dialog', function () {
-      element = renderIntoDocument(
+      const wrapper = shallow(
         <LegalDisclaimerModalContent />
       );
-      const links = scryRenderedDOMComponentsWithClass(element, 'legal-disclaimer-body-link');
-      const contactLink = links[2];
-      contactLink.innerText.should.eql('contact');
-      Simulate.click(contactLink);
+      const links = wrapper.find('.legal-disclaimer-body-link');
+      const contactLink = links.at(2);
+      contactLink.text().should.equal('contact');
+      contactLink.simulate('click');
 
-      intercomUtils.showIntercomMessages.calledWith(true).should.be.true();
+      intercomUtils.showIntercomMessages.should.be.calledWith(true);
     });
   });
 

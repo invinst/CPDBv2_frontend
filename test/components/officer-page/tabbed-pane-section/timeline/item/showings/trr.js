@@ -1,23 +1,11 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  findRenderedComponentWithType,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 import { Link } from 'react-router';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import Trr from 'components/officer-page/tabbed-pane-section/timeline/item/showings/trr';
 
 
 describe('Trr component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
-
   it('should render item correctly', function () {
     const trrItem = {
       trrId: 123,
@@ -29,18 +17,18 @@ describe('Trr component', function () {
       unitName: '153',
     };
 
-    instance = renderIntoDocument(<Trr item={ trrItem } hasBorderBottom={ false } />);
+    const wrapper = shallow(<Trr item={ trrItem } hasBorderBottom={ false } />);
 
-    const kind = findRenderedDOMComponentWithClass(instance, 'trr-item-kind');
-    const category = findRenderedDOMComponentWithClass(instance, 'trr-item-category');
-    const date = findRenderedDOMComponentWithClass(instance, 'trr-item-date');
+    const kind = wrapper.find('.trr-item-kind');
+    const category = wrapper.find('.trr-item-category');
+    const date = wrapper.find('.trr-item-date');
 
-    kind.textContent.should.eql('Force');
-    category.textContent.should.eql('Use of Force Report');
-    date.textContent.should.eql('DEC 5');
+    kind.text().should.equal('Force');
+    category.text().should.equal('Use of Force Report');
+    date.text().should.equal('DEC 5');
 
-    const link = findRenderedComponentWithType(instance, Link);
+    const link = wrapper.find(Link);
 
-    link.props.to.should.eql('/trr/123/');
+    link.prop('to').should.equal('/trr/123/');
   });
 });

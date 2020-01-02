@@ -1,51 +1,51 @@
 import React from 'react';
-import { findDOMNode } from 'react-dom';
+import { shallow, mount, render } from 'enzyme';
 import { stub } from 'sinon';
-import { renderIntoDocument, findRenderedDOMComponentWithTag } from 'react-addons-test-utils';
+import should from 'should';
+import { Motion } from 'react-motion';
 
-import { unmountComponentSuppressError, withAnimationDisabled } from 'utils/test';
+import { withAnimationDisabled } from 'utils/test';
 import * as utilsDom from 'utils/dom';
 import ExpandMotion from 'components/animation/expand-motion';
 
 
 describe('ExpandMotion component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   context('animation disabled', function () {
     it('should render children if show is true', function () {
       withAnimationDisabled(() => {
-        instance = renderIntoDocument(<ExpandMotion show={ true }><div/></ExpandMotion>);
-        findRenderedDOMComponentWithTag(instance, 'div');
+        const wrapper = shallow(
+          <ExpandMotion show={ true }><div/></ExpandMotion>
+        );
+        wrapper.find('div').exists().should.be.true();
       });
     });
 
     it('should render nothing if show is false', function () {
       withAnimationDisabled(() => {
-        instance = renderIntoDocument(<ExpandMotion show={ false }><p/></ExpandMotion>);
-        instance.should.displayNothing();
+        const wrapper = shallow(
+          <ExpandMotion show={ false }><p/></ExpandMotion>
+        );
+        should(wrapper.type()).be.null();
       });
     });
   });
 
   context('animation enabled', function () {
     it('should render nothing initially if show is false', function () {
-      instance = renderIntoDocument(<ExpandMotion show={ false }><p/></ExpandMotion>);
-      instance.should.displayNothing();
+      const wrapper = render(
+        <ExpandMotion show={ false }><p/></ExpandMotion>
+      );
+      wrapper.html().should.equal('');
     });
 
-    it('should render chilren in full height eventually', function (done) {
+    it('should render children in full height eventually', function (done) {
       stub(utilsDom, 'innerHeight').returns(100);
-      instance = renderIntoDocument(
+      const wrapper = mount(
         <ExpandMotion show={ true }><div/></ExpandMotion>
       );
       setTimeout(() => {
-        instance.state.childHeight.should.eql(100);
-        const div = findDOMNode(instance);
-        div.style.height.should.eql('100px');
+        wrapper.state('childHeight').should.equal(100);
+        wrapper.find(Motion).prop('style').height.val.should.equal(100);
         utilsDom.innerHeight.restore();
         done();
       }, 1000);

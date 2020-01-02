@@ -1,23 +1,12 @@
 import React from 'react';
-import { findDOMNode } from 'react-dom';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 import { date, lorem, random } from 'faker';
 import moment from 'moment';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import PinboardRow from 'components/pinboard-admin-page/pinboard-row';
 
 
 describe('PinboardRow', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render info cells', function () {
     const id = random.word();
     const title = lorem.sentence(5);
@@ -25,7 +14,7 @@ describe('PinboardRow', function () {
     const childCount = random.number();
     const createdAt = moment(date.past()).format('MMM YY');
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PinboardRow
         id={ id }
         title={ title }
@@ -35,27 +24,27 @@ describe('PinboardRow', function () {
         isHeader={ false }
       />
     );
-    findDOMNode(instance).getAttribute('class').should.containEql('row').and.not.containEql('header');
+    wrapper.prop('className').should.containEql('row').and.not.containEql('header');
 
-    const idCell = findRenderedDOMComponentWithClass(instance, 'pinboard-id');
-    idCell.getAttribute('class').should.containEql('cell');
-    idCell.textContent.should.equal(id);
+    const idCell = wrapper.find('.pinboard-id');
+    idCell.prop('className').should.containEql('cell');
+    idCell.text().should.equal(id);
 
-    const titleCell = findRenderedDOMComponentWithClass(instance, 'pinboard-title');
-    titleCell.getAttribute('class').should.containEql('cell');
-    titleCell.textContent.should.equal(title);
+    const titleCell = wrapper.find('.pinboard-title');
+    titleCell.prop('className').should.containEql('cell');
+    titleCell.text().should.equal(title);
 
-    const pinnedCountCell = findRenderedDOMComponentWithClass(instance, 'pinboard-pinned');
-    pinnedCountCell.getAttribute('class').should.containEql('cell');
-    pinnedCountCell.textContent.should.equal(pinnedCount);
+    const pinnedCountCell = wrapper.find('.pinboard-pinned');
+    pinnedCountCell.prop('className').should.containEql('cell');
+    pinnedCountCell.text().should.equal(pinnedCount);
 
-    const childCountCell = findRenderedDOMComponentWithClass(instance, 'pinboard-children');
-    childCountCell.getAttribute('class').should.containEql('cell');
-    childCountCell.textContent.should.equal(String(childCount));
+    const childCountCell = wrapper.find('.pinboard-children');
+    childCountCell.prop('className').should.containEql('cell');
+    childCountCell.text().should.equal(String(childCount));
 
-    const dateCell = findRenderedDOMComponentWithClass(instance, 'pinboard-date');
-    dateCell.getAttribute('class').should.containEql('cell');
-    dateCell.textContent.should.equal(createdAt);
+    const dateCell = wrapper.find('.pinboard-date');
+    dateCell.prop('className').should.containEql('cell');
+    dateCell.text().should.equal(createdAt);
   });
 
   it('should add header class if isHeader is true', function () {
@@ -64,7 +53,7 @@ describe('PinboardRow', function () {
     const pinnedCount = lorem.sentence(5);
     const createdAt = moment(date.past()).format('MMM YY');
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PinboardRow
         id={ id }
         title={ title }
@@ -74,6 +63,6 @@ describe('PinboardRow', function () {
       />
     );
 
-    findDOMNode(instance).getAttribute('class').should.containEql('row').and.containEql('header');
+    wrapper.prop('className').should.containEql('row').and.containEql('header');
   });
 });

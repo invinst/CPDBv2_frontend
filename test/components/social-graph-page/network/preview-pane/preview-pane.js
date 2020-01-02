@@ -1,7 +1,6 @@
 import React from 'react';
-import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
-import { unmountComponentSuppressError } from 'utils/test/index';
 import { NETWORK_PREVIEW_PANE } from 'utils/constants';
 import PreviewPane from 'components/social-graph-page/network/preview-pane/index';
 import OfficerPane from 'components/common/preview-pane/panes/officer-pane';
@@ -10,15 +9,9 @@ import EdgeCoaccusalsPane from 'components/social-graph-page/network/preview-pan
 
 
 describe('PreviewPane component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render OfficerPane', function () {
-    instance = renderIntoDocument(<PreviewPane data={ { name: 'Officer' } } type={ NETWORK_PREVIEW_PANE.OFFICER } />);
-    findRenderedComponentWithType(instance, OfficerPane).should.be.ok();
+    const wrapper = shallow(<PreviewPane data={ { name: 'Officer' } } type={ NETWORK_PREVIEW_PANE.OFFICER } />);
+    wrapper.find(OfficerPane).exists().should.be.true();
   });
 
   it('should render EdgeCoaccusalsPane', function () {
@@ -32,10 +25,10 @@ describe('PreviewPane component', function () {
       },
 
     };
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PreviewPane data={ data } type={ NETWORK_PREVIEW_PANE.EDGE_COACCUSALS } />
     );
-    findRenderedComponentWithType(instance, EdgeCoaccusalsPane).should.be.ok();
+    wrapper.find(EdgeCoaccusalsPane).exists().should.be.true();
   });
 
   it('should render CRPane', function () {
@@ -70,7 +63,7 @@ describe('PreviewPane component', function () {
         },
       ],
     };
-    instance = renderIntoDocument(<PreviewPane data={ data } type={ NETWORK_PREVIEW_PANE.CR } />);
-    findRenderedComponentWithType(instance, CRPane).should.be.ok();
+    const wrapper = shallow(<PreviewPane data={ data } type={ NETWORK_PREVIEW_PANE.CR } />);
+    wrapper.find(CRPane).exists().should.be.true();
   });
 });

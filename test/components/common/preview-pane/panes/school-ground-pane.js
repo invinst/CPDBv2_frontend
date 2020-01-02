@@ -1,26 +1,17 @@
 import React from 'react';
-import {
-  renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
 import SchoolGroundPane from 'components/common/preview-pane/panes/school-ground-pane';
-import {
+import WidgetWrapper, {
   HeaderWidget,
   ListWidget,
-  CallToActionWidget,
   SeparatorWidget,
 } from 'components/common/preview-pane/widgets';
-import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('SchoolGroundPane component', () => {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should contain the sub components', () => {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <SchoolGroundPane
         url='https://staging.cpdb.co/data/L2B5ML/citizens-police-data-project'
         officersMostComplaint={ [{
@@ -37,9 +28,15 @@ describe('SchoolGroundPane component', () => {
         name={ 'school-ground' }
       />
     );
-    findRenderedComponentWithType(instance, HeaderWidget);
-    findRenderedComponentWithType(instance, SeparatorWidget);
-    findRenderedComponentWithType(instance, ListWidget);
-    findRenderedComponentWithType(instance, CallToActionWidget);
+
+    const widgetWrapper = wrapper.find(WidgetWrapper);
+    widgetWrapper.prop('callToAction').url.should.equal(
+      'https://staging.cpdb.co/data/L2B5ML/citizens-police-data-project'
+    );
+    widgetWrapper.prop('maxHeight').should.equal(530);
+
+    wrapper.find(HeaderWidget).exists().should.be.true();
+    wrapper.find(SeparatorWidget).exists().should.be.true();
+    wrapper.find(ListWidget).exists().should.be.true();
   });
 });

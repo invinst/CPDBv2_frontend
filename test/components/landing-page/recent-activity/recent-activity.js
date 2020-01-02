@@ -1,24 +1,16 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  scryRenderedComponentsWithType,
-  findRenderedComponentWithType,
-} from 'react-addons-test-utils';
-import { unmountComponentSuppressError } from 'utils/test';
-import { findDOMNode } from 'react-dom';
+import { mount } from 'enzyme';
 import { stub } from 'sinon';
 
 import OfficerCard from 'components/common/officer-card';
 import RecentActivity from 'components/landing-page/recent-activity';
 import PairingCard from 'components/landing-page/common/pairing-card';
 import Carousel from 'components/common/carousel';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 import { OfficerCardFactory } from 'utils/test/factories/activity-grid';
 
 
 describe('Recent Activity components', function () {
-  let instance, consoleStub;
   const data = [{
     'id': 1,
     'visualTokenBackgroundColor': '#c6d4ec',
@@ -78,63 +70,54 @@ describe('Recent Activity components', function () {
     },
   }];
 
-  beforeEach(function () {
-    consoleStub = stub(console, 'error'); // suppress console.error `Carousel`
-  });
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-    consoleStub.restore();
-  });
-
   it('should render appropriately', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <RecentActivity cards={ data } />
     );
 
-    findRenderedDOMComponentWithClass(instance, 'test--landing-carousel-activity');
-    const officerCards = scryRenderedComponentsWithType(instance, OfficerCard);
+    wrapper.find('.test--landing-carousel-activity').exists().should.be.true();
+    const officerCards = wrapper.find(OfficerCard);
     officerCards.should.have.length(2);
 
-    const officerCard1 = findDOMNode(officerCards[0]);
-    officerCard1.textContent.should.containEql('Police Officer');
-    officerCard1.textContent.should.containEql('Manuel Guzman');
-    officerCard1.textContent.should.containEql('More than 84% of other officers');
-    officerCard1.textContent.should.containEql('13 Allegations');
+    const officerCard1 = officerCards.at(0);
+    officerCard1.text().should.containEql('Police Officer');
+    officerCard1.text().should.containEql('Manuel Guzman');
+    officerCard1.text().should.containEql('More than 84% of other officers');
+    officerCard1.text().should.containEql('13 Allegations');
 
-    const officerCard2 = findDOMNode(officerCards[1]);
-    officerCard2.textContent.should.containEql('Jerome Finnagan');
-    officerCard2.textContent.should.containEql('55 Allegations');
-    officerCard2.textContent.should.containEql('22 Sustained');
-    officerCard2.textContent.should.containEql('More than 94% of other officers');
+    const officerCard2 = officerCards.at(1);
+    officerCard2.text().should.containEql('Jerome Finnagan');
+    officerCard2.text().should.containEql('55 Allegations');
+    officerCard2.text().should.containEql('22 Sustained');
+    officerCard2.text().should.containEql('More than 94% of other officers');
   });
 
   it('should render the pair card of two officers', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <RecentActivity cards={ pairCardData } />
     );
 
-    const pairingCard = findDOMNode(findRenderedComponentWithType(instance, PairingCard));
-    pairingCard.textContent.should.containEql('Police Officer');
-    pairingCard.textContent.should.containEql('Jerome Finnigan');
-    pairingCard.textContent.should.containEql('54-year-old White Male');
-    pairingCard.textContent.should.containEql('John Burzinski');
-    pairingCard.textContent.should.containEql('56-year-old White Male');
-    pairingCard.textContent.should.containEql('Coaccused 23 times');
+    const pairingCard = wrapper.find(PairingCard);
+    pairingCard.text().should.containEql('Police Officer');
+    pairingCard.text().should.containEql('Jerome Finnigan');
+    pairingCard.text().should.containEql('54-year-old White Male');
+    pairingCard.text().should.containEql('John Burzinski');
+    pairingCard.text().should.containEql('56-year-old White Male');
+    pairingCard.text().should.containEql('Coaccused 23 times');
   });
 
   it('should send ga event when navigate on carousel', function () {
-    stub(GATracking, 'trackSwipeLanddingPageCarousel');
-    instance = renderIntoDocument(
+    stub(tracking, 'trackSwipeLandingPageCarousel');
+    const wrapper = mount(
       <RecentActivity cards={ [
         OfficerCardFactory.build({ kind: 'single_officer' }),
         OfficerCardFactory.build({ kind: 'single_officer' }),
         OfficerCardFactory.build({ kind: 'single_officer' }),
       ] }/>
     );
-    const carousel = findRenderedComponentWithType(instance, Carousel);
-    carousel.props.onNavigate('left');
-    GATracking.trackSwipeLanddingPageCarousel.should.be.calledWith('left', 'ACTIVITY');
-    GATracking.trackSwipeLanddingPageCarousel.restore();
+    const carousel = wrapper.find(Carousel);
+    carousel.prop('onNavigate')('left');
+    tracking.trackSwipeLandingPageCarousel.should.be.calledWith('left', 'ACTIVITY');
+    tracking.trackSwipeLandingPageCarousel.restore();
   });
 });

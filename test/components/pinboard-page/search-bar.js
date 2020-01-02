@@ -1,81 +1,65 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass,
-  Simulate,
-} from 'react-addons-test-utils';
+import { shallow, mount } from 'enzyme';
 import { stub } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import SearchBar from 'components/pinboard-page/search-bar';
 import * as editPath from 'utils/edit-path';
 
 
 describe('SearchBar component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render correctly', function () {
-    instance = renderIntoDocument(<SearchBar />);
+    const wrapper = shallow(<SearchBar />);
 
-    const searchBoxParent = findRenderedDOMComponentWithClass(instance, 'search-box-parent');
-    searchBoxParent.className.should.not.containEql('short');
+    const searchBoxParent = wrapper.find('.search-box-parent');
+    searchBoxParent.hasClass('short').should.be.false();
 
-    findRenderedDOMComponentWithClass(instance, 'search-input').textContent.should.eql('Search');
-    findRenderedDOMComponentWithClass(instance, 'share-button');
-  });
-
-  it('should hide share menu by default', function () {
-    instance = renderIntoDocument(<SearchBar />);
-
-    scryRenderedDOMComponentsWithClass(instance, 'share-menu').should.have.length(0);
+    wrapper.find('.search-input').text().should.equal('Search');
+    wrapper.find('.share-button').exists().should.be.true();
   });
 
   it('should render share menu if share button is clicked', function () {
-    instance = renderIntoDocument(<SearchBar />);
+    const wrapper = mount(<SearchBar />);
 
-    Simulate.click(findRenderedDOMComponentWithClass(instance, 'share-button'));
-    findRenderedDOMComponentWithClass(instance, 'share-menu');
+    wrapper.find('.share-menu').exists().should.be.false();
+
+    wrapper.find('.share-button').simulate('click');
+    wrapper.find('.share-menu').exists().should.be.true();
   });
 
   it('should hide share menu if share button is cliked twice', function () {
-    instance = renderIntoDocument(<SearchBar />);
+    const wrapper = mount(<SearchBar />);
 
-    const shareButton = findRenderedDOMComponentWithClass(instance, 'share-button');
-    Simulate.click(shareButton);
-    Simulate.click(shareButton);
-    scryRenderedDOMComponentsWithClass(instance, 'share-menu').should.have.length(0);
+    const shareButton = wrapper.find('.share-button');
+    shareButton.simulate('click');
+    shareButton.simulate('click');
+    wrapper.find('.share-menu').exists().should.be.false();
   });
 
   it('should hide share menu if copy link button is clicked', function () {
-    instance = renderIntoDocument(<SearchBar />);
+    const wrapper = mount(<SearchBar />);
 
-    Simulate.click(findRenderedDOMComponentWithClass(instance, 'share-button'));
-    Simulate.click(findRenderedDOMComponentWithClass(instance, 'copy-link-icon'));
-    scryRenderedDOMComponentsWithClass(instance, 'share-menu').should.have.length(0);
+    wrapper.find('.share-button').simulate('click');
+    wrapper.find('.copy-link-icon').simulate('click');
+    wrapper.find('.share-menu').exists().should.be.false();
   });
 
   it('should go to search page on clicked', function () {
-    instance = renderIntoDocument(<SearchBar />);
+    const wrapper = mount(<SearchBar />);
     let pushPathStub = stub(editPath, 'pushPathPreserveEditMode');
-    Simulate.click(findRenderedDOMComponentWithClass(instance, 'search-input'));
-    pushPathStub.calledWith('/search/').should.be.true();
+    wrapper.find('.search-input').simulate('click');
+    pushPathStub.should.be.calledWith('/search/');
     pushPathStub.restore();
   });
 
   it('should not render share button in unsharable mode', function () {
-    instance = renderIntoDocument(<SearchBar shareable={ false }/>);
+    const wrapper = shallow(<SearchBar shareable={ false }/>);
 
-    scryRenderedDOMComponentsWithClass(instance, 'share-button').should.have.length(0);
+    wrapper.find('.share-button').exists().should.be.false();
   });
 
   it('should render custom buttons', function () {
-    instance = renderIntoDocument(<SearchBar customButtons={ <div className='custom-buttons' /> } />);
+    const wrapper = shallow(<SearchBar customButtons={ <div className='custom-buttons' /> } />);
 
-    scryRenderedDOMComponentsWithClass(instance, 'custom-buttons').should.have.length(1);
+    wrapper.find('.custom-buttons').exists().should.be.true();
   });
 });

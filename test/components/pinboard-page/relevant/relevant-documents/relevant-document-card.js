@@ -1,15 +1,7 @@
 import React from 'react';
+import { mount } from 'enzyme';
 import { stub, useFakeTimers } from 'sinon';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  findRenderedDOMComponentWithTag,
-  findRenderedDOMComponentWithClass,
-  Simulate,
-} from 'react-addons-test-utils';
-import { findDOMNode } from 'react-dom';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import RelevantDocumentCard, { RelevantDocumentCardWithUndo }
   from 'components/pinboard-page/relevant/relevant-documents/relevant-document-card';
 import BaseComplaintCard from 'components/pinboard-page/relevant/common/base-complaint-card';
@@ -18,7 +10,6 @@ import { UNDO_CARD_VISIBLE_TIME } from 'utils/constants';
 
 
 describe('RelevantDocumentCard component', function () {
-  let instance;
   const addItemInPinboardPageStub = stub();
   const officers = [{
     fullName: 'Scott Mc Kenna',
@@ -71,12 +62,8 @@ describe('RelevantDocumentCard component', function () {
     officers,
   };
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render enough content correctly', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <RelevantDocumentCard
         url='https://www.documentcloud.org/documents/3108640/CRID-1078616-TRR-Rialmo.pdf'
         previewImageUrl='https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p2-normal.gif'
@@ -86,22 +73,22 @@ describe('RelevantDocumentCard component', function () {
       />
     );
 
-    const baseComplaintCard = findRenderedComponentWithType(instance, BaseComplaintCard);
-    baseComplaintCard.props.crid.should.eql('1089128');
-    baseComplaintCard.props.incidentDate.should.eql('Feb 1, 2018');
-    baseComplaintCard.props.category.should.eql('False Arrest');
-    baseComplaintCard.props.officers.should.eql(officers);
-    baseComplaintCard.props.addItemInPinboardPage.should.eql(addItemInPinboardPageStub);
-    baseComplaintCard.props.pinned.should.be.false();
-    baseComplaintCard.props.leftChild.props.href.should.eql(
+    const baseComplaintCard = wrapper.find(BaseComplaintCard);
+    baseComplaintCard.prop('crid').should.equal('1089128');
+    baseComplaintCard.prop('incidentDate').should.equal('Feb 1, 2018');
+    baseComplaintCard.prop('category').should.equal('False Arrest');
+    baseComplaintCard.prop('officers').should.eql(officers);
+    baseComplaintCard.prop('addItemInPinboardPage').should.eql(addItemInPinboardPageStub);
+    baseComplaintCard.prop('pinned').should.be.false();
+    baseComplaintCard.prop('leftChild').props.href.should.eql(
       'https://www.documentcloud.org/documents/3108640/CRID-1078616-TRR-Rialmo.pdf'
     );
-    baseComplaintCard.props.leftChild.props.target.should.eql('_blank');
-    baseComplaintCard.props.leftChild.type.should.be.eql('a');
+    baseComplaintCard.prop('leftChild').props.target.should.equal('_blank');
+    baseComplaintCard.prop('leftChild').type.should.equal('a');
 
-    const previewImg = findRenderedDOMComponentWithTag(instance, 'img');
-    previewImg.getAttribute('class').should.eql('document-card-thumbnail-img');
-    previewImg.getAttribute('src').should.eql(
+    const previewImg = wrapper.find('img');
+    previewImg.prop('className').should.equal('document-card-thumbnail-img');
+    previewImg.prop('src').should.eql(
       'https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p2-normal.gif'
     );
   });
@@ -118,7 +105,7 @@ describe('RelevantDocumentCard component', function () {
     });
 
     it('should render remove text correctly', function () {
-      instance = renderIntoDocument(
+      const wrapper = mount(
         <RelevantDocumentCardWithUndo
           url='https://www.documentcloud.org/documents/3108640/CRID-1078616-TRR-Rialmo.pdf'
           previewImageUrl='https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p2-normal.gif'
@@ -127,15 +114,15 @@ describe('RelevantDocumentCard component', function () {
           pinned={ false }
         />
       );
-      const plusButton = findRenderedComponentWithType(instance, PlusButton);
+      const plusButton = wrapper.find(PlusButton);
 
-      Simulate.click(findDOMNode(plusButton));
+      plusButton.simulate('click');
 
-      findRenderedDOMComponentWithClass(instance, 'text').textContent.should.eql('Document added.');
+      wrapper.find('.text').text().should.equal('Document added.');
     });
 
     it('should be reversed after the undo card disappears', function () {
-      instance = renderIntoDocument(
+      const wrapper = mount(
         <RelevantDocumentCardWithUndo
           url='https://www.documentcloud.org/documents/3108640/CRID-1078616-TRR-Rialmo.pdf'
           previewImageUrl='https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p2-normal.gif'
@@ -145,13 +132,13 @@ describe('RelevantDocumentCard component', function () {
         />
       );
 
-      const plusButton = findRenderedComponentWithType(instance, PlusButton);
+      const plusButton = wrapper.find(PlusButton);
 
-      Simulate.click(findDOMNode(plusButton));
+      plusButton.simulate('click');
 
       clock.tick(UNDO_CARD_VISIBLE_TIME + 50);
 
-      findRenderedComponentWithType(instance, RelevantDocumentCard);
+      wrapper.find(RelevantDocumentCard).exists().should.be.true();
     });
   });
 });

@@ -10,8 +10,6 @@ import {
 } from 'utils/constants';
 
 
-const toRawCR = item => item.recentItemData;
-
 export default handleActions({
   [PINBOARD_COMPLAINTS_FETCH_REQUEST_SUCCESS]: (state, action) => action.payload,
   [ADD_ITEM_IN_PINBOARD_PAGE]: (state, action) => {
@@ -19,7 +17,7 @@ export default handleActions({
     if (action.payload.type === 'CR') {
       const item = action.payload;
       if (_.every(currentItems, currentItem => currentItem.crid !== item.id)) {
-        return currentItems.concat(toRawCR(item));
+        return currentItems.concat(item.rawData);
       }
     }
     return currentItems;

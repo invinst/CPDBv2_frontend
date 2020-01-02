@@ -1,53 +1,53 @@
 import React from 'react';
-import { findDOMNode, render } from 'react-dom';
-import { unmountComponentSuppressError } from 'utils/test';
-import { renderIntoDocument } from 'react-addons-test-utils';
+import { shallow, mount } from 'enzyme';
+import should from 'should';
 
 import { withAnimationDisabled } from 'utils/test';
 import ExpandTransition from 'components/animation/expand-transition';
 
 
 describe('ExpandTransition component', function () {
-  let element;
-
-  afterEach(function () {
-    unmountComponentSuppressError(element);
-  });
-
   it('should not render anything when childKey is null initially', function () {
-    element = renderIntoDocument(<ExpandTransition childKey={ null }><p/></ExpandTransition>);
-    element.should.displayNothing();
+    const wrapper = shallow(
+      <ExpandTransition childKey={ null }><p/></ExpandTransition>
+    );
+    should(wrapper.type()).be.null();
   });
 
   it('should render children immediately when animation is disabled', function () {
     withAnimationDisabled(() => {
-      element = renderIntoDocument(<ExpandTransition childKey={ 1 }><p/></ExpandTransition>);
-      findDOMNode(element).nodeName.should.equal('P');
+      const wrapper = shallow(
+        <ExpandTransition childKey={ 1 }><p/></ExpandTransition>
+      );
+      wrapper.type().should.equal('p');
     });
   });
 
   it('should render child if childKey is not null', function () {
     let testText = 'should be rendered';
-    element = renderIntoDocument(<ExpandTransition childKey={ 1 }><p>{ testText }</p></ExpandTransition>);
-    findDOMNode(element).innerHTML.should.containEql(testText);
+    const wrapper = shallow(
+      <ExpandTransition childKey={ 1 }><p>{ testText }</p></ExpandTransition>
+    );
+    wrapper.text().should.containEql(testText);
   });
 
-  it('should eventually render nothing as childKey becomes null', function (callback) {
-    let rootEl = document.createElement('div');
+  it('should eventually render nothing as childKey becomes null', function (done) {
     let cb1 = () => {}, cb2 = () => {};
 
-    element = render(
-      <ExpandTransition childKey={ 1 } onFullyClosed={ cb1 } onExpansionBegin={ cb2 }><p/></ExpandTransition>,
-      rootEl);
+    const wrapper = mount(
+      <ExpandTransition childKey={ 1 } onFullyClosed={ cb1 } onExpansionBegin={ cb2 }><p/></ExpandTransition>
+    );
 
-    render(
-      <ExpandTransition childKey={ null } onFullyClosed={ cb1 } onExpansionBegin={ cb2 }><p/></ExpandTransition>,
-      rootEl, () => {
-        rootEl.children.length.should.equal(1);
-        setTimeout(() => {
-          rootEl.children.length.should.equal(0);
-          callback();
-        }, 300);
-      });
+    wrapper.setProps({
+      children: <p/>,
+      childKey: null,
+      onFullyClosed: cb1,
+      onExpansionBegin: cb2,
+    });
+    wrapper.find('p').exists().should.be.true();
+    setTimeout(() => {
+      wrapper.find('p').exists().should.be.false();
+      done();
+    }, 300);
   });
 });

@@ -1,17 +1,10 @@
 import React from 'react';
-import { findRenderedDOMComponentWithClass, renderIntoDocument } from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import Year from 'components/officer-page/tabbed-pane-section/timeline/item/showings/year';
 
 
 describe('Year component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render item correctly', function () {
     const year = {
       date: '1994',
@@ -23,12 +16,12 @@ describe('Year component', function () {
       unitName: '153',
     };
 
-    instance = renderIntoDocument(<Year item={ year } hasBorderBottom={ false } />);
+    const wrapper = shallow(<Year item={ year } hasBorderBottom={ false } />);
 
-    const showing = findRenderedDOMComponentWithClass(instance, 'year-item-item-content');
-    const date = findRenderedDOMComponentWithClass(instance, 'year-item-date');
+    const showing = wrapper.find('.year-item-item-content');
+    const date = wrapper.find('.year-item-date');
 
-    showing.textContent.should.eql('1994');
-    date.textContent.should.eql('1994');
+    showing.text().should.equal('1994');
+    date.text().should.equal('1994');
   });
 });

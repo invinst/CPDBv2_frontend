@@ -1,12 +1,7 @@
 import React from 'react';
-import {
-  renderIntoDocument, findRenderedComponentWithType,
-  scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
-import { findDOMNode } from 'react-dom';
+import { shallow, mount } from 'enzyme';
 import { spy } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import TriangleExplainer from 'components/officer-page/radar-chart/explainer/triangle-explainer';
 import StaticRadarChart from 'components/common/radar-chart';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
@@ -16,7 +11,6 @@ import { buildEditStateFields } from 'utils/test/factories/draft';
 
 
 describe('TriangleExplainer components', function () {
-  let instance;
   const radarChartData = [
     {
       axis: 'axis 1',
@@ -32,15 +26,11 @@ describe('TriangleExplainer components', function () {
     },
   ];
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render radar chart', function () {
-    instance = renderIntoDocument(<TriangleExplainer radarChartData={ radarChartData }/>);
-    const radarChart = findRenderedComponentWithType(instance, StaticRadarChart);
+    const wrapper = shallow(<TriangleExplainer radarChartData={ radarChartData }/>);
+    const radarChart = wrapper.find(StaticRadarChart);
 
-    radarChart.props.data.should.eql(radarChartData);
+    radarChart.prop('data').should.eql(radarChartData);
   });
 
   it('should render editable content', function () {
@@ -55,24 +45,24 @@ describe('TriangleExplainer components', function () {
       turnOffSectionEditMode: spy(),
     };
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <TriangleExplainer
         radarChartData={ radarChartData }
         editWrapperStateProps={ editWrapperStateProps }
       />
     );
 
-    const editWrapperStateProvider = findRenderedComponentWithType(instance, EditWrapperStateProvider);
-    const hoverableEditWrapper = findRenderedComponentWithType(editWrapperStateProvider, HoverableEditWrapper);
-    const richTextEditables = scryRenderedComponentsWithType(hoverableEditWrapper, RichTextEditable);
+    const editWrapperStateProvider = wrapper.find(EditWrapperStateProvider);
+    const hoverableEditWrapper = editWrapperStateProvider.find(HoverableEditWrapper);
+    const richTextEditables = hoverableEditWrapper.find(RichTextEditable);
 
     richTextEditables.should.have.length(2);
-    const triangleDescription = richTextEditables[0];
-    const triangleSubDescription = richTextEditables[1];
-    triangleDescription.props.fieldname.should.equal('triangle_description');
-    triangleSubDescription.props.fieldname.should.equal('triangle_sub_description');
+    const triangleDescription = richTextEditables.at(0);
+    const triangleSubDescription = richTextEditables.at(1);
+    triangleDescription.prop('fieldname').should.equal('triangle_description');
+    triangleSubDescription.prop('fieldname').should.equal('triangle_sub_description');
 
-    findDOMNode(triangleDescription).textContent.should.equal('triangle description');
-    findDOMNode(triangleSubDescription).textContent.should.equal('triangle sub description');
+    triangleDescription.text().should.equal('triangle description');
+    triangleSubDescription.text().should.equal('triangle sub description');
   });
 });

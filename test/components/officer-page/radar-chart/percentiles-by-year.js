@@ -1,20 +1,11 @@
 import React from 'react';
-import {
-  renderIntoDocument, scryRenderedDOMComponentsWithClass, scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
 import PercentilesByYear from 'components/officer-page/radar-chart/explainer/percentiles-by-year';
 import StaticRadarChart from 'components/common/radar-chart';
-import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('PercentilesByYear components', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should be renderable', function () {
     PercentilesByYear.should.be.renderable();
   });
@@ -37,16 +28,16 @@ describe('PercentilesByYear components', function () {
         { 'axis': 'Civilian Complaint', value: 60 },
       ],
     }];
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PercentilesByYear yearlyRadarChartData={ data }/>
     );
 
-    const rows = scryRenderedDOMComponentsWithClass(instance, 'test--radar-explainer-percentiles-row');
+    const rows = wrapper.find('.test--radar-explainer-percentiles-row');
     rows.should.have.length(2);
-    rows[0].textContent.should.containEql('2016506040');
-    rows[1].textContent.should.containEql('2015304020');
+    rows.at(0).text().should.containEql('2016506040');
+    rows.at(1).text().should.containEql('2015304020');
 
-    scryRenderedComponentsWithType(instance, StaticRadarChart).should.have.length(2);
+    wrapper.find(StaticRadarChart).should.have.length(2);
   });
 
   it('should not show 0 and NaN values in the cumulative percentiles per year table', function () {
@@ -67,11 +58,11 @@ describe('PercentilesByYear components', function () {
         { 'axis': 'Civilian Complaint', value: 0 },
       ],
     }];
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PercentilesByYear yearlyRadarChartData={ data }/>
     );
-    const rows = scryRenderedDOMComponentsWithClass(instance, 'test--radar-explainer-percentiles-row');
-    rows[0].textContent.should.containEql('201640');
-    rows[1].textContent.should.containEql('201520');
+    const rows = wrapper.find('.test--radar-explainer-percentiles-row');
+    rows.at(0).text().should.containEql('201640');
+    rows.at(1).text().should.containEql('201520');
   });
 });

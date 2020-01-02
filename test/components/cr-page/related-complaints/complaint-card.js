@@ -1,62 +1,50 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 import { Router, Route, createMemoryHistory } from 'react-router';
-import {
-  renderIntoDocument,
-  scryRenderedDOMComponentsWithClass,
-  findRenderedDOMComponentWithClass,
-  Simulate, findRenderedComponentWithType,
-} from 'react-addons-test-utils';
 import { spy, stub } from 'sinon';
-
-import { unmountComponentSuppressError } from 'utils/test';
-import ComplaintCard from 'components/cr-page/related-complaints/complaint-card';
-import * as GATracking from 'utils/google_analytics_tracking';
 import { random } from 'faker';
+
+import ComplaintCard from 'components/cr-page/related-complaints/complaint-card';
+import * as tracking from 'utils/tracking';
 import ItemPinButton from 'components/common/item-pin-button';
 import pinButtonStyles from 'components/common/item-pin-button.sass';
 import { PINNED_ITEM_TYPES } from 'utils/constants';
 
 
 describe('ComplaintCard component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   describe('Content', function () {
     it('should only render crid and categories when there is no extra data', function () {
-      instance = renderIntoDocument(<ComplaintCard crid='10799008' categories='Use Of Force'/>);
-      const sections = scryRenderedDOMComponentsWithClass(instance, 'section');
+      const wrapper = shallow(<ComplaintCard crid='10799008' categories='Use Of Force'/>);
+      const sections = wrapper.find('.section');
 
       sections.should.have.length(1);
-      sections[0].textContent.should.containEql('10799008');
-      sections[0].textContent.should.containEql('Use Of Force');
+      sections.at(0).text().should.containEql('10799008');
+      sections.at(0).text().should.containEql('Use Of Force');
     });
 
     it('should render enough content', function () {
-      instance = renderIntoDocument(
+      const wrapper = shallow(
         <ComplaintCard
           crid='10799008'
           categories='Use Of Force'
           incidentDate='Oct 7, 2008'
           complainants='R. Rose'
           accused='B. Bolton'
-        />
+        />,
       );
-      const sections = scryRenderedDOMComponentsWithClass(instance, 'section');
+      const sections = wrapper.find('.section');
 
       sections.should.have.length(3);
-      sections[0].textContent.should.containEql('10799008').and.containEql('Oct 7, 2008');
-      sections[0].textContent.should.containEql('Use Of Force');
-      sections[1].textContent.should.containEql('Complainant');
-      sections[1].textContent.should.containEql('R. Rose');
-      sections[2].textContent.should.containEql('Accused');
-      sections[2].textContent.should.containEql('B. Bolton');
+      sections.at(0).text().should.containEql('10799008').and.containEql('Oct 7, 2008');
+      sections.at(0).text().should.containEql('Use Of Force');
+      sections.at(1).text().should.containEql('Complainant');
+      sections.at(1).text().should.containEql('R. Rose');
+      sections.at(2).text().should.containEql('Accused');
+      sections.at(2).text().should.containEql('B. Bolton');
     });
 
     it('should track click event', function () {
-      const stubTrackRelatedByCategoryClick = stub(GATracking, 'trackRelatedByCategoryClick');
+      const stubTrackRelatedByCategoryClick = stub(tracking, 'trackRelatedByCategoryClick');
       const complaintCard = () => (
         <ComplaintCard
           complainants='R. Rose'
@@ -65,13 +53,13 @@ describe('ComplaintCard component', function () {
           match='categories'
         />
       );
-      instance = renderIntoDocument(
+      const wrapper = mount(
         <Router history={ createMemoryHistory() }>
-          <Route path='/' component={ complaintCard } />
-        </Router>
+          <Route path='/' component={ complaintCard }/>
+        </Router>,
       );
 
-      Simulate.click(findRenderedDOMComponentWithClass(instance, 'content'));
+      wrapper.find('.content').simulate('click');
       stubTrackRelatedByCategoryClick.should.be.calledWith('01234', '56789');
 
       stubTrackRelatedByCategoryClick.restore();
@@ -82,7 +70,7 @@ describe('ComplaintCard component', function () {
       const id = random.word();
       const isPinned = random.boolean();
 
-      instance = renderIntoDocument(
+      const wrapper = shallow(
         <ComplaintCard
           crid={ id }
           isPinned={ isPinned }
@@ -90,11 +78,55 @@ describe('ComplaintCard component', function () {
         />
       );
 
-      const itemPinButton = findRenderedComponentWithType(instance, ItemPinButton);
-      itemPinButton.props.className.should.equal(pinButtonStyles.cardPinnedButton);
-      itemPinButton.props.addOrRemoveItemInPinboard.should.equal(addOrRemoveItemInPinboard);
-      itemPinButton.props.showHint.should.be.false();
-      itemPinButton.props.item.should.eql({ type: PINNED_ITEM_TYPES.CR, id, isPinned });
+      const itemPinButton = wrapper.find(ItemPinButton);
+      itemPinButton.prop('className').should.equal(pinButtonStyles.cardPinnedButton);
+      itemPinButton.prop('addOrRemoveItemInPinboard').should.equal(addOrRemoveItemInPinboard);
+      itemPinButton.prop('showHint').should.be.false();
+      itemPinButton.prop('item').should.eql({ type: PINNED_ITEM_TYPES.CR, id, isPinned });
     });
+  });
+
+  it('should track click event while matching with officers', function () {
+    stub(tracking, 'trackRelatedByAccusedClick');
+    const complaintCard = () => (
+      <ComplaintCard
+        complainants='R. Rose'
+        sourceCRID='01234'
+        crid='56789'
+        match='officers'
+      />
+    );
+    const wrapper = mount(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ complaintCard }/>
+      </Router>,
+    );
+
+    wrapper.find('.content').simulate('click');
+    tracking.trackRelatedByAccusedClick.should.be.calledWith('01234', '56789');
+
+    tracking.trackRelatedByAccusedClick.restore();
+  });
+
+  it('should not track click event while matching with something else', function () {
+    stub(tracking, 'trackRelatedByAccusedClick');
+    const complaintCard = () => (
+      <ComplaintCard
+        complainants='R. Rose'
+        sourceCRID='01234'
+        crid='56789'
+        match='investigators'
+      />
+    );
+    const wrapper = mount(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ complaintCard }/>
+      </Router>,
+    );
+
+    wrapper.find('.content').simulate('click');
+    tracking.trackRelatedByAccusedClick.should.not.be.called();
+
+    tracking.trackRelatedByAccusedClick.restore();
   });
 });

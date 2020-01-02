@@ -1,13 +1,9 @@
 import React from 'react';
-import {
-  findRenderedDOMComponentWithClass,
-  renderIntoDocument,
-  scryRenderedDOMComponentsWithClass,
-  Simulate,
-} from 'react-addons-test-utils';
+import { shallow, mount } from 'enzyme';
 import { stub } from 'sinon';
+import should from 'should';
 
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 import Attachments from 'components/social-graph-page/network/right-pane-section/timeline/item/cr/attachments';
 
 
@@ -27,12 +23,12 @@ describe('Attachments component', function () {
   }];
 
   it('should render attachments correctly', function () {
-    const instance = renderIntoDocument(<Attachments attachments={ attachments } />);
-    const attachmentImage = findRenderedDOMComponentWithClass(instance, 'image');
-    attachmentImage.style.backgroundImage.should.eql(
-      'url("https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p1-normal.gif")'
+    const wrapper = shallow(<Attachments attachments={ attachments } />);
+    const attachmentImage = wrapper.find('.image');
+    attachmentImage.prop('style').backgroundImage.should.eql(
+      'url(https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p1-normal.gif)'
     );
-    scryRenderedDOMComponentsWithClass(instance, 'document').should.have.length(1);
+    wrapper.find('.image.document').exists().should.be.true();
   });
 
   it('should render file types of attachments correctly', function () {
@@ -41,15 +37,15 @@ describe('Attachments component', function () {
       previewImageUrl: '/src/img/ic-video.svg',
       fileType: 'video',
     }];
-    const instance = renderIntoDocument(<Attachments attachments={ videoAttachments } />);
-    scryRenderedDOMComponentsWithClass(instance, 'image-document').should.have.length(0);
+    const wrapper = shallow(<Attachments attachments={ videoAttachments } />);
+    wrapper.find('.image.document').exists().should.be.false();
   });
 
   it('should open new attachment file tab when click on attachment', function () {
     const stubOpen = stub(window, 'open');
-    const instance = renderIntoDocument(<Attachments attachments={ attachments }/>);
-    const attachmentImage = findRenderedDOMComponentWithClass(instance, 'image');
-    Simulate.click(attachmentImage, { preventDefault() {} });
+    const wrapper = mount(<Attachments attachments={ attachments }/>);
+    const attachmentImage = wrapper.find('.image');
+    attachmentImage.simulate('click', { preventDefault() {} });
     stubOpen.calledWith(
       'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-1-of-3.pdf'
     ).should.be.true();
@@ -57,25 +53,25 @@ describe('Attachments component', function () {
   });
 
   it('should render null when there are no attachments', function () {
-    const instance = renderIntoDocument(<Attachments attachments={ [] } />);
-    scryRenderedDOMComponentsWithClass(instance, '.test-wrapper').should.have.length(0);
+    const wrapper = shallow(<Attachments attachments={ [] } />);
+    should(wrapper.type()).be.null();
   });
 
   it('should track click event', function () {
-    const stubTrackAttachmentClick = stub(GATracking, 'trackAttachmentClick');
+    const stubTrackAttachmentClick = stub(tracking, 'trackAttachmentClick');
     const attachments = [{
       url: 'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-1-of-3.html',
       previewImageUrl: 'https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p1-normal.gif',
       fileType: 'document',
     }];
-    const instance = renderIntoDocument(
+    const wrapper = mount(
       <Attachments
         attachments={ attachments }
         pathname='/officer/123456/john-henry/'
       />
     );
-    const attachmentImage = findRenderedDOMComponentWithClass(instance, 'image');
-    Simulate.click(attachmentImage);
+    const attachmentImage = wrapper.find('.image');
+    attachmentImage.simulate('click');
     stubTrackAttachmentClick.should.be.calledWith(
       '/officer/123456/john-henry/',
       'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-1-of-3.html'
@@ -91,13 +87,13 @@ describe('Attachments component', function () {
       fileType: 'document',
       id: '123456',
     }];
-    const instance = renderIntoDocument(<Attachments
+    const wrapper = mount(<Attachments
       attachments={ attachments }
       pathname='/officer/123456/john-henry/'
       onTrackingAttachment={ stubOnTrackingAttachment }
     />);
-    const attachmentImage = findRenderedDOMComponentWithClass(instance, 'image');
-    Simulate.click(attachmentImage);
+    const attachmentImage = wrapper.find('.image');
+    attachmentImage.simulate('click');
     stubOnTrackingAttachment.should.be.calledWith({
       attachmentId: '123456',
       sourcePage: 'Social Graph Page - Timeline Tab',

@@ -1,24 +1,13 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
+import { mount } from 'enzyme';
 import { stub } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import RelevantInfiniteCarousel from 'components/pinboard-page/relevant/common/relevant-infinite-carousel';
 import RelevantDocuments from 'components/pinboard-page/relevant/relevant-documents';
 import RelevantDocumentCard from 'components/pinboard-page/relevant/relevant-documents/relevant-document-card';
 
 
 describe('RelevantDocuments component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render enough content correctly', function () {
     const firstOfficers = [{
       fullName: 'Scott Mc Kenna',
@@ -97,7 +86,7 @@ describe('RelevantDocuments component', function () {
     const addItemInPinboardPageStub = stub();
     const fetchPinboardRelevantDocumentsStub = stub();
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <RelevantDocuments
         requesting={ false }
         addItemInPinboardPage={ addItemInPinboardPageStub }
@@ -109,34 +98,34 @@ describe('RelevantDocuments component', function () {
       />
     );
 
-    const relevantInfiniteCarousel = findRenderedComponentWithType(instance, RelevantInfiniteCarousel);
-    relevantInfiniteCarousel.props.title.should.eql('DOCUMENTS');
-    relevantInfiniteCarousel.props.childWidth.should.eql(306);
-    relevantInfiniteCarousel.props.hasMore.should.be.true();
-    relevantInfiniteCarousel.props.requesting.should.be.false();
+    const relevantInfiniteCarousel = wrapper.find(RelevantInfiniteCarousel);
+    relevantInfiniteCarousel.prop('title').should.equal('DOCUMENTS');
+    relevantInfiniteCarousel.prop('childWidth').should.equal(306);
+    relevantInfiniteCarousel.prop('hasMore').should.be.true();
+    relevantInfiniteCarousel.prop('requesting').should.be.false();
 
-    const relevantDocumentCards = scryRenderedComponentsWithType(relevantInfiniteCarousel, RelevantDocumentCard);
+    const relevantDocumentCards = relevantInfiniteCarousel.find(RelevantDocumentCard);
     relevantDocumentCards.should.have.length(2);
 
-    relevantDocumentCards[0].props.url.should.eql(
+    relevantDocumentCards.at(0).prop('url').should.eql(
       'https://www.documentcloud.org/documents/3108640/CRID-1078616-TRR-Rialmo.pdf'
     );
-    relevantDocumentCards[0].props.previewImageUrl.should.eql(
+    relevantDocumentCards.at(0).prop('previewImageUrl').should.eql(
       'https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p2-normal.gif'
     );
-    relevantDocumentCards[0].props.allegation.should.eql(firstAllegation);
-    relevantDocumentCards[0].props.pinned.should.be.true();
+    relevantDocumentCards.at(0).prop('allegation').should.eql(firstAllegation);
+    relevantDocumentCards.at(0).prop('pinned').should.be.true();
 
-    relevantDocumentCards[1].props.url.should.eql(
+    relevantDocumentCards.at(1).prop('url').should.eql(
       'https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html'
     );
-    relevantDocumentCards[1].props.previewImageUrl.should.eql(
+    relevantDocumentCards.at(1).prop('previewImageUrl').should.eql(
       'https://assets.documentcloud.org/documents/3518950/pages/CRID-294088-CR-p1-normal.gif'
     );
-    relevantDocumentCards[1].props.allegation.should.eql(secondAllegation);
-    relevantDocumentCards[1].props.pinned.should.be.false();
+    relevantDocumentCards.at(1).prop('allegation').should.eql(secondAllegation);
+    relevantDocumentCards.at(1).prop('pinned').should.be.false();
 
-    relevantInfiniteCarousel.props.loadMore();
+    relevantInfiniteCarousel.prop('loadMore')();
     fetchPinboardRelevantDocumentsStub.should.be.calledOnce();
     fetchPinboardRelevantDocumentsStub.should.be.calledWith('66ef1560', { limit: 20, offset: 20 });
   });

@@ -1,29 +1,14 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 import { stub, spy } from 'sinon';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass,
-  scryRenderedComponentsWithType,
-  Simulate,
-} from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import { OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT } from 'utils/constants';
 import MiniVisualToken from 'components/pinboard-page/relevant/common/mini-officer-visual-token';
 import PlusButton from 'components/pinboard-page/relevant/common/plus-button';
 import BaseComplaintCard from 'components/pinboard-page/relevant/common/base-complaint-card';
-import { findDOMNode } from 'react-dom';
 
 
 describe('BaseComplaintCard component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render enough content', function () {
     const officers = [{
       id: 1,
@@ -63,7 +48,7 @@ describe('BaseComplaintCard component', function () {
       percentile: { year: 2015, items: [] },
     }];
     const addItemInPinboardPage = stub();
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <BaseComplaintCard
         leftChild={ <div className='test--left-child'/> }
         url='lvh.me'
@@ -77,23 +62,23 @@ describe('BaseComplaintCard component', function () {
       />
     );
 
-    findRenderedDOMComponentWithClass(instance, 'test--left-child');
+    wrapper.find('.test--left-child').exists().should.be.true();
 
-    findRenderedDOMComponentWithClass(instance, 'right-half');
-    findRenderedDOMComponentWithClass(instance, 'incident-date').textContent.should.eql('Apr 4, 2015');
-    findRenderedDOMComponentWithClass(instance, 'category').textContent.should.eql('Unknown');
+    wrapper.find('.right-half').exists().should.be.true();
+    wrapper.find('.incident-date').text().should.equal('Apr 4, 2015');
+    wrapper.find('.category').text().should.equal('Unknown');
 
-    const miniVisualTokens = scryRenderedComponentsWithType(instance, MiniVisualToken);
+    const miniVisualTokens = wrapper.find(MiniVisualToken);
     miniVisualTokens.should.have.length(7);
 
-    scryRenderedDOMComponentsWithClass(instance, 'top-officer-row').should.have.length(2);
-    scryRenderedDOMComponentsWithClass(instance, 'top-officer-row-token').should.have.length(2);
-    const topOfficerNames = scryRenderedDOMComponentsWithClass(instance, 'top-officer-row-officer-name');
+    wrapper.find('.top-officer-row').should.have.length(2);
+    wrapper.find('.top-officer-row-token').should.have.length(2);
+    const topOfficerNames = wrapper.find('.top-officer-row-officer-name');
     topOfficerNames.should.have.length(2);
-    topOfficerNames[0].textContent.should.eql('R. Sullivan');
-    topOfficerNames[1].textContent.should.eql('E. May');
-    miniVisualTokens[0].props.className.should.eql('top-officer-row-token');
-    miniVisualTokens[0].props.percentile.should.eql({
+    topOfficerNames.at(0).text().should.equal('R. Sullivan');
+    topOfficerNames.at(1).text().should.equal('E. May');
+    miniVisualTokens.at(0).prop('className').should.equal('top-officer-row-token');
+    miniVisualTokens.at(0).prop('percentile').should.eql({
       year: 2015,
       items: [
         { axis: 'Use of Force Reports', value: 20.6 },
@@ -103,29 +88,29 @@ describe('BaseComplaintCard component', function () {
       visualTokenBackground: '#ed7467',
       textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
     });
-    miniVisualTokens[1].props.className.should.eql('top-officer-row-token');
-    miniVisualTokens[1].props.percentile.should.eql({ year: 2015, items: [] });
+    miniVisualTokens.at(1).prop('className').should.equal('top-officer-row-token');
+    miniVisualTokens.at(1).prop('percentile').should.eql({ year: 2015, items: [] });
 
-    miniVisualTokens[2].props.className.should.eql('remaining-officer');
-    miniVisualTokens[2].props.percentile.should.eql({ year: 2015, items: [] });
-    miniVisualTokens[3].props.className.should.eql('remaining-officer');
-    miniVisualTokens[3].props.percentile.should.eql({ year: 2015, items: [] });
-    miniVisualTokens[4].props.className.should.eql('remaining-officer');
-    miniVisualTokens[4].props.percentile.should.eql({ year: 2015, items: [] });
-    miniVisualTokens[5].props.className.should.eql('remaining-officer');
-    miniVisualTokens[5].props.percentile.should.eql({ year: 2015, items: [] });
-    miniVisualTokens[6].props.className.should.eql('remaining-officer');
-    miniVisualTokens[6].props.percentile.should.eql({ year: 2015, items: [] });
+    miniVisualTokens.at(2).prop('className').should.equal('remaining-officer');
+    miniVisualTokens.at(2).prop('percentile').should.eql({ year: 2015, items: [] });
+    miniVisualTokens.at(3).prop('className').should.equal('remaining-officer');
+    miniVisualTokens.at(3).prop('percentile').should.eql({ year: 2015, items: [] });
+    miniVisualTokens.at(4).prop('className').should.equal('remaining-officer');
+    miniVisualTokens.at(4).prop('percentile').should.eql({ year: 2015, items: [] });
+    miniVisualTokens.at(5).prop('className').should.equal('remaining-officer');
+    miniVisualTokens.at(5).prop('percentile').should.eql({ year: 2015, items: [] });
+    miniVisualTokens.at(6).prop('className').should.equal('remaining-officer');
+    miniVisualTokens.at(6).prop('percentile').should.eql({ year: 2015, items: [] });
 
-    findRenderedDOMComponentWithClass(instance, 'not-showing-officer-count').textContent.should.eql('1+');
+    wrapper.find('.not-showing-officer-count').text().should.equal('1+');
 
-    const plusButton = findRenderedComponentWithType(instance, PlusButton);
-    plusButton.props.darkMode.should.be.true();
+    const plusButton = wrapper.find(PlusButton);
+    plusButton.prop('darkMode').should.be.true();
   });
 
   it('should hide PlusButton if pinned', function () {
     const addItemInPinboardPage = stub();
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <BaseComplaintCard
         leftChild={ <div className='test--left-child'/> }
         url='lvh.me'
@@ -138,13 +123,13 @@ describe('BaseComplaintCard component', function () {
         pinned={ true }
       />
     );
-    findRenderedDOMComponentWithClass(instance, 'right-half');
-    scryRenderedComponentsWithType(instance, PlusButton).should.have.length(0);
+    wrapper.find('.right-half').exists().should.be.true();
+    wrapper.find(PlusButton).exists().should.be.false();
   });
 
   it('should call addItemInPinboardPage when clicking on PlusButton', function () {
     const addItemInPinboardPage = stub();
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <BaseComplaintCard
         leftChild={ <div className='test--left-child'/> }
         url='lvh.me'
@@ -155,7 +140,7 @@ describe('BaseComplaintCard component', function () {
         officers={ [] }
         addItemInPinboardPage={ addItemInPinboardPage }
         pinned={ false }
-        recentItemData={ {
+        rawData={ {
           'crid': '123',
           'incident_date': 'Apr 4, 2015',
           'most_common_category': 'Unknown',
@@ -163,13 +148,13 @@ describe('BaseComplaintCard component', function () {
         } }
       />
     );
-    findRenderedDOMComponentWithClass(instance, 'right-half');
-    const plusButton = findRenderedComponentWithType(instance, PlusButton);
-    Simulate.click(findDOMNode(plusButton));
+    wrapper.find('.right-half').exists().should.be.true();
+    const plusButton = wrapper.find(PlusButton);
+    plusButton.simulate('click');
     addItemInPinboardPage.should.be.calledWith({
       type: 'CR',
       id: '123',
-      recentItemData: {
+      rawData: {
         'crid': '123',
         'incident_date': 'Apr 4, 2015',
         'most_common_category': 'Unknown',
@@ -180,21 +165,21 @@ describe('BaseComplaintCard component', function () {
 
   it('should handle on focus', function () {
     const focusItem = spy();
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <BaseComplaintCard
         crid='123'
         officers={ [] }
         focusItem={ focusItem }
       />
     );
-    const rightHalf = findRenderedDOMComponentWithClass(instance, 'right-half');
-    Simulate.click(rightHalf);
-    focusItem.calledWith({ type: 'CR', 'id': '123' }).should.be.true();
+    const rightHalf = wrapper.find('.right-half');
+    rightHalf.simulate('click');
+    focusItem.should.be.calledWith({ type: 'CR', 'id': '123' });
 
     focusItem.resetHistory();
 
-    const leftHalf = findRenderedDOMComponentWithClass(instance, 'left-half');
-    Simulate.click(leftHalf);
-    focusItem.calledWith({ type: 'CR', 'id': '123' }).should.be.true();
+    const leftHalf = wrapper.find('.left-half');
+    leftHalf.simulate('click');
+    focusItem.should.be.calledWith({ type: 'CR', 'id': '123' });
   });
 });
