@@ -1,16 +1,13 @@
 import React from 'react';
-import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
+import { shallow, mount } from 'enzyme';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 import Editable from 'components/inline-editable/editable';
 import { RawContentStateFactory } from 'utils/test/factories/draft';
 import { convertContentStateToEditorState } from 'utils/draft';
-import { renderWithContext } from 'utils/test';
 
 
 describe('RichTextEditable component', function () {
-  let instance;
   let editorState;
 
   beforeEach(function () {
@@ -19,16 +16,12 @@ describe('RichTextEditable component', function () {
     );
   });
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render with given props', function () {
     const style = {};
     const onChange = () => {};
     const lastBlockChild = <div className='test--last-block-child'/>;
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <RichTextEditable
         editModeOn={ true }
         style={ style }
@@ -38,38 +31,40 @@ describe('RichTextEditable component', function () {
         lastBlockChild={ lastBlockChild }
       />
     );
-    const editable = findRenderedComponentWithType(instance, Editable);
-    editable.props.editModeOn.should.be.true();
-    const paragraph = editable.props.presenterElement;
+    const editable = wrapper.find(Editable);
+    editable.prop('editModeOn').should.be.true();
+
+    const paragraph = editable.prop('presenterElement');
     paragraph.props.style.should.eql(style);
     paragraph.props.editorState.should.eql(editorState);
     paragraph.props.readOnly.should.be.true();
     paragraph.props.lastBlockChild.should.eql(lastBlockChild);
-    const editor = editable.props.editorElement;
+
+    const editor = editable.prop('editorElement');
     editor.props.style.should.eql(style);
     editor.props.onChange.should.eql(onChange);
     editor.props.editorState.should.eql(editorState);
-    editor.props.placeholder.should.eql('123');
+    editor.props.placeholder.should.equal('123');
   });
 
   it('should render with given context', function () {
     const onChangeSpy = () => {};
-    instance = renderWithContext(
-      {
-        fieldContexts: {
-          'navbar_title': {
-            editModeOn: true,
-            value: editorState,
-            onChange: onChangeSpy,
-          },
+    const context = {
+      fieldContexts: {
+        'navbar_title': {
+          editModeOn: true,
+          value: editorState,
+          onChange: onChangeSpy,
         },
       },
-      <RichTextEditable fieldname='navbar_title' />
+    };
+    const wrapper = shallow(
+      <RichTextEditable fieldname='navbar_title' />, { context }
     );
 
-    const editable = findRenderedComponentWithType(instance, Editable);
-    editable.props.editModeOn.should.be.true();
-    editable.props.editorElement.props.should.containEql({
+    const editable = wrapper.find(Editable);
+    editable.prop('editModeOn').should.be.true();
+    editable.prop('editorElement').props.should.containEql({
       editorState: editorState,
       onChange: onChangeSpy,
     });

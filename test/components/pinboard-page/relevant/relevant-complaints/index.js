@@ -1,24 +1,13 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
+import { mount } from 'enzyme';
 import { stub } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import RelevantInfiniteCarousel from 'components/pinboard-page/relevant/common/relevant-infinite-carousel';
 import RelevantComplaints from 'components/pinboard-page/relevant/relevant-complaints';
 import RelevantComplaintCard from 'components/pinboard-page/relevant/relevant-complaints/relevant-complaint-card';
 
 
 describe('RelevantComplaints component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render enough content correctly', function () {
     const firstOfficers = [{
       fullName: 'Scott Mc Kenna',
@@ -85,7 +74,7 @@ describe('RelevantComplaints component', function () {
     const addItemInPinboardPageStub = stub();
     const fetchPinboardRelevantComplaintsStub = stub();
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <RelevantComplaints
         requesting={ false }
         addItemInPinboardPage={ addItemInPinboardPageStub }
@@ -97,28 +86,28 @@ describe('RelevantComplaints component', function () {
       />
     );
 
-    const relevantInfiniteCarousel = findRenderedComponentWithType(instance, RelevantInfiniteCarousel);
-    relevantInfiniteCarousel.props.title.should.eql('COMPLAINTS');
-    relevantInfiniteCarousel.props.childWidth.should.eql(306);
-    relevantInfiniteCarousel.props.hasMore.should.be.true();
-    relevantInfiniteCarousel.props.requesting.should.be.false();
+    const relevantInfiniteCarousel = wrapper.find(RelevantInfiniteCarousel);
+    relevantInfiniteCarousel.prop('title').should.equal('COMPLAINTS');
+    relevantInfiniteCarousel.prop('childWidth').should.equal(306);
+    relevantInfiniteCarousel.prop('hasMore').should.be.true();
+    relevantInfiniteCarousel.prop('requesting').should.be.false();
 
-    const RelevantComplaintCards = scryRenderedComponentsWithType(relevantInfiniteCarousel, RelevantComplaintCard);
+    const RelevantComplaintCards = relevantInfiniteCarousel.find(RelevantComplaintCard);
     RelevantComplaintCards.should.have.length(2);
 
-    RelevantComplaintCards[0].props.crid.should.eql('1089128');
-    RelevantComplaintCards[0].props.incidentDate.should.eql('Feb 1, 2018');
-    RelevantComplaintCards[0].props.category.should.eql('False Arrest');
-    RelevantComplaintCards[0].props.officers.should.eql(firstOfficers);
-    RelevantComplaintCards[0].props.point.should.eql({ lat: 41.7924183, lon: -87.668458 });
+    RelevantComplaintCards.at(0).prop('crid').should.equal('1089128');
+    RelevantComplaintCards.at(0).prop('incidentDate').should.equal('Feb 1, 2018');
+    RelevantComplaintCards.at(0).prop('category').should.equal('False Arrest');
+    RelevantComplaintCards.at(0).prop('officers').should.eql(firstOfficers);
+    RelevantComplaintCards.at(0).prop('point').should.eql({ lat: 41.7924183, lon: -87.668458 });
 
-    RelevantComplaintCards[1].props.crid.should.eql('1085255');
-    RelevantComplaintCards[1].props.incidentDate.should.eql('May 18, 2017');
-    RelevantComplaintCards[1].props.category.should.eql('Unknown');
-    RelevantComplaintCards[1].props.officers.should.eql([]);
-    RelevantComplaintCards[1].props.point.should.eql({ lat: 41.800831, lon: -87.6222052 });
+    RelevantComplaintCards.at(1).prop('crid').should.equal('1085255');
+    RelevantComplaintCards.at(1).prop('incidentDate').should.equal('May 18, 2017');
+    RelevantComplaintCards.at(1).prop('category').should.equal('Unknown');
+    RelevantComplaintCards.at(1).prop('officers').should.eql([]);
+    RelevantComplaintCards.at(1).prop('point').should.eql({ lat: 41.800831, lon: -87.6222052 });
 
-    relevantInfiniteCarousel.props.loadMore();
+    relevantInfiniteCarousel.prop('loadMore')();
     fetchPinboardRelevantComplaintsStub.should.be.calledOnce();
     fetchPinboardRelevantComplaintsStub.should.be.calledWith('66ef1560', { limit: 20, offset: 20 });
   });

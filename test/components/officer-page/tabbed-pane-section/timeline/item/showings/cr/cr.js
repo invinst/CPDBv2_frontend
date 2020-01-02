@@ -1,17 +1,12 @@
 import React from 'react';
-import {
-  findRenderedDOMComponentWithClass,
-  renderIntoDocument,
-  findRenderedComponentWithType,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 import { Link } from 'react-router';
 
 import Cr from 'components/officer-page/tabbed-pane-section/timeline/item/showings/cr';
-import { unmountComponentSuppressError } from 'utils/test';
+import Attachments from 'components/officer-page/tabbed-pane-section/timeline/item/showings/cr/attachments';
 
 
 describe('Cr component', function () {
-  let instance;
   const item = {
     crid: 123,
     date: 'Jan 01',
@@ -38,35 +33,31 @@ describe('Cr component', function () {
     }],
   };
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
-
   it('should render item correctly', function () {
-    instance = renderIntoDocument(<Cr item={ item } />);
+    const wrapper = shallow(<Cr item={ item } />);
 
-    const kind = findRenderedDOMComponentWithClass(instance, 'cr-item-kind');
-    const category = findRenderedDOMComponentWithClass(instance, 'cr-item-category');
-    const finding = findRenderedDOMComponentWithClass(instance, 'cr-item-finding');
-    const coaccused = findRenderedDOMComponentWithClass(instance, 'cr-item-coaccused');
-    const date = findRenderedDOMComponentWithClass(instance, 'cr-item-date');
-    const attachmentImage = findRenderedDOMComponentWithClass(instance, 'attachment-image');
-    const attachmentImageHref = findRenderedDOMComponentWithClass(instance, 'attachment-image-href');
-    const moreAttachment = findRenderedDOMComponentWithClass(instance, 'more-attachment');
-    const link = findRenderedComponentWithType(instance, Link);
+    const kind = wrapper.find('.cr-item-kind');
+    const category = wrapper.find('.cr-item-category');
+    const finding = wrapper.find('.cr-item-finding');
+    const coaccused = wrapper.find('.cr-item-coaccused');
+    const date = wrapper.find('.cr-item-date');
+    const attachments = wrapper.find(Attachments).dive();
+    const attachmentImage = attachments.find('.attachment-image');
+    const attachmentImageHref = attachments.find('.attachment-image-href');
+    const moreAttachment = attachments.find('.more-attachment');
+    const link = wrapper.find(Link);
 
-    kind.textContent.should.eql('Complaint');
-    category.textContent.should.eql('Use of Force');
-    finding.textContent.should.eql('Sustained, Unknown');
-    coaccused.textContent.should.eql('1 of 4 coaccused');
-    date.textContent.should.eql('Jan 01');
-    moreAttachment.textContent.should.eql('+2');
+    kind.text().should.equal('Complaint');
+    category.text().should.equal('Use of Force');
+    finding.text().should.equal('Sustained, Unknown');
+    coaccused.text().should.equal('1 of 4 coaccused');
+    date.text().should.equal('Jan 01');
+    moreAttachment.text().should.equal('+2');
 
-    attachmentImage.style.backgroundImage.should.eql(
-      'url("https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p1-normal.gif")');
-    attachmentImageHref.getAttribute('href').should.eql(
+    attachmentImage.prop('style').backgroundImage.should.eql(
+      'url(https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p1-normal.gif)');
+    attachmentImageHref.prop('href').should.eql(
       'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-1-of-3.html');
-    link.props.to.should.eql('/complaint/123/');
+    link.prop('to').should.equal('/complaint/123/');
   });
 });

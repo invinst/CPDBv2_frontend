@@ -1,34 +1,19 @@
 import React from 'react';
-import { findDOMNode } from 'react-dom';
+import { shallow } from 'enzyme';
 import { stub, spy } from 'sinon';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  findRenderedDOMComponentWithTag,
-  scryRenderedDOMComponentsWithTag,
-  findRenderedComponentWithType,
-  Simulate,
-} from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError, reRender } from 'utils/test';
 import DownloadMenuItem from 'components/headers/shareable-header/download-menu/download-menu-item';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 import LoadingSpinner from 'components/common/loading-spinner';
 
 
 describe('DownloadMenu component', function () {
-  let element;
-
-  afterEach(function () {
-    unmountComponentSuppressError(element);
-  });
-
   it(
     'should render download image by default and change to downloading after being clicked',
     function () {
       const fetchOfficerZipFileUrlStub = stub();
 
-      element = renderIntoDocument(
+      const wrapper = shallow(
         <DownloadMenuItem
           officerId={ 123 }
           kind='without_docs'
@@ -37,17 +22,17 @@ describe('DownloadMenu component', function () {
         />
       );
 
-      const text = findRenderedDOMComponentWithClass(element, 'request-download');
-      text.textContent.should.eql('Data only');
+      const text = wrapper.find('.request-download');
+      text.text().should.equal('Data only');
 
-      const downloadImg = findRenderedDOMComponentWithTag(element, 'img');
-      downloadImg.src.should.containEql('/img/download.svg');
-      downloadImg.alt.should.eql('download');
+      const downloadImg = wrapper.find('img');
+      downloadImg.prop('src').should.containEql('/img/download.svg');
+      downloadImg.prop('alt').should.equal('download');
 
-      Simulate.click(findDOMNode(element));
+      wrapper.simulate('click');
 
-      findRenderedComponentWithType(element, LoadingSpinner);
-      scryRenderedDOMComponentsWithTag(element, 'img').should.have.length(0);
+      wrapper.find(LoadingSpinner).exists().should.be.true();
+      wrapper.find('img').exists().should.be.false();
 
       fetchOfficerZipFileUrlStub.should.be.calledWith(123);
     }
@@ -57,7 +42,7 @@ describe('DownloadMenu component', function () {
     const fetchOfficerZipFileUrlStub = stub();
     const triggerDownloadSpy = spy(DownloadMenuItem.prototype, 'triggerDownload');
 
-    element = renderIntoDocument(
+    const wrapper = shallow(
       <DownloadMenuItem
         officerId={ 123 }
         kind='without_docs'
@@ -67,9 +52,9 @@ describe('DownloadMenu component', function () {
     );
 
     triggerDownloadSpy.should.not.be.called();
-    element.state.requested.should.be.false();
+    wrapper.state('requested').should.be.false();
 
-    Simulate.click(findDOMNode(element));
+    wrapper.simulate('click');
 
     triggerDownloadSpy.should.be.calledWith('lvh.me/file.zip');
 
@@ -80,7 +65,7 @@ describe('DownloadMenu component', function () {
     const fetchOfficerZipFileUrlStub = stub();
     const triggerDownloadSpy = spy(DownloadMenuItem.prototype, 'triggerDownload');
 
-    element = renderIntoDocument(
+    const wrapper = shallow(
       <DownloadMenuItem
         officerId={ 123 }
         kind='without_docs'
@@ -91,9 +76,9 @@ describe('DownloadMenu component', function () {
 
     triggerDownloadSpy.should.not.be.called();
 
-    Simulate.click(findDOMNode(element));
-    Simulate.click(findDOMNode(element));
-    Simulate.click(findDOMNode(element));
+    wrapper.simulate('click');
+    wrapper.simulate('click');
+    wrapper.simulate('click');
 
     triggerDownloadSpy.should.be.calledOnce();
 
@@ -104,7 +89,7 @@ describe('DownloadMenu component', function () {
     const fetchOfficerZipFileUrlStub = stub();
     const triggerDownloadSpy = spy(DownloadMenuItem.prototype, 'triggerDownload');
 
-    element = renderIntoDocument(
+    const wrapper = shallow(
       <DownloadMenuItem
         officerId={ 123 }
         kind='without_docs'
@@ -113,22 +98,19 @@ describe('DownloadMenu component', function () {
       />
     );
 
-    Simulate.click(findDOMNode(element));
-    element.state.requested.should.be.true();
+    wrapper.simulate('click');
+    wrapper.state('requested').should.be.true();
     triggerDownloadSpy.should.not.be.called();
 
-    element = reRender(
-      <DownloadMenuItem
-        officerId={ 123 }
-        kind='without_docs'
-        zipFileUrl='lvh.me/file.zip'
-        fetchOfficerZipFileUrl={ fetchOfficerZipFileUrlStub }
-      />,
-      element
-    );
+    wrapper.setProps({
+      officerId: 123,
+      kind: 'without_docs',
+      zipFileUrl: 'lvh.me/file.zip',
+      fetchOfficerZipFileUrl: fetchOfficerZipFileUrlStub,
+    });
 
     triggerDownloadSpy.should.be.calledWith('lvh.me/file.zip');
-    element.state.requested.should.be.false();
+    wrapper.state('requested').should.be.false();
 
     triggerDownloadSpy.restore();
   });
@@ -136,9 +118,9 @@ describe('DownloadMenu component', function () {
   it('should send google analytics when clicked', function () {
     const fetchOfficerZipFileUrlStub = stub();
     const triggerDownloadSpy = spy(DownloadMenuItem.prototype, 'triggerDownload');
-    const stubTrackOfficerDownload = stub(GATracking, 'trackOfficerDownload');
+    const stubTrackOfficerDownload = stub(tracking, 'trackOfficerDownload');
 
-    element = renderIntoDocument(
+    const wrapper = shallow(
       <DownloadMenuItem
         officerId={ 123 }
         kind='without_docs'
@@ -147,24 +129,21 @@ describe('DownloadMenu component', function () {
       />
     );
 
-    Simulate.click(findDOMNode(element));
-    element.state.requested.should.be.true();
+    wrapper.simulate('click');
+    wrapper.state('requested').should.be.true();
     triggerDownloadSpy.should.not.be.called();
     stubTrackOfficerDownload.should.be.calledWith(123, 'request_download_urls', 'without_docs');
 
-    element = reRender(
-      <DownloadMenuItem
-        officerId={ 123 }
-        kind='without_docs'
-        zipFileUrl='lvh.me/file.zip'
-        fetchOfficerZipFileUrl={ fetchOfficerZipFileUrlStub }
-      />,
-      element
-    );
+    wrapper.setProps({
+      officerId: 123,
+      kind: 'without_docs',
+      zipFileUrl: 'lvh.me/file.zip',
+      fetchOfficerZipFileUrl: fetchOfficerZipFileUrlStub,
+    });
 
     triggerDownloadSpy.should.be.calledWith('lvh.me/file.zip');
     stubTrackOfficerDownload.should.be.calledWith(123, 'download', 'without_docs');
-    element.state.requested.should.be.false();
+    wrapper.state('requested').should.be.false();
 
     triggerDownloadSpy.restore();
     stubTrackOfficerDownload.restore();

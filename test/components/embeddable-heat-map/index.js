@@ -1,65 +1,41 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+import { shallow } from 'enzyme';
 import { stub } from 'sinon';
-import {
-  renderIntoDocument, findRenderedComponentWithType,
-} from 'react-addons-test-utils';
-import MockStore from 'redux-mock-store';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import HeatMap from 'components/embeddable-heat-map';
 import SummaryPanel from 'components/embeddable-heat-map/summary-panel';
 import CommunityMap from 'components/embeddable-heat-map/community-map';
-import { CitySummaryFactory } from 'utils/test/factories/heat-map';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 
 
 describe('HeatMap component', function () {
-  let instance;
-  const store = MockStore()({
-    landingPage: {
-      heatMap: {
-        citySummary: CitySummaryFactory.build(),
-      },
-    },
-  });
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render CommunityMap and SummaryPanel', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <HeatMap/>
-      </Provider>
+    const wrapper = shallow(
+      <HeatMap/>
     );
-    findRenderedComponentWithType(instance, SummaryPanel).should.be.ok();
-    findRenderedComponentWithType(instance, CommunityMap).should.be.ok();
+    wrapper.find(SummaryPanel).exists().should.be.true();
+    wrapper.find(CommunityMap).exists().should.be.true();
   });
 
   it('should set community id and send analytic event when selectCommunity triggers', function () {
-    stub(GATracking, 'trackCommunityClick');
+    stub(tracking, 'trackCommunityClick');
     const communities = [{
       id: 10,
       name: 'Westwood',
     }];
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <HeatMap communities={ communities }/>
-      </Provider>
+    const wrapper = shallow(
+      <HeatMap communities={ communities }/>
     );
-    const heatMap = findRenderedComponentWithType(instance, HeatMap);
-    heatMap.state.selectedId.should.eql(0);
+    wrapper.state('selectedId').should.equal(0);
 
-    const summaryPanel = findRenderedComponentWithType(heatMap, SummaryPanel);
-    summaryPanel.props.selectCommunity(10);
-    heatMap.state.selectedId.should.eql(10);
-    GATracking.trackCommunityClick.should.calledWith('Westwood');
+    const summaryPanel = wrapper.find(SummaryPanel);
+    summaryPanel.prop('selectCommunity')(10);
+    wrapper.state('selectedId').should.equal(10);
+    tracking.trackCommunityClick.should.calledWith('Westwood');
 
-    const communityMap = findRenderedComponentWithType(heatMap, CommunityMap);
-    communityMap.props.selectCommunity(0);
-    heatMap.state.selectedId.should.eql(0);
-    GATracking.trackCommunityClick.restore();
+    const communityMap = wrapper.find(CommunityMap);
+    communityMap.prop('selectCommunity')(0);
+    wrapper.state('selectedId').should.equal(0);
+    tracking.trackCommunityClick.restore();
   });
 });

@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
-import {
-  renderIntoDocument, Simulate,
-  findRenderedDOMComponentWithClass,
-} from 'react-addons-test-utils';
+import { mount } from 'enzyme';
 import { stub } from 'sinon';
 import { lorem, random } from 'faker';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import withPinnable from 'components/common/with-pinnable';
 import { PINNED_ITEM_TYPES } from 'utils/constants';
 
 
 describe('ItemPinButton component', function () {
-  let instance;
   const firstCRID = lorem.word();
   const secondCRID = lorem.word();
   const officerID = random.number({ min: 10, max: 1000 });
@@ -24,32 +19,28 @@ describe('ItemPinButton component', function () {
   }
   const TestComponentWithPinnable = withPinnable(TestComponent);
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render children', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <TestComponentWithPinnable
         item={ { type: 'OFFICER', id: officerID, isPinned: false } }
       />
     );
 
-    findRenderedDOMComponentWithClass(instance, 'test--classname').should.be.ok();
+    wrapper.find('.test--classname').exists().should.be.true();
   });
 
   it('should handle on pin button click', function () {
     const addOrRemoveItemInPinboardStub = stub();
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <TestComponentWithPinnable
         addOrRemoveItemInPinboard={ addOrRemoveItemInPinboardStub }
         item={ { type: 'OFFICER', id: officerID, isPinned: false } }
       />
     );
 
-    const childComponent = findRenderedDOMComponentWithClass(instance, 'test--classname');
-    Simulate.click(childComponent);
+    const childComponent = wrapper.find('.test--classname');
+    childComponent.simulate('click');
 
     addOrRemoveItemInPinboardStub.calledWith({
       type: 'OFFICER',
@@ -61,7 +52,7 @@ describe('ItemPinButton component', function () {
   it('should handle on pin button with all items are pinned', function () {
     const addOrRemoveItemInPinboardStub = stub();
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <TestComponentWithPinnable
         addOrRemoveItemInPinboard={ addOrRemoveItemInPinboardStub }
         items={ [
@@ -71,8 +62,8 @@ describe('ItemPinButton component', function () {
       />
     );
 
-    const childComponent = findRenderedDOMComponentWithClass(instance, 'test--classname');
-    Simulate.click(childComponent);
+    const childComponent = wrapper.find('.test--classname');
+    childComponent.simulate('click');
 
     addOrRemoveItemInPinboardStub.should.be.calledTwice();
     addOrRemoveItemInPinboardStub.should.be.calledWith({
@@ -90,7 +81,7 @@ describe('ItemPinButton component', function () {
   it('should handle on pin button with all items are not pinned', function () {
     const addOrRemoveItemInPinboardStub = stub();
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <TestComponentWithPinnable
         addOrRemoveItemInPinboard={ addOrRemoveItemInPinboardStub }
         items={ [
@@ -100,8 +91,8 @@ describe('ItemPinButton component', function () {
       />
     );
 
-    const childComponent = findRenderedDOMComponentWithClass(instance, 'test--classname');
-    Simulate.click(childComponent);
+    const childComponent = wrapper.find('.test--classname');
+    childComponent.simulate('click');
 
     addOrRemoveItemInPinboardStub.should.be.calledTwice();
     addOrRemoveItemInPinboardStub.should.be.calledWith({
@@ -119,7 +110,7 @@ describe('ItemPinButton component', function () {
   it('should handle on pin button with not all items are pinned', function () {
     const addOrRemoveItemInPinboardStub = stub();
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <TestComponentWithPinnable
         addOrRemoveItemInPinboard={ addOrRemoveItemInPinboardStub }
         items={ [
@@ -129,8 +120,8 @@ describe('ItemPinButton component', function () {
       />
     );
 
-    const childComponent = findRenderedDOMComponentWithClass(instance, 'test--classname');
-    Simulate.click(childComponent);
+    const childComponent = wrapper.find('.test--classname');
+    childComponent.simulate('click');
 
     addOrRemoveItemInPinboardStub.should.be.calledOnce();
     addOrRemoveItemInPinboardStub.should.be.calledWith({

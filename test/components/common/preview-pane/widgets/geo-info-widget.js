@@ -1,26 +1,15 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 import should from 'should';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import GeoInfoWidget from 'components/common/preview-pane/widgets/geo-info-widget';
 import CommunityRacePopulation
   from 'components/landing-page/heat-map/summary-panel/community-dropdown/community-race-population';
 
 
 describe('GeoInfoWidget component', () => {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should contain CommunityRacePopulation component', () => {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <GeoInfoWidget
         raceCount={ [{
           race: 'race',
@@ -28,15 +17,15 @@ describe('GeoInfoWidget component', () => {
         }] }
       />
     );
-    should(findRenderedComponentWithType(instance, CommunityRacePopulation)).not.be.null();
+    should(wrapper.find(CommunityRacePopulation)).not.be.null();
   });
 
   it('should not display when raceCount is empty', () => {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <GeoInfoWidget
         raceCount={ [] }
       />
     );
-    scryRenderedComponentsWithType(instance, CommunityRacePopulation).should.have.length(0);
+    should(wrapper.getNode()).be.null();
   });
 });

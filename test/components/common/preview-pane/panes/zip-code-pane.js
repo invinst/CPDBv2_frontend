@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
 import ZipCodePane from 'components/common/preview-pane/panes/zip-code-pane';
 import {
@@ -11,20 +7,13 @@ import {
   AllegationCountWidget,
   ListWidget,
 } from 'components/common/preview-pane/widgets';
-import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('ZipCodePane component', () => {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should contain the sub components', () => {
-    instance = renderIntoDocument(<ZipCodePane/>);
-    findRenderedComponentWithType(instance, HeaderWidget);
-    findRenderedComponentWithType(instance, AllegationCountWidget);
-    scryRenderedComponentsWithType(instance, ListWidget).should.have.length(3);
+    const wrapper = shallow(<ZipCodePane/>);
+    wrapper.find(HeaderWidget).exists().should.be.true();
+    wrapper.find(AllegationCountWidget).exists().should.be.true();
+    wrapper.find(ListWidget).should.have.length(3);
   });
 });

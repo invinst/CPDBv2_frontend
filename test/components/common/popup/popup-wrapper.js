@@ -1,60 +1,51 @@
 import React from 'react';
-import {
-  renderIntoDocument, findRenderedDOMComponentWithClass, Simulate, findRenderedComponentWithType,
-} from 'react-addons-test-utils';
+import { shallow, mount } from 'enzyme';
 import { spy, stub } from 'sinon';
 import ReactTooltip from 'react-tooltip';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 
 import PopupWrapper from 'components/common/popup/popup-wrapper';
-import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('PopupWrapper', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render children as content', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <PopupWrapper popupButtonClassName='custom-popup-button'>
         <div className='first-children'>First popup child</div>
         <div className='second-children'>Second popup child</div>
       </PopupWrapper>
     );
 
-    const contentWrapper = findRenderedDOMComponentWithClass(instance, 'test--popup-content');
+    const contentWrapper = wrapper.find('.test--popup-content');
 
-    contentWrapper.textContent.should.eql('First popup childSecond popup child');
+    contentWrapper.text().should.equal('First popup childSecond popup child');
 
-    const popupButton = findRenderedDOMComponentWithClass(instance, 'popup-button');
-    popupButton.className.should.containEql('custom-popup-button');
+    const popupButton = wrapper.find('.popup-button');
+    popupButton.hasClass('custom-popup-button').should.be.true();
   });
 
   it('should stopPropagation when being clicked ', function () {
     const dummyEvent = {
       stopPropagation: spy(),
     };
-    instance = renderIntoDocument(<PopupWrapper/>);
+    const wrapper = mount(<PopupWrapper/>);
 
-    const popupButton = findRenderedDOMComponentWithClass(instance, 'popup-button');
-    Simulate.click(popupButton);
-    const popup = findRenderedDOMComponentWithClass(instance, 'test--popup-content');
-    Simulate.click(popup, dummyEvent);
+    const popupButton = wrapper.find('.popup-button');
+    popupButton.simulate('click');
+    const popup = wrapper.find('.test--popup-content');
+    popup.simulate('click', dummyEvent);
 
     dummyEvent.stopPropagation.should.be.called();
   });
 
   it('should hide other popups after shown', function () {
     const hideOtherPopups = stub(PopupWrapper.prototype, 'hideOtherPopups');
-    const trackPopupButtonClick = stub(GATracking, 'trackPopupButtonClick');
-    instance = renderIntoDocument(
+    const trackPopupButtonClick = stub(tracking, 'trackPopupButtonClick');
+    const wrapper = shallow(
       <PopupWrapper trackingUrl='tracking.url.co' trackingId='testingId'/>
     );
-    const tooltip = findRenderedComponentWithType(instance, ReactTooltip);
-    tooltip.props.afterShow();
+    const tooltip = wrapper.find(ReactTooltip);
+    tooltip.prop('afterShow')();
     hideOtherPopups.called.should.be.true();
     trackPopupButtonClick.should.be.calledWith('tracking.url.co', 'testingId');
     hideOtherPopups.restore();

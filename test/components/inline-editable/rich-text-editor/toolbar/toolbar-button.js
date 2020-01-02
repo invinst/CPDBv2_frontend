@@ -1,29 +1,20 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 import { spy, stub } from 'sinon';
-import {
-  renderIntoDocument, scryRenderedDOMComponentsWithTag, Simulate,
-} from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import { ToolbarButton } from 'components/inline-editable/rich-text-editor/toolbar/toolbar-button';
 import * as toolbarButtonStyle from 'components/inline-editable/rich-text-editor/toolbar/toolbar-button.style';
 
 
 describe('ToolbarButton component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should trigger onClick', function () {
     const onClickSpy = spy();
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <ToolbarButton onClick={ onClickSpy } />
     );
-    const divElements = scryRenderedDOMComponentsWithTag(instance, 'div');
-    Simulate.click(divElements[0]);
-    onClickSpy.called.should.be.true();
+    const divElements = wrapper.find('div');
+    divElements.at(0).simulate('click');
+    onClickSpy.should.be.called();
   });
 
   it('should return wrapperStyle base on active and hovering', function () {
@@ -31,11 +22,11 @@ describe('ToolbarButton component', function () {
     const hovering = true;
     const wrapperStyleStub = stub(toolbarButtonStyle, 'wrapperStyle');
     wrapperStyleStub.withArgs({ active, hovering }).returns({ fontSize: '14px' });
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <ToolbarButton active={ active } hovering={ hovering } />
     );
-    const divElements = scryRenderedDOMComponentsWithTag(instance, 'div');
-    divElements[0].style.fontSize.should.eql('14px');
+    const divElements = wrapper.find('div');
+    divElements.at(0).prop('style').fontSize.should.equal('14px');
     wrapperStyleStub.restore();
   });
 
@@ -45,11 +36,11 @@ describe('ToolbarButton component', function () {
 
     const iconStyleStub = stub(toolbarButtonStyle, 'iconStyle');
     iconStyleStub.withArgs(icon).returns({ fontSize: '14px' });
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <ToolbarButton active={ active } icon={ icon } />
     );
-    const divElements = scryRenderedDOMComponentsWithTag(instance, 'div');
-    divElements[1].style.fontSize.should.eql('14px');
+    const divElements = wrapper.find('div');
+    divElements.at(1).prop('style').fontSize.should.equal('14px');
     iconStyleStub.restore();
   });
 
@@ -59,11 +50,11 @@ describe('ToolbarButton component', function () {
 
     const iconStyleStub = stub(toolbarButtonStyle, 'iconStyle');
     iconStyleStub.withArgs(activeIcon).returns({ fontSize: '14px' });
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <ToolbarButton active={ active } activeIcon={ activeIcon } />
     );
-    const divElements = scryRenderedDOMComponentsWithTag(instance, 'div');
-    divElements[1].style.fontSize.should.eql('14px');
+    const divElements = wrapper.find('div');
+    divElements.at(1).prop('style').fontSize.should.equal('14px');
     iconStyleStub.restore();
   });
 });

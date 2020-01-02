@@ -1,67 +1,61 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { findRenderedDOMComponentWithTag, scryRenderedDOMComponentsWithTag } from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
-import { renderWithContext, unmountComponentSuppressError } from 'utils/test';
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
 
 
 describe('HoverableEditWrapper component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   context('edit mode off', function () {
     it('should render children element', function () {
-      instance = renderWithContext(
-        { editModeOn: false },
-        <HoverableEditWrapper>abc1234</HoverableEditWrapper>
+      const wrapper = shallow(
+        <HoverableEditWrapper>abc1234</HoverableEditWrapper>,
+        { context: { editModeOn: false } },
       );
 
-      ReactDOM.findDOMNode(instance).textContent.should.containEql('abc1234');
+      wrapper.text().should.containEql('abc1234');
     });
   });
 
   context('edit mode on', function () {
     it('should render children element', function () {
-      instance = renderWithContext(
-        { editModeOn: true },
-        <HoverableEditWrapper>abc1234</HoverableEditWrapper>
+      const wrapper = shallow(
+        <HoverableEditWrapper>abc1234</HoverableEditWrapper>,
+        { context: { editModeOn: true } },
       );
 
-      ReactDOM.findDOMNode(instance).textContent.should.containEql('abc1234');
+      wrapper.text().should.containEql('abc1234');
     });
 
     context('section edit mode off', function () {
       it('should render Edit button', function () {
-        instance = renderWithContext(
-          {
-            editModeOn: true,
-            sectionEditModeOn: false,
-          },
-          <HoverableEditWrapper />
+        const context = {
+          editModeOn: true,
+          sectionEditModeOn: false,
+        };
+        const wrapper = shallow(
+          <HoverableEditWrapper />,
+          { context },
         );
 
-        const editButton = findRenderedDOMComponentWithTag(instance, 'a');
-        ReactDOM.findDOMNode(editButton).textContent.should.equal('Edit');
+        const editButton = wrapper.find('a');
+        editButton.text().should.equal('Edit');
       });
     });
 
     context('section edit mode on', function () {
       it('should render Save and Cancel button', function () {
-        instance = renderWithContext(
-          {
-            editModeOn: true,
-            sectionEditModeOn: true,
-          },
-          <HoverableEditWrapper />
+        const context = {
+          editModeOn: true,
+          sectionEditModeOn: true,
+        };
+        const wrapper = shallow(
+          <HoverableEditWrapper />,
+          { context },
         );
 
-        const buttons = scryRenderedDOMComponentsWithTag(instance, 'a');
+        const buttons = wrapper.find('a');
         buttons.should.have.length(2);
-        buttons.map((button) => ReactDOM.findDOMNode(button).textContent).should.eql(['Save', 'Cancel']);
+        buttons.map((button) => button.text()).should.eql(['Save', 'Cancel']);
       });
     });
   });

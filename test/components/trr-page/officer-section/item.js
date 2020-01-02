@@ -1,30 +1,21 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import Item from 'components/trr-page/officer-section/item';
 
 
 describe('Item component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render title and value only if subValue and additionalComponent are not passed in', function () {
-    instance = renderIntoDocument(<Item title='Some title' value='Some value'/>);
-    findRenderedDOMComponentWithClass(instance, 'item-title').textContent.should.containEql('Some title');
-    findRenderedDOMComponentWithClass(instance, 'item-value').textContent.should.containEql('Some value');
-    scryRenderedDOMComponentsWithClass(instance, 'item-sub-value').should.have.length(0);
+    const wrapper = shallow(
+      <Item title='Some title' value='Some value'/>
+    );
+    wrapper.find('.item-title').text().should.containEql('Some title');
+    wrapper.find('.item-value').text().should.containEql('Some value');
+    wrapper.find('.item-sub-value').exists().should.be.false();
   });
 
   it('should render subValue if they are available', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Item
         title='Some title'
         value='Some value'
@@ -32,6 +23,6 @@ describe('Item component', function () {
         hideBorder={ true }
       />
     );
-    findRenderedDOMComponentWithClass(instance, 'item-sub-value').textContent.should.containEql('Some subValue');
+    wrapper.find('.item-sub-value').text().should.containEql('Some subValue');
   });
 });

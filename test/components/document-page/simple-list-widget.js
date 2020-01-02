@@ -1,36 +1,24 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 import should from 'should';
-import { findDOMNode } from 'react-dom';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import SimpleListWidget from 'components/document-page/simple-list-widget';
 import WrappedWithLink from 'components/common/wrapped-with-link';
 
 
 describe('SimpleListWidget component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render nothing when items is empty', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <SimpleListWidget
         className='simple-list-widget'
         items={ [] }
       />
     );
-    should(findDOMNode(instance)).be.null();
+    should(wrapper.type()).be.null();
   });
 
   it('should render correctly', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <SimpleListWidget
         className='simple-list-widget'
         items={ [
@@ -45,27 +33,29 @@ describe('SimpleListWidget component', function () {
       />
     );
 
-    findRenderedDOMComponentWithClass(instance, 'simple-list-widget');
+    wrapper.prop('className').should.containEql('simple-list-widget');
 
-    const items = scryRenderedComponentsWithType(instance, WrappedWithLink);
+    const items = wrapper.find(WrappedWithLink);
 
     items.should.have.length(2);
 
-    items[0].props.className.should.eql('list-item');
-    items[0].props.to.should.eql('/complaint/1083633/');
-    findRenderedDOMComponentWithClass(items[0], 'list-item-name').textContent.should.eql('CRID / UID');
-    findRenderedDOMComponentWithClass(items[0], 'list-item-value').textContent.should.eql('CR 1083633');
-    findRenderedDOMComponentWithClass(items[0], 'list-item-value').getAttribute('data-tip').should.eql('false');
+    items.at(0).prop('className').should.equal('list-item');
+    items.at(0).prop('to').should.equal('/complaint/1083633/');
+    items.at(0).find('.list-item-name').text().should.equal('CRID / UID');
+    items.at(0).find('.list-item-value').text().should.equal('CR 1083633');
+    items.at(0).find('.list-item-value').prop('data-tip').should.be.false();
 
-    items[1].props.className.should.eql('list-item');
-    items[1].props.url.should.eql('https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf');
-    findRenderedDOMComponentWithClass(items[1], 'list-item-name').textContent.should.eql('Source');
+    items.at(1).prop('className').should.equal('list-item');
+    items.at(1).prop('url').should.equal(
+      'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf'
+    );
+    items.at(1).find('.list-item-name').text().should.equal('Source');
 
-    const sourceItemValue = findRenderedDOMComponentWithClass(items[1], 'list-item-value');
-    sourceItemValue.textContent.should.eql('chicagocopa.org');
-    sourceItemValue.getAttribute('data-tip').should.eql('true');
-    sourceItemValue.getAttribute('data-for').should.containEql('tooltip-');
-    sourceItemValue.getAttribute('data-event').should.eql('mouseover');
-    sourceItemValue.getAttribute('data-event-off').should.eql('mouseleave');
+    const sourceItemValue = items.at(1).find('.list-item-value');
+    sourceItemValue.text().should.equal('chicagocopa.org');
+    sourceItemValue.prop('data-tip').should.be.true();
+    sourceItemValue.prop('data-for').should.containEql('tooltip-');
+    sourceItemValue.prop('data-event').should.equal('mouseover');
+    sourceItemValue.prop('data-event-off').should.equal('mouseleave');
   });
 });

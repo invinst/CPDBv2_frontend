@@ -1,13 +1,7 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
-import { findDOMNode } from 'react-dom';
+import { shallow, mount } from 'enzyme';
 import { spy } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
 import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
@@ -17,8 +11,6 @@ import { buildEditStateFields } from 'utils/test/factories/draft';
 
 
 describe('ScaleExplainer components', function () {
-  let instance;
-
   const radarChartData = [
     {
       axis: 'axis 1',
@@ -32,20 +24,14 @@ describe('ScaleExplainer components', function () {
       axis: 'axis 3',
       value: 97,
     },
-  ];
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
-  it('should render radar chart with legend', function () {
-    instance = renderIntoDocument(
+  ];it('should render radar chart with legend', function () {
+    const wrapper = shallow(
       <ScaleExplainer radarChartData={ radarChartData } year={ 2016 }/>
     );
-    const radarChart = findRenderedComponentWithType(instance, StaticRadarChart);
+    const radarChart = wrapper.find(StaticRadarChart);
 
-    radarChart.props.data.should.eql(radarChartData);
-    findDOMNode(instance).textContent.should.containEql('2016');
+    radarChart.prop('data').should.eql(radarChartData);
+    wrapper.text().should.containEql('2016');
   });
 
   it('should render editable content', function () {
@@ -60,7 +46,7 @@ describe('ScaleExplainer components', function () {
       turnOffSectionEditMode: spy(),
     };
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <ScaleExplainer
         radarChartData={ radarChartData }
         year={ 2016 }
@@ -68,17 +54,17 @@ describe('ScaleExplainer components', function () {
       />
     );
 
-    const editWrapperStateProvider = findRenderedComponentWithType(instance, EditWrapperStateProvider);
-    const hoverableEditWrapper = findRenderedComponentWithType(editWrapperStateProvider, HoverableEditWrapper);
-    const richTextEditables = scryRenderedComponentsWithType(hoverableEditWrapper, RichTextEditable);
+    const editWrapperStateProvider = wrapper.find(EditWrapperStateProvider);
+    const hoverableEditWrapper = editWrapperStateProvider.find(HoverableEditWrapper);
+    const richTextEditables = hoverableEditWrapper.find(RichTextEditable);
 
     richTextEditables.should.have.length(2);
-    const scaleDescription = richTextEditables[0];
-    const scaleSubDescription = richTextEditables[1];
-    scaleDescription.props.fieldname.should.equal('scale_description');
-    scaleSubDescription.props.fieldname.should.equal('scale_sub_description');
+    const scaleDescription = richTextEditables.at(0);
+    const scaleSubDescription = richTextEditables.at(1);
+    scaleDescription.prop('fieldname').should.equal('scale_description');
+    scaleSubDescription.prop('fieldname').should.equal('scale_sub_description');
 
-    findDOMNode(scaleDescription).textContent.should.equal('scale description');
-    findDOMNode(scaleSubDescription).textContent.should.equal('scale sub description');
+    scaleDescription.text().should.equal('scale description');
+    scaleSubDescription.text().should.equal('scale sub description');
   });
 });

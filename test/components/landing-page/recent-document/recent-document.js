@@ -1,22 +1,14 @@
 import React from 'react';
+import { mount } from 'enzyme';
 import { Router, Route, createMemoryHistory } from 'react-router';
-import {
-  renderIntoDocument,
-  scryRenderedComponentsWithType,
-  findRenderedComponentWithType,
-  Simulate,
-} from 'react-addons-test-utils';
-import { findDOMNode } from 'react-dom';
 import { stub } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import RecentDocument from 'components/landing-page/recent-document';
 import DocumentCard from 'components/landing-page/recent-document/document-card';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 
 
 describe('Recent Document components', function () {
-  let instance;
   const data = [{
     'crid': '111',
     'title': 'CR document 1',
@@ -33,35 +25,28 @@ describe('Recent Document components', function () {
     'category': 'Conduct Unbecoming (Off- Duty)',
   }];
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render appropriately', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <RecentDocument cards={ data } />
     );
 
-    const recentDocumentCards = scryRenderedComponentsWithType(instance, DocumentCard);
+    const recentDocumentCards = wrapper.find(DocumentCard);
     recentDocumentCards.should.have.length(2);
-    const recentDocumentCard1 = findDOMNode(recentDocumentCards[0]);
-    recentDocumentCard1.textContent.should.containEql('Dec 31, 1999');
-    recentDocumentCard1.textContent.should.containEql('Operations/Personnel Violation');
-    const images = recentDocumentCard1.querySelectorAll('.document-card-thumbnail-img');
+    const recentDocumentCard1 = recentDocumentCards.at(0);
+    recentDocumentCard1.text().should.containEql('Dec 31, 1999');
+    recentDocumentCard1.text().should.containEql('Operations/Personnel Violation');
+    const images = recentDocumentCard1.find('.document-card-thumbnail-img');
+    images.prop('src').should.eql('http://preview.com/url');
 
-    images.length.should.eql(1);
-    images[0].getAttribute('src').should.eql('http://preview.com/url');
-
-    const recentDocumentCard2 = findDOMNode(recentDocumentCards[1]);
-    recentDocumentCard2.textContent.should.containEql('Jan 1, 2010');
-    recentDocumentCard2.textContent.should.containEql('Conduct Unbecoming (Off- Duty)');
-    const images2 = recentDocumentCard2.querySelectorAll('.document-card-thumbnail-img');
-    images2.should.have.length(1);
-    images2[0].getAttribute('src').should.eql('http://preview.com/url3');
+    const recentDocumentCard2 = recentDocumentCards.at(1);
+    recentDocumentCard2.text().should.containEql('Jan 1, 2010');
+    recentDocumentCard2.text().should.containEql('Conduct Unbecoming (Off- Duty)');
+    const images2 = recentDocumentCard2.find('.document-card-thumbnail-img');
+    images2.prop('src').should.eql('http://preview.com/url3');
   });
 
   it('should track click event', function () {
-    const stubTrackAttachmentClick = stub(GATracking, 'trackAttachmentClick');
+    const stubTrackAttachmentClick = stub(tracking, 'trackAttachmentClick');
     const data = [{
       'crid': '123456',
       'title': 'CR document 1',
@@ -71,12 +56,12 @@ describe('Recent Document components', function () {
     const recentDocument = () => (
       <RecentDocument cards={ data } pathname='/' />
     );
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Router history={ createMemoryHistory() }>
         <Route path='/' component={ recentDocument } />
       </Router>
     );
-    Simulate.click(findDOMNode(findRenderedComponentWithType(instance, DocumentCard)));
+    wrapper.find(DocumentCard).simulate('click');
     stubTrackAttachmentClick.should.be.calledWith(
       '/',
       '/complaint/123456/'
@@ -96,12 +81,12 @@ describe('Recent Document components', function () {
     const recentDocument = () => (
       <RecentDocument cards={ data } pathname='/' onTrackingAttachment={ stubOnTrackingAttachment } />
     );
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Router history={ createMemoryHistory() }>
         <Route path='/' component={ recentDocument } />
       </Router>
     );
-    Simulate.click(findDOMNode(findRenderedComponentWithType(instance, DocumentCard)));
+    wrapper.find(DocumentCard).simulate('click');
     stubOnTrackingAttachment.should.be.calledWith({
       attachmentId: '789',
       sourcePage: 'Landing Page',

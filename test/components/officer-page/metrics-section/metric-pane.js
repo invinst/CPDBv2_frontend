@@ -1,33 +1,22 @@
 import React from 'react';
-import {
-  findRenderedDOMComponentWithClass,
-  renderIntoDocument,
-  findRenderedComponentWithType,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
 import MetricPane from 'components/officer-page/metrics-section/metric-pane';
-import { unmountComponentSuppressError } from 'utils/test';
 import Popup from 'components/common/popup';
 
 
 describe('MetricPane', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render correct information', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <MetricPane value={ 1 } name={ 'some name' } description={ 'some description' } />
     );
-    const value = findRenderedDOMComponentWithClass(instance, 'metrics-pane-value');
-    const name = findRenderedDOMComponentWithClass(instance, 'metrics-pane-name');
-    const description = findRenderedDOMComponentWithClass(instance, 'metrics-pane-description');
+    const value = wrapper.find('.metrics-pane-value');
+    const name = wrapper.find('.metrics-pane-name');
+    const description = wrapper.find('.metrics-pane-description');
 
-    value.textContent.should.eql('1');
-    name.textContent.should.eql('some name');
-    description.textContent.should.eql('some description');
+    value.text().should.equal('1');
+    name.text().should.equal('some name');
+    description.text().should.equal('some description');
   });
 
   it('should render popup', function () {
@@ -35,11 +24,11 @@ describe('MetricPane', function () {
       title: 'Allegations',
       text: 'Some allegation explanation',
     };
-    instance = renderIntoDocument(<MetricPane popup={ popup } pathName='/officer/8562/jerome-finnigan/'/>);
-    const metricPanePopup = findRenderedComponentWithType(instance, Popup);
-    metricPanePopup.props.title.should.eql('Allegations');
-    metricPanePopup.props.text.should.eql('Some allegation explanation');
-    metricPanePopup.props.url.should.eql('/officer/8562/jerome-finnigan/');
-    metricPanePopup.props.popupButtonClassName.should.eql('metric-pane-popup-button');
+    const wrapper = shallow(<MetricPane popup={ popup } pathName='/officer/8562/jerome-finnigan/'/>);
+    const metricPanePopup = wrapper.find(Popup);
+    metricPanePopup.prop('title').should.equal('Allegations');
+    metricPanePopup.prop('text').should.equal('Some allegation explanation');
+    metricPanePopup.prop('url').should.equal('/officer/8562/jerome-finnigan/');
+    metricPanePopup.prop('popupButtonClassName').should.equal('metric-pane-popup-button');
   });
 });

@@ -1,44 +1,32 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 import { spy } from 'sinon';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-} from 'react-addons-test-utils';
 import ModalVideo from 'react-modal-video';
 
 import VideoModal from 'components/video-modal';
-import { unmountComponentSuppressError } from 'utils/test';
 
 describe('VideoModal component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render ModalVideo with correct props', function () {
     const closeVideoModal = spy();
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <VideoModal
         closeVideoModal={ closeVideoModal }
         isVideoModalActive={ false }
       />
     );
 
-    const modalVideo = findRenderedComponentWithType(instance, ModalVideo);
-    modalVideo.props.channel.should.equal('vimeo');
-    modalVideo.props.isOpen.should.be.false();
-    modalVideo.props.videoId.should.equal('285002059');
-    modalVideo.props.onClose.should.equal(closeVideoModal);
+    const modalVideo = wrapper.find(ModalVideo);
+    modalVideo.prop('channel').should.equal('vimeo');
+    modalVideo.prop('isOpen').should.be.false();
+    modalVideo.prop('videoId').should.equal('285002059');
+    modalVideo.prop('onClose').should.equal(closeVideoModal);
 
-    instance = renderIntoDocument(
-      <VideoModal
-        closeVideoModal={ closeVideoModal }
-        isVideoModalActive={ true }
-      />
-    );
+    wrapper.setProps({
+      closeVideoModal,
+      isVideoModalActive: true,
+    });
 
-    findRenderedComponentWithType(instance, ModalVideo).props.isOpen.should.be.true();
+    wrapper.find(ModalVideo).prop('isOpen').should.be.true();
   });
 });

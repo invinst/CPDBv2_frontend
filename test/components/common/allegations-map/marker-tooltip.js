@@ -1,41 +1,30 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 
 import MarkerTooltip from 'components/common/allegations-map/marker-tooltip';
-import {
-  findRenderedDOMComponentWithClass,
-  findRenderedDOMComponentWithTag,
-  renderIntoDocument,
-} from 'react-addons-test-utils';
-import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('MarkerTooltip component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render marker tooltip correctly', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <MarkerTooltip
         date={ 'Sep, 23, 2006' }
         category={ 'test category' }
       />
     );
-    const tooltipDate = findRenderedDOMComponentWithClass(instance, 'marker-tooltip-date');
-    const tooltipCategory = findRenderedDOMComponentWithClass(instance, 'marker-tooltip-category');
-    tooltipDate.textContent.should.eql('Sep, 23, 2006');
-    tooltipCategory.textContent.should.eql('test category');
+    const tooltipDate = wrapper.find('.marker-tooltip-date');
+    const tooltipCategory = wrapper.find('.marker-tooltip-category');
+    tooltipDate.text().should.equal('Sep, 23, 2006');
+    tooltipCategory.text().should.equal('test category');
   });
 
   it('should go to CR detail page when clicking on', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <MarkerTooltip
         url='/complaint/123456/'
       />
     );
-    const tooltip = findRenderedDOMComponentWithTag(instance, 'a');
-    tooltip.href.should.containEql('/complaint/123456/');
+    const tooltip = wrapper.find('a');
+    tooltip.prop('href').should.containEql('/complaint/123456/');
   });
 });

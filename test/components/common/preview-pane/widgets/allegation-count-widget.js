@@ -1,30 +1,23 @@
 import React from 'react';
-import { renderIntoDocument, findRenderedDOMComponentWithClass } from 'react-addons-test-utils';
+import { mount } from 'enzyme';
 
 import AllegationCountWidget from 'components/common/preview-pane/widgets/allegation-count-widget';
-import { unmountComponentSuppressError } from 'utils/test';
 
 
-describe('AllegationCountWidget component', () => {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
-  it('should contains number of allegations', () => {
-    instance = renderIntoDocument(
+describe('AllegationCountWidget component', function () {
+  it('should contains number of allegations', function () {
+    const wrapper = mount(
       <AllegationCountWidget numOfAllegations={ 465 }/>
     );
-    const instanceDOM = findRenderedDOMComponentWithClass(instance, 'test--allegation-widget');
-    instanceDOM.textContent.should.containEql('465 allegations');
+    const instanceDOM = wrapper.find('.test--allegation-widget');
+    instanceDOM.text().should.containEql('465 allegations');
   });
 
   it('should have thousands separator comma', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <AllegationCountWidget numOfAllegations={ 6789 }/>
     );
-    const instanceDOM = findRenderedDOMComponentWithClass(instance, 'test--allegation-widget');
-    instanceDOM.textContent.should.containEql('6,789 allegations');
+    const instanceDOM = wrapper.find('.test--allegation-widget');
+    instanceDOM.text().should.containEql('6,789 allegations');
   });
 });

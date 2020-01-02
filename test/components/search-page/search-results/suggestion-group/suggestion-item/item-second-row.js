@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { renderIntoDocument, findRenderedDOMComponentWithTag } from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 import should from 'should';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import {
   getOfficerSecondRowContent, getCRSecondRowContent,
 } from 'components/search-page/search-results/suggestion-group/suggestion-item/item-second-row';
@@ -17,7 +16,7 @@ describe('getOfficerSecondRowContent', function () {
       },
     };
 
-    getOfficerSecondRowContent(params).should.be.equal('2 Complaints, 1 Sustained');
+    getOfficerSecondRowContent(params).should.equal('2 Complaints, 1 Sustained');
   });
 
   it('should return demographic, complaint and sustained', function () {
@@ -31,18 +30,12 @@ describe('getOfficerSecondRowContent', function () {
       },
     };
 
-    getOfficerSecondRowContent(params).should.be.equal('30 year old, White, Male, 2 Complaints, 1 Sustained');
+    getOfficerSecondRowContent(params).should.equal('30 year old, White, Male, 2 Complaints, 1 Sustained');
   });
 });
 
 
 describe('getCRSecondRowContent', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should return null if subText is empty', function () {
     const params = {
       suggestion: {},
@@ -64,7 +57,7 @@ describe('getCRSecondRowContent', function () {
       }
     }
 
-    instance = renderIntoDocument(<TestComponent />);
-    findRenderedDOMComponentWithTag(instance, 'span').should.be.ok();
+    const wrapper = shallow(<TestComponent />);
+    wrapper.find('span').exists().should.be.true();
   });
 });

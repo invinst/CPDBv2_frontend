@@ -1,26 +1,18 @@
 import React from 'react';
+import { mount } from 'enzyme';
 
 import Footer from 'components/footer';
-import {
-  renderIntoDocument,
-  scryRenderedComponentsWithType,
-  findRenderedDOMComponentWithClass,
-} from 'react-addons-test-utils';
 import { spy } from 'sinon';
-import { unmountComponentSuppressError } from 'utils/test';
 import FooterNavLink from 'components/footer/footer-nav-link';
 import * as intercomUtils from 'utils/intercom';
 
 
 describe('Footer component', function () {
-  let element;
-
   beforeEach(function () {
     spy(intercomUtils, 'showIntercomMessages');
   });
 
   afterEach(function () {
-    unmountComponentSuppressError(element);
     intercomUtils.showIntercomMessages.restore();
   });
 
@@ -29,33 +21,35 @@ describe('Footer component', function () {
   });
 
   it('should render GitHub external link', function () {
-    element = renderIntoDocument(<Footer />);
-    const links = scryRenderedComponentsWithType(element, FooterNavLink);
-    const githubLink = links.filter(link => link.props.name === 'GitHub')[0];
-    githubLink.props.externalHref.should.eql('https://github.com/invinst/');
+    const wrapper = mount(<Footer />);
+    const links = wrapper.find(FooterNavLink);
+    const githubLink = links.findWhere(link => link.prop('name') === 'GitHub');
+    githubLink.prop('externalHref').should.equal('https://github.com/invinst/');
   });
 
   it('should render Legal Disclaimer link', function () {
     const openRequestDocumentModal = spy();
-    element = renderIntoDocument(<Footer openLegalDisclaimerModal={ openRequestDocumentModal }/>);
-    const links = scryRenderedComponentsWithType(element, FooterNavLink);
-    const legalLink = links.filter(link => link.props.name === 'Legal')[0];
-    legalLink.props.onClick();
+    const wrapper = mount(
+      <Footer openLegalDisclaimerModal={ openRequestDocumentModal }/>
+    );
+    const links = wrapper.find(FooterNavLink);
+    const legalLink = links.findWhere(link => link.prop('name') === 'Legal');
+    legalLink.prop('onClick')();
     openRequestDocumentModal.calledOnce.should.be.true();
   });
 
   it('should render Contact link', function () {
-    element = renderIntoDocument(<Footer />);
+    const wrapper = mount(<Footer />);
 
-    const links = scryRenderedComponentsWithType(element, FooterNavLink);
-    const contactLink = links.filter(link => link.props.name === 'Contact')[0];
-    contactLink.props.onClick();
-    intercomUtils.showIntercomMessages.calledWith(true).should.be.true();
+    const links = wrapper.find(FooterNavLink);
+    const contactLink = links.findWhere(link => link.prop('name') === 'Contact');
+    contactLink.prop('onClick')();
+    intercomUtils.showIntercomMessages.should.be.calledWith(true);
   });
 
   it('should render Invisible Institute link', function () {
-    element = renderIntoDocument(<Footer />);
-    const links = findRenderedDOMComponentWithClass(element, 'test--footer-invinst-logo');
-    links.getAttribute('href').should.eql('https://invisible.institute/cpdp');
+    const wrapper = mount(<Footer />);
+    const link = wrapper.find('.test--footer-invinst-logo');
+    link.prop('href').should.equal('https://invisible.institute/cpdp');
   });
 });

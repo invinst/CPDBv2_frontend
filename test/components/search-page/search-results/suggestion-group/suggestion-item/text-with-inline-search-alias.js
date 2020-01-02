@@ -1,40 +1,30 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 import { Link, Router, Route, createMemoryHistory } from 'react-router';
-import {
-  renderIntoDocument, Simulate, findRenderedDOMComponentWithClass, findRenderedComponentWithType,
-} from 'react-addons-test-utils';
-import { findDOMNode } from 'react-dom';
 import { stub } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import * as constants from 'utils/constants';
 import TextWithInlineSearchAlias
   from 'components/search-page/search-results/suggestion-group/suggestion-item/text-with-inline-search-alias';
 
 
 describe('TextWithInlineSearchAlias component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render text correctly', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <TextWithInlineSearchAlias text='text' textClassName='test--text-class-name'/>
     );
 
-    const textContent = findRenderedDOMComponentWithClass(instance, 'test--text-class-name');
-    textContent.textContent.should.be.equal('text');
+    const textContent = wrapper.find('.test--text-class-name');
+    textContent.text().should.equal('text');
   });
 
   it('should render Link if aliasEditModeOn', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <TextWithInlineSearchAlias text='text' aliasEditModeOn={ true }/>
     );
 
-    const linkElement = findRenderedComponentWithType(instance, Link);
-    linkElement.props.to.should.equal(`/edit/${constants.INLINE_SEARCH_ALIAS_ADMIN_PATH}`);
+    const linkElement = wrapper.find(Link);
+    linkElement.prop('to').should.equal(`/edit/${constants.INLINE_SEARCH_ALIAS_ADMIN_PATH}`);
   });
 
   it('should trigger setAliasAdminPageContent if we click on inline search alias link', function () {
@@ -44,19 +34,19 @@ describe('TextWithInlineSearchAlias component', function () {
       <TextWithInlineSearchAlias
         text='text'
         aliasEditModeOn={ true }
-        content='content'
+        content={ { someContent: 'content' } }
         setAliasAdminPageContent={ setAliasAdminPageContent } />
     );
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Router history={ createMemoryHistory() }>
         <Route path='/' component={ renderer } />
       </Router>
     );
 
-    const linkElement = findRenderedComponentWithType(instance, Link);
-    Simulate.click(findDOMNode(linkElement));
+    const linkElement = wrapper.find(Link);
+    linkElement.simulate('click');
 
-    setAliasAdminPageContent.calledWith('content').should.be.true();
+    setAliasAdminPageContent.should.be.calledWith({ someContent: 'content' });
   });
 });

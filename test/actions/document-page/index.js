@@ -25,7 +25,7 @@ import {
   TURN_ON_TAGS_EDIT_MODE,
   TURN_OFF_TAGS_EDIT_MODE,
 } from 'utils/constants';
-import * as GA from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 
 
 describe('DocumentPage actions', function () {
@@ -75,7 +75,7 @@ describe('DocumentPage actions', function () {
     });
 
     it('should call trackDocumentEdit', function () {
-      const trackDocumentEditStub = stub(GA, 'trackDocumentEdit');
+      const trackDocumentEditStub = stub(tracking, 'trackDocumentEdit');
 
       updateDocument('title')({
         fields: [

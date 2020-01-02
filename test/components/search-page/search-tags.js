@@ -1,35 +1,27 @@
 import React from 'react';
-import { findDOMNode } from 'react-dom';
-import { renderIntoDocument } from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
 import SearchTags from 'components/search-page/search-tags';
-import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('SearchTags component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should be renderable', function () {
     SearchTags.should.be.renderable();
   });
 
   it('should capitalize tags', function () {
-    instance = renderIntoDocument(<SearchTags tags={ ['aaa', 'bbb'] } onSelect={ () => {} }/>);
-    findDOMNode(instance).textContent.should.containEql('AAA');
-    findDOMNode(instance).textContent.should.containEql('BBB');
+    const wrapper = shallow(<SearchTags tags={ ['aaa', 'bbb'] } onSelect={ () => {} }/>);
+    wrapper.text().should.containEql('AAA');
+    wrapper.text().should.containEql('BBB');
   });
 
   it('should render Data Tool tag when there is no tags', function () {
-    instance = renderIntoDocument(<SearchTags tags={ [] } isRequesting={ false }/>);
-    findDOMNode(instance).textContent.should.containEql('Data Tool');
+    const wrapper = shallow(<SearchTags tags={ [] } isRequesting={ false }/>);
+    wrapper.text().should.containEql('Data Tool');
   });
 
   it('should not render Data Tool tag when requesting', function () {
-    instance = renderIntoDocument(<SearchTags tags={ [] } isRequesting={ true }/>);
-    findDOMNode(instance).textContent.should.not.containEql('Data Tool');
+    const wrapper = shallow(<SearchTags tags={ [] } isRequesting={ true }/>);
+    wrapper.text().should.not.containEql('Data Tool');
   });
 });

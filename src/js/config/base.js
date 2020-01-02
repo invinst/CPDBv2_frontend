@@ -6,4 +6,5 @@ export default {
   twitterBotName: '',
   apiDomain: `${global.location.protocol}//localhost:8000`,
   enableFeatures: { pinboard: true },
+  requestRetryDelay: 1000,
 };

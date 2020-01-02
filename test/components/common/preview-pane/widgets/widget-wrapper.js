@@ -1,51 +1,40 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 import MediaQuery from 'react-responsive';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
 
 import WidgetWrapper, { TextWidget, CallToActionWidget } from 'components/common/preview-pane/widgets';
-import { unmountComponentSuppressError } from 'utils/test';
 
 
-describe('WidgetWrapper component', () => {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
-  it('should contain children components', () => {
-    instance = renderIntoDocument(
+describe('WidgetWrapper component', function () {
+  it('should contain children components', function () {
+    const wrapper = shallow(
       <WidgetWrapper maxHeight={ 500 } callToAction={ { url: 'path', to: 'death', text: 'back' } }>
         <TextWidget title={ 'title' }/>
       </WidgetWrapper>
     );
-    findRenderedComponentWithType(instance, TextWidget);
-    const callToAction = findRenderedComponentWithType(instance, CallToActionWidget);
-    callToAction.props.text.should.equal('back');
+    wrapper.find(TextWidget).exists().should.be.true();
+    const callToAction = wrapper.find(CallToActionWidget);
+    callToAction.prop('text').should.equal('back');
 
-    const mediaQuery = findRenderedComponentWithType(instance, MediaQuery);
-    mediaQuery.props.maxHeight.should.equal(500);
+    const mediaQuery = wrapper.find(MediaQuery);
+    mediaQuery.prop('maxHeight').should.equal(500);
   });
 
   it('should hide call to action if both url and to are missing', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <WidgetWrapper>
         <TextWidget title={ 'title' } />
       </WidgetWrapper>
     );
-    scryRenderedComponentsWithType(instance, CallToActionWidget).should.have.length(0);
+    wrapper.find(CallToActionWidget).exists().should.be.false();
   });
 
   it('should not display overlay at the bottom if yScrollable', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <WidgetWrapper yScrollable={ true }>
         <TextWidget title={ 'title' } />
       </WidgetWrapper>
     );
-    scryRenderedComponentsWithType(instance, MediaQuery).should.have.length(0);
+    wrapper.find(MediaQuery).exists().should.be.false();
   });
 });

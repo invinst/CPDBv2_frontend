@@ -1,20 +1,13 @@
 import React from 'react';
-import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import PreviewPane from 'components/social-graph-page/geographic/preview-pane';
 import CRPane from 'components/common/preview-pane/panes/cr-pane';
 
 
 describe('PreviewPane component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render CRPane', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PreviewPane
         data={ {
           to: '/complaint/123/',
@@ -28,6 +21,6 @@ describe('PreviewPane component', function () {
         type='CR'
       />
     );
-    findRenderedComponentWithType(instance, CRPane).should.be.ok();
+    wrapper.find(CRPane).exists().should.be.true();
   });
 });

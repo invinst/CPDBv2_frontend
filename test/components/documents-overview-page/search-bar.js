@@ -1,31 +1,19 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 import { spy } from 'sinon';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithTag,
-  Simulate,
-} from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import SearchBar from 'components/documents-overview-page/search-bar';
 
 
 describe('DocumentsOverviewPage SearchBar component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should trigger onChange on input change', function () {
     const onChange = spy();
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <SearchBar value='' onChange={ onChange }/>
     );
 
-    const inputElement = findRenderedDOMComponentWithTag(instance, 'input');
-    inputElement.value = 'value';
-    Simulate.change(inputElement);
-    onChange.called.should.be.true();
+    const inputElement = wrapper.find('input');
+    inputElement.simulate('change', { target: { value: 'value' } });
+    onChange.should.be.called();
   });
 });

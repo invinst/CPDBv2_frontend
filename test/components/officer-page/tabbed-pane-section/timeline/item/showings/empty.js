@@ -1,22 +1,11 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import Empty from 'components/officer-page/tabbed-pane-section/timeline/item/showings/empty';
 import styles from 'components/officer-page/tabbed-pane-section/timeline/item/showings/empty/empty.sass';
 
 
 describe('Empty component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
-
   it('should render item with no text in showing part', function () {
     const emptyItem = {
       date: '1994',
@@ -30,9 +19,9 @@ describe('Empty component', function () {
       unitName: '153',
     };
 
-    instance = renderIntoDocument(<Empty item={ emptyItem } hasBorderBottom={ false } />);
+    const wrapper = shallow(<Empty item={ emptyItem } hasBorderBottom={ false } />);
 
-    const showing = findRenderedDOMComponentWithClass(instance, styles.empty);
-    showing.textContent.should.eql('');
+    const showing = wrapper.find(`.${styles.empty}`);
+    showing.text().should.equal('');
   });
 });

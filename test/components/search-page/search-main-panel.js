@@ -1,21 +1,14 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass,
-  findRenderedComponentWithType,
-} from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 
 import SearchMainPanel from 'components/search-page/search-main-panel';
-import { unmountComponentSuppressError } from 'utils/test';
-import SearchResults from 'components/search-page/search-results';
-import SearchTerms from 'components/search-page/search-terms';
+import SearchResultsContainer from 'containers/search-page/search-results-container';
+import SearchTermsContainer from 'containers/search-page/search-terms-container';
 
 
 describe('SearchMainPanel component', function () {
-  let instance;
   const store = MockStore()({
     searchPage: {
       tags: [],
@@ -34,33 +27,25 @@ describe('SearchMainPanel component', function () {
     },
   });
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render SearchResults component if query is not null', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchMainPanel query='ke' />
-      </Provider>
+    const wrapper = shallow(
+      <SearchMainPanel query='ke' />
     );
 
-    findRenderedComponentWithType(instance, SearchResults);
+    wrapper.find(SearchResultsContainer).exists().should.be.true();
   });
 
   it('should render SearchTerm component if query is null', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchMainPanel query='' />
-      </Provider>
+    const wrapper = shallow(
+      <SearchMainPanel query='' />
     );
 
-    findRenderedComponentWithType(instance, SearchTerms);
+    wrapper.find(SearchTermsContainer).exists().should.be.true();
   });
 
   context('in edit mode', function () {
     it('should render "cancel" button when in alias edit mode', function () {
-      instance = renderIntoDocument(
+      const wrapper = mount(
         <Provider store={ store }>
           <SearchMainPanel
             editModeOn={ true }
@@ -70,11 +55,11 @@ describe('SearchMainPanel component', function () {
         </Provider>
       );
 
-      findRenderedDOMComponentWithClass(instance, 'cancel-alias-button');
+      wrapper.find('.cancel-alias-button').exists().should.be.true();
     });
 
     it('should not render "cancel" button when not aliasEditModeOn', function () {
-      instance = renderIntoDocument(
+      const wrapper = mount(
         <Provider store={ store }>
           <SearchMainPanel
             editModeOn={ true }
@@ -83,7 +68,7 @@ describe('SearchMainPanel component', function () {
           />
         </Provider>
       );
-      scryRenderedDOMComponentsWithClass(instance, 'cancel-alias-button').should.have.length(0);
+      wrapper.find('.cancel-alias-button').exists().should.be.false();
     });
   });
 });

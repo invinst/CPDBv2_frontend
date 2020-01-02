@@ -1,32 +1,21 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 import should from 'should';
 import { Link } from 'react-router';
-import { findDOMNode } from 'react-dom';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  findRenderedComponentWithType,
-} from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError, renderWithContext } from 'utils/test';
 import CoaccusedCard from 'components/cr-page/accused-officers/coaccused-card';
 import RadarChart from 'components/common/radar-chart/radar-chart';
 import { spy } from 'sinon';
 import { random } from 'faker';
+
 import ItemPinButton from 'components/common/item-pin-button';
 import pinButtonStyles from 'components/common/item-pin-button.sass';
 import { PINNED_ITEM_TYPES } from 'utils/constants';
 
 
 describe('CoaccusedCard component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render correctly', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <CoaccusedCard
         officerId={ 1 }
         fullName='Jerome Finnigan'
@@ -43,15 +32,15 @@ describe('CoaccusedCard component', function () {
         } }
       />
     );
-    const link = findRenderedComponentWithType(instance, Link);
-    link.props.to.should.eql('/officer/1/jerome-finnigan/');
+    const link = wrapper.find(Link);
+    link.prop('to').should.equal('/officer/1/jerome-finnigan/');
 
-    const radarChartElement = findRenderedDOMComponentWithClass(instance, 'test--radar');
-    radarChartElement.getAttribute('width').should.eql('100%');
-    radarChartElement.getAttribute('height').should.eql('100%');
-    should(radarChartElement.querySelector('.test--radar-radar-area')).not.be.null();
+    const radarChartElement = wrapper.find('.test--radar');
+    radarChartElement.prop('width').should.equal('100%');
+    radarChartElement.prop('height').should.equal('100%');
+    radarChartElement.find('.test--radar-radar-area').should.not.be.null();
 
-    const text = findDOMNode(instance).innerText;
+    const text = wrapper.text();
     text.should.containEql('Police Officer');
     text.should.containEql('Jerome Finnigan');
     text.should.containEql('10 allegations');
@@ -61,21 +50,21 @@ describe('CoaccusedCard component', function () {
     text.should.containEql('37-year-old white male');
   });
 
-  it('should show NoDataRadarChart when no percentile', () => {
-    instance = renderIntoDocument(<CoaccusedCard officerId={ 3 }/>);
-    const noDataRadarChart = findRenderedComponentWithType(instance, RadarChart);
+  it('should show NoDataRadarChart when no percentile', function () {
+    const wrapper = shallow(<CoaccusedCard officerId={ 3 }/>);
+    const noDataRadarChart = wrapper.find(RadarChart);
     should(noDataRadarChart.props.data).be.undefined();
   });
 
-  it('should render link with target _blank when openCardInNewPage is true', () => {
-    instance = renderIntoDocument(<CoaccusedCard officerId={ 3 } openCardInNewPage={ true }/>);
+  it('should render link with target _blank when openCardInNewPage is true', function () {
+    const wrapper = shallow(<CoaccusedCard officerId={ 3 } openCardInNewPage={ true }/>);
 
-    const link = findRenderedComponentWithType(instance, Link);
-    link.props.target.should.eql('_blank');
+    const link = wrapper.find(Link);
+    link.prop('target').should.equal('_blank');
   });
 
   it('should render category and outcome correctly', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <CoaccusedCard
         finding='Sustained'
         disciplined={ true }
@@ -83,36 +72,40 @@ describe('CoaccusedCard component', function () {
         findingOutcomeMix='Reprimand'
       />
     );
-    const category = findRenderedDOMComponentWithClass(instance, 'accused-card-category');
-    const outcome = findRenderedDOMComponentWithClass(instance, 'accused-card-outcome');
-    category.textContent.should.eql('Operations/Personnel Violation');
-    outcome.textContent.should.eql('Reprimand');
+    const category = wrapper.find('.accused-card-category');
+    const outcome = wrapper.find('.accused-card-outcome');
+    category.text().should.equal('Operations/Personnel Violation');
+    outcome.text().should.equal('Reprimand');
   });
 
   it('should render disciplined if both printMode and disciplined are true', function () {
     const context = { printMode: true };
-    instance = renderWithContext(context,
+    const wrapper = shallow(
       <CoaccusedCard
         finding='Sustained'
         disciplined={ true }
         category='Operations/Personnel Violation'
         findingOutcomeMix='Reprimand'
-      />);
-    const findingOutcome = findRenderedDOMComponentWithClass(instance, 'finding-outcome-mix');
-    findingOutcome.textContent.should.eql('Reprimand, Disciplined');
+      />,
+      { context }
+    );
+    const findingOutcome = wrapper.find('.finding-outcome-mix');
+    findingOutcome.text().should.equal('Reprimand, Disciplined');
   });
 
   it('should only render disciplined if printMode & disciplined are true and findingOutcomeMix is null', function () {
     const context = { printMode: true };
-    instance = renderWithContext(context,
+    const wrapper = shallow(
       <CoaccusedCard
         finding='Sustained'
         disciplined={ true }
         category='Operations/Personnel Violation'
         findingOutcomeMix={ null }
-      />);
-    const findingOutcome = findRenderedDOMComponentWithClass(instance, 'finding-outcome-mix');
-    findingOutcome.textContent.should.eql('Disciplined');
+      />,
+      { context }
+    );
+    const findingOutcome = wrapper.find('.finding-outcome-mix');
+    findingOutcome.text().should.equal('Disciplined');
   });
 
   it('should render ItemPinButton with correct props', function () {
@@ -120,7 +113,7 @@ describe('CoaccusedCard component', function () {
     const id = random.number({ min: 10, max: 1000 });
     const isPinned = random.boolean();
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <CoaccusedCard
         officerId={ id }
         isPinned={ isPinned }
@@ -128,10 +121,10 @@ describe('CoaccusedCard component', function () {
       />
     );
 
-    const itemPinButton = findRenderedComponentWithType(instance, ItemPinButton);
-    itemPinButton.props.className.should.equal(pinButtonStyles.cardPinnedButton);
-    itemPinButton.props.addOrRemoveItemInPinboard.should.equal(addOrRemoveItemInPinboard);
-    itemPinButton.props.showHint.should.be.false();
-    itemPinButton.props.item.should.eql({ type: PINNED_ITEM_TYPES.OFFICER, id, isPinned });
+    const itemPinButton = wrapper.find(ItemPinButton);
+    itemPinButton.prop('className').should.equal(pinButtonStyles.cardPinnedButton);
+    itemPinButton.prop('addOrRemoveItemInPinboard').should.equal(addOrRemoveItemInPinboard);
+    itemPinButton.prop('showHint').should.be.false();
+    itemPinButton.prop('item').should.eql({ type: PINNED_ITEM_TYPES.OFFICER, id, isPinned });
   });
 });

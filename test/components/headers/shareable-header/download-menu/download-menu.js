@@ -1,9 +1,8 @@
 import React from 'react';
+import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
-import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import DownloadMenuItem from 'components/headers/shareable-header/download-menu/download-menu-item';
 import DownloadMenuItemContainer from 'containers/headers/shareable-header/download-menu-container';
 import { OFFICER_EDIT_TYPES } from 'utils/constants';
@@ -29,27 +28,22 @@ describe('DownloadMenu component', function () {
     },
     popups: [],
   });
-  let element;
-
-  afterEach(function () {
-    unmountComponentSuppressError(element);
-  });
 
   it('should render two DownloadMenuItems', function () {
-    element = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <DownloadMenuItemContainer/>
       </Provider>
     );
 
-    const downloadMenuItems = scryRenderedComponentsWithType(element, DownloadMenuItem);
+    const downloadMenuItems = wrapper.find(DownloadMenuItem);
 
-    downloadMenuItems[0].props.officerId.should.eql(123);
-    downloadMenuItems[0].props.kind.should.eql('with_docs');
-    downloadMenuItems[0].props.zipFileUrl.should.eql('lvh.me/file-with-docs.zip');
+    downloadMenuItems.at(0).prop('officerId').should.equal(123);
+    downloadMenuItems.at(0).prop('kind').should.equal('with_docs');
+    downloadMenuItems.at(0).prop('zipFileUrl').should.equal('lvh.me/file-with-docs.zip');
 
-    downloadMenuItems[1].props.officerId.should.eql(123);
-    downloadMenuItems[1].props.kind.should.eql('without_docs');
-    downloadMenuItems[1].props.zipFileUrl.should.eql('lvh.me/file.zip');
+    downloadMenuItems.at(1).prop('officerId').should.equal(123);
+    downloadMenuItems.at(1).prop('kind').should.equal('without_docs');
+    downloadMenuItems.at(1).prop('zipFileUrl').should.equal('lvh.me/file.zip');
   });
 });

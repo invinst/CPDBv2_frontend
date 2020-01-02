@@ -1,37 +1,31 @@
 import React from 'react';
-import {
-  renderIntoDocument, findRenderedDOMComponentWithClass, findRenderedComponentWithType,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
-import { unmountComponentSuppressError, reRender } from 'utils/test';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import Header from 'components/unit-profile-page/header';
 
 
 describe('Header component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render unit name and unit description', function () {
-    instance = renderIntoDocument(<Header unitName='004' unitDescription='District 004'/>);
-    const unitName = findRenderedDOMComponentWithClass(instance, 'test--unit-name');
-    unitName.textContent.should.eql('Unit 004');
-    const unitDescription = findRenderedDOMComponentWithClass(instance, 'test--unit-description');
-    unitDescription.textContent.should.eql('District 004');
+    const wrapper = shallow(
+      <Header unitName='004' unitDescription='District 004'/>
+    );
+    const unitName = wrapper.find('.test--unit-name');
+    unitName.text().should.equal('Unit 004');
+    const unitDescription = wrapper.find('.test--unit-description');
+    unitDescription.text().should.equal('District 004');
   });
 
   it('should change styles at bottom', function () {
-    instance = renderIntoDocument(<Header scrollPosition='middle'/>);
-    findRenderedComponentWithType(instance, ResponsiveFluidWidthComponent).props.style.position.should.eql('relative');
-
-    instance = reRender(
-      <Header scrollPosition='bottom'/>,
-      instance
+    const wrapper = shallow(
+      <Header scrollPosition='middle'/>
     );
+    wrapper.find(ResponsiveFluidWidthComponent).prop('style').position.should.equal('relative');
 
-    findRenderedComponentWithType(instance, ResponsiveFluidWidthComponent).props.style.position.should.eql('fixed');
+    wrapper.setProps({
+      scrollPosition: 'bottom',
+    });
+
+    wrapper.find(ResponsiveFluidWidthComponent).prop('style').position.should.equal('fixed');
   });
 });

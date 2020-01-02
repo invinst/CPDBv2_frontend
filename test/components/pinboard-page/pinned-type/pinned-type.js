@@ -1,16 +1,9 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass,
-  scryRenderedComponentsWithType,
-  scryRenderedDOMComponentsWithTag,
-} from 'react-addons-test-utils';
 import { spy } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import PinnedType from 'components/pinboard-page/pinned-type';
 import PinnedOfficersContainer from 'containers/pinboard-page/pinned-officers';
 import PinnedCRsContainer from 'containers/pinboard-page/pinned-crs';
@@ -20,10 +13,10 @@ import OfficerCard from 'components/pinboard-page/cards/officer-card';
 import TRRCard from 'components/pinboard-page/cards/trr-card';
 import LoadingSpinner from 'components/common/loading-spinner';
 import PinnedGrid from 'components/pinboard-page/pinned-type/pinned-grid';
+import should from 'should';
 
 
 describe('PinnedType component', function () {
-  let instance;
   const mockStore = MockStore();
   const store = mockStore({
     pinboardPage: {
@@ -84,64 +77,60 @@ describe('PinnedType component', function () {
     },
   });
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render nothing if request completed but items is empty', function () {
-    instance = renderIntoDocument(<PinnedType type='CR' items={ [] } requesting={ false }/>);
+    const wrapper = shallow(<PinnedType type='CR' items={ [] } requesting={ false }/>);
 
-    scryRenderedDOMComponentsWithTag(instance, 'div').should.have.length(0);
+    should(wrapper.type()).be.null();
   });
 
   it('should render LoadingSpinner if requesting', function () {
-    instance = renderIntoDocument(<PinnedType title='Some title' type='CR' items={ [] } requesting={ true }/>);
+    const wrapper = shallow(<PinnedType title='Some title' type='CR' items={ [] } requesting={ true }/>);
 
-    const loadingSpinner = findRenderedComponentWithType(instance, LoadingSpinner);
-    loadingSpinner.props.className.should.equal('pinned-type-loading');
+    const loadingSpinner = wrapper.find(LoadingSpinner);
+    loadingSpinner.prop('className').should.equal('pinned-type-loading');
 
-    findRenderedDOMComponentWithClass(instance, 'type-title').textContent.should.equal('Some title');
+    wrapper.find('.type-title').text().should.equal('Some title');
   });
 
   it('should render CR cards', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <PinnedCRsContainer/>
       </Provider>
     );
 
-    const crCards = scryRenderedComponentsWithType(instance, CRCard);
+    const crCards = wrapper.find(CRCard);
     crCards.should.have.length(2);
-    crCards[0].props.item.id.should.eql('1000001');
-    crCards[1].props.item.id.should.eql('1000002');
+    crCards.at(0).prop('item').id.should.equal('1000001');
+    crCards.at(1).prop('item').id.should.equal('1000002');
   });
 
   it('should render OFFICER cards', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <PinnedOfficersContainer/>
       </Provider>
     );
 
-    findRenderedComponentWithType(instance, PinnedGrid);
+    wrapper.find(PinnedGrid).exists().should.be.true();
 
-    const officerCards = scryRenderedComponentsWithType(instance, OfficerCard);
+    const officerCards = wrapper.find(OfficerCard);
     officerCards.should.have.length(2);
-    officerCards[0].props.item.id.should.eql('1');
-    officerCards[1].props.item.id.should.eql('2');
+    officerCards.at(0).prop('item').id.should.equal('1');
+    officerCards.at(1).prop('item').id.should.equal('2');
   });
 
   it('should render TRR cards', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <PinnedTRRsContainer/>
       </Provider>
     );
 
-    const trrCards = scryRenderedComponentsWithType(instance, TRRCard);
+    const trrCards = wrapper.find(TRRCard);
     trrCards.should.have.length(2);
-    trrCards[0].props.item.id.should.eql('1');
-    trrCards[1].props.item.id.should.eql('2');
+    trrCards.at(0).prop('item').id.should.equal('1');
+    trrCards.at(1).prop('item').id.should.equal('2');
   });
 
   it('should render PinnedGrid with correct props', function () {
@@ -167,7 +156,7 @@ describe('PinnedType component', function () {
     const orderPinboard = spy();
     const focusItem = spy();
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <PinnedType
         type='CR'
         title='Some title'
@@ -180,13 +169,13 @@ describe('PinnedType component', function () {
       />
     );
 
-    const pinnedGrid = findRenderedComponentWithType(instance, PinnedGrid);
+    const pinnedGrid = wrapper.find(PinnedGrid);
 
-    pinnedGrid.props.type.should.eql('CR');
-    pinnedGrid.props.items.should.eql(items);
-    pinnedGrid.props.removeItemInPinboardPage.should.eql(removeItemInPinboardPage);
-    pinnedGrid.props.addItemInPinboardPage.should.eql(addItemInPinboardPage);
-    pinnedGrid.props.orderPinboard.should.eql(orderPinboard);
-    pinnedGrid.props.focusItem.should.eql(focusItem);
+    pinnedGrid.prop('type').should.equal('CR');
+    pinnedGrid.prop('items').should.eql(items);
+    pinnedGrid.prop('removeItemInPinboardPage').should.eql(removeItemInPinboardPage);
+    pinnedGrid.prop('addItemInPinboardPage').should.eql(addItemInPinboardPage);
+    pinnedGrid.prop('orderPinboard').should.eql(orderPinboard);
+    pinnedGrid.prop('focusItem').should.eql(focusItem);
   });
 });

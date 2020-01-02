@@ -1,13 +1,11 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 
 import AttachmentsTab from 'components/officer-page/tabbed-pane-section/attachments-tab';
 import Complaint from 'components/officer-page/tabbed-pane-section/attachments-tab/complaint';
-import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
-import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('AttachmentsTab component', function () {
-  let instance;
   const attachment0 = {
     title: 'CRID 1071970 OCIR 2 of 3',
     url: 'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-2-of-3.html',
@@ -42,22 +40,18 @@ describe('AttachmentsTab component', function () {
   };
   const complaints = [complaint0, complaint1];
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render Complaints', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <AttachmentsTab complaints={ complaints }/>,
     );
 
-    const complaintComponents = scryRenderedComponentsWithType(instance, Complaint);
+    const complaintComponents = wrapper.find(Complaint);
     complaintComponents.should.have.length(2);
 
-    const complaintComponent0 = complaintComponents[0];
-    complaintComponent0.props.complaint.should.eql(complaint0);
+    const complaintComponent0 = complaintComponents.at(0);
+    complaintComponent0.prop('complaint').should.eql(complaint0);
 
-    const complaintComponent1 = complaintComponents[1];
-    complaintComponent1.props.complaint.should.eql(complaint1);
+    const complaintComponent1 = complaintComponents.at(1);
+    complaintComponent1.prop('complaint').should.eql(complaint1);
   });
 });

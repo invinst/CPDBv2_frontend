@@ -1,55 +1,43 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 import { Link } from 'react-router';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  scryRenderedDOMComponentsWithClass,
-  findRenderedDOMComponentWithClass,
-  Simulate,
-} from 'react-addons-test-utils';
 import { stub } from 'sinon';
 import config from 'config';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import Header from 'components/pinboard-page/header';
 import * as editPathUtils from 'utils/edit-path';
-import * as GAUtils from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 
 
 describe('Pinboard Header component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
 
   it('should render correctly', function () {
-    instance = renderIntoDocument(<Header />);
+    const wrapper = shallow(<Header />);
 
-    const headerTitle = findRenderedComponentWithType(instance, Link);
-    headerTitle.props.to.should.eql('/');
+    const headerTitle = wrapper.find(Link);
+    headerTitle.prop('to').should.equal('/');
 
-    const menuItems = scryRenderedDOMComponentsWithClass(instance, 'menu-item');
+    const menuItems = wrapper.find('.menu-item');
     menuItems.should.have.length(4);
-    menuItems[0].textContent.should.eql('Data');
-    menuItems[1].textContent.should.eql('Q&A');
-    menuItems[2].textContent.should.eql('Documents');
-    menuItems[3].textContent.should.eql('Pinboards');
+    menuItems.at(0).text().should.equal('Data');
+    menuItems.at(1).text().should.equal('Q&A');
+    menuItems.at(2).text().should.equal('Documents');
+    menuItems.at(3).text().should.equal('Pinboards');
   });
 
   it('should highlight Pinboards link', function () {
-    instance = renderIntoDocument(<Header />);
+    const wrapper = shallow(<Header />);
 
-    const highlightedMenuItems = findRenderedDOMComponentWithClass(instance, 'highlight');
-    highlightedMenuItems.textContent.should.eql('Pinboards');
+    const highlightedMenuItems = wrapper.find('.highlight');
+    highlightedMenuItems.text().should.equal('Pinboards');
   });
 
   context('clicking on a menu item', function () {
     beforeEach(function () {
       this.stubPushPathPreserveEditMode = stub(editPathUtils, 'pushPathPreserveEditMode');
-      this.stubTrackOutboundLink = stub(GAUtils, 'trackOutboundLink');
-      instance = renderIntoDocument(<Header />);
-      this.menuItems = scryRenderedDOMComponentsWithClass(instance, 'menu-item');
+      this.stubTrackOutboundLink = stub(tracking, 'trackOutboundLink');
+      const wrapper = mount(<Header />);
+      this.menuItems = wrapper.find('.menu-item');
     });
 
     afterEach(function () {
@@ -58,8 +46,8 @@ describe('Pinboard Header component', function () {
     });
 
     it('should call correct function when clicking on Data link', function () {
-      const link = this.menuItems[0];
-      Simulate.click(link);
+      const link = this.menuItems.at(0);
+      link.simulate('click');
 
       this.stubTrackOutboundLink.should.be.calledOnce();
       this.stubTrackOutboundLink.should.be.calledWith(config.v1Url);
@@ -67,8 +55,8 @@ describe('Pinboard Header component', function () {
     });
 
     it('should call correct function when clicking on Q&A link', function () {
-      const link = this.menuItems[1];
-      Simulate.click(link);
+      const link = this.menuItems.at(1);
+      link.simulate('click');
 
       this.stubTrackOutboundLink.should.be.calledOnce();
       this.stubTrackOutboundLink.should.be.calledWith('http://how.cpdp.works/');
@@ -76,8 +64,8 @@ describe('Pinboard Header component', function () {
     });
 
     it('should call correct function when clicking on Documents link', function () {
-      const link = this.menuItems[2];
-      Simulate.click(link);
+      const link = this.menuItems.at(2);
+      link.simulate('click');
 
       this.stubPushPathPreserveEditMode.should.be.calledOnce();
       this.stubPushPathPreserveEditMode.should.be.calledWith('/documents/');
@@ -85,8 +73,8 @@ describe('Pinboard Header component', function () {
     });
 
     it('should not call anything when clicking on Pinboard link', function () {
-      const link = this.menuItems[3];
-      Simulate.click(link);
+      const link = this.menuItems.at(3);
+      link.simulate('click');
 
       this.stubPushPathPreserveEditMode.should.not.be.called();
       this.stubTrackOutboundLink.should.not.be.called();

@@ -1,29 +1,17 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
 import NeighborhoodPane from 'components/common/preview-pane/panes/neighborhood-pane';
-import {
+import WidgetWrapper, {
   HeaderWidget,
   ListWidget,
-  CallToActionWidget,
   SeparatorWidget,
 } from 'components/common/preview-pane/widgets';
-import { unmountComponentSuppressError } from 'utils/test';
 
 
-describe('NeighborhoodPane component', () => {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
-  it('should contain the sub components', () => {
-    instance = renderIntoDocument(
+describe('NeighborhoodPane component', function () {
+  it('should contain the sub components', function () {
+    const wrapper = shallow(
       <NeighborhoodPane
         url='https://staging.cpdb.co/data/L2B5ML/citizens-police-data-project'
         mostCommonComplaint={ [{
@@ -40,9 +28,15 @@ describe('NeighborhoodPane component', () => {
         allegationCount={ 123 }
       />
     );
-    findRenderedComponentWithType(instance, HeaderWidget);
-    findRenderedComponentWithType(instance, SeparatorWidget);
-    scryRenderedComponentsWithType(instance, ListWidget).should.have.length(2);
-    findRenderedComponentWithType(instance, CallToActionWidget);
+
+    const widgetWrapper = wrapper.find(WidgetWrapper);
+    widgetWrapper.prop('callToAction').should.eql({
+      url: 'https://staging.cpdb.co/data/L2B5ML/citizens-police-data-project',
+    });
+    widgetWrapper.prop('maxHeight').should.equal(750);
+
+    wrapper.find(HeaderWidget).exists().should.be.true();
+    wrapper.find(SeparatorWidget).exists().should.be.true();
+    wrapper.find(ListWidget).should.have.length(2);
   });
 });

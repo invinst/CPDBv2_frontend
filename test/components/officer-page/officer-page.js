@@ -1,14 +1,10 @@
 import React from 'react';
-import {
-  findRenderedComponentWithType, renderIntoDocument,
-  scryRenderedComponentsWithType, Simulate, findRenderedDOMComponentWithClass,
-} from 'react-addons-test-utils';
+import { shallow, mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
 import { stub } from 'sinon';
 
-import { unmountComponentSuppressError, reRender } from 'utils/test';
 import OfficerPage from 'components/officer-page';
 import SummarySection from 'components/officer-page/summary-section';
 import MetricsSection from 'components/officer-page/metrics-section';
@@ -18,7 +14,7 @@ import { OFFICER_EDIT_TYPES } from 'utils/constants';
 import PrintNotes from 'components/common/print-notes';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import DownloadMenuContainer from 'containers/headers/shareable-header/download-menu-container';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 
 
 describe('OfficerPage component', function () {
@@ -39,15 +35,13 @@ describe('OfficerPage component', function () {
     },
     popups: [],
   });
-  let instance;
 
   beforeEach(function () {
-    this.stubTrackOfficerDownloadMenu = stub(GATracking, 'trackOfficerDownloadMenu');
+    this.stubTrackOfficerDownloadMenu = stub(tracking, 'trackOfficerDownloadMenu');
   });
 
   afterEach(function () {
     this.stubTrackOfficerDownloadMenu.restore();
-    unmountComponentSuppressError(instance);
   });
 
   it('should render enough sections', function () {
@@ -55,7 +49,7 @@ describe('OfficerPage component', function () {
     const scaleEditWrapperStateProps = { b: 2 };
     const noDataRadarChartEditWrapperStateProps = { c: 3 };
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <Provider store={ store }>
         <OfficerPage
           officerId={ 1 }
@@ -64,80 +58,74 @@ describe('OfficerPage component', function () {
           noDataRadarChartEditWrapperStateProps={ noDataRadarChartEditWrapperStateProps }
         />
       </Provider>
-    );
+    ).dive().find('OfficerPage').dive();
 
-    findRenderedComponentWithType(instance, SummarySection);
-    findRenderedComponentWithType(instance, MetricsSection);
-    findRenderedComponentWithType(instance, TabbedPaneSection);
-    const officerRadarChart = findRenderedComponentWithType(instance, OfficerRadarChart);
-    officerRadarChart.props.triangleEditWrapperStateProps.should.eql(triangleEditWrapperStateProps);
-    officerRadarChart.props.scaleEditWrapperStateProps.should.eql(scaleEditWrapperStateProps);
-    officerRadarChart.props.noDataRadarChartEditWrapperStateProps.should.eql(noDataRadarChartEditWrapperStateProps);
+    wrapper.find(SummarySection).exists().should.be.true();
+    wrapper.find(MetricsSection).exists().should.be.true();
+    wrapper.find(TabbedPaneSection).exists().should.be.true();
+    const officerRadarChart = wrapper.find(OfficerRadarChart);
+    officerRadarChart.prop('triangleEditWrapperStateProps').should.eql(triangleEditWrapperStateProps);
+    officerRadarChart.prop('scaleEditWrapperStateProps').should.eql(scaleEditWrapperStateProps);
+    officerRadarChart.prop('noDataRadarChartEditWrapperStateProps').should.eql(noDataRadarChartEditWrapperStateProps);
   });
 
   it('should render correct document title and description', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <OfficerPage
-          officerName='Shaun Frank'
-          officerSummary={ { rank: 'Officer' } }
-          officerMetrics={ {
-            allegationCount: 5,
-            useOfForceCount: 10,
-          } }
-          numAttachments={ 3 }
-        />
-      </Provider>
-    );
+    const wrapper = shallow(
+      <OfficerPage
+        officerName='Shaun Frank'
+        officerSummary={ { rank: 'Officer' } }
+        officerMetrics={ {
+          allegationCount: 5,
+          useOfForceCount: 10,
+        } }
+        numAttachments={ 3 }
+      />
+    ).dive();
 
-    const documentMeta = findRenderedComponentWithType(instance, DocumentMeta);
-    documentMeta.props.title.should.eql('Officer Shaun Frank');
-    documentMeta.props.description.should.eql(
+    const documentMeta = wrapper.find(DocumentMeta);
+    documentMeta.prop('title').should.equal('Officer Shaun Frank');
+    documentMeta.prop('description').should.equal(
       'Officer Shaun Frank of the Chicago Police Department has ' +
       '5 complaints, 10 use of force reports, and 3 original documents available.'
     );
   });
 
   it('should render ShareableHeader with custom props', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <OfficerPage
-          officerName='Shaun Frank'
-          officerSummary={ { rank: 'Officer' } }
-          officerMetrics={ {
-            allegationCount: 5,
-            useOfForceCount: 10,
-          } }
-          numAttachments={ 3 }
-        />
-      </Provider>
-    );
+    const wrapper = shallow(
+      <OfficerPage
+        officerName='Shaun Frank'
+        officerSummary={ { rank: 'Officer' } }
+        officerMetrics={ {
+          allegationCount: 5,
+          useOfForceCount: 10,
+        } }
+        numAttachments={ 3 }
+      />
+    ).dive();
 
-    const shareableHeader = findRenderedComponentWithType(instance, ShareableHeaderContainer);
-    shareableHeader.props.buttonType.should.eql('menu');
-    shareableHeader.props.Menu.should.eql(DownloadMenuContainer);
-    shareableHeader.props.buttonText.should.eql('Download');
+    const shareableHeader = wrapper.find(ShareableHeaderContainer);
+    shareableHeader.prop('buttonType').should.equal('menu');
+    shareableHeader.prop('Menu').should.eql(DownloadMenuContainer);
+    shareableHeader.prop('buttonText').should.equal('Download');
   });
 
   it('should add badge number into document description if officer name is not unique and badge is not Unknown',
     function () {
-      instance = renderIntoDocument(
-        <Provider store={ store }>
-          <OfficerPage
-            officerName='Shaun Frank'
-            officerSummary={ { rank: 'Officer', badge: '1424', hasUniqueName: false } }
-            officerMetrics={ {
-              allegationCount: 1,
-              useOfForceCount: 0,
-            } }
-            numAttachments={ 3 }
-          />
-        </Provider>
-      );
+      const wrapper = shallow(
+        <OfficerPage
+          officerName='Shaun Frank'
+          officerSummary={ { rank: 'Officer', badge: '1424', hasUniqueName: false } }
+          officerMetrics={ {
+            allegationCount: 1,
+            useOfForceCount: 0,
+          } }
+          numAttachments={ 3 }
+        />
+      ).dive();
 
-      const documentMeta = findRenderedComponentWithType(instance, DocumentMeta);
-      documentMeta.props.title.should.eql('Officer Shaun Frank');
-      documentMeta.props.description.should.eql(
+      const documentMeta = wrapper.find(DocumentMeta);
+      documentMeta.prop('title').should.equal('Officer Shaun Frank');
+      documentMeta.prop('description').should.equal(
         'Officer Shaun Frank of the Chicago Police Department with Badge Number 1424 has ' +
         '1 complaint, 0 use of force reports, and 3 original documents available.'
       );
@@ -146,23 +134,21 @@ describe('OfficerPage component', function () {
 
   it('should not add badge number into document description if badge is Unknown',
     function () {
-      instance = renderIntoDocument(
-        <Provider store={ store }>
-          <OfficerPage
-            officerName='Shaun Frank'
-            officerSummary={ { rank: 'Officer', badge: 'Unknown', hasUniqueName: false } }
-            officerMetrics={ {
-              allegationCount: 1,
-              useOfForceCount: 0,
-            } }
-            numAttachments={ 3 }
-          />
-        </Provider>
-      );
+      const wrapper = shallow(
+        <OfficerPage
+          officerName='Shaun Frank'
+          officerSummary={ { rank: 'Officer', badge: 'Unknown', hasUniqueName: false } }
+          officerMetrics={ {
+            allegationCount: 1,
+            useOfForceCount: 0,
+          } }
+          numAttachments={ 3 }
+        />
+      ).dive();
 
-      const documentMeta = findRenderedComponentWithType(instance, DocumentMeta);
-      documentMeta.props.title.should.eql('Officer Shaun Frank');
-      documentMeta.props.description.should.eql(
+      const documentMeta = wrapper.find(DocumentMeta);
+      documentMeta.prop('title').should.equal('Officer Shaun Frank');
+      documentMeta.prop('description').should.equal(
         'Officer Shaun Frank of the Chicago Police Department has ' +
         '1 complaint, 0 use of force reports, and 3 original documents available.'
       );
@@ -170,57 +156,47 @@ describe('OfficerPage component', function () {
   );
 
   it('should handle N/A rank', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <OfficerPage officerName='Jerome Finigan' officerSummary={ { rank: 'N/A' } }/>
-      </Provider>
-    );
+    const wrapper = shallow(
+      <OfficerPage officerName='Jerome Finigan' officerSummary={ { rank: 'N/A' } }/>
+    ).dive();
 
-    const documentMeta = findRenderedComponentWithType(instance, DocumentMeta);
-    documentMeta.props.title.should.eql('Jerome Finigan');
+    const documentMeta = wrapper.find(DocumentMeta);
+    documentMeta.prop('title').should.equal('Jerome Finigan');
   });
 
   it('should render correct officer page in redirecting case', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <OfficerPage
-          officerName='Shaun Frank'
-          officerSummary={ { rank: 'Officer' } }
-        />
-      </Provider>
-    );
+    const wrapper = shallow(
+      <OfficerPage
+        officerName='Shaun Frank'
+        officerSummary={ { rank: 'Officer' } }
+      />
+    ).dive();
 
-    instance = reRender(
-      <Provider store={ store }>
-        <OfficerPage
-          officerName='Shaun Frank'
-          officerSummary={ { rank: 'Officer' } }
-          officerSlug='shaun-frank'
-          pathName='/officer/123456/'
-        />
-      </Provider>,
-      instance
-    );
+    wrapper.setProps({
+      officerName: 'Shaun Frank',
+      officerSummary: { rank: 'Officer' },
+      officerSlug: 'shaun-frank',
+      pathName: '/officer/123456/',
+    });
 
-    let documentMeta = findRenderedComponentWithType(instance, DocumentMeta);
-    documentMeta.props.title.should.eql('Officer Shaun Frank');
+    let documentMeta = wrapper.find(DocumentMeta);
+    documentMeta.prop('title').should.equal('Officer Shaun Frank');
   });
 
   it('should render PrintNotes component when printMode is true', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <OfficerPage
-          officerName='Shaun Frank'
-          officerSummary={ { rank: 'Officer' } }
-        />
-      </Provider>
+    const wrapper = shallow(
+      <OfficerPage
+        officerName='Shaun Frank'
+        officerSummary={ { rank: 'Officer' } }
+      />
     );
-    findRenderedComponentWithType(instance, OfficerPage).setState({ printMode: true });
-    scryRenderedComponentsWithType(instance, PrintNotes).should.have.length(2);
+    wrapper.setState({ printMode: true });
+    wrapper.instance().getChildContext().should.eql({ printMode: true });
+    wrapper.find('OfficerPage').dive({ context: { printMode: true } }).find(PrintNotes).should.have.length(2);
   });
 
   it('should call trackOfficerDownloadMenu when clicking on HeaderButton', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <OfficerPage
           officerId={ 1234 }
@@ -229,8 +205,8 @@ describe('OfficerPage component', function () {
         />
       </Provider>
     );
-    const headerButton = findRenderedDOMComponentWithClass(instance, 'button');
-    Simulate.click(headerButton);
+    const headerButton = wrapper.find('.button');
+    headerButton.simulate('click');
     this.stubTrackOfficerDownloadMenu.should.be.calledWith(1234, 'open');
   });
 });

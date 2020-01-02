@@ -1,16 +1,8 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass,
-  scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
+import { shallow, mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import { findDOMNode } from 'react-dom';
 
-import { unmountComponentSuppressError, renderWithContext } from 'utils/test';
 import { TRRPage } from 'components/trr-page';
 import OfficerSection from 'components/trr-page/officer-section';
 import TRRInfoSection from 'components/trr-page/trr-info-section';
@@ -22,7 +14,6 @@ import MarkdownLink from 'components/common/markdown-renderers/markdown-link';
 
 
 describe('TRRPage component', function () {
-  let instance;
   const popups = [{
     name: 'force_category',
     page: 'trr',
@@ -44,7 +35,7 @@ describe('TRRPage component', function () {
     },
     trrPage: {
       editModeOn: false,
-      trrId: 123,
+      trrId: '123',
       data: {
         officer: {
           id: 456,
@@ -75,18 +66,14 @@ describe('TRRPage component', function () {
     },
   });
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render trr title, OfficerSection and TRRInfoSection', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <TRRPageContainer/>
       </Provider>
     );
-    findRenderedDOMComponentWithClass(instance, 'trr-title').textContent.should.eql('TRR 123');
-    findRenderedComponentWithType(instance, OfficerSection).props.officer.should.eql({
+    wrapper.find('.trr-title').text().should.equal('TRR 123');
+    wrapper.find(OfficerSection).prop('officer').should.eql({
       officerId: 456,
       rank: 'Police Officer',
       assignedBeat: 'some beat',
@@ -111,62 +98,60 @@ describe('TRRPage component', function () {
       unitName: '001',
       yearOld: 57,
     });
-    findRenderedComponentWithType(instance, TRRInfoSection);
-    findRenderedComponentWithType(instance, ShareableHeaderContainer);
-    findRenderedComponentWithType(instance, FooterContainer);
+    wrapper.find(TRRInfoSection).exists().should.be.true();
+    wrapper.find(ShareableHeaderContainer).exists().should.be.true();
+    wrapper.find(FooterContainer).exists().should.be.true();
   });
 
   it('should render category header, incident date and notes header when printing', function () {
-    instance = renderWithContext(
-      { printMode: true },
-      <Provider store={ store }>
-        <TRRPage
-          trrId={ 123 }
-          officer={ { officerId: 456 } }
-          trrDetail={ { category: 'Firearm' } }
-          trrLocation={ { incidentDate: 'Sep 23, 2003' } }
-          notes={ popups }
-        />
-      </Provider>
+    const wrapper = shallow(
+      <TRRPage
+        trrId='123'
+        officer={ { officerId: 456 } }
+        trrDetail={ { category: 'Firearm' } }
+        trrLocation={ { incidentDate: 'Sep 23, 2003' } }
+        notes={ popups }
+      />,
+      { context: { printMode: true } },
     );
-    findRenderedDOMComponentWithClass(instance, 'trr-category-print').textContent.should.eql('Firearm');
-    findRenderedDOMComponentWithClass(instance, 'incident-date-print');
-    findRenderedDOMComponentWithClass(instance, 'incident-date-title-print').textContent.should.eql('DATE OF INCIDENT');
-    findRenderedDOMComponentWithClass(instance, 'incident-date-value-print').textContent.should.eql('Sep 23, 2003');
+    wrapper.find('.trr-category-print').text().should.equal('Firearm');
+    wrapper.find('.incident-date-print').exists().should.be.true();
+    wrapper.find('.incident-date-title-print').text().should.equal('DATE OF INCIDENT');
+    wrapper.find('.incident-date-value-print').text().should.equal('Sep 23, 2003');
 
-    findRenderedComponentWithType(instance, PrintNotes);
-    findRenderedDOMComponentWithClass(instance, 'notes-title').textContent.should.eql('Notes');
+    const printNotes = wrapper.find(PrintNotes).dive();
+    printNotes.exists().should.be.true();
+    printNotes.find('.notes-title').text().should.equal('Notes');
 
-    const noteContents = scryRenderedDOMComponentsWithClass(instance, 'notes-content');
+    const noteContents = printNotes.find('.notes-content');
     noteContents.should.have.length(2);
-    noteContents[0].textContent.should.eql('Force Category: See CPD\'s official Use of Force Model');
-    noteContents[1].textContent.should.eql('Type of Force: See CPD\'s official Use of Force Model');
+    noteContents.at(0).render().text().should.equal('Force Category: See CPD\'s official Use of Force Model');
+    noteContents.at(1).render().text().should.equal('Type of Force: See CPD\'s official Use of Force Model');
 
-    const noteContentMarkdownLinks = scryRenderedComponentsWithType(instance, MarkdownLink).map(findDOMNode);
-    noteContentMarkdownLinks.should.have.length(2);
-    noteContentMarkdownLinks[0].textContent.should.eql('Use of Force Model');
-    noteContentMarkdownLinks[0].href.should.eql(
+    const firstMarkdownLink = noteContents.at(0).dive().find(MarkdownLink);
+    firstMarkdownLink.render().text().should.equal('Use of Force Model');
+    firstMarkdownLink.prop('href').should.equal(
       'http://directives.chicagopolice.org/directives/data/a7a57be2-128ff3f0-ae912-8fff-cec11383d806e05f.html'
     );
-    noteContentMarkdownLinks[1].textContent.should.eql('Use of Force Model');
-    noteContentMarkdownLinks[1].href.should.eql(
+
+    const secondMarkdownLink = noteContents.at(1).dive().find(MarkdownLink);
+    secondMarkdownLink.render().text().should.equal('Use of Force Model');
+    secondMarkdownLink.prop('href').should.equal(
       'http://directives.chicagopolice.org/directives/data/a7a57be2-128ff3f0-ae912-8fff-cec11383d806e05f.html'
     );
   });
 
   it('should not render category header and incident date header when is not printing', function () {
-    instance = renderWithContext(
-      { printMode: false },
-      <Provider store={ store }>
-        <TRRPage
-          trrId={ 123 }
-          officer={ { officerId: 456 } }
-          trrDetail={ { category: 'Firearm' } }
-          trrLocation={ { incidentDate: 'Sep 23, 2003' } }
-        />
-      </Provider>
+    const wrapper = shallow(
+      <TRRPage
+        trrId='123'
+        officer={ { officerId: 456 } }
+        trrDetail={ { category: 'Firearm' } }
+        trrLocation={ { incidentDate: 'Sep 23, 2003' } }
+      />,
+      { context: { printMode: false } }
     );
-    scryRenderedDOMComponentsWithClass(instance, 'trr-category-print').should.have.length(0);
-    scryRenderedDOMComponentsWithClass(instance, 'incident-date-print').should.have.length(0);
+    wrapper.find('.trr-category-print').exists().should.be.false();
+    wrapper.find('.incident-date-print').exists().should.be.false();
   });
 });

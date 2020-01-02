@@ -1,26 +1,13 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 import { stub } from 'sinon';
-import {
-  renderIntoDocument,
-  scryRenderedDOMComponentsWithClass,
-  findRenderedDOMComponentWithClass,
-  findRenderedComponentWithType,
-  scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
 import InfiniteScroll from 'react-infinite-scroller';
 
 import CrawlerTable from 'components/crawlers-page/crawlers-table';
 import CrawlerRow from 'components/crawlers-page/crawler-row';
-import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('CrawlerTable component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render crawler table correctly', function () {
     const requestCrawlersStub = stub();
     const rows = [{
@@ -37,7 +24,7 @@ describe('CrawlerTable component', function () {
       recentRunAt: '2019-02-20',
     }];
     const nextParams = { limit: '20', offset: '20' };
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <CrawlerTable
         rows={ rows }
         requestCrawlers={ requestCrawlersStub }
@@ -45,22 +32,22 @@ describe('CrawlerTable component', function () {
       />
     );
 
-    const crawlerNameHeader = findRenderedDOMComponentWithClass(instance, 'header-col crawler-header');
-    const recentRunAtHeader = scryRenderedDOMComponentsWithClass(instance, 'header-col')[1];
-    const numNewDocumentsHeader = scryRenderedDOMComponentsWithClass(instance, 'header-col')[2];
-    const numDocumentsHeader = scryRenderedDOMComponentsWithClass(instance, 'header-col')[3];
+    const crawlerNameHeader = wrapper.find('.header-col.crawler-header');
+    const recentRunAtHeader = wrapper.find('.header-col').at(1);
+    const numNewDocumentsHeader = wrapper.find('.header-col').at(2);
+    const numDocumentsHeader = wrapper.find('.header-col').at(3);
 
-    crawlerNameHeader.textContent.should.eql('Crawler');
-    recentRunAtHeader.textContent.should.eql('Recent Run');
-    numNewDocumentsHeader.textContent.should.eql('New Documents');
-    numDocumentsHeader.textContent.should.eql('Total Documents');
+    crawlerNameHeader.text().should.equal('Crawler');
+    recentRunAtHeader.text().should.equal('Recent Run');
+    numNewDocumentsHeader.text().should.equal('New Documents');
+    numDocumentsHeader.text().should.equal('Total Documents');
 
-    const infiniteScroll = findRenderedComponentWithType(instance, InfiniteScroll);
-    infiniteScroll.props.initialLoad.should.be.false();
-    infiniteScroll.props.hasMore.should.be.true();
-    infiniteScroll.props.useWindow.should.be.true();
-    infiniteScroll.props.children.should.have.length(2);
-    scryRenderedComponentsWithType(instance, CrawlerRow).should.have.length(2);
+    const infiniteScroll = wrapper.find(InfiniteScroll);
+    infiniteScroll.prop('initialLoad').should.be.false();
+    infiniteScroll.prop('hasMore').should.be.true();
+    infiniteScroll.prop('useWindow').should.be.true();
+    infiniteScroll.prop('children').should.have.length(2);
+    wrapper.find(CrawlerRow).should.have.length(2);
   });
 
   it('should load more on scroll to bottom', function () {
@@ -84,15 +71,15 @@ describe('CrawlerTable component', function () {
 
     const requestCrawlersStub = stub().returns({ catch: stub() });
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <CrawlerTable
         rows={ rows }
         hasMore={ true }
         nextParams={ nextParams }
         requestCrawlers={ requestCrawlersStub }/>
     );
-    findRenderedComponentWithType(instance, InfiniteScroll).props.loadMore();
-    requestCrawlersStub.calledWith(nextParams).should.be.true();
+    wrapper.find(InfiniteScroll).prop('loadMore')();
+    requestCrawlersStub.should.be.calledWith(nextParams);
   });
 
 });

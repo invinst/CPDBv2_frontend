@@ -1,103 +1,74 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import MockStore from 'redux-mock-store';
+import { shallow } from 'enzyme';
 import { spy } from 'sinon';
-import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError } from 'utils/test';
-import { CitySummaryFactory } from 'utils/test/factories/heat-map';
 import SummaryPanel from 'components/embeddable-heat-map/summary-panel';
 import CommunityDropdown from 'components/embeddable-heat-map/summary-panel/community-dropdown';
-import CitySummary from 'components/embeddable-heat-map/summary-panel/city-summary';
 
 
 describe('SummaryPanel component', function () {
-  let instance;
-  const store = MockStore()({
-    landingPage: {
-      heatMap: {
-        citySummary: CitySummaryFactory.build(),
-      },
-    },
-  });
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render CitySummary and CommunityDropDown', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SummaryPanel/>
-      </Provider>
-    );
-    findRenderedComponentWithType(instance, CommunityDropdown).should.be.ok();
-    findRenderedComponentWithType(instance, CitySummary).should.be.ok();
+    const wrapper = shallow(
+      <SummaryPanel/>
+    ).dive();
+    wrapper.find(CommunityDropdown).exists().should.be.true();
+    wrapper.find('Connect(CitySummary)').exists().should.be.true();
   });
 
   it('should deselect community and hide dropdown when click CitySummary', function () {
     const selectCommunity = spy();
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SummaryPanel selectCommunity={ selectCommunity }/>
-      </Provider>
+    const wrapper = shallow(
+      <SummaryPanel selectCommunity={ selectCommunity }/>
     );
-    const summaryPanel = findRenderedComponentWithType(instance, SummaryPanel);
-    summaryPanel.setState({ showDropdown: true });
-    summaryPanel.state.showDropdown.should.be.true();
+    wrapper.setState({ showDropdown: true });
+    wrapper.state('showDropdown').should.be.true();
 
-    const citySummary = findRenderedComponentWithType(instance, CitySummary);
-    citySummary.props.onClick();
+    const motion = wrapper.dive();
+    const communityDropdown = motion.find(CommunityDropdown);
+    communityDropdown.prop('showDropdown').should.be.true();
 
-    selectCommunity.calledWith(0).should.be.true();
-    summaryPanel.state.showDropdown.should.be.false();
+    const citySummary = motion.find('Connect(CitySummary)');
+    citySummary.prop('onClick')();
+
+    selectCommunity.should.be.calledWith(0);
+    wrapper.state('showDropdown').should.be.false();
+
+    wrapper.dive().find(CommunityDropdown).prop('showDropdown').should.be.false();
   });
 
   it('should select community and hide dropdown when select from dropdown', function () {
     const selectCommunity = spy();
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SummaryPanel selectCommunity={ selectCommunity }/>
-      </Provider>
+    const wrapper = shallow(
+      <SummaryPanel selectCommunity={ selectCommunity }/>
     );
-    const summaryPanel = findRenderedComponentWithType(instance, SummaryPanel);
-    summaryPanel.setState({ showDropdown: true });
-    summaryPanel.state.showDropdown.should.be.true();
+    wrapper.setState({ showDropdown: true });
+    wrapper.state('showDropdown').should.be.true();
 
-    const dropdown = findRenderedComponentWithType(instance, CommunityDropdown);
-    dropdown.props.selectCommunity(3);
+    const dropdown = wrapper.dive().find(CommunityDropdown);
+    dropdown.prop('selectCommunity')(3);
 
-    selectCommunity.calledWith(3).should.be.true();
-    summaryPanel.state.showDropdown.should.be.false();
+    selectCommunity.should.be.calledWith(3);
+    wrapper.state('showDropdown').should.be.false();
   });
 
   it('should show dropdown when CommunityDropdown trigger it', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SummaryPanel/>
-      </Provider>
-    );
-    const summaryPanel = findRenderedComponentWithType(instance, SummaryPanel);
-    summaryPanel.setState({ showDropdown: true });
-    summaryPanel.state.showDropdown.should.be.true();
+    const wrapper = shallow(<SummaryPanel/>);
+    wrapper.setState({ showDropdown: true });
+    wrapper.state('showDropdown').should.be.true();
 
-    const dropdown = findRenderedComponentWithType(instance, CommunityDropdown);
-    dropdown.props.closeDropdown();
-    summaryPanel.state.showDropdown.should.be.false();
+    const dropdown = wrapper.dive().find(CommunityDropdown);
+    dropdown.prop('closeDropdown')();
+    wrapper.state('showDropdown').should.be.false();
+    wrapper.state('showDropdown').should.be.false();
   });
 
   it('should hide dropdown when CommunityDropdown trigger it', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SummaryPanel/>
-      </Provider>
-    );
-    const summaryPanel = findRenderedComponentWithType(instance, SummaryPanel);
-    summaryPanel.setState({ showDropdown: false });
-    summaryPanel.state.showDropdown.should.be.false();
+    const wrapper = shallow(<SummaryPanel/>);
+    wrapper.setState({ showDropdown: false });
+    wrapper.state('showDropdown').should.be.false();
 
-    const dropdown = findRenderedComponentWithType(instance, CommunityDropdown);
-    dropdown.props.openDropdown();
-    summaryPanel.state.showDropdown.should.be.true();
+    const dropdown = wrapper.dive().find(CommunityDropdown);
+    dropdown.prop('openDropdown')();
+    wrapper.state('showDropdown').should.be.true();
   });
 });

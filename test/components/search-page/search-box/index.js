@@ -1,37 +1,20 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 import { browserHistory } from 'react-router';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  findRenderedDOMComponentWithTag,
-  findRenderedDOMComponentWithClass,
-  Simulate,
-} from 'react-addons-test-utils';
 import { spy, stub } from 'sinon';
 
 import TextInput from 'components/common/input';
 import SearchBox from 'components/search-page/search-box';
-import { unmountComponentSuppressError } from 'utils/test';
 import * as PathEditor from 'utils/edit-path';
 
 
 describe('SearchBox component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
-  it('should be renderable', function () {
-    SearchBox.should.be.renderable();
-  });
-
   it('should pass correct props to Input', function () {
     const onEscape = spy();
     const onChange = spy();
     const resetNavigation = spy();
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <SearchBox
         onEscape={ onEscape }
         onChange={ onChange }
@@ -40,78 +23,87 @@ describe('SearchBox component', function () {
       />
     );
 
-    const input = findRenderedComponentWithType(instance, TextInput);
-    input.props.value.should.eql('wa');
-    input.props.keyPressHandlers.esc.should.eql(onEscape);
-    input.props.onChange.should.equal(onChange);
-    input.props.keyPressWithBlurHandlers.should.have.key('down');
+    const input = wrapper.find(TextInput);
+    input.prop('value').should.equal('wa');
+    input.prop('keyPressHandlers').esc.should.eql(onEscape);
+    input.prop('onChange').should.equal(onChange);
+    input.props().should.not.have.key('onBlur');
+    resetNavigation.should.not.be.called();
+    input.prop('keyPressWithBlurHandlers').down();
+    resetNavigation.should.be.calledOnce();
   });
 
   it('should call resetNavigation when pressing down in the text input and make it blur', function () {
     const resetNavigation = spy();
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <SearchBox
         resetNavigation={ resetNavigation }
         focused={ true }
       />
     );
 
-    const textInput = findRenderedComponentWithType(instance, TextInput);
-    const blur = spy(textInput.input, 'blur');
+    const textInputInstance = mount(wrapper.find(TextInput).get(0)).instance();
+    const blur = spy(textInputInstance.input, 'blur');
 
-    textInput.mousetrap.trigger('down');
+    textInputInstance.mousetrap.trigger('down');
 
-    blur.called.should.be.true();
-    resetNavigation.called.should.be.true();
+    blur.should.be.called();
+    resetNavigation.should.be.called();
   });
 
   it('should not call resetNavigation when the input.blur is called', function () {
     const resetNavigation = spy();
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <SearchBox
         resetNavigation={ resetNavigation }
         focused={ true }
       />
     );
 
-    const inputElement = findRenderedDOMComponentWithTag(instance, 'input');
-    Simulate.blur(inputElement);
+    const textInput = mount(wrapper.find(TextInput).get(0));
+    const textInputInstance = textInput.instance();
+    const handleBlur = spy(textInputInstance, 'handleBlur');
 
-    resetNavigation.called.should.be.false();
+    textInput.find('input').simulate('focus');
+    textInput.find('input').simulate('blur');
+
+    handleBlur.should.be.calledOnce();
+    resetNavigation.should.not.be.called();
   });
 
   it('should render input with disabled spellcheck', function () {
-    instance = renderIntoDocument(
-      <SearchBox />
-    );
+    const wrapper = mount(<SearchBox />);
 
-    const input = findRenderedDOMComponentWithTag(instance, 'input');
-    input.getAttribute('spellcheck').should.eql('false');
+    const input = wrapper.find('input');
+    input.getDOMNode().getAttribute('spellcheck').should.equal('false');
+    input.getDOMNode().getAttribute('autoComplete').should.equal('off');
+    input.getDOMNode().getAttribute('autoCorrect').should.equal('off');
+    input.getDOMNode().getAttribute('autoCapitalize').should.equal('off');
   });
 
   it('should render close button when there is a search query', function () {
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <SearchBox value='sa'/>
     );
-    findRenderedDOMComponentWithClass(instance, 'test--search-close-button');
+    wrapper.find('.test--search-close-button').exists().should.be.true();
   });
 
   it('should changeSearchQuery to empty and go to search page on click close button', function () {
     const changeSearchQuery = spy();
     const pushPathPreserveEditMode = stub(PathEditor, 'pushPathPreserveEditMode');
 
-    instance = renderIntoDocument(
+    const wrapper = shallow(
       <SearchBox
         value='sa'
         changeSearchQuery={ changeSearchQuery }
       />
     );
 
-    const closeButton = findRenderedDOMComponentWithClass(instance, 'test--search-close-button');
-    Simulate.click(closeButton);
+    const closeButton = wrapper.find('.test--search-close-button');
+    closeButton.simulate('click');
 
-    changeSearchQuery.calledWith('').should.be.true();
-    pushPathPreserveEditMode.calledWith('search/').should.be.true();
+    changeSearchQuery.should.be.calledWith('');
+    pushPathPreserveEditMode.should.be.calledWith('search/');
 
     pushPathPreserveEditMode.restore();
   });
@@ -150,13 +142,15 @@ describe('SearchBox component', function () {
         };
 
 
-      instance = renderIntoDocument(
+      const wrapper = shallow(
         <SearchBox firstSuggestionItem={ firstSuggestionItem } saveToRecent={ saveToRecentSpy }/>
       );
 
-      const input = findRenderedComponentWithType(instance, TextInput);
-      input.mousetrap.trigger('enter');
-      this.browserHistoryPush.calledWith('to').should.be.true();
+      const textInput = mount(wrapper.find(TextInput).get(0));
+      const textInputInstance = textInput.instance();
+
+      textInputInstance.mousetrap.trigger('enter');
+      this.browserHistoryPush.should.be.calledWith('to');
       saveToRecentSpy.should.be.calledWith({
         type: 'OFFICER',
         id: 1,

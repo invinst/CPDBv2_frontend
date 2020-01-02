@@ -1,14 +1,8 @@
 import React from 'react';
-import {
-  findRenderedComponentWithType,
-  renderIntoDocument,
-  scryRenderedComponentsWithType,
-  scryRenderedDOMComponentsWithClass,
-} from 'react-addons-test-utils';
+import { mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import PinboardDataVisualization from 'components/pinboard-page/pinboard-data-visualization';
 import AnimatedSocialGraph from 'components/common/animated-social-graph';
 import AllegationsMap from 'components/common/allegations-map';
@@ -47,14 +41,9 @@ describe('PinboardDataVisualization component', function () {
       },
     },
   });
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
 
   it('should render pinboard visualization correctly', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <PinboardDataVisualization
           pinboard={ { id: '1234abcd' } }
@@ -63,17 +52,17 @@ describe('PinboardDataVisualization component', function () {
       </Provider>
     );
 
-    findRenderedComponentWithType(instance, AnimatedSocialGraph).should.be.ok();
-    findRenderedComponentWithType(instance, AllegationsMap).should.be.ok();
+    wrapper.find(AnimatedSocialGraph).exists().should.be.true();
+    wrapper.find(AllegationsMap).exists().should.be.true();
 
-    const expandedModeButton = scryRenderedDOMComponentsWithClass(instance, 'expanded-mode-btn');
+    const expandedModeButton = wrapper.find('.expanded-mode-btn');
     expandedModeButton.should.have.length(2);
-    expandedModeButton[0].href.should.containEql('/social-graph/pinboard/1234abcd/');
-    expandedModeButton[1].href.should.containEql('/geographic/pinboard/1234abcd/');
+    expandedModeButton.at(0).prop('href').should.containEql('/social-graph/pinboard/1234abcd/');
+    expandedModeButton.at(1).prop('href').should.containEql('/geographic/pinboard/1234abcd/');
   });
 
   it('should not render AllegationsMap if hasMapMarker is false', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <PinboardDataVisualization
           pinboard={ { id: '1234abcd' } }
@@ -82,7 +71,7 @@ describe('PinboardDataVisualization component', function () {
       </Provider>
     );
 
-    findRenderedComponentWithType(instance, AnimatedSocialGraph).should.be.ok();
-    scryRenderedComponentsWithType(instance, AllegationsMap).should.have.length(0);
+    wrapper.find(AnimatedSocialGraph).exists().should.be.true();
+    wrapper.find(AllegationsMap).exists().should.be.false();
   });
 });

@@ -1,28 +1,18 @@
 import React from 'react';
-import {
-  renderIntoDocument, findRenderedComponentWithType, findRenderedDOMComponentWithTag,
-} from 'react-addons-test-utils';
+import { mount } from 'enzyme';
 import { Link } from 'react-router';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import MoreLink from 'components/common/more-link';
 
 
 describe('MoreLink component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should return a react router link if `to` is valid', function () {
-    instance = renderIntoDocument(<MoreLink to='/foo' />);
-    findRenderedComponentWithType(instance, Link);
+    const wrapper = mount(<MoreLink to='/foo' />);
+    wrapper.find(Link).exists().should.be.true();
   });
 
   it('should return <a> if `to` is not provided', function () {
-    instance = renderIntoDocument(<MoreLink />);
-
-    findRenderedDOMComponentWithTag(instance, 'a');
+    const wrapper = mount(<MoreLink />);
+    wrapper.find('a').exists().should.be.true();
   });
 });

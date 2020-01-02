@@ -1,13 +1,9 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 import { noop } from 'lodash';
-import {
-  renderIntoDocument, Simulate,
-  findRenderedComponentWithType, findRenderedDOMComponentWithClass,
-} from 'react-addons-test-utils';
 import Mousestrap from 'mousetrap';
 import { spy, stub } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import JumpyMotion from 'components/animation/jumpy-motion';
 import withPinnableItem
   from 'components/search-page/search-results/suggestion-group/suggestion-item/with-pinnable-item';
@@ -18,12 +14,6 @@ import ItemPinButton from 'components/common/item-pin-button';
 
 
 describe('withPinnableItem component', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   context('not pinnable', function () {
     const ComponentType = withPinnableItem(false);
     const props = {
@@ -43,7 +33,7 @@ describe('withPinnableItem component', function () {
     };
 
     it('should rerender if suggestion props change', function () {
-      instance = renderIntoDocument(<ComponentType { ...props } />);
+      const wrapper = shallow(<ComponentType { ...props } />);
 
       const nextProps = {
         isFocused: props.isFocused,
@@ -52,38 +42,38 @@ describe('withPinnableItem component', function () {
         },
       };
 
-      instance.shouldComponentUpdate(nextProps).should.be.true();
+      wrapper.instance().shouldComponentUpdate(nextProps).should.be.true();
     });
 
     it('should rerender if focused change', function () {
-      instance = renderIntoDocument(<ComponentType { ...props } />);
+      const wrapper = shallow(<ComponentType { ...props } />);
 
-      instance.shouldComponentUpdate({ isFocused: !props.isFocused }).should.be.true();
+      wrapper.instance().shouldComponentUpdate({ isFocused: !props.isFocused }).should.be.true();
     });
 
     it('should render first row', function () {
-      instance = renderIntoDocument(<ComponentType { ...props } />);
+      const wrapper = mount(<ComponentType { ...props } />);
 
-      findRenderedDOMComponentWithClass(instance, 'test--first-row').should.be.ok();
-      findRenderedComponentWithType(instance, TextWithInlineSearchAlias).should.be.ok();
+      wrapper.find('.test--first-row').exists().should.be.true();
+      wrapper.find(TextWithInlineSearchAlias).exists().should.be.true();
     });
 
     it('should render second row', function () {
-      instance = renderIntoDocument(<ComponentType { ...props } />);
+      const wrapper = shallow(<ComponentType { ...props } />);
 
-      findRenderedDOMComponentWithClass(instance, 'test--second-row').should.be.ok();
+      wrapper.find('.test--second-row').exists().should.be.true();
     });
 
     it('should render content with edit mode item', function () {
-      instance = renderIntoDocument(<ComponentType { ...props } />);
+      const wrapper = shallow(<ComponentType { ...props } />);
 
-      findRenderedComponentWithType(instance, EditModeItem).should.be.ok();
+      wrapper.find(EditModeItem).exists().should.be.true();
     });
 
     it('should render content inside jummy motion', function () {
-      instance = renderIntoDocument(<ComponentType { ...props } />);
+      const wrapper = shallow(<ComponentType { ...props } />);
 
-      findRenderedComponentWithType(instance, JumpyMotion).should.be.ok();
+      wrapper.find(JumpyMotion).exists().should.be.true();
     });
 
     it('should call selectItem if not focused', function () {
@@ -92,15 +82,15 @@ describe('withPinnableItem component', function () {
         type: 'type',
       };
       const selectItemSpy = spy();
-      instance = renderIntoDocument(
+      const wrapper = mount(
         <ComponentType
           suggestion={ suggestion }
           selectItem={ selectItemSpy }
           isFocused={ false }/>
       );
-      const element = findRenderedDOMComponentWithClass(instance, 'suggestion-item-123');
-      Simulate.click(element);
-      selectItemSpy.called.should.be.true();
+      const element = wrapper.find('.suggestion-item-123');
+      element.simulate('click');
+      selectItemSpy.should.be.called();
     });
 
     it('should trigger ENTER event if focused and has selectItem', function () {
@@ -109,16 +99,16 @@ describe('withPinnableItem component', function () {
         type: 'type',
       };
       const triggerStub = stub(Mousestrap, 'trigger');
-      instance = renderIntoDocument(
+      const wrapper = mount(
         <ComponentType
           suggestion={ suggestion }
           isFocused={ true }
           selectItem={ () => {} }
         />
       );
-      const element = findRenderedDOMComponentWithClass(instance, 'suggestion-item-123');
-      Simulate.click(element);
-      triggerStub.withArgs('enter').called.should.be.true();
+      const element = wrapper.find('.suggestion-item-123');
+      element.simulate('click');
+      triggerStub.withArgs('enter').should.be.called();
 
       triggerStub.restore();
     });
@@ -132,15 +122,15 @@ describe('withPinnableItem component', function () {
         badge: 'Badge #123456',
         uniqueKey: '123',
       };
-      instance = renderIntoDocument(
+      const wrapper = mount(
         <ComponentType
           suggestion={ suggestion }
           clickItem={ clickItemSpy }
           selectItem={ () => {} }
         />
       );
-      const element = findRenderedDOMComponentWithClass(instance, 'suggestion-item-123');
-      Simulate.click(element);
+      const element = wrapper.find('.suggestion-item-123');
+      element.simulate('click');
 
       clickItemSpy.should.be.calledWith(suggestion);
     });
@@ -165,9 +155,9 @@ describe('withPinnableItem component', function () {
     };
 
     it('should render item pin button', function () {
-      instance = renderIntoDocument(<ComponentType { ...props } />);
+      const wrapper = shallow(<ComponentType { ...props } />);
 
-      findRenderedComponentWithType(instance, ItemPinButton).should.be.ok();
+      wrapper.find(ItemPinButton).exists().should.be.true();
     });
   });
 });

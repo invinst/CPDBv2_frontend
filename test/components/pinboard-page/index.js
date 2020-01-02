@@ -1,22 +1,13 @@
 import React from 'react';
+import { mount, shallow } from 'enzyme';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
-import { findDOMNode } from 'react-dom';
-import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  scryRenderedComponentsWithType,
-  findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass,
-  Simulate,
-} from 'react-addons-test-utils';
 import { stub, spy } from 'sinon';
 import * as ReactRouter from 'react-router';
 import { Router, createMemoryHistory, Route } from 'react-router';
 import { createStore as ReduxCreateStore } from 'redux';
 import { set } from 'lodash';
 
-import { unmountComponentSuppressError, reRender } from 'utils/test';
 import PinnedOfficersContainer from 'containers/pinboard-page/pinned-officers';
 import PinnedCRsContainer from 'containers/pinboard-page/pinned-crs';
 import PinnedTRRsContainer from 'containers/pinboard-page/pinned-trrs';
@@ -34,12 +25,12 @@ import {
   PINBOARD_EDIT_TYPES,
 } from 'utils/constants';
 import PinboardPage from 'components/pinboard-page';
+import EmptyPinboardContainer from 'containers/pinboard-page/empty-pinboard';
 import EmptyPinboardPage from 'components/pinboard-page/empty-pinboard';
 import { buildEditStateFields } from 'utils/test/factories/draft';
 import LoadingSpinner from 'components/common/loading-spinner';
 
 describe('PinboardPage component', function () {
-  let instance;
   const defaultPaginationState = {
     requesting: false,
     items: [],
@@ -91,10 +82,6 @@ describe('PinboardPage component', function () {
     },
   });
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render LoadingSpinner if pinboardPageLoading is true', function () {
     const pinboard = {
       'id': '5cd06f2b',
@@ -116,13 +103,13 @@ describe('PinboardPage component', function () {
       </Provider>
     );
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Router history={ createMemoryHistory() }>
         <Route path='/' component={ pinboardPage } />
       </Router>
     );
 
-    scryRenderedComponentsWithType(instance, LoadingSpinner).should.have.length(1);
+    wrapper.find(LoadingSpinner).exists().should.be.true();
   });
 
   it('should replace url when shouldRedirect is True after updating', function () {
@@ -149,7 +136,7 @@ describe('PinboardPage component', function () {
     const history = createMemoryHistory();
     history.push('/pinboard/');
 
-    instance = renderIntoDocument(
+    mount(
       <Router history={ history }>
         <Route path='/pinboard/' component={ pinboardPage } />
       </Router>
@@ -196,18 +183,17 @@ describe('PinboardPage component', function () {
     };
     const store = ReduxCreateStore(RootReducer, state);
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <PinboardPage updatePathName={ updatePathNameStub } pinboard={ pinboard } initialRequested={ true }/>
       </Provider>
     );
 
-    instance = reRender(
-      <Provider store={ store }>
+    wrapper.setProps({
+      children: (
         <PinboardPage updatePathName={ updatePathNameStub } pinboard={ updatedPinboard } initialRequested={ true }/>
-      </Provider>,
-      instance
-    );
+      ),
+    });
 
     updatePathNameStub.should.be.calledWith('/pinboard/5cd06f2b/updated-title/');
   });
@@ -224,24 +210,24 @@ describe('PinboardPage component', function () {
       </Provider>
     );
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Router history={ createMemoryHistory() }>
         <Route path='/' component={ pinboardPage } />
       </Router>
     );
 
-    findRenderedDOMComponentWithClass(instance, 'pinned-section');
-    findRenderedComponentWithType(instance, PinnedOfficersContainer);
-    findRenderedComponentWithType(instance, PinnedCRsContainer);
-    findRenderedComponentWithType(instance, PinnedTRRsContainer);
-    findRenderedComponentWithType(instance, PinboardsContainer);
-    const pinboardPageComponent = findRenderedComponentWithType(instance, PinboardPage);
-    const searchBar = findRenderedComponentWithType(instance, SearchBar);
-    const customButtons = searchBar.props.customButtons;
-    customButtons.props.pinboardId.should.eql('5cd06f2b');
-    customButtons.props.showPinboardsList.should.eql(pinboardPageComponent.props.showPinboardsList);
-    customButtons.props.createNewEmptyPinboard.should.eql(pinboardPageComponent.props.createNewEmptyPinboard);
-    customButtons.props.duplicatePinboard.should.eql(pinboardPageComponent.props.duplicatePinboard);
+    wrapper.find('.pinned-section').exists().should.be.true();
+    wrapper.find(PinnedOfficersContainer).exists().should.be.true();
+    wrapper.find(PinnedCRsContainer).exists().should.be.true();
+    wrapper.find(PinnedTRRsContainer).exists().should.be.true();
+    wrapper.find(PinboardsContainer).exists().should.be.true();
+    const pinboardPageComponent = wrapper.find(PinboardPage);
+    const searchBar = wrapper.find(SearchBar);
+    const customButtons = searchBar.prop('customButtons');
+    customButtons.props.pinboardId.should.equal('5cd06f2b');
+    customButtons.props.showPinboardsList.should.eql(pinboardPageComponent.prop('showPinboardsList'));
+    customButtons.props.createNewEmptyPinboard.should.eql(pinboardPageComponent.prop('createNewEmptyPinboard'));
+    customButtons.props.duplicatePinboard.should.eql(pinboardPageComponent.prop('duplicatePinboard'));
   });
 
   it('should render pinboard page correctly', function () {
@@ -257,15 +243,15 @@ describe('PinboardPage component', function () {
       </Provider>
     );
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Router history={ createMemoryHistory() }>
         <Route path='/' component={ pinboardPage } />
       </Router>
     );
 
-    findRenderedComponentWithType(instance, RelevantSectionContainer);
-    const footer = findRenderedComponentWithType(instance, FooterContainer);
-    footer.props.className.should.eql('footer');
+    wrapper.find(RelevantSectionContainer).exists().should.be.true();
+    const footer = wrapper.find(FooterContainer);
+    footer.prop('className').should.equal('footer');
   });
 
   it('should render EmptyPinboard instead of pinboard contents if pinboard is empty', function () {
@@ -289,22 +275,22 @@ describe('PinboardPage component', function () {
       </Provider>
     );
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Router history={ createMemoryHistory() }>
         <Route path='/' component={ pinboardPage } />
       </Router>
     );
 
-    findDOMNode(findRenderedComponentWithType(instance, PinboardPage)).className.should.containEql('empty');
+    wrapper.find(EmptyPinboardContainer).exists().should.be.true();
 
-    scryRenderedDOMComponentsWithClass(instance, 'pinboard-title').should.have.length(0);
-    scryRenderedDOMComponentsWithClass(instance, 'pinboard-description').should.have.length(0);
-    scryRenderedComponentsWithType(instance, RelevantSectionContainer).should.have.length(0);
+    wrapper.find('.pinboard-title').exists().should.be.false();
+    wrapper.find('.pinboard-description').exists().should.be.false();
+    wrapper.find(RelevantSectionContainer).exists().should.be.false();
 
-    findRenderedComponentWithType(instance, SearchBar).props.shareable.should.be.false();
+    wrapper.find(SearchBar).prop('shareable').should.be.false();
 
-    const emptyPinboard = findRenderedComponentWithType(instance, EmptyPinboardPage);
-    emptyPinboard.props.examplePinboards.should.eql([{
+    const emptyPinboard = wrapper.find(EmptyPinboardPage);
+    emptyPinboard.prop('examplePinboards').should.eql([{
       id: '66ef1561',
       title: 'Pinboard 1',
       description: 'Description 1',
@@ -314,7 +300,7 @@ describe('PinboardPage component', function () {
       description: 'Description 2',
     }]);
 
-    findRenderedComponentWithType(instance, FooterContainer);
+    wrapper.find(FooterContainer).exists().should.be.true();
   });
 
   it('should push pinboard into breadcrumbs', function () {
@@ -327,7 +313,7 @@ describe('PinboardPage component', function () {
       description: 'This is pinboard description',
     };
 
-    instance = renderIntoDocument(
+    mount(
       <Provider store={ createStore(pinboard) }>
         <PinboardPage
           pinboard={ pinboard }
@@ -338,36 +324,26 @@ describe('PinboardPage component', function () {
         />
       </Provider>
     );
-    stubPushBreadcrumbs.calledWith({ location, params, routes }).should.be.true();
+    stubPushBreadcrumbs.should.be.calledWith({ location, params, routes });
   });
 
   it('should render PreviewPaneWithOverlay if there is no focused item by default', function () {
-    const pinboard = {
-      title: 'This is pinboard title',
-      description: 'This is pinboard description',
-    };
-
-    instance = renderIntoDocument(
-      <Provider store={ createStore(pinboard) }>
-        <PinboardPage initialRequested={ true } focusedItem={ {} }/>
-      </Provider>
+    const wrapper = shallow(
+      <PinboardPage initialRequested={ true } focusedItem={ {} }/>
     );
 
-    const pinboardPage = findRenderedComponentWithType(instance, PinboardPage);
-    const previewPaneWithOverlay = findRenderedComponentWithType(instance, PreviewPaneWithOverlay);
-    previewPaneWithOverlay.props.isShown.should.be.false();
-    previewPaneWithOverlay.props.handleClose.should.be.eql(pinboardPage.handleOverlayClick);
-    previewPaneWithOverlay.props.yScrollable.should.be.true();
-    previewPaneWithOverlay.props.addOrRemoveItemInPinboard.should.be.eql(pinboardPage.handlePinChangedOnPreviewPane);
+    const instance = wrapper.instance();
+    const previewPaneWithOverlay = wrapper.find(PreviewPaneWithOverlay);
+    previewPaneWithOverlay.prop('isShown').should.be.false();
+    previewPaneWithOverlay.prop('handleClose').should.be.eql(instance.handleOverlayClick);
+    previewPaneWithOverlay.prop('yScrollable').should.be.true();
+    previewPaneWithOverlay.prop('addOrRemoveItemInPinboard').should.be.eql(
+      instance.handlePinChangedOnPreviewPane
+    );
   });
 
 
   it('should render PreviewPaneWithOverlay if there is focused item', function () {
-    const pinboard = {
-      title: 'This is pinboard title',
-      description: 'This is pinboard description',
-    };
-
     const focusedItem = {
       type: 'CR',
       data: {
@@ -382,18 +358,16 @@ describe('PinboardPage component', function () {
       },
     };
 
-    instance = renderIntoDocument(
-      <Provider store={ createStore(pinboard) }>
-        <PinboardPage initialRequested={ true } focusedItem={ focusedItem }/>
-      </Provider>
+    const wrapper = shallow(
+      <PinboardPage initialRequested={ true } focusedItem={ focusedItem }/>
     );
 
-    const pinboardPage = findRenderedComponentWithType(instance, PinboardPage);
-    const previewPaneWithOverlay = findRenderedComponentWithType(instance, PreviewPaneWithOverlay);
-    previewPaneWithOverlay.props.isShown.should.be.true();
-    previewPaneWithOverlay.props.handleClose.should.be.eql(pinboardPage.handleOverlayClick);
-    previewPaneWithOverlay.props.yScrollable.should.be.true();
-    previewPaneWithOverlay.props.addOrRemoveItemInPinboard.should.be.eql(pinboardPage.handlePinChangedOnPreviewPane);
+    const instance = wrapper.instance();
+    const previewPaneWithOverlay = wrapper.find(PreviewPaneWithOverlay);
+    previewPaneWithOverlay.prop('isShown').should.be.true();
+    previewPaneWithOverlay.prop('handleClose').should.be.eql(instance.handleOverlayClick);
+    previewPaneWithOverlay.prop('yScrollable').should.be.true();
+    previewPaneWithOverlay.prop('addOrRemoveItemInPinboard').should.be.eql(instance.handlePinChangedOnPreviewPane);
   });
 
   it('should handle on overlay click', function () {
@@ -419,7 +393,7 @@ describe('PinboardPage component', function () {
       </Provider>
     );
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Router history={ createMemoryHistory() }>
         <Route path='/' component={ pinboardPage } />
       </Router>
@@ -433,13 +407,13 @@ describe('PinboardPage component', function () {
       },
     });
 
-    const previewPaneWithOverlay = findRenderedComponentWithType(instance, PreviewPaneWithOverlay);
-    previewPaneWithOverlay.props.isShown.should.be.true();
+    const previewPaneWithOverlay = wrapper.find(PreviewPaneWithOverlay);
+    previewPaneWithOverlay.prop('isShown').should.be.true();
 
-    const overlay = scryRenderedDOMComponentsWithClass(instance, 'overlay')[0];
-    Simulate.click(overlay);
+    const overlay = wrapper.find('.overlay').at(0);
+    overlay.simulate('click');
 
-    previewPaneWithOverlay.props.isShown.should.be.false();
+    previewPaneWithOverlay.prop('isShown').should.be.false();
   });
 
   it('should handle when pin status is changed from preview pane', function () {
@@ -463,7 +437,7 @@ describe('PinboardPage component', function () {
       </Provider>
     );
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Router history={ createMemoryHistory() }>
         <Route path='/' component={ pinboardPage } />
       </Router>
@@ -477,8 +451,8 @@ describe('PinboardPage component', function () {
       },
     });
 
-    const pinButton = findRenderedDOMComponentWithClass(instance, 'pin-button');
-    Simulate.click(pinButton);
+    const pinButton = wrapper.find('.pin-button');
+    pinButton.simulate('click');
 
     handlePinChangedOnPreviewPane.should.be.calledWith({
       type: 'OFFICER',
@@ -495,16 +469,14 @@ describe('PinboardPage component', function () {
       description: 'This is pinboard description',
     };
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ createStore(pinboard) }>
         <PinboardPage initialRequested={ true } />
       </Provider>
     );
 
     document.body.classList.contains('body-fixed-viewport').should.be.true();
-
-    unmountComponentSuppressError(instance);
-
+    wrapper.unmount();
     document.body.classList.contains('body-fixed-viewport').should.be.false();
   });
 });

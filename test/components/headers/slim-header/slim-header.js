@@ -1,19 +1,11 @@
 import React, { PropTypes } from 'react';
+import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
-import {
-  renderIntoDocument,
-  scryRenderedDOMComponentsWithTag,
-  findRenderedComponentWithType,
-  scryRenderedDOMComponentsWithClass,
-  scryRenderedComponentsWithType,
-  Simulate,
-} from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import { stub, spy } from 'sinon';
 import { Link } from 'react-router';
 
 import { SlimHeader } from 'components/headers/slim-header';
-import { unmountComponentSuppressError } from 'utils/test';
 import ContextWrapper from 'utils/test/components/context-wrapper';
 import * as domUtils from 'utils/dom';
 import SlimHeaderContent from 'components/headers/slim-header/slim-header-content';
@@ -28,7 +20,6 @@ SlimHeaderContextWrapper.childContextTypes = {
 };
 
 describe('SlimHeader component', function () {
-  let element;
   const mockStore = MockStore();
   const store = mockStore({
     authentication: {},
@@ -61,23 +52,22 @@ describe('SlimHeader component', function () {
   afterEach(function () {
     window.addEventListener.restore();
     window.removeEventListener.restore();
-    unmountComponentSuppressError(element);
   });
 
   it('should render nothing if "show" prop is false', function () {
-    element = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <SlimHeaderContextWrapper context={ { editModeOn: false } }>
           <SlimHeader show={ false } />
         </SlimHeaderContextWrapper>
       </Provider>
     );
-    scryRenderedDOMComponentsWithClass(element, 'test--slim-header').length.should.eql(0);
+    wrapper.find('.test--slim-header').exists().should.be.false();
   });
 
   it('should render Q&A link', function () {
     const openRequestDocumentModal = spy();
-    element = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <SlimHeaderContextWrapper context={ { editModeOn: false } }>
           <SlimHeader show={ true } openLegalDisclaimerModal={ openRequestDocumentModal } pathname='/' />
@@ -85,14 +75,14 @@ describe('SlimHeader component', function () {
       </Provider>
     );
 
-    const links = scryRenderedDOMComponentsWithTag(element, 'a');
-    const link = links.filter(link => link.textContent === 'Q&A')[0];
-    link.getAttribute('href').should.eql('http://how.cpdp.works/');
+    const links = wrapper.find('a');
+    const link = links.filter({ children: 'Q&A' });
+    link.prop('href').should.equal('http://how.cpdp.works/');
   });
 
   it('should render Data link', function () {
     const openRequestDocumentModal = spy();
-    element = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <SlimHeaderContextWrapper context={ { editModeOn: false } }>
           <SlimHeader show={ true } openLegalDisclaimerModal={ openRequestDocumentModal } pathname='/' />
@@ -100,14 +90,14 @@ describe('SlimHeader component', function () {
       </Provider>
     );
 
-    const links = scryRenderedDOMComponentsWithTag(element, 'a');
-    const link = links.filter(link => link.textContent === 'Data')[0];
-    link.getAttribute('href').should.eql('http://cpdb.lvh.me');
+    const links = wrapper.find('a');
+    const link = links.filter({ children: 'Data' });
+    link.prop('href').should.equal('http://cpdb.lvh.me');
   });
 
   it('should render Documents link', function () {
     const openRequestDocumentModal = spy();
-    element = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <SlimHeaderContextWrapper context={ { editModeOn: false } }>
           <SlimHeader show={ true } openLegalDisclaimerModal={ openRequestDocumentModal } pathname='/' />
@@ -115,41 +105,35 @@ describe('SlimHeader component', function () {
       </Provider>
     );
 
-    const links = scryRenderedComponentsWithType(element, Link);
-    const link = links.filter(link => link.props.children === 'Documents')[0];
-    link.props.to.should.eql('/documents/');
+    const links = wrapper.find(Link);
+    const link = links.findWhere(link => link.prop('to') === '/documents/');
+    link.text().should.equal('Documents');
   });
 
   describe('External links', function () {
     it('should stopPropagation when being clicked', function () {
-      element = renderIntoDocument(
+      const wrapper = mount(
         <Provider store={ store }>
           <SlimHeaderContextWrapper context={ { editModeOn: false } }>
             <SlimHeader show={ true } pathname='/' />
           </SlimHeaderContextWrapper>
         </Provider>
       );
-      let externalLinks = scryRenderedDOMComponentsWithClass(element, 'right-link');
+      let externalLinks = wrapper.find('.right-link');
       const dummyEvent = {
         stopPropagation: spy(),
       };
-      Simulate.click(externalLinks[0], dummyEvent);
-      dummyEvent.stopPropagation.called.should.be.true();
+      externalLinks.at(0).simulate('click', dummyEvent);
+      dummyEvent.stopPropagation.should.be.called();
     });
   });
 
   describe('recalculatePosition', function () {
     beforeEach(function () {
       stub(domUtils, 'calculateSlimHeaderPosition');
-      element = renderIntoDocument(
-        <Provider store={ store }>
-          <SlimHeaderContextWrapper context={ { editModeOn: false } }>
-            <SlimHeader show={ true } pathname='/' />
-          </SlimHeaderContextWrapper>
-        </Provider>
+      this.slimHeader = shallow(
+        <SlimHeader show={ true } pathname='/' />
       );
-
-      this.slimHeader = findRenderedComponentWithType(element, SlimHeader);
     });
 
     afterEach(function () {
@@ -158,88 +142,70 @@ describe('SlimHeader component', function () {
 
     it('should remain in top position', function () {
       domUtils.calculateSlimHeaderPosition.returns('top');
-      this.slimHeader.recalculatePosition();
-      this.slimHeader.state.position.should.eql('top');
+      this.slimHeader.instance().recalculatePosition();
+      this.slimHeader.state('position').should.equal('top');
     });
 
     it('should transition to middle position', function () {
       domUtils.calculateSlimHeaderPosition.returns('middle');
-      this.slimHeader.recalculatePosition();
-      this.slimHeader.state.position.should.eql('middle');
+      this.slimHeader.instance().recalculatePosition();
+      this.slimHeader.state('position').should.equal('middle');
     });
 
     it('should transition to bottom position', function () {
       domUtils.calculateSlimHeaderPosition.returns('bottom');
-      this.slimHeader.recalculatePosition();
-      this.slimHeader.state.position.should.eql('bottom');
+      this.slimHeader.instance().recalculatePosition();
+      this.slimHeader.state('position').should.equal('bottom');
     });
   });
 
   describe('SlimHeaderContent', function () {
     it('should be rendered with correct props and style on the top of the page', function () {
-      element = renderIntoDocument(
-        <Provider store={ store }>
-          <SlimHeaderContextWrapper context={ { editModeOn: false } }>
-            <SlimHeader
-              show={ true }
-              pathname='/'
-            />
-          </SlimHeaderContextWrapper>
-        </Provider>
+      const wrapper = shallow(
+        <SlimHeader
+          show={ true }
+          pathname='/'
+        />,
+        { context: { editModeOn: false } }
       );
+      wrapper.setState({ position: 'top' });
 
-      const slimHeader = findRenderedComponentWithType(element, SlimHeader);
-      slimHeader.setState({ position: 'top' });
-
-      const slimHeaderContent = findRenderedComponentWithType(element, SlimHeaderContent);
-      slimHeaderContent.props.position.should.eql('top');
-      slimHeaderContent.props.pathname.should.eql('/');
-      slimHeaderContent.props.editModeOn.should.eql(false);
+      const slimHeaderContent = wrapper.find(SlimHeaderContent);
+      slimHeaderContent.prop('position').should.equal('top');
+      slimHeaderContent.prop('pathname').should.equal('/');
+      slimHeaderContent.prop('editModeOn').should.be.false();
     });
 
     it('should be rendered with correct props and style in the middle of the page', function () {
-      element = renderIntoDocument(
-        <Provider store={ store }>
-          <SlimHeaderContextWrapper context={ { editModeOn: false } }>
-            <SlimHeader
-              show={ true }
-              pathname='/'
-            />
-          </SlimHeaderContextWrapper>
-        </Provider>
+      const wrapper = shallow(
+        <SlimHeader
+          show={ true }
+          pathname='/'
+        />,
+        { context: { editModeOn: false } },
       );
+      wrapper.setState({ position: 'middle' });
 
-      const slimHeader = findRenderedComponentWithType(element, SlimHeader);
-      slimHeader.setState({ position: 'middle' });
-
-      const slimHeaderContent = findRenderedComponentWithType(element, SlimHeaderContent);
-
-      slimHeaderContent.props.position.should.eql('middle');
-      slimHeaderContent.props.pathname.should.eql('/');
-      slimHeaderContent.props.editModeOn.should.eql(false);
+      const slimHeaderContent = wrapper.find(SlimHeaderContent);
+      slimHeaderContent.prop('position').should.equal('middle');
+      slimHeaderContent.prop('pathname').should.equal('/');
+      slimHeaderContent.prop('editModeOn').should.be.false();
     });
 
-    it('should be rendered with correct props and style in the bottom of the page', function (done) {
-      element = renderIntoDocument(
-        <Provider store={ store }>
-          <SlimHeaderContextWrapper context={ { editModeOn: false } }>
-            <SlimHeader
-              show={ true }
-              pathname='/'
-            />
-          </SlimHeaderContextWrapper>
-        </Provider>
+    it('should be rendered with correct props and style in the bottom of the page', function () {
+      const wrapper = shallow(
+        <SlimHeader
+          show={ true }
+          pathname='/'
+        />,
+        { context: { editModeOn: false } },
       );
 
-      const slimHeader = findRenderedComponentWithType(element, SlimHeader);
-      slimHeader.setState({ position: 'bottom' });
-      setTimeout(function () {
-        const slimHeaderContent = findRenderedComponentWithType(element, SlimHeaderContent);
-        slimHeaderContent.props.position.should.eql('bottom');
-        slimHeaderContent.props.pathname.should.eql('/');
-        slimHeaderContent.props.editModeOn.should.eql(false);
-        done();
-      }, 500);
+      wrapper.setState({ position: 'bottom' });
+      const slimHeaderContent = wrapper.find(SlimHeaderContent);
+      slimHeaderContent.prop('position').should.equal('bottom');
+      slimHeaderContent.prop('pathname').should.equal('/');
+      slimHeaderContent.prop('editModeOn').should.eql(false);
     });
   });
 });

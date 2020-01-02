@@ -1,15 +1,9 @@
 import React from 'react';
+import { mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { stub } from 'sinon';
 import { Provider } from 'react-redux';
-import {
-  findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass,
-  renderIntoDocument,
-} from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import { DATA_VISUALIZATION_TAB_NAMES } from 'utils/constants';
 import SocialGraphPage from 'components/social-graph-page';
 import NetworkGraph from 'components/social-graph-page/network';
@@ -41,14 +35,9 @@ describe('SocialGraphPage component', function () {
   const params = {
     pinboardId: '12345678',
   };
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
 
   it('should render network tab', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <SocialGraphPage
           currentTab={ DATA_VISUALIZATION_TAB_NAMES.SOCIAL_GRAPH }
@@ -58,15 +47,15 @@ describe('SocialGraphPage component', function () {
         />
       </Provider>
     );
-    const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
-    findRenderedComponentWithType(networkGraph, MainTabs);
-    findRenderedDOMComponentWithClass(networkGraph, 'back-to-pinboard-link');
+    const networkGraph = wrapper.find(NetworkGraph);
+    networkGraph.find(MainTabs).exists().should.be.true();
+    networkGraph.find('.back-to-pinboard-link').exists().should.be.true();
   });
 
   it('should render geographic tab', function () {
     const loadPaginatedDataStub = stub(loadPaginatedDataUtils, 'loadPaginatedData');
 
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <SocialGraphPage
           currentTab={ DATA_VISUALIZATION_TAB_NAMES.GEOGRAPHIC }
@@ -76,14 +65,14 @@ describe('SocialGraphPage component', function () {
         />
       </Provider>
     );
-    const geographicMap = findRenderedComponentWithType(instance, GeographicMap);
-    findRenderedComponentWithType(geographicMap, MainTabs);
-    findRenderedDOMComponentWithClass(geographicMap, 'back-to-pinboard-link');
+    const geographicMap = wrapper.find(GeographicMap);
+    geographicMap.find(MainTabs).exists().should.be.true();
+    geographicMap.find('.back-to-pinboard-link').exists().should.be.true();
     loadPaginatedDataStub.restore();
   });
 
   it('should not render back to pinboard button if there is no pinboardId', function () {
-    instance = renderIntoDocument(
+    const wrapper = mount(
       <Provider store={ store }>
         <SocialGraphPage
           currentTab={ DATA_VISUALIZATION_TAB_NAMES.SOCIAL_GRAPH }
@@ -91,8 +80,8 @@ describe('SocialGraphPage component', function () {
         />
       </Provider>
     );
-    const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
-    findRenderedComponentWithType(networkGraph, MainTabs);
-    scryRenderedDOMComponentsWithClass(networkGraph, 'back-to-pinboard-link').should.have.length(0);
+    const networkGraph = wrapper.find(NetworkGraph);
+    networkGraph.find(MainTabs).exists().should.be.true();
+    networkGraph.find('.back-to-pinboard-link').exists().should.be.false();
   });
 });

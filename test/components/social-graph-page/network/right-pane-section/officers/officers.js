@@ -1,11 +1,6 @@
 import React from 'react';
-import {
-  findRenderedComponentWithType,
-  renderIntoDocument,
-  scryRenderedComponentsWithType,
-} from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
-import { unmountComponentSuppressError } from 'utils/test';
 import Officers, { OfficersWithSpinner } from 'components/social-graph-page/network/right-pane-section/officers';
 import OfficerRow from 'components/social-graph-page/network/right-pane-section/officers/officer-row';
 import LoadingSpinner from 'components/common/loading-spinner';
@@ -13,7 +8,6 @@ import styles from 'components/social-graph-page/network/right-pane-section/offi
 
 
 describe('Officers component', function () {
-  let instance;
 
   const officers = [
     {
@@ -48,35 +42,31 @@ describe('Officers component', function () {
     },
   ];
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render officer row(s) correctly', function () {
-    instance = renderIntoDocument(<Officers officers={ officers }/>);
-    const officerRows = scryRenderedComponentsWithType(instance, OfficerRow);
+    const wrapper = shallow(<Officers officers={ officers }/>);
+    const officerRows = wrapper.find(OfficerRow);
     officerRows.should.have.length(2);
   });
 
   context('withLoadingSpinner', function () {
     it('should render LoadingSpinner only if requesting is true', function () {
-      instance = renderIntoDocument(
+      const wrapper = shallow(
         <OfficersWithSpinner officers={ officers } requesting={ true } />
       );
 
-      scryRenderedComponentsWithType(instance, Officers).should.have.length(0);
+      wrapper.find(Officers).exists().should.be.false();
 
-      const loadingSpinner = findRenderedComponentWithType(instance, LoadingSpinner);
-      loadingSpinner.props.className.should.equal(styles.officersLoading);
+      const loadingSpinner = wrapper.find(LoadingSpinner);
+      loadingSpinner.prop('className').should.equal(styles.officersLoading);
     });
 
     it('should not render LoadingSpinner only if requesting is false', function () {
-      instance = renderIntoDocument(
+      const wrapper = shallow(
         <OfficersWithSpinner officers={ officers } requesting={ false } />
       );
 
-      scryRenderedComponentsWithType(instance, Officers).should.have.length(1);
-      scryRenderedComponentsWithType(instance, LoadingSpinner).should.have.length(0);
+      wrapper.find(Officers).exists().should.be.true();
+      wrapper.find(LoadingSpinner).exists().should.be.false();
     });
   });
 });

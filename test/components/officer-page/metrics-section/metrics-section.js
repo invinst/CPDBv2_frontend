@@ -1,33 +1,18 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  scryRenderedComponentsWithType,
-  findRenderedDOMComponentWithClass,
-} from 'react-addons-test-utils';
+import { mount } from 'enzyme';
 
 import MetricsSection from 'components/officer-page/metrics-section';
 import MetricPane from 'components/officer-page/metrics-section/metric-pane';
 import MetricsColumn from 'components/officer-page/metrics-section/metrics-column';
-import { unmountComponentSuppressError } from 'utils/test';
 
 
 const checkMetricPaneDataInfo = (metricPane, value, name, description) => {
-  const _value = findRenderedDOMComponentWithClass(metricPane, 'metrics-pane-value');
-  const _name = findRenderedDOMComponentWithClass(metricPane, 'metrics-pane-name');
-  const _description = findRenderedDOMComponentWithClass(metricPane, 'metrics-pane-description');
-
-  _value.textContent.should.eql(value);
-  _name.textContent.should.eql(name);
-  _description.textContent.should.eql(description);
+  metricPane.find('.metrics-pane-value').text().should.equal(value);
+  metricPane.find('.metrics-pane-name').text().should.equal(name);
+  metricPane.find('.metrics-pane-description').text().should.equal(description);
 };
 
 describe('MetricsSection', function () {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
   it('should render with correct information', function () {
     const metrics = {
       allegationCount: 90,
@@ -41,18 +26,18 @@ describe('MetricsSection', function () {
       useOfForcePercentile: 6.000,
       civilianComplimentCount: 0,
     };
-    instance = renderIntoDocument(<MetricsSection metrics={ metrics }/>);
+    const wrapper = mount(<MetricsSection metrics={ metrics }/>);
 
-    scryRenderedComponentsWithType(instance, MetricsColumn).should.have.length(3);
-    scryRenderedComponentsWithType(instance, MetricPane).should.have.length(6);
+    wrapper.find(MetricsColumn).should.have.length(3);
+    wrapper.find(MetricPane).should.have.length(6);
 
-    const metricsPanes = scryRenderedComponentsWithType(instance, MetricPane);
-    checkMetricPaneDataInfo(metricsPanes[0], '90', 'Allegations', 'More than 99.9% of other officers');
-    checkMetricPaneDataInfo(metricsPanes[1], '4', 'Sustained', '0 Disciplined');
-    checkMetricPaneDataInfo(metricsPanes[2], '4', 'Use of Force Reports', 'More than 6% of other officers');
-    checkMetricPaneDataInfo(metricsPanes[3], '0', 'Civilian Compliments', '');
-    checkMetricPaneDataInfo(metricsPanes[4], '5', 'Major Awards', '');
-    checkMetricPaneDataInfo(metricsPanes[5], '1', 'Honorable Mention', 'More than 3% of other officers');
+    const metricsPanes = wrapper.find(MetricPane);
+    checkMetricPaneDataInfo(metricsPanes.at(0), '90', 'Allegations', 'More than 99.9% of other officers');
+    checkMetricPaneDataInfo(metricsPanes.at(1), '4', 'Sustained', '0 Disciplined');
+    checkMetricPaneDataInfo(metricsPanes.at(2), '4', 'Use of Force Reports', 'More than 6% of other officers');
+    checkMetricPaneDataInfo(metricsPanes.at(3), '0', 'Civilian Compliments', '');
+    checkMetricPaneDataInfo(metricsPanes.at(4), '5', 'Major Awards', '');
+    checkMetricPaneDataInfo(metricsPanes.at(5), '1', 'Honorable Mention', 'More than 3% of other officers');
   });
 
   it('should not show More than N/A% officers when there is no percentile calculated', function () {
@@ -68,14 +53,14 @@ describe('MetricsSection', function () {
       useOfForcePercentile: 'N/A',
       civilianComplimentCount: 0,
     };
-    instance = renderIntoDocument(<MetricsSection metrics={ metrics } />);
-    const metricsPanes = scryRenderedComponentsWithType(instance, MetricPane);
-    checkMetricPaneDataInfo(metricsPanes[0], '90', 'Allegations', '');
-    checkMetricPaneDataInfo(metricsPanes[1], '4', 'Sustained', '0 Disciplined');
-    checkMetricPaneDataInfo(metricsPanes[2], '4', 'Use of Force Reports', '');
-    checkMetricPaneDataInfo(metricsPanes[3], '0', 'Civilian Compliments', '');
-    checkMetricPaneDataInfo(metricsPanes[4], '5', 'Major Awards', '');
-    checkMetricPaneDataInfo(metricsPanes[5], '1', 'Honorable Mention', '');
+    const wrapper = mount(<MetricsSection metrics={ metrics } />);
+    const metricsPanes = wrapper.find(MetricPane);
+    checkMetricPaneDataInfo(metricsPanes.at(0), '90', 'Allegations', '');
+    checkMetricPaneDataInfo(metricsPanes.at(1), '4', 'Sustained', '0 Disciplined');
+    checkMetricPaneDataInfo(metricsPanes.at(2), '4', 'Use of Force Reports', '');
+    checkMetricPaneDataInfo(metricsPanes.at(3), '0', 'Civilian Compliments', '');
+    checkMetricPaneDataInfo(metricsPanes.at(4), '5', 'Major Awards', '');
+    checkMetricPaneDataInfo(metricsPanes.at(5), '1', 'Honorable Mention', '');
   });
 
   it('should not show More than 0% of other officers for Honorable Mention', function () {
@@ -91,8 +76,8 @@ describe('MetricsSection', function () {
       useOfForcePercentile: 'N/A',
       civilianComplimentCount: 0,
     };
-    instance = renderIntoDocument(<MetricsSection metrics={ metrics } />);
-    const metricsPanes = scryRenderedComponentsWithType(instance, MetricPane);
-    checkMetricPaneDataInfo(metricsPanes[5], '1', 'Honorable Mention', '');
+    const wrapper = mount(<MetricsSection metrics={ metrics } />);
+    const metricsPanes = wrapper.find(MetricPane);
+    checkMetricPaneDataInfo(metricsPanes.at(5), '1', 'Honorable Mention', '');
   });
 });

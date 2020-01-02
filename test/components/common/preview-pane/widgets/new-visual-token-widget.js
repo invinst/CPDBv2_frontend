@@ -1,22 +1,15 @@
 import React from 'react';
-import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
 import { NewVisualTokenWidget as VisualTokenWidget } from 'components/common/preview-pane/widgets';
 import StaticRadarChart from 'components/common/radar-chart';
-import { unmountComponentSuppressError } from 'utils/test';
 
 
-describe('NewVisualTokenWidget component', () => {
-  let instance;
-
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
-  it('should contain StaticRadarChart component', () => {
-    instance = renderIntoDocument(
+describe('NewVisualTokenWidget component', function () {
+  it('should contain StaticRadarChart component', function () {
+    const wrapper = shallow(
       <VisualTokenWidget/>
     );
-    findRenderedComponentWithType(instance, StaticRadarChart);
+    wrapper.find(StaticRadarChart).exists().should.be.true();
   });
 });

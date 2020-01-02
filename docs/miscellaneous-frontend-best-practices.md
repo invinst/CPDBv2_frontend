@@ -16,8 +16,6 @@
 
 - Some components need required props in order to work. To test such component with `should.renderable()` (which doesn't pass down any prop), use `defaultProps`. See example in [here](../src/js/components/common/outbound-link.js).
 
-- Sometime you need to update a component's prop during test. In such case, use `ReactDOM.render` to render the same component with different props. Don't use `ReactTestUtils.renderIntoDocument`, instead use `reRender` from `utils/test` module as the former will just render your component into another root element, while the latter will reRender with the same root element. See example [here](../test/components/animation/fade-transition.js).
-
 ## Style
 
 - Wrap your markup in () before returning it and start markup on a separate line, make it easier to read. e.g.
