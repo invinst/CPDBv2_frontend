@@ -79,7 +79,8 @@ describe('OfficerPage component', function () {
           useOfForceCount: 10,
         } }
         numAttachments={ 3 }
-      />
+      />,
+      { disableLifecycleMethods: true },
     ).dive();
 
     const documentMeta = wrapper.find(DocumentMeta);
@@ -100,7 +101,8 @@ describe('OfficerPage component', function () {
           useOfForceCount: 10,
         } }
         numAttachments={ 3 }
-      />
+      />,
+      { disableLifecycleMethods: true },
     ).dive();
 
     const shareableHeader = wrapper.find(ShareableHeaderContainer);
@@ -120,7 +122,8 @@ describe('OfficerPage component', function () {
             useOfForceCount: 0,
           } }
           numAttachments={ 3 }
-        />
+        />,
+        { disableLifecycleMethods: true },
       ).dive();
 
       const documentMeta = wrapper.find(DocumentMeta);
@@ -143,7 +146,8 @@ describe('OfficerPage component', function () {
             useOfForceCount: 0,
           } }
           numAttachments={ 3 }
-        />
+        />,
+        { disableLifecycleMethods: true },
       ).dive();
 
       const documentMeta = wrapper.find(DocumentMeta);
@@ -157,7 +161,8 @@ describe('OfficerPage component', function () {
 
   it('should handle N/A rank', function () {
     const wrapper = shallow(
-      <OfficerPage officerName='Jerome Finigan' officerSummary={ { rank: 'N/A' } }/>
+      <OfficerPage officerName='Jerome Finigan' officerSummary={ { rank: 'N/A' } }/>,
+      { disableLifecycleMethods: true },
     ).dive();
 
     const documentMeta = wrapper.find(DocumentMeta);
@@ -169,7 +174,8 @@ describe('OfficerPage component', function () {
       <OfficerPage
         officerName='Shaun Frank'
         officerSummary={ { rank: 'Officer' } }
-      />
+      />,
+      { disableLifecycleMethods: true },
     ).dive();
 
     wrapper.setProps({

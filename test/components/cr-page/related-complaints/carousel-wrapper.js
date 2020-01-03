@@ -34,10 +34,7 @@ describe('CarouselWrapper component', function () {
   });
 
   it('should call fetchRelatedComplaints when receive new props', function () {
-    const wrapper = shallow(
-      <CarouselWrapper/>,
-      { disableLifecycleMethods: false }
-    );
+    const wrapper = shallow(<CarouselWrapper/>);
 
     wrapper.setProps({
       crid: crid,

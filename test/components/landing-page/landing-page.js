@@ -224,8 +224,7 @@ describe('LandingPage component', function () {
         location={ { pathname: '/' } }
         params={ {} }
         routes={ [{ breadcrumb: 'cpdp', breadcrumbKey: '/' }] }
-      />,
-      { disableLifecycleMethods: false },
+      />
     );
     let landingPageContent = wrapper.find(`.${styles.landingPage}`);
     let searchPage = wrapper.find(SearchPageContainer);
@@ -282,7 +281,8 @@ describe('LandingPage component', function () {
           { breadcrumb: 'cpdp', breadcrumbKey: '/' },
           { breadcrumb: 'Search', breadcrumbKey: 'search/' },
         ] }
-      />
+      />,
+      { disableLifecycleMethods: true },
     );
     wrapper.instance().componentDidMount();
 
@@ -332,7 +332,8 @@ describe('LandingPage component', function () {
         routes={ [
           { breadcrumb: 'cpdp', breadcrumbKey: '/' },
         ] }
-      />
+      />,
+      { disableLifecycleMethods: true },
     );
     wrapper.instance().componentDidMount();
 
@@ -415,7 +416,8 @@ describe('LandingPage component', function () {
         routes={ [
           { breadcrumb: 'cpdp', breadcrumbKey: '/' },
         ] }
-      />
+      />,
+      { disableLifecycleMethods: true },
     );
     wrapper.instance().componentDidMount();
 

@@ -451,7 +451,8 @@ describe('SocialGraph', function () {
         officers={ officers }
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
-      />
+      />,
+      { disableLifecycleMethods: true },
     );
     const instance = wrapper.instance();
     instance.graphTooltip({ fname: 'Donnell Calhoun' }).should.equal('<span>Donnell Calhoun</span>');
@@ -489,7 +490,8 @@ describe('SocialGraph', function () {
         officers={ officers }
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
-      />
+      />,
+      { disableLifecycleMethods: true },
     );
     const instance = wrapper.instance();
 
@@ -750,7 +752,8 @@ describe('SocialGraph', function () {
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
         updateSelectedEdge={ updateSelectedEdgeStub }
-      />
+      />,
+      { disableLifecycleMethods: true },
     );
     const instance = wrapper.instance();
     instance.handleEdgeClick(currentEdge);

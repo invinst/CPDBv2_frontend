@@ -95,8 +95,7 @@ describe('DownloadMenu component', function () {
         kind='without_docs'
         zipFileUrl=''
         fetchOfficerZipFileUrl={ fetchOfficerZipFileUrlStub }
-      />,
-      { disableLifecycleMethods: false },
+      />
     );
 
     wrapper.simulate('click');
@@ -127,8 +126,7 @@ describe('DownloadMenu component', function () {
         kind='without_docs'
         zipFileUrl=''
         fetchOfficerZipFileUrl={ fetchOfficerZipFileUrlStub }
-      />,
-      { disableLifecycleMethods: false },
+      />
     );
 
     wrapper.simulate('click');

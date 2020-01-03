@@ -24,8 +24,7 @@ describe('CommunityDetail component', function () {
 
   it('should render previous community if received community is empty', function () {
     const wrapper = shallow(
-      <CommunityDetail community={ communityFactory.build({ name: 'Hyde Park' }) }/>,
-      { disableLifecycleMethods: false },
+      <CommunityDetail community={ communityFactory.build({ name: 'Hyde Park' }) }/>
     );
     const instance = wrapper.instance();
     wrapper.text().should.containEql('Hyde Park');
@@ -41,8 +40,7 @@ describe('CommunityDetail component', function () {
 
   it('should render latest community if received community is empty', function () {
     const wrapper = shallow(
-      <CommunityDetail community={ communityFactory.build({ name: 'Hyde Park' }) }/>,
-      { disableLifecycleMethods: false },
+      <CommunityDetail community={ communityFactory.build({ name: 'Hyde Park' }) }/>
     );
     wrapper.text().should.containEql('Hyde Park');
 

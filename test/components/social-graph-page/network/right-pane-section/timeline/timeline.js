@@ -33,7 +33,8 @@ describe('Timeline component', function () {
       <Timeline
         items={ items }
         pathname='/social-graph/'
-      />
+      />,
+      { disableLifecycleMethods: true },
     );
     const timelineItems = wrapper.find(Item);
     timelineItems.should.have.length(2);
@@ -134,7 +135,8 @@ describe('Timeline component', function () {
         pathname='/social-graph/'
         timelineIdxTriggerChange={ 0 }
         timelineIdx={ 3 }
-      />
+      />,
+      { disableLifecycleMethods: true },
     );
     wrapper.instance().externalUpdate.should.be.true();
     wrapper.instance().handleScroll(item);
