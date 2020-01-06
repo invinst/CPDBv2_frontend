@@ -7,7 +7,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import cx from 'classnames';
 
 import config from 'config';
-import { getMockAdapter } from 'mock-api';
 import EditModeProvider from 'components/edit-mode-provider';
 import LoginModalContainer from 'containers/login-modal-container';
 import GenericModalContainer from 'containers/generic-modal-container';
@@ -22,10 +21,6 @@ toast.configure();
 
 
 export default class App extends React.Component {
-  getChildContext() {
-    return { adapter: getMockAdapter() };
-  }
-
   componentDidMount() {
     const { receiveTokenFromCookie } = this.props;
 
@@ -75,10 +70,6 @@ export default class App extends React.Component {
     );
   }
 }
-
-App.childContextTypes = {
-  adapter: PropTypes.func,
-};
 
 App.propTypes = {
   children: PropTypes.node,

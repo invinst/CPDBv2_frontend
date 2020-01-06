@@ -6,11 +6,12 @@ import cx from 'classnames';
 import Attachments from './attachments';
 import baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/showings/base-item.sass';
 import styles from './cr.sass';
+import { PrintModeContext } from 'contexts';
 
 
-export default function Cr(props, context) {
+export default function Cr(props) {
   const { item, changeOfficerTab, pathname, onTrackingAttachment } = props;
-  const { printMode } = context;
+  const { printMode } = React.useContext(PrintModeContext);
 
   return (
     <Link

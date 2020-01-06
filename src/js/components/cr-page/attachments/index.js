@@ -7,9 +7,10 @@ import PrintAttachments from './print-attachments';
 import NoAttachmentHeader from './headers/no-attachment-header';
 import AttachmentItem from './attachment-item';
 import styles from './attachments.sass';
+import { PrintModeContext } from 'contexts';
 
 
-export default function Attachments(props, context) {
+export default function Attachments(props) {
   const {
     items,
     openRequestDocumentModal,
@@ -19,7 +20,7 @@ export default function Attachments(props, context) {
     onTrackingAttachment,
   } = props;
 
-  const { printMode } = context;
+  const { printMode } = React.useContext(PrintModeContext);
 
   const hasData = items.length > 0;
 
@@ -74,8 +75,4 @@ Attachments.propTypes = {
   pathname: PropTypes.string,
   noAttachmentTextEditWrapperStateProps: PropTypes.object,
   onTrackingAttachment: PropTypes.func,
-};
-
-Attachments.contextTypes = {
-  printMode: PropTypes.bool,
 };

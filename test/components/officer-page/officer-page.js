@@ -81,7 +81,7 @@ describe('OfficerPage component', function () {
         numAttachments={ 3 }
       />,
       { disableLifecycleMethods: true },
-    ).dive();
+    ).dive().dive();
 
     wrapper.find('title').text().should.equal('Officer Shaun Frank');
     wrapper.find('meta[name="description"]').prop('content').should.equal(
@@ -102,7 +102,7 @@ describe('OfficerPage component', function () {
         numAttachments={ 3 }
       />,
       { disableLifecycleMethods: true },
-    ).dive();
+    ).dive().dive();
 
     const shareableHeader = wrapper.find(ShareableHeaderContainer);
     shareableHeader.prop('buttonType').should.equal('menu');
@@ -123,7 +123,7 @@ describe('OfficerPage component', function () {
           numAttachments={ 3 }
         />,
         { disableLifecycleMethods: true },
-      ).dive();
+      ).dive().dive();
 
       wrapper.find('title').text().should.equal('Officer Shaun Frank');
       wrapper.find('meta[name="description"]').prop('content').should.equal(
@@ -146,7 +146,7 @@ describe('OfficerPage component', function () {
           numAttachments={ 3 }
         />,
         { disableLifecycleMethods: true },
-      ).dive();
+      ).dive().dive();
 
       wrapper.find('title').text().should.equal('Officer Shaun Frank');
       wrapper.find('meta[name="description"]').prop('content').should.equal(
@@ -160,7 +160,7 @@ describe('OfficerPage component', function () {
     const wrapper = shallow(
       <OfficerPage officerName='Jerome Finigan' officerSummary={ { rank: 'N/A' } }/>,
       { disableLifecycleMethods: true },
-    ).dive();
+    ).dive().dive();
 
     wrapper.find('title').text().should.equal('Jerome Finigan');
   });
@@ -172,7 +172,7 @@ describe('OfficerPage component', function () {
         officerSummary={ { rank: 'Officer' } }
       />,
       { disableLifecycleMethods: true },
-    ).dive();
+    ).dive().dive();
 
     wrapper.setProps({
       officerName: 'Shaun Frank',
@@ -185,15 +185,19 @@ describe('OfficerPage component', function () {
   });
 
   it('should render PrintNotes component when printMode is true', function () {
-    const wrapper = shallow(
+    const wrapper = mount(
       <OfficerPage
         officerName='Shaun Frank'
         officerSummary={ { rank: 'Officer' } }
-      />
+      />,
+      {
+        wrappingComponent: Provider,
+        wrappingComponentProps: { store },
+      },
     );
     wrapper.setState({ printMode: true });
-    wrapper.instance().getChildContext().should.eql({ printMode: true });
-    wrapper.find('OfficerPage').dive({ context: { printMode: true } }).find(PrintNotes).should.have.length(2);
+
+    wrapper.find(PrintNotes).should.have.length(2);
   });
 
   it('should call trackOfficerDownloadMenu when clicking on HeaderButton', function () {

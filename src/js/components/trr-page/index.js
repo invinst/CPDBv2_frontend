@@ -11,15 +11,16 @@ import responsiveContainerStyles from 'components/common/responsive-container.sa
 import Printable from 'components/common/higher-order/printable';
 import PrintNotes from 'components/common/print-notes';
 import PrintPreloadFonts from 'components/common/print-preload-fonts';
+import { PrintModeContext } from 'contexts';
 
 
-export function TRRPage(props, context) {
+export function TRRPage(props) {
   const {
     trrId, officer, trrLocation, trrDetail, trrDocument,
     openRequestTRRDocumentModal, popup, pathName, notes,
     noAttachmentTextEditWrapperStateProps,
   } = props;
-  const { printMode } = context;
+  const { printMode } = React.useContext(PrintModeContext);
 
   return (
     <React.Fragment>

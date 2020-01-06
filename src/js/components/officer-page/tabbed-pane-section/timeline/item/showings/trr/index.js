@@ -5,11 +5,12 @@ import cx from 'classnames';
 
 import baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/showings/base-item.sass';
 import styles from './trr.sass';
+import { PrintModeContext } from 'contexts';
 
 
-export default function Trr(props, context) {
+export default function Trr(props) {
   const { item } = props;
-  const { printMode } = context;
+  const { printMode } = React.useContext(PrintModeContext);
 
   return (
     <Link className={ cx(baseStyles.baseItem, styles.trr) } to={ `/trr/${item.trrId}/` }>

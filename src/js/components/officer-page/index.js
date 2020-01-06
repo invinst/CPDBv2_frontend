@@ -17,9 +17,10 @@ import PrintPreloadFonts from 'components/common/print-preload-fonts';
 import DownloadMenuContainer from 'containers/headers/shareable-header/download-menu-container';
 import FooterContainer from 'containers/footer-container';
 import * as tracking from 'utils/tracking';
+import { PrintModeContext } from 'contexts';
 
 
-function OfficerPage(props, context) {
+function OfficerPage(props) {
   const {
     officerId,
     officerSummary,
@@ -41,7 +42,7 @@ function OfficerPage(props, context) {
     infoNotes,
     timelineNotes,
   } = props;
-  const { printMode } = context;
+  const { printMode } = React.useContext(PrintModeContext);
 
   const pageTitle = compact([
     officerSummary.rank === 'N/A' ? '' : officerSummary.rank,
@@ -138,10 +139,6 @@ OfficerPage.defaultProps = {
     useOfForceCount: 0,
   },
   numAttachments: 0,
-};
-
-OfficerPage.contextTypes = {
-  printMode: PropTypes.bool,
 };
 
 export default Printable(OfficerPage);
