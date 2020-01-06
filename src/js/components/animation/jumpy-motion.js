@@ -1,7 +1,14 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Motion, spring, presets } from 'react-motion';
+import { Transition, SwitchTransition } from 'react-transition-group';
+import { QUICK_ANIMATION_DURATION } from 'utils/constants';
 
+
+const jumpyMotionStyles = (translateY) => ({
+  entering: { transform: `translateY(${translateY}px)` },
+  entered: { transform: 'translateY(0)', transition: `transform ${ QUICK_ANIMATION_DURATION }ms ease-in-out` },
+  exiting: { transform: `translateY(${translateY}px)` },
+});
 
 export default class JumpyMotion extends Component {
   constructor(props) {
@@ -14,8 +21,11 @@ export default class JumpyMotion extends Component {
 
   static getDerivedStateFromProps(props, state) {
     const { isActive } = props;
-    if (!state.prevIsActive && isActive) {
-      return { startMotion: true, prevIsActive: isActive };
+    if (isActive !== state.prevIsActive) {
+      if (isActive) {
+        return { startMotion: true, prevIsActive: isActive };
+      }
+      return { prevIsActive: isActive };
     }
     return null;
   }
@@ -34,25 +44,22 @@ export default class JumpyMotion extends Component {
   render() {
     const { startMotion } = this.state;
     const { children, translateY } = this.props;
+    const transitionStyles = jumpyMotionStyles(translateY);
     return (
-      <Motion
-        key='text-container'
-        defaultStyle={ { translateY: 0 } }
-        style={ {
-          // "enter" transition effect: slide up from 15px under
-          translateY: startMotion ? translateY : spring(0, presets.stiff),
-        } }
-      >
-        {
-          (style) => (
-            <div style={ {
-              transform: `translateY(${style.translateY}px)`,
-            } }>
-              { children }
-            </div>
-          )
-        }
-      </Motion>
+      <SwitchTransition mode='out-in'>
+        <Transition
+          key={ startMotion ? 'transition-out' : 'transition-in' }
+          in={ true }
+          timeout={ 10 }>
+          {
+            state => (
+              <div style={ transitionStyles[state] }>
+                { children }
+              </div>
+            )
+          }
+        </Transition>
+      </SwitchTransition>
     );
   }
 }

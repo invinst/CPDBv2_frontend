@@ -887,3 +887,7 @@ export const PINNED_ITEM_TYPES = {
 };
 
 export const HEADER_TOP_BAR_HEIGHT = 80;
+
+export const QUICK_ANIMATION_DURATION = 200;
+export const MEDIUM_ANIMATION_DURATION = 300;
+export const ANIMATION_DURATION = 500;

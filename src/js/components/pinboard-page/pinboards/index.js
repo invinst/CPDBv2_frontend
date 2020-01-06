@@ -32,7 +32,7 @@ class Pinboards extends Component {
     const { pinboards, isShown, duplicatePinboard, handleClose } = this.props;
 
     return (
-      <SlideMotion show={ isShown } offsetX={ 100 }>
+      <SlideMotion show={ isShown }>
         <div className={ styles.pinboards }>
           <div className='pinboards-title'>
             Pinboards

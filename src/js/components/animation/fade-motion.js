@@ -1,42 +1,36 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Motion, spring } from 'react-motion';
+import { CSSTransition } from 'react-transition-group';
 
-import { defaultConfig } from 'utils/spring-presets';
+import { ANIMATION_DURATION } from 'utils/constants';
+import styles from './fade-motion.sass';
 
+
+const FADE_MOTION_CLASS_NAMES = {
+  enter: styles.fadeMotionEnter,
+  enterActive: styles.fadeMotionEnterActive,
+  exit: styles.fadeMotionExit,
+  exitActive: styles.fadeMotionExitActive,
+};
 
 export default function FadeMotion(props) {
-  const { show, children, maxOpacity } = props;
-  const defaultStyle = { opacity: show ? maxOpacity : 0 };
-  const motionStyle = {
-    opacity: spring(show ? maxOpacity : 0, defaultConfig()),
-  };
-
+  const { show, children } = props;
   if (global.disableAnimation) {
-    return show ? children(maxOpacity) : null;
+    return show ? children() : null;
   }
 
   return (
-    <Motion
-      defaultStyle={ defaultStyle }
-      style={ motionStyle }>
-      { ({ opacity }) => {
-        if (opacity === 0 && !show) {
-          return null;
-        }
-
-        return children(opacity);
-      } }
-    </Motion>
+    <CSSTransition
+      in={ show }
+      unmountOnExit={ true }
+      timeout={ ANIMATION_DURATION }
+      classNames={ FADE_MOTION_CLASS_NAMES }>
+      { children() }
+    </CSSTransition>
   );
 }
 
 FadeMotion.propTypes = {
-  maxOpacity: PropTypes.number,
   children: PropTypes.func,
   show: PropTypes.bool,
-};
-
-FadeMotion.defaultProps = {
-  maxOpacity: 1,
 };

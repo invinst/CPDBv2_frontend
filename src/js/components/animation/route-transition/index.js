@@ -1,11 +1,17 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Motion, spring } from 'react-motion';
 import { find, difference, isEmpty } from 'lodash';
+import { CSSTransition } from 'react-transition-group';
 
-import { defaultConfig } from 'utils/spring-presets';
+import { ANIMATION_DURATION } from 'utils/constants';
 import { scrollToTop } from 'utils/dom';
-import { overlayStyle } from './route-transition.style';
+import styles from './route-transition.sass';
+
+
+const ROUTE_TRANSITION_CLASS_NAMES = {
+  enter: styles.routeTransitionEnter,
+  enterActive: styles.routeTransitionEnterActive,
+};
 
 export default class RouteTransition extends Component {
   /**
@@ -106,13 +112,13 @@ export default class RouteTransition extends Component {
 
     return (
       <div>
-        <Motion
-          defaultStyle={ { opacity: showOverlay ? 1 : 0 } }
-          style={ { opacity: spring(showOverlay ? 1 : 0, defaultConfig()) } }>
-          {
-            ({ opacity }) => (opacity === 0) ? null : <div style={ { ...overlayStyle, opacity } } />
-          }
-        </Motion>
+        <CSSTransition
+          in={ showOverlay }
+          unmountOnExit={ true }
+          timeout={ ANIMATION_DURATION }
+          classNames={ ROUTE_TRANSITION_CLASS_NAMES }>
+          <div className={ styles.overlayStyle } />
+        </CSSTransition>
         {
           contents.map(content => (
             <div key={ content.key } style={ { opacity: content.opacity } }>

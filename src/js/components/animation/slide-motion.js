@@ -1,35 +1,40 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Motion, spring } from 'react-motion';
+import { CSSTransition } from 'react-transition-group';
+import { MEDIUM_ANIMATION_DURATION } from 'utils/constants';
+import styles from './slide-motion.sass';
 
+
+const SLIDE_TRANSITION_CLASS_NAMES = {
+  enter: styles.slideTransitionEnter,
+  enterActive: styles.slideTransitionEnterActive,
+  exit: styles.slideTransitionExit,
+  exitActive: styles.slideTransitionExitActive,
+};
 
 export default function SlideMotion(props) {
-  const { show, children, offsetX } = props;
-
+  const { show, children } = props;
   if (global.disableAnimation) {
     return show ? children : null;
   }
-
   return (
-    <Motion defaultStyle={ { translateX: show ? 0 : offsetX } }
-      style={ { translateX: spring(show ? 0 : offsetX) } }>
-      { ({ translateX }) => {
-        if (translateX === offsetX && !show) {
-          return null;
-        }
-
-        return React.cloneElement(
+    <CSSTransition
+      in={ show }
+      unmountOnExit={ true }
+      timeout={ MEDIUM_ANIMATION_DURATION }
+      classNames={ SLIDE_TRANSITION_CLASS_NAMES }>
+      {
+        React.cloneElement(
           children, {
-            style: { ...children.props.style, transform: `translateX(${translateX}%)` },
+            style: { ...children.props.style },
           }
-        );
-      } }
-    </Motion>
+        )
+      }
+    </CSSTransition>
   );
 }
 
 SlideMotion.propTypes = {
   children: PropTypes.node,
   show: PropTypes.bool,
-  offsetX: PropTypes.number,
 };

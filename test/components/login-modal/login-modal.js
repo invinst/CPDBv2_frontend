@@ -98,17 +98,13 @@ describe('LoginModal component', function () {
   });
 
   it('should show login error message', function () {
-    const wrapper = shallow(
-      <LoginModal showLoginModal={ true } loginErrorMessage='abc'/>
-    ).dive().dive();
-    wrapper.text().should.match(/abc/);
+    const wrapper = shallow(<LoginModal showLoginModal={ true } loginErrorMessage='abc'/>);
+    wrapper.html().should.match(/abc/);
   });
 
   it('should show login success message', function () {
-    const wrapper = shallow(
-      <LoginModal showLoginModal={ true } loginSuccessMessage='abc'/>
-    ).dive().dive();
-    wrapper.text().should.match(/abc/);
+    const wrapper = shallow(<LoginModal showLoginModal={ true } loginSuccessMessage='abc'/>);
+    wrapper.html().should.match(/abc/);
   });
 
   it('should show forgot password error message', function () {

@@ -1,0 +1,17 @@
+@import 'variables'
+
+\:local(.route-transition-enter)
+  opacity: 0
+
+\:local(.route-transition-enter-active)
+  opacity: 1
+  transition: opacity $animation-duration ease-in-out
+
+\:local(.overlay-style)
+  position: fixed
+  top: 0
+  left: 0
+  height: 100%
+  width: 100%
+  background-color: $snow-color
+  z-index: 1000

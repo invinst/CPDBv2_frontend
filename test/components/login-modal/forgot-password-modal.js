@@ -65,7 +65,7 @@ describe('ForgotPasswordModal component', function () {
   it('should show forgot password error message', function () {
     const wrapper = shallow(
       <ForgotPasswordModal show={ true } errorMessage='Error message'/>
-    ).dive().dive();
-    wrapper.text().should.containEql('Error message');
+    );
+    wrapper.html().should.containEql('Error message');
   });
 });

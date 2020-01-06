@@ -13,7 +13,7 @@ export default function SearchTermItemPane(props) {
   const { name, description, to, url, callToActionType } = props;
 
   return (
-    <SlideMotion show={ !isEmpty(name) } offsetX={ 100 }>
+    <SlideMotion show={ !isEmpty(name) }>
       <div style={ wrapperStyle }>
         <div className='test--preview-pane-title' style={ titleStyle }>
           { name }

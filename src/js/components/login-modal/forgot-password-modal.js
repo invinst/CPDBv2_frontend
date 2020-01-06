@@ -47,12 +47,12 @@ class ForgotPasswordModal extends Component {
     }
   };
 
-  renderContent = opacity => {
+  renderContent = () => {
     const { errorMessage } = this.props;
     const { disabled } = this.state;
 
     return (
-      <div style={ { ...innerWrapperStyle, opacity: opacity } } className='test--forgot-password-modal'>
+      <div style={ { ...innerWrapperStyle } } className='test--forgot-password-modal'>
         <div style={ headerStyle }>Forgot your password?</div>
         <div style={ subHeaderStyle }>We’ll email you instructions on how to reset it.</div>
         <div className='email-input-wrapper' style={ emailInputWrapperStyle } onClick={ this.focusEmailInput }>

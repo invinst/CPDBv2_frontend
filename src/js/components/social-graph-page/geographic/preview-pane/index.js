@@ -26,7 +26,7 @@ export default class PreviewPane extends Component {
     const { data } = this.props;
 
     return (
-      <SlideMotion show={ !isEmpty(data) } offsetX={ 100 }>
+      <SlideMotion show={ !isEmpty(data) }>
         <div className={ cx(styles.previewPane, 'geographic-preview-link') }>
           {
             this.renderPane()

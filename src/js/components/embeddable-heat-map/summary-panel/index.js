@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Motion, spring } from 'react-motion';
 
-import { defaultConfig } from 'utils/spring-presets';
-import { panelStyle } from './summary-panel.style';
+import { QUICK_ANIMATION_DURATION } from 'utils/constants';
 import CommunityDropdown from './community-dropdown';
 import CitySummary from 'containers/embeddable-heat-map/city-summary-container';
+import styles from './summary-panel.sass';
 
+
+const transitionStyle = (top) => ({ top: `${top}px`, transition: `top ${ QUICK_ANIMATION_DURATION }ms ease-in` });
 
 export default class SummaryPanel extends Component {
   constructor(props) {
@@ -16,11 +17,13 @@ export default class SummaryPanel extends Component {
     };
   }
 
-  renderChildren(top) {
+  render() {
     const { showDropdown } = this.state;
     const { communityId, communities, selectCommunity } = this.props;
+    const topValue = (showDropdown || communityId) ? -480 : 0;
+
     return (
-      <div style={ panelStyle(top) }>
+      <div className={ styles.summaryPanel } style={ transitionStyle(topValue) }>
         <CitySummary isActive={ !(showDropdown || communityId) } onClick={ () => {
           selectCommunity(0);
           this.setState({ showDropdown: false });
@@ -36,22 +39,6 @@ export default class SummaryPanel extends Component {
             this.setState({ showDropdown: false });
           } }/>
       </div>
-    );
-  }
-
-  render() {
-    const { showDropdown } = this.state;
-    const { communityId } = this.props;
-    const topValue = (showDropdown || communityId) ? -480 : 0;
-
-    return (
-      <Motion
-        defaultStyle={ { top: topValue } }
-        style={ { top: spring(topValue, defaultConfig()) } }>
-        {
-          ({ top }) => this.renderChildren(top)
-        }
-      </Motion>
     );
   }
 }

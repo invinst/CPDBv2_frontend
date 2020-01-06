@@ -53,7 +53,7 @@ class LoginModal extends Component {
     }
   };
 
-  renderContent = opacity => {
+  renderContent = () => {
     const {
       loginErrorMessage, onResetPassword, forgotPasswordErrorMessage,
       loginSuccessMessage, showForgotPasswordModal,
@@ -61,7 +61,7 @@ class LoginModal extends Component {
     const { disabled } = this.state;
 
     return (
-      <div style={ { ...outerWrapperStyle, opacity } } className='test--login-modal'>
+      <div style={ { ...outerWrapperStyle } } className='test--login-modal'>
         <div style={ innerWrapperStyle }>
           <div className='name-input-wrapper' style={ nameWrapperStyle } onClick={ this.focusNameInput }>
             <span style={ labelStyle }>Name</span>
