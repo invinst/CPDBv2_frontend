@@ -9,6 +9,8 @@ import ComplaintCategory from 'components/cr-page/complaint-category';
 import ComplaintIncidentDate from 'components/cr-page/complaint-incident-date';
 import RelatedComplaints from 'components/cr-page/related-complaints';
 import PrintNotes from 'components/common/print-notes';
+import { HelmetProvider } from 'react-helmet-async';
+import { PrintModeContext } from 'contexts';
 
 
 describe('CRPage component', function () {
@@ -62,17 +64,19 @@ describe('CRPage component', function () {
     };
     const store = MockStore()(state);
 
-    const wrapper = mount(<CRPage />, {
-      wrappingComponent: Provider,
-      wrappingComponentProps: { store },
-    });
-
-    wrapper.setState({ printMode: false });
-
+    const wrapper = mount(
+      <PrintModeContext.Provider value={ { printMode: true } }>
+        <HelmetProvider>
+          <Provider store={ store }>
+            <CRPage />
+          </Provider>
+        </HelmetProvider>
+      </PrintModeContext.Provider>
+    );
+    wrapper.find(CRPage).setState({ printMode: false });
     wrapper.find(PrintNotes).exists().should.be.false();
 
-    wrapper.setState({ printMode: true });
-
+    wrapper.find(CRPage).setState({ printMode: true });
     wrapper.find(PrintNotes).exists().should.be.true();
   });
 });

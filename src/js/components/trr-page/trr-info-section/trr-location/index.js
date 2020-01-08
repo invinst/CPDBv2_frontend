@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 
 import style from './trr-location.sass';
 import Row from './row';
@@ -9,7 +9,7 @@ import { PrintModeContext } from 'contexts';
 
 function TRRLocation(props) {
   const { address, incidentDate, beat, locationType, point } = props;
-  const { printMode } = React.useContext(PrintModeContext);
+  const { printMode } = useContext(PrintModeContext);
   const infoBlock = (
     <div className='info-block'>
       <h3 className={ 'info-block-title no-print' }>

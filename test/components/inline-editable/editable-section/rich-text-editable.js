@@ -1,10 +1,11 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 import Editable from 'components/inline-editable/editable';
 import { RawContentStateFactory } from 'utils/test/factories/draft';
 import { convertContentStateToEditorState } from 'utils/draft';
+import { EditWrapperStateContext } from 'contexts';
 
 
 describe('RichTextEditable component', function () {
@@ -58,8 +59,10 @@ describe('RichTextEditable component', function () {
         },
       },
     };
-    const wrapper = shallow(
-      <RichTextEditable fieldname='navbar_title' />, { context }
+    const wrapper = mount(
+      <EditWrapperStateContext.Provider value={ context }>
+        <RichTextEditable fieldname='navbar_title' />
+      </EditWrapperStateContext.Provider>
     );
 
     const editable = wrapper.find(Editable);

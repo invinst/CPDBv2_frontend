@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import should from 'should';
 import { spy, stub } from 'sinon';
 import { browserHistory } from 'react-router';
@@ -8,6 +8,7 @@ import DocumentRow from 'components/document-deduplicator-page/document-row';
 import Toggle from 'components/document-deduplicator-page/document-row/toggle';
 import Counter from 'components/document-deduplicator-page/document-row/counter';
 import * as tracking from 'utils/tracking';
+import { EditModeContext } from 'contexts';
 
 describe('DocumentDeduplicatorPage DocumentRow component', function () {
   beforeEach(function () {
@@ -76,9 +77,10 @@ describe('DocumentDeduplicatorPage DocumentRow component', function () {
 
   it('should pass correct prop into Toggle', function () {
     const setDocumentShow = spy();
-    const wrapper = shallow(
-      <DocumentRow id={ 1 } show={ true } setDocumentShow={ setDocumentShow }/>,
-      { context: { editModeOn: true } }
+    const wrapper = mount(
+      <EditModeContext.Provider value={ { editModeOn: true } }>
+        <DocumentRow id={ 1 } show={ true } setDocumentShow={ setDocumentShow }/>
+      </EditModeContext.Provider>
     );
 
     const toggle = wrapper.find(Toggle);

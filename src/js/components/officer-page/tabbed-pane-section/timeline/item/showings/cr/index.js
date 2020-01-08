@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router';
 import cx from 'classnames';
 
@@ -11,7 +11,7 @@ import { PrintModeContext } from 'contexts';
 
 export default function Cr(props) {
   const { item, changeOfficerTab, pathname, onTrackingAttachment } = props;
-  const { printMode } = React.useContext(PrintModeContext);
+  const { printMode } = useContext(PrintModeContext);
 
   return (
     <Link
@@ -52,8 +52,4 @@ Cr.propTypes = {
   changeOfficerTab: PropTypes.func,
   pathname: PropTypes.string,
   onTrackingAttachment: PropTypes.func,
-};
-
-Cr.contextTypes = {
-  printMode: PropTypes.bool,
 };

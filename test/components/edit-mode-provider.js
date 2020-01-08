@@ -9,13 +9,13 @@ describe('EditModeProvider component', function () {
     const wrapper = mount(
       <EditModeProvider pathname='edit/abc' />
     );
-    wrapper.instance().getChildContext().editModeOn.should.be.true();
+    wrapper.instance().getEditModeOn().should.be.true();
   });
 
   it('should pass down editModeOn via context from location', function () {
     const wrapper = mount(
       <EditModeProvider location={ { pathname: 'edit/abc' } } />
     );
-    wrapper.instance().getChildContext().editModeOn.should.be.true();
+    wrapper.instance().getEditModeOn().should.be.true();
   });
 });

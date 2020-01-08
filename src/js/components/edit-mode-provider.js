@@ -2,25 +2,29 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 import { editModeOn } from 'utils/edit-path';
+import { EditModeContext } from 'contexts';
 
 
 export default class EditModeProvider extends Component {
-  getChildContext() {
-    return {
-      editModeOn: editModeOn(this.getPathname()),
-    };
-  }
-
   getPathname() {
     const { pathname, location } = this.props;
     return pathname ? pathname : location.pathname;
   }
 
+  getEditModeOn() {
+    return editModeOn(this.getPathname());
+  }
+
   render() {
     const { children, ...rest } = this.props;
+    const editModeOn = this.getEditModeOn();
     delete rest.pathname;
     delete rest.location;
-    return <div { ...rest }>{ children }</div>;
+    return (
+      <EditModeContext.Provider value={ { editModeOn } }>
+        <div { ...rest }>{ children }</div>
+      </EditModeContext.Provider>
+    );
   }
 }
 
@@ -34,8 +38,4 @@ EditModeProvider.defaultProps = {
   location: {
     pathname: '',
   },
-};
-
-EditModeProvider.childContextTypes = {
-  editModeOn: PropTypes.bool,
 };

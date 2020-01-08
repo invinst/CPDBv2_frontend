@@ -1,10 +1,11 @@
-import React from 'react';
-import { shallow } from 'enzyme';
+import React, { Component } from 'react';
+import { shallow, mount } from 'enzyme';
 import { spy, stub } from 'sinon';
 
 import * as draftUtils from 'utils/draft';
 import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
 import { RichTextFieldFactory, StringFieldFactory } from 'utils/test/factories/field';
+import { EditWrapperStateContext } from 'contexts';
 
 
 describe('EditWrapperStateProvider component', function () {
@@ -24,7 +25,15 @@ describe('EditWrapperStateProvider component', function () {
     const stringField = StringFieldFactory.build({ name: 'string_field' });
     const turnOnSectionEditModeSpy = spy();
     const turnOffSectionEditModeSpy = spy();
-    const wrapper = shallow(
+    class ChildrenComponent extends Component { // eslint-disable-line
+      render() {
+        return (
+          <div>abc123</div>
+        );
+      }
+    }
+    ChildrenComponent.contextType = EditWrapperStateContext;
+    const wrapper = mount(
       <EditWrapperStateProvider
         fields={ {
           'navbar_title': navbarTitleField,
@@ -35,11 +44,11 @@ describe('EditWrapperStateProvider component', function () {
         turnOnSectionEditMode={ turnOnSectionEditModeSpy }
         turnOffSectionEditMode={ turnOffSectionEditModeSpy }
       >
-        <div>abc123</div>
+        <ChildrenComponent/>
       </EditWrapperStateProvider>
     );
 
-    const childContext = wrapper.instance().getChildContext();
+    const childContext = wrapper.find(ChildrenComponent).instance().context;
     childContext.should.containEql({
       sectionEditModeOn: true,
       turnOnSectionEditMode: turnOnSectionEditModeSpy,
@@ -69,12 +78,20 @@ describe('EditWrapperStateProvider component', function () {
     const turnOffSectionEditModeSpy = spy();
     const onSaveFormStub = stub().returns(new Promise(resolve => resolve()));
     const stringField = StringFieldFactory.build({ name: 'string_field' });
-    const wrapper = shallow(
+    class ChildrenComponent extends Component { // eslint-disable-line
+      render() {
+        return (
+          <div>abc123</div>
+        );
+      }
+    }
+    ChildrenComponent.contextType = EditWrapperStateContext;
+    const wrapper = mount(
       <EditWrapperStateProvider
         onSaveForm={ onSaveFormStub }
         turnOffSectionEditMode={ turnOffSectionEditModeSpy }
       >
-        <div>abc123</div>
+        <ChildrenComponent/>
       </EditWrapperStateProvider>
     );
     wrapper.setState({
@@ -88,7 +105,8 @@ describe('EditWrapperStateProvider component', function () {
       },
     });
 
-    const savePromise = wrapper.instance().getChildContext().onSaveForm().should.be.fulfilled();
+    const childContext = wrapper.find(ChildrenComponent).instance().context;
+    const savePromise = childContext.onSaveForm().should.be.fulfilled();
     return savePromise.then(() => {
       onSaveFormStub.calledWith({
         fields: [
@@ -108,9 +126,17 @@ describe('EditWrapperStateProvider component', function () {
   });
 
   it('should update field value when call onChange', function () {
-    const wrapper = shallow(
+    class ChildrenComponent extends Component { // eslint-disable-line
+      render() {
+        return (
+          <div>abc123</div>
+        );
+      }
+    }
+    ChildrenComponent.contextType = EditWrapperStateContext;
+    const wrapper = mount(
       <EditWrapperStateProvider>
-        <div>abc123</div>
+        <ChildrenComponent/>
       </EditWrapperStateProvider>
     );
     wrapper.setState({
@@ -119,7 +145,8 @@ describe('EditWrapperStateProvider component', function () {
       },
     });
 
-    wrapper.instance().getChildContext().fieldContexts['navbar_title'].onChange('changed value');
+    const childContext = wrapper.find(ChildrenComponent).instance().context;
+    childContext.fieldContexts['navbar_title'].onChange('changed value');
     wrapper.state('fields')['navbar_title'].value.should.equal('changed value');
   });
 

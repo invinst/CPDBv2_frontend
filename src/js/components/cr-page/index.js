@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { get, isEmpty } from 'lodash';
 import cx from 'classnames';
@@ -33,7 +33,7 @@ function CRPage(props) {
     noAttachmentTextEditWrapperStateProps, onTrackingAttachment, addOrRemoveItemInPinboard,
   } = props;
 
-  const { printMode } = React.useContext(PrintModeContext);
+  const { printMode } = useContext(PrintModeContext);
   const involvementItem = <Involvement involvements={ involvements }/>;
 
   return (

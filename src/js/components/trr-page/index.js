@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
@@ -20,7 +20,7 @@ export function TRRPage(props) {
     openRequestTRRDocumentModal, popup, pathName, notes,
     noAttachmentTextEditWrapperStateProps,
   } = props;
-  const { printMode } = React.useContext(PrintModeContext);
+  const { printMode } = useContext(PrintModeContext);
 
   return (
     <React.Fragment>
@@ -70,10 +70,6 @@ TRRPage.propTypes = {
   pathName: PropTypes.string,
   notes: PropTypes.array,
   noAttachmentTextEditWrapperStateProps: PropTypes.object,
-};
-
-TRRPage.contextTypes = {
-  printMode: PropTypes.bool,
 };
 
 export default Printable(TRRPage);

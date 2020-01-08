@@ -1,13 +1,18 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 import baseStyle from './hoverable-edit-wrapper.sass';
+import { EditModeContext, EditWrapperStateContext } from 'contexts';
 
 
-export default function HoverableEditWrapper(props, context) {
+export default function HoverableEditWrapper(props) {
   const { children, style, className } = props;
   const {
-    editModeOn, sectionEditModeOn, turnOnSectionEditMode, turnOffSectionEditMode, onSaveForm,
-  } = context;
+    sectionEditModeOn,
+    turnOnSectionEditMode,
+    turnOffSectionEditMode,
+    onSaveForm,
+  } = useContext(EditWrapperStateContext);
+  const { editModeOn } = useContext(EditModeContext);
 
   if (editModeOn) {
     return (
@@ -51,12 +56,4 @@ HoverableEditWrapper.propTypes = {
 
 HoverableEditWrapper.defaultProps = {
   className: '',
-};
-
-HoverableEditWrapper.contextTypes = {
-  editModeOn: PropTypes.bool,
-  sectionEditModeOn: PropTypes.bool,
-  turnOnSectionEditMode: PropTypes.func,
-  turnOffSectionEditMode: PropTypes.func,
-  onSaveForm: PropTypes.func,
 };

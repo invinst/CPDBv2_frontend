@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { shallow, mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
@@ -109,26 +108,20 @@ describe('TRRPage component', function () {
   });
 
   it('should render category header, incident date and notes header when printing', function () {
-    const PrintModeProvider = ({ children }) => (
-      <PrintModeContext.Provider value={ { printMode: true } }>
-        <Provider store={ store }>
-          { children }
-        </Provider>
-      </PrintModeContext.Provider>
-    );
-    PrintModeProvider.propTypes = { children: PropTypes.node };
-
     const wrapper = mount(
-      <TRRPage
-        trrId='123'
-        officer={ { officerId: 456 } }
-        trrDetail={ { category: 'Firearm' } }
-        trrLocation={ { incidentDate: 'Sep 23, 2003' } }
-        notes={ popups }
-      />,
-      {
-        wrappingComponent: PrintModeProvider,
-      },
+      <PrintModeContext.Provider value={ { printMode: true } }>
+        <HelmetProvider>
+          <Provider store={ store }>
+            <TRRPage
+              trrId='123'
+              officer={ { officerId: 456 } }
+              trrDetail={ { category: 'Firearm' } }
+              trrLocation={ { incidentDate: 'Sep 23, 2003' } }
+              notes={ popups }
+            />
+          </Provider>
+        </HelmetProvider>
+      </PrintModeContext.Provider>
     );
 
     wrapper.find('.trr-category-print').text().should.equal('Firearm');

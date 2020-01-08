@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router';
 import cx from 'classnames';
 
@@ -10,7 +10,7 @@ import { PrintModeContext } from 'contexts';
 
 export default function Trr(props) {
   const { item } = props;
-  const { printMode } = React.useContext(PrintModeContext);
+  const { printMode } = useContext(PrintModeContext);
 
   return (
     <Link className={ cx(baseStyles.baseItem, styles.trr) } to={ `/trr/${item.trrId}/` }>
@@ -29,8 +29,4 @@ export default function Trr(props) {
 
 Trr.propTypes = {
   item: PropTypes.object,
-};
-
-Trr.contextTypes = {
-  printMode: PropTypes.bool,
 };

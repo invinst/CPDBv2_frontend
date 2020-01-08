@@ -117,9 +117,4 @@ LandingPage.defaultProps = {
   pushBreadcrumbs: (...args) => {},
 };
 
-LandingPage.contextTypes = {
-  editModeOn: PropTypes.bool,
-};
-
 export default ConfiguredRadium(LandingPage);
-

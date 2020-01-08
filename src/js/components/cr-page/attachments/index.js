@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 import cx from 'classnames';
 
 import AttachmentHeader from './headers/attachment-header';
@@ -20,7 +20,7 @@ export default function Attachments(props) {
     onTrackingAttachment,
   } = props;
 
-  const { printMode } = React.useContext(PrintModeContext);
+  const { printMode } = useContext(PrintModeContext);
 
   const hasData = items.length > 0;
 

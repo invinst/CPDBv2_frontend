@@ -1,5 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 
 import RadarChart from './radar-chart';
 import { hasEnoughRadarChartData } from 'utils/radar-chart';
@@ -18,7 +18,7 @@ const PRINT_RADAR_CHART_STYLES = {
 
 export default function StaticRadarChart(props) {
   const { data, width, height, radius, offsetTop } = props;
-  const { printMode } = React.useContext(PrintModeContext);
+  const { printMode } = useContext(PrintModeContext);
   const radarChartPrintStyle = printMode ? PRINT_RADAR_CHART_STYLES : {};
 
   if (!hasEnoughRadarChartData(data)) {

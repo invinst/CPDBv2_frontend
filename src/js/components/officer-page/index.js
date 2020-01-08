@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 import { compact, get } from 'lodash';
 import { Helmet } from 'react-helmet-async';
 import pluralize from 'pluralize';
@@ -42,7 +42,7 @@ function OfficerPage(props) {
     infoNotes,
     timelineNotes,
   } = props;
-  const { printMode } = React.useContext(PrintModeContext);
+  const { printMode } = useContext(PrintModeContext);
 
   const pageTitle = compact([
     officerSummary.rank === 'N/A' ? '' : officerSummary.rank,

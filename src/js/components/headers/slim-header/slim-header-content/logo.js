@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router';
 import MediaQuery from 'react-responsive';
 import cx from 'classnames';
@@ -11,9 +11,10 @@ import LinkTextEditable from 'components/inline-editable/editable-section/link-t
 import { editMode } from 'utils/edit-path';
 import styles from 'components/headers/slim-header/slim-header-content/logo.sass';
 import { ROOT_PATH } from 'utils/constants';
+import { EditModeContext } from 'contexts';
 
-function Logo(props, context) {
-  const { editModeOn } = context;
+function Logo(props) {
+  const { editModeOn } = useContext(EditModeContext);
   const { position, editWrapperStateProps } = props;
   const titleLink = editModeOn ? editMode(ROOT_PATH) : ROOT_PATH;
 
@@ -61,10 +62,6 @@ Logo.propTypes = {
 
 Logo.defaultProps = {
   style: {},
-};
-
-Logo.contextTypes = {
-  editModeOn: PropTypes.bool,
 };
 
 export default Logo;

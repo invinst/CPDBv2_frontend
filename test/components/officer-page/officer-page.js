@@ -186,17 +186,17 @@ describe('OfficerPage component', function () {
 
   it('should render PrintNotes component when printMode is true', function () {
     const wrapper = mount(
-      <OfficerPage
-        officerName='Shaun Frank'
-        officerSummary={ { rank: 'Officer' } }
-      />,
-      {
-        wrappingComponent: Provider,
-        wrappingComponentProps: { store },
-      },
+      <Provider store={ store }>
+        <HelmetProvider>
+          <OfficerPage
+            officerId={ 1234 }
+            officerName='Shaun Frank'
+            officerSummary={ { rank: 'Officer' } }
+          />
+        </HelmetProvider>
+      </Provider>
     );
-    wrapper.setState({ printMode: true });
-
+    wrapper.find(OfficerPage).setState({ printMode: true });
     wrapper.find(PrintNotes).should.have.length(2);
   });
 
