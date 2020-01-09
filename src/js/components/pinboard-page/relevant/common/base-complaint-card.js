@@ -10,10 +10,10 @@ import PlusButton from 'components/pinboard-page/relevant/common/plus-button';
 export class BaseComplaintCard extends Component {
   handleClick = e => {
     e.preventDefault();
-    const { addItemInPinboardPage, recentItemData } = this.props;
+    const { addItemInPinboardPage, rawData } = this.props;
     addItemInPinboardPage({
       type: 'CR',
-      recentItemData,
+      rawData,
       id: this.props.crid,
     });
   };
@@ -83,12 +83,12 @@ BaseComplaintCard.propTypes = {
   addItemInPinboardPage: PropTypes.func,
   pinned: PropTypes.bool,
   focusItem: PropTypes.func,
-  recentItemData: PropTypes.object,
+  rawData: PropTypes.object,
 };
 
 BaseComplaintCard.defaultProps = {
   focusItem: noop,
-  recentItemData: {},
+  rawData: {},
 };
 
 export default BaseComplaintCard;

@@ -17,7 +17,7 @@ import {
   UPDATE_DOCUMENT_PAGE_REQUEST_SUCCESS,
   UPDATE_DOCUMENT_PAGE_REQUEST_FAILURE,
 } from 'utils/constants';
-import { trackDocumentEdit } from 'utils/google_analytics_tracking';
+import { trackDocumentEdit } from 'utils/tracking';
 
 
 export const fetchDocument = documentId => (authenticatedGet(

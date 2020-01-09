@@ -17,7 +17,7 @@ export default function RelevantComplaintCard(props) {
   } = props;
   const complaintFields = [
     'crid', 'incidentDate', 'category', 'point', 'officers',
-    'point', 'recentItemData',
+    'point', 'rawData',
   ];
 
   const leftChild = (

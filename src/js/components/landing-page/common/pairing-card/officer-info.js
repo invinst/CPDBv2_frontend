@@ -9,7 +9,7 @@ function OfficerInfo(props) {
   const { fullName, age, race, gender, rank } = info;
 
   return (
-    <div className={ `${style.officerInfo} ${rightOfficer ? 'right-officer': 'left-officer'}` }>
+    <div className={ `${style.officerInfo} ${rightOfficer ? 'right-officer' : 'left-officer'}` }>
       <div className='officer-info-upper'>
         <div className='officer-info-text'>{ rank }</div>
         <div className='officer-info-name'>{ fullName }</div>

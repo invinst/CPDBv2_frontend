@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router';
 
 import styles from './document-card.sass';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 import ItemPinButton from 'components/common/item-pin-button';
 import pinButtonStyles from 'components/common/item-pin-button.sass';
 import { PINNED_ITEM_TYPES } from 'utils/constants';
@@ -13,7 +13,7 @@ export default class DocumentCard extends React.Component {
   handleClick = () => {
     const { crid, pathname, onTrackingAttachment, id } = this.props;
     const url = `/complaint/${crid}/`;
-    GATracking.trackAttachmentClick(pathname, url);
+    tracking.trackAttachmentClick(pathname, url);
     onTrackingAttachment({ attachmentId: id, sourcePage: 'Landing Page', app: 'Frontend' });
   };
 

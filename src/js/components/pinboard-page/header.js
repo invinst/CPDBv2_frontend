@@ -7,7 +7,7 @@ import { QA_LINK } from 'utils/constants';
 import { pushPathPreserveEditMode } from 'utils/edit-path';
 import styles from './header.sass';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
-import { trackOutboundLink } from 'utils/google_analytics_tracking';
+import { trackOutboundLink } from 'utils/tracking';
 
 const MENU_ITEMS = [
   {

@@ -8,7 +8,7 @@ import Hoverable from 'components/common/higher-order/hoverable';
 import { itemStyle, nameStyle } from './category-item.style';
 import { navigationItemTransform } from 'selectors/common/navigation-item-transform';
 import { CALL_TO_ACTION_TYPES } from 'utils/constants';
-import { trackOutboundLink } from 'utils/google_analytics_tracking';
+import { trackOutboundLink } from 'utils/tracking';
 
 
 export class CategoryItem extends Component {

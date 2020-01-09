@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import ReactTooltip from 'react-tooltip';
 import cx from 'classnames';
 
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 import style from './popup-wrapper.sass';
 import { generatePopupId } from 'utils/popup';
 
@@ -28,7 +28,7 @@ export default class PopupWrapper extends Component {
   afterShow = () => {
     const { trackingUrl, trackingId } = this.props;
     this.hideOtherPopups();
-    GATracking.trackPopupButtonClick(trackingUrl, trackingId);
+    tracking.trackPopupButtonClick(trackingUrl, trackingId);
   };
 
   render() {

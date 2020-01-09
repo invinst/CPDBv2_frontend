@@ -11,8 +11,54 @@ import CRPane from 'components/common/preview-pane/panes/cr-pane';
 
 describe('GeographicMap component', function () {
   it('should render correctly', function () {
-    const wrapper = shallow(<GeographicMap />);
-    wrapper.find(AllegationsMap).exists().should.be.true();
+    const legend = {
+      allegationCount: 20,
+      useOfForceCount: 1,
+    };
+
+    const markerGroups = {
+      crs: [
+        {
+          point: {
+            lat: 42.012567,
+            lon: -87.680291,
+          },
+          kind: 'CR',
+          finding: 'Not Sustained',
+          id: '123456',
+          category: 'False Arrest',
+          coaccused: 2,
+          victims: [{
+            gender: 'male',
+            race: 'White',
+            age: 32,
+          }],
+        },
+      ],
+      trrs: [
+        {
+          point: {
+            lat: 42.212567,
+            lon: -87.280291,
+          },
+          kind: 'FORCE',
+          id: '1234',
+          category: 'Use of Force Report',
+        },
+      ],
+    };
+
+    const wrapper = shallow(<GeographicMap legend={ legend } markerGroups={ markerGroups } />);
+    const instance = wrapper.instance();
+    const allegationMap = wrapper.find(AllegationsMap);
+    allegationMap.exists().should.be.true();
+
+    const allegationMapProps = allegationMap.props();
+    allegationMapProps.markerGroups.should.eql(markerGroups);
+    allegationMapProps.legend.should.eql(legend);
+    allegationMapProps.mapCustomClassName.should.equal('social-graph-map');
+    allegationMapProps.handleClickCRMarker.should.equal(instance.handleClickCRMarker);
+    allegationMapProps.clearAllMarkers.should.be.false();
   });
 
   it('should fetch geographic data pages with unit_id when componentDidMount', function (done) {

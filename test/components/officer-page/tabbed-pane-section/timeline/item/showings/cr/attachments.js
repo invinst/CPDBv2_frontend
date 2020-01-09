@@ -5,7 +5,7 @@ import { stub } from 'sinon';
 import Attachments from 'components/officer-page/tabbed-pane-section/timeline/item/showings/cr/attachments';
 import OutboundLink from 'components/common/outbound-link';
 import * as domUtils from 'utils/dom';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 import styles from 'components/officer-page/tabbed-pane-section/timeline/item/showings/cr/attachments.sass';
 
 
@@ -74,7 +74,7 @@ describe('Attachments component', function () {
   });
 
   it('should track click event', function () {
-    const stubTrackAttachmentClick = stub(GATracking, 'trackAttachmentClick');
+    const stubTrackAttachmentClick = stub(tracking, 'trackAttachmentClick');
     const attachments = [{
       url: 'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-2-of-3.html',
       previewImageUrl: 'https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p2-normal.gif',

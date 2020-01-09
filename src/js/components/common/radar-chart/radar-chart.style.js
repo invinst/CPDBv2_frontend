@@ -3,6 +3,6 @@ export const radarContaninerStyle = {
 };
 
 export const radarBoundaryAreaStyle = (boundaryAreaColor) => ({
-  fill: boundaryAreaColor ? boundaryAreaColor :'white',
+  fill: boundaryAreaColor ? boundaryAreaColor : 'white',
   fillOpacity: boundaryAreaColor ? 1 : 0.6,
 });

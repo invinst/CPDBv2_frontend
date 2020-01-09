@@ -52,6 +52,7 @@ describe('search page navigation selector', function () {
         recentText: 'Jerome Turbyville',
         uniqueKey: 'CO-ACCUSED-29033',
         url: 'https://example.com',
+        itemRank: 4,
         recentItemData: {
           id: '29033',
           name: 'Jerome Turbyville',
@@ -83,6 +84,7 @@ describe('search page navigation selector', function () {
           ],
           type: 'CO-ACCUSED',
           itemIndex: 4,
+          itemRank: 4,
           isPinned: false,
         },
       });
@@ -115,6 +117,7 @@ describe('search page navigation selector', function () {
         recentText: undefined,
         uniqueKey: SEARCH_BOX,
         url: undefined,
+        itemRank: undefined,
         recentItemData: {
           uniqueKey: 'SEARCH_BOX',
           isPinned: false,
@@ -149,6 +152,7 @@ describe('search page navigation selector', function () {
         type: MORE_BUTTON,
         uniqueKey: `${MORE_BUTTON}-OFFICER`,
         url: undefined,
+        itemRank: undefined,
         recentItemData: {
           id: 'OFFICER',
           type: 'MORE_BUTTON',

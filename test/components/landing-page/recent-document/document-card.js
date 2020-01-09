@@ -9,7 +9,7 @@ import styles from 'components/landing-page/recent-document/document-card.sass';
 import ItemPinButton from 'components/common/item-pin-button';
 import pinButtonStyles from 'components/common/item-pin-button.sass';
 import { PINNED_ITEM_TYPES } from 'utils/constants';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 
 
 describe('DocumentCard components', function () {
@@ -58,7 +58,7 @@ describe('DocumentCard components', function () {
   });
 
   it('should track attachment click and invoke onTrackingAttachment', function () {
-    stub(GATracking, 'trackAttachmentClick');
+    stub(tracking, 'trackAttachmentClick');
     const documentCard = () => <DocumentCard { ...props } />;
     const wrapper = mount(
       <Router history={ createMemoryHistory() }>
@@ -67,8 +67,8 @@ describe('DocumentCard components', function () {
     );
     wrapper.simulate('click');
 
-    GATracking.trackAttachmentClick.should.be.calledOnce();
-    GATracking.trackAttachmentClick.should.be.calledWith(props.pathname, `/complaint/${props.crid}/`);
+    tracking.trackAttachmentClick.should.be.calledOnce();
+    tracking.trackAttachmentClick.should.be.calledWith(props.pathname, `/complaint/${props.crid}/`);
     props.onTrackingAttachment.should.be.calledOnce();
     props.onTrackingAttachment.should.be.calledWith({
       attachmentId: props.id,
@@ -76,6 +76,6 @@ describe('DocumentCard components', function () {
       app: 'Frontend',
     });
 
-    GATracking.trackAttachmentClick.restore();
+    tracking.trackAttachmentClick.restore();
   });
 });

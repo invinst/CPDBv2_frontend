@@ -14,7 +14,28 @@ import SearchTags from 'components/search-page/search-tags';
 import PinboardButtonContainer from 'containers/search-page/pinboard-button-container';
 import ScrollIntoView from 'components/common/scroll-into-view';
 import style from './search-results.sass';
+import * as tracking from 'utils/tracking';
 
+
+const previewPaneIdFieldMapping = {
+  'SEARCH-TERMS': 'text',
+  'DATE > CR': 'id',
+  'DATE > TRR': 'id',
+  'DATE > OFFICERS': 'id',
+  'UNIT > OFFICERS': 'id',
+  OFFICER: 'id',
+  CR: 'id',
+  TRR: 'id',
+  COMMUNITY: 'text',
+  NEIGHBORHOOD: 'text',
+  WARD: 'text',
+  'POLICE-DISTRICT': 'text',
+  BEAT: 'text',
+  'SCHOOL-GROUND': 'text',
+  RANK: 'text',
+  'INVESTIGATOR > CR': 'id',
+  UNIT: 'text',
+};
 
 export default class SearchResults extends Component {
   state = {
@@ -41,6 +62,18 @@ export default class SearchResults extends Component {
         move(direction, this.props.totalItemCount);
       }
     )));
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const { focusedItem, searchText } = this.props;
+    const { focusedItem: prevFocusedItem } = prevProps;
+
+    if (!isEqual(focusedItem, prevFocusedItem)) {
+      const { type, itemRank } = focusedItem;
+      const itemId = focusedItem[previewPaneIdFieldMapping[type]];
+      if (itemId)
+        tracking.trackSearchFocusedItem(type, searchText, itemId, itemRank);
+    }
   }
 
   componentWillUnmount() {

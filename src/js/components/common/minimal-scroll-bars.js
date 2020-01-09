@@ -47,7 +47,7 @@ export default class MinimalScrollBars extends Component {
     return (
       <Scrollbars
         thumbSize={ 120 }
-        renderThumbVertical={ showThumb ? this.renderThumb: () => <div/> }
+        renderThumbVertical={ showThumb ? this.renderThumb : () => <div/> }
         renderView={ this.renderView }
         ref={ this.handleScrollerRef }
         style={ this.props.style.container }

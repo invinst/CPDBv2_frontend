@@ -19,7 +19,7 @@ export default class Timeline extends Component {
     const options = values(mapValues(NEW_TIMELINE_FILTERS, 'label'));
     const labels = map(
       NEW_TIMELINE_FILTERS,
-      (filter, key) => key === 'RANK_UNIT_CHANGES' ? filter.label :`${filter.label} (${filterCount[key]})`
+      (filter, key) => key === 'RANK_UNIT_CHANGES' ? filter.label : `${filter.label} (${filterCount[key]})`
     );
 
     return (

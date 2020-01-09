@@ -23,7 +23,7 @@ import withOverlay from 'components/common/with-overlay';
 
 
 export default class PreviewPane extends Component {
-  renderPane = () => {
+  renderPane() {
     const { data, type, yScrollable, addOrRemoveItemInPinboard } = this.props;
     const officerPaneFunc = () => <OfficerPane { ...data }
       yScrollable={ yScrollable }
@@ -59,7 +59,7 @@ export default class PreviewPane extends Component {
       'PINBOARD': () => <PinboardPane { ...data } { ...this.props }/>,
     };
     return get(paneTypes, type, () => null)();
-  };
+  }
 
 
   render() {

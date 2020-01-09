@@ -6,7 +6,7 @@ import ResponsiveFluidWidthComponent from 'components/responsive/responsive-flui
 import SummaryPanel from './summary-panel';
 import CommunityMap from './community-map';
 import { wrapperStyle, minimumStyle, mediumStyle, maximumStyle } from './heat-map.style';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 
 
 export default class HeatMap extends Component {
@@ -20,7 +20,7 @@ export default class HeatMap extends Component {
   setSelectedCommunity = id => {
     const { communities } = this.props;
     const community = find(communities, obj => obj.id === id);
-    community && GATracking.trackCommunityClick(community.name);
+    community && tracking.trackCommunityClick(community.name);
 
     this.setState({
       selectedId: id,

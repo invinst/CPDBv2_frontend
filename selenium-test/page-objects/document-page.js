@@ -58,7 +58,7 @@ class DocumentPage extends Page {
   }
 
   open(id=1, login=false) {
-    super.open(`${ login ? '/edit': '' }/document/${id}/`);
+    super.open(`${ login ? '/edit' : '' }/document/${id}/`);
     login && this.loginScreen.login();
   }
 }

@@ -72,7 +72,7 @@ describe('Pinboards component', function () {
     wrapper.find('.pinboard-item').exists().should.be.false();
   });
 
-  describe('componentWillReceiveProps', function () {
+  describe('componentDidUpdate', function () {
     it('should fetchPinboards if isShow change from false to true', function () {
       const fetchPinboardsSpy = spy();
 

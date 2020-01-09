@@ -4,7 +4,7 @@ import cx from 'classnames';
 
 import styles from './attachments.sass';
 import { ATTACHMENT_TYPES } from 'utils/constants';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 
 
 export default class Attachments extends Component {
@@ -14,7 +14,7 @@ export default class Attachments extends Component {
     const { pathname, attachments, onTrackingAttachment } = this.props;
     const url = attachments[0].url;
     const id = attachments[0]['id'];
-    GATracking.trackAttachmentClick(pathname, url);
+    tracking.trackAttachmentClick(pathname, url);
     onTrackingAttachment({ attachmentId: id, sourcePage: 'Social Graph Page - Timeline Tab', app: 'Frontend' });
     window.open(url, '_blank');
   };

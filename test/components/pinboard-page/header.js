@@ -6,7 +6,7 @@ import config from 'config';
 
 import Header from 'components/pinboard-page/header';
 import * as editPathUtils from 'utils/edit-path';
-import * as GAUtils from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 
 
 describe('Pinboard Header component', function () {
@@ -35,7 +35,7 @@ describe('Pinboard Header component', function () {
   context('clicking on a menu item', function () {
     beforeEach(function () {
       this.stubPushPathPreserveEditMode = stub(editPathUtils, 'pushPathPreserveEditMode');
-      this.stubTrackOutboundLink = stub(GAUtils, 'trackOutboundLink');
+      this.stubTrackOutboundLink = stub(tracking, 'trackOutboundLink');
       const wrapper = mount(<Header />);
       this.menuItems = wrapper.find('.menu-item');
     });

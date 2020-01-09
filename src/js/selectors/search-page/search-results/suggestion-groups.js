@@ -64,6 +64,7 @@ export const slicedSuggestionGroupsSelector = createSelector(
   (suggestionGroups, isSingle, contentType) => {
     let groups = pick(omitBy(suggestionGroups, isEmpty), contentType || constants.SEARCH_CATEGORIES);
 
+    let itemRank = 1;
     let lastIndex = 1;
     return keys(groups).map((key) => {
       let items = isSingle ? groups[key] : groups[key].slice(0, itemsPerCategory);
@@ -71,6 +72,7 @@ export const slicedSuggestionGroupsSelector = createSelector(
         ...item,
         type: key,
         itemIndex: lastIndex++,
+        itemRank: itemRank++,
       }));
 
       const canLoadMore = !isSingle && items.length >= itemsPerCategory;

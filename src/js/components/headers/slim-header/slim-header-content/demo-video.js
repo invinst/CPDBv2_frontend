@@ -30,8 +30,14 @@ class DemoVideo extends Component {
           </HoverableEditWrapper>
         </EditWrapperStateProvider>
         <div className='demo-video-button' onClick={ this.handleWatchVideoButtonClick }>
-          <div className='demo-video-thumbnail'/>
-          <img className='demo-video-play-button' src='/img/ic-play-big.svg' width={ 14 } height={ 17 } />
+          <img
+            className='demo-video-thumbnail'
+            srcSet={
+              '/img/demo-video-thumbnail.png, ' +
+              '/img/demo-video-thumbnail@2x.png 2x, ' +
+              '/img/demo-video-thumbnail@3x.png 3x'
+            }
+          />
         </div>
       </div>
     );

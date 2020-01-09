@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import cx from 'classnames';
 
 import { mapStyle } from './complaint-card.style';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 import styles from './complaint-card.sass';
 import ItemPinButton from 'components/common/item-pin-button';
 import pinButtonStyles from 'components/common/item-pin-button.sass';
@@ -15,9 +15,9 @@ class ComplaintCard extends Component {
   handleClick = () => {
     const { sourceCRID, crid, match } = this.props;
     if (match === 'categories') {
-      GATracking.trackRelatedByCategoryClick(sourceCRID, crid);
+      tracking.trackRelatedByCategoryClick(sourceCRID, crid);
     } else if (match === 'officers') {
-      GATracking.trackRelatedByAccusedClick(sourceCRID, crid);
+      tracking.trackRelatedByAccusedClick(sourceCRID, crid);
     }
   };
 

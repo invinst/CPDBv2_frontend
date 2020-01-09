@@ -113,7 +113,7 @@ export default class GeographicMap extends Component {
   render() {
     const {
       legend,
-      markers,
+      markerGroups,
       mainTabsContent,
       allegation,
       trr,
@@ -128,7 +128,7 @@ export default class GeographicMap extends Component {
           <AllegationsMap
             mapCustomClassName='social-graph-map'
             legend={ legend }
-            markers={ markers }
+            markerGroups={ markerGroups }
             handleClickCRMarker={ this.handleClickCRMarker }
             handleClickTRRMarker={ this.handleClickTRRMarker }
             clearAllMarkers={ false }
@@ -145,7 +145,34 @@ export default class GeographicMap extends Component {
 
 GeographicMap.propTypes = {
   legend: PropTypes.object,
-  markers: PropTypes.object,
+  markerGroups: PropTypes.shape({
+    crs: PropTypes.arrayOf(
+      PropTypes.shape({
+        point: PropTypes.shape({
+          lat: PropTypes.number,
+          lon: PropTypes.number,
+        }),
+        kind: PropTypes.string,
+        pointType: PropTypes.string,
+        finding: PropTypes.string,
+        id: PropTypes.string,
+        date: PropTypes.string,
+        category: PropTypes.string,
+      })
+    ),
+    trrs: PropTypes.arrayOf(
+      PropTypes.shape({
+        point: PropTypes.shape({
+          lat: PropTypes.number,
+          lon: PropTypes.number,
+        }),
+        kind: PropTypes.string,
+        id: PropTypes.string,
+        date: PropTypes.string,
+        category: PropTypes.string,
+      })
+    ),
+  }),
   mainTabsContent: PropTypes.node,
   requestFirstPageSocialGraphGeographicCrs: PropTypes.func,
   requestOtherPagesSocialGraphGeographicCrs: PropTypes.func,

@@ -5,7 +5,7 @@ import Carousel from 'components/common/carousel';
 import EditModeProvider from 'components/edit-mode-provider';
 import InlineHeaderSection from './inline-header-section';
 import { headerWrapperStyle, carouselStyle, itemStyle } from './carousel-wrapper.style';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 
 
 export default function withCarousel(
@@ -13,7 +13,7 @@ export default function withCarousel(
 ) {
   class Wrapper extends Component {
     handleNavigate = (direction) => {
-      GATracking.trackSwipeLanddingPageCarousel(direction, type.key || type);
+      tracking.trackSwipeLandingPageCarousel(direction, type.key || type);
     };
 
     render() {
