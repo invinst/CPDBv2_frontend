@@ -40,7 +40,7 @@ export default class DocumentCard extends React.Component {
           } }
         />
         <div className='document-card-thumbnail'>
-          <img className='document-card-thumbnail-img' src={ previewImageUrl } alt='Document preview image'/>
+          <img className='document-card-thumbnail-img' src={ previewImageUrl } />
         </div>
         <div className='document-card-description'>
           <div className='document-card-description-incident-date'>{ incidentDate }</div>
