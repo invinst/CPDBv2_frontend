@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Entity } from 'draft-js';
 
 import MoreLink from 'components/common/more-link';
 import ResponsiveStyleComponent, {
@@ -25,9 +24,9 @@ class Link extends Component {
   }
 
   renderWithResponsiveStyle = (style) => {
-    const { children, entityKey } = this.props;
+    const { children, entityKey, contentState } = this.props;
     const { editModeOn, sectionEditModeOn } = this.context;
-    const { url } = Entity.get(entityKey).getData();
+    const { url } = contentState.getEntity(entityKey).getData();
     if (!editModeOn) {
       return (
         <MoreLink href={ url } style={ style }>
@@ -53,6 +52,7 @@ class Link extends Component {
 }
 
 Link.propTypes = {
+  contentState: PropTypes.object,
   entityKey: PropTypes.string,
   children: PropTypes.node,
 };
@@ -65,11 +65,11 @@ Link.contextTypes = {
 
 export default Link;
 
-export function findLinkEntities(contentBlock, callback) {
+export function findLinkEntities(contentBlock, callback, contentState) {
   contentBlock.findEntityRanges(
     (character) => {
       const entityKey = character.getEntity();
-      return entityKey !== null && Entity.get(entityKey).getType() === ENTITY_LINK;
+      return entityKey !== null && contentState.getEntity(entityKey).getType() === ENTITY_LINK;
     },
     callback
   );

@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { locationShape } from 'react-router/lib/PropTypes';
 import * as _ from 'lodash';
 import { browserHistory } from 'react-router';
 
@@ -66,7 +65,11 @@ DocumentsOverviewPage.propTypes = {
   nextParams: PropTypes.object,
   fetchDocuments: PropTypes.func,
   fetchDocumentsAuthenticated: PropTypes.func,
-  location: locationShape,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+    search: PropTypes.string,
+    query: PropTypes.string,
+  }).isRequired,
 };
 
 DocumentsOverviewPage.defaultProps = {

@@ -59,7 +59,7 @@ export default class RouteTransition extends Component {
 
     const betweenLandingAndSearchPage = isEmpty(difference(['/', 'search'], [currentKey, prevKey]));
     if (betweenLandingAndSearchPage)
-      return;
+      return null;
 
     if (currentKey !== prevKey) {
       return {
