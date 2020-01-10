@@ -33,7 +33,7 @@
     font-size: 14px;
     padding: 0 8px;
     line-height: 16px;
-    white-space: pre-line;
+    white-space: pre;
 }
 
 @keyframes slideInDown {
