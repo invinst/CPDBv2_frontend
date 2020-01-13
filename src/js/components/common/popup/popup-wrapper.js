@@ -47,10 +47,6 @@ export default class PopupWrapper extends Component {
           <div className='test--popup-content' onClick={ e => e.stopPropagation() }>
             <div
               className='popup-close-button'
-              data-tip={ true }
-              data-for={ this.tooltipId }
-              data-event={ true }
-              data-event-off='click'
               onClick={ () => {
                 this.tooltip.tooltipRef = null;
                 ReactTooltip.hide();
