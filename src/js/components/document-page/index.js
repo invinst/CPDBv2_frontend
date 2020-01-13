@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import DocumentMeta from 'react-document-meta';
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router';
 import pluralize from 'pluralize';
 import { slice } from 'lodash';
@@ -38,7 +38,11 @@ export default function DocumentPage(props) {
   const restDocumentsCount = linkedDocuments.length - displayedDocuments.length;
 
   return (
-    <DocumentMeta title={ title } description={ title }>
+    <React.Fragment>
+      <Helmet>
+        <title>{ title }</title>
+        <meta name='description' content={ title } />
+      </Helmet>
       <div className={ styles.documentPage }>
         <ShareableHeaderContainer buttonType={ SHAREABLE_HEADER_BUTTON_TYPE.NONE } />
         <div className='document-wrapper'>
@@ -111,7 +115,7 @@ export default function DocumentPage(props) {
         </div>
         <FooterContainer className={ styles.crPageFooter } />
       </div>
-    </DocumentMeta>
+    </React.Fragment>
   );
 }
 

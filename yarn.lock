@@ -119,6 +119,13 @@
   dependencies:
     regenerator-runtime "^0.13.2"
 
+"@babel/runtime@^7.3.4":
+  version "7.8.0"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.8.0.tgz#8c81711517c56b3d00c6de706b0fb13dc3531549"
+  integrity sha512-Z7ti+HB0puCcLmFE3x90kzaVgbx6TRrYIReaygW6EkBEnJh1ajS4/inhF7CypzWeDV3NFl1AfWj0eMtdihojxw==
+  dependencies:
+    regenerator-runtime "^0.13.2"
+
 "@babel/runtime@^7.4.2":
   version "7.5.5"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.5.5.tgz#74fba56d35efbeca444091c7850ccd494fd2f132"
@@ -9580,14 +9587,6 @@ react-datepicker@^2.10.1:
     react-onclickoutside "^6.9.0"
     react-popper "^1.3.4"
 
-react-document-meta@^3.0.0-beta.2:
-  version "3.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/react-document-meta/-/react-document-meta-3.0.0-beta.2.tgz#4a4b4c0b18277e4707d13ede163536ba216d5956"
-  integrity sha512-iRQ2tFsYFXVARPXIVjTmEbdkf+Ngz/NJYvQPdUjuE4U0icUpPD5F9OfpKZDy06msya3p58IWHRu+2P8x9Lli+w==
-  dependencies:
-    prop-types "^15.5.8"
-    react-side-effect "^1.1.0"
-
 react-dom@16.9.0:
   version "16.9.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.9.0.tgz#5e65527a5e26f22ae3701131bcccaee9fb0d3962"
@@ -9597,6 +9596,22 @@ react-dom@16.9.0:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
     scheduler "^0.15.0"
+
+react-fast-compare@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-2.0.4.tgz#e84b4d455b0fec113e0402c329352715196f81f9"
+  integrity sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==
+
+react-helmet-async@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-helmet-async/-/react-helmet-async-1.0.4.tgz#079ef10b7fefcaee6240fefd150711e62463cc97"
+  integrity sha512-KTGHE9sz8N7+fCkZ2a3vzXH9eIkiTNhL2NhKR7XzzQl3WsGlCHh76arauJUIiGdfhjeMp7DY7PkASAmYFXeJYg==
+  dependencies:
+    "@babel/runtime" "^7.3.4"
+    invariant "^2.2.4"
+    prop-types "^15.7.2"
+    react-fast-compare "^2.0.4"
+    shallowequal "^1.1.0"
 
 react-hot-loader@^4.3.11:
   version "4.3.11"
@@ -9721,14 +9736,6 @@ react-router@^3.0.5:
     loose-envify "^1.2.0"
     prop-types "^15.5.6"
     warning "^3.0.0"
-
-react-side-effect@^1.1.0:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/react-side-effect/-/react-side-effect-1.1.5.tgz#f26059e50ed9c626d91d661b9f3c8bb38cd0ff2d"
-  integrity sha512-Z2ZJE4p/jIfvUpiUMRydEVpQRf2f8GMHczT6qLcARmX7QRb28JDBTpnM2g/i5y/p7ZDEXYGHWg0RbhikE+hJRw==
-  dependencies:
-    exenv "^1.2.1"
-    shallowequal "^1.0.1"
 
 react-tagsinput@^3.17.0:
   version "3.19.0"

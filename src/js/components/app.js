@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import { StyleRoot } from 'radium';
-import { locationShape } from 'react-router/lib/PropTypes';
 import React from 'react';
 import { toast, ToastContainer } from 'react-toastify';
+import { HelmetProvider } from 'react-helmet-async';
 import 'react-toastify/dist/ReactToastify.css';
 import cx from 'classnames';
 
@@ -56,7 +56,9 @@ export default class App extends React.Component {
       <StyleRoot className={ cx(styles.app, { 'pinboard-disabled': !enablePinboardFeature }) }>
         <EditModeProvider location={ location }>
           <RouteTransition pathname={ location.pathname }>
-            { children }
+            <HelmetProvider>
+              { children }
+            </HelmetProvider>
           </RouteTransition>
           <LoginModalContainer location={ location }/>
           <GenericModalContainer location={ location }/>
@@ -83,7 +85,10 @@ App.propTypes = {
   params: PropTypes.object,
   receiveTokenFromCookie: PropTypes.func,
   showLoginModal: PropTypes.bool,
-  location: locationShape,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+    search: PropTypes.string,
+  }).isRequired,
   toggleEditMode: PropTypes.func,
   toggleSearchMode: PropTypes.func,
   changeSearchQuery: PropTypes.func,

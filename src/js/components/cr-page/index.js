@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import DocumentMeta from 'react-document-meta';
+import { Helmet } from 'react-helmet-async';
 import { get, isEmpty } from 'lodash';
 import cx from 'classnames';
 
@@ -37,7 +37,10 @@ function CRPage(props, context) {
   const involvementItem = <Involvement involvements={ involvements }/>;
 
   return (
-    <DocumentMeta title={ `CR ${crid}` }>
+    <React.Fragment>
+      <Helmet>
+        <title>{ `CR ${crid}` }</title>
+      </Helmet>
       <div className={ styles.crPage }>
         <ShareableHeaderContainer/>
         <div className={ cx(responsiveContainerStyles.responsiveContainer, 'top-content') }>
@@ -105,7 +108,7 @@ function CRPage(props, context) {
         <FooterContainer className={ styles.crPageFooter }/>
         <PrintPreloadFonts/>
       </div>
-    </DocumentMeta>
+    </React.Fragment>
   );
 }
 

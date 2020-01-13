@@ -4,22 +4,35 @@ import { Provider } from 'react-redux';
 import { each, assign } from 'lodash';
 import { spy } from 'sinon';
 import { shallow, mount } from 'enzyme';
+import { HelmetProvider } from 'react-helmet-async';
 
 import { MOBILE, TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
 
 
 function assertRender(obj, props) {
   let wrapper;
+  let component;
   if (props && props.store) {
     const { store, ...otherProps } = props;
-    wrapper = mount(
-      <Provider store={ store }>
-        { createElement(obj, otherProps) }
-      </Provider>
+    component = (
+      <HelmetProvider>
+        <Provider store={ store }>
+          { createElement(obj, otherProps) }
+        </Provider>
+      </HelmetProvider>
     );
   } else {
-    wrapper = mount(createElement(obj, props));
+    component = createElement(obj, props);
   }
+
+  if (props && props.helmet) {
+    component = (
+      <HelmetProvider>
+        { component }
+      </HelmetProvider>
+    );
+  }
+  wrapper = mount(component);
 
   wrapper.exists().should.be.true();
 }

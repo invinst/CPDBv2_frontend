@@ -2,8 +2,8 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import DocumentMeta from 'react-document-meta';
 import { stub } from 'sinon';
+import { HelmetProvider } from 'react-helmet-async';
 
 import OfficerPage from 'components/officer-page';
 import SummarySection from 'components/officer-page/summary-section';
@@ -83,9 +83,8 @@ describe('OfficerPage component', function () {
       { disableLifecycleMethods: true },
     ).dive();
 
-    const documentMeta = wrapper.find(DocumentMeta);
-    documentMeta.prop('title').should.equal('Officer Shaun Frank');
-    documentMeta.prop('description').should.equal(
+    wrapper.find('title').text().should.equal('Officer Shaun Frank');
+    wrapper.find('meta[name="description"]').prop('content').should.equal(
       'Officer Shaun Frank of the Chicago Police Department has ' +
       '5 complaints, 10 use of force reports, and 3 original documents available.'
     );
@@ -126,9 +125,8 @@ describe('OfficerPage component', function () {
         { disableLifecycleMethods: true },
       ).dive();
 
-      const documentMeta = wrapper.find(DocumentMeta);
-      documentMeta.prop('title').should.equal('Officer Shaun Frank');
-      documentMeta.prop('description').should.equal(
+      wrapper.find('title').text().should.equal('Officer Shaun Frank');
+      wrapper.find('meta[name="description"]').prop('content').should.equal(
         'Officer Shaun Frank of the Chicago Police Department with Badge Number 1424 has ' +
         '1 complaint, 0 use of force reports, and 3 original documents available.'
       );
@@ -150,9 +148,8 @@ describe('OfficerPage component', function () {
         { disableLifecycleMethods: true },
       ).dive();
 
-      const documentMeta = wrapper.find(DocumentMeta);
-      documentMeta.prop('title').should.equal('Officer Shaun Frank');
-      documentMeta.prop('description').should.equal(
+      wrapper.find('title').text().should.equal('Officer Shaun Frank');
+      wrapper.find('meta[name="description"]').prop('content').should.equal(
         'Officer Shaun Frank of the Chicago Police Department has ' +
         '1 complaint, 0 use of force reports, and 3 original documents available.'
       );
@@ -165,8 +162,7 @@ describe('OfficerPage component', function () {
       { disableLifecycleMethods: true },
     ).dive();
 
-    const documentMeta = wrapper.find(DocumentMeta);
-    documentMeta.prop('title').should.equal('Jerome Finigan');
+    wrapper.find('title').text().should.equal('Jerome Finigan');
   });
 
   it('should render correct officer page in redirecting case', function () {
@@ -185,8 +181,7 @@ describe('OfficerPage component', function () {
       pathName: '/officer/123456/',
     });
 
-    let documentMeta = wrapper.find(DocumentMeta);
-    documentMeta.prop('title').should.equal('Officer Shaun Frank');
+    wrapper.find('title').text().should.equal('Officer Shaun Frank');
   });
 
   it('should render PrintNotes component when printMode is true', function () {
@@ -204,11 +199,13 @@ describe('OfficerPage component', function () {
   it('should call trackOfficerDownloadMenu when clicking on HeaderButton', function () {
     const wrapper = mount(
       <Provider store={ store }>
-        <OfficerPage
-          officerId={ 1234 }
-          officerName='Shaun Frank'
-          officerSummary={ { rank: 'Officer' } }
-        />
+        <HelmetProvider>
+          <OfficerPage
+            officerId={ 1234 }
+            officerName='Shaun Frank'
+            officerSummary={ { rank: 'Officer' } }
+          />
+        </HelmetProvider>
       </Provider>
     );
     const headerButton = wrapper.find('.button');

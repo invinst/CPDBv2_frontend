@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import DocumentMeta from 'react-document-meta';
+import { Helmet } from 'react-helmet-async';
 import cx from 'classnames';
 import { get } from 'lodash';
 
@@ -72,7 +72,10 @@ class LandingPage extends Component {
     const searchPageShowing = this.getSearchPageShowing();
 
     return (
-      <DocumentMeta title='CPDP'>
+      <React.Fragment>
+        <Helmet>
+          <title>CPDP</title>
+        </Helmet>
         <div
           className={
             cx(styles.landingPage, {
@@ -95,7 +98,7 @@ class LandingPage extends Component {
           position={ position }
           animationIn={ !this.initial && searchPageShowing && !this.previousSearchPageShowing }
         />
-      </DocumentMeta>
+      </React.Fragment>
     );
   }
 }

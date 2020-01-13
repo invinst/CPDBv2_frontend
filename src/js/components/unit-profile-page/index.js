@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import DocumentMeta from 'react-document-meta';
+import { Helmet } from 'react-helmet-async';
 
 import Header from './header';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
@@ -12,19 +12,20 @@ export default function UnitProfilePage(props) {
   const { unitName, summary, scrollPosition } = props;
 
   return (
-    <DocumentMeta title={ `Unit ${unitName}` }>
-      <div>
-        <ShareableHeaderContainer />
-        <Header
-          unitName={ unitName }
-          unitDescription={ summary.description }
-          scrollPosition={ scrollPosition }
-        />
-        <div style={ pageWrapperStyle }>
-          <SummaryPageContainer unitName={ unitName } summary={ summary } />;
-        </div>
+    <React.Fragment>
+      <Helmet>
+        <title>{ `Unit ${unitName}` }</title>
+      </Helmet>
+      <ShareableHeaderContainer />
+      <Header
+        unitName={ unitName }
+        unitDescription={ summary.description }
+        scrollPosition={ scrollPosition }
+      />
+      <div style={ pageWrapperStyle }>
+        <SummaryPageContainer unitName={ unitName } summary={ summary } />;
       </div>
-    </DocumentMeta>
+    </React.Fragment>
   );
 }
 

@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme';
 import { spy, stub } from 'sinon';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
-import DocumentMeta from 'react-document-meta';
+import { HelmetProvider } from 'react-helmet-async';
 
 import SearchPageContainer from 'containers/search-page';
 import RecentActivityContainer from 'containers/landing-page/recent-activity';
@@ -105,6 +105,7 @@ describe('LandingPage component', function () {
     const stubResetBreadcrumbs = stub();
     LandingPage.should.be.responsiveRenderable({
       store: store,
+      helmet: true,
       resetBreadcrumbs: stubResetBreadcrumbs,
       location: { pathname: '/' },
     });
@@ -120,21 +121,20 @@ describe('LandingPage component', function () {
       />
     );
 
-    const documentMeta = wrapper.find(DocumentMeta).at(0);
-    documentMeta.prop('title').should.equal('CPDP');
+    wrapper.find('title').text().should.equal('CPDP');
 
-    const landingPageContent = documentMeta.find(`.${styles.landingPage}`);
+    const landingPageContent = wrapper.find(`.${styles.landingPage}`);
     landingPageContent.prop('className').should.not.containEql('animation-in').and.not.containEql('hide');
 
-    const slimHeader = documentMeta.find(SlimHeader);
+    const slimHeader = wrapper.find(SlimHeader);
     slimHeader.prop('pathname').should.equal('/');
 
-    documentMeta.find(HeatMap).exists().should.be.true();
-    documentMeta.find(OfficersByAllegationContainer).exists().should.be.true();
-    documentMeta.find(RecentActivityContainer).exists().should.be.true();
-    documentMeta.find(RecentDocumentContainer).exists().should.be.true();
-    documentMeta.find(ComplaintSummariesContainer).exists().should.be.true();
-    documentMeta.find(FooterContainer).exists().should.be.true();
+    wrapper.find(HeatMap).exists().should.be.true();
+    wrapper.find(OfficersByAllegationContainer).exists().should.be.true();
+    wrapper.find(RecentActivityContainer).exists().should.be.true();
+    wrapper.find(RecentDocumentContainer).exists().should.be.true();
+    wrapper.find(ComplaintSummariesContainer).exists().should.be.true();
+    wrapper.find(FooterContainer).exists().should.be.true();
 
     const searchPage = wrapper.find(SearchPageContainer);
     searchPage.prop('position').should.equal('top');
@@ -461,12 +461,14 @@ describe('LandingPage component', function () {
     const stubResetBreadcrumbs = spy();
 
     mount(
-      <Provider store={ store }>
-        <LandingPage
-          resetBreadcrumbs={ stubResetBreadcrumbs }
-          location={ { pathname: '/' } }
-        />
-      </Provider>
+      <HelmetProvider>
+        <Provider store={ store }>
+          <LandingPage
+            resetBreadcrumbs={ stubResetBreadcrumbs }
+            location={ { pathname: '/' } }
+          />
+        </Provider>
+      </HelmetProvider>
     );
 
     stubResetBreadcrumbs.should.be.calledWith({ breadcrumbs: [] });
@@ -477,18 +479,20 @@ describe('LandingPage component', function () {
     const stubPushBreadcrumbs = spy();
 
     mount(
-      <Provider store={ store }>
-        <LandingPage
-          resetBreadcrumbs={ stubResetBreadcrumbs }
-          pushBreadcrumbs={ stubPushBreadcrumbs }
-          location={ { pathname: '/search/' } }
-          params={ {} }
-          routes={ [
-            { breadcrumb: 'cpdp', breadcrumbKey: '/' },
-            { breadcrumb: 'Search', breadcrumbKey: 'search/' },
-          ] }
-        />
-      </Provider>
+      <HelmetProvider>
+        <Provider store={ store }>
+          <LandingPage
+            resetBreadcrumbs={ stubResetBreadcrumbs }
+            pushBreadcrumbs={ stubPushBreadcrumbs }
+            location={ { pathname: '/search/' } }
+            params={ {} }
+            routes={ [
+              { breadcrumb: 'cpdp', breadcrumbKey: '/' },
+              { breadcrumb: 'Search', breadcrumbKey: 'search/' },
+            ] }
+          />
+        </Provider>
+      </HelmetProvider>
     );
 
     stubResetBreadcrumbs.should.not.be.called();

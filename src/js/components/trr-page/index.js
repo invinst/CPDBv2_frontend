@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import DocumentMeta from 'react-document-meta';
+import { Helmet } from 'react-helmet-async';
 
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import style from './trr-page.sass';
@@ -22,7 +22,10 @@ export function TRRPage(props, context) {
   const { printMode } = context;
 
   return (
-    <DocumentMeta title={ `TRR ${trrId}` }>
+    <React.Fragment>
+      <Helmet>
+        <title>{ `TRR ${trrId}` }</title>
+      </Helmet>
       <div className={ style.trrPage }>
         <ShareableHeaderContainer/>
         <div className={ `${responsiveContainerStyles.responsiveContainer} trr-content` }>
@@ -51,7 +54,7 @@ export function TRRPage(props, context) {
         <FooterContainer/>
         <PrintPreloadFonts/>
       </div>
-    </DocumentMeta>
+    </React.Fragment>
   );
 }
 

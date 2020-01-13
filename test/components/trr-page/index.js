@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
+import { HelmetProvider } from 'react-helmet-async';
 
 import { TRRPage } from 'components/trr-page';
 import OfficerSection from 'components/trr-page/officer-section';
@@ -68,9 +69,11 @@ describe('TRRPage component', function () {
 
   it('should render trr title, OfficerSection and TRRInfoSection', function () {
     const wrapper = mount(
-      <Provider store={ store }>
-        <TRRPageContainer/>
-      </Provider>
+      <HelmetProvider>
+        <Provider store={ store }>
+          <TRRPageContainer/>
+        </Provider>
+      </HelmetProvider>
     );
     wrapper.find('.trr-title').text().should.equal('TRR 123');
     wrapper.find(OfficerSection).prop('officer').should.eql({

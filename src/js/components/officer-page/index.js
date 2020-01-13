@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { compact, get } from 'lodash';
-import DocumentMeta from 'react-document-meta';
+import { Helmet } from 'react-helmet-async';
 import pluralize from 'pluralize';
 
 import AnimatedRadarChart from './radar-chart';
@@ -60,7 +60,11 @@ function OfficerPage(props, context) {
     `and ${pluralize('original document', numAttachments, true)} available.`;
 
   return (
-    <DocumentMeta title={ pageTitle } description={ pageDescription }>
+    <React.Fragment>
+      <Helmet>
+        <title>{ pageTitle }</title>
+        <meta name='description' content={ pageDescription } />
+      </Helmet>
       <div className={ styles.officerPage }>
         <ShareableHeaderContainer
           buttonType={ SHAREABLE_HEADER_BUTTON_TYPE.MENU }
@@ -98,7 +102,7 @@ function OfficerPage(props, context) {
         <FooterContainer className={ styles.officerPageFooter }/>
         <PrintPreloadFonts/>
       </div>
-    </DocumentMeta>
+    </React.Fragment>
   );
 }
 
