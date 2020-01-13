@@ -214,8 +214,7 @@ describe('officer page', function () {
         officerPage.radarChartSection.explainerSection.leftNavigation.click();
 
         const percentileByYear = officerPage.radarChartSection.explainerSection.percentileByYear;
-
-        percentileByYear.getText().should.containEql('Use Of Force\nReports');
+        percentileByYear.getText().should.containEql('Use Of Force Reports');
 
         browser.setWindowRect(0, 0, 800, 500);
 

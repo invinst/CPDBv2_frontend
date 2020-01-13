@@ -68,7 +68,7 @@ DocumentsOverviewPage.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
     search: PropTypes.string,
-    query: PropTypes.string,
+    query: PropTypes.object,
   }).isRequired,
 };
 

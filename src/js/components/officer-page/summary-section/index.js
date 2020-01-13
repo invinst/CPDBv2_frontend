@@ -15,7 +15,7 @@ export default class SummarySection extends Component {
     const { badge, historicBadges } = this.props.officerSummary;
     let allBadges = clone(historicBadges) || [];
     if (badge)
-      allBadges.unshift(<span className='current-badge'>{ badge }</span>);
+      allBadges.unshift(<span className='current-badge' key='current-badge'>{ badge }</span>);
 
     if (isEmpty(allBadges))
       allBadges.unshift('Unknown');
@@ -72,9 +72,7 @@ export default class SummarySection extends Component {
         {
           map(summaryFields, ([label, value, rightChild], ind) => {
             return (
-              <SummaryField
-                label={ label } value={ value } key={ ind }
-              >
+              <SummaryField label={ label } value={ value } key={ `summary-field-${ind}` }>
                 { rightChild }
               </SummaryField>
             );

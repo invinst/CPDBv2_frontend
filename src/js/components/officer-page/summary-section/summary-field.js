@@ -20,7 +20,7 @@ export default function SummaryField(props) {
 
 SummaryField.propTypes = {
   label: PropTypes.string,
-  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.element]),
   style: PropTypes.object,
   children: PropTypes.node,
 };

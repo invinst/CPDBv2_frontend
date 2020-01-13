@@ -37,6 +37,7 @@ export default class PopupWrapper extends Component {
       <span className={ cx(style.popupWrapper, className, 'no-print') }>
         <ReactTooltip
           id={ this.tooltipId }
+          ref={ ref => this.tooltip = ref }
           className='popup'
           effect='solid'
           type='light'
@@ -50,6 +51,10 @@ export default class PopupWrapper extends Component {
               data-for={ this.tooltipId }
               data-event={ true }
               data-event-off='click'
+              onClick={ () => {
+                this.tooltip.tooltipRef = null;
+                ReactTooltip.hide();
+              } }
             />
             { children }
           </div>
