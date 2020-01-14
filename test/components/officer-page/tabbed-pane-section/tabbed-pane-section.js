@@ -52,7 +52,7 @@ describe('TabbedPaneSection component', function () {
           hasCoaccusal={ false }
         />
       </Provider>
-    ).dive();
+    ).find(TabbedPaneSection).dive();
 
     const tabNames = wrapper.find('.tabbed-pane-tab-name');
 
@@ -111,9 +111,9 @@ describe('TabbedPaneSection component', function () {
           hasMapMarker={ true }
         />
       </Provider>
-    );
+    ).find(TabbedPaneSection).dive();
 
-    const mapTab = wrapper.dive().find('.tabbed-pane-tab-name').at(1);
+    const mapTab = wrapper.find('.tabbed-pane-tab-name').at(1);
     mapTab.simulate('click');
 
     stubChangeOfficerTab.should.be.calledWith('MAP');

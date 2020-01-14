@@ -58,8 +58,7 @@ describe('OfficerPage component', function () {
           noDataRadarChartEditWrapperStateProps={ noDataRadarChartEditWrapperStateProps }
         />
       </Provider>
-    ).dive().find('OfficerPage').dive();
-
+    ).find('Printable').dive().find('OfficerPage').dive();
     wrapper.find(SummarySection).exists().should.be.true();
     wrapper.find(MetricsSection).exists().should.be.true();
     wrapper.find(TabbedPaneSection).exists().should.be.true();

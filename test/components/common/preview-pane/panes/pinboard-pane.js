@@ -6,6 +6,7 @@ import { stub, spy } from 'sinon';
 
 import { PinboardPane } from 'components/common/preview-pane/panes';
 import StaticSocialGraphContainer from 'containers/pinboard-admin-page/static-social-graph-container';
+import SocialGraph from 'components/common/animated-social-graph/social-graph';
 import {
   ListWidget,
   OneLineListWidget,
@@ -297,7 +298,7 @@ describe('PinboardPane component', function () {
         },
       },
     });
-    const componentWillUnmountSpy = spy(StaticSocialGraphContainer.prototype, 'componentWillUnmount');
+    const componentWillUnmountSpy = spy(SocialGraph.prototype, 'componentWillUnmount');
 
     const wrapper = mount(
       <Provider store={ store }>
@@ -320,5 +321,6 @@ describe('PinboardPane component', function () {
     });
 
     componentWillUnmountSpy.should.be.calledOnce();
+    componentWillUnmountSpy.restore();
   });
 });
