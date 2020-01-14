@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import { StyleRoot } from 'radium';
 import React from 'react';
 import { toast, ToastContainer } from 'react-toastify';
-import { HelmetProvider } from 'react-helmet-async';
 import 'react-toastify/dist/ReactToastify.css';
 import cx from 'classnames';
+import { HelmetProvider } from 'react-helmet-async';
 
 import config from 'config';
 import EditModeProvider from 'components/edit-mode-provider';
@@ -16,9 +16,10 @@ import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import { ALPHA_NUMBERIC } from 'utils/constants';
 import { getPageRoot } from 'utils/url';
 import styles from './app.sass';
+import RouterRoot from './router-root';
+
 
 toast.configure();
-
 
 export default class App extends React.Component {
   componentDidMount() {
@@ -44,29 +45,29 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { location, children } = this.props;
+    const { location } = this.props;
     const { pinboard: enablePinboardFeature } = config.enableFeatures;
 
     return (
-      <StyleRoot className={ cx(styles.app, { 'pinboard-disabled': !enablePinboardFeature }) }>
-        <EditModeProvider location={ location }>
-          <RouteTransition pathname={ location.pathname }>
-            <HelmetProvider>
-              { children }
-            </HelmetProvider>
-          </RouteTransition>
-          <LoginModalContainer location={ location }/>
-          <GenericModalContainer location={ location }/>
-          <VideoModalContainer />
-        </EditModeProvider>
-        <ToastContainer
-          pauseOnFocusLoss={ false }
-          closeButton={ false }
-          hideProgressBar={ true }
-          autoClose={ 3000 }
-          className={ getPageRoot(location.pathname) }
-        />
-      </StyleRoot>
+      <HelmetProvider>
+        <StyleRoot className={ cx(styles.app, { 'pinboard-disabled': !enablePinboardFeature }) }>
+          <EditModeProvider location={ location }>
+            <RouteTransition pathname={ location.pathname }>
+              <RouterRoot location={ location }/>
+            </RouteTransition>
+            <LoginModalContainer location={ location }/>
+            <GenericModalContainer location={ location }/>
+            <VideoModalContainer />
+          </EditModeProvider>
+          <ToastContainer
+            pauseOnFocusLoss={ false }
+            closeButton={ false }
+            hideProgressBar={ true }
+            autoClose={ 3000 }
+            className={ getPageRoot(location.pathname) }
+          />
+        </StyleRoot>
+      </HelmetProvider>
     );
   }
 }

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import * as constants from 'utils/constants';
 
 
@@ -23,7 +23,7 @@ export default class TextWithInlineSearchAlias extends Component {
           aliasEditModeOn &&
             <Link
               className={ aliasClassName }
-              to={ `/edit/${constants.INLINE_SEARCH_ALIAS_ADMIN_PATH}` }
+              to={ `/edit${constants.INLINE_SEARCH_ALIAS_ADMIN_PATH}` }
               onClick={ this.handleAliasButtonClick }>
               Alias
             </Link>

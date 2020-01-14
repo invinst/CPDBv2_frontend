@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { browserHistory } from 'react-router';
+import browserHistory from 'utils/history';
 import should from 'should';
 import { spy, stub } from 'sinon';
 

@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
+import { connectRouter } from 'connected-react-router';
 import { reducer as breadcrumb } from 'redux-breadcrumb-trail';
 
 import landingPage from './landing-page';
@@ -29,12 +29,12 @@ import pinboardAdminPage from './pinboard-admin-page';
 import videoModal from './video-modal';
 
 
-export default combineReducers({
+export default (history) => combineReducers({
   landingPage,
   searchPage,
   authentication,
   crs,
-  routing: routerReducer,
+  router: connectRouter(history),
   officerPage,
   crPage,
   trrPage,

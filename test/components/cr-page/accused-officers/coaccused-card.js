@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import should from 'should';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import CoaccusedCard from 'components/cr-page/accused-officers/coaccused-card';
 import RadarChart from 'components/common/radar-chart/radar-chart';

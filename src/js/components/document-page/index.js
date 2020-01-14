@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import pluralize from 'pluralize';
 import { slice } from 'lodash';
 

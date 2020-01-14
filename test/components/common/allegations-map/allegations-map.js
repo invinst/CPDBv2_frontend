@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import isMobile from 'ismobilejs';
 import { times, cloneDeep } from 'lodash';
 import { stub, spy } from 'sinon';
-import { browserHistory } from 'react-router';
+import browserHistory from 'utils/history';
 import { mapboxgl } from 'utils/vendors';
 import ReactDOMServer from 'react-dom/server';
 import should from 'should';

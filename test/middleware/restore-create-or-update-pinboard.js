@@ -1,6 +1,6 @@
 import { Promise } from 'es6-promise';
 import { stub, useFakeTimers } from 'sinon';
-import { browserHistory } from 'react-router';
+import browserHistory from 'utils/history';
 import { CancelToken } from 'axios';
 
 import restoreCreateOrUpdatePinboard from 'middleware/restore-create-or-update-pinboard';

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import TagsInput from 'react-tagsinput';
 import AutosizeInput from 'react-input-autosize';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { SEARCH_ALIAS_EDIT_PATH } from 'utils/constants';
 import { imgUrl } from 'utils/static-assets';
@@ -23,7 +23,7 @@ import {
   reactTagsinputInputStyle,
 } from './inline-alias-admin.style';
 
-const backLink = `/edit/${SEARCH_ALIAS_EDIT_PATH}`;
+const backLink = `/edit${SEARCH_ALIAS_EDIT_PATH}`;
 
 export default class InlineAliasAdmin extends Component {
   constructor(props) {

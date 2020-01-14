@@ -1,8 +1,7 @@
 import persistState from 'redux-localstorage';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import { routerMiddleware } from 'react-router-redux';
-import { browserHistory } from 'react-router';
+import { routerMiddleware } from 'connected-react-router';
 
 import rootReducer from 'reducers/root-reducer';
 import configuredAxiosMiddleware from 'middleware/configured-axios-middleware';
@@ -15,6 +14,7 @@ import updatePathName from 'middleware/path-name';
 import retryOfficerDownloadMiddleware from 'middleware/retry-officer-downloads';
 import restoreCreateOrUpdatePinboard from 'middleware/restore-create-or-update-pinboard';
 import config from 'config';
+import history from 'utils/history';
 
 const localStorageVersion = localStorage.getItem('CPDB_LOCALSTORAGE_VERSION', null);
 const { pinboard: enablePinboardFeature } = config.enableFeatures;
@@ -29,7 +29,7 @@ function configureStore(initialState) {
     configuredAxiosMiddleware,
     searchPath,
     tracking,
-    routerMiddleware(browserHistory),
+    routerMiddleware(history),
     fetchPageInitialData,
     redirectOfficerAlias,
     updatePathName,
@@ -48,7 +48,7 @@ function configureStore(initialState) {
   }
 
   return createStore(
-    rootReducer,
+    rootReducer(history),
     initialState,
     compose(...composeArgs)
   );

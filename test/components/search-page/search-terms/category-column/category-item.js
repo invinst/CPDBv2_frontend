@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { stub } from 'sinon';
-import { browserHistory } from 'react-router';
+import browserHistory from 'utils/history';
 import * as tracking from 'utils/tracking';
 import { CALL_TO_ACTION_TYPES } from 'utils/constants';
 

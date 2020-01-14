@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import LinkHeaderButton from 'components/headers/shareable-header/link-header-button';
 

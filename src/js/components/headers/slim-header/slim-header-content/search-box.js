@@ -10,7 +10,7 @@ import { accentColor, boulderColor } from 'utils/styles';
 
 export default class SearchBox extends Component {
   handleClick(e) {
-    pushPathPreserveEditMode(`/${SEARCH_PATH}`);
+    pushPathPreserveEditMode(SEARCH_PATH);
     e.stopPropagation();
   }
 

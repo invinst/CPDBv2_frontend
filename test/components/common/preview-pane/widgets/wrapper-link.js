@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import OutboundLink from 'components/common/outbound-link';
 import WrapperLink from 'components/common/preview-pane/widgets/wrapper-link';

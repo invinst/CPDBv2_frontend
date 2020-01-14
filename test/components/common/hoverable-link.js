@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { stub } from 'sinon';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import HoverableLink from 'components/common/hoverable-link';
 

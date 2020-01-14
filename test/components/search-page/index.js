@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { Provider } from 'react-redux';
-import { browserHistory } from 'react-router';
+import browserHistory from 'utils/history';
 import { spy, stub, useFakeTimers, match } from 'sinon';
 import Mousetrap from 'mousetrap';
 import MockStore from 'redux-mock-store';

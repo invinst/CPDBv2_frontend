@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import PairingChart from 'components/landing-page/common/pairing-card/pairing-chart';
 import style from './pairing-card.sass';

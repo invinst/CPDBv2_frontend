@@ -1,4 +1,4 @@
-import { browserHistory } from 'react-router';
+import browserHistory from 'utils/history';
 import { kebabCase, isEmpty, isNil, includes, parseInt, identity, every, get, map } from 'lodash';
 
 import {

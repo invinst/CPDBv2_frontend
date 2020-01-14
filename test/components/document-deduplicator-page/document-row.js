@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import should from 'should';
 import { spy, stub } from 'sinon';
-import { browserHistory } from 'react-router';
+import browserHistory from 'utils/history';
 
 import DocumentRow from 'components/document-deduplicator-page/document-row';
 import Toggle from 'components/document-deduplicator-page/document-row/toggle';

@@ -1,9 +1,7 @@
 import React from 'react';
-import { Router, Route, IndexRoute, Redirect } from 'react-router';
-import { Provider } from 'react-redux';
+import { Switch, Route, Redirect } from 'react-router';
 
 import config from 'config';
-import AppContainer from 'containers/app-container';
 import LandingPageContainer from 'containers/landing-page';
 import CollaborationPage from 'components/collaboration-page/collaboration-page';
 import SearchPageContainer from 'containers/search-page';
@@ -26,7 +24,6 @@ import {
   COLLAB_PATH,
   SEARCH_PATH,
   OFFICER_PATH,
-  CR_PATH_SUFFIX,
   TTR_PATH,
   UNIT_PROFILE_PATH,
   SEARCH_ALIAS_EDIT_PATH,
@@ -41,114 +38,112 @@ import {
   TRACKER_DOCUMENTS_OVERVIEW_PATH,
   DATA_VISUALIZATION_SOCIAL_GRAPH_PATH,
   DATA_VISUALIZATION_GEOGRAPHIC_PATH,
+  PINBOARD_DATA_VISUALIZATION_SOCIAL_GRAPH_PATH,
+  PINBOARD_DATA_VISUALIZATION_GEOGRAPHIC_PATH,
   PINBOARD_PATH,
   PINBOARD_ADMIN_PATH,
 } from 'utils/constants';
-import configureStore from 'store';
-import history from 'utils/history';
 import BreadcrumbItemContainer from 'containers/breadcrumb-item';
+import { editPath } from 'utils/url';
 
-
-const store = configureStore();
 
 export default function RouterRoot(props) {
   const { pinboard: enablePinboardFeature } = config.enableFeatures;
+  const { location } = props;
 
   return (
-    <Provider store={ store }>
-      <Router history={ history }>
+    <Switch location={ location }>
+      <Route
+        exact={ true }
+        path={ editPath('/') }
+        component={ LandingPageContainer }
+        breadcrumbKey='/'
+        breadcrumb='cpdp'/>
+      <Route
+        path={ editPath(COLLAB_PATH) }
+        component={ CollaborationPage }/>
+      <Route
+        path={ editPath(OFFICER_PATH) }
+        component={ OfficerPageContainer }
+        breadcrumb={ BreadcrumbItemContainer } />
+      <Route
+        path={ editPath(SEARCH_PATH) }
+        component={ LandingPageContainer }
+        breadcrumb='Search' />
+      <Route
+        path={ editPath(STANDALONE_CR_PATH) }
+        component={ CRPageContainer }
+        breadcrumb={ BreadcrumbItemContainer }/>
+      <Route
+        path={ editPath(DOCUMENT_PATH) }
+        component={ DocumentPageContainer }
+        breadcrumb={ BreadcrumbItemContainer }/>
+      <Route
+        path={ editPath(TTR_PATH) }
+        component={ TRRPageContainer }
+        breadcrumb={ BreadcrumbItemContainer }/>
+      <Route
+        path={ editPath(UNIT_PROFILE_PATH) }
+        component={ UnitProfilePageContainer }
+        breadcrumb={ BreadcrumbItemContainer }/>
+      <Route
+        path={ editPath(SEARCH_ALIAS_EDIT_PATH) }
+        component={ SearchPageContainer }/>
+      <Route
+        path={ editPath(INLINE_SEARCH_ALIAS_ADMIN_PATH) }
+        component={ InlineAliasAdminContainer }/>
+      <Route
+        path={ editPath(CRAWLERS_PATH) }
+        component={ CrawlersContainer }
+        breadcrumb='Crawler Tracker'/>
+      <Route
+        path={ editPath(EMBED_MAP_PATH) }
+        component={ HeatMapContainer }/>
+      <Route
+        path={ editPath(EMBED_TOP_OFFICERS_PATH) }
+        component={ EmbedTopOfficersPage }/>
+      <Route
+        path={ editPath(EMBED_OFFICERS_PATH) }
+        component={ EmbedOfficersContainer }/>
+      <Route
+        path={ editPath(TRACKER_ALL_DOCUMENTS_PATH) }
+        component={ DocumentDeduplicatorContainer }
+        breadcrumb={ BreadcrumbItemContainer }/>
+      <Route
+        exact={ true }
+        path={ [
+          editPath(DATA_VISUALIZATION_SOCIAL_GRAPH_PATH),
+          editPath(PINBOARD_DATA_VISUALIZATION_SOCIAL_GRAPH_PATH),
+        ] }
+        component={ SocialGraphContainer }/>
+      <Route
+        exact={ true }
+        path={ [
+          editPath(DATA_VISUALIZATION_GEOGRAPHIC_PATH),
+          editPath(PINBOARD_DATA_VISUALIZATION_GEOGRAPHIC_PATH),
+        ] }
+        component={ SocialGraphContainer }/>
+      <Route
+        path={ editPath(TRACKER_DOCUMENTS_OVERVIEW_PATH) }
+        component={ DocumentsOverviewContainer }
+        breadcrumb='Documents Overview'/>
+      {
+        enablePinboardFeature &&
         <Route
-          path='/(edit)'
-          breadcrumbKey='/'
-          component={ AppContainer }>
-          <IndexRoute
-            component={ LandingPageContainer }
-            breadcrumbKey='/'
-            breadcrumb='cpdp'/>
-          <Route
-            path={ COLLAB_PATH }
-            component={ CollaborationPage }/>
-          <Route
-            path={ OFFICER_PATH }
-            component={ OfficerPageContainer }
-            breadcrumb={ BreadcrumbItemContainer } />
-          <Route
-            path={ SEARCH_PATH }
-            component={ LandingPageContainer }
-            breadcrumb='Search' />
-          <Route
-            path={ STANDALONE_CR_PATH }
-            component={ CRPageContainer }
-            breadcrumb={ BreadcrumbItemContainer }>
-            <Route
-              path={ CR_PATH_SUFFIX }
-              component={ CRPageContainer }
-              useParentBreadcrumb={ true }/>
-          </Route>
-          <Route
-            path={ DOCUMENT_PATH }
-            component={ DocumentPageContainer }
-            breadcrumb={ BreadcrumbItemContainer }/>
-          <Route
-            path={ TTR_PATH }
-            component={ TRRPageContainer }
-            breadcrumb={ BreadcrumbItemContainer }/>
-          <Route
-            path={ UNIT_PROFILE_PATH }
-            component={ UnitProfilePageContainer }
-            breadcrumb={ BreadcrumbItemContainer }/>
-          <Route
-            path={ SEARCH_ALIAS_EDIT_PATH }
-            component={ SearchPageContainer }/>
-          <Route
-            path={ INLINE_SEARCH_ALIAS_ADMIN_PATH }
-            component={ InlineAliasAdminContainer }/>
-          <Route
-            path={ CRAWLERS_PATH }
-            component={ CrawlersContainer }
-            breadcrumb='Crawler Tracker'/>
-          <Route
-            path={ EMBED_MAP_PATH }
-            component={ HeatMapContainer }/>
-          <Route
-            path={ EMBED_TOP_OFFICERS_PATH }
-            component={ EmbedTopOfficersPage }/>
-          <Route
-            path={ EMBED_OFFICERS_PATH }
-            component={ EmbedOfficersContainer }/>
-          <Route
-            path={ TRACKER_ALL_DOCUMENTS_PATH }
-            component={ DocumentDeduplicatorContainer }
-            breadcrumb={ BreadcrumbItemContainer }/>
-          <Route
-            path={ DATA_VISUALIZATION_SOCIAL_GRAPH_PATH }
-            component={ SocialGraphContainer }/>
-          <Route
-            path={ DATA_VISUALIZATION_GEOGRAPHIC_PATH }
-            component={ SocialGraphContainer }/>
-          <Route
-            path={ TRACKER_DOCUMENTS_OVERVIEW_PATH }
-            component={ DocumentsOverviewContainer }
-            breadcrumb='Documents Overview'/>
-          {
-            enablePinboardFeature &&
-            <Route
-              path={ PINBOARD_PATH }
-              component={ PinboardPageContainer }
-              breadcrumb={ BreadcrumbItemContainer }
-            />
-          }
-          {
-            enablePinboardFeature &&
-            <Route
-              path={ PINBOARD_ADMIN_PATH }
-              component={ PinboardAdminPageContainer }
-              breadcrumb='View all pinboards'
-            />
-          }
-          <Redirect from='*' to='/'/>
-        </Route>
-      </Router>
-    </Provider>
+          path={ editPath(PINBOARD_PATH) }
+          component={ PinboardPageContainer }
+          breadcrumb={ BreadcrumbItemContainer }
+        />
+      }
+      {
+        enablePinboardFeature &&
+        <Route
+          path={ editPath(PINBOARD_ADMIN_PATH) }
+          component={ PinboardAdminPageContainer }
+          breadcrumb='View all pinboards'
+        />
+      }
+      <Redirect path='*' to='/'/>
+    </Switch>
   );
 }

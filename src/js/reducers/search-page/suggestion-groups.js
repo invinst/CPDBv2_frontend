@@ -1,8 +1,8 @@
 import { handleActions } from 'redux-actions';
 import { unionBy, omitBy, isEmpty } from 'lodash';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 import * as constants from 'utils/constants';
-import { LOCATION_CHANGE } from 'utils/constants';
 
 
 export default handleActions({

@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { spy } from 'sinon';
 import Collapse, { Panel } from 'rc-collapse';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import ListWidget from 'components/common/preview-pane/widgets/list-widget';
 import ListWidgetItem from 'components/common/preview-pane/widgets/list-widget/list-widget-item';

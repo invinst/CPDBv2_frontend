@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import ReactDOMServer from 'react-dom/server';
-import { browserHistory } from 'react-router';
+import browserHistory from 'utils/history';
 import cx from 'classnames';
 import { isEmpty, isEqual } from 'lodash';
 import isMobile from 'ismobilejs';

@@ -24,7 +24,7 @@ describe('TextWithInlineSearchAlias component', function () {
     );
 
     const linkElement = wrapper.find(Link);
-    linkElement.prop('to').should.equal(`/edit/${constants.INLINE_SEARCH_ALIAS_ADMIN_PATH}`);
+    linkElement.prop('to').should.equal(`/edit${constants.INLINE_SEARCH_ALIAS_ADMIN_PATH}`);
   });
 
   it('should trigger setAliasAdminPageContent if we click on inline search alias link', function () {

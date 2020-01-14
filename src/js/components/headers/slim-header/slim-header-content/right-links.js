@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import config from 'config';
 import cx from 'classnames';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { QA_LINK } from 'utils/constants';
 import styles from 'components/headers/slim-header/slim-header-content/right-links.sass';

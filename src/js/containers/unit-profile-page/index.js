@@ -8,7 +8,7 @@ import { getShareablePageScrollPosition } from 'selectors/headers/shareable-head
 const mapStateToProps = (state, ownProps) => {
   return {
     location: ownProps.location,
-    unitName: ownProps.params.unitName,
+    unitName: ownProps.match.params.unitName,
     summary: summarySelector(state),
     scrollPosition: getShareablePageScrollPosition(state),
   };

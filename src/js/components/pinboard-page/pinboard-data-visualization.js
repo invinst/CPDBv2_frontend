@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import GeographicContainer from 'containers/pinboard-page/geographic-container';
 import SocialGraphContainer from 'containers/pinboard-page/social-graph-container';
@@ -21,13 +21,13 @@ export default class PinboardDataVisualization extends Component {
       <div className={ styles.pinboardDataVisualization }>
         <div className='visualization-item'>
           <SocialGraphContainer />
-          <Link href={ this.expandedLink('social-graph') } className='expanded-mode-btn'>Expand</Link>
+          <Link to={ this.expandedLink('social-graph') } className='expanded-mode-btn'>Expand</Link>
         </div>
         {
           hasMapMarker &&
           (<div className='visualization-item'>
             <GeographicContainer />
-            <Link href={ this.expandedLink('geographic') } className='expanded-mode-btn'>Expand</Link>
+            <Link to={ this.expandedLink('geographic') } className='expanded-mode-btn'>Expand</Link>
           </div>)
         }
       </div>

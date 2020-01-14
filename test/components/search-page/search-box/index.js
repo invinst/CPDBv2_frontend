@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { browserHistory } from 'react-router';
+import browserHistory from 'utils/history';
 import { spy, stub } from 'sinon';
 
 import TextInput from 'components/common/input';

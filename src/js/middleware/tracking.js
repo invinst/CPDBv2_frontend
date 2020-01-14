@@ -1,11 +1,13 @@
 import { reduce, values } from 'lodash';
+import { LOCATION_CHANGE } from 'connected-react-router';
+
 import { CHANGE_SEARCH_QUERY, SUGGESTION_REQUEST_SUCCESS, SUGGESTION_SINGLE_REQUEST_SUCCESS } from 'utils/constants';
 import * as tracking from 'utils/tracking';
 
 
 const EVENTS = {
-  '@@router/LOCATION_CHANGE': (store, action) => {
-    tracking.trackPageView(action.payload.pathname);
+  [LOCATION_CHANGE]: (store, action) => {
+    tracking.trackPageView(action.payload.location.pathname);
   },
 
   [CHANGE_SEARCH_QUERY]: (store, action) => {

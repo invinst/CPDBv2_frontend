@@ -1,4 +1,4 @@
-import { browserHistory } from 'react-router';
+import browserHistory from 'utils/history';
 import { compact } from 'lodash';
 
 import { getCurrentPathname } from 'utils/dom';

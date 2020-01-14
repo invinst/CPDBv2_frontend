@@ -1,5 +1,5 @@
 import { stub } from 'sinon';
-import { browserHistory } from 'react-router';
+import browserHistory from 'utils/history';
 
 import * as utilsDom from 'utils/dom';
 import { editMode, pushPathPreserveEditMode, editModeOn } from 'utils/edit-path';

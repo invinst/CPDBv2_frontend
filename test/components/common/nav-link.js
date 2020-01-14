@@ -1,7 +1,7 @@
 import React from 'react';
 import should from 'should';
 import { shallow } from 'enzyme';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import NavLink from 'components/common/nav-link';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import should from 'should';
-import { browserHistory } from 'react-router';
+import browserHistory from 'utils/history';
 import { stub } from 'sinon';
 
 import DocumentRow from 'components/documents-overview-page/document-row';
