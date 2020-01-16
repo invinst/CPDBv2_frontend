@@ -1,16 +1,17 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router';
 import cx from 'classnames';
 
 import Attachments from './attachments';
 import baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/showings/base-item.sass';
 import styles from './cr.sass';
+import { PrintModeContext } from 'contexts';
 
 
-export default function Cr(props, context) {
+export default function Cr(props) {
   const { item, changeOfficerTab, pathname, onTrackingAttachment } = props;
-  const { printMode } = context;
+  const { printMode } = useContext(PrintModeContext);
 
   return (
     <Link
@@ -51,8 +52,4 @@ Cr.propTypes = {
   changeOfficerTab: PropTypes.func,
   pathname: PropTypes.string,
   onTrackingAttachment: PropTypes.func,
-};
-
-Cr.contextTypes = {
-  printMode: PropTypes.bool,
 };

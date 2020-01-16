@@ -1,32 +1,20 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { useContext } from 'react';
 
 import MoreLink from 'components/common/more-link';
-import ResponsiveStyleComponent, {
-  DESKTOP, TABLET, EXTRA_WIDE,
-} from 'components/responsive/responsive-style-component';
+import ResponsiveStyleComponent from 'components/responsive/responsive-style-component';
 import { ENTITY_LINK } from 'utils/constants';
 import { linkStyle, pinkLinkStyle, linkWrapperStyle } from './link.style';
+import { EditModeContext, SectionEditModeContext } from 'contexts';
 
 
-class Link extends Component {
-  responsiveStyle() {
-    let styleFromContext = this.context.draftEntityStyle && this.context.draftEntityStyle[ENTITY_LINK] || {};
-    if (!styleFromContext[DESKTOP] && !styleFromContext[TABLET] && !styleFromContext[EXTRA_WIDE]) {
-      return {
-        [DESKTOP]: styleFromContext,
-        [TABLET]: styleFromContext,
-        [EXTRA_WIDE]: styleFromContext,
-      };
-    } else {
-      return styleFromContext;
-    }
-  }
-
-  renderWithResponsiveStyle = (style) => {
-    const { children, entityKey, contentState } = this.props;
-    const { editModeOn, sectionEditModeOn } = this.context;
+function Link(props) {
+  function renderWithResponsiveStyle(style) {
+    const { children, entityKey, contentState } = props;
+    const { editModeOn } = useContext(EditModeContext);
+    const { sectionEditModeOn } = useContext(SectionEditModeContext);
     const { url } = contentState.getEntity(entityKey).getData();
+
     if (!editModeOn) {
       return (
         <MoreLink href={ url } style={ style }>
@@ -39,28 +27,19 @@ class Link extends Component {
         { children }
       </span>
     );
-  };
-
-  render() {
-    return (
-      <ResponsiveStyleComponent style={ linkWrapperStyle }
-        responsiveStyle={ this.responsiveStyle() }>
-        { this.renderWithResponsiveStyle }
-      </ResponsiveStyleComponent>
-    );
   }
+
+  return (
+    <ResponsiveStyleComponent style={ linkWrapperStyle }>
+      { renderWithResponsiveStyle }
+    </ResponsiveStyleComponent>
+  );
 }
 
 Link.propTypes = {
   contentState: PropTypes.object,
   entityKey: PropTypes.string,
   children: PropTypes.node,
-};
-
-Link.contextTypes = {
-  editModeOn: PropTypes.bool,
-  draftEntityStyle: PropTypes.object,
-  sectionEditModeOn: PropTypes.bool,
 };
 
 export default Link;

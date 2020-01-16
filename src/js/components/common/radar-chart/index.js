@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 
 import RadarChart from './radar-chart';
 import { hasEnoughRadarChartData } from 'utils/radar-chart';
 import { clayGray, greyishColor, softBlackColor, sugarCaneColor } from 'utils/styles';
-
+import { PrintModeContext } from 'contexts';
 
 const PRINT_RADAR_CHART_STYLES = {
   textColor: softBlackColor,
@@ -16,10 +16,9 @@ const PRINT_RADAR_CHART_STYLES = {
   radarMainAreaOpacity: 0.4,
 };
 
-export default function StaticRadarChart(props, context) {
+export default function StaticRadarChart(props) {
   const { data, width, height, radius, offsetTop } = props;
-
-  const { printMode } = context;
+  const { printMode } = useContext(PrintModeContext);
   const radarChartPrintStyle = printMode ? PRINT_RADAR_CHART_STYLES : {};
 
   if (!hasEnoughRadarChartData(data)) {
@@ -53,7 +52,7 @@ StaticRadarChart.propTypes = {
     PropTypes.shape({
       axis: PropTypes.string.isRequired,
       value: PropTypes.number.isRequired,
-    })
+    }),
   ),
   backgroundColor: PropTypes.string,
   textColor: PropTypes.string,
@@ -74,8 +73,4 @@ StaticRadarChart.propTypes = {
   ]),
   fadeOutLegend: PropTypes.bool,
   offsetTop: PropTypes.number,
-};
-
-StaticRadarChart.contextTypes = {
-  printMode: PropTypes.bool,
 };

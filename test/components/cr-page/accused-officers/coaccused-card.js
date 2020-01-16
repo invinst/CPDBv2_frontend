@@ -11,6 +11,7 @@ import { random } from 'faker';
 import ItemPinButton from 'components/common/item-pin-button';
 import pinButtonStyles from 'components/common/item-pin-button.sass';
 import { PINNED_ITEM_TYPES } from 'utils/constants';
+import { PrintModeContext } from 'contexts';
 
 
 describe('CoaccusedCard component', function () {
@@ -80,14 +81,15 @@ describe('CoaccusedCard component', function () {
 
   it('should render disciplined if both printMode and disciplined are true', function () {
     const context = { printMode: true };
-    const wrapper = shallow(
-      <CoaccusedCard
-        finding='Sustained'
-        disciplined={ true }
-        category='Operations/Personnel Violation'
-        findingOutcomeMix='Reprimand'
-      />,
-      { context }
+    const wrapper = mount(
+      <PrintModeContext.Provider value={ context }>
+        <CoaccusedCard
+          finding='Sustained'
+          disciplined={ true }
+          category='Operations/Personnel Violation'
+          findingOutcomeMix='Reprimand'
+        />
+      </PrintModeContext.Provider>
     );
     const findingOutcome = wrapper.find('.finding-outcome-mix');
     findingOutcome.text().should.equal('Reprimand, Disciplined');
@@ -95,14 +97,15 @@ describe('CoaccusedCard component', function () {
 
   it('should only render disciplined if printMode & disciplined are true and findingOutcomeMix is null', function () {
     const context = { printMode: true };
-    const wrapper = shallow(
-      <CoaccusedCard
-        finding='Sustained'
-        disciplined={ true }
-        category='Operations/Personnel Violation'
-        findingOutcomeMix={ null }
-      />,
-      { context }
+    const wrapper = mount(
+      <PrintModeContext.Provider value={ context }>
+        <CoaccusedCard
+          finding='Sustained'
+          disciplined={ true }
+          category='Operations/Personnel Violation'
+          findingOutcomeMix={ null }
+        />
+      </PrintModeContext.Provider>
     );
     const findingOutcome = wrapper.find('.finding-outcome-mix');
     findingOutcome.text().should.equal('Disciplined');

@@ -8,6 +8,7 @@ import Toggle from './toggle';
 import styles from './document-row.sass';
 import { ATTACHMENT_TYPES } from 'utils/constants';
 import { trackOutboundLink } from 'utils/tracking';
+import { EditModeContext } from 'contexts';
 
 export default class DocumentRow extends Component {
   handleClick = () => {
@@ -60,6 +61,8 @@ export default class DocumentRow extends Component {
   }
 }
 
+DocumentRow.contextType = EditModeContext;
+
 DocumentRow.propTypes = {
   id: PropTypes.number,
   show: PropTypes.bool,
@@ -72,8 +75,4 @@ DocumentRow.propTypes = {
   downloadsCount: PropTypes.number,
   fileType: PropTypes.string,
   url: PropTypes.string,
-};
-
-DocumentRow.contextTypes = {
-  editModeOn: PropTypes.bool,
 };

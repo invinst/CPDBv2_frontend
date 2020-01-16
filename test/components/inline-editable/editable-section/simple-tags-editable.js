@@ -1,10 +1,11 @@
 import React from 'react';
 import { spy } from 'sinon';
+import { mount } from 'enzyme';
 
 import SimpleTagsEditable from 'components/inline-editable/editable-section/simple-tag-editable';
 import styles from 'components/inline-editable/editable-section/simple-tag-editable.sass';
 import Editable from 'components/inline-editable/editable';
-import { shallow } from 'enzyme';
+import { EditWrapperStateContext } from 'contexts';
 
 
 describe('SimpleTagsEditable component', function () {
@@ -19,8 +20,10 @@ describe('SimpleTagsEditable component', function () {
         },
       },
     };
-    const wrapper = shallow(
-      <SimpleTagsEditable fieldName='tags'/>, { context }
+    const wrapper = mount(
+      <EditWrapperStateContext.Provider value={ context }>
+        <SimpleTagsEditable fieldName='tags'/>
+      </EditWrapperStateContext.Provider>
     );
 
     const editable = wrapper.find(Editable);

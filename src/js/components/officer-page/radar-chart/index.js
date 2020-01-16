@@ -14,6 +14,7 @@ import RichTextEditable from 'components/inline-editable/editable-section/rich-t
 import * as IntercomTracking from 'utils/intercom-tracking';
 import * as tracking from 'utils/tracking';
 import styles from './radar-chart.sass';
+import { PrintModeContext } from 'contexts';
 
 
 export default class AnimatedRadarChart extends Component {
@@ -212,6 +213,8 @@ export default class AnimatedRadarChart extends Component {
   }
 }
 
+AnimatedRadarChart.contextType = PrintModeContext;
+
 AnimatedRadarChart.propTypes = {
   officerId: PropTypes.number,
   data: PropTypes.array,
@@ -220,8 +223,4 @@ AnimatedRadarChart.propTypes = {
   scaleEditWrapperStateProps: PropTypes.object,
   noDataRadarChartEditWrapperStateProps: PropTypes.object,
   noDataPopup: PropTypes.object,
-};
-
-AnimatedRadarChart.contextTypes = {
-  printMode: PropTypes.bool,
 };

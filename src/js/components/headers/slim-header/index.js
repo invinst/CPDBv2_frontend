@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 
 import { calculateSlimHeaderPosition } from 'utils/dom';
 import SlimHeaderContent from './slim-header-content';
+import { EditModeContext } from 'contexts';
 
 
 export class SlimHeader extends Component {
@@ -47,6 +48,8 @@ export class SlimHeader extends Component {
   }
 }
 
+SlimHeader.contextType = EditModeContext;
+
 SlimHeader.propTypes = {
   show: PropTypes.bool,
   pathname: PropTypes.string,
@@ -54,10 +57,6 @@ SlimHeader.propTypes = {
 
 SlimHeader.defaultProps = {
   show: true,
-};
-
-SlimHeader.contextTypes = {
-  editModeOn: PropTypes.bool,
 };
 
 export default SlimHeader;

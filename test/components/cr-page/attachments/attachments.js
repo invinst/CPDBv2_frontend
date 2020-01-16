@@ -10,6 +10,7 @@ import { buildEditStateFields } from 'utils/test/factories/draft';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
 import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
+import { PrintModeContext } from 'contexts';
 
 
 describe('AttachmentsTab component', function () {
@@ -54,7 +55,11 @@ describe('AttachmentsTab component', function () {
   it('should render PrintAttachment if printMode is true', function () {
     const items = [{ title: 'abc', url: 'def', previewImageUrl: 'pre' }];
     const context = { printMode: true };
-    const wrapper = shallow(<Attachments items={ items }/>, { context: context });
+    const wrapper = mount(
+      <PrintModeContext.Provider value={ context }>
+        <Attachments items={ items }/>
+      </PrintModeContext.Provider>
+    );
     wrapper.find(PrintAttachments).exists().should.be.true();
   });
 });

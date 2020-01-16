@@ -6,6 +6,7 @@ import { convertToRaw } from 'draft-js';
 import { wrapperStyle } from './editable-section.style';
 import { convertContentStateToEditorState } from 'utils/draft';
 import { officersToSnakeCase, officersToCamelCase } from 'utils/case-converting-tranform';
+import { SectionEditModeContext } from 'contexts';
 
 
 export default function (SubComponent) {
@@ -36,12 +37,6 @@ export default function (SubComponent) {
         fields: mapValues(props.fields, EditableSection.deserializeField),
         prevFields: props.fields,
         prevSectionEditModeOn: props.sectionEditModeOn,
-      };
-    }
-
-    getChildContext() {
-      return {
-        sectionEditModeOn: this.props.sectionEditModeOn,
       };
     }
 
@@ -108,20 +103,22 @@ export default function (SubComponent) {
       const { fields } = this.state;
 
       return (
-        <div style={ wrapperStyle(sectionEditModeOn) }>
-          <SubComponent
-            sectionEditModeOn={ sectionEditModeOn }
-            editToggleProps={ {
-              sectionEditModeOn,
-              turnOnSectionEditMode,
-              turnOffSectionEditMode,
-              onSaveForm: this.handleSaveForm,
-            } }
-            fieldProps={
-              mapValues(fields, this.fieldProps)
-            }
-            { ...restProps }/>
-        </div>
+        <SectionEditModeContext.Provider value={ { sectionEditModeOn } }>
+          <div style={ wrapperStyle(sectionEditModeOn) }>
+            <SubComponent
+              sectionEditModeOn={ sectionEditModeOn }
+              editToggleProps={ {
+                sectionEditModeOn,
+                turnOnSectionEditMode,
+                turnOffSectionEditMode,
+                onSaveForm: this.handleSaveForm,
+              } }
+              fieldProps={
+                mapValues(fields, this.fieldProps)
+              }
+              { ...restProps }/>
+          </div>
+        </SectionEditModeContext.Provider>
       );
     }
   }
@@ -132,10 +129,6 @@ export default function (SubComponent) {
     sectionEditModeOn: PropTypes.bool,
     turnOnSectionEditMode: PropTypes.func,
     turnOffSectionEditMode: PropTypes.func,
-  };
-
-  EditableSection.childContextTypes = {
-    sectionEditModeOn: PropTypes.bool,
   };
 
   return EditableSection;

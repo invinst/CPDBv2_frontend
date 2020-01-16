@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import isMobile from 'ismobilejs';
 
 
@@ -12,17 +11,6 @@ export function withMobileDevice(cb) {
   isMobile.any = true;
   cb();
   isMobile.any = false;
-}
-
-export function withStoreContext(ComponentAAA, store) {
-  class WithStoreContext extends ComponentAAA {
-    getChildContext() {
-      return { store };
-    }
-  }
-
-  ComponentAAA.childContextTypes = { store: PropTypes.object };
-  return WithStoreContext;
 }
 
 global.ga = () => {};

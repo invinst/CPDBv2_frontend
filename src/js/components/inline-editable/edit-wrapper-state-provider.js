@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { mapValues, map, values, isEqual } from 'lodash';
 
 import { convertContentStateToEditorState, convertEditorStateToRaw } from 'utils/draft';
+import { EditWrapperStateContext } from 'contexts';
 
 
 export default class EditWrapperStateProvider extends Component {
@@ -27,17 +28,6 @@ export default class EditWrapperStateProvider extends Component {
       fields: mapValues(props.fields, EditWrapperStateProvider.deserializeField),
       prevFields: props.fields,
       prevSectionEditModeOn: props.sectionEditModeOn,
-    };
-  }
-
-  getChildContext() {
-    const { sectionEditModeOn, turnOnSectionEditMode, turnOffSectionEditMode } = this.props;
-    return {
-      fieldContexts: this.getFieldContexts(),
-      onSaveForm: this.handleSaveForm,
-      sectionEditModeOn,
-      turnOnSectionEditMode,
-      turnOffSectionEditMode,
     };
   }
 
@@ -94,22 +84,25 @@ export default class EditWrapperStateProvider extends Component {
   };
 
   render() {
-    const { children } = this.props;
-    return children;
+    const { children, sectionEditModeOn, turnOnSectionEditMode, turnOffSectionEditMode } = this.props;
+    const context = {
+      fieldContexts: this.getFieldContexts(),
+      onSaveForm: this.handleSaveForm,
+      sectionEditModeOn,
+      turnOnSectionEditMode,
+      turnOffSectionEditMode,
+    };
+    return (
+      <EditWrapperStateContext.Provider value={ context }>
+        { children }
+      </EditWrapperStateContext.Provider>
+    );
   }
 }
 
 EditWrapperStateProvider.propTypes = {
   children: PropTypes.node,
   fields: PropTypes.object,
-  onSaveForm: PropTypes.func,
-  sectionEditModeOn: PropTypes.bool,
-  turnOnSectionEditMode: PropTypes.func,
-  turnOffSectionEditMode: PropTypes.func,
-};
-
-EditWrapperStateProvider.childContextTypes = {
-  fieldContexts: PropTypes.object,
   onSaveForm: PropTypes.func,
   sectionEditModeOn: PropTypes.bool,
   turnOnSectionEditMode: PropTypes.func,

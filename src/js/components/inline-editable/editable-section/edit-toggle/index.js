@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 
 import MoreLink from 'components/common/more-link';
 import CancelUpdateButtons from './cancel-update-buttons';
@@ -7,11 +7,12 @@ import {
   moreLinkWrapperStyle, editLinkBaseStyle, editLinkHoverStyle,
   editLinkUnderlineBaseStyle, editLinkUnderlineHoverStyle,
 } from './edit-toggle.style';
+import { EditModeContext } from 'contexts';
 
 
-function EditToggle(props, context) {
+function EditToggle(props) {
   const { turnOnSectionEditMode, turnOffSectionEditMode, onSaveForm, sectionEditModeOn, style } = props;
-  const { editModeOn } = context;
+  const { editModeOn } = useContext(EditModeContext);
 
   if (!editModeOn) {
     return null;
@@ -43,10 +44,6 @@ EditToggle.propTypes = {
   turnOffSectionEditMode: PropTypes.func,
   onSaveForm: PropTypes.func,
   style: PropTypes.object,
-};
-
-EditToggle.contextTypes = {
-  editModeOn: PropTypes.bool,
 };
 
 export default EditToggle;

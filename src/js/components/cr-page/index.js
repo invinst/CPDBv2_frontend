@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { get, isEmpty } from 'lodash';
 import cx from 'classnames';
@@ -22,9 +22,10 @@ import responsiveContainerStyles from 'components/common/responsive-container.sa
 import Printable from 'components/common/higher-order/printable';
 import PrintNotes from 'components/common/print-notes';
 import PrintPreloadFonts from 'components/common/print-preload-fonts';
+import { PrintModeContext } from 'contexts';
 
 
-function CRPage(props, context) {
+function CRPage(props) {
   const {
     crid, coaccused, complainants, alreadyRequested, category, subcategory,
     incidentDate, point, address, crLocation, beat, involvements, attachments,
@@ -32,8 +33,7 @@ function CRPage(props, context) {
     noAttachmentTextEditWrapperStateProps, onTrackingAttachment, addOrRemoveItemInPinboard,
   } = props;
 
-  const { printMode } = context;
-
+  const { printMode } = useContext(PrintModeContext);
   const involvementItem = <Involvement involvements={ involvements }/>;
 
   return (
@@ -143,10 +143,6 @@ CRPage.defaultProps = {
   victims: [],
   complainants: [],
   coaccused: [],
-};
-
-CRPage.contextTypes = {
-  printMode: PropTypes.bool,
 };
 
 export default Printable(CRPage);

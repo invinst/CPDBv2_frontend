@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+
 import styles from './printable.sass';
+import { PrintModeContext } from 'contexts';
 
 
 export default function (ComponentClass) {
@@ -9,12 +11,6 @@ export default function (ComponentClass) {
       super(props);
       this.state = {
         printMode: false,
-      };
-    }
-
-    getChildContext() {
-      return {
-        printMode: this.state.printMode,
       };
     }
 
@@ -49,38 +45,38 @@ export default function (ComponentClass) {
       const { printHeader } = this.props;
 
       return (
-        printMode ?
-          <table className={ styles.printable }>
-            <thead>
-              <tr>
-                <th>
-                  <div className='printable-header'>
-                    <span className='left-header'>{ printHeader }</span>
-                    <div className='right-header'>
-                      <span className='printable-as-of'>AS OF</span>
-                      <br/>
-                      <span className='printable-date'>{ today }</span>
-                    </div>
-                  </div>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className='main-content'>
-                  <ComponentClass { ...this.props }/>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          : <ComponentClass { ...this.props }/>
+        <PrintModeContext.Provider value={ { printMode } }>
+          {
+            printMode ?
+              <table className={ styles.printable }>
+                <thead>
+                  <tr>
+                    <th>
+                      <div className='printable-header'>
+                        <span className='left-header'>{ printHeader }</span>
+                        <div className='right-header'>
+                          <span className='printable-as-of'>AS OF</span>
+                          <br/>
+                          <span className='printable-date'>{ today }</span>
+                        </div>
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className='main-content'>
+                      <ComponentClass { ...this.props }/>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              : <ComponentClass { ...this.props }/>
+          }
+        </PrintModeContext.Provider>
       );
     }
   }
-
-  Printable.childContextTypes = {
-    printMode: PropTypes.bool,
-  };
 
   Printable.propTypes = {
     printHeader: PropTypes.string,

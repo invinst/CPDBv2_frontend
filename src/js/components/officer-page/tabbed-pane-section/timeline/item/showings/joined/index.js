@@ -1,14 +1,15 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 import cx from 'classnames';
 
 import baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/showings/base-item.sass';
 import styles from './joined.sass';
+import { PrintModeContext } from 'contexts';
 
 
-export default function Joined(props, context) {
+export default function Joined(props) {
   const { item } = props;
-  const { printMode } = context;
+  const { printMode } = useContext(PrintModeContext);
 
   const unitString = item.unitName === 'Unassigned' ? '' : ` with ${item.unitName}`;
   const rankString = item.rank === 'Unknown' ? '' : ` as a ${item.rank}`;
@@ -28,8 +29,4 @@ export default function Joined(props, context) {
 
 Joined.propTypes = {
   item: PropTypes.object,
-};
-
-Joined.contextTypes = {
-  printMode: PropTypes.bool,
 };

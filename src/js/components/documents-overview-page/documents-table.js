@@ -9,6 +9,7 @@ import DocumentRow from './document-row';
 import MonthSeparator from 'components/common/table/month-separator';
 import * as constants from 'utils/constants';
 import styles from './documents-table.sass';
+import { EditModeContext } from 'contexts';
 
 const rowMap = {
   [constants.DOCUMENTS_SEARCH_ITEMS.DOCUMENT]: DocumentRow,
@@ -62,6 +63,8 @@ export default class DocumentsTable extends Component {
   }
 }
 
+DocumentsTable.contextType = EditModeContext;
+
 DocumentsTable.propTypes = {
   rows: PropTypes.array,
   hasMore: PropTypes.bool,
@@ -73,8 +76,4 @@ DocumentsTable.propTypes = {
 
 DocumentsTable.defaultProps = {
   rows: [],
-};
-
-DocumentsTable.contextTypes = {
-  editModeOn: PropTypes.bool,
 };

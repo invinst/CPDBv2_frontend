@@ -6,6 +6,7 @@ import { get } from 'lodash';
 import Editable from 'components/inline-editable/editable';
 import RichTextEditor from 'components/inline-editable/rich-text-editor';
 import { editorStateToText } from 'utils/draft';
+import { EditWrapperStateContext } from 'contexts';
 
 
 export default class LinkTextEditable extends Component {
@@ -49,6 +50,8 @@ export default class LinkTextEditable extends Component {
   }
 }
 
+LinkTextEditable.contextType = EditWrapperStateContext;
+
 LinkTextEditable.propTypes = {
   style: PropTypes.object,
   className: PropTypes.string,
@@ -62,8 +65,4 @@ LinkTextEditable.propTypes = {
 
 LinkTextEditable.defaultProps = {
   style: {},
-};
-
-LinkTextEditable.contextTypes = {
-  fieldContexts: PropTypes.object,
 };

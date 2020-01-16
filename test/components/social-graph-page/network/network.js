@@ -13,7 +13,6 @@ import EdgeCoaccusalsPane from 'components/social-graph-page/network/preview-pan
 import PreviewPane from 'components/social-graph-page/network/preview-pane';
 import * as intercomUtils from 'utils/intercom';
 import { NETWORK_PREVIEW_PANE } from 'utils/constants';
-import { withStoreContext } from 'utils/test';
 
 
 describe('NetworkGraph component', function () {
@@ -405,16 +404,16 @@ describe('NetworkGraph component', function () {
 
   it('should call updateSelectedOfficerId when clicking outside and there is selectedOfficerId', function () {
     const updateSelectedOfficerIdStub = stub();
-
-    const NetworkGraphWithStore = withStoreContext(NetworkGraph, store);
     const wrapper = mount(
-      <NetworkGraphWithStore
-        updateSelectedOfficerId={ updateSelectedOfficerIdStub } selectedOfficerId={ 123 }
-      />,
-      { context: { store } }
+      <Provider store={ store }>
+        <NetworkGraph
+          updateSelectedOfficerId={ updateSelectedOfficerIdStub }
+          selectedOfficerId={ 123 }
+        />
+      </Provider>
     );
     const leftSection = wrapper.find('.left-section');
-    wrapper.instance().handleClickOutside({ target: leftSection.getDOMNode() });
+    wrapper.find(NetworkGraph).instance().handleClickOutside({ target: leftSection.getDOMNode() });
     updateSelectedOfficerIdStub.should.be.calledOnce();
     updateSelectedOfficerIdStub.should.be.calledWith(null);
   });
@@ -426,12 +425,16 @@ describe('NetworkGraph component', function () {
       targetOfficerName: 'Edward May',
       coaccusedCount: 10,
     };
-    const NetworkGraphWithStore = withStoreContext(NetworkGraph, store);
     const wrapper = mount(
-      <NetworkGraphWithStore updateSelectedEdge={ updateSelectedEdgeStub } selectedEdge={ selectedEdge } />
+      <Provider store={ store }>
+        <NetworkGraph
+          updateSelectedEdge={ updateSelectedEdgeStub }
+          selectedEdge={ selectedEdge }
+        />
+      </Provider>
     );
     const leftSection = wrapper.find('.left-section');
-    wrapper.instance().handleClickOutside({ target: leftSection.getDOMNode() });
+    wrapper.find(NetworkGraph).instance().handleClickOutside({ target: leftSection.getDOMNode() });
     updateSelectedEdgeStub.should.be.calledWith(null);
   });
 
@@ -442,27 +445,32 @@ describe('NetworkGraph component', function () {
       targetOfficerName: 'Edward May',
       coaccusedCount: 10,
     };
-    const NetworkGraphWithStore = withStoreContext(NetworkGraph, store);
     const wrapper = mount(
-      <NetworkGraphWithStore
-        updateSelectedEdge={ updateSelectedEdgeStub }
-        selectedEdge={ selectedEdge }
-        selectedCrid={ '123456' }
-      />
+      <Provider store={ store }>
+        <NetworkGraph
+          updateSelectedEdge={ updateSelectedEdgeStub }
+          selectedEdge={ selectedEdge }
+          selectedCrid={ '123456' }
+        />
+      </Provider>
     );
     const leftSection = wrapper.find('.left-section');
-    wrapper.instance().handleClickOutside({ target: leftSection.getDOMNode() });
+    wrapper.find(NetworkGraph).instance().handleClickOutside({ target: leftSection.getDOMNode() });
     updateSelectedEdgeStub.should.not.be.called();
   });
 
   it('should call updateSelectedCrid when clicking outside and there is selectedCrid', function () {
     const updateSelectedCridStub = stub();
-    const NetworkGraphWithStore = withStoreContext(NetworkGraph, store);
     const wrapper = mount(
-      <NetworkGraphWithStore updateSelectedCrid={ updateSelectedCridStub } selectedCrid={ '123456' } />
+      <Provider store={ store }>
+        <NetworkGraph
+          updateSelectedCrid={ updateSelectedCridStub }
+          selectedCrid={ '123456' }
+        />
+      </Provider>
     );
     const leftSection = wrapper.find('.left-section');
-    wrapper.instance().handleClickOutside({ target: leftSection.getDOMNode() });
+    wrapper.find(NetworkGraph).instance().handleClickOutside({ target: leftSection.getDOMNode() });
     updateSelectedCridStub.should.be.calledWith(null);
   });
 

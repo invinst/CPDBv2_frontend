@@ -1,5 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
+import MockStore from 'redux-mock-store';
+import { Provider } from 'react-redux';
 
 import CRPage from 'components/cr-page';
 import SummaryRow from 'components/cr-page/summary-row';
@@ -7,6 +9,8 @@ import ComplaintCategory from 'components/cr-page/complaint-category';
 import ComplaintIncidentDate from 'components/cr-page/complaint-incident-date';
 import RelatedComplaints from 'components/cr-page/related-complaints';
 import PrintNotes from 'components/common/print-notes';
+import { HelmetProvider } from 'react-helmet-async';
+import { PrintModeContext } from 'contexts';
 
 
 describe('CRPage component', function () {
@@ -47,21 +51,32 @@ describe('CRPage component', function () {
     crPage.find(RelatedComplaints).exists().should.be.false();
   });
 
-  it('should not render PrintNotes component when printMode is false', function () {
-    const wrapper = shallow(<CRPage />);
-    wrapper.setState({ printMode: false });
-    wrapper.instance().getChildContext().should.eql({ printMode: false });
-
-    const crPage = shallow(wrapper.find('CRPage').get(0), { context: { printMode: false } });
-    crPage.find(PrintNotes).exists().should.be.false();
-  });
-
   it('should render PrintNotes component when printMode is true', function () {
-    const wrapper = shallow(<CRPage />);
-    wrapper.setState({ printMode: true });
-    wrapper.instance().getChildContext().should.eql({ printMode: true });
+    const state = {
+      headers: {
+        shareableHeader: {
+          scrollPosition: null,
+        },
+      },
+      breadcrumb: {
+        breadcrumbs: [],
+      },
+    };
+    const store = MockStore()(state);
 
-    const crPage = shallow(wrapper.find('CRPage').get(0), { context: { printMode: true } });
-    crPage.find(PrintNotes).exists().should.be.true();
+    const wrapper = mount(
+      <PrintModeContext.Provider value={ { printMode: true } }>
+        <HelmetProvider>
+          <Provider store={ store }>
+            <CRPage />
+          </Provider>
+        </HelmetProvider>
+      </PrintModeContext.Provider>
+    );
+    wrapper.find(CRPage).setState({ printMode: false });
+    wrapper.find(PrintNotes).exists().should.be.false();
+
+    wrapper.find(CRPage).setState({ printMode: true });
+    wrapper.find(PrintNotes).exists().should.be.true();
   });
 });

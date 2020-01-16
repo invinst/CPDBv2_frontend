@@ -1,14 +1,16 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 import { get } from 'lodash';
 import TagsInput from 'react-tagsinput';
 
 import Editable from 'components/inline-editable/editable';
 import styles from './simple-tag-editable.sass';
+import { EditWrapperStateContext } from 'contexts';
 
 
-export default function SimpleTagEditable(props, context) {
+export default function SimpleTagEditable(props) {
   const { fieldName } = props;
+  const context = useContext(EditWrapperStateContext);
   const { editModeOn, value, onChange } = get(context.fieldContexts, fieldName, {});
 
   return (
@@ -39,8 +41,4 @@ export default function SimpleTagEditable(props, context) {
 
 SimpleTagEditable.propTypes = {
   fieldName: PropTypes.string,
-};
-
-SimpleTagEditable.contextTypes = {
-  fieldContexts: PropTypes.object,
 };

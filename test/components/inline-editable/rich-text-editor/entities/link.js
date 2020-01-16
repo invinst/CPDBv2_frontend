@@ -3,9 +3,8 @@ import { mount } from 'enzyme';
 import { stub } from 'sinon';
 
 import MoreLink from 'components/common/more-link';
-import { TABLET, DESKTOP, EXTRA_WIDE } from 'components/responsive/responsive-style-component';
-import { ENTITY_LINK } from 'utils/constants';
 import Link from 'components/inline-editable/rich-text-editor/entities/link';
+import { EditModeContext } from 'contexts';
 
 
 describe('Link component', function () {
@@ -20,8 +19,9 @@ describe('Link component', function () {
     const contentState = { getEntity: getEntityStub };
 
     const wrapper = mount(
-      <Link entityKey={ entityKey } contentState={ contentState }/>,
-      { context: context },
+      <EditModeContext.Provider value={ context }>
+        <Link entityKey={ entityKey } contentState={ contentState }/>
+      </EditModeContext.Provider>
     );
     const moreLinkElement = wrapper.find(MoreLink).at(0);
     moreLinkElement.prop('href').should.eql(url);
@@ -43,44 +43,5 @@ describe('Link component', function () {
     );
 
     wrapper.find('span').exists().should.be.true();
-  });
-
-  it('should apply style from context', function () {
-    const style = { a: 'b' };
-    const context = {
-      draftEntityStyle: {
-        [ENTITY_LINK]: style,
-      },
-    };
-    const getEntityStub = stub().returns({ getData: () => { return {}; } });
-    const contentState = { getEntity: getEntityStub };
-
-    const wrapper = mount(
-      <Link contentState={ contentState }/>,
-      { context: context }
-    );
-    const moreLinkElement = wrapper.find(MoreLink).at(0);
-    moreLinkElement.prop('style').should.equal(style);
-  });
-
-  it('should apply responsive style from context', function () {
-    const style = { 'c': 'd' };
-    const context = {
-      draftEntityStyle: {
-        [ENTITY_LINK]: {
-          [TABLET]: style,
-          [DESKTOP]: style,
-          [EXTRA_WIDE]: style,
-        },
-      },
-    };
-    const getEntityStub = stub().returns({ getData: () => { return {}; } });
-    const contentState = { getEntity: getEntityStub };
-    const wrapper = mount(
-      <Link contentState={ contentState }/>,
-      { context: context }
-    );
-    const moreLinkElement = wrapper.find(MoreLink).at(0);
-    moreLinkElement.prop('style').should.equal(style);
   });
 });
