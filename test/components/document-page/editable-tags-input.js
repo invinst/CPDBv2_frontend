@@ -24,6 +24,7 @@ describe('EditableTagsInput component', function () {
         className='editable-tags-input'
         title='Tags title'
         fieldName='tags'
+        suggestionTags={ ['tag 1', 'tag2'] }
         editWrapperStateProps={ editWrapperStateProps }
         nextDocumentId={ 12345 }
       />
@@ -39,6 +40,7 @@ describe('EditableTagsInput component', function () {
 
     const simpleTagsEditable = hoverableEditWrapper.find(SimpleTagsEditable);
     simpleTagsEditable.prop('fieldName').should.equal('tags');
+    simpleTagsEditable.prop('suggestionTags').should.eql(['tag 1', 'tag2']);
 
     const nextUntaggedDocumentButton = wrapper.find('.next-untagged-document-button');
     nextUntaggedDocumentButton.text().should.equal('Next untagged document');

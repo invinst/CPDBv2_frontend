@@ -6,7 +6,7 @@ export default class HoverableEditWrapper extends Component {
   render() {
     const { children, style, className } = this.props;
     const {
-      editModeOn, sectionEditModeOn, turnOnSectionEditMode, turnOffSectionEditMode, onSaveForm,
+      editModeOn, sectionEditModeOn, turnOnSectionEditMode, turnOffSectionEditMode, onSaveForm, autoSave,
     } = this.context;
 
     if (editModeOn) {
@@ -18,14 +18,16 @@ export default class HoverableEditWrapper extends Component {
           {
             sectionEditModeOn
               ? (
-                <span className='bottom-button-wrapper'>
-                  <a className='hoverable-edit-wrapper-button' onClick={ onSaveForm }>
-                    Save
-                  </a>
-                  <a className='hoverable-edit-wrapper-button' onClick={ turnOffSectionEditMode }>
-                    Cancel
-                  </a>
-                </span>
+                !autoSave && (
+                  <span className='bottom-button-wrapper'>
+                    <a className='hoverable-edit-wrapper-button' onClick={ onSaveForm }>
+                      Save
+                    </a>
+                    <a className='hoverable-edit-wrapper-button' onClick={ turnOffSectionEditMode }>
+                      Cancel
+                    </a>
+                  </span>
+                )
               ) : (
                 <span className='top-button-wrapper'>
                   <a className='hoverable-edit-wrapper-button edit-button' onClick={ turnOnSectionEditMode }>
@@ -55,6 +57,7 @@ HoverableEditWrapper.defaultProps = {
 };
 
 HoverableEditWrapper.contextTypes = {
+  autoSave: PropTypes.bool,
   editModeOn: PropTypes.bool,
   sectionEditModeOn: PropTypes.bool,
   turnOnSectionEditMode: PropTypes.func,

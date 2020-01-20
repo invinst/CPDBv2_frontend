@@ -9,6 +9,7 @@ import {
   getTextContentEditModeOn,
   getTagsErrorMessages,
   documentEditableFieldsSelector,
+  getDocumentSuggestionTagsSelector,
 } from 'selectors/document-page';
 import { updateDocument } from 'actions/document-page';
 import { isSignedIn } from 'selectors/log-out';
@@ -33,6 +34,7 @@ function mapStateToProps(state, ownProps) {
     textContentEditModeOn: getTextContentEditModeOn(state),
     isSignedIn: isSignedIn(state),
     tagsErrorMessages: getTagsErrorMessages(state),
+    suggestionTags: getDocumentSuggestionTagsSelector(state),
   };
 }
 
@@ -70,7 +72,8 @@ const editWrapperStateProps = (stateProps, dispatchProps, ownProps) => {
     },
     tagsEditWrapperStateProps: {
       fields: stateProps.editableFields,
-      sectionEditModeOn: stateProps.tagsEditModeOn,
+      autoSave: true,
+      sectionEditModeOn: true,
       onSaveForm: dispatchProps.onSaveFormTags,
       turnOnSectionEditMode: dispatchProps.turnOnDocumentTagsEditMode,
       turnOffSectionEditMode: dispatchProps.turnOffDocumentTagsEditMode,

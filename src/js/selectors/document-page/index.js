@@ -10,6 +10,7 @@ export const getTitleEditModeOn = state => state.documentPage.titleEditModeOn;
 export const getTagsEditModeOn = state => state.documentPage.tagsEditModeOn;
 export const getTextContentEditModeOn = state => state.documentPage.textContentEditModeOn;
 export const getTagsErrorMessages = state => state.documentPage.tagsErrorMessages;
+export const getDocumentSuggestionTagsSelector = state => state.documentPage.suggestionTags;
 
 export const documentSelector = createSelector(
   [getData],

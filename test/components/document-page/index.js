@@ -100,6 +100,7 @@ describe('DocumentPage component', function () {
       titleEditModeOn: false,
       tagsEditModeOn: false,
       textContentEditModeOn: false,
+      suggestionTags: ['tag1', 'tag2'],
     },
   };
 
@@ -321,7 +322,7 @@ describe('DocumentPage component', function () {
 
   it('should render EditableTagsInput for authenticated users', function () {
     const newState = cloneDeep(state);
-    set(newState, 'authentication.apiAccessToken', '123456');
+    set(newState, 'authentication.apiAccessToken', 'token');
     const newStore = MockStore()(newState);
 
     const recentDocument = () => (
@@ -336,7 +337,9 @@ describe('DocumentPage component', function () {
       </Router>
     );
 
-    wrapper.find(EditableTagsInput).exists().should.be.true();
+    const editableTagsInput = wrapper.find(EditableTagsInput);
+    editableTagsInput.exists().should.be.true();
+    editableTagsInput.prop('suggestionTags').should.eql(['tag1', 'tag2']);
   });
 
   it('should not render EditableTagsInput for unauthenticated users', function () {
