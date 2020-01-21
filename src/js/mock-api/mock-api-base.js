@@ -105,7 +105,12 @@ import getRelevantComplaints, {
   getFirstRelevantComplaints,
   filterPinnedComplaints,
 } from 'mock-api/pinboard-page/relevant-complaints';
-import { emptyPagination, firstPage, secondPage } from 'mock-api/pinboard-admin-page/all-pinbooards';
+import {
+  emptyPagination,
+  firstPage,
+  secondPage,
+  searchPinboardTitle,
+} from 'mock-api/pinboard-admin-page/all-pinbooards';
 import { modalVideoInfo } from './headers/slim-header';
 import PinboardFactory from 'utils/test/factories/pinboard';
 import mockUpdatePinboardError from 'mock-api/pinboard-page/mock-update-pinboard-error';
@@ -226,6 +231,10 @@ axiosMockClient.onGet(`${DOCUMENTS_URL}`, { params: { crid: '1000000', limit: un
   .reply(200, fetchDocumentsByCRID());
 
 axiosMockClient.onGet(`${DOCUMENTS_URL}`, { params: { match: '123457' } }).reply(200, searchDocuments());
+
+axiosMockClient.onGet(
+  `${ALL_PINBOARD_URL}`, { params: { match: 'Title' } }
+).reply(200, searchPinboardTitle);
 
 axiosMockClient.onGet(
   `${DOCUMENTS_URL}`,

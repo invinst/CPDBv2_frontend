@@ -73,6 +73,17 @@ const handleFetchingDocumentsOverviewPage = (dispatches, store, state, action, f
   }
 };
 
+const handleFetchAllPinboards = (store, action) => {
+  let params = {};
+  const currentMatch = get(action.payload.query, 'match', '');
+
+  if (currentMatch !== '') {
+    params = { match: currentMatch };
+  }
+
+  store.dispatch(fetchAllPinboards(params)).catch(cancelledByUser);
+};
+
 export default store => next => action => {
   const result = next(action);
 
@@ -85,7 +96,7 @@ export default store => next => action => {
     } else if (state.pathname.match(/\/documents\//)) {
       handleFetchingDocumentsOverviewPage(dispatches, store, state, action, fetchDocumentsAuthenticated);
     } else if (state.pathname.match(/\/view-all-pinboards\//)) {
-      store.dispatch(fetchAllPinboards());
+      handleFetchAllPinboards(store, action);
     }
   }
 
@@ -238,7 +249,7 @@ export default store => next => action => {
     }
 
     else if (action.payload.pathname.match(/\/view-all-pinboards\//)) {
-      store.dispatch(fetchAllPinboards());
+      handleFetchAllPinboards(store, action);
     }
 
     prevPathname = action.payload.pathname;

@@ -506,11 +506,13 @@ describe('fetchPageInitialData middleware', function () {
 
   it('should dispatch fetchAllPinboards when location changes', function () {
     const action = createLocationChangeAction('/view-all-pinboards/');
+    const fetchAllPinboardsStub = stub(pinboardAdminAction, 'fetchAllPinboards');
     let dispatched;
 
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
-    store.dispatch.calledWith(pinboardAdminAction.fetchAllPinboards()).should.be.true();
+    store.dispatch.should.be.calledWith(fetchAllPinboardsStub());
+    fetchAllPinboardsStub.restore();
   });
 
   it('should dispatch fetchAllPinboards when signing in successfully', function () {
