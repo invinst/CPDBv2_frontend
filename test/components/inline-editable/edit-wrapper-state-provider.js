@@ -64,6 +64,55 @@ describe('EditWrapperStateProvider component', function () {
     draftUtils.convertContentStateToEditorState.restore();
   });
 
+  it('should pass down data context in context when autoSave', function () {
+    stub(draftUtils, 'convertContentStateToEditorState').returns('my value');
+    const navbarTitleField = RichTextFieldFactory.build({ name: 'navbar_title' });
+    const stringField = StringFieldFactory.build({ name: 'string_field' });
+    const turnOnSectionEditModeSpy = spy();
+    const turnOffSectionEditModeSpy = spy();
+    const context = { editModeOn: true };
+    const wrapper = shallow(
+      <EditWrapperStateProvider
+        fields={ {
+          'navbar_title': navbarTitleField,
+          'empty_field': null,
+          'string_field': stringField,
+        } }
+        sectionEditModeOn={ false }
+        autoSave={ true }
+        turnOnSectionEditMode={ turnOnSectionEditModeSpy }
+        turnOffSectionEditMode={ turnOffSectionEditModeSpy }
+      >
+        <div>abc123</div>
+      </EditWrapperStateProvider>,
+      { context },
+    );
+
+    const childContext = wrapper.instance().getChildContext();
+    childContext.should.containEql({
+      sectionEditModeOn: true,
+      turnOnSectionEditMode: turnOnSectionEditModeSpy,
+      turnOffSectionEditMode: turnOffSectionEditModeSpy,
+    });
+
+    const fieldContexts = childContext.fieldContexts;
+    fieldContexts['navbar_title'].should.not.be.undefined();
+    fieldContexts['navbar_title'].should.containEql({
+      value: 'my value',
+      editModeOn: true,
+    });
+    fieldContexts['empty_field'].should.containEql({
+      value: null,
+      editModeOn: true,
+    });
+    fieldContexts['string_field'].should.containEql({
+      value: stringField.value,
+      editModeOn: true,
+    });
+    draftUtils.convertContentStateToEditorState.should.be.calledWith(navbarTitleField.value);
+    draftUtils.convertContentStateToEditorState.restore();
+  });
+
   it('should save data from state when call onSaveForm', function () {
     stub(draftUtils, 'convertEditorStateToRaw').returns('raw content');
     const turnOffSectionEditModeSpy = spy();
@@ -123,4 +172,21 @@ describe('EditWrapperStateProvider component', function () {
     wrapper.state('fields')['navbar_title'].value.should.equal('changed value');
   });
 
+  it('should call handleSaveForm when input changed and autoSave is true', function () {
+    const onSaveFormStub = stub().returns(new Promise(resolve => resolve()));
+    const handleSaveFormStub = stub(EditWrapperStateProvider.prototype, 'handleSaveForm');
+    const wrapper = shallow(
+      <EditWrapperStateProvider autoSave={ true } onSaveForm={ onSaveFormStub }>
+        <div>abc123</div>
+      </EditWrapperStateProvider>
+    );
+    wrapper.setState({
+      fields: {
+        'navbar_title': RichTextFieldFactory.build({ name: 'navbar_title' }),
+      },
+    });
+    wrapper.instance().getChildContext().fieldContexts['navbar_title'].onChange('changed value');
+    handleSaveFormStub.should.be.called();
+    handleSaveFormStub.restore();
+  });
 });

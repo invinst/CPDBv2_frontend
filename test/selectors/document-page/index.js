@@ -7,6 +7,7 @@ import {
   getTagsErrorMessages,
   documentSelector,
   documentEditableFieldsSelector,
+  getDocumentSuggestionTags,
 } from 'selectors/document-page';
 import { omit } from 'lodash';
 
@@ -241,6 +242,16 @@ describe('Document selectors', function () {
           value: '',
         },
       });
+    });
+  });
+
+  describe('getDocumentSuggestionTags', function () {
+    it('should return correct result', function () {
+      getDocumentSuggestionTags({
+        documentPage: {
+          suggestionTags: ['tag1', 'tag2'],
+        },
+      }).should.eql(['tag1', 'tag2']);
     });
   });
 });
