@@ -37,9 +37,9 @@ export default class SimpleTagEditable extends Component {
         ref={ ref }
         className='react-tagsinput-input'
         suggestions={ suggestions }
-        shouldRenderSuggestions={ (value) => value && value.trim().length > 0 }
-        getSuggestionValue={ (suggestion) => suggestion }
-        renderSuggestion={ (suggestion) => <span>{suggestion}</span> }
+        shouldRenderSuggestions={ value => value && value.trim().length > 0 }
+        getSuggestionValue={ suggestion => suggestion }
+        renderSuggestion={ suggestion => <span>{suggestion}</span> }
         inputProps={ { ...inputProps, onChange: handleOnChange } }
         onSuggestionSelected={ (e, { suggestion }) => addTag(suggestion) }
         onSuggestionsClearRequested={ noop }

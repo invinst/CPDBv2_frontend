@@ -7,7 +7,7 @@ import {
   getTagsErrorMessages,
   documentSelector,
   documentEditableFieldsSelector,
-  getDocumentSuggestionTagsSelector,
+  getDocumentSuggestionTags,
 } from 'selectors/document-page';
 import { omit } from 'lodash';
 
@@ -245,9 +245,9 @@ describe('Document selectors', function () {
     });
   });
 
-  describe('getDocumentSuggestionTagsSelector', function () {
+  describe('getDocumentSuggestionTags', function () {
     it('should return correct result', function () {
-      getDocumentSuggestionTagsSelector({
+      getDocumentSuggestionTags({
         documentPage: {
           suggestionTags: ['tag1', 'tag2'],
         },

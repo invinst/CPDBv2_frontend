@@ -322,7 +322,7 @@ describe('DocumentPage component', function () {
 
   it('should render EditableTagsInput for authenticated users', function () {
     const newState = cloneDeep(state);
-    set(newState, 'authentication.apiAccessToken', 'token');
+    set(newState, 'authentication.apiAccessToken', '123456');
     const newStore = MockStore()(newState);
 
     const recentDocument = () => (
