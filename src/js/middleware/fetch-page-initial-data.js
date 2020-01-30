@@ -1,5 +1,5 @@
 import { Promise } from 'es6-promise';
-import { every, get } from 'lodash';
+import { every, get, throttle } from 'lodash';
 
 import {
   LANDING_PAGE_ID, OFFICER_PAGE_ID, CR_PAGE_ID, TRR_PAGE_ID, PINBOARD_PAGE_ID,
@@ -73,7 +73,7 @@ const handleFetchingDocumentsOverviewPage = (dispatches, store, state, action, f
   }
 };
 
-const handleFetchAllPinboards = (store, action) => {
+function handleFetchAllPinboards(store, action) {
   let params = {};
   const currentMatch = get(action.payload.query, 'match', '');
 
@@ -82,7 +82,9 @@ const handleFetchAllPinboards = (store, action) => {
   }
 
   store.dispatch(fetchAllPinboards(params)).catch(cancelledByUser);
-};
+}
+
+const throttledFetchAllPinboards = throttle(handleFetchAllPinboards, 500, { 'leading': false });
 
 export default store => next => action => {
   const result = next(action);
@@ -249,7 +251,7 @@ export default store => next => action => {
     }
 
     else if (action.payload.pathname.match(/\/view-all-pinboards\//)) {
-      handleFetchAllPinboards(store, action);
+      throttledFetchAllPinboards(store, action);
     }
 
     prevPathname = action.payload.pathname;

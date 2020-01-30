@@ -1,5 +1,5 @@
 import { Promise } from 'es6-promise';
-import { stub } from 'sinon';
+import { stub, useFakeTimers } from 'sinon';
 import * as _ from 'lodash';
 import extractQuery from 'utils/extract-query';
 import { CancelToken } from 'axios';
@@ -507,12 +507,17 @@ describe('fetchPageInitialData middleware', function () {
   it('should dispatch fetchAllPinboards when location changes', function () {
     const action = createLocationChangeAction('/view-all-pinboards/');
     const fetchAllPinboardsStub = stub(pinboardAdminAction, 'fetchAllPinboards');
+    const clock = useFakeTimers();
     let dispatched;
 
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
+
+    clock.tick(1000);
     store.dispatch.should.be.calledWith(fetchAllPinboardsStub());
+
     fetchAllPinboardsStub.restore();
+    clock.restore();
   });
 
   it('should dispatch fetchAllPinboards when signing in successfully', function () {
