@@ -24,8 +24,6 @@ import PinboardDataVisualization from 'components/pinboard-page/pinboard-data-vi
 
 export default class PinboardPage extends Component {
   componentDidMount() {
-    const { location, params, routes, pushBreadcrumbs } = this.props;
-    pushBreadcrumbs({ location, params, routes });
     document.body.classList.add('body-fixed-viewport');
   }
 
@@ -160,7 +158,6 @@ PinboardPage.propTypes = {
   focusedItem: PropTypes.object,
   focusItem: PropTypes.func,
   routes: PropTypes.array,
-  pushBreadcrumbs: PropTypes.func,
   location: PropTypes.shape({
     pathname: PropTypes.string,
   }),
@@ -175,7 +172,6 @@ PinboardPage.defaultProps = {
   focusedItem: {},
   pinboard: {},
   focusItem: noop,
-  pushBreadcrumbs: noop,
   addOrRemoveItemInPinboardFromPreviewPane: noop,
   showPinboardsList: noop,
   createNewEmptyPinboard: noop,

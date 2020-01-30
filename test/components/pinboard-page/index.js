@@ -302,30 +302,6 @@ describe('PinboardPage component', function () {
     wrapper.find(FooterContainer).exists().should.be.true();
   });
 
-  it('should push pinboard into breadcrumbs', function () {
-    const location = { pathname: '/pinboard/66ef1560/' };
-    const params = {};
-    const routes = [];
-    const stubPushBreadcrumbs = stub();
-    const pinboard = {
-      title: 'This is pinboard title',
-      description: 'This is pinboard description',
-    };
-
-    mount(
-      <Provider store={ createStore(pinboard) }>
-        <PinboardPage
-          pinboard={ pinboard }
-          location={ location }
-          params={ params }
-          routes={ routes }
-          pushBreadcrumbs={ stubPushBreadcrumbs }
-        />
-      </Provider>
-    );
-    stubPushBreadcrumbs.should.be.calledWith({ location, params, routes });
-  });
-
   it('should render PreviewPaneWithOverlay if there is no focused item by default', function () {
     const wrapper = shallow(
       <PinboardPage initialRequested={ true } focusedItem={ {} }/>

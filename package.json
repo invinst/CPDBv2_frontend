@@ -169,7 +169,6 @@
     "redux": "^4.0.5",
     "redux-actions": "^0.9.1",
     "redux-axios-middleware": "4.0.0",
-    "redux-breadcrumb-trail": "^0.6.0",
     "redux-localstorage": "^0.4.1",
     "redux-thunk": "^2.0.1",
     "reselect": "^2.5.1",

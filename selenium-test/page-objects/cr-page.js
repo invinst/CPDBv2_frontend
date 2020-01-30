@@ -165,7 +165,7 @@ class CRPage extends Page {
       incidentDate: '.cr-incident-date-value',
       investigationTimeline: '.investigator-timeline-text',
       lastToast: '(//div[contains(@class, "Toastify__toast-body")])[last()]',
-      landingPageBreadCrumb: '//a[@class="breadcrumbs-item-link" and .="cpdp"]',
+      landingPageBreadCrumb: '//a[contains(@class, "breadcrumbs-item") and .="cpdp"]',
     });
   }
 

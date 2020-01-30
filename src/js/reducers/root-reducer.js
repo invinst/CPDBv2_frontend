@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
-import { reducer as breadcrumb } from 'redux-breadcrumb-trail';
 
 import landingPage from './landing-page';
 import searchPage from './search-page';
@@ -15,7 +14,6 @@ import inlineAliasAdminPage from './inline-alias-admin-page';
 import genericModal from './generic-modal';
 import headers from './headers';
 import cms from './cms';
-import breadcrumbsMapping from './breadcrumbs-mapping';
 import pageLoading from './page-loading';
 import popups from './popups';
 import embed from './embed';
@@ -27,6 +25,7 @@ import socialGraphPage from './social-graph-page';
 import pinboardPage from './pinboard-page';
 import pinboardAdminPage from './pinboard-admin-page';
 import videoModal from './video-modal';
+import breadcrumb from './breadcrumb';
 
 
 export default (history) => combineReducers({
@@ -43,7 +42,6 @@ export default (history) => combineReducers({
   inlineAliasAdminPage,
   genericModal,
   breadcrumb,
-  breadcrumbsMapping,
   headers,
   cms,
   pageLoading,

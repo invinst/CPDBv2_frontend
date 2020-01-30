@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router';
+import PropTypes from 'prop-types';
 
 import config from 'config';
 import LandingPageContainer from 'containers/landing-page';
@@ -43,7 +44,6 @@ import {
   PINBOARD_PATH,
   PINBOARD_ADMIN_PATH,
 } from 'utils/constants';
-import BreadcrumbItemContainer from 'containers/breadcrumb-item';
 import { editPath } from 'utils/url';
 
 
@@ -56,36 +56,28 @@ export default function RouterRoot(props) {
       <Route
         exact={ true }
         path={ editPath('/') }
-        component={ LandingPageContainer }
-        breadcrumbKey='/'
-        breadcrumb='cpdp'/>
+        component={ LandingPageContainer } />
       <Route
         path={ editPath(COLLAB_PATH) }
-        component={ CollaborationPage }/>
+        component={ CollaborationPage } />
       <Route
         path={ editPath(OFFICER_PATH) }
-        component={ OfficerPageContainer }
-        breadcrumb={ BreadcrumbItemContainer } />
+        component={ OfficerPageContainer } />
       <Route
         path={ editPath(SEARCH_PATH) }
-        component={ LandingPageContainer }
-        breadcrumb='Search' />
+        component={ LandingPageContainer } />
       <Route
         path={ editPath(STANDALONE_CR_PATH) }
-        component={ CRPageContainer }
-        breadcrumb={ BreadcrumbItemContainer }/>
+        component={ CRPageContainer } />
       <Route
         path={ editPath(DOCUMENT_PATH) }
-        component={ DocumentPageContainer }
-        breadcrumb={ BreadcrumbItemContainer }/>
+        component={ DocumentPageContainer } />
       <Route
         path={ editPath(TTR_PATH) }
-        component={ TRRPageContainer }
-        breadcrumb={ BreadcrumbItemContainer }/>
+        component={ TRRPageContainer } />
       <Route
         path={ editPath(UNIT_PROFILE_PATH) }
-        component={ UnitProfilePageContainer }
-        breadcrumb={ BreadcrumbItemContainer }/>
+        component={ UnitProfilePageContainer } />
       <Route
         path={ editPath(SEARCH_ALIAS_EDIT_PATH) }
         component={ SearchPageContainer }/>
@@ -94,8 +86,7 @@ export default function RouterRoot(props) {
         component={ InlineAliasAdminContainer }/>
       <Route
         path={ editPath(CRAWLERS_PATH) }
-        component={ CrawlersContainer }
-        breadcrumb='Crawler Tracker'/>
+        component={ CrawlersContainer } />
       <Route
         path={ editPath(EMBED_MAP_PATH) }
         component={ HeatMapContainer }/>
@@ -107,8 +98,7 @@ export default function RouterRoot(props) {
         component={ EmbedOfficersContainer }/>
       <Route
         path={ editPath(TRACKER_ALL_DOCUMENTS_PATH) }
-        component={ DocumentDeduplicatorContainer }
-        breadcrumb={ BreadcrumbItemContainer }/>
+        component={ DocumentDeduplicatorContainer } />
       <Route
         exact={ true }
         path={ [
@@ -125,25 +115,27 @@ export default function RouterRoot(props) {
         component={ SocialGraphContainer }/>
       <Route
         path={ editPath(TRACKER_DOCUMENTS_OVERVIEW_PATH) }
-        component={ DocumentsOverviewContainer }
-        breadcrumb='Documents Overview'/>
+        component={ DocumentsOverviewContainer } />
       {
         enablePinboardFeature &&
         <Route
           path={ editPath(PINBOARD_PATH) }
-          component={ PinboardPageContainer }
-          breadcrumb={ BreadcrumbItemContainer }
-        />
+          component={ PinboardPageContainer } />
       }
       {
         enablePinboardFeature &&
         <Route
           path={ editPath(PINBOARD_ADMIN_PATH) }
-          component={ PinboardAdminPageContainer }
-          breadcrumb='View all pinboards'
-        />
+          component={ PinboardAdminPageContainer } />
       }
       <Redirect path='*' to='/'/>
     </Switch>
   );
 }
+
+RouterRoot.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+    search: PropTypes.string,
+  }).isRequired,
+};

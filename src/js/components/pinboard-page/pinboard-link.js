@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { omit } from 'lodash';
 
 export const CONFIRM_MESSAGE = `
@@ -20,7 +19,7 @@ export default class PinboardLink extends Component {
   render() {
     const { customComponent } = this.props;
     const componentProps = omit(this.props, 'onClick', 'hasPendingChanges', 'customComponent');
-    const ContentComponent = customComponent || Link;
+    const ContentComponent = customComponent || 'a';
 
     return (
       <ContentComponent { ...componentProps } onClick={ this.handleClick } />

@@ -1,4 +1,4 @@
-import breadcrumbsMapping from 'reducers/breadcrumbs-mapping';
+import breadcrumbsMapping from 'reducers/breadcrumb/breadcrumbs-mapping';
 
 import * as constants from 'utils/constants';
 

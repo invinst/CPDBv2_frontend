@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
-import Breadcrumbs from 'redux-breadcrumb-trail';
+import BreadcrumbContainer from 'containers/breadcrumb';
 import { stub } from 'sinon';
 import * as domUtils from 'utils/dom';
 
@@ -37,14 +37,13 @@ describe('ShareableHeader component', function () {
     shareableHeader = wrapper;
   });
 
-  it('should render HeaderButton, breadCrumbs and other contents', function () {
+  it('should render HeaderButton, BreadcrumbContainer and other contents', function () {
     const headerButton = wrapper.find(HeaderButton);
     headerButton.prop('Menu').should.eql(CustomMenu);
     headerButton.prop('onOpen').should.eql(this.stubOnOpen);
     headerButton.prop('onClose').should.eql(this.stubOnClose);
 
-    const breadcrumbs = wrapper.find(Breadcrumbs);
-    breadcrumbs.prop('className').should.equal('breadcrumbs');
+    wrapper.find(BreadcrumbContainer).should.have.length(1);
 
     wrapper.find('.shareable-header-header-placeholder').exists().should.be.true();
     wrapper.find('.shareable-header-nav-bar').exists().should.be.true();

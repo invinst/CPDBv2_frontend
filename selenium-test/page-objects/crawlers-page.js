@@ -19,7 +19,7 @@ class TableSection extends Section {
       lastNumDocuments: '(//span[contains(@class, "num-documents")])[last()]',
       lastSuccessfulRuns: '(//span[contains(@class, "num-successful-runs")])[last()]',
       lastCrawlerRow: '(//div[contains(@class, "crawler-row")])[last()]',
-      breadcrumbsItem: '(//li[contains(@class, "breadcrumbs-item")])[2]',
+      breadcrumbsItem: '//*[contains(@class, "breadcrumbs-item")][last()]',
       documentsButton: '(//a[contains(@class, "button")])',
 
       logFileModal: '(//div[contains(@class, "log-file-modal")])',

@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { push as pushBreadcrumbs } from 'redux-breadcrumb-trail';
 import { omit } from 'lodash';
 
 import OfficerPage from 'components/officer-page';
@@ -105,7 +104,6 @@ const mapDispatchToProps = {
   turnOffScaleExplainEditMode,
   turnOnNoDataRadarChartExplainEditMode,
   turnOffNoDataRadarChartExplainEditMode,
-  pushBreadcrumbs,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps, editWrapperStateProps)(OfficerPage);

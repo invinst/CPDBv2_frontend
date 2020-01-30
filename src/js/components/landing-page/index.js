@@ -16,6 +16,7 @@ import styles from './landing-page.sass';
 import SearchPageContainer from 'containers/search-page';
 import { calculateSlimHeaderPosition, scrollToTop } from 'utils/dom';
 import { SEARCH_PATH } from 'utils/constants';
+import browserHistory from 'utils/history';
 
 
 class LandingPage extends Component {
@@ -28,35 +29,18 @@ class LandingPage extends Component {
 
   componentDidMount() {
     this.initial = false;
-    this.updateBreadCrumbs();
     this.previousSearchPageShowing = this.getSearchPageShowing();
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (get(prevState, 'location.pathname') !== get(this.props, 'location.pathname')) {
       scrollToTop();
-      this.updateBreadCrumbs();
     }
     this.previousSearchPageShowing = this.getSearchPageShowing();
   }
 
-  updateBreadCrumbs() {
-    const { resetBreadcrumbs, pushBreadcrumbs, params, routes, location } = this.props;
-
-    if (location.pathname.match(/search/)) {
-      const searchRoutes = [
-        routes[0], {
-          breadcrumb: 'Search',
-          breadcrumbKey: 'search/',
-        }];
-      pushBreadcrumbs({ location, params, routes: searchRoutes });
-    } else if (location.pathname === '/') {
-      resetBreadcrumbs({ breadcrumbs: [] });
-    }
-  }
-
   getSearchPageShowing() {
-    const { pathname } = this.props.location;
+    const { pathname } = browserHistory.location;
 
     if (pathname === `${SEARCH_PATH}` || pathname === `/edit${SEARCH_PATH}`)
       return true;
@@ -104,17 +88,11 @@ class LandingPage extends Component {
 }
 
 LandingPage.propTypes = {
-  resetBreadcrumbs: PropTypes.func,
   location: PropTypes.shape({
     pathname: PropTypes.string,
   }),
   params: PropTypes.object,
   routes: PropTypes.array,
-  pushBreadcrumbs: PropTypes.func,
-};
-
-LandingPage.defaultProps = {
-  pushBreadcrumbs: (...args) => {},
 };
 
 export default ConfiguredRadium(LandingPage);

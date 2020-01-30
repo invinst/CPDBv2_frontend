@@ -3,7 +3,7 @@ import { map, get, reduce, defaults, sortBy, kebabCase, isNil, isEmpty, compact 
 import pluralize from 'pluralize';
 
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
-import { getBreadcrumb } from 'selectors/breadcrumbs';
+import { getBreadcrumbItems } from 'selectors/breadcrumbs';
 import { getFindingOutcomeMix } from './finding-outcome-mix';
 import { officerCardTransform } from 'selectors/common/officer-card';
 import { getDemographicString } from 'utils/victims';
@@ -78,8 +78,8 @@ const getTransformedCoaccused = createWithIsPinnedSelector(
   })
 );
 
-const sortByOfficerInBreadcrumb = breadcrumbs => officer => {
-  const officerIdsInBreadcrumb = breadcrumbs
+const sortByOfficerInBreadcrumb = breadcrumbItems => officer => {
+  const officerIdsInBreadcrumb = breadcrumbItems
     .filter(item => item.url.indexOf('officer/') > -1)
     .map(item => item.params.officerId);
   return -officerIdsInBreadcrumb.indexOf(String(officer.id));
@@ -93,12 +93,12 @@ const sortByOfficerComplaint = officer => -officer.complaintCount;
 
 const getCoaccusedSelector = createSelector(
   getTransformedCoaccused,
-  getBreadcrumb,
-  (officers, { breadcrumbs }) => {
+  getBreadcrumbItems,
+  (officers, { breadcrumbItems }) => {
     return sortBy(
       officers,
       [
-        sortByOfficerInBreadcrumb(breadcrumbs),
+        sortByOfficerInBreadcrumb([]),
         sortByOfficerFinding,
         sortByOfficerComplaint,
       ]
