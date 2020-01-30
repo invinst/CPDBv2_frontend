@@ -8,7 +8,7 @@ import { browserHistory } from 'react-router';
 import DocumentsTable from 'components/documents-overview-page/documents-table';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import DocumentsOverviewPage from 'components/documents-overview-page';
-import SearchBar from 'components/documents-overview-page/search-bar';
+import SearchBar from 'components/common/search-bar';
 import * as constants from 'utils/constants';
 
 
