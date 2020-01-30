@@ -10,7 +10,14 @@ import SimpleTagEditable from 'components/inline-editable/editable-section/simpl
 
 export default class EditableTagsInput extends Component {
   render() {
-    const { className, title, editWrapperStateProps, fieldName, nextDocumentId, errorMessages } = this.props;
+    const {
+      className,
+      title,
+      editWrapperStateProps,
+      fieldName, nextDocumentId,
+      errorMessages,
+      suggestionTags,
+    } = this.props;
     const hasNextUntaggedDocument = !isUndefined(nextDocumentId);
     const hoverableClassName = hasNextUntaggedDocument ? styles.hasNextUntaggedDocument : '';
     return (
@@ -18,7 +25,7 @@ export default class EditableTagsInput extends Component {
         <div className='editable-tags-title'>{ title }</div>
         <EditWrapperStateProvider { ...editWrapperStateProps }>
           <HoverableEditWrapper className={ hoverableClassName }>
-            <SimpleTagEditable fieldName={ fieldName } />
+            <SimpleTagEditable fieldName={ fieldName } suggestionTags={ suggestionTags }/>
           </HoverableEditWrapper>
         </EditWrapperStateProvider>
         {
@@ -47,4 +54,5 @@ EditableTagsInput.propTypes = {
   editWrapperStateProps: PropTypes.object,
   nextDocumentId: PropTypes.number,
   errorMessages: PropTypes.array,
+  suggestionTags: PropTypes.array,
 };
