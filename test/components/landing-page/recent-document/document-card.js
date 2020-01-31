@@ -1,8 +1,8 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import { createMemoryHistory, Link, Route, Router } from 'react-router';
+import { Link } from 'react-router-dom';
 import { stub } from 'sinon';
 import { lorem, random } from 'faker';
+import { mountWithRouter } from 'utils/test';
 
 import DocumentCard from 'components/landing-page/recent-document/document-card';
 import styles from 'components/landing-page/recent-document/document-card.sass';
@@ -32,7 +32,9 @@ describe('DocumentCard components', function () {
   });
 
   it('should render appropriately', function () {
-    const wrapper = mount(<DocumentCard { ...props } />);
+    const wrapper = mountWithRouter(
+      <DocumentCard { ...props } />
+    );
     const link = wrapper.find(Link);
     link.prop('className').should.eql(styles.documentCard);
     link.prop('to').should.equal(`/complaint/${ props.crid }/`);
@@ -59,11 +61,8 @@ describe('DocumentCard components', function () {
 
   it('should track attachment click and invoke onTrackingAttachment', function () {
     stub(tracking, 'trackAttachmentClick');
-    const documentCard = () => <DocumentCard { ...props } />;
-    const wrapper = mount(
-      <Router history={ createMemoryHistory() }>
-        <Route path='/' component={ documentCard } />
-      </Router>
+    const wrapper = mountWithRouter(
+      <DocumentCard { ...props } />
     );
     wrapper.simulate('click');
 

@@ -1,6 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import { Router, Route, createMemoryHistory } from 'react-router';
+import { mountWithRouter } from 'utils/test';
 import { stub } from 'sinon';
 
 import RecentDocument from 'components/landing-page/recent-document';
@@ -26,7 +25,7 @@ describe('Recent Document components', function () {
   }];
 
   it('should render appropriately', function () {
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <RecentDocument cards={ data } />
     );
 
@@ -53,13 +52,8 @@ describe('Recent Document components', function () {
       'incidentDate': 'Jan 1, 2010',
       'category': 'Conduct Unbecoming (Off- Duty)',
     }];
-    const recentDocument = () => (
+    const wrapper = mountWithRouter(
       <RecentDocument cards={ data } pathname='/' />
-    );
-    const wrapper = mount(
-      <Router history={ createMemoryHistory() }>
-        <Route path='/' component={ recentDocument } />
-      </Router>
     );
     wrapper.find(DocumentCard).simulate('click');
     stubTrackAttachmentClick.should.be.calledWith(
@@ -78,13 +72,8 @@ describe('Recent Document components', function () {
       'incidentDate': 'Jan 1, 2010',
       'category': 'Conduct Unbecoming (Off- Duty)',
     }];
-    const recentDocument = () => (
+    const wrapper = mountWithRouter(
       <RecentDocument cards={ data } pathname='/' onTrackingAttachment={ stubOnTrackingAttachment } />
-    );
-    const wrapper = mount(
-      <Router history={ createMemoryHistory() }>
-        <Route path='/' component={ recentDocument } />
-      </Router>
     );
     wrapper.find(DocumentCard).simulate('click');
     stubOnTrackingAttachment.should.be.calledWith({

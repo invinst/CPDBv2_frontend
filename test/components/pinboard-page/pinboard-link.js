@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { spy, stub } from 'sinon';
-import { Router, Route, createMemoryHistory } from 'react-router';
+import { mountWithRouter } from 'utils/test';
 
 import PinboardLink, { CONFIRM_MESSAGE } from 'components/pinboard-page/pinboard-link';
 
@@ -45,16 +45,11 @@ describe('PinboardLink component', function () {
       const windowConfirmStub = stub(window, 'confirm');
       windowConfirmStub.withArgs(CONFIRM_MESSAGE).returns(true);
       const onClickSpy = spy();
-      const pinboardLink = () => (
+
+      const wrapper = mountWithRouter(
         <PinboardLink
           hasPendingChanges={ true }
           onClick={ onClickSpy } />
-      );
-
-      const wrapper = mount(
-        <Router history={ createMemoryHistory() }>
-          <Route path='/' component={ pinboardLink } />
-        </Router>
       );
 
       const link = wrapper.find('a');
@@ -68,16 +63,11 @@ describe('PinboardLink component', function () {
       const windowConfirmStub = stub(window, 'confirm');
       windowConfirmStub.withArgs(CONFIRM_MESSAGE).returns(false);
       const onClickSpy = spy();
-      const pinboardLink = () => (
+
+      const wrapper = mountWithRouter(
         <PinboardLink
           hasPendingChanges={ true }
           onClick={ onClickSpy } />
-      );
-
-      const wrapper = mount(
-        <Router history={ createMemoryHistory() }>
-          <Route path='/' component={ pinboardLink } />
-        </Router>
       );
 
       const link = wrapper.find('a');

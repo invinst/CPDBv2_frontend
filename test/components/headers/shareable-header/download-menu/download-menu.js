@@ -2,6 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
+import { MemoryRouter } from 'react-router';
 
 import DownloadMenuItem from 'components/headers/shareable-header/download-menu/download-menu-item';
 import DownloadMenuItemContainer from 'containers/headers/shareable-header/download-menu-container';
@@ -24,7 +25,7 @@ describe('DownloadMenu component', function () {
       zipFileUrl: { withDocs: 'lvh.me/file-with-docs.zip', withoutDocs: 'lvh.me/file.zip' },
     },
     breadcrumb: {
-      breadcrumbs: [],
+      breadcrumbItems: [],
     },
     popups: [],
   });
@@ -32,7 +33,9 @@ describe('DownloadMenu component', function () {
   it('should render two DownloadMenuItems', function () {
     const wrapper = mount(
       <Provider store={ store }>
-        <DownloadMenuItemContainer/>
+        <MemoryRouter>
+          <DownloadMenuItemContainer/>
+        </MemoryRouter>
       </Provider>
     );
 

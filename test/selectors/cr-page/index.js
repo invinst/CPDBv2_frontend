@@ -21,7 +21,7 @@ describe('CR page selectors', function () {
   describe('contentSelector', function () {
     const buildState = obj => ({
       breadcrumb: {
-        breadcrumbs: [],
+        breadcrumbItems: [],
       },
       crs: {},
       crPage: {},

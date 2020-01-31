@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styles from './breadcrumb.sass';
 
 const Breadcrumbs = ({ breadcrumbs }) => {
   return (
     <div className={ styles.breadcrumbs }>
-      <NavLink to={ '/' } className='breadcrumbs-item'>cpdp</NavLink>
+      <Link to={ '/' } className='breadcrumbs-item'>cpdp</Link>
       {
         breadcrumbs.map(({ path, text, isCurrent }) => (
           <React.Fragment key={ path }>
@@ -14,7 +14,7 @@ const Breadcrumbs = ({ breadcrumbs }) => {
             {
               isCurrent ?
                 <span className='breadcrumbs-item'>{ text }</span> :
-                <NavLink to={ path } className='breadcrumbs-item'>{ text }</NavLink>
+                <Link to={ path } className='breadcrumbs-item'>{ text }</Link>
             }
           </React.Fragment>
         ))

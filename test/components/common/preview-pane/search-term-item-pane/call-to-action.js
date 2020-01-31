@@ -1,6 +1,7 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import should from 'should';
+import { mountWithRouter } from 'utils/test';
 
 import CallToAction from 'components/common/preview-pane/panes/search-term-item-pane/call-to-action';
 
@@ -14,7 +15,9 @@ describe('CallToAction component', function () {
   });
 
   it('should render view all button when callToActionType is view_all', function () {
-    const wrapper = mount(<CallToAction callToActionType='view_all' name='police districts' />);
+    const wrapper = mountWithRouter(
+      <CallToAction callToActionType='view_all' name='police districts' />
+    );
 
     wrapper.text().should.containEql('View ALL police districts');
   });

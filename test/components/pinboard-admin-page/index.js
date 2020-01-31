@@ -85,7 +85,7 @@ describe('PinboardAdminPage', function () {
         },
       },
       breadcrumb: {
-        breadcrumbs: [],
+        breadcrumbItems: [],
       },
     });
 

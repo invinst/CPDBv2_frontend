@@ -2,6 +2,8 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import should from 'should';
 import { Link } from 'react-router-dom';
+import { MemoryRouter } from 'react-router';
+import { mountWithRouter } from 'utils/test';
 
 import CoaccusedCard from 'components/cr-page/accused-officers/coaccused-card';
 import RadarChart from 'components/common/radar-chart/radar-chart';
@@ -16,7 +18,7 @@ import { PrintModeContext } from 'contexts';
 
 describe('CoaccusedCard component', function () {
   it('should render correctly', function () {
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <CoaccusedCard
         officerId={ 1 }
         fullName='Jerome Finnigan'
@@ -83,12 +85,14 @@ describe('CoaccusedCard component', function () {
     const context = { printMode: true };
     const wrapper = mount(
       <PrintModeContext.Provider value={ context }>
-        <CoaccusedCard
-          finding='Sustained'
-          disciplined={ true }
-          category='Operations/Personnel Violation'
-          findingOutcomeMix='Reprimand'
-        />
+        <MemoryRouter>
+          <CoaccusedCard
+            finding='Sustained'
+            disciplined={ true }
+            category='Operations/Personnel Violation'
+            findingOutcomeMix='Reprimand'
+          />
+        </MemoryRouter>
       </PrintModeContext.Provider>
     );
     const findingOutcome = wrapper.find('.finding-outcome-mix');
@@ -99,12 +103,14 @@ describe('CoaccusedCard component', function () {
     const context = { printMode: true };
     const wrapper = mount(
       <PrintModeContext.Provider value={ context }>
-        <CoaccusedCard
-          finding='Sustained'
-          disciplined={ true }
-          category='Operations/Personnel Violation'
-          findingOutcomeMix={ null }
-        />
+        <MemoryRouter>
+          <CoaccusedCard
+            finding='Sustained'
+            disciplined={ true }
+            category='Operations/Personnel Violation'
+            findingOutcomeMix={ null }
+          />
+        </MemoryRouter>
       </PrintModeContext.Provider>
     );
     const findingOutcome = wrapper.find('.finding-outcome-mix');

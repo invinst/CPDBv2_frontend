@@ -1,8 +1,8 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import { Router, Route, createMemoryHistory } from 'react-router';
+import { shallow } from 'enzyme';
 import { spy, stub } from 'sinon';
 import { random } from 'faker';
+import { mountWithRouter } from 'utils/test';
 
 import ComplaintCard from 'components/cr-page/related-complaints/complaint-card';
 import * as tracking from 'utils/tracking';
@@ -45,18 +45,14 @@ describe('ComplaintCard component', function () {
 
     it('should track click event', function () {
       const stubTrackRelatedByCategoryClick = stub(tracking, 'trackRelatedByCategoryClick');
-      const complaintCard = () => (
+
+      const wrapper = mountWithRouter(
         <ComplaintCard
           complainants='R. Rose'
           sourceCRID='01234'
           crid='56789'
           match='categories'
         />
-      );
-      const wrapper = mount(
-        <Router history={ createMemoryHistory() }>
-          <Route path='/' component={ complaintCard }/>
-        </Router>,
       );
 
       wrapper.find('.content').simulate('click');
@@ -88,18 +84,14 @@ describe('ComplaintCard component', function () {
 
   it('should track click event while matching with officers', function () {
     stub(tracking, 'trackRelatedByAccusedClick');
-    const complaintCard = () => (
+
+    const wrapper = mountWithRouter(
       <ComplaintCard
         complainants='R. Rose'
         sourceCRID='01234'
         crid='56789'
         match='officers'
       />
-    );
-    const wrapper = mount(
-      <Router history={ createMemoryHistory() }>
-        <Route path='/' component={ complaintCard }/>
-      </Router>,
     );
 
     wrapper.find('.content').simulate('click');
@@ -110,18 +102,14 @@ describe('ComplaintCard component', function () {
 
   it('should not track click event while matching with something else', function () {
     stub(tracking, 'trackRelatedByAccusedClick');
-    const complaintCard = () => (
+
+    const wrapper = mountWithRouter(
       <ComplaintCard
         complainants='R. Rose'
         sourceCRID='01234'
         crid='56789'
         match='investigators'
       />
-    );
-    const wrapper = mount(
-      <Router history={ createMemoryHistory() }>
-        <Route path='/' component={ complaintCard }/>
-      </Router>,
     );
 
     wrapper.find('.content').simulate('click');

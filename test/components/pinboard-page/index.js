@@ -3,8 +3,9 @@ import { mount, shallow } from 'enzyme';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
 import { stub } from 'sinon';
-import * as ReactRouter from 'react-router';
-import { Router, createMemoryHistory, Route } from 'react-router';
+import { MemoryRouter, Router, Route } from 'react-router';
+import { createMemoryHistory } from 'history';
+import browserHistory from 'utils/history';
 import { createStore as ReduxCreateStore } from 'redux';
 import { set } from 'lodash';
 
@@ -29,6 +30,7 @@ import EmptyPinboardContainer from 'containers/pinboard-page/empty-pinboard';
 import EmptyPinboardPage from 'components/pinboard-page/empty-pinboard';
 import { buildEditStateFields } from 'utils/test/factories/draft';
 import LoadingSpinner from 'components/common/loading-spinner';
+
 
 describe('PinboardPage component', function () {
   const defaultPaginationState = {
@@ -94,25 +96,21 @@ describe('PinboardPage component', function () {
     state.pinboardPage.initialRequested = true;
     state.pinboardPage.pinboard.hasPendingChanges = true;
 
-    const store = ReduxCreateStore(RootReducer, state);
-
-    const pinboardPage = () => (
-      <Provider store={ store }>
-        <PinboardPageContainer />
-      </Provider>
-    );
+    const store = MockStore()(state);
 
     const wrapper = mount(
-      <Router history={ createMemoryHistory() }>
-        <Route path='/' component={ pinboardPage } />
-      </Router>
+      <Provider store={ store }>
+        <MemoryRouter>
+          <PinboardPageContainer />
+        </MemoryRouter>
+      </Provider>
     );
 
     wrapper.find(LoadingSpinner).exists().should.be.true();
   });
 
   it('should replace url when shouldRedirect is True after updating', function () {
-    const replaceStub = stub(ReactRouter.browserHistory, 'replace');
+    const replaceStub = stub(browserHistory, 'replace');
 
     const pinboard = {
       'id': '5cd06f2b',
@@ -124,7 +122,9 @@ describe('PinboardPage component', function () {
       pathname: 'pinboard/5cd06f2b',
     };
 
-    const store = ReduxCreateStore(RootReducer, state);
+    browserHistory.push('/pinboard/');
+
+    const store = ReduxCreateStore(RootReducer(browserHistory), state);
 
     const pinboardPage = () => (
       <Provider store={ store }>
@@ -132,11 +132,8 @@ describe('PinboardPage component', function () {
       </Provider>
     );
 
-    const history = createMemoryHistory();
-    history.push('/pinboard/');
-
     mount(
-      <Router history={ history }>
+      <Router history={ browserHistory }>
         <Route path='/pinboard/' component={ pinboardPage } />
       </Router>
     );
@@ -180,17 +177,21 @@ describe('PinboardPage component', function () {
       pinboardPage: createPinboardPage(pinboard),
       pathname: 'pinboard/5cd06f2b',
     };
-    const store = ReduxCreateStore(RootReducer, state);
+    const store = MockStore()(state);
 
     const wrapper = mount(
       <Provider store={ store }>
-        <PinboardPage updatePathName={ updatePathNameStub } pinboard={ pinboard } initialRequested={ true }/>
+        <MemoryRouter>
+          <PinboardPage updatePathName={ updatePathNameStub } pinboard={ pinboard } initialRequested={ true }/>
+        </MemoryRouter>
       </Provider>
     );
 
     wrapper.setProps({
       children: (
-        <PinboardPage updatePathName={ updatePathNameStub } pinboard={ updatedPinboard } initialRequested={ true }/>
+        <MemoryRouter>
+          <PinboardPage updatePathName={ updatePathNameStub } pinboard={ updatedPinboard } initialRequested={ true }/>
+        </MemoryRouter>
       ),
     });
 
@@ -203,16 +204,12 @@ describe('PinboardPage component', function () {
       'crids': ['123'],
     };
 
-    const pinboardPage = () => (
-      <Provider store={ createStore(pinboard) }>
-        <PinboardPageContainer />
-      </Provider>
-    );
-
     const wrapper = mount(
-      <Router history={ createMemoryHistory() }>
-        <Route path='/' component={ pinboardPage } />
-      </Router>
+      <Provider store={ createStore(pinboard) }>
+        <MemoryRouter>
+          <PinboardPageContainer />
+        </MemoryRouter>
+      </Provider>
     );
 
     wrapper.find('.pinned-section').exists().should.be.true();
@@ -236,16 +233,12 @@ describe('PinboardPage component', function () {
       crids: ['123'],
     };
 
-    const pinboardPage = () => (
-      <Provider store={ createStore(pinboard) }>
-        <PinboardPageContainer />
-      </Provider>
-    );
-
     const wrapper = mount(
-      <Router history={ createMemoryHistory() }>
-        <Route path='/' component={ pinboardPage } />
-      </Router>
+      <Provider store={ createStore(pinboard) }>
+        <MemoryRouter>
+          <PinboardPageContainer />
+        </MemoryRouter>
+      </Provider>
     );
 
     wrapper.find(RelevantSectionContainer).exists().should.be.true();
@@ -268,16 +261,12 @@ describe('PinboardPage component', function () {
       }],
     };
 
-    const pinboardPage = () => (
-      <Provider store={ createStore(pinboard) }>
-        <PinboardPageContainer />
-      </Provider>
-    );
-
     const wrapper = mount(
-      <Router history={ createMemoryHistory() }>
-        <Route path='/' component={ pinboardPage } />
-      </Router>
+      <Provider store={ createStore(pinboard) }>
+        <MemoryRouter>
+          <PinboardPageContainer />
+        </MemoryRouter>
+      </Provider>
     );
 
     wrapper.find(EmptyPinboardContainer).exists().should.be.true();
@@ -316,7 +305,6 @@ describe('PinboardPage component', function () {
       instance.handlePinChangedOnPreviewPane
     );
   });
-
 
   it('should render PreviewPaneWithOverlay if there is focused item', function () {
     const focusedItem = {
@@ -360,7 +348,9 @@ describe('PinboardPage component', function () {
       pathname: 'pinboard/5cd06f2b',
     };
 
-    const store = ReduxCreateStore(RootReducer, state);
+    const history = createMemoryHistory();
+
+    const store = ReduxCreateStore(RootReducer(history), state);
 
     const pinboardPage = () => (
       <Provider store={ store }>
@@ -369,7 +359,7 @@ describe('PinboardPage component', function () {
     );
 
     const wrapper = mount(
-      <Router history={ createMemoryHistory() }>
+      <Router history={ history }>
         <Route path='/' component={ pinboardPage } />
       </Router>
     );
@@ -414,7 +404,8 @@ describe('PinboardPage component', function () {
       pinboardPage: pinboardPageData,
       pathname: 'pinboard/5cd06f2b',
     };
-    const store = ReduxCreateStore(RootReducer, state);
+    const history = createMemoryHistory();
+    const store = ReduxCreateStore(RootReducer(history), state);
 
     const pinboardPage = () => (
       <Provider store={ store }>
@@ -423,7 +414,7 @@ describe('PinboardPage component', function () {
     );
 
     const wrapper = mount(
-      <Router history={ createMemoryHistory() }>
+      <Router history={ history }>
         <Route path='/' component={ pinboardPage } />
       </Router>
     );
@@ -461,7 +452,9 @@ describe('PinboardPage component', function () {
 
     const wrapper = mount(
       <Provider store={ createStore(pinboard) }>
-        <PinboardPage initialRequested={ true } />
+        <MemoryRouter>
+          <PinboardPage initialRequested={ true } />
+        </MemoryRouter>
       </Provider>
     );
 

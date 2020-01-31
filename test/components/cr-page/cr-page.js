@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router';
 
 import CRPage from 'components/cr-page';
 import SummaryRow from 'components/cr-page/summary-row';
@@ -59,18 +60,20 @@ describe('CRPage component', function () {
         },
       },
       breadcrumb: {
-        breadcrumbs: [],
+        breadcrumbItems: [],
       },
     };
     const store = MockStore()(state);
 
     const wrapper = mount(
       <PrintModeContext.Provider value={ { printMode: true } }>
-        <HelmetProvider>
-          <Provider store={ store }>
-            <CRPage />
-          </Provider>
-        </HelmetProvider>
+        <Provider store={ store }>
+          <MemoryRouter>
+            <HelmetProvider>
+              <CRPage />
+            </HelmetProvider>
+          </MemoryRouter>
+        </Provider>
       </PrintModeContext.Provider>
     );
     wrapper.find(CRPage).setState({ printMode: false });

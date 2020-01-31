@@ -199,7 +199,7 @@ describe('store', function () {
         activeModal: null,
       },
       breadcrumb: {
-        breadcrumbs: [],
+        breadcrumbItems: [],
       },
       breadcrumbsMapping: {},
       headers: {

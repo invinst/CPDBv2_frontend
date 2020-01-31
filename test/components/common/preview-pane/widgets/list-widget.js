@@ -3,6 +3,7 @@ import { shallow, mount } from 'enzyme';
 import { spy } from 'sinon';
 import Collapse, { Panel } from 'rc-collapse';
 import { Link } from 'react-router-dom';
+import { mountWithRouter } from 'utils/test';
 
 import ListWidget from 'components/common/preview-pane/widgets/list-widget';
 import ListWidgetItem from 'components/common/preview-pane/widgets/list-widget/list-widget-item';
@@ -50,7 +51,7 @@ describe('ListWidget', () => {
         'count': 32,
       },
     ];
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <ListWidget
         typeName='allegation'
         items={ complaintCategories }
@@ -70,7 +71,7 @@ describe('ListWidget', () => {
         'url': 'url_1',
       },
     ];
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <ListWidget
         typeName='allegation'
         items={ complaintCategories }
@@ -95,7 +96,7 @@ describe('ListWidget', () => {
       'name': 'Category Name 2',
       'count': 32,
     }];
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <ListWidget
         typeName='allegation'
         items={ complaintCategories }
@@ -206,13 +207,13 @@ describe('ListWidget', () => {
     });
 
     it('should render show more items when clicking on View more', function (done) {
-      const wrapper = mount(
+      const wrapper = mountWithRouter(
         <ListWidget
           typeName='allegation'
           items={ items }
           title='TITLE'
           collapsable={ true }
-        />,
+        />
       );
 
       let collapse = wrapper.find(Collapse);

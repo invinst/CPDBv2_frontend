@@ -5,6 +5,7 @@ import MockStore from 'redux-mock-store';
 import BreadcrumbContainer from 'containers/breadcrumb';
 import { stub } from 'sinon';
 import * as domUtils from 'utils/dom';
+import { MemoryRouter } from 'react-router';
 
 import ShareableHeader from 'components/headers/shareable-header';
 import HeaderButton from 'components/headers/shareable-header/header-button';
@@ -107,7 +108,7 @@ describe('ShareableHeader global click listener', function () {
   const mockStore = MockStore();
   const store = mockStore({
     breadcrumb: {
-      breadcrumbs: [],
+      breadcrumbItems: [],
     },
   });
 
@@ -118,7 +119,9 @@ describe('ShareableHeader global click listener', function () {
     stub(document.body, 'removeEventListener');
     wrapper = mount(
       <Provider store={ store }>
-        <ShareableHeaderContainer />
+        <MemoryRouter>
+          <ShareableHeaderContainer />
+        </MemoryRouter>
       </Provider>
     );
     shareableHeader = wrapper.find(ShareableHeader);

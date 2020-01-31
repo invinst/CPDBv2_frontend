@@ -3,6 +3,7 @@ import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
 import { stub, spy } from 'sinon';
+import { MemoryRouter } from 'react-router';
 
 import { PinboardPane } from 'components/common/preview-pane/panes';
 import StaticSocialGraphContainer from 'containers/pinboard-admin-page/static-social-graph-container';
@@ -88,19 +89,21 @@ describe('PinboardPane component', function () {
 
     const wrapper = mount(
       <Provider store={ store }>
-        <PinboardPane
-          id='18a5b091'
-          title='My Pinboard'
-          fullCreatedAt='Nov 4, 2019 4:12 PM'
-          description='Some description'
-          officersCount={ 1 }
-          allegationsCount={ 2 }
-          trrsCount={ 3 }
-          childCount={ 5 }
-          recentOfficers={ recentOfficers }
-          recentAllegations={ recentAllegations }
-          recentTrrs={ recentTrrs }
-        />
+        <MemoryRouter>
+          <PinboardPane
+            id='18a5b091'
+            title='My Pinboard'
+            fullCreatedAt='Nov 4, 2019 4:12 PM'
+            description='Some description'
+            officersCount={ 1 }
+            allegationsCount={ 2 }
+            trrsCount={ 3 }
+            childCount={ 5 }
+            recentOfficers={ recentOfficers }
+            recentAllegations={ recentAllegations }
+            recentTrrs={ recentTrrs }
+          />
+        </MemoryRouter>
       </Provider>
     );
 
@@ -153,11 +156,13 @@ describe('PinboardPane component', function () {
 
     mount(
       <Provider store={ store }>
-        <PinboardPane
-          cachedDataIDs={ ['abcd1234'] }
-          id='dbca4321'
-          fetchPinboardStaticSocialGraph={ stubFetchPinboardStaticSocialGraph }
-        />
+        <MemoryRouter>
+          <PinboardPane
+            cachedDataIDs={ ['abcd1234'] }
+            id='dbca4321'
+            fetchPinboardStaticSocialGraph={ stubFetchPinboardStaticSocialGraph }
+          />
+        </MemoryRouter>
       </Provider>
     );
 
@@ -178,11 +183,13 @@ describe('PinboardPane component', function () {
 
     mount(
       <Provider store={ store }>
-        <PinboardPane
-          cachedDataIDs={ ['abcd1234'] }
-          id='abcd1234'
-          fetchPinboardStaticSocialGraph={ stubFetchPinboardStaticSocialGraph }
-        />
+        <MemoryRouter>
+          <PinboardPane
+            cachedDataIDs={ ['abcd1234'] }
+            id='abcd1234'
+            fetchPinboardStaticSocialGraph={ stubFetchPinboardStaticSocialGraph }
+          />
+        </MemoryRouter>
       </Provider>
     );
 
@@ -202,11 +209,13 @@ describe('PinboardPane component', function () {
 
     mount(
       <Provider store={ store }>
-        <PinboardPane
-          cachedDataIDs={ ['abcd1234'] }
-          id={ undefined }
-          fetchPinboardStaticSocialGraph={ stubFetchPinboardStaticSocialGraph }
-        />
+        <MemoryRouter>
+          <PinboardPane
+            cachedDataIDs={ ['abcd1234'] }
+            id={ undefined }
+            fetchPinboardStaticSocialGraph={ stubFetchPinboardStaticSocialGraph }
+          />
+        </MemoryRouter>
       </Provider>
     );
 
@@ -226,11 +235,13 @@ describe('PinboardPane component', function () {
 
     const wrapper = mount(
       <Provider store={ store }>
-        <PinboardPane
-          cachedDataIDs={ ['abcd1234'] }
-          id='dbca4321'
-          fetchPinboardStaticSocialGraph={ stubFetchPinboardStaticSocialGraph }
-        />
+        <MemoryRouter>
+          <PinboardPane
+            cachedDataIDs={ ['abcd1234'] }
+            id='dbca4321'
+            fetchPinboardStaticSocialGraph={ stubFetchPinboardStaticSocialGraph }
+          />
+        </MemoryRouter>
       </Provider>
     );
 
@@ -240,11 +251,13 @@ describe('PinboardPane component', function () {
 
     wrapper.setProps({
       children: (
-        <PinboardPane
-          cachedDataIDs={ ['abcd1234'] }
-          id={ undefined }
-          fetchPinboardStaticSocialGraph={ stubFetchPinboardStaticSocialGraph }
-        />
+        <MemoryRouter>
+          <PinboardPane
+            cachedDataIDs={ ['abcd1234'] }
+            id={ undefined }
+            fetchPinboardStaticSocialGraph={ stubFetchPinboardStaticSocialGraph }
+          />
+        </MemoryRouter>
       ),
     });
 
@@ -265,11 +278,13 @@ describe('PinboardPane component', function () {
 
     const wrapper = mount(
       <Provider store={ store }>
-        <PinboardPane
-          cachedDataIDs={ ['abcd1234'] }
-          id='abcd1234'
-          fetchPinboardStaticSocialGraph={ stubFetchPinboardStaticSocialGraph }
-        />
+        <MemoryRouter>
+          <PinboardPane
+            cachedDataIDs={ ['abcd1234'] }
+            id='abcd1234'
+            fetchPinboardStaticSocialGraph={ stubFetchPinboardStaticSocialGraph }
+          />
+        </MemoryRouter>
       </Provider>
     );
 
@@ -277,11 +292,13 @@ describe('PinboardPane component', function () {
 
     wrapper.setProps({
       children: (
-        <PinboardPane
-          cachedDataIDs={ ['abcd1234'] }
-          id='dbca4321'
-          fetchPinboardStaticSocialGraph={ stubFetchPinboardStaticSocialGraph }
-        />
+        <MemoryRouter>
+          <PinboardPane
+            cachedDataIDs={ ['abcd1234'] }
+            id='dbca4321'
+            fetchPinboardStaticSocialGraph={ stubFetchPinboardStaticSocialGraph }
+          />
+        </MemoryRouter>
       ),
     });
 
@@ -302,21 +319,23 @@ describe('PinboardPane component', function () {
 
     const wrapper = mount(
       <Provider store={ store }>
-        <PinboardPane
-          cachedDataIDs={ ['abcd1234'] }
-          id='abcd1234'
-        />
+        <MemoryRouter>
+          <PinboardPane
+            cachedDataIDs={ ['abcd1234'] }
+            id='abcd1234'
+          />
+        </MemoryRouter>
       </Provider>
     );
 
     wrapper.setProps({
       children: (
-        <Provider store={ store }>
+        <MemoryRouter>
           <PinboardPane
             cachedDataIDs={ ['abcd1234'] }
             id='dbca4321'
           />
-        </Provider>
+        </MemoryRouter>
       ),
     });
 

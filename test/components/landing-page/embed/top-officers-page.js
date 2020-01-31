@@ -19,7 +19,9 @@ describe('Embed top officers page', function () {
       pages: {},
     },
     pinboardPage: { pinboard: {} },
-  });it('should render OfficersByAllegationContainer', function () {
+  });
+
+  it('should render OfficersByAllegationContainer', function () {
     const wrapper = shallow(
       <EmbedTopOfficersPage />
     );

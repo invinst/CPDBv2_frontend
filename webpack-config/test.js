@@ -16,6 +16,7 @@ const config = Object.assign(
       path: path.join(__dirname, '../dist'),
       filename: 'test-bundle.js',
     },
+    devtool: 'cheap-module-source-map',
     devServer: {
       contentBase: path.join(__dirname, '..'),
       historyApiFallback: true,

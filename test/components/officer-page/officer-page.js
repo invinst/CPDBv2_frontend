@@ -4,6 +4,7 @@ import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { stub } from 'sinon';
 import { HelmetProvider } from 'react-helmet-async';
+import { MemoryRouter } from 'react-router';
 
 import OfficerPage from 'components/officer-page';
 import SummarySection from 'components/officer-page/summary-section';
@@ -31,7 +32,7 @@ describe('OfficerPage component', function () {
       },
     },
     breadcrumb: {
-      breadcrumbs: [],
+      breadcrumbItems: [],
     },
     popups: [],
   });
@@ -186,13 +187,15 @@ describe('OfficerPage component', function () {
   it('should render PrintNotes component when printMode is true', function () {
     const wrapper = mount(
       <Provider store={ store }>
-        <HelmetProvider>
-          <OfficerPage
-            officerId={ 1234 }
-            officerName='Shaun Frank'
-            officerSummary={ { rank: 'Officer' } }
-          />
-        </HelmetProvider>
+        <MemoryRouter>
+          <HelmetProvider>
+            <OfficerPage
+              officerId={ 1234 }
+              officerName='Shaun Frank'
+              officerSummary={ { rank: 'Officer' } }
+            />
+          </HelmetProvider>
+        </MemoryRouter>
       </Provider>
     );
     wrapper.find(OfficerPage).setState({ printMode: true });

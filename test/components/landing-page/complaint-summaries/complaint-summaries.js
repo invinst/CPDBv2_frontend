@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mountWithRouter } from 'utils/test';
 import { stub } from 'sinon';
 
 import ComplaintSummaryCard from 'components/landing-page/complaint-summaries/complaint-summary-card';
@@ -27,12 +27,11 @@ describe('Complaint Summaries components', function () {
   }];
 
   it('should render appropriately', function () {
-
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <ComplaintSummaries
         cards={ data }
         addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
-      />,
+      />
     );
 
     const complaintSummaryCards = wrapper.find(ComplaintSummaryCard);

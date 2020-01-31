@@ -12,7 +12,7 @@ import CommunityDropdown from 'components/landing-page/heat-map/summary-panel/co
 
 describe('CommunityDropdown component', function () {
   it('should renderable', function () {
-    CommunityDropdown.should.be.renderable();
+    CommunityDropdown.should.be.renderable({ withRouter: true });
   });
 
   it('should render CommunityDetail if communityId is not 0', function () {

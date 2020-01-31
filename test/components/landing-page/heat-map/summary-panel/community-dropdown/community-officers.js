@@ -4,6 +4,6 @@ import CommunityOfficers from 'components/landing-page/heat-map/summary-panel/co
 
 describe('CommunityOfficers component', function () {
   it('should renderable', function () {
-    CommunityOfficers.should.be.renderable(communityFactory.build());
+    CommunityOfficers.should.be.renderable({ ...communityFactory.build(), withRouter: true });
   });
 });

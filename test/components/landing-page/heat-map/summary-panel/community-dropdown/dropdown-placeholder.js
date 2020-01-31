@@ -8,7 +8,7 @@ import DropdownPlaceholder from
 
 describe('DropdownPlaceholder component', function () {
   it('should renderable', function () {
-    DropdownPlaceholder.should.be.renderable();
+    DropdownPlaceholder.should.be.renderable({ withRouter: true });
   });
 
   it('should trigger openDropdown when click on', function () {

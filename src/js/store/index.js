@@ -44,7 +44,7 @@ function configureStore(initialState) {
 
   /* istanbul ignore next */
   if (config.appEnv === 'dev') {
-    composeArgs.push(window.devToolsExtension ? window.devToolsExtension() : f => f);
+    composeArgs.push(window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f);
   }
 
   return createStore(

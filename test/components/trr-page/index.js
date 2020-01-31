@@ -33,7 +33,7 @@ describe('TRRPage component', function () {
   const store = MockStore()({
     popups,
     breadcrumb: {
-      breadcrumbs: [],
+      breadcrumbItems: [],
     },
     trrPage: {
       editModeOn: false,
@@ -70,11 +70,11 @@ describe('TRRPage component', function () {
 
   it('should render trr title, OfficerSection and TRRInfoSection', function () {
     const wrapper = mount(
-      <HelmetProvider>
-        <Provider store={ store }>
+      <Provider store={ store }>
+        <HelmetProvider>
           <TRRPageContainer/>
-        </Provider>
-      </HelmetProvider>
+        </HelmetProvider>
+      </Provider>
     );
     wrapper.find('.trr-title').text().should.equal('TRR 123');
     wrapper.find(OfficerSection).prop('officer').should.eql({
@@ -110,8 +110,8 @@ describe('TRRPage component', function () {
   it('should render category header, incident date and notes header when printing', function () {
     const wrapper = mount(
       <PrintModeContext.Provider value={ { printMode: true } }>
-        <HelmetProvider>
-          <Provider store={ store }>
+        <Provider store={ store }>
+          <HelmetProvider>
             <TRRPage
               trrId='123'
               officer={ { officerId: 456 } }
@@ -119,8 +119,8 @@ describe('TRRPage component', function () {
               trrLocation={ { incidentDate: 'Sep 23, 2003' } }
               notes={ popups }
             />
-          </Provider>
-        </HelmetProvider>
+          </HelmetProvider>
+        </Provider>
       </PrintModeContext.Provider>
     );
 

@@ -1,7 +1,8 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import { Link, Router, Route, createMemoryHistory } from 'react-router';
+import { shallow } from 'enzyme';
+import { Link } from 'react-router-dom';
 import { stub } from 'sinon';
+import { mountWithRouter } from 'utils/test';
 
 import * as constants from 'utils/constants';
 import TextWithInlineSearchAlias
@@ -30,18 +31,12 @@ describe('TextWithInlineSearchAlias component', function () {
   it('should trigger setAliasAdminPageContent if we click on inline search alias link', function () {
     const setAliasAdminPageContent = stub();
 
-    const renderer = () => (
+    const wrapper = mountWithRouter(
       <TextWithInlineSearchAlias
         text='text'
         aliasEditModeOn={ true }
         content={ { someContent: 'content' } }
         setAliasAdminPageContent={ setAliasAdminPageContent } />
-    );
-
-    const wrapper = mount(
-      <Router history={ createMemoryHistory() }>
-        <Route path='/' component={ renderer } />
-      </Router>
     );
 
     const linkElement = wrapper.find(Link);

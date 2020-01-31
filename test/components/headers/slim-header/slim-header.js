@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
 import { stub, spy } from 'sinon';
 import { Link } from 'react-router-dom';
+import { MemoryRouter } from 'react-router';
 
 import { SlimHeader } from 'components/headers/slim-header';
 import * as domUtils from 'utils/dom';
@@ -62,9 +63,11 @@ describe('SlimHeader component', function () {
     const openRequestDocumentModal = spy();
     const wrapper = mount(
       <Provider store={ store }>
-        <EditModeContext.Provider value={ { editModeOn: false } }>
-          <SlimHeader show={ true } openLegalDisclaimerModal={ openRequestDocumentModal } pathname='/' />
-        </EditModeContext.Provider>
+        <MemoryRouter>
+          <EditModeContext.Provider value={ { editModeOn: false } }>
+            <SlimHeader show={ true } openLegalDisclaimerModal={ openRequestDocumentModal } pathname='/' />
+          </EditModeContext.Provider>
+        </MemoryRouter>
       </Provider>
     );
 
@@ -77,9 +80,11 @@ describe('SlimHeader component', function () {
     const openRequestDocumentModal = spy();
     const wrapper = mount(
       <Provider store={ store }>
-        <EditModeContext.Provider value={ { editModeOn: false } }>
-          <SlimHeader show={ true } openLegalDisclaimerModal={ openRequestDocumentModal } pathname='/' />
-        </EditModeContext.Provider>
+        <MemoryRouter>
+          <EditModeContext.Provider value={ { editModeOn: false } }>
+            <SlimHeader show={ true } openLegalDisclaimerModal={ openRequestDocumentModal } pathname='/' />
+          </EditModeContext.Provider>
+        </MemoryRouter>
       </Provider>
     );
 
@@ -91,11 +96,13 @@ describe('SlimHeader component', function () {
   it('should render Documents link', function () {
     const openRequestDocumentModal = spy();
     const wrapper = mount(
-      <Provider store={ store }>
-        <EditModeContext.Provider value={ { editModeOn: false } }>
-          <SlimHeader show={ true } openLegalDisclaimerModal={ openRequestDocumentModal } pathname='/' />
-        </EditModeContext.Provider>
-      </Provider>
+      <EditModeContext.Provider value={ { editModeOn: false } }>
+        <Provider store={ store }>
+          <MemoryRouter>
+            <SlimHeader show={ true } openLegalDisclaimerModal={ openRequestDocumentModal } pathname='/' />
+          </MemoryRouter>
+        </Provider>
+      </EditModeContext.Provider>
     );
 
     const links = wrapper.find(Link);

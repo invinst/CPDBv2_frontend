@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { browserHistory, Router, Route, createMemoryHistory } from 'react-router';
+import { MemoryRouter } from 'react-router';
+import browserHistory from 'utils/history';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { Promise } from 'es6-promise';
@@ -32,14 +33,6 @@ describe('Pinboards component', function () {
       url: '/pinboard/2/untitled-pinboard/',
     },
   ];
-
-  beforeEach(function () {
-    this.browserHistoryPush = stub(browserHistory, 'push');
-  });
-
-  afterEach(function () {
-    this.browserHistoryPush.restore();
-  });
 
   it('should render pinboard items', function () {
     const wrapper = mount(
@@ -101,21 +94,17 @@ describe('Pinboards component', function () {
     });
     const handleCloseSpy = spy();
 
-    const pinboardsList = () => (
-      <Provider store={ store }>
-        <Pinboards
-          isShown={ true }
-          pinboards={ pinboards }
-          createNewEmptyPinboard={ createNewEmptyPinboardStub }
-          handleClose={ handleCloseSpy }
-        />
-      </Provider>
-    );
-
     const wrapper = mount(
-      <Router history={ createMemoryHistory() }>
-        <Route path='/' component={ pinboardsList } />
-      </Router>
+      <Provider store={ store }>
+        <MemoryRouter>
+          <Pinboards
+            isShown={ true }
+            pinboards={ pinboards }
+            createNewEmptyPinboard={ createNewEmptyPinboardStub }
+            handleClose={ handleCloseSpy }
+          />
+        </MemoryRouter>
+      </Provider>
     );
 
     const newPinboardLink = wrapper.find('.new-pinboard-btn').first();
@@ -124,7 +113,7 @@ describe('Pinboards component', function () {
 
     setTimeout(() => {
       handleCloseSpy.should.be.called();
-      this.browserHistoryPush.should.be.calledWith('/pinboard/5cd06f2b/pinboard-title/');
+      browserHistory.location.pathname.should.equal('/pinboard/5cd06f2b/pinboard-title/');
       done();
     }, 50);
   });

@@ -64,7 +64,7 @@ const store = mockStore({
     },
   },
   breadcrumb: {
-    breadcrumbs: [],
+    breadcrumbItems: [],
   },
   headers: {
     shareableHeader: {
@@ -106,6 +106,7 @@ describe('LandingPage component', function () {
     LandingPage.should.be.responsiveRenderable({
       store: store,
       helmet: true,
+      withRouter: true,
       resetBreadcrumbs: stubResetBreadcrumbs,
       location: { pathname: '/' },
     });
@@ -379,14 +380,14 @@ describe('LandingPage component', function () {
     const stubResetBreadcrumbs = spy();
 
     mount(
-      <HelmetProvider>
-        <Provider store={ store }>
+      <Provider store={ store }>
+        <HelmetProvider>
           <LandingPage
             resetBreadcrumbs={ stubResetBreadcrumbs }
             location={ { pathname: '/' } }
           />
-        </Provider>
-      </HelmetProvider>
+        </HelmetProvider>
+      </Provider>
     );
 
     stubResetBreadcrumbs.should.be.calledWith({ breadcrumbs: [] });
