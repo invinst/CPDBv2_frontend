@@ -233,6 +233,13 @@ describe('Pinboard Admin Page', function () {
 
         browser.getUrl().should.match(/\/trr\/2236\//);
       });
+
+      it('should display pinboard(s) whose title match the searched text', function () {
+        pinboardAdminPage.searchBox.waitForDisplayed();
+        pinboardAdminPage.searchBox.setValue('Title');
+
+        pinboardAdminPage.firstPinboardTitle.getText().should.equal('Pinboard 18a5b091 Title');
+      });
     });
   });
 });

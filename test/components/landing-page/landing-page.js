@@ -19,6 +19,7 @@ import { RawOfficerCardFactory } from 'utils/test/factories/activity-grid';
 import { RawDocumentCardFactory } from 'utils/test/factories/attachment';
 import { ComplaintSummaryFactory } from 'utils/test/factories/complaint';
 import * as DomUtils from 'utils/dom';
+import * as intercomUtils from 'utils/intercom';
 
 const mockStore = configureStore();
 const store = mockStore({
@@ -502,5 +503,22 @@ describe('LandingPage component', function () {
         { breadcrumb: 'Search', breadcrumbKey: 'search/' },
       ],
     });
+  });
+
+  it('should show intercom launcher when mounted', function () {
+    const stubResetBreadcrumbs = spy();
+    stub(intercomUtils, 'showIntercomLauncher');
+
+    mount(
+      <Provider store={ store }>
+        <LandingPage
+          resetBreadcrumbs={ stubResetBreadcrumbs }
+          location={ { pathname: '/' } }
+        />
+      </Provider>
+    );
+    intercomUtils.showIntercomLauncher.should.be.calledWith(true);
+
+    intercomUtils.showIntercomLauncher.restore();
   });
 });
