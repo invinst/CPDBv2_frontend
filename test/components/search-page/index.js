@@ -510,13 +510,22 @@ describe('SearchPage component', function () {
         intercomUtils.showIntercomLauncher.restore();
       });
 
-      it('should hide intercom launcher when mounted', function () {
+      it('should hide intercom launcher if search page is hidden', function () {
         mount(
           <Provider store={ store }>
-            <SearchPage/>
+            <SearchPage hide={ false }/>
           </Provider>
         );
         intercomUtils.showIntercomLauncher.should.be.calledWith(false);
+      });
+
+      it('should show intercom launcher if search page is showing', function () {
+        mount(
+          <Provider store={ store }>
+            <SearchPage hide={ true }/>
+          </Provider>
+        );
+        intercomUtils.showIntercomLauncher.should.be.calledWith(true);
       });
 
       it('should show intercom launcher again when unmounted', function () {
@@ -528,6 +537,30 @@ describe('SearchPage component', function () {
 
         wrapper.unmount();
         intercomUtils.showIntercomLauncher.should.be.calledWith(true);
+      });
+
+      it('should show intercom launcher when we go back from search page to landing page', function () {
+        const wrapper = mount(
+          <Provider store={ store }>
+            <SearchPage hide={ false }/>
+          </Provider>
+        );
+
+        wrapper.setProps({ children: <SearchPage hide={ true }/> });
+
+        intercomUtils.showIntercomLauncher.should.be.calledWith(true);
+      });
+
+      it('should hide intercom launcher when we go to search page from landing page', function () {
+        const wrapper = mount(
+          <Provider store={ store }>
+            <SearchPage hide={ true }/>
+          </Provider>
+        );
+
+        wrapper.setProps({ children: <SearchPage hide={ false }/> });
+
+        intercomUtils.showIntercomLauncher.should.be.calledWith(false);
       });
     });
 
