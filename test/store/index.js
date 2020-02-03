@@ -1,5 +1,5 @@
 import configureStore from 'store';
-import { OFFICER_EDIT_TYPES, CR_EDIT_TYPES, TRR_EDIT_TYPES, BREADSCRUMB_DEFAULT_MAPPING } from 'utils/constants';
+import { OFFICER_EDIT_TYPES, CR_EDIT_TYPES, TRR_EDIT_TYPES } from 'utils/constants';
 
 
 function setUp() {
@@ -203,7 +203,7 @@ describe('store', function () {
       },
       breadcrumb: {
         breadcrumbItems: [],
-        breadcrumbsMapping: BREADSCRUMB_DEFAULT_MAPPING,
+        breadcrumbsMapping: [],
       },
       headers: {
         shareableHeader: {
