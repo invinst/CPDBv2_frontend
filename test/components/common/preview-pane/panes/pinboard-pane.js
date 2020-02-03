@@ -340,6 +340,5 @@ describe('PinboardPane component', function () {
     });
 
     componentWillUnmountSpy.should.be.calledOnce();
-    componentWillUnmountSpy.restore();
   });
 });

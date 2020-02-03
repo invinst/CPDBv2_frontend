@@ -212,8 +212,6 @@ describe('NetworkGraph component', function () {
       </Provider>
     );
     intercomUtils.showIntercomLauncher.should.be.calledWith(false);
-
-    intercomUtils.showIntercomLauncher.restore();
   });
 
   it('should add mousedown event when componentDidMounted', function () {
@@ -227,7 +225,6 @@ describe('NetworkGraph component', function () {
     const instance = wrapper.find(NetworkGraph).instance();
 
     window.addEventListener.should.be.calledWith('mousedown', instance.handleClickOutside);
-    window.addEventListener.restore();
   });
 
   it('should show Intercom launcher again when componentWillUnmount', function () {
@@ -241,8 +238,6 @@ describe('NetworkGraph component', function () {
     intercomUtils.showIntercomLauncher.resetHistory();
     wrapper.unmount();
     intercomUtils.showIntercomLauncher.should.be.calledWith(true);
-
-    intercomUtils.showIntercomLauncher.restore();
   });
 
   it('should remove mousedown event when componentWillUnmount', function () {
@@ -257,7 +252,6 @@ describe('NetworkGraph component', function () {
     wrapper.unmount();
 
     window.removeEventListener.should.be.calledWith('mousedown', instance.handleClickOutside);
-    window.removeEventListener.restore();
   });
 
   it('should fetch data again when componentDidUpdate', function () {

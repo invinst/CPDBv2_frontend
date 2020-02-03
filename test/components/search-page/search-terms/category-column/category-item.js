@@ -30,8 +30,6 @@ describe('CategoryItem component', function () {
       categoryItem.simulate('click');
 
       pushStub.should.be.calledWith('/search/?terms=community&type=COMMUNITY');
-
-      pushStub.restore();
     });
 
     it('should track outbound link if the item type is LINK', function () {
@@ -49,8 +47,6 @@ describe('CategoryItem component', function () {
       categoryItem.simulate('click');
 
       trackOutboundLinkStub.should.be.calledWith('link', '_blank');
-
-      trackOutboundLinkStub.restore();
     });
   });
 

@@ -8,11 +8,6 @@ describe('tracking utils', function () {
     sinon.stub(global.clicky, 'log');
   });
 
-  afterEach(function () {
-    global.ga.restore();
-    global.clicky.log.restore();
-  });
-
   describe('trackSwipeLandingPageCarousel', function () {
     it('should send event analytic', function () {
       tracking.trackSwipeLandingPageCarousel('left', 'type');
@@ -49,8 +44,6 @@ describe('tracking utils', function () {
       tracking.trackOutboundLink('localhost', '_blank');
       window.open.should.be.calledOnce();
       window.open.should.be.calledWith('localhost', '_blank');
-
-      window.open.restore();
     });
   });
 
@@ -129,8 +122,6 @@ describe('tracking utils', function () {
       clock.tick(550);
 
       global.ga.callCount.should.equal(4);
-
-      clock.restore();
     });
   });
 
@@ -158,8 +149,6 @@ describe('tracking utils', function () {
 
       global.ga.should.be.calledTwice();
       global.clicky.log.should.be.calledTwice();
-
-      clock.restore();
     });
   });
 

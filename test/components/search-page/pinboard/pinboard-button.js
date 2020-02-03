@@ -71,7 +71,6 @@ describe('PinboardButton component', function () {
 
     wrapper.simulate('click');
     browserHistoryPush.should.be.calledWith('/pinboard/1/title/');
-    browserHistoryPush.restore();
   });
 
   it('should redirect to /pinboard/ if pinboard_id is null and hasPendingChanges when clicking on button', function () {
@@ -89,6 +88,5 @@ describe('PinboardButton component', function () {
 
     wrapper.simulate('click');
     browserHistoryPush.should.be.calledWith('/pinboard/');
-    browserHistoryPush.restore();
   });
 });

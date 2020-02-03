@@ -109,8 +109,6 @@ describe('withPinnableItem component', function () {
       const element = wrapper.find('.suggestion-item-123').first();
       element.simulate('click');
       triggerStub.withArgs('enter').should.be.called();
-
-      triggerStub.restore();
     });
 
     it('should trigger clickItem there is clickItem', function () {

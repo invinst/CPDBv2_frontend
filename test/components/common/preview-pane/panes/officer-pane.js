@@ -258,7 +258,5 @@ describe('OfficerPane component', () => {
     viewProfileButton.simulate('click');
 
     browserHistoryPush.should.be.calledWith('some_url');
-
-    browserHistoryPush.restore();
   });
 });

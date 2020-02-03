@@ -49,7 +49,5 @@ describe('PopupWrapper', function () {
     tooltip.prop('afterShow')();
     hideOtherPopups.called.should.be.true();
     trackPopupButtonClick.should.be.calledWith('tracking.url.co', 'testingId');
-    hideOtherPopups.restore();
-    trackPopupButtonClick.restore();
   });
 });

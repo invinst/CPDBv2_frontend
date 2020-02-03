@@ -21,7 +21,6 @@ describe('LoginModal component', function () {
     sinon.stub(instance.nameInput, 'focus');
     wrapper.find('.name-input-wrapper').simulate('click');
     instance.nameInput.focus.calledOnce.should.be.true();
-    instance.nameInput.focus.restore();
   });
 
   it('should focus password input when click on password input wrapper', function () {
@@ -30,7 +29,6 @@ describe('LoginModal component', function () {
     sinon.stub(instance.passwordInput, 'focus');
     wrapper.find('.password-input-wrapper').simulate('click');
     instance.passwordInput.focus.calledOnce.should.be.true();
-    instance.passwordInput.focus.restore();
   });
 
   it('sign up button should be disabled unless both inputs have value', function () {

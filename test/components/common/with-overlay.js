@@ -59,8 +59,6 @@ describe('withOverlay component', function () {
     document.body.classList.contains('body-not-scrollable').should.be.false();
     addClassListSpy.should.not.be.called();
     removeClassListSpy.should.be.called();
-    addClassListSpy.restore();
-    removeClassListSpy.restore();
   });
 
   it('should not modify classList of body if isShown is not changed', function () {
@@ -71,8 +69,6 @@ describe('withOverlay component', function () {
     wrapper.setProps({ isShown: false });
     addClassListSpy.should.not.be.called();
     removeClassListSpy.should.not.be.called();
-    addClassListSpy.restore();
-    removeClassListSpy.restore();
   });
 
 

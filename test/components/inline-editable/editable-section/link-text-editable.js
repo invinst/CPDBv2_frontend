@@ -20,10 +20,6 @@ describe('LinkTextEditable component', function () {
     );
   });
 
-  afterEach(function () {
-    draftUtils.editorStateToText.restore();
-  });
-
   it('should render empty link if value is not passed', function () {
     const wrapper = mount(
       <LinkTextEditable />

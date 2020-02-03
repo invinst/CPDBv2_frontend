@@ -27,7 +27,6 @@ describe('ToolbarButton component', function () {
     );
     const divElements = wrapper.find('div');
     divElements.at(0).prop('style').fontSize.should.equal('14px');
-    wrapperStyleStub.restore();
   });
 
   it('should return icon if active is false', function () {
@@ -41,7 +40,6 @@ describe('ToolbarButton component', function () {
     );
     const divElements = wrapper.find('div');
     divElements.at(1).prop('style').fontSize.should.equal('14px');
-    iconStyleStub.restore();
   });
 
   it('should return activeIcon if active is true', function () {
@@ -55,6 +53,5 @@ describe('ToolbarButton component', function () {
     );
     const divElements = wrapper.find('div');
     divElements.at(1).prop('style').fontSize.should.equal('14px');
-    iconStyleStub.restore();
   });
 });

@@ -68,7 +68,6 @@ describe('SocialGraphPage component', function () {
     const geographicMap = wrapper.find(GeographicMap);
     geographicMap.find(MainTabs).exists().should.be.true();
     geographicMap.find('.back-to-pinboard-link').exists().should.be.true();
-    loadPaginatedDataStub.restore();
   });
 
   it('should not render back to pinboard button if there is no pinboardId', function () {

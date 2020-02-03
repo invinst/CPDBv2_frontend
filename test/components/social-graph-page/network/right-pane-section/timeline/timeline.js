@@ -159,7 +159,6 @@ describe('Timeline component', function () {
 
     setTimeout(() => {
       handleScrollStub.should.be.calledWith(items[1]);
-      handleScrollStub.restore();
       done();
     }, 150);
   });

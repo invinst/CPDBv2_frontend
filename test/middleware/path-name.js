@@ -10,12 +10,6 @@ describe('updatePathNameMiddleware', function () {
     this.stubDocumentTitle = sinon.stub(document, 'title');
   });
 
-  afterEach(function () {
-    this.stubReplaceState.restore();
-    this.stubHistoryState.restore();
-    this.stubDocumentTitle.restore();
-  });
-
   it('should push search page path on OPEN_SEARCH_PAGE', function () {
     const action = { type: UPDATE_PATH_NAME, payload: '/some/path' };
     updatePathNameMiddleware()(() => {})(action);

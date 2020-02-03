@@ -63,11 +63,6 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
     sinon.stub(window, 'addEventListener');
   });
 
-  afterEach(function () {
-    this.cancelTokenSource.restore();
-    window.addEventListener.restore();
-  });
-
   it('should not dispatch any action if action is not adding or removing items', function () {
     const action = {
       type: 'other action',
@@ -239,7 +234,6 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
         );
         Toastify.toast.getCall(0).args[1]['onClick']();
         browserHistoryPush.should.be.calledWith('/pinboard/');
-        browserHistoryPush.restore();
         done();
       },
       50
@@ -289,7 +283,6 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
         );
         Toastify.toast.getCall(0).args[1]['onClick']();
         browserHistoryPush.should.be.calledWith('/pinboard/66ef1560/pinboard-title/');
-        browserHistoryPush.restore();
         done();
       },
       50
@@ -648,7 +641,6 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
           store.dispatch.should.be.calledTwice();
           store.dispatch.should.be.calledWith(savePinboard());
 
-          clock.restore();
           done();
         },
         50,
@@ -721,8 +713,6 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
           failingStore.dispatch.should.be.calledOnce();
           failingStore.dispatch.should.be.calledWith(savePinboard());
 
-          ToastUtils.showAlertToast.restore();
-          clock.restore();
           done();
         }
       }
@@ -815,9 +805,6 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
 
           sinon.stub(window, 'addEventListener');
           Toastify.toast.dismiss.resetHistory();
-          clock.restore();
-          onLineStub.restore();
-          ToastUtils.showAlertToast.restore();
           done();
         }
       }
@@ -896,9 +883,6 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
 
           sinon.stub(window, 'addEventListener');
           Toastify.toast.dismiss.resetHistory();
-          clock.restore();
-          onLineStub.restore();
-          ToastUtils.showAlertToast.restore();
           done();
         }
       }

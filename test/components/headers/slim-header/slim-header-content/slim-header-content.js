@@ -68,8 +68,6 @@ describe('SlimHeaderContent component', function () {
     wrapper.simulate('click');
 
     scrollToTopStub.should.be.calledOnce();
-
-    scrollToTopStub.restore();
   });
 
   it('should not scroll to top when being clicked if position is not bottom', function () {
@@ -85,7 +83,5 @@ describe('SlimHeaderContent component', function () {
     header.simulate('click');
 
     scrollToTopStub.should.not.be.called();
-
-    scrollToTopStub.restore();
   });
 });

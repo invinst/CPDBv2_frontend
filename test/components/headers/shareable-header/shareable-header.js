@@ -55,10 +55,6 @@ describe('ShareableHeader component', function () {
       sinon.stub(domUtils, 'calculatePosition');
     });
 
-    afterEach(function () {
-      domUtils.calculatePosition.restore();
-    });
-
     it('should remain in top position', function () {
       domUtils.calculatePosition.returns('top');
       shareableHeader.instance().handleScroll();
@@ -127,11 +123,6 @@ describe('ShareableHeader global click listener', function () {
     shareableHeader = wrapper.find(ShareableHeader);
   });
 
-  afterEach(function () {
-    document.body.addEventListener.restore();
-    document.body.removeEventListener.restore();
-  });
-
   it('should assign global click handler to close share menu', function () {
     document.body.addEventListener.should.be.calledWith('click', shareableHeader.closeShareMenu);
   });
@@ -150,11 +141,6 @@ describe('ShareableHeader global scroll listener', function () {
     sinon.stub(window, 'addEventListener');
     sinon.stub(window, 'removeEventListener');
     wrapper = shallow(<ShareableHeader />);
-  });
-
-  afterEach(function () {
-    window.addEventListener.restore();
-    window.removeEventListener.restore();
   });
 
   it('should assign global scroll handler to close share menu', function () {

@@ -90,7 +90,6 @@ describe('DocumentsOverviewPage component', function () {
     inputElement.simulate('change', { target: { value: 'term' } } );
 
     browserHistory.push.should.be.calledWith('/documents/?match=term');
-    browserHistory.push.restore();
   });
 
   it('should not change url if search text hasnt changed', function () {
@@ -111,7 +110,6 @@ describe('DocumentsOverviewPage component', function () {
     inputElement.simulate('change', { target: { value: 'abc' } } );
 
     browserHistory.push.should.be.not.called();
-    browserHistory.push.restore();
   });
 
   it('should not include match param in url when search text is empty', function () {
@@ -132,6 +130,5 @@ describe('DocumentsOverviewPage component', function () {
     inputElement.simulate('change', { target: { value: '' } } );
 
     browserHistory.push.should.be.calledWith('/documents/');
-    browserHistory.push.restore();
   });
 });

@@ -74,7 +74,5 @@ describe('DocumentCard components', function () {
       sourcePage: 'Landing Page',
       app: 'Frontend',
     });
-
-    tracking.trackAttachmentClick.restore();
   });
 });

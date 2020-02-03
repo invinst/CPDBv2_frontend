@@ -112,7 +112,6 @@ describe('EditableSection component', function () {
     });
     spyDeserializeField.should.be.called();
     wrapper.state('fields').a.value.getCurrentContent().getFirstBlock().getText().should.equal('c');
-    spyDeserializeField.restore();
   });
 
   it('should not deserialze falsy field', function () {

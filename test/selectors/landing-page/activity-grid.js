@@ -95,8 +95,6 @@ describe('activity-grid selectors', function () {
 
       stubShuffle.calledWith(lodash.range(0, 12)).should.be.true();
       stubShuffle.calledWith(lodash.range(12, 40)).should.be.true();
-
-      stubShuffle.restore();
     });
   });
 

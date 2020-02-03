@@ -16,11 +16,6 @@ describe('DocumentDeduplicatorPage DocumentRow component', function () {
     this.trackOutboundLink = sinon.stub(tracking, 'trackOutboundLink');
   });
 
-  afterEach(function () {
-    this.browserHistoryPush.restore();
-    this.trackOutboundLink.restore();
-  });
-
   it('should display thumbnail if there is one', function () {
     const wrapper = shallow(
       <DocumentRow thumbnail='http://example.com/test.jpg'/>

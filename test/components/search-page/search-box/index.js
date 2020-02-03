@@ -104,17 +104,11 @@ describe('SearchBox component', function () {
 
     changeSearchQuery.should.be.calledWith('');
     pushPathPreserveEditMode.should.be.calledWith('search/');
-
-    pushPathPreserveEditMode.restore();
   });
 
   describe('Enter event handler', function () {
     beforeEach(function () {
       this.browserHistoryPush = sinon.stub(browserHistory, 'push');
-    });
-
-    afterEach(function () {
-      this.browserHistoryPush.restore();
     });
 
     it('should push first result to when user hit ENTER if to is set', function () {

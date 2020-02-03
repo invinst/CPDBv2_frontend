@@ -37,10 +37,6 @@ describe('LegalDisclaimerModalContent component', function () {
       sinon.spy(intercomUtils, 'showIntercomMessages');
     });
 
-    afterEach(function () {
-      intercomUtils.showIntercomMessages.restore();
-    });
-
     it('contact link should open Intercom chat dialog', function () {
       const wrapper = shallow(
         <LegalDisclaimerModalContent />

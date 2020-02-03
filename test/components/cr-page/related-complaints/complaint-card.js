@@ -57,8 +57,6 @@ describe('ComplaintCard component', function () {
 
       wrapper.find('.content').simulate('click');
       stubTrackRelatedByCategoryClick.should.be.calledWith('01234', '56789');
-
-      stubTrackRelatedByCategoryClick.restore();
     });
 
     it('should render ItemPinButton with correct props', function () {
@@ -96,8 +94,6 @@ describe('ComplaintCard component', function () {
 
     wrapper.find('.content').simulate('click');
     tracking.trackRelatedByAccusedClick.should.be.calledWith('01234', '56789');
-
-    tracking.trackRelatedByAccusedClick.restore();
   });
 
   it('should not track click event while matching with something else', function () {
@@ -114,7 +110,5 @@ describe('ComplaintCard component', function () {
 
     wrapper.find('.content').simulate('click');
     tracking.trackRelatedByAccusedClick.should.not.be.called();
-
-    tracking.trackRelatedByAccusedClick.restore();
   });
 });

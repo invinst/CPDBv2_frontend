@@ -565,8 +565,6 @@ describe('SocialGraph', function () {
       listEvent: listEvent,
     });
     drawGraphStub.should.be.calledOnce();
-
-    drawGraphStub.restore();
   });
 
   it('should call drawGraph again when listEvent has changed', function () {
@@ -587,8 +585,6 @@ describe('SocialGraph', function () {
       listEvent: [],
     });
     drawGraphStub.should.be.calledOnce();
-
-    drawGraphStub.restore();
   });
 
   it('should not draw graph when officers is empty', function () {
@@ -623,7 +619,6 @@ describe('SocialGraph', function () {
       performResizeGraph: true,
     });
     resizeGraphSpy.should.be.called();
-    resizeGraphSpy.restore();
   });
 
   it('should call updateSelectedOfficerId when clicking on a graph node', function () {

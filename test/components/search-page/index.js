@@ -45,10 +45,6 @@ describe('SearchPage component', function () {
     this.browserHistoryPush = sinon.stub(browserHistory, 'push');
   });
 
-  afterEach(function () {
-    this.browserHistoryPush.restore();
-  });
-
   it('should not call get suggestion api when query is empty', function () {
     const clock = sinon.useFakeTimers();
     const getSuggestionSpy = sinon.stub().returns({ catch: sinon.spy() });
@@ -63,8 +59,6 @@ describe('SearchPage component', function () {
     clock.tick(600);
 
     getSuggestionSpy.should.not.be.called();
-
-    clock.restore();
   });
 
   it('should call get suggestion api when query is set', function () {
@@ -81,8 +75,6 @@ describe('SearchPage component', function () {
     clock.tick(600);
 
     getSuggestionSpy.should.be.calledWith('a', { limit: 9 });
-
-    clock.restore();
   });
 
   it('should call browserHistory.push when user click on searchbar__button--back', function () {
@@ -127,9 +119,6 @@ describe('SearchPage component', function () {
 
     unbindSpy.should.be.calledWith('esc');
     unbindSpy.should.be.calledWith('enter');
-
-    bindSpy.restore();
-    unbindSpy.restore();
   });
 
   it('should not bind and unbind esc and enter keys when mounted/unmounted but hide', function () {
@@ -149,9 +138,6 @@ describe('SearchPage component', function () {
 
     unbindSpy.should.not.be.calledWith('esc');
     unbindSpy.should.not.be.calledWith('enter');
-
-    bindSpy.restore();
-    unbindSpy.restore();
   });
 
   it('should bind and unbind when update hide prop', function () {
@@ -196,10 +182,6 @@ describe('SearchPage component', function () {
 
     unbindSpy.should.be.calledWith('esc');
     unbindSpy.should.be.calledWith('enter');
-
-    unbindSpy.restore();
-    bindSpy.restore();
-
   });
 
   it('should not change the current search path when user type in search box', function () {
@@ -245,7 +227,6 @@ describe('SearchPage component', function () {
       const handleSelectStub = sinon.stub(wrapper.find(SearchPage).instance(), 'handleSelect');
       Mousetrap.trigger('enter');
       handleSelectStub.calledWith('OFFICER');
-      handleSelectStub.restore();
     });
 
     it('should call handleSearchBoxEnter when user hits ENTER, there is no result and SearchBox is unfocused',
@@ -261,7 +242,6 @@ describe('SearchPage component', function () {
         Mousetrap.trigger('enter');
 
         navigateToSearchItem.calledOnce.should.be.true();
-        navigateToSearchItem.restore();
       }
     );
   });
@@ -377,8 +357,6 @@ describe('SearchPage component', function () {
     clock.tick(600);
 
     getSuggestionSpy.should.not.be.called();
-
-    clock.restore();
   });
 
   it('should throttle getSuggestion calls and only keep the call with the latest query', function () {
@@ -419,8 +397,6 @@ describe('SearchPage component', function () {
 
     getSuggestionSpy.should.be.calledOnce();
     getSuggestionSpy.should.be.calledWith('abcde', { limit: 9 });
-
-    clock.restore();
   });
 
   it('should not call api when query changed to emtpy', function () {
@@ -467,18 +443,12 @@ describe('SearchPage component', function () {
     selectTagSpy.should.not.be.called();
     getSuggestionSpy.should.not.be.called();
     getSuggestionWithContentTypeSpy.should.not.be.called();
-
-    clock.restore();
   });
 
   describe('Intercom', function () {
     describe('Intercom launcher', function () {
       beforeEach(function () {
         sinon.stub(intercomUtils, 'showIntercomLauncher');
-      });
-
-      afterEach(function () {
-        intercomUtils.showIntercomLauncher.restore();
       });
 
       it('should hide intercom launcher when mounted', function () {
@@ -505,10 +475,6 @@ describe('SearchPage component', function () {
     describe('Intercom tracking', function () {
       beforeEach(function () {
         sinon.stub(IntercomTracking, 'trackSearchPage');
-      });
-
-      afterEach(function () {
-        IntercomTracking.trackSearchPage.restore();
       });
 
       it('should track Intercom with search page', function () {

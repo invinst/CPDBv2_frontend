@@ -56,7 +56,6 @@ describe('PinboardLink component', function () {
       link.simulate('click');
       windowConfirmStub.withArgs(CONFIRM_MESSAGE).should.be.calledOnce();
       onClickSpy.should.be.calledOnce();
-      windowConfirmStub.restore();
     });
 
     it('should show confirmation and not call onClick if hasPendingChanges is true and user confirm no', function () {
@@ -74,7 +73,6 @@ describe('PinboardLink component', function () {
       link.simulate('click');
       windowConfirmStub.withArgs(CONFIRM_MESSAGE).should.be.calledOnce();
       onClickSpy.should.not.be.called();
-      windowConfirmStub.restore();
     });
   });
 });

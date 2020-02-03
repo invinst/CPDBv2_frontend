@@ -43,11 +43,6 @@ describe('SlimHeader component', function () {
     sinon.stub(window, 'removeEventListener');
   });
 
-  afterEach(function () {
-    window.addEventListener.restore();
-    window.removeEventListener.restore();
-  });
-
   it('should render nothing if "show" prop is false', function () {
     const wrapper = mount(
       <Provider store={ store }>
@@ -134,10 +129,6 @@ describe('SlimHeader component', function () {
       this.slimHeader = shallow(
         <SlimHeader show={ true } pathname='/' />
       );
-    });
-
-    afterEach(function () {
-      domUtils.calculateSlimHeaderPosition.restore();
     });
 
     it('should remain in top position', function () {

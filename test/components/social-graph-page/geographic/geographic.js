@@ -195,7 +195,6 @@ describe('GeographicMap component', function () {
     sinon.stub(window, 'addEventListener');
     const wrapper = mount(<GeographicMap/>);
     window.addEventListener.should.be.calledWith('mousedown', wrapper.instance().handleClickOutside);
-    window.addEventListener.restore();
   });
 
   it('should remove mousedown event when componentWillUnmount', function () {
@@ -204,7 +203,6 @@ describe('GeographicMap component', function () {
     const handleClickOutside = wrapper.instance().handleClickOutside;
     wrapper.unmount();
     window.removeEventListener.should.be.calledWith('mousedown', handleClickOutside);
-    window.removeEventListener.restore();
   });
 
   it('should not call updateGeographicCrid when clicking on preview-pane or markers', function () {

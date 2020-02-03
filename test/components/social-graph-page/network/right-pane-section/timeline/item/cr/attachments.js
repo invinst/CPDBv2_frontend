@@ -49,7 +49,6 @@ describe('Attachments component', function () {
     stubOpen.calledWith(
       'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-1-of-3.pdf'
     ).should.be.true();
-    stubOpen.restore();
   });
 
   it('should render null when there are no attachments', function () {
@@ -76,7 +75,6 @@ describe('Attachments component', function () {
       '/officer/123456/john-henry/',
       'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-1-of-3.html'
     );
-    stubTrackAttachmentClick.restore();
   });
 
   it('should track click on attachment event', function () {

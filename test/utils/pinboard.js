@@ -58,10 +58,6 @@ describe('pinboard utils', function () {
       this.browserHistoryPush = sinon.stub(browserHistory, 'push');
     });
 
-    afterEach(function () {
-      this.browserHistoryPush.restore();
-    });
-
     it('should redirect to pinboard url', function () {
       redirectToCreatedPinboard({
         payload: {

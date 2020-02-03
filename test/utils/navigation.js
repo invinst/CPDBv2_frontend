@@ -23,11 +23,6 @@ describe('Navigation utils', function () {
       this.stubPageYOffset = sinon.stub(window, 'pageYOffset').value(300);
     });
 
-    afterEach(function () {
-      this.stubOffsetHeight.restore();
-      this.stubPageYOffset.restore();
-    });
-
     it('should return distance to bottom', function () {
       NavigationUtil.getPageYBottomOffset().should.equal(700);
     });
@@ -37,11 +32,6 @@ describe('Navigation utils', function () {
     beforeEach(function () {
       this.stubOffsetHeight = sinon.stub(window.document.body, 'offsetHeight').value(1000);
       this.stubScrollTo = sinon.stub(window, 'scrollTo');
-    });
-
-    afterEach(function () {
-      this.stubOffsetHeight.restore();
-      this.stubScrollTo.restore();
     });
 
     it('should return distance to bottom', function () {

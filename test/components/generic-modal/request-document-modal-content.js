@@ -111,11 +111,6 @@ describe('RequestDocumentModalContent component', function () {
       sinon.stub(intercomUtils, 'updateIntercomEmail');
     });
 
-    afterEach(function () {
-      clock.restore();
-      intercomUtils.updateIntercomEmail.restore();
-    });
-
     function submitRequestDocumentTest(assertInCallbackTest, done, fail=false) {
       const closeCallback = sinon.spy();
       const promise = new Promise((resolve, reject) => {

@@ -28,7 +28,6 @@ describe('ForgotPasswordModal component', function () {
     wrapper.find('.email-input-wrapper').simulate('click');
 
     instance.emailInput.focus.calledOnce.should.be.true();
-    instance.emailInput.focus.restore();
   });
 
   it('sign up button should be disabled unless email input have value', function () {

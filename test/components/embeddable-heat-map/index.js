@@ -36,6 +36,5 @@ describe('HeatMap component', function () {
     const communityMap = wrapper.find(CommunityMap);
     communityMap.prop('selectCommunity')(0);
     wrapper.state('selectedId').should.equal(0);
-    tracking.trackCommunityClick.restore();
   });
 });

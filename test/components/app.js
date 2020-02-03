@@ -205,10 +205,6 @@ describe('App component', function () {
       this.enableFeaturePinboardStub = sinon.stub(config.enableFeatures, 'pinboard').value(false);
     });
 
-    afterEach(function () {
-      this.enableFeaturePinboardStub.restore();
-    });
-
     it('should add pinboard-disabled class name', function () {
       const wrapper = mount(
         <Provider store={ store }>
@@ -226,10 +222,6 @@ describe('App component', function () {
   context('enablePinboardFeature is true', function () {
     beforeEach(function () {
       this.enableFeaturePinboardStub = sinon.stub(config.enableFeatures, 'pinboard').value(true);
-    });
-
-    afterEach(function () {
-      this.enableFeaturePinboardStub.restore();
     });
 
     it('should add pinboard-disabled class name', function () {

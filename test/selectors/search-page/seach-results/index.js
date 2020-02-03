@@ -1124,7 +1124,6 @@ describe('search page results selector', function () {
       });
 
       v1UrlUtils.dataToolSearchUrl.calledWith('abc').should.be.true();
-      v1UrlUtils.dataToolSearchUrl.restore();
     });
 
     it('should return first item of first suggestion group', function () {

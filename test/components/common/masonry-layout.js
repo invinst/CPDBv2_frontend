@@ -16,10 +16,6 @@ describe('MasonryLayout component', function () {
     sinon.stub(wrapperUtils, 'Bricks').returns(bricksInstance);
   });
 
-  afterEach(function () {
-    wrapperUtils.Bricks.restore();
-  });
-
   it('should invoke Bricks when mounted', function () {
     const children = [child1, child2];
     mount(<MasonryLayout>{ children }</MasonryLayout>);

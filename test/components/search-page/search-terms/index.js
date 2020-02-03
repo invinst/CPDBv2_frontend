@@ -198,10 +198,6 @@ describe('SearchTerms component', function () {
       sinon.stub(IntercomTracking, 'trackSearchTerms');
     });
 
-    afterEach(function () {
-      IntercomTracking.trackSearchTerms.restore();
-    });
-
     it('should track Intercom with search page', function () {
       mount(
         <Provider store={ store }>

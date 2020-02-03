@@ -70,7 +70,6 @@ describe('EditWrapperStateProvider component', function () {
       editModeOn: true,
     });
     draftUtils.convertContentStateToEditorState.should.be.calledWith(navbarTitleField.value);
-    draftUtils.convertContentStateToEditorState.restore();
   });
 
   it('should save data from state when call onSaveForm', function () {
@@ -121,7 +120,6 @@ describe('EditWrapperStateProvider component', function () {
       turnOffSectionEditModeSpy.should.be.called();
 
       draftUtils.convertEditorStateToRaw.should.be.calledWith('editor state');
-      draftUtils.convertEditorStateToRaw.restore();
     });
   });
 
@@ -191,7 +189,6 @@ describe('EditWrapperStateProvider component', function () {
     spyDeserializeField.should.be.called();
     navbarText = wrapper.state('fields')['navbar_title'].value.getCurrentContent().getFirstBlock().getText();
     navbarText.should.equal('navbar title!!!');
-    spyDeserializeField.restore();
   });
 
   it('should update fields on sectionEditModeOn change', function () {
