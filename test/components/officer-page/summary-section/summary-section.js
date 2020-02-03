@@ -1,6 +1,7 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
+import { mountWithRouter } from 'utils/test';
 import SummarySection from 'components/officer-page/summary-section';
 import SummaryField from 'components/officer-page/summary-section/summary-field';
 import ViewUnitProfileButton from 'components/officer-page/summary-section/view-unit-profile-button';
@@ -10,7 +11,7 @@ import YearOld from 'components/officer-page/summary-section/year-old';
 
 describe('SummarySection component', function () {
   it('should render summary fields, YearOld, Salary and ViewUnitProfileButton', function () {
-    const wrapper = mount(<SummarySection/>);
+    const wrapper = mountWithRouter(<SummarySection/>);
 
     wrapper.find(YearOld).exists().should.be.true();
     wrapper.find(Salary).exists().should.be.true();

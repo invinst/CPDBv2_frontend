@@ -1,7 +1,6 @@
 import { Promise } from 'es6-promise';
 import sinon from 'sinon';
 import * as _ from 'lodash';
-import extractQuery from 'utils/extract-query';
 import { CancelToken } from 'axios';
 
 import fetchPageInitialData from 'middleware/fetch-page-initial-data';
@@ -53,8 +52,10 @@ import * as pinboardAdminAction from 'actions/pinboard-admin-page';
 const createLocationChangeAction = (pathname) => ({
   type: '@@router/LOCATION_CHANGE',
   payload: {
-    pathname: pathname,
-    query: extractQuery(pathname),
+    location: {
+      pathname,
+      search: pathname.split('?')[1],
+    },
   },
 });
 
@@ -456,7 +457,7 @@ describe('fetchPageInitialData middleware', function () {
   });
 
   it('should dispatch redirect, fetchPinboard if requesting does not equal ID in state', function () {
-    const cancelTokenSource = sinon.stub(CancelToken, 'source');
+    sinon.stub(CancelToken, 'source');
     const store = buildStore();
     _.set(store._state, 'pinboardPage.pinboard.id', '268a5e58');
     const action = createLocationChangeAction('/pinboard/5cd06f2b/');
@@ -516,6 +517,6 @@ describe('fetchPageInitialData middleware', function () {
 
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
-    store.dispatch.calledWith(fetchAllPinboardssinon.stub()).should.be.true();
+    store.dispatch.calledWith(fetchAllPinboardsStub()).should.be.true();
   });
 });

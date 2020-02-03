@@ -1,5 +1,5 @@
 import configureStore from 'store';
-import { OFFICER_EDIT_TYPES, CR_EDIT_TYPES, TRR_EDIT_TYPES } from 'utils/constants';
+import { OFFICER_EDIT_TYPES, CR_EDIT_TYPES, TRR_EDIT_TYPES, BREADSCRUMB_DEFAULT_MAPPING } from 'utils/constants';
 
 
 function setUp() {
@@ -27,7 +27,9 @@ function setUp() {
 describe('store', function () {
   it('should have initial state', function () {
     const { getCurrentState } = setUp();
-    getCurrentState().should.eql({
+    const currentState = getCurrentState();
+    const router = currentState.router;
+    const expectedState = {
       pathname: null,
       landingPage: {
         activityGrid: {
@@ -68,8 +70,9 @@ describe('store', function () {
       },
       pageLoading: false,
       popups: [],
-      routing: {
-        locationBeforeTransitions: null,
+      router: {
+        action: router.action,
+        location: router.location,
       },
       searchPage: {
         navigation: { 'itemIndex': 0 },
@@ -200,8 +203,8 @@ describe('store', function () {
       },
       breadcrumb: {
         breadcrumbItems: [],
+        breadcrumbsMapping: BREADSCRUMB_DEFAULT_MAPPING,
       },
-      breadcrumbsMapping: {},
       headers: {
         shareableHeader: {
           scrollPosition: null,
@@ -349,6 +352,7 @@ describe('store', function () {
       videoModal: {
         active: false,
       },
-    });
+    };
+    currentState.should.eql(expectedState);
   });
 });

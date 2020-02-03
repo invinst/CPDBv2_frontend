@@ -1,9 +1,13 @@
-import { getBreadcrumb, breadcrumbTextSelector } from 'selectors/breadcrumbs';
+import { getBreadcrumbItems, breadcrumbTextSelector } from 'selectors/breadcrumbs';
 
 describe('breadcrumbs selectors', function () {
-  describe('getBreadcrumb()', function () {
+  describe('getBreadcrumbItems()', function () {
     it('should return breadcrumb', function () {
-      getBreadcrumb({ breadcrumb: 'abc' }).should.eql('abc');
+      getBreadcrumbItems({
+        breadcrumb: {
+          breadcrumbItems: ['url1', 'url2'],
+        },
+      }).should.eql(['url1', 'url2']);
     });
   });
 
@@ -11,8 +15,10 @@ describe('breadcrumbs selectors', function () {
     it('should return breadcrumb text given url', function () {
       breadcrumbTextSelector(
         {
-          breadcrumbsMapping: {
-            '/complaint/345/': 'CR 345',
+          breadcrumb: {
+            breadcrumbsMapping: {
+              '/complaint/345/': 'CR 345',
+            },
           },
         },
         {
@@ -24,8 +30,10 @@ describe('breadcrumbs selectors', function () {
     it('should trip url of unnecessary parts before look up', function () {
       breadcrumbTextSelector(
         {
-          breadcrumbsMapping: {
-            '/officer/1234/': 'Ronald Hernandez',
+          breadcrumb: {
+            breadcrumbsMapping: {
+              '/officer/1234/': 'Ronald Hernandez',
+            },
           },
         },
         {

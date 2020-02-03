@@ -374,7 +374,7 @@ describe('Map component', function () {
   });
 
   it('should open tooltip if device is tablet when clicking', function () {
-    const tabletStub = sinon.stub(isMobile, 'tablet').value(true);
+    sinon.stub(isMobile, 'tablet').value(true);
     sinon.stub(AllegationsMap.prototype, 'addMapLayersOnStyleLoaded');
 
     const crMarkers = [

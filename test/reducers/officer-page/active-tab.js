@@ -12,7 +12,7 @@ describe('ActiveTab reducer', function () {
     const action = {
       type: '@@router/LOCATION_CHANGE',
       payload: {
-        pathname: '/officer/1/timeline/',
+        location: { pathname: '/officer/1/timeline/' },
       },
     };
 
@@ -23,7 +23,7 @@ describe('ActiveTab reducer', function () {
     const action = {
       type: '@@router/LOCATION_CHANGE',
       payload: {
-        pathname: '/wrongpath/1/2/',
+        location: { pathname: '/wrongpath/1/2/' },
       },
     };
 

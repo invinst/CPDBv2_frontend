@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { mountWithRouter } from 'utils/test';
 
+import { mountWithRouter } from 'utils/test';
 import MoreLink from 'components/common/more-link';
 
 

@@ -26,7 +26,7 @@ describe('redirectOfficerAliasMiddleware', function () {
             },
           ],
         },
-        pathname: pathname,
+        pathname,
       };
     },
     dispatch: sinon.stub().usingPromise(Promise).resolves('abc'),
@@ -77,16 +77,16 @@ describe('redirectOfficerAliasMiddleware', function () {
     const summaryRequestAction = {
       type: OFFICER_SUMMARY_REQUEST_SUCCESS,
       request: { url: '/officer/123/' },
-      payload: { 'full_name': 'Peter Parker', id: 456 },
+      payload: { 'full_name': 'Peter Parker', id: 123 },
     };
 
     const storeWithoutTabName = createStore('/officer/123/peter-parker/');
     redirectOfficerAliasMiddleware(storeWithoutTabName)(action => action)(summaryRequestAction);
-    storeWithoutTabName.dispatch.should.be.calledTwice(); // One for updatePathName, one for breadcrumbs
+    storeWithoutTabName.dispatch.calledOnceWith(updatePathName('/officer/123/peter-parker/')).should.be.true();
 
     const storeWithWrongTabName = createStore('/officer/123/peter-parker/attachment');
     redirectOfficerAliasMiddleware(storeWithWrongTabName)(action => action)(summaryRequestAction);
-    storeWithWrongTabName.dispatch.should.be.calledTwice();
+    storeWithWrongTabName.dispatch.calledOnceWith(updatePathName('/officer/123/peter-parker/')).should.be.true();
   });
 
   it('should handle CHANGE_OFFICER_TAB action to add tab name to url', function () {

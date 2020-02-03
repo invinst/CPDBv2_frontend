@@ -1,8 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import sinon from 'sinon';
-import { mountWithRouter } from 'utils/test';
 
+import { mountWithRouter } from 'utils/test';
 import PinboardLink, { CONFIRM_MESSAGE } from 'components/pinboard-page/pinboard-link';
 
 

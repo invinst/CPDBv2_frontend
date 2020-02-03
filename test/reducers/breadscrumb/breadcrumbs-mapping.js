@@ -5,7 +5,7 @@ import * as constants from 'utils/constants';
 
 describe('breadcrumbsMapping', function () {
   it('should return initial state', function () {
-    breadcrumbsMapping(undefined, {}).should.eql({});
+    breadcrumbsMapping(undefined, {}).should.eql(constants.BREADSCRUMB_DEFAULT_MAPPING);
   });
 
   it('should store officer breadcrumb text', function () {

@@ -10,7 +10,7 @@ import InlineAliasAdmin from 'components/search-page/inline-alias-admin';
 
 describe('InlineAliasAdmin component', function () {
   it('should render', function () {
-    InlineAliasAdmin.should.be.renderable();
+    InlineAliasAdmin.should.be.renderable({ withRouter: true });
   });
 
   it('should render current item\'s info', function () {

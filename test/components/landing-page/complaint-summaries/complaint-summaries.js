@@ -1,7 +1,7 @@
 import React from 'react';
-import { mountWithRouter } from 'utils/test';
 import sinon from 'sinon';
 
+import { mountWithRouter } from 'utils/test';
 import ComplaintSummaryCard from 'components/landing-page/complaint-summaries/complaint-summary-card';
 import ComplaintSummaries from 'components/landing-page/complaint-summaries';
 import { PINNED_ITEM_TYPES } from 'utils/constants';

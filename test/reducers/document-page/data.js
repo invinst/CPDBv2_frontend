@@ -39,7 +39,7 @@ describe('officersReducer', function () {
     const action = {
       type: '@@router/LOCATION_CHANGE',
       payload: {
-        pathname: '/officer/1/timeline/',
+        location: { pathname: '/officer/1/timeline/' },
       },
     };
 

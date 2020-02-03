@@ -4,8 +4,8 @@ import should from 'should';
 import { Link } from 'react-router-dom';
 import sinon from 'sinon';
 import { random } from 'faker';
-import { mountWithRouter } from 'utils/test';
 
+import { mountWithRouter } from 'utils/test';
 import OfficerCard from 'components/common/officer-card';
 import RadarChart from 'components/common/radar-chart/radar-chart';
 import ItemPinButton from 'components/common/item-pin-button';

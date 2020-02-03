@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithRouter } from 'utils/test';
 
+import { mountWithRouter } from 'utils/test';
 import OfficerRow from 'components/cr-page/involvement/officer-row';
 
 

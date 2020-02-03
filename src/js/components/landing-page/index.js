@@ -16,7 +16,6 @@ import styles from './landing-page.sass';
 import SearchPageContainer from 'containers/search-page';
 import { calculateSlimHeaderPosition, scrollToTop } from 'utils/dom';
 import { SEARCH_PATH } from 'utils/constants';
-import browserHistory from 'utils/history';
 
 
 class LandingPage extends Component {
@@ -33,14 +32,15 @@ class LandingPage extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (get(prevState, 'location.pathname') !== get(this.props, 'location.pathname')) {
+    const searchPageShowing = this.getSearchPageShowing();
+    if (this.previousSearchPageShowing !== searchPageShowing) {
       scrollToTop();
+      this.previousSearchPageShowing = searchPageShowing;
     }
-    this.previousSearchPageShowing = this.getSearchPageShowing();
   }
 
   getSearchPageShowing() {
-    const { pathname } = browserHistory.location;
+    const pathname = get(this.props, 'history.location.pathname');
 
     if (pathname === `${SEARCH_PATH}` || pathname === `/edit${SEARCH_PATH}`)
       return true;
@@ -51,7 +51,7 @@ class LandingPage extends Component {
   }
 
   render() {
-    const pathname = get(this.props, 'location.pathname', '');
+    const pathname = get(this.props, 'history.location.pathname', '');
     const position = calculateSlimHeaderPosition();
     const searchPageShowing = this.getSearchPageShowing();
 
@@ -88,11 +88,12 @@ class LandingPage extends Component {
 }
 
 LandingPage.propTypes = {
-  location: PropTypes.shape({
-    pathname: PropTypes.string,
+  history: PropTypes.shape({
+    location: PropTypes.shape({
+      pathname: PropTypes.string,
+    }),
   }),
   params: PropTypes.object,
-  routes: PropTypes.array,
 };
 
 export default ConfiguredRadium(LandingPage);

@@ -19,6 +19,7 @@ describe('CarouselWrapper component', function () {
   it('should renderable', function () {
     CarouselWrapper.should.be.renderable({
       cards: [{ crid: '123456' }],
+      withRouter: true,
     });
   });
 

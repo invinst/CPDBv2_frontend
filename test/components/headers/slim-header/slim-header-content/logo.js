@@ -2,8 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Link } from 'react-router-dom';
 import { Context as ResponsiveContext } from 'react-responsive';
-import { mountWithRouter } from 'utils/test';
 
+import { mountWithRouter } from 'utils/test';
 import Logo from 'components/headers/slim-header/slim-header-content/logo';
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
 import LinkTextEditable from 'components/inline-editable/editable-section/link-text-editable';

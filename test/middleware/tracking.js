@@ -13,7 +13,7 @@ describe('trackingMiddleware', function () {
     const dispatchAction = {
       type: '@@router/LOCATION_CHANGE',
       payload: {
-        pathname: 'abc',
+        location: { pathname: 'abc' },
       },
     };
 

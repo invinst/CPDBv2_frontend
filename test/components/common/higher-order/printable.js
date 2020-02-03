@@ -18,7 +18,7 @@ describe('Printable component', function () {
   const PrintableDummy = Printable(Dummy);
 
   it('should render header correctly', function () {
-    const clock = sinon.useFakeTimers(new Date(2018, 9, 27));
+    sinon.useFakeTimers(new Date(2018, 9, 27));
 
     const wrapper = shallow(<PrintableDummy printHeader='Dummy title'/>);
     const instance = wrapper.instance();

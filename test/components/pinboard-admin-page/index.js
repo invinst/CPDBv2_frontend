@@ -5,6 +5,7 @@ import MockStore from 'redux-mock-store';
 import { random } from 'faker';
 import sinon from 'sinon';
 import should from 'should';
+import { MemoryRouter } from 'react-router';
 
 import PinboardAdminPage from 'components/pinboard-admin-page';
 import PinboardsTable from 'components/pinboard-admin-page/pinboards-table';
@@ -93,7 +94,9 @@ describe('PinboardAdminPage', function () {
 
     const wrapper = mount(
       <Provider store={ pinboardAdminStore }>
-        <PinboardAdminPage clearPinboardStaticSocialGraphCache={ spyClearPinboardStaticSocialGraphCache }/>
+        <MemoryRouter>
+          <PinboardAdminPage clearPinboardStaticSocialGraphCache={ spyClearPinboardStaticSocialGraphCache }/>
+        </MemoryRouter>
       </Provider>
     );
 

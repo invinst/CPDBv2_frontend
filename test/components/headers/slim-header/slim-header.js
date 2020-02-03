@@ -108,11 +108,13 @@ describe('SlimHeader component', function () {
   describe('External links', function () {
     it('should stopPropagation when being clicked', function () {
       const wrapper = mount(
-        <Provider store={ store }>
-          <EditModeContext.Provider value={ { editModeOn: false } }>
-            <SlimHeader show={ true } pathname='/' />
-          </EditModeContext.Provider>
-        </Provider>
+        <EditModeContext.Provider value={ { editModeOn: false } }>
+          <Provider store={ store }>
+            <MemoryRouter>
+              <SlimHeader show={ true } pathname='/' />
+            </MemoryRouter>
+          </Provider>
+        </EditModeContext.Provider>
       );
       let externalLinks = wrapper.find('.right-link');
       const dummyEvent = {
@@ -154,12 +156,14 @@ describe('SlimHeader component', function () {
     it('should be rendered with correct props and style on the top of the page', function () {
       const wrapper = mount(
         <Provider store={ store }>
-          <EditModeContext.Provider value={ { editModeOn: false } }>
-            <SlimHeader
-              show={ true }
-              pathname='/'
-            />
-          </EditModeContext.Provider>
+          <MemoryRouter>
+            <EditModeContext.Provider value={ { editModeOn: false } }>
+              <SlimHeader
+                show={ true }
+                pathname='/'
+              />
+            </EditModeContext.Provider>
+          </MemoryRouter>
         </Provider>
       );
       wrapper.setState({ position: 'top' });
@@ -173,12 +177,14 @@ describe('SlimHeader component', function () {
     it('should be rendered with correct props and style in the middle of the page', function () {
       const wrapper = mount(
         <Provider store={ store }>
-          <EditModeContext.Provider store={ store } value={ { editModeOn: false } }>
-            <SlimHeader
-              show={ true }
-              pathname='/'
-            />
-          </EditModeContext.Provider>
+          <MemoryRouter>
+            <EditModeContext.Provider store={ store } value={ { editModeOn: false } }>
+              <SlimHeader
+                show={ true }
+                pathname='/'
+              />
+            </EditModeContext.Provider>
+          </MemoryRouter>
         </Provider>
       );
       wrapper.find(SlimHeader).setState({ position: 'middle' });
@@ -192,12 +198,14 @@ describe('SlimHeader component', function () {
     it('should be rendered with correct props and style in the bottom of the page', function () {
       const wrapper = mount(
         <Provider store={ store }>
-          <EditModeContext.Provider value={ { editModeOn: false } }>
-            <SlimHeader
-              show={ true }
-              pathname='/'
-            />
-          </EditModeContext.Provider>
+          <MemoryRouter>
+            <EditModeContext.Provider value={ { editModeOn: false } }>
+              <SlimHeader
+                show={ true }
+                pathname='/'
+              />
+            </EditModeContext.Provider>
+          </MemoryRouter>
         </Provider>
       );
 

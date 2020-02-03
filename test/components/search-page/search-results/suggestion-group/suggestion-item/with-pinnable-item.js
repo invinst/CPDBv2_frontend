@@ -4,6 +4,7 @@ import { noop } from 'lodash';
 import Mousestrap from 'mousetrap';
 import sinon from 'sinon';
 
+import { mountWithRouter } from 'utils/test';
 import JumpyMotion from 'components/animation/jumpy-motion';
 import withPinnableItem
   from 'components/search-page/search-results/suggestion-group/suggestion-item/with-pinnable-item';
@@ -52,7 +53,7 @@ describe('withPinnableItem component', function () {
     });
 
     it('should render first row', function () {
-      const wrapper = mount(<ComponentType { ...props } />);
+      const wrapper = mountWithRouter(<ComponentType { ...props } />);
 
       wrapper.find('.test--first-row').exists().should.be.true();
       wrapper.find(TextWithInlineSearchAlias).exists().should.be.true();

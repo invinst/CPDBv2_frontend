@@ -2,8 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import { random } from 'faker';
-import { mountWithRouter } from 'utils/test';
 
+import { mountWithRouter } from 'utils/test';
 import ComplaintCard from 'components/cr-page/related-complaints/complaint-card';
 import * as tracking from 'utils/tracking';
 import ItemPinButton from 'components/common/item-pin-button';

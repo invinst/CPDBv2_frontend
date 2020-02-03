@@ -888,3 +888,10 @@ export const HEADER_TOP_BAR_HEIGHT = 80;
 export const QUICK_ANIMATION_DURATION = 200;
 export const MEDIUM_ANIMATION_DURATION = 300;
 export const ANIMATION_DURATION = 500;
+
+export const BREADSCRUMB_DEFAULT_MAPPING = {
+  [SEARCH_PATH]: 'Search',
+  [CRAWLERS_PATH]: 'Crawler Tracker',
+  [TRACKER_DOCUMENTS_OVERVIEW_PATH]: 'Documents Overview',
+  [PINBOARD_ADMIN_PATH]: 'View all pinboards',
+};

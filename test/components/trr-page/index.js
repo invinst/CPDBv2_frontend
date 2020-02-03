@@ -3,6 +3,7 @@ import { shallow, mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { HelmetProvider } from 'react-helmet-async';
+import { MemoryRouter } from 'react-router';
 
 import { TRRPage } from 'components/trr-page';
 import OfficerSection from 'components/trr-page/officer-section';
@@ -71,9 +72,11 @@ describe('TRRPage component', function () {
   it('should render trr title, OfficerSection and TRRInfoSection', function () {
     const wrapper = mount(
       <Provider store={ store }>
-        <HelmetProvider>
-          <TRRPageContainer/>
-        </HelmetProvider>
+        <MemoryRouter>
+          <HelmetProvider>
+            <TRRPageContainer/>
+          </HelmetProvider>
+        </MemoryRouter>
       </Provider>
     );
     wrapper.find('.trr-title').text().should.equal('TRR 123');
@@ -111,15 +114,17 @@ describe('TRRPage component', function () {
     const wrapper = mount(
       <PrintModeContext.Provider value={ { printMode: true } }>
         <Provider store={ store }>
-          <HelmetProvider>
-            <TRRPage
-              trrId='123'
-              officer={ { officerId: 456 } }
-              trrDetail={ { category: 'Firearm' } }
-              trrLocation={ { incidentDate: 'Sep 23, 2003' } }
-              notes={ popups }
-            />
-          </HelmetProvider>
+          <MemoryRouter>
+            <HelmetProvider>
+              <TRRPage
+                trrId='123'
+                officer={ { officerId: 456 } }
+                trrDetail={ { category: 'Firearm' } }
+                trrLocation={ { incidentDate: 'Sep 23, 2003' } }
+                notes={ popups }
+              />
+            </HelmetProvider>
+          </MemoryRouter>
         </Provider>
       </PrintModeContext.Provider>
     );

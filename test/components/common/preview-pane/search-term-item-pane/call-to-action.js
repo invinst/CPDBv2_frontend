@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import should from 'should';
+
 import { mountWithRouter } from 'utils/test';
 
 import CallToAction from 'components/common/preview-pane/panes/search-term-item-pane/call-to-action';

@@ -20,7 +20,7 @@ testsContext.keys().forEach(testsContext);
 const runner = mocha.run();
 let testsPassed = true;
 
-afterEach(function () {
+mocha.suite.afterEach(function () {
   sinon.restore();
 });
 

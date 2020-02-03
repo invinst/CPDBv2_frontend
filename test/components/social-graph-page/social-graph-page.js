@@ -3,6 +3,7 @@ import { mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import sinon from 'sinon';
 import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router';
 
 import { DATA_VISUALIZATION_TAB_NAMES } from 'utils/constants';
 import SocialGraphPage from 'components/social-graph-page';
@@ -53,16 +54,18 @@ describe('SocialGraphPage component', function () {
   });
 
   it('should render geographic tab', function () {
-    const loadPaginatedDataStub = sinon.stub(loadPaginatedDataUtils, 'loadPaginatedData');
+    sinon.stub(loadPaginatedDataUtils, 'loadPaginatedData');
 
     const wrapper = mount(
       <Provider store={ store }>
-        <SocialGraphPage
-          currentTab={ DATA_VISUALIZATION_TAB_NAMES.GEOGRAPHIC }
-          location={ location }
-          pinboardId='12345678'
-          params={ params }
-        />
+        <MemoryRouter>
+          <SocialGraphPage
+            currentTab={ DATA_VISUALIZATION_TAB_NAMES.GEOGRAPHIC }
+            location={ location }
+            pinboardId='12345678'
+            params={ params }
+          />
+        </MemoryRouter>
       </Provider>
     );
     const geographicMap = wrapper.find(GeographicMap);

@@ -10,6 +10,6 @@ describe('ViewUnitProfileButton component', function () {
     const wrapper = shallow(<ViewUnitProfileButton unitName='localUnit' />);
     const link = wrapper.find(Link);
     link.prop('to').should.equal('/unit/localUnit/');
-    link.dive().text().should.containEql('View Unit Profile');
+    link.text().should.containEql('View Unit Profile');
   });
 });

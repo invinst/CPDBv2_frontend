@@ -12,7 +12,7 @@ describe('cr-page officerId reducer', function () {
     const action = {
       type: '@@router/LOCATION_CHANGE',
       payload: {
-        pathname: '/complaint/1/2/',
+        location: { pathname: '/complaint/1/2/' },
       },
     };
 
@@ -23,7 +23,7 @@ describe('cr-page officerId reducer', function () {
     const action = {
       type: '@@router/LOCATION_CHANGE',
       payload: {
-        pathname: '/wrongpath/1/2/',
+        location: { pathname: '/wrongpath/1/2/' },
       },
     };
 

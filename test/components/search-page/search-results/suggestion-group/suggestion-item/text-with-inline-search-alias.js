@@ -2,8 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Link } from 'react-router-dom';
 import sinon from 'sinon';
-import { mountWithRouter } from 'utils/test';
 
+import { mountWithRouter } from 'utils/test';
 import * as constants from 'utils/constants';
 import TextWithInlineSearchAlias
   from 'components/search-page/search-results/suggestion-group/suggestion-item/text-with-inline-search-alias';

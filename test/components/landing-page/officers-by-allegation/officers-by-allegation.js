@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithRouter } from 'utils/test';
 
+import { mountWithRouter } from 'utils/test';
 import OfficerCard from 'components/common/officer-card';
 import OfficersByAllegation from 'components/landing-page/officers-by-allegation';
 

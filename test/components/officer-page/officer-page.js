@@ -201,13 +201,15 @@ describe('OfficerPage component', function () {
   it('should call trackOfficerDownloadMenu when clicking on HeaderButton', function () {
     const wrapper = mount(
       <Provider store={ store }>
-        <HelmetProvider>
-          <OfficerPage
-            officerId={ 1234 }
-            officerName='Shaun Frank'
-            officerSummary={ { rank: 'Officer' } }
-          />
-        </HelmetProvider>
+        <MemoryRouter>
+          <HelmetProvider>
+            <OfficerPage
+              officerId={ 1234 }
+              officerName='Shaun Frank'
+              officerSummary={ { rank: 'Officer' } }
+            />
+          </HelmetProvider>
+        </MemoryRouter>
       </Provider>
     );
     const headerButton = wrapper.find('.button');

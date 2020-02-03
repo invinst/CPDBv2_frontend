@@ -2,6 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import sinon from 'sinon';
 
+import { mountWithRouter } from 'utils/test';
 import { communityFactory } from 'utils/test/factories/heat-map';
 import CommunityDetail from 'components/landing-page/heat-map/summary-panel/community-dropdown/community-detail';
 import DropdownPlaceHolder from
@@ -18,7 +19,7 @@ describe('CommunityDropdown component', function () {
   it('should render CommunityDetail if communityId is not 0', function () {
     const selectCommunity = sinon.spy();
     const community = communityFactory.build({ id: 1 });
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <CommunityDropdown
         communityId={ 1 }
         communities={ [community] }
@@ -38,7 +39,7 @@ describe('CommunityDropdown component', function () {
   });
 
   it('should render DropdownPlaceholder otherwise', function () {
-    const wrapper = mount(<CommunityDropdown showDropdown={ false } communityId={ 0 }/>);
+    const wrapper = mountWithRouter(<CommunityDropdown showDropdown={ false } communityId={ 0 }/>);
     wrapper.find(DropdownPlaceHolder).exists().should.be.true();
   });
 });

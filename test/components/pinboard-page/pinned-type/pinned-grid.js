@@ -178,7 +178,7 @@ describe('PinnedGrid component', function () {
   it('should update grid when did update', function () {
     const onMuuriStub = sinon.stub();
     const addMuuriStub = sinon.stub();
-    const MuuriStub = sinon.stub(vendors, 'Muuri').callsFake(() => ({
+    sinon.stub(vendors, 'Muuri').callsFake(() => ({
       'on': onMuuriStub,
       'add': addMuuriStub,
     }));

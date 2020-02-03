@@ -58,7 +58,7 @@ const handleFetchingDocumentPage = (dispatches, store, pathname) => {
 
 const handleFetchingDocumentsOverviewPage = (dispatches, store, state, action, fetch) => {
   const previousMatch = getMatchParamater(state);
-  const query = queryString.parse(action.payload.location.search);
+  const query = queryString.parse(get(action.payload.location, 'search', ''));
   const currentMatch = get(query, 'match', '');
   const previousDataOrders = getDocumentsOrder(state);
   let params = {};

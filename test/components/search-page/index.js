@@ -8,6 +8,7 @@ import MockStore from 'redux-mock-store';
 import RootReducer from 'reducers/root-reducer';
 import { createStore } from 'redux';
 import { Promise } from 'es6-promise';
+import { MemoryRouter } from 'react-router';
 
 import * as navigateUtils from 'utils/navigate-to-search-item';
 import SearchPage from 'components/search-page';
@@ -50,10 +51,12 @@ describe('SearchPage component', function () {
     const getSuggestionSpy = sinon.stub().returns({ catch: sinon.spy() });
     mount(
       <Provider store={ store }>
-        <SearchPage
-          getSuggestion={ getSuggestionSpy }
-          query=''
-        />
+        <MemoryRouter>
+          <SearchPage
+            getSuggestion={ getSuggestionSpy }
+            query=''
+          />
+        </MemoryRouter>
       </Provider>
     );
     clock.tick(600);
@@ -80,7 +83,9 @@ describe('SearchPage component', function () {
   it('should call browserHistory.push when user click on searchbar__button--back', function () {
     const wrapper = mount(
       <Provider store={ store }>
-        <SearchPage cancelPathname='/pinboard/123abc/'/>
+        <MemoryRouter>
+          <SearchPage cancelPathname='/pinboard/123abc/'/>
+        </MemoryRouter>
       </Provider>
     );
 
@@ -93,7 +98,9 @@ describe('SearchPage component', function () {
   it('should call router.goBack when user hit ESCAPE', function () {
     mount(
       <Provider store={ store }>
-        <SearchPage />
+        <MemoryRouter>
+          <SearchPage />
+        </MemoryRouter>
       </Provider>
     );
 
@@ -107,7 +114,9 @@ describe('SearchPage component', function () {
 
     const wrapper = mount(
       <Provider store={ store }>
-        <SearchPage hide={ false }/>
+        <MemoryRouter>
+          <SearchPage hide={ false }/>
+        </MemoryRouter>
       </Provider>
     );
 
@@ -127,7 +136,9 @@ describe('SearchPage component', function () {
 
     let wrapper = mount(
       <Provider store={ store }>
-        <SearchPage hide={ true }/>
+        <MemoryRouter>
+          <SearchPage hide={ true }/>
+        </MemoryRouter>
       </Provider>
     );
 
@@ -146,7 +157,9 @@ describe('SearchPage component', function () {
 
     const wrapper = mount(
       <Provider store={ store }>
-        <SearchPage hide={ true }/>
+        <MemoryRouter>
+          <SearchPage hide={ true }/>
+        </MemoryRouter>
       </Provider>
     );
 
@@ -158,7 +171,11 @@ describe('SearchPage component', function () {
     unbindSpy.should.not.be.calledWith('enter');
 
     wrapper.setProps({
-      children: <SearchPage hide={ false }/>,
+      children: (
+        <MemoryRouter>
+          <SearchPage hide={ false }/>
+        </MemoryRouter>
+      ),
     });
 
     bindSpy.should.be.calledWith('esc', instance.handleGoBack);
@@ -167,7 +184,11 @@ describe('SearchPage component', function () {
     unbindSpy.should.not.be.calledWith('enter');
 
     wrapper.setProps({
-      children: <SearchPage hide={ true }/>,
+      children: (
+        <MemoryRouter>
+          <SearchPage hide={ true } />
+        </MemoryRouter>
+      ),
     });
 
     unbindSpy.should.be.calledWith('esc');
@@ -175,7 +196,11 @@ describe('SearchPage component', function () {
     unbindSpy.resetHistory();
 
     wrapper.setProps({
-      children: <SearchPage hide={ false }/>,
+      children: (
+        <MemoryRouter>
+          <SearchPage hide={ false }/>
+        </MemoryRouter>
+      ),
     });
 
     wrapper.unmount();
@@ -187,7 +212,9 @@ describe('SearchPage component', function () {
   it('should not change the current search path when user type in search box', function () {
     const wrapper = mount(
       <Provider store={ store }>
-        <SearchPage searchTermsHidden={ false }/>
+        <MemoryRouter>
+          <SearchPage searchTermsHidden={ false }/>
+        </MemoryRouter>
       </Provider>
     );
     const searchBox = wrapper.find(SearchBox);
@@ -209,7 +236,9 @@ describe('SearchPage component', function () {
     it('should use browserHistory.push() if visiting focused item with internal link', function () {
       mount(
         <Provider store={ store }>
-          <SearchPage focusedItem={ NavigationItem.build({ to: '/dummy/url' }) } />
+          <MemoryRouter>
+            <SearchPage focusedItem={ NavigationItem.build({ to: '/dummy/url' }) } />
+          </MemoryRouter>
         </Provider>
       );
       Mousetrap.trigger('enter');
@@ -219,9 +248,11 @@ describe('SearchPage component', function () {
     it('should call handleSelect to show more suggestion items when entering on More button', function () {
       const wrapper = mount(
         <Provider store={ store }>
-          <SearchPage
-            focusedItem={ NavigationItem.build({ id: 'OFFICER', 'type': MORE_BUTTON }) }
-          />
+          <MemoryRouter>
+            <SearchPage
+              focusedItem={ NavigationItem.build({ id: 'OFFICER', 'type': MORE_BUTTON }) }
+            />
+          </MemoryRouter>
         </Provider>
       );
       const handleSelectStub = sinon.stub(wrapper.find(SearchPage).instance(), 'handleSelect');
@@ -407,14 +438,16 @@ describe('SearchPage component', function () {
 
     const wrapper = mount(
       <Provider store={ store }>
-        <SearchPage
-          suggestionGroups={ ['abc'] }
-          isEmpty={ false }
-          isRequesting={ false }
-          query='abc'
-          selectTag={ selectTagSpy }
-          getSuggestion={ getSuggestionSpy }
-          getSuggestionWithContentType={ getSuggestionWithContentTypeSpy } />
+        <MemoryRouter>
+          <SearchPage
+            suggestionGroups={ ['abc'] }
+            isEmpty={ false }
+            isRequesting={ false }
+            query='abc'
+            selectTag={ selectTagSpy }
+            getSuggestion={ getSuggestionSpy }
+            getSuggestionWithContentType={ getSuggestionWithContentTypeSpy } />
+        </MemoryRouter>
       </Provider>
     );
     selectTagSpy.resetHistory();
@@ -425,16 +458,18 @@ describe('SearchPage component', function () {
 
     wrapper.setProps({
       children: (
-        <SearchPage
-          suggestionGroups={ ['abc'] }
-          isEmpty={ false }
-          isRequesting={ false }
-          contentType='OFFICER'
-          query=''
-          selectTag={ selectTagSpy }
-          getSuggestion={ getSuggestionSpy }
-          getSuggestionWithContentType={ getSuggestionWithContentTypeSpy }
-        />
+        <MemoryRouter>
+          <SearchPage
+            suggestionGroups={ ['abc'] }
+            isEmpty={ false }
+            isRequesting={ false }
+            contentType='OFFICER'
+            query=''
+            selectTag={ selectTagSpy }
+            getSuggestion={ getSuggestionSpy }
+            getSuggestionWithContentType={ getSuggestionWithContentTypeSpy }
+          />
+        </MemoryRouter>
       ),
     });
 
@@ -454,7 +489,9 @@ describe('SearchPage component', function () {
       it('should hide intercom launcher when mounted', function () {
         mount(
           <Provider store={ store }>
-            <SearchPage/>
+            <MemoryRouter>
+              <SearchPage/>
+            </MemoryRouter>
           </Provider>
         );
         intercomUtils.showIntercomLauncher.should.be.calledWith(false);
@@ -463,7 +500,9 @@ describe('SearchPage component', function () {
       it('should show intercom launcher again when unmounted', function () {
         const wrapper = mount(
           <Provider store={ store }>
-            <SearchPage/>
+            <MemoryRouter>
+              <SearchPage/>
+            </MemoryRouter>
           </Provider>
         );
 
@@ -480,7 +519,9 @@ describe('SearchPage component', function () {
       it('should track Intercom with search page', function () {
         mount(
           <Provider store={ store }>
-            <SearchPage/>
+            <MemoryRouter>
+              <SearchPage/>
+            </MemoryRouter>
           </Provider>
         );
         IntercomTracking.trackSearchPage.should.be.called();

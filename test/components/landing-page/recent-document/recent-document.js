@@ -1,7 +1,7 @@
 import React from 'react';
-import { mountWithRouter } from 'utils/test';
 import sinon from 'sinon';
 
+import { mountWithRouter } from 'utils/test';
 import RecentDocument from 'components/landing-page/recent-document';
 import DocumentCard from 'components/landing-page/recent-document/document-card';
 import * as tracking from 'utils/tracking';

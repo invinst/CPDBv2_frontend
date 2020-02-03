@@ -2,12 +2,6 @@ import { handleActions } from 'redux-actions';
 
 import * as constants from 'utils/constants';
 
-const DEFAULT_MAPPING = {
-  [constants.SEARCH_PATH]: 'Search',
-  [constants.CRAWLERS_PATH]: 'Crawler Tracker',
-  [constants.TRACKER_DOCUMENTS_OVERVIEW_PATH]: 'Documents Overview',
-  [constants.PINBOARD_ADMIN_PATH]: 'View all pinboards',
-};
 
 const buildPinboardBreadcrumbs = (state, action) => {
   const title = action.payload['title'];
@@ -53,6 +47,6 @@ const breadcrumbMapping = handleActions({
   [constants.PINBOARD_FETCH_REQUEST_SUCCESS]: buildPinboardBreadcrumbs,
   [constants.PINBOARD_UPDATE_REQUEST_SUCCESS]: buildPinboardBreadcrumbs,
   [constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_SUCCESS]: buildPinboardBreadcrumbs,
-}, DEFAULT_MAPPING);
+}, constants.BREADSCRUMB_DEFAULT_MAPPING);
 
 export default breadcrumbMapping;

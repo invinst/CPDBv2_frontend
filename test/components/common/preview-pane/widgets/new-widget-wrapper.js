@@ -2,8 +2,8 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import MediaQuery from 'react-responsive';
 import should from 'should';
-import { mountWithRouter } from 'utils/test';
 
+import { mountWithRouter } from 'utils/test';
 import { NewWidgetWrapper, TextWidget, NewCallToActionWidget } from 'components/common/preview-pane/widgets';
 import WrapperLink from 'components/common/preview-pane/widgets/wrapper-link';
 

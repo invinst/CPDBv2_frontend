@@ -3,8 +3,8 @@ import { shallow, mount } from 'enzyme';
 import sinon from 'sinon';
 import Collapse, { Panel } from 'rc-collapse';
 import { Link } from 'react-router-dom';
-import { mountWithRouter } from 'utils/test';
 
+import { mountWithRouter } from 'utils/test';
 import ListWidget from 'components/common/preview-pane/widgets/list-widget';
 import ListWidgetItem from 'components/common/preview-pane/widgets/list-widget/list-widget-item';
 

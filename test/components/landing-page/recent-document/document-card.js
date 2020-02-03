@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import sinon from 'sinon';
 import { lorem, random } from 'faker';
-import { mountWithRouter } from 'utils/test';
 
+import { mountWithRouter } from 'utils/test';
 import DocumentCard from 'components/landing-page/recent-document/document-card';
 import styles from 'components/landing-page/recent-document/document-card.sass';
 import ItemPinButton from 'components/common/item-pin-button';
@@ -25,11 +25,6 @@ describe('DocumentCard components', function () {
     addOrRemoveItemInPinboard: sinon.stub(),
     isPinned: random.boolean(),
   };
-
-  afterEach(function () {
-    props.onTrackingAttachment.resetHistory();
-    props.addOrRemoveItemInPinboard.resetHistory();
-  });
 
   it('should render appropriately', function () {
     const wrapper = mountWithRouter(

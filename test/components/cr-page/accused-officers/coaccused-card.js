@@ -3,13 +3,12 @@ import { shallow, mount } from 'enzyme';
 import should from 'should';
 import { Link } from 'react-router-dom';
 import { MemoryRouter } from 'react-router';
-import { mountWithRouter } from 'utils/test';
-
-import CoaccusedCard from 'components/cr-page/accused-officers/coaccused-card';
-import RadarChart from 'components/common/radar-chart/radar-chart';
 import sinon from 'sinon';
 import { random } from 'faker';
 
+import { mountWithRouter } from 'utils/test';
+import CoaccusedCard from 'components/cr-page/accused-officers/coaccused-card';
+import RadarChart from 'components/common/radar-chart/radar-chart';
 import ItemPinButton from 'components/common/item-pin-button';
 import pinButtonStyles from 'components/common/item-pin-button.sass';
 import { PINNED_ITEM_TYPES } from 'utils/constants';

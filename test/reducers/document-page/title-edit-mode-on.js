@@ -1,7 +1,8 @@
+import { LOCATION_CHANGE } from 'react-router-redux';
+
 import {
   TURN_ON_DOCUMENT_TITLE_EDIT_MODE,
   TURN_OFF_DOCUMENT_TITLE_EDIT_MODE,
-  LOCATION_CHANGE,
 } from 'utils/constants';
 import titleEditModeOn from 'reducers/document-page/title-edit-mode-on';
 
@@ -27,14 +28,14 @@ describe('titleEditModeOn reducer', function () {
     titleEditModeOn(true, {
       type: LOCATION_CHANGE,
       payload: {
-        pathname: '/document/1234',
+        location: { pathname: '/document/1234' },
       },
     }).should.be.false();
 
     titleEditModeOn(true, {
       type: LOCATION_CHANGE,
       payload: {
-        pathname: '/edit/document/1234',
+        location: { pathname: '/edit/document/1234' },
       },
     }).should.be.true();
   });

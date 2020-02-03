@@ -103,7 +103,7 @@ describe('SearchBox component', function () {
     closeButton.simulate('click');
 
     changeSearchQuery.should.be.calledWith('');
-    pushPathPreserveEditMode.should.be.calledWith('search/');
+    pushPathPreserveEditMode.should.be.calledWith('/search/');
   });
 
   describe('Enter event handler', function () {

@@ -12,7 +12,7 @@ describe('trr-page trrId reducer', function () {
     const action = {
       type: '@@router/LOCATION_CHANGE',
       payload: {
-        pathname: '/trr/1/',
+        location: { pathname: '/trr/1/' },
       },
     };
 
@@ -23,7 +23,7 @@ describe('trr-page trrId reducer', function () {
     const action = {
       type: '@@router/LOCATION_CHANGE',
       payload: {
-        pathname: '/wrongpath/1/',
+        location: { pathname: '/wrongpath/1/' },
       },
     };
 
