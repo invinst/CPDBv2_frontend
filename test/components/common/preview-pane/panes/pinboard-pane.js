@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
-import { stub, spy } from 'sinon';
+import sinon from 'sinon';
 import { MemoryRouter } from 'react-router';
 
 import { PinboardPane } from 'components/common/preview-pane/panes';
@@ -152,7 +152,7 @@ describe('PinboardPane component', function () {
         },
       },
     });
-    const stubFetchPinboardStaticSocialGraph = stub();
+    const stubFetchPinboardStaticSocialGraph = sinon.stub();
 
     mount(
       <Provider store={ store }>
@@ -179,7 +179,7 @@ describe('PinboardPane component', function () {
         },
       },
     });
-    const stubFetchPinboardStaticSocialGraph = stub();
+    const stubFetchPinboardStaticSocialGraph = sinon.stub();
 
     mount(
       <Provider store={ store }>
@@ -205,7 +205,7 @@ describe('PinboardPane component', function () {
         },
       },
     });
-    const stubFetchPinboardStaticSocialGraph = stub();
+    const stubFetchPinboardStaticSocialGraph = sinon.stub();
 
     mount(
       <Provider store={ store }>
@@ -231,7 +231,7 @@ describe('PinboardPane component', function () {
         },
       },
     });
-    const stubFetchPinboardStaticSocialGraph = stub();
+    const stubFetchPinboardStaticSocialGraph = sinon.stub();
 
     const wrapper = mount(
       <Provider store={ store }>
@@ -274,7 +274,7 @@ describe('PinboardPane component', function () {
       },
     });
 
-    const stubFetchPinboardStaticSocialGraph = stub();
+    const stubFetchPinboardStaticSocialGraph = sinon.stub();
 
     const wrapper = mount(
       <Provider store={ store }>
@@ -315,7 +315,7 @@ describe('PinboardPane component', function () {
         },
       },
     });
-    const componentWillUnmountSpy = spy(SocialGraph.prototype, 'componentWillUnmount');
+    const componentWillUnmountSpy = sinon.spy(SocialGraph.prototype, 'componentWillUnmount');
 
     const wrapper = mount(
       <Provider store={ store }>

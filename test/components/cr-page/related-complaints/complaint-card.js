@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { spy, stub } from 'sinon';
+import sinon from 'sinon';
 import { random } from 'faker';
 import { mountWithRouter } from 'utils/test';
 
@@ -44,7 +44,7 @@ describe('ComplaintCard component', function () {
     });
 
     it('should track click event', function () {
-      const stubTrackRelatedByCategoryClick = stub(tracking, 'trackRelatedByCategoryClick');
+      const stubTrackRelatedByCategoryClick = sinon.stub(tracking, 'trackRelatedByCategoryClick');
 
       const wrapper = mountWithRouter(
         <ComplaintCard
@@ -62,7 +62,7 @@ describe('ComplaintCard component', function () {
     });
 
     it('should render ItemPinButton with correct props', function () {
-      const addOrRemoveItemInPinboard = spy();
+      const addOrRemoveItemInPinboard = sinon.spy();
       const id = random.word();
       const isPinned = random.boolean();
 
@@ -83,7 +83,7 @@ describe('ComplaintCard component', function () {
   });
 
   it('should track click event while matching with officers', function () {
-    stub(tracking, 'trackRelatedByAccusedClick');
+    sinon.stub(tracking, 'trackRelatedByAccusedClick');
 
     const wrapper = mountWithRouter(
       <ComplaintCard
@@ -101,7 +101,7 @@ describe('ComplaintCard component', function () {
   });
 
   it('should not track click event while matching with something else', function () {
-    stub(tracking, 'trackRelatedByAccusedClick');
+    sinon.stub(tracking, 'trackRelatedByAccusedClick');
 
     const wrapper = mountWithRouter(
       <ComplaintCard

@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
 import RelevantInfiniteCarousel from 'components/pinboard-page/relevant/common/relevant-infinite-carousel';
 import RelevantDocuments from 'components/pinboard-page/relevant/relevant-documents';
@@ -83,8 +83,8 @@ describe('RelevantDocuments component', function () {
       previewImageUrl: 'https://assets.documentcloud.org/documents/3518950/pages/CRID-294088-CR-p1-normal.gif',
       pinned: false,
     }];
-    const addItemInPinboardPageStub = stub();
-    const fetchPinboardRelevantDocumentsStub = stub();
+    const addItemInPinboardPageStub = sinon.stub();
+    const fetchPinboardRelevantDocumentsStub = sinon.stub();
 
     const wrapper = mount(
       <RelevantDocuments

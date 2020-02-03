@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import browserHistory from 'utils/history';
-import { spy, stub } from 'sinon';
+import sinon from 'sinon';
 
 import TextInput from 'components/common/input';
 import SearchBox from 'components/search-page/search-box';
@@ -10,9 +10,9 @@ import * as PathEditor from 'utils/edit-path';
 
 describe('SearchBox component', function () {
   it('should pass correct props to Input', function () {
-    const onEscape = spy();
-    const onChange = spy();
-    const resetNavigation = spy();
+    const onEscape = sinon.spy();
+    const onChange = sinon.spy();
+    const resetNavigation = sinon.spy();
 
     const wrapper = shallow(
       <SearchBox
@@ -34,7 +34,7 @@ describe('SearchBox component', function () {
   });
 
   it('should call resetNavigation when pressing down in the text input and make it blur', function () {
-    const resetNavigation = spy();
+    const resetNavigation = sinon.spy();
     const wrapper = shallow(
       <SearchBox
         resetNavigation={ resetNavigation }
@@ -43,7 +43,7 @@ describe('SearchBox component', function () {
     );
 
     const textInputInstance = mount(wrapper.find(TextInput).get(0)).instance();
-    const blur = spy(textInputInstance.input, 'blur');
+    const blur = sinon.spy(textInputInstance.input, 'blur');
 
     textInputInstance.mousetrap.trigger('down');
 
@@ -52,7 +52,7 @@ describe('SearchBox component', function () {
   });
 
   it('should not call resetNavigation when the input.blur is called', function () {
-    const resetNavigation = spy();
+    const resetNavigation = sinon.spy();
     const wrapper = shallow(
       <SearchBox
         resetNavigation={ resetNavigation }
@@ -62,7 +62,7 @@ describe('SearchBox component', function () {
 
     const textInput = mount(wrapper.find(TextInput).get(0));
     const textInputInstance = textInput.instance();
-    const handleBlur = spy(textInputInstance, 'handleBlur');
+    const handleBlur = sinon.spy(textInputInstance, 'handleBlur');
 
     textInput.find('input').simulate('focus');
     textInput.find('input').simulate('blur');
@@ -89,8 +89,8 @@ describe('SearchBox component', function () {
   });
 
   it('should changeSearchQuery to empty and go to search page on click close button', function () {
-    const changeSearchQuery = spy();
-    const pushPathPreserveEditMode = stub(PathEditor, 'pushPathPreserveEditMode');
+    const changeSearchQuery = sinon.spy();
+    const pushPathPreserveEditMode = sinon.stub(PathEditor, 'pushPathPreserveEditMode');
 
     const wrapper = shallow(
       <SearchBox
@@ -110,7 +110,7 @@ describe('SearchBox component', function () {
 
   describe('Enter event handler', function () {
     beforeEach(function () {
-      this.browserHistoryPush = stub(browserHistory, 'push');
+      this.browserHistoryPush = sinon.stub(browserHistory, 'push');
     });
 
     afterEach(function () {
@@ -118,7 +118,7 @@ describe('SearchBox component', function () {
     });
 
     it('should push first result to when user hit ENTER if to is set', function () {
-      const saveToRecentSpy = spy();
+      const saveToRecentSpy = sinon.spy();
       const recentItemData = {
         'id': 123,
         'full_name': 'Jerome Finnigan',

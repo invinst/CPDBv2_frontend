@@ -2,7 +2,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 import { MemoryRouter, Router, Route } from 'react-router';
 import { createMemoryHistory } from 'history';
 import browserHistory from 'utils/history';
@@ -110,7 +110,7 @@ describe('PinboardPage component', function () {
   });
 
   it('should replace url when shouldRedirect is True after updating', function () {
-    const replaceStub = stub(browserHistory, 'replace');
+    const replaceStub = sinon.stub(browserHistory, 'replace');
 
     const pinboard = {
       'id': '5cd06f2b',
@@ -158,11 +158,10 @@ describe('PinboardPage component', function () {
     });
 
     replaceStub.should.be.calledWith('/pinboard/66ef1560/title/');
-    replaceStub.restore();
   });
 
   it('should called updatePathName when componentDidUpdate if title is updated', function () {
-    const updatePathNameStub = stub();
+    const updatePathNameStub = sinon.stub();
     const pinboard = {
       'id': '5cd06f2b',
       'title': 'Pinboard title',
@@ -428,7 +427,7 @@ describe('PinboardPage component', function () {
     });
 
     const instance = wrapper.find(PinboardPage).instance();
-    const handlePinChangedOnPreviewPane = stub(instance, 'handlePinChangedOnPreviewPane');
+    const handlePinChangedOnPreviewPane = sinon.stub(instance, 'handlePinChangedOnPreviewPane');
     instance.forceUpdate();
     wrapper.update();
 
@@ -440,8 +439,6 @@ describe('PinboardPage component', function () {
       id: 123,
       isPinned: true,
     });
-
-    handlePinChangedOnPreviewPane.restore();
   });
 
   it('should add and remove body-fixed-viewport to body when did mount and unmount', function () {

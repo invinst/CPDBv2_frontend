@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 import { CancelToken } from 'axios';
-import { stub, spy } from 'sinon';
+import sinon from 'sinon';
 
 import { fetchDocuments, fetchDocumentsAuthenticated } from 'actions/documents-overview-page';
 import * as constants from 'utils/constants';
@@ -10,15 +10,11 @@ describe('documents overview page actions', function () {
   let cancel;
 
   beforeEach(function () {
-    cancel = spy();
-    stub(CancelToken, 'source').returns({
+    cancel = sinon.spy();
+    sinon.stub(CancelToken, 'source').returns({
       token: 'token',
       cancel,
     });
-  });
-
-  afterEach(function () {
-    CancelToken.source.restore();
   });
 
   describe('fetchDocuments', function () {
@@ -69,7 +65,7 @@ describe('documents overview page actions', function () {
 
   describe('fetchDocumentsAuthenticated', function () {
     it('should return correct action', function () {
-      stub(Cookies, 'get').returns('authenticated_token');
+      sinon.stub(Cookies, 'get').returns('authenticated_token');
       fetchDocumentsAuthenticated().should.deepEqual({
         types: [
           constants.DOCUMENT_OVERVIEW_REQUEST_START,
@@ -90,11 +86,10 @@ describe('documents overview page actions', function () {
           },
         },
       });
-      Cookies.get.restore();
     });
 
     it('should accept params', function () {
-      stub(Cookies, 'get').returns('authenticated_token');
+      sinon.stub(Cookies, 'get').returns('authenticated_token');
       fetchDocumentsAuthenticated({ match: '1001' }).should.deepEqual({
         types: [
           constants.DOCUMENT_OVERVIEW_REQUEST_START,
@@ -116,7 +111,6 @@ describe('documents overview page actions', function () {
           },
         },
       });
-      Cookies.get.restore();
     });
 
     it('should cancel old request if new request is called', function () {

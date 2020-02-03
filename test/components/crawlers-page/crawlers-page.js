@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
 import CrawlersPage from 'components/crawlers-page';
 import CrawlersTable from 'components/crawlers-page/crawlers-table';
@@ -10,7 +10,7 @@ import { SHAREABLE_HEADER_BUTTON_TYPE } from 'utils/constants';
 
 describe('CrawlersPage component', function () {
   it('should render crawler page correctly', function () {
-    const requestCrawlersStub = stub();
+    const requestCrawlersStub = sinon.stub();
     const crawlers = [{
       id: 109,
       crawlerName: 'SUMMARY_REPORTS_COPA',

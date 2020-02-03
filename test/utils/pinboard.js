@@ -1,6 +1,6 @@
 import { parseInt, identity } from 'lodash';
 import browserHistory from 'utils/history';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 import { Promise } from 'es6-promise';
 
 import {
@@ -55,7 +55,7 @@ describe('pinboard utils', function () {
 
   describe('redirectToCreatedPinboard', function () {
     beforeEach(function () {
-      this.browserHistoryPush = stub(browserHistory, 'push');
+      this.browserHistoryPush = sinon.stub(browserHistory, 'push');
     });
 
     afterEach(function () {
@@ -102,7 +102,7 @@ describe('pinboard utils', function () {
             },
           };
         },
-        dispatch: stub().usingPromise(Promise).resolves('abc'),
+        dispatch: sinon.stub().usingPromise(Promise).resolves('abc'),
       };
       dispatchFetchPinboardPageData(store, '66ef1560');
 
@@ -130,7 +130,7 @@ describe('pinboard utils', function () {
             },
           };
         },
-        dispatch: stub().usingPromise(Promise).resolves('abc'),
+        dispatch: sinon.stub().usingPromise(Promise).resolves('abc'),
       };
       dispatchFetchPinboardPinnedItems(store, '66ef1560');
 

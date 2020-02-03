@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
 import MoreLink from 'components/common/more-link';
 import Link from 'components/inline-editable/rich-text-editor/entities/link';
@@ -15,7 +15,7 @@ describe('Link component', function () {
       editModeOn: false,
     };
 
-    const getEntityStub = stub().withArgs(entityKey).returns({ getData: () => { return { url }; } });
+    const getEntityStub = sinon.stub().withArgs(entityKey).returns({ getData: () => { return { url }; } });
     const contentState = { getEntity: getEntityStub };
 
     const wrapper = mount(
@@ -34,7 +34,7 @@ describe('Link component', function () {
       editModeOn: true,
     };
 
-    const getEntityStub = stub().withArgs(entityKey).returns({ getData: () => { return { url }; } });
+    const getEntityStub = sinon.stub().withArgs(entityKey).returns({ getData: () => { return { url }; } });
     const contentState = { getEntity: getEntityStub };
 
     const wrapper = mount(

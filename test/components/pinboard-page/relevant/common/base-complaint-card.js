@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { stub, spy } from 'sinon';
+import sinon from 'sinon';
 
 import { OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT } from 'utils/constants';
 import MiniVisualToken from 'components/pinboard-page/relevant/common/mini-officer-visual-token';
@@ -47,7 +47,7 @@ describe('BaseComplaintCard component', function () {
       id: 8,
       percentile: { year: 2015, items: [] },
     }];
-    const addItemInPinboardPage = stub();
+    const addItemInPinboardPage = sinon.stub();
     const wrapper = shallow(
       <BaseComplaintCard
         leftChild={ <div className='test--left-child'/> }
@@ -109,7 +109,7 @@ describe('BaseComplaintCard component', function () {
   });
 
   it('should hide PlusButton if pinned', function () {
-    const addItemInPinboardPage = stub();
+    const addItemInPinboardPage = sinon.stub();
     const wrapper = shallow(
       <BaseComplaintCard
         leftChild={ <div className='test--left-child'/> }
@@ -128,7 +128,7 @@ describe('BaseComplaintCard component', function () {
   });
 
   it('should call addItemInPinboardPage when clicking on PlusButton', function () {
-    const addItemInPinboardPage = stub();
+    const addItemInPinboardPage = sinon.stub();
     const wrapper = mount(
       <BaseComplaintCard
         leftChild={ <div className='test--left-child'/> }
@@ -164,7 +164,7 @@ describe('BaseComplaintCard component', function () {
   });
 
   it('should handle on focus', function () {
-    const focusItem = spy();
+    const focusItem = sinon.spy();
     const wrapper = mount(
       <BaseComplaintCard
         crid='123'

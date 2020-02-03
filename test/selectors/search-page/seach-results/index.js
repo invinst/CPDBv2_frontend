@@ -1,4 +1,4 @@
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
 import {
   isEmptySelector, suggestionTagsSelector, searchResultGroupsSelector,
@@ -1107,7 +1107,7 @@ describe('search page results selector', function () {
 
   describe('firstItemSelector', function () {
     it('should return datatool url if there is no suggestion group', function () {
-      stub(v1UrlUtils, 'dataToolSearchUrl').returns('/v1/abc/');
+      sinon.stub(v1UrlUtils, 'dataToolSearchUrl').returns('/v1/abc/');
 
       firstItemSelector({
         searchPage: {

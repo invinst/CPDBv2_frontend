@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 
 import TRRInfoSection from 'components/trr-page/trr-info-section';
 import TRRDetail from 'components/trr-page/trr-info-section/trr-detail';
@@ -24,7 +24,7 @@ describe('TRRInfoSection component', function () {
     const trrDocument = {
       alreadyRequested: false,
     };
-    const openRequestTRRDocumentModal = spy();
+    const openRequestTRRDocumentModal = sinon.spy();
 
     const wrapper = shallow(
       <TRRInfoSection

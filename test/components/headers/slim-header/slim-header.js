@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
-import { stub, spy } from 'sinon';
+import sinon from 'sinon';
 import { Link } from 'react-router-dom';
 import { MemoryRouter } from 'react-router';
 
@@ -39,8 +39,8 @@ describe('SlimHeader component', function () {
 
   beforeEach(function () {
     window.scrollTo(0, 0);
-    stub(window, 'addEventListener');
-    stub(window, 'removeEventListener');
+    sinon.stub(window, 'addEventListener');
+    sinon.stub(window, 'removeEventListener');
   });
 
   afterEach(function () {
@@ -60,7 +60,7 @@ describe('SlimHeader component', function () {
   });
 
   it('should render Q&A link', function () {
-    const openRequestDocumentModal = spy();
+    const openRequestDocumentModal = sinon.spy();
     const wrapper = mount(
       <Provider store={ store }>
         <MemoryRouter>
@@ -77,7 +77,7 @@ describe('SlimHeader component', function () {
   });
 
   it('should render Data link', function () {
-    const openRequestDocumentModal = spy();
+    const openRequestDocumentModal = sinon.spy();
     const wrapper = mount(
       <Provider store={ store }>
         <MemoryRouter>
@@ -94,7 +94,7 @@ describe('SlimHeader component', function () {
   });
 
   it('should render Documents link', function () {
-    const openRequestDocumentModal = spy();
+    const openRequestDocumentModal = sinon.spy();
     const wrapper = mount(
       <EditModeContext.Provider value={ { editModeOn: false } }>
         <Provider store={ store }>
@@ -121,7 +121,7 @@ describe('SlimHeader component', function () {
       );
       let externalLinks = wrapper.find('.right-link');
       const dummyEvent = {
-        stopPropagation: spy(),
+        stopPropagation: sinon.spy(),
       };
       externalLinks.at(0).simulate('click', dummyEvent);
       dummyEvent.stopPropagation.should.be.called();
@@ -130,7 +130,7 @@ describe('SlimHeader component', function () {
 
   describe('recalculatePosition', function () {
     beforeEach(function () {
-      stub(domUtils, 'calculateSlimHeaderPosition');
+      sinon.stub(domUtils, 'calculateSlimHeaderPosition');
       this.slimHeader = shallow(
         <SlimHeader show={ true } pathname='/' />
       );

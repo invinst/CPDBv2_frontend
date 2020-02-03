@@ -2,7 +2,7 @@ import React, { createElement } from 'react';
 import should from 'should';
 import { Provider } from 'react-redux';
 import { each, assign } from 'lodash';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 import { shallow, mount } from 'enzyme';
 import { HelmetProvider } from 'react-helmet-async';
 import { MemoryRouter } from 'react-router';
@@ -62,7 +62,7 @@ should.Assertion.add('responsiveRenderable', function (props) {
 });
 
 should.Assertion.add('triggerCallbackWhenClick', function (callbackProp, target=null, props={}, expectedArg=null) {
-  const callback = spy();
+  const callback = sinon.spy();
   let wrapper = mount(createElement(this.obj, assign({}, props, { [callbackProp]: callback })));
 
   if (typeof target === 'string') {

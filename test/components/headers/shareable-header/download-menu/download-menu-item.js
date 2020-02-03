@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { stub, spy } from 'sinon';
+import sinon from 'sinon';
 
 import DownloadMenuItem from 'components/headers/shareable-header/download-menu/download-menu-item';
 import * as tracking from 'utils/tracking';
@@ -11,7 +11,7 @@ describe('DownloadMenu component', function () {
   it(
     'should render download image by default and change to downloading after being clicked',
     function () {
-      const fetchOfficerZipFileUrlStub = stub();
+      const fetchOfficerZipFileUrlStub = sinon.stub();
 
       const wrapper = shallow(
         <DownloadMenuItem
@@ -39,8 +39,8 @@ describe('DownloadMenu component', function () {
   );
 
   it('should start download when being clicked if zipFileUrl is available', function () {
-    const fetchOfficerZipFileUrlStub = stub();
-    const triggerDownloadSpy = spy(DownloadMenuItem.prototype, 'triggerDownload');
+    const fetchOfficerZipFileUrlStub = sinon.stub();
+    const triggerDownloadSpy = sinon.spy(DownloadMenuItem.prototype, 'triggerDownload');
 
     const wrapper = shallow(
       <DownloadMenuItem
@@ -62,8 +62,8 @@ describe('DownloadMenu component', function () {
   });
 
   it('should throttle continues download requests', function () {
-    const fetchOfficerZipFileUrlStub = stub();
-    const triggerDownloadSpy = spy(DownloadMenuItem.prototype, 'triggerDownload');
+    const fetchOfficerZipFileUrlStub = sinon.stub();
+    const triggerDownloadSpy = sinon.spy(DownloadMenuItem.prototype, 'triggerDownload');
 
     const wrapper = shallow(
       <DownloadMenuItem
@@ -86,8 +86,8 @@ describe('DownloadMenu component', function () {
   });
 
   it('should start download when zipFileUrl is ready', function () {
-    const fetchOfficerZipFileUrlStub = stub();
-    const triggerDownloadSpy = spy(DownloadMenuItem.prototype, 'triggerDownload');
+    const fetchOfficerZipFileUrlStub = sinon.stub();
+    const triggerDownloadSpy = sinon.spy(DownloadMenuItem.prototype, 'triggerDownload');
 
     const wrapper = shallow(
       <DownloadMenuItem
@@ -116,9 +116,9 @@ describe('DownloadMenu component', function () {
   });
 
   it('should send google analytics when clicked', function () {
-    const fetchOfficerZipFileUrlStub = stub();
-    const triggerDownloadSpy = spy(DownloadMenuItem.prototype, 'triggerDownload');
-    const stubTrackOfficerDownload = stub(tracking, 'trackOfficerDownload');
+    const fetchOfficerZipFileUrlStub = sinon.stub();
+    const triggerDownloadSpy = sinon.spy(DownloadMenuItem.prototype, 'triggerDownload');
+    const stubTrackOfficerDownload = sinon.stub(tracking, 'trackOfficerDownload');
 
     const wrapper = shallow(
       <DownloadMenuItem

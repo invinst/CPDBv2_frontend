@@ -1,6 +1,6 @@
 import React from 'react';
 import { mountWithRouter } from 'utils/test';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
 import RecentDocument from 'components/landing-page/recent-document';
 import DocumentCard from 'components/landing-page/recent-document/document-card';
@@ -45,7 +45,7 @@ describe('Recent Document components', function () {
   });
 
   it('should track click event', function () {
-    const stubTrackAttachmentClick = stub(tracking, 'trackAttachmentClick');
+    const stubTrackAttachmentClick = sinon.stub(tracking, 'trackAttachmentClick');
     const data = [{
       'crid': '123456',
       'title': 'CR document 1',
@@ -60,11 +60,10 @@ describe('Recent Document components', function () {
       '/',
       '/complaint/123456/'
     );
-    stubTrackAttachmentClick.restore();
   });
 
   it('should track attachment click event', function () {
-    const stubOnTrackingAttachment = stub();
+    const stubOnTrackingAttachment = sinon.stub();
     const data = [{
       'crid': '123456',
       'title': 'CR document 1',

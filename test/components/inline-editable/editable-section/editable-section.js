@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import should from 'should';
-import { spy, stub } from 'sinon';
+import sinon from 'sinon';
 
 import { convertContentStateToEditorState } from 'utils/draft';
 import { RawContentStateFactory } from 'utils/test/factories/draft';
@@ -61,8 +61,8 @@ describe('EditableSection component', function () {
   });
 
   it('should trigger onSaveForm with serialized data', function () {
-    const onSaveForm = stub().returns({ then: (fn) => then = fn });
-    const turnOffSectionEditMode = spy();
+    const onSaveForm = sinon.stub().returns({ then: (fn) => then = fn });
+    const turnOffSectionEditMode = sinon.spy();
     let then;
     const wrapper = shallow(
       <WrappedComponent
@@ -82,7 +82,7 @@ describe('EditableSection component', function () {
   });
 
   it('should deserialize fields it just receive', function () {
-    const spyDeserializeField = spy(WrappedComponent, 'deserializeField');
+    const spyDeserializeField = sinon.spy(WrappedComponent, 'deserializeField');
     const wrapper = shallow(
       <WrappedComponent/>
     );
@@ -128,7 +128,7 @@ describe('EditableSection component', function () {
   });
 
   it('should update fields on sectionEditModeOn change', function () {
-    const spyDeserializeField = spy(WrappedComponent, 'deserializeField');
+    const spyDeserializeField = sinon.spy(WrappedComponent, 'deserializeField');
     const wrapper = shallow(
       <WrappedComponent
         fields={ {

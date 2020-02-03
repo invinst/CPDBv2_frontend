@@ -1,6 +1,6 @@
 import React from 'react';
 import { mountWithRouter } from 'utils/test';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
 import ComplaintSummaryCard from 'components/landing-page/complaint-summaries/complaint-summary-card';
 import ComplaintSummaries from 'components/landing-page/complaint-summaries';
@@ -10,7 +10,7 @@ import pinButtonStyles from 'components/common/item-pin-button.sass';
 
 
 describe('Complaint Summaries components', function () {
-  const addOrRemoveItemInPinboard = stub();
+  const addOrRemoveItemInPinboard = sinon.stub();
 
   const data = [{
     'crid': '111',

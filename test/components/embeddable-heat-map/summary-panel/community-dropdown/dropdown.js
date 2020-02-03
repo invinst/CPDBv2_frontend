@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 
 import { communityFactory } from 'utils/test/factories/heat-map';
 import TextInput from 'components/common/input';
@@ -38,7 +38,7 @@ describe('Dropdown component', function () {
   });
 
   it('should trigger selectCommunity', function () {
-    const selectCommunity = spy();
+    const selectCommunity = sinon.spy();
     const wrapper = shallow(
       <Dropdown
         selectCommunity={ selectCommunity }
@@ -54,7 +54,7 @@ describe('Dropdown component', function () {
   });
 
   it('should trigger closeDropdown when click on arrow', function () {
-    const closeDropdown = spy();
+    const closeDropdown = sinon.spy();
     const wrapper = shallow(
       <Dropdown closeDropdown={ closeDropdown }/>
     );
@@ -68,7 +68,7 @@ describe('Dropdown component', function () {
       communityFactory.build({ id: 301 }),
       communityFactory.build({ id: 302 }),
     ];
-    const selectCommunity = spy();
+    const selectCommunity = sinon.spy();
     const wrapper = shallow(
       <Dropdown
         communities={ communities }

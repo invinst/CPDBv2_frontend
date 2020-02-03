@@ -1,5 +1,5 @@
 import React from 'react';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 import { mount } from 'enzyme';
 
 import SimpleTagsEditable from 'components/inline-editable/editable-section/simple-tag-editable';
@@ -10,7 +10,7 @@ import { EditWrapperStateContext } from 'contexts';
 
 describe('SimpleTagsEditable component', function () {
   it('should render with given context', function () {
-    const onChangeSpy = spy();
+    const onChangeSpy = sinon.spy();
     const context = {
       fieldContexts: {
         'tags': {

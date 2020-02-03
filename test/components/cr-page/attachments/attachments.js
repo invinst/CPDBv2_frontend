@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 
 import Attachments from 'components/cr-page/attachments';
 import AttachmentHeader from 'components/cr-page/attachments/headers/attachment-header';
@@ -20,9 +20,9 @@ describe('AttachmentsTab component', function () {
         'no_attachment_text': ['There are no documents that have been made public yet.'],
       }),
       sectionEditModeOn: false,
-      onSaveForm: spy(),
-      turnOnSectionEditMode: spy(),
-      turnOffSectionEditMode: spy(),
+      onSaveForm: sinon.spy(),
+      turnOnSectionEditMode: sinon.spy(),
+      turnOffSectionEditMode: sinon.spy(),
     };
 
     const wrapper = mount(

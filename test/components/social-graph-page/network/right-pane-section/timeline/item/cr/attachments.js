@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 import should from 'should';
 
 import * as tracking from 'utils/tracking';
@@ -42,7 +42,7 @@ describe('Attachments component', function () {
   });
 
   it('should open new attachment file tab when click on attachment', function () {
-    const stubOpen = stub(window, 'open');
+    const stubOpen = sinon.stub(window, 'open');
     const wrapper = mount(<Attachments attachments={ attachments }/>);
     const attachmentImage = wrapper.find('.image');
     attachmentImage.simulate('click', { preventDefault() {} });
@@ -58,7 +58,7 @@ describe('Attachments component', function () {
   });
 
   it('should track click event', function () {
-    const stubTrackAttachmentClick = stub(tracking, 'trackAttachmentClick');
+    const stubTrackAttachmentClick = sinon.stub(tracking, 'trackAttachmentClick');
     const attachments = [{
       url: 'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-1-of-3.html',
       previewImageUrl: 'https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p1-normal.gif',
@@ -80,7 +80,7 @@ describe('Attachments component', function () {
   });
 
   it('should track click on attachment event', function () {
-    const stubOnTrackingAttachment = stub();
+    const stubOnTrackingAttachment = sinon.stub();
     const attachments = [{
       url: 'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-1-of-3.html',
       previewImageUrl: 'https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p1-normal.gif',

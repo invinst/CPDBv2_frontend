@@ -1,11 +1,11 @@
-import { stub, useFakeTimers } from 'sinon';
+import sinon from 'sinon';
 import * as tracking from 'utils/tracking';
 
 
 describe('tracking utils', function () {
   beforeEach(function () {
-    stub(global, 'ga');
-    stub(global.clicky, 'log');
+    sinon.stub(global, 'ga');
+    sinon.stub(global.clicky, 'log');
   });
 
   afterEach(function () {
@@ -44,7 +44,7 @@ describe('tracking utils', function () {
     });
 
     it('should open url if windowName is passed', function () {
-      stub(window, 'open');
+      sinon.stub(window, 'open');
 
       tracking.trackOutboundLink('localhost', '_blank');
       window.open.should.be.calledOnce();
@@ -96,7 +96,7 @@ describe('tracking utils', function () {
 
   describe('trackSearchFocusedItem', function () {
     it('should send event analytic at most once in 500ms', function () {
-      const clock = useFakeTimers();
+      const clock = sinon.useFakeTimers();
 
       tracking.trackSearchFocusedItem('contentType', 'query', 'itemId1', 1);
       tracking.trackSearchFocusedItem('contentType', 'query', 'itemId2', 2);
@@ -136,7 +136,7 @@ describe('tracking utils', function () {
 
   describe('trackSearchQuery', function () {
     it('should send event analytic at most once in 500ms', function () {
-      const clock = useFakeTimers();
+      const clock = sinon.useFakeTimers();
 
       tracking.trackSearchQuery('que');
       tracking.trackSearchQuery('quer');

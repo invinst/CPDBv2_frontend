@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
 import { random } from 'faker';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 import should from 'should';
 
 import PinboardAdminPage from 'components/pinboard-admin-page';
@@ -24,8 +24,8 @@ describe('PinboardAdminPage', function () {
     ];
     const hasMore = random.boolean();
     const nextParams = { offset: 20, limit: 30 };
-    const fetchPinboards = spy();
-    const fetchPinboardStaticSocialGraph = spy();
+    const fetchPinboards = sinon.spy();
+    const fetchPinboardStaticSocialGraph = sinon.spy();
     const cachedDataIDs = ['aaaa1111', 'bbbb2222'];
 
     const wrapper = shallow(
@@ -89,7 +89,7 @@ describe('PinboardAdminPage', function () {
       },
     });
 
-    const spyClearPinboardStaticSocialGraphCache = spy();
+    const spyClearPinboardStaticSocialGraphCache = sinon.spy();
 
     const wrapper = mount(
       <Provider store={ pinboardAdminStore }>

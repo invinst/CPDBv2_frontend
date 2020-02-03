@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import Mousetrap from 'mousetrap';
 import React from 'react';
 import MockStore from 'redux-mock-store';
-import { spy, stub } from 'sinon';
+import sinon from 'sinon';
 import { ToastContainer } from 'react-toastify';
 
 import config from 'config';
@@ -73,7 +73,7 @@ describe('App component', function () {
       active: false,
     },
     breadcrumb: {
-      breadcrumbs: [],
+      breadcrumbItems: [],
     },
     headers: {
       shareableHeader: {
@@ -96,7 +96,7 @@ describe('App component', function () {
   }
 
   it('should toggle edit mode when hit esc', function () {
-    const toggleEditMode = spy();
+    const toggleEditMode = sinon.spy();
 
     mount(
       <Provider store={ store }>
@@ -115,8 +115,8 @@ describe('App component', function () {
   });
 
   it('should toggle search mode and change search query when press any key and not in search page', function () {
-    const toggleSearchMode = spy();
-    const changeSearchQuery = spy();
+    const toggleSearchMode = sinon.spy();
+    const changeSearchQuery = sinon.spy();
 
     mount(
       <Provider store={ store }>
@@ -138,8 +138,8 @@ describe('App component', function () {
   });
 
   it('should not toggle search mode and change search query when press any key and be in search page', function () {
-    const toggleSearchMode = spy();
-    const changeSearchQuery = spy();
+    const toggleSearchMode = sinon.spy();
+    const changeSearchQuery = sinon.spy();
     const location = { pathname: '/search/', search: '/', action: 'POP' };
 
     mount(
@@ -202,7 +202,7 @@ describe('App component', function () {
 
   context('enablePinboardFeature is false', function () {
     beforeEach(function () {
-      this.enableFeaturePinboardStub = stub(config.enableFeatures, 'pinboard').value(false);
+      this.enableFeaturePinboardStub = sinon.stub(config.enableFeatures, 'pinboard').value(false);
     });
 
     afterEach(function () {
@@ -225,7 +225,7 @@ describe('App component', function () {
 
   context('enablePinboardFeature is true', function () {
     beforeEach(function () {
-      this.enableFeaturePinboardStub = stub(config.enableFeatures, 'pinboard').value(true);
+      this.enableFeaturePinboardStub = sinon.stub(config.enableFeatures, 'pinboard').value(true);
     });
 
     afterEach(function () {

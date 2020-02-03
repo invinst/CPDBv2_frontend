@@ -1,4 +1,4 @@
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
 import redirectOfficerAliasMiddleware from 'middleware/redirect-officer-alias';
 import { OFFICER_SUMMARY_REQUEST_SUCCESS, CHANGE_OFFICER_TAB } from 'utils/constants';
@@ -29,7 +29,7 @@ describe('redirectOfficerAliasMiddleware', function () {
         pathname: pathname,
       };
     },
-    dispatch: stub().usingPromise(Promise).resolves('abc'),
+    dispatch: sinon.stub().usingPromise(Promise).resolves('abc'),
   });
 
   it('should dispatch correct actions', function () {

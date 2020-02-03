@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import should from 'should';
-import { stub, useFakeTimers } from 'sinon';
+import sinon from 'sinon';
 
 import AnimatedRadarChart from 'components/officer-page/radar-chart';
 import RadarExplainer from 'components/officer-page/radar-chart/explainer';
@@ -87,8 +87,8 @@ describe('AnimatedRadarChart components', function () {
   });
 
   it('should open the explainer clicking on the radar chart and track this event', function () {
-    stub(tracking, 'trackOpenExplainer');
-    stub(IntercomTracking, 'trackOpenExplainer');
+    sinon.stub(tracking, 'trackOpenExplainer');
+    sinon.stub(IntercomTracking, 'trackOpenExplainer');
 
     const wrapper = shallow(<AnimatedRadarChart officerId={ 123 } data={ data }/>);
     wrapper.find(RadarExplainer).exists().should.be.false();
@@ -98,9 +98,6 @@ describe('AnimatedRadarChart components', function () {
     wrapper.find(RadarExplainer).exists().should.be.true();
     tracking.trackOpenExplainer.should.be.calledWith(123);
     IntercomTracking.trackOpenExplainer.should.be.calledWith(123);
-
-    tracking.trackOpenExplainer.restore();
-    IntercomTracking.trackOpenExplainer.restore();
   });
 
   it('should not render StaticRadarChart if content is being requested', function () {
@@ -111,12 +108,8 @@ describe('AnimatedRadarChart components', function () {
   describe('test animate', function () {
     let clock;
     beforeEach(function () {
-      clock = useFakeTimers();
+      clock = sinon.useFakeTimers();
 
-    });
-
-    afterEach(function () {
-      clock.restore();
     });
 
     it('should not animate if data length is 1', function () {

@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import should from 'should';
 import browserHistory from 'utils/history';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
 import DocumentRow from 'components/documents-overview-page/document-row';
 import Counter from 'components/documents-overview-page/document-row/counter';
@@ -12,8 +12,8 @@ import * as tracking from 'utils/tracking';
 
 describe('DocumentsOverviewPage DocumentRow component', function () {
   beforeEach(function () {
-    this.browserHistoryPush = stub(browserHistory, 'push');
-    this.trackOutboundLink = stub(tracking, 'trackOutboundLink');
+    this.browserHistoryPush = sinon.stub(browserHistory, 'push');
+    this.trackOutboundLink = sinon.stub(tracking, 'trackOutboundLink');
   });
 
   afterEach(function () {

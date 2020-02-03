@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
 import HeatMap from 'components/embeddable-heat-map';
 import SummaryPanel from 'components/embeddable-heat-map/summary-panel';
@@ -18,7 +18,7 @@ describe('HeatMap component', function () {
   });
 
   it('should set community id and send analytic event when selectCommunity triggers', function () {
-    stub(tracking, 'trackCommunityClick');
+    sinon.stub(tracking, 'trackCommunityClick');
     const communities = [{
       id: 10,
       name: 'Westwood',

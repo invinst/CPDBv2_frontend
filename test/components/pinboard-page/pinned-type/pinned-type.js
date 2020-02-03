@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 
 import PinnedType from 'components/pinboard-page/pinned-type';
 import PinnedOfficersContainer from 'containers/pinboard-page/pinned-officers';
@@ -151,10 +151,10 @@ describe('PinnedType component', function () {
       point: { 'lon': 1.0, 'lat': 1.0 },
       isPinStatusChanging: false,
     }];
-    const removeItemInPinboardPage = spy();
-    const addItemInPinboardPage = spy();
-    const orderPinboard = spy();
-    const focusItem = spy();
+    const removeItemInPinboardPage = sinon.spy();
+    const addItemInPinboardPage = sinon.spy();
+    const orderPinboard = sinon.spy();
+    const focusItem = sinon.spy();
 
     const wrapper = shallow(
       <PinnedType

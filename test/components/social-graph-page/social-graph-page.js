@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 import { Provider } from 'react-redux';
 
 import { DATA_VISUALIZATION_TAB_NAMES } from 'utils/constants';
@@ -53,7 +53,7 @@ describe('SocialGraphPage component', function () {
   });
 
   it('should render geographic tab', function () {
-    const loadPaginatedDataStub = stub(loadPaginatedDataUtils, 'loadPaginatedData');
+    const loadPaginatedDataStub = sinon.stub(loadPaginatedDataUtils, 'loadPaginatedData');
 
     const wrapper = mount(
       <Provider store={ store }>

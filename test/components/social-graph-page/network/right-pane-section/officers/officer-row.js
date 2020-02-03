@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
 import OfficerRow from 'components/social-graph-page/network/right-pane-section/officers/officer-row';
 import StaticRadarChart from 'components/common/radar-chart';
@@ -32,7 +32,7 @@ describe('OfficerRow component', function () {
   });
 
   it('should call updateSelectedOfficerId when clicking', function () {
-    const updateSelectedOfficerIdStub = stub();
+    const updateSelectedOfficerIdStub = sinon.stub();
     const wrapper = shallow(
       <OfficerRow
         officer={ officer }

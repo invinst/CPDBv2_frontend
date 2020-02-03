@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { spy, stub } from 'sinon';
+import sinon from 'sinon';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import { HelmetProvider } from 'react-helmet-async';
@@ -94,15 +94,11 @@ const store = mockStore({
 
 describe('LandingPage component', function () {
   beforeEach(function () {
-    stub(DomUtils, 'scrollToTop');
-  });
-
-  afterEach(function () {
-    DomUtils.scrollToTop.restore();
+    sinon.stub(DomUtils, 'scrollToTop');
   });
 
   it('should be responsively renderable', function () {
-    const stubResetBreadcrumbs = stub();
+    const stubResetBreadcrumbs = sinon.stub();
     LandingPage.should.be.responsiveRenderable({
       store: store,
       helmet: true,
@@ -113,7 +109,7 @@ describe('LandingPage component', function () {
   });
 
   it('should render enough content', function () {
-    const stubResetBreadcrumbs = spy();
+    const stubResetBreadcrumbs = sinon.spy();
 
     const wrapper = shallow(
       <LandingPage
@@ -144,7 +140,7 @@ describe('LandingPage component', function () {
   });
 
   it('should hide landing page content and show search page when pathname is /search/', function () {
-    const stubResetBreadcrumbs = spy();
+    const stubResetBreadcrumbs = sinon.spy();
 
     const wrapper = shallow(
       <LandingPage
@@ -168,7 +164,7 @@ describe('LandingPage component', function () {
   });
 
   it('should able to open landing page edit mode', function () {
-    const stubResetBreadcrumbs = spy();
+    const stubResetBreadcrumbs = sinon.spy();
 
     const wrapper = shallow(
       <LandingPage
@@ -191,7 +187,7 @@ describe('LandingPage component', function () {
   });
 
   it('should able to open search page edit mode', function () {
-    const stubResetBreadcrumbs = spy();
+    const stubResetBreadcrumbs = sinon.spy();
 
     const wrapper = shallow(
       <LandingPage
@@ -377,7 +373,7 @@ describe('LandingPage component', function () {
   });
 
   it('should reset breadcrumbs when mounting via root path', function () {
-    const stubResetBreadcrumbs = spy();
+    const stubResetBreadcrumbs = sinon.spy();
 
     mount(
       <Provider store={ store }>

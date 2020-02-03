@@ -1,13 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 import ModalVideo from 'react-modal-video';
 
 import VideoModal from 'components/video-modal';
 
 describe('VideoModal component', function () {
   it('should render ModalVideo with correct props', function () {
-    const closeVideoModal = spy();
+    const closeVideoModal = sinon.spy();
 
     const wrapper = shallow(
       <VideoModal

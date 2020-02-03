@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { spy, stub } from 'sinon';
+import sinon from 'sinon';
 import { mountWithRouter } from 'utils/test';
 
 import { OfficerCardFactory } from 'utils/test/factories/activity-grid';
@@ -15,7 +15,7 @@ describe('Carousel component', function () {
   ));
   const carouselComponent = (data, otherProps) => (
     <Carousel
-      onNavigate={ spy() }
+      onNavigate={ sinon.spy() }
       childWidth={ 232 }
       style={ { width: '1000px' } }
       { ...otherProps }
@@ -61,22 +61,20 @@ describe('Carousel component', function () {
 
   it('should call updateSlidesPerGroup when mounted', function () {
     const data = OfficerCardFactory.buildList(10);
-    const updateSlidesPerGroup = stub(Carousel.prototype, 'updateSlidesPerGroup');
+    const updateSlidesPerGroup = sinon.stub(Carousel.prototype, 'updateSlidesPerGroup');
     renderCarousel(data);
 
     updateSlidesPerGroup.should.be.called();
-    updateSlidesPerGroup.restore();
   });
 
   it('should call updateSlidesPerGroup when updated', function () {
     const data = OfficerCardFactory.buildList(10);
-    const updateSlidesPerGroup = stub(Carousel.prototype, 'updateSlidesPerGroup');
+    const updateSlidesPerGroup = sinon.stub(Carousel.prototype, 'updateSlidesPerGroup');
     const wrapper = shallow(carouselComponent(data));
     updateSlidesPerGroup.resetHistory();
 
     wrapper.setProps({ data: data, otherProps: { a: 1 } });
     updateSlidesPerGroup.should.be.called();
-    updateSlidesPerGroup.restore();
   });
 
   it('should set arrow visibility when snap index change', function () {
@@ -143,7 +141,7 @@ describe('Carousel component', function () {
   });
 
   it('should call loadMore when still has more data at threshold', function () {
-    const loadMoreSpy = spy();
+    const loadMoreSpy = sinon.spy();
     const wrapper = renderCarousel(
       OfficerCardFactory.buildList(10),
       {
@@ -166,7 +164,7 @@ describe('Carousel component', function () {
   });
 
   it('should call loadMore when reach end with onSnapIndexChange', function () {
-    const loadMoreSpy = spy();
+    const loadMoreSpy = sinon.spy();
     const wrapper = renderCarousel(
       OfficerCardFactory.buildList(10),
       {
@@ -187,7 +185,7 @@ describe('Carousel component', function () {
   });
 
   it('should call loadMore when reach end with onUpdate', function () {
-    const loadMoreSpy = spy();
+    const loadMoreSpy = sinon.spy();
     const wrapper = renderCarousel(
       OfficerCardFactory.buildList(10),
       {

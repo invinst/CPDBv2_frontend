@@ -2,18 +2,14 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import Footer from 'components/footer';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 import FooterNavLink from 'components/footer/footer-nav-link';
 import * as intercomUtils from 'utils/intercom';
 
 
 describe('Footer component', function () {
   beforeEach(function () {
-    spy(intercomUtils, 'showIntercomMessages');
-  });
-
-  afterEach(function () {
-    intercomUtils.showIntercomMessages.restore();
+    sinon.spy(intercomUtils, 'showIntercomMessages');
   });
 
   it('should render', function () {
@@ -28,7 +24,7 @@ describe('Footer component', function () {
   });
 
   it('should render Legal Disclaimer link', function () {
-    const openRequestDocumentModal = spy();
+    const openRequestDocumentModal = sinon.spy();
     const wrapper = mount(
       <Footer openLegalDisclaimerModal={ openRequestDocumentModal }/>
     );

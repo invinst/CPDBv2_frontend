@@ -5,7 +5,7 @@ import browserHistory from 'utils/history';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { Promise } from 'es6-promise';
-import { spy, stub } from 'sinon';
+import sinon from 'sinon';
 
 import PinboardItem from 'components/pinboard-page/pinboards/pinboard-item';
 
@@ -28,13 +28,13 @@ describe('PinboardItem component', function () {
   });
 
   it('should render duplicate-pinboard-btn', function (done) {
-    const duplicatePinboardStub = stub().usingPromise(Promise).resolves({
+    const duplicatePinboardStub = sinon.stub().usingPromise(Promise).resolves({
       payload: {
         id: '5cd06f2b',
         title: 'Pinboard title',
       },
     });
-    const handleCloseSpy = spy();
+    const handleCloseSpy = sinon.spy();
     const store = MockStore()({
       pinboardPage: {
         pinboard: {
@@ -68,7 +68,7 @@ describe('PinboardItem component', function () {
   });
 
   it('should show pinboard detail page when clicking on pinboard item', function () {
-    const handleCloseSpy = spy();
+    const handleCloseSpy = sinon.spy();
     const wrapper = shallow(
       <PinboardItem
         pinboard={ pinboard }

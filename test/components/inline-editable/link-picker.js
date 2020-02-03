@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import should from 'should';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 
 import LinkPicker from 'components/inline-editable/link-picker';
 import HoverableButton from 'components/common/hoverable-button';
@@ -30,7 +30,7 @@ describe('LinkPicker component', function () {
   });
 
   it('should trigger onChange when link is inputted', function () {
-    const callback = spy();
+    const callback = sinon.spy();
     const wrapper = shallow(
       <LinkPicker editModeOn={ true } onChange={ callback }/>,
     );

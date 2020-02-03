@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
 import CrawlerRow from 'components/crawlers-page/crawler-row';
 
@@ -59,7 +59,7 @@ describe('CrawlerRow component', function () {
   });
 
   it('should call openLogFileModal action when click', function () {
-    const openLogFileStub = stub();
+    const openLogFileStub = sinon.stub();
     const wrapper = shallow(
       <CrawlerRow
         id={ 123 }
@@ -72,7 +72,7 @@ describe('CrawlerRow component', function () {
   });
 
   it('should not call openLogFileModal action when click if logUrl is empty', function () {
-    const openLogFileStub = stub();
+    const openLogFileStub = sinon.stub();
     const wrapper = shallow(
       <CrawlerRow
         id={ 123 }

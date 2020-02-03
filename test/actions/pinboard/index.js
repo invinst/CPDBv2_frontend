@@ -1,5 +1,5 @@
 import { CancelToken } from 'axios';
-import { spy, stub } from 'sinon';
+import sinon from 'sinon';
 
 import {
   createPinboard,
@@ -36,15 +36,11 @@ describe('pinboard actions', function () {
   let cancel;
 
   beforeEach(function () {
-    cancel = spy();
-    stub(CancelToken, 'source').returns({
+    cancel = sinon.spy();
+    sinon.stub(CancelToken, 'source').returns({
       token: 'token',
       cancel,
     });
-  });
-
-  afterEach(function () {
-    CancelToken.source.restore();
   });
 
   describe('removeItemInPinboardPage', function () {

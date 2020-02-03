@@ -1,20 +1,20 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { spy, stub } from 'sinon';
+import sinon from 'sinon';
 
 import Toggle from 'components/document-deduplicator-page/document-row/toggle';
 
 
 describe('DocumentDeduplicatorPage Toggle component', function () {
   it('should trigger onChange and stop propagation when clicked on', function () {
-    const onChange = spy();
+    const onChange = sinon.spy();
 
     const wrapper = shallow(
       <Toggle on={ true } onChange={ onChange }/>
     );
 
     const dummyEvent = {
-      stopPropagation: stub(),
+      stopPropagation: sinon.stub(),
     };
     wrapper.simulate('click', dummyEvent);
 

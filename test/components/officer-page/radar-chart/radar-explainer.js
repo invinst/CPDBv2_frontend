@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 
 import RadarExplainer from 'components/officer-page/radar-chart/explainer';
 import LeftNavigation from 'components/officer-page/radar-chart/explainer/left-navigation';
@@ -14,7 +14,7 @@ import rightNavigationStyles from 'components/officer-page/radar-chart/explainer
 
 describe('RadarExplainer components', function () {
   it('should render close button and TriangleExplainer as default', function () {
-    const triangleEditWrapperStateProps = spy();
+    const triangleEditWrapperStateProps = sinon.spy();
     const wrapper = shallow(<RadarExplainer triangleEditWrapperStateProps={ triangleEditWrapperStateProps }/>);
 
     wrapper.find('.radar-explainer-close-button').exists().should.be.true();
@@ -26,7 +26,7 @@ describe('RadarExplainer components', function () {
   });
 
   it('should change to ScaleExplainer when click to RightNavigation', function () {
-    const scaleEditWrapperStateProps = spy();
+    const scaleEditWrapperStateProps = sinon.spy();
     const wrapper = mount(<RadarExplainer scaleEditWrapperStateProps={ scaleEditWrapperStateProps }/>);
     wrapper.find(TriangleExplainer).exists().should.be.true();
     wrapper.state('currentPaneIndex').should.equal(0);
@@ -66,7 +66,7 @@ describe('RadarExplainer components', function () {
 
 
   it('should invoke closeExplainer when clicking on close button', function () {
-    const closeExplainerSpy = spy();
+    const closeExplainerSpy = sinon.spy();
     const wrapper = shallow(<RadarExplainer closeExplainer={ closeExplainerSpy }/>);
     const closeButton = wrapper.find('.radar-explainer-close-button');
     closeButton.simulate('click');

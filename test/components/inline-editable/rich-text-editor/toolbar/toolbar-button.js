@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { spy, stub } from 'sinon';
+import sinon from 'sinon';
 
 import { ToolbarButton } from 'components/inline-editable/rich-text-editor/toolbar/toolbar-button';
 import * as toolbarButtonStyle from 'components/inline-editable/rich-text-editor/toolbar/toolbar-button.style';
@@ -8,7 +8,7 @@ import * as toolbarButtonStyle from 'components/inline-editable/rich-text-editor
 
 describe('ToolbarButton component', function () {
   it('should trigger onClick', function () {
-    const onClickSpy = spy();
+    const onClickSpy = sinon.spy();
     const wrapper = shallow(
       <ToolbarButton onClick={ onClickSpy } />
     );
@@ -20,7 +20,7 @@ describe('ToolbarButton component', function () {
   it('should return wrapperStyle base on active and hovering', function () {
     const active = true;
     const hovering = true;
-    const wrapperStyleStub = stub(toolbarButtonStyle, 'wrapperStyle');
+    const wrapperStyleStub = sinon.stub(toolbarButtonStyle, 'wrapperStyle');
     wrapperStyleStub.withArgs({ active, hovering }).returns({ fontSize: '14px' });
     const wrapper = shallow(
       <ToolbarButton active={ active } hovering={ hovering } />
@@ -34,7 +34,7 @@ describe('ToolbarButton component', function () {
     const active = false;
     const icon = 'icon';
 
-    const iconStyleStub = stub(toolbarButtonStyle, 'iconStyle');
+    const iconStyleStub = sinon.stub(toolbarButtonStyle, 'iconStyle');
     iconStyleStub.withArgs(icon).returns({ fontSize: '14px' });
     const wrapper = shallow(
       <ToolbarButton active={ active } icon={ icon } />
@@ -48,7 +48,7 @@ describe('ToolbarButton component', function () {
     const active = true;
     const activeIcon = 'activeIcon';
 
-    const iconStyleStub = stub(toolbarButtonStyle, 'iconStyle');
+    const iconStyleStub = sinon.stub(toolbarButtonStyle, 'iconStyle');
     iconStyleStub.withArgs(activeIcon).returns({ fontSize: '14px' });
     const wrapper = shallow(
       <ToolbarButton active={ active } activeIcon={ activeIcon } />

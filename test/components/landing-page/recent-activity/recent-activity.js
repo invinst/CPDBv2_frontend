@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
 import OfficerCard from 'components/common/officer-card';
 import RecentActivity from 'components/landing-page/recent-activity';
@@ -107,7 +107,7 @@ describe('Recent Activity components', function () {
   });
 
   it('should send ga event when navigate on carousel', function () {
-    stub(tracking, 'trackSwipeLandingPageCarousel');
+    sinon.stub(tracking, 'trackSwipeLandingPageCarousel');
     const wrapper = mount(
       <RecentActivity cards={ [
         OfficerCardFactory.build({ kind: 'single_officer' }),
@@ -118,6 +118,5 @@ describe('Recent Activity components', function () {
     const carousel = wrapper.find(Carousel);
     carousel.prop('onNavigate')('left');
     tracking.trackSwipeLandingPageCarousel.should.be.calledWith('left', 'ACTIVITY');
-    tracking.trackSwipeLandingPageCarousel.restore();
   });
 });

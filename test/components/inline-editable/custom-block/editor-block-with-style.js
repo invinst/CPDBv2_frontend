@@ -1,15 +1,15 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { EditorBlock } from 'draft-js';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
 import EditorBlockWithStyle from 'components/inline-editable/custom-block/editor-block-with-style';
 
 
 describe('EditorBlockWithStyle component', function () {
   it('should render with given props', function () {
-    stub(EditorBlock.prototype, 'componentDidMount');
-    stub(EditorBlock.prototype, '_renderChildren').returns(<div/>);
+    sinon.stub(EditorBlock.prototype, 'componentDidMount');
+    sinon.stub(EditorBlock.prototype, '_renderChildren').returns(<div/>);
     const style = { color: 'blue' };
     const child = <div className='test-editor-block-with-style-child'>some text</div>;
     const wrapper = mount(

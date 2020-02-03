@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { stub, spy } from 'sinon';
+import sinon from 'sinon';
 import * as wrapperUtils from 'utils/wrapper';
 
 import MasonryLayout from 'components/common/masonry-layout';
@@ -12,8 +12,8 @@ describe('MasonryLayout component', function () {
   const child2 = <div key='2'/>;
 
   beforeEach(function () {
-    bricksInstance = { resize: spy(), pack: spy(), update: spy() };
-    stub(wrapperUtils, 'Bricks').returns(bricksInstance);
+    bricksInstance = { resize: sinon.spy(), pack: sinon.spy(), update: sinon.spy() };
+    sinon.stub(wrapperUtils, 'Bricks').returns(bricksInstance);
   });
 
   afterEach(function () {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 import Collapse, { Panel } from 'rc-collapse';
 import { Link } from 'react-router-dom';
 import { mountWithRouter } from 'utils/test';
@@ -79,7 +79,7 @@ describe('ListWidget', () => {
       />
     );
     const link = wrapper.find(Link);
-    const eventSpy = { stopPropagation: spy() };
+    const eventSpy = { stopPropagation: sinon.spy() };
     link.prop('onClick')(eventSpy);
     eventSpy.stopPropagation.should.be.called();
   });

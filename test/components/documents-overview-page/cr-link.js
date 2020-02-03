@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 
 import CRLink from 'components/documents-overview-page/document-row/cr-link';
 
@@ -16,7 +16,7 @@ describe('DocumentsOverviewPage CRLink component', function () {
   });
 
   it('should call onCRLinkClick when clicked on', function () {
-    const onCRLinkClick = spy();
+    const onCRLinkClick = sinon.spy();
     const wrapper = shallow(
       <CRLink crid={ '1000000' } onCRLinkClick={ onCRLinkClick }/>
     );

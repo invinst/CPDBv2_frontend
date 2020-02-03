@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { Link } from 'react-router-dom';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 import config from 'config';
 
 import Header from 'components/pinboard-page/header';
@@ -34,15 +34,10 @@ describe('Pinboard Header component', function () {
 
   context('clicking on a menu item', function () {
     beforeEach(function () {
-      this.stubPushPathPreserveEditMode = stub(editPathUtils, 'pushPathPreserveEditMode');
-      this.stubTrackOutboundLink = stub(tracking, 'trackOutboundLink');
+      this.stubPushPathPreserveEditMode = sinon.stub(editPathUtils, 'pushPathPreserveEditMode');
+      this.stubTrackOutboundLink = sinon.stub(tracking, 'trackOutboundLink');
       const wrapper = mount(<Header />);
       this.menuItems = wrapper.find('.menu-item');
-    });
-
-    afterEach(function () {
-      this.stubPushPathPreserveEditMode.restore();
-      this.stubTrackOutboundLink.restore();
     });
 
     it('should call correct function when clicking on Data link', function () {

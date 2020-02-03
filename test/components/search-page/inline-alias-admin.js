@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import TagsInput from 'react-tagsinput';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 import { Link } from 'react-router-dom';
 
 import { SEARCH_ALIAS_EDIT_PATH } from 'utils/constants';
@@ -36,7 +36,7 @@ describe('InlineAliasAdmin component', function () {
   });
 
   it('should call updateAliases() when Save button is clicked', function () {
-    const updateAliases = spy();
+    const updateAliases = sinon.spy();
 
     const wrapper = shallow(
       <InlineAliasAdmin

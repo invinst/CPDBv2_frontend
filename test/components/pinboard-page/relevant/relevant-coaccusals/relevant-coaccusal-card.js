@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { stub, useFakeTimers, spy } from 'sinon';
+import sinon from 'sinon';
 import should from 'should';
 
 import RelevantCoaccusalCard, { RelevantCoaccusalCardWithUndo }
@@ -12,7 +12,7 @@ import { UNDO_CARD_VISIBLE_TIME } from 'utils/constants';
 
 describe('RelevantCoaccusalCard component', function () {
   it('should render enough content correctly', function () {
-    const addItemInPinboardPageStub = stub();
+    const addItemInPinboardPageStub = sinon.stub();
 
     const wrapper = mount(
       <RelevantCoaccusalCard
@@ -84,7 +84,7 @@ describe('RelevantCoaccusalCard component', function () {
   });
 
   it('should render pluralize coaccusalCount and handle no percentile data', function () {
-    const addItemInPinboardPageStub = stub();
+    const addItemInPinboardPageStub = sinon.stub();
 
     const wrapper = mount(
       <RelevantCoaccusalCard
@@ -111,7 +111,7 @@ describe('RelevantCoaccusalCard component', function () {
   });
 
   it('should trigger addItemInPinboardPage when clicked on PlusButton', function () {
-    const addItemInPinboardPageStub = stub();
+    const addItemInPinboardPageStub = sinon.stub();
 
     const wrapper = mount(
       <RelevantCoaccusalCard
@@ -159,11 +159,7 @@ describe('RelevantCoaccusalCard component', function () {
     let clock;
 
     beforeEach(function () {
-      clock = useFakeTimers();
-    });
-
-    afterEach(function () {
-      clock.restore();
+      clock = sinon.useFakeTimers();
     });
 
     it('should render remove text correctly', function () {
@@ -205,7 +201,7 @@ describe('RelevantCoaccusalCard component', function () {
   });
 
   it('should handle on focus', function () {
-    const focusItem = spy();
+    const focusItem = sinon.spy();
 
     const wrapper = mount(
       <RelevantCoaccusalCardWithUndo
@@ -222,7 +218,7 @@ describe('RelevantCoaccusalCard component', function () {
   });
 
   it('should remove item if pin status changed', function () {
-    const addItemInPinboardPage = spy();
+    const addItemInPinboardPage = sinon.spy();
     const wrapper = mount(
       <RelevantCoaccusalCard
         id={ 123 }

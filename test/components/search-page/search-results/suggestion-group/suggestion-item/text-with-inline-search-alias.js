@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Link } from 'react-router-dom';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 import { mountWithRouter } from 'utils/test';
 
 import * as constants from 'utils/constants';
@@ -29,7 +29,7 @@ describe('TextWithInlineSearchAlias component', function () {
   });
 
   it('should trigger setAliasAdminPageContent if we click on inline search alias link', function () {
-    const setAliasAdminPageContent = stub();
+    const setAliasAdminPageContent = sinon.stub();
 
     const wrapper = mountWithRouter(
       <TextWithInlineSearchAlias
