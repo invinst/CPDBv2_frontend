@@ -418,9 +418,9 @@ describe('landing page', function () {
 
     it('should show only 1 toast if one officer of the pairing card was already pinned', function () {
       const addedOfficerPattern =
-        /^[A-Za-z\s]+ [\d]+-year-old [A-Za-z\s]+,\nwith [\d]+ complaints, [\d]+ sustained added.$/;
+        /^[A-Za-z\s]+ [\d]+-year-old [A-Za-z\s]+, with [\d]+ complaints, [\d]+ sustained added.$/;
       const removedOfficerPattern =
-        /^[A-Za-z\s]+ [\d]+-year-old [A-Za-z\s]+,\nwith [\d]+ complaints, [\d]+ sustained removed.$/;
+        /^[A-Za-z\s]+ [\d]+-year-old [A-Za-z\s]+, with [\d]+ complaints, [\d]+ sustained removed.$/;
       landingPage.recentActivityCarousel.firstPinButton.waitForDisplayed();
       landingPage.recentActivityCarousel.firstPinButton.click();
 

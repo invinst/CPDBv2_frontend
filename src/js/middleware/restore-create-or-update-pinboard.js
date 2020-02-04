@@ -33,10 +33,10 @@ import {
 import { isPinboardRestoredSelector } from 'selectors/pinboard-page/pinboard';
 import {
   showInvalidParamToasts,
+  showAddOrRemoveItemToast,
   showCreatedToasts,
   showPinboardToast,
   showAlertToast,
-  showAddOrRemoveItemToast,
 } from 'utils/toast';
 import { Toastify } from 'utils/vendors';
 

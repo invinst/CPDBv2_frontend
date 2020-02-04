@@ -99,7 +99,7 @@ export default store => next => action => {
     };
 
     if (!hasToastsSelector(state)) {
-      dispatches.push(store.dispatch(fetchToast()));
+      store.dispatch(fetchToast());
     }
 
     const notRequiredLandingPageContent = [/embed\/map/];
