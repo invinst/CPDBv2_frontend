@@ -11,6 +11,7 @@ export default function HoverableEditWrapper(props) {
     turnOnSectionEditMode,
     turnOffSectionEditMode,
     onSaveForm,
+    autoSave,
   } = useContext(EditWrapperStateContext);
   const { editModeOn } = useContext(EditModeContext);
 
@@ -23,14 +24,16 @@ export default function HoverableEditWrapper(props) {
         {
           sectionEditModeOn
             ? (
-              <span className='bottom-button-wrapper'>
-                <a className='hoverable-edit-wrapper-button' onClick={ onSaveForm }>
-                  Save
-                </a>
-                <a className='hoverable-edit-wrapper-button' onClick={ turnOffSectionEditMode }>
-                  Cancel
-                </a>
-              </span>
+              !autoSave && (
+                <span className='bottom-button-wrapper'>
+                  <a className='hoverable-edit-wrapper-button' onClick={ onSaveForm }>
+                    Save
+                  </a>
+                  <a className='hoverable-edit-wrapper-button' onClick={ turnOffSectionEditMode }>
+                    Cancel
+                  </a>
+                </span>
+              )
             ) : (
               <span className='top-button-wrapper'>
                 <a className='hoverable-edit-wrapper-button edit-button' onClick={ turnOnSectionEditMode }>

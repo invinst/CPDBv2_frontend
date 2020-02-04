@@ -9,6 +9,7 @@ export const EditModeContext = React.createContext({ editModeOn: false });
 export const SectionEditModeContext = React.createContext({ sectionEditModeOn: false });
 
 const defaultEditWrapperState = {
+  autoSave: false,
   fieldContexts: {},
   onSaveForm: noop,
   sectionEditModeOn: noop,

@@ -5,10 +5,19 @@ import sinon from 'sinon';
 import * as draftUtils from 'utils/draft';
 import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
 import { RichTextFieldFactory, StringFieldFactory } from 'utils/test/factories/field';
-import { EditWrapperStateContext } from 'contexts';
+import { EditModeContext, EditWrapperStateContext } from 'contexts';
 
 
 describe('EditWrapperStateProvider component', function () {
+  class ChildrenComponent extends Component { // eslint-disable-line
+    render() {
+      return (
+        <div>abc123</div>
+      );
+    }
+  }
+  ChildrenComponent.contextType = EditWrapperStateContext;
+
   it('should render its children', function () {
     const wrapper = shallow(
       <EditWrapperStateProvider>
@@ -25,14 +34,7 @@ describe('EditWrapperStateProvider component', function () {
     const stringField = StringFieldFactory.build({ name: 'string_field' });
     const turnOnSectionEditModeSpy = sinon.spy();
     const turnOffSectionEditModeSpy = sinon.spy();
-    class ChildrenComponent extends Component { // eslint-disable-line
-      render() {
-        return (
-          <div>abc123</div>
-        );
-      }
-    }
-    ChildrenComponent.contextType = EditWrapperStateContext;
+
     const wrapper = mount(
       <EditWrapperStateProvider
         fields={ {
@@ -46,6 +48,54 @@ describe('EditWrapperStateProvider component', function () {
       >
         <ChildrenComponent/>
       </EditWrapperStateProvider>
+    );
+
+    const childContext = wrapper.find(ChildrenComponent).instance().context;
+    childContext.should.containEql({
+      sectionEditModeOn: true,
+      turnOnSectionEditMode: turnOnSectionEditModeSpy,
+      turnOffSectionEditMode: turnOffSectionEditModeSpy,
+    });
+
+    const fieldContexts = childContext.fieldContexts;
+    fieldContexts['navbar_title'].should.not.be.undefined();
+    fieldContexts['navbar_title'].should.containEql({
+      value: 'my value',
+      editModeOn: true,
+    });
+    fieldContexts['empty_field'].should.containEql({
+      value: null,
+      editModeOn: true,
+    });
+    fieldContexts['string_field'].should.containEql({
+      value: stringField.value,
+      editModeOn: true,
+    });
+    draftUtils.convertContentStateToEditorState.should.be.calledWith(navbarTitleField.value);
+  });
+
+  it('should pass down data context in context when autoSave', function () {
+    sinon.stub(draftUtils, 'convertContentStateToEditorState').returns('my value');
+    const navbarTitleField = RichTextFieldFactory.build({ name: 'navbar_title' });
+    const stringField = StringFieldFactory.build({ name: 'string_field' });
+    const turnOnSectionEditModeSpy = sinon.spy();
+    const turnOffSectionEditModeSpy = sinon.spy();
+    const wrapper = mount(
+      <EditModeContext.Provider value={ { editModeOn: true } }>
+        <EditWrapperStateProvider
+          fields={ {
+            'navbar_title': navbarTitleField,
+            'empty_field': null,
+            'string_field': stringField,
+          } }
+          sectionEditModeOn={ false }
+          autoSave={ true }
+          turnOnSectionEditMode={ turnOnSectionEditModeSpy }
+          turnOffSectionEditMode={ turnOffSectionEditModeSpy }
+        >
+          <ChildrenComponent/>
+        </EditWrapperStateProvider>
+      </EditModeContext.Provider>,
     );
 
     const childContext = wrapper.find(ChildrenComponent).instance().context;
@@ -242,5 +292,25 @@ describe('EditWrapperStateProvider component', function () {
     spyDeserializeField.should.not.be.called();
     navbarText = wrapper.state('fields')['navbar_title'].value.getCurrentContent().getFirstBlock().getText();
     navbarText.should.equal('new navbar title');
+  });
+
+  it('should call handleSaveForm when input changed and autoSave is true', function () {
+    const onSaveFormStub = sinon.stub().returns(new Promise(resolve => resolve()));
+
+    const wrapper = mount(
+      <EditWrapperStateProvider autoSave={ true } onSaveForm={ onSaveFormStub }>
+        <ChildrenComponent />
+      </EditWrapperStateProvider>
+    );
+    wrapper.setState({
+      fields: {
+        'navbar_title': RichTextFieldFactory.build({ name: 'navbar_title' }),
+      },
+    });
+
+    const handleSaveFormStub = sinon.stub(wrapper.instance(), 'handleSaveForm');
+
+    wrapper.find(ChildrenComponent).instance().context.fieldContexts['navbar_title'].onChange('changed value');
+    handleSaveFormStub.should.be.called();
   });
 });

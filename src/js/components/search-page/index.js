@@ -44,7 +44,7 @@ export default class SearchPage extends Component {
     this.sendSearchQuery(query);
 
     IntercomTracking.trackSearchPage();
-    showIntercomLauncher(false);
+    showIntercomLauncher(hide);
   }
 
   componentDidUpdate(prevProps) {
@@ -57,10 +57,12 @@ export default class SearchPage extends Component {
     if (!prevProps.hide && hide) {
       LayeredKeyBinding.unbind('esc');
       LayeredKeyBinding.unbind('enter');
+      showIntercomLauncher(this.props.hide);
     }
     if (prevProps.hide && !hide) {
       LayeredKeyBinding.bind('esc', this.handleGoBack);
       LayeredKeyBinding.bind('enter', this.handleViewItem);
+      showIntercomLauncher(this.props.hide);
     }
   }
 

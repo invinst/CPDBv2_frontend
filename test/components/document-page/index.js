@@ -102,6 +102,7 @@ describe('DocumentPage component', function () {
       titleEditModeOn: false,
       tagsEditModeOn: false,
       textContentEditModeOn: false,
+      suggestionTags: ['tag1', 'tag2'],
     },
   };
 
@@ -340,7 +341,9 @@ describe('DocumentPage component', function () {
       </Provider>
     );
 
-    wrapper.find(EditableTagsInput).exists().should.be.true();
+    const editableTagsInput = wrapper.find(EditableTagsInput);
+    editableTagsInput.exists().should.be.true();
+    editableTagsInput.prop('suggestionTags').should.eql(['tag1', 'tag2']);
   });
 
   it('should not render EditableTagsInput for unauthenticated users', function () {

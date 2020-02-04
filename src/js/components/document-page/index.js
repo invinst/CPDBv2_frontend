@@ -32,6 +32,7 @@ export default function DocumentPage(props) {
     infoItems,
     nextDocumentId,
     tagsErrorMessages,
+    suggestionTags,
   } = props;
 
   const displayedDocuments = slice(linkedDocuments, 0, 11);
@@ -94,6 +95,7 @@ export default function DocumentPage(props) {
                   className='main-section-tags'
                   title='Tags'
                   fieldName='tags'
+                  suggestionTags={ suggestionTags }
                   editWrapperStateProps={ tagsEditWrapperStateProps }
                   nextDocumentId={ nextDocumentId }
                   errorMessages={ tagsErrorMessages }
@@ -138,4 +140,5 @@ DocumentPage.propTypes = {
   infoItems: PropTypes.array,
   nextDocumentId: PropTypes.number,
   tagsErrorMessages: PropTypes.array,
+  suggestionTags: PropTypes.array,
 };

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { mapValues, map, values, isEqual } from 'lodash';
 
 import { convertContentStateToEditorState, convertEditorStateToRaw } from 'utils/draft';
-import { EditWrapperStateContext } from 'contexts';
+import { EditModeContext, EditWrapperStateContext } from 'contexts';
 
 
 export default class EditWrapperStateProvider extends Component {
@@ -53,6 +53,7 @@ export default class EditWrapperStateProvider extends Component {
   }
 
   handleUpdateFieldValue(fieldName, fieldValue) {
+    const { autoSave } = this.props;
     const { fields } = this.state;
     const field = fields[fieldName];
 
@@ -64,15 +65,25 @@ export default class EditWrapperStateProvider extends Component {
           value: fieldValue,
         },
       },
+    }, () => {
+      if (autoSave) {
+        this.handleSaveForm();
+      }
     });
   }
 
+  getSectionEditModeOn() {
+    const { sectionEditModeOn, autoSave } = this.props;
+    const { editModeOn } = this.context;
+
+    return autoSave ? editModeOn : sectionEditModeOn;
+  }
+
   getFieldContexts() {
-    const { sectionEditModeOn } = this.props;
     const { fields } = this.state;
     return mapValues(fields, (field, fieldName) => ({
       value: field && field.value,
-      editModeOn: sectionEditModeOn,
+      editModeOn: this.getSectionEditModeOn(),
       onChange: val => this.handleUpdateFieldValue(fieldName, val),
     }));
   }
@@ -84,11 +95,12 @@ export default class EditWrapperStateProvider extends Component {
   };
 
   render() {
-    const { children, sectionEditModeOn, turnOnSectionEditMode, turnOffSectionEditMode } = this.props;
+    const { children, turnOnSectionEditMode, turnOffSectionEditMode, autoSave } = this.props;
     const context = {
+      autoSave,
       fieldContexts: this.getFieldContexts(),
       onSaveForm: this.handleSaveForm,
-      sectionEditModeOn,
+      sectionEditModeOn: this.getSectionEditModeOn(),
       turnOnSectionEditMode,
       turnOffSectionEditMode,
     };
@@ -104,7 +116,10 @@ EditWrapperStateProvider.propTypes = {
   children: PropTypes.node,
   fields: PropTypes.object,
   onSaveForm: PropTypes.func,
+  autoSave: PropTypes.bool,
   sectionEditModeOn: PropTypes.bool,
   turnOnSectionEditMode: PropTypes.func,
   turnOffSectionEditMode: PropTypes.func,
 };
+
+EditWrapperStateProvider.contextType = EditModeContext;

@@ -99,51 +99,48 @@ describe('Document page', function () {
       documentPage.tagsSection.tags.count.should.equal(2);
       documentPage.tagsSection.firstTag.getText().should.equal('hospital');
       documentPage.tagsSection.secondTag.getText().should.equal('tactical');
-      documentPage.tagsSection.tagDeleteBtns.count.should.equal(0);
-
-      documentPage.tagsSection.tagsInput.moveTo();
-      documentPage.tagsSection.editButton.click();
       documentPage.tagsSection.tagDeleteBtns.count.should.equal(2);
-      documentPage.tagsSection.firstTagDeleteBtn.click();
-      documentPage.tagsSection.tagsInputTextbox.setValue('chicago');
-      browser.keys('Enter');
-      documentPage.tagsSection.tagsInputTextbox.setValue('copa');
-      browser.keys('Enter');
-      documentPage.tagsSection.cancelButton.click();
-      documentPage.tagsSection.tags.count.should.equal(2);
-      documentPage.tagsSection.firstTag.getText().should.equal('hospital');
-      documentPage.tagsSection.secondTag.getText().should.equal('tactical');
 
-      documentPage.tagsSection.tagsInput.moveTo();
-      documentPage.tagsSection.editButton.click();
       documentPage.tagsSection.tagsInputTextbox.setValue('This is a tag with more than 20 characters');
       browser.keys('Enter');
-      documentPage.tagsSection.tagsInput.moveTo();
-      documentPage.tagsSection.saveButton.click();
       documentPage.tagsSection.errorMessages.getText().should.equal(
         'Ensure this field has no more than 20 characters.'
       );
 
       documentPage.tagsSection.thirdTagDeleteBtn.click();
       documentPage.tagsSection.firstTagDeleteBtn.click();
+
       documentPage.tagsSection.tagsInputTextbox.setValue('chicago');
       browser.keys('Enter');
       documentPage.tagsSection.tagsInputTextbox.setValue('copa');
       browser.keys('Enter');
-      documentPage.tagsSection.tagsInput.moveTo();
-      documentPage.tagsSection.saveButton.click();
-
-      documentPage.tagsSection.tagsInput.moveTo();
-      documentPage.tagsSection.saveButton.count.should.equal(0);
-      documentPage.tagsSection.cancelButton.count.should.equal(0);
-      documentPage.tagsSection.editButton.count.should.equal(1);
-      documentPage.tagsSection.tagDeleteBtns.count.should.equal(0);
       documentPage.tagsSection.errorMessages.count.should.equal(0);
 
       documentPage.tagsSection.tags.count.should.equal(3);
+      documentPage.tagsSection.tagDeleteBtns.count.should.equal(3);
       documentPage.tagsSection.firstTag.getText().should.equal('tactical');
       documentPage.tagsSection.secondTag.getText().should.equal('chicago');
       documentPage.tagsSection.thirdTag.getText().should.equal('copa');
+    });
+
+    it('should be able to update document tags by autosuggest', function () {
+      documentPage.tagsSection.tags.count.should.equal(2);
+      documentPage.tagsSection.firstTag.getText().should.equal('hospital');
+      documentPage.tagsSection.secondTag.getText().should.equal('tactical');
+
+      documentPage.tagsSection.tagsInputTextbox.setValue('t');
+      documentPage.tagsSection.suggestionItems.waitForDisplayed();
+
+      documentPage.tagsSection.suggestionItems.count.should.equal(2);
+      documentPage.tagsSection.firstSuggestionItem.getText().should.equal('twitter');
+      documentPage.tagsSection.secondSuggestionItem.getText().should.equal('Turbyville');
+      documentPage.tagsSection.firstSuggestionItem.click();
+
+      documentPage.tagsSection.tags.count.should.equal(3);
+      documentPage.tagsSection.tagDeleteBtns.count.should.equal(3);
+      documentPage.tagsSection.firstTag.getText().should.equal('hospital');
+      documentPage.tagsSection.secondTag.getText().should.equal('tactical');
+      documentPage.tagsSection.thirdTag.getText().should.equal('twitter');
     });
 
     it('should go to next untagged document when clicking on next-untagged document tag', function () {

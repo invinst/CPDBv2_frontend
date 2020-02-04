@@ -1,7 +1,10 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import sinon from 'sinon';
 import configureStore from 'redux-mock-store';
+import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router';
+import { HelmetProvider } from 'react-helmet-async';
 
 import SearchPageContainer from 'containers/search-page';
 import RecentActivityContainer from 'containers/landing-page/recent-activity';
@@ -17,6 +20,7 @@ import { RawOfficerCardFactory } from 'utils/test/factories/activity-grid';
 import { RawDocumentCardFactory } from 'utils/test/factories/attachment';
 import { ComplaintSummaryFactory } from 'utils/test/factories/complaint';
 import * as DomUtils from 'utils/dom';
+import * as intercomUtils from 'utils/intercom';
 
 const mockStore = configureStore();
 const store = mockStore({
@@ -332,5 +336,22 @@ describe('LandingPage component', function () {
     searchPage.prop('position').should.equal('top');
     searchPage.prop('animationIn').should.be.false();
     searchPage.prop('hide').should.be.true();
+  });
+
+  it('should show intercom launcher when mounted', function () {
+    sinon.stub(intercomUtils, 'showIntercomLauncher');
+
+    mount(
+      <Provider store={ store }>
+        <MemoryRouter>
+          <HelmetProvider>
+            <LandingPage
+              history={ { location: { pathname: '/' } } }
+            />
+          </HelmetProvider>
+        </MemoryRouter>
+      </Provider>
+    );
+    intercomUtils.showIntercomLauncher.should.be.calledWith(true);
   });
 });

@@ -45,18 +45,35 @@ describe('HoverableEditWrapper component', function () {
     });
 
     context('section edit mode on', function () {
-      it('should render Save and Cancel button', function () {
-        const wrapper = mount(
-          <EditWrapperStateContext.Provider value={ { sectionEditModeOn: true } }>
-            <EditModeContext.Provider value={ { editModeOn: true } }>
-              <HoverableEditWrapper />
-            </EditModeContext.Provider>
-          </EditWrapperStateContext.Provider>
-        );
+      context('autoSave mode on', function () {
+        it('should not render Save and Cancel button', function () {
+          const wrapper = mount(
+            <EditWrapperStateContext.Provider value={ { sectionEditModeOn: true, autoSave: true } }>
+              <EditModeContext.Provider value={ { editModeOn: true } }>
+                <HoverableEditWrapper />
+              </EditModeContext.Provider>
+            </EditWrapperStateContext.Provider>
+          );
 
-        const buttons = wrapper.find('a');
-        buttons.should.have.length(2);
-        buttons.map((button) => button.text()).should.eql(['Save', 'Cancel']);
+          const buttons = wrapper.find('a');
+          buttons.should.have.length(0);
+        });
+      });
+
+      context('autoSave mode off', function () {
+        it('should render Save and Cancel button', function () {
+          const wrapper = mount(
+            <EditWrapperStateContext.Provider value={ { sectionEditModeOn: true, autoSave: false } }>
+              <EditModeContext.Provider value={ { editModeOn: true } }>
+                <HoverableEditWrapper />
+              </EditModeContext.Provider>
+            </EditWrapperStateContext.Provider>
+          );
+
+          const buttons = wrapper.find('a');
+          buttons.should.have.length(2);
+          buttons.map((button) => button.text()).should.eql(['Save', 'Cancel']);
+        });
       });
     });
   });

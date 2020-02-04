@@ -1,18 +1,24 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import queryString from 'query-string';
+import { get } from 'lodash';
 
+import browserHistory from 'utils/history';
 import PinboardsTable from './pinboards-table';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import { PreviewPaneWithOverlay } from 'components/common/preview-pane';
 import styles from './pinboard-admin-page.sass';
+import SearchBar from 'components/common/search-bar';
 
 
 export default class PinboardAdminPage extends Component {
   constructor(props) {
     super(props);
+    const query = queryString.parse(get(this.props, 'location.search', ''));
     this.state = {
       isShowingPreviewPane: false,
       focusedItem: {},
+      searchText: query['match'],
     };
   }
 
@@ -29,6 +35,18 @@ export default class PinboardAdminPage extends Component {
     this.setState({ isShowingPreviewPane: false });
   };
 
+  handleSearchChange = text => {
+    const { pathname } = this.props.location;
+    if (this.state.searchText === text)
+      return;
+    this.setState({ searchText: text });
+    if (text.trim() === '') {
+      browserHistory.push(pathname);
+    } else {
+      browserHistory.push(`${pathname}?match=${text}`);
+    }
+  };
+
   render() {
     const {
       pinboards,
@@ -39,11 +57,14 @@ export default class PinboardAdminPage extends Component {
       fetchPinboardStaticSocialGraph,
       cachedDataIDs,
     } = this.props;
-    const { focusedItem, isShowingPreviewPane } = this.state;
+    const { focusedItem, isShowingPreviewPane, searchText } = this.state;
 
     return (
       <div className={ styles.pinboardAdminPage }>
         <ShareableHeaderContainer/>
+        <SearchBar
+          value={ searchText }
+          onChange={ this.handleSearchChange }/>
         <PinboardsTable
           rows={ pinboards }
           hasMore={ hasMore }
@@ -77,6 +98,10 @@ PinboardAdminPage.propTypes = {
   fetchPinboardStaticSocialGraph: PropTypes.func,
   clearPinboardStaticSocialGraphCache: PropTypes.func,
   cachedDataIDs: PropTypes.array,
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+    search: PropTypes.string,
+  }),
 };
 
 PinboardAdminPage.defaultProps = {

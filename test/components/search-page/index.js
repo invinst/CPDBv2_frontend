@@ -486,15 +486,26 @@ describe('SearchPage component', function () {
         sinon.stub(intercomUtils, 'showIntercomLauncher');
       });
 
-      it('should hide intercom launcher when mounted', function () {
+      it('should hide intercom launcher if search page is hidden', function () {
         mount(
           <Provider store={ store }>
             <MemoryRouter>
-              <SearchPage/>
+              <SearchPage hide={ false }/>
             </MemoryRouter>
           </Provider>
         );
         intercomUtils.showIntercomLauncher.should.be.calledWith(false);
+      });
+
+      it('should show intercom launcher if search page is showing', function () {
+        mount(
+          <Provider store={ store }>
+            <MemoryRouter>
+              <SearchPage hide={ true }/>
+            </MemoryRouter>
+          </Provider>
+        );
+        intercomUtils.showIntercomLauncher.should.be.calledWith(true);
       });
 
       it('should show intercom launcher again when unmounted', function () {
@@ -508,6 +519,46 @@ describe('SearchPage component', function () {
 
         wrapper.unmount();
         intercomUtils.showIntercomLauncher.should.be.calledWith(true);
+      });
+
+      it('should show intercom launcher when we go back from search page to landing page', function () {
+        const wrapper = mount(
+          <Provider store={ store }>
+            <MemoryRouter>
+              <SearchPage hide={ false }/>
+            </MemoryRouter>
+          </Provider>
+        );
+
+        wrapper.setProps({
+          children: (
+            <MemoryRouter>
+              <SearchPage hide={ true }/> }
+            </MemoryRouter>
+          ),
+        });
+
+        intercomUtils.showIntercomLauncher.should.be.calledWith(true);
+      });
+
+      it('should hide intercom launcher when we go to search page from landing page', function () {
+        const wrapper = mount(
+          <Provider store={ store }>
+            <MemoryRouter>
+              <SearchPage hide={ true }/>
+            </MemoryRouter>
+          </Provider>
+        );
+
+        wrapper.setProps({
+          children: (
+            <MemoryRouter>
+              <SearchPage hide={ false }/>
+            </MemoryRouter>
+          ),
+        });
+
+        intercomUtils.showIntercomLauncher.should.be.calledWith(false);
       });
     });
 

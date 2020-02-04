@@ -52,6 +52,11 @@ if (config.appEnv === 'live-test' || global.mocha !== undefined) {
   const removeSourceSpy = sinon.spy();
   const getCanvasSpy = sinon.stub().returns({ style: { cursor: undefined } });
   const setFeatureStateSpy = sinon.spy();
+  const setMaxBoundsSpy = sinon.spy();
+  const getBoundsSpy = sinon.spy();
+  const dragPanSpy = {
+    enable: sinon.spy(),
+  };
 
   class MockMap {
     constructor() {
@@ -70,6 +75,9 @@ if (config.appEnv === 'live-test' || global.mocha !== undefined) {
       this.removeSource = removeSourceSpy;
       this.getCanvas = getCanvasSpy;
       this.setFeatureState = setFeatureStateSpy;
+      this.setMaxBounds = setMaxBoundsSpy;
+      this.getBounds = getBoundsSpy;
+      this.dragPan = dragPanSpy;
     }
     on() {
       if (includes(['load', 'idle'], arguments[0])) {
