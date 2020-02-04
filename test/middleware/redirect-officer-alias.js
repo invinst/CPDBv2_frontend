@@ -11,20 +11,7 @@ describe('redirectOfficerAliasMiddleware', function () {
     getState: () => {
       return {
         breadcrumb: {
-          breadcrumbs: [
-            {
-              location: {
-                pathname: '/',
-              },
-              params: {},
-            },
-            {
-              location: {
-                pathname,
-              },
-              params: {},
-            },
-          ],
+          breadcrumbItems: [],
         },
         pathname,
       };

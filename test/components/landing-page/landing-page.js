@@ -96,22 +96,17 @@ describe('LandingPage component', function () {
   });
 
   it('should be responsively renderable', function () {
-    const stubResetBreadcrumbs = sinon.stub();
     LandingPage.should.be.responsiveRenderable({
       store: store,
       helmet: true,
       withRouter: true,
-      resetBreadcrumbs: stubResetBreadcrumbs,
       location: { pathname: '/' },
     });
   });
 
   it('should render enough content', function () {
-    const stubResetBreadcrumbs = sinon.spy();
-
     const wrapper = shallow(
       <LandingPage
-        resetBreadcrumbs={ stubResetBreadcrumbs }
         history={ { location: { pathname: '/' } } }
       />
     );
@@ -138,11 +133,8 @@ describe('LandingPage component', function () {
   });
 
   it('should hide landing page content and show search page when pathname is /search/', function () {
-    const stubResetBreadcrumbs = sinon.spy();
-
     const wrapper = shallow(
       <LandingPage
-        resetBreadcrumbs={ stubResetBreadcrumbs }
         history={ { location: { pathname: '/search/' } } }
         params={ {} }
       />
@@ -158,11 +150,8 @@ describe('LandingPage component', function () {
   });
 
   it('should able to open landing page edit mode', function () {
-    const stubResetBreadcrumbs = sinon.spy();
-
     const wrapper = shallow(
       <LandingPage
-        resetBreadcrumbs={ stubResetBreadcrumbs }
         history={ { location: { pathname: '/edit/' } } }
         params={ {} }
       />
@@ -178,11 +167,8 @@ describe('LandingPage component', function () {
   });
 
   it('should able to open search page edit mode', function () {
-    const stubResetBreadcrumbs = sinon.spy();
-
     const wrapper = shallow(
       <LandingPage
-        resetBreadcrumbs={ stubResetBreadcrumbs }
         history={ { location: { pathname: '/edit/search/' } } }
         params={ {} }
       />

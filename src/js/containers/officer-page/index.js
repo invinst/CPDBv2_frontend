@@ -50,7 +50,6 @@ function mapStateToProps(state, ownProps) {
     editModeOn: getEditModeOn(state),
     pathName: getPathname(state),
     officerSlug: getOfficerSlug(state),
-    breadcrumbs: state.breadscrumbs,
     infoNotes: getInfoNotes(state),
     timelineNotes: getTimelineNotes(state),
     printHeader: getOfficerName(state),

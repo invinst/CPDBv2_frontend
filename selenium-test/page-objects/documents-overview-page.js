@@ -10,7 +10,7 @@ class DocumentsOverviewPage extends Page {
     super();
     this.prepareElementGetters({
       docTable: '(//div[starts-with(@class, "documents-table")])[1]',
-      lastBreadcrumbs: '//*[contains(@class, "breadcrumbs-item")][last()]',
+      lastBreadcrumbs: '//*[contains(@class, "breadcrumb-item")][last()]',
       firstMonthSeparator: '(//div[contains(@class, "month-separator")])[1]',
       secondMonthSeparator: '(//div[contains(@class, "month-separator")])[2]',
       firstDocTitle: '(//span[contains(@class, "document-title")])[1]',

@@ -1,6 +1,7 @@
 import { handleActions } from 'redux-actions';
 import { LOCATION_CHANGE } from 'connected-react-router';
 import { get, concat, slice } from 'lodash';
+
 import { UPDATE_PATH_NAME } from 'utils/constants';
 
 

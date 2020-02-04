@@ -10,14 +10,13 @@ const breadcrumbItemKeyTransform = key => {
   return `/${fragments.join('/')}/`;
 };
 
-const getBreadcrumbItemKey = (state, props) => breadcrumbItemKeyTransform(props.url);
-
 const getBreadcrumbMapping = state => {
   const breadcrumbsMapping = state.breadcrumb.breadcrumbsMapping;
   return { ...breadcrumbsMapping, ...BREADSCRUMB_DEFAULT_MAPPING };
 };
 
-const getBreadcrumbText = (breadcrumbItemKey, mapping) => {
+const getBreadcrumbText = (pathname, mapping) => {
+  const breadcrumbItemKey = breadcrumbItemKeyTransform(pathname);
   let result = undefined;
   each(toPairs(mapping), ([key, val]) => {
     if (includes(breadcrumbItemKey, key)) {
@@ -28,12 +27,6 @@ const getBreadcrumbText = (breadcrumbItemKey, mapping) => {
   return result;
 };
 
-export const breadcrumbTextSelector = createSelector(
-  getBreadcrumbItemKey,
-  getBreadcrumbMapping,
-  getBreadcrumbText,
-);
-
 export const breadcrumbItemsSelector = createSelector(
   getBreadcrumbItems,
   getBreadcrumbMapping,
@@ -42,8 +35,7 @@ export const breadcrumbItemsSelector = createSelector(
 
     const breadcrumbItemsLength = breadcrumbItems.length;
     each(breadcrumbItems, (item, index) => {
-      const breadcrumbItemKey = breadcrumbItemKeyTransform(item);
-      const breadcrumbText = getBreadcrumbText(breadcrumbItemKey, mapping);
+      const breadcrumbText = getBreadcrumbText(item, mapping);
       if (breadcrumbText) {
         results.push({
           path: item,

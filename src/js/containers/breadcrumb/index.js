@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
-import Breadcrumbs from 'components/breadcrumb';
+import Breadcrumb from 'components/breadcrumb';
 import { breadcrumbItemsSelector } from 'selectors/breadcrumbs';
 
 
 function mapStateToProps(state, ownProps) {
   return {
-    breadcrumbs: breadcrumbItemsSelector(state, ownProps),
+    breadcrumbItems: breadcrumbItemsSelector(state, ownProps),
   };
 }
 
-export default connect(mapStateToProps)(Breadcrumbs);
+export default connect(mapStateToProps)(Breadcrumb);
