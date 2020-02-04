@@ -471,7 +471,7 @@ describe('PinboardPage component', function () {
       fullName: 'John Watts',
       complaintCount: 1,
       sustainedCount: 1,
-      age: 42,
+      age: '42-year-old',
       race: 'black',
       rank: 'Police Officer',
       gender: 'Male',

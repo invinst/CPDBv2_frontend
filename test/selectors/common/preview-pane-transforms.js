@@ -94,7 +94,8 @@ describe('previewPaneTransform', function () {
     const expectedData = {
       id: '29033',
       fullName: 'Jerome Turbyville',
-      age: 48,
+      age: '48-year-old',
+      currentAge: 48,
       appointedDate: 'OCT 21, 2010',
       resignationDate: 'SEP 20, 2018',
       badge: '5922',
@@ -154,7 +155,8 @@ describe('previewPaneTransform', function () {
         ...expectedData,
         race: '',
         gender: '',
-        age: null,
+        age: '',
+        currentAge: null,
       },
     });
   });
@@ -189,7 +191,8 @@ describe('previewPaneTransform', function () {
       data: {
         id: '29033',
         fullName: 'Jerome Turbyville',
-        age: 48,
+        age: '48-year-old',
+        currentAge: 48,
         appointedDate: 'DEC 13, 1999',
         badge: '5922',
         complaintCount: 10,
@@ -248,7 +251,8 @@ describe('previewPaneTransform', function () {
       data: {
         id: '29033',
         fullName: 'Jerome Turbyville',
-        age: 48,
+        age: '48-year-old',
+        currentAge: 48,
         appointedDate: 'DEC 13, 1999',
         badge: '5922',
         complaintCount: 10,

@@ -70,7 +70,8 @@ describe('search page results selector', function () {
           items: [{
             'appointedDate': 'DEC 13, 1999',
             'badge': '5922',
-            'age': 48,
+            'age': '48-year-old',
+            'currentAge': 48,
             'civilianComplimentCount': 4,
             'complaintCount': 10,
             'complaintPercentile': 93,
@@ -364,7 +365,8 @@ describe('search page results selector', function () {
           items: [{
             'appointedDate': 'DEC 13, 1999',
             'badge': '5922',
-            'age': 48,
+            'age': '48-year-old',
+            'currentAge': 48,
             'civilianComplimentCount': 4,
             'complaintCount': 23,
             'complaintPercentile': 93,

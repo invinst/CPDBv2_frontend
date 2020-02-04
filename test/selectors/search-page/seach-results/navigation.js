@@ -179,7 +179,8 @@ describe('search page navigation selector', function () {
         data: {
           id: '29033',
           fullName: 'Jerome Turbyville',
-          age: 48,
+          age: '48-year-old',
+          currentAge: 48,
           appointedDate: 'DEC 13, 1999',
           badge: '5922',
           complaintCount: 10,

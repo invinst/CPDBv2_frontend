@@ -37,3 +37,8 @@ export const getCareerDuration = (dateOfAppt, dateOfResignation) => {
 };
 
 export const getCurrentAge = (birthYear) => (birthYear ? getThisYear() - birthYear : null);
+
+export const getCurrentAgeString = birthYear => {
+  const age = getCurrentAge(birthYear);
+  return age ? `${age}-year-old` : '';
+};

@@ -22,7 +22,7 @@ describe('getOfficerSecondRowContent', function () {
   it('should return demographic, complaint and sustained', function () {
     const params = {
       suggestion: {
-        age: 30,
+        currentAge: 30,
         race: 'White',
         gender: 'Male',
         complaintCount: 2,
