@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 import ClipboardButton from 'react-clipboard.js';
 import config from 'config';
 
@@ -10,7 +10,7 @@ import ShareMenu from 'components/headers/shareable-header/share-menu';
 describe('ShareMenu component', function () {
   let wrapper;
   beforeEach(function () {
-    this.stubCloseShareMenu = stub();
+    this.stubCloseShareMenu = sinon.stub();
     wrapper = shallow(<ShareMenu closeShareMenu={ this.stubCloseShareMenu }/>);
     this.encodedLink = encodeURIComponent(window.location.href);
   });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 
 import LegalDisclaimerModalContent from 'components/generic-modal/legal-disclaimer-modal-content';
 import * as intercomUtils from 'utils/intercom';
@@ -8,7 +8,7 @@ import * as intercomUtils from 'utils/intercom';
 
 describe('LegalDisclaimerModalContent component', function () {
   it('should render "I understand" link which closes modal on click', function () {
-    const closeModal = spy();
+    const closeModal = sinon.spy();
     const wrapper = shallow(
       <LegalDisclaimerModalContent closeModal={ closeModal }/>
     );
@@ -34,11 +34,7 @@ describe('LegalDisclaimerModalContent component', function () {
 
   describe('Contact link', function () {
     beforeEach(function () {
-      spy(intercomUtils, 'showIntercomMessages');
-    });
-
-    afterEach(function () {
-      intercomUtils.showIntercomMessages.restore();
+      sinon.spy(intercomUtils, 'showIntercomMessages');
     });
 
     it('contact link should open Intercom chat dialog', function () {

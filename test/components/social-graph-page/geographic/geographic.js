@@ -1,8 +1,9 @@
 import { Promise } from 'es6-promise';
 import { shallow, mount } from 'enzyme';
 import React from 'react';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
+import { mountWithRouter } from 'utils/test';
 import GeographicMap from 'components/social-graph-page/geographic/index';
 import AllegationsMap from 'components/common/allegations-map/index';
 import PreviewPane from 'components/social-graph-page/geographic/preview-pane';
@@ -62,22 +63,22 @@ describe('GeographicMap component', function () {
   });
 
   it('should fetch geographic data pages with unit_id when componentDidMount', function (done) {
-    const requestFirstPageSocialGraphGeographicCrsStub = stub().usingPromise(Promise).resolves(
+    const requestFirstPageSocialGraphGeographicCrsStub = sinon.stub().usingPromise(Promise).resolves(
       { payload: { count: 100, limit: 50 }, request: { params: { 'unit_id': '123' } } }
     );
-    const requestFirstPageSocialGraphGeographicTrrsStub = stub().usingPromise(Promise).resolves(
+    const requestFirstPageSocialGraphGeographicTrrsStub = sinon.stub().usingPromise(Promise).resolves(
       { payload: { count: 200, limit: 100 }, request: { params: { 'unit_id': '123' } } }
     );
-    const requestFirstPageSocialGraphGeographicCrsPreviewPaneStub = stub().usingPromise(Promise).resolves(
+    const requestFirstPageSocialGraphGeographicCrsPreviewPaneStub = sinon.stub().usingPromise(Promise).resolves(
       { payload: { count: 200, limit: 150 }, request: { params: { 'unit_id': '123' } } }
     );
-    const requestFirstPageSocialGraphGeographicTrrsPreviewPaneStub = stub().usingPromise(Promise).resolves(
+    const requestFirstPageSocialGraphGeographicTrrsPreviewPaneStub = sinon.stub().usingPromise(Promise).resolves(
       { payload: { count: 250, limit: 200 }, request: { params: { 'unit_id': '123' } } }
     );
-    const requestOtherPagesSocialGraphGeographicCrsStub = stub();
-    const requestOtherPagesSocialGraphGeographicTrrsStub = stub();
-    const requestOtherPagesSocialGraphGeographicCrsPreviewPaneStub = stub();
-    const requestOtherPagesSocialGraphGeographicTrrsPreviewPaneStub = stub();
+    const requestOtherPagesSocialGraphGeographicCrsStub = sinon.stub();
+    const requestOtherPagesSocialGraphGeographicTrrsStub = sinon.stub();
+    const requestOtherPagesSocialGraphGeographicCrsPreviewPaneStub = sinon.stub();
+    const requestOtherPagesSocialGraphGeographicTrrsPreviewPaneStub = sinon.stub();
 
     mount(
       <GeographicMap
@@ -126,16 +127,16 @@ describe('GeographicMap component', function () {
   });
 
   it('should fetch geographic data pages with officer_ids when componentDidMount', function () {
-    const requestFirstPageSocialGraphGeographicCrsStub = stub().usingPromise(Promise).resolves(
+    const requestFirstPageSocialGraphGeographicCrsStub = sinon.stub().usingPromise(Promise).resolves(
       { payload: { count: 50, limit: 50 } }
     );
-    const requestFirstPageSocialGraphGeographicTrrsStub = stub().usingPromise(Promise).resolves(
+    const requestFirstPageSocialGraphGeographicTrrsStub = sinon.stub().usingPromise(Promise).resolves(
       { payload: { count: 100, limit: 100 } }
     );
-    const requestFirstPageSocialGraphGeographicCrsPreviewPaneStub = stub().usingPromise(Promise).resolves(
+    const requestFirstPageSocialGraphGeographicCrsPreviewPaneStub = sinon.stub().usingPromise(Promise).resolves(
       { payload: { count: 150, limit: 150 } }
     );
-    const requestFirstPageSocialGraphGeographicTrrsPreviewPaneStub = stub().usingPromise(Promise).resolves(
+    const requestFirstPageSocialGraphGeographicTrrsPreviewPaneStub = sinon.stub().usingPromise(Promise).resolves(
       { payload: { count: 200, limit: 200 } }
     );
 
@@ -159,16 +160,16 @@ describe('GeographicMap component', function () {
   });
 
   it('should fetch geographic data pages with pinboard_id when componentDidMount', function () {
-    const requestFirstPageSocialGraphGeographicCrsStub = stub().usingPromise(Promise).resolves(
+    const requestFirstPageSocialGraphGeographicCrsStub = sinon.stub().usingPromise(Promise).resolves(
       { payload: { count: 50, limit: 50 } }
     );
-    const requestFirstPageSocialGraphGeographicTrrsStub = stub().usingPromise(Promise).resolves(
+    const requestFirstPageSocialGraphGeographicTrrsStub = sinon.stub().usingPromise(Promise).resolves(
       { payload: { count: 100, limit: 100 } }
     );
-    const requestFirstPageSocialGraphGeographicCrsPreviewPaneStub = stub().usingPromise(Promise).resolves(
+    const requestFirstPageSocialGraphGeographicCrsPreviewPaneStub = sinon.stub().usingPromise(Promise).resolves(
       { payload: { count: 150, limit: 150 } }
     );
-    const requestFirstPageSocialGraphGeographicTrrsPreviewPaneStub = stub().usingPromise(Promise).resolves(
+    const requestFirstPageSocialGraphGeographicTrrsPreviewPaneStub = sinon.stub().usingPromise(Promise).resolves(
       { payload: { count: 200, limit: 200 } }
     );
 
@@ -192,23 +193,21 @@ describe('GeographicMap component', function () {
   });
 
   it('should add mousedown event when componentDidMounted', function () {
-    stub(window, 'addEventListener');
+    sinon.stub(window, 'addEventListener');
     const wrapper = mount(<GeographicMap/>);
     window.addEventListener.should.be.calledWith('mousedown', wrapper.instance().handleClickOutside);
-    window.addEventListener.restore();
   });
 
   it('should remove mousedown event when componentWillUnmount', function () {
-    stub(window, 'removeEventListener');
+    sinon.stub(window, 'removeEventListener');
     const wrapper = mount(<GeographicMap/>);
     const handleClickOutside = wrapper.instance().handleClickOutside;
     wrapper.unmount();
     window.removeEventListener.should.be.calledWith('mousedown', handleClickOutside);
-    window.removeEventListener.restore();
   });
 
   it('should not call updateGeographicCrid when clicking on preview-pane or markers', function () {
-    const updateGeographicCridStub = stub();
+    const updateGeographicCridStub = sinon.stub();
     const allegation = {
       category: 'Operation/Personnel Violations',
       subCategory: 'Inadequate / Failure To Provide Service',
@@ -218,19 +217,19 @@ describe('GeographicMap component', function () {
       coaccused: [2],
       to: '/complaint/123456/',
     };
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <GeographicMap
         updateGeographicCrid={ updateGeographicCridStub }
         allegation={ allegation }
       />
     );
     const previewPane = wrapper.find(PreviewPane);
-    wrapper.instance().handleClickOutside({ target: previewPane.getDOMNode() });
+    wrapper.find(GeographicMap).instance().handleClickOutside({ target: previewPane.getDOMNode() });
     updateGeographicCridStub.should.not.be.called();
   });
 
   it('should call updateGeographicCrid when clicking outside and allegation exists', function () {
-    const updateGeographicCridStub = stub();
+    const updateGeographicCridStub = sinon.stub();
     const allegation = {
       category: 'Operation/Personnel Violations',
       subCategory: 'Inadequate / Failure To Provide Service',
@@ -240,27 +239,27 @@ describe('GeographicMap component', function () {
       coaccused: [2],
       to: '/complaint/123456/',
     };
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <GeographicMap updateGeographicCrid={ updateGeographicCridStub } allegation={ allegation } />
     );
     const leftSection = wrapper.find('.left-section');
-    wrapper.instance().handleClickOutside({ target: leftSection.getDOMNode() });
+    wrapper.find(GeographicMap).instance().handleClickOutside({ target: leftSection.getDOMNode() });
     updateGeographicCridStub.should.be.calledWith(null);
   });
 
   it('should call updateGeographicTrrId when clicking outside and TRR exists', function () {
-    const updateGeographicTrrIdStub = stub();
+    const updateGeographicTrrIdStub = sinon.stub();
     const trr = {
       category: 'Firearm',
       incidentDate: '2006-10-24',
       address: '66XX S HALSTED ST, CHICAGO IL',
       to: '/trr/123456/',
     };
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <GeographicMap updateGeographicTrrId={ updateGeographicTrrIdStub } trr={ trr } />
     );
     const leftSection = wrapper.find('.left-section');
-    wrapper.instance().handleClickOutside({ target: leftSection.getDOMNode() });
+    wrapper.find(GeographicMap).instance().handleClickOutside({ target: leftSection.getDOMNode() });
     updateGeographicTrrIdStub.should.be.calledWith(null);
   });
 
@@ -274,12 +273,12 @@ describe('GeographicMap component', function () {
       coaccused: [2],
       to: '/complaint/123456/',
     };
-    const wrapper = mount(<GeographicMap allegation={ allegation }/>);
+    const wrapper = mountWithRouter(<GeographicMap allegation={ allegation }/>);
     wrapper.find(CRPane).exists().should.be.true();
   });
 
   it('should call updateGeographicCrid when clicking on a CR marker', function () {
-    const updateGeographicCridStub = stub();
+    const updateGeographicCridStub = sinon.stub();
     const wrapper = shallow(
       <GeographicMap
         updateGeographicCrid={ updateGeographicCridStub }
@@ -290,7 +289,7 @@ describe('GeographicMap component', function () {
   });
 
   it('should call updateGeographicTrrId when clicking on a TRR marker', function () {
-    const updateGeographicTrrIdStub = stub();
+    const updateGeographicTrrIdStub = sinon.stub();
     const wrapper = shallow(
       <GeographicMap
         updateGeographicTrrId={ updateGeographicTrrIdStub }

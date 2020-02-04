@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
+import browserHistory from 'utils/history';
 import { throttle, isEmpty, noop } from 'lodash';
 import { Promise } from 'es6-promise';
 import cx from 'classnames';
@@ -140,7 +140,7 @@ export default class SearchPage extends Component {
   };
 
   render() {
-    const aliasEditModeOn = this.props.location.pathname.startsWith(`/edit/${SEARCH_ALIAS_EDIT_PATH}`);
+    const aliasEditModeOn = this.props.location.pathname.startsWith(`/edit${SEARCH_ALIAS_EDIT_PATH}`);
     const {
       hide, query, queryPrefix, searchTermsHidden, contentType, tags,
       editModeOn, requestActivityGrid,

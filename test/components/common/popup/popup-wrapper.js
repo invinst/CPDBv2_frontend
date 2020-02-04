@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { spy, stub } from 'sinon';
+import sinon from 'sinon';
 import ReactTooltip from 'react-tooltip';
 import * as tracking from 'utils/tracking';
 
@@ -26,7 +26,7 @@ describe('PopupWrapper', function () {
 
   it('should stopPropagation when being clicked ', function () {
     const dummyEvent = {
-      stopPropagation: spy(),
+      stopPropagation: sinon.spy(),
     };
     const wrapper = mount(<PopupWrapper/>);
 
@@ -39,17 +39,15 @@ describe('PopupWrapper', function () {
   });
 
   it('should hide other popups after shown', function () {
-    const trackPopupButtonClick = stub(tracking, 'trackPopupButtonClick');
+    const trackPopupButtonClick = sinon.stub(tracking, 'trackPopupButtonClick');
     const wrapper = shallow(
       <PopupWrapper trackingUrl='tracking.url.co' trackingId='testingId'/>
     );
     const instance = wrapper.instance();
-    const hideOtherPopups = stub(instance, 'hideOtherPopups');
+    const hideOtherPopups = sinon.stub(instance, 'hideOtherPopups');
     const tooltip = wrapper.find(ReactTooltip);
     tooltip.prop('afterShow')();
     hideOtherPopups.called.should.be.true();
     trackPopupButtonClick.should.be.calledWith('tracking.url.co', 'testingId');
-    hideOtherPopups.restore();
-    trackPopupButtonClick.restore();
   });
 });

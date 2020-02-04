@@ -1,4 +1,4 @@
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
 import { getFocusedItem, getCancelPathname } from 'selectors/search-page';
 import * as searchResultsNavigation from 'selectors/search-page/search-results/navigation';
@@ -8,7 +8,7 @@ import * as searchTermsNavigation from 'selectors/search-page/search-terms/navig
 describe('SearchPage selector', function () {
   describe('getFocusedItem', function () {
     it('should return focusedResultItemSelector when search term is hidden', function () {
-      const stubFocusedResultItemSelector = stub(searchResultsNavigation, 'focusedResultItemSelector');
+      const stubFocusedResultItemSelector = sinon.stub(searchResultsNavigation, 'focusedResultItemSelector');
       const state = {
         searchPage: {
           query: 'Ke',
@@ -16,11 +16,10 @@ describe('SearchPage selector', function () {
       };
       getFocusedItem(state);
       stubFocusedResultItemSelector.calledWith(state).should.be.true();
-      stubFocusedResultItemSelector.restore();
     });
 
     it('should return focusedResultItemSelector when search term is not hidden', function () {
-      const stubFocusedSearchTermItemSelector = stub(searchTermsNavigation, 'focusedSearchTermItemSelector');
+      const stubFocusedSearchTermItemSelector = sinon.stub(searchTermsNavigation, 'focusedSearchTermItemSelector');
       const state = {
         searchPage: {
           query: '',
@@ -28,7 +27,6 @@ describe('SearchPage selector', function () {
       };
       getFocusedItem(state);
       stubFocusedSearchTermItemSelector.calledWith(state).should.be.true();
-      stubFocusedSearchTermItemSelector.restore();
     });
   });
 

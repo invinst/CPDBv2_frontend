@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { spy, stub } from 'sinon';
+import sinon from 'sinon';
 
 import Timeline, { TimelineWithSpinner } from 'components/social-graph-page/network/right-pane-section/timeline';
 import Item from 'components/social-graph-page/network/right-pane-section/timeline/item';
@@ -59,7 +59,7 @@ describe('Timeline component', function () {
         pathname='/social-graph/'
       />
     );
-    const addScrollEventsSpy = stub(wrapper.instance(), 'addScrollEvents');
+    const addScrollEventsSpy = sinon.stub(wrapper.instance(), 'addScrollEvents');
     wrapper.setProps({
       items: newItem,
       pathname: '/social-graph/',
@@ -77,7 +77,7 @@ describe('Timeline component', function () {
         timelineIdxTriggerChange={ 0 }
       />
     );
-    const scrollControllerScrollToStub = stub(wrapper.instance().scrollController, 'scrollTo');
+    const scrollControllerScrollToStub = sinon.stub(wrapper.instance().scrollController, 'scrollTo');
     wrapper.setProps({
       items: items,
       pathname: '/social-graph/',
@@ -94,13 +94,13 @@ describe('Timeline component', function () {
         pathname='/social-graph/'
       />
     );
-    const scrollControllerDestroySpy = spy(wrapper.instance().scrollController, 'destroy');
+    const scrollControllerDestroySpy = sinon.spy(wrapper.instance().scrollController, 'destroy');
     wrapper.unmount();
     scrollControllerDestroySpy.should.be.calledWith(true);
   });
 
   it('should call updateTimelineIdx with timelineIdx of the item we scroll to', function () {
-    const updateTimelineIdxStub = stub();
+    const updateTimelineIdxStub = sinon.stub();
     const item = {
       kind: 'CR',
       timelineIdx: 3,
@@ -144,7 +144,7 @@ describe('Timeline component', function () {
   });
 
   it('should call handleScroll when timeline reach ScrollMagic.Scene', function (done) {
-    const componentDidMountStub = stub(Timeline.prototype, 'componentDidMount');
+    const componentDidMountStub = sinon.stub(Timeline.prototype, 'componentDidMount');
     const wrapper = mount(
       <Timeline
         items={ items }
@@ -153,13 +153,12 @@ describe('Timeline component', function () {
       />
     );
     const instance = wrapper.instance();
-    const handleScrollStub = stub(instance, 'handleScroll');
+    const handleScrollStub = sinon.stub(instance, 'handleScroll');
     componentDidMountStub.restore();
     instance.componentDidMount();
 
     setTimeout(() => {
       handleScrollStub.should.be.calledWith(items[1]);
-      handleScrollStub.restore();
       done();
     }, 150);
   });

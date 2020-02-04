@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
 import HoverableButton from 'components/common/hoverable-button-without-inline-style';
 
@@ -17,7 +17,7 @@ describe('HoverableButtonWithoutInlineStyle component', function () {
   });
 
   it('should handle onClick', function () {
-    const onClickStub = stub();
+    const onClickStub = sinon.stub();
     const wrapper = mount(
       <HoverableButton onClick={ onClickStub }>
         <span className='test--class-name' />
@@ -31,7 +31,7 @@ describe('HoverableButtonWithoutInlineStyle component', function () {
   });
 
   it('should disable onClick if disabled', function () {
-    const onClickStub = stub();
+    const onClickStub = sinon.stub();
     const wrapper = mount(
       <HoverableButton onClick={ onClickStub } disabled={ true }>
         <span className='test--class-name' />

@@ -2,8 +2,9 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 import { HelmetProvider } from 'react-helmet-async';
+import { MemoryRouter } from 'react-router';
 
 import OfficerPage from 'components/officer-page';
 import SummarySection from 'components/officer-page/summary-section';
@@ -31,17 +32,13 @@ describe('OfficerPage component', function () {
       },
     },
     breadcrumb: {
-      breadcrumbs: [],
+      breadcrumbItems: [],
     },
     popups: [],
   });
 
   beforeEach(function () {
-    this.stubTrackOfficerDownloadMenu = stub(tracking, 'trackOfficerDownloadMenu');
-  });
-
-  afterEach(function () {
-    this.stubTrackOfficerDownloadMenu.restore();
+    this.stubTrackOfficerDownloadMenu = sinon.stub(tracking, 'trackOfficerDownloadMenu');
   });
 
   it('should render enough sections', function () {
@@ -58,8 +55,7 @@ describe('OfficerPage component', function () {
           noDataRadarChartEditWrapperStateProps={ noDataRadarChartEditWrapperStateProps }
         />
       </Provider>
-    ).dive().find('OfficerPage').dive();
-
+    ).find('Printable').dive().find('OfficerPage').dive();
     wrapper.find(SummarySection).exists().should.be.true();
     wrapper.find(MetricsSection).exists().should.be.true();
     wrapper.find(TabbedPaneSection).exists().should.be.true();
@@ -187,13 +183,15 @@ describe('OfficerPage component', function () {
   it('should render PrintNotes component when printMode is true', function () {
     const wrapper = mount(
       <Provider store={ store }>
-        <HelmetProvider>
-          <OfficerPage
-            officerId={ 1234 }
-            officerName='Shaun Frank'
-            officerSummary={ { rank: 'Officer' } }
-          />
-        </HelmetProvider>
+        <MemoryRouter>
+          <HelmetProvider>
+            <OfficerPage
+              officerId={ 1234 }
+              officerName='Shaun Frank'
+              officerSummary={ { rank: 'Officer' } }
+            />
+          </HelmetProvider>
+        </MemoryRouter>
       </Provider>
     );
     wrapper.find(OfficerPage).setState({ printMode: true });
@@ -203,13 +201,15 @@ describe('OfficerPage component', function () {
   it('should call trackOfficerDownloadMenu when clicking on HeaderButton', function () {
     const wrapper = mount(
       <Provider store={ store }>
-        <HelmetProvider>
-          <OfficerPage
-            officerId={ 1234 }
-            officerName='Shaun Frank'
-            officerSummary={ { rank: 'Officer' } }
-          />
-        </HelmetProvider>
+        <MemoryRouter>
+          <HelmetProvider>
+            <OfficerPage
+              officerId={ 1234 }
+              officerName='Shaun Frank'
+              officerSummary={ { rank: 'Officer' } }
+            />
+          </HelmetProvider>
+        </MemoryRouter>
       </Provider>
     );
     const headerButton = wrapper.find('.button');

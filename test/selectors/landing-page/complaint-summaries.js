@@ -1,5 +1,5 @@
 import lodash from 'lodash';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 
 import { cardsSelector, hasCards } from 'selectors/landing-page/complaint-summaries';
 import { RawComplaintSummaryFactory } from 'utils/test/factories/complaint';
@@ -43,15 +43,13 @@ describe('complaint-summaries selectors', function () {
     });
 
     it('should shuffle cards', function () {
-      const stubShuffle = spy(lodash, 'shuffle');
+      const stubShuffle = sinon.spy(lodash, 'shuffle');
       state.landingPage.complaintSummaries.cards = lodash.range(40);
 
       cardsSelector(state);
 
       stubShuffle.calledWith(lodash.range(0, 12)).should.be.true();
       stubShuffle.calledWith(lodash.range(12, 40)).should.be.true();
-
-      stubShuffle.restore();
     });
 
   });

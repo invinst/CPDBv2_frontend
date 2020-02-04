@@ -1,10 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { browserHistory, Router, Route, createMemoryHistory } from 'react-router';
+import { MemoryRouter } from 'react-router';
+import browserHistory from 'utils/history';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { Promise } from 'es6-promise';
-import { spy, stub } from 'sinon';
+import sinon from 'sinon';
 
 import Pinboards from 'components/pinboard-page/pinboards';
 
@@ -32,14 +33,6 @@ describe('Pinboards component', function () {
       url: '/pinboard/2/untitled-pinboard/',
     },
   ];
-
-  beforeEach(function () {
-    this.browserHistoryPush = stub(browserHistory, 'push');
-  });
-
-  afterEach(function () {
-    this.browserHistoryPush.restore();
-  });
 
   it('should render pinboard items', function () {
     const wrapper = mount(
@@ -74,7 +67,7 @@ describe('Pinboards component', function () {
 
   describe('componentDidUpdate', function () {
     it('should fetchPinboards if isShow change from false to true', function () {
-      const fetchPinboardsSpy = spy();
+      const fetchPinboardsSpy = sinon.spy();
 
       const wrapper = mount(
         <Provider store={ store }>
@@ -93,29 +86,25 @@ describe('Pinboards component', function () {
   });
 
   it('should render new-pinboard-btn', function (done) {
-    const createNewEmptyPinboardStub = stub().usingPromise(Promise).resolves({
+    const createNewEmptyPinboardStub = sinon.stub().usingPromise(Promise).resolves({
       payload: {
         id: '5cd06f2b',
         title: 'Pinboard title',
       },
     });
-    const handleCloseSpy = spy();
-
-    const pinboardsList = () => (
-      <Provider store={ store }>
-        <Pinboards
-          isShown={ true }
-          pinboards={ pinboards }
-          createNewEmptyPinboard={ createNewEmptyPinboardStub }
-          handleClose={ handleCloseSpy }
-        />
-      </Provider>
-    );
+    const handleCloseSpy = sinon.spy();
 
     const wrapper = mount(
-      <Router history={ createMemoryHistory() }>
-        <Route path='/' component={ pinboardsList } />
-      </Router>
+      <Provider store={ store }>
+        <MemoryRouter>
+          <Pinboards
+            isShown={ true }
+            pinboards={ pinboards }
+            createNewEmptyPinboard={ createNewEmptyPinboardStub }
+            handleClose={ handleCloseSpy }
+          />
+        </MemoryRouter>
+      </Provider>
     );
 
     const newPinboardLink = wrapper.find('.new-pinboard-btn').first();
@@ -124,7 +113,7 @@ describe('Pinboards component', function () {
 
     setTimeout(() => {
       handleCloseSpy.should.be.called();
-      this.browserHistoryPush.should.be.calledWith('/pinboard/5cd06f2b/pinboard-title/');
+      browserHistory.location.pathname.should.equal('/pinboard/5cd06f2b/pinboard-title/');
       done();
     }, 50);
   });

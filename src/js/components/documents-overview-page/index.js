@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import * as _ from 'lodash';
-import { browserHistory } from 'react-router';
+import browserHistory from 'utils/history';
 
 import * as constants from 'utils/constants';
 import DocumentsTable from './documents-table';

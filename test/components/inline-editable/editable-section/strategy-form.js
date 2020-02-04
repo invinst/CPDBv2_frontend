@@ -1,7 +1,7 @@
 import React from 'react';
 import should from 'should';
 import { shallow } from 'enzyme';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 
 import StrategyForm from 'components/inline-editable/editable-section/strategy-form';
 
@@ -45,7 +45,7 @@ describe('StrategyForm component', function () {
   });
 
   it('should trigger onChange with new poolSize', function () {
-    const onChange = spy();
+    const onChange = sinon.spy();
     const wrapper = shallow(
       <StrategyForm
         onChange={ onChange }
@@ -59,7 +59,7 @@ describe('StrategyForm component', function () {
   });
 
   it('should trigger onChange with new selected strategy', function () {
-    const onChange = spy();
+    const onChange = sinon.spy();
     const wrapper = shallow(
       <StrategyForm
         onChange={ onChange }

@@ -1,8 +1,9 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import { Link } from 'react-router';
+import { shallow } from 'enzyme';
+import { Link } from 'react-router-dom';
 import should from 'should';
 
+import { mountWithRouter } from 'utils/test';
 import OfficerSection from 'components/trr-page/officer-section';
 import StaticRadarChart from 'components/common/radar-chart';
 import NavigationButton from 'components/trr-page/officer-section/navigation-button';
@@ -39,7 +40,7 @@ describe('OfficerSection component', function () {
   };
 
   it('should render officer title correctly', function () {
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <OfficerSection officer={ officer }/>
     );
     const radarChart = wrapper.find(StaticRadarChart);
@@ -63,7 +64,7 @@ describe('OfficerSection component', function () {
   });
 
   it('should render officer info correctly', function () {
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <OfficerSection officer={ officer }/>
     );
 

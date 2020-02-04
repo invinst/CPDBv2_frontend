@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
 import SearchBox from 'components/headers/slim-header/slim-header-content/search-box';
 import * as editPath from 'utils/edit-path' ;
@@ -9,11 +9,7 @@ import MagnifyingGlass from 'components/common/icons/magnifying-glass';
 
 describe('SearchBox component', function () {
   beforeEach(function () {
-    this.stubPushPathPreserveEditMode = stub(editPath, 'pushPathPreserveEditMode');
-  });
-
-  afterEach(function () {
-    this.stubPushPathPreserveEditMode.restore();
+    this.stubPushPathPreserveEditMode = sinon.stub(editPath, 'pushPathPreserveEditMode');
   });
 
   it('should call pushPathPreserveEditMode with search path when user click on the search box', function () {

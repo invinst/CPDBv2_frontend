@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
 import MinimalScrollBars from 'components/common/minimal-scroll-bars';
 import { Scrollbars } from 'react-custom-scrollbars';
@@ -22,7 +22,7 @@ describe('MinimalScrollBars component', function () {
   it('should set scrollTop when receive new value', function () {
     const wrapper = mount(<MinimalScrollBars scrollTop={ 10 } />);
     const instance = wrapper.instance();
-    stub(instance.scrollerRef, 'scrollTop');
+    sinon.stub(instance.scrollerRef, 'scrollTop');
 
     wrapper.setProps({ scrollTop: 20 });
 
@@ -32,7 +32,7 @@ describe('MinimalScrollBars component', function () {
   it('should set scrollLeft when receive new value', function () {
     const wrapper = mount(<MinimalScrollBars scrollLeft={ 10 } />);
     const instance = wrapper.instance();
-    stub(instance.scrollerRef, 'scrollLeft');
+    sinon.stub(instance.scrollerRef, 'scrollLeft');
 
     wrapper.setProps({ scrollLeft: 20 });
 

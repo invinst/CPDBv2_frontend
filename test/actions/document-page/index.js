@@ -1,4 +1,4 @@
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
 import {
   fetchDocument,
@@ -75,7 +75,7 @@ describe('DocumentPage actions', function () {
     });
 
     it('should call trackDocumentEdit', function () {
-      const trackDocumentEditStub = stub(tracking, 'trackDocumentEdit');
+      const trackDocumentEditStub = sinon.stub(tracking, 'trackDocumentEdit');
 
       updateDocument('title')({
         fields: [
@@ -84,8 +84,7 @@ describe('DocumentPage actions', function () {
         ],
       });
 
-      trackDocumentEditStub.calledOnceWith(123, 'title'.should.be.true);
-      trackDocumentEditStub.restore();
+      trackDocumentEditStub.calledOnceWith(123, 'title').should.be.true;
     });
   });
 

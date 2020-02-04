@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
 import {
   get, post, patch, put, authenticatedGet, withoutCredentialsGet,
@@ -32,7 +32,7 @@ describe('async-action', function () {
       const url = '/url';
       const types = ['a', 'b', 'c'];
       const params = { limit: '100' };
-      stub(Cookies, 'get').returns('authenticated_token');
+      sinon.stub(Cookies, 'get').returns('authenticated_token');
 
       authenticatedGet(url, types)(params).should.eql({
         types,
@@ -48,14 +48,13 @@ describe('async-action', function () {
           },
         },
       });
-      Cookies.get.restore();
     });
 
     it('should not include Authorization header when apiAccessToken cookie is not set', function () {
       const url = '/url';
       const types = ['a', 'b', 'c'];
       const params = { limit: '100' };
-      stub(Cookies, 'get').returns(null);
+      sinon.stub(Cookies, 'get').returns(null);
 
       authenticatedGet(url, types)(params).should.eql({
         types,
@@ -69,7 +68,6 @@ describe('async-action', function () {
           },
         },
       });
-      Cookies.get.restore();
     });
   });
 
@@ -119,7 +117,7 @@ describe('async-action', function () {
       const url = '/url';
       const types = ['a', 'b', 'c'];
       const data = { data: 'data' };
-      stub(Cookies, 'get').returns('authenticated_token');
+      sinon.stub(Cookies, 'get').returns('authenticated_token');
 
       authenticatedPost(url, types)(data).should.eql({
         types,
@@ -136,8 +134,6 @@ describe('async-action', function () {
           },
         },
       });
-
-      Cookies.get.restore();
     });
   });
 
@@ -166,7 +162,7 @@ describe('async-action', function () {
       const url = '/url';
       const types = ['a', 'b', 'c'];
       const data = { data: 'data' };
-      stub(Cookies, 'get').returns('authenticated_token');
+      sinon.stub(Cookies, 'get').returns('authenticated_token');
 
       authenticatedPatch(url, types)(data).should.eql({
         types,
@@ -182,8 +178,6 @@ describe('async-action', function () {
           },
         },
       });
-
-      Cookies.get.restore();
     });
   });
 
@@ -213,7 +207,7 @@ describe('async-action', function () {
       const url = '/url';
       const types = ['a', 'b', 'c'];
       const data = { data: 'data' };
-      stub(Cookies, 'get').returns('authenticated_token');
+      sinon.stub(Cookies, 'get').returns('authenticated_token');
 
       authenticatedPut(url, types)(data).should.eql({
         types,
@@ -230,8 +224,6 @@ describe('async-action', function () {
           },
         },
       });
-
-      Cookies.get.restore();
     });
   });
 });

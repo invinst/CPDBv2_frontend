@@ -1,7 +1,7 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
+import { mountWithRouter } from 'utils/test';
 import ComplaintSummaryCard from 'components/landing-page/complaint-summaries/complaint-summary-card';
 import ComplaintSummaries from 'components/landing-page/complaint-summaries';
 import { PINNED_ITEM_TYPES } from 'utils/constants';
@@ -10,7 +10,7 @@ import pinButtonStyles from 'components/common/item-pin-button.sass';
 
 
 describe('Complaint Summaries components', function () {
-  const addOrRemoveItemInPinboard = stub();
+  const addOrRemoveItemInPinboard = sinon.stub();
 
   const data = [{
     'crid': '111',
@@ -27,12 +27,11 @@ describe('Complaint Summaries components', function () {
   }];
 
   it('should render appropriately', function () {
-
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <ComplaintSummaries
         cards={ data }
         addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
-      />,
+      />
     );
 
     const complaintSummaryCards = wrapper.find(ComplaintSummaryCard);

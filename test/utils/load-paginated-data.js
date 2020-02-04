@@ -1,5 +1,5 @@
 import { Promise } from 'es6-promise';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 import { merge } from 'lodash';
 
 import { loadPaginatedData } from 'utils/load-paginated-data';
@@ -8,10 +8,10 @@ import { loadPaginatedData } from 'utils/load-paginated-data';
 describe('loadPaginatedData utils', function () {
   it('should fetch multiple pages', function (done) {
     const params = { 'id': 1 };
-    const firstRequestFuncStub = stub().usingPromise(Promise).resolves(
+    const firstRequestFuncStub = sinon.stub().usingPromise(Promise).resolves(
       { payload: { count: 160, limit: 50 }, request: { params: params } }
     );
-    const otherRequestFuncStub = stub();
+    const otherRequestFuncStub = sinon.stub();
 
     loadPaginatedData(params, firstRequestFuncStub, otherRequestFuncStub);
 
@@ -27,10 +27,10 @@ describe('loadPaginatedData utils', function () {
   it('should fetch multiple pages with store', function (done) {
     const params = { 'id': 1 };
     const firstCallPromise = Promise.resolve({ payload: { count: 160, limit: 50 }, request: { params: params } });
-    const store = { dispatch: stub().onFirstCall().returns(firstCallPromise) };
+    const store = { dispatch: sinon.stub().onFirstCall().returns(firstCallPromise) };
 
-    const firstRequestFuncStub = stub();
-    const otherRequestFuncStub = stub();
+    const firstRequestFuncStub = sinon.stub();
+    const otherRequestFuncStub = sinon.stub();
     loadPaginatedData(params, firstRequestFuncStub, otherRequestFuncStub, store);
 
     firstRequestFuncStub.should.be.calledWith(params);

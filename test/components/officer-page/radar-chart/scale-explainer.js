@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
 import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
@@ -41,9 +41,9 @@ describe('ScaleExplainer components', function () {
         'scale_sub_description': ['scale sub description'],
       }),
       sectionEditModeOn: true,
-      onSaveForm: spy(),
-      turnOnSectionEditMode: spy(),
-      turnOffSectionEditMode: spy(),
+      onSaveForm: sinon.spy(),
+      turnOnSectionEditMode: sinon.spy(),
+      turnOffSectionEditMode: sinon.spy(),
     };
 
     const wrapper = mount(

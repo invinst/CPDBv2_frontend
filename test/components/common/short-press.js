@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { spy, useFakeTimers } from 'sinon';
+import sinon from 'sinon';
 
 import ShortPress from 'components/common/short-press';
 
@@ -17,7 +17,7 @@ describe('ShortPress component', function () {
   });
 
   it('should call action when click on', function () {
-    const action = spy();
+    const action = sinon.spy();
     const wrapper = shallow(
       <ShortPress action={ action }>
         <div />
@@ -31,7 +31,7 @@ describe('ShortPress component', function () {
   });
 
   it('should call action when touch on', function () {
-    const action = spy();
+    const action = sinon.spy();
     const wrapper = shallow(
       <ShortPress action={ action }>
         <div />
@@ -45,7 +45,7 @@ describe('ShortPress component', function () {
   });
 
   it('should not call action when dragging', function () {
-    const action = spy();
+    const action = sinon.spy();
     const wrapper = shallow(
       <ShortPress action={ action }>
         <div />
@@ -59,7 +59,7 @@ describe('ShortPress component', function () {
   });
 
   it('should not call action when dragging by touching', function () {
-    const action = spy();
+    const action = sinon.spy();
     const wrapper = shallow(
       <ShortPress action={ action }>
         <div />
@@ -73,35 +73,33 @@ describe('ShortPress component', function () {
   });
 
   it('should call action with short click', function () {
-    const action = spy();
+    const action = sinon.spy();
     const wrapper = shallow(
       <ShortPress action={ action }>
         <div />
       </ShortPress>
     );
 
-    const clock = useFakeTimers();
+    const clock = sinon.useFakeTimers();
     wrapper.simulate('mouseDown', { screenX: 100, screenY: 200 });
     clock.tick(10);
     wrapper.simulate('mouseUp', { screenX: 100, screenY: 200 });
-    clock.restore();
 
     action.should.be.called();
   });
 
   it('should not call action with long click', function () {
-    const action = spy();
+    const action = sinon.spy();
     const wrapper = shallow(
       <ShortPress action={ action }>
         <div />
       </ShortPress>
     );
 
-    const clock = useFakeTimers();
+    const clock = sinon.useFakeTimers();
     wrapper.simulate('mouseDown', { screenX: 100, screenY: 200 });
     clock.tick(500);
     wrapper.simulate('mouseUp', { screenX: 200, screenY: 300 });
-    clock.restore();
 
     action.called.should.be.false();
   });

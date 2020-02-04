@@ -2,8 +2,8 @@ import React from 'react';
 import { mount } from 'enzyme';
 import isMobile from 'ismobilejs';
 import { times, cloneDeep } from 'lodash';
-import { stub, spy } from 'sinon';
-import { browserHistory } from 'react-router';
+import sinon from 'sinon';
+import browserHistory from 'utils/history';
 import { mapboxgl } from 'utils/vendors';
 import ReactDOMServer from 'react-dom/server';
 import should from 'should';
@@ -122,8 +122,8 @@ describe('Map component', function () {
 
   describe('componentDidUpdate', function () {
     it('should call resetMap and addMapLayersOnStyleLoaded if next props clearAllMarkers is true', function () {
-      const resetMapSpy = spy(AllegationsMap.prototype, 'resetMap');
-      const addMapLayersOnStyleLoadedSpy = spy(AllegationsMap.prototype, 'addMapLayersOnStyleLoaded');
+      const resetMapSpy = sinon.spy(AllegationsMap.prototype, 'resetMap');
+      const addMapLayersOnStyleLoadedSpy = sinon.spy(AllegationsMap.prototype, 'addMapLayersOnStyleLoaded');
 
       const newMarkers = {
         crs: [],
@@ -155,12 +155,10 @@ describe('Map component', function () {
 
       resetMapSpy.should.be.called();
       addMapLayersOnStyleLoadedSpy.should.be.calledWith(markerGroups);
-      resetMapSpy.restore();
-      addMapLayersOnStyleLoadedSpy.restore();
     });
 
     it('should only call addMapLayersOnStyleLoaded if next props clearAllMarkers is false', function () {
-      const addMapLayersOnStyleLoadedSpy = spy(AllegationsMap.prototype, 'addMapLayersOnStyleLoaded');
+      const addMapLayersOnStyleLoadedSpy = sinon.spy(AllegationsMap.prototype, 'addMapLayersOnStyleLoaded');
       const newMarkers = {
         crs: [],
         trrs: [
@@ -190,7 +188,6 @@ describe('Map component', function () {
       });
 
       addMapLayersOnStyleLoadedSpy.should.be.calledWith(newMarkers);
-      addMapLayersOnStyleLoadedSpy.restore();
     });
   });
 
@@ -226,7 +223,7 @@ describe('Map component', function () {
   });
 
   it('should call addMapLayersOnStyleLoaded when componentDidMount', function () {
-    const addMapLayersOnStyleLoadedSpy = spy(AllegationsMap.prototype, 'addMapLayersOnStyleLoaded');
+    const addMapLayersOnStyleLoadedSpy = sinon.spy(AllegationsMap.prototype, 'addMapLayersOnStyleLoaded');
     const createMarker = (index) => ({
       point: {
         lat: 42.012567,
@@ -241,7 +238,6 @@ describe('Map component', function () {
     };
     mount(<AllegationsMap legend={ legend } markerGroups={ markerGroups } />);
     addMapLayersOnStyleLoadedSpy.should.be.calledWith(markerGroups);
-    addMapLayersOnStyleLoadedSpy.restore();
   });
 
   it('should show data loading spinner if showLegends is false and geographicDataLoading is true', function () {
@@ -270,7 +266,7 @@ describe('Map component', function () {
   });
 
   it('should open CR page when clicking on CR marker', function () {
-    const stubPush = stub(browserHistory, 'push');
+    const stubPush = sinon.stub(browserHistory, 'push');
     const event = {
       features: [
         {
@@ -292,11 +288,10 @@ describe('Map component', function () {
     );
     wrapper.instance().handleMarkerClick(event);
     stubPush.should.be.calledWith('/complaint/C123456/');
-    stubPush.restore();
   });
 
   it('should open TRR page when clicking on TRR marker', function () {
-    const stubPush = stub(browserHistory, 'push');
+    const stubPush = sinon.stub(browserHistory, 'push');
     const event = {
       features: [
         {
@@ -318,12 +313,11 @@ describe('Map component', function () {
     );
     wrapper.instance().handleMarkerClick(event);
     stubPush.should.be.calledWith('/trr/123456/');
-    stubPush.restore();
   });
 
   it('should call handClickCRMarker if kind is CR', function () {
-    const handleClickCRMarkerStub = stub();
-    const handleClickTRRMarkerStub = stub();
+    const handleClickCRMarkerStub = sinon.stub();
+    const handleClickTRRMarkerStub = sinon.stub();
     const event = {
       features: [
         {
@@ -351,8 +345,8 @@ describe('Map component', function () {
   });
 
   it('should call handClickTRRMarker if kind is FORCE', function () {
-    const handleClickCRMarkerStub = stub();
-    const handleClickTRRMarkerStub = stub();
+    const handleClickCRMarkerStub = sinon.stub();
+    const handleClickTRRMarkerStub = sinon.stub();
     const event = {
       features: [
         {
@@ -380,8 +374,8 @@ describe('Map component', function () {
   });
 
   it('should open tooltip if device is tablet when clicking', function () {
-    const tabletStub = stub(isMobile, 'tablet').value(true);
-    stub(AllegationsMap.prototype, 'addMapLayersOnStyleLoaded');
+    sinon.stub(isMobile, 'tablet').value(true);
+    sinon.stub(AllegationsMap.prototype, 'addMapLayersOnStyleLoaded');
 
     const crMarkers = [
       {
@@ -419,22 +413,19 @@ describe('Map component', function () {
     );
     const instance = wrapper.instance();
 
-    const mapOnStub = stub(instance.map, 'on');
+    const mapOnStub = sinon.stub(instance.map, 'on');
     instance.addMapLayer('crs', crMarkers);
     mapOnStub.should.be.called();
     mapOnStub.getCall(0).args[0].should.equal('click');
     mapOnStub.getCall(0).args[1].should.equal('layer-0');
     mapOnStub.getCall(0).args[2].should.eql(instance.openTooltip);
-    tabletStub.restore();
-    mapOnStub.restore();
-    AllegationsMap.prototype.addMapLayersOnStyleLoaded.restore();
   });
 
   describe('addMapLayer', function () {
     it('should bind mouse enter, mouse leave and click events when calling addMapLayer', function () {
-      const addMarkerHoverStateStub = stub(AllegationsMap.prototype, 'addMarkerHoverState');
-      const removeMarkerHoverStateStub = stub(AllegationsMap.prototype, 'removeMarkerHoverState');
-      stub(AllegationsMap.prototype, 'addMapLayersOnStyleLoaded');
+      const addMarkerHoverStateStub = sinon.stub(AllegationsMap.prototype, 'addMarkerHoverState');
+      const removeMarkerHoverStateStub = sinon.stub(AllegationsMap.prototype, 'removeMarkerHoverState');
+      sinon.stub(AllegationsMap.prototype, 'addMapLayersOnStyleLoaded');
       const crMarkers = [
         {
           point: {
@@ -486,8 +477,8 @@ describe('Map component', function () {
       );
       const instance = wrapper.instance();
 
-      const mapOnStub = stub(instance.map, 'on');
-      const openTooltipStub = stub(instance, 'openTooltip');
+      const mapOnStub = sinon.stub(instance.map, 'on');
+      const openTooltipStub = sinon.stub(instance, 'openTooltip');
 
       instance.addMapLayer('crs', crMarkers);
 
@@ -560,16 +551,10 @@ describe('Map component', function () {
       mouseClickArgs[0].should.equal('click');
       mouseClickArgs[1].should.equal('layer-0');
       mouseClickArgs[2].should.eql(instance.handleMarkerClick);
-
-      mapOnStub.restore();
-      openTooltipStub.restore();
-      AllegationsMap.prototype.addMarkerHoverState.restore();
-      AllegationsMap.prototype.removeMarkerHoverState.restore();
-      AllegationsMap.prototype.addMapLayersOnStyleLoaded.restore();
     });
 
     it('should not add new layer if marker data is empty', function () {
-      stub(AllegationsMap.prototype, 'addMapLayersOnStyleLoaded');
+      sinon.stub(AllegationsMap.prototype, 'addMapLayersOnStyleLoaded');
 
       const wrapper = mount(
         <AllegationsMap
@@ -583,12 +568,10 @@ describe('Map component', function () {
 
       instance.map.addSource.should.not.be.called();
       instance.map.addLayer.should.not.be.called();
-
-      AllegationsMap.prototype.addMapLayersOnStyleLoaded.restore();
     });
 
     it('should addLayer with correct aboveLayerName', function () {
-      stub(AllegationsMap.prototype, 'addMapLayersOnStyleLoaded');
+      sinon.stub(AllegationsMap.prototype, 'addMapLayersOnStyleLoaded');
       const crMarkers1 = [
         {
           point: {
@@ -664,8 +647,6 @@ describe('Map component', function () {
       instance.map.addLayer.resetHistory();
       instance.addMapLayer('crs', crMarkers3);
       instance.map.addLayer.getCall(0).args[1].should.equal('layer-2');
-
-      AllegationsMap.prototype.addMapLayersOnStyleLoaded.restore();
     });
   });
 
@@ -767,7 +748,7 @@ describe('Map component', function () {
   });
 
   it('should reset the map when calling resetMap', function () {
-    const initMapDataSpy = spy(AllegationsMap.prototype, 'initMapData');
+    const initMapDataSpy = sinon.spy(AllegationsMap.prototype, 'initMapData');
 
     const wrapper = mount(<AllegationsMap/>);
     const instance = wrapper.instance();
@@ -782,8 +763,6 @@ describe('Map component', function () {
     initMapDataSpy.should.be.calledOnce();
     instance.map.removeLayer.should.be.calledWith('layer-0');
     instance.map.removeSource.should.be.calledWith('layer-0');
-
-    initMapDataSpy.restore();
   });
 
   it('should return correct data when calling mapMarkersData', function () {
@@ -852,7 +831,7 @@ describe('Map component', function () {
   });
 
   it('should call addMapLayer when calling addMapLayers', function () {
-    const addMapLayerSpy = spy(AllegationsMap.prototype, 'addMapLayer');
+    const addMapLayerSpy = sinon.spy(AllegationsMap.prototype, 'addMapLayer');
     const wrapper = mount(
       <AllegationsMap
         legend={ legend }
@@ -866,11 +845,10 @@ describe('Map component', function () {
 
     instance.addMapLayers(markerGroups);
     addMapLayerSpy.should.be.calledTwice();
-    AllegationsMap.prototype.addMapLayer.restore();
   });
 
   it('should add hover state for marker when calling addMarkerHoverState', function () {
-    const removeMarkerHoverStateStub = stub(AllegationsMap.prototype, 'removeMarkerHoverState');
+    const removeMarkerHoverStateStub = sinon.stub(AllegationsMap.prototype, 'removeMarkerHoverState');
     const wrapper = mount(
       <AllegationsMap
         legend={ legend }
@@ -896,8 +874,6 @@ describe('Map component', function () {
         hover: true,
       }
     );
-
-    AllegationsMap.prototype.removeMarkerHoverState.restore();
   });
 
   it('should remove hover state for marker when calling removeMarkerHoverState', function () {
@@ -930,7 +906,7 @@ describe('Map component', function () {
   });
 
   it('should add map layer when calling addMapLayersOnStyleLoaded', function () {
-    const addMapLayersStub = stub(AllegationsMap.prototype, 'addMapLayers');
+    const addMapLayersStub = sinon.stub(AllegationsMap.prototype, 'addMapLayers');
     const wrapper = mount(
       <AllegationsMap
         legend={ legend }
@@ -945,7 +921,6 @@ describe('Map component', function () {
     instance.map.isStyleLoaded.returns(true);
     instance.addMapLayersOnStyleLoaded(markerGroups);
     addMapLayersStub.should.be.calledOnce();
-    addMapLayersStub.restore();
   });
 
   it('should call addControl when component render', function () {

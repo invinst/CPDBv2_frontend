@@ -1,7 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 
+import { mountWithRouter } from 'utils/test';
 import { communityFactory } from 'utils/test/factories/heat-map';
 import CommunityDetail from 'components/embeddable-heat-map/summary-panel/community-dropdown/community-detail';
 import Dropdown from 'components/embeddable-heat-map/summary-panel/community-dropdown/dropdown';
@@ -10,9 +11,9 @@ import CommunityDropdown from 'components/embeddable-heat-map/summary-panel/comm
 
 describe('CommunityDropdown component', function () {
   it('should render CommunityDetail if communityId is not 0', function () {
-    const selectCommunity = spy();
+    const selectCommunity = sinon.spy();
     const community = communityFactory.build({ id: 1 });
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <CommunityDropdown
         communityId={ 1 }
         communities={ [community] }

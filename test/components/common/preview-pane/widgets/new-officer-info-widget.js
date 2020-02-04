@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { stub } from 'sinon';
-import { browserHistory } from 'react-router';
+import sinon from 'sinon';
+import browserHistory from 'utils/history';
 
 import { NewOfficerInfoWidget as OfficerInfoWidget } from 'components/common/preview-pane/widgets';
 
@@ -82,7 +82,7 @@ describe('OfficerInfoWidget component', function () {
   });
 
   it('should redirect when click on unit item', function () {
-    const browserHistoryPush = stub(browserHistory, 'push');
+    const browserHistoryPush = sinon.stub(browserHistory, 'push');
 
     const wrapper = shallow(
       <OfficerInfoWidget
@@ -97,7 +97,5 @@ describe('OfficerInfoWidget component', function () {
     const unitItem = wrapper.find('.has-link');
     unitItem.simulate('click');
     browserHistoryPush.should.be.calledWith('/unit/018/');
-
-    browserHistoryPush.restore();
   });
 });

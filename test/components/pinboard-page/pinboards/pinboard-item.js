@@ -1,10 +1,11 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { browserHistory, Router, Route, createMemoryHistory } from 'react-router';
+import { MemoryRouter } from 'react-router';
+import browserHistory from 'utils/history';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { Promise } from 'es6-promise';
-import { spy, stub } from 'sinon';
+import sinon from 'sinon';
 
 import PinboardItem from 'components/pinboard-page/pinboards/pinboard-item';
 
@@ -17,14 +18,6 @@ describe('PinboardItem component', function () {
     url: '/pinboard/1/pinboard-title/',
   };
 
-  beforeEach(function () {
-    this.browserHistoryPush = stub(browserHistory, 'push');
-  });
-
-  afterEach(function () {
-    this.browserHistoryPush.restore();
-  });
-
   it('should render correctly', function () {
     const wrapper = shallow(
       <PinboardItem pinboard={ pinboard } />
@@ -35,13 +28,13 @@ describe('PinboardItem component', function () {
   });
 
   it('should render duplicate-pinboard-btn', function (done) {
-    const duplicatePinboardStub = stub().usingPromise(Promise).resolves({
+    const duplicatePinboardStub = sinon.stub().usingPromise(Promise).resolves({
       payload: {
         id: '5cd06f2b',
         title: 'Pinboard title',
       },
     });
-    const handleCloseSpy = spy();
+    const handleCloseSpy = sinon.spy();
     const store = MockStore()({
       pinboardPage: {
         pinboard: {
@@ -49,21 +42,18 @@ describe('PinboardItem component', function () {
         },
       },
     });
-    const pinboardItem = () => (
-      <Provider store={ store }>
-        <PinboardItem
-          isShown={ true }
-          pinboard={ pinboard }
-          duplicatePinboard={ duplicatePinboardStub }
-          handleClose={ handleCloseSpy }
-        />
-      </Provider>
-    );
 
     const wrapper = mount(
-      <Router history={ createMemoryHistory() }>
-        <Route path='/' component={ pinboardItem } />
-      </Router>
+      <Provider store={ store }>
+        <MemoryRouter>
+          <PinboardItem
+            isShown={ true }
+            pinboard={ pinboard }
+            duplicatePinboard={ duplicatePinboardStub }
+            handleClose={ handleCloseSpy }
+          />
+        </MemoryRouter>
+      </Provider>
     );
 
     const duplicatePinboardBtn = wrapper.find('.duplicate-pinboard-btn').first();
@@ -72,13 +62,13 @@ describe('PinboardItem component', function () {
 
     setTimeout(() => {
       handleCloseSpy.should.be.called();
-      this.browserHistoryPush.should.be.calledWith('/pinboard/5cd06f2b/pinboard-title/');
+      browserHistory.location.pathname.should.equal('/pinboard/5cd06f2b/pinboard-title/');
       done();
     }, 50);
   });
 
   it('should show pinboard detail page when clicking on pinboard item', function () {
-    const handleCloseSpy = spy();
+    const handleCloseSpy = sinon.spy();
     const wrapper = shallow(
       <PinboardItem
         pinboard={ pinboard }
@@ -89,6 +79,6 @@ describe('PinboardItem component', function () {
     wrapper.simulate('click');
     handleCloseSpy.should.be.called();
 
-    this.browserHistoryPush.should.be.calledWith('/pinboard/1/pinboard-title/');
+    browserHistory.location.pathname.should.equal('/pinboard/1/pinboard-title/');
   });
 });

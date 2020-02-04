@@ -2,8 +2,9 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { noop } from 'lodash';
 import Mousestrap from 'mousetrap';
-import { spy, stub } from 'sinon';
+import sinon from 'sinon';
 
+import { mountWithRouter } from 'utils/test';
 import JumpyMotion from 'components/animation/jumpy-motion';
 import withPinnableItem
   from 'components/search-page/search-results/suggestion-group/suggestion-item/with-pinnable-item';
@@ -52,7 +53,7 @@ describe('withPinnableItem component', function () {
     });
 
     it('should render first row', function () {
-      const wrapper = mount(<ComponentType { ...props } />);
+      const wrapper = mountWithRouter(<ComponentType { ...props } />);
 
       wrapper.find('.test--first-row').exists().should.be.true();
       wrapper.find(TextWithInlineSearchAlias).exists().should.be.true();
@@ -81,7 +82,7 @@ describe('withPinnableItem component', function () {
         uniqueKey: '123',
         type: 'type',
       };
-      const selectItemSpy = spy();
+      const selectItemSpy = sinon.spy();
       const wrapper = mount(
         <ComponentType
           suggestion={ suggestion }
@@ -98,7 +99,7 @@ describe('withPinnableItem component', function () {
         uniqueKey: '123',
         type: 'type',
       };
-      const triggerStub = stub(Mousestrap, 'trigger');
+      const triggerStub = sinon.stub(Mousestrap, 'trigger');
       const wrapper = mount(
         <ComponentType
           suggestion={ suggestion }
@@ -109,12 +110,10 @@ describe('withPinnableItem component', function () {
       const element = wrapper.find('.suggestion-item-123').first();
       element.simulate('click');
       triggerStub.withArgs('enter').should.be.called();
-
-      triggerStub.restore();
     });
 
     it('should trigger clickItem there is clickItem', function () {
-      const clickItemSpy = spy();
+      const clickItemSpy = sinon.spy();
       const suggestion = {
         id: 1,
         type: 'OFFICER',

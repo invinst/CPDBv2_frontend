@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { stub } from 'sinon';
-import { browserHistory } from 'react-router';
+import sinon from 'sinon';
+import browserHistory from 'utils/history';
 
 import { OfficerPane as OfficerPane } from 'components/common/preview-pane/panes';
 import {
@@ -196,7 +196,7 @@ describe('OfficerPane component', () => {
   });
 
   it('should add or remove item to/from pinboard when click on pin button', function () {
-    const addOrRemoveItemInPinboardStub = stub();
+    const addOrRemoveItemInPinboardStub = sinon.stub();
 
     const wrapper = mount(
       <OfficerPane
@@ -241,7 +241,7 @@ describe('OfficerPane component', () => {
   });
 
   it('should redirect to officer page when click on View officer profile button', function () {
-    const browserHistoryPush = stub(browserHistory, 'push');
+    const browserHistoryPush = sinon.stub(browserHistory, 'push');
 
     const wrapper = shallow(
       <OfficerPane
@@ -258,7 +258,5 @@ describe('OfficerPane component', () => {
     viewProfileButton.simulate('click');
 
     browserHistoryPush.should.be.calledWith('some_url');
-
-    browserHistoryPush.restore();
   });
 });

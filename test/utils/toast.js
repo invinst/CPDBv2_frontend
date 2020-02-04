@@ -1,5 +1,5 @@
-import { browserHistory } from 'react-router';
-import { stub } from 'sinon';
+import browserHistory from 'utils/history';
+import sinon from 'sinon';
 
 import { Toastify } from 'utils/vendors';
 import toastStyles from 'utils/toast.sass';
@@ -40,7 +40,7 @@ describe('Toast utils', function () {
 
   describe('showAddOrRemoveItemToast', function () {
     it('should show added toast if isPinned is false', function () {
-      const browserHistoryPush = stub(browserHistory, 'push');
+      const browserHistoryPush = sinon.stub(browserHistory, 'push');
 
       const pinboard = { id: '123abc' };
       showAddOrRemoveItemToast(pinboard, false, 'CR');
@@ -51,8 +51,6 @@ describe('Toast utils', function () {
       Toastify.toast.getCall(0).args[1]['transition'].should.eql(cssTransition);
       Toastify.toast.getCall(0).args[1]['onClick']();
       browserHistoryPush.should.be.calledWith('/pinboard/123abc/untitled-pinboard/');
-
-      browserHistoryPush.restore();
     });
 
     it('should show added toast if isPinned is true', function () {
@@ -133,7 +131,7 @@ describe('Toast utils', function () {
 
   describe('showAlertToast', function () {
     it('should show toast with autoClose is false', function () {
-      const onClick = stub();
+      const onClick = sinon.stub();
       showAlertToast('toast message', onClick);
 
       Toastify.toast.should.be.calledOnce();

@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import should from 'should';
-import { stub, useFakeTimers } from 'sinon';
+import sinon from 'sinon';
 
 import RelevantComplaintCard, { RelevantComplaintCardWithUndo }
   from 'components/pinboard-page/relevant/relevant-complaints/relevant-complaint-card';
@@ -11,7 +11,7 @@ import { UNDO_CARD_VISIBLE_TIME } from 'utils/constants';
 
 
 describe('RelevantComplaintCard component', function () {
-  const addItemInPinboardPageStub = stub();
+  const addItemInPinboardPageStub = sinon.stub();
   const officers = [{
     fullName: 'Scott Mc Kenna',
     id: 32172,
@@ -85,7 +85,7 @@ describe('RelevantComplaintCard component', function () {
   });
 
   it('should render when no point', function () {
-    const addItemInPinboardPageStub = stub();
+    const addItemInPinboardPageStub = sinon.stub();
 
     const wrapper = mount(
       <RelevantComplaintCard
@@ -112,11 +112,7 @@ describe('RelevantComplaintCard component', function () {
     let clock;
 
     beforeEach(function () {
-      clock = useFakeTimers();
-    });
-
-    afterEach(function () {
-      clock.restore();
+      clock = sinon.useFakeTimers();
     });
 
     it('should render remove text correctly', function () {

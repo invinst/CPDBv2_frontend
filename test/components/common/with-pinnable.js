@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 import { lorem, random } from 'faker';
 
 import withPinnable from 'components/common/with-pinnable';
@@ -29,7 +29,7 @@ describe('ItemPinButton component', function () {
   });
 
   it('should handle on pin button click', function () {
-    const addOrRemoveItemInPinboardStub = stub();
+    const addOrRemoveItemInPinboardStub = sinon.stub();
 
     const wrapper = mount(
       <TestComponentWithPinnable
@@ -49,7 +49,7 @@ describe('ItemPinButton component', function () {
   });
 
   it('should handle on pin button with all items are pinned', function () {
-    const addOrRemoveItemInPinboardStub = stub();
+    const addOrRemoveItemInPinboardStub = sinon.stub();
 
     const wrapper = mount(
       <TestComponentWithPinnable
@@ -78,7 +78,7 @@ describe('ItemPinButton component', function () {
   });
 
   it('should handle on pin button with all items are not pinned', function () {
-    const addOrRemoveItemInPinboardStub = stub();
+    const addOrRemoveItemInPinboardStub = sinon.stub();
 
     const wrapper = mount(
       <TestComponentWithPinnable
@@ -107,7 +107,7 @@ describe('ItemPinButton component', function () {
   });
 
   it('should handle on pin button with not all items are pinned', function () {
-    const addOrRemoveItemInPinboardStub = stub();
+    const addOrRemoveItemInPinboardStub = sinon.stub();
 
     const wrapper = mount(
       <TestComponentWithPinnable

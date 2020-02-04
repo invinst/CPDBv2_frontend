@@ -3,6 +3,7 @@ import { shallow, mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { HelmetProvider } from 'react-helmet-async';
+import { MemoryRouter } from 'react-router';
 
 import { TRRPage } from 'components/trr-page';
 import OfficerSection from 'components/trr-page/officer-section';
@@ -33,7 +34,7 @@ describe('TRRPage component', function () {
   const store = MockStore()({
     popups,
     breadcrumb: {
-      breadcrumbs: [],
+      breadcrumbItems: [],
     },
     trrPage: {
       editModeOn: false,
@@ -70,11 +71,13 @@ describe('TRRPage component', function () {
 
   it('should render trr title, OfficerSection and TRRInfoSection', function () {
     const wrapper = mount(
-      <HelmetProvider>
-        <Provider store={ store }>
-          <TRRPageContainer/>
-        </Provider>
-      </HelmetProvider>
+      <Provider store={ store }>
+        <MemoryRouter>
+          <HelmetProvider>
+            <TRRPageContainer/>
+          </HelmetProvider>
+        </MemoryRouter>
+      </Provider>
     );
     wrapper.find('.trr-title').text().should.equal('TRR 123');
     wrapper.find(OfficerSection).prop('officer').should.eql({
@@ -110,17 +113,19 @@ describe('TRRPage component', function () {
   it('should render category header, incident date and notes header when printing', function () {
     const wrapper = mount(
       <PrintModeContext.Provider value={ { printMode: true } }>
-        <HelmetProvider>
-          <Provider store={ store }>
-            <TRRPage
-              trrId='123'
-              officer={ { officerId: 456 } }
-              trrDetail={ { category: 'Firearm' } }
-              trrLocation={ { incidentDate: 'Sep 23, 2003' } }
-              notes={ popups }
-            />
-          </Provider>
-        </HelmetProvider>
+        <Provider store={ store }>
+          <MemoryRouter>
+            <HelmetProvider>
+              <TRRPage
+                trrId='123'
+                officer={ { officerId: 456 } }
+                trrDetail={ { category: 'Firearm' } }
+                trrLocation={ { incidentDate: 'Sep 23, 2003' } }
+                notes={ popups }
+              />
+            </HelmetProvider>
+          </MemoryRouter>
+        </Provider>
       </PrintModeContext.Provider>
     );
 

@@ -22,7 +22,7 @@ const config = Object.assign({}, baseConfig, {
     port: 9966,
   },
   cache: true,
-  devtool: 'eval-source-map',
+  devtool: 'cheap-module-source-map',
   plugins: [
     ...baseConfig.plugins,
     new CopyWebpackPlugin([

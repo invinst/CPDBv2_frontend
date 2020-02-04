@@ -1,0 +1,24 @@
+@import 'variables'
+
+\:local(.breadcrumb)
+  .breadcrumb-item
+    display: inline-block
+    font-weight: 500
+    line-height: 40px
+    padding-right: 8px
+    color: $boulder-color
+    text-decoration: none
+
+  a.breadcrumb-item
+    &:hover
+      color: $accent-color
+
+  .shareable-header-breadcrumb-separator
+    padding: 2px 8px 0 0
+    height: 12px
+    width: 7.4px
+    background: url('/img/disclosure-indicator.svg') no-repeat scroll
+    vertical-align: middle
+    display: inline-block
+    font-weight: 500
+    line-height: 40px

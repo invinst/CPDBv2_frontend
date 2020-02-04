@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import should from 'should';
 import draftJs from 'draft-js';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 
 import { ENTITY_LINK } from 'utils/constants';
 import { convertContentStateToEditorState, createLinkEntity, removeLinkEntity } from 'utils/draft';
@@ -61,7 +61,7 @@ describe('Toolbar component', function () {
     let editorState = convertContentStateToEditorState(
       RawContentStateFactory.build()
     );
-    const onChange = spy();
+    const onChange = sinon.spy();
     const wrapper = shallow(
       <Toolbar show={ true } editorState={ editorState } onChange={ onChange }/>
     );
@@ -89,7 +89,7 @@ describe('Toolbar component', function () {
     let editorState = convertContentStateToEditorState(
       RawContentStateFactory.build()
     );
-    const onChange = spy();
+    const onChange = sinon.spy();
 
     const wrapper = shallow(
       <Toolbar show={ true } editorState={ editorState } onChange={ onChange }/>
@@ -127,7 +127,7 @@ describe('Toolbar component', function () {
       editorState, editorState.getSelection(), contentState.getLastCreatedEntityKey()
     );
 
-    const onChange = spy();
+    const onChange = sinon.spy();
     const wrapper = shallow(
       <Toolbar show={ true } editorState={ editorState } onChange={ onChange }/>
     );
@@ -151,7 +151,7 @@ describe('Toolbar component', function () {
     let editorState = draftJs.EditorState.createWithContent(contentState);
     editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
 
-    const onChange = spy();
+    const onChange = sinon.spy();
     const wrapper = shallow(
       <Toolbar show={ true } editorState={ editorState } onChange={ onChange }/>
     );
@@ -231,7 +231,7 @@ describe('Toolbar component', function () {
   });
 
   it('should create link entity if url input not empty', function () {
-    const onChange = spy();
+    const onChange = sinon.spy();
     // create editorState with selection
     const contentState = draftJs.ContentState.createFromText('abc');
     let selectionState = draftJs.SelectionState.createEmpty(contentState.getFirstBlock().getKey());
@@ -258,7 +258,7 @@ describe('Toolbar component', function () {
   });
 
   it ('should remove link entity if url input empty', function () {
-    const onChange = spy();
+    const onChange = sinon.spy();
     // create editorState with selection
     const contentState = draftJs.ContentState.createFromText('abc');
     let selectionState = draftJs.SelectionState.createEmpty(contentState.getFirstBlock().getKey());
@@ -282,7 +282,7 @@ describe('Toolbar component', function () {
   });
 
   it('should handle focus on mouse over', function () {
-    const onFocus = spy();
+    const onFocus = sinon.spy();
     // create editorState with selection
     const contentState = draftJs.ContentState.createFromText('abc');
     const editorState = draftJs.EditorState.createWithContent(contentState);
@@ -301,7 +301,7 @@ describe('Toolbar component', function () {
   });
 
   it('should handle blur on mouse out', function () {
-    const onBlur = spy();
+    const onBlur = sinon.spy();
     // create editorState with selection
     const contentState = draftJs.ContentState.createFromText('abc');
     const editorState = draftJs.EditorState.createWithContent(contentState);
@@ -320,7 +320,7 @@ describe('Toolbar component', function () {
   });
 
   it('should handle focus if url input is focus', function () {
-    const onFocus = spy();
+    const onFocus = sinon.spy();
     // create editorState with selection
     const contentState = draftJs.ContentState.createFromText('abc');
     let selectionState = draftJs.SelectionState.createEmpty(contentState.getFirstBlock().getKey());
@@ -341,7 +341,7 @@ describe('Toolbar component', function () {
   });
 
   it('should handle blur if url input is blur', function () {
-    const onBlur = spy();
+    const onBlur = sinon.spy();
     // create editorState with selection
     const contentState = draftJs.ContentState.createFromText('abc');
     let selectionState = draftJs.SelectionState.createEmpty(contentState.getFirstBlock().getKey());

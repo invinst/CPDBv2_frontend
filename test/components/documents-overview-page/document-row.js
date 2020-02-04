@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import should from 'should';
-import { browserHistory } from 'react-router';
-import { stub } from 'sinon';
+import browserHistory from 'utils/history';
+import sinon from 'sinon';
 
 import DocumentRow from 'components/documents-overview-page/document-row';
 import Counter from 'components/documents-overview-page/document-row/counter';
@@ -12,13 +12,8 @@ import * as tracking from 'utils/tracking';
 
 describe('DocumentsOverviewPage DocumentRow component', function () {
   beforeEach(function () {
-    this.browserHistoryPush = stub(browserHistory, 'push');
-    this.trackOutboundLink = stub(tracking, 'trackOutboundLink');
-  });
-
-  afterEach(function () {
-    this.browserHistoryPush.restore();
-    this.trackOutboundLink.restore();
+    this.browserHistoryPush = sinon.stub(browserHistory, 'push');
+    this.trackOutboundLink = sinon.stub(tracking, 'trackOutboundLink');
   });
 
   it('should display thumbnail if there is one', function () {

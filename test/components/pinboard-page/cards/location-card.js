@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 
 import LocationCard from 'components/pinboard-page/cards/location-card';
 import ItemUnpinButton from 'components/pinboard-page/cards/item-unpin-button';
@@ -37,7 +37,7 @@ describe('LocationCard component', function () {
   });
 
   it('should removeItemInPinboardPage when clicking on ItemUnpinButton', function () {
-    const removeItemInPinboardPage = spy();
+    const removeItemInPinboardPage = sinon.spy();
 
     const item = {
       type: 'CR',
@@ -86,7 +86,7 @@ describe('LocationCard component', function () {
 
   it('should trigger focusItem when card focused', function () {
     const item = { type: 'CR', id: '123456' };
-    const focusItem = spy();
+    const focusItem = sinon.spy();
     const wrapper = mount(
       <LocationCard item={ item } focusable={ true } focusItem={ focusItem }/>
     );

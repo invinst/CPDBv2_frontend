@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { browserHistory } from 'react-router';
+import browserHistory from 'utils/history';
 import should from 'should';
-import { spy, stub } from 'sinon';
+import sinon from 'sinon';
 
 import PinboardButton from 'components/search-page/pinboard/pinboard-button';
 
@@ -46,7 +46,7 @@ describe('PinboardButton component', function () {
   });
 
   it('should call onEmptyPinboardButtonClick if we click on the button when pinboard id is null', function () {
-    const onEmptyPinboardButtonClick = spy();
+    const onEmptyPinboardButtonClick = sinon.spy();
     const wrapper = mount(
       <PinboardButton
         onEmptyPinboardButtonClick={ onEmptyPinboardButtonClick }
@@ -58,7 +58,7 @@ describe('PinboardButton component', function () {
   });
 
   it('should redirect if we click on the button when pinboard exists', function () {
-    const browserHistoryPush = stub(browserHistory, 'push');
+    const browserHistoryPush = sinon.stub(browserHistory, 'push');
 
     const wrapper = mount(
       <PinboardButton pinboard={ {
@@ -71,11 +71,10 @@ describe('PinboardButton component', function () {
 
     wrapper.simulate('click');
     browserHistoryPush.should.be.calledWith('/pinboard/1/title/');
-    browserHistoryPush.restore();
   });
 
   it('should redirect to /pinboard/ if pinboard_id is null and hasPendingChanges when clicking on button', function () {
-    const browserHistoryPush = stub(browserHistory, 'push');
+    const browserHistoryPush = sinon.stub(browserHistory, 'push');
 
     const wrapper = mount(
       <PinboardButton pinboard={ {
@@ -89,6 +88,5 @@ describe('PinboardButton component', function () {
 
     wrapper.simulate('click');
     browserHistoryPush.should.be.calledWith('/pinboard/');
-    browserHistoryPush.restore();
   });
 });

@@ -10,7 +10,7 @@ describe('cancelPathname reducer', function () {
     const action = {
       type: '@@router/LOCATION_CHANGE',
       payload: {
-        pathname: '/pinboard/123abc/pinboard-title/',
+        location: { pathname: '/pinboard/123abc/pinboard-title/' },
       },
     };
 
@@ -21,7 +21,7 @@ describe('cancelPathname reducer', function () {
     const action = {
       type: '@@router/LOCATION_CHANGE',
       payload: {
-        pathname: '/search/?terms=Edward%20May',
+        location: { pathname: '/search/?terms=Edward%20May' },
       },
     };
 
@@ -32,7 +32,7 @@ describe('cancelPathname reducer', function () {
     const action = {
       type: '@@router/LOCATION_CHANGE',
       payload: {
-        pathname: '/officer/123/',
+        location: { pathname: '/officer/123/' },
       },
     };
 

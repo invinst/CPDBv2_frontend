@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { isNil, noop, isEmpty } from 'lodash';
 import MediaQuery from 'react-responsive';
 import cx from 'classnames';
-import { browserHistory } from 'react-router';
+import browserHistory from 'utils/history';
 
 import {
   NewVisualTokenWidget as VisualTokenWidget,

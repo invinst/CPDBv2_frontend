@@ -1,8 +1,9 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import { Link } from 'react-router';
+import { shallow } from 'enzyme';
+import { Link } from 'react-router-dom';
 import { Context as ResponsiveContext } from 'react-responsive';
 
+import { mountWithRouter } from 'utils/test';
 import Logo from 'components/headers/slim-header/slim-header-content/logo';
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
 import LinkTextEditable from 'components/inline-editable/editable-section/link-text-editable';
@@ -21,7 +22,7 @@ describe('Logo component', function () {
   });
 
   it('should render LinkTextEditable when screen width greater than 830', function () {
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <ResponsiveContext.Provider value={ { width: 831 } }>
         <Logo position='top'/>
       </ResponsiveContext.Provider>
@@ -35,7 +36,7 @@ describe('Logo component', function () {
   });
 
   it('should render Link when screen width smaller than 830', function () {
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <ResponsiveContext.Provider value={ { width: 829 } }>
         <Logo position='top'/>
       </ResponsiveContext.Provider>
@@ -48,7 +49,7 @@ describe('Logo component', function () {
   });
 
   it('should render navbar subtitle when screen width greater than 950', function () {
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <ResponsiveContext.Provider value={ { width: 951 } }>
         <Logo position='top'/>
       </ResponsiveContext.Provider>
@@ -61,7 +62,7 @@ describe('Logo component', function () {
   });
 
   it('should not render navbar subtitle when screen width smaller than 950', function () {
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <ResponsiveContext.Provider value={ { width: 949 } }>
         <Logo position='top'/>
       </ResponsiveContext.Provider>

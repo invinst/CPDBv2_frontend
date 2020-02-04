@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import InfiniteScroll from 'react-infinite-scroller';
-import { spy, stub } from 'sinon';
+import sinon from 'sinon';
 
 import DocumentsTable from 'components/documents-overview-page/documents-table';
 import DocumentRow from 'components/documents-overview-page/document-row';
@@ -32,7 +32,7 @@ describe('DocumentsOverviewPage DocumentsTable component', function () {
         kind: constants.DOCUMENTS_SEARCH_ITEMS.DOCUMENT,
       },
     ];
-    const onCRLinkClick = spy();
+    const onCRLinkClick = sinon.spy();
     const wrapper = mount(
       <EditModeContext.Provider value={ { editModeOn: true } }>
         <DocumentsTable rows={ rows } onCRLinkClick={ onCRLinkClick }/>
@@ -84,7 +84,7 @@ describe('DocumentsOverviewPage DocumentsTable component', function () {
       limit: 1,
       offset: 1,
     };
-    const fetchDocuments = stub().returns({ catch: stub() });
+    const fetchDocuments = sinon.stub().returns({ catch: sinon.stub() });
 
     const wrapper = shallow(
       <DocumentsTable
@@ -113,7 +113,7 @@ describe('DocumentsOverviewPage DocumentsTable component', function () {
       limit: 1,
       offset: 1,
     };
-    const fetchDocumentsAuthenticated = stub().returns({ catch: stub() });
+    const fetchDocumentsAuthenticated = sinon.stub().returns({ catch: sinon.stub() });
 
     const wrapper = mount(
       <EditModeContext.Provider value={ { editModeOn: true } }>

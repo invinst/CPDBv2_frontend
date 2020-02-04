@@ -1,4 +1,4 @@
-import { browserHistory } from 'react-router';
+import browserHistory from 'utils/history';
 
 import { trackOutboundLink } from 'utils/tracking';
 

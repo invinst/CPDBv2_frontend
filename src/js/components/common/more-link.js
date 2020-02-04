@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import Hoverable from 'components/common/higher-order/hoverable';
 import ConfiguredRadium from 'utils/configured-radium';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { spy, stub } from 'sinon';
+import sinon from 'sinon';
 
 import DocumentsTable from 'components/document-deduplicator-page/documents-table';
 import DocumentRow from 'components/document-deduplicator-page/document-row';
@@ -46,7 +46,7 @@ describe('DocumentDeduplicatorPage DocumentsTable component', function () {
       limit: 1,
       offset: 1,
     };
-    const fetchDocumentsByCRID = stub().returns({ catch: stub() });
+    const fetchDocumentsByCRID = sinon.stub().returns({ catch: sinon.stub() });
 
     const wrapper = shallow(
       <DocumentsTable
@@ -73,7 +73,7 @@ describe('DocumentDeduplicatorPage DocumentsTable component', function () {
         show: true,
       },
     ];
-    const setDocumentShow = spy();
+    const setDocumentShow = sinon.spy();
 
     const wrapper = shallow(
       <DocumentsTable rows={ rows } setDocumentShow={ setDocumentShow }/>,

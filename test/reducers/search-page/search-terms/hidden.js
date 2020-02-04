@@ -10,14 +10,14 @@ describe('hidden reducer', function () {
     hidden(false, {
       type: '@@router/LOCATION_CHANGE',
       payload: {
-        pathname: '/search/',
+        location: { pathname: '/search/' },
       },
     }).should.eql(true);
 
     hidden(true, {
       type: '@@router/LOCATION_CHANGE',
       payload: {
-        pathname: '/search/terms/',
+        location: { pathname: '/search/terms/' },
       },
     }).should.eql(false);
   });

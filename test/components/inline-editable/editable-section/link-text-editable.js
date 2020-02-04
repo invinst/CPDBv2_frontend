@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import should from 'should';
-import { spy, stub } from 'sinon';
+import sinon from 'sinon';
 
 import Editable from 'components/inline-editable/editable';
 import LinkTextEditable from 'components/inline-editable/editable-section/link-text-editable';
@@ -14,14 +14,10 @@ describe('LinkTextEditable component', function () {
   let editorState;
 
   beforeEach(function () {
-    stub(draftUtils, 'editorStateToText').returns('link text');
+    sinon.stub(draftUtils, 'editorStateToText').returns('link text');
     editorState = convertContentStateToEditorState(
       RawContentStateFactory.build({}, { blockTexts: ['abc'] })
     );
-  });
-
-  afterEach(function () {
-    draftUtils.editorStateToText.restore();
   });
 
   it('should render empty link if value is not passed', function () {
@@ -48,7 +44,7 @@ describe('LinkTextEditable component', function () {
   });
 
   it('should get editor props when they are available in props', function () {
-    const onChangeSpy = spy();
+    const onChangeSpy = sinon.spy();
     const wrapper = shallow(
       <LinkTextEditable
         value={ editorState }
@@ -66,7 +62,7 @@ describe('LinkTextEditable component', function () {
   });
 
   it('should get editor props from context when they are not available in props', function () {
-    const onChangeSpy = spy();
+    const onChangeSpy = sinon.spy();
     const context = {
       fieldContexts: {
         'navbar_title': {

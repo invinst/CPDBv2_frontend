@@ -28,37 +28,21 @@ class LandingPage extends Component {
 
   componentDidMount() {
     this.initial = false;
-    this.updateBreadCrumbs();
     this.previousSearchPageShowing = this.getSearchPageShowing();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (get(prevState, 'location.pathname') !== get(this.props, 'location.pathname')) {
+    const searchPageShowing = this.getSearchPageShowing();
+    if (this.previousSearchPageShowing !== searchPageShowing) {
       scrollToTop();
-      this.updateBreadCrumbs();
-    }
-    this.previousSearchPageShowing = this.getSearchPageShowing();
-  }
-
-  updateBreadCrumbs() {
-    const { resetBreadcrumbs, pushBreadcrumbs, params, routes, location } = this.props;
-
-    if (location.pathname.match(/search/)) {
-      const searchRoutes = [
-        routes[0], {
-          breadcrumb: 'Search',
-          breadcrumbKey: 'search/',
-        }];
-      pushBreadcrumbs({ location, params, routes: searchRoutes });
-    } else if (location.pathname === '/') {
-      resetBreadcrumbs({ breadcrumbs: [] });
+      this.previousSearchPageShowing = searchPageShowing;
     }
   }
 
   getSearchPageShowing() {
-    const { pathname } = this.props.location;
+    const pathname = get(this.props, 'history.location.pathname');
 
-    if (pathname === `/${SEARCH_PATH}` || pathname === `/edit/${SEARCH_PATH}`)
+    if (pathname === `${SEARCH_PATH}` || pathname === `/edit${SEARCH_PATH}`)
       return true;
     if (pathname === '/' || pathname === '/edit/')
       return false;
@@ -67,7 +51,7 @@ class LandingPage extends Component {
   }
 
   render() {
-    const pathname = get(this.props, 'location.pathname', '');
+    const pathname = get(this.props, 'history.location.pathname', '');
     const position = calculateSlimHeaderPosition();
     const searchPageShowing = this.getSearchPageShowing();
 
@@ -104,17 +88,12 @@ class LandingPage extends Component {
 }
 
 LandingPage.propTypes = {
-  resetBreadcrumbs: PropTypes.func,
-  location: PropTypes.shape({
-    pathname: PropTypes.string,
+  history: PropTypes.shape({
+    location: PropTypes.shape({
+      pathname: PropTypes.string,
+    }),
   }),
   params: PropTypes.object,
-  routes: PropTypes.array,
-  pushBreadcrumbs: PropTypes.func,
-};
-
-LandingPage.defaultProps = {
-  pushBreadcrumbs: (...args) => {},
 };
 
 export default ConfiguredRadium(LandingPage);

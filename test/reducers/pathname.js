@@ -13,7 +13,7 @@ describe('pathname reducer', function () {
     const action = {
       type: '@@router/LOCATION_CHANGE',
       payload: {
-        pathname: '/some/path/',
+        location: { pathname: '/some/path/' },
       },
     };
 

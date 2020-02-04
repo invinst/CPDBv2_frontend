@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 import InfiniteScroll from 'react-infinite-scroller';
 
 import CrawlerTable from 'components/crawlers-page/crawlers-table';
@@ -9,7 +9,7 @@ import CrawlerRow from 'components/crawlers-page/crawler-row';
 
 describe('CrawlerTable component', function () {
   it('should render crawler table correctly', function () {
-    const requestCrawlersStub = stub();
+    const requestCrawlersStub = sinon.stub();
     const rows = [{
       id: 109,
       crawlerName: 'SUMMARY_REPORTS_COPA',
@@ -69,7 +69,7 @@ describe('CrawlerTable component', function () {
       offset: 1,
     };
 
-    const requestCrawlersStub = stub().returns({ catch: stub() });
+    const requestCrawlersStub = sinon.stub().returns({ catch: sinon.stub() });
 
     const wrapper = shallow(
       <CrawlerTable

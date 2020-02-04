@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
 import OutboundLink from 'components/common/outbound-link';
 import Attachment from 'components/officer-page/tabbed-pane-section/attachments-tab/complaint/attachment';
@@ -50,7 +50,7 @@ describe('Attachment component', function () {
   });
 
   it('should track attachment click event', function () {
-    const stubOnTrackingAttachment = stub();
+    const stubOnTrackingAttachment = sinon.stub();
     const attachment = {
       title: 'CRID 1071970 OCIR 2 of 3',
       url: 'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-3-of-3.html',

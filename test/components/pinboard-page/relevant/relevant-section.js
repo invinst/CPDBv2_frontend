@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 import should from 'should';
 
 import RelevantSection from 'components/pinboard-page/relevant';
@@ -24,10 +24,10 @@ describe('RelevantSection component', function () {
   });
 
   it('should render relevant rows correctly', function () {
-    const fetchPinboardRelevantDocuments = spy();
-    const fetchPinboardRelevantCoaccusals = spy();
-    const fetchPinboardRelevantComplaints = spy();
-    const addItemInPinboardPage = spy();
+    const fetchPinboardRelevantDocuments = sinon.spy();
+    const fetchPinboardRelevantCoaccusals = sinon.spy();
+    const fetchPinboardRelevantComplaints = sinon.spy();
+    const addItemInPinboardPage = sinon.spy();
     const documents = [{
       previewImageUrl: 'https://www.documentcloud.org/documents/CRID-1074534-TRR-Stegmiller-p1-normal.gif',
       url: 'https://www.documentcloud.org/documents/3037807/CRID-1074534-TRR-Stegmiller.pdf',

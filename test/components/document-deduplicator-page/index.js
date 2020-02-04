@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 
 import DocumentDeduplicatorPage from 'components/document-deduplicator-page';
 import DocumentsTable from 'components/document-deduplicator-page/documents-table';
@@ -31,8 +31,8 @@ describe('DocumentDeduplicatorPage component', function () {
         show: true,
       },
     ];
-    const setDocumentShow = spy();
-    const fetchDocumentsByCRID = spy();
+    const setDocumentShow = sinon.spy();
+    const fetchDocumentsByCRID = sinon.spy();
 
     const wrapper = shallow(
       <DocumentDeduplicatorPage

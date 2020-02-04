@@ -1,6 +1,7 @@
-import editModeOn from 'reducers/cr-page/edit-mode-on';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
-import { CR_EDIT_TYPES, CR_EDIT_MODE, LOCATION_CHANGE } from 'utils/constants';
+import editModeOn from 'reducers/cr-page/edit-mode-on';
+import { CR_EDIT_TYPES, CR_EDIT_MODE } from 'utils/constants';
 
 
 describe('edit-mode-on reducer', function () {
@@ -87,7 +88,7 @@ describe('edit-mode-on reducer', function () {
       },
       {
         type: LOCATION_CHANGE,
-        payload: { pathname: '/complaint/1/' },
+        payload: { location: { pathname: '/complaint/1/' } },
       }
     ).should.eql({
       [CR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: false,
@@ -103,7 +104,7 @@ describe('edit-mode-on reducer', function () {
       },
       {
         type: LOCATION_CHANGE,
-        payload: { pathname: '/edit/complaint/1/' },
+        payload: { location: { pathname: '/edit/complaint/1/' } },
       }
     ).should.eql({
       [CR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: true,

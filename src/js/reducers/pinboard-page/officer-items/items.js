@@ -1,12 +1,12 @@
 import { handleActions } from 'redux-actions';
 import * as _ from 'lodash';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 import {
   PINBOARD_OFFICERS_FETCH_REQUEST_SUCCESS,
   ADD_ITEM_IN_PINBOARD_PAGE,
   ORDER_PINBOARD,
   COMPLETE_REMOVE_ITEM_FROM_PINBOARD,
-  LOCATION_CHANGE,
 } from 'utils/constants';
 
 

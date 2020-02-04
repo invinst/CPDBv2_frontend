@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 
 import DropdownPlaceholder from
   'components/landing-page/heat-map/summary-panel/community-dropdown/dropdown-placeholder';
@@ -8,11 +8,11 @@ import DropdownPlaceholder from
 
 describe('DropdownPlaceholder component', function () {
   it('should renderable', function () {
-    DropdownPlaceholder.should.be.renderable();
+    DropdownPlaceholder.should.be.renderable({ withRouter: true });
   });
 
   it('should trigger openDropdown when click on', function () {
-    const openDropdown = spy();
+    const openDropdown = sinon.spy();
     const wrapper = shallow(<DropdownPlaceholder openDropdown={ openDropdown }/>);
     wrapper.simulate('click');
     openDropdown.should.be.calledOnce();

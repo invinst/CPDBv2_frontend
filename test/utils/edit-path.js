@@ -1,5 +1,5 @@
-import { stub } from 'sinon';
-import { browserHistory } from 'react-router';
+import sinon from 'sinon';
+import browserHistory from 'utils/history';
 
 import * as utilsDom from 'utils/dom';
 import { editMode, pushPathPreserveEditMode, editModeOn } from 'utils/edit-path';
@@ -21,25 +21,19 @@ describe('EditPath utils', function () {
 
   describe('pushPathPreserveEditMode', function () {
     beforeEach(function () {
-      stub(browserHistory, 'push');
-    });
-
-    afterEach(function () {
-      browserHistory.push.restore();
+      sinon.stub(browserHistory, 'push');
     });
 
     it('should preserve edit mode when push a new path', function () {
-      stub(utilsDom, 'getCurrentPathname').callsFake(() => '/edit/officer/13/');
+      sinon.stub(utilsDom, 'getCurrentPathname').callsFake(() => '/edit/officer/13/');
       pushPathPreserveEditMode('/');
       browserHistory.push.args[0][0].should.eql('/edit/');
-      utilsDom.getCurrentPathname.restore();
     });
 
     it('should preserve non edit mode when push a new path', function () {
-      stub(utilsDom, 'getCurrentPathname').callsFake(() => '/officer/13/');
+      sinon.stub(utilsDom, 'getCurrentPathname').callsFake(() => '/officer/13/');
       pushPathPreserveEditMode('/edit/');
       browserHistory.push.args[0][0].should.eql('/');
-      utilsDom.getCurrentPathname.restore();
     });
   });
 

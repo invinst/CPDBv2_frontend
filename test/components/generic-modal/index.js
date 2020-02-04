@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 
@@ -34,7 +34,7 @@ describe('GenericModal component', function () {
     const store = MockStore()({
       cms: { pages: {} },
       breadcrumb: {
-        breadcrumbs: [],
+        breadcrumbItems: [],
       },
       crPage: {
         crid: '123456',
@@ -71,7 +71,7 @@ describe('GenericModal component', function () {
     const store = MockStore()({
       cms: { pages: {} },
       breadcrumb: {
-        breadcrumbs: [],
+        breadcrumbItems: [],
       },
       crawlersPage: {
         crawlers: [{
@@ -98,7 +98,7 @@ describe('GenericModal component', function () {
     const store = MockStore()({
       cms: { pages: {} },
       breadcrumb: {
-        breadcrumbs: [],
+        breadcrumbItems: [],
       },
       crPage: {
         crid: '123456',
@@ -140,7 +140,7 @@ describe('GenericModal component', function () {
     const store = MockStore()({
       cms: { pages: {} },
       breadcrumb: {
-        breadcrumbs: [],
+        breadcrumbItems: [],
       },
       trrPage: {
         attachmentRequest: {
@@ -168,7 +168,7 @@ describe('GenericModal component', function () {
   });
 
   it('should dispatch "close modal" action when overlay is clicked on', function () {
-    const closeModal = spy();
+    const closeModal = sinon.spy();
     const wrapper = shallow(
       <GenericModal activeModal='LEGAL_DISCLAIMER' closeModal={ closeModal } />
     );
@@ -179,7 +179,7 @@ describe('GenericModal component', function () {
   });
 
   it('should not dispatch "close modal" action when modal content is clicked on', function () {
-    const closeModal = spy();
+    const closeModal = sinon.spy();
     const wrapper = shallow(
       <GenericModal activeModal='LEGAL_DISCLAIMER' closeModal={ closeModal } />
     );

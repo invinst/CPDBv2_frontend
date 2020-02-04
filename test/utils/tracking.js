@@ -1,16 +1,11 @@
-import { stub, useFakeTimers } from 'sinon';
+import sinon from 'sinon';
 import * as tracking from 'utils/tracking';
 
 
 describe('tracking utils', function () {
   beforeEach(function () {
-    stub(global, 'ga');
-    stub(global.clicky, 'log');
-  });
-
-  afterEach(function () {
-    global.ga.restore();
-    global.clicky.log.restore();
+    sinon.stub(global, 'ga');
+    sinon.stub(global.clicky, 'log');
   });
 
   describe('trackSwipeLandingPageCarousel', function () {
@@ -44,13 +39,11 @@ describe('tracking utils', function () {
     });
 
     it('should open url if windowName is passed', function () {
-      stub(window, 'open');
+      sinon.stub(window, 'open');
 
       tracking.trackOutboundLink('localhost', '_blank');
       window.open.should.be.calledOnce();
       window.open.should.be.calledWith('localhost', '_blank');
-
-      window.open.restore();
     });
   });
 
@@ -96,7 +89,7 @@ describe('tracking utils', function () {
 
   describe('trackSearchFocusedItem', function () {
     it('should send event analytic at most once in 500ms', function () {
-      const clock = useFakeTimers();
+      const clock = sinon.useFakeTimers();
 
       tracking.trackSearchFocusedItem('contentType', 'query', 'itemId1', 1);
       tracking.trackSearchFocusedItem('contentType', 'query', 'itemId2', 2);
@@ -129,14 +122,12 @@ describe('tracking utils', function () {
       clock.tick(550);
 
       global.ga.callCount.should.equal(4);
-
-      clock.restore();
     });
   });
 
   describe('trackSearchQuery', function () {
     it('should send event analytic at most once in 500ms', function () {
-      const clock = useFakeTimers();
+      const clock = sinon.useFakeTimers();
 
       tracking.trackSearchQuery('que');
       tracking.trackSearchQuery('quer');
@@ -158,8 +149,6 @@ describe('tracking utils', function () {
 
       global.ga.should.be.calledTwice();
       global.clicky.log.should.be.calledTwice();
-
-      clock.restore();
     });
   });
 

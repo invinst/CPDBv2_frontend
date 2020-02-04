@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
 import RightNavigation from 'components/officer-page/radar-chart/explainer/right-navigation';
 import styles from 'components/officer-page/radar-chart/explainer/right-navigation.sass';
@@ -13,7 +13,7 @@ describe('RightNavigation components', function () {
   });
 
   it('should invoke onClickHandler when being clicked', function () {
-    const onClickHandlerStub = stub();
+    const onClickHandlerStub = sinon.stub();
 
     const wrapper = shallow(
       <RightNavigation onClickHandler={ onClickHandlerStub } text='Some text'/>

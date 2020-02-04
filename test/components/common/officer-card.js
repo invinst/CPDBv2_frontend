@@ -1,10 +1,11 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import should from 'should';
-import { Link } from 'react-router';
-import { spy } from 'sinon';
+import { Link } from 'react-router-dom';
+import sinon from 'sinon';
 import { random } from 'faker';
 
+import { mountWithRouter } from 'utils/test';
 import OfficerCard from 'components/common/officer-card';
 import RadarChart from 'components/common/radar-chart/radar-chart';
 import ItemPinButton from 'components/common/item-pin-button';
@@ -14,7 +15,7 @@ import { PINNED_ITEM_TYPES } from 'utils/constants';
 
 describe('OfficerCard component', function () {
   it('should render correctly', function () {
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <OfficerCard
         officerId={ 1 }
         fullName='Jerome Finnigan'
@@ -63,7 +64,7 @@ describe('OfficerCard component', function () {
   });
 
   it('should render ItemPinButton with correct props', function () {
-    const addOrRemoveItemInPinboard = spy();
+    const addOrRemoveItemInPinboard = sinon.spy();
     const id = random.number({ min: 10, max: 1000 });
     const isPinned = random.boolean();
 

@@ -1,6 +1,7 @@
 import editModeOn from 'reducers/officer-page/edit-mode-on';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
-import { OFFICER_EDIT_TYPES, OFFICER_EDIT_MODE, LOCATION_CHANGE } from 'utils/constants';
+import { OFFICER_EDIT_TYPES, OFFICER_EDIT_MODE } from 'utils/constants';
 
 
 describe('summary reducer', function () {
@@ -55,7 +56,7 @@ describe('summary reducer', function () {
       },
       {
         type: LOCATION_CHANGE,
-        payload: { pathname: '/officer/1/' },
+        payload: { location: { pathname: '/officer/1/' } },
       }
     ).should.eql({
       [OFFICER_EDIT_TYPES.TRIANGLE]: false,
@@ -71,7 +72,7 @@ describe('summary reducer', function () {
       },
       {
         type: LOCATION_CHANGE,
-        payload: { pathname: '/edit/officer/1/' },
+        payload: { location: { pathname: '/edit/officer/1/' } },
       }
     ).should.eql({
       [OFFICER_EDIT_TYPES.TRIANGLE]: true,

@@ -1,13 +1,13 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { spy, stub } from 'sinon';
+import sinon from 'sinon';
 
 import TextInput from 'components/common/input';
 import * as inputStyles from 'components/common/input.style';
 
 describe('TextInput component', function () {
   it('should trigger onBlur on blur', function () {
-    const onBlurSpy = spy();
+    const onBlurSpy = sinon.spy();
 
     const wrapper = shallow(
       <TextInput onBlur={ onBlurSpy }/>
@@ -18,7 +18,7 @@ describe('TextInput component', function () {
   });
 
   it('should trigger onFocus on focus', function () {
-    const onFocusSpy = spy();
+    const onFocusSpy = sinon.spy();
 
     const wrapper = shallow(
       <TextInput onFocus={ onFocusSpy } autoFocus={ false }/>
@@ -29,7 +29,7 @@ describe('TextInput component', function () {
   });
 
   it('should trigger onChange on input change', function () {
-    const onChangeSpy = spy();
+    const onChangeSpy = sinon.spy();
 
     const wrapper = shallow(
       <TextInput onChange={ onChangeSpy }/>
@@ -42,14 +42,14 @@ describe('TextInput component', function () {
   });
 
   it('should trigger internal input focus on focus', function () {
-    const onFocusSpy = spy();
+    const onFocusSpy = sinon.spy();
 
     const wrapper = mount(
       <TextInput onFocus={ onFocusSpy } autoFocus={ false }/>
     );
     const instance = wrapper.instance();
 
-    const inputFocusSpy = spy(instance.input, 'focus');
+    const inputFocusSpy = sinon.spy(instance.input, 'focus');
 
     instance.focus();
     inputFocusSpy.should.be.called();
@@ -58,7 +58,7 @@ describe('TextInput component', function () {
   it('should have wrapperStyle base on width and height', function () {
     const width = 1;
     const height = 1;
-    const wrapperStyleStub = stub(inputStyles, 'wrapperStyle');
+    const wrapperStyleStub = sinon.stub(inputStyles, 'wrapperStyle');
     wrapperStyleStub.withArgs(width, height).returns({ fontSize: '1px' });
 
     const wrapper = shallow(
@@ -71,7 +71,7 @@ describe('TextInput component', function () {
   it('should have inputStyle base on paddingVertical and paddingHorizontal', function () {
     const paddingVertical = 1;
     const paddingHorizontal = 1;
-    const inputStyleStub = stub(inputStyles, 'inputStyle');
+    const inputStyleStub = sinon.stub(inputStyles, 'inputStyle');
     inputStyleStub.withArgs(paddingVertical, paddingHorizontal).returns({ fontSize: '1px' });
 
     const wrapper = shallow(
@@ -85,7 +85,7 @@ describe('TextInput component', function () {
     const height = 1;
     const paddingVertical = 1;
     const paddingHorizontal = 1;
-    const placeholderStyleStub = stub(inputStyles, 'placeholderStyle');
+    const placeholderStyleStub = sinon.stub(inputStyles, 'placeholderStyle');
     placeholderStyleStub.withArgs(height, paddingVertical, paddingHorizontal).returns({ fontSize: '1px' });
 
     const wrapper = shallow(
@@ -97,8 +97,8 @@ describe('TextInput component', function () {
 
   it('should handle keys in keyPressHandlers', function () {
     const keyPressHandlers = {
-      esc: spy(),
-      enter: spy(),
+      esc: sinon.spy(),
+      enter: sinon.spy(),
     };
 
     const wrapper = mount(
@@ -116,7 +116,7 @@ describe('TextInput component', function () {
   it('should focus when receiving new focused props', function () {
     const wrapper = mount(<TextInput/>);
     const instance = wrapper.instance();
-    const stubFocus = stub(instance.input, 'focus');
+    const stubFocus = sinon.stub(instance.input, 'focus');
     stubFocus.called.should.be.false();
 
     stubFocus.resetHistory();
@@ -148,7 +148,7 @@ describe('TextInput component', function () {
         <TextInput blurOnKeyPress={ ['down'] }/>
       );
       const instance = wrapper.instance();
-      const blur = stub(instance.input, 'blur');
+      const blur = sinon.stub(instance.input, 'blur');
 
       instance.mousetrap.trigger('down');
       blur.calledOnce.should.be.true();
@@ -158,8 +158,8 @@ describe('TextInput component', function () {
   context('when keyPressWithBlurHandlers prop is provided', function () {
 
     it('should call handlers and blur when the keys are pressed', function () {
-      const keyDownHandlerStub = stub();
-      const keyUpHandlerStub = stub();
+      const keyDownHandlerStub = sinon.stub();
+      const keyUpHandlerStub = sinon.stub();
       const keyPressWithBlurHandlers = {
         down: keyDownHandlerStub,
         up: keyUpHandlerStub,
@@ -169,7 +169,7 @@ describe('TextInput component', function () {
         <TextInput keyPressWithBlurHandlers={ keyPressWithBlurHandlers }/>
       );
       const instance = wrapper.instance();
-      const blur = stub(instance.input, 'blur');
+      const blur = sinon.stub(instance.input, 'blur');
 
       instance.mousetrap.trigger('down');
       keyDownHandlerStub.calledOnce.should.be.true();

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { Router, createMemoryHistory, Route } from 'react-router';
+import { MemoryRouter } from 'react-router';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { omit, findIndex, slice, cloneDeep, set } from 'lodash';
@@ -23,7 +23,8 @@ describe('DocumentPage component', function () {
       },
     },
     breadcrumb: {
-      breadcrumbs: [],
+      breadcrumbItems: [],
+      breadcrumbsMapping: {},
     },
     routing: {
       locationBeforeTransitions: {
@@ -115,18 +116,14 @@ describe('DocumentPage component', function () {
   });
 
   it('should render correctly', function () {
-    const recentDocument = () => (
-      <HelmetProvider>
-        <Provider store={ store }>
-          <DocumentPageContainer />
-        </Provider>
-      </HelmetProvider>
-    );
-
     const wrapper = mount(
-      <Router history={ createMemoryHistory() }>
-        <Route path='/' component={ recentDocument } />
-      </Router>
+      <Provider store={ store }>
+        <MemoryRouter>
+          <HelmetProvider>
+            <DocumentPageContainer />
+          </HelmetProvider>
+        </MemoryRouter>
+      </Provider>
     );
 
     const header = wrapper.find(ShareableHeader).first();
@@ -279,11 +276,13 @@ describe('DocumentPage component', function () {
     const newStore = MockStore()(newState);
 
     const wrapper = mount(
-      <HelmetProvider>
-        <Provider store={ newStore }>
-          <DocumentPageContainer />
-        </Provider>
-      </HelmetProvider>
+      <Provider store={ newStore }>
+        <MemoryRouter>
+          <HelmetProvider>
+            <DocumentPageContainer />
+          </HelmetProvider>
+        </MemoryRouter>
+      </Provider>
     );
 
     wrapper.find('.linked-documents-more').exists().should.be.false();
@@ -294,11 +293,13 @@ describe('DocumentPage component', function () {
     const newStore = MockStore()(newState);
 
     const wrapper = mount(
-      <HelmetProvider>
-        <Provider store={ newStore }>
-          <DocumentPageContainer />
-        </Provider>
-      </HelmetProvider>
+      <Provider store={ newStore }>
+        <MemoryRouter>
+          <HelmetProvider>
+            <DocumentPageContainer />
+          </HelmetProvider>
+        </MemoryRouter>
+      </Provider>
     );
 
     const lastEdited = wrapper.find('.main-section-last-edited');
@@ -310,18 +311,14 @@ describe('DocumentPage component', function () {
     set(newState, 'authentication.apiAccessToken', '123456');
     const newStore = MockStore()(newState);
 
-    const recentDocument = () => (
-      <HelmetProvider>
-        <Provider store={ newStore }>
-          <DocumentPageContainer />
-        </Provider>
-      </HelmetProvider>
-    );
-
     const wrapper = mount(
-      <Router history={ createMemoryHistory() }>
-        <Route path='/' component={ recentDocument } />
-      </Router>
+      <Provider store={ newStore }>
+        <MemoryRouter>
+          <HelmetProvider>
+            <DocumentPageContainer />
+          </HelmetProvider>
+        </MemoryRouter>
+      </Provider>
     );
 
     const linkDocumentsContent = wrapper.find('a.linked-documents-content');
@@ -333,18 +330,14 @@ describe('DocumentPage component', function () {
     set(newState, 'authentication.apiAccessToken', '123456');
     const newStore = MockStore()(newState);
 
-    const recentDocument = () => (
-      <Provider store={ newStore }>
-        <DocumentPageContainer />
-      </Provider>
-    );
-
     const wrapper = mount(
-      <HelmetProvider>
-        <Router history={ createMemoryHistory() }>
-          <Route path='/' component={ recentDocument } />
-        </Router>
-      </HelmetProvider>
+      <Provider store={ newStore }>
+        <MemoryRouter>
+          <HelmetProvider>
+            <DocumentPageContainer />
+          </HelmetProvider>
+        </MemoryRouter>
+      </Provider>
     );
 
     wrapper.find(EditableTagsInput).exists().should.be.true();
@@ -355,18 +348,14 @@ describe('DocumentPage component', function () {
     set(newState, 'authentication.apiAccessToken', '');
     const newStore = MockStore()(newState);
 
-    const recentDocument = () => (
-      <HelmetProvider>
-        <Provider store={ newStore }>
-          <DocumentPageContainer />
-        </Provider>
-      </HelmetProvider>
-    );
-
     const wrapper = mount(
-      <Router history={ createMemoryHistory() }>
-        <Route path='/' component={ recentDocument } />
-      </Router>
+      <Provider store={ newStore }>
+        <MemoryRouter>
+          <HelmetProvider>
+            <DocumentPageContainer />
+          </HelmetProvider>
+        </MemoryRouter>
+      </Provider>
     );
 
     wrapper.find(EditableTagsInput).exists().should.be.false();

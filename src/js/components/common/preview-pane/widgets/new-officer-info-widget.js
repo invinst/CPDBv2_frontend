@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { map, compact, lowerCase, isEmpty } from 'lodash';
 import cx from 'classnames';
-import { browserHistory } from 'react-router';
+import browserHistory from 'utils/history';
 
 import styles from './new-officer-info-widget.sass';
 

@@ -1,8 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router';
 
 import { DATA_VISUALIZATION_TAB_NAMES } from 'utils/constants';
 import SocialGraphPage from 'components/social-graph-page';
@@ -53,22 +54,23 @@ describe('SocialGraphPage component', function () {
   });
 
   it('should render geographic tab', function () {
-    const loadPaginatedDataStub = stub(loadPaginatedDataUtils, 'loadPaginatedData');
+    sinon.stub(loadPaginatedDataUtils, 'loadPaginatedData');
 
     const wrapper = mount(
       <Provider store={ store }>
-        <SocialGraphPage
-          currentTab={ DATA_VISUALIZATION_TAB_NAMES.GEOGRAPHIC }
-          location={ location }
-          pinboardId='12345678'
-          params={ params }
-        />
+        <MemoryRouter>
+          <SocialGraphPage
+            currentTab={ DATA_VISUALIZATION_TAB_NAMES.GEOGRAPHIC }
+            location={ location }
+            pinboardId='12345678'
+            params={ params }
+          />
+        </MemoryRouter>
       </Provider>
     );
     const geographicMap = wrapper.find(GeographicMap);
     geographicMap.find(MainTabs).exists().should.be.true();
     geographicMap.find('.back-to-pinboard-link').exists().should.be.true();
-    loadPaginatedDataStub.restore();
   });
 
   it('should not render back to pinboard button if there is no pinboardId', function () {

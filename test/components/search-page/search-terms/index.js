@@ -1,9 +1,10 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { spy, stub } from 'sinon';
+import sinon from 'sinon';
 import Mousetrap from 'mousetrap';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
+import { MemoryRouter } from 'react-router';
 
 import SearchTerms from 'components/search-page/search-terms';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component-without-inline-style';
@@ -24,7 +25,7 @@ describe('SearchTerms component', function () {
   describe('componentDidMount', function () {
     describe('fetchRecentSearchItems', function () {
       it('should be called if recentSuggestionIds is not empty and recentSuggestionsRequested is false', () => {
-        const fetchRecentSearchItemsSpy = spy();
+        const fetchRecentSearchItemsSpy = sinon.spy();
         const recentSuggestionIds = {
           officerIds: [8562],
           crids: ['123456'],
@@ -32,11 +33,13 @@ describe('SearchTerms component', function () {
         };
         mount(
           <Provider store={ store }>
-            <SearchTerms
-              recentSuggestionIds={ recentSuggestionIds }
-              fetchRecentSearchItems={ fetchRecentSearchItemsSpy }
-              recentSuggestionsRequested={ false }
-            />
+            <MemoryRouter>
+              <SearchTerms
+                recentSuggestionIds={ recentSuggestionIds }
+                fetchRecentSearchItems={ fetchRecentSearchItemsSpy }
+                recentSuggestionsRequested={ false }
+              />
+            </MemoryRouter>
           </Provider>
         );
         fetchRecentSearchItemsSpy.should.be.calledWith(
@@ -47,21 +50,23 @@ describe('SearchTerms component', function () {
       });
 
       it('should not be called if recentSuggestionIds is empty', () => {
-        const fetchRecentSearchItemsSpy = spy();
+        const fetchRecentSearchItemsSpy = sinon.spy();
         mount(
           <Provider store={ store }>
-            <SearchTerms
-              recentSuggestionIds={ {} }
-              fetchRecentSearchItems={ fetchRecentSearchItemsSpy }
-              recentSuggestionsRequested={ false }
-            />
+            <MemoryRouter>
+              <SearchTerms
+                recentSuggestionIds={ {} }
+                fetchRecentSearchItems={ fetchRecentSearchItemsSpy }
+                recentSuggestionsRequested={ false }
+              />
+            </MemoryRouter>
           </Provider>
         );
         fetchRecentSearchItemsSpy.should.not.be.called();
       });
 
       it('should not be called if recentSuggestionsRequested is true', () => {
-        const fetchRecentSearchItemsSpy = spy();
+        const fetchRecentSearchItemsSpy = sinon.spy();
         const recentSuggestionIds = {
           officerIds: [8562],
           crids: ['123456'],
@@ -69,11 +74,13 @@ describe('SearchTerms component', function () {
         };
         mount(
           <Provider store={ store }>
-            <SearchTerms
-              recentSuggestionIds={ recentSuggestionIds }
-              fetchRecentSearchItems={ fetchRecentSearchItemsSpy }
-              recentSuggestionsRequested={ true }
-            />
+            <MemoryRouter>
+              <SearchTerms
+                recentSuggestionIds={ recentSuggestionIds }
+                fetchRecentSearchItems={ fetchRecentSearchItemsSpy }
+                recentSuggestionsRequested={ true }
+              />
+            </MemoryRouter>
           </Provider>
         );
         fetchRecentSearchItemsSpy.should.not.be.called();
@@ -82,14 +89,16 @@ describe('SearchTerms component', function () {
 
     describe('fetchedEmptyRecentSearchItems', function () {
       it('should be called if recentSuggestionsRequested is false and recentSuggestionIds is empty', function () {
-        const fetchedEmptyRecentSearchItemsSpy = spy();
+        const fetchedEmptyRecentSearchItemsSpy = sinon.spy();
         mount(
           <Provider store={ store }>
-            <SearchTerms
-              recentSuggestionIds={ {} }
-              fetchedEmptyRecentSearchItems={ fetchedEmptyRecentSearchItemsSpy }
-              recentSuggestionsRequested={ false }
-            />
+            <MemoryRouter>
+              <SearchTerms
+                recentSuggestionIds={ {} }
+                fetchedEmptyRecentSearchItems={ fetchedEmptyRecentSearchItemsSpy }
+                recentSuggestionsRequested={ false }
+              />
+            </MemoryRouter>
           </Provider>
         );
         fetchedEmptyRecentSearchItemsSpy.should.be.called();
@@ -127,12 +136,14 @@ describe('SearchTerms component', function () {
   });
 
   it('should trigger move when up key pressed', function () {
-    const move = spy();
+    const move = sinon.spy();
     const totalItemCount = 3;
     const direction = 'up';
     mount(
       <Provider store={ store }>
-        <SearchTerms move={ move } totalItemCount={ totalItemCount } />
+        <MemoryRouter>
+          <SearchTerms move={ move } totalItemCount={ totalItemCount } />
+        </MemoryRouter>
       </Provider>
     );
     Mousetrap.trigger(direction);
@@ -140,12 +151,14 @@ describe('SearchTerms component', function () {
   });
 
   it('should trigger move when down key pressed', function () {
-    const move = spy();
+    const move = sinon.spy();
     const totalItemCount = 3;
     const direction = 'down';
     mount(
       <Provider store={ store }>
-        <SearchTerms move={ move } totalItemCount={ totalItemCount } />
+        <MemoryRouter>
+          <SearchTerms move={ move } totalItemCount={ totalItemCount } />
+        </MemoryRouter>
       </Provider>
     );
     Mousetrap.trigger(direction);
@@ -153,10 +166,12 @@ describe('SearchTerms component', function () {
   });
 
   it('should resetNavigation to 0 when unmounted', function () {
-    const resetNavigation = spy();
+    const resetNavigation = sinon.spy();
     const wrapper = mount(
       <Provider store={ store }>
-        <SearchTerms resetNavigation={ resetNavigation }/>
+        <MemoryRouter>
+          <SearchTerms resetNavigation={ resetNavigation }/>
+        </MemoryRouter>
       </Provider>
     );
 
@@ -195,17 +210,15 @@ describe('SearchTerms component', function () {
 
   describe('Intercom tracking', function () {
     beforeEach(function () {
-      stub(IntercomTracking, 'trackSearchTerms');
-    });
-
-    afterEach(function () {
-      IntercomTracking.trackSearchTerms.restore();
+      sinon.stub(IntercomTracking, 'trackSearchTerms');
     });
 
     it('should track Intercom with search page', function () {
       mount(
         <Provider store={ store }>
-          <SearchTerms/>
+          <MemoryRouter>
+            <SearchTerms/>
+          </MemoryRouter>
         </Provider>
       );
       IntercomTracking.trackSearchTerms.should.be.called();

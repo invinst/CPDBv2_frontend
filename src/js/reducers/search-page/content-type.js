@@ -1,9 +1,10 @@
 import { handleActions } from 'redux-actions';
 import { invert, isNull } from 'lodash';
+import { LOCATION_CHANGE } from 'connected-react-router';
+import queryString from 'query-string';
 
 import {
   SELECT_TAG,
-  LOCATION_CHANGE,
   SEARCH_CATEGORIES,
   CHANGE_SEARCH_QUERY,
   SEARCH_QUERY_PREFIX_REGEX,
@@ -22,9 +23,10 @@ export default handleActions({
   [SELECT_TAG]: (state, action) => action.payload,
   [CHANGE_SEARCH_QUERY]: (state, action) => getContentType(action.payload),
   [LOCATION_CHANGE]: (state, action) => {
-    let contentType = getContentType(action.payload.query.terms);
+    const query = queryString.parse(action.payload.location.search);
+    let contentType = getContentType(query.terms);
     if (isNull(contentType)) {
-      contentType = action.payload.query.type;
+      contentType = query.type;
       contentType = SEARCH_CATEGORIES.includes(contentType) ? contentType : null;
     }
     return contentType;

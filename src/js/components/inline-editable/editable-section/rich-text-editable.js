@@ -10,7 +10,6 @@ import { EditWrapperStateContext } from 'contexts';
 class RichTextEditable extends Component {
   getEditorProps() {
     const { editModeOn, value, onChange, fieldname } = this.props;
-    console.warn(this.context);
     const fieldContext = get(this.context.fieldContexts, fieldname, {});
     return {
       editModeOn: editModeOn || fieldContext.editModeOn,

@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 
 import EmptyPinboard from 'components/pinboard-page/empty-pinboard';
 import { buildEditStateFields } from 'utils/test/factories/draft';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
@@ -23,17 +23,17 @@ describe('EmptyPinboard component', function () {
     const emptyPinboardTitleEditWrapperStateProps = {
       fields,
       sectionEditModeOn: false,
-      onSaveForm: spy(),
-      turnOnSectionEditMode: spy(),
-      turnOffSectionEditMode: spy(),
+      onSaveForm: sinon.spy(),
+      turnOnSectionEditMode: sinon.spy(),
+      turnOffSectionEditMode: sinon.spy(),
     };
 
     const emptyPinboardDescriptionEditWrapperStateProps = {
       fields,
       sectionEditModeOn: false,
-      onSaveForm: spy(),
-      turnOnSectionEditMode: spy(),
-      turnOffSectionEditMode: spy(),
+      onSaveForm: sinon.spy(),
+      turnOnSectionEditMode: sinon.spy(),
+      turnOffSectionEditMode: sinon.spy(),
     };
 
     const examplePinboards = [{

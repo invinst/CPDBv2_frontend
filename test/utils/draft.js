@@ -1,7 +1,7 @@
 import draftJs from 'draft-js';
 import moment from 'moment';
 import should from 'should';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
 import {
   contentStateToTextArray, convertContentStateToEditorState, getField, multilineTextValueToArray,
@@ -18,11 +18,7 @@ import defaultDecorator from 'decorators';
 
 describe('Draft utils', function () {
   beforeEach(function () {
-    stub(draftJs, 'genKey').returns('abc12');
-  });
-
-  afterEach(function () {
-    draftJs.genKey.restore();
+    sinon.stub(draftJs, 'genKey').returns('abc12');
   });
 
   describe('contentStateToTextArray', function () {
@@ -205,7 +201,8 @@ describe('Draft utils', function () {
       selectionState = selectionState.set('anchorOffset', 1).set('focusOffset', 2);
       let editorState = draftJs.EditorState.createWithContent(contentState);
       editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
-      const entityKey = draftJs.Entity.create(ENTITY_LINK, 'MUTABLE', { url: 'http://example.com' });
+      contentState.createEntity(ENTITY_LINK, 'MUTABLE', { url: 'http://example.com' });
+      const entityKey = contentState.getLastCreatedEntityKey();
       editorState = draftJs.RichUtils.toggleLink(editorState, editorState.getSelection(), entityKey);
       linkEntitySelected(editorState).should.be.ok();
     });
@@ -250,7 +247,8 @@ describe('Draft utils', function () {
       selectionState = selectionState.set('anchorOffset', 1).set('focusOffset', 2);
       let editorState = draftJs.EditorState.createWithContent(contentState);
       editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
-      const entityKey = draftJs.Entity.create(ENTITY_LINK, 'MUTABLE', { url: 'http://example.com' });
+      contentState.createEntity(ENTITY_LINK, 'MUTABLE', { url: 'http://example.com' });
+      const entityKey = contentState.getLastCreatedEntityKey();
       editorState = draftJs.RichUtils.toggleLink(editorState, editorState.getSelection(), entityKey);
       editorState = removeLinkEntity(editorState);
       const contentBlock = editorState.getCurrentContent().getFirstBlock();

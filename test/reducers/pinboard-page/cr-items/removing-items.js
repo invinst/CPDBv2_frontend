@@ -1,4 +1,5 @@
 import should from 'should';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 import removingItemsReducer from 'reducers/pinboard-page/cr-items/removing-items';
 import * as constants from 'utils/constants';
@@ -85,7 +86,7 @@ describe('crItems > removingItemsReducer', function () {
     removingItemsReducer(
       ['001, 002'],
       {
-        type: constants.LOCATION_CHANGE,
+        type: LOCATION_CHANGE,
       }
     ).should.eql([]);
   });

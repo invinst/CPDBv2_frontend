@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import TagsInput from 'react-tagsinput';
-import { spy } from 'sinon';
-import { Link } from 'react-router';
+import sinon from 'sinon';
+import { Link } from 'react-router-dom';
 
 import { SEARCH_ALIAS_EDIT_PATH } from 'utils/constants';
 import InlineAliasAdmin from 'components/search-page/inline-alias-admin';
@@ -10,7 +10,7 @@ import InlineAliasAdmin from 'components/search-page/inline-alias-admin';
 
 describe('InlineAliasAdmin component', function () {
   it('should render', function () {
-    InlineAliasAdmin.should.be.renderable();
+    InlineAliasAdmin.should.be.renderable({ withRouter: true });
   });
 
   it('should render current item\'s info', function () {
@@ -31,12 +31,12 @@ describe('InlineAliasAdmin component', function () {
       <InlineAliasAdmin />
     );
     const btn = wrapper.find(Link).at(0);
-    btn.prop('to').should.eql(`/edit/${SEARCH_ALIAS_EDIT_PATH}`);
+    btn.prop('to').should.eql(`/edit${SEARCH_ALIAS_EDIT_PATH}`);
     btn.prop('children').should.equal('Cancel');
   });
 
   it('should call updateAliases() when Save button is clicked', function () {
-    const updateAliases = spy();
+    const updateAliases = sinon.spy();
 
     const wrapper = shallow(
       <InlineAliasAdmin

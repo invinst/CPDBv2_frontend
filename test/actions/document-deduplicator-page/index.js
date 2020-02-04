@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
 import { fetchDocumentsByCRID, setDocumentShow } from 'actions/document-deduplicator-page';
 import * as constants from 'utils/constants';
@@ -8,7 +8,7 @@ import * as constants from 'utils/constants';
 describe('document decuplicator page actions', function () {
   describe('fetchDocumentsByCRID', function () {
     it('should return correct action', function () {
-      stub(Cookies, 'get').returns('authenticated_token');
+      sinon.stub(Cookies, 'get').returns('authenticated_token');
       fetchDocumentsByCRID({ crid: 1 }).should.deepEqual({
         types: [
           constants.DOCUMENT_DEDUPLICATOR_REQUEST_START,
@@ -26,13 +26,12 @@ describe('document decuplicator page actions', function () {
           },
         },
       });
-      Cookies.get.restore();
     });
   });
 
   describe('setDocumentShow', function () {
     it('should return correct action', function () {
-      stub(Cookies, 'get').returns('authenticated_token');
+      sinon.stub(Cookies, 'get').returns('authenticated_token');
       setDocumentShow(3001, true).should.deepEqual({
         types: [
           constants.DOCUMENT_VISIBILITY_TOGGLE_REQUEST_START,
@@ -50,7 +49,6 @@ describe('document decuplicator page actions', function () {
           },
         },
       });
-      Cookies.get.restore();
     });
   });
 });

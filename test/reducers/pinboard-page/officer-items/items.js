@@ -1,4 +1,5 @@
 import should from 'should';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 import officerItemsReducer from 'reducers/pinboard-page/officer-items/items';
 import * as constants from 'utils/constants';
@@ -301,7 +302,7 @@ describe('Pinboard officerItemsReducer', function () {
     officerItemsReducer(
       [{ 'id': '1' }],
       {
-        type: constants.LOCATION_CHANGE,
+        type: LOCATION_CHANGE,
         payload: [
           { 'id': '2' }, { 'id': '3' },
         ],

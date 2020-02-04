@@ -1,9 +1,7 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import { spy, stub } from 'sinon';
-import { Provider } from 'react-redux';
+import { shallow } from 'enzyme';
+import sinon from 'sinon';
 import configureStore from 'redux-mock-store';
-import { HelmetProvider } from 'react-helmet-async';
 
 import SearchPageContainer from 'containers/search-page';
 import RecentActivityContainer from 'containers/landing-page/recent-activity';
@@ -64,7 +62,7 @@ const store = mockStore({
     },
   },
   breadcrumb: {
-    breadcrumbs: [],
+    breadcrumbItems: [],
   },
   headers: {
     shareableHeader: {
@@ -94,30 +92,22 @@ const store = mockStore({
 
 describe('LandingPage component', function () {
   beforeEach(function () {
-    stub(DomUtils, 'scrollToTop');
-  });
-
-  afterEach(function () {
-    DomUtils.scrollToTop.restore();
+    sinon.stub(DomUtils, 'scrollToTop');
   });
 
   it('should be responsively renderable', function () {
-    const stubResetBreadcrumbs = stub();
     LandingPage.should.be.responsiveRenderable({
       store: store,
       helmet: true,
-      resetBreadcrumbs: stubResetBreadcrumbs,
+      withRouter: true,
       location: { pathname: '/' },
     });
   });
 
   it('should render enough content', function () {
-    const stubResetBreadcrumbs = spy();
-
     const wrapper = shallow(
       <LandingPage
-        resetBreadcrumbs={ stubResetBreadcrumbs }
-        location={ { pathname: '/' } }
+        history={ { location: { pathname: '/' } } }
       />
     );
 
@@ -143,17 +133,10 @@ describe('LandingPage component', function () {
   });
 
   it('should hide landing page content and show search page when pathname is /search/', function () {
-    const stubResetBreadcrumbs = spy();
-
     const wrapper = shallow(
       <LandingPage
-        resetBreadcrumbs={ stubResetBreadcrumbs }
-        location={ { pathname: '/search/' } }
+        history={ { location: { pathname: '/search/' } } }
         params={ {} }
-        routes={ [
-          { breadcrumb: 'cpdp', breadcrumbKey: '/' },
-          { breadcrumb: 'Search', breadcrumbKey: 'search/' },
-        ] }
       />
     );
 
@@ -167,16 +150,10 @@ describe('LandingPage component', function () {
   });
 
   it('should able to open landing page edit mode', function () {
-    const stubResetBreadcrumbs = spy();
-
     const wrapper = shallow(
       <LandingPage
-        resetBreadcrumbs={ stubResetBreadcrumbs }
-        location={ { pathname: '/edit/' } }
+        history={ { location: { pathname: '/edit/' } } }
         params={ {} }
-        routes={ [
-          { breadcrumb: 'cpdp', breadcrumbKey: '/' },
-        ] }
       />
     );
 
@@ -190,17 +167,10 @@ describe('LandingPage component', function () {
   });
 
   it('should able to open search page edit mode', function () {
-    const stubResetBreadcrumbs = spy();
-
     const wrapper = shallow(
       <LandingPage
-        resetBreadcrumbs={ stubResetBreadcrumbs }
-        location={ { pathname: '/edit/search/' } }
+        history={ { location: { pathname: '/edit/search/' } } }
         params={ {} }
-        routes={ [
-          { breadcrumb: 'Search', breadcrumbKey: 'search/' },
-          { breadcrumb: 'cpdp', breadcrumbKey: '/' },
-        ] }
       />
     );
 
@@ -214,16 +184,10 @@ describe('LandingPage component', function () {
   });
 
   it('should animate to search page when pathname is changed from / to /search/', function () {
-    const stubResetBreadcrumbs = spy();
-    const stubPushBreadcrumbs = spy();
-
     const wrapper = shallow(
       <LandingPage
-        resetBreadcrumbs={ stubResetBreadcrumbs }
-        pushBreadcrumbs={ stubPushBreadcrumbs }
-        location={ { pathname: '/' } }
+        history={ { location: { pathname: '/' } } }
         params={ {} }
-        routes={ [{ breadcrumb: 'cpdp', breadcrumbKey: '/' }] }
       />
     );
     let landingPageContent = wrapper.find(`.${styles.landingPage}`);
@@ -235,16 +199,9 @@ describe('LandingPage component', function () {
     searchPage.prop('hide').should.be.true();
     DomUtils.scrollToTop.should.not.be.called();
 
-    stubResetBreadcrumbs.resetHistory();
     wrapper.setProps({
-      resetBreadcrumbs: stubResetBreadcrumbs,
-      pushBreadcrumbs: stubPushBreadcrumbs,
-      location: { pathname: '/search/' },
+      history: { location: { pathname: '/search/' } },
       params: {},
-      routes: [
-        { breadcrumb: 'cpdp', breadcrumbKey: '/' },
-        { breadcrumb: 'Search', breadcrumbKey: 'search/' },
-      ],
     });
 
     landingPageContent = wrapper.find(`.${styles.landingPage}`);
@@ -254,33 +211,14 @@ describe('LandingPage component', function () {
     searchPage.prop('animationIn').should.be.true();
     searchPage.prop('hide').should.be.false();
 
-    stubPushBreadcrumbs.should.be.called();
-    stubPushBreadcrumbs.should.be.calledWith({
-      location: { pathname: '/search/' },
-      params: {},
-      routes: [
-        { breadcrumb: 'cpdp', breadcrumbKey: '/' },
-        { breadcrumb: 'Search', breadcrumbKey: 'search/' },
-      ],
-    });
-    stubResetBreadcrumbs.should.not.be.called();
     DomUtils.scrollToTop.should.be.calledOnce();
   });
 
   it('should animate from search page to landing page when pathname is changed from /search to /', function () {
-    const stubResetBreadcrumbs = spy();
-    const stubPushBreadcrumbs = spy();
-
     const wrapper = shallow(
       <LandingPage
-        resetBreadcrumbs={ stubResetBreadcrumbs }
-        pushBreadcrumbs={ stubPushBreadcrumbs }
-        location={ { pathname: '/search/' } }
+        history={ { location: { pathname: '/search/' } } }
         params={ {} }
-        routes={ [
-          { breadcrumb: 'cpdp', breadcrumbKey: '/' },
-          { breadcrumb: 'Search', breadcrumbKey: 'search/' },
-        ] }
       />,
       { disableLifecycleMethods: true },
     );
@@ -295,15 +233,9 @@ describe('LandingPage component', function () {
     searchPage.prop('hide').should.be.false();
     DomUtils.scrollToTop.should.not.be.called();
 
-    stubPushBreadcrumbs.resetHistory();
     wrapper.setProps({
-      resetBreadcrumbs: stubResetBreadcrumbs,
-      pushBreadcrumbs: stubPushBreadcrumbs,
-      location: { pathname: '/' },
+      history: { location: { pathname: '/' } },
       params: {},
-      routes: [
-        { breadcrumb: 'cpdp', breadcrumbKey: '/' },
-      ],
     });
     wrapper.instance().componentDidUpdate();
     landingPageContent = wrapper.find(`.${styles.landingPage}`);
@@ -314,24 +246,14 @@ describe('LandingPage component', function () {
     searchPage.prop('animationIn').should.be.false();
     searchPage.prop('hide').should.be.true();
 
-    stubPushBreadcrumbs.should.not.be.called();
-    stubResetBreadcrumbs.should.be.calledWith({ breadcrumbs: [] });
     DomUtils.scrollToTop.should.be.calledOnce();
   });
 
   it('should remaining show search page when pathname is changed from /search to /something-else/', function () {
-    const stubResetBreadcrumbs = spy();
-    const stubPushBreadcrumbs = spy();
-
     const wrapper = shallow(
       <LandingPage
-        resetBreadcrumbs={ stubResetBreadcrumbs }
-        pushBreadcrumbs={ stubPushBreadcrumbs }
-        location={ { pathname: '/' } }
+        history={ { location: { pathname: '/' } } }
         params={ {} }
-        routes={ [
-          { breadcrumb: 'cpdp', breadcrumbKey: '/' },
-        ] }
       />,
       { disableLifecycleMethods: true },
     );
@@ -346,21 +268,11 @@ describe('LandingPage component', function () {
     searchPage.prop('hide').should.be.true();
 
     DomUtils.scrollToTop.should.not.be.called();
-    stubResetBreadcrumbs.should.be.calledOnce();
-    stubPushBreadcrumbs.should.not.be.called();
     DomUtils.scrollToTop.resetHistory();
-    stubResetBreadcrumbs.resetHistory();
-    stubPushBreadcrumbs.resetHistory();
 
     wrapper.setProps({
-      resetBreadcrumbs: stubResetBreadcrumbs,
-      pushBreadcrumbs: stubPushBreadcrumbs,
-      location: { pathname: '/search/' },
+      history: { location: { pathname: '/search/' } },
       params: {},
-      routes: [
-        { breadcrumb: 'cpdp', breadcrumbKey: '/' },
-        { breadcrumb: 'Search', breadcrumbKey: 'search/' },
-      ],
     });
     wrapper.instance().componentDidUpdate();
     landingPageContent = wrapper.find(`.${styles.landingPage}`);
@@ -372,22 +284,11 @@ describe('LandingPage component', function () {
     searchPage.prop('hide').should.be.false();
 
     DomUtils.scrollToTop.should.be.called();
-    stubResetBreadcrumbs.should.not.be.called();
-    stubPushBreadcrumbs.should.be.calledOnce();
     DomUtils.scrollToTop.resetHistory();
-    stubResetBreadcrumbs.resetHistory();
-    stubPushBreadcrumbs.resetHistory();
 
     wrapper.setProps({
-      resetBreadcrumbs: stubResetBreadcrumbs,
-      pushBreadcrumbs: stubPushBreadcrumbs,
-      location: { pathname: '/somthing-else/' },
+      history: { location: { pathname: '/somthing-else/' } },
       params: {},
-      routes: [
-        { breadcrumb: 'cpdp', breadcrumbKey: '/' },
-        { breadcrumb: 'Search', breadcrumbKey: 'search/' },
-        { breadcrumb: 'Some other page', breadcrumbKey: 'somthing-else/' },
-      ],
     });
     wrapper.instance().componentDidUpdate();
     landingPageContent = wrapper.find(`.${styles.landingPage}`);
@@ -398,24 +299,14 @@ describe('LandingPage component', function () {
     searchPage.prop('animationIn').should.be.false();
     searchPage.prop('hide').should.be.false();
 
-    stubPushBreadcrumbs.should.not.be.called();
-    stubResetBreadcrumbs.should.not.be.called();
-    DomUtils.scrollToTop.should.be.calledOnce();
+    DomUtils.scrollToTop.should.not.be.called();
   });
 
   it('should remaining show landing page when pathname is changed from / to /something-else/', function () {
-    const stubResetBreadcrumbs = spy();
-    const stubPushBreadcrumbs = spy();
-
     const wrapper = shallow(
       <LandingPage
-        resetBreadcrumbs={ stubResetBreadcrumbs }
-        pushBreadcrumbs={ stubPushBreadcrumbs }
-        location={ { pathname: '/' } }
+        history={ { location: { pathname: '/' } } }
         params={ {} }
-        routes={ [
-          { breadcrumb: 'cpdp', breadcrumbKey: '/' },
-        ] }
       />,
       { disableLifecycleMethods: true },
     );
@@ -428,20 +319,10 @@ describe('LandingPage component', function () {
     searchPage.prop('position').should.eql('top');
     searchPage.prop('animationIn').should.be.false();
     searchPage.prop('hide').should.be.true();
-    DomUtils.scrollToTop.should.not.be.called();
-    stubResetBreadcrumbs.should.be.calledOnce();
 
-    stubResetBreadcrumbs.resetHistory();
     wrapper.setProps({
-      resetBreadcrumbs: stubResetBreadcrumbs,
-      pushBreadcrumbs: stubPushBreadcrumbs,
-      location: { pathname: '/somthing-else/' },
+      history: { location: { pathname: '/somthing-else/' } },
       params: {},
-      route: [
-        { breadcrumb: 'cpdp', breadcrumbKey: '/' },
-        { breadcrumb: 'Search', breadcrumbKey: 'search/' },
-        { breadcrumb: 'Some other page', breadcrumbKey: 'somthing-else/' },
-      ],
     });
     wrapper.instance().componentDidUpdate();
     landingPageContent = wrapper.find(`.${styles.landingPage}`);
@@ -451,58 +332,5 @@ describe('LandingPage component', function () {
     searchPage.prop('position').should.equal('top');
     searchPage.prop('animationIn').should.be.false();
     searchPage.prop('hide').should.be.true();
-
-    stubPushBreadcrumbs.should.not.be.called();
-    stubResetBreadcrumbs.should.not.be.called();
-    DomUtils.scrollToTop.should.be.calledOnce();
-  });
-
-  it('should reset breadcrumbs when mounting via root path', function () {
-    const stubResetBreadcrumbs = spy();
-
-    mount(
-      <HelmetProvider>
-        <Provider store={ store }>
-          <LandingPage
-            resetBreadcrumbs={ stubResetBreadcrumbs }
-            location={ { pathname: '/' } }
-          />
-        </Provider>
-      </HelmetProvider>
-    );
-
-    stubResetBreadcrumbs.should.be.calledWith({ breadcrumbs: [] });
-  });
-
-  it('should push breadcrumbs with search breadcrumb when mounting via search path', function () {
-    const stubResetBreadcrumbs = spy();
-    const stubPushBreadcrumbs = spy();
-
-    mount(
-      <HelmetProvider>
-        <Provider store={ store }>
-          <LandingPage
-            resetBreadcrumbs={ stubResetBreadcrumbs }
-            pushBreadcrumbs={ stubPushBreadcrumbs }
-            location={ { pathname: '/search/' } }
-            params={ {} }
-            routes={ [
-              { breadcrumb: 'cpdp', breadcrumbKey: '/' },
-              { breadcrumb: 'Search', breadcrumbKey: 'search/' },
-            ] }
-          />
-        </Provider>
-      </HelmetProvider>
-    );
-
-    stubResetBreadcrumbs.should.not.be.called();
-    stubPushBreadcrumbs.should.be.calledWith({
-      location: { pathname: '/search/' },
-      params: {},
-      routes: [
-        { breadcrumb: 'cpdp', breadcrumbKey: '/' },
-        { breadcrumb: 'Search', breadcrumbKey: 'search/' },
-      ],
-    });
   });
 });

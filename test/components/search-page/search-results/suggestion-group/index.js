@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { stub, spy } from 'sinon';
+import sinon from 'sinon';
 import InfiniteScroll from 'react-infinite-scroller';
 
 import SuggestionGroup from 'components/search-page/search-results/suggestion-group';
@@ -19,7 +19,7 @@ describe('SuggestionGroup component', function () {
   });
 
   it('should assign correct selectItem', function () {
-    const setSearchNavigationHandler = spy();
+    const setSearchNavigationHandler = sinon.spy();
     let itemIndex = 1;
     const suggestions = OfficerSuggestion.buildList(2).map((item) => ({ ...item, itemIndex: itemIndex++ }));
     const wrapper = shallow(
@@ -80,7 +80,7 @@ describe('SuggestionGroup component', function () {
       limit: 20,
       offset: 20,
     };
-    const getSuggestionWithContentType = stub().returns({ catch: stub() });
+    const getSuggestionWithContentType = sinon.stub().returns({ catch: sinon.stub() });
 
     const wrapper = shallow(
       <SuggestionGroup
@@ -97,8 +97,8 @@ describe('SuggestionGroup component', function () {
   it('should call single content type api when single content is detected', function () {
     const header = 'OFFICER';
     const searchText = 'abc';
-    const catchSpy = stub();
-    const getSuggestionWithContentType = stub().returns({ catch: catchSpy });
+    const catchSpy = sinon.stub();
+    const getSuggestionWithContentType = sinon.stub().returns({ catch: catchSpy });
 
     mount(
       <SuggestionGroup
@@ -114,18 +114,14 @@ describe('SuggestionGroup component', function () {
 
   describe('componentDidUpdate', function () {
     beforeEach(function () {
-      stub(SuggestionGroup.prototype, 'componentDidMount');
-    });
-
-    afterEach(function () {
-      SuggestionGroup.prototype.componentDidMount.restore();
+      sinon.stub(SuggestionGroup.prototype, 'componentDidMount');
     });
 
     it('should call single content type api when single content is changed to true', function () {
       const header = 'OFFICER';
       const searchText = 'abc';
-      const catchSpy = stub();
-      const getSuggestionWithContentType = stub().returns({ catch: catchSpy });
+      const catchSpy = sinon.stub();
+      const getSuggestionWithContentType = sinon.stub().returns({ catch: catchSpy });
 
       const wrapper = mount(
         <SuggestionGroup
@@ -148,7 +144,7 @@ describe('SuggestionGroup component', function () {
     });
 
     it('should not call single content type api when single content is changed to false', function () {
-      const getSuggestionWithContentType = spy();
+      const getSuggestionWithContentType = sinon.spy();
 
       const wrapper = shallow(
         <SuggestionGroup
@@ -166,7 +162,7 @@ describe('SuggestionGroup component', function () {
     });
 
     it('should not call single content type api when single content is not changed', function () {
-      const getSuggestionWithContentType = spy();
+      const getSuggestionWithContentType = sinon.spy();
 
       const wrapper = shallow(
         <SuggestionGroup

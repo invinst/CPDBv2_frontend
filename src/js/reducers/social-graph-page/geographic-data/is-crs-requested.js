@@ -1,8 +1,9 @@
 import { handleActions } from 'redux-actions';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
-import * as constants from 'utils/constants';
+import { FIRST_PAGE_GEOGRAPHIC_CRS_REQUEST_SUCCESS } from 'utils/constants';
 
 export default handleActions({
-  [constants.FIRST_PAGE_GEOGRAPHIC_CRS_REQUEST_SUCCESS]: (state, action) => true,
-  [constants.LOCATION_CHANGE]: (state, action) => false,
+  [FIRST_PAGE_GEOGRAPHIC_CRS_REQUEST_SUCCESS]: (state, action) => true,
+  [LOCATION_CHANGE]: (state, action) => false,
 }, false);

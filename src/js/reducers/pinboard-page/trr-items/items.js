@@ -1,11 +1,11 @@
 import { handleActions } from 'redux-actions';
 import * as _ from 'lodash';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 import {
   PINBOARD_TRRS_FETCH_REQUEST_SUCCESS,
   COMPLETE_REMOVE_ITEM_FROM_PINBOARD,
   ORDER_PINBOARD,
-  LOCATION_CHANGE,
 } from 'utils/constants';
 
 export default handleActions({

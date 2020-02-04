@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
+import { MemoryRouter } from 'react-router';
 
 import SearchMainPanel from 'components/search-page/search-main-panel';
 import SearchResultsContainer from 'containers/search-page/search-results-container';
@@ -47,11 +48,13 @@ describe('SearchMainPanel component', function () {
     it('should render "cancel" button when in alias edit mode', function () {
       const wrapper = mount(
         <Provider store={ store }>
-          <SearchMainPanel
-            editModeOn={ true }
-            aliasEditModeOn={ true }
-            query='ke'
-          />
+          <MemoryRouter>
+            <SearchMainPanel
+              editModeOn={ true }
+              aliasEditModeOn={ true }
+              query='ke'
+            />
+          </MemoryRouter>
         </Provider>
       );
 
@@ -61,11 +64,13 @@ describe('SearchMainPanel component', function () {
     it('should not render "cancel" button when not aliasEditModeOn', function () {
       const wrapper = mount(
         <Provider store={ store }>
-          <SearchMainPanel
-            editModeOn={ true }
-            aliasEditModeOn={ false }
-            query='ke'
-          />
+          <MemoryRouter>
+            <SearchMainPanel
+              editModeOn={ true }
+              aliasEditModeOn={ false }
+              query='ke'
+            />
+          </MemoryRouter>
         </Provider>
       );
       wrapper.find('.cancel-alias-button').exists().should.be.false();

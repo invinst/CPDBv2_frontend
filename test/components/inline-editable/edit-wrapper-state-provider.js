@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { shallow, mount } from 'enzyme';
-import { spy, stub } from 'sinon';
+import sinon from 'sinon';
 
 import * as draftUtils from 'utils/draft';
 import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
@@ -20,11 +20,11 @@ describe('EditWrapperStateProvider component', function () {
   });
 
   it('should pass down data context in context', function () {
-    stub(draftUtils, 'convertContentStateToEditorState').returns('my value');
+    sinon.stub(draftUtils, 'convertContentStateToEditorState').returns('my value');
     const navbarTitleField = RichTextFieldFactory.build({ name: 'navbar_title' });
     const stringField = StringFieldFactory.build({ name: 'string_field' });
-    const turnOnSectionEditModeSpy = spy();
-    const turnOffSectionEditModeSpy = spy();
+    const turnOnSectionEditModeSpy = sinon.spy();
+    const turnOffSectionEditModeSpy = sinon.spy();
     class ChildrenComponent extends Component { // eslint-disable-line
       render() {
         return (
@@ -70,13 +70,12 @@ describe('EditWrapperStateProvider component', function () {
       editModeOn: true,
     });
     draftUtils.convertContentStateToEditorState.should.be.calledWith(navbarTitleField.value);
-    draftUtils.convertContentStateToEditorState.restore();
   });
 
   it('should save data from state when call onSaveForm', function () {
-    stub(draftUtils, 'convertEditorStateToRaw').returns('raw content');
-    const turnOffSectionEditModeSpy = spy();
-    const onSaveFormStub = stub().returns(new Promise(resolve => resolve()));
+    sinon.stub(draftUtils, 'convertEditorStateToRaw').returns('raw content');
+    const turnOffSectionEditModeSpy = sinon.spy();
+    const onSaveFormStub = sinon.stub().returns(new Promise(resolve => resolve()));
     const stringField = StringFieldFactory.build({ name: 'string_field' });
     class ChildrenComponent extends Component { // eslint-disable-line
       render() {
@@ -121,7 +120,6 @@ describe('EditWrapperStateProvider component', function () {
       turnOffSectionEditModeSpy.should.be.called();
 
       draftUtils.convertEditorStateToRaw.should.be.calledWith('editor state');
-      draftUtils.convertEditorStateToRaw.restore();
     });
   });
 
@@ -151,7 +149,7 @@ describe('EditWrapperStateProvider component', function () {
   });
 
   it('should deserialize fields it just receive', function () {
-    const spyDeserializeField = spy(EditWrapperStateProvider, 'deserializeField');
+    const spyDeserializeField = sinon.spy(EditWrapperStateProvider, 'deserializeField');
     const wrapper = shallow(
       <EditWrapperStateProvider
         fields={ {
@@ -191,11 +189,10 @@ describe('EditWrapperStateProvider component', function () {
     spyDeserializeField.should.be.called();
     navbarText = wrapper.state('fields')['navbar_title'].value.getCurrentContent().getFirstBlock().getText();
     navbarText.should.equal('navbar title!!!');
-    spyDeserializeField.restore();
   });
 
   it('should update fields on sectionEditModeOn change', function () {
-    const spyDeserializeField = spy(EditWrapperStateProvider, 'deserializeField');
+    const spyDeserializeField = sinon.spy(EditWrapperStateProvider, 'deserializeField');
     const wrapper = shallow(
       <EditWrapperStateProvider
         fields={ {

@@ -1,13 +1,13 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
+import { mountWithRouter } from 'utils/test';
 import LinkHeaderButton from 'components/headers/shareable-header/link-header-button';
 
 
 describe('LinkHeaderButton component', function () {
   it('should render correct passed props', function () {
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <LinkHeaderButton
         buttonText='link-header-button'
         to='/path'

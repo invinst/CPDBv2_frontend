@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 
 import Carousel from 'components/common/carousel';
 import CarouselWrapper from 'components/cr-page/related-complaints/carousel-wrapper';
@@ -13,12 +13,13 @@ describe('CarouselWrapper component', function () {
   const distance = '10mi';
 
   beforeEach(function () {
-    fetchSpy = spy();
+    fetchSpy = sinon.spy();
   });
 
   it('should renderable', function () {
     CarouselWrapper.should.be.renderable({
       cards: [{ crid: '123456' }],
+      withRouter: true,
     });
   });
 

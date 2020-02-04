@@ -1,11 +1,11 @@
-import breadcrumbsMapping from 'reducers/breadcrumbs-mapping';
+import breadcrumbsMapping from 'reducers/breadcrumb/breadcrumbs-mapping';
 
 import * as constants from 'utils/constants';
 
 
 describe('breadcrumbsMapping', function () {
   it('should return initial state', function () {
-    breadcrumbsMapping(undefined, {}).should.eql({});
+    breadcrumbsMapping(undefined, {}).should.eql([]);
   });
 
   it('should store officer breadcrumb text', function () {
@@ -16,6 +16,22 @@ describe('breadcrumbsMapping', function () {
         'full_name': 'Ronald Hernandez',
       },
     }).should.eql({ '/officer/123/': 'Ronald Hernandez' });
+  });
+
+  it('should update officer breadcrumb text', function () {
+    breadcrumbsMapping({
+      '/officer/123/': 'Old Name',
+      '/officer/456/': 'Andrew Schoeff',
+    }, {
+      type: constants.OFFICER_SUMMARY_REQUEST_SUCCESS,
+      payload: {
+        id: '123',
+        'full_name': 'Ronald Hernandez',
+      },
+    }).should.eql({
+      '/officer/123/': 'Ronald Hernandez',
+      '/officer/456/': 'Andrew Schoeff',
+    });
   });
 
   it('should store complaint breadcrumb text', function () {

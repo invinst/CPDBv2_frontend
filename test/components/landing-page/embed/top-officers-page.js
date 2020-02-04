@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 
@@ -19,7 +19,9 @@ describe('Embed top officers page', function () {
       pages: {},
     },
     pinboardPage: { pinboard: {} },
-  });it('should render OfficersByAllegationContainer', function () {
+  });
+
+  it('should render OfficersByAllegationContainer', function () {
     const wrapper = shallow(
       <EmbedTopOfficersPage />
     );
@@ -31,11 +33,7 @@ describe('Embed top officers page', function () {
 
   describe('Intercom', function () {
     beforeEach(function () {
-      stub(intercomUtils, 'showIntercomLauncher');
-    });
-
-    afterEach(function () {
-      intercomUtils.showIntercomLauncher.restore();
+      sinon.stub(intercomUtils, 'showIntercomLauncher');
     });
 
     it('should hide intercom launcher when mounted', function () {

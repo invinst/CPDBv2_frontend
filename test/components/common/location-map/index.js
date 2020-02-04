@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 
 import LocationMap from 'components/common/location-map';
 
@@ -24,7 +24,7 @@ describe('LocationMap component', function () {
     const wrapper = mount(<LocationMap lng={ 0 } lat={ 0 } />);
     const instance = wrapper.instance();
     instance.handleMapClick();
-    const zoomOutSpy = spy(instance, 'zoomOut');
+    const zoomOutSpy = sinon.spy(instance, 'zoomOut');
     instance.map.getZoom.returns(13);
 
     wrapper.setProps({ lng: 1, lat: 1 });
@@ -35,7 +35,7 @@ describe('LocationMap component', function () {
   it('should call zoomIn when click and map is zoomed out', function () {
     const wrapper = mount(<LocationMap lng={ 1 } lat={ 1 } />);
     const instance = wrapper.instance();
-    const zoomIn = spy(instance, 'zoomIn');
+    const zoomIn = sinon.spy(instance, 'zoomIn');
     instance.map.getZoom.returns(9);
     instance.handleMapClick();
     zoomIn.should.be.called();
@@ -45,7 +45,7 @@ describe('LocationMap component', function () {
   it('should call zoomOut when click and map is zoomed in', function () {
     const wrapper = mount(<LocationMap lng={ 1 } lat={ 1 } />);
     const instance = wrapper.instance();
-    const zoomOut = spy(instance, 'zoomOut');
+    const zoomOut = sinon.spy(instance, 'zoomOut');
     instance.map.getZoom.returns(13);
     instance.handleMapClick();
     zoomOut.should.be.called();

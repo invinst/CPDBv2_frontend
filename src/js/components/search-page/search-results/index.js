@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { map, noop, get, isEqual, isEmpty } from 'lodash';
 import cx from 'classnames';
 
@@ -134,7 +134,7 @@ export default class SearchResults extends Component {
       return (
         <div className='action-bar'>
           <Link
-            to={ `/edit/${constants.SEARCH_PATH}` }
+            to={ `/edit${constants.SEARCH_PATH}` }
             className='cancel-alias-button'>
             Cancel
           </Link>
@@ -143,7 +143,7 @@ export default class SearchResults extends Component {
     } else {
       return (
         <div className='plus-sign-wrapper'>
-          <Link to={ `/edit/${constants.SEARCH_ALIAS_EDIT_PATH}` } className='plus-sign'>[+]</Link>
+          <Link to={ `/edit${constants.SEARCH_ALIAS_EDIT_PATH}` } className='plus-sign'>[+]</Link>
         </div>
       );
     }

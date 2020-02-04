@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
 import AttachmentItem from 'components/cr-page/attachments/attachment-item';
 import * as tracking from 'utils/tracking';
@@ -8,7 +8,7 @@ import * as tracking from 'utils/tracking';
 
 describe('AttachmentItem component', function () {
   it('should track click event', function () {
-    const stubTrackAttachmentClick = stub(tracking, 'trackAttachmentClick');
+    const stubTrackAttachmentClick = sinon.stub(tracking, 'trackAttachmentClick');
     const wrapper = shallow(
       <AttachmentItem
         url='https://www.documentcloud.org/documents/4769822-CRID-1002813-CR.html'
@@ -20,7 +20,6 @@ describe('AttachmentItem component', function () {
       '/complaint/123456/',
       'https://www.documentcloud.org/documents/4769822-CRID-1002813-CR.html'
     );
-    stubTrackAttachmentClick.restore();
   });
 
   it('should render audio background correctly', function () {
@@ -60,7 +59,7 @@ describe('AttachmentItem component', function () {
   });
 
   it('should track attachment click event', function () {
-    const stubOnTrackingAttachment = stub();
+    const stubOnTrackingAttachment = sinon.stub();
     const wrapper = shallow(
       <AttachmentItem
         onTrackingAttachment={ stubOnTrackingAttachment }

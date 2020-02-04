@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
 import {
   fetchAllPinboards,
@@ -23,7 +23,7 @@ describe('pinboard admin page actions', function () {
   describe('fetchAllPinboards', function () {
     it('should return correct payload', function () {
       const params = { limit: '100' };
-      stub(Cookies, 'get').returns('authenticated_token');
+      sinon.stub(Cookies, 'get').returns('authenticated_token');
 
       fetchAllPinboards(params).should.eql({
         types: [
@@ -43,7 +43,6 @@ describe('pinboard admin page actions', function () {
           },
         },
       });
-      Cookies.get.restore();
     });
   });
 

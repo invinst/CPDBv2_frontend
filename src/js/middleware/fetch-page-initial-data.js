@@ -1,5 +1,7 @@
 import { Promise } from 'es6-promise';
 import { every, get } from 'lodash';
+import { LOCATION_CHANGE } from 'connected-react-router';
+import queryString from 'query-string';
 
 import {
   LANDING_PAGE_ID, OFFICER_PAGE_ID, CR_PAGE_ID, TRR_PAGE_ID, PINBOARD_PAGE_ID,
@@ -56,7 +58,8 @@ const handleFetchingDocumentPage = (dispatches, store, pathname) => {
 
 const handleFetchingDocumentsOverviewPage = (dispatches, store, state, action, fetch) => {
   const previousMatch = getMatchParamater(state);
-  const currentMatch = get(action.payload.query, 'match', '');
+  const query = queryString.parse(get(action.payload.location, 'search', ''));
+  const currentMatch = get(query, 'match', '');
   const previousDataOrders = getDocumentsOrder(state);
   let params = {};
 
@@ -89,7 +92,9 @@ export default store => next => action => {
     }
   }
 
-  else if (action.type === '@@router/LOCATION_CHANGE') {
+  else if (action.type === LOCATION_CHANGE) {
+    const pathName = action.payload.location.pathname;
+
     const getCMSContent = (pageId) => {
       if (!hasCMSContent(pageId)(state)) {
         dispatches.push(store.dispatch(fetchPage(pageId)()));
@@ -97,12 +102,12 @@ export default store => next => action => {
     };
 
     const notRequiredLandingPageContent = [/embed\/map/];
-    if (every(notRequiredLandingPageContent, item => !action.payload.pathname.match(item))) {
+    if (every(notRequiredLandingPageContent, item => !pathName.match(item))) {
       getCMSContent(LANDING_PAGE_ID);
     }
 
-    if (action.payload.pathname.match(/officer\/\d+/)) {
-      const officerId = getOfficerId(action.payload.pathname);
+    if (pathName.match(/officer\/\d+/)) {
+      const officerId = getOfficerId(pathName);
       const oldOfficerId = getOfficerId(prevPathname);
       if (officerId !== oldOfficerId) {
         dispatches.push(store.dispatch(changeOfficerId(officerId)));
@@ -115,7 +120,7 @@ export default store => next => action => {
       getCMSContent(OFFICER_PAGE_ID);
     }
 
-    else if (action.payload.pathname.match(/^\/((edit|search)\/?)?$/)) {
+    else if (pathName.match(/^\/((edit|search)\/?)?$/)) {
       if (!hasCommunitiesSelector(state)) {
         dispatches.push(store.dispatch(getCommunities()));
       }
@@ -147,8 +152,8 @@ export default store => next => action => {
       dispatches.push(store.dispatch(requestSearchTermCategories()));
     }
 
-    else if (action.payload.pathname.match(/complaint\/\w+/)) {
-      const crid = getCRID(action.payload.pathname);
+    else if (pathName.match(/complaint\/\w+/)) {
+      const crid = getCRID(pathName);
       const oldCrid = getCRID(prevPathname);
       if (crid !== oldCrid) {
         dispatches.push(store.dispatch(fetchCR(crid)));
@@ -157,13 +162,13 @@ export default store => next => action => {
       getCMSContent(CR_PAGE_ID);
     }
 
-    else if (action.payload.pathname.match(/unit\/\d+/)) {
-      const unitName = getUnitName(action.payload.pathname);
+    else if (pathName.match(/unit\/\d+/)) {
+      const unitName = getUnitName(pathName);
       dispatches.push(store.dispatch(fetchUnitProfileSummary(unitName)));
     }
 
-    else if (action.payload.pathname.match(/trr\/\d+/)) {
-      const trrId = getTRRId(action.payload.pathname);
+    else if (pathName.match(/trr\/\d+/)) {
+      const trrId = getTRRId(pathName);
       const oldTrrId = getTRRId(prevPathname);
       if (trrId !== oldTrrId) {
         dispatches.push(store.dispatch(fetchTRR(trrId)));
@@ -172,17 +177,17 @@ export default store => next => action => {
       getCMSContent(TRR_PAGE_ID);
     }
 
-    else if (action.payload.pathname.match(/document\/\d+/)) {
-      handleFetchingDocumentPage(dispatches, store, action.payload.pathname);
+    else if (pathName.match(/document\/\d+/)) {
+      handleFetchingDocumentPage(dispatches, store, pathName);
     }
 
-    else if (action.payload.pathname.match(/embed\/top-officers/)) {
+    else if (pathName.match(/embed\/top-officers/)) {
       if (!hasOfficerByAllegationData(state)) {
         dispatches.push(store.dispatch(requestOfficersByAllegation()));
       }
     }
 
-    else if (action.payload.pathname.match(/embed\/map/)) {
+    else if (pathName.match(/embed\/map/)) {
       if (!hasCommunitiesSelector(state)) {
         dispatches.push(store.dispatch(getCommunities()));
       }
@@ -194,28 +199,28 @@ export default store => next => action => {
       }
     }
 
-    else if (action.payload.pathname.match(/\/documents\/crid\//)) {
+    else if (pathName.match(/\/documents\/crid\//)) {
       const previousCRID = getCRIDParameter(state);
-      const currentCRID = getDocDedupCRID(action.payload.pathname);
+      const currentCRID = getDocDedupCRID(pathName);
       if (currentCRID !== previousCRID) {
         dispatches.push(store.dispatch(fetchDocumentsByCRID({ crid: currentCRID })));
       }
     }
 
-    else if (action.payload.pathname.match(/\/edit\/documents\//)) {
+    else if (pathName.match(/\/edit\/documents\//)) {
       handleFetchingDocumentsOverviewPage(dispatches, store, state, action, fetchDocumentsAuthenticated);
     }
 
-    else if (action.payload.pathname.match(/\/documents\//)) {
+    else if (pathName.match(/\/documents\//)) {
       handleFetchingDocumentsOverviewPage(dispatches, store, state, action, fetchDocuments);
     }
 
-    else if (action.payload.pathname.match(/\/crawlers\//)) {
+    else if (pathName.match(/\/crawlers\//)) {
       dispatches.push(store.dispatch(requestCrawlers()));
     }
 
-    else if (action.payload.pathname.match(/\/pinboard\/([a-fA-F0-9]+\/)?/)) {
-      const idOnPath = getPinboardID(action.payload.pathname);
+    else if (pathName.match(/\/pinboard\/([a-fA-F0-9]+\/)?/)) {
+      const idOnPath = getPinboardID(pathName);
       const pinboard = getPinboard(state);
       const idInStore = pinboard.id;
       if (!idOnPath) {
@@ -237,11 +242,11 @@ export default store => next => action => {
       getCMSContent(PINBOARD_PAGE_ID);
     }
 
-    else if (action.payload.pathname.match(/\/view-all-pinboards\//)) {
+    else if (pathName.match(/\/view-all-pinboards\//)) {
       store.dispatch(fetchAllPinboards());
     }
 
-    prevPathname = action.payload.pathname;
+    prevPathname = pathName;
   }
 
   if (dispatches.length > 0) {

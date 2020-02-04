@@ -2,36 +2,45 @@ import React, { createElement } from 'react';
 import should from 'should';
 import { Provider } from 'react-redux';
 import { each, assign } from 'lodash';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 import { shallow, mount } from 'enzyme';
 import { HelmetProvider } from 'react-helmet-async';
+import { MemoryRouter } from 'react-router';
 
 import { MOBILE, TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
 
 
 function assertRender(obj, props) {
   let wrapper;
-  let component;
-  if (props && props.store) {
-    const { store, ...otherProps } = props;
-    component = (
-      <HelmetProvider>
-        <Provider store={ store }>
-          { createElement(obj, otherProps) }
-        </Provider>
-      </HelmetProvider>
-    );
-  } else {
-    component = createElement(obj, props);
-  }
+  const { store, helmet, withRouter, ...otherProps } = props || {};
+  let component = createElement(obj, otherProps);
 
-  if (props && props.helmet) {
+  if (helmet) {
     component = (
       <HelmetProvider>
         { component }
       </HelmetProvider>
     );
   }
+
+  if (withRouter) {
+    component = (
+      <MemoryRouter>
+        { component }
+      </MemoryRouter>
+    );
+  }
+
+  if (store) {
+    component = (
+      <HelmetProvider>
+        <Provider store={ store }>
+          { component }
+        </Provider>
+      </HelmetProvider>
+    );
+  }
+
   wrapper = mount(component);
 
   wrapper.exists().should.be.true();
@@ -53,7 +62,7 @@ should.Assertion.add('responsiveRenderable', function (props) {
 });
 
 should.Assertion.add('triggerCallbackWhenClick', function (callbackProp, target=null, props={}, expectedArg=null) {
-  const callback = spy();
+  const callback = sinon.spy();
   let wrapper = mount(createElement(this.obj, assign({}, props, { [callbackProp]: callback })));
 
   if (typeof target === 'string') {

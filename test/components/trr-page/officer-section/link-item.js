@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import LinkItem from 'components/trr-page/officer-section/link-item';
 import NavigationButton from 'components/trr-page/officer-section/navigation-button';

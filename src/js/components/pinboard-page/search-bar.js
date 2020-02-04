@@ -25,7 +25,7 @@ export default class SearchBar extends Component {
   };
 
   goToSearchPage(e) {
-    pushPathPreserveEditMode(`/${SEARCH_PATH}`);
+    pushPathPreserveEditMode(SEARCH_PATH);
     e.stopPropagation();
   }
 

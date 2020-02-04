@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { spy } from 'sinon';
+import sinon from 'sinon';
 
 import TRRDocument from 'components/trr-page/trr-info-section/trr-document';
 import RequestDocumentButton from 'components/common/request-document-button';
@@ -17,11 +17,11 @@ describe('Row component', function () {
         'no_attachment_text': ['There are no documents that have been made public yet.'],
       }),
       sectionEditModeOn: false,
-      onSaveForm: spy(),
-      turnOnSectionEditMode: spy(),
-      turnOffSectionEditMode: spy(),
+      onSaveForm: sinon.spy(),
+      turnOnSectionEditMode: sinon.spy(),
+      turnOffSectionEditMode: sinon.spy(),
     };
-    const openRequestTRRDocumentModal = spy();
+    const openRequestTRRDocumentModal = sinon.spy();
     const wrapper = mount(
       <TRRDocument
         alreadyRequested={ true }

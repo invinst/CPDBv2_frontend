@@ -1,4 +1,4 @@
-import { stub, useFakeTimers } from 'sinon';
+import sinon from 'sinon';
 
 import { OFFICER_FETCH_ZIP_FILE_URL_REQUEST_SUCCESS } from 'utils/constants';
 import retryOfficerDownloadMiddleware from 'middleware/retry-officer-downloads';
@@ -7,7 +7,7 @@ import { fetchOfficerZipFileUrl, fetchOfficerZipWithDocsFileUrl } from 'actions/
 
 describe('retryOfficerDownloadMiddleware', function () {
   const store = {
-    dispatch: stub().usingPromise(Promise).resolves('abc'),
+    dispatch: sinon.stub().usingPromise(Promise).resolves('abc'),
   };
 
   afterEach(function () {
@@ -17,7 +17,7 @@ describe('retryOfficerDownloadMiddleware', function () {
   it(
     'should retry fetchOfficerZipFileUrl on OFFICER_FETCH_ZIP_FILE_URL_REQUEST_SUCCESS',
     function () {
-      const clock = useFakeTimers();
+      const clock = sinon.useFakeTimers();
 
       const action = {
         type: OFFICER_FETCH_ZIP_FILE_URL_REQUEST_SUCCESS,
@@ -31,15 +31,13 @@ describe('retryOfficerDownloadMiddleware', function () {
 
       clock.tick(1200);
       store.dispatch.calledWith(fetchOfficerZipFileUrl('123', 2));
-
-      clock.restore();
     }
   );
 
   it(
     'should retry fetchOfficerZipFileUrl on OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_SUCCESS',
     function () {
-      const clock = useFakeTimers();
+      const clock = sinon.useFakeTimers();
 
       const action = {
         type: OFFICER_FETCH_ZIP_FILE_URL_REQUEST_SUCCESS,
@@ -53,13 +51,11 @@ describe('retryOfficerDownloadMiddleware', function () {
 
       clock.tick(1200);
       store.dispatch.calledWith(fetchOfficerZipWithDocsFileUrl('123', 2));
-
-      clock.restore();
     }
   );
 
   it('should not retry if payload is ready', function () {
-    const clock = useFakeTimers();
+    const clock = sinon.useFakeTimers();
     const action = {
       type: OFFICER_FETCH_ZIP_FILE_URL_REQUEST_SUCCESS,
       request: {
@@ -72,14 +68,12 @@ describe('retryOfficerDownloadMiddleware', function () {
 
     clock.tick(1200);
     store.dispatch.should.not.be.called();
-
-    clock.restore();
   });
 
   it(
     'should retry with limit',
     function () {
-      const clock = useFakeTimers();
+      const clock = sinon.useFakeTimers();
 
       const action = {
         type: OFFICER_FETCH_ZIP_FILE_URL_REQUEST_SUCCESS,
@@ -93,8 +87,6 @@ describe('retryOfficerDownloadMiddleware', function () {
 
       clock.tick(1200);
       store.dispatch.should.not.be.called();
-
-      clock.restore();
     }
   );
 });
