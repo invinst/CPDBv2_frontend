@@ -32,7 +32,8 @@ _mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
 
 if (config.appEnv === 'live-test' || global.mocha !== undefined) {
   const addSourceSpy = sinon.spy();
-  const getSourceStub = sinon.stub().returns(undefined);
+  const getSource = (source) => source === 'unknown source' ? undefined : source;
+  const getSourceStub = sinon.spy(getSource);
   const addLayerSpy = sinon.spy();
   const getLayerStub = sinon.stub().returns(undefined);
   const setFilterSpy = sinon.spy();

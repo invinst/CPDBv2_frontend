@@ -12,27 +12,35 @@ describe('MapboxGL component', function () {
 
   it('should add sources and layers on load', function (done) {
     const sources = [{
-      name: 'abc',
+      name: 'unknown source',
+      type: 'geojson',
+      data: 'path/to/geojson',
+    },
+    {
+      name: 'added source',
       type: 'geojson',
       data: 'path/to/geojson',
     }];
+
     const layers = [{
       id: 'heatmap-layer',
       type: 'heatmap',
-      source: 'abc',
+      source: 'added source',
       paint: {},
     }];
+
     const wrapper = mount(<MapboxGL sources={ sources } layers={ layers }/>);
     const instance = wrapper.instance();
     setTimeout(() => {
-      instance._mapBox.addSource.calledWith('abc', {
+      instance._mapBox.addSource.should.be.calledOnce();
+      instance._mapBox.addSource.calledWith('unknown source', {
         type: 'geojson',
         data: 'path/to/geojson',
       }).should.be.true();
       instance._mapBox.addLayer.calledWith({
         id: 'heatmap-layer',
         type: 'heatmap',
-        source: 'abc',
+        source: 'added source',
         paint: {},
       }).should.be.true();
       done();

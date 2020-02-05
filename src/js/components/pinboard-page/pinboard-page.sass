@@ -12,12 +12,12 @@
   height: 100vh
 
 \:local(.pinboardPage)
-  [aria-hidden="true"]
+  .overlay[aria-hidden="true"]
     opacity: 0
     transition: opacity 0.25s, z-index 0s 0.25s
     z-index: -1
 
-  [aria-hidden="false"]
+  .overlay[aria-hidden="false"]
     display: block
     opacity: 0.8
     transition: opacity 0.8s

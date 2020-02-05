@@ -86,11 +86,17 @@ export default class MapboxGL extends Component {
     const { layers, filters } = this.props;
     each(layers, layer => {
       let _layer = this._mapBox.getLayer(layer.id);
-      if (!_layer) {
+      const _source = this._mapBox.getSource(layer.source);
+      if (!_layer && _source) {
         this._mapBox.addLayer(layer);
       }
     });
-    each(filters, args => this._mapBox.setFilter(...args));
+    each(filters, ([layerId, filter]) => {
+      const layer = this._mapBox.getLayer(layerId);
+      if (layer) {
+        this._mapBox.setFilter(layerId, filter);
+      }
+    });
   }
 
   render() {
