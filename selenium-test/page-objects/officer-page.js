@@ -83,7 +83,7 @@ class AttachmentsSection extends Section {
     this.prepareElementGetters({
       attachmentComplaint: '//div[contains(@class, "complaint__complaint")]',
       attachmentHeading: '//div[contains(@class, "complaint__complaint")]//a[contains(@class, "heading__heading")]',
-      attachment: '//a[contains(@class, "attachment__attachment")]',
+      attachment: '//div[contains(@class, "attachment__attachment")]',
     });
   }
 }

@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import cx from 'classnames';
 
 import { trackOutboundLink } from 'utils/tracking';
+import styles from './outbound-link.sass';
 
 
 export default class OutboundLink extends Component {
@@ -18,14 +20,15 @@ export default class OutboundLink extends Component {
   };
 
   render() {
-    const { children, ...rest } = this.props;
+    const { children, className, ...rest } = this.props;
     return (
-      <a
+      <div
         { ...rest }
+        className={ cx(styles.outboundLink, className) }
         onClick={ this.handleClick }
       >
         { children }
-      </a>
+      </div>
     );
   }
 }
@@ -35,6 +38,7 @@ OutboundLink.propTypes = {
   children: PropTypes.node,
   onClick: PropTypes.func,
   target: PropTypes.string,
+  className: PropTypes.string,
 };
 
 OutboundLink.defaultProps = {

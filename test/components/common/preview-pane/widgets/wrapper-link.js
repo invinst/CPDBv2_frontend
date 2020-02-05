@@ -11,7 +11,7 @@ describe('WrapperLink component', () => {
     const wrapper = shallow(
       <WrapperLink to='officer/1/'/>
     );
-    wrapper.find(Link).prop('to').should.equal('officer/1/');
+    wrapper.find('NavigationWrapper').prop('to').should.equal('officer/1/');
   });
 
   it('should contain a OutboundLink component when it has `to` property', () => {
