@@ -120,7 +120,7 @@ describe('PinboardPane component', function () {
     const oneLineListWidget = widgetWrapper.find(OneLineListWidget);
     oneLineListWidget.prop('items').should.eql([
       { title: 'Created at', text: 'Nov 4, 2019 4:12 PM' },
-      { title: 'Children', text: 5 },
+      { title: 'Children', text: '5' },
     ]);
 
     const staticSocialGraph = widgetWrapper.find(StaticSocialGraphContainer);

@@ -180,6 +180,7 @@ describe('ListWidget', () => {
       wrapper.find(Collapse).exists().should.be.false();
       wrapper.find(ListWidgetItem).should.have.length(4);
     });
+
     it('should not render Panel when collapsable but there are only 3 items or less', function () {
       const wrapper = shallow(
         <ListWidget

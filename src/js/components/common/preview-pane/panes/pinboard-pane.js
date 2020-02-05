@@ -54,7 +54,7 @@ export default class PinboardPane extends Component {
         <OneLineListWidget
           items={ [
             { title: 'Created at', text: fullCreatedAt },
-            { title: 'Children', text: childCount },
+            { title: 'Children', text: String(childCount) },
           ] }
         />
         <div className='static-social-graph'>

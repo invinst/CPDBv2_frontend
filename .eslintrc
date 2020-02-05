@@ -50,11 +50,6 @@
             2,
             {
                 "properties": "always",
-                "allow": [
-                    "UNSAFE_componentWillMount",
-                    "UNSAFE_componentWillReceiveProps",
-                    "UNSAFE_componentWillUpdate"
-                ]
             }
         ],
         "eol-last": [
