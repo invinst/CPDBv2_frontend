@@ -828,10 +828,6 @@ describe('Search Page', function () {
     });
 
     it('should add/remove officer to/from pinboard when click on pin button', function () {
-      const addedOfficerPattern =
-        /^[A-Za-z\s]+ [\d]+ [A-Za-z\s]+,\nwith [\d]+ complaints, [\d]+ sustained added.$/;
-      const removedOfficerPattern =
-        /^[A-Za-z\s]+ [\d]+ [A-Za-z\s]+,\nwith [\d]+ complaints, [\d]+ sustained removed.$/;
       searchPage.input.waitForDisplayed();
       searchPage.input.setValue('Ke');
 
@@ -842,14 +838,18 @@ describe('Search Page', function () {
       // Move the cursor away from the toast to prevent it from displaying forever
       searchPage.input.moveTo();
 
-      searchPage.toast.waitForTextMatch(addedOfficerPattern);
+      searchPage.toast.waitForText(
+        'Police Officer Bernadette Kelly 45-year-old White Male, with 10 complaints, 2 sustained added.'
+      );
       searchPage.pinboardButton.getText().should.eql('Pinboard (1)');
 
       searchPage.toast.waitForDisplayed();
       searchPage.toast.waitForDisplayed(5000, true);
 
       searchPage.officerPreviewPaneSection.pinButton.click();
-      searchPage.toast.waitForTextMatch(removedOfficerPattern);
+      searchPage.toast.waitForText(
+        'Police Officer Bernadette Kelly 45-year-old White Male, with 10 complaints, 2 sustained removed.'
+      );
       searchPage.pinboardButton.getText().should.eql('Your pinboard is empty');
     });
 

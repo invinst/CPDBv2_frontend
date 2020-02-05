@@ -140,13 +140,11 @@ describe('CR page', function () {
 
   describe('Pinboard function', function () {
     it('should display toast when pinning a coaccusal', function () {
-      const addedOfficerPattern =
-        /^[A-Za-z\s]+ [\d]+-year-old [A-Za-z\s]+,\nwith [\d]+ complaints, [\d]+ sustained added.$/;
-      const removedOfficerPattern =
-        /^[A-Za-z\s]+ [\d]+-year-old [A-Za-z\s]+,\nwith [\d]+ complaints, [\d]+ sustained removed.$/;
       crPage.accusedOfficers.firstCard.pinButton.click();
       crPage.lastToast.waitForDisplayed();
-      crPage.lastToast.waitForTextMatch(addedOfficerPattern);
+      crPage.lastToast.waitForText(
+        'Officer Ridchard Sullivan 42-year-old white male, with 43 complaints, 1 sustained added.'
+      );
 
       crPage.landingPageBreadCrumb.click();
       landingPage.searchSection.mainElement.waitForDisplayed();
@@ -157,7 +155,9 @@ describe('CR page', function () {
 
       crPage.accusedOfficers.firstCard.pinButton.click();
       crPage.lastToast.waitForDisplayed();
-      crPage.lastToast.waitForTextMatch(removedOfficerPattern);
+      crPage.lastToast.waitForText(
+        'Officer Ridchard Sullivan 42-year-old white male, with 43 complaints, 1 sustained removed.'
+      );
 
       crPage.landingPageBreadCrumb.click();
       landingPage.searchSection.mainElement.waitForDisplayed();
@@ -166,11 +166,11 @@ describe('CR page', function () {
     });
 
     it('should display toast when pinning a related complaint', function () {
-      const addedCrPattern = /^CR #[\w]+ categorized as [A-Za-z\s]+\nhappened in [\w\s]+, [\d]+ | [\d-]+ added.$/;
-      const removedCrPattern = /^CR #[\w]+ categorized as [A-Za-z\s]+\nhappened in [\w\s]+, [\d]+ | [\d-]+ removed.$/;
       crPage.relatedByCategoriesCarousel.firstPinButton.click();
       crPage.lastToast.waitForDisplayed();
-      crPage.lastToast.waitForTextMatch(addedCrPattern);
+      crPage.lastToast.waitForText(
+        'CR #123456 categorized as Use Of Force happened in Jan 1, 2000 added.'
+      );
 
       crPage.landingPageBreadCrumb.click();
       landingPage.searchSection.mainElement.waitForDisplayed();
@@ -181,7 +181,9 @@ describe('CR page', function () {
 
       crPage.relatedByCategoriesCarousel.firstPinButton.click();
       crPage.lastToast.waitForDisplayed();
-      crPage.lastToast.waitForTextMatch(removedCrPattern);
+      crPage.lastToast.waitForText(
+        'CR #123456 categorized as Use Of Force happened in Jan 1, 2000 removed.'
+      );
 
       crPage.landingPageBreadCrumb.click();
       landingPage.searchSection.mainElement.waitForDisplayed();

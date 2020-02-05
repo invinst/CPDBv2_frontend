@@ -9,10 +9,12 @@ import CarouselSection from './sections/carousel';
 
 class RecentActivityCarouselSection extends CarouselSection {
   constructor() {
+    const cardSelector = '//a[contains(@class, "officer-card")]';
+    const pairCardSelector = '//div[contains(@class, "pairing-card")]';
     super(
       '',
       '//div[@class="test--landing-carousel-activity landing-page-carousel"]',
-      '//a[contains(@class, "officer-card")]'
+      cardSelector
     );
     this.prepareElementGetters({
       pairCards: '//div[contains(@class, "pairing-card__pairing-card")]',
@@ -23,37 +25,74 @@ class RecentActivityCarouselSection extends CarouselSection {
         '//a[contains(@class, "half-pane")][2]',
       firstPairCardPinButton: '(//div[contains(@class, "pairing-card__pairing-card")])[1]' +
         '//div[contains(@class, "item-pin-button__item-pin-button")]',
+      jeromeFinniganPinButton: (
+        cardSelector +
+        '[.//p[contains(@class, "officer-card-name") and text()="Jerome Finnigan"]]' +
+        '//div[contains(@class, "item-pin-button__item-pin-button")]'
+      ),
+      jeromeFinniganPairCardPinButton: (
+        pairCardSelector +
+        '[.//div[contains(@class, "officer-info-name") and text()="Jerome Finnigan"]]' +
+        '//div[contains(@class, "item-pin-button__item-pin-button")]'
+      ),
     });
   }
 }
 
 class OfficersByAllegationCarouselSection extends CarouselSection {
   constructor() {
+    const cardSelector = '//a[contains(@class, "officer-card")]';
     super(
       '',
       '//div[@class="test--landing-carousel-allegation landing-page-carousel"]',
-      '//a[contains(@class, "officer-card")]',
+      cardSelector
     );
+
+    this.prepareElementGetters({
+      edwardMayPinButton: (
+        cardSelector +
+        '[.//p[contains(@class, "officer-card-name") and text()="Edward May"]]' +
+        '//div[contains(@class, "item-pin-button__item-pin-button")]'
+      ),
+    });
   }
 }
 
 class RecentDocumentCarouselSection extends CarouselSection {
   constructor() {
+    const cardSelector = '//a[contains(@class, "document-card__document-card")]';
     super(
       '',
       '//div[@class="test--landing-carousel-document landing-page-carousel"]',
-      '//a[contains(@class, "document-card__document-card")]'
+      cardSelector
     );
+
+    this.prepareElementGetters({
+      domesticPinButton: (
+        cardSelector +
+        '[.//div[contains(@class, "document-card-description-category") and text()="Domestic"]]' +
+        '//div[contains(@class, "item-pin-button__item-pin-button")]'
+      ),
+    });
   }
 }
 
 class ComplaintSummariesCarouselSection extends CarouselSection {
   constructor() {
+    const cardSelector = '//a[contains(@class, "complaint-summary-card")]';
     super(
       '',
       '//div[@class="test--landing-carousel-complaint landing-page-carousel"]',
-      '//a[contains(@class, "complaint-summary-card")]',
+      cardSelector
     );
+
+    this.prepareElementGetters({
+      criminalMisconductPinButton: (
+        cardSelector +
+        '[.//div[contains(@class, "complaint-summary-card-title-category") and text()="Criminal Misconduct"]]' +
+        '//div[contains(@class, "item-pin-button__item-pin-button")]'
+      ),
+    });
   }
 }
 

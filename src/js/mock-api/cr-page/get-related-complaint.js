@@ -5,5 +5,8 @@ export default ({ match, nextOffset, distance }) => ({
   count: 100,
   next: `${constants.CR_URL}1000000/related-complaints/?match=${match}&distance=${distance}&offset=${nextOffset || 20}`,
   previous: null,
-  results: RelatedComplaintFactory.buildList(20),
+  results: [RelatedComplaintFactory.build({
+    'crid': '123456',
+    'incident_date': '2000-01-01',
+  })].concat(RelatedComplaintFactory.buildList(20)),
 });

@@ -121,8 +121,8 @@ let latestRetrievePinboard = null;
 axiosMockClient.onGet(ACTIVITY_GRID_API_URL).reply(() => [200, getActivityGridData()]);
 axiosMockClient.onGet(OFFICERS_BY_ALLEGATION_API_URL).reply(() => [200, getTopByAllegationData()]);
 axiosMockClient.onGet(OFFICER_URL, { params: { ids: '1,2,3' } }).reply(() => [200, getOfficersData('1,2,3')]);
-axiosMockClient.onGet(RECENT_DOCUMENT_URL).reply(() => [200, getRecentDocument(24)]);
-axiosMockClient.onGet(RECENT_COMPLAINT_SUMMARIES_URL).reply(() => [200, getComplaintSummaries(20)]);
+axiosMockClient.onGet(RECENT_DOCUMENT_URL).reply(() => [200, getRecentDocument()]);
+axiosMockClient.onGet(RECENT_COMPLAINT_SUMMARIES_URL).reply(() => [200, getComplaintSummaries()]);
 
 axiosMockClient.onPost(SIGNIN_URL, { username: 'username', password: 'password' })
   .reply(200, { 'apiAccessToken': '055a5575c1832e9123cd546fe0cfdc8607f8680c' });
