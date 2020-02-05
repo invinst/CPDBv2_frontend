@@ -82,7 +82,6 @@ describe('RecentSuggestions selector', function () {
           gender: 'Male',
           age: '37-year-old',
           fullName: 'Jerome Finnigan',
-          currentAge: 37,
           rank: 'Police Officer',
           isPinned: true,
         },
@@ -94,7 +93,7 @@ describe('RecentSuggestions selector', function () {
           uniqueKey: 'CR-271235',
           text: 'CR # 271235 • February 10, 2001',
           recentText: 'CR # 271235 • February 10, 2001',
-          incidentDate: '2001-02-10',
+          incidentDate: 'Feb 10, 2001',
           category: 'Lockup Procedures',
           recentItemData: {
             id: '271235',
@@ -115,7 +114,7 @@ describe('RecentSuggestions selector', function () {
           text: 'Physical Force - Holding',
           recentText: 123456,
           forceType: 'Physical Force - Holding',
-          incidentDate: '2004-02-24',
+          incidentDate: 'Feb 24, 2004',
           recentItemData: {
             type: 'TRR',
             id: 123456,

@@ -1,15 +1,17 @@
 import { get } from 'lodash';
-import moment from 'moment';
 
-import { FULL_MONTH_DATE_FORMAT } from 'utils/constants';
 import { previewPaneTransformMap } from './preview-pane-transforms';
+import { formatDate } from 'utils/date';
+import { FULL_MONTH_DATE_FORMAT } from 'utils/constants';
 
 const getBaseTexts = (item) => ({ text: item.name, recentText: item.name });
 const getCRTexts = (item) => {
-  const dateText = item['incident_date'] ? ` • ${moment(item['incident_date']).format(FULL_MONTH_DATE_FORMAT)}` : '';
+  const formattedDate = formatDate(item['incident_date'], false, FULL_MONTH_DATE_FORMAT);
+  const dateText = item['incident_date'] ? ` • ${formattedDate}` : '';
+  const text = `CR # ${item.crid}${dateText}`;
   return {
-    text: `CR # ${item.crid}${dateText}`,
-    recentText: `CR # ${item.crid}${dateText}`,
+    text,
+    recentText: text,
   };
 };
 const getTRRTexts = (item) => ({ text: item['force_type'] || 'Unknown', recentText: item.id });

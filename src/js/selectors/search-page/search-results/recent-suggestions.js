@@ -1,10 +1,9 @@
 import { createSelector } from 'reselect';
-import moment from 'moment';
 import { filter, isUndefined, map, startCase, toLower, get } from 'lodash';
 
 import { pinboardItemsSelector } from 'selectors/pinboard-page/pinboard';
 import { officerUrl } from 'utils/url-util';
-import { getCurrentAge, getCurrentAgeString } from 'utils/date';
+import { formatDate, getCurrentAgeString } from 'utils/date';
 import { navigationItemTransform } from 'selectors/common/search-item-transforms';
 import { FULL_MONTH_DATE_FORMAT } from 'utils/constants';
 import { isItemPinned } from 'selectors/pinboard-page/pinboard';
@@ -23,7 +22,6 @@ const officerTransform = (item, pinboardItems) => ({
   sustainedCount: item['sustained_count'],
   race: item.race || '',
   gender: item.gender || '',
-  currentAge: getCurrentAge(item['birth_year']),
   age: getCurrentAgeString(item['birth_year']),
   to: officerUrl(item.id, item.name),
   isPinned: isItemPinned('OFFICER', item.id, pinboardItems),
@@ -35,18 +33,18 @@ const crTransform = (item, pinboardItems) => ({
   to: `/complaint/${item.crid}/`,
   isPinned: isItemPinned('CR', item.crid, pinboardItems),
   category: item['category'],
-  incidentDate: item['incident_date'],
+  incidentDate: formatDate(item['incident_date']),
 });
 
 const trrTransform = (item, pinboardItems) => {
-  const dateText = item['trr_datetime'] ? ` - ${moment(item['trr_datetime']).format(FULL_MONTH_DATE_FORMAT)}` : '';
+  const dateText = item['trr_datetime'] ? ` - ${formatDate(item['trr_datetime'], false, FULL_MONTH_DATE_FORMAT)}` : '';
   return {
     ...navigationItemTransform(item),
     to: `/trr/${item.id}/`,
     subText: `TRR # ${item.id}${dateText}`,
     isPinned: isItemPinned('TRR', item.id, pinboardItems),
     forceType: item['force_type'],
-    incidentDate: item['trr_datetime'],
+    incidentDate: formatDate(item['trr_datetime']),
   };
 };
 

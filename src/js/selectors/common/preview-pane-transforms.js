@@ -2,7 +2,7 @@ import { get, sumBy, map, last, kebabCase, has, isEmpty, compact } from 'lodash'
 import moment from 'moment';
 
 import { extractPercentile } from 'selectors/common/percentile';
-import { formatDate, getCurrentAge, getCurrentAgeString } from 'utils/date';
+import { formatDate, getCurrentAgeString } from 'utils/date';
 import { roundedPercentile } from 'utils/calculations';
 import { DATE_FORMAT, FULL_MONTH_DATE_FORMAT } from 'utils/constants';
 import { getDemographicString } from 'utils/victims';
@@ -147,12 +147,11 @@ export const officerTransform = (item) => {
   return {
     id: item['id'],
     fullName: item['name'] || item['full_name'],
-    appointedDate: formatDate(item['appointed_date'] || item['date_of_appt'] ),
-    resignationDate: formatDate(item['resignation_date'] || item['date_of_resignation']),
+    appointedDate: formatDate(item['appointed_date'] || item['date_of_appt'], true),
+    resignationDate: formatDate(item['resignation_date'] || item['date_of_resignation'], true),
     badge: item['badge'],
     gender: item['gender'] || '',
     to: item['to'],
-    currentAge: getCurrentAge(item['birth_year']),
     age: getCurrentAgeString(item['birth_year']),
     race: item['race'] === 'Unknown' ? '' : item['race'],
     rank: item['rank'],

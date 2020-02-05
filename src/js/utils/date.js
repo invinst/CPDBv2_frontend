@@ -11,17 +11,17 @@ export const getThisYear = () => {
   return (new Date()).getFullYear();
 };
 
-export const formatDate = (str, uppercase=true) => {
+export const formatDate = (str, uppercase=false, format='ll') => {
   if (isEmpty(str)) {
-    return null;
+    return '';
   }
 
   const date = moment(str);
-  if (date.isValid()) {
-    const formattedDate = date.format('ll');
-    return uppercase ? formattedDate.toUpperCase() : formattedDate;
-  }
-  return null;
+  if (!date.isValid())
+    return '';
+
+  const formattedDate = date.format(format);
+  return uppercase ? formattedDate.toUpperCase() : formattedDate;
 };
 
 const formatCareerDate = inputDate => moment(inputDate).format('ll').toUpperCase();

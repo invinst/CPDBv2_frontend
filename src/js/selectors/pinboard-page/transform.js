@@ -29,7 +29,7 @@ const officerTransform = officer => {
 export const relevantComplaintTransform = (allegation, updatingItem={}) => ({
   crid: allegation.crid,
   category: allegation.category,
-  incidentDate: formatDate(allegation['incident_date'], false),
+  incidentDate: formatDate(allegation['incident_date']),
   officers: (allegation.coaccused || []).map(officerTransform),
   point: allegation.point,
   isPinStatusChanging: updatingItem.type === 'CR' && updatingItem.id === allegation.crid,

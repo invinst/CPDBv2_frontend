@@ -56,7 +56,6 @@ describe('Social Graph preview pane selectors', function () {
         badge: '123456',
         gender: 'Male',
         age: '47-year-old',
-        currentAge: 47,
         race: 'White',
         rank: 'Police Officer',
         unit: {
@@ -471,7 +470,6 @@ describe('Social Graph preview pane selectors', function () {
         badge: '123456',
         gender: 'Male',
         age: '47-year-old',
-        currentAge: 47,
         race: 'White',
         rank: 'Police Officer',
         unit: {
@@ -621,7 +619,6 @@ describe('Social Graph preview pane selectors', function () {
           badge: '123456',
           gender: 'Male',
           age: '47-year-old',
-          currentAge: 47,
           race: 'White',
           rank: 'Police Officer',
           unit: {
