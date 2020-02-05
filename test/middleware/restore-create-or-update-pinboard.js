@@ -58,7 +58,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
   });
 
   beforeEach(function () {
-    this.cancelTokenSource = sinon.stub(CancelToken, 'source');
+    sinon.stub(CancelToken, 'source');
     sinon.stub(window, 'addEventListener');
   });
 

@@ -115,7 +115,7 @@ describe('App component', function () {
 
   context('enablePinboardFeature is false', function () {
     beforeEach(function () {
-      this.enableFeaturePinboardStub = sinon.stub(config.enableFeatures, 'pinboard').value(false);
+      sinon.stub(config.enableFeatures, 'pinboard').value(false);
     });
 
     it('should add pinboard-disabled class name', function () {
@@ -136,7 +136,7 @@ describe('App component', function () {
 
   context('enablePinboardFeature is true', function () {
     beforeEach(function () {
-      this.enableFeaturePinboardStub = sinon.stub(config.enableFeatures, 'pinboard').value(true);
+      sinon.stub(config.enableFeatures, 'pinboard').value(true);
     });
 
     it('should add pinboard-disabled class name', function () {
