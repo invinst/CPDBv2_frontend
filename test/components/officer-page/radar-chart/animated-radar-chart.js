@@ -7,7 +7,7 @@ import AnimatedRadarChart from 'components/officer-page/radar-chart';
 import RadarExplainer from 'components/officer-page/radar-chart/explainer';
 import StaticRadarChart from 'components/common/radar-chart';
 import RadarChart from 'components/common/radar-chart/radar-chart';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 import * as IntercomTracking from 'utils/intercom-tracking';
 
 
@@ -87,7 +87,7 @@ describe('AnimatedRadarChart components', function () {
   });
 
   it('should open the explainer clicking on the radar chart and track this event', function () {
-    stub(GATracking, 'trackOpenExplainer');
+    stub(tracking, 'trackOpenExplainer');
     stub(IntercomTracking, 'trackOpenExplainer');
 
     const wrapper = shallow(<AnimatedRadarChart officerId={ 123 } data={ data }/>);
@@ -96,10 +96,10 @@ describe('AnimatedRadarChart components', function () {
     wrapper.find('.officer-radar-chart-placeholder').simulate('click');
 
     wrapper.find(RadarExplainer).exists().should.be.true();
-    GATracking.trackOpenExplainer.should.be.calledWith(123);
+    tracking.trackOpenExplainer.should.be.calledWith(123);
     IntercomTracking.trackOpenExplainer.should.be.calledWith(123);
 
-    GATracking.trackOpenExplainer.restore();
+    tracking.trackOpenExplainer.restore();
     IntercomTracking.trackOpenExplainer.restore();
   });
 

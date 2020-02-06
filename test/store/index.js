@@ -192,7 +192,7 @@ describe('store', function () {
       documentPage: {
         data: {},
         titleEditModeOn: false,
-        tagsEditModeOn: false,
+        suggestionTags: [],
         tagsErrorMessages: null,
         textContentEditModeOn: false,
       },

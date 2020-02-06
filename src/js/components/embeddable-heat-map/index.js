@@ -14,7 +14,7 @@ import {
   communityMapMaximumStyle,
 } from './heat-map.style';
 import { showIntercomLauncher } from 'utils/intercom';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 
 
 export default class HeatMap extends Component {
@@ -37,7 +37,7 @@ export default class HeatMap extends Component {
   setSelectedCommunity(id) {
     const { communities } = this.props;
     const community = find(communities, obj => obj.id === id);
-    community && GATracking.trackCommunityClick(community.name);
+    community && tracking.trackCommunityClick(community.name);
 
     this.setState({
       selectedId: id,

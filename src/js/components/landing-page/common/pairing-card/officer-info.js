@@ -10,7 +10,7 @@ class OfficerInfo extends Component {
 
     return (
       <div
-        className={ `${style.officerInfo} ${rightOfficer ? 'right-officer': 'left-officer'}` }
+        className={ `${style.officerInfo} ${rightOfficer ? 'right-officer' : 'left-officer'}` }
         onClick={ this.handleClick }
       >
         <div className='officer-info-upper'>

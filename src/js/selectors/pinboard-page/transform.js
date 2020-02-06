@@ -33,7 +33,7 @@ export const relevantComplaintTransform = (allegation, updatingItem={}) => ({
   officers: (allegation.coaccused || []).map(officerTransform),
   point: allegation.point,
   isPinStatusChanging: updatingItem.type === 'CR' && updatingItem.id === allegation.crid,
-  recentItemData: allegation,
+  rawData: allegation,
 });
 
 export const relevantDocumentTransform = (document, crids, updatingItem={}) => ({
@@ -51,5 +51,5 @@ export const relevantCoaccusalTransform = (coaccusal, updatingItem={}) => ({
   complaintCount: coaccusal['allegation_count'],
   percentile: extractPercentile(coaccusal.percentile),
   isPinStatusChanging: updatingItem.type === 'OFFICER' && updatingItem.id.toString() === coaccusal.id.toString(),
-  recentItemData: coaccusal,
+  rawData: coaccusal,
 });

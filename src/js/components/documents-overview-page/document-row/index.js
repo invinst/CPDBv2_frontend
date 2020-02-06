@@ -6,7 +6,7 @@ import Counter from './counter';
 import CRLink from './cr-link';
 import styles from './document-row.sass';
 import { ATTACHMENT_TYPES } from 'utils/constants';
-import { trackOutboundLink } from 'utils/google_analytics_tracking';
+import { trackOutboundLink } from 'utils/tracking';
 
 export default class DocumentRow extends Component {
   handleClick() {

@@ -1,7 +1,10 @@
 import { throttle } from 'lodash';
 
 
-export const trackSwipeLanddingPageCarousel = (direction, type) => {
+const clickyLog = (title, type) => global.clicky.log(document.location.pathname, title, type);
+
+export const trackSwipeLandingPageCarousel = (direction, type) => {
+  clickyLog(`swipe_${direction}_${type}`);
   global.ga('send', {
     hitType: 'event',
     eventCategory: 'landing_page_carousel',
@@ -11,6 +14,7 @@ export const trackSwipeLanddingPageCarousel = (direction, type) => {
 };
 
 export const trackOutboundLink = (url, windowName) => {
+  clickyLog(url, 'outbound');
   global.ga('send', {
     hitType: 'event',
     eventCategory: 'outbound',
@@ -26,7 +30,6 @@ export const trackOutboundLink = (url, windowName) => {
   });
 
   if (windowName) {
-    /* istanbul ignore next */
     window.open(url, windowName);
   }
 };
@@ -39,6 +42,7 @@ export const trackPageView = (pathname) => {
 };
 
 export const trackSearchResultsCount = (count) => {
+  clickyLog(`num_results: ${count}`);
   global.ga('send', {
     hitType: 'event',
     eventCategory: 'search',
@@ -47,9 +51,42 @@ export const trackSearchResultsCount = (count) => {
   });
 };
 
-export function trackSearchQuery(query) {
-  this.throttledSearchQueryGA = this.throttledSearchQueryGA || throttle(global.ga, 500, { 'leading': false });
-  this.throttledSearchQueryGA('send', {
+export const trackSingleSearchResults = (contentType, query, resultsCount) => {
+  clickyLog(`single_search_query: ${query} with ${resultsCount} results`);
+  global.ga('send', {
+    hitType: 'event',
+    eventCategory: contentType,
+    eventAction: 'single_search',
+    eventLabel: query,
+    eventValue: resultsCount,
+  });
+};
+
+const _trackSearchFocusedItem = (contentType, query, itemId, rank) => {
+  clickyLog(`Item ${itemId} with rank ${rank} is focused`);
+  global.ga('send', {
+    hitType: 'event',
+    eventCategory: contentType,
+    eventAction: 'suggestion_click',
+    eventLabel: itemId,
+    eventValue: rank,
+  });
+
+  clickyLog(`Item ${itemId} with rank ${rank} is focused via "${query}" query`);
+  global.ga('send', {
+    hitType: 'event',
+    eventCategory: contentType,
+    eventAction: 'suggestion_click_with_query',
+    eventLabel: `${ itemId } - ${ query }`,
+    eventValue: rank,
+  });
+};
+
+export const trackSearchFocusedItem = throttle(_trackSearchFocusedItem, 500, { 'leading': false });
+
+function _trackSearchQuery(query) {
+  clickyLog(`change_query: ${query}`);
+  global.ga('send', {
     hitType: 'event',
     eventCategory: 'search',
     eventAction: 'change_query',
@@ -57,7 +94,10 @@ export function trackSearchQuery(query) {
   });
 }
 
+export const trackSearchQuery = throttle(_trackSearchQuery, 500, { 'leading': false });
+
 export const trackCommunityClick = (communityName) => {
+  clickyLog(`community: ${communityName}`);
   global.ga('send', {
     hitType: 'event',
     eventCategory: 'community',
@@ -67,6 +107,7 @@ export const trackCommunityClick = (communityName) => {
 };
 
 export const trackOpenExplainer = (officerId) => {
+  clickyLog(`open_visual_token_explainer: ${officerId}`);
   global.ga('send', {
     hitType: 'event',
     eventCategory: 'visual_token_explainer',
@@ -76,6 +117,7 @@ export const trackOpenExplainer = (officerId) => {
 };
 
 export const trackOfficerDownload = (officerId, action, label) => {
+  clickyLog(`officer_data: ${officerId}`, 'download');
   global.ga('send', {
     hitType: 'event',
     eventCategory: 'officer_data',
@@ -86,6 +128,7 @@ export const trackOfficerDownload = (officerId, action, label) => {
 };
 
 export const trackOfficerDownloadMenu = (officerId, action) => {
+  clickyLog(`open_officer_download_menu: ${officerId}`);
   global.ga('send', {
     hitType: 'event',
     eventCategory: 'officer_download_menu',
@@ -95,6 +138,7 @@ export const trackOfficerDownloadMenu = (officerId, action) => {
 };
 
 export const trackRelatedByCategoryClick = (sourceCRID, targetCRID) => {
+  clickyLog(`related_by_category: Source CRID ${sourceCRID} - Target CRID ${targetCRID}`);
   global.ga('send', {
     hitType: 'event',
     eventCategory: 'related_by_category',
@@ -104,6 +148,7 @@ export const trackRelatedByCategoryClick = (sourceCRID, targetCRID) => {
 };
 
 export const trackRelatedByAccusedClick = (sourceCRID, targetCRID) => {
+  clickyLog(`related_by_accused: Source CRID ${sourceCRID} - Target CRID ${targetCRID}`);
   global.ga('send', {
     hitType: 'event',
     eventCategory: 'related_by_accused',
@@ -113,6 +158,7 @@ export const trackRelatedByAccusedClick = (sourceCRID, targetCRID) => {
 };
 
 export const trackAttachmentClick = (sourceUrl, targetUrl) => {
+  clickyLog(`attachment_click: Source URL ${sourceUrl} - Target URL ${targetUrl}`);
   global.ga('send', {
     hitType: 'event',
     eventCategory: 'attachment_click',
@@ -122,6 +168,7 @@ export const trackAttachmentClick = (sourceUrl, targetUrl) => {
 };
 
 export const trackPopupButtonClick = (sourceUrl, popupName) => {
+  clickyLog(`popup_click: ${sourceUrl} - ${popupName}`);
   global.ga('send', {
     hitType: 'event',
     eventCategory: 'popup_click',
@@ -131,6 +178,7 @@ export const trackPopupButtonClick = (sourceUrl, popupName) => {
 };
 
 export const trackDocumentEdit = (documentID, documentField) => {
+  clickyLog(`document_edit: Document ID ${documentID} - Field ${documentField}`);
   global.ga('send', {
     hitType: 'event',
     eventCategory: 'document_edit',

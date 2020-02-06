@@ -59,6 +59,9 @@ export default class SearchBox extends Component {
           keyPressHandlers={ keyPressHandlers }
           keyPressWithBlurHandlers={ keyPressWithBlurHandlers }
           spellCheck={ false }
+          autoComplete='off'
+          autoCorrect='off'
+          autoCapitalize='off'
           className={ cx('search-box-text-input', position, { 'animation-in': animationIn }) }
           focused={ focused }
         />

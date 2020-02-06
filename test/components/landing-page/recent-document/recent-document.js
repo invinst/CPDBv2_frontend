@@ -5,7 +5,7 @@ import { stub } from 'sinon';
 
 import RecentDocument from 'components/landing-page/recent-document';
 import DocumentCard from 'components/landing-page/recent-document/document-card';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 
 
 describe('Recent Document components', function () {
@@ -46,7 +46,7 @@ describe('Recent Document components', function () {
   });
 
   it('should track click event', function () {
-    const stubTrackAttachmentClick = stub(GATracking, 'trackAttachmentClick');
+    const stubTrackAttachmentClick = stub(tracking, 'trackAttachmentClick');
     const data = [{
       'crid': '123456',
       'title': 'CR document 1',

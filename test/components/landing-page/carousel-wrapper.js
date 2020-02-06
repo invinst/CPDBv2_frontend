@@ -5,7 +5,7 @@ import { random, lorem } from 'faker';
 
 import Carousel from 'components/common/carousel';
 import withCarousel from 'components/landing-page/carousel-wrapper';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 
 
 describe('CarouselWrapper component', function () {
@@ -20,15 +20,15 @@ describe('CarouselWrapper component', function () {
   });
 
   it('should send ga event when navigate on carousel', function () {
-    stub(GATracking, 'trackSwipeLanddingPageCarousel');
+    stub(tracking, 'trackSwipeLandingPageCarousel');
     const wrapper = shallow(<CarouselComponent cards={ [1, 2, 3] }/>);
     const carousel = wrapper.find(Carousel);
     carousel.prop('resetPosition').should.be.false();
 
     carousel.prop('onNavigate')('left');
 
-    GATracking.trackSwipeLanddingPageCarousel.should.be.calledWith('left', 'abc');
-    GATracking.trackSwipeLanddingPageCarousel.restore();
+    tracking.trackSwipeLandingPageCarousel.should.be.calledWith('left', 'abc');
+    tracking.trackSwipeLandingPageCarousel.restore();
   });
 
   it('should render cards with correct props', function () {

@@ -80,6 +80,7 @@ describe('search page results selector', function () {
             'id': '29033',
             'isPinned': false,
             'itemIndex': 1,
+            'itemRank': 1,
             'lastPercentile': {
               'items': [
                 {
@@ -174,6 +175,7 @@ describe('search page results selector', function () {
             tags: [],
             uniqueKey: 'CR-1001',
             itemIndex: 1,
+            itemRank: 1,
           }],
         },
       ]);
@@ -216,6 +218,7 @@ describe('search page results selector', function () {
             tags: [],
             uniqueKey: 'CR-1001',
             itemIndex: 1,
+            itemRank: 1,
             incidentDate: '',
             category: 'Use Of Force',
             subCategory: 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
@@ -266,6 +269,7 @@ describe('search page results selector', function () {
             tags: [],
             uniqueKey: 'DATE-CR-1001',
             itemIndex: 1,
+            itemRank: 1,
             incidentDate: 'Apr 23, 2004',
             category: 'Use Of Force',
             subCategory: 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
@@ -316,6 +320,7 @@ describe('search page results selector', function () {
             tags: [],
             uniqueKey: 'DATE-CR-1001',
             itemIndex: 1,
+            itemRank: 1,
             incidentDate: '',
             category: 'Use Of Force',
             subCategory: 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
@@ -374,6 +379,7 @@ describe('search page results selector', function () {
             'id': '29033',
             'isPinned': false,
             'itemIndex': 1,
+            'itemRank': 1,
             'lastPercentile': {
               'items': [
                 {
@@ -486,6 +492,7 @@ describe('search page results selector', function () {
             tags: [],
             uniqueKey: 'TRR-1001',
             itemIndex: 1,
+            itemRank: 1,
           }],
         },
       ]);
@@ -557,6 +564,7 @@ describe('search page results selector', function () {
             tags: [],
             uniqueKey: 'TRR-1001',
             itemIndex: 1,
+            itemRank: 1,
           }],
         },
       ]);
@@ -629,6 +637,7 @@ describe('search page results selector', function () {
             tags: [],
             uniqueKey: 'DATE-TRR-1001',
             itemIndex: 1,
+            itemRank: 1,
           }],
         },
       ]);
@@ -700,6 +709,7 @@ describe('search page results selector', function () {
             tags: [],
             uniqueKey: 'DATE-TRR-1001',
             itemIndex: 1,
+            itemRank: 1,
           }],
         },
       ]);
@@ -737,6 +747,7 @@ describe('search page results selector', function () {
             tags: [],
             uniqueKey: 'UNIT-1001',
             itemIndex: 1,
+            itemRank: 1,
           }],
         },
       ]);
@@ -774,6 +785,7 @@ describe('search page results selector', function () {
             tags: [],
             uniqueKey: 'UNIT-1001',
             itemIndex: 1,
+            itemRank: 1,
           }],
         },
       ]);
@@ -944,6 +956,7 @@ describe('search page results selector', function () {
           tags: [],
           uniqueKey: 'COMMUNITY-317',
           itemIndex: 1,
+          itemRank: 1,
           name: 'Roseland',
           allegationCount: 12,
           allegationPercentile: 80.1,
@@ -1156,10 +1169,12 @@ describe('search page results selector', function () {
         type: 'OFFICER',
         id: '29033',
         uniqueKey: 'OFFICER-29033',
+        itemRank: 1,
         recentItemData: {
           ...firstItemData,
           type: 'OFFICER',
           itemIndex: 1,
+          itemRank: 1,
         },
       });
     });

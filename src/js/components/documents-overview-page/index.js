@@ -5,7 +5,7 @@ import { browserHistory } from 'react-router';
 
 import * as constants from 'utils/constants';
 import DocumentsTable from './documents-table';
-import SearchBar from './search-bar';
+import SearchBar from 'components/common/search-bar';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 
 

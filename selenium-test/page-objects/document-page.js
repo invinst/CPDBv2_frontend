@@ -14,13 +14,13 @@ class TagsSection extends Section {
     this.prepareElementGetters({
       tagsInput: '//div[contains(@class, "simple-tag-editable")]',
       tags: '//span[@class="react-tagsinput-tag"]',
-      editButton: '//a[contains(@class, "hoverable-edit-wrapper-button") and text()="Edit"]',
-      saveButton: '//a[contains(@class, "hoverable-edit-wrapper-button") and text()="Save"]',
-      cancelButton: '//a[contains(@class, "hoverable-edit-wrapper-button") and text()="Cancel"]',
       firstTag: '//span[@class="react-tagsinput-tag"][1]',
       secondTag: '//span[@class="react-tagsinput-tag"][2]',
       thirdTag: '//span[@class="react-tagsinput-tag"][3]',
       tagDeleteBtns: '//span[@class="react-tagsinput-tag"]//a[@class="react-tagsinput-remove"]',
+      suggestionItems: '//li[contains(@class, "react-autosuggest__suggestion")]',
+      firstSuggestionItem: '//li[contains(@class, "react-autosuggest__suggestion")][1]',
+      secondSuggestionItem: '//li[contains(@class, "react-autosuggest__suggestion")][2]',
       firstTagDeleteBtn: '//span[@class="react-tagsinput-tag"][1]//a[@class="react-tagsinput-remove"]',
       tagsInputTextbox: '//*[@class="react-tagsinput-input"]',
       nextUntaggedDocumentButton: '//a[@class="next-untagged-document-button"]',
@@ -57,7 +57,7 @@ class DocumentPage extends Page {
   }
 
   open(id=1, login=false) {
-    super.open(`${ login ? '/edit': '' }/document/${id}/`);
+    super.open(`${ login ? '/edit' : '' }/document/${id}/`);
     login && this.loginScreen.login();
   }
 }

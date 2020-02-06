@@ -14,7 +14,7 @@ import { OFFICER_EDIT_TYPES } from 'utils/constants';
 import PrintNotes from 'components/common/print-notes';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import DownloadMenuContainer from 'containers/headers/shareable-header/download-menu-container';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 
 
 describe('OfficerPage component', function () {
@@ -37,7 +37,7 @@ describe('OfficerPage component', function () {
   });
 
   beforeEach(function () {
-    this.stubTrackOfficerDownloadMenu = stub(GATracking, 'trackOfficerDownloadMenu');
+    this.stubTrackOfficerDownloadMenu = stub(tracking, 'trackOfficerDownloadMenu');
   });
 
   afterEach(function () {

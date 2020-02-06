@@ -18,6 +18,7 @@ import {
   TRR_URL,
   POPUP_API_URL,
   DOCUMENTS_URL,
+  DOCUMENT_SUGGESTION_TAGS_API_URL,
   CRAWLERS_API_URL,
   SOCIAL_GRAPH_NETWORK_API_URL,
   PINBOARDS_URL,
@@ -107,7 +108,12 @@ import getRelevantComplaints, {
   getFirstRelevantComplaints,
   filterPinnedComplaints,
 } from 'mock-api/pinboard-page/relevant-complaints';
-import { emptyPagination, firstPage, secondPage } from 'mock-api/pinboard-admin-page/all-pinbooards';
+import {
+  emptyPagination,
+  firstPage,
+  secondPage,
+  searchPinboardTitle,
+} from 'mock-api/pinboard-admin-page/all-pinbooards';
 import { modalVideoInfo } from './headers/slim-header';
 import PinboardFactory from 'utils/test/factories/pinboard';
 import mockUpdatePinboardError from 'mock-api/pinboard-page/mock-update-pinboard-error';
@@ -230,6 +236,10 @@ axiosMockClient.onGet(`${DOCUMENTS_URL}`, { params: { crid: '1000000', limit: un
 axiosMockClient.onGet(`${DOCUMENTS_URL}`, { params: { match: '123457' } }).reply(200, searchDocuments());
 
 axiosMockClient.onGet(
+  `${ALL_PINBOARD_URL}`, { params: { match: 'Title' } }
+).reply(200, searchPinboardTitle);
+
+axiosMockClient.onGet(
   `${DOCUMENTS_URL}`,
   { headers: { 'Authorization': 'Token 055a5575c1832e9123cd546fe0cfdc8607f8680c' } }
 ).reply(200, fetchDocumentsAuthenticated());
@@ -245,8 +255,23 @@ axiosMockClient.onPatch(`${DOCUMENTS_URL}1/`, { 'show': false }).reply(200, { sh
 
 axiosMockClient.onPatch(
   `${DOCUMENTS_URL}1/`,
-  updateDocumentByID.success.updateParams
-).reply(200, updateDocumentByID.success.updatedDocumentData);
+  updateDocumentByID.success.updateTagParams(['tactical'])
+).reply(200, updateDocumentByID.success.updatedDocumentTagData(['tactical']));
+
+axiosMockClient.onPatch(
+  `${DOCUMENTS_URL}1/`,
+  updateDocumentByID.success.updateTagParams(['tactical', 'chicago'])
+).reply(200, updateDocumentByID.success.updatedDocumentTagData(['tactical', 'chicago']));
+
+axiosMockClient.onPatch(
+  `${DOCUMENTS_URL}1/`,
+  updateDocumentByID.success.updateTagParams(['tactical', 'chicago', 'copa'])
+).reply(200, updateDocumentByID.success.updatedDocumentTagData(['tactical', 'chicago', 'copa']));
+
+axiosMockClient.onPatch(
+  `${DOCUMENTS_URL}1/`,
+  updateDocumentByID.success.updateTagParams(['hospital', 'tactical', 'twitter'])
+).reply(200, updateDocumentByID.success.updatedDocumentTagData(['hospital', 'tactical', 'twitter']));
 
 axiosMockClient.onPatch(
   `${DOCUMENTS_URL}1/`,
@@ -255,6 +280,10 @@ axiosMockClient.onPatch(
 
 axiosMockClient.onGet(CRAWLERS_API_URL).reply(function (config) {
   return [200, (config.params && config.params.offset === '20') ? getNextCrawlersData() : getCrawlersData()];
+});
+
+axiosMockClient.onGet(DOCUMENT_SUGGESTION_TAGS_API_URL).reply(function (config) {
+  return [200, ['twitter', 'Turbyville', 'tactical', 'complaint', 'investigation']];
 });
 
 axiosMockClient.onGet(

@@ -6,7 +6,7 @@ import OfficerCard from 'components/common/officer-card';
 import RecentActivity from 'components/landing-page/recent-activity';
 import PairingCard from 'components/landing-page/common/pairing-card';
 import Carousel from 'components/common/carousel';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 import { OfficerCardFactory } from 'utils/test/factories/activity-grid';
 
 
@@ -107,7 +107,7 @@ describe('Recent Activity components', function () {
   });
 
   it('should send ga event when navigate on carousel', function () {
-    stub(GATracking, 'trackSwipeLanddingPageCarousel');
+    stub(tracking, 'trackSwipeLandingPageCarousel');
     const wrapper = mount(
       <RecentActivity cards={ [
         OfficerCardFactory.build({ kind: 'single_officer' }),
@@ -117,7 +117,7 @@ describe('Recent Activity components', function () {
     );
     const carousel = wrapper.find(Carousel);
     carousel.prop('onNavigate')('left');
-    GATracking.trackSwipeLanddingPageCarousel.should.be.calledWith('left', 'ACTIVITY');
-    GATracking.trackSwipeLanddingPageCarousel.restore();
+    tracking.trackSwipeLandingPageCarousel.should.be.calledWith('left', 'ACTIVITY');
+    tracking.trackSwipeLandingPageCarousel.restore();
   });
 });

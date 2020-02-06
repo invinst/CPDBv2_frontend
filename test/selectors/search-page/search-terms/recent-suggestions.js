@@ -65,6 +65,7 @@ describe('RecentSuggestions selector', function () {
           uniqueKey: 'OFFICER-8562',
           text: 'Jerome Finnigan',
           recentText: 'Jerome Finnigan',
+          itemRank: undefined,
           recentItemData: {
             id: 8562,
             name: 'Jerome Finnigan',
@@ -93,6 +94,7 @@ describe('RecentSuggestions selector', function () {
           uniqueKey: 'CR-271235',
           text: 'CR # 271235 • February 10, 2001',
           recentText: 'CR # 271235 • February 10, 2001',
+          itemRank: undefined,
           incidentDate: 'Feb 10, 2001',
           category: 'Lockup Procedures',
           recentItemData: {
@@ -113,6 +115,7 @@ describe('RecentSuggestions selector', function () {
           uniqueKey: 'TRR-123456',
           text: 'Physical Force - Holding',
           recentText: 123456,
+          itemRank: undefined,
           forceType: 'Physical Force - Holding',
           incidentDate: 'Feb 24, 2004',
           recentItemData: {

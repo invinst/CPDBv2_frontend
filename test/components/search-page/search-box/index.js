@@ -76,6 +76,9 @@ describe('SearchBox component', function () {
 
     const input = wrapper.find('input');
     input.getDOMNode().getAttribute('spellcheck').should.equal('false');
+    input.getDOMNode().getAttribute('autoComplete').should.equal('off');
+    input.getDOMNode().getAttribute('autoCorrect').should.equal('off');
+    input.getDOMNode().getAttribute('autoCapitalize').should.equal('off');
   });
 
   it('should render close button when there is a search query', function () {

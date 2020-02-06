@@ -5,7 +5,7 @@ import { throttle } from 'lodash';
 import style from './download-menu-item.sass';
 import { imgUrl } from 'utils/static-assets';
 import { OFFICER_DOWNLOAD_KINDS, OFFICER_DOWNLOAD_TRACKING_ACTIONS } from 'utils/constants';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 import LoadingSpinner from 'components/common/loading-spinner';
 
 
@@ -31,7 +31,7 @@ export default class DownloadMenuItem extends React.Component {
 
   triggerDownload(zipFileUrl) {
     const { officerId, kind } = this.props;
-    GATracking.trackOfficerDownload(officerId, OFFICER_DOWNLOAD_TRACKING_ACTIONS.DOWNLOAD, kind);
+    tracking.trackOfficerDownload(officerId, OFFICER_DOWNLOAD_TRACKING_ACTIONS.DOWNLOAD, kind);
     download(zipFileUrl);
     this.setState({ requested: false });
   }
@@ -42,7 +42,7 @@ export default class DownloadMenuItem extends React.Component {
     if (zipFileUrl)
       this.triggerDownload(zipFileUrl);
     else {
-      GATracking.trackOfficerDownload(officerId, OFFICER_DOWNLOAD_TRACKING_ACTIONS.REQUEST_DOWNLOAD_URLS, kind);
+      tracking.trackOfficerDownload(officerId, OFFICER_DOWNLOAD_TRACKING_ACTIONS.REQUEST_DOWNLOAD_URLS, kind);
       fetchOfficerZipFileUrl(officerId);
     }
   }

@@ -1,9 +1,9 @@
-const updateParams = {
+const updateTagParams = (tags = []) => ({
   'id': 1,
   'title': 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)',
   'text_content': 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE',
-  'tags': ['tactical', 'chicago', 'copa'],
-};
+  'tags': tags,
+});
 
 const updateParamsFailure = {
   'id': 1,
@@ -12,7 +12,7 @@ const updateParamsFailure = {
   'tags': ['hospital', 'tactical', 'This is a tag with more than 20 characters'],
 };
 
-const updatedDocumentData = {
+const updatedDocumentTagData = (tags = []) => ({
   'id': 1,
   'crid': '1083633',
   'url': 'https://assets.documentcloud.org/documents/5680384/CRID-1083633-CR-CRID-1083633-CR-Tactical.pdf',
@@ -33,8 +33,8 @@ const updatedDocumentData = {
   'views_count': 1000,
   'downloads_count': 100,
   'notifications_count': 10,
-  ...updateParams,
-};
+  ...updateTagParams(tags),
+});
 
 const updatedDocumentDataFailure = {
   message: {
@@ -44,8 +44,8 @@ const updatedDocumentDataFailure = {
 
 export default {
   success: {
-    updateParams: updateParams,
-    updatedDocumentData: updatedDocumentData,
+    updateTagParams: updateTagParams,
+    updatedDocumentTagData: updatedDocumentTagData,
   },
   failure: {
     updateParamsFailure: updateParamsFailure,

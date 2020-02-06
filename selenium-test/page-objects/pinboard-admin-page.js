@@ -103,6 +103,8 @@ class PinboardAdminPage extends Page {
 
     this.prepareElementGetters({
       overlay: '.overlay',
+      searchBox: '//div[@class="search-box-parent"]/input',
+      firstPinboardTitle: '(//span[contains(@class, "pinboard-title")])[2]',
     });
   }
 

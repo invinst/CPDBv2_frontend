@@ -9,6 +9,7 @@ import {
   updateDocument,
   turnOnDocumentTagsEditMode,
   turnOffDocumentTagsEditMode,
+  fetchDocumentSuggestionTags,
 } from 'actions/document-page';
 import {
   DOCUMENTS_URL,
@@ -24,8 +25,12 @@ import {
   TURN_OFF_DOCUMENT_TEXT_CONTENT_EDIT_MODE,
   TURN_ON_TAGS_EDIT_MODE,
   TURN_OFF_TAGS_EDIT_MODE,
+  FETCH_DOCUMENT_SUGGESTION_TAGS_START,
+  FETCH_DOCUMENT_SUGGESTION_TAGS_SUCCESS,
+  FETCH_DOCUMENT_SUGGESTION_TAGS_FAILURE,
+  V2_ROOT_PATH,
 } from 'utils/constants';
-import * as GA from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 
 
 describe('DocumentPage actions', function () {
@@ -75,7 +80,7 @@ describe('DocumentPage actions', function () {
     });
 
     it('should call trackDocumentEdit', function () {
-      const trackDocumentEditStub = stub(GA, 'trackDocumentEdit');
+      const trackDocumentEditStub = stub(tracking, 'trackDocumentEdit');
 
       updateDocument('title')({
         fields: [
@@ -139,6 +144,26 @@ describe('DocumentPage actions', function () {
       turnOffDocumentTagsEditMode().should.eql({
         type: TURN_OFF_TAGS_EDIT_MODE,
         payload: undefined,
+      });
+    });
+  });
+
+  describe('fetchDocumentSuggestionTags action', function () {
+    it('should return correct actuon', function () {
+      fetchDocumentSuggestionTags().should.eql({
+        types: [
+          FETCH_DOCUMENT_SUGGESTION_TAGS_START,
+          FETCH_DOCUMENT_SUGGESTION_TAGS_SUCCESS,
+          FETCH_DOCUMENT_SUGGESTION_TAGS_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: `${V2_ROOT_PATH}attachments/tags/`,
+            params: undefined,
+            adapter: null,
+            cancelToken: undefined,
+          },
+        },
       });
     });
   });

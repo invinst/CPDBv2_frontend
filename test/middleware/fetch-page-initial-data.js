@@ -1,8 +1,9 @@
 import { Promise } from 'es6-promise';
-import { stub } from 'sinon';
+import { stub, useFakeTimers } from 'sinon';
 import * as _ from 'lodash';
 import extractQuery from 'utils/extract-query';
 import { CancelToken } from 'axios';
+import Cookies from 'js-cookie';
 
 import fetchPageInitialData from 'middleware/fetch-page-initial-data';
 import { changeOfficerId, fetchOfficerSummary, requestCreateOfficerZipFile } from 'actions/officer-page';
@@ -31,7 +32,7 @@ import { requestSearchTermCategories } from 'actions/search-page/search-terms';
 import { fetchDocumentsByCRID } from 'actions/document-deduplicator-page';
 import * as docOverviewPageActions from 'actions/documents-overview-page';
 import { requestCrawlers } from 'actions/crawlers-page';
-import { fetchDocument } from 'actions/document-page';
+import { fetchDocument, fetchDocumentSuggestionTags } from 'actions/document-page';
 import {
   fetchPinboard,
   fetchPinboardComplaints,
@@ -309,6 +310,36 @@ describe('fetchPageInitialData middleware', function () {
     store.dispatch.calledWith(fetchDocument(1234)).should.be.true();
   });
 
+  context('fetch document data when location changes', function () {
+    context('user is logged in', function () {
+      it('should dispatch fetchDocument & fetchDocumentSuggestionTags', function () {
+        stub(Cookies, 'get').withArgs('apiAccessToken').returns('apiAccessToken');
+        const action = createLocationChangeAction('/document/1234/');
+        let dispatched;
+
+        fetchPageInitialData(store)(action => dispatched = action)(action);
+        dispatched.should.eql(action);
+        store.dispatch.calledWith(fetchDocument(1234)).should.be.true();
+        store.dispatch.calledWith(fetchDocumentSuggestionTags()).should.be.true();
+        Cookies.get.restore();
+      });
+    });
+
+    context('user is not logged in', function () {
+      it('should only dispatch fetchDocument & not dispatch fetchDocumentSuggestionTags', function () {
+        stub(Cookies, 'get').withArgs('apiAccessToken').returns(null);
+        const action = createLocationChangeAction('/document/1234/');
+        let dispatched;
+
+        fetchPageInitialData(store)(action => dispatched = action)(action);
+        dispatched.should.eql(action);
+        store.dispatch.calledWith(fetchDocument(1234)).should.be.true();
+        store.dispatch.calledWith(fetchDocumentSuggestionTags()).should.be.false();
+        Cookies.get.restore();
+      });
+    });
+  });
+
   it('should dispatch fetchDocument when signing in successfully', function () {
     const store = buildStore();
     _.set(store._state, 'pathname', '/document/1234/');
@@ -508,11 +539,18 @@ describe('fetchPageInitialData middleware', function () {
 
   it('should dispatch fetchAllPinboards when location changes', function () {
     const action = createLocationChangeAction('/view-all-pinboards/');
+    const fetchAllPinboardsStub = stub(pinboardAdminAction, 'fetchAllPinboards');
+    const clock = useFakeTimers();
     let dispatched;
 
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
-    store.dispatch.calledWith(pinboardAdminAction.fetchAllPinboards()).should.be.true();
+
+    clock.tick(1000);
+    store.dispatch.should.be.calledWith(fetchAllPinboardsStub());
+
+    fetchAllPinboardsStub.restore();
+    clock.restore();
   });
 
   it('should dispatch fetchAllPinboards when signing in successfully', function () {

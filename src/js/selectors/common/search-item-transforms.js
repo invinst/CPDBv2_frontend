@@ -45,8 +45,9 @@ const uniqueKeyMap = {
 export const baseItemTransform = (item) => ({
   type: item.type,
   id: item.id,
-  to: get(item, 'to'),
-  url: get(item, 'url'),
+  to: item.to,
+  url: item.url,
+  itemRank: item.itemRank,
   uniqueKey: get(item, 'uniqueKey', `${uniqueKeyMap[item.type] || item.type}-${item.id}`),
   ...get(textsMap, item.type, getBaseTexts)(item),
 });

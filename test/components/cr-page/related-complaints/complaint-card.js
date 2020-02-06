@@ -5,7 +5,7 @@ import { spy, stub } from 'sinon';
 import { random } from 'faker';
 
 import ComplaintCard from 'components/cr-page/related-complaints/complaint-card';
-import * as GATracking from 'utils/google_analytics_tracking';
+import * as tracking from 'utils/tracking';
 import ItemPinButton from 'components/common/item-pin-button';
 import pinButtonStyles from 'components/common/item-pin-button.sass';
 import { PINNED_ITEM_TYPES } from 'utils/constants';
@@ -30,7 +30,7 @@ describe('ComplaintCard component', function () {
           incidentDate='Oct 7, 2008'
           complainants='R. Rose'
           accused='B. Bolton'
-        />
+        />,
       );
       const sections = wrapper.find('.section');
 
@@ -44,7 +44,7 @@ describe('ComplaintCard component', function () {
     });
 
     it('should track click event', function () {
-      const stubTrackRelatedByCategoryClick = stub(GATracking, 'trackRelatedByCategoryClick');
+      const stubTrackRelatedByCategoryClick = stub(tracking, 'trackRelatedByCategoryClick');
       const complaintCard = () => (
         <ComplaintCard
           complainants='R. Rose'
@@ -55,8 +55,8 @@ describe('ComplaintCard component', function () {
       );
       const wrapper = mount(
         <Router history={ createMemoryHistory() }>
-          <Route path='/' component={ complaintCard } />
-        </Router>
+          <Route path='/' component={ complaintCard }/>
+        </Router>,
       );
 
       wrapper.find('.content').simulate('click');
@@ -96,5 +96,49 @@ describe('ComplaintCard component', function () {
         }
       );
     });
+  });
+
+  it('should track click event while matching with officers', function () {
+    stub(tracking, 'trackRelatedByAccusedClick');
+    const complaintCard = () => (
+      <ComplaintCard
+        complainants='R. Rose'
+        sourceCRID='01234'
+        crid='56789'
+        match='officers'
+      />
+    );
+    const wrapper = mount(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ complaintCard }/>
+      </Router>,
+    );
+
+    wrapper.find('.content').simulate('click');
+    tracking.trackRelatedByAccusedClick.should.be.calledWith('01234', '56789');
+
+    tracking.trackRelatedByAccusedClick.restore();
+  });
+
+  it('should not track click event while matching with something else', function () {
+    stub(tracking, 'trackRelatedByAccusedClick');
+    const complaintCard = () => (
+      <ComplaintCard
+        complainants='R. Rose'
+        sourceCRID='01234'
+        crid='56789'
+        match='investigators'
+      />
+    );
+    const wrapper = mount(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ complaintCard }/>
+      </Router>,
+    );
+
+    wrapper.find('.content').simulate('click');
+    tracking.trackRelatedByAccusedClick.should.not.be.called();
+
+    tracking.trackRelatedByAccusedClick.restore();
   });
 });

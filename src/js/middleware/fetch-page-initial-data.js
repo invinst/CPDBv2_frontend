@@ -1,5 +1,5 @@
 import { Promise } from 'es6-promise';
-import { every, get } from 'lodash';
+import { every, get, throttle } from 'lodash';
 
 import {
   LANDING_PAGE_ID, OFFICER_PAGE_ID, CR_PAGE_ID, TRR_PAGE_ID, PINBOARD_PAGE_ID,
@@ -26,7 +26,7 @@ import { fetchCoaccusals } from 'actions/officer-page/coaccusals';
 import { getCommunities, getClusterGeoJson } from 'actions/landing-page/heat-map';
 import { fetchCR } from 'actions/cr-page';
 import { fetchTRR } from 'actions/trr-page';
-import { fetchDocument } from 'actions/document-page';
+import { fetchDocument, fetchDocumentSuggestionTags } from 'actions/document-page';
 import { fetchUnitProfileSummary } from 'actions/unit-profile-page';
 import { fetchPage } from 'actions/cms';
 import { requestOfficersByAllegation } from 'actions/landing-page/officers-by-allegation';
@@ -46,6 +46,7 @@ import { fetchAllPinboards } from 'actions/pinboard-admin-page';
 import { fetchVideoInfo } from 'actions/headers/slim-header';
 import { hasVideoInfoSelector } from 'selectors/headers/slim-header';
 import { dispatchFetchPinboardPageData, dispatchFetchPinboardPinnedItems } from 'utils/pinboard';
+import { isSignedIn } from 'utils/authentication';
 import { fetchToast } from 'actions/toast';
 import { hasToastsSelector } from 'selectors/toast';
 
@@ -54,6 +55,9 @@ let prevPathname = '';
 const handleFetchingDocumentPage = (dispatches, store, pathname) => {
   const documentId = getDocumentId(pathname);
   dispatches.push(store.dispatch(fetchDocument(documentId)));
+  if (isSignedIn()) {
+    store.dispatch(fetchDocumentSuggestionTags());
+  }
 };
 
 const handleFetchingDocumentsOverviewPage = (dispatches, store, state, action, fetch) => {
@@ -75,6 +79,19 @@ const handleFetchingDocumentsOverviewPage = (dispatches, store, state, action, f
   }
 };
 
+function handleFetchAllPinboards(store, action) {
+  let params = {};
+  const currentMatch = get(action.payload.query, 'match', '');
+
+  if (currentMatch !== '') {
+    params = { match: currentMatch };
+  }
+
+  store.dispatch(fetchAllPinboards(params)).catch(cancelledByUser);
+}
+
+const throttledFetchAllPinboards = throttle(handleFetchAllPinboards, 500, { 'leading': false });
+
 export default store => next => action => {
   const result = next(action);
 
@@ -87,7 +104,7 @@ export default store => next => action => {
     } else if (state.pathname.match(/\/documents\//)) {
       handleFetchingDocumentsOverviewPage(dispatches, store, state, action, fetchDocumentsAuthenticated);
     } else if (state.pathname.match(/\/view-all-pinboards\//)) {
-      store.dispatch(fetchAllPinboards());
+      handleFetchAllPinboards(store, action);
     }
   }
 
@@ -115,8 +132,8 @@ export default store => next => action => {
         dispatches.push(store.dispatch(fetchOfficerSummary(officerId)));
         dispatches.push(store.dispatch(fetchNewTimelineItems(officerId)));
         dispatches.push(store.dispatch(fetchCoaccusals(officerId)));
-        dispatches.push(store.dispatch(requestCreateOfficerZipFile(officerId)));
-        dispatches.push(store.dispatch(fetchPopup('officer')));
+        store.dispatch(requestCreateOfficerZipFile(officerId));
+        store.dispatch(fetchPopup('officer'));
       }
       getCMSContent(OFFICER_PAGE_ID);
     }
@@ -244,7 +261,7 @@ export default store => next => action => {
     }
 
     else if (action.payload.pathname.match(/\/view-all-pinboards\//)) {
-      store.dispatch(fetchAllPinboards());
+      throttledFetchAllPinboards(store, action);
     }
 
     prevPathname = action.payload.pathname;

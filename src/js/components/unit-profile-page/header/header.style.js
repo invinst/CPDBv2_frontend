@@ -12,7 +12,7 @@ export const unitNameWrapperStyle = (scrollPosition) => ({
   fontSize: '26px',
   fontWeight: 500,
   fontFamily: sanFranciscoTextFamily,
-  color: scrollPosition === 'bottom' ? sugarCaneColor: softBlackColor,
+  color: scrollPosition === 'bottom' ? sugarCaneColor : softBlackColor,
   display: 'inline-block',
   float: 'left',
   paddingTop: '8px',
@@ -28,7 +28,7 @@ export const wrapperStyle = (scrollPosition) => ({
   height: `${height}px`,
   margin: '0px 16px',
   boxSizing: 'border-box',
-  borderBottom: scrollPosition === 'bottom' ? 'none': `solid 1px ${whiteTwoColor}`,
+  borderBottom: scrollPosition === 'bottom' ? 'none' : `solid 1px ${whiteTwoColor}`,
 });
 
 export const outerStyle = (scrollPosition) => {

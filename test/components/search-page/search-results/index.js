@@ -12,6 +12,7 @@ import SuggestionGroup from 'components/search-page/search-results/suggestion-gr
 import SearchTags from 'components/search-page/search-tags';
 import PinboardButton from 'components/search-page/pinboard/pinboard-button';
 import ScrollIntoView from 'components/common/scroll-into-view';
+import * as tracking from 'utils/tracking';
 
 
 describe('SearchResults component', function () {
@@ -161,6 +162,75 @@ describe('SearchResults component', function () {
     );
 
     wrapper.find('.content-wrapper').exists().should.be.true();
+  });
+
+
+  describe('tracking focused item', function () {
+    beforeEach(function () {
+      stub(tracking, 'trackSearchFocusedItem');
+    });
+
+    afterEach(function () {
+      tracking.trackSearchFocusedItem.restore();
+    });
+
+    function testTrackingFocusedItem(type, itemId) {
+      const wrapper = mount(
+        <Provider store={ store }>
+          <SearchResults/>
+        </Provider>,
+      );
+
+      wrapper.setProps({
+        children: (
+          <SearchResults
+            focusedItem={ { type, uniqueKey: 'CR-1001', [itemId]: '123', itemRank: 2 } }
+            searchText='searchText'
+          />
+        ),
+      });
+
+      tracking.trackSearchFocusedItem.should.be.calledOnce();
+      tracking.trackSearchFocusedItem.should.be.calledWith(type, 'searchText', '123', 2);
+      tracking.trackSearchFocusedItem.resetHistory();
+    }
+
+    it('should track the focused item', function () {
+      testTrackingFocusedItem('SEARCH-TERMS', 'text');
+      testTrackingFocusedItem('DATE > CR', 'id');
+      testTrackingFocusedItem('DATE > TRR', 'id');
+      testTrackingFocusedItem('DATE > OFFICERS', 'id');
+      testTrackingFocusedItem('UNIT > OFFICERS', 'id');
+      testTrackingFocusedItem('OFFICER', 'id');
+      testTrackingFocusedItem('CR', 'id');
+      testTrackingFocusedItem('TRR', 'id');
+      testTrackingFocusedItem('COMMUNITY', 'text');
+      testTrackingFocusedItem('NEIGHBORHOOD', 'text');
+      testTrackingFocusedItem('WARD', 'text');
+      testTrackingFocusedItem('POLICE-DISTRICT', 'text');
+      testTrackingFocusedItem('BEAT', 'text');
+      testTrackingFocusedItem('SCHOOL-GROUND', 'text');
+      testTrackingFocusedItem('RANK', 'text');
+      testTrackingFocusedItem('INVESTIGATOR > CR', 'id');
+      testTrackingFocusedItem('UNIT', 'text');
+    });
+
+    it('should not send GA tracking if the focused item is not changed', function () {
+      const focusedItem = { type: 'OFFICER', uniqueKey: 'CR-1001', id: '123' };
+      const wrapper = mount(
+        <Provider store={ store }>
+          <SearchResults focusedItem={ focusedItem }/>
+        </Provider>,
+      );
+
+      wrapper.setProps({
+        children: (
+          <SearchResults focusedItem={ focusedItem } searchText='searchText' />
+        ),
+      });
+
+      tracking.trackSearchFocusedItem.should.not.be.called();
+    });
   });
 
   describe('Preview Pane', function () {
