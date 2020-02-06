@@ -64,6 +64,7 @@ export default function RouterRoot(props) {
         path={ editPath(OFFICER_PATH) }
         component={ OfficerPageContainer } />
       <Route
+        exact={ true }
         path={ editPath(SEARCH_PATH) }
         component={ LandingPageContainer } />
       <Route
@@ -79,6 +80,7 @@ export default function RouterRoot(props) {
         path={ editPath(UNIT_PROFILE_PATH) }
         component={ UnitProfilePageContainer } />
       <Route
+        exact={ true }
         path={ editPath(SEARCH_ALIAS_EDIT_PATH) }
         component={ SearchPageContainer }/>
       <Route
@@ -97,6 +99,7 @@ export default function RouterRoot(props) {
         path={ editPath(EMBED_OFFICERS_PATH) }
         component={ EmbedOfficersContainer }/>
       <Route
+        exact={ true }
         path={ editPath(TRACKER_ALL_DOCUMENTS_PATH) }
         component={ DocumentDeduplicatorContainer } />
       <Route
