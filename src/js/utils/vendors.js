@@ -88,10 +88,11 @@ if (config.appEnv === 'live-test' || global.mocha !== undefined) {
   }
 
   class MockMarker {
-    constructor() {
+    constructor(element) {
       this.setLngLat = setLngLatStub;
       this.addTo = addToStub;
       this.setPopup = setPopupStub;
+      this.element = element;
       this.remove = removeSpy;
     }
   }

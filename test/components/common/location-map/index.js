@@ -1,14 +1,15 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import sinon from 'sinon';
 
 import LocationMap from 'components/common/location-map';
 
 
 describe('LocationMap component', function () {
-  it('should render location map', function () {
-    const wrapper = shallow(<LocationMap lng={ 0 } lat={ 0 } />);
+  it('should render location map with default marker', function () {
+    const wrapper = mount(<LocationMap lng={ 0 } lat={ 0 } />);
     wrapper.find('.test--location-map').exists().should.be.true();
+    wrapper.instance().marker.element.className.should.equal('default-marker');
   });
 
   it('should reset marker location on rerender', function () {
@@ -50,5 +51,11 @@ describe('LocationMap component', function () {
     instance.handleMapClick();
     zoomOut.should.be.called();
     instance.map.getZoom.resetHistory();
+  });
+
+  it('should render with custom marker', function () {
+    const wrapper = mount(<LocationMap lng={ 0 } lat={ 0 } customMarkerClassName='custom-marker' />);
+
+    wrapper.instance().marker.element.className.should.equal('custom-marker');
   });
 });
