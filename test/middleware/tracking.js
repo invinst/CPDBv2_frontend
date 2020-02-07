@@ -1,4 +1,5 @@
 import sinon from 'sinon';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 import trackingMiddleware from 'middleware/tracking';
 import * as constants from 'utils/constants';
@@ -11,7 +12,7 @@ describe('trackingMiddleware', function () {
 
     let dispatched;
     const dispatchAction = {
-      type: '@@router/LOCATION_CHANGE',
+      type: LOCATION_CHANGE,
       payload: {
         location: { pathname: 'abc' },
       },

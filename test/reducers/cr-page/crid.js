@@ -1,4 +1,5 @@
 import should from 'should';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 import crid from 'reducers/cr-page/crid';
 
@@ -8,9 +9,9 @@ describe('crid reducer', function () {
     should.not.exist(crid(undefined, {}));
   });
 
-  it('should handle @@router/LOCATION_CHANGE and return crid', function () {
+  it('should handle LOCATION_CHANGE and return crid', function () {
     const action = {
-      type: '@@router/LOCATION_CHANGE',
+      type: LOCATION_CHANGE,
       payload: {
         location: { pathname: '/complaint/1/2/' },
       },
@@ -19,9 +20,9 @@ describe('crid reducer', function () {
     crid('some state', action).should.eql('1');
   });
 
-  it('should handle @@router/LOCATION_CHANGE and return state when pathname is incorrect', function () {
+  it('should handle LOCATION_CHANGE and return state when pathname is incorrect', function () {
     const action = {
-      type: '@@router/LOCATION_CHANGE',
+      type: LOCATION_CHANGE,
       payload: {
         location: { pathname: '/wrongpath/1/2/' },
       },

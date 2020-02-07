@@ -1,4 +1,5 @@
 import should from 'should';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 import officerId from 'reducers/cr-page/officer-id';
 
@@ -8,9 +9,9 @@ describe('cr-page officerId reducer', function () {
     should.not.exist(officerId(undefined, {}));
   });
 
-  it('should handle @@router/LOCATION_CHANGE and return officerId', function () {
+  it('should handle LOCATION_CHANGE and return officerId', function () {
     const action = {
-      type: '@@router/LOCATION_CHANGE',
+      type: LOCATION_CHANGE,
       payload: {
         location: { pathname: '/complaint/1/2/' },
       },
@@ -19,9 +20,9 @@ describe('cr-page officerId reducer', function () {
     officerId('some state', action).should.eql(2);
   });
 
-  it('should handle @@router/LOCATION_CHANGE and return state when pathname is incorrect', function () {
+  it('should handle LOCATION_CHANGE and return state when pathname is incorrect', function () {
     const action = {
-      type: '@@router/LOCATION_CHANGE',
+      type: LOCATION_CHANGE,
       payload: {
         location: { pathname: '/wrongpath/1/2/' },
       },

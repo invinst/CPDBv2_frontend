@@ -1,4 +1,5 @@
 import should from 'should';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 import pathname from 'reducers/pathname';
 import { UPDATE_PATH_NAME } from 'utils/constants';
@@ -9,9 +10,9 @@ describe('pathname reducer', function () {
     should.not.exist(pathname(undefined, {}));
   });
 
-  it('should handle @@router/LOCATION_CHANGE', function () {
+  it('should handle LOCATION_CHANGE', function () {
     const action = {
-      type: '@@router/LOCATION_CHANGE',
+      type: LOCATION_CHANGE,
       payload: {
         location: { pathname: '/some/path/' },
       },

@@ -3,6 +3,7 @@ import sinon from 'sinon';
 import * as _ from 'lodash';
 import { CancelToken } from 'axios';
 import Cookies from 'js-cookie';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 import fetchPageInitialData from 'middleware/fetch-page-initial-data';
 import { changeOfficerId, fetchOfficerSummary, requestCreateOfficerZipFile } from 'actions/officer-page';
@@ -52,7 +53,7 @@ import { fetchToast } from 'actions/toast';
 
 
 const createLocationChangeAction = (pathname) => ({
-  type: '@@router/LOCATION_CHANGE',
+  type: LOCATION_CHANGE,
   payload: {
     location: {
       pathname,

@@ -1,6 +1,7 @@
 import { Promise } from 'es6-promise';
 import sinon from 'sinon';
 import { CancelToken } from 'axios';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 import restoreCreateOrUpdatePinboard from 'middleware/restore-create-or-update-pinboard';
 import * as constants from 'utils/constants';
@@ -827,9 +828,9 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
     });
   });
 
-  it('should handle @@router/LOCATION_CHANGE and do nothing if not saving and isPinboardRestored', function () {
+  it('should handle LOCATION_CHANGE and do nothing if not saving and isPinboardRestored', function () {
     const action = {
-      type: '@@router/LOCATION_CHANGE',
+      type: LOCATION_CHANGE,
       payload: {
         location: { pathname: '/search/' },
       },
@@ -898,10 +899,10 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
       );
     };
 
-    it('should handle @@router/LOCATION_CHANGE with query to create pinboard but may not show toasts', function (done) {
+    it('should handle LOCATION_CHANGE with query to create pinboard but may not show toasts', function (done) {
       const pathname = '/pinboard/';
       const action = {
-        type: '@@router/LOCATION_CHANGE',
+        type: LOCATION_CHANGE,
         payload: {
           location: {
             pathname,
@@ -915,7 +916,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
     it('should accept params without s', function (done) {
       const pathname = '/pinboard/';
       const action = {
-        type: '@@router/LOCATION_CHANGE',
+        type: LOCATION_CHANGE,
         payload: {
           location: {
             pathname,
@@ -929,7 +930,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
     it('should accept params with under score', function (done) {
       const pathname = '/pinboard/';
       const action = {
-        type: '@@router/LOCATION_CHANGE',
+        type: LOCATION_CHANGE,
         payload: {
           location: {
             pathname,
@@ -943,7 +944,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
     it('should accept camelCase params', function (done) {
       const pathname = '/pinboard/';
       const action = {
-        type: '@@router/LOCATION_CHANGE',
+        type: LOCATION_CHANGE,
         payload: {
           location: {
             pathname,
@@ -957,7 +958,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
     it('should accept params with some capitalizing mistakes', function (done) {
       const pathname = '/pinboard/?officeR-ids=1,3,4,5&CRids=1053673&tRRIds=1,2';
       const action = {
-        type: '@@router/LOCATION_CHANGE',
+        type: LOCATION_CHANGE,
         payload: {
           location: {
             pathname,
@@ -968,12 +969,12 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
       testCreatePinboardWith(action, pathname, done);
     });
 
-    it('should handle @@router/LOCATION_CHANGE to create pinboard and show toast', function (done) {
+    it('should handle LOCATION_CHANGE to create pinboard and show toast', function (done) {
       Toastify.toast.resetHistory();
       Toastify.toast.should.not.be.called();
 
       const action = {
-        type: '@@router/LOCATION_CHANGE',
+        type: LOCATION_CHANGE,
         payload: {
           location: {
             pathname: '/pinboard/',
@@ -1032,7 +1033,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
     it('should skip invalid param and show invalid param message', function (done) {
       const pathname = '/pinboard/';
       const action = {
-        type: '@@router/LOCATION_CHANGE',
+        type: LOCATION_CHANGE,
         payload: {
           location: {
             pathname,
@@ -1092,7 +1093,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
     it('should skip invalid params and show invalid params message', function (done) {
       const pathname = '/pinboard/';
       const action = {
-        type: '@@router/LOCATION_CHANGE',
+        type: LOCATION_CHANGE,
         payload: {
           location: {
             pathname,
@@ -1149,7 +1150,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
     it('should accept title params', function (done) {
       const pathname = '/pinboard/';
       const action = {
-        type: '@@router/LOCATION_CHANGE',
+        type: LOCATION_CHANGE,
         payload: {
           location: {
             pathname,
@@ -1174,7 +1175,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
     it('should fetchLatestRetrievedPinboard and show redirect message if no valid params', function (done) {
       const pathname = '/pinboard/';
       const action = {
-        type: '@@router/LOCATION_CHANGE',
+        type: LOCATION_CHANGE,
         payload: {
           location: {
             pathname,
@@ -1220,7 +1221,7 @@ describe('restoreCreateOrUpdatePinboard middleware', function () {
   describe('Restore pinboard', function () {
     let store;
     const createLocationChangeAction = (pathname) => ({
-      type: '@@router/LOCATION_CHANGE',
+      type: LOCATION_CHANGE,
       payload: {
         location: {
           pathname,
