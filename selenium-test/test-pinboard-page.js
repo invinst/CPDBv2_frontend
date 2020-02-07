@@ -73,7 +73,7 @@ describe('Pinboard Page', function () {
       pinboardPage.officerPreviewPane.pinButton.getText().should.equal('Remove from pinboard');
       pinboardPage.officerPreviewPane.viewOfficerButton.getText().should.equal('View Officer Profile');
       pinboardPage.officerPreviewPane.officerName.getText().should.equal('Daryl Mack');
-      pinboardPage.officerPreviewPane.genericInfo.getText().should.equal('42 year old, white, male.');
+      pinboardPage.officerPreviewPane.genericInfo.getText().should.equal('42-year-old, white, male.');
       pinboardPage.officerPreviewPane.badgeKey.getText().should.equal('Badge');
       pinboardPage.officerPreviewPane.badgeValue.getText().should.equal('456');
       pinboardPage.officerPreviewPane.rankKey.getText().should.equal('Rank');
@@ -374,7 +374,7 @@ describe('Pinboard Page', function () {
       pinboardPage.officerPreviewPane.pinButton.getText().should.equal('Remove from pinboard');
       pinboardPage.officerPreviewPane.viewOfficerButton.getText().should.equal('View Officer Profile');
       pinboardPage.officerPreviewPane.officerName.getText().should.equal('Richard Sullivan');
-      pinboardPage.officerPreviewPane.genericInfo.getText().should.equal('67 year old, black, female.');
+      pinboardPage.officerPreviewPane.genericInfo.getText().should.equal('67-year-old, black, female.');
       pinboardPage.officerPreviewPane.badgeKey.getText().should.equal('Badge');
       pinboardPage.officerPreviewPane.badgeValue.getText().should.equal('456');
       pinboardPage.officerPreviewPane.rankKey.getText().should.equal('Rank');

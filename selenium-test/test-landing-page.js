@@ -372,12 +372,12 @@ describe('landing page', function () {
   describe('Pinboard function', function () {
     const checkPinToast = (parentSelector, messagePrefix) => {
       //Pin item
-      parentSelector.firstPinButton.waitForDisplayed();
-      parentSelector.firstPinButton.click();
+      parentSelector.waitForDisplayed();
+      parentSelector.click();
 
       //Check toast
       landingPage.lastToast.waitForDisplayed();
-      landingPage.lastToast.waitForText(`${messagePrefix} added`);
+      landingPage.lastToast.waitForText(`${messagePrefix} added.`);
 
       //Go to Search Page and check for pinboard item counts
       landingPage.searchSection.mainElement.click();
@@ -385,12 +385,12 @@ describe('landing page', function () {
       searchPage.backButton.click();
 
       //Unpin item
-      parentSelector.firstPinButton.waitForDisplayed();
-      parentSelector.firstPinButton.click();
+      parentSelector.waitForDisplayed();
+      parentSelector.click();
 
       //Check toast
       landingPage.lastToast.waitForDisplayed();
-      landingPage.lastToast.waitForText(`${messagePrefix} removed`);
+      landingPage.lastToast.waitForText(`${messagePrefix} removed.`);
 
       //Go to Search Page and check for pinboard item counts
       landingPage.searchSection.mainElement.click();
@@ -398,37 +398,55 @@ describe('landing page', function () {
       searchPage.backButton.click();
     };
 
-    const checkPairCardPinToast = (selector, messagePrefix) => {
-      selector.firstPairCardPinButton.waitForDisplayed();
-      selector.firstPairCardPinButton.click();
+    const checkPairCardPinToast = (selector, lastMessagePrefix, secondLastMessagePrefix) => {
+      selector.waitForDisplayed();
+      selector.click();
 
       landingPage.lastToast.waitForDisplayed();
-      landingPage.lastToast.waitForText(`${messagePrefix} added`);
+      landingPage.lastToast.waitForText(`${lastMessagePrefix} added.`);
       landingPage.secondLastToast.waitForDisplayed();
-      landingPage.secondLastToast.waitForText(`${messagePrefix} added`);
+      landingPage.secondLastToast.waitForText(`${secondLastMessagePrefix} added.`);
 
-      selector.firstPairCardPinButton.click();
+      selector.click();
 
       landingPage.lastToast.waitForDisplayed();
-      landingPage.lastToast.waitForText(`${messagePrefix} removed`);
+      landingPage.lastToast.waitForText(`${lastMessagePrefix} removed.`);
       landingPage.secondLastToast.waitForDisplayed();
-      landingPage.secondLastToast.waitForText(`${messagePrefix} removed`);
+      landingPage.secondLastToast.waitForText(`${secondLastMessagePrefix} removed.`);
     };
 
     it('should display toast when pinning cards', function () {
-      checkPinToast(landingPage.recentActivityCarousel, 'Officer');
-      checkPinToast(landingPage.officersByAllegationCarousel, 'Officer');
-      checkPairCardPinToast(landingPage.recentActivityCarousel, 'Officer');
-      checkPinToast(landingPage.recentDocumentCarousel, 'CR');
-      checkPinToast(landingPage.complaintSummariesCarousel, 'CR');
+      checkPinToast(
+        landingPage.recentActivityCarousel.jeromeFinniganPinButton,
+        'Police Officer Jerome Finnigan 54-year-old white male, with 10 complaints, 5 sustained'
+      );
+      checkPinToast(
+        landingPage.officersByAllegationCarousel.edwardMayPinButton,
+        'Commander Edward May 54-year-old white male, with 5 complaints, 1 sustained',
+      );
+      checkPairCardPinToast(
+        landingPage.recentActivityCarousel.jeromeFinniganPairCardPinButton,
+        'Police Officer Edward May 54-year-old white male, with 10 complaints, 5 sustained',
+        'Police Officer Jerome Finnigan 54-year-old white male, with 10 complaints, 5 sustained',
+      );
+      checkPinToast(
+        landingPage.recentDocumentCarousel.domesticPinButton,
+        'CR #123456 categorized as Domestic happened in Jan 1, 2000'
+      );
+      checkPinToast(
+        landingPage.complaintSummariesCarousel.criminalMisconductPinButton,
+        'CR #654321 categorized as Criminal Misconduct happened in Jan 1, 2000'
+      );
     });
 
-    it('should show only 1 toast if one officer of the pairing card was already pinned', function () {
-      landingPage.recentActivityCarousel.firstPinButton.waitForDisplayed();
-      landingPage.recentActivityCarousel.firstPinButton.click();
+    it('should show only 1 toast if one officer of the pairing card has already pinned', function () {
+      landingPage.recentActivityCarousel.jeromeFinniganPinButton.waitForDisplayed();
+      landingPage.recentActivityCarousel.jeromeFinniganPinButton.click();
 
       landingPage.toast.waitForDisplayed();
-      landingPage.toast.waitForText('Officer added');
+      landingPage.toast.waitForText(
+        'Police Officer Jerome Finnigan 54-year-old white male, with 10 complaints, 5 sustained added.'
+      );
       landingPage.toast.waitForDisplayed(5000, true);
 
       landingPage.searchSection.mainElement.click();
@@ -438,7 +456,9 @@ describe('landing page', function () {
       landingPage.recentActivityCarousel.firstPairCardPinButton.click();
 
       landingPage.lastToast.waitForDisplayed();
-      landingPage.lastToast.waitForText('Officer added');
+      landingPage.lastToast.waitForText(
+        'Police Officer Edward May 54-year-old white male, with 10 complaints, 5 sustained added.'
+      );
       landingPage.secondLastToast.waitForDisplayed(2000, true);
 
       landingPage.searchSection.mainElement.click();
@@ -448,9 +468,13 @@ describe('landing page', function () {
       landingPage.recentActivityCarousel.firstPairCardPinButton.click();
 
       landingPage.lastToast.waitForDisplayed();
-      landingPage.lastToast.waitForText('Officer removed');
+      landingPage.lastToast.waitForText(
+        'Police Officer Edward May 54-year-old white male, with 10 complaints, 5 sustained removed.'
+      );
       landingPage.secondLastToast.waitForDisplayed();
-      landingPage.secondLastToast.waitForText('Officer removed');
+      landingPage.secondLastToast.waitForText(
+        'Police Officer Jerome Finnigan 54-year-old white male, with 10 complaints, 5 sustained removed.'
+      );
 
       landingPage.searchSection.mainElement.click();
       searchPage.pinboardButton.waitForText('Pinboard (0)');

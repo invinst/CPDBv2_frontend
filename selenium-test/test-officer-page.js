@@ -487,7 +487,9 @@ describe('officer page', function () {
 
       officerPage.tabbedPaneSection.coaccusalsSection.firstPinButton.click();
       officerPage.lastToast.waitForDisplayed();
-      officerPage.lastToast.waitForText('Officer added');
+      officerPage.lastToast.waitForText(
+        'Police Officer John Kelly 67-year-old white male, with 2 complaints, 1 sustained added.'
+      );
 
       officerPage.landingPageBreadCrumb.click();
       landingPage.searchSection.mainElement.waitForDisplayed();
@@ -502,11 +504,15 @@ describe('officer page', function () {
 
       officerPage.tabbedPaneSection.coaccusalsSection.firstPinButton.click();
       officerPage.lastToast.waitForDisplayed();
-      officerPage.lastToast.waitForText('Officer added');
+      officerPage.lastToast.waitForText(
+        'Police Officer John Kelly 67-year-old white male, with 2 complaints, 1 sustained added.'
+      );
 
       officerPage.tabbedPaneSection.coaccusalsSection.firstPinButton.click();
       officerPage.lastToast.waitForDisplayed();
-      officerPage.lastToast.waitForText('Officer removed');
+      officerPage.lastToast.waitForText(
+        'Police Officer John Kelly 67-year-old white male, with 2 complaints, 1 sustained removed.'
+      );
 
       officerPage.landingPageBreadCrumb.click();
       landingPage.searchSection.mainElement.waitForDisplayed();

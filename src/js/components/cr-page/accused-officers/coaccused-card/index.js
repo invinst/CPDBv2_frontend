@@ -4,7 +4,6 @@ import pluralize from 'pluralize';
 import { compact, join, kebabCase } from 'lodash';
 import cx from 'classnames';
 
-import { getCurrentAge } from 'utils/date';
 import StaticRadarChart from 'components/common/radar-chart';
 import { roundedPercentile } from 'utils/calculations';
 import styles from './coaccused-card.sass';
@@ -14,15 +13,6 @@ import ItemPinButton from 'components/common/item-pin-button';
 
 
 export class CoaccusedCard extends Component {
-  renderExtraInfo() {
-    const { birthYear, race, gender } = this.props;
-    const age = getCurrentAge(birthYear);
-    const ageString = age ? `${age}-year-old` : '';
-    const extraInfo = `${ageString} ${race} ${gender}`;
-
-    return <p className='extra-info'>{ extraInfo }</p>;
-  }
-
   renderComplaintInfo() {
     const { complaintCount, sustainedCount } = this.props;
     const complaint = pluralize('allegation', complaintCount, true);
@@ -65,6 +55,11 @@ export class CoaccusedCard extends Component {
       findingOutcomeMix,
       addOrRemoveItemInPinboard,
       isPinned,
+      complaintCount,
+      sustainedCount,
+      age,
+      race,
+      gender,
     } = this.props;
     const officerSlug = kebabCase(fullName);
     const { printMode } = this.context;
@@ -92,7 +87,14 @@ export class CoaccusedCard extends Component {
           item={ {
             type: PINNED_ITEM_TYPES.OFFICER,
             id: officerId,
-            isPinned: isPinned,
+            isPinned,
+            fullName,
+            complaintCount,
+            sustainedCount,
+            age,
+            race,
+            gender,
+            rank,
           } }
         />
         <div className='coaccused-card-info'>
@@ -110,7 +112,9 @@ export class CoaccusedCard extends Component {
             <p className='bold-text'>{ this.renderComplaintInfo() }</p>
             { this.renderComplaintPercentile() }
           </div>
-          <div className='coaccused-card-section officer-card-demographic'>{ this.renderExtraInfo() }</div>
+          <div className='coaccused-card-section officer-card-demographic'>
+            <p className='extra-info'>{ `${age} ${race} ${gender}` }</p>
+          </div>
         </div>
         <div className='coaccused-card-footer'>
           <div className='accused-card-category'>{ category }</div>
@@ -135,7 +139,7 @@ CoaccusedCard.propTypes = {
   complaintCount: PropTypes.number,
   sustainedCount: PropTypes.number,
   complaintPercentile: PropTypes.number,
-  birthYear: PropTypes.number,
+  age: PropTypes.string,
   race: PropTypes.string,
   gender: PropTypes.string,
   percentile: PropTypes.object,

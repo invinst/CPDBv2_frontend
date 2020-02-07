@@ -22,7 +22,7 @@ describe('OfficerCard component', function () {
         complaintCount={ 10 }
         sustainedCount={ 5 }
         complaintPercentile={ 20 }
-        birthYear={ 1980 }
+        age='37-year-old'
         race='white'
         gender='male'
         rank='Police Officer'
@@ -66,11 +66,25 @@ describe('OfficerCard component', function () {
     const addOrRemoveItemInPinboard = spy();
     const id = random.number({ min: 10, max: 1000 });
     const isPinned = random.boolean();
+    const complaintCount = 10;
+    const sustainedCount = 10;
+    const age = '37-year-old';
+    const race = 'White';
+    const gender = 'Male';
+    const rank = 'Officer';
+    const fullName = 'Ferome Finnigan';
 
     const wrapper = shallow(
       <OfficerCard
         officerId={ id }
         isPinned={ isPinned }
+        complaintCount={ complaintCount }
+        sustainedCount={ sustainedCount }
+        age={ age }
+        race={ race }
+        gender={ gender }
+        rank={ rank }
+        fullName={ fullName }
         addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
       />
     );
@@ -79,7 +93,20 @@ describe('OfficerCard component', function () {
     itemPinButton.prop('className').should.equal(pinButtonStyles.cardPinnedButton);
     itemPinButton.prop('addOrRemoveItemInPinboard').should.equal(addOrRemoveItemInPinboard);
     itemPinButton.prop('showHint').should.be.false();
-    itemPinButton.prop('item').should.eql({ type: PINNED_ITEM_TYPES.OFFICER, id, isPinned });
+    itemPinButton.prop('item').should.eql(
+      {
+        type: PINNED_ITEM_TYPES.OFFICER,
+        id,
+        isPinned,
+        complaintCount,
+        sustainedCount,
+        age,
+        race,
+        gender,
+        rank,
+        fullName,
+      }
+    );
   });
 
   it('should not render pin button if not pinnable', function () {

@@ -423,7 +423,17 @@ describe('PinboardPage component', function () {
       'officer_ids': [123],
     };
     const pinboardPageData = createPinboardPage(pinboard);
-    set(pinboardPageData, 'officerItems', { requesting: false, items: [{ id: 123 }] });
+    const item = {
+      id: 123,
+      'full_name': 'John Watts',
+      'allegation_count': 1,
+      'sustained_count': 1,
+      'birth_year': 1975,
+      race: 'black',
+      rank: 'Police Officer',
+      gender: 'Male',
+    };
+    set(pinboardPageData, 'officerItems', { requesting: false, items: [{ ...item }] });
     const state = {
       pinboardPage: pinboardPageData,
       pathname: 'pinboard/5cd06f2b',
@@ -458,6 +468,13 @@ describe('PinboardPage component', function () {
       type: 'OFFICER',
       id: 123,
       isPinned: true,
+      fullName: 'John Watts',
+      complaintCount: 1,
+      sustainedCount: 1,
+      age: '42-year-old',
+      race: 'black',
+      rank: 'Police Officer',
+      gender: 'Male',
     });
 
     handlePinChangedOnPreviewPane.restore();

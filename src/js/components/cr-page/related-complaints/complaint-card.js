@@ -55,7 +55,9 @@ class ComplaintCard extends Component {
           item={ {
             type: PINNED_ITEM_TYPES.CR,
             id: crid,
-            isPinned: isPinned,
+            isPinned,
+            category: categories,
+            incidentDate,
           } }
         />
         <div className='complaint-card-map' style={ mapStyle(lat, lon) } />

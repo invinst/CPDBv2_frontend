@@ -55,7 +55,7 @@ describe('Social Graph preview pane selectors', function () {
         resignationDate: 'OCT 10, 2005',
         badge: '123456',
         gender: 'Male',
-        age: 47,
+        age: '47-year-old',
         race: 'White',
         rank: 'Police Officer',
         unit: {
@@ -469,7 +469,7 @@ describe('Social Graph preview pane selectors', function () {
         resignationDate: 'OCT 10, 2005',
         badge: '123456',
         gender: 'Male',
-        age: 47,
+        age: '47-year-old',
         race: 'White',
         rank: 'Police Officer',
         unit: {
@@ -618,7 +618,7 @@ describe('Social Graph preview pane selectors', function () {
           resignationDate: 'OCT 10, 2005',
           badge: '123456',
           gender: 'Male',
-          age: 47,
+          age: '47-year-old',
           race: 'White',
           rank: 'Police Officer',
           unit: {
