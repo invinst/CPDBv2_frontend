@@ -27,7 +27,7 @@ export default function CRPane(props) {
             <div className='cr-preview-pane-title-title'>{ category }</div>
             <div className='cr-preview-pane-title-subtitle'>{ subCategory }</div>
           </div>
-          <div className='cr-preview-pane-info-row'>{ incidentDate }</div>
+          <div className='cr-preview-pane-info-row'>{ incidentDate.toUpperCase() }</div>
           { !isEmpty(address) && <div className='cr-preview-pane-info-row cr-preview-pane-address'>{ address }</div> }
           {
             !isEmpty(victims) && (

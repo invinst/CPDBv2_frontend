@@ -183,7 +183,7 @@ describe('search page navigation selector', function () {
         data: {
           id: 29033,
           fullName: 'Jerome Turbyville',
-          age: 48,
+          age: '48-year-old',
           appointedDate: 'DEC 13, 1999',
           badge: '5922',
           complaintCount: 10,
@@ -202,7 +202,7 @@ describe('search page navigation selector', function () {
           },
           race: 'White',
           rank: 'Police Officer',
-          resignationDate: null,
+          resignationDate: '',
           sustainedCount: 2,
           disciplineCount: 1,
           honorableMentionCount: 0,

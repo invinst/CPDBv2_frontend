@@ -16,7 +16,7 @@ function OfficerInfo(props) {
       </div>
       <div className='officer-info-row-divider'/>
       <div className='officer-info-personal-info'>
-        { age }-year-old { race } { gender }
+        { age } { race } { gender }
       </div>
     </div>
   );

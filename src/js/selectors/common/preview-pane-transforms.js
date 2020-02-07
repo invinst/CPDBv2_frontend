@@ -2,7 +2,7 @@ import { get, sumBy, map, last, kebabCase, has, isEmpty, compact } from 'lodash'
 import moment from 'moment';
 
 import { extractPercentile } from 'selectors/common/percentile';
-import { getCurrentAge, formatDate } from 'utils/date';
+import { formatDate, getCurrentAgeString } from 'utils/date';
 import { roundedPercentile } from 'utils/calculations';
 import { DATE_FORMAT, FULL_MONTH_DATE_FORMAT } from 'utils/constants';
 import { getDemographicString } from 'utils/victims';
@@ -125,11 +125,13 @@ const trrTransform = (item) => {
   const taser = item['taser'];
   const category = has(item, 'category') ? item['category'] :
     firearmUsed ? 'Firearm' : taser ? 'Taser' : 'Use of Force Report';
+  const forceType = item['force_type'];
 
   return {
     subText: `TRR # ${item.id}${dateText}`,
     to: item.to,
     category,
+    forceType,
     incidentDate,
     address: item.address,
     officer: officer ? accusedTransform(officer) : null,
@@ -145,12 +147,12 @@ export const officerTransform = (item) => {
   return {
     id: parseInt(item['id']),
     fullName: item['name'] || item['full_name'],
-    appointedDate: formatDate(item['appointed_date'] || item['date_of_appt'] ),
-    resignationDate: formatDate(item['resignation_date'] || item['date_of_resignation']),
+    appointedDate: formatDate(item['appointed_date'] || item['date_of_appt'], true),
+    resignationDate: formatDate(item['resignation_date'] || item['date_of_resignation'], true),
     badge: item['badge'],
     gender: item['gender'] || '',
     to: item['to'],
-    age: getCurrentAge(item['birth_year']) || null,
+    age: getCurrentAgeString(item['birth_year']),
     race: item['race'] === 'Unknown' ? '' : item['race'],
     rank: item['rank'],
     unit: {

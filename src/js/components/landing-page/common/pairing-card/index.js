@@ -21,12 +21,10 @@ export default function PairingCard(props) {
         showHint={ false }
         items={ [{
           type: PINNED_ITEM_TYPES.OFFICER,
-          id: officer1.id,
-          isPinned: officer1.isPinned,
+          ...officer1,
         }, {
           type: PINNED_ITEM_TYPES.OFFICER,
-          id: officer2.id,
-          isPinned: officer2.isPinned,
+          ...officer2,
         }] }
       />
       <Link

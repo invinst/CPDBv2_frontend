@@ -5,18 +5,18 @@ import { formatDate, getCareerDuration } from 'utils/date';
 describe('date module', function () {
   describe('formatDate function', () => {
     it('should return correct format string', () => {
-      formatDate('2017-01-03').should.eql('JAN 3, 2017');
+      formatDate('2017-01-03').should.eql('Jan 3, 2017');
     });
 
-    it('should not uppercase when uppercase is false', () => {
-      formatDate('2017-01-03', false).should.eql('Jan 3, 2017');
+    it('should uppercase when uppercase is true', () => {
+      formatDate('2017-01-03', true).should.eql('JAN 3, 2017');
     });
 
-    it('should return null when the string is null, undefined, empty or moment-unparsable', () => {
-      should(formatDate(null)).be.null();
-      should(formatDate(undefined)).be.null();
-      should(formatDate('')).be.null();
-      should(formatDate('fdsafdsa')).be.null();
+    it('should return empty string when the string is null, undefined, empty or moment-unparsable', () => {
+      should(formatDate(null)).equal('');
+      should(formatDate(undefined)).equal('');
+      should(formatDate('')).equal('');
+      should(formatDate('2017-13-13')).equal('');
     });
   });
 

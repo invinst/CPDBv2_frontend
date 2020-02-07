@@ -22,7 +22,7 @@ describe('getOfficerSecondRowContent', function () {
   it('should return demographic, complaint and sustained', function () {
     const params = {
       suggestion: {
-        age: 30,
+        age: '30-year-old',
         race: 'White',
         gender: 'Male',
         complaintCount: 2,
@@ -30,7 +30,7 @@ describe('getOfficerSecondRowContent', function () {
       },
     };
 
-    getOfficerSecondRowContent(params).should.equal('30 year old, White, Male, 2 Complaints, 1 Sustained');
+    getOfficerSecondRowContent(params).should.equal('30-year-old, White, Male, 2 Complaints, 1 Sustained');
   });
 });
 

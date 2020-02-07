@@ -49,6 +49,8 @@ import { fetchVideoInfo } from 'actions/headers/slim-header';
 import { hasVideoInfoSelector } from 'selectors/headers/slim-header';
 import { dispatchFetchPinboardPageData, dispatchFetchPinboardPinnedItems } from 'utils/pinboard';
 import { isSignedIn } from 'utils/authentication';
+import { fetchToast } from 'actions/toast';
+import { hasToastsSelector } from 'selectors/toast';
 
 let prevPathname = '';
 
@@ -120,6 +122,10 @@ export default store => next => action => {
         dispatches.push(store.dispatch(fetchPage(pageId)()));
       }
     };
+
+    if (!hasToastsSelector(state)) {
+      store.dispatch(fetchToast());
+    }
 
     const notRequiredLandingPageContent = [/embed\/map/];
     if (every(notRequiredLandingPageContent, item => !pathName.match(item))) {

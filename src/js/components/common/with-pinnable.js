@@ -14,11 +14,7 @@ export default function withPinnable(WrappedComponent) {
 
       addOrRemoveItems.forEach(addOrRemoveItem => {
         if (addOrRemoveItem.isPinned === allIsPinned)
-          addOrRemoveItemInPinboard({
-            type: addOrRemoveItem.type,
-            id: addOrRemoveItem.id,
-            isPinned: addOrRemoveItem.isPinned,
-          });
+          addOrRemoveItemInPinboard(addOrRemoveItem);
       });
     };
 

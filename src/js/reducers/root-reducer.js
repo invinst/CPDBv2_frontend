@@ -25,6 +25,7 @@ import socialGraphPage from './social-graph-page';
 import pinboardPage from './pinboard-page';
 import pinboardAdminPage from './pinboard-admin-page';
 import videoModal from './video-modal';
+import toasts from './toasts';
 import breadcrumb from './breadcrumb';
 
 
@@ -55,4 +56,5 @@ export default (history) => combineReducers({
   pinboardPage,
   pinboardAdminPage,
   videoModal,
+  toasts,
 });

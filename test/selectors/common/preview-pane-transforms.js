@@ -94,7 +94,7 @@ describe('previewPaneTransform', function () {
     const expectedData = {
       id: 29033,
       fullName: 'Jerome Turbyville',
-      age: 48,
+      age: '48-year-old',
       appointedDate: 'OCT 21, 2010',
       resignationDate: 'SEP 20, 2018',
       badge: '5922',
@@ -154,7 +154,7 @@ describe('previewPaneTransform', function () {
         ...expectedData,
         race: '',
         gender: '',
-        age: null,
+        age: '',
       },
     });
   });
@@ -189,7 +189,7 @@ describe('previewPaneTransform', function () {
       data: {
         id: 29033,
         fullName: 'Jerome Turbyville',
-        age: 48,
+        age: '48-year-old',
         appointedDate: 'DEC 13, 1999',
         badge: '5922',
         complaintCount: 10,
@@ -208,7 +208,7 @@ describe('previewPaneTransform', function () {
         },
         race: 'White',
         rank: 'Police Officer',
-        resignationDate: null,
+        resignationDate: '',
         sustainedCount: 2,
         disciplineCount: 1,
         honorableMentionCount: 0,
@@ -248,7 +248,7 @@ describe('previewPaneTransform', function () {
       data: {
         id: 29033,
         fullName: 'Jerome Turbyville',
-        age: 48,
+        age: '48-year-old',
         appointedDate: 'DEC 13, 1999',
         badge: '5922',
         complaintCount: 10,
@@ -267,7 +267,7 @@ describe('previewPaneTransform', function () {
         },
         race: 'White',
         rank: 'Police Officer',
-        resignationDate: null,
+        resignationDate: '',
         sustainedCount: 2,
         disciplineCount: 1,
         honorableMentionCount: 0,
@@ -356,6 +356,7 @@ describe('previewPaneTransform', function () {
         'allegation_count': 93,
       },
       to: '/trr/123456/',
+      'force_type': 'Verbal Commands',
     };
 
     const expectedData = {
@@ -379,6 +380,7 @@ describe('previewPaneTransform', function () {
         },
         to: '/trr/123456/',
         isPinned: false,
+        forceType: 'Verbal Commands',
       },
     };
 

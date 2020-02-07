@@ -91,7 +91,7 @@ export default class OfficerPane extends Component {
           {
             pinnable &&
             <PinButton
-              item={ { type, id, isPinned } }
+              item={ { type, id, isPinned, fullName, complaintCount, sustainedCount, age, race, gender, rank } }
               className={ cx('pin-button', { 'is-pinned': isPinned }) }
               addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
             />

@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import moment from 'moment';
 import _ from 'lodash';
 
 import styles from './complaint-summary-card.sass';
@@ -28,13 +27,13 @@ export default function ComplaintSummaryCard(props) {
         item={ {
           type: PINNED_ITEM_TYPES.CR,
           id: crid,
-          isPinned: isPinned,
+          isPinned,
+          incidentDate,
+          category: categories,
         } }
       />
       <div className='complaint-summary-card-title'>
-        <div className='complaint-summary-card-title-date'>
-          { moment(incidentDate, 'YYYY-MM-DD').format('ll') }
-        </div>
+        <div className='complaint-summary-card-title-date'>{ incidentDate }</div>
         <div className='complaint-summary-card-title-category'>{ categories }</div>
       </div>
       <div className='complaint-summary-card-summary'>

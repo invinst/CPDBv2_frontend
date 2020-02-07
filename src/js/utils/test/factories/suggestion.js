@@ -1,5 +1,7 @@
 import { Factory } from 'rosie';
-import { random, lorem, name, date } from 'faker';
+import { random, lorem, name } from 'faker';
+
+import { yearGenerator } from 'utils/test/factories/utils';
 
 /* istanbul ignore next */
 export const RawOfficerSuggestion = Factory.define('RawOfficerSuggestion')
@@ -12,7 +14,7 @@ export const RawOfficerSuggestion = Factory.define('RawOfficerSuggestion')
   .attr('to', '')
   .attr('url', '')
   .attr('tags', [])
-  .attr('birth_year', () => date.between('1950-01-01', '1990-12-31').getFullYear())
+  .attr('birth_year', yearGenerator)
   .attr('race', 'White')
   .attr('rank', 'Police Officer')
   .attr('unit', {})

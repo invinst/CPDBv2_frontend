@@ -147,7 +147,7 @@ describe('Disable pinboard feature', function () {
       const expectedRecentSuggestions = [
         'Member Presence\nTRR # 123 - April 27, 2004',
         'CR # CR123 • April 23, 2004',
-        'Bernadette Kelly\n45 year old, White, Male, 10 Complaints, 2 Sustained',
+        'Bernadette Kelly\n45-year-old, White, Male, 10 Complaints, 2 Sustained',
       ];
 
       expectedRecentSuggestions.forEach((expectedText, index) => {

@@ -8,7 +8,7 @@ describe('OfficerInfo component', function () {
   const info = {
     id: '123',
     fullName: 'Jerome Finnigan',
-    age: 54,
+    age: '54-year-old',
     race: 'White',
     gender: 'Male',
   };

@@ -141,7 +141,9 @@ describe('CR page', function () {
     it('should display toast when pinning a coaccusal', function () {
       crPage.accusedOfficers.firstCard.pinButton.click();
       crPage.lastToast.waitForDisplayed();
-      crPage.lastToast.waitForText('Officer added');
+      crPage.lastToast.waitForText(
+        'Officer Ridchard Sullivan 42-year-old white male, with 43 complaints, 1 sustained added.'
+      );
 
       crPage.landingPageBreadCrumb.click();
       landingPage.searchSection.mainElement.waitForDisplayed();
@@ -152,7 +154,9 @@ describe('CR page', function () {
 
       crPage.accusedOfficers.firstCard.pinButton.click();
       crPage.lastToast.waitForDisplayed();
-      crPage.lastToast.waitForText('Officer removed');
+      crPage.lastToast.waitForText(
+        'Officer Ridchard Sullivan 42-year-old white male, with 43 complaints, 1 sustained removed.'
+      );
 
       crPage.landingPageBreadCrumb.click();
       landingPage.searchSection.mainElement.waitForDisplayed();
@@ -163,7 +167,9 @@ describe('CR page', function () {
     it('should display toast when pinning a related complaint', function () {
       crPage.relatedByCategoriesCarousel.firstPinButton.click();
       crPage.lastToast.waitForDisplayed();
-      crPage.lastToast.waitForText('CR added');
+      crPage.lastToast.waitForText(
+        'CR #123456 categorized as Use Of Force happened in Jan 1, 2000 added.'
+      );
 
       crPage.landingPageBreadCrumb.click();
       landingPage.searchSection.mainElement.waitForDisplayed();
@@ -174,7 +180,9 @@ describe('CR page', function () {
 
       crPage.relatedByCategoriesCarousel.firstPinButton.click();
       crPage.lastToast.waitForDisplayed();
-      crPage.lastToast.waitForText('CR removed');
+      crPage.lastToast.waitForText(
+        'CR #123456 categorized as Use Of Force happened in Jan 1, 2000 removed.'
+      );
 
       crPage.landingPageBreadCrumb.click();
       landingPage.searchSection.mainElement.waitForDisplayed();

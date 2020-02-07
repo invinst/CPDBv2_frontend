@@ -17,9 +17,9 @@ describe('DocumentCard components', function () {
     previewImageUrl: 'http://preview.com/url3',
     'url': 'http://cr-document.com/3',
     crid: lorem.word(),
-    pathname: lorem.word(),
+    pathname: '2003-09-23',
     incidentDate: lorem.word(),
-    category: lorem.word(),
+    category: 'Money / Property',
     onTrackingAttachment: sinon.stub(),
     id: lorem.word(),
     addOrRemoveItemInPinboard: sinon.stub(),
@@ -42,6 +42,8 @@ describe('DocumentCard components', function () {
       type: PINNED_ITEM_TYPES.CR,
       id: props.crid,
       isPinned: props.isPinned,
+      incidentDate: props.incidentDate,
+      category: props.category,
     });
 
     const thumbnail = wrapper.find('img');

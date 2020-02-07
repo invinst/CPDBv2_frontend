@@ -41,7 +41,7 @@ describe('Recent Activity components', function () {
     'officer1': {
       'id': 8562,
       'fullName': 'Jerome Finnigan',
-      'age': 54,
+      'age': '54-year-old',
       'race': 'White',
       'gender': 'Male',
       'rank': 'Police Officer',
@@ -56,7 +56,7 @@ describe('Recent Activity components', function () {
     'officer2': {
       'id': 3454,
       'fullName': 'John Burzinski',
-      'age': 56,
+      'age': '56-year-old',
       'race': 'White',
       'gender': 'Male',
       'rank': 'Police Officer',

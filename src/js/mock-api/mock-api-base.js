@@ -29,6 +29,7 @@ import {
   SOCIAL_GRAPH_ALLEGATIONS_API_URL,
   MODAL_VIDEO_INFO,
   RECENT_SEARCH_ITEMS_API_URL,
+  TOAST_API_URL,
 } from 'utils/constants';
 import { communityGeoJSONPath } from 'utils/static-assets';
 import getCRData from './cr-page/get-data';
@@ -49,6 +50,7 @@ import getTRRData from './trr-page/get-data';
 import getSearchTermsData, { recentSearchItems } from './search-terms-page';
 import getUnitSummaryData from './unit-profile-page/get-summary';
 import { getCRPopup } from './popup';
+import { getToasts } from './toasts';
 import fetchDocumentsByCRID from './document-deduplicator-page/fetch-documents-by-crid';
 import searchDocuments from './documents-overview-page/search-documents';
 import fetchDocuments from './documents-overview-page/fetch-documents';
@@ -125,8 +127,8 @@ let latestRetrievePinboard = null;
 axiosMockClient.onGet(ACTIVITY_GRID_API_URL).reply(() => [200, getActivityGridData()]);
 axiosMockClient.onGet(OFFICERS_BY_ALLEGATION_API_URL).reply(() => [200, getTopByAllegationData()]);
 axiosMockClient.onGet(OFFICER_URL, { params: { ids: '1,2,3' } }).reply(() => [200, getOfficersData('1,2,3')]);
-axiosMockClient.onGet(RECENT_DOCUMENT_URL).reply(() => [200, getRecentDocument(24)]);
-axiosMockClient.onGet(RECENT_COMPLAINT_SUMMARIES_URL).reply(() => [200, getComplaintSummaries(20)]);
+axiosMockClient.onGet(RECENT_DOCUMENT_URL).reply(() => [200, getRecentDocument()]);
+axiosMockClient.onGet(RECENT_COMPLAINT_SUMMARIES_URL).reply(() => [200, getComplaintSummaries()]);
 
 axiosMockClient.onPost(SIGNIN_URL, { username: 'username', password: 'password' })
   .reply(200, { 'apiAccessToken': '055a5575c1832e9123cd546fe0cfdc8607f8680c' });
@@ -815,5 +817,7 @@ const networkError = Promise.reject(new Error('Network Error'));
 mockUpdatePinboardError(axiosMockClient, '5cd0dddd', 99, networkError);
 mockUpdatePinboardError(axiosMockClient, '5cd0eeee', 10, networkError);
 mockUpdatePinboardError(axiosMockClient, '5cd0ffff', 4, networkError);
+
+axiosMockClient.onGet(TOAST_API_URL).reply(200, getToasts());
 
 module.exports = axiosMockClient;

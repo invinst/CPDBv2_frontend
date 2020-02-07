@@ -26,10 +26,9 @@ export default function OfficerInfoWidget(props) {
     resignationDate,
   } = props;
 
-  const ageString = age ? `${age} year old` : null;
   const raceString = race ? lowerCase(race) : null;
   const genderString = gender ? lowerCase(gender) : null;
-  const geographicInfo = compact([ageString, raceString, genderString]);
+  const geographicInfo = compact([age, raceString, genderString]);
 
   const listInfo = [
     {

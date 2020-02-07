@@ -1,7 +1,8 @@
 import { Factory } from 'rosie';
-import { internet, name, random, date, helpers } from 'faker';
+import { internet, name, random, helpers } from 'faker';
 
 import { RawOfficerPercentileFactory } from 'utils/test/factories/common';
+import { yearGenerator } from 'utils/test/factories/utils';
 
 
 export const OfficerCardFactory = Factory.define('OfficerCardFactory')
@@ -16,6 +17,11 @@ export const RawOfficerCardFactory = Factory.define('RawOfficerCardFactory')
   .sequence('id')
   .attr('full_name', name.findName)
   .attr('complaint_count', random.number)
+  .attr('sustained_count', random.number)
+  .attr('birth_year', yearGenerator)
+  .attr('race', helpers.randomize(['Black', 'White', 'Asian']))
+  .attr('gender', helpers.randomize(['Male', 'Female']))
+  .attr('rank', helpers.randomize(['Sergeant of Police', 'Police Officer', 'Detective']))
   .attr('visual_token_background_color', internet.color)
   .attr('complaint_percentile', () => (random.number({ min: 10, max: 1000 }) / 10.0))
   .attr('percentile', () => RawOfficerPercentileFactory.build())
@@ -24,7 +30,7 @@ export const RawOfficerCardFactory = Factory.define('RawOfficerCardFactory')
 /* istanbul ignore next */
 export const RawPairCardOfficerFactory = Factory.define('RawPairCardOfficerFactory')
   .sequence('id')
-  .attr('birth_year', () => date.past().getFullYear())
+  .attr('birth_year', yearGenerator)
   .attr('full_name', name.findName)
   .attr('gender', helpers.randomize(['Male', 'Female']))
   .attr('race', helpers.randomize(['Black', 'White', 'Asian']))

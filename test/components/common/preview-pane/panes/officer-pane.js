@@ -28,6 +28,7 @@ describe('OfficerPane component', () => {
     race: 'black',
     gender: 'Male',
     complaintCount: 1,
+    sustainedCount: 1,
     complaintPercentile: 10,
     disciplineCount: 0,
     trrCount: 5,
@@ -87,7 +88,7 @@ describe('OfficerPane component', () => {
     });
     metric.prop('metrics').should.containEql({
       name: 'Sustained',
-      value: 'N/A',
+      value: 1,
       isHighlight: true,
       description: '0 Disciplined',
     });
@@ -213,11 +214,18 @@ describe('OfficerPane component', () => {
     let pinButton = wrapper.find('.pin-button').first();
     pinButton.simulate('click');
 
-    addOrRemoveItemInPinboardStub.calledWith({
+    addOrRemoveItemInPinboardStub.should.be.calledWith({
       type: 'OFFICER',
       id: 123456,
       isPinned: false,
-    }).should.be.true();
+      fullName: 'John Watts',
+      complaintCount: 1,
+      sustainedCount: 1,
+      age: 28,
+      race: 'black',
+      rank: 'Police Officer',
+      gender: 'Male',
+    });
 
     wrapper.setProps({
       ...officer,
@@ -233,11 +241,18 @@ describe('OfficerPane component', () => {
     pinButton = wrapper.find('.pin-button').first();
     pinButton.simulate('click');
 
-    addOrRemoveItemInPinboardStub.calledWith({
+    addOrRemoveItemInPinboardStub.should.be.calledWith({
       type: 'OFFICER',
       id: 123456,
       isPinned: true,
-    }).should.be.true();
+      fullName: 'John Watts',
+      complaintCount: 1,
+      sustainedCount: 1,
+      age: 28,
+      race: 'black',
+      rank: 'Police Officer',
+      gender: 'Male',
+    });
   });
 
   it('should redirect to officer page when click on View officer profile button', function () {

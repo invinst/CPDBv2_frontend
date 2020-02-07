@@ -101,4 +101,5 @@ export const RelatedComplaintFactory = Factory.define('RelatedComplaintFactory')
   .attr('complainants', () => PersonDemographicFactory.buildList(1))
   .attr('category_names', ['Use Of Force'])
   .attr('point', { lat: 43.87, lon: -23.43 })
+  .attr('incident_date', dateGenerator)
   .attr('coaccused', [name.firstName()]);
