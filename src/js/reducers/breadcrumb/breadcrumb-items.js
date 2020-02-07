@@ -7,8 +7,10 @@ import { UPDATE_PATH_NAME } from 'utils/constants';
 
 export default handleActions({
   [LOCATION_CHANGE]: (state, action) => {
-    if (get(action.payload, 'location.pathname')) {
-      const { pathname } = action.payload.location;
+    let pathname = get(action.payload, 'location.pathname');
+
+    if (pathname) {
+      pathname = pathname.replace('/edit/', '/');
       if (pathname === '/') {
         return [];
       }

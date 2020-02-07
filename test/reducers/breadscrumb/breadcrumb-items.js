@@ -42,6 +42,17 @@ describe('breadcrumbsMapping', function () {
         },
       }).should.eql(['/officer/123/', '/search/']);
     });
+
+    it('should handle edit path', function () {
+      breadcrumbItems(['/search/', '/officer/123/'], {
+        type: LOCATION_CHANGE,
+        payload: {
+          location: {
+            pathname: '/edit/officer/123/',
+          },
+        },
+      }).should.eql(['/search/', '/officer/123/']);
+    });
   });
 
   describe('handle UPDATE_PATH_NAME', function () {
