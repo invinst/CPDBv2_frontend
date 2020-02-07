@@ -1,4 +1,4 @@
-import { LOCATION_CHANGE } from 'react-router-redux';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 import { headerEditModeOn } from 'reducers/landing-page/carousel-header-edit-utils';
 import {
