@@ -181,7 +181,7 @@ describe('search page navigation selector', function () {
       });
       const info = {
         data: {
-          id: '29033',
+          id: 29033,
           fullName: 'Jerome Turbyville',
           age: 48,
           appointedDate: 'DEC 13, 1999',
