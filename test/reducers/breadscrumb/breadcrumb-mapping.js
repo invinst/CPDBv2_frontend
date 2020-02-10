@@ -1,15 +1,15 @@
-import breadcrumbsMapping from 'reducers/breadcrumb/breadcrumbs-mapping';
+import breadcrumbMapping from 'reducers/breadcrumb/breadcrumb-mapping';
 
 import * as constants from 'utils/constants';
 
 
-describe('breadcrumbsMapping', function () {
+describe('breadcrumbMapping', function () {
   it('should return initial state', function () {
-    breadcrumbsMapping(undefined, {}).should.eql([]);
+    breadcrumbMapping(undefined, {}).should.eql([]);
   });
 
   it('should store officer breadcrumb text', function () {
-    breadcrumbsMapping({}, {
+    breadcrumbMapping({}, {
       type: constants.OFFICER_SUMMARY_REQUEST_SUCCESS,
       payload: {
         id: '123',
@@ -19,7 +19,7 @@ describe('breadcrumbsMapping', function () {
   });
 
   it('should update officer breadcrumb text', function () {
-    breadcrumbsMapping({
+    breadcrumbMapping({
       '/officer/123/': 'Old Name',
       '/officer/456/': 'Andrew Schoeff',
     }, {
@@ -35,7 +35,7 @@ describe('breadcrumbsMapping', function () {
   });
 
   it('should store complaint breadcrumb text', function () {
-    breadcrumbsMapping({}, {
+    breadcrumbMapping({}, {
       type: constants.CR_REQUEST_SUCCESS,
       payload: {
         crid: '456',
@@ -44,7 +44,7 @@ describe('breadcrumbsMapping', function () {
   });
 
   it('should store unit breadcrumb text', function () {
-    breadcrumbsMapping({}, {
+    breadcrumbMapping({}, {
       type: constants.UNIT_PROFILE_SUMMARY_REQUEST_SUCCESS,
       payload: {
         description: 'Mobile strike force',
@@ -54,7 +54,7 @@ describe('breadcrumbsMapping', function () {
   });
 
   it('should store trr breadcrumb text', function () {
-    breadcrumbsMapping({}, {
+    breadcrumbMapping({}, {
       type: constants.TRR_REQUEST_SUCCESS,
       payload: {
         id: '123',
@@ -63,7 +63,7 @@ describe('breadcrumbsMapping', function () {
   });
 
   it('should store document crid text', function () {
-    breadcrumbsMapping({}, {
+    breadcrumbMapping({}, {
       type: constants.DOCUMENT_DEDUPLICATOR_REQUEST_SUCCESS,
       request: {
         params: {
@@ -74,7 +74,7 @@ describe('breadcrumbsMapping', function () {
   });
 
   it('should store document breadcrumb text when successfully requesting document', function () {
-    breadcrumbsMapping({}, {
+    breadcrumbMapping({}, {
       type: constants.DOCUMENT_REQUEST_SUCCESS,
       payload: {
         id: '1234',
@@ -84,7 +84,7 @@ describe('breadcrumbsMapping', function () {
   });
 
   it('should store document breadcrumb text when successfully updating document page', function () {
-    breadcrumbsMapping({}, {
+    breadcrumbMapping({}, {
       type: constants.UPDATE_DOCUMENT_PAGE_REQUEST_SUCCESS,
       payload: {
         id: '1234',
@@ -94,7 +94,7 @@ describe('breadcrumbsMapping', function () {
   });
 
   it('should store pinboard breadcrumb text when successfully creating pinboard ', function () {
-    breadcrumbsMapping({}, {
+    breadcrumbMapping({}, {
       type: constants.PINBOARD_CREATE_REQUEST_SUCCESS,
       payload: {
         id: 'b3380b9b',
@@ -104,7 +104,7 @@ describe('breadcrumbsMapping', function () {
   });
 
   it('should store pinboard breadcrumb text when successfully fetch pinboard page', function () {
-    breadcrumbsMapping({}, {
+    breadcrumbMapping({}, {
       type: constants.PINBOARD_FETCH_REQUEST_SUCCESS,
       payload: {
         id: 'b3380b9b',
@@ -114,7 +114,7 @@ describe('breadcrumbsMapping', function () {
   });
 
   it('should store pinboard breadcrumb text when successfully fetch pinboard page but without title', function () {
-    breadcrumbsMapping({}, {
+    breadcrumbMapping({}, {
       type: constants.PINBOARD_FETCH_REQUEST_SUCCESS,
       payload: {
         id: 'b3380b9b',
@@ -124,7 +124,7 @@ describe('breadcrumbsMapping', function () {
   });
 
   it('should store pinboard breadcrumb text when successfully update pinboard page', function () {
-    breadcrumbsMapping({}, {
+    breadcrumbMapping({}, {
       type: constants.PINBOARD_UPDATE_REQUEST_SUCCESS,
       payload: {
         id: 'b3380b9b',
@@ -134,7 +134,7 @@ describe('breadcrumbsMapping', function () {
   });
 
   it('should store pinboard breadcrumb text when successfully update pinboard page but without title', function () {
-    breadcrumbsMapping({}, {
+    breadcrumbMapping({}, {
       type: constants.PINBOARD_UPDATE_REQUEST_SUCCESS,
       payload: {
         id: 'b3380b9b',
@@ -144,7 +144,7 @@ describe('breadcrumbsMapping', function () {
   });
 
   it('should store pinboard breadcrumb text when successfully retrieve latest pinboard but without title', function () {
-    breadcrumbsMapping({}, {
+    breadcrumbMapping({}, {
       type: constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_SUCCESS,
       payload: {
         id: 'b3380b9b',

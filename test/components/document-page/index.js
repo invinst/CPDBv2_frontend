@@ -24,7 +24,7 @@ describe('DocumentPage component', function () {
     },
     breadcrumb: {
       breadcrumbItems: [],
-      breadcrumbsMapping: {},
+      breadcrumbMapping: {},
     },
     routing: {
       locationBeforeTransitions: {

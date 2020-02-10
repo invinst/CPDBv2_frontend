@@ -4,7 +4,7 @@ import breadcrumbItems from 'reducers/breadcrumb/breadcrumb-items';
 import { UPDATE_PATH_NAME } from 'utils/constants';
 
 
-describe('breadcrumbsMapping', function () {
+describe('breadcrumbMapping', function () {
   it('should return initial state', function () {
     breadcrumbItems(undefined, {}).should.eql([]);
   });

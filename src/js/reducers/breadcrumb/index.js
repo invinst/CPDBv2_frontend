@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
 import breadcrumbItems from './breadcrumb-items';
-import breadcrumbsMapping from './breadcrumbs-mapping';
+import breadcrumbMapping from './breadcrumb-mapping';
 
 export default combineReducers({
   breadcrumbItems,
-  breadcrumbsMapping,
+  breadcrumbMapping,
 });

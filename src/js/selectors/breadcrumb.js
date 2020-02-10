@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import { each, toPairs, includes, compact, get } from 'lodash';
-import { BREADSCRUMB_DEFAULT_MAPPING } from 'utils/constants';
+import { BREADCRUMB_DEFAULT_MAPPING } from 'utils/constants';
 
 
 export const getBreadcrumbItems = state => get(state, 'breadcrumb.breadcrumbItems', []);
@@ -11,8 +11,8 @@ const breadcrumbItemKeyTransform = key => {
 };
 
 const getBreadcrumbMapping = state => {
-  const breadcrumbsMapping = get(state, 'breadcrumb.breadcrumbsMapping', {});
-  return { ...breadcrumbsMapping, ...BREADSCRUMB_DEFAULT_MAPPING };
+  const breadcrumbMapping = get(state, 'breadcrumb.breadcrumbMapping', {});
+  return { ...breadcrumbMapping, ...BREADCRUMB_DEFAULT_MAPPING };
 };
 
 const getBreadcrumbText = (pathname, mapping) => {

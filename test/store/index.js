@@ -204,7 +204,7 @@ describe('store', function () {
       },
       breadcrumb: {
         breadcrumbItems: [],
-        breadcrumbsMapping: [],
+        breadcrumbMapping: [],
       },
       headers: {
         shareableHeader: {

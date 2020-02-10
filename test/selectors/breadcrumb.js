@@ -1,4 +1,4 @@
-import { getBreadcrumbItems, breadcrumbItemsSelector } from 'selectors/breadcrumbs';
+import { getBreadcrumbItems, breadcrumbItemsSelector } from 'selectors/breadcrumb';
 
 describe('breadcrumbs selectors', function () {
   describe('getBreadcrumbItems', function () {
@@ -23,7 +23,7 @@ describe('breadcrumbs selectors', function () {
             '/documents/',
             '/documents/crid/1083690/',
           ],
-          breadcrumbsMapping: {
+          breadcrumbMapping: {
             '/complaint/345/': 'CR 345',
             '/officer/1234/': 'Ronald Hernandez',
             '/documents/crid/1083690/': '#1083690 document deduplicator',
