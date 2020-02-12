@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 import Carousel from 'components/common/carousel';
-import EditModeProvider from 'components/edit-mode-provider';
 import InlineHeaderSection from './inline-header-section';
 import { headerWrapperStyle, carouselStyle, itemStyle } from './carousel-wrapper.style';
 import * as tracking from 'utils/tracking';
@@ -45,12 +44,11 @@ export default function withCarousel(
 
       return (
         <div className={ `test--landing-carousel-${(type.key || type).toLowerCase()} ${className}` }>
-          <EditModeProvider
-            pathname={ pathname }
+          <div
             className='test--carousel--header'
             style={ headerWrapperStyle }>
             <InlineHeaderSection editWrapperStateProps={ editWrapperStateProps } type={ type }/>
-          </EditModeProvider>
+          </div>
           <Carousel
             style={ carouselStyle }
             childWidth={ 232 }
