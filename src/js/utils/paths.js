@@ -1,5 +1,7 @@
 import { kebabCase } from 'lodash';
 
-export const officerPath = (officer) => (
-  `/officer/${officer.id}/${kebabCase(officer['full_name'])}/`
-);
+
+export const officerPath = (officerId, name = '') => {
+  const nameSuffix = name && `${kebabCase(name)}/`;
+  return officerId && `/officer/${officerId}/${nameSuffix}`;
+};

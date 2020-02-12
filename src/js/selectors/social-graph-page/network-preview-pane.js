@@ -36,7 +36,7 @@ export const edgeOfficersSelector = createSelector(
 export const officerDetailTransform = officer => {
   return {
     ...officerTransform(officer),
-    to: officerPath(officer),
+    to: officerPath(officer.id, officer['full_name']),
   };
 };
 
