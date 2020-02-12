@@ -63,7 +63,7 @@ export default class LocationMap extends Component {
     }
   };
 
-  gotRef(el) {
+  gotRef = (el) => {
     if (el && !this.map) {
       this.el = el;
       const { lat, lng, mapboxStyle, customMarkerClassName } = this.props;
@@ -77,7 +77,7 @@ export default class LocationMap extends Component {
       this.map.on('click', this.handleMapClick);
       this.addMarker(lat, lng, customMarkerClassName);
     }
-  }
+  };
 
   addMarker(lat, lng, customMarkerClassName) {
     if (!this.marker) {
@@ -120,7 +120,7 @@ export default class LocationMap extends Component {
     return (
       <div
         className={ cx(styles.locationMap, this.props.className, 'test--location-map') }
-        ref={ this.gotRef.bind(this) }
+        ref={ this.gotRef }
       />
     );
   }

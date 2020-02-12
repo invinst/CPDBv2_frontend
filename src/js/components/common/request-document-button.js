@@ -6,7 +6,7 @@ import styles from './request-document-button.sass';
 
 
 export class RequestDocumentButton extends Component {
-  handleClick= () => {
+  handleClick = () => {
     if (this.props.alreadyRequested) {
       return;
     }

@@ -1,4 +1,4 @@
-import { getDomainName, getPageRoot, editPath } from 'utils/url';
+import { getDomainName, getPageRoot } from 'utils/url';
 
 describe('getDomainName', function () {
   it('should return domain name', function () {
@@ -20,12 +20,5 @@ describe('getPageRoot', function () {
     getPageRoot('/search/').should.equal('search');
     getPageRoot('/pinboard/abc123/').should.equal('pinboard');
     getPageRoot('/officer/123/').should.equal('officer');
-  });
-});
-
-
-describe('editPath', function () {
-  it('should return correct path', function () {
-    editPath('/search').should.eql('/(edit)?/search');
   });
 });

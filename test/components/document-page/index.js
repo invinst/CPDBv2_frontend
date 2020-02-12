@@ -127,7 +127,7 @@ describe('DocumentPage component', function () {
       </Provider>
     );
 
-    const header = wrapper.find(ShareableHeader).first();
+    const header = wrapper.find(ShareableHeader);
     header.prop('buttonType').should.equal('none');
 
     wrapper.find(FooterContainer).exists().should.be.true();

@@ -44,7 +44,7 @@ import {
   PINBOARD_PATH,
   PINBOARD_ADMIN_PATH,
 } from 'utils/constants';
-import { editPath } from 'utils/url';
+import { editRouterPath } from 'utils/router-path';
 
 
 export default function RouterRoot(props) {
@@ -55,80 +55,80 @@ export default function RouterRoot(props) {
     <Switch location={ location }>
       <Route
         exact={ true }
-        path={ editPath('/') }
+        path={ editRouterPath('/') }
         component={ LandingPageContainer } />
       <Route
-        path={ editPath(COLLAB_PATH) }
+        path={ editRouterPath(COLLAB_PATH) }
         component={ CollaborationPage } />
       <Route
-        path={ editPath(OFFICER_PATH) }
+        path={ editRouterPath(OFFICER_PATH) }
         component={ OfficerPageContainer } />
       <Route
         exact={ true }
-        path={ editPath(SEARCH_PATH) }
+        path={ editRouterPath(SEARCH_PATH) }
         component={ LandingPageContainer } />
       <Route
-        path={ editPath(STANDALONE_CR_PATH) }
+        path={ editRouterPath(STANDALONE_CR_PATH) }
         component={ CRPageContainer } />
       <Route
-        path={ editPath(DOCUMENT_PATH) }
+        path={ editRouterPath(DOCUMENT_PATH) }
         component={ DocumentPageContainer } />
       <Route
-        path={ editPath(TTR_PATH) }
+        path={ editRouterPath(TTR_PATH) }
         component={ TRRPageContainer } />
       <Route
-        path={ editPath(UNIT_PROFILE_PATH) }
+        path={ editRouterPath(UNIT_PROFILE_PATH) }
         component={ UnitProfilePageContainer } />
       <Route
         exact={ true }
-        path={ editPath(SEARCH_ALIAS_EDIT_PATH) }
+        path={ editRouterPath(SEARCH_ALIAS_EDIT_PATH) }
         component={ SearchPageContainer }/>
       <Route
-        path={ editPath(INLINE_SEARCH_ALIAS_ADMIN_PATH) }
+        path={ editRouterPath(INLINE_SEARCH_ALIAS_ADMIN_PATH) }
         component={ InlineAliasAdminContainer }/>
       <Route
-        path={ editPath(CRAWLERS_PATH) }
+        path={ editRouterPath(CRAWLERS_PATH) }
         component={ CrawlersContainer } />
       <Route
-        path={ editPath(EMBED_MAP_PATH) }
+        path={ editRouterPath(EMBED_MAP_PATH) }
         component={ HeatMapContainer }/>
       <Route
-        path={ editPath(EMBED_TOP_OFFICERS_PATH) }
+        path={ editRouterPath(EMBED_TOP_OFFICERS_PATH) }
         component={ EmbedTopOfficersPage }/>
       <Route
-        path={ editPath(EMBED_OFFICERS_PATH) }
+        path={ editRouterPath(EMBED_OFFICERS_PATH) }
         component={ EmbedOfficersContainer }/>
       <Route
         exact={ true }
-        path={ editPath(TRACKER_ALL_DOCUMENTS_PATH) }
+        path={ editRouterPath(TRACKER_ALL_DOCUMENTS_PATH) }
         component={ DocumentDeduplicatorContainer } />
       <Route
         exact={ true }
         path={ [
-          editPath(DATA_VISUALIZATION_SOCIAL_GRAPH_PATH),
-          editPath(PINBOARD_DATA_VISUALIZATION_SOCIAL_GRAPH_PATH),
+          editRouterPath(DATA_VISUALIZATION_SOCIAL_GRAPH_PATH),
+          editRouterPath(PINBOARD_DATA_VISUALIZATION_SOCIAL_GRAPH_PATH),
         ] }
         component={ SocialGraphContainer }/>
       <Route
         exact={ true }
         path={ [
-          editPath(DATA_VISUALIZATION_GEOGRAPHIC_PATH),
-          editPath(PINBOARD_DATA_VISUALIZATION_GEOGRAPHIC_PATH),
+          editRouterPath(DATA_VISUALIZATION_GEOGRAPHIC_PATH),
+          editRouterPath(PINBOARD_DATA_VISUALIZATION_GEOGRAPHIC_PATH),
         ] }
         component={ SocialGraphContainer }/>
       <Route
-        path={ editPath(TRACKER_DOCUMENTS_OVERVIEW_PATH) }
+        path={ editRouterPath(TRACKER_DOCUMENTS_OVERVIEW_PATH) }
         component={ DocumentsOverviewContainer } />
       {
         enablePinboardFeature &&
         <Route
-          path={ editPath(PINBOARD_PATH) }
+          path={ editRouterPath(PINBOARD_PATH) }
           component={ PinboardPageContainer } />
       }
       {
         enablePinboardFeature &&
         <Route
-          path={ editPath(PINBOARD_ADMIN_PATH) }
+          path={ editRouterPath(PINBOARD_ADMIN_PATH) }
           component={ PinboardAdminPageContainer } />
       }
       <Redirect path='*' to='/'/>

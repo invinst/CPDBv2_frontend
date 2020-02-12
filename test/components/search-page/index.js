@@ -89,7 +89,7 @@ describe('SearchPage component', function () {
       </Provider>
     );
 
-    const backButton = wrapper.find('.searchbar__button--back').first();
+    const backButton = wrapper.find('.searchbar__button--back').hostNodes();
     backButton.simulate('click');
     this.browserHistoryPush.should.be.calledOnce();
     this.browserHistoryPush.should.be.calledWith('/pinboard/123abc/');

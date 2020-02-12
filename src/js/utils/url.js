@@ -10,5 +10,3 @@ export const getDomainName = url => {
 };
 
 export const getPageRoot = url => url.split('/')[1] || 'landing';
-
-export const editPath = (path) => `/(edit)?${path}` ;

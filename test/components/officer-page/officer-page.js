@@ -46,20 +46,26 @@ describe('OfficerPage component', function () {
     const scaleEditWrapperStateProps = { b: 2 };
     const noDataRadarChartEditWrapperStateProps = { c: 3 };
 
-    const wrapper = shallow(
+    const wrapper = mount(
       <Provider store={ store }>
-        <OfficerPage
-          officerId={ 1 }
-          triangleEditWrapperStateProps={ triangleEditWrapperStateProps }
-          scaleEditWrapperStateProps={ scaleEditWrapperStateProps }
-          noDataRadarChartEditWrapperStateProps={ noDataRadarChartEditWrapperStateProps }
-        />
+        <MemoryRouter>
+          <HelmetProvider>
+            <OfficerPage
+              officerId={ 1 }
+              triangleEditWrapperStateProps={ triangleEditWrapperStateProps }
+              scaleEditWrapperStateProps={ scaleEditWrapperStateProps }
+              noDataRadarChartEditWrapperStateProps={ noDataRadarChartEditWrapperStateProps }
+            />
+          </HelmetProvider>
+        </MemoryRouter>
       </Provider>
-    ).find('Printable').dive().find('OfficerPage').dive();
-    wrapper.find(SummarySection).exists().should.be.true();
-    wrapper.find(MetricsSection).exists().should.be.true();
-    wrapper.find(TabbedPaneSection).exists().should.be.true();
-    const officerRadarChart = wrapper.find(OfficerRadarChart);
+    );
+
+    const officerPage = wrapper.find(OfficerPage);
+    officerPage.find(SummarySection).exists().should.be.true();
+    officerPage.find(MetricsSection).exists().should.be.true();
+    officerPage.find(TabbedPaneSection).exists().should.be.true();
+    const officerRadarChart = officerPage.find(OfficerRadarChart);
     officerRadarChart.prop('triangleEditWrapperStateProps').should.eql(triangleEditWrapperStateProps);
     officerRadarChart.prop('scaleEditWrapperStateProps').should.eql(scaleEditWrapperStateProps);
     officerRadarChart.prop('noDataRadarChartEditWrapperStateProps').should.eql(noDataRadarChartEditWrapperStateProps);

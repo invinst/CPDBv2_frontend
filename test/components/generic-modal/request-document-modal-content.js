@@ -145,7 +145,7 @@ describe('RequestDocumentModalContent component', function () {
         }).then(done);
       });
 
-      requestForm.instance().forceUpdate();
+      instance.forceUpdate();
       requestForm.update();
 
       requestForm.state('warning').should.be.false();

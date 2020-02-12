@@ -70,7 +70,7 @@ export default class AllegationsMap extends Component {
     }
   }
 
-  gotRef(el) {
+  gotRef = (el) => {
     const { attributionControlPosition } = this.props;
     if (el && !this.map) {
       this.map = new mapboxgl.Map({
@@ -85,7 +85,7 @@ export default class AllegationsMap extends Component {
       this.map.addControl(new mapboxgl.AttributionControl(), attributionControlPosition);
       this.map.addControl(new mapboxgl.NavigationControl(), 'top-left');
     }
-  }
+  };
 
   getUrl(marker) {
     if (marker.kind === 'CR') {
@@ -268,7 +268,7 @@ export default class AllegationsMap extends Component {
 
     return (
       <div className={ cx(styles.map, mapCustomClassName) }>
-        <div ref={ this.gotRef.bind(this) } className='map-tab'/>
+        <div ref={ this.gotRef } className='map-tab'/>
         {
           showLegends ?
             <Legend legend={ legend } /> :

@@ -1,7 +1,6 @@
 import 'babel-polyfill';
 
 import PropTypes from 'prop-types';
-
 import React, { Component } from 'react';
 import { Editor, DefaultDraftBlockRenderMap, EditorState } from 'draft-js';
 
