@@ -22,9 +22,24 @@ import RouterRoot from './router-root';
 toast.configure();
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.bindEvents();
+  }
+
   componentDidMount() {
     const { receiveTokenFromCookie } = this.props;
 
+    receiveTokenFromCookie();
+  }
+
+  componentWillUnmount() {
+    LayeredKeyBinding.unbind('esc');
+    ALPHA_NUMBERIC.map(LayeredKeyBinding.unbind);
+  }
+
+  bindEvents() {
     LayeredKeyBinding.bind('esc', () => this.props.toggleEditMode(this.props.location.pathname));
     ALPHA_NUMBERIC.forEach((letter) => {
       LayeredKeyBinding.bind(letter, () => {
@@ -35,13 +50,6 @@ export default class App extends React.Component {
         }
       });
     });
-
-    receiveTokenFromCookie();
-  }
-
-  componentWillUnmount() {
-    LayeredKeyBinding.unbind('esc');
-    ALPHA_NUMBERIC.map(LayeredKeyBinding.unbind);
   }
 
   render() {
