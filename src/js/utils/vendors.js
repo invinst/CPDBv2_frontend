@@ -80,9 +80,9 @@ if (config.appEnv === 'live-test' || global.mocha !== undefined) {
       this.getBounds = getBoundsSpy;
       this.dragPan = dragPanSpy;
     }
-    on(action, callback) {
-      if (includes(['load', 'idle', 'resize'], action)) {
-        callback();
+    on() {
+      if (includes(['load', 'idle'], arguments[0])) {
+        arguments[arguments.length - 1]();
       }
     }
   }

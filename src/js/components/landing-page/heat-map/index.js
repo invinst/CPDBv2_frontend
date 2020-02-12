@@ -29,12 +29,11 @@ export default class HeatMap extends Component {
 
   render() {
     const { selectedId } = this.state;
-    const { communities, communityGeoJSON, clusterGeoJson, hide } = this.props;
+    const { communities, communityGeoJSON, clusterGeoJson } = this.props;
 
     return (
       <div style={ wrapperStyle }>
         <CommunityMap
-          hide={ hide }
           communitySource={ communityGeoJSON }
           selectCommunity={ this.setSelectedCommunity }
           communityId={ selectedId }
@@ -59,7 +58,6 @@ export default class HeatMap extends Component {
 }
 
 HeatMap.propTypes = {
-  hide: PropTypes.bool,
   communities: PropTypes.array,
   communityGeoJSON: PropTypes.object,
   clusterGeoJson: PropTypes.object,

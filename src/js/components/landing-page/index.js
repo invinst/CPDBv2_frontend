@@ -68,7 +68,7 @@ class LandingPage extends Component {
             })
           }>
           <SlimHeader pathname={ pathname }/>
-          <HeatMap hide={ searchPageShowing }/>
+          { searchPageShowing || <HeatMap /> }
           <div className='landing-page-carousel-wrapper'>
             <OfficersByAllegationContainer className='landing-page-carousel' pathname={ pathname }/>
             <RecentActivityContainer className='landing-page-carousel' pathname={ pathname }/>

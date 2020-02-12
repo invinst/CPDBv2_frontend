@@ -57,46 +57,10 @@ describe('MapboxGL component', function () {
     }, 100);
   });
 
-  it('should get bounds on resize', function (done) {
-    const sources = [{
-      name: 'abc',
-      type: 'geojson',
-      data: 'path/to/geojson',
-    }];
-    const layers = [{
-      id: 'heatmap-layer',
-      type: 'heatmap',
-      source: 'abc',
-      paint: {},
-    }];
-    const mapboxOnStub = stub(mapboxgl.Map.prototype, 'on').callsFake(
-      (action, callback) => action !== 'load' && callback()
-    );
-    const wrapper = mount(<MapboxGL sources={ sources } layers={ layers }/>);
-    const instance = wrapper.instance();
-
-    setTimeout(() => {
-      instance._mapBox.setMaxBounds.should.be.calledOnce();
-      instance._mapBox.setMaxBounds.should.be.calledWith(instance._mapBox.getBounds());
-      mapboxOnStub.restore();
-      done();
-    }, 100);
-  });
-
   it('should remove map on unmount', function () {
     const wrapper = mount(<MapboxGL/>);
     const instance = wrapper.instance();
     wrapper.unmount();
     instance._mapBox.remove.called.should.be.true();
-  });
-
-  it('should resize when previously is hidden', function () {
-    const wrapper = mount(<MapboxGL hide={ true }/>);
-    const instance = wrapper.instance();
-    instance._mapBox.resize.should.not.be.called();
-
-    wrapper.setProps({ hide: false });
-
-    instance._mapBox.resize.should.be.calledOnce();
   });
 });

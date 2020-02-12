@@ -71,10 +71,6 @@ export default class MapboxGL extends Component {
         throw reason;
       }
     });
-
-    if (prevProps.hide && !this.props.hide) {
-      this._mapBox.resize();
-    }
   }
 
   componentWillUnmount() {
