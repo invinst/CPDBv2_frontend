@@ -40,7 +40,7 @@ class LandingPage extends Component {
   }
 
   getSearchPageShowing() {
-    const pathname = get(this.props, 'history.location.pathname');
+    const pathname = get(this.props, 'location.pathname');
 
     if (pathname === `${SEARCH_PATH}` || pathname === `/edit${SEARCH_PATH}`)
       return true;
@@ -51,7 +51,7 @@ class LandingPage extends Component {
   }
 
   render() {
-    const pathname = get(this.props, 'history.location.pathname', '');
+    const pathname = get(this.props, 'location.pathname', '');
     const position = calculateSlimHeaderPosition();
     const searchPageShowing = this.getSearchPageShowing();
 
@@ -88,10 +88,8 @@ class LandingPage extends Component {
 }
 
 LandingPage.propTypes = {
-  history: PropTypes.shape({
-    location: PropTypes.shape({
-      pathname: PropTypes.string,
-    }),
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
   }),
   params: PropTypes.object,
 };

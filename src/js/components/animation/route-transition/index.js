@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { find, difference, isEmpty } from 'lodash';
-import { CSSTransition } from 'react-transition-group';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-import { ANIMATION_DURATION } from 'utils/constants';
+import { ANIMATION_DURATION, QUICK_ANIMATION_DURATION } from 'utils/constants';
 import { scrollToTop } from 'utils/dom';
 import styles from './route-transition.sass';
 
@@ -23,16 +22,20 @@ export default class RouteTransition extends Component {
    */
   static getRouteTransitionKey(pathname) {
     pathname = pathname.replace(/^\/edit(.*)/, '$1');
+
     const patterns = [
-      /.*(complaint\/\d+).*/,
-      /.*(search)\/.*/,
+      /\/officer\/\d+\//,
+      /\/pinboard\/[A-Za-z0-9]+\//,
+      /\/search\//,
     ];
     for (let ind in patterns) {
       const pattern = patterns[ind];
       if (pathname.match(pattern)) {
-        return pathname.replace(pattern, '$1');
+        pathname = pathname.match(pattern)[0];
       }
     }
+    if (pathname === '/search/')
+      pathname = '/';
     return pathname;
   }
 
@@ -40,38 +43,19 @@ export default class RouteTransition extends Component {
     super(props);
     this.state = {
       showOverlay: false,
-      contents: [
-        {
-          key: RouteTransition.getRouteTransitionKey(props.pathname),
-          handler: props.children,
-          opacity: 1,
-        },
-      ],
       prevKey: RouteTransition.getRouteTransitionKey(props.pathname),
       prevPageLoading: props.pageLoading,
     };
   }
 
   static getDerivedStateFromProps(props, state) {
-    const { children, pageLoading, pathname } = props;
-    const { prevKey, prevPageLoading, contents } = state;
+    const { pageLoading, pathname } = props;
+    const { prevKey, prevPageLoading } = state;
     const currentKey = RouteTransition.getRouteTransitionKey(pathname);
-
-    const betweenLandingAndSearchPage = isEmpty(difference(['/', 'search'], [currentKey, prevKey]));
-    if (betweenLandingAndSearchPage)
-      return null;
 
     if (currentKey !== prevKey) {
       return {
         showOverlay: true,
-        contents: [
-          contents[0],
-          {
-            handler: children,
-            key: currentKey,
-            opacity: 0,
-          },
-        ],
         prevKey: currentKey,
         prevPageLoading: pageLoading,
       };
@@ -80,22 +64,6 @@ export default class RouteTransition extends Component {
       scrollToTop();
       return {
         showOverlay: false,
-        contents: [
-          {
-            handler: children,
-            key: currentKey,
-            opacity: 1,
-          },
-        ],
-        prevKey: currentKey,
-        prevPageLoading: pageLoading,
-      };
-    }
-    else if (!['/', 'search'].includes(currentKey)) {
-      const content = find(contents, obj => obj.key === currentKey);
-      content.handler = children;
-      return {
-        contents,
         prevKey: currentKey,
         prevPageLoading: pageLoading,
       };
@@ -104,29 +72,24 @@ export default class RouteTransition extends Component {
   }
 
   render() {
-    const { showOverlay, contents } = this.state;
-
     if (global.disableAnimation) {
       return this.props.children;
     }
 
+    const { children, pathname } = this.props;
+    const { showOverlay } = this.state;
+    const key = showOverlay ? 'loading' : RouteTransition.getRouteTransitionKey(pathname);
     return (
-      <div>
+      <TransitionGroup>
         <CSSTransition
-          in={ showOverlay }
+          key={ key }
+          timeout={ { enter: QUICK_ANIMATION_DURATION, exit: ANIMATION_DURATION } }
+          classNames={ ROUTE_TRANSITION_CLASS_NAMES }
           unmountOnExit={ true }
-          timeout={ ANIMATION_DURATION }
-          classNames={ ROUTE_TRANSITION_CLASS_NAMES }>
-          <div className={ styles.overlayStyle } />
+        >
+          { showOverlay ? <div className={ styles.overlayStyle } /> : children }
         </CSSTransition>
-        {
-          contents.map(content => (
-            <div key={ content.key } style={ { opacity: content.opacity } }>
-              { content.handler }
-            </div>
-          ))
-        }
-      </div>
+      </TransitionGroup>
     );
   }
 }

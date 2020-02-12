@@ -111,7 +111,7 @@ describe('LandingPage component', function () {
   it('should render enough content', function () {
     const wrapper = shallow(
       <LandingPage
-        history={ { location: { pathname: '/' } } }
+        location={ { pathname: '/' } }
       />
     );
 
@@ -139,7 +139,7 @@ describe('LandingPage component', function () {
   it('should hide landing page content and show search page when pathname is /search/', function () {
     const wrapper = shallow(
       <LandingPage
-        history={ { location: { pathname: '/search/' } } }
+        location={ { pathname: '/search/' } }
         params={ {} }
       />
     );
@@ -156,7 +156,7 @@ describe('LandingPage component', function () {
   it('should able to open landing page edit mode', function () {
     const wrapper = shallow(
       <LandingPage
-        history={ { location: { pathname: '/edit/' } } }
+        location={ { pathname: '/edit/' } }
         params={ {} }
       />
     );
@@ -173,7 +173,7 @@ describe('LandingPage component', function () {
   it('should able to open search page edit mode', function () {
     const wrapper = shallow(
       <LandingPage
-        history={ { location: { pathname: '/edit/search/' } } }
+        location={ { pathname: '/edit/search/' } }
         params={ {} }
       />
     );
@@ -190,7 +190,7 @@ describe('LandingPage component', function () {
   it('should animate to search page when pathname is changed from / to /search/', function () {
     const wrapper = shallow(
       <LandingPage
-        history={ { location: { pathname: '/' } } }
+        location={ { pathname: '/' } }
         params={ {} }
       />
     );
@@ -204,7 +204,7 @@ describe('LandingPage component', function () {
     DomUtils.scrollToTop.should.not.be.called();
 
     wrapper.setProps({
-      history: { location: { pathname: '/search/' } },
+      location: { pathname: '/search/' },
       params: {},
     });
 
@@ -221,7 +221,7 @@ describe('LandingPage component', function () {
   it('should animate from search page to landing page when pathname is changed from /search to /', function () {
     const wrapper = shallow(
       <LandingPage
-        history={ { location: { pathname: '/search/' } } }
+        location={ { pathname: '/search/' } }
         params={ {} }
       />,
       { disableLifecycleMethods: true },
@@ -238,7 +238,7 @@ describe('LandingPage component', function () {
     DomUtils.scrollToTop.should.not.be.called();
 
     wrapper.setProps({
-      history: { location: { pathname: '/' } },
+      location: { pathname: '/' },
       params: {},
     });
     wrapper.instance().componentDidUpdate();
@@ -256,7 +256,7 @@ describe('LandingPage component', function () {
   it('should remaining show search page when pathname is changed from /search to /something-else/', function () {
     const wrapper = shallow(
       <LandingPage
-        history={ { location: { pathname: '/' } } }
+        location={ { pathname: '/' } }
         params={ {} }
       />,
       { disableLifecycleMethods: true },
@@ -275,7 +275,7 @@ describe('LandingPage component', function () {
     DomUtils.scrollToTop.resetHistory();
 
     wrapper.setProps({
-      history: { location: { pathname: '/search/' } },
+      location: { pathname: '/search/' },
       params: {},
     });
     wrapper.instance().componentDidUpdate();
@@ -291,7 +291,7 @@ describe('LandingPage component', function () {
     DomUtils.scrollToTop.resetHistory();
 
     wrapper.setProps({
-      history: { location: { pathname: '/somthing-else/' } },
+      location: { pathname: '/somthing-else/' },
       params: {},
     });
     wrapper.instance().componentDidUpdate();
@@ -309,7 +309,7 @@ describe('LandingPage component', function () {
   it('should remaining show landing page when pathname is changed from / to /something-else/', function () {
     const wrapper = shallow(
       <LandingPage
-        history={ { location: { pathname: '/' } } }
+        location={ { pathname: '/' } }
         params={ {} }
       />,
       { disableLifecycleMethods: true },
@@ -325,7 +325,7 @@ describe('LandingPage component', function () {
     searchPage.prop('hide').should.be.true();
 
     wrapper.setProps({
-      history: { location: { pathname: '/somthing-else/' } },
+      location: { pathname: '/somthing-else/' },
       params: {},
     });
     wrapper.instance().componentDidUpdate();
@@ -346,7 +346,7 @@ describe('LandingPage component', function () {
         <MemoryRouter>
           <HelmetProvider>
             <LandingPage
-              history={ { location: { pathname: '/' } } }
+              location={ { pathname: '/' } }
             />
           </HelmetProvider>
         </MemoryRouter>
