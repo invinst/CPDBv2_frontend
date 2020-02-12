@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import sinon from 'sinon';
+import { spy, stub, useFakeTimers } from 'sinon';
 import Slider from 'rc-slider';
 
 import AnimatedSocialGraph, { AnimatedSocialGraphWithSpinner } from 'components/common/animated-social-graph';
@@ -67,8 +67,8 @@ describe('AnimatedSocialGraph component', function () {
   });
 
   it('should start timeline from beginning when mounted', function () {
-    const clock = sinon.useFakeTimers();
-    const updateTimelineIdxSpy = sinon.spy();
+    const clock = useFakeTimers();
+    const updateTimelineIdxSpy = spy();
     mount(
       <AnimatedSocialGraph
         officers={ officers }
@@ -128,7 +128,7 @@ describe('AnimatedSocialGraph component', function () {
   });
 
   it('should pause timeline when click on toggle timeline button when timeline is running', function () {
-    const updateRefreshIntervalIdSpy = sinon.spy();
+    const updateRefreshIntervalIdSpy = spy();
     const wrapper = shallow(
       <AnimatedSocialGraph
         officers={ officers }
@@ -149,7 +149,7 @@ describe('AnimatedSocialGraph component', function () {
   });
 
   it('should start timeline when click on toggle timeline button when timeline is not running', function () {
-    const updateRefreshIntervalIdSpy = sinon.spy();
+    const updateRefreshIntervalIdSpy = spy();
     const wrapper = shallow(
       <AnimatedSocialGraph
         officers={ officers }
@@ -171,8 +171,8 @@ describe('AnimatedSocialGraph component', function () {
   });
 
   it('should start timeline from beginning when click on toggle timeline button at the end of timeline', function () {
-    const updateTimelineIdxSpy = sinon.spy();
-    const updateRefreshIntervalIdSpy = sinon.spy();
+    const updateTimelineIdxSpy = spy();
+    const updateRefreshIntervalIdSpy = spy();
     const wrapper = shallow(
       <AnimatedSocialGraph
         officers={ officers }
@@ -196,7 +196,7 @@ describe('AnimatedSocialGraph component', function () {
   });
 
   it('should update timelineIdx value when click on specific part of the timeline ', function () {
-    const updateTimelineIdxSpy = sinon.spy();
+    const updateTimelineIdxSpy = spy();
     const wrapper = shallow(
       <AnimatedSocialGraph
         officers={ officers }
@@ -212,8 +212,8 @@ describe('AnimatedSocialGraph component', function () {
   });
 
   it('should update refreshIntervalId and timelineIdx values when startTimelineFromBeginning', function () {
-    const updateTimelineIdxSpy = sinon.spy();
-    const updateRefreshIntervalIdSpy = sinon.spy();
+    const updateTimelineIdxSpy = spy();
+    const updateRefreshIntervalIdSpy = spy();
     const wrapper = shallow(
       <AnimatedSocialGraph
         officers={ officers }
@@ -234,7 +234,7 @@ describe('AnimatedSocialGraph component', function () {
   });
 
   it('should update refreshIntervalId value when stop timeline ', function () {
-    const updateRefreshIntervalIdSpy = sinon.spy();
+    const updateRefreshIntervalIdSpy = spy();
     const wrapper = shallow(
       <AnimatedSocialGraph
         officers={ officers }
@@ -260,13 +260,13 @@ describe('AnimatedSocialGraph component', function () {
       />
     );
     const instance = wrapper.instance();
-    const stopTimelineSpy = sinon.stub(instance, 'stopTimeline');
+    const stopTimelineSpy = stub(instance, 'stopTimeline');
     wrapper.unmount();
     stopTimelineSpy.should.be.called();
   });
 
   it('should render customRightControlButton if present', function () {
-    const onClickStub = sinon.stub();
+    const onClickStub = stub();
     const customRightControlButton = (
       <div className='toggle-sidebars-btn' onClick={ onClickStub }/>
     );

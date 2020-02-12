@@ -1,5 +1,5 @@
 import lodash from 'lodash';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 
 import { cardsSelector, hasCards } from 'selectors/landing-page/officers-by-allegation';
 import { RawOfficerCardFactory } from 'utils/test/factories/activity-grid';
@@ -35,7 +35,7 @@ describe('officers-by-allegation selectors', function () {
     });
 
     it('should shuffle cards', function () {
-      const stubShuffle = sinon.spy(lodash, 'shuffle');
+      const stubShuffle = spy(lodash, 'shuffle');
       state.landingPage.officersByAllegation.cards = lodash.range(40);
 
       cardsSelector(state);

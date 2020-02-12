@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 
 import { communityFactory } from 'utils/test/factories/heat-map';
 import CommunityDetail from 'components/landing-page/heat-map/summary-panel/community-dropdown/community-detail';
@@ -54,7 +54,7 @@ describe('CommunityDetail component', function () {
   });
 
   it('should trigger closeDetail when click on close button', function () {
-    const closeDetail = sinon.spy();
+    const closeDetail = spy();
     const wrapper = shallow(<CommunityDetail closeDetail={ closeDetail }/>);
     wrapper.find('.test--community-close-btn').simulate('click');
     closeDetail.called.should.be.true();

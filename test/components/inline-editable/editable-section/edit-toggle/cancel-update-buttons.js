@@ -1,14 +1,14 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 
 import CancelUpdateButtons from 'components/inline-editable/editable-section/edit-toggle/cancel-update-buttons';
 import HoverableButton from 'components/common/hoverable-button';
 
 describe('CancelUpdateButtons component', function () {
   it('should render HoverableButtons', function () {
-    const onCancelClickSpy = sinon.spy();
-    const onUpdateClickSpy = sinon.spy();
+    const onCancelClickSpy = spy();
+    const onUpdateClickSpy = spy();
     const wrapper = mount(
       <CancelUpdateButtons onCancelClick={ onCancelClickSpy } onUpdateClick={ onUpdateClickSpy }/>
     );

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import sinon from 'sinon';
+import { spy, stub } from 'sinon';
 import should from 'should';
 
 import LoginModal from 'components/login-modal';
@@ -18,7 +18,7 @@ describe('LoginModal component', function () {
   it('should focus name input when click on name input wrapper', function () {
     const wrapper = mount(<LoginModal showLoginModal={ true }/>);
     const instance = wrapper.instance();
-    sinon.stub(instance.nameInput, 'focus');
+    stub(instance.nameInput, 'focus');
     wrapper.find('.name-input-wrapper').simulate('click');
     instance.nameInput.focus.calledOnce.should.be.true();
   });
@@ -26,7 +26,7 @@ describe('LoginModal component', function () {
   it('should focus password input when click on password input wrapper', function () {
     const wrapper = mount(<LoginModal showLoginModal={ true }/>);
     const instance = wrapper.instance();
-    sinon.stub(instance.passwordInput, 'focus');
+    stub(instance.passwordInput, 'focus');
     wrapper.find('.password-input-wrapper').simulate('click');
     instance.passwordInput.focus.calledOnce.should.be.true();
   });
@@ -54,7 +54,7 @@ describe('LoginModal component', function () {
   });
 
   it('should trigger onSignIn when click sign in button', function () {
-    const onSignIn = sinon.spy();
+    const onSignIn = spy();
     const wrapper = mount(<LoginModal showLoginModal={ true } onSignIn={ onSignIn }/>);
     const instance = wrapper.instance();
 
@@ -67,7 +67,7 @@ describe('LoginModal component', function () {
   });
 
   it('should trigger onSignIn when hit enter on password input', function () {
-    const onSignIn = sinon.spy();
+    const onSignIn = spy();
     const wrapper = mount(<LoginModal showLoginModal={ true } onSignIn={ onSignIn }/>);
     const instance = wrapper.instance();
 
@@ -80,7 +80,7 @@ describe('LoginModal component', function () {
   });
 
   it('should trigger onForgotPassword when click on forgot password link', function () {
-    const onForgotPassword = sinon.spy();
+    const onForgotPassword = spy();
     const wrapper = shallow(
       <LoginModal showLoginModal={ true } onForgotPassword={ onForgotPassword }/>
     ).dive().dive();

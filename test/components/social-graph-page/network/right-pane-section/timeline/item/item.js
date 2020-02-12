@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 
 import Item from 'components/social-graph-page/network/right-pane-section/timeline/item';
 import Cr from 'components/social-graph-page/network/right-pane-section/timeline/item/cr';
@@ -96,7 +96,7 @@ describe('Item component', function () {
     });
 
     it('should call updateSelectedCrid when clicking if kind is CR', function () {
-      const updateSelectedCridStub = sinon.stub();
+      const updateSelectedCridStub = stub();
       const wrapper = shallow(
         <Item
           item={ allegationItem }
@@ -108,7 +108,7 @@ describe('Item component', function () {
     });
 
     it('should not call updateSelectedCrid when clicking if kind is not CR', function () {
-      const updateSelectedCridStub = sinon.stub();
+      const updateSelectedCridStub = stub();
       const wrapper = shallow(
         <Item
           item={ yearItem }

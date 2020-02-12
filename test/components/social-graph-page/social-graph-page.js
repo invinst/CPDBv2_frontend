@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router';
 
@@ -54,7 +54,7 @@ describe('SocialGraphPage component', function () {
   });
 
   it('should render geographic tab', function () {
-    sinon.stub(loadPaginatedDataUtils, 'loadPaginatedData');
+    stub(loadPaginatedDataUtils, 'loadPaginatedData');
 
     const wrapper = mount(
       <Provider store={ store }>

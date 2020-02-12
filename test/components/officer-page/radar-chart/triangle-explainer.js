@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 
 import TriangleExplainer from 'components/officer-page/radar-chart/explainer/triangle-explainer';
 import StaticRadarChart from 'components/common/radar-chart';
@@ -40,9 +40,9 @@ describe('TriangleExplainer components', function () {
         'triangle_sub_description': ['triangle sub description'],
       }),
       sectionEditModeOn: true,
-      onSaveForm: sinon.spy(),
-      turnOnSectionEditMode: sinon.spy(),
-      turnOffSectionEditMode: sinon.spy(),
+      onSaveForm: spy(),
+      turnOnSectionEditMode: spy(),
+      turnOffSectionEditMode: spy(),
     };
 
     const wrapper = mount(

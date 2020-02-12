@@ -5,7 +5,7 @@ import browserHistory from 'utils/history';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { Promise } from 'es6-promise';
-import sinon from 'sinon';
+import { spy, stub } from 'sinon';
 
 import Pinboards from 'components/pinboard-page/pinboards';
 
@@ -67,7 +67,7 @@ describe('Pinboards component', function () {
 
   describe('componentDidUpdate', function () {
     it('should fetchPinboards if isShow change from false to true', function () {
-      const fetchPinboardsSpy = sinon.spy();
+      const fetchPinboardsSpy = spy();
 
       const wrapper = mount(
         <Provider store={ store }>
@@ -86,13 +86,13 @@ describe('Pinboards component', function () {
   });
 
   it('should render new-pinboard-btn', function (done) {
-    const createNewEmptyPinboardStub = sinon.stub().usingPromise(Promise).resolves({
+    const createNewEmptyPinboardStub = stub().usingPromise(Promise).resolves({
       payload: {
         id: '5cd06f2b',
         title: 'Pinboard title',
       },
     });
-    const handleCloseSpy = sinon.spy();
+    const handleCloseSpy = spy();
 
     const wrapper = mount(
       <Provider store={ store }>

@@ -1,4 +1,4 @@
-import sinon from 'sinon';
+import { spy, stub } from 'sinon';
 import { CancelToken } from 'axios';
 
 import {
@@ -19,8 +19,8 @@ describe('suggestion action', function () {
   let cancel;
 
   beforeEach(function () {
-    cancel = sinon.spy();
-    sinon.stub(CancelToken, 'source').returns({
+    cancel = spy();
+    stub(CancelToken, 'source').returns({
       token: 'token',
       cancel,
     });

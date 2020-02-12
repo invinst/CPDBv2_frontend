@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 import browserHistory from 'utils/history';
 
 import { NewOfficerInfoWidget as OfficerInfoWidget } from 'components/common/preview-pane/widgets';
@@ -82,7 +82,7 @@ describe('OfficerInfoWidget component', function () {
   });
 
   it('should redirect when click on unit item', function () {
-    const browserHistoryPush = sinon.stub(browserHistory, 'push');
+    const browserHistoryPush = stub(browserHistory, 'push');
 
     const wrapper = shallow(
       <OfficerInfoWidget

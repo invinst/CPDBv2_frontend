@@ -1,7 +1,7 @@
 import draftJs from 'draft-js';
 import moment from 'moment';
 import should from 'should';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 
 import {
   contentStateToTextArray, convertContentStateToEditorState, getField, multilineTextValueToArray,
@@ -18,7 +18,7 @@ import defaultDecorator from 'decorators';
 
 describe('Draft utils', function () {
   beforeEach(function () {
-    sinon.stub(draftJs, 'genKey').returns('abc12');
+    stub(draftJs, 'genKey').returns('abc12');
   });
 
   describe('contentStateToTextArray', function () {

@@ -1,5 +1,5 @@
 import lodash from 'lodash';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 
 import { cardsSelector, hasCards } from 'selectors/landing-page/activity-grid';
 import { RawOfficerCardFactory } from 'utils/test/factories/activity-grid.js';
@@ -88,7 +88,7 @@ describe('activity-grid selectors', function () {
     });
 
     it('should shuffle cards', function () {
-      const stubShuffle = sinon.spy(lodash, 'shuffle');
+      const stubShuffle = spy(lodash, 'shuffle');
       state.landingPage.activityGrid.cards = lodash.range(40);
 
       cardsSelector(state);

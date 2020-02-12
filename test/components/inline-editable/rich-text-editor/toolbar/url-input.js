@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 
 import UrlInput from 'components/inline-editable/rich-text-editor/toolbar/url-input';
 import Bubble from 'components/inline-editable/rich-text-editor/toolbar/bubble';
@@ -16,7 +16,7 @@ describe('UrlInput component', function () {
   });
 
   it('should trigger onChange when typing on url input', function () {
-    const onChange = sinon.spy();
+    const onChange = spy();
 
     const wrapper = shallow(
       <UrlInput onChange={ onChange }/>

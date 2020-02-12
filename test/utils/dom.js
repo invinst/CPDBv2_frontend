@@ -1,5 +1,5 @@
 import browserHistory from 'utils/history';
-import sinon from 'sinon';
+import { spy, stub } from 'sinon';
 
 import {
   innerHeight, disableBodyScroll, enableBodyScroll, getCurrentPathname,
@@ -77,10 +77,10 @@ describe('dom utils', function () {
 
   describe('scrollToElement', function () {
     beforeEach(function () {
-      this.stubQuerySelector = sinon.stub(document, 'querySelector');
-      this.dummyElement = { scrollIntoView: sinon.spy() };
+      this.stubQuerySelector = stub(document, 'querySelector');
+      this.dummyElement = { scrollIntoView: spy() };
       this.stubQuerySelector.withArgs('#dummy').returns(this.dummyElement);
-      this.stubScrollBy = sinon.stub(window, 'scrollBy');
+      this.stubScrollBy = stub(window, 'scrollBy');
     });
 
     it('should call appropriate method on selected element to scroll to it', function () {

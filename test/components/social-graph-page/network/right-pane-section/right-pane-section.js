@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 
 import { NETWORK_TAB_NAMES } from 'utils/constants';
 import RightPaneSection from 'components/social-graph-page/network/right-pane-section';
@@ -76,7 +76,7 @@ describe('RightPaneSection component', function () {
   });
 
   it('should call changeNetworkTab when clicking tab name', function () {
-    const changeNetworkTabStub = sinon.stub();
+    const changeNetworkTabStub = stub();
     const wrapper = mount(
       <Provider store={ store }>
         <RightPaneSection

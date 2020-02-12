@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 
 import Timeline from 'components/officer-page/tabbed-pane-section/timeline';
 import Dropdown from 'components/common/dropdown';
@@ -54,7 +54,7 @@ describe('Timeline component', function () {
   });
 
   it('should call changeFilter when clicking dropdown items', function () {
-    const changeFilterStub = sinon.stub();
+    const changeFilterStub = stub();
     const wrapper = mount(
       <Timeline
         selectedFilter={ NEW_TIMELINE_FILTERS.ALL }

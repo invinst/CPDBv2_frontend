@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 
 import LogFileModalContent from 'components/generic-modal/log-file-modal-content';
 
@@ -24,7 +24,7 @@ describe('LogFileModalContent component', function () {
   });
 
   it('should close model when click on close button', function () {
-    const closeModalStub = sinon.stub();
+    const closeModalStub = stub();
     const crawler = {
       crawlerName: 'PORTAL_COPA',
       logUrl: 'https://lvh.me/log',

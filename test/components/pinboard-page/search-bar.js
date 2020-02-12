@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 
 import SearchBar from 'components/pinboard-page/search-bar';
 import * as editPath from 'utils/edit-path';
@@ -45,7 +45,7 @@ describe('SearchBar component', function () {
 
   it('should go to search page on clicked', function () {
     const wrapper = mount(<SearchBar />);
-    let pushPathStub = sinon.stub(editPath, 'pushPathPreserveEditMode');
+    let pushPathStub = stub(editPath, 'pushPathPreserveEditMode');
     wrapper.find('.search-input').simulate('click');
     pushPathStub.should.be.calledWith('/search/');
   });

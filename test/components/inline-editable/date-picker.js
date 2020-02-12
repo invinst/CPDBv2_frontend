@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import DatePickerComponent from 'react-datepicker';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 import moment from 'moment';
 
 import DatePicker from 'components/inline-editable/date-picker';
@@ -25,7 +25,7 @@ describe('DatePicker component', function () {
   });
 
   it('should trigger onChange', function () {
-    const onChange = sinon.spy();
+    const onChange = spy();
     const wrapper = shallow(
       <DatePicker editModeOn={ true } onChange={ onChange }/>
     );

@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 
 import SimpleTextEditable from 'components/inline-editable/editable-section/simple-text-editable';
 import Editable from 'components/inline-editable/editable';
@@ -9,7 +9,7 @@ import { EditWrapperStateContext } from 'contexts';
 
 describe('SimpleTextEditable component', function () {
   it('should render with given context', function () {
-    const onChangeSpy = sinon.spy();
+    const onChangeSpy = spy();
     const context = {
       fieldContexts: {
         'title': {

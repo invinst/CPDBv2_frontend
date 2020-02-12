@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import sinon from 'sinon';
+import { spy, stub } from 'sinon';
 import { forOwn, find, filter, round } from 'lodash';
 import should from 'should';
 
@@ -210,8 +210,8 @@ describe('SocialGraph', function () {
   ];
 
   it('should render all sections correctly', function () {
-    const startTimelineFromBeginningStub = sinon.stub();
-    const stopTimelineStub = sinon.stub();
+    const startTimelineFromBeginningStub = stub();
+    const stopTimelineStub = stub();
     const wrapper = mount(
       <SocialGraph
         officers={ officers }
@@ -548,7 +548,7 @@ describe('SocialGraph', function () {
   });
 
   it('should call drawGraph again when officers has changed', function () {
-    const drawGraphStub = sinon.stub(SocialGraph.prototype, 'drawGraph');
+    const drawGraphStub = stub(SocialGraph.prototype, 'drawGraph');
 
     const wrapper = mount(
       <SocialGraph
@@ -568,7 +568,7 @@ describe('SocialGraph', function () {
   });
 
   it('should call drawGraph again when listEvent has changed', function () {
-    const drawGraphStub = sinon.stub(SocialGraph.prototype, 'drawGraph');
+    const drawGraphStub = stub(SocialGraph.prototype, 'drawGraph');
 
     const wrapper = mount(
       <SocialGraph
@@ -610,7 +610,7 @@ describe('SocialGraph', function () {
       />
     );
     const instance = wrapper.instance();
-    const resizeGraphSpy = sinon.stub(instance, 'resizeGraph');
+    const resizeGraphSpy = stub(instance, 'resizeGraph');
 
     wrapper.setProps({
       officers: officers,
@@ -622,7 +622,7 @@ describe('SocialGraph', function () {
   });
 
   it('should call updateSelectedOfficerId when clicking on a graph node', function () {
-    const updateSelectedOfficerIdStub = sinon.stub();
+    const updateSelectedOfficerIdStub = stub();
     const wrapper = mount(
       <SocialGraph
         officers={ officers }
@@ -710,7 +710,7 @@ describe('SocialGraph', function () {
       />
     );
     const instance =wrapper.instance();
-    const showTipStub = sinon.stub(instance.tip, 'show');
+    const showTipStub = stub(instance.tip, 'show');
     instance.handleMouseover({ fullName: 'Glenn Evans', id: 8138 });
     showTipStub.should.be.called();
   });
@@ -724,13 +724,13 @@ describe('SocialGraph', function () {
       />
     );
     const instance =wrapper.instance();
-    const showTipStub = sinon.stub(instance.tip, 'show');
+    const showTipStub = stub(instance.tip, 'show');
     instance.handleMouseover({ fullName: 'Glenn Evans', id: 8138, isSelectedNode: true });
     showTipStub.should.not.be.called();
   });
 
   it('should call updateSelectedEdge when clicking on an edge', function () {
-    const updateSelectedEdgeStub = sinon.stub();
+    const updateSelectedEdgeStub = stub();
     const currentEdge = {
       source: {
         uid: 8138,
@@ -778,7 +778,7 @@ describe('SocialGraph', function () {
   });
 
   it('should call updateSortedOfficerIds', function () {
-    const updateSortedOfficerIdsSpy = sinon.spy();
+    const updateSortedOfficerIdsSpy = spy();
     mount(
       <SocialGraph
         officers={ officers }

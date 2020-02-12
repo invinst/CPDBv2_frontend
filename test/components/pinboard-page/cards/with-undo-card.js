@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import sinon from 'sinon';
+import { spy, useFakeTimers } from 'sinon';
 
 import * as constants from 'utils/constants';
 import OfficerCard, { OfficerCardWithUndo } from 'components/pinboard-page/cards/officer-card';
@@ -51,12 +51,12 @@ describe('withUndoCard higher-order component', function () {
     let clock;
 
     beforeEach(function () {
-      clock = sinon.useFakeTimers();
+      clock = useFakeTimers();
     });
 
     context('isRequestDelay', function () {
       it('should render nothing when user click unpin but not undo', function () {
-        const addItemInPinboardPage = sinon.spy();
+        const addItemInPinboardPage = spy();
         const wrapper = mount(
           <RelevantCoaccusalCardWithUndo { ...item } addItemInPinboardPage={ addItemInPinboardPage }/>
         );
@@ -71,7 +71,7 @@ describe('withUndoCard higher-order component', function () {
       });
 
       it('should trigger to remove item 4s after click on remove button', function () {
-        const addItemInPinboardPage = sinon.spy();
+        const addItemInPinboardPage = spy();
 
         const wrapper = mount(
           <RelevantCoaccusalCardWithUndo { ...item } addItemInPinboardPage={ addItemInPinboardPage } />
@@ -95,7 +95,7 @@ describe('withUndoCard higher-order component', function () {
       });
 
       it('should cancel remove item if click on undo button', function () {
-        const addItemInPinboardPage = sinon.spy();
+        const addItemInPinboardPage = spy();
 
         const wrapper = mount(
           <RelevantCoaccusalCardWithUndo { ...item } addItemInPinboardPage={ addItemInPinboardPage } />
@@ -115,8 +115,8 @@ describe('withUndoCard higher-order component', function () {
 
     context('isRequestDelay false', function () {
       it('should trigger action right away when user click on unpin button', function () {
-        const removeItemInPinboardPage = sinon.spy();
-        const addItemInPinboardPage = sinon.spy();
+        const removeItemInPinboardPage = spy();
+        const addItemInPinboardPage = spy();
 
         const wrapper = mount(
           <OfficerCardWithUndo
@@ -138,8 +138,8 @@ describe('withUndoCard higher-order component', function () {
       });
 
       it('should revert action if user click undo', function () {
-        const removeItemInPinboardPage = sinon.spy();
-        const addItemInPinboardPage = sinon.spy();
+        const removeItemInPinboardPage = spy();
+        const addItemInPinboardPage = spy();
 
         const wrapper = mount(
           <OfficerCardWithUndo

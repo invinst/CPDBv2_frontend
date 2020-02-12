@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 
 import Attachments from 'components/officer-page/tabbed-pane-section/timeline/item/showings/cr/attachments';
 import OutboundLink from 'components/common/outbound-link';
@@ -58,8 +58,8 @@ describe('Attachments component', function () {
   });
 
   it('should call changeOfficerTab and scrollToElement', function () {
-    const stubChangeOfficerTab = sinon.stub();
-    const stubScrollToElement = sinon.stub(domUtils, 'scrollToElement');
+    const stubChangeOfficerTab = stub();
+    const stubScrollToElement = stub(domUtils, 'scrollToElement');
 
     const wrapper = shallow(
       <Attachments attachments={ attachments } changeOfficerTab={ stubChangeOfficerTab } />
@@ -72,7 +72,7 @@ describe('Attachments component', function () {
   });
 
   it('should track click event', function () {
-    const stubTrackAttachmentClick = sinon.stub(tracking, 'trackAttachmentClick');
+    const stubTrackAttachmentClick = stub(tracking, 'trackAttachmentClick');
     const attachments = [{
       url: 'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-2-of-3.html',
       previewImageUrl: 'https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p2-normal.gif',
@@ -97,7 +97,7 @@ describe('Attachments component', function () {
   });
 
   it('should track attachment click event', function () {
-    const stubOnTrackingAttachment = sinon.stub();
+    const stubOnTrackingAttachment = stub();
     const attachment = [{
       url: 'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-3-of-3.html',
       previewImageUrl: 'https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p1-normal.gif',

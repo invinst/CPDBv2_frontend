@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { date } from 'faker';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 import moment from 'moment';
 import should from 'should';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -29,7 +29,7 @@ describe('PinboardsTable', function () {
       },
     ];
     const nextParams = { offset: 20, limit: 30 };
-    const fetchPinboards = sinon.spy();
+    const fetchPinboards = spy();
 
     const wrapper = shallow(
       <PinboardsTable
@@ -84,7 +84,7 @@ describe('PinboardsTable', function () {
       },
     ];
     const nextParams = { offset: 20, limit: 30 };
-    const fetchPinboards = sinon.spy();
+    const fetchPinboards = spy();
 
     const wrapper = shallow(
       <PinboardsTable

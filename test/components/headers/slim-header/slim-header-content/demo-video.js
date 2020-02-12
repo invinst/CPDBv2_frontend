@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 
 import DemoVideo from 'components/headers/slim-header/slim-header-content/demo-video';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
@@ -8,7 +8,7 @@ import RichTextEditable from 'components/inline-editable/editable-section/rich-t
 
 describe('DemoVideo component', function () {
   it('should render correctly', function () {
-    const openVideoModalStub = sinon.stub();
+    const openVideoModalStub = stub();
     const wrapper = shallow(
       <DemoVideo
         position='top'
@@ -29,8 +29,8 @@ describe('DemoVideo component', function () {
   });
 
   it('should openVideoModal when clicking on video button', function () {
-    const openVideoModalStub = sinon.stub();
-    const stopPropagationStub = sinon.stub();
+    const openVideoModalStub = stub();
+    const stopPropagationStub = stub();
     const wrapper = shallow(
       <DemoVideo
         position='top'

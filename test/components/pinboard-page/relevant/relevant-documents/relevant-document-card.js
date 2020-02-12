@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import sinon from 'sinon';
+import { stub, useFakeTimers } from 'sinon';
 
 import RelevantDocumentCard, { RelevantDocumentCardWithUndo }
   from 'components/pinboard-page/relevant/relevant-documents/relevant-document-card';
@@ -10,7 +10,7 @@ import { UNDO_CARD_VISIBLE_TIME } from 'utils/constants';
 
 
 describe('RelevantDocumentCard component', function () {
-  const addItemInPinboardPageStub = sinon.stub();
+  const addItemInPinboardPageStub = stub();
   const officers = [{
     fullName: 'Scott Mc Kenna',
     id: 32172,
@@ -97,7 +97,7 @@ describe('RelevantDocumentCard component', function () {
     let clock;
 
     beforeEach(function () {
-      clock = sinon.useFakeTimers();
+      clock = useFakeTimers();
     });
 
     it('should render remove text correctly', function () {

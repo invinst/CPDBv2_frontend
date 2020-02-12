@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 import MockStore from 'redux-mock-store';
 import { MemoryRouter } from 'react-router';
 
@@ -34,7 +34,7 @@ describe('HeatMap component', function () {
   });
 
   it('should set community id and send analytic event when selectCommunity triggers', function () {
-    sinon.stub(tracking, 'trackCommunityClick');
+    stub(tracking, 'trackCommunityClick');
     const communities = [{
       id: 10,
       name: 'Westwood',

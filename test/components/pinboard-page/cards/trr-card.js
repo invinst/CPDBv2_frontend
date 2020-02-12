@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 
 import TRRCard, { TRRCardWithUndo } from 'components/pinboard-page/cards/trr-card';
 import LocationCard from 'components/pinboard-page/cards/location-card';
@@ -44,7 +44,7 @@ describe('TRRCardWithUndo component', function () {
       incidentDate: '10-10-2010',
       category: 'Use Of Force',
     };
-    const removeItemInPinboardPage = sinon.spy();
+    const removeItemInPinboardPage = spy();
     const wrapper = mount(
       <TRRCardWithUndo
         item={ item }

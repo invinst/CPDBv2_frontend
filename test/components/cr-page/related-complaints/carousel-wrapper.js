@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 
 import Carousel from 'components/common/carousel';
 import CarouselWrapper from 'components/cr-page/related-complaints/carousel-wrapper';
@@ -13,7 +13,7 @@ describe('CarouselWrapper component', function () {
   const distance = '10mi';
 
   beforeEach(function () {
-    fetchSpy = sinon.spy();
+    fetchSpy = spy();
   });
 
   it('should renderable', function () {

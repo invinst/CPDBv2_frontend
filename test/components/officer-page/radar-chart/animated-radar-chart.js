@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import should from 'should';
-import sinon from 'sinon';
+import { stub, useFakeTimers } from 'sinon';
 
 import AnimatedRadarChart from 'components/officer-page/radar-chart';
 import RadarExplainer from 'components/officer-page/radar-chart/explainer';
@@ -87,8 +87,8 @@ describe('AnimatedRadarChart components', function () {
   });
 
   it('should open the explainer clicking on the radar chart and track this event', function () {
-    sinon.stub(tracking, 'trackOpenExplainer');
-    sinon.stub(IntercomTracking, 'trackOpenExplainer');
+    stub(tracking, 'trackOpenExplainer');
+    stub(IntercomTracking, 'trackOpenExplainer');
 
     const wrapper = shallow(<AnimatedRadarChart officerId={ 123 } data={ data }/>);
     wrapper.find(RadarExplainer).exists().should.be.false();
@@ -108,7 +108,7 @@ describe('AnimatedRadarChart components', function () {
   describe('test animate', function () {
     let clock;
     beforeEach(function () {
-      clock = sinon.useFakeTimers();
+      clock = useFakeTimers();
 
     });
 

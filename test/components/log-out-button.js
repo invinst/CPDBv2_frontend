@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 import should from 'should';
 
 import LogOutButton from 'components/log-out-button';
@@ -23,7 +23,7 @@ describe('LogOutButton component', function () {
   });
 
   it('should handle on click', function () {
-    const logOut = sinon.spy();
+    const logOut = spy();
     const wrapper = mount(
       <LogOutButton show={ true } logOut={ logOut } />
     );

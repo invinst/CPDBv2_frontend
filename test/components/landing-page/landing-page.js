@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router';
@@ -96,7 +96,7 @@ const store = mockStore({
 
 describe('LandingPage component', function () {
   beforeEach(function () {
-    sinon.stub(DomUtils, 'scrollToTop');
+    stub(DomUtils, 'scrollToTop');
   });
 
   it('should be responsively renderable', function () {
@@ -339,7 +339,7 @@ describe('LandingPage component', function () {
   });
 
   it('should show intercom launcher when mounted', function () {
-    sinon.stub(intercomUtils, 'showIntercomLauncher');
+    stub(intercomUtils, 'showIntercomLauncher');
 
     mount(
       <Provider store={ store }>

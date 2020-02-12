@@ -1,5 +1,5 @@
 import browserHistory from 'utils/history';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 
 import { Toastify } from 'utils/vendors';
 import toastStyles from 'utils/toast.sass';
@@ -60,7 +60,7 @@ describe('Toast utils', function () {
         ],
       };
     },
-    dispatch: sinon.stub().usingPromise(Promise).resolves(dispatchResults),
+    dispatch: stub().usingPromise(Promise).resolves(dispatchResults),
   });
 
   describe('showPinboardToast', function () {
@@ -80,7 +80,7 @@ describe('Toast utils', function () {
 
   describe('showAddOrRemoveItemToast', function () {
     it('should show added toast if isPinned is false', function () {
-      const browserHistoryPush = sinon.stub(browserHistory, 'push');
+      const browserHistoryPush = stub(browserHistory, 'push');
 
       const pinboard = { id: '123abc' };
       const store = createStore(pinboard);
@@ -247,7 +247,7 @@ describe('Toast utils', function () {
 
   describe('showAlertToast', function () {
     it('should show toast with autoClose is false', function () {
-      const onClick = sinon.stub();
+      const onClick = stub();
       showAlertToast('toast message', onClick);
 
       Toastify.toast.should.be.calledOnce();

@@ -1,4 +1,4 @@
-import sinon from 'sinon';
+import { spy } from 'sinon';
 
 import { cancelledByUser } from 'utils/axios-client';
 
@@ -12,7 +12,7 @@ describe('axios-client', function () {
         },
       };
 
-      let spyFunc = sinon.spy(cancelledByUser);
+      let spyFunc = spy(cancelledByUser);
       try {
         spyFunc(reason);
       } catch (e) {

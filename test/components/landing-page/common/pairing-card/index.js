@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Link } from 'react-router-dom';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 
 import PairingCard from 'components/landing-page/common/pairing-card';
 import PairingChart from 'components/landing-page/common/pairing-card/pairing-chart';
@@ -11,7 +11,7 @@ import pinButtonStyles from 'components/common/item-pin-button.sass';
 import { PINNED_ITEM_TYPES } from 'utils/constants';
 
 describe('PairingCard component', function () {
-  const addOrRemoveItemInPinboard = sinon.stub();
+  const addOrRemoveItemInPinboard = stub();
 
   const officer1 = {
     id: '123',

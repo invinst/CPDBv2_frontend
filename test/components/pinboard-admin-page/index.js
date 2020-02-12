@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
 import { random } from 'faker';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 import should from 'should';
 import { MemoryRouter } from 'react-router';
 
@@ -39,8 +39,8 @@ describe('PinboardAdminPage', function () {
     ];
     const hasMore = random.boolean();
     const nextParams = { offset: 20, limit: 30 };
-    const fetchPinboards = sinon.spy();
-    const fetchPinboardStaticSocialGraph = sinon.spy();
+    const fetchPinboards = spy();
+    const fetchPinboardStaticSocialGraph = spy();
     const cachedDataIDs = ['aaaa1111', 'bbbb2222'];
 
     const wrapper = shallow(
@@ -93,7 +93,7 @@ describe('PinboardAdminPage', function () {
   });
 
   it('should call clearPinboardStaticSocialGraphCache when componentWillUnmount', function () {
-    const spyClearPinboardStaticSocialGraphCache = sinon.spy();
+    const spyClearPinboardStaticSocialGraphCache = spy();
 
     const wrapper = mount(
       <Provider store={ pinboardAdminStore }>
@@ -124,7 +124,7 @@ describe('PinboardAdminPage', function () {
   });
 
   it('should change url if search text is changed', function () {
-    sinon.spy(browserHistory, 'push');
+    spy(browserHistory, 'push');
     const wrapper = mount(
       <Provider store={ pinboardAdminStore }>
         <MemoryRouter>
@@ -147,7 +147,7 @@ describe('PinboardAdminPage', function () {
         </MemoryRouter>
       </Provider>
     );
-    sinon.spy(browserHistory, 'push');
+    spy(browserHistory, 'push');
 
     const inputElement = wrapper.find('input');
     inputElement.simulate('change', { target: { value: 'abc' } } );

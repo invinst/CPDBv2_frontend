@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 import { random, lorem } from 'faker';
 
 import Carousel from 'components/common/carousel';
@@ -20,7 +20,7 @@ describe('CarouselWrapper component', function () {
   });
 
   it('should send ga event when navigate on carousel', function () {
-    sinon.stub(tracking, 'trackSwipeLandingPageCarousel');
+    stub(tracking, 'trackSwipeLandingPageCarousel');
     const wrapper = shallow(<CarouselComponent cards={ [1, 2, 3] }/>);
     const carousel = wrapper.find(Carousel);
     carousel.prop('resetPosition').should.be.false();
@@ -39,8 +39,8 @@ describe('CarouselWrapper component', function () {
       { 'abc': { CardComponent: TestCardComponent, itemWidth: 232 } },
       'abc',
     );
-    const addOrRemoveItemInPinboard = sinon.stub();
-    const onTrackingAttachment = sinon.stub();
+    const addOrRemoveItemInPinboard = stub();
+    const onTrackingAttachment = stub();
     const pathname = lorem.word();
     const openCardInNewPage = random.boolean();
 

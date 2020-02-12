@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 
 import PinboardInfo from 'components/pinboard-page/pinboard-info';
 import AutosaveTextareaInput from 'components/common/autosave-inputs/autosave-textarea-input';
@@ -12,7 +12,7 @@ describe('PinboardInfo component', function () {
       title: 'This is pinboard title',
       description: 'This is pinboard description',
     };
-    const updatePinboardInfoStub = sinon.stub();
+    const updatePinboardInfoStub = stub();
 
     const wrapper = shallow(
       <PinboardInfo pinboard={ pinboard } updatePinboardInfo={ updatePinboardInfoStub }/>

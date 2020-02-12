@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 
 import Arrow from 'components/common/carousel/arrow';
 
@@ -13,7 +13,7 @@ describe('Carousel Arrow component', function () {
   });
 
   it('should have appropriate click handler', function () {
-    const spyClickHandler = sinon.spy();
+    const spyClickHandler = spy();
     const wrapper = shallow(
       <Arrow direction='left' onClick={ spyClickHandler } show={ true }/>
     );

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 
 import CRCard, { CRCardWithUndo } from 'components/pinboard-page/cards/cr-card';
 import LocationCard from 'components/pinboard-page/cards/location-card';
@@ -43,7 +43,7 @@ describe('CRCardWithUndo component', function () {
       incidentDate: '10-10-2010',
       category: 'Use Of Force',
     };
-    const removeItemInPinboardPage = sinon.spy();
+    const removeItemInPinboardPage = spy();
     const wrapper = mount(
       <CRCardWithUndo
         item={ item }

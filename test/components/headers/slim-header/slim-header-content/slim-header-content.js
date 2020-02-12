@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 import { MemoryRouter } from 'react-router';
 
 import * as DomUtils from 'utils/dom';
@@ -59,7 +59,7 @@ describe('SlimHeaderContent component', function () {
   });
 
   it('should scroll to top when being clicked and position is bottom', function () {
-    const scrollToTopStub = sinon.stub(DomUtils, 'scrollToTop');
+    const scrollToTopStub = stub(DomUtils, 'scrollToTop');
 
     const wrapper = shallow(
       <SlimHeaderContent position='bottom'/>
@@ -71,7 +71,7 @@ describe('SlimHeaderContent component', function () {
   });
 
   it('should not scroll to top when being clicked if position is not bottom', function () {
-    const scrollToTopStub = sinon.stub(DomUtils, 'scrollToTop');
+    const scrollToTopStub = stub(DomUtils, 'scrollToTop');
 
     const wrapper = shallow(
       <Provider store={ storeMock } >

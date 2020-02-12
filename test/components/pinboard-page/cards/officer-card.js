@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 
 import OfficerCard, { OfficerCardWithUndo } from 'components/pinboard-page/cards/officer-card';
 import ItemUnpinButton from 'components/pinboard-page/cards/item-unpin-button';
@@ -26,7 +26,7 @@ describe('OfficerCard component', function () {
   });
 
   it('should invoke removeItemInPinboardPage when clicking on ItemUnpinButton', function () {
-    const removeItemInPinboardPage = sinon.spy();
+    const removeItemInPinboardPage = spy();
 
     const item = {
       type: 'OFFICER',
@@ -81,7 +81,7 @@ describe('OfficerCard component', function () {
       fullName: 'James David',
       complaintCount: '10',
     };
-    const focusItem = sinon.spy();
+    const focusItem = spy();
 
     const wrapper = mount(
       <OfficerCard
@@ -105,7 +105,7 @@ describe('OfficerCard component', function () {
       fullName: 'James David',
       complaintCount: '10',
     };
-    const removeItemInPinboardPage = sinon.spy();
+    const removeItemInPinboardPage = spy();
     const wrapper = mount(
       <OfficerCard
         item={ item }
@@ -153,7 +153,7 @@ describe('OfficerCardWithUndo component', function () {
       fullName: 'James David',
       complaintCount: '10',
     };
-    const removeItemInPinboardPage = sinon.spy();
+    const removeItemInPinboardPage = spy();
     const wrapper = shallow(
       <OfficerCardWithUndo
         item={ item }

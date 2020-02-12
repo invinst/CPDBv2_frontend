@@ -1,13 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 
 import Menu from 'components/common/dropdown/menu';
 
 
 describe('Menu component', function () {
   it('should invoke onSelect when clicking on an item', function () {
-    const onSelectStub = sinon.stub();
+    const onSelectStub = stub();
     const wrapper = shallow(
       <Menu
         onSelect={ onSelectStub }

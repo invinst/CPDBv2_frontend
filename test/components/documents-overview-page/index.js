@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 import { MemoryRouter } from 'react-router';
 import browserHistory from 'utils/history';
 
@@ -54,8 +54,8 @@ describe('DocumentsOverviewPage component', function () {
         kind: constants.DOCUMENTS_SEARCH_ITEMS.DOCUMENT,
       },
     ];
-    const fetchDocuments = sinon.spy();
-    const fetchDocumentsAuthenticated = sinon.spy();
+    const fetchDocuments = spy();
+    const fetchDocumentsAuthenticated = spy();
 
     const wrapper = mount(
       <Provider store={ store }>
@@ -77,7 +77,7 @@ describe('DocumentsOverviewPage component', function () {
   });
 
   it('should change url if search text is changed', function () {
-    sinon.spy(browserHistory, 'push');
+    spy(browserHistory, 'push');
     const wrapper = mount(
       <Provider store={ store }>
         <MemoryRouter>
@@ -100,7 +100,7 @@ describe('DocumentsOverviewPage component', function () {
         </MemoryRouter>
       </Provider>
     );
-    sinon.spy(browserHistory, 'push');
+    spy(browserHistory, 'push');
 
     const inputElement = wrapper.find('input');
     inputElement.simulate('change', { target: { value: 'abc' } } );
@@ -120,7 +120,7 @@ describe('DocumentsOverviewPage component', function () {
         </MemoryRouter>
       </Provider>
     );
-    sinon.spy(browserHistory, 'push');
+    spy(browserHistory, 'push');
 
     const inputElement = wrapper.find('input');
     inputElement.simulate('change', { target: { value: 'abc' } } );

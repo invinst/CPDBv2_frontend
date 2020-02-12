@@ -1,4 +1,4 @@
-import sinon from 'sinon';
+import { stub } from 'sinon';
 
 import { SEARCH_PATH, OPEN_SEARCH_PAGE, SEARCH_ALIAS_EDIT_PATH } from 'utils/constants';
 import { UPDATE_ALIAS_REQUEST_SUCCESS } from 'actions/inline-alias-admin-page';
@@ -7,7 +7,7 @@ import searchPathMiddleware from 'middleware/search-path';
 
 describe('searchPathMiddleware', function () {
   beforeEach(function () {
-    this.stubPushPathPreserveEditMode = sinon.stub(editPathUtils, 'pushPathPreserveEditMode');
+    this.stubPushPathPreserveEditMode = stub(editPathUtils, 'pushPathPreserveEditMode');
   });
 
   it('should push search page path on OPEN_SEARCH_PAGE', function () {

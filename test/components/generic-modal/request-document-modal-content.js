@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import sinon from 'sinon';
+import { spy, stub, useFakeTimers } from 'sinon';
 import * as intercomUtils from 'utils/intercom';
 
 import RequestDocumentModalContent from 'components/generic-modal/request-document-modal-content';
@@ -17,9 +17,9 @@ describe('RequestDocumentModalContent component', function () {
         'document_request_instruction': ['We’ll notify you when the document is made available.'],
       }),
       sectionEditModeOn: false,
-      onSaveForm: sinon.spy(),
-      turnOnSectionEditMode: sinon.spy(),
-      turnOffSectionEditMode: sinon.spy(),
+      onSaveForm: spy(),
+      turnOnSectionEditMode: spy(),
+      turnOffSectionEditMode: spy(),
     };
     const wrapper = mount(
       <RequestDocumentModalContent
@@ -47,9 +47,9 @@ describe('RequestDocumentModalContent component', function () {
         'new_document_notification': ['We’ll notify you when we have new documents.'],
       }),
       sectionEditModeOn: false,
-      onSaveForm: sinon.spy(),
-      turnOnSectionEditMode: sinon.spy(),
-      turnOffSectionEditMode: sinon.spy(),
+      onSaveForm: spy(),
+      turnOnSectionEditMode: spy(),
+      turnOffSectionEditMode: spy(),
     };
     const wrapper = mount(
       <RequestDocumentModalContent
@@ -72,7 +72,7 @@ describe('RequestDocumentModalContent component', function () {
   });
 
   it('should call closeEvent when click to Close link', function () {
-    const cancelClickHandler = sinon.spy();
+    const cancelClickHandler = spy();
     const wrapper = mount(
       <RequestDocumentModalContent closeModal={ cancelClickHandler }/>
     );
@@ -107,17 +107,17 @@ describe('RequestDocumentModalContent component', function () {
     let assertInCallbackTest;
 
     beforeEach(function () {
-      clock = sinon.useFakeTimers();
-      sinon.stub(intercomUtils, 'updateIntercomEmail');
+      clock = useFakeTimers();
+      stub(intercomUtils, 'updateIntercomEmail');
     });
 
     function submitRequestDocumentTest(assertInCallbackTest, done, fail=false) {
-      const closeCallback = sinon.spy();
+      const closeCallback = spy();
       const promise = new Promise((resolve, reject) => {
         if (fail) { reject(); }
         else { resolve(); }
       });
-      let requestDocumentCallback = sinon.stub().returns(promise);
+      let requestDocumentCallback = stub().returns(promise);
 
       const requestForm = mount(
         <RequestDocumentModalContent
@@ -133,8 +133,8 @@ describe('RequestDocumentModalContent component', function () {
       let handleSubmitStub;
       let oldHandleSubmit = instance.handleSubmit;
 
-      handleSubmitStub = sinon.stub(instance, 'handleSubmit').callsFake(function (event) {
-        event.preventDefault = sinon.spy();
+      handleSubmitStub = stub(instance, 'handleSubmit').callsFake(function (event) {
+        event.preventDefault = spy();
         const handleSubmitCall = oldHandleSubmit.call(this, event);
         event.preventDefault.calledOnce.should.be.true();
 

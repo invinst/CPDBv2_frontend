@@ -1,11 +1,11 @@
-import sinon from 'sinon';
+import { stub } from 'sinon';
 
 import * as IntercomTracking from 'utils/intercom-tracking';
 
 
 describe('IntercomTracking utils', function () {
   beforeEach(function () {
-    sinon.stub(global, 'Intercom');
+    stub(global, 'Intercom');
   });
 
   describe('trackOpenExplainer', function () {

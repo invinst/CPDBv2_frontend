@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 
 import HoverableRequestDocumentButton, {
   RequestDocumentButton,
@@ -24,7 +24,7 @@ describe('RequestDocumentButton component', function () {
   });
 
   it('should call openRequestDocumentModal when clicked on', function () {
-    const func = sinon.spy();
+    const func = spy();
     const wrapper = mount(
       <HoverableRequestDocumentButton alreadyRequested={ false } openRequestDocumentModal={ func }/>
     );
@@ -35,7 +35,7 @@ describe('RequestDocumentButton component', function () {
   });
 
   it('should do nothing when clicked on if the document is requested', function () {
-    const func = sinon.spy();
+    const func = spy();
     const wrapper = mount(
       <HoverableRequestDocumentButton alreadyRequested={ true } openRequestDocumentModal={ func }/>
     );

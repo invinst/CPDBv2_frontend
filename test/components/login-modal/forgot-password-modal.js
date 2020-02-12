@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import sinon from 'sinon';
+import { spy, stub } from 'sinon';
 import should from 'should';
 
 import LoginModalButton from 'components/login-modal/login-modal-button';
@@ -24,7 +24,7 @@ describe('ForgotPasswordModal component', function () {
   it('should focus email input when click on email input wrapper', function () {
     const wrapper = mount(<ForgotPasswordModal show={ true }/>);
     const instance = wrapper.instance();
-    sinon.stub(instance.emailInput, 'focus');
+    stub(instance.emailInput, 'focus');
     wrapper.find('.email-input-wrapper').simulate('click');
 
     instance.emailInput.focus.calledOnce.should.be.true();
@@ -42,7 +42,7 @@ describe('ForgotPasswordModal component', function () {
   });
 
   it('should trigger onResetPassword when press enter', function () {
-    const onResetPasswordSpy = sinon.spy();
+    const onResetPasswordSpy = spy();
     const wrapper = mount(<ForgotPasswordModal show={ true } onResetPassword={ onResetPasswordSpy }/>);
 
     wrapper.instance().emailInput.value = 'abc';
@@ -52,7 +52,7 @@ describe('ForgotPasswordModal component', function () {
   });
 
   it('should trigger onResetPassword when click reset password button', function () {
-    const onResetPasswordSpy = sinon.spy();
+    const onResetPasswordSpy = spy();
     const wrapper = mount(<ForgotPasswordModal show={ true } onResetPassword={ onResetPasswordSpy }/>);
 
     wrapper.instance().emailInput.value = 'abc';

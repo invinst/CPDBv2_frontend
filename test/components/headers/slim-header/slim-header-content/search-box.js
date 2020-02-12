@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import sinon from 'sinon';
+import { spy, stub } from 'sinon';
 
 import * as editPathUtils from 'utils/edit-path';
 import SearchBox from 'components/headers/slim-header/slim-header-content/search-box';
@@ -47,8 +47,8 @@ describe('SearchBox component', function () {
   });
 
   it('should go to search page when being clicked', function () {
-    const pushPathPreserveEditMode = sinon.stub(editPathUtils, 'pushPathPreserveEditMode');
-    const stopPropagation = sinon.spy();
+    const pushPathPreserveEditMode = stub(editPathUtils, 'pushPathPreserveEditMode');
+    const stopPropagation = spy();
 
     const wrapper = shallow(<SearchBox position='top'/>);
 

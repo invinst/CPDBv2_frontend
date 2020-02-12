@@ -1,5 +1,5 @@
 import lodash from 'lodash';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 
 import { cardsSelector, hasCards } from 'selectors/landing-page/complaint-summaries';
 import { RawComplaintSummaryFactory } from 'utils/test/factories/complaint';
@@ -43,7 +43,7 @@ describe('complaint-summaries selectors', function () {
     });
 
     it('should shuffle cards', function () {
-      const stubShuffle = sinon.spy(lodash, 'shuffle');
+      const stubShuffle = spy(lodash, 'shuffle');
       state.landingPage.complaintSummaries.cards = lodash.range(40);
 
       cardsSelector(state);

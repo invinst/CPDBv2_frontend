@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { Editor, SelectionState, EditorState } from 'draft-js';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 
 import { convertContentStateToEditorState } from 'utils/draft';
 import { RawContentStateFactory } from 'utils/test/factories/draft';
@@ -82,7 +82,7 @@ describe('RichTextEditor component', function () {
     let editorState = convertContentStateToEditorState(
       RawContentStateFactory.build({}, { blockTexts: ['a'] })
     );
-    const onChange = sinon.spy();
+    const onChange = spy();
     const wrapper = shallow(
       <RichTextEditor onChange={ onChange } editorState={ editorState }/>
     );
@@ -95,7 +95,7 @@ describe('RichTextEditor component', function () {
   });
 
   it('should remove selection when editor lose focus and toolbar is not hovered', function () {
-    const onChange = sinon.spy();
+    const onChange = spy();
     let editorState = convertContentStateToEditorState(
       RawContentStateFactory.build({}, { blockTexts: ['abc'] })
     );
@@ -159,7 +159,7 @@ describe('RichTextEditor component', function () {
   });
 
   it('should handle toolbar on focus event', function () {
-    const onChange = sinon.spy();
+    const onChange = spy();
 
     let editorState = convertContentStateToEditorState(
       RawContentStateFactory.build({}, { blockTexts: ['abc'] })
@@ -174,7 +174,7 @@ describe('RichTextEditor component', function () {
   });
 
   it('should handle toolbar on blur event', function () {
-    const onChange = sinon.spy();
+    const onChange = spy();
 
     let editorState = convertContentStateToEditorState(
       RawContentStateFactory.build({}, { blockTexts: ['abc'] })

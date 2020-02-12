@@ -1,5 +1,5 @@
 import { Promise } from 'es6-promise';
-import sinon from 'sinon';
+import { stub, useFakeTimers } from 'sinon';
 import * as _ from 'lodash';
 import { CancelToken } from 'axios';
 import Cookies from 'js-cookie';
@@ -129,7 +129,7 @@ const buildStore = () => ({
   getState() {
     return this._state;
   },
-  dispatch: sinon.stub().usingPromise(Promise).resolves('abc'),
+  dispatch: stub().usingPromise(Promise).resolves('abc'),
 });
 
 describe('fetchPageInitialData middleware', function () {
@@ -172,7 +172,7 @@ describe('fetchPageInitialData middleware', function () {
           },
         };
       },
-      dispatch: sinon.stub().usingPromise(Promise).resolves('abc'),
+      dispatch: stub().usingPromise(Promise).resolves('abc'),
     };
 
     const action = createLocationChangeAction('/officer/2/');
@@ -319,7 +319,7 @@ describe('fetchPageInitialData middleware', function () {
   context('fetch document data when location changes', function () {
     context('user is logged in', function () {
       it('should dispatch fetchDocument & fetchDocumentSuggestionTags', function () {
-        sinon.stub(Cookies, 'get').withArgs('apiAccessToken').returns('apiAccessToken');
+        stub(Cookies, 'get').withArgs('apiAccessToken').returns('apiAccessToken');
         const action = createLocationChangeAction('/document/1234/');
         let dispatched;
 
@@ -332,7 +332,7 @@ describe('fetchPageInitialData middleware', function () {
 
     context('user is not logged in', function () {
       it('should only dispatch fetchDocument & not dispatch fetchDocumentSuggestionTags', function () {
-        sinon.stub(Cookies, 'get').withArgs('apiAccessToken').returns(null);
+        stub(Cookies, 'get').withArgs('apiAccessToken').returns(null);
         const action = createLocationChangeAction('/document/1234/');
         let dispatched;
 
@@ -399,7 +399,7 @@ describe('fetchPageInitialData middleware', function () {
   it('should dispatch fetchDocuments', function () {
     const action = createLocationChangeAction('/documents/');
     let dispatched;
-    const fetchDocuments = sinon.stub(docOverviewPageActions, 'fetchDocuments');
+    const fetchDocuments = stub(docOverviewPageActions, 'fetchDocuments');
 
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
@@ -409,7 +409,7 @@ describe('fetchPageInitialData middleware', function () {
   it('should dispatch fetchDocuments with match params page', function () {
     const action = createLocationChangeAction('/documents/?match=1000000');
     let dispatched;
-    const fetchDocuments = sinon.stub(docOverviewPageActions, 'fetchDocuments');
+    const fetchDocuments = stub(docOverviewPageActions, 'fetchDocuments');
 
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
@@ -421,7 +421,7 @@ describe('fetchPageInitialData middleware', function () {
     _.set(store._state, 'documentsOverviewPage.documents.match', '1000000');
     const action = createLocationChangeAction('/documents/?match=1000000');
     let dispatched;
-    const fetchDocuments = sinon.stub(docOverviewPageActions, 'fetchDocuments');
+    const fetchDocuments = stub(docOverviewPageActions, 'fetchDocuments');
 
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
@@ -433,7 +433,7 @@ describe('fetchPageInitialData middleware', function () {
     _.set(store._state, 'pathname', '/documents/');
     const action = createSignInRequestSuccessAction();
     let dispatched;
-    const fetchDocumentsAuthenticated = sinon.stub(docOverviewPageActions, 'fetchDocumentsAuthenticated');
+    const fetchDocumentsAuthenticated = stub(docOverviewPageActions, 'fetchDocumentsAuthenticated');
 
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
@@ -443,7 +443,7 @@ describe('fetchPageInitialData middleware', function () {
   it('should dispatch fetchDocumentsAuthenticated when accessing with edit mode', function () {
     const action = createLocationChangeAction('/edit/documents/');
     let dispatched;
-    const fetchDocumentsAuthenticated = sinon.stub(docOverviewPageActions, 'fetchDocumentsAuthenticated');
+    const fetchDocumentsAuthenticated = stub(docOverviewPageActions, 'fetchDocumentsAuthenticated');
 
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
@@ -493,7 +493,7 @@ describe('fetchPageInitialData middleware', function () {
   });
 
   it('should dispatch redirect, fetchPinboard if requesting does not equal ID in state', function () {
-    sinon.stub(CancelToken, 'source');
+    stub(CancelToken, 'source');
     const store = buildStore();
     _.set(store._state, 'pinboardPage.pinboard.id', '268a5e58');
     const action = createLocationChangeAction('/pinboard/5cd06f2b/');
@@ -537,8 +537,8 @@ describe('fetchPageInitialData middleware', function () {
 
   it('should dispatch fetchAllPinboards when location changes', function () {
     const action = createLocationChangeAction('/view-all-pinboards/?match=skullcap');
-    const fetchAllPinboardsStub = sinon.stub(pinboardAdminAction, 'fetchAllPinboards');
-    const clock = sinon.useFakeTimers();
+    const fetchAllPinboardsStub = stub(pinboardAdminAction, 'fetchAllPinboards');
+    const clock = useFakeTimers();
     let dispatched;
 
     fetchPageInitialData(store)(action => dispatched = action)(action);
@@ -553,7 +553,7 @@ describe('fetchPageInitialData middleware', function () {
     _.set(store._state, 'pathname', '/view-all-pinboards/');
     const action = createSignInRequestSuccessAction();
     let dispatched;
-    const fetchAllPinboardsStub = sinon.stub(pinboardAdminAction, 'fetchAllPinboards');
+    const fetchAllPinboardsStub = stub(pinboardAdminAction, 'fetchAllPinboards');
 
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);

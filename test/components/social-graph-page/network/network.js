@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 import Slider from 'rc-slider';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
@@ -47,7 +47,7 @@ describe('NetworkGraph component', function () {
   });
 
   it('should call requestSocialGraphNetwork with correct unitId when componentDidMount', function () {
-    const requestSocialGraphNetworkStub = sinon.stub();
+    const requestSocialGraphNetworkStub = stub();
     mount(
       <Provider store={ store }>
         <NetworkGraph
@@ -64,7 +64,7 @@ describe('NetworkGraph component', function () {
   });
 
   it('should call requestSocialGraphNetwork with correct officerIds when componentDidMount', function () {
-    const requestSocialGraphNetworkStub = sinon.stub();
+    const requestSocialGraphNetworkStub = stub();
     mount(
       <Provider store={ store }>
         <NetworkGraph
@@ -82,7 +82,7 @@ describe('NetworkGraph component', function () {
 
 
   it('should call requestSocialGraphNetwork with correct pinboardId when componentDidMount', function () {
-    const requestSocialGraphNetworkStub = sinon.stub();
+    const requestSocialGraphNetworkStub = stub();
     mount(
       <Provider store={ store }>
         <NetworkGraph
@@ -99,7 +99,7 @@ describe('NetworkGraph component', function () {
   });
 
   it('should not call requestSocialGraphNetwork if both unitId and officerIds are missing', function () {
-    const requestSocialGraphNetworkStub = sinon.stub();
+    const requestSocialGraphNetworkStub = stub();
     shallow(
       <Provider store={ store }>
         <NetworkGraph
@@ -111,7 +111,7 @@ describe('NetworkGraph component', function () {
   });
 
   it('should call requestSocialGraphAllegations with correct unitId when componentDidMount', function () {
-    const requestSocialGraphAllegationsStub = sinon.stub();
+    const requestSocialGraphAllegationsStub = stub();
     mount(
       <Provider store={ store }>
         <NetworkGraph
@@ -128,7 +128,7 @@ describe('NetworkGraph component', function () {
   });
 
   it('should call requestSocialGraphAllegations with correct officerIds when componentDidMount', function () {
-    const requestSocialGraphAllegationsStub = sinon.stub();
+    const requestSocialGraphAllegationsStub = stub();
     mount(
       <Provider store={ store }>
         <NetworkGraph
@@ -145,7 +145,7 @@ describe('NetworkGraph component', function () {
   });
 
   it('should not call requestSocialGraphAllegations if both unitId and officerIds are missing', function () {
-    const requestSocialGraphAllegationsStub = sinon.stub();
+    const requestSocialGraphAllegationsStub = stub();
     mount(
       <Provider store={ store }>
         <NetworkGraph
@@ -158,7 +158,7 @@ describe('NetworkGraph component', function () {
 
 
   it('should call requestSocialGraphOfficer with correct officerIds when componentDidMount', function () {
-    const requestSocialGraphOfficersStub = sinon.stub();
+    const requestSocialGraphOfficersStub = stub();
     mount(
       <Provider store={ store }>
         <NetworkGraph
@@ -175,7 +175,7 @@ describe('NetworkGraph component', function () {
   });
 
   it('should call requestSocialGraphOfficer with correct unitId when componentDidMount', function () {
-    const requestSocialGraphOfficersStub = sinon.stub();
+    const requestSocialGraphOfficersStub = stub();
     mount(
       <Provider store={ store }>
         <NetworkGraph
@@ -192,7 +192,7 @@ describe('NetworkGraph component', function () {
   });
 
   it('should not call requestSocialGraphOfficer if both unitId and officerIds are missing', function () {
-    const requestSocialGraphOfficersStub = sinon.stub();
+    const requestSocialGraphOfficersStub = stub();
     mount(
       <Provider store={ store }>
         <NetworkGraph
@@ -204,7 +204,7 @@ describe('NetworkGraph component', function () {
   });
 
   it('should hide Intercom launcher when componentDidMounted', function () {
-    sinon.stub(intercomUtils, 'showIntercomLauncher');
+    stub(intercomUtils, 'showIntercomLauncher');
 
     mount(
       <Provider store={ store }>
@@ -215,7 +215,7 @@ describe('NetworkGraph component', function () {
   });
 
   it('should add mousedown event when componentDidMounted', function () {
-    sinon.stub(window, 'addEventListener');
+    stub(window, 'addEventListener');
 
     const wrapper = mount(
       <Provider store={ store }>
@@ -228,7 +228,7 @@ describe('NetworkGraph component', function () {
   });
 
   it('should show Intercom launcher again when componentWillUnmount', function () {
-    sinon.stub(intercomUtils, 'showIntercomLauncher');
+    stub(intercomUtils, 'showIntercomLauncher');
 
     const wrapper = mount(
       <Provider store={ store }>
@@ -241,7 +241,7 @@ describe('NetworkGraph component', function () {
   });
 
   it('should remove mousedown event when componentWillUnmount', function () {
-    sinon.stub(window, 'removeEventListener');
+    stub(window, 'removeEventListener');
 
     const wrapper = mount(
       <Provider store={ store }>
@@ -255,7 +255,7 @@ describe('NetworkGraph component', function () {
   });
 
   it('should fetch data again when componentDidUpdate', function () {
-    const requestSocialGraphNetworkStub = sinon.stub();
+    const requestSocialGraphNetworkStub = stub();
     const wrapper = shallow(
       <NetworkGraph
         requestSocialGraphNetwork={ requestSocialGraphNetworkStub }
@@ -397,7 +397,7 @@ describe('NetworkGraph component', function () {
   });
 
   it('should call updateSelectedOfficerId when clicking outside and there is selectedOfficerId', function () {
-    const updateSelectedOfficerIdStub = sinon.stub();
+    const updateSelectedOfficerIdStub = stub();
     const wrapper = mount(
       <Provider store={ store }>
         <NetworkGraph
@@ -413,7 +413,7 @@ describe('NetworkGraph component', function () {
   });
 
   it('should call updateSelectedEdge when clicking outside and there is selectedEdge', function () {
-    const updateSelectedEdgeStub = sinon.stub();
+    const updateSelectedEdgeStub = stub();
     const selectedEdge = {
       sourceOfficerName: 'Jerome Finnigan',
       targetOfficerName: 'Edward May',
@@ -433,7 +433,7 @@ describe('NetworkGraph component', function () {
   });
 
   it('should not call updateSelectedEdge when clicking outside and there is selected crid and edge', function () {
-    const updateSelectedEdgeStub = sinon.stub();
+    const updateSelectedEdgeStub = stub();
     const selectedEdge = {
       sourceOfficerName: 'Jerome Finnigan',
       targetOfficerName: 'Edward May',
@@ -454,7 +454,7 @@ describe('NetworkGraph component', function () {
   });
 
   it('should call updateSelectedCrid when clicking outside and there is selectedCrid', function () {
-    const updateSelectedCridStub = sinon.stub();
+    const updateSelectedCridStub = stub();
     const wrapper = mount(
       <Provider store={ store }>
         <NetworkGraph
@@ -469,9 +469,9 @@ describe('NetworkGraph component', function () {
   });
 
   it('should not call update selected officer, edge and cr when clicking on preview-pane', function () {
-    const updateSelectedOfficerIdStub = sinon.stub();
-    const updateSelectedCridStub = sinon.stub();
-    const updateSelectedEdgeStub = sinon.stub();
+    const updateSelectedOfficerIdStub = stub();
+    const updateSelectedCridStub = stub();
+    const updateSelectedEdgeStub = stub();
     const networkPreviewPaneData = {
       type: NETWORK_PREVIEW_PANE.OFFICER,
       data: {

@@ -1,9 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { spy } from 'sinon';
 
 import EmptyPinboard from 'components/pinboard-page/empty-pinboard';
 import { buildEditStateFields } from 'utils/test/factories/draft';
-import sinon from 'sinon';
 import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
@@ -23,17 +23,17 @@ describe('EmptyPinboard component', function () {
     const emptyPinboardTitleEditWrapperStateProps = {
       fields,
       sectionEditModeOn: false,
-      onSaveForm: sinon.spy(),
-      turnOnSectionEditMode: sinon.spy(),
-      turnOffSectionEditMode: sinon.spy(),
+      onSaveForm: spy(),
+      turnOnSectionEditMode: spy(),
+      turnOffSectionEditMode: spy(),
     };
 
     const emptyPinboardDescriptionEditWrapperStateProps = {
       fields,
       sectionEditModeOn: false,
-      onSaveForm: sinon.spy(),
-      turnOnSectionEditMode: sinon.spy(),
-      turnOffSectionEditMode: sinon.spy(),
+      onSaveForm: spy(),
+      turnOnSectionEditMode: spy(),
+      turnOffSectionEditMode: spy(),
     };
 
     const examplePinboards = [{

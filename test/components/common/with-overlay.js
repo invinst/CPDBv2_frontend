@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 
 import withOverlay from 'components/common/with-overlay';
 import Children from 'utils/test/components/children';
@@ -10,7 +10,7 @@ describe('withOverlay component', function () {
   const WithOverlayComponent = withOverlay(Children);
 
   it('should render overlay and component if isShown is true', function () {
-    const handleCloseSpy = sinon.spy();
+    const handleCloseSpy = spy();
     const wrapper = shallow(
       <WithOverlayComponent isShown={ true } handleClose={ handleCloseSpy } attr='attr' />
     );
@@ -28,7 +28,7 @@ describe('withOverlay component', function () {
   });
 
   it('should not render overlay isShown is false', function () {
-    const handleCloseSpy = sinon.spy();
+    const handleCloseSpy = spy();
     const wrapper = shallow(
       <WithOverlayComponent isShown={ false } handleClose={ handleCloseSpy } attr='attr' />
     );
@@ -44,8 +44,8 @@ describe('withOverlay component', function () {
   });
 
   it('should add and remove body-not-scrollable to body when isShown changes', function () {
-    const addClassListSpy = sinon.spy(document.body.classList, 'add');
-    const removeClassListSpy = sinon.spy(document.body.classList, 'remove');
+    const addClassListSpy = spy(document.body.classList, 'add');
+    const removeClassListSpy = spy(document.body.classList, 'remove');
     const wrapper = shallow(<WithOverlayComponent isShown={ false } />);
 
     wrapper.setProps({ isShown: true });
@@ -62,8 +62,8 @@ describe('withOverlay component', function () {
   });
 
   it('should not modify classList of body if isShown is not changed', function () {
-    const addClassListSpy = sinon.spy(document.body.classList, 'add');
-    const removeClassListSpy = sinon.spy(document.body.classList, 'remove');
+    const addClassListSpy = spy(document.body.classList, 'add');
+    const removeClassListSpy = spy(document.body.classList, 'remove');
     let wrapper = shallow(<WithOverlayComponent isShown={ false } />);
 
     wrapper.setProps({ isShown: false });

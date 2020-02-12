@@ -1,5 +1,5 @@
 import React from 'react';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 
 import { mountWithRouter } from 'utils/test';
 import OfficerCard from 'components/common/officer-card';
@@ -107,7 +107,7 @@ describe('Recent Activity components', function () {
   });
 
   it('should send ga event when navigate on carousel', function () {
-    sinon.stub(tracking, 'trackSwipeLandingPageCarousel');
+    stub(tracking, 'trackSwipeLandingPageCarousel');
     const wrapper = mountWithRouter(
       <RecentActivity cards={ [
         OfficerCardFactory.build({ kind: 'single_officer' }),

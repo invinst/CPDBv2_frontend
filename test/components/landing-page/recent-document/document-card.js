@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 import { lorem, random } from 'faker';
 
 import { mountWithRouter } from 'utils/test';
@@ -20,9 +20,9 @@ describe('DocumentCard components', function () {
     pathname: '2003-09-23',
     incidentDate: lorem.word(),
     category: 'Money / Property',
-    onTrackingAttachment: sinon.stub(),
+    onTrackingAttachment: stub(),
     id: lorem.word(),
-    addOrRemoveItemInPinboard: sinon.stub(),
+    addOrRemoveItemInPinboard: stub(),
     isPinned: random.boolean(),
   };
 
@@ -57,7 +57,7 @@ describe('DocumentCard components', function () {
   });
 
   it('should track attachment click and invoke onTrackingAttachment', function () {
-    sinon.stub(tracking, 'trackAttachmentClick');
+    stub(tracking, 'trackAttachmentClick');
     const wrapper = mountWithRouter(
       <DocumentCard { ...props } />
     );

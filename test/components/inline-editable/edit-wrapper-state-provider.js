@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { shallow, mount } from 'enzyme';
-import sinon from 'sinon';
+import { spy, stub } from 'sinon';
 
 import * as draftUtils from 'utils/draft';
 import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
@@ -29,11 +29,11 @@ describe('EditWrapperStateProvider component', function () {
   });
 
   it('should pass down data context in context', function () {
-    sinon.stub(draftUtils, 'convertContentStateToEditorState').returns('my value');
+    stub(draftUtils, 'convertContentStateToEditorState').returns('my value');
     const navbarTitleField = RichTextFieldFactory.build({ name: 'navbar_title' });
     const stringField = StringFieldFactory.build({ name: 'string_field' });
-    const turnOnSectionEditModeSpy = sinon.spy();
-    const turnOffSectionEditModeSpy = sinon.spy();
+    const turnOnSectionEditModeSpy = spy();
+    const turnOffSectionEditModeSpy = spy();
 
     const wrapper = mount(
       <EditWrapperStateProvider
@@ -75,11 +75,11 @@ describe('EditWrapperStateProvider component', function () {
   });
 
   it('should pass down data context in context when autoSave', function () {
-    sinon.stub(draftUtils, 'convertContentStateToEditorState').returns('my value');
+    stub(draftUtils, 'convertContentStateToEditorState').returns('my value');
     const navbarTitleField = RichTextFieldFactory.build({ name: 'navbar_title' });
     const stringField = StringFieldFactory.build({ name: 'string_field' });
-    const turnOnSectionEditModeSpy = sinon.spy();
-    const turnOffSectionEditModeSpy = sinon.spy();
+    const turnOnSectionEditModeSpy = spy();
+    const turnOffSectionEditModeSpy = spy();
     const wrapper = mount(
       <EditModeContext.Provider value={ { editModeOn: true } }>
         <EditWrapperStateProvider
@@ -123,9 +123,9 @@ describe('EditWrapperStateProvider component', function () {
   });
 
   it('should save data from state when call onSaveForm', function () {
-    sinon.stub(draftUtils, 'convertEditorStateToRaw').returns('raw content');
-    const turnOffSectionEditModeSpy = sinon.spy();
-    const onSaveFormStub = sinon.stub().returns(new Promise(resolve => resolve()));
+    stub(draftUtils, 'convertEditorStateToRaw').returns('raw content');
+    const turnOffSectionEditModeSpy = spy();
+    const onSaveFormStub = stub().returns(new Promise(resolve => resolve()));
     const stringField = StringFieldFactory.build({ name: 'string_field' });
     class ChildrenComponent extends Component { // eslint-disable-line
       render() {
@@ -199,7 +199,7 @@ describe('EditWrapperStateProvider component', function () {
   });
 
   it('should deserialize fields it just receive', function () {
-    const spyDeserializeField = sinon.spy(EditWrapperStateProvider, 'deserializeField');
+    const spyDeserializeField = spy(EditWrapperStateProvider, 'deserializeField');
     const wrapper = shallow(
       <EditWrapperStateProvider
         fields={ {
@@ -242,7 +242,7 @@ describe('EditWrapperStateProvider component', function () {
   });
 
   it('should update fields on sectionEditModeOn change', function () {
-    const spyDeserializeField = sinon.spy(EditWrapperStateProvider, 'deserializeField');
+    const spyDeserializeField = spy(EditWrapperStateProvider, 'deserializeField');
     const wrapper = shallow(
       <EditWrapperStateProvider
         fields={ {
@@ -295,7 +295,7 @@ describe('EditWrapperStateProvider component', function () {
   });
 
   it('should call handleSaveForm when input changed and autoSave is true', function () {
-    const onSaveFormStub = sinon.stub().returns(new Promise(resolve => resolve()));
+    const onSaveFormStub = stub().returns(new Promise(resolve => resolve()));
 
     const wrapper = mount(
       <EditWrapperStateProvider autoSave={ true } onSaveForm={ onSaveFormStub }>
@@ -308,7 +308,7 @@ describe('EditWrapperStateProvider component', function () {
       },
     });
 
-    const handleSaveFormStub = sinon.stub(wrapper.instance(), 'handleSaveForm');
+    const handleSaveFormStub = stub(wrapper.instance(), 'handleSaveForm');
 
     wrapper.find(ChildrenComponent).instance().context.fieldContexts['navbar_title'].onChange('changed value');
     handleSaveFormStub.should.be.called();

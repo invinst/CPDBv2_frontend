@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 
 import { mountWithRouter } from 'utils/test';
 import { communityFactory } from 'utils/test/factories/heat-map';
@@ -11,7 +11,7 @@ import CommunityDropdown from 'components/embeddable-heat-map/summary-panel/comm
 
 describe('CommunityDropdown component', function () {
   it('should render CommunityDetail if communityId is not 0', function () {
-    const selectCommunity = sinon.spy();
+    const selectCommunity = spy();
     const community = communityFactory.build({ id: 1 });
     const wrapper = mountWithRouter(
       <CommunityDropdown

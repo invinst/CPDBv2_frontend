@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 
 import RelevantInfiniteCarousel from 'components/pinboard-page/relevant/common/relevant-infinite-carousel';
 import RelevantComplaints from 'components/pinboard-page/relevant/relevant-complaints';
@@ -71,8 +71,8 @@ describe('RelevantComplaints component', function () {
       },
       officers: [],
     }];
-    const addItemInPinboardPageStub = sinon.stub();
-    const fetchPinboardRelevantComplaintsStub = sinon.stub();
+    const addItemInPinboardPageStub = stub();
+    const fetchPinboardRelevantComplaintsStub = stub();
 
     const wrapper = mount(
       <RelevantComplaints

@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
 import BreadcrumbContainer from 'containers/breadcrumb';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 import * as domUtils from 'utils/dom';
 import { MemoryRouter } from 'react-router';
 
@@ -24,8 +24,8 @@ describe('ShareableHeader component', function () {
   let wrapper, shareableHeader;
 
   beforeEach (function () {
-    this.stubOnOpen = sinon.stub();
-    this.stubOnClose = sinon.stub();
+    this.stubOnOpen = stub();
+    this.stubOnClose = stub();
     wrapper = shallow(
       <ShareableHeader
         buttonType={ SHAREABLE_HEADER_BUTTON_TYPE.MENU }
@@ -52,7 +52,7 @@ describe('ShareableHeader component', function () {
 
   describe('handleScroll', function () {
     beforeEach(function () {
-      sinon.stub(domUtils, 'calculatePosition');
+      stub(domUtils, 'calculatePosition');
     });
 
     it('should remain in top position', function () {
@@ -111,8 +111,8 @@ describe('ShareableHeader global click listener', function () {
   let wrapper, shareableHeader;
 
   beforeEach(function () {
-    sinon.stub(document.body, 'addEventListener');
-    sinon.stub(document.body, 'removeEventListener');
+    stub(document.body, 'addEventListener');
+    stub(document.body, 'removeEventListener');
     wrapper = mount(
       <Provider store={ store }>
         <MemoryRouter>
@@ -138,8 +138,8 @@ describe('ShareableHeader global scroll listener', function () {
   let wrapper;
 
   beforeEach(function () {
-    sinon.stub(window, 'addEventListener');
-    sinon.stub(window, 'removeEventListener');
+    stub(window, 'addEventListener');
+    stub(window, 'removeEventListener');
     wrapper = shallow(<ShareableHeader />);
   });
 

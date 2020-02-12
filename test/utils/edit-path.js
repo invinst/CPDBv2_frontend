@@ -1,4 +1,4 @@
-import sinon from 'sinon';
+import { stub } from 'sinon';
 import browserHistory from 'utils/history';
 
 import * as utilsDom from 'utils/dom';
@@ -31,17 +31,17 @@ describe('EditPath utils', function () {
 
   describe('pushPathPreserveEditMode', function () {
     beforeEach(function () {
-      sinon.stub(browserHistory, 'push');
+      stub(browserHistory, 'push');
     });
 
     it('should preserve edit mode when push a new path', function () {
-      sinon.stub(utilsDom, 'getCurrentPathname').callsFake(() => '/edit/officer/13/');
+      stub(utilsDom, 'getCurrentPathname').callsFake(() => '/edit/officer/13/');
       pushPathPreserveEditMode('/');
       browserHistory.push.args[0][0].should.eql('/edit/');
     });
 
     it('should preserve non edit mode when push a new path', function () {
-      sinon.stub(utilsDom, 'getCurrentPathname').callsFake(() => '/officer/13/');
+      stub(utilsDom, 'getCurrentPathname').callsFake(() => '/officer/13/');
       pushPathPreserveEditMode('/edit/');
       browserHistory.push.args[0][0].should.eql('/');
     });

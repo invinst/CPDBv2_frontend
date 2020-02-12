@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import Mousetrap from 'mousetrap';
 import React from 'react';
-import sinon from 'sinon';
+import { spy, stub } from 'sinon';
 import { ToastContainer } from 'react-toastify';
 import { MemoryRouter } from 'react-router';
 import { createStore } from 'redux';
@@ -25,7 +25,7 @@ describe('App component', function () {
   }
 
   it('should toggle edit mode when hit esc', function () {
-    const toggleEditMode = sinon.spy();
+    const toggleEditMode = spy();
 
     mount(
       <Provider store={ store }>
@@ -46,8 +46,8 @@ describe('App component', function () {
   });
 
   it('should toggle search mode and change search query when press any key and not in search page', function () {
-    const toggleSearchMode = sinon.spy();
-    const changeSearchQuery = sinon.spy();
+    const toggleSearchMode = spy();
+    const changeSearchQuery = spy();
 
     mount(
       <Provider store={ store }>
@@ -71,8 +71,8 @@ describe('App component', function () {
   });
 
   it('should not toggle search mode and change search query when press any key and be in search page', function () {
-    const toggleSearchMode = sinon.spy();
-    const changeSearchQuery = sinon.spy();
+    const toggleSearchMode = spy();
+    const changeSearchQuery = spy();
     const location = { pathname: '/search/', search: '/', action: 'POP' };
 
     mount(
@@ -115,7 +115,7 @@ describe('App component', function () {
 
   context('enablePinboardFeature is false', function () {
     beforeEach(function () {
-      sinon.stub(config.enableFeatures, 'pinboard').value(false);
+      stub(config.enableFeatures, 'pinboard').value(false);
     });
 
     it('should add pinboard-disabled class name', function () {
@@ -136,7 +136,7 @@ describe('App component', function () {
 
   context('enablePinboardFeature is true', function () {
     beforeEach(function () {
-      sinon.stub(config.enableFeatures, 'pinboard').value(true);
+      stub(config.enableFeatures, 'pinboard').value(true);
     });
 
     it('should add pinboard-disabled class name', function () {

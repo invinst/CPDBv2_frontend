@@ -1,5 +1,5 @@
 import React from 'react';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 
 import { mountWithRouter } from 'utils/test';
 import RecentDocument from 'components/landing-page/recent-document';
@@ -45,7 +45,7 @@ describe('Recent Document components', function () {
   });
 
   it('should track click event', function () {
-    const stubTrackAttachmentClick = sinon.stub(tracking, 'trackAttachmentClick');
+    const stubTrackAttachmentClick = stub(tracking, 'trackAttachmentClick');
     const data = [{
       'crid': '123456',
       'title': 'CR document 1',
@@ -63,7 +63,7 @@ describe('Recent Document components', function () {
   });
 
   it('should track attachment click event', function () {
-    const stubOnTrackingAttachment = sinon.stub();
+    const stubOnTrackingAttachment = stub();
     const data = [{
       'crid': '123456',
       'title': 'CR document 1',

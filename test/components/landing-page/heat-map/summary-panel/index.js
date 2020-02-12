@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 
 import SummaryPanel from 'components/landing-page/heat-map/summary-panel';
 import CommunityDropdown from 'components/landing-page/heat-map/summary-panel/community-dropdown';
@@ -15,7 +15,7 @@ describe('SummaryPanel component', function () {
   });
 
   it('should deselect community and hide dropdown when click CitySummary', function () {
-    const selectCommunity = sinon.spy();
+    const selectCommunity = spy();
     const wrapper = shallow(
       <SummaryPanel selectCommunity={ selectCommunity }/>
     );
@@ -30,7 +30,7 @@ describe('SummaryPanel component', function () {
   });
 
   it('should select community and hide dropdown when select from dropdown', function () {
-    const selectCommunity = sinon.spy();
+    const selectCommunity = spy();
     const wrapper = shallow(
       <SummaryPanel selectCommunity={ selectCommunity }/>
     );

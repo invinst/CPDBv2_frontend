@@ -1,5 +1,5 @@
 import React from 'react';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 import { mount } from 'enzyme';
 import Truncate from 'react-truncate';
 
@@ -9,7 +9,7 @@ import styles from 'components/pinboard-page/empty-pinboard/example-pinboard-lin
 
 describe('ExamplePinboardLink component', function () {
   it('should have enough contents', function () {
-    const updatePinboardFromSourceStub = sinon.stub();
+    const updatePinboardFromSourceStub = stub();
 
     function TestComponent(props) {
       return <ExamplePinboardLink { ...props }/>;

@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { noop } from 'lodash';
 import Mousestrap from 'mousetrap';
-import sinon from 'sinon';
+import { spy, stub } from 'sinon';
 
 import { mountWithRouter } from 'utils/test';
 import JumpyMotion from 'components/animation/jumpy-motion';
@@ -82,7 +82,7 @@ describe('withPinnableItem component', function () {
         uniqueKey: '123',
         type: 'type',
       };
-      const selectItemSpy = sinon.spy();
+      const selectItemSpy = spy();
       const wrapper = mount(
         <ComponentType
           suggestion={ suggestion }
@@ -99,7 +99,7 @@ describe('withPinnableItem component', function () {
         uniqueKey: '123',
         type: 'type',
       };
-      const triggerStub = sinon.stub(Mousestrap, 'trigger');
+      const triggerStub = stub(Mousestrap, 'trigger');
       const wrapper = mount(
         <ComponentType
           suggestion={ suggestion }
@@ -113,7 +113,7 @@ describe('withPinnableItem component', function () {
     });
 
     it('should trigger clickItem there is clickItem', function () {
-      const clickItemSpy = sinon.spy();
+      const clickItemSpy = spy();
       const suggestion = {
         id: 1,
         type: 'OFFICER',

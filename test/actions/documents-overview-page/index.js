@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 import { CancelToken } from 'axios';
-import sinon from 'sinon';
+import { spy, stub } from 'sinon';
 
 import { fetchDocuments, fetchDocumentsAuthenticated } from 'actions/documents-overview-page';
 import * as constants from 'utils/constants';
@@ -10,8 +10,8 @@ describe('documents overview page actions', function () {
   let cancel;
 
   beforeEach(function () {
-    cancel = sinon.spy();
-    sinon.stub(CancelToken, 'source').returns({
+    cancel = spy();
+    stub(CancelToken, 'source').returns({
       token: 'token',
       cancel,
     });
@@ -65,7 +65,7 @@ describe('documents overview page actions', function () {
 
   describe('fetchDocumentsAuthenticated', function () {
     it('should return correct action', function () {
-      sinon.stub(Cookies, 'get').returns('authenticated_token');
+      stub(Cookies, 'get').returns('authenticated_token');
       fetchDocumentsAuthenticated().should.deepEqual({
         types: [
           constants.DOCUMENT_OVERVIEW_REQUEST_START,
@@ -89,7 +89,7 @@ describe('documents overview page actions', function () {
     });
 
     it('should accept params', function () {
-      sinon.stub(Cookies, 'get').returns('authenticated_token');
+      stub(Cookies, 'get').returns('authenticated_token');
       fetchDocumentsAuthenticated({ match: '1001' }).should.deepEqual({
         types: [
           constants.DOCUMENT_OVERVIEW_REQUEST_START,

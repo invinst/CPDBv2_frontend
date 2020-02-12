@@ -1,7 +1,7 @@
 import React from 'react';
 import should from 'should';
 import { shallow, mount } from 'enzyme';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 
 import EditToggle from 'components/inline-editable/editable-section/edit-toggle';
 import MoreLink from 'components/common/more-link';
@@ -11,7 +11,7 @@ import { EditModeContext } from 'contexts';
 
 describe('EditToggle component', function () {
   it('should render edit link when section edit mode not on', function () {
-    const turnOnSectionEditMode = sinon.spy();
+    const turnOnSectionEditMode = spy();
     const wrapper = mount(
       <EditModeContext.Provider value={ { editModeOn: true } }>
         <EditToggle sectionEditModeOn={ false } turnOnSectionEditMode={ turnOnSectionEditMode }/>
@@ -31,8 +31,8 @@ describe('EditToggle component', function () {
   });
 
   it('should render buttons when section edit mode on', function () {
-    const onSaveForm = sinon.spy();
-    const turnOffSectionEditMode = sinon.spy();
+    const onSaveForm = spy();
+    const turnOffSectionEditMode = spy();
     const wrapper = mount(
       <EditModeContext.Provider value={ { editModeOn: true } }>
         <EditToggle

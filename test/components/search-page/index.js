@@ -2,7 +2,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { Provider } from 'react-redux';
 import browserHistory from 'utils/history';
-import sinon from 'sinon';
+import { spy, stub, match, useFakeTimers } from 'sinon';
 import Mousetrap from 'mousetrap';
 import MockStore from 'redux-mock-store';
 import RootReducer from 'reducers/root-reducer';
@@ -43,12 +43,12 @@ describe('SearchPage component', function () {
   const store = MockStore()(state);
 
   beforeEach(function () {
-    this.browserHistoryPush = sinon.stub(browserHistory, 'push');
+    this.browserHistoryPush = stub(browserHistory, 'push');
   });
 
   it('should not call get suggestion api when query is empty', function () {
-    const clock = sinon.useFakeTimers();
-    const getSuggestionSpy = sinon.stub().returns({ catch: sinon.spy() });
+    const clock = useFakeTimers();
+    const getSuggestionSpy = stub().returns({ catch: spy() });
     mount(
       <Provider store={ store }>
         <MemoryRouter>
@@ -65,8 +65,8 @@ describe('SearchPage component', function () {
   });
 
   it('should call get suggestion api when query is set', function () {
-    const clock = sinon.useFakeTimers();
-    const getSuggestionSpy = sinon.stub().returns({ catch: sinon.spy() });
+    const clock = useFakeTimers();
+    const getSuggestionSpy = stub().returns({ catch: spy() });
     mount(
       <Provider store={ store }>
         <SearchPage
@@ -109,8 +109,8 @@ describe('SearchPage component', function () {
   });
 
   it('should bind and unbind esc and enter keys when mounted/unmounted but not hide', function () {
-    const bindSpy = sinon.spy(LayeredKeyBinding, 'bind');
-    const unbindSpy = sinon.spy(LayeredKeyBinding, 'unbind');
+    const bindSpy = spy(LayeredKeyBinding, 'bind');
+    const unbindSpy = spy(LayeredKeyBinding, 'unbind');
 
     const wrapper = mount(
       <Provider store={ store }>
@@ -131,8 +131,8 @@ describe('SearchPage component', function () {
   });
 
   it('should not bind and unbind esc and enter keys when mounted/unmounted but hide', function () {
-    const bindSpy = sinon.spy(LayeredKeyBinding, 'bind');
-    const unbindSpy = sinon.spy(LayeredKeyBinding, 'unbind');
+    const bindSpy = spy(LayeredKeyBinding, 'bind');
+    const unbindSpy = spy(LayeredKeyBinding, 'unbind');
 
     let wrapper = mount(
       <Provider store={ store }>
@@ -142,8 +142,8 @@ describe('SearchPage component', function () {
       </Provider>
     );
 
-    bindSpy.should.not.be.calledWith('esc', sinon.match.any);
-    bindSpy.should.not.be.calledWith('enter', sinon.match.any);
+    bindSpy.should.not.be.calledWith('esc', match.any);
+    bindSpy.should.not.be.calledWith('enter', match.any);
 
     wrapper.unmount();
 
@@ -152,8 +152,8 @@ describe('SearchPage component', function () {
   });
 
   it('should bind and unbind when update hide prop', function () {
-    const bindSpy = sinon.spy(LayeredKeyBinding, 'bind');
-    const unbindSpy = sinon.spy(LayeredKeyBinding, 'unbind');
+    const bindSpy = spy(LayeredKeyBinding, 'bind');
+    const unbindSpy = spy(LayeredKeyBinding, 'unbind');
 
     const wrapper = mount(
       <Provider store={ store }>
@@ -165,8 +165,8 @@ describe('SearchPage component', function () {
 
     const instance = wrapper.find(SearchPage).instance();
 
-    bindSpy.should.not.be.calledWith('esc', sinon.match.any);
-    bindSpy.should.not.be.calledWith('enter', sinon.match.any);
+    bindSpy.should.not.be.calledWith('esc', match.any);
+    bindSpy.should.not.be.calledWith('enter', match.any);
     unbindSpy.should.not.be.calledWith('esc');
     unbindSpy.should.not.be.calledWith('enter');
 
@@ -255,14 +255,14 @@ describe('SearchPage component', function () {
           </MemoryRouter>
         </Provider>
       );
-      const handleSelectStub = sinon.stub(wrapper.find(SearchPage).instance(), 'handleSelect');
+      const handleSelectStub = stub(wrapper.find(SearchPage).instance(), 'handleSelect');
       Mousetrap.trigger('enter');
       handleSelectStub.calledWith('OFFICER');
     });
 
     it('should call handleSearchBoxEnter when user hits ENTER, there is no result and SearchBox is unfocused',
       function () {
-        const navigateToSearchItem = sinon.stub(navigateUtils, 'navigateToSearchItem');
+        const navigateToSearchItem = stub(navigateUtils, 'navigateToSearchItem');
         mount(
           <Provider store={ store }>
             <SearchPage query='no-result'/>
@@ -278,7 +278,7 @@ describe('SearchPage component', function () {
   });
 
   it('should call api with content type when user select a tag', function () {
-    const selectTagSpy = sinon.spy();
+    const selectTagSpy = spy();
     const tags = ['a', 'b'];
 
     const wrapper = mount(
@@ -299,8 +299,8 @@ describe('SearchPage component', function () {
   });
 
   it('should not call api when select recent content', function () {
-    const getSuggestionWithContentType = sinon.spy();
-    const getSuggestion = sinon.stub().returns({ catch: sinon.spy() });
+    const getSuggestionWithContentType = spy();
+    const getSuggestion = stub().returns({ catch: spy() });
     const tags = [RECENT_CONTENT_TYPE, 'b'];
     const wrapper = mount(
       <Provider store={ store }>
@@ -324,7 +324,7 @@ describe('SearchPage component', function () {
 
   it('should call selectTag(null) when user deselect a tag', function () {
     const tags = ['a', 'b'];
-    const selectTagSpy = sinon.spy();
+    const selectTagSpy = spy();
 
     const wrapper = mount(
       <Provider store={ store }>
@@ -340,8 +340,8 @@ describe('SearchPage component', function () {
 
   it('should call resetSearchResultNavigation if SearchPage resetNavigation is called when Search Term is hidden',
     function () {
-      const resetSearchResultNavigation = sinon.stub();
-      const resetSearchTermNavigation = sinon.stub();
+      const resetSearchResultNavigation = stub();
+      const resetSearchTermNavigation = stub();
 
       const wrapper = shallow(
         <Provider store={ store }>
@@ -358,8 +358,8 @@ describe('SearchPage component', function () {
     });
 
   it('should not call getSuggestion while query does not change', function () {
-    const clock = sinon.useFakeTimers();
-    const getSuggestionSpy = sinon.stub().returns({ catch: sinon.spy() });
+    const clock = useFakeTimers();
+    const getSuggestionSpy = stub().returns({ catch: spy() });
 
     const wrapper = mount(
       <Provider store={ store }>
@@ -391,8 +391,8 @@ describe('SearchPage component', function () {
   });
 
   it('should throttle getSuggestion calls and only keep the call with the latest query', function () {
-    const clock = sinon.useFakeTimers();
-    const getSuggestionSpy = sinon.stub().returns({ catch: sinon.spy() });
+    const clock = useFakeTimers();
+    const getSuggestionSpy = stub().returns({ catch: spy() });
 
     const wrapper = mount(
       <Provider store={ store }>
@@ -431,10 +431,10 @@ describe('SearchPage component', function () {
   });
 
   it('should not call api when query changed to emtpy', function () {
-    const clock = sinon.useFakeTimers();
-    const selectTagSpy = sinon.spy();
-    const getSuggestionSpy = sinon.stub().returns({ catch: sinon.spy() });
-    const getSuggestionWithContentTypeSpy = sinon.stub().returns({ catch: sinon.spy() });
+    const clock = useFakeTimers();
+    const selectTagSpy = spy();
+    const getSuggestionSpy = stub().returns({ catch: spy() });
+    const getSuggestionWithContentTypeSpy = stub().returns({ catch: spy() });
 
     const wrapper = mount(
       <Provider store={ store }>
@@ -483,7 +483,7 @@ describe('SearchPage component', function () {
   describe('Intercom', function () {
     describe('Intercom launcher', function () {
       beforeEach(function () {
-        sinon.stub(intercomUtils, 'showIntercomLauncher');
+        stub(intercomUtils, 'showIntercomLauncher');
       });
 
       it('should hide intercom launcher if search page is hidden', function () {
@@ -564,7 +564,7 @@ describe('SearchPage component', function () {
 
     describe('Intercom tracking', function () {
       beforeEach(function () {
-        sinon.stub(IntercomTracking, 'trackSearchPage');
+        stub(IntercomTracking, 'trackSearchPage');
       });
 
       it('should track Intercom with search page', function () {
@@ -582,7 +582,7 @@ describe('SearchPage component', function () {
 
   it('should handle when click on pinboard button if pinboard is not exist', function (done) {
     const store = createStore(RootReducer, state);
-    const createNewEmptyPinboardStub = sinon.stub().usingPromise(Promise).resolves({
+    const createNewEmptyPinboardStub = stub().usingPromise(Promise).resolves({
       payload: {
         id: '5cd06f2b',
         url: '/pinboard/5cd06f2b/',

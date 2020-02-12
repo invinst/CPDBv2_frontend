@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 
@@ -33,7 +33,7 @@ describe('Embed top officers page', function () {
 
   describe('Intercom', function () {
     beforeEach(function () {
-      sinon.stub(intercomUtils, 'showIntercomLauncher');
+      stub(intercomUtils, 'showIntercomLauncher');
     });
 
     it('should hide intercom launcher when mounted', function () {

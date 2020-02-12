@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import sinon from 'sinon';
+import { spy, stub } from 'sinon';
 import { Promise } from 'es6-promise';
 import browserHistory from 'utils/history';
 
@@ -19,7 +19,7 @@ describe('ManagePinboardsButtons component', function () {
   });
 
   it('should render show pinboards list button', function () {
-    const showPinboardsListSpy = sinon.spy();
+    const showPinboardsListSpy = spy();
 
     const wrapper = mount(
       <Provider store={ store }>
@@ -51,7 +51,7 @@ describe('ManagePinboardsButtons component', function () {
   });
 
   it('should render new-pinboard-link', function (done) {
-    const createNewEmptyPinboardStub = sinon.stub().usingPromise(Promise).resolves({
+    const createNewEmptyPinboardStub = stub().usingPromise(Promise).resolves({
       payload: {
         id: '5cd06f2b',
         title: 'Pinboard title',
@@ -77,7 +77,7 @@ describe('ManagePinboardsButtons component', function () {
   });
 
   it('should render duplicate-current-pinboard-link', function (done) {
-    const duplicatePinboardStub = sinon.stub().usingPromise(Promise).resolves({
+    const duplicatePinboardStub = stub().usingPromise(Promise).resolves({
       payload: {
         id: '5cd06f2b',
         title: 'Pinboard title',

@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 
 import ScrollIntoView from 'components/common/scroll-into-view';
 
@@ -12,8 +12,8 @@ describe('ScrollIntoView component', function () {
 
   it('should scroll into view', function () {
     const focusedItemClassName = 'test--class-name';
-    const scrollIntoViewStub = sinon.stub();
-    sinon.stub(document, 'getElementsByClassName').returns([{ scrollIntoView: scrollIntoViewStub }]);
+    const scrollIntoViewStub = stub();
+    stub(document, 'getElementsByClassName').returns([{ scrollIntoView: scrollIntoViewStub }]);
 
     const wrapper = mount(
       <ScrollIntoView>

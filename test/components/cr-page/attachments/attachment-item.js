@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 
 import AttachmentItem from 'components/cr-page/attachments/attachment-item';
 import * as tracking from 'utils/tracking';
@@ -8,7 +8,7 @@ import * as tracking from 'utils/tracking';
 
 describe('AttachmentItem component', function () {
   it('should track click event', function () {
-    const stubTrackAttachmentClick = sinon.stub(tracking, 'trackAttachmentClick');
+    const stubTrackAttachmentClick = stub(tracking, 'trackAttachmentClick');
     const wrapper = shallow(
       <AttachmentItem
         url='https://www.documentcloud.org/documents/4769822-CRID-1002813-CR.html'
@@ -59,7 +59,7 @@ describe('AttachmentItem component', function () {
   });
 
   it('should track attachment click event', function () {
-    const stubOnTrackingAttachment = sinon.stub();
+    const stubOnTrackingAttachment = stub();
     const wrapper = shallow(
       <AttachmentItem
         onTrackingAttachment={ stubOnTrackingAttachment }

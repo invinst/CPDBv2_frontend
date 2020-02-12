@@ -1,4 +1,4 @@
-import sinon from 'sinon';
+import { stub } from 'sinon';
 
 import {
   fetchDocument,
@@ -80,7 +80,7 @@ describe('DocumentPage actions', function () {
     });
 
     it('should call trackDocumentEdit', function () {
-      const trackDocumentEditStub = sinon.stub(tracking, 'trackDocumentEdit');
+      const trackDocumentEditStub = stub(tracking, 'trackDocumentEdit');
 
       updateDocument('title')({
         fields: [

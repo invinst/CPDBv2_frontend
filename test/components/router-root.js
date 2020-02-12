@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router';
 import { createStore as ReduxCreateStore } from 'redux';
 import { Provider } from 'react-redux';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 
 import App from 'containers/app-container';
 import NetworkGraph from 'components/social-graph-page/network';
@@ -91,7 +91,7 @@ describe('RouterRoot component', function () {
   });
 
   it('should render EmbedOfficersContainer', function () {
-    sinon.stub(EmbedOfficers.prototype, 'componentDidMount');
+    stub(EmbedOfficers.prototype, 'componentDidMount');
     renderRouter('/embed/officers?ids=1').find(EmbedOfficersContainer).exists().should.be.true();
   });
 
@@ -100,7 +100,7 @@ describe('RouterRoot component', function () {
   });
 
   it('should render SocialGraphContainer', function () {
-    sinon.stub(NetworkGraph.prototype, 'fetchGraphData');
+    stub(NetworkGraph.prototype, 'fetchGraphData');
     renderRouter('/social-graph/').find(SocialGraphContainer).exists().should.be.true();
     renderRouter('/social-graph/pinboard/1').find(SocialGraphContainer).exists().should.be.true();
   });

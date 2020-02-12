@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import sinon from 'sinon';
+import { spy, useFakeTimers } from 'sinon';
 
 import Printable from 'components/common/higher-order/printable';
 
@@ -18,7 +18,7 @@ describe('Printable component', function () {
   const PrintableDummy = Printable(Dummy);
 
   it('should render header correctly', function () {
-    sinon.useFakeTimers(new Date(2018, 9, 27));
+    useFakeTimers(new Date(2018, 9, 27));
 
     const wrapper = shallow(<PrintableDummy printHeader='Dummy title'/>);
     const instance = wrapper.instance();
@@ -30,7 +30,7 @@ describe('Printable component', function () {
   });
 
   it('should add media listener', function () {
-    const addListenerSpy = sinon.spy();
+    const addListenerSpy = spy();
     Object.defineProperty(window, 'matchMedia', {
       value: () => {
         return {

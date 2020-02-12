@@ -1,4 +1,4 @@
-import sinon from 'sinon';
+import { stub, useFakeTimers } from 'sinon';
 
 import { OFFICER_FETCH_ZIP_FILE_URL_REQUEST_SUCCESS } from 'utils/constants';
 import retryOfficerDownloadMiddleware from 'middleware/retry-officer-downloads';
@@ -7,7 +7,7 @@ import { fetchOfficerZipFileUrl, fetchOfficerZipWithDocsFileUrl } from 'actions/
 
 describe('retryOfficerDownloadMiddleware', function () {
   const store = {
-    dispatch: sinon.stub().usingPromise(Promise).resolves('abc'),
+    dispatch: stub().usingPromise(Promise).resolves('abc'),
   };
 
   afterEach(function () {
@@ -17,7 +17,7 @@ describe('retryOfficerDownloadMiddleware', function () {
   it(
     'should retry fetchOfficerZipFileUrl on OFFICER_FETCH_ZIP_FILE_URL_REQUEST_SUCCESS',
     function () {
-      const clock = sinon.useFakeTimers();
+      const clock = useFakeTimers();
 
       const action = {
         type: OFFICER_FETCH_ZIP_FILE_URL_REQUEST_SUCCESS,
@@ -37,7 +37,7 @@ describe('retryOfficerDownloadMiddleware', function () {
   it(
     'should retry fetchOfficerZipFileUrl on OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_SUCCESS',
     function () {
-      const clock = sinon.useFakeTimers();
+      const clock = useFakeTimers();
 
       const action = {
         type: OFFICER_FETCH_ZIP_FILE_URL_REQUEST_SUCCESS,
@@ -55,7 +55,7 @@ describe('retryOfficerDownloadMiddleware', function () {
   );
 
   it('should not retry if payload is ready', function () {
-    const clock = sinon.useFakeTimers();
+    const clock = useFakeTimers();
     const action = {
       type: OFFICER_FETCH_ZIP_FILE_URL_REQUEST_SUCCESS,
       request: {
@@ -73,7 +73,7 @@ describe('retryOfficerDownloadMiddleware', function () {
   it(
     'should retry with limit',
     function () {
-      const clock = sinon.useFakeTimers();
+      const clock = useFakeTimers();
 
       const action = {
         type: OFFICER_FETCH_ZIP_FILE_URL_REQUEST_SUCCESS,

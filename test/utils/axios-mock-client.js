@@ -1,4 +1,4 @@
-import sinon from 'sinon';
+import { spy } from 'sinon';
 
 import { countRequests } from 'utils/axios-mock-client';
 
@@ -6,7 +6,7 @@ import { countRequests } from 'utils/axios-mock-client';
 describe('axios mock client', function () {
   describe('countRequests', function () {
     it('should count the request url', function () {
-      const func = sinon.spy();
+      const func = spy();
       const onReply = countRequests(func);
       const config = { url: 'http://foo.com/api/v2/bar/' };
       onReply(config);

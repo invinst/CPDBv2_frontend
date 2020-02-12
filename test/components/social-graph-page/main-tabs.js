@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 
 import { DATA_VISUALIZATION_TAB_NAMES } from 'utils/constants';
 import MainTabs from 'components/social-graph-page/main-tabs';
@@ -18,7 +18,7 @@ describe('MainTabs component', function () {
   });
 
   it('should call changeTab when clicking tab name', function () {
-    const stubChangeTab = sinon.stub();
+    const stubChangeTab = stub();
     const wrapper = mount(
       <Provider store={ store }>
         <MainTabs
@@ -37,7 +37,7 @@ describe('MainTabs component', function () {
   });
 
   it('should call updatePathName when clicking tab name with pinboardId', function () {
-    const stubUpdatePathName = sinon.stub();
+    const stubUpdatePathName = stub();
     const wrapper = mount(
       <Provider store={ store }>
         <MainTabs
@@ -58,7 +58,7 @@ describe('MainTabs component', function () {
   });
 
   it('should call updatePathName when clicking tab name with query', function () {
-    const stubUpdatePathName = sinon.stub();
+    const stubUpdatePathName = stub();
     const wrapper = mount(
       <Provider store={ store }>
         <MainTabs

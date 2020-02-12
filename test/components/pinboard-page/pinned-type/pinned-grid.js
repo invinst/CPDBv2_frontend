@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import sinon from 'sinon';
+import { spy, stub, useFakeTimers } from 'sinon';
 
 import PinnedGrid from 'components/pinboard-page/pinned-type/pinned-grid';
 import CRCard from 'components/pinboard-page/cards/cr-card';
@@ -29,7 +29,7 @@ describe('PinnedGrid component', function () {
       point: { 'lon': 1.0, 'lat': 1.0 },
       isPinStatusChanging: false,
     }];
-    const focusItem = sinon.spy();
+    const focusItem = spy();
 
     const wrapper = mount(
       <PinnedGrid type='CR' items={ items } focusItem={ focusItem }/>
@@ -75,7 +75,7 @@ describe('PinnedGrid component', function () {
       rank: 'Police Officer',
       percentile: {},
     }];
-    const focusItem = sinon.spy();
+    const focusItem = spy();
 
     const wrapper = mount(
       <PinnedGrid type='OFFICER' items={ items } focusItem={ focusItem }/>
@@ -109,7 +109,7 @@ describe('PinnedGrid component', function () {
       point: { 'lon': 1.0, 'lat': 1.0 },
       isPinStatusChanging: false,
     }];
-    const focusItem = sinon.spy();
+    const focusItem = spy();
 
     const wrapper = mount(
       <PinnedGrid
@@ -130,8 +130,8 @@ describe('PinnedGrid component', function () {
   });
 
   it('should maintain the scroll position since second rerender', function () {
-    sinon.stub(navigation, 'getPageYBottomOffset').returns(700);
-    sinon.stub(navigation, 'scrollByBottomOffset');
+    stub(navigation, 'getPageYBottomOffset').returns(700);
+    stub(navigation, 'scrollByBottomOffset');
 
     const wrapper = mount(
       <PinnedGrid type='TRR' items={ [{ 'id': '1' }] } />
@@ -150,7 +150,7 @@ describe('PinnedGrid component', function () {
 
     navigation.scrollByBottomOffset.resetHistory();
     navigation.getPageYBottomOffset.restore();
-    sinon.stub(navigation, 'getPageYBottomOffset').returns(400);
+    stub(navigation, 'getPageYBottomOffset').returns(400);
 
     wrapper.setProps({ type: 'TRR', items: [{ 'id': '2' }] });
 
@@ -159,8 +159,8 @@ describe('PinnedGrid component', function () {
   });
 
   it('should init Muuri grid', function () {
-    const onMuuriStub = sinon.stub();
-    const MuuriStub = sinon.stub(vendors, 'Muuri').callsFake(() => ({ 'on': onMuuriStub }));
+    const onMuuriStub = stub();
+    const MuuriStub = stub(vendors, 'Muuri').callsFake(() => ({ 'on': onMuuriStub }));
 
     const items = [{ 'id': '1' }, { 'id': '2' }];
     const wrapper = mount(
@@ -176,9 +176,9 @@ describe('PinnedGrid component', function () {
   });
 
   it('should update grid when did update', function () {
-    const onMuuriStub = sinon.stub();
-    const addMuuriStub = sinon.stub();
-    sinon.stub(vendors, 'Muuri').callsFake(() => ({
+    const onMuuriStub = stub();
+    const addMuuriStub = stub();
+    stub(vendors, 'Muuri').callsFake(() => ({
       'on': onMuuriStub,
       'add': addMuuriStub,
     }));
@@ -199,8 +199,8 @@ describe('PinnedGrid component', function () {
   });
 
   it('should remove item when removeItemInPinboardPage is called', function () {
-    const clock = sinon.useFakeTimers();
-    const removeItemInPinboardPage = sinon.stub();
+    const clock = useFakeTimers();
+    const removeItemInPinboardPage = stub();
 
     const items = [{ 'id': '1' }, { 'id': '2' }];
     const wrapper = mount(
@@ -222,7 +222,7 @@ describe('PinnedGrid component', function () {
     const muuri = new vendors.Muuri();
     muuri.remove.resetHistory();
 
-    const completeRemoveItemFromPinboard = sinon.stub();
+    const completeRemoveItemFromPinboard = stub();
 
     const items = [{ 'id': '1' }, { 'id': '2' }];
     const wrapper = mount(
@@ -246,8 +246,8 @@ describe('PinnedGrid component', function () {
     const muuri = new vendors.Muuri();
     muuri.on.resetHistory();
 
-    const removeItemInPinboardPage = sinon.stub();
-    const orderPinboard = sinon.stub();
+    const removeItemInPinboardPage = stub();
+    const orderPinboard = stub();
 
     const items = [{ 'id': 1 }, { 'id': 2 }];
     const wrapper = mount(
@@ -275,8 +275,8 @@ describe('PinnedGrid component', function () {
     const muuri = new vendors.Muuri();
     muuri.on.resetHistory();
 
-    const removeItemInPinboardPage = sinon.stub();
-    const orderPinboard = sinon.stub();
+    const removeItemInPinboardPage = stub();
+    const orderPinboard = stub();
 
     const items = [{ 'id': 1 }, { 'id': 2 }];
     const wrapper = mount(
@@ -302,8 +302,8 @@ describe('PinnedGrid component', function () {
   it('should invoke orderPinboard with type CR when dragEnd', function () {
     const muuri = new vendors.Muuri();
 
-    const removeItemInPinboardPage = sinon.stub();
-    const orderPinboard = sinon.stub();
+    const removeItemInPinboardPage = stub();
+    const orderPinboard = stub();
 
     const items = [{ 'id': '1' }, { 'id': '2' }];
     const wrapper = mount(
@@ -330,8 +330,8 @@ describe('PinnedGrid component', function () {
   it('should invoke orderPinboard with type TRR when dragEnd', function () {
     const muuri = new vendors.Muuri();
 
-    const removeItemInPinboardPage = sinon.stub();
-    const orderPinboard = sinon.stub();
+    const removeItemInPinboardPage = stub();
+    const orderPinboard = stub();
 
     const items = [{ 'id': 1 }, { 'id': 2 }];
     const wrapper = mount(

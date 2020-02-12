@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import sinon from 'sinon';
+import { spy, stub } from 'sinon';
 
 import { mountWithRouter } from 'utils/test';
 import PinboardLink, { CONFIRM_MESSAGE } from 'components/pinboard-page/pinboard-link';
@@ -42,9 +42,9 @@ describe('PinboardLink component', function () {
 
   describe('handleClick', function () {
     it('should show confirmation and call onClick if hasPendingChanges is true and user confirm yes', function () {
-      const windowConfirmStub = sinon.stub(window, 'confirm');
+      const windowConfirmStub = stub(window, 'confirm');
       windowConfirmStub.withArgs(CONFIRM_MESSAGE).returns(true);
-      const onClickSpy = sinon.spy();
+      const onClickSpy = spy();
 
       const wrapper = mountWithRouter(
         <PinboardLink
@@ -59,9 +59,9 @@ describe('PinboardLink component', function () {
     });
 
     it('should show confirmation and not call onClick if hasPendingChanges is true and user confirm no', function () {
-      const windowConfirmStub = sinon.stub(window, 'confirm');
+      const windowConfirmStub = stub(window, 'confirm');
       windowConfirmStub.withArgs(CONFIRM_MESSAGE).returns(false);
-      const onClickSpy = sinon.spy();
+      const onClickSpy = spy();
 
       const wrapper = mountWithRouter(
         <PinboardLink

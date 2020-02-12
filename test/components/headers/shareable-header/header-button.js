@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 
 import HeaderButton from 'components/headers/shareable-header/header-button';
 import ShareMenu from 'components/headers/shareable-header/share-menu';
@@ -9,8 +9,8 @@ import ShareMenu from 'components/headers/shareable-header/share-menu';
 describe('HeaderButton component', function () {
   let wrapper;
   beforeEach(function () {
-    this.stubOnOpen = sinon.stub();
-    this.stubOnClose = sinon.stub();
+    this.stubOnOpen = stub();
+    this.stubOnClose = stub();
     wrapper = shallow(
       <HeaderButton
         scrollPosition='top'

@@ -1,14 +1,14 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import sinon from 'sinon';
+import { spy, stub } from 'sinon';
 
 import AutosaveTextareaInput from 'components/common/autosave-inputs/autosave-textarea-input';
 
 
 describe('AutosaveTextareaInput component', function () {
   it('should add resize event listener and adjustTextareaHeight when componentDidMount', function () {
-    const addEventListenerStub = sinon.stub(window, 'addEventListener');
-    const adjustTextareaHeightSpy = sinon.spy(AutosaveTextareaInput.prototype, 'adjustTextareaHeight');
+    const addEventListenerStub = stub(window, 'addEventListener');
+    const adjustTextareaHeightSpy = spy(AutosaveTextareaInput.prototype, 'adjustTextareaHeight');
     const wrapper = mount(
       <AutosaveTextareaInput
         textareaLineHeight={ 16 }
@@ -22,7 +22,7 @@ describe('AutosaveTextareaInput component', function () {
   });
 
   it('should trigger onBlur on blur', function () {
-    const saveStub = sinon.stub();
+    const saveStub = stub();
     const wrapper = shallow(
       <AutosaveTextareaInput
         textareaLineHeight={ 16 }
@@ -62,7 +62,7 @@ describe('AutosaveTextareaInput component', function () {
     );
     let instance = wrapper.instance();
 
-    sinon.stub(instance, 'textarea').value({ scrollHeight: 50 });
+    stub(instance, 'textarea').value({ scrollHeight: 50 });
     instance.handleResize();
     instance.textarea.rows.should.equal(3);
   });

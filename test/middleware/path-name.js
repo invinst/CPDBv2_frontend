@@ -1,13 +1,13 @@
-import sinon from 'sinon';
+import { stub } from 'sinon';
 
 import { UPDATE_PATH_NAME } from 'utils/constants';
 import updatePathNameMiddleware from 'middleware/path-name';
 
 describe('updatePathNameMiddleware', function () {
   beforeEach(function () {
-    this.stubReplaceState = sinon.stub(global.history, 'replaceState');
-    this.stubHistoryState = sinon.stub(global.history, 'state');
-    this.stubDocumentTitle = sinon.stub(document, 'title');
+    this.stubReplaceState = stub(global.history, 'replaceState');
+    this.stubHistoryState = stub(global.history, 'state');
+    this.stubDocumentTitle = stub(document, 'title');
   });
 
   it('should push search page path on OPEN_SEARCH_PAGE', function () {

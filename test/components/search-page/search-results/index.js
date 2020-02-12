@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import sinon from 'sinon';
+import { spy, stub } from 'sinon';
 import Mousetrap from 'mousetrap';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
@@ -50,7 +50,7 @@ describe('SearchResults component', function () {
   });
 
   it('should render SearchTags component', function () {
-    const onSelect = sinon.spy();
+    const onSelect = spy();
 
     const wrapper = shallow(
       <SearchResults
@@ -99,7 +99,7 @@ describe('SearchResults component', function () {
   });
 
   it('should trigger move when up key pressed', function () {
-    const move = sinon.spy();
+    const move = spy();
     const totalItemCount = 3;
     const direction = 'up';
     mount(
@@ -112,7 +112,7 @@ describe('SearchResults component', function () {
   });
 
   it('should trigger move when down key pressed', function () {
-    const move = sinon.spy();
+    const move = spy();
     const totalItemCount = 3;
     const direction = 'down';
     mount(
@@ -125,7 +125,7 @@ describe('SearchResults component', function () {
   });
 
   it('should resetNavigation to 0 when unmounted', function () {
-    const resetNavigation = sinon.spy();
+    const resetNavigation = spy();
     const wrapper = mount(
       <Provider store={ store }>
         <SearchResults resetNavigation={ resetNavigation }/>
@@ -150,7 +150,7 @@ describe('SearchResults component', function () {
       canLoadMore: true,
       header: 'OFFICER',
     }];
-    const getSuggestionWithContentType = sinon.stub().returns({ catch: sinon.stub() });
+    const getSuggestionWithContentType = stub().returns({ catch: stub() });
 
     const wrapper = shallow(
       <SearchResults
@@ -167,7 +167,7 @@ describe('SearchResults component', function () {
 
   describe('tracking focused item', function () {
     beforeEach(function () {
-      sinon.stub(tracking, 'trackSearchFocusedItem');
+      stub(tracking, 'trackSearchFocusedItem');
     });
 
     function testTrackingFocusedItem(type, itemId) {

@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 import { HelmetProvider } from 'react-helmet-async';
 import { MemoryRouter } from 'react-router';
 
@@ -38,7 +38,7 @@ describe('OfficerPage component', function () {
   });
 
   beforeEach(function () {
-    this.stubTrackOfficerDownloadMenu = sinon.stub(tracking, 'trackOfficerDownloadMenu');
+    this.stubTrackOfficerDownloadMenu = stub(tracking, 'trackOfficerDownloadMenu');
   });
 
   it('should render enough sections', function () {

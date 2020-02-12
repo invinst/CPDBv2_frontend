@@ -2,7 +2,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
-import sinon from 'sinon';
+import { stub } from 'sinon';
 import { MemoryRouter, Router, Route } from 'react-router';
 import { createMemoryHistory } from 'history';
 import browserHistory from 'utils/history';
@@ -110,7 +110,7 @@ describe('PinboardPage component', function () {
   });
 
   it('should replace url when shouldRedirect is True after updating', function () {
-    const replaceStub = sinon.stub(browserHistory, 'replace');
+    const replaceStub = stub(browserHistory, 'replace');
 
     const pinboard = {
       'id': '5cd06f2b',
@@ -161,7 +161,7 @@ describe('PinboardPage component', function () {
   });
 
   it('should called updatePathName when componentDidUpdate if title is updated', function () {
-    const updatePathNameStub = sinon.stub();
+    const updatePathNameStub = stub();
     const pinboard = {
       'id': '5cd06f2b',
       'title': 'Pinboard title',
@@ -429,7 +429,7 @@ describe('PinboardPage component', function () {
     });
 
     const instance = wrapper.find(PinboardPage).instance();
-    const handlePinChangedOnPreviewPane = sinon.stub(instance, 'handlePinChangedOnPreviewPane');
+    const handlePinChangedOnPreviewPane = stub(instance, 'handlePinChangedOnPreviewPane');
     instance.forceUpdate();
     wrapper.update();
 

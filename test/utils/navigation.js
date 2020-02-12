@@ -1,4 +1,4 @@
-import sinon from 'sinon';
+import { stub } from 'sinon';
 import { arrayOfN } from 'utils/prop-validators';
 
 import * as NavigationUtil from 'utils/navigation';
@@ -19,8 +19,8 @@ describe('Navigation utils', function () {
 
   describe('getPageYBottomOffset', function () {
     beforeEach(function () {
-      sinon.stub(window.document.body, 'offsetHeight').value(1000);
-      sinon.stub(window, 'pageYOffset').value(300);
+      stub(window.document.body, 'offsetHeight').value(1000);
+      stub(window, 'pageYOffset').value(300);
     });
 
     it('should return distance to bottom', function () {
@@ -30,8 +30,8 @@ describe('Navigation utils', function () {
 
   describe('scrollByBottomOffset', function () {
     beforeEach(function () {
-      sinon.stub(window.document.body, 'offsetHeight').value(1000);
-      this.stubScrollTo = sinon.stub(window, 'scrollTo');
+      stub(window.document.body, 'offsetHeight').value(1000);
+      this.stubScrollTo = stub(window, 'scrollTo');
     });
 
     it('should return distance to bottom', function () {

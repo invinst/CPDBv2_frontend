@@ -5,7 +5,7 @@ import muuri from 'muuri';
 import TwitterWidgetsLoader from 'twitter-widgets';
 import _mapboxgl from 'mapbox-gl';
 import * as _toastify from 'react-toastify';
-import sinon from 'sinon';
+import { spy, stub } from 'sinon';
 import { includes } from 'lodash';
 
 import config from 'config';
@@ -31,32 +31,32 @@ export function loadTwitter(cb) {
 _mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
 
 if (config.appEnv === 'live-test' || global.mocha !== undefined) {
-  const addSourceSpy = sinon.spy();
+  const addSourceSpy = spy();
   const getSource = (source) => source === 'unknown source' ? undefined : source;
-  const getSourceStub = sinon.spy(getSource);
-  const addLayerSpy = sinon.spy();
-  const getLayerStub = sinon.stub().returns(undefined);
-  const setFilterSpy = sinon.spy();
-  const addControlStub = sinon.stub();
-  const navigationControlSpy = sinon.spy();
-  const attributionControlSpy = sinon.spy();
-  const removeSpy = sinon.spy();
-  const easeToSpy = sinon.spy();
-  const getZoomStub = sinon.stub();
-  const setLngLatStub = sinon.stub().returnsThis();
-  const setHTMLStub = sinon.stub().returnsThis();
-  const setPopupStub = sinon.stub().returnsThis();
-  const addToStub = sinon.stub().returnsThis();
-  const isStyleLoadedStub = sinon.stub();
-  const resizeSpy = sinon.spy();
-  const removeLayerSpy = sinon.spy();
-  const removeSourceSpy = sinon.spy();
-  const getCanvasSpy = sinon.stub().returns({ style: { cursor: undefined } });
-  const setFeatureStateSpy = sinon.spy();
-  const setMaxBoundsSpy = sinon.spy();
-  const getBoundsSpy = sinon.spy();
+  const getSourceStub = spy(getSource);
+  const addLayerSpy = spy();
+  const getLayerStub = stub().returns(undefined);
+  const setFilterSpy = spy();
+  const addControlStub = stub();
+  const navigationControlSpy = spy();
+  const attributionControlSpy = spy();
+  const removeSpy = spy();
+  const easeToSpy = spy();
+  const getZoomStub = stub();
+  const setLngLatStub = stub().returnsThis();
+  const setHTMLStub = stub().returnsThis();
+  const setPopupStub = stub().returnsThis();
+  const addToStub = stub().returnsThis();
+  const isStyleLoadedStub = stub();
+  const resizeSpy = spy();
+  const removeLayerSpy = spy();
+  const removeSourceSpy = spy();
+  const getCanvasSpy = stub().returns({ style: { cursor: undefined } });
+  const setFeatureStateSpy = spy();
+  const setMaxBoundsSpy = spy();
+  const getBoundsSpy = spy();
   const dragPanSpy = {
-    enable: sinon.spy(),
+    enable: spy(),
   };
 
   class MockMap {
@@ -141,10 +141,10 @@ if (config.appEnv === 'live-test' || global.mocha !== undefined) {
 }
 
 if (global.mocha !== undefined) {
-  const muuriAdd = sinon.spy();
-  const muuriRemove = sinon.spy();
-  const muuriDestroy = sinon.spy();
-  const muuriOn = sinon.spy();
+  const muuriAdd = spy();
+  const muuriRemove = spy();
+  const muuriDestroy = spy();
+  const muuriOn = spy();
   class MuuriClass {
     constructor() {
       this.add = muuriAdd;
@@ -156,10 +156,10 @@ if (global.mocha !== undefined) {
 
   _Muuri = MuuriClass;
 
-  const toastSpy = sinon.spy();
-  const cssTransitionStub = sinon.stub();
+  const toastSpy = spy();
+  const cssTransitionStub = stub();
   cssTransitionStub.returnsArg(0);
-  toastSpy.dismiss = sinon.spy();
+  toastSpy.dismiss = spy();
   _Toastify = {
     toast: toastSpy,
     cssTransition: cssTransitionStub,

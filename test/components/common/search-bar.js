@@ -1,13 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import sinon from 'sinon';
+import { spy } from 'sinon';
 
 import SearchBar from 'components/common/search-bar';
 
 
 describe('SearchBar component', function () {
   it('should trigger onChange on input change', function () {
-    const onChange = sinon.spy();
+    const onChange = spy();
     const wrapper = shallow(
       <SearchBar value='' onChange={ onChange }/>
     );

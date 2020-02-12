@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import sinon from 'sinon';
+import { spy, stub } from 'sinon';
 import Mousetrap from 'mousetrap';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
@@ -25,7 +25,7 @@ describe('SearchTerms component', function () {
   describe('componentDidMount', function () {
     describe('fetchRecentSearchItems', function () {
       it('should be called if recentSuggestionIds is not empty and recentSuggestionsRequested is false', () => {
-        const fetchRecentSearchItemsSpy = sinon.spy();
+        const fetchRecentSearchItemsSpy = spy();
         const recentSuggestionIds = {
           officerIds: [8562],
           crids: ['123456'],
@@ -50,7 +50,7 @@ describe('SearchTerms component', function () {
       });
 
       it('should not be called if recentSuggestionIds is empty', () => {
-        const fetchRecentSearchItemsSpy = sinon.spy();
+        const fetchRecentSearchItemsSpy = spy();
         mount(
           <Provider store={ store }>
             <MemoryRouter>
@@ -66,7 +66,7 @@ describe('SearchTerms component', function () {
       });
 
       it('should not be called if recentSuggestionsRequested is true', () => {
-        const fetchRecentSearchItemsSpy = sinon.spy();
+        const fetchRecentSearchItemsSpy = spy();
         const recentSuggestionIds = {
           officerIds: [8562],
           crids: ['123456'],
@@ -89,7 +89,7 @@ describe('SearchTerms component', function () {
 
     describe('fetchedEmptyRecentSearchItems', function () {
       it('should be called if recentSuggestionsRequested is false and recentSuggestionIds is empty', function () {
-        const fetchedEmptyRecentSearchItemsSpy = sinon.spy();
+        const fetchedEmptyRecentSearchItemsSpy = spy();
         mount(
           <Provider store={ store }>
             <MemoryRouter>
@@ -136,7 +136,7 @@ describe('SearchTerms component', function () {
   });
 
   it('should trigger move when up key pressed', function () {
-    const move = sinon.spy();
+    const move = spy();
     const totalItemCount = 3;
     const direction = 'up';
     mount(
@@ -151,7 +151,7 @@ describe('SearchTerms component', function () {
   });
 
   it('should trigger move when down key pressed', function () {
-    const move = sinon.spy();
+    const move = spy();
     const totalItemCount = 3;
     const direction = 'down';
     mount(
@@ -166,7 +166,7 @@ describe('SearchTerms component', function () {
   });
 
   it('should resetNavigation to 0 when unmounted', function () {
-    const resetNavigation = sinon.spy();
+    const resetNavigation = spy();
     const wrapper = mount(
       <Provider store={ store }>
         <MemoryRouter>
@@ -210,7 +210,7 @@ describe('SearchTerms component', function () {
 
   describe('Intercom tracking', function () {
     beforeEach(function () {
-      sinon.stub(IntercomTracking, 'trackSearchTerms');
+      stub(IntercomTracking, 'trackSearchTerms');
     });
 
     it('should track Intercom with search page', function () {
