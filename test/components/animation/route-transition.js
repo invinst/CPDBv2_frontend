@@ -8,13 +8,11 @@ import { withAnimationDisabled } from 'utils/test';
 
 describe('RouteTransition component', function () {
   describe('getRouteTransitionKey', function () {
-    it('should give the same key for search page and landing page', function () {
-      RouteTransition.getRouteTransitionKey('/search/').should.equal('/');
-    });
-
-    it('should give the same key for search page and search alias page', function () {
+    it('should give the same key for landing page, search page and search alias page', function () {
+      const landingPageKey = RouteTransition.getRouteTransitionKey('/');
       const searchKey = RouteTransition.getRouteTransitionKey('/search/');
       const searchAliasKey = RouteTransition.getRouteTransitionKey('/search/alias/');
+      landingPageKey.should.equal('/');
       searchKey.should.equal('/');
       searchAliasKey.should.equal('/');
     });

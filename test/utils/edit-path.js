@@ -2,10 +2,20 @@ import sinon from 'sinon';
 import browserHistory from 'utils/history';
 
 import * as utilsDom from 'utils/dom';
-import { editMode, pushPathPreserveEditMode, editModeOn } from 'utils/edit-path';
+import { getNonEditPath, editMode, pushPathPreserveEditMode, editModeOn } from 'utils/edit-path';
 
 
 describe('EditPath utils', function () {
+  describe('getNonEditPath', function () {
+    it('should return correct non edit path', function () {
+      getNonEditPath('/').should.equal('/');
+      getNonEditPath('/edit').should.equal('/');
+      getNonEditPath('/edit/').should.equal('/');
+      getNonEditPath('/search/').should.equal('/search/');
+      getNonEditPath('/edit/search/').should.equal('/search/');
+    });
+  });
+
   describe('editMode', function () {
     it('should return correct edit path', function () {
       editMode('/').should.equal('/edit/');

@@ -5,6 +5,7 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { ANIMATION_DURATION, QUICK_ANIMATION_DURATION } from 'utils/constants';
 import { scrollToTop } from 'utils/dom';
 import styles from './route-transition.sass';
+import { getPathNameKey } from 'utils/paths';
 
 
 const ROUTE_TRANSITION_CLASS_NAMES = {
@@ -16,27 +17,14 @@ export default class RouteTransition extends Component {
   /**
    * Return the same key for some paths so that animation won't trigger
    *
-   *  - Officer paths such as /officer/123/ and /officer/123/social/ should give the same key
-   *  - Complaint paths such as /complaint/234/456/ and /complaint/234/789/ should give the same key
-   *  - Search paths such as /search/ and /search/terms/ should always give the same key
+   *  - Handle the same key for landing page '/' and search page '/search/
+   *  - Return the pathname key
    */
   static getRouteTransitionKey(pathname) {
-    pathname = pathname.replace(/^\/edit(.*)/, '$1');
-
-    const patterns = [
-      /\/officer\/\d+\//,
-      /\/pinboard\/[A-Za-z0-9]+\//,
-      /\/search\//,
-    ];
-    for (let ind in patterns) {
-      const pattern = patterns[ind];
-      if (pathname.match(pattern)) {
-        pathname = pathname.match(pattern)[0];
-      }
-    }
-    if (pathname === '/search/')
-      pathname = '/';
-    return pathname;
+    let routeTransitionKey = getPathNameKey(pathname);
+    if (routeTransitionKey === '/search/')
+      routeTransitionKey = '/';
+    return routeTransitionKey;
   }
 
   constructor(props) {

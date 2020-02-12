@@ -4,7 +4,7 @@ import breadcrumbItems from 'reducers/breadcrumb/breadcrumb-items';
 import { UPDATE_PATH_NAME } from 'utils/constants';
 
 
-describe('breadcrumbMapping', function () {
+describe('breadcrumbItems', function () {
   it('should return initial state', function () {
     breadcrumbItems(undefined, {}).should.eql([]);
   });
@@ -41,6 +41,17 @@ describe('breadcrumbMapping', function () {
           },
         },
       }).should.eql(['/officer/123/', '/search/']);
+    });
+
+    it('should remove the rest items when move back to visited item with the same key', function () {
+      breadcrumbItems(['/search/', '/officer/123/edward-may/', '/trr/1/'], {
+        type: LOCATION_CHANGE,
+        payload: {
+          location: {
+            pathname: '/officer/123/edward-may/map/',
+          },
+        },
+      }).should.eql(['/search/', '/officer/123/edward-may/map/']);
     });
 
     it('should handle edit path', function () {

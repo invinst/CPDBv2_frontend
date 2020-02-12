@@ -1,8 +1,10 @@
 import { handleActions } from 'redux-actions';
 import { LOCATION_CHANGE } from 'connected-react-router';
-import { get, slice } from 'lodash';
+import { get, slice, findIndex } from 'lodash';
 
 import { UPDATE_PATH_NAME } from 'utils/constants';
+import { getPathNameKey } from 'utils/paths';
+import { getNonEditPath } from 'utils/edit-path';
 
 
 export default handleActions({
@@ -10,14 +12,15 @@ export default handleActions({
     let pathname = get(action.payload, 'location.pathname');
 
     if (pathname) {
-      pathname = pathname.replace('/edit/', '/');
+      pathname = getNonEditPath(pathname);
       if (pathname === '/') {
         return [];
       }
 
-      const itemIndex = state.indexOf(pathname);
+      const pathNameKey = getPathNameKey(pathname);
+      const itemIndex = findIndex(state, item => item.includes(pathNameKey));
       if (itemIndex >= 0) {
-        return slice(state, 0, itemIndex + 1);
+        return [...slice(state, 0, itemIndex), pathname];
       }
       return [...state, pathname];
     }

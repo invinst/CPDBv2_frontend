@@ -91,6 +91,11 @@ const buildStore = () => ({
         cards: [],
       },
     },
+    searchPage: {
+      searchTerms: {
+        categories: [],
+      },
+    },
     faqPage: {
       faqsRequested: false,
     },
@@ -219,38 +224,25 @@ describe('fetchPageInitialData middleware', function () {
     store.dispatch.calledWith(fetchPopup('trr')).should.be.true();
   });
 
-  it('should dispatch fetch data for landing page when they do not exist', function () {
-    const action = createLocationChangeAction('/');
-    let dispatched;
-    fetchPageInitialData(store)(action => dispatched = action)(action);
-    dispatched.should.eql(action);
+  describe('should dispatch fetch data for landing page when they do not exist', function () {
+    ['/', '/edit/', '/search/', '/edit/search/'].forEach(function (pathname) {
+      it(`when moving to ${pathname}`, function () {
+        const action = createLocationChangeAction(pathname);
+        let dispatched;
+        fetchPageInitialData(store)(action => dispatched = action)(action);
+        dispatched.should.eql(action);
 
-    store.dispatch.calledWith(fetchPage(LANDING_PAGE_ID)()).should.be.true();
-    store.dispatch.calledWith(getCommunities()).should.be.true();
-    store.dispatch.calledWith(getCitySummary()).should.be.true();
-    store.dispatch.calledWith(getClusterGeoJson()).should.be.true();
-    store.dispatch.calledWith(requestOfficersByAllegation()).should.be.true();
-    store.dispatch.calledWith(requestActivityGrid()).should.be.true();
-    store.dispatch.calledWith(getRecentDocument()).should.be.true();
-    store.dispatch.calledWith(getComplaintSummaries()).should.be.true();
-    store.dispatch.calledWith(fetchVideoInfo()).should.be.true();
-  });
-
-  it('should dispatch fetch data for landing page when go to /search/', function () {
-    const action = createLocationChangeAction('/search/');
-    let dispatched;
-    fetchPageInitialData(store)(action => dispatched = action)(action);
-    dispatched.should.eql(action);
-
-    store.dispatch.calledWith(fetchPage(LANDING_PAGE_ID)()).should.be.true();
-    store.dispatch.calledWith(getCommunities()).should.be.true();
-    store.dispatch.calledWith(getCitySummary()).should.be.true();
-    store.dispatch.calledWith(getClusterGeoJson()).should.be.true();
-    store.dispatch.calledWith(requestOfficersByAllegation()).should.be.true();
-    store.dispatch.calledWith(requestActivityGrid()).should.be.true();
-    store.dispatch.calledWith(getRecentDocument()).should.be.true();
-    store.dispatch.calledWith(getComplaintSummaries()).should.be.true();
-    store.dispatch.calledWith(fetchVideoInfo()).should.be.true();
+        store.dispatch.calledWith(fetchPage(LANDING_PAGE_ID)()).should.be.true();
+        store.dispatch.calledWith(getCommunities()).should.be.true();
+        store.dispatch.calledWith(getCitySummary()).should.be.true();
+        store.dispatch.calledWith(getClusterGeoJson()).should.be.true();
+        store.dispatch.calledWith(requestOfficersByAllegation()).should.be.true();
+        store.dispatch.calledWith(requestActivityGrid()).should.be.true();
+        store.dispatch.calledWith(getRecentDocument()).should.be.true();
+        store.dispatch.calledWith(getComplaintSummaries()).should.be.true();
+        store.dispatch.calledWith(fetchVideoInfo()).should.be.true();
+      });
+    });
   });
 
   it('should dispatch fetch cr data if crid change', function () {
@@ -285,22 +277,34 @@ describe('fetchPageInitialData middleware', function () {
     }, 100);
   });
 
-  it('should dispatch requestSearchTermCategories', function () {
-    const action = createLocationChangeAction('/search/');
-    let dispatched;
+  describe('fetch search page data', function () {
+    ['/', '/edit/', '/search/', '/edit/search/'].forEach(function (pathname) {
+      it(`should dispatch requestSearchTermCategories when going to ${pathname}`, function () {
+        const action = createLocationChangeAction(pathname);
+        let dispatched;
 
-    fetchPageInitialData(store)(action => dispatched = action)(action);
-    dispatched.should.eql(action);
-    store.dispatch.calledWith(requestSearchTermCategories()).should.be.true();
-  });
+        fetchPageInitialData(store)(action => dispatched = action)(action);
+        dispatched.should.eql(action);
+        store.dispatch.calledWith(requestSearchTermCategories()).should.be.true();
+      });
+    });
 
-  it('should dispatch requestSearchTermCategories when going to /', function () {
-    const action = createLocationChangeAction('/');
-    let dispatched;
+    it('should not dispatch requestSearchTermCategories when moving between landing page and search', function () {
+      const store = buildStore();
+      let action = createLocationChangeAction('/search/');
+      let dispatched;
 
-    fetchPageInitialData(store)(action => dispatched = action)(action);
-    dispatched.should.eql(action);
-    store.dispatch.calledWith(requestSearchTermCategories()).should.be.true();
+      fetchPageInitialData(store)(action => dispatched = action)(action);
+      dispatched.should.eql(action);
+
+      store.dispatch.calledWith(requestSearchTermCategories()).should.be.true();
+      store.dispatch.resetHistory();
+
+      action = createLocationChangeAction('/');
+      fetchPageInitialData(store)(action => dispatched = action)(action);
+
+      store.dispatch.calledWith(requestSearchTermCategories()).should.be.false();
+    });
   });
 
   it('should dispatch fetchDocument when location changes', function () {

@@ -1,5 +1,5 @@
 import { Promise } from 'es6-promise';
-import { every, get, throttle } from 'lodash';
+import { every, get, throttle, isEmpty } from 'lodash';
 import { LOCATION_CHANGE } from 'connected-react-router';
 import queryString from 'query-string';
 
@@ -51,6 +51,7 @@ import { dispatchFetchPinboardPageData, dispatchFetchPinboardPinnedItems } from 
 import { isSignedIn } from 'utils/authentication';
 import { fetchToast } from 'actions/toast';
 import { hasToastsSelector } from 'selectors/toast';
+import { getNonEditPath } from 'utils/edit-path';
 
 let prevPathname = '';
 
@@ -146,7 +147,7 @@ export default store => next => action => {
       getCMSContent(OFFICER_PAGE_ID);
     }
 
-    else if (pathName.match(/^\/((edit|search)\/?)?$/)) {
+    else if (getNonEditPath(pathName).match(/^\/(search\/?)?$/)) {
       if (!hasCommunitiesSelector(state)) {
         dispatches.push(store.dispatch(getCommunities()));
       }
@@ -175,7 +176,10 @@ export default store => next => action => {
         dispatches.push(store.dispatch(fetchVideoInfo()));
       }
 
-      dispatches.push(store.dispatch(requestSearchTermCategories()));
+      const needFetchSearchData = isEmpty(prevPathname) || !getNonEditPath(prevPathname).match(/^\/(search\/?)?$/);
+      if (needFetchSearchData) {
+        dispatches.push(store.dispatch(requestSearchTermCategories()));
+      }
     }
 
     else if (pathName.match(/complaint\/\w+/)) {
