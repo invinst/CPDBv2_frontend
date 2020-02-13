@@ -11,6 +11,8 @@ import { getPathNameKey } from 'utils/paths';
 const ROUTE_TRANSITION_CLASS_NAMES = {
   enter: styles.routeTransitionEnter,
   enterActive: styles.routeTransitionEnterActive,
+  exit: styles.routeTransitionExit,
+  exitActive: styles.routeTransitionExitActive,
 };
 
 export default class RouteTransition extends Component {
@@ -43,7 +45,7 @@ export default class RouteTransition extends Component {
 
     if (currentKey !== prevKey) {
       return {
-        showOverlay: true,
+        showOverlay: pageLoading,
         prevKey: currentKey,
         prevPageLoading: pageLoading,
       };
@@ -71,7 +73,7 @@ export default class RouteTransition extends Component {
       <TransitionGroup>
         <CSSTransition
           key={ key }
-          timeout={ { enter: QUICK_ANIMATION_DURATION, exit: ANIMATION_DURATION } }
+          timeout={ { enter: ANIMATION_DURATION, exit: QUICK_ANIMATION_DURATION } }
           classNames={ ROUTE_TRANSITION_CLASS_NAMES }
           unmountOnExit={ true }
         >

@@ -279,31 +279,28 @@ describe('fetchPageInitialData middleware', function () {
 
   describe('fetch search page data', function () {
     ['/', '/edit/', '/search/', '/edit/search/'].forEach(function (pathname) {
-      it(`should dispatch requestSearchTermCategories when going to ${pathname}`, function () {
-        const action = createLocationChangeAction(pathname);
-        let dispatched;
+      context(`when going to ${pathname}`, function () {
+        it('should dispatch requestSearchTermCategories', function () {
+          const action = createLocationChangeAction(pathname);
+          let dispatched;
 
-        fetchPageInitialData(store)(action => dispatched = action)(action);
-        dispatched.should.eql(action);
-        store.dispatch.calledWith(requestSearchTermCategories()).should.be.true();
+          fetchPageInitialData(store)(action => dispatched = action)(action);
+          dispatched.should.eql(action);
+          store.dispatch.calledWith(requestSearchTermCategories()).should.be.true();
+        });
+
+        it('should not dispatch requestSearchTermCategories when has categories', function () {
+          const store = buildStore();
+          _.set(store._state, 'searchPage.searchTerms.categories', [{ name: 'Category Name' }]);
+          let action = createLocationChangeAction(pathname);
+          let dispatched;
+
+          fetchPageInitialData(store)(action => dispatched = action)(action);
+          dispatched.should.eql(action);
+
+          store.dispatch.calledWith(requestSearchTermCategories()).should.be.false();
+        });
       });
-    });
-
-    it('should not dispatch requestSearchTermCategories when moving between landing page and search', function () {
-      const store = buildStore();
-      let action = createLocationChangeAction('/search/');
-      let dispatched;
-
-      fetchPageInitialData(store)(action => dispatched = action)(action);
-      dispatched.should.eql(action);
-
-      store.dispatch.calledWith(requestSearchTermCategories()).should.be.true();
-      store.dispatch.resetHistory();
-
-      action = createLocationChangeAction('/');
-      fetchPageInitialData(store)(action => dispatched = action)(action);
-
-      store.dispatch.calledWith(requestSearchTermCategories()).should.be.false();
     });
   });
 

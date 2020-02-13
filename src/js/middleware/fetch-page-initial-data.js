@@ -1,5 +1,5 @@
 import { Promise } from 'es6-promise';
-import { every, get, throttle, isEmpty } from 'lodash';
+import { every, get, throttle } from 'lodash';
 import { LOCATION_CHANGE } from 'connected-react-router';
 import queryString from 'query-string';
 
@@ -17,6 +17,7 @@ import { hasCMSContent } from 'selectors/cms';
 import { hasCards as hasOfficerByAllegationData } from 'selectors/landing-page/officers-by-allegation';
 import { hasCards as hasRecentActivityData } from 'selectors/landing-page/activity-grid';
 import { hasCards as hasRecentDocumentData } from 'selectors/landing-page/recent-document';
+import { hasCategoriesSelector } from 'selectors/search-page/search-terms/categories';
 import { hasCards as hasComplaintSummaryData } from 'selectors/landing-page/complaint-summaries';
 import { getMatchParamater, getDocumentsOrder } from 'selectors/documents-overview-page';
 import { getCRIDParameter } from 'selectors/document-deduplicator-page';
@@ -51,7 +52,6 @@ import { dispatchFetchPinboardPageData, dispatchFetchPinboardPinnedItems } from 
 import { isSignedIn } from 'utils/authentication';
 import { fetchToast } from 'actions/toast';
 import { hasToastsSelector } from 'selectors/toast';
-import { getNonEditPath } from 'utils/edit-path';
 
 let prevPathname = '';
 
@@ -147,7 +147,7 @@ export default store => next => action => {
       getCMSContent(OFFICER_PAGE_ID);
     }
 
-    else if (getNonEditPath(pathName).match(/^\/(search\/?)?$/)) {
+    else if (pathName.match(/^\/(edit\/?)?(search\/?)?$/)) {
       if (!hasCommunitiesSelector(state)) {
         dispatches.push(store.dispatch(getCommunities()));
       }
@@ -176,8 +176,7 @@ export default store => next => action => {
         dispatches.push(store.dispatch(fetchVideoInfo()));
       }
 
-      const needFetchSearchData = isEmpty(prevPathname) || !getNonEditPath(prevPathname).match(/^\/(search\/?)?$/);
-      if (needFetchSearchData) {
+      if (!hasCategoriesSelector(state)) {
         dispatches.push(store.dispatch(requestSearchTermCategories()));
       }
     }

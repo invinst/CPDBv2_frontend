@@ -1,7 +1,9 @@
 import { createSelector } from 'reselect';
+import { get, isEmpty } from 'lodash';
 
 
-export const searchTermsSelector = state => state.searchPage.searchTerms;
-export const categoriesSelector = createSelector(
-  searchTermsSelector, searchTerms => searchTerms.categories
+export const getCategories = state => get(state, 'searchPage.searchTerms.categories', []);
+
+export const hasCategoriesSelector = createSelector(
+  getCategories, categories => !isEmpty(categories)
 );

@@ -174,6 +174,29 @@ describe('RouteTransition component', function () {
       wrapper.find(`.${styles.overlayStyle}`).exists().should.be.false();
     });
 
+    it('should not render overlay when navigate and pageLoading is False', function () {
+      const officerPage = {
+        path: '/officer/123/j-aeho/',
+        text: 'officer page',
+      };
+
+      const landingPage = {
+        path: '/',
+        text: 'landing page',
+      };
+
+      const wrapper = mount(
+        <RouteTransition pathname={ officerPage.path }><p>{ officerPage.text }</p></RouteTransition>
+      );
+
+      wrapper.setProps({
+        pathname: landingPage.path,
+        children: <p>{ landingPage.text }</p>,
+        pageLoading: false,
+      });
+      wrapper.find(`.${styles.overlayStyle}`).exists().should.be.false();
+    });
+
     it('should render overlay when navigate from /officer/123/ to /complaint/234/', function () {
       const officerPage = {
         path: '/officer/123/',

@@ -7,6 +7,13 @@
   opacity: 1
   transition: opacity $animation-duration ease-in-out
 
+\:local(.route-transition-exit)
+  opacity: 1
+
+\:local(.route-transition-exit-active)
+  opacity: 0
+  transition: opacity $quick-animation-duration ease-out
+
 \:local(.overlay-style)
   position: fixed
   top: 0
