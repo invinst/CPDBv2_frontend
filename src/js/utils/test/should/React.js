@@ -5,7 +5,7 @@ import { each, assign } from 'lodash';
 import { spy } from 'sinon';
 import { shallow, mount } from 'enzyme';
 import { HelmetProvider } from 'react-helmet-async';
-import { MemoryRouter } from 'react-router';
+import { MemoryRouter } from 'react-router-dom';
 
 import { MOBILE, TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
 

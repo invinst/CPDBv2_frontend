@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import { stub } from 'sinon';
 import MockStore from 'redux-mock-store';
-import { MemoryRouter } from 'react-router';
+import { MemoryRouter } from 'react-router-dom';
 
 import HeatMap from 'components/landing-page/heat-map';
 import SummaryPanel from 'components/landing-page/heat-map/summary-panel';

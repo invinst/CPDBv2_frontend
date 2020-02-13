@@ -3,8 +3,7 @@ import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
 import { spy, stub } from 'sinon';
-import { Link } from 'react-router-dom';
-import { MemoryRouter } from 'react-router';
+import { Link, MemoryRouter } from 'react-router-dom';
 
 import { SlimHeader } from 'components/headers/slim-header';
 import * as domUtils from 'utils/dom';

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 
 import App from 'components/app';
 import { receiveTokenFromCookie } from 'actions/authentication';

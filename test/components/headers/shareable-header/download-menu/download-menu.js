@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
-import { MemoryRouter } from 'react-router';
+import { MemoryRouter } from 'react-router-dom';
 
 import DownloadMenuItem from 'components/headers/shareable-header/download-menu/download-menu-item';
 import DownloadMenuItemContainer from 'containers/headers/shareable-header/download-menu-container';

@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { HelmetProvider } from 'react-helmet-async';
-import { MemoryRouter } from 'react-router';
+import { MemoryRouter } from 'react-router-dom';
 
 import { TRRPage } from 'components/trr-page';
 import OfficerSection from 'components/trr-page/officer-section';

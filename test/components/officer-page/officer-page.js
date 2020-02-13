@@ -4,7 +4,7 @@ import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { stub } from 'sinon';
 import { HelmetProvider } from 'react-helmet-async';
-import { MemoryRouter } from 'react-router';
+import { MemoryRouter } from 'react-router-dom';
 
 import OfficerPage from 'components/officer-page';
 import SummarySection from 'components/officer-page/summary-section';

@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import {
   signIn, resetPassword, openForgotPasswordModal,
 } from 'actions/authentication';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 
 import LoginModal from 'components/login-modal';
 import showLoginModalSelector from 'selectors/login-modal/show-login-modal';

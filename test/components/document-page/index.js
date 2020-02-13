@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { MemoryRouter } from 'react-router';
+import { MemoryRouter } from 'react-router-dom';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { omit, findIndex, slice, cloneDeep, set } from 'lodash';

@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { stub } from 'sinon';
 import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router';
+import { MemoryRouter } from 'react-router-dom';
 
 import { DATA_VISUALIZATION_TAB_NAMES } from 'utils/constants';
 import SocialGraphPage from 'components/social-graph-page';

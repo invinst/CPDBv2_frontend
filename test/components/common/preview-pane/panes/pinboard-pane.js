@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
 import { spy, stub } from 'sinon';
-import { MemoryRouter } from 'react-router';
+import { MemoryRouter } from 'react-router-dom';
 
 import { PinboardPane } from 'components/common/preview-pane/panes';
 import StaticSocialGraphContainer from 'containers/pinboard-admin-page/static-social-graph-container';

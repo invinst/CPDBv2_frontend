@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
-import { MemoryRouter } from 'react-router';
+import { MemoryRouter } from 'react-router-dom';
 
 import SearchMainPanel from 'components/search-page/search-main-panel';
 import SearchResultsContainer from 'containers/search-page/search-results-container';

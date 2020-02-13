@@ -5,7 +5,7 @@ import Mousetrap from 'mousetrap';
 import React from 'react';
 import { spy, stub } from 'sinon';
 import { ToastContainer } from 'react-toastify';
-import { MemoryRouter } from 'react-router';
+import { MemoryRouter } from 'react-router-dom';
 import { createStore } from 'redux';
 import { createMemoryHistory } from 'history';
 

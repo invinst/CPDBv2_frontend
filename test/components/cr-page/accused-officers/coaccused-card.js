@@ -1,8 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import should from 'should';
-import { Link } from 'react-router-dom';
-import { MemoryRouter } from 'react-router';
+import { Link, MemoryRouter } from 'react-router-dom';
 import { spy } from 'sinon';
 import { random } from 'faker';
 

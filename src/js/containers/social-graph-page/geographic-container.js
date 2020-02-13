@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import queryString from 'query-string';
 
 import GeographicMap from 'components/social-graph-page/geographic';

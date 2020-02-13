@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router';
+import { MemoryRouter } from 'react-router-dom';
 
 import PinboardDataVisualization from 'components/pinboard-page/pinboard-data-visualization';
 import AnimatedSocialGraph from 'components/common/animated-social-graph';

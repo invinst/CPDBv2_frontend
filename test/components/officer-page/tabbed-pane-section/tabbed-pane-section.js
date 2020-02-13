@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { stub } from 'sinon';
-import { MemoryRouter } from 'react-router';
+import { MemoryRouter } from 'react-router-dom';
 
 import { OFFICER_PAGE_TAB_NAMES } from 'utils/constants';
 import TabbedPaneSection from 'components/officer-page/tabbed-pane-section';

@@ -3,7 +3,7 @@ import { mount, shallow } from 'enzyme';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
 import { stub } from 'sinon';
-import { MemoryRouter, Router, Route } from 'react-router';
+import { MemoryRouter, Router, Route } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import browserHistory from 'utils/history';
 import { createStore as ReduxCreateStore } from 'redux';

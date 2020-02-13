@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 
 import { pinboardsSelector, getShowPinboardsList } from 'selectors/pinboard-page/pinboards';
 import PinboardsWithOverlay from 'components/pinboard-page/pinboards';

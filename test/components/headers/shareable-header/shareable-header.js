@@ -5,7 +5,7 @@ import MockStore from 'redux-mock-store';
 import BreadcrumbContainer from 'containers/breadcrumb';
 import { stub } from 'sinon';
 import * as domUtils from 'utils/dom';
-import { MemoryRouter } from 'react-router';
+import { MemoryRouter } from 'react-router-dom';
 
 import ShareableHeader from 'components/headers/shareable-header';
 import HeaderButton from 'components/headers/shareable-header/header-button';

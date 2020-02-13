@@ -5,7 +5,7 @@ import MockStore from 'redux-mock-store';
 import { random } from 'faker';
 import { spy } from 'sinon';
 import should from 'should';
-import { MemoryRouter } from 'react-router';
+import { MemoryRouter } from 'react-router-dom';
 
 import browserHistory from 'utils/history';
 import PinboardAdminPage from 'components/pinboard-admin-page';

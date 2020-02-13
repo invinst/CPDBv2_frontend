@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { spy } from 'sinon';
-import { MemoryRouter } from 'react-router';
+import { MemoryRouter } from 'react-router-dom';
 import browserHistory from 'utils/history';
 
 import DocumentsTable from 'components/documents-overview-page/documents-table';

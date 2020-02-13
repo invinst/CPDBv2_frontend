@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 
 import Coaccusals from 'components/officer-page/tabbed-pane-section/coaccusals';
 import { coaccusalGroupsSelector } from 'selectors/officer-page/coaccusals';
