@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import should from 'should';
-import browserHistory from 'utils/history';
 import { stub } from 'sinon';
 
+import browserHistory from 'utils/history';
 import DocumentRow from 'components/documents-overview-page/document-row';
 import Counter from 'components/documents-overview-page/document-row/counter';
 import CRLink from 'components/documents-overview-page/document-row/cr-link';

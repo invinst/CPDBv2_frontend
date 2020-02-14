@@ -1,8 +1,8 @@
-import browserHistory from 'utils/history';
 import pluralize from 'pluralize';
 import { filter, get, identity, keys } from 'lodash';
 import cx from 'classnames';
 
+import browserHistory from 'utils/history';
 import { Toastify } from 'utils/vendors';
 import toastStyles from './toast.sass';
 import { generatePinboardUrl } from 'utils/pinboard';

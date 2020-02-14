@@ -1,12 +1,12 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
-import browserHistory from 'utils/history';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { Promise } from 'es6-promise';
 import { spy, stub } from 'sinon';
 
+import browserHistory from 'utils/history';
 import PinboardItem from 'components/pinboard-page/pinboards/pinboard-item';
 
 

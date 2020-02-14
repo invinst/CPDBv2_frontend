@@ -1,6 +1,6 @@
 import { spy, stub } from 'sinon';
-import browserHistory from 'utils/history';
 
+import browserHistory from 'utils/history';
 import { navigateToSearchItem } from 'utils/navigate-to-search-item';
 import * as tracking from 'utils/tracking';
 

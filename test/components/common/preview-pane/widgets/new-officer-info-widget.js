@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { stub } from 'sinon';
-import browserHistory from 'utils/history';
 
+import browserHistory from 'utils/history';
 import { NewOfficerInfoWidget as OfficerInfoWidget } from 'components/common/preview-pane/widgets';
 
 

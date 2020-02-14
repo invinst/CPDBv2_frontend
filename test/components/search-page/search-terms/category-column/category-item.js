@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { stub } from 'sinon';
+
 import browserHistory from 'utils/history';
 import * as tracking from 'utils/tracking';
 import { CALL_TO_ACTION_TYPES } from 'utils/constants';
-
 import HoverableCategoryItem, { CategoryItem } from 'components/search-page/search-terms/category-column/category-item';
 
 

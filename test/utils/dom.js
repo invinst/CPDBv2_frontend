@@ -1,6 +1,6 @@
-import browserHistory from 'utils/history';
 import { spy, stub } from 'sinon';
 
+import browserHistory from 'utils/history';
 import {
   innerHeight, disableBodyScroll, enableBodyScroll, getCurrentPathname,
   changePageTitle, viewportHeight, scrollToElement,

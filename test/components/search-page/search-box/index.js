@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import browserHistory from 'utils/history';
 import { spy, stub } from 'sinon';
 
+import browserHistory from 'utils/history';
 import TextInput from 'components/common/input';
 import SearchBox from 'components/search-page/search-box';
 import * as PathEditor from 'utils/edit-path';

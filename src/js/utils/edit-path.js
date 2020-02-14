@@ -1,6 +1,6 @@
-import browserHistory from 'utils/history';
 import { compact } from 'lodash';
 
+import browserHistory from 'utils/history';
 import { getCurrentPathname } from 'utils/dom';
 
 
