@@ -92,7 +92,7 @@ describe('previewPaneTransform', function () {
     focusedSuggestion.type = 'OFFICER';
 
     const expectedData = {
-      id: '29033',
+      id: 29033,
       fullName: 'Jerome Turbyville',
       age: '48-year-old',
       appointedDate: 'OCT 21, 2010',
@@ -187,7 +187,7 @@ describe('previewPaneTransform', function () {
       ...focusedSuggestion,
     }).should.deepEqual({
       data: {
-        id: '29033',
+        id: 29033,
         fullName: 'Jerome Turbyville',
         age: '48-year-old',
         appointedDate: 'DEC 13, 1999',
@@ -246,7 +246,7 @@ describe('previewPaneTransform', function () {
     });
     const info = {
       data: {
-        id: '29033',
+        id: 29033,
         fullName: 'Jerome Turbyville',
         age: '48-year-old',
         appointedDate: 'DEC 13, 1999',

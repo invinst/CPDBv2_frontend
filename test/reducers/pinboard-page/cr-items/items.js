@@ -1,4 +1,5 @@
 import should from 'should';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 import crItemsReducer from 'reducers/pinboard-page/cr-items/items';
 import * as constants from 'utils/constants';
@@ -248,7 +249,7 @@ describe('crItemsReducer', function () {
     crItemsReducer(
       [{ 'crid': '1' }],
       {
-        type: constants.LOCATION_CHANGE,
+        type: LOCATION_CHANGE,
         payload: [
           { 'crid': '2' }, { 'crid': '3' },
         ],

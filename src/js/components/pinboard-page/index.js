@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react';
-import { browserHistory } from 'react-router';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import browserHistory from 'utils/history';
 import cx from 'classnames';
 import { isEmpty, noop, get } from 'lodash';
 
@@ -22,16 +23,7 @@ import PinboardDataVisualization from 'components/pinboard-page/pinboard-data-vi
 
 
 export default class PinboardPage extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleOverlayClick = this.handleOverlayClick.bind(this);
-    this.handlePinChangedOnPreviewPane = this.handlePinChangedOnPreviewPane.bind(this);
-  }
-
   componentDidMount() {
-    const { location, params, routes, pushBreadcrumbs } = this.props;
-    pushBreadcrumbs({ location, params, routes });
     document.body.classList.add('body-fixed-viewport');
   }
 
@@ -53,11 +45,11 @@ export default class PinboardPage extends Component {
     document.body.classList.remove('body-not-scrollable');
   }
 
-  handleOverlayClick() {
+  handleOverlayClick = () => {
     this.props.focusItem({});
-  }
+  };
 
-  handlePinChangedOnPreviewPane(item) {
+  handlePinChangedOnPreviewPane = item => {
     const {
       focusItem,
       addOrRemoveItemInPinboardFromPreviewPane,
@@ -65,7 +57,7 @@ export default class PinboardPage extends Component {
 
     focusItem({});
     addOrRemoveItemInPinboardFromPreviewPane(item);
-  }
+  };
 
   renderPreviewPane() {
     const { focusedItem } = this.props;
@@ -166,7 +158,6 @@ PinboardPage.propTypes = {
   focusedItem: PropTypes.object,
   focusItem: PropTypes.func,
   routes: PropTypes.array,
-  pushBreadcrumbs: PropTypes.func,
   location: PropTypes.shape({
     pathname: PropTypes.string,
   }),
@@ -181,7 +172,6 @@ PinboardPage.defaultProps = {
   focusedItem: {},
   pinboard: {},
   focusItem: noop,
-  pushBreadcrumbs: noop,
   addOrRemoveItemInPinboardFromPreviewPane: noop,
   showPinboardsList: noop,
   createNewEmptyPinboard: noop,

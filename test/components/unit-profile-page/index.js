@@ -8,7 +8,7 @@ import SummaryPageContainer from 'containers/unit-profile-page/summary-page';
 
 describe('UnitProfilePage component', function () {
   it('should render Header and SummaryPage', function () {
-    const wrapper = shallow(<UnitProfilePage />).dive();
+    const wrapper = shallow(<UnitProfilePage />);
 
     wrapper.find(Header).exists().should.be.true();
     wrapper.find(SummaryPageContainer).exists().should.be.true();

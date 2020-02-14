@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { stub, spy } from 'sinon';
+import { spy, stub } from 'sinon';
+import should from 'should';
 
 import LoginModalButton from 'components/login-modal/login-modal-button';
 import ForgotPasswordModal from 'components/login-modal/forgot-password-modal';
@@ -9,7 +10,7 @@ import ForgotPasswordModal from 'components/login-modal/forgot-password-modal';
 describe('ForgotPasswordModal component', function () {
   it('should not show when show is false', function () {
     const wrapper = mount(<ForgotPasswordModal show={ false }/>);
-    wrapper.children().exists().should.be.false();
+    should(wrapper.html()).be.empty();
   });
 
   it('should be disabled on receiving show false', function () {
@@ -27,7 +28,6 @@ describe('ForgotPasswordModal component', function () {
     wrapper.find('.email-input-wrapper').simulate('click');
 
     instance.emailInput.focus.calledOnce.should.be.true();
-    instance.emailInput.focus.restore();
   });
 
   it('sign up button should be disabled unless email input have value', function () {
@@ -64,7 +64,7 @@ describe('ForgotPasswordModal component', function () {
   it('should show forgot password error message', function () {
     const wrapper = shallow(
       <ForgotPasswordModal show={ true } errorMessage='Error message'/>
-    ).dive().dive();
-    wrapper.text().should.containEql('Error message');
+    );
+    wrapper.html().should.containEql('Error message');
   });
 });

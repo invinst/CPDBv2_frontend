@@ -58,7 +58,5 @@ describe('SearchBox component', function () {
 
     pushPathPreserveEditMode.should.be.calledOnce();
     pushPathPreserveEditMode.should.be.calledWith('/search/');
-
-    pushPathPreserveEditMode.restore();
   });
 });

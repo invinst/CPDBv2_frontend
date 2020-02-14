@@ -1,6 +1,7 @@
 import 'babel-polyfill';
 
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { Editor, DefaultDraftBlockRenderMap, EditorState } from 'draft-js';
 
 import EditorBlockWithStyle from 'components/inline-editable/custom-block/editor-block-with-style';
@@ -13,9 +14,6 @@ import baseStyle from './rich-text-editor.sass';
 export default class RichTextEditor extends Component {
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleToolbarFocus = this.handleToolbarFocus.bind(this);
-    this.handleToolbarBlur = this.handleToolbarBlur.bind(this);
     this.toolbarFocused = false;
     this.state = {
       showToolbar: false,
@@ -24,31 +22,22 @@ export default class RichTextEditor extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.readOnly) {
-      this.toolbarFocused = false;
-      this.setState({
-        showToolbar: false,
-      });
-    }
-  }
-
-  handleToolbarBlur() {
+  handleToolbarBlur = () => {
     this.toolbarFocused = false;
     this.handleChange(this.props.editorState);
-  }
+  };
 
-  handleToolbarFocus() {
+  handleToolbarFocus = () => {
     this.toolbarFocused = true;
     this.handleChange(this.props.editorState);
-  }
+  };
 
   hasFocus(editorState) {
     const selectionState = editorState.getSelection();
     return (selectionState.getHasFocus() || this.toolbarFocused);
   }
 
-  handleChange(editorState) {
+  handleChange = editorState => {
     const { onChange } = this.props;
     if (!this.hasFocus(editorState)) {
       editorState = removeSelection(editorState);
@@ -69,7 +58,7 @@ export default class RichTextEditor extends Component {
     if (onChange) {
       onChange(editorState);
     }
-  }
+  };
 
   render() {
     const { placeholder, style, readOnly, editorState, className, disableToolbar, lastBlockChild } = this.props;
@@ -115,7 +104,7 @@ export default class RichTextEditor extends Component {
           editorState={ editorState }
           placeholder={ placeholder }/>
         {
-          !disableToolbar && (
+          !disableToolbar && !readOnly && (
             <Toolbar
               show={ showToolbar }
               parentLeft={ editorLeft }

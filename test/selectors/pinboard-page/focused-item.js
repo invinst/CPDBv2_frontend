@@ -61,7 +61,7 @@ describe('focusedItem selectors', function () {
 
     focusedItemSelector(state).should.be.eql({
       data: {
-        id: '29033',
+        id: 29033,
         fullName: 'Jerome Turbyville',
         age: '48-year-old',
         appointedDate: 'DEC 13, 1999',

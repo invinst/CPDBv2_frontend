@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { noop } from 'lodash';
 
 import './recent-suggestion.sass';
@@ -7,13 +8,7 @@ import { navigateToSearchItem } from 'utils/navigate-to-search-item';
 
 
 export default class RecentSuggestion extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick(suggestion) {
+  handleClick = suggestion => {
     const { saveToRecent } = this.props;
     navigateToSearchItem(suggestion, (suggestion) => {
       saveToRecent({
@@ -22,7 +17,7 @@ export default class RecentSuggestion extends Component {
         data: suggestion.recentItemData,
       });
     });
-  }
+  };
 
   render() {
     const { recentSuggestions, addOrRemoveItemInPinboard, saveToRecent } = this.props;

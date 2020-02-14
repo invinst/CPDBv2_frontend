@@ -28,7 +28,5 @@ describe('ScrollIntoView component', function () {
       block: 'center',
       inline: 'nearest',
     });
-
-    document.getElementsByClassName.restore();
   });
 });

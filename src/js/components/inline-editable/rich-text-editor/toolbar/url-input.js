@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 import Bubble from './bubble';
 import Input from 'components/common/input';
@@ -6,16 +7,11 @@ import { inputStyle } from './url-input.style';
 
 
 export default class UrlInput extends Component {
-  constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(event) {
+  handleChange = event => {
     if (event.target.value !== this.props.value) {
       this.props.onChange(event.target.value);
     }
-  }
+  };
 
   render() {
     const { style, value, onMouseOver, onMouseOut, onFocus, onBlur } = this.props;

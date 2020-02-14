@@ -1,3 +1,5 @@
+import { LOCATION_CHANGE } from 'connected-react-router';
+
 import * as constants from 'utils/constants';
 import suggestionGroups from 'reducers/search-page/suggestion-groups';
 
@@ -113,7 +115,7 @@ describe('searchPage.suggestionGroups reducer', function () {
 
   it('should handle LOCATION_CHANGE', function () {
     suggestionGroups(undefined, {
-      type: constants.LOCATION_CHANGE,
+      type: LOCATION_CHANGE,
     }).should.deepEqual({
       meta: {},
     });

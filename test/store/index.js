@@ -27,7 +27,9 @@ function setUp() {
 describe('store', function () {
   it('should have initial state', function () {
     const { getCurrentState } = setUp();
-    getCurrentState().should.eql({
+    const currentState = getCurrentState();
+    const router = currentState.router;
+    const expectedState = {
       pathname: null,
       landingPage: {
         activityGrid: {
@@ -68,8 +70,9 @@ describe('store', function () {
       },
       pageLoading: false,
       popups: [],
-      routing: {
-        locationBeforeTransitions: null,
+      router: {
+        action: router.action,
+        location: router.location,
       },
       searchPage: {
         navigation: { 'itemIndex': 0 },
@@ -200,9 +203,9 @@ describe('store', function () {
         activeModal: null,
       },
       breadcrumb: {
-        breadcrumbs: [],
+        breadcrumbItems: [],
+        breadcrumbMapping: [],
       },
-      breadcrumbsMapping: {},
       headers: {
         shareableHeader: {
           scrollPosition: null,
@@ -350,6 +353,7 @@ describe('store', function () {
       videoModal: {
         active: false,
       },
-    });
+    };
+    currentState.should.eql(expectedState);
   });
 });

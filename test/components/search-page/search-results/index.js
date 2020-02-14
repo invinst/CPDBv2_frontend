@@ -170,10 +170,6 @@ describe('SearchResults component', function () {
       stub(tracking, 'trackSearchFocusedItem');
     });
 
-    afterEach(function () {
-      tracking.trackSearchFocusedItem.restore();
-    });
-
     function testTrackingFocusedItem(type, itemId) {
       const wrapper = mount(
         <Provider store={ store }>

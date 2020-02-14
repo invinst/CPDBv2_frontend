@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
-import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 import TimeLine from 'components/officer-page/tabbed-pane-section/timeline';
 import { newTimelineItemsSelector, filterCountSelector, getSelectedFilter } from 'selectors/officer-page/new-timeline';

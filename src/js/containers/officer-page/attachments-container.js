@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
-import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 import AttachmentsTab from 'components/officer-page/tabbed-pane-section/attachments-tab';
 import { complaintsWithAttachmentsSelector } from 'selectors/officer-page/attachments';

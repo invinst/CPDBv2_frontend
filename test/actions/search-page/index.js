@@ -1,4 +1,4 @@
-import { stub, spy } from 'sinon';
+import { spy, stub } from 'sinon';
 import { CancelToken } from 'axios';
 
 import {
@@ -24,10 +24,6 @@ describe('suggestion action', function () {
       token: 'token',
       cancel,
     });
-  });
-
-  afterEach(function () {
-    CancelToken.source.restore();
   });
 
   describe('getSuggestion', function () {

@@ -451,7 +451,8 @@ describe('SocialGraph', function () {
         officers={ officers }
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
-      />
+      />,
+      { disableLifecycleMethods: true },
     );
     const instance = wrapper.instance();
     instance.graphTooltip({ fname: 'Donnell Calhoun' }).should.equal('<span>Donnell Calhoun</span>');
@@ -489,7 +490,8 @@ describe('SocialGraph', function () {
         officers={ officers }
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
-      />
+      />,
+      { disableLifecycleMethods: true },
     );
     const instance = wrapper.instance();
 
@@ -563,8 +565,6 @@ describe('SocialGraph', function () {
       listEvent: listEvent,
     });
     drawGraphStub.should.be.calledOnce();
-
-    drawGraphStub.restore();
   });
 
   it('should call drawGraph again when listEvent has changed', function () {
@@ -585,8 +585,6 @@ describe('SocialGraph', function () {
       listEvent: [],
     });
     drawGraphStub.should.be.calledOnce();
-
-    drawGraphStub.restore();
   });
 
   it('should not draw graph when officers is empty', function () {
@@ -604,7 +602,6 @@ describe('SocialGraph', function () {
   });
 
   it('should call resizeGraph when performResizeGraph is true', function () {
-    const resizeGraphSpy = spy(SocialGraph.prototype, 'resizeGraph');
     const wrapper = mount(
       <SocialGraph
         officers={ officers }
@@ -612,6 +609,9 @@ describe('SocialGraph', function () {
         listEvent={ listEvent }
       />
     );
+    const instance = wrapper.instance();
+    const resizeGraphSpy = stub(instance, 'resizeGraph');
+
     wrapper.setProps({
       officers: officers,
       coaccusedData: coaccusedData,
@@ -619,7 +619,6 @@ describe('SocialGraph', function () {
       performResizeGraph: true,
     });
     resizeGraphSpy.should.be.called();
-    resizeGraphSpy.restore();
   });
 
   it('should call updateSelectedOfficerId when clicking on a graph node', function () {
@@ -748,7 +747,8 @@ describe('SocialGraph', function () {
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
         updateSelectedEdge={ updateSelectedEdgeStub }
-      />
+      />,
+      { disableLifecycleMethods: true },
     );
     const instance = wrapper.instance();
     instance.handleEdgeClick(currentEdge);

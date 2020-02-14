@@ -1,15 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import LocationCard from './location-card.js';
 import withUndoCard from './with-undo-card';
 
 
-export default class CRCard extends Component {
-  render() {
-    return (
-      <LocationCard { ...this.props } dateKey='incidentDate' focusable={ true }/>
-    );
-  }
+export default function CRCard(props) {
+  return <LocationCard { ...props } dateKey='incidentDate' focusable={ true }/>;
 }
 
 

@@ -1,10 +1,11 @@
 import { handleActions } from 'redux-actions';
 import * as _ from 'lodash';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 import * as constants from 'utils/constants';
 
 export default handleActions({
-  '@@router/LOCATION_CHANGE': (state, action) => ({ data: {}, match: '' }),
+  [LOCATION_CHANGE]: (state, action) => ({ data: {}, match: '' }),
   [constants.DOCUMENT_OVERVIEW_REQUEST_SUCCESS]: (state, action) => {
     const matchVal = _.get(action.request.params, 'match', '');
     const newRows = {};

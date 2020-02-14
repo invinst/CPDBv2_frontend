@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { get, findLast } from 'lodash';
 
 import TriangleExplainer from './triangle-explainer';
@@ -18,9 +19,6 @@ export default class RadarExplainer extends Component {
     this.state = {
       currentPaneIndex: 0,
     };
-
-    this.navigateLeft = this.navigateLeft.bind(this);
-    this.navigateRight = this.navigateRight.bind(this);
   }
 
   renderExplainer() {
@@ -58,18 +56,18 @@ export default class RadarExplainer extends Component {
     return [NAVIGATION_TEXTS[leftNavigationIndex], NAVIGATION_TEXTS[rightNavigationIndex]];
   }
 
-  navigateLeft() {
+  navigateLeft = () => {
     const textLength = NAVIGATION_TEXTS.length;
     this.setState({
       currentPaneIndex: (this.state.currentPaneIndex - 1 + textLength) % textLength,
     });
-  }
+  };
 
-  navigateRight() {
+  navigateRight = () => {
     this.setState({
       currentPaneIndex: (this.state.currentPaneIndex + 1) % NAVIGATION_TEXTS.length,
     });
-  }
+  };
 
   render() {
     const [leftNavigationText, rightNavigationText] = this.getCurrentNavigationTexts();

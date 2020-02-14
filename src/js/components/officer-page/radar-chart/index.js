@@ -1,6 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { map, isEqual, filter } from 'lodash';
 import { scaleLinear } from 'd3-scale';
+import memoize from 'memoize-one';
 
 import Popup from 'components/common/popup';
 import StaticRadarChart from 'components/common/radar-chart';
@@ -12,6 +14,7 @@ import RichTextEditable from 'components/inline-editable/editable-section/rich-t
 import * as IntercomTracking from 'utils/intercom-tracking';
 import * as tracking from 'utils/tracking';
 import styles from './radar-chart.sass';
+import { PrintModeContext } from 'contexts';
 
 
 export default class AnimatedRadarChart extends Component {
@@ -21,14 +24,7 @@ export default class AnimatedRadarChart extends Component {
     this.velocity = 0.1;
     this.timer = null;
 
-    this.animatedData = this.getAnimatedData(props.data);
-
-    this.openExplainer = this.openExplainer.bind(this);
-    this.closeExplainer = this.closeExplainer.bind(this);
-    this.animate = this.animate.bind(this);
-    this.getCurrentTransitionData = this.getCurrentTransitionData.bind(this);
-
-    const transitionValue = context.printMode ? Math.max(this.animatedData.length - 1, 0) : 0;
+    const transitionValue = context.printMode ? Math.max(this.animatedData().length - 1, 0) : 0;
     this.state = {
       transitionValue: transitionValue,
       showExplainer: false,
@@ -37,12 +33,6 @@ export default class AnimatedRadarChart extends Component {
 
   componentDidMount() {
     this.startTimer();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (!isEqual(this.props.data, nextProps.data)) {
-      this.animatedData = this.getAnimatedData(nextProps.data);
-    }
   }
 
   componentDidUpdate(prevProps) {
@@ -60,11 +50,14 @@ export default class AnimatedRadarChart extends Component {
     this.stopTimer();
   }
 
-  getAnimatedData(data) {
-    return filter(data, item => hasEnoughRadarChartData(item.items));
+  memoizeAnimatedData = memoize((data) => filter(data, item => hasEnoughRadarChartData(item.items)));
+
+  animatedData() {
+    const { data } = this.props;
+    return this.memoizeAnimatedData(data);
   }
 
-  openExplainer() {
+  openExplainer = () => {
     const { officerId } = this.props;
 
     tracking.trackOpenExplainer(officerId);
@@ -72,25 +65,25 @@ export default class AnimatedRadarChart extends Component {
 
     this.endAnimation();
     this.setState({ showExplainer: true });
-  }
+  };
 
-  closeExplainer() {
+  closeExplainer = () => {
     this.setState({ showExplainer: false });
     this.startAnimation();
-  }
+  };
 
-  animate() {
-    const maxValue = this.animatedData.length - 1;
+  animate = () => {
+    const maxValue = this.animatedData().length - 1;
     this.setState({
       transitionValue: Math.min(this.state.transitionValue + this.velocity, maxValue),
     });
     if (this.state.transitionValue >= maxValue) {
       this.stopTimer();
     }
-  }
+  };
 
   startTimer() {
-    if (this.animatedData.length > 1 && !this.timer) {
+    if (this.animatedData().length > 1 && !this.timer) {
       this.timer = setInterval(() => this.animate(), this.interval);
     }
   }
@@ -100,31 +93,32 @@ export default class AnimatedRadarChart extends Component {
     this.timer = null;
   }
 
-  getCurrentTransitionData() {
+  getCurrentTransitionData = () => {
     const { transitionValue } = this.state;
+    const animatedData = this.animatedData();
 
-    if (this.animatedData.length < 2)
-      return this.animatedData[0];
+    if (animatedData.length < 2)
+      return animatedData[0];
 
-    const index = Math.min(Math.floor(transitionValue) + 1, this.animatedData.length - 1);
+    const index = Math.min(Math.floor(transitionValue) + 1, animatedData.length - 1);
 
-    const previousData = this.animatedData[index - 1].items;
+    const previousData = animatedData[index - 1].items;
 
     const color = scaleLinear()
       .domain([0, 1])
-      .range([this.animatedData[index - 1].visualTokenBackground, this.animatedData[index].visualTokenBackground]);
+      .range([animatedData[index - 1].visualTokenBackground, animatedData[index].visualTokenBackground]);
 
     const backgroundColor = color(transitionValue - (index - 1));
 
     return {
-      ...this.animatedData[index],
-      items: map(this.animatedData[index].items, (d, i) => ({
+      ...animatedData[index],
+      items: map(animatedData[index].items, (d, i) => ({
         ...d,
         value: (d.value - previousData[i].value) * (transitionValue - (index - 1)) + previousData[i].value,
       })),
       visualTokenBackground: backgroundColor,
     };
-  }
+  };
 
   startAnimation() {
     if (this.timer) {
@@ -139,7 +133,7 @@ export default class AnimatedRadarChart extends Component {
     if (this.timer) {
       this.stopTimer();
     }
-    const maxValue = this.animatedData.length - 1;
+    const maxValue = this.animatedData().length - 1;
     this.setState({ transitionValue: maxValue });
     this.startTimer();
   }
@@ -169,7 +163,7 @@ export default class AnimatedRadarChart extends Component {
             <StaticRadarChart
               textColor={ itemData.textColor }
               backgroundColor={ itemData.visualTokenBackground }
-              fadeOutLegend={ transitionValue >= (this.animatedData.length - 1) }
+              fadeOutLegend={ transitionValue >= (this.animatedData().length - 1) }
               legendText={ itemData.year }
               data={ itemData.items }
               showSpineLinePoint={ true }
@@ -219,6 +213,8 @@ export default class AnimatedRadarChart extends Component {
   }
 }
 
+AnimatedRadarChart.contextType = PrintModeContext;
+
 AnimatedRadarChart.propTypes = {
   officerId: PropTypes.number,
   data: PropTypes.array,
@@ -227,8 +223,4 @@ AnimatedRadarChart.propTypes = {
   scaleEditWrapperStateProps: PropTypes.object,
   noDataRadarChartEditWrapperStateProps: PropTypes.object,
   noDataPopup: PropTypes.object,
-};
-
-AnimatedRadarChart.contextTypes = {
-  printMode: PropTypes.bool,
 };

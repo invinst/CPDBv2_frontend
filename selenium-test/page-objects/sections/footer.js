@@ -5,7 +5,7 @@ class Footer extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      legalDisclaimer: '//a[text()="Legal"]',
+      legalDisclaimer: '//div[text()="Legal"]',
       invinstLogo: '.test--footer-invinst-logo',
     });
   }

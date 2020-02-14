@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import pluralize from 'pluralize';
 import { includes, isNil } from 'lodash';
 
@@ -15,14 +16,15 @@ import { generatePinboardUrl } from 'utils/pinboard';
 
 export default class PinboardPane extends Component {
   componentDidMount() {
-    this.fetchPinboardStaticSocialGraph(this.props);
+    this.performFetchPinboardStaticSocialGraph();
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.fetchPinboardStaticSocialGraph(nextProps);
+  componentDidUpdate() {
+    this.performFetchPinboardStaticSocialGraph();
   }
 
-  fetchPinboardStaticSocialGraph({ id, fetchPinboardStaticSocialGraph, cachedDataIDs }) {
+  performFetchPinboardStaticSocialGraph() {
+    const { id, fetchPinboardStaticSocialGraph, cachedDataIDs } = this.props;
     !isNil(id) && !includes(cachedDataIDs, id) && fetchPinboardStaticSocialGraph(id);
   }
 
@@ -52,7 +54,7 @@ export default class PinboardPane extends Component {
         <OneLineListWidget
           items={ [
             { title: 'Created at', text: fullCreatedAt },
-            { title: 'Children', text: childCount },
+            { title: 'Children', text: String(childCount) },
           ] }
         />
         <div className='static-social-graph'>

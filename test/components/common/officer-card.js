@@ -1,10 +1,11 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import should from 'should';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { spy } from 'sinon';
 import { random } from 'faker';
 
+import { mountWithRouter } from 'utils/test';
 import OfficerCard from 'components/common/officer-card';
 import RadarChart from 'components/common/radar-chart/radar-chart';
 import ItemPinButton from 'components/common/item-pin-button';
@@ -14,7 +15,7 @@ import { PINNED_ITEM_TYPES } from 'utils/constants';
 
 describe('OfficerCard component', function () {
   it('should render correctly', function () {
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <OfficerCard
         officerId={ 1 }
         fullName='Jerome Finnigan'

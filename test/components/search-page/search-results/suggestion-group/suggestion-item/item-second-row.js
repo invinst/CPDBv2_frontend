@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { shallow } from 'enzyme';
 import should from 'should';
 
@@ -51,10 +51,8 @@ describe('getCRSecondRowContent', function () {
       },
     };
 
-    class TestComponent extends Component {
-      render() {
-        return getCRSecondRowContent(params);
-      }
+    function TestComponent(props) {
+      return getCRSecondRowContent(params);
     }
 
     const wrapper = shallow(<TestComponent />);

@@ -1,36 +1,13 @@
-import React, { PropTypes, Component } from 'react';
-import { mapValues, map, values } from 'lodash';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { mapValues, map, values, isEqual } from 'lodash';
 
 import { convertContentStateToEditorState, convertEditorStateToRaw } from 'utils/draft';
+import { EditModeContext, EditWrapperStateContext } from 'contexts';
 
 
 export default class EditWrapperStateProvider extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      fields: mapValues(props.fields, this.deserializeField),
-    };
-  }
-
-  getChildContext() {
-    const { autoSave, turnOnSectionEditMode, turnOffSectionEditMode } = this.props;
-    return {
-      autoSave,
-      fieldContexts: this.getFieldContexts(),
-      onSaveForm: this.handleSaveForm.bind(this),
-      sectionEditModeOn: this.getSectionEditModeOn(),
-      turnOnSectionEditMode,
-      turnOffSectionEditMode,
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      fields: mapValues(nextProps.fields, this.deserializeField),
-    });
-  }
-
-  deserializeField(field) {
+  static deserializeField(field) {
     if (!field) {
       return field;
     }
@@ -43,6 +20,25 @@ export default class EditWrapperStateProvider extends Component {
         };
     }
     return field;
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      fields: mapValues(props.fields, EditWrapperStateProvider.deserializeField),
+      prevFields: props.fields,
+      prevSectionEditModeOn: props.sectionEditModeOn,
+    };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    if (!isEqual(props.fields, state.prevFields) || props.sectionEditModeOn !== state.prevSectionEditModeOn)
+      return {
+        fields: mapValues(props.fields, EditWrapperStateProvider.deserializeField),
+        prevFields: props.fields,
+        prevSectionEditModeOn: props.sectionEditModeOn,
+      };
+    return null;
   }
 
   serializeField(field) {
@@ -92,15 +88,27 @@ export default class EditWrapperStateProvider extends Component {
     }));
   }
 
-  handleSaveForm() {
+  handleSaveForm = () => {
     const data = map(values(this.state.fields), this.serializeField);
     return this.props.onSaveForm({ fields: data })
       .then(() => this.props.turnOffSectionEditMode());
-  }
+  };
 
   render() {
-    const { children } = this.props;
-    return children;
+    const { children, turnOnSectionEditMode, turnOffSectionEditMode, autoSave } = this.props;
+    const context = {
+      autoSave,
+      fieldContexts: this.getFieldContexts(),
+      onSaveForm: this.handleSaveForm,
+      sectionEditModeOn: this.getSectionEditModeOn(),
+      turnOnSectionEditMode,
+      turnOffSectionEditMode,
+    };
+    return (
+      <EditWrapperStateContext.Provider value={ context }>
+        { children }
+      </EditWrapperStateContext.Provider>
+    );
   }
 }
 
@@ -114,15 +122,4 @@ EditWrapperStateProvider.propTypes = {
   turnOffSectionEditMode: PropTypes.func,
 };
 
-EditWrapperStateProvider.contextTypes = {
-  editModeOn: PropTypes.bool,
-};
-
-EditWrapperStateProvider.childContextTypes = {
-  fieldContexts: PropTypes.object,
-  onSaveForm: PropTypes.func,
-  autoSave: PropTypes.bool,
-  sectionEditModeOn: PropTypes.bool,
-  turnOnSectionEditMode: PropTypes.func,
-  turnOffSectionEditMode: PropTypes.func,
-};
+EditWrapperStateProvider.contextType = EditModeContext;

@@ -2,8 +2,9 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import DocumentMeta from 'react-document-meta';
 import { stub } from 'sinon';
+import { HelmetProvider } from 'react-helmet-async';
+import { MemoryRouter } from 'react-router-dom';
 
 import OfficerPage from 'components/officer-page';
 import SummarySection from 'components/officer-page/summary-section';
@@ -31,7 +32,7 @@ describe('OfficerPage component', function () {
       },
     },
     breadcrumb: {
-      breadcrumbs: [],
+      breadcrumbItems: [],
     },
     popups: [],
   });
@@ -40,30 +41,31 @@ describe('OfficerPage component', function () {
     this.stubTrackOfficerDownloadMenu = stub(tracking, 'trackOfficerDownloadMenu');
   });
 
-  afterEach(function () {
-    this.stubTrackOfficerDownloadMenu.restore();
-  });
-
   it('should render enough sections', function () {
     const triangleEditWrapperStateProps = { a: 1 };
     const scaleEditWrapperStateProps = { b: 2 };
     const noDataRadarChartEditWrapperStateProps = { c: 3 };
 
-    const wrapper = shallow(
+    const wrapper = mount(
       <Provider store={ store }>
-        <OfficerPage
-          officerId={ 1 }
-          triangleEditWrapperStateProps={ triangleEditWrapperStateProps }
-          scaleEditWrapperStateProps={ scaleEditWrapperStateProps }
-          noDataRadarChartEditWrapperStateProps={ noDataRadarChartEditWrapperStateProps }
-        />
+        <MemoryRouter>
+          <HelmetProvider>
+            <OfficerPage
+              officerId={ 1 }
+              triangleEditWrapperStateProps={ triangleEditWrapperStateProps }
+              scaleEditWrapperStateProps={ scaleEditWrapperStateProps }
+              noDataRadarChartEditWrapperStateProps={ noDataRadarChartEditWrapperStateProps }
+            />
+          </HelmetProvider>
+        </MemoryRouter>
       </Provider>
-    ).dive().find('OfficerPage').dive();
+    );
 
-    wrapper.find(SummarySection).exists().should.be.true();
-    wrapper.find(MetricsSection).exists().should.be.true();
-    wrapper.find(TabbedPaneSection).exists().should.be.true();
-    const officerRadarChart = wrapper.find(OfficerRadarChart);
+    const officerPage = wrapper.find(OfficerPage);
+    officerPage.find(SummarySection).exists().should.be.true();
+    officerPage.find(MetricsSection).exists().should.be.true();
+    officerPage.find(TabbedPaneSection).exists().should.be.true();
+    const officerRadarChart = officerPage.find(OfficerRadarChart);
     officerRadarChart.prop('triangleEditWrapperStateProps').should.eql(triangleEditWrapperStateProps);
     officerRadarChart.prop('scaleEditWrapperStateProps').should.eql(scaleEditWrapperStateProps);
     officerRadarChart.prop('noDataRadarChartEditWrapperStateProps').should.eql(noDataRadarChartEditWrapperStateProps);
@@ -79,12 +81,12 @@ describe('OfficerPage component', function () {
           useOfForceCount: 10,
         } }
         numAttachments={ 3 }
-      />
-    ).dive();
+      />,
+      { disableLifecycleMethods: true },
+    ).dive().dive();
 
-    const documentMeta = wrapper.find(DocumentMeta);
-    documentMeta.prop('title').should.equal('Officer Shaun Frank');
-    documentMeta.prop('description').should.equal(
+    wrapper.find('title').text().should.equal('Officer Shaun Frank');
+    wrapper.find('meta[name="description"]').prop('content').should.equal(
       'Officer Shaun Frank of the Chicago Police Department has ' +
       '5 complaints, 10 use of force reports, and 3 original documents available.'
     );
@@ -100,8 +102,9 @@ describe('OfficerPage component', function () {
           useOfForceCount: 10,
         } }
         numAttachments={ 3 }
-      />
-    ).dive();
+      />,
+      { disableLifecycleMethods: true },
+    ).dive().dive();
 
     const shareableHeader = wrapper.find(ShareableHeaderContainer);
     shareableHeader.prop('buttonType').should.equal('menu');
@@ -120,12 +123,12 @@ describe('OfficerPage component', function () {
             useOfForceCount: 0,
           } }
           numAttachments={ 3 }
-        />
-      ).dive();
+        />,
+        { disableLifecycleMethods: true },
+      ).dive().dive();
 
-      const documentMeta = wrapper.find(DocumentMeta);
-      documentMeta.prop('title').should.equal('Officer Shaun Frank');
-      documentMeta.prop('description').should.equal(
+      wrapper.find('title').text().should.equal('Officer Shaun Frank');
+      wrapper.find('meta[name="description"]').prop('content').should.equal(
         'Officer Shaun Frank of the Chicago Police Department with Badge Number 1424 has ' +
         '1 complaint, 0 use of force reports, and 3 original documents available.'
       );
@@ -143,12 +146,12 @@ describe('OfficerPage component', function () {
             useOfForceCount: 0,
           } }
           numAttachments={ 3 }
-        />
-      ).dive();
+        />,
+        { disableLifecycleMethods: true },
+      ).dive().dive();
 
-      const documentMeta = wrapper.find(DocumentMeta);
-      documentMeta.prop('title').should.equal('Officer Shaun Frank');
-      documentMeta.prop('description').should.equal(
+      wrapper.find('title').text().should.equal('Officer Shaun Frank');
+      wrapper.find('meta[name="description"]').prop('content').should.equal(
         'Officer Shaun Frank of the Chicago Police Department has ' +
         '1 complaint, 0 use of force reports, and 3 original documents available.'
       );
@@ -157,11 +160,11 @@ describe('OfficerPage component', function () {
 
   it('should handle N/A rank', function () {
     const wrapper = shallow(
-      <OfficerPage officerName='Jerome Finigan' officerSummary={ { rank: 'N/A' } }/>
-    ).dive();
+      <OfficerPage officerName='Jerome Finigan' officerSummary={ { rank: 'N/A' } }/>,
+      { disableLifecycleMethods: true },
+    ).dive().dive();
 
-    const documentMeta = wrapper.find(DocumentMeta);
-    documentMeta.prop('title').should.equal('Jerome Finigan');
+    wrapper.find('title').text().should.equal('Jerome Finigan');
   });
 
   it('should render correct officer page in redirecting case', function () {
@@ -169,8 +172,9 @@ describe('OfficerPage component', function () {
       <OfficerPage
         officerName='Shaun Frank'
         officerSummary={ { rank: 'Officer' } }
-      />
-    ).dive();
+      />,
+      { disableLifecycleMethods: true },
+    ).dive().dive();
 
     wrapper.setProps({
       officerName: 'Shaun Frank',
@@ -179,30 +183,39 @@ describe('OfficerPage component', function () {
       pathName: '/officer/123456/',
     });
 
-    let documentMeta = wrapper.find(DocumentMeta);
-    documentMeta.prop('title').should.equal('Officer Shaun Frank');
+    wrapper.find('title').text().should.equal('Officer Shaun Frank');
   });
 
   it('should render PrintNotes component when printMode is true', function () {
-    const wrapper = shallow(
-      <OfficerPage
-        officerName='Shaun Frank'
-        officerSummary={ { rank: 'Officer' } }
-      />
+    const wrapper = mount(
+      <Provider store={ store }>
+        <MemoryRouter>
+          <HelmetProvider>
+            <OfficerPage
+              officerId={ 1234 }
+              officerName='Shaun Frank'
+              officerSummary={ { rank: 'Officer' } }
+            />
+          </HelmetProvider>
+        </MemoryRouter>
+      </Provider>
     );
-    wrapper.setState({ printMode: true });
-    wrapper.instance().getChildContext().should.eql({ printMode: true });
-    wrapper.find('OfficerPage').dive({ context: { printMode: true } }).find(PrintNotes).should.have.length(2);
+    wrapper.find(OfficerPage).setState({ printMode: true });
+    wrapper.find(PrintNotes).should.have.length(2);
   });
 
   it('should call trackOfficerDownloadMenu when clicking on HeaderButton', function () {
     const wrapper = mount(
       <Provider store={ store }>
-        <OfficerPage
-          officerId={ 1234 }
-          officerName='Shaun Frank'
-          officerSummary={ { rank: 'Officer' } }
-        />
+        <MemoryRouter>
+          <HelmetProvider>
+            <OfficerPage
+              officerId={ 1234 }
+              officerName='Shaun Frank'
+              officerSummary={ { rank: 'Officer' } }
+            />
+          </HelmetProvider>
+        </MemoryRouter>
       </Provider>
     );
     const headerButton = wrapper.find('.button');

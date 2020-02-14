@@ -77,7 +77,7 @@ describe('search page results selector', function () {
             'disciplineCount': 1,
             'fullName': 'Jerome Turbyville',
             'gender': 'Male',
-            'id': '29033',
+            'id': 29033,
             'isPinned': false,
             'itemIndex': 1,
             'itemRank': 1,
@@ -376,7 +376,7 @@ describe('search page results selector', function () {
             'disciplineCount': 1,
             'fullName': 'Jerome Finnigan',
             'gender': 'Male',
-            'id': '29033',
+            'id': 29033,
             'isPinned': false,
             'itemIndex': 1,
             'itemRank': 1,
@@ -1128,7 +1128,6 @@ describe('search page results selector', function () {
       });
 
       v1UrlUtils.dataToolSearchUrl.calledWith('abc').should.be.true();
-      v1UrlUtils.dataToolSearchUrl.restore();
     });
 
     it('should return first item of first suggestion group', function () {

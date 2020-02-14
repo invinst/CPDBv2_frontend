@@ -1,4 +1,4 @@
-import { browserHistory } from 'react-router';
+import browserHistory from 'utils/history';
 import { stub } from 'sinon';
 
 import { Toastify } from 'utils/vendors';
@@ -101,8 +101,6 @@ describe('Toast utils', function () {
       Toastify.toast.getCall(0).args[1]['transition'].should.eql(cssTransition);
       Toastify.toast.getCall(0).args[1]['onClick']();
       browserHistoryPush.should.be.calledWith('/pinboard/123abc/untitled-pinboard/');
-
-      browserHistoryPush.restore();
     });
 
     it('should show added toast if isPinned is true', function () {

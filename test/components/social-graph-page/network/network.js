@@ -13,7 +13,6 @@ import EdgeCoaccusalsPane from 'components/social-graph-page/network/preview-pan
 import PreviewPane from 'components/social-graph-page/network/preview-pane';
 import * as intercomUtils from 'utils/intercom';
 import { NETWORK_PREVIEW_PANE } from 'utils/constants';
-import { withStoreContext } from 'utils/test';
 
 
 describe('NetworkGraph component', function () {
@@ -213,27 +212,19 @@ describe('NetworkGraph component', function () {
       </Provider>
     );
     intercomUtils.showIntercomLauncher.should.be.calledWith(false);
-
-    intercomUtils.showIntercomLauncher.restore();
   });
 
   it('should add mousedown event when componentDidMounted', function () {
-    const handleClickOutsideStub = stub();
-    const handleClickOutsideProtoStub = stub(
-      NetworkGraph.prototype, 'handleClickOutside'
-    ).value({ bind: () => handleClickOutsideStub });
     stub(window, 'addEventListener');
 
-    mount(
+    const wrapper = mount(
       <Provider store={ store }>
         <NetworkGraph/>
       </Provider>
     );
+    const instance = wrapper.find(NetworkGraph).instance();
 
-    window.addEventListener.should.be.calledWith('mousedown', handleClickOutsideStub);
-
-    window.addEventListener.restore();
-    handleClickOutsideProtoStub.restore();
+    window.addEventListener.should.be.calledWith('mousedown', instance.handleClickOutside);
   });
 
   it('should show Intercom launcher again when componentWillUnmount', function () {
@@ -247,15 +238,9 @@ describe('NetworkGraph component', function () {
     intercomUtils.showIntercomLauncher.resetHistory();
     wrapper.unmount();
     intercomUtils.showIntercomLauncher.should.be.calledWith(true);
-
-    intercomUtils.showIntercomLauncher.restore();
   });
 
   it('should remove mousedown event when componentWillUnmount', function () {
-    const handleClickOutsideStub = stub();
-    const handleClickOutsideProtoStub = stub(
-      NetworkGraph.prototype, 'handleClickOutside'
-    ).value({ bind: () => handleClickOutsideStub });
     stub(window, 'removeEventListener');
 
     const wrapper = mount(
@@ -263,12 +248,10 @@ describe('NetworkGraph component', function () {
         <NetworkGraph/>
       </Provider>
     );
+    const instance = wrapper.find(NetworkGraph).instance();
     wrapper.unmount();
 
-    window.removeEventListener.should.be.calledWith('mousedown', handleClickOutsideStub);
-
-    window.removeEventListener.restore();
-    handleClickOutsideProtoStub.restore();
+    window.removeEventListener.should.be.calledWith('mousedown', instance.handleClickOutside);
   });
 
   it('should fetch data again when componentDidUpdate', function () {
@@ -415,16 +398,16 @@ describe('NetworkGraph component', function () {
 
   it('should call updateSelectedOfficerId when clicking outside and there is selectedOfficerId', function () {
     const updateSelectedOfficerIdStub = stub();
-
-    const NetworkGraphWithStore = withStoreContext(NetworkGraph, store);
     const wrapper = mount(
-      <NetworkGraphWithStore
-        updateSelectedOfficerId={ updateSelectedOfficerIdStub } selectedOfficerId={ 123 }
-      />,
-      { context: { store } }
+      <Provider store={ store }>
+        <NetworkGraph
+          updateSelectedOfficerId={ updateSelectedOfficerIdStub }
+          selectedOfficerId={ 123 }
+        />
+      </Provider>
     );
     const leftSection = wrapper.find('.left-section');
-    wrapper.instance().handleClickOutside({ target: leftSection.getDOMNode() });
+    wrapper.find(NetworkGraph).instance().handleClickOutside({ target: leftSection.getDOMNode() });
     updateSelectedOfficerIdStub.should.be.calledOnce();
     updateSelectedOfficerIdStub.should.be.calledWith(null);
   });
@@ -436,12 +419,16 @@ describe('NetworkGraph component', function () {
       targetOfficerName: 'Edward May',
       coaccusedCount: 10,
     };
-    const NetworkGraphWithStore = withStoreContext(NetworkGraph, store);
     const wrapper = mount(
-      <NetworkGraphWithStore updateSelectedEdge={ updateSelectedEdgeStub } selectedEdge={ selectedEdge } />
+      <Provider store={ store }>
+        <NetworkGraph
+          updateSelectedEdge={ updateSelectedEdgeStub }
+          selectedEdge={ selectedEdge }
+        />
+      </Provider>
     );
     const leftSection = wrapper.find('.left-section');
-    wrapper.instance().handleClickOutside({ target: leftSection.getDOMNode() });
+    wrapper.find(NetworkGraph).instance().handleClickOutside({ target: leftSection.getDOMNode() });
     updateSelectedEdgeStub.should.be.calledWith(null);
   });
 
@@ -452,27 +439,32 @@ describe('NetworkGraph component', function () {
       targetOfficerName: 'Edward May',
       coaccusedCount: 10,
     };
-    const NetworkGraphWithStore = withStoreContext(NetworkGraph, store);
     const wrapper = mount(
-      <NetworkGraphWithStore
-        updateSelectedEdge={ updateSelectedEdgeStub }
-        selectedEdge={ selectedEdge }
-        selectedCrid={ '123456' }
-      />
+      <Provider store={ store }>
+        <NetworkGraph
+          updateSelectedEdge={ updateSelectedEdgeStub }
+          selectedEdge={ selectedEdge }
+          selectedCrid={ '123456' }
+        />
+      </Provider>
     );
     const leftSection = wrapper.find('.left-section');
-    wrapper.instance().handleClickOutside({ target: leftSection.getDOMNode() });
+    wrapper.find(NetworkGraph).instance().handleClickOutside({ target: leftSection.getDOMNode() });
     updateSelectedEdgeStub.should.not.be.called();
   });
 
   it('should call updateSelectedCrid when clicking outside and there is selectedCrid', function () {
     const updateSelectedCridStub = stub();
-    const NetworkGraphWithStore = withStoreContext(NetworkGraph, store);
     const wrapper = mount(
-      <NetworkGraphWithStore updateSelectedCrid={ updateSelectedCridStub } selectedCrid={ '123456' } />
+      <Provider store={ store }>
+        <NetworkGraph
+          updateSelectedCrid={ updateSelectedCridStub }
+          selectedCrid={ '123456' }
+        />
+      </Provider>
     );
     const leftSection = wrapper.find('.left-section');
-    wrapper.instance().handleClickOutside({ target: leftSection.getDOMNode() });
+    wrapper.find(NetworkGraph).instance().handleClickOutside({ target: leftSection.getDOMNode() });
     updateSelectedCridStub.should.be.calledWith(null);
   });
 

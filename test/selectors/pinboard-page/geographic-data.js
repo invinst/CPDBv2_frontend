@@ -143,7 +143,8 @@ describe('GeographicData selectors', function () {
       const state = {
         pinboardPage: {
           geographicData: {
-            requesting: false,
+            crsRequesting: false,
+            trrsRequesting: false,
             mapCrsData: [firstCr, secondCr],
             mapTrrsData: [trr],
           },

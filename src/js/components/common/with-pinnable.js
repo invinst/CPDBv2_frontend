@@ -1,14 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { noop, every, isEmpty } from 'lodash';
 
 export default function withPinnable(WrappedComponent) {
   class _Base extends Component {
-    constructor(props) {
-      super(props);
-      this.handlePinButtonClick = this.handlePinButtonClick.bind(this);
-    }
-
-    handlePinButtonClick(e) {
+    handlePinButtonClick = e => {
       e.preventDefault();
       e.stopPropagation();
 
@@ -20,7 +16,7 @@ export default function withPinnable(WrappedComponent) {
         if (addOrRemoveItem.isPinned === allIsPinned)
           addOrRemoveItemInPinboard(addOrRemoveItem);
       });
-    }
+    };
 
     render() {
       return (

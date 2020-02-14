@@ -21,7 +21,7 @@ describe('PrintNotes component', function () {
     ];
     const wrapper = mount(<PrintNotes notes={ notes }/>);
     wrapper.find('.notes-title').text().should.equal('Notes');
-    const noteContents = wrapper.find('.notes-content');
+    const noteContents = wrapper.find('.notes-content').hostNodes();
     noteContents.should.have.length(2);
     noteContents.at(0).text().should.equal('Investigator: this is investigator note.');
     noteContents.at(1).text().should.equal('Accused Officer: this is accused officer note.');

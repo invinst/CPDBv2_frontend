@@ -1,17 +1,13 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 import styles from './log-file-modal-content.sass';
 
 
 export default class LogFileModalContent extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
+  handleClick = () => {
     this.props.closeModal();
-  }
+  };
 
   render() {
     const { logUrl, crawlerName, recentRunAt } = this.props.crawler;

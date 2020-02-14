@@ -1,6 +1,7 @@
-import editModeOn from 'reducers/trr-page/edit-mode-on';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
-import { TRR_EDIT_TYPES, TRR_EDIT_MODE, LOCATION_CHANGE } from 'utils/constants';
+import editModeOn from 'reducers/trr-page/edit-mode-on';
+import { TRR_EDIT_TYPES, TRR_EDIT_MODE } from 'utils/constants';
 
 
 describe('edit-mode-on reducer', function () {
@@ -49,7 +50,7 @@ describe('edit-mode-on reducer', function () {
       },
       {
         type: LOCATION_CHANGE,
-        payload: { pathname: '/trr/1/' },
+        payload: { location: { pathname: '/trr/1/' } },
       }
     ).should.eql({
       [TRR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: false,
@@ -63,7 +64,7 @@ describe('edit-mode-on reducer', function () {
       },
       {
         type: LOCATION_CHANGE,
-        payload: { pathname: '/edit/trr/1/' },
+        payload: { location: { pathname: '/edit/trr/1/' } },
       }
     ).should.eql({
       [TRR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: true,

@@ -1,5 +1,7 @@
+import { LOCATION_CHANGE } from 'connected-react-router';
+
 import isTrrsRequested from 'reducers/social-graph-page/geographic-data/is-trrs-requested';
-import { FIRST_PAGE_GEOGRAPHIC_TRRS_REQUEST_SUCCESS, LOCATION_CHANGE } from 'utils/constants';
+import { FIRST_PAGE_GEOGRAPHIC_TRRS_REQUEST_SUCCESS } from 'utils/constants';
 
 
 describe('isTrrsRequested reducer', function () {

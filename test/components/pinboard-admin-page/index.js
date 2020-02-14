@@ -5,8 +5,9 @@ import MockStore from 'redux-mock-store';
 import { random } from 'faker';
 import { spy } from 'sinon';
 import should from 'should';
-import { browserHistory } from 'react-router';
+import { MemoryRouter } from 'react-router-dom';
 
+import browserHistory from 'utils/history';
 import PinboardAdminPage from 'components/pinboard-admin-page';
 import PinboardsTable from 'components/pinboard-admin-page/pinboards-table';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
@@ -79,11 +80,13 @@ describe('PinboardAdminPage', function () {
     previewPane.prop('data').should.be.empty();
 
     instance.focusItem({ id: 123 });
+    wrapper.update();
     previewPane = wrapper.find(PreviewPaneWithOverlay);
     previewPane.prop('isShown').should.be.true();
     previewPane.prop('data').should.eql({ id: 123 });
 
     instance.handleOverlayClick();
+    wrapper.update();
     previewPane = wrapper.find(PreviewPaneWithOverlay);
     previewPane.prop('isShown').should.be.false();
     previewPane.prop('data').should.eql({ id: 123 });
@@ -94,10 +97,12 @@ describe('PinboardAdminPage', function () {
 
     const wrapper = mount(
       <Provider store={ pinboardAdminStore }>
-        <PinboardAdminPage
-          clearPinboardStaticSocialGraphCache={ spyClearPinboardStaticSocialGraphCache }
-          location={ { pathname: '/view-all-pinboards/' } }
-        />
+        <MemoryRouter>
+          <PinboardAdminPage
+            clearPinboardStaticSocialGraphCache={ spyClearPinboardStaticSocialGraphCache }
+            location={ { pathname: '/view-all-pinboards/' } }
+          />
+        </MemoryRouter>
       </Provider>
     );
 
@@ -109,7 +114,9 @@ describe('PinboardAdminPage', function () {
   it('should render SearchBar component', function () {
     const wrapper = mount(
       <Provider store={ pinboardAdminStore }>
-        <PinboardAdminPage location={ { pathname: '/view-all-pinboards/' } } />
+        <MemoryRouter>
+          <PinboardAdminPage location={ { pathname: '/view-all-pinboards/' } } />
+        </MemoryRouter>
       </Provider>
     );
 
@@ -120,7 +127,9 @@ describe('PinboardAdminPage', function () {
     spy(browserHistory, 'push');
     const wrapper = mount(
       <Provider store={ pinboardAdminStore }>
-        <PinboardAdminPage location={ { pathname: '/view-all-pinboards/' } }/>
+        <MemoryRouter>
+          <PinboardAdminPage location={ { pathname: '/view-all-pinboards/' } }/>
+        </MemoryRouter>
       </Provider>
     );
 
@@ -128,13 +137,14 @@ describe('PinboardAdminPage', function () {
     inputElement.simulate('change', { target: { value: 'term' } } );
 
     browserHistory.push.should.be.calledWith('/view-all-pinboards/?match=term');
-    browserHistory.push.restore();
   });
 
   it('should not change url if search text hasnt changed', function () {
     const wrapper = mount(
       <Provider store={ pinboardAdminStore }>
-        <PinboardAdminPage location={ { pathname: '/view-all-pinboards/' } }/>
+        <MemoryRouter>
+          <PinboardAdminPage location={ { pathname: '/view-all-pinboards/' } }/>
+        </MemoryRouter>
       </Provider>
     );
     spy(browserHistory, 'push');
@@ -147,6 +157,5 @@ describe('PinboardAdminPage', function () {
     inputElement.simulate('change', { target: { value: 'abc' } } );
 
     browserHistory.push.should.be.not.called();
-    browserHistory.push.restore();
   });
 });

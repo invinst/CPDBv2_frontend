@@ -1,6 +1,7 @@
 import editModeOn from 'reducers/pinboard-page/edit-mode-on';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
-import { PINBOARD_EDIT_TYPES, PINBOARD_EDIT_MODE, LOCATION_CHANGE } from 'utils/constants';
+import { PINBOARD_EDIT_TYPES, PINBOARD_EDIT_MODE } from 'utils/constants';
 
 
 describe('summary reducer', function () {
@@ -49,7 +50,7 @@ describe('summary reducer', function () {
       },
       {
         type: LOCATION_CHANGE,
-        payload: { pathname: '/pinboard/abcd1234/' },
+        payload: { location: { pathname: '/pinboard/abcd1234/' } },
       }
     ).should.eql({
       [PINBOARD_EDIT_TYPES.EMPTY_PINBOARD_TITLE]: false,
@@ -63,7 +64,7 @@ describe('summary reducer', function () {
       },
       {
         type: LOCATION_CHANGE,
-        payload: { pathname: '/edit/pinboard/abcd1234/' },
+        payload: { location: { pathname: '/edit/pinboard/abcd1234/' } },
       }
     ).should.eql({
       [PINBOARD_EDIT_TYPES.EMPTY_PINBOARD_TITLE]: true,

@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
-import { Router, Route, IndexRoute, Redirect } from 'react-router';
-import { Provider } from 'react-redux';
+import React from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import config from 'config';
-import AppContainer from 'containers/app-container';
 import LandingPageContainer from 'containers/landing-page';
 import CollaborationPage from 'components/collaboration-page/collaboration-page';
 import SearchPageContainer from 'containers/search-page';
@@ -26,7 +25,6 @@ import {
   COLLAB_PATH,
   SEARCH_PATH,
   OFFICER_PATH,
-  CR_PATH_SUFFIX,
   TTR_PATH,
   UNIT_PROFILE_PATH,
   SEARCH_ALIAS_EDIT_PATH,
@@ -41,116 +39,106 @@ import {
   TRACKER_DOCUMENTS_OVERVIEW_PATH,
   DATA_VISUALIZATION_SOCIAL_GRAPH_PATH,
   DATA_VISUALIZATION_GEOGRAPHIC_PATH,
+  PINBOARD_DATA_VISUALIZATION_SOCIAL_GRAPH_PATH,
+  PINBOARD_DATA_VISUALIZATION_GEOGRAPHIC_PATH,
   PINBOARD_PATH,
   PINBOARD_ADMIN_PATH,
 } from 'utils/constants';
-import configureStore from 'store';
-import history from 'utils/history';
-import BreadcrumbItemContainer from 'containers/breadcrumb-item';
+import { editRouterPath } from 'utils/router-path';
 
 
-const store = configureStore();
+export default function RouterRoot(props) {
+  const { pinboard: enablePinboardFeature } = config.enableFeatures;
+  const { location } = props;
 
-export default class RouterRoot extends Component {
-  render() {
-    const { pinboard: enablePinboardFeature } = config.enableFeatures;
-
-    return (
-      <Provider store={ store }>
-        <Router history={ history }>
-          <Route
-            path='/(edit)'
-            breadcrumbKey='/'
-            component={ AppContainer }>
-            <IndexRoute
-              component={ LandingPageContainer }
-              breadcrumbKey='/'
-              breadcrumb='cpdp'/>
-            <Route
-              path={ COLLAB_PATH }
-              component={ CollaborationPage }/>
-            <Route
-              path={ OFFICER_PATH }
-              component={ OfficerPageContainer }
-              breadcrumb={ BreadcrumbItemContainer } />
-            <Route
-              path={ SEARCH_PATH }
-              component={ LandingPageContainer }
-              breadcrumb='Search' />
-            <Route
-              path={ STANDALONE_CR_PATH }
-              component={ CRPageContainer }
-              breadcrumb={ BreadcrumbItemContainer }>
-              <Route
-                path={ CR_PATH_SUFFIX }
-                component={ CRPageContainer }
-                useParentBreadcrumb={ true }/>
-            </Route>
-            <Route
-              path={ DOCUMENT_PATH }
-              component={ DocumentPageContainer }
-              breadcrumb={ BreadcrumbItemContainer }/>
-            <Route
-              path={ TTR_PATH }
-              component={ TRRPageContainer }
-              breadcrumb={ BreadcrumbItemContainer }/>
-            <Route
-              path={ UNIT_PROFILE_PATH }
-              component={ UnitProfilePageContainer }
-              breadcrumb={ BreadcrumbItemContainer }/>
-            <Route
-              path={ SEARCH_ALIAS_EDIT_PATH }
-              component={ SearchPageContainer }/>
-            <Route
-              path={ INLINE_SEARCH_ALIAS_ADMIN_PATH }
-              component={ InlineAliasAdminContainer }/>
-            <Route
-              path={ CRAWLERS_PATH }
-              component={ CrawlersContainer }
-              breadcrumb='Crawler Tracker'/>
-            <Route
-              path={ EMBED_MAP_PATH }
-              component={ HeatMapContainer }/>
-            <Route
-              path={ EMBED_TOP_OFFICERS_PATH }
-              component={ EmbedTopOfficersPage }/>
-            <Route
-              path={ EMBED_OFFICERS_PATH }
-              component={ EmbedOfficersContainer }/>
-            <Route
-              path={ TRACKER_ALL_DOCUMENTS_PATH }
-              component={ DocumentDeduplicatorContainer }
-              breadcrumb={ BreadcrumbItemContainer }/>
-            <Route
-              path={ DATA_VISUALIZATION_SOCIAL_GRAPH_PATH }
-              component={ SocialGraphContainer }/>
-            <Route
-              path={ DATA_VISUALIZATION_GEOGRAPHIC_PATH }
-              component={ SocialGraphContainer }/>
-            <Route
-              path={ TRACKER_DOCUMENTS_OVERVIEW_PATH }
-              component={ DocumentsOverviewContainer }
-              breadcrumb='Documents Overview'/>
-            {
-              enablePinboardFeature &&
-              <Route
-                path={ PINBOARD_PATH }
-                component={ PinboardPageContainer }
-                breadcrumb={ BreadcrumbItemContainer }
-              />
-            }
-            {
-              enablePinboardFeature &&
-              <Route
-                path={ PINBOARD_ADMIN_PATH }
-                component={ PinboardAdminPageContainer }
-                breadcrumb='View all pinboards'
-              />
-            }
-            <Redirect from='*' to='/'/>
-          </Route>
-        </Router>
-      </Provider>
-    );
-  }
+  return (
+    <Switch location={ location }>
+      <Route
+        exact={ true }
+        path={ editRouterPath('/') }
+        component={ LandingPageContainer } />
+      <Route
+        path={ editRouterPath(COLLAB_PATH) }
+        component={ CollaborationPage } />
+      <Route
+        path={ editRouterPath(OFFICER_PATH) }
+        component={ OfficerPageContainer } />
+      <Route
+        exact={ true }
+        path={ editRouterPath(SEARCH_PATH) }
+        component={ LandingPageContainer } />
+      <Route
+        path={ editRouterPath(STANDALONE_CR_PATH) }
+        component={ CRPageContainer } />
+      <Route
+        path={ editRouterPath(DOCUMENT_PATH) }
+        component={ DocumentPageContainer } />
+      <Route
+        path={ editRouterPath(TTR_PATH) }
+        component={ TRRPageContainer } />
+      <Route
+        path={ editRouterPath(UNIT_PROFILE_PATH) }
+        component={ UnitProfilePageContainer } />
+      <Route
+        exact={ true }
+        path={ editRouterPath(SEARCH_ALIAS_EDIT_PATH) }
+        component={ SearchPageContainer }/>
+      <Route
+        path={ editRouterPath(INLINE_SEARCH_ALIAS_ADMIN_PATH) }
+        component={ InlineAliasAdminContainer }/>
+      <Route
+        path={ editRouterPath(CRAWLERS_PATH) }
+        component={ CrawlersContainer } />
+      <Route
+        path={ editRouterPath(EMBED_MAP_PATH) }
+        component={ HeatMapContainer }/>
+      <Route
+        path={ editRouterPath(EMBED_TOP_OFFICERS_PATH) }
+        component={ EmbedTopOfficersPage }/>
+      <Route
+        path={ editRouterPath(EMBED_OFFICERS_PATH) }
+        component={ EmbedOfficersContainer }/>
+      <Route
+        exact={ true }
+        path={ editRouterPath(TRACKER_ALL_DOCUMENTS_PATH) }
+        component={ DocumentDeduplicatorContainer } />
+      <Route
+        exact={ true }
+        path={ [
+          editRouterPath(DATA_VISUALIZATION_SOCIAL_GRAPH_PATH),
+          editRouterPath(PINBOARD_DATA_VISUALIZATION_SOCIAL_GRAPH_PATH),
+        ] }
+        component={ SocialGraphContainer }/>
+      <Route
+        exact={ true }
+        path={ [
+          editRouterPath(DATA_VISUALIZATION_GEOGRAPHIC_PATH),
+          editRouterPath(PINBOARD_DATA_VISUALIZATION_GEOGRAPHIC_PATH),
+        ] }
+        component={ SocialGraphContainer }/>
+      <Route
+        path={ editRouterPath(TRACKER_DOCUMENTS_OVERVIEW_PATH) }
+        component={ DocumentsOverviewContainer } />
+      {
+        enablePinboardFeature &&
+        <Route
+          path={ editRouterPath(PINBOARD_PATH) }
+          component={ PinboardPageContainer } />
+      }
+      {
+        enablePinboardFeature &&
+        <Route
+          path={ editRouterPath(PINBOARD_ADMIN_PATH) }
+          component={ PinboardAdminPageContainer } />
+      }
+      <Redirect path='*' to='/'/>
+    </Switch>
+  );
 }
+
+RouterRoot.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+    search: PropTypes.string,
+  }).isRequired,
+};

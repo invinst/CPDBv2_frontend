@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { stub, spy } from 'sinon';
+import { spy, stub } from 'sinon';
 
 import { OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT } from 'utils/constants';
 import MiniVisualToken from 'components/pinboard-page/relevant/common/mini-officer-visual-token';

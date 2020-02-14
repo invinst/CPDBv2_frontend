@@ -1,19 +1,18 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Truncate from 'react-truncate';
 
 import styles from './title-widget.sass';
 
 
-export default class TitleWidget extends Component {
-  render() {
-    const { title, subtitle } = this.props;
-    return (
-      <div className={ styles.titleWidget }>
-        <div className='title-widget-title'>{ title }</div>
-        <Truncate className='title-widget-subtitle' lines={ 3 } trimWhitespace={ true }>{ subtitle }</Truncate>
-      </div>
-    );
-  }
+export default function TitleWidget(props) {
+  const { title, subtitle } = props;
+  return (
+    <div className={ styles.titleWidget }>
+      <div className='title-widget-title'>{ title }</div>
+      <Truncate className='title-widget-subtitle' lines={ 3 } trimWhitespace={ true }>{ subtitle }</Truncate>
+    </div>
+  );
 }
 
 TitleWidget.propTypes = {

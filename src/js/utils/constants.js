@@ -22,28 +22,27 @@ export const MOBILE = 'mobile';
 export const TABLET = 'tablet';
 
 export const ROOT_PATH = '/';
-export const COLLAB_PATH = 'collaborate/';
-export const SEARCH_PATH = 'search/';
+export const COLLAB_PATH = '/collaborate/';
+export const SEARCH_PATH = '/search/';
 export const SEARCH_ALIAS_EDIT_PATH = `${SEARCH_PATH}alias/`;
 export const INLINE_SEARCH_ALIAS_ADMIN_PATH = `${SEARCH_ALIAS_EDIT_PATH}form/`;
-export const OFFICER_PATH = 'officer/:officerId(/:fullName)(/:tab)';
-export const STANDALONE_CR_PATH = 'complaint/:crid';
-export const CR_PATH_SUFFIX = ':officerId';
-export const TTR_PATH = 'trr/:trrId';
-export const UNIT_PROFILE_PATH = 'unit/:unitName';
-export const CRAWLERS_PATH = 'crawlers/';
-export const DOCUMENT_PATH = 'document/:attachmentId';
-export const EMBED_MAP_PATH = 'embed/map';
-export const EMBED_TOP_OFFICERS_PATH = 'embed/top-officers-page';
-export const EMBED_OFFICERS_PATH = 'embed/officers';
-export const TRACKER_ALL_DOCUMENTS_PATH = 'documents/crid/:crid';
-export const TRACKER_DOCUMENTS_OVERVIEW_PATH = 'documents/';
-export const DATA_VISUALIZATION_SOCIAL_GRAPH_PATH = 'social-graph/(pinboard/:pinboardId)';
-export const DATA_VISUALIZATION_GEOGRAPHIC_PATH = 'geographic/(pinboard/:pinboardId)';
-export const PINBOARD_PATH = 'pinboard(/:pinboardId)(/:pinboardTitle)';
-export const PINBOARD_ADMIN_PATH = 'view-all-pinboards/';
-
-export const ROOT_EDIT_REGEX = /^\/(?:edit\/)?$/;
+export const OFFICER_PATH = '/officer/:officerId/:fullName?/:tab?';
+export const STANDALONE_CR_PATH = '/complaint/:crid';
+export const TTR_PATH = '/trr/:trrId';
+export const UNIT_PROFILE_PATH = '/unit/:unitName';
+export const CRAWLERS_PATH = '/crawlers/';
+export const DOCUMENT_PATH = '/document/:attachmentId';
+export const EMBED_MAP_PATH = '/embed/map';
+export const EMBED_TOP_OFFICERS_PATH = '/embed/top-officers-page';
+export const EMBED_OFFICERS_PATH = '/embed/officers';
+export const TRACKER_ALL_DOCUMENTS_PATH = '/documents/crid/:crid';
+export const TRACKER_DOCUMENTS_OVERVIEW_PATH = '/documents/';
+export const DATA_VISUALIZATION_SOCIAL_GRAPH_PATH = '/social-graph/';
+export const DATA_VISUALIZATION_GEOGRAPHIC_PATH = '/geographic/';
+export const PINBOARD_DATA_VISUALIZATION_SOCIAL_GRAPH_PATH = '/social-graph/pinboard/:pinboardId';
+export const PINBOARD_DATA_VISUALIZATION_GEOGRAPHIC_PATH = '/geographic/pinboard/:pinboardId';
+export const PINBOARD_PATH = '/pinboard/:pinboardId?/:pinboardTitle?';
+export const PINBOARD_ADMIN_PATH = '/view-all-pinboards/';
 
 // Reducer defaults
 export const PAGINATION_DEFAULT = {
@@ -647,8 +646,6 @@ export const CLUSTER_GEO_REQUEST_START = 'CLUSTER_GEO_REQUEST_START';
 export const CLUSTER_GEO_REQUEST_SUCCESS = 'CLUSTER_GEO_REQUEST_SUCCESS';
 export const CLUSTER_GEO_REQUEST_FAILURE = 'CLUSTER_GEO_REQUEST_FAILURE';
 
-export const LOCATION_CHANGE = '@@router/LOCATION_CHANGE';
-
 export const LANDING_PAGE_ID = 'landing-page';
 export const OFFICER_PAGE_ID = 'officer-page';
 export const CR_PAGE_ID = 'cr-page';
@@ -897,3 +894,14 @@ export const PINNED_ITEM_TYPES = {
 };
 
 export const HEADER_TOP_BAR_HEIGHT = 80;
+
+export const QUICK_ANIMATION_DURATION = 200;
+export const MEDIUM_ANIMATION_DURATION = 300;
+export const ANIMATION_DURATION = 500;
+
+export const BREADCRUMB_DEFAULT_MAPPING = {
+  [SEARCH_PATH]: 'Search',
+  [CRAWLERS_PATH]: 'Crawler Tracker',
+  [TRACKER_DOCUMENTS_OVERVIEW_PATH]: 'Documents Overview',
+  [PINBOARD_ADMIN_PATH]: 'View all pinboards',
+};

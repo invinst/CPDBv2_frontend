@@ -1,5 +1,5 @@
 import { spy, stub } from 'sinon';
-import { browserHistory } from 'react-router';
+import browserHistory from 'utils/history';
 
 import { navigateToSearchItem } from 'utils/navigate-to-search-item';
 import * as tracking from 'utils/tracking';
@@ -15,8 +15,6 @@ describe('navigate to search item utils', function () {
 
       browserHistory.push.calledWith('to').should.be.true();
       beforeHookSpy.called.should.be.true();
-
-      browserHistory.push.restore();
     });
 
     it('should call trackOutboundLink if item has url', function () {
@@ -26,8 +24,6 @@ describe('navigate to search item utils', function () {
       navigateToSearchItem({ url: 'some/url' }, beforeHookSpy);
 
       trackOutboundLinkStub.should.be.calledWith('some/url', '_blank');
-
-      trackOutboundLinkStub.restore();
     });
 
     it('should not do anything if the item is datatool search url', function () {
@@ -40,9 +36,6 @@ describe('navigate to search item utils', function () {
       beforeHookSpy.called.should.be.true();
       browserHistory.push.called.should.be.false();
       trackOutboundLinkStub.called.should.be.false();
-
-      browserHistory.push.restore();
-      trackOutboundLinkStub.restore();
     });
   });
 });

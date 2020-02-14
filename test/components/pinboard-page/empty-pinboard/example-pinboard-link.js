@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { stub } from 'sinon';
 import { mount } from 'enzyme';
 import Truncate from 'react-truncate';
@@ -10,10 +10,9 @@ import styles from 'components/pinboard-page/empty-pinboard/example-pinboard-lin
 describe('ExamplePinboardLink component', function () {
   it('should have enough contents', function () {
     const updatePinboardFromSourceStub = stub();
-    class TestComponent extends Component {
-      render() {
-        return <ExamplePinboardLink { ...this.props }/>;
-      }
+
+    function TestComponent(props) {
+      return <ExamplePinboardLink { ...props }/>;
     }
 
     const wrapper = mount(

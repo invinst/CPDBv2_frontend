@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { isEmpty, isEqual } from 'lodash';
 import { trigger } from 'mousetrap';
 import cx from 'classnames';
@@ -13,12 +14,6 @@ import styles from './with-pinnable-item.sass';
 export default function withPinnableItem(
   isPinnable=false, getFirstRowContent=null, getSecondRowContent=null) {
   class _Base extends Component {
-    constructor(props) {
-      super(props);
-
-      this.handleClick = this.handleClick.bind(this);
-    }
-
     shouldComponentUpdate(nextProps, nextState) {
       const { isFocused, suggestion } = this.props;
 
@@ -68,7 +63,7 @@ export default function withPinnableItem(
       );
     }
 
-    handleClick(e) {
+    handleClick = e => {
       e.preventDefault();
       const { suggestion, selectItem, clickItem, isFocused } = this.props;
 
@@ -82,7 +77,7 @@ export default function withPinnableItem(
         // `components/search-page/index.js` -> handleViewItem()
           trigger('enter');
       }
-    }
+    };
 
     renderContent() {
       const { isFocused, suggestion, addOrRemoveItemInPinboard, showPinButtonArea } = this.props;
@@ -136,6 +131,7 @@ export default function withPinnableItem(
     setAliasAdminPageContent: PropTypes.func,
     selectItem: PropTypes.func,
     clickItem: PropTypes.func,
+    showPinButtonArea: PropTypes.bool,
   };
 
   return _Base;

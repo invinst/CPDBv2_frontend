@@ -1,18 +1,17 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import pluralize from 'pluralize';
 
 import styles from './officer-card-footer.sass';
 
 
-export default class OfficerCardFooter extends Component {
-  render() {
-    const { coaccusalCount } = this.props;
-    return (
-      <div className={ styles.officerCardFooter }>
-        Coaccused in { pluralize('case', coaccusalCount, true) }.
-      </div>
-    );
-  }
+export default function OfficerCardFooter(props) {
+  const { coaccusalCount } = props;
+  return (
+    <div className={ styles.officerCardFooter }>
+      Coaccused in { pluralize('case', coaccusalCount, true) }.
+    </div>
+  );
 }
 
 OfficerCardFooter.propTypes = {

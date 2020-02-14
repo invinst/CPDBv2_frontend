@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { stub, spy } from 'sinon';
+import { spy, stub } from 'sinon';
 import InfiniteScroll from 'react-infinite-scroller';
 
 import SuggestionGroup from 'components/search-page/search-results/suggestion-group';
@@ -115,10 +115,6 @@ describe('SuggestionGroup component', function () {
   describe('componentDidUpdate', function () {
     beforeEach(function () {
       stub(SuggestionGroup.prototype, 'componentDidMount');
-    });
-
-    afterEach(function () {
-      SuggestionGroup.prototype.componentDidMount.restore();
     });
 
     it('should call single content type api when single content is changed to true', function () {

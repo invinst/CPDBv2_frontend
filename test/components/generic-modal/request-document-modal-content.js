@@ -111,11 +111,6 @@ describe('RequestDocumentModalContent component', function () {
       stub(intercomUtils, 'updateIntercomEmail');
     });
 
-    afterEach(function () {
-      clock.restore();
-      intercomUtils.updateIntercomEmail.restore();
-    });
-
     function submitRequestDocumentTest(assertInCallbackTest, done, fail=false) {
       const closeCallback = spy();
       const promise = new Promise((resolve, reject) => {
@@ -123,21 +118,8 @@ describe('RequestDocumentModalContent component', function () {
         else { resolve(); }
       });
       let requestDocumentCallback = stub().returns(promise);
-      let requestForm;
 
-      const oldHandleSubmit = RequestDocumentModalContent.prototype.handleSubmit;
-      RequestDocumentModalContent.prototype.handleSubmit = function (event) {
-        event.preventDefault = spy();
-
-        const temp = oldHandleSubmit.call(this, event);
-        event.preventDefault.calledOnce.should.be.true();
-        temp.then(() => {
-          assertInCallbackTest(requestForm);
-          RequestDocumentModalContent.prototype.handleSubmit = oldHandleSubmit;
-        }).then(done);
-      };
-
-      requestForm = mount(
+      const requestForm = mount(
         <RequestDocumentModalContent
           message={ 'Default message' }
           id={ 1 }
@@ -146,8 +128,28 @@ describe('RequestDocumentModalContent component', function () {
         />
       );
 
+      const instance = requestForm.instance();
+
+      let handleSubmitStub;
+      let oldHandleSubmit = instance.handleSubmit;
+
+      handleSubmitStub = stub(instance, 'handleSubmit').callsFake(function (event) {
+        event.preventDefault = spy();
+        const handleSubmitCall = oldHandleSubmit.call(this, event);
+        event.preventDefault.calledOnce.should.be.true();
+
+        handleSubmitCall.then(() => {
+          requestForm.update();
+          assertInCallbackTest(requestForm);
+          handleSubmitStub.restore();
+        }).then(done);
+      });
+
+      instance.forceUpdate();
+      requestForm.update();
+
       requestForm.state('warning').should.be.false();
-      requestForm.instance().refs.email.value = 'abc@xyz.com';
+      instance.refs.email.value = 'abc@xyz.com';
       const formElement = requestForm.find('form');
       formElement.simulate('submit');
       requestDocumentCallback.should.be.calledWith({ id: 1, email: 'abc@xyz.com' });

@@ -5,12 +5,12 @@ import Section from './sections/section';
 
 class Breadcrumbs extends Section {
   constructor(parentSelector='') {
-    super(parentSelector, '//ul[@class="breadcrumbs"]');
+    super(parentSelector, '//div[contains(@class, "breadcrumb__")]'),
     this.prepareElementGetters({
-      items: '//li[contains(@class, "breadcrumbs-item")]',
-      firstItem: '(//li[contains(@class, "breadcrumbs-item")])[1]',
-      secondItem: '(//li[contains(@class, "breadcrumbs-item")])[2]',
-      thirdItem: '(//li[contains(@class, "breadcrumbs-item")])[3]',
+      items: '//*[contains(@class, "breadcrumb-item")]',
+      firstItem: '(//*[contains(@class, "breadcrumb-item")])[1]',
+      secondItem: '(//*[contains(@class, "breadcrumb-item")])[2]',
+      thirdItem: '(//*[contains(@class, "breadcrumb-item")])[3]',
     });
   }
 }

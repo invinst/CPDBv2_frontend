@@ -3,6 +3,7 @@ import { shallow, mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { stub } from 'sinon';
+import { MemoryRouter } from 'react-router-dom';
 
 import { OFFICER_PAGE_TAB_NAMES } from 'utils/constants';
 import TabbedPaneSection from 'components/officer-page/tabbed-pane-section';
@@ -52,7 +53,7 @@ describe('TabbedPaneSection component', function () {
           hasCoaccusal={ false }
         />
       </Provider>
-    ).dive();
+    ).find(TabbedPaneSection).dive();
 
     const tabNames = wrapper.find('.tabbed-pane-tab-name');
 
@@ -63,7 +64,9 @@ describe('TabbedPaneSection component', function () {
   it('should render timeline tab', function () {
     const wrapper = mount(
       <Provider store={ store }>
-        <TabbedPaneSection currentTab={ OFFICER_PAGE_TAB_NAMES.TIMELINE }/>
+        <MemoryRouter>
+          <TabbedPaneSection currentTab={ OFFICER_PAGE_TAB_NAMES.TIMELINE }/>
+        </MemoryRouter>
       </Provider>
     );
 
@@ -73,7 +76,9 @@ describe('TabbedPaneSection component', function () {
   it('should render map tab', function () {
     const wrapper = mount(
       <Provider store={ store }>
-        <TabbedPaneSection currentTab={ OFFICER_PAGE_TAB_NAMES.MAP }/>
+        <MemoryRouter>
+          <TabbedPaneSection currentTab={ OFFICER_PAGE_TAB_NAMES.MAP }/>
+        </MemoryRouter>
       </Provider>
     );
 
@@ -83,7 +88,9 @@ describe('TabbedPaneSection component', function () {
   it('should render coaccusals tab', function () {
     const wrapper = mount(
       <Provider store={ store }>
-        <TabbedPaneSection currentTab={ OFFICER_PAGE_TAB_NAMES.COACCUSALS }/>
+        <MemoryRouter>
+          <TabbedPaneSection currentTab={ OFFICER_PAGE_TAB_NAMES.COACCUSALS }/>
+        </MemoryRouter>
       </Provider>
     );
 
@@ -93,7 +100,9 @@ describe('TabbedPaneSection component', function () {
   it('should render attachment tab', function () {
     const wrapper = mount(
       <Provider store={ store }>
-        <TabbedPaneSection currentTab={ OFFICER_PAGE_TAB_NAMES.ATTACHMENTS }/>
+        <MemoryRouter>
+          <TabbedPaneSection currentTab={ OFFICER_PAGE_TAB_NAMES.ATTACHMENTS }/>
+        </MemoryRouter>
       </Provider>
     );
 
@@ -111,9 +120,9 @@ describe('TabbedPaneSection component', function () {
           hasMapMarker={ true }
         />
       </Provider>
-    );
+    ).find(TabbedPaneSection).dive();
 
-    const mapTab = wrapper.dive().find('.tabbed-pane-tab-name').at(1);
+    const mapTab = wrapper.find('.tabbed-pane-tab-name').at(1);
     mapTab.simulate('click');
 
     stubChangeOfficerTab.should.be.calledWith('MAP');

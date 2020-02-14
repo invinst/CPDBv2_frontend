@@ -30,7 +30,7 @@ describe('Row component', function () {
       />
     );
 
-    wrapper.find('.trr-document-text').text().should.eql(
+    wrapper.find('.trr-document-text').first().text().should.eql(
       'There are no documents that have been made public yet.'
     );
 

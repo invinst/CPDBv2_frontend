@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react';
-import DocumentMeta from 'react-document-meta';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Helmet } from 'react-helmet-async';
 import cx from 'classnames';
 import { get } from 'lodash';
 
@@ -27,37 +28,21 @@ class LandingPage extends Component {
 
   componentDidMount() {
     this.initial = false;
-    this.updateBreadCrumbs();
     this.previousSearchPageShowing = this.getSearchPageShowing();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (get(prevState, 'location.pathname') !== get(this.props, 'location.pathname')) {
+    const searchPageShowing = this.getSearchPageShowing();
+    if (this.previousSearchPageShowing !== searchPageShowing) {
       scrollToTop();
-      this.updateBreadCrumbs();
-    }
-    this.previousSearchPageShowing = this.getSearchPageShowing();
-  }
-
-  updateBreadCrumbs() {
-    const { resetBreadcrumbs, pushBreadcrumbs, params, routes, location } = this.props;
-
-    if (location.pathname.match(/search/)) {
-      const searchRoutes = [
-        routes[0], {
-          breadcrumb: 'Search',
-          breadcrumbKey: 'search/',
-        }];
-      pushBreadcrumbs({ location, params, routes: searchRoutes });
-    } else if (location.pathname === '/') {
-      resetBreadcrumbs({ breadcrumbs: [] });
+      this.previousSearchPageShowing = searchPageShowing;
     }
   }
 
   getSearchPageShowing() {
-    const { pathname } = this.props.location;
+    const pathname = get(this.props, 'location.pathname');
 
-    if (pathname === `/${SEARCH_PATH}` || pathname === `/edit/${SEARCH_PATH}`)
+    if (pathname === `${SEARCH_PATH}` || pathname === `/edit${SEARCH_PATH}`)
       return true;
     if (pathname === '/' || pathname === '/edit/')
       return false;
@@ -71,7 +56,10 @@ class LandingPage extends Component {
     const searchPageShowing = this.getSearchPageShowing();
 
     return (
-      <DocumentMeta title='CPDP'>
+      <React.Fragment>
+        <Helmet>
+          <title>CPDP</title>
+        </Helmet>
         <div
           className={
             cx(styles.landingPage, {
@@ -94,28 +82,16 @@ class LandingPage extends Component {
           position={ position }
           animationIn={ !this.initial && searchPageShowing && !this.previousSearchPageShowing }
         />
-      </DocumentMeta>
+      </React.Fragment>
     );
   }
 }
 
 LandingPage.propTypes = {
-  resetBreadcrumbs: PropTypes.func,
   location: PropTypes.shape({
     pathname: PropTypes.string,
   }),
   params: PropTypes.object,
-  routes: PropTypes.array,
-  pushBreadcrumbs: PropTypes.func,
-};
-
-LandingPage.defaultProps = {
-  pushBreadcrumbs: (...args) => {},
-};
-
-LandingPage.contextTypes = {
-  editModeOn: PropTypes.bool,
 };
 
 export default ConfiguredRadium(LandingPage);
-

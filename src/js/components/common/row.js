@@ -1,29 +1,28 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import { wrapperStyle, labelStyle, contentStyle } from './row.style';
 
 
-export default class Row extends Component {
-  render() {
-    const { label, content, hasBorderBottom, labelWidth, contentWidth, hovering } = this.props;
+export default function Row(props) {
+  const { label, content, hasBorderBottom, labelWidth, contentWidth, hovering } = props;
 
-    return (
-      <div style={ wrapperStyle(hasBorderBottom) }>
-        <span
-          className='test--row-label'
-          style={ labelStyle(labelWidth, hovering) }
-        >
-          { label }
-        </span>
-        <span
-          className='test--row-content'
-          style={ contentStyle(contentWidth, hovering) }
-        >
-          { content }
-        </span>
-      </div>
-    );
-  }
+  return (
+    <div style={ wrapperStyle(hasBorderBottom) }>
+      <span
+        className='test--row-label'
+        style={ labelStyle(labelWidth, hovering) }
+      >
+        { label }
+      </span>
+      <span
+        className='test--row-content'
+        style={ contentStyle(contentWidth, hovering) }
+      >
+        { content }
+      </span>
+    </div>
+  );
 }
 
 Row.propTypes = {

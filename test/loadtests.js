@@ -3,6 +3,7 @@ import 'core-js/fn/object/assign';
 import './setup';
 import 'mocha/browser-entry';
 import 'mocha/mocha.css';
+import sinon from 'sinon';
 
 const mochaOpts = JSON.parse(decodeURI(location.hash.substring(1)));
 
@@ -18,6 +19,10 @@ testsContext.keys().forEach(testsContext);
 
 const runner = mocha.run();
 let testsPassed = true;
+
+mocha.suite.afterEach(function () {
+  sinon.restore();
+});
 
 runner.once('fail', () => {
   testsPassed = false;

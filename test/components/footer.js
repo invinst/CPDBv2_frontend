@@ -12,10 +12,6 @@ describe('Footer component', function () {
     spy(intercomUtils, 'showIntercomMessages');
   });
 
-  afterEach(function () {
-    intercomUtils.showIntercomMessages.restore();
-  });
-
   it('should render', function () {
     Footer.should.be.renderable();
   });
@@ -49,7 +45,7 @@ describe('Footer component', function () {
 
   it('should render Invisible Institute link', function () {
     const wrapper = mount(<Footer />);
-    const link = wrapper.find('.test--footer-invinst-logo');
+    const link = wrapper.find('.test--footer-invinst-logo').first();
     link.prop('href').should.equal('https://invisible.institute/cpdp');
   });
 });

@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { stub } from 'sinon';
-import { browserHistory } from 'react-router';
+import browserHistory from 'utils/history';
 
 import { OfficerPane as OfficerPane } from 'components/common/preview-pane/panes';
 import {
@@ -211,7 +211,7 @@ describe('OfficerPane component', () => {
       />
     );
 
-    let pinButton = wrapper.find('.pin-button');
+    let pinButton = wrapper.find('.pin-button').first();
     pinButton.simulate('click');
 
     addOrRemoveItemInPinboardStub.should.be.calledWith({
@@ -238,7 +238,7 @@ describe('OfficerPane component', () => {
       isPinned: true,
     });
 
-    pinButton = wrapper.find('.pin-button');
+    pinButton = wrapper.find('.pin-button').first();
     pinButton.simulate('click');
 
     addOrRemoveItemInPinboardStub.should.be.calledWith({
@@ -273,7 +273,5 @@ describe('OfficerPane component', () => {
     viewProfileButton.simulate('click');
 
     browserHistoryPush.should.be.calledWith('some_url');
-
-    browserHistoryPush.restore();
   });
 });

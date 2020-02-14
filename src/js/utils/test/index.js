@@ -1,5 +1,7 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import isMobile from 'ismobilejs';
+import { MemoryRouter } from 'react-router-dom';
+import { mount } from 'enzyme';
 
 
 export function withAnimationDisabled(cb) {
@@ -14,15 +16,8 @@ export function withMobileDevice(cb) {
   isMobile.any = false;
 }
 
-export function withStoreContext(ComponentAAA, store) {
-  class WithStoreContext extends ComponentAAA {
-    getChildContext() {
-      return { store };
-    }
-  }
-
-  ComponentAAA.childContextTypes = { store: PropTypes.object };
-  return WithStoreContext;
+export function mountWithRouter(node, options) {
+  return mount(<MemoryRouter>{ node }</MemoryRouter>, options);
 }
 
 global.ga = () => {};

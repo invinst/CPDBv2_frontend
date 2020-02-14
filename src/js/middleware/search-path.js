@@ -5,12 +5,12 @@ import { pushPathPreserveEditMode } from 'utils/edit-path';
 
 export default store => next => action => {
   if (action.type === OPEN_SEARCH_PAGE) {
-    pushPathPreserveEditMode(`/${SEARCH_PATH}`);
+    pushPathPreserveEditMode(SEARCH_PATH);
   }
 
   // Go back if success
   if (action.type === UPDATE_ALIAS_REQUEST_SUCCESS) {
-    pushPathPreserveEditMode(`/${SEARCH_ALIAS_EDIT_PATH}`);
+    pushPathPreserveEditMode(SEARCH_ALIAS_EDIT_PATH);
   }
   return next(action);
 };

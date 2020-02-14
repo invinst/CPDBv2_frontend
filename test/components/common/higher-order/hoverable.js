@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { shallow, mount } from 'enzyme';
 
 import Hoverable from 'components/common/higher-order/hoverable';
 
 
 describe('Hoverable component', function () {
-  class Dummy extends Component {
-    render() {
-      return <div/>;
-    }
+  function Dummy(props) {
+    return <div/>;
   }
+
   const HoverableDummy = Hoverable(Dummy);
 
   it('should pass hovering to children', function () {
@@ -22,9 +21,8 @@ describe('Hoverable component', function () {
     const wrapper = mount(<HoverableDummy onMouseOver={ () => {} } onMouseOut={ () => {} }/>);
     const span = wrapper.find('span');
     span.simulate('mouseOver');
-    const dummy = wrapper.find(Dummy);
-    dummy.prop('hovering').should.be.true();
+    wrapper.find(Dummy).prop('hovering').should.be.true();
     span.simulate('mouseOut');
-    dummy.prop('hovering').should.be.false();
+    wrapper.find(Dummy).prop('hovering').should.be.false();
   });
 });

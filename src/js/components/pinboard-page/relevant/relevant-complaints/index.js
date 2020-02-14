@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { noop } from 'lodash';
 
 import { RelevantComplaintCardWithUndo as RelevantComplaintCard } from './relevant-complaint-card';
@@ -6,10 +7,10 @@ import RelevantInfiniteCarousel from 'components/pinboard-page/relevant/common/r
 
 
 export default class RelevantComplaints extends Component {
-  loadMore() {
+  loadMore = () => {
     const { pinboardId, nextParams, fetchPinboardRelevantComplaints } = this.props;
     fetchPinboardRelevantComplaints(pinboardId, nextParams);
-  }
+  };
 
   render() {
     const { complaints, hasMore, addItemInPinboardPage, requesting, focusItem } = this.props;
@@ -18,7 +19,7 @@ export default class RelevantComplaints extends Component {
         title='COMPLAINTS'
         childWidth={ 306 }
         hasMore={ hasMore }
-        loadMore={ this.loadMore.bind(this) }
+        loadMore={ this.loadMore }
         className='relevant-complaints'
         requesting={ requesting }
       >

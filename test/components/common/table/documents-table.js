@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import InfiniteScroll from 'react-infinite-scroller';
 import { spy, stub } from 'sinon';
 
@@ -7,6 +7,7 @@ import DocumentsTable from 'components/documents-overview-page/documents-table';
 import DocumentRow from 'components/documents-overview-page/document-row';
 import MonthSeparator from 'components/common/table/month-separator';
 import * as constants from 'utils/constants';
+import { EditModeContext } from 'contexts';
 
 
 describe('DocumentsOverviewPage DocumentsTable component', function () {
@@ -32,9 +33,10 @@ describe('DocumentsOverviewPage DocumentsTable component', function () {
       },
     ];
     const onCRLinkClick = spy();
-    const wrapper = shallow(
-      <DocumentsTable rows={ rows } onCRLinkClick={ onCRLinkClick }/>,
-      { context: { editModeOn: true } },
+    const wrapper = mount(
+      <EditModeContext.Provider value={ { editModeOn: true } }>
+        <DocumentsTable rows={ rows } onCRLinkClick={ onCRLinkClick }/>
+      </EditModeContext.Provider>
     );
 
     let row = wrapper.find(DocumentRow);
@@ -113,14 +115,15 @@ describe('DocumentsOverviewPage DocumentsTable component', function () {
     };
     const fetchDocumentsAuthenticated = stub().returns({ catch: stub() });
 
-    const wrapper = shallow(
-      <DocumentsTable
-        rows={ rows }
-        hasMore={ true }
-        nextParams={ nextParams }
-        fetchDocumentsAuthenticated={ fetchDocumentsAuthenticated }
-      />,
-      { context: { editModeOn: true } },
+    const wrapper = mount(
+      <EditModeContext.Provider value={ { editModeOn: true } }>
+        <DocumentsTable
+          rows={ rows }
+          hasMore={ true }
+          nextParams={ nextParams }
+          fetchDocumentsAuthenticated={ fetchDocumentsAuthenticated }
+        />
+      </EditModeContext.Provider>
     );
     wrapper.find(InfiniteScroll).prop('loadMore')();
     fetchDocumentsAuthenticated.should.be.calledWith({ ...nextParams });

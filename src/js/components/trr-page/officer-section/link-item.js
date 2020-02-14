@@ -1,29 +1,28 @@
-import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 import style from './link-item.sass';
 import NavigationButton from './navigation-button';
 
 
-export default class LinkItem extends Component {
-  render() {
-    const { title, value, navigationText, to } = this.props;
+export default function LinkItem(props) {
+  const { title, value, navigationText, to } = props;
 
-    return (
-      <Link
-        className={ `${style.linkItem} navigation-button-container` }
-        to={ to }
-      >
-        <div className='link-item-title'>
-          { title }
-        </div>
-        <div className='link-item-value'>
-          { value }
-          { navigationText && <NavigationButton text={ navigationText }/> }
-        </div>
-      </Link>
-    );
-  }
+  return (
+    <Link
+      className={ `${style.linkItem} navigation-button-container` }
+      to={ to }
+    >
+      <div className='link-item-title'>
+        { title }
+      </div>
+      <div className='link-item-value'>
+        { value }
+        { navigationText && <NavigationButton text={ navigationText }/> }
+      </div>
+    </Link>
+  );
 }
 
 LinkItem.propTypes = {

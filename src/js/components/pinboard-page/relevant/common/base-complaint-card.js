@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { take, slice, noop } from 'lodash';
 
 import styles from './base-complaint-card.sass';
@@ -7,13 +8,7 @@ import PlusButton from 'components/pinboard-page/relevant/common/plus-button';
 
 
 export class BaseComplaintCard extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-    this.handleFocus = this.handleFocus.bind(this);
-  }
-
-  handleClick(e) {
+  handleClick = e => {
     e.preventDefault();
     const { addItemInPinboardPage, rawData } = this.props;
     addItemInPinboardPage({
@@ -21,12 +16,12 @@ export class BaseComplaintCard extends Component {
       rawData,
       id: this.props.crid,
     });
-  }
+  };
 
-  handleFocus() {
+  handleFocus = () => {
     const { crid, focusItem } = this.props;
     focusItem({ type: 'CR', id: crid });
-  }
+  };
 
   render() {
     const {

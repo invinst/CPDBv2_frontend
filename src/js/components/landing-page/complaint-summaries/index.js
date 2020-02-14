@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { CAROUSEL_TYPES } from 'utils/constants';
 import ComplaintSummaryCard from './complaint-summary-card';
 import CarouselWrapper from 'components/landing-page/carousel-wrapper';

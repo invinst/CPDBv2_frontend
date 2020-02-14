@@ -51,8 +51,6 @@ describe('pinboard admin page actions', function () {
           },
         },
       });
-      Cookies.get.restore();
-      CancelToken.source.restore();
     });
   });
 

@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { map } from 'lodash';
 
 import {
@@ -7,39 +8,37 @@ import {
 } from './community-race-population.style';
 
 
-export default class CommunityRacePopulation extends Component {
-  render() {
-    const { population, raceCount, medianIncome, extraStyle } = this.props;
+export default function CommunityRacePopulation(props) {
+  const { population, raceCount, medianIncome, extraStyle } = props;
 
-    return (
-      <div style={ { ...racePopulationStyle, ...extraStyle } } className='test--community-race-population'>
-        <div style={ columnStyle }>
+  return (
+    <div style={ { ...racePopulationStyle, ...extraStyle } } className='test--community-race-population'>
+      <div style={ columnStyle }>
+        <div>
+          <div style={ labelTextStyle }>Population</div>
+          <div style={ populationCountStyle }>{ population }</div>
+        </div>
+        { medianIncome && (
           <div>
-            <div style={ labelTextStyle }>Population</div>
-            <div style={ populationCountStyle }>{ population }</div>
+            <div style={ labelTextStyle }>Median Household Income</div>
+            <div style={ medianIncomeStyle }>{ medianIncome }</div>
           </div>
-          { medianIncome && (
-            <div>
-              <div style={ labelTextStyle }>Median Household Income</div>
-              <div style={ medianIncomeStyle }>{ medianIncome }</div>
-            </div>
-          ) }
+        ) }
 
-        </div>
-        <div style={ columnStyle }>
-          <div style={ labelTextStyle }>Race</div>
-          {
-            map(raceCount, race => (
-              <div key={ race.race } style={ raceItemStyle }>
-                <span style={ raceTextStyle }>{ race.race }</span>
-                <span style={ raceCountStyle }>{ race.count }</span>
-              </div>
-            ))
-          }
-        </div>
       </div>
-    );
-  }
+      <div style={ columnStyle }>
+        <div style={ labelTextStyle }>Race</div>
+        {
+          map(raceCount, race => (
+            <div key={ race.race } style={ raceItemStyle }>
+              <span style={ raceTextStyle }>{ race.race }</span>
+              <span style={ raceCountStyle }>{ race.count }</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  );
 }
 
 CommunityRacePopulation.defaultProps = {

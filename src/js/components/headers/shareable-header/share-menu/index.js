@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import ClipboardButton from 'react-clipboard.js/dist/react-clipboard';
 
 import styles from './share-menu.sass';
@@ -6,41 +7,39 @@ import { imgUrl } from 'utils/static-assets';
 import config from 'config';
 
 
-export default class ShareMenu extends React.Component {
-  render() {
-    const { closeShareMenu } = this.props;
-    const encodedLink = encodeURIComponent(window.location.href);
+export default function ShareMenu(props) {
+  const { closeShareMenu } = props;
+  const encodedLink = encodeURIComponent(window.location.href);
 
-    return (
-      <div className={ styles.shareMenu }>
-        <ClipboardButton
-          className='share-button-item'
-          onClick={ closeShareMenu }
-          data-clipboard-text={ window.location.href }
-        >
-          Copy Link
-        </ClipboardButton>
+  return (
+    <div className={ styles.shareMenu }>
+      <ClipboardButton
+        className='share-button-item'
+        onClick={ closeShareMenu }
+        data-clipboard-text={ window.location.href }
+      >
+        Copy Link
+      </ClipboardButton>
 
-        <a
-          className='share-button-link-item'
-          href={ `https://twitter.com/intent/tweet?url=${encodedLink}&via=${config.twitterBotName}` }
-          target='_blank'
-          onClick={ closeShareMenu }
-        >
-          Twitter<img className='share-menu-img' src={ imgUrl('ic-twitter.svg') } />
-        </a>
+      <a
+        className='share-button-link-item'
+        href={ `https://twitter.com/intent/tweet?url=${encodedLink}&via=${config.twitterBotName}` }
+        target='_blank'
+        onClick={ closeShareMenu }
+      >
+        Twitter<img className='share-menu-img' src={ imgUrl('ic-twitter.svg') } />
+      </a>
 
-        <a
-          className='share-button-link-item'
-          href={ 'https://www.facebook.com/sharer/sharer.php?u=' + encodedLink }
-          target='_blank'
-          onClick={ closeShareMenu }
-        >
-          Facebook<img className='share-menu-img' src={ imgUrl('ic-facebook.svg') } />
-        </a>
-      </div>
-    );
-  }
+      <a
+        className='share-button-link-item'
+        href={ 'https://www.facebook.com/sharer/sharer.php?u=' + encodedLink }
+        target='_blank'
+        onClick={ closeShareMenu }
+      >
+        Facebook<img className='share-menu-img' src={ imgUrl('ic-facebook.svg') } />
+      </a>
+    </div>
+  );
 }
 
 ShareMenu.propTypes = {

@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import pluralize from 'pluralize';
 import { isEmpty } from 'lodash';
 
@@ -7,48 +8,46 @@ import Demographics from 'components/common/demographics';
 import styles from './cr-pane.sass';
 
 
-export default class CRPane extends Component {
-  render() {
-    const {
-      category,
-      subCategory,
-      incidentDate,
-      address,
-      victims,
-      coaccused,
-      to,
-      yScrollable,
-    } = this.props;
-    return (
-      <NewWidgetWrapper callToAction={ { to, text: 'View Complaint Record' } } yScrollable={ yScrollable }>
-        <div className={ styles.crPane }>
-          <div className='cr-preview-pane-info-wrapper'>
-            <div className='cr-preview-pane-title'>
-              <div className='cr-preview-pane-title-title'>{ category }</div>
-              <div className='cr-preview-pane-title-subtitle'>{ subCategory }</div>
-            </div>
-            <div className='cr-preview-pane-info-row'>{ incidentDate.toUpperCase() }</div>
-            { !isEmpty(address) && <div className='cr-preview-pane-info-row cr-preview-pane-address'>{ address }</div> }
-            {
-              !isEmpty(victims) && (
-                <div>
-                  <div className='cr-preview-pane-victims-text'>{ pluralize('VICTIM', victims.length) }</div>
-                  <Demographics className='cr-preview-pane-victims' persons={ victims } />
-                </div>
-              )
-            }
+export default function CRPane(props) {
+  const {
+    category,
+    subCategory,
+    incidentDate,
+    address,
+    victims,
+    coaccused,
+    to,
+    yScrollable,
+  } = props;
+  return (
+    <NewWidgetWrapper callToAction={ { to, text: 'View Complaint Record' } } yScrollable={ yScrollable }>
+      <div className={ styles.crPane }>
+        <div className='cr-preview-pane-info-wrapper'>
+          <div className='cr-preview-pane-title'>
+            <div className='cr-preview-pane-title-title'>{ category }</div>
+            <div className='cr-preview-pane-title-subtitle'>{ subCategory }</div>
           </div>
-          <ListWidget
-            typeName='allegation'
-            title={ pluralize('ACCUSED OFFICER', coaccused.length) }
-            showItemArrow={ false }
-            items={ coaccused }
-            wrapperClassName='cr-preview-pane-accused'
-          />
+          <div className='cr-preview-pane-info-row'>{ incidentDate.toUpperCase() }</div>
+          { !isEmpty(address) && <div className='cr-preview-pane-info-row cr-preview-pane-address'>{ address }</div> }
+          {
+            !isEmpty(victims) && (
+              <div>
+                <div className='cr-preview-pane-victims-text'>{ pluralize('VICTIM', victims.length) }</div>
+                <Demographics className='cr-preview-pane-victims' persons={ victims } />
+              </div>
+            )
+          }
         </div>
-      </NewWidgetWrapper>
-    );
-  }
+        <ListWidget
+          typeName='allegation'
+          title={ pluralize('ACCUSED OFFICER', coaccused.length) }
+          showItemArrow={ false }
+          items={ coaccused }
+          wrapperClassName='cr-preview-pane-accused'
+        />
+      </div>
+    </NewWidgetWrapper>
+  );
 }
 
 CRPane.propTypes = {

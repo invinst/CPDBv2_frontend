@@ -16,7 +16,7 @@ const foiaEmail = 'foia@chicagopolice.org';
 const loremEmail = 'loremipsum@cpdp.co';
 
 class CollaborationPage extends Component {
-  renderWithResponsiveStyle(style) {
+  renderWithResponsiveStyle = (style) => {
     return (
       <div>
         <div style={ style.wrapper }>
@@ -78,7 +78,7 @@ class CollaborationPage extends Component {
         </div>
       </div>
     );
-  }
+  };
 
   render() {
     return (
@@ -94,7 +94,7 @@ class CollaborationPage extends Component {
             wrapper: [wrapperStyle.base, wrapperStyle.tablet],
           },
         } }>
-        { this.renderWithResponsiveStyle.bind(this) }
+        { this.renderWithResponsiveStyle }
       </ResponsiveStyleComponent>
     );
   }

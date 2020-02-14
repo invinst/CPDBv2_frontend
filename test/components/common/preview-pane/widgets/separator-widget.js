@@ -1,5 +1,3 @@
-import React from 'react';
-
 import SeparatorWidget from 'components/common/preview-pane/widgets/separator-widget';
 
 

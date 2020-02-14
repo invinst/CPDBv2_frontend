@@ -1,19 +1,18 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import { containerStyle, buttonStyle, textStyle } from './view-widget.style';
 
 
-export default class CallToActionWidget extends Component {
-  render() {
-    const { text } = this.props;
+export default function CallToActionWidget(props) {
+  const { text } = props;
 
-    return (
-      <div style={ containerStyle }>
-        <span style={ textStyle }>{ text }</span>
-        <div style={ buttonStyle }>→</div>
-      </div>
-    );
-  }
+  return (
+    <div style={ containerStyle }>
+      <span style={ textStyle }>{ text }</span>
+      <div style={ buttonStyle }>→</div>
+    </div>
+  );
 }
 
 CallToActionWidget.defaultProps = {

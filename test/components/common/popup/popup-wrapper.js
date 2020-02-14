@@ -39,16 +39,15 @@ describe('PopupWrapper', function () {
   });
 
   it('should hide other popups after shown', function () {
-    const hideOtherPopups = stub(PopupWrapper.prototype, 'hideOtherPopups');
     const trackPopupButtonClick = stub(tracking, 'trackPopupButtonClick');
     const wrapper = shallow(
       <PopupWrapper trackingUrl='tracking.url.co' trackingId='testingId'/>
     );
+    const instance = wrapper.instance();
+    const hideOtherPopups = stub(instance, 'hideOtherPopups');
     const tooltip = wrapper.find(ReactTooltip);
     tooltip.prop('afterShow')();
     hideOtherPopups.called.should.be.true();
     trackPopupButtonClick.should.be.calledWith('tracking.url.co', 'testingId');
-    hideOtherPopups.restore();
-    trackPopupButtonClick.restore();
   });
 });

@@ -2,8 +2,9 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { spy } from 'sinon';
 import Collapse, { Panel } from 'rc-collapse';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
+import { mountWithRouter } from 'utils/test';
 import ListWidget from 'components/common/preview-pane/widgets/list-widget';
 import ListWidgetItem from 'components/common/preview-pane/widgets/list-widget/list-widget-item';
 
@@ -50,7 +51,7 @@ describe('ListWidget', () => {
         'count': 32,
       },
     ];
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <ListWidget
         typeName='allegation'
         items={ complaintCategories }
@@ -70,7 +71,7 @@ describe('ListWidget', () => {
         'url': 'url_1',
       },
     ];
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <ListWidget
         typeName='allegation'
         items={ complaintCategories }
@@ -95,7 +96,7 @@ describe('ListWidget', () => {
       'name': 'Category Name 2',
       'count': 32,
     }];
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <ListWidget
         typeName='allegation'
         items={ complaintCategories }
@@ -179,6 +180,7 @@ describe('ListWidget', () => {
       wrapper.find(Collapse).exists().should.be.false();
       wrapper.find(ListWidgetItem).should.have.length(4);
     });
+
     it('should not render Panel when collapsable but there are only 3 items or less', function () {
       const wrapper = shallow(
         <ListWidget
@@ -206,16 +208,16 @@ describe('ListWidget', () => {
     });
 
     it('should render show more items when clicking on View more', function (done) {
-      const wrapper = mount(
+      const wrapper = mountWithRouter(
         <ListWidget
           typeName='allegation'
           items={ items }
           title='TITLE'
           collapsable={ true }
-        />,
+        />
       );
 
-      const collapse = wrapper.find(Collapse);
+      let collapse = wrapper.find(Collapse);
       const panel = collapse.find(Panel);
       const header = collapse.find('.rc-collapse-header');
 
@@ -226,6 +228,7 @@ describe('ListWidget', () => {
       header.simulate('click');
 
       setTimeout(() => {
+        collapse = wrapper.find(Collapse);
         collapse.find(ListWidgetItem).exists().should.be.true();
         wrapper.find(ListWidgetItem).should.have.length(4);
         done();

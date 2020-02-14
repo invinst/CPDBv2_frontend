@@ -84,7 +84,6 @@ describe('ShortPress component', function () {
     wrapper.simulate('mouseDown', { screenX: 100, screenY: 200 });
     clock.tick(10);
     wrapper.simulate('mouseUp', { screenX: 100, screenY: 200 });
-    clock.restore();
 
     action.should.be.called();
   });
@@ -101,7 +100,6 @@ describe('ShortPress component', function () {
     wrapper.simulate('mouseDown', { screenX: 100, screenY: 200 });
     clock.tick(500);
     wrapper.simulate('mouseUp', { screenX: 200, screenY: 300 });
-    clock.restore();
 
     action.called.should.be.false();
   });

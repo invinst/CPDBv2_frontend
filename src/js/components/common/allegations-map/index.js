@@ -1,6 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import ReactDOMServer from 'react-dom/server';
-import { browserHistory } from 'react-router';
+import browserHistory from 'utils/history';
 import cx from 'classnames';
 import { isEmpty, isEqual } from 'lodash';
 import isMobile from 'ismobilejs';
@@ -46,24 +47,10 @@ export default class AllegationsMap extends Component {
     super(props);
     this.initMapData();
     this.tooltip = new mapboxgl.Popup({ offset: 0, closeButton: false });
-
-    this.openTooltip = this.openTooltip.bind(this);
-    this.handleMarkerClick = this.handleMarkerClick.bind(this);
   }
 
   componentDidMount() {
     this.addMapLayersOnStyleLoaded(this.props.markerGroups);
-  }
-
-  componentWillReceiveProps(nextProps, nextState) {
-    if (nextProps.clearAllMarkers) {
-      this.resetMap();
-      this.addMapLayersOnStyleLoaded(nextProps.markerGroups);
-    } else {
-      if (!isEqual(nextProps.markerGroups, this.props.markerGroups)) {
-        this.addMapLayersOnStyleLoaded(nextProps.markerGroups);
-      }
-    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -71,7 +58,19 @@ export default class AllegationsMap extends Component {
     return !isEqual(legend, nextProps.legend) || !isEqual(markerGroups, nextProps.markerGroups);
   }
 
-  gotRef(el) {
+  componentDidUpdate(prevProps) {
+    const { clearAllMarkers, markerGroups } = this.props;
+    if (clearAllMarkers) {
+      this.resetMap();
+      this.addMapLayersOnStyleLoaded(markerGroups);
+    } else {
+      if (!isEqual(prevProps.markerGroups, markerGroups)) {
+        this.addMapLayersOnStyleLoaded(markerGroups);
+      }
+    }
+  }
+
+  gotRef = (el) => {
     const { attributionControlPosition } = this.props;
     if (el && !this.map) {
       this.map = new mapboxgl.Map({
@@ -86,7 +85,7 @@ export default class AllegationsMap extends Component {
       this.map.addControl(new mapboxgl.AttributionControl(), attributionControlPosition);
       this.map.addControl(new mapboxgl.NavigationControl(), 'top-left');
     }
-  }
+  };
 
   getUrl(marker) {
     if (marker.kind === 'CR') {
@@ -100,7 +99,7 @@ export default class AllegationsMap extends Component {
     return `${ marker.kind }-${ marker.id }`;
   }
 
-  handleMarkerClick(e) {
+  handleMarkerClick = e => {
     const eventFeature = e.features[0];
     const markerProperties = eventFeature.properties;
 
@@ -120,9 +119,9 @@ export default class AllegationsMap extends Component {
       }
       browserHistory.push(markerProperties.url);
     }
-  }
+  };
 
-  openTooltip(e) {
+  openTooltip = e => {
     const eventFeature = e.features[0];
     const coordinates = eventFeature.geometry.coordinates.slice();
     const markerProperties = eventFeature.properties;
@@ -138,7 +137,7 @@ export default class AllegationsMap extends Component {
     this.tooltip.setLngLat(coordinates)
       .setHTML(ReactDOMServer.renderToString(tooltip))
       .addTo(this.map);
-  }
+  };
 
   mapMarkersData(markers) {
     const data = [];
@@ -269,7 +268,7 @@ export default class AllegationsMap extends Component {
 
     return (
       <div className={ cx(styles.map, mapCustomClassName) }>
-        <div ref={ this.gotRef.bind(this) } className='map-tab'/>
+        <div ref={ this.gotRef } className='map-tab'/>
         {
           showLegends ?
             <Legend legend={ legend } /> :

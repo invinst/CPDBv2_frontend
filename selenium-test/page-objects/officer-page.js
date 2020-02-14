@@ -83,7 +83,7 @@ class AttachmentsSection extends Section {
     this.prepareElementGetters({
       attachmentComplaint: '//div[contains(@class, "complaint__complaint")]',
       attachmentHeading: '//div[contains(@class, "complaint__complaint")]//a[contains(@class, "heading__heading")]',
-      attachment: '//a[contains(@class, "attachment__attachment")]',
+      attachment: '//div[contains(@class, "attachment__attachment")]',
     });
   }
 }
@@ -182,7 +182,7 @@ class OfficerPage extends Page {
     this.prepareElementGetters({
       element: '.test--bottom-sheet-wrapper',
       lastToast: '(//div[contains(@class, "Toastify__toast-body")])[last()]',
-      landingPageBreadCrumb: '//a[@class="breadcrumbs-item-link" and .="cpdp"]',
+      landingPageBreadCrumb: '//a[contains(@class, "breadcrumb-item") and .="cpdp"]',
     });
   }
 

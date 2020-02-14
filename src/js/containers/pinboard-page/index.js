@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
-import { push as pushBreadcrumbs } from 'redux-breadcrumb-trail';
+import { withRouter } from 'react-router-dom';
 
 import {
   getPinboard,
@@ -36,7 +35,6 @@ function mapStateToProps(state, ownProps) {
 
 const mapDispatchToProps = {
   focusItem,
-  pushBreadcrumbs,
   updatePathName,
   addOrRemoveItemInPinboardFromPreviewPane,
   showPinboardsList,

@@ -7,7 +7,7 @@ import {
   totalItemCountSelector,
   navigationKeySelector,
 } from 'selectors/search-page/search-terms/navigation';
-import { categoriesSelector } from 'selectors/search-page/search-terms/categories';
+import { getCategories } from 'selectors/search-page/search-terms/categories';
 import {
   recentSuggestionsSelector,
   recentSuggestionIdsSelector,
@@ -20,7 +20,7 @@ import { saveToRecent, fetchRecentSearchItems, fetchedEmptyRecentSearchItems } f
 function mapStateToProps(state, ownProps) {
   return {
     recentSuggestions: recentSuggestionsSelector(state),
-    categories: categoriesSelector(state),
+    categories: getCategories(state),
     focusedItem: focusedSearchTermItemSelector(state),
     totalItemCount: totalItemCountSelector(state),
     navigationKeys: navigationKeySelector(state),

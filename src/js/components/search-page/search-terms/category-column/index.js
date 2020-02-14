@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { map, isEqual, find } from 'lodash';
 
 import { columnWrapperStyle, headerStyle, itemsWrapperStyle } from './category-column.style';
@@ -31,15 +32,15 @@ export default class CategoryColumn extends Component {
     return null;
   }
 
-  onGetRef(el) {
+  onGetRef = (el) => {
     this.element = el;
-  }
+  };
 
   renderItems() {
     const { items, focusedItem, name } = this.props;
 
     return (
-      <div style={ itemsWrapperStyle } ref={ this.onGetRef.bind(this) }>
+      <div style={ itemsWrapperStyle } ref={ this.onGetRef }>
         {
           map(items, (item, index) => {
             const uniqueKey = `${name}-${item.id}`;

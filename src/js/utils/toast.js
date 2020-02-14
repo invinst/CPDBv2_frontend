@@ -1,4 +1,4 @@
-import { browserHistory } from 'react-router';
+import browserHistory from 'utils/history';
 import pluralize from 'pluralize';
 import { filter, get, identity, keys } from 'lodash';
 import cx from 'classnames';

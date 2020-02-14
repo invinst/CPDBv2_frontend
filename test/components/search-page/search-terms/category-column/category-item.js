@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { stub } from 'sinon';
-import { browserHistory } from 'react-router';
+import browserHistory from 'utils/history';
 import * as tracking from 'utils/tracking';
 import { CALL_TO_ACTION_TYPES } from 'utils/constants';
 
@@ -30,8 +30,6 @@ describe('CategoryItem component', function () {
       categoryItem.simulate('click');
 
       pushStub.should.be.calledWith('/search/?terms=community&type=COMMUNITY');
-
-      pushStub.restore();
     });
 
     it('should track outbound link if the item type is LINK', function () {
@@ -49,8 +47,6 @@ describe('CategoryItem component', function () {
       categoryItem.simulate('click');
 
       trackOutboundLinkStub.should.be.calledWith('link', '_blank');
-
-      trackOutboundLinkStub.restore();
     });
   });
 

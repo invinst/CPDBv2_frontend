@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import { filter, isUndefined, map, startCase, toLower, get } from 'lodash';
 
 import { pinboardItemsSelector } from 'selectors/pinboard-page/pinboard';
-import { officerUrl } from 'utils/url-util';
+import { officerPath } from 'utils/paths';
 import { formatDate, getCurrentAgeString } from 'utils/date';
 import { navigationItemTransform } from 'selectors/common/search-item-transforms';
 import { FULL_MONTH_DATE_FORMAT } from 'utils/constants';
@@ -23,7 +23,7 @@ const officerTransform = (item, pinboardItems) => ({
   race: item.race || '',
   gender: item.gender || '',
   age: getCurrentAgeString(item['birth_year']),
-  to: officerUrl(item.id, item.name),
+  to: officerPath(item.id, item.name),
   isPinned: isItemPinned('OFFICER', item.id, pinboardItems),
 });
 

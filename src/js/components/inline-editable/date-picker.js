@@ -1,6 +1,7 @@
 import 'react-datepicker/dist/react-datepicker.css';
 
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import DatePickerComponent from 'react-datepicker';
 
 import DatePickerButton from './date-picker-button';
@@ -9,14 +10,9 @@ import moment from 'moment';
 
 
 class DatePicker extends Component {
-  constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(value) {
+  handleChange = value => {
     this.props.onChange(value.format('YYYY-MM-DD'));
-  }
+  };
 
   render() {
     const { value, editModeOn } = this.props;

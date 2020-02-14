@@ -1,5 +1,6 @@
-import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import pluralize from 'pluralize';
 import { compact, join, kebabCase } from 'lodash';
 import cx from 'classnames';
@@ -10,6 +11,7 @@ import styles from './coaccused-card.sass';
 import pinButtonStyles from 'components/common/item-pin-button.sass';
 import { PINNED_ITEM_TYPES } from 'utils/constants';
 import ItemPinButton from 'components/common/item-pin-button';
+import { PrintModeContext } from 'contexts';
 
 
 export class CoaccusedCard extends Component {
@@ -131,6 +133,8 @@ export class CoaccusedCard extends Component {
   }
 }
 
+CoaccusedCard.contextType = PrintModeContext;
+
 CoaccusedCard.propTypes = {
   officerId: PropTypes.number,
   fullName: PropTypes.string,
@@ -156,10 +160,6 @@ CoaccusedCard.propTypes = {
 
 CoaccusedCard.defaultProps = {
   openCardInNewPage: false,
-};
-
-CoaccusedCard.contextTypes = {
-  printMode: PropTypes.bool,
 };
 
 export default CoaccusedCard;

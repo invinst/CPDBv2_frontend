@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { map, noop, get, isEqual, isEmpty } from 'lodash';
 import cx from 'classnames';
 
@@ -36,7 +37,20 @@ const previewPaneIdFieldMapping = {
   UNIT: 'text',
 };
 
-export default class SuggestionResults extends Component {
+export default class SearchResults extends Component {
+  state = {
+    prevFocusedItem: this.props.focusedItem,
+    scrollIntoItemClassName: '',
+  };
+
+  static getDerivedStateFromProps(props, state) {
+    const { focusedItem } = props;
+    const { prevFocusedItem } = state;
+    const scrollIntoItemClassName = !isEmpty(focusedItem) && !isEqual(focusedItem, prevFocusedItem) ?
+      `suggestion-item-${get(focusedItem, 'uniqueKey', '')}` : '';
+    return { prevFocusedItem: focusedItem, scrollIntoItemClassName };
+  }
+
   componentDidMount() {
     const { move } = this.props;
 
@@ -48,13 +62,6 @@ export default class SuggestionResults extends Component {
         move(direction, this.props.totalItemCount);
       }
     )));
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { focusedItem } = nextProps;
-
-    this.scrollIntoItemClassName = !isEmpty(focusedItem) && !isEqual(focusedItem, this.props.focusedItem) ?
-      `suggestion-item-${get(focusedItem, 'uniqueKey', '')}` : '';
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -127,7 +134,7 @@ export default class SuggestionResults extends Component {
       return (
         <div className='action-bar'>
           <Link
-            to={ `/edit/${constants.SEARCH_PATH}` }
+            to={ `/edit${constants.SEARCH_PATH}` }
             className='cancel-alias-button'>
             Cancel
           </Link>
@@ -136,7 +143,7 @@ export default class SuggestionResults extends Component {
     } else {
       return (
         <div className='plus-sign-wrapper'>
-          <Link to={ `/edit/${constants.SEARCH_ALIAS_EDIT_PATH}` } className='plus-sign'>[+]</Link>
+          <Link to={ `/edit${constants.SEARCH_ALIAS_EDIT_PATH}` } className='plus-sign'>[+]</Link>
         </div>
       );
     }
@@ -147,7 +154,7 @@ export default class SuggestionResults extends Component {
 
     return (
       <div className='content-wrapper'>
-        <ScrollIntoView focusedItemClassName={ this.scrollIntoItemClassName }>
+        <ScrollIntoView focusedItemClassName={ this.state.scrollIntoItemClassName }>
           { editModeOn ? this.renderActionBar() : null }
           { this.renderGroups() }
         </ScrollIntoView>
@@ -198,7 +205,7 @@ export default class SuggestionResults extends Component {
   }
 }
 
-SuggestionResults.propTypes = {
+SearchResults.propTypes = {
   navigation: PropTypes.object,
   searchText: PropTypes.string,
   suggestionGroups: PropTypes.array,
@@ -225,7 +232,7 @@ SuggestionResults.propTypes = {
   onEmptyPinboardButtonClick: PropTypes.func,
 };
 
-SuggestionResults.defaultProps = {
+SearchResults.defaultProps = {
   previewPaneInfo: {},
   focusedItem: {},
   getSuggestionWithContentType: noop,

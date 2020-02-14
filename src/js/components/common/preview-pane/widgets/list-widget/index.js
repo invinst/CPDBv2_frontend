@@ -1,6 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import pluralize from 'pluralize';
 import cx from 'classnames';
+import PropTypes from 'prop-types';
 import Collapse, { Panel } from 'rc-collapse';
 import { slice, isEmpty, isNil } from 'lodash';
 import 'rc-collapse/assets/index.css';
@@ -18,17 +19,14 @@ export default class ListWidget extends Component {
     this.state = {
       collapsed: true,
     };
-
-    this.toggleCollapsed = this.toggleCollapsed.bind(this);
-    this.renderItem = this.renderItem.bind(this);
   }
 
-  toggleCollapsed() {
+  toggleCollapsed = () => {
     const { collapsed } = this.state;
     this.setState({ collapsed: !collapsed });
-  }
+  };
 
-  renderItem(item) {
+  renderItem = item => {
     const { typeName, showAvatar, showItemArrow } = this.props;
     return (
       <ListWidgetItem
@@ -42,7 +40,7 @@ export default class ListWidget extends Component {
         subText={ !isNil(item.count) ? pluralize(typeName, item.count, true) : item.subText }
       />
     );
-  }
+  };
 
   render() {
     const { wrapperClassName, items, title, collapsable } = this.props;

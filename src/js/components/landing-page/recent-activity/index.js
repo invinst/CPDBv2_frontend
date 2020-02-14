@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { CAROUSEL_TYPES, ACTIVITY_GRID_CARD_TYPES } from 'utils/constants';
 import OfficerCard from 'components/common/officer-card';
 import PairingCard from 'components/landing-page/common/pairing-card';

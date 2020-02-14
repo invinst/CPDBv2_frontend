@@ -7,7 +7,7 @@ class DocumentDeduplicatorPage extends Page {
   constructor() {
     super();
     this.prepareElementGetters({
-      lastBreadcrumbs: '//ul[@class="breadcrumbs"]/li[last()]/span',
+      lastBreadcrumbs: '//*[contains(@class, "breadcrumb-item")][last()]',
       firstDocTitle: '(//span[contains(@class, "document-title")])[1]',
       firstDocSource: '(//span[contains(@class, "document-source")])[1]',
       firstDocViews: '(//span[contains(@class, "view-count")])[1]',

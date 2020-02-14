@@ -4,6 +4,7 @@ import { spy } from 'sinon';
 
 import SimpleTextEditable from 'components/inline-editable/editable-section/simple-text-editable';
 import Editable from 'components/inline-editable/editable';
+import { EditWrapperStateContext } from 'contexts';
 
 
 describe('SimpleTextEditable component', function () {
@@ -19,8 +20,9 @@ describe('SimpleTextEditable component', function () {
       },
     };
     const wrapper = mount(
-      <SimpleTextEditable className='simple-text-editable' fieldName='title' placeholder='Title'/>,
-      { context },
+      <EditWrapperStateContext.Provider value={ context }>
+        <SimpleTextEditable className='simple-text-editable' fieldName='title' placeholder='Title'/>
+      </EditWrapperStateContext.Provider>
     );
 
     const editable = wrapper.find(Editable);

@@ -1,4 +1,5 @@
 import should from 'should';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 import ActiveTab from 'reducers/officer-page/active-tab';
 
@@ -8,22 +9,22 @@ describe('ActiveTab reducer', function () {
     should.not.exist(ActiveTab(undefined, {}));
   });
 
-  it('should handle @@router/LOCATION_CHANGE and return active tab', function () {
+  it('should handle LOCATION_CHANGE and return active tab', function () {
     const action = {
-      type: '@@router/LOCATION_CHANGE',
+      type: LOCATION_CHANGE,
       payload: {
-        pathname: '/officer/1/timeline/',
+        location: { pathname: '/officer/1/timeline/' },
       },
     };
 
     ActiveTab('some state', action).should.eql('timeline');
   });
 
-  it('should handle @@router/LOCATION_CHANGE and return state when pathname is incorrect', function () {
+  it('should handle LOCATION_CHANGE and return state when pathname is incorrect', function () {
     const action = {
-      type: '@@router/LOCATION_CHANGE',
+      type: LOCATION_CHANGE,
       payload: {
-        pathname: '/wrongpath/1/2/',
+        location: { pathname: '/wrongpath/1/2/' },
       },
     };
 

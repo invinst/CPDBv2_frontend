@@ -34,7 +34,6 @@ describe('CR page', function () {
 
     crPage.attachments.card.count.should.equal(10);
     crPage.attachments.firstCard.title.getText().should.equal('CR Document');
-    crPage.attachments.firstCard.element.getAttribute('href').should.equal('http://cr-document.com/');
 
     crPage.investigationTimeline.getText().should.equal(
       'Sep 23, 2003\nIncident Occurs\nComplaint Filed\nMar 16, 2004\nInvestigation Closed'

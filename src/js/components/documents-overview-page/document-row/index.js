@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react';
-import { browserHistory } from 'react-router';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import browserHistory from 'utils/history';
 import cx from 'classnames';
 
 import Counter from './counter';
@@ -9,13 +10,13 @@ import { ATTACHMENT_TYPES } from 'utils/constants';
 import { trackOutboundLink } from 'utils/tracking';
 
 export default class DocumentRow extends Component {
-  handleClick() {
+  handleClick = () => {
     const { id, fileType, url } = this.props;
     if (fileType === ATTACHMENT_TYPES.DOCUMENT)
       browserHistory.push(`/document/${id}/`);
     else
       trackOutboundLink(url, '_blank');
-  }
+  };
 
   render() {
     const {
@@ -33,7 +34,7 @@ export default class DocumentRow extends Component {
 
     return (
       <div
-        onClick={ this.handleClick.bind(this) }
+        onClick={ this.handleClick }
         className={ cx(styles.row, { 'edit-mode': editModeOn }) }>
         <span
           className='document-thumbnail'

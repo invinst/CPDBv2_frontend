@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import StaticRadarChart from 'components/common/radar-chart';
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
@@ -8,49 +9,47 @@ import { sugarCaneColor, whiteTwoColor } from 'utils/styles';
 import styles from './scale-explainer.sass';
 
 
-export default class ScaleExplainer extends Component {
-  render() {
-    const { radarChartData, year, editWrapperStateProps } = this.props;
-    const radarConfig = {
-      showValueInsteadOfTitle: true,
-      backgroundColor: sugarCaneColor,
-      showGrid: true,
-      gridColor: whiteTwoColor,
-      showSpineLine: false,
-      showAxisValue: true,
-      axisTitleFontSize: 28,
-      axisTitleFontWeight: 500,
-    };
+export default function ScaleExplainer(props) {
+  const { radarChartData, year, editWrapperStateProps } = props;
+  const radarConfig = {
+    showValueInsteadOfTitle: true,
+    backgroundColor: sugarCaneColor,
+    showGrid: true,
+    gridColor: whiteTwoColor,
+    showSpineLine: false,
+    showAxisValue: true,
+    axisTitleFontSize: 28,
+    axisTitleFontWeight: 500,
+  };
 
-    return (
-      <div className={ styles.scaleExplainer }>
-        <div className='radar-container'>
-          <StaticRadarChart
-            { ...radarConfig }
-            data={ radarChartData }
-          />
-          <div className='scale-explainer-legend'>{ year }</div>
-        </div>
-        <div className='explainer-container'>
-          <h5 className='title-text'>What is the scale?</h5>
-          <EditWrapperStateProvider { ...editWrapperStateProps }>
-            <HoverableEditWrapper>
-              <RichTextEditable
-                className={ styles.scaleExplainerText }
-                placeholder='scale explain text'
-                fieldname='scale_description'
-              />
-              <RichTextEditable
-                className={ styles.scaleExplainerSubtext }
-                placeholder='scale explain sub text'
-                fieldname='scale_sub_description'
-              />
-            </HoverableEditWrapper>
-          </EditWrapperStateProvider>
-        </div>
+  return (
+    <div className={ styles.scaleExplainer }>
+      <div className='radar-container'>
+        <StaticRadarChart
+          { ...radarConfig }
+          data={ radarChartData }
+        />
+        <div className='scale-explainer-legend'>{ year }</div>
       </div>
-    );
-  }
+      <div className='explainer-container'>
+        <h5 className='title-text'>What is the scale?</h5>
+        <EditWrapperStateProvider { ...editWrapperStateProps }>
+          <HoverableEditWrapper>
+            <RichTextEditable
+              className={ styles.scaleExplainerText }
+              placeholder='scale explain text'
+              fieldname='scale_description'
+            />
+            <RichTextEditable
+              className={ styles.scaleExplainerSubtext }
+              placeholder='scale explain sub text'
+              fieldname='scale_sub_description'
+            />
+          </HoverableEditWrapper>
+        </EditWrapperStateProvider>
+      </div>
+    </div>
+  );
 }
 
 ScaleExplainer.propTypes = {

@@ -32,7 +32,8 @@ _mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
 
 if (config.appEnv === 'live-test' || global.mocha !== undefined) {
   const addSourceSpy = spy();
-  const getSourceStub = stub().returns(undefined);
+  const getSource = (source) => source === 'unknown source' ? undefined : source;
+  const getSourceStub = spy(getSource);
   const addLayerSpy = spy();
   const getLayerStub = stub().returns(undefined);
   const setFilterSpy = spy();
@@ -87,10 +88,11 @@ if (config.appEnv === 'live-test' || global.mocha !== undefined) {
   }
 
   class MockMarker {
-    constructor() {
+    constructor(element) {
       this.setLngLat = setLngLatStub;
       this.addTo = addToStub;
       this.setPopup = setPopupStub;
+      this.element = element;
       this.remove = removeSpy;
     }
   }

@@ -1,6 +1,6 @@
 import React from 'react';
-import { mount } from 'enzyme';
 
+import { mountWithRouter } from 'utils/test';
 import OfficerCard from 'components/common/officer-card';
 import OfficersByAllegation from 'components/landing-page/officers-by-allegation';
 
@@ -28,7 +28,7 @@ describe('Officers By Allegation components', function () {
   }];
 
   it('should render appropriately', function () {
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <OfficersByAllegation cards={ data } />
     );
 

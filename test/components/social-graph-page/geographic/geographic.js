@@ -3,6 +3,7 @@ import { shallow, mount } from 'enzyme';
 import React from 'react';
 import { stub } from 'sinon';
 
+import { mountWithRouter } from 'utils/test';
 import GeographicMap from 'components/social-graph-page/geographic/index';
 import AllegationsMap from 'components/common/allegations-map/index';
 import PreviewPane from 'components/social-graph-page/geographic/preview-pane';
@@ -195,7 +196,6 @@ describe('GeographicMap component', function () {
     stub(window, 'addEventListener');
     const wrapper = mount(<GeographicMap/>);
     window.addEventListener.should.be.calledWith('mousedown', wrapper.instance().handleClickOutside);
-    window.addEventListener.restore();
   });
 
   it('should remove mousedown event when componentWillUnmount', function () {
@@ -204,7 +204,6 @@ describe('GeographicMap component', function () {
     const handleClickOutside = wrapper.instance().handleClickOutside;
     wrapper.unmount();
     window.removeEventListener.should.be.calledWith('mousedown', handleClickOutside);
-    window.removeEventListener.restore();
   });
 
   it('should not call updateGeographicCrid when clicking on preview-pane or markers', function () {
@@ -218,14 +217,14 @@ describe('GeographicMap component', function () {
       coaccused: [2],
       to: '/complaint/123456/',
     };
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <GeographicMap
         updateGeographicCrid={ updateGeographicCridStub }
         allegation={ allegation }
       />
     );
     const previewPane = wrapper.find(PreviewPane);
-    wrapper.instance().handleClickOutside({ target: previewPane.getDOMNode() });
+    wrapper.find(GeographicMap).instance().handleClickOutside({ target: previewPane.getDOMNode() });
     updateGeographicCridStub.should.not.be.called();
   });
 
@@ -240,11 +239,11 @@ describe('GeographicMap component', function () {
       coaccused: [2],
       to: '/complaint/123456/',
     };
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <GeographicMap updateGeographicCrid={ updateGeographicCridStub } allegation={ allegation } />
     );
     const leftSection = wrapper.find('.left-section');
-    wrapper.instance().handleClickOutside({ target: leftSection.getDOMNode() });
+    wrapper.find(GeographicMap).instance().handleClickOutside({ target: leftSection.getDOMNode() });
     updateGeographicCridStub.should.be.calledWith(null);
   });
 
@@ -256,11 +255,11 @@ describe('GeographicMap component', function () {
       address: '66XX S HALSTED ST, CHICAGO IL',
       to: '/trr/123456/',
     };
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <GeographicMap updateGeographicTrrId={ updateGeographicTrrIdStub } trr={ trr } />
     );
     const leftSection = wrapper.find('.left-section');
-    wrapper.instance().handleClickOutside({ target: leftSection.getDOMNode() });
+    wrapper.find(GeographicMap).instance().handleClickOutside({ target: leftSection.getDOMNode() });
     updateGeographicTrrIdStub.should.be.calledWith(null);
   });
 
@@ -274,7 +273,7 @@ describe('GeographicMap component', function () {
       coaccused: [2],
       to: '/complaint/123456/',
     };
-    const wrapper = mount(<GeographicMap allegation={ allegation }/>);
+    const wrapper = mountWithRouter(<GeographicMap allegation={ allegation }/>);
     wrapper.find(CRPane).exists().should.be.true();
   });
 

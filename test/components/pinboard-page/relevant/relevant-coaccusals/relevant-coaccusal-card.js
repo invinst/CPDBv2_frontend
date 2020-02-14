@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { stub, useFakeTimers, spy } from 'sinon';
+import { spy, stub, useFakeTimers } from 'sinon';
 import should from 'should';
 
 import RelevantCoaccusalCard, { RelevantCoaccusalCardWithUndo }
@@ -58,8 +58,8 @@ describe('RelevantCoaccusalCard component', function () {
     radarChart.prop('offsetTop').should.equal(2);
     radarChart.prop('backgroundColor').should.equal('#ed7467');
 
-    wrapper.find('.light-text .officer-card-rank').text().should.equal('Officer');
-    wrapper.find('.bold-text .officer-card-name').text().should.equal('Jerome Finnigan');
+    wrapper.find('.light-text.officer-card-rank').text().should.equal('Officer');
+    wrapper.find('.bold-text.officer-card-name').text().should.equal('Jerome Finnigan');
     wrapper.find('.coaccusal-count').text().should.equal('11 coaccusals');
 
     const plusButton = wrapper.find(PlusButton);
@@ -105,8 +105,8 @@ describe('RelevantCoaccusalCard component', function () {
     radarChart.prop('offsetTop').should.equal(2);
     should(radarChart.props.backgroundColor).be.undefined();
 
-    wrapper.find('.light-text .officer-card-rank').text().should.equal('Officer');
-    wrapper.find('.bold-text .officer-card-name').text().should.equal('Jerome Finnigan');
+    wrapper.find('.light-text.officer-card-rank').text().should.equal('Officer');
+    wrapper.find('.bold-text.officer-card-name').text().should.equal('Jerome Finnigan');
     wrapper.find('.coaccusal-count').text().should.equal('1 coaccusal');
   });
 
@@ -160,10 +160,6 @@ describe('RelevantCoaccusalCard component', function () {
 
     beforeEach(function () {
       clock = useFakeTimers();
-    });
-
-    afterEach(function () {
-      clock.restore();
     });
 
     it('should render remove text correctly', function () {

@@ -15,7 +15,7 @@ describe('CRLocationMap component', function () {
     locationMap.prop('lat').should.equal(1.2);
     locationMap.prop('mapboxStyle').should.equal('mapbox://styles/invisibleinstitute/cj8ugtswqe8dx2ss2kwhfnvte');
 
-    should(locationMap.prop('markerEl')).be.null();
+    should(locationMap.prop('customMarkerClassName')).be.undefined();
   });
 
   it('should render print map', function () {

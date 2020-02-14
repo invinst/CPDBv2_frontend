@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import cx from 'classnames';
 import config from 'config';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { QA_LINK } from 'utils/constants';
 import { pushPathPreserveEditMode } from 'utils/edit-path';

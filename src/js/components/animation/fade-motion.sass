@@ -1,0 +1,15 @@
+@import 'variables'
+
+\:local(.fade-motion-enter)
+  opacity: 0
+
+\:local(.fade-motion-enter-active)
+  opacity: 1
+  transition: opacity $animation-duration ease-in-out
+
+\:local(.fade-motion-exit)
+  opacity: 1
+
+\:local(.fade-motion-exit-active)
+  opacity: 0
+  transition: opacity $animation-duration ease-in-out

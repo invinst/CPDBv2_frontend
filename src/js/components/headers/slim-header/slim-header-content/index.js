@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import cx from 'classnames';
 import { noop } from 'lodash';
 
@@ -11,43 +12,41 @@ import styles from './slim-header-content.sass';
 import DemoVideoContainer from 'containers/headers/slim-header/demo-video-container';
 
 
-class SlimHeaderContent extends Component {
-  render() {
-    const { pathname, editModeOn, position } = this.props;
+function SlimHeaderContent(props) {
+  const { pathname, editModeOn, position } = props;
 
-    return (
-      <div
-        className={ styles.slimHeader }
-        onClick={ position === 'bottom' ? scrollToTop : noop }
-      >
-        <div className='placeholder'/>
-        <div className={ cx('header-content', position) }>
-          <div className='top-bar-wrapper'>
-            <div className='top-bar'>
-              <div className='logo'>
-                <LogoContainer position={ position } editModeOn={ editModeOn }/>
-              </div>
-              <DemoVideoContainer
-                position={ position }
-                editModeOn={ editModeOn }
-              />
+  return (
+    <div
+      className={ styles.slimHeader }
+      onClick={ position === 'bottom' ? scrollToTop : noop }
+    >
+      <div className='placeholder'/>
+      <div className={ cx('header-content', position) }>
+        <div className='top-bar-wrapper'>
+          <div className='top-bar'>
+            <div className='logo'>
+              <LogoContainer position={ position } editModeOn={ editModeOn }/>
             </div>
+            <DemoVideoContainer
+              position={ position }
+              editModeOn={ editModeOn }
+            />
           </div>
-          <div className='navbar-wrapper'>
-            <div className='navbar'>
-              <div className='vertically-aligned-header-item'>
-                <LogOutButtonContainer pathname={ pathname } />
-              </div>
-              <div className='vertically-aligned-header-item'>
-                <RightLinks position={ position } />
-              </div>
-              <SearchBox position={ position }/>
+        </div>
+        <div className='navbar-wrapper'>
+          <div className='navbar'>
+            <div className='vertically-aligned-header-item'>
+              <LogOutButtonContainer pathname={ pathname } />
             </div>
+            <div className='vertically-aligned-header-item'>
+              <RightLinks position={ position } />
+            </div>
+            <SearchBox position={ position }/>
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 SlimHeaderContent.propTypes = {

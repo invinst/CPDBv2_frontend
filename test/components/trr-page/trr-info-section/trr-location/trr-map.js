@@ -4,6 +4,7 @@ import { shallow } from 'enzyme';
 import TRRMap from 'components/trr-page/trr-info-section/trr-location/trr-map';
 import LocationMap from 'components/common/location-map';
 import PrintMap from 'components/common/print-map';
+import styles from 'components/trr-page/trr-info-section/trr-location/trr-map.sass';
 
 
 describe('TRRMap component', function () {
@@ -16,7 +17,7 @@ describe('TRRMap component', function () {
     locationMap.prop('lat').should.equal(1.2);
     locationMap.prop('mapboxStyle').should.equal('mapbox://styles/invisibleinstitute/cj8ugtswqe8dx2ss2kwhfnvte');
 
-    locationMap.prop('markerEl').props.className.should.containEql('trr-map-marker');
+    locationMap.prop('customMarkerClassName').should.eql(styles.trrMapMarker);
   });
 
   it('should render print map', function () {

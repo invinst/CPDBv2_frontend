@@ -1,7 +1,8 @@
+import { LOCATION_CHANGE } from 'connected-react-router';
+
 import { headerEditModeOn } from 'reducers/landing-page/carousel-header-edit-utils';
 import {
   CAROUSEL_TYPES,
-  LOCATION_CHANGE,
   TURN_ON_CAROUSEL_HEADER_EDIT_MODE,
   TURN_OFF_CAROUSEL_HEADER_EDIT_MODE,
 } from 'utils/constants';
@@ -64,14 +65,14 @@ describe('carousel header edit utils', () => {
     headerEditModeOnActivityReducer(true, {
       type: LOCATION_CHANGE,
       payload: {
-        pathname: '/123',
+        location: { pathname: '/123' },
       },
     }).should.be.false();
 
     headerEditModeOnActivityReducer(true, {
       type: LOCATION_CHANGE,
       payload: {
-        pathname: '/edit/123',
+        location: { pathname: '/edit/123' },
       },
     }).should.be.true();
   });

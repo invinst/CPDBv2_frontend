@@ -1,9 +1,9 @@
 import { Promise } from 'es6-promise';
 import { stub, useFakeTimers } from 'sinon';
 import * as _ from 'lodash';
-import extractQuery from 'utils/extract-query';
 import { CancelToken } from 'axios';
 import Cookies from 'js-cookie';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 import fetchPageInitialData from 'middleware/fetch-page-initial-data';
 import { changeOfficerId, fetchOfficerSummary, requestCreateOfficerZipFile } from 'actions/officer-page';
@@ -53,10 +53,12 @@ import { fetchToast } from 'actions/toast';
 
 
 const createLocationChangeAction = (pathname) => ({
-  type: '@@router/LOCATION_CHANGE',
+  type: LOCATION_CHANGE,
   payload: {
-    pathname: pathname,
-    query: extractQuery(pathname),
+    location: {
+      pathname,
+      search: pathname.split('?')[1],
+    },
   },
 });
 
@@ -87,6 +89,11 @@ const buildStore = () => ({
       },
       activityGrid: {
         cards: [],
+      },
+    },
+    searchPage: {
+      searchTerms: {
+        categories: [],
       },
     },
     faqPage: {
@@ -217,38 +224,25 @@ describe('fetchPageInitialData middleware', function () {
     store.dispatch.calledWith(fetchPopup('trr')).should.be.true();
   });
 
-  it('should dispatch fetch data for landing page when they do not exist', function () {
-    const action = createLocationChangeAction('/');
-    let dispatched;
-    fetchPageInitialData(store)(action => dispatched = action)(action);
-    dispatched.should.eql(action);
+  describe('should dispatch fetch data for landing page when they do not exist', function () {
+    ['/', '/edit/', '/search/', '/edit/search/'].forEach(function (pathname) {
+      it(`when moving to ${pathname}`, function () {
+        const action = createLocationChangeAction(pathname);
+        let dispatched;
+        fetchPageInitialData(store)(action => dispatched = action)(action);
+        dispatched.should.eql(action);
 
-    store.dispatch.calledWith(fetchPage(LANDING_PAGE_ID)()).should.be.true();
-    store.dispatch.calledWith(getCommunities()).should.be.true();
-    store.dispatch.calledWith(getCitySummary()).should.be.true();
-    store.dispatch.calledWith(getClusterGeoJson()).should.be.true();
-    store.dispatch.calledWith(requestOfficersByAllegation()).should.be.true();
-    store.dispatch.calledWith(requestActivityGrid()).should.be.true();
-    store.dispatch.calledWith(getRecentDocument()).should.be.true();
-    store.dispatch.calledWith(getComplaintSummaries()).should.be.true();
-    store.dispatch.calledWith(fetchVideoInfo()).should.be.true();
-  });
-
-  it('should dispatch fetch data for landing page when go to /search/', function () {
-    const action = createLocationChangeAction('/search/');
-    let dispatched;
-    fetchPageInitialData(store)(action => dispatched = action)(action);
-    dispatched.should.eql(action);
-
-    store.dispatch.calledWith(fetchPage(LANDING_PAGE_ID)()).should.be.true();
-    store.dispatch.calledWith(getCommunities()).should.be.true();
-    store.dispatch.calledWith(getCitySummary()).should.be.true();
-    store.dispatch.calledWith(getClusterGeoJson()).should.be.true();
-    store.dispatch.calledWith(requestOfficersByAllegation()).should.be.true();
-    store.dispatch.calledWith(requestActivityGrid()).should.be.true();
-    store.dispatch.calledWith(getRecentDocument()).should.be.true();
-    store.dispatch.calledWith(getComplaintSummaries()).should.be.true();
-    store.dispatch.calledWith(fetchVideoInfo()).should.be.true();
+        store.dispatch.calledWith(fetchPage(LANDING_PAGE_ID)()).should.be.true();
+        store.dispatch.calledWith(getCommunities()).should.be.true();
+        store.dispatch.calledWith(getCitySummary()).should.be.true();
+        store.dispatch.calledWith(getClusterGeoJson()).should.be.true();
+        store.dispatch.calledWith(requestOfficersByAllegation()).should.be.true();
+        store.dispatch.calledWith(requestActivityGrid()).should.be.true();
+        store.dispatch.calledWith(getRecentDocument()).should.be.true();
+        store.dispatch.calledWith(getComplaintSummaries()).should.be.true();
+        store.dispatch.calledWith(fetchVideoInfo()).should.be.true();
+      });
+    });
   });
 
   it('should dispatch fetch cr data if crid change', function () {
@@ -283,22 +277,31 @@ describe('fetchPageInitialData middleware', function () {
     }, 100);
   });
 
-  it('should dispatch requestSearchTermCategories', function () {
-    const action = createLocationChangeAction('/search/');
-    let dispatched;
+  describe('fetch search page data', function () {
+    ['/', '/edit/', '/search/', '/edit/search/'].forEach(function (pathname) {
+      context(`when going to ${pathname}`, function () {
+        it('should dispatch requestSearchTermCategories', function () {
+          const action = createLocationChangeAction(pathname);
+          let dispatched;
 
-    fetchPageInitialData(store)(action => dispatched = action)(action);
-    dispatched.should.eql(action);
-    store.dispatch.calledWith(requestSearchTermCategories()).should.be.true();
-  });
+          fetchPageInitialData(store)(action => dispatched = action)(action);
+          dispatched.should.eql(action);
+          store.dispatch.calledWith(requestSearchTermCategories()).should.be.true();
+        });
 
-  it('should dispatch requestSearchTermCategories when going to /', function () {
-    const action = createLocationChangeAction('/');
-    let dispatched;
+        it('should not dispatch requestSearchTermCategories when has categories', function () {
+          const store = buildStore();
+          _.set(store._state, 'searchPage.searchTerms.categories', [{ name: 'Category Name' }]);
+          let action = createLocationChangeAction(pathname);
+          let dispatched;
 
-    fetchPageInitialData(store)(action => dispatched = action)(action);
-    dispatched.should.eql(action);
-    store.dispatch.calledWith(requestSearchTermCategories()).should.be.true();
+          fetchPageInitialData(store)(action => dispatched = action)(action);
+          dispatched.should.eql(action);
+
+          store.dispatch.calledWith(requestSearchTermCategories()).should.be.false();
+        });
+      });
+    });
   });
 
   it('should dispatch fetchDocument when location changes', function () {
@@ -321,7 +324,6 @@ describe('fetchPageInitialData middleware', function () {
         dispatched.should.eql(action);
         store.dispatch.calledWith(fetchDocument(1234)).should.be.true();
         store.dispatch.calledWith(fetchDocumentSuggestionTags()).should.be.true();
-        Cookies.get.restore();
       });
     });
 
@@ -335,7 +337,6 @@ describe('fetchPageInitialData middleware', function () {
         dispatched.should.eql(action);
         store.dispatch.calledWith(fetchDocument(1234)).should.be.true();
         store.dispatch.calledWith(fetchDocumentSuggestionTags()).should.be.false();
-        Cookies.get.restore();
       });
     });
   });
@@ -400,7 +401,6 @@ describe('fetchPageInitialData middleware', function () {
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
     store.dispatch.calledWith(fetchDocuments()).should.be.true();
-    fetchDocuments.restore();
   });
 
   it('should dispatch fetchDocuments with match params page', function () {
@@ -411,7 +411,6 @@ describe('fetchPageInitialData middleware', function () {
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
     store.dispatch.calledWith(fetchDocuments({ match: '1000000' })).should.be.true();
-    fetchDocuments.restore();
   });
 
   it('should not dispatch fetchDocuments when match is not empty and hasnt changed ', function () {
@@ -424,7 +423,6 @@ describe('fetchPageInitialData middleware', function () {
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
     store.dispatch.calledWith(fetchDocuments({ match: '1000000' })).should.be.false();
-    fetchDocuments.restore();
   });
 
   it('should dispatch fetchDocumentsAuthenticated when signing in successfully', function () {
@@ -437,7 +435,6 @@ describe('fetchPageInitialData middleware', function () {
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
     store.dispatch.calledWith(fetchDocumentsAuthenticated()).should.be.true();
-    fetchDocumentsAuthenticated.restore();
   });
 
   it('should dispatch fetchDocumentsAuthenticated when accessing with edit mode', function () {
@@ -448,7 +445,6 @@ describe('fetchPageInitialData middleware', function () {
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
     store.dispatch.calledWith(fetchDocumentsAuthenticated()).should.be.true();
-    fetchDocumentsAuthenticated.restore();
   });
 
   it('should dispatch requestCrawlers', function () {
@@ -494,7 +490,7 @@ describe('fetchPageInitialData middleware', function () {
   });
 
   it('should dispatch redirect, fetchPinboard if requesting does not equal ID in state', function () {
-    const cancelTokenSource = stub(CancelToken, 'source');
+    stub(CancelToken, 'source');
     const store = buildStore();
     _.set(store._state, 'pinboardPage.pinboard.id', '268a5e58');
     const action = createLocationChangeAction('/pinboard/5cd06f2b/');
@@ -504,7 +500,6 @@ describe('fetchPageInitialData middleware', function () {
     dispatched.should.eql(action);
     store.dispatch.calledWith(redirect(true)).should.be.true();
     store.dispatch.calledWith(fetchPinboard('5cd06f2b')).should.be.true();
-    cancelTokenSource.restore();
   });
 
   it('should not dispatch fetchPinboard if requesting ID is not valid', function () {
@@ -538,7 +533,7 @@ describe('fetchPageInitialData middleware', function () {
   });
 
   it('should dispatch fetchAllPinboards when location changes', function () {
-    const action = createLocationChangeAction('/view-all-pinboards/');
+    const action = createLocationChangeAction('/view-all-pinboards/?match=skullcap');
     const fetchAllPinboardsStub = stub(pinboardAdminAction, 'fetchAllPinboards');
     const clock = useFakeTimers();
     let dispatched;
@@ -547,10 +542,7 @@ describe('fetchPageInitialData middleware', function () {
     dispatched.should.eql(action);
 
     clock.tick(1000);
-    store.dispatch.should.be.calledWith(fetchAllPinboardsStub());
-
-    fetchAllPinboardsStub.restore();
-    clock.restore();
+    store.dispatch.should.be.calledWith(fetchAllPinboardsStub({ match: 'skullcap' }));
   });
 
   it('should dispatch fetchAllPinboards when signing in successfully', function () {
@@ -563,7 +555,6 @@ describe('fetchPageInitialData middleware', function () {
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
     store.dispatch.calledWith(fetchAllPinboardsStub()).should.be.true();
-    fetchAllPinboardsStub.restore();
   });
 
   it('should dispatch fetchToast when they do not exists', function () {

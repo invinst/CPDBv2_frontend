@@ -1,7 +1,7 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import { stub } from 'sinon';
 
+import { mountWithRouter } from 'utils/test';
 import OfficerCard from 'components/common/officer-card';
 import RecentActivity from 'components/landing-page/recent-activity';
 import PairingCard from 'components/landing-page/common/pairing-card';
@@ -71,7 +71,7 @@ describe('Recent Activity components', function () {
   }];
 
   it('should render appropriately', function () {
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <RecentActivity cards={ data } />
     );
 
@@ -93,7 +93,7 @@ describe('Recent Activity components', function () {
   });
 
   it('should render the pair card of two officers', function () {
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <RecentActivity cards={ pairCardData } />
     );
 
@@ -108,7 +108,7 @@ describe('Recent Activity components', function () {
 
   it('should send ga event when navigate on carousel', function () {
     stub(tracking, 'trackSwipeLandingPageCarousel');
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <RecentActivity cards={ [
         OfficerCardFactory.build({ kind: 'single_officer' }),
         OfficerCardFactory.build({ kind: 'single_officer' }),
@@ -118,6 +118,5 @@ describe('Recent Activity components', function () {
     const carousel = wrapper.find(Carousel);
     carousel.prop('onNavigate')('left');
     tracking.trackSwipeLandingPageCarousel.should.be.calledWith('left', 'ACTIVITY');
-    tracking.trackSwipeLandingPageCarousel.restore();
   });
 });

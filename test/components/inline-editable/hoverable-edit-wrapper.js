@@ -1,15 +1,17 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
+import { EditModeContext, EditWrapperStateContext } from 'contexts';
 
 
 describe('HoverableEditWrapper component', function () {
   context('edit mode off', function () {
     it('should render children element', function () {
-      const wrapper = shallow(
-        <HoverableEditWrapper>abc1234</HoverableEditWrapper>,
-        { context: { editModeOn: false } },
+      const wrapper = mount(
+        <EditModeContext.Provider value={ { editModeOn: false } }>
+          <HoverableEditWrapper>abc1234</HoverableEditWrapper>
+        </EditModeContext.Provider>
       );
 
       wrapper.text().should.containEql('abc1234');
@@ -18,9 +20,10 @@ describe('HoverableEditWrapper component', function () {
 
   context('edit mode on', function () {
     it('should render children element', function () {
-      const wrapper = shallow(
-        <HoverableEditWrapper>abc1234</HoverableEditWrapper>,
-        { context: { editModeOn: true } },
+      const wrapper = mount(
+        <EditModeContext.Provider value={ { editModeOn: true } }>
+          <HoverableEditWrapper>abc1234</HoverableEditWrapper>
+        </EditModeContext.Provider>
       );
 
       wrapper.text().should.containEql('abc1234');
@@ -28,13 +31,12 @@ describe('HoverableEditWrapper component', function () {
 
     context('section edit mode off', function () {
       it('should render Edit button', function () {
-        const context = {
-          editModeOn: true,
-          sectionEditModeOn: false,
-        };
-        const wrapper = shallow(
-          <HoverableEditWrapper />,
-          { context },
+        const wrapper = mount(
+          <EditWrapperStateContext.Provider value={ { sectionEditModeOn: false } }>
+            <EditModeContext.Provider value={ { editModeOn: true } }>
+              <HoverableEditWrapper />
+            </EditModeContext.Provider>
+          </EditWrapperStateContext.Provider>
         );
 
         const editButton = wrapper.find('a');
@@ -45,14 +47,12 @@ describe('HoverableEditWrapper component', function () {
     context('section edit mode on', function () {
       context('autoSave mode on', function () {
         it('should not render Save and Cancel button', function () {
-          const context = {
-            editModeOn: true,
-            sectionEditModeOn: true,
-            autoSave: true,
-          };
-          const wrapper = shallow(
-            <HoverableEditWrapper />,
-            { context },
+          const wrapper = mount(
+            <EditWrapperStateContext.Provider value={ { sectionEditModeOn: true, autoSave: true } }>
+              <EditModeContext.Provider value={ { editModeOn: true } }>
+                <HoverableEditWrapper />
+              </EditModeContext.Provider>
+            </EditWrapperStateContext.Provider>
           );
 
           const buttons = wrapper.find('a');
@@ -62,14 +62,12 @@ describe('HoverableEditWrapper component', function () {
 
       context('autoSave mode off', function () {
         it('should render Save and Cancel button', function () {
-          const context = {
-            editModeOn: true,
-            sectionEditModeOn: true,
-            autoSave: false,
-          };
-          const wrapper = shallow(
-            <HoverableEditWrapper />,
-            { context },
+          const wrapper = mount(
+            <EditWrapperStateContext.Provider value={ { sectionEditModeOn: true, autoSave: false } }>
+              <EditModeContext.Provider value={ { editModeOn: true } }>
+                <HoverableEditWrapper />
+              </EditModeContext.Provider>
+            </EditWrapperStateContext.Provider>
           );
 
           const buttons = wrapper.find('a');

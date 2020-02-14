@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import queryString from 'query-string';
 
 import EmbedOfficers from 'components/embed/officers';
 import { embedOfficersSelector } from 'selectors/embed/officers';
@@ -6,7 +7,7 @@ import { requestEmbedOfficers } from 'actions/embed/officers';
 
 
 function mapStateToProps(state, ownProps) {
-  const { ids, title, description } = ownProps.location.query;
+  const { ids, title, description } = queryString.parse(ownProps.location.search);
   return {
     title,
     description,

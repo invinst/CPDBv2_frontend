@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Motion } from 'react-motion';
+import { CSSTransition } from 'react-transition-group';
 
 import { withAnimationDisabled } from 'utils/test';
 import FadeMotion from 'components/animation/fade-motion';
@@ -37,7 +37,7 @@ describe('FadeMotion components', function () {
         <FadeMotion show={ true } children={ children } />
       );
 
-      wrapper.find(Motion).exists().should.be.true();
+      wrapper.find(CSSTransition).exists().should.be.true();
     });
   });
 });

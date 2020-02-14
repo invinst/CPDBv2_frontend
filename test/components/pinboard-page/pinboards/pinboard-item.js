@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { browserHistory, Router, Route, createMemoryHistory } from 'react-router';
+import { MemoryRouter } from 'react-router-dom';
+import browserHistory from 'utils/history';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { Promise } from 'es6-promise';
@@ -16,14 +17,6 @@ describe('PinboardItem component', function () {
     createdAt: 'Sep 12, 2019',
     url: '/pinboard/1/pinboard-title/',
   };
-
-  beforeEach(function () {
-    this.browserHistoryPush = stub(browserHistory, 'push');
-  });
-
-  afterEach(function () {
-    this.browserHistoryPush.restore();
-  });
 
   it('should render correctly', function () {
     const wrapper = shallow(
@@ -49,30 +42,27 @@ describe('PinboardItem component', function () {
         },
       },
     });
-    const pinboardItem = () => (
+
+    const wrapper = mount(
       <Provider store={ store }>
-        <PinboardItem
-          isShown={ true }
-          pinboard={ pinboard }
-          duplicatePinboard={ duplicatePinboardStub }
-          handleClose={ handleCloseSpy }
-        />
+        <MemoryRouter>
+          <PinboardItem
+            isShown={ true }
+            pinboard={ pinboard }
+            duplicatePinboard={ duplicatePinboardStub }
+            handleClose={ handleCloseSpy }
+          />
+        </MemoryRouter>
       </Provider>
     );
 
-    const wrapper = mount(
-      <Router history={ createMemoryHistory() }>
-        <Route path='/' component={ pinboardItem } />
-      </Router>
-    );
-
-    const duplicatePinboardBtn = wrapper.find('.duplicate-pinboard-btn');
+    const duplicatePinboardBtn = wrapper.find('.duplicate-pinboard-btn').first();
     duplicatePinboardBtn.simulate('click');
     duplicatePinboardStub.should.be.called();
 
     setTimeout(() => {
       handleCloseSpy.should.be.called();
-      this.browserHistoryPush.should.be.calledWith('/pinboard/5cd06f2b/pinboard-title/');
+      browserHistory.location.pathname.should.equal('/pinboard/5cd06f2b/pinboard-title/');
       done();
     }, 50);
   });
@@ -89,6 +79,6 @@ describe('PinboardItem component', function () {
     wrapper.simulate('click');
     handleCloseSpy.should.be.called();
 
-    this.browserHistoryPush.should.be.calledWith('/pinboard/1/pinboard-title/');
+    browserHistory.location.pathname.should.equal('/pinboard/1/pinboard-title/');
   });
 });

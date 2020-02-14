@@ -7,7 +7,7 @@ const baseConfig = require('./base')('live-test-build');
 
 module.exports = Object.assign({}, baseConfig, {
   mode: 'development',
-  devtool: 'eval-source-map',
+  devtool: 'cheap-module-source-map',
   plugins: [
     ...baseConfig.plugins,
     new CopyWebpackPlugin([

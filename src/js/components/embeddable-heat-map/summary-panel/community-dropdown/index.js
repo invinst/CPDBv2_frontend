@@ -1,82 +1,68 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { find } from 'lodash';
-import { TransitionMotion, spring } from 'react-motion';
+import { CSSTransition, SwitchTransition } from 'react-transition-group';
 
-import { defaultConfig } from 'utils/spring-presets';
+import { QUICK_ANIMATION_DURATION, MEDIUM_ANIMATION_DURATION } from 'utils/constants';
 import CommunityDetail from './community-detail';
 import Dropdown from './dropdown';
-import { dropdownWrapperStyle, childStyle } from './community-dropdown.style';
+import styles from './community-dropdown.sass';
 
+
+const TRANSITION_CLASS_NAMES = {
+  enter: styles.dropdownTransitionEnter,
+  enterActive: styles.dropdownTransitionEnterActive,
+  exit: styles.dropdownTransitionExit,
+  exitActive: styles.dropdownTransitionExitActive,
+};
 
 export default class CommunityDropdown extends Component {
-  willLeave() {
-    return { opacity: spring(0) };
-  }
-
-  willEnter() {
-    return { opacity: 0 };
-  }
-
-  getStyles() {
+  getChildren() {
     const { communityId, showDropdown } = this.props;
     if (communityId) {
-      return [{
+      return {
         key: 'community-detail',
-        style: { opacity: spring(1, defaultConfig()) },
-        data: {
-          getElement: () => (
-            <CommunityDetail
-              closeDetail={ () => this.props.selectCommunity(0) }
-              community={ find(this.props.communities, obj => obj.id === this.props.communityId) }/>
-          ),
-        },
-      }];
+        getElement: () => (
+          <CommunityDetail
+            closeDetail={ () => this.props.selectCommunity(0) }
+            community={ find(this.props.communities, obj => obj.id === this.props.communityId) }/>
+        ),
+      };
     } else if (showDropdown) {
-      return [{
+      return {
         key: 'dropdown',
-        style: { opacity: spring(1, defaultConfig()) },
-        data: {
-          getElement: () => (
-            <Dropdown
-              closeDropdown={ this.props.closeDropdown }
-              communities={ this.props.communities }
-              selectCommunity={ this.props.selectCommunity }/>
-          ),
-        },
-      }];
+        getElement: () => (
+          <Dropdown
+            closeDropdown={ this.props.closeDropdown }
+            communities={ this.props.communities }
+            selectCommunity={ this.props.selectCommunity }/>
+        ),
+      };
     } else {
-      return [{
+      return {
         key: 'dropdown',
-        style: { opacity: spring(1, defaultConfig()) },
-        data: {
-          getElement: () => null,
-        },
-      }];
+        getElement: () => null,
+      };
     }
   }
 
   render() {
+    const { key, getElement } = this.getChildren();
     return (
-      <TransitionMotion
-        willLeave={ this.willLeave }
-        willEnter={ this.willEnter }
-        styles={
-          this.getStyles()
-        }>
-        {
-          interpolatedStyles => (
-            <div style={ dropdownWrapperStyle }>
-              {
-                interpolatedStyles.map(config => (
-                  <div key={ config.key } style={ { ...childStyle, ...config.style } }>
-                    { config.data.getElement() }
-                  </div>
-                ))
-              }
+      <SwitchTransition mode='in-out'>
+        <CSSTransition
+          key={ key }
+          timeout={ { appear: 0, enter: MEDIUM_ANIMATION_DURATION, exit: QUICK_ANIMATION_DURATION } }
+          in={ true }
+          classNames={ TRANSITION_CLASS_NAMES }
+        >
+          <div className={ styles.dropdownWrapper }>
+            <div className={ styles.dropdownChild }>
+              { getElement() }
             </div>
-          )
-        }
-      </TransitionMotion>
+          </div>
+        </CSSTransition>
+      </SwitchTransition>
     );
   }
 }

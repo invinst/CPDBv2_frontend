@@ -54,9 +54,6 @@ describe('withUndoCard higher-order component', function () {
       clock = useFakeTimers();
     });
 
-    afterEach(function () {
-      clock.restore();
-    });
     context('isRequestDelay', function () {
       it('should render nothing when user click unpin but not undo', function () {
         const addItemInPinboardPage = spy();

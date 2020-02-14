@@ -1,19 +1,16 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { get, noop, difference } from 'lodash';
 import TagsInput from 'react-tagsinput';
 import Autosuggest from 'react-autosuggest';
 
 import Editable from 'components/inline-editable/editable';
 import styles from './simple-tag-editable.sass';
+import { EditWrapperStateContext } from 'contexts';
 
 
 export default class SimpleTagEditable extends Component {
-  constructor(props) {
-    super(props);
-    this.autosuggestRenderInput = this.autosuggestRenderInput.bind(this);
-  }
-
-  autosuggestRenderInput({ addTag, ...inputProps }) {
+  autosuggestRenderInput = ({ addTag, ...inputProps }) => {
     const { fieldName, suggestionTags } = this.props;
     const { value, onChange, ref } = inputProps;
     const { value: tags } = get(this.context.fieldContexts, fieldName, {});
@@ -46,7 +43,7 @@ export default class SimpleTagEditable extends Component {
         onSuggestionsFetchRequested={ noop }
       />
     );
-  }
+  };
 
   render() {
     const { fieldName } = this.props;
@@ -89,6 +86,4 @@ SimpleTagEditable.defaultProps = {
   suggestionTags: [],
 };
 
-SimpleTagEditable.contextTypes = {
-  fieldContexts: PropTypes.object,
-};
+SimpleTagEditable.contextType = EditWrapperStateContext;

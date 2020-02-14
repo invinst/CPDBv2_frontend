@@ -1,5 +1,3 @@
-import React from 'react';
-
 import PrintPreloadFonts from 'components/common/print-preload-fonts';
 
 

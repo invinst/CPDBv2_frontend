@@ -1,25 +1,24 @@
-import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { isEmpty } from 'lodash';
 
+import NavigationWrapper from 'utils/navigation-wrapper';
 import styles from './wrapper-link.sass';
 import OutboundLink from 'components/common/outbound-link';
 
 
-export default class WrapperLink extends Component {
-  render() {
-    const { url, to, children } = this.props;
+export default function WrapperLink(props) {
+  const { url, to, children } = props;
 
-    if (!isEmpty(to)) {
-      return <Link className={ styles.wrapperLink } to={ to }>{ children }</Link>;
-    }
-
-    if (!isEmpty(url)) {
-      return <OutboundLink className={ styles.wrapperLink } href={ url }>{ children }</OutboundLink>;
-    }
-
-    return children;
+  if (!isEmpty(to)) {
+    return <NavigationWrapper className={ styles.wrapperLink } to={ to }>{ children }</NavigationWrapper>;
   }
+
+  if (!isEmpty(url)) {
+    return <OutboundLink className={ styles.wrapperLink } href={ url }>{ children }</OutboundLink>;
+  }
+
+  return children;
 }
 
 WrapperLink.propTypes = {

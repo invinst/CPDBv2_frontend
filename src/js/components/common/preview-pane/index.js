@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { isEmpty, get, noop } from 'lodash';
 import cx from 'classnames';
 
@@ -65,7 +66,7 @@ export default class PreviewPane extends Component {
     const { data, customClass, yScrollable, dynamicHeight, isShown } = this.props;
 
     return (
-      <SlideMotion show={ isShown && !isEmpty(data) } offsetX={ 100 }>
+      <SlideMotion show={ isShown && !isEmpty(data) }>
         <div className={
           cx(
             styles.previewPaneWrapper,

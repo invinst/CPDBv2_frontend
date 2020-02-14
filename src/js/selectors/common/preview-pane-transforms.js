@@ -145,7 +145,7 @@ export const officerTransform = (item) => {
         {};
 
   return {
-    id: item['id'],
+    id: parseInt(item['id']),
     fullName: item['name'] || item['full_name'],
     appointedDate: formatDate(item['appointed_date'] || item['date_of_appt'], true),
     resignationDate: formatDate(item['resignation_date'] || item['date_of_resignation'], true),

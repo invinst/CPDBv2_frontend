@@ -1,22 +1,21 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import styles from './right-navigation.sass';
 
 
-export default class RightNavigation extends Component {
-  render() {
-    const { text, onClickHandler } = this.props;
+export default function RightNavigation(props) {
+  const { text, onClickHandler } = props;
 
-    return (
-      <span
-        className={ styles.rightNavigation }
-        onClick={ onClickHandler }
-      >
-        { text }
-        <div className='right-arrow'/>
-      </span>
-    );
-  }
+  return (
+    <span
+      className={ styles.rightNavigation }
+      onClick={ onClickHandler }
+    >
+      { text }
+      <div className='right-arrow'/>
+    </span>
+  );
 }
 
 RightNavigation.propTypes = {

@@ -19,13 +19,8 @@ describe('Navigation utils', function () {
 
   describe('getPageYBottomOffset', function () {
     beforeEach(function () {
-      this.stubOffsetHeight = stub(window.document.body, 'offsetHeight').value(1000);
-      this.stubPageYOffset = stub(window, 'pageYOffset').value(300);
-    });
-
-    afterEach(function () {
-      this.stubOffsetHeight.restore();
-      this.stubPageYOffset.restore();
+      stub(window.document.body, 'offsetHeight').value(1000);
+      stub(window, 'pageYOffset').value(300);
     });
 
     it('should return distance to bottom', function () {
@@ -35,13 +30,8 @@ describe('Navigation utils', function () {
 
   describe('scrollByBottomOffset', function () {
     beforeEach(function () {
-      this.stubOffsetHeight = stub(window.document.body, 'offsetHeight').value(1000);
+      stub(window.document.body, 'offsetHeight').value(1000);
       this.stubScrollTo = stub(window, 'scrollTo');
-    });
-
-    afterEach(function () {
-      this.stubOffsetHeight.restore();
-      this.stubScrollTo.restore();
     });
 
     it('should return distance to bottom', function () {

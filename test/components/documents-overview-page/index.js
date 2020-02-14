@@ -3,7 +3,8 @@ import { shallow, mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { spy } from 'sinon';
-import { browserHistory } from 'react-router';
+import { MemoryRouter } from 'react-router-dom';
+import browserHistory from 'utils/history';
 
 import DocumentsTable from 'components/documents-overview-page/documents-table';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
@@ -15,7 +16,7 @@ import * as constants from 'utils/constants';
 describe('DocumentsOverviewPage component', function () {
   const store = MockStore()({
     breadcrumb: {
-      breadcrumbs: [],
+      breadcrumbItems: [],
     },
   });
 
@@ -58,10 +59,12 @@ describe('DocumentsOverviewPage component', function () {
 
     const wrapper = mount(
       <Provider store={ store }>
-        <DocumentsOverviewPage
-          documents={ documents }
-          fetchDocuments={ fetchDocuments }
-          fetchDocumentsAuthenticated={ fetchDocumentsAuthenticated }/>
+        <MemoryRouter>
+          <DocumentsOverviewPage
+            documents={ documents }
+            fetchDocuments={ fetchDocuments }
+            fetchDocumentsAuthenticated={ fetchDocumentsAuthenticated }/>
+        </MemoryRouter>
       </Provider>
     );
 
@@ -77,7 +80,9 @@ describe('DocumentsOverviewPage component', function () {
     spy(browserHistory, 'push');
     const wrapper = mount(
       <Provider store={ store }>
-        <DocumentsOverviewPage location={ { pathname: '/documents/' } }/>
+        <MemoryRouter>
+          <DocumentsOverviewPage location={ { pathname: '/documents/' } }/>
+        </MemoryRouter>
       </Provider>
     );
 
@@ -85,13 +90,14 @@ describe('DocumentsOverviewPage component', function () {
     inputElement.simulate('change', { target: { value: 'term' } } );
 
     browserHistory.push.should.be.calledWith('/documents/?match=term');
-    browserHistory.push.restore();
   });
 
   it('should not change url if search text hasnt changed', function () {
     const wrapper = mount(
       <Provider store={ store }>
-        <DocumentsOverviewPage location={ { pathname: '/documents/' } }/>
+        <MemoryRouter>
+          <DocumentsOverviewPage location={ { pathname: '/documents/' } }/>
+        </MemoryRouter>
       </Provider>
     );
     spy(browserHistory, 'push');
@@ -104,13 +110,14 @@ describe('DocumentsOverviewPage component', function () {
     inputElement.simulate('change', { target: { value: 'abc' } } );
 
     browserHistory.push.should.be.not.called();
-    browserHistory.push.restore();
   });
 
   it('should not include match param in url when search text is empty', function () {
     const wrapper = mount(
       <Provider store={ store }>
-        <DocumentsOverviewPage location={ { pathname: '/documents/' } }/>
+        <MemoryRouter>
+          <DocumentsOverviewPage location={ { pathname: '/documents/' } }/>
+        </MemoryRouter>
       </Provider>
     );
     spy(browserHistory, 'push');
@@ -123,6 +130,5 @@ describe('DocumentsOverviewPage component', function () {
     inputElement.simulate('change', { target: { value: '' } } );
 
     browserHistory.push.should.be.calledWith('/documents/');
-    browserHistory.push.restore();
   });
 });

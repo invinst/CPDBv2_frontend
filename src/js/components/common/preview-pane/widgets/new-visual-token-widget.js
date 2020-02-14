@@ -1,21 +1,20 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import StaticRadarChart from 'components/common/radar-chart';
 import styles from './new-visual-token-widget.sass';
 
 
-export default class VisualTokenWidget extends Component {
-  render() {
-    const { items, visualTokenBackground } = this.props;
-    return (
-      <div className={ styles.wrapper }>
-        <StaticRadarChart
-          data={ items }
-          backgroundColor={ visualTokenBackground }
-        />
-      </div>
-    );
-  }
+export default function VisualTokenWidget(props) {
+  const { items, visualTokenBackground } = props;
+  return (
+    <div className={ styles.wrapper }>
+      <StaticRadarChart
+        data={ items }
+        backgroundColor={ visualTokenBackground }
+      />
+    </div>
+  );
 }
 
 VisualTokenWidget.propTypes = {
