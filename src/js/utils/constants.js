@@ -1,20 +1,13 @@
 import Enum from 'enum';
 import { kebabCase } from 'lodash';
 
-import {
-  darkSilverSandColor, skepticColor, jaggedIceColor, romanticColor, porcelainColor, botticelliColor,
-  galleryColor, lightAltoColor, greyColor, softBlackColor,
-} from 'utils/styles';
+import { greyColor, softBlackColor } from 'utils/styles';
 import config from 'config';
 
-export const TOP = 'top';
-export const BOTTOM = 'bottom';
 
 export const MOBILE_BREAK_POINT = 768;
 export const TABLET_BREAK_POINT = 992;
 export const DESKTOP_BREAK_POINT = 1200;
-
-export const DEFAULT_IMAGE_DIMENSION = '480_320';
 
 export const EXTRA_WIDE = 'extra_wide';
 export const DESKTOP = 'desktop';
@@ -44,23 +37,8 @@ export const PINBOARD_DATA_VISUALIZATION_GEOGRAPHIC_PATH = '/geographic/pinboard
 export const PINBOARD_PATH = '/pinboard/:pinboardId?/:pinboardTitle?';
 export const PINBOARD_ADMIN_PATH = '/view-all-pinboards/';
 
-// Reducer defaults
-export const PAGINATION_DEFAULT = {
-  results: [],
-  count: 0,
-  next: null,
-  previous: null,
-};
-
 // Date format
-export const DATE_FORMAT_IN = 'YYYY-MM-DD';
 export const DATE_FORMAT = 'MMM DD, YYYY';
-
-// Form state
-export const FORM_INITIAL = 'FORM_INITIAL';
-export const FORM_LOADING = 'FORM_LOADING';
-export const FORM_SUCCESS = 'FORM_SUCCESS';
-export const FORM_FAILURE = 'FORM_FAILURE';
 
 export const ENTITY_LINK = 'LINK';
 
@@ -74,7 +52,6 @@ export const V1_ROOT_PATH = API_ROOT;
 export const INVISIBLE_INSTITUTE_URL = 'https://invisible.institute/cpdp';
 
 export const SLUG_PAGE_API_URL = `${V2_ROOT_PATH}cms-pages/`;
-export const LANDING_PAGE_API_URL = `${SLUG_PAGE_API_URL}landing-page/`;
 export const SIGNIN_URL = `${V2_ROOT_PATH}users/sign-in/`;
 export const RESET_PASSWORD_URL = `${V2_ROOT_PATH}users/forgot-password/`;
 export const MAIL_CHIMP_URL = '/vftg/';
@@ -256,7 +233,6 @@ export const SEARCH_TERMS_CATEGORIES_REQUEST_START = 'SEARCH_TERMS_CATEGORIES_RE
 export const SEARCH_TERMS_CATEGORIES_REQUEST_SUCCESS = 'SEARCH_TERMS_CATEGORIES_REQUEST_SUCCESS';
 export const SEARCH_TERMS_CATEGORIES_REQUEST_FAILURE = 'SEARCH_TERMS_CATEGORIES_REQUEST_FAILURE';
 
-export const DO_NOTHING_ACTION = 'DO_NOTHING_ACTION'; // To be used when an action that do nothing is needed
 export const CHANGE_OFFICER_ID = 'CHANGE_OFFICER_ID';
 export const CHANGE_OFFICER_TAB = 'CHANGE_OFFICER_TAB';
 export const UPDATE_PATH_NAME = 'UPDATE_PATH_NAME';
@@ -267,16 +243,6 @@ export const MAPBOX_ACCESS_TOKEN =
   'pk.eyJ1IjoiaW52aXNpYmxlaW5zdGl0dXRlIiwiYSI6ImNpZ256bXRqMDAwMDBzeGtud3VoZGplNHMifQ.ky2VSGEYU5KritRMArHY-w';
 export const MAPBOX_STYLE = 'mapbox://styles/invisibleinstitute/cj8ugtswqe8dx2ss2kwhfnvte';
 
-export const FINDING_COLORS = {
-  'Unfounded': darkSilverSandColor,
-  'Exonerated': skepticColor,
-  'Not Sustained': jaggedIceColor,
-  'Sustained': romanticColor,
-  'No Cooperation': porcelainColor,
-  'No Affidavit': botticelliColor,
-  'Discharged': galleryColor,
-  'Unknown': lightAltoColor,
-};
 
 export const ACTIVITY_GRID_REQUEST_START = 'ACTIVITY_GRID_REQUEST_START';
 export const ACTIVITY_GRID_REQUEST_SUCCESS = 'ACTIVITY_GRID_REQUEST_SUCCESS';
