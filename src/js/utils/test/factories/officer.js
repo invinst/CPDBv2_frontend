@@ -1,15 +1,6 @@
 import { Factory } from 'rosie';
-import { name, random, internet, lorem } from 'faker';
+import { name, random, lorem } from 'faker';
 
-
-/* istanbul ignore next */
-export default Factory.define('officer')
-  .sequence('id')
-  .attr('full_name', () => name.firstName())
-  .attr('gender', 'Male')
-  .attr('race', 'White')
-  .attr('allegation_count', () => random.number())
-  .attr('v1_url', () => internet.url());
 
 export const CoaccusedFactory = Factory.define('coaccused')
   .sequence('id')

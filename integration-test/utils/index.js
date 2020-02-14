@@ -1,11 +1,5 @@
 'use strict';
 
-import { map } from 'lodash';
-
-
-export const extractText = function (elements) {
-  return map(elements, function (element) { return browser.elementIdText(element.ELEMENT); });
-};
 
 export const retry = function (action, valid, retries=1) {
   let attempts = 0;
@@ -26,13 +20,6 @@ export const reliableSetValue = function (element, value) {
     () => element.setValue(value),
     () => element.getValue() === value
   );
-};
-
-export const getRequestCount = url => {
-  const result = browser.execute(function (url) {
-    return window.requestCount(url);
-  }, url);
-  return result;
 };
 
 export const selectText = selector => {
