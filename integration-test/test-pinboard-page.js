@@ -132,20 +132,23 @@ describe('Pinboard Page', function () {
 
     it('should render correctly', function () {
       pinboardPage.pinboardSection.title.getValue().should.equal('Pinboard Title');
-      pinboardPage.pinboardSection.description.getValue().should.equal('Pinboard Description');
+      pinboardPage.pinboardSection.description.getText().should.equal('Pinboard Description');
     });
 
     it('should update title and description after editing and out focusing them', function () {
       pinboardPage.pinboardSection.title.getValue().should.equal('Pinboard Title');
-      pinboardPage.pinboardSection.description.getValue().should.equal('Pinboard Description');
+      pinboardPage.pinboardSection.description.getText().should.equal('Pinboard Description');
       browser.getUrl().should.containEql('/pinboard-title/');
       pinboardPage.pinboardSection.title.click();
       pinboardPage.pinboardSection.title.setValue('Updated Title');
       pinboardPage.pinboardSection.description.click();
-      pinboardPage.pinboardSection.description.setValue('Updated Description');
+      pinboardPage.pinboardSection.description.addValue(' **Updated**');
       pinboardPage.pinboardSection.title.click();
       pinboardPage.pinboardSection.title.getValue().should.equal('Updated Title');
-      pinboardPage.pinboardSection.description.getValue().should.equal('Updated Description');
+      pinboardPage.pinboardSection.description.getText().should.equal('Pinboard Description Updated');
+      pinboardPage.pinboardSection.description.getHTML().should.containEql(
+        '<p>Pinboard Description <strong>Updated</strong></p>'
+      );
       browser.getUrl().should.containEql('/updated-title/');
     });
   });
@@ -892,7 +895,7 @@ describe('Empty Pinboard Page', function () {
     pinboardPage.emptyPinboardSection.firstExample.click();
     browser.getUrl().should.match(/pinboard\/abcd1234\/watts-crew\//);
     pinboardPage.pinboardSection.title.getValue().should.equal('Watts Crew');
-    pinboardPage.pinboardSection.description.getValue().should.equal(
+    pinboardPage.pinboardSection.description.getText().should.equal(
       'Officers with at least 10 complaints against them generate 64% of all complaints.'
     );
     pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
@@ -902,7 +905,7 @@ describe('Empty Pinboard Page', function () {
     pinboardPage.emptyPinboardSection.secondExample.click();
     browser.getUrl().should.match(/pinboard\/abcd1234\/skullcap-crew\//);
     pinboardPage.pinboardSection.title.getValue().should.equal('Skullcap Crew');
-    pinboardPage.pinboardSection.description.getValue().should.equal(
+    pinboardPage.pinboardSection.description.getText().should.equal(
       'Skullcap Crew is a nickname given to a group of five Chicago Police officers in a gang...'
     );
     pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
