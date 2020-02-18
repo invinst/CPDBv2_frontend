@@ -5,7 +5,7 @@ import {
 } from 'utils/test/factories/activity-grid';
 
 export default () => {
-  // This is for selenium-test/test-landing-page.js test
+  // This is for integration-test/test-landing-page.js test
   // Pinboard function should show only 1 toast if one officer of the pairing card was already pinned
   const firstOfficer = {
     id: 777,

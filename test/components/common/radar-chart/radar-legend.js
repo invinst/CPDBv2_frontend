@@ -20,7 +20,7 @@ describe('RadarLegend components', function () {
   });
 
   it('should fadeOut the legend when fadeOut is set to true', function () {
-    // TODO: move to selenium-test when officer-profile page is ready
+    // TODO: move to integration-test when officer-profile page is ready
     const wrapper = mount(<RadarLegend content='2017' fadeOut={ true }/>);
 
     wrapper.find('.test--radar-legend-content').exists().should.be.false();
