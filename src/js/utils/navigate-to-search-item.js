@@ -1,5 +1,4 @@
 import browserHistory from 'utils/history';
-
 import { trackOutboundLink } from 'utils/tracking';
 
 

@@ -17,7 +17,7 @@ import 'web-animations-js';
 import config from 'config';
 import AppContainer from 'containers/app-container';
 import configureStore from 'store';
-import history from 'utils/history';
+import browserHistory from 'utils/history';
 
 
 const store = configureStore();
@@ -32,7 +32,7 @@ if (module.hot) {
 
 render(
   <Provider store={ store }>
-    <ConnectedRouter history={ history }>
+    <ConnectedRouter history={ browserHistory }>
       <AppContainer />
     </ConnectedRouter>
   </Provider>,

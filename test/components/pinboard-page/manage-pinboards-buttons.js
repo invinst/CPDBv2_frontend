@@ -4,8 +4,8 @@ import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { spy, stub } from 'sinon';
 import { Promise } from 'es6-promise';
-import browserHistory from 'utils/history';
 
+import browserHistory from 'utils/history';
 import ManagePinboardsButtons from 'components/pinboard-page/manage-pinboards-buttons';
 
 

@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import browserHistory from 'utils/history';
 import { throttle, isEmpty, noop } from 'lodash';
 import { Promise } from 'es6-promise';
 import cx from 'classnames';
 
+import browserHistory from 'utils/history';
 import SearchBox from './search-box';
 import { navigateToSearchItem } from 'utils/navigate-to-search-item';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';

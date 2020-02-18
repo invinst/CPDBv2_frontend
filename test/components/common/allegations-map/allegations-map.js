@@ -3,11 +3,11 @@ import { mount } from 'enzyme';
 import isMobile from 'ismobilejs';
 import { times, cloneDeep } from 'lodash';
 import { spy, stub } from 'sinon';
-import browserHistory from 'utils/history';
-import { mapboxgl } from 'utils/vendors';
 import ReactDOMServer from 'react-dom/server';
 import should from 'should';
 
+import browserHistory from 'utils/history';
+import { mapboxgl } from 'utils/vendors';
 import AllegationsMap, { AllegationsMapWithSpinner } from 'components/common/allegations-map';
 import Legend from 'components/common/allegations-map/legend';
 import mapStyles from 'components/common/allegations-map/allegations-map.sass';

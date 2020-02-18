@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import browserHistory from 'utils/history';
 import cx from 'classnames';
 import { isEmpty, noop, get } from 'lodash';
 
+import browserHistory from 'utils/history';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import SearchBar from './search-bar';
 import Header from './header';
