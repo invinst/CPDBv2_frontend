@@ -3,18 +3,18 @@
 \:local(.item-pin-button)
   .pin-button
     border-radius: 2px
-    border: solid 1px $white-two-color
+    border: solid 1px $alto-color
     width: 26px
     height: 26px
     background-position: center
     background-repeat: no-repeat
     background-image: url('/img/ic-plus-bold.svg')
     background-size: 12px 12px
-    background-color: $snow-color
+    background-color: $hint-of-red-color
     box-sizing: border-box
 
     &:hover
-      background-color: $pudding-matcha
+      background-color: $willow-brook-color
       background-image: url('/img/ic-plus-green.svg')
       border: none
 
@@ -28,11 +28,11 @@
   &.is-pinned
     .pin-button
       background-image: url('/img/ic-minus.svg')
-      background-color: $snow-color
+      background-color: $hint-of-red-color
 
       &:hover
         background-image: url('/img/ic-minus-dark-grey.svg')
-        border: solid 1px $white-two-color
+        border: solid 1px $alto-color
 
         ~.pin-action-hint
           display: unset
