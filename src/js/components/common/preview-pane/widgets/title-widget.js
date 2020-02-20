@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import Truncate from 'react-truncate';
+import ReactMarkdown from 'react-markdown';
 
 import styles from './title-widget.sass';
 
@@ -10,7 +10,7 @@ export default function TitleWidget(props) {
   return (
     <div className={ styles.titleWidget }>
       <div className='title-widget-title'>{ title }</div>
-      <Truncate className='title-widget-subtitle' lines={ 3 } trimWhitespace={ true }>{ subtitle }</Truncate>
+      <ReactMarkdown className='title-widget-subtitle' source={ subtitle }/>
     </div>
   );
 }

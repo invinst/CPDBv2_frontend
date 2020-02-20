@@ -82,10 +82,10 @@ describe('EmptyPinboard component', function () {
     descriptions.should.have.length(2);
 
     titles.at(0).text().should.equal('Pinboard 1');
-    descriptions.at(0).text().should.equal('Description 1…');
+    descriptions.at(0).text().should.equal('Description 1');
 
     titles.at(1).text().should.equal('Pinboard 2');
-    descriptions.at(1).text().should.equal('Description 2…');
+    descriptions.at(1).text().should.equal('Description 2');
 
     wrapper.find('.arrow-head').exists().should.be.true();
     wrapper.find('.arrow-shaft').exists().should.be.true();

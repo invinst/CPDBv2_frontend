@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { lorem } from 'faker';
-import Truncate from 'react-truncate';
+import ReactMarkdown from 'react-markdown';
 
 import TitleWidget from 'components/common/preview-pane/widgets/title-widget';
 
@@ -18,10 +18,9 @@ describe('OneLineListWidget component', () => {
     );
 
     wrapper.find('.title-widget-title').text().should.equal(title);
-    const truncatedSubtitle = wrapper.find(Truncate);
-    truncatedSubtitle.prop('className').should.equal('title-widget-subtitle');
-    truncatedSubtitle.prop('lines').should.equal(3);
-    truncatedSubtitle.prop('trimWhitespace').should.be.true();
-    truncatedSubtitle.prop('children').should.equal(subtitle);
+    const truncatedSubtitle = wrapper.find('.title-widget-subtitle');
+    truncatedSubtitle.exists().should.be.true();
+    const markdown = truncatedSubtitle.find(ReactMarkdown);
+    markdown.prop('source').should.equal(subtitle);
   });
 });

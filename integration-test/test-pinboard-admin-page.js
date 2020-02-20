@@ -82,9 +82,10 @@ describe('Pinboard Admin Page', function () {
         pinboardAdminPage.pinboardPreviewPane.callToAction.getText().should.equal('View Pinboard');
         pinboardAdminPage.pinboardPreviewPane.title.getText().should.equal('Pinboard 18a5b091 Title');
         pinboardAdminPage.pinboardPreviewPane.description.getText().should.equal(
-          'It will be a tough election and\n' +
-          'we are going to do the best we\n' +
-          'can he added'
+          'It will be a tough election and we are going to do the best we can he added'
+        );
+        pinboardAdminPage.pinboardPreviewPane.description.getHTML().should.containEql(
+          '<p><strong>It will be a tough election</strong> and we are going to do the best we can he added</p>'
         );
         pinboardAdminPage.pinboardPreviewPane.info.createdAtTitle.getText().should.equal('Created at');
         pinboardAdminPage.pinboardPreviewPane.info.createdAtValue.getText().should.equal(createdAt);

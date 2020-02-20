@@ -13,7 +13,7 @@ export const firstPage = {
     {
       'id': '18a5b091',
       'title': 'Pinboard 18a5b091 Title',
-      'description': 'It will be a tough election and we are going to do the best we can he added',
+      'description': '**It will be a tough election** and we are going to do the best we can he added',
       'created_at': '2019-11-04T09:12:20.798703Z',
       'officers_count': 10,
       'allegations_count': 8,

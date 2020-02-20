@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import Truncate from 'react-truncate';
+import ReactMarkdown from 'react-markdown';
 
 import styles from 'components/pinboard-page/empty-pinboard/example-pinboard-link.sass';
 
@@ -18,7 +18,7 @@ export default class ExamplePinboardLink extends Component {
       <a onClick={ this.handleClick } className={ styles.examplePinboardLink }>
         <div className='wrapper'>
           <div className='title'>{ title }</div>
-          <Truncate className='description' lines={ 3 }>{ description }</Truncate>
+          <ReactMarkdown className='description' source={ description }/>
         </div>
         <div className='arrow'/>
       </a>
