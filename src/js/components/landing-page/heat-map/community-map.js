@@ -32,7 +32,6 @@ export default class CommunityMap extends Component {
         center={ center }
         hide={ hide }
         onClick={ [
-          [() => selectCommunity(0)],
           ['community-fill', e => selectCommunity(e.features[0].properties.id)],
         ] }
         onMouseMove={ [

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { find } from 'lodash';
-import { CSSTransition, SwitchTransition } from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { QUICK_ANIMATION_DURATION, MEDIUM_ANIMATION_DURATION } from 'utils/constants';
 import CommunityDetail from './community-detail';
@@ -49,7 +49,7 @@ export default class CommunityDropdown extends Component {
   render() {
     const { key, getElement } = this.getChildren();
     return (
-      <SwitchTransition mode='in-out'>
+      <TransitionGroup>
         <CSSTransition
           key={ key }
           timeout={ { appear: 0, enter: MEDIUM_ANIMATION_DURATION, exit: QUICK_ANIMATION_DURATION } }
@@ -62,7 +62,7 @@ export default class CommunityDropdown extends Component {
             </div>
           </div>
         </CSSTransition>
-      </SwitchTransition>
+      </TransitionGroup>
     );
   }
 }
