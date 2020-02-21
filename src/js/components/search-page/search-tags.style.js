@@ -13,7 +13,7 @@ export const dataToolTagStyle = {
   cursor: 'default',
 };
 
-export const tagsWrapperHeight = 54;
+const tagsWrapperHeight = 54;
 
 export const tagsWrapperStyle = {
   padding: '16px 0 16px 0',

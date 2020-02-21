@@ -14,7 +14,7 @@ import ItemPinButton from 'components/common/item-pin-button';
 import { PrintModeContext } from 'contexts';
 
 
-export class CoaccusedCard extends Component {
+export default class CoaccusedCard extends Component {
   renderComplaintInfo() {
     const { complaintCount, sustainedCount } = this.props;
     const complaint = pluralize('allegation', complaintCount, true);
@@ -161,5 +161,3 @@ CoaccusedCard.propTypes = {
 CoaccusedCard.defaultProps = {
   openCardInNewPage: false,
 };
-
-export default CoaccusedCard;
