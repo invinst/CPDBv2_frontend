@@ -6,14 +6,6 @@ export const wrapperStyle = (singleContent) => ({
   height: singleContent ? '100%' : 'auto',
 });
 
-export const scrollerStyle = ({
-  view: {
-    overflowY: 'scroll',
-    overflowX: 'hidden',
-    marginBottom: 0,
-  },
-});
-
 export const groupHeaderStyle = ({
   fontSize: '14px',
   fontWeight: '500',

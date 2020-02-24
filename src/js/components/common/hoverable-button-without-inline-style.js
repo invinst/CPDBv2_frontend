@@ -3,7 +3,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 
-export function HoverableButtonWithoutInlineStyle(props) {
+export default function HoverableButtonWithoutInlineStyle(props) {
   const { onClick, children, disabled, className, disabledClassName } = props;
   const _className = classNames('link--transition', 'hoverable-button', className, { [disabledClassName]: disabled });
 
@@ -28,5 +28,3 @@ HoverableButtonWithoutInlineStyle.defaultProps = {
   className: '',
   disabledClassName: '',
 };
-
-export default HoverableButtonWithoutInlineStyle;

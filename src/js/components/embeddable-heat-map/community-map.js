@@ -29,7 +29,6 @@ export default class CommunityMap extends Component {
       <MapboxGL
         style={ mapContainerStyle }
         onClick={ [
-          [() => selectCommunity(0)],
           ['community-fill', e => selectCommunity(e.features[0].properties.id)],
         ] }
         onMouseMove={ [

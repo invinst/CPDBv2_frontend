@@ -89,7 +89,8 @@ describe('DocumentPage actions', function () {
         ],
       });
 
-      trackDocumentEditStub.calledOnceWith(123, 'title').should.be.true;
+      trackDocumentEditStub.should.be.calledOnce();
+      trackDocumentEditStub.should.be.calledWith(123, 'title');
     });
   });
 

@@ -42,7 +42,7 @@ const uniqueKeyMap = {
   'INVESTIGATOR > CR': 'INVESTIGATOR-CR',
 };
 
-export const baseItemTransform = (item) => ({
+const baseItemTransform = (item) => ({
   type: item.type,
   id: item.id,
   to: item.to,

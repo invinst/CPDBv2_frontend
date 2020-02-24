@@ -9,7 +9,7 @@ const SUCCESS_TYPE_INDEX = 1;
 const FAILURE_TYPE_INDEX = 2;
 const CANCELLED_TYPE_INDEX = 3;
 
-export const getErrorMessage = (action, error) => {
+const getErrorMessage = (action, error) => {
   if (get(error, 'response.data.message')) {
     return error.response.data.message;
   } else if (get(error, 'response.status')) {

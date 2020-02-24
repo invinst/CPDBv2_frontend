@@ -33,7 +33,6 @@ const getSummaryRank = summary => {
 export const getOfficerName = state => state.officerPage.fullName;
 export const getOfficerSlug = state => kebabCase(getOfficerName(state));
 export const getOfficerId = state => state.officerPage.officerId;
-export const breadcrumbCachedFullName = state => state.officerPage.breadcrumbCachedFullName;
 
 export const getEditModeOn = state => state.officerPage.editModeOn;
 
@@ -59,7 +58,7 @@ export const summarySelector = createSelector(
   })
 );
 
-export const DATA_NOT_AVAILABLE = 'N/A';
+const DATA_NOT_AVAILABLE = 'N/A';
 
 export const metricsSelector = createSelector(
   getOfficerInfo,
