@@ -4,7 +4,7 @@ import { map } from 'lodash';
 import extractQuery from 'utils/extract-query';
 import { relevantComplaintTransform } from './transform';
 
-export const getRelevantComplaintsPagination = state => state.pinboardPage.relevantComplaints;
+const getRelevantComplaintsPagination = state => state.pinboardPage.relevantComplaints;
 const pinItemFromPreviewPane = state => state.pinboardPage.pinItemFromPreviewPane;
 export const getRequesting = state => state.pinboardPage.relevantComplaints.requesting;
 

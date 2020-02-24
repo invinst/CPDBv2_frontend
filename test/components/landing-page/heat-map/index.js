@@ -40,7 +40,7 @@ describe('HeatMap component', function () {
       name: 'Westwood',
     }];
     const wrapper = shallow(
-      <HeatMap communities={ communities } hide={ true }/>
+      <HeatMap communities={ communities }/>
     );
     wrapper.state('selectedId').should.equal(0);
 
@@ -51,7 +51,6 @@ describe('HeatMap component', function () {
 
     const communityMap = wrapper.find(CommunityMap);
     communityMap.prop('selectCommunity')(0);
-    communityMap.prop('hide').should.be.true();
     wrapper.state('selectedId').should.equal(0);
   });
 });

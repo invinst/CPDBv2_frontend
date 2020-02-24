@@ -35,6 +35,16 @@ export default class MapboxGL extends Component {
       });
     });
 
+    this.mapBoxResized = new Promise((resolve, reject) => {
+      this._mapBox.on('resize', () => {
+        resolve();
+      });
+    });
+
+    this.mapBoxResized.then(() => {
+      this._mapBox.setMaxBounds(this._mapBox.getBounds());
+    });
+
     this.mapBoxLoaded.then(() => {
       this._mapBox.dragPan.enable();
       this._mapBox.setMaxBounds(this._mapBox.getBounds());
@@ -61,10 +71,6 @@ export default class MapboxGL extends Component {
         throw reason;
       }
     });
-
-    if (prevProps.hide && !this.props.hide) {
-      this._mapBox.resize();
-    }
   }
 
   componentWillUnmount() {

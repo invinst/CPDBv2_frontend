@@ -66,4 +66,4 @@ ResponsiveStyleComponent.propTypes = {
   responsiveStyle: PropTypes.object,
 };
 
-export { MOBILE, TABLET, DESKTOP, EXTRA_WIDE };
+export { TABLET, DESKTOP, EXTRA_WIDE };

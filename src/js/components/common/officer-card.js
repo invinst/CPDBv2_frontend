@@ -13,7 +13,7 @@ import { PINNED_ITEM_TYPES } from 'utils/constants';
 import pinButtonStyles from 'components/common/item-pin-button.sass';
 
 
-export class OfficerCard extends Component {
+export default class OfficerCard extends Component {
   renderComplaintInfo() {
     const { complaintCount, sustainedCount } = this.props;
     const complaint = `${ complaintCount } ${ pluralize('Allegation', complaintCount) }`;
@@ -143,5 +143,3 @@ OfficerCard.defaultProps = {
   openCardInNewPage: false,
   pinnable: true,
 };
-
-export default OfficerCard;

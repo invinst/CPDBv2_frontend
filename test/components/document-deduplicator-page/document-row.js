@@ -84,7 +84,8 @@ describe('DocumentDeduplicatorPage DocumentRow component', function () {
       children: 'show',
     });
     toggle.prop('onChange')(false);
-    setDocumentShow.calledOnceWith(1, true).should.be.true();
+    setDocumentShow.should.be.calledOnce();
+    setDocumentShow.should.be.calledWith(1, true);
   });
 
   it('should not render Toggle component if editModeOn is false', function () {

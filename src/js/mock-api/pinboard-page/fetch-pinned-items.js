@@ -262,5 +262,3 @@ export const ceea8ea3UpdatedOfficer = {
   'trr_ids': ['1234'],
   'description': 'Pinboard Description',
 };
-
-export const fetchPinboardOfficers9778a2ec = () => ([]);
