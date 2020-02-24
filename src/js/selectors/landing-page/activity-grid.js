@@ -13,8 +13,8 @@ const selectRandomPairingCard = (cards) => {
   return sample(paringCardIndices);
 };
 
-const moveParingCardToBeginning = (selector) => createSelector(
-  selector,
+const activityGridShuffle = (selector) => createSelector(
+  shuffled(selector),
   cards => {
     const pairingCardIndex = selectRandomPairingCard(cards);
     if (isUndefined(pairingCardIndex) || pairingCardIndex === 0) {
@@ -32,7 +32,7 @@ export const hasCards = createSelector(
 );
 
 export const cardsSelector = createWithIsPinnedSelector(
-  moveParingCardToBeginning(shuffled(getCards)),
+  activityGridShuffle(getCards),
   PINNED_ITEM_TYPES.OFFICER,
   cardTransform,
 );
