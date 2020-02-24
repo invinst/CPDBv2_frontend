@@ -4,7 +4,7 @@ import { map } from 'lodash';
 import { relevantCoaccusalTransform } from './transform';
 import extractQuery from 'utils/extract-query';
 
-export const getRelevantCoaccusalsPagination = state => state.pinboardPage.relevantCoaccusals;
+const getRelevantCoaccusalsPagination = state => state.pinboardPage.relevantCoaccusals;
 const pinItemFromPreviewPane = state => state.pinboardPage.pinItemFromPreviewPane;
 export const getRequesting = state => state.pinboardPage.relevantCoaccusals.requesting;
 

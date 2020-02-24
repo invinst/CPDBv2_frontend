@@ -5,7 +5,7 @@ import cx from 'classnames';
 import styles from './plus-button.sass';
 
 
-export function PlusButton(props) {
+export default function PlusButton(props) {
   const { className, onClick, darkMode } = props;
   return (
     <div className={ cx(styles.plusButton, className, { 'dark-mode': darkMode }) } onClick={ onClick } />
@@ -21,5 +21,3 @@ PlusButton.propTypes = {
 PlusButton.defaultProps = {
   darkMode: false,
 };
-
-export default PlusButton;

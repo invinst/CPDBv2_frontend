@@ -14,7 +14,7 @@ import updatePathName from 'middleware/path-name';
 import retryOfficerDownloadMiddleware from 'middleware/retry-officer-downloads';
 import restoreCreateOrUpdatePinboard from 'middleware/restore-create-or-update-pinboard';
 import config from 'config';
-import history from 'utils/history';
+import browserHistory from 'utils/history';
 
 const localStorageVersion = localStorage.getItem('CPDB_LOCALSTORAGE_VERSION', null);
 const { pinboard: enablePinboardFeature } = config.enableFeatures;
@@ -29,7 +29,7 @@ function configureStore(initialState) {
     configuredAxiosMiddleware,
     searchPath,
     tracking,
-    routerMiddleware(history),
+    routerMiddleware(browserHistory),
     fetchPageInitialData,
     redirectOfficerAlias,
     updatePathName,
@@ -48,7 +48,7 @@ function configureStore(initialState) {
   }
 
   return createStore(
-    rootReducer(history),
+    rootReducer(browserHistory),
     initialState,
     compose(...composeArgs)
   );

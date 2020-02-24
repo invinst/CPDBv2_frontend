@@ -1,8 +1,8 @@
 import { parseInt, identity } from 'lodash';
-import browserHistory from 'utils/history';
 import { stub } from 'sinon';
 import { Promise } from 'es6-promise';
 
+import browserHistory from 'utils/history';
 import {
   generatePinboardUrl,
   getFormatId,

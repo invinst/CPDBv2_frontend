@@ -7,7 +7,7 @@ import MiniVisualToken from './mini-officer-visual-token';
 import PlusButton from 'components/pinboard-page/relevant/common/plus-button';
 
 
-export class BaseComplaintCard extends Component {
+export default class BaseComplaintCard extends Component {
   handleClick = e => {
     e.preventDefault();
     const { addItemInPinboardPage, rawData } = this.props;
@@ -90,5 +90,3 @@ BaseComplaintCard.defaultProps = {
   focusItem: noop,
   rawData: {},
 };
-
-export default BaseComplaintCard;

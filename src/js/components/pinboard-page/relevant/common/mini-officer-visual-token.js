@@ -6,7 +6,7 @@ import StaticRadarChart from 'components/common/radar-chart';
 import styles from './mini-officer-visual-token.sass';
 
 
-export function MiniVisualToken(props) {
+export default function MiniVisualToken(props) {
   const { percentile, className } = props;
   return (
     <div className={ cx(className, styles.miniOfficerVisualToken) }>
@@ -29,5 +29,3 @@ MiniVisualToken.propTypes = {
   percentile: PropTypes.object,
   className: PropTypes.string,
 };
-
-export default MiniVisualToken;

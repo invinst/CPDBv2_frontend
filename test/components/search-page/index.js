@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { Provider } from 'react-redux';
-import browserHistory from 'utils/history';
 import { spy, stub, match, useFakeTimers } from 'sinon';
 import Mousetrap from 'mousetrap';
 import MockStore from 'redux-mock-store';
@@ -10,6 +9,7 @@ import { createStore } from 'redux';
 import { Promise } from 'es6-promise';
 import { MemoryRouter } from 'react-router-dom';
 
+import browserHistory from 'utils/history';
 import * as navigateUtils from 'utils/navigate-to-search-item';
 import SearchPage from 'components/search-page';
 import * as intercomUtils from 'utils/intercom';

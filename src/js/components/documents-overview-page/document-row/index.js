@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import browserHistory from 'utils/history';
 import cx from 'classnames';
 
+import browserHistory from 'utils/history';
 import Counter from './counter';
 import CRLink from './cr-link';
 import styles from './document-row.sass';

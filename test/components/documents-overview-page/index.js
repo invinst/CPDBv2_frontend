@@ -4,8 +4,8 @@ import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { spy } from 'sinon';
 import { MemoryRouter } from 'react-router-dom';
-import browserHistory from 'utils/history';
 
+import browserHistory from 'utils/history';
 import DocumentsTable from 'components/documents-overview-page/documents-table';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import DocumentsOverviewPage from 'components/documents-overview-page';

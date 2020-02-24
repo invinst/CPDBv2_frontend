@@ -236,7 +236,7 @@ export const markLatestUnit = (items) => {
   });
 };
 
-export const markLatestRank = (items) => {
+const markLatestRank = (items) => {
   const latestRank = items[0] ? items[0].rank : undefined;
 
   let inLastRankPeriod = true;
@@ -250,7 +250,7 @@ export const markLatestRank = (items) => {
   });
 };
 
-export const markIsAfterRankUnitChange = (items) => {
+const markIsAfterRankUnitChange = (items) => {
   return items.map((item, index) => {
     if (index + 1 < items.length) {
       if (items[index + 1].kind === NEW_TIMELINE_ITEMS.RANK_CHANGE) {

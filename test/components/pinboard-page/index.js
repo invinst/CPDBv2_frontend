@@ -5,10 +5,10 @@ import MockStore from 'redux-mock-store';
 import { stub } from 'sinon';
 import { MemoryRouter, Router, Route } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
-import browserHistory from 'utils/history';
 import { createStore as ReduxCreateStore } from 'redux';
 import { set } from 'lodash';
 
+import browserHistory from 'utils/history';
 import PinnedOfficersContainer from 'containers/pinboard-page/pinned-officers';
 import PinnedCRsContainer from 'containers/pinboard-page/pinned-crs';
 import PinnedTRRsContainer from 'containers/pinboard-page/pinned-trrs';

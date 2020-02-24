@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import ReactDOMServer from 'react-dom/server';
-import browserHistory from 'utils/history';
 import cx from 'classnames';
 import { isEmpty, isEqual } from 'lodash';
 import isMobile from 'ismobilejs';
 
+import browserHistory from 'utils/history';
 import { MAP_INFO, MAPBOX_STYLE, MAP_ITEMS } from 'utils/constants';
 import { brightOrangeTwoColor, clayGray, greyishColor, champagneColor, accentColor } from 'utils/styles';
 import { mapboxgl } from 'utils/vendors';
