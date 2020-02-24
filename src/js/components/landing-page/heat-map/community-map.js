@@ -31,7 +31,6 @@ export default class CommunityMap extends Component {
         style={ mapContainerStyle }
         center={ center }
         onClick={ [
-          [() => selectCommunity(0)],
           ['community-fill', e => selectCommunity(e.features[0].properties.id)],
         ] }
         onMouseMove={ [
