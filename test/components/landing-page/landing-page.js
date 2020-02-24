@@ -151,6 +151,7 @@ describe('LandingPage component', function () {
     searchPage.prop('position').should.equal('top');
     searchPage.prop('animationIn').should.be.false();
     searchPage.prop('hide').should.be.false();
+    wrapper.find(HeatMap).exists().should.be.false();
   });
 
   it('should able to open landing page edit mode', function () {
