@@ -14,7 +14,7 @@ $row-fixed-width: 84
   @return calc((100% - #{$row-fixed-width}px) * (#{$min-width} / (#{$table-min-width} - #{$row-fixed-width})))
 
 \:local(.row)
-  background-color: $sugar-cane-color
+  background-color: $wild-sand-color
   height: 80px
   width: 100%
   min-width: #{$table-min-width}px
@@ -25,7 +25,7 @@ $row-fixed-width: 84
   font-weight: 200
 
   &.document-faded
-    background-color: $snow-color
+    background-color: $hint-of-red-color
 
   .document-thumbnail
     @extend %cell
@@ -42,17 +42,17 @@ $row-fixed-width: 84
     @extend %cell
     min-width: 245px
     width: flexible-column(245)
-    color: $soft-black-color
+    color: $thunder-color
     height: 100%
     display: inline-flex
     flex-direction: column
     justify-content: center
     padding-right: 50px
     font-weight: 400
-    color: $soft-black-color
+    color: $thunder-color
 
     &.document-faded
-      color: $light-grey-color
+      color: $iron-light-color
 
   .document-source
     @extend %cell
@@ -62,7 +62,7 @@ $row-fixed-width: 84
     padding-right: 50px
 
     &.document-faded
-      color: $light-grey-color
+      color: $iron-light-color
 
   .document-counts
     @extend %cell
@@ -72,7 +72,7 @@ $row-fixed-width: 84
     padding-right: 50px
 
     &.document-faded
-      color: $light-grey-color
+      color: $iron-light-color
 
   .document-date
     @extend %cell
@@ -82,7 +82,7 @@ $row-fixed-width: 84
     padding-right: 50px
 
     &.document-faded
-      color: $light-grey-color
+      color: $iron-light-color
 
   .document-toggle
     @extend %cell

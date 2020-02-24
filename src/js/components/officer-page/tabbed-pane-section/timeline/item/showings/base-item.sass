@@ -2,7 +2,7 @@
 
 \:local(.base-item)
   display: inline-block
-  background-color: $snow-color
+  background-color: $hint-of-red-color
   padding: 0 16px
   flex-grow: 1
 
@@ -13,7 +13,7 @@
   .item-content
     width: 100%
     display: block
-    border-top: 1px solid $white-two-color
+    border-top: 1px solid $alto-color
     box-sizing: border-box
 
     .item-wrapper-kind
@@ -33,7 +33,7 @@
 
     .item-category
       line-height: 18px
-      color: $soft-black-color
+      color: $thunder-color
 
       @media print
         font-size: 12px
@@ -56,12 +56,12 @@
         border-top: none
 
         @media print
-          border-top: 1px solid $white-two-color
+          border-top: 1px solid $alto-color
 
   &+ .timeline-special-item
     \:local(.base-item)
       .item-content
-        border-top: 1px solid $white-two-color
+        border-top: 1px solid $alto-color
 
         @media print
           border-top: none
