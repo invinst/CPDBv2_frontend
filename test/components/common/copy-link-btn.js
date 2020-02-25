@@ -1,5 +1,3 @@
-import React from 'react';
-
 import CopyLinkButton from 'components/common/copy-link-btn';
 import { withMobileDevice } from 'utils/test';
 

@@ -128,6 +128,20 @@ describe('TextInput component', function () {
     stubFocus.called.should.be.false();
   });
 
+  it('should change value when receiving new value props', function () {
+    const wrapper = mount(<TextInput value='text'/>);
+    wrapper.find('input').props().value.should.equal('text');
+    wrapper.state('prevValue').should.equal('text');
+
+    wrapper.setProps({ value: 'new text' });
+    wrapper.find('input').props().value.should.equal('new text');
+    wrapper.state('prevValue').should.equal('new text');
+
+    wrapper.setProps({ value: 'new text!!!' });
+    wrapper.find('input').props().value.should.equal('new text!!!');
+    wrapper.state('prevValue').should.equal('new text!!!');
+  });
+
   context('when blurOnKeyPress prop is provided', function () {
     it('should blur when an assigned key is pressed', function () {
       const wrapper = mount(

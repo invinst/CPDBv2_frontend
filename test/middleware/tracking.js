@@ -1,4 +1,5 @@
 import { stub } from 'sinon';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 import trackingMiddleware from 'middleware/tracking';
 import * as constants from 'utils/constants';
@@ -11,9 +12,9 @@ describe('trackingMiddleware', function () {
 
     let dispatched;
     const dispatchAction = {
-      type: '@@router/LOCATION_CHANGE',
+      type: LOCATION_CHANGE,
       payload: {
-        pathname: 'abc',
+        location: { pathname: 'abc' },
       },
     };
 
@@ -21,8 +22,6 @@ describe('trackingMiddleware', function () {
 
     dispatched.should.eql(dispatchAction);
     tracking.trackPageView.should.be.calledWith('abc');
-
-    tracking.trackPageView.restore();
   });
 
   it('should send pageview event on CHANGE_SEARCH_QUERY', function () {
@@ -38,8 +37,6 @@ describe('trackingMiddleware', function () {
 
     dispatched.should.eql(dispatchAction);
     tracking.trackSearchQuery.should.be.calledWith('abc');
-
-    tracking.trackSearchQuery.restore();
   });
 
   it('should send pageview event on SUGGESTION_SINGLE_REQUEST_SUCCESS', function () {
@@ -59,8 +56,6 @@ describe('trackingMiddleware', function () {
 
     dispatched.should.eql(dispatchAction);
     tracking.trackSearchResultsCount.should.be.calledWith(203);
-
-    tracking.trackSearchResultsCount.restore();
   });
 
   it('should trackSingleSearchResults on SUGGESTION_SINGLE_REQUEST_SUCCESS', function () {
@@ -80,8 +75,6 @@ describe('trackingMiddleware', function () {
 
     dispatched.should.eql(dispatchAction);
     tracking.trackSingleSearchResults.should.be.calledWith('OFFICER', '123', 2);
-
-    tracking.trackSingleSearchResults.restore();
   });
 
   it('should send pageview event on SUGGESTION_REQUEST_SUCCESS', function () {
@@ -100,7 +93,5 @@ describe('trackingMiddleware', function () {
 
     dispatched.should.eql(dispatchAction);
     tracking.trackSearchResultsCount.should.be.calledWith(3);
-
-    tracking.trackSearchResultsCount.restore();
   });
 });

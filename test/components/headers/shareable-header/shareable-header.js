@@ -2,9 +2,10 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
-import Breadcrumbs from 'redux-breadcrumb-trail';
+import BreadcrumbContainer from 'containers/breadcrumb';
 import { stub } from 'sinon';
 import * as domUtils from 'utils/dom';
+import { MemoryRouter } from 'react-router-dom';
 
 import ShareableHeader from 'components/headers/shareable-header';
 import HeaderButton from 'components/headers/shareable-header/header-button';
@@ -16,10 +17,8 @@ import { updateShareablePageScrollPosition } from 'actions/headers/shareable-hea
 
 
 describe('ShareableHeader component', function () {
-  class CustomMenu extends React.Component {
-    render() {
-      return <div/>;
-    }
+  function CustomMenu(props) {
+    return <div/>;
   }
 
   let wrapper, shareableHeader;
@@ -39,14 +38,13 @@ describe('ShareableHeader component', function () {
     shareableHeader = wrapper;
   });
 
-  it('should render HeaderButton, breadCrumbs and other contents', function () {
+  it('should render HeaderButton, BreadcrumbContainer and other contents', function () {
     const headerButton = wrapper.find(HeaderButton);
     headerButton.prop('Menu').should.eql(CustomMenu);
     headerButton.prop('onOpen').should.eql(this.stubOnOpen);
     headerButton.prop('onClose').should.eql(this.stubOnClose);
 
-    const breadcrumbs = wrapper.find(Breadcrumbs);
-    breadcrumbs.prop('className').should.equal('breadcrumbs');
+    wrapper.find(BreadcrumbContainer).should.have.length(1);
 
     wrapper.find('.shareable-header-header-placeholder').exists().should.be.true();
     wrapper.find('.shareable-header-nav-bar').exists().should.be.true();
@@ -55,10 +53,6 @@ describe('ShareableHeader component', function () {
   describe('handleScroll', function () {
     beforeEach(function () {
       stub(domUtils, 'calculatePosition');
-    });
-
-    afterEach(function () {
-      domUtils.calculatePosition.restore();
     });
 
     it('should remain in top position', function () {
@@ -110,7 +104,7 @@ describe('ShareableHeader global click listener', function () {
   const mockStore = MockStore();
   const store = mockStore({
     breadcrumb: {
-      breadcrumbs: [],
+      breadcrumbItems: [],
     },
   });
 
@@ -121,15 +115,12 @@ describe('ShareableHeader global click listener', function () {
     stub(document.body, 'removeEventListener');
     wrapper = mount(
       <Provider store={ store }>
-        <ShareableHeaderContainer />
+        <MemoryRouter>
+          <ShareableHeaderContainer />
+        </MemoryRouter>
       </Provider>
     );
     shareableHeader = wrapper.find(ShareableHeader);
-  });
-
-  afterEach(function () {
-    document.body.addEventListener.restore();
-    document.body.removeEventListener.restore();
   });
 
   it('should assign global click handler to close share menu', function () {
@@ -150,11 +141,6 @@ describe('ShareableHeader global scroll listener', function () {
     stub(window, 'addEventListener');
     stub(window, 'removeEventListener');
     wrapper = shallow(<ShareableHeader />);
-  });
-
-  afterEach(function () {
-    window.addEventListener.restore();
-    window.removeEventListener.restore();
   });
 
   it('should assign global scroll handler to close share menu', function () {

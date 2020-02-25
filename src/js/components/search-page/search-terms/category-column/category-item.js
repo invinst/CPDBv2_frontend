@@ -1,8 +1,9 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import classnames from 'classnames';
 import { reduce, get } from 'lodash';
-import { browserHistory } from 'react-router';
 
+import browserHistory from 'utils/history';
 import Hoverable from 'components/common/higher-order/hoverable';
 import { itemStyle, nameStyle } from './category-item.style';
 import { navigationItemTransform } from 'selectors/common/navigation-item-transform';

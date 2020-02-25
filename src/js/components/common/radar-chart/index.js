@@ -1,9 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 
 import RadarChart from './radar-chart';
 import { hasEnoughRadarChartData } from 'utils/radar-chart';
 import { clayGray, greyishColor, softBlackColor, sugarCaneColor } from 'utils/styles';
-
+import { PrintModeContext } from 'contexts';
 
 const PRINT_RADAR_CHART_STYLES = {
   textColor: softBlackColor,
@@ -15,34 +16,31 @@ const PRINT_RADAR_CHART_STYLES = {
   radarMainAreaOpacity: 0.4,
 };
 
-export default class StaticRadarChart extends Component {
-  render() {
-    const { data, width, height, radius, offsetTop } = this.props;
+export default function StaticRadarChart(props) {
+  const { data, width, height, radius, offsetTop } = props;
+  const { printMode } = useContext(PrintModeContext);
+  const radarChartPrintStyle = printMode ? PRINT_RADAR_CHART_STYLES : {};
 
-    const { printMode } = this.context;
-    const radarChartPrintStyle = printMode ? PRINT_RADAR_CHART_STYLES : {};
-
-    if (!hasEnoughRadarChartData(data)) {
-      return (
-        <RadarChart
-          numMetrics={ 3 }
-          width={ width }
-          height={ height }
-          radius={ radius }
-          backgroundColor={ greyishColor }
-          showGrid={ true }
-          outerGridOnly={ true }
-          gridColor={ clayGray }
-          strokeWidth={ 0.6 }
-          boundaryAreaColor={ greyishColor }
-          offsetTop={ offsetTop }
-          { ...radarChartPrintStyle }
-        />
-      );
-    }
-
-    return <RadarChart{ ...this.props } { ...radarChartPrintStyle }/>;
+  if (!hasEnoughRadarChartData(data)) {
+    return (
+      <RadarChart
+        numMetrics={ 3 }
+        width={ width }
+        height={ height }
+        radius={ radius }
+        backgroundColor={ greyishColor }
+        showGrid={ true }
+        outerGridOnly={ true }
+        gridColor={ clayGray }
+        strokeWidth={ 0.6 }
+        boundaryAreaColor={ greyishColor }
+        offsetTop={ offsetTop }
+        { ...radarChartPrintStyle }
+      />
+    );
   }
+
+  return <RadarChart{ ...props } { ...radarChartPrintStyle }/>;
 }
 
 
@@ -54,7 +52,7 @@ StaticRadarChart.propTypes = {
     PropTypes.shape({
       axis: PropTypes.string.isRequired,
       value: PropTypes.number.isRequired,
-    })
+    }),
   ),
   backgroundColor: PropTypes.string,
   textColor: PropTypes.string,
@@ -75,8 +73,4 @@ StaticRadarChart.propTypes = {
   ]),
   fadeOutLegend: PropTypes.bool,
   offsetTop: PropTypes.number,
-};
-
-StaticRadarChart.contextTypes = {
-  printMode: PropTypes.bool,
 };

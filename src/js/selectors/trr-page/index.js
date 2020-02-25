@@ -53,7 +53,7 @@ export const trrDetailSelector = createSelector(
 export const trrLocationSelector = createSelector(
   [getData],
   (data) => ({
-    incidentDate: formatDate(get(data, 'date_of_incident')),
+    incidentDate: formatDate(get(data, 'date_of_incident'), true),
     address: get(data, 'address'),
     beat: String(get(data, 'beat')),
     locationType: get(data, 'location_type'),

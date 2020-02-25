@@ -1,10 +1,11 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import should from 'should';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { spy } from 'sinon';
 import { random } from 'faker';
 
+import { mountWithRouter } from 'utils/test';
 import OfficerCard from 'components/common/officer-card';
 import RadarChart from 'components/common/radar-chart/radar-chart';
 import ItemPinButton from 'components/common/item-pin-button';
@@ -14,7 +15,7 @@ import { PINNED_ITEM_TYPES } from 'utils/constants';
 
 describe('OfficerCard component', function () {
   it('should render correctly', function () {
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <OfficerCard
         officerId={ 1 }
         fullName='Jerome Finnigan'
@@ -22,7 +23,7 @@ describe('OfficerCard component', function () {
         complaintCount={ 10 }
         sustainedCount={ 5 }
         complaintPercentile={ 20 }
-        birthYear={ 1980 }
+        age='37-year-old'
         race='white'
         gender='male'
         rank='Police Officer'
@@ -66,11 +67,25 @@ describe('OfficerCard component', function () {
     const addOrRemoveItemInPinboard = spy();
     const id = random.number({ min: 10, max: 1000 });
     const isPinned = random.boolean();
+    const complaintCount = 10;
+    const sustainedCount = 10;
+    const age = '37-year-old';
+    const race = 'White';
+    const gender = 'Male';
+    const rank = 'Officer';
+    const fullName = 'Ferome Finnigan';
 
     const wrapper = shallow(
       <OfficerCard
         officerId={ id }
         isPinned={ isPinned }
+        complaintCount={ complaintCount }
+        sustainedCount={ sustainedCount }
+        age={ age }
+        race={ race }
+        gender={ gender }
+        rank={ rank }
+        fullName={ fullName }
         addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
       />
     );
@@ -79,7 +94,20 @@ describe('OfficerCard component', function () {
     itemPinButton.prop('className').should.equal(pinButtonStyles.cardPinnedButton);
     itemPinButton.prop('addOrRemoveItemInPinboard').should.equal(addOrRemoveItemInPinboard);
     itemPinButton.prop('showHint').should.be.false();
-    itemPinButton.prop('item').should.eql({ type: PINNED_ITEM_TYPES.OFFICER, id, isPinned });
+    itemPinButton.prop('item').should.eql(
+      {
+        type: PINNED_ITEM_TYPES.OFFICER,
+        id,
+        isPinned,
+        complaintCount,
+        sustainedCount,
+        age,
+        race,
+        gender,
+        rank,
+        fullName,
+      }
+    );
   });
 
   it('should not render pin button if not pinnable', function () {

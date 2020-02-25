@@ -1,143 +1,85 @@
-import React, { PropTypes, Component } from 'react';
-import { Motion, spring } from 'react-motion';
-import { find, difference, isEmpty } from 'lodash';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-import { defaultConfig } from 'utils/spring-presets';
+import { ANIMATION_DURATION, QUICK_ANIMATION_DURATION } from 'utils/constants';
 import { scrollToTop } from 'utils/dom';
-import { overlayStyle } from './route-transition.style';
+import styles from './route-transition.sass';
+import { getPathNameKey } from 'utils/paths';
+
+
+const ROUTE_TRANSITION_CLASS_NAMES = {
+  enter: styles.routeTransitionEnter,
+  enterActive: styles.routeTransitionEnterActive,
+  exit: styles.routeTransitionExit,
+  exitActive: styles.routeTransitionExitActive,
+};
 
 export default class RouteTransition extends Component {
+  /**
+   * Return the same key for some paths so that animation won't trigger
+   *
+   *  - Handle the same key for landing page '/' and search page '/search/
+   *  - Return the pathname key
+   */
+  static getRouteTransitionKey(pathname) {
+    let routeTransitionKey = getPathNameKey(pathname);
+    if (routeTransitionKey === '/search/')
+      routeTransitionKey = '/';
+    return routeTransitionKey;
+  }
 
   constructor(props) {
     super(props);
     this.state = {
       showOverlay: false,
-      contents: [
-        {
-          key: this.getRouteTransitionKey(props.pathname),
-          handler: props.children,
-          opacity: 1,
-        },
-      ],
+      prevKey: RouteTransition.getRouteTransitionKey(props.pathname),
+      prevPageLoading: props.pageLoading,
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { pathname, pageLoading, children } = nextProps;
-    const nextKey = this.getRouteTransitionKey(pathname);
-    const prevKey = this.getRouteTransitionKey(this.props.pathname);
+  static getDerivedStateFromProps(props, state) {
+    const { pageLoading, pathname } = props;
+    const { prevKey, prevPageLoading } = state;
+    const currentKey = RouteTransition.getRouteTransitionKey(pathname);
 
-    const betweenLandingAndSearchPage = isEmpty(difference(['/', 'search'], [nextKey, prevKey]));
-    if (betweenLandingAndSearchPage)
-      return;
-
-    if (nextKey !== prevKey) {
-      this.setState({
-        showOverlay: true,
-        contents: [
-          this.state.contents[0],
-          {
-            handler: children,
-            key: nextKey,
-            opacity: 0,
-          },
-        ],
-      });
-    } else if (!pageLoading && this.props.pageLoading && this.overlayCompletelyCover) {
+    if (currentKey !== prevKey) {
+      return {
+        showOverlay: pageLoading,
+        prevKey: currentKey,
+        prevPageLoading: pageLoading,
+      };
+    }
+    else if (!pageLoading && prevPageLoading) {
       scrollToTop();
-      this.setState({
+      return {
         showOverlay: false,
-        contents: [
-          {
-            handler: this.props.children,
-            key: prevKey,
-            opacity: 1,
-          },
-        ],
-      });
+        prevKey: currentKey,
+        prevPageLoading: pageLoading,
+      };
     }
-    else if (!['/', 'search'].includes(nextKey)) {
-      let { contents } = this.state;
-      const content = find(contents, obj => obj.key === nextKey);
-      content.handler = children;
-      this.setState({ contents });
-    }
-  }
-
-  /**
-   * Return the same key for some paths so that animation won't trigger
-   *
-   *  - Officer paths such as /officer/123/ and /officer/123/social/ should give the same key
-   *  - Complaint paths such as /complaint/234/456/ and /complaint/234/789/ should give the same key
-   *  - Search paths such as /search/ and /search/terms/ should always give the same key
-   */
-  getRouteTransitionKey(pathname) {
-    pathname = pathname.replace(/^\/edit(.*)/, '$1');
-    const patterns = [
-      /.*(complaint\/\d+).*/,
-      /.*(search)\/.*/,
-    ];
-    for (let ind in patterns) {
-      const pattern = patterns[ind];
-      if (pathname.match(pattern)) {
-        return pathname.replace(pattern, '$1');
-      }
-    }
-    return pathname;
-  }
-
-  handleOverlayTransitionEnd() {
-    const { pageLoading, children, pathname } = this.props;
-    if (!pageLoading && this.state.showOverlay) {
-      setTimeout(() => {
-        scrollToTop();
-        this.setState({
-          showOverlay: false,
-          contents: [
-            {
-              handler: children,
-              key: this.getRouteTransitionKey(pathname),
-              opacity: 1,
-            },
-          ],
-        });
-      });
-    }
+    return { prevPageLoading: pageLoading, prevKey: currentKey };
   }
 
   render() {
-    const { showOverlay, contents } = this.state;
-
     if (global.disableAnimation) {
       return this.props.children;
     }
 
+    const { children, pathname } = this.props;
+    const { showOverlay } = this.state;
+    const key = showOverlay ? 'loading' : RouteTransition.getRouteTransitionKey(pathname);
     return (
-      <div>
-        <Motion
-          onRest={ this.handleOverlayTransitionEnd.bind(this) }
-          defaultStyle={ { opacity: showOverlay ? 1 : 0 } }
-          style={ { opacity: spring(showOverlay ? 1 : 0, defaultConfig()) } }>
-          { ({ opacity }) => {
-            this.overlayCompletelyCover = false;
-            /* istanbul ignore next */
-            if (opacity === 0) {
-              return null;
-            } else if (opacity === 1) {
-              this.overlayCompletelyCover = true;
-            }
-
-            return <div style={ { ...overlayStyle, opacity } } />;
-          } }
-        </Motion>
-        {
-          contents.map(content => (
-            <div key={ content.key } style={ { opacity: content.opacity } }>
-              { content.handler }
-            </div>
-          ))
-        }
-      </div>
+      <TransitionGroup>
+        <CSSTransition
+          key={ key }
+          timeout={ { enter: ANIMATION_DURATION, exit: QUICK_ANIMATION_DURATION } }
+          classNames={ ROUTE_TRANSITION_CLASS_NAMES }
+          unmountOnExit={ true }
+        >
+          { showOverlay ? <div className={ styles.overlayStyle } /> : children }
+        </CSSTransition>
+      </TransitionGroup>
     );
   }
 }

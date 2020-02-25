@@ -45,7 +45,7 @@ module.exports = distFolder => ({
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['es2015', 'react']
+            presets: ['react', 'es2015', 'stage-0'],
           }
         }
       },

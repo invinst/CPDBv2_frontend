@@ -1,3 +1,5 @@
+import { LOCATION_CHANGE } from 'connected-react-router';
+
 import dataReducer from 'reducers/document-page/data';
 import { DOCUMENT_REQUEST_SUCCESS, UPDATE_DOCUMENT_PAGE_REQUEST_SUCCESS } from 'utils/constants';
 
@@ -35,11 +37,11 @@ describe('officersReducer', function () {
     });
   });
 
-  it('should handle @@router/LOCATION_CHANGE', function () {
+  it('should handle LOCATION_CHANGE', function () {
     const action = {
-      type: '@@router/LOCATION_CHANGE',
+      type: LOCATION_CHANGE,
       payload: {
-        pathname: '/officer/1/timeline/',
+        location: { pathname: '/officer/1/timeline/' },
       },
     };
 

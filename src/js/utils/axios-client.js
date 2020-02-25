@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 import { V1_ROOT_PATH, BASE_PATH } from 'utils/constants';
 
 
-export const clientConfig = {
+const clientConfig = {
   baseURL: V1_ROOT_PATH,
   responseType: 'json',
   withCredentials: true,

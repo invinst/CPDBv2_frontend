@@ -26,14 +26,14 @@ export const hasMoreSelector = createSelector(
 const crTransform = (cr) => ({
   id: cr.crid,
   name: cr.category,
-  subText: formatDate(cr['incident_date'], false),
+  subText: formatDate(cr['incident_date']),
   url: `/complaint/${cr.crid}/`,
 });
 
 const trrTransform = (trr) => ({
   id: trr.id,
   name: trr.category,
-  subText: formatDate(trr['trr_datetime'], false),
+  subText: formatDate(trr['trr_datetime']),
   url: `/trr/${trr.id}/`,
 });
 

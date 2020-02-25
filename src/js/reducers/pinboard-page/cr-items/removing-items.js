@@ -1,11 +1,11 @@
 import { handleActions } from 'redux-actions';
 import { filter } from 'lodash';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 import {
   REMOVE_ITEM_FROM_PINBOARD_STATE,
   COMPLETE_REMOVE_ITEM_FROM_PINBOARD,
   ADD_ITEM_TO_PINBOARD_STATE,
-  LOCATION_CHANGE,
 } from 'utils/constants';
 
 

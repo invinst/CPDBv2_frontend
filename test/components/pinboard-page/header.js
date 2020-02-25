@@ -1,9 +1,10 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import { Link } from 'react-router';
+import { shallow } from 'enzyme';
+import { Link } from 'react-router-dom';
 import { stub } from 'sinon';
 import config from 'config';
 
+import { mountWithRouter } from 'utils/test';
 import Header from 'components/pinboard-page/header';
 import * as editPathUtils from 'utils/edit-path';
 import * as tracking from 'utils/tracking';
@@ -36,13 +37,8 @@ describe('Pinboard Header component', function () {
     beforeEach(function () {
       this.stubPushPathPreserveEditMode = stub(editPathUtils, 'pushPathPreserveEditMode');
       this.stubTrackOutboundLink = stub(tracking, 'trackOutboundLink');
-      const wrapper = mount(<Header />);
+      const wrapper = mountWithRouter(<Header />);
       this.menuItems = wrapper.find('.menu-item');
-    });
-
-    afterEach(function () {
-      this.stubPushPathPreserveEditMode.restore();
-      this.stubTrackOutboundLink.restore();
     });
 
     it('should call correct function when clicking on Data link', function () {

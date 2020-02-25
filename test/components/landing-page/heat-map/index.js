@@ -3,6 +3,7 @@ import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import { stub } from 'sinon';
 import MockStore from 'redux-mock-store';
+import { MemoryRouter } from 'react-router-dom';
 
 import HeatMap from 'components/landing-page/heat-map';
 import SummaryPanel from 'components/landing-page/heat-map/summary-panel';
@@ -23,7 +24,9 @@ describe('HeatMap component', function () {
   it('should render CommunityMap and SummaryPanel', function () {
     const wrapper = mount(
       <Provider store={ store }>
-        <HeatMap/>
+        <MemoryRouter>
+          <HeatMap/>
+        </MemoryRouter>
       </Provider>
     );
     wrapper.find(SummaryPanel).exists().should.be.true();
@@ -37,7 +40,7 @@ describe('HeatMap component', function () {
       name: 'Westwood',
     }];
     const wrapper = shallow(
-      <HeatMap communities={ communities } hide={ true }/>
+      <HeatMap communities={ communities }/>
     );
     wrapper.state('selectedId').should.equal(0);
 
@@ -48,8 +51,6 @@ describe('HeatMap component', function () {
 
     const communityMap = wrapper.find(CommunityMap);
     communityMap.prop('selectCommunity')(0);
-    communityMap.prop('hide').should.be.true();
     wrapper.state('selectedId').should.equal(0);
-    tracking.trackCommunityClick.restore();
   });
 });

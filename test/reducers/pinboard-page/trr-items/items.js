@@ -1,4 +1,5 @@
 import should from 'should';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 import trrItemsReducer from 'reducers/pinboard-page/trr-items/items';
 import * as constants from 'utils/constants';
@@ -104,7 +105,7 @@ describe('Pinboard trrItemsReducer', function () {
     trrItemsReducer(
       [{ 'id': '1' }],
       {
-        type: constants.LOCATION_CHANGE,
+        type: LOCATION_CHANGE,
         payload: [
           { 'id': '2' }, { 'id': '3' },
         ],

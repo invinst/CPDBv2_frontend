@@ -32,8 +32,7 @@ describe('RichTextEditor component', function () {
     const editorState = convertContentStateToEditorState(
       RawContentStateFactory.build({}, { blockTexts: ['a', 'b'] })
     );
-
-    const lastBlockChild = <div className='test--last-block-child'/>;
+    const lastBlockChild = <div key='last-block-child' className='test--last-block-child'/>;
 
     const wrapper = mount(
       <RichTextEditor
@@ -60,10 +59,23 @@ describe('RichTextEditor component', function () {
     const wrapper = shallow(
       <RichTextEditor editorState={ editorState }/>
     );
+    wrapper.find('Toolbar').exists().should.be.true();
 
-    wrapper.setProps({ editorState, showToolbar: true });
-    wrapper.setProps({ editorState, readOnly: true });
-    wrapper.state('showToolbar').should.be.false();
+    wrapper.setProps({ readOnly: true });
+    wrapper.find('Toolbar').exists().should.be.false();
+  });
+
+  it('should not show toolbar when toolbar is disabled', function () {
+    const editorState = convertContentStateToEditorState(
+      RawContentStateFactory.build({}, { blockTexts: ['a'] })
+    );
+    const wrapper = shallow(
+      <RichTextEditor editorState={ editorState }/>
+    );
+    wrapper.find('Toolbar').exists().should.be.true();
+
+    wrapper.setProps({ disableToolbar: true });
+    wrapper.find('Toolbar').exists().should.be.false();
   });
 
   it('should emit back editorState change from Editor', function () {
@@ -124,6 +136,7 @@ describe('RichTextEditor component', function () {
     editorState = EditorState.acceptSelection(editorState, selectionState);
 
     editor.prop('onChange')(editorState);
+    wrapper.update();
     wrapper.state('showToolbar').should.be.true();
     const toolbar = wrapper.find(Toolbar);
     const rect = wrapper.getDOMNode().getBoundingClientRect();

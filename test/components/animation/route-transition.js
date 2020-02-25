@@ -1,46 +1,34 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
 import RouteTransition from 'components/animation/route-transition';
+import styles from 'components/animation/route-transition/route-transition.sass';
 import { withAnimationDisabled } from 'utils/test';
 
 
 describe('RouteTransition component', function () {
   describe('getRouteTransitionKey', function () {
-    it('should give the same key for same CR path', function () {
-      const wrapper = shallow(
-        <RouteTransition pathname='/complaint/1/2/'>
-          complaint for some officer
-        </RouteTransition>
-      );
-      const instance = wrapper.instance();
-      instance.getRouteTransitionKey('/complaint/1/2/').should.equal('complaint/1');
-
-      wrapper.setProps({
-        pathname: '/complaint/1/3/',
-      });
-
-      instance.getRouteTransitionKey('/complaint/1/3/').should.equal('complaint/1');
-
-      wrapper.setProps({
-        pathname: '/complaint/1/',
-      });
-      instance.getRouteTransitionKey('/complaint/1/').should.equal('complaint/1');
+    it('should give the same key for landing page, search page and search alias page', function () {
+      const landingPageKey = RouteTransition.getRouteTransitionKey('/');
+      const searchKey = RouteTransition.getRouteTransitionKey('/search/');
+      const searchAliasKey = RouteTransition.getRouteTransitionKey('/search/alias/');
+      landingPageKey.should.equal('/');
+      searchKey.should.equal('/');
+      searchAliasKey.should.equal('/');
     });
 
-    it('should give the same key for search paths', function () {
-      const wrapper = shallow(
-        <RouteTransition pathname='/search/'>
-          complaint for some officer
-        </RouteTransition>
-      );
-      const instance = wrapper.instance();
-      instance.getRouteTransitionKey('/search/').should.equal('search');
+    it('should give the same key for officer page with same officer id', function () {
+      const officerKey = RouteTransition.getRouteTransitionKey('/officer/123/');
+      const officerWithNameKey = RouteTransition.getRouteTransitionKey('/officer/123/edward-may');
+      officerKey.should.equal('/officer/123/');
+      officerWithNameKey.should.equal('/officer/123/');
+    });
 
-      wrapper.setProps({
-        pathname: '/search/terms/',
-      });
-      instance.getRouteTransitionKey('/search/terms/').should.equal('search');
+    it('should give the same key for pinboard page with same id', function () {
+      const pinboardOldTitleKey = RouteTransition.getRouteTransitionKey('/pinboard/123/old-title');
+      const pinboardNewTitleKey = RouteTransition.getRouteTransitionKey('/pinboard/123/new-title');
+      pinboardOldTitleKey.should.equal('/pinboard/123/');
+      pinboardNewTitleKey.should.equal('/pinboard/123/');
     });
   });
 
@@ -62,7 +50,7 @@ describe('RouteTransition component', function () {
   context('animation enabled', function () {
     it('should render child', function () {
       let testText = 'should be rendered';
-      const wrapper = shallow(
+      const wrapper = mount(
         <RouteTransition pathname='/path'><p>{ testText }</p></RouteTransition>
       );
       wrapper.text().should.containEql(testText);
@@ -72,159 +60,164 @@ describe('RouteTransition component', function () {
       const testChildren = [
         {
           path: '/path1',
-          text: 'a b c',
+          text: 'component 1',
         },
         {
           path: '/path2',
-          text: 'd e f',
+          text: 'component 2',
         },
       ];
 
-      const wrapper = shallow(
+      const wrapper = mount(
         <RouteTransition pathname={ testChildren[0].path }><p>{ testChildren[0].text }</p></RouteTransition>
       );
 
       wrapper.setProps({
         pathname: testChildren[1].path,
         children: <p>{ testChildren[1].text }</p>,
+        pageLoading: true,
       });
 
       wrapper.text().should.containEql(testChildren[0].text);
-
       setTimeout(() => {
+        wrapper.setProps({ pageLoading: false });
         wrapper.text().should.containEql(testChildren[1].text);
         done();
       }, 300);
     });
-  });
 
-  it('should change contents state when component loading finish', function () {
-    const wrapper = shallow(
-      <RouteTransition pathname='/p' pageLoading={ false }><p>abc</p></RouteTransition>
-    );
+    it('should not render overlay when navigate from /search/ to /', function () {
+      const searchPage = {
+        path: '/search/',
+        text: 'search page',
+      };
 
-    wrapper.state('contents').should.have.length(1);
-    wrapper.state('contents')[0].key.should.equal('/p');
+      const landingPage = {
+        path: '/',
+        text: 'landing page',
+      };
 
-    wrapper.setProps({
-      pathname: '/span',
-      pageLoading: true,
-      children: <span>abc</span>,
+      const wrapper = mount(
+        <RouteTransition pathname={ searchPage.path }><p>{ searchPage.text }</p></RouteTransition>
+      );
+
+      wrapper.setProps({
+        pathname: landingPage.path,
+        children: <p>{ landingPage.text }</p>,
+      });
+      wrapper.find(`.${styles.overlayStyle}`).exists().should.be.false();
     });
 
-    wrapper.state('contents').should.have.length(2);
-    wrapper.instance().overlayCompletelyCover = true;
-    wrapper.setProps({
-      pathname: '/span',
-      pageLoading: false,
-      children: <span>abc</span>,
+    it('should not render overlay when navigate from / to /search', function () {
+      const searchPage = {
+        path: '/search/',
+        text: 'search page',
+      };
+
+      const landingPage = {
+        path: '/',
+        text: 'landing page',
+      };
+
+      const wrapper = mount(
+        <RouteTransition pathname={ landingPage.path }><p>{ landingPage.text }</p></RouteTransition>
+      );
+
+      wrapper.setProps({
+        pathname: searchPage.path,
+        children: <p>{ searchPage.text }</p>,
+      });
+      wrapper.find(`.${styles.overlayStyle}`).exists().should.be.false();
     });
 
-    wrapper.state('contents').should.have.length(1);
-    wrapper.state('contents')[0].key.should.equal('/span');
-  });
+    it('should not render overlay when navigate from /search to /search/alias', function () {
+      const searchPage = {
+        path: '/search/',
+        text: 'search page',
+      };
 
-  it('should render old children when changing from / to /search/', function () {
-    const wrapper = shallow(
-      <RouteTransition pathname='/' pageLoading={ false }>
-        <p className='test--root-content'>LandingPage</p>
-      </RouteTransition>
-    );
-    wrapper.state('contents').should.have.length(1);
-    wrapper.state('contents')[0].key.should.equal('/');
-    wrapper.state('contents')[0].opacity.should.equal(1);
-    wrapper.find('.test--root-content').text().should.equal('LandingPage');
+      const searchAliasPage = {
+        path: '/search/alias/',
+        text: 'search alias page',
+      };
 
-    wrapper.setProps({
-      pathname: '/search/',
-      pageLoading: true,
-      children: <p className='test--search-content'>SearchPage</p>,
+      const wrapper = mount(
+        <RouteTransition pathname={ searchPage.path }><p>{ searchPage.text }</p></RouteTransition>
+      );
+
+      wrapper.setProps({
+        pathname: searchAliasPage.path,
+        children: <p>{ searchAliasPage.text }</p>,
+      });
+      wrapper.find(`.${styles.overlayStyle}`).exists().should.be.false();
     });
 
-    wrapper.find('.test--search-content').exists().should.be.false();
-    wrapper.state('contents').should.have.length(1);
-    wrapper.find('.test--root-content').text().should.equal('LandingPage');
-  });
+    it('should not render overlay when navigate from /officer/123/j-aeho/ to /officer/123/j-aeho/map/', function () {
+      const officerPage = {
+        path: '/officer/123/jaeho-jung/',
+        text: 'officer page',
+      };
 
-  it('should render old children when changing from /search/ to /', function () {
-    const wrapper = shallow(
-      <RouteTransition pathname='/search/' pageLoading={ false }>
-        <p className='test--search-content'>SearchPage</p>
-      </RouteTransition>
-    );
-    wrapper.state('contents').should.have.length(1);
-    wrapper.state('contents')[0].key.should.equal('search');
-    wrapper.state('contents')[0].opacity.should.equal(1);
-    wrapper.find('.test--search-content').text().should.equal('SearchPage');
+      const officerMapPage = {
+        path: '/officer/123/jaeho-jung/map/',
+        text: 'officer/map page',
+      };
 
-    wrapper.setProps({
-      pathname: '/',
-      pageLoading: true,
-      children: <p className='test--root-content'>LandingPage</p>,
+      const wrapper = mount(
+        <RouteTransition pathname={ officerPage.path }><p>{ officerPage.text }</p></RouteTransition>
+      );
+
+      wrapper.setProps({
+        pathname: officerMapPage.path,
+        children: <p>{ officerMapPage.text }</p>,
+      });
+      wrapper.find(`.${styles.overlayStyle}`).exists().should.be.false();
     });
 
-    wrapper.find('.test--root-content').exists().should.be.false();
-    wrapper.state('contents').should.have.length(1);
-    wrapper.find('.test--search-content').text().should.equal('SearchPage');
-  });
+    it('should not render overlay when navigate and pageLoading is False', function () {
+      const officerPage = {
+        path: '/officer/123/j-aeho/',
+        text: 'officer page',
+      };
 
-  it('should render old children when changing from / to /', function () {
-    const wrapper = shallow(
-      <RouteTransition pathname='/' pageLoading={ false }>
-        <p className='test--root-content'>LandingPage</p>
-      </RouteTransition>
-    );
-    wrapper.state('contents').should.have.length(1);
-    wrapper.state('contents')[0].key.should.equal('/');
-    wrapper.state('contents')[0].opacity.should.equal(1);
-    wrapper.find('.test--root-content').text().should.equal('LandingPage');
+      const landingPage = {
+        path: '/',
+        text: 'landing page',
+      };
 
-    wrapper.setProps({
-      pathname: '/',
-      pageLoading: true,
-      children: <p className='test--second-root-content'>LandingPage 2</p>,
+      const wrapper = mount(
+        <RouteTransition pathname={ officerPage.path }><p>{ officerPage.text }</p></RouteTransition>
+      );
+
+      wrapper.setProps({
+        pathname: landingPage.path,
+        children: <p>{ landingPage.text }</p>,
+        pageLoading: false,
+      });
+      wrapper.find(`.${styles.overlayStyle}`).exists().should.be.false();
     });
 
-    wrapper.find('.test--second-root-content').exists().should.be.false();
-    wrapper.state('contents').should.have.length(1);
-    wrapper.find('.test--root-content').text().should.equal('LandingPage');
-  });
+    it('should render overlay when navigate from /officer/123/ to /complaint/234/', function () {
+      const officerPage = {
+        path: '/officer/123/',
+        text: 'officer page',
+      };
 
-  it('should render old children when changing from /search/ to /search/', function () {
-    const wrapper = shallow(
-      <RouteTransition pathname='/search/' pageLoading={ false }>
-        <p className='test--search-content'>SearchPage</p>
-      </RouteTransition>,
-    );
-    wrapper.state('contents').should.have.length(1);
-    wrapper.find('.test--search-content').text().should.equal('SearchPage');
+      const complaintPage = {
+        path: '/complaint/234/',
+        text: 'complaint page',
+      };
 
-    wrapper.setProps({
-      pathname: '/search/',
-      pageLoading: true,
-      children: <p className='test--second-search-content'>SearchPage 2</p>,
+      const wrapper = mount(
+        <RouteTransition pathname={ officerPage.path }><p>{ officerPage.text }</p></RouteTransition>
+      );
+
+      wrapper.setProps({
+        pathname: complaintPage.path,
+        children: <p>{ complaintPage.text }</p>,
+        pageLoading: true,
+      });
+      wrapper.find(`.${styles.overlayStyle}`).exists().should.be.true();
     });
-
-    wrapper.find('.test--second-search-content').exists().should.be.false();
-    wrapper.state('contents').should.have.length(1);
-    wrapper.find('.test--search-content').text().should.equal('SearchPage');
-  });
-
-  it('should hide overlay once animation is done if there is no page loading', function (done) {
-    const wrapper = shallow(
-      <RouteTransition pathname='/p' pageLoading={ false }><p>abc</p></RouteTransition>
-    );
-
-    wrapper.setProps({
-      pathname: '/span',
-      pageLoading: false,
-      children: <span>abc</span>,
-    });
-    wrapper.state('showOverlay').should.be.true();
-    wrapper.instance().handleOverlayTransitionEnd();
-    setTimeout(() => {
-      wrapper.state('showOverlay').should.be.false();
-      done();
-    }, 50);
   });
 });

@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { omit } from 'lodash';
 
@@ -6,29 +7,23 @@ import { thumbStyle } from './minimal-srcoll-bar.style';
 
 
 export default class MinimalScrollBars extends Component {
-
-  constructor(props, ...rest) {
-    super(props, ...rest);
-
-    this.renderThumb = this.renderThumb.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.scrollTop !== this.props.scrollTop) {
-      this.scrollerRef.scrollTop(nextProps.scrollTop);
+  componentDidUpdate(prevProps) {
+    const { scrollTop, scrollLeft } = this.props;
+    if (prevProps.scrollTop !== scrollTop) {
+      this.scrollerRef.scrollTop(scrollTop);
     }
-    if (nextProps.scrollLeft !== this.props.scrollLeft) {
-      this.scrollerRef.scrollLeft(nextProps.scrollLeft);
+    if (prevProps.scrollLeft !== scrollLeft) {
+      this.scrollerRef.scrollLeft(scrollLeft);
     }
   }
 
-  renderThumb({ style, ...props }) {
+  renderThumb = ({ style, ...props }) => {
     return (
       <div className='test--minimal-scrollbars-vertical-thumb' style={ { ...style, ...thumbStyle } } { ...props } />
     );
-  }
+  };
 
-  renderView({ style }) {
+  renderView = ({ style }) => {
     const { viewClassName } = this.props;
     return (
       <div
@@ -36,12 +31,12 @@ export default class MinimalScrollBars extends Component {
         className={ viewClassName }
       />
     );
-  }
+  };
 
-  handleScrollerRef(el) {
+  handleScrollerRef = (el) => {
     this.scrollerRef = el;
     this.props.onScrollerRef(el);
-  }
+  };
 
   render() {
     const { showThumb } = this.props;
@@ -53,8 +48,8 @@ export default class MinimalScrollBars extends Component {
       <Scrollbars
         thumbSize={ 120 }
         renderThumbVertical={ showThumb ? this.renderThumb : () => <div/> }
-        renderView={ this.renderView.bind(this) }
-        ref={ this.handleScrollerRef.bind(this) }
+        renderView={ this.renderView }
+        ref={ this.handleScrollerRef }
         style={ this.props.style.container }
         renderTrackHorizontal={
           props => <div { ...props } style={ { display: 'none' } } className='track-horizontal' />
@@ -77,4 +72,5 @@ MinimalScrollBars.propTypes = {
   scrollTop: PropTypes.number,
   scrollLeft: PropTypes.number,
   viewClassName: PropTypes.string,
+  showThumb: PropTypes.bool,
 };

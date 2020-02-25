@@ -100,10 +100,6 @@ describe('RelevantDocumentCard component', function () {
       clock = useFakeTimers();
     });
 
-    afterEach(function () {
-      clock.restore();
-    });
-
     it('should render remove text correctly', function () {
       const wrapper = mount(
         <RelevantDocumentCardWithUndo
@@ -137,6 +133,7 @@ describe('RelevantDocumentCard component', function () {
       plusButton.simulate('click');
 
       clock.tick(UNDO_CARD_VISIBLE_TIME + 50);
+      wrapper.update();
 
       wrapper.find(RelevantDocumentCard).exists().should.be.true();
     });

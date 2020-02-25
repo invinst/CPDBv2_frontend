@@ -1,20 +1,13 @@
 import Enum from 'enum';
 import { kebabCase } from 'lodash';
 
-import {
-  darkSilverSandColor, skepticColor, jaggedIceColor, romanticColor, porcelainColor, botticelliColor,
-  galleryColor, lightAltoColor, greyColor, softBlackColor,
-} from 'utils/styles';
+import { greyColor, softBlackColor } from 'utils/styles';
 import config from 'config';
 
-export const TOP = 'top';
-export const BOTTOM = 'bottom';
 
 export const MOBILE_BREAK_POINT = 768;
 export const TABLET_BREAK_POINT = 992;
 export const DESKTOP_BREAK_POINT = 1200;
-
-export const DEFAULT_IMAGE_DIMENSION = '480_320';
 
 export const EXTRA_WIDE = 'extra_wide';
 export const DESKTOP = 'desktop';
@@ -22,46 +15,30 @@ export const MOBILE = 'mobile';
 export const TABLET = 'tablet';
 
 export const ROOT_PATH = '/';
-export const COLLAB_PATH = 'collaborate/';
-export const SEARCH_PATH = 'search/';
+export const COLLAB_PATH = '/collaborate/';
+export const SEARCH_PATH = '/search/';
 export const SEARCH_ALIAS_EDIT_PATH = `${SEARCH_PATH}alias/`;
 export const INLINE_SEARCH_ALIAS_ADMIN_PATH = `${SEARCH_ALIAS_EDIT_PATH}form/`;
-export const OFFICER_PATH = 'officer/:officerId(/:fullName)(/:tab)';
-export const STANDALONE_CR_PATH = 'complaint/:crid';
-export const CR_PATH_SUFFIX = ':officerId';
-export const TTR_PATH = 'trr/:trrId';
-export const UNIT_PROFILE_PATH = 'unit/:unitName';
-export const CRAWLERS_PATH = 'crawlers/';
-export const DOCUMENT_PATH = 'document/:attachmentId';
-export const EMBED_MAP_PATH = 'embed/map';
-export const EMBED_TOP_OFFICERS_PATH = 'embed/top-officers-page';
-export const EMBED_OFFICERS_PATH = 'embed/officers';
-export const TRACKER_ALL_DOCUMENTS_PATH = 'documents/crid/:crid';
-export const TRACKER_DOCUMENTS_OVERVIEW_PATH = 'documents/';
-export const DATA_VISUALIZATION_SOCIAL_GRAPH_PATH = 'social-graph/(pinboard/:pinboardId)';
-export const DATA_VISUALIZATION_GEOGRAPHIC_PATH = 'geographic/(pinboard/:pinboardId)';
-export const PINBOARD_PATH = 'pinboard(/:pinboardId)(/:pinboardTitle)';
-export const PINBOARD_ADMIN_PATH = 'view-all-pinboards/';
-
-export const ROOT_EDIT_REGEX = /^\/(?:edit\/)?$/;
-
-// Reducer defaults
-export const PAGINATION_DEFAULT = {
-  results: [],
-  count: 0,
-  next: null,
-  previous: null,
-};
+export const OFFICER_PATH = '/officer/:officerId/:fullName?/:tab?';
+export const STANDALONE_CR_PATH = '/complaint/:crid';
+export const TTR_PATH = '/trr/:trrId';
+export const UNIT_PROFILE_PATH = '/unit/:unitName';
+export const CRAWLERS_PATH = '/crawlers/';
+export const DOCUMENT_PATH = '/document/:attachmentId';
+export const EMBED_MAP_PATH = '/embed/map';
+export const EMBED_TOP_OFFICERS_PATH = '/embed/top-officers-page';
+export const EMBED_OFFICERS_PATH = '/embed/officers';
+export const TRACKER_ALL_DOCUMENTS_PATH = '/documents/crid/:crid';
+export const TRACKER_DOCUMENTS_OVERVIEW_PATH = '/documents/';
+export const DATA_VISUALIZATION_SOCIAL_GRAPH_PATH = '/social-graph/';
+export const DATA_VISUALIZATION_GEOGRAPHIC_PATH = '/geographic/';
+export const PINBOARD_DATA_VISUALIZATION_SOCIAL_GRAPH_PATH = '/social-graph/pinboard/:pinboardId';
+export const PINBOARD_DATA_VISUALIZATION_GEOGRAPHIC_PATH = '/geographic/pinboard/:pinboardId';
+export const PINBOARD_PATH = '/pinboard/:pinboardId?/:pinboardTitle?';
+export const PINBOARD_ADMIN_PATH = '/view-all-pinboards/';
 
 // Date format
-export const DATE_FORMAT_IN = 'YYYY-MM-DD';
 export const DATE_FORMAT = 'MMM DD, YYYY';
-
-// Form state
-export const FORM_INITIAL = 'FORM_INITIAL';
-export const FORM_LOADING = 'FORM_LOADING';
-export const FORM_SUCCESS = 'FORM_SUCCESS';
-export const FORM_FAILURE = 'FORM_FAILURE';
 
 export const ENTITY_LINK = 'LINK';
 
@@ -75,7 +52,6 @@ export const V1_ROOT_PATH = API_ROOT;
 export const INVISIBLE_INSTITUTE_URL = 'https://invisible.institute/cpdp';
 
 export const SLUG_PAGE_API_URL = `${V2_ROOT_PATH}cms-pages/`;
-export const LANDING_PAGE_API_URL = `${SLUG_PAGE_API_URL}landing-page/`;
 export const SIGNIN_URL = `${V2_ROOT_PATH}users/sign-in/`;
 export const RESET_PASSWORD_URL = `${V2_ROOT_PATH}users/forgot-password/`;
 export const MAIL_CHIMP_URL = '/vftg/';
@@ -91,7 +67,9 @@ export const SEARCH_TERMS_CATEGORIES_API_URL = `${V2_ROOT_PATH}search-term-categ
 export const CITY_SUMMARY_API_URL = `${V2_ROOT_PATH}city-summary/`;
 export const TRR_URL = `${V2_ROOT_PATH}trr/`;
 export const POPUP_API_URL = `${V2_ROOT_PATH}popup/`;
+export const TOAST_API_URL = `${V2_ROOT_PATH}toast/`;
 export const DOCUMENTS_URL = `${V2_ROOT_PATH}attachments/`;
+export const DOCUMENT_SUGGESTION_TAGS_API_URL = `${V2_ROOT_PATH}attachments/tags/`;
 export const CRAWLERS_API_URL = `${V2_ROOT_PATH}document-crawlers/`;
 export const SOCIAL_GRAPH_NETWORK_API_URL = `${V2_ROOT_PATH}social-graph/network/`;
 export const SOCIAL_GRAPH_ALLEGATIONS_API_URL = `${V2_ROOT_PATH}social-graph/allegations/`;
@@ -247,11 +225,14 @@ export const POPUP_REQUEST_START = 'POPUP_REQUEST_START';
 export const POPUP_REQUEST_SUCCESS = 'POPUP_REQUEST_SUCCESS';
 export const POPUP_REQUEST_FAILURE = 'POPUP_REQUEST_FAILURE';
 
+export const TOAST_REQUEST_START = 'TOAST_REQUEST_START';
+export const TOAST_REQUEST_SUCCESS = 'TOAST_REQUEST_SUCCESS';
+export const TOAST_REQUEST_FAILURE = 'TOAST_REQUEST_FAILURE';
+
 export const SEARCH_TERMS_CATEGORIES_REQUEST_START = 'SEARCH_TERMS_CATEGORIES_REQUEST_START';
 export const SEARCH_TERMS_CATEGORIES_REQUEST_SUCCESS = 'SEARCH_TERMS_CATEGORIES_REQUEST_SUCCESS';
 export const SEARCH_TERMS_CATEGORIES_REQUEST_FAILURE = 'SEARCH_TERMS_CATEGORIES_REQUEST_FAILURE';
 
-export const DO_NOTHING_ACTION = 'DO_NOTHING_ACTION'; // To be used when an action that do nothing is needed
 export const CHANGE_OFFICER_ID = 'CHANGE_OFFICER_ID';
 export const CHANGE_OFFICER_TAB = 'CHANGE_OFFICER_TAB';
 export const UPDATE_PATH_NAME = 'UPDATE_PATH_NAME';
@@ -262,16 +243,6 @@ export const MAPBOX_ACCESS_TOKEN =
   'pk.eyJ1IjoiaW52aXNpYmxlaW5zdGl0dXRlIiwiYSI6ImNpZ256bXRqMDAwMDBzeGtud3VoZGplNHMifQ.ky2VSGEYU5KritRMArHY-w';
 export const MAPBOX_STYLE = 'mapbox://styles/invisibleinstitute/cj8ugtswqe8dx2ss2kwhfnvte';
 
-export const FINDING_COLORS = {
-  'Unfounded': darkSilverSandColor,
-  'Exonerated': skepticColor,
-  'Not Sustained': jaggedIceColor,
-  'Sustained': romanticColor,
-  'No Cooperation': porcelainColor,
-  'No Affidavit': botticelliColor,
-  'Discharged': galleryColor,
-  'Unknown': lightAltoColor,
-};
 
 export const ACTIVITY_GRID_REQUEST_START = 'ACTIVITY_GRID_REQUEST_START';
 export const ACTIVITY_GRID_REQUEST_SUCCESS = 'ACTIVITY_GRID_REQUEST_SUCCESS';
@@ -633,11 +604,13 @@ export const UPDATE_DOCUMENT_PAGE_REQUEST_START = 'UPDATE_DOCUMENT_PAGE_REQUEST_
 export const UPDATE_DOCUMENT_PAGE_REQUEST_SUCCESS = 'UPDATE_DOCUMENT_PAGE_REQUEST_SUCCESS';
 export const UPDATE_DOCUMENT_PAGE_REQUEST_FAILURE = 'UPDATE_DOCUMENT_PAGE_REQUEST_FAILURE';
 
+export const FETCH_DOCUMENT_SUGGESTION_TAGS_START = 'FETCH_DOCUMENT_SUGGESTION_TAGS_START';
+export const FETCH_DOCUMENT_SUGGESTION_TAGS_SUCCESS = 'FETCH_DOCUMENT_SUGGESTION_TAGS_SUCCESS';
+export const FETCH_DOCUMENT_SUGGESTION_TAGS_FAILURE = 'FETCH_DOCUMENT_SUGGESTION_TAGS_FAILURE';
+
 export const CLUSTER_GEO_REQUEST_START = 'CLUSTER_GEO_REQUEST_START';
 export const CLUSTER_GEO_REQUEST_SUCCESS = 'CLUSTER_GEO_REQUEST_SUCCESS';
 export const CLUSTER_GEO_REQUEST_FAILURE = 'CLUSTER_GEO_REQUEST_FAILURE';
-
-export const LOCATION_CHANGE = '@@router/LOCATION_CHANGE';
 
 export const LANDING_PAGE_ID = 'landing-page';
 export const OFFICER_PAGE_ID = 'officer-page';
@@ -887,3 +860,14 @@ export const PINNED_ITEM_TYPES = {
 };
 
 export const HEADER_TOP_BAR_HEIGHT = 80;
+
+export const QUICK_ANIMATION_DURATION = 200;
+export const MEDIUM_ANIMATION_DURATION = 300;
+export const ANIMATION_DURATION = 500;
+
+export const BREADCRUMB_DEFAULT_MAPPING = {
+  [SEARCH_PATH]: 'Search',
+  [CRAWLERS_PATH]: 'Crawler Tracker',
+  [TRACKER_DOCUMENTS_OVERVIEW_PATH]: 'Documents Overview',
+  [PINBOARD_ADMIN_PATH]: 'View all pinboards',
+};

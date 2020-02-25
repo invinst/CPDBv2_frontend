@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import pluralize from 'pluralize';
 import { imgUrl } from 'utils/static-assets';
 
@@ -12,21 +13,19 @@ import {
 } from './allegation-count-widget.style';
 
 
-export default class AllegationCountWidget extends Component {
-  render() {
-    const { numOfAllegations, subTitle, url } = this.props;
-    return (
-      <div className='test--allegation-widget' style={ containerStyle }>
-        <OutboundLink href={ url } style={ linkStyle }>
-          <p style={ countStyle }>
-            { `${numOfAllegations.toLocaleString()} ${pluralize('allegation', numOfAllegations)}` }
-          </p>
-          <img src={ imgUrl('disclosure-indicator.svg') } style={ imgStyle }/>
-          { subTitle && <p style={ subTitleStyle }>{ subTitle }</p> }
-        </OutboundLink>
-      </div>
-    );
-  }
+export default function AllegationCountWidget(props) {
+  const { numOfAllegations, subTitle, url } = props;
+  return (
+    <div className='test--allegation-widget' style={ containerStyle }>
+      <OutboundLink href={ url } style={ linkStyle }>
+        <p style={ countStyle }>
+          { `${numOfAllegations.toLocaleString()} ${pluralize('allegation', numOfAllegations)}` }
+        </p>
+        <img src={ imgUrl('disclosure-indicator.svg') } style={ imgStyle }/>
+        { subTitle && <p style={ subTitleStyle }>{ subTitle }</p> }
+      </OutboundLink>
+    </div>
+  );
 }
 
 AllegationCountWidget.defaultProps = {

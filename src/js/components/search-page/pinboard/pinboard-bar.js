@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { noop } from 'lodash';
 import cx from 'classnames';
 
@@ -9,19 +10,17 @@ const PINBOARD_TIP = 'Create collections of officers, complaint records, \
   and tactical reponse reports using search.';
 
 
-export default class PinboardBar extends Component {
-  render() {
-    const { onEmptyPinboardButtonClick } = this.props;
+export default function PinboardBar(props) {
+  const { onEmptyPinboardButtonClick } = props;
 
-    return (
-      <div className={ cx('pinboard-feature', styles.wrapper) }>
-        <span className='pinboard-tip'>
-          { PINBOARD_TIP }
-        </span>
-        <PinboardButtonContainer onEmptyPinboardButtonClick={ onEmptyPinboardButtonClick }/>
-      </div>
-    );
-  }
+  return (
+    <div className={ cx('pinboard-feature', styles.wrapper) }>
+      <span className='pinboard-tip'>
+        { PINBOARD_TIP }
+      </span>
+      <PinboardButtonContainer onEmptyPinboardButtonClick={ onEmptyPinboardButtonClick }/>
+    </div>
+  );
 }
 
 PinboardBar.propTypes = {

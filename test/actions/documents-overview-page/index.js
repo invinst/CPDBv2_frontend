@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 import { CancelToken } from 'axios';
-import { stub, spy } from 'sinon';
+import { spy, stub } from 'sinon';
 
 import { fetchDocuments, fetchDocumentsAuthenticated } from 'actions/documents-overview-page';
 import * as constants from 'utils/constants';
@@ -15,10 +15,6 @@ describe('documents overview page actions', function () {
       token: 'token',
       cancel,
     });
-  });
-
-  afterEach(function () {
-    CancelToken.source.restore();
   });
 
   describe('fetchDocuments', function () {
@@ -90,7 +86,6 @@ describe('documents overview page actions', function () {
           },
         },
       });
-      Cookies.get.restore();
     });
 
     it('should accept params', function () {
@@ -116,7 +111,6 @@ describe('documents overview page actions', function () {
           },
         },
       });
-      Cookies.get.restore();
     });
 
     it('should cancel old request if new request is called', function () {

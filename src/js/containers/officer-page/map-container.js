@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 
 import AllegationsMap from 'components/common/allegations-map';
 import { mapLegendSelector, mapMarkerGroupsSelector } from 'selectors/officer-page/map';

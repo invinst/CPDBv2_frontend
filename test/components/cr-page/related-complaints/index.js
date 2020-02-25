@@ -34,7 +34,7 @@ describe('RelatedComplaints component', function () {
       </Provider>
     );
 
-    const relatedComplaints = shallow(wrapper.get(0));
+    const relatedComplaints = wrapper.find(RelatedComplaints).dive();
     relatedComplaints.state('selectedDistance').should.equal('0.5mi');
     const dropdown = relatedComplaints.find(Dropdown);
     dropdown.prop('onChange')('5 MILES');

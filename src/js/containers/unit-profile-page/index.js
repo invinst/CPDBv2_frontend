@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import React from 'react';
 
 import UnitProfilePage from 'components/unit-profile-page';
 import { summarySelector } from 'selectors/unit-profile-page';
@@ -9,7 +8,7 @@ import { getShareablePageScrollPosition } from 'selectors/headers/shareable-head
 const mapStateToProps = (state, ownProps) => {
   return {
     location: ownProps.location,
-    unitName: ownProps.params.unitName,
+    unitName: ownProps.match.params.unitName,
     summary: summarySelector(state),
     scrollPosition: getShareablePageScrollPosition(state),
   };

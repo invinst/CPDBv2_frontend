@@ -1,9 +1,9 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import { Router, Route, createMemoryHistory } from 'react-router';
+import { shallow } from 'enzyme';
 import { spy, stub } from 'sinon';
 import { random } from 'faker';
 
+import { mountWithRouter } from 'utils/test';
 import ComplaintCard from 'components/cr-page/related-complaints/complaint-card';
 import * as tracking from 'utils/tracking';
 import ItemPinButton from 'components/common/item-pin-button';
@@ -45,7 +45,8 @@ describe('ComplaintCard component', function () {
 
     it('should track click event', function () {
       const stubTrackRelatedByCategoryClick = stub(tracking, 'trackRelatedByCategoryClick');
-      const complaintCard = () => (
+
+      const wrapper = mountWithRouter(
         <ComplaintCard
           complainants='R. Rose'
           sourceCRID='01234'
@@ -53,27 +54,24 @@ describe('ComplaintCard component', function () {
           match='categories'
         />
       );
-      const wrapper = mount(
-        <Router history={ createMemoryHistory() }>
-          <Route path='/' component={ complaintCard }/>
-        </Router>,
-      );
 
       wrapper.find('.content').simulate('click');
       stubTrackRelatedByCategoryClick.should.be.calledWith('01234', '56789');
-
-      stubTrackRelatedByCategoryClick.restore();
     });
 
     it('should render ItemPinButton with correct props', function () {
       const addOrRemoveItemInPinboard = spy();
       const id = random.word();
       const isPinned = random.boolean();
+      const incidentDate = '2008-01-11';
+      const categories = 'Money / Property';
 
       const wrapper = shallow(
         <ComplaintCard
           crid={ id }
           isPinned={ isPinned }
+          incidentDate={ incidentDate }
+          categories={ categories }
           addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
         />
       );
@@ -82,13 +80,22 @@ describe('ComplaintCard component', function () {
       itemPinButton.prop('className').should.equal(pinButtonStyles.cardPinnedButton);
       itemPinButton.prop('addOrRemoveItemInPinboard').should.equal(addOrRemoveItemInPinboard);
       itemPinButton.prop('showHint').should.be.false();
-      itemPinButton.prop('item').should.eql({ type: PINNED_ITEM_TYPES.CR, id, isPinned });
+      itemPinButton.prop('item').should.eql(
+        {
+          type: PINNED_ITEM_TYPES.CR,
+          id,
+          isPinned,
+          incidentDate,
+          category: categories,
+        }
+      );
     });
   });
 
   it('should track click event while matching with officers', function () {
     stub(tracking, 'trackRelatedByAccusedClick');
-    const complaintCard = () => (
+
+    const wrapper = mountWithRouter(
       <ComplaintCard
         complainants='R. Rose'
         sourceCRID='01234'
@@ -96,21 +103,15 @@ describe('ComplaintCard component', function () {
         match='officers'
       />
     );
-    const wrapper = mount(
-      <Router history={ createMemoryHistory() }>
-        <Route path='/' component={ complaintCard }/>
-      </Router>,
-    );
 
     wrapper.find('.content').simulate('click');
     tracking.trackRelatedByAccusedClick.should.be.calledWith('01234', '56789');
-
-    tracking.trackRelatedByAccusedClick.restore();
   });
 
   it('should not track click event while matching with something else', function () {
     stub(tracking, 'trackRelatedByAccusedClick');
-    const complaintCard = () => (
+
+    const wrapper = mountWithRouter(
       <ComplaintCard
         complainants='R. Rose'
         sourceCRID='01234'
@@ -118,15 +119,8 @@ describe('ComplaintCard component', function () {
         match='investigators'
       />
     );
-    const wrapper = mount(
-      <Router history={ createMemoryHistory() }>
-        <Route path='/' component={ complaintCard }/>
-      </Router>,
-    );
 
     wrapper.find('.content').simulate('click');
     tracking.trackRelatedByAccusedClick.should.not.be.called();
-
-    tracking.trackRelatedByAccusedClick.restore();
   });
 });

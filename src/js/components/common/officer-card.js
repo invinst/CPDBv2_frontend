@@ -1,10 +1,10 @@
-import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import pluralize from 'pluralize';
 import { kebabCase } from 'lodash';
 import cx from 'classnames';
 
-import { getCurrentAge } from 'utils/date';
 import StaticRadarChart from 'components/common/radar-chart';
 import { roundedPercentile } from 'utils/calculations';
 import styles from './officer-card.sass';
@@ -13,20 +13,11 @@ import { PINNED_ITEM_TYPES } from 'utils/constants';
 import pinButtonStyles from 'components/common/item-pin-button.sass';
 
 
-export class OfficerCard extends Component {
-  renderExtraInfo() {
-    const { birthYear, race, gender } = this.props;
-    const age = getCurrentAge(birthYear);
-    const ageString = age ? `${age}-year-old` : '';
-    const extraInfo = `${ageString} ${race} ${gender}`;
-
-    return <p className='extra-info'>{ extraInfo }</p>;
-  }
-
+export default class OfficerCard extends Component {
   renderComplaintInfo() {
     const { complaintCount, sustainedCount } = this.props;
-    const complaint = `${complaintCount} ${pluralize('Allegation', complaintCount)}`;
-    const sustained = `${sustainedCount} Sustained`;
+    const complaint = `${ complaintCount } ${ pluralize('Allegation', complaintCount) }`;
+    const sustained = `${ sustainedCount } Sustained`;
     return (
       <span className='test--officer-card-metric'>
         <span className='officer-card-allegation'>{ complaint }</span>&nbsp;
@@ -61,6 +52,11 @@ export class OfficerCard extends Component {
       addOrRemoveItemInPinboard,
       isPinned,
       pinnable,
+      complaintCount,
+      sustainedCount,
+      age,
+      race,
+      gender,
     } = this.props;
     const officerSlug = kebabCase(fullName);
     const chartData = percentile && percentile.items;
@@ -87,7 +83,14 @@ export class OfficerCard extends Component {
             item={ {
               type: PINNED_ITEM_TYPES.OFFICER,
               id: officerId,
-              isPinned: isPinned,
+              isPinned,
+              fullName,
+              complaintCount,
+              sustainedCount,
+              age,
+              race,
+              gender,
+              rank,
             } }
           />
         }
@@ -105,7 +108,7 @@ export class OfficerCard extends Component {
               { this.renderComplaintPercentile() }
             </div>
             <div className='officer-card-section officer-card-demographic'>
-              <p className='extra-info'>{ this.renderExtraInfo() }</p>
+              <p className='extra-info'>{ `${age} ${race} ${gender}` }</p>
             </div>
           </div>
         </div>
@@ -123,7 +126,7 @@ OfficerCard.propTypes = {
   complaintCount: PropTypes.number,
   sustainedCount: PropTypes.number,
   complaintPercentile: PropTypes.number,
-  birthYear: PropTypes.number,
+  age: PropTypes.string,
   race: PropTypes.string,
   gender: PropTypes.string,
   percentile: PropTypes.object,
@@ -140,5 +143,3 @@ OfficerCard.defaultProps = {
   openCardInNewPage: false,
   pinnable: true,
 };
-
-export default OfficerCard;

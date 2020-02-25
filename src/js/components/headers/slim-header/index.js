@@ -1,7 +1,9 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 import { calculateSlimHeaderPosition } from 'utils/dom';
 import SlimHeaderContent from './slim-header-content';
+import { EditModeContext } from 'contexts';
 
 
 export class SlimHeader extends Component {
@@ -10,8 +12,6 @@ export class SlimHeader extends Component {
     this.state = {
       position: 'top',
     };
-
-    this.recalculatePosition = this.recalculatePosition.bind(this);
   }
 
   componentDidMount() {
@@ -22,12 +22,12 @@ export class SlimHeader extends Component {
     removeEventListener('scroll', this.recalculatePosition);
   }
 
-  recalculatePosition() {
+  recalculatePosition = () => {
     const newPosition = calculateSlimHeaderPosition();
     if (newPosition !== this.state.position) {
       this.setState({ position: newPosition });
     }
-  }
+  };
 
   render() {
     const { show, pathname } = this.props;
@@ -48,6 +48,8 @@ export class SlimHeader extends Component {
   }
 }
 
+SlimHeader.contextType = EditModeContext;
+
 SlimHeader.propTypes = {
   show: PropTypes.bool,
   pathname: PropTypes.string,
@@ -55,10 +57,6 @@ SlimHeader.propTypes = {
 
 SlimHeader.defaultProps = {
   show: true,
-};
-
-SlimHeader.contextTypes = {
-  editModeOn: PropTypes.bool,
 };
 
 export default SlimHeader;

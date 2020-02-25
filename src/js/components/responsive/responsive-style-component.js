@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { assign } from 'lodash';
 
 import ResponsiveComponent from 'components/responsive/responsive-component';
@@ -12,9 +13,9 @@ const _responsiveStyle = {
   [MOBILE]: TABLET,
 };
 
-export default class ResponsiveStyleComponent extends Component {
-  extractStyle(key) {
-    const { responsiveStyle } = this.props;
+export default function ResponsiveStyleComponent(props) {
+  function extractStyle(key) {
+    const { responsiveStyle } = props;
     let styleMap = assign({}, _responsiveStyle, responsiveStyle);
     let style = styleMap[key];
     if (typeof style === 'string') {
@@ -27,37 +28,36 @@ export default class ResponsiveStyleComponent extends Component {
     return style;
   }
 
-  renderExtraWide() {
-    const { children } = this.props;
-    return children(this.extractStyle(EXTRA_WIDE));
+  function renderExtraWide() {
+    const { children } = props;
+    return children(extractStyle(EXTRA_WIDE));
   }
 
-  renderDesktop() {
-    const { children } = this.props;
-    return children(this.extractStyle(DESKTOP));
+  function renderDesktop() {
+    const { children } = props;
+    return children(extractStyle(DESKTOP));
   }
 
-  renderTablet() {
-    const { children } = this.props;
-    return children(this.extractStyle(TABLET));
+  function renderTablet() {
+    const { children } = props;
+    return children(extractStyle(TABLET));
   }
 
-  renderMobile() {
-    const { children } = this.props;
-    return children(this.extractStyle(MOBILE));
+  function renderMobile() {
+    const { children } = props;
+    return children(extractStyle(MOBILE));
   }
 
-  render() {
-    const { style } = this.props;
-    return (
-      <ResponsiveComponent
-        mobileChildren={ this.renderMobile() }
-        tabletChildren={ this.renderTablet() }
-        desktopChildren={ this.renderDesktop() }
-        extraWideChildren={ this.renderExtraWide() }
-        style={ style }/>
-    );
-  }
+  const { style } = props;
+  return (
+    <ResponsiveComponent
+      mobileChildren={ renderMobile() }
+      tabletChildren={ renderTablet() }
+      desktopChildren={ renderDesktop() }
+      extraWideChildren={ renderExtraWide() }
+      style={ style }
+    />
+  );
 }
 
 ResponsiveStyleComponent.propTypes = {
@@ -66,4 +66,4 @@ ResponsiveStyleComponent.propTypes = {
   responsiveStyle: PropTypes.object,
 };
 
-export { MOBILE, TABLET, DESKTOP, EXTRA_WIDE };
+export { TABLET, DESKTOP, EXTRA_WIDE };

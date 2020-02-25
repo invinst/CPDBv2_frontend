@@ -1,21 +1,22 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import { outerWrapperStyle, innerWrapperStyle, borderStyle } from './article-expanded.style';
 
 
-class ArticleExpanded extends React.Component {
-  render() {
-    return (
-      <div className={ this.props.className } style={ [outerWrapperStyle, this.props.style.outer] }>
-        <div style={ borderStyle }>
-          <div style={ [innerWrapperStyle, this.props.style.inner] }>
-            { this.props.children }
-          </div>
+function ArticleExpanded(props) {
+  const { className, style, children } = props;
+
+  return (
+    <div className={ className } style={ [outerWrapperStyle, style.outer] }>
+      <div style={ borderStyle }>
+        <div style={ [innerWrapperStyle, style.inner] }>
+          { children }
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 ArticleExpanded.propTypes = {

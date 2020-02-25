@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { isEmpty, noop, startCase, toLower } from 'lodash';
+import PropTypes from 'prop-types';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import cx from 'classnames';
@@ -56,24 +57,24 @@ export default class NetworkGraph extends Component {
       thresholdValue: DEFAULT_THRESHOLD_VALUE,
       sortedOfficerIds: [],
       sidebarsStatus: DEFAULT_SIDEBARS_STATUS,
+      previousSidebarsStatus: DEFAULT_SIDEBARS_STATUS,
+      performResizeGraph: false,
     };
-    this.handleSelectComplaintOrigin = this.handleSelectComplaintOrigin.bind(this);
-    this.handleChangeThresholdValue = this.handleChangeThresholdValue.bind(this);
-    this.handleClickOutside = this.handleClickOutside.bind(this);
-    this.updateSortedOfficerIds = this.updateSortedOfficerIds.bind(this);
-    this.handleToggleSidebarsButtonClick = this.handleToggleSidebarsButtonClick.bind(this);
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    const { sidebarsStatus, previousSidebarsStatus } = state;
+
+    return {
+      performResizeGraph: (sidebarsStatus !== previousSidebarsStatus),
+      previousSidebarsStatus: sidebarsStatus,
+    };
   }
 
   componentDidMount() {
     showIntercomLauncher(false);
     this.fetchGraphData();
     window.addEventListener('mousedown', this.handleClickOutside);
-  }
-
-  componentWillUpdate(_, nextState) {
-    const { sidebarsStatus } = this.state;
-
-    this.performResizeGraph = sidebarsStatus !== nextState.sidebarsStatus;
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -88,7 +89,7 @@ export default class NetworkGraph extends Component {
     window.removeEventListener('mousedown', this.handleClickOutside);
   }
 
-  handleClickOutside(event) {
+  handleClickOutside = event => {
     const {
       updateSelectedOfficerId,
       updateSelectedEdge,
@@ -109,7 +110,7 @@ export default class NetworkGraph extends Component {
         }
       }
     }
-  }
+  };
 
   fetchGraphData() {
     const {
@@ -143,17 +144,17 @@ export default class NetworkGraph extends Component {
     }
   }
 
-  handleSelectComplaintOrigin(value) {
+  handleSelectComplaintOrigin = value => {
     this.setState({ complaintOrigin: value });
-  }
+  };
 
-  handleChangeThresholdValue(value) {
+  handleChangeThresholdValue = value => {
     this.setState({ thresholdValue: value });
-  }
+  };
 
-  updateSortedOfficerIds(officerIds) {
+  updateSortedOfficerIds = officerIds => {
     this.setState({ sortedOfficerIds: officerIds });
-  }
+  };
 
   renderPreviewPane() {
     const {
@@ -191,9 +192,9 @@ export default class NetworkGraph extends Component {
     }
   }
 
-  handleToggleSidebarsButtonClick() {
+  handleToggleSidebarsButtonClick = () => {
     this.setState({ sidebarsStatus: this.sidebarsSettings().nextSidebarsStatus });
-  }
+  };
 
   toggleSidebarsButton() {
     return (
@@ -275,12 +276,13 @@ export default class NetworkGraph extends Component {
   }
 
   render() {
+    const { performResizeGraph } = this.state;
     return (
       <div className={ cx(styles.networkGraph, this.sidebarsSettings().classname) }>
         { this.renderLeftSidebar() }
         <div className='graph-container'>
           <AnimatedSocialGraphContainer
-            performResizeGraph={ this.performResizeGraph }
+            performResizeGraph={ performResizeGraph }
             customRightControlButton={ this.toggleSidebarsButton() }
             updateSortedOfficerIds={ this.updateSortedOfficerIds }
           />

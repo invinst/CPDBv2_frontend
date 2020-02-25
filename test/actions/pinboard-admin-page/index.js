@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie';
-import { stub } from 'sinon';
+import { CancelToken } from 'axios';
+import { spy, stub } from 'sinon';
 
 import {
   fetchAllPinboards,
@@ -22,6 +23,13 @@ import {
 describe('pinboard admin page actions', function () {
   describe('fetchAllPinboards', function () {
     it('should return correct payload', function () {
+      let cancel;
+      cancel = spy();
+      stub(CancelToken, 'source').returns({
+        token: 'token',
+        cancel,
+      });
+
       const params = { limit: '100' };
       stub(Cookies, 'get').returns('authenticated_token');
 
@@ -36,14 +44,13 @@ describe('pinboard admin page actions', function () {
             url: ALL_PINBOARD_URL,
             params,
             adapter: null,
-            cancelToken: undefined,
+            cancelToken: 'token',
             headers: {
               Authorization: 'Token authenticated_token',
             },
           },
         },
       });
-      Cookies.get.restore();
     });
   });
 

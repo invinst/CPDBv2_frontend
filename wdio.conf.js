@@ -2,7 +2,7 @@ var historyApiFallback = require('connect-history-api-fallback');
 var browserSync = require('browser-sync').create();
 const webpack = require('webpack');
 const webpackConfig = require('./webpack.config');
-const initCommands = require('./selenium-test/custom-commands');
+const initCommands = require('./integration-test/custom-commands');
 
 
 exports.config = {
@@ -36,7 +36,7 @@ exports.config = {
   // directory is where your package.json resides, so `wdio` will be called from there.
   //
   specs: [
-    './selenium-test/**/test-*.js'
+    './integration-test/**/test-*.js'
   ],
   // Patterns to exclude.
   exclude: [

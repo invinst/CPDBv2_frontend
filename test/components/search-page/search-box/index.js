@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { browserHistory } from 'react-router';
 import { spy, stub } from 'sinon';
 
+import browserHistory from 'utils/history';
 import TextInput from 'components/common/input';
 import SearchBox from 'components/search-page/search-box';
 import * as PathEditor from 'utils/edit-path';
@@ -103,18 +103,12 @@ describe('SearchBox component', function () {
     closeButton.simulate('click');
 
     changeSearchQuery.should.be.calledWith('');
-    pushPathPreserveEditMode.should.be.calledWith('search/');
-
-    pushPathPreserveEditMode.restore();
+    pushPathPreserveEditMode.should.be.calledWith('/search/');
   });
 
   describe('Enter event handler', function () {
     beforeEach(function () {
       this.browserHistoryPush = stub(browserHistory, 'push');
-    });
-
-    afterEach(function () {
-      this.browserHistoryPush.restore();
     });
 
     it('should push first result to when user hit ENTER if to is set', function () {

@@ -1,14 +1,15 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 import { RelevantDocumentCardWithUndo as RelevantDocumentCard } from './relevant-document-card';
 import RelevantInfiniteCarousel from 'components/pinboard-page/relevant/common/relevant-infinite-carousel';
 
 
 export default class RelevantDocuments extends Component {
-  loadMore() {
+  loadMore = () => {
     const { pinboardId, nextParams, fetchPinboardRelevantDocuments } = this.props;
     fetchPinboardRelevantDocuments(pinboardId, nextParams);
-  }
+  };
 
   render() {
     const { documents, hasMore, addItemInPinboardPage, requesting } = this.props;
@@ -17,7 +18,7 @@ export default class RelevantDocuments extends Component {
         title='DOCUMENTS'
         childWidth={ 306 }
         hasMore={ hasMore }
-        loadMore={ this.loadMore.bind(this) }
+        loadMore={ this.loadMore }
         className='relevant-documents'
         requesting={ requesting }
       >

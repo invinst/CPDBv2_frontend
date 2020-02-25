@@ -1,5 +1,6 @@
-import { SUGGESTION_REQUEST_SUCCESS, SUGGESTION_REQUEST_START, LOCATION_CHANGE } from 'utils/constants';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
+import { SUGGESTION_REQUEST_SUCCESS, SUGGESTION_REQUEST_START } from 'utils/constants';
 import tags from 'reducers/search-page/tags';
 
 
@@ -44,8 +45,8 @@ describe('searchPage.tags reducer', function () {
     tags(undefined, {
       type: LOCATION_CHANGE,
       payload: {
-        query: {
-          type: 'COMMUNITY',
+        location: {
+          search: 'type=COMMUNITY',
         },
       },
     }).should.eql(['COMMUNITY']);
@@ -55,8 +56,8 @@ describe('searchPage.tags reducer', function () {
     tags(undefined, {
       type: LOCATION_CHANGE,
       payload: {
-        query: {
-          type: 'COMMUNITY',
+        location: {
+          search: 'type=COMMUNITY',
         },
       },
     }).should.eql(['COMMUNITY']);

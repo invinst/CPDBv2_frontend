@@ -21,7 +21,7 @@ describe('CR page selectors', function () {
   describe('contentSelector', function () {
     const buildState = obj => ({
       breadcrumb: {
-        breadcrumbs: [],
+        breadcrumbItems: [],
       },
       crs: {},
       crPage: {},
@@ -92,7 +92,7 @@ describe('CR page selectors', function () {
         complaintCount: 15,
         sustainedCount: 1,
         complaintPercentile: 59.0,
-        birthYear: 1977,
+        age: '40-year-old',
         race: 'white',
         gender: 'male',
         coaccusedCount: 4,
@@ -154,12 +154,7 @@ describe('CR page selectors', function () {
       const otherOfficer = CoaccusedFactory.build({ id: 2 });
       const state = buildState({
         breadcrumb: {
-          breadcrumbs: [{
-            url: '/officer/1/',
-            params: {
-              officerId: '1',
-            },
-          }],
+          breadcrumbItems: ['/officer/1/', '/cr/123/'],
         },
         crs: {
           '123': ComplaintFactory.build({
@@ -180,16 +175,7 @@ describe('CR page selectors', function () {
       const otherOfficer = CoaccusedFactory.build({ id: 3 });
       const state = buildState({
         breadcrumb: {
-          breadcrumbs: [
-            {
-              url: '/officer/1/',
-              params: { officerId: '1' },
-            },
-            {
-              url: '/officer/2/',
-              params: { officerId: '2' },
-            },
-          ],
+          breadcrumbItems: ['/officer/1/', '/cr/123/', '/officer/2/'],
         },
         crs: {
           '123': ComplaintFactory.build({

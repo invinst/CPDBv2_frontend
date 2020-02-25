@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { stub, spy, useFakeTimers } from 'sinon';
+import { spy, stub, useFakeTimers } from 'sinon';
 
 import PinnedGrid from 'components/pinboard-page/pinned-type/pinned-grid';
 import CRCard from 'components/pinboard-page/cards/cr-card';
@@ -13,7 +13,7 @@ import * as navigation from 'utils/navigation';
 describe('PinnedGrid component', function () {
   it('should render CR cards', function () {
     const items = [{
-      crid: '1000001',
+      id: '1000001',
       type: 'CR',
       isPinned: true,
       incidentDate: '2010-01-01',
@@ -21,7 +21,7 @@ describe('PinnedGrid component', function () {
       point: { 'lon': 1.0, 'lat': 1.0 },
       isPinStatusChanging: false,
     }, {
-      crid: '1000002',
+      id: '1000002',
       type: 'CR',
       isPinned: true,
       incidentDate: '2010-01-01',
@@ -156,9 +156,6 @@ describe('PinnedGrid component', function () {
 
     navigation.scrollByBottomOffset.should.be.calledOnce();
     navigation.scrollByBottomOffset.should.be.calledWith(400);
-
-    navigation.getPageYBottomOffset.restore();
-    navigation.scrollByBottomOffset.restore();
   });
 
   it('should init Muuri grid', function () {
@@ -176,14 +173,12 @@ describe('PinnedGrid component', function () {
       dragEnabled: true,
     });
     onMuuriStub.should.be.calledWith('dragEnd', instance.updateOrder);
-
-    MuuriStub.restore();
   });
 
   it('should update grid when did update', function () {
     const onMuuriStub = stub();
     const addMuuriStub = stub();
-    const MuuriStub = stub(vendors, 'Muuri').callsFake(() => ({
+    stub(vendors, 'Muuri').callsFake(() => ({
       'on': onMuuriStub,
       'add': addMuuriStub,
     }));
@@ -201,8 +196,6 @@ describe('PinnedGrid component', function () {
 
     addMuuriStub.should.be.calledOnce();
     addMuuriStub.should.be.calledWith(wrapper.instance().itemElements['3']);
-
-    MuuriStub.restore();
   });
 
   it('should remove item when removeItemInPinboardPage is called', function () {
@@ -223,7 +216,6 @@ describe('PinnedGrid component', function () {
 
     clock.tick(250);
     removeItemInPinboardPage.should.be.calledWith({ 'id': '1' });
-    clock.restore();
   });
 
   it('should remove item from the grid when completeRemoveItemInPinboardPage is called', function () {

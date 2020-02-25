@@ -1,37 +1,31 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import map from 'lodash/map';
 
 import { strategyFormStyle, numberEntriesStyle, strategySelectStyle } from './strategy-form.style';
 
 
 class StrategyForm extends Component {
-  constructor(props) {
-    super(props);
-    this.handlePoolSizeChange = this.handlePoolSizeChange.bind(this);
-    this.handleStrategyChange = this.handleStrategyChange.bind(this);
-    this.handleValueChange = this.handleValueChange.bind(this);
-  }
-
-  handlePoolSizeChange(evt) {
+  handlePoolSizeChange = evt => {
     this.handleValueChange({
       poolSize: parseInt(evt.target.value),
     });
-  }
+  };
 
-  handleStrategyChange(evt) {
+  handleStrategyChange = evt => {
     this.handleValueChange({
       selectedStrategyId: parseInt(evt.target.value),
     });
-  }
+  };
 
-  handleValueChange(updateValue) {
+  handleValueChange = updateValue => {
     const { value, onChange } = this.props;
 
     onChange({
       ...value,
       ...updateValue,
     });
-  }
+  };
 
   render() {
     const { editModeOn, value } = this.props;

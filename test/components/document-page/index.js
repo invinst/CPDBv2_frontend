@@ -1,9 +1,10 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { Router, createMemoryHistory, Route } from 'react-router';
+import { MemoryRouter } from 'react-router-dom';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { omit, findIndex, slice, cloneDeep, set } from 'lodash';
+import { HelmetProvider } from 'react-helmet-async';
 import moment from 'moment-timezone';
 
 import DocumentPageContainer from 'containers/document-page';
@@ -22,7 +23,8 @@ describe('DocumentPage component', function () {
       },
     },
     breadcrumb: {
-      breadcrumbs: [],
+      breadcrumbItems: [],
+      breadcrumbMapping: {},
     },
     routing: {
       locationBeforeTransitions: {
@@ -100,6 +102,7 @@ describe('DocumentPage component', function () {
       titleEditModeOn: false,
       tagsEditModeOn: false,
       textContentEditModeOn: false,
+      suggestionTags: ['tag1', 'tag2'],
     },
   };
 
@@ -114,16 +117,14 @@ describe('DocumentPage component', function () {
   });
 
   it('should render correctly', function () {
-    const recentDocument = () => (
-      <Provider store={ store }>
-        <DocumentPageContainer />
-      </Provider>
-    );
-
     const wrapper = mount(
-      <Router history={ createMemoryHistory() }>
-        <Route path='/' component={ recentDocument } />
-      </Router>
+      <Provider store={ store }>
+        <MemoryRouter>
+          <HelmetProvider>
+            <DocumentPageContainer />
+          </HelmetProvider>
+        </MemoryRouter>
+      </Provider>
     );
 
     const header = wrapper.find(ShareableHeader);
@@ -132,7 +133,7 @@ describe('DocumentPage component', function () {
     wrapper.find(FooterContainer).exists().should.be.true();
     wrapper.find('.document-side-bar').exists().should.be.true();
 
-    const thumbnail = wrapper.find('.document-thumbnail');
+    const thumbnail = wrapper.find('.document-thumbnail').first();
     thumbnail.prop('href').should.equal(
       'https://assets.documentcloud.org/documents/5680384/CRID-1083633-CR-CRID-1083633-CR-Tactical.pdf'
     );
@@ -165,7 +166,7 @@ describe('DocumentPage component', function () {
     const linkDocumentsTitle = wrapper.find('.linked-documents-title');
     linkDocumentsTitle.text().should.equal('Linked Documents (14)');
 
-    const linkDocumentsContent = wrapper.find('.linked-documents-content');
+    const linkDocumentsContent = wrapper.find('a.linked-documents-content');
     linkDocumentsContent.prop('href').should.equal('/documents/?match=1083633/');
 
     const linkDisplayDocumentsThumbnails = wrapper.find('.linked-documents-thumbnail');
@@ -277,7 +278,11 @@ describe('DocumentPage component', function () {
 
     const wrapper = mount(
       <Provider store={ newStore }>
-        <DocumentPageContainer />
+        <MemoryRouter>
+          <HelmetProvider>
+            <DocumentPageContainer />
+          </HelmetProvider>
+        </MemoryRouter>
       </Provider>
     );
 
@@ -290,7 +295,11 @@ describe('DocumentPage component', function () {
 
     const wrapper = mount(
       <Provider store={ newStore }>
-        <DocumentPageContainer />
+        <MemoryRouter>
+          <HelmetProvider>
+            <DocumentPageContainer />
+          </HelmetProvider>
+        </MemoryRouter>
       </Provider>
     );
 
@@ -303,19 +312,17 @@ describe('DocumentPage component', function () {
     set(newState, 'authentication.apiAccessToken', '123456');
     const newStore = MockStore()(newState);
 
-    const recentDocument = () => (
+    const wrapper = mount(
       <Provider store={ newStore }>
-        <DocumentPageContainer />
+        <MemoryRouter>
+          <HelmetProvider>
+            <DocumentPageContainer />
+          </HelmetProvider>
+        </MemoryRouter>
       </Provider>
     );
 
-    const wrapper = mount(
-      <Router history={ createMemoryHistory() }>
-        <Route path='/' component={ recentDocument } />
-      </Router>
-    );
-
-    const linkDocumentsContent = wrapper.find('.linked-documents-content');
+    const linkDocumentsContent = wrapper.find('a.linked-documents-content');
     linkDocumentsContent.prop('href').should.equal('/documents/crid/1083633/');
   });
 
@@ -324,19 +331,19 @@ describe('DocumentPage component', function () {
     set(newState, 'authentication.apiAccessToken', '123456');
     const newStore = MockStore()(newState);
 
-    const recentDocument = () => (
+    const wrapper = mount(
       <Provider store={ newStore }>
-        <DocumentPageContainer />
+        <MemoryRouter>
+          <HelmetProvider>
+            <DocumentPageContainer />
+          </HelmetProvider>
+        </MemoryRouter>
       </Provider>
     );
 
-    const wrapper = mount(
-      <Router history={ createMemoryHistory() }>
-        <Route path='/' component={ recentDocument } />
-      </Router>
-    );
-
-    wrapper.find(EditableTagsInput).exists().should.be.true();
+    const editableTagsInput = wrapper.find(EditableTagsInput);
+    editableTagsInput.exists().should.be.true();
+    editableTagsInput.prop('suggestionTags').should.eql(['tag1', 'tag2']);
   });
 
   it('should not render EditableTagsInput for unauthenticated users', function () {
@@ -344,16 +351,14 @@ describe('DocumentPage component', function () {
     set(newState, 'authentication.apiAccessToken', '');
     const newStore = MockStore()(newState);
 
-    const recentDocument = () => (
-      <Provider store={ newStore }>
-        <DocumentPageContainer />
-      </Provider>
-    );
-
     const wrapper = mount(
-      <Router history={ createMemoryHistory() }>
-        <Route path='/' component={ recentDocument } />
-      </Router>
+      <Provider store={ newStore }>
+        <MemoryRouter>
+          <HelmetProvider>
+            <DocumentPageContainer />
+          </HelmetProvider>
+        </MemoryRouter>
+      </Provider>
     );
 
     wrapper.find(EditableTagsInput).exists().should.be.false();

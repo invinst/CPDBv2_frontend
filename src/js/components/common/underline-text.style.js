@@ -9,7 +9,7 @@ export const underlineWrapperStyle = {
   bottom: 0,
 };
 
-export const baseCommonStyle = {
+const baseCommonStyle = {
   textDecoration: 'none',
   position: 'relative',
   lineHeight: 'initial',
@@ -25,7 +25,7 @@ export const baseHoverStyle = {
   color: accentColor,
 };
 
-export const underlineCommonStyle = {
+const underlineCommonStyle = {
   display: 'inline-block',
   width: '100%',
   height: '4px',

@@ -10,7 +10,6 @@ describe('createFunctionWithTimeout', function () {
     createFunctionWithTimeout(spyFunc, 100);
     clock.tick(110);
     spyFunc.called.should.be.true();
-    clock.restore();
   });
 
   it('should be called once', function () {
@@ -20,6 +19,5 @@ describe('createFunctionWithTimeout', function () {
     timeoutFunc();
     clock.tick(110);
     spyFunc.calledOnce.should.be.true();
-    clock.restore();
   });
 });

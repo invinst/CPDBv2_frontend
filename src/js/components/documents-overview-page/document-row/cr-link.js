@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import pluralize from 'pluralize';
 
 import styles from './cr-link.sass';

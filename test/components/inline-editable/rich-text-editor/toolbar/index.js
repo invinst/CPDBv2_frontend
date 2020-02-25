@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import should from 'should';
-import draftJs, { Entity } from 'draft-js';
+import draftJs from 'draft-js';
 import { spy } from 'sinon';
 
 import { ENTITY_LINK } from 'utils/constants';
@@ -38,9 +38,10 @@ describe('Toolbar component', function () {
     const wrapper = mount(
       <Toolbar show={ true } editorState={ editorState }/>
     );
-    let buttons = wrapper.find(ToolbarButton);
-    let linkButton = buttons.at(2);
+    let linkButton = wrapper.find(ToolbarButton).at(2);
     linkButton.prop('onClick')();
+    wrapper.update();
+    linkButton = wrapper.find(ToolbarButton).at(2);
 
     // button become "active" and url input show
     linkButton.prop('active').should.be.true();
@@ -48,6 +49,8 @@ describe('Toolbar component', function () {
     wrapper.find(UrlInput).exists().should.be.true();
 
     linkButton.prop('onClick')();
+    wrapper.update();
+    linkButton = wrapper.find(ToolbarButton).at(2);
 
     // button become "inactive" and url input stop showing
     linkButton.prop('active').should.be.false();
@@ -119,8 +122,10 @@ describe('Toolbar component', function () {
     selectionState = selectionState.set('anchorOffset', 1).set('focusOffset', 2);
     let editorState = draftJs.EditorState.createWithContent(contentState);
     editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
-    const entityKey = draftJs.Entity.create(ENTITY_LINK, 'MUTABLE', { url: 'http://example.com' });
-    editorState = draftJs.RichUtils.toggleLink(editorState, editorState.getSelection(), entityKey);
+    contentState.createEntity(ENTITY_LINK, 'MUTABLE', { url: 'http://example.com' });
+    editorState = draftJs.RichUtils.toggleLink(
+      editorState, editorState.getSelection(), contentState.getLastCreatedEntityKey()
+    );
 
     const onChange = spy();
     const wrapper = shallow(
@@ -246,7 +251,7 @@ describe('Toolbar component', function () {
     editorState = onChange.args[0][0];
 
     const entity = editorState.getCurrentContent().getFirstBlock().getEntityAt(1);
-    const linkInstance = Entity.get(entity);
+    const linkInstance = contentState.getEntity(entity);
     const { url } = linkInstance.getData();
 
     url.should.equal('http://example.com');

@@ -1,5 +1,5 @@
 import should from 'should';
-import { stub, assert } from 'sinon';
+import { assert, stub } from 'sinon';
 import Cookies from 'js-cookie';
 
 import authenticationApiAccessToken from 'reducers/authentication/api-access-token';
@@ -18,7 +18,6 @@ describe('authenticationApiAccessToken reducer', function () {
       type: SIGNIN_REQUEST_SUCCESS,
       payload: { apiAccessToken },
     }).should.eql(apiAccessToken);
-    setStub.restore();
     assert.calledWith(setStub, 'apiAccessToken', apiAccessToken, { expires: 30 });
   });
 
@@ -27,7 +26,6 @@ describe('authenticationApiAccessToken reducer', function () {
     authenticationApiAccessToken(undefined, {
       type: RECEIVE_TOKEN_FROM_COOKIE,
     }).should.eql('apiAccessToken');
-    Cookies.get.restore();
   });
 
   it('should return null on LOG_OUT', function () {
@@ -35,7 +33,6 @@ describe('authenticationApiAccessToken reducer', function () {
     should(authenticationApiAccessToken(undefined, {
       type: LOG_OUT,
     })).be.null();
-    removeStub.restore();
     assert.calledWith(removeStub, 'apiAccessToken');
   });
 });

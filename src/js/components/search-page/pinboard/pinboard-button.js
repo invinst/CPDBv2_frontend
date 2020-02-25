@@ -1,19 +1,14 @@
-import React, { Component, PropTypes } from 'react';
-import { browserHistory } from 'react-router';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import cx from 'classnames';
 import { isEmpty, noop } from 'lodash';
 
+import browserHistory from 'utils/history';
 import styles from './pinboard-button.sass';
 
 
 export default class PinboardButton extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick(e) {
+  handleClick = e => {
     e.preventDefault();
 
     const { pinboard, onEmptyPinboardButtonClick } = this.props;
@@ -27,7 +22,7 @@ export default class PinboardButton extends Component {
     } else {
       browserHistory.push(pinboard.url);
     }
-  }
+  };
 
   render() {
     const { pinboard, emptyText } = this.props;

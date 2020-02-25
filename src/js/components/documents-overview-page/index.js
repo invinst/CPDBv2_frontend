@@ -1,23 +1,25 @@
-import React, { Component, PropTypes } from 'react';
-import { locationShape } from 'react-router/lib/PropTypes';
-import * as _ from 'lodash';
-import { browserHistory } from 'react-router';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import queryString from 'query-string';
+import { get } from 'lodash';
 
+import browserHistory from 'utils/history';
 import * as constants from 'utils/constants';
 import DocumentsTable from './documents-table';
-import SearchBar from './search-bar';
+import SearchBar from 'components/common/search-bar';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 
 
 export default class DocumentsOverviewPage extends Component {
   constructor(props) {
     super(props);
+    const query = queryString.parse(get(this.props, 'location.search', ''));
     this.state = {
-      searchText: _.get(this.props.location.query, 'match', ''),
+      searchText: query['match'],
     };
   }
 
-  handleSearchChange(text) {
+  handleSearchChange = (text) => {
     const { pathname } = this.props.location;
     if (this.state.searchText === text)
       return;
@@ -27,7 +29,7 @@ export default class DocumentsOverviewPage extends Component {
     } else {
       browserHistory.push(`${pathname}?match=${text}`);
     }
-  }
+  };
 
   render() {
     const {
@@ -46,14 +48,14 @@ export default class DocumentsOverviewPage extends Component {
           to='/crawlers/' />
         <SearchBar
           value={ this.state.searchText }
-          onChange={ this.handleSearchChange.bind(this) }/>
+          onChange={ this.handleSearchChange }/>
         <DocumentsTable
           rows={ documents }
           hasMore={ hasMore }
           nextParams={ nextParams }
           fetchDocuments={ fetchDocuments }
           fetchDocumentsAuthenticated={ fetchDocumentsAuthenticated }
-          onCRLinkClick={ this.handleSearchChange.bind(this) }/>
+          onCRLinkClick={ this.handleSearchChange }/>
       </div>
     );
   }
@@ -65,7 +67,11 @@ DocumentsOverviewPage.propTypes = {
   nextParams: PropTypes.object,
   fetchDocuments: PropTypes.func,
   fetchDocumentsAuthenticated: PropTypes.func,
-  location: locationShape,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+    search: PropTypes.string,
+    query: PropTypes.object,
+  }).isRequired,
 };
 
 DocumentsOverviewPage.defaultProps = {

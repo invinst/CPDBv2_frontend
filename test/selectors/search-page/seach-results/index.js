@@ -70,14 +70,14 @@ describe('search page results selector', function () {
           items: [{
             'appointedDate': 'DEC 13, 1999',
             'badge': '5922',
-            'age': 48,
+            'age': '48-year-old',
             'civilianComplimentCount': 4,
             'complaintCount': 10,
             'complaintPercentile': 93,
             'disciplineCount': 1,
             'fullName': 'Jerome Turbyville',
             'gender': 'Male',
-            'id': '29033',
+            'id': 29033,
             'isPinned': false,
             'itemIndex': 1,
             'itemRank': 1,
@@ -102,7 +102,7 @@ describe('search page results selector', function () {
             },
             'race': 'White',
             'rank': 'Police Officer',
-            'resignationDate': null,
+            'resignationDate': '',
             'sustainedCount': 2,
             'majorAwardCount': 2,
             'honorableMentionCount': 2,
@@ -167,7 +167,7 @@ describe('search page results selector', function () {
             category: 'Use Of Force',
             subCategory: 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
             address: '14XX W 63RD ST, CHICAGO IL 60636',
-            incidentDate: 'APR 23, 2004',
+            incidentDate: 'Apr 23, 2004',
             victims: [],
             coaccused: [],
             to: '',
@@ -219,7 +219,7 @@ describe('search page results selector', function () {
             uniqueKey: 'CR-1001',
             itemIndex: 1,
             itemRank: 1,
-            incidentDate: null,
+            incidentDate: '',
             category: 'Use Of Force',
             subCategory: 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
             address: '14XX W 63RD ST, CHICAGO IL 60636',
@@ -270,7 +270,7 @@ describe('search page results selector', function () {
             uniqueKey: 'DATE-CR-1001',
             itemIndex: 1,
             itemRank: 1,
-            incidentDate: 'APR 23, 2004',
+            incidentDate: 'Apr 23, 2004',
             category: 'Use Of Force',
             subCategory: 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
             address: '14XX W 63RD ST, CHICAGO IL 60636',
@@ -321,7 +321,7 @@ describe('search page results selector', function () {
             uniqueKey: 'DATE-CR-1001',
             itemIndex: 1,
             itemRank: 1,
-            incidentDate: null,
+            incidentDate: '',
             category: 'Use Of Force',
             subCategory: 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
             address: '14XX W 63RD ST, CHICAGO IL 60636',
@@ -369,14 +369,14 @@ describe('search page results selector', function () {
           items: [{
             'appointedDate': 'DEC 13, 1999',
             'badge': '5922',
-            'age': 48,
+            'age': '48-year-old',
             'civilianComplimentCount': 4,
             'complaintCount': 23,
             'complaintPercentile': 93,
             'disciplineCount': 1,
             'fullName': 'Jerome Finnigan',
             'gender': 'Male',
-            'id': '29033',
+            'id': 29033,
             'isPinned': false,
             'itemIndex': 1,
             'itemRank': 1,
@@ -401,7 +401,7 @@ describe('search page results selector', function () {
             },
             'race': 'White',
             'rank': 'Police Officer',
-            'resignationDate': null,
+            'resignationDate': '',
             'sustainedCount': 7,
             'majorAwardCount': 5,
             'honorableMentionCount': 2,
@@ -472,6 +472,7 @@ describe('search page results selector', function () {
             recentText: '1001',
             subText: 'TRR # 1001 - April 23, 2004',
             category: 'Firearm',
+            forceType: null,
             address: '14XX W 63RD ST, CHICAGO IL 60636',
             incidentDate: 'Apr 23, 2004',
             officer: {
@@ -543,6 +544,7 @@ describe('search page results selector', function () {
             recentText: '1001',
             subText: 'TRR # 1001',
             category: 'Firearm',
+            forceType: null,
             address: '14XX W 63RD ST, CHICAGO IL 60636',
             incidentDate: '',
             officer: {
@@ -615,6 +617,7 @@ describe('search page results selector', function () {
             recentText: '1001',
             subText: 'TRR # 1001 - April 23, 2004',
             category: 'Firearm',
+            forceType: 'Member Presence',
             address: '14XX W 63RD ST, CHICAGO IL 60636',
             incidentDate: 'Apr 23, 2004',
             officer: {
@@ -686,6 +689,7 @@ describe('search page results selector', function () {
             recentText: '1001',
             subText: 'TRR # 1001',
             category: 'Firearm',
+            forceType: null,
             address: '14XX W 63RD ST, CHICAGO IL 60636',
             incidentDate: '',
             officer: {
@@ -1124,7 +1128,6 @@ describe('search page results selector', function () {
       });
 
       v1UrlUtils.dataToolSearchUrl.calledWith('abc').should.be.true();
-      v1UrlUtils.dataToolSearchUrl.restore();
     });
 
     it('should return first item of first suggestion group', function () {

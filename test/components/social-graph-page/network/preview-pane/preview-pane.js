@@ -17,7 +17,7 @@ describe('PreviewPane component', function () {
   it('should render EdgeCoaccusalsPane', function () {
     const data = {
       items: [],
-      pathname: '/social-graph/',
+      location: { pathname: '/social-graph/' },
       info: {
         sourceOfficerName: 'Jerome Finnigan',
         targetOfficerName: 'Edward May',

@@ -1,12 +1,13 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { get } from 'lodash';
 
 import Editable from 'components/inline-editable/editable';
 import RichTextEditor from 'components/inline-editable/rich-text-editor';
+import { EditWrapperStateContext } from 'contexts';
 
 
 class RichTextEditable extends Component {
-
   getEditorProps() {
     const { editModeOn, value, onChange, fieldname } = this.props;
     const fieldContext = get(this.context.fieldContexts, fieldname, {});
@@ -49,6 +50,8 @@ class RichTextEditable extends Component {
   }
 }
 
+RichTextEditable.contextType = EditWrapperStateContext;
+
 RichTextEditable.propTypes = {
   className: PropTypes.string,
   value: PropTypes.object,
@@ -58,10 +61,6 @@ RichTextEditable.propTypes = {
   placeholder: PropTypes.string,
   fieldname: PropTypes.string,
   lastBlockChild: PropTypes.node,
-};
-
-RichTextEditable.contextTypes = {
-  fieldContexts: PropTypes.object,
 };
 
 export default RichTextEditable;

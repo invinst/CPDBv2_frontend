@@ -1,5 +1,5 @@
-import React, { PropTypes, Component } from 'react';
-import { render } from 'react-dom';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import cx from 'classnames';
 
 import { mapboxgl } from 'utils/vendors';
@@ -16,7 +16,6 @@ const scrollTopMargin = 20; // this value depends on the height of ShareableHead
 export default class LocationMap extends Component {
   constructor(props) {
     super(props);
-    this.handleScroll = this.handleScroll.bind(this);
     this.prevTop = 0;
     this.prevBottom = 0;
   }
@@ -25,22 +24,23 @@ export default class LocationMap extends Component {
     addEventListener('scroll', this.handleScroll);
   }
 
-  componentWillReceiveProps(nextProps, nextState) {
-    const { lat, lng } = this.props;
+  componentDidUpdate(prevProps) {
+    const { lat, lng, customMarkerClassName } = this.props;
 
-    if (lat !== nextProps.lat || lng !== nextProps.lng) {
-      this.addMarker(nextProps.lat, nextProps.lng, nextProps.markerEl);
+    if (prevProps.lat !== lat || prevProps.lng !== lng) {
+      this.addMarker(lat, lng, customMarkerClassName);
 
       if (this.map.getZoom() === zoom2) {
         this.zoomOut();
       }
     }
   }
+
   componentWillUnmount() {
     removeEventListener('scroll', this.handleScroll);
   }
 
-  handleScroll(event) {
+  handleScroll = event => {
     /* istanbul ignore next */
     // Logic: zoom in the map if it closes to top or bottom of the current window
     if (this.map) {
@@ -61,12 +61,12 @@ export default class LocationMap extends Component {
       this.prevTop = top;
       this.prevBottom = bottom;
     }
-  }
+  };
 
-  gotRef(el) {
+  gotRef = (el) => {
     if (el && !this.map) {
       this.el = el;
-      const { lat, lng, mapboxStyle, markerEl } = this.props;
+      const { lat, lng, mapboxStyle, customMarkerClassName } = this.props;
       this.map = new mapboxgl.Map({
         container: el,
         style: mapboxStyle,
@@ -74,20 +74,17 @@ export default class LocationMap extends Component {
         center: [centerLng, centerLat],
         interactive: false,
       });
-      this.map.on('click', this.handleMapClick.bind(this));
-      this.addMarker(lat, lng, markerEl);
+      this.map.on('click', this.handleMapClick);
+      this.addMarker(lat, lng, customMarkerClassName);
     }
-  }
+  };
 
-  addMarker(lat, lng, markerEl) {
+  addMarker(lat, lng, customMarkerClassName) {
     if (!this.marker) {
-      const placeholder = document.createElement('div');
-      const markerDOM = render(
-        markerEl || <div className='default-marker' />,
-        placeholder
-      );
+      const markerEl = document.createElement('div');
+      markerEl.className = customMarkerClassName || 'default-marker';
 
-      this.marker = new mapboxgl.Marker(markerDOM);
+      this.marker = new mapboxgl.Marker(markerEl);
       this.marker.setLngLat([lng, lat]);
       this.marker.addTo(this.map);
     } else {
@@ -95,13 +92,13 @@ export default class LocationMap extends Component {
     }
   }
 
-  handleMapClick(e) {
+  handleMapClick = (e) => {
     if (this.map.getZoom() === zoom1) {
       this.zoomIn();
     } else {
       this.zoomOut();
     }
-  }
+  };
 
   zoomIn() {
     const { lng, lat } = this.props;
@@ -123,7 +120,7 @@ export default class LocationMap extends Component {
     return (
       <div
         className={ cx(styles.locationMap, this.props.className, 'test--location-map') }
-        ref={ this.gotRef.bind(this) }
+        ref={ this.gotRef }
       />
     );
   }
@@ -134,10 +131,9 @@ LocationMap.propTypes = {
   lng: PropTypes.number,
   className: PropTypes.string,
   mapboxStyle: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  markerEl: PropTypes.element,
+  customMarkerClassName: PropTypes.string,
 };
 
 LocationMap.defaultProps = {
   mapboxStyle: MAPBOX_STYLE,
-  markerEl: null,
 };

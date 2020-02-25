@@ -1,9 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { isNil, noop, isEmpty } from 'lodash';
 import MediaQuery from 'react-responsive';
 import cx from 'classnames';
-import { browserHistory } from 'react-router';
 
+import browserHistory from 'utils/history';
 import {
   NewVisualTokenWidget as VisualTokenWidget,
   NewOfficerInfoWidget as OfficerInfoWidget,
@@ -13,19 +14,13 @@ import {
 import styles from './officer-pane.sass';
 
 export default class OfficerPane extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleOnOfficerProfileClick = this.handleOnOfficerProfileClick.bind(this);
-  }
-
-  handleOnOfficerProfileClick() {
+  handleOnOfficerProfileClick = () => {
     const { to } = this.props;
 
     if (!isEmpty(to)) {
       browserHistory.push(to);
     }
-  }
+  };
 
   render() {
     const {
@@ -69,7 +64,7 @@ export default class OfficerPane extends Component {
         name: 'Sustained',
         value: formatValue(sustainedCount),
         isHighlight: true,
-        description: !isNil(disciplineCount) && `${disciplineCount} Disciplined`,
+        description: !isNil(disciplineCount) ? `${disciplineCount} Disciplined` : '',
       },
       {
         name: 'Use of Force Reports',
@@ -96,7 +91,7 @@ export default class OfficerPane extends Component {
           {
             pinnable &&
             <PinButton
-              item={ { type, id, isPinned } }
+              item={ { type, id, isPinned, fullName, complaintCount, sustainedCount, age, race, gender, rank } }
               className={ cx('pin-button', { 'is-pinned': isPinned }) }
               addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
             />

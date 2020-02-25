@@ -69,8 +69,6 @@ describe('Attachments component', function () {
 
     stubChangeOfficerTab.should.be.calledWith('DOCUMENTS');
     stubScrollToElement.should.be.calledWith('.tabbed-pane-section', true, -40);
-
-    stubScrollToElement.restore();
   });
 
   it('should track click event', function () {
@@ -91,7 +89,6 @@ describe('Attachments component', function () {
       '/complaint/123456/',
       'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-2-of-3.html'
     );
-    stubTrackAttachmentClick.restore();
   });
 
   it('should render an empty span when attachments is empty', function () {

@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import WidgetWrapper, {
   HeaderWidget,
@@ -8,31 +9,29 @@ import WidgetWrapper, {
 } from '../widgets';
 
 
-export default class SchoolGroundPane extends Component {
-  render() {
-    const {
-      name,
-      allegationCount,
-      officersMostComplaint,
-      url,
-    } = this.props;
-    return (
-      <WidgetWrapper callToAction={ { url } } maxHeight={ 530 }>
-        <HeaderWidget title={ name } showBottomBorder={ true }/>
-        <SeparatorWidget/>
-        <AllegationCountWidget
-          url={ url }
-          numOfAllegations={ allegationCount }
-          subTitle={ 'within 100 meters of the school' }/>
-        <ListWidget
-          items={ officersMostComplaint }
-          typeName={ 'allegation' }
-          showAvatar={ true }
-          title={ 'OFFICERS WITH MOST COMPLAINTS' }
-        />
-      </WidgetWrapper>
-    );
-  }
+export default function SchoolGroundPane(props) {
+  const {
+    name,
+    allegationCount,
+    officersMostComplaint,
+    url,
+  } = props;
+  return (
+    <WidgetWrapper callToAction={ { url } } maxHeight={ 530 }>
+      <HeaderWidget title={ name } showBottomBorder={ true }/>
+      <SeparatorWidget/>
+      <AllegationCountWidget
+        url={ url }
+        numOfAllegations={ allegationCount }
+        subTitle={ 'within 100 meters of the school' }/>
+      <ListWidget
+        items={ officersMostComplaint }
+        typeName={ 'allegation' }
+        showAvatar={ true }
+        title={ 'OFFICERS WITH MOST COMPLAINTS' }
+      />
+    </WidgetWrapper>
+  );
 }
 
 SchoolGroundPane.propTypes = {

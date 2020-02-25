@@ -1,6 +1,6 @@
-import { browserHistory } from 'react-router';
 import { kebabCase, isEmpty, isNil, includes, parseInt, identity, every, get, map } from 'lodash';
 
+import browserHistory from 'utils/history';
 import {
   fetchFirstPagePinboardGeographicCrs,
   fetchFirstPagePinboardGeographicTrrs,

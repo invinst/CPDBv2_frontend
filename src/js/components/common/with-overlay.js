@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { noop } from 'lodash';
 
 import styles from './with-overlay.sass';
@@ -6,11 +7,14 @@ import styles from './with-overlay.sass';
 
 function withOverlay(ContentComponent) {
   class WithOverlay extends Component {
-    componentWillReceiveProps(nextProps) {
-      if (nextProps.isShown) {
-        document.body.classList.add('body-not-scrollable');
-      } else {
-        document.body.classList.remove('body-not-scrollable');
+    componentDidUpdate(prevProps) {
+      const { isShown } = this.props;
+      if (prevProps.isShown !== isShown) {
+        if (isShown) {
+          document.body.classList.add('body-not-scrollable');
+        } else {
+          document.body.classList.remove('body-not-scrollable');
+        }
       }
     }
 

@@ -3,13 +3,14 @@ import { shallow, mount } from 'enzyme';
 import MediaQuery from 'react-responsive';
 import should from 'should';
 
+import { mountWithRouter } from 'utils/test';
 import { NewWidgetWrapper, TextWidget, NewCallToActionWidget } from 'components/common/preview-pane/widgets';
 import WrapperLink from 'components/common/preview-pane/widgets/wrapper-link';
 
 
 describe('NewWidgetWrapper component', function () {
   it('should contain child components', function () {
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <NewWidgetWrapper callToAction={ { url: 'path', to: 'death', text: 'back' } }>
         <TextWidget title='title'/>
       </NewWidgetWrapper>
@@ -20,7 +21,12 @@ describe('NewWidgetWrapper component', function () {
 
     wrapper.find(MediaQuery).prop('maxHeight').should.equal(146);
 
-    wrapper.setProps({ callToAction: { text: 'back' } });
+    wrapper.setProps({ children: (
+      <NewWidgetWrapper callToAction={ { callToAction: { text: 'back' } } }>
+        <TextWidget title='title'/>
+      </NewWidgetWrapper>) }
+    );
+    wrapper.update();
 
     wrapper.find(NewCallToActionWidget).exists().should.be.false();
     wrapper.find(MediaQuery).prop('maxHeight').should.equal(106);

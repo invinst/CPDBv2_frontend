@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import { articleHeaderStyle, headerTabletStyle } from './article-header.style';
@@ -6,13 +7,13 @@ import ResponsiveStyleComponent, { DESKTOP, TABLET } from 'components/responsive
 
 
 class ArticleHeader extends Component {
-  renderWithResponsiveStyle(style) {
+  renderWithResponsiveStyle = (style) => {
     return (
       <h6 style={ [style.header, this.props.style] }>
         { this.props.children }
       </h6>
     );
-  }
+  };
 
   render() {
     return (
@@ -21,7 +22,7 @@ class ArticleHeader extends Component {
           [DESKTOP]: { header: [articleHeaderStyle] },
           [TABLET]: { header: [articleHeaderStyle, headerTabletStyle] },
         } }>
-        { this.renderWithResponsiveStyle.bind(this) }
+        { this.renderWithResponsiveStyle }
       </ResponsiveStyleComponent>
     );
   }

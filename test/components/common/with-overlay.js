@@ -44,21 +44,36 @@ describe('withOverlay component', function () {
   });
 
   it('should add and remove body-not-scrollable to body when isShown changes', function () {
-    const wrapper = shallow(
-      <WithOverlayComponent isShown={ false } />
-    );
+    const addClassListSpy = spy(document.body.classList, 'add');
+    const removeClassListSpy = spy(document.body.classList, 'remove');
+    const wrapper = shallow(<WithOverlayComponent isShown={ false } />);
 
     wrapper.setProps({ isShown: true });
     document.body.classList.contains('body-not-scrollable').should.be.true();
+    addClassListSpy.should.be.called();
+    removeClassListSpy.should.not.be.called();
+    addClassListSpy.resetHistory();
+    removeClassListSpy.resetHistory();
 
     wrapper.setProps({ isShown: false });
     document.body.classList.contains('body-not-scrollable').should.be.false();
+    addClassListSpy.should.not.be.called();
+    removeClassListSpy.should.be.called();
   });
 
+  it('should not modify classList of body if isShown is not changed', function () {
+    const addClassListSpy = spy(document.body.classList, 'add');
+    const removeClassListSpy = spy(document.body.classList, 'remove');
+    let wrapper = shallow(<WithOverlayComponent isShown={ false } />);
+
+    wrapper.setProps({ isShown: false });
+    addClassListSpy.should.not.be.called();
+    removeClassListSpy.should.not.be.called();
+  });
+
+
   it('should remove body-not-scrollable from body when unmount component', function () {
-    const wrapper = shallow(
-      <WithOverlayComponent isShown={ false } />
-    );
+    const wrapper = shallow(<WithOverlayComponent isShown={ false } />);
 
     wrapper.setProps({ isShown: true });
     document.body.classList.contains('body-not-scrollable').should.be.true();

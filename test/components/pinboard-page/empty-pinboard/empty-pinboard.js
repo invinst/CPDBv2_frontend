@@ -1,9 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { spy } from 'sinon';
 
 import EmptyPinboard from 'components/pinboard-page/empty-pinboard';
 import { buildEditStateFields } from 'utils/test/factories/draft';
-import { spy } from 'sinon';
 import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
@@ -77,7 +77,7 @@ describe('EmptyPinboard component', function () {
     examplePinboardLinks.should.have.length(2);
 
     const titles = wrapper.find('.title');
-    const descriptions = wrapper.find('.description');
+    const descriptions = wrapper.find('.description').hostNodes();
     titles.should.have.length(2);
     descriptions.should.have.length(2);
 

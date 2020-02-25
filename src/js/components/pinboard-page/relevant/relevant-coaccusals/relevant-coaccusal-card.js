@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import pluralize from 'pluralize';
 import { get, noop } from 'lodash';
 
@@ -10,26 +11,18 @@ import * as constants from 'utils/constants';
 
 
 export default class RelevantCoaccusalCard extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleAddItemToPinboard = this.handleAddItemToPinboard.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.handleFocus = this.handleFocus.bind(this);
-  }
-
   componentDidUpdate() {
     if (this.props.isPinStatusChanging) {
       this.handleAddItemToPinboard();
     }
   }
 
-  handleClick(e) {
+  handleClick = e => {
     e.preventDefault();
     this.handleAddItemToPinboard();
-  }
+  };
 
-  handleAddItemToPinboard() {
+  handleAddItemToPinboard = () => {
     const { id, rawData, addItemInPinboardPage } = this.props;
 
     addItemInPinboardPage({
@@ -37,12 +30,12 @@ export default class RelevantCoaccusalCard extends Component {
       id,
       rawData,
     });
-  }
+  };
 
-  handleFocus() {
+  handleFocus = () => {
     const { id, focusItem } = this.props;
     focusItem({ type: 'OFFICER', id });
-  }
+  };
 
   render() {
     const {

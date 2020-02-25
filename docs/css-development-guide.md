@@ -30,3 +30,9 @@ height: 30px;
 line-height: 29px;
 ```
 This is to fulfill optical center, for more information please take a look at: https://services.math.duke.edu/education/ccp/resources/write/design/graphic7.html
+
+## Naming css color variables
+
+- Use web approx colors with postfix `-color` at the end, eg $black-10-color
+- rgba color should be name with the color name and alpha: `[color-name]-[alpha]-color`, eg $thunder-90-color
+- Find colors tool http://chir.ag/projects/name-that-color/

@@ -1,5 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { RichUtils } from 'draft-js';
+import { isEqual } from 'lodash';
 
 import { linkEntitySelected, getSelectionStartBlockKey, inlineStyleSelected } from 'utils/draft';
 import { getOffsetKey } from 'utils/rich-text';
@@ -13,35 +15,30 @@ class Toolbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      prevEditorState: null,
       linkActive: false,
       urlInputValue: '',
     };
     this.position = {};
     this.urlInputHasFocus = false;
     this.mouseOver = false;
-    this.handleLinkButtonClick = this.handleLinkButtonClick.bind(this);
-    this.handleBoldButtonClick = this.handleBoldButtonClick.bind(this);
-    this.handleItalicButtonClick = this.handleItalicButtonClick.bind(this);
-    this.handleUrlInputChange = this.handleUrlInputChange.bind(this);
-    this.handleMouseOver = this.handleMouseOver.bind(this);
-    this.handleMouseOut = this.handleMouseOut.bind(this);
-    this.handleUrlInputFocus = this.handleUrlInputFocus.bind(this);
-    this.handleUrlInputBlur = this.handleUrlInputBlur.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.editorState !== this.props.editorState) {
-      const linkEntity = linkEntitySelected(nextProps.editorState);
+  static getDerivedStateFromProps(props, state) {
+    const { editorState } = props;
+    if (editorState && !isEqual(editorState, state.prevEditorState)) {
+      const linkEntity = linkEntitySelected(editorState);
       if (linkEntity) {
         const { url } = linkEntity.getData();
-        this.setState({ urlInputValue: url, linkActive: true });
+        return { urlInputValue: url, linkActive: true, prevEditorState: editorState };
       } else {
-        this.setState({ urlInputValue: '', linkActive: false });
+        return { urlInputValue: '', linkActive: false, prevEditorState: editorState };
       }
     }
+    return { prevEditorState: editorState };
   }
 
-  handleLinkButtonClick() {
+  handleLinkButtonClick = () => {
     const { editorState, onChange } = this.props;
     const { linkActive, urlInputValue } = this.state;
     if (urlInputValue) {
@@ -50,9 +47,9 @@ class Toolbar extends Component {
     } else {
       this.setState({ linkActive: !linkActive });
     }
-  }
+  };
 
-  handleUrlInputChange(value) {
+  handleUrlInputChange = value => {
     let { editorState, onChange } = this.props;
 
     this.setState({ urlInputValue: value });
@@ -64,17 +61,17 @@ class Toolbar extends Component {
     }
 
     onChange(defocus(editorState));
-  }
+  };
 
-  handleBoldButtonClick() {
+  handleBoldButtonClick = () => {
     const { editorState, onChange } = this.props;
     onChange(RichUtils.toggleInlineStyle(editorState, 'BOLD'));
-  }
+  };
 
-  handleItalicButtonClick() {
+  handleItalicButtonClick = () => {
     const { editorState, onChange } = this.props;
     onChange(RichUtils.toggleInlineStyle(editorState, 'ITALIC'));
-  }
+  };
 
   currentSelectionRect() {
     const { editorState } = this.props;
@@ -104,33 +101,33 @@ class Toolbar extends Component {
     return this.position;
   }
 
-  handleMouseOver() {
+  handleMouseOver = () => {
     const { onFocus } = this.props;
     this.mouseOver = true;
     onFocus();
-  }
+  };
 
-  handleMouseOut() {
+  handleMouseOut = () => {
     const { onBlur } = this.props;
     this.mouseOver = false;
     if (!this.urlInputHasFocus) {
       onBlur();
     }
-  }
+  };
 
-  handleUrlInputFocus() {
+  handleUrlInputFocus = () => {
     const { onFocus } = this.props;
     this.urlInputHasFocus = true;
     onFocus();
-  }
+  };
 
-  handleUrlInputBlur() {
+  handleUrlInputBlur = () => {
     const { onBlur } = this.props;
     this.urlInputHasFocus = false;
     if (!this.mouseOver) {
       onBlur();
     }
-  }
+  };
 
   render() {
     const { editorState, show } = this.props;

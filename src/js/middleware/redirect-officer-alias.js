@@ -1,9 +1,7 @@
-import { reset as resetBreadcrumb } from 'redux-breadcrumb-trail';
-import { kebabCase, invert, has } from 'lodash';
+import { kebabCase, invert } from 'lodash';
 
 import { getOfficerId } from 'utils/location';
 import { OFFICER_SUMMARY_REQUEST_SUCCESS, OFFICER_PAGE_TAB_ROUTE, CHANGE_OFFICER_TAB } from 'utils/constants';
-import { getBreadcrumb } from 'selectors/breadcrumbs';
 import { changeOfficerTab } from 'actions/officer-page';
 import { updatePathName } from 'actions/path-name';
 
@@ -40,20 +38,6 @@ const redirectOfficerAliasMiddleware = store => next => action => {
     const tabNameSuffix = tabName ? `${tabName}/` : '';
     const officerPath = `/officer/${officerId}/${fullnameSlug}/${tabNameSuffix}`;
     store.dispatch(updatePathName(officerPath));
-
-    const { breadcrumbs } = getBreadcrumb(state);
-    const breadcrumbLen = breadcrumbs.length;
-    const officerBreadcrumb = breadcrumbs[breadcrumbLen - 1];
-
-    officerBreadcrumb.location.pathname = officerPath;
-    officerBreadcrumb.params.officerId = officerId;
-    officerBreadcrumb.params.fullName = fullnameSlug;
-    officerBreadcrumb.url = officerPath;
-
-    store.dispatch(resetBreadcrumb({ breadcrumbs }));
-  }
-  if (action.type === '@@redux-breadcrumb-trail/PUSH' && has(action.payload.params, 'officerId')) {
-    action.payload.params.officerId = parseInt(action.payload.params.officerId);
   }
   if (action.type === CHANGE_OFFICER_TAB) {
     const tabName = invert(OFFICER_PAGE_TAB_ROUTE)[action.payload];

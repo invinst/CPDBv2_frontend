@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import MediaQuery from 'react-responsive';
 
 import MapboxGL from 'components/common/mapbox-gl';
@@ -11,28 +12,25 @@ export default class CommunityMap extends Component {
     this.state = {
       hoverCommunity: 0,
     };
-    this.renderMap = this.renderMap.bind(this);
   }
 
   shouldComponentUpdate(nextProps) {
-    const { communityId, communitySource, clusterSource, hide } = this.props;
+    const { communityId, communitySource, clusterSource } = this.props;
     return (
-      hide !== nextProps.hide || communityId !== nextProps.communityId || !communitySource || !clusterSource
+      communityId !== nextProps.communityId || !communitySource || !clusterSource
     );
   }
 
-  renderMap(center) {
+  renderMap = center => {
     const { hoverCommunity } = this.state;
-    const { selectCommunity, communityId, communitySource, clusterSource, hide } = this.props;
+    const { selectCommunity, communityId, communitySource, clusterSource } = this.props;
 
     /* istanbul ignore next */
     return (
       <MapboxGL
         style={ mapContainerStyle }
         center={ center }
-        hide={ hide }
         onClick={ [
-          [() => selectCommunity(0)],
           ['community-fill', e => selectCommunity(e.features[0].properties.id)],
         ] }
         onMouseMove={ [
@@ -136,7 +134,8 @@ export default class CommunityMap extends Component {
         ] }
       />
     );
-  }
+  };
+
   render() {
     const resolutions = [768, 992, 1024, 1200];
     return (

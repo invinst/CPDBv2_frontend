@@ -1,6 +1,7 @@
 import should from 'should';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
-import { SELECT_TAG, LOCATION_CHANGE, CHANGE_SEARCH_QUERY } from 'utils/constants';
+import { SELECT_TAG, CHANGE_SEARCH_QUERY } from 'utils/constants';
 import contentType from 'reducers/search-page/content-type';
 
 
@@ -34,8 +35,8 @@ describe('searchPage.contentType reducer', function () {
     contentType(undefined, {
       type: LOCATION_CHANGE,
       payload: {
-        query: {
-          terms: 'officer:123',
+        location: {
+          search: 'terms=officer:123',
         },
       },
     }).should.eql('OFFICER');
@@ -45,8 +46,8 @@ describe('searchPage.contentType reducer', function () {
     should(contentType(undefined, {
       type: LOCATION_CHANGE,
       payload: {
-        query: {
-          terms: 'abc:123',
+        location: {
+          search: 'terms=abc:123',
         },
       },
     })).be.null();
@@ -56,8 +57,8 @@ describe('searchPage.contentType reducer', function () {
     contentType(undefined, {
       type: LOCATION_CHANGE,
       payload: {
-        query: {
-          type: 'COMMUNITY',
+        location: {
+          search: 'type=COMMUNITY',
         },
       },
     }).should.eql('COMMUNITY');
@@ -67,8 +68,8 @@ describe('searchPage.contentType reducer', function () {
     contentType(undefined, {
       type: LOCATION_CHANGE,
       payload: {
-        query: {
-          type: 'COMMUNITY',
+        location: {
+          search: 'type=COMMUNITY',
         },
       },
     }).should.eql('COMMUNITY');

@@ -40,7 +40,7 @@ const cardTransform = (card) => ({
     ({ age, gender, race }) => compact([race, gender, age ? `Age ${age}` : null]).join(' ')
   ).join(', '),
   accused: card['coaccused'].join(', '),
-  incidentDate: formatDate(card['incident_date'], false),
+  incidentDate: formatDate(card['incident_date']),
 });
 
 const cardByCategorySelector = createWithIsPinnedSelector(

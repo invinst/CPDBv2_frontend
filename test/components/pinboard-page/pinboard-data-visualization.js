@@ -2,6 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
 
 import PinboardDataVisualization from 'components/pinboard-page/pinboard-data-visualization';
 import AnimatedSocialGraph from 'components/common/animated-social-graph';
@@ -45,17 +46,19 @@ describe('PinboardDataVisualization component', function () {
   it('should render pinboard visualization correctly', function () {
     const wrapper = mount(
       <Provider store={ store }>
-        <PinboardDataVisualization
-          pinboard={ { id: '1234abcd' } }
-          hasMapMarker={ true }
-        />
+        <MemoryRouter>
+          <PinboardDataVisualization
+            pinboard={ { id: '1234abcd' } }
+            hasMapMarker={ true }
+          />
+        </MemoryRouter>
       </Provider>
     );
 
     wrapper.find(AnimatedSocialGraph).exists().should.be.true();
     wrapper.find(AllegationsMap).exists().should.be.true();
 
-    const expandedModeButton = wrapper.find('.expanded-mode-btn');
+    const expandedModeButton = wrapper.find('.expanded-mode-btn').hostNodes();
     expandedModeButton.should.have.length(2);
     expandedModeButton.at(0).prop('href').should.containEql('/social-graph/pinboard/1234abcd/');
     expandedModeButton.at(1).prop('href').should.containEql('/geographic/pinboard/1234abcd/');
@@ -64,10 +67,12 @@ describe('PinboardDataVisualization component', function () {
   it('should not render AllegationsMap if hasMapMarker is false', function () {
     const wrapper = mount(
       <Provider store={ store }>
-        <PinboardDataVisualization
-          pinboard={ { id: '1234abcd' } }
-          hasMapMarker={ false }
-        />
+        <MemoryRouter>
+          <PinboardDataVisualization
+            pinboard={ { id: '1234abcd' } }
+            hasMapMarker={ false }
+          />
+        </MemoryRouter>
       </Provider>
     );
 

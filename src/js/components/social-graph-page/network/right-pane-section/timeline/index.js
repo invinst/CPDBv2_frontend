@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import * as ScrollMagic from 'scrollmagic';
 import { isUndefined, isEqual, isEmpty } from 'lodash';
 import { throttle } from 'lodash';
@@ -15,7 +16,7 @@ export default class Timeline extends Component {
   constructor(props) {
     super(props);
     this.externalUpdate = true;
-    this.handleScroll = throttle(this.handleScroll.bind(this), SCROLL_THROTTLE_THRESHOLD);
+    this.handleScroll = throttle(this.handleScroll, SCROLL_THROTTLE_THRESHOLD);
   }
 
   componentDidMount() {
@@ -82,7 +83,7 @@ export default class Timeline extends Component {
     }
   }
 
-  handleScroll(item) {
+  handleScroll = (item) => {
     const { timelineIdx, updateTimelineIdx, refreshIntervalId } = this.props;
     if (timelineIdx !== item.timelineIdx) {
       if (!this.externalUpdate && !refreshIntervalId) {
@@ -92,7 +93,7 @@ export default class Timeline extends Component {
     if (timelineIdx === item.timelineIdx) {
       this.externalUpdate = false;
     }
-  }
+  };
 
   render() {
     const { items, pathname, onTrackingAttachment, timelineIdx, updateSelectedCrid } = this.props;

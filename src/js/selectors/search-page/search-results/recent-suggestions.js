@@ -1,10 +1,9 @@
 import { createSelector } from 'reselect';
-import moment from 'moment';
 import { filter, isUndefined, map, startCase, toLower, get } from 'lodash';
 
 import { pinboardItemsSelector } from 'selectors/pinboard-page/pinboard';
-import { officerUrl } from 'utils/url-util';
-import { getCurrentAge } from 'utils/date';
+import { officerPath } from 'utils/paths';
+import { formatDate, getCurrentAgeString } from 'utils/date';
 import { navigationItemTransform } from 'selectors/common/search-item-transforms';
 import { FULL_MONTH_DATE_FORMAT } from 'utils/constants';
 import { isItemPinned } from 'selectors/pinboard-page/pinboard';
@@ -17,12 +16,14 @@ const defaultRecentSuggestionItemTransform = item => ({
 
 const officerTransform = (item, pinboardItems) => ({
   ...navigationItemTransform(item),
+  fullName: item['name'] || item['full_name'],
+  rank: item['rank'],
   complaintCount: item['allegation_count'],
   sustainedCount: item['sustained_count'],
   race: item.race || '',
   gender: item.gender || '',
-  age: getCurrentAge(item['birth_year']) || null,
-  to: officerUrl(item.id, item.name),
+  age: getCurrentAgeString(item['birth_year']),
+  to: officerPath(item.id, item.name),
   isPinned: isItemPinned('OFFICER', item.id, pinboardItems),
 });
 
@@ -31,15 +32,19 @@ const crTransform = (item, pinboardItems) => ({
   crid: item.crid,
   to: `/complaint/${item.crid}/`,
   isPinned: isItemPinned('CR', item.crid, pinboardItems),
+  category: item['category'],
+  incidentDate: formatDate(item['incident_date']),
 });
 
 const trrTransform = (item, pinboardItems) => {
-  const dateText = item['trr_datetime'] ? ` - ${moment(item['trr_datetime']).format(FULL_MONTH_DATE_FORMAT)}` : '';
+  const dateText = item['trr_datetime'] ? ` - ${formatDate(item['trr_datetime'], false, FULL_MONTH_DATE_FORMAT)}` : '';
   return {
     ...navigationItemTransform(item),
     to: `/trr/${item.id}/`,
     subText: `TRR # ${item.id}${dateText}`,
     isPinned: isItemPinned('TRR', item.id, pinboardItems),
+    forceType: item['force_type'],
+    incidentDate: formatDate(item['trr_datetime']),
   };
 };
 

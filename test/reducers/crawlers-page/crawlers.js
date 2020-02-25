@@ -1,5 +1,6 @@
-import crawlers from 'reducers/crawlers-page/crawlers';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
+import crawlers from 'reducers/crawlers-page/crawlers';
 import { CRAWLERS_REQUEST_SUCCESS } from 'utils/constants';
 
 
@@ -88,7 +89,7 @@ describe('crawlers reducer', function () {
       'num_new_documents': 2,
       'recent_run_at': '2019-02-20',
     }], {
-      type: '@@router/LOCATION_CHANGE',
+      type: LOCATION_CHANGE,
     }).should.eql([]);
   });
 });

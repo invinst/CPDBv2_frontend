@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import { isEmpty, noop } from 'lodash';
@@ -18,12 +19,6 @@ export default class AnimatedSocialGraph extends Component {
     this.state = {
       searchInputText: '',
     };
-
-    this.startTimelineFromBeginning = this.startTimelineFromBeginning.bind(this);
-    this.toggleTimeline = this.toggleTimeline.bind(this);
-    this.stopTimeline = this.stopTimeline.bind(this);
-    this.intervalTickTimeline = this.intervalTickTimeline.bind(this);
-    this.handleDateSliderChange = this.handleDateSliderChange.bind(this);
   }
 
   componentWillUnmount() {
@@ -35,22 +30,22 @@ export default class AnimatedSocialGraph extends Component {
     updateRefreshIntervalId(setInterval(this.intervalTickTimeline, ANIMATE_SPEED));
   }
 
-  stopTimeline() {
+  stopTimeline = () => {
     const { refreshIntervalId, updateRefreshIntervalId } = this.props;
     if (refreshIntervalId) {
       clearInterval(refreshIntervalId);
       updateRefreshIntervalId(null);
     }
-  }
+  };
 
-  startTimelineFromBeginning() {
+  startTimelineFromBeginning = () => {
     const { updateTimelineIdx } = this.props;
     this.stopTimeline();
     updateTimelineIdx(0);
     this.startTimeline();
-  }
+  };
 
-  toggleTimeline() {
+  toggleTimeline = () => {
     const { timelineIdx, updateTimelineIdx, refreshIntervalId, listEvent } = this.props;
     if (refreshIntervalId) {
       this.stopTimeline();
@@ -60,21 +55,21 @@ export default class AnimatedSocialGraph extends Component {
       }
       this.startTimeline();
     }
-  }
+  };
 
-  intervalTickTimeline() {
+  intervalTickTimeline = () => {
     const { timelineIdx, updateTimelineIdx, listEvent } = this.props;
     if (timelineIdx < listEvent.length - 1) {
       updateTimelineIdx(timelineIdx + 1);
     } else {
       this.stopTimeline();
     }
-  }
+  };
 
-  handleDateSliderChange(value) {
+  handleDateSliderChange = value => {
     const { updateTimelineIdx } = this.props;
     updateTimelineIdx(value);
-  }
+  };
 
   graphControlPanel() {
     const { listEvent, timelineIdx, refreshIntervalId, customRightControlButton } = this.props;

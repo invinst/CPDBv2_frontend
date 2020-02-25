@@ -1,3 +1,5 @@
+import { LOCATION_CHANGE } from 'connected-react-router';
+
 import documentsOrder from 'reducers/documents-overview-page/documents-order';
 import * as constants from 'utils/constants';
 
@@ -7,14 +9,14 @@ describe('DocumentsOverviewPage documentsOrder reducer', function () {
     documentsOrder(undefined, {}).should.deepEqual({ data: [], match: '' });
   });
 
-  it('should handle @@router/LOCATION_CHANGE', function () {
+  it('should handle LOCATION_CHANGE', function () {
     documentsOrder(
       {
         data: [1],
         match: 'term',
       },
       {
-        type: '@@router/LOCATION_CHANGE',
+        type: LOCATION_CHANGE,
       }
     ).should.deepEqual({ data: [], match: '' });
   });

@@ -34,7 +34,7 @@ describe('GenericModal component', function () {
     const store = MockStore()({
       cms: { pages: {} },
       breadcrumb: {
-        breadcrumbs: [],
+        breadcrumbItems: [],
       },
       crPage: {
         crid: '123456',
@@ -71,7 +71,7 @@ describe('GenericModal component', function () {
     const store = MockStore()({
       cms: { pages: {} },
       breadcrumb: {
-        breadcrumbs: [],
+        breadcrumbItems: [],
       },
       crawlersPage: {
         crawlers: [{
@@ -98,7 +98,7 @@ describe('GenericModal component', function () {
     const store = MockStore()({
       cms: { pages: {} },
       breadcrumb: {
-        breadcrumbs: [],
+        breadcrumbItems: [],
       },
       crPage: {
         crid: '123456',
@@ -140,7 +140,7 @@ describe('GenericModal component', function () {
     const store = MockStore()({
       cms: { pages: {} },
       breadcrumb: {
-        breadcrumbs: [],
+        breadcrumbItems: [],
       },
       trrPage: {
         attachmentRequest: {

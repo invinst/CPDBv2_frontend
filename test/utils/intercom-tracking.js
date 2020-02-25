@@ -8,10 +8,6 @@ describe('IntercomTracking utils', function () {
     stub(global, 'Intercom');
   });
 
-  afterEach(function () {
-    global.Intercom.restore();
-  });
-
   describe('trackOpenExplainer', function () {
     it('should send event analytic', function () {
       IntercomTracking.trackOpenExplainer(123);

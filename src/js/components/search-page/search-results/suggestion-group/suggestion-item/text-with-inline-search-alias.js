@@ -1,21 +1,16 @@
-import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import * as constants from 'utils/constants';
 
 
 export default class TextWithInlineSearchAlias extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleAliasButtonClick = this.handleAliasButtonClick.bind(this);
-  }
-
-  handleAliasButtonClick(e) {
+  handleAliasButtonClick = e => {
     e.stopPropagation();
     const { setAliasAdminPageContent, content } = this.props;
 
     setAliasAdminPageContent(content);
-  }
+  };
 
   render() {
     const { textClassName, aliasClassName, text, aliasEditModeOn } = this.props;
@@ -28,7 +23,7 @@ export default class TextWithInlineSearchAlias extends Component {
           aliasEditModeOn &&
             <Link
               className={ aliasClassName }
-              to={ `/edit/${constants.INLINE_SEARCH_ALIAS_ADMIN_PATH}` }
+              to={ `/edit${constants.INLINE_SEARCH_ALIAS_ADMIN_PATH}` }
               onClick={ this.handleAliasButtonClick }>
               Alias
             </Link>

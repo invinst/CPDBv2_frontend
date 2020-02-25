@@ -57,7 +57,7 @@ describe('activity-grid selectors', function () {
           complaintCount: 10,
           sustainedCount: 5,
           complaintPercentile: 80,
-          birthYear: 1970,
+          age: '47-year-old',
           race: 'black',
           rank: 'Police Officer',
           gender: 'female',
@@ -72,7 +72,7 @@ describe('activity-grid selectors', function () {
           complaintCount: 10,
           sustainedCount: 5,
           complaintPercentile: 80,
-          birthYear: 1970,
+          age: '47-year-old',
           race: 'black',
           rank: 'Police Officer',
           gender: 'female',
@@ -95,8 +95,6 @@ describe('activity-grid selectors', function () {
 
       stubShuffle.calledWith(lodash.range(0, 12)).should.be.true();
       stubShuffle.calledWith(lodash.range(12, 40)).should.be.true();
-
-      stubShuffle.restore();
     });
   });
 

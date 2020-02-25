@@ -5,15 +5,30 @@ import MockStore from 'redux-mock-store';
 import { random } from 'faker';
 import { spy } from 'sinon';
 import should from 'should';
+import { MemoryRouter } from 'react-router-dom';
 
+import browserHistory from 'utils/history';
 import PinboardAdminPage from 'components/pinboard-admin-page';
 import PinboardsTable from 'components/pinboard-admin-page/pinboards-table';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import { PreviewPaneWithOverlay } from 'components/common/preview-pane';
 import { PINBOARDS_SEARCH_ITEMS } from 'utils/constants';
+import SearchBar from 'components/common/search-bar';
 
 
 describe('PinboardAdminPage', function () {
+  const pinboardAdminStore = MockStore()({
+    pinboardAdminPage: {
+      graphData: {
+        cachedData: {},
+        requesting: false,
+      },
+    },
+    breadcrumb: {
+      breadcrumbs: [],
+    },
+  });
+
   it('should render correctly', function () {
     const pinboards = [
       {
@@ -37,6 +52,7 @@ describe('PinboardAdminPage', function () {
         fetchPinboardStaticSocialGraph={ fetchPinboardStaticSocialGraph }
         isLoading={ true }
         cachedDataIDs={ cachedDataIDs }
+        location={ { pathname: '/view-all-pinboards/' } }
       />
     );
     const instance = wrapper.instance();
@@ -64,39 +80,82 @@ describe('PinboardAdminPage', function () {
     previewPane.prop('data').should.be.empty();
 
     instance.focusItem({ id: 123 });
+    wrapper.update();
     previewPane = wrapper.find(PreviewPaneWithOverlay);
     previewPane.prop('isShown').should.be.true();
     previewPane.prop('data').should.eql({ id: 123 });
 
     instance.handleOverlayClick();
+    wrapper.update();
     previewPane = wrapper.find(PreviewPaneWithOverlay);
     previewPane.prop('isShown').should.be.false();
     previewPane.prop('data').should.eql({ id: 123 });
   });
 
   it('should call clearPinboardStaticSocialGraphCache when componentWillUnmount', function () {
-    const pinboardAdminStore = MockStore()({
-      pinboardAdminPage: {
-        graphData: {
-          cachedData: {},
-          requesting: false,
-        },
-      },
-      breadcrumb: {
-        breadcrumbs: [],
-      },
-    });
-
     const spyClearPinboardStaticSocialGraphCache = spy();
 
     const wrapper = mount(
       <Provider store={ pinboardAdminStore }>
-        <PinboardAdminPage clearPinboardStaticSocialGraphCache={ spyClearPinboardStaticSocialGraphCache }/>
+        <MemoryRouter>
+          <PinboardAdminPage
+            clearPinboardStaticSocialGraphCache={ spyClearPinboardStaticSocialGraphCache }
+            location={ { pathname: '/view-all-pinboards/' } }
+          />
+        </MemoryRouter>
       </Provider>
     );
 
     wrapper.unmount();
 
     spyClearPinboardStaticSocialGraphCache.should.be.calledOnce();
+  });
+
+  it('should render SearchBar component', function () {
+    const wrapper = mount(
+      <Provider store={ pinboardAdminStore }>
+        <MemoryRouter>
+          <PinboardAdminPage location={ { pathname: '/view-all-pinboards/' } } />
+        </MemoryRouter>
+      </Provider>
+    );
+
+    wrapper.find(SearchBar).exists().should.be.true();
+  });
+
+  it('should change url if search text is changed', function () {
+    spy(browserHistory, 'push');
+    const wrapper = mount(
+      <Provider store={ pinboardAdminStore }>
+        <MemoryRouter>
+          <PinboardAdminPage location={ { pathname: '/view-all-pinboards/' } }/>
+        </MemoryRouter>
+      </Provider>
+    );
+
+    const inputElement = wrapper.find('input');
+    inputElement.simulate('change', { target: { value: 'term' } } );
+
+    browserHistory.push.should.be.calledWith('/view-all-pinboards/?match=term');
+  });
+
+  it('should not change url if search text hasnt changed', function () {
+    const wrapper = mount(
+      <Provider store={ pinboardAdminStore }>
+        <MemoryRouter>
+          <PinboardAdminPage location={ { pathname: '/view-all-pinboards/' } }/>
+        </MemoryRouter>
+      </Provider>
+    );
+    spy(browserHistory, 'push');
+
+    const inputElement = wrapper.find('input');
+    inputElement.simulate('change', { target: { value: 'abc' } } );
+    browserHistory.push.should.be.calledOnce();
+    browserHistory.push.resetHistory();
+
+    inputElement.simulate('change', { target: { value: 'abc' } } );
+
+    browserHistory.push.should.be.not.called();
   });
 });

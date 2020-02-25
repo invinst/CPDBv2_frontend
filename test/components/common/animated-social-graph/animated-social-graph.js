@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { useFakeTimers, spy, stub } from 'sinon';
+import { spy, stub, useFakeTimers } from 'sinon';
 import Slider from 'rc-slider';
 
 import AnimatedSocialGraph, { AnimatedSocialGraphWithSpinner } from 'components/common/animated-social-graph';
@@ -82,7 +82,6 @@ describe('AnimatedSocialGraph component', function () {
 
     clock.tick(150);
     updateTimelineIdxSpy.should.be.calledWith(1);
-    clock.restore();
   });
 
   it('should not render graph control panel if there is no event', function () {
@@ -253,7 +252,6 @@ describe('AnimatedSocialGraph component', function () {
   });
 
   it('should call stopTimeline when componentWillUnmount', function () {
-    const stopTimelineSpy = spy(AnimatedSocialGraph.prototype, 'stopTimeline');
     const wrapper = shallow(
       <AnimatedSocialGraph
         officers={ officers }
@@ -261,9 +259,10 @@ describe('AnimatedSocialGraph component', function () {
         listEvent={ listEvent }
       />
     );
+    const instance = wrapper.instance();
+    const stopTimelineSpy = stub(instance, 'stopTimeline');
     wrapper.unmount();
     stopTimelineSpy.should.be.called();
-    stopTimelineSpy.restore();
   });
 
   it('should render customRightControlButton if present', function () {

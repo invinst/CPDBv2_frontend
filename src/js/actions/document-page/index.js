@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
 import { chain } from 'lodash';
 
-import { authenticatedGet, authenticatedPatch } from 'actions/common/async-action';
+import { authenticatedGet, authenticatedPatch, get } from 'actions/common/async-action';
 import {
   DOCUMENTS_URL,
   DOCUMENT_REQUEST_START,
@@ -16,6 +16,10 @@ import {
   UPDATE_DOCUMENT_PAGE_REQUEST_START,
   UPDATE_DOCUMENT_PAGE_REQUEST_SUCCESS,
   UPDATE_DOCUMENT_PAGE_REQUEST_FAILURE,
+  DOCUMENT_SUGGESTION_TAGS_API_URL,
+  FETCH_DOCUMENT_SUGGESTION_TAGS_START,
+  FETCH_DOCUMENT_SUGGESTION_TAGS_SUCCESS,
+  FETCH_DOCUMENT_SUGGESTION_TAGS_FAILURE,
 } from 'utils/constants';
 import { trackDocumentEdit } from 'utils/tracking';
 
@@ -36,6 +40,15 @@ export const turnOffDocumentTagsEditMode = createAction(TURN_OFF_TAGS_EDIT_MODE,
 export const turnOnDocumentTextContentEditMode = createAction(TURN_ON_DOCUMENT_TEXT_CONTENT_EDIT_MODE, () => {});
 
 export const turnOffDocumentTextContentEditMode = createAction(TURN_OFF_DOCUMENT_TEXT_CONTENT_EDIT_MODE, () => {});
+
+export const fetchDocumentSuggestionTags = () => get(
+  DOCUMENT_SUGGESTION_TAGS_API_URL,
+  [
+    FETCH_DOCUMENT_SUGGESTION_TAGS_START,
+    FETCH_DOCUMENT_SUGGESTION_TAGS_SUCCESS,
+    FETCH_DOCUMENT_SUGGESTION_TAGS_FAILURE,
+  ]
+)();
 
 export const updateDocument = fieldName => obj => {
   const data = chain(obj.fields)

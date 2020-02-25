@@ -4,16 +4,16 @@ $item-width: 232px
 
 \:local(.complaint-card)
   box-sizing: border-box
-  border: 1px solid $clay-gray
-  background-color: $dark-slate-gray-color
+  border: 1px solid $gray-color
+  background-color: $tundora-color
   display: block
   width: $item-width
   height: 298px
   margin-right: 8px
 
   &:hover
-    border: 1px solid $accent-color
-    background-color: $light-steel-blue
+    border: 1px solid $blue-ribbon-color
+    background-color: $river-bed-color
 
   .complaint-card-map
     width: $item-width - 2 // minus 2 borders
@@ -25,14 +25,14 @@ $item-width: 232px
     font-weight: 200
 
   .section
-    border-bottom: 1px solid $clay-gray
+    border-bottom: 1px solid $gray-color
     padding: 10px 0 12px
 
     &:last-child
       border: none
 
     .section-label
-      color: $white-two-color
+      color: $alto-color
       font-size: 12px
 
     .section-sub-label
@@ -44,7 +44,7 @@ $item-width: 232px
       overflow: hidden
 
       &.accused
-        color: $white-two-color
+        color: $alto-color
 
       &.nowrap-text
         text-overflow: ellipsis

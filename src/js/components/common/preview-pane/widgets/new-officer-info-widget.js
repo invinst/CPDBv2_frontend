@@ -1,8 +1,9 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { map, compact, lowerCase, isEmpty } from 'lodash';
 import cx from 'classnames';
-import { browserHistory } from 'react-router';
 
+import browserHistory from 'utils/history';
 import styles from './new-officer-info-widget.sass';
 
 
@@ -47,10 +48,9 @@ export default class OfficerInfoWidget extends Component {
       resignationDate,
     } = this.props;
 
-    const ageString = age ? `${age} year old` : null;
     const raceString = race ? lowerCase(race) : null;
     const genderString = gender ? lowerCase(gender) : null;
-    const geographicInfo = compact([ageString, raceString, genderString]);
+    const geographicInfo = compact([age, raceString, genderString]);
 
     const listInfo = [
       {

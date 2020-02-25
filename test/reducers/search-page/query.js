@@ -1,6 +1,7 @@
+import { LOCATION_CHANGE } from 'connected-react-router';
+
 import { CHANGE_SEARCH_QUERY } from 'utils/constants';
 import query from 'reducers/search-page/query';
-import { LOCATION_CHANGE } from 'utils/constants';
 
 
 describe('isRequesting reducer', function () {
@@ -26,8 +27,8 @@ describe('isRequesting reducer', function () {
     query(null, {
       type: LOCATION_CHANGE,
       payload: {
-        query: {
-          terms: 'new term',
+        location: {
+          search: 'terms=new term',
         },
       },
     }).should.eql('new term');
@@ -37,8 +38,8 @@ describe('isRequesting reducer', function () {
     query(null, {
       type: LOCATION_CHANGE,
       payload: {
-        query: {
-          terms: 'cr:123456',
+        location: {
+          search: 'terms=cr:123456',
         },
       },
     }).should.eql('123456');

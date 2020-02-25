@@ -1,6 +1,6 @@
-import { browserHistory } from 'react-router';
 import { compact } from 'lodash';
 
+import browserHistory from 'utils/history';
 import { getCurrentPathname } from 'utils/dom';
 
 
@@ -8,21 +8,21 @@ export const editModeOn = (pathname) => (
   compact(pathname.split('/'))[0] === 'edit'
 );
 
+export function getNonEditPath(pathname) {
+  return `/${pathname.match(/^(?:\/?edit)?\/?(.*)$/)[1]}`;
+}
+
 export function editMode(pathname) {
-  const path = pathname || '';
-  const nonEditPart = path.match(/^(?:\/?edit)?\/?(.*)$/)[1];
-  return `/edit/${nonEditPart}`;
+  const nonEditPart = getNonEditPath(pathname || '');
+  return `/edit${nonEditPart}`;
 }
 
 export function pushPathPreserveEditMode(path) {
   if (editModeOn(getCurrentPathname())) {
     path = editMode(path);
   } else {
-    path = path.match(/(?:\/?edit\/)?(.*)/)[1];
+    path = getNonEditPath(path);
   }
 
-  if (!path.startsWith('/')) {
-    path = '/' + path;
-  }
   browserHistory.push(path);
 }
