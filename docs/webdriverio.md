@@ -72,11 +72,11 @@ landingPage.slimHeader.logo.selector.should.eql('//div[contains(@class, "slim-he
 
 ## Writing tests
 
-We need to create a file named `test-{page-name}.js` under selenium-test folder
+We need to create a file named `test-{page-name}.js` under integration-test folder
 
 Example:
 ```javascript
-//selenium-test/test-officer-page.js
+//integration-test/test-officer-page.js
 
 require('should');
 

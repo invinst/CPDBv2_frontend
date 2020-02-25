@@ -1,20 +1,19 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import ConfiguredRadium from 'utils/configured-radium';
 
 
-class CoverImage extends React.Component {
-  render() {
-    let { style, src } = this.props;
+function CoverImage(props) {
+  let { style, src } = props;
 
-    if (src) {
-      style = [style, { background: `url(${src}) center / cover` }];
-    }
-
-    return (
-      <div style={ style } />
-    );
+  if (src) {
+    style = [style, { background: `url(${src}) center / cover` }];
   }
+
+  return (
+    <div style={ style } />
+  );
 }
 
 CoverImage.propTypes = {

@@ -7,10 +7,6 @@ describe('Intercom utils', function () {
     spy(window, 'Intercom');
   });
 
-  afterEach(function () {
-    window.Intercom.restore();
-  });
-
   describe('showIntercomLauncher', function () {
     it('should call Intercom correctly', function () {
       showIntercomLauncher(true);

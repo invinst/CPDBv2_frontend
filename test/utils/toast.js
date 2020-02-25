@@ -1,6 +1,6 @@
-import { browserHistory } from 'react-router';
 import { stub } from 'sinon';
 
+import browserHistory from 'utils/history';
 import { Toastify } from 'utils/vendors';
 import toastStyles from 'utils/toast.sass';
 import {
@@ -10,6 +10,7 @@ import {
   showInvalidParamToasts,
   showAlertToast,
 } from 'utils/toast';
+import { Promise } from 'es6-promise';
 
 describe('Toast utils', function () {
   afterEach(function () {
@@ -21,6 +22,45 @@ describe('Toast utils', function () {
     exit: 'toast-exit',
     duration: 500,
     appendPosition: true,
+  });
+
+  const createStore = (pinboard, pathname='', dispatchResults='abc') => ({
+    getState: () => {
+      return {
+        pinboardPage: {
+          pinboard,
+          officerItems: {
+            items: [],
+            requesting: false,
+          },
+          crItems: {
+            items: [],
+            requesting: false,
+          },
+          trrItems: {
+            items: [],
+            requesting: false,
+          },
+        },
+        pathname,
+        toasts: [
+          {
+            name: 'OFFICER',
+            template: '**{rank} {full_name}** {age} {race} {gender},' +
+              '\nwith *{complaint_count} complaints*, *{sustained_count} sustained* {action_type}.',
+          },
+          {
+            name: 'CR',
+            template: '**CR #{crid}** *categorized as {category}*\nhappened in {incident_date} {action_type}.',
+          },
+          {
+            name: 'TRR',
+            template: '**TRR #{id}** *categorized as {force_type}*\nhappened in {incident_date} {action_type}.',
+          },
+        ],
+      };
+    },
+    dispatch: stub().usingPromise(Promise).resolves(dispatchResults),
   });
 
   describe('showPinboardToast', function () {
@@ -43,52 +83,126 @@ describe('Toast utils', function () {
       const browserHistoryPush = stub(browserHistory, 'push');
 
       const pinboard = { id: '123abc' };
-      showAddOrRemoveItemToast(pinboard, false, 'CR');
+      const store = createStore(pinboard);
+      const payload = {
+        type: 'CR',
+        isPinned: false,
+        id: 'C123456',
+        incidentDate: '2005-09-29',
+        category: 'Verbal Abuse',
+      };
+      showAddOrRemoveItemToast(store, payload);
 
       Toastify.toast.should.be.calledOnce();
-      Toastify.toast.getCall(0).args[0].should.equal('CR added');
+      Toastify.toast.getCall(0).args[0].props.source.should.equal(
+        '**CR #C123456** *categorized as Verbal Abuse*\nhappened in 2005-09-29 added.'
+      );
       Toastify.toast.getCall(0).args[1]['className'].should.equal(`${toastStyles.toastWrapper} added`);
       Toastify.toast.getCall(0).args[1]['transition'].should.eql(cssTransition);
       Toastify.toast.getCall(0).args[1]['onClick']();
       browserHistoryPush.should.be.calledWith('/pinboard/123abc/untitled-pinboard/');
-
-      browserHistoryPush.restore();
     });
 
     it('should show added toast if isPinned is true', function () {
       const pinboard = { id: '123abc' };
+      const store = createStore(pinboard);
+      const dateCrPayload = {
+        type: 'DATE > CR',
+        isPinned: true,
+        id: 'C123456',
+        incidentDate: '2005-09-29',
+        category: 'Verbal Abuse',
+      };
+      const investigatorCrPayload = {
+        type: 'INVESTIGATOR > CR',
+        isPinned: true,
+        id: 'C123456',
+        incidentDate: '2005-09-29',
+        category: 'Verbal Abuse',
+      };
+      const unitOfficerPayload = {
+        type: 'UNIT > OFFICERS',
+        isPinned: true,
+        id: 8562,
+        fullName: 'Jerome Finnigan',
+        complaintCount: 10,
+        sustainedCount: 5,
+        age: '54-year-old',
+        race: 'White',
+        gender: 'Male',
+        rank: 'Commander',
+      };
+      const trrPayload = {
+        type: 'TRR',
+        isPinned: true,
+        id: '123456',
+        incidentDate: '2005-09-29',
+        forceType: 'Physical Force - Holding',
+      };
+      const dateTrrPayload = {
+        type: 'DATE > TRR',
+        isPinned: true,
+        id: '123456',
+        incidentDate: '2005-09-29',
+        forceType: 'Physical Force - Holding',
+      };
 
-      showAddOrRemoveItemToast(pinboard, true, 'DATE > CR');
+      showAddOrRemoveItemToast(store, dateCrPayload);
       Toastify.toast.should.be.calledOnce();
-      Toastify.toast.getCall(0).args[0].should.equal('CR removed');
+      Toastify.toast.getCall(0).args[0].props.source.should.equal(
+        '**CR #C123456** *categorized as Verbal Abuse*\nhappened in 2005-09-29 removed.'
+      );
 
       Toastify.toast.resetHistory();
-      showAddOrRemoveItemToast(pinboard, true, 'INVESTIGATOR > CR');
+      showAddOrRemoveItemToast(store, investigatorCrPayload);
       Toastify.toast.should.be.calledOnce();
-      Toastify.toast.getCall(0).args[0].should.equal('CR removed');
+      Toastify.toast.getCall(0).args[0].props.source.should.equal(
+        '**CR #C123456** *categorized as Verbal Abuse*\nhappened in 2005-09-29 removed.'
+      );
 
       Toastify.toast.resetHistory();
-      showAddOrRemoveItemToast(pinboard, true, 'UNIT > OFFICERS');
+      showAddOrRemoveItemToast(store, unitOfficerPayload);
       Toastify.toast.should.be.calledOnce();
-      Toastify.toast.getCall(0).args[0].should.equal('Officer removed');
+      Toastify.toast.getCall(0).args[0].props.source.should.equal(
+        '**Commander Jerome Finnigan** 54-year-old White Male,\nwith *10 complaints*, *5 sustained* removed.'
+      );
 
       Toastify.toast.resetHistory();
-      showAddOrRemoveItemToast(pinboard, true, 'TRR');
+      showAddOrRemoveItemToast(store, trrPayload);
       Toastify.toast.should.be.calledOnce();
-      Toastify.toast.getCall(0).args[0].should.equal('TRR removed');
+      Toastify.toast.getCall(0).args[0].props.source.should.equal(
+        '**TRR #123456** *categorized as Physical Force - Holding*\nhappened in 2005-09-29 removed.'
+      );
 
       Toastify.toast.resetHistory();
-      showAddOrRemoveItemToast(pinboard, true, 'DATE > TRR');
+      showAddOrRemoveItemToast(store, dateTrrPayload);
       Toastify.toast.should.be.calledOnce();
-      Toastify.toast.getCall(0).args[0].should.equal('TRR removed');
+      Toastify.toast.getCall(0).args[0].props.source.should.equal(
+        '**TRR #123456** *categorized as Physical Force - Holding*\nhappened in 2005-09-29 removed.'
+      );
     });
 
     it('should show toasts with correct type message', function () {
       const pinboard = { id: '123abc' };
-      showAddOrRemoveItemToast(pinboard, true, 'OFFICER');
+      const store = createStore(pinboard);
+      const officerPayload = {
+        type: 'OFFICER',
+        isPinned: true,
+        id: 8562,
+        fullName: 'Jerome Finnigan',
+        complaintCount: 10,
+        sustainedCount: 5,
+        age: '54-year-old',
+        race: 'White',
+        gender: 'Male',
+        rank: 'Commander',
+      };
+      showAddOrRemoveItemToast(store, officerPayload);
 
       Toastify.toast.should.be.calledOnce();
-      Toastify.toast.getCall(0).args[0].should.equal('Officer removed');
+      Toastify.toast.getCall(0).args[0].props.source.should.equal(
+        '**Commander Jerome Finnigan** 54-year-old White Male,\nwith *10 complaints*, *5 sustained* removed.'
+      );
       Toastify.toast.getCall(0).args[1]['className'].should.equal(`${toastStyles.toastWrapper} removed`);
       Toastify.toast.getCall(0).args[1]['transition'].should.eql(cssTransition);
     });

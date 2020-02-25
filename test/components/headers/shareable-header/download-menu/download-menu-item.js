@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { stub, spy } from 'sinon';
+import { spy, stub } from 'sinon';
 
 import DownloadMenuItem from 'components/headers/shareable-header/download-menu/download-menu-item';
 import * as tracking from 'utils/tracking';
@@ -57,8 +57,6 @@ describe('DownloadMenu component', function () {
     wrapper.simulate('click');
 
     triggerDownloadSpy.should.be.calledWith('lvh.me/file.zip');
-
-    triggerDownloadSpy.restore();
   });
 
   it('should throttle continues download requests', function () {
@@ -81,8 +79,6 @@ describe('DownloadMenu component', function () {
     wrapper.simulate('click');
 
     triggerDownloadSpy.should.be.calledOnce();
-
-    triggerDownloadSpy.restore();
   });
 
   it('should start download when zipFileUrl is ready', function () {
@@ -111,8 +107,6 @@ describe('DownloadMenu component', function () {
 
     triggerDownloadSpy.should.be.calledWith('lvh.me/file.zip');
     wrapper.state('requested').should.be.false();
-
-    triggerDownloadSpy.restore();
   });
 
   it('should send google analytics when clicked', function () {
@@ -144,8 +138,5 @@ describe('DownloadMenu component', function () {
     triggerDownloadSpy.should.be.calledWith('lvh.me/file.zip');
     stubTrackOfficerDownload.should.be.calledWith(123, 'download', 'without_docs');
     wrapper.state('requested').should.be.false();
-
-    triggerDownloadSpy.restore();
-    stubTrackOfficerDownload.restore();
   });
 });

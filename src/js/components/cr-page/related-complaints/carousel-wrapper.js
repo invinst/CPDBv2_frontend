@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import cx from 'classnames';
 
 import Carousel from 'components/common/carousel';
@@ -14,19 +15,19 @@ export default class CarouselWrapper extends Component {
     fetchRelatedComplaints(crid, { match, distance });
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { crid, distance, match, fetchRelatedComplaints } = nextProps;
+  componentDidUpdate(prevProps) {
+    const { crid, distance, match, fetchRelatedComplaints } = this.props;
 
-    if (this.props.distance !== distance) {
+    if (prevProps.distance !== distance) {
       fetchRelatedComplaints(crid, { match, distance });
       this.carousel && this.carousel.slideTo(0);
     }
   }
 
-  loadMore() {
+  loadMore = () => {
     const { crid, nextParams, fetchRelatedComplaints } = this.props;
     fetchRelatedComplaints(crid, nextParams);
-  }
+  };
 
   render() {
     const { count, cards, title, hasMore, match, crid, addOrRemoveItemInPinboard } = this.props;
@@ -39,7 +40,7 @@ export default class CarouselWrapper extends Component {
         </div>
         <Carousel
           ref={ carousel => this.carousel = carousel }
-          loadMore={ this.loadMore.bind(this) }
+          loadMore={ this.loadMore }
           hasMore={ hasMore }
           childWidth={ itemWidth }
           arrowClassName={ styles.carouselArrow }

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { ordinalSuffix } from 'ordinal-js';
 import { isEmpty, compact } from 'lodash';
 

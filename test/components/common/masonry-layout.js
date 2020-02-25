@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { stub, spy } from 'sinon';
+import { spy, stub } from 'sinon';
 import * as wrapperUtils from 'utils/wrapper';
 
 import MasonryLayout from 'components/common/masonry-layout';
@@ -14,10 +14,6 @@ describe('MasonryLayout component', function () {
   beforeEach(function () {
     bricksInstance = { resize: spy(), pack: spy(), update: spy() };
     stub(wrapperUtils, 'Bricks').returns(bricksInstance);
-  });
-
-  afterEach(function () {
-    wrapperUtils.Bricks.restore();
   });
 
   it('should invoke Bricks when mounted', function () {

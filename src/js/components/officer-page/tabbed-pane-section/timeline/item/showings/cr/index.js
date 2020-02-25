@@ -1,49 +1,49 @@
-import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
+import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import cx from 'classnames';
 
 import Attachments from './attachments';
 import baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/showings/base-item.sass';
 import styles from './cr.sass';
+import { PrintModeContext } from 'contexts';
 
 
-export default class Cr extends Component {
-  render() {
-    const { item, changeOfficerTab, pathname, onTrackingAttachment } = this.props;
-    const { printMode } = this.context;
+export default function Cr(props) {
+  const { item, changeOfficerTab, pathname, onTrackingAttachment } = props;
+  const { printMode } = useContext(PrintModeContext);
 
-    return (
-      <Link
-        to={ `/complaint/${item.crid}/` }
-        className={ cx(baseStyles.baseItem, styles.cr) }
-      >
-        <span className='item-content cr-item-content'>
-          <div className='item-wrapper-kind'>
-            <span className={ cx('cr-item-kind', 'item-kind', { 'active': item.finding === 'Sustained' }) }>
-              { printMode ? `CR ${item.crid}` : 'Complaint' }
-            </span>
+  return (
+    <Link
+      to={ `/complaint/${item.crid}/` }
+      className={ cx(baseStyles.baseItem, styles.cr) }
+    >
+      <span className='item-content cr-item-content'>
+        <div className='item-wrapper-kind'>
+          <span className={ cx('cr-item-kind', 'item-kind', { 'active': item.finding === 'Sustained' }) }>
+            { printMode ? `CR ${item.crid}` : 'Complaint' }
+          </span>
+        </div>
+        <span className='cr-detail'>
+          <div
+            className='item-category cr-item-category'>
+            { item.category }
           </div>
-          <span className='cr-detail'>
-            <div
-              className='item-category cr-item-category'>
-              { item.category }
-            </div>
-            <div className='cr-item-finding'>{ item.finding }, { item.outcome }</div>
-          </span>
-          <span className='cr-right'>
-            <span className='cr-item-coaccused no-print'>1 of { item.coaccused } coaccused</span>
-            <Attachments
-              attachments={ item.attachments }
-              changeOfficerTab={ changeOfficerTab }
-              pathname={ pathname }
-              onTrackingAttachment={ onTrackingAttachment }
-            />
-            <span className='item-date cr-item-date'>{ item.date }</span>
-          </span>
+          <div className='cr-item-finding'>{ item.finding }, { item.outcome }</div>
         </span>
-      </Link>
-    );
-  }
+        <span className='cr-right'>
+          <span className='cr-item-coaccused no-print'>1 of { item.coaccused } coaccused</span>
+          <Attachments
+            attachments={ item.attachments }
+            changeOfficerTab={ changeOfficerTab }
+            pathname={ pathname }
+            onTrackingAttachment={ onTrackingAttachment }
+          />
+          <span className='item-date cr-item-date'>{ item.date }</span>
+        </span>
+      </span>
+    </Link>
+  );
 }
 
 Cr.propTypes = {
@@ -52,8 +52,4 @@ Cr.propTypes = {
   changeOfficerTab: PropTypes.func,
   pathname: PropTypes.string,
   onTrackingAttachment: PropTypes.func,
-};
-
-Cr.contextTypes = {
-  printMode: PropTypes.bool,
 };

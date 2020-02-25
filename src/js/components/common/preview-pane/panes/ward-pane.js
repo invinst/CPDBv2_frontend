@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import WidgetWrapper, {
   HeaderWidget,
@@ -9,35 +10,33 @@ import WidgetWrapper, {
 } from '../widgets';
 
 
-export default class WardPane extends Component {
-  render() {
-    const {
-      name,
-      allegationCount,
-      mostCommonComplaint,
-      officersMostComplaint,
-      alderman,
-      url,
-    } = this.props;
-    return (
-      <WidgetWrapper callToAction={ { url } } maxHeight={ 830 }>
-        <HeaderWidget title={ `WARD #${name}` }/>
-        <SeparatorWidget/>
-        <AllegationCountWidget url={ url } numOfAllegations={ allegationCount }/>
-        <TextWidget title={ 'CURRENT ALDERMAN' } content={ alderman }/>
-        <ListWidget
-          typeName={ 'allegation' }
-          showAvatar={ false }
-          title='MOST COMMON COMPLAINTS'
-          items={ mostCommonComplaint }
-        />
-        <ListWidget
-          typeName={ 'allegation' }
-          title='OFFICERS WITH MOST COMPLAINTS'
-          items={ officersMostComplaint }/>
-      </WidgetWrapper>
-    );
-  }
+export default function WardPane(props) {
+  const {
+    name,
+    allegationCount,
+    mostCommonComplaint,
+    officersMostComplaint,
+    alderman,
+    url,
+  } = props;
+  return (
+    <WidgetWrapper callToAction={ { url } } maxHeight={ 830 }>
+      <HeaderWidget title={ `WARD #${name}` }/>
+      <SeparatorWidget/>
+      <AllegationCountWidget url={ url } numOfAllegations={ allegationCount }/>
+      <TextWidget title={ 'CURRENT ALDERMAN' } content={ alderman }/>
+      <ListWidget
+        typeName={ 'allegation' }
+        showAvatar={ false }
+        title='MOST COMMON COMPLAINTS'
+        items={ mostCommonComplaint }
+      />
+      <ListWidget
+        typeName={ 'allegation' }
+        title='OFFICERS WITH MOST COMPLAINTS'
+        items={ officersMostComplaint }/>
+    </WidgetWrapper>
+  );
 }
 
 WardPane.defaultProps = {

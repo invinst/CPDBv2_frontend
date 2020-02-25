@@ -1,10 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 
-class Children extends Component {
-  render() {
-    return <div />;
-  }
+function Children(props) {
+  return <div />;
 }
 
 export default Children;

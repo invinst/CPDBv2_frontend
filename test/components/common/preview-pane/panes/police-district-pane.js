@@ -22,7 +22,7 @@ describe('PoliceDistrictPane component', () => {
       <PoliceDistrictPane
         name='Austin'
         raceCount={ [] }
-        population={ 6789 }
+        population={ '6789' }
         allegationCount={ 1 }
         allegationPercentile={ 10.2 }
         officersMostComplaint={ mostComplaintOfficers }
@@ -43,7 +43,7 @@ describe('PoliceDistrictPane component', () => {
     header.render().text().should.containEql('POLICE DISTRICT AUSTIN');
 
     geo.prop('raceCount').should.eql([]);
-    geo.prop('population').should.equal(6789);
+    geo.prop('population').should.equal('6789');
 
     allegationCount.prop('numOfAllegations').should.equal(1);
     allegationCount.prop('subTitle').should.equal('More than 10% of other districts');

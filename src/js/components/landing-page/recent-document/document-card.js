@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 import styles from './document-card.sass';
 import * as tracking from 'utils/tracking';
@@ -9,17 +10,12 @@ import { PINNED_ITEM_TYPES } from 'utils/constants';
 
 
 export default class DocumentCard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
+  handleClick = () => {
     const { crid, pathname, onTrackingAttachment, id } = this.props;
     const url = `/complaint/${crid}/`;
     tracking.trackAttachmentClick(pathname, url);
     onTrackingAttachment({ attachmentId: id, sourcePage: 'Landing Page', app: 'Frontend' });
-  }
+  };
 
   render() {
     const { previewImageUrl, crid, incidentDate, category, addOrRemoveItemInPinboard, isPinned } = this.props;
@@ -36,11 +32,13 @@ export default class DocumentCard extends React.Component {
           item={ {
             type: PINNED_ITEM_TYPES.CR,
             id: crid,
-            isPinned: isPinned,
+            isPinned,
+            incidentDate,
+            category,
           } }
         />
         <div className='document-card-thumbnail'>
-          <img className='document-card-thumbnail-img' src={ previewImageUrl } alt='Document preview image'/>
+          <img className='document-card-thumbnail-img' src={ previewImageUrl } />
         </div>
         <div className='document-card-description'>
           <div className='document-card-description-incident-date'>{ incidentDate }</div>

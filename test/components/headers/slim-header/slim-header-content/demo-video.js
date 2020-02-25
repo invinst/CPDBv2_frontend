@@ -21,8 +21,11 @@ describe('DemoVideo component', function () {
     richTextEditable.prop('className').should.equal('demo-video-text-input');
     richTextEditable.prop('placeholder').should.equal('What is CPDP?');
     richTextEditable.prop('fieldname').should.equal('demo_video_text');
-    wrapper.find('.demo-video-thumbnail').exists().should.be.true();
-    wrapper.find('.demo-video-play-button').prop('src').should.equal('/img/ic-play-big.svg');
+    const demoVideoThumbnail = wrapper.find('.demo-video-thumbnail');
+    demoVideoThumbnail.exists().should.be.true();
+    demoVideoThumbnail.prop('srcSet').should.eql(
+      '/img/demo-video-thumbnail.png, /img/demo-video-thumbnail@2x.png 2x, /img/demo-video-thumbnail@3x.png 3x'
+    );
   });
 
   it('should openVideoModal when clicking on video button', function () {

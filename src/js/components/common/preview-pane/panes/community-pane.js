@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import WidgetWrapper, {
   HeaderWidget,
@@ -8,44 +9,42 @@ import WidgetWrapper, {
 } from '../widgets';
 
 
-export default class CommunityPane extends Component {
-  render() {
-    const {
-      name,
-      allegationCount,
-      mostCommonComplaint,
-      officersMostComplaint,
-      population,
-      raceCount,
-      medianIncome,
-      url,
-    } = this.props;
+export default function CommunityPane(props) {
+  const {
+    name,
+    allegationCount,
+    mostCommonComplaint,
+    officersMostComplaint,
+    population,
+    raceCount,
+    medianIncome,
+    url,
+  } = props;
 
-    return (
-      <WidgetWrapper callToAction={ { url } } maxHeight={ 890 }>
-        <HeaderWidget title={ name }/>
-        <GeoInfoWidget
-          medianIncome={ medianIncome }
-          population={ population }
-          raceCount={ raceCount }
-        />
-        <AllegationCountWidget
-          numOfAllegations={ allegationCount }
-          url={ url }
-        />
-        <ListWidget
-          typeName={ 'allegation' }
-          showAvatar={ false }
-          title='MOST COMMON COMPLAINTS'
-          items={ mostCommonComplaint }
-        />
-        <ListWidget
-          typeName={ 'allegation' }
-          title='OFFICERS WITH MOST COMPLAINTS'
-          items={ officersMostComplaint }/>
-      </WidgetWrapper>
-    );
-  }
+  return (
+    <WidgetWrapper callToAction={ { url } } maxHeight={ 890 }>
+      <HeaderWidget title={ name }/>
+      <GeoInfoWidget
+        medianIncome={ medianIncome }
+        population={ population }
+        raceCount={ raceCount }
+      />
+      <AllegationCountWidget
+        numOfAllegations={ allegationCount }
+        url={ url }
+      />
+      <ListWidget
+        typeName={ 'allegation' }
+        showAvatar={ false }
+        title='MOST COMMON COMPLAINTS'
+        items={ mostCommonComplaint }
+      />
+      <ListWidget
+        typeName={ 'allegation' }
+        title='OFFICERS WITH MOST COMPLAINTS'
+        items={ officersMostComplaint }/>
+    </WidgetWrapper>
+  );
 }
 
 CommunityPane.propTypes = {

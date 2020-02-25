@@ -2,7 +2,7 @@ import { shuffle, toLower } from 'lodash';
 
 import { ACTIVITY_GRID_CARD_TYPES } from 'utils/constants';
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
-import { getCurrentAge } from 'utils/date';
+import { getCurrentAgeString } from 'utils/date';
 import { officerCardTransform } from 'selectors/common/officer-card';
 import { createSelector } from 'reselect';
 
@@ -34,10 +34,12 @@ export const simpleOfficerTransform = officer => {
   return {
     id: officer['id'],
     fullName: officer['full_name'],
-    age: officer['birth_year'] ? getCurrentAge(officer['birth_year']) : 'N/A',
+    age: getCurrentAgeString(officer['birth_year']),
     race: officer['race'] ? toLower(officer['race']) : 'N/A',
     gender: officer['gender'] ? toLower(officer['gender']) : 'N/A',
     rank: officer['rank'],
+    complaintCount: officer['complaint_count'],
+    sustainedCount: officer['sustained_count'],
     percentile: {
       percentileAllegation: percentile['percentile_allegation'],
       percentileAllegationCivilian: percentile['percentile_allegation_civilian'],

@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { isEmpty } from 'lodash';
 
 import { communityUrl } from 'utils/v1-url';
@@ -15,11 +16,15 @@ import OutboundLink from 'components/common/outbound-link';
 export default class CommunityDetail extends Component {
   constructor(props) {
     super(props);
-    this.prevCommunity = {};
+    this.state = {
+      prevCommunity: {},
+    };
   }
 
-  componentWillReceiveProps() {
-    this.prevCommunity = this.props.community || this.prevCommunity;
+  static getDerivedStateFromProps(props, state) {
+    if (!isEmpty(props.community))
+      return { prevCommunity: props.community };
+    return null;
   }
 
   shouldComponentUpdate(nextProps) {
@@ -32,7 +37,7 @@ export default class CommunityDetail extends Component {
     if (!isEmpty(community)) {
       return community;
     }
-    return this.prevCommunity;
+    return this.state.prevCommunity;
   }
 
   render() {

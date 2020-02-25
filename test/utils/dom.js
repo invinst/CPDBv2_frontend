@@ -1,7 +1,6 @@
-import React from 'react';
-import { browserHistory } from 'react-router';
-import { stub, spy } from 'sinon';
+import { spy, stub } from 'sinon';
 
+import browserHistory from 'utils/history';
 import {
   innerHeight, disableBodyScroll, enableBodyScroll, getCurrentPathname,
   changePageTitle, viewportHeight, scrollToElement,
@@ -82,11 +81,6 @@ describe('dom utils', function () {
       this.dummyElement = { scrollIntoView: spy() };
       this.stubQuerySelector.withArgs('#dummy').returns(this.dummyElement);
       this.stubScrollBy = stub(window, 'scrollBy');
-    });
-
-    afterEach(function () {
-      this.stubQuerySelector.restore();
-      this.stubScrollBy.restore();
     });
 
     it('should call appropriate method on selected element to scroll to it', function () {

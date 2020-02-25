@@ -1,0 +1,25 @@
+@import 'variables'
+
+\:local(.dropdown-transition-enter)
+  opacity: 0
+
+\:local(.dropdown-transition-enter-active)
+  opacity: 1
+  transition: opacity $medium-animation-duration ease-in
+
+\:local(.dropdown-transition-exit)
+  opacity: 1
+
+\:local(.dropdown-transition-exit-active)
+  opacity: 0
+  transition: opacity $quick-animation-duration ease-out
+
+\:local(.dropdown-wrapper)
+  margin-top: 8px
+  position: relative
+
+  \:local(.dropdown-child)
+    position: absolute
+    left: 0
+    top: 0
+    width: 100%

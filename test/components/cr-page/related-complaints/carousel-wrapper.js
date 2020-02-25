@@ -19,6 +19,7 @@ describe('CarouselWrapper component', function () {
   it('should renderable', function () {
     CarouselWrapper.should.be.renderable({
       cards: [{ crid: '123456' }],
+      withRouter: true,
     });
   });
 
@@ -34,9 +35,7 @@ describe('CarouselWrapper component', function () {
   });
 
   it('should call fetchRelatedComplaints when receive new props', function () {
-    const wrapper = shallow(
-      <CarouselWrapper/>
-    );
+    const wrapper = shallow(<CarouselWrapper/>);
 
     wrapper.setProps({
       crid: crid,

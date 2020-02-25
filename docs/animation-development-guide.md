@@ -16,12 +16,12 @@ Example:
 
 ## FadeMotion
 
-It is the same as `ExpandMotion` only it will fade it's `children` into existence rather than expanding. Max opacity can also be controlled with `maxOpacity`
+It is the same as `ExpandMotion` only it will fade it's `children` into existence rather than expanding.
 
 Example:
 
 ```javascript
-<FadeMotion show={ displayCoaccusedDropdown } maxOpacity={ .5 }>
+<FadeMotion show={ displayCoaccusedDropdown }>
   { this.renderOverlay }
 </FadeMotion>
 ```

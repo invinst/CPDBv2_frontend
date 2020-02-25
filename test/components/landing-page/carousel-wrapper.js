@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { shallow } from 'enzyme';
 import { stub } from 'sinon';
 import { random, lorem } from 'faker';
@@ -28,14 +28,11 @@ describe('CarouselWrapper component', function () {
     carousel.prop('onNavigate')('left');
 
     tracking.trackSwipeLandingPageCarousel.should.be.calledWith('left', 'abc');
-    tracking.trackSwipeLandingPageCarousel.restore();
   });
 
   it('should render cards with correct props', function () {
-    class TestCardComponent extends Component {
-      render() {
-        return <div/>;
-      }
+    function TestCardComponent(props) {
+      return <div/>;
     }
 
     const CarouselWithCustomCardComponent = withCarousel(

@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import Mousetrap from 'mousetrap';
 
 import * as inputStyles from './input.style';
@@ -7,13 +8,19 @@ import * as inputStyles from './input.style';
 export default class TextInput extends Component {
   constructor(props) {
     super(props);
-    this.handleFocus = this.handleFocus.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
-    this.handleChange = this.handleChange.bind(this);
     this.state = {
       showPlaceholder: true,
       value: props.value,
+      prevValue: props.value,
     };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    const { value } = props;
+    if (value !== state.prevValue) {
+      return { value, prevValue: value };
+    }
+    return null;
   }
 
   componentDidMount() {
@@ -54,32 +61,31 @@ export default class TextInput extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { focused, value } = nextProps;
+  componentDidUpdate(prevProps) {
+    const { focused } = this.props;
 
-    this.setState({ value });
-    if (!this.props.focused && focused) {
+    if (!prevProps.focused && focused) {
       this.input.focus();
     }
   }
 
-  handleFocus(event) {
+  handleFocus = event => {
     const { onFocus } = this.props;
     this.setState({ showPlaceholder: !this.state.value });
     if (onFocus) {
       onFocus(event);
     }
-  }
+  };
 
-  handleBlur(event) {
+  handleBlur = event => {
     const { onBlur } = this.props;
     this.setState({ showPlaceholder: !this.state.value });
     if (onBlur) {
       onBlur(event);
     }
-  }
+  };
 
-  handleChange(event) {
+  handleChange = event => {
     const { onChange } = this.props;
     this.setState({
       showPlaceholder: !event.target.value,
@@ -88,7 +94,7 @@ export default class TextInput extends Component {
     if (onChange) {
       onChange(event);
     }
-  }
+  };
 
   focus() {
     this.input.focus();

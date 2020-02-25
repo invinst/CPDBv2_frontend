@@ -16,7 +16,6 @@ describe('SearchPage selector', function () {
       };
       getFocusedItem(state);
       stubFocusedResultItemSelector.calledWith(state).should.be.true();
-      stubFocusedResultItemSelector.restore();
     });
 
     it('should return focusedResultItemSelector when search term is not hidden', function () {
@@ -28,7 +27,6 @@ describe('SearchPage selector', function () {
       };
       getFocusedItem(state);
       stubFocusedSearchTermItemSelector.calledWith(state).should.be.true();
-      stubFocusedSearchTermItemSelector.restore();
     });
   });
 

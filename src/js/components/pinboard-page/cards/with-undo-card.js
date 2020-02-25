@@ -32,10 +32,6 @@ export default function withUndoCard(
       this.state = {
         status: DISPLAY,
       };
-      this.act = this.act.bind(this);
-      this.actOnDelay = this.actOnDelay.bind(this);
-      this.revert = this.revert.bind(this);
-      this.undo = this.undo.bind(this);
       this.countdown = undefined;
       this.removingItem = undefined;
     }
@@ -44,7 +40,7 @@ export default function withUndoCard(
       clearTimeout(this.countdown);
     }
 
-    act(item) {
+    act = item => {
       const { completeActionName } = settings;
 
       this.setState({
@@ -63,9 +59,9 @@ export default function withUndoCard(
 
         this.removingItem = undefined;
       }, UNDO_CARD_VISIBLE_TIME);
-    }
+    };
 
-    actOnDelay(item) {
+    actOnDelay = item => {
       this.setState({
         status: REMOVING,
       });
@@ -77,17 +73,17 @@ export default function withUndoCard(
 
         get(this.props, actionName, noop)(item);
       }, UNDO_CARD_VISIBLE_TIME);
-    }
+    };
 
-    revert() {
+    revert = () => {
       const { revertActionName } = settings;
 
       if (this.removingItem) {
         get(this.props, revertActionName, noop)({ ...this.removingItem, isPinned: false });
       }
-    }
+    };
 
-    undo() {
+    undo = () => {
       const { isRequestDelay } = settings;
 
       clearTimeout(this.countdown);
@@ -99,7 +95,7 @@ export default function withUndoCard(
       if (!isRequestDelay) {
         this.revert();
       }
-    }
+    };
 
     render() {
       const { status } = this.state;

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { shallow } from 'enzyme';
 import should from 'should';
 
@@ -22,7 +22,7 @@ describe('getOfficerSecondRowContent', function () {
   it('should return demographic, complaint and sustained', function () {
     const params = {
       suggestion: {
-        age: 30,
+        age: '30-year-old',
         race: 'White',
         gender: 'Male',
         complaintCount: 2,
@@ -30,7 +30,7 @@ describe('getOfficerSecondRowContent', function () {
       },
     };
 
-    getOfficerSecondRowContent(params).should.equal('30 year old, White, Male, 2 Complaints, 1 Sustained');
+    getOfficerSecondRowContent(params).should.equal('30-year-old, White, Male, 2 Complaints, 1 Sustained');
   });
 });
 
@@ -51,10 +51,8 @@ describe('getCRSecondRowContent', function () {
       },
     };
 
-    class TestComponent extends Component {
-      render() {
-        return getCRSecondRowContent(params);
-      }
+    function TestComponent(props) {
+      return getCRSecondRowContent(params);
     }
 
     const wrapper = shallow(<TestComponent />);

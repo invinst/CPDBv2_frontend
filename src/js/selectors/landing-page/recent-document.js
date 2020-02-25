@@ -15,7 +15,7 @@ const cardTransform = (card) => ({
   url: card['latest_document'] ? card['latest_document']['url'] : '',
   id: card['latest_document'] ? card['latest_document']['id'] : '',
   previewImageUrl: card['latest_document'] ? card['latest_document']['preview_image_url'] : '',
-  incidentDate: formatDate(card['incident_date'], false) || '',
+  incidentDate: formatDate(card['incident_date']),
   category: get(card, 'category', 'Unknown'),
 });
 

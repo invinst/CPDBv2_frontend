@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import RightLinks from 'components/headers/slim-header/slim-header-content/right-links';
 import styles from 'components/headers/slim-header/slim-header-content/right-links.sass';

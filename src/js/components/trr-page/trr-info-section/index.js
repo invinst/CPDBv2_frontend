@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import style from './trr-info-section.sass';
 import TRRDetail from './trr-detail';
@@ -6,24 +7,22 @@ import TRRDocument from './trr-document';
 import TRRLocation from './trr-location';
 
 
-export default class TRRInfoSection extends Component {
-  render() {
-    const {
-      trrLocation, trrDetail, trrDocument, openRequestTRRDocumentModal,
-      popup, pathName, noAttachmentTextEditWrapperStateProps,
-    } = this.props;
-    return (
-      <div className={ style.trrInfoSection }>
-        <TRRDetail { ...trrDetail } popup={ popup } pathName={ pathName }/>
-        <TRRDocument
-          { ...trrDocument }
-          openRequestTRRDocumentModal={ openRequestTRRDocumentModal }
-          noAttachmentTextEditWrapperStateProps={ noAttachmentTextEditWrapperStateProps }
-        />
-        <TRRLocation { ...trrLocation } />
-      </div>
-    );
-  }
+export default function TRRInfoSection(props) {
+  const {
+    trrLocation, trrDetail, trrDocument, openRequestTRRDocumentModal,
+    popup, pathName, noAttachmentTextEditWrapperStateProps,
+  } = props;
+  return (
+    <div className={ style.trrInfoSection }>
+      <TRRDetail { ...trrDetail } popup={ popup } pathName={ pathName }/>
+      <TRRDocument
+        { ...trrDocument }
+        openRequestTRRDocumentModal={ openRequestTRRDocumentModal }
+        noAttachmentTextEditWrapperStateProps={ noAttachmentTextEditWrapperStateProps }
+      />
+      <TRRLocation { ...trrLocation } />
+    </div>
+  );
 }
 
 TRRInfoSection.propTypes = {

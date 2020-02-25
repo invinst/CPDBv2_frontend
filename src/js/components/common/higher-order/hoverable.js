@@ -1,18 +1,17 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 
 export default function (ComponentClass, WrapperElement = 'span', style, className) {
   class Hoverable extends Component {
     constructor(props) {
       super(props);
-      this.handleMouseOver = this.handleMouseOver.bind(this);
-      this.handleMouseOut = this.handleMouseOut.bind(this);
       this.state = {
         hovering: false,
       };
     }
 
-    handleMouseOver(event) {
+    handleMouseOver = event => {
       this.setState({
         hovering: true,
       });
@@ -20,9 +19,9 @@ export default function (ComponentClass, WrapperElement = 'span', style, classNa
       if (onMouseOver) {
         onMouseOver(event);
       }
-    }
+    };
 
-    handleMouseOut(event) {
+    handleMouseOut = event => {
       this.setState({
         hovering: false,
       });
@@ -30,7 +29,7 @@ export default function (ComponentClass, WrapperElement = 'span', style, classNa
       if (onMouseOut) {
         onMouseOut(event);
       }
-    }
+    };
 
     render() {
       const { hovering } = this.state;

@@ -21,10 +21,6 @@ describe('Draft utils', function () {
     stub(draftJs, 'genKey').returns('abc12');
   });
 
-  afterEach(function () {
-    draftJs.genKey.restore();
-  });
-
   describe('contentStateToTextArray', function () {
     it('should return empty array if contentState is falsy', function () {
       contentStateToTextArray(false).should.eql([]);
@@ -205,7 +201,8 @@ describe('Draft utils', function () {
       selectionState = selectionState.set('anchorOffset', 1).set('focusOffset', 2);
       let editorState = draftJs.EditorState.createWithContent(contentState);
       editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
-      const entityKey = draftJs.Entity.create(ENTITY_LINK, 'MUTABLE', { url: 'http://example.com' });
+      contentState.createEntity(ENTITY_LINK, 'MUTABLE', { url: 'http://example.com' });
+      const entityKey = contentState.getLastCreatedEntityKey();
       editorState = draftJs.RichUtils.toggleLink(editorState, editorState.getSelection(), entityKey);
       linkEntitySelected(editorState).should.be.ok();
     });
@@ -250,7 +247,8 @@ describe('Draft utils', function () {
       selectionState = selectionState.set('anchorOffset', 1).set('focusOffset', 2);
       let editorState = draftJs.EditorState.createWithContent(contentState);
       editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
-      const entityKey = draftJs.Entity.create(ENTITY_LINK, 'MUTABLE', { url: 'http://example.com' });
+      contentState.createEntity(ENTITY_LINK, 'MUTABLE', { url: 'http://example.com' });
+      const entityKey = contentState.getLastCreatedEntityKey();
       editorState = draftJs.RichUtils.toggleLink(editorState, editorState.getSelection(), entityKey);
       editorState = removeLinkEntity(editorState);
       const contentBlock = editorState.getCurrentContent().getFirstBlock();

@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import classnames from 'classnames';
 import SwiperJs from 'swiper';
 
@@ -67,7 +68,7 @@ export default class Swiper extends Component {
     delete this.swiper;
   }
 
-  renderSlideItems(child) {
+  renderSlideItems = (child) => {
     if (!child) return null;
 
     const childProps = {
@@ -76,7 +77,7 @@ export default class Swiper extends Component {
     };
 
     return React.cloneElement(child, childProps);
-  }
+  };
 
   render() {
     const { children } = this.props;
@@ -84,7 +85,7 @@ export default class Swiper extends Component {
     return (
       <div ref={ el => this.el = el }>
         <div className='swiper-wrapper'>
-          { React.Children.map(children, this.renderSlideItems.bind(this)) }
+          { React.Children.map(children, this.renderSlideItems) }
         </div>
       </div>
     );

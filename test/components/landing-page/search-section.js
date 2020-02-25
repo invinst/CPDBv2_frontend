@@ -12,10 +12,6 @@ describe('SearchBox component', function () {
     this.stubPushPathPreserveEditMode = stub(editPath, 'pushPathPreserveEditMode');
   });
 
-  afterEach(function () {
-    this.stubPushPathPreserveEditMode.restore();
-  });
-
   it('should call pushPathPreserveEditMode with search path when user click on the search box', function () {
     const wrapper = shallow(
       <SearchBox />

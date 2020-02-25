@@ -14,6 +14,5 @@ describe('OutboundLink component', function () {
     wrapper.simulate('click');
 
     tracking.trackOutboundLink.should.be.calledWith('abc', '_blank');
-    tracking.trackOutboundLink.restore();
   });
 });

@@ -33,7 +33,8 @@ describe('Timeline component', function () {
       <Timeline
         items={ items }
         pathname='/social-graph/'
-      />
+      />,
+      { disableLifecycleMethods: true },
     );
     const timelineItems = wrapper.find(Item);
     timelineItems.should.have.length(2);
@@ -134,7 +135,8 @@ describe('Timeline component', function () {
         pathname='/social-graph/'
         timelineIdxTriggerChange={ 0 }
         timelineIdx={ 3 }
-      />
+      />,
+      { disableLifecycleMethods: true },
     );
     wrapper.instance().externalUpdate.should.be.true();
     wrapper.instance().handleScroll(item);
@@ -142,17 +144,21 @@ describe('Timeline component', function () {
   });
 
   it('should call handleScroll when timeline reach ScrollMagic.Scene', function (done) {
-    const handleScrollStub = stub(Timeline.prototype, 'handleScroll');
-    mount(
+    const componentDidMountStub = stub(Timeline.prototype, 'componentDidMount');
+    const wrapper = mount(
       <Timeline
         items={ items }
         timelineIdx={ 0 }
         timelineIdxTriggerChange={ 0 }
       />
     );
+    const instance = wrapper.instance();
+    const handleScrollStub = stub(instance, 'handleScroll');
+    componentDidMountStub.restore();
+    instance.componentDidMount();
+
     setTimeout(() => {
       handleScrollStub.should.be.calledWith(items[1]);
-      handleScrollStub.restore();
       done();
     }, 150);
   });

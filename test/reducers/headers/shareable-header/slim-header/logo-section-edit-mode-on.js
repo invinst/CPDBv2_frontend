@@ -1,3 +1,5 @@
+import { LOCATION_CHANGE } from 'connected-react-router';
+
 import logoSectionEditModeOn from 'reducers/headers/slim-header/logo-section-edit-mode-on';
 import * as constants from 'utils/constants';
 
@@ -21,20 +23,20 @@ describe('logoSectionEditModeOn reducer', function () {
 
   it('should handle LOCATION_CHANGE', function () {
     logoSectionEditModeOn(false, {
-      type: constants.LOCATION_CHANGE,
+      type: LOCATION_CHANGE,
     }).should.be.false();
 
     logoSectionEditModeOn(true, {
-      type: constants.LOCATION_CHANGE,
+      type: LOCATION_CHANGE,
       payload: {
-        pathname: '/123',
+        location: { pathname: '/123' },
       },
     }).should.be.false();
 
     logoSectionEditModeOn(true, {
-      type: constants.LOCATION_CHANGE,
+      type: LOCATION_CHANGE,
       payload: {
-        pathname: '/edit/123',
+        location: { pathname: '/edit/123' },
       },
     }).should.be.true();
   });

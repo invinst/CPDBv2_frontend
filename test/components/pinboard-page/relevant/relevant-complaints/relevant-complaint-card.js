@@ -115,10 +115,6 @@ describe('RelevantComplaintCard component', function () {
       clock = useFakeTimers();
     });
 
-    afterEach(function () {
-      clock.restore();
-    });
-
     it('should render remove text correctly', function () {
       const wrapper = mount(
         <RelevantComplaintCardWithUndo

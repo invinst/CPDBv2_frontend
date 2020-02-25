@@ -28,8 +28,5 @@ describe('EditorBlockWithStyle component', function () {
     editor.prop('style').color.should.equal('blue');
     editor.childAt(0).type().should.equal('div');
     wrapper.find('.test-editor-block-with-style-child').exists().should.be.true();
-
-    EditorBlock.prototype._renderChildren.restore();
-    EditorBlock.prototype.componentDidMount.restore();
   });
 });

@@ -1,7 +1,7 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import { stub } from 'sinon';
 
+import { mountWithRouter } from 'utils/test';
 import ComplaintSummaryCard from 'components/landing-page/complaint-summaries/complaint-summary-card';
 import ComplaintSummaries from 'components/landing-page/complaint-summaries';
 import { PINNED_ITEM_TYPES } from 'utils/constants';
@@ -16,36 +16,35 @@ describe('Complaint Summaries components', function () {
     'crid': '111',
     'categoryNames': ['Illegal Search'],
     'summary': 'This is summary 1',
-    'incidentDate': new Date(2017, 6, 6),
+    'incidentDate': 'Jun 6, 2017',
     isPinned: true,
   }, {
     'crid': '112',
     'categoryNames': ['Use of Force'],
     'summary': 'This is summary 2',
-    'incidentDate': new Date(2017, 1, 6),
+    'incidentDate': 'Jan 6, 2017',
     isPinned: false,
   }];
 
   it('should render appropriately', function () {
-
-    const wrapper = mount(
+    const wrapper = mountWithRouter(
       <ComplaintSummaries
         cards={ data }
         addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
-      />,
+      />
     );
 
     const complaintSummaryCards = wrapper.find(ComplaintSummaryCard);
     complaintSummaryCards.should.have.length(2);
     const complaintSummaryCard1 = complaintSummaryCards.at(0);
     complaintSummaryCard1.text().should.containEql('Illegal Search');
-    complaintSummaryCard1.text().should.containEql('Jul 6, 2017');
+    complaintSummaryCard1.text().should.containEql('Jun 6, 2017');
     complaintSummaryCard1.text().should.containEql('This is summary 1');
     complaintSummaryCard1.find('.complaint-summary-card-summary-gradient').exists().should.be.true();
 
     const complaintSummaryCard2 = complaintSummaryCards.at(1);
     complaintSummaryCard2.text().should.containEql('Use of Force');
-    complaintSummaryCard2.text().should.containEql('Feb 6, 2017');
+    complaintSummaryCard2.text().should.containEql('Jan 6, 2017');
     complaintSummaryCard2.text().should.containEql('This is summary 2');
     complaintSummaryCard2.find('.complaint-summary-card-summary-gradient').exists().should.be.true();
 
@@ -58,6 +57,8 @@ describe('Complaint Summaries components', function () {
         type: PINNED_ITEM_TYPES.CR,
         id: data[index].crid,
         isPinned: data[index].isPinned,
+        incidentDate: data[index].incidentDate,
+        category: data[index].categoryNames.join(', '),
       });
     });
   });

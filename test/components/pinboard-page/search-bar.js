@@ -48,7 +48,6 @@ describe('SearchBar component', function () {
     let pushPathStub = stub(editPath, 'pushPathPreserveEditMode');
     wrapper.find('.search-input').simulate('click');
     pushPathStub.should.be.calledWith('/search/');
-    pushPathStub.restore();
   });
 
   it('should not render share button in unsharable mode', function () {

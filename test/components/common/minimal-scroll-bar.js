@@ -9,11 +9,11 @@ import { Scrollbars } from 'react-custom-scrollbars';
 describe('MinimalScrollBars component', function () {
   it('should render correctly', function () {
     const wrapper = mount(
-      <MinimalScrollBars style={ { container: 'abc' } } viewClassName='some-view-class-name'/>
+      <MinimalScrollBars style={ { container: { style: 'abc' } } } viewClassName='some-view-class-name'/>
     );
 
     const scrollbars = wrapper.find(Scrollbars);
-    scrollbars.prop('style').should.equal('abc');
+    scrollbars.prop('style').should.eql({ style: 'abc' });
     wrapper.find('.test--minimal-scrollbars-vertical-thumb').exists().should.be.true();
     const scrollView = wrapper.find('div').at(1);
     scrollView.prop('className').should.equal('some-view-class-name');

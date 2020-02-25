@@ -3,6 +3,7 @@ import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
 import { stub } from 'sinon';
+import { MemoryRouter } from 'react-router-dom';
 
 import * as DomUtils from 'utils/dom';
 import LogOutButton from 'components/log-out-button';
@@ -30,12 +31,14 @@ describe('SlimHeaderContent component', function () {
   it('should render correctly', function () {
     const wrapper = mount(
       <Provider store={ storeMock } >
-        <SlimHeaderContent
-          position='top'
-          pathname='/'
-          editModeOn={ false }
-          disableTop={ false }
-        />
+        <MemoryRouter>
+          <SlimHeaderContent
+            position='top'
+            pathname='/'
+            editModeOn={ false }
+            disableTop={ false }
+          />
+        </MemoryRouter>
       </Provider>
     );
 
@@ -65,8 +68,6 @@ describe('SlimHeaderContent component', function () {
     wrapper.simulate('click');
 
     scrollToTopStub.should.be.calledOnce();
-
-    scrollToTopStub.restore();
   });
 
   it('should not scroll to top when being clicked if position is not bottom', function () {
@@ -82,7 +83,5 @@ describe('SlimHeaderContent component', function () {
     header.simulate('click');
 
     scrollToTopStub.should.not.be.called();
-
-    scrollToTopStub.restore();
   });
 });

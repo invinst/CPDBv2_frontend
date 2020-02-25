@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { get, keys, pick } from 'lodash';
 import cx from 'classnames';
 
@@ -8,52 +9,50 @@ import { NETWORK_TAB_NAMES } from 'utils/constants';
 import styles from './right-pane-section.sass';
 
 
-export default class RightPaneSection extends Component {
-  render() {
-    const {
-      currentTab,
-      changeNetworkTab,
-      showTimelineTab,
-    } = this.props;
-    const rightPaneMap = {
-      [NETWORK_TAB_NAMES.TIMELINE]: {
-        component: SocialGraphTimelineContainer,
-        show: showTimelineTab,
-        componentProps: ['location'],
-      },
-      [NETWORK_TAB_NAMES.OFFICERS]: {
-        component: SocialGraphOfficersContainer,
-        show: true,
-        componentProps: ['sortedOfficerIds'],
-      },
-    };
+export default function RightPaneSection(props) {
+  const {
+    currentTab,
+    changeNetworkTab,
+    showTimelineTab,
+  } = props;
+  const rightPaneMap = {
+    [NETWORK_TAB_NAMES.TIMELINE]: {
+      component: SocialGraphTimelineContainer,
+      show: showTimelineTab,
+      componentProps: ['location'],
+    },
+    [NETWORK_TAB_NAMES.OFFICERS]: {
+      component: SocialGraphOfficersContainer,
+      show: true,
+      componentProps: ['sortedOfficerIds'],
+    },
+  };
 
-    const itemComponent = get(rightPaneMap, currentTab, {});
-    const CurrentComponent = itemComponent.component;
-    const itemData = pick(this.props, itemComponent.componentProps);
+  const itemComponent = get(rightPaneMap, currentTab, {});
+  const CurrentComponent = itemComponent.component;
+  const itemData = pick(props, itemComponent.componentProps);
 
-    return (
-      <div className={ cx(styles.rightPaneSection, 'right-pane-section') }>
-        <div className='right-pane-section-menu'>
-          {
-            keys(rightPaneMap).map(paneName => (
-              get(rightPaneMap, `${paneName}.show`) ? (
-                <span
-                  key={ paneName }
-                  className={ cx('right-pane-tab-name', { 'active': paneName === currentTab }) }
-                  onClick={ () => changeNetworkTab(paneName) }
-                >
-                  { paneName }
-                </span>
-              ) : null
-            ))
-          }
-          <div className='clearfix' />
-        </div>
-        { CurrentComponent && <CurrentComponent { ...itemData } /> }
+  return (
+    <div className={ cx(styles.rightPaneSection, 'right-pane-section') }>
+      <div className='right-pane-section-menu'>
+        {
+          keys(rightPaneMap).map(paneName => (
+            get(rightPaneMap, `${paneName}.show`) ? (
+              <span
+                key={ paneName }
+                className={ cx('right-pane-tab-name', { 'active': paneName === currentTab }) }
+                onClick={ () => changeNetworkTab(paneName) }
+              >
+                { paneName }
+              </span>
+            ) : null
+          ))
+        }
+        <div className='clearfix' />
       </div>
-    );
-  }
+      { CurrentComponent && <CurrentComponent { ...itemData } /> }
+    </div>
+  );
 }
 
 RightPaneSection.propTypes = {

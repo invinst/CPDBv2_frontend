@@ -1,7 +1,7 @@
-import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-import moment from 'moment';
 import _ from 'lodash';
 
 import styles from './complaint-summary-card.sass';
@@ -10,40 +10,38 @@ import ItemPinButton from 'components/common/item-pin-button';
 import pinButtonStyles from 'components/common/item-pin-button.sass';
 
 
-export default class ComplaintSummaryCard extends React.Component {
-  render() {
+export default function ComplaintSummaryCard(props) {
 
-    const { summary, incidentDate, categoryNames, crid, addOrRemoveItemInPinboard, isPinned } = this.props;
-    const categories = _.join(categoryNames, ', ');
+  const { summary, incidentDate, categoryNames, crid, addOrRemoveItemInPinboard, isPinned } = props;
+  const categories = _.join(categoryNames, ', ');
 
-    return (
-      <Link
-        to={ `/complaint/${crid}/` }
-        className={ styles.complaintSummaryCard }
-      >
-        <ItemPinButton
-          className={ pinButtonStyles.cardPinnedButton }
-          addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
-          showHint={ false }
-          item={ {
-            type: PINNED_ITEM_TYPES.CR,
-            id: crid,
-            isPinned: isPinned,
-          } }
-        />
-        <div className='complaint-summary-card-title'>
-          <div className='complaint-summary-card-title-date'>
-            { moment(incidentDate, 'YYYY-MM-DD').format('ll') }
-          </div>
-          <div className='complaint-summary-card-title-category'>{ categories }</div>
-        </div>
-        <div className='complaint-summary-card-summary'>
-          { summary }
-          <div className='complaint-summary-card-summary-gradient'/>
-        </div>
-      </Link>
-    );
-  }
+  return (
+    <Link
+      to={ `/complaint/${crid}/` }
+      className={ styles.complaintSummaryCard }
+    >
+      <ItemPinButton
+        className={ pinButtonStyles.cardPinnedButton }
+        addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
+        showHint={ false }
+        item={ {
+          type: PINNED_ITEM_TYPES.CR,
+          id: crid,
+          isPinned,
+          incidentDate,
+          category: categories,
+        } }
+      />
+      <div className='complaint-summary-card-title'>
+        <div className='complaint-summary-card-title-date'>{ incidentDate }</div>
+        <div className='complaint-summary-card-title-category'>{ categories }</div>
+      </div>
+      <div className='complaint-summary-card-summary'>
+        { summary }
+        <div className='complaint-summary-card-summary-gradient'/>
+      </div>
+    </Link>
+  );
 }
 
 ComplaintSummaryCard.propTypes = {

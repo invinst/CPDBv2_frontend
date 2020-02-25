@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { get, pick, merge } from 'lodash';
 import cx from 'classnames';
 
@@ -9,41 +10,39 @@ import CRPane from 'components/common/preview-pane/panes/cr-pane';
 import styles from './preview-pane.sass';
 
 
-export default class PreviewPane extends Component {
-  render() {
-    const { data, type } = this.props;
+export default function PreviewPane(props) {
+  const { data, type } = props;
 
-    const paneTypes = {
-      [NETWORK_PREVIEW_PANE.OFFICER]: {
-        component: OfficerPane,
-        customClassName: 'officer-preview-link',
-        defaultProps: { pinnable: false, yScrollable: true },
-      },
-      [NETWORK_PREVIEW_PANE.EDGE_COACCUSALS]: {
-        component: EdgeCoaccusalsPane,
-        customClassName: 'edge-coaccusals-preview-link',
-        customProps: ['location', 'onTrackingAttachment', 'updateSelectedCrid'],
-      },
-      [NETWORK_PREVIEW_PANE.CR]: {
-        component: CRPane,
-        customClassName: 'cr-preview-pane cr-preview-link',
-        defaultProps: { yScrollable: true },
-      },
-    };
+  const paneTypes = {
+    [NETWORK_PREVIEW_PANE.OFFICER]: {
+      component: OfficerPane,
+      customClassName: 'officer-preview-link',
+      defaultProps: { pinnable: false, yScrollable: true },
+    },
+    [NETWORK_PREVIEW_PANE.EDGE_COACCUSALS]: {
+      component: EdgeCoaccusalsPane,
+      customClassName: 'edge-coaccusals-preview-link',
+      customProps: ['location', 'onTrackingAttachment', 'updateSelectedCrid'],
+    },
+    [NETWORK_PREVIEW_PANE.CR]: {
+      component: CRPane,
+      customClassName: 'cr-preview-pane cr-preview-link',
+      defaultProps: { yScrollable: true },
+    },
+  };
 
-    const itemComponent = get(paneTypes, type, {});
-    const ItemComponent = itemComponent.component;
+  const itemComponent = get(paneTypes, type, {});
+  const ItemComponent = itemComponent.component;
 
-    const itemData = merge(pick(this.props, itemComponent.customProps), data);
+  const itemData = merge(pick(props, itemComponent.customProps), data);
 
-    return (
-      <div className={ cx(styles.previewPane, itemComponent.customClassName) }>
-        {
-          ItemComponent && <ItemComponent { ...itemData } { ...itemComponent.defaultProps } />
-        }
-      </div>
-    );
-  }
+  return (
+    <div className={ cx(styles.previewPane, itemComponent.customClassName) }>
+      {
+        ItemComponent && <ItemComponent { ...itemData } { ...itemComponent.defaultProps } />
+      }
+    </div>
+  );
 }
 
 PreviewPane.propTypes = {

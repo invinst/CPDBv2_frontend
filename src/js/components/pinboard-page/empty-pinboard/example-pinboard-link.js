@@ -1,19 +1,15 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import Truncate from 'react-truncate';
 
 import styles from 'components/pinboard-page/empty-pinboard/example-pinboard-link.sass';
 
 
 export default class ExamplePinboardLink extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
+  handleClick = () => {
     const { id, currentPinboardId, updatePinboardFromSource } = this.props;
     updatePinboardFromSource(currentPinboardId, id);
-  }
+  };
 
   render() {
     const { title, description } = this.props;

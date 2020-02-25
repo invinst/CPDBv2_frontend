@@ -1,16 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import { whiteTwoColor } from 'utils/styles';
 
 
-export default class SeparatorWidget extends Component {
-  render() {
-    return (
-      <div style={ styles.container }>
-        <div style={ styles.hr }/>
-      </div>
-    );
-  }
+export default function SeparatorWidget(props) {
+  return (
+    <div style={ styles.container }>
+      <div style={ styles.hr }/>
+    </div>
+  );
 }
 
 const styles = {

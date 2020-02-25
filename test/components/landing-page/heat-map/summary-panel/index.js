@@ -9,7 +9,7 @@ import CitySummary from 'containers/landing-page/heat-map/city-summary-container
 
 describe('SummaryPanel component', function () {
   it('should render CitySummary and CommunityDropDown', function () {
-    const wrapper = shallow(<SummaryPanel/>).dive();
+    const wrapper = shallow(<SummaryPanel/>);
     wrapper.find(CommunityDropdown).exists().should.be.true();
     wrapper.find(CitySummary).exists().should.be.true();
   });
@@ -22,7 +22,7 @@ describe('SummaryPanel component', function () {
     wrapper.setState({ showDropdown: true });
     wrapper.state('showDropdown').should.be.true();
 
-    const citySummary = wrapper.dive().find(CitySummary);
+    const citySummary = wrapper.find(CitySummary);
     citySummary.prop('onClick')();
 
     selectCommunity.calledWith(0).should.be.true();
@@ -37,7 +37,7 @@ describe('SummaryPanel component', function () {
     wrapper.setState({ showDropdown: true });
     wrapper.state('showDropdown').should.be.true();
 
-    const dropdown = wrapper.dive().find(CommunityDropdown);
+    const dropdown = wrapper.find(CommunityDropdown);
     dropdown.prop('selectCommunity')(3);
 
     selectCommunity.calledWith(3).should.be.true();
@@ -51,7 +51,7 @@ describe('SummaryPanel component', function () {
     wrapper.setState({ showDropdown: true });
     wrapper.state('showDropdown').should.be.true();
 
-    const dropdown = wrapper.dive().find(CommunityDropdown);
+    const dropdown = wrapper.find(CommunityDropdown);
     dropdown.prop('closeDropdown')();
     wrapper.state('showDropdown').should.be.false();
   });
@@ -63,7 +63,7 @@ describe('SummaryPanel component', function () {
     wrapper.setState({ showDropdown: false });
     wrapper.state('showDropdown').should.be.false();
 
-    const dropdown = wrapper.dive().find(CommunityDropdown);
+    const dropdown = wrapper.find(CommunityDropdown);
     dropdown.prop('openDropdown')();
     wrapper.state('showDropdown').should.be.true();
   });

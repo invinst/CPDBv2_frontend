@@ -1,11 +1,11 @@
 import should from 'should';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 import pinnedItemsRequested from 'reducers/pinboard-page/pinned-items-requested';
 import {
   PINBOARD_COMPLAINTS_FETCH_REQUEST_START,
   PINBOARD_OFFICERS_FETCH_REQUEST_START,
   PINBOARD_TRRS_FETCH_REQUEST_START,
-  LOCATION_CHANGE,
 } from 'utils/constants';
 
 

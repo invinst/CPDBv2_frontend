@@ -1,7 +1,8 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { spy, stub } from 'sinon';
 
+import { mountWithRouter } from 'utils/test';
 import { OfficerCardFactory } from 'utils/test/factories/activity-grid';
 import Carousel from 'components/common/carousel';
 import OfficerCard from 'components/common/officer-card';
@@ -12,7 +13,7 @@ describe('Carousel component', function () {
   const getChildItems = data => data.map(({ id, ...attr }) => (
     <OfficerCard key={ id } { ...attr } officerId={ id }/>
   ));
-  const renderCarousel = (data, otherProps) => mount(
+  const carouselComponent = (data, otherProps) => (
     <Carousel
       onNavigate={ spy() }
       childWidth={ 232 }
@@ -20,8 +21,10 @@ describe('Carousel component', function () {
       { ...otherProps }
     >
       { getChildItems(data) }
-    </Carousel>,
+    </Carousel>
   );
+
+  const renderCarousel = (data, otherProps) => mountWithRouter(carouselComponent(data, otherProps));
 
   it('should render appropriately if few data provided', function () {
     const data = [{
@@ -48,7 +51,7 @@ describe('Carousel component', function () {
     const wrapper = renderCarousel(data);
 
     wrapper.find('.swiper-wrapper').exists().should.be.true();
-    wrapper.prop('children').should.have.length(2);
+    wrapper.find(Carousel).prop('children').should.have.length(2);
     const items = wrapper.find(OfficerCard);
     items.should.have.length(2);
     items.at(0).text().should.containEql('Manuel Guzman');
@@ -62,27 +65,29 @@ describe('Carousel component', function () {
     renderCarousel(data);
 
     updateSlidesPerGroup.should.be.called();
-    updateSlidesPerGroup.restore();
   });
 
   it('should call updateSlidesPerGroup when updated', function () {
     const data = OfficerCardFactory.buildList(10);
     const updateSlidesPerGroup = stub(Carousel.prototype, 'updateSlidesPerGroup');
-    const wrapper = renderCarousel(data);
+    const wrapper = shallow(carouselComponent(data));
     updateSlidesPerGroup.resetHistory();
 
     wrapper.setProps({ data: data, otherProps: { a: 1 } });
     updateSlidesPerGroup.should.be.called();
-    updateSlidesPerGroup.restore();
   });
 
   it('should set arrow visibility when snap index change', function () {
     const data = OfficerCardFactory.buildList(10);
     const wrapper = renderCarousel(data);
-    wrapper.setState({
+    const carousel = wrapper.find(Carousel);
+    carousel.setState({
       displayLeftArrow: false,
       displayRightArrow: false,
     });
+
+    carousel.state('displayLeftArrow').should.be.false();
+    carousel.state('displayRightArrow').should.be.false();
 
     const swiper = wrapper.find(Swiper);
     swiper.prop('onSnapIndexChange')({
@@ -90,47 +95,49 @@ describe('Carousel component', function () {
       isBeginning: false,
       activeIndex: 1,
     });
-    wrapper.state('displayLeftArrow').should.be.true();
-    wrapper.state('displayRightArrow').should.be.true();
+    carousel.state('displayLeftArrow').should.be.true();
+    carousel.state('displayRightArrow').should.be.true();
   });
 
   it('should change slideIndex when click on arrow buttons', function () {
     const data = OfficerCardFactory.buildList(10);
     const wrapper = renderCarousel(data);
-    wrapper.setState({
+    const carousel = wrapper.find(Carousel);
+    carousel.setState({
       displayLeftArrow: true,
       displayRightArrow: true,
     });
-    wrapper.instance().slidesPerGroup = 5;
+    carousel.instance().slidesPerGroup = 5;
 
     const rightArrow = wrapper.find('.test--carousel-arrow-right');
     rightArrow.simulate('click');
-    wrapper.state('slideIndex').should.equal(5);
-    wrapper.prop('onNavigate').should.be.calledWith('right');
+    carousel.state('slideIndex').should.equal(5);
+    carousel.prop('onNavigate').should.be.calledWith('right');
 
-    wrapper.instance().slidesPerGroup = 5;
+    carousel.instance().slidesPerGroup = 5;
     const leftArrow = wrapper.find('.test--carousel-arrow-left');
     leftArrow.simulate('click');
-    wrapper.state('slideIndex').should.equal(0);
-    wrapper.prop('onNavigate').should.be.calledWith('left');
+    carousel.state('slideIndex').should.equal(0);
+    carousel.prop('onNavigate').should.be.calledWith('left');
   });
 
   it('should call onNavigate with correct direction when slideIndex is changed', function () {
     const data = OfficerCardFactory.buildList(5);
     const wrapper = renderCarousel(data);
-    const instance = wrapper.instance();
+    const carousel = wrapper.find(Carousel);
+    const instance = carousel.instance();
     const swiper = wrapper.find(Swiper);
 
     swiper.prop('onSnapIndexChange').should.eql(instance.onSnapIndexChange);
     swiper.prop('slideNextTransitionStart').should.eql(instance.handleSlideNext);
     swiper.prop('slidePrevTransitionStart').should.eql(instance.handleSlidePrev);
-    wrapper.state('slideIndex').should.equal(0);
+    carousel.state('slideIndex').should.equal(0);
 
     swiper.prop('slideNextTransitionStart')();
-    wrapper.prop('onNavigate').should.be.calledWith('right');
+    carousel.prop('onNavigate').should.be.calledWith('right');
 
     swiper.prop('slidePrevTransitionStart')();
-    wrapper.prop('onNavigate').should.be.calledWith('left');
+    carousel.prop('onNavigate').should.be.calledWith('left');
   });
 
   it('should call loadMore when still has more data at threshold', function () {
@@ -143,12 +150,13 @@ describe('Carousel component', function () {
         threshold: 2,
       }
     );
+    const carousel = wrapper.find(Carousel);
 
-    wrapper.setState({
+    carousel.setState({
       slideIndex: 7,
       displayRightArrow: true,
     });
-    wrapper.instance().slidesPerGroup = 5;
+    carousel.instance().slidesPerGroup = 5;
 
     const rightArrow = wrapper.find('.test--carousel-arrow-right');
     rightArrow.simulate('click');
@@ -195,38 +203,42 @@ describe('Carousel component', function () {
 
   it('should slide back when receive more children but new data', function () {
     const wrapper = renderCarousel(OfficerCardFactory.buildList(10));
-    wrapper.setState({ slideIndex: 5 });
+    const carousel = wrapper.find(Carousel);
 
-    wrapper.setProps({ children: getChildItems(OfficerCardFactory.buildList(12)) });
+    carousel.setState({ slideIndex: 5 });
 
-    wrapper.state('slideIndex').should.equal(0);
+    wrapper.setProps({ children: carouselComponent(getChildItems(OfficerCardFactory.buildList(12))) });
+
+    carousel.state('slideIndex').should.equal(0);
   });
 
   it('should not slide back if new data is added', function () {
     const initialData = OfficerCardFactory.buildList(10);
     const wrapper = renderCarousel(initialData);
-    wrapper.setState({ slideIndex: 5 });
+    const carousel = wrapper.find(Carousel);
+    carousel.setState({ slideIndex: 5 });
 
-    wrapper.setProps({ children: getChildItems(initialData.concat(OfficerCardFactory.buildList(2))) });
-    wrapper.state('slideIndex').should.equal(5);
+    wrapper.setProps({ children: carouselComponent(initialData.concat(OfficerCardFactory.buildList(2))) });
+    carousel.state('slideIndex').should.equal(5);
   });
 
   it('should slide back when receive less children', function () {
     const wrapper = renderCarousel(OfficerCardFactory.buildList(10));
-    wrapper.setState({ slideIndex: 5 });
+    const carousel = wrapper.find(Carousel);
+    carousel.setState({ slideIndex: 5 });
 
-    wrapper.setProps({ children: getChildItems(OfficerCardFactory.buildList(3)) });
-    wrapper.state('slideIndex').should.equal(0);
+    wrapper.setProps({ children: carouselComponent(getChildItems(OfficerCardFactory.buildList(3))) });
+    carousel.state('slideIndex').should.equal(0);
   });
 
   it('should not slide back when if resetPosition is false', function () {
-    const wrapper = renderCarousel(OfficerCardFactory.buildList(10), { resetPosition: false });
-    wrapper.setState({ slideIndex: 5 });
+    const wrapper = renderCarousel(OfficerCardFactory.buildList(10), { resetPosition: true });
+    const carousel = wrapper.find(Carousel);
+    carousel.setState({ slideIndex: 5 });
 
     wrapper.setProps({
-      children: getChildItems(OfficerCardFactory.buildList(3)),
-      resetPosition: false,
+      children: carouselComponent(getChildItems(OfficerCardFactory.buildList(3)), { resetPosition: false }),
     });
-    wrapper.state('slideIndex').should.equal(5);
+    carousel.state('slideIndex').should.equal(5);
   });
 });

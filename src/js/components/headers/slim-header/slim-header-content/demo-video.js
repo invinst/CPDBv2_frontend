@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import cx from 'classnames';
 
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
@@ -8,17 +9,12 @@ import styles from './demo-video.sass';
 
 
 class DemoVideo extends Component {
-  constructor(props) {
-    super(props);
-    this.handleWatchVideoButtonClick = this.handleWatchVideoButtonClick.bind(this);
-  }
-
-  handleWatchVideoButtonClick(e) {
+  handleWatchVideoButtonClick = e => {
     e.stopPropagation();
 
     const { openVideoModal } = this.props;
     openVideoModal();
-  }
+  };
 
   render() {
     const { position, editWrapperStateProps } = this.props;
@@ -34,8 +30,14 @@ class DemoVideo extends Component {
           </HoverableEditWrapper>
         </EditWrapperStateProvider>
         <div className='demo-video-button' onClick={ this.handleWatchVideoButtonClick }>
-          <div className='demo-video-thumbnail'/>
-          <img className='demo-video-play-button' src='/img/ic-play-big.svg' width={ 14 } height={ 17 } />
+          <img
+            className='demo-video-thumbnail'
+            srcSet={
+              '/img/demo-video-thumbnail.png, ' +
+              '/img/demo-video-thumbnail@2x.png 2x, ' +
+              '/img/demo-video-thumbnail@3x.png 3x'
+            }
+          />
         </div>
       </div>
     );

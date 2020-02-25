@@ -1,5 +1,6 @@
-import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
+import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import MediaQuery from 'react-responsive';
 import cx from 'classnames';
 
@@ -10,48 +11,47 @@ import LinkTextEditable from 'components/inline-editable/editable-section/link-t
 import { editMode } from 'utils/edit-path';
 import styles from 'components/headers/slim-header/slim-header-content/logo.sass';
 import { ROOT_PATH } from 'utils/constants';
+import { EditModeContext } from 'contexts';
 
-class Logo extends Component {
-  render() {
-    const { editModeOn } = this.context;
-    const { position, editWrapperStateProps } = this.props;
-    const titleLink = editModeOn ? editMode(ROOT_PATH) : ROOT_PATH;
+function Logo(props) {
+  const { editModeOn } = useContext(EditModeContext);
+  const { position, editWrapperStateProps } = props;
+  const titleLink = editModeOn ? editMode(ROOT_PATH) : ROOT_PATH;
 
-    return (
-      <EditWrapperStateProvider { ...editWrapperStateProps }>
-        <HoverableEditWrapper className={ cx(styles.logo, position) }>
-          <MediaQuery minWidth={ 830 }>
-            { (matches) => (
-              matches
-                ? (
-                  <LinkTextEditable
-                    className='header-logo-title'
-                    placeholder='Title'
-                    to={ titleLink }
-                    fieldname='navbar_title'
-                  />
-                )
-                : (
-                  <Link
-                    to={ titleLink }
-                    className='header-logo-title'
-                  >
-                    CPDP
-                  </Link>
-                )
-            ) }
-          </MediaQuery>
-          <MediaQuery minWidth={ 950 }>
-            <RichTextEditable
-              className='header-logo-subtitle'
-              placeholder='Subtitle'
-              fieldname='navbar_subtitle'
-            />
-          </MediaQuery>
-        </HoverableEditWrapper>
-      </EditWrapperStateProvider>
-    );
-  }
+  return (
+    <EditWrapperStateProvider { ...editWrapperStateProps }>
+      <HoverableEditWrapper className={ cx(styles.logo, position) }>
+        <MediaQuery minWidth={ 830 }>
+          { (matches) => (
+            matches
+              ? (
+                <LinkTextEditable
+                  className='header-logo-title'
+                  placeholder='Title'
+                  to={ titleLink }
+                  fieldname='navbar_title'
+                />
+              )
+              : (
+                <Link
+                  to={ titleLink }
+                  className='header-logo-title'
+                >
+                  CPDP
+                </Link>
+              )
+          ) }
+        </MediaQuery>
+        <MediaQuery minWidth={ 950 }>
+          <RichTextEditable
+            className='header-logo-subtitle'
+            placeholder='Subtitle'
+            fieldname='navbar_subtitle'
+          />
+        </MediaQuery>
+      </HoverableEditWrapper>
+    </EditWrapperStateProvider>
+  );
 }
 
 Logo.propTypes = {
@@ -62,10 +62,6 @@ Logo.propTypes = {
 
 Logo.defaultProps = {
   style: {},
-};
-
-Logo.contextTypes = {
-  editModeOn: PropTypes.bool,
 };
 
 export default Logo;

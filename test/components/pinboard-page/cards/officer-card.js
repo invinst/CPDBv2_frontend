@@ -140,6 +140,7 @@ describe('OfficerCardWithUndo component', function () {
     const unpinButton = wrapper.dive().find(ItemUnpinButton).dive();
 
     unpinButton.simulate('click');
+    wrapper.update();
 
     wrapper.find('.text').text().should.equal('James David removed.');
   });

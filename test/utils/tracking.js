@@ -8,11 +8,6 @@ describe('tracking utils', function () {
     stub(global.clicky, 'log');
   });
 
-  afterEach(function () {
-    global.ga.restore();
-    global.clicky.log.restore();
-  });
-
   describe('trackSwipeLandingPageCarousel', function () {
     it('should send event analytic', function () {
       tracking.trackSwipeLandingPageCarousel('left', 'type');
@@ -49,8 +44,6 @@ describe('tracking utils', function () {
       tracking.trackOutboundLink('localhost', '_blank');
       window.open.should.be.calledOnce();
       window.open.should.be.calledWith('localhost', '_blank');
-
-      window.open.restore();
     });
   });
 
@@ -90,6 +83,7 @@ describe('tracking utils', function () {
         eventLabel: 'query',
         eventValue: 123,
       });
+      global.clicky.log.should.be.calledWith(document.location.pathname, 'single_search_query: query with 123 results');
     });
   });
 
@@ -102,6 +96,7 @@ describe('tracking utils', function () {
       clock.tick(550);
 
       global.ga.should.be.calledTwice();
+      global.clicky.log.should.be.calledTwice();
       global.ga.should.be.calledWith('send', {
         hitType: 'event',
         eventCategory: 'contentType',
@@ -116,14 +111,17 @@ describe('tracking utils', function () {
         eventLabel: 'itemId2 - query',
         eventValue: 2,
       });
+      global.clicky.log.should.be.calledWith(document.location.pathname, 'Item itemId2 with rank 2 is focused');
+      global.clicky.log.should.be.calledWith(
+        document.location.pathname,
+        'Item itemId2 with rank 2 is focused via "query" query'
+      );
 
       clock.tick(1000);
       tracking.trackSearchFocusedItem('contentType', 'query', 'itemId3');
       clock.tick(550);
 
       global.ga.callCount.should.equal(4);
-
-      clock.restore();
     });
   });
 
@@ -151,8 +149,6 @@ describe('tracking utils', function () {
 
       global.ga.should.be.calledTwice();
       global.clicky.log.should.be.calledTwice();
-
-      clock.restore();
     });
   });
 

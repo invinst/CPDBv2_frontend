@@ -98,9 +98,6 @@ describe('AnimatedRadarChart components', function () {
     wrapper.find(RadarExplainer).exists().should.be.true();
     tracking.trackOpenExplainer.should.be.calledWith(123);
     IntercomTracking.trackOpenExplainer.should.be.calledWith(123);
-
-    tracking.trackOpenExplainer.restore();
-    IntercomTracking.trackOpenExplainer.restore();
   });
 
   it('should not render StaticRadarChart if content is being requested', function () {
@@ -113,10 +110,6 @@ describe('AnimatedRadarChart components', function () {
     beforeEach(function () {
       clock = useFakeTimers();
 
-    });
-
-    afterEach(function () {
-      clock.restore();
     });
 
     it('should not animate if data length is 1', function () {
@@ -218,15 +211,17 @@ describe('AnimatedRadarChart components', function () {
       const instance = wrapper.instance();
 
       wrapper.state('transitionValue').should.equal(0);
-      instance.animatedData.should.have.length(2);
-      instance.animatedData[0].year.should.equal(2014);
+      instance.animatedData().should.have.length(2);
+      instance.animatedData()[0].year.should.equal(2014);
 
       clock.tick(25);
+      wrapper.update();
       wrapper.state('transitionValue').should.equal(instance.velocity);
       wrapper.find(StaticRadarChart).prop('legendText').should.equal(2016);
       wrapper.find(StaticRadarChart).prop('fadeOutLegend').should.be.false();
 
       clock.tick(200);
+      wrapper.update();
       wrapper.find(StaticRadarChart).prop('legendText').should.equal(2016);
       wrapper.find(StaticRadarChart).prop('fadeOutLegend').should.be.true();
     });

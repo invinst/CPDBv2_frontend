@@ -8,6 +8,7 @@ import LinkTextEditable from 'components/inline-editable/editable-section/link-t
 import * as draftUtils from 'utils/draft';
 import { RawContentStateFactory } from 'utils/test/factories/draft';
 import { convertContentStateToEditorState } from 'utils/draft';
+import { EditWrapperStateContext } from 'contexts';
 
 describe('LinkTextEditable component', function () {
   let editorState;
@@ -17,10 +18,6 @@ describe('LinkTextEditable component', function () {
     editorState = convertContentStateToEditorState(
       RawContentStateFactory.build({}, { blockTexts: ['abc'] })
     );
-  });
-
-  afterEach(function () {
-    draftUtils.editorStateToText.restore();
   });
 
   it('should render empty link if value is not passed', function () {
@@ -75,8 +72,10 @@ describe('LinkTextEditable component', function () {
         },
       },
     };
-    const wrapper = shallow(
-      <LinkTextEditable fieldname='navbar_title' />, { context }
+    const wrapper = mount(
+      <EditWrapperStateContext.Provider value={ context }>
+        <LinkTextEditable fieldname='navbar_title' />
+      </EditWrapperStateContext.Provider>
     );
 
     const editableElement = wrapper.find(Editable);

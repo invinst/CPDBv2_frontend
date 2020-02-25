@@ -1,6 +1,7 @@
 import { Factory } from 'rosie';
 
-import { internet, random, helpers, date, lorem } from 'faker';
+import { internet, random, helpers, lorem } from 'faker';
+import { dateGenerator } from 'utils/test/factories/utils';
 
 const RawDocumentFactory = Factory.define('RawDocumentFactory')
   .attr('title', () => (`CR ${random.number()}`))
@@ -13,5 +14,5 @@ export const RawDocumentCardFactory = Factory.define('DocumentCardFactory')
   .attr('latest_document', ['num_card'], function (numCard) {
     return RawDocumentFactory.buildList(numCard);
   })
-  .attr('incidentDate', () => (date.past().toString()))
+  .attr('incident_date', dateGenerator)
   .attr('category', lorem.words);

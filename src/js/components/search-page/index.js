@@ -1,9 +1,10 @@
-import React, { Component, PropTypes } from 'react';
-import { browserHistory } from 'react-router';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { throttle, isEmpty, noop } from 'lodash';
 import { Promise } from 'es6-promise';
 import cx from 'classnames';
 
+import browserHistory from 'utils/history';
 import SearchBox from './search-box';
 import { navigateToSearchItem } from 'utils/navigate-to-search-item';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
@@ -28,14 +29,8 @@ const DEFAULT_SUGGESTION_LIMIT = 9;
 export default class SearchPage extends Component {
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleGoBack = this.handleGoBack.bind(this);
-    this.handleViewItem = this.handleViewItem.bind(this);
-    this.handleSelect = this.handleSelect.bind(this);
-    this.resetNavigation = this.resetNavigation.bind(this);
 
     this.getSuggestion = throttle(this.props.getSuggestion, 500, { 'leading': false });
-    this.handleEmptyPinboardButtonClick = this.handleEmptyPinboardButtonClick.bind(this);
   }
 
   componentDidMount() {
@@ -49,29 +44,25 @@ export default class SearchPage extends Component {
     this.sendSearchQuery(query);
 
     IntercomTracking.trackSearchPage();
-    showIntercomLauncher(false);
+    showIntercomLauncher(hide);
   }
 
-  componentWillReceiveProps(nextProps) {
-    const {
-      query,
-    } = nextProps;
+  componentDidUpdate(prevProps) {
+    const { query, hide } = this.props;
 
-    const queryChanged = query !== this.props.query;
-
-    if (queryChanged) {
+    if (query !== prevProps.query) {
       this.sendSearchQuery(query);
     }
-  }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (!prevProps.hide && this.props.hide) {
+    if (!prevProps.hide && hide) {
       LayeredKeyBinding.unbind('esc');
       LayeredKeyBinding.unbind('enter');
+      showIntercomLauncher(this.props.hide);
     }
-    if (prevProps.hide && !this.props.hide) {
+    if (prevProps.hide && !hide) {
       LayeredKeyBinding.bind('esc', this.handleGoBack);
       LayeredKeyBinding.bind('enter', this.handleViewItem);
+      showIntercomLauncher(this.props.hide);
     }
   }
 
@@ -100,7 +91,7 @@ export default class SearchPage extends Component {
     });
   }
 
-  handleViewItem() {
+  handleViewItem = () => {
     const { focusedItem, firstItem } = this.props;
 
     // handle the case where user focuses on nothing
@@ -111,27 +102,27 @@ export default class SearchPage extends Component {
     } else {
       this.goToItem(focusedItem);
     }
-  }
+  };
 
-  resetNavigation(payload) {
+  resetNavigation = payload => {
     const { resetSearchResultNavigation, resetSearchTermNavigation, searchTermsHidden } = this.props;
     const resetNavigation = searchTermsHidden ? resetSearchResultNavigation : resetSearchTermNavigation;
     resetNavigation(payload);
-  }
+  };
 
-  handleChange({ currentTarget: { value } }) {
+  handleChange = ({ currentTarget: { value } }) => {
     const { changeSearchQuery } = this.props;
 
     changeSearchQuery(value);
-  }
+  };
 
-  handleGoBack(e) {
+  handleGoBack = e => {
     !isEmpty(e) && e.preventDefault();
     const { cancelPathname } = this.props;
     browserHistory.push(cancelPathname);
-  }
+  };
 
-  handleSelect(newContentType) {
+  handleSelect = newContentType => {
     const { contentType, selectTag } = this.props;
 
     if (newContentType === RECENT_CONTENT_TYPE) {
@@ -142,16 +133,16 @@ export default class SearchPage extends Component {
       selectTag(newContentType);
     }
     this.resetNavigation();
-  }
+  };
 
-  handleEmptyPinboardButtonClick() {
+  handleEmptyPinboardButtonClick = () => {
     const { createNewEmptyPinboard } = this.props;
 
     createNewEmptyPinboard().then(redirectToCreatedPinboard);
-  }
+  };
 
   render() {
-    const aliasEditModeOn = this.props.location.pathname.startsWith(`/edit/${SEARCH_ALIAS_EDIT_PATH}`);
+    const aliasEditModeOn = this.props.location.pathname.startsWith(`/edit${SEARCH_ALIAS_EDIT_PATH}`);
     const {
       hide, query, queryPrefix, searchTermsHidden, contentType, tags,
       editModeOn, requestActivityGrid,

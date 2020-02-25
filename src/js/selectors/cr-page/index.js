@@ -1,9 +1,10 @@
 import { createSelector } from 'reselect';
-import { map, get, reduce, defaults, sortBy, kebabCase, isNil, isEmpty, compact } from 'lodash';
+import { map, get, reduce, defaults, sortBy, kebabCase, isNil, isEmpty, compact, each } from 'lodash';
 import pluralize from 'pluralize';
 
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
-import { getBreadcrumb } from 'selectors/breadcrumbs';
+import { getOfficerId as parseOfficerId } from 'utils/location';
+import { getBreadcrumbItems } from 'selectors/breadcrumb';
 import { getFindingOutcomeMix } from './finding-outcome-mix';
 import { officerCardTransform } from 'selectors/common/officer-card';
 import { getDemographicString } from 'utils/victims';
@@ -78,11 +79,24 @@ const getTransformedCoaccused = createWithIsPinnedSelector(
   })
 );
 
-const sortByOfficerInBreadcrumb = breadcrumbs => officer => {
-  const officerIdsInBreadcrumb = breadcrumbs
-    .filter(item => item.url.indexOf('officer/') > -1)
-    .map(item => item.params.officerId);
-  return -officerIdsInBreadcrumb.indexOf(String(officer.id));
+const breadcrumbOfficerIdsSelector = createSelector(
+  getBreadcrumbItems,
+  (breadcrumbItems) => {
+    const results = [];
+
+    each(breadcrumbItems, (item) => {
+      const officerId = parseOfficerId(item);
+      if (officerId) {
+        results.push(officerId);
+      }
+    });
+
+    return results;
+  }
+);
+
+const sortByOfficerInBreadcrumb = breadcrumbOfficerIds => officer => {
+  return -breadcrumbOfficerIds.indexOf(parseInt(officer.id));
 };
 
 const sortByOfficerFinding = officer => {
@@ -93,12 +107,12 @@ const sortByOfficerComplaint = officer => -officer.complaintCount;
 
 const getCoaccusedSelector = createSelector(
   getTransformedCoaccused,
-  getBreadcrumb,
-  (officers, { breadcrumbs }) => {
+  breadcrumbOfficerIdsSelector,
+  (officers, breadcrumbOfficerIds) => {
     return sortBy(
       officers,
       [
-        sortByOfficerInBreadcrumb(breadcrumbs),
+        sortByOfficerInBreadcrumb(breadcrumbOfficerIds),
         sortByOfficerFinding,
         sortByOfficerComplaint,
       ]

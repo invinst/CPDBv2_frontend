@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 
 import GenericModal from 'components/generic-modal';
 import { openRequestDocumentModal, closeModal } from 'actions/generic-modal';

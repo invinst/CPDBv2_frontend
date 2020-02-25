@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 import LoginModalButton from './login-modal-button';
 import {
@@ -13,50 +14,45 @@ class ForgotPasswordModal extends Component {
     super(props);
     this.state = {
       disabled: true,
+      prevShow: props.show,
     };
-    this.handleResetPassword = this.handleResetPassword.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.renderContent = this.renderContent.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.focusEmailInput = this.focusEmailInput.bind(this);
   }
 
-  componentWillReceiveProps(newProps) {
-    if (!newProps.show && this.props.show) {
-      this.setState({
-        disabled: true,
-      });
-    }
+  static getDerivedStateFromProps(props, state) {
+    const { show } = props;
+    if (!show && state.prevShow)
+      return { disabled: true, prevShow: show };
+    return { prevShow: show };
   }
 
-  focusEmailInput() {
+  focusEmailInput = () => {
     this.emailInput.focus();
-  }
+  };
 
-  handleResetPassword() {
+  handleResetPassword = () => {
     this.props.onResetPassword({ email: this.emailInput.value });
-  }
+  };
 
-  handleKeyDown(event) {
+  handleKeyDown = event => {
     if (event.keyCode === 13) {
       this.handleResetPassword();
     }
-  }
+  };
 
-  handleInputChange() {
+  handleInputChange = () => {
     if (!!this.emailInput.value === this.state.disabled) {
       this.setState({
         disabled: !this.emailInput.value,
       });
     }
-  }
+  };
 
-  renderContent(opacity) {
+  renderContent = () => {
     const { errorMessage } = this.props;
     const { disabled } = this.state;
 
     return (
-      <div style={ { ...innerWrapperStyle, opacity: opacity } } className='test--forgot-password-modal'>
+      <div style={ { ...innerWrapperStyle } } className='test--forgot-password-modal'>
         <div style={ headerStyle }>Forgot your password?</div>
         <div style={ subHeaderStyle }>We’ll email you instructions on how to reset it.</div>
         <div className='email-input-wrapper' style={ emailInputWrapperStyle } onClick={ this.focusEmailInput }>
@@ -78,7 +74,7 @@ class ForgotPasswordModal extends Component {
         </div>
       </div>
     );
-  }
+  };
 
   render() {
     const { show } = this.props;

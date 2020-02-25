@@ -2,19 +2,19 @@
 
 \:local(.pinboard-admin-page)
   .preview-pane
-    background-color: $sugar-cane-color
+    background-color: $wild-sand-color
     overflow-x: hidden
     position: fixed
     top: 0
     right: 0
     z-index: 1001
 
-  [aria-hidden="true"]
+  .overlay[aria-hidden="true"]
     opacity: 0
     transition: opacity 0.25s, z-index 0s 0.25s
     z-index: -1
 
-  [aria-hidden="false"]
+  .overlay[aria-hidden="false"]
     display: block
     opacity: 0.8
     transition: opacity 0.8s

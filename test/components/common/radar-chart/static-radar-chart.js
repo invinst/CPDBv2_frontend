@@ -6,6 +6,7 @@ import StaticRadarChart from 'components/common/radar-chart';
 import RadarChart from 'components/common/radar-chart/radar-chart';
 import RadarArea from 'components/common/radar-chart/radar-area';
 import RadarGrid from 'components/common/radar-chart/radar-grid';
+import { PrintModeContext } from 'contexts';
 
 
 describe('StaticRadarChart component', function () {
@@ -105,8 +106,13 @@ describe('StaticRadarChart component', function () {
       radius: 123,
       someProps: 'someProps',
     };
-    const wrapper = shallow(<StaticRadarChart { ...props }/>, { context: context });
+    const wrapper = mount(
+      <PrintModeContext.Provider value={ context }>
+        <StaticRadarChart { ...props }/>
+      </PrintModeContext.Provider>,
+    );
     const radarChart = wrapper.find(RadarChart);
+
     radarChart.prop('textColor').should.equal('#231F20');
     radarChart.prop('backgroundColor').should.equal('#F5F4F4');
     radarChart.prop('gridColor').should.equal('#231F20');

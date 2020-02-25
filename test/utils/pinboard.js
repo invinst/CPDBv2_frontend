@@ -1,8 +1,8 @@
 import { parseInt, identity } from 'lodash';
-import { browserHistory } from 'react-router';
 import { stub } from 'sinon';
 import { Promise } from 'es6-promise';
 
+import browserHistory from 'utils/history';
 import {
   generatePinboardUrl,
   getFormatId,
@@ -56,10 +56,6 @@ describe('pinboard utils', function () {
   describe('redirectToCreatedPinboard', function () {
     beforeEach(function () {
       this.browserHistoryPush = stub(browserHistory, 'push');
-    });
-
-    afterEach(function () {
-      this.browserHistoryPush.restore();
     });
 
     it('should redirect to pinboard url', function () {

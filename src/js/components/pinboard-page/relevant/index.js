@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { isEmpty, every, noop } from 'lodash';
 
 import styles from './relevant-section.sass';
@@ -7,70 +8,68 @@ import RelevantCoaccusals from './relevant-coaccusals';
 import RelevantComplaints from './relevant-complaints';
 
 
-export default class RelevantSection extends Component {
-  render() {
-    const {
-      pinboardId,
-      documents,
-      coaccusals,
-      complaints,
-      documentHasMore,
-      coaccusalHasMore,
-      complaintHasMore,
-      documentNextParams,
-      coaccusalNextParams,
-      complaintNextParams,
-      fetchPinboardRelevantDocuments,
-      fetchPinboardRelevantCoaccusals,
-      fetchPinboardRelevantComplaints,
-      addItemInPinboardPage,
-      isRequestingDocuments,
-      isRequestingCoaccusals,
-      isRequestingComplaints,
-      focusItem,
-    } = this.props;
+export default function RelevantSection(props) {
+  const {
+    pinboardId,
+    documents,
+    coaccusals,
+    complaints,
+    documentHasMore,
+    coaccusalHasMore,
+    complaintHasMore,
+    documentNextParams,
+    coaccusalNextParams,
+    complaintNextParams,
+    fetchPinboardRelevantDocuments,
+    fetchPinboardRelevantCoaccusals,
+    fetchPinboardRelevantComplaints,
+    addItemInPinboardPage,
+    isRequestingDocuments,
+    isRequestingCoaccusals,
+    isRequestingComplaints,
+    focusItem,
+  } = props;
 
-    if (
-      every([!isRequestingDocuments, !isRequestingCoaccusals, !isRequestingComplaints]) &&
-      every([documents, coaccusals, complaints].map(isEmpty))
-    )
-      return null;
+  if (
+    every([!isRequestingDocuments, !isRequestingCoaccusals, !isRequestingComplaints]) &&
+    every([documents, coaccusals, complaints].map(isEmpty))
+  )
+    return null;
 
-    return (
-      <div className={ styles.relevantSection }>
-        <div className='relevant-title'>Relevant</div>
-        <RelevantDocuments
-          pinboardId={ pinboardId }
-          documents={ documents }
-          nextParams={ documentNextParams }
-          hasMore={ documentHasMore }
-          fetchPinboardRelevantDocuments={ fetchPinboardRelevantDocuments }
-          addItemInPinboardPage={ addItemInPinboardPage }
-          requesting={ isRequestingDocuments }
-        />
-        <RelevantCoaccusals
-          pinboardId={ pinboardId }
-          coaccusals={ coaccusals }
-          nextParams={ coaccusalNextParams }
-          hasMore={ coaccusalHasMore }
-          fetchPinboardRelevantCoaccusals={ fetchPinboardRelevantCoaccusals }
-          addItemInPinboardPage={ addItemInPinboardPage }
-          requesting={ isRequestingCoaccusals }
-          focusItem={ focusItem }
-        />
-        <RelevantComplaints
-          pinboardId={ pinboardId }
-          complaints={ complaints }
-          nextParams={ complaintNextParams }
-          hasMore={ complaintHasMore }
-          fetchPinboardRelevantComplaints={ fetchPinboardRelevantComplaints }
-          addItemInPinboardPage={ addItemInPinboardPage }
-          requesting={ isRequestingComplaints }
-          focusItem={ focusItem }
-        />
-      </div>
-    );
-  }
+  return (
+    <div className={ styles.relevantSection }>
+      <div className='relevant-title'>Relevant</div>
+      <RelevantDocuments
+        pinboardId={ pinboardId }
+        documents={ documents }
+        nextParams={ documentNextParams }
+        hasMore={ documentHasMore }
+        fetchPinboardRelevantDocuments={ fetchPinboardRelevantDocuments }
+        addItemInPinboardPage={ addItemInPinboardPage }
+        requesting={ isRequestingDocuments }
+      />
+      <RelevantCoaccusals
+        pinboardId={ pinboardId }
+        coaccusals={ coaccusals }
+        nextParams={ coaccusalNextParams }
+        hasMore={ coaccusalHasMore }
+        fetchPinboardRelevantCoaccusals={ fetchPinboardRelevantCoaccusals }
+        addItemInPinboardPage={ addItemInPinboardPage }
+        requesting={ isRequestingCoaccusals }
+        focusItem={ focusItem }
+      />
+      <RelevantComplaints
+        pinboardId={ pinboardId }
+        complaints={ complaints }
+        nextParams={ complaintNextParams }
+        hasMore={ complaintHasMore }
+        fetchPinboardRelevantComplaints={ fetchPinboardRelevantComplaints }
+        addItemInPinboardPage={ addItemInPinboardPage }
+        requesting={ isRequestingComplaints }
+        focusItem={ focusItem }
+      />
+    </div>
+  );
 }
 
 RelevantSection.propTypes = {

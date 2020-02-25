@@ -1,36 +1,35 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import MediaQuery from 'react-responsive';
 
 import scrollBarWidth from 'utils/scrollbar-width';
 import { fixedStyle, fluidStyle } from './responsive-fluid-width-component.style';
 
 
-export default class ResponsiveFluidWidthComponent extends Component {
-  render() {
-    const {
-      style, children, minimumStyle, mediumStyle,
-      maximumStyle, minWidthThreshold, maxWidthThreshold,
-    } = this.props;
-    return (
-      <div style={ style }>
-        <MediaQuery maxWidth={ minWidthThreshold - 1 }>
-          <div className='test--fixed-width-component' style={ minimumStyle }>
-            { children }
-          </div>
-        </MediaQuery>
-        <MediaQuery minWidth={ minWidthThreshold } maxWidth={ maxWidthThreshold - 1 }>
-          <div style={ mediumStyle }>
-            { children }
-          </div>
-        </MediaQuery>
-        <MediaQuery minWidth={ maxWidthThreshold }>
-          <div style={ maximumStyle }>
-            { children }
-          </div>
-        </MediaQuery>
-      </div>
-    );
-  }
+export default function ResponsiveFluidWidthComponent(props) {
+  const {
+    style, children, minimumStyle, mediumStyle,
+    maximumStyle, minWidthThreshold, maxWidthThreshold,
+  } = props;
+  return (
+    <div style={ style }>
+      <MediaQuery maxWidth={ minWidthThreshold - 1 }>
+        <div className='test--fixed-width-component' style={ minimumStyle }>
+          { children }
+        </div>
+      </MediaQuery>
+      <MediaQuery minWidth={ minWidthThreshold } maxWidth={ maxWidthThreshold - 1 }>
+        <div style={ mediumStyle }>
+          { children }
+        </div>
+      </MediaQuery>
+      <MediaQuery minWidth={ maxWidthThreshold }>
+        <div style={ maximumStyle }>
+          { children }
+        </div>
+      </MediaQuery>
+    </div>
+  );
 }
 
 ResponsiveFluidWidthComponent.propTypes = {

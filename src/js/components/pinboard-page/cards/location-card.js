@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { get, noop } from 'lodash';
 
 import ShortPress from 'components/common/short-press';
@@ -8,24 +9,17 @@ import styles from './location-card.sass';
 
 
 export default class LocationCard extends Component {
-  constructor(props) {
-    super(props);
-
-    this.removeItem = this.removeItem.bind(this);
-    this.focusItem = this.focusItem.bind(this);
-  }
-
-  removeItem() {
+  removeItem = () => {
     const { item, removeItemInPinboardPage } = this.props;
     const { type, id } = item;
 
     removeItemInPinboardPage({ type, id });
-  }
+  };
 
-  focusItem() {
+  focusItem = () => {
     const { type, id } = this.props.item;
     this.props.focusItem({ type, id });
-  }
+  };
 
   renderContent() {
     const { item, dateKey } = this.props;

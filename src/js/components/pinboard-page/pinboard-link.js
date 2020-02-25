@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { omit } from 'lodash';
 
 export const CONFIRM_MESSAGE = `
@@ -8,23 +8,18 @@ export const CONFIRM_MESSAGE = `
 `;
 
 export default class PinboardLink extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick(e) {
+  handleClick = e => {
     const { hasPendingChanges, onClick } = this.props;
     e.stopPropagation();
     if (!hasPendingChanges || window.confirm(CONFIRM_MESSAGE)) {
       onClick(e);
     }
-  }
+  };
 
   render() {
     const { customComponent } = this.props;
     const componentProps = omit(this.props, 'onClick', 'hasPendingChanges', 'customComponent');
-    const ContentComponent = customComponent || Link;
+    const ContentComponent = customComponent || 'a';
 
     return (
       <ContentComponent { ...componentProps } onClick={ this.handleClick } />
@@ -35,4 +30,5 @@ export default class PinboardLink extends Component {
 PinboardLink.propTypes = {
   hasPendingChanges: PropTypes.bool,
   customComponent: PropTypes.string,
+  onClick: PropTypes.func,
 };

@@ -1,0 +1,15 @@
+@import 'variables'
+
+\:local(.slide-transition-enter)
+  transform: translateX(100%)
+
+\:local(.slide-transition-enter-active)
+  transform: translateX(0)
+  transition: transform $medium-animation-duration ease-in-out
+
+\:local(.slide-transition-exit)
+  transform: translateX(0)
+
+\:local(.slide-transition-exit-active)
+  transform: translateX(100%)
+  transition: all $medium-animation-duration ease-in-out

@@ -43,10 +43,6 @@ describe('pinboard actions', function () {
     });
   });
 
-  afterEach(function () {
-    CancelToken.source.restore();
-  });
-
   describe('removeItemInPinboardPage', function () {
     it('should return correct action', function () {
       removeItemInPinboardPage({

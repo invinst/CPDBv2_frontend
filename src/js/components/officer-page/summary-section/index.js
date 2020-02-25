@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { map, get, clone, reduce, isEmpty } from 'lodash';
 
 import SummaryField from './summary-field';
@@ -14,7 +15,7 @@ export default class SummarySection extends Component {
     const { badge, historicBadges } = this.props.officerSummary;
     let allBadges = clone(historicBadges) || [];
     if (badge)
-      allBadges.unshift(<span className='current-badge'>{ badge }</span>);
+      allBadges.unshift(<span className='current-badge' key='current-badge'>{ badge }</span>);
 
     if (isEmpty(allBadges))
       allBadges.unshift('Unknown');
@@ -71,9 +72,7 @@ export default class SummarySection extends Component {
         {
           map(summaryFields, ([label, value, rightChild], ind) => {
             return (
-              <SummaryField
-                label={ label } value={ value } key={ ind }
-              >
+              <SummaryField label={ label } value={ value } key={ `summary-field-${ind}` }>
                 { rightChild }
               </SummaryField>
             );

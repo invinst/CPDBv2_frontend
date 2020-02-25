@@ -32,7 +32,8 @@ _mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
 
 if (config.appEnv === 'live-test' || global.mocha !== undefined) {
   const addSourceSpy = spy();
-  const getSourceStub = stub().returns(undefined);
+  const getSource = (source) => source === 'unknown source' ? undefined : source;
+  const getSourceStub = spy(getSource);
   const addLayerSpy = spy();
   const getLayerStub = stub().returns(undefined);
   const setFilterSpy = spy();
@@ -52,6 +53,11 @@ if (config.appEnv === 'live-test' || global.mocha !== undefined) {
   const removeSourceSpy = spy();
   const getCanvasSpy = stub().returns({ style: { cursor: undefined } });
   const setFeatureStateSpy = spy();
+  const setMaxBoundsSpy = spy();
+  const getBoundsSpy = spy();
+  const dragPanSpy = {
+    enable: spy(),
+  };
 
   class MockMap {
     constructor() {
@@ -70,6 +76,9 @@ if (config.appEnv === 'live-test' || global.mocha !== undefined) {
       this.removeSource = removeSourceSpy;
       this.getCanvas = getCanvasSpy;
       this.setFeatureState = setFeatureStateSpy;
+      this.setMaxBounds = setMaxBoundsSpy;
+      this.getBounds = getBoundsSpy;
+      this.dragPan = dragPanSpy;
     }
     on() {
       if (includes(['load', 'idle'], arguments[0])) {
@@ -79,10 +88,11 @@ if (config.appEnv === 'live-test' || global.mocha !== undefined) {
   }
 
   class MockMarker {
-    constructor() {
+    constructor(element) {
       this.setLngLat = setLngLatStub;
       this.addTo = addToStub;
       this.setPopup = setPopupStub;
+      this.element = element;
       this.remove = removeSpy;
     }
   }
@@ -101,32 +111,50 @@ if (config.appEnv === 'live-test' || global.mocha !== undefined) {
   _mapboxgl.Popup = MockPopup;
   _mapboxgl._addSourceSpy = addSourceSpy;
   _mapboxgl._getSourceStub = getSourceStub;
+  _mapboxgl._getZoomStub = getZoomStub;
   _mapboxgl._addLayerSpy = addLayerSpy;
+  _mapboxgl._easeToSpy = easeToSpy;
   _mapboxgl._getLayerStub = getLayerStub;
   _mapboxgl._setFilterSpy = setFilterSpy;
   _mapboxgl._addControlStub = addControlStub;
   _mapboxgl._removeSpy = removeSpy;
+  _mapboxgl._resizeSpy = resizeSpy;
+  _mapboxgl._isStyleLoadedStub = isStyleLoadedStub;
+  _mapboxgl._removeLayerSpy = removeLayerSpy;
+  _mapboxgl._removeSourceSpy = removeSourceSpy;
   _mapboxgl._setLngLatStub = setLngLatStub;
+  _mapboxgl._getCanvasSpy = getCanvasSpy;
+  _mapboxgl._setFeatureStateSpy = setFeatureStateSpy;
+  _mapboxgl._setMaxBoundsSpy = setMaxBoundsSpy;
+  _mapboxgl._getBoundsSpy = getBoundsSpy;
+  _mapboxgl._dragPanSpy = dragPanSpy;
   _mapboxgl._setHTMLStub = setHTMLStub;
   _mapboxgl._addToStub = addToStub;
-  _mapboxgl._setFeatureState = setFeatureStateSpy;
-  _mapboxgl._isStyleLoaded = isStyleLoadedStub;
   _mapboxgl.NavigationControl = navigationControlSpy;
   _mapboxgl.AttributionControl = attributionControlSpy;
 
   _mapboxgl._resetHistory = () => {
     mapboxgl._addSourceSpy.resetHistory();
     mapboxgl._getSourceStub.resetHistory();
+    mapboxgl._getZoomStub.resetHistory();
     mapboxgl._addLayerSpy.resetHistory();
+    mapboxgl._easeToSpy.resetHistory();
     mapboxgl._getLayerStub.resetHistory();
     mapboxgl._setFilterSpy.resetHistory();
     mapboxgl._addControlStub.resetHistory();
     mapboxgl._removeSpy.resetHistory();
+    mapboxgl._resizeSpy.resetHistory();
+    mapboxgl._isStyleLoadedStub.resetHistory();
+    mapboxgl._removeLayerSpy.resetHistory();
+    mapboxgl._removeSourceSpy.resetHistory();
     mapboxgl._setLngLatStub.resetHistory();
+    mapboxgl._getCanvasSpy.resetHistory();
+    mapboxgl._setFeatureStateSpy.resetHistory();
+    mapboxgl._setMaxBoundsSpy.resetHistory();
+    mapboxgl._getBoundsSpy.resetHistory();
+    mapboxgl._dragPanSpy.enable.resetHistory();
     mapboxgl._setHTMLStub.resetHistory();
     mapboxgl._addToStub.resetHistory();
-    mapboxgl._isStyleLoaded.resetHistory();
-    mapboxgl._setFeatureState.resetHistory();
   };
 }
 

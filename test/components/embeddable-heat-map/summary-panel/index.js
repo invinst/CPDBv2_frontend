@@ -10,7 +10,7 @@ describe('SummaryPanel component', function () {
   it('should render CitySummary and CommunityDropDown', function () {
     const wrapper = shallow(
       <SummaryPanel/>
-    ).dive();
+    );
     wrapper.find(CommunityDropdown).exists().should.be.true();
     wrapper.find('Connect(CitySummary)').exists().should.be.true();
   });
@@ -23,7 +23,7 @@ describe('SummaryPanel component', function () {
     wrapper.setState({ showDropdown: true });
     wrapper.state('showDropdown').should.be.true();
 
-    const motion = wrapper.dive();
+    const motion = wrapper;
     const communityDropdown = motion.find(CommunityDropdown);
     communityDropdown.prop('showDropdown').should.be.true();
 
@@ -33,7 +33,7 @@ describe('SummaryPanel component', function () {
     selectCommunity.should.be.calledWith(0);
     wrapper.state('showDropdown').should.be.false();
 
-    wrapper.dive().find(CommunityDropdown).prop('showDropdown').should.be.false();
+    wrapper.find(CommunityDropdown).prop('showDropdown').should.be.false();
   });
 
   it('should select community and hide dropdown when select from dropdown', function () {
@@ -44,7 +44,7 @@ describe('SummaryPanel component', function () {
     wrapper.setState({ showDropdown: true });
     wrapper.state('showDropdown').should.be.true();
 
-    const dropdown = wrapper.dive().find(CommunityDropdown);
+    const dropdown = wrapper.find(CommunityDropdown);
     dropdown.prop('selectCommunity')(3);
 
     selectCommunity.should.be.calledWith(3);
@@ -56,7 +56,7 @@ describe('SummaryPanel component', function () {
     wrapper.setState({ showDropdown: true });
     wrapper.state('showDropdown').should.be.true();
 
-    const dropdown = wrapper.dive().find(CommunityDropdown);
+    const dropdown = wrapper.find(CommunityDropdown);
     dropdown.prop('closeDropdown')();
     wrapper.state('showDropdown').should.be.false();
     wrapper.state('showDropdown').should.be.false();
@@ -67,7 +67,7 @@ describe('SummaryPanel component', function () {
     wrapper.setState({ showDropdown: false });
     wrapper.state('showDropdown').should.be.false();
 
-    const dropdown = wrapper.dive().find(CommunityDropdown);
+    const dropdown = wrapper.find(CommunityDropdown);
     dropdown.prop('openDropdown')();
     wrapper.state('showDropdown').should.be.true();
   });

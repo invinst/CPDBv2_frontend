@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import cx from 'classnames';
 import { isUndefined, isEqual } from 'lodash';
 
@@ -19,8 +20,6 @@ export default class Item extends Component {
     };
     const ItemComponent = componentMap[item.kind];
     this.component = <ItemComponent { ...this.props }/>;
-
-    this.handleClick = this.handleClick.bind(this);
   }
 
   shouldComponentUpdate(nextProps) {
@@ -33,12 +32,12 @@ export default class Item extends Component {
       );
   }
 
-  handleClick() {
+  handleClick = () => {
     const { item, updateSelectedCrid } = this.props;
     if (item.kind === 'CR') {
       updateSelectedCrid(item.crid);
     }
-  }
+  };
 
   render() {
     const { item, timelineIdx } = this.props;

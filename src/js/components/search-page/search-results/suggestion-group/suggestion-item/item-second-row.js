@@ -5,8 +5,7 @@ import pluralize from 'pluralize';
 
 export const getOfficerSecondRowContent = function (params) {
   const { age, race, gender, complaintCount, sustainedCount } = params.suggestion;
-  const ageString = age ? `${age} year old` : null;
-  const demographic = compact([ageString, race, gender]);
+  const demographic = compact([age, race, gender]);
 
   let secondRowContent = '';
   if (!isEmpty(demographic)) {

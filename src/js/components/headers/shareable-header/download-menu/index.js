@@ -1,35 +1,34 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import style from './download-menu.sass';
 import DownloadMenuItem from './download-menu-item';
 import { OFFICER_DOWNLOAD_KINDS } from 'utils/constants';
 
 
-export default class DownloadMenu extends React.Component {
-  render() {
-    const {
-      officerId, zipFileUrl, zipFileUrlWithDocs,
-      fetchOfficerZipFileUrl, fetchOfficerZipWithDocsFileUrl,
-    } = this.props;
+export default function DownloadMenu(props) {
+  const {
+    officerId, zipFileUrl, zipFileUrlWithDocs,
+    fetchOfficerZipFileUrl, fetchOfficerZipWithDocsFileUrl,
+  } = props;
 
-    return (
-      <div className={ style.downloadMenu }>
-        <DownloadMenuItem
-          kind={ OFFICER_DOWNLOAD_KINDS.WITH_DOCS }
-          fetchOfficerZipFileUrl={ fetchOfficerZipWithDocsFileUrl }
-          officerId={ officerId }
-          zipFileUrl={ zipFileUrlWithDocs }
-        />
+  return (
+    <div className={ style.downloadMenu }>
+      <DownloadMenuItem
+        kind={ OFFICER_DOWNLOAD_KINDS.WITH_DOCS }
+        fetchOfficerZipFileUrl={ fetchOfficerZipWithDocsFileUrl }
+        officerId={ officerId }
+        zipFileUrl={ zipFileUrlWithDocs }
+      />
 
-        <DownloadMenuItem
-          kind={ OFFICER_DOWNLOAD_KINDS.WITHOUT_DOCS }
-          fetchOfficerZipFileUrl={ fetchOfficerZipFileUrl }
-          officerId={ officerId }
-          zipFileUrl={ zipFileUrl }
-        />
-      </div>
-    );
-  }
+      <DownloadMenuItem
+        kind={ OFFICER_DOWNLOAD_KINDS.WITHOUT_DOCS }
+        fetchOfficerZipFileUrl={ fetchOfficerZipFileUrl }
+        officerId={ officerId }
+        zipFileUrl={ zipFileUrl }
+      />
+    </div>
+  );
 }
 
 DownloadMenu.propTypes = {

@@ -1,35 +1,13 @@
-import React, { PropTypes, Component } from 'react';
-import { mapValues, map, values } from 'lodash';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { mapValues, map, values, isEqual } from 'lodash';
 
 import { convertContentStateToEditorState, convertEditorStateToRaw } from 'utils/draft';
+import { EditModeContext, EditWrapperStateContext } from 'contexts';
 
 
 export default class EditWrapperStateProvider extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      fields: mapValues(props.fields, this.deserializeField),
-    };
-  }
-
-  getChildContext() {
-    const { sectionEditModeOn, turnOnSectionEditMode, turnOffSectionEditMode } = this.props;
-    return {
-      fieldContexts: this.getFieldContexts(),
-      onSaveForm: this.handleSaveForm.bind(this),
-      sectionEditModeOn,
-      turnOnSectionEditMode,
-      turnOffSectionEditMode,
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      fields: mapValues(nextProps.fields, this.deserializeField),
-    });
-  }
-
-  deserializeField(field) {
+  static deserializeField(field) {
     if (!field) {
       return field;
     }
@@ -44,6 +22,25 @@ export default class EditWrapperStateProvider extends Component {
     return field;
   }
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      fields: mapValues(props.fields, EditWrapperStateProvider.deserializeField),
+      prevFields: props.fields,
+      prevSectionEditModeOn: props.sectionEditModeOn,
+    };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    if (!isEqual(props.fields, state.prevFields) || props.sectionEditModeOn !== state.prevSectionEditModeOn)
+      return {
+        fields: mapValues(props.fields, EditWrapperStateProvider.deserializeField),
+        prevFields: props.fields,
+        prevSectionEditModeOn: props.sectionEditModeOn,
+      };
+    return null;
+  }
+
   serializeField(field) {
     switch (field.type) {
       case 'rich_text':
@@ -56,6 +53,7 @@ export default class EditWrapperStateProvider extends Component {
   }
 
   handleUpdateFieldValue(fieldName, fieldValue) {
+    const { autoSave } = this.props;
     const { fields } = this.state;
     const field = fields[fieldName];
 
@@ -67,28 +65,50 @@ export default class EditWrapperStateProvider extends Component {
           value: fieldValue,
         },
       },
+    }, () => {
+      if (autoSave) {
+        this.handleSaveForm();
+      }
     });
   }
 
+  getSectionEditModeOn() {
+    const { sectionEditModeOn, autoSave } = this.props;
+    const { editModeOn } = this.context;
+
+    return autoSave ? editModeOn : sectionEditModeOn;
+  }
+
   getFieldContexts() {
-    const { sectionEditModeOn } = this.props;
     const { fields } = this.state;
     return mapValues(fields, (field, fieldName) => ({
       value: field && field.value,
-      editModeOn: sectionEditModeOn,
+      editModeOn: this.getSectionEditModeOn(),
       onChange: val => this.handleUpdateFieldValue(fieldName, val),
     }));
   }
 
-  handleSaveForm() {
+  handleSaveForm = () => {
     const data = map(values(this.state.fields), this.serializeField);
     return this.props.onSaveForm({ fields: data })
       .then(() => this.props.turnOffSectionEditMode());
-  }
+  };
 
   render() {
-    const { children } = this.props;
-    return children;
+    const { children, turnOnSectionEditMode, turnOffSectionEditMode, autoSave } = this.props;
+    const context = {
+      autoSave,
+      fieldContexts: this.getFieldContexts(),
+      onSaveForm: this.handleSaveForm,
+      sectionEditModeOn: this.getSectionEditModeOn(),
+      turnOnSectionEditMode,
+      turnOffSectionEditMode,
+    };
+    return (
+      <EditWrapperStateContext.Provider value={ context }>
+        { children }
+      </EditWrapperStateContext.Provider>
+    );
   }
 }
 
@@ -96,15 +116,10 @@ EditWrapperStateProvider.propTypes = {
   children: PropTypes.node,
   fields: PropTypes.object,
   onSaveForm: PropTypes.func,
+  autoSave: PropTypes.bool,
   sectionEditModeOn: PropTypes.bool,
   turnOnSectionEditMode: PropTypes.func,
   turnOffSectionEditMode: PropTypes.func,
 };
 
-EditWrapperStateProvider.childContextTypes = {
-  fieldContexts: PropTypes.object,
-  onSaveForm: PropTypes.func,
-  sectionEditModeOn: PropTypes.bool,
-  turnOnSectionEditMode: PropTypes.func,
-  turnOffSectionEditMode: PropTypes.func,
-};
+EditWrapperStateProvider.contextType = EditModeContext;

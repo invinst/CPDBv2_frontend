@@ -1,5 +1,7 @@
+import { LOCATION_CHANGE } from 'connected-react-router';
+
 import currentMainTab from 'reducers/social-graph-page/current-main-tab';
-import { CHANGE_SOCIAL_GRAPH_MAIN_TAB, LOCATION_CHANGE } from 'utils/constants';
+import { CHANGE_SOCIAL_GRAPH_MAIN_TAB } from 'utils/constants';
 
 
 describe('currentMainTab reducer', function () {
@@ -18,7 +20,7 @@ describe('currentMainTab reducer', function () {
     currentMainTab('SOCIAL_GRAPH', {
       type: LOCATION_CHANGE,
       payload: {
-        pathname: '/geographic/?unit_id=123',
+        location: { pathname: '/geographic/?unit_id=123' },
       },
     }).should.eql('GEOGRAPHIC');
   });
@@ -27,7 +29,7 @@ describe('currentMainTab reducer', function () {
     currentMainTab('SOCIAL_GRAPH', {
       type: LOCATION_CHANGE,
       payload: {
-        pathname: '/officer/8562/jerome-finnigan/',
+        location: { pathname: '/officer/8562/jerome-finnigan/' },
       },
     }).should.eql('SOCIAL_GRAPH');
   });

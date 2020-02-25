@@ -1,25 +1,47 @@
-import React, { Component, createElement } from 'react';
+import React, { createElement } from 'react';
 import should from 'should';
 import { Provider } from 'react-redux';
 import { each, assign } from 'lodash';
 import { spy } from 'sinon';
 import { shallow, mount } from 'enzyme';
+import { HelmetProvider } from 'react-helmet-async';
+import { MemoryRouter } from 'react-router-dom';
 
 import { MOBILE, TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
 
 
 function assertRender(obj, props) {
   let wrapper;
-  if (props && props.store) {
-    const { store, ...otherProps } = props;
-    wrapper = mount(
-      <Provider store={ store }>
-        { createElement(obj, otherProps) }
-      </Provider>
+  const { store, helmet, withRouter, ...otherProps } = props || {};
+  let component = createElement(obj, otherProps);
+
+  if (helmet) {
+    component = (
+      <HelmetProvider>
+        { component }
+      </HelmetProvider>
     );
-  } else {
-    wrapper = mount(createElement(obj, props));
   }
+
+  if (withRouter) {
+    component = (
+      <MemoryRouter>
+        { component }
+      </MemoryRouter>
+    );
+  }
+
+  if (store) {
+    component = (
+      <HelmetProvider>
+        <Provider store={ store }>
+          { component }
+        </Provider>
+      </HelmetProvider>
+    );
+  }
+
+  wrapper = mount(component);
 
   wrapper.exists().should.be.true();
 }
@@ -57,11 +79,10 @@ should.Assertion.add('triggerCallbackWhenClick', function (callbackProp, target=
 });
 
 should.Assertion.add('renderSubComponent', function () {
-  class Dummy extends Component {
-    render() {
-      return <div/>;
-    }
+  function Dummy(props) {
+    return <div/>;
   }
+
   const DecoratedDummy = this.obj(Dummy);
   const wrapper = shallow(<DecoratedDummy a='b'/>);
   wrapper.find(Dummy).prop('a').should.equal('b');

@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { noop } from 'lodash';
 
 import styles from './pinboards.sass';
@@ -10,34 +11,28 @@ import PinboardLinkContainer from 'containers/pinboard-page/pinboard-link-contai
 
 
 class Pinboards extends Component {
-  constructor(props) {
-    super(props);
+  componentDidUpdate(prevProps) {
+    const { isShown, fetchPinboards } = this.props;
 
-    this.handleCreateNewEmptyPinboard = this.handleCreateNewEmptyPinboard.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { isShown, fetchPinboards } = nextProps;
-
-    if (!this.props.isShown && isShown) {
+    if (!prevProps.isShown && isShown) {
       fetchPinboards();
     }
   }
 
-  handleCreateNewEmptyPinboard() {
+  handleCreateNewEmptyPinboard = () => {
     const { createNewEmptyPinboard, handleClose } = this.props;
 
     createNewEmptyPinboard().then((response) => {
       handleClose();
       redirectToCreatedPinboard(response);
     });
-  }
+  };
 
   render() {
     const { pinboards, isShown, duplicatePinboard, handleClose } = this.props;
 
     return (
-      <SlideMotion show={ isShown } offsetX={ 100 }>
+      <SlideMotion show={ isShown }>
         <div className={ styles.pinboards }>
           <div className='pinboards-title'>
             Pinboards

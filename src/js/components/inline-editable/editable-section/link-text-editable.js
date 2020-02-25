@@ -1,10 +1,12 @@
-import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { get } from 'lodash';
 
 import Editable from 'components/inline-editable/editable';
+import { LinkWrapper } from 'utils/link-wrapper';
 import RichTextEditor from 'components/inline-editable/rich-text-editor';
 import { editorStateToText } from 'utils/draft';
+import { EditWrapperStateContext } from 'contexts';
 
 
 export default class LinkTextEditable extends Component {
@@ -36,17 +38,19 @@ export default class LinkTextEditable extends Component {
             placeholder={ placeholder }/>
         }
         presenterElement={
-          <Link
+          <LinkWrapper
             style={ style.link }
             to={ to }
             className={ className }>
             { value ? editorStateToText(value) : null }
-          </Link>
+          </LinkWrapper>
         }
       />
     );
   }
 }
+
+LinkTextEditable.contextType = EditWrapperStateContext;
 
 LinkTextEditable.propTypes = {
   style: PropTypes.object,
@@ -61,8 +65,4 @@ LinkTextEditable.propTypes = {
 
 LinkTextEditable.defaultProps = {
   style: {},
-};
-
-LinkTextEditable.contextTypes = {
-  fieldContexts: PropTypes.object,
 };

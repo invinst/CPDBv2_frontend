@@ -1,0 +1,24 @@
+@import 'variables'
+
+\:local(.route-transition-enter)
+  opacity: 0
+
+\:local(.route-transition-enter-active)
+  opacity: 1
+  transition: opacity $animation-duration ease-in-out
+
+\:local(.route-transition-exit)
+  opacity: 1
+
+\:local(.route-transition-exit-active)
+  opacity: 0
+  transition: opacity $quick-animation-duration ease-out
+
+\:local(.overlay-style)
+  position: fixed
+  top: 0
+  left: 0
+  height: 100%
+  width: 100%
+  background-color: $hint-of-red-color
+  z-index: 1000

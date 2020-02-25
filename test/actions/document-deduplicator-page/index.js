@@ -26,7 +26,6 @@ describe('document decuplicator page actions', function () {
           },
         },
       });
-      Cookies.get.restore();
     });
   });
 
@@ -50,7 +49,6 @@ describe('document decuplicator page actions', function () {
           },
         },
       });
-      Cookies.get.restore();
     });
   });
 });

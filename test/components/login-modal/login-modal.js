@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { stub, spy } from 'sinon';
+import { spy, stub } from 'sinon';
+import should from 'should';
 
 import LoginModal from 'components/login-modal';
 import LoginModalButton from 'components/login-modal/login-modal-button';
@@ -10,8 +11,8 @@ import ForgotPasswordModal from 'components/login-modal/forgot-password-modal';
 
 describe('LoginModal component', function () {
   it('should not show when showLoginModal is false', function () {
-    const wrapper = shallow(<LoginModal showLoginModal={ false }/>);
-    wrapper.children().exists().should.be.false();
+    const wrapper = mount(<LoginModal showLoginModal={ false }/>);
+    should(wrapper.html()).be.empty();
   });
 
   it('should focus name input when click on name input wrapper', function () {
@@ -20,7 +21,6 @@ describe('LoginModal component', function () {
     stub(instance.nameInput, 'focus');
     wrapper.find('.name-input-wrapper').simulate('click');
     instance.nameInput.focus.calledOnce.should.be.true();
-    instance.nameInput.focus.restore();
   });
 
   it('should focus password input when click on password input wrapper', function () {
@@ -29,7 +29,6 @@ describe('LoginModal component', function () {
     stub(instance.passwordInput, 'focus');
     wrapper.find('.password-input-wrapper').simulate('click');
     instance.passwordInput.focus.calledOnce.should.be.true();
-    instance.passwordInput.focus.restore();
   });
 
   it('sign up button should be disabled unless both inputs have value', function () {
@@ -97,17 +96,13 @@ describe('LoginModal component', function () {
   });
 
   it('should show login error message', function () {
-    const wrapper = shallow(
-      <LoginModal showLoginModal={ true } loginErrorMessage='abc'/>
-    ).dive().dive();
-    wrapper.text().should.match(/abc/);
+    const wrapper = shallow(<LoginModal showLoginModal={ true } loginErrorMessage='abc'/>);
+    wrapper.html().should.match(/abc/);
   });
 
   it('should show login success message', function () {
-    const wrapper = shallow(
-      <LoginModal showLoginModal={ true } loginSuccessMessage='abc'/>
-    ).dive().dive();
-    wrapper.text().should.match(/abc/);
+    const wrapper = shallow(<LoginModal showLoginModal={ true } loginSuccessMessage='abc'/>);
+    wrapper.html().should.match(/abc/);
   });
 
   it('should show forgot password error message', function () {

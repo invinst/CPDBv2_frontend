@@ -64,6 +64,8 @@ describe('common selectors', function () {
         'percentile_allegation_internal': '99.566',
         year: 2018,
       },
+      'sustained_count': 5,
+      'complaint_count': 10,
     },
     officer1: {
       id: 8562,
@@ -79,6 +81,8 @@ describe('common selectors', function () {
         'percentile_allegation_internal': '99.675',
         year: 2018,
       },
+      'sustained_count': 10,
+      'complaint_count': 20,
     },
   };
   const officerInfo = {
@@ -95,6 +99,8 @@ describe('common selectors', function () {
       'percentile_allegation_internal': '99.675',
       year: 2018,
     },
+    'complaint_count': 10,
+    'sustained_count': 5,
   };
   const missingOfficerInfo = {
     id: '8562',
@@ -118,7 +124,7 @@ describe('common selectors', function () {
         complaintCount: 175,
         sustainedCount: 6,
         complaintPercentile: 99.987,
-        birthYear: 1963,
+        age: '54-year-old',
         race: 'white',
         rank: 'Police Officer',
         gender: 'male',
@@ -151,7 +157,7 @@ describe('common selectors', function () {
       simpleOfficerTransform(officerInfo).should.eql({
         id: '8562',
         fullName: 'Jerome Finnigan',
-        age: 54,
+        age: '54-year-old',
         race: 'white',
         gender: 'male',
         rank: 'Police Officer',
@@ -162,6 +168,8 @@ describe('common selectors', function () {
           percentileTrr: '70.069',
         },
         backgroundColor: '#f0201e',
+        complaintCount: 10,
+        sustainedCount: 5,
       });
     });
 
@@ -169,7 +177,7 @@ describe('common selectors', function () {
       simpleOfficerTransform(missingOfficerInfo).should.eql({
         id: '8562',
         fullName: 'Jerome Finnigan',
-        age: 'N/A',
+        age: '',
         race: 'N/A',
         gender: 'N/A',
         rank: '',
@@ -180,6 +188,8 @@ describe('common selectors', function () {
           percentileTrr: '70.069',
         },
         backgroundColor: '#f0201e',
+        complaintCount: undefined,
+        sustainedCount: undefined,
       });
     });
   });
@@ -192,7 +202,7 @@ describe('common selectors', function () {
         officer1: {
           id: 8562,
           fullName: 'Jerome Finnigan',
-          age: 54,
+          age: '54-year-old',
           race: 'white',
           gender: 'male',
           rank: 'Police Officer',
@@ -203,11 +213,13 @@ describe('common selectors', function () {
             percentileTrr: '70.069',
           },
           backgroundColor: '#f0201e',
+          complaintCount: 20,
+          sustainedCount: 10,
         },
         officer2: {
           id: 3454,
           fullName: 'John Burzinski',
-          age: 56,
+          age: '56-year-old',
           race: 'white',
           gender: 'male',
           rank: 'Police Officer',
@@ -218,6 +230,8 @@ describe('common selectors', function () {
             percentileTrr: '74.440',
           },
           backgroundColor: '#f0201e',
+          complaintCount: 10,
+          sustainedCount: 5,
         },
       });
     });
@@ -247,7 +261,7 @@ describe('common selectors', function () {
         complaintCount: 175,
         sustainedCount: 6,
         complaintPercentile: 99.987,
-        birthYear: 1963,
+        age: '54-year-old',
         race: 'white',
         rank: 'Police Officer',
         gender: 'male',
@@ -282,7 +296,7 @@ describe('common selectors', function () {
         complaintCount: 175,
         sustainedCount: 6,
         complaintPercentile: 99.987,
-        birthYear: 1963,
+        age: '54-year-old',
         race: 'white',
         rank: 'Police Officer',
         gender: 'male',
@@ -316,7 +330,7 @@ describe('common selectors', function () {
         officer1: {
           id: 8562,
           fullName: 'Jerome Finnigan',
-          age: 54,
+          age: '54-year-old',
           race: 'white',
           gender: 'male',
           rank: 'Police Officer',
@@ -327,11 +341,13 @@ describe('common selectors', function () {
             percentileTrr: '70.069',
           },
           backgroundColor: '#f0201e',
+          complaintCount: 20,
+          sustainedCount: 10,
         },
         officer2: {
           id: 3454,
           fullName: 'John Burzinski',
-          age: 56,
+          age: '56-year-old',
           race: 'white',
           gender: 'male',
           rank: 'Police Officer',
@@ -342,6 +358,8 @@ describe('common selectors', function () {
             percentileTrr: '74.440',
           },
           backgroundColor: '#f0201e',
+          complaintCount: 10,
+          sustainedCount: 5,
         },
       });
     });

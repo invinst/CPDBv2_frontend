@@ -1,12 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import style from './markdown-link.sass';
 
 
-export default class MarkdownLink extends Component {
-  render() {
-    return (
-      <a className={ style.markdownLink } { ...this.props } />
-    );
-  }
+export default function MarkdownLink(props) {
+  return <a className={ style.markdownLink } { ...props } />;
 }

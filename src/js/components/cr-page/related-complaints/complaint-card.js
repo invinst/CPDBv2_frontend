@@ -1,5 +1,6 @@
-import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import cx from 'classnames';
 
 import { mapStyle } from './complaint-card.style';
@@ -11,19 +12,14 @@ import { PINNED_ITEM_TYPES } from 'utils/constants';
 
 
 class ComplaintCard extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
+  handleClick = () => {
     const { sourceCRID, crid, match } = this.props;
     if (match === 'categories') {
       tracking.trackRelatedByCategoryClick(sourceCRID, crid);
     } else if (match === 'officers') {
       tracking.trackRelatedByAccusedClick(sourceCRID, crid);
     }
-  }
+  };
 
   renderSection(label, text, subLabel) {
     return (
@@ -55,7 +51,9 @@ class ComplaintCard extends Component {
           item={ {
             type: PINNED_ITEM_TYPES.CR,
             id: crid,
-            isPinned: isPinned,
+            isPinned,
+            category: categories,
+            incidentDate,
           } }
         />
         <div className='complaint-card-map' style={ mapStyle(lat, lon) } />

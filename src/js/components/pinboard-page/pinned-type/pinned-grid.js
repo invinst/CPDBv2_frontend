@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { map, isEqual, find, noop } from 'lodash';
 import { Muuri } from 'utils/vendors';
 
@@ -20,21 +21,15 @@ export default class PinnedGrid extends Component {
     super(props);
 
     this.rendered = false;
-    this.updateOrder = this.updateOrder.bind(this);
-    this.removeItemInPinboardPage = this.removeItemInPinboardPage.bind(this);
-    this.completeRemoveItemInPinboardPage = this.completeRemoveItemInPinboardPage.bind(this);
   }
 
   componentDidMount() {
     this.initGrid();
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.bottomOffset = this.rendered ? getPageYBottomOffset() : null;
-    this.rendered = true;
-  }
-
   componentDidUpdate(prevProps) {
+    const bottomOffset = this.rendered ? getPageYBottomOffset() : null;
+    this.rendered = true;
     const { items } = this.props;
     items.forEach(item => {
       if (!find(prevProps.items, { id: item.id })) {
@@ -42,7 +37,7 @@ export default class PinnedGrid extends Component {
       }
     });
 
-    this.bottomOffset && scrollByBottomOffset(this.bottomOffset);
+    bottomOffset && scrollByBottomOffset(bottomOffset);
   }
 
   componentWillUnmount() {
@@ -58,7 +53,7 @@ export default class PinnedGrid extends Component {
     this.gridMuuri.on('dragEnd', this.updateOrder);
   }
 
-  updateOrder() {
+  updateOrder = () => {
     const { orderPinboard, type, items } = this.props;
     const newIds = this.gridMuuri.getItems().map(item => item.getElement().getAttribute('data-id'));
     const currentIds = map(items, item => item.id);
@@ -66,21 +61,21 @@ export default class PinnedGrid extends Component {
     if (!isEqual(newIds, currentIds)) {
       orderPinboard({ type, ids: newIds });
     }
-  }
+  };
 
-  removeItemInPinboardPage(item) {
+  removeItemInPinboardPage = item => {
     setTimeout(
       () => this.props.removeItemInPinboardPage(item),
       200
     );
-  }
+  };
 
-  completeRemoveItemInPinboardPage(item) {
+  completeRemoveItemInPinboardPage = item => {
     const { completeRemoveItemFromPinboard } = this.props;
 
     this.gridMuuri.remove(this.itemElements[item.id]);
     completeRemoveItemFromPinboard(item);
-  }
+  };
 
   render() {
     const { type, items, focusItem, addItemInPinboardPage } = this.props;

@@ -1,17 +1,18 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import cx from 'classnames';
 
 import styles from './request-document-button.sass';
 
 
 export class RequestDocumentButton extends Component {
-  handleClick() {
+  handleClick = () => {
     if (this.props.alreadyRequested) {
       return;
     }
 
     this.props.openRequestDocumentModal();
-  }
+  };
 
   render() {
     const { alreadyRequested, hasData } = this.props;
@@ -24,7 +25,7 @@ export class RequestDocumentButton extends Component {
             { 'already-requested': alreadyRequested }
           )
         }
-        onClick={ this.handleClick.bind(this) }
+        onClick={ this.handleClick }
       >
         {
           !alreadyRequested

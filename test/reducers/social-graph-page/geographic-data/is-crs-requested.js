@@ -1,5 +1,7 @@
+import { LOCATION_CHANGE } from 'connected-react-router';
+
 import isCrsRequested from 'reducers/social-graph-page/geographic-data/is-crs-requested';
-import { FIRST_PAGE_GEOGRAPHIC_CRS_REQUEST_SUCCESS, LOCATION_CHANGE } from 'utils/constants';
+import { FIRST_PAGE_GEOGRAPHIC_CRS_REQUEST_SUCCESS } from 'utils/constants';
 
 
 describe('isCrsRequested reducer', function () {

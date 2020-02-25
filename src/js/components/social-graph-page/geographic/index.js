@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { isEmpty, noop } from 'lodash';
 import cx from 'classnames';
 
@@ -9,15 +10,6 @@ import { loadPaginatedData } from 'utils/load-paginated-data';
 
 
 export default class GeographicMap extends Component {
-  constructor(props) {
-    super(props);
-    this.fetchGeographicData = this.fetchGeographicData.bind(this);
-    this.handleClickOutside = this.handleClickOutside.bind(this);
-    this.handleClickCRMarker = this.handleClickCRMarker.bind(this);
-    this.handleClickTRRMarker = this.handleClickTRRMarker.bind(this);
-    this.renderPreviewPane = this.renderPreviewPane.bind(this);
-  }
-
   componentDidMount() {
     this.fetchGeographicData();
     window.addEventListener('mousedown', this.handleClickOutside);
@@ -27,7 +19,7 @@ export default class GeographicMap extends Component {
     window.removeEventListener('mousedown', this.handleClickOutside);
   }
 
-  fetchGeographicData() {
+  fetchGeographicData = () => {
     const {
       requestFirstPageSocialGraphGeographicCrs,
       requestOtherPagesSocialGraphGeographicCrs,
@@ -75,9 +67,9 @@ export default class GeographicMap extends Component {
         requestOtherPagesSocialGraphGeographicTrrsPreviewPane,
       );
     }
-  }
+  };
 
-  handleClickOutside(event) {
+  handleClickOutside = event => {
     const { updateGeographicCrid, updateGeographicTrrId, allegation, trr } = this.props;
     if (!event.target.closest('.geographic-preview-link')) {
       if (allegation) {
@@ -86,19 +78,19 @@ export default class GeographicMap extends Component {
         updateGeographicTrrId(null);
       }
     }
-  }
+  };
 
-  handleClickCRMarker(id) {
+  handleClickCRMarker = id => {
     const { updateGeographicCrid } = this.props;
     updateGeographicCrid(id);
-  }
+  };
 
-  handleClickTRRMarker(id) {
+  handleClickTRRMarker = id => {
     const { updateGeographicTrrId } = this.props;
     updateGeographicTrrId(id);
-  }
+  };
 
-  renderPreviewPane() {
+  renderPreviewPane = () => {
     const { allegation, trr } = this.props;
 
     if (!isEmpty(allegation)) {
@@ -116,7 +108,7 @@ export default class GeographicMap extends Component {
     } else {
       return null;
     }
-  }
+  };
 
   render() {
     const {

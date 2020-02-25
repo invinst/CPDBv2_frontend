@@ -1,21 +1,15 @@
-import React, { Component, PropTypes } from 'react';
-import { browserHistory } from 'react-router';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import cx from 'classnames';
 import { isEmpty, noop } from 'lodash';
 
+import browserHistory from 'utils/history';
 import { redirectToCreatedPinboard } from 'utils/pinboard';
 import PinboardLinkContainer from 'containers/pinboard-page/pinboard-link-container';
 
 
 export default class PinboardItem extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleDuplicatePinboard = this.handleDuplicatePinboard.bind(this);
-    this.handlePinboardItemClick = this.handlePinboardItemClick.bind(this);
-  }
-
-  handleDuplicatePinboard(e) {
+  handleDuplicatePinboard = e => {
     const { pinboard, duplicatePinboard, handleClose } = this.props;
 
     duplicatePinboard(pinboard.id).then((response) => {
@@ -24,14 +18,14 @@ export default class PinboardItem extends Component {
     });
 
     e.stopPropagation();
-  }
+  };
 
-  handlePinboardItemClick() {
+  handlePinboardItemClick = () => {
     const { handleClose, pinboard } = this.props;
 
     handleClose();
     browserHistory.push(pinboard.url);
-  }
+  };
 
   render() {
     const { pinboard } = this.props;

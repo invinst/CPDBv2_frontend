@@ -1,10 +1,11 @@
 import 'react-tagsinput/react-tagsinput.css';
 import 'tagsinput.css';
 
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import TagsInput from 'react-tagsinput';
 import AutosizeInput from 'react-input-autosize';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { SEARCH_ALIAS_EDIT_PATH } from 'utils/constants';
 import { imgUrl } from 'utils/static-assets';
@@ -21,7 +22,7 @@ import {
   reactTagsinputInputStyle,
 } from './inline-alias-admin.style';
 
-const backLink = `/edit/${SEARCH_ALIAS_EDIT_PATH}`;
+const backLink = `/edit${SEARCH_ALIAS_EDIT_PATH}`;
 
 export default class InlineAliasAdmin extends Component {
   constructor(props) {
@@ -29,19 +30,15 @@ export default class InlineAliasAdmin extends Component {
     this.state = {
       aliases: props.existingAliases || [],
     };
-    this.handleAliasesChange = this.handleAliasesChange.bind(this);
-    this.renderAlias = this.renderAlias.bind(this);
-    this.renderInput = this.renderInput.bind(this);
-    this.saveAliases = this.saveAliases.bind(this);
   }
 
-  handleAliasesChange(newAliases) {
+  handleAliasesChange = newAliases => {
     this.setState({
       aliases: newAliases,
     });
-  }
+  };
 
-  renderAlias(props) {
+  renderAlias = props => {
     // eslint-disable-next-line no-unused-vars
     let { tag, key, onRemove, getTagDisplayValue, classNameRemove, ...other } = props;
 
@@ -51,9 +48,9 @@ export default class InlineAliasAdmin extends Component {
         <img onClick={ onRemove.bind(this, key) } src={ imgUrl('remove-x.svg') } style={ removeTagButtonStyle }/>
       </span>
     );
-  }
+  };
 
-  renderInput({ addTag, ...props }) {
+  renderInput = ({ addTag, ...props }) => {
     let { onChange, value, ...other } = props;
     return (
       <AutosizeInput
@@ -64,13 +61,13 @@ export default class InlineAliasAdmin extends Component {
         { ...other }
       />
     );
-  }
+  };
 
-  saveAliases() {
+  saveAliases = () => {
     const { aliases } = this.state;
     const { id, type, updateAliases } = this.props;
     updateAliases(id, type, aliases);
-  }
+  };
 
   render() {
     const { text, description, errorMessage } = this.props;

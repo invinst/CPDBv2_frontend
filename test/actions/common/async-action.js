@@ -48,7 +48,6 @@ describe('async-action', function () {
           },
         },
       });
-      Cookies.get.restore();
     });
 
     it('should not include Authorization header when apiAccessToken cookie is not set', function () {
@@ -69,7 +68,6 @@ describe('async-action', function () {
           },
         },
       });
-      Cookies.get.restore();
     });
   });
 
@@ -136,8 +134,6 @@ describe('async-action', function () {
           },
         },
       });
-
-      Cookies.get.restore();
     });
   });
 
@@ -182,8 +178,6 @@ describe('async-action', function () {
           },
         },
       });
-
-      Cookies.get.restore();
     });
   });
 
@@ -230,8 +224,6 @@ describe('async-action', function () {
           },
         },
       });
-
-      Cookies.get.restore();
     });
   });
 });

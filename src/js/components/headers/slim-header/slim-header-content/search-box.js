@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import cx from 'classnames';
 
 import { SEARCH_PATH } from 'utils/constants';
@@ -9,7 +10,7 @@ import { accentColor, boulderColor } from 'utils/styles';
 
 export default class SearchBox extends Component {
   handleClick(e) {
-    pushPathPreserveEditMode(`/${SEARCH_PATH}`);
+    pushPathPreserveEditMode(SEARCH_PATH);
     e.stopPropagation();
   }
 

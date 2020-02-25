@@ -1,23 +1,30 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 import baseStyle from './hoverable-edit-wrapper.sass';
+import { EditModeContext, EditWrapperStateContext } from 'contexts';
 
 
-export default class HoverableEditWrapper extends Component {
-  render() {
-    const { children, style, className } = this.props;
-    const {
-      editModeOn, sectionEditModeOn, turnOnSectionEditMode, turnOffSectionEditMode, onSaveForm,
-    } = this.context;
+export default function HoverableEditWrapper(props) {
+  const { children, style, className } = props;
+  const {
+    sectionEditModeOn,
+    turnOnSectionEditMode,
+    turnOffSectionEditMode,
+    onSaveForm,
+    autoSave,
+  } = useContext(EditWrapperStateContext);
+  const { editModeOn } = useContext(EditModeContext);
 
-    if (editModeOn) {
-      return (
-        <div
-          style={ { ...style } }
-          className={ `${ baseStyle.hoverableEditWrapper } hoverable ${ className }` }
-        >
-          {
-            sectionEditModeOn
-              ? (
+  if (editModeOn) {
+    return (
+      <div
+        style={ { ...style } }
+        className={ `${ baseStyle.hoverableEditWrapper } hoverable ${ className }` }
+      >
+        {
+          sectionEditModeOn
+            ? (
+              !autoSave && (
                 <span className='bottom-button-wrapper'>
                   <a className='hoverable-edit-wrapper-button' onClick={ onSaveForm }>
                     Save
@@ -26,22 +33,22 @@ export default class HoverableEditWrapper extends Component {
                     Cancel
                   </a>
                 </span>
-              ) : (
-                <span className='top-button-wrapper'>
-                  <a className='hoverable-edit-wrapper-button edit-button' onClick={ turnOnSectionEditMode }>
-                    Edit
-                  </a>
-                </span>
               )
-          }
-          { children }
-        </div>
-      );
-    }
-    return (
-      <div className={ `${baseStyle.hoverableEditWrapper} ${className}` }>{ children }</div>
+            ) : (
+              <span className='top-button-wrapper'>
+                <a className='hoverable-edit-wrapper-button edit-button' onClick={ turnOnSectionEditMode }>
+                  Edit
+                </a>
+              </span>
+            )
+        }
+        { children }
+      </div>
     );
   }
+  return (
+    <div className={ `${baseStyle.hoverableEditWrapper} ${className}` }>{ children }</div>
+  );
 }
 
 HoverableEditWrapper.propTypes = {
@@ -52,12 +59,4 @@ HoverableEditWrapper.propTypes = {
 
 HoverableEditWrapper.defaultProps = {
   className: '',
-};
-
-HoverableEditWrapper.contextTypes = {
-  editModeOn: PropTypes.bool,
-  sectionEditModeOn: PropTypes.bool,
-  turnOnSectionEditMode: PropTypes.func,
-  turnOffSectionEditMode: PropTypes.func,
-  onSaveForm: PropTypes.func,
 };

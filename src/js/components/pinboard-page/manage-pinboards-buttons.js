@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { isEmpty, noop } from 'lodash';
 import cx from 'classnames';
 
@@ -14,43 +15,38 @@ export default class ManagePinboardsButtons extends Component {
     this.state = {
       showNewPinboardMenu: false,
     };
-
-    this.handleShowPinboardList = this.handleShowPinboardList.bind(this);
-    this.toggleShowNewPinboardMenu = this.toggleShowNewPinboardMenu.bind(this);
-    this.handleCreateNewEmptyPinboard = this.handleCreateNewEmptyPinboard.bind(this);
-    this.handleDuplicatePinboard = this.handleDuplicatePinboard.bind(this);
   }
 
-  handleShowPinboardList(e) {
+  handleShowPinboardList = e => {
     const { showPinboardsList } = this.props;
 
     showPinboardsList(true);
     e.stopPropagation();
-  }
+  };
 
-  toggleShowNewPinboardMenu(e) {
+  toggleShowNewPinboardMenu = e => {
     this.setState((state, props) => ({
       showNewPinboardMenu: !state.showNewPinboardMenu,
     }));
 
     e.stopPropagation();
-  }
+  };
 
-  handleCreateNewEmptyPinboard(e) {
+  handleCreateNewEmptyPinboard = e => {
     const { createNewEmptyPinboard } = this.props;
 
     createNewEmptyPinboard().then(redirectToCreatedPinboard);
     e.stopPropagation();
-  }
+  };
 
-  handleDuplicatePinboard(e) {
+  handleDuplicatePinboard = e => {
     const { pinboardId, duplicatePinboard } = this.props;
 
     if (!isEmpty(pinboardId)) {
       duplicatePinboard(pinboardId).then(redirectToCreatedPinboard);
     }
     e.stopPropagation();
-  }
+  };
 
   render() {
     const { showNewPinboardMenu } = this.state;

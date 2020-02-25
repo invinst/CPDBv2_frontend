@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import queryString from 'query-string';
 
 import NetworkGraph from 'components/social-graph-page/network';
 import {
@@ -19,11 +20,12 @@ import { getNetworkPreviewPaneData } from 'selectors/social-graph-page/network-p
 import { trackingClickAttachment } from 'actions/common/analytic';
 
 function mapStateToProps(state, ownProps) {
+  const query = queryString.parse(ownProps.location.search);
   return {
-    officerIds: ownProps.location.query['officer_ids'],
-    unitId: ownProps.location.query['unit_id'],
-    pinboardId: ownProps.params.pinboardId || ownProps.location.query['pinboard_id'],
-    title: ownProps.location.query['title'],
+    officerIds: query['officer_ids'],
+    unitId: query['unit_id'],
+    pinboardId: ownProps.params.pinboardId || query['pinboard_id'],
+    title: query['title'],
     showTimelineTab: getShowTimelineTab(state),
     currentNetworkTab: getCurrentNetworkTab(state),
     selectedOfficerId: getSelectedOfficerId(state),

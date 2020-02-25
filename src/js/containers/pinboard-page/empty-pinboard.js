@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 import { omit } from 'lodash';
 
 import { examplePinboardsSelector, getPinboardId } from 'selectors/pinboard-page/pinboard';
@@ -62,4 +61,4 @@ const editWrapperStateProps = (stateProps, dispatchProps, ownProps) => {
   };
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps, editWrapperStateProps)(EmptyPinboard));
+export default connect(mapStateToProps, mapDispatchToProps, editWrapperStateProps)(EmptyPinboard);

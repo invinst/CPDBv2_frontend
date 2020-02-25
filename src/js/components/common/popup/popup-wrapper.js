@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import ReactTooltip from 'react-tooltip';
 import cx from 'classnames';
 
@@ -11,12 +12,10 @@ export default class PopupWrapper extends Component {
   constructor(props) {
     super(props);
     this.tooltipId = generatePopupId();
-    this.hideOtherPopups = this.hideOtherPopups.bind(this);
-    this.afterShow = this.afterShow.bind(this);
   }
 
   /* istanbul ignore next */
-  hideOtherPopups() {
+  hideOtherPopups = () => {
     // We have live test for this function, so it's safe to ignore it
     const popups = document.getElementsByClassName('popup-button');
     for (let i = 0; i < popups.length; i++) {
@@ -24,13 +23,13 @@ export default class PopupWrapper extends Component {
         ReactTooltip.hide(popups[i]);
       }
     }
-  }
+  };
 
-  afterShow() {
+  afterShow = () => {
     const { trackingUrl, trackingId } = this.props;
     this.hideOtherPopups();
     tracking.trackPopupButtonClick(trackingUrl, trackingId);
-  }
+  };
 
   render() {
     const { children, className, popupButtonClassName } = this.props;
@@ -38,6 +37,7 @@ export default class PopupWrapper extends Component {
       <span className={ cx(style.popupWrapper, className, 'no-print') }>
         <ReactTooltip
           id={ this.tooltipId }
+          ref={ ref => this.tooltip = ref }
           className='popup'
           effect='solid'
           type='light'
@@ -47,10 +47,10 @@ export default class PopupWrapper extends Component {
           <div className='test--popup-content' onClick={ e => e.stopPropagation() }>
             <div
               className='popup-close-button'
-              data-tip={ true }
-              data-for={ this.tooltipId }
-              data-event={ true }
-              data-event-off='click'
+              onClick={ () => {
+                this.tooltip.tooltipRef = null;
+                ReactTooltip.hide();
+              } }
             />
             { children }
           </div>

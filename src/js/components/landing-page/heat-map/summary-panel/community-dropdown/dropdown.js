@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { map, filter } from 'lodash';
 import isMobile from 'ismobilejs';
 
@@ -15,14 +16,13 @@ export default class Dropdown extends Component {
     this.state = {
       filterText: '',
     };
-    this.filterDropdown = this.filterDropdown.bind(this);
   }
 
-  filterDropdown(event) {
+  filterDropdown = event => {
     this.setState({
       filterText: event.currentTarget.value,
     });
-  }
+  };
 
   getCommunities() {
     const { communities } = this.props;

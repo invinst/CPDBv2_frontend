@@ -1,0 +1,37 @@
+@import 'variables'
+
+\:local(.wrapper)
+    border-bottom: 1.25px solid $alto-color
+    font-size: 14px
+
+\:local(.innerWrapper)
+    height: 63px
+    padding: 18px
+    box-sizing: border-box
+
+    .search-box-parent
+        position: relative
+
+    .search-icon
+        position: absolute
+        box-sizing: border-box
+        background-image: url('/img/magnifying-glass.svg')
+        width: 17px
+        height: 17px
+        background-position: center
+        background-repeat: no-repeat
+        background-size: contain
+        top: 5.5px
+        left: 10px
+
+\:local(.search-box)
+    display: inline-block
+    width: 274px
+    height: 28px
+    border-radius: 2px
+    box-sizing: border-box
+    border:  1.25px solid $alto-color
+    text-align: right
+    padding-right: 16px
+    padding-left: 37px
+    font-weight: 300

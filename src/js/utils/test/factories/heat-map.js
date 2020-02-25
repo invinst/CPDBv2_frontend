@@ -7,7 +7,7 @@ export const CitySummaryFactory = new Factory()
   .attr('discipline_count', random.number)
   .attr('most_common_complaints', () => []);
 
-export const mostComplaintOfficerFactory = new Factory()
+const mostComplaintOfficerFactory = new Factory()
   .attr('complaintsCount', random.number)
   .attr('fullName', name.findName)
   .sequence('id');

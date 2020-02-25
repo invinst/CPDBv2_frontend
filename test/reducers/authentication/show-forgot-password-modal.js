@@ -1,4 +1,5 @@
 import { each } from 'lodash';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 import authenticationShowForgotPasswordModal from 'reducers/authentication/show-forgot-password-modal';
 import {
@@ -19,7 +20,7 @@ describe('authenticationShowForgotPasswordModal reducer', function () {
 
   it('should return false on a bunch of actions', function () {
     each(
-      [CLOSE_FORGOT_PASSWORD_MODAL, RESET_PASSWORD_SUCCESS, '@@router/LOCATION_CHANGE'],
+      [CLOSE_FORGOT_PASSWORD_MODAL, RESET_PASSWORD_SUCCESS, LOCATION_CHANGE],
       (type) => {
         authenticationShowForgotPasswordModal(undefined, {
           type: type,

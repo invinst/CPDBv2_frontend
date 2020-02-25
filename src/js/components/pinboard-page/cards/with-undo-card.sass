@@ -33,8 +33,8 @@
 
 \:local(.undo-card-light)
   @extend %card
-  background-color: $wild-sand
-  border-color: $white-two-color
+  background-color: $wild-sand-color
+  border-color: $alto-color
   animation: fadeOut 2s ease-in-out 2s forwards
   
   .text
@@ -44,29 +44,29 @@
   .undo-button
     @extend %undo-card-button
     background-color: transparent
-    border: solid 1px $alto-color
-    color: $soft-black-color
+    border: solid 1px $alto-dark-color
+    color: $thunder-color
 
     &:hover
       background-color: white
-      color: $cash-green-color
+      color: $vida-loca-color
 
 
 \:local(.undo-card-dark)
   @extend %card
   animation: fadeOut 2s ease-in-out 2s forwards
-  background-color: $soft-black-color
+  background-color: $thunder-color
   border-color: $mine-shaft-color
   
   .text
     @extend %undo-card-text
-    color: $white-two-color
+    color: $alto-color
 
   .undo-button
     @extend %undo-card-button
     background-color: $mine-shaft-color
     border: none
-    color: $white-two-color
+    color: $alto-color
 
     &:hover
       background-color: $boulder-color

@@ -1,18 +1,38 @@
-import React, { PropTypes, Component } from 'react';
-import { Motion, spring, presets } from 'react-motion';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Transition, SwitchTransition } from 'react-transition-group';
+import { QUICK_ANIMATION_DURATION } from 'utils/constants';
 
+
+const jumpyMotionStyles = (translateY) => ({
+  entering: { transform: `translateY(${translateY}px)` },
+  entered: { transform: 'translateY(0)', transition: `transform ${ QUICK_ANIMATION_DURATION }ms ease-in-out` },
+  exiting: { transform: `translateY(${translateY}px)` },
+});
 
 export default class JumpyMotion extends Component {
   constructor(props) {
     super(props);
     this.state = {
       startMotion: false,
+      prevIsActive: props.isActive,
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!this.props.isActive && nextProps.isActive) {
-      this.setState({ startMotion: true });
+  static getDerivedStateFromProps(props, state) {
+    const { isActive } = props;
+    if (isActive !== state.prevIsActive) {
+      if (isActive) {
+        return { startMotion: true, prevIsActive: isActive };
+      }
+      return { prevIsActive: isActive };
+    }
+    return null;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { startMotion } = this.state;
+    if (!prevState.startMotion && startMotion) {
       this.timeout = setTimeout(() => this.setState({ startMotion: false }), 10);
     }
   }
@@ -24,25 +44,22 @@ export default class JumpyMotion extends Component {
   render() {
     const { startMotion } = this.state;
     const { children, translateY } = this.props;
+    const transitionStyles = jumpyMotionStyles(translateY);
     return (
-      <Motion
-        key='text-container'
-        defaultStyle={ { translateY: 0 } }
-        style={ {
-          // "enter" transition effect: slide up from 15px under
-          translateY: startMotion ? translateY : spring(0, presets.stiff),
-        } }
-      >
-        {
-          (style) => (
-            <div style={ {
-              transform: `translateY(${style.translateY}px)`,
-            } }>
-              { children }
-            </div>
-          )
-        }
-      </Motion>
+      <SwitchTransition mode='out-in'>
+        <Transition
+          key={ startMotion ? 'transition-out' : 'transition-in' }
+          in={ true }
+          timeout={ 10 }>
+          {
+            state => (
+              <div style={ transitionStyles[state] }>
+                { children }
+              </div>
+            )
+          }
+        </Transition>
+      </SwitchTransition>
     );
   }
 }

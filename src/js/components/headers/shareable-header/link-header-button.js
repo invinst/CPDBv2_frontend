@@ -1,24 +1,23 @@
-import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 import styles from './link-header-button.sass';
 
 
-export default class LinkHeaderButton extends React.Component {
-  render() {
-    const { buttonText, to } = this.props;
+export default function LinkHeaderButton(props) {
+  const { buttonText, to } = props;
 
-    return (
-      <div className={ styles.linkHeaderButton }>
-        <Link
-          to={ to }
-          className='button'
-        >
-          { buttonText }
-        </Link>
-      </div>
-    );
-  }
+  return (
+    <div className={ styles.linkHeaderButton }>
+      <Link
+        to={ to }
+        className='button'
+      >
+        { buttonText }
+      </Link>
+    </div>
+  );
 }
 
 LinkHeaderButton.propTypes = {

@@ -1,3 +1,5 @@
+import { LOCATION_CHANGE } from 'connected-react-router';
+
 import documents from 'reducers/documents-overview-page/documents';
 import * as constants from 'utils/constants';
 
@@ -7,7 +9,7 @@ describe('DocumentsOverviewPage documents reducer', function () {
     documents(undefined, {}).should.deepEqual({ data: {}, match: '' });
   });
 
-  it('should handle @@router/LOCATION_CHANGE', function () {
+  it('should handle LOCATION_CHANGE', function () {
     documents({
       data: {
         '1': {
@@ -19,7 +21,7 @@ describe('DocumentsOverviewPage documents reducer', function () {
       },
       match: 'term',
     }, {
-      type: '@@router/LOCATION_CHANGE',
+      type: LOCATION_CHANGE,
     }
     ).should.deepEqual({
       data: {},

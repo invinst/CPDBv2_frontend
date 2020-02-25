@@ -1,30 +1,38 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
+import cx from 'classnames';
+import { CSSTransition } from 'react-transition-group';
 
-import { spring, Motion } from 'react-motion';
-import { radarLegendTextStyle } from './radar-legend.style';
+import { ANIMATION_DURATION } from 'utils/constants';
+import styles from './radar-legend.sass';
 
 
-export default class RadarLegend extends React.Component {
-  render() {
-    const { fadeOut, content } = this.props;
+const RADAR_LEGEND_TRANSITION_CLASS_NAMES = {
+  exit: styles.radarLegendTransitionExit,
+  exitActive: styles.radarLegendTransitionExitActive,
+};
 
-    const legendYearText = (content, opacity) => content ? (
-      <text
-        className='test--radar-legend-content no-print' textAnchor='middle' dy='0.35em'
-        style={ { ...radarLegendTextStyle, opacity, visibility: opacity ? 'visible' : 'hidden' } }
-        x={ 180 }
-        y={ 180 }>
-        { content }
-      </text>
-    ) : null;
-
-    return fadeOut ?
-      (
-        <Motion defaultStyle={ { opacity: 1 } } style={ { opacity: spring(0, { stiffness: 100 }) } }>
-          { interpolatingStyle => legendYearText(content, interpolatingStyle.opacity) }
-        </Motion>
-      ) : legendYearText(content, 1);
+export default function RadarLegend(props) {
+  const { fadeOut, content } = props;
+  if (content) {
+    return (
+      <CSSTransition
+        in={ !fadeOut }
+        unmountOnExit={ true }
+        timeout={ ANIMATION_DURATION }
+        classNames={ RADAR_LEGEND_TRANSITION_CLASS_NAMES }>
+        <text
+          className={ cx('test--radar-legend-content no-print', styles.radarLegend) }
+          textAnchor='middle'
+          dy='0.35em'
+          x={ 180 }
+          y={ 180 }>
+          { content }
+        </text>
+      </CSSTransition>
+    );
   }
+  return null;
 }
 
 RadarLegend.propTypes = {

@@ -7,18 +7,20 @@ import 'vendors/modal-video.scss';
 
 import React from 'react';
 import { render } from 'react-dom';
-import Perf from 'react-addons-perf';
+import { Provider } from 'react-redux';
+import { ConnectedRouter } from 'connected-react-router';
 
 import 'babel-polyfill';
 import 'polyfill';
 import 'web-animations-js';
 
 import config from 'config';
-import RouterRoot from 'components/router-root';
+import AppContainer from 'containers/app-container';
+import configureStore from 'store';
+import browserHistory from 'utils/history';
 
-if (config.appEnv === 'dev') {
-  global.Perf = Perf;
-}
+
+const store = configureStore();
 
 if (config.appEnv === 'live-test') {
   global.disableAnimation = true;
@@ -29,5 +31,9 @@ if (module.hot) {
 }
 
 render(
-  <RouterRoot />,
+  <Provider store={ store }>
+    <ConnectedRouter history={ browserHistory }>
+      <AppContainer />
+    </ConnectedRouter>
+  </Provider>,
   document.getElementById('root'));

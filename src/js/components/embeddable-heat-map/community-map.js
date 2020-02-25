@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 import MapboxGL from 'components/common/mapbox-gl';
 import { mapContainerStyle } from './community-map.style.js';
@@ -28,7 +29,6 @@ export default class CommunityMap extends Component {
       <MapboxGL
         style={ mapContainerStyle }
         onClick={ [
-          [() => selectCommunity(0)],
           ['community-fill', e => selectCommunity(e.features[0].properties.id)],
         ] }
         onMouseMove={ [

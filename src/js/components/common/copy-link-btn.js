@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import Clipboard from 'clipboard';
 import isMobile from 'ismobilejs';
 
@@ -11,25 +12,25 @@ class CopyLinkButton extends React.Component {
     this.clipboard.destroy();
   }
 
-  attachClipboardEvent(btn) {
+  attachClipboardEvent = (btn) => {
     if (btn) {
       this.clipboard = new Clipboard(btn, { text: () => {
         /*istanbul ignore next*/
         return this.props.text;
       } });
     }
-  }
+  };
 
   render() {
     if (isMobile.any) {
       return (
         <button style={ [buttonStyle, this.props.style] } className={ this.props.className }
-          ref={ this.attachClipboardEvent.bind(this) }/>
+          ref={ this.attachClipboardEvent }/>
       );
     }
     return (
       <button style={ [buttonHoverStyle, this.props.style] } className={ this.props.className }
-        ref={ this.attachClipboardEvent.bind(this) }/>
+        ref={ this.attachClipboardEvent }/>
     );
   }
 }

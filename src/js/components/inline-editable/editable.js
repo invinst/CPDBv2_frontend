@@ -1,16 +1,14 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
 
 
-export default class Editable extends Component {
-  render() {
-    const { editModeOn, presenterElement, editorElement } = this.props;
+export default function Editable(props) {
+  const { editModeOn, presenterElement, editorElement } = props;
 
-    if (editModeOn) {
-      return editorElement;
-    }
-
-    return presenterElement;
+  if (editModeOn) {
+    return editorElement;
   }
+
+  return presenterElement;
 }
 
 Editable.propTypes = {

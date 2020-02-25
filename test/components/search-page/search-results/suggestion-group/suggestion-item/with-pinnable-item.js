@@ -4,6 +4,7 @@ import { noop } from 'lodash';
 import Mousestrap from 'mousetrap';
 import { spy, stub } from 'sinon';
 
+import { mountWithRouter } from 'utils/test';
 import JumpyMotion from 'components/animation/jumpy-motion';
 import withPinnableItem
   from 'components/search-page/search-results/suggestion-group/suggestion-item/with-pinnable-item';
@@ -52,7 +53,7 @@ describe('withPinnableItem component', function () {
     });
 
     it('should render first row', function () {
-      const wrapper = mount(<ComponentType { ...props } />);
+      const wrapper = mountWithRouter(<ComponentType { ...props } />);
 
       wrapper.find('.test--first-row').exists().should.be.true();
       wrapper.find(TextWithInlineSearchAlias).exists().should.be.true();
@@ -88,7 +89,7 @@ describe('withPinnableItem component', function () {
           selectItem={ selectItemSpy }
           isFocused={ false }/>
       );
-      const element = wrapper.find('.suggestion-item-123');
+      const element = wrapper.find('.suggestion-item-123').first();
       element.simulate('click');
       selectItemSpy.should.be.called();
     });
@@ -106,11 +107,9 @@ describe('withPinnableItem component', function () {
           selectItem={ () => {} }
         />
       );
-      const element = wrapper.find('.suggestion-item-123');
+      const element = wrapper.find('.suggestion-item-123').first();
       element.simulate('click');
       triggerStub.withArgs('enter').should.be.called();
-
-      triggerStub.restore();
     });
 
     it('should trigger clickItem there is clickItem', function () {
@@ -129,7 +128,7 @@ describe('withPinnableItem component', function () {
           selectItem={ () => {} }
         />
       );
-      const element = wrapper.find('.suggestion-item-123');
+      const element = wrapper.find('.suggestion-item-123').first();
       element.simulate('click');
 
       clickItemSpy.should.be.calledWith(suggestion);

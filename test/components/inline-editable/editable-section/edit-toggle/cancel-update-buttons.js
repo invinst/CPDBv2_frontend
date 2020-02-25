@@ -28,10 +28,10 @@ describe('CancelUpdateButtons component', function () {
   });
 
   it('should trigger onCancelClick', function () {
-    CancelUpdateButtons.should.triggerCallbackWhenClick('onCancelClick', '.cancel-button');
+    CancelUpdateButtons.should.triggerCallbackWhenClick('onCancelClick', 'a.cancel-button');
   });
 
   it('should trigger onUpdateClick', function () {
-    CancelUpdateButtons.should.triggerCallbackWhenClick('onUpdateClick', '.update-button');
+    CancelUpdateButtons.should.triggerCallbackWhenClick('onUpdateClick', 'a.update-button');
   });
 });

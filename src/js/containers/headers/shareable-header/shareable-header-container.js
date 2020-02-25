@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 
 import ShareableHeader from 'components/headers/shareable-header';
 import { updateShareablePageScrollPosition } from 'actions/headers/shareable-header';
@@ -13,4 +12,4 @@ const mapDispatchToProps = {
   updateShareablePageScrollPosition,
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ShareableHeader));
+export default connect(mapStateToProps, mapDispatchToProps)(ShareableHeader);

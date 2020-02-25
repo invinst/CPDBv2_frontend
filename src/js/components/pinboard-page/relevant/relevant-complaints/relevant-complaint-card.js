@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { noop, pick } from 'lodash';
 
 import styles from './relevant-complaint-card.sass';
@@ -8,36 +9,34 @@ import { getComplaintMapUrl } from 'utils/mapbox';
 import { UNDO_CARD_THEMES } from 'utils/constants';
 
 
-export default class RelevantComplaintCard extends Component {
-  render() {
-    const {
-      point,
-      addItemInPinboardPage,
-      focusItem,
-    } = this.props;
-    const complaintFields = [
-      'crid', 'incidentDate', 'category', 'point', 'officers',
-      'point', 'rawData',
-    ];
+export default function RelevantComplaintCard(props) {
+  const {
+    point,
+    addItemInPinboardPage,
+    focusItem,
+  } = props;
+  const complaintFields = [
+    'crid', 'incidentDate', 'category', 'point', 'officers',
+    'point', 'rawData',
+  ];
 
-    const leftChild = (
-      <div
-        className={ styles.relevantComplaintMap }
-        style={ point ? {
-          background: `url("${getComplaintMapUrl(point.lat, point.lon, 130, 176)}") no-repeat center/cover`,
-        }: null }
-      />
-    );
+  const leftChild = (
+    <div
+      className={ styles.relevantComplaintMap }
+      style={ point ? {
+        background: `url("${getComplaintMapUrl(point.lat, point.lon, 130, 176)}") no-repeat center/cover`,
+      }: null }
+    />
+  );
 
-    return (
-      <BaseComplaintCard
-        { ...pick(this.props, complaintFields) }
-        leftChild={ leftChild }
-        addItemInPinboardPage={ addItemInPinboardPage }
-        focusItem={ focusItem }
-      />
-    );
-  }
+  return (
+    <BaseComplaintCard
+      { ...pick(props, complaintFields) }
+      leftChild={ leftChild }
+      addItemInPinboardPage={ addItemInPinboardPage }
+      focusItem={ focusItem }
+    />
+  );
 }
 
 RelevantComplaintCard.propTypes = {

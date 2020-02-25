@@ -1,9 +1,10 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
 import TRRLocation from 'components/trr-page/trr-info-section/trr-location';
 import Row from 'components/trr-page/trr-info-section/trr-location/row';
 import TRRMap from 'components/trr-page/trr-info-section/trr-location/trr-map';
+import { PrintModeContext } from 'contexts';
 
 
 describe('TRRLocation component', function () {
@@ -49,9 +50,12 @@ describe('TRRLocation component', function () {
   });
 
   it('should show hide and rearrange contents when printing', function () {
-    const wrapper = shallow(
+    const wrapper = mount(
       <TRRLocation { ...trrLocation }/>,
-      { context: { printMode: true } },
+      {
+        wrappingComponent: PrintModeContext.Provider,
+        wrappingComponentProps: { value: { printMode: true } },
+      },
     );
 
     wrapper.find('.location-title-print').text().should.equal('LOCATION');
