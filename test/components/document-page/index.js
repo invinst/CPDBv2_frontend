@@ -194,7 +194,7 @@ describe('DocumentPage component', function () {
     linkDocumentsMore.text().should.equal('+3');
 
     const editableTextBoxes = wrapper.find(EditableTextBox);
-    editableTextBoxes.should.have.length(2);
+    editableTextBoxes.should.have.length(1);
 
     const editableTitle = editableTextBoxes.at(0);
     editableTitle.prop('className').should.equal('main-section-title');
@@ -216,39 +216,12 @@ describe('DocumentPage component', function () {
         key: 'tags',
         value: ['tag1', 'tag2'],
       },
-      textContent: {
-        type: 'string',
-        key: 'text_content',
-        value: 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE',
-      },
     });
 
-    const editableTextContent = editableTextBoxes.at(1);
-    editableTextContent.prop('className').should.equal('main-section-full-text');
-    editableTextContent.prop('title').should.equal('Full-text OCR');
-    editableTextContent.prop('fieldName').should.equal('textContent');
-    editableTextContent.prop('editWrapperStateProps').fields.should.eql({
-      attachmentId: {
-        type: 'number',
-        key: 'id',
-        value: 14193,
-      },
-      title: {
-        type: 'string',
-        key: 'title',
-        value: 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)',
-      },
-      tags: {
-        type: 'array',
-        key: 'tags',
-        value: ['tag1', 'tag2'],
-      },
-      textContent: {
-        type: 'string',
-        key: 'text_content',
-        value: 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE',
-      },
-    });
+    wrapper.find('.full-text-title').text().should.eql('Full-text OCR');
+    wrapper.find('.full-text-content').text().should.eql(
+      'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE'
+    );
 
     const lastEdited = wrapper.find('.main-section-last-edited');
     lastEdited.text().should.equal('This document was last edited by John Doe at 08:50PM on Feb 28, 2019');

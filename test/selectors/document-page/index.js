@@ -201,11 +201,6 @@ describe('Document selectors', function () {
           key: 'tags',
           value: ['123', '456'],
         },
-        textContent: {
-          type: 'string',
-          key: 'text_content',
-          value: 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE',
-        },
       });
     });
 
@@ -235,11 +230,6 @@ describe('Document selectors', function () {
           type: 'array',
           key: 'tags',
           value: [],
-        },
-        textContent: {
-          type: 'string',
-          key: 'text_content',
-          value: '',
         },
       });
     });

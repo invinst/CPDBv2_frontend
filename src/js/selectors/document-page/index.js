@@ -81,11 +81,6 @@ export const documentEditableFieldsSelector = createSelector(
         key: 'tags',
         value: documentAttrs.tags || [],
       },
-      textContent: {
-        type: 'string',
-        key: 'text_content',
-        value: documentAttrs.fullText || '',
-      },
     };
   }
 );
