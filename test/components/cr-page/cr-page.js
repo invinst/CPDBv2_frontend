@@ -26,6 +26,7 @@ describe('CRPage component', function () {
         victims={ ['Black, Male, Age 51'] }
         complainants={ ['Black, Male, Age 51'] }
         summary='abc'
+        location={ { pathname: '/cr/123456/' } }
       />
     );
     const crPage = shallow(wrapper.find('CRPage').get(0), { context: { printMode: false } });
@@ -42,6 +43,12 @@ describe('CRPage component', function () {
 
     const rowLabels = crPage.find(SummaryRow).map(element => element.prop('label'));
     rowLabels.should.containEql('VICTIM').and.containEql('COMPLAINANT').and.containEql('SUMMARY');
+
+    const attachments = crPage.find('Attachments');
+    attachments.prop('pathname').should.eql('/cr/123456/');
+
+    const accusedOfficers = crPage.find('AccusedOfficers');
+    accusedOfficers.prop('pathName').should.eql('/cr/123456/');
   });
 
   it('should not render some parts when missing information', function () {
