@@ -67,8 +67,9 @@ const createSignInRequestSuccessAction = () => ({
   payload: {},
 });
 
-const buildStore = () => ({
+const buildStore = (state={}) => ({
   _state: {
+    ...state,
     cms: {
       pages: {},
     },
@@ -316,6 +317,11 @@ describe('fetchPageInitialData middleware', function () {
   context('fetch document data when location changes', function () {
     context('user is logged in', function () {
       it('should dispatch fetchDocument & fetchDocumentSuggestionTags', function () {
+        const store = buildStore({
+          authentication: {
+            apiAccessToken: 'apiAccessToken',
+          },
+        });
         stub(Cookies, 'get').withArgs('apiAccessToken').returns('apiAccessToken');
         const action = createLocationChangeAction('/document/1234/');
         let dispatched;
