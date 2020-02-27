@@ -322,7 +322,6 @@ describe('fetchPageInitialData middleware', function () {
             apiAccessToken: 'apiAccessToken',
           },
         });
-        stub(Cookies, 'get').withArgs('apiAccessToken').returns('apiAccessToken');
         const action = createLocationChangeAction('/document/1234/');
         let dispatched;
 
