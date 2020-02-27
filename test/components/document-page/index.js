@@ -101,7 +101,6 @@ describe('DocumentPage component', function () {
       },
       titleEditModeOn: false,
       tagsEditModeOn: false,
-      textContentEditModeOn: false,
       suggestionTags: ['tag1', 'tag2'],
     },
   };

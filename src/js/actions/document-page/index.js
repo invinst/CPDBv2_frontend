@@ -11,8 +11,6 @@ import {
   TURN_OFF_DOCUMENT_TITLE_EDIT_MODE,
   TURN_ON_TAGS_EDIT_MODE,
   TURN_OFF_TAGS_EDIT_MODE,
-  TURN_ON_DOCUMENT_TEXT_CONTENT_EDIT_MODE,
-  TURN_OFF_DOCUMENT_TEXT_CONTENT_EDIT_MODE,
   UPDATE_DOCUMENT_PAGE_REQUEST_START,
   UPDATE_DOCUMENT_PAGE_REQUEST_SUCCESS,
   UPDATE_DOCUMENT_PAGE_REQUEST_FAILURE,
@@ -36,10 +34,6 @@ export const turnOffDocumentPageTitleEditMode = createAction(TURN_OFF_DOCUMENT_T
 export const turnOnDocumentTagsEditMode = createAction(TURN_ON_TAGS_EDIT_MODE, () => {});
 
 export const turnOffDocumentTagsEditMode = createAction(TURN_OFF_TAGS_EDIT_MODE, () => {});
-
-export const turnOnDocumentTextContentEditMode = createAction(TURN_ON_DOCUMENT_TEXT_CONTENT_EDIT_MODE, () => {});
-
-export const turnOffDocumentTextContentEditMode = createAction(TURN_OFF_DOCUMENT_TEXT_CONTENT_EDIT_MODE, () => {});
 
 export const fetchDocumentSuggestionTags = () => get(
   DOCUMENT_SUGGESTION_TAGS_API_URL,
