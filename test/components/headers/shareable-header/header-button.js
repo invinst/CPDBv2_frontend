@@ -13,7 +13,6 @@ describe('HeaderButton component', function () {
     this.stubOnClose = stub();
     wrapper = shallow(
       <HeaderButton
-        scrollPosition='top'
         buttonText='Header button'
         onOpen={ this.stubOnOpen }
         onClose={ this.stubOnClose }
@@ -24,7 +23,6 @@ describe('HeaderButton component', function () {
   it('should be render contents', function () {
     const shareButtonDOMElement = wrapper.find('.button');
     shareButtonDOMElement.text().should.equal('Header button');
-    shareButtonDOMElement.hasClass('top').should.be.true();
     wrapper.find(ShareMenu).exists().should.be.false();
   });
 

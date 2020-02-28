@@ -58,7 +58,7 @@ describe('CRPage component', function () {
 
     const shareableHeader = crPage.find(ShareableHeaderContainer);
     shareableHeader.exists().should.be.true();
-    const itemPinButton = shareableHeader.prop('customButtons');
+    const itemPinButton = shareableHeader.prop('headerButtons');
     itemPinButton.props.item.should.be.eql({
       type: PINNED_ITEM_TYPES.CR,
       id: '123456',

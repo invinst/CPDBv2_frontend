@@ -10,7 +10,7 @@ import SummarySection from './summary-section';
 import MetricsSection from './metrics-section';
 import TabbedPaneSection from './tabbed-pane-section';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
-import { PINNED_ITEM_TYPES, POPUP_NAMES, SHAREABLE_HEADER_BUTTON_TYPE } from 'utils/constants';
+import { PINNED_ITEM_TYPES, POPUP_NAMES } from 'utils/constants';
 import Printable from 'components/common/higher-order/printable';
 import PrintNotes from 'components/common/print-notes';
 import PrintPreloadFonts from 'components/common/print-preload-fonts';
@@ -22,6 +22,7 @@ import ItemPinButton from 'components/common/item-pin-button';
 import styles from './officer-page.sass';
 import shareableHeaderStyles from 'components/headers/shareable-header/shareable-header.sass';
 import pinButtonStyles from 'components/common/item-pin-button.sass';
+import HeaderButton from 'components/headers/shareable-header/header-button';
 
 
 function OfficerPage(props) {
@@ -71,28 +72,30 @@ function OfficerPage(props) {
       </Helmet>
       <div className={ styles.officerPage }>
         <ShareableHeaderContainer
-          buttonType={ SHAREABLE_HEADER_BUTTON_TYPE.MENU }
-          Menu={ DownloadMenuContainer }
-          buttonText='Download'
-          onOpen={ () => tracking.trackOfficerDownloadMenu(officerId, 'open') }
-          customButtons={
-            <ItemPinButton
-              addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
-              showHint={ false }
-              className={ cx(shareableHeaderStyles.headerButton, pinButtonStyles.headerPinButton) }
-              item={ {
-                type: PINNED_ITEM_TYPES.OFFICER,
-                id: officerId,
-                isPinned,
-                fullName: officerName,
-                race,
-                gender,
-                rank,
-                age,
-                sustainedCount,
-                complaintCount: allegationCount,
-              } }
-            />
+          headerButtons={
+            <React.Fragment>
+              <ItemPinButton
+                addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
+                showHint={ false }
+                className={ cx(shareableHeaderStyles.headerButton, pinButtonStyles.headerPinButton) }
+                item={ {
+                  type: PINNED_ITEM_TYPES.OFFICER,
+                  id: officerId,
+                  isPinned,
+                  fullName: officerName,
+                  race,
+                  gender,
+                  rank,
+                  age,
+                  sustainedCount,
+                  complaintCount: allegationCount,
+                } }
+              />
+              <HeaderButton
+                Menu={ DownloadMenuContainer }
+                onOpen={ () => tracking.trackOfficerDownloadMenu(officerId, 'open') }
+              />
+            </React.Fragment>
           }
         />
         <div className='page-wrapper'>

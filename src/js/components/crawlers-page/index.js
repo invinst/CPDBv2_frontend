@@ -3,7 +3,7 @@ import React from 'react';
 
 import CrawlersTable from './crawlers-table';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
-import * as constants from 'utils/constants';
+import LinkHeaderButton from 'components/headers/shareable-header/link-header-button';
 
 
 export default function CrawlersPage(props) {
@@ -12,9 +12,10 @@ export default function CrawlersPage(props) {
   return (
     <div>
       <ShareableHeaderContainer
-        buttonType={ constants.SHAREABLE_HEADER_BUTTON_TYPE.LINK }
-        buttonText='Documents'
-        to='/documents/' />
+        headerButtons={
+          <LinkHeaderButton buttonText='Documents' to='/documents/' />
+        }
+      />
       <CrawlersTable
         rows={ crawlers }
         nextParams={ nextParams }

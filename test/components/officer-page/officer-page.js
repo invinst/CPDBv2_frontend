@@ -78,7 +78,8 @@ describe('OfficerPage component', function () {
 
     const shareableHeader = officerPage.find(ShareableHeaderContainer);
     shareableHeader.exists().should.be.true();
-    const itemPinButton = shareableHeader.prop('customButtons');
+    const headerButtons = shareableHeader.prop('headerButtons');
+    const itemPinButton = headerButtons.props.children[0];
     itemPinButton.props.item.should.be.eql({
       type: PINNED_ITEM_TYPES.OFFICER,
       id: 1,
@@ -92,6 +93,9 @@ describe('OfficerPage component', function () {
       complaintCount: 13,
     });
     itemPinButton.props.addOrRemoveItemInPinboard.should.eql(addOrRemoveItemInPinboardSpy);
+
+    const downloadButton = headerButtons.props.children[1];
+    downloadButton.props.Menu.should.equal(DownloadMenuContainer);
   });
 
   it('should render correct document title and description', function () {
@@ -113,26 +117,6 @@ describe('OfficerPage component', function () {
       'Officer Shaun Frank of the Chicago Police Department has ' +
       '5 complaints, 10 use of force reports, and 3 original documents available.'
     );
-  });
-
-  it('should render ShareableHeader with custom props', function () {
-    const wrapper = shallow(
-      <OfficerPage
-        officerName='Shaun Frank'
-        officerSummary={ { rank: 'Officer' } }
-        officerMetrics={ {
-          allegationCount: 5,
-          useOfForceCount: 10,
-        } }
-        numAttachments={ 3 }
-      />,
-      { disableLifecycleMethods: true },
-    ).dive().dive();
-
-    const shareableHeader = wrapper.find(ShareableHeaderContainer);
-    shareableHeader.prop('buttonType').should.equal('menu');
-    shareableHeader.prop('Menu').should.eql(DownloadMenuContainer);
-    shareableHeader.prop('buttonText').should.equal('Download');
   });
 
   it('should add badge number into document description if officer name is not unique and badge is not Unknown',

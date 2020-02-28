@@ -46,7 +46,7 @@ function CRPage(props) {
       </Helmet>
       <div className={ styles.crPage }>
         <ShareableHeaderContainer
-          customButtons={
+          headerButtons={
             <ItemPinButton
               addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
               showHint={ false }

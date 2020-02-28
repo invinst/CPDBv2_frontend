@@ -5,17 +5,15 @@ import { spy } from 'sinon';
 import DocumentDeduplicatorPage from 'components/document-deduplicator-page';
 import DocumentsTable from 'components/document-deduplicator-page/documents-table';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
-import { SHAREABLE_HEADER_BUTTON_TYPE } from 'utils/constants';
 
 
 describe('DocumentDeduplicatorPage component', function () {
-  it('should render ShareableHeaderContainer component with no header button', function () {
+  it('should render ShareableHeaderContainer component', function () {
     const wrapper = shallow(
       <DocumentDeduplicatorPage />
     );
 
-    let shareableHeaderContainer = wrapper.find(ShareableHeaderContainer);
-    shareableHeaderContainer.prop('buttonType').should.equal(SHAREABLE_HEADER_BUTTON_TYPE.NONE);
+    wrapper.find(ShareableHeaderContainer).exists().should.be.true();
   });
 
   it('should render DocumentsTable component and pass correct props to it', function () {

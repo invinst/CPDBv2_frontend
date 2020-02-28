@@ -9,15 +9,15 @@ export default class HeaderButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      shareMenuIsOpen: false,
+      menuIsOpen: false,
     };
   }
 
   closeShareMenu = e => {
-    if (this.state.shareMenuIsOpen) {
+    if (this.state.menuIsOpen) {
       const { onClose } = this.props;
       onClose();
-      this.setState({ shareMenuIsOpen: false });
+      this.setState({ menuIsOpen: false });
       e.stopPropagation();
     }
   };
@@ -25,30 +25,29 @@ export default class HeaderButton extends React.Component {
   openShareMenu = () => {
     const { onOpen } = this.props;
     onOpen();
-    this.setState({ shareMenuIsOpen: true });
+    this.setState({ menuIsOpen: true });
   };
 
   render() {
-    const { shareMenuIsOpen } = this.state;
-    const { scrollPosition, buttonText, Menu } = this.props;
-    const shareButtonHandler = shareMenuIsOpen ? this.closeShareMenu : this.openShareMenu;
+    const { menuIsOpen } = this.state;
+    const { buttonText, Menu } = this.props;
+    const shareButtonHandler = menuIsOpen ? this.closeShareMenu : this.openShareMenu;
 
     return (
       <div className={ styles.headerButton }>
-        <span
-          className={ cx('button', shareMenuIsOpen ? 'focus' : scrollPosition) }
+        <div
+          className={ cx('button', { focus: menuIsOpen }) }
           onClick={ shareButtonHandler }
         >
           { buttonText }
-        </span>
-        { shareMenuIsOpen ? <Menu closeShareMenu={ this.closeShareMenu }/> : null }
+        </div>
+        { menuIsOpen ? <Menu closeShareMenu={ this.closeShareMenu }/> : null }
       </div>
     );
   }
 }
 
 HeaderButton.propTypes = {
-  scrollPosition: PropTypes.string,
   buttonText: PropTypes.string,
   Menu: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
   onOpen: PropTypes.func,
@@ -56,8 +55,7 @@ HeaderButton.propTypes = {
 };
 
 HeaderButton.defaultProps = {
-  scrollPosition: 'top',
-  buttonText: 'Share',
+  buttonText: '',
   Menu: ShareMenu,
   onOpen: () => {},
   onClose: () => {},

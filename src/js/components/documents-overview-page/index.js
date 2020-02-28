@@ -8,6 +8,7 @@ import * as constants from 'utils/constants';
 import DocumentsTable from './documents-table';
 import SearchBar from 'components/common/search-bar';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
+import LinkHeaderButton from 'components/headers/shareable-header/link-header-button';
 
 
 export default class DocumentsOverviewPage extends Component {
@@ -43,9 +44,10 @@ export default class DocumentsOverviewPage extends Component {
     return (
       <div>
         <ShareableHeaderContainer
-          buttonType={ constants.SHAREABLE_HEADER_BUTTON_TYPE.LINK }
-          buttonText='Crawlers'
-          to='/crawlers/' />
+          headerButtons={
+            <LinkHeaderButton buttonText='Crawlers' to='/crawlers/' />
+          }
+        />
         <SearchBar
           value={ this.state.searchText }
           onChange={ this.handleSearchChange }/>

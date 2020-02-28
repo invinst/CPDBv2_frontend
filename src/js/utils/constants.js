@@ -750,12 +750,6 @@ export const DOCUMENT_SOURCE_MAP = {
   SUMMARY_REPORTS_COPA_DOCUMENTCLOUD: 'https://www.chicagocopa.org/',
 };
 
-export const SHAREABLE_HEADER_BUTTON_TYPE = {
-  NONE: 'none',
-  MENU: 'menu',
-  LINK: 'link',
-};
-
 export const OFFICER_DOWNLOAD_KINDS = {
   WITHOUT_DOCS: 'without_docs',
   WITH_DOCS: 'with_docs',

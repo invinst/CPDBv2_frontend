@@ -126,8 +126,7 @@ describe('DocumentPage component', function () {
       </Provider>
     );
 
-    const header = wrapper.find(ShareableHeader);
-    header.prop('buttonType').should.equal('none');
+    wrapper.find(ShareableHeader).exists().should.be.true();
 
     wrapper.find(FooterContainer).exists().should.be.true();
     wrapper.find('.document-side-bar').exists().should.be.true();

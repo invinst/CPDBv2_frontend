@@ -11,7 +11,6 @@ import SimpleListWidget from './simple-list-widget';
 import EditableTextBox from './editable-text-box';
 import EditableTagsInput from './editable-tags-input';
 import FooterContainer from 'containers/footer-container';
-import { SHAREABLE_HEADER_BUTTON_TYPE } from 'utils/constants';
 import OutboundLink from 'components/common/outbound-link';
 import MinimalScrollBars from 'components/common/minimal-scroll-bars';
 
@@ -46,7 +45,7 @@ export default function DocumentPage(props) {
         <meta name='description' content={ title } />
       </Helmet>
       <div className={ styles.documentPage }>
-        <ShareableHeaderContainer buttonType={ SHAREABLE_HEADER_BUTTON_TYPE.NONE } />
+        <ShareableHeaderContainer />
         <div className='document-wrapper'>
           <div className='document-side-bar'>
             <OutboundLink className='document-thumbnail' href={ url }>
