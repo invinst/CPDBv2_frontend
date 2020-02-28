@@ -29,7 +29,7 @@ function CRPage(props) {
   const {
     crid, coaccused, complainants, alreadyRequested, category, subcategory,
     incidentDate, point, address, crLocation, beat, involvements, attachments,
-    openRequestDocumentModal, summary, victims, startDate, endDate, popup, pathname, notes,
+    openRequestDocumentModal, summary, victims, startDate, endDate, popup, location: { pathname }, notes,
     noAttachmentTextEditWrapperStateProps, onTrackingAttachment, addOrRemoveItemInPinboard,
   } = props;
 
@@ -132,7 +132,9 @@ CRPage.propTypes = {
   openRequestDocumentModal: PropTypes.func,
   alreadyRequested: PropTypes.bool,
   popup: PropTypes.object,
-  pathname: PropTypes.string,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }),
   notes: PropTypes.array,
   noAttachmentTextEditWrapperStateProps: PropTypes.object,
   onTrackingAttachment: PropTypes.func,
@@ -143,6 +145,7 @@ CRPage.defaultProps = {
   victims: [],
   complainants: [],
   coaccused: [],
+  location: {},
 };
 
 export default Printable(CRPage);
