@@ -17,7 +17,7 @@ describe('EditModeProvider component', function () {
 
   it('should pass down editModeOn via context from pathname with editModeOn is true', function () {
     const wrapper = mount(
-      <EditModeProvider location={ { pathname: 'edit/path' } }>
+      <EditModeProvider editModeOn={ true }>
         <ChildrenComponent />
       </EditModeProvider>
     );
@@ -27,7 +27,7 @@ describe('EditModeProvider component', function () {
 
   it('should pass down editModeOn via context from pathname with editModeOn is false', function () {
     const wrapper = mount(
-      <EditModeProvider location={ { pathname: 'path' } }>
+      <EditModeProvider editModeOn={ false }>
         <ChildrenComponent />
       </EditModeProvider>
     );
