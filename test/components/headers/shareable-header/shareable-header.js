@@ -98,6 +98,12 @@ describe('ShareableHeader component with button components', function () {
     wrapper.find(LinkHeaderButton).exists().should.be.false();
     wrapper.find(HeaderButton).exists().should.be.false();
   });
+
+  it('should render custom buttons', function () {
+    const wrapper = shallow(<ShareableHeader customButtons={ <div className='custom-buttons' /> } />);
+
+    wrapper.find('.custom-buttons').exists().should.be.true();
+  });
 });
 
 describe('ShareableHeader global click listener', function () {
