@@ -1,30 +1,26 @@
 import lodash from 'lodash';
 import { spy } from 'sinon';
 
+import { pairingCardTransform } from 'selectors/landing-page/common';
 import { cardsSelector, hasCards } from 'selectors/landing-page/activity-grid';
-import { RawOfficerCardFactory } from 'utils/test/factories/activity-grid.js';
+import { RawOfficerCardFactory, RawOfficersPairCardFactory } from 'utils/test/factories/activity-grid.js';
 
 
 describe('activity-grid selectors', function () {
-  let state;
-
-  beforeEach(function () {
-    state = {
-      landingPage: {
-        activityGrid: {},
-      },
-      pinboardPage: { pinboard: { 'officer_ids': ['1', '2', '3'] } },
-    };
+  const state = (cards, pinboard = {}) => ({
+    landingPage: {
+      activityGrid: { cards },
+    },
+    pinboardPage: { pinboard },
   });
 
   describe('cardsSelector', function () {
     it('should return a list of cards', function () {
-      state.landingPage.activityGrid.cards = RawOfficerCardFactory.buildList(40);
-      cardsSelector(state).should.have.length(40);
+      cardsSelector(state(RawOfficerCardFactory.buildList(40))).should.have.length(40);
     });
 
     it('should transform correctly', function () {
-      state.landingPage.activityGrid.cards = [{
+      const rawCards = [{
         id: 1,
         'full_name': 'someone',
         'visual_token_background_color': 'red',
@@ -82,31 +78,41 @@ describe('activity-grid selectors', function () {
         },
       };
 
-      const cards = cardsSelector(state);
+      const cards = cardsSelector(state(rawCards, { 'officer_ids': ['1', '2', '3'] }));
       cards.should.have.length(2);
       cards.forEach(card => card.should.eql(expectation[card.id]));
     });
 
     it('should shuffle cards', function () {
       const stubShuffle = spy(lodash, 'shuffle');
-      state.landingPage.activityGrid.cards = lodash.range(40);
 
-      cardsSelector(state);
+      cardsSelector(state(lodash.range(40)));
 
       stubShuffle.calledWith(lodash.range(0, 12)).should.be.true();
       stubShuffle.calledWith(lodash.range(12, 40)).should.be.true();
+    });
+
+    it('should return pairing card in the 1st position', function () {
+      const pairCards = RawOfficersPairCardFactory.buildList(2);
+      const singleCards = RawOfficerCardFactory.buildList(2);
+      const cards = cardsSelector(state([...singleCards, ...pairCards]));
+      const transformedPairCards = lodash.map(pairCards, (pairingCard) => {
+        const transformedCard = pairingCardTransform(pairingCard);
+        transformedCard.officer1['isPinned'] = false;
+        transformedCard.officer2['isPinned'] = false;
+        return transformedCard;
+      });
+      lodash.some(transformedPairCards, cards[0]).should.be.true();
     });
   });
 
   describe('hasCards', function () {
     it('should return true if activityGrid has data', function () {
-      state.landingPage.activityGrid.cards = ['abc'];
-      hasCards(state).should.be.true();
+      hasCards(state(['abc'])).should.be.true();
     });
 
     it('should return false if activityGrid does not have data', function () {
-      state.landingPage.activityGrid.cards = [];
-      hasCards(state).should.be.false();
+      hasCards(state([])).should.be.false();
     });
   });
 });
