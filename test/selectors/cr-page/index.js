@@ -8,6 +8,7 @@ import {
   getOfficerId,
   getDocumentAlreadyRequested,
   hasAttachmentsSelector,
+  isCrPinnedSelector,
 } from 'selectors/cr-page';
 import {
   InvestigatorFactory,
@@ -482,6 +483,36 @@ describe('CR page selectors', function () {
         },
       };
       hasAttachmentsSelector(state).should.be.true();
+    });
+  });
+
+  describe('isCrPinnedSelector', function () {
+    it('should return true if crid is in pinboardItems', function () {
+      const state = {
+        crPage: {
+          crid: '1000001',
+        },
+        pinboardPage: {
+          pinboard: {
+            crids: ['1000001', '1000002'],
+          },
+        },
+      };
+      isCrPinnedSelector(state).should.be.true();
+    });
+
+    it('should return false if crid is not in pinboardItems', function () {
+      const state = {
+        crPage: {
+          crid: '1000003',
+        },
+        pinboardPage: {
+          pinboard: {
+            crids: ['1000001', '1000002'],
+          },
+        },
+      };
+      isCrPinnedSelector(state).should.be.false();
     });
   });
 });

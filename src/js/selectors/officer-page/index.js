@@ -2,8 +2,10 @@ import { createSelector } from 'reselect';
 import { get, last, map, kebabCase } from 'lodash';
 import moment from 'moment';
 
-import { getThisYear, getCareerDuration } from 'utils/date';
+import { getThisYear, getCareerDuration, getCurrentAgeString } from 'utils/date';
 import { extractPercentile } from 'selectors/common/percentile';
+import { pinboardItemsSelector } from 'selectors/pinboard-page/pinboard';
+import { isItemPinned } from 'selectors/pinboard-page/pinboard';
 
 
 export const getOfficerInfo = state => state.officerPage.summary;
@@ -47,6 +49,7 @@ export const summarySelector = createSelector(
     rank: getSummaryRank(summary),
     dateOfAppt: summary['date_of_appt'],
     birthYear: summary['birth_year'],
+    age: getCurrentAgeString(summary['birth_year']),
     hasUniqueName: summary['has_unique_name'],
     race: summary.race,
     gender: summary.gender,
@@ -84,4 +87,10 @@ export const getOfficerPercentile = state => state.officerPage.summary.percentil
 export const officerYearlyThreePercentile = createSelector(
   [getOfficerPercentile],
   (officerPercentiles) => map(officerPercentiles, extractPercentile)
+);
+
+export const isOfficerPinnedSelector = createSelector(
+  getOfficerId,
+  pinboardItemsSelector,
+  (officerId, pinboardItems) => isItemPinned('OFFICER', officerId, pinboardItems)
 );
