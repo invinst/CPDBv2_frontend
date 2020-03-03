@@ -5,6 +5,7 @@ import {
   getCurrentTab,
   getEditModeOn,
   getZipFileUrl,
+  isOfficerPinnedSelector,
 } from 'selectors/officer-page';
 
 
@@ -86,6 +87,7 @@ describe('officer page selectors', function () {
         careerDescription: '2 years',
         careerDuration: 'SEP 23, 2015 — Present',
         birthYear: 1991,
+        age: '26-year-old',
         currentSalary: 100000,
         hasUniqueName: true,
       });
@@ -176,6 +178,36 @@ describe('officer page selectors', function () {
       };
 
       getCurrentTab(state).should.eql('TIMELINE');
+    });
+  });
+
+  describe('isOfficerPinnedSelector', function () {
+    it('should return true if officerId is in pinboardItems', function () {
+      const state = {
+        officerPage: {
+          officerId: '1',
+        },
+        pinboardPage: {
+          pinboard: {
+            'officer_ids': ['1', '2', '3'],
+          },
+        },
+      };
+      isOfficerPinnedSelector(state).should.be.true();
+    });
+
+    it('should return false if officerId is not in pinboardItems', function () {
+      const state = {
+        officerPage: {
+          officerId: '5',
+        },
+        pinboardPage: {
+          pinboard: {
+            'officer_ids': ['1', '2', '3'],
+          },
+        },
+      };
+      isOfficerPinnedSelector(state).should.be.false();
     });
   });
 });
