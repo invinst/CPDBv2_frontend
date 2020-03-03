@@ -1,7 +1,7 @@
 import { throttle, isEmpty, get, pick } from 'lodash';
 
 import axiosClient from 'utils/axios-client';
-import { V2_ROOT_PATH } from 'utils/constants';
+import { TRACKING_API_URL } from 'utils/constants';
 
 
 const analyticTrackingParams = ({ clickyData, gaData }) => {
@@ -24,7 +24,7 @@ const analyticTrackingParams = ({ clickyData, gaData }) => {
 
 const sendAnalyticTracking = (data) => {
   const callback = get(data, 'gaData.hitCallback');
-  axiosClient.post(`${V2_ROOT_PATH}tracking/`, analyticTrackingParams(data))
+  axiosClient.post(TRACKING_API_URL, analyticTrackingParams(data))
     .finally(() => {
       callback && callback();
     });

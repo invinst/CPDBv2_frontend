@@ -3,11 +3,11 @@ import { Promise } from 'es6-promise';
 
 import * as tracking from 'utils/tracking';
 import axiosClient from 'utils/axios-client';
-import { V2_ROOT_PATH } from 'utils/constants';
+import { TRACKING_API_URL } from 'utils/constants';
 
 
 describe('tracking utils', function () {
-  describe('ga and slicky script is loaded', function () {
+  describe('ga and clicky script is loaded', function () {
     beforeEach(function () {
       global.gaLoaded = true;
       stub(global, 'ga');
@@ -321,7 +321,7 @@ describe('tracking utils', function () {
           'page': undefined,
         },
       };
-      axiosClient.post.should.be.calledWith(`${V2_ROOT_PATH}tracking/`, expectedTrackingParams);
+      axiosClient.post.should.be.calledWith(TRACKING_API_URL, expectedTrackingParams);
     });
 
     describe('trackOutboundLink', function () {
@@ -344,7 +344,7 @@ describe('tracking utils', function () {
             'page': undefined,
           },
         };
-        axiosClient.post.should.be.calledWith(`${V2_ROOT_PATH}tracking/`, expectedTrackingParams);
+        axiosClient.post.should.be.calledWith(TRACKING_API_URL, expectedTrackingParams);
 
         window.open.should.be.calledOnce();
         window.open.should.be.calledWith('documentcloud.com', '_blank');
@@ -369,7 +369,7 @@ describe('tracking utils', function () {
             'page': '/officer/123/',
           },
         };
-        axiosClient.post.should.be.calledWith(`${V2_ROOT_PATH}tracking/`, expectedTrackingParams);
+        axiosClient.post.should.be.calledWith(TRACKING_API_URL, expectedTrackingParams);
       });
     });
   });
@@ -396,7 +396,7 @@ describe('tracking utils', function () {
           href: document.location.pathname,
           title: 'swipe_left_type',
         };
-        axiosClient.post.should.be.calledWith(`${V2_ROOT_PATH}tracking/`, { clicky: expectedClickyTrackingParams });
+        axiosClient.post.should.be.calledWith(TRACKING_API_URL, { clicky: expectedClickyTrackingParams });
       });
     });
   });
