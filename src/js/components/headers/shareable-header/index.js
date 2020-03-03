@@ -60,6 +60,8 @@ export default class ShareableHeader extends Component {
   }
 
   render() {
+    const { customButtons } = this.props;
+
     return (
       <div className={ `${styles.shareableHeader} no-print` }>
         <div className='shareable-header-header-placeholder'/>
@@ -70,6 +72,7 @@ export default class ShareableHeader extends Component {
               ref={ el => { this.placeholderElement = el; } }
             >
               { this.headerButton() }
+              { customButtons }
               <BreadcrumbContainer />
             </div>
           </div>
@@ -91,6 +94,7 @@ ShareableHeader.propTypes = {
   to: PropTypes.string,
   onOpen: PropTypes.func,
   onClose: PropTypes.func,
+  customButtons: PropTypes.element,
 };
 
 ShareableHeader.defaultProps = {

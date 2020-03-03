@@ -195,6 +195,11 @@ describe('landing page', function () {
       landingPage.recentActivityCarousel.leftArrow.waitForDisplayed(1000);
     });
 
+    it('should always display pairing card in 1st position', function () {
+      landingPage.recentActivityCarousel.firstCard.waitForDisplayed();
+      landingPage.recentActivityCarousel.firstCard.getAttribute('class').should.containEql('pairing-card');
+    });
+
     describe('Officer cards', function () {
       it('should go to officer summary page when clicking on officer card', function () {
         const firstCard = landingPage.recentActivityCarousel.cards;
