@@ -52,7 +52,7 @@ class DocumentPage extends Page {
       linkedDocumentsTitle: '.linked-documents-title',
       linkedDocumentsThumbnails: '.linked-documents-thumbnail',
       documentTitle: '.main-section-title .editable-text-box-text',
-      documentText: '.main-section-full-text .editable-text-box-text-multiline',
+      documentText: '.main-section-full-text .full-text-content',
       lastUpdatedBy: '.main-section-last-edited',
     });
   }
