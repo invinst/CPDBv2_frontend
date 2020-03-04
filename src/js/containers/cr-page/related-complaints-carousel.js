@@ -19,7 +19,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  fetchRelatedComplaints: fetchRelatedComplaints,
+  fetchRelatedComplaints,
   addOrRemoveItemInPinboard,
 };
 
