@@ -53,7 +53,7 @@ describe('officer page', function () {
     officerPage.summarySection.careerValue.getText().should.equal('SEP 23, 2015 — Present');
 
     officerPage.summarySection.rankLabel.getText().should.equal('Rank');
-    officerPage.summarySection.rankValue.getText().should.equal('NA');
+    officerPage.summarySection.rankValue.getText().should.equal('Police Officer');
     officerPage.summarySection.rankExtraInfo.getText().should.containEql('$100,000 base salary');
 
     officerPage.summarySection.raceLabel.getText().should.equal('Race');
@@ -479,44 +479,81 @@ describe('officer page', function () {
   });
 
   describe('Pinboard function', function () {
-    it('should display toast when pinning officer', function () {
-      officerPage.tabbedPaneSection.timelineSection.header.waitForDisplayed();
-      officerPage.tabbedPaneSection.coaccusalsTabName.click();
-      officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalGroupName.waitForDisplayed();
+    context('coaccusals officer', function () {
+      it('should display toast when pinning', function () {
+        officerPage.tabbedPaneSection.timelineSection.header.waitForDisplayed();
+        officerPage.tabbedPaneSection.coaccusalsTabName.click();
+        officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalGroupName.waitForDisplayed();
 
-      officerPage.tabbedPaneSection.coaccusalsSection.firstPinButton.click();
-      officerPage.lastToast.waitForDisplayed();
-      officerPage.lastToast.waitForText(
-        'Police Officer John Kelly 67-year-old white male, with 2 complaints, 1 sustained added.'
-      );
+        officerPage.tabbedPaneSection.coaccusalsSection.firstPinButton.click();
+        officerPage.lastToast.waitForDisplayed();
+        officerPage.lastToast.waitForText(
+          'Police Officer John Kelly 67-year-old white male, with 2 complaints, 1 sustained added.'
+        );
 
-      officerPage.landingPageBreadCrumb.click();
-      landingPage.searchSection.mainElement.waitForDisplayed();
-      landingPage.searchSection.mainElement.click();
-      searchPage.pinboardButton.waitForText('Pinboard (1)');
+        officerPage.landingPageBreadCrumb.click();
+        landingPage.searchSection.mainElement.waitForDisplayed();
+        landingPage.searchSection.mainElement.click();
+        searchPage.pinboardButton.waitForText('Pinboard (1)');
+      });
+
+      it('should display toast when unpinning', function () {
+        officerPage.tabbedPaneSection.timelineSection.header.waitForDisplayed();
+        officerPage.tabbedPaneSection.coaccusalsTabName.click();
+        officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalGroupName.waitForDisplayed();
+
+        officerPage.tabbedPaneSection.coaccusalsSection.firstPinButton.click();
+        officerPage.lastToast.waitForDisplayed();
+        officerPage.lastToast.waitForText(
+          'Police Officer John Kelly 67-year-old white male, with 2 complaints, 1 sustained added.'
+        );
+
+        officerPage.tabbedPaneSection.coaccusalsSection.firstPinButton.click();
+        officerPage.lastToast.waitForDisplayed();
+        officerPage.lastToast.waitForText(
+          'Police Officer John Kelly 67-year-old white male, with 2 complaints, 1 sustained removed.'
+        );
+
+        officerPage.landingPageBreadCrumb.click();
+        landingPage.searchSection.mainElement.waitForDisplayed();
+        landingPage.searchSection.mainElement.click();
+        searchPage.pinboardButton.waitForText('Pinboard (0)');
+      });
     });
 
-    it('should display toast when unpinning officer', function () {
-      officerPage.tabbedPaneSection.timelineSection.header.waitForDisplayed();
-      officerPage.tabbedPaneSection.coaccusalsTabName.click();
-      officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalGroupName.waitForDisplayed();
+    context('current officer', function () {
+      it('should display toast when pinning', function () {
+        officerPage.pinButton.click();
 
-      officerPage.tabbedPaneSection.coaccusalsSection.firstPinButton.click();
-      officerPage.lastToast.waitForDisplayed();
-      officerPage.lastToast.waitForText(
-        'Police Officer John Kelly 67-year-old white male, with 2 complaints, 1 sustained added.'
-      );
+        officerPage.lastToast.waitForDisplayed();
+        officerPage.lastToast.waitForText(
+          'Police Officer Bernadette Kelly 54-year-old White Male, with 1 complaints, 4 sustained added.'
+        );
 
-      officerPage.tabbedPaneSection.coaccusalsSection.firstPinButton.click();
-      officerPage.lastToast.waitForDisplayed();
-      officerPage.lastToast.waitForText(
-        'Police Officer John Kelly 67-year-old white male, with 2 complaints, 1 sustained removed.'
-      );
+        officerPage.landingPageBreadCrumb.click();
+        landingPage.searchSection.mainElement.waitForDisplayed();
+        landingPage.searchSection.mainElement.click();
+        searchPage.pinboardButton.waitForText('Pinboard (1)');
+      });
 
-      officerPage.landingPageBreadCrumb.click();
-      landingPage.searchSection.mainElement.waitForDisplayed();
-      landingPage.searchSection.mainElement.click();
-      searchPage.pinboardButton.waitForText('Pinboard (0)');
+      it('should display toast when unpinning', function () {
+        officerPage.pinButton.click();
+        officerPage.lastToast.waitForDisplayed();
+        officerPage.lastToast.waitForText(
+          'Police Officer Bernadette Kelly 54-year-old White Male, with 1 complaints, 4 sustained added.'
+        );
+
+        officerPage.pinButton.click();
+        officerPage.lastToast.waitForDisplayed();
+        officerPage.lastToast.waitForText(
+          'Police Officer Bernadette Kelly 54-year-old White Male, with 1 complaints, 4 sustained removed.'
+        );
+
+        officerPage.landingPageBreadCrumb.click();
+        landingPage.searchSection.mainElement.waitForDisplayed();
+        landingPage.searchSection.mainElement.click();
+        searchPage.pinboardButton.waitForText('Pinboard (0)');
+      });
     });
   });
 });

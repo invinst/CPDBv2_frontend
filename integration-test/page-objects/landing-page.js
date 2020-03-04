@@ -17,6 +17,7 @@ class RecentActivityCarouselSection extends CarouselSection {
       cardSelector
     );
     this.prepareElementGetters({
+      firstCard: '//div[contains(@class, "test--carousel--item")][1]//div[1]',
       pairCards: '//div[contains(@class, "pairing-card__pairing-card")]',
       firstPairCard: '(//div[contains(@class, "pairing-card__pairing-card")])[1]',
       firstPairCardLeftHalf: '(//div[contains(@class, "pairing-card__pairing-card")])[1]' +

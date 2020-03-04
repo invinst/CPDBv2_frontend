@@ -181,6 +181,7 @@ class OfficerPage extends Page {
 
     this.prepareElementGetters({
       element: '.test--bottom-sheet-wrapper',
+      pinButton: '.shareable-header-nav-bar div.pin-button',
       lastToast: '(//div[contains(@class, "Toastify__toast-body")])[last()]',
       landingPageBreadCrumb: '//a[contains(@class, "breadcrumb-item") and .="cpdp"]',
     });
