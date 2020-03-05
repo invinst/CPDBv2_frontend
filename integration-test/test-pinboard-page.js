@@ -889,6 +889,19 @@ describe('Empty Pinboard Page', function () {
 
   it('should render when there is no content', function () {
     pinboardPage.emptyPinboardSection.mainElement.waitForDisplayed();
+    pinboardPage.emptyPinboardSection.firstExampleTitle.getText().should.equal('Watts Crew');
+    pinboardPage.emptyPinboardSection.firstExampleDescription.getHTML().should.match(
+      /.*<p><strong>It will be a election<\/strong> and we are going to do the best <strong>Lorem.*<\/strong>.*/
+    );
+    const descriptionText = pinboardPage.emptyPinboardSection.firstExampleDescription.getText();
+    descriptionText.endsWith('...').should.be.true();
+    descriptionText.should.not.containEql(
+      'Lorem Ipsum has been the industry standard dummy text ever since the 1500s.'
+    );
+    pinboardPage.emptyPinboardSection.secondExampleTitle.getText().should.equal('Skullcap Crew');
+    pinboardPage.emptyPinboardSection.secondExampleDescription.getText().should.equal(
+      'Skullcap Crew is a nickname given to a group of five Chicago Police officers in a gang tactical.'
+    );
   });
 
   it('should go to Watts Crew pinboard page when clicking on Repeaters row', function () {
@@ -906,7 +919,7 @@ describe('Empty Pinboard Page', function () {
     browser.getUrl().should.match(/pinboard\/abcd1234\/skullcap-crew\//);
     pinboardPage.pinboardSection.title.getValue().should.equal('Skullcap Crew');
     pinboardPage.pinboardSection.description.getText().should.equal(
-      'Skullcap Crew is a nickname given to a group of five Chicago Police officers in a gang...'
+      'Skullcap Crew is a nickname given to a group of five Chicago Police officers in a gang.'
     );
     pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
   });

@@ -13,7 +13,9 @@ export const firstPage = {
     {
       'id': '18a5b091',
       'title': 'Pinboard 18a5b091 Title',
-      'description': '**It will be a tough election** and we are going to do the best we can he added',
+      'description': '**It will be a election** and we are going to do the best '
+        + '**Lorem Ipsum is simply dummy text of the printing and typesetting industry.**'
+        + 'Lorem Ipsum has been the industry standard dummy text ever since the 1500s.',
       'created_at': '2019-11-04T09:12:20.798703Z',
       'officers_count': 10,
       'allegations_count': 8,
@@ -397,7 +399,7 @@ export const firstPage = {
     {
       'id': 'f89e4312',
       'title': 'Something to live',
-      'description': 'It will be a tough election and we are going to do the best we can he added',
+      'description': 'It will be a election and we are going to do the best we can he added',
       'created_at': '2019-10-30T04:53:50.097047Z',
       'officers_count': 10,
       'allegations_count': 8,
@@ -1969,7 +1971,7 @@ export const searchPinboardTitle = {
     {
       'id': '18a5b091',
       'title': 'Pinboard 18a5b091 Title',
-      'description': 'It will be a tough election and we are going to do the best we can he added',
+      'description': 'It will be a election and we are going to do the best we can he added',
       'created_at': '2019-11-04T09:12:20.798703Z',
       'officers_count': 10,
       'allegations_count': 8,

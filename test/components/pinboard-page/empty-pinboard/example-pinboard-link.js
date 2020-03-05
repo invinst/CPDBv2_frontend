@@ -1,7 +1,7 @@
 import React from 'react';
 import { stub } from 'sinon';
 import { mount } from 'enzyme';
-import ReactMarkdown from 'react-markdown';
+import HTMLEllipsis from 'react-lines-ellipsis/lib/html';
 
 import ExamplePinboardLink from 'components/pinboard-page/empty-pinboard/example-pinboard-link';
 import styles from 'components/pinboard-page/empty-pinboard/example-pinboard-link.sass';
@@ -29,15 +29,11 @@ describe('ExamplePinboardLink component', function () {
     link.prop('className').should.equal(styles.examplePinboardLink);
     link.find('.title').text().should.equal('Pinboard 1');
 
-    const description = wrapper.find(ReactMarkdown);
+    const description = wrapper.find(HTMLEllipsis);
 
     description.exists().should.be.true();
     description.prop('className').should.equal('description');
-    description.prop('source').should.equal('**Description 1**');
-
-    const strongTag = description.find('strong');
-    strongTag.exists().should.be.true();
-    strongTag.text().should.equal('Description 1');
+    description.prop('unsafeHTML').trim().should.equal('<p><strong>Description 1</strong></p>');
 
     wrapper.find('.arrow').exists().should.be.true();
 
