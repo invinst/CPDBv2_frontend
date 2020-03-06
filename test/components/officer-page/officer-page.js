@@ -11,11 +11,13 @@ import SummarySection from 'components/officer-page/summary-section';
 import MetricsSection from 'components/officer-page/metrics-section';
 import TabbedPaneSection from 'components/officer-page/tabbed-pane-section';
 import OfficerRadarChart from 'components/officer-page/radar-chart';
-import { OFFICER_EDIT_TYPES, PINNED_ITEM_TYPES } from 'utils/constants';
+import { OFFICER_EDIT_TYPES } from 'utils/constants';
 import PrintNotes from 'components/common/print-notes';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import DownloadMenuContainer from 'containers/headers/shareable-header/download-menu-container';
+import PinboardsMenuContainer from 'containers/common/pinboards-menu-container';
 import * as tracking from 'utils/tracking';
+import styles from 'components/officer-page/officer-page.sass';
 
 
 describe('OfficerPage component', function () {
@@ -79,23 +81,8 @@ describe('OfficerPage component', function () {
     const shareableHeader = officerPage.find(ShareableHeaderContainer);
     shareableHeader.exists().should.be.true();
     const headerButtons = shareableHeader.prop('headerButtons');
-    const itemPinButton = headerButtons.props.children[0];
-    itemPinButton.props.item.should.be.eql({
-      type: PINNED_ITEM_TYPES.OFFICER,
-      id: 1,
-      isPinned: true,
-      fullName: 'Corey Flagg',
-      race: 'Asian',
-      gender: 'Male',
-      rank: 'Police Officer',
-      age: '39-year-old',
-      sustainedCount: 8,
-      complaintCount: 13,
-    });
-    itemPinButton.props.addOrRemoveItemInPinboard.should.eql(addOrRemoveItemInPinboardSpy);
-
-    const downloadButton = headerButtons.props.children[1];
-    downloadButton.props.Menu.should.equal(DownloadMenuContainer);
+    headerButtons.props.children[0].props.Menu.should.equal(PinboardsMenuContainer);
+    headerButtons.props.children[1].props.Menu.should.equal(DownloadMenuContainer);
   });
 
   it('should render correct document title and description', function () {
@@ -225,7 +212,7 @@ describe('OfficerPage component', function () {
         </MemoryRouter>
       </Provider>
     );
-    const headerButton = wrapper.find('.button');
+    const headerButton = wrapper.find(`.${styles.downloadBtn}`);
     headerButton.simulate('click');
     this.stubTrackOfficerDownloadMenu.should.be.calledWith(1234, 'open');
   });

@@ -5,8 +5,9 @@ import {
   getCurrentTab,
   getEditModeOn,
   getZipFileUrl,
-  isOfficerPinnedSelector,
+  pinnableOfficerSelector,
 } from 'selectors/officer-page';
+import { PINNED_ITEM_TYPES } from 'utils/constants';
 
 
 describe('officer page selectors', function () {
@@ -87,7 +88,6 @@ describe('officer page selectors', function () {
         careerDescription: '2 years',
         careerDuration: 'SEP 23, 2015 — Present',
         birthYear: 1991,
-        age: '26-year-old',
         currentSalary: 100000,
         hasUniqueName: true,
       });
@@ -181,33 +181,31 @@ describe('officer page selectors', function () {
     });
   });
 
-  describe('isOfficerPinnedSelector', function () {
-    it('should return true if officerId is in pinboardItems', function () {
-      const state = {
-        officerPage: {
-          officerId: '1',
-        },
-        pinboardPage: {
-          pinboard: {
-            'officer_ids': ['1', '2', '3'],
-          },
-        },
-      };
-      isOfficerPinnedSelector(state).should.be.true();
-    });
-
-    it('should return false if officerId is not in pinboardItems', function () {
-      const state = {
-        officerPage: {
-          officerId: '5',
-        },
-        pinboardPage: {
-          pinboard: {
-            'officer_ids': ['1', '2', '3'],
-          },
+  describe('pinnableOfficerSelector', function () {
+    it('should return correct data', function () {
+      state.officerPage = {
+        officerId: 739,
+        fullName: 'Willie Peoples',
+        summary: {
+          rank: 'Police Officer',
+          'birth_year': 1986,
+          race: 'White',
+          gender: 'Male',
+          'allegation_count': 12,
+          'sustained_count': 87,
         },
       };
-      isOfficerPinnedSelector(state).should.be.false();
+      pinnableOfficerSelector(state).should.eql({
+        age: '31-year-old',
+        complaintCount: 12,
+        fullName: 'Willie Peoples',
+        gender: 'Male',
+        id: 739,
+        race: 'White',
+        rank: 'Police Officer',
+        sustainedCount: 87,
+        type: PINNED_ITEM_TYPES.OFFICER,
+      });
     });
   });
 });

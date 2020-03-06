@@ -20,10 +20,10 @@ export const getPinboard = createSelector(
   pinboard => ({
     id: get(pinboard, 'id', null) !== null ? pinboard['id'].toString() : null,
     title: get(pinboard, 'title', ''),
+    description: get(pinboard, 'description', ''),
     officerIds: map(get(pinboard, 'officer_ids', []), (id) => (id.toString())),
     crids: get(pinboard, 'crids', []),
     trrIds: map(get(pinboard, 'trr_ids', []), (id) => (id.toString())),
-    description: get(pinboard, 'description', ''),
     url: generatePinboardUrl(pinboard),
     itemsCount: countPinnedItems(pinboard),
     isPinboardRestored: get(pinboard, 'isPinboardRestored', false),

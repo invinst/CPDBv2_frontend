@@ -4,7 +4,6 @@ import queryString from 'query-string';
 import { get } from 'lodash';
 
 import browserHistory from 'utils/history';
-import * as constants from 'utils/constants';
 import DocumentsTable from './documents-table';
 import SearchBar from 'components/common/search-bar';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';

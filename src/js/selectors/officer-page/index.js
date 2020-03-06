@@ -4,9 +4,7 @@ import moment from 'moment';
 
 import { getThisYear, getCareerDuration, getCurrentAgeString } from 'utils/date';
 import { extractPercentile } from 'selectors/common/percentile';
-import { pinboardItemsSelector } from 'selectors/pinboard-page/pinboard';
-import { isItemPinned } from 'selectors/pinboard-page/pinboard';
-
+import { PINNED_ITEM_TYPES } from 'utils/constants';
 
 export const getOfficerInfo = state => state.officerPage.summary;
 export const getCurrentTab = state => state.officerPage.currentTab;
@@ -49,7 +47,6 @@ export const summarySelector = createSelector(
     rank: getSummaryRank(summary),
     dateOfAppt: summary['date_of_appt'],
     birthYear: summary['birth_year'],
-    age: getCurrentAgeString(summary['birth_year']),
     hasUniqueName: summary['has_unique_name'],
     race: summary.race,
     gender: summary.gender,
@@ -82,15 +79,26 @@ export const metricsSelector = createSelector(
   }
 );
 
+export const pinnableOfficerSelector = createSelector(
+  getOfficerId,
+  getOfficerName,
+  getOfficerInfo,
+  (officerId, officerName, summary) => ({
+    type: PINNED_ITEM_TYPES.OFFICER,
+    id: officerId,
+    fullName: officerName,
+    race: summary.race,
+    gender: summary.gender,
+    rank: getSummaryRank(summary),
+    age: getCurrentAgeString(summary['birth_year']),
+    complaintCount: get(summary, 'allegation_count', DATA_NOT_AVAILABLE),
+    sustainedCount: get(summary, 'sustained_count', DATA_NOT_AVAILABLE),
+  })
+);
+
 export const getOfficerPercentile = state => state.officerPage.summary.percentiles;
 
 export const officerYearlyThreePercentile = createSelector(
   [getOfficerPercentile],
   (officerPercentiles) => map(officerPercentiles, extractPercentile)
-);
-
-export const isOfficerPinnedSelector = createSelector(
-  getOfficerId,
-  pinboardItemsSelector,
-  (officerId, pinboardItems) => isItemPinned('OFFICER', officerId, pinboardItems)
 );

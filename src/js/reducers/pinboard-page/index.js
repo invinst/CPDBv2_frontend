@@ -11,6 +11,7 @@ import trrItems from './trr-items';
 import redirect from './redirect';
 import pinboard from './pinboard';
 import pinboards from './pinboards';
+import pinboardsMenu from './pinboards-menu';
 import isShownPinboardsList from './is-shown-pinboards-list';
 import focusedItem from './focused-item';
 import timelineIdx from './timeline_idx';
@@ -33,6 +34,7 @@ export default combineReducers({
   redirect,
   pinboard,
   pinboards,
+  pinboardsMenu,
   isShownPinboardsList,
   focusedItem,
   timelineIdx,

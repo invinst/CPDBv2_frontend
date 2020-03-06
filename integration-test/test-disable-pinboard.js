@@ -166,8 +166,8 @@ describe('Disable pinboard feature', function () {
   describe('Officer page', function () {
     it('should not show pinned button on header', function () {
       officerPage.open();
-      officerPage.pinButton.waitForExist();
-      officerPage.pinButton.isDisplayed().should.be.false();
+      officerPage.addToPinboardButton.waitForExist();
+      officerPage.addToPinboardButton.isDisplayed().should.be.false();
     });
 
     it('should not show pinned button on coaccusals cards', function () {

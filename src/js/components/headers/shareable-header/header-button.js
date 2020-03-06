@@ -3,7 +3,6 @@ import React from 'react';
 import cx from 'classnames';
 
 import styles from './header-button.sass';
-import ShareMenu from 'components/headers/shareable-header/share-menu';
 
 export default class HeaderButton extends React.Component {
   constructor(props) {
@@ -13,16 +12,15 @@ export default class HeaderButton extends React.Component {
     };
   }
 
-  closeShareMenu = e => {
+  closeMenu = () => {
     if (this.state.menuIsOpen) {
       const { onClose } = this.props;
       onClose();
       this.setState({ menuIsOpen: false });
-      e.stopPropagation();
     }
   };
 
-  openShareMenu = () => {
+  openMenu = () => {
     const { onOpen } = this.props;
     onOpen();
     this.setState({ menuIsOpen: true });
@@ -30,33 +28,29 @@ export default class HeaderButton extends React.Component {
 
   render() {
     const { menuIsOpen } = this.state;
-    const { buttonText, Menu } = this.props;
-    const shareButtonHandler = menuIsOpen ? this.closeShareMenu : this.openShareMenu;
+    const { buttonClassName, Menu } = this.props;
+    const handleClick = menuIsOpen ? this.closeMenu : this.openMenu;
 
     return (
       <div className={ styles.headerButton }>
         <div
-          className={ cx('button', { focus: menuIsOpen }) }
-          onClick={ shareButtonHandler }
-        >
-          { buttonText }
-        </div>
-        { menuIsOpen ? <Menu closeShareMenu={ this.closeShareMenu }/> : null }
+          className={ cx(buttonClassName, { focus: menuIsOpen }) }
+          onClick={ handleClick }
+        />
+        { menuIsOpen ? <Menu closeMenu={ this.closeMenu }/> : null }
       </div>
     );
   }
 }
 
 HeaderButton.propTypes = {
-  buttonText: PropTypes.string,
   Menu: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
   onOpen: PropTypes.func,
   onClose: PropTypes.func,
+  buttonClassName: PropTypes.string,
 };
 
 HeaderButton.defaultProps = {
-  buttonText: '',
-  Menu: ShareMenu,
   onOpen: () => {},
   onClose: () => {},
 };

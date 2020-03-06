@@ -1,42 +1,46 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { stub } from 'sinon';
 
 import HeaderButton from 'components/headers/shareable-header/header-button';
-import ShareMenu from 'components/headers/shareable-header/share-menu';
 
+
+const Menu = (props) => (
+  <div>Menu</div>
+);
 
 describe('HeaderButton component', function () {
   let wrapper;
   beforeEach(function () {
     this.stubOnOpen = stub();
     this.stubOnClose = stub();
-    wrapper = shallow(
+    wrapper = mount(
       <HeaderButton
-        buttonText='Header button'
+        Menu={ Menu }
+        buttonClassName='button'
         onOpen={ this.stubOnOpen }
         onClose={ this.stubOnClose }
       />
     );
   });
 
-  it('should be render contents', function () {
-    const shareButtonDOMElement = wrapper.find('.button');
-    shareButtonDOMElement.text().should.equal('Header button');
-    wrapper.find(ShareMenu).exists().should.be.false();
+  it('should render contents', function () {
+    const instance = wrapper.instance();
+    const button = wrapper.find('.button');
+    button.prop('onClick').should.equal(instance.openMenu);
   });
 
   it('should close "share" menu by default', function () {
-    wrapper.state('shareMenuIsOpen').should.be.false();
-    wrapper.find(ShareMenu).exists().should.be.false();
+    wrapper.state('menuIsOpen').should.be.false();
+    wrapper.find(Menu).exists().should.be.false();
   });
 
   it('should toggle menu when being clicked', function () {
-    wrapper.find(ShareMenu).exists().should.be.false();
+    wrapper.find(Menu).exists().should.be.false();
     wrapper.find('.button').simulate('click');
-    wrapper.find(ShareMenu).exists().should.be.true();
+    wrapper.find(Menu).exists().should.be.true();
     wrapper.find('.button').simulate('click', { stopPropagation: () => {} });
-    wrapper.find(ShareMenu).exists().should.be.false();
+    wrapper.find(Menu).exists().should.be.false();
   });
 
   it('should call onOpen/onClose when opening/closing', function () {
@@ -46,25 +50,20 @@ describe('HeaderButton component', function () {
     this.stubOnClose.should.be.calledOnce();
   });
 
-  it('should add focus class name when shareMenuIsOpen', function () {
+  it('should add focus class name when menuIsOpen', function () {
     wrapper.find('.button').simulate('click');
 
     const shareButtonDOMElement = wrapper.find('.button');
     shareButtonDOMElement.hasClass('focus').should.be.true();
-    shareButtonDOMElement.hasClass('top').should.be.false();
   });
 
   it('Should render custom menu', function () {
-    function CustomMenu(props) {
-      return <div/>;
-    }
-
     const wrapper = shallow(
-      <HeaderButton scrollPosition='top' buttonText='Header button' Menu={ CustomMenu }/>
+      <HeaderButton buttonClassName='button' Menu={ Menu }/>
     );
 
     wrapper.find('.button').simulate('click');
 
-    wrapper.find(CustomMenu).exists().should.be.true();
+    wrapper.find(Menu).exists().should.be.true();
   });
 });
