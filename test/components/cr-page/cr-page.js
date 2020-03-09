@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
+import { spy } from 'sinon';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
@@ -8,14 +9,17 @@ import CRPage from 'components/cr-page';
 import SummaryRow from 'components/cr-page/summary-row';
 import ComplaintCategory from 'components/cr-page/complaint-category';
 import ComplaintIncidentDate from 'components/cr-page/complaint-incident-date';
+import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import RelatedComplaints from 'components/cr-page/related-complaints';
 import PrintNotes from 'components/common/print-notes';
 import { HelmetProvider } from 'react-helmet-async';
 import { PrintModeContext } from 'contexts';
+import { PINNED_ITEM_TYPES } from 'utils/constants';
 
 
 describe('CRPage component', function () {
   it('should render correctly', function () {
+    const addOrRemoveItemInPinboardSpy = spy();
     const wrapper = shallow(
       <CRPage
         crid={ '123456' }
@@ -26,6 +30,9 @@ describe('CRPage component', function () {
         victims={ ['Black, Male, Age 51'] }
         complainants={ ['Black, Male, Age 51'] }
         summary='abc'
+        isPinned={ true }
+        location={ { pathname: '/cr/123456/' } }
+        addOrRemoveItemInPinboard={ addOrRemoveItemInPinboardSpy }
       />
     );
     const crPage = shallow(wrapper.find('CRPage').get(0), { context: { printMode: false } });
@@ -42,6 +49,24 @@ describe('CRPage component', function () {
 
     const rowLabels = crPage.find(SummaryRow).map(element => element.prop('label'));
     rowLabels.should.containEql('VICTIM').and.containEql('COMPLAINANT').and.containEql('SUMMARY');
+
+    const attachments = crPage.find('Attachments');
+    attachments.prop('pathname').should.eql('/cr/123456/');
+
+    const accusedOfficers = crPage.find('AccusedOfficers');
+    accusedOfficers.prop('pathName').should.eql('/cr/123456/');
+
+    const shareableHeader = crPage.find(ShareableHeaderContainer);
+    shareableHeader.exists().should.be.true();
+    const itemPinButton = shareableHeader.prop('customButtons');
+    itemPinButton.props.item.should.be.eql({
+      type: PINNED_ITEM_TYPES.CR,
+      id: '123456',
+      isPinned: true,
+      incidentDate: '2012-12-05',
+      category: 'Some category',
+    });
+    itemPinButton.props.addOrRemoveItemInPinboard.should.eql(addOrRemoveItemInPinboardSpy);
   });
 
   it('should not render some parts when missing information', function () {

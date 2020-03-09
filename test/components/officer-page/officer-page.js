@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import { stub } from 'sinon';
+import { stub, spy } from 'sinon';
 import { HelmetProvider } from 'react-helmet-async';
 import { MemoryRouter } from 'react-router-dom';
 
@@ -11,7 +11,7 @@ import SummarySection from 'components/officer-page/summary-section';
 import MetricsSection from 'components/officer-page/metrics-section';
 import TabbedPaneSection from 'components/officer-page/tabbed-pane-section';
 import OfficerRadarChart from 'components/officer-page/radar-chart';
-import { OFFICER_EDIT_TYPES } from 'utils/constants';
+import { OFFICER_EDIT_TYPES, PINNED_ITEM_TYPES } from 'utils/constants';
 import PrintNotes from 'components/common/print-notes';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import DownloadMenuContainer from 'containers/headers/shareable-header/download-menu-container';
@@ -45,6 +45,7 @@ describe('OfficerPage component', function () {
     const triangleEditWrapperStateProps = { a: 1 };
     const scaleEditWrapperStateProps = { b: 2 };
     const noDataRadarChartEditWrapperStateProps = { c: 3 };
+    const addOrRemoveItemInPinboardSpy = spy();
 
     const wrapper = mount(
       <Provider store={ store }>
@@ -52,9 +53,14 @@ describe('OfficerPage component', function () {
           <HelmetProvider>
             <OfficerPage
               officerId={ 1 }
+              officerName={ 'Corey Flagg' }
+              officerSummary={ { race: 'Asian', gender: 'Male', rank: 'Police Officer', age: '39-year-old' } }
+              officerMetrics={ { sustainedCount: 8, allegationCount: 13 } }
               triangleEditWrapperStateProps={ triangleEditWrapperStateProps }
               scaleEditWrapperStateProps={ scaleEditWrapperStateProps }
               noDataRadarChartEditWrapperStateProps={ noDataRadarChartEditWrapperStateProps }
+              addOrRemoveItemInPinboard={ addOrRemoveItemInPinboardSpy }
+              isPinned={ true }
             />
           </HelmetProvider>
         </MemoryRouter>
@@ -69,6 +75,23 @@ describe('OfficerPage component', function () {
     officerRadarChart.prop('triangleEditWrapperStateProps').should.eql(triangleEditWrapperStateProps);
     officerRadarChart.prop('scaleEditWrapperStateProps').should.eql(scaleEditWrapperStateProps);
     officerRadarChart.prop('noDataRadarChartEditWrapperStateProps').should.eql(noDataRadarChartEditWrapperStateProps);
+
+    const shareableHeader = officerPage.find(ShareableHeaderContainer);
+    shareableHeader.exists().should.be.true();
+    const itemPinButton = shareableHeader.prop('customButtons');
+    itemPinButton.props.item.should.be.eql({
+      type: PINNED_ITEM_TYPES.OFFICER,
+      id: 1,
+      isPinned: true,
+      fullName: 'Corey Flagg',
+      race: 'Asian',
+      gender: 'Male',
+      rank: 'Police Officer',
+      age: '39-year-old',
+      sustainedCount: 8,
+      complaintCount: 13,
+    });
+    itemPinButton.props.addOrRemoveItemInPinboard.should.eql(addOrRemoveItemInPinboardSpy);
   });
 
   it('should render correct document title and description', function () {

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { omit } from 'lodash';
 
-import { contentSelector, getCRID, getDocumentAlreadyRequested } from 'selectors/cr-page';
+import { contentSelector, getCRID, getDocumentAlreadyRequested, isCrPinnedSelector } from 'selectors/cr-page';
 import CRPage from 'components/cr-page';
 import { openRequestDocumentModal } from 'actions/generic-modal';
 import { popupSelector } from 'selectors/popup';
@@ -28,6 +28,7 @@ function mapStateToProps(state, ownProps) {
     printHeader: `CR ${getCRID(state)}`,
     editModeOn: getEditModeOn(state),
     editableFields: getCMSFields(CR_PAGE_ID)(state),
+    isPinned: isCrPinnedSelector(state),
   };
 }
 

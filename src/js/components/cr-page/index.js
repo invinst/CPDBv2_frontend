@@ -16,21 +16,24 @@ import AccusedOfficers from './accused-officers';
 import RelatedComplaints from './related-complaints';
 import ComplaintCategory from 'components/cr-page/complaint-category';
 import ComplaintIncidentDate from 'components/cr-page/complaint-incident-date';
-import { POPUP_NAMES } from 'utils/constants';
-import styles from './cr-page.sass';
-import responsiveContainerStyles from 'components/common/responsive-container.sass';
+import { PINNED_ITEM_TYPES, POPUP_NAMES } from 'utils/constants';
 import Printable from 'components/common/higher-order/printable';
 import PrintNotes from 'components/common/print-notes';
 import PrintPreloadFonts from 'components/common/print-preload-fonts';
 import { PrintModeContext } from 'contexts';
+import ItemPinButton from 'components/common/item-pin-button';
+import styles from './cr-page.sass';
+import responsiveContainerStyles from 'components/common/responsive-container.sass';
+import shareableHeaderStyles from 'components/headers/shareable-header/shareable-header.sass';
+import pinButtonStyles from 'components/common/item-pin-button.sass';
 
 
 function CRPage(props) {
   const {
     crid, coaccused, complainants, alreadyRequested, category, subcategory,
     incidentDate, point, address, crLocation, beat, involvements, attachments,
-    openRequestDocumentModal, summary, victims, startDate, endDate, popup, pathname, notes,
-    noAttachmentTextEditWrapperStateProps, onTrackingAttachment, addOrRemoveItemInPinboard,
+    openRequestDocumentModal, summary, victims, startDate, endDate, popup, location: { pathname }, notes,
+    noAttachmentTextEditWrapperStateProps, onTrackingAttachment, addOrRemoveItemInPinboard, isPinned,
   } = props;
 
   const { printMode } = useContext(PrintModeContext);
@@ -42,7 +45,22 @@ function CRPage(props) {
         <title>{ `CR ${crid}` }</title>
       </Helmet>
       <div className={ styles.crPage }>
-        <ShareableHeaderContainer/>
+        <ShareableHeaderContainer
+          customButtons={
+            <ItemPinButton
+              addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
+              showHint={ false }
+              className={ cx(shareableHeaderStyles.headerButton, pinButtonStyles.headerPinButton) }
+              item={ {
+                type: PINNED_ITEM_TYPES.CR,
+                id: crid,
+                isPinned,
+                incidentDate,
+                category,
+              } }
+            />
+          }
+        />
         <div className={ cx(responsiveContainerStyles.responsiveContainer, 'top-content') }>
           <h1 className='cr-title no-print'>CR { crid }</h1>
           <ComplaintCategory
@@ -132,17 +150,22 @@ CRPage.propTypes = {
   openRequestDocumentModal: PropTypes.func,
   alreadyRequested: PropTypes.bool,
   popup: PropTypes.object,
-  pathname: PropTypes.string,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }),
   notes: PropTypes.array,
   noAttachmentTextEditWrapperStateProps: PropTypes.object,
   onTrackingAttachment: PropTypes.func,
   addOrRemoveItemInPinboard: PropTypes.func,
+  isPinned: PropTypes.bool,
 };
 
 CRPage.defaultProps = {
   victims: [],
   complainants: [],
   coaccused: [],
+  location: {},
+  isPinned: false,
 };
 
 export default Printable(CRPage);

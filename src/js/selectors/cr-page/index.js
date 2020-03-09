@@ -10,6 +10,7 @@ import { officerCardTransform } from 'selectors/common/officer-card';
 import { getDemographicString } from 'utils/victims';
 import { createWithIsPinnedSelector } from 'selectors/common/pinboard';
 import { PINNED_ITEM_TYPES } from 'utils/constants';
+import { isItemPinned, pinboardItemsSelector } from 'selectors/pinboard-page/pinboard';
 
 
 export const getEditModeOn = state => state.crPage.editModeOn;
@@ -200,3 +201,9 @@ export const contentSelector = createSelector(
 );
 
 export const hasAttachmentsSelector = state => !isEmpty(getAttachments(state));
+
+export const isCrPinnedSelector = createSelector(
+  getCRID,
+  pinboardItemsSelector,
+  (crid, pinboardItems) => isItemPinned('CR', crid, pinboardItems)
+);
