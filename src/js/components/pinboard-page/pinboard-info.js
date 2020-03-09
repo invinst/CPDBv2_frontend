@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import styles from './pinboard-info.sass';
+import AutosaveMarkdownTextareaInput from 'components/common/autosave-inputs/autosave-markdown-textarea-input';
 import AutosaveTextareaInput from 'components/common/autosave-inputs/autosave-textarea-input';
 
 
@@ -17,7 +18,7 @@ export default function PinboardInfo(props) {
         save={ updatePinboardInfo }
         textareaLineHeight={ 31 }
       />
-      <AutosaveTextareaInput
+      <AutosaveMarkdownTextareaInput
         className='pinboard-description'
         value={ pinboard.description }
         placeholder='When you’re ready, add a description for your pinboard here'

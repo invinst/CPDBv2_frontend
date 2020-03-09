@@ -104,4 +104,5 @@ PinboardPane.propTypes = {
 
 PinboardPane.defaultProps = {
   fetchPinboardStaticSocialGraph: () => {},
+  description: '',
 };

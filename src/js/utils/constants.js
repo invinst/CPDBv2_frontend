@@ -869,3 +869,9 @@ export const BREADCRUMB_DEFAULT_MAPPING = {
   [TRACKER_DOCUMENTS_OVERVIEW_PATH]: 'Documents Overview',
   [PINBOARD_ADMIN_PATH]: 'View all pinboards',
 };
+
+export const ELLIPSIS_CONFIG = {
+  basedOn: 'words',
+  ellipsis: '...',
+  maxLine: '3',
+};
