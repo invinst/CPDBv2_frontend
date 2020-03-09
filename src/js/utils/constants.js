@@ -79,6 +79,7 @@ export const SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL = `${V2_ROOT_PATH}social-graph
 export const PINBOARDS_URL = `${V2_ROOT_PATH}pinboards/`;
 export const ALL_PINBOARD_URL = `${V2_ROOT_PATH}pinboards/all/`;
 export const RECENT_SEARCH_ITEMS_API_URL = 'suggestion/recent-search-items/';
+export const TRACKING_API_URL = `${V2_ROOT_PATH}tracking/`;
 
 export const OFFICER_SUMMARY_REQUEST_START = 'OFFICER_SUMMARY_REQUEST_START';
 export const OFFICER_SUMMARY_REQUEST_SUCCESS = 'OFFICER_SUMMARY_REQUEST_SUCCESS';
