@@ -82,7 +82,7 @@ describe('Pinboard Admin Page', function () {
         pinboardAdminPage.pinboardPreviewPane.callToAction.getText().should.equal('View Pinboard');
         pinboardAdminPage.pinboardPreviewPane.title.getText().should.equal('Pinboard 18a5b091 Title');
         pinboardAdminPage.pinboardPreviewPane.description.getHTML().should.match(
-          /.*<p><strong>It will be a election<\/strong> and we are going to do the best <strong>Lorem.*<\/strong>.*/
+          /.*<p><strong>It will be a election<\/strong> and we are going to do the best <strong>.*Lorem.*<\/strong>.*/
         );
         const descriptionText = pinboardAdminPage.pinboardPreviewPane.description.getText();
         descriptionText.endsWith('...').should.be.true();
