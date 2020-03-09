@@ -7,7 +7,7 @@ export default () => ({
     'description': 'District 001',
   },
   'date_of_appt': '2015-09-23',
-  'rank': 'NA',
+  'rank': 'Police Officer',
   'race': 'White',
   'badge': '12345',
   'historic_badges': ['54321', '56789'],

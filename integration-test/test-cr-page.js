@@ -189,5 +189,39 @@ describe('CR page', function () {
       landingPage.searchSection.mainElement.click();
       searchPage.pinboardButton.waitForText('Pinboard (0)');
     });
+
+    context('current complaint', function () {
+      it('should display toast when pinning', function () {
+        crPage.pinButton.click();
+        crPage.lastToast.waitForDisplayed();
+        crPage.lastToast.waitForText(
+          'CR #1000000 categorized as Use Of Force happened in 2003-09-23 added.'
+        );
+
+        crPage.landingPageBreadCrumb.click();
+        landingPage.searchSection.mainElement.waitForDisplayed();
+        landingPage.searchSection.mainElement.click();
+        searchPage.pinboardButton.waitForText('Pinboard (1)');
+      });
+
+      it('should display toast when unpinning', function () {
+        crPage.pinButton.click();
+        crPage.lastToast.waitForDisplayed();
+        crPage.lastToast.waitForText(
+          'CR #1000000 categorized as Use Of Force happened in 2003-09-23 added.'
+        );
+
+        crPage.pinButton.click();
+        crPage.lastToast.waitForDisplayed();
+        crPage.lastToast.waitForText(
+          'CR #1000000 categorized as Use Of Force happened in 2003-09-23 removed.'
+        );
+
+        crPage.landingPageBreadCrumb.click();
+        landingPage.searchSection.mainElement.waitForDisplayed();
+        landingPage.searchSection.mainElement.click();
+        searchPage.pinboardButton.waitForText('Pinboard (0)');
+      });
+    });
   });
 });

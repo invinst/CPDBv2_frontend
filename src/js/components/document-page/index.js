@@ -13,6 +13,7 @@ import EditableTagsInput from './editable-tags-input';
 import FooterContainer from 'containers/footer-container';
 import { SHAREABLE_HEADER_BUTTON_TYPE } from 'utils/constants';
 import OutboundLink from 'components/common/outbound-link';
+import MinimalScrollBars from 'components/common/minimal-scroll-bars';
 
 
 export default function DocumentPage(props) {
@@ -27,7 +28,7 @@ export default function DocumentPage(props) {
     lastEditedDateTime,
     titleEditWrapperStateProps,
     tagsEditWrapperStateProps,
-    textContentEditWrapperStateProps,
+    fullText,
     isSignedIn,
     infoItems,
     nextDocumentId,
@@ -102,13 +103,15 @@ export default function DocumentPage(props) {
                 />
               ) : null
             }
-            <EditableTextBox
-              className='main-section-full-text'
-              title='Full-text OCR'
-              fieldName='textContent'
-              multiline={ true }
-              editWrapperStateProps={ textContentEditWrapperStateProps }
-            />
+
+            <div className='main-section-full-text'>
+              <div className='full-text-title'>Full-text OCR</div>
+              <div className='full-text-wrapper'>
+                <MinimalScrollBars viewClassName='full-text-scroll-bar'>
+                  <div className='full-text-content'>{ fullText }</div>
+                </MinimalScrollBars>
+              </div>
+            </div>
             <div className='main-section-last-edited'>
               This document was last edited{ lastUpdatedBy ? ' by ' : '' }
               <span className='last-edited-highlight'>{ lastUpdatedBy } { lastEditedDateTime }</span>
@@ -135,7 +138,6 @@ DocumentPage.propTypes = {
   lastEditedDateTime: PropTypes.string,
   titleEditWrapperStateProps: PropTypes.object,
   tagsEditWrapperStateProps: PropTypes.object,
-  textContentEditWrapperStateProps: PropTypes.object,
   isSignedIn: PropTypes.bool,
   infoItems: PropTypes.array,
   nextDocumentId: PropTypes.number,
