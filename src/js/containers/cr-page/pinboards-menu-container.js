@@ -1,16 +1,15 @@
 import { connect } from 'react-redux';
 
 import PinboardsMenu from 'components/common/pinboard/pinboards-menu';
-import { pinboardsMenuSelector } from 'selectors/pinboard-page/pinboards-menu';
-import { pinnableOfficerSelector } from 'selectors/officer-page/index';
+import { pinnableCrSelector } from 'selectors/cr-page';
 import { fetchPinboardsMenu, fetchPinboard, createPinboard, addOrRemoveItemInPinboard } from 'actions/pinboard';
+import { crPinboardsMenuSelector } from 'selectors/cr-page/pinboards-menu';
 
 
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
-  pinboards: pinboardsMenuSelector(state),
-  item: pinnableOfficerSelector(state),
-
+  pinboards: crPinboardsMenuSelector(state),
+  item: pinnableCrSelector(state),
 });
 
 const mapDispatchToProps = {

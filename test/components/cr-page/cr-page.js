@@ -14,7 +14,7 @@ import RelatedComplaints from 'components/cr-page/related-complaints';
 import PrintNotes from 'components/common/print-notes';
 import { HelmetProvider } from 'react-helmet-async';
 import { PrintModeContext } from 'contexts';
-import { PINNED_ITEM_TYPES } from 'utils/constants';
+import PinboardsMenuContainer from 'containers/cr-page/pinboards-menu-container';
 
 
 describe('CRPage component', function () {
@@ -58,15 +58,8 @@ describe('CRPage component', function () {
 
     const shareableHeader = crPage.find(ShareableHeaderContainer);
     shareableHeader.exists().should.be.true();
-    const itemPinButton = shareableHeader.prop('headerButtons');
-    itemPinButton.props.item.should.be.eql({
-      type: PINNED_ITEM_TYPES.CR,
-      id: '123456',
-      isPinned: true,
-      incidentDate: '2012-12-05',
-      category: 'Some category',
-    });
-    itemPinButton.props.addOrRemoveItemInPinboard.should.eql(addOrRemoveItemInPinboardSpy);
+    const headerButtons = shareableHeader.prop('headerButtons');
+    headerButtons.props.Menu.should.equal(PinboardsMenuContainer);
   });
 
   it('should not render some parts when missing information', function () {

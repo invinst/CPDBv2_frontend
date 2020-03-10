@@ -15,7 +15,7 @@ import { OFFICER_EDIT_TYPES } from 'utils/constants';
 import PrintNotes from 'components/common/print-notes';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import DownloadMenuContainer from 'containers/headers/shareable-header/download-menu-container';
-import PinboardsMenuContainer from 'containers/common/pinboards-menu-container';
+import PinboardsMenuContainer from 'containers/officer-page/pinboards-menu-container';
 import * as tracking from 'utils/tracking';
 import styles from 'components/officer-page/officer-page.sass';
 

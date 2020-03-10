@@ -11,7 +11,7 @@ import MetricsSection from './metrics-section';
 import TabbedPaneSection from './tabbed-pane-section';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import DownloadMenuContainer from 'containers/headers/shareable-header/download-menu-container';
-import PinboardsMenuContainer from 'containers/common/pinboards-menu-container';
+import PinboardsMenuContainer from 'containers/officer-page/pinboards-menu-container';
 import FooterContainer from 'containers/footer-container';
 import { POPUP_NAMES } from 'utils/constants';
 import Printable from 'components/common/higher-order/printable';
@@ -21,6 +21,7 @@ import * as tracking from 'utils/tracking';
 import { PrintModeContext } from 'contexts';
 import styles from './officer-page.sass';
 import HeaderButton from 'components/headers/shareable-header/header-button';
+import headerStyles from 'components/headers/shareable-header/shareable-header.sass';
 
 
 function OfficerPage(props) {
@@ -71,7 +72,7 @@ function OfficerPage(props) {
           headerButtons={
             <React.Fragment>
               <HeaderButton
-                buttonClassName={ cx(styles.addToPinboardBtn, 'pinboard-feature') }
+                buttonClassName={ cx(headerStyles.addToPinboardBtn, 'pinboard-feature') }
                 Menu={ PinboardsMenuContainer }
               />
               <HeaderButton

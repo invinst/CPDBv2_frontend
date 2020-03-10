@@ -166,8 +166,8 @@ describe('Disable pinboard feature', function () {
   describe('Officer page', function () {
     it('should not show pinned button on header', function () {
       officerPage.open();
-      officerPage.addToPinboardButton.waitForExist();
-      officerPage.addToPinboardButton.isDisplayed().should.be.false();
+      officerPage.pinboardsMenuSection.addToPinboardButton.waitForExist();
+      officerPage.pinboardsMenuSection.addToPinboardButton.isDisplayed().should.be.false();
     });
 
     it('should not show pinned button on coaccusals cards', function () {
@@ -183,8 +183,8 @@ describe('Disable pinboard feature', function () {
   describe('CR page', function () {
     it('should not show pinned button on header', function () {
       crPage.open();
-      crPage.pinButton.waitForExist();
-      crPage.pinButton.isDisplayed().should.be.false();
+      crPage.pinboardsMenuSection.addToPinboardButton.waitForExist();
+      crPage.pinboardsMenuSection.addToPinboardButton.isDisplayed().should.be.false();
     });
 
     it('should not show pinned button on accused officer cards', function () {

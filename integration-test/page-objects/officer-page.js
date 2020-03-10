@@ -2,6 +2,7 @@ import { each } from 'lodash';
 
 import Page from './page';
 import Section from './sections/section';
+import PinboardsMenuSection from './sections/pinboards-menu';
 
 
 class SummarySection extends Section {
@@ -170,34 +171,6 @@ class RadarChartSection extends Section {
   }
 }
 
-const nthMenuItemTitle = (n) => `(//div[@class="pinboard-title"])[${n}]`;
-const nthMenuItemCreatedAt = (n) => `(//div[@class="pinboard-created-at"])[${n}]`;
-const nthPinButton = (n) => `(//div[@class="pin-button"])[${n}]`;
-
-class PinboardsMenuSection extends Section {
-  constructor() {
-    super();
-    this.itemsSelector = '//div[contains(@class, "pinboard-item")]';
-    this.prepareElementGetters({
-      container: '//div[contains(@class, "pinboards-menu")]',
-      firstItemTitle: nthMenuItemTitle(1),
-      firstItemCreatedAt: nthMenuItemCreatedAt(1),
-      firstItemPinButton: nthPinButton(1),
-      secondItemTitle: nthMenuItemTitle(2),
-      secondItemCreatedAt: nthMenuItemCreatedAt(2),
-      secondItemPinButton: nthPinButton(2),
-      thirdItemTitle: nthMenuItemTitle(3),
-      thirdItemCreatedAt: nthMenuItemCreatedAt(3),
-      thirdItemPinButton: nthPinButton(3),
-      createPinboardWithSelectionButton: '//div[@class="create-pinboard-with-selection"]',
-    });
-  }
-  items() {
-    return $$(this.itemsSelector);
-  }
-}
-
-
 class OfficerPage extends Page {
   summarySection = new SummarySection();
   tabbedPaneSection = new TabbedPaneSection();
@@ -209,7 +182,6 @@ class OfficerPage extends Page {
 
     this.prepareElementGetters({
       element: '.test--bottom-sheet-wrapper',
-      addToPinboardButton: '//div[contains(@class, "add-to-pinboard-btn")]',
       lastToast: '(//div[contains(@class, "Toastify__toast-body")])[last()]',
       landingPageBreadCrumb: '//a[contains(@class, "breadcrumb-item") and .="cpdp"]',
     });

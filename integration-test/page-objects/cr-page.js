@@ -2,6 +2,7 @@ import Page from './page';
 import Section from './sections/section';
 import DocumentRequestModalSection from './sections/document-request-modal';
 import BaseCarouselSection from './sections/carousel';
+import PinboardsMenuSection from './sections/pinboards-menu';
 
 
 class AccusedOfficerCard extends Section {
@@ -155,6 +156,7 @@ class CRPage extends Page {
   relatedByCategoriesCarousel = new CarouselSection('categories');
   distanceDropdown = new DistanceDropdown();
   documentRequestModal = new DocumentRequestModalSection();
+  pinboardsMenuSection = new PinboardsMenuSection();
 
   constructor() {
     super();
@@ -162,7 +164,6 @@ class CRPage extends Page {
     this.prepareElementGetters({
       title: '.cr-title',
       category: '.test--cr-category-wrapper',
-      pinButton: '.shareable-header-nav-bar div.pin-button',
       incidentDate: '.cr-incident-date-value',
       investigationTimeline: '.investigator-timeline-text',
       lastToast: '(//div[contains(@class, "Toastify__toast-body")])[last()]',

@@ -16,16 +16,16 @@ import AccusedOfficers from './accused-officers';
 import RelatedComplaints from './related-complaints';
 import ComplaintCategory from 'components/cr-page/complaint-category';
 import ComplaintIncidentDate from 'components/cr-page/complaint-incident-date';
-import { PINNED_ITEM_TYPES, POPUP_NAMES } from 'utils/constants';
+import { POPUP_NAMES } from 'utils/constants';
 import Printable from 'components/common/higher-order/printable';
 import PrintNotes from 'components/common/print-notes';
 import PrintPreloadFonts from 'components/common/print-preload-fonts';
 import { PrintModeContext } from 'contexts';
-import ItemPinButton from 'components/common/item-pin-button';
 import styles from './cr-page.sass';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
-import shareableHeaderStyles from 'components/headers/shareable-header/shareable-header.sass';
-import pinButtonStyles from 'components/common/item-pin-button.sass';
+import PinboardsMenuContainer from 'containers/cr-page/pinboards-menu-container';
+import HeaderButton from 'components/headers/shareable-header/header-button';
+import headerStyles from 'components/headers/shareable-header/shareable-header.sass';
 
 
 function CRPage(props) {
@@ -33,7 +33,7 @@ function CRPage(props) {
     crid, coaccused, complainants, alreadyRequested, category, subcategory,
     incidentDate, point, address, crLocation, beat, involvements, attachments,
     openRequestDocumentModal, summary, victims, startDate, endDate, popup, location: { pathname }, notes,
-    noAttachmentTextEditWrapperStateProps, onTrackingAttachment, addOrRemoveItemInPinboard, isPinned,
+    noAttachmentTextEditWrapperStateProps, onTrackingAttachment, addOrRemoveItemInPinboard,
   } = props;
 
   const { printMode } = useContext(PrintModeContext);
@@ -47,17 +47,9 @@ function CRPage(props) {
       <div className={ styles.crPage }>
         <ShareableHeaderContainer
           headerButtons={
-            <ItemPinButton
-              addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
-              showHint={ false }
-              className={ cx(shareableHeaderStyles.headerButton, pinButtonStyles.headerPinButton) }
-              item={ {
-                type: PINNED_ITEM_TYPES.CR,
-                id: crid,
-                isPinned,
-                incidentDate,
-                category,
-              } }
+            <HeaderButton
+              buttonClassName={ cx(headerStyles.addToPinboardBtn, 'pinboard-feature') }
+              Menu={ PinboardsMenuContainer }
             />
           }
         />

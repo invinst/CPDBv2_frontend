@@ -73,6 +73,17 @@ export default ({
       'crids': [],
       'trr_ids': [],
     },
+    {
+      'title': 'Skrull Cap',
+      'description': '',
+      'officer_ids': [
+        '13937',
+        '83473',
+        '81234',
+      ],
+      'crids': ['1000000'],
+      'trr_ids': [],
+    },
   ],
   updatedPinboards: [
     {
@@ -89,10 +100,26 @@ export default ({
       ],
       'trr_ids': [],
     },
+    {
+      'id': '8d2daffe',
+      'title': 'Skrull Cap',
+      'description': '',
+      'created_at': '2020-03-09',
+      'crids': ['1000000'],
+      'officer_ids': [
+        13937,
+        83473,
+        81234,
+      ],
+      'trr_ids': [],
+    },
   ],
   createPinboardRequestParams: [
     {
       'officer_ids': [1],
+    },
+    {
+      'crids': ['1000000'],
     },
   ],
   createdPinboards: [
@@ -101,6 +128,14 @@ export default ({
       'title': '',
       'officer_ids': [1],
       'crids': [],
+      'trr_ids': [],
+      'description': '',
+    },
+    {
+      'id': 'f7295a74',
+      'title': '',
+      'officer_ids': [],
+      'crids': ['1000000'],
       'trr_ids': [],
       'description': '',
     },

@@ -1,6 +1,6 @@
-import { pinboardsMenuSelector } from 'selectors/pinboard-page/pinboards-menu';
+import { officerPinboardsMenuSelector } from 'selectors/officer-page/pinboards-menu';
 
-describe('pinboardsMenuSelector', function () {
+describe('officerPinboardsMenuSelector', function () {
   it('should return pinboards menu correctly', function () {
     const state = {
       pinboardPage: {
@@ -41,7 +41,7 @@ describe('pinboardsMenuSelector', function () {
         officerId: 864,
       },
     };
-    pinboardsMenuSelector(state).should.eql([
+    officerPinboardsMenuSelector(state).should.eql([
       {
         id: '73fje',
         title: 'Pinboard 73fje',

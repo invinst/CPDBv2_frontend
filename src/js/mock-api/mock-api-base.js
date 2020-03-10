@@ -823,6 +823,21 @@ axiosMockClient
   .reply(200, [getSummaryData()]);
 // === End test current officer pinboard feature ===
 
+// === Test current cr pinboard feature ===
+axiosMockClient
+  .onPut(`${PINBOARDS_URL}8d2daffe/`, pinboardsMenu.updateRequestParams[1])
+  .reply(200, pinboardsMenu.updatedPinboards[1]);
+axiosMockClient
+  .onPost(PINBOARDS_URL, pinboardsMenu.createPinboardRequestParams[1])
+  .reply(201, pinboardsMenu.createdPinboards[1]);
+axiosMockClient
+  .onGet(`${PINBOARDS_URL}${pinboardsMenu.createdPinboards[1].id}/`)
+  .reply(201, pinboardsMenu.createdPinboards[1]);
+axiosMockClient
+  .onGet(`${PINBOARDS_URL}${pinboardsMenu.createdPinboards[1].id}/complaints/`)
+  .reply(200, [getCRData()]);
+// === End current cr pinboard feature ===
+
 axiosMockClient.onPost(`${PINBOARDS_URL}`).reply(201, createPinboard());
 axiosMockClient.onGet(PINBOARDS_URL).reply(200, pinboardsList);
 

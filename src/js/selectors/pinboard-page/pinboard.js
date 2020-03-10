@@ -2,6 +2,7 @@ import { get, isEmpty, map, includes, every } from 'lodash';
 import { createSelector } from 'reselect';
 
 import { generatePinboardUrl, isEmptyPinboard } from 'utils/pinboard';
+import { PINNED_ITEM_TYPES } from 'utils/constants';
 
 
 const getRawPinboard = state => get(state, 'pinboardPage.pinboard', {});
@@ -15,15 +16,19 @@ const countPinnedItems = pinboard => {
     get(pinboard, 'trr_ids', []).length;
 };
 
+export const pinboardPinnedItemsTransform = (pinboard) => ({
+  officerIds: map(get(pinboard, 'officer_ids', []), (id) => (id.toString())),
+  crids: get(pinboard, 'crids', []),
+  trrIds: map(get(pinboard, 'trr_ids', []), (id) => (id.toString())),
+});
+
 export const getPinboard = createSelector(
   getRawPinboard,
   pinboard => ({
     id: get(pinboard, 'id', null) !== null ? pinboard['id'].toString() : null,
     title: get(pinboard, 'title', ''),
     description: get(pinboard, 'description', ''),
-    officerIds: map(get(pinboard, 'officer_ids', []), (id) => (id.toString())),
-    crids: get(pinboard, 'crids', []),
-    trrIds: map(get(pinboard, 'trr_ids', []), (id) => (id.toString())),
+    ...pinboardPinnedItemsTransform(pinboard),
     url: generatePinboardUrl(pinboard),
     itemsCount: countPinnedItems(pinboard),
     isPinboardRestored: get(pinboard, 'isPinboardRestored', false),
@@ -43,13 +48,15 @@ export const isPinboardRestoredSelector = createSelector(
   pinboard => get(pinboard, 'isPinboardRestored', false),
 );
 
+export const pinboardPinnedItemsMapping = ({ officerIds, crids, trrIds }) => ({
+  [PINNED_ITEM_TYPES.OFFICER]: officerIds,
+  [PINNED_ITEM_TYPES.CR]: crids,
+  [PINNED_ITEM_TYPES.TRR]: trrIds,
+});
+
 export const pinboardItemsSelector = createSelector(
   getPinboard,
-  ({ officerIds, crids, trrIds }) => ({
-    'OFFICER': officerIds,
-    'CR': crids,
-    'TRR': trrIds,
-  })
+  pinboardPinnedItemsMapping,
 );
 
 export const isItemPinned = (pinnedItemType, id, pinboardItems) => includes(pinboardItems[pinnedItemType], String(id));
