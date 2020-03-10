@@ -197,7 +197,6 @@ describe('store', function () {
         titleEditModeOn: false,
         suggestionTags: [],
         tagsErrorMessages: null,
-        textContentEditModeOn: false,
       },
       genericModal: {
         activeModal: null,

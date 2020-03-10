@@ -1,16 +1,21 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import Truncate from 'react-truncate';
+import HTMLEllipsis from 'react-lines-ellipsis/lib/html';
+import marked from 'marked';
 
+import { ELLIPSIS_CONFIG } from 'utils/constants';
 import styles from './title-widget.sass';
 
 
-export default function TitleWidget(props) {
-  const { title, subtitle } = props;
+export default function TitleWidget({ title, subtitle }) {
   return (
     <div className={ styles.titleWidget }>
       <div className='title-widget-title'>{ title }</div>
-      <Truncate className='title-widget-subtitle' lines={ 3 } trimWhitespace={ true }>{ subtitle }</Truncate>
+      <HTMLEllipsis
+        { ...ELLIPSIS_CONFIG }
+        className='title-widget-subtitle'
+        unsafeHTML={ marked(subtitle) }
+      />
     </div>
   );
 }

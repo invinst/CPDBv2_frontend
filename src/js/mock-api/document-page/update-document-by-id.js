@@ -1,14 +1,12 @@
 const updateTagParams = (tags = []) => ({
   'id': 1,
   'title': 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)',
-  'text_content': 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE',
   'tags': tags,
 });
 
 const updateParamsFailure = {
   'id': 1,
   'title': 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)',
-  'text_content': 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE',
   'tags': ['hospital', 'tactical', 'This is a tag with more than 20 characters'],
 };
 
