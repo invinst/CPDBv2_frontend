@@ -53,7 +53,7 @@ class PinboardPreviewPane extends Section {
     this.prepareElementGetters({
       callToAction: '//div[contains(@class, "new-call-to-action-widget")]',
       title: '//div[@class="title-widget-title"]',
-      description: '//span[@class="title-widget-subtitle"]',
+      description: '//div[contains(@class, "title-widget-subtitle")]',
       info: PinboardInfo,
       socialGraph: '//div[@class="static-social-graph"]',
     });

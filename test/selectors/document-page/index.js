@@ -3,7 +3,6 @@ import moment from 'moment-timezone';
 import {
   getTitleEditModeOn,
   getTagsEditModeOn,
-  getTextContentEditModeOn,
   getTagsErrorMessages,
   documentSelector,
   documentEditableFieldsSelector,
@@ -27,16 +26,6 @@ describe('Document selectors', function () {
       getTagsEditModeOn({
         documentPage: {
           tagsEditModeOn: true,
-        },
-      }).should.eql(true);
-    });
-  });
-
-  describe('getTextContentEditModeOn', function () {
-    it('should return correct result', function () {
-      getTextContentEditModeOn({
-        documentPage: {
-          textContentEditModeOn: true,
         },
       }).should.eql(true);
     });
@@ -91,7 +80,6 @@ describe('Document selectors', function () {
           'notifications_count': 10,
         },
         titleEditModeOn: false,
-        textContentEditModeOn: false,
       },
     };
 
@@ -183,7 +171,6 @@ describe('Document selectors', function () {
             'text_content': 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE',
           },
           titleEditModeOn: false,
-          textContentEditModeOn: false,
         },
       }).should.eql({
         attachmentId: {
@@ -201,11 +188,6 @@ describe('Document selectors', function () {
           key: 'tags',
           value: ['123', '456'],
         },
-        textContent: {
-          type: 'string',
-          key: 'text_content',
-          value: 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE',
-        },
       });
     });
 
@@ -218,7 +200,6 @@ describe('Document selectors', function () {
           },
           titleEditModeOn: false,
           tagsEditModeOn: false,
-          textContentEditModeOn: false,
         },
       }).should.eql({
         attachmentId: {
@@ -235,11 +216,6 @@ describe('Document selectors', function () {
           type: 'array',
           key: 'tags',
           value: [],
-        },
-        textContent: {
-          type: 'string',
-          key: 'text_content',
-          value: '',
         },
       });
     });

@@ -4,8 +4,6 @@ import {
   fetchDocument,
   turnOnDocumentPageTitleEditMode,
   turnOffDocumentPageTitleEditMode,
-  turnOnDocumentTextContentEditMode,
-  turnOffDocumentTextContentEditMode,
   updateDocument,
   turnOnDocumentTagsEditMode,
   turnOffDocumentTagsEditMode,
@@ -21,8 +19,6 @@ import {
   UPDATE_DOCUMENT_PAGE_REQUEST_SUCCESS,
   UPDATE_DOCUMENT_PAGE_REQUEST_FAILURE,
   TURN_OFF_DOCUMENT_TITLE_EDIT_MODE,
-  TURN_ON_DOCUMENT_TEXT_CONTENT_EDIT_MODE,
-  TURN_OFF_DOCUMENT_TEXT_CONTENT_EDIT_MODE,
   TURN_ON_TAGS_EDIT_MODE,
   TURN_OFF_TAGS_EDIT_MODE,
   FETCH_DOCUMENT_SUGGESTION_TAGS_START,
@@ -107,24 +103,6 @@ describe('DocumentPage actions', function () {
     it('should return correct action', function () {
       turnOffDocumentPageTitleEditMode().should.eql({
         type: TURN_OFF_DOCUMENT_TITLE_EDIT_MODE,
-        payload: undefined,
-      });
-    });
-  });
-
-  describe('turnOnDocumentTextContentEditMode action', function () {
-    it('should return correct action', function () {
-      turnOnDocumentTextContentEditMode().should.eql({
-        type: TURN_ON_DOCUMENT_TEXT_CONTENT_EDIT_MODE,
-        payload: undefined,
-      });
-    });
-  });
-
-  describe('turnOffDocumentTextContentEditMode action', function () {
-    it('should return correct action', function () {
-      turnOffDocumentTextContentEditMode().should.eql({
-        type: TURN_OFF_DOCUMENT_TEXT_CONTENT_EDIT_MODE,
         payload: undefined,
       });
     });
