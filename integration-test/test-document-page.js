@@ -126,6 +126,9 @@ describe('Document page', function () {
     });
 
     it('should be able to update document tags by autosuggest', function () {
+      browser.refresh();
+      $('body').waitForDisplayed();
+
       documentPage.tagsSection.tags.count.should.equal(2);
       documentPage.tagsSection.firstTag.getText().should.equal('hospital');
       documentPage.tagsSection.secondTag.getText().should.equal('tactical');

@@ -49,9 +49,9 @@ import { fetchAllPinboards } from 'actions/pinboard-admin-page';
 import { fetchVideoInfo } from 'actions/headers/slim-header';
 import { hasVideoInfoSelector } from 'selectors/headers/slim-header';
 import { dispatchFetchPinboardPageData, dispatchFetchPinboardPinnedItems } from 'utils/pinboard';
+import { isSignedInFromCookie } from 'utils/authentication';
 import { fetchToast } from 'actions/toast';
 import { hasToastsSelector } from 'selectors/toast';
-import { isSignedIn } from 'selectors/authentication';
 
 let prevPathname = '';
 
@@ -59,10 +59,10 @@ const getMatchQuery = (action) => {
   return queryString.parse(get(action.payload.location, 'search', ''))['match'] || '';
 };
 
-const handleFetchingDocumentPage = (dispatches, state, store, pathname) => {
+const handleFetchingDocumentPage = (dispatches, store, pathname) => {
   const documentId = getDocumentId(pathname);
   dispatches.push(store.dispatch(fetchDocument(documentId)));
-  if (isSignedIn(state)) {
+  if (isSignedInFromCookie()) {
     store.dispatch(fetchDocumentSuggestionTags());
   }
 };
@@ -107,7 +107,7 @@ export default store => next => action => {
 
   if (action.type === SIGNIN_REQUEST_SUCCESS) {
     if (state.pathname.match(/document\/\d+/)) {
-      handleFetchingDocumentPage(dispatches, state, store, state.pathname);
+      handleFetchingDocumentPage(dispatches, store, state.pathname);
     } else if (state.pathname.match(/\/documents\//)) {
       handleFetchingDocumentsOverviewPage(dispatches, store, state, action, fetchDocumentsAuthenticated);
     } else if (state.pathname.match(/\/view-all-pinboards\//)) {
@@ -207,7 +207,7 @@ export default store => next => action => {
     }
 
     else if (pathName.match(/document\/\d+/)) {
-      handleFetchingDocumentPage(dispatches, state, store, pathName);
+      handleFetchingDocumentPage(dispatches, store, pathName);
     }
 
     else if (pathName.match(/embed\/top-officers/)) {
