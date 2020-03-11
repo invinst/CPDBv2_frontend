@@ -536,6 +536,13 @@ describe('officer page', function () {
         officerPage.pinboardsMenuSection.thirdItemCreatedAt.getText().should.equal('Created Mar 09, 2020');
       });
 
+      it('should close pinboards menu when click outside', function () {
+        officerPage.pinboardsMenuSection.addToPinboardButton.click();
+        officerPage.pinboardsMenuSection.menu.waitForDisplayed();
+        officerPage.tabbedPaneSection.timelineTabName.click();
+        officerPage.pinboardsMenuSection.menu.waitForDisplayed(500, true);
+      });
+
       it('should display toast and close pinboards menu when pinning', function () {
         officerPage.pinboardsMenuSection.addToPinboardButton.click();
         officerPage.pinboardsMenuSection.menu.waitForDisplayed();

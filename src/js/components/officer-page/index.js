@@ -72,10 +72,12 @@ function OfficerPage(props) {
           headerButtons={
             <React.Fragment>
               <HeaderButton
+                name='add-to-pinboard-btn'
                 buttonClassName={ cx(headerStyles.addToPinboardBtn, 'pinboard-feature') }
                 Menu={ PinboardsMenuContainer }
               />
               <HeaderButton
+                name='download-btn'
                 buttonClassName={ styles.downloadBtn }
                 Menu={ DownloadMenuContainer }
                 onOpen={ () => tracking.trackOfficerDownloadMenu(officerId, 'open') }

@@ -48,6 +48,7 @@ function CRPage(props) {
         <ShareableHeaderContainer
           headerButtons={
             <HeaderButton
+              name='add-to-pinboard-btn'
               buttonClassName={ cx(headerStyles.addToPinboardBtn, 'pinboard-feature') }
               Menu={ PinboardsMenuContainer }
             />

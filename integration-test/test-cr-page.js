@@ -205,6 +205,13 @@ describe('CR page', function () {
         crPage.pinboardsMenuSection.thirdItemCreatedAt.getText().should.equal('Created Mar 09, 2020');
       });
 
+      it('should close pinboards menu when click outside', function () {
+        crPage.pinboardsMenuSection.addToPinboardButton.click();
+        crPage.pinboardsMenuSection.menu.waitForDisplayed();
+        crPage.title.click();
+        crPage.pinboardsMenuSection.menu.waitForDisplayed(500, true);
+      });
+
       it('should display toast when pinning', function () {
         crPage.pinboardsMenuSection.addToPinboardButton.click();
         crPage.pinboardsMenuSection.menu.waitForDisplayed();
