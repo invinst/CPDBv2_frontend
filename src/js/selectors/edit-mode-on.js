@@ -1,18 +1,17 @@
 import { createSelector } from 'reselect';
-import { endsWith, get } from 'lodash';
+import { endsWith } from 'lodash';
 
 import { editModeOn } from 'utils/edit-path';
 import { PINBOARD_ADMIN_PATH } from 'utils/constants';
+import { getPathname } from 'selectors/common/pathname';
 
-
-const getPathName = (state, props) => props.pathname || get(props, 'location.pathname', '');
 
 export default createSelector(
-  getPathName,
+  getPathname,
   editModeOn
 );
 
 export const openLoginByDefaultSelector = createSelector(
-  getPathName,
+  getPathname,
   pathname => endsWith(pathname, PINBOARD_ADMIN_PATH)
 );

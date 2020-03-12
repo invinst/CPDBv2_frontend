@@ -1,4 +1,3 @@
-import should from 'should';
 import { LOCATION_CHANGE } from 'connected-react-router';
 
 import pathname from 'reducers/pathname';
@@ -7,7 +6,7 @@ import { UPDATE_PATH_NAME } from 'utils/constants';
 
 describe('pathname reducer', function () {
   it('should return initial state', function () {
-    should.not.exist(pathname(undefined, {}));
+    pathname(undefined, {}).should.eql('');
   });
 
   it('should handle LOCATION_CHANGE', function () {
