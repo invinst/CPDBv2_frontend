@@ -648,7 +648,7 @@ axiosMockClient.onPut(
       'id': 'b20c2c36',
       'title': 'Watts Crew',
     }, {
-      'description': 'Skullcap Crew is a nickname given to a group of five Chicago Police officers in a gang...',
+      'description': 'Skullcap Crew is a nickname given to a group of five Chicago Police officers in a gang.',
       'id': '22e66085',
       'title': 'Skullcap Crew',
     }],
@@ -792,7 +792,7 @@ const updatedFromSourceSecondExamplePinboard = {
   'officer_ids': [2],
   'crids': [],
   'trr_ids': [],
-  'description': 'Skullcap Crew is a nickname given to a group of five Chicago Police officers in a gang...',
+  'description': 'Skullcap Crew is a nickname given to a group of five Chicago Police officers in a gang.',
 };
 axiosMockClient.onPut(
   `${PINBOARDS_URL}abcd1234/`,

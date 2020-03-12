@@ -249,8 +249,16 @@ class EmptyPinboardSection extends Section {
     super('', '//div[contains(@class, "empty-pinboard__empty-pinboard")]');
 
     this.prepareElementGetters({
-      firstExample: '//a[contains(@class, "example-pinboard-link__example-pinboard-link")][1]',
-      secondExample: '//a[contains(@class, "example-pinboard-link__example-pinboard-link")][2]',
+      firstExample: '//a[contains(@class, "example-pinboard-link")][1]',
+      firstExampleTitle:
+        '//a[contains(@class, "example-pinboard-link")][1]//div[contains(@class, "title")]',
+      firstExampleDescription:
+        '//a[contains(@class, "example-pinboard-link")][1]//div[contains(@class, "description")]',
+      secondExample: '//a[contains(@class, "example-pinboard-link")][2]',
+      secondExampleTitle:
+        '//a[contains(@class, "example-pinboard-link")][2]//div[contains(@class, "title")]',
+      secondExampleDescription:
+        '//a[contains(@class, "example-pinboard-link")][2]//div[contains(@class, "description")]',
     });
   }
 }

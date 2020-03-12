@@ -1,7 +1,7 @@
 import React from 'react';
 import { stub } from 'sinon';
 import { mount } from 'enzyme';
-import Truncate from 'react-truncate';
+import HTMLEllipsis from 'react-lines-ellipsis/lib/html';
 
 import ExamplePinboardLink from 'components/pinboard-page/empty-pinboard/example-pinboard-link';
 import styles from 'components/pinboard-page/empty-pinboard/example-pinboard-link.sass';
@@ -19,7 +19,7 @@ describe('ExamplePinboardLink component', function () {
       <TestComponent
         id='66ef1561'
         title='Pinboard 1'
-        description='Description 1'
+        description='**Description 1**'
         currentPinboardId='abcd1234'
         updatePinboardFromSource={ updatePinboardFromSourceStub }
       />
@@ -29,10 +29,11 @@ describe('ExamplePinboardLink component', function () {
     link.prop('className').should.equal(styles.examplePinboardLink);
     link.find('.title').text().should.equal('Pinboard 1');
 
-    const description = wrapper.find(Truncate);
+    const description = wrapper.find(HTMLEllipsis);
+
+    description.exists().should.be.true();
     description.prop('className').should.equal('description');
-    description.prop('lines').should.equal(3);
-    description.prop('children').should.equal('Description 1');
+    description.prop('unsafeHTML').trim().should.equal('<p><strong>Description 1</strong></p>');
 
     wrapper.find('.arrow').exists().should.be.true();
 

@@ -8,11 +8,13 @@ export const emptyPinboard = (id='abcd1234') => ({
   'trr_ids': [],
   'description': '',
   'example_pinboards': [{
-    'description': 'Officers with at least 10 complaints against them generate 64% of all complaints.',
+    'description': '**It will be a election** and we are going to do the best '
+      + '**Lorem Ipsum is simply dummy text of the printing and typesetting industry.**'
+      + 'Lorem Ipsum has been the industry standard dummy text ever since the 1500s.',
     'id': 'b20c2c36',
     'title': 'Watts Crew',
   }, {
-    'description': 'Skullcap Crew is a nickname given to a group of five Chicago Police officers in a gang tactical...',
+    'description': 'Skullcap Crew is a nickname given to a group of five Chicago Police officers in a gang tactical.',
     'id': '22e66085',
     'title': 'Skullcap Crew',
   }],
@@ -57,7 +59,7 @@ const pinboards = {
       'id': 'b20c2c36',
       'title': 'Watts Crew',
     }, {
-      'description': 'Skullcap Crew is a nickname given to a group of five Chicago Police officers in a gang...',
+      'description': 'Skullcap Crew is a nickname given to a group of five Chicago Police officers in a gang.',
       'id': '22e66085',
       'title': 'Skullcap Crew',
     }],

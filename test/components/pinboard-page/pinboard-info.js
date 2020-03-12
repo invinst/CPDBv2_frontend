@@ -4,6 +4,7 @@ import { stub } from 'sinon';
 
 import PinboardInfo from 'components/pinboard-page/pinboard-info';
 import AutosaveTextareaInput from 'components/common/autosave-inputs/autosave-textarea-input';
+import AutosaveMarkdownTextareaInput from 'components/common/autosave-inputs/autosave-markdown-textarea-input';
 
 
 describe('PinboardInfo component', function () {
@@ -18,10 +19,12 @@ describe('PinboardInfo component', function () {
       <PinboardInfo pinboard={ pinboard } updatePinboardInfo={ updatePinboardInfoStub }/>
     );
 
-    const autosaveTextareaInputs = wrapper.find(AutosaveTextareaInput);
-    autosaveTextareaInputs.should.have.length(2);
+    const pinboardTitle = wrapper.find(AutosaveTextareaInput);
+    const pinboardDescription = wrapper.find(AutosaveMarkdownTextareaInput);
 
-    const pinboardTitle = autosaveTextareaInputs.at(0);
+    pinboardTitle.should.have.length(1);
+    pinboardDescription.should.have.length(1);
+
     pinboardTitle.prop('className').should.equal('pinboard-title');
     pinboardTitle.prop('value').should.equal('This is pinboard title');
     pinboardTitle.prop('placeholder').should.equal('Give your pinboard a title');
@@ -29,7 +32,6 @@ describe('PinboardInfo component', function () {
     pinboardTitle.prop('save').should.eql(updatePinboardInfoStub);
     pinboardTitle.prop('textareaLineHeight').should.equal(31);
 
-    const pinboardDescription = autosaveTextareaInputs.at(1);
     pinboardDescription.prop('className').should.equal('pinboard-description');
     pinboardDescription.prop('value').should.equal('This is pinboard description');
     pinboardDescription.prop('placeholder').should.equal(

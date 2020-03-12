@@ -13,6 +13,11 @@ export default class AutosaveTextareaInput extends Component {
   componentDidMount() {
     window.addEventListener('resize', this.handleResize);
     this.adjustTextareaHeight(this.textarea);
+    const { currentValue } = this.state;
+    if (this.props.autoFocus) {
+      this.textarea.focus();
+      this.textarea.selectionEnd = this.textarea.selectionStart = currentValue.length;
+    }
   }
 
   adjustTextareaHeight(textarea) {
@@ -22,12 +27,14 @@ export default class AutosaveTextareaInput extends Component {
   }
 
   handleBlur = () => {
-    const { save, fieldType, value } = this.props;
+    const { save, fieldType, value, onBlur } = this.props;
     const { currentValue } = this.state;
 
     if (save && currentValue !== value) {
       save({ attr: fieldType, value: currentValue });
     }
+
+    onBlur && onBlur();
   };
 
   handleChange = event => {
@@ -63,4 +70,10 @@ AutosaveTextareaInput.propTypes = {
   save: PropTypes.func,
   fieldType: PropTypes.string.isRequired,
   textareaLineHeight: PropTypes.number.isRequired,
+  autoFocus: PropTypes.bool,
+  onBlur: PropTypes.func,
+};
+
+AutosaveTextareaInput.defaultProps = {
+  autoFocus: false,
 };

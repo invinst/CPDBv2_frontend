@@ -5,12 +5,14 @@ import cx from 'classnames';
 import OutboundLink from 'components/common/outbound-link';
 import styles from './attachment.sass';
 import { imageStyle } from 'components/common/shared.style';
+import * as tracking from 'utils/tracking';
 
 
 export default class Attachment extends Component {
   handleClick = () => {
-    const { onTrackingAttachment } = this.props;
-    const { id } = this.props.attachment;
+    const { onTrackingAttachment, pathname } = this.props;
+    const { id, url } = this.props.attachment;
+    tracking.trackAttachmentClick(pathname, url);
     onTrackingAttachment({ attachmentId: id, sourcePage: 'Officer Page - Attachments Tab', app: 'Frontend' });
   };
 
@@ -33,6 +35,8 @@ export default class Attachment extends Component {
 Attachment.propTypes = {
   attachment: PropTypes.object,
   onTrackingAttachment: PropTypes.func,
+  url: PropTypes.string,
+  pathname: PropTypes.string,
 };
 
 Attachment.defaultProps = {
