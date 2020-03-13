@@ -21,6 +21,7 @@ describe('VideoModal component', function () {
     modalVideo.prop('isOpen').should.be.false();
     modalVideo.prop('videoId').should.equal('285002059');
     modalVideo.prop('onClose').should.equal(closeVideoModal);
+    modalVideo.prop('vimeo').should.eql({ autoplay: true, texttrack: 'en' });
 
     wrapper.setProps({
       closeVideoModal,

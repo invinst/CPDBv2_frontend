@@ -830,6 +830,9 @@ export const PINBOARD_ATTR_MAP = {
 export const MODAL_VIDEO_INFO = {
   CHANNEL: 'vimeo',
   VIDEO_ID: '285002059',
+  CONFIG: {
+    vimeo: { autoplay: true, texttrack: 'en' },
+  },
 };
 
 export const SEARCH_SAVE_TO_RECENT = 'SEARCH_SAVE_TO_RECENT';
