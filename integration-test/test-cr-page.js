@@ -237,7 +237,6 @@ describe('CR page', function () {
         crPage.lastToast.waitForText(
           'CR #1000000 categorized as Use Of Force happened in 2003-09-23 added.'
         );
-        crPage.lastToast.waitForDisplayed(5000, true);
         crPage.pinboardsMenuSection.addToPinboardButton.click();
         crPage.pinboardsMenuSection.menu.waitForDisplayed();
 
