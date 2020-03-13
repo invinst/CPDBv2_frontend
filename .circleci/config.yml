@@ -24,7 +24,7 @@ jobs:
             else
               echo "Skipped due to SKIP_COVERALLS is" $SKIP_COVERALLS
             fi
-      - run: yarn live-test
+      - run: yarn integration-test
       - store_artifacts:
           path: /home/circleci/errorShots
       - save_cache:

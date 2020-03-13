@@ -4,7 +4,7 @@ import { isEmpty } from 'lodash';
 import config from 'config';
 
 export const getThisYear = () => {
-  if (config.appEnv === 'live-test' || global.mocha !== undefined) {
+  if (config.appEnv === 'integration-test' || global.mocha !== undefined) {
     return 2017;
   }
   /* istanbul ignore next */
