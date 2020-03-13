@@ -20,7 +20,7 @@ class PinboardsMenuSection extends Section {
       thirdItemTitle: nthMenuItemTitle(3),
       thirdItemCreatedAt: nthMenuItemCreatedAt(3),
       thirdItemPinButton: nthPinButton(3),
-      createPinboardWithSelectionButton: '//div[@class="create-pinboard-with-selection"]',
+      createPinboardWithSelectionButton: '//div[@class="add-to-new-pinboard"]',
     });
   }
 }

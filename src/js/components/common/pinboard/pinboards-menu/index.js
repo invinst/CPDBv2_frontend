@@ -20,7 +20,7 @@ export default class PinboardsMenu extends Component {
     fetchPinboardsMenu();
   }
 
-  handleCreatePinboardWithSelection = () => {
+  handleAddToNewPinboard = () => {
     const { createPinboard, closeMenu, item } = this.props;
     createPinboard({ [PINBOARD_PINNED_ITEM_TYPE_MAPPING[item.type]]: [item.id] }).then((response) => {
       closeMenu();
@@ -59,9 +59,9 @@ export default class PinboardsMenu extends Component {
           }
         </div>
         <div
-          className='create-pinboard-with-selection'
-          onClick={ this.handleCreatePinboardWithSelection }
-        >Create pinboard with <br /> selection</div>
+          className='add-to-new-pinboard'
+          onClick={ this.handleAddToNewPinboard }
+        >Add to a new pinboard</div>
       </div>
     );
   }

@@ -43,13 +43,13 @@ describe('PinboardsMenu component', function () {
       isPinned: true,
     });
 
-    const createEmptyPinboardButton = wrapper.find('.create-pinboard-with-selection');
+    const createEmptyPinboardButton = wrapper.find('.add-to-new-pinboard');
     createEmptyPinboardButton.exists().should.be.true();
 
     fetchPinboardsMenuSpy.should.be.calledOnce();
   });
 
-  it('should call handleCreatePinboardWithSelection when user click on Create pinboard', function (done) {
+  it('should call handleAddToNewPinboard when user click on Create pinboard', function (done) {
     const fetchPinboardsMenuSpy = spy();
     const closeMenuSpy = spy();
     const redirectToCreatedPinboardSpy = spy(pinboardUtils, 'redirectToCreatedPinboard');
@@ -77,7 +77,7 @@ describe('PinboardsMenu component', function () {
           createPinboard={ createPinboardStub }/>
       </Provider>
     );
-    wrapper.find('.create-pinboard-with-selection').simulate('click');
+    wrapper.find('.add-to-new-pinboard').simulate('click');
     createPinboardStub.should.be.calledWith({ officerIds: [835] });
     setTimeout(function () {
       closeMenuSpy.should.be.calledOnce();
