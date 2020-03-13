@@ -8,7 +8,7 @@ const configs = {
   'beta': require('./beta'),
   'staging': require('./staging'),
   'test': require('./test'),
-  'live-test': require('./live-test'),
+  'integration-test': require('./integration-test'),
 };
 
 export default {

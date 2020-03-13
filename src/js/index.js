@@ -22,7 +22,7 @@ import browserHistory from 'utils/history';
 
 const store = configureStore();
 
-if (config.appEnv === 'live-test') {
+if (config.appEnv === 'integration-test') {
   global.disableAnimation = true;
 }
 

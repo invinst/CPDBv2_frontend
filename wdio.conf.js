@@ -176,7 +176,7 @@ exports.config = {
         port: 4000,
         open: false,
         server: {
-          baseDir: ['./live-test-build'],
+          baseDir: ['./integration-test-build'],
           middleware: [historyApiFallback()]
         },
         snippetOptions: { blacklist: ['/'] },
