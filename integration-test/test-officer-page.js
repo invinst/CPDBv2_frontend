@@ -570,6 +570,8 @@ describe('officer page', function () {
           'Police Officer Bernadette Kelly 54-year-old White Male, with 1 complaints, 4 sustained added.'
         );
         officerPage.pinboardsMenuSection.menu.isDisplayed().should.be.false();
+        officerPage.pinboardsMenuSection.addToPinboardButton.moveTo(); // Move mouse outside of toast message
+        officerPage.lastToast.waitForDisplayed(5000, true);
 
         officerPage.pinboardsMenuSection.addToPinboardButton.click();
         officerPage.pinboardsMenuSection.menu.waitForDisplayed();
