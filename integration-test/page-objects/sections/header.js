@@ -67,7 +67,7 @@ class RightLinksSection extends Section {
       data: '//a[text()="Data"]',
       qa: '//a[text()="Q&A"]',
       documents: '//a[text()="Documents"]',
-      pinboard: '//a[text()="Pinboards"]',
+      pinboard: '//div[text()="Pinboards"]',
     });
   }
 }

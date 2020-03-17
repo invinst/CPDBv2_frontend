@@ -11,6 +11,12 @@ import {
   dispatchFetchPinboardPinnedItems,
   isEmptyPinboard,
   getRequestPinboard,
+  isPinboardButtonIntroductionVisited,
+  setPinboardButtonIntroductionVisited,
+  isPinboardIntroductionVisited,
+  setPinboardIntroductionVisited,
+  isPinButtonIntroductionVisited,
+  setPinButtonIntroductionVisited,
 } from 'utils/pinboard';
 import PinboardFactory from 'utils/test/factories/pinboard';
 import {
@@ -25,6 +31,7 @@ import {
   fetchPinboardOfficers,
   fetchPinboardTRRs,
 } from 'actions/pinboard';
+import { PINBOARD_INTRODUCTION } from 'utils/constants';
 
 
 describe('pinboard utils', function () {
@@ -189,4 +196,56 @@ describe('pinboard utils', function () {
       });
     });
   });
+
+  describe('isPinboardButtonIntroductionVisited', function () {
+    it('should return correct value', function () {
+      localStorage.removeItem(PINBOARD_INTRODUCTION.PINBOARD_BUTTON_INTRODUCTION);
+      isPinboardButtonIntroductionVisited().should.be.false();
+      localStorage.setItem(PINBOARD_INTRODUCTION.PINBOARD_BUTTON_INTRODUCTION, '1');
+      isPinboardButtonIntroductionVisited().should.be.true();
+
+    });
+  });
+
+  describe('setPinboardButtonIntroductionVisited', function () {
+    it('should set localStorage', function () {
+      setPinboardButtonIntroductionVisited();
+      localStorage.getItem(PINBOARD_INTRODUCTION.PINBOARD_BUTTON_INTRODUCTION).should.equal('1');
+    });
+  });
+
+  describe('isPinboardIntroductionVisited', function () {
+    it('should return correct value', function () {
+      localStorage.removeItem(PINBOARD_INTRODUCTION.PINBOARD_INTRODUCTION);
+      isPinboardIntroductionVisited().should.be.false();
+      localStorage.setItem(PINBOARD_INTRODUCTION.PINBOARD_INTRODUCTION, '1');
+      isPinboardIntroductionVisited().should.be.true();
+
+    });
+  });
+
+  describe('setPinboardIntroductionVisited', function () {
+    it('should set localStorage', function () {
+      setPinboardIntroductionVisited();
+      localStorage.getItem(PINBOARD_INTRODUCTION.PINBOARD_INTRODUCTION).should.equal('1');
+    });
+  });
+
+  describe('isPinButtonIntroductionVisited', function () {
+    it('should return correct value', function () {
+      localStorage.removeItem(PINBOARD_INTRODUCTION.PIN_BUTTON_INTRODUCTION);
+      isPinButtonIntroductionVisited().should.be.false();
+      localStorage.setItem(PINBOARD_INTRODUCTION.PIN_BUTTON_INTRODUCTION, '1');
+      isPinButtonIntroductionVisited().should.be.true();
+
+    });
+  });
+
+  describe('setPinButtonIntroductionVisited', function () {
+    it('should set localStorage', function () {
+      setPinButtonIntroductionVisited();
+      localStorage.getItem(PINBOARD_INTRODUCTION.PIN_BUTTON_INTRODUCTION).should.equal('1');
+    });
+  });
+
 });

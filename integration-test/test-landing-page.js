@@ -485,4 +485,40 @@ describe('landing page', function () {
       searchPage.pinboardButton.waitForText('Pinboard (0)');
     });
   });
+
+  describe('Pinboard Introduction', function () {
+    beforeEach(function () {
+      browser.execute('localStorage.removeItem(\'PINBOARD_BUTTON_INTRODUCTION\')');
+      browser.refresh();
+      landingPage.header.content.waitForDisplayed();
+    });
+
+    it('should display Pinboard introduction on first visited', function () {
+      landingPage.pinboardIntroduction.body.waitForDisplayed();
+    });
+
+    it('should not display Pinboard introduction after click dismiss', function () {
+      landingPage.pinboardIntroduction.dismissButton.click();
+      landingPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
+      browser.refresh();
+      landingPage.header.content.waitForDisplayed();
+      landingPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
+    });
+
+    it('should not display Pinboard introduction after click try it', function () {
+      landingPage.pinboardIntroduction.tryItButton.click();
+      browser.waitForUrl(url => url.should.match(/\/pinboard\/.*/), 2000);
+      pinboardPage.headerTitle.click();
+      landingPage.header.content.waitForDisplayed();
+      landingPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
+    });
+
+    it('should not display Pinboard introduction after click Pinboard button', function () {
+      landingPage.pinboardIntroduction.pinboardButton.click();
+      browser.waitForUrl(url => url.should.match(/\/pinboard\/.*/), 2000);
+      pinboardPage.headerTitle.click();
+      landingPage.header.content.waitForDisplayed();
+      landingPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
+    });
+  });
 });

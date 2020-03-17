@@ -2,6 +2,9 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { noop, every, isEmpty } from 'lodash';
 
+import { setPinButtonIntroductionVisited } from 'utils/pinboard';
+
+
 export default function withPinnable(WrappedComponent) {
   class _Base extends Component {
     handlePinButtonClick = e => {
@@ -11,6 +14,7 @@ export default function withPinnable(WrappedComponent) {
       const { addOrRemoveItemInPinboard, items, item } = this.props;
       const addOrRemoveItems = isEmpty(items) ? [item] : items;
       const allIsPinned = every(addOrRemoveItems, item => item.isPinned);
+      setPinButtonIntroductionVisited();
 
       addOrRemoveItems.forEach(addOrRemoveItem => {
         if (addOrRemoveItem.isPinned === allIsPinned)

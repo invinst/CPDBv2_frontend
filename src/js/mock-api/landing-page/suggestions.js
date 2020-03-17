@@ -137,12 +137,24 @@ const trrSuggestions = [
   ),
 ];
 
+const unitSuggestions = [{ id: '1001', to: 'to', url: 'url', name: '001' }];
+
 const community1Suggestions = [
   CommunitySuggestion.build({ name: 'Loop' }),
 ];
 
 const community2Suggestions = [
   CommunitySuggestion.build({ name: 'Austin' }),
+];
+
+const communitySuggestions = [
+  RawNeighborhoodSuggestion.build({ id: '1', name: 'Kenwood' }),
+  RawNeighborhoodSuggestion.build({ id: '2', name: 'Austin' }),
+  RawNeighborhoodSuggestion.build({ id: '3', name: 'Englewood' }),
+  RawNeighborhoodSuggestion.build({ id: '4', name: 'Loop' }),
+  RawNeighborhoodSuggestion.build({ id: '5', name: 'Garfield Park' }),
+  RawNeighborhoodSuggestion.build({ id: '6', name: 'Humboldt Park' }),
+  RawNeighborhoodSuggestion.build({ id: '7', name: 'Auburn Gresham' }),
 ];
 
 export const groupedSuggestions = {
@@ -206,15 +218,7 @@ export const groupedSuggestions = {
       ),
     ],
     'UNIT': [],
-    'NEIGHBORHOOD': [
-      RawNeighborhoodSuggestion.build({ id: '1', name: 'Kenwood' }),
-      RawNeighborhoodSuggestion.build({ id: '2', name: 'Austin' }),
-      RawNeighborhoodSuggestion.build({ id: '3', name: 'Englewood' }),
-      RawNeighborhoodSuggestion.build({ id: '4', name: 'Loop' }),
-      RawNeighborhoodSuggestion.build({ id: '5', name: 'Garfield Park' }),
-      RawNeighborhoodSuggestion.build({ id: '6', name: 'Humboldt Park' }),
-      RawNeighborhoodSuggestion.build({ id: '7', name: 'Auburn Gresham' }),
-    ],
+    'NEIGHBORHOOD': communitySuggestions,
     'CR': [
       RawCRSuggestion.build(
         {
@@ -757,6 +761,12 @@ export const groupedSuggestions = {
     'TRR': trrSuggestions,
     'COMMUNITY': community1Suggestions,
   },
+  'intr': {
+    'NEIGHBORHOOD': communitySuggestions,
+    'UNIT': unitSuggestions,
+    'UNIT > OFFICERS': officerSuggestions,
+    'TRR': trrSuggestions,
+  },
 };
 
 export const singleGroupSuggestions = {
@@ -764,15 +774,7 @@ export const singleGroupSuggestions = {
     count: 7,
     previous: null,
     next: null,
-    results: [
-      RawNeighborhoodSuggestion.build({ id: '1', name: 'Kenwood' }),
-      RawNeighborhoodSuggestion.build({ id: '2', name: 'Austin' }),
-      RawNeighborhoodSuggestion.build({ id: '3', name: 'Englewood' }),
-      RawNeighborhoodSuggestion.build({ id: '4', name: 'Loop' }),
-      RawNeighborhoodSuggestion.build({ id: '5', name: 'Garfield Park' }),
-      RawNeighborhoodSuggestion.build({ id: '6', name: 'Humboldt Park' }),
-      RawNeighborhoodSuggestion.build({ id: '7', name: 'Auburn Gresham' }),
-    ],
+    results: communitySuggestions,
   },
   officer: {
     count: 25,

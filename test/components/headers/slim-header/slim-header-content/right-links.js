@@ -8,27 +8,25 @@ import styles from 'components/headers/slim-header/slim-header-content/right-lin
 
 describe('RightLinks component', function () {
   it('should render correctly', function () {
-    const wrapper = shallow(<RightLinks position='top'/>);
+    const wrapper = shallow(<RightLinks />);
 
-    wrapper.prop('className').should.equal(styles.rightLinks);
+    wrapper.prop('className').should.equal(`${styles.rightLinks} top`);
 
     const tags = wrapper.find('a');
     const links = wrapper.find(Link);
 
-    tags.at(0).prop('className').should.equal('right-link top');
+    tags.at(0).prop('className').should.equal('right-link');
     tags.at(0).prop('href').should.equal('http://cpdb.lvh.me');
     tags.at(0).text().should.equal('Data');
 
-    tags.at(1).prop('className').should.equal('right-link top');
+    tags.at(1).prop('className').should.equal('right-link');
     tags.at(1).prop('href').should.equal('http://how.cpdp.works/');
     tags.at(1).text().should.equal('Q&A');
 
-    links.at(0).prop('className').should.equal('right-link top');
+    links.at(0).prop('className').should.equal('right-link');
     links.at(0).prop('to').should.equal('/documents/');
     links.at(0).prop('children').should.equal('Documents');
 
-    links.at(1).prop('className').should.equal('right-link top pinboard-feature');
-    links.at(1).prop('to').should.equal('/pinboard/');
-    links.at(1).prop('children').should.equal('Pinboards');
+    wrapper.find('PinboardButton').exists().should.be.true();
   });
 });

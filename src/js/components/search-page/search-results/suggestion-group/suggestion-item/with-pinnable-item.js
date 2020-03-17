@@ -80,7 +80,7 @@ export default function withPinnableItem(
     };
 
     renderContent() {
-      const { isFocused, suggestion, addOrRemoveItemInPinboard, showPinButtonArea } = this.props;
+      const { isFocused, suggestion, addOrRemoveItemInPinboard, showPinButtonArea, showIntroduction } = this.props;
 
       return (
         <div className={ styles.innerWrapper }>
@@ -88,6 +88,7 @@ export default function withPinnableItem(
             {
               isPinnable && <ItemPinButton
                 className={ styles.itemPinButton }
+                showIntroduction={ showIntroduction }
                 addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
                 item={ suggestion }
               />
@@ -125,6 +126,7 @@ export default function withPinnableItem(
 
   _Base.propTypes = {
     isFocused: PropTypes.bool,
+    showIntroduction: PropTypes.bool,
     suggestion: PropTypes.object,
     addOrRemoveItemInPinboard: PropTypes.func,
     aliasEditModeOn: PropTypes.bool,

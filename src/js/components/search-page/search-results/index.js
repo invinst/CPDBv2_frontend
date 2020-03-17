@@ -15,6 +15,7 @@ import PinboardButtonContainer from 'containers/search-page/pinboard-button-cont
 import ScrollIntoView from 'components/common/scroll-into-view';
 import style from './search-results.sass';
 import * as tracking from 'utils/tracking';
+import PinboardIntroduction from 'components/search-page/pinboard/pinboard-introduction';
 
 
 const previewPaneIdFieldMapping = {
@@ -195,6 +196,7 @@ export default class SearchResults extends Component {
                 Loading...
               </div> :
               <div className='result-wrapper'>
+                <PinboardIntroduction />
                 { this.renderContent() }
               </div>
           }

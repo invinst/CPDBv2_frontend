@@ -122,6 +122,14 @@ describe('SearchTerms component', function () {
     wrapper.find(PinboardBar).exists().should.be.true();
   });
 
+  it('should render PinboardIntroduction', function () {
+    const wrapper = shallow(
+      <SearchTerms />
+    );
+
+    wrapper.find('PinboardIntroduction').exists().should.be.true();
+  });
+
   it('should render ResponsiveFluidWidthComponent with correct props', function () {
     const wrapper = shallow(
       <SearchTerms />

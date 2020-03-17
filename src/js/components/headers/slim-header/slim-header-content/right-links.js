@@ -1,62 +1,29 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import config from 'config';
-import cx from 'classnames';
 import { Link } from 'react-router-dom';
+import cx from 'classnames';
 
 import { QA_LINK } from 'utils/constants';
 import styles from 'components/headers/slim-header/slim-header-content/right-links.sass';
+import PinboardButton from 'components/headers/slim-header/slim-header-content/pinboard-button';
 
-export default function RightLinks(props) {
-  const { position } = props;
-  const links = [
-    {
-      name: 'Data',
-      itemComponent: 'a',
-      attrs: {
-        href: config.v1Url,
-      },
-    },
-    {
-      name: 'Q&A',
-      itemComponent: 'a',
-      attrs: {
-        href: QA_LINK,
-      },
-    },
-    {
-      name: 'Documents',
-      itemComponent: Link,
-      attrs: {
-        to: '/documents/',
-      },
-    },
-    {
-      name: 'Pinboards',
-      itemComponent: Link,
-      className: 'pinboard-feature',
-      attrs: {
-        to: '/pinboard/',
-      },
-    },
-  ];
 
-  const tags = links.map((link, index) => (
-    <link.itemComponent
-      className={ cx('right-link', position, link.className) }
-      onClick={ e => { e.stopPropagation(); } }
-      key={ index }
-      { ...link.attrs }
-    >
-      { link.name }
-    </link.itemComponent>
-  ));
-
+export default function RightLinks({ position }) {
   return (
-    <div className={ styles.rightLinks }>{ tags }</div>
+    <div className={ cx(styles.rightLinks, position) }>
+      <a href={ config.v1Url } className='right-link'>Data</a>
+      <a href={ QA_LINK } className='right-link'>Q&A</a>
+      <Link to='/documents/' className='right-link'>Documents</Link>
+      <PinboardButton />
+    </div>
   );
 }
 
 RightLinks.propTypes = {
   position: PropTypes.string,
+};
+
+RightLinks.defaultProps = {
+  position: 'top',
 };

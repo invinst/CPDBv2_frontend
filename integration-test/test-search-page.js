@@ -10,6 +10,27 @@ import pinboardPage from './page-objects/pinboard-page';
 import { setupMockApiFile, restoreMockApiFile } from './utils';
 
 
+const backToSearch = () => {
+  searchPage.searchBreadcrumb.waitForDisplayed();
+  searchPage.searchBreadcrumb.click();
+};
+
+const performSearch = (term) => {
+  searchPage.input.waitForDisplayed();
+  searchPage.input.setValue(term);
+};
+
+const clearSearchInput = () => searchPage.clearSearchButton.click();
+
+const clickOnSearchResultItem = (suggestionGroupSelector, expectedText, isFirstResult=false) => {
+  suggestionGroupSelector.waitForDisplayed();
+  suggestionGroupSelector.getText().should.containEql(expectedText);
+  suggestionGroupSelector.click();
+  if (!isFirstResult) {
+    suggestionGroupSelector.click();
+  }
+};
+
 describe('Landing Page to Search Page', function () {
   beforeEach(function () {
     landingPage.open();
@@ -356,31 +377,89 @@ describe('Search Page', function () {
     searchPage.secondNeighborhoodResult.getAttribute('class').should.containEql('test--focused');
   });
 
+  context('Pinboard introduction', function () {
+    beforeEach(function () {
+      browser.execute('localStorage.removeItem(\'PINBOARD_INTRODUCTION\')');
+      browser.refresh();
+      searchPage.input.waitForDisplayed();
+    });
+
+    it('should display pinboard introduction on first visited', function () {
+      searchPage.pinboardIntroduction.body.waitForDisplayed();
+    });
+
+    it('should close pinboard introduction after click close', function () {
+      searchPage.pinboardIntroduction.body.waitForDisplayed(1000);
+      searchPage.pinboardIntroduction.closeButton.click();
+      searchPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
+      browser.refresh();
+      searchPage.input.waitForDisplayed(1000);
+      searchPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
+    });
+
+    it('should close pinboard introduction and redirect to pinboard page after click Get Started', function () {
+      searchPage.pinboardIntroduction.body.waitForDisplayed(1000);
+      searchPage.pinboardIntroduction.getStartedButton.click();
+      browser.waitForUrl(url => url.should.match(/\/pinboard\/.*/), 2000);
+      pinboardPage.searchBar.click();
+      searchPage.input.waitForDisplayed(1000);
+      searchPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
+    });
+  });
+
+  context('PinButton introduction', function () {
+    beforeEach(function () {
+      browser.execute('localStorage.removeItem(\'PIN_BUTTON_INTRODUCTION\')');
+      browser.refresh();
+      searchPage.input.waitForDisplayed();
+    });
+
+    it('should display PinButtonIntroduction in first pinnable search result', function () {
+      searchPage.input.setValue('intr');
+      searchPage.unitOfficerResultsSection.firstPinButtonIntroduction.waitForDisplayed();
+      searchPage.unitOfficerResultsSection.pinButtonIntroduction.count.should.equal(1);
+      searchPage.searchCommunityResultsSection.pinButtonIntroduction.count.should.equal(0);
+      searchPage.trrResultsSection.pinButtonIntroduction.count.should.equal(0);
+    });
+
+    it('should display PinButtonIntroduction in first pinnable recent item', function () {
+      performSearch('rank');
+      clickOnSearchResultItem(searchPage.firstRankResult, 'Officer');
+
+      clearSearchInput();
+      performSearch('Ke');
+      clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly', true);
+
+      backToSearch();
+      performSearch('Ke');
+      clickOnSearchResultItem(searchPage.firstCrResult, 'CR # CR123 • April 23, 2004');
+
+      backToSearch();
+      performSearch('Ke');
+      clickOnSearchResultItem(searchPage.firstTrrResult, 'Member Presence');
+
+      backToSearch();
+      searchPage.firstRecentIntroduction.waitForDisplayed(2000);
+    });
+
+    it('should not display PinButtonIntroduction after click on PinButton', function () {
+      searchPage.input.setValue('intr');
+      searchPage.unitOfficerResultsSection.firstPinButtonIntroduction.waitForDisplayed();
+      searchPage.unitOfficerResultsSection.firstPinButton.click();
+      searchPage.unitOfficerResultsSection.firstPinButtonIntroduction.waitForDisplayed(1000, true);
+      browser.refresh();
+      searchPage.input.setValue('intr');
+      searchPage.unitOfficerResultsSection.firstPinButton.waitForDisplayed();
+      searchPage.unitOfficerResultsSection.firstPinButtonIntroduction.waitForDisplayed(1000, true);
+    });
+  });
+
   describe('should show the recent search', function () {
     beforeEach(function () {
       browser.execute(() => {
         window.localStorage.removeItem('redux');
       });
     });
-
-    const backToSearch = () => {
-      searchPage.searchBreadcrumb.waitForDisplayed();
-      searchPage.searchBreadcrumb.click();
-    };
-    const performSearch = (term) => {
-      searchPage.input.waitForDisplayed();
-      searchPage.input.setValue(term);
-    };
-    const clearSearchInput = () => searchPage.clearSearchButton.click();
-
-    const clickOnSearchResultItem = (suggestionGroupSelector, expectedText, isFirstResult=false) => {
-      suggestionGroupSelector.waitForDisplayed();
-      suggestionGroupSelector.getText().should.containEql(expectedText);
-      suggestionGroupSelector.click();
-      if (!isFirstResult) {
-        suggestionGroupSelector.click();
-      }
-    };
 
     it('when click on result item', function () {
       performSearch('Geography');

@@ -4,6 +4,7 @@ import { stub } from 'sinon';
 
 import ItemPinButton from 'components/common/item-pin-button';
 import styles from 'components/common/item-pin-button.sass';
+import { PINBOARD_INTRODUCTION } from 'utils/constants';
 
 
 describe('ItemPinButton component', function () {
@@ -61,5 +62,80 @@ describe('ItemPinButton component', function () {
     const wrapper = mount(<ItemPinButton showHint={ false }/>);
 
     wrapper.find('.pin-action-hint').exists().should.be.false();
+  });
+
+  describe('pinboard introduction', function () {
+    context('isPinButtonIntroductionVisited() is true', function () {
+      beforeEach(function () {
+        localStorage.setItem(PINBOARD_INTRODUCTION.PIN_BUTTON_INTRODUCTION, '1');
+      });
+
+      context('showIntroduction is false', function () {
+        let wrapper;
+        beforeEach(function () {
+          wrapper = mount(<ItemPinButton item={ { isPinned: false } } showIntroduction={ false } />);
+        });
+
+        it('should not have class show-introduction', function () {
+          wrapper.find('.show-introduction').exists().should.be.false();
+        });
+
+        it('should not render introduction', function () {
+          wrapper.find('.pin-button-introduction').exists().should.be.false();
+        });
+      });
+
+      context('showIntroduction is true', function () {
+        let wrapper;
+        beforeEach(function () {
+          wrapper = mount(<ItemPinButton item={ { isPinned: false } } showIntroduction={ true } />);
+        });
+
+        it('should not have class show-introduction', function () {
+          wrapper.find('.show-introduction').exists().should.be.false();
+        });
+
+        it('should not render introduction', function () {
+          wrapper.find('.pin-button-introduction').exists().should.be.false();
+        });
+      });
+    });
+
+    context('isPinButtonIntroductionVisited() is false', function () {
+      beforeEach(function () {
+        localStorage.removeItem(PINBOARD_INTRODUCTION.PIN_BUTTON_INTRODUCTION);
+      });
+
+      context('showIntroduction is false', function () {
+        let wrapper;
+        beforeEach(function () {
+          wrapper = mount(<ItemPinButton item={ { isPinned: false } } showIntroduction={ false } />);
+        });
+
+        it('should not have class show-introduction', function () {
+
+          wrapper.find('.show-introduction').exists().should.be.false();
+        });
+
+        it('should not render introduction', function () {
+          wrapper.find('.pin-button-introduction').exists().should.be.false();
+        });
+      });
+
+      context('showIntroduction is true', function () {
+        let wrapper;
+        beforeEach(function () {
+          wrapper = mount(<ItemPinButton item={ { isPinned: false } } showIntroduction={ true } />);
+        });
+
+        it('should have class show-introduction', function () {
+          wrapper.find('.show-introduction').exists().should.be.true();
+        });
+
+        it('should render introduction', function () {
+          wrapper.find('.pin-button-introduction').exists().should.be.true();
+        });
+      });
+    });
   });
 });

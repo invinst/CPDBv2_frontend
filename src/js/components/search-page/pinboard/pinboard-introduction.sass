@@ -1,0 +1,53 @@
+@import "variables"
+
+
+\:local(.pinboard-introduction)
+  position: relative
+  width: 382px
+  margin: 16px 0 0 16px
+  padding: 22px 16px 25px 14px
+  font-size: 14px
+  line-height: 17px
+  color: $japanese-laurel-color
+  background-color: $willow-brook-color
+  border-radius: 4px
+
+  .introduction-title
+    font-weight: 500
+    padding-bottom: 7px
+
+  .introduction-close-btn
+    background: url("/img/ic-clear-green.svg")
+    position: absolute
+    width: 16px
+    height: 16px
+    top: 9px
+    right: 8px
+
+    &:hover
+      cursor: pointer
+
+  .pinboard-thumbnail
+    background: url("/img/pinboard-introduction-thumbnail.svg")
+    height: 120px
+    width: 76px
+    float: left
+
+  .introduction-content
+    display: inline-block
+    width: calc(100% - 76px)
+    padding-left: 10px
+    box-sizing: border-box
+    float: left
+    white-space: normal
+
+    .introduction-text
+      padding: 8px 0 4px 0
+      font-weight: 300
+
+    .get-started-btn
+      text-align: center
+      display: block
+      padding: 11px 0 12px 0
+      background-color: $vida-loca-10-color
+      border-radius: 2px

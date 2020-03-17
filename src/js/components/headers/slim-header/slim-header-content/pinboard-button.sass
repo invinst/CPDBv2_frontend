@@ -1,0 +1,49 @@
+@import 'variables'
+
+
+\:local(.pinboard-button)
+  position: relative
+  display: inline-block
+  margin-right: -9px
+
+  .right-link
+    border-radius: 4px
+    border: 2px solid transparent
+    padding: 5px 7px 5px 9px
+    margin-left: 39px
+
+    &.show-introduction
+      border: 2px solid $thunder-50-color
+
+  .pinboard-button-introduction
+    position: absolute
+    top: 36px
+    right: 0
+    width: 200px
+    border-radius: 6px
+    background: white
+    box-shadow: 0 4px 24px $black-19-color
+    overflow: hidden
+
+    .pinboard-button-introduction-title
+      font-weight: 500
+      line-height: 17px
+      padding: 37px 16px 10px 16px
+      background-color: $willow-brook-color
+      color: $bilbao-color
+
+    .pinboard-button-introduction-content
+      padding: 10px 14px 21px 14px
+      font-weight: 300
+      line-height: 17px
+      color: $thunder-color
+
+    .pinboard-button-introduction-btns
+      padding: 0 16px 18px 16px
+
+      .try-it-btn, .dismiss-btn
+        color: $blue-ribbon-color
+        line-height: 17px
+
+      .dismiss-btn
+        margin-left: 31px

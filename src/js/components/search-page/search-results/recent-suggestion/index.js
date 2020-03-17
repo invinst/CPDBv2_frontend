@@ -32,6 +32,7 @@ export default class RecentSuggestion extends Component {
                 key={ suggestion.uniqueKey }
                 suggestion={ suggestion }
                 showPinButtonArea={ true }
+                showIntroduction={ suggestion.showIntroduction }
                 addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
                 saveToRecent={ saveToRecent }
                 clickItem={ this.handleClick }

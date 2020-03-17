@@ -11,6 +11,7 @@ import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import * as IntercomTracking from 'utils/intercom-tracking';
 import RecentSuggestion from 'components/search-page/search-results/recent-suggestion';
 import PinboardBar from 'components/search-page/pinboard/pinboard-bar';
+import PinboardIntroduction from 'components/search-page/pinboard/pinboard-introduction';
 import ScrollIntoView from 'components/common/scroll-into-view';
 import style from './search-terms.sass';
 
@@ -86,6 +87,7 @@ export default class SearchTerms extends Component {
       <div className={ cx(style.wrapper, className) }>
         <PinboardBar onEmptyPinboardButtonClick={ onEmptyPinboardButtonClick } />
         <div className={ cx('search-term-wrapper', { 'edit-mode-on': aliasEditModeOn } ) }>
+          <PinboardIntroduction />
           <ScrollIntoView focusedItemClassName={ `term-item-${get(focusedItem, 'uniqueKey', '').replace(' ', '-')}` }>
             { this.renderRecentSuggestion() }
             <ResponsiveFluidWidthComponent

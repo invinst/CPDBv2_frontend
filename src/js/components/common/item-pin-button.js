@@ -5,16 +5,25 @@ import { every, isEmpty } from 'lodash';
 
 import withPinnable from 'components/common/with-pinnable';
 import styles from 'components/common/item-pin-button.sass';
+import { isPinButtonIntroductionVisited } from 'utils/pinboard';
 
 
 function ItemPinButton(props) {
-  const { className, showHint, item, items } = props;
+  const { className, showHint, item, items, showIntroduction } = props;
   const isPinned = every(isEmpty(items) ? [item] : items, item => item.isPinned);
-
+  const shouldShowIntroduction = showIntroduction && !isPinButtonIntroductionVisited();
   return (
-    <div className={ cx('pinboard-feature', styles.itemPinButton, { 'is-pinned': isPinned }, className) }>
+    <div className={ cx(
+      'pinboard-feature',
+      styles.itemPinButton,
+      className,
+      { 'is-pinned': isPinned, 'show-introduction': shouldShowIntroduction }
+    ) }>
       <div className='pin-button' />
       { showHint && <div className='pin-action-hint'> Unpin? </div> }
+      {
+        shouldShowIntroduction && <div className='pin-button-introduction'>Tap this button to add to your pinboard</div>
+      }
     </div>
   );
 }
@@ -33,10 +42,12 @@ ItemPinButton.propTypes = {
   addOrRemoveItemInPinboard: PropTypes.func,
   className: PropTypes.string,
   showHint: PropTypes.bool,
+  showIntroduction: PropTypes.bool,
 };
 
 ItemPinButton.defaultProps = {
   showHint: true,
+  showIntroduction: false,
 };
 
 export default withPinnable(ItemPinButton);
