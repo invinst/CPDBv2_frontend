@@ -425,19 +425,27 @@ describe('landing page', function () {
         landingPage.recentActivityCarousel.jeromeFinniganPinButton,
         'Police Officer Jerome Finnigan 54-year-old white male, with 10 complaints, 5 sustained'
       );
+      landingPage.lastToast.waitForDisplayed(5000, true);
+
       checkPinToast(
         landingPage.officersByAllegationCarousel.edwardMayPinButton,
         'Commander Edward May 54-year-old white male, with 5 complaints, 1 sustained',
       );
+      landingPage.lastToast.waitForDisplayed(5000, true);
+
       checkPairCardPinToast(
         landingPage.recentActivityCarousel.jeromeFinniganPairCardPinButton,
         'Police Officer Edward May 54-year-old white male, with 10 complaints, 5 sustained',
         'Police Officer Jerome Finnigan 54-year-old white male, with 10 complaints, 5 sustained',
       );
+      landingPage.lastToast.waitForDisplayed(5000, true);
+
       checkPinToast(
         landingPage.recentDocumentCarousel.domesticPinButton,
         'CR #123456 categorized as Domestic happened in Jan 1, 2000'
       );
+      landingPage.lastToast.waitForDisplayed(5000, true);
+
       checkPinToast(
         landingPage.complaintSummariesCarousel.criminalMisconductPinButton,
         'CR #654321 categorized as Criminal Misconduct happened in Jan 1, 2000'
