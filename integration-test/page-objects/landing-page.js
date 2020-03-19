@@ -177,7 +177,7 @@ class PinboardIntroductionSection extends Section {
       body: '.pinboard-button-introduction',
       dismissButton: '.dismiss-btn',
       tryItButton: '.try-it-btn',
-      pinboardButton: 'div.right-link',
+      pinboardButton: '//div[contains(@class, "header-links")]//div[contains(@class, "pinboard-button")]',
     });
   }
 }

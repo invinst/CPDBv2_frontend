@@ -311,10 +311,10 @@ describe('landing page', function () {
       navBar.searchBox.searchMagnifyingGlassPath.getAttribute('fill').should.eql('#005EF4');
       navBar.searchBox.searchText.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
       navBar.searchBox.searchTerm.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
-      navBar.rightLinks.data.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
-      navBar.rightLinks.qa.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
-      navBar.rightLinks.documents.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
-      navBar.rightLinks.pinboard.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.headerLinks.data.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.headerLinks.qa.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.headerLinks.documents.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.headerLinks.pinboard.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
     });
 
     it('should render correctly at the middle of the page', function () {
@@ -331,10 +331,10 @@ describe('landing page', function () {
       navBar.searchBox.searchMagnifyingGlassPath.getAttribute('fill').should.eql('#767676');
       navBar.searchBox.searchText.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
       navBar.searchBox.searchTerm.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
-      navBar.rightLinks.data.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
-      navBar.rightLinks.qa.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
-      navBar.rightLinks.documents.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
-      navBar.rightLinks.pinboard.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
+      navBar.headerLinks.data.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
+      navBar.headerLinks.qa.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
+      navBar.headerLinks.documents.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
+      navBar.headerLinks.pinboard.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
     });
 
     it('should render correctly at the bottom of the page', function () {
@@ -350,16 +350,16 @@ describe('landing page', function () {
       navBar.searchBox.searchMagnifyingGlassPath.getAttribute('fill').should.eql('#005EF4');
       navBar.searchBox.searchText.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
       navBar.searchBox.searchTerm.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
-      navBar.rightLinks.data.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
-      navBar.rightLinks.qa.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
-      navBar.rightLinks.documents.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
-      navBar.rightLinks.pinboard.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.headerLinks.data.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.headerLinks.qa.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.headerLinks.documents.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.headerLinks.pinboard.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
     });
 
     it('should go to pinboard page when clicking on pinboard tag', function () {
       const navBar = landingPage.header.navBar;
       navBar.mainElement.waitForDisplayed();
-      navBar.rightLinks.pinboard.click();
+      navBar.headerLinks.pinboard.click();
       pinboardPage.emptyPinboardSection.mainElement.waitForDisplayed();
       browser.getUrl().should.endWith('/pinboard/abcd1234/untitled-pinboard/');
     });

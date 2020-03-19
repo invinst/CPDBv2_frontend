@@ -27,7 +27,7 @@ export default class PinboardIntroduction extends Component {
           </div>
           <a className='get-started-btn' onClick={ this.onGetStartedButtonClick }>Get started</a>
         </div>
-        <div className='clear-fix' />
+        <div className='clearfix' />
       </div>
     );
   }

@@ -61,7 +61,7 @@ class SearchBoxSection extends Section {
 
 class RightLinksSection extends Section {
   constructor(parentSelector) {
-    super(parentSelector, '//div[contains(@class, "right-links__right-links")]');
+    super(parentSelector, '//div[contains(@class, "header-links__header-links")]');
 
     this.prepareElementGetters({
       data: '//a[text()="Data"]',
@@ -78,7 +78,7 @@ class NavBarSection extends Section {
     this.prepareElementGetters({
       logOutButton: '//a[contains(@class, "test--logout-button")]',
       searchBox: SearchBoxSection,
-      rightLinks: RightLinksSection,
+      headerLinks: RightLinksSection,
     });
   }
 }

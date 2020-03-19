@@ -23,7 +23,7 @@ export default class PinboardButton extends Component {
     return (
       <div className={ cx(styles.pinboardButton, 'pinboard-feature' ) }>
         <div
-          className={ cx('right-link', { 'show-introduction': showIntroduction } ) }
+          className={ cx('header-link', { 'show-introduction': showIntroduction } ) }
           onClick={ this.onClick }
         >
           Pinboards

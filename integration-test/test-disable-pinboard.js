@@ -32,9 +32,9 @@ describe('Disable pinboard feature', function () {
     it('should not display pinboards right link', function () {
       const navBar = landingPage.header.navBar;
       navBar.mainElement.waitForDisplayed();
-      navBar.rightLinks.pinboard.waitForDisplayed(2000, true);
-      navBar.rightLinks.pinboard.waitForExist();
-      navBar.rightLinks.pinboard.isDisplayed().should.be.false();
+      navBar.headerLinks.pinboard.waitForDisplayed(2000, true);
+      navBar.headerLinks.pinboard.waitForExist();
+      navBar.headerLinks.pinboard.isDisplayed().should.be.false();
     });
 
     it('should not display pinned buttons', function () {

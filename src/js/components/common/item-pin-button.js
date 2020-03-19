@@ -10,6 +10,7 @@ import { isPinButtonIntroductionVisited, setPinButtonIntroductionVisited } from 
 
 class ItemPinButton extends Component {
   onIntroductionClick = (e) => {
+    e.stopPropagation();
     e.preventDefault();
     setPinButtonIntroductionVisited();
     this.forceUpdate();

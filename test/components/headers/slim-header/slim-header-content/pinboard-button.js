@@ -16,10 +16,10 @@ describe('PinboardButton component', function () {
       wrapper = mount(<PinboardButton />);
     });
 
-    it('should render right-link without show-introduction class', function () {
-      const rightLink = wrapper.find('.right-link');
-      rightLink.exists().should.be.true();
-      rightLink.prop('className').should.not.containEql('show-introduction');
+    it('should render header-link without show-introduction class', function () {
+      const headerLink = wrapper.find('.header-link');
+      headerLink.exists().should.be.true();
+      headerLink.prop('className').should.not.containEql('show-introduction');
     });
 
     it('should not render pinboard button introduction', function () {
@@ -37,10 +37,10 @@ describe('PinboardButton component', function () {
       wrapper = mount(<PinboardButton />);
     });
 
-    it('should render right-link with show-introduction class', function () {
-      const rightLink = wrapper.find('.right-link');
-      rightLink.exists().should.be.true();
-      rightLink.prop('className').should.containEql('show-introduction');
+    it('should render header-link with show-introduction class', function () {
+      const headerLink = wrapper.find('.header-link');
+      headerLink.exists().should.be.true();
+      headerLink.prop('className').should.containEql('show-introduction');
     });
 
     it('should render pinboard button introduction', function () {
@@ -48,7 +48,7 @@ describe('PinboardButton component', function () {
     });
 
     it('should call setPinboardButtonIntroductionVisited and redirect to pinboard on user click', function () {
-      wrapper.find('.right-link').simulate('click');
+      wrapper.find('.header-link').simulate('click');
       setPinboardButtonIntroductionVisitedSpy.should.be.calledOnce();
       browserHistoryPushSpy.should.be.calledWith('/pinboard/');
     });
