@@ -49,7 +49,7 @@ import { fetchAllPinboards } from 'actions/pinboard-admin-page';
 import { fetchVideoInfo } from 'actions/headers/slim-header';
 import { hasVideoInfoSelector } from 'selectors/headers/slim-header';
 import { dispatchFetchPinboardPageData, dispatchFetchPinboardPinnedItems } from 'utils/pinboard';
-import { isSignedIn } from 'utils/authentication';
+import { isSignedInFromCookie } from 'utils/authentication';
 import { fetchToast } from 'actions/toast';
 import { hasToastsSelector } from 'selectors/toast';
 
@@ -62,7 +62,7 @@ const getMatchQuery = (action) => {
 const handleFetchingDocumentPage = (dispatches, store, pathname) => {
   const documentId = getDocumentId(pathname);
   dispatches.push(store.dispatch(fetchDocument(documentId)));
-  if (isSignedIn()) {
+  if (isSignedInFromCookie()) {
     store.dispatch(fetchDocumentSuggestionTags());
   }
 };

@@ -191,8 +191,12 @@ class LandingPage extends Page {
     });
   }
 
-  open() {
+  open(login = false) {
     super.open('/');
+    if (login) {
+      browser.keys('Escape');
+      this.loginScreen.login();
+    }
   }
 }
 

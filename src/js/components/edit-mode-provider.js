@@ -1,14 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { editModeOn } from 'utils/edit-path';
 import { EditModeContext } from 'contexts';
 
 export default function EditModeProvider(props) {
-  const { children, location } = props;
+  const { children, editModeOn } = props;
 
   return (
-    <EditModeContext.Provider value={ { editModeOn: editModeOn(location.pathname) } }>
+    <EditModeContext.Provider value={ { editModeOn } }>
       { children }
     </EditModeContext.Provider>
   );
@@ -18,10 +17,9 @@ EditModeProvider.propTypes = {
   children: PropTypes.node,
   pathname: PropTypes.string,
   location: PropTypes.object,
+  editModeOn: PropTypes.bool,
 };
 
 EditModeProvider.defaultProps = {
-  location: {
-    pathname: '',
-  },
+  editModeOn: false,
 };

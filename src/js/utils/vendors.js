@@ -30,7 +30,7 @@ export function loadTwitter(cb) {
 
 _mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
 
-if (config.appEnv === 'live-test' || global.mocha !== undefined) {
+if (config.appEnv === 'integration-test' || global.mocha !== undefined) {
   const addSourceSpy = spy();
   const getSource = (source) => source === 'unknown source' ? undefined : source;
   const getSourceStub = spy(getSource);

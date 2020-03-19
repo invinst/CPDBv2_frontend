@@ -32,7 +32,7 @@ describe('Complaint component', function () {
 
   it('should render Heading and AttachmentsTab', function () {
     const wrapper = shallow(
-      <Complaint complaint={ complaint } />
+      <Complaint complaint={ complaint } pathname='/complaint/307775/'/>
     );
 
     const heading = wrapper.find(Heading);
@@ -41,6 +41,8 @@ describe('Complaint component', function () {
     const attachments = wrapper.find(Attachment);
     attachments.should.have.length(2);
     attachments.at(0).prop('attachment').should.eql(attachment0);
+    attachments.at(0).prop('pathname').should.eql('/complaint/307775/');
     attachments.at(1).prop('attachment').should.eql(attachment1);
+    attachments.at(1).prop('pathname').should.eql('/complaint/307775/');
   });
 });

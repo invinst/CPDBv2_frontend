@@ -53,7 +53,7 @@ lcov.info
 bundle.js
 
 ### live test package ###
-live-test-build/
+integration-test-build/
 
 ### pyCharm ###
 .idea

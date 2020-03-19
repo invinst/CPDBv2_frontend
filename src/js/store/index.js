@@ -13,6 +13,7 @@ import redirectOfficerAlias from 'middleware/redirect-officer-alias';
 import updatePathName from 'middleware/path-name';
 import retryOfficerDownloadMiddleware from 'middleware/retry-officer-downloads';
 import restoreCreateOrUpdatePinboard from 'middleware/restore-create-or-update-pinboard';
+import forceEditModeWhenAuthenticated from 'middleware/force-edit-mode-when-authenticated';
 import config from 'config';
 import browserHistory from 'utils/history';
 
@@ -34,6 +35,7 @@ function configureStore(initialState) {
     redirectOfficerAlias,
     updatePathName,
     retryOfficerDownloadMiddleware,
+    forceEditModeWhenAuthenticated,
   ];
   if (enablePinboardFeature)
     middleware = [...middleware, restoreCreateOrUpdatePinboard];

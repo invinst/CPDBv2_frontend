@@ -7,7 +7,7 @@ import cx from 'classnames';
 import { HelmetProvider } from 'react-helmet-async';
 
 import config from 'config';
-import EditModeProvider from 'components/edit-mode-provider';
+import EditModeProviderContainer from 'containers/edit-mode-provider-container';
 import LoginModalContainer from 'containers/login-modal-container';
 import GenericModalContainer from 'containers/generic-modal-container';
 import VideoModalContainer from 'containers/video-modal-container';
@@ -59,14 +59,14 @@ export default class App extends React.Component {
     return (
       <HelmetProvider>
         <StyleRoot className={ cx(styles.app, { 'pinboard-disabled': !enablePinboardFeature }) }>
-          <EditModeProvider location={ location }>
+          <EditModeProviderContainer>
             <RouteTransition pathname={ location.pathname }>
               <RouterRoot location={ location }/>
             </RouteTransition>
             <LoginModalContainer location={ location }/>
             <GenericModalContainer location={ location }/>
             <VideoModalContainer />
-          </EditModeProvider>
+          </EditModeProviderContainer>
           <ToastContainer
             pauseOnFocusLoss={ false }
             closeButton={ false }
@@ -92,6 +92,7 @@ App.propTypes = {
   toggleEditMode: PropTypes.func,
   toggleSearchMode: PropTypes.func,
   changeSearchQuery: PropTypes.func,
+  editModeOn: PropTypes.bool,
 };
 
 App.defaultProps = {

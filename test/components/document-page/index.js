@@ -3,9 +3,10 @@ import { shallow, mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import { omit, findIndex, slice, cloneDeep, set } from 'lodash';
+import { omit, findIndex, slice, cloneDeep, set, noop } from 'lodash';
 import { HelmetProvider } from 'react-helmet-async';
 import moment from 'moment-timezone';
+import { spy } from 'sinon';
 
 import DocumentPageContainer from 'containers/document-page';
 import ShareableHeader from 'components/headers/shareable-header';
@@ -13,6 +14,7 @@ import FooterContainer from 'containers/footer-container';
 import SimpleListWidget from 'components/document-page/simple-list-widget';
 import EditableTextBox from 'components/document-page/editable-text-box';
 import EditableTagsInput from 'components/document-page/editable-tags-input';
+import * as LayeredKeyBinding from 'utils/layered-key-binding';
 
 
 describe('DocumentPage component', function () {
@@ -334,5 +336,45 @@ describe('DocumentPage component', function () {
     );
 
     wrapper.find(EditableTagsInput).exists().should.be.false();
+  });
+
+  it('should bind esc key when componentDidMount', function () {
+    const newState = cloneDeep(state);
+    set(newState, 'authentication.apiAccessToken', '');
+    const newStore = MockStore()(newState);
+    const bindSpy = spy(LayeredKeyBinding, 'bind');
+
+    const wrapper = mount(
+      <Provider store={ newStore }>
+        <MemoryRouter>
+          <HelmetProvider>
+            <DocumentPageContainer />
+          </HelmetProvider>
+        </MemoryRouter>
+      </Provider>
+    );
+
+    wrapper.instance().componentDidMount();
+    bindSpy.should.be.calledWith('esc', noop);
+  });
+
+  it('should unbind esc key when componentWillUnmount', function () {
+    const newState = cloneDeep(state);
+    set(newState, 'authentication.apiAccessToken', '');
+    const newStore = MockStore()(newState);
+    const unbindSpy = spy(LayeredKeyBinding, 'unbind');
+
+    const wrapper = mount(
+      <Provider store={ newStore }>
+        <MemoryRouter>
+          <HelmetProvider>
+            <DocumentPageContainer />
+          </HelmetProvider>
+        </MemoryRouter>
+      </Provider>
+    );
+
+    wrapper.unmount();
+    unbindSpy.should.be.calledWith('esc');
   });
 });
