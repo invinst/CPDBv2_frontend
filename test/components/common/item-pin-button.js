@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { stub } from 'sinon';
+import { stub, spy } from 'sinon';
 
 import ItemPinButton from 'components/common/item-pin-button';
 import styles from 'components/common/item-pin-button.sass';
@@ -134,6 +134,13 @@ describe('ItemPinButton component', function () {
 
         it('should render introduction', function () {
           wrapper.find('.pin-button-introduction').exists().should.be.true();
+        });
+
+        it('should handle on introduction click', function () {
+          const preventDefaultSpy = spy();
+          wrapper.find('.pin-button-introduction').simulate('click', { preventDefault: preventDefaultSpy });
+          wrapper.find('.pin-button-introduction').exists().should.be.false();
+          preventDefaultSpy.should.be.calledOnce();
         });
       });
     });

@@ -1,31 +1,41 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Component } from 'react';
 import cx from 'classnames';
 import { every, isEmpty } from 'lodash';
 
 import withPinnable from 'components/common/with-pinnable';
 import styles from 'components/common/item-pin-button.sass';
-import { isPinButtonIntroductionVisited } from 'utils/pinboard';
+import { isPinButtonIntroductionVisited, setPinButtonIntroductionVisited } from 'utils/pinboard';
 
 
-function ItemPinButton(props) {
-  const { className, showHint, item, items, showIntroduction } = props;
-  const isPinned = every(isEmpty(items) ? [item] : items, item => item.isPinned);
-  const shouldShowIntroduction = showIntroduction && !isPinButtonIntroductionVisited();
-  return (
-    <div className={ cx(
-      'pinboard-feature',
-      styles.itemPinButton,
-      className,
-      { 'is-pinned': isPinned, 'show-introduction': shouldShowIntroduction }
-    ) }>
-      <div className='pin-button' />
-      { showHint && <div className='pin-action-hint'> Unpin? </div> }
-      {
-        shouldShowIntroduction && <div className='pin-button-introduction'>Tap this button to add to your pinboard</div>
-      }
-    </div>
-  );
+class ItemPinButton extends Component {
+  onIntroductionClick = (e) => {
+    e.preventDefault();
+    setPinButtonIntroductionVisited();
+    this.forceUpdate();
+  };
+
+  render() {
+    const { className, showHint, item, items, showIntroduction } = this.props;
+    const isPinned = every(isEmpty(items) ? [item] : items, item => item.isPinned);
+    const shouldShowIntroduction = showIntroduction && !isPinButtonIntroductionVisited();
+    return (
+      <div className={ cx(
+        'pinboard-feature',
+        styles.itemPinButton,
+        className,
+        { 'is-pinned': isPinned, 'show-introduction': shouldShowIntroduction }
+      ) }>
+        <div className='pin-button' />
+        { showHint && <div className='pin-action-hint'> Unpin? </div> }
+        {
+          shouldShowIntroduction
+          && <div className='pin-button-introduction' onClick={ this.onIntroductionClick }>
+            Tap this button to add to your pinboard</div>
+        }
+      </div>
+    );
+  }
 }
 
 ItemPinButton.propTypes = {
