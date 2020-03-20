@@ -23,9 +23,7 @@ import PrintPreloadFonts from 'components/common/print-preload-fonts';
 import { PrintModeContext } from 'contexts';
 import styles from './cr-page.sass';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
-import PinboardsMenuContainer from 'containers/cr-page/pinboards-menu-container';
-import HeaderButton from 'components/headers/shareable-header/header-button';
-import headerStyles from 'components/headers/shareable-header/shareable-header.sass';
+import HeaderPinButtonContainer from 'containers/cr-page/header-pin-button-container';
 
 
 function CRPage(props) {
@@ -47,11 +45,7 @@ function CRPage(props) {
       <div className={ styles.crPage }>
         <ShareableHeaderContainer
           headerButtons={
-            <HeaderButton
-              name='add-to-pinboard-btn'
-              buttonClassName={ cx(headerStyles.addToPinboardBtn, 'pinboard-feature') }
-              Menu={ PinboardsMenuContainer }
-            />
+            <HeaderPinButtonContainer />
           }
         />
         <div className={ cx(responsiveContainerStyles.responsiveContainer, 'top-content') }>
@@ -150,7 +144,6 @@ CRPage.propTypes = {
   noAttachmentTextEditWrapperStateProps: PropTypes.object,
   onTrackingAttachment: PropTypes.func,
   addOrRemoveItemInPinboard: PropTypes.func,
-  isPinned: PropTypes.bool,
 };
 
 CRPage.defaultProps = {
@@ -158,7 +151,6 @@ CRPage.defaultProps = {
   complainants: [],
   coaccused: [],
   location: {},
-  isPinned: false,
 };
 
 export default Printable(CRPage);

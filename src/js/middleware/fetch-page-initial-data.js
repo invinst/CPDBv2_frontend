@@ -43,7 +43,7 @@ import { fetchDocumentsByCRID } from 'actions/document-deduplicator-page';
 import { fetchDocuments, fetchDocumentsAuthenticated } from 'actions/documents-overview-page';
 import { cancelledByUser } from 'utils/axios-client';
 import { requestCrawlers } from 'actions/crawlers-page';
-import { fetchPinboard } from 'actions/pinboard';
+import { fetchPinboard, fetchHeaderPinboards } from 'actions/pinboard';
 import { redirect } from 'actions/pinboard-page';
 import { fetchAllPinboards } from 'actions/pinboard-admin-page';
 import { fetchVideoInfo } from 'actions/headers/slim-header';
@@ -144,6 +144,7 @@ export default store => next => action => {
         store.dispatch(requestCreateOfficerZipFile(officerId));
         store.dispatch(fetchPopup('officer'));
       }
+      store.dispatch(fetchHeaderPinboards());
       getCMSContent(OFFICER_PAGE_ID);
     }
 
@@ -188,6 +189,7 @@ export default store => next => action => {
         dispatches.push(store.dispatch(fetchCR(crid)));
         dispatches.push(store.dispatch(fetchPopup('complaint')));
       }
+      store.dispatch(fetchHeaderPinboards());
       getCMSContent(CR_PAGE_ID);
     }
 

@@ -4,6 +4,8 @@ import moment from 'moment';
 
 import { getThisYear, getCareerDuration, getCurrentAgeString } from 'utils/date';
 import { extractPercentile } from 'selectors/common/percentile';
+import { pinboardItemsSelector } from 'selectors/pinboard-page/pinboard';
+import { isItemPinned } from 'selectors/pinboard-page/pinboard';
 import { PINNED_ITEM_TYPES } from 'utils/constants';
 
 export const getOfficerInfo = state => state.officerPage.summary;
@@ -101,4 +103,10 @@ export const getOfficerPercentile = state => state.officerPage.summary.percentil
 export const officerYearlyThreePercentile = createSelector(
   [getOfficerPercentile],
   (officerPercentiles) => map(officerPercentiles, extractPercentile)
+);
+
+export const isOfficerPinnedSelector = createSelector(
+  getOfficerId,
+  pinboardItemsSelector,
+  (officerId, pinboardItems) => isItemPinned('OFFICER', officerId, pinboardItems)
 );

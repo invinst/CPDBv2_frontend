@@ -14,7 +14,6 @@ import RelatedComplaints from 'components/cr-page/related-complaints';
 import PrintNotes from 'components/common/print-notes';
 import { HelmetProvider } from 'react-helmet-async';
 import { PrintModeContext } from 'contexts';
-import PinboardsMenuContainer from 'containers/cr-page/pinboards-menu-container';
 
 
 describe('CRPage component', function () {
@@ -58,8 +57,8 @@ describe('CRPage component', function () {
 
     const shareableHeader = crPage.find(ShareableHeaderContainer);
     shareableHeader.exists().should.be.true();
-    const headerButtons = shareableHeader.prop('headerButtons');
-    headerButtons.props.Menu.should.equal(PinboardsMenuContainer);
+    const headerButton = shareableHeader.prop('headerButtons');
+    headerButton.type.WrappedComponent.name.should.equal('HeaderPinButton');
   });
 
   it('should not render some parts when missing information', function () {
@@ -80,6 +79,9 @@ describe('CRPage component', function () {
       breadcrumb: {
         breadcrumbItems: [],
       },
+      crPage: {},
+      crs: {},
+      pinboardPage: {},
     };
     const store = MockStore()(state);
 

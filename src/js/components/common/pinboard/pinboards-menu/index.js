@@ -16,8 +16,8 @@ const PINBOARD_PINNED_ITEM_TYPE_MAPPING = {
 
 export default class PinboardsMenu extends Component {
   componentDidMount() {
-    const { fetchPinboardsMenu } = this.props;
-    fetchPinboardsMenu();
+    const { fetchHeaderPinboards } = this.props;
+    fetchHeaderPinboards();
   }
 
   handleAddToNewPinboard = () => {
@@ -70,12 +70,12 @@ export default class PinboardsMenu extends Component {
 PinboardsMenu.propTypes = {
   item: PropTypes.object,
   pinboards: PropTypes.array,
-  fetchPinboardsMenu: PropTypes.func,
   isShown: PropTypes.bool,
   closeMenu: PropTypes.func,
-  createPinboard: PropTypes.func,
+  fetchHeaderPinboards: PropTypes.func,
   addOrRemoveItemInPinboard: PropTypes.func,
   fetchPinboard: PropTypes.func,
+  createPinboard: PropTypes.func,
 };
 
 PinboardsMenu.defaultProps = {
@@ -83,7 +83,8 @@ PinboardsMenu.defaultProps = {
   pinboards: [],
   isShown: false,
   closeMenu: noop,
-  createPinboard: noop,
+  fetchHeaderPinboards: noop,
   addOrRemoveItemInPinboard: noop,
   fetchPinboard: noop,
+  createPinboard: noop,
 };

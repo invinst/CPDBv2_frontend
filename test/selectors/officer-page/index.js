@@ -5,6 +5,7 @@ import {
   getCurrentTab,
   getEditModeOn,
   getZipFileUrl,
+  isOfficerPinnedSelector,
   pinnableOfficerSelector,
 } from 'selectors/officer-page';
 import { PINNED_ITEM_TYPES } from 'utils/constants';
@@ -178,6 +179,36 @@ describe('officer page selectors', function () {
       };
 
       getCurrentTab(state).should.eql('TIMELINE');
+    });
+  });
+
+  describe('isOfficerPinnedSelector', function () {
+    it('should return true if officerId is in pinboardItems', function () {
+      const state = {
+        officerPage: {
+          officerId: '1',
+        },
+        pinboardPage: {
+          pinboard: {
+            'officer_ids': ['1', '2', '3'],
+          },
+        },
+      };
+      isOfficerPinnedSelector(state).should.be.true();
+    });
+
+    it('should return false if officerId is not in pinboardItems', function () {
+      const state = {
+        officerPage: {
+          officerId: '5',
+        },
+        pinboardPage: {
+          pinboard: {
+            'officer_ids': ['1', '2', '3'],
+          },
+        },
+      };
+      isOfficerPinnedSelector(state).should.be.false();
     });
   });
 

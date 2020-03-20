@@ -12,7 +12,7 @@ import * as pinboardUtils from 'utils/pinboard';
 
 describe('PinboardsMenu component', function () {
   it('should render correctly', function () {
-    const fetchPinboardsMenuSpy = spy();
+    const fetchHeaderPinboardsSpy = spy();
     const pinboards = [
       {
         id: 1,
@@ -27,7 +27,7 @@ describe('PinboardsMenu component', function () {
     ];
     const wrapper = mount(
       <Provider store={ MockStore()({}) }>
-        <PinboardsMenu pinboards={ pinboards } fetchPinboardsMenu={ fetchPinboardsMenuSpy }/>
+        <PinboardsMenu pinboards={ pinboards } fetchHeaderPinboards={ fetchHeaderPinboardsSpy }/>
       </Provider>);
     const menuItems = wrapper.find('PinboardMenuItem');
 
@@ -46,11 +46,11 @@ describe('PinboardsMenu component', function () {
     const createEmptyPinboardButton = wrapper.find('.add-to-new-pinboard');
     createEmptyPinboardButton.exists().should.be.true();
 
-    fetchPinboardsMenuSpy.should.be.calledOnce();
+    fetchHeaderPinboardsSpy.should.be.calledOnce();
   });
 
   it('should call handleAddToNewPinboard when user click on Create pinboard', function (done) {
-    const fetchPinboardsMenuSpy = spy();
+    const fetchHeaderPinboardsSpy = spy();
     const closeMenuSpy = spy();
     const redirectToCreatedPinboardSpy = spy(pinboardUtils, 'redirectToCreatedPinboard');
     const emptyPinboardResponse = { payload: { id: '72jfhg' } };
@@ -71,7 +71,7 @@ describe('PinboardsMenu component', function () {
       <Provider store={ MockStore()({}) }>
         <PinboardsMenu
           pinboards={ pinboards }
-          fetchPinboardsMenu={ fetchPinboardsMenuSpy }
+          fetchHeaderPinboards={ fetchHeaderPinboardsSpy }
           item={ { type: PINNED_ITEM_TYPES.OFFICER, id: 835 } }
           closeMenu={ closeMenuSpy }
           createPinboard={ createPinboardStub }/>
@@ -87,7 +87,7 @@ describe('PinboardsMenu component', function () {
   });
 
   describe('PinButton click', function () {
-    let fetchPinboardsMenuSpy;
+    let fetchHeaderPinboardsSpy;
     let fetchPinboardStub;
     let addOrRemoveItemInPinboardSpy;
     let closeMenuSpy;
@@ -95,7 +95,7 @@ describe('PinboardsMenu component', function () {
 
     beforeEach(function () {
       addOrRemoveItemInPinboardSpy = spy();
-      fetchPinboardsMenuSpy = spy();
+      fetchHeaderPinboardsSpy = spy();
       closeMenuSpy = spy();
       fetchPinboardStub = stub().returns(new Promise(resolve => resolve()));
       const pinboards = [
@@ -116,7 +116,7 @@ describe('PinboardsMenu component', function () {
         <Provider store={ MockStore()({}) }>
           <PinboardsMenu
             pinboards={ pinboards }
-            fetchPinboardsMenu={ fetchPinboardsMenuSpy }
+            fetchHeaderPinboards={ fetchHeaderPinboardsSpy }
             addOrRemoveItemInPinboard={ addOrRemoveItemInPinboardSpy }
             item={ { type: 'OFFICER' } }
             closeMenu={ closeMenuSpy }

@@ -15,7 +15,6 @@ import { OFFICER_EDIT_TYPES } from 'utils/constants';
 import PrintNotes from 'components/common/print-notes';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import DownloadMenuContainer from 'containers/headers/shareable-header/download-menu-container';
-import PinboardsMenuContainer from 'containers/officer-page/pinboards-menu-container';
 import * as tracking from 'utils/tracking';
 import styles from 'components/officer-page/officer-page.sass';
 
@@ -36,6 +35,10 @@ describe('OfficerPage component', function () {
     breadcrumb: {
       breadcrumbItems: [],
     },
+    headers: {
+      pinboards: [],
+    },
+    pinboardPage: {},
     popups: [],
   });
 
@@ -81,8 +84,10 @@ describe('OfficerPage component', function () {
     const shareableHeader = officerPage.find(ShareableHeaderContainer);
     shareableHeader.exists().should.be.true();
     const headerButtons = shareableHeader.prop('headerButtons');
-    headerButtons.props.children[0].props.Menu.should.equal(PinboardsMenuContainer);
-    headerButtons.props.children[1].props.Menu.should.equal(DownloadMenuContainer);
+    headerButtons.props.children[0].type.WrappedComponent.name.should.equal('HeaderPinButton');
+    const downloadButton = headerButtons.props.children[1];
+    downloadButton.type.name.should.equal('HeaderButton');
+    downloadButton.props.Menu.should.equal(DownloadMenuContainer);
   });
 
   it('should render correct document title and description', function () {

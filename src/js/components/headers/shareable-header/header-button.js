@@ -44,7 +44,7 @@ export default class HeaderButton extends React.Component {
 
   render() {
     const { menuIsOpen } = this.state;
-    const { buttonClassName, Menu, name } = this.props;
+    const { buttonClassName, Menu, menuProps, name } = this.props;
     const handleClick = menuIsOpen ? this.closeMenu : this.openMenu;
 
     return (
@@ -53,7 +53,7 @@ export default class HeaderButton extends React.Component {
           className={ cx(buttonClassName, { focus: menuIsOpen }) }
           onClick={ handleClick }
         />
-        { menuIsOpen ? <Menu closeMenu={ this.closeMenu }/> : null }
+        { menuIsOpen ? <Menu { ...menuProps } closeMenu={ this.closeMenu }/> : null }
       </div>
     );
   }
@@ -62,12 +62,14 @@ export default class HeaderButton extends React.Component {
 HeaderButton.propTypes = {
   name: PropTypes.string.isRequired,
   Menu: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
+  menuProps: PropTypes.object,
   onOpen: PropTypes.func,
   onClose: PropTypes.func,
   buttonClassName: PropTypes.string,
 };
 
 HeaderButton.defaultProps = {
+  menuProps: {},
   onOpen: () => {},
   onClose: () => {},
 };

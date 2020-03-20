@@ -19,6 +19,7 @@ describe('HeaderButton component', function () {
         <HeaderButton
           name='button'
           Menu={ Menu }
+          menuProps={ { name: 'menu name' } }
           buttonClassName='button'
           onOpen={ this.stubOnOpen }
           onClose={ this.stubOnClose }
@@ -62,7 +63,9 @@ describe('HeaderButton component', function () {
     it('Should render custom menu', function () {
       wrapper.find('.button').simulate('click');
 
-      wrapper.find(Menu).exists().should.be.true();
+      const menu = wrapper.find(Menu);
+      menu.exists().should.be.true();
+      menu.prop('name').should.eql('menu name');
     });
   });
 

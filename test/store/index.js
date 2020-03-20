@@ -214,6 +214,7 @@ describe('store', function () {
           logoSectionEditModeOn: false,
           videoInfo: [],
         },
+        pinboards: [],
       },
       embed: {
         officers: [],
@@ -320,7 +321,6 @@ describe('store', function () {
           pagination: { next: null, previous: null },
         },
         redirect: false,
-        pinboardsMenu: [],
         pinnedItemsRequested: false,
         initialRequested: false,
         pinboards: [],

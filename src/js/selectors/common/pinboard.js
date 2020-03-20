@@ -40,8 +40,10 @@ export const createWithIsPinnedSelector = (cardsSelector, pinnedType, cardTransf
   },
 );
 
+const getHeaderPinboards = state => get(state, 'headers.pinboards', []);
+
 export const pinboardsMenuSelector = (idSelector, itemType) => createSelector(
-  state => state.pinboardPage.pinboardsMenu,
+  getHeaderPinboards,
   state => state.pinboardPage.pinboard,
   idSelector,
   (pinboards, currentPinboard, id) => pinboards.map(pinboard => {
@@ -57,4 +59,9 @@ export const pinboardsMenuSelector = (idSelector, itemType) => createSelector(
       isCurrent,
     };
   }),
+);
+
+export const showSelectPinboardsSelector = createSelector(
+  getHeaderPinboards,
+  pinboards => pinboards.length > 1,
 );

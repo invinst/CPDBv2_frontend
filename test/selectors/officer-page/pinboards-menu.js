@@ -3,8 +3,8 @@ import { officerPinboardsMenuSelector } from 'selectors/officer-page/pinboards-m
 describe('officerPinboardsMenuSelector', function () {
   it('should return pinboards menu correctly', function () {
     const state = {
-      pinboardPage: {
-        pinboardsMenu: [
+      headers: {
+        pinboards: [
           {
             id: '73fje',
             title: 'Pinboard 73fje',
@@ -30,6 +30,8 @@ describe('officerPinboardsMenuSelector', function () {
             'trr_ids': [],
           },
         ],
+      },
+      pinboardPage: {
         pinboard: {
           id: '73fje',
           'officer_ids': [864],

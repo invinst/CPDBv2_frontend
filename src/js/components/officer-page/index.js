@@ -3,7 +3,6 @@ import React, { useContext } from 'react';
 import { compact, get } from 'lodash';
 import { Helmet } from 'react-helmet-async';
 import pluralize from 'pluralize';
-import cx from 'classnames';
 
 import AnimatedRadarChart from './radar-chart';
 import SummarySection from './summary-section';
@@ -11,7 +10,8 @@ import MetricsSection from './metrics-section';
 import TabbedPaneSection from './tabbed-pane-section';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import DownloadMenuContainer from 'containers/headers/shareable-header/download-menu-container';
-import PinboardsMenuContainer from 'containers/officer-page/pinboards-menu-container';
+import HeaderPinButtonContainer from 'containers/officer-page/header-pin-button-container';
+import HeaderButton from 'components/headers/shareable-header/header-button';
 import FooterContainer from 'containers/footer-container';
 import { POPUP_NAMES } from 'utils/constants';
 import Printable from 'components/common/higher-order/printable';
@@ -20,8 +20,6 @@ import PrintPreloadFonts from 'components/common/print-preload-fonts';
 import * as tracking from 'utils/tracking';
 import { PrintModeContext } from 'contexts';
 import styles from './officer-page.sass';
-import HeaderButton from 'components/headers/shareable-header/header-button';
-import headerStyles from 'components/headers/shareable-header/shareable-header.sass';
 
 
 function OfficerPage(props) {
@@ -71,11 +69,7 @@ function OfficerPage(props) {
         <ShareableHeaderContainer
           headerButtons={
             <React.Fragment>
-              <HeaderButton
-                name='add-to-pinboard-btn'
-                buttonClassName={ cx(headerStyles.addToPinboardBtn, 'pinboard-feature') }
-                Menu={ PinboardsMenuContainer }
-              />
+              <HeaderPinButtonContainer />
               <HeaderButton
                 name='download-btn'
                 buttonClassName={ styles.downloadBtn }
