@@ -538,7 +538,7 @@ describe('Search Page', function () {
     searchPage.recentSuggestions.waitForDisplayed(20000, true);
   });
 
-  it('should go back to landing page when user click on cancel button', function () {
+  it('should go back to landing page when user click on close button', function () {
     landingPage.open();
     landingPage.header.navBar.searchBox.mainElement.click();
     searchPage.backButton.waitForDisplayed();
@@ -558,7 +558,7 @@ describe('Search Page', function () {
     landingPage.currentBasePath.should.equal('/');
   });
 
-  it('should go back to pinboard page when user click on cancel button', function () {
+  it('should go back to pinboard page when user click on close button', function () {
     pinboardPage.open('abcd8765');
     pinboardPage.searchBar.click();
     searchPage.backButton.waitForDisplayed();
@@ -588,7 +588,7 @@ describe('Search Page', function () {
     searchPage.currentBasePath.should.equal('/officer/1/bernadette-kelly/');
   });
 
-  it('should go back to officer page when user click on cancel button', function () {
+  it('should go back to officer page when user click on close button', function () {
     searchPage.input.waitForDisplayed();
     searchPage.input.setValue('Ke');
 
