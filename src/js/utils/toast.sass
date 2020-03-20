@@ -1,8 +1,9 @@
 @import 'variables'
 
-\:local(.toast-wrapper)
+%base-toast-wrapper
   background-color: $sprout-color
-  border-radius: 2px
+  border-radius: 4px
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25)
   color: $japanese-laurel-color
   line-height: 40px
   min-height: 40px
@@ -10,19 +11,14 @@
   padding: 0
   text-align: left
   width: auto
-  box-shadow: 0 1px 2px 0 $black-15-color
-
-  &.removed
-    background-color: $wild-sand-color
-    color: $thunder-color
 
 \:local(.pinboard-page-toast)
-  @extend :local(.toast-wrapper)
+  @extend %base-toast-wrapper
   padding: 12px 8px
   width: 340px
 
 \:local(.alert-toast)
-  @extend :local(.toast-wrapper)
+  @extend %base-toast-wrapper
   background-color: $champagne-color
   color: $scarlet-color
   padding: 12px 8px

@@ -13,8 +13,8 @@
 
 ## Run Selenium Tests
 
-- `yarn live-test` to run selenium tests.
-- `yarn live-test -- --spec ./integration-test/<test-name>.js` to run specific test.
+- `yarn integration-test` to run selenium tests.
+- `yarn integration-test -- --spec ./integration-test/<test-name>.js` to run specific test.
 
 ## Development
 

@@ -382,7 +382,7 @@ describe('landing page', function () {
 
       //Check toast
       landingPage.lastToast.waitForDisplayed();
-      landingPage.lastToast.waitForText(`${messagePrefix} added.`);
+      landingPage.lastToast.waitForText(`${messagePrefix} added.\nGo to pinboard`);
 
       //Go to Search Page and check for pinboard item counts
       landingPage.searchSection.mainElement.click();
@@ -395,7 +395,7 @@ describe('landing page', function () {
 
       //Check toast
       landingPage.lastToast.waitForDisplayed();
-      landingPage.lastToast.waitForText(`${messagePrefix} removed.`);
+      landingPage.lastToast.waitForText(`${messagePrefix} removed.\nGo to pinboard`);
 
       //Go to Search Page and check for pinboard item counts
       landingPage.searchSection.mainElement.click();
@@ -408,16 +408,16 @@ describe('landing page', function () {
       selector.click();
 
       landingPage.lastToast.waitForDisplayed();
-      landingPage.lastToast.waitForText(`${lastMessagePrefix} added.`);
+      landingPage.lastToast.waitForText(`${lastMessagePrefix} added.\nGo to pinboard`);
       landingPage.secondLastToast.waitForDisplayed();
-      landingPage.secondLastToast.waitForText(`${secondLastMessagePrefix} added.`);
+      landingPage.secondLastToast.waitForText(`${secondLastMessagePrefix} added.\nGo to pinboard`);
 
       selector.click();
 
       landingPage.lastToast.waitForDisplayed();
-      landingPage.lastToast.waitForText(`${lastMessagePrefix} removed.`);
+      landingPage.lastToast.waitForText(`${lastMessagePrefix} removed.\nGo to pinboard`);
       landingPage.secondLastToast.waitForDisplayed();
-      landingPage.secondLastToast.waitForText(`${secondLastMessagePrefix} removed.`);
+      landingPage.secondLastToast.waitForText(`${secondLastMessagePrefix} removed.\nGo to pinboard`);
     };
 
     it('should display toast when pinning cards', function () {
@@ -425,19 +425,27 @@ describe('landing page', function () {
         landingPage.recentActivityCarousel.jeromeFinniganPinButton,
         'Police Officer Jerome Finnigan 54-year-old white male, with 10 complaints, 5 sustained'
       );
+      landingPage.lastToast.waitForDisplayed(5000, true);
+
       checkPinToast(
         landingPage.officersByAllegationCarousel.edwardMayPinButton,
         'Commander Edward May 54-year-old white male, with 5 complaints, 1 sustained',
       );
+      landingPage.lastToast.waitForDisplayed(5000, true);
+
       checkPairCardPinToast(
         landingPage.recentActivityCarousel.jeromeFinniganPairCardPinButton,
         'Police Officer Edward May 54-year-old white male, with 10 complaints, 5 sustained',
         'Police Officer Jerome Finnigan 54-year-old white male, with 10 complaints, 5 sustained',
       );
+      landingPage.lastToast.waitForDisplayed(5000, true);
+
       checkPinToast(
         landingPage.recentDocumentCarousel.domesticPinButton,
         'CR #123456 categorized as Domestic happened in Jan 1, 2000'
       );
+      landingPage.lastToast.waitForDisplayed(5000, true);
+
       checkPinToast(
         landingPage.complaintSummariesCarousel.criminalMisconductPinButton,
         'CR #654321 categorized as Criminal Misconduct happened in Jan 1, 2000'
@@ -450,7 +458,8 @@ describe('landing page', function () {
 
       landingPage.toast.waitForDisplayed();
       landingPage.toast.waitForText(
-        'Police Officer Jerome Finnigan 54-year-old white male, with 10 complaints, 5 sustained added.'
+        'Police Officer Jerome Finnigan 54-year-old white male, with 10 complaints, 5 sustained added.' +
+        '\nGo to pinboard'
       );
       landingPage.toast.waitForDisplayed(5000, true);
 
@@ -462,7 +471,8 @@ describe('landing page', function () {
 
       landingPage.lastToast.waitForDisplayed();
       landingPage.lastToast.waitForText(
-        'Police Officer Edward May 54-year-old white male, with 10 complaints, 5 sustained added.'
+        'Police Officer Edward May 54-year-old white male, with 10 complaints, 5 sustained added.' +
+        '\nGo to pinboard'
       );
       landingPage.secondLastToast.waitForDisplayed(2000, true);
 
@@ -474,11 +484,13 @@ describe('landing page', function () {
 
       landingPage.lastToast.waitForDisplayed();
       landingPage.lastToast.waitForText(
-        'Police Officer Edward May 54-year-old white male, with 10 complaints, 5 sustained removed.'
+        'Police Officer Edward May 54-year-old white male, with 10 complaints, 5 sustained removed.' +
+        '\nGo to pinboard'
       );
       landingPage.secondLastToast.waitForDisplayed();
       landingPage.secondLastToast.waitForText(
-        'Police Officer Jerome Finnigan 54-year-old white male, with 10 complaints, 5 sustained removed.'
+        'Police Officer Jerome Finnigan 54-year-old white male, with 10 complaints, 5 sustained removed.' +
+        '\nGo to pinboard'
       );
 
       landingPage.searchSection.mainElement.click();

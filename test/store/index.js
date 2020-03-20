@@ -30,7 +30,7 @@ describe('store', function () {
     const currentState = getCurrentState();
     const router = currentState.router;
     const expectedState = {
-      pathname: null,
+      pathname: '',
       landingPage: {
         activityGrid: {
           cards: [],

@@ -143,7 +143,8 @@ describe('CR page', function () {
       crPage.accusedOfficers.firstCard.pinButton.click();
       crPage.lastToast.waitForDisplayed();
       crPage.lastToast.waitForText(
-        'Officer Ridchard Sullivan 42-year-old white male, with 43 complaints, 1 sustained added.'
+        'Officer Ridchard Sullivan 42-year-old white male, with 43 complaints, 1 sustained added.' +
+        '\nGo to pinboard'
       );
 
       crPage.landingPageBreadCrumb.click();
@@ -156,7 +157,8 @@ describe('CR page', function () {
       crPage.accusedOfficers.firstCard.pinButton.click();
       crPage.lastToast.waitForDisplayed();
       crPage.lastToast.waitForText(
-        'Officer Ridchard Sullivan 42-year-old white male, with 43 complaints, 1 sustained removed.'
+        'Officer Ridchard Sullivan 42-year-old white male, with 43 complaints, 1 sustained removed.' +
+        '\nGo to pinboard'
       );
 
       crPage.landingPageBreadCrumb.click();
@@ -169,7 +171,8 @@ describe('CR page', function () {
       crPage.relatedByCategoriesCarousel.firstPinButton.click();
       crPage.lastToast.waitForDisplayed();
       crPage.lastToast.waitForText(
-        'CR #123456 categorized as Use Of Force happened in Jan 1, 2000 added.'
+        'CR #123456 categorized as Use Of Force happened in Jan 1, 2000 added.' +
+        '\nGo to pinboard'
       );
 
       crPage.landingPageBreadCrumb.click();
@@ -182,7 +185,8 @@ describe('CR page', function () {
       crPage.relatedByCategoriesCarousel.firstPinButton.click();
       crPage.lastToast.waitForDisplayed();
       crPage.lastToast.waitForText(
-        'CR #123456 categorized as Use Of Force happened in Jan 1, 2000 removed.'
+        'CR #123456 categorized as Use Of Force happened in Jan 1, 2000 removed.' +
+        '\nGo to pinboard'
       );
 
       crPage.landingPageBreadCrumb.click();
@@ -219,7 +223,8 @@ describe('CR page', function () {
         crPage.pinboardsMenuSection.firstItemPinButton.click();
         crPage.lastToast.waitForDisplayed();
         crPage.lastToast.waitForText(
-          'CR #1000000 categorized as Use Of Force happened in 2003-09-23 added.'
+          'CR #1000000 categorized as Use Of Force happened in 2003-09-23 added.' +
+          '\nGo to pinboard'
         );
 
         crPage.landingPageBreadCrumb.click();
@@ -235,7 +240,8 @@ describe('CR page', function () {
         crPage.pinboardsMenuSection.firstItemPinButton.click();
         crPage.lastToast.waitForDisplayed();
         crPage.lastToast.waitForText(
-          'CR #1000000 categorized as Use Of Force happened in 2003-09-23 added.'
+          'CR #1000000 categorized as Use Of Force happened in 2003-09-23 added.' +
+          '\nGo to pinboard'
         );
         crPage.pinboardsMenuSection.addToPinboardButton.moveTo(); // Move mouse outside of toast message
         crPage.lastToast.waitForDisplayed(5000, true);
@@ -246,7 +252,8 @@ describe('CR page', function () {
         crPage.pinboardsMenuSection.firstItemPinButton.click();
         crPage.lastToast.waitForDisplayed();
         crPage.lastToast.waitForText(
-          'CR #1000000 categorized as Use Of Force happened in 2003-09-23 removed.'
+          'CR #1000000 categorized as Use Of Force happened in 2003-09-23 removed.' +
+          '\nGo to pinboard'
         );
 
         crPage.landingPageBreadCrumb.click();

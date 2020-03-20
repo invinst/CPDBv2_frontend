@@ -79,6 +79,7 @@ export const SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL = `${V2_ROOT_PATH}social-graph
 export const PINBOARDS_URL = `${V2_ROOT_PATH}pinboards/`;
 export const ALL_PINBOARD_URL = `${V2_ROOT_PATH}pinboards/all/`;
 export const RECENT_SEARCH_ITEMS_API_URL = 'suggestion/recent-search-items/';
+export const TRACKING_API_URL = `${V2_ROOT_PATH}tracking/`;
 
 export const OFFICER_SUMMARY_REQUEST_START = 'OFFICER_SUMMARY_REQUEST_START';
 export const OFFICER_SUMMARY_REQUEST_SUCCESS = 'OFFICER_SUMMARY_REQUEST_SUCCESS';
@@ -827,6 +828,9 @@ export const PINBOARD_ATTR_MAP = {
 export const MODAL_VIDEO_INFO = {
   CHANNEL: 'vimeo',
   VIDEO_ID: '285002059',
+  CONFIG: {
+    vimeo: { texttrack: 'en' },
+  },
 };
 
 export const SEARCH_SAVE_TO_RECENT = 'SEARCH_SAVE_TO_RECENT';
@@ -866,4 +870,10 @@ export const BREADCRUMB_DEFAULT_MAPPING = {
   [CRAWLERS_PATH]: 'Crawler Tracker',
   [TRACKER_DOCUMENTS_OVERVIEW_PATH]: 'Documents Overview',
   [PINBOARD_ADMIN_PATH]: 'View all pinboards',
+};
+
+export const ELLIPSIS_CONFIG = {
+  basedOn: 'words',
+  ellipsis: '...',
+  maxLine: '3',
 };
