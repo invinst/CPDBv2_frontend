@@ -8,7 +8,7 @@ import header from './page-objects/shareable-header';
 import landingPage from './page-objects/landing-page';
 import searchPage from './page-objects/search-page';
 import pinboardPage from './page-objects/pinboard-page';
-import { selectText } from './utils';
+import { setupMockApiFile, restoreMockApiFile, selectText } from './utils';
 
 const noDataRadarChartOfficerId = 2;
 
@@ -526,82 +526,131 @@ describe('officer page', function () {
     });
 
     context('current officer', function () {
-      it('should display pinboards menu', function () {
-        officerPage.pinboardsMenuSection.addToPinboardButton.click();
-        officerPage.pinboardsMenuSection.menu.waitForDisplayed();
+      context('when user has no or only one active pinboard', function () {
+        beforeEach(function () {
+          setupMockApiFile('officer-page/user-has-no-or-only-one-active-pinboard.js');
+          officerPage.open();
+        });
 
-        officerPage.pinboardsMenuSection.items.waitForCount(5, 1000);
-        officerPage.pinboardsMenuSection.firstItemTitle.getText().should.equal('Skrull Cap');
-        officerPage.pinboardsMenuSection.firstItemCreatedAt.getText().should.equal('Created Mar 09, 2020');
-        officerPage.pinboardsMenuSection.secondItemTitle.getText().should.equal('Watts Crew');
-        officerPage.pinboardsMenuSection.secondItemCreatedAt.getText().should.equal('Created Mar 09, 2020');
-        officerPage.pinboardsMenuSection.thirdItemTitle.getText().should.equal('');
-        officerPage.pinboardsMenuSection.thirdItemCreatedAt.getText().should.equal('Created Mar 09, 2020');
+        afterEach(function () {
+          restoreMockApiFile();
+        });
+
+        it('should display toast when pinning', function () {
+          officerPage.pinButton.click();
+          officerPage.lastToast.waitForDisplayed();
+
+          officerPage.lastToast.waitForText(
+            'Police Officer Bernadette Kelly 54-year-old White Male, with 1 complaints, 4 sustained added.' +
+            '\nGo to pinboard'
+          );
+
+          officerPage.landingPageBreadCrumb.click();
+          landingPage.searchSection.mainElement.waitForDisplayed();
+          landingPage.searchSection.mainElement.click();
+          searchPage.pinboardButton.waitForText('Pinboard (1)');
+        });
+
+        it('should display toast when unpinning', function () {
+          officerPage.pinButton.click();
+          officerPage.lastToast.waitForDisplayed();
+          officerPage.lastToast.waitForText(
+            'Police Officer Bernadette Kelly 54-year-old White Male, with 1 complaints, 4 sustained added.' +
+            '\nGo to pinboard'
+          );
+
+          officerPage.pinButton.click();
+          officerPage.lastToast.waitForDisplayed();
+          officerPage.lastToast.waitForText(
+            'Police Officer Bernadette Kelly 54-year-old White Male, with 1 complaints, 4 sustained removed.' +
+            '\nGo to pinboard'
+          );
+
+          officerPage.landingPageBreadCrumb.click();
+          landingPage.searchSection.mainElement.waitForDisplayed();
+          landingPage.searchSection.mainElement.click();
+          searchPage.pinboardButton.waitForText('Pinboard (0)');
+        });
       });
 
-      it('should close pinboards menu when click outside', function () {
-        officerPage.pinboardsMenuSection.addToPinboardButton.click();
-        officerPage.pinboardsMenuSection.menu.waitForDisplayed();
-        officerPage.tabbedPaneSection.timelineTabName.click();
-        officerPage.pinboardsMenuSection.menu.waitForDisplayed(500, true);
-      });
+      context('when user has more than 1 pinboard', function () {
+        it('should display pinboards menu', function () {
+          officerPage.pinboardsMenuSection.addToPinboardButton.click();
+          officerPage.pinboardsMenuSection.menu.waitForDisplayed();
 
-      it('should display toast and close pinboards menu when pinning', function () {
-        officerPage.pinboardsMenuSection.addToPinboardButton.click();
-        officerPage.pinboardsMenuSection.menu.waitForDisplayed();
+          officerPage.pinboardsMenuSection.items.waitForCount(5, 1000);
+          officerPage.pinboardsMenuSection.firstItemTitle.getText().should.equal('Skrull Cap');
+          officerPage.pinboardsMenuSection.firstItemCreatedAt.getText().should.equal('Created Mar 09, 2020');
+          officerPage.pinboardsMenuSection.secondItemTitle.getText().should.equal('Watts Crew');
+          officerPage.pinboardsMenuSection.secondItemCreatedAt.getText().should.equal('Created Mar 09, 2020');
+          officerPage.pinboardsMenuSection.thirdItemTitle.getText().should.equal('');
+          officerPage.pinboardsMenuSection.thirdItemCreatedAt.getText().should.equal('Created Mar 09, 2020');
+        });
 
-        officerPage.pinboardsMenuSection.firstItemPinButton.click();
-        officerPage.lastToast.waitForDisplayed();
-        officerPage.lastToast.waitForText(
-          'Police Officer Bernadette Kelly 54-year-old White Male, with 1 complaints, 4 sustained added.' +
-          '\nGo to pinboard'
-        );
-        officerPage.pinboardsMenuSection.menu.isDisplayed().should.be.false();
+        it('should close pinboards menu when click outside', function () {
+          officerPage.pinboardsMenuSection.addToPinboardButton.click();
+          officerPage.pinboardsMenuSection.menu.waitForDisplayed();
+          officerPage.tabbedPaneSection.timelineTabName.click();
+          officerPage.pinboardsMenuSection.menu.waitForDisplayed(500, true);
+        });
 
-        officerPage.landingPageBreadCrumb.click();
-        landingPage.searchSection.mainElement.waitForDisplayed();
-        landingPage.searchSection.mainElement.click();
-        searchPage.pinboardButton.waitForText('Pinboard (4)');
-      });
+        it('should display toast and close pinboards menu when pinning', function () {
+          officerPage.pinboardsMenuSection.addToPinboardButton.click();
+          officerPage.pinboardsMenuSection.menu.waitForDisplayed();
 
-      it('should display toast when unpinning', function () {
-        officerPage.pinboardsMenuSection.addToPinboardButton.click();
-        officerPage.pinboardsMenuSection.menu.waitForDisplayed();
+          officerPage.pinboardsMenuSection.firstItemPinButton.click();
+          officerPage.lastToast.waitForDisplayed();
+          officerPage.lastToast.waitForText(
+            'Police Officer Bernadette Kelly 54-year-old White Male, with 1 complaints, 4 sustained added.' +
+            '\nGo to pinboard'
+          );
+          officerPage.pinboardsMenuSection.menu.isDisplayed().should.be.false();
 
-        officerPage.pinboardsMenuSection.firstItemPinButton.click();
-        officerPage.lastToast.waitForDisplayed();
-        officerPage.lastToast.waitForText(
-          'Police Officer Bernadette Kelly 54-year-old White Male, with 1 complaints, 4 sustained added.' +
-          '\nGo to pinboard'
-        );
-        officerPage.pinboardsMenuSection.menu.isDisplayed().should.be.false();
-        officerPage.pinboardsMenuSection.addToPinboardButton.moveTo(); // Move mouse outside of toast message
-        officerPage.lastToast.waitForDisplayed(5000, true);
+          officerPage.landingPageBreadCrumb.click();
+          landingPage.searchSection.mainElement.waitForDisplayed();
+          landingPage.searchSection.mainElement.click();
+          searchPage.pinboardButton.waitForText('Pinboard (4)');
+        });
 
-        officerPage.pinboardsMenuSection.addToPinboardButton.click();
-        officerPage.pinboardsMenuSection.menu.waitForDisplayed();
-        officerPage.pinboardsMenuSection.firstItemPinButton.click();
-        officerPage.lastToast.waitForDisplayed();
-        officerPage.lastToast.waitForText(
-          'Police Officer Bernadette Kelly 54-year-old White Male, with 1 complaints, 4 sustained removed.' +
-          '\nGo to pinboard'
-        );
-        officerPage.pinboardsMenuSection.menu.isDisplayed().should.be.false();
+        it('should display toast when unpinning', function () {
+          officerPage.pinboardsMenuSection.addToPinboardButton.click();
+          officerPage.pinboardsMenuSection.menu.waitForDisplayed();
 
-        officerPage.landingPageBreadCrumb.click();
-        landingPage.searchSection.mainElement.waitForDisplayed();
-        landingPage.searchSection.mainElement.click();
-        searchPage.pinboardButton.waitForText('Pinboard (3)');
-      });
+          officerPage.pinboardsMenuSection.firstItemPinButton.click();
+          officerPage.lastToast.waitForDisplayed();
+          officerPage.lastToast.waitForText(
+            'Police Officer Bernadette Kelly 54-year-old White Male, with 1 complaints, 4 sustained added.' +
+            '\nGo to pinboard'
+          );
+          officerPage.pinboardsMenuSection.menu.isDisplayed().should.be.false();
+          officerPage.pinboardsMenuSection.addToPinboardButton.moveTo(); // Move mouse outside of toast message
+          officerPage.lastToast.waitForDisplayed(5000, true);
 
-      it('should create new pinboard with current officer', function () {
-        officerPage.pinboardsMenuSection.addToPinboardButton.click();
-        officerPage.pinboardsMenuSection.menu.waitForDisplayed();
-        officerPage.pinboardsMenuSection.createPinboardWithSelectionButton.click();
+          officerPage.pinboardsMenuSection.addToPinboardButton.click();
+          officerPage.pinboardsMenuSection.menu.waitForDisplayed();
+          officerPage.pinboardsMenuSection.firstItemPinButton.click();
+          officerPage.lastToast.waitForDisplayed();
+          officerPage.lastToast.waitForText(
+            'Police Officer Bernadette Kelly 54-year-old White Male, with 1 complaints, 4 sustained removed.' +
+            '\nGo to pinboard'
+          );
+          officerPage.pinboardsMenuSection.menu.isDisplayed().should.be.false();
 
-        browser.waitForUrl(url => url.should.match(/\/pinboard\/f7231a74\/untitled-pinboard\/$/), 1000);
-        pinboardPage.pinnedSection.officers.cards.waitForCount(1, 3000);
-        pinboardPage.pinnedSection.officers.firstCardName.getText().should.equal('Bernadette Kelly');
+          officerPage.landingPageBreadCrumb.click();
+          landingPage.searchSection.mainElement.waitForDisplayed();
+          landingPage.searchSection.mainElement.click();
+          searchPage.pinboardButton.waitForText('Pinboard (3)');
+        });
+
+        it('should create new pinboard with current officer', function () {
+          officerPage.pinboardsMenuSection.addToPinboardButton.click();
+          officerPage.pinboardsMenuSection.menu.waitForDisplayed();
+          officerPage.pinboardsMenuSection.createPinboardWithSelectionButton.click();
+
+          browser.waitForUrl(url => url.should.match(/\/pinboard\/f7231a74\/untitled-pinboard\/$/), 1000);
+          pinboardPage.pinnedSection.officers.cards.waitForCount(1, 3000);
+          pinboardPage.pinnedSection.officers.firstCardName.getText().should.equal('Bernadette Kelly');
+        });
       });
     });
   });

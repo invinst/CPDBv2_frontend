@@ -164,6 +164,7 @@ class CRPage extends Page {
     this.prepareElementGetters({
       title: '.cr-title',
       category: '.test--cr-category-wrapper',
+      pinButton: '.shareable-header-nav-bar div.pin-button',
       incidentDate: '.cr-incident-date-value',
       investigationTimeline: '.investigator-timeline-text',
       lastToast: '(//div[contains(@class, "Toastify__toast-body")])[last()]',

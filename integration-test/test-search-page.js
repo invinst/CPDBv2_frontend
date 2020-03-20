@@ -1056,16 +1056,22 @@ describe('Search Page with pinboard functionalities', function () {
     searchPage.pinboardButton.getText().should.eql('Pinboard (0)');
   });
 
-  it('should redirect to Pinboard page when click on pinboard button', function () {
-    setupMockApiFile('search-page/search-page-mock-api.js');
+  context('when click on pinboard button', function () {
+    beforeEach(function () {
+      setupMockApiFile('search-page/search-page-mock-api.js');
+    });
 
-    searchPage.open('Ke');
-    searchPage.suggestionGroup.waitForDisplayed();
+    afterEach(function () {
+      restoreMockApiFile();
+    });
 
-    searchPage.pinboardButton.click();
-    browser.getUrl().should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/);
+    it('should redirect to Pinboard page', function () {
+      searchPage.open('Ke');
+      searchPage.suggestionGroup.waitForDisplayed();
 
-    restoreMockApiFile();
+      searchPage.pinboardButton.click();
+      browser.getUrl().should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/);
+    });
   });
 });
 
