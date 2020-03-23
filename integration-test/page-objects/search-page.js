@@ -178,6 +178,7 @@ class SearchPage extends Page {
         '//a[contains(@class, "suggestion-item-OFFICER-1")]//div[contains(@class, "item-pin-button__item-pin-button")]',
       firstRecentIntroduction:
         '//a[contains(@class, "suggestion-item-TRR-123")]//div[@class="pin-button-introduction"]',
+      pinButtonIntroduction: '//div[@class="pin-button-introduction"]',
     });
   }
 
