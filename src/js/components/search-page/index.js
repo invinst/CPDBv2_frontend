@@ -19,7 +19,7 @@ import {
 } from 'utils/constants';
 import { showIntercomLauncher } from 'utils/intercom';
 import * as IntercomTracking from 'utils/intercom-tracking';
-import 'toast.css';
+import 'toast.sass';
 import styles from './search-page.sass';
 
 
