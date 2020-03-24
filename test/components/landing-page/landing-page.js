@@ -92,6 +92,7 @@ const store = mockStore({
     pinboard: null,
   },
   toast: {},
+  pathname: '/',
 });
 
 describe('LandingPage component', function () {
@@ -104,7 +105,6 @@ describe('LandingPage component', function () {
       store: store,
       helmet: true,
       withRouter: true,
-      location: { pathname: '/' },
     });
   });
 

@@ -7,13 +7,10 @@ describe('showLoginModalSelector', function () {
       authentication: {
         apiAccessToken: null,
       },
+      pathname: '/edit/',
     };
-    const props = {
-      location: {
-        pathname: '/edit/',
-      },
-    };
-    showLoginModalSelector(state, props).should.be.true();
+
+    showLoginModalSelector(state).should.be.true();
   });
 
   it('should not show login modal when signed in', function () {
@@ -21,13 +18,10 @@ describe('showLoginModalSelector', function () {
       authentication: {
         apiAccessToken: '123',
       },
+      pathname: '/edit/',
     };
-    const props = {
-      location: {
-        pathname: '/edit/',
-      },
-    };
-    showLoginModalSelector(state, props).should.be.false();
+
+    showLoginModalSelector(state).should.be.false();
   });
 
   it('should not show login modal when not on edit path', function () {
@@ -35,48 +29,49 @@ describe('showLoginModalSelector', function () {
       authentication: {
         apiAccessToken: null,
       },
+      pathname: '/abc/',
     };
-    const props = {
-      location: {
-        pathname: '/abc/',
-      },
-    };
-    showLoginModalSelector(state, props).should.be.false();
+
+    showLoginModalSelector(state).should.be.false();
   });
 
   it('should show login modal when on pinboard admin path', function () {
-    const state = {
-      authentication: {
-        apiAccessToken: null,
-      },
-    };
-    showLoginModalSelector(state, {
-      location: {
+    showLoginModalSelector(
+      {
+        authentication: {
+          apiAccessToken: null,
+        },
         pathname: '/view-all-pinboards/',
       },
-    }).should.be.true();
-    showLoginModalSelector(state, {
-      location: {
+    ).should.be.true();
+
+    showLoginModalSelector(
+      {
+        authentication: {
+          apiAccessToken: null,
+        },
         pathname: '/edit/view-all-pinboards/',
       },
-    }).should.be.true();
+    ).should.be.true();
   });
 
   it('should not show login modal when on pinboard admin path but signed in', function () {
-    const state = {
-      authentication: {
-        apiAccessToken: '123',
-      },
-    };
-    showLoginModalSelector(state, {
-      location: {
+    showLoginModalSelector(
+      {
+        authentication: {
+          apiAccessToken: '123',
+        },
         pathname: '/view-all-pinboards/',
-      },
-    }).should.be.false();
-    showLoginModalSelector(state, {
-      location: {
+      }
+    ).should.be.false();
+
+    showLoginModalSelector(
+      {
+        authentication: {
+          apiAccessToken: '123',
+        },
         pathname: '/edit/view-all-pinboards/',
-      },
-    }).should.be.false();
+      }
+    ).should.be.false();
   });
 });

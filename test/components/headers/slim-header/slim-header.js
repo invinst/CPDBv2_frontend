@@ -9,7 +9,7 @@ import { SlimHeader } from 'components/headers/slim-header';
 import * as domUtils from 'utils/dom';
 import SlimHeaderContent from 'components/headers/slim-header/slim-header-content';
 import { RichTextFieldFactory } from 'utils/test/factories/field';
-import { EditModeContext } from 'contexts';
+import EditModeProviderContainer from 'containers/edit-mode-provider-container';
 
 
 describe('SlimHeader component', function () {
@@ -34,6 +34,7 @@ describe('SlimHeader component', function () {
         }],
       },
     },
+    pathname: '/',
   });
 
   beforeEach(function () {
@@ -45,9 +46,11 @@ describe('SlimHeader component', function () {
   it('should render nothing if "show" prop is false', function () {
     const wrapper = mount(
       <Provider store={ store }>
-        <EditModeContext.Provider value={ { editModeOn: false } }>
-          <SlimHeader show={ false } />
-        </EditModeContext.Provider>
+        <MemoryRouter>
+          <EditModeProviderContainer>
+            <SlimHeader show={ false } />
+          </EditModeProviderContainer>
+        </MemoryRouter>
       </Provider>
     );
     wrapper.find('.test--slim-header').exists().should.be.false();
@@ -58,9 +61,9 @@ describe('SlimHeader component', function () {
     const wrapper = mount(
       <Provider store={ store }>
         <MemoryRouter>
-          <EditModeContext.Provider value={ { editModeOn: false } }>
+          <EditModeProviderContainer>
             <SlimHeader show={ true } openLegalDisclaimerModal={ openRequestDocumentModal } pathname='/' />
-          </EditModeContext.Provider>
+          </EditModeProviderContainer>
         </MemoryRouter>
       </Provider>
     );
@@ -75,9 +78,9 @@ describe('SlimHeader component', function () {
     const wrapper = mount(
       <Provider store={ store }>
         <MemoryRouter>
-          <EditModeContext.Provider value={ { editModeOn: false } }>
+          <EditModeProviderContainer>
             <SlimHeader show={ true } openLegalDisclaimerModal={ openRequestDocumentModal } pathname='/' />
-          </EditModeContext.Provider>
+          </EditModeProviderContainer>
         </MemoryRouter>
       </Provider>
     );
@@ -90,13 +93,13 @@ describe('SlimHeader component', function () {
   it('should render Documents link', function () {
     const openRequestDocumentModal = spy();
     const wrapper = mount(
-      <EditModeContext.Provider value={ { editModeOn: false } }>
-        <Provider store={ store }>
-          <MemoryRouter>
-            <SlimHeader show={ true } openLegalDisclaimerModal={ openRequestDocumentModal } pathname='/' />
-          </MemoryRouter>
-        </Provider>
-      </EditModeContext.Provider>
+      <Provider store={ store }>
+        <MemoryRouter>
+          <EditModeProviderContainer>
+            <SlimHeader show={ true } openLegalDisclaimerModal={ openRequestDocumentModal } pathname='/'/>
+          </EditModeProviderContainer>
+        </MemoryRouter>
+      </Provider>,
     );
 
     const links = wrapper.find(Link);
@@ -107,13 +110,13 @@ describe('SlimHeader component', function () {
   describe('External links', function () {
     it('should stopPropagation when being clicked', function () {
       const wrapper = mount(
-        <EditModeContext.Provider value={ { editModeOn: false } }>
-          <Provider store={ store }>
-            <MemoryRouter>
-              <SlimHeader show={ true } pathname='/' />
-            </MemoryRouter>
-          </Provider>
-        </EditModeContext.Provider>
+        <Provider store={ store }>
+          <MemoryRouter>
+            <EditModeProviderContainer>
+              <SlimHeader show={ true } pathname='/'/>
+            </EditModeProviderContainer>
+          </MemoryRouter>
+        </Provider>,
       );
       let externalLinks = wrapper.find('.right-link');
       const dummyEvent = {
@@ -156,12 +159,12 @@ describe('SlimHeader component', function () {
       const wrapper = mount(
         <Provider store={ store }>
           <MemoryRouter>
-            <EditModeContext.Provider value={ { editModeOn: false } }>
+            <EditModeProviderContainer>
               <SlimHeader
                 show={ true }
                 pathname='/'
               />
-            </EditModeContext.Provider>
+            </EditModeProviderContainer>
           </MemoryRouter>
         </Provider>
       );
@@ -177,12 +180,12 @@ describe('SlimHeader component', function () {
       const wrapper = mount(
         <Provider store={ store }>
           <MemoryRouter>
-            <EditModeContext.Provider store={ store } value={ { editModeOn: false } }>
+            <EditModeProviderContainer>
               <SlimHeader
                 show={ true }
                 pathname='/'
               />
-            </EditModeContext.Provider>
+            </EditModeProviderContainer>
           </MemoryRouter>
         </Provider>
       );
@@ -198,12 +201,12 @@ describe('SlimHeader component', function () {
       const wrapper = mount(
         <Provider store={ store }>
           <MemoryRouter>
-            <EditModeContext.Provider value={ { editModeOn: false } }>
+            <EditModeProviderContainer>
               <SlimHeader
                 show={ true }
                 pathname='/'
               />
-            </EditModeContext.Provider>
+            </EditModeProviderContainer>
           </MemoryRouter>
         </Provider>
       );

@@ -1,38 +1,42 @@
 .Toastify__toast-container--top-right {
-    top: 106px;
-    right: 12px;
+    top: 8px;
+    right: 8px;
+}
+
+.Toastify__toast-container--top-right.search {
+    top: 118px;
+    right: 8px;
 }
 
 .Toastify__toast-container--top-right.landing {
-    top: 53px;
-    right: 13px;
+    top: 144px;
 }
 
 .Toastify__toast-container--top-right.officer {
-    top: 38px;
-    right: 13px;
+    top: 48px;
 }
 
 .Toastify__toast-container--top-right.complaint {
-    top: 38px;
-    right: 13px;
+    top: 48px;
+}
+
+.Toastify__toast-container--top-right.pinboard {
+    top: 98px;
 }
 
 .Toastify__toast-container {
     min-width: 150px;
     max-width: 480px;
     width: auto;
-}
-
-.Toastify__toast {
-    margin-bottom: 8px;
+    padding: 0;
+    margin: 0;
 }
 
 .Toastify__toast-body {
     font-family: "San Francisco Text", sans-serif;
     font-weight: 300;
     font-size: 14px;
-    padding: 0 8px;
+    padding: 0;
     line-height: 16px;
     white-space: pre-line;
 }

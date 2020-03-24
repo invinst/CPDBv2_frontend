@@ -1,3 +1,3 @@
 import Cookies from 'js-cookie';
 
-export const isSignedIn = () => Boolean(Cookies.get('apiAccessToken'));
+export const isSignedInFromCookie = () => Boolean(Cookies.get('apiAccessToken'));
