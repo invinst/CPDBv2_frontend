@@ -8,14 +8,10 @@ describe('Log out selector', function () {
         authentication: {
           apiAccessToken: null,
         },
-      };
-      const props = {
-        location: {
-          pathname: '/edit/abc',
-        },
+        pathname: '/edit/abc',
       };
 
-      showLogOutButton(state, props).should.be.false();
+      showLogOutButton(state).should.be.false();
     });
 
     it('should return false when edit mode is false', function () {
@@ -23,14 +19,10 @@ describe('Log out selector', function () {
         authentication: {
           apiAccessToken: 'token',
         },
-      };
-      const props = {
-        location: {
-          pathname: '/abc',
-        },
+        pathname: '/abc',
       };
 
-      showLogOutButton(state, props).should.be.false();
+      showLogOutButton(state).should.be.false();
     });
 
     it('should return true when user is signed in and edit mode is on', function () {
@@ -38,16 +30,10 @@ describe('Log out selector', function () {
         authentication: {
           apiAccessToken: 'token',
         },
-      };
-      const props = {
-        location: {
-          pathname: '/edit/abc',
-        },
+        pathname: '/edit/abc',
       };
 
-      showLogOutButton(state, props).should.be.true();
+      showLogOutButton(state).should.be.true();
     });
-
-
   });
 });

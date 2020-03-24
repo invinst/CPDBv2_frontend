@@ -26,6 +26,7 @@ describe('SlimHeaderContent component', function () {
         demoVideoSectionEditModeOn: false,
       },
     },
+    pathname: '/',
   });
 
   it('should render correctly', function () {

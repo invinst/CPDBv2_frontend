@@ -11,7 +11,7 @@ import {
   getDocumentSuggestionTags,
 } from 'selectors/document-page';
 import { updateDocument } from 'actions/document-page';
-import { isSignedIn } from 'selectors/log-out';
+import { isSignedIn } from 'selectors/authentication';
 import {
   turnOnDocumentPageTitleEditMode,
   turnOffDocumentPageTitleEditMode,

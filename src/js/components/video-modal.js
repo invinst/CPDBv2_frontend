@@ -12,6 +12,7 @@ export default function VideoModal(props) {
       isOpen={ isVideoModalActive }
       videoId={ MODAL_VIDEO_INFO.VIDEO_ID }
       onClose={ closeVideoModal }
+      { ...MODAL_VIDEO_INFO.CONFIG }
     />
   );
 }

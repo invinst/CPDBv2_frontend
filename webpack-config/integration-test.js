@@ -3,7 +3,7 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const baseConfig = require('./base')('live-test-build');
+const baseConfig = require('./base')('integration-test-build');
 
 module.exports = Object.assign({}, baseConfig, {
   mode: 'development',

@@ -1,0 +1,32 @@
+@import 'variables'
+@import 'utils/toast.sass'
+
+
+\:local(.pinboard-toast)
+  @extend %base-toast-wrapper
+  width: 200px
+
+  @media (min-width: 768px)
+    width: 225px
+
+  .toast-message
+    padding: 12px 17px 12px 15px
+    background-color: $willow-brook-color
+
+    p
+      margin: 0
+
+  .go-to-pinboard-btn
+    text-align: right
+    font-size: 14px
+    background: $zanah-color url('/img/ic-right-arrow.svg') no-repeat right 8px center
+    padding: 12px 30px
+
+  &.removed
+    .toast-message
+      background-color: $wild-sand-color
+      color: $thunder-color
+
+    .go-to-pinboard-btn
+      background: $alto-color url('/img/ic-right-arrow-black.svg') no-repeat right 8px center
+      color: $thunder-color
