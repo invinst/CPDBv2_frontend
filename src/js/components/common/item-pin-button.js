@@ -5,17 +5,10 @@ import { every, isEmpty } from 'lodash';
 
 import withPinnable from 'components/common/with-pinnable';
 import styles from 'components/common/item-pin-button.sass';
-import { isPinButtonIntroductionVisited, setPinButtonIntroductionVisited } from 'utils/pinboard';
+import { isPinButtonIntroductionVisited } from 'utils/pinboard';
 
 
 class ItemPinButton extends Component {
-  onIntroductionClick = (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    setPinButtonIntroductionVisited();
-    this.forceUpdate();
-  };
-
   render() {
     const { className, showHint, item, items, showIntroduction } = this.props;
     const isPinned = every(isEmpty(items) ? [item] : items, item => item.isPinned);
@@ -31,8 +24,7 @@ class ItemPinButton extends Component {
         { showHint && <div className='pin-action-hint'> Unpin? </div> }
         {
           shouldShowIntroduction
-          && <div className='pin-button-introduction' onClick={ this.onIntroductionClick }>
-            Tap this button to add to your pinboard</div>
+          && <div className='pin-button-introduction'>Tap this button to add to your pinboard</div>
         }
       </div>
     );

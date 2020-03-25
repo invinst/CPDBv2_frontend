@@ -5,7 +5,7 @@ import { pinboardItemsSelector } from 'selectors/pinboard-page/pinboard';
 import { officerPath } from 'utils/paths';
 import { formatDate, getCurrentAgeString } from 'utils/date';
 import { navigationItemTransform } from 'selectors/common/search-item-transforms';
-import { FULL_MONTH_DATE_FORMAT, PINNED_ITEM_TYPES } from 'utils/constants';
+import { FULL_MONTH_DATE_FORMAT } from 'utils/constants';
 import { isItemPinned } from 'selectors/pinboard-page/pinboard';
 
 
@@ -62,16 +62,10 @@ export const recentSuggestionsSelector = createSelector(
   pinboardItemsSelector,
   (recent, pinboardItems) => {
     const recentData = [];
-    let hasFirstIntroduction = false;
     recent.forEach((recentItem) => {
-      const showIntroduction = !hasFirstIntroduction && !isUndefined(PINNED_ITEM_TYPES[recentItem.type]);
-      if (showIntroduction) {
-        hasFirstIntroduction = true;
-      }
       const itemFormatter = recentItemFormatterMapping[recentItem.type] || defaultRecentSuggestionItemTransform;
-
       if (!isUndefined(recentItem.data)) {
-        recentData.push({ ...itemFormatter({ ...recentItem.data }, pinboardItems), showIntroduction });
+        recentData.push(itemFormatter(recentItem.data, pinboardItems));
       }
     });
     return recentData;

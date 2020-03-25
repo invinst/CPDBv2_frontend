@@ -447,26 +447,6 @@ describe('Search Page', function () {
       searchPage.trrResultsSection.pinButtonIntroduction.count.should.equal(0);
     });
 
-    it('should display PinButtonIntroduction in first pinnable recent item', function () {
-      performSearch('rank');
-      clickOnSearchResultItem(searchPage.firstRankResult, 'Officer');
-
-      clearSearchInput();
-      performSearch('Ke');
-      clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly', true);
-
-      backToSearch();
-      performSearch('Ke');
-      clickOnSearchResultItem(searchPage.firstCrResult, 'CR # CR123 • April 23, 2004');
-
-      backToSearch();
-      performSearch('Ke');
-      clickOnSearchResultItem(searchPage.firstTrrResult, 'Member Presence');
-
-      backToSearch();
-      searchPage.firstRecentIntroduction.waitForDisplayed(2000);
-    });
-
     it('should not display PinButtonIntroduction after click on PinButton', function () {
       searchPage.input.setValue('intr');
       searchPage.unitOfficerResultsSection.firstPinButtonIntroduction.waitForDisplayed();

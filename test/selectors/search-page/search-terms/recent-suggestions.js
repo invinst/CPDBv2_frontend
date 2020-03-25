@@ -84,7 +84,6 @@ describe('RecentSuggestions selector', function () {
           subText: 'Community',
           recentText: 'Roseland',
           itemRank: undefined,
-          showIntroduction: false,
           recentItemData: {
             allegationCount: 12,
             allegationPercentile: 80.1,
@@ -108,7 +107,6 @@ describe('RecentSuggestions selector', function () {
           text: 'Jerome Finnigan',
           recentText: 'Jerome Finnigan',
           itemRank: undefined,
-          showIntroduction: true,
           recentItemData: {
             id: 8562,
             name: 'Jerome Finnigan',
@@ -140,7 +138,6 @@ describe('RecentSuggestions selector', function () {
           itemRank: undefined,
           incidentDate: 'Feb 10, 2001',
           category: 'Lockup Procedures',
-          showIntroduction: false,
           recentItemData: {
             id: '271235',
             crid: '271235',
@@ -163,7 +160,6 @@ describe('RecentSuggestions selector', function () {
           itemRank: undefined,
           forceType: 'Physical Force - Holding',
           incidentDate: 'Feb 24, 2004',
-          showIntroduction: false,
           recentItemData: {
             type: 'TRR',
             id: 123456,
