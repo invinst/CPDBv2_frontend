@@ -405,6 +405,31 @@ describe('Search Page', function () {
       searchPage.input.waitForDisplayed(1000);
       searchPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
     });
+
+    it('should not display pinboard introduciton after user add item to pinboard', function () {
+      searchPage.input.waitForDisplayed();
+      searchPage.input.setValue('Ke');
+
+      searchPage.secondOfficerResult.waitForDisplayed();
+      searchPage.secondOfficerPinButton.click();
+      searchPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
+    });
+
+    context('lastest pinboard is not empty', function () {
+      beforeEach(function () {
+        setupMockApiFile('search-page/search-page-mock-non-empty-lastest-pinboard.js');
+      });
+
+      afterEach(function () {
+        restoreMockApiFile();
+      });
+
+      it('should not display pinboard introduciton when lasted pinboard is not empty', function () {
+        searchPage.open();
+        searchPage.input.waitForDisplayed();
+        searchPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
+      });
+    });
   });
 
   context('PinButton introduction', function () {
@@ -520,8 +545,7 @@ describe('Search Page', function () {
       expectedRecentSuggestions.forEach((expectedText, index) => {
         searchPage.recentSuggestionItem(index + 1).getText().should.equal(expectedText);
       });
-
-      searchPage.pinboardButton.getText().should.eql('Pinboard (0)');
+      searchPage.pinboardButton.waitForDisplayed(1000, true);
 
       browser.scroll(0, -2000);
       browser.pause(500);
@@ -543,6 +567,7 @@ describe('Search Page', function () {
         'Police Officer Bernadette Kelly 45-year-old White Male, with 10 complaints, 2 sustained added.',
       );
       searchPage.toast.waitForDisplayed(5000, true);
+      searchPage.pinboardButton.waitForDisplayed(2000);
       searchPage.pinboardButton.getText().should.eql('Pinboard (3)');
 
       searchPage.firstRecentPinButton.click();
@@ -562,7 +587,7 @@ describe('Search Page', function () {
         'Police Officer Bernadette Kelly 45-year-old White Male, with 10 complaints, 2 sustained removed.'
       );
       searchPage.toast.waitForDisplayed(5000, true);
-      searchPage.pinboardButton.getText().should.eql('Pinboard (0)');
+      searchPage.pinboardButton.waitForDisplayed(1000, true);
 
       searchPage.open();
 
@@ -1116,15 +1141,6 @@ describe('Search Page with pinboard functionalities', function () {
 
     searchPage.firstOfficerPinButton.click();
     searchPage.pinboardButton.getText().should.eql('Your pinboard is empty');
-  });
-
-  it('should display pinboard tooltip bar when not search', function () {
-    const tip = 'Create collections of officers, complaint records, and tactical reponse reports using search.';
-    searchPage.open('');
-    searchPage.pinboardBar.waitForDisplayed();
-    searchPage.pinboardBar.getText().should.containEql(tip);
-
-    searchPage.pinboardButton.getText().should.eql('Pinboard (0)');
   });
 
   it('should redirect to Pinboard page when click on pinboard button', function () {

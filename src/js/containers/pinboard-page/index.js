@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 import {
   getPinboard,
-  isEmptyPinboardSelector,
+  isEmptyPinboardWithRemovingItemSelector,
   pinboardPageLoadingSelector,
   getInitialRequested,
 } from 'selectors/pinboard-page/pinboard';
@@ -27,7 +27,7 @@ function mapStateToProps(state, ownProps) {
     initialRequested: getInitialRequested(state),
     pinboardPageLoading: pinboardPageLoadingSelector(state),
     shouldRedirect: shouldRedirect(state),
-    isEmptyPinboard: isEmptyPinboardSelector(state),
+    isEmptyPinboard: isEmptyPinboardWithRemovingItemSelector(state),
     focusedItem: focusedItemSelector(state),
     hasMapMarker: hasMapMarkersSelector(state),
   };

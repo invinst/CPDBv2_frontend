@@ -32,6 +32,7 @@ describe('ItemPinButton component', function () {
   it('should handle on pin button click', function () {
     const addOrRemoveItemInPinboardStub = stub();
     const setPinButtonIntroductionVisitedSpy = spy(pinboardUtils, 'setPinButtonIntroductionVisited');
+    const setPinboardIntroductionVisitedSpy = spy(pinboardUtils, 'setPinboardIntroductionVisited');
 
     const wrapper = mount(
       <TestComponentWithPinnable
@@ -49,6 +50,7 @@ describe('ItemPinButton component', function () {
       isPinned: false,
     }).should.be.true();
     setPinButtonIntroductionVisitedSpy.should.be.calledOnce();
+    setPinboardIntroductionVisitedSpy.should.be.calledOnce();
   });
 
   it('should handle on pin button with all items are pinned', function () {

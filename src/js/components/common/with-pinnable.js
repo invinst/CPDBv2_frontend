@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { noop, every, isEmpty } from 'lodash';
 
-import { setPinButtonIntroductionVisited } from 'utils/pinboard';
+import { setPinboardIntroductionVisited, setPinButtonIntroductionVisited } from 'utils/pinboard';
 
 
 export default function withPinnable(WrappedComponent) {
@@ -15,6 +15,7 @@ export default function withPinnable(WrappedComponent) {
       const addOrRemoveItems = isEmpty(items) ? [item] : items;
       const allIsPinned = every(addOrRemoveItems, item => item.isPinned);
       setPinButtonIntroductionVisited();
+      setPinboardIntroductionVisited();
 
       addOrRemoveItems.forEach(addOrRemoveItem => {
         if (addOrRemoveItem.isPinned === allIsPinned)

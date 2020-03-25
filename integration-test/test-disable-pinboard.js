@@ -77,8 +77,7 @@ describe('Disable pinboard feature', function () {
     it('should not display pinboard bar', function () {
       searchPage.input.waitForDisplayed();
 
-      searchPage.pinboardBar.isExisting().should.be.true();
-      searchPage.pinboardBar.isDisplayed().should.be.false();
+      searchPage.pinboardBar.isExisting().should.be.false();
     });
 
     it('should not display pinned button on search results', function () {

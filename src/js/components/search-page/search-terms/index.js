@@ -11,9 +11,9 @@ import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import * as IntercomTracking from 'utils/intercom-tracking';
 import RecentSuggestion from 'components/search-page/search-results/recent-suggestion';
 import PinboardBar from 'components/search-page/pinboard/pinboard-bar';
-import PinboardIntroduction from 'components/search-page/pinboard/pinboard-introduction';
 import ScrollIntoView from 'components/common/scroll-into-view';
 import style from './search-terms.sass';
+import PinboardIntroductionContainer from 'containers/search-page/pinboard/pinboard-introduction-container';
 
 
 export default class SearchTerms extends Component {
@@ -82,12 +82,14 @@ export default class SearchTerms extends Component {
   }
 
   render() {
-    const { onEmptyPinboardButtonClick, aliasEditModeOn, focusedItem, className } = this.props;
+    const { onEmptyPinboardButtonClick, aliasEditModeOn, focusedItem, className, isEmptyPinboard } = this.props;
     return (
-      <div className={ cx(style.wrapper, className) }>
-        <PinboardBar onEmptyPinboardButtonClick={ onEmptyPinboardButtonClick } />
+      <div className={ cx(style.wrapper, className, { 'hide-pinboard-bar': isEmptyPinboard }) }>
+        {
+          !isEmptyPinboard && <PinboardBar onEmptyPinboardButtonClick={ onEmptyPinboardButtonClick } />
+        }
         <div className={ cx('search-term-wrapper', { 'edit-mode-on': aliasEditModeOn } ) }>
-          <PinboardIntroduction />
+          <PinboardIntroductionContainer />
           <ScrollIntoView focusedItemClassName={ `term-item-${get(focusedItem, 'uniqueKey', '').replace(' ', '-')}` }>
             { this.renderRecentSuggestion() }
             <ResponsiveFluidWidthComponent
@@ -133,6 +135,7 @@ SearchTerms.propTypes = {
   recentSuggestionsRequested: PropTypes.bool,
   fetchedEmptyRecentSearchItems: PropTypes.func,
   className: PropTypes.string,
+  isEmptyPinboard: PropTypes.bool,
 };
 
 SearchTerms.defaultProps = {
@@ -150,4 +153,5 @@ SearchTerms.defaultProps = {
   recentSuggestionIds: {},
   recentSuggestionsRequested: false,
   fetchedEmptyRecentSearchItems: noop,
+  isEmptyPinboard: false,
 };

@@ -161,7 +161,7 @@ class SearchPage extends Page {
       plusSign: '(//div[contains(@class, "plus-sign-wrapper")])',
       firstAliasButton: '(//a[contains(@class, "test--create-alias-link")])[1]',
       pinboardButton: '.test--pinboard-button',
-      pinboardBar: '//div[contains(@class, "pinboard-bar")]',
+      pinboardBar: '//div[contains(@class, "pinboard-bar__wrapper")]',
       toast: '.Toastify__toast-body',
       firstCrResult: '.test--suggestion-group .suggestion-item-CR-CR123',
       secondDateCrResult: '.test--suggestion-group .suggestion-item-DATE-CR-CR456',

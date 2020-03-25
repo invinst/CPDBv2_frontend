@@ -13,12 +13,13 @@ import SearchTags from 'components/search-page/search-tags';
 import PinboardButton from 'components/search-page/pinboard/pinboard-button';
 import ScrollIntoView from 'components/common/scroll-into-view';
 import * as tracking from 'utils/tracking';
+import PinboardIntroductionContainer from 'containers/search-page/pinboard/pinboard-introduction-container';
 
 
 describe('SearchResults component', function () {
   const store = MockStore()({
     pinboardPage: {
-      pinboard: null,
+      pinboard: {},
     },
   });
 
@@ -97,7 +98,7 @@ describe('SearchResults component', function () {
           isRequesting={ false }
         />
       );
-      wrapper.find('PinboardIntroduction').exists().should.be.true();
+      wrapper.find(PinboardIntroductionContainer).exists().should.be.true();
     });
   });
 

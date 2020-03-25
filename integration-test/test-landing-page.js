@@ -399,7 +399,8 @@ describe('landing page', function () {
 
       //Go to Search Page and check for pinboard item counts
       landingPage.searchSection.mainElement.click();
-      searchPage.pinboardButton.waitForText('Pinboard (0)');
+      searchPage.input.waitForDisplayed();
+      searchPage.pinboardButton.waitForDisplayed(500, true);
       searchPage.backButton.click();
     };
 
@@ -482,7 +483,8 @@ describe('landing page', function () {
       );
 
       landingPage.searchSection.mainElement.click();
-      searchPage.pinboardButton.waitForText('Pinboard (0)');
+      searchPage.input.waitForDisplayed();
+      searchPage.pinboardButton.waitForDisplayed(500, true);
     });
   });
 

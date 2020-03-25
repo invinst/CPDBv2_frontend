@@ -517,7 +517,8 @@ describe('officer page', function () {
         officerPage.landingPageBreadCrumb.click();
         landingPage.searchSection.mainElement.waitForDisplayed();
         landingPage.searchSection.mainElement.click();
-        searchPage.pinboardButton.waitForText('Pinboard (0)');
+        searchPage.input.waitForDisplayed();
+        searchPage.pinboardButton.waitForDisplayed(500, true);
       });
     });
 
@@ -552,7 +553,8 @@ describe('officer page', function () {
         officerPage.landingPageBreadCrumb.click();
         landingPage.searchSection.mainElement.waitForDisplayed();
         landingPage.searchSection.mainElement.click();
-        searchPage.pinboardButton.waitForText('Pinboard (0)');
+        searchPage.input.waitForDisplayed();
+        searchPage.pinboardButton.waitForDisplayed(500, true);
       });
     });
   });
