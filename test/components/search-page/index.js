@@ -90,6 +90,7 @@ describe('SearchPage component', function () {
     );
 
     const backButton = wrapper.find('.searchbar__button--back').hostNodes();
+    backButton.text().should.eql('Close');
     backButton.simulate('click');
     this.browserHistoryPush.should.be.calledOnce();
     this.browserHistoryPush.should.be.calledWith('/pinboard/123abc/');
