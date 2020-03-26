@@ -5,6 +5,8 @@ require('should');
 import crPage from './page-objects/cr-page';
 import landingPage from './page-objects/landing-page';
 import searchPage from './page-objects/search-page';
+import pinboardPage from './page-objects/pinboard-page';
+import { restoreMockApiFile, setupMockApiFile } from './utils';
 
 
 describe('CR page', function () {
@@ -195,39 +197,128 @@ describe('CR page', function () {
     });
 
     context('current complaint', function () {
-      it('should display toast when pinning', function () {
-        crPage.pinButton.click();
-        crPage.lastToast.waitForDisplayed();
-        crPage.lastToast.waitForText(
-          'CR #1000000 categorized as Use Of Force happened in 2003-09-23 added.' +
-          '\nGo to pinboard'
-        );
+      context('when user has no or only one active pinboard', function () {
+        beforeEach(function () {
+          setupMockApiFile('cr-page/user-has-no-or-only-one-active-pinboard.js');
+          crPage.open();
+        });
 
-        crPage.landingPageBreadCrumb.click();
-        landingPage.searchSection.mainElement.waitForDisplayed();
-        landingPage.searchSection.mainElement.click();
-        searchPage.pinboardButton.waitForText('Pinboard (1)');
+        afterEach(function () {
+          restoreMockApiFile();
+        });
+
+        it('should display toast when pinning', function () {
+          crPage.pinButton.click();
+          crPage.lastToast.waitForDisplayed();
+          crPage.lastToast.waitForText(
+            'CR #1000000 categorized as Use Of Force happened in 2003-09-23 added.' +
+            '\nGo to pinboard'
+          );
+
+          crPage.landingPageBreadCrumb.click();
+          landingPage.searchSection.mainElement.waitForDisplayed();
+          landingPage.searchSection.mainElement.click();
+          searchPage.pinboardButton.waitForText('Pinboard (1)');
+        });
+
+        it('should display toast when unpinning', function () {
+          crPage.pinButton.click();
+          crPage.lastToast.waitForDisplayed();
+          crPage.lastToast.waitForText(
+            'CR #1000000 categorized as Use Of Force happened in 2003-09-23 added.' +
+            '\nGo to pinboard'
+          );
+
+          crPage.pinButton.click();
+          crPage.lastToast.waitForDisplayed();
+          crPage.lastToast.waitForText(
+            'CR #1000000 categorized as Use Of Force happened in 2003-09-23 removed.' +
+            '\nGo to pinboard'
+          );
+
+          crPage.landingPageBreadCrumb.click();
+          landingPage.searchSection.mainElement.waitForDisplayed();
+          landingPage.searchSection.mainElement.click();
+          searchPage.pinboardButton.waitForText('Pinboard (0)');
+        });
       });
 
-      it('should display toast when unpinning', function () {
-        crPage.pinButton.click();
-        crPage.lastToast.waitForDisplayed();
-        crPage.lastToast.waitForText(
-          'CR #1000000 categorized as Use Of Force happened in 2003-09-23 added.' +
-          '\nGo to pinboard'
-        );
+      context('when user has more than 1 pinboard', function () {
+        it('should display pinboards menu', function () {
+          crPage.pinboardsMenuSection.addToPinboardButton.click();
+          crPage.pinboardsMenuSection.menu.waitForDisplayed();
 
-        crPage.pinButton.click();
-        crPage.lastToast.waitForDisplayed();
-        crPage.lastToast.waitForText(
-          'CR #1000000 categorized as Use Of Force happened in 2003-09-23 removed.' +
-          '\nGo to pinboard'
-        );
+          crPage.pinboardsMenuSection.items.waitForCount(5, 1000);
+          crPage.pinboardsMenuSection.firstItemTitle.getText().should.equal('Skrull Cap');
+          crPage.pinboardsMenuSection.firstItemCreatedAt.getText().should.equal('Created Mar 09, 2020');
+          crPage.pinboardsMenuSection.secondItemTitle.getText().should.equal('Watts Crew');
+          crPage.pinboardsMenuSection.secondItemCreatedAt.getText().should.equal('Created Mar 09, 2020');
+          crPage.pinboardsMenuSection.thirdItemTitle.getText().should.equal('');
+          crPage.pinboardsMenuSection.thirdItemCreatedAt.getText().should.equal('Created Mar 09, 2020');
+        });
 
-        crPage.landingPageBreadCrumb.click();
-        landingPage.searchSection.mainElement.waitForDisplayed();
-        landingPage.searchSection.mainElement.click();
-        searchPage.pinboardButton.waitForText('Pinboard (0)');
+        it('should close pinboards menu when click outside', function () {
+          crPage.pinboardsMenuSection.addToPinboardButton.click();
+          crPage.pinboardsMenuSection.menu.waitForDisplayed();
+          crPage.title.click();
+          crPage.pinboardsMenuSection.menu.waitForDisplayed(500, true);
+        });
+
+        it('should display toast when pinning', function () {
+          crPage.pinboardsMenuSection.addToPinboardButton.click();
+          crPage.pinboardsMenuSection.menu.waitForDisplayed();
+
+          crPage.pinboardsMenuSection.firstItemPinButton.click();
+          crPage.lastToast.waitForDisplayed();
+          crPage.lastToast.waitForText(
+            'CR #1000000 categorized as Use Of Force happened in 2003-09-23 added.' +
+            '\nGo to pinboard'
+          );
+
+          crPage.landingPageBreadCrumb.click();
+          landingPage.searchSection.mainElement.waitForDisplayed();
+          landingPage.searchSection.mainElement.click();
+          searchPage.pinboardButton.waitForText('Pinboard (4)');
+        });
+
+        it('should display toast when unpinning', function () {
+          crPage.pinboardsMenuSection.addToPinboardButton.click();
+          crPage.pinboardsMenuSection.menu.waitForDisplayed();
+
+          crPage.pinboardsMenuSection.firstItemPinButton.click();
+          crPage.lastToast.waitForDisplayed();
+          crPage.lastToast.waitForText(
+            'CR #1000000 categorized as Use Of Force happened in 2003-09-23 added.' +
+            '\nGo to pinboard'
+          );
+          crPage.pinboardsMenuSection.addToPinboardButton.moveTo(); // Move mouse outside of toast message
+          crPage.lastToast.waitForDisplayed(5000, true);
+
+          crPage.pinboardsMenuSection.addToPinboardButton.click();
+          crPage.pinboardsMenuSection.menu.waitForDisplayed();
+
+          crPage.pinboardsMenuSection.firstItemPinButton.click();
+          crPage.lastToast.waitForDisplayed();
+          crPage.lastToast.waitForText(
+            'CR #1000000 categorized as Use Of Force happened in 2003-09-23 removed.' +
+            '\nGo to pinboard'
+          );
+
+          crPage.landingPageBreadCrumb.click();
+          landingPage.searchSection.mainElement.waitForDisplayed();
+          landingPage.searchSection.mainElement.click();
+          searchPage.pinboardButton.waitForText('Pinboard (3)');
+        });
+
+        it('should create new pinboard with current complaint', function () {
+          crPage.pinboardsMenuSection.addToPinboardButton.click();
+          crPage.pinboardsMenuSection.menu.waitForDisplayed();
+          crPage.pinboardsMenuSection.createPinboardWithSelectionButton.click();
+
+          browser.waitForUrl(url => url.should.match(/\/pinboard\/f7295a74\/untitled-pinboard\/$/), 1000);
+          pinboardPage.pinnedSection.crs.cards.waitForCount(1, 3000);
+          pinboardPage.pinnedSection.crs.firstCardDate.getText().should.equal('2003-09-23');
+        });
       });
     });
   });

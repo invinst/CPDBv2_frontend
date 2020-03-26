@@ -1,3 +1,5 @@
+@import 'variables'
+
 \:local(.officer-page)
   -webkit-overflow-scrolling: touch
 
@@ -10,5 +12,23 @@
     @media print
       padding: 0
 
-\:local(.officer-page-footer)
-  background-color: white
+\:local(.download-btn)
+  cursor: pointer
+  display: inline-block
+  width: 48px
+  height: 32px
+  border-radius: 2px
+  border: 1px solid $alto-color
+  margin-left: 8px
+  background: $wild-sand-color url('/img/ic-download.svg') no-repeat center
+  box-sizing: border-box
+
+  &:hover
+    background-color: $willow-brook-color
+    background-image: url('/img/ic-download-green.svg')
+    border: none
+
+  &.focus
+    background-color: $vida-loca-color
+    background-image: url('/img/ic-download-white.svg')
+    border: none

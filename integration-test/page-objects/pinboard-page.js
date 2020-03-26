@@ -13,6 +13,7 @@ class PinnedOfficers extends Section {
 
     this.prepareElementGetters({
       title: `${sectionSelector}/div[@class="type-title"]`,
+      cards: `${sectionSelector}/div[contains(@class, "pinned-grid")]/div`,
       firstCardUnpinBtn: `${firstCardSelector}//span[starts-with(@class, "item-unpin-button")]`,
       firstCardRank: `${firstCardSelector}//div[@class="officer-rank"]`,
       firstCardName: `${firstCardSelector}//div[@class="officer-name"]`,
@@ -37,6 +38,7 @@ class PinnedCRs extends Section {
 
     this.prepareElementGetters({
       title: `${sectionSelector}/div[@class="type-title"]`,
+      cards: `${sectionSelector}/div[contains(@class, "pinned-grid")]/div`,
       firstCardUnpinBtn: `${firstCardSelector}//span[starts-with(@class, "item-unpin-button")]`,
       firstCardDate: `${firstCardSelector}//span[@class="location-card-date"]`,
       firstCardCategory: `${firstCardSelector}//span[@class="location-card-category"]`,

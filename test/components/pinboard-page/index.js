@@ -218,11 +218,11 @@ describe('PinboardPage component', function () {
     wrapper.find(PinboardsContainer).exists().should.be.true();
     const pinboardPageComponent = wrapper.find(PinboardPage);
     const searchBar = wrapper.find(SearchBar);
-    const customButtons = searchBar.prop('customButtons');
-    customButtons.props.pinboardId.should.equal('5cd06f2b');
-    customButtons.props.showPinboardsList.should.eql(pinboardPageComponent.prop('showPinboardsList'));
-    customButtons.props.createNewEmptyPinboard.should.eql(pinboardPageComponent.prop('createNewEmptyPinboard'));
-    customButtons.props.duplicatePinboard.should.eql(pinboardPageComponent.prop('duplicatePinboard'));
+    const headerButtons = searchBar.prop('headerButtons');
+    headerButtons.props.pinboardId.should.equal('5cd06f2b');
+    headerButtons.props.showPinboardsList.should.eql(pinboardPageComponent.prop('showPinboardsList'));
+    headerButtons.props.createNewEmptyPinboard.should.eql(pinboardPageComponent.prop('createNewEmptyPinboard'));
+    headerButtons.props.duplicatePinboard.should.eql(pinboardPageComponent.prop('duplicatePinboard'));
   });
 
   it('should render pinboard page correctly', function () {
