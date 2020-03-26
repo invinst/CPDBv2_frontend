@@ -8,8 +8,11 @@ import {
   examplePinboardsSelector,
   isItemPinned,
   pinboardPageLoadingSelector,
+  pinboardPinnedItemsTransform,
+  pinboardPinnedItemsMapping,
   pinboardFeatureUsedSelector,
 } from 'selectors/pinboard-page/pinboard';
+import { PINNED_ITEM_TYPES } from 'utils/constants';
 import PinboardFactory from 'utils/test/factories/pinboard';
 
 
@@ -464,6 +467,36 @@ describe('Pinboard selectors', function () {
         };
         pinboardPageLoadingSelector(state).should.be.false();
       });
+    });
+  });
+
+  describe('pinboardPinnedItemsTransform', function () {
+    it('should transform pinboard correctly', function () {
+      const pinboard = {
+        title: 'Skrull cap',
+        'officer_ids': [1, 2, 3],
+        'crids': ['4', '5', '6'],
+        'trr_ids': ['12', '45', '98'],
+      };
+      pinboardPinnedItemsTransform(pinboard).should.eql({
+        officerIds: ['1', '2', '3'],
+        crids: ['4', '5', '6'],
+        trrIds: ['12', '45', '98'],
+      });
+    });
+  });
+
+  describe('pinboardPinnedItemsMapping', function () {
+    const pinboard = {
+      title: 'Crew Watt',
+      officerIds: ['1', '2', '3'],
+      crids: ['4', '5', '6'],
+      trrIds: ['12', '45', '98'],
+    };
+    pinboardPinnedItemsMapping(pinboard).should.eql({
+      [PINNED_ITEM_TYPES.OFFICER]: ['1', '2', '3'],
+      [PINNED_ITEM_TYPES.CR]: ['4', '5', '6'],
+      [PINNED_ITEM_TYPES.TRR]: ['12', '45', '98'],
     });
   });
 

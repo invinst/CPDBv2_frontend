@@ -5,7 +5,6 @@ import { stub } from 'sinon';
 import CrawlersPage from 'components/crawlers-page';
 import CrawlersTable from 'components/crawlers-page/crawlers-table';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
-import { SHAREABLE_HEADER_BUTTON_TYPE } from 'utils/constants';
 
 
 describe('CrawlersPage component', function () {
@@ -41,9 +40,9 @@ describe('CrawlersPage component', function () {
     );
 
     const shareableHeaderContainer = wrapper.find(ShareableHeaderContainer);
-    shareableHeaderContainer.prop('buttonType').should.equal(SHAREABLE_HEADER_BUTTON_TYPE.LINK);
-    shareableHeaderContainer.prop('buttonText').should.equal('Documents');
-    shareableHeaderContainer.prop('to').should.equal('/documents/');
+    const headerButton = shareableHeaderContainer.prop('headerButtons');
+    headerButton.props.buttonText.should.equal('Documents');
+    headerButton.props.to.should.equal('/documents/');
 
     const crawlersTable = wrapper.find(CrawlersTable);
     crawlersTable.prop('rows').should.eql(crawlers);

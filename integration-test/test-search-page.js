@@ -538,19 +538,22 @@ describe('Search Page', function () {
 
       searchPage.firstRecentPinButton.click();
       searchPage.toast.waitForText(
-        'TRR #123 categorized as Member Presence happened in Apr 27, 2004 added.'
+        'TRR #123 categorized as Member Presence happened in Apr 27, 2004 added.' +
+        '\nGo to pinboard'
       );
       searchPage.toast.waitForDisplayed(5000, true);
 
       searchPage.secondRecentPinButton.click();
       searchPage.toast.waitForText(
-        'CR #CR123 categorized as Lockup Procedures happened in Apr 23, 2004 added.'
+        'CR #CR123 categorized as Lockup Procedures happened in Apr 23, 2004 added.' +
+        '\nGo to pinboard'
       );
       searchPage.toast.waitForDisplayed(5000, true);
 
       searchPage.thirdRecentPinButton.click();
       searchPage.toast.waitForText(
-        'Police Officer Bernadette Kelly 45-year-old White Male, with 10 complaints, 2 sustained added.',
+        'Police Officer Bernadette Kelly 45-year-old White Male, with 10 complaints, 2 sustained added.' +
+        '\nGo to pinboard'
       );
       searchPage.toast.waitForDisplayed(5000, true);
       searchPage.pinboardButton.waitForDisplayed(2000);
@@ -558,19 +561,22 @@ describe('Search Page', function () {
 
       searchPage.firstRecentPinButton.click();
       searchPage.toast.waitForText(
-        'TRR #123 categorized as Member Presence happened in Apr 27, 2004 removed.'
+        'TRR #123 categorized as Member Presence happened in Apr 27, 2004 removed.' +
+        '\nGo to pinboard'
       );
       searchPage.toast.waitForDisplayed(5000, true);
 
       searchPage.secondRecentPinButton.click();
       searchPage.toast.waitForText(
-        'CR #CR123 categorized as Lockup Procedures happened in Apr 23, 2004 removed.'
+        'CR #CR123 categorized as Lockup Procedures happened in Apr 23, 2004 removed.' +
+        '\nGo to pinboard'
       );
       searchPage.toast.waitForDisplayed(5000, true);
 
       searchPage.thirdRecentPinButton.click();
       searchPage.toast.waitForText(
-        'Police Officer Bernadette Kelly 45-year-old White Male, with 10 complaints, 2 sustained removed.'
+        'Police Officer Bernadette Kelly 45-year-old White Male, with 10 complaints, 2 sustained removed.' +
+        '\nGo to pinboard'
       );
       searchPage.toast.waitForDisplayed(5000, true);
       searchPage.pinboardButton.waitForDisplayed(1000, true);
@@ -622,7 +628,7 @@ describe('Search Page', function () {
     searchPage.recentSuggestions.waitForDisplayed(20000, true);
   });
 
-  it('should go back to landing page when user click on cancel button', function () {
+  it('should go back to landing page when user click on close button', function () {
     landingPage.open();
     landingPage.header.navBar.searchBox.mainElement.click();
     searchPage.backButton.waitForDisplayed();
@@ -642,7 +648,7 @@ describe('Search Page', function () {
     landingPage.currentBasePath.should.equal('/');
   });
 
-  it('should go back to pinboard page when user click on cancel button', function () {
+  it('should go back to pinboard page when user click on close button', function () {
     pinboardPage.open('abcd8765');
     pinboardPage.searchBar.click();
     searchPage.backButton.waitForDisplayed();
@@ -672,7 +678,7 @@ describe('Search Page', function () {
     searchPage.currentBasePath.should.equal('/officer/1/bernadette-kelly/');
   });
 
-  it('should go back to officer page when user click on cancel button', function () {
+  it('should go back to officer page when user click on close button', function () {
     searchPage.input.waitForDisplayed();
     searchPage.input.setValue('Ke');
 
@@ -958,7 +964,8 @@ describe('Search Page', function () {
       searchPage.input.moveTo();
 
       searchPage.toast.waitForText(
-        'Police Officer Bernadette Kelly 45-year-old White Male, with 10 complaints, 2 sustained added.'
+        'Police Officer Bernadette Kelly 45-year-old White Male, with 10 complaints, 2 sustained added.' +
+        '\nGo to pinboard'
       );
       searchPage.pinboardButton.getText().should.eql('Pinboard (1)');
 
@@ -967,7 +974,8 @@ describe('Search Page', function () {
 
       searchPage.officerPreviewPaneSection.pinButton.click();
       searchPage.toast.waitForText(
-        'Police Officer Bernadette Kelly 45-year-old White Male, with 10 complaints, 2 sustained removed.'
+        'Police Officer Bernadette Kelly 45-year-old White Male, with 10 complaints, 2 sustained removed.' +
+        '\nGo to pinboard'
       );
       searchPage.pinboardButton.getText().should.eql('Your pinboard is empty');
     });
@@ -1129,16 +1137,22 @@ describe('Search Page with pinboard functionalities', function () {
     searchPage.pinboardButton.getText().should.eql('Your pinboard is empty');
   });
 
-  it('should redirect to Pinboard page when click on pinboard button', function () {
-    setupMockApiFile('search-page/search-page-mock-api.js');
+  context('when click on pinboard button', function () {
+    beforeEach(function () {
+      setupMockApiFile('search-page/search-page-mock-api.js');
+    });
 
-    searchPage.open('Ke');
-    searchPage.suggestionGroup.waitForDisplayed();
+    afterEach(function () {
+      restoreMockApiFile();
+    });
 
-    searchPage.pinboardButton.click();
-    browser.getUrl().should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/);
+    it('should redirect to Pinboard page', function () {
+      searchPage.open('Ke');
+      searchPage.suggestionGroup.waitForDisplayed();
 
-    restoreMockApiFile();
+      searchPage.pinboardButton.click();
+      browser.getUrl().should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/);
+    });
   });
 });
 
@@ -1151,7 +1165,8 @@ describe('Search Page toast', function () {
 
     searchPage.toast.waitForDisplayed();
     searchPage.toast.waitForText(
-      'Police Officer Bernadette Kelly 45-year-old White Male, with 10 complaints, 2 sustained added.'
+      'Police Officer Bernadette Kelly 45-year-old White Male, with 10 complaints, 2 sustained added.' +
+        '\nGo to pinboard'
     );
     browser.pause(1500);
 
@@ -1160,7 +1175,8 @@ describe('Search Page toast', function () {
     searchPage.firstOfficerPinButton.click();
     searchPage.toast.waitForDisplayed();
     searchPage.toast.waitForText(
-      'Police Officer Bernadette Kelly 45-year-old White Male, with 10 complaints, 2 sustained removed.'
+      'Police Officer Bernadette Kelly 45-year-old White Male, with 10 complaints, 2 sustained removed.' +
+        '\nGo to pinboard'
     );
   });
 
@@ -1173,7 +1189,8 @@ describe('Search Page toast', function () {
 
       searchPage.toast.waitForDisplayed();
       searchPage.toast.waitForText(
-        'Police Officer Bernadette Kelly 45-year-old White Male, with 10 complaints, 2 sustained added.'
+        'Police Officer Bernadette Kelly 45-year-old White Male, with 10 complaints, 2 sustained added.' +
+        '\nGo to pinboard'
       );
       searchPage.toast.click();
       browser.getUrl().should.match(/pinboard\/e25aa777\/untitled-pinboard\/$/);
@@ -1188,7 +1205,8 @@ describe('Search Page toast', function () {
 
       searchPage.toast.waitForDisplayed();
       searchPage.toast.waitForText(
-        'Police Officer John Kelly 37-year-old White Female, with 5 complaints, 1 sustained added.'
+        'Police Officer John Kelly 37-year-old White Female, with 5 complaints, 1 sustained added.' +
+        '\nGo to pinboard'
       );
       searchPage.toast.click();
       browser.getUrl().should.match(/pinboard\/$/);
@@ -1205,7 +1223,8 @@ describe('Search Page toast', function () {
 
       searchPage.toast.waitForDisplayed();
       searchPage.toast.waitForText(
-        'Police Officer Edward may 33-year-old White Female, with 8 complaints, 2 sustained added.'
+        'Police Officer Edward may 33-year-old White Female, with 8 complaints, 2 sustained added.' +
+        '\nGo to pinboard'
       );
       searchPage.toast.click();
       browser.getUrl().should.match(/pinboard\/$/);
@@ -1226,7 +1245,8 @@ describe('Search Page toast', function () {
       searchPage.firstOfficerPinButton.click();
       searchPage.toast.waitForDisplayed();
       searchPage.toast.waitForText(
-        'Police Officer Bernadette Kelly 45-year-old White Male, with 10 complaints, 2 sustained removed.'
+        'Police Officer Bernadette Kelly 45-year-old White Male, with 10 complaints, 2 sustained removed.' +
+        '\nGo to pinboard'
       );
 
       searchPage.toast.click();
@@ -1245,7 +1265,8 @@ describe('Search Page toast', function () {
       searchPage.secondOfficerPinButton.click();
       searchPage.toast.waitForDisplayed();
       searchPage.toast.waitForText(
-        'Police Officer John Kelly 37-year-old White Female, with 5 complaints, 1 sustained added.'
+        'Police Officer John Kelly 37-year-old White Female, with 5 complaints, 1 sustained added.' +
+        '\nGo to pinboard'
       );
 
       searchPage.toast.click();
@@ -1265,7 +1286,8 @@ describe('Search Page toast', function () {
       searchPage.thirdOfficerPinButton.click();
       searchPage.toast.waitForDisplayed();
       searchPage.toast.waitForText(
-        'Police Officer Edward may 33-year-old White Female, with 8 complaints, 2 sustained added.'
+        'Police Officer Edward may 33-year-old White Female, with 8 complaints, 2 sustained added.' +
+        '\nGo to pinboard'
       );
 
       searchPage.toast.click();
