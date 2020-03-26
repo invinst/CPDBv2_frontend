@@ -7,7 +7,13 @@ import { times } from 'lodash';
 import searchPage from './page-objects/search-page';
 import landingPage from './page-objects/landing-page';
 import pinboardPage from './page-objects/pinboard-page';
-import { setupMockApiFile, restoreMockApiFile } from './utils';
+import {
+  setupMockApiFile,
+  restoreMockApiFile,
+  restorePinButtonIntroduction,
+  restorePinboardIntroduction,
+  dismissPinButtonIntroduction,
+} from './utils';
 
 
 const backToSearch = () => {
@@ -47,6 +53,8 @@ describe('Landing Page to Search Page', function () {
 describe('Search Page', function () {
   beforeEach(function () {
     searchPage.open();
+    dismissPinButtonIntroduction();
+    searchPage.input.waitForDisplayed();
   });
 
   it('should show result when user type in', function () {
@@ -379,8 +387,7 @@ describe('Search Page', function () {
 
   context('Pinboard introduction', function () {
     beforeEach(function () {
-      browser.execute('localStorage.removeItem(\'PINBOARD_INTRODUCTION\')');
-      browser.refresh();
+      restorePinboardIntroduction();
       searchPage.input.waitForDisplayed();
     });
 
@@ -434,8 +441,7 @@ describe('Search Page', function () {
 
   context('PinButton introduction', function () {
     beforeEach(function () {
-      browser.execute('localStorage.removeItem(\'PIN_BUTTON_INTRODUCTION\')');
-      browser.refresh();
+      restorePinButtonIntroduction();
       searchPage.input.waitForDisplayed();
     });
 
@@ -450,7 +456,7 @@ describe('Search Page', function () {
     it('should not display PinButtonIntroduction after click on PinButton', function () {
       searchPage.input.setValue('intr');
       searchPage.unitOfficerResultsSection.firstPinButtonIntroduction.waitForDisplayed();
-      searchPage.unitOfficerResultsSection.firstPinButton.click();
+      searchPage.unitOfficerResultsSection.secondResultText.click();
       searchPage.unitOfficerResultsSection.firstPinButtonIntroduction.waitForDisplayed(1000, true);
       browser.refresh();
       searchPage.input.setValue('intr');

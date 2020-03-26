@@ -5,14 +5,49 @@ import { every, isEmpty } from 'lodash';
 
 import withPinnable from 'components/common/with-pinnable';
 import styles from 'components/common/item-pin-button.sass';
-import { isPinButtonIntroductionVisited } from 'utils/pinboard';
+import { isPinButtonIntroductionVisited, setPinButtonIntroductionVisited } from 'utils/pinboard';
 
 
 class ItemPinButton extends Component {
+  componentDidMount() {
+    if (this.shouldShowIntroduction()) {
+      this.addEventClickOutside();
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.shouldShowIntroduction()) {
+      this.removeEventClickOutside();
+    }
+  }
+
+  handleClickOutside = ({ target }) => {
+    if (target.closest('.content-wrapper') && !target.closest('.pin-button-introduction')) {
+      setPinButtonIntroductionVisited();
+      this.forceUpdate();
+      this.removeEventClickOutside();
+    }
+  };
+
+  shouldShowIntroduction() {
+    const { showIntroduction } = this.props;
+
+    return showIntroduction && !isPinButtonIntroductionVisited();
+  }
+
+  addEventClickOutside() {
+    window.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  removeEventClickOutside() {
+    window.removeEventListener('mousedown', this.handleClickOutside);
+  }
+
   render() {
-    const { className, showHint, item, items, showIntroduction } = this.props;
+    const { className, showHint, item, items } = this.props;
     const isPinned = every(isEmpty(items) ? [item] : items, item => item.isPinned);
-    const shouldShowIntroduction = showIntroduction && !isPinButtonIntroductionVisited();
+    const shouldShowIntroduction = this.shouldShowIntroduction();
+
     return (
       <div className={ cx(
         'pinboard-feature',

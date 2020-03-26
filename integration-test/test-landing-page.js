@@ -7,6 +7,7 @@ import landingPage from './page-objects/landing-page';
 import searchPage from './page-objects/search-page';
 import header from './page-objects/shareable-header';
 import pinboardPage from './page-objects/pinboard-page';
+import { restorePinboardButtonIntroduction } from './utils';
 
 
 should.config.checkProtoEql = false;
@@ -490,8 +491,7 @@ describe('landing page', function () {
 
   describe('Pinboard Introduction', function () {
     beforeEach(function () {
-      browser.execute('localStorage.removeItem(\'PINBOARD_BUTTON_INTRODUCTION\')');
-      browser.refresh();
+      restorePinboardButtonIntroduction();
       landingPage.header.content.waitForDisplayed();
     });
 

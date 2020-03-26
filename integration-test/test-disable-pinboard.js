@@ -174,8 +174,9 @@ describe('Disable pinboard feature', function () {
 
     it('should not display PinButton introduction', function () {
       performSearch(searchPage, 'intr');
-      searchPage.pinButtonIntroduction.waitForExist();
-      searchPage.pinButtonIntroduction.isDisplayed().should.be.false();
+
+      searchPage.unitOfficerResultsSection.firstResultText.waitForDisplayed();
+      searchPage.pinButtonIntroduction.isExisting().should.be.false();
     });
   });
 
