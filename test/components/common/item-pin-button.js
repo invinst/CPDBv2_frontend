@@ -183,6 +183,7 @@ describe('ItemPinButton component', function () {
       });
 
       context('showIntroduction is true', function () {
+        this.timeout(4000);
         let wrapper;
         beforeEach(function () {
           wrapper = mount(<ItemPinButton item={ { isPinned: false } } showIntroduction={ true } />);
@@ -196,14 +197,17 @@ describe('ItemPinButton component', function () {
           wrapper.find('.pin-button-introduction').exists().should.be.true();
         });
 
-        it('should bind mousedown event on componentDidMount', function () {
+        it('should bind mousedown event on componentDidMount', function (done) {
           const addEventListenerSpy = spy(window, 'addEventListener');
           const wrapper = mount(<ItemPinButton item={ { isPinned: false } } showIntroduction={ true } />);
           const handleClickOutside = wrapper.find('ItemPinButton').instance().handleClickOutside;
-          addEventListenerSpy.should.be.calledWith(
-            'mousedown',
-            handleClickOutside,
-          );
+          setTimeout(function () {
+            addEventListenerSpy.should.be.calledWith(
+              'mousedown',
+              handleClickOutside,
+            );
+            done();
+          }, 2500);
         });
 
         it('should unbind mousedown event on component unmount', function () {

@@ -82,14 +82,14 @@ export default class SearchTerms extends Component {
   }
 
   render() {
-    const { onEmptyPinboardButtonClick, aliasEditModeOn, focusedItem, className, isEmptyPinboard } = this.props;
+    const { onEmptyPinboardButtonClick, aliasEditModeOn, focusedItem, className, isEmptyPinboard, hide } = this.props;
     return (
       <div className={ cx(style.wrapper, className, { 'hide-pinboard-bar': isEmptyPinboard }) }>
         {
           !isEmptyPinboard && <PinboardBar onEmptyPinboardButtonClick={ onEmptyPinboardButtonClick } />
         }
         <div className={ cx('search-term-wrapper', { 'edit-mode-on': aliasEditModeOn } ) }>
-          <PinboardIntroductionContainer />
+          <PinboardIntroductionContainer searchPageHide={ hide } />
           <ScrollIntoView focusedItemClassName={ `term-item-${get(focusedItem, 'uniqueKey', '').replace(' ', '-')}` }>
             { this.renderRecentSuggestion() }
             <ResponsiveFluidWidthComponent
@@ -136,6 +136,7 @@ SearchTerms.propTypes = {
   fetchedEmptyRecentSearchItems: PropTypes.func,
   className: PropTypes.string,
   isEmptyPinboard: PropTypes.bool,
+  hide: PropTypes.bool,
 };
 
 SearchTerms.defaultProps = {
@@ -154,4 +155,5 @@ SearchTerms.defaultProps = {
   recentSuggestionsRequested: false,
   fetchedEmptyRecentSearchItems: noop,
   isEmptyPinboard: false,
+  hide: true,
 };

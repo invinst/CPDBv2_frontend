@@ -396,21 +396,21 @@ describe('Search Page', function () {
     });
 
     it('should close pinboard introduction after click close', function () {
-      searchPage.pinboardIntroduction.body.waitForDisplayed(1000);
+      searchPage.pinboardIntroduction.body.waitForDisplayed();
       searchPage.pinboardIntroduction.closeButton.click();
-      searchPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
+      searchPage.pinboardIntroduction.body.waitForDisplayed(3000, true);
       browser.refresh();
       searchPage.input.waitForDisplayed(1000);
-      searchPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
+      searchPage.pinboardIntroduction.body.waitForDisplayed(3000, true);
     });
 
     it('should close pinboard introduction and redirect to pinboard page after click Get Started', function () {
-      searchPage.pinboardIntroduction.body.waitForDisplayed(1000);
+      searchPage.pinboardIntroduction.body.waitForDisplayed(3000);
       searchPage.pinboardIntroduction.getStartedButton.click();
       browser.waitForUrl(url => url.should.match(/\/pinboard\/.*/), 2000);
       pinboardPage.searchBar.click();
       searchPage.input.waitForDisplayed(1000);
-      searchPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
+      searchPage.pinboardIntroduction.body.waitForDisplayed(3000, true);
     });
 
     it('should not display pinboard introduciton after user add item to pinboard', function () {
@@ -419,7 +419,7 @@ describe('Search Page', function () {
 
       searchPage.secondOfficerResult.waitForDisplayed();
       searchPage.secondOfficerPinButton.click();
-      searchPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
+      searchPage.pinboardIntroduction.body.waitForDisplayed(3000, true);
     });
 
     context('lastest pinboard is not empty', function () {
@@ -434,7 +434,7 @@ describe('Search Page', function () {
       it('should not display pinboard introduciton when lasted pinboard is not empty', function () {
         searchPage.open();
         searchPage.input.waitForDisplayed();
-        searchPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
+        searchPage.pinboardIntroduction.body.waitForDisplayed(3000, true);
       });
     });
   });
@@ -457,11 +457,11 @@ describe('Search Page', function () {
       searchPage.input.setValue('intr');
       searchPage.unitOfficerResultsSection.firstPinButtonIntroduction.waitForDisplayed();
       searchPage.unitOfficerResultsSection.secondResultText.click();
-      searchPage.unitOfficerResultsSection.firstPinButtonIntroduction.waitForDisplayed(1000, true);
+      searchPage.unitOfficerResultsSection.firstPinButtonIntroduction.waitForDisplayed(3000, true);
       browser.refresh();
       searchPage.input.setValue('intr');
       searchPage.unitOfficerResultsSection.firstPinButton.waitForDisplayed();
-      searchPage.unitOfficerResultsSection.firstPinButtonIntroduction.waitForDisplayed(1000, true);
+      searchPage.unitOfficerResultsSection.firstPinButtonIntroduction.waitForDisplayed(3000, true);
     });
   });
 

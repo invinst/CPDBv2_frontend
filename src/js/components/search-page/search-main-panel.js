@@ -11,6 +11,7 @@ export default function SearchMainPanel(props) {
   const {
     contentType, query, editModeOn, aliasEditModeOn,
     handleSelect, tags, onEmptyPinboardButtonClick,
+    hide,
   } = props;
 
   return (
@@ -18,6 +19,7 @@ export default function SearchMainPanel(props) {
       {
         query ?
           <SearchResultsContainer
+            hide={ hide }
             onLoadMore={ handleSelect }
             onSelect={ handleSelect }
             editModeOn={ editModeOn }
@@ -27,6 +29,7 @@ export default function SearchMainPanel(props) {
             onEmptyPinboardButtonClick={ onEmptyPinboardButtonClick }
           /> :
           <SearchTermsContainer
+            hide={ hide }
             onEmptyPinboardButtonClick={ onEmptyPinboardButtonClick }
             aliasEditModeOn={ aliasEditModeOn }
           />
@@ -44,9 +47,11 @@ SearchMainPanel.propTypes = {
   handleSelect: PropTypes.func,
   tags: PropTypes.array,
   onEmptyPinboardButtonClick: PropTypes.func,
+  hide: PropTypes.bool,
 };
 
 SearchMainPanel.defaultProps = {
   handleSelect: noop,
   onEmptyPinboardButtonClick: noop,
+  hide: true,
 };

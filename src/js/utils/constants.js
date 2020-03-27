@@ -875,3 +875,5 @@ export const ELLIPSIS_CONFIG = {
   ellipsis: '...',
   maxLine: '3',
 };
+
+export const PINBOARD_INTRODUCTION_DELAY = 2000;

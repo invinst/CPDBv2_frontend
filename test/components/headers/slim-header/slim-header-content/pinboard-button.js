@@ -38,9 +38,9 @@ describe('PinboardButton component', function () {
     });
 
     it('should render header-link with show-introduction class', function () {
-      const headerLink = wrapper.find('.header-link');
-      headerLink.exists().should.be.true();
-      headerLink.prop('className').should.containEql('show-introduction');
+      wrapper.find('.header-link').exists().should.be.true();
+      wrapper.setState({ displayIntroduction: true });
+      wrapper.find('.header-link').prop('className').should.containEql('show-introduction');
     });
 
     it('should render pinboard button introduction', function () {
