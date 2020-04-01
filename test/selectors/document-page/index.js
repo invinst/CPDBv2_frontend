@@ -104,7 +104,7 @@ describe('Document selectors', function () {
         }],
         lastEditedDateTime: 'at 08:50PM on Feb 28, 2019',
         infoItems: [
-          { name: 'CRID / UID', value: 'CR 1083633', to: '/complaint/1083633/' },
+          { name: 'CRID', value: 'CR 1083633', to: '/complaint/1083633/' },
           {
             name: 'Source',
             value: 'chicagocopa.org',
@@ -145,7 +145,7 @@ describe('Document selectors', function () {
         }],
         lastEditedDateTime: 'at 08:50PM on Feb 28, 2019',
         infoItems: [
-          { name: 'CRID / UID', value: 'CR 1083633', to: '/complaint/1083633/' },
+          { name: 'CRID', value: 'CR 1083633', to: '/complaint/1083633/' },
           {
             name: 'Source',
             value: 'chicagocopa.org',

@@ -149,7 +149,7 @@ describe('DocumentPage component', function () {
 
     const simpleListWidget = wrapper.find(SimpleListWidget);
     simpleListWidget.prop('items').should.eql([
-      { name: 'CRID / UID', value: 'CR 1083633', to: '/complaint/1083633/' },
+      { name: 'CRID', value: 'CR 1083633', to: '/complaint/1083633/' },
       {
         name: 'Source',
         value: 'chicagocopa.org',
