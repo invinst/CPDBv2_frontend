@@ -2,7 +2,6 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import config from 'config';
 import LandingPageContainer from 'containers/landing-page';
 import CollaborationPage from 'components/collaboration-page/collaboration-page';
 import SearchPageContainer from 'containers/search-page';
@@ -44,11 +43,12 @@ import {
   PINBOARD_PATH,
   PINBOARD_ADMIN_PATH,
 } from 'utils/constants';
+import { isPinboardFeatureEnabled } from 'utils/pinboard';
 import { editRouterPath } from 'utils/router-path';
 
 
 export default function RouterRoot(props) {
-  const { pinboard: enablePinboardFeature } = config.enableFeatures;
+  const enablePinboardFeature = isPinboardFeatureEnabled();
   const { location } = props;
 
   return (

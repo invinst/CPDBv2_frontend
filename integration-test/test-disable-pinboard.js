@@ -65,8 +65,8 @@ describe('Disable pinboard feature', function () {
     });
 
     it('should not display pinboard button introduciton', function () {
-      landingPage.pinboardIntroduction.body.waitForExist();
-      landingPage.pinboardIntroduction.body.isDisplayed().should.be.false();
+      landingPage.header.content.waitForDisplayed();
+      landingPage.pinboardIntroduction.body.isExisting().should.be.false();
     });
   });
 
@@ -169,8 +169,8 @@ describe('Disable pinboard feature', function () {
     });
 
     it('should not display pinboard introduction', function () {
-      searchPage.pinboardIntroduction.body.waitForExist();
-      searchPage.pinboardIntroduction.body.isDisplayed().should.be.false();
+      searchPage.input.waitForDisplayed();
+      searchPage.pinboardIntroduction.body.isExisting().should.be.false();
     });
 
     it('should not display PinButton introduction', function () {

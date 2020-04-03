@@ -6,7 +6,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import cx from 'classnames';
 import { HelmetProvider } from 'react-helmet-async';
 
-import config from 'config';
 import EditModeProviderContainer from 'containers/edit-mode-provider-container';
 import LoginModalContainer from 'containers/login-modal-container';
 import GenericModalContainer from 'containers/generic-modal-container';
@@ -14,6 +13,7 @@ import VideoModalContainer from 'containers/video-modal-container';
 import RouteTransition from 'containers/animation/route-transition';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import { ALPHA_NUMBERIC } from 'utils/constants';
+import { isPinboardFeatureEnabled } from 'utils/pinboard';
 import { getPageRoot } from 'utils/url';
 import styles from './app.sass';
 import RouterRoot from './router-root';
@@ -54,11 +54,10 @@ export default class App extends React.Component {
 
   render() {
     const { location } = this.props;
-    const { pinboard: enablePinboardFeature } = config.enableFeatures;
 
     return (
       <HelmetProvider>
-        <StyleRoot className={ cx(styles.app, { 'pinboard-disabled': !enablePinboardFeature }) }>
+        <StyleRoot className={ cx(styles.app, { 'pinboard-disabled': !isPinboardFeatureEnabled() }) }>
           <EditModeProviderContainer>
             <RouteTransition pathname={ location.pathname }>
               <RouterRoot location={ location }/>
