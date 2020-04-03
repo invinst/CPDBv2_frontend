@@ -42,11 +42,11 @@ describe('DownloadMenu component', function () {
     const downloadMenuItems = wrapper.find(DownloadMenuItem);
 
     downloadMenuItems.at(0).prop('officerId').should.equal(123);
-    downloadMenuItems.at(0).prop('kind').should.equal('with_docs');
-    downloadMenuItems.at(0).prop('zipFileUrl').should.equal('lvh.me/file-with-docs.zip');
+    downloadMenuItems.at(0).prop('kind').should.equal('without_docs');
+    downloadMenuItems.at(0).prop('zipFileUrl').should.equal('lvh.me/file.zip');
 
     downloadMenuItems.at(1).prop('officerId').should.equal(123);
-    downloadMenuItems.at(1).prop('kind').should.equal('without_docs');
-    downloadMenuItems.at(1).prop('zipFileUrl').should.equal('lvh.me/file.zip');
+    downloadMenuItems.at(1).prop('kind').should.equal('with_docs');
+    downloadMenuItems.at(1).prop('zipFileUrl').should.equal('lvh.me/file-with-docs.zip');
   });
 });
