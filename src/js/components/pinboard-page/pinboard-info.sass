@@ -30,3 +30,13 @@
 
     p
       margin: 0
+
+  .pinboard-description-placeholder
+    &::after
+      position: absolute
+      top: 0
+      font-size: 14px
+      font-weight: 300
+      color: $boulder-color
+      content: attr(data-placeholder)
+      z-index: -1
