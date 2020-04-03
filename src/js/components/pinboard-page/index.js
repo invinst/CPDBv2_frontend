@@ -129,7 +129,7 @@ export default class PinboardPage extends Component {
           <Header />
           <SearchBar
             shareable={ !isEmptyPinboard }
-            customButtons={
+            headerButtons={
               <ManagePinboardsButtons
                 pinboardId={ get(pinboard, 'id') }
                 showPinboardsList={ showPinboardsList }

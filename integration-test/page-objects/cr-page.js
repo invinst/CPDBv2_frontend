@@ -2,6 +2,7 @@ import Page from './page';
 import Section from './sections/section';
 import DocumentRequestModalSection from './sections/document-request-modal';
 import BaseCarouselSection from './sections/carousel';
+import PinboardsMenuSection from './sections/pinboards-menu';
 
 
 class AccusedOfficerCard extends Section {
@@ -155,6 +156,7 @@ class CRPage extends Page {
   relatedByCategoriesCarousel = new CarouselSection('categories');
   distanceDropdown = new DistanceDropdown();
   documentRequestModal = new DocumentRequestModalSection();
+  pinboardsMenuSection = new PinboardsMenuSection();
 
   constructor() {
     super();

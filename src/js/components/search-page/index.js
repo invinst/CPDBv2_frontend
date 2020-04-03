@@ -19,7 +19,7 @@ import {
 } from 'utils/constants';
 import { showIntercomLauncher } from 'utils/intercom';
 import * as IntercomTracking from 'utils/intercom-tracking';
-import 'toast.css';
+import 'toast.sass';
 import styles from './search-page.sass';
 
 
@@ -177,11 +177,11 @@ export default class SearchPage extends Component {
             />
             <HoverableButton
               className={
-                cx('searchbar__button--back', 'cancel-button', { 'search-terms-hidden': searchTermsHidden })
+                cx('searchbar__button--back', 'close-button', { 'search-terms-hidden': searchTermsHidden })
               }
               onClick={ this.handleGoBack }
             >
-              Cancel
+              Close
             </HoverableButton>
           </div>
         </div>

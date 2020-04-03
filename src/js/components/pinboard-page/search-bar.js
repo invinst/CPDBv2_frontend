@@ -56,7 +56,7 @@ export default class SearchBar extends Component {
   }
 
   render() {
-    const { shareable, customButtons } = this.props;
+    const { shareable, headerButtons } = this.props;
     return (
       <div className={ styles.wrapper }>
         <div className={ cx(responsiveContainerStyles.responsiveContainer, 'search-box-parent') }>
@@ -69,7 +69,7 @@ export default class SearchBar extends Component {
                 { this.renderShareMenu() }
               </div>
             ) }
-            { customButtons }
+            { headerButtons }
           </div>
         </div>
       </div>
@@ -79,7 +79,7 @@ export default class SearchBar extends Component {
 
 SearchBar.propTypes = {
   shareable: PropTypes.bool,
-  customButtons: PropTypes.element,
+  headerButtons: PropTypes.element,
 };
 
 SearchBar.defaultProps = {

@@ -1,8 +1,5 @@
 @import 'variables'
 
-$button-height: 28px
-$border-width: 1px
-$margin-top: calc((#{$shareable-header-height} - #{$button-height} - #{$border-width} * 2) / 2)
 
 \:local(.link-header-button)
   position: relative
@@ -10,11 +7,11 @@ $margin-top: calc((#{$shareable-header-height} - #{$button-height} - #{$border-w
   .button
     float: right
     cursor: pointer
-    line-height: $button-height
+    line-height: 28px
     border-radius: 2px
     padding: 0 8px
-    border: solid $border-width $alto-color
-    margin: $margin-top 0 0 8px
+    border: solid 1px $alto-color
+    margin-left: 8px
     color: $blue-ribbon-color
     background-color: $hawkes-blue-color
 

@@ -3,62 +3,73 @@ import React from 'react';
 import cx from 'classnames';
 
 import styles from './header-button.sass';
-import ShareMenu from 'components/headers/shareable-header/share-menu';
 
 export default class HeaderButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      shareMenuIsOpen: false,
+      menuIsOpen: false,
     };
   }
 
-  closeShareMenu = e => {
-    if (this.state.shareMenuIsOpen) {
-      const { onClose } = this.props;
-      onClose();
-      this.setState({ shareMenuIsOpen: false });
-      e.stopPropagation();
+  componentDidMount() {
+    window.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('mousedown', this.handleClickOutside);
+  }
+
+  handleClickOutside = event => {
+    const { name } = this.props;
+
+    if (!event.target.closest(`.menu-container-${name}`)) {
+      this.closeMenu();
     }
   };
 
-  openShareMenu = () => {
+  closeMenu = () => {
+    if (this.state.menuIsOpen) {
+      const { onClose } = this.props;
+      onClose();
+      this.setState({ menuIsOpen: false });
+    }
+  };
+
+  openMenu = () => {
     const { onOpen } = this.props;
     onOpen();
-    this.setState({ shareMenuIsOpen: true });
+    this.setState({ menuIsOpen: true });
   };
 
   render() {
-    const { shareMenuIsOpen } = this.state;
-    const { scrollPosition, buttonText, Menu } = this.props;
-    const shareButtonHandler = shareMenuIsOpen ? this.closeShareMenu : this.openShareMenu;
+    const { menuIsOpen } = this.state;
+    const { buttonClassName, Menu, menuProps, name } = this.props;
+    const handleClick = menuIsOpen ? this.closeMenu : this.openMenu;
 
     return (
-      <div className={ styles.headerButton }>
-        <span
-          className={ cx('button', shareMenuIsOpen ? 'focus' : scrollPosition) }
-          onClick={ shareButtonHandler }
-        >
-          { buttonText }
-        </span>
-        { shareMenuIsOpen ? <Menu closeShareMenu={ this.closeShareMenu }/> : null }
+      <div className={ cx(`menu-container-${name}`, styles.headerButton) }>
+        <div
+          className={ cx(buttonClassName, { focus: menuIsOpen }) }
+          onClick={ handleClick }
+        />
+        { menuIsOpen ? <Menu { ...menuProps } closeMenu={ this.closeMenu }/> : null }
       </div>
     );
   }
 }
 
 HeaderButton.propTypes = {
-  scrollPosition: PropTypes.string,
-  buttonText: PropTypes.string,
+  name: PropTypes.string.isRequired,
   Menu: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
+  menuProps: PropTypes.object,
   onOpen: PropTypes.func,
   onClose: PropTypes.func,
+  buttonClassName: PropTypes.string,
 };
 
 HeaderButton.defaultProps = {
-  scrollPosition: 'top',
-  buttonText: 'Share',
-  Menu: ShareMenu,
+  menuProps: {},
   onOpen: () => {},
   onClose: () => {},
 };

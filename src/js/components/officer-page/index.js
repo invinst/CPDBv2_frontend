@@ -3,32 +3,29 @@ import React, { useContext } from 'react';
 import { compact, get } from 'lodash';
 import { Helmet } from 'react-helmet-async';
 import pluralize from 'pluralize';
-import cx from 'classnames';
 
 import AnimatedRadarChart from './radar-chart';
 import SummarySection from './summary-section';
 import MetricsSection from './metrics-section';
 import TabbedPaneSection from './tabbed-pane-section';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
-import { PINNED_ITEM_TYPES, POPUP_NAMES, SHAREABLE_HEADER_BUTTON_TYPE } from 'utils/constants';
+import DownloadMenuContainer from 'containers/headers/shareable-header/download-menu-container';
+import HeaderPinButtonContainer from 'containers/officer-page/header-pin-button-container';
+import HeaderButton from 'components/headers/shareable-header/header-button';
+import FooterContainer from 'containers/footer-container';
+import { POPUP_NAMES } from 'utils/constants';
 import Printable from 'components/common/higher-order/printable';
 import PrintNotes from 'components/common/print-notes';
 import PrintPreloadFonts from 'components/common/print-preload-fonts';
-import DownloadMenuContainer from 'containers/headers/shareable-header/download-menu-container';
-import FooterContainer from 'containers/footer-container';
 import * as tracking from 'utils/tracking';
 import { PrintModeContext } from 'contexts';
-import ItemPinButton from 'components/common/item-pin-button';
 import styles from './officer-page.sass';
-import shareableHeaderStyles from 'components/headers/shareable-header/shareable-header.sass';
-import pinButtonStyles from 'components/common/item-pin-button.sass';
 
 
 function OfficerPage(props) {
   const {
     officerId,
     officerSummary,
-    isPinned,
     officerMetrics,
     numAttachments,
     officerName,
@@ -46,11 +43,10 @@ function OfficerPage(props) {
     pathName,
     infoNotes,
     timelineNotes,
-    addOrRemoveItemInPinboard,
   } = props;
   const { printMode } = useContext(PrintModeContext);
-  const { rank, gender, race, badge, hasUniqueName, age } = officerSummary;
-  const { allegationCount, useOfForceCount, sustainedCount } = officerMetrics;
+  const { rank, badge, hasUniqueName } = officerSummary;
+  const { allegationCount, useOfForceCount } = officerMetrics;
 
   const pageTitle = compact([rank === 'N/A' ? '' : rank, officerName]).join(' ');
 
@@ -71,28 +67,16 @@ function OfficerPage(props) {
       </Helmet>
       <div className={ styles.officerPage }>
         <ShareableHeaderContainer
-          buttonType={ SHAREABLE_HEADER_BUTTON_TYPE.MENU }
-          Menu={ DownloadMenuContainer }
-          buttonText='Download'
-          onOpen={ () => tracking.trackOfficerDownloadMenu(officerId, 'open') }
-          customButtons={
-            <ItemPinButton
-              addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
-              showHint={ false }
-              className={ cx(shareableHeaderStyles.headerButton, pinButtonStyles.headerPinButton) }
-              item={ {
-                type: PINNED_ITEM_TYPES.OFFICER,
-                id: officerId,
-                isPinned,
-                fullName: officerName,
-                race,
-                gender,
-                rank,
-                age,
-                sustainedCount,
-                complaintCount: allegationCount,
-              } }
-            />
+          headerButtons={
+            <React.Fragment>
+              <HeaderPinButtonContainer />
+              <HeaderButton
+                name='download-btn'
+                buttonClassName={ styles.downloadBtn }
+                Menu={ DownloadMenuContainer }
+                onOpen={ () => tracking.trackOfficerDownloadMenu(officerId, 'open') }
+              />
+            </React.Fragment>
           }
         />
         <div className='page-wrapper'>
@@ -132,7 +116,6 @@ function OfficerPage(props) {
 OfficerPage.propTypes = {
   officerId: PropTypes.number,
   officerName: PropTypes.string,
-  isPinned: PropTypes.bool,
   officerSummary: PropTypes.object,
   officerMetrics: PropTypes.object,
   numAttachments: PropTypes.number,
@@ -151,7 +134,6 @@ OfficerPage.propTypes = {
   officerSlug: PropTypes.string,
   infoNotes: PropTypes.array,
   timelineNotes: PropTypes.array,
-  addOrRemoveItemInPinboard: PropTypes.func,
 };
 
 OfficerPage.defaultProps = {

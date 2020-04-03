@@ -14,18 +14,19 @@ export default function DownloadMenu(props) {
 
   return (
     <div className={ style.downloadMenu }>
-      <DownloadMenuItem
-        kind={ OFFICER_DOWNLOAD_KINDS.WITH_DOCS }
-        fetchOfficerZipFileUrl={ fetchOfficerZipWithDocsFileUrl }
-        officerId={ officerId }
-        zipFileUrl={ zipFileUrlWithDocs }
-      />
-
+      <div className='title'>Download</div>
       <DownloadMenuItem
         kind={ OFFICER_DOWNLOAD_KINDS.WITHOUT_DOCS }
         fetchOfficerZipFileUrl={ fetchOfficerZipFileUrl }
         officerId={ officerId }
         zipFileUrl={ zipFileUrl }
+      />
+
+      <DownloadMenuItem
+        kind={ OFFICER_DOWNLOAD_KINDS.WITH_DOCS }
+        fetchOfficerZipFileUrl={ fetchOfficerZipWithDocsFileUrl }
+        officerId={ officerId }
+        zipFileUrl={ zipFileUrlWithDocs }
       />
     </div>
   );

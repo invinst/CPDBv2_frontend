@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import * as constants from 'utils/constants';
 import DocumentsTable from './documents-table';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 
@@ -17,7 +16,7 @@ export default function DocumentDeduplicatorPage(props) {
 
   return (
     <div>
-      <ShareableHeaderContainer buttonType={ constants.SHAREABLE_HEADER_BUTTON_TYPE.NONE }/>
+      <ShareableHeaderContainer />
       <DocumentsTable
         rows={ documents }
         setDocumentShow={ setDocumentShow }
