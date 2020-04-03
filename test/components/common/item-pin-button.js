@@ -220,6 +220,13 @@ describe('ItemPinButton component', function () {
           );
         });
 
+        it('should clear displayIntroductionTimeout', function () {
+          const clearTimeoutSpy = spy(window, 'clearTimeout');
+          const displayIntroductionTimeout = wrapper.find('ItemPinButton').instance().displayIntroductionTimeout;
+          wrapper.unmount();
+          clearTimeoutSpy.should.be.calledWith(displayIntroductionTimeout);
+        });
+
         it('should not render introduction after user click outside', function () {
           const wrapper = mount(
             <div className='content-wrapper'>

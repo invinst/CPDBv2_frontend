@@ -5,11 +5,33 @@ import { spy } from 'sinon';
 import PinboardButton from 'components/headers/slim-header/slim-header-content/pinboard-button';
 import * as pinboardUtils from 'utils/pinboard';
 import browserHistory from 'utils/history';
-import { PINBOARD_INTRODUCTION } from 'utils/constants';
+import { PINBOARD_INTRODUCTION, PINBOARD_INTRODUCTION_DELAY } from 'utils/constants';
 
 
 describe('PinboardButton component', function () {
+  this.timeout(4000);
   let wrapper;
+  describe('componentDidMount', function () {
+    it('should set displayIntroduction to true after delay', function (done) {
+      wrapper = mount(<PinboardButton />);
+      wrapper.state('displayIntroduction').should.be.false();
+      setTimeout(function () {
+        wrapper.state('displayIntroduction').should.be.true();
+        done();
+      }, PINBOARD_INTRODUCTION_DELAY);
+    });
+  });
+
+  describe('componentWillUnmount', function () {
+    it('should clear displayIntroductionTimeout', function () {
+      const clearTimeoutSpy = spy(window, 'clearTimeout');
+      wrapper = mount(<PinboardButton />);
+      const displayIntroductionTimeout = wrapper.instance().displayIntroductionTimeout;
+      wrapper.unmount();
+      clearTimeoutSpy.should.be.calledWith(displayIntroductionTimeout);
+    });
+  });
+
   context('isPinboardButtonIntroductionVisited() return true', function () {
     beforeEach(function () {
       localStorage.setItem(PINBOARD_INTRODUCTION.PINBOARD_BUTTON_INTRODUCTION, '1');

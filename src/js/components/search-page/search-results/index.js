@@ -173,7 +173,6 @@ export default class SearchResults extends Component {
       contentType,
       onEmptyPinboardButtonClick,
       addOrRemoveItemInPinboard,
-      hide,
     } = this.props;
 
     return (
@@ -190,7 +189,6 @@ export default class SearchResults extends Component {
             onEmptyPinboardButtonClick={ onEmptyPinboardButtonClick }
           />
         </div>
-
         <div className={ cx('suggestion-results', { 'edit-mode-on': aliasEditModeOn }) }>
           {
             isRequesting ?
@@ -198,7 +196,7 @@ export default class SearchResults extends Component {
                 Loading...
               </div> :
               <div className='result-wrapper'>
-                <PinboardIntroductionContainer searchPageHide={ hide } />
+                <PinboardIntroductionContainer />
                 { this.renderContent() }
               </div>
           }
@@ -234,7 +232,6 @@ SearchResults.propTypes = {
   tags: PropTypes.array,
   contentType: PropTypes.string,
   onEmptyPinboardButtonClick: PropTypes.func,
-  hide: PropTypes.bool,
 };
 
 SearchResults.defaultProps = {
@@ -243,5 +240,4 @@ SearchResults.defaultProps = {
   getSuggestionWithContentType: noop,
   resetNavigation: noop,
   onEmptyPinboardButtonClick: noop,
-  hide: true,
 };

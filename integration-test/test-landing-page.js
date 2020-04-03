@@ -8,6 +8,7 @@ import searchPage from './page-objects/search-page';
 import header from './page-objects/shareable-header';
 import pinboardPage from './page-objects/pinboard-page';
 import { restorePinboardButtonIntroduction } from './utils';
+import { INTRODUCTION_DISPLAY_TIMEOUT } from './utils/constants';
 
 
 should.config.checkProtoEql = false;
@@ -514,10 +515,10 @@ describe('landing page', function () {
     it('should not display Pinboard introduction after click dismiss', function () {
       landingPage.pinboardIntroduction.body.waitForDisplayed();
       landingPage.pinboardIntroduction.dismissButton.click();
-      landingPage.pinboardIntroduction.body.waitForDisplayed(3000, true);
+      landingPage.pinboardIntroduction.body.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT, true);
       browser.refresh();
       landingPage.header.content.waitForDisplayed();
-      landingPage.pinboardIntroduction.body.waitForDisplayed(3000, true);
+      landingPage.pinboardIntroduction.body.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT, true);
     });
 
     it('should not display Pinboard introduction after click try it', function () {
@@ -526,7 +527,7 @@ describe('landing page', function () {
       browser.waitForUrl(url => url.should.match(/\/pinboard\/.*/), 2000);
       pinboardPage.headerTitle.click();
       landingPage.header.content.waitForDisplayed();
-      landingPage.pinboardIntroduction.body.waitForDisplayed(3000, true);
+      landingPage.pinboardIntroduction.body.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT, true);
     });
 
     it('should not display Pinboard introduction after click Pinboard button', function () {
@@ -534,7 +535,7 @@ describe('landing page', function () {
       browser.waitForUrl(url => url.should.match(/\/pinboard\/.*/), 2000);
       pinboardPage.headerTitle.click();
       landingPage.header.content.waitForDisplayed();
-      landingPage.pinboardIntroduction.body.waitForDisplayed(3000, true);
+      landingPage.pinboardIntroduction.body.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT, true);
     });
   });
 });
