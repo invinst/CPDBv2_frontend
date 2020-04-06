@@ -19,6 +19,7 @@ export default class PinboardButton extends Component {
   componentWillUnmount() {
     clearTimeout(this.displayIntroductionTimeout);
   }
+
   onClick = (e) => {
     e && e.stopPropagation();
     setPinboardButtonIntroductionVisited();
@@ -31,19 +32,19 @@ export default class PinboardButton extends Component {
   };
 
   render() {
-    const showIntroduction = !isPinboardButtonIntroductionVisited();
     const { displayIntroduction } = this.state;
+    const showIntroduction = !isPinboardButtonIntroductionVisited() && displayIntroduction;
     return (
       <div className={ cx(styles.pinboardButton, 'pinboard-feature' ) }>
         <div
-          className={ cx('header-link', { 'show-introduction': showIntroduction && displayIntroduction } ) }
+          className={ cx('header-link', { 'show-introduction': showIntroduction } ) }
           onClick={ this.onClick }
         >
           Pinboards
         </div>
         {
           showIntroduction &&
-            <div className={ cx('pinboard-button-introduction', { 'display-introduction': displayIntroduction }) }>
+            <div className='pinboard-button-introduction'>
               <div className='pinboard-button-introduction-title'>Introducing Pinboards</div>
               <div className='pinboard-button-introduction-content'>
                 Create and share collections of officers, complaint records,

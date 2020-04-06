@@ -10,27 +10,23 @@ import { PINBOARD_INTRODUCTION_DELAY } from 'utils/constants';
 
 
 class ItemPinButton extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      displayIntroduction: false,
-    };
-  }
+  state = { displayIntroduction: false };
 
   componentDidMount() {
-    this.displayIntroductionTimeout = setTimeout(() => {
-      if (this.shouldShowIntroduction()) {
+    if (this.shouldShowIntroduction()) {
+      this.displayIntroductionTimeout = setTimeout (() => {
         this.addEventClickOutside();
         this.setState({ displayIntroduction: true });
-      }
-    }, PINBOARD_INTRODUCTION_DELAY);
+        this.displayIntroductionTimeout = null;
+      }, PINBOARD_INTRODUCTION_DELAY);
+    }
   }
 
   componentWillUnmount() {
     if (this.shouldShowIntroduction()) {
       this.removeEventClickOutside();
     }
-    clearTimeout(this.displayIntroductionTimeout);
+    this.displayIntroductionTimeout && clearTimeout(this.displayIntroductionTimeout);
   }
 
   handleClickOutside = ({ target }) => {
@@ -59,7 +55,7 @@ class ItemPinButton extends Component {
     const { className, showHint, item, items } = this.props;
     const { displayIntroduction } = this.state;
     const isPinned = every(isEmpty(items) ? [item] : items, item => item.isPinned);
-    const shouldShowIntroduction = this.shouldShowIntroduction();
+    const shouldShowIntroduction = this.shouldShowIntroduction() && displayIntroduction;
 
     return (
       <div className={ cx(
@@ -71,11 +67,8 @@ class ItemPinButton extends Component {
         <div className='pin-button' />
         { showHint && <div className='pin-action-hint'> Unpin? </div> }
         {
-          shouldShowIntroduction
-          &&
-            <div className={ cx('pin-button-introduction', { 'display-introduction': displayIntroduction }) }>
-              Tap this button to add to your pinboard
-            </div>
+          shouldShowIntroduction &&
+            <div className='pin-button-introduction'>Tap this button to add to your pinboard</div>
         }
       </div>
     );

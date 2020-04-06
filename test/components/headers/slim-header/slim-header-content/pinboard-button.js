@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { spy } from 'sinon';
+import { spy, useFakeTimers } from 'sinon';
 
 import PinboardButton from 'components/headers/slim-header/slim-header-content/pinboard-button';
 import * as pinboardUtils from 'utils/pinboard';
@@ -9,16 +9,14 @@ import { PINBOARD_INTRODUCTION, PINBOARD_INTRODUCTION_DELAY } from 'utils/consta
 
 
 describe('PinboardButton component', function () {
-  this.timeout(4000);
   let wrapper;
   describe('componentDidMount', function () {
-    it('should set displayIntroduction to true after delay', function (done) {
+    it('should set displayIntroduction to true after delay', function () {
+      const clock = useFakeTimers();
       wrapper = mount(<PinboardButton />);
       wrapper.state('displayIntroduction').should.be.false();
-      setTimeout(function () {
-        wrapper.state('displayIntroduction').should.be.true();
-        done();
-      }, PINBOARD_INTRODUCTION_DELAY);
+      clock.tick(PINBOARD_INTRODUCTION_DELAY + 100);
+      wrapper.state('displayIntroduction').should.be.true();
     });
   });
 
@@ -39,9 +37,9 @@ describe('PinboardButton component', function () {
     });
 
     it('should render header-link without show-introduction class', function () {
-      const headerLink = wrapper.find('.header-link');
-      headerLink.exists().should.be.true();
-      headerLink.prop('className').should.not.containEql('show-introduction');
+      const rightLink = wrapper.find('.header-link');
+      rightLink.exists().should.be.true();
+      rightLink.prop('className').should.not.containEql('show-introduction');
     });
 
     it('should not render pinboard button introduction', function () {
@@ -52,20 +50,27 @@ describe('PinboardButton component', function () {
   context('isPinboardButtonIntroductionVisited() return false', function () {
     let setPinboardButtonIntroductionVisitedSpy;
     let browserHistoryPushSpy;
+    let clock;
     beforeEach(function () {
+      clock = useFakeTimers();
       localStorage.removeItem(PINBOARD_INTRODUCTION.PINBOARD_BUTTON_INTRODUCTION);
       setPinboardButtonIntroductionVisitedSpy = spy(pinboardUtils, 'setPinboardButtonIntroductionVisited');
       browserHistoryPushSpy = spy(browserHistory, 'push');
       wrapper = mount(<PinboardButton />);
     });
 
-    it('should render header-link with show-introduction class', function () {
+    it('should render header-link with show-introduction class after timeout', function () {
       wrapper.find('.header-link').exists().should.be.true();
-      wrapper.setState({ displayIntroduction: true });
+      wrapper.find('.header-link').prop('className').should.not.containEql('show-introduction');
+      clock.tick(PINBOARD_INTRODUCTION_DELAY + 50);
+      wrapper.update();
       wrapper.find('.header-link').prop('className').should.containEql('show-introduction');
     });
 
-    it('should render pinboard button introduction', function () {
+    it('should render pinboard button introduction after timeout', function () {
+      wrapper.find('.pinboard-button-introduction').exists().should.be.false();
+      clock.tick(PINBOARD_INTRODUCTION_DELAY + 50);
+      wrapper.update();
       wrapper.find('.pinboard-button-introduction').exists().should.be.true();
     });
 
@@ -76,12 +81,16 @@ describe('PinboardButton component', function () {
     });
 
     it('should call setPinboardButtonIntroductionVisited and redirect to pinboard on user click Try it', function () {
+      clock.tick(PINBOARD_INTRODUCTION_DELAY + 50);
+      wrapper.update();
       wrapper.find('.try-it-btn').simulate('click');
       setPinboardButtonIntroductionVisitedSpy.should.be.calledOnce();
       browserHistoryPushSpy.should.be.calledWith('/pinboard/');
     });
 
     it('should call setPinboardButtonIntroductionVisited and forceUpdate on user click Dismiss', function () {
+      clock.tick(PINBOARD_INTRODUCTION_DELAY + 50);
+      wrapper.update();
       wrapper.find('.dismiss-btn').simulate('click');
       setPinboardButtonIntroductionVisitedSpy.should.be.calledOnce();
       wrapper.find('.pinboard-button-introduction').exists().should.be.false();
