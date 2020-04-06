@@ -38,7 +38,7 @@ class DocumentPage extends Page {
 
     this.loginScreen = new LoginScreen();
     this.prepareElementGetters({
-      crid: getInfoItemSelector('CRID / UID'),
+      crid: getInfoItemSelector('CRID'),
       source: getInfoItemSelector('Source'),
       crawler: getInfoItemSelector('Crawler'),
       date: getInfoItemSelector('Date'),
