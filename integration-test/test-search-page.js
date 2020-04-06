@@ -538,7 +538,7 @@ describe('Search Page', function () {
     searchPage.recentSuggestions.waitForDisplayed(20000, true);
   });
 
-  it('should go back to landing page when user click on cancel button', function () {
+  it('should go back to landing page when user click on close button', function () {
     landingPage.open();
     landingPage.header.navBar.searchBox.mainElement.click();
     searchPage.backButton.waitForDisplayed();
@@ -558,7 +558,7 @@ describe('Search Page', function () {
     landingPage.currentBasePath.should.equal('/');
   });
 
-  it('should go back to pinboard page when user click on cancel button', function () {
+  it('should go back to pinboard page when user click on close button', function () {
     pinboardPage.open('abcd8765');
     pinboardPage.searchBar.click();
     searchPage.backButton.waitForDisplayed();
@@ -588,7 +588,7 @@ describe('Search Page', function () {
     searchPage.currentBasePath.should.equal('/officer/1/bernadette-kelly/');
   });
 
-  it('should go back to officer page when user click on cancel button', function () {
+  it('should go back to officer page when user click on close button', function () {
     searchPage.input.waitForDisplayed();
     searchPage.input.setValue('Ke');
 
@@ -1056,16 +1056,22 @@ describe('Search Page with pinboard functionalities', function () {
     searchPage.pinboardButton.getText().should.eql('Pinboard (0)');
   });
 
-  it('should redirect to Pinboard page when click on pinboard button', function () {
-    setupMockApiFile('search-page/search-page-mock-api.js');
+  context('when click on pinboard button', function () {
+    beforeEach(function () {
+      setupMockApiFile('search-page/search-page-mock-api.js');
+    });
 
-    searchPage.open('Ke');
-    searchPage.suggestionGroup.waitForDisplayed();
+    afterEach(function () {
+      restoreMockApiFile();
+    });
 
-    searchPage.pinboardButton.click();
-    browser.getUrl().should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/);
+    it('should redirect to Pinboard page', function () {
+      searchPage.open('Ke');
+      searchPage.suggestionGroup.waitForDisplayed();
 
-    restoreMockApiFile();
+      searchPage.pinboardButton.click();
+      browser.getUrl().should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/);
+    });
   });
 });
 

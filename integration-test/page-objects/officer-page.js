@@ -2,6 +2,7 @@ import { each } from 'lodash';
 
 import Page from './page';
 import Section from './sections/section';
+import PinboardsMenuSection from './sections/pinboards-menu';
 
 
 class SummarySection extends Section {
@@ -170,11 +171,11 @@ class RadarChartSection extends Section {
   }
 }
 
-
 class OfficerPage extends Page {
   summarySection = new SummarySection();
   tabbedPaneSection = new TabbedPaneSection();
   radarChartSection = new RadarChartSection();
+  pinboardsMenuSection = new PinboardsMenuSection();
 
   constructor() {
     super();

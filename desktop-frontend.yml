@@ -1,10 +1,13 @@
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: desktop-frontend
   labels:
     app: desktop-frontend
 spec:
+  selector:
+    matchLabels:
+      app: desktop-frontend
   replicas: 1
   template:
     metadata:

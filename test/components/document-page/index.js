@@ -128,8 +128,7 @@ describe('DocumentPage component', function () {
       </Provider>
     );
 
-    const header = wrapper.find(ShareableHeader);
-    header.prop('buttonType').should.equal('none');
+    wrapper.find(ShareableHeader).exists().should.be.true();
 
     wrapper.find(FooterContainer).exists().should.be.true();
     wrapper.find('.document-side-bar').exists().should.be.true();
@@ -150,7 +149,7 @@ describe('DocumentPage component', function () {
 
     const simpleListWidget = wrapper.find(SimpleListWidget);
     simpleListWidget.prop('items').should.eql([
-      { name: 'CRID / UID', value: 'CR 1083633', to: '/complaint/1083633/' },
+      { name: 'CRID', value: 'CR 1083633', to: '/complaint/1083633/' },
       {
         name: 'Source',
         value: 'chicagocopa.org',

@@ -57,7 +57,7 @@ describe('SearchBar component', function () {
   });
 
   it('should render custom buttons', function () {
-    const wrapper = shallow(<SearchBar customButtons={ <div className='custom-buttons' /> } />);
+    const wrapper = shallow(<SearchBar headerButtons={ <div className='custom-buttons' /> } />);
 
     wrapper.find('.custom-buttons').exists().should.be.true();
   });

@@ -22,17 +22,13 @@ describe('DownloadMenu component', function () {
         />
       );
 
-      const text = wrapper.find('.request-download');
-      text.text().should.equal('Data only');
-
-      const downloadImg = wrapper.find('img');
-      downloadImg.prop('src').should.containEql('/img/download.svg');
-      downloadImg.prop('alt').should.equal('download');
+      const text = wrapper.find('.item-title');
+      text.text().should.equal('Data');
 
       wrapper.simulate('click');
 
       wrapper.find(LoadingSpinner).exists().should.be.true();
-      wrapper.find('img').exists().should.be.false();
+      wrapper.find('.download-menu-item-img').exists().should.be.false();
 
       fetchOfficerZipFileUrlStub.should.be.calledWith(123);
     }
