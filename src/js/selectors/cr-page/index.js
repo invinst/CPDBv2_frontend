@@ -207,3 +207,13 @@ export const isCrPinnedSelector = createSelector(
   pinboardItemsSelector,
   (crid, pinboardItems) => isItemPinned('CR', crid, pinboardItems)
 );
+
+export const pinnableCrSelector = createSelector(
+  getCR,
+  (cr) => ({
+    type: PINNED_ITEM_TYPES.CR,
+    id: cr['crid'],
+    incidentDate: cr['incident_date'],
+    category: get(cr, 'most_common_category.category', 'Unknown'),
+  })
+);

@@ -117,6 +117,7 @@ import {
 import { modalVideoInfo } from './headers/slim-header';
 import PinboardFactory from 'utils/test/factories/pinboard';
 import mockUpdatePinboardError from 'mock-api/pinboard-page/mock-update-pinboard-error';
+import pinboardsMenu from 'mock-api/officer-page/pinboards-menu';
 
 
 const SEARCH_API_URL = /^suggestion\/$/;
@@ -305,8 +306,6 @@ axiosMockClient.onGet(
   SOCIAL_GRAPH_NETWORK_API_URL,
   { params: { 'threshold': 3, 'complaint_origin': 'ALL', 'unit_id': '123' } }
 ).reply(200, getThresholdThreeSocialGraphData());
-
-axiosMockClient.onGet(PINBOARDS_URL).reply(200, pinboardsList);
 
 function updateLatestRetrievePinboardOnApiCall(status, response) {
   return () => {
@@ -807,7 +806,40 @@ axiosMockClient.onGet(`${PINBOARDS_URL}abcd1234/officers/`).reply(200, fetchPinb
 
 axiosMockClient.onGet(`${PINBOARDS_URL}3664a7ea/trrs/`).reply(200, fetchPinboardTRRs());
 
+// === Test current officer pinboard feature ===
+axiosMockClient.onGet(PINBOARDS_URL, { params: { detail: true } }).reply(200, pinboardsMenu.pinboards);
+axiosMockClient.onGet(`${PINBOARDS_URL}8d2daffe/`).reply(200, pinboardsMenu.pinboards[0]);
+axiosMockClient
+  .onPut(`${PINBOARDS_URL}8d2daffe/`, pinboardsMenu.updateRequestParams[0])
+  .reply(200, pinboardsMenu.updatedPinboards[0]);
+axiosMockClient
+  .onPost(PINBOARDS_URL, pinboardsMenu.createPinboardRequestParams[0])
+  .reply(201, pinboardsMenu.createdPinboards[0]);
+axiosMockClient
+  .onGet(`${PINBOARDS_URL}${pinboardsMenu.createdPinboards[0].id}/`)
+  .reply(201, pinboardsMenu.createdPinboards[0]);
+axiosMockClient
+  .onGet(`${PINBOARDS_URL}${pinboardsMenu.createdPinboards[0].id}/officers/`)
+  .reply(200, [getSummaryData()]);
+// === End test current officer pinboard feature ===
+
+// === Test current cr pinboard feature ===
+axiosMockClient
+  .onPut(`${PINBOARDS_URL}8d2daffe/`, pinboardsMenu.updateRequestParams[1])
+  .reply(200, pinboardsMenu.updatedPinboards[1]);
+axiosMockClient
+  .onPost(PINBOARDS_URL, pinboardsMenu.createPinboardRequestParams[1])
+  .reply(201, pinboardsMenu.createdPinboards[1]);
+axiosMockClient
+  .onGet(`${PINBOARDS_URL}${pinboardsMenu.createdPinboards[1].id}/`)
+  .reply(201, pinboardsMenu.createdPinboards[1]);
+axiosMockClient
+  .onGet(`${PINBOARDS_URL}${pinboardsMenu.createdPinboards[1].id}/complaints/`)
+  .reply(200, [getCRData()]);
+// === End current cr pinboard feature ===
+
 axiosMockClient.onPost(`${PINBOARDS_URL}`).reply(201, createPinboard());
+axiosMockClient.onGet(PINBOARDS_URL).reply(200, pinboardsList);
 
 const notFoundError = [404, {}];
 mockUpdatePinboardError(axiosMockClient, '5cd0aaaa', 999, notFoundError);

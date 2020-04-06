@@ -4,15 +4,14 @@ import download from 'downloadjs';
 import { throttle } from 'lodash';
 
 import style from './download-menu-item.sass';
-import { imgUrl } from 'utils/static-assets';
 import { OFFICER_DOWNLOAD_KINDS, OFFICER_DOWNLOAD_TRACKING_ACTIONS } from 'utils/constants';
 import * as tracking from 'utils/tracking';
 import LoadingSpinner from 'components/common/loading-spinner';
 
 
-const textMap = {
-  [OFFICER_DOWNLOAD_KINDS.WITH_DOCS]: 'Data + docs',
-  [OFFICER_DOWNLOAD_KINDS.WITHOUT_DOCS]: 'Data only',
+const contentMap = {
+  [OFFICER_DOWNLOAD_KINDS.WITH_DOCS]: { text: 'Data + documents', extension: '.xlxs, .pdf' },
+  [OFFICER_DOWNLOAD_KINDS.WITHOUT_DOCS]: { text: 'Data', extension: '.xlxs' },
 };
 
 export default class DownloadMenuItem extends React.Component {
@@ -57,15 +56,19 @@ export default class DownloadMenuItem extends React.Component {
 
   render() {
     const { kind } = this.props;
+    const { text, extension } = contentMap[kind];
 
     return (
       <div className={ style.downloadMenuItem } onClick={ this.clickHandler }>
-        <div className='request-download'>{ textMap[kind] }</div>
+        <div className='download-item-text'>
+          <span className='item-title'>{ text }</span>
+          <span className='item-extension'>{ extension }</span>
+        </div>
         {
           this.state.requested ? (
-            <LoadingSpinner className='download-menu-item-img'/>
+            <LoadingSpinner className='download-requesting' />
           ) : (
-            <img className='download-menu-item-img' src={ imgUrl('download.svg') } alt='download' />
+            <div className='download-menu-item-img' />
           )
         }
       </div>

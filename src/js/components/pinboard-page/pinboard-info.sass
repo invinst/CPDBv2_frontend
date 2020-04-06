@@ -1,7 +1,7 @@
 @import 'variables'
 
 \:local(.pinboardInfo)
-  margin: 0 14px
+  margin: 0 16px
 
   .pinboard-title, .pinboard-description
     display: block
@@ -9,6 +9,7 @@
     border: none
     outline: none
     width: 50%
+    padding: 0
 
   .pinboard-title
     resize: none
@@ -26,7 +27,16 @@
     overflow: auto
     word-wrap: break-word
     white-space: pre-line
-    padding: 2px
 
     p
       margin: 0
+
+  .pinboard-description-placeholder
+    &::after
+      position: absolute
+      top: 0
+      font-size: 14px
+      font-weight: 300
+      color: $boulder-color
+      content: attr(data-placeholder)
+      z-index: -1

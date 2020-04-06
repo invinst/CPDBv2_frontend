@@ -1,0 +1,61 @@
+@import 'variables'
+
+\:local(.pinboard-menu-item)
+  padding: 0 12px
+
+  & + &
+    .pinboard-item
+      border-top: 1px solid $alto-color
+
+  .pinboard-item
+    padding: 15px 0 16px 0
+
+    .pinboard-info
+      width: calc(100% - 32px)
+      float: left
+
+      .pinboard-title
+        color: $thunder-color
+
+      .pinboard-created-at
+        color: $boulder-color
+        font-size: 12px
+        line-height: 14px
+
+    &.untitled-pinboard
+      .pinboard-created-at
+        color: $thunder-color
+        font-size: 14px
+        line-height: 32px
+
+    .pin-button
+      border-radius: 2px
+      border: solid 1px $alto-color
+      width: 32px
+      height: 32px
+      background-position: center
+      background-repeat: no-repeat
+      background-image: url('/img/ic-plus-bold.svg')
+      background-size: 12px 12px
+      background-color: $hint-of-red-color
+      box-sizing: border-box
+      float: left
+
+    &:hover
+      cursor: pointer
+
+      .pin-button
+        background-color: $willow-brook-color
+        background-image: url('/img/ic-plus-green.svg')
+        border: none
+
+    &.is-pinned
+      .pin-button
+        background-image: url('/img/ic-minus.svg')
+        background-color: $hint-of-red-color
+
+      &:hover
+        .pin-button
+          background-image: url('/img/ic-minus-dark-grey.svg')
+          border: solid 1px $alto-color
+
