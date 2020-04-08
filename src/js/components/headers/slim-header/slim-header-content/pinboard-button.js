@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import cx from 'classnames';
+import PropTypes from 'prop-types';
 
 import browserHistory from 'utils/history';
 import { isPinboardButtonIntroductionVisited, setPinboardButtonIntroductionVisited } from 'utils/pinboard';
@@ -11,9 +12,13 @@ export default class PinboardButton extends Component {
   state = { displayIntroduction: false };
 
   componentDidMount() {
-    this.displayIntroductionTimeout = setTimeout(() => {
-      this.setState({ displayIntroduction: true });
-    }, PINBOARD_INTRODUCTION_DELAY);
+    this.props.heatMapDataRequested && this.setdisplayIntroductionTimeout();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevProps.heatMapDataRequested && this.props.heatMapDataRequested) {
+      this.setdisplayIntroductionTimeout();
+    }
   }
 
   componentWillUnmount() {
@@ -30,6 +35,12 @@ export default class PinboardButton extends Component {
     setPinboardButtonIntroductionVisited();
     this.forceUpdate();
   };
+
+  setdisplayIntroductionTimeout() {
+    this.displayIntroductionTimeout = setTimeout(() => {
+      this.setState({ displayIntroduction: true });
+    }, PINBOARD_INTRODUCTION_DELAY);
+  }
 
   render() {
     const { displayIntroduction } = this.state;
@@ -60,3 +71,11 @@ export default class PinboardButton extends Component {
     );
   }
 }
+
+PinboardButton.propTypes = {
+  heatMapDataRequested: PropTypes.bool,
+};
+
+PinboardButton.defaultProps = {
+  heatMapDataRequested: false,
+};
