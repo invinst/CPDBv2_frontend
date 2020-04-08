@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { noop } from 'lodash';
 
 
 export default class AutosaveTextareaInput extends Component {
@@ -38,8 +39,11 @@ export default class AutosaveTextareaInput extends Component {
   };
 
   handleChange = event => {
+    const { value } = event.target;
+    const { onChange } = this.props;
     this.adjustTextareaHeight(event.target);
-    this.setState({ currentValue: event.target.value });
+    this.setState({ currentValue: value });
+    onChange(value);
   };
 
   handleResize = () => {
@@ -72,8 +76,10 @@ AutosaveTextareaInput.propTypes = {
   textareaLineHeight: PropTypes.number.isRequired,
   autoFocus: PropTypes.bool,
   onBlur: PropTypes.func,
+  onChange: PropTypes.func,
 };
 
 AutosaveTextareaInput.defaultProps = {
   autoFocus: false,
+  onChange: noop,
 };

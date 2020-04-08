@@ -49,7 +49,7 @@ export default class DocumentsTable extends Component {
           <div className={ cx(styles.headerRow, { 'edit-mode': editModeOn }) }>
             <span className='header-thumbnail'/>
             <span className='header-title'>Document</span>
-            <span className='header-crid-uid'>CRID / UID</span>
+            <span className='header-crid-uid'>CRID</span>
             <span className='header-source'>Source</span>
             <span className='header-counts'>Views/Downloads</span>
             <span className='header-date'>Date</span>
