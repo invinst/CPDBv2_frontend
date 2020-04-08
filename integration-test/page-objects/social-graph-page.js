@@ -25,7 +25,7 @@ class AnimatedSocialGraphSection extends Section {
       complaintOriginSelected: '(//a[contains(@class, "complaint-origin-option selected")])',
       tooltip: '(//div[contains(@class, "test--graph-tooltip")]//span)',
       biggestGraphNode: '(//*[@r="7"])',
-      anotherGraphNode: '(//*[@r="2.5" and contains(@style, "rgb(244, 162, 152)")])',
+      anotherGraphNode: '(//*[@r="3.5" and contains(@style, "rgb(245, 244, 244)")])',
       mainTabs: '(//div[contains(@class, "main-tabs")])',
       geographicTab: '(//div[contains(@class, "geographic-btn")])',
       networkTab: '(//div[contains(@class, "social-graph-btn")])',

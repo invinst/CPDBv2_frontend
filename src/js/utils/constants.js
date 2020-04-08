@@ -456,99 +456,14 @@ export const VIDEO_INFO_REQUEST_FAILURE = 'VIDEO_INFO_REQUEST_FAILURE';
 
 export const CLEAR_PINBOARD_STATIC_SOCIAL_GRAPH_CACHE = 'CLEAR_PINBOARD_STATIC_SOCIAL_GRAPH_CACHE';
 
-export const VISUAL_TOKEN_CR_DOMAIN = [1, 5, 10, 25, 40];
-export const VISUAL_TOKEN_COLOR_SCHEME = {
-  '00': '#f5f4f4',
-  '10': '#edf0fa',
-  '01': '#f8eded',
-  '20': '#d4e2f4',
-  '11': '#ecdeef',
-  '02': '#efdede',
-  '30': '#c6d4ec',
-  '21': '#d9d1ee',
-  '12': '#eacbe0',
-  '03': '#ebcfcf',
-  '40': '#aec9e8',
-  '31': '#c0c3e1',
-  '22': '#cdbddd',
-  '13': '#e4b8cf',
-  '04': '#f0b8b8',
-  '50': '#90b1f5',
-  '41': '#aaace3',
-  '32': '#b6a5de',
-  '23': '#c99edc',
-  '14': '#e498b6',
-  '05': '#f89090',
-  '51': '#748be4',
-  '42': '#8e84e0',
-  '33': '#af7fbd',
-  '24': '#c873a2',
-  '15': '#e1718a',
-  '52': '#6660ae',
-  '43': '#8458aa',
-  '34': '#a34e99',
-  '25': '#b5496a',
-  '53': '#4c3d8f',
-  '44': '#6b2e7e',
-  '35': '#792f55',
-  '54': '#391c6a',
-  '45': '#520051',
-  '55': '#131313',
-};
-
-export const OIG_VISUAL_TOKEN_COLOR_SCHEME = {
-  '00': '#f5f4f4',
-  '01': '#fce0e0',
-  '02': '#f6c9d0',
-  '03': '#f6a8a7',
-  '04': '#f28081',
-  '05': '#ef6f70',
-  '10': '#f9dec7',
-  '11': '#f9d3c3',
-  '12': '#f3adad',
-  '13': '#f39f8e',
-  '14': '#f18075',
-  '15': '#ed6154',
-  '20': '#f5c5a2',
-  '21': '#f3b094',
-  '22': '#f4a298',
-  '23': '#f28687',
-  '24': '#ee6465',
-  '25': '#e85050',
-  '30': '#f9946b',
-  '31': '#f88567',
-  '32': '#ed7467',
-  '33': '#fd5e4c',
-  '34': '#ff5050',
-  '35': '#ec3435',
-  '40': '#fb7045',
-  '41': '#fc5d2c',
-  '42': '#f35c17',
-  '43': '#f34339',
-  '44': '#f32a29',
-  '45': '#dc2c30',
-  '50': '#f95125',
-  '51': '#ff4f13',
-  '52': '#f64016',
-  '53': '#f42d1f',
-  '54': '#f0201e',
-  '55': '#f52524',
-};
-
-export const OIG_EXTRA_BLUE_COLOR_SCHEME = {
-  '0': '#f5f4f4',
-  '1': '#dde6f7',
-  '2': '#d1ddf1',
-  '3': '#bdc7ec',
-  '4': '#8498d8',
-  '5': '#405ec3',
-};
-
-export const OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT = {
-  COLOR_TEXT_LIGHT_SCHEME: ['55', '54', '45', '44'],
-  DARK_COLOR: softBlackColor,
-  LIGHT_COLOR: greyColor,
-};
+export const VISUAL_TOKEN_COLORS = [
+  { lower: 0, upper: 5, backgroundColor: '#F5F4F4', textColor: softBlackColor },
+  { lower: 5, upper: 30, backgroundColor: '#F9D3C3', textColor: softBlackColor },
+  { lower: 30, upper: 50, backgroundColor: '#F4A298', textColor: softBlackColor },
+  { lower: 50, upper: 70, backgroundColor: '#FF6453', textColor: softBlackColor },
+  { lower: 70, upper: 90, backgroundColor: '#FF412C', textColor: softBlackColor },
+  { lower: 90, upper: 100, backgroundColor: '#F52524', textColor: greyColor },
+];
 
 export const RECENT_CONTENT_TYPE = 'RECENT';
 export const MORE_BUTTON = 'MORE_BUTTON';
