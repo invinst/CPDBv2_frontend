@@ -29,7 +29,7 @@ export default function MetricWidget(props) {
                   isFirstItem={ metricIndex === 0 }
                 />
               )) }
-              <div className='clear-fix' />
+              <div className='clearfix' />
             </div>
           ))
         }

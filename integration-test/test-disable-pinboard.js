@@ -9,6 +9,11 @@ import officerPage from './page-objects/officer-page';
 import crPage from './page-objects/cr-page';
 
 
+const performSearch = (searchPage, term) => {
+  searchPage.input.waitForDisplayed();
+  searchPage.input.setValue(term);
+};
+
 describe('Disable pinboard feature', function () {
   beforeEach(function () {
     setupPinboardEnabled(false);
@@ -32,9 +37,9 @@ describe('Disable pinboard feature', function () {
     it('should not display pinboards right link', function () {
       const navBar = landingPage.header.navBar;
       navBar.mainElement.waitForDisplayed();
-      navBar.rightLinks.pinboard.waitForDisplayed(2000, true);
-      navBar.rightLinks.pinboard.waitForExist();
-      navBar.rightLinks.pinboard.isDisplayed().should.be.false();
+      navBar.headerLinks.pinboard.waitForDisplayed(2000, true);
+      navBar.headerLinks.pinboard.waitForExist();
+      navBar.headerLinks.pinboard.isDisplayed().should.be.false();
     });
 
     it('should not display pinned buttons', function () {
@@ -57,6 +62,11 @@ describe('Disable pinboard feature', function () {
       landingPage.recentDocumentCarousel.firstPinButton.waitForExist();
       landingPage.recentDocumentCarousel.firstPinButton.isDisplayed().should.be.false();
     });
+
+    it('should not display pinboard button introduciton', function () {
+      landingPage.header.content.waitForDisplayed();
+      landingPage.pinboardIntroduction.body.isExisting().should.be.false();
+    });
   });
 
   describe('Search page', function () {
@@ -67,8 +77,7 @@ describe('Disable pinboard feature', function () {
     it('should not display pinboard bar', function () {
       searchPage.input.waitForDisplayed();
 
-      searchPage.pinboardBar.isExisting().should.be.true();
-      searchPage.pinboardBar.isDisplayed().should.be.false();
+      searchPage.pinboardBar.isExisting().should.be.false();
     });
 
     it('should not display pinned button on search results', function () {
@@ -118,10 +127,6 @@ describe('Disable pinboard feature', function () {
         searchPage.searchBreadcrumb.waitForDisplayed();
         searchPage.searchBreadcrumb.click();
       };
-      const performSearch = (term) => {
-        searchPage.input.waitForDisplayed();
-        searchPage.input.setValue(term);
-      };
 
       const clickOnSearchResultItem = (suggestionGroupSelector, expectedText, isFirstResult=false) => {
         suggestionGroupSelector.waitForDisplayed();
@@ -132,15 +137,15 @@ describe('Disable pinboard feature', function () {
         }
       };
 
-      performSearch('Ke');
+      performSearch(searchPage, 'Ke');
       clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly', true);
       backToSearch();
 
-      performSearch('Ke');
+      performSearch(searchPage, 'Ke');
       clickOnSearchResultItem(searchPage.firstCrResult, 'CR # CR123 • April 23, 2004');
       backToSearch();
 
-      performSearch('Ke');
+      performSearch(searchPage, 'Ke');
       clickOnSearchResultItem(searchPage.firstTrrResult, 'Member Presence');
       backToSearch();
 
@@ -160,6 +165,18 @@ describe('Disable pinboard feature', function () {
       searchPage.secondRecentPinButton.isDisplayed().should.be.false();
       searchPage.thirdRecentPinButton.waitForExist();
       searchPage.thirdRecentPinButton.isDisplayed().should.be.false();
+    });
+
+    it('should not display pinboard introduction', function () {
+      searchPage.input.waitForDisplayed();
+      searchPage.pinboardIntroduction.body.isExisting().should.be.false();
+    });
+
+    it('should not display PinButton introduction', function () {
+      performSearch(searchPage, 'intr');
+
+      searchPage.unitOfficerResultsSection.firstResultText.waitForDisplayed();
+      searchPage.pinButtonIntroduction.isExisting().should.be.false();
     });
   });
 

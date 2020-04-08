@@ -16,9 +16,10 @@ import restoreCreateOrUpdatePinboard from 'middleware/restore-create-or-update-p
 import forceEditModeWhenAuthenticated from 'middleware/force-edit-mode-when-authenticated';
 import config from 'config';
 import browserHistory from 'utils/history';
+import { isPinboardFeatureEnabled } from 'utils/pinboard';
+
 
 const localStorageVersion = localStorage.getItem('CPDB_LOCALSTORAGE_VERSION', null);
-const { pinboard: enablePinboardFeature } = config.enableFeatures;
 if (config.localStorageVersion !== localStorageVersion) {
   localStorage.clear();
   localStorage.setItem('CPDB_LOCALSTORAGE_VERSION', config.localStorageVersion);
@@ -37,7 +38,7 @@ function configureStore(initialState) {
     retryOfficerDownloadMiddleware,
     forceEditModeWhenAuthenticated,
   ];
-  if (enablePinboardFeature)
+  if (isPinboardFeatureEnabled())
     middleware = [...middleware, restoreCreateOrUpdatePinboard];
   const composeArgs = [
     applyMiddleware(...middleware),

@@ -51,8 +51,10 @@ SuggestionItem.propTypes = {
   selectItem: PropTypes.func,
   addOrRemoveItemInPinboard: PropTypes.func,
   saveToRecent: PropTypes.func,
+  showIntroduction: PropTypes.bool,
 };
 
 SuggestionItem.defaultProps = {
   suggestion: {},
+  showIntroduction: false,
 };
