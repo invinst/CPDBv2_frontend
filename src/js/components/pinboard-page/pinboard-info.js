@@ -20,6 +20,7 @@ export default function PinboardInfo(props) {
       />
       <AutosaveMarkdownTextareaInput
         className='pinboard-description'
+        placeholderClassName='pinboard-description-placeholder'
         value={ pinboard.description }
         placeholder='When you’re ready, add a description for your pinboard here'
         fieldType='description'

@@ -86,14 +86,17 @@ export default function withPinnableItem(
         <div className={ styles.innerWrapper }>
           <JumpyMotion isActive={ isFocused }>
             {
-              isPinnable && <ItemPinButton
-                className={ styles.itemPinButton }
-                showIntroduction={ showIntroduction }
-                addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
-                item={ suggestion }
-              />
+              isPinnable ?
+                <ItemPinButton
+                  className={ styles.itemPinButton }
+                  showIntroduction={ showIntroduction }
+                  addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
+                  item={ suggestion }
+                />
+                :
+                showPinButtonArea && <div className='empty-pin-button-area pinboard-feature' />
             }
-            <div className={ cx(styles.twoRowsWrapper, { 'show-pin-button-area': !isPinnable && showPinButtonArea }) }>
+            <div className={ styles.twoRowsWrapper }>
               { this.renderFirstRow() }
               { this.renderSecondRow() }
             </div>

@@ -9,6 +9,7 @@ const getTrackerDocuments = state => state.documentsOverviewPage.documents.data;
 const getPagination = state => state.documentsOverviewPage.pagination;
 export const getDocumentsOrder = state => state.documentsOverviewPage.documentsOrder.data;
 export const getMatchParamater = state => state.documentsOverviewPage.documents.match;
+export const isDocumentsRequesting = state => state.documentsOverviewPage.isRequesting;
 
 export const documentsSelector = createSelector(
   getTrackerDocuments,

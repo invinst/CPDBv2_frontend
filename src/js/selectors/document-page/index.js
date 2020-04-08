@@ -15,7 +15,7 @@ export const documentSelector = createSelector(
   [getData],
   (data) => {
     const infoItems = [
-      { name: 'CRID / UID', value: `CR ${ data.crid }`, to: `/complaint/${data.crid}/` },
+      { name: 'CRID', value: `CR ${ data.crid }`, to: `/complaint/${data.crid}/` },
       {
         name: 'Source',
         value: getDomainName(data['original_url']),
