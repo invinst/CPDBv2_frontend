@@ -104,8 +104,7 @@ describe('BaseComplaintCard component', function () {
 
     wrapper.find('.not-showing-officer-count').text().should.equal('1+');
 
-    const plusButton = wrapper.find(PlusButton);
-    plusButton.prop('darkMode').should.be.true();
+    wrapper.find(PlusButton).exists().should.be.true();
   });
 
   it('should hide PlusButton if pinned', function () {
