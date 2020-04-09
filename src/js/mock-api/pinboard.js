@@ -46,7 +46,7 @@ export const pinboardsList = [
   },
 ];
 
-const pinboards = {
+export const pinboards = {
   '87e31b82': {
     'id': '87e31b82',
     'title': '',

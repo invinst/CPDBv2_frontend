@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { indexOf, isEmpty, head, keys, map, omitBy, pick, sortBy } from 'lodash';
+import { indexOf, isEmpty, head, keys, map, omitBy, pick, sortBy, isUndefined } from 'lodash';
 
 import * as constants from 'utils/constants';
 import { navigationItemTransform, searchResultItemTransform } from 'selectors/common/search-item-transforms';
@@ -7,6 +7,7 @@ import extractQuery from 'utils/extract-query';
 import { dataToolSearchUrl } from 'utils/v1-url';
 import { isItemPinned, pinboardItemsSelector } from 'selectors/pinboard-page/pinboard';
 import { getQuery } from 'selectors/search-page/common';
+import { PINNED_ITEM_TYPES } from 'utils/constants';
 
 
 const itemsPerCategory = 5;
@@ -94,6 +95,11 @@ export const getPinnedItem = (item, pinboardItems) => {
   };
 };
 
+const getShowIntroduction = (item, index, showIntroduction) => ({
+  ...item,
+  showIntroduction: index === 0 && showIntroduction,
+});
+
 export const isEmptySelector = createSelector(
   slicedSuggestionGroupsSelector,
   suggestionGroups => !suggestionGroups.length
@@ -102,11 +108,22 @@ export const isEmptySelector = createSelector(
 export const searchResultGroupsSelector = createSelector(
   slicedSuggestionGroupsSelector,
   pinboardItemsSelector,
-  (groups, pinboardItems) => map(groups, ({ header, items, canLoadMore }) => ({
-    header,
-    canLoadMore,
-    items: map(items, item => searchResultItemTransform(getPinnedItem(item, pinboardItems))),
-  }))
+  (groups, pinboardItems) => {
+    let hasFirstIntroduction = false;
+    return map(groups, ({ header, items, canLoadMore }) => {
+      const showIntroduction = !hasFirstIntroduction && !isUndefined(PINNED_ITEM_TYPES[header]);
+      if (showIntroduction) {
+        hasFirstIntroduction = true;
+      }
+      return {
+        header,
+        canLoadMore,
+        items: map(items, (item, index) => (
+          getShowIntroduction(searchResultItemTransform(getPinnedItem(item, pinboardItems)), index, showIntroduction)
+        )),
+      };
+    });
+  }
 );
 
 export const firstItemSelector = createSelector(

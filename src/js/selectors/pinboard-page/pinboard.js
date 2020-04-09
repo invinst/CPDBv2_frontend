@@ -85,13 +85,23 @@ const hasRemovingItemsSelector = createSelector(
     !every([officerRemovingItems, crRemovingItems, trrRemovingItems], isEmpty),
 );
 
-export const isEmptyPinboardSelector = createSelector(
+export const isEmptyPinboardWithRemovingItemSelector = createSelector(
   getPinboard,
   hasRemovingItemsSelector,
   (pinboard, hasRemovingItems) => isEmptyPinboard(pinboard) && !hasRemovingItems,
 );
 
+export const isEmptyPinboardSelector = createSelector(
+  getPinboard,
+  (pinboard) => isEmptyPinboard(pinboard),
+);
+
 export const examplePinboardsSelector = createSelector(
   state => state.pinboardPage.pinboard,
   pinboard => get(pinboard, 'example_pinboards', []),
+);
+
+export const pinboardFeatureUsedSelector = createSelector(
+  getRawPinboard,
+  pinboard => pinboard.isPinboardRestored && (countPinnedItems(pinboard) > 0),
 );

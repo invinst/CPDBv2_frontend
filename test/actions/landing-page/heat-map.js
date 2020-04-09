@@ -1,5 +1,13 @@
-import { getCommunities, getClusterGeoJson } from 'actions/landing-page/heat-map';
-import * as constants from 'utils/constants';
+import { getCommunities, getClusterGeoJson, heatMapLoaded } from 'actions/landing-page/heat-map';
+import {
+  CLUSTER_GEO_REQUEST_START,
+  CLUSTER_GEO_REQUEST_SUCCESS,
+  CLUSTER_GEO_REQUEST_FAILURE,
+  COMMUNITY_REQUEST_START,
+  COMMUNITY_REQUEST_SUCCESS,
+  COMMUNITY_REQUEST_FAILURE,
+  HEAT_MAP_LOADED,
+} from 'utils/constants';
 import { communityGeoJSONPath, clusterGeoJSONPath } from 'utils/static-assets';
 
 
@@ -8,9 +16,9 @@ describe('heatmap actions', function () {
     it('should return correct payload', function () {
       getClusterGeoJson().should.eql({
         types: [
-          constants.CLUSTER_GEO_REQUEST_START,
-          constants.CLUSTER_GEO_REQUEST_SUCCESS,
-          constants.CLUSTER_GEO_REQUEST_FAILURE,
+          CLUSTER_GEO_REQUEST_START,
+          CLUSTER_GEO_REQUEST_SUCCESS,
+          CLUSTER_GEO_REQUEST_FAILURE,
         ],
         payload: {
           request: {
@@ -28,9 +36,9 @@ describe('heatmap actions', function () {
     it('should return correct payload', function () {
       getCommunities().should.eql({
         types: [
-          constants.COMMUNITY_REQUEST_START,
-          constants.COMMUNITY_REQUEST_SUCCESS,
-          constants.COMMUNITY_REQUEST_FAILURE,
+          COMMUNITY_REQUEST_START,
+          COMMUNITY_REQUEST_SUCCESS,
+          COMMUNITY_REQUEST_FAILURE,
         ],
         payload: {
           request: {
@@ -40,6 +48,15 @@ describe('heatmap actions', function () {
             cancelToken: undefined,
           },
         },
+      });
+    });
+  });
+
+  describe('heatMapLoaded action', function () {
+    it('should return correct payload', function () {
+      heatMapLoaded().should.eql({
+        type: HEAT_MAP_LOADED,
+        payload: undefined,
       });
     });
   });
