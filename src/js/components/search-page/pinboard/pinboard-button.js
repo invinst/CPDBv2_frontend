@@ -5,6 +5,7 @@ import { isEmpty, noop } from 'lodash';
 
 import browserHistory from 'utils/history';
 import styles from './pinboard-button.sass';
+import { DEFAULT_PINBOARD_PATH } from 'utils/constants';
 
 
 export default class PinboardButton extends Component {
@@ -15,7 +16,7 @@ export default class PinboardButton extends Component {
 
     if (isEmpty(pinboard.id)) {
       if (pinboard.hasPendingChanges) {
-        browserHistory.push('/pinboard/');
+        browserHistory.push(DEFAULT_PINBOARD_PATH);
       } else {
         onEmptyPinboardButtonClick();
       }

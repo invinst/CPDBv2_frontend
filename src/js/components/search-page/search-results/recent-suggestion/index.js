@@ -20,7 +20,7 @@ export default class RecentSuggestion extends Component {
   };
 
   render() {
-    const { recentSuggestions, addOrRemoveItemInPinboard, saveToRecent } = this.props;
+    const { recentSuggestions, addOrRemoveItemInPinboard, saveToRecent, pinboardUrl } = this.props;
     return (
       <div
         className='recent-suggestions'>
@@ -35,6 +35,7 @@ export default class RecentSuggestion extends Component {
                 addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
                 saveToRecent={ saveToRecent }
                 clickItem={ this.handleClick }
+                pinboardUrl={ pinboardUrl }
               />
             ))
           }
@@ -54,4 +55,5 @@ RecentSuggestion.propTypes = {
   recentSuggestions: PropTypes.array,
   addOrRemoveItemInPinboard: PropTypes.func,
   saveToRecent: PropTypes.func,
+  pinboardUrl: PropTypes.string,
 };

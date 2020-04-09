@@ -38,15 +38,23 @@ import config from 'config';
 
 describe('pinboard utils', function () {
   describe('generatePinboardUrl', function () {
-    it('should return empty string if pinboard is null or pinboard id is not defined', function () {
-      generatePinboardUrl(null).should.be.equal('');
+    context('pinboard is null or pinboard id is not defined', function () {
+      it('should return empty string if isCurrent is false', function () {
+        generatePinboardUrl(null).should.be.equal('');
+      });
+
+      it('should return default pinboard path if isCurrent is true', function () {
+        generatePinboardUrl(null, true).should.be.equal('/pinboard/');
+      });
     });
 
-    it('should return correct url', function () {
-      generatePinboardUrl({
-        id: '5cd06f2b',
-        title: 'Title',
-      }).should.be.equal('/pinboard/5cd06f2b/title/');
+    context('pinboard is not null and pinboard id is defined', function () {
+      it('should return correct url', function () {
+        generatePinboardUrl({
+          id: '5cd06f2b',
+          title: 'Title',
+        }).should.be.equal('/pinboard/5cd06f2b/title/');
+      });
     });
   });
 

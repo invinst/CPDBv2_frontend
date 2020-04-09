@@ -11,6 +11,7 @@ import {
   pinboardPinnedItemsTransform,
   pinboardPinnedItemsMapping,
   pinboardFeatureUsedSelector,
+  pinboardUrlSelector,
 } from 'selectors/pinboard-page/pinboard';
 import { PINNED_ITEM_TYPES } from 'utils/constants';
 import PinboardFactory from 'utils/test/factories/pinboard';
@@ -546,6 +547,48 @@ describe('Pinboard selectors', function () {
         it('should return false', function () {
           pinboardFeatureUsedSelector(state).should.be.false();
         });
+      });
+    });
+  });
+
+  describe('pinboardUrlSelector', function () {
+    context('pinboard title is not empty', function () {
+      it('should return correct url', function () {
+        const state = {
+          pinboardPage: {
+            pinboard: PinboardFactory.build({
+              id: 1,
+              title: 'Pinboard Title',
+              'officer_ids': [12],
+              crids: ['abc'],
+              'trr_ids': [1],
+              description: 'Description',
+              isPinboardRestored: false,
+              hasPendingChanges: false,
+            }),
+          },
+        };
+        pinboardUrlSelector(state).should.equal('/pinboard/1/pinboard-title/');
+      });
+    });
+
+    context('pinboard title is empty', function () {
+      it('should return correct url', function () {
+        const state = {
+          pinboardPage: {
+            pinboard: PinboardFactory.build({
+              id: 1,
+              title: '',
+              'officer_ids': [12],
+              crids: ['abc'],
+              'trr_ids': [1],
+              description: 'Description',
+              isPinboardRestored: false,
+              hasPendingChanges: false,
+            }),
+          },
+        };
+        pinboardUrlSelector(state).should.equal('/pinboard/1/untitled-pinboard/');
       });
     });
   });

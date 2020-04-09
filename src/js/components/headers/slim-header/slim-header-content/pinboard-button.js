@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import browserHistory from 'utils/history';
 import { isPinboardButtonIntroductionVisited, setPinboardButtonIntroductionVisited } from 'utils/pinboard';
 import styles from './pinboard-button.sass';
-import { PINBOARD_INTRODUCTION_DELAY } from 'utils/constants';
+import { PINBOARD_INTRODUCTION_DELAY, DEFAULT_PINBOARD_PATH } from 'utils/constants';
 
 
 export default class PinboardButton extends Component {
@@ -28,7 +28,7 @@ export default class PinboardButton extends Component {
   onClick = (e) => {
     e && e.stopPropagation();
     setPinboardButtonIntroductionVisited();
-    browserHistory.push('/pinboard/');
+    browserHistory.push(DEFAULT_PINBOARD_PATH);
   };
 
   onDismissClick = () => {

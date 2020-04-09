@@ -5,6 +5,7 @@ import cx from 'classnames';
 import styles from './pinboard-introduction.sass';
 import { isPinboardIntroductionVisited, setPinboardIntroductionVisited } from 'utils/pinboard';
 import browserHistory from 'utils/history';
+import { DEFAULT_PINBOARD_PATH } from 'utils/constants';
 
 
 export default class PinboardIntroduction extends Component {
@@ -15,7 +16,7 @@ export default class PinboardIntroduction extends Component {
 
   onGetStartedButtonClick = () => {
     setPinboardIntroductionVisited();
-    browserHistory.push('/pinboard/');
+    browserHistory.push(DEFAULT_PINBOARD_PATH);
   };
 
   render() {

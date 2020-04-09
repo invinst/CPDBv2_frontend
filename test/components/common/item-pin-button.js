@@ -4,6 +4,7 @@ import { stub, spy, useFakeTimers } from 'sinon';
 
 import ItemPinButton from 'components/common/item-pin-button';
 import { PINBOARD_INTRODUCTION, PINBOARD_INTRODUCTION_DELAY } from 'utils/constants';
+import browserHistory from 'utils/history';
 
 
 describe('<ItemPinButton />', function () {
@@ -25,6 +26,21 @@ describe('<ItemPinButton />', function () {
       id: '1',
       isPinned: false,
     }).should.be.true();
+  });
+
+  it('should redirect to pinboardUrl on hint click', function () {
+    const browserHistoryPush = stub(browserHistory, 'push');
+    const pinboardUrl = '/pinboard/12f453/untitled-title';
+    const preventDefaultSpy = spy();
+    const stopPropagationSpy = spy();
+    const wrapper = mount(<ItemPinButton showHint={ true } pinboardUrl={ pinboardUrl } />);
+    wrapper.find('.pin-action-hint').simulate(
+      'click',
+      { preventDefault: preventDefaultSpy, stopPropagation: stopPropagationSpy }
+    );
+    browserHistoryPush.should.be.calledWith(pinboardUrl);
+    preventDefaultSpy.should.be.called();
+    stopPropagationSpy.should.be.called();
   });
 
   describe('render', function () {

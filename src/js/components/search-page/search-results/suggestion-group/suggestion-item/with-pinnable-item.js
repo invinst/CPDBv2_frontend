@@ -80,7 +80,14 @@ export default function withPinnableItem(
     };
 
     renderContent() {
-      const { isFocused, suggestion, addOrRemoveItemInPinboard, showPinButtonArea, showIntroduction } = this.props;
+      const {
+        isFocused,
+        suggestion,
+        addOrRemoveItemInPinboard,
+        showPinButtonArea,
+        showIntroduction,
+        pinboardUrl,
+      } = this.props;
 
       return (
         <div className={ styles.innerWrapper }>
@@ -92,6 +99,7 @@ export default function withPinnableItem(
                   showIntroduction={ showIntroduction }
                   addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
                   item={ suggestion }
+                  pinboardUrl={ pinboardUrl }
                 />
                 :
                 showPinButtonArea && <div className='empty-pin-button-area pinboard-feature' />
@@ -137,6 +145,7 @@ export default function withPinnableItem(
     selectItem: PropTypes.func,
     clickItem: PropTypes.func,
     showPinButtonArea: PropTypes.bool,
+    pinboardUrl: PropTypes.string,
   };
 
   return _Base;

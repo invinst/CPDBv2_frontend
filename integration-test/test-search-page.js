@@ -1132,6 +1132,14 @@ describe('Search Page with query parameter', function () {
 });
 
 describe('Search Page with pinboard functionalities', function () {
+  beforeEach(function () {
+    setupMockApiFile('search-page/search-page-mock-api.js');
+  });
+
+  afterEach(function () {
+    restoreMockApiFile();
+  });
+
   it('should display pinboard button with correct text when items are added/removed', function () {
     searchPage.open('Ke');
     searchPage.suggestionGroup.waitForDisplayed();
@@ -1144,15 +1152,41 @@ describe('Search Page with pinboard functionalities', function () {
     searchPage.pinboardButton.getText().should.eql('Your pinboard is empty');
   });
 
+  context('when click on pinboard hint button in search result', function () {
+    it('should redirect to pinboard page', function () {
+      searchPage.open('Ke');
+      searchPage.firstOfficerPinButton.click();
+      searchPage.firstPinboardHintButton.waitForDisplayed();
+      searchPage.firstPinboardHintButton.moveTo();
+      searchPage.firstPinboardHintButton.click();
+      browser.waitForUrl(url => url.should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/), 1000);
+    });
+  });
+
+
+  context('when click on pinboard hint button in recent section', function () {
+    it('should redirect to pinboard page', function () {
+      searchPage.open();
+      performSearch('Ke');
+      clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly', true);
+
+      backToSearch();
+      performSearch('Ke');
+      clickOnSearchResultItem(searchPage.firstCrResult, 'CR # CR123 • April 23, 2004');
+
+      backToSearch();
+      performSearch('Ke');
+      clickOnSearchResultItem(searchPage.firstTrrResult, 'Member Presence');
+      backToSearch();
+      searchPage.firstRecentPinButton.click();
+      searchPage.firstPinboardHintButton.waitForDisplayed();
+      searchPage.firstPinboardHintButton.moveTo();
+      searchPage.firstPinboardHintButton.click();
+      browser.waitForUrl(url => url.should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/), 1000);
+    });
+  });
+
   context('when click on pinboard button', function () {
-    beforeEach(function () {
-      setupMockApiFile('search-page/search-page-mock-api.js');
-    });
-
-    afterEach(function () {
-      restoreMockApiFile();
-    });
-
     it('should redirect to Pinboard page', function () {
       searchPage.open('Ke');
       searchPage.suggestionGroup.waitForDisplayed();

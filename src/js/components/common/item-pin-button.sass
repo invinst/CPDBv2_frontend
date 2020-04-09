@@ -21,7 +21,6 @@
   .pin-action-hint
     display: none
     position: absolute
-    pointer-events: none
     right: 16px
     top: 9px
 
@@ -46,8 +45,10 @@
     .pin-action-hint
       display: unset
       content: url('/img/ic-pin.svg')
-      height: 16px
-      width: 12px
+      padding: 5px
+      height: 26px
+      width: 22px
+      box-sizing: border-box
 
   &.show-introduction
     .pin-button

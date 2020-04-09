@@ -99,6 +99,7 @@ export default class SearchResults extends Component {
       nextParams,
       setSearchNavigation,
       addOrRemoveItemInPinboard,
+      pinboardUrl,
     } = this.props;
 
     if (isEmpty) {
@@ -124,6 +125,7 @@ export default class SearchResults extends Component {
         searchText={ searchText }
         nextParams={ nextParams }
         singleContent={ singleContent }
+        pinboardUrl={ pinboardUrl }
         addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }/>
     ));
   }
@@ -232,6 +234,7 @@ SearchResults.propTypes = {
   tags: PropTypes.array,
   contentType: PropTypes.string,
   onEmptyPinboardButtonClick: PropTypes.func,
+  pinboardUrl: PropTypes.string,
 };
 
 SearchResults.defaultProps = {
