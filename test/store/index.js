@@ -227,6 +227,7 @@ describe('store', function () {
           data: {},
           match: '',
         },
+        isRequesting: false,
         documentsOrder: {
           data: [],
           match: '',

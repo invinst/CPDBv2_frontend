@@ -22,7 +22,7 @@ describe('SimpleListWidget component', function () {
       <SimpleListWidget
         className='simple-list-widget'
         items={ [
-          { name: 'CRID / UID', value: 'CR 1083633', to: '/complaint/1083633/' },
+          { name: 'CRID', value: 'CR 1083633', to: '/complaint/1083633/' },
           {
             name: 'Source',
             value: 'chicagocopa.org',
@@ -41,7 +41,7 @@ describe('SimpleListWidget component', function () {
 
     items.at(0).prop('className').should.equal('list-item');
     items.at(0).prop('to').should.equal('/complaint/1083633/');
-    items.at(0).find('.list-item-name').text().should.equal('CRID / UID');
+    items.at(0).find('.list-item-name').text().should.equal('CRID');
     items.at(0).find('.list-item-value').text().should.equal('CR 1083633');
     items.at(0).find('.list-item-value').prop('data-tip').should.be.false();
 

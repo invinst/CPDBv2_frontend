@@ -8,6 +8,7 @@ describe('DocumentsOverviewPage reducer', function () {
         data: {},
         match: '',
       },
+      isRequesting: false,
       pagination: {},
       documentsOrder: {
         data: [],
