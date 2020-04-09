@@ -7,6 +7,9 @@ describe('heatMap reducer', function () {
       citySummary: {},
       communities: null,
       clusterGeoJson: null,
+      communitiesRequested: false,
+      clusterGeoJsonRequested: false,
+      heatMapLoaded: false,
     });
   });
 });

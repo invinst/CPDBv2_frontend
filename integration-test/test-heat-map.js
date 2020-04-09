@@ -39,6 +39,7 @@ describe('Heat map', function () {
 
     it('should go to v1 datatool when click on allegation count', function () {
       const v2Url = browser.getUrl();
+      landingPage.pinboardIntroduction.body.waitForDisplayed();
       landingPage.pinboardIntroduction.dismissButton.click();
       landingPage.heatMapSection.citySummary.allegationDiscipline.click();
       browser.switchWindow('cpdb');

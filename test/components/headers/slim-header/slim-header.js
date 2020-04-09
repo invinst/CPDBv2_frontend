@@ -25,6 +25,9 @@ describe('SlimHeader component', function () {
         },
       },
     },
+    landingPage: {
+      heatMap: {},
+    },
     headers: {
       slimHeader: {
         logoSectionEditModeOn: false,

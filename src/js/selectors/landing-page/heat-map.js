@@ -60,3 +60,12 @@ export const hasCommunitiesSelector = createSelector(
   getRawCommunities,
   communities => communities !== null
 );
+
+export const heatMapDataRequestedSelector = createSelector(
+  state => state.landingPage.heatMap.clusterGeoJsonRequested,
+  state => state.landingPage.heatMap.communitiesRequested,
+  state => state.landingPage.heatMap.heatMapLoaded,
+  (clusterGeoJsonRequested, communitiesRequested, heatMapLoaded) => (
+    clusterGeoJsonRequested && communitiesRequested && heatMapLoaded
+  ),
+);

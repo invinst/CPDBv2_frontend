@@ -7,6 +7,7 @@ import landingPage from './page-objects/landing-page';
 import searchPage from './page-objects/search-page';
 import officerPage from './page-objects/officer-page';
 import crPage from './page-objects/cr-page';
+import { INTRODUCTION_DISPLAY_TIMEOUT } from './utils/constants';
 
 
 const performSearch = (searchPage, term) => {
@@ -176,7 +177,8 @@ describe('Disable pinboard feature', function () {
       performSearch(searchPage, 'intr');
 
       searchPage.unitOfficerResultsSection.firstResultText.waitForDisplayed();
-      searchPage.pinButtonIntroduction.isExisting().should.be.false();
+      browser.pause(INTRODUCTION_DISPLAY_TIMEOUT);
+      searchPage.unitOfficerResultsSection.pinButtonIntroduction.isExisting().should.be.false();
     });
   });
 

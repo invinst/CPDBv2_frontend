@@ -1,7 +1,7 @@
 import should from 'should';
 
 import clusterGeoJson from 'reducers/landing-page/heat-map/cluster-geo-json';
-import * as constants from 'utils/constants';
+import { CLUSTER_GEO_REQUEST_START, CLUSTER_GEO_REQUEST_SUCCESS, CLUSTER_GEO_REQUEST_FAILURE } from 'utils/constants';
 
 
 describe('clusterGeoJson reducer', function () {
@@ -13,7 +13,7 @@ describe('clusterGeoJson reducer', function () {
     clusterGeoJson(
       'state',
       {
-        type: constants.CLUSTER_GEO_REQUEST_START,
+        type: CLUSTER_GEO_REQUEST_START,
       }
     ).should.eql('state');
   });
@@ -22,7 +22,7 @@ describe('clusterGeoJson reducer', function () {
     clusterGeoJson(
       {},
       {
-        type: constants.CLUSTER_GEO_REQUEST_SUCCESS,
+        type: CLUSTER_GEO_REQUEST_SUCCESS,
         payload: 'payload',
       }
     ).should.eql('payload');
@@ -32,7 +32,7 @@ describe('clusterGeoJson reducer', function () {
     clusterGeoJson(
       'state',
       {
-        type: constants.CLUSTER_GEO_REQUEST_FAILURE,
+        type: CLUSTER_GEO_REQUEST_FAILURE,
       }
     ).should.eql('state');
   });

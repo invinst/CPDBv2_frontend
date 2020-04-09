@@ -6,12 +6,19 @@ import { every, isEmpty } from 'lodash';
 import withPinnable from 'components/common/with-pinnable';
 import styles from 'components/common/item-pin-button.sass';
 import { isPinButtonIntroductionVisited, setPinButtonIntroductionVisited } from 'utils/pinboard';
+import { PINBOARD_INTRODUCTION_DELAY } from 'utils/constants';
 
 
 class ItemPinButton extends Component {
+  state = { displayIntroduction: false };
+
   componentDidMount() {
     if (this.shouldShowIntroduction()) {
-      this.addEventClickOutside();
+      this.displayIntroductionTimeout = setTimeout (() => {
+        this.addEventClickOutside();
+        this.setState({ displayIntroduction: true });
+        this.displayIntroductionTimeout = null;
+      }, PINBOARD_INTRODUCTION_DELAY);
     }
   }
 
@@ -19,6 +26,7 @@ class ItemPinButton extends Component {
     if (this.shouldShowIntroduction()) {
       this.removeEventClickOutside();
     }
+    this.displayIntroductionTimeout && clearTimeout(this.displayIntroductionTimeout);
   }
 
   handleClickOutside = ({ target }) => {
@@ -45,8 +53,9 @@ class ItemPinButton extends Component {
 
   render() {
     const { className, showHint, item, items } = this.props;
+    const { displayIntroduction } = this.state;
     const isPinned = every(isEmpty(items) ? [item] : items, item => item.isPinned);
-    const shouldShowIntroduction = this.shouldShowIntroduction();
+    const shouldShowIntroduction = this.shouldShowIntroduction() && displayIntroduction;
 
     return (
       <div className={ cx(
@@ -58,8 +67,8 @@ class ItemPinButton extends Component {
         <div className='pin-button' />
         { showHint && <div className='pin-action-hint'> Unpin? </div> }
         {
-          shouldShowIntroduction
-          && <div className='pin-button-introduction'>Tap this button to add to your pinboard</div>
+          shouldShowIntroduction &&
+            <div className='pin-button-introduction'>Tap this button to add to your pinboard</div>
         }
       </div>
     );
