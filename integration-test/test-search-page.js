@@ -7,8 +7,36 @@ import { times } from 'lodash';
 import searchPage from './page-objects/search-page';
 import landingPage from './page-objects/landing-page';
 import pinboardPage from './page-objects/pinboard-page';
-import { setupMockApiFile, restoreMockApiFile } from './utils';
+import {
+  setupMockApiFile,
+  restoreMockApiFile,
+  restorePinButtonIntroduction,
+  restorePinboardIntroduction,
+  dismissPinButtonIntroduction,
+} from './utils';
+import { INTRODUCTION_DISPLAY_TIMEOUT } from './utils/constants';
 
+
+const backToSearch = () => {
+  searchPage.searchBreadcrumb.waitForDisplayed();
+  searchPage.searchBreadcrumb.click();
+};
+
+const performSearch = (term) => {
+  searchPage.input.waitForDisplayed();
+  searchPage.input.setValue(term);
+};
+
+const clearSearchInput = () => searchPage.clearSearchButton.click();
+
+const clickOnSearchResultItem = (suggestionGroupSelector, expectedText, isFirstResult=false) => {
+  suggestionGroupSelector.waitForDisplayed();
+  suggestionGroupSelector.getText().should.containEql(expectedText);
+  suggestionGroupSelector.click();
+  if (!isFirstResult) {
+    suggestionGroupSelector.click();
+  }
+};
 
 describe('Landing Page to Search Page', function () {
   beforeEach(function () {
@@ -26,6 +54,8 @@ describe('Landing Page to Search Page', function () {
 describe('Search Page', function () {
   beforeEach(function () {
     searchPage.open();
+    dismissPinButtonIntroduction();
+    searchPage.input.waitForDisplayed();
   });
 
   it('should show result when user type in', function () {
@@ -356,31 +386,98 @@ describe('Search Page', function () {
     searchPage.secondNeighborhoodResult.getAttribute('class').should.containEql('test--focused');
   });
 
+  context('Pinboard introduction', function () {
+    beforeEach(function () {
+      restorePinboardIntroduction();
+      searchPage.input.waitForDisplayed();
+    });
+
+    it('should display pinboard introduction on first visited', function () {
+      searchPage.pinboardIntroduction.body.waitForDisplayed();
+    });
+
+    it('should close pinboard introduction after click close', function () {
+      searchPage.pinboardIntroduction.body.waitForDisplayed();
+      searchPage.pinboardIntroduction.closeButton.click();
+      searchPage.pinboardIntroduction.body.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT, true);
+      browser.refresh();
+      searchPage.input.waitForDisplayed(1000);
+      searchPage.pinboardIntroduction.body.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT, true);
+    });
+
+    it('should close pinboard introduction and redirect to pinboard page after click Get Started', function () {
+      searchPage.pinboardIntroduction.body.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT);
+      searchPage.pinboardIntroduction.getStartedButton.click();
+      browser.waitForUrl(url => url.should.match(/\/pinboard\/.*/), 2000);
+      pinboardPage.searchBar.click();
+      searchPage.input.waitForDisplayed(1000);
+      searchPage.pinboardIntroduction.body.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT, true);
+    });
+
+    it('should not display pinboard introduciton after user add item to pinboard', function () {
+      searchPage.input.waitForDisplayed();
+      searchPage.input.setValue('Ke');
+
+      searchPage.secondOfficerResult.waitForDisplayed();
+      searchPage.secondOfficerPinButton.click();
+      searchPage.pinboardIntroduction.body.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT, true);
+    });
+
+    context('lastest pinboard is not empty', function () {
+      beforeEach(function () {
+        setupMockApiFile('search-page/search-page-mock-non-empty-lastest-pinboard.js');
+      });
+
+      afterEach(function () {
+        restoreMockApiFile();
+      });
+
+      it('should not display pinboard introduciton when lasted pinboard is not empty', function () {
+        searchPage.open();
+        searchPage.input.waitForDisplayed();
+        searchPage.pinboardIntroduction.body.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT, true);
+      });
+    });
+  });
+
+  context('PinButton introduction', function () {
+    beforeEach(function () {
+      restorePinButtonIntroduction();
+      searchPage.input.waitForDisplayed();
+    });
+
+    it('should display PinButtonIntroduction in first pinnable search result', function () {
+      searchPage.input.setValue('intr');
+      searchPage.unitOfficerResultsSection.firstPinButtonIntroduction.waitForDisplayed();
+      searchPage.unitOfficerResultsSection.pinButtonIntroduction.count.should.equal(1);
+      searchPage.searchCommunityResultsSection.pinButtonIntroduction.count.should.equal(0);
+      searchPage.trrResultsSection.pinButtonIntroduction.count.should.equal(0);
+    });
+
+    it('should not display PinButtonIntroduction after click on PinButton', function () {
+      searchPage.input.setValue('intr');
+      searchPage.unitOfficerResultsSection.firstPinButtonIntroduction.waitForDisplayed();
+      searchPage.unitOfficerResultsSection.secondResultText.click();
+      searchPage.unitOfficerResultsSection.firstPinButtonIntroduction.waitForDisplayed(
+        INTRODUCTION_DISPLAY_TIMEOUT,
+        true
+      );
+      browser.refresh();
+      searchPage.input.setValue('intr');
+      searchPage.unitOfficerResultsSection.firstPinButton.waitForDisplayed();
+      searchPage.unitOfficerResultsSection.firstPinButtonIntroduction.waitForDisplayed(
+        INTRODUCTION_DISPLAY_TIMEOUT,
+        true
+      );
+    });
+  });
+
   describe('should show the recent search', function () {
     beforeEach(function () {
       browser.execute(() => {
         window.localStorage.removeItem('redux');
       });
     });
-
-    const backToSearch = () => {
-      searchPage.searchBreadcrumb.waitForDisplayed();
-      searchPage.searchBreadcrumb.click();
-    };
-    const performSearch = (term) => {
-      searchPage.input.waitForDisplayed();
-      searchPage.input.setValue(term);
-    };
-    const clearSearchInput = () => searchPage.clearSearchButton.click();
-
-    const clickOnSearchResultItem = (suggestionGroupSelector, expectedText, isFirstResult=false) => {
-      suggestionGroupSelector.waitForDisplayed();
-      suggestionGroupSelector.getText().should.containEql(expectedText);
-      suggestionGroupSelector.click();
-      if (!isFirstResult) {
-        suggestionGroupSelector.click();
-      }
-    };
 
     it('when click on result item', function () {
       performSearch('Geography');
@@ -441,8 +538,7 @@ describe('Search Page', function () {
       expectedRecentSuggestions.forEach((expectedText, index) => {
         searchPage.recentSuggestionItem(index + 1).getText().should.equal(expectedText);
       });
-
-      searchPage.pinboardButton.getText().should.eql('Pinboard (0)');
+      searchPage.pinboardButton.waitForDisplayed(1000, true);
 
       browser.scroll(0, -2000);
       browser.pause(500);
@@ -467,6 +563,7 @@ describe('Search Page', function () {
         '\nGo to pinboard'
       );
       searchPage.toast.waitForDisplayed(5000, true);
+      searchPage.pinboardButton.waitForDisplayed(2000);
       searchPage.pinboardButton.getText().should.eql('Pinboard (3)');
 
       searchPage.firstRecentPinButton.click();
@@ -489,7 +586,7 @@ describe('Search Page', function () {
         '\nGo to pinboard'
       );
       searchPage.toast.waitForDisplayed(5000, true);
-      searchPage.pinboardButton.getText().should.eql('Pinboard (0)');
+      searchPage.pinboardButton.waitForDisplayed(1000, true);
 
       searchPage.open();
 
@@ -1045,15 +1142,6 @@ describe('Search Page with pinboard functionalities', function () {
 
     searchPage.firstOfficerPinButton.click();
     searchPage.pinboardButton.getText().should.eql('Your pinboard is empty');
-  });
-
-  it('should display pinboard tooltip bar when not search', function () {
-    const tip = 'Create collections of officers, complaint records, and tactical reponse reports using search.';
-    searchPage.open('');
-    searchPage.pinboardBar.waitForDisplayed();
-    searchPage.pinboardBar.getText().should.containEql(tip);
-
-    searchPage.pinboardButton.getText().should.eql('Pinboard (0)');
   });
 
   context('when click on pinboard button', function () {

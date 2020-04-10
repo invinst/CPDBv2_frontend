@@ -18,6 +18,23 @@ describe('RecentSuggestions selector', function () {
         searchPage: {
           recentSuggestions: [
             {
+              type: 'COMMUNITY',
+              id: 317,
+              data: {
+                id: 317,
+                type: 'COMMUNITY',
+                text: 'Roseland',
+                recentText: 'Roseland',
+                to: undefined,
+                url: 'https://data.cpdp.co/url-mediator/session-builder?neighborhood=Roseland',
+                tags: [],
+                uniqueKey: 'COMMUNITY-317',
+                name: 'Roseland',
+                allegationCount: 12,
+                allegationPercentile: 80.1,
+              },
+            },
+            {
               type: 'OFFICER',
               id: 8562,
               data: {
@@ -57,6 +74,30 @@ describe('RecentSuggestions selector', function () {
         },
       };
       recentSuggestionsSelector(state).should.be.eql([
+        {
+          type: 'COMMUNITY',
+          id: 317,
+          to: undefined,
+          url: 'https://data.cpdp.co/url-mediator/session-builder?neighborhood=Roseland',
+          uniqueKey: 'COMMUNITY-317',
+          text: 'Roseland',
+          subText: 'Community',
+          recentText: 'Roseland',
+          itemRank: undefined,
+          recentItemData: {
+            allegationCount: 12,
+            allegationPercentile: 80.1,
+            id: 317,
+            name: 'Roseland',
+            recentText: 'Roseland',
+            tags: [],
+            text: 'Roseland',
+            to: undefined,
+            type: 'COMMUNITY',
+            uniqueKey: 'COMMUNITY-317',
+            url: 'https://data.cpdp.co/url-mediator/session-builder?neighborhood=Roseland',
+          },
+        },
         {
           type: 'OFFICER',
           id: 8562,
@@ -106,6 +147,7 @@ describe('RecentSuggestions selector', function () {
           },
           crid: '271235',
           isPinned: false,
+
         },
         {
           type: 'TRR',

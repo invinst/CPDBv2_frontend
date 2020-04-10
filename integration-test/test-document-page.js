@@ -162,7 +162,7 @@ describe('Document page', function () {
   context('Authenticated user another page', function () {
     beforeEach(function () {
       landingPage.open(true);
-      landingPage.header.navBar.rightLinks.documents.click();
+      landingPage.header.navBar.headerLinks.documents.click();
       docOverviewPage.firstDocTitle.click();
     });
 
@@ -204,7 +204,7 @@ describe('Document page', function () {
 
     it('should be able to update document tags', function () {
       landingPage.open(true);
-      landingPage.header.navBar.rightLinks.documents.click();
+      landingPage.header.navBar.headerLinks.documents.click();
       docOverviewPage.firstDocTitle.click();
 
       documentPage.tagsSection.tags.count.should.equal(2);

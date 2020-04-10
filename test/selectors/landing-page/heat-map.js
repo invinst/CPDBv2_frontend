@@ -1,7 +1,11 @@
 import should from 'should';
 
 import {
-  communityGeoJSONSelector, communitiesSelector, getClusterGeoJson, hasClusterGeoJsonData,
+  communityGeoJSONSelector,
+  communitiesSelector,
+  getClusterGeoJson,
+  hasClusterGeoJsonData,
+  heatMapDataRequestedSelector,
 } from 'selectors/landing-page/heat-map';
 import { rawCommunityFactory, raceCountFactory, rawComplaintOfficerFactory } from 'utils/test/factories/heat-map';
 
@@ -129,6 +133,56 @@ describe('Heat map selectors', function () {
           },
         },
       }).should.be.false();
+    });
+  });
+
+  describe('heatMapDataRequestedSelector', function () {
+    it('should return false if clusterGeoJsonRequested is false', function () {
+      heatMapDataRequestedSelector({
+        landingPage: {
+          heatMap: {
+            clusterGeoJsonRequested: false,
+            communitiesRequested: true,
+            heatMapLoaded: true,
+          },
+        },
+      }).should.be.false();
+    });
+
+    it('should return false if communitiesRequested is false', function () {
+      heatMapDataRequestedSelector({
+        landingPage: {
+          heatMap: {
+            clusterGeoJsonRequested: true,
+            communitiesRequested: false,
+            heatMapLoaded: true,
+          },
+        },
+      }).should.be.false();
+    });
+
+    it('should return false if heatMapLoaded is false', function () {
+      heatMapDataRequestedSelector({
+        landingPage: {
+          heatMap: {
+            clusterGeoJsonRequested: true,
+            communitiesRequested: true,
+            heatMapLoaded: false,
+          },
+        },
+      }).should.be.false();
+    });
+
+    it('should return true if clusterGeoJsonRequested, communitiesRequested and heatMapLoaded are true', function () {
+      heatMapDataRequestedSelector({
+        landingPage: {
+          heatMap: {
+            clusterGeoJsonRequested: true,
+            communitiesRequested: true,
+            heatMapLoaded: true,
+          },
+        },
+      }).should.be.true();
     });
   });
 });

@@ -11,11 +11,20 @@ import { MORE_BUTTON } from 'utils/constants';
 
 
 describe('SuggestionGroup component', function () {
-  it('should render SuggestionItem', function () {
+  it('should render correctly', function () {
+    const suggestions = OfficerSuggestion.buildList(3);
+    suggestions[1] = {
+      ...suggestions[1],
+      showIntroduction: true,
+    };
     const wrapper = shallow(
-      <SuggestionGroup suggestions={ OfficerSuggestion.buildList(3) }/>
+      <SuggestionGroup suggestions={ suggestions }/>
     );
-    wrapper.find(SuggestionItem).should.have.length(3);
+    const suggestionItems = wrapper.find(SuggestionItem);
+    suggestionItems.should.have.length(3);
+    suggestionItems.at(0).prop('showIntroduction').should.be.false();
+    suggestionItems.at(1).prop('showIntroduction').should.be.true();
+    suggestionItems.at(2).prop('showIntroduction').should.be.false();
   });
 
   it('should assign correct selectItem', function () {

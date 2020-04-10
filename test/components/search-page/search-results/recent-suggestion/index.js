@@ -7,10 +7,12 @@ import RecentSuggestion from 'components/search-page/search-results/recent-sugge
 
 
 describe('RecentSuggestion component', function () {
-  it('should render SuggestionItem', function () {
+  it('should render correctly', function () {
+    const suggestions = OfficerSuggestion.buildList(3);
     const wrapper = shallow(
-      <RecentSuggestion recentSuggestions={ OfficerSuggestion.buildList(3) }/>
+      <RecentSuggestion recentSuggestions={ suggestions }/>
     );
-    wrapper.find(SuggestionItem).should.have.length(3);
+    const suggestionItems = wrapper.find(SuggestionItem);
+    suggestionItems.should.have.length(3);
   });
 });

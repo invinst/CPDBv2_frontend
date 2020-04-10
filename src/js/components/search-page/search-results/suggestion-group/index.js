@@ -59,6 +59,7 @@ export default class SuggestionGroup extends Component {
               selectItem={ () => setSearchNavigation({ itemIndex: suggestion.itemIndex }) }
               key={ suggestion.itemIndex }
               aliasEditModeOn={ aliasEditModeOn }
+              showIntroduction={ suggestion.showIntroduction }
               setAliasAdminPageContent={ setAliasAdminPageContent }
               suggestion={ suggestion }
               isFocused={ focusedItem.uniqueKey === suggestion.uniqueKey }

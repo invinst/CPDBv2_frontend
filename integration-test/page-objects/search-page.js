@@ -87,11 +87,28 @@ class ResultsSection extends Section {
       previewPaneButton: '(//a[@class="test--call-to-action"])',
       firstPinButton: `(//a[contains(@class, "suggestion-item-${key}")]` +
         '//div[contains(@class, "item-pin-button__item-pin-button")])[1]',
+      pinButtonIntroduction: `//a[contains(@class, "suggestion-item-${key}")]` +
+        '//div[contains(@class, "pin-button-introduction")]',
+      firstPinButtonIntroduction: `//a[contains(@class, "suggestion-item-${key}")][1]` +
+        '//div[contains(@class, "pin-button-introduction")]',
+      secondPinButtonIntroduction: `//a[contains(@class, "suggestion-item-${key}")][2]` +
+        '//div[contains(@class, "pin-button-introduction")]',
     });
   }
 
   resultsCount(key) {
     return $$(`//a[contains(@class, "suggestion-item-${key}")]`).length;
+  }
+}
+
+class PinboardIntroduction extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      body: '//div[contains(@class, "pinboard-introduction")]',
+      closeButton: '.introduction-close-btn',
+      getStartedButton: '.get-started-btn',
+    });
   }
 }
 
@@ -101,6 +118,8 @@ class SearchPage extends Page {
   crPreviewPaneSection = new CRPreviewPaneSection();
   trrPreviewPaneSection = new TRRPreviewPaneSection();
   dateCRResultsSection = new ResultsSection('DATE-CR');
+  unitOfficerResultsSection = new ResultsSection('UNIT-OFFICERS');
+  unitResultsSection = new ResultsSection('UNIT');
   investigatorCRResultsSection = new ResultsSection('INVESTIGATOR-CR');
   dateTRRResultsSection = new ResultsSection('DATE-TRR');
   dateOfficerResultsSection = new ResultsSection('DATE-OFFICERS');
@@ -110,6 +129,7 @@ class SearchPage extends Page {
   rankResultsSection = new ResultsSection('RANK');
   searchTermsResultsSection = new ResultsSection('SEARCH-TERMS');
   searchCommunityResultsSection = new ResultsSection('COMMUNITY');
+  pinboardIntroduction = new PinboardIntroduction();
 
   constructor() {
     super();
@@ -141,7 +161,7 @@ class SearchPage extends Page {
       plusSign: '(//div[contains(@class, "plus-sign-wrapper")])',
       firstAliasButton: '(//a[contains(@class, "test--create-alias-link")])[1]',
       pinboardButton: '.test--pinboard-button',
-      pinboardBar: '//div[contains(@class, "pinboard-bar")]',
+      pinboardBar: '//div[contains(@class, "pinboard-bar__wrapper")]',
       toast: '.Toastify__toast-body',
       firstCrResult: '.test--suggestion-group .suggestion-item-CR-CR123',
       secondDateCrResult: '.test--suggestion-group .suggestion-item-DATE-CR-CR456',
@@ -156,11 +176,14 @@ class SearchPage extends Page {
         '//a[contains(@class, "suggestion-item-CR-CR123")]//div[contains(@class, "item-pin-button__item-pin-button")]',
       thirdRecentPinButton:
         '//a[contains(@class, "suggestion-item-OFFICER-1")]//div[contains(@class, "item-pin-button__item-pin-button")]',
+      firstRecentIntroduction:
+        '//a[contains(@class, "suggestion-item-TRR-123")]//div[@class="pin-button-introduction"]',
+      pinButtonIntroduction: '//div[@class="pin-button-introduction"]',
     });
   }
 
   recentSuggestionItem(index) {
-    return $$(`.recent-suggestions a:nth-child(${index})`)[0];
+    return $$(`(//div[contains(@class, "with-pinnable-item__two-rows-wrapper")])[${index}]`)[0];
   }
 
   open(query = '') {
