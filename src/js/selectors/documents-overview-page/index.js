@@ -37,7 +37,7 @@ export const documentsSelector = createSelector(
         date: date.format('MMM DD'),
         viewsCount: doc['views_count'],
         downloadsCount: doc['downloads_count'],
-        documentsCount: parseInt(doc['documents_count']) - 1,
+        documentsCount: parseInt(doc['documents_count']),
         crid: doc['crid'],
         fileType: doc['file_type'],
         url: doc['url'],
