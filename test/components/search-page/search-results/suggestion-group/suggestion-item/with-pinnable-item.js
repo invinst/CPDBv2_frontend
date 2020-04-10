@@ -152,6 +152,7 @@ describe('withPinnableItem component', function () {
       aliasEditModeOn: false,
       showIntroduction: true,
       selectItem: noop,
+      pinboardUrl: '/pinboard/12f453/untitled-title',
     };
 
     it('should render item pin button', function () {
@@ -159,6 +160,7 @@ describe('withPinnableItem component', function () {
       const itemPinButton = wrapper.find(ItemPinButton);
       itemPinButton.exists().should.be.true();
       itemPinButton.prop('showIntroduction').should.be.true();
+      itemPinButton.prop('pinboardUrl').should.equal(props.pinboardUrl);
     });
   });
 });

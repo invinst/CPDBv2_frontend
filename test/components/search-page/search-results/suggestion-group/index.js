@@ -13,18 +13,22 @@ import { MORE_BUTTON } from 'utils/constants';
 describe('SuggestionGroup component', function () {
   it('should render correctly', function () {
     const suggestions = OfficerSuggestion.buildList(3);
+    const pinboardUrl = '/pinboard/12f453/untitled-title';
     suggestions[1] = {
       ...suggestions[1],
       showIntroduction: true,
     };
     const wrapper = shallow(
-      <SuggestionGroup suggestions={ suggestions }/>
+      <SuggestionGroup pinboardUrl={ pinboardUrl } suggestions={ suggestions }/>
     );
     const suggestionItems = wrapper.find(SuggestionItem);
     suggestionItems.should.have.length(3);
     suggestionItems.at(0).prop('showIntroduction').should.be.false();
+    suggestionItems.at(0).prop('pinboardUrl').should.equal(pinboardUrl);
     suggestionItems.at(1).prop('showIntroduction').should.be.true();
+    suggestionItems.at(1).prop('pinboardUrl').should.equal(pinboardUrl);
     suggestionItems.at(2).prop('showIntroduction').should.be.false();
+    suggestionItems.at(2).prop('pinboardUrl').should.equal(pinboardUrl);
   });
 
   it('should assign correct selectItem', function () {

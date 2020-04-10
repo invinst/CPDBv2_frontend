@@ -179,6 +179,7 @@ class SearchPage extends Page {
       firstRecentIntroduction:
         '//a[contains(@class, "suggestion-item-TRR-123")]//div[@class="pin-button-introduction"]',
       pinButtonIntroduction: '//div[@class="pin-button-introduction"]',
+      firstPinboardHintButton: '(//*[@class="pin-action-hint"])[1]',
     });
   }
 

@@ -50,6 +50,7 @@ export const BASE_PATH = config.apiDomain;
 export const V2_ROOT_PATH = API_ROOT_V2;
 export const V1_ROOT_PATH = API_ROOT;
 export const INVISIBLE_INSTITUTE_URL = 'https://invisible.institute/cpdp';
+export const DEFAULT_PINBOARD_PATH = '/pinboard/';
 
 export const SLUG_PAGE_API_URL = `${V2_ROOT_PATH}cms-pages/`;
 export const SIGNIN_URL = `${V2_ROOT_PATH}users/sign-in/`;

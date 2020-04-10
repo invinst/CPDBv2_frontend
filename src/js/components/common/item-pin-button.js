@@ -6,7 +6,8 @@ import { every, isEmpty } from 'lodash';
 import withPinnable from 'components/common/with-pinnable';
 import styles from 'components/common/item-pin-button.sass';
 import { isPinButtonIntroductionVisited, setPinButtonIntroductionVisited } from 'utils/pinboard';
-import { PINBOARD_INTRODUCTION_DELAY } from 'utils/constants';
+import { PINBOARD_INTRODUCTION_DELAY, DEFAULT_PINBOARD_PATH } from 'utils/constants';
+import browserHistory from 'utils/history';
 
 
 class ItemPinButton extends Component {
@@ -37,6 +38,13 @@ class ItemPinButton extends Component {
     }
   };
 
+  handleClickHint = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const { pinboardUrl } = this.props;
+    browserHistory.push(pinboardUrl);
+  };
+
   shouldShowIntroduction() {
     const { showIntroduction } = this.props;
 
@@ -65,7 +73,7 @@ class ItemPinButton extends Component {
         { 'is-pinned': isPinned, 'show-introduction': shouldShowIntroduction }
       ) }>
         <div className='pin-button' />
-        { showHint && <div className='pin-action-hint'> Unpin? </div> }
+        { showHint && <div className='pin-action-hint' onClick={ this.handleClickHint }> Unpin? </div> }
         {
           shouldShowIntroduction &&
             <div className='pin-button-introduction'>Tap this button to add to your pinboard</div>
@@ -90,11 +98,13 @@ ItemPinButton.propTypes = {
   className: PropTypes.string,
   showHint: PropTypes.bool,
   showIntroduction: PropTypes.bool,
+  pinboardUrl: PropTypes.string,
 };
 
 ItemPinButton.defaultProps = {
   showHint: true,
   showIntroduction: false,
+  pinboardUrl: DEFAULT_PINBOARD_PATH,
 };
 
 export default withPinnable(ItemPinButton);

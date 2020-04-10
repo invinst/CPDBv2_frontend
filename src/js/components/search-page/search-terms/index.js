@@ -66,7 +66,7 @@ export default class SearchTerms extends Component {
   }
 
   renderRecentSuggestion() {
-    const { recentSuggestions, addOrRemoveItemInPinboard, saveToRecent } = this.props;
+    const { recentSuggestions, addOrRemoveItemInPinboard, saveToRecent, pinboardUrl } = this.props;
 
     if (!isEmpty(recentSuggestions)) {
       return (
@@ -74,6 +74,7 @@ export default class SearchTerms extends Component {
           recentSuggestions={ recentSuggestions }
           addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
           saveToRecent={ saveToRecent }
+          pinboardUrl={ pinboardUrl }
         />
       );
     }
@@ -136,6 +137,7 @@ SearchTerms.propTypes = {
   fetchedEmptyRecentSearchItems: PropTypes.func,
   className: PropTypes.string,
   isEmptyPinboard: PropTypes.bool,
+  pinboardUrl: PropTypes.string,
 };
 
 SearchTerms.defaultProps = {
