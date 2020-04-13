@@ -1,7 +1,6 @@
 import Enum from 'enum';
 import { kebabCase } from 'lodash';
 
-import { greyColor, softBlackColor } from 'utils/styles';
 import config from 'config';
 
 
@@ -80,6 +79,7 @@ export const PINBOARDS_URL = `${V2_ROOT_PATH}pinboards/`;
 export const ALL_PINBOARD_URL = `${V2_ROOT_PATH}pinboards/all/`;
 export const RECENT_SEARCH_ITEMS_API_URL = 'suggestion/recent-search-items/';
 export const TRACKING_API_URL = `${V2_ROOT_PATH}tracking/`;
+export const APP_CONFIG_API_URL = `${V2_ROOT_PATH}app-config/`;
 
 export const OFFICER_SUMMARY_REQUEST_START = 'OFFICER_SUMMARY_REQUEST_START';
 export const OFFICER_SUMMARY_REQUEST_SUCCESS = 'OFFICER_SUMMARY_REQUEST_SUCCESS';
@@ -456,15 +456,6 @@ export const VIDEO_INFO_REQUEST_FAILURE = 'VIDEO_INFO_REQUEST_FAILURE';
 
 export const CLEAR_PINBOARD_STATIC_SOCIAL_GRAPH_CACHE = 'CLEAR_PINBOARD_STATIC_SOCIAL_GRAPH_CACHE';
 
-export const VISUAL_TOKEN_COLORS = [
-  { lower: 0, upper: 5, backgroundColor: '#F5F4F4', textColor: softBlackColor },
-  { lower: 5, upper: 30, backgroundColor: '#F9D3C3', textColor: softBlackColor },
-  { lower: 30, upper: 50, backgroundColor: '#F4A298', textColor: softBlackColor },
-  { lower: 50, upper: 70, backgroundColor: '#FF6453', textColor: softBlackColor },
-  { lower: 70, upper: 90, backgroundColor: '#FF412C', textColor: softBlackColor },
-  { lower: 90, upper: 100, backgroundColor: '#F52524', textColor: greyColor },
-];
-
 export const RECENT_CONTENT_TYPE = 'RECENT';
 export const MORE_BUTTON = 'MORE_BUTTON';
 export const SEARCH_BOX = 'SEARCH_BOX';
@@ -530,6 +521,10 @@ export const CLUSTER_GEO_REQUEST_START = 'CLUSTER_GEO_REQUEST_START';
 export const CLUSTER_GEO_REQUEST_SUCCESS = 'CLUSTER_GEO_REQUEST_SUCCESS';
 export const CLUSTER_GEO_REQUEST_FAILURE = 'CLUSTER_GEO_REQUEST_FAILURE';
 
+export const APP_CONFIG_FETCH_START = 'APP_CONFIG_FETCH_START';
+export const APP_CONFIG_FETCH_SUCCESS = 'APP_CONFIG_FETCH_SUCCESS';
+export const APP_CONFIG_FETCH_FAILURE = 'APP_CONFIG_FETCH_FAILURE';
+
 export const LANDING_PAGE_ID = 'landing-page';
 export const OFFICER_PAGE_ID = 'officer-page';
 export const CR_PAGE_ID = 'cr-page';
@@ -540,6 +535,10 @@ export const PINBOARD_INTRODUCTION = {
   PINBOARD_INTRODUCTION: 'PINBOARD_INTRODUCTION',
   PIN_BUTTON_INTRODUCTION: 'PIN_BUTTON_INTRODUCTION',
   PINBOARD_BUTTON_INTRODUCTION: 'PINBOARD_BUTTON_INTRODUCTION',
+};
+
+export const APP_CONFIG_KEYS = {
+  VISUAL_TOKEN_COLORS: 'visual_token_colors',
 };
 
 export const NEW_TIMELINE_ITEMS = {

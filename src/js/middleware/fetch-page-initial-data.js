@@ -52,6 +52,8 @@ import { dispatchFetchPinboardPageData, dispatchFetchPinboardPinnedItems } from 
 import { isSignedInFromCookie } from 'utils/authentication';
 import { fetchToast } from 'actions/toast';
 import { hasToastsSelector } from 'selectors/toast';
+import { fetchAppConfig } from 'actions/app-config';
+import appConfig from 'utils/app-config';
 
 let prevPathname = '';
 
@@ -126,6 +128,10 @@ export default store => next => action => {
 
     if (!hasToastsSelector(state)) {
       store.dispatch(fetchToast());
+    }
+
+    if (appConfig.isEmpty()) {
+      dispatches.push(store.dispatch(fetchAppConfig()));
     }
 
     const notRequiredLandingPageContent = [/embed\/map/];

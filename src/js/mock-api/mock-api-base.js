@@ -30,6 +30,7 @@ import {
   MODAL_VIDEO_INFO,
   RECENT_SEARCH_ITEMS_API_URL,
   TOAST_API_URL,
+  APP_CONFIG_API_URL,
 } from 'utils/constants';
 import { communityGeoJSONPath } from 'utils/static-assets';
 import getCRData from './cr-page/get-data';
@@ -51,6 +52,7 @@ import getSearchTermsData, { recentSearchItems } from './search-terms-page';
 import getUnitSummaryData from './unit-profile-page/get-summary';
 import { getCRPopup } from './popup';
 import { getToasts } from './toasts';
+import { getAppConfig } from './app-config';
 import fetchDocumentsByCRID from './document-deduplicator-page/fetch-documents-by-crid';
 import searchDocuments from './documents-overview-page/search-documents';
 import fetchDocuments from './documents-overview-page/fetch-documents';
@@ -851,5 +853,6 @@ mockUpdatePinboardError(axiosMockClient, '5cd0eeee', 10, networkError);
 mockUpdatePinboardError(axiosMockClient, '5cd0ffff', 4, networkError);
 
 axiosMockClient.onGet(TOAST_API_URL).reply(200, getToasts());
+axiosMockClient.onGet(APP_CONFIG_API_URL).reply(200, getAppConfig());
 
 module.exports = axiosMockClient;
