@@ -1,0 +1,28 @@
+<svg width="76" height="120" viewBox="0 0 76 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="76" height="120" fill="white"/>
+<rect x="7.5" y="7.5" width="61" height="33" rx="1.5" fill="#F5F4F4" stroke="#DBDBDB"/>
+<path d="M31 21L39.5 29.5L44 19" stroke="#ADADAD"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M39.5 32C40.8807 32 42 30.8807 42 29.5C42 28.1193 40.8807 27 39.5 27C38.1193 27 37 28.1193 37 29.5C37 30.8807 38.1193 32 39.5 32Z" fill="#EC3435"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M31 24C32.6569 24 34 22.6569 34 21C34 19.3431 32.6569 18 31 18C29.3431 18 28 19.3431 28 21C28 22.6569 29.3431 24 31 24Z" fill="#FF4F13"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M44 22C45.6569 22 47 20.6569 47 19C47 17.3431 45.6569 16 44 16C42.3431 16 41 17.3431 41 19C41 20.6569 42.3431 22 44 22Z" fill="#F32A29"/>
+<rect x="7" y="45" width="10" height="15" rx="2" fill="#DBDBDB"/>
+<rect x="7" y="61" width="10" height="15" rx="2" fill="#DBDBDB"/>
+<rect x="7" y="80" width="10" height="15" rx="2" fill="#DBDBDB"/>
+<rect x="18" y="45" width="10" height="15" rx="2" fill="#DBDBDB"/>
+<rect x="18" y="61" width="10" height="15" rx="2" fill="#DBDBDB"/>
+<path d="M7 63C7 61.8954 7.89543 61 9 61H15C16.1046 61 17 61.8954 17 63V66H7V63Z" fill="#FF4F13"/>
+<path d="M18 63C18 61.8954 18.8954 61 20 61H26C27.1046 61 28 61.8954 28 63V66H18V63Z" fill="#F9DEC7"/>
+<rect x="18" y="80" width="10" height="15" rx="2" fill="#DBDBDB"/>
+<rect x="29" y="80" width="10" height="15" rx="2" fill="#DBDBDB"/>
+<path d="M29 82C29 80.8954 29.8954 80 31 80H37C38.1046 80 39 80.8954 39 82V85H29V82Z" fill="#FF5050"/>
+<path d="M7 82C7 80.8954 7.89543 80 9 80H15C16.1046 80 17 80.8954 17 82V85H7V82Z" fill="#F6C9D0"/>
+<path d="M18 82C18 80.8954 18.8954 80 20 80H26C27.1046 80 28 80.8954 28 82V85H18V82Z" fill="#BDC7EC"/>
+<rect x="29" y="45" width="10" height="15" rx="2" fill="#DBDBDB"/>
+<rect x="40" y="45" width="10" height="15" rx="2" fill="#DBDBDB"/>
+<rect x="51" y="45" width="10" height="15" rx="2" fill="#DBDBDB"/>
+<path d="M7 47C7 45.8954 7.89543 45 9 45H15C16.1046 45 17 45.8954 17 47V50H7V47Z" fill="#F52524"/>
+<path d="M18 47C18 45.8954 18.8954 45 20 45H26C27.1046 45 28 45.8954 28 47V50H18V47Z" fill="#F32A29"/>
+<path d="M29 47C29 45.8954 29.8954 45 31 45H37C38.1046 45 39 45.8954 39 47V50H29V47Z" fill="#EC3435"/>
+<path d="M40 47C40 45.8954 40.8954 45 42 45H48C49.1046 45 50 45.8954 50 47V50H40V47Z" fill="#405EC3"/>
+<path d="M51 47C51 45.8954 51.8954 45 53 45H59C60.1046 45 61 45.8954 61 47V50H51V47Z" fill="#D1DDF1"/>
+</svg>

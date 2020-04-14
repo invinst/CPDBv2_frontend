@@ -89,7 +89,7 @@ const store = mockStore({
     pagination: {},
   },
   pinboardPage: {
-    pinboard: null,
+    pinboard: {},
   },
   toast: {},
   pathname: '/',

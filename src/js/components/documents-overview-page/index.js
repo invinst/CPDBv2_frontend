@@ -38,6 +38,7 @@ export default class DocumentsOverviewPage extends Component {
       nextParams,
       fetchDocuments,
       fetchDocumentsAuthenticated,
+      isRequesting,
     } = this.props;
 
     return (
@@ -55,6 +56,7 @@ export default class DocumentsOverviewPage extends Component {
           hasMore={ hasMore }
           nextParams={ nextParams }
           fetchDocuments={ fetchDocuments }
+          isRequesting={ isRequesting }
           fetchDocumentsAuthenticated={ fetchDocumentsAuthenticated }
           onCRLinkClick={ this.handleSearchChange }/>
       </div>
@@ -73,9 +75,11 @@ DocumentsOverviewPage.propTypes = {
     search: PropTypes.string,
     query: PropTypes.object,
   }).isRequired,
+  isRequesting: PropTypes.bool,
 };
 
 DocumentsOverviewPage.defaultProps = {
   documents: [],
   location: {},
+  isRequesting: false,
 };

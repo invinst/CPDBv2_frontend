@@ -30,7 +30,7 @@ export default class OfficerInfoWidget extends Component {
         >
           { metric.value }
         </div>
-        <div className='clear-fix'/>
+        <div className='clearfix'/>
       </li>
     );
   }

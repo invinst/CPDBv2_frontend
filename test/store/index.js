@@ -56,6 +56,9 @@ describe('store', function () {
           citySummary: {},
           communities: null,
           clusterGeoJson: null,
+          communitiesRequested: false,
+          clusterGeoJsonRequested: false,
+          heatMapLoaded: false,
         },
       },
       authentication: {
@@ -224,6 +227,7 @@ describe('store', function () {
           data: {},
           match: '',
         },
+        isRequesting: false,
         documentsOrder: {
           data: [],
           match: '',

@@ -21,6 +21,7 @@ import {
 } from 'selectors/search-page/search-results/navigation';
 import { getFocusedItem } from 'selectors/search-page';
 import { addOrRemoveItemInPinboard } from 'actions/pinboard';
+import { pinboardUrlSelector } from 'selectors/pinboard-page/pinboard';
 
 
 function mapStateToProps(state, ownProps) {
@@ -50,6 +51,7 @@ function mapStateToProps(state, ownProps) {
     nextParams: nextParamsSelector(state),
     singleContent: isShowingSingleContentTypeSelector(state),
     totalItemCount: totalItemCountSelector(state),
+    pinboardUrl: pinboardUrlSelector(state),
   };
 }
 

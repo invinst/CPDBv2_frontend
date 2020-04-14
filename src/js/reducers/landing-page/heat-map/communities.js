@@ -1,12 +1,14 @@
 import { handleActions } from 'redux-actions';
 
-import * as constants from 'utils/constants';
+import {
+  COMMUNITY_REQUEST_START,
+  COMMUNITY_REQUEST_SUCCESS,
+  COMMUNITY_REQUEST_FAILURE,
+} from 'utils/constants';
 
 
-const communities = handleActions({
-  [constants.COMMUNITY_REQUEST_START]: (state, action) => (state),
-  [constants.COMMUNITY_REQUEST_SUCCESS]: (state, action) => (action.payload),
-  [constants.COMMUNITY_REQUEST_FAILURE]: (state, action) => (state),
+export default handleActions({
+  [COMMUNITY_REQUEST_START]: (state, action) => (state),
+  [COMMUNITY_REQUEST_SUCCESS]: (state, action) => (action.payload),
+  [COMMUNITY_REQUEST_FAILURE]: (state, action) => (state),
 }, null);
-
-export default communities;

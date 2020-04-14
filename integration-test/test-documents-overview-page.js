@@ -15,7 +15,7 @@ describe('Documents Overview page', function () {
 
     docOverviewPage.firstDocTitle.getText().should.equal('CRID #123456 DOCUMENT CLOUD');
     docOverviewPage.firstDocCRID.getText().should.equal('CR 123456');
-    docOverviewPage.firstDocDocCount.getText().should.equal('0 documents');
+    docOverviewPage.firstDocDocCount.getText().should.equal('1 document');
     docOverviewPage.firstDocSource.getText().should.equal('https://www.documentcloud.org/');
     docOverviewPage.firstDocViews.getText().should.equal('1,000');
     docOverviewPage.firstDocDownloads.getText().should.equal('2,000');
@@ -25,7 +25,7 @@ describe('Documents Overview page', function () {
 
     docOverviewPage.secondDocTitle.getText().should.equal('CRID #123457 COPA');
     docOverviewPage.secondDocCRID.getText().should.equal('CR 123457');
-    docOverviewPage.secondDocDocCount.getText().should.equal('1 document');
+    docOverviewPage.secondDocDocCount.getText().should.equal('2 documents');
     docOverviewPage.secondDocSource.getText().should.equal('https://www.chicagocopa.org/');
     docOverviewPage.secondDocViews.getText().should.equal('2,000');
     docOverviewPage.secondDocDownloads.getText().should.equal('1,000');

@@ -29,7 +29,7 @@ export default class HeatMap extends Component {
 
   render() {
     const { selectedId } = this.state;
-    const { communities, communityGeoJSON, clusterGeoJson } = this.props;
+    const { communities, communityGeoJSON, clusterGeoJson, heatMapLoaded } = this.props;
 
     return (
       <div style={ wrapperStyle }>
@@ -38,6 +38,7 @@ export default class HeatMap extends Component {
           selectCommunity={ this.setSelectedCommunity }
           communityId={ selectedId }
           clusterSource={ clusterGeoJson }
+          heatMapLoaded={ heatMapLoaded }
         />
         <ResponsiveFluidWidthComponent
           minimumStyle={ minimumStyle }
@@ -61,4 +62,5 @@ HeatMap.propTypes = {
   communities: PropTypes.array,
   communityGeoJSON: PropTypes.object,
   clusterGeoJson: PropTypes.object,
+  heatMapLoaded: PropTypes.func,
 };

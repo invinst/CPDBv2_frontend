@@ -78,3 +78,23 @@ export const setupPinboardEnabled = (value) => {
 export const restorePinboardEnabled = () => {
   browser.removeLocalStorage('PINBOARD_ENABLED');
 };
+
+export const dismissPinButtonIntroduction = () => {
+  browser.setLocalStorage('PIN_BUTTON_INTRODUCTION', '1');
+  browser.refresh();
+};
+
+export const restorePinButtonIntroduction = () => {
+  browser.removeLocalStorage('PIN_BUTTON_INTRODUCTION');
+  browser.refresh();
+};
+
+export const restorePinboardButtonIntroduction = () => {
+  browser.removeLocalStorage('PINBOARD_BUTTON_INTRODUCTION');
+  browser.refresh();
+};
+
+export const restorePinboardIntroduction = () => {
+  browser.removeLocalStorage('PINBOARD_INTRODUCTION');
+  browser.refresh();
+};

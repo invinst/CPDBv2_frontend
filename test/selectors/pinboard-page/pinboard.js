@@ -3,12 +3,15 @@ import {
   hasPendingChangesSelector,
   pinboardItemsSelector,
   pinboardICRIDsSelector,
+  isEmptyPinboardWithRemovingItemSelector,
   isEmptyPinboardSelector,
   examplePinboardsSelector,
   isItemPinned,
   pinboardPageLoadingSelector,
   pinboardPinnedItemsTransform,
   pinboardPinnedItemsMapping,
+  pinboardFeatureUsedSelector,
+  pinboardUrlSelector,
 } from 'selectors/pinboard-page/pinboard';
 import { PINNED_ITEM_TYPES } from 'utils/constants';
 import PinboardFactory from 'utils/test/factories/pinboard';
@@ -187,6 +190,83 @@ describe('Pinboard selectors', function () {
       };
 
       pinboardICRIDsSelector(state).should.eql(['abc', 'def']);
+    });
+  });
+
+  describe('isEmptyPinboardWithRemovingItemSelector', function () {
+    it('should return false if there is some crid', function () {
+      const state = {
+        pinboardPage: {
+          pinboard: PinboardFactory.build({
+            'officer_ids': [],
+            crids: ['abc'],
+            'trr_ids': [],
+          }),
+        },
+      };
+
+      isEmptyPinboardWithRemovingItemSelector(state).should.be.false();
+    });
+
+    it('should return false if there is some officer id', function () {
+      const state = {
+        pinboardPage: {
+          pinboard: PinboardFactory.build({
+            'officer_ids': [1],
+            crids: [],
+            'trr_ids': [],
+          }),
+        },
+      };
+
+      isEmptyPinboardWithRemovingItemSelector(state).should.be.false();
+    });
+
+    it('should return false if there is some trr id', function () {
+      const state = {
+        pinboardPage: {
+          pinboard: PinboardFactory.build({
+            'officer_ids': [],
+            crids: [],
+            'trr_ids': [1],
+          }),
+        },
+      };
+
+      isEmptyPinboardWithRemovingItemSelector(state).should.be.false();
+    });
+
+    it('should return true if there is no trr, cr or officer', function () {
+      const state = {
+        pinboardPage: {
+          pinboard: PinboardFactory.build({
+            'officer_ids': [],
+            crids: [],
+            'trr_ids': [],
+          }),
+        },
+      };
+
+      isEmptyPinboardWithRemovingItemSelector(state).should.be.true();
+    });
+
+    describe('has removing items', function () {
+      it('should return false if there is no trr, cr or officer', function () {
+        const state = {
+          pinboardPage: {
+            pinboard: PinboardFactory.build({
+              'officer_ids': [],
+              crids: [],
+              'trr_ids': [],
+            }),
+            officerItems: {
+              removingItems: [123],
+            },
+          },
+        };
+
+        isEmptyPinboardWithRemovingItemSelector(state).should.be.false();
+      });
     });
   });
 
@@ -418,6 +498,98 @@ describe('Pinboard selectors', function () {
       [PINNED_ITEM_TYPES.OFFICER]: ['1', '2', '3'],
       [PINNED_ITEM_TYPES.CR]: ['4', '5', '6'],
       [PINNED_ITEM_TYPES.TRR]: ['12', '45', '98'],
+    });
+  });
+
+  describe('pinboardFeatureUsedSelector', function () {
+    context('isPinboardRestored is false', function () {
+      context('PinnedItems.length = 0', function () {
+        it('shoud return false', function () {
+          const state = {
+            pinboardPage: {
+              pinboard: PinboardFactory.build({
+                id: '1234fds',
+                'officer_ids': [],
+                crids: [],
+                'trr_ids': [],
+                isPinboardRestored: false,
+              }),
+            },
+          };
+          pinboardFeatureUsedSelector(state).should.be.false();
+        });
+      });
+    });
+
+    context('isPinboardRestored is true', function () {
+      let state;
+      beforeEach(function () {
+        state = {
+          pinboardPage: {
+            pinboard: PinboardFactory.build({
+              id: '12379',
+              'officer_ids': [],
+              crids: [],
+              'trr_ids': [],
+              isPinboardRestored: true,
+            }),
+          },
+        };
+      });
+
+      context('PinnedItems.length > 0', function () {
+        it('should return true', function () {
+          state.pinboardPage.pinboard.crids = ['123'];
+          pinboardFeatureUsedSelector(state).should.be.true();
+        });
+      });
+      context('PinnedItems.length = 0', function () {
+        it('should return false', function () {
+          pinboardFeatureUsedSelector(state).should.be.false();
+        });
+      });
+    });
+  });
+
+  describe('pinboardUrlSelector', function () {
+    context('pinboard title is not empty', function () {
+      it('should return correct url', function () {
+        const state = {
+          pinboardPage: {
+            pinboard: PinboardFactory.build({
+              id: 1,
+              title: 'Pinboard Title',
+              'officer_ids': [12],
+              crids: ['abc'],
+              'trr_ids': [1],
+              description: 'Description',
+              isPinboardRestored: false,
+              hasPendingChanges: false,
+            }),
+          },
+        };
+        pinboardUrlSelector(state).should.equal('/pinboard/1/pinboard-title/');
+      });
+    });
+
+    context('pinboard title is empty', function () {
+      it('should return correct url', function () {
+        const state = {
+          pinboardPage: {
+            pinboard: PinboardFactory.build({
+              id: 1,
+              title: '',
+              'officer_ids': [12],
+              crids: ['abc'],
+              'trr_ids': [1],
+              description: 'Description',
+              isPinboardRestored: false,
+              hasPendingChanges: false,
+            }),
+          },
+        };
+        pinboardUrlSelector(state).should.equal('/pinboard/1/untitled-pinboard/');
+      });
     });
   });
 });

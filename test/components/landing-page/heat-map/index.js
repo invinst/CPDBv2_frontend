@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { Provider } from 'react-redux';
-import { stub } from 'sinon';
+import { spy, stub } from 'sinon';
 import MockStore from 'redux-mock-store';
 import { MemoryRouter } from 'react-router-dom';
 
@@ -22,15 +22,18 @@ describe('HeatMap component', function () {
   });
 
   it('should render CommunityMap and SummaryPanel', function () {
+    const heatMapLoadedSpy = spy();
     const wrapper = mount(
       <Provider store={ store }>
         <MemoryRouter>
-          <HeatMap/>
+          <HeatMap heatMapLoaded={ heatMapLoadedSpy }/>
         </MemoryRouter>
       </Provider>
     );
     wrapper.find(SummaryPanel).exists().should.be.true();
-    wrapper.find(CommunityMap).exists().should.be.true();
+    const communityMap = wrapper.find(CommunityMap);
+    communityMap.exists().should.be.true();
+    communityMap.prop('heatMapLoaded').should.equal(heatMapLoadedSpy);
   });
 
   it('should set community id and send analytic event when selectCommunity triggers', function () {
