@@ -2,7 +2,9 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { noop, every, isEmpty } from 'lodash';
 
+import { setPinboardIntroductionVisited } from 'utils/pinboard';
 import styles from './with-pinnable.sass';
+
 
 export default function withPinnable(WrappedComponent) {
   class _Base extends Component {
@@ -13,6 +15,7 @@ export default function withPinnable(WrappedComponent) {
       const { addOrRemoveItemInPinboard, items, item } = this.props;
       const addOrRemoveItems = isEmpty(items) ? [item] : items;
       const allIsPinned = every(addOrRemoveItems, item => item.isPinned);
+      setPinboardIntroductionVisited();
 
       addOrRemoveItems.forEach(addOrRemoveItem => {
         if (addOrRemoveItem.isPinned === allIsPinned)

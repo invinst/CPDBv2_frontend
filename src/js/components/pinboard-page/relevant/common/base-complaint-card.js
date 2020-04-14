@@ -65,7 +65,7 @@ export default class BaseComplaintCard extends Component {
             </div>
           </div>
         </div>
-        { pinned || <PlusButton darkMode={ true } onClick={ this.handleClick } /> }
+        { pinned || <PlusButton onClick={ this.handleClick } /> }
       </div>
     );
   }

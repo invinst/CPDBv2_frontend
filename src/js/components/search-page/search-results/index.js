@@ -15,6 +15,7 @@ import PinboardButtonContainer from 'containers/search-page/pinboard-button-cont
 import ScrollIntoView from 'components/common/scroll-into-view';
 import style from './search-results.sass';
 import * as tracking from 'utils/tracking';
+import PinboardIntroductionContainer from 'containers/search-page/pinboard/pinboard-introduction-container';
 
 
 const previewPaneIdFieldMapping = {
@@ -98,6 +99,7 @@ export default class SearchResults extends Component {
       nextParams,
       setSearchNavigation,
       addOrRemoveItemInPinboard,
+      pinboardUrl,
     } = this.props;
 
     if (isEmpty) {
@@ -123,6 +125,7 @@ export default class SearchResults extends Component {
         searchText={ searchText }
         nextParams={ nextParams }
         singleContent={ singleContent }
+        pinboardUrl={ pinboardUrl }
         addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }/>
     ));
   }
@@ -195,6 +198,7 @@ export default class SearchResults extends Component {
                 Loading...
               </div> :
               <div className='result-wrapper'>
+                <PinboardIntroductionContainer />
                 { this.renderContent() }
               </div>
           }
@@ -230,6 +234,7 @@ SearchResults.propTypes = {
   tags: PropTypes.array,
   contentType: PropTypes.string,
   onEmptyPinboardButtonClick: PropTypes.func,
+  pinboardUrl: PropTypes.string,
 };
 
 SearchResults.defaultProps = {

@@ -4,7 +4,6 @@ import Page from './page';
 import Section from './sections/section';
 import { Header } from './sections/header';
 import Footer from './sections/footer';
-import RichTextToolbar from './sections/rich-text-toolbar';
 
 
 class CitySummary extends Section {
@@ -58,11 +57,10 @@ class HeatMapSection extends Section {
 class EmbeddableHeatMapPage extends Page {
   header = new Header();
   footer = new Footer();
-  richTextToolbar = new RichTextToolbar();
   heatMapSection = new HeatMapSection();
 
   open() {
-    super.open('/');
+    super.open('/embed/map');
   }
 }
 

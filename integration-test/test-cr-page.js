@@ -165,7 +165,8 @@ describe('CR page', function () {
       crPage.landingPageBreadCrumb.click();
       landingPage.searchSection.mainElement.waitForDisplayed();
       landingPage.searchSection.mainElement.click();
-      searchPage.pinboardButton.waitForText('Pinboard (0)');
+      searchPage.input.waitForDisplayed();
+      searchPage.pinboardButton.waitForDisplayed(500, true);
     });
 
     it('should display toast when pinning a related complaint', function () {
@@ -193,7 +194,8 @@ describe('CR page', function () {
       crPage.landingPageBreadCrumb.click();
       landingPage.searchSection.mainElement.waitForDisplayed();
       landingPage.searchSection.mainElement.click();
-      searchPage.pinboardButton.waitForText('Pinboard (0)');
+      searchPage.input.waitForDisplayed();
+      searchPage.pinboardButton.waitForDisplayed(500, true);
     });
 
     context('current complaint', function () {
@@ -239,7 +241,8 @@ describe('CR page', function () {
           crPage.landingPageBreadCrumb.click();
           landingPage.searchSection.mainElement.waitForDisplayed();
           landingPage.searchSection.mainElement.click();
-          searchPage.pinboardButton.waitForText('Pinboard (0)');
+          searchPage.input.waitForDisplayed();
+          searchPage.pinboardButton.waitForDisplayed(500, true);
         });
       });
 

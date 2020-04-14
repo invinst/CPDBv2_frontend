@@ -15,6 +15,7 @@ import {
 } from 'selectors/search-page/search-results/recent-suggestions';
 import { addOrRemoveItemInPinboard } from 'actions/pinboard';
 import { saveToRecent, fetchRecentSearchItems, fetchedEmptyRecentSearchItems } from 'actions/search-page';
+import { isEmptyPinboardSelector, pinboardUrlSelector } from 'selectors/pinboard-page/pinboard';
 
 
 function mapStateToProps(state, ownProps) {
@@ -26,6 +27,8 @@ function mapStateToProps(state, ownProps) {
     navigationKeys: navigationKeySelector(state),
     recentSuggestionIds: recentSuggestionIdsSelector(state),
     recentSuggestionsRequested: getRecentSuggestionsRequested(state),
+    isEmptyPinboard: isEmptyPinboardSelector(state),
+    pinboardUrl: pinboardUrlSelector(state),
   };
 }
 

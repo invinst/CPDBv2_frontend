@@ -7,10 +7,16 @@ import RecentSuggestion from 'components/search-page/search-results/recent-sugge
 
 
 describe('RecentSuggestion component', function () {
-  it('should render SuggestionItem', function () {
+  it('should render correctly', function () {
+    const suggestions = OfficerSuggestion.buildList(3);
+    const pinboardUrl = '/pinboard/12f453/untitled-title';
     const wrapper = shallow(
-      <RecentSuggestion recentSuggestions={ OfficerSuggestion.buildList(3) }/>
+      <RecentSuggestion pinboardUrl={ pinboardUrl } recentSuggestions={ suggestions }/>
     );
-    wrapper.find(SuggestionItem).should.have.length(3);
+    const suggestionItems = wrapper.find(SuggestionItem);
+    suggestionItems.should.have.length(3);
+    suggestionItems.at(0).prop('pinboardUrl').should.equal(pinboardUrl);
+    suggestionItems.at(1).prop('pinboardUrl').should.equal(pinboardUrl);
+    suggestionItems.at(2).prop('pinboardUrl').should.equal(pinboardUrl);
   });
 });

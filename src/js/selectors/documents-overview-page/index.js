@@ -9,6 +9,7 @@ const getTrackerDocuments = state => state.documentsOverviewPage.documents.data;
 const getPagination = state => state.documentsOverviewPage.pagination;
 export const getDocumentsOrder = state => state.documentsOverviewPage.documentsOrder.data;
 export const getMatchParamater = state => state.documentsOverviewPage.documents.match;
+export const isDocumentsRequesting = state => state.documentsOverviewPage.isRequesting;
 
 export const documentsSelector = createSelector(
   getTrackerDocuments,
@@ -36,7 +37,7 @@ export const documentsSelector = createSelector(
         date: date.format('MMM DD'),
         viewsCount: doc['views_count'],
         downloadsCount: doc['downloads_count'],
-        documentsCount: parseInt(doc['documents_count']) - 1,
+        documentsCount: parseInt(doc['documents_count']),
         crid: doc['crid'],
         fileType: doc['file_type'],
         url: doc['url'],

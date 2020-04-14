@@ -153,7 +153,7 @@ export function showAddOrRemoveItemToast(store, payload) {
 
   const state = store.getState();
   const pinboard = state.pinboardPage.pinboard;
-  const url = generatePinboardUrl(pinboard) || '/pinboard/';
+  const url = generatePinboardUrl(pinboard, true);
   const toasts = getToasts(state);
   const toastTemplate = getToastTemplate(toasts, type);
   const toastMessage = buildToastMessage(toastTemplate, payload);

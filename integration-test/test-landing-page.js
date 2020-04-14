@@ -6,7 +6,10 @@ import { times } from 'lodash';
 import landingPage from './page-objects/landing-page';
 import searchPage from './page-objects/search-page';
 import header from './page-objects/shareable-header';
+import searchTermsPage from './page-objects/search-terms-page';
 import pinboardPage from './page-objects/pinboard-page';
+import { restorePinboardButtonIntroduction } from './utils';
+import { INTRODUCTION_DISPLAY_TIMEOUT } from './utils/constants';
 
 
 should.config.checkProtoEql = false;
@@ -311,10 +314,10 @@ describe('landing page', function () {
       navBar.searchBox.searchMagnifyingGlassPath.getAttribute('fill').should.eql('#005EF4');
       navBar.searchBox.searchText.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
       navBar.searchBox.searchTerm.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
-      navBar.rightLinks.data.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
-      navBar.rightLinks.qa.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
-      navBar.rightLinks.documents.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
-      navBar.rightLinks.pinboard.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.headerLinks.data.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.headerLinks.qa.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.headerLinks.documents.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.headerLinks.pinboard.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
     });
 
     it('should render correctly at the middle of the page', function () {
@@ -331,10 +334,10 @@ describe('landing page', function () {
       navBar.searchBox.searchMagnifyingGlassPath.getAttribute('fill').should.eql('#767676');
       navBar.searchBox.searchText.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
       navBar.searchBox.searchTerm.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
-      navBar.rightLinks.data.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
-      navBar.rightLinks.qa.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
-      navBar.rightLinks.documents.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
-      navBar.rightLinks.pinboard.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
+      navBar.headerLinks.data.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
+      navBar.headerLinks.qa.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
+      navBar.headerLinks.documents.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
+      navBar.headerLinks.pinboard.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
     });
 
     it('should render correctly at the bottom of the page', function () {
@@ -350,16 +353,16 @@ describe('landing page', function () {
       navBar.searchBox.searchMagnifyingGlassPath.getAttribute('fill').should.eql('#005EF4');
       navBar.searchBox.searchText.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
       navBar.searchBox.searchTerm.getCSSProperty('color').value.should.eql('rgba(118,118,118,1)');
-      navBar.rightLinks.data.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
-      navBar.rightLinks.qa.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
-      navBar.rightLinks.documents.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
-      navBar.rightLinks.pinboard.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.headerLinks.data.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.headerLinks.qa.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.headerLinks.documents.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
+      navBar.headerLinks.pinboard.getCSSProperty('color').value.should.eql('rgba(0,94,244,1)');
     });
 
     it('should go to pinboard page when clicking on pinboard tag', function () {
       const navBar = landingPage.header.navBar;
       navBar.mainElement.waitForDisplayed();
-      navBar.rightLinks.pinboard.click();
+      navBar.headerLinks.pinboard.click();
       pinboardPage.emptyPinboardSection.mainElement.waitForDisplayed();
       browser.getUrl().should.endWith('/pinboard/abcd1234/untitled-pinboard/');
     });
@@ -399,7 +402,8 @@ describe('landing page', function () {
 
       //Go to Search Page and check for pinboard item counts
       landingPage.searchSection.mainElement.click();
-      searchPage.pinboardButton.waitForText('Pinboard (0)');
+      searchTermsPage.bottomLinks.backToFrontPageLink.waitForDisplayed();
+      searchPage.pinboardButton.waitForDisplayed(500, true);
       searchPage.backButton.click();
     };
 
@@ -494,7 +498,45 @@ describe('landing page', function () {
       );
 
       landingPage.searchSection.mainElement.click();
-      searchPage.pinboardButton.waitForText('Pinboard (0)');
+      searchPage.input.waitForDisplayed();
+      searchPage.pinboardButton.waitForDisplayed(500, true);
+    });
+  });
+
+  describe('Pinboard Introduction', function () {
+    beforeEach(function () {
+      restorePinboardButtonIntroduction();
+      landingPage.header.content.waitForDisplayed();
+    });
+
+    it('should display Pinboard introduction on first visited', function () {
+      landingPage.pinboardIntroduction.body.waitForDisplayed();
+    });
+
+    it('should not display Pinboard introduction after click dismiss', function () {
+      landingPage.pinboardIntroduction.body.waitForDisplayed();
+      landingPage.pinboardIntroduction.dismissButton.click();
+      landingPage.pinboardIntroduction.body.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT, true);
+      browser.refresh();
+      landingPage.header.content.waitForDisplayed();
+      landingPage.pinboardIntroduction.body.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT, true);
+    });
+
+    it('should not display Pinboard introduction after click try it', function () {
+      landingPage.pinboardIntroduction.body.waitForDisplayed();
+      landingPage.pinboardIntroduction.tryItButton.click();
+      browser.waitForUrl(url => url.should.match(/\/pinboard\/.*/), 2000);
+      pinboardPage.headerTitle.click();
+      landingPage.header.content.waitForDisplayed();
+      landingPage.pinboardIntroduction.body.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT, true);
+    });
+
+    it('should not display Pinboard introduction after click Pinboard button', function () {
+      landingPage.pinboardIntroduction.pinboardButton.click();
+      browser.waitForUrl(url => url.should.match(/\/pinboard\/.*/), 2000);
+      pinboardPage.headerTitle.click();
+      landingPage.header.content.waitForDisplayed();
+      landingPage.pinboardIntroduction.body.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT, true);
     });
   });
 });

@@ -1,22 +1,86 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Component } from 'react';
 import cx from 'classnames';
 import { every, isEmpty } from 'lodash';
 
 import withPinnable from 'components/common/with-pinnable';
 import styles from 'components/common/item-pin-button.sass';
+import { isPinButtonIntroductionVisited, setPinButtonIntroductionVisited } from 'utils/pinboard';
+import { PINBOARD_INTRODUCTION_DELAY, DEFAULT_PINBOARD_PATH } from 'utils/constants';
+import browserHistory from 'utils/history';
 
 
-function ItemPinButton(props) {
-  const { className, showHint, item, items } = props;
-  const isPinned = every(isEmpty(items) ? [item] : items, item => item.isPinned);
+class ItemPinButton extends Component {
+  state = { displayIntroduction: false };
 
-  return (
-    <div className={ cx('pinboard-feature', styles.itemPinButton, { 'is-pinned': isPinned }, className) }>
-      <div className='pin-button' />
-      { showHint && <div className='pin-action-hint'> Unpin? </div> }
-    </div>
-  );
+  componentDidMount() {
+    if (this.shouldShowIntroduction()) {
+      this.displayIntroductionTimeout = setTimeout (() => {
+        this.addEventClickOutside();
+        this.setState({ displayIntroduction: true });
+        this.displayIntroductionTimeout = null;
+      }, PINBOARD_INTRODUCTION_DELAY);
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.shouldShowIntroduction()) {
+      this.removeEventClickOutside();
+    }
+    this.displayIntroductionTimeout && clearTimeout(this.displayIntroductionTimeout);
+  }
+
+  handleClickOutside = ({ target }) => {
+    if (target.closest('.content-wrapper') && !target.closest('.pin-button-introduction')) {
+      setPinButtonIntroductionVisited();
+      this.forceUpdate();
+      this.removeEventClickOutside();
+    }
+  };
+
+  handleClickHint = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const { pinboardUrl } = this.props;
+    browserHistory.push(pinboardUrl);
+  };
+
+  shouldShowIntroduction() {
+    const { showIntroduction } = this.props;
+
+    return showIntroduction && !isPinButtonIntroductionVisited();
+  }
+
+  addEventClickOutside() {
+    window.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  removeEventClickOutside() {
+    window.removeEventListener('mousedown', this.handleClickOutside);
+  }
+
+  render() {
+    const { className, showHint, item, items } = this.props;
+    const { displayIntroduction } = this.state;
+    const isPinned = every(isEmpty(items) ? [item] : items, item => item.isPinned);
+    const shouldShowIntroduction = this.shouldShowIntroduction() && displayIntroduction;
+
+    return (
+      <div className={ cx(
+        'pinboard-feature',
+        styles.itemPinButton,
+        className,
+        { 'is-pinned': isPinned, 'show-introduction': shouldShowIntroduction }
+      ) }>
+        <div className='pin-button' />
+        { showHint && <div className='pin-action-hint' onClick={ this.handleClickHint }> Unpin? </div> }
+        {
+          shouldShowIntroduction &&
+            <div className='pin-button-introduction'>Tap this button to add to your pinboard</div>
+        }
+      </div>
+    );
+  }
 }
 
 ItemPinButton.propTypes = {
@@ -33,10 +97,14 @@ ItemPinButton.propTypes = {
   addOrRemoveItemInPinboard: PropTypes.func,
   className: PropTypes.string,
   showHint: PropTypes.bool,
+  showIntroduction: PropTypes.bool,
+  pinboardUrl: PropTypes.string,
 };
 
 ItemPinButton.defaultProps = {
   showHint: true,
+  showIntroduction: false,
+  pinboardUrl: DEFAULT_PINBOARD_PATH,
 };
 
 export default withPinnable(ItemPinButton);

@@ -2,6 +2,7 @@ import {
   documentsSelector,
   hasMoreSelector,
   nextParamsSelector,
+  isDocumentsRequesting,
 } from 'selectors/documents-overview-page';
 
 import * as constants from 'utils/constants';
@@ -66,7 +67,7 @@ describe('DocumentsOverviewPage selectors', function () {
           viewsCount: 2,
           downloadsCount: 1,
           crid: '1064593',
-          documentsCount: 1,
+          documentsCount: 2,
           fileType: 'document',
           url: 'http://document/link/2',
         },
@@ -85,7 +86,7 @@ describe('DocumentsOverviewPage selectors', function () {
           viewsCount: 1,
           downloadsCount: 1,
           crid: '1051117',
-          documentsCount: 0,
+          documentsCount: 1,
           fileType: 'document',
           url: 'http://document/link/1',
         },
@@ -133,6 +134,13 @@ describe('DocumentsOverviewPage selectors', function () {
         limit: '20',
         offset: '40',
       });
+    });
+  });
+
+  describe('DocumentsOverviewPage isDocumentsRequesting', function () {
+    it('should return correct value', function () {
+      isDocumentsRequesting({ documentsOverviewPage: { isRequesting: false } }).should.be.false();
+      isDocumentsRequesting({ documentsOverviewPage: { isRequesting: true } }).should.be.true();
     });
   });
 });

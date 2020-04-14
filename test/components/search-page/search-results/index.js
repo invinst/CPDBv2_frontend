@@ -13,69 +13,96 @@ import SearchTags from 'components/search-page/search-tags';
 import PinboardButton from 'components/search-page/pinboard/pinboard-button';
 import ScrollIntoView from 'components/common/scroll-into-view';
 import * as tracking from 'utils/tracking';
+import PinboardIntroductionContainer from 'containers/search-page/pinboard/pinboard-introduction-container';
 
 
 describe('SearchResults component', function () {
   const store = MockStore()({
     pinboardPage: {
-      pinboard: null,
+      pinboard: {},
     },
   });
 
-  it('should render Loading when isRequesting', function () {
-    const wrapper = shallow(
-      <SearchResults isRequesting={ true }/>
-    );
-    wrapper.text().should.containEql('Loading...');
+  context('isRequesting', function () {
+    it('should render Loading', function () {
+      const wrapper = shallow(
+        <SearchResults isRequesting={ true }/>
+      );
+      wrapper.text().should.containEql('Loading...');
+    });
+
+    it('should not render PinboardIntroduction', function () {
+      const wrapper = shallow(
+        <SearchResults isRequesting={ true }/>
+      );
+      wrapper.find('PinboardIntroduction').exists().should.be.false();
+    });
   });
 
-  it('should render SearchNoResult component when isEmpty', function () {
-    const wrapper = shallow(
-      <SearchResults isEmpty={ true }/>
-    );
 
-    wrapper.find(SearchNoResult).exists().should.be.true();
-  });
+  context('isRequesting is false', function () {
+    it('should render SearchNoResult component when isEmpty', function () {
+      const wrapper = shallow(
+        <SearchResults isEmpty={ true }/>
+      );
 
-  it('should render suggestionGroup components when data is available', function () {
-    const suggestionGroups = [{ header: '1' }, { header: '2' }];
-    const wrapper = shallow(
-      <SearchResults isEmpty={ false } suggestionGroups={ suggestionGroups }/>
-    );
+      wrapper.find(SearchNoResult).exists().should.be.true();
+    });
 
-    const renderedGroups = wrapper.find(SuggestionGroup);
-    renderedGroups.should.have.length(2);
-    renderedGroups.at(0).prop('header').should.equal('1');
-    renderedGroups.at(1).prop('header').should.equal('2');
-  });
+    it('should render suggestionGroup components when data is available', function () {
+      const suggestionGroups = [{ header: '1' }, { header: '2' }];
+      const pinboardUrl = '/pinboard/12f453/untitled-title';
+      const wrapper = shallow(
+        <SearchResults isEmpty={ false } pinboardUrl={ pinboardUrl } suggestionGroups={ suggestionGroups }/>
+      );
 
-  it('should render SearchTags component', function () {
-    const onSelect = spy();
+      const renderedGroups = wrapper.find(SuggestionGroup);
+      renderedGroups.should.have.length(2);
+      renderedGroups.at(0).prop('header').should.equal('1');
+      renderedGroups.at(0).prop('pinboardUrl').should.equal(pinboardUrl);
+      renderedGroups.at(1).prop('header').should.equal('2');
+      renderedGroups.at(1).prop('pinboardUrl').should.equal(pinboardUrl);
+    });
 
-    const wrapper = shallow(
-      <SearchResults
-        tags={ [] }
-        onSelect={ onSelect }
-        contentType='community'
-        isRequesting={ false }
-      />
-    );
+    it('should render SearchTags component', function () {
+      const onSelect = spy();
 
-    const searchTags = wrapper.find(SearchTags);
-    searchTags.prop('tags').should.eql([]);
-    searchTags.prop('onSelect').should.eql(onSelect);
-    searchTags.prop('selected').should.equal('community');
-    searchTags.prop('isRequesting').should.eql(false);
-  });
+      const wrapper = shallow(
+        <SearchResults
+          tags={ [] }
+          onSelect={ onSelect }
+          contentType='community'
+          isRequesting={ false }
+        />
+      );
 
-  it('should render PinboardButton component', function () {
-    const wrapper = mount(
-      <Provider store={ store }>
-        <SearchResults />
-      </Provider>
-    );
+      const searchTags = wrapper.find(SearchTags);
+      searchTags.prop('tags').should.eql([]);
+      searchTags.prop('onSelect').should.eql(onSelect);
+      searchTags.prop('selected').should.equal('community');
+      searchTags.prop('isRequesting').should.eql(false);
+    });
 
-    wrapper.find(PinboardButton).exists().should.be.true();
+    it('should render PinboardButton component', function () {
+      const wrapper = mount(
+        <Provider store={ store }>
+          <SearchResults />
+        </Provider>
+      );
+
+      wrapper.find(PinboardButton).exists().should.be.true();
+    });
+
+    it('should render PinboardIntroduction', function () {
+      const wrapper = shallow(
+        <SearchResults
+          tags={ [] }
+          contentType='community'
+          isRequesting={ false }
+        />
+      );
+      wrapper.find(PinboardIntroductionContainer).exists().should.be.true();
+    });
   });
 
   context('in edit mode', function () {

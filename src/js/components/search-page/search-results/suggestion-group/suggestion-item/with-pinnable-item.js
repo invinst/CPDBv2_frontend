@@ -80,19 +80,31 @@ export default function withPinnableItem(
     };
 
     renderContent() {
-      const { isFocused, suggestion, addOrRemoveItemInPinboard, showPinButtonArea } = this.props;
+      const {
+        isFocused,
+        suggestion,
+        addOrRemoveItemInPinboard,
+        showPinButtonArea,
+        showIntroduction,
+        pinboardUrl,
+      } = this.props;
 
       return (
         <div className={ styles.innerWrapper }>
           <JumpyMotion isActive={ isFocused }>
             {
-              isPinnable && <ItemPinButton
-                className={ styles.itemPinButton }
-                addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
-                item={ suggestion }
-              />
+              isPinnable ?
+                <ItemPinButton
+                  className={ styles.itemPinButton }
+                  showIntroduction={ showIntroduction }
+                  addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
+                  item={ suggestion }
+                  pinboardUrl={ pinboardUrl }
+                />
+                :
+                showPinButtonArea && <div className='empty-pin-button-area pinboard-feature' />
             }
-            <div className={ cx(styles.twoRowsWrapper, { 'show-pin-button-area': !isPinnable && showPinButtonArea }) }>
+            <div className={ styles.twoRowsWrapper }>
               { this.renderFirstRow() }
               { this.renderSecondRow() }
             </div>
@@ -125,6 +137,7 @@ export default function withPinnableItem(
 
   _Base.propTypes = {
     isFocused: PropTypes.bool,
+    showIntroduction: PropTypes.bool,
     suggestion: PropTypes.object,
     addOrRemoveItemInPinboard: PropTypes.func,
     aliasEditModeOn: PropTypes.bool,
@@ -132,6 +145,7 @@ export default function withPinnableItem(
     selectItem: PropTypes.func,
     clickItem: PropTypes.func,
     showPinButtonArea: PropTypes.bool,
+    pinboardUrl: PropTypes.string,
   };
 
   return _Base;

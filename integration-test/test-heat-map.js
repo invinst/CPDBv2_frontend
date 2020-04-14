@@ -39,6 +39,8 @@ describe('Heat map', function () {
 
     it('should go to v1 datatool when click on allegation count', function () {
       const v2Url = browser.getUrl();
+      landingPage.pinboardIntroduction.body.waitForDisplayed();
+      landingPage.pinboardIntroduction.dismissButton.click();
       landingPage.heatMapSection.citySummary.allegationDiscipline.click();
       browser.switchWindow('cpdb');
       browser.getUrl().should.not.equal(v2Url);
@@ -49,6 +51,10 @@ describe('Heat map', function () {
     context('dropdown revealed', function () {
       beforeEach(function () {
         landingPage.heatMapSection.dropdownPlaceholder.waitForDisplayed();
+        if ($$(landingPage.pinboardIntroduction.body.selector).length > 0) {
+          landingPage.pinboardIntroduction.dismissButton.click();
+          landingPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
+        }
         landingPage.heatMapSection.dropdownPlaceholder.click();
         landingPage.heatMapSection.dropdown.dropdownItems.waitForDisplayed();
         landingPage.heatMapSection.dropdownPlaceholder.waitForDisplayed(1000, true);
@@ -89,6 +95,10 @@ describe('Heat map', function () {
 
       context('community selected', function () {
         beforeEach(function () {
+          if ($$(landingPage.pinboardIntroduction.body.selector).length > 0) {
+            landingPage.pinboardIntroduction.dismissButton.click();
+            landingPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
+          }
           $$(landingPage.heatMapSection.dropdown.dropdownItems.selector)[0].click();
           landingPage.heatMapSection.dropdown.dropdownItems.waitForDisplayed(20000, true);
           landingPage.heatMapSection.communityDetail.allegationDiscipline.waitForDisplayed();

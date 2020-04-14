@@ -13,12 +13,13 @@ import CategoryColumn from 'components/search-page/search-terms/category-column'
 import * as IntercomTracking from 'utils/intercom-tracking';
 import RecentSuggestion from 'components/search-page/search-results/recent-suggestion';
 import PinboardBar from 'components/search-page/pinboard/pinboard-bar';
+import PinboardIntroductionContainer from 'containers/search-page/pinboard/pinboard-introduction-container';
 
 
 describe('SearchTerms component', function () {
   const store = MockStore()({
     pinboardPage: {
-      pinboard: null,
+      pinboard: {},
     },
   });
 
@@ -114,12 +115,12 @@ describe('SearchTerms component', function () {
     categoryColumn.exists().should.be.true();
   });
 
-  it('should render PinboardBar', function () {
+  it('should render PinboardIntroduction', function () {
     const wrapper = shallow(
       <SearchTerms />
     );
 
-    wrapper.find(PinboardBar).exists().should.be.true();
+    wrapper.find(PinboardIntroductionContainer).exists().should.be.true();
   });
 
   it('should render ResponsiveFluidWidthComponent with correct props', function () {
@@ -190,13 +191,15 @@ describe('SearchTerms component', function () {
         text: 'Mark Farmer',
         to: '/officer/8257/mark-farmer/',
       }];
+      const pinboardUrl = '/pinboard/12f453/untitled-title';
 
       const wrapper = shallow(
-        <SearchTerms recentSuggestions={ recentSuggestions }/>
+        <SearchTerms pinboardUrl={ pinboardUrl } recentSuggestions={ recentSuggestions }/>
       );
 
       const recentSuggestionsComp = wrapper.find(RecentSuggestion);
       recentSuggestionsComp.prop('recentSuggestions').should.eql(recentSuggestions);
+      recentSuggestionsComp.prop('pinboardUrl').should.equal(pinboardUrl);
     });
 
     it('should not render RecentSuggestion component if recentSuggestions is null', function () {
@@ -222,6 +225,23 @@ describe('SearchTerms component', function () {
         </Provider>
       );
       IntercomTracking.trackSearchTerms.should.be.called();
+    });
+  });
+
+  context('isEmptyPinboard is true', function () {
+    it('should render PinboardBar', function () {
+      const wrapper = shallow(
+        <SearchTerms isEmptyPinboard={ true } />
+      );
+      wrapper.find(PinboardBar).exists().should.be.false();
+    });
+  });
+  context('isEmptyPinboard is false', function () {
+    it('should not render PinboardBar', function () {
+      const wrapper = shallow(
+        <SearchTerms isEmptyPinboard={ false } />
+      );
+      wrapper.find(PinboardBar).exists().should.be.true();
     });
   });
 });
