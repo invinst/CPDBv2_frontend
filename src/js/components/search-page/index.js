@@ -76,7 +76,9 @@ export default class SearchPage extends Component {
 
   sendSearchQuery(query) {
     if (query) {
+      const { resetSearchResultNavigation } = this.props;
       this.getSuggestion(query, { limit: DEFAULT_SUGGESTION_LIMIT });
+      resetSearchResultNavigation();
     }
   }
 

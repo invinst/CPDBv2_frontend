@@ -488,18 +488,16 @@ describe('Search Page', function () {
       clickOnSearchResultItem(searchPage.firstInvestigatorCrResult, 'CR # CR123456 • April 23, 2004');
 
       backToSearch();
+      clearSearchInput();
       performSearch('2004/04/23');
       clickOnSearchResultItem(searchPage.secondDateCrResult, 'CR # CR456 • April 23, 2004');
-
       backToSearch();
-      performSearch('2004/04/23');
       clickOnSearchResultItem(searchPage.secondDateTrrResult, 'Physical Force - Holding');
-
       backToSearch();
-      performSearch('2004/04/23');
       clickOnSearchResultItem(searchPage.firstDateOfficerResult, 'Jerome Finnigan');
 
       backToSearch();
+      clearSearchInput();
       performSearch('Ke');
       clickOnSearchResultItem(searchPage.firstNeighborhoodResult, 'Kenwood');
 
@@ -511,16 +509,13 @@ describe('Search Page', function () {
       clearSearchInput();
       performSearch('Ke');
       clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly', true);
-
       backToSearch();
-      performSearch('Ke');
       clickOnSearchResultItem(searchPage.firstCrResult, 'CR # CR123 • April 23, 2004');
-
       backToSearch();
-      performSearch('Ke');
       clickOnSearchResultItem(searchPage.firstTrrResult, 'Member Presence');
 
       backToSearch();
+      clearSearchInput();
 
       const expectedRecentSuggestions = [
         'Member Presence\nTRR # 123 - April 27, 2004',
@@ -616,8 +611,8 @@ describe('Search Page', function () {
       browser.keys('ArrowDown');
       browser.keys('Enter');
 
-      searchPage.searchBreadcrumb.waitForDisplayed();
-      searchPage.searchBreadcrumb.click();
+      backToSearch();
+      clearSearchInput();
 
       searchPage.recentSuggestions.waitForDisplayed();
       searchPage.recentSuggestionItem(1).getText().should.equal(
@@ -694,8 +689,7 @@ describe('Search Page', function () {
     browser.keys('Enter');
     searchPage.currentBasePath.should.equal('/officer/2/john-kelly/');
 
-    searchPage.searchBreadcrumb.waitForDisplayed();
-    searchPage.searchBreadcrumb.click();
+    backToSearch();
     searchPage.backButton.waitForDisplayed();
     searchPage.backButton.click();
     searchPage.backButton.waitForDisplayed(20000, true);
@@ -712,8 +706,7 @@ describe('Search Page', function () {
     browser.keys('Enter');
     searchPage.currentBasePath.should.equal('/officer/2/john-kelly/');
 
-    searchPage.searchBreadcrumb.waitForDisplayed();
-    searchPage.searchBreadcrumb.click();
+    backToSearch();
     searchPage.backButton.waitForDisplayed();
     browser.keys('Escape');
     searchPage.backButton.waitForDisplayed(20000, true);
@@ -798,6 +791,33 @@ describe('Search Page', function () {
     browser.keys('Enter');
 
     searchPage.currentBasePath.should.eql('/officer/1/bernadette-kelly/');
+  });
+
+  it('should keep search results after coming back from other page', function () {
+    searchPage.open();
+    performSearch('Ke');
+    clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly', true);
+
+    backToSearch();
+    searchPage.input.getValue().should.containEql('Ke');
+    searchPage.suggestionGroup.waitForDisplayed();
+    searchPage.suggestionTags.getText().should.containEql('OFFICER');
+    searchPage.suggestionTags.getText().should.containEql('NEIGHBORHOOD');
+    searchPage.firstOfficerResult.waitForDisplayed();
+    searchPage.firstOfficerResult.getText().should.containEql('Bernadette Kelly');
+  });
+
+  it('should clear search results after coming back from landing page', function () {
+    searchPage.open();
+    performSearch('Ke');
+
+    searchPage.backButton.click();
+    landingPage.header.content.waitForDisplayed(1000);
+    landingPage.header.navBar.searchBox.mainElement.waitForExist();
+    landingPage.header.navBar.searchBox.mainElement.click();
+
+    searchPage.input.waitForExist();
+    searchPage.input.getValue().should.equal('');
   });
 
   context('After getting back to landing page', function () {
@@ -1171,13 +1191,12 @@ describe('Search Page with pinboard functionalities', function () {
       clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly', true);
 
       backToSearch();
-      performSearch('Ke');
       clickOnSearchResultItem(searchPage.firstCrResult, 'CR # CR123 • April 23, 2004');
 
       backToSearch();
-      performSearch('Ke');
       clickOnSearchResultItem(searchPage.firstTrrResult, 'Member Presence');
       backToSearch();
+      clearSearchInput();
       searchPage.firstRecentPinButton.click();
       searchPage.firstPinboardHintButton.waitForDisplayed();
       searchPage.firstPinboardHintButton.moveTo();
