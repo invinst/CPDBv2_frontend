@@ -5,7 +5,7 @@
   "main": "index.js",
   "license": "UNLICENSED",
   "engines": {
-    "node": ">=8.16"
+    "node": ">=10.20"
   },
   "scripts": {
     "build": "CPDB_APP_ENV=prod webpack",
