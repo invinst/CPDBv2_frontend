@@ -51,6 +51,8 @@ import { redirect } from 'actions/pinboard-page';
 import { fetchVideoInfo } from 'actions/headers/slim-header';
 import * as pinboardAdminAction from 'actions/pinboard-admin-page';
 import { fetchToast } from 'actions/toast';
+import * as appConfigActions from 'actions/app-config';
+import * as appConfig from 'utils/app-config';
 
 
 const createLocationChangeAction = (pathname) => ({
@@ -567,5 +569,34 @@ describe('fetchPageInitialData middleware', function () {
     dispatched.should.eql(action);
 
     store.dispatch.calledWith(fetchToast()).should.be.true();
+  });
+
+  context('LOCATION_CHANGE', function () {
+    let fetchAppConfigStub;
+    let locationChangeAction;
+    let clock;
+    beforeEach(function () {
+      fetchAppConfigStub = stub(appConfigActions, 'fetchAppConfig');
+      locationChangeAction = createLocationChangeAction('/search');
+      clock = useFakeTimers();
+    });
+
+    context('appConfig is empty', function () {
+      it('should fetch app config', function () {
+        stub(appConfig.default, 'isEmpty').returns(true);
+        fetchPageInitialData(store)(() => {})(locationChangeAction);
+        clock.tick(1000);
+        store.dispatch.calledWith(fetchAppConfigStub()).should.be.true();
+      });
+    });
+
+    context('appConfig is not empty', function () {
+      it('should not fetch app config', function () {
+        stub(appConfig.default, 'isEmpty').returns(false);
+        fetchPageInitialData(store)(() => {})(locationChangeAction);
+        clock.tick(1000);
+        store.dispatch.calledWith(fetchAppConfigStub()).should.be.false();
+      });
+    });
   });
 });

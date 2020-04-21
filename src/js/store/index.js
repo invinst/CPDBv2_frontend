@@ -14,6 +14,7 @@ import updatePathName from 'middleware/path-name';
 import retryOfficerDownloadMiddleware from 'middleware/retry-officer-downloads';
 import restoreCreateOrUpdatePinboard from 'middleware/restore-create-or-update-pinboard';
 import forceEditModeWhenAuthenticated from 'middleware/force-edit-mode-when-authenticated';
+import updateAppConfig from 'middleware/app-config';
 import config from 'config';
 import browserHistory from 'utils/history';
 import { isPinboardFeatureEnabled } from 'utils/pinboard';
@@ -37,6 +38,7 @@ function configureStore(initialState) {
     updatePathName,
     retryOfficerDownloadMiddleware,
     forceEditModeWhenAuthenticated,
+    updateAppConfig,
   ];
   if (isPinboardFeatureEnabled())
     middleware = [...middleware, restoreCreateOrUpdatePinboard];

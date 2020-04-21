@@ -6,8 +6,9 @@ import { every, isEmpty } from 'lodash';
 import withPinnable from 'components/common/with-pinnable';
 import styles from 'components/common/item-pin-button.sass';
 import { isPinButtonIntroductionVisited, setPinButtonIntroductionVisited } from 'utils/pinboard';
-import { PINBOARD_INTRODUCTION_DELAY, DEFAULT_PINBOARD_PATH } from 'utils/constants';
+import { DEFAULT_PINBOARD_PATH, APP_CONFIG_KEYS } from 'utils/constants';
 import browserHistory from 'utils/history';
+import appConfig from 'utils/app-config';
 
 
 class ItemPinButton extends Component {
@@ -19,7 +20,7 @@ class ItemPinButton extends Component {
         this.addEventClickOutside();
         this.setState({ displayIntroduction: true });
         this.displayIntroductionTimeout = null;
-      }, PINBOARD_INTRODUCTION_DELAY);
+      }, appConfig.get(APP_CONFIG_KEYS.PINBOARD_INTRODUCTION_DELAY));
     }
   }
 
