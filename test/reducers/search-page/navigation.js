@@ -1,7 +1,9 @@
 import navigation from 'reducers/search-page/navigation';
 import {
-  SEARCH_NAVIGATION_DOWN, SEARCH_NAVIGATION_UP, SEARCH_NAVIGATION_RESET,
-  CHANGE_SEARCH_QUERY, SEARCH_NAVIGATION_SET,
+  SEARCH_NAVIGATION_DOWN,
+  SEARCH_NAVIGATION_UP,
+  SEARCH_NAVIGATION_RESET,
+  SEARCH_NAVIGATION_SET,
 } from 'utils/constants';
 
 
@@ -19,15 +21,6 @@ describe('navigation reducer', function () {
         type: SEARCH_NAVIGATION_RESET,
         payload: 3,
       }).should.deepEqual({ 'itemIndex': 3 });
-    });
-  });
-
-  describe('CHANGE_SEARCH_QUERY', function () {
-    it('resets to search box position', function () {
-      navigation({ 'itemIndex': 2 }, {
-        type: CHANGE_SEARCH_QUERY,
-        payload: {},
-      }).should.deepEqual({ 'itemIndex': 1 });
     });
   });
 

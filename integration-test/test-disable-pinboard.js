@@ -141,14 +141,12 @@ describe('Disable pinboard feature', function () {
       performSearch(searchPage, 'Ke');
       clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly', true);
       backToSearch();
-
-      performSearch(searchPage, 'Ke');
       clickOnSearchResultItem(searchPage.firstCrResult, 'CR # CR123 • April 23, 2004');
       backToSearch();
-
-      performSearch(searchPage, 'Ke');
       clickOnSearchResultItem(searchPage.firstTrrResult, 'Member Presence');
       backToSearch();
+
+      searchPage.clearSearchButton.click();
 
       const expectedRecentSuggestions = [
         'Member Presence\nTRR # 123 - April 27, 2004',

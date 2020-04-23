@@ -50,10 +50,11 @@ export default class RouteTransition extends Component {
         prevPageLoading: pageLoading,
       };
     }
-    else if (!pageLoading && prevPageLoading) {
-      scrollToTop();
+    else if (prevPageLoading !== pageLoading) {
+      if (!pageLoading)
+        scrollToTop();
       return {
-        showOverlay: false,
+        showOverlay: pageLoading,
         prevKey: currentKey,
         prevPageLoading: pageLoading,
       };
