@@ -1,6 +1,3 @@
-[![CircleCI](https://circleci.com/gh/EastAgile/CPDBv2_frontend.svg?style=svg&circle-token=cf724b8bf7fdc89e452bd21a3b03c05e466523f9)](https://circleci.com/gh/EastAgile/CPDBv2_frontend)
-[![Coverage Status](https://coveralls.io/repos/github/EastAgile/CPDBv2_frontend/badge.svg?branch=master&t=eHXhqi)](https://coveralls.io/github/EastAgile/CPDBv2_frontend?branch=master)
-
 # CPDB v2 Frontend
 
 ## Table of contents
