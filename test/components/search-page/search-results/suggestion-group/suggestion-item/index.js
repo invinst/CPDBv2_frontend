@@ -13,11 +13,17 @@ import {
 describe('SuggestionItem component', function () {
   describe('shouldComponentUpdate', function () {
     it('should return true if props are changed', function () {
-      const wrapper = shallow(<SuggestionItem suggestion={ { type: 'type', attr: 'value' } }/>);
+      const wrapper = shallow(
+        <SuggestionItem
+          suggestion={ { type: 'type', attr: 'value' } }
+          hide={ true }
+        />
+      );
       const instance = wrapper.instance();
       instance.shouldComponentUpdate({ isFocused: true }).should.be.true();
       instance.shouldComponentUpdate({ aliasEditModeOn: true }).should.be.true();
       instance.shouldComponentUpdate({ suggestion: { type: 'type', attr: 'new value' } }).should.be.true();
+      instance.shouldComponentUpdate({ hide: false }).should.be.true();
     });
 
     it('should return false if props are unchanged', function () {

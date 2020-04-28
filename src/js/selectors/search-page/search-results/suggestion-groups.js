@@ -6,8 +6,9 @@ import { navigationItemTransform, searchResultItemTransform } from 'selectors/co
 import extractQuery from 'utils/extract-query';
 import { dataToolSearchUrl } from 'utils/v1-url';
 import { isItemPinned, pinboardItemsSelector } from 'selectors/pinboard-page/pinboard';
+import { isPinButtonIntroductionVisitedSelector } from 'selectors/pinboard-introduction';
 import { getQuery } from 'selectors/search-page/common';
-import { PINNED_ITEM_TYPES } from 'utils/constants';
+import { PINNED_ITEM_TYPES, PIN_BUTTON_INTRODUCTION_INDEX } from 'utils/constants';
 
 
 const itemsPerCategory = 5;
@@ -95,11 +96,6 @@ export const getPinnedItem = (item, pinboardItems) => {
   };
 };
 
-const getShowIntroduction = (item, index, showIntroduction) => ({
-  ...item,
-  showIntroduction: index === 0 && showIntroduction,
-});
-
 export const isEmptySelector = createSelector(
   slicedSuggestionGroupsSelector,
   suggestionGroups => !suggestionGroups.length
@@ -108,19 +104,24 @@ export const isEmptySelector = createSelector(
 export const searchResultGroupsSelector = createSelector(
   slicedSuggestionGroupsSelector,
   pinboardItemsSelector,
-  (groups, pinboardItems) => {
+  isPinButtonIntroductionVisitedSelector,
+  (groups, pinboardItems, isPinButtonIntroductionVisited) => {
     let hasFirstIntroduction = false;
     return map(groups, ({ header, items, canLoadMore }) => {
-      const showIntroduction = !hasFirstIntroduction && !isUndefined(PINNED_ITEM_TYPES[header]);
+      const showIntroduction = !hasFirstIntroduction
+        && !isUndefined(PINNED_ITEM_TYPES[header])
+        && !isPinButtonIntroductionVisited;
       if (showIntroduction) {
         hasFirstIntroduction = true;
       }
+      const pinButtonIntroductionIndex = Math.min(items.length, PIN_BUTTON_INTRODUCTION_INDEX) - 1;
       return {
         header,
         canLoadMore,
-        items: map(items, (item, index) => (
-          getShowIntroduction(searchResultItemTransform(getPinnedItem(item, pinboardItems)), index, showIntroduction)
-        )),
+        items: map(items, (item, index) => ({
+          ...searchResultItemTransform(getPinnedItem(item, pinboardItems)),
+          showIntroduction: showIntroduction && (index === pinButtonIntroductionIndex),
+        })),
       };
     });
   }

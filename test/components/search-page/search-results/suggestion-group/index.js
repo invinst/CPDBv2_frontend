@@ -14,21 +14,31 @@ describe('SuggestionGroup component', function () {
   it('should render correctly', function () {
     const suggestions = OfficerSuggestion.buildList(3);
     const pinboardUrl = '/pinboard/12f453/untitled-title';
-    suggestions[1] = {
-      ...suggestions[1],
-      showIntroduction: true,
-    };
+    const visitPinButtonIntroduction = spy();
+    suggestions[0].showIntroduction = false;
+    suggestions[1].showIntroduction = false;
+    suggestions[2].showIntroduction = true;
     const wrapper = shallow(
-      <SuggestionGroup pinboardUrl={ pinboardUrl } suggestions={ suggestions }/>
+      <SuggestionGroup
+        pinboardUrl={ pinboardUrl }
+        suggestions={ suggestions }
+        hide={ true }
+        visitPinButtonIntroduction={ visitPinButtonIntroduction }
+      />
     );
     const suggestionItems = wrapper.find(SuggestionItem);
     suggestionItems.should.have.length(3);
-    suggestionItems.at(0).prop('showIntroduction').should.be.false();
+    suggestionItems.at(0).prop('suggestion').should.eql(suggestions[0]);
     suggestionItems.at(0).prop('pinboardUrl').should.equal(pinboardUrl);
-    suggestionItems.at(1).prop('showIntroduction').should.be.true();
+    suggestionItems.at(0).prop('visitPinButtonIntroduction').should.equal(visitPinButtonIntroduction);
+
+    suggestionItems.at(1).prop('suggestion').should.eql(suggestions[1]);
     suggestionItems.at(1).prop('pinboardUrl').should.equal(pinboardUrl);
-    suggestionItems.at(2).prop('showIntroduction').should.be.false();
+    suggestionItems.at(1).prop('visitPinButtonIntroduction').should.equal(visitPinButtonIntroduction);
+
+    suggestionItems.at(2).prop('suggestion').should.eql(suggestions[2]);
     suggestionItems.at(2).prop('pinboardUrl').should.equal(pinboardUrl);
+    suggestionItems.at(2).prop('visitPinButtonIntroduction').should.equal(visitPinButtonIntroduction);
   });
 
   it('should assign correct selectItem', function () {

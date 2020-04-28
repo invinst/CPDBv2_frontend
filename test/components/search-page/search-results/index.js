@@ -13,7 +13,6 @@ import SearchTags from 'components/search-page/search-tags';
 import PinboardButton from 'components/search-page/pinboard/pinboard-button';
 import ScrollIntoView from 'components/common/scroll-into-view';
 import * as tracking from 'utils/tracking';
-import PinboardIntroductionContainer from 'containers/search-page/pinboard/pinboard-introduction-container';
 
 
 describe('SearchResults component', function () {
@@ -52,16 +51,28 @@ describe('SearchResults component', function () {
     it('should render suggestionGroup components when data is available', function () {
       const suggestionGroups = [{ header: '1' }, { header: '2' }];
       const pinboardUrl = '/pinboard/12f453/untitled-title';
+      const visitPinButtonIntroductionSpy = spy();
       const wrapper = shallow(
-        <SearchResults isEmpty={ false } pinboardUrl={ pinboardUrl } suggestionGroups={ suggestionGroups }/>
+        <SearchResults
+          isEmpty={ false }
+          pinboardUrl={ pinboardUrl }
+          suggestionGroups={ suggestionGroups }
+          hide={ true }
+          visitPinButtonIntroduction={ visitPinButtonIntroductionSpy }
+        />
       );
 
       const renderedGroups = wrapper.find(SuggestionGroup);
       renderedGroups.should.have.length(2);
       renderedGroups.at(0).prop('header').should.equal('1');
       renderedGroups.at(0).prop('pinboardUrl').should.equal(pinboardUrl);
+      renderedGroups.at(0).prop('hide').should.be.true();
+      renderedGroups.at(0).prop('visitPinButtonIntroduction').should.equal(visitPinButtonIntroductionSpy);
+
       renderedGroups.at(1).prop('header').should.equal('2');
       renderedGroups.at(1).prop('pinboardUrl').should.equal(pinboardUrl);
+      renderedGroups.at(1).prop('hide').should.be.true();
+      renderedGroups.at(1).prop('visitPinButtonIntroduction').should.equal(visitPinButtonIntroductionSpy);
     });
 
     it('should render SearchTags component', function () {
@@ -91,17 +102,6 @@ describe('SearchResults component', function () {
       );
 
       wrapper.find(PinboardButton).exists().should.be.true();
-    });
-
-    it('should render PinboardIntroduction', function () {
-      const wrapper = shallow(
-        <SearchResults
-          tags={ [] }
-          contentType='community'
-          isRequesting={ false }
-        />
-      );
-      wrapper.find(PinboardIntroductionContainer).exists().should.be.true();
     });
   });
 

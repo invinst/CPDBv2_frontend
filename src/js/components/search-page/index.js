@@ -197,6 +197,7 @@ export default class SearchPage extends Component {
             searchTermsHidden={ searchTermsHidden }
             handleSelect={ this.handleSelect }
             tags={ tags }
+            hide={ hide }
             onEmptyPinboardButtonClick={ this.handleEmptyPinboardButtonClick }
           />
         </div>

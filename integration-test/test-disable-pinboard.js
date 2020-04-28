@@ -78,7 +78,7 @@ describe('Disable pinboard feature', function () {
     it('should not display pinboard bar', function () {
       searchPage.input.waitForDisplayed();
 
-      searchPage.pinboardBar.isExisting().should.be.false();
+      searchPage.pinboardBar.isDisplayed().should.be.false();
     });
 
     it('should not display pinned button on search results', function () {
@@ -168,7 +168,7 @@ describe('Disable pinboard feature', function () {
 
     it('should not display pinboard introduction', function () {
       searchPage.input.waitForDisplayed();
-      searchPage.pinboardIntroduction.body.isExisting().should.be.false();
+      searchPage.pinboardIntroduction.body.isDisplayed().should.be.false();
     });
 
     it('should not display PinButton introduction', function () {
@@ -176,7 +176,7 @@ describe('Disable pinboard feature', function () {
 
       searchPage.unitOfficerResultsSection.firstResultText.waitForDisplayed();
       browser.pause(INTRODUCTION_DISPLAY_TIMEOUT);
-      searchPage.unitOfficerResultsSection.pinButtonIntroduction.isExisting().should.be.false();
+      searchPage.unitOfficerResultsSection.pinButtonIntroduction.isDisplayed().should.be.false();
     });
   });
 

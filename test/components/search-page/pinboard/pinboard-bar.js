@@ -8,11 +8,15 @@ import PinboardButtonContainer from 'containers/search-page/pinboard-button-cont
 describe('PinboardBar component', function () {
   it('should render correctly', function () {
     const wrapper = shallow(
-      <PinboardBar />
+      <PinboardBar isEmptyPinboard={ false } />
     );
 
     wrapper.prop('className').should.containEql('pinboard-feature');
+    wrapper.prop('className').should.containEql('slide-in');
     wrapper.find('.pinboard-tip').exists().should.be.true();
     wrapper.find(PinboardButtonContainer).exists().should.be.true();
+
+    wrapper.setProps({ isEmptyPinboard: true });
+    wrapper.prop('className').should.not.containEql('slide-in');
   });
 });

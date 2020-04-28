@@ -28,6 +28,7 @@ export default class SuggestionItem extends Component {
       'isFocused',
       'aliasEditModeOn',
       'suggestion',
+      'hide',
     ];
 
     return reduce(keys, (memo, key) => (
@@ -53,6 +54,7 @@ SuggestionItem.propTypes = {
   saveToRecent: PropTypes.func,
   showIntroduction: PropTypes.bool,
   pinboardUrl: PropTypes.string,
+  visitPinButtonIntroduction: PropTypes.func,
 };
 
 SuggestionItem.defaultProps = {

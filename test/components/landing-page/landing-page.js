@@ -93,6 +93,9 @@ const store = mockStore({
   },
   toast: {},
   pathname: '/',
+  pinboardIntroduction: {
+    isPinButtonIntroductionVisited: false,
+  },
 });
 
 describe('LandingPage component', function () {

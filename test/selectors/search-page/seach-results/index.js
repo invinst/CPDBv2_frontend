@@ -63,6 +63,9 @@ describe('search page results selector', function () {
         pinboardPage: {
           pinboard: null,
         },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
+        },
       }).should.deepEqual([
         {
           header: 'OFFICER',
@@ -154,6 +157,9 @@ describe('search page results selector', function () {
             'trr_ids': [],
           },
         },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
+        },
       }).should.deepEqual([
         {
           header: 'CR',
@@ -203,6 +209,9 @@ describe('search page results selector', function () {
         },
         pinboardPage: {
           pinboard: null,
+        },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
         },
       }).should.deepEqual([
         {
@@ -256,6 +265,9 @@ describe('search page results selector', function () {
         pinboardPage: {
           pinboard: null,
         },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
+        },
       }).should.deepEqual([
         {
           header: 'DATE > CR',
@@ -307,6 +319,9 @@ describe('search page results selector', function () {
         },
         pinboardPage: {
           pinboard: null,
+        },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
         },
       }).should.deepEqual([
         {
@@ -366,6 +381,9 @@ describe('search page results selector', function () {
         },
         pinboardPage: {
           pinboard: null,
+        },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
         },
       }).should.deepEqual([
         {
@@ -466,6 +484,9 @@ describe('search page results selector', function () {
             'trr_ids': ['1001'],
           },
         },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
+        },
       }).should.deepEqual([
         {
           header: 'TRR',
@@ -538,6 +559,9 @@ describe('search page results selector', function () {
             crids: ['1001'],
             'trr_ids': [],
           },
+        },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
         },
       }).should.deepEqual([
         {
@@ -613,6 +637,9 @@ describe('search page results selector', function () {
             'trr_ids': ['1001'],
           },
         },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
+        },
       }).should.deepEqual([
         {
           header: 'DATE > TRR',
@@ -686,6 +713,9 @@ describe('search page results selector', function () {
             'trr_ids': ['1002'],
           },
         },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
+        },
       }).should.deepEqual([
         {
           header: 'DATE > TRR',
@@ -742,6 +772,9 @@ describe('search page results selector', function () {
             'trr_ids': ['1001'],
           },
         },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
+        },
       }).should.deepEqual([
         {
           header: 'UNIT',
@@ -765,7 +798,7 @@ describe('search page results selector', function () {
     });
 
     it('should give correct item format for missing description UNIT', function () {
-      searchResultGroupsSelector({
+      const state = {
         searchPage: {
           tags: [],
           suggestionGroups: {
@@ -781,7 +814,9 @@ describe('search page results selector', function () {
             'trr_ids': ['1001'],
           },
         },
-      }).should.deepEqual([
+      };
+
+      const expectedItems = [
         {
           header: 'UNIT',
           canLoadMore: false,
@@ -800,7 +835,21 @@ describe('search page results selector', function () {
             itemRank: 1,
           }],
         },
-      ]);
+      ];
+
+      searchResultGroupsSelector({
+        ...state,
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
+        },
+      }).should.deepEqual(expectedItems);
+
+      searchResultGroupsSelector({
+        ...state,
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: true,
+        },
+      }).should.deepEqual(expectedItems);
     });
 
     it('should limit items per category to 5', function () {
@@ -814,6 +863,9 @@ describe('search page results selector', function () {
         },
         pinboardPage: {
           pinboard: null,
+        },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
         },
       });
 
@@ -839,6 +891,9 @@ describe('search page results selector', function () {
         pinboardPage: {
           pinboard: null,
         },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
+        },
       });
 
       officerGroup.header.should.equal('OFFICER');
@@ -857,6 +912,9 @@ describe('search page results selector', function () {
         },
         pinboardPage: {
           pinboard: null,
+        },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
         },
       });
 
@@ -877,6 +935,9 @@ describe('search page results selector', function () {
         pinboardPage: {
           pinboard: null,
         },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
+        },
       });
 
       groups.length.should.equal(1);
@@ -894,6 +955,9 @@ describe('search page results selector', function () {
         },
         pinboardPage: {
           pinboard: null,
+        },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
         },
       });
 
@@ -952,6 +1016,9 @@ describe('search page results selector', function () {
             crids: ['317'],
             'trr_ids': ['317'],
           },
+        },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
         },
       });
       groups.should.eql([{
@@ -1016,7 +1083,7 @@ describe('search page results selector', function () {
     });
 
     it('should set correct showIntroduction', function () {
-      const groups = searchResultGroupsSelector({
+      const state = {
         searchPage: {
           tags: [],
           suggestionGroups: {
@@ -1071,21 +1138,55 @@ describe('search page results selector', function () {
             'trr_ids': ['317'],
           },
         },
+      };
+      const pinButtonNotVisitedGroups = searchResultGroupsSelector({
+        ...state,
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
+        },
       });
-      const communityGroup = groups[0];
+      const communityGroup = pinButtonNotVisitedGroups[0];
       communityGroup.header.should.equal('COMMUNITY');
       communityGroup.items[0].showIntroduction.should.be.false();
-      const unitOfficerGroup = groups[1];
+
+      const unitOfficerGroup = pinButtonNotVisitedGroups[1];
       unitOfficerGroup.header.should.equal('UNIT > OFFICERS');
-      unitOfficerGroup.items[0].showIntroduction.should.be.true();
-      unitOfficerGroup.items[1].showIntroduction.should.be.false();
-      const trrGroup = groups[2];
+      unitOfficerGroup.items[0].showIntroduction.should.be.false();
+      unitOfficerGroup.items[1].showIntroduction.should.be.true();
+
+      const trrGroup = pinButtonNotVisitedGroups[2];
       trrGroup.header.should.equal('TRR');
       trrGroup.items[0].showIntroduction.should.be.false();
       trrGroup.items[1].showIntroduction.should.be.false();
-      const unitGroup = groups[3];
+
+      const unitGroup = pinButtonNotVisitedGroups[3];
       unitGroup.header.should.equal('UNIT');
       unitGroup.items[0].showIntroduction.should.be.false();
+
+      const pinButtonVisitedGroups = searchResultGroupsSelector({
+        ...state,
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: true,
+        },
+      });
+
+      const pinButtonIntroductionVisitedCommunityGroup = pinButtonVisitedGroups[0];
+      pinButtonIntroductionVisitedCommunityGroup.header.should.equal('COMMUNITY');
+      pinButtonIntroductionVisitedCommunityGroup.items[0].showIntroduction.should.be.false();
+
+      const pinButtonIntroductionVisitedunitOfficerGroup = pinButtonVisitedGroups[1];
+      pinButtonIntroductionVisitedunitOfficerGroup.header.should.equal('UNIT > OFFICERS');
+      pinButtonIntroductionVisitedunitOfficerGroup.items[0].showIntroduction.should.be.false();
+      pinButtonIntroductionVisitedunitOfficerGroup.items[1].showIntroduction.should.be.false();
+
+      const pinButtonIntroductionVisitedTrrGroup = pinButtonVisitedGroups[2];
+      pinButtonIntroductionVisitedTrrGroup.header.should.equal('TRR');
+      pinButtonIntroductionVisitedTrrGroup.items[0].showIntroduction.should.be.false();
+      pinButtonIntroductionVisitedTrrGroup.items[1].showIntroduction.should.be.false();
+
+      const pinButtonIntroductionVisitedUnitGroup = pinButtonVisitedGroups[3];
+      pinButtonIntroductionVisitedUnitGroup.header.should.equal('UNIT');
+      pinButtonIntroductionVisitedUnitGroup.items[0].showIntroduction.should.be.false();
     });
   });
 

@@ -15,7 +15,6 @@ import PinboardButtonContainer from 'containers/search-page/pinboard-button-cont
 import ScrollIntoView from 'components/common/scroll-into-view';
 import style from './search-results.sass';
 import * as tracking from 'utils/tracking';
-import PinboardIntroductionContainer from 'containers/search-page/pinboard/pinboard-introduction-container';
 
 
 const previewPaneIdFieldMapping = {
@@ -100,6 +99,8 @@ export default class SearchResults extends Component {
       setSearchNavigation,
       addOrRemoveItemInPinboard,
       pinboardUrl,
+      visitPinButtonIntroduction,
+      hide,
     } = this.props;
 
     if (isEmpty) {
@@ -126,6 +127,8 @@ export default class SearchResults extends Component {
         nextParams={ nextParams }
         singleContent={ singleContent }
         pinboardUrl={ pinboardUrl }
+        visitPinButtonIntroduction={ visitPinButtonIntroduction }
+        hide={ hide }
         addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }/>
     ));
   }
@@ -198,7 +201,6 @@ export default class SearchResults extends Component {
                 Loading...
               </div> :
               <div className='result-wrapper'>
-                <PinboardIntroductionContainer />
                 { this.renderContent() }
               </div>
           }
@@ -235,6 +237,9 @@ SearchResults.propTypes = {
   contentType: PropTypes.string,
   onEmptyPinboardButtonClick: PropTypes.func,
   pinboardUrl: PropTypes.string,
+  visitPinButtonIntroduction: PropTypes.func,
+  isPinButtonIntroductionVisited: PropTypes.bool,
+  hide: PropTypes.bool,
 };
 
 SearchResults.defaultProps = {
@@ -243,4 +248,6 @@ SearchResults.defaultProps = {
   getSuggestionWithContentType: noop,
   resetNavigation: noop,
   onEmptyPinboardButtonClick: noop,
+  visitPinButtonIntroduction: noop,
+  isPinButtonIntroductionVisited: true,
 };
