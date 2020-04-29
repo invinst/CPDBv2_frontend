@@ -34,6 +34,7 @@ export default class Carousel extends Component {
 
   componentDidMount() {
     this.updateSlidesPerGroup();
+    this.el && this.el.addEventListener('mousewheel', this.onWheel, { passive: false });
   }
 
   componentDidUpdate() {
@@ -48,11 +49,15 @@ export default class Carousel extends Component {
   }
 
   handleNavigate = direction => {
-    const { slideIndex } = this.state;
+    const { slideIndex, displayLeftArrow, displayRightArrow } = this.state;
     if (direction === 'right') {
-      this.slideTo(slideIndex + this.slidesPerGroup);
+      if (displayRightArrow) {
+        this.slideTo(slideIndex + this.slidesPerGroup);
+      }
     } else {
-      this.slideTo(slideIndex - this.slidesPerGroup);
+      if (displayLeftArrow) {
+        this.slideTo(slideIndex - this.slidesPerGroup);
+      }
     }
   };
 
@@ -96,6 +101,18 @@ export default class Carousel extends Component {
       displayLeftArrow: !isBeginning,
       displayRightArrow: !isEnd,
     });
+  };
+
+  onWheel = (e) => {
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+      e.preventDefault();
+      if (e.deltaX > 1) {
+        this.handleNavigate('right');
+      }
+      else if (e.deltaX < -1) {
+        this.handleNavigate('left');
+      }
+    }
   };
 
   render() {
