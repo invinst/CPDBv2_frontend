@@ -248,6 +248,25 @@ describe('landing page', function () {
       firstCard.click();
       browser.waitForUrl(url => url.should.match(/\/officer\/\d+\/[-a-z]+\/?$/), 500);
     });
+
+    it('should be able to navigate using scroll', function () {
+      const forthCard = landingPage.officersByAllegationCarousel.getNthCardSelector(4);
+      const carouselSelector = landingPage.officersByAllegationCarousel.carouselSelector;
+      landingPage.officersByAllegationCarousel.rightArrow.waitForDisplayed();
+      forthCard.isDisplayedInViewport().should.be.false();
+
+      browser.simulateMouseWheel(carouselSelector, 0, 10);
+      browser.pause(1000);
+      forthCard.isDisplayedInViewport().should.be.false();
+
+      browser.simulateMouseWheel(carouselSelector, 10, 0);
+      browser.pause(1000);
+      forthCard.isDisplayedInViewport().should.be.true();
+
+      browser.simulateMouseWheel(carouselSelector, -10, 0);
+      browser.pause(1000);
+      forthCard.isDisplayedInViewport().should.be.false();
+    });
   });
 
   describe('Recent Document Carousel', function () {

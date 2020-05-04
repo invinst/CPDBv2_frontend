@@ -41,6 +41,8 @@ class RecentActivityCarouselSection extends CarouselSection {
 }
 
 class OfficersByAllegationCarouselSection extends CarouselSection {
+  carouselSelector = '.test--landing-carousel-allegation > div:nth-child(2)';
+
   constructor() {
     const cardSelector = '//a[contains(@class, "officer-card")]';
     super(
@@ -56,6 +58,11 @@ class OfficersByAllegationCarouselSection extends CarouselSection {
         '//div[contains(@class, "item-pin-button__item-pin-button")]'
       ),
     });
+  }
+
+  getNthCardSelector(index) {
+    return $('(//div[@class="test--landing-carousel-allegation landing-page-carousel"]' +
+      `//a[contains(@class, "officer-card")])[${index}]`);
   }
 }
 
