@@ -124,7 +124,6 @@ function initCommands() {
       const event = new Event('mousewheel');
       event.deltaY = deltaY;
       event.deltaX = deltaX;
-      console.log(selector);
 
       document.querySelector(selector).dispatchEvent(event);
     }, _selector, _deltaX, _deltaY);
