@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 import browserHistory from 'utils/history';
 import { isPinboardButtonIntroductionVisited, setPinboardButtonIntroductionVisited } from 'utils/pinboard';
 import styles from './pinboard-button.sass';
-import { PINBOARD_INTRODUCTION_DELAY, DEFAULT_PINBOARD_PATH } from 'utils/constants';
+import appConfig from 'utils/app-config';
+import { DEFAULT_PINBOARD_PATH, APP_CONFIG_KEYS } from 'utils/constants';
 
 
 export default class PinboardButton extends Component {
@@ -39,7 +40,7 @@ export default class PinboardButton extends Component {
   setdisplayIntroductionTimeout() {
     this.displayIntroductionTimeout = setTimeout(() => {
       this.setState({ displayIntroduction: true });
-    }, PINBOARD_INTRODUCTION_DELAY);
+    }, appConfig.get(APP_CONFIG_KEYS.PINBOARD_INTRODUCTION_DELAY));
   }
 
   render() {

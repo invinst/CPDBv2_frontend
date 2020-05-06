@@ -1,13 +1,22 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { stub, spy, useFakeTimers } from 'sinon';
+import { stub, spy, match, useFakeTimers } from 'sinon';
 
 import ItemPinButton from 'components/common/item-pin-button';
-import { PINBOARD_INTRODUCTION, PINBOARD_INTRODUCTION_DELAY } from 'utils/constants';
+import { PINBOARD_INTRODUCTION, APP_CONFIG_KEYS } from 'utils/constants';
 import browserHistory from 'utils/history';
+import * as appConfig from 'utils/app-config';
 
+
+const PINBOARD_INTRODUCTION_DELAY = 1000;
 
 describe('<ItemPinButton />', function () {
+  beforeEach(function () {
+    appConfig.default.set({
+      [APP_CONFIG_KEYS.PINBOARD_INTRODUCTION_DELAY]: PINBOARD_INTRODUCTION_DELAY,
+    });
+  });
+
   it('should call addItemInPinboardPage action when clicked on', function () {
     const addOrRemoveItemInPinboard = stub();
     const wrapper = mount(
@@ -377,6 +386,17 @@ describe('<ItemPinButton />', function () {
             'mousedown',
             handleClickOutside,
           );
+        });
+
+        it('should get timeout value from appConfig', function () {
+          const appConfigGetStub = stub(appConfig.default, 'get').returns(113);
+          const setTimeoutSpy = spy(window, 'setTimeout');
+          mount(<ItemPinButton item={ { isPinned: false } } showIntroduction={ true } />);
+
+          appConfigGetStub.should.be.calledOnce();
+          appConfigGetStub.should.be.calledWith(APP_CONFIG_KEYS.PINBOARD_INTRODUCTION_DELAY);
+          setTimeoutSpy.should.be.calledOnce();
+          setTimeoutSpy.should.be.calledWith(match.any, 113);
         });
       });
     });
