@@ -4,7 +4,7 @@ import appConfig from 'utils/app-config';
 
 const appConfigTransform = config => {
   return {
-    visualTokenColors: config['visual_token_colors'].map(visualTokenColor => ({
+    [APP_CONFIG_KEYS.VISUAL_TOKEN_COLORS]: config[APP_CONFIG_KEYS.VISUAL_TOKEN_COLORS].map(visualTokenColor => ({
       upper: visualTokenColor['upper_range'],
       lower: visualTokenColor['lower_range'],
       backgroundColor: visualTokenColor['color'],

@@ -8,7 +8,7 @@ describe('updateAppConfig', function () {
     const action = {
       type: APP_CONFIG_FETCH_SUCCESS,
       payload: {
-        ['visual_token_colors']: [
+        'VISUAL_TOKEN_COLORS': [
           { 'lower_range': 0, 'upper_range': 50, 'color': '#F5F4F4', 'text_color': '#ADADAD' },
           { 'lower_range': 50, 'upper_range': 100, 'color': '#F9D3C3', 'text_color': '#ADADAF' },
         ],
@@ -16,7 +16,7 @@ describe('updateAppConfig', function () {
       },
     };
     updateAppConfig()(() => {})(action);
-    appConfig.get('visualTokenColors').should.eql([
+    appConfig.get('VISUAL_TOKEN_COLORS').should.eql([
       { lower: 0, upper: 50, backgroundColor: '#F5F4F4', textColor: '#ADADAD' },
       { lower: 50, upper: 100, backgroundColor: '#F9D3C3', textColor: '#ADADAF' },
     ]);

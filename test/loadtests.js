@@ -26,7 +26,7 @@ let testsPassed = true;
 
 mocha.suite.beforeEach(function () {
   appConfig.set({
-    visualTokenColors: [
+    'VISUAL_TOKEN_COLORS': [
       { lower: 0, upper: 5, backgroundColor: '#F5F4F4', textColor: softBlackColor },
       { lower: 5, upper: 30, backgroundColor: '#F9D3C3', textColor: softBlackColor },
       { lower: 30, upper: 50, backgroundColor: '#F4A298', textColor: softBlackColor },
