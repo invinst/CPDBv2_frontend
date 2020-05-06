@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { isEqual } from 'lodash';
+import { isEqual, debounce } from 'lodash';
 
 import Arrow, { arrowWidth } from './arrow';
 import Swiper from 'components/common/swiper';
@@ -16,6 +16,7 @@ export default class Carousel extends Component {
       displayLeftArrow: false,
       prevChildren: props.children,
     };
+    this.navigateOnWheel = debounce(this.navigateOnWheel, 50);
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -103,15 +104,19 @@ export default class Carousel extends Component {
     });
   };
 
+  navigateOnWheel = (e) => {
+    if (e.deltaX > 1) {
+      this.handleNavigate('right');
+    }
+    else if (e.deltaX < -1) {
+      this.handleNavigate('left');
+    }
+  };
+
   onWheel = (e) => {
     if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
       e.preventDefault();
-      if (e.deltaX > 1) {
-        this.handleNavigate('right');
-      }
-      else if (e.deltaX < -1) {
-        this.handleNavigate('left');
-      }
+      this.navigateOnWheel(e);
     }
   };
 
