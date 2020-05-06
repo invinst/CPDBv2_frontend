@@ -45,7 +45,7 @@ module.exports = distFolder => ({
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['react', 'es2015', 'stage-0'],
+            presets: ['@babel/preset-react', '@babel/preset-env'],
           }
         }
       },
@@ -58,7 +58,7 @@ module.exports = distFolder => ({
         use: {
           loader: 'babel-loader',
           options: {
-            plugins: ['transform-exponentiation-operator'],
+            plugins: ['@babel/plugin-transform-exponentiation-operator'],
           }
         }
       },

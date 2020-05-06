@@ -3,7 +3,7 @@ jobs:
 
   test:
     docker:
-      - image: cpdbdev/cpdbv2_frontend:0.2.5
+      - image: cpdbdev/cpdbv2_frontend:0.2.7
     environment:
       NODE_ENV: development
     steps:
@@ -34,7 +34,7 @@ jobs:
 
   build:
     docker:
-      - image: cpdbdev/cpdbv2_frontend:0.2.5
+      - image: cpdbdev/cpdbv2_frontend:0.2.7
     environment:
       NODE_ENV: development
     steps:
@@ -81,7 +81,7 @@ jobs:
             sed -e "s/{{MOBILE_SERVER_NAME}}/$MOBILE_SERVER_NAME/" nginx.conf.template > nginx.conf
             docker build -t cpdbdev/desktop-frontend:latest .
             docker run --rm -d --name desktop-frontend cpdbdev/desktop-frontend:latest
-            docker run --rm -v $(pwd):/app -w /app --link desktop-frontend -e "FRONTEND_DOMAIN=desktop-frontend" -e "MOBILE_SERVER_NAME=$MOBILE_SERVER_NAME" cpdbdev/cpdbv2_frontend:0.2.5 yarn test-nginx
+            docker run --rm -v $(pwd):/app -w /app --link desktop-frontend -e "FRONTEND_DOMAIN=desktop-frontend" -e "MOBILE_SERVER_NAME=$MOBILE_SERVER_NAME" cpdbdev/cpdbv2_frontend:0.2.7 yarn test-nginx
 
   push_image:
     docker:

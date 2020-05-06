@@ -1,4 +1,5 @@
-import 'babel-polyfill';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
