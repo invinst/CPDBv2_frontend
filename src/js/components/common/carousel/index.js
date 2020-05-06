@@ -16,7 +16,7 @@ export default class Carousel extends Component {
       displayLeftArrow: false,
       prevChildren: props.children,
     };
-    this.navigateOnWheel = debounce(this.navigateOnWheel, 50);
+    this.navigateOnWheel = debounce(this.navigateOnWheel, 200, { leading: true, trailing: false, maxWait: 2000 });
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -105,10 +105,10 @@ export default class Carousel extends Component {
   };
 
   navigateOnWheel = (e) => {
-    if (e.deltaX > 1) {
+    if (e.deltaX > 0) {
       this.handleNavigate('right');
     }
-    else if (e.deltaX < -1) {
+    else {
       this.handleNavigate('left');
     }
   };
