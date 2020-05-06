@@ -7,4 +7,5 @@ export const getAppConfig = () => ({
     { 'lower_range': 70, 'upper_range': 90, 'color': '#FF412C', 'text_color': '#ADADAD' },
     { 'lower_range': 90, 'upper_range': 100, 'color': '#F52524', 'text_color': '#ADADAD' },
   ],
+  'PINBOARD_INTRODUCTION_DELAY': '2000',
 });

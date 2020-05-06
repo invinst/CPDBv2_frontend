@@ -1,7 +1,7 @@
 import should from 'should';
 
 import communities from 'reducers/landing-page/heat-map/communities';
-import * as constants from 'utils/constants';
+import { COMMUNITY_REQUEST_START, COMMUNITY_REQUEST_SUCCESS, COMMUNITY_REQUEST_FAILURE } from 'utils/constants';
 
 
 describe('communities reducer', function () {
@@ -14,7 +14,7 @@ describe('communities reducer', function () {
       type: 'FeatureCollection',
       features: [],
     }, {
-      type: constants.COMMUNITY_REQUEST_START,
+      type: COMMUNITY_REQUEST_START,
       payload: {},
     }).should.eql({
       type: 'FeatureCollection',
@@ -24,7 +24,7 @@ describe('communities reducer', function () {
 
   it('should handle COMMUNITY_REQUEST_SUCCESS', function () {
     communities(undefined, {
-      type: constants.COMMUNITY_REQUEST_SUCCESS,
+      type: COMMUNITY_REQUEST_SUCCESS,
       payload: {
         type: 'FeatureCollection',
         features: [1, 2, 3],
@@ -40,7 +40,7 @@ describe('communities reducer', function () {
       type: 'FeatureCollection',
       features: [],
     }, {
-      type: constants.COMMUNITY_REQUEST_FAILURE,
+      type: COMMUNITY_REQUEST_FAILURE,
       payload: {},
     }).should.eql({
       type: 'FeatureCollection',

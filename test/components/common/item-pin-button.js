@@ -1,36 +1,33 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { stub, spy } from 'sinon';
+import { stub, spy, match, useFakeTimers } from 'sinon';
 
 import ItemPinButton from 'components/common/item-pin-button';
-import styles from 'components/common/item-pin-button.sass';
-import { PINBOARD_INTRODUCTION } from 'utils/constants';
+import { PINBOARD_INTRODUCTION, APP_CONFIG_KEYS } from 'utils/constants';
+import browserHistory from 'utils/history';
+import * as appConfig from 'utils/app-config';
 
 
-describe('ItemPinButton component', function () {
-  it('should render correctly', function () {
-    const wrapper = mount(<ItemPinButton item={ { isPinned: true } } />);
-    const pinButton = wrapper.find(`.${styles.itemPinButton}`);
-    pinButton.prop('className').should.containEql('pinboard-feature');
+const PINBOARD_INTRODUCTION_DELAY = 1000;
+
+describe('<ItemPinButton />', function () {
+  beforeEach(function () {
+    appConfig.default.set({
+      [APP_CONFIG_KEYS.PINBOARD_INTRODUCTION_DELAY]: PINBOARD_INTRODUCTION_DELAY,
+    });
   });
 
-  it('should have class is-pinned if item.isPinned is true', function () {
-    const wrapper = mount(<ItemPinButton item={ { isPinned: true } } />);
-    wrapper.find('.is-pinned').exists().should.be.true();
-  });
-
-  it('should not have class is-pinned if item.isPinned is false', function () {
-    const wrapper = mount(<ItemPinButton item={ { isPinned: false } } />);
-
-    wrapper.find('.is-pinned').exists().should.be.false();
-  });
-
-  it('should call addOrRemoveItemInPinboard action when clicked on', function () {
+  it('should call addItemInPinboardPage action when clicked on', function () {
     const addOrRemoveItemInPinboard = stub();
     const wrapper = mount(
       <ItemPinButton
         addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
-        item={ { isPinned: false, type: 'CR', id: '1' } } />
+        item={ {
+          isPinned: false,
+          type: 'CR',
+          id: '1',
+        } }
+      />
     );
     wrapper.simulate('click');
     addOrRemoveItemInPinboard.calledWith({
@@ -40,34 +37,54 @@ describe('ItemPinButton component', function () {
     }).should.be.true();
   });
 
-  it('should have class is-pinned if all items inPinned are true', function () {
-    const wrapper = mount(<ItemPinButton items={ [{ isPinned: true }, { isPinned: true }] }/>);
-
-    wrapper.find('.is-pinned').exists().should.be.true();
+  it('should redirect to pinboardUrl on hint click', function () {
+    const browserHistoryPush = stub(browserHistory, 'push');
+    const pinboardUrl = '/pinboard/12f453/untitled-title';
+    const preventDefaultSpy = spy();
+    const stopPropagationSpy = spy();
+    const wrapper = mount(<ItemPinButton showHint={ true } pinboardUrl={ pinboardUrl } />);
+    wrapper.find('.pin-action-hint').simulate(
+      'click',
+      { preventDefault: preventDefaultSpy, stopPropagation: stopPropagationSpy }
+    );
+    browserHistoryPush.should.be.calledWith(pinboardUrl);
+    preventDefaultSpy.should.be.called();
+    stopPropagationSpy.should.be.called();
   });
 
-  it('should not have class is-pinned if not all items inPinned are true', function () {
-    const wrapper = mount(<ItemPinButton items={ [{ isPinned: false }, { isPinned: true }] }/>);
+  describe('render', function () {
+    it('should have class pinboard-feature', function () {
+      const wrapper = mount(<ItemPinButton item={ { isPinned: true } } />);
+      wrapper.find('ItemPinButton').childAt(0).hasClass('pinboard-feature').should.be.true();
+    });
 
-    wrapper.find('.is-pinned').exists().should.be.false();
-  });
+    it('should have class is-pinned if item.isPinned is true', function () {
+      const wrapper = mount(<ItemPinButton item={ { isPinned: true } } />);
+      wrapper.find('.is-pinned').exists().should.be.true();
+    });
 
-  it('should render pin action hint if showHint is true', function () {
-    const wrapper = mount(<ItemPinButton />);
+    it('should not have class is-pinned if item.isPinned is false', function () {
+      const wrapper = mount(<ItemPinButton item={ { isPinned: false } } />);
+      wrapper.find('.is-pinned').exists().should.be.false();
+    });
 
-    wrapper.find('.pin-action-hint').exists().should.be.true();
-  });
+    it('should render pin action hint if showHint is true', function () {
+      const wrapper = mount(<ItemPinButton />);
 
-  it('should not render pin action hint if showHint is false', function () {
-    const wrapper = mount(<ItemPinButton showHint={ false }/>);
+      wrapper.find('.pin-action-hint').exists().should.be.true();
+    });
 
-    wrapper.find('.pin-action-hint').exists().should.be.false();
-  });
+    it('should not render pin action hint if showHint is false', function () {
+      const wrapper = mount(<ItemPinButton showHint={ false }/>);
 
-  describe('pinboard introduction', function () {
+      wrapper.find('.pin-action-hint').exists().should.be.false();
+    });
+
     context('isPinButtonIntroductionVisited() is true', function () {
+      let clock;
       beforeEach(function () {
         localStorage.setItem(PINBOARD_INTRODUCTION.PIN_BUTTON_INTRODUCTION, '1');
+        clock = useFakeTimers();
       });
 
       context('showIntroduction is false', function () {
@@ -76,32 +93,18 @@ describe('ItemPinButton component', function () {
           wrapper = mount(<ItemPinButton item={ { isPinned: false } } showIntroduction={ false } />);
         });
 
-        it('should not have class show-introduction', function () {
-          wrapper.find('.show-introduction').exists().should.be.false();
+        it('should not have show-introduction class', function () {
+          wrapper.find('.pinboard-feature').hasClass('show-introduction').should.be.false();
+          clock.tick(PINBOARD_INTRODUCTION_DELAY + 50);
+          wrapper.update();
+          wrapper.find('.pinboard-feature').hasClass('show-introduction').should.be.false();
         });
 
         it('should not render introduction', function () {
           wrapper.find('.pin-button-introduction').exists().should.be.false();
-        });
-
-        it('should not bind mousedown event on componentDidMount', function () {
-          const addEventListenerSpy = spy(window, 'addEventListener');
-          const wrapper = mount(<ItemPinButton item={ { isPinned: false } } showIntroduction={ false } />);
-          const handleClickOutside = wrapper.find('ItemPinButton').instance().handleClickOutside;
-          addEventListenerSpy.should.not.be.calledWith(
-            'mousedown',
-            handleClickOutside,
-          );
-        });
-
-        it('should not unbind mousedown event on component unmount', function () {
-          const removeEventListenerSpy = spy(window, 'removeEventListener');
-          const handleClickOutside = wrapper.find('ItemPinButton').instance().handleClickOutside;
-          wrapper.unmount();
-          removeEventListenerSpy.should.not.be.calledWith(
-            'mousedown',
-            handleClickOutside,
-          );
+          clock.tick(PINBOARD_INTRODUCTION_DELAY + 50);
+          wrapper.update();
+          wrapper.find('.pin-button-introduction').exists().should.be.false();
         });
       });
 
@@ -111,29 +114,243 @@ describe('ItemPinButton component', function () {
           wrapper = mount(<ItemPinButton item={ { isPinned: false } } showIntroduction={ true } />);
         });
 
-        it('should not have class show-introduction', function () {
-          wrapper.find('.show-introduction').exists().should.be.false();
+        it('should not have show-introduction class', function () {
+          wrapper.find('.pinboard-feature').hasClass('show-introduction').should.be.false();
+          clock.tick(PINBOARD_INTRODUCTION_DELAY + 50);
+          wrapper.update();
+          wrapper.find('.pinboard-feature').hasClass('show-introduction').should.be.false();
         });
 
         it('should not render introduction', function () {
           wrapper.find('.pin-button-introduction').exists().should.be.false();
+          clock.tick(PINBOARD_INTRODUCTION_DELAY + 50);
+          wrapper.update();
+          wrapper.find('.pin-button-introduction').exists().should.be.false();
+        });
+      });
+    });
+
+    context('isPinButtonIntroductionVisited() is false', function () {
+      let clock;
+      beforeEach(function () {
+        localStorage.removeItem(PINBOARD_INTRODUCTION.PIN_BUTTON_INTRODUCTION);
+        clock = useFakeTimers();
+      });
+
+      context('showIntroduction is false', function () {
+        let wrapper;
+        beforeEach(function () {
+          wrapper = mount(<ItemPinButton item={ { isPinned: false } } showIntroduction={ false } />);
         });
 
+        it('should not have show-introduction class', function () {
+          wrapper.find('.pinboard-feature').hasClass('show-introduction').should.be.false();
+          clock.tick(PINBOARD_INTRODUCTION_DELAY + 50);
+          wrapper.update();
+          wrapper.find('.pinboard-feature').hasClass('show-introduction').should.be.false();
+        });
+
+        it('should not render introduction', function () {
+          wrapper.find('.pin-button-introduction').exists().should.be.false();
+          clock.tick(PINBOARD_INTRODUCTION_DELAY + 50);
+          wrapper.update();
+          wrapper.find('.pin-button-introduction').exists().should.be.false();
+        });
+      });
+
+      context('showIntroduction is true', function () {
+        let wrapper;
+        beforeEach(function () {
+          wrapper = mount(<ItemPinButton item={ { isPinned: false } } showIntroduction={ true } />);
+        });
+
+        it('should have show-introduction class', function () {
+          wrapper.find('.pinboard-feature').hasClass('show-introduction').should.be.false();
+          clock.tick(PINBOARD_INTRODUCTION_DELAY + 50);
+          wrapper.update();
+          wrapper.find('.pinboard-feature').hasClass('show-introduction').should.be.true();
+        });
+
+        it('should render introduction after delay', function () {
+          wrapper.find('.pin-button-introduction').exists().should.be.false();
+          clock.tick(PINBOARD_INTRODUCTION_DELAY + 50);
+          wrapper.update();
+          wrapper.find('.pin-button-introduction').exists().should.be.true();
+        });
+
+        describe('handleClickOutside', function () {
+          let handleClickOutside;
+          beforeEach(function () {
+            wrapper = mount(
+              <div className='content-wrapper'>
+                <ItemPinButton item={ { isPinned: false } } showIntroduction={ true } />
+                <div className='result-item'/>
+              </div>
+            );
+            handleClickOutside = wrapper.find('ItemPinButton').instance().handleClickOutside;
+          });
+
+          it('should render introduction after click on introduction', function () {
+            clock.tick(PINBOARD_INTRODUCTION_DELAY + 50);
+            wrapper.update();
+            wrapper.find('.pin-button-introduction').exists().should.be.true();
+
+            handleClickOutside({ target: wrapper.find('.pin-button-introduction').getDOMNode() });
+
+            clock.tick(PINBOARD_INTRODUCTION_DELAY + 50);
+            wrapper.update();
+            wrapper.find('.pin-button-introduction').exists().should.be.true();
+          });
+
+          it('should not render introduction after user click outside', function () {
+            clock.tick(PINBOARD_INTRODUCTION_DELAY + 50);
+            wrapper.update();
+            wrapper.find('.pin-button-introduction').exists().should.be.true();
+
+            handleClickOutside({ target: wrapper.find('.result-item').getDOMNode() });
+
+            clock.tick(PINBOARD_INTRODUCTION_DELAY + 50);
+            wrapper.update();
+            wrapper.find('.pin-button-introduction').exists().should.be.false();
+          });
+
+          it('should remove event listener after user click outside', function () {
+            const removeEventListenerSpy = spy(window, 'removeEventListener');
+            clock.tick(PINBOARD_INTRODUCTION_DELAY + 50);
+            wrapper.update();
+            wrapper.find('.pin-button-introduction').exists().should.be.true();
+
+            handleClickOutside({ target: wrapper.find('.result-item').getDOMNode() });
+            removeEventListenerSpy.should.be.calledWith('mousedown', handleClickOutside);
+          });
+        });
+      });
+    });
+  });
+
+  describe('componentWillUnmount', function () {
+    context('isPinButtonIntroductionVisited() is false', function () {
+      beforeEach(function () {
+        localStorage.removeItem(PINBOARD_INTRODUCTION.PIN_BUTTON_INTRODUCTION);
+      });
+
+      context('showIntroduction is true', function () {
+        it('should remove click outside event listener', function () {
+          const wrapper = mount(<ItemPinButton item={ { isPinned: false } } showIntroduction={ true } />);
+          const removeEventListenerSpy = spy(window, 'removeEventListener');
+          const handleClickOutside = wrapper.find('ItemPinButton').instance().handleClickOutside;
+          wrapper.unmount();
+          removeEventListenerSpy.should.be.calledWith('mousedown', handleClickOutside);
+        });
+
+        it('should clear display timeout', function () {
+          const wrapper = mount(<ItemPinButton item={ { isPinned: false } } showIntroduction={ true } />);
+          const clearTimeoutSpy = spy(window, 'clearTimeout');
+          const displayIntroductionTimeout = wrapper.find('ItemPinButton').instance().displayIntroductionTimeout;
+          wrapper.unmount();
+          clearTimeoutSpy.should.be.calledWith(displayIntroductionTimeout);
+        });
+
+        it('should not clear display timeout after display', function () {
+          const clock = useFakeTimers();
+          const wrapper = mount(<ItemPinButton item={ { isPinned: false } } showIntroduction={ true } />);
+          const clearTimeoutSpy = spy(window, 'clearTimeout');
+          clock.tick(PINBOARD_INTRODUCTION_DELAY + 50);
+          wrapper.unmount();
+          clearTimeoutSpy.should.not.be.called();
+        });
+      });
+
+      context('showIntroduction is false', function () {
+        it('should not remove click outside event listener', function () {
+          const wrapper = mount(<ItemPinButton item={ { isPinned: false } } showIntroduction={ false } />);
+          const removeEventListenerSpy = spy(window, 'removeEventListener');
+          const handleClickOutside = wrapper.find('ItemPinButton').instance().handleClickOutside;
+          wrapper.unmount();
+          removeEventListenerSpy.should.not.be.calledWith('mousedown', handleClickOutside);
+        });
+
+        it('should not clear display timeout', function () {
+          const wrapper = mount(<ItemPinButton item={ { isPinned: false } } showIntroduction={ false } />);
+          const clearTimeoutSpy = spy(window, 'clearTimeout');
+          wrapper.unmount();
+          clearTimeoutSpy.should.not.be.called();
+        });
+      });
+    });
+
+    context('isPinButtonIntroductionVisited() is true', function () {
+      beforeEach(function () {
+        localStorage.setItem(PINBOARD_INTRODUCTION.PIN_BUTTON_INTRODUCTION, '1');
+      });
+
+      context('showIntroduction is true', function () {
+        it('should remove click outside event listener', function () {
+          const wrapper = mount(<ItemPinButton item={ { isPinned: false } } showIntroduction={ true } />);
+          const removeEventListenerSpy = spy(window, 'removeEventListener');
+          const handleClickOutside = wrapper.find('ItemPinButton').instance().handleClickOutside;
+          wrapper.unmount();
+          removeEventListenerSpy.should.not.be.calledWith('mousedown', handleClickOutside);
+        });
+
+        it('should not clear display timeout', function () {
+          const wrapper = mount(<ItemPinButton item={ { isPinned: false } } showIntroduction={ true } />);
+          const clearTimeoutSpy = spy(window, 'clearTimeout');
+          wrapper.unmount();
+          clearTimeoutSpy.should.not.be.called();
+        });
+      });
+
+      context('showIntroduction is false', function () {
+        it('should not remove click outside event listener', function () {
+          const wrapper = mount(<ItemPinButton item={ { isPinned: false } } showIntroduction={ false } />);
+          const removeEventListenerSpy = spy(window, 'removeEventListener');
+          const handleClickOutside = wrapper.find('ItemPinButton').instance().handleClickOutside;
+          wrapper.unmount();
+          removeEventListenerSpy.should.not.be.calledWith('mousedown', handleClickOutside);
+        });
+
+        it('should not clear display timeout', function () {
+          const wrapper = mount(<ItemPinButton item={ { isPinned: false } } showIntroduction={ true } />);
+          const clearTimeoutSpy = spy(window, 'clearTimeout');
+          wrapper.unmount();
+          clearTimeoutSpy.should.not.be.called();
+        });
+      });
+    });
+  });
+
+  describe('componentDidMount', function () {
+    let clock;
+    beforeEach(function () {
+      clock = useFakeTimers();
+    });
+
+    context('isPinButtonIntroductionVisited() is true', function () {
+      beforeEach(function () {
+        localStorage.setItem(PINBOARD_INTRODUCTION.PIN_BUTTON_INTRODUCTION, '1');
+      });
+
+      context('showIntroduction is false', function () {
         it('should not bind mousedown event on componentDidMount', function () {
           const addEventListenerSpy = spy(window, 'addEventListener');
+          const wrapper = mount(<ItemPinButton item={ { isPinned: false } } showIntroduction={ false } />);
           const handleClickOutside = wrapper.find('ItemPinButton').instance().handleClickOutside;
+          clock.tick(PINBOARD_INTRODUCTION_DELAY + 50);
           addEventListenerSpy.should.not.be.calledWith(
             'mousedown',
             handleClickOutside,
           );
         });
+      });
 
-        it('should not unbind mousedown event on component unmount', function () {
-          const removeEventListenerSpy = spy(window, 'removeEventListener');
-          const wrapper = mount(<ItemPinButton item={ { isPinned: false } } showIntroduction={ false } />);
+      context('showIntroduction is true', function () {
+        it('should not bind mousedown event on componentDidMount', function () {
+          const addEventListenerSpy = spy(window, 'addEventListener');
+          const wrapper = mount(<ItemPinButton item={ { isPinned: false } } showIntroduction={ true } />);
           const handleClickOutside = wrapper.find('ItemPinButton').instance().handleClickOutside;
-          wrapper.unmount();
-          removeEventListenerSpy.should.not.be.calledWith(
+          clock.tick(PINBOARD_INTRODUCTION_DELAY + 50);
+          addEventListenerSpy.should.not.be.calledWith(
             'mousedown',
             handleClickOutside,
           );
@@ -147,35 +364,12 @@ describe('ItemPinButton component', function () {
       });
 
       context('showIntroduction is false', function () {
-        let wrapper;
-        beforeEach(function () {
-          wrapper = mount(<ItemPinButton item={ { isPinned: false } } showIntroduction={ false } />);
-        });
-
-        it('should not have class show-introduction', function () {
-
-          wrapper.find('.show-introduction').exists().should.be.false();
-        });
-
-        it('should not render introduction', function () {
-          wrapper.find('.pin-button-introduction').exists().should.be.false();
-        });
-
         it('should not bind mousedown event on componentDidMount', function () {
           const addEventListenerSpy = spy(window, 'addEventListener');
-          const handleClickOutside = wrapper.find('ItemPinButton').instance().handleClickOutside;
-          addEventListenerSpy.should.not.be.calledWith(
-            'mousedown',
-            handleClickOutside,
-          );
-        });
-
-        it('should not unbind mousedown event on component unmount', function () {
-          const removeEventListenerSpy = spy(window, 'removeEventListener');
           const wrapper = mount(<ItemPinButton item={ { isPinned: false } } showIntroduction={ false } />);
           const handleClickOutside = wrapper.find('ItemPinButton').instance().handleClickOutside;
-          wrapper.unmount();
-          removeEventListenerSpy.should.not.be.calledWith(
+          clock.tick(PINBOARD_INTRODUCTION_DELAY + 50);
+          addEventListenerSpy.should.not.be.calledWith(
             'mousedown',
             handleClickOutside,
           );
@@ -183,53 +377,26 @@ describe('ItemPinButton component', function () {
       });
 
       context('showIntroduction is true', function () {
-        let wrapper;
-        beforeEach(function () {
-          wrapper = mount(<ItemPinButton item={ { isPinned: false } } showIntroduction={ true } />);
-        });
-
-        it('should have class show-introduction', function () {
-          wrapper.find('.show-introduction').exists().should.be.true();
-        });
-
-        it('should render introduction', function () {
-          wrapper.find('.pin-button-introduction').exists().should.be.true();
-        });
-
         it('should bind mousedown event on componentDidMount', function () {
           const addEventListenerSpy = spy(window, 'addEventListener');
           const wrapper = mount(<ItemPinButton item={ { isPinned: false } } showIntroduction={ true } />);
           const handleClickOutside = wrapper.find('ItemPinButton').instance().handleClickOutside;
+          clock.tick(PINBOARD_INTRODUCTION_DELAY + 50);
           addEventListenerSpy.should.be.calledWith(
             'mousedown',
             handleClickOutside,
           );
         });
 
-        it('should unbind mousedown event on component unmount', function () {
-          const removeEventListenerSpy = spy(window, 'removeEventListener');
-          const handleClickOutside = wrapper.find('ItemPinButton').instance().handleClickOutside;
-          wrapper.unmount();
-          removeEventListenerSpy.should.be.calledWith(
-            'mousedown',
-            handleClickOutside,
-          );
-        });
+        it('should get timeout value from appConfig', function () {
+          const appConfigGetStub = stub(appConfig.default, 'get').returns(113);
+          const setTimeoutSpy = spy(window, 'setTimeout');
+          mount(<ItemPinButton item={ { isPinned: false } } showIntroduction={ true } />);
 
-        it('should not render introduction after user click outside', function () {
-          const wrapper = mount(
-            <div className='content-wrapper'>
-              <ItemPinButton item={ { isPinned: false } } showIntroduction={ true } />
-              <div className='result-item'/>
-            </div>
-          );
-          const handleClickOutside = wrapper.find('ItemPinButton').instance().handleClickOutside;
-          wrapper.find('.pin-button-introduction').exists().should.be.true();
-          handleClickOutside({ target: wrapper.find('.pin-button-introduction').getDOMNode() });
-          wrapper.find('.pin-button-introduction').exists().should.be.true();
-          handleClickOutside({ target: wrapper.find('.result-item').getDOMNode() });
-          wrapper.find('.result-item').simulate('mousedown');
-          wrapper.find('.pin-button-introduction').exists().should.be.false();
+          appConfigGetStub.should.be.calledOnce();
+          appConfigGetStub.should.be.calledWith(APP_CONFIG_KEYS.PINBOARD_INTRODUCTION_DELAY);
+          setTimeoutSpy.should.be.calledOnce();
+          setTimeoutSpy.should.be.calledWith(match.any, 113);
         });
       });
     });

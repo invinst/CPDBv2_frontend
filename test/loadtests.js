@@ -1,5 +1,5 @@
-import 'babel-polyfill';
-import 'core-js/fn/object/assign';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 import './setup';
 import 'mocha/browser-entry';
 import 'mocha/mocha.css';

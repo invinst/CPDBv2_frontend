@@ -14,6 +14,7 @@ import {
   restorePinboardIntroduction,
   dismissPinButtonIntroduction,
 } from './utils';
+import { INTRODUCTION_DISPLAY_TIMEOUT } from './utils/constants';
 
 
 const backToSearch = () => {
@@ -396,21 +397,21 @@ describe('Search Page', function () {
     });
 
     it('should close pinboard introduction after click close', function () {
-      searchPage.pinboardIntroduction.body.waitForDisplayed(1000);
+      searchPage.pinboardIntroduction.body.waitForDisplayed();
       searchPage.pinboardIntroduction.closeButton.click();
-      searchPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
+      searchPage.pinboardIntroduction.body.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT, true);
       browser.refresh();
       searchPage.input.waitForDisplayed(1000);
-      searchPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
+      searchPage.pinboardIntroduction.body.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT, true);
     });
 
     it('should close pinboard introduction and redirect to pinboard page after click Get Started', function () {
-      searchPage.pinboardIntroduction.body.waitForDisplayed(1000);
+      searchPage.pinboardIntroduction.body.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT);
       searchPage.pinboardIntroduction.getStartedButton.click();
       browser.waitForUrl(url => url.should.match(/\/pinboard\/.*/), 2000);
       pinboardPage.searchBar.click();
       searchPage.input.waitForDisplayed(1000);
-      searchPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
+      searchPage.pinboardIntroduction.body.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT, true);
     });
 
     it('should not display pinboard introduciton after user add item to pinboard', function () {
@@ -419,7 +420,7 @@ describe('Search Page', function () {
 
       searchPage.secondOfficerResult.waitForDisplayed();
       searchPage.secondOfficerPinButton.click();
-      searchPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
+      searchPage.pinboardIntroduction.body.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT, true);
     });
 
     context('lastest pinboard is not empty', function () {
@@ -434,7 +435,7 @@ describe('Search Page', function () {
       it('should not display pinboard introduciton when lasted pinboard is not empty', function () {
         searchPage.open();
         searchPage.input.waitForDisplayed();
-        searchPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
+        searchPage.pinboardIntroduction.body.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT, true);
       });
     });
   });
@@ -457,11 +458,17 @@ describe('Search Page', function () {
       searchPage.input.setValue('intr');
       searchPage.unitOfficerResultsSection.firstPinButtonIntroduction.waitForDisplayed();
       searchPage.unitOfficerResultsSection.secondResultText.click();
-      searchPage.unitOfficerResultsSection.firstPinButtonIntroduction.waitForDisplayed(1000, true);
+      searchPage.unitOfficerResultsSection.firstPinButtonIntroduction.waitForDisplayed(
+        INTRODUCTION_DISPLAY_TIMEOUT,
+        true
+      );
       browser.refresh();
       searchPage.input.setValue('intr');
       searchPage.unitOfficerResultsSection.firstPinButton.waitForDisplayed();
-      searchPage.unitOfficerResultsSection.firstPinButtonIntroduction.waitForDisplayed(1000, true);
+      searchPage.unitOfficerResultsSection.firstPinButtonIntroduction.waitForDisplayed(
+        INTRODUCTION_DISPLAY_TIMEOUT,
+        true
+      );
     });
   });
 
@@ -481,18 +488,16 @@ describe('Search Page', function () {
       clickOnSearchResultItem(searchPage.firstInvestigatorCrResult, 'CR # CR123456 • April 23, 2004');
 
       backToSearch();
+      clearSearchInput();
       performSearch('2004/04/23');
       clickOnSearchResultItem(searchPage.secondDateCrResult, 'CR # CR456 • April 23, 2004');
-
       backToSearch();
-      performSearch('2004/04/23');
       clickOnSearchResultItem(searchPage.secondDateTrrResult, 'Physical Force - Holding');
-
       backToSearch();
-      performSearch('2004/04/23');
       clickOnSearchResultItem(searchPage.firstDateOfficerResult, 'Jerome Finnigan');
 
       backToSearch();
+      clearSearchInput();
       performSearch('Ke');
       clickOnSearchResultItem(searchPage.firstNeighborhoodResult, 'Kenwood');
 
@@ -504,16 +509,13 @@ describe('Search Page', function () {
       clearSearchInput();
       performSearch('Ke');
       clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly', true);
-
       backToSearch();
-      performSearch('Ke');
       clickOnSearchResultItem(searchPage.firstCrResult, 'CR # CR123 • April 23, 2004');
-
       backToSearch();
-      performSearch('Ke');
       clickOnSearchResultItem(searchPage.firstTrrResult, 'Member Presence');
 
       backToSearch();
+      clearSearchInput();
 
       const expectedRecentSuggestions = [
         'Member Presence\nTRR # 123 - April 27, 2004',
@@ -609,8 +611,8 @@ describe('Search Page', function () {
       browser.keys('ArrowDown');
       browser.keys('Enter');
 
-      searchPage.searchBreadcrumb.waitForDisplayed();
-      searchPage.searchBreadcrumb.click();
+      backToSearch();
+      clearSearchInput();
 
       searchPage.recentSuggestions.waitForDisplayed();
       searchPage.recentSuggestionItem(1).getText().should.equal(
@@ -687,8 +689,7 @@ describe('Search Page', function () {
     browser.keys('Enter');
     searchPage.currentBasePath.should.equal('/officer/2/john-kelly/');
 
-    searchPage.searchBreadcrumb.waitForDisplayed();
-    searchPage.searchBreadcrumb.click();
+    backToSearch();
     searchPage.backButton.waitForDisplayed();
     searchPage.backButton.click();
     searchPage.backButton.waitForDisplayed(20000, true);
@@ -705,8 +706,7 @@ describe('Search Page', function () {
     browser.keys('Enter');
     searchPage.currentBasePath.should.equal('/officer/2/john-kelly/');
 
-    searchPage.searchBreadcrumb.waitForDisplayed();
-    searchPage.searchBreadcrumb.click();
+    backToSearch();
     searchPage.backButton.waitForDisplayed();
     browser.keys('Escape');
     searchPage.backButton.waitForDisplayed(20000, true);
@@ -791,6 +791,33 @@ describe('Search Page', function () {
     browser.keys('Enter');
 
     searchPage.currentBasePath.should.eql('/officer/1/bernadette-kelly/');
+  });
+
+  it('should keep search results after coming back from other page', function () {
+    searchPage.open();
+    performSearch('Ke');
+    clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly', true);
+
+    backToSearch();
+    searchPage.input.getValue().should.containEql('Ke');
+    searchPage.suggestionGroup.waitForDisplayed();
+    searchPage.suggestionTags.getText().should.containEql('OFFICER');
+    searchPage.suggestionTags.getText().should.containEql('NEIGHBORHOOD');
+    searchPage.firstOfficerResult.waitForDisplayed();
+    searchPage.firstOfficerResult.getText().should.containEql('Bernadette Kelly');
+  });
+
+  it('should clear search results after coming back from landing page', function () {
+    searchPage.open();
+    performSearch('Ke');
+
+    searchPage.backButton.click();
+    landingPage.header.content.waitForDisplayed(1000);
+    landingPage.header.navBar.searchBox.mainElement.waitForExist();
+    landingPage.header.navBar.searchBox.mainElement.click();
+
+    searchPage.input.waitForExist();
+    searchPage.input.getValue().should.equal('');
   });
 
   context('After getting back to landing page', function () {
@@ -1125,6 +1152,14 @@ describe('Search Page with query parameter', function () {
 });
 
 describe('Search Page with pinboard functionalities', function () {
+  beforeEach(function () {
+    setupMockApiFile('search-page/search-page-mock-api.js');
+  });
+
+  afterEach(function () {
+    restoreMockApiFile();
+  });
+
   it('should display pinboard button with correct text when items are added/removed', function () {
     searchPage.open('Ke');
     searchPage.suggestionGroup.waitForDisplayed();
@@ -1137,15 +1172,40 @@ describe('Search Page with pinboard functionalities', function () {
     searchPage.pinboardButton.getText().should.eql('Your pinboard is empty');
   });
 
+  context('when click on pinboard hint button in search result', function () {
+    it('should redirect to pinboard page', function () {
+      searchPage.open('Ke');
+      searchPage.firstOfficerPinButton.click();
+      searchPage.firstPinboardHintButton.waitForDisplayed();
+      searchPage.firstPinboardHintButton.moveTo();
+      searchPage.firstPinboardHintButton.click();
+      browser.waitForUrl(url => url.should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/), 1000);
+    });
+  });
+
+
+  context('when click on pinboard hint button in recent section', function () {
+    it('should redirect to pinboard page', function () {
+      searchPage.open();
+      performSearch('Ke');
+      clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly', true);
+
+      backToSearch();
+      clickOnSearchResultItem(searchPage.firstCrResult, 'CR # CR123 • April 23, 2004');
+
+      backToSearch();
+      clickOnSearchResultItem(searchPage.firstTrrResult, 'Member Presence');
+      backToSearch();
+      clearSearchInput();
+      searchPage.firstRecentPinButton.click();
+      searchPage.firstPinboardHintButton.waitForDisplayed();
+      searchPage.firstPinboardHintButton.moveTo();
+      searchPage.firstPinboardHintButton.click();
+      browser.waitForUrl(url => url.should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/), 1000);
+    });
+  });
+
   context('when click on pinboard button', function () {
-    beforeEach(function () {
-      setupMockApiFile('search-page/search-page-mock-api.js');
-    });
-
-    afterEach(function () {
-      restoreMockApiFile();
-    });
-
     it('should redirect to Pinboard page', function () {
       searchPage.open('Ke');
       searchPage.suggestionGroup.waitForDisplayed();

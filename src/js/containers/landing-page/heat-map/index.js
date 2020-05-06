@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 
 import HeatMap from 'components/landing-page/heat-map';
 import { communityGeoJSONSelector, communitiesSelector, getClusterGeoJson } from 'selectors/landing-page/heat-map';
+import { heatMapLoaded } from 'actions/landing-page/heat-map';
 
 
 function mapStateToProps(state, props) {
@@ -13,4 +14,8 @@ function mapStateToProps(state, props) {
   };
 }
 
-export default connect(mapStateToProps, null)(HeatMap);
+const mapDispatchToProps = {
+  heatMapLoaded,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeatMap);

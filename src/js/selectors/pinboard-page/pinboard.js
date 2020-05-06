@@ -36,6 +36,11 @@ export const getPinboard = createSelector(
   })
 );
 
+export const pinboardUrlSelector = createSelector(
+  getRawPinboard,
+  (pinboard) => generatePinboardUrl(pinboard, true),
+);
+
 export const getPinboardId = state => get(state, 'pinboardPage.pinboard.id');
 
 export const hasPendingChangesSelector = createSelector(

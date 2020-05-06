@@ -49,6 +49,7 @@ export const BASE_PATH = config.apiDomain;
 export const V2_ROOT_PATH = API_ROOT_V2;
 export const V1_ROOT_PATH = API_ROOT;
 export const INVISIBLE_INSTITUTE_URL = 'https://invisible.institute/cpdp';
+export const DEFAULT_PINBOARD_PATH = '/pinboard/';
 
 export const SLUG_PAGE_API_URL = `${V2_ROOT_PATH}cms-pages/`;
 export const SIGNIN_URL = `${V2_ROOT_PATH}users/sign-in/`;
@@ -278,6 +279,8 @@ export const SEARCH_TERMS_NAVIGATION_UP = 'SEARCH_TERMS_NAVIGATION_UP';
 export const SEARCH_TERMS_NAVIGATION_DOWN = 'SEARCH_TERMS_NAVIGATION_DOWN';
 export const SEARCH_TERMS_NAVIGATION_RESET = 'SEARCH_TERMS_NAVIGATION_RESET';
 export const SEARCH_TERMS_NAVIGATION_SET = 'SEARCH_TERMS_NAVIGATION_SET';
+
+export const HEAT_MAP_LOADED = 'HEAT_MAP_LOADED';
 
 export const PAGE_LOAD_START = 'PAGE_LOAD_START';
 export const PAGE_LOAD_FINISH = 'PAGE_LOAD_FINISH';
@@ -539,6 +542,7 @@ export const PINBOARD_INTRODUCTION = {
 
 export const APP_CONFIG_KEYS = {
   VISUAL_TOKEN_COLORS: 'visual_token_colors',
+  PINBOARD_INTRODUCTION_DELAY: 'PINBOARD_INTRODUCTION_DELAY',
 };
 
 export const NEW_TIMELINE_ITEMS = {

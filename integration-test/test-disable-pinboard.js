@@ -7,6 +7,7 @@ import landingPage from './page-objects/landing-page';
 import searchPage from './page-objects/search-page';
 import officerPage from './page-objects/officer-page';
 import crPage from './page-objects/cr-page';
+import { INTRODUCTION_DISPLAY_TIMEOUT } from './utils/constants';
 
 
 const performSearch = (searchPage, term) => {
@@ -140,14 +141,12 @@ describe('Disable pinboard feature', function () {
       performSearch(searchPage, 'Ke');
       clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly', true);
       backToSearch();
-
-      performSearch(searchPage, 'Ke');
       clickOnSearchResultItem(searchPage.firstCrResult, 'CR # CR123 • April 23, 2004');
       backToSearch();
-
-      performSearch(searchPage, 'Ke');
       clickOnSearchResultItem(searchPage.firstTrrResult, 'Member Presence');
       backToSearch();
+
+      searchPage.clearSearchButton.click();
 
       const expectedRecentSuggestions = [
         'Member Presence\nTRR # 123 - April 27, 2004',
@@ -176,7 +175,8 @@ describe('Disable pinboard feature', function () {
       performSearch(searchPage, 'intr');
 
       searchPage.unitOfficerResultsSection.firstResultText.waitForDisplayed();
-      searchPage.pinButtonIntroduction.isExisting().should.be.false();
+      browser.pause(INTRODUCTION_DISPLAY_TIMEOUT);
+      searchPage.unitOfficerResultsSection.pinButtonIntroduction.isExisting().should.be.false();
     });
   });
 

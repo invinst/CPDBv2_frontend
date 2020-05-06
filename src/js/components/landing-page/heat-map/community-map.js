@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import MediaQuery from 'react-responsive';
+import { noop } from 'lodash';
 
 import MapboxGL from 'components/common/mapbox-gl';
 import { mapContainerStyle } from './community-map.style.js';
@@ -23,13 +24,14 @@ export default class CommunityMap extends Component {
 
   renderMap = center => {
     const { hoverCommunity } = this.state;
-    const { selectCommunity, communityId, communitySource, clusterSource } = this.props;
+    const { selectCommunity, communityId, communitySource, clusterSource, heatMapLoaded } = this.props;
 
     /* istanbul ignore next */
     return (
       <MapboxGL
         style={ mapContainerStyle }
         center={ center }
+        onIdle={ heatMapLoaded }
         onClick={ [
           ['community-fill', e => selectCommunity(e.features[0].properties.id)],
         ] }
@@ -166,12 +168,14 @@ CommunityMap.propTypes = {
   communityId: PropTypes.number,
   clusterSource: PropTypes.object,
   hide: PropTypes.bool,
+  heatMapLoaded: PropTypes.func,
 };
 
 CommunityMap.defaultProps = {
-  selectCommunity: () => {},
+  selectCommunity: noop,
   communitySource: {
     type: 'FeatureCollection',
     features: [],
   },
+  heatMapLoaded: noop,
 };

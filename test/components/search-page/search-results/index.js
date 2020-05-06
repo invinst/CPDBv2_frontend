@@ -51,14 +51,17 @@ describe('SearchResults component', function () {
 
     it('should render suggestionGroup components when data is available', function () {
       const suggestionGroups = [{ header: '1' }, { header: '2' }];
+      const pinboardUrl = '/pinboard/12f453/untitled-title';
       const wrapper = shallow(
-        <SearchResults isEmpty={ false } suggestionGroups={ suggestionGroups }/>
+        <SearchResults isEmpty={ false } pinboardUrl={ pinboardUrl } suggestionGroups={ suggestionGroups }/>
       );
 
       const renderedGroups = wrapper.find(SuggestionGroup);
       renderedGroups.should.have.length(2);
       renderedGroups.at(0).prop('header').should.equal('1');
+      renderedGroups.at(0).prop('pinboardUrl').should.equal(pinboardUrl);
       renderedGroups.at(1).prop('header').should.equal('2');
+      renderedGroups.at(1).prop('pinboardUrl').should.equal(pinboardUrl);
     });
 
     it('should render SearchTags component', function () {

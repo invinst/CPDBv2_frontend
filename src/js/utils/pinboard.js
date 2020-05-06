@@ -15,14 +15,14 @@ import {
   fetchPinboardTRRs,
   fetchPinboardSocialGraph,
 } from 'actions/pinboard';
-import { PINBOARD_INTRODUCTION } from 'utils/constants';
+import { PINBOARD_INTRODUCTION, DEFAULT_PINBOARD_PATH } from 'utils/constants';
 import { loadPaginatedData } from 'utils/load-paginated-data';
 import config from 'config';
 
 
-export const generatePinboardUrl = pinboard => {
+export const generatePinboardUrl = (pinboard, isCurrent) => {
   if (pinboard === null || isNil(pinboard['id'])) {
-    return '';
+    return isCurrent ? DEFAULT_PINBOARD_PATH : '';
   }
 
   const title = isEmpty(pinboard['title']) ? 'Untitled Pinboard' : pinboard['title'];

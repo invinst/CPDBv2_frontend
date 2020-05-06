@@ -4,7 +4,7 @@ import { CLUSTER_GEO_REQUEST_START, CLUSTER_GEO_REQUEST_SUCCESS, CLUSTER_GEO_REQ
 
 
 export default handleActions({
-  [CLUSTER_GEO_REQUEST_START]: (state, action) => (state),
-  [CLUSTER_GEO_REQUEST_SUCCESS]: (state, action) => (action.payload),
-  [CLUSTER_GEO_REQUEST_FAILURE]: (state, action) => (state),
-}, null);
+  [CLUSTER_GEO_REQUEST_START]: (state, action) => false,
+  [CLUSTER_GEO_REQUEST_SUCCESS]: (state, action) => true,
+  [CLUSTER_GEO_REQUEST_FAILURE]: (state, action) => true,
+}, false);

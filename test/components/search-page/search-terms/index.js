@@ -191,13 +191,15 @@ describe('SearchTerms component', function () {
         text: 'Mark Farmer',
         to: '/officer/8257/mark-farmer/',
       }];
+      const pinboardUrl = '/pinboard/12f453/untitled-title';
 
       const wrapper = shallow(
-        <SearchTerms recentSuggestions={ recentSuggestions }/>
+        <SearchTerms pinboardUrl={ pinboardUrl } recentSuggestions={ recentSuggestions }/>
       );
 
       const recentSuggestionsComp = wrapper.find(RecentSuggestion);
       recentSuggestionsComp.prop('recentSuggestions').should.eql(recentSuggestions);
+      recentSuggestionsComp.prop('pinboardUrl').should.equal(pinboardUrl);
     });
 
     it('should not render RecentSuggestion component if recentSuggestions is null', function () {

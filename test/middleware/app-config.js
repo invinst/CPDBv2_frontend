@@ -12,6 +12,7 @@ describe('updateAppConfig', function () {
           { 'lower_range': 0, 'upper_range': 50, 'color': '#F5F4F4', 'text_color': '#ADADAD' },
           { 'lower_range': 50, 'upper_range': 100, 'color': '#F9D3C3', 'text_color': '#ADADAF' },
         ],
+        'PINBOARD_INTRODUCTION_DELAY': '2500',
       },
     };
     updateAppConfig()(() => {})(action);
@@ -19,5 +20,6 @@ describe('updateAppConfig', function () {
       { lower: 0, upper: 50, backgroundColor: '#F5F4F4', textColor: '#ADADAD' },
       { lower: 50, upper: 100, backgroundColor: '#F9D3C3', textColor: '#ADADAF' },
     ]);
+    appConfig.get('PINBOARD_INTRODUCTION_DELAY').should.eql(2500);
   });
 });

@@ -9,10 +9,14 @@ import RecentSuggestion from 'components/search-page/search-results/recent-sugge
 describe('RecentSuggestion component', function () {
   it('should render correctly', function () {
     const suggestions = OfficerSuggestion.buildList(3);
+    const pinboardUrl = '/pinboard/12f453/untitled-title';
     const wrapper = shallow(
-      <RecentSuggestion recentSuggestions={ suggestions }/>
+      <RecentSuggestion pinboardUrl={ pinboardUrl } recentSuggestions={ suggestions }/>
     );
     const suggestionItems = wrapper.find(SuggestionItem);
     suggestionItems.should.have.length(3);
+    suggestionItems.at(0).prop('pinboardUrl').should.equal(pinboardUrl);
+    suggestionItems.at(1).prop('pinboardUrl').should.equal(pinboardUrl);
+    suggestionItems.at(2).prop('pinboardUrl').should.equal(pinboardUrl);
   });
 });
