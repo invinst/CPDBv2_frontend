@@ -29,6 +29,9 @@ describe('SlimHeaderContent component', function () {
       },
     },
     pathname: '/',
+    pinboardIntroduction: {
+      isPinButtonIntroductionVisited: false,
+    },
   });
 
   it('should render correctly', function () {

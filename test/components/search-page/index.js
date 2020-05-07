@@ -39,11 +39,42 @@ describe('SearchPage component', function () {
     pinboardPage: {
       pinboard: {},
     },
+    pinboardIntroduction: {
+      isPinButtonIntroductionVisited: false,
+    },
   };
   const store = MockStore()(state);
 
   beforeEach(function () {
     this.browserHistoryPush = stub(browserHistory, 'push');
+  });
+
+  it('should pass correct props to SearchMainPanel', function () {
+    const store = createStore(RootReducer, state);
+    const createNewEmptyPinboardStub = stub().usingPromise(Promise).resolves({
+      payload: {
+        id: '5cd06f2b',
+        url: '/pinboard/5cd06f2b/',
+      },
+    });
+
+    const wrapper = shallow(
+      <Provider store={ store }>
+        <SearchPage
+          hide={ true }
+          query={ '123' }
+          createNewEmptyPinboard={ createNewEmptyPinboardStub }
+        />
+      </Provider>
+    );
+
+    const searchPage = wrapper.find(SearchPage).dive();
+    let searchMainPanel = searchPage.find('SearchMainPanel');
+    searchMainPanel.prop('hide').should.be.true();
+    searchMainPanel.prop('query').should.be.equal('123');
+    searchPage.setProps({ hide: false });
+    searchMainPanel = searchPage.find('SearchMainPanel');
+    searchMainPanel.prop('hide').should.be.false();
   });
 
   it('should not call get suggestion api when query is empty', function () {

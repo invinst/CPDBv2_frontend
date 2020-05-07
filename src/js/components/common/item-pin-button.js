@@ -5,40 +5,11 @@ import { every, isEmpty } from 'lodash';
 
 import withPinnable from 'components/common/with-pinnable';
 import styles from 'components/common/item-pin-button.sass';
-import { isPinButtonIntroductionVisited, setPinButtonIntroductionVisited } from 'utils/pinboard';
-import { DEFAULT_PINBOARD_PATH, APP_CONFIG_KEYS } from 'utils/constants';
+import { DEFAULT_PINBOARD_PATH } from 'utils/constants';
 import browserHistory from 'utils/history';
-import appConfig from 'utils/app-config';
 
 
 class ItemPinButton extends Component {
-  state = { displayIntroduction: false };
-
-  componentDidMount() {
-    if (this.shouldShowIntroduction()) {
-      this.displayIntroductionTimeout = setTimeout (() => {
-        this.addEventClickOutside();
-        this.setState({ displayIntroduction: true });
-        this.displayIntroductionTimeout = null;
-      }, appConfig.get(APP_CONFIG_KEYS.PINBOARD_INTRODUCTION_DELAY));
-    }
-  }
-
-  componentWillUnmount() {
-    if (this.shouldShowIntroduction()) {
-      this.removeEventClickOutside();
-    }
-    this.displayIntroductionTimeout && clearTimeout(this.displayIntroductionTimeout);
-  }
-
-  handleClickOutside = ({ target }) => {
-    if (target.closest('.content-wrapper') && !target.closest('.pin-button-introduction')) {
-      setPinButtonIntroductionVisited();
-      this.forceUpdate();
-      this.removeEventClickOutside();
-    }
-  };
-
   handleClickHint = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -46,39 +17,19 @@ class ItemPinButton extends Component {
     browserHistory.push(pinboardUrl);
   };
 
-  shouldShowIntroduction() {
-    const { showIntroduction } = this.props;
-
-    return showIntroduction && !isPinButtonIntroductionVisited();
-  }
-
-  addEventClickOutside() {
-    window.addEventListener('mousedown', this.handleClickOutside);
-  }
-
-  removeEventClickOutside() {
-    window.removeEventListener('mousedown', this.handleClickOutside);
-  }
-
   render() {
-    const { className, showHint, item, items } = this.props;
-    const { displayIntroduction } = this.state;
+    const { className, showHint, item, items, showIntroduction } = this.props;
     const isPinned = every(isEmpty(items) ? [item] : items, item => item.isPinned);
-    const shouldShowIntroduction = this.shouldShowIntroduction() && displayIntroduction;
 
     return (
       <div className={ cx(
         'pinboard-feature',
         styles.itemPinButton,
         className,
-        { 'is-pinned': isPinned, 'show-introduction': shouldShowIntroduction }
+        { 'is-pinned': isPinned, 'show-introduction': showIntroduction }
       ) }>
         <div className='pin-button' />
         { showHint && <div className='pin-action-hint' onClick={ this.handleClickHint }> Unpin? </div> }
-        {
-          shouldShowIntroduction &&
-            <div className='pin-button-introduction'>Tap this button to add to your pinboard</div>
-        }
       </div>
     );
   }
@@ -100,6 +51,7 @@ ItemPinButton.propTypes = {
   showHint: PropTypes.bool,
   showIntroduction: PropTypes.bool,
   pinboardUrl: PropTypes.string,
+  visitPinButtonIntroduction: PropTypes.func,
 };
 
 ItemPinButton.defaultProps = {

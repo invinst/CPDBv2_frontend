@@ -81,17 +81,23 @@ class ResultsSection extends Section {
         //div[contains(@class, "test--second-row")])[1]`,
       secondResultText: `(//a[contains(@class, "suggestion-item-${key}")]
         //div[contains(@class, "test--first-row")])[2]`,
+      thirdResultText: `(//a[contains(@class, "suggestion-item-${key}")]
+        //div[contains(@class, "test--first-row")])[3]`,
       secondResultSubText: `(//a[contains(@class, "suggestion-item-${key}")]
         //div[contains(@class, "test--second-row")])[2]`,
       previewPaneTitle: '(//div[@class="test--preview-pane-title"])',
       previewPaneButton: '(//a[@class="test--call-to-action"])',
       firstPinButton: `(//a[contains(@class, "suggestion-item-${key}")]` +
         '//div[contains(@class, "item-pin-button__item-pin-button")])[1]',
+      thirdPinButton: `(//a[contains(@class, "suggestion-item-${key}")]` +
+        '//div[contains(@class, "item-pin-button__item-pin-button")])[3]',
       pinButtonIntroduction: `//a[contains(@class, "suggestion-item-${key}")]` +
         '//div[contains(@class, "pin-button-introduction")]',
       firstPinButtonIntroduction: `//a[contains(@class, "suggestion-item-${key}")][1]` +
         '//div[contains(@class, "pin-button-introduction")]',
       secondPinButtonIntroduction: `//a[contains(@class, "suggestion-item-${key}")][2]` +
+        '//div[contains(@class, "pin-button-introduction")]',
+      thirdPinButtonIntroduction: `//a[contains(@class, "suggestion-item-${key}")][3]` +
         '//div[contains(@class, "pin-button-introduction")]',
     });
   }
@@ -129,6 +135,7 @@ class SearchPage extends Page {
   rankResultsSection = new ResultsSection('RANK');
   searchTermsResultsSection = new ResultsSection('SEARCH-TERMS');
   searchCommunityResultsSection = new ResultsSection('COMMUNITY');
+  searchNeighborhoodResultsSection = new ResultsSection('NEIGHBORHOOD');
   pinboardIntroduction = new PinboardIntroduction();
 
   constructor() {
@@ -171,13 +178,26 @@ class SearchPage extends Page {
       firstInvestigatorCrResult: '.test--suggestion-group .suggestion-item-INVESTIGATOR-CR-CR123456',
       firstSearchTermsResult: '.test--suggestion-group .suggestion-item-SEARCH-TERMS-community',
       firstRecentPinButton:
-        '//a[contains(@class, "suggestion-item-TRR-123")]//div[contains(@class, "item-pin-button__item-pin-button")]',
+        '(//a[contains(@class, "with-pinnable-item__suggestion-item")])[1]' +
+        '//div[contains(@class, "item-pin-button__item-pin-button")]',
       secondRecentPinButton:
-        '//a[contains(@class, "suggestion-item-CR-CR123")]//div[contains(@class, "item-pin-button__item-pin-button")]',
+        '(//a[contains(@class, "with-pinnable-item__suggestion-item")])[2]' +
+        '//div[contains(@class, "item-pin-button__item-pin-button")]',
       thirdRecentPinButton:
-        '//a[contains(@class, "suggestion-item-OFFICER-1")]//div[contains(@class, "item-pin-button__item-pin-button")]',
+        '(//a[contains(@class, "with-pinnable-item__suggestion-item")])[3]' +
+        '//div[contains(@class, "item-pin-button__item-pin-button")]',
       firstRecentIntroduction:
-        '//a[contains(@class, "suggestion-item-TRR-123")]//div[@class="pin-button-introduction"]',
+        '(//a[contains(@class, "with-pinnable-item__suggestion-item")])[1]' +
+        '//div[contains(@class, "pin-button-introduction")]',
+      secondRecentIntroduction:
+        '(//a[contains(@class, "with-pinnable-item__suggestion-item")])[2]' +
+        '//div[contains(@class, "pin-button-introduction")]',
+      thirdRecentIntroduction:
+        '(//a[contains(@class, "with-pinnable-item__suggestion-item")])[3]' +
+        '//div[contains(@class, "pin-button-introduction")]',
+      forthRecentIntroduction:
+        '(//a[contains(@class, "with-pinnable-item__suggestion-item")])[4]' +
+        '//div[contains(@class, "pin-button-introduction")]',
       pinButtonIntroduction: '//div[@class="pin-button-introduction"]',
       firstPinboardHintButton: '(//*[@class="pin-action-hint"])[1]',
     });

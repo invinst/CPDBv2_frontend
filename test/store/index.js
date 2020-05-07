@@ -354,6 +354,11 @@ describe('store', function () {
           cachedData: [],
         },
       },
+      pinboardIntroduction: {
+        isPinButtonIntroductionVisited: false,
+        isPinboardIntroductionVisited: false,
+        isPinboardButtonIntroductionVisited: false,
+      },
       videoModal: {
         active: false,
       },

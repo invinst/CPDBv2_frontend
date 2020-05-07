@@ -1,12 +1,13 @@
 import { createSelector } from 'reselect';
-import { filter, isUndefined, map, startCase, toLower, get } from 'lodash';
+import { filter, isUndefined, map, startCase, toLower, get, find, reverse, range, slice } from 'lodash';
 
 import { pinboardItemsSelector } from 'selectors/pinboard-page/pinboard';
 import { officerPath } from 'utils/paths';
 import { formatDate, getCurrentAgeString } from 'utils/date';
 import { navigationItemTransform } from 'selectors/common/search-item-transforms';
-import { FULL_MONTH_DATE_FORMAT } from 'utils/constants';
+import { FULL_MONTH_DATE_FORMAT, PIN_BUTTON_INTRODUCTION_INDEX, PINNED_ITEM_TYPES } from 'utils/constants';
 import { isItemPinned } from 'selectors/pinboard-page/pinboard';
+import { isPinButtonIntroductionVisitedSelector } from 'selectors/pinboard-introduction';
 
 
 const defaultRecentSuggestionItemTransform = item => ({
@@ -57,15 +58,30 @@ const recentItemFormatterMapping = {
 const getRecentSuggestions = (state) => get(state, 'searchPage.recentSuggestions', []);
 export const getRecentSuggestionsRequested = (state) => state.searchPage.recentSuggestionsRequested;
 
+const getPinButtonIntroductionIndex = (recentItems) => {
+  const itemsIndices = range(recentItems.length);
+  const findIndices = [
+    ...reverse(slice(itemsIndices, 0, PIN_BUTTON_INTRODUCTION_INDEX)),
+    ...slice(itemsIndices, PIN_BUTTON_INTRODUCTION_INDEX),
+  ];
+  return find(findIndices, (recentItemIndex) => !isUndefined(PINNED_ITEM_TYPES[recentItems[recentItemIndex].type]));
+};
+
 export const recentSuggestionsSelector = createSelector(
   getRecentSuggestions,
   pinboardItemsSelector,
-  (recent, pinboardItems) => {
+  isPinButtonIntroductionVisitedSelector,
+  (recent, pinboardItems, isPinButtonIntroductionVisited) => {
     const recentData = [];
-    recent.forEach((recentItem) => {
+    const pinButtonIntroductionIndex = getPinButtonIntroductionIndex(recent);
+    recent.forEach((recentItem, index) => {
       const itemFormatter = recentItemFormatterMapping[recentItem.type] || defaultRecentSuggestionItemTransform;
       if (!isUndefined(recentItem.data)) {
-        recentData.push(itemFormatter(recentItem.data, pinboardItems));
+        const showIntroduction = !isUndefined(PINNED_ITEM_TYPES[recentItem.type]) && !isPinButtonIntroductionVisited;
+        recentData.push({
+          ...itemFormatter(recentItem.data, pinboardItems),
+          showIntroduction: showIntroduction && (index === pinButtonIntroductionIndex),
+        });
       }
     });
     return recentData;
