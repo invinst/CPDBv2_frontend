@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import should from 'should';
 
-import { OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT } from 'utils/constants';
+import { softBlackColor } from 'utils/styles';
 import MiniVisualToken from 'components/pinboard-page/relevant/common/mini-officer-visual-token';
 import StaticRadarChart from 'components/common/radar-chart';
 
@@ -18,7 +18,7 @@ describe('MiniVisualToken component', function () {
         { axis: 'Civilian Allegations', value: 52.5 },
       ],
       visualTokenBackground: '#ed7467',
-      textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
+      textColor: softBlackColor,
     };
     const wrapper = shallow(
       <MiniVisualToken

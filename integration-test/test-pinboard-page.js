@@ -174,12 +174,12 @@ describe('Pinboard Page', function () {
         (graphNode) => graphNode.getCSSProperty('fill').value
       ));
       const expectedNodeGroupColors = {
-        'rgb(253,94,76)': 6,
-        'rgb(244,162,152)': 6,
-        'rgb(249,211,195)': 5,
-        'rgb(243,42,41)': 1,
-        'rgb(255,80,80)': 1,
-        'rgb(243,173,173)': 1,
+        'rgb(245,37,36)': 6,
+        'rgb(255,65,44)': 6,
+        'rgb(255,100,83)': 5,
+        'rgb(244,162,152)': 1,
+        'rgb(249,211,195)': 1,
+        'rgb(245,244,244)': 1,
       };
       nodeGroupColors.should.eql(expectedNodeGroupColors);
 
