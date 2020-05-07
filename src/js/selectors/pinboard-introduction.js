@@ -1,11 +1,14 @@
+import { isPinboardFeatureEnabled } from 'utils/pinboard';
+
+
 export const isPinButtonIntroductionVisitedSelector = (
-  state => state.pinboardIntroduction.isPinButtonIntroductionVisited
+  state => !isPinboardFeatureEnabled() || state.pinboardIntroduction.isPinButtonIntroductionVisited
 );
 
 export const isPinboardButtonIntroductionVisitedSelector = (
-  state => state.pinboardIntroduction.isPinboardButtonIntroductionVisited
+  state => !isPinboardFeatureEnabled() || state.pinboardIntroduction.isPinboardButtonIntroductionVisited
 );
 
 export const isPinboardIntroductionVisitedSelector = (
-  state => state.pinboardIntroduction.isPinboardIntroductionVisited
+  state => !isPinboardFeatureEnabled() || state.pinboardIntroduction.isPinboardIntroductionVisited
 );
