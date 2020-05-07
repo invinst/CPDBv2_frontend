@@ -52,7 +52,7 @@ describe('Social Graph page selectors', function () {
             { axis: 'Civilian Allegations', value: 97 },
 
           ],
-          visualTokenBackground: '#f52524',
+          visualTokenBackground: '#F52524',
           textColor: '#DFDFDF',
         },
       });
@@ -117,7 +117,7 @@ describe('Social Graph page selectors', function () {
               { axis: 'Civilian Allegations', value: 97 },
 
             ],
-            visualTokenBackground: '#f52524',
+            visualTokenBackground: '#F52524',
             textColor: '#DFDFDF',
           },
         },
@@ -132,8 +132,8 @@ describe('Social Graph page selectors', function () {
               { axis: 'Civilian Allegations', value: 90 },
 
             ],
-            visualTokenBackground: '#f52524',
-            textColor: '#DFDFDF',
+            visualTokenBackground: '#FF412C',
+            textColor: '#231F20',
           },
         },
         {
@@ -147,8 +147,8 @@ describe('Social Graph page selectors', function () {
               { axis: 'Civilian Allegations', value: 74 },
 
             ],
-            visualTokenBackground: '#dc2c30',
-            textColor: '#DFDFDF',
+            visualTokenBackground: '#FF412C',
+            textColor: '#231F20',
           },
         },
       ];
@@ -212,8 +212,8 @@ describe('Social Graph page selectors', function () {
               { axis: 'Civilian Allegations', value: 90 },
 
             ],
-            visualTokenBackground: '#f52524',
-            textColor: '#DFDFDF',
+            visualTokenBackground: '#FF412C',
+            textColor: '#231F20',
           },
         },
         {
@@ -227,7 +227,7 @@ describe('Social Graph page selectors', function () {
               { axis: 'Civilian Allegations', value: 97 },
 
             ],
-            visualTokenBackground: '#f52524',
+            visualTokenBackground: '#F52524',
             textColor: '#DFDFDF',
           },
         },
@@ -242,8 +242,8 @@ describe('Social Graph page selectors', function () {
               { axis: 'Civilian Allegations', value: 74 },
 
             ],
-            visualTokenBackground: '#dc2c30',
-            textColor: '#DFDFDF',
+            visualTokenBackground: '#FF412C',
+            textColor: '#231F20',
           },
         },
       ];
