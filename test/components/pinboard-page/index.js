@@ -8,7 +8,6 @@ import { createMemoryHistory } from 'history';
 import { createStore as ReduxCreateStore } from 'redux';
 import { set } from 'lodash';
 
-import browserHistory from 'utils/history';
 import PinnedOfficersContainer from 'containers/pinboard-page/pinned-officers';
 import PinnedCRsContainer from 'containers/pinboard-page/pinned-crs';
 import PinnedTRRsContainer from 'containers/pinboard-page/pinned-trrs';
@@ -20,9 +19,7 @@ import RootReducer from 'reducers/root-reducer';
 import FooterContainer from 'containers/footer-container';
 import PinboardsContainer from 'containers/pinboard-page/pinboards-container';
 import {
-  PINBOARD_PAGE_REDIRECT,
   PINBOARD_PAGE_FOCUS_ITEM,
-  PINBOARD_FETCH_REQUEST_SUCCESS,
   PINBOARD_EDIT_TYPES,
 } from 'utils/constants';
 import PinboardPage from 'components/pinboard-page';
@@ -49,7 +46,6 @@ describe('PinboardPage component', function () {
     crItems: { requesting: false, items: [] },
     officerItems: { requesting: false, items: [] },
     trrItems: { requesting: false, items: [] },
-    redirect: false,
     initialRequested: true,
     focusedItem: {},
     pinboard,
@@ -107,94 +103,6 @@ describe('PinboardPage component', function () {
     );
 
     wrapper.find(LoadingSpinner).exists().should.be.true();
-  });
-
-  it('should replace url when shouldRedirect is True after updating', function () {
-    const replaceStub = stub(browserHistory, 'replace');
-
-    const pinboard = {
-      'id': '5cd06f2b',
-      'title': 'Pinboard title',
-    };
-
-    const state = {
-      pinboardPage: createPinboardPage(pinboard),
-      pathname: 'pinboard/5cd06f2b',
-    };
-
-    browserHistory.push('/pinboard/');
-
-    const store = ReduxCreateStore(RootReducer(browserHistory), state);
-
-    const pinboardPage = () => (
-      <Provider store={ store }>
-        <PinboardPageContainer />
-      </Provider>
-    );
-
-    mount(
-      <Router history={ browserHistory }>
-        <Route path='/pinboard/' component={ pinboardPage } />
-      </Router>
-    );
-
-    store.dispatch({
-      type: PINBOARD_PAGE_REDIRECT,
-      payload: true,
-    });
-
-    replaceStub.should.be.calledWith('/pinboard/5cd06f2b/pinboard-title/');
-
-    store.dispatch({
-      type: PINBOARD_FETCH_REQUEST_SUCCESS,
-      payload: {
-        id: '66ef1560',
-        title: 'Title',
-        description: 'Description',
-        'officer_ids': [1],
-        crids: ['abc'],
-        'trr_ids': [1],
-      },
-    });
-
-    replaceStub.should.be.calledWith('/pinboard/66ef1560/title/');
-  });
-
-  it('should called updatePathName when componentDidUpdate if title is updated', function () {
-    const updatePathNameStub = stub();
-    const pinboard = {
-      'id': '5cd06f2b',
-      'title': 'Pinboard title',
-      'url': '/pinboard/5cd06f2b/pinboard-title/',
-    };
-    const updatedPinboard = {
-      'id': '5cd06f2b',
-      'title': 'Pinboard title',
-      'url': '/pinboard/5cd06f2b/updated-title/',
-    };
-    const state = {
-      pinboardPage: createPinboardPage(pinboard),
-      pathname: 'pinboard/5cd06f2b',
-    };
-    const store = MockStore()(state);
-
-    const wrapper = mount(
-      <Provider store={ store }>
-        <MemoryRouter>
-          <PinboardPage updatePathName={ updatePathNameStub } pinboard={ pinboard } initialRequested={ true }/>
-        </MemoryRouter>
-      </Provider>
-    );
-
-    wrapper.setProps({
-      children: (
-        <MemoryRouter>
-          <PinboardPage updatePathName={ updatePathNameStub } pinboard={ updatedPinboard } initialRequested={ true }/>
-        </MemoryRouter>
-      ),
-    });
-
-    updatePathNameStub.should.be.calledWith('/pinboard/5cd06f2b/updated-title/');
   });
 
   it('should render PinnedSection component and SearchBar component', function () {
