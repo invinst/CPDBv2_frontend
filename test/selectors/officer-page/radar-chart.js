@@ -54,7 +54,7 @@ describe('Officer radar chart selectors', function () {
           'value': 66.251,
         }],
         textColor: '#231F20',
-        visualTokenBackground: '#fc5d2c',
+        visualTokenBackground: '#F4A298',
         'year': 2006,
       }, {
         'items': [{
@@ -68,7 +68,7 @@ describe('Officer radar chart selectors', function () {
           'value': 75.065,
         }],
         textColor: '#231F20',
-        visualTokenBackground: '#fc5d2c',
+        visualTokenBackground: '#F4A298',
         'year': 2007,
       }]);
     });

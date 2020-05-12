@@ -10,7 +10,7 @@ import './search-main-panel.sass';
 export default function SearchMainPanel(props) {
   const {
     contentType, query, editModeOn, aliasEditModeOn,
-    handleSelect, tags, onEmptyPinboardButtonClick,
+    handleSelect, tags, onEmptyPinboardButtonClick, hide,
   } = props;
 
   return (
@@ -24,11 +24,13 @@ export default function SearchMainPanel(props) {
             aliasEditModeOn={ aliasEditModeOn }
             contentType={ contentType }
             tags={ tags }
+            hide={ hide }
             onEmptyPinboardButtonClick={ onEmptyPinboardButtonClick }
           /> :
           <SearchTermsContainer
             onEmptyPinboardButtonClick={ onEmptyPinboardButtonClick }
             aliasEditModeOn={ aliasEditModeOn }
+            hide={ hide }
           />
       }
     </div>
@@ -43,6 +45,7 @@ SearchMainPanel.propTypes = {
   aliasEditModeOn: PropTypes.bool,
   handleSelect: PropTypes.func,
   tags: PropTypes.array,
+  hide: PropTypes.bool,
   onEmptyPinboardButtonClick: PropTypes.func,
 };
 

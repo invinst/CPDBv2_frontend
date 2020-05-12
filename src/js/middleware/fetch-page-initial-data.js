@@ -44,14 +44,14 @@ import { fetchDocuments, fetchDocumentsAuthenticated } from 'actions/documents-o
 import { cancelledByUser } from 'utils/axios-client';
 import { requestCrawlers } from 'actions/crawlers-page';
 import { fetchPinboard, fetchHeaderPinboards } from 'actions/pinboard';
-import { redirect } from 'actions/pinboard-page';
 import { fetchAllPinboards } from 'actions/pinboard-admin-page';
 import { fetchVideoInfo } from 'actions/headers/slim-header';
 import { hasVideoInfoSelector } from 'selectors/headers/slim-header';
-import { dispatchFetchPinboardPageData, dispatchFetchPinboardPinnedItems } from 'utils/pinboard';
 import { isSignedInFromCookie } from 'utils/authentication';
 import { fetchToast } from 'actions/toast';
 import { hasToastsSelector } from 'selectors/toast';
+import { fetchAppConfig } from 'actions/app-config';
+import appConfig from 'utils/app-config';
 
 let prevPathname = '';
 
@@ -126,6 +126,10 @@ export default store => next => action => {
 
     if (!hasToastsSelector(state)) {
       store.dispatch(fetchToast());
+    }
+
+    if (appConfig.isEmpty()) {
+      dispatches.push(store.dispatch(fetchAppConfig()));
     }
 
     const notRequiredLandingPageContent = [/embed\/map/];
@@ -254,18 +258,12 @@ export default store => next => action => {
       const idOnPath = getPinboardID(pathName);
       const pinboard = getPinboard(state);
       const idInStore = pinboard.id;
-      if (!idOnPath) {
-        dispatches.push(store.dispatch(redirect(true)));
-      } else if (idOnPath.length === PINBOARD_HEX_ID_LENGTH) {
+      if (idOnPath && idOnPath.length === PINBOARD_HEX_ID_LENGTH) {
         if (idOnPath === idInStore) {
-          dispatches.push(store.dispatch(redirect(false)));
           if (!pinboard.hasPendingChanges) {
             dispatches.push(store.dispatch(fetchPinboard(idOnPath)));
-            dispatchFetchPinboardPinnedItems(store, idOnPath);
-            dispatchFetchPinboardPageData(store, idOnPath);
           }
         } else {
-          dispatches.push(store.dispatch(redirect(true)));
           dispatches.push(store.dispatch(fetchPinboard(idOnPath)));
         }
       }

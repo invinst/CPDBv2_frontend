@@ -26,22 +26,27 @@ describe('SearchMainPanel component', function () {
     pinboardPage: {
       pinboard: {},
     },
+    pinboardIntroduction: {
+      isPinButtonIntroductionVisited: false,
+    },
   });
 
   it('should render SearchResults component if query is not null', function () {
     const wrapper = shallow(
-      <SearchMainPanel query='ke' />
+      <SearchMainPanel query='ke' hide={ true } />
     );
-
-    wrapper.find(SearchResultsContainer).exists().should.be.true();
+    const searchResults = wrapper.find(SearchResultsContainer);
+    searchResults.exists().should.be.true();
+    searchResults.prop('hide').should.be.true();
   });
 
   it('should render SearchTerm component if query is null', function () {
     const wrapper = shallow(
-      <SearchMainPanel query='' />
+      <SearchMainPanel query='' hide={ true } />
     );
-
-    wrapper.find(SearchTermsContainer).exists().should.be.true();
+    const searchTerms = wrapper.find(SearchTermsContainer);
+    searchTerms.exists().should.be.true();
+    searchTerms.prop('hide').should.be.true();
   });
 
   context('in edit mode', function () {

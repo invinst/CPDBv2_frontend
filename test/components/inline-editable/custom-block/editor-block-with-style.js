@@ -9,7 +9,7 @@ import EditorBlockWithStyle from 'components/inline-editable/custom-block/editor
 describe('EditorBlockWithStyle component', function () {
   it('should render with given props', function () {
     stub(EditorBlock.prototype, 'componentDidMount');
-    stub(EditorBlock.prototype, '_renderChildren').returns(<div/>);
+    stub(EditorBlock.prototype, '_renderChildren').returns([<div key='test-element'/>]);
     const style = { color: 'blue' };
     const child = <div className='test-editor-block-with-style-child'>some text</div>;
     const wrapper = mount(

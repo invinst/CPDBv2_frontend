@@ -21,6 +21,9 @@ describe('SearchTerms component', function () {
     pinboardPage: {
       pinboard: {},
     },
+    pinboardIntroduction: {
+      isPinButtonIntroductionVisited: false,
+    },
   });
 
   describe('componentDidMount', function () {
@@ -192,14 +195,22 @@ describe('SearchTerms component', function () {
         to: '/officer/8257/mark-farmer/',
       }];
       const pinboardUrl = '/pinboard/12f453/untitled-title';
+      const visitPinButtonIntroduction = spy();
 
       const wrapper = shallow(
-        <SearchTerms pinboardUrl={ pinboardUrl } recentSuggestions={ recentSuggestions }/>
+        <SearchTerms
+          pinboardUrl={ pinboardUrl }
+          recentSuggestions={ recentSuggestions }
+          visitPinButtonIntroduction={ visitPinButtonIntroduction }
+          hide={ true }
+        />
       );
 
       const recentSuggestionsComp = wrapper.find(RecentSuggestion);
       recentSuggestionsComp.prop('recentSuggestions').should.eql(recentSuggestions);
       recentSuggestionsComp.prop('pinboardUrl').should.equal(pinboardUrl);
+      recentSuggestionsComp.prop('visitPinButtonIntroduction').should.equal(visitPinButtonIntroduction);
+      recentSuggestionsComp.prop('hide').should.be.true();
     });
 
     it('should not render RecentSuggestion component if recentSuggestions is null', function () {
@@ -229,19 +240,21 @@ describe('SearchTerms component', function () {
   });
 
   context('isEmptyPinboard is true', function () {
-    it('should render PinboardBar', function () {
+    it('should render PinboardBar without slide-in class', function () {
       const wrapper = shallow(
         <SearchTerms isEmptyPinboard={ true } />
       );
-      wrapper.find(PinboardBar).exists().should.be.false();
+      const pinboardBar = wrapper.find(PinboardBar).dive();
+      pinboardBar.prop('className').should.not.containEql('slide-in');
     });
   });
   context('isEmptyPinboard is false', function () {
-    it('should not render PinboardBar', function () {
+    it('should render PinboardBar with slide-in class', function () {
       const wrapper = shallow(
         <SearchTerms isEmptyPinboard={ false } />
       );
-      wrapper.find(PinboardBar).exists().should.be.true();
+      const pinboardBar = wrapper.find(PinboardBar).dive();
+      pinboardBar.prop('className').should.containEql('slide-in');
     });
   });
 });

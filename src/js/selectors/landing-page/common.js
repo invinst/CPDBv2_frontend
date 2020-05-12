@@ -25,11 +25,7 @@ export const cardTransform = card => {
 export const simpleOfficerTransform = officer => {
   const percentile = officer.percentile;
 
-  const background = getVisualTokenOIGBackground(
-    parseFloat(percentile['percentile_allegation_civilian']),
-    parseFloat(percentile['percentile_allegation_internal']),
-    parseFloat(percentile['percentile_trr'])
-  );
+  const background = getVisualTokenOIGBackground(parseFloat(percentile['percentile_allegation']));
 
   return {
     id: officer['id'],

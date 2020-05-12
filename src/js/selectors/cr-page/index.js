@@ -140,11 +140,7 @@ const getInvolvementsSelector = createSelector(
           { axis: 'internal', value: parseFloat(obj['percentile_allegation_internal']) },
           { axis: 'civilian', value: parseFloat(obj['percentile_allegation_civilian']) },
         ],
-        radarColor: getVisualTokenOIGBackground(
-          parseFloat(obj['percentile_allegation_civilian']),
-          parseFloat(obj['percentile_allegation_internal']),
-          parseFloat(obj['percentile_trr'])
-        ),
+        radarColor: getVisualTokenOIGBackground(parseFloat(obj['percentile_allegation'])),
       };
 
       if (type === 'investigator') {

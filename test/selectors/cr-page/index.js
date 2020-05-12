@@ -122,7 +122,7 @@ describe('CR page selectors', function () {
             },
           ],
           textColor: '#DFDFDF',
-          visualTokenBackground: '#f52524',
+          visualTokenBackground: '#F52524',
           year: 2007,
         },
         isPinned: false,

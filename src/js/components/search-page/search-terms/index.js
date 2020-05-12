@@ -66,15 +66,24 @@ export default class SearchTerms extends Component {
   }
 
   renderRecentSuggestion() {
-    const { recentSuggestions, addOrRemoveItemInPinboard, saveToRecent, pinboardUrl } = this.props;
+    const {
+      recentSuggestions,
+      addOrRemoveItemInPinboard,
+      visitPinButtonIntroduction,
+      saveToRecent,
+      pinboardUrl,
+      hide,
+    } = this.props;
 
     if (!isEmpty(recentSuggestions)) {
       return (
         <RecentSuggestion
           recentSuggestions={ recentSuggestions }
           addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
+          visitPinButtonIntroduction={ visitPinButtonIntroduction }
           saveToRecent={ saveToRecent }
           pinboardUrl={ pinboardUrl }
+          hide={ hide }
         />
       );
     }
@@ -86,9 +95,7 @@ export default class SearchTerms extends Component {
     const { onEmptyPinboardButtonClick, aliasEditModeOn, focusedItem, className, isEmptyPinboard } = this.props;
     return (
       <div className={ cx(style.wrapper, className, { 'hide-pinboard-bar': isEmptyPinboard }) }>
-        {
-          !isEmptyPinboard && <PinboardBar onEmptyPinboardButtonClick={ onEmptyPinboardButtonClick } />
-        }
+        <PinboardBar onEmptyPinboardButtonClick={ onEmptyPinboardButtonClick } isEmptyPinboard={ isEmptyPinboard } />
         <div className={ cx('search-term-wrapper', { 'edit-mode-on': aliasEditModeOn } ) }>
           <PinboardIntroductionContainer />
           <ScrollIntoView focusedItemClassName={ `term-item-${get(focusedItem, 'uniqueKey', '').replace(' ', '-')}` }>
@@ -138,6 +145,8 @@ SearchTerms.propTypes = {
   className: PropTypes.string,
   isEmptyPinboard: PropTypes.bool,
   pinboardUrl: PropTypes.string,
+  visitPinButtonIntroduction: PropTypes.func,
+  hide: PropTypes.bool,
 };
 
 SearchTerms.defaultProps = {

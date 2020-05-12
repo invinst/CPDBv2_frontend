@@ -8,7 +8,6 @@ import searchPage from './page-objects/search-page';
 import header from './page-objects/shareable-header';
 import searchTermsPage from './page-objects/search-terms-page';
 import pinboardPage from './page-objects/pinboard-page';
-import { restorePinboardButtonIntroduction } from './utils';
 import { INTRODUCTION_DISPLAY_TIMEOUT } from './utils/constants';
 
 
@@ -505,7 +504,7 @@ describe('landing page', function () {
 
   describe('Pinboard Introduction', function () {
     beforeEach(function () {
-      restorePinboardButtonIntroduction();
+      browser.clearReduxStore(true);
       landingPage.header.content.waitForDisplayed();
     });
 
