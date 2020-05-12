@@ -9,6 +9,7 @@ import searchPath from 'middleware/search-path';
 import tracking from 'middleware/tracking';
 import localStorageConfig from './local-storage-config';
 import fetchPageInitialData from 'middleware/fetch-page-initial-data';
+import redirectPinboardMiddleware from 'middleware/redirect-pinboard-middleware';
 import redirectOfficerAlias from 'middleware/redirect-officer-alias';
 import updatePathName from 'middleware/path-name';
 import retryOfficerDownloadMiddleware from 'middleware/retry-officer-downloads';
@@ -34,6 +35,7 @@ function configureStore(initialState) {
     tracking,
     routerMiddleware(browserHistory),
     fetchPageInitialData,
+    redirectPinboardMiddleware,
     redirectOfficerAlias,
     updatePathName,
     retryOfficerDownloadMiddleware,
