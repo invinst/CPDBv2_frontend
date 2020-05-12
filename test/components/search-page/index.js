@@ -39,6 +39,9 @@ describe('SearchPage component', function () {
     pinboardPage: {
       pinboard: {},
     },
+    pinboardIntroduction: {
+      isPinButtonIntroductionVisited: false,
+    },
   };
   const store = MockStore()(state);
 
@@ -46,14 +49,44 @@ describe('SearchPage component', function () {
     this.browserHistoryPush = stub(browserHistory, 'push');
   });
 
+  it('should pass correct props to SearchMainPanel', function () {
+    const store = createStore(RootReducer, state);
+    const createNewEmptyPinboardStub = stub().usingPromise(Promise).resolves({
+      payload: {
+        id: '5cd06f2b',
+        url: '/pinboard/5cd06f2b/',
+      },
+    });
+
+    const wrapper = shallow(
+      <Provider store={ store }>
+        <SearchPage
+          hide={ true }
+          query={ '123' }
+          createNewEmptyPinboard={ createNewEmptyPinboardStub }
+        />
+      </Provider>
+    );
+
+    const searchPage = wrapper.find(SearchPage).dive();
+    let searchMainPanel = searchPage.find('SearchMainPanel');
+    searchMainPanel.prop('hide').should.be.true();
+    searchMainPanel.prop('query').should.be.equal('123');
+    searchPage.setProps({ hide: false });
+    searchMainPanel = searchPage.find('SearchMainPanel');
+    searchMainPanel.prop('hide').should.be.false();
+  });
+
   it('should not call get suggestion api when query is empty', function () {
     const clock = useFakeTimers();
     const getSuggestionSpy = stub().returns({ catch: spy() });
+    const resetSearchResultNavigationSpy = spy();
     mount(
       <Provider store={ store }>
         <MemoryRouter>
           <SearchPage
             getSuggestion={ getSuggestionSpy }
+            resetSearchResultNavigation={ resetSearchResultNavigationSpy }
             query=''
           />
         </MemoryRouter>
@@ -62,15 +95,18 @@ describe('SearchPage component', function () {
     clock.tick(600);
 
     getSuggestionSpy.should.not.be.called();
+    resetSearchResultNavigationSpy.should.not.be.called();
   });
 
   it('should call get suggestion api when query is set', function () {
     const clock = useFakeTimers();
     const getSuggestionSpy = stub().returns({ catch: spy() });
+    const resetSearchResultNavigationSpy = spy();
     mount(
       <Provider store={ store }>
         <SearchPage
           getSuggestion={ getSuggestionSpy }
+          resetSearchResultNavigation={ resetSearchResultNavigationSpy }
           query='a'
         />
       </Provider>
@@ -78,6 +114,7 @@ describe('SearchPage component', function () {
     clock.tick(600);
 
     getSuggestionSpy.should.be.calledWith('a', { limit: 9 });
+    resetSearchResultNavigationSpy.should.be.called();
   });
 
   it('should call browserHistory.push when user click on searchbar__button--back', function () {
@@ -361,6 +398,7 @@ describe('SearchPage component', function () {
   it('should not call getSuggestion while query does not change', function () {
     const clock = useFakeTimers();
     const getSuggestionSpy = stub().returns({ catch: spy() });
+    const resetSearchResultNavigationSpy = spy();
 
     const wrapper = mount(
       <Provider store={ store }>
@@ -368,13 +406,16 @@ describe('SearchPage component', function () {
           suggestionGroups={ ['abc'] }
           isRequesting={ false }
           query='abc'
-          getSuggestion={ getSuggestionSpy } />
+          getSuggestion={ getSuggestionSpy }
+          resetSearchResultNavigation={ resetSearchResultNavigationSpy }
+        />
       </Provider>
     );
 
     clock.tick(600);
     getSuggestionSpy.should.be.calledOnce();
     getSuggestionSpy.resetHistory();
+    resetSearchResultNavigationSpy.resetHistory();
 
     wrapper.setProps({
       children: (
@@ -382,18 +423,22 @@ describe('SearchPage component', function () {
           suggestionGroups={ [] }
           isRequesting={ true }
           query='abc'
-          getSuggestion={ getSuggestionSpy }/>
+          getSuggestion={ getSuggestionSpy }
+          resetSearchResultNavigation={ resetSearchResultNavigationSpy }
+        />
       ),
     });
 
     clock.tick(600);
 
     getSuggestionSpy.should.not.be.called();
+    resetSearchResultNavigationSpy.should.not.be.called();
   });
 
   it('should throttle getSuggestion calls and only keep the call with the latest query', function () {
     const clock = useFakeTimers();
     const getSuggestionSpy = stub().returns({ catch: spy() });
+    const resetSearchResultNavigationSpy = spy();
 
     const wrapper = mount(
       <Provider store={ store }>
@@ -401,7 +446,9 @@ describe('SearchPage component', function () {
           suggestionGroups={ ['abc'] }
           isRequesting={ false }
           query='abc'
-          getSuggestion={ getSuggestionSpy } />
+          getSuggestion={ getSuggestionSpy }
+          resetSearchResultNavigation={ resetSearchResultNavigationSpy }
+        />
       </Provider>
     );
 
@@ -411,9 +458,14 @@ describe('SearchPage component', function () {
           suggestionGroups={ [] }
           isRequesting={ true }
           query='abcd'
-          getSuggestion={ getSuggestionSpy }/>
+          getSuggestion={ getSuggestionSpy }
+          resetSearchResultNavigation={ resetSearchResultNavigationSpy }
+        />
       ),
     });
+
+    getSuggestionSpy.resetHistory();
+    resetSearchResultNavigationSpy.resetHistory();
 
     wrapper.setProps({
       children: (
@@ -421,7 +473,9 @@ describe('SearchPage component', function () {
           suggestionGroups={ [] }
           isRequesting={ true }
           query='abcde'
-          getSuggestion={ getSuggestionSpy }/>
+          getSuggestion={ getSuggestionSpy }
+          resetSearchResultNavigation={ resetSearchResultNavigationSpy }
+        />
       ),
     });
 
@@ -429,6 +483,7 @@ describe('SearchPage component', function () {
 
     getSuggestionSpy.should.be.calledOnce();
     getSuggestionSpy.should.be.calledWith('abcde', { limit: 9 });
+    resetSearchResultNavigationSpy.should.be.called();
   });
 
   it('should not call api when query changed to emtpy', function () {

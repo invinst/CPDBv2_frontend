@@ -7,12 +7,9 @@ export const extractPercentile = (percentile) => {
   const internalPercentile = parseFloat(percentile['percentile_allegation_internal']);
   const civilianPercentile = parseFloat(percentile['percentile_allegation_civilian']);
   const trrPercentile = parseFloat(percentile['percentile_trr']);
+  const allegationPercentile = parseFloat(percentile['percentile_allegation']);
+  const { backgroundColor, textColor } = getVisualTokenOIGBackground(allegationPercentile);
 
-  const { backgroundColor, textColor } = getVisualTokenOIGBackground(
-    civilianPercentile,
-    internalPercentile,
-    trrPercentile
-  );
   return {
     year: percentile['year'],
     items: [
@@ -28,15 +25,7 @@ export const extractPercentile = (percentile) => {
 export const visualTokenBackground = (percentile) => {
   if (!percentile) return null;
 
-  const internalPercentile = parseFloat(percentile['percentile_allegation_internal']);
-  const civilianPercentile = parseFloat(percentile['percentile_allegation_civilian']);
-  const trrPercentile = parseFloat(percentile['percentile_trr']);
-
-  const { backgroundColor } = getVisualTokenOIGBackground(
-    civilianPercentile,
-    internalPercentile,
-    trrPercentile
-  );
-
+  const allegationPercentile = parseFloat(percentile['percentile_allegation']);
+  const { backgroundColor } = getVisualTokenOIGBackground(allegationPercentile);
   return backgroundColor;
 };

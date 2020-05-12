@@ -52,7 +52,7 @@ const config = Object.assign({}, baseConfig, {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['es2015', 'react', 'stage-0']
+            presets: ['@babel/preset-react', '@babel/preset-env']
           }
         }
       },
@@ -65,7 +65,7 @@ const config = Object.assign({}, baseConfig, {
         use: {
           loader: 'babel-loader',
           options: {
-            plugins: ['transform-exponentiation-operator'],
+            plugins: ['@babel/plugin-transform-exponentiation-operator'],
           }
         }
       },

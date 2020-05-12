@@ -1,26 +1,33 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { spy, useFakeTimers } from 'sinon';
+import { spy, stub, useFakeTimers, match } from 'sinon';
 
 import PinboardButton from 'components/headers/slim-header/slim-header-content/pinboard-button';
-import * as pinboardUtils from 'utils/pinboard';
 import browserHistory from 'utils/history';
-import { PINBOARD_INTRODUCTION, PINBOARD_INTRODUCTION_DELAY } from 'utils/constants';
+import { APP_CONFIG_KEYS } from 'utils/constants';
+import * as appConfig from 'utils/app-config';
 
+
+const PINBOARD_INTRODUCTION_DELAY = 2000;
 
 describe('PinboardButton component', function () {
   let wrapper;
+  beforeEach(function () {
+    appConfig.default.set({
+      [APP_CONFIG_KEYS.PINBOARD_INTRODUCTION_DELAY]: PINBOARD_INTRODUCTION_DELAY,
+    });
+  });
 
   describe('componentDidMount', function () {
     beforeEach(function () {
-      this.setdisplayIntroductionTimeoutSpy = spy(PinboardButton.prototype, 'setdisplayIntroductionTimeout');
+      this.setDisplayIntroductionTimeoutSpy = spy(PinboardButton.prototype, 'setDisplayIntroductionTimeout');
     });
 
     context('heatMapDataRequested is true', function () {
       it('should set displayIntroduction to true after delay', function () {
         const clock = useFakeTimers();
         wrapper = mount(<PinboardButton heatMapDataRequested={ true }/>);
-        this.setdisplayIntroductionTimeoutSpy.called.should.be.true();
+        this.setDisplayIntroductionTimeoutSpy.called.should.be.true();
         wrapper.state('displayIntroduction').should.be.false();
         clock.tick(PINBOARD_INTRODUCTION_DELAY + 100);
         wrapper.state('displayIntroduction').should.be.true();
@@ -28,44 +35,92 @@ describe('PinboardButton component', function () {
     });
 
     context('heatMapDataRequested is false', function () {
-      it('should not call setdisplayIntroductionTimeout', function () {
+      it('should not call setDisplayIntroductionTimeout', function () {
         wrapper = mount(<PinboardButton heatMapDataRequested={ false }/>);
-        this.setdisplayIntroductionTimeoutSpy.called.should.be.false();
+        this.setDisplayIntroductionTimeoutSpy.called.should.be.false();
       });
     });
   });
 
   describe('componentDidUpdate', function () {
     beforeEach(function () {
-      this.setdisplayIntroductionTimeoutSpy = spy(PinboardButton.prototype, 'setdisplayIntroductionTimeout');
+      this.setDisplayIntroductionTimeoutSpy = spy(PinboardButton.prototype, 'setDisplayIntroductionTimeout');
     });
 
     context('heatMapDataRequested is changed from false to true', function () {
-      it('should set displayIntroduction to true after delay', function () {
-        const clock = useFakeTimers();
-        wrapper = mount(<PinboardButton heatMapDataRequested={ false } />);
-        this.setdisplayIntroductionTimeoutSpy.called.should.be.false();
+      context('isPinboardButtonIntroductionVisited is false', function () {
+        it('should set displayIntroduction to true after delay', function () {
+          const clock = useFakeTimers();
+          wrapper = mount(
+            <PinboardButton
+              heatMapDataRequested={ false }
+              isPinboardButtonIntroductionVisited={ false }
+            />
+          );
+          this.setDisplayIntroductionTimeoutSpy.called.should.be.false();
 
-        wrapper.setProps({
-          heatMapDataRequested: true,
+          wrapper.setProps({
+            heatMapDataRequested: true,
+          });
+          this.setDisplayIntroductionTimeoutSpy.called.should.be.true();
+
+          wrapper.state('displayIntroduction').should.be.false();
+          clock.tick(PINBOARD_INTRODUCTION_DELAY + 100);
+          wrapper.state('displayIntroduction').should.be.true();
         });
-        this.setdisplayIntroductionTimeoutSpy.called.should.be.true();
+      });
 
-        wrapper.state('displayIntroduction').should.be.false();
-        clock.tick(PINBOARD_INTRODUCTION_DELAY + 100);
-        wrapper.state('displayIntroduction').should.be.true();
+      context('isPinboardButtonIntroductionVisited is true', function () {
+        it('should set displayIntroduction to true after delay', function () {
+          wrapper = mount(
+            <PinboardButton
+              heatMapDataRequested={ false }
+              isPinboardButtonIntroductionVisited={ true }
+            />
+          );
+          this.setDisplayIntroductionTimeoutSpy.called.should.be.false();
+
+          wrapper.setProps({
+            heatMapDataRequested: true,
+          });
+          this.setDisplayIntroductionTimeoutSpy.called.should.be.false();
+        });
       });
     });
 
     context('heatMapDataRequested is not changed from false to true', function () {
-      it('should not call setdisplayIntroductionTimeout', function () {
-        wrapper = mount(<PinboardButton heatMapDataRequested={ false } />);
-        this.setdisplayIntroductionTimeoutSpy.called.should.be.false();
+      context('isPinboardButtonIntroductionVisited is false', function () {
+        it('should not call setDisplayIntroductionTimeout', function () {
+          wrapper = mount(
+            <PinboardButton
+              heatMapDataRequested={ false }
+              isPinboardButtonIntroductionVisited={ false }
+            />
+          );
+          this.setDisplayIntroductionTimeoutSpy.called.should.be.false();
 
-        wrapper.setProps({
-          heatMapDataRequested: false,
+          wrapper.setProps({
+            heatMapDataRequested: false,
+          });
+          this.setDisplayIntroductionTimeoutSpy.called.should.be.false();
         });
-        this.setdisplayIntroductionTimeoutSpy.called.should.be.false();
+      });
+
+      context('isPinboardButtonIntroductionVisited is true', function () {
+        it('should not call setDisplayIntroductionTimeout', function () {
+          wrapper = mount(
+            <PinboardButton
+              heatMapDataRequested={ false }
+              isPinboardButtonIntroductionVisited={ true }
+            />
+          );
+          this.setDisplayIntroductionTimeoutSpy.called.should.be.false();
+
+          wrapper.setProps({
+            heatMapDataRequested: false,
+          });
+          this.setDisplayIntroductionTimeoutSpy.called.should.be.false();
+        });
       });
     });
   });
@@ -80,11 +135,25 @@ describe('PinboardButton component', function () {
     });
   });
 
+  describe('setDisplayIntroductionTimeout', function () {
+    it('should get timeout value from appConfig', function () {
+      const appConfigGetStub = stub(appConfig.default, 'get').returns(113);
+      const setTimeoutSpy = spy(window, 'setTimeout');
+      const setDisplayIntroductionTimeoutSpy = spy(PinboardButton.prototype, 'setDisplayIntroductionTimeout');
+      mount(<PinboardButton heatMapDataRequested={ true }/>);
+
+      setDisplayIntroductionTimeoutSpy.should.be.calledOnce();
+      appConfigGetStub.should.be.calledOnce();
+      appConfigGetStub.should.be.calledWith(APP_CONFIG_KEYS.PINBOARD_INTRODUCTION_DELAY);
+      setTimeoutSpy.should.be.calledOnce();
+      setTimeoutSpy.should.be.calledWith(match.any, 113);
+    });
+  });
+
   context('heatMapDataRequested is true', function () {
-    context('isPinboardButtonIntroductionVisited() return true', function () {
+    context('isPinboardButtonIntroductionVisited is true', function () {
       beforeEach(function () {
-        localStorage.setItem(PINBOARD_INTRODUCTION.PINBOARD_BUTTON_INTRODUCTION, '1');
-        wrapper = mount(<PinboardButton heatMapDataRequested={ true } />);
+        wrapper = mount(<PinboardButton heatMapDataRequested={ true } isPinboardButtonIntroductionVisited={ true } />);
       });
 
       it('should render header-link without show-introduction class', function () {
@@ -98,16 +167,21 @@ describe('PinboardButton component', function () {
       });
     });
 
-    context('isPinboardButtonIntroductionVisited() return false', function () {
-      let setPinboardButtonIntroductionVisitedSpy;
+    context('isPinboardButtonIntroductionVisited is false', function () {
+      let visitPinboardButtonIntroductionSpy;
       let browserHistoryPushSpy;
       let clock;
       beforeEach(function () {
         clock = useFakeTimers();
-        localStorage.removeItem(PINBOARD_INTRODUCTION.PINBOARD_BUTTON_INTRODUCTION);
-        setPinboardButtonIntroductionVisitedSpy = spy(pinboardUtils, 'setPinboardButtonIntroductionVisited');
+        visitPinboardButtonIntroductionSpy = spy();
         browserHistoryPushSpy = spy(browserHistory, 'push');
-        wrapper = mount(<PinboardButton heatMapDataRequested={ true } />);
+        wrapper = mount(
+          <PinboardButton
+            heatMapDataRequested={ true }
+            isPinboardButtonIntroductionVisited={ false }
+            visitPinboardButtonIntroduction={ visitPinboardButtonIntroductionSpy }
+          />
+        );
       });
 
       it('should render header-link with show-introduction class after timeout', function () {
@@ -125,26 +199,25 @@ describe('PinboardButton component', function () {
         wrapper.find('.pinboard-button-introduction').exists().should.be.true();
       });
 
-      it('should call setPinboardButtonIntroductionVisited and redirect to pinboard on user click', function () {
+      it('should call visitPinboardButtonIntroduction and redirect to pinboard on user click', function () {
         wrapper.find('.header-link').simulate('click');
-        setPinboardButtonIntroductionVisitedSpy.should.be.calledOnce();
+        visitPinboardButtonIntroductionSpy.should.be.calledOnce();
         browserHistoryPushSpy.should.be.calledWith('/pinboard/');
       });
 
-      it('should call setPinboardButtonIntroductionVisited and redirect to pinboard on user click Try it', function () {
+      it('should call visitPinboardButtonIntroduction and redirect to pinboard on user click Try it', function () {
         clock.tick(PINBOARD_INTRODUCTION_DELAY + 50);
         wrapper.update();
         wrapper.find('.try-it-btn').simulate('click');
-        setPinboardButtonIntroductionVisitedSpy.should.be.calledOnce();
+        visitPinboardButtonIntroductionSpy.should.be.calledOnce();
         browserHistoryPushSpy.should.be.calledWith('/pinboard/');
       });
 
-      it('should call setPinboardButtonIntroductionVisited and forceUpdate on user click Dismiss', function () {
+      it('should call visitPinboardButtonIntroduction on user click Dismiss', function () {
         clock.tick(PINBOARD_INTRODUCTION_DELAY + 50);
         wrapper.update();
         wrapper.find('.dismiss-btn').simulate('click');
-        setPinboardButtonIntroductionVisitedSpy.should.be.calledOnce();
-        wrapper.find('.pinboard-button-introduction').exists().should.be.false();
+        visitPinboardButtonIntroductionSpy.should.be.calledOnce();
       });
     });
   });

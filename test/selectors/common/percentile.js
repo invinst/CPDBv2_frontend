@@ -1,13 +1,14 @@
 import should from 'should';
 
 import { extractPercentile, visualTokenBackground } from 'selectors/common/percentile';
-import { OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT } from 'utils/constants';
+import { softBlackColor } from 'utils/styles';
 
 
 describe('extractPercentile', () => {
   it('should return visualTokenBackground, textColor, items, and year', () => {
     const officerPercentile = {
       year: 2015,
+      'percentile_allegation': '60',
       'percentile_allegation_civilian': '52.5',
       'percentile_allegation_internal': '10.1',
       'percentile_trr': '20.6',
@@ -28,8 +29,8 @@ describe('extractPercentile', () => {
           value: 52.5,
         },
       ],
-      visualTokenBackground: '#ed7467', // corresponding to `312`
-      textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
+      visualTokenBackground: '#FF6453',
+      textColor: softBlackColor,
     };
     extractPercentile(officerPercentile).should.eql(expected);
   });
@@ -43,11 +44,12 @@ describe('extractPercentile', () => {
 describe('visualTokenBackground', function () {
   it('should return background color correctly', function () {
     const percentile = {
+      'percentile_allegation': '98',
       'percentile_allegation_civilian': '78.12',
       'percentile_allegation_internal': '80.20',
       'percentile_trr': '92.35',
     };
-    visualTokenBackground(percentile).should.eql('#dc2c30');
+    visualTokenBackground(percentile).should.eql('#F52524');
   });
 
   it('should return null if percentile is undefined', function () {

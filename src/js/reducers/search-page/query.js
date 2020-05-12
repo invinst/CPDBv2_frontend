@@ -11,5 +11,8 @@ const getSearchQuery = (searchText) => {
 
 export default handleActions({
   [CHANGE_SEARCH_QUERY]: (state, action) => getSearchQuery(action.payload),
-  [LOCATION_CHANGE]: (state, action) => (getSearchQuery(queryString.parse(action.payload.location.search).terms) || ''),
+  [LOCATION_CHANGE]: (state, action) => {
+    const { pathname, search } = action.payload.location;
+    return pathname === '/' ? '' : (getSearchQuery(queryString.parse(search).terms) || state);
+  },
 }, '');

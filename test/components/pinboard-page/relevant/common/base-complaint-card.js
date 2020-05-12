@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { spy, stub } from 'sinon';
 
-import { OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT } from 'utils/constants';
+import { softBlackColor } from 'utils/styles';
 import MiniVisualToken from 'components/pinboard-page/relevant/common/mini-officer-visual-token';
 import PlusButton from 'components/pinboard-page/relevant/common/plus-button';
 import BaseComplaintCard from 'components/pinboard-page/relevant/common/base-complaint-card';
@@ -21,7 +21,7 @@ describe('BaseComplaintCard component', function () {
           { axis: 'Civilian Allegations', value: 52.5 },
         ],
         visualTokenBackground: '#ed7467',
-        textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
+        textColor: softBlackColor,
       },
     }, {
       id: 2,
@@ -86,7 +86,7 @@ describe('BaseComplaintCard component', function () {
         { axis: 'Civilian Allegations', value: 52.5 },
       ],
       visualTokenBackground: '#ed7467',
-      textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
+      textColor: softBlackColor,
     });
     miniVisualTokens.at(1).prop('className').should.equal('top-officer-row-token');
     miniVisualTokens.at(1).prop('percentile').should.eql({ year: 2015, items: [] });

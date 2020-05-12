@@ -335,7 +335,7 @@ describe('NetworkGraph component', function () {
             { axis: 'Civilian Allegations', value: 97 },
 
           ],
-          visualTokenBackground: '#f52524',
+          visualTokenBackground: '#F52524',
           textColor: '#DFDFDF',
         },
       },
@@ -507,7 +507,7 @@ describe('NetworkGraph component', function () {
             { axis: 'Officer Allegations', value: 82 },
             { axis: 'Civilian Allegations', value: 97 },
           ],
-          visualTokenBackground: '#f52524',
+          visualTokenBackground: '#F52524',
           textColor: '#DFDFDF',
         },
       },

@@ -77,7 +77,7 @@ describe('focusedItem selectors', function () {
             { axis: 'Officer Allegations', value: 91 },
             { axis: 'Civilian Allegations', value: 92 },
           ],
-          visualTokenBackground: '#f52524',
+          visualTokenBackground: '#F52524',
           textColor: '#DFDFDF',
         },
         race: 'White',

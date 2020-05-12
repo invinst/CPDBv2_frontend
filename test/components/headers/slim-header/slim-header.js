@@ -38,6 +38,9 @@ describe('SlimHeader component', function () {
       },
     },
     pathname: '/',
+    pinboardIntroduction: {
+      isPinButtonIntroductionVisited: false,
+    },
   });
 
   beforeEach(function () {

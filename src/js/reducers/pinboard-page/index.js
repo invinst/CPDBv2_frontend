@@ -8,7 +8,6 @@ import relevantComplaints from './relevant-complaints';
 import officerItems from './officer-items';
 import crItems from './cr-items';
 import trrItems from './trr-items';
-import redirect from './redirect';
 import pinboard from './pinboard';
 import pinboards from './pinboards';
 import isShownPinboardsList from './is-shown-pinboards-list';
@@ -30,7 +29,6 @@ export default combineReducers({
   officerItems,
   crItems,
   trrItems,
-  redirect,
   pinboard,
   pinboards,
   isShownPinboardsList,

@@ -38,19 +38,17 @@ import {
   fetchPinboardComplaints,
   fetchPinboardOfficers,
   fetchPinboardTRRs,
-  fetchPinboardGeographic,
-  fetchFirstPagePinboardGeographicTrrs,
-  fetchFirstPagePinboardGeographicCrs,
   fetchPinboardSocialGraph,
   fetchPinboardRelevantDocuments,
   fetchPinboardRelevantCoaccusals,
   fetchPinboardRelevantComplaints,
   fetchHeaderPinboards,
 } from 'actions/pinboard';
-import { redirect } from 'actions/pinboard-page';
 import { fetchVideoInfo } from 'actions/headers/slim-header';
 import * as pinboardAdminAction from 'actions/pinboard-admin-page';
 import { fetchToast } from 'actions/toast';
+import * as appConfigActions from 'actions/app-config';
+import * as appConfig from 'utils/app-config';
 
 
 const createLocationChangeAction = (pathname) => ({
@@ -469,40 +467,52 @@ describe('fetchPageInitialData middleware', function () {
     store.dispatch.calledWith(fetchPage(PINBOARD_PAGE_ID)()).should.be.true();
   });
 
-  it('should get all pinboard data if requesting ID equals ID in state', function () {
-    const store = buildStore();
-    _.set(store._state, 'pinboardPage.pinboard.id', '268a5e58');
-    _.set(store._state, 'pinboardPage.pinboard.hasPendingChanges', false);
-    _.set(store._state, 'pinboardPage.pinboard.officer_ids', [1]);
-    const action = createLocationChangeAction('/pinboard/268a5e58/');
-    let dispatched;
+  context('pinboard page', function () {
+    context('requesting pinboard does not equal ID in state', function () {
+      it('should dispatch fetchPinboard', function () {
+        stub(CancelToken, 'source');
+        const store = buildStore();
+        _.set(store._state, 'pinboardPage.pinboard.id', '268a5e58');
+        const action = createLocationChangeAction('/pinboard/5cd06f2b/');
+        let dispatched;
 
-    fetchPageInitialData(store)(action => dispatched = action)(action);
-    dispatched.should.eql(action);
-    store.dispatch.calledWith(redirect(false)).should.be.true();
-    store.dispatch.calledWith(fetchPinboardComplaints('268a5e58')).should.be.true();
-    store.dispatch.calledWith(fetchPinboardOfficers('268a5e58')).should.be.true();
-    store.dispatch.calledWith(fetchPinboardTRRs('268a5e58')).should.be.true();
-    store.dispatch.calledWith(fetchPinboardSocialGraph('268a5e58')).should.be.true();
-    store.dispatch.should.be.calledWith(fetchPinboardGeographic());
-    store.dispatch.should.be.calledWith(fetchFirstPagePinboardGeographicCrs({ 'pinboard_id': '268a5e58' }));
-    store.dispatch.should.be.calledWith(fetchFirstPagePinboardGeographicTrrs({ 'pinboard_id': '268a5e58' }));
-    store.dispatch.should.be.calledWith(fetchPinboardRelevantDocuments('268a5e58'));
-    store.dispatch.should.be.calledWith(fetchPinboardRelevantCoaccusals('268a5e58'));
-    store.dispatch.should.be.calledWith(fetchPinboardRelevantComplaints('268a5e58'));
-  });
+        fetchPageInitialData(store)(action => dispatched = action)(action);
+        dispatched.should.eql(action);
+        store.dispatch.calledWith(fetchPinboard('5cd06f2b')).should.be.true();
+      });
+    });
 
-  it('should dispatch redirect, fetchPinboard if requesting does not equal ID in state', function () {
-    stub(CancelToken, 'source');
-    const store = buildStore();
-    _.set(store._state, 'pinboardPage.pinboard.id', '268a5e58');
-    const action = createLocationChangeAction('/pinboard/5cd06f2b/');
-    let dispatched;
+    context('requesting pinboard equal ID in state', function () {
+      context('hasPendingChanges is false', function () {
+        it('should dispatch fetchPinboard', function () {
+          stub(CancelToken, 'source');
+          const store = buildStore();
+          _.set(store._state, 'pinboardPage.pinboard.id', '268a5e58');
+          _.set(store._state, 'pinboardPage.pinboard.hasPendingChanges', false);
+          const action = createLocationChangeAction('/pinboard/268a5e58/');
+          let dispatched;
 
-    fetchPageInitialData(store)(action => dispatched = action)(action);
-    dispatched.should.eql(action);
-    store.dispatch.calledWith(redirect(true)).should.be.true();
-    store.dispatch.calledWith(fetchPinboard('5cd06f2b')).should.be.true();
+          fetchPageInitialData(store)(action => dispatched = action)(action);
+          dispatched.should.eql(action);
+          store.dispatch.calledWith(fetchPinboard('268a5e58')).should.be.true();
+        });
+      });
+
+      context('hasPendingChanges is true', function () {
+        it('should not dispatch fetchPinboard', function () {
+          stub(CancelToken, 'source');
+          const store = buildStore();
+          _.set(store._state, 'pinboardPage.pinboard.id', '268a5e58');
+          _.set(store._state, 'pinboardPage.pinboard.hasPendingChanges', true);
+          const action = createLocationChangeAction('/pinboard/268a5e58/');
+          let dispatched;
+
+          fetchPageInitialData(store)(action => dispatched = action)(action);
+          dispatched.should.eql(action);
+          store.dispatch.calledWith(fetchPinboard('268a5e58')).should.be.false();
+        });
+      });
+    });
   });
 
   it('should not dispatch fetchPinboard if requesting ID is not valid', function () {
@@ -521,18 +531,6 @@ describe('fetchPageInitialData middleware', function () {
     store.dispatch.should.not.be.calledWith(fetchPinboardRelevantDocuments('268a5e5'));
     store.dispatch.should.not.be.calledWith(fetchPinboardRelevantCoaccusals('268a5e5'));
     store.dispatch.should.not.be.calledWith(fetchPinboardRelevantComplaints('268a5e5'));
-  });
-
-  it('should dispatch redirect if it is no id pinboard page', function () {
-    const store = buildStore();
-    _.set(store._state, 'pinboardPage.pinboard.id', null);
-    const action = createLocationChangeAction('/pinboard/');
-    let dispatched;
-
-    fetchPageInitialData(store)(action => dispatched = action)(action);
-    dispatched.should.eql(action);
-
-    store.dispatch.calledWith(redirect(true)).should.be.true();
   });
 
   it('should dispatch fetchAllPinboards when location changes', function () {
@@ -567,5 +565,34 @@ describe('fetchPageInitialData middleware', function () {
     dispatched.should.eql(action);
 
     store.dispatch.calledWith(fetchToast()).should.be.true();
+  });
+
+  context('LOCATION_CHANGE', function () {
+    let fetchAppConfigStub;
+    let locationChangeAction;
+    let clock;
+    beforeEach(function () {
+      fetchAppConfigStub = stub(appConfigActions, 'fetchAppConfig');
+      locationChangeAction = createLocationChangeAction('/search');
+      clock = useFakeTimers();
+    });
+
+    context('appConfig is empty', function () {
+      it('should fetch app config', function () {
+        stub(appConfig.default, 'isEmpty').returns(true);
+        fetchPageInitialData(store)(() => {})(locationChangeAction);
+        clock.tick(1000);
+        store.dispatch.calledWith(fetchAppConfigStub()).should.be.true();
+      });
+    });
+
+    context('appConfig is not empty', function () {
+      it('should not fetch app config', function () {
+        stub(appConfig.default, 'isEmpty').returns(false);
+        fetchPageInitialData(store)(() => {})(locationChangeAction);
+        clock.tick(1000);
+        store.dispatch.calledWith(fetchAppConfigStub()).should.be.false();
+      });
+    });
   });
 });
