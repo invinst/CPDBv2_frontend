@@ -5,6 +5,7 @@ import { isEqual, debounce } from 'lodash';
 import Arrow, { arrowWidth } from './arrow';
 import Swiper from 'components/common/swiper';
 import styles from './carousel.sass';
+import { SLIDE_PER_WHEEL } from 'utils/constants';
 
 
 export default class Carousel extends Component {
@@ -16,7 +17,7 @@ export default class Carousel extends Component {
       displayLeftArrow: false,
       prevChildren: props.children,
     };
-    this.navigateOnWheel = debounce(this.navigateOnWheel, 200, { leading: true, trailing: false, maxWait: 2000 });
+    this.navigateOnWheel = debounce(this.navigateOnWheel, 200, { leading: true, trailing: false, maxWait: 1500 });
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -49,15 +50,15 @@ export default class Carousel extends Component {
     this.slidesPerGroup = Math.max(Math.floor((width - arrowWidth) / slideWidth), 1);
   }
 
-  handleNavigate = direction => {
+  handleNavigate = (direction, customSlidesPerGroup) => {
     const { slideIndex, displayLeftArrow, displayRightArrow } = this.state;
     if (direction === 'right') {
       if (displayRightArrow) {
-        this.slideTo(slideIndex + this.slidesPerGroup);
+        this.slideTo(slideIndex + (customSlidesPerGroup || this.slidesPerGroup));
       }
     } else {
       if (displayLeftArrow) {
-        this.slideTo(slideIndex - this.slidesPerGroup);
+        this.slideTo(slideIndex - (customSlidesPerGroup || this.slidesPerGroup));
       }
     }
   };
@@ -106,10 +107,10 @@ export default class Carousel extends Component {
 
   navigateOnWheel = (e) => {
     if (e.deltaX > 0) {
-      this.handleNavigate('right');
+      this.handleNavigate('right', SLIDE_PER_WHEEL);
     }
     else {
-      this.handleNavigate('left');
+      this.handleNavigate('left', SLIDE_PER_WHEEL);
     }
   };
 

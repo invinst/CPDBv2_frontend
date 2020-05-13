@@ -7,6 +7,7 @@ import { OfficerCardFactory } from 'utils/test/factories/activity-grid';
 import Carousel from 'components/common/carousel';
 import OfficerCard from 'components/common/officer-card';
 import Swiper from 'components/common/swiper';
+import { SLIDE_PER_WHEEL } from 'utils/constants';
 
 
 describe('Carousel component', function () {
@@ -323,7 +324,7 @@ describe('Carousel component', function () {
       carouselInstance.onWheel({ deltaX: 8, deltaY: 4, preventDefault: preventDefaultSpy });
       preventDefaultSpy.should.be.calledOnce();
       handleNavigateSpy.should.be.calledOnce();
-      handleNavigateSpy.should.be.calledWith('right');
+      handleNavigateSpy.should.be.calledWith('right', SLIDE_PER_WHEEL);
       handleNavigateSpy.resetHistory();
       preventDefaultSpy.resetHistory();
       clock.tick(210);
@@ -332,7 +333,7 @@ describe('Carousel component', function () {
       carouselInstance.onWheel({ deltaX: 8, deltaY: -4, preventDefault: preventDefaultSpy });
       preventDefaultSpy.should.be.calledOnce();
       handleNavigateSpy.should.be.calledOnce();
-      handleNavigateSpy.should.be.calledWith('right');
+      handleNavigateSpy.should.be.calledWith('right', SLIDE_PER_WHEEL);
       handleNavigateSpy.resetHistory();
       preventDefaultSpy.resetHistory();
       clock.tick(210);
@@ -341,7 +342,7 @@ describe('Carousel component', function () {
       carouselInstance.onWheel({ deltaX: -8, deltaY: 4, preventDefault: preventDefaultSpy });
       preventDefaultSpy.should.be.calledOnce();
       handleNavigateSpy.should.be.calledOnce();
-      handleNavigateSpy.should.be.calledWith('left');
+      handleNavigateSpy.should.be.calledWith('left', SLIDE_PER_WHEEL);
       handleNavigateSpy.resetHistory();
       preventDefaultSpy.resetHistory();
       clock.tick(210);
@@ -350,7 +351,7 @@ describe('Carousel component', function () {
       carouselInstance.onWheel({ deltaX: -8, deltaY: -4, preventDefault: preventDefaultSpy });
       preventDefaultSpy.should.be.calledOnce();
       handleNavigateSpy.should.be.calledOnce();
-      handleNavigateSpy.should.be.calledWith('left');
+      handleNavigateSpy.should.be.calledWith('left', SLIDE_PER_WHEEL);
       handleNavigateSpy.resetHistory();
       preventDefaultSpy.resetHistory();
       clock.tick(210);
