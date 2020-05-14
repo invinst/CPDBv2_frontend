@@ -880,4 +880,4 @@ export const ELLIPSIS_CONFIG = {
   maxLine: '3',
 };
 
-export const SLIDE_PER_WHEEL = 1;
+export const SLIDE_PER_WHEEL = 2;
