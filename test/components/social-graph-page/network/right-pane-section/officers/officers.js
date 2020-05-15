@@ -15,7 +15,6 @@ describe('Officers component', function () {
       id: 1,
       percentile: {
         officerId: 1,
-        year: 2007,
         items: [
           { axis: 'Use of Force Reports', value: 92.3 },
           { axis: 'Officer Allegations', value: 82 },
@@ -30,7 +29,6 @@ describe('Officers component', function () {
       id: 2,
       percentile: {
         officerId: 2,
-        year: 2008,
         items: [
           { axis: 'Use of Force Reports', value: 94.3 },
           { axis: 'Officer Allegations', value: 81.5 },

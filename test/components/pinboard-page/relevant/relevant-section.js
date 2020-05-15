@@ -45,7 +45,6 @@ describe('RelevantSection component', function () {
       fullName: 'Johnny Patterson',
       coaccusalCount: 24,
       percentile: {
-        year: 2006,
         items: [
           { axis: 'Use of Force Reports', value: 0 },
           { axis: 'Officer Allegations', value: 85.8654 },

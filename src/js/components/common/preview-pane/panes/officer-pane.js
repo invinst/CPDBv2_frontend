@@ -34,7 +34,7 @@ export default class OfficerPane extends Component {
       race,
       gender,
       complaintCount,
-      complaintPercentile,
+      allegationPercentile,
       sustainedCount,
       disciplineCount,
       trrCount,
@@ -58,7 +58,7 @@ export default class OfficerPane extends Component {
       {
         name: 'Allegations',
         value: formatValue(complaintCount),
-        description: complaintPercentile > 0 ? `More than ${complaintPercentile}% of other officers` : '',
+        description: allegationPercentile > 0 ? `More than ${allegationPercentile}% of other officers` : '',
       },
       {
         name: 'Sustained',
@@ -139,7 +139,7 @@ OfficerPane.propTypes = {
   race: PropTypes.string,
   gender: PropTypes.string,
   complaintCount: PropTypes.number,
-  complaintPercentile: PropTypes.number,
+  allegationPercentile: PropTypes.number,
   sustainedCount: PropTypes.number,
   disciplineCount: PropTypes.number,
   trrCount: PropTypes.number,

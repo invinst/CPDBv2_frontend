@@ -4,8 +4,8 @@ import { extractPercentile, visualTokenBackground } from 'selectors/common/perce
 import { softBlackColor } from 'utils/styles';
 
 
-describe('extractPercentile', () => {
-  it('should return visualTokenBackground, textColor, items, and year', () => {
+describe('extractPercentile', function () {
+  it('should return visualTokenBackground, textColor, items, and year', function () {
     const officerPercentile = {
       year: 2015,
       'percentile_allegation': '60',
@@ -35,24 +35,19 @@ describe('extractPercentile', () => {
     extractPercentile(officerPercentile).should.eql(expected);
   });
 
-  it('should return null if the given percentile is null or undefined', () => {
+  it('should return null if the given percentile is null or undefined', function () {
     should(extractPercentile(undefined)).be.null();
     should(extractPercentile(null)).be.null();
+    should(extractPercentile({})).be.null();
   });
 });
 
 describe('visualTokenBackground', function () {
   it('should return background color correctly', function () {
-    const percentile = {
-      'percentile_allegation': '98',
-      'percentile_allegation_civilian': '78.12',
-      'percentile_allegation_internal': '80.20',
-      'percentile_trr': '92.35',
-    };
-    visualTokenBackground(percentile).should.eql('#F52524');
+    visualTokenBackground('98.0000').should.eql('#F52524');
   });
 
-  it('should return null if percentile is undefined', function () {
-    should(visualTokenBackground(undefined)).be.null();
+  it('should return undefined if percentile is undefined', function () {
+    should(visualTokenBackground(undefined)).be.undefined();
   });
 });

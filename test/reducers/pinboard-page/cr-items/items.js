@@ -80,7 +80,6 @@ describe('crItemsReducer', function () {
             'full_name': 'Jerome Finnigan',
             'rank': 'Officer',
             'complaint_count': 3,
-            'percentile': null,
           },
         },
       }

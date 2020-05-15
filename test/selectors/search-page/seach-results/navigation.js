@@ -74,14 +74,10 @@ describe('search page navigation selector', function () {
           'major_award_count': 0,
           'honorable_mention_count': 0,
           'honorable_mention_percentile': 10.01,
-          percentiles: [
-            {
-              'percentile_trr': '90',
-              'percentile_allegation_civilian': '92',
-              'percentile_allegation': '93',
-              'percentile_allegation_internal': '91',
-            },
-          ],
+          'percentile_trr': '90.0000',
+          'percentile_allegation_civilian': '92.0000',
+          'percentile_allegation': '93.0000',
+          'percentile_allegation_internal': '91.0000',
           type: 'CO-ACCUSED',
           itemIndex: 4,
           itemRank: 4,
@@ -187,11 +183,10 @@ describe('search page navigation selector', function () {
           appointedDate: 'DEC 13, 1999',
           badge: '5922',
           complaintCount: 10,
-          complaintPercentile: 93,
+          allegationPercentile: 93,
           civilianComplimentCount: 4,
           gender: 'Male',
           lastPercentile: {
-            year: undefined,
             items: [
               { axis: 'Use of Force Reports', value: 90 },
               { axis: 'Officer Allegations', value: 91 },

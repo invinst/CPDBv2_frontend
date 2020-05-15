@@ -1,5 +1,3 @@
-import { set } from 'lodash';
-
 import { previewPaneTransform } from 'selectors/common/preview-pane-transforms';
 import { RawOfficerSuggestion, RawRankSuggestion } from 'utils/test/factories/suggestion';
 
@@ -99,11 +97,10 @@ describe('previewPaneTransform', function () {
       resignationDate: 'SEP 20, 2018',
       badge: '5922',
       complaintCount: 10,
-      complaintPercentile: 93,
+      allegationPercentile: 93,
       civilianComplimentCount: 4,
       gender: 'Male',
       lastPercentile: {
-        year: undefined,
         items: [
           { axis: 'Use of Force Reports', value: 90 },
           { axis: 'Officer Allegations', value: 91 },
@@ -177,11 +174,6 @@ describe('previewPaneTransform', function () {
       },
     });
 
-    const percentile = focusedSuggestion['percentiles'][0];
-    delete focusedSuggestion['percentiles'];
-    set(focusedSuggestion, 'percentile', percentile);
-
-
     previewPaneTransform({
       type: 'OFFICER',
       ...focusedSuggestion,
@@ -193,11 +185,10 @@ describe('previewPaneTransform', function () {
         appointedDate: 'DEC 13, 1999',
         badge: '5922',
         complaintCount: 10,
-        complaintPercentile: 93,
+        allegationPercentile: 93,
         civilianComplimentCount: 4,
         gender: 'Male',
         lastPercentile: {
-          year: undefined,
           items: [
             { axis: 'Use of Force Reports', value: 90 },
             { axis: 'Officer Allegations', value: 91 },
@@ -252,11 +243,10 @@ describe('previewPaneTransform', function () {
         appointedDate: 'DEC 13, 1999',
         badge: '5922',
         complaintCount: 10,
-        complaintPercentile: 93,
+        allegationPercentile: 93,
         civilianComplimentCount: 4,
         gender: 'Male',
         lastPercentile: {
-          year: undefined,
           items: [
             { axis: 'Use of Force Reports', value: 90 },
             { axis: 'Officer Allegations', value: 91 },
@@ -309,23 +299,15 @@ describe('previewPaneTransform', function () {
           'count': 2,
           'id': 1,
           'name': 'Hulk',
-          'radarAxes': [
-            { 'axis': 'Use of Force Reports', 'value': NaN },
-            { 'axis': 'Officer Allegations', 'value': NaN },
-            { 'axis': 'Civilian Allegations', 'value': NaN },
-          ],
-          'radarColor': undefined,
+          'radarAxes': null,
+          'radarColor': null,
           'url': '/officer/1/hulk/',
         }, {
           'count': 1,
           'id': 2,
           'name': 'Peter Parker',
-          'radarAxes': [
-            { 'axis': 'Use of Force Reports', 'value': NaN },
-            { 'axis': 'Officer Allegations', 'value': NaN },
-            { 'axis': 'Civilian Allegations', 'value': NaN },
-          ],
-          'radarColor': undefined,
+          'radarAxes': null,
+          'radarColor': null,
           'url': '/officer/2/peter-parker/',
         }],
         isPinned: false,
@@ -347,13 +329,10 @@ describe('previewPaneTransform', function () {
       officer: {
         'id': 16567,
         'full_name': 'Baudilio Lopez',
-        'percentile': {
-          'id': 180838,
-          'percentile_trr': '72.1094',
-          'percentile_allegation_civilian': '98.5549',
-          'percentile_allegation_internal': '61.1521',
-          'percentile_allegation': '99.9',
-        },
+        'percentile_trr': '72.1094',
+        'percentile_allegation_civilian': '98.5549',
+        'percentile_allegation_internal': '61.1521',
+        'percentile_allegation': '99.9',
         'allegation_count': 93,
       },
       to: '/trr/123456/',

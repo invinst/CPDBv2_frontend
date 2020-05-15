@@ -1,6 +1,6 @@
-import { toLower, last, has } from 'lodash';
+import { toLower, has } from 'lodash';
 
-import { extractPercentile } from 'selectors/common/percentile';
+import { extractLatestPercentile } from 'selectors/common/percentile';
 import { getCurrentAgeString } from 'utils/date';
 
 export const officerCardTransform = card => {
@@ -13,11 +13,11 @@ export const officerCardTransform = card => {
         has(card, 'allegation_count') ? card['allegation_count'] :
           0,
     sustainedCount: card['sustained_count'],
-    complaintPercentile: parseFloat(card['complaint_percentile']),
+    allegationPercentile: parseFloat(card['percentile_allegation']),
     age: getCurrentAgeString(card['birth_year']),
     race: card['race'] ? toLower(card['race']) : 'N/A',
     gender: card['gender'] ? toLower(card['gender']) : 'N/A',
-    percentile: extractPercentile(card['percentile'] || last(card['percentiles'])),
+    percentile: extractLatestPercentile(card),
     rank: card['rank'],
   };
 };

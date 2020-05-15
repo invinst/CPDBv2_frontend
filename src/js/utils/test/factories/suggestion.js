@@ -25,12 +25,10 @@ export const RawOfficerSuggestion = Factory.define('RawOfficerSuggestion')
   .attr('major_award_count', 0)
   .attr('honorable_mention_count', 0)
   .attr('honorable_mention_percentile', 10.01)
-  .attr('percentiles', [{
-    'percentile_trr': '90',
-    'percentile_allegation_civilian': '92',
-    'percentile_allegation': '93',
-    'percentile_allegation_internal': '91',
-  }]);
+  .attr('percentile_trr', '90.0000')
+  .attr('percentile_allegation_civilian', '92.0000')
+  .attr('percentile_allegation', '93.0000')
+  .attr('percentile_allegation_internal', '91.0000');
 
 /* istanbul ignore next */
 export const RawCRSuggestion = Factory.define('RawCRSuggestion')

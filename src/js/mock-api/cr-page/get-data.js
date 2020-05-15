@@ -10,7 +10,7 @@ export default () => ComplaintFactory.build({
       'full_name': 'Ridchard Sullivan',
       'complaint_count': 43,
       'sustained_count': 1,
-      'complaint_percentile': 99,
+      'percentile_allegation': '99.0000',
       'birth_year': 1975,
       race: 'White',
       gender: 'Male',

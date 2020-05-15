@@ -23,9 +23,7 @@ export const cardTransform = card => {
 };
 
 export const simpleOfficerTransform = officer => {
-  const percentile = officer.percentile;
-
-  const background = getVisualTokenOIGBackground(parseFloat(percentile['percentile_allegation']));
+  const background = getVisualTokenOIGBackground(parseFloat(officer['percentile_allegation']));
 
   return {
     id: officer['id'],
@@ -36,12 +34,10 @@ export const simpleOfficerTransform = officer => {
     rank: officer['rank'],
     complaintCount: officer['complaint_count'],
     sustainedCount: officer['sustained_count'],
-    percentile: {
-      percentileAllegation: percentile['percentile_allegation'],
-      percentileAllegationCivilian: percentile['percentile_allegation_civilian'],
-      percentileAllegationInternal: percentile['percentile_allegation_internal'],
-      percentileTrr: percentile['percentile_trr'],
-    },
+    percentileAllegation: officer['percentile_allegation'],
+    percentileAllegationCivilian: officer['percentile_allegation_civilian'],
+    percentileAllegationInternal: officer['percentile_allegation_internal'],
+    percentileTrr: officer['percentile_trr'],
     backgroundColor: background.backgroundColor,
   };
 };

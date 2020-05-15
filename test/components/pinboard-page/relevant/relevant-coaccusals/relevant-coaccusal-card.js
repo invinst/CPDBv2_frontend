@@ -37,11 +37,9 @@ describe('RelevantCoaccusalCard component', function () {
           'full_name': 'Jerome Finnigan',
           'rank': 'Officer',
           'complaint_count': 22,
-          'percentile': {
-            'percentile_trr': 20.6,
-            'percentile_allegation_internal': 10.1,
-            'percentile_allegation_civilian': 52.5,
-          },
+          'percentile_trr': '20.6000',
+          'percentile_allegation_internal': '10.1000',
+          'percentile_allegation_civilian': '52.5000',
         } }
       />
     );
@@ -74,11 +72,9 @@ describe('RelevantCoaccusalCard component', function () {
         'full_name': 'Jerome Finnigan',
         'rank': 'Officer',
         'complaint_count': 22,
-        'percentile': {
-          'percentile_trr': 20.6,
-          'percentile_allegation_internal': 10.1,
-          'percentile_allegation_civilian': 52.5,
-        },
+        'percentile_trr': '20.6000',
+        'percentile_allegation_internal': '10.1000',
+        'percentile_allegation_civilian': '52.5000',
       },
     });
   });
@@ -126,11 +122,9 @@ describe('RelevantCoaccusalCard component', function () {
           'full_name': 'Jerome Finnigan',
           'rank': 'Officer',
           'complaint_count': 22,
-          'percentile': {
-            'percentile_trr': 20.6,
-            'percentile_allegation_internal': 10.1,
-            'percentile_allegation_civilian': 52.5,
-          },
+          'percentile_trr': '20.6000',
+          'percentile_allegation_internal': '10.1000',
+          'percentile_allegation_civilian': '52.5000',
         } }
       />
     );
@@ -146,11 +140,9 @@ describe('RelevantCoaccusalCard component', function () {
         'full_name': 'Jerome Finnigan',
         'rank': 'Officer',
         'complaint_count': 22,
-        'percentile': {
-          'percentile_trr': 20.6,
-          'percentile_allegation_internal': 10.1,
-          'percentile_allegation_civilian': 52.5,
-        },
+        'percentile_trr': '20.6000',
+        'percentile_allegation_internal': '10.1000',
+        'percentile_allegation_civilian': '52.5000',
       },
     });
   });
@@ -233,11 +225,9 @@ describe('RelevantCoaccusalCard component', function () {
           'full_name': 'Jerome Finnigan',
           'rank': 'Officer',
           'complaint_count': 22,
-          'percentile': {
-            'percentile_trr': 20.6,
-            'percentile_allegation_internal': 10.1,
-            'percentile_allegation_civilian': 52.5,
-          },
+          'percentile_trr': '20.6000',
+          'percentile_allegation_internal': '10.1000',
+          'percentile_allegation_civilian': '52.5000',
         } }
       />
     );
@@ -248,7 +238,6 @@ describe('RelevantCoaccusalCard component', function () {
       rank: 'Officer',
       coaccusalCount: 1,
       complaintCount: 1,
-      percentile: {},
       addItemInPinboardPage: addItemInPinboardPage,
       isPinStatusChanging: true,
       rawData: {
@@ -256,11 +245,9 @@ describe('RelevantCoaccusalCard component', function () {
         'full_name': 'Jerome Finnigan',
         'rank': 'Officer',
         'complaint_count': 22,
-        'percentile': {
-          'percentile_trr': 20.6,
-          'percentile_allegation_internal': 10.1,
-          'percentile_allegation_civilian': 52.5,
-        },
+        'percentile_trr': '20.6000',
+        'percentile_allegation_internal': '10.1000',
+        'percentile_allegation_civilian': '52.5000',
       },
     });
 
@@ -272,11 +259,9 @@ describe('RelevantCoaccusalCard component', function () {
         'full_name': 'Jerome Finnigan',
         'rank': 'Officer',
         'complaint_count': 22,
-        'percentile': {
-          'percentile_trr': 20.6,
-          'percentile_allegation_internal': 10.1,
-          'percentile_allegation_civilian': 52.5,
-        },
+        'percentile_trr': '20.6000',
+        'percentile_allegation_internal': '10.1000',
+        'percentile_allegation_civilian': '52.5000',
       },
     });
   });
