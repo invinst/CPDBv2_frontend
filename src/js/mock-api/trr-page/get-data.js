@@ -5,5 +5,6 @@ export default () => RawTRRFactory.build({
   officer: RawTRROfficerFactory.build({
     'id': 1,
     'full_name': 'Bernadette Kelly',
+    'percentile_allegation': '99.8100',
   }),
 });

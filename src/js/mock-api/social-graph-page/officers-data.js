@@ -95,8 +95,10 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'civilian_compliment_count': 0,
     'resignation_date': '2004-08-02',
     'appointed_date': '1978-02-26',
+    'percentile_allegation': '97.4780',
     'percentile_allegation_civilian': '87.4780',
     'percentile_allegation_internal': '96.5164',
+    'percentile_trr': '96.5164',
     'honorable_mention_percentile': '0.0000',
   },
   {

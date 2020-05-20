@@ -55,6 +55,7 @@ export const InvestigatorFactory = Factory.define('InvestigatorFactory')
   .attr('involved_type', 'investigator')
   .attr('full_name', () => name.firstName())
   .attr('badge', () => lorem.word())
+  .attr('percentile_allegation', percentileGenerator)
   .attr('percentile_allegation_civilian', percentileGenerator)
   .attr('percentile_allegation_internal', percentileGenerator)
   .attr('percentile_trr', percentileGenerator);

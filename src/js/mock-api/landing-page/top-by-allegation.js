@@ -10,6 +10,7 @@ export default () => [
     'race': 'White',
     'gender': 'Male',
     'rank': 'Commander',
+    'percentile_allegation': '99.8100',
     'kind': '',
   }),
   ...RawOfficerCardFactory.buildList(47, { kind: '' }),

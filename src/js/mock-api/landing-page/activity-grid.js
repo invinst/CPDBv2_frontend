@@ -16,6 +16,7 @@ export default () => {
     'race': 'White',
     'gender': 'Male',
     'rank': 'Police Officer',
+    'percentile_allegation': '99.8190',
   };
   const secondOfficer = {
     id: 888,
@@ -26,6 +27,7 @@ export default () => {
     'race': 'White',
     'gender': 'Male',
     'rank': 'Police Officer',
+    'percentile_allegation': '99.8190',
   };
   const officerCards = [
     RawOfficerCardFactory.build(firstOfficer),

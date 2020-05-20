@@ -15,11 +15,15 @@ export default () => ({
   'birth_year': 1963,
   'allegation_count': 1,
   'percentile_allegation': '2.0000',
+  'percentile_trr': '7.9000',
+  'trr_count': '5',
+  'major_award_count': 19,
   'honorable_mention_count': 3,
   'sustained_count': 4,
   'discipline_count': 5,
   'civilian_compliment_count': 6,
   'current_salary': 100000,
+  'honorable_mention_percentile': '79.8700',
   'percentiles': [
     {
       'id': 1,

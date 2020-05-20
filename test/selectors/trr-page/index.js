@@ -61,7 +61,7 @@ describe('TRR page selectors', function () {
         race: undefined,
         gender: undefined,
         careerDuration: '',
-        percentile: null,
+        percentile: {},
         assignedBeat: undefined,
         onDuty: undefined,
         inUniform: undefined,

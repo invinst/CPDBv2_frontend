@@ -18,6 +18,7 @@ class PinnedOfficers extends Section {
       firstCardRank: `${firstCardSelector}//div[@class="officer-rank"]`,
       firstCardName: `${firstCardSelector}//div[@class="officer-name"]`,
       firstCardCRsCount: `${firstCardSelector}//div[@class="officer-complaints-count"]`,
+      firstCardRadarChart: `${firstCardSelector}//*[name()="svg" and contains(@class, "radar")]`,
       secondCardName: `${secondCardSelector}//div[@class="officer-name"]`,
       undoCard: '.test--undo-card',
     });
@@ -108,6 +109,7 @@ class BaseComplaintCardSection extends Section {
       category: '//div[contains(@class, "category")]',
       topOfficers: '//div[contains(@class, "top-officers")]',
       firstTopOfficerName: '//div[@class="top-officer-row-officer-name"]',
+      firstTopRadarChart: '//div[contains(@class, "top-officers")]//*[name()="svg" and contains(@class, radar)]',
       secondTopOfficerName: '(//div[@class="top-officer-row-officer-name"])[2]',
       remainingOfficers: '//div[contains(@class, "remaining-officers")]',
       miniOfficerToken: '//div[contains(@class, "mini-officer-visual-token")]',
@@ -129,7 +131,7 @@ class CoaccusalCardSection extends Section {
 
     this.prepareElementGetters({
       plusButton: '//div[contains(@class, "plus-button")]',
-      radarChart: '//div[contains(@class, "radar-chart-wrapper")]',
+      radarChart: '//div[contains(@class, "radar-chart-wrapper")]//*[name()="svg" and contains(@class, "radar")]',
       nameWrapper: '//div[contains(@class, "officer-name-wrapper")]',
       officerRank: '//p[contains(@class, "officer-card-rank")]',
       officerName: '//p[contains(@class, "officer-card-name")]',
@@ -275,6 +277,7 @@ class PreviewPane extends Section {
       trrTitle: '.trr-preview-pane-title-title',
       trrFirstInfo: '//div[@class="trr-preview-pane-info-row"][1]',
       trrSecondInfo: '//div[@class="trr-preview-pane-info-row"][2]',
+      trrOfficerRadarChart: '//li[contains(@class, "list-widget-item")]//*[name()="svg" and contains(@class, "radar")]',
     });
   }
 }
@@ -283,7 +286,7 @@ class OfficerPreviewPane extends Section {
   constructor() {
     super();
     this.officerInfoWidgetSelector = '//li[starts-with(@class, "new-officer-info-widget")]';
-    this.officerMetricWidgetItemSelector = '//div[starts-with(@class, "new-metric-widget-item")]',
+    this.officerMetricWidgetItemSelector = '//div[starts-with(@class, "new-metric-widget-item")]';
 
     this.prepareElementGetters({
       wrapper: '//div[starts-with(@class, "preview-pane")]',
@@ -294,6 +297,7 @@ class OfficerPreviewPane extends Section {
       pinButton: '.pin-button',
       viewOfficerButton: '.view-officer-profile-button',
       officerName: '.test--officer-name',
+      radarChart: '//div[contains(@class, "new-visual-token-widget")]//*[name()="svg" and contains(@class, "radar")]',
       genericInfo: `(${this.officerInfoWidgetSelector})[1]`,
       badgeKey: `(${this.officerInfoWidgetSelector})[2]//div[contains(@class, "item-key")]`,
       badgeValue: `(${this.officerInfoWidgetSelector})[2]//div[contains(@class, "item-value")]`,

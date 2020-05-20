@@ -38,6 +38,8 @@ class AccusedOfficerSection extends Section {
       popupTitle: '.test--accused-officer .tooltip-title',
       popupText: '.test--accused-officer .tooltip-text',
       popupCloseButton: '.test--accused-officer .popup-close-button',
+      firstRadarChart: '//p[contains(@class, "coaccused-card-name") and text()="Ridchard Sullivan"]' +
+        '/../..//*[name()="svg"]',
     });
   }
 }
@@ -87,6 +89,7 @@ class InvestigatorSection extends Section {
       item: '//*[contains(@class, "test--officer-row")]',
       firstItem: '(//*[contains(@class, "test--officer-row")])[1]',
       secondItem: '(//*[contains(@class, "test--officer-row")])[2]',
+      firstRadarChart: '//a[contains(@class, "officer-row")]//*[name()="svg"][1]',
     });
   }
 }
@@ -98,6 +101,7 @@ class PoliceWitnessSection extends Section {
     this.prepareElementGetters({
       item: '//*[contains(@class, "test--officer-row")]',
       firstItem: '(//*[contains(@class, "test--officer-row")])[1]',
+      firstRadarChart: '//a[contains(@class, "officer-row")]//*[name()="svg"][1]',
     });
   }
 }

@@ -16,6 +16,8 @@ describe('TRR page', function () {
 
     trrPage.title.getText().should.equal('TRR 1');
     trrPage.officerSection.officerName.getText().should.equal('Bernadette Kelly');
+    trrPage.officerSection.radarChart
+      .getCSSProperty('background-color').value.should.eql('rgba(245,37,36,1)');
   });
 
 

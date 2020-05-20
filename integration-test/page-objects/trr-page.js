@@ -13,6 +13,8 @@ class OfficerSection extends Section {
       unitLinkItem: '//a[contains(@class, "link-item")]',
       officerProfileButton: ('//div[contains(@class, "navigation-button") and ./span/text()="View Profile"]'),
       unitProfileButton: ('//div[contains(@class, "navigation-button") and ./span/text()="View Unit"]'),
+      radarChart: '//div[contains(@class, "officer-section__officer-section")]' +
+        '//*[name()="svg" and contains(@class, "radar")]',
     });
   }
 }

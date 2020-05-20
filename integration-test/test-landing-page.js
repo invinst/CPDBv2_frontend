@@ -188,6 +188,8 @@ describe('landing page', function () {
   describe('Recent Activity carousel', function () {
     it('should show initial carousel', function () {
       landingPage.recentActivityCarousel.cards.count.should.equal(2);
+      landingPage.recentActivityCarousel.firstRadarChart
+        .getCSSProperty('background-color').value.should.eql('rgba(245,37,36,1)');
       landingPage.recentActivityCarousel.rightArrow.waitForDisplayed();
       landingPage.recentActivityCarousel.leftArrow.waitForDisplayed(2000, true);
     });
@@ -241,6 +243,8 @@ describe('landing page', function () {
   describe('Officers By Allegation carousel', function () {
     it('should show initial carousel', function () {
       landingPage.officersByAllegationCarousel.cards.count.should.equal(48);
+      landingPage.officersByAllegationCarousel.edwardMayRadarChart
+        .getCSSProperty('background-color').value.should.eql('rgba(245,37,36,1)');
       landingPage.officersByAllegationCarousel.rightArrow.waitForDisplayed();
       landingPage.officersByAllegationCarousel.leftArrow.waitForDisplayed(2000, true);
     });

@@ -261,9 +261,13 @@ describe('Social Graph Page', function () {
     waitForGraphAnimationEnd(browser, socialGraphPage);
     socialGraphPage.animatedSocialGraphSection.officerTab.click();
     socialGraphPage.officersSection.officerRows().should.have.length(20);
+    socialGraphPage.officersSection.firstOfficerRowRadarChart
+      .getCSSProperty('background-color').value.should.eql('rgba(245,37,36,1)');
     socialGraphPage.officersSection.firstOfficerRow.click();
     socialGraphPage.previewPaneSection.previewPane.waitForDisplayed();
     socialGraphPage.previewPaneSection.officerPreviewPaneName.getText().should.eql('Donnell Calhoun');
+    socialGraphPage.previewPaneSection.radarChart
+      .getCSSProperty('background-color').value.should.eql('rgba(245,37,36,1)');
 
     socialGraphPage.animatedSocialGraphSection.leftSection.click();
     socialGraphPage.previewPaneSection.previewPane.waitForDisplayed(1000, true);
@@ -295,6 +299,8 @@ describe('Social Graph Page', function () {
 
     socialGraphPage.previewPaneSection.crPreviewPaneTitle.getText().should.eql('Use Of Force');
     socialGraphPage.previewPaneSection.crPreviewPaneSubtitle.getText().should.eql('Excessive Force / On Duty - Injury');
+    socialGraphPage.previewPaneSection.firstAccusedOfficerRadarChart
+      .getCSSProperty('background-color').value.should.eql('rgba(245,37,36,1)');
   });
 
   it('should scroll to last timeline item(s) when slider reach the end', function () {

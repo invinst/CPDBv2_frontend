@@ -12,7 +12,7 @@ const PERCENTILE_FIELDS = [
 export const extractLatestPercentile = (obj) => extractPercentile(pick(obj || {}, PERCENTILE_FIELDS));
 
 export const extractPercentile = (percentile) => {
-  if (isEmpty(percentile)) return null;
+  if (isEmpty(percentile)) return {};
 
   const internalPercentile = parseFloat(percentile['percentile_allegation_internal']);
   const civilianPercentile = parseFloat(percentile['percentile_allegation_civilian']);

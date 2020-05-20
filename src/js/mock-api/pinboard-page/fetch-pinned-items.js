@@ -185,6 +185,7 @@ export const fetchPinboardTRRs = () => ([
       'id': 16567,
       'full_name': 'Baudilio Lopez',
       'percentile_trr': '72.1094',
+      'percentile_allegation': '98.5549',
       'percentile_allegation_civilian': '98.5549',
       'percentile_allegation_internal': '61.1521',
       'allegation_count': 93,

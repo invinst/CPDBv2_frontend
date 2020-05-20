@@ -36,8 +36,8 @@ export const officerMostComplaintTransform = officer => {
     count: officer.count,
     name: officer.name,
     url: `/officer/${officer.id}/${kebabCase(officer.name)}/`,
-    radarAxes: percentile && percentile.items,
-    radarColor: percentile && percentile.visualTokenBackground,
+    radarAxes: percentile.items,
+    radarColor: percentile.visualTokenBackground,
   };
 };
 

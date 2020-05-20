@@ -67,6 +67,19 @@ describe('officer page', function () {
     officerPage.summarySection.sexValue.getText().should.equal('Male');
   });
 
+  it('should display officer metrics', function () {
+    officerPage.metricsSection.allegationCount.getText().should.equal('1');
+    officerPage.metricsSection.allegationDescription.getText().should.equal('More than 2% of other officers');
+    officerPage.metricsSection.disciplineCount.getText().should.equal('4');
+    officerPage.metricsSection.disciplineDescription.getText().should.equal('5 Disciplined');
+    officerPage.metricsSection.useOfForceCount.getText().should.equal('5');
+    officerPage.metricsSection.useOfForceDescription.getText().should.equal('More than 7% of other officers');
+    officerPage.metricsSection.civilianComplimentCount.getText().should.equal('6');
+    officerPage.metricsSection.majorAwardCount.getText().should.equal('19');
+    officerPage.metricsSection.honorableMentionCount.getText().should.equal('3');
+    officerPage.metricsSection.honorableDescriptionCount.getText().should.equal('More than 79% of other officers');
+  });
+
   it('should open unit profile page when clicking on View Unit Profile button', function () {
     officerPage.summarySection.viewUnitProfileButton.click();
 
@@ -132,6 +145,11 @@ describe('officer page', function () {
     it('should responsive', function () {
       browser.setWindowRect(0, 0, 300, 600);
       officerPage.radarChartSection.lastAxisTitle.waitForDisplayed();
+    });
+
+    it('should render correct color', function () {
+      officerPage.radarChartSection.svg
+        .getCSSProperty('background-color').value.should.eql('rgba(244,162,152,1)');
     });
 
     it('should open radar chart explainer when being clicked and closeable', function () {
@@ -349,13 +367,20 @@ describe('officer page', function () {
   });
 
   describe('Coaccusals', function () {
-    it('should navigate to officer page when clicking on a CoaccusalCard', function () {
+    beforeEach(function () {
       officerPage.tabbedPaneSection.timelineSection.header.waitForDisplayed();
-
       browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/$/);
 
       officerPage.tabbedPaneSection.coaccusalsTabName.click();
       officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalGroupName.waitForDisplayed();
+    });
+
+    it('should render correctly', function () {
+      officerPage.tabbedPaneSection.coaccusalsSection.firstRadarChart
+        .getCSSProperty('background-color').value.should.eql('rgba(245,37,36,1)');
+    });
+
+    it('should navigate to officer page when clicking on a CoaccusalCard', function () {
       officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalCard.click();
 
       browser.getUrl().should.match(/\/officer\/2\/john-kelly\/$/);

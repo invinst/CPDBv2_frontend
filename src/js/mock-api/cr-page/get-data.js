@@ -58,6 +58,7 @@ export default () => ComplaintFactory.build({
       'full_name': 'Bernadette Kelly',
       'badge': 'CPD',
       'officer_id': 1,
+      'percentile_allegation': '69.8100',
     }),
     InvestigatorFactory.build({
       'full_name': 'Edward May',
@@ -69,6 +70,7 @@ export default () => ComplaintFactory.build({
       'allegation_count': 3,
       'sustained_count': 0,
       'officer_id': 3,
+      'percentile_allegation': '99.8100',
     }),
     PoliceWitnessFactory.build({ 'officer_id': 4 }),
   ],
