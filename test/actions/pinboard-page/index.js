@@ -79,7 +79,7 @@ describe('pinboard-page actions', function () {
 
   describe('fetchPinboards', function () {
     it('should return correct action', function () {
-      fetchPinboards().should.eql({
+      fetchPinboards({ detail: true }).should.eql({
         types: [
           PINBOARDS_FETCH_REQUEST_START,
           PINBOARDS_FETCH_REQUEST_SUCCESS,
@@ -88,7 +88,22 @@ describe('pinboard-page actions', function () {
         payload: {
           request: {
             url: PINBOARDS_URL,
-            params: undefined,
+            params: { detail: true },
+            adapter: null,
+            cancelToken: undefined,
+          },
+        },
+      });
+      fetchPinboards({ detail: false }).should.eql({
+        types: [
+          PINBOARDS_FETCH_REQUEST_START,
+          PINBOARDS_FETCH_REQUEST_SUCCESS,
+          PINBOARDS_FETCH_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: PINBOARDS_URL,
+            params: { detail: false },
             adapter: null,
             cancelToken: undefined,
           },

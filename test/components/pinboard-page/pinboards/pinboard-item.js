@@ -16,6 +16,7 @@ describe('PinboardItem component', function () {
     title: 'Pinboard Title',
     createdAt: 'Sep 12, 2019',
     url: '/pinboard/1/pinboard-title/',
+    isCurrent: false,
   };
 
   it('should render correctly', function () {
@@ -67,18 +68,39 @@ describe('PinboardItem component', function () {
     }, 50);
   });
 
-  it('should show pinboard detail page when clicking on pinboard item', function () {
-    const handleCloseSpy = spy();
-    const wrapper = shallow(
-      <PinboardItem
-        pinboard={ pinboard }
-        handleClose={ handleCloseSpy }
-      />,
-    );
+  context('click on current pinboard', function () {
+    it('should close preview pane and not navigate', function () {
+      const browserHistoryPush = stub(browserHistory, 'push');
+      const handleCloseSpy = spy();
+      const wrapper = shallow(
+        <PinboardItem
+          pinboard={ { ...pinboard, isCurrent: true } }
+          handleClose={ handleCloseSpy }
+        />,
+      );
 
-    wrapper.simulate('click');
-    handleCloseSpy.should.be.called();
+      wrapper.simulate('click');
+      handleCloseSpy.should.be.called();
+      browserHistoryPush.should.not.be.called();
+    });
+  });
 
-    browserHistory.location.pathname.should.equal('/pinboard/1/pinboard-title/');
+  context('click on different pinboard', function () {
+    it('should close preview pane and navigate', function () {
+      const browserHistoryPush = stub(browserHistory, 'push');
+      const handleCloseSpy = spy();
+      const wrapper = shallow(
+        <PinboardItem
+          pinboard={ pinboard }
+          handleClose={ handleCloseSpy }
+        />,
+      );
+
+      wrapper.simulate('click');
+      handleCloseSpy.should.be.called();
+
+      browserHistoryPush.should.be.calledOnce();
+      browserHistoryPush.should.be.calledWith('/pinboard/1/pinboard-title/');
+    });
   });
 });

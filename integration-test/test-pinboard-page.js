@@ -604,7 +604,7 @@ describe('Pinboard Page', function () {
       pinboardPage.pinboardsListSection.pinboardsTitle.getText().should.equal('Pinboards');
       pinboardPage.pinboardsListSection.pinboardItems().should.have.length(2);
 
-      pinboardPage.pinboardsListSection.firstPinboardItemTitle.getText().should.equal('Pinboard title');
+      pinboardPage.pinboardsListSection.firstPinboardItemTitle.getText().should.equal('Pinboard Title');
       pinboardPage.pinboardsListSection.firstPinboardItemCreatedAt.getText().should.equal('Created Sep 12, 2019');
 
       pinboardPage.pinboardsListSection.secondPinboardItemTitle.getText().should.equal('');
@@ -702,7 +702,7 @@ describe('Pinboard Page', function () {
             pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
 
             pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
-            pinboardPage.pinboardsListSection.firstPinboardItemCreatedAt.click();
+            pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
             browser.getUrl().should.containEql('/pinboard/ceea8ea3/pinboard-title/');
             pinboardPage.pinboardSection.title.getText().should.equal('Pinboard Title');
             pinboardPage.pinboardSection.description.getText().should.equal('Pinboard Description');
