@@ -43,9 +43,14 @@
   .search-term-wrapper
     padding-top: 54px
     margin-bottom: 128px
+    transition: padding-top $medium-animation-duration linear
 
     &.edit-mode-on
       background-color: $pink-lace-color
+
+  &.hide-pinboard-bar
+    .search-term-wrapper
+      padding-top: 0
 
 .pinboard-disabled
   \:local(.wrapper)

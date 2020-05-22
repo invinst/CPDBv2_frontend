@@ -10,7 +10,7 @@ import DocumentsTable from 'components/documents-overview-page/documents-table';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import DocumentsOverviewPage from 'components/documents-overview-page';
 import SearchBar from 'components/common/search-bar';
-import * as constants from 'utils/constants';
+import { DOCUMENTS_SEARCH_ITEMS } from 'utils/constants';
 
 
 describe('DocumentsOverviewPage component', function () {
@@ -26,12 +26,9 @@ describe('DocumentsOverviewPage component', function () {
     );
 
     const shareableHeaderContainer = wrapper.find(ShareableHeaderContainer);
-
-    shareableHeaderContainer.props().should.containEql({
-      buttonType: constants.SHAREABLE_HEADER_BUTTON_TYPE.LINK,
-      buttonText: 'Crawlers',
-      to: '/crawlers/',
-    });
+    const headerButton = shareableHeaderContainer.prop('headerButtons');
+    headerButton.props.buttonText.should.equal('Crawlers');
+    headerButton.props.to.should.equal('/crawlers/');
   });
 
   it('should render SearchBar component', function () {
@@ -46,12 +43,12 @@ describe('DocumentsOverviewPage component', function () {
     const documents = [
       {
         id: '01-2019',
-        kind: constants.DOCUMENTS_SEARCH_ITEMS.MONTH_SEPARATOR,
+        kind: DOCUMENTS_SEARCH_ITEMS.MONTH_SEPARATOR,
         text: 'Jan 2019',
       },
       {
         id: 1,
-        kind: constants.DOCUMENTS_SEARCH_ITEMS.DOCUMENT,
+        kind: DOCUMENTS_SEARCH_ITEMS.DOCUMENT,
       },
     ];
     const fetchDocuments = spy();

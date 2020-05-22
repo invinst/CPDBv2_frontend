@@ -1,7 +1,6 @@
 import Enum from 'enum';
 import { kebabCase } from 'lodash';
 
-import { greyColor, softBlackColor } from 'utils/styles';
 import config from 'config';
 
 
@@ -50,6 +49,7 @@ export const BASE_PATH = config.apiDomain;
 export const V2_ROOT_PATH = API_ROOT_V2;
 export const V1_ROOT_PATH = API_ROOT;
 export const INVISIBLE_INSTITUTE_URL = 'https://invisible.institute/cpdp';
+export const DEFAULT_PINBOARD_PATH = '/pinboard/';
 
 export const SLUG_PAGE_API_URL = `${V2_ROOT_PATH}cms-pages/`;
 export const SIGNIN_URL = `${V2_ROOT_PATH}users/sign-in/`;
@@ -80,6 +80,7 @@ export const PINBOARDS_URL = `${V2_ROOT_PATH}pinboards/`;
 export const ALL_PINBOARD_URL = `${V2_ROOT_PATH}pinboards/all/`;
 export const RECENT_SEARCH_ITEMS_API_URL = 'suggestion/recent-search-items/';
 export const TRACKING_API_URL = `${V2_ROOT_PATH}tracking/`;
+export const APP_CONFIG_API_URL = `${V2_ROOT_PATH}app-config/`;
 
 export const OFFICER_SUMMARY_REQUEST_START = 'OFFICER_SUMMARY_REQUEST_START';
 export const OFFICER_SUMMARY_REQUEST_SUCCESS = 'OFFICER_SUMMARY_REQUEST_SUCCESS';
@@ -279,6 +280,8 @@ export const SEARCH_TERMS_NAVIGATION_DOWN = 'SEARCH_TERMS_NAVIGATION_DOWN';
 export const SEARCH_TERMS_NAVIGATION_RESET = 'SEARCH_TERMS_NAVIGATION_RESET';
 export const SEARCH_TERMS_NAVIGATION_SET = 'SEARCH_TERMS_NAVIGATION_SET';
 
+export const HEAT_MAP_LOADED = 'HEAT_MAP_LOADED';
+
 export const PAGE_LOAD_START = 'PAGE_LOAD_START';
 export const PAGE_LOAD_FINISH = 'PAGE_LOAD_FINISH';
 
@@ -335,6 +338,10 @@ export const PINBOARD_UPDATE_FROM_SOURCE_REQUEST_SUCCESS = 'PINBOARD_UPDATE_FROM
 export const PINBOARDS_FETCH_REQUEST_FAILURE = 'PINBOARDS_FETCH_REQUEST_FAILURE';
 export const PINBOARDS_FETCH_REQUEST_START = 'PINBOARDS_FETCH_REQUEST_START';
 export const PINBOARDS_FETCH_REQUEST_SUCCESS = 'PINBOARDS_FETCH_REQUEST_SUCCESS';
+
+export const HEADER_PINBOARDS_REQUEST_FAILURE = 'HEADER_PINBOARDS_REQUEST_FAILURE';
+export const HEADER_PINBOARDS_REQUEST_START = 'HEADER_PINBOARDS_REQUEST_START';
+export const HEADER_PINBOARDS_REQUEST_SUCCESS = 'HEADER_PINBOARDS_REQUEST_SUCCESS';
 
 export const HIDE_SHOW_PINBOARDS_LIST = 'HIDE_SHOW_PINBOARDS_LIST';
 
@@ -437,7 +444,6 @@ export const SAVE_PINBOARD = 'SAVE_PINBOARD';
 
 export const PERFORM_FETCH_PINBOARD_RELATED_DATA = 'PERFORM_FETCH_PINBOARD_RELATED_DATA';
 
-export const PINBOARD_PAGE_REDIRECT = 'PINBOARD_PAGE_REDIRECT';
 export const PINBOARD_PAGE_FOCUS_ITEM = 'PINBOARD_PAGE_FOCUS_ITEM';
 
 export const UPDATE_PINBOARD_INFO = 'UPDATE_PINBOARD_INFO';
@@ -451,100 +457,6 @@ export const VIDEO_INFO_REQUEST_SUCCESS = 'VIDEO_INFO_REQUEST_SUCCESS';
 export const VIDEO_INFO_REQUEST_FAILURE = 'VIDEO_INFO_REQUEST_FAILURE';
 
 export const CLEAR_PINBOARD_STATIC_SOCIAL_GRAPH_CACHE = 'CLEAR_PINBOARD_STATIC_SOCIAL_GRAPH_CACHE';
-
-export const VISUAL_TOKEN_CR_DOMAIN = [1, 5, 10, 25, 40];
-export const VISUAL_TOKEN_COLOR_SCHEME = {
-  '00': '#f5f4f4',
-  '10': '#edf0fa',
-  '01': '#f8eded',
-  '20': '#d4e2f4',
-  '11': '#ecdeef',
-  '02': '#efdede',
-  '30': '#c6d4ec',
-  '21': '#d9d1ee',
-  '12': '#eacbe0',
-  '03': '#ebcfcf',
-  '40': '#aec9e8',
-  '31': '#c0c3e1',
-  '22': '#cdbddd',
-  '13': '#e4b8cf',
-  '04': '#f0b8b8',
-  '50': '#90b1f5',
-  '41': '#aaace3',
-  '32': '#b6a5de',
-  '23': '#c99edc',
-  '14': '#e498b6',
-  '05': '#f89090',
-  '51': '#748be4',
-  '42': '#8e84e0',
-  '33': '#af7fbd',
-  '24': '#c873a2',
-  '15': '#e1718a',
-  '52': '#6660ae',
-  '43': '#8458aa',
-  '34': '#a34e99',
-  '25': '#b5496a',
-  '53': '#4c3d8f',
-  '44': '#6b2e7e',
-  '35': '#792f55',
-  '54': '#391c6a',
-  '45': '#520051',
-  '55': '#131313',
-};
-
-export const OIG_VISUAL_TOKEN_COLOR_SCHEME = {
-  '00': '#f5f4f4',
-  '01': '#fce0e0',
-  '02': '#f6c9d0',
-  '03': '#f6a8a7',
-  '04': '#f28081',
-  '05': '#ef6f70',
-  '10': '#f9dec7',
-  '11': '#f9d3c3',
-  '12': '#f3adad',
-  '13': '#f39f8e',
-  '14': '#f18075',
-  '15': '#ed6154',
-  '20': '#f5c5a2',
-  '21': '#f3b094',
-  '22': '#f4a298',
-  '23': '#f28687',
-  '24': '#ee6465',
-  '25': '#e85050',
-  '30': '#f9946b',
-  '31': '#f88567',
-  '32': '#ed7467',
-  '33': '#fd5e4c',
-  '34': '#ff5050',
-  '35': '#ec3435',
-  '40': '#fb7045',
-  '41': '#fc5d2c',
-  '42': '#f35c17',
-  '43': '#f34339',
-  '44': '#f32a29',
-  '45': '#dc2c30',
-  '50': '#f95125',
-  '51': '#ff4f13',
-  '52': '#f64016',
-  '53': '#f42d1f',
-  '54': '#f0201e',
-  '55': '#f52524',
-};
-
-export const OIG_EXTRA_BLUE_COLOR_SCHEME = {
-  '0': '#f5f4f4',
-  '1': '#dde6f7',
-  '2': '#d1ddf1',
-  '3': '#bdc7ec',
-  '4': '#8498d8',
-  '5': '#405ec3',
-};
-
-export const OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT = {
-  COLOR_TEXT_LIGHT_SCHEME: ['55', '54', '45', '44'],
-  DARK_COLOR: softBlackColor,
-  LIGHT_COLOR: greyColor,
-};
 
 export const RECENT_CONTENT_TYPE = 'RECENT';
 export const MORE_BUTTON = 'MORE_BUTTON';
@@ -611,11 +523,20 @@ export const CLUSTER_GEO_REQUEST_START = 'CLUSTER_GEO_REQUEST_START';
 export const CLUSTER_GEO_REQUEST_SUCCESS = 'CLUSTER_GEO_REQUEST_SUCCESS';
 export const CLUSTER_GEO_REQUEST_FAILURE = 'CLUSTER_GEO_REQUEST_FAILURE';
 
+export const APP_CONFIG_FETCH_START = 'APP_CONFIG_FETCH_START';
+export const APP_CONFIG_FETCH_SUCCESS = 'APP_CONFIG_FETCH_SUCCESS';
+export const APP_CONFIG_FETCH_FAILURE = 'APP_CONFIG_FETCH_FAILURE';
+
 export const LANDING_PAGE_ID = 'landing-page';
 export const OFFICER_PAGE_ID = 'officer-page';
 export const CR_PAGE_ID = 'cr-page';
 export const TRR_PAGE_ID = 'trr-page';
 export const PINBOARD_PAGE_ID = 'pinboard-page';
+
+export const APP_CONFIG_KEYS = {
+  VISUAL_TOKEN_COLORS: 'VISUAL_TOKEN_COLORS',
+  PINBOARD_INTRODUCTION_DELAY: 'PINBOARD_INTRODUCTION_DELAY',
+};
 
 export const NEW_TIMELINE_ITEMS = {
   CR: 'CR',
@@ -751,12 +672,6 @@ export const DOCUMENT_SOURCE_MAP = {
   SUMMARY_REPORTS_COPA_DOCUMENTCLOUD: 'https://www.chicagocopa.org/',
 };
 
-export const SHAREABLE_HEADER_BUTTON_TYPE = {
-  NONE: 'none',
-  MENU: 'menu',
-  LINK: 'link',
-};
-
 export const OFFICER_DOWNLOAD_KINDS = {
   WITHOUT_DOCS: 'without_docs',
   WITH_DOCS: 'with_docs',
@@ -842,13 +757,9 @@ export const FETCH_RECENT_SEARCH_ITEMS_SUCCESS = 'FETCH_RECENT_SEARCH_ITEMS_SUCC
 export const FETCH_RECENT_SEARCH_ITEMS_FAILURE = 'FETCH_RECENT_SEARCH_ITEMS_FAILURE';
 export const FETCHED_EMPTY_RECENT_SEARCH_ITEMS = 'FETCHED_EMPTY_RECENT_SEARCH_ITEMS';
 
-export const RECENT_SEARCH_COMPONENT_TYPE_MAPPING = {
-  'DATE > OFFICERS': 'OFFICER',
-  'UNIT > OFFICERS': 'OFFICER',
-  'DATE > CR': 'CR',
-  'INVESTIGATOR > CR': 'CR',
-  'DATE > TRR': 'TRR',
-};
+export const VISIT_PIN_BUTTON_INTRODUCTION = 'VISIT_PIN_BUTTON_INTRODUCTION';
+export const VISIT_PINBOARD_BUTTON_INTRODUCTION = 'VISIT_PINBOARD_BUTTON_INTRODUCTION';
+export const VISIT_PINBOARD_INTRODUCTION = 'VISIT_PINBOARD_INTRODUCTION';
 
 export const PINNED_ITEM_TYPES = {
   'CR': 'CR',
@@ -879,5 +790,7 @@ export const ELLIPSIS_CONFIG = {
   ellipsis: '...',
   maxLine: '3',
 };
+
+export const PIN_BUTTON_INTRODUCTION_INDEX = 3;
 
 export const SLIDE_PER_WHEEL = 2;

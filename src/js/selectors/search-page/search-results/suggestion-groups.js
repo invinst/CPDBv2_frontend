@@ -1,12 +1,14 @@
 import { createSelector } from 'reselect';
-import { indexOf, isEmpty, head, keys, map, omitBy, pick, sortBy } from 'lodash';
+import { indexOf, isEmpty, head, keys, map, omitBy, pick, sortBy, isUndefined } from 'lodash';
 
 import * as constants from 'utils/constants';
 import { navigationItemTransform, searchResultItemTransform } from 'selectors/common/search-item-transforms';
 import extractQuery from 'utils/extract-query';
 import { dataToolSearchUrl } from 'utils/v1-url';
 import { isItemPinned, pinboardItemsSelector } from 'selectors/pinboard-page/pinboard';
+import { isPinButtonIntroductionVisitedSelector } from 'selectors/pinboard-introduction';
 import { getQuery } from 'selectors/search-page/common';
+import { PINNED_ITEM_TYPES, PIN_BUTTON_INTRODUCTION_INDEX } from 'utils/constants';
 
 
 const itemsPerCategory = 5;
@@ -102,11 +104,27 @@ export const isEmptySelector = createSelector(
 export const searchResultGroupsSelector = createSelector(
   slicedSuggestionGroupsSelector,
   pinboardItemsSelector,
-  (groups, pinboardItems) => map(groups, ({ header, items, canLoadMore }) => ({
-    header,
-    canLoadMore,
-    items: map(items, item => searchResultItemTransform(getPinnedItem(item, pinboardItems))),
-  }))
+  isPinButtonIntroductionVisitedSelector,
+  (groups, pinboardItems, isPinButtonIntroductionVisited) => {
+    let hasFirstIntroduction = false;
+    return map(groups, ({ header, items, canLoadMore }) => {
+      const showIntroduction = !hasFirstIntroduction
+        && !isUndefined(PINNED_ITEM_TYPES[header])
+        && !isPinButtonIntroductionVisited;
+      if (showIntroduction) {
+        hasFirstIntroduction = true;
+      }
+      const pinButtonIntroductionIndex = Math.min(items.length, PIN_BUTTON_INTRODUCTION_INDEX) - 1;
+      return {
+        header,
+        canLoadMore,
+        items: map(items, (item, index) => ({
+          ...searchResultItemTransform(getPinnedItem(item, pinboardItems)),
+          showIntroduction: showIntroduction && (index === pinButtonIntroductionIndex),
+        })),
+      };
+    });
+  }
 );
 
 export const firstItemSelector = createSelector(

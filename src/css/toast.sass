@@ -1,0 +1,63 @@
+@import 'variables'
+
+
+.Toastify__toast-container--top-right
+  top: 8px
+  right: 8px
+
+.Toastify__toast-container--top-right.search
+  top: 118px
+  right: 8px
+
+.Toastify__toast-container--top-right.landing
+  top: 144px
+
+.Toastify__toast-container--top-right.officer
+  top: 48px
+
+.Toastify__toast-container--top-right.complaint
+  top: 48px
+
+.Toastify__toast-container--top-right.pinboard
+  top: 98px
+
+.Toastify__toast-container
+  min-width: 150px
+  max-width: 480px
+  width: auto
+  padding: 0
+  margin: 0
+  z-index: $toast-z-index
+  -webkit-transform: translate3d(0,0,0)
+
+.Toastify__toast-body
+  font-family: "San Francisco Text", sans-serif
+  font-weight: 300
+  font-size: 14px
+  padding: 0
+  line-height: 16px
+  white-space: pre-line
+
+@keyframes slideInDown
+  from
+    transform: translate3d(0, -100vh, 0)
+    visibility: visible
+
+  to
+    transform: translate3d(0, 0, 0)
+
+
+@keyframes fadeOut
+  0%
+    opacity: 1
+
+  100%
+    opacity: 0
+    display: none
+
+
+.toast-enter--top-right
+  animation-name: slideInDown
+
+.toast-exit--top-right
+  animation-name: fadeOut

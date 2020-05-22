@@ -42,12 +42,12 @@ describe('Social Graph Page', function () {
       (graphNode) => graphNode.getCSSProperty('fill').value
     ));
     const expectedNodeGroupColors = {
-      'rgb(253,94,76)': 6,
-      'rgb(244,162,152)': 6,
-      'rgb(249,211,195)': 5,
-      'rgb(243,42,41)': 1,
-      'rgb(255,80,80)': 1,
-      'rgb(243,173,173)': 1,
+      'rgb(245,37,36)': 6,
+      'rgb(255,65,44)': 6,
+      'rgb(255,100,83)': 5,
+      'rgb(244,162,152)': 1,
+      'rgb(249,211,195)': 1,
+      'rgb(245,244,244)': 1,
     };
     nodeGroupColors.should.eql(expectedNodeGroupColors);
 
@@ -185,12 +185,12 @@ describe('Social Graph Page', function () {
       (graphNode) => graphNode.getCSSProperty('fill').value
     ));
     const expectedGroupsColors = {
-      'rgb(253,94,76)': 6,
-      'rgb(244,162,152)': 6,
-      'rgb(249,211,195)': 5,
-      'rgb(243,42,41)': 1,
-      'rgb(255,80,80)': 1,
-      'rgb(243,173,173)': 1,
+      'rgb(245,37,36)': 6,
+      'rgb(255,65,44)': 6,
+      'rgb(255,100,83)': 5,
+      'rgb(244,162,152)': 1,
+      'rgb(249,211,195)': 1,
+      'rgb(245,244,244)': 1,
     };
     groupsColors.should.eql(expectedGroupsColors);
   });
@@ -247,14 +247,14 @@ describe('Social Graph Page', function () {
     socialGraphPage.animatedSocialGraphSection.officerTip.waitForDisplayed(1000, true);
 
     socialGraphPage.animatedSocialGraphSection.anotherGraphNode.click();
-    socialGraphPage.animatedSocialGraphSection.selectedNodeLabel.getText().should.eql('William Roberison');
+    socialGraphPage.animatedSocialGraphSection.selectedNodeLabel.getText().should.eql('Glenn Evans');
     socialGraphPage.animatedSocialGraphSection.biggestGraphNode.moveTo();
     socialGraphPage.animatedSocialGraphSection.officerTip.getText().should.eql('Donnell Calhoun');
 
     socialGraphPage.animatedSocialGraphSection.leftSection.click();
     socialGraphPage.animatedSocialGraphSection.selectedNodeLabel.waitForDisplayed(1000, true);
     socialGraphPage.animatedSocialGraphSection.anotherGraphNode.moveTo();
-    socialGraphPage.animatedSocialGraphSection.officerTip.getText().should.eql('William Roberison');
+    socialGraphPage.animatedSocialGraphSection.officerTip.getText().should.eql('Glenn Evans');
   });
 
   it('should render officer preview pane when clicking on the officer row', function () {

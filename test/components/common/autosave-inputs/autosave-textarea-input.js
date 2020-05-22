@@ -44,9 +44,11 @@ describe('AutosaveTextareaInput component', function () {
   });
 
   it('should trigger onChange on input change', function () {
+    const onChangeSpy = spy();
     const wrapper = shallow(
       <AutosaveTextareaInput
         textareaLineHeight={ 16 }
+        onChange={ onChangeSpy }
         fieldType='description'
       />,
       { disableLifecycleMethods: true },
@@ -54,6 +56,7 @@ describe('AutosaveTextareaInput component', function () {
     const inputElement = wrapper.find('textarea');
     inputElement.simulate('change', { target: { value: 'value' } });
     wrapper.state('currentValue').should.equal('value');
+    onChangeSpy.should.be.calledOnce();
   });
 
   it('should update number of rows when resize', function () {

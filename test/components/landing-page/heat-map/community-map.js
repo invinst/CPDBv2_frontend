@@ -1,4 +1,5 @@
 import React from 'react';
+import { spy } from 'sinon';
 import { shallow } from 'enzyme';
 
 import CommunityMap from 'components/landing-page/heat-map/community-map';
@@ -7,9 +8,12 @@ import MapboxGL from 'components/common/mapbox-gl';
 
 describe('CommunityMap component', function () {
   it('should render MapboxGL', function (done) {
-    const wrapper = shallow(<CommunityMap/>);
+    const heatMapLoadedSpy = spy();
+    const wrapper = shallow(<CommunityMap heatMapLoaded={ heatMapLoadedSpy }/>);
     setTimeout(() => {
-      wrapper.find(MapboxGL).exists().should.be.true();
+      const mapboxGlComponent = wrapper.find(MapboxGL);
+      mapboxGlComponent.exists().should.be.true();
+      mapboxGlComponent.first().prop('onIdle').should.equal(heatMapLoadedSpy);
       done();
     }, 100);
   });

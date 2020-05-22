@@ -13,12 +13,16 @@ import CategoryColumn from 'components/search-page/search-terms/category-column'
 import * as IntercomTracking from 'utils/intercom-tracking';
 import RecentSuggestion from 'components/search-page/search-results/recent-suggestion';
 import PinboardBar from 'components/search-page/pinboard/pinboard-bar';
+import PinboardIntroductionContainer from 'containers/search-page/pinboard/pinboard-introduction-container';
 
 
 describe('SearchTerms component', function () {
   const store = MockStore()({
     pinboardPage: {
-      pinboard: null,
+      pinboard: {},
+    },
+    pinboardIntroduction: {
+      isPinButtonIntroductionVisited: false,
     },
   });
 
@@ -114,12 +118,12 @@ describe('SearchTerms component', function () {
     categoryColumn.exists().should.be.true();
   });
 
-  it('should render PinboardBar', function () {
+  it('should render PinboardIntroduction', function () {
     const wrapper = shallow(
       <SearchTerms />
     );
 
-    wrapper.find(PinboardBar).exists().should.be.true();
+    wrapper.find(PinboardIntroductionContainer).exists().should.be.true();
   });
 
   it('should render ResponsiveFluidWidthComponent with correct props', function () {
@@ -190,13 +194,23 @@ describe('SearchTerms component', function () {
         text: 'Mark Farmer',
         to: '/officer/8257/mark-farmer/',
       }];
+      const pinboardUrl = '/pinboard/12f453/untitled-title';
+      const visitPinButtonIntroduction = spy();
 
       const wrapper = shallow(
-        <SearchTerms recentSuggestions={ recentSuggestions }/>
+        <SearchTerms
+          pinboardUrl={ pinboardUrl }
+          recentSuggestions={ recentSuggestions }
+          visitPinButtonIntroduction={ visitPinButtonIntroduction }
+          hide={ true }
+        />
       );
 
       const recentSuggestionsComp = wrapper.find(RecentSuggestion);
       recentSuggestionsComp.prop('recentSuggestions').should.eql(recentSuggestions);
+      recentSuggestionsComp.prop('pinboardUrl').should.equal(pinboardUrl);
+      recentSuggestionsComp.prop('visitPinButtonIntroduction').should.equal(visitPinButtonIntroduction);
+      recentSuggestionsComp.prop('hide').should.be.true();
     });
 
     it('should not render RecentSuggestion component if recentSuggestions is null', function () {
@@ -222,6 +236,25 @@ describe('SearchTerms component', function () {
         </Provider>
       );
       IntercomTracking.trackSearchTerms.should.be.called();
+    });
+  });
+
+  context('isEmptyPinboard is true', function () {
+    it('should render PinboardBar without slide-in class', function () {
+      const wrapper = shallow(
+        <SearchTerms isEmptyPinboard={ true } />
+      );
+      const pinboardBar = wrapper.find(PinboardBar).dive();
+      pinboardBar.prop('className').should.not.containEql('slide-in');
+    });
+  });
+  context('isEmptyPinboard is false', function () {
+    it('should render PinboardBar with slide-in class', function () {
+      const wrapper = shallow(
+        <SearchTerms isEmptyPinboard={ false } />
+      );
+      const pinboardBar = wrapper.find(PinboardBar).dive();
+      pinboardBar.prop('className').should.containEql('slide-in');
     });
   });
 });

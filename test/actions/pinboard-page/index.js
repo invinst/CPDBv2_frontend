@@ -1,5 +1,4 @@
 import {
-  redirect,
   updatePinboardTimelineIdx,
   updatePinboardRefreshIntervalId,
   turnOnEmptyPinboardTitleEditMode,
@@ -11,7 +10,6 @@ import {
   hidePinboardList,
 } from 'actions/pinboard-page';
 import {
-  PINBOARD_PAGE_REDIRECT,
   UPDATE_PINBOARD_TIMELINE_IDX,
   UPDATE_PINBOARD_REFRESH_INTERVAL_ID,
   PINBOARD_EDIT_MODE,
@@ -25,15 +23,6 @@ import {
 
 
 describe('pinboard-page actions', function () {
-  describe('redirect', function () {
-    it('should return correct payload', function () {
-      redirect(false).should.eql({
-        type: PINBOARD_PAGE_REDIRECT,
-        payload: false,
-      });
-    });
-  });
-
   describe('updatePinboardTimelineIdx', function () {
     it('should return correct payload', function () {
       updatePinboardTimelineIdx(20).should.eql({

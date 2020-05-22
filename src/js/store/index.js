@@ -9,16 +9,19 @@ import searchPath from 'middleware/search-path';
 import tracking from 'middleware/tracking';
 import localStorageConfig from './local-storage-config';
 import fetchPageInitialData from 'middleware/fetch-page-initial-data';
+import redirectPinboardMiddleware from 'middleware/redirect-pinboard-middleware';
 import redirectOfficerAlias from 'middleware/redirect-officer-alias';
 import updatePathName from 'middleware/path-name';
 import retryOfficerDownloadMiddleware from 'middleware/retry-officer-downloads';
 import restoreCreateOrUpdatePinboard from 'middleware/restore-create-or-update-pinboard';
 import forceEditModeWhenAuthenticated from 'middleware/force-edit-mode-when-authenticated';
+import updateAppConfig from 'middleware/app-config';
 import config from 'config';
 import browserHistory from 'utils/history';
+import { isPinboardFeatureEnabled } from 'utils/pinboard';
+
 
 const localStorageVersion = localStorage.getItem('CPDB_LOCALSTORAGE_VERSION', null);
-const { pinboard: enablePinboardFeature } = config.enableFeatures;
 if (config.localStorageVersion !== localStorageVersion) {
   localStorage.clear();
   localStorage.setItem('CPDB_LOCALSTORAGE_VERSION', config.localStorageVersion);
@@ -32,12 +35,14 @@ function configureStore(initialState) {
     tracking,
     routerMiddleware(browserHistory),
     fetchPageInitialData,
+    redirectPinboardMiddleware,
     redirectOfficerAlias,
     updatePathName,
     retryOfficerDownloadMiddleware,
     forceEditModeWhenAuthenticated,
+    updateAppConfig,
   ];
-  if (enablePinboardFeature)
+  if (isPinboardFeatureEnabled())
     middleware = [...middleware, restoreCreateOrUpdatePinboard];
   const composeArgs = [
     applyMiddleware(...middleware),

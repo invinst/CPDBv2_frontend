@@ -119,6 +119,23 @@ function initCommands() {
     });
   });
 
+  browser.addCommand('clearReduxStore', (refresh=false) => {
+    browser.execute(function () {
+      this.localStorage.removeItem('redux');
+    });
+    if (refresh) {
+      browser.refresh();
+    }
+  });
+
+  browser.addCommand('closeLastOpenedTab', (refresh=false) => {
+    if (browser.getWindowHandles().length > 1) {
+      browser.switchToWindow(browser.getWindowHandles()[1]);
+      browser.closeWindow();
+      browser.switchToWindow(browser.getWindowHandles()[0]);
+    }
+  });
+
   browser.addCommand('simulateMouseWheel', (_selector, _deltaX, _deltaY) => {
     return browser.execute(function (selector, deltaX, deltaY) {
       const event = new Event('mousewheel');

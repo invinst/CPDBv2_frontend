@@ -4,7 +4,7 @@ import {
   documentsSelector,
   hasMoreSelector,
   nextParamsSelector,
-
+  isDocumentsRequesting,
 } from 'selectors/documents-overview-page';
 import { fetchDocuments, fetchDocumentsAuthenticated } from 'actions/documents-overview-page';
 import DocumentsPage from 'components/documents-overview-page';
@@ -15,6 +15,7 @@ function mapStateToProps(state, ownProps) {
     documents: documentsSelector(state),
     hasMore: hasMoreSelector(state),
     nextParams: nextParamsSelector(state),
+    isRequesting: isDocumentsRequesting(state),
   };
 }
 

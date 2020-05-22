@@ -177,6 +177,18 @@ class SearchSection extends Section {
   }
 }
 
+class PinboardIntroductionSection extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      body: '.pinboard-button-introduction',
+      dismissButton: '.dismiss-btn',
+      tryItButton: '.try-it-btn',
+      pinboardButton: '//div[contains(@class, "header-links")]//div[contains(@class, "pinboard-button")]',
+    });
+  }
+}
+
 class LandingPage extends Page {
   header = new Header();
   footer = new Footer();
@@ -188,6 +200,7 @@ class LandingPage extends Page {
   genericModalSection = new GenericModalSection();
   heatMapSection = new HeatMapSection();
   searchSection = new SearchSection();
+  pinboardIntroduction = new PinboardIntroductionSection();
 
   constructor() {
     super();

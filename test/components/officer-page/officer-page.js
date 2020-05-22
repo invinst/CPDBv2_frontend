@@ -11,11 +11,12 @@ import SummarySection from 'components/officer-page/summary-section';
 import MetricsSection from 'components/officer-page/metrics-section';
 import TabbedPaneSection from 'components/officer-page/tabbed-pane-section';
 import OfficerRadarChart from 'components/officer-page/radar-chart';
-import { OFFICER_EDIT_TYPES, PINNED_ITEM_TYPES } from 'utils/constants';
+import { OFFICER_EDIT_TYPES } from 'utils/constants';
 import PrintNotes from 'components/common/print-notes';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import DownloadMenuContainer from 'containers/headers/shareable-header/download-menu-container';
 import * as tracking from 'utils/tracking';
+import styles from 'components/officer-page/officer-page.sass';
 
 
 describe('OfficerPage component', function () {
@@ -34,6 +35,10 @@ describe('OfficerPage component', function () {
     breadcrumb: {
       breadcrumbItems: [],
     },
+    headers: {
+      pinboards: [],
+    },
+    pinboardPage: {},
     popups: [],
   });
 
@@ -78,20 +83,11 @@ describe('OfficerPage component', function () {
 
     const shareableHeader = officerPage.find(ShareableHeaderContainer);
     shareableHeader.exists().should.be.true();
-    const itemPinButton = shareableHeader.prop('customButtons');
-    itemPinButton.props.item.should.be.eql({
-      type: PINNED_ITEM_TYPES.OFFICER,
-      id: 1,
-      isPinned: true,
-      fullName: 'Corey Flagg',
-      race: 'Asian',
-      gender: 'Male',
-      rank: 'Police Officer',
-      age: '39-year-old',
-      sustainedCount: 8,
-      complaintCount: 13,
-    });
-    itemPinButton.props.addOrRemoveItemInPinboard.should.eql(addOrRemoveItemInPinboardSpy);
+    const headerButtons = shareableHeader.prop('headerButtons');
+    headerButtons.props.children[0].type.WrappedComponent.name.should.equal('HeaderPinButton');
+    const downloadButton = headerButtons.props.children[1];
+    downloadButton.type.name.should.equal('HeaderButton');
+    downloadButton.props.Menu.should.equal(DownloadMenuContainer);
   });
 
   it('should render correct document title and description', function () {
@@ -113,26 +109,6 @@ describe('OfficerPage component', function () {
       'Officer Shaun Frank of the Chicago Police Department has ' +
       '5 complaints, 10 use of force reports, and 3 original documents available.'
     );
-  });
-
-  it('should render ShareableHeader with custom props', function () {
-    const wrapper = shallow(
-      <OfficerPage
-        officerName='Shaun Frank'
-        officerSummary={ { rank: 'Officer' } }
-        officerMetrics={ {
-          allegationCount: 5,
-          useOfForceCount: 10,
-        } }
-        numAttachments={ 3 }
-      />,
-      { disableLifecycleMethods: true },
-    ).dive().dive();
-
-    const shareableHeader = wrapper.find(ShareableHeaderContainer);
-    shareableHeader.prop('buttonType').should.equal('menu');
-    shareableHeader.prop('Menu').should.eql(DownloadMenuContainer);
-    shareableHeader.prop('buttonText').should.equal('Download');
   });
 
   it('should add badge number into document description if officer name is not unique and badge is not Unknown',
@@ -241,7 +217,7 @@ describe('OfficerPage component', function () {
         </MemoryRouter>
       </Provider>
     );
-    const headerButton = wrapper.find('.button');
+    const headerButton = wrapper.find(`.${styles.downloadBtn}`);
     headerButton.simulate('click');
     this.stubTrackOfficerDownloadMenu.should.be.calledWith(1234, 'open');
   });

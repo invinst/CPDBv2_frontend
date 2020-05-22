@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import cx from 'classnames';
 import { isEmpty, noop, get } from 'lodash';
 
-import browserHistory from 'utils/history';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import SearchBar from './search-bar';
 import Header from './header';
@@ -25,19 +24,6 @@ import PinboardDataVisualization from 'components/pinboard-page/pinboard-data-vi
 export default class PinboardPage extends Component {
   componentDidMount() {
     document.body.classList.add('body-fixed-viewport');
-  }
-
-  componentDidUpdate(prevProps) {
-    const { pinboard } = prevProps;
-    const { pinboard: currentPinboard, shouldRedirect, updatePathName, location } = this.props;
-    if (currentPinboard.url !== '') {
-      if (shouldRedirect && (pinboard.id !== currentPinboard.id ||
-          (location.pathname === '/pinboard/' && !isEmpty(currentPinboard.id)))) {
-        browserHistory.replace(currentPinboard.url);
-      } else if (currentPinboard.url !== pinboard.url) {
-        updatePathName(currentPinboard.url);
-      }
-    }
   }
 
   componentWillUnmount() {
@@ -129,7 +115,7 @@ export default class PinboardPage extends Component {
           <Header />
           <SearchBar
             shareable={ !isEmptyPinboard }
-            customButtons={
+            headerButtons={
               <ManagePinboardsButtons
                 pinboardId={ get(pinboard, 'id') }
                 showPinboardsList={ showPinboardsList }
@@ -151,7 +137,6 @@ PinboardPage.propTypes = {
   pinboard: PropTypes.object,
   params: PropTypes.object,
   hasMapMarker: PropTypes.bool,
-  shouldRedirect: PropTypes.bool,
   initialRequested: PropTypes.bool,
   pinboardPageLoading: PropTypes.bool,
   isEmptyPinboard: PropTypes.bool,

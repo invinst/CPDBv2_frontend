@@ -14,7 +14,7 @@
     top: 0
     left: 0
     width: 100%
-    z-index: 1
+    z-index: 2
 
     &.edit-mode-on
       background-color: $pink-lace-color
@@ -26,7 +26,7 @@
     &.has-bottom-border
       border-bottom: 1px solid $alto-color
 
-  .cancel-button
+  .close-button
     display: inline-block
     font-size: 13px
     color: $blue-ribbon-color
@@ -46,7 +46,7 @@
     display: none
 
   &.animation-in
-    .search-main-panel-wrapper, .cancel-button
+    .search-main-panel-wrapper, .close-button
       opacity: 0
       animation-duration: $animation-duration
       animation-delay: calc(#{$animation-duration} / 2)

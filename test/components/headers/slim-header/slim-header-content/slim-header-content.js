@@ -10,7 +10,6 @@ import LogOutButton from 'components/log-out-button';
 import SlimHeaderContent from 'components/headers/slim-header/slim-header-content';
 import Logo from 'components/headers/slim-header/slim-header-content/logo';
 import DemoVideo from 'components/headers/slim-header/slim-header-content/demo-video';
-import RightLinks from 'components/headers/slim-header/slim-header-content/right-links';
 import SearchBox from 'components/headers/slim-header/slim-header-content/search-box';
 
 
@@ -20,6 +19,9 @@ describe('SlimHeaderContent component', function () {
     cms: {
       pages: {},
     },
+    landingPage: {
+      heatMap: {},
+    },
     headers: {
       slimHeader: {
         logoSectionEditModeOn: false,
@@ -27,6 +29,9 @@ describe('SlimHeaderContent component', function () {
       },
     },
     pathname: '/',
+    pinboardIntroduction: {
+      isPinButtonIntroductionVisited: false,
+    },
   });
 
   it('should render correctly', function () {
@@ -55,7 +60,6 @@ describe('SlimHeaderContent component', function () {
 
     header.find(LogOutButton).exists().should.be.true();
 
-    header.find(RightLinks).prop('position').should.equal('top');
     header.find(SearchBox).prop('position').should.equal('top');
   });
 

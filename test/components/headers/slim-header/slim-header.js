@@ -25,6 +25,9 @@ describe('SlimHeader component', function () {
         },
       },
     },
+    landingPage: {
+      heatMap: {},
+    },
     headers: {
       slimHeader: {
         logoSectionEditModeOn: false,
@@ -35,6 +38,9 @@ describe('SlimHeader component', function () {
       },
     },
     pathname: '/',
+    pinboardIntroduction: {
+      isPinButtonIntroductionVisited: false,
+    },
   });
 
   beforeEach(function () {
@@ -105,26 +111,6 @@ describe('SlimHeader component', function () {
     const links = wrapper.find(Link);
     const link = links.findWhere(link => link.prop('to') === '/documents/');
     link.text().should.equal('Documents');
-  });
-
-  describe('External links', function () {
-    it('should stopPropagation when being clicked', function () {
-      const wrapper = mount(
-        <Provider store={ store }>
-          <MemoryRouter>
-            <EditModeProviderContainer>
-              <SlimHeader show={ true } pathname='/'/>
-            </EditModeProviderContainer>
-          </MemoryRouter>
-        </Provider>,
-      );
-      let externalLinks = wrapper.find('.right-link');
-      const dummyEvent = {
-        stopPropagation: spy(),
-      };
-      externalLinks.at(0).simulate('click', dummyEvent);
-      dummyEvent.stopPropagation.should.be.called();
-    });
   });
 
   describe('recalculatePosition', function () {

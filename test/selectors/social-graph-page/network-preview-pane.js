@@ -81,7 +81,7 @@ describe('Social Graph preview pane selectors', function () {
             { axis: 'Civilian Allegations', value: 97 },
 
           ],
-          visualTokenBackground: '#f52524',
+          visualTokenBackground: '#F52524',
           textColor: '#DFDFDF',
         },
       });
@@ -123,7 +123,7 @@ describe('Social Graph preview pane selectors', function () {
             'value': 49.4652,
           },
         ],
-        radarColor: '#f9946b',
+        radarColor: '#FF412C',
       });
     });
   });
@@ -196,7 +196,7 @@ describe('Social Graph preview pane selectors', function () {
                 'value': 49.4652,
               },
             ],
-            radarColor: '#f9946b',
+            radarColor: '#FF412C',
           },
         ],
       });
@@ -344,7 +344,7 @@ describe('Social Graph preview pane selectors', function () {
                 'value': 49.4652,
               },
             ],
-            radarColor: '#f9946b',
+            radarColor: '#FF412C',
           },
         ],
       });
@@ -495,7 +495,7 @@ describe('Social Graph preview pane selectors', function () {
             { axis: 'Civilian Allegations', value: 97 },
 
           ],
-          visualTokenBackground: '#f52524',
+          visualTokenBackground: '#F52524',
           textColor: '#DFDFDF',
         },
       });
@@ -644,7 +644,7 @@ describe('Social Graph preview pane selectors', function () {
               { axis: 'Civilian Allegations', value: 97 },
 
             ],
-            visualTokenBackground: '#f52524',
+            visualTokenBackground: '#F52524',
             textColor: '#DFDFDF',
           },
         },
@@ -868,7 +868,7 @@ describe('Social Graph preview pane selectors', function () {
                   'value': 49.4652,
                 },
               ],
-              radarColor: '#f9946b',
+              radarColor: '#FF412C',
             },
           ],
         },

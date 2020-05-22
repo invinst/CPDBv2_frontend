@@ -45,6 +45,9 @@ export default class SuggestionGroup extends Component {
       getSuggestionWithContentType,
       setSearchNavigation,
       addOrRemoveItemInPinboard,
+      pinboardUrl,
+      visitPinButtonIntroduction,
+      hide,
     } = this.props;
 
     return (
@@ -62,6 +65,9 @@ export default class SuggestionGroup extends Component {
               setAliasAdminPageContent={ setAliasAdminPageContent }
               suggestion={ suggestion }
               isFocused={ focusedItem.uniqueKey === suggestion.uniqueKey }
+              pinboardUrl={ pinboardUrl }
+              visitPinButtonIntroduction={ visitPinButtonIntroduction }
+              hide={ hide }
               addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }/>
           ))
         }
@@ -111,6 +117,9 @@ SuggestionGroup.propTypes = {
   singleContent: PropTypes.bool,
   setSearchNavigation: PropTypes.func,
   addOrRemoveItemInPinboard: PropTypes.func,
+  pinboardUrl: PropTypes.string,
+  visitPinButtonIntroduction: PropTypes.string,
+  hide: PropTypes.bool,
 };
 
 SuggestionGroup.defaultProps = {
@@ -120,4 +129,5 @@ SuggestionGroup.defaultProps = {
   getSuggestionWithContentType: () => ({
     catch: noop,
   }),
+  visitPinButtonIntroduction: noop,
 };

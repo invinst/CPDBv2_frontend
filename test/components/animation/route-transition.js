@@ -219,5 +219,23 @@ describe('RouteTransition component', function () {
       });
       wrapper.find(`.${styles.overlayStyle}`).exists().should.be.true();
     });
+
+    it('should render overlay when pageLoading change from false to true', function () {
+      const officerPage = {
+        path: '/officer/123/',
+        text: 'officer page',
+      };
+
+      const wrapper = mount(
+        <RouteTransition pathname={ officerPage.path } pageLoading={ false }>
+          <p>{ officerPage.text }</p>
+        </RouteTransition>
+      );
+
+      wrapper.setProps({
+        pageLoading: true,
+      });
+      wrapper.find(`.${styles.overlayStyle}`).exists().should.be.true();
+    });
   });
 });

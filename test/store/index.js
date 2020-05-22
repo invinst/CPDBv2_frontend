@@ -56,6 +56,9 @@ describe('store', function () {
           citySummary: {},
           communities: null,
           clusterGeoJson: null,
+          communitiesRequested: false,
+          clusterGeoJsonRequested: false,
+          heatMapLoaded: false,
         },
       },
       authentication: {
@@ -214,6 +217,7 @@ describe('store', function () {
           logoSectionEditModeOn: false,
           videoInfo: [],
         },
+        pinboards: [],
       },
       embed: {
         officers: [],
@@ -223,6 +227,7 @@ describe('store', function () {
           data: {},
           match: '',
         },
+        isRequesting: false,
         documentsOrder: {
           data: [],
           match: '',
@@ -319,7 +324,6 @@ describe('store', function () {
           count: 0,
           pagination: { next: null, previous: null },
         },
-        redirect: false,
         pinnedItemsRequested: false,
         initialRequested: false,
         pinboards: [],
@@ -348,6 +352,11 @@ describe('store', function () {
           requesting: false,
           cachedData: [],
         },
+      },
+      pinboardIntroduction: {
+        isPinButtonIntroductionVisited: false,
+        isPinboardIntroductionVisited: false,
+        isPinboardButtonIntroductionVisited: false,
       },
       videoModal: {
         active: false,

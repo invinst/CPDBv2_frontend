@@ -23,7 +23,7 @@ describe('isRequesting reducer', function () {
     }).should.eql('jerome');
   });
 
-  it('should handle LOCATION_CHANGE', function () {
+  it('should handle LOCATION_CHANGE with terms', function () {
     query(null, {
       type: LOCATION_CHANGE,
       payload: {
@@ -34,7 +34,7 @@ describe('isRequesting reducer', function () {
     }).should.eql('new term');
   });
 
-  it('should handle LOCATION_CHANGE with prefix', function () {
+  it('should handle LOCATION_CHANGE with prefix terms', function () {
     query(null, {
       type: LOCATION_CHANGE,
       payload: {
@@ -43,5 +43,27 @@ describe('isRequesting reducer', function () {
         },
       },
     }).should.eql('123456');
+  });
+
+  it('should handle LOCATION_CHANGE with pathname is /', function () {
+    query('query', {
+      type: LOCATION_CHANGE,
+      payload: {
+        location: {
+          pathname: '/',
+        },
+      },
+    }).should.eql('');
+  });
+
+  it('should handle LOCATION_CHANGE with pathname is not / and terms is empty', function () {
+    query('query', {
+      type: LOCATION_CHANGE,
+      payload: {
+        location: {
+          pathname: '/officer/123/',
+        },
+      },
+    }).should.eql('query');
   });
 });

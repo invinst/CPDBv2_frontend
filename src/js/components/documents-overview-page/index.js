@@ -4,10 +4,10 @@ import queryString from 'query-string';
 import { get } from 'lodash';
 
 import browserHistory from 'utils/history';
-import * as constants from 'utils/constants';
 import DocumentsTable from './documents-table';
 import SearchBar from 'components/common/search-bar';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
+import LinkHeaderButton from 'components/headers/shareable-header/link-header-button';
 
 
 export default class DocumentsOverviewPage extends Component {
@@ -38,14 +38,16 @@ export default class DocumentsOverviewPage extends Component {
       nextParams,
       fetchDocuments,
       fetchDocumentsAuthenticated,
+      isRequesting,
     } = this.props;
 
     return (
       <div>
         <ShareableHeaderContainer
-          buttonType={ constants.SHAREABLE_HEADER_BUTTON_TYPE.LINK }
-          buttonText='Crawlers'
-          to='/crawlers/' />
+          headerButtons={
+            <LinkHeaderButton buttonText='Crawlers' to='/crawlers/' />
+          }
+        />
         <SearchBar
           value={ this.state.searchText }
           onChange={ this.handleSearchChange }/>
@@ -54,6 +56,7 @@ export default class DocumentsOverviewPage extends Component {
           hasMore={ hasMore }
           nextParams={ nextParams }
           fetchDocuments={ fetchDocuments }
+          isRequesting={ isRequesting }
           fetchDocumentsAuthenticated={ fetchDocumentsAuthenticated }
           onCRLinkClick={ this.handleSearchChange }/>
       </div>
@@ -72,9 +75,11 @@ DocumentsOverviewPage.propTypes = {
     search: PropTypes.string,
     query: PropTypes.object,
   }).isRequired,
+  isRequesting: PropTypes.bool,
 };
 
 DocumentsOverviewPage.defaultProps = {
   documents: [],
   location: {},
+  isRequesting: false,
 };

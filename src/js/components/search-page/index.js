@@ -19,7 +19,7 @@ import {
 } from 'utils/constants';
 import { showIntercomLauncher } from 'utils/intercom';
 import * as IntercomTracking from 'utils/intercom-tracking';
-import 'toast.css';
+import 'toast.sass';
 import styles from './search-page.sass';
 
 
@@ -76,7 +76,9 @@ export default class SearchPage extends Component {
 
   sendSearchQuery(query) {
     if (query) {
+      const { resetSearchResultNavigation } = this.props;
       this.getSuggestion(query, { limit: DEFAULT_SUGGESTION_LIMIT });
+      resetSearchResultNavigation();
     }
   }
 
@@ -177,11 +179,11 @@ export default class SearchPage extends Component {
             />
             <HoverableButton
               className={
-                cx('searchbar__button--back', 'cancel-button', { 'search-terms-hidden': searchTermsHidden })
+                cx('searchbar__button--back', 'close-button', { 'search-terms-hidden': searchTermsHidden })
               }
               onClick={ this.handleGoBack }
             >
-              Cancel
+              Close
             </HoverableButton>
           </div>
         </div>
@@ -195,6 +197,7 @@ export default class SearchPage extends Component {
             searchTermsHidden={ searchTermsHidden }
             handleSelect={ this.handleSelect }
             tags={ tags }
+            hide={ hide }
             onEmptyPinboardButtonClick={ this.handleEmptyPinboardButtonClick }
           />
         </div>

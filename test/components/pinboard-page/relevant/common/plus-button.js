@@ -19,15 +19,4 @@ describe('PlusButton component', function () {
     wrapper.simulate('click');
     onClickStub.should.be.calledOnce();
   });
-
-  it('should have dark mode', function () {
-    const onClickStub = stub();
-    const wrapper = shallow(
-      <PlusButton
-        onClick={ onClickStub }
-        darkMode={ true }
-      />
-    );
-    wrapper.prop('className').should.containEql('dark-mode');
-  });
 });

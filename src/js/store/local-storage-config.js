@@ -5,6 +5,7 @@ export default {
       searchPage: {
         recentSuggestions: state.searchPage.recentSuggestions,
       },
+      pinboardIntroduction: state.pinboardIntroduction,
     });
   },
 };

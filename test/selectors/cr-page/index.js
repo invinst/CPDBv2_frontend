@@ -9,6 +9,7 @@ import {
   getDocumentAlreadyRequested,
   hasAttachmentsSelector,
   isCrPinnedSelector,
+  pinnableCrSelector,
 } from 'selectors/cr-page';
 import {
   InvestigatorFactory,
@@ -16,6 +17,7 @@ import {
   CoaccusedFactory,
   ComplaintFactory,
 } from 'utils/test/factories/complaint';
+import { PINNED_ITEM_TYPES } from 'utils/constants';
 
 
 describe('CR page selectors', function () {
@@ -120,7 +122,7 @@ describe('CR page selectors', function () {
             },
           ],
           textColor: '#DFDFDF',
-          visualTokenBackground: '#f52524',
+          visualTokenBackground: '#F52524',
           year: 2007,
         },
         isPinned: false,
@@ -513,6 +515,31 @@ describe('CR page selectors', function () {
         },
       };
       isCrPinnedSelector(state).should.be.false();
+    });
+  });
+
+  describe('pinnableCrSelector', function () {
+    it('should return correct data', function () {
+      const state = {
+        crPage: {
+          'crid': '2458',
+        },
+        crs: {
+          '2458': {
+            'crid': '2458',
+            'incident_date': '2015-04-04',
+            'most_common_category': {
+              'category': 'Use Of Force',
+            },
+          },
+        },
+      };
+      pinnableCrSelector(state).should.eql({
+        type: PINNED_ITEM_TYPES.CR,
+        id: '2458',
+        incidentDate: '2015-04-04',
+        category: 'Use Of Force',
+      });
     });
   });
 });

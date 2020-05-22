@@ -63,64 +63,68 @@ describe('search page results selector', function () {
         pinboardPage: {
           pinboard: null,
         },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
+        },
       }).should.deepEqual([
         {
           header: 'OFFICER',
           canLoadMore: false,
           items: [{
-            'appointedDate': 'DEC 13, 1999',
-            'badge': '5922',
-            'age': '48-year-old',
-            'civilianComplimentCount': 4,
-            'complaintCount': 10,
-            'complaintPercentile': 93,
-            'disciplineCount': 1,
-            'fullName': 'Jerome Turbyville',
-            'gender': 'Male',
-            'id': 29033,
-            'isPinned': false,
-            'itemIndex': 1,
-            'itemRank': 1,
-            'lastPercentile': {
-              'items': [
+            appointedDate: 'DEC 13, 1999',
+            badge: '5922',
+            age: '48-year-old',
+            civilianComplimentCount: 4,
+            complaintCount: 10,
+            complaintPercentile: 93,
+            disciplineCount: 1,
+            fullName: 'Jerome Turbyville',
+            gender: 'Male',
+            id: 29033,
+            isPinned: false,
+            showIntroduction: true,
+            itemIndex: 1,
+            itemRank: 1,
+            lastPercentile: {
+              items: [
                 {
-                  'axis': 'Use of Force Reports',
-                  'value': 90,
+                  axis: 'Use of Force Reports',
+                  value: 90,
                 },
                 {
-                  'axis': 'Officer Allegations',
-                  'value': 91,
+                  axis: 'Officer Allegations',
+                  value: 91,
                 },
                 {
-                  'axis': 'Civilian Allegations',
-                  'value': 92,
+                  axis: 'Civilian Allegations',
+                  value: 92,
                 },
               ],
-              'textColor': '#DFDFDF',
-              'visualTokenBackground': '#f52524',
-              'year': undefined,
+              textColor: '#DFDFDF',
+              visualTokenBackground: '#F52524',
+              year: undefined,
             },
-            'race': 'White',
-            'rank': 'Police Officer',
-            'resignationDate': '',
-            'sustainedCount': 2,
-            'majorAwardCount': 2,
-            'honorableMentionCount': 2,
-            'honorableMentionPercentile': 72,
-            'tags': [],
-            'text': 'Jerome Turbyville',
-            'recentText': 'Jerome Turbyville',
-            'to': '/officer/29033/',
-            'trrCount': undefined,
-            'trrPercentile': 90,
-            'type': 'OFFICER',
-            'uniqueKey': 'OFFICER-29033',
-            'unit': {
+            race: 'White',
+            rank: 'Police Officer',
+            resignationDate: '',
+            sustainedCount: 2,
+            majorAwardCount: 2,
+            honorableMentionCount: 2,
+            honorableMentionPercentile: 72,
+            tags: [],
+            text: 'Jerome Turbyville',
+            recentText: 'Jerome Turbyville',
+            to: '/officer/29033/',
+            trrCount: undefined,
+            trrPercentile: 90,
+            type: 'OFFICER',
+            uniqueKey: 'OFFICER-29033',
+            unit: {
               id: 1,
               unitName: '018',
               description: 'a',
             },
-            'url': '',
+            url: '',
           }],
         },
       ]);
@@ -153,6 +157,9 @@ describe('search page results selector', function () {
             'trr_ids': [],
           },
         },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
+        },
       }).should.deepEqual([
         {
           header: 'CR',
@@ -161,6 +168,7 @@ describe('search page results selector', function () {
             type: 'CR',
             id: '1001',
             isPinned: true,
+            showIntroduction: true,
             text: 'CR # 1234 • April 23, 2004',
             recentText: 'CR # 1234 • April 23, 2004',
             subText: 'the officer pointed a gun at the victim',
@@ -202,6 +210,9 @@ describe('search page results selector', function () {
         pinboardPage: {
           pinboard: null,
         },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
+        },
       }).should.deepEqual([
         {
           header: 'CR',
@@ -210,6 +221,7 @@ describe('search page results selector', function () {
             type: 'CR',
             id: '1001',
             isPinned: false,
+            showIntroduction: true,
             text: 'CR # 1234',
             recentText: 'CR # 1234',
             subText: '',
@@ -253,6 +265,9 @@ describe('search page results selector', function () {
         pinboardPage: {
           pinboard: null,
         },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
+        },
       }).should.deepEqual([
         {
           header: 'DATE > CR',
@@ -261,6 +276,7 @@ describe('search page results selector', function () {
             type: 'DATE > CR',
             id: '1001',
             isPinned: false,
+            showIntroduction: true,
             text: 'CR # 1234 • April 23, 2004',
             recentText: 'CR # 1234 • April 23, 2004',
             subText: 'the police pointed a knife at the victim',
@@ -304,6 +320,9 @@ describe('search page results selector', function () {
         pinboardPage: {
           pinboard: null,
         },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
+        },
       }).should.deepEqual([
         {
           header: 'DATE > CR',
@@ -312,6 +331,7 @@ describe('search page results selector', function () {
             type: 'DATE > CR',
             id: '1001',
             isPinned: false,
+            showIntroduction: true,
             text: 'CR # 1234',
             recentText: 'CR # 1234',
             subText: 'the police pointed a knife at the victim',
@@ -362,64 +382,68 @@ describe('search page results selector', function () {
         pinboardPage: {
           pinboard: null,
         },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
+        },
       }).should.deepEqual([
         {
           header: 'DATE > OFFICERS',
           canLoadMore: false,
           items: [{
-            'appointedDate': 'DEC 13, 1999',
-            'badge': '5922',
-            'age': '48-year-old',
-            'civilianComplimentCount': 4,
-            'complaintCount': 23,
-            'complaintPercentile': 93,
-            'disciplineCount': 1,
-            'fullName': 'Jerome Finnigan',
-            'gender': 'Male',
-            'id': 29033,
-            'isPinned': false,
-            'itemIndex': 1,
-            'itemRank': 1,
-            'lastPercentile': {
-              'items': [
+            appointedDate: 'DEC 13, 1999',
+            badge: '5922',
+            age: '48-year-old',
+            civilianComplimentCount: 4,
+            complaintCount: 23,
+            complaintPercentile: 93,
+            disciplineCount: 1,
+            fullName: 'Jerome Finnigan',
+            gender: 'Male',
+            id: 29033,
+            isPinned: false,
+            showIntroduction: true,
+            itemIndex: 1,
+            itemRank: 1,
+            lastPercentile: {
+              items: [
                 {
-                  'axis': 'Use of Force Reports',
-                  'value': 90,
+                  axis: 'Use of Force Reports',
+                  value: 90,
                 },
                 {
-                  'axis': 'Officer Allegations',
-                  'value': 91,
+                  axis: 'Officer Allegations',
+                  value: 91,
                 },
                 {
-                  'axis': 'Civilian Allegations',
-                  'value': 92,
+                  axis: 'Civilian Allegations',
+                  value: 92,
                 },
               ],
-              'textColor': '#DFDFDF',
-              'visualTokenBackground': '#f52524',
-              'year': undefined,
+              textColor: '#DFDFDF',
+              visualTokenBackground: '#F52524',
+              year: undefined,
             },
-            'race': 'White',
-            'rank': 'Police Officer',
-            'resignationDate': '',
-            'sustainedCount': 7,
-            'majorAwardCount': 5,
-            'honorableMentionCount': 2,
-            'honorableMentionPercentile': 78,
-            'tags': [],
-            'text': 'Jerome Finnigan',
-            'recentText': 'Jerome Finnigan',
-            'to': '/officer/29033/',
-            'trrCount': undefined,
-            'trrPercentile': 90,
-            'type': 'DATE > OFFICERS',
-            'uniqueKey': 'DATE-OFFICERS-29033',
-            'unit': {
+            race: 'White',
+            rank: 'Police Officer',
+            resignationDate: '',
+            sustainedCount: 7,
+            majorAwardCount: 5,
+            honorableMentionCount: 2,
+            honorableMentionPercentile: 78,
+            tags: [],
+            text: 'Jerome Finnigan',
+            recentText: 'Jerome Finnigan',
+            to: '/officer/29033/',
+            trrCount: undefined,
+            trrPercentile: 90,
+            type: 'DATE > OFFICERS',
+            uniqueKey: 'DATE-OFFICERS-29033',
+            unit: {
               id: 1,
               unitName: '018',
               description: 'a',
             },
-            'url': '',
+            url: '',
           }],
         },
       ]);
@@ -445,6 +469,7 @@ describe('search page results selector', function () {
                     'percentile_trr': '72.1094',
                     'percentile_allegation_civilian': '98.5549',
                     'percentile_allegation_internal': '61.1521',
+                    'percentile_allegation': '61.1521',
                   },
                   'allegation_count': 93,
                 },
@@ -460,6 +485,9 @@ describe('search page results selector', function () {
             'trr_ids': ['1001'],
           },
         },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
+        },
       }).should.deepEqual([
         {
           header: 'TRR',
@@ -468,6 +496,7 @@ describe('search page results selector', function () {
             type: 'TRR',
             id: '1001',
             isPinned: true,
+            showIntroduction: true,
             text: 'Unknown',
             recentText: '1001',
             subText: 'TRR # 1001 - April 23, 2004',
@@ -484,7 +513,7 @@ describe('search page results selector', function () {
                 { axis: 'Officer Allegations', value: 61.1521 },
                 { axis: 'Civilian Allegations', value: 98.5549 },
               ],
-              radarColor: '#f0201e',
+              radarColor: '#FF6453',
               count: 93,
             },
             to: '/trr/123456/',
@@ -517,6 +546,7 @@ describe('search page results selector', function () {
                   'percentile_trr': '72.1094',
                   'percentile_allegation_civilian': '98.5549',
                   'percentile_allegation_internal': '61.1521',
+                  'percentile_allegation': '61.1521',
                 },
                 'allegation_count': 93,
               },
@@ -532,6 +562,9 @@ describe('search page results selector', function () {
             'trr_ids': [],
           },
         },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
+        },
       }).should.deepEqual([
         {
           header: 'TRR',
@@ -540,6 +573,7 @@ describe('search page results selector', function () {
             type: 'TRR',
             id: '1001',
             isPinned: false,
+            showIntroduction: true,
             text: 'Unknown',
             recentText: '1001',
             subText: 'TRR # 1001',
@@ -556,7 +590,7 @@ describe('search page results selector', function () {
                 { axis: 'Officer Allegations', value: 61.1521 },
                 { axis: 'Civilian Allegations', value: 98.5549 },
               ],
-              radarColor: '#f0201e',
+              radarColor: '#FF6453',
               count: 93,
             },
             to: '/trr/123456/',
@@ -590,6 +624,7 @@ describe('search page results selector', function () {
                     'percentile_trr': '72.1094',
                     'percentile_allegation_civilian': '98.5549',
                     'percentile_allegation_internal': '61.1521',
+                    'percentile_allegation': '61.1521',
                   },
                   'allegation_count': 93,
                 },
@@ -605,6 +640,9 @@ describe('search page results selector', function () {
             'trr_ids': ['1001'],
           },
         },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
+        },
       }).should.deepEqual([
         {
           header: 'DATE > TRR',
@@ -612,6 +650,7 @@ describe('search page results selector', function () {
           items: [{
             type: 'DATE > TRR',
             isPinned: true,
+            showIntroduction: true,
             id: '1001',
             text: 'Member Presence',
             recentText: '1001',
@@ -629,7 +668,7 @@ describe('search page results selector', function () {
                 { axis: 'Officer Allegations', value: 61.1521 },
                 { axis: 'Civilian Allegations', value: 98.5549 },
               ],
-              radarColor: '#f0201e',
+              radarColor: '#FF6453',
               count: 93,
             },
             to: '/trr/123456/',
@@ -662,6 +701,7 @@ describe('search page results selector', function () {
                   'percentile_trr': '72.1094',
                   'percentile_allegation_civilian': '98.5549',
                   'percentile_allegation_internal': '61.1521',
+                  'percentile_allegation': '61.1521',
                 },
                 'allegation_count': 93,
               },
@@ -677,6 +717,9 @@ describe('search page results selector', function () {
             'trr_ids': ['1002'],
           },
         },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
+        },
       }).should.deepEqual([
         {
           header: 'DATE > TRR',
@@ -685,6 +728,7 @@ describe('search page results selector', function () {
             type: 'DATE > TRR',
             id: '1001',
             isPinned: false,
+            showIntroduction: true,
             text: 'Unknown',
             recentText: '1001',
             subText: 'TRR # 1001',
@@ -701,7 +745,7 @@ describe('search page results selector', function () {
                 { axis: 'Officer Allegations', value: 61.1521 },
                 { axis: 'Civilian Allegations', value: 98.5549 },
               ],
-              radarColor: '#f0201e',
+              radarColor: '#FF6453',
               count: 93,
             },
             to: '/trr/123456/',
@@ -732,6 +776,9 @@ describe('search page results selector', function () {
             'trr_ids': ['1001'],
           },
         },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
+        },
       }).should.deepEqual([
         {
           header: 'UNIT',
@@ -740,6 +787,7 @@ describe('search page results selector', function () {
             type: 'UNIT',
             id: '1001',
             isPinned: false,
+            showIntroduction: false,
             text: 'description',
             recentText: 'description',
             to: 'to',
@@ -754,7 +802,7 @@ describe('search page results selector', function () {
     });
 
     it('should give correct item format for missing description UNIT', function () {
-      searchResultGroupsSelector({
+      const state = {
         searchPage: {
           tags: [],
           suggestionGroups: {
@@ -770,7 +818,9 @@ describe('search page results selector', function () {
             'trr_ids': ['1001'],
           },
         },
-      }).should.deepEqual([
+      };
+
+      const expectedItems = [
         {
           header: 'UNIT',
           canLoadMore: false,
@@ -778,6 +828,7 @@ describe('search page results selector', function () {
             type: 'UNIT',
             id: '1001',
             isPinned: false,
+            showIntroduction: false,
             text: 'Unit 001',
             recentText: 'Unit 001',
             to: 'to',
@@ -788,7 +839,21 @@ describe('search page results selector', function () {
             itemRank: 1,
           }],
         },
-      ]);
+      ];
+
+      searchResultGroupsSelector({
+        ...state,
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
+        },
+      }).should.deepEqual(expectedItems);
+
+      searchResultGroupsSelector({
+        ...state,
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: true,
+        },
+      }).should.deepEqual(expectedItems);
     });
 
     it('should limit items per category to 5', function () {
@@ -802,6 +867,9 @@ describe('search page results selector', function () {
         },
         pinboardPage: {
           pinboard: null,
+        },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
         },
       });
 
@@ -827,6 +895,9 @@ describe('search page results selector', function () {
         pinboardPage: {
           pinboard: null,
         },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
+        },
       });
 
       officerGroup.header.should.equal('OFFICER');
@@ -845,6 +916,9 @@ describe('search page results selector', function () {
         },
         pinboardPage: {
           pinboard: null,
+        },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
         },
       });
 
@@ -865,6 +939,9 @@ describe('search page results selector', function () {
         pinboardPage: {
           pinboard: null,
         },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
+        },
       });
 
       groups.length.should.equal(1);
@@ -883,6 +960,9 @@ describe('search page results selector', function () {
         pinboardPage: {
           pinboard: null,
         },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
+        },
       });
 
       officerGroup.header.should.equal('OFFICER');
@@ -892,6 +972,123 @@ describe('search page results selector', function () {
 
     it('should give correct item format for COMMUNITY', function () {
       const groups = searchResultGroupsSelector({
+        searchPage: {
+          tags: [],
+          suggestionGroups: {
+            COMMUNITY: [
+              {
+                id: 317,
+                name: 'Roseland',
+                'median_income': '$37,084',
+                tags: [],
+                url: 'https://data.cpdp.co/url-mediator/session-builder?neighborhood=Roseland',
+                'most_common_complaint': [{
+                  id: 204,
+                  name: 'Operation/Personnel Violations',
+                  count: 227,
+                }],
+                'officers_most_complaint': [{
+                  id: 12478,
+                  name: 'Ronald Holt',
+                  count: 26,
+                  'percentile_trr': 95.0,
+                  'percentile_allegation_internal': 82.0,
+                  'percentile_allegation_civilian': 97.0,
+                  'percentile_allegation': 97.0,
+                }],
+                'race_count': [
+                  { race: 'Persons of Spanish Language', count: 121 },
+                  { race: 'Black or African-American', count: 131 },
+                  { race: 'Other', count: 100 },
+                  { race: 'Native American', count: 0 },
+                ],
+                alderman: 'John Wick',
+                'allegation_count': 12,
+                'allegation_percentile': 80.1,
+                commander: {
+                  id: 123,
+                  'full_name': 'John Watts',
+                  'allegation_count': 10,
+                },
+                'police_hq': '22nd',
+              },
+            ],
+          },
+        },
+        pinboardPage: {
+          pinboard: {
+            'officer_ids': ['317'],
+            crids: ['317'],
+            'trr_ids': ['317'],
+          },
+        },
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
+        },
+      });
+      groups.should.eql([{
+        header: 'COMMUNITY',
+        canLoadMore: false,
+        items: [{
+          type: 'COMMUNITY',
+          id: 317,
+          isPinned: false,
+          showIntroduction: false,
+          text: 'Roseland',
+          recentText: 'Roseland',
+          to: undefined,
+          url: 'https://data.cpdp.co/url-mediator/session-builder?neighborhood=Roseland',
+          tags: [],
+          uniqueKey: 'COMMUNITY-317',
+          itemIndex: 1,
+          itemRank: 1,
+          name: 'Roseland',
+          allegationCount: 12,
+          allegationPercentile: 80.1,
+          mostCommonComplaint: [{
+            id: 204,
+            name: 'Operation/Personnel Violations',
+            count: 227,
+          }],
+          officersMostComplaint: [{
+            id: 12478,
+            name: 'Ronald Holt',
+            count: 26,
+            radarAxes: [{
+              axis: 'Use of Force Reports',
+              value: 95,
+            }, {
+              axis: 'Officer Allegations',
+              value: 82,
+            }, {
+              axis: 'Civilian Allegations',
+              value: 97,
+            }],
+            radarColor: '#F52524',
+            url: '/officer/12478/ronald-holt/',
+          }],
+          districtCommander: {
+            id: 123,
+            name: 'John Watts',
+            count: 10,
+            url: '/officer/123/john-watts/',
+          },
+          population: '352',
+          medianIncome: '$37,084',
+          alderman: 'John Wick',
+          policeHQ: '22nd',
+          raceCount: [
+            { race: 'Hispanic', count: '34.4%' },
+            { race: 'Black', count: '37.2%' },
+            { race: 'Other', count: '28.4%' },
+            { race: 'Native', count: '0.0%' },
+          ],
+        }],
+      }]);
+    });
+
+    it('should set correct showIntroduction', function () {
+      const state = {
         searchPage: {
           tags: [],
           suggestionGroups: {
@@ -932,6 +1129,11 @@ describe('search page results selector', function () {
                 'police_hq': '22nd',
               },
             ],
+            UNIT: [
+              { id: '1001', to: 'to', url: 'url', name: '001' },
+            ],
+            'UNIT > OFFICERS': RawOfficerSuggestion.buildList(2),
+            TRR: RawTRRSuggestion.buildList(2),
           },
         },
         pinboardPage: {
@@ -941,65 +1143,55 @@ describe('search page results selector', function () {
             'trr_ids': ['317'],
           },
         },
+      };
+      const pinButtonNotVisitedGroups = searchResultGroupsSelector({
+        ...state,
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: false,
+        },
       });
-      groups.should.eql([{
-        header: 'COMMUNITY',
-        canLoadMore: false,
-        items: [{
-          type: 'COMMUNITY',
-          id: 317,
-          isPinned: false,
-          text: 'Roseland',
-          recentText: 'Roseland',
-          to: undefined,
-          url: 'https://data.cpdp.co/url-mediator/session-builder?neighborhood=Roseland',
-          tags: [],
-          uniqueKey: 'COMMUNITY-317',
-          itemIndex: 1,
-          itemRank: 1,
-          name: 'Roseland',
-          allegationCount: 12,
-          allegationPercentile: 80.1,
-          mostCommonComplaint: [{
-            id: 204,
-            name: 'Operation/Personnel Violations',
-            count: 227,
-          }],
-          officersMostComplaint: [{
-            id: 12478,
-            name: 'Ronald Holt',
-            count: 26,
-            radarAxes: [{
-              axis: 'Use of Force Reports',
-              value: 95,
-            }, {
-              axis: 'Officer Allegations',
-              value: 82,
-            }, {
-              axis: 'Civilian Allegations',
-              value: 97,
-            }],
-            radarColor: '#f52524',
-            url: '/officer/12478/ronald-holt/',
-          }],
-          districtCommander: {
-            id: 123,
-            name: 'John Watts',
-            count: 10,
-            url: '/officer/123/john-watts/',
-          },
-          population: '352',
-          medianIncome: '$37,084',
-          alderman: 'John Wick',
-          policeHQ: '22nd',
-          raceCount: [
-            { race: 'Hispanic', count: '34.4%' },
-            { race: 'Black', count: '37.2%' },
-            { race: 'Other', count: '28.4%' },
-            { race: 'Native', count: '0.0%' },
-          ],
-        }],
-      }]);
+      const communityGroup = pinButtonNotVisitedGroups[0];
+      communityGroup.header.should.equal('COMMUNITY');
+      communityGroup.items[0].showIntroduction.should.be.false();
+
+      const unitOfficerGroup = pinButtonNotVisitedGroups[1];
+      unitOfficerGroup.header.should.equal('UNIT > OFFICERS');
+      unitOfficerGroup.items[0].showIntroduction.should.be.false();
+      unitOfficerGroup.items[1].showIntroduction.should.be.true();
+
+      const trrGroup = pinButtonNotVisitedGroups[2];
+      trrGroup.header.should.equal('TRR');
+      trrGroup.items[0].showIntroduction.should.be.false();
+      trrGroup.items[1].showIntroduction.should.be.false();
+
+      const unitGroup = pinButtonNotVisitedGroups[3];
+      unitGroup.header.should.equal('UNIT');
+      unitGroup.items[0].showIntroduction.should.be.false();
+
+      const pinButtonVisitedGroups = searchResultGroupsSelector({
+        ...state,
+        pinboardIntroduction: {
+          isPinButtonIntroductionVisited: true,
+        },
+      });
+
+      const pinButtonIntroductionVisitedCommunityGroup = pinButtonVisitedGroups[0];
+      pinButtonIntroductionVisitedCommunityGroup.header.should.equal('COMMUNITY');
+      pinButtonIntroductionVisitedCommunityGroup.items[0].showIntroduction.should.be.false();
+
+      const pinButtonIntroductionVisitedunitOfficerGroup = pinButtonVisitedGroups[1];
+      pinButtonIntroductionVisitedunitOfficerGroup.header.should.equal('UNIT > OFFICERS');
+      pinButtonIntroductionVisitedunitOfficerGroup.items[0].showIntroduction.should.be.false();
+      pinButtonIntroductionVisitedunitOfficerGroup.items[1].showIntroduction.should.be.false();
+
+      const pinButtonIntroductionVisitedTrrGroup = pinButtonVisitedGroups[2];
+      pinButtonIntroductionVisitedTrrGroup.header.should.equal('TRR');
+      pinButtonIntroductionVisitedTrrGroup.items[0].showIntroduction.should.be.false();
+      pinButtonIntroductionVisitedTrrGroup.items[1].showIntroduction.should.be.false();
+
+      const pinButtonIntroductionVisitedUnitGroup = pinButtonVisitedGroups[3];
+      pinButtonIntroductionVisitedUnitGroup.header.should.equal('UNIT');
+      pinButtonIntroductionVisitedUnitGroup.items[0].showIntroduction.should.be.false();
     });
   });
 

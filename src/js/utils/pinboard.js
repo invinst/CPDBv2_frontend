@@ -15,12 +15,14 @@ import {
   fetchPinboardTRRs,
   fetchPinboardSocialGraph,
 } from 'actions/pinboard';
+import { DEFAULT_PINBOARD_PATH } from 'utils/constants';
 import { loadPaginatedData } from 'utils/load-paginated-data';
+import config from 'config';
 
 
-export const generatePinboardUrl = pinboard => {
+export const generatePinboardUrl = (pinboard, isCurrent) => {
   if (pinboard === null || isNil(pinboard['id'])) {
-    return '';
+    return isCurrent ? DEFAULT_PINBOARD_PATH : '';
   }
 
   const title = isEmpty(pinboard['title']) ? 'Untitled Pinboard' : pinboard['title'];
@@ -80,3 +82,5 @@ export const getRequestPinboard = pinboard => ({
   trrIds: map(get(pinboard, 'trr_ids', []), id => (id.toString())),
   description: get(pinboard, 'description', ''),
 });
+
+export const isPinboardFeatureEnabled = () => get(config, 'enableFeatures.pinboard', true);

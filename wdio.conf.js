@@ -156,7 +156,7 @@ exports.config = {
   mochaOpts: {
     ui: 'bdd',
     timeout: 2000000,
-    compilers: ['js:babel-register'],
+    compilers: ['js:@babel/register'],
     retries: 3,
   },
   //
@@ -277,7 +277,7 @@ exports.config = {
   seleniumArgs: {
     drivers: {
       chrome: {
-        version: '76.0.3809.126',
+        version: '81.0.4044.20',
         arch: process.arch,
       }
     }
@@ -285,7 +285,7 @@ exports.config = {
   seleniumInstallArgs: {
     drivers: {
       chrome: {
-        version: '76.0.3809.126',
+        version: '81.0.4044.20',
         arch: process.arch,
         baseURL: 'https://chromedriver.storage.googleapis.com'
       }

@@ -3,7 +3,7 @@ import React from 'react';
 import cx from 'classnames';
 import { noop } from 'lodash';
 
-import RightLinks from './right-links';
+import HeaderLinks from './header-links';
 import LogoContainer from 'containers/headers/slim-header/logo-container';
 import LogOutButtonContainer from 'containers/log-out-container';
 import SearchBox from 'components/headers/slim-header/slim-header-content/search-box';
@@ -39,7 +39,7 @@ function SlimHeaderContent(props) {
               <LogOutButtonContainer pathname={ pathname } />
             </div>
             <div className='vertically-aligned-header-item'>
-              <RightLinks position={ position } />
+              <HeaderLinks position={ position } />
             </div>
             <SearchBox position={ position }/>
           </div>

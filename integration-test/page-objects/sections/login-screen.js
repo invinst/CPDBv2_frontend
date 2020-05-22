@@ -22,10 +22,12 @@ class LoginScreen extends Section {
     this.loginModal.waitForDisplayed(20000);
     reliableSetValue(this.loginNameInput, username);
     reliableSetValue(this.loginPasswordInput, password);
+    this.loginNameInput.click();
   }
 
   login() {
     this.enterCredentials('username', 'password');
+    this.loginButton.waitForCSSProperty('cursor', value => value === 'pointer', 1000); // Wait for login button active
     this.loginButton.click();
     this.loginModal.waitForExist(40000, true);
   }

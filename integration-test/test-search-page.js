@@ -7,8 +7,33 @@ import { times } from 'lodash';
 import searchPage from './page-objects/search-page';
 import landingPage from './page-objects/landing-page';
 import pinboardPage from './page-objects/pinboard-page';
-import { setupMockApiFile, restoreMockApiFile } from './utils';
+import {
+  setupMockApiFile,
+  restoreMockApiFile,
+} from './utils';
+import { INTRODUCTION_DISPLAY_TIMEOUT } from './utils/constants';
 
+
+const backToSearch = () => {
+  searchPage.searchBreadcrumb.waitForDisplayed();
+  searchPage.searchBreadcrumb.click();
+};
+
+const performSearch = (term) => {
+  searchPage.input.waitForDisplayed();
+  searchPage.input.setValue(term);
+};
+
+const clearSearchInput = () => searchPage.clearSearchButton.click();
+
+const clickOnSearchResultItem = (suggestionGroupSelector, expectedText, isFirstResult=false) => {
+  suggestionGroupSelector.waitForDisplayed();
+  suggestionGroupSelector.getText().should.containEql(expectedText);
+  suggestionGroupSelector.click();
+  if (!isFirstResult) {
+    suggestionGroupSelector.click();
+  }
+};
 
 describe('Landing Page to Search Page', function () {
   beforeEach(function () {
@@ -26,6 +51,7 @@ describe('Landing Page to Search Page', function () {
 describe('Search Page', function () {
   beforeEach(function () {
     searchPage.open();
+    searchPage.input.waitForDisplayed();
   });
 
   it('should show result when user type in', function () {
@@ -356,31 +382,270 @@ describe('Search Page', function () {
     searchPage.secondNeighborhoodResult.getAttribute('class').should.containEql('test--focused');
   });
 
-  describe('should show the recent search', function () {
+  context('Pinboard introduction', function () {
     beforeEach(function () {
-      browser.execute(() => {
-        window.localStorage.removeItem('redux');
+      browser.clearReduxStore(true);
+      searchPage.input.waitForDisplayed();
+    });
+
+    it('should display pinboard introduction on first visited', function () {
+      searchPage.pinboardIntroduction.body.waitForDisplayed();
+    });
+
+    it('should not display pinboard introduction on search', function () {
+      searchPage.input.waitForDisplayed();
+      searchPage.input.setValue('Ke');
+
+      searchPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
+    });
+
+    it('should display introduction after clear search input', function () {
+      searchPage.input.waitForDisplayed();
+      searchPage.input.setValue('Ke');
+
+      searchPage.clearSearchButton.click();
+      searchPage.pinboardIntroduction.body.waitForDisplayed(1000);
+    });
+
+    it('should close pinboard introduction after click close', function () {
+      searchPage.pinboardIntroduction.body.waitForDisplayed();
+      searchPage.pinboardIntroduction.closeButton.click();
+      searchPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
+      browser.refresh();
+      searchPage.input.waitForDisplayed(1000);
+      searchPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
+    });
+
+    it('should close pinboard introduction and redirect to pinboard page after click Get Started', function () {
+      searchPage.pinboardIntroduction.body.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT);
+      searchPage.pinboardIntroduction.getStartedButton.click();
+      browser.waitForUrl(url => url.should.match(/\/pinboard\/.*/), 2000);
+      pinboardPage.searchBar.click();
+      searchPage.input.waitForDisplayed(1000);
+      searchPage.pinboardIntroduction.body.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT, true);
+    });
+
+    it('should not display pinboard introduction after user add item to pinboard', function () {
+      searchPage.input.waitForDisplayed();
+      searchPage.input.setValue('Ke');
+
+      searchPage.secondOfficerResult.waitForDisplayed();
+      searchPage.secondOfficerPinButton.click();
+      searchPage.clearSearchButton.click();
+      searchPage.pinboardButton.waitForText('Pinboard (1)');
+      searchPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
+    });
+
+    it('should display pinboard introduction after user remove all item from pinboard', function () {
+      searchPage.input.waitForDisplayed();
+      searchPage.input.setValue('Ke');
+
+      searchPage.secondOfficerResult.waitForDisplayed();
+      searchPage.secondOfficerPinButton.click();
+      browser.pause(100);
+      searchPage.secondOfficerPinButton.click();
+      searchPage.clearSearchButton.click();
+      searchPage.pinboardIntroduction.body.waitForDisplayed(1000);
+      searchPage.pinboardButton.waitForDisplayed(1000, true);
+    });
+
+    context('lastest pinboard is not empty', function () {
+      beforeEach(function () {
+        setupMockApiFile('search-page/search-page-mock-non-empty-lastest-pinboard.js');
+      });
+
+      afterEach(function () {
+        restoreMockApiFile();
+      });
+
+      it('should not display pinboard introduction when lasted pinboard is not empty', function () {
+        searchPage.open();
+        searchPage.input.waitForDisplayed();
+        searchPage.pinboardIntroduction.body.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT, true);
+      });
+    });
+  });
+
+  context('PinButton introduction', function () {
+    beforeEach(function () {
+      browser.clearReduxStore(true);
+      searchPage.input.waitForDisplayed();
+    });
+
+    context('search results', function () {
+      context('search result have more than 3 items', function () {
+        it('should display PinButtonIntroduction in third pinnable search result', function () {
+          searchPage.input.setValue('intr');
+          searchPage.unitOfficerResultsSection.thirdPinButtonIntroduction.waitForDisplayed();
+          searchPage.unitOfficerResultsSection.pinButtonIntroduction.count.should.equal(1);
+          searchPage.searchCommunityResultsSection.pinButtonIntroduction.count.should.equal(0);
+          searchPage.trrResultsSection.pinButtonIntroduction.count.should.equal(0);
+        });
+      });
+
+      context('search result have less than 3 items', function () {
+        it('should display PinButtonIntroduction in last pinnable search result', function () {
+          searchPage.input.setValue('Kelly');
+          searchPage.officerResultsSection.firstPinButtonIntroduction.waitForDisplayed();
+          searchPage.officerResultsSection.pinButtonIntroduction.count.should.equal(1);
+          searchPage.investigatorCRResultsSection.pinButtonIntroduction.count.should.equal(0);
+        });
+      });
+
+      it('should not display PinButtonIntroduction after click on PinButton have introduction', function () {
+        searchPage.input.setValue('intr');
+        const thirdPinbuttonIntroduction = searchPage.unitOfficerResultsSection.thirdPinButtonIntroduction;
+        thirdPinbuttonIntroduction.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT + 500);
+        searchPage.unitOfficerResultsSection.thirdPinButton.click();
+        thirdPinbuttonIntroduction.waitForDisplayed(1000, true);
+        browser.refresh();
+        searchPage.input.setValue('intr');
+        searchPage.unitOfficerResultsSection.firstPinButton.waitForDisplayed();
+        browser.pause(INTRODUCTION_DISPLAY_TIMEOUT + 500);
+        searchPage.unitOfficerResultsSection.thirdPinButtonIntroduction.waitForDisplayed(100, true);
+      });
+
+      it('should not display PinButtonIntroduction after click on any PinButton', function () {
+        searchPage.input.setValue('intr');
+        const thirdPinbuttonIntroduction = searchPage.unitOfficerResultsSection.thirdPinButtonIntroduction;
+        thirdPinbuttonIntroduction.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT + 500);
+        searchPage.unitOfficerResultsSection.firstPinButton.click();
+        thirdPinbuttonIntroduction.waitForDisplayed(1000, true);
+        browser.refresh();
+        searchPage.input.setValue('intr');
+        searchPage.unitOfficerResultsSection.firstPinButton.waitForDisplayed();
+        browser.pause(INTRODUCTION_DISPLAY_TIMEOUT + 500);
+        searchPage.unitOfficerResultsSection.thirdPinButtonIntroduction.waitForDisplayed(100, true);
+      });
+
+      it('should not display PinButtonIntroduction after click on result item have introduction', function () {
+        searchPage.input.setValue('intr');
+        const thirdPinbuttonIntroduction = searchPage.unitOfficerResultsSection.thirdPinButtonIntroduction;
+        thirdPinbuttonIntroduction.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT + 500);
+        searchPage.unitOfficerResultsSection.thirdResultText.click();
+        thirdPinbuttonIntroduction.waitForDisplayed(1000, true);
+        browser.refresh();
+        searchPage.input.setValue('intr');
+        searchPage.unitOfficerResultsSection.firstPinButton.waitForDisplayed();
+        browser.pause(INTRODUCTION_DISPLAY_TIMEOUT + 500);
+        searchPage.unitOfficerResultsSection.thirdPinButtonIntroduction.waitForDisplayed(100, true);
+      });
+
+      it('should not display PinButtonIntroduction after click on introduction message', function () {
+        searchPage.input.setValue('intr');
+        const thirdPinbuttonIntroduction = searchPage.unitOfficerResultsSection.thirdPinButtonIntroduction;
+        thirdPinbuttonIntroduction.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT + 500);
+        thirdPinbuttonIntroduction.click();
+        thirdPinbuttonIntroduction.waitForDisplayed(1000, true);
+        browser.refresh();
+        searchPage.input.setValue('intr');
+        searchPage.unitOfficerResultsSection.firstPinButton.waitForDisplayed();
+        browser.pause(INTRODUCTION_DISPLAY_TIMEOUT + 500);
+        searchPage.unitOfficerResultsSection.thirdPinButtonIntroduction.waitForDisplayed(100, true);
       });
     });
 
-    const backToSearch = () => {
-      searchPage.searchBreadcrumb.waitForDisplayed();
-      searchPage.searchBreadcrumb.click();
-    };
-    const performSearch = (term) => {
-      searchPage.input.waitForDisplayed();
-      searchPage.input.setValue(term);
-    };
-    const clearSearchInput = () => searchPage.clearSearchButton.click();
+    context('recent section', function () {
+      context('recent section have less than 3 items', function () {
+        beforeEach(function () {
+          performSearch('Ke');
+          clickOnSearchResultItem(searchPage.firstCrResult, 'CR # CR123 • April 23, 2004');
+          backToSearch();
+          clickOnSearchResultItem(searchPage.firstTrrResult, 'Member Presence');
+          backToSearch();
+          searchPage.clearSearchButton.click();
+          searchPage.input.waitForDisplayed();
+        });
 
-    const clickOnSearchResultItem = (suggestionGroupSelector, expectedText, isFirstResult=false) => {
-      suggestionGroupSelector.waitForDisplayed();
-      suggestionGroupSelector.getText().should.containEql(expectedText);
-      suggestionGroupSelector.click();
-      if (!isFirstResult) {
-        suggestionGroupSelector.click();
-      }
-    };
+        it('should should PinButtonIntroduction on last recent search item', function () {
+          searchPage.secondRecentIntroduction.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT + 500);
+          searchPage.firstRecentIntroduction.isDisplayed().should.be.false();
+        });
+      });
+
+      context('recent section have more than 3 items', function () {
+        beforeEach(function () {
+          performSearch('Ke');
+          clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly', true);
+          backToSearch();
+          clickOnSearchResultItem(searchPage.firstCrResult, 'CR # CR123 • April 23, 2004');
+          backToSearch();
+          clickOnSearchResultItem(searchPage.firstTrrResult, 'Member Presence');
+          backToSearch();
+          searchPage.clearSearchButton.click();
+          searchPage.input.waitForDisplayed();
+        });
+
+        it('should should PinButtonIntroduction on third recent search item', function () {
+          searchPage.thirdRecentIntroduction.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT + 500);
+          searchPage.firstRecentIntroduction.isDisplayed().should.be.false();
+          searchPage.secondRecentIntroduction.isDisplayed().should.be.false();
+        });
+
+        it('should dismiss PinButtonIntroduction after click on third recent item', function () {
+          searchPage.thirdRecentIntroduction.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT + 500);
+          searchPage.thirdRecentIntroduction.click();
+          searchPage.thirdRecentIntroduction.waitForDisplayed(1000, true);
+
+          browser.refresh();
+          browser.pause(INTRODUCTION_DISPLAY_TIMEOUT + 500);
+          searchPage.thirdRecentIntroduction.waitForDisplayed(1000, true);
+        });
+
+        it('should show pinboard bar and hide pinboard intrduction after click PinButton', function () {
+          searchPage.pinboardIntroduction.body.waitForDisplayed(1000);
+          searchPage.pinboardBar.waitForDisplayed(1000, true);
+
+          searchPage.firstRecentPinButton.click();
+          searchPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
+          searchPage.pinboardBar.waitForDisplayed(1000);
+          searchPage.pinboardButton.getText().should.equal('Pinboard (1)');
+        });
+
+        it('should hide pinboard bar and show pinboard introduction after remove PinButton', function () {
+          searchPage.pinboardIntroduction.body.waitForDisplayed(1000);
+          searchPage.pinboardBar.waitForDisplayed(1000, true);
+
+          searchPage.firstRecentPinButton.click();
+          searchPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
+          searchPage.pinboardBar.waitForDisplayed(1000);
+
+          searchPage.firstRecentPinButton.click();
+          searchPage.pinboardIntroduction.body.waitForDisplayed(1000);
+          searchPage.pinboardBar.waitForDisplayed(1000, true);
+        });
+      });
+
+      context('all 3 first recent item is unpinnable', function () {
+        it('should display PinButtonIntroduction in first pinnable item', function () {
+          performSearch('intr');
+          searchPage.unitOfficerResultsSection.firstResultText.click();
+          searchPage.unitOfficerResultsSection.firstResultText.click();
+          backToSearch();
+
+          searchPage.searchNeighborhoodResultsSection.firstResultText.click();
+          browser.closeLastOpenedTab();
+
+          searchPage.searchNeighborhoodResultsSection.secondResultText.click();
+          searchPage.searchNeighborhoodResultsSection.secondResultText.click();
+          browser.closeLastOpenedTab();
+          searchPage.searchNeighborhoodResultsSection.thirdResultText.click();
+          searchPage.searchNeighborhoodResultsSection.thirdResultText.click();
+          browser.closeLastOpenedTab();
+          searchPage.clearSearchButton.click();
+
+          searchPage.forthRecentIntroduction.waitForDisplayed(
+            INTRODUCTION_DISPLAY_TIMEOUT + 500
+          );
+        });
+      });
+    });
+  });
+
+  describe('should show the recent search', function () {
+    beforeEach(function () {
+      browser.clearReduxStore(true);
+    });
 
     it('when click on result item', function () {
       performSearch('Geography');
@@ -391,18 +656,16 @@ describe('Search Page', function () {
       clickOnSearchResultItem(searchPage.firstInvestigatorCrResult, 'CR # CR123456 • April 23, 2004');
 
       backToSearch();
+      clearSearchInput();
       performSearch('2004/04/23');
       clickOnSearchResultItem(searchPage.secondDateCrResult, 'CR # CR456 • April 23, 2004');
-
       backToSearch();
-      performSearch('2004/04/23');
       clickOnSearchResultItem(searchPage.secondDateTrrResult, 'Physical Force - Holding');
-
       backToSearch();
-      performSearch('2004/04/23');
       clickOnSearchResultItem(searchPage.firstDateOfficerResult, 'Jerome Finnigan');
 
       backToSearch();
+      clearSearchInput();
       performSearch('Ke');
       clickOnSearchResultItem(searchPage.firstNeighborhoodResult, 'Kenwood');
 
@@ -414,16 +677,13 @@ describe('Search Page', function () {
       clearSearchInput();
       performSearch('Ke');
       clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly', true);
-
       backToSearch();
-      performSearch('Ke');
       clickOnSearchResultItem(searchPage.firstCrResult, 'CR # CR123 • April 23, 2004');
-
       backToSearch();
-      performSearch('Ke');
       clickOnSearchResultItem(searchPage.firstTrrResult, 'Member Presence');
 
       backToSearch();
+      clearSearchInput();
 
       const expectedRecentSuggestions = [
         'Member Presence\nTRR # 123 - April 27, 2004',
@@ -441,8 +701,7 @@ describe('Search Page', function () {
       expectedRecentSuggestions.forEach((expectedText, index) => {
         searchPage.recentSuggestionItem(index + 1).getText().should.equal(expectedText);
       });
-
-      searchPage.pinboardButton.getText().should.eql('Pinboard (0)');
+      searchPage.pinboardButton.waitForDisplayed(1000, true);
 
       browser.scroll(0, -2000);
       browser.pause(500);
@@ -467,6 +726,7 @@ describe('Search Page', function () {
         '\nGo to pinboard'
       );
       searchPage.toast.waitForDisplayed(5000, true);
+      searchPage.pinboardButton.waitForDisplayed(2000);
       searchPage.pinboardButton.getText().should.eql('Pinboard (3)');
 
       searchPage.firstRecentPinButton.click();
@@ -489,7 +749,7 @@ describe('Search Page', function () {
         '\nGo to pinboard'
       );
       searchPage.toast.waitForDisplayed(5000, true);
-      searchPage.pinboardButton.getText().should.eql('Pinboard (0)');
+      searchPage.pinboardButton.waitForDisplayed(1000, true);
 
       searchPage.open();
 
@@ -519,8 +779,8 @@ describe('Search Page', function () {
       browser.keys('ArrowDown');
       browser.keys('Enter');
 
-      searchPage.searchBreadcrumb.waitForDisplayed();
-      searchPage.searchBreadcrumb.click();
+      backToSearch();
+      clearSearchInput();
 
       searchPage.recentSuggestions.waitForDisplayed();
       searchPage.recentSuggestionItem(1).getText().should.equal(
@@ -538,7 +798,7 @@ describe('Search Page', function () {
     searchPage.recentSuggestions.waitForDisplayed(20000, true);
   });
 
-  it('should go back to landing page when user click on cancel button', function () {
+  it('should go back to landing page when user click on close button', function () {
     landingPage.open();
     landingPage.header.navBar.searchBox.mainElement.click();
     searchPage.backButton.waitForDisplayed();
@@ -558,7 +818,7 @@ describe('Search Page', function () {
     landingPage.currentBasePath.should.equal('/');
   });
 
-  it('should go back to pinboard page when user click on cancel button', function () {
+  it('should go back to pinboard page when user click on close button', function () {
     pinboardPage.open('abcd8765');
     pinboardPage.searchBar.click();
     searchPage.backButton.waitForDisplayed();
@@ -588,7 +848,7 @@ describe('Search Page', function () {
     searchPage.currentBasePath.should.equal('/officer/1/bernadette-kelly/');
   });
 
-  it('should go back to officer page when user click on cancel button', function () {
+  it('should go back to officer page when user click on close button', function () {
     searchPage.input.waitForDisplayed();
     searchPage.input.setValue('Ke');
 
@@ -597,8 +857,7 @@ describe('Search Page', function () {
     browser.keys('Enter');
     searchPage.currentBasePath.should.equal('/officer/2/john-kelly/');
 
-    searchPage.searchBreadcrumb.waitForDisplayed();
-    searchPage.searchBreadcrumb.click();
+    backToSearch();
     searchPage.backButton.waitForDisplayed();
     searchPage.backButton.click();
     searchPage.backButton.waitForDisplayed(20000, true);
@@ -615,8 +874,7 @@ describe('Search Page', function () {
     browser.keys('Enter');
     searchPage.currentBasePath.should.equal('/officer/2/john-kelly/');
 
-    searchPage.searchBreadcrumb.waitForDisplayed();
-    searchPage.searchBreadcrumb.click();
+    backToSearch();
     searchPage.backButton.waitForDisplayed();
     browser.keys('Escape');
     searchPage.backButton.waitForDisplayed(20000, true);
@@ -701,6 +959,33 @@ describe('Search Page', function () {
     browser.keys('Enter');
 
     searchPage.currentBasePath.should.eql('/officer/1/bernadette-kelly/');
+  });
+
+  it('should keep search results after coming back from other page', function () {
+    searchPage.open();
+    performSearch('Ke');
+    clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly', true);
+
+    backToSearch();
+    searchPage.input.getValue().should.containEql('Ke');
+    searchPage.suggestionGroup.waitForDisplayed();
+    searchPage.suggestionTags.getText().should.containEql('OFFICER');
+    searchPage.suggestionTags.getText().should.containEql('NEIGHBORHOOD');
+    searchPage.firstOfficerResult.waitForDisplayed();
+    searchPage.firstOfficerResult.getText().should.containEql('Bernadette Kelly');
+  });
+
+  it('should clear search results after coming back from landing page', function () {
+    searchPage.open();
+    performSearch('Ke');
+
+    searchPage.backButton.click();
+    landingPage.header.content.waitForDisplayed(1000);
+    landingPage.header.navBar.searchBox.mainElement.waitForExist();
+    landingPage.header.navBar.searchBox.mainElement.click();
+
+    searchPage.input.waitForExist();
+    searchPage.input.getValue().should.equal('');
   });
 
   context('After getting back to landing page', function () {
@@ -1035,6 +1320,14 @@ describe('Search Page with query parameter', function () {
 });
 
 describe('Search Page with pinboard functionalities', function () {
+  beforeEach(function () {
+    setupMockApiFile('search-page/search-page-mock-api.js');
+  });
+
+  afterEach(function () {
+    restoreMockApiFile();
+  });
+
   it('should display pinboard button with correct text when items are added/removed', function () {
     searchPage.open('Ke');
     searchPage.suggestionGroup.waitForDisplayed();
@@ -1047,25 +1340,47 @@ describe('Search Page with pinboard functionalities', function () {
     searchPage.pinboardButton.getText().should.eql('Your pinboard is empty');
   });
 
-  it('should display pinboard tooltip bar when not search', function () {
-    const tip = 'Create collections of officers, complaint records, and tactical reponse reports using search.';
-    searchPage.open('');
-    searchPage.pinboardBar.waitForDisplayed();
-    searchPage.pinboardBar.getText().should.containEql(tip);
-
-    searchPage.pinboardButton.getText().should.eql('Pinboard (0)');
+  context('when click on pinboard hint button in search result', function () {
+    it('should redirect to pinboard page', function () {
+      searchPage.open('Ke');
+      searchPage.firstOfficerPinButton.click();
+      searchPage.firstPinboardHintButton.waitForDisplayed();
+      searchPage.firstPinboardHintButton.moveTo();
+      searchPage.firstPinboardHintButton.click();
+      browser.waitForUrl(url => url.should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/), 1000);
+    });
   });
 
-  it('should redirect to Pinboard page when click on pinboard button', function () {
-    setupMockApiFile('search-page/search-page-mock-api.js');
 
-    searchPage.open('Ke');
-    searchPage.suggestionGroup.waitForDisplayed();
+  context('when click on pinboard hint button in recent section', function () {
+    it('should redirect to pinboard page', function () {
+      searchPage.open();
+      performSearch('Ke');
+      clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly', true);
 
-    searchPage.pinboardButton.click();
-    browser.getUrl().should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/);
+      backToSearch();
+      clickOnSearchResultItem(searchPage.firstCrResult, 'CR # CR123 • April 23, 2004');
 
-    restoreMockApiFile();
+      backToSearch();
+      clickOnSearchResultItem(searchPage.firstTrrResult, 'Member Presence');
+      backToSearch();
+      clearSearchInput();
+      searchPage.firstRecentPinButton.click();
+      searchPage.firstPinboardHintButton.waitForDisplayed();
+      searchPage.firstPinboardHintButton.moveTo();
+      searchPage.firstPinboardHintButton.click();
+      browser.waitForUrl(url => url.should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/), 1000);
+    });
+  });
+
+  context('when click on pinboard button', function () {
+    it('should redirect to Pinboard page', function () {
+      searchPage.open('Ke');
+      searchPage.suggestionGroup.waitForDisplayed();
+
+      searchPage.pinboardButton.click();
+      browser.getUrl().should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/);
+    });
   });
 });
 

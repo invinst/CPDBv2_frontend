@@ -11,6 +11,7 @@ import {
   dispatchFetchPinboardPinnedItems,
   isEmptyPinboard,
   getRequestPinboard,
+  isPinboardFeatureEnabled,
 } from 'utils/pinboard';
 import PinboardFactory from 'utils/test/factories/pinboard';
 import {
@@ -25,19 +26,28 @@ import {
   fetchPinboardOfficers,
   fetchPinboardTRRs,
 } from 'actions/pinboard';
+import config from 'config';
 
 
 describe('pinboard utils', function () {
   describe('generatePinboardUrl', function () {
-    it('should return empty string if pinboard is null or pinboard id is not defined', function () {
-      generatePinboardUrl(null).should.be.equal('');
+    context('pinboard is null or pinboard id is not defined', function () {
+      it('should return empty string if isCurrent is false', function () {
+        generatePinboardUrl(null).should.be.equal('');
+      });
+
+      it('should return default pinboard path if isCurrent is true', function () {
+        generatePinboardUrl(null, true).should.be.equal('/pinboard/');
+      });
     });
 
-    it('should return correct url', function () {
-      generatePinboardUrl({
-        id: '5cd06f2b',
-        title: 'Title',
-      }).should.be.equal('/pinboard/5cd06f2b/title/');
+    context('pinboard is not null and pinboard id is defined', function () {
+      it('should return correct url', function () {
+        generatePinboardUrl({
+          id: '5cd06f2b',
+          title: 'Title',
+        }).should.be.equal('/pinboard/5cd06f2b/title/');
+      });
     });
   });
 
@@ -186,6 +196,22 @@ describe('pinboard utils', function () {
         crids: ['123456'],
         trrIds: ['4', '5', '6'],
         description: 'Pinboard Description',
+      });
+    });
+  });
+
+  describe('isPinboardFeatureEnabled', function () {
+    context('pinboard feature is disabled', function () {
+      it('should return false', function () {
+        stub(config.enableFeatures, 'pinboard').value(false);
+        isPinboardFeatureEnabled().should.be.false();
+      });
+    });
+
+    context('pinboard feature is enabled', function () {
+      it('should return false', function () {
+        stub(config.enableFeatures, 'pinboard').value(true);
+        isPinboardFeatureEnabled().should.be.true();
       });
     });
   });

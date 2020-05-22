@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { stub } from 'sinon';
+import { stub, spy } from 'sinon';
 import { lorem, random } from 'faker';
 
 import withPinnable from 'components/common/with-pinnable';
@@ -30,10 +30,12 @@ describe('ItemPinButton component', function () {
 
   it('should handle on pin button click', function () {
     const addOrRemoveItemInPinboardStub = stub();
+    const visitPinButtonIntroductionSpy = spy();
 
     const wrapper = mount(
       <TestComponentWithPinnable
         addOrRemoveItemInPinboard={ addOrRemoveItemInPinboardStub }
+        visitPinButtonIntroduction={ visitPinButtonIntroductionSpy }
         item={ { type: 'OFFICER', id: officerID, isPinned: false } }
       />
     );
@@ -46,6 +48,7 @@ describe('ItemPinButton component', function () {
       id: officerID,
       isPinned: false,
     }).should.be.true();
+    visitPinButtonIntroductionSpy.should.be.calledOnce();
   });
 
   it('should handle on pin button with all items are pinned', function () {

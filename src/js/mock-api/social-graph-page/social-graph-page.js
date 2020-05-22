@@ -3,6 +3,7 @@ const officers = [
     'full_name': 'Glenn Evans',
     id: 8138,
     'percentile': {
+      'percentile_allegation': '2.4000',
       'percentile_allegation_civilian': '4.4000',
       'percentile_allegation_internal': '5.5000',
       'percentile_trr': '6.6000',
@@ -12,6 +13,7 @@ const officers = [
     'full_name': 'Isaac Lee',
     id: 15956,
     'percentile': {
+      'percentile_allegation': '17.7000',
       'percentile_allegation_civilian': '7.7000',
       'percentile_allegation_internal': '8.8000',
       'percentile_trr': '9.9000',
@@ -21,6 +23,7 @@ const officers = [
     'full_name': 'Thomas Kampenga',
     id: 14045,
     'percentile': {
+      'percentile_allegation': '30.10000',
       'percentile_allegation_civilian': '10.10000',
       'percentile_allegation_internal': '11.1100',
       'percentile_trr': '12.1200',
@@ -30,6 +33,7 @@ const officers = [
     'full_name': 'Melvin Ector',
     id: 31945,
     'percentile': {
+      'percentile_allegation': '53.1300',
       'percentile_allegation_civilian': '13.1300',
       'percentile_allegation_internal': '14.1400',
       'percentile_trr': '15.1500',
@@ -39,6 +43,7 @@ const officers = [
     'full_name': 'Sean Brandon',
     id: 2671,
     'percentile': {
+      'percentile_allegation': '66.1600',
       'percentile_allegation_civilian': '16.1600',
       'percentile_allegation_internal': '17.1700',
       'percentile_trr': '18.1800',
@@ -48,6 +53,7 @@ const officers = [
     'full_name': 'Estella Perez-Stanford',
     id: 22297,
     'percentile': {
+      'percentile_allegation': '69.1900',
       'percentile_allegation_civilian': '19.1900',
       'percentile_allegation_internal': '20.2000',
       'percentile_trr': '21.2100',
@@ -57,6 +63,7 @@ const officers = [
     'full_name': 'Johnny Cavers',
     id: 4269,
     'percentile': {
+      'percentile_allegation': '52.2200',
       'percentile_allegation_civilian': '22.2200',
       'percentile_allegation_internal': '23.2300',
       'percentile_trr': '24.2400',
@@ -66,6 +73,7 @@ const officers = [
     'full_name': 'Gilbert Cobb',
     id: 4881,
     'percentile': {
+      'percentile_allegation': '55.2500',
       'percentile_allegation_civilian': '25.2500',
       'percentile_allegation_internal': '26.2600',
       'percentile_trr': '27.2700',
@@ -75,6 +83,7 @@ const officers = [
     'full_name': 'John Hart',
     id: 11580,
     'percentile': {
+      'percentile_allegation': '88.2800',
       'percentile_allegation_civilian': '28.2800',
       'percentile_allegation_internal': '29.2900',
       'percentile_trr': '30.3000',
@@ -84,6 +93,7 @@ const officers = [
     'full_name': 'William Roberison',
     id: 24157,
     'percentile': {
+      'percentile_allegation': '81.3100',
       'percentile_allegation_civilian': '31.3100',
       'percentile_allegation_internal': '32.3200',
       'percentile_trr': '33.3300',
@@ -93,6 +103,7 @@ const officers = [
     'full_name': 'Francis Higgins',
     id: 12176,
     'percentile': {
+      'percentile_allegation': '74.3400',
       'percentile_allegation_civilian': '34.3400',
       'percentile_allegation_internal': '35.3500',
       'percentile_trr': '36.3600',
@@ -102,6 +113,7 @@ const officers = [
     'full_name': 'David Portis',
     id: 22861,
     'percentile': {
+      'percentile_allegation': '87.3700',
       'percentile_allegation_civilian': '37.3700',
       'percentile_allegation_internal': '38.3800',
       'percentile_trr': '39.3900',
@@ -111,6 +123,7 @@ const officers = [
     'full_name': 'Eugene Offett',
     id: 21194,
     'percentile': {
+      'percentile_allegation': '80.4000',
       'percentile_allegation_civilian': '40.4000',
       'percentile_allegation_internal': '41.4100',
       'percentile_trr': '42.4200',
@@ -120,6 +133,7 @@ const officers = [
     'full_name': 'Joseph Blaye',
     id: 2171,
     'percentile': {
+      'percentile_allegation': '73.4300',
       'percentile_allegation_civilian': '43.4300',
       'percentile_allegation_internal': '44.4400',
       'percentile_trr': '45.4500',
@@ -129,6 +143,7 @@ const officers = [
     'full_name': 'Charles Toussas',
     id: 28805,
     'percentile': {
+      'percentile_allegation': '96.4600',
       'percentile_allegation_civilian': '46.4600',
       'percentile_allegation_internal': '47.4700',
       'percentile_trr': '48.4800',
@@ -138,6 +153,7 @@ const officers = [
     'full_name': 'Bennie Watson',
     id: 30209,
     'percentile': {
+      'percentile_allegation': '99.4900',
       'percentile_allegation_civilian': '49.4900',
       'percentile_allegation_internal': '50.5000',
       'percentile_trr': '51.5100',
@@ -147,6 +163,7 @@ const officers = [
     'full_name': 'Tracy Hughes',
     id: 12737,
     'percentile': {
+      'percentile_allegation': '91.5200',
       'percentile_allegation_civilian': '52.5200',
       'percentile_allegation_internal': '53.5300',
       'percentile_trr': '54.5400',
@@ -156,6 +173,7 @@ const officers = [
     'full_name': 'Donnell Calhoun',
     id: 3663,
     'percentile': {
+      'percentile_allegation': '92.5500',
       'percentile_allegation_civilian': '55.5500',
       'percentile_allegation_internal': '56.5600',
       'percentile_trr': '57.5700',
@@ -165,6 +183,7 @@ const officers = [
     'full_name': 'Hardy White',
     id: 30466,
     'percentile': {
+      'percentile_allegation': '93.0000',
       'percentile_allegation_civilian': '58.5800',
       'percentile_allegation_internal': '59.5900',
       'percentile_trr': '60.6000',
@@ -174,6 +193,7 @@ const officers = [
     'full_name': 'Matthew Brandon',
     id: 2675,
     'percentile': {
+      'percentile_allegation': '95.0000',
       'percentile_allegation_civilian': '61.6100',
       'percentile_allegation_internal': '62.6200',
       'percentile_trr': '63.6300',

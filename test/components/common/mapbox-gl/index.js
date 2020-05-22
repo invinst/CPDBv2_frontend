@@ -5,7 +5,7 @@ import sinon from 'sinon';
 import MapboxGL from 'components/common/mapbox-gl';
 import { mapboxgl } from 'utils/vendors';
 
-const { stub } = sinon;
+const { spy, stub } = sinon;
 
 
 describe('MapboxGL component', function () {
@@ -32,11 +32,14 @@ describe('MapboxGL component', function () {
       paint: {},
     }];
 
+    const onIdleSpy = spy();
+
     const mapboxOnStub = stub(mapboxgl.Map.prototype, 'on').callsFake(
       (action, callback) => action !== 'resize' && callback()
     );
-    const wrapper = mount(<MapboxGL sources={ sources } layers={ layers }/>);
+    const wrapper = mount(<MapboxGL sources={ sources } layers={ layers } onIdle={ onIdleSpy }/>);
     const instance = wrapper.instance();
+    onIdleSpy.should.be.calledOnce();
 
     setTimeout(() => {
       instance._mapBox.addSource.should.be.calledOnce();

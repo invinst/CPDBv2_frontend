@@ -98,6 +98,9 @@ export default class SearchResults extends Component {
       nextParams,
       setSearchNavigation,
       addOrRemoveItemInPinboard,
+      pinboardUrl,
+      visitPinButtonIntroduction,
+      hide,
     } = this.props;
 
     if (isEmpty) {
@@ -123,6 +126,9 @@ export default class SearchResults extends Component {
         searchText={ searchText }
         nextParams={ nextParams }
         singleContent={ singleContent }
+        pinboardUrl={ pinboardUrl }
+        visitPinButtonIntroduction={ visitPinButtonIntroduction }
+        hide={ hide }
         addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }/>
     ));
   }
@@ -230,6 +236,10 @@ SearchResults.propTypes = {
   tags: PropTypes.array,
   contentType: PropTypes.string,
   onEmptyPinboardButtonClick: PropTypes.func,
+  pinboardUrl: PropTypes.string,
+  visitPinButtonIntroduction: PropTypes.func,
+  isPinButtonIntroductionVisited: PropTypes.bool,
+  hide: PropTypes.bool,
 };
 
 SearchResults.defaultProps = {
@@ -238,4 +248,6 @@ SearchResults.defaultProps = {
   getSuggestionWithContentType: noop,
   resetNavigation: noop,
   onEmptyPinboardButtonClick: noop,
+  visitPinButtonIntroduction: noop,
+  isPinButtonIntroductionVisited: true,
 };

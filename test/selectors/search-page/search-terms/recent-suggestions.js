@@ -6,58 +6,86 @@ import {
 
 describe('RecentSuggestions selector', function () {
   describe('recentSuggestionsSelector', () => {
-    it('should return recent suggestions data correctly', () => {
-      const state = {
-        pinboardPage: {
-          pinboard: {
-            'officer_ids': [8562],
-            crids: ['317'],
-            'trr_ids': [123456],
+    context('have more than 3 recent items', function () {
+      it('should return recent suggestions data correctly', () => {
+        const communityItem = {
+          type: 'COMMUNITY',
+          id: 317,
+          data: {
+            id: 317,
+            type: 'COMMUNITY',
+            text: 'Roseland',
+            recentText: 'Roseland',
+            to: undefined,
+            url: 'https://data.cpdp.co/url-mediator/session-builder?neighborhood=Roseland',
+            tags: [],
+            uniqueKey: 'COMMUNITY-317',
+            name: 'Roseland',
+            allegationCount: 12,
+            allegationPercentile: 80.1,
           },
-        },
-        searchPage: {
-          recentSuggestions: [
-            {
-              type: 'OFFICER',
-              id: 8562,
-              data: {
-                id: 8562,
-                name: 'Jerome Finnigan',
-                race: 'White',
-                rank: 'Police Officer',
-                gender: 'Male',
-                'allegation_count': 10,
-                'sustained_count': 5,
-                'birth_year': 1980,
-                type: 'OFFICER',
-              },
-            },
-            {
-              type: 'CR',
-              id: '271235',
-              data: {
-                id: '271235',
-                crid: '271235',
-                'incident_date': '2001-02-10',
-                category: 'Lockup Procedures',
-                type: 'CR',
-              },
-            },
-            {
-              type: 'TRR',
-              id: 123456,
-              data: {
-                type: 'TRR',
-                id: 123456,
-                'force_type': 'Physical Force - Holding',
-                'trr_datetime': '2004-02-24',
-              },
-            },
-          ],
-        },
-      };
-      recentSuggestionsSelector(state).should.be.eql([
-        {
+        };
+        const officerItem = {
+          type: 'OFFICER',
+          id: 8562,
+          data: {
+            id: 8562,
+            name: 'Jerome Finnigan',
+            race: 'White',
+            rank: 'Police Officer',
+            gender: 'Male',
+            'allegation_count': 10,
+            'sustained_count': 5,
+            'birth_year': 1980,
+            type: 'OFFICER',
+          },
+        };
+        const crItem = {
+          type: 'CR',
+          id: '271235',
+          data: {
+            id: '271235',
+            crid: '271235',
+            'incident_date': '2001-02-10',
+            category: 'Lockup Procedures',
+            type: 'CR',
+          },
+        };
+        const trrItem = {
+          type: 'TRR',
+          id: 123456,
+          data: {
+            type: 'TRR',
+            id: 123456,
+            'force_type': 'Physical Force - Holding',
+            'trr_datetime': '2004-02-24',
+          },
+        };
+        const expectedCommunityItem = {
+          type: 'COMMUNITY',
+          id: 317,
+          to: undefined,
+          url: 'https://data.cpdp.co/url-mediator/session-builder?neighborhood=Roseland',
+          uniqueKey: 'COMMUNITY-317',
+          text: 'Roseland',
+          subText: 'Community',
+          recentText: 'Roseland',
+          itemRank: undefined,
+          recentItemData: {
+            allegationCount: 12,
+            allegationPercentile: 80.1,
+            id: 317,
+            name: 'Roseland',
+            recentText: 'Roseland',
+            tags: [],
+            text: 'Roseland',
+            to: undefined,
+            type: 'COMMUNITY',
+            uniqueKey: 'COMMUNITY-317',
+            url: 'https://data.cpdp.co/url-mediator/session-builder?neighborhood=Roseland',
+          },
+        };
+        const expectedOfficerItem = {
           type: 'OFFICER',
           id: 8562,
           to: '/officer/8562/jerome-finnigan/',
@@ -85,8 +113,8 @@ describe('RecentSuggestions selector', function () {
           fullName: 'Jerome Finnigan',
           rank: 'Police Officer',
           isPinned: true,
-        },
-        {
+        };
+        const expectedCrItem = {
           type: 'CR',
           id: '271235',
           to: '/complaint/271235/',
@@ -106,8 +134,9 @@ describe('RecentSuggestions selector', function () {
           },
           crid: '271235',
           isPinned: false,
-        },
-        {
+
+        };
+        const expectedTrrItem = {
           type: 'TRR',
           id: 123456,
           to: '/trr/123456/',
@@ -126,8 +155,432 @@ describe('RecentSuggestions selector', function () {
           },
           subText: 'TRR # 123456 - February 24, 2004',
           isPinned: true,
-        },
-      ]);
+        };
+        const state = {
+          pinboardPage: {
+            pinboard: {
+              'officer_ids': [8562],
+              crids: ['317'],
+              'trr_ids': [123456],
+            },
+          },
+          searchPage: {
+            recentSuggestions: [communityItem, officerItem, crItem, trrItem],
+          },
+        };
+        const introductionNotVisitedState = {
+          ...state,
+          pinboardIntroduction: {
+            isPinButtonIntroductionVisited: false,
+          },
+        };
+        const introductionVisitedState = {
+          ...state,
+          pinboardIntroduction: {
+            isPinButtonIntroductionVisited: true,
+          },
+        };
+
+        recentSuggestionsSelector(introductionNotVisitedState).should.be.eql([
+          {
+            ...expectedCommunityItem,
+            showIntroduction: false,
+          },
+          {
+            ...expectedOfficerItem,
+            showIntroduction: false,
+          },
+          {
+            ...expectedCrItem,
+            showIntroduction: true,
+          },
+          {
+            ...expectedTrrItem,
+            showIntroduction: false,
+          },
+        ]);
+
+        recentSuggestionsSelector(introductionVisitedState).should.be.eql([
+          {
+            ...expectedCommunityItem,
+            showIntroduction: false,
+          },
+          {
+            ...expectedOfficerItem,
+            showIntroduction: false,
+          },
+          {
+            ...expectedCrItem,
+            showIntroduction: false,
+          },
+          {
+            ...expectedTrrItem,
+            showIntroduction: false,
+          },
+        ]);
+      });
+    });
+
+    context('have less than 3 recent items', function () {
+      it('should return recent suggestions data correctly', () => {
+        const officerItem = {
+          type: 'OFFICER',
+          id: 8562,
+          data: {
+            id: 8562,
+            name: 'Jerome Finnigan',
+            race: 'White',
+            rank: 'Police Officer',
+            gender: 'Male',
+            'allegation_count': 10,
+            'sustained_count': 5,
+            'birth_year': 1980,
+            type: 'OFFICER',
+          },
+        };
+        const crItem = {
+          type: 'CR',
+          id: '271235',
+          data: {
+            id: '271235',
+            crid: '271235',
+            'incident_date': '2001-02-10',
+            category: 'Lockup Procedures',
+            type: 'CR',
+          },
+        };
+        const expectedOfficerItem = {
+          type: 'OFFICER',
+          id: 8562,
+          to: '/officer/8562/jerome-finnigan/',
+          url: undefined,
+          uniqueKey: 'OFFICER-8562',
+          text: 'Jerome Finnigan',
+          recentText: 'Jerome Finnigan',
+          itemRank: undefined,
+          recentItemData: {
+            id: 8562,
+            name: 'Jerome Finnigan',
+            rank: 'Police Officer',
+            race: 'White',
+            gender: 'Male',
+            'allegation_count': 10,
+            'sustained_count': 5,
+            'birth_year': 1980,
+            type: 'OFFICER',
+          },
+          complaintCount: 10,
+          sustainedCount: 5,
+          race: 'White',
+          gender: 'Male',
+          age: '37-year-old',
+          fullName: 'Jerome Finnigan',
+          rank: 'Police Officer',
+          isPinned: true,
+        };
+        const expectedCrItem = {
+          type: 'CR',
+          id: '271235',
+          to: '/complaint/271235/',
+          url: undefined,
+          uniqueKey: 'CR-271235',
+          text: 'CR # 271235 • February 10, 2001',
+          recentText: 'CR # 271235 • February 10, 2001',
+          itemRank: undefined,
+          incidentDate: 'Feb 10, 2001',
+          category: 'Lockup Procedures',
+          recentItemData: {
+            id: '271235',
+            crid: '271235',
+            'incident_date': '2001-02-10',
+            category: 'Lockup Procedures',
+            type: 'CR',
+          },
+          crid: '271235',
+          isPinned: false,
+
+        };
+        const state = {
+          pinboardPage: {
+            pinboard: {
+              'officer_ids': [8562],
+              crids: [],
+              'trr_ids': [],
+            },
+          },
+          searchPage: {
+            recentSuggestions: [officerItem, crItem],
+          },
+        };
+        const introductionNotVisitedState = {
+          ...state,
+          pinboardIntroduction: {
+            isPinButtonIntroductionVisited: false,
+          },
+        };
+        const introductionVisitedState = {
+          ...state,
+          pinboardIntroduction: {
+            isPinButtonIntroductionVisited: true,
+          },
+        };
+
+        recentSuggestionsSelector(introductionNotVisitedState).should.be.eql([
+          {
+            ...expectedOfficerItem,
+            showIntroduction: false,
+          },
+          {
+            ...expectedCrItem,
+            showIntroduction: true,
+          },
+        ]);
+
+        recentSuggestionsSelector(introductionVisitedState).should.be.eql([
+          {
+            ...expectedOfficerItem,
+            showIntroduction: false,
+          },
+          {
+            ...expectedCrItem,
+            showIntroduction: false,
+          },
+        ]);
+      });
+    });
+
+    context('all 3 first recent item is unpinnable', function () {
+      it('should return recent suggestions data correctly', () => {
+        const communityItem317 = {
+          type: 'COMMUNITY',
+          id: 317,
+          data: {
+            id: 317,
+            type: 'COMMUNITY',
+            text: 'Roseland',
+            recentText: 'Roseland',
+            to: undefined,
+            url: 'https://data.cpdp.co/url-mediator/session-builder?neighborhood=Roseland',
+            tags: [],
+            uniqueKey: 'COMMUNITY-317',
+            name: 'Roseland',
+            allegationCount: 12,
+            allegationPercentile: 80.1,
+          },
+        };
+        const communityItem318 = {
+          type: 'COMMUNITY',
+          id: 318,
+          data: {
+            id: 318,
+            type: 'COMMUNITY',
+            text: 'Austin',
+            recentText: 'Austin',
+            to: undefined,
+            url: 'https://data.cpdp.co/url-mediator/session-builder?neighborhood=Austin',
+            tags: [],
+            uniqueKey: 'COMMUNITY-318',
+            name: 'Austin',
+            allegationCount: 12,
+            allegationPercentile: 80.1,
+          },
+        };
+        const communityItem319 = {
+          type: 'COMMUNITY',
+          id: 319,
+          data: {
+            id: 319,
+            type: 'COMMUNITY',
+            text: 'Loop',
+            recentText: 'Loop',
+            to: undefined,
+            url: 'https://data.cpdp.co/url-mediator/session-builder?neighborhood=Loop',
+            tags: [],
+            uniqueKey: 'COMMUNITY-319',
+            name: 'Loop',
+            allegationCount: 12,
+            allegationPercentile: 80.1,
+          },
+        };
+        const officerItem = {
+          type: 'OFFICER',
+          id: 8562,
+          data: {
+            id: 8562,
+            name: 'Jerome Finnigan',
+            race: 'White',
+            rank: 'Police Officer',
+            gender: 'Male',
+            'allegation_count': 10,
+            'sustained_count': 5,
+            'birth_year': 1980,
+            type: 'OFFICER',
+          },
+        };
+        const expectedCommunityItem317 = {
+          type: 'COMMUNITY',
+          id: 317,
+          to: undefined,
+          url: 'https://data.cpdp.co/url-mediator/session-builder?neighborhood=Roseland',
+          uniqueKey: 'COMMUNITY-317',
+          text: 'Roseland',
+          subText: 'Community',
+          recentText: 'Roseland',
+          itemRank: undefined,
+          recentItemData: {
+            allegationCount: 12,
+            allegationPercentile: 80.1,
+            id: 317,
+            name: 'Roseland',
+            recentText: 'Roseland',
+            tags: [],
+            text: 'Roseland',
+            to: undefined,
+            type: 'COMMUNITY',
+            uniqueKey: 'COMMUNITY-317',
+            url: 'https://data.cpdp.co/url-mediator/session-builder?neighborhood=Roseland',
+          },
+        };
+        const expectedCommunityItem318 = {
+          type: 'COMMUNITY',
+          id: 318,
+          to: undefined,
+          url: 'https://data.cpdp.co/url-mediator/session-builder?neighborhood=Austin',
+          uniqueKey: 'COMMUNITY-318',
+          text: 'Austin',
+          subText: 'Community',
+          recentText: 'Austin',
+          itemRank: undefined,
+          recentItemData: {
+            allegationCount: 12,
+            allegationPercentile: 80.1,
+            id: 318,
+            name: 'Austin',
+            recentText: 'Austin',
+            tags: [],
+            text: 'Austin',
+            to: undefined,
+            type: 'COMMUNITY',
+            uniqueKey: 'COMMUNITY-318',
+            url: 'https://data.cpdp.co/url-mediator/session-builder?neighborhood=Austin',
+          },
+        };
+        const expectedCommunityItem319 = {
+          type: 'COMMUNITY',
+          id: 319,
+          to: undefined,
+          url: 'https://data.cpdp.co/url-mediator/session-builder?neighborhood=Loop',
+          uniqueKey: 'COMMUNITY-319',
+          text: 'Loop',
+          subText: 'Community',
+          recentText: 'Loop',
+          itemRank: undefined,
+          recentItemData: {
+            allegationCount: 12,
+            allegationPercentile: 80.1,
+            id: 319,
+            name: 'Loop',
+            recentText: 'Loop',
+            tags: [],
+            text: 'Loop',
+            to: undefined,
+            type: 'COMMUNITY',
+            uniqueKey: 'COMMUNITY-319',
+            url: 'https://data.cpdp.co/url-mediator/session-builder?neighborhood=Loop',
+          },
+        };
+        const expectedOfficerItem = {
+          type: 'OFFICER',
+          id: 8562,
+          to: '/officer/8562/jerome-finnigan/',
+          url: undefined,
+          uniqueKey: 'OFFICER-8562',
+          text: 'Jerome Finnigan',
+          recentText: 'Jerome Finnigan',
+          itemRank: undefined,
+          recentItemData: {
+            id: 8562,
+            name: 'Jerome Finnigan',
+            rank: 'Police Officer',
+            race: 'White',
+            gender: 'Male',
+            'allegation_count': 10,
+            'sustained_count': 5,
+            'birth_year': 1980,
+            type: 'OFFICER',
+          },
+          complaintCount: 10,
+          sustainedCount: 5,
+          race: 'White',
+          gender: 'Male',
+          age: '37-year-old',
+          fullName: 'Jerome Finnigan',
+          rank: 'Police Officer',
+          isPinned: true,
+        };
+        const state = {
+          pinboardPage: {
+            pinboard: {
+              'officer_ids': [8562],
+              crids: [],
+              'trr_ids': [],
+            },
+          },
+          searchPage: {
+            recentSuggestions: [communityItem317, communityItem318, communityItem319, officerItem],
+          },
+        };
+        const introductionNotVisitedState = {
+          ...state,
+          pinboardIntroduction: {
+            isPinButtonIntroductionVisited: false,
+          },
+        };
+        const introductionVisitedState = {
+          ...state,
+          pinboardIntroduction: {
+            isPinButtonIntroductionVisited: true,
+          },
+        };
+
+        recentSuggestionsSelector(introductionNotVisitedState).should.be.eql([
+          {
+            ...expectedCommunityItem317,
+            showIntroduction: false,
+          },
+          {
+            ...expectedCommunityItem318,
+            showIntroduction: false,
+          },
+          {
+            ...expectedCommunityItem319,
+            showIntroduction: false,
+          },
+          {
+            ...expectedOfficerItem,
+            showIntroduction: true,
+          },
+        ]);
+
+        recentSuggestionsSelector(introductionVisitedState).should.be.eql([
+          {
+            ...expectedCommunityItem317,
+            showIntroduction: false,
+          },
+          {
+            ...expectedCommunityItem318,
+            showIntroduction: false,
+          },
+          {
+            ...expectedCommunityItem319,
+            showIntroduction: false,
+          },
+          {
+            ...expectedOfficerItem,
+            showIntroduction: false,
+          },
+        ]);
+      });
     });
   });
 

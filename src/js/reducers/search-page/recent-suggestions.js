@@ -4,7 +4,7 @@ import { find, slice, includes } from 'lodash';
 import {
   FETCH_RECENT_SEARCH_ITEMS_SUCCESS,
   SEARCH_SAVE_TO_RECENT,
-  RECENT_SEARCH_COMPONENT_TYPE_MAPPING,
+  PINNED_ITEM_TYPES,
 } from 'utils/constants';
 
 const FETCHED_RECENT_SUGGESTION_TYPES = ['CR', 'OFFICER', 'TRR'];
@@ -16,7 +16,7 @@ const matchRecentItem = (item, recentItem) => {
 export default handleActions({
   [SEARCH_SAVE_TO_RECENT]: (state, action) => {
     const recentItem = action.payload;
-    recentItem.type = RECENT_SEARCH_COMPONENT_TYPE_MAPPING[recentItem.type] || recentItem.type;
+    recentItem.type = PINNED_ITEM_TYPES[recentItem.type] || recentItem.type;
 
     const newData = (state || []).filter((item) => !matchRecentItem(item, recentItem));
     newData.unshift(recentItem);

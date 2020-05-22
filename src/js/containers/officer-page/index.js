@@ -11,7 +11,6 @@ import {
   getCurrentTab,
   getEditModeOn,
   getOfficerSlug,
-  isOfficerPinnedSelector,
 } from 'selectors/officer-page';
 import {
   changeOfficerTab,
@@ -31,14 +30,12 @@ import { OFFICER_PAGE_ID, OFFICER_EDIT_TYPES } from 'utils/constants';
 import { updatePage } from 'actions/cms';
 import { getPathname } from 'selectors/common/pathname';
 import { getInfoNotes, getTimelineNotes } from 'selectors/officer-page/print-notes';
-import { addOrRemoveItemInPinboard } from 'actions/pinboard';
 
 
 function mapStateToProps(state, ownProps) {
   return {
     officerName: getOfficerName(state),
     officerId: getOfficerId(state),
-    isPinned: isOfficerPinnedSelector(state),
     officerSummary: summarySelector(state),
     officerMetrics: metricsSelector(state),
     numAttachments: numAttachmentsSelector(state),
@@ -106,7 +103,6 @@ const mapDispatchToProps = {
   turnOffScaleExplainEditMode,
   turnOnNoDataRadarChartExplainEditMode,
   turnOffNoDataRadarChartExplainEditMode,
-  addOrRemoveItemInPinboard,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps, editWrapperStateProps)(OfficerPage);

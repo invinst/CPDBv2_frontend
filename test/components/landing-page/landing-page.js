@@ -89,10 +89,13 @@ const store = mockStore({
     pagination: {},
   },
   pinboardPage: {
-    pinboard: null,
+    pinboard: {},
   },
   toast: {},
   pathname: '/',
+  pinboardIntroduction: {
+    isPinButtonIntroductionVisited: false,
+  },
 });
 
 describe('LandingPage component', function () {

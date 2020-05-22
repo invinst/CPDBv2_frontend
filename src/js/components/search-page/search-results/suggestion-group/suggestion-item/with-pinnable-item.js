@@ -9,21 +9,57 @@ import TextWithInlineSearchAlias from './text-with-inline-search-alias';
 import EditModeItem from './edit-mode-item';
 import ItemPinButton from 'components/common/item-pin-button';
 import styles from './with-pinnable-item.sass';
+import appConfig from 'utils/app-config';
+import { APP_CONFIG_KEYS } from 'utils/constants';
 
 
 export default function withPinnableItem(
   isPinnable=false, getFirstRowContent=null, getSecondRowContent=null) {
   class _Base extends Component {
+    constructor(props) {
+      super(props);
+      this.state = { displayIntroduction: false };
+    }
+
+    componentDidMount() {
+      this.setDisplayIntroductionTimeout();
+    }
+
     shouldComponentUpdate(nextProps, nextState) {
-      const { isFocused, suggestion } = this.props;
+      const { isFocused, suggestion, pinboardUrl, hide } = this.props;
+      const { displayIntroduction } = this.state;
 
       return nextProps.isFocused !== isFocused
-          || !isEqual(suggestion, nextProps.suggestion);
+          || !isEqual(suggestion, nextProps.suggestion)
+          || displayIntroduction !== nextState.displayIntroduction
+          || hide !== nextProps.hide
+          || pinboardUrl !== nextProps.pinboardUrl;
+    }
+
+    componentDidUpdate() {
+      this.setDisplayIntroductionTimeout();
+    }
+
+    componentWillUnmount() {
+      this.displayIntroductionTimeout && clearTimeout(this.displayIntroductionTimeout);
+    }
+
+    setDisplayIntroductionTimeout() {
+      const { suggestion: { showIntroduction }, hide } = this.props;
+      const { displayIntroduction } = this.state;
+      if (showIntroduction && !hide && !displayIntroduction) {
+        this.displayIntroductionTimeout = setTimeout (() => {
+          this.setState({ displayIntroduction: true });
+          this.displayIntroductionTimeout = null;
+        }, appConfig.get(APP_CONFIG_KEYS.PINBOARD_INTRODUCTION_DELAY));
+      } else if (showIntroduction && hide && displayIntroduction) {
+        this.setState({ displayIntroduction: false });
+      }
     }
 
     renderFirstRow() {
-      const { isFocused, aliasEditModeOn, setAliasAdminPageContent } = this.props;
-      const { text, id, type, subText, tags } = this.props.suggestion;
+      const { isFocused, aliasEditModeOn, setAliasAdminPageContent, suggestion } = this.props;
+      const { text, id, type, subText, tags } = suggestion;
       const firstRowText = getFirstRowContent !== null ?
         getFirstRowContent(this.props) : text;
       const secondRowText = getSecondRowContent !== null ?
@@ -65,10 +101,14 @@ export default function withPinnableItem(
 
     handleClick = e => {
       e.preventDefault();
-      const { suggestion, selectItem, clickItem, isFocused } = this.props;
-
-      if (clickItem)
+      const { suggestion, selectItem, clickItem, isFocused, visitPinButtonIntroduction } = this.props;
+      const { showIntroduction } = suggestion;
+      const { displayIntroduction } = this.state;
+      if (showIntroduction && displayIntroduction) {
+        visitPinButtonIntroduction();
+      } else if (clickItem) {
         clickItem(suggestion);
+      }
       else {
         if (!isFocused)
           selectItem();
@@ -80,22 +120,44 @@ export default function withPinnableItem(
     };
 
     renderContent() {
-      const { isFocused, suggestion, addOrRemoveItemInPinboard, showPinButtonArea } = this.props;
+      const {
+        isFocused,
+        suggestion,
+        addOrRemoveItemInPinboard,
+        showPinButtonArea,
+        pinboardUrl,
+        visitPinButtonIntroduction,
+      } = this.props;
+      const { showIntroduction } = suggestion;
+      const { displayIntroduction } = this.state;
+      const shouldShowIntroduction = showIntroduction && displayIntroduction;
 
       return (
         <div className={ styles.innerWrapper }>
           <JumpyMotion isActive={ isFocused }>
             {
-              isPinnable && <ItemPinButton
-                className={ styles.itemPinButton }
-                addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
-                item={ suggestion }
-              />
+              isPinnable ?
+                <ItemPinButton
+                  className={ styles.itemPinButton }
+                  showIntroduction={ shouldShowIntroduction }
+                  visitPinButtonIntroduction={ visitPinButtonIntroduction }
+                  addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
+                  item={ suggestion }
+                  pinboardUrl={ pinboardUrl }
+                />
+                :
+                showPinButtonArea && <div className='empty-pin-button-area pinboard-feature' />
             }
-            <div className={ cx(styles.twoRowsWrapper, { 'show-pin-button-area': !isPinnable && showPinButtonArea }) }>
+            <div className={ styles.twoRowsWrapper }>
               { this.renderFirstRow() }
               { this.renderSecondRow() }
             </div>
+            {
+              shouldShowIntroduction &&
+                <div className={ cx('pinboard-feature', 'pin-button-introduction') }>
+                  Tap this button to add to your pinboard
+                </div>
+            }
           </JumpyMotion>
         </div>
       );
@@ -132,6 +194,10 @@ export default function withPinnableItem(
     selectItem: PropTypes.func,
     clickItem: PropTypes.func,
     showPinButtonArea: PropTypes.bool,
+    pinboardUrl: PropTypes.string,
+    visitPinButtonIntroduction: PropTypes.func,
+    isPinButtonIntroductionVisited: PropTypes.bool,
+    hide: PropTypes.bool,
   };
 
   return _Base;

@@ -1,44 +1,6 @@
 @import 'variables'
 
-$button-height: 28px
-$border-width: 1px
-$margin-top: calc((#{$shareable-header-height} - #{$button-height} - #{$border-width} * 2) / 2)
 
 \:local(.header-button)
   position: relative
-
-  .button
-    float: right
-    cursor: pointer
-    line-height: $button-height
-    border-radius: 2px
-    padding: 0 8px
-    border: solid $border-width $alto-color
-    margin: $margin-top 0 0 8px
-
-    &.top
-      color: $blue-ribbon-color
-      background-color: $hawkes-blue-color
-
-      &:hover
-        color: white
-        background-color: $blue-ribbon-color
-
-    &.middle
-      color: $boulder-color
-      background-color: $wild-sand-color
-
-      &:hover
-        color: white
-        background-color: $blue-ribbon-color
-
-    &.bottom
-      color: white
-      background-color: $blue-ribbon-color
-
-      &:hover
-        background-color: $thunder-color
-
-    &.focus
-      color: white
-      background-color: $thunder-color
+  display: inline-block

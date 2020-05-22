@@ -11,17 +11,43 @@
     top: 0
     left: 0
     right: 0
-    z-index: 3
+    z-index: $shareable-header-z-index
     box-shadow: 0 1px 1px 0 $alto-light-color
 
     .shareable-header-nav-bar
       height: $shareable-header-height
-      line-height: 22px
       color: $boulder-color
       padding: 0 16px
       font-size: 14px
       font-weight: 400
 
+    .right-buttons
+      float: right
+      height: 32px
+      margin: 4px 0
+
 \:local(.header-button)
-  float: right
-  margin: 4px 0 0 8px
+  display: inline-block
+  margin-left: 8px
+
+\:local(.add-to-pinboard-btn)
+  width: 48px
+  height: 32px
+  background-position: center
+  background-repeat: no-repeat
+  background-image: url('/img/ic-large-plus.svg')
+  background-size: 13px 14px
+  background-color: $wild-sand-color
+  border: solid 1px $alto-color
+  border-radius: 2px
+  box-sizing: border-box
+  cursor: pointer
+
+  &:hover
+    background-image: url('/img/ic-large-plus-green.svg')
+    background-color: $willow-brook-color
+
+  &.focus
+    background-image: url('/img/ic-plus-rotated.svg')
+    background-color: $bilbao-color
+    background-size: 21px 20px
