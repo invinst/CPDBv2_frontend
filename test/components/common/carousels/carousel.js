@@ -1,12 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { spy, stub } from 'sinon';
+import { spy, stub, useFakeTimers } from 'sinon';
 
 import { mountWithRouter } from 'utils/test';
 import { OfficerCardFactory } from 'utils/test/factories/activity-grid';
 import Carousel from 'components/common/carousel';
 import OfficerCard from 'components/common/officer-card';
 import Swiper from 'components/common/swiper';
+import { SLIDE_PER_WHEEL } from 'utils/constants';
 
 
 describe('Carousel component', function () {
@@ -240,5 +241,121 @@ describe('Carousel component', function () {
       children: carouselComponent(getChildItems(OfficerCardFactory.buildList(3)), { resetPosition: false }),
     });
     carousel.state('slideIndex').should.equal(5);
+  });
+
+  describe('handleNavigate', function () {
+    it('should not call slideTo if right arrow is not displayed and navigate right', function () {
+      const wrapper = renderCarousel(OfficerCardFactory.buildList(10), { resetPosition: true });
+      const carousel = wrapper.find(Carousel);
+      const slideToSpy = spy(Carousel.prototype, 'slideTo');
+      carousel.state('displayRightArrow').should.be.true();
+
+      carousel.instance().handleNavigate('right');
+      slideToSpy.should.be.calledOnce();
+      slideToSpy.resetHistory();
+
+      carousel.setState({ displayRightArrow: false });
+
+      carousel.instance().handleNavigate('right');
+      slideToSpy.should.not.be.called();
+    });
+
+    it('should not call slideTo if left arrow is not displayed and navigate left', function () {
+      const wrapper = renderCarousel(OfficerCardFactory.buildList(10), { resetPosition: true });
+      const carousel = wrapper.find(Carousel);
+      const slideToSpy = spy(Carousel.prototype, 'slideTo');
+      carousel.state('displayLeftArrow').should.be.false();
+
+      carousel.instance().handleNavigate('left');
+      slideToSpy.should.not.be.called();
+      slideToSpy.resetHistory();
+
+      carousel.setState({ displayLeftArrow: true });
+
+      carousel.instance().handleNavigate('left');
+      slideToSpy.should.be.calledOnce();
+    });
+  });
+
+  describe('componentDidMount', function () {
+    it('should bind mousewheel event on componentDidMount', function () {
+      const componentDidMountStub = stub(Carousel.prototype, 'componentDidMount');
+      const wrapper = renderCarousel(OfficerCardFactory.buildList(10), { resetPosition: true });
+      const carousel = wrapper.find(Carousel);
+      const carouselInstance = carousel.instance();
+      const carouselRef = carouselInstance.el;
+      const carouselRefAddEventListenerSpy = spy(carouselRef, 'addEventListener');
+
+      componentDidMountStub.restore();
+      carouselInstance.componentDidMount();
+      carouselRefAddEventListenerSpy.should.be.calledOnce();
+      carouselRefAddEventListenerSpy.should.be.calledWith('mousewheel', carouselInstance.onWheel, { passive: false });
+    });
+  });
+
+  describe('onWheel', function () {
+    it('should not call handleNavigate on vertical slide', function () {
+      const wrapper = renderCarousel(OfficerCardFactory.buildList(10), { resetPosition: true });
+      const carousel = wrapper.find(Carousel);
+      const carouselInstance = carousel.instance();
+      const handleNavigateSpy = spy(carouselInstance, 'handleNavigate');
+
+      carouselInstance.onWheel({ deltaX: 8, deltaY: 10 });
+      handleNavigateSpy.should.not.be.called();
+
+      carouselInstance.onWheel({ deltaX: -8, deltaY: 10 });
+      handleNavigateSpy.should.not.be.called();
+
+      carouselInstance.onWheel({ deltaX: 8, deltaY: -10 });
+      handleNavigateSpy.should.not.be.called();
+
+      carouselInstance.onWheel({ deltaX: -8, deltaY: -10 });
+      handleNavigateSpy.should.not.be.called();
+    });
+
+    it('should call handleNavigate on horizontal slide', function () {
+      const clock = useFakeTimers();
+      const wrapper = renderCarousel(OfficerCardFactory.buildList(10), { resetPosition: true });
+      const carousel = wrapper.find(Carousel);
+      const carouselInstance = carousel.instance();
+      const handleNavigateSpy = spy(carouselInstance, 'handleNavigate');
+      const preventDefaultSpy = spy();
+
+      carouselInstance.onWheel({ deltaX: 8, deltaY: 4, preventDefault: preventDefaultSpy });
+      preventDefaultSpy.should.be.calledOnce();
+      handleNavigateSpy.should.be.calledOnce();
+      handleNavigateSpy.should.be.calledWith('right', SLIDE_PER_WHEEL);
+      handleNavigateSpy.resetHistory();
+      preventDefaultSpy.resetHistory();
+      clock.tick(210);
+      handleNavigateSpy.should.not.be.called();
+
+      carouselInstance.onWheel({ deltaX: 8, deltaY: -4, preventDefault: preventDefaultSpy });
+      preventDefaultSpy.should.be.calledOnce();
+      handleNavigateSpy.should.be.calledOnce();
+      handleNavigateSpy.should.be.calledWith('right', SLIDE_PER_WHEEL);
+      handleNavigateSpy.resetHistory();
+      preventDefaultSpy.resetHistory();
+      clock.tick(210);
+      handleNavigateSpy.should.not.be.called();
+
+      carouselInstance.onWheel({ deltaX: -8, deltaY: 4, preventDefault: preventDefaultSpy });
+      preventDefaultSpy.should.be.calledOnce();
+      handleNavigateSpy.should.be.calledOnce();
+      handleNavigateSpy.should.be.calledWith('left', SLIDE_PER_WHEEL);
+      handleNavigateSpy.resetHistory();
+      preventDefaultSpy.resetHistory();
+      clock.tick(210);
+      handleNavigateSpy.should.not.be.called();
+
+      carouselInstance.onWheel({ deltaX: -8, deltaY: -4, preventDefault: preventDefaultSpy });
+      preventDefaultSpy.should.be.calledOnce();
+      handleNavigateSpy.should.be.calledOnce();
+      handleNavigateSpy.should.be.calledWith('left', SLIDE_PER_WHEEL);
+      handleNavigateSpy.resetHistory();
+      preventDefaultSpy.resetHistory();
+      clock.tick(210);
+      handleNavigateSpy.should.not.be.called();
+    });
   });
 });
