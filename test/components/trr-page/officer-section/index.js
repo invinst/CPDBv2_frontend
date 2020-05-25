@@ -25,7 +25,6 @@ describe('OfficerSection component', function () {
     gender: 'Male',
     careerDuration: 'DEC 13, 1999 — DEC 23, 2015',
     percentile: {
-      year: undefined,
       items: [
         { axis: 'Use of Force Reports', value: 99.9 },
         { axis: 'Officer Allegations', value: 11.1 },
@@ -122,7 +121,6 @@ describe('OfficerSection component', function () {
       gender: 'Male',
       careerDuration: 'DEC 13, 1999 — DEC 23, 2015',
       percentile: {
-        year: undefined,
         items: [
           { axis: 'Use of Force Reports', value: 99.9 },
           { axis: 'Officer Allegations', value: 11.1 },

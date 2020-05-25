@@ -20,11 +20,9 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'civilian_compliment_count': 0,
     'resignation_date': '2007-07-17',
     'appointed_date': '1991-01-30',
-    'percentile': {
-      'percentile_trr': '0.0000',
-      'percentile_allegation_civilian': '35.4196',
-      'percentile_allegation_internal': '83.0449',
-    },
+    'percentile_trr': '0.0000',
+    'percentile_allegation_civilian': '35.4196',
+    'percentile_allegation_internal': '83.0449',
     'honorable_mention_percentile': 68.9444,
   },
   {
@@ -48,11 +46,9 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'civilian_compliment_count': 0,
     'resignation_date': '2005-02-15',
     'appointed_date': '1981-01-19',
-    'percentile': {
-      'percentile_trr': '0.0000',
-      'percentile_allegation_civilian': '98.6239',
-      'percentile_allegation_internal': '88.4491',
-    },
+    'percentile_trr': '0.0000',
+    'percentile_allegation_civilian': '98.6239',
+    'percentile_allegation_internal': '88.4491',
     'honorable_mention_percentile': 0.0,
   },
   {
@@ -76,8 +72,7 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'civilian_compliment_count': 0,
     'resignation_date': '1995-12-13',
     'appointed_date': '1970-06-15',
-    'percentile': {},
-    'honorable_mention_percentile': 0.0,
+    'honorable_mention_percentile': '0.0000',
   },
   {
     'id': 3663,
@@ -100,11 +95,11 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'civilian_compliment_count': 0,
     'resignation_date': '2004-08-02',
     'appointed_date': '1978-02-26',
-    'percentile': {
-      'percentile_allegation_civilian': '87.4780',
-      'percentile_allegation_internal': '96.5164',
-    },
-    'honorable_mention_percentile': 0.0,
+    'percentile_allegation': '97.4780',
+    'percentile_allegation_civilian': '87.4780',
+    'percentile_allegation_internal': '96.5164',
+    'percentile_trr': '96.5164',
+    'honorable_mention_percentile': '0.0000',
   },
   {
     'id': 22297,
@@ -127,12 +122,10 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'discipline_count': 0,
     'civilian_compliment_count': 4,
     'appointed_date': '1997-08-04',
-    'percentile': {
-      'percentile_trr': '63.0035',
-      'percentile_allegation_civilian': '65.6966',
-      'percentile_allegation_internal': '61.1521',
-    },
-    'honorable_mention_percentile': 73.8267,
+    'percentile_trr': '63.0035',
+    'percentile_allegation_civilian': '65.6966',
+    'percentile_allegation_internal': '61.1521',
+    'honorable_mention_percentile': '73.8267',
   },
   {
     'id': 21194,
@@ -156,12 +149,10 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'civilian_compliment_count': 1,
     'resignation_date': '2016-09-10',
     'appointed_date': '1987-04-13',
-    'percentile': {
-      'percentile_trr': '38.9028',
-      'percentile_allegation_civilian': '61.9992',
-      'percentile_allegation_internal': '0.0000',
-    },
-    'honorable_mention_percentile': 41.6094,
+    'percentile_trr': '38.9028',
+    'percentile_allegation_civilian': '61.9992',
+    'percentile_allegation_internal': '0.0000',
+    'honorable_mention_percentile': '41.6094',
   },
   {
     'id': 12176,
@@ -185,11 +176,9 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'civilian_compliment_count': 3,
     'resignation_date': '2010-11-15',
     'appointed_date': '1981-04-13',
-    'percentile': {
-      'percentile_trr': '0.0000',
-      'percentile_allegation_civilian': '85.9396',
-      'percentile_allegation_internal': '76.8944',
-    },
+    'percentile_trr': '0.0000',
+    'percentile_allegation_civilian': '85.9396',
+    'percentile_allegation_internal': '76.8944',
     'honorable_mention_percentile': 75.7087,
   },
   {
@@ -213,11 +202,9 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'civilian_compliment_count': 0,
     'resignation_date': '2012-01-15',
     'appointed_date': '1978-02-27',
-    'percentile': {
-      'percentile_trr': '0.0000',
-      'percentile_allegation_civilian': '85.1838',
-      'percentile_allegation_internal': '0.0000',
-    },
+    'percentile_trr': '0.0000',
+    'percentile_allegation_civilian': '85.1838',
+    'percentile_allegation_internal': '0.0000',
     'honorable_mention_percentile': 0.0,
   },
   {
@@ -241,11 +228,9 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'discipline_count': 12,
     'civilian_compliment_count': 43,
     'appointed_date': '1986-07-14',
-    'percentile': {
-      'percentile_trr': '94.8712',
-      'percentile_allegation_civilian': '99.6612',
-      'percentile_allegation_internal': '61.1521',
-    },
+    'percentile_trr': '94.8712',
+    'percentile_allegation_civilian': '99.6612',
+    'percentile_allegation_internal': '61.1521',
     'honorable_mention_percentile': 80.0466,
   },
   {
@@ -269,7 +254,6 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'civilian_compliment_count': 0,
     'resignation_date': '1999-02-05',
     'appointed_date': '1969-11-03',
-    'percentile': {},
     'honorable_mention_percentile': 0.0,
   },
   {
@@ -294,11 +278,9 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'civilian_compliment_count': 1,
     'resignation_date': '2017-02-14',
     'appointed_date': '1990-03-26',
-    'percentile': {
-      'percentile_trr': '75.2071',
-      'percentile_allegation_civilian': '96.1830',
-      'percentile_allegation_internal': '88.3297',
-    },
+    'percentile_trr': '75.2071',
+    'percentile_allegation_civilian': '96.1830',
+    'percentile_allegation_internal': '88.3297',
     'honorable_mention_percentile': 78.342,
   },
   {
@@ -322,10 +304,8 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'civilian_compliment_count': 0,
     'resignation_date': '2003-09-15',
     'appointed_date': '1976-03-08',
-    'percentile': {
-      'percentile_allegation_civilian': '0.0000',
-      'percentile_allegation_internal': '0.0000',
-    },
+    'percentile_allegation_civilian': '0.0000',
+    'percentile_allegation_internal': '0.0000',
     'honorable_mention_percentile': 0.0,
   },
   {
@@ -349,11 +329,9 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'discipline_count': 0,
     'civilian_compliment_count': 5,
     'appointed_date': '1991-02-27',
-    'percentile': {
-      'percentile_trr': '0.0000',
-      'percentile_allegation_civilian': '92.1417',
-      'percentile_allegation_internal': '61.1521',
-    },
+    'percentile_trr': '0.0000',
+    'percentile_allegation_civilian': '92.1417',
+    'percentile_allegation_internal': '61.1521',
     'honorable_mention_percentile': 68.1146,
   },
   {
@@ -377,11 +355,9 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'civilian_compliment_count': 1,
     'resignation_date': '2009-01-15',
     'appointed_date': '1977-04-04',
-    'percentile': {
-      'percentile_trr': '0.0000',
-      'percentile_allegation_civilian': '30.7374',
-      'percentile_allegation_internal': '0.0000',
-    },
+    'percentile_trr': '0.0000',
+    'percentile_allegation_civilian': '30.7374',
+    'percentile_allegation_internal': '0.0000',
     'honorable_mention_percentile': 55.4155,
   },
   {
@@ -405,7 +381,6 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'civilian_compliment_count': 0,
     'resignation_date': '1994-09-28',
     'appointed_date': '1978-02-27',
-    'percentile': {},
     'honorable_mention_percentile': 0.0,
   },
   {
@@ -429,11 +404,9 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'discipline_count': 2,
     'civilian_compliment_count': 3,
     'appointed_date': '1994-05-31',
-    'percentile': {
-      'percentile_trr': '0.0000',
-      'percentile_allegation_civilian': '94.1100',
-      'percentile_allegation_internal': '61.1521',
-    },
+    'percentile_trr': '0.0000',
+    'percentile_allegation_civilian': '94.1100',
+    'percentile_allegation_internal': '61.1521',
     'honorable_mention_percentile': 75.8385,
   },
   {
@@ -457,11 +430,9 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'discipline_count': 0,
     'civilian_compliment_count': 2,
     'appointed_date': '1995-08-07',
-    'percentile': {
-      'percentile_trr': '91.2913',
-      'percentile_allegation_civilian': '95.0419',
-      'percentile_allegation_internal': '61.1521',
-    },
+    'percentile_trr': '91.2913',
+    'percentile_allegation_civilian': '95.0419',
+    'percentile_allegation_internal': '61.1521',
     'honorable_mention_percentile': 96.5424,
   },
   {
@@ -485,11 +456,9 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'civilian_compliment_count': 1,
     'resignation_date': '2009-11-15',
     'appointed_date': '1980-09-29',
-    'percentile': {
-      'percentile_trr': '0.0000',
-      'percentile_allegation_civilian': '30.3789',
-      'percentile_allegation_internal': '0.0000',
-    },
+    'percentile_trr': '0.0000',
+    'percentile_allegation_civilian': '30.3789',
+    'percentile_allegation_internal': '0.0000',
     'honorable_mention_percentile': 56.7008,
   },
   {
@@ -513,10 +482,8 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'civilian_compliment_count': 0,
     'resignation_date': '2004-09-24',
     'appointed_date': '1995-12-04',
-    'percentile': {
-      'percentile_allegation_civilian': '0.0000',
-      'percentile_allegation_internal': '89.7816',
-    },
+    'percentile_allegation_civilian': '0.0000',
+    'percentile_allegation_internal': '89.7816',
     'honorable_mention_percentile': 0.0,
   },
   {
@@ -540,10 +507,8 @@ export const getDefaultSocialGraphOfficersData = () => ([
     'civilian_compliment_count': 0,
     'resignation_date': '2003-01-15',
     'appointed_date': '1978-12-11',
-    'percentile': {
-      'percentile_allegation_civilian': '59.8787',
-      'percentile_allegation_internal': '99.3352',
-    },
+    'percentile_allegation_civilian': '59.8787',
+    'percentile_allegation_internal': '99.3352',
     'honorable_mention_percentile': 0.0,
   },
 ]);

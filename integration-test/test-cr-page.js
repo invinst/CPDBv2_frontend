@@ -57,9 +57,19 @@ describe('CR page', function () {
     crPage.accusedOfficers.showMoreButton.isDisplayed().should.be.false();
   });
 
+  it('should render correct radar color of accused officers', function () {
+    crPage.accusedOfficers.firstRadarChart
+      .getCSSProperty('background-color').value.should.eql('rgba(245,37,36,1)');
+  });
+
   it('should navigate to officer page when we click on accused officer card', function () {
     crPage.accusedOfficers.firstCard.mainElement.click();
     browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/$/);
+  });
+
+  it('should render correct radar color of investigator item', function () {
+    crPage.investigator.firstRadarChart
+      .getCSSProperty('background-color').value.should.eql('rgba(255,100,83,1)');
   });
 
   it('should navigate to officer page when we click on investigator item', function () {
@@ -70,6 +80,11 @@ describe('CR page', function () {
   it('should navigate to officer page when we click on investigator item which does not link to officer', function () {
     crPage.investigator.secondItem.click();
     browser.getUrl().should.containEql('/search/?terms=Edward%20May');
+  });
+
+  it('should render correct radar color of police witness item', function () {
+    crPage.policeWitness.firstRadarChart
+      .getCSSProperty('background-color').value.should.eql('rgba(245,37,36,1)');
   });
 
   it('should navigate to officer page when we click on police witness item', function () {

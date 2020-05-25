@@ -22,7 +22,7 @@ describe('OfficerCard component', function () {
         visualTokenBackgroundColor='red'
         complaintCount={ 10 }
         sustainedCount={ 5 }
-        complaintPercentile={ 20 }
+        allegationPercentile={ 20 }
         age='37-year-old'
         race='white'
         gender='male'

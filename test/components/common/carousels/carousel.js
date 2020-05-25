@@ -35,7 +35,7 @@ describe('Carousel component', function () {
       'complaintCount': 13,
       'sustainedCount': 0,
       'birthYear': 1974,
-      'complaintPercentile': 84.5,
+      'allegationPercentile': 84.5,
       'race': 'Hispanic',
       'gender': 'Male',
     }, {
@@ -44,7 +44,7 @@ describe('Carousel component', function () {
       'complaintCount': 55,
       'sustainedCount': 22,
       'birthYear': 1979,
-      'complaintPercentile': 94.5,
+      'allegationPercentile': 94.5,
       'race': 'White',
       'gender': 'Male',
     }];

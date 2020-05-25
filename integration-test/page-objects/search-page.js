@@ -17,6 +17,7 @@ class OfficerPreviewPaneSection extends Section {
       pinButton: '//div[starts-with(@class, "preview-pane")]//*[contains(@class,"pin-button")]',
       viewOfficerButton: '.view-officer-profile-button',
       unitItem: 'li.has-link',
+      radarChart: '//div[starts-with(@class, "preview-pane")]//*[name()="svg" and contains(@class, "radar")]',
     });
   }
 }
@@ -26,6 +27,8 @@ class RankPreviewPaneSection extends Section {
     super();
     this.prepareElementGetters({
       previewPane: '//div[starts-with(@class, "preview-pane")]',
+      firstOfficerRadarChart: '//div[starts-with(@class, "preview-pane")]' +
+        '//ul//*[name()="svg" and contains(@class, "radar")]',
       listMostOfficers: '//*[starts-with(@class, "preview-pane")]//*[contains(@class,"list-widget-item-link")]',
     });
   }
@@ -49,6 +52,8 @@ class CRPreviewPaneSection extends Section {
       secondVictim: '//div[contains(@class, "demographic__demographic")][2]',
       accusedText: '.list-widget-header',
       accusedOfficers: '//*[contains(@class, "list-widget-item-link")]',
+      firstAccusedOfficerRadarChart: '//div[starts-with(@class, "preview-pane")]' +
+        '//ul//*[name()="svg" and contains(@class, "radar")]',
     });
   }
 }
@@ -66,6 +71,8 @@ class TRRPreviewPaneSection extends Section {
       officerLink: '//*[contains(@class, "list-widget-item-link")]',
       officerName: '.list-widget-list-item-name',
       officerAllegationCount: '.list-widget-list-item-count',
+      firstOfficerAllegationRadarChart: '//div[starts-with(@class, "preview-pane")]' +
+        '//ul//*[name()="svg" and contains(@class, "radar")]',
     });
   }
 }

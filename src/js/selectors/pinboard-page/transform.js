@@ -1,6 +1,6 @@
 import { first, last, includes } from 'lodash';
 
-import { extractPercentile } from 'selectors/common/percentile';
+import { extractLatestPercentile } from 'selectors/common/percentile';
 import { formatDate } from 'utils/date';
 
 const SHORT_NAME_MAX_LEN = 16;
@@ -22,7 +22,7 @@ const officerTransform = officer => {
     id: officer.id,
     fullName: officer['full_name'],
     shortName,
-    percentile: extractPercentile(officer.percentile),
+    percentile: extractLatestPercentile(officer),
   };
 };
 
@@ -49,7 +49,7 @@ export const relevantCoaccusalTransform = (coaccusal, updatingItem={}) => ({
   fullName: coaccusal['full_name'],
   coaccusalCount: coaccusal['coaccusal_count'],
   complaintCount: coaccusal['allegation_count'],
-  percentile: extractPercentile(coaccusal.percentile),
+  percentile: extractLatestPercentile(coaccusal),
   isPinStatusChanging: updatingItem.type === 'OFFICER' && updatingItem.id.toString() === coaccusal.id.toString(),
   rawData: coaccusal,
 });

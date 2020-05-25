@@ -64,7 +64,6 @@ describe('CR page selectors', function () {
         'full_name': 'Michel Foo',
         'complaint_count': 15,
         'sustained_count': 1,
-        'complaint_percentile': 59.0,
         'birth_year': 1977,
         race: 'White',
         gender: 'Male',
@@ -75,13 +74,10 @@ describe('CR page selectors', function () {
         'recommended_outcome': '365 Day Suspension',
         'disciplined': true,
         'category': 'Operations/Personnel Violation',
-        'percentile': {
-          'year': 2007,
-          'percentile_allegation': '91.5',
-          'percentile_allegation_civilian': '97.0',
-          'percentile_allegation_internal': '82.0',
-          'percentile_trr': '92.3',
-        },
+        'percentile_allegation': '91.5000',
+        'percentile_allegation_civilian': '97.0000',
+        'percentile_allegation_internal': '82.0000',
+        'percentile_trr': '92.3000',
       };
       const state = buildState({
         crs: { '123': { coaccused: [coaccusedObj] } },
@@ -94,7 +90,7 @@ describe('CR page selectors', function () {
         fullName: 'Michel Foo',
         complaintCount: 15,
         sustainedCount: 1,
-        complaintPercentile: 59.0,
+        allegationPercentile: 91.5,
         age: '40-year-old',
         race: 'white',
         gender: 'male',
@@ -123,7 +119,6 @@ describe('CR page selectors', function () {
           ],
           textColor: '#DFDFDF',
           visualTokenBackground: '#F52524',
-          year: 2007,
         },
         isPinned: false,
       }]);

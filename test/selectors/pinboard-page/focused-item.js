@@ -67,11 +67,10 @@ describe('focusedItem selectors', function () {
         appointedDate: 'DEC 13, 1999',
         badge: '5922',
         complaintCount: 10,
-        complaintPercentile: 93,
+        allegationPercentile: 93,
         civilianComplimentCount: 4,
         gender: 'Male',
         lastPercentile: {
-          year: undefined,
           items: [
             { axis: 'Use of Force Reports', value: 90 },
             { axis: 'Officer Allegations', value: 91 },

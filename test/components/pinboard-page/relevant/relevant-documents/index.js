@@ -16,7 +16,6 @@ describe('RelevantDocuments component', function () {
       percentile: {
         textColor: '#DFDFDF',
         visualTokenBackground: '#f0201e',
-        year: 2016,
         items: [
           { axis: 'Use of Force Reports', value: 63.0035 },
           { axis: 'Officer Allegations', value: 88.3297 },
@@ -30,7 +29,6 @@ describe('RelevantDocuments component', function () {
       percentile: {
         textColor: '#DFDFDF',
         visualTokenBackground: '#f0201e',
-        year: 2016,
         items: [
           { axis: 'Use of Force Reports', value: 78.2707 },
           { axis: 'Officer Allegations', value: 0 },
@@ -44,7 +42,6 @@ describe('RelevantDocuments component', function () {
       percentile: {
         textColor: '#DFDFDF',
         visualTokenBackground: '#F52524',
-        year: 2016,
         items: [
           { axis: 'Use of Force Reports', value: 84.1654 },
           { axis: 'Officer Allegations', value: 0 },
