@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import HeaderPinButton from 'components/common/pinboard/header-pin-button';
 import { isOfficerPinnedSelector, pinnableOfficerSelector } from 'selectors/officer-page';
 import { showSelectPinboardsSelector } from 'selectors/common/pinboards';
-import { fetchPinboard, createPinboard, addOrRemoveItemInPinboard } from 'actions/pinboard';
+import { fetchPinboard, createNewPinboard, addOrRemoveItemInPinboard } from 'actions/pinboard';
 import { officerPinboardsMenuSelector } from 'selectors/officer-page/pinboards-menu';
 
 
@@ -19,7 +19,7 @@ function mapStateToProps(state, ownProps) {
 
 const mapDispatchToProps = {
   addOrRemoveItemInPinboard,
-  createPinboard,
+  createPinboard: createNewPinboard,
   fetchPinboard,
 };
 

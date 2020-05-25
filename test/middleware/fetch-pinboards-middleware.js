@@ -4,7 +4,6 @@ import { LOCATION_CHANGE } from 'connected-react-router';
 
 import {
   PINBOARD_FETCH_REQUEST_SUCCESS,
-  PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_SUCCESS,
   PINBOARD_CREATE_REQUEST_SUCCESS,
 } from 'utils/constants';
 import fetchPinboardsMiddleware from 'middleware/fetch-pinboards-middleware';
@@ -32,25 +31,17 @@ describe('fetchPinboardsMiddleware', function () {
   });
 
   context('on pinboard page', function () {
-    const FETCH_PINBOARDS_ACTIONS = [
-      PINBOARD_FETCH_REQUEST_SUCCESS,
-      PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_SUCCESS,
-      PINBOARD_CREATE_REQUEST_SUCCESS,
-    ];
-
     context('on /pinboard/f27ab3/untitled-pinboard/', function () {
       beforeEach(function () {
         browserHistory.location = { pathname: '/pinboard/f27ab3/untitled-pinboard/' };
       });
 
-      FETCH_PINBOARDS_ACTIONS.forEach(actionType => (
-        it(`should fetch pinboards on ${actionType}`, function () {
-          const action = { type: actionType };
-          fetchPinboardsMiddleware(store)(() => {})(action);
-          pinboardPageActions.fetchPinboards.should.be.calledOnce();
-          store.dispatch.should.be.calledOnce();
-        })
-      ));
+      it('should fetch pinboards on LOCATION_CHANGE', function () {
+        const action = { type: LOCATION_CHANGE };
+        fetchPinboardsMiddleware(store)(() => {})(action);
+        pinboardPageActions.fetchPinboards.should.be.calledOnce();
+        store.dispatch.should.be.calledOnce();
+      });
     });
 
     context('on /pinboard/', function () {
@@ -58,14 +49,12 @@ describe('fetchPinboardsMiddleware', function () {
         browserHistory.location = { pathname: '/pinboard/' };
       });
 
-      FETCH_PINBOARDS_ACTIONS.forEach(actionType => (
-        it(`should not fetch pinboards on ${actionType}`, function () {
-          const action = { type: actionType };
-          fetchPinboardsMiddleware(store)(() => {})(action);
-          pinboardPageActions.fetchPinboards.should.not.be.called();
-          store.dispatch.should.not.be.called();
-        })
-      ));
+      it('should not fetch pinboards on LOCATION_CHANGE', function () {
+        const action = { type: LOCATION_CHANGE };
+        fetchPinboardsMiddleware(store)(() => {})(action);
+        pinboardPageActions.fetchPinboards.should.not.be.called();
+        store.dispatch.should.not.be.called();
+      });
     });
   });
 
