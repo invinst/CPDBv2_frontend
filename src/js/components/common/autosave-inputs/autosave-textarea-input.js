@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { noop } from 'lodash';
+import { noop, trim } from 'lodash';
 
 
 export default class AutosaveTextareaInput extends Component {
@@ -31,8 +31,12 @@ export default class AutosaveTextareaInput extends Component {
     const { save, fieldType, value, onBlur } = this.props;
     const { currentValue } = this.state;
 
-    if (save && currentValue !== value) {
-      save({ attr: fieldType, value: currentValue });
+    const formattedValue = trim(currentValue, '\n ');
+    if (formattedValue !== currentValue) {
+      this.setState({ currentValue: formattedValue }, this.handleResize);
+    }
+    if (save && formattedValue !== value) {
+      save({ attr: fieldType, value: formattedValue });
     }
 
     onBlur && onBlur();
