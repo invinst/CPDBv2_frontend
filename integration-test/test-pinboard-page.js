@@ -53,6 +53,7 @@ describe('Pinboard Page', function () {
       officers.firstCardRank.getText().should.equal('Police Officer');
       officers.firstCardName.getText().should.equal('Daryl Mack');
       officers.firstCardCRsCount.getText().should.equal('10 complaints');
+      officers.firstCardRadarChart.getCSSProperty('background-color').value.should.eql('rgba(245,37,36,1)');
 
       const crs = pinboardPage.pinnedSection.crs;
       crs.crCards().should.have.length(1);
@@ -99,6 +100,8 @@ describe('Pinboard Page', function () {
       pinboardPage.officerPreviewPane.honorableMentionDescription.getText().should.equal(
         'More than 88% of other officers'
       );
+      pinboardPage.officerPreviewPane.radarChart
+        .getCSSProperty('background-color').value.should.eql('rgba(245,37,36,1)');
     });
 
     it('should show undo card when click on pin button in officer preview pane', function () {
@@ -115,6 +118,8 @@ describe('Pinboard Page', function () {
       pinboardPage.previewPane.trrTitle.getText().should.equal('Impact Weapon');
       pinboardPage.previewPane.trrFirstInfo.getText().should.equal('Jan 01, 2012');
       pinboardPage.previewPane.trrSecondInfo.getText().should.equal('14XX W 63RD ST, CHICAGO IL 60636');
+      pinboardPage.previewPane.trrOfficerRadarChart
+        .getCSSProperty('background-color').value.should.eql('rgba(245,37,36,1)');
     });
 
     it('should redirect to TRR page when click on TRR preview pane', function () {
@@ -308,6 +313,8 @@ describe('Pinboard Page', function () {
       const firstCoaccusalCard = pinboardPage.relevantCoaccusalsSection.coaccusalCardSection;
       firstCoaccusalCard.plusButton.waitForExist(1000);
       firstCoaccusalCard.radarChart.waitForExist(1000);
+      firstCoaccusalCard.radarChart
+        .getCSSProperty('background-color').value.should.eql('rgba(249,211,195,1)');
       firstCoaccusalCard.officerRank.getText().should.equal('Detective');
       firstCoaccusalCard.officerName.getText().should.equal('Richard Sullivan');
       firstCoaccusalCard.coaccusalCount.getText().should.equal('53 coaccusals');
@@ -425,6 +432,8 @@ describe('Pinboard Page', function () {
       firstDocumentCard.firstTopOfficerName.getText().should.equal('R. Sullivan');
       firstDocumentCard.secondTopOfficerName.getText().should.equal('B. Lopez');
       firstDocumentCard.notShowingOfficerCount.getText().should.equal('3+');
+      firstDocumentCard.firstTopRadarChart
+        .getCSSProperty('background-color').value.should.eql('rgba(249,211,195,1)');
     });
 
     it('should request more when clicking on right arrow', function () {
@@ -500,6 +509,8 @@ describe('Pinboard Page', function () {
       firstComplaintCard.firstTopOfficerName.getText().should.equal('R. Sullivan');
       firstComplaintCard.secondTopOfficerName.getText().should.equal('B. Lopez');
       firstComplaintCard.notShowingOfficerCount.getText().should.equal('3+');
+      firstComplaintCard.firstTopRadarChart
+        .getCSSProperty('background-color').value.should.eql('rgba(249,211,195,1)');
     });
 
     it('should request more when clicking on right arrow', function () {

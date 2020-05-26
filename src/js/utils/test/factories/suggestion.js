@@ -25,12 +25,10 @@ export const RawOfficerSuggestion = Factory.define('RawOfficerSuggestion')
   .attr('major_award_count', 0)
   .attr('honorable_mention_count', 0)
   .attr('honorable_mention_percentile', 10.01)
-  .attr('percentiles', [{
-    'percentile_trr': '90',
-    'percentile_allegation_civilian': '92',
-    'percentile_allegation': '93',
-    'percentile_allegation_internal': '91',
-  }]);
+  .attr('percentile_trr', '90.0000')
+  .attr('percentile_allegation_civilian', '92.0000')
+  .attr('percentile_allegation', '93.0000')
+  .attr('percentile_allegation_internal', '91.0000');
 
 /* istanbul ignore next */
 export const RawCRSuggestion = Factory.define('RawCRSuggestion')
@@ -80,7 +78,15 @@ export const RawRankSuggestion = Factory.define('RankSuggestion')
   .attr('id', ['name'], name => name)
   .attr('active_officers_count', null, () => random.number())
   .attr('officers_most_complaints', null, [
-    { id: 1, count: 2, name: 'Hulk' },
+    {
+      id: 1,
+      count: 2,
+      name: 'Hulk',
+      'percentile_allegation': '99.9751',
+      'percentile_trr': '64.3694',
+      'percentile_allegation_civilian': '99.9778',
+      'percentile_allegation_internal': '99.8056',
+    },
     { id: 2, count: 1, name: 'Peter Parker' },
   ]);
 

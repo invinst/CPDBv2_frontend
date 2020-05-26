@@ -13,7 +13,7 @@ import { officerPath } from 'utils/paths';
 import { officerTransform } from 'selectors/common/preview-pane-transforms';
 import { NETWORK_PREVIEW_PANE } from 'utils/constants';
 import { getDemographicString } from 'utils/victims';
-import { extractPercentile } from 'selectors/common/percentile';
+import { extractLatestPercentile } from 'selectors/common/percentile';
 
 
 export const edgeOfficersSelector = createSelector(
@@ -41,7 +41,7 @@ export const officerDetailTransform = officer => {
 };
 
 export const accusedTransform = coaccused => {
-  const percentile = extractPercentile(coaccused.percentile);
+  const percentile = extractLatestPercentile(coaccused);
   return {
     id: coaccused.id,
     name: coaccused['full_name'],

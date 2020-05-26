@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 import { compact, startCase, toLower } from 'lodash';
 
 import { getCurrentAge, getCareerDuration, formatDate } from 'utils/date';
-import { extractPercentile } from 'selectors/common/percentile';
+import { extractLatestPercentile } from 'selectors/common/percentile';
 
 
 export const getTRRId = state => String(state.trrPage.trrId);
@@ -32,7 +32,7 @@ const officerTransform = (officer) => ({
   race: officer.race,
   gender: officer.gender,
   careerDuration: getCareerDuration(officer['appointed_date'], officer['date_of_resignation']),
-  percentile: extractPercentile(officer),
+  percentile: extractLatestPercentile(officer),
 });
 
 export const trrDetailSelector = createSelector(
