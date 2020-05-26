@@ -18,6 +18,7 @@ class RecentActivityCarouselSection extends CarouselSection {
     );
     this.prepareElementGetters({
       firstCard: '//div[contains(@class, "test--carousel--item")][1]//div[1]',
+      firstRadarChart: '(//a[contains(@class, "officer-card__officer-card")][1])//*[name()="svg"][1]',
       pairCards: '//div[contains(@class, "pairing-card__pairing-card")]',
       firstPairCard: '(//div[contains(@class, "pairing-card__pairing-card")])[1]',
       firstPairCardLeftHalf: '(//div[contains(@class, "pairing-card__pairing-card")])[1]' +
@@ -41,6 +42,8 @@ class RecentActivityCarouselSection extends CarouselSection {
 }
 
 class OfficersByAllegationCarouselSection extends CarouselSection {
+  carouselSelector = '.test--landing-carousel-allegation > div:nth-child(2)';
+
   constructor() {
     const cardSelector = '//a[contains(@class, "officer-card")]';
     super(
@@ -55,7 +58,17 @@ class OfficersByAllegationCarouselSection extends CarouselSection {
         '[.//p[contains(@class, "officer-card-name") and text()="Edward May"]]' +
         '//div[contains(@class, "item-pin-button__item-pin-button")]'
       ),
+      edwardMayRadarChart: (
+        cardSelector +
+          '//p[contains(@class, "officer-card-name") and text()="Edward May"]' +
+          '/../../../..//*[name()="svg" and contains(@class, "radar")]'
+      ),
     });
+  }
+
+  getNthCardSelector(index) {
+    return $('(//div[@class="test--landing-carousel-allegation landing-page-carousel"]' +
+      `//a[contains(@class, "officer-card")])[${index}]`);
   }
 }
 

@@ -1,7 +1,7 @@
 import { isEmpty, sortBy, indexOf } from 'lodash';
 import { createSelector } from 'reselect';
 
-import { extractPercentile } from 'selectors/common/percentile';
+import { extractLatestPercentile } from 'selectors/common/percentile';
 
 const getNetworkOfficers = state => state.socialGraphPage.networkData.networkOfficers;
 export const getNetworkOfficersRequesting = state => state.socialGraphPage.networkData.networkOfficersRequesting;
@@ -9,7 +9,7 @@ export const getNetworkOfficersRequesting = state => state.socialGraphPage.netwo
 export const officerDetailTransform = officer => ({
   id: officer['id'],
   fullName: officer['full_name'],
-  percentile: extractPercentile(officer['percentile']),
+  percentile: extractLatestPercentile(officer),
 });
 
 export const sortedNetworkOfficersSelector = createSelector(

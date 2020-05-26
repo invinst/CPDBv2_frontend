@@ -32,14 +32,10 @@ describe('networkOfficers reducer', function () {
         'trr_count': 7,
         'major_award_count': 15,
         'honorable_mention_count': 12,
-        'percentile': {
-          'officer_id': 123,
-          'year': 2017,
-          'percentile_allegation': '95',
-          'percentile_trr': '90',
-          'percentile_allegation_civilian': '97.0',
-          'percentile_allegation_internal': '82.0',
-        },
+        'percentile_allegation': '95',
+        'percentile_trr': '90',
+        'percentile_allegation_civilian': '97.0',
+        'percentile_allegation_internal': '82.0',
         'honorable_mention_percentile': '70',
       },
     ];

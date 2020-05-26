@@ -24,6 +24,7 @@ export const RawTRROfficerFactory = Factory.define('RawTRROfficerFactory')
     'unit_name': '001',
     'description': 'Targeted Response Unit',
   })
+  .attr('percentile_allegation', percentileGenerator)
   .attr('percentile_allegation_civilian', percentileGenerator)
   .attr('percentile_allegation_internal', percentileGenerator)
   .attr('percentile_trr', percentileGenerator)

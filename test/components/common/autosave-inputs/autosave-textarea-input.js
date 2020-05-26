@@ -21,26 +21,56 @@ describe('AutosaveTextareaInput component', function () {
     addEventListenerStub.should.be.calledWith('resize', instance.handleResize);
   });
 
-  it('should trigger onBlur on blur', function () {
-    const saveStub = stub();
-    const onBlurStub = stub();
-    const wrapper = shallow(
-      <AutosaveTextareaInput
-        textareaLineHeight={ 16 }
-        fieldType='description'
-        onBlur={ onBlurStub }
-        save={ saveStub }
-        value='value'
-      />,
-      { disableLifecycleMethods: true },
-    );
-    const inputElement = wrapper.find('textarea');
-    inputElement.simulate('change', { target: { value: 'New Description' } });
-    inputElement.simulate('blur');
+  describe('onBlur', function () {
+    context('input text has trailing spaces', function () {
+      it('should trigger onBlur on blur', function () {
+        const saveStub = stub();
+        const onBlurStub = stub();
+        const wrapper = shallow(
+          <AutosaveTextareaInput
+            textareaLineHeight={ 16 }
+            fieldType='description'
+            onBlur={ onBlurStub }
+            save={ saveStub }
+            value='value'
+          />,
+          { disableLifecycleMethods: true },
+        );
+        const handleResizeSpy = spy(wrapper.instance(), 'handleResize');
+        const inputElement = wrapper.find('textarea');
+        inputElement.simulate('change', { target: { value: '\n  \n\nNew Description\n \n   \n   ' } });
+        inputElement.simulate('blur');
 
-    saveStub.should.be.calledOnce();
-    saveStub.should.be.calledWith({ attr: 'description', value: 'New Description' });
-    onBlurStub.should.be.called();
+        saveStub.should.be.calledOnce();
+        saveStub.should.be.calledWith({ attr: 'description', value: 'New Description' });
+        onBlurStub.should.be.called();
+        handleResizeSpy.should.be.calledOnce();
+      });
+    });
+
+    context('input text does not have trailing space', function () {
+      const saveStub = stub();
+      const onBlurStub = stub();
+      const wrapper = shallow(
+        <AutosaveTextareaInput
+          textareaLineHeight={ 16 }
+          fieldType='description'
+          onBlur={ onBlurStub }
+          save={ saveStub }
+          value='value'
+        />,
+        { disableLifecycleMethods: true },
+      );
+      const handleResizeSpy = spy(wrapper.instance(), 'handleResize');
+      const inputElement = wrapper.find('textarea');
+      inputElement.simulate('change', { target: { value: 'New Description' } });
+      inputElement.simulate('blur');
+
+      saveStub.should.be.calledOnce();
+      saveStub.should.be.calledWith({ attr: 'description', value: 'New Description' });
+      onBlurStub.should.be.called();
+      handleResizeSpy.should.not.be.called();
+    });
   });
 
   it('should trigger onChange on input change', function () {

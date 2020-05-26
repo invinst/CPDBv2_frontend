@@ -1,12 +1,12 @@
 import { kebabCase, map, compact } from 'lodash';
 
 import { getDemographicString } from 'utils/victims';
-import { extractPercentile } from './percentile';
+import { extractLatestPercentile } from './percentile';
 import moment from 'moment/moment';
 
 
 const accusedTransform = coaccused => {
-  const percentile = extractPercentile(coaccused.percentile);
+  const percentile = extractLatestPercentile(coaccused);
   return {
     id: coaccused.id,
     name: coaccused['full_name'],

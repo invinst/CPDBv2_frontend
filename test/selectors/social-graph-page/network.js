@@ -61,22 +61,18 @@ describe('Social Graph page selectors', function () {
                 {
                   'full_name': 'Jerome Finnigan',
                   'id': 1,
-                  'percentile': {
-                    'percentile_trr': '78.2707',
-                    'percentile_allegation_civilian': '97.8772',
-                    'percentile_allegation_internal': '61.1521',
-                    'percentile_allegation': '98.66',
-                  },
+                  'percentile_trr': '78.2707',
+                  'percentile_allegation_civilian': '97.8772',
+                  'percentile_allegation_internal': '61.1521',
+                  'percentile_allegation': '98.66',
                 },
                 {
                   'full_name': 'Edward May',
                   'id': 2,
-                  'percentile': {
-                    'percentile_trr': '80',
-                    'percentile_allegation_civilian': '85',
-                    'percentile_allegation_internal': '90',
-                    'percentile_allegation': '93',
-                  },
+                  'percentile_trr': '80',
+                  'percentile_allegation_civilian': '85',
+                  'percentile_allegation_internal': '90',
+                  'percentile_allegation': '93',
                 },
               ],
               'coaccused_data': [

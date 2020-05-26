@@ -147,7 +147,7 @@ describe('Officer map selectors', function () {
               id: 112,
               description: 'Mobile Strike Force',
             },
-            'complaint_percentile': 99.98,
+            'percentile_allegation': '99.9800',
             'major_award_count': 0,
             'date_of_appt': '1988-12-05',
             'unsustained_count': 36,

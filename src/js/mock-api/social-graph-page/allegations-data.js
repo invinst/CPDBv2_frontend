@@ -9,6 +9,25 @@ export const getDefaultSocialGraphAllegationsData = () => ([
       2675,
       24157,
     ],
+    'coaccused': [
+      {
+        'percentile_allegation': '99.9299',
+        'percentile_trr': '60.1740',
+        'percentile_allegation_civilian': '99.6746',
+        'percentile_allegation_internal': '99.9228',
+        'id': 21837,
+        'full_name': 'Joe Parker',
+        'allegation_count': 137,
+      },
+      {
+        'percentile_allegation': '88.6732',
+        'percentile_allegation_civilian': '64.4032',
+        'percentile_allegation_internal': '94.4927',
+        'id': 14732,
+        'full_name': 'Charles Kirk',
+        'allegation_count': 27,
+      },
+    ],
   },
   {
     'crid': 'C182480',

@@ -326,9 +326,8 @@ describe('NetworkGraph component', function () {
         honorableMentionCount: 12,
         honorableMentionPercentile: 70,
         trrPercentile: 90,
-        complaintPercentile: 95,
+        allegationPercentile: 95,
         lastPercentile: {
-          year: 2017,
           items: [
             { axis: 'Use of Force Reports', value: 90 },
             { axis: 'Officer Allegations', value: 82 },
@@ -499,9 +498,8 @@ describe('NetworkGraph component', function () {
         honorableMentionCount: 12,
         honorableMentionPercentile: 70,
         trrPercentile: 90,
-        complaintPercentile: 95,
+        allegationPercentile: 95,
         lastPercentile: {
-          year: 2017,
           items: [
             { axis: 'Use of Force Reports', value: 90 },
             { axis: 'Officer Allegations', value: 82 },
@@ -547,20 +545,16 @@ describe('NetworkGraph component', function () {
               {
                 'full_name': 'Jerome Finnigan',
                 'id': 1,
-                'percentile': {
-                  'percentile_trr': '78.2707',
-                  'percentile_allegation_civilian': '97.8772',
-                  'percentile_allegation_internal': '61.1521',
-                },
+                'percentile_trr': '78.2707',
+                'percentile_allegation_civilian': '97.8772',
+                'percentile_allegation_internal': '61.1521',
               },
               {
                 'full_name': 'Edward May',
                 'id': 2,
-                'percentile': {
-                  'percentile_trr': '78.2707',
-                  'percentile_allegation_civilian': '97.8772',
-                  'percentile_allegation_internal': '61.1521',
-                },
+                'percentile_trr': '78.2707',
+                'percentile_allegation_civilian': '97.8772',
+                'percentile_allegation_internal': '61.1521',
               },
             ],
             'coaccused_data': [

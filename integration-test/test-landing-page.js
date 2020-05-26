@@ -188,6 +188,8 @@ describe('landing page', function () {
   describe('Recent Activity carousel', function () {
     it('should show initial carousel', function () {
       landingPage.recentActivityCarousel.cards.count.should.equal(2);
+      landingPage.recentActivityCarousel.firstRadarChart
+        .getCSSProperty('background-color').value.should.eql('rgba(245,37,36,1)');
       landingPage.recentActivityCarousel.rightArrow.waitForDisplayed();
       landingPage.recentActivityCarousel.leftArrow.waitForDisplayed(2000, true);
     });
@@ -241,6 +243,8 @@ describe('landing page', function () {
   describe('Officers By Allegation carousel', function () {
     it('should show initial carousel', function () {
       landingPage.officersByAllegationCarousel.cards.count.should.equal(48);
+      landingPage.officersByAllegationCarousel.edwardMayRadarChart
+        .getCSSProperty('background-color').value.should.eql('rgba(245,37,36,1)');
       landingPage.officersByAllegationCarousel.rightArrow.waitForDisplayed();
       landingPage.officersByAllegationCarousel.leftArrow.waitForDisplayed(2000, true);
     });
@@ -249,6 +253,25 @@ describe('landing page', function () {
       const firstCard = landingPage.officersByAllegationCarousel.cards;
       firstCard.click();
       browser.waitForUrl(url => url.should.match(/\/officer\/\d+\/[-a-z]+\/?$/), 500);
+    });
+
+    it('should be able to navigate using scroll', function () {
+      const forthCard = landingPage.officersByAllegationCarousel.getNthCardSelector(4);
+      const carouselSelector = landingPage.officersByAllegationCarousel.carouselSelector;
+      landingPage.officersByAllegationCarousel.rightArrow.waitForDisplayed();
+      forthCard.isDisplayedInViewport().should.be.false();
+
+      browser.simulateMouseWheel(carouselSelector, 0, 10);
+      browser.pause(1000);
+      forthCard.isDisplayedInViewport().should.be.false();
+
+      browser.simulateMouseWheel(carouselSelector, 10, 0);
+      browser.pause(1000);
+      forthCard.isDisplayedInViewport().should.be.true();
+
+      browser.simulateMouseWheel(carouselSelector, -10, 0);
+      browser.pause(1000);
+      forthCard.isDisplayedInViewport().should.be.false();
     });
   });
 

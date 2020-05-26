@@ -1,7 +1,7 @@
-import { get, sumBy, map, last, kebabCase, has, isEmpty, compact } from 'lodash';
+import { get, sumBy, map, kebabCase, has, isEmpty, compact } from 'lodash';
 import moment from 'moment';
 
-import { extractPercentile } from 'selectors/common/percentile';
+import { extractLatestPercentile } from 'selectors/common/percentile';
 import { formatDate, getCurrentAgeString } from 'utils/date';
 import { roundedPercentile } from 'utils/calculations';
 import { DATE_FORMAT, FULL_MONTH_DATE_FORMAT } from 'utils/constants';
@@ -30,7 +30,7 @@ export const previewPaneTransform = item => {
 };
 
 export const officerMostComplaintTransform = officer => {
-  const percentile = extractPercentile(officer);
+  const percentile = extractLatestPercentile(officer);
   return {
     id: officer.id,
     count: officer.count,
@@ -80,7 +80,7 @@ const rankTransform = item => {
 };
 
 const accusedTransform = coaccused => {
-  const percentile = extractPercentile(coaccused.percentile);
+  const percentile = extractLatestPercentile(coaccused);
   return {
     id: coaccused.id,
     name: coaccused['full_name'],
@@ -138,41 +138,34 @@ const trrTransform = (item) => {
   };
 };
 
-export const officerTransform = (item) => {
-  const lastPercentile =
-    has(item, 'percentile') ? item['percentile'] :
-      has(item, 'percentiles') ? last(item['percentiles']) :
-        {};
-
-  return {
-    id: parseInt(item['id']),
-    fullName: item['name'] || item['full_name'],
-    appointedDate: formatDate(item['appointed_date'] || item['date_of_appt'], true),
-    resignationDate: formatDate(item['resignation_date'] || item['date_of_resignation'], true),
-    badge: item['badge'],
-    gender: item['gender'] || '',
-    to: item['to'],
-    age: getCurrentAgeString(item['birth_year']),
-    race: item['race'] === 'Unknown' ? '' : item['race'],
-    rank: item['rank'],
-    unit: {
-      id: get(item['unit'], 'id'),
-      unitName: get(item['unit'], 'unit_name'),
-      description: get(item['unit'], 'description'),
-    },
-    lastPercentile: extractPercentile(lastPercentile),
-    complaintCount: item['allegation_count'],
-    complaintPercentile: roundedPercentile(get(lastPercentile, 'percentile_allegation')),
-    civilianComplimentCount: item['civilian_compliment_count'],
-    sustainedCount: item['sustained_count'],
-    disciplineCount: item['discipline_count'],
-    trrCount: get(item, 'trr_count'),
-    trrPercentile: roundedPercentile(get(lastPercentile, 'percentile_trr')),
-    majorAwardCount: get(item, 'major_award_count'),
-    honorableMentionCount: get(item, 'honorable_mention_count'),
-    honorableMentionPercentile: roundedPercentile(get(item, 'honorable_mention_percentile')),
-  };
-};
+export const officerTransform = (item) => ({
+  id: parseInt(item['id']),
+  fullName: item['name'] || item['full_name'],
+  appointedDate: formatDate(item['appointed_date'] || item['date_of_appt'], true),
+  resignationDate: formatDate(item['resignation_date'] || item['date_of_resignation'], true),
+  badge: item['badge'],
+  gender: item['gender'] || '',
+  to: item['to'],
+  age: getCurrentAgeString(item['birth_year']),
+  race: item['race'] === 'Unknown' ? '' : item['race'],
+  rank: item['rank'],
+  unit: {
+    id: get(item['unit'], 'id'),
+    unitName: get(item['unit'], 'unit_name'),
+    description: get(item['unit'], 'description'),
+  },
+  lastPercentile: extractLatestPercentile(item),
+  complaintCount: item['allegation_count'],
+  allegationPercentile: roundedPercentile(get(item, 'percentile_allegation')),
+  civilianComplimentCount: item['civilian_compliment_count'],
+  sustainedCount: item['sustained_count'],
+  disciplineCount: item['discipline_count'],
+  trrCount: get(item, 'trr_count'),
+  trrPercentile: roundedPercentile(get(item, 'percentile_trr')),
+  majorAwardCount: get(item, 'major_award_count'),
+  honorableMentionCount: get(item, 'honorable_mention_count'),
+  honorableMentionPercentile: roundedPercentile(get(item, 'honorable_mention_percentile')),
+});
 
 export const previewPaneTransformMap = {
   'SEARCH-TERMS': previewPaneNavigationItemTransform,
