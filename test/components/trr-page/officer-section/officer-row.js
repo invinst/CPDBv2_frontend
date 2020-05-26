@@ -12,7 +12,6 @@ describe('OfficerRow component', function () {
     fullName: 'Ronald Watts',
     rank: 'Police Officer',
     percentile: {
-      year: undefined,
       items: [
         { axis: 'Use of Force Reports', value: 99.9 },
         { axis: 'Officer Allegations', value: 11.1 },

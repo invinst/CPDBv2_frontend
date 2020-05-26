@@ -12,13 +12,11 @@ describe('RelevantCoaccusals component', function () {
     const coaccusals = [{
       id: 123,
       fullName: 'Jerome Finnigan',
-      percentile: {},
       rank: 'Officer',
       coaccusalCount: 11,
     }, {
       id: 456,
       fullName: 'Jerome Turbyville',
-      percentile: {},
       rank: 'Police Officer',
       coaccusalCount: 0,
     }];
@@ -47,12 +45,10 @@ describe('RelevantCoaccusals component', function () {
     relevantCoaccusalCards.should.have.length(2);
     relevantCoaccusalCards.at(0).prop('id').should.equal(123);
     relevantCoaccusalCards.at(0).prop('fullName').should.equal('Jerome Finnigan');
-    relevantCoaccusalCards.at(0).prop('percentile').should.eql({});
     relevantCoaccusalCards.at(0).prop('rank').should.equal('Officer');
     relevantCoaccusalCards.at(0).prop('coaccusalCount').should.equal(11);
     relevantCoaccusalCards.at(1).prop('id').should.equal(456);
     relevantCoaccusalCards.at(1).prop('fullName').should.equal('Jerome Turbyville');
-    relevantCoaccusalCards.at(1).prop('percentile').should.eql({});
     relevantCoaccusalCards.at(1).prop('rank').should.equal('Police Officer');
     relevantCoaccusalCards.at(1).prop('coaccusalCount').should.equal(0);
 

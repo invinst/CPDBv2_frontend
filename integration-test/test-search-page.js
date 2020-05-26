@@ -1091,6 +1091,15 @@ describe('Search Page', function () {
   });
 
   describe('OfficerPreviewPane', function () {
+    it('should render radar chart color correctly', function () {
+      browser.setWindowRect(0, 0, 1000, 800);
+      searchPage.input.waitForDisplayed();
+      searchPage.input.setValue('Ke');
+      searchPage.officerPreviewPaneSection.radarChart.waitForDisplayed();
+      searchPage.officerPreviewPaneSection.radarChart
+        .getCSSProperty('background-color').value.should.eql('rgba(245,37,36,1)');
+    });
+
     it('should display gradient when window height is small', function () {
       browser.setWindowRect(0, 0, 1000, 800);
       searchPage.input.waitForDisplayed();
@@ -1194,6 +1203,8 @@ describe('Search Page', function () {
 
       searchPage.rankPreviewPaneSection.previewPane.waitForDisplayed();
       searchPage.rankPreviewPaneSection.listMostOfficers.count.should.eql(2);
+      searchPage.rankPreviewPaneSection.firstOfficerRadarChart
+        .getCSSProperty('background-color').value.should.eql('rgba(245,37,36,1)');
       searchPage.rankPreviewPaneSection.listMostOfficers.click();
       browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/$/);
     });
@@ -1219,6 +1230,8 @@ describe('Search Page', function () {
       searchPage.crPreviewPaneSection.secondVictim.getText().should.eql('Hispanic, Female, Age 48');
       searchPage.crPreviewPaneSection.accusedText.getText().should.eql('ACCUSED OFFICERS');
       searchPage.crPreviewPaneSection.accusedOfficers.count.should.eql(2);
+      searchPage.crPreviewPaneSection.firstAccusedOfficerRadarChart
+        .getCSSProperty('background-color').value.should.eql('rgba(245,37,36,1)');
     });
 
     it('should display gradient when window height is small', function () {
@@ -1255,6 +1268,8 @@ describe('Search Page', function () {
       searchPage.trrPreviewPaneSection.officerLink.count.should.eql(1);
       searchPage.trrPreviewPaneSection.officerName.getText().should.equal('Jesse Pinkman');
       searchPage.trrPreviewPaneSection.officerAllegationCount.getText().should.equal('1 allegation');
+      searchPage.trrPreviewPaneSection.firstOfficerAllegationRadarChart
+        .getCSSProperty('background-color').value.should.eql('rgba(253,250,242,1)');
     });
 
     it('should go to trr page when being clicked', function () {

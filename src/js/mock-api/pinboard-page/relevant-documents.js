@@ -22,6 +22,7 @@ export const getFirstRelevantDocuments = (pinboardId, count) => {
             rank: 'Detective',
             'full_name': 'Richard Sullivan',
             'coaccusal_count': 53,
+            'percentile_allegation': '22.2200',
           }),
           RawRelevantCoaccusalFactory.build({
             'id': 456,

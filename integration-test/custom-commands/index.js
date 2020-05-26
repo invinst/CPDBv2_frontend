@@ -136,6 +136,15 @@ function initCommands() {
     }
   });
 
+  browser.addCommand('simulateMouseWheel', (_selector, _deltaX, _deltaY) => {
+    return browser.execute(function (selector, deltaX, deltaY) {
+      const event = new Event('mousewheel');
+      event.deltaY = deltaY;
+      event.deltaX = deltaX;
+
+      document.querySelector(selector).dispatchEvent(event);
+    }, _selector, _deltaX, _deltaY);
+  });
 }
 
 module.exports = initCommands;

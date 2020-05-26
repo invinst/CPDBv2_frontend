@@ -29,10 +29,10 @@ export default class CoaccusedCard extends Component {
     );
   }
 
-  renderComplaintPercentile() {
-    const { complaintPercentile } = this.props;
-    if (complaintPercentile) {
-      const complaintFormat = roundedPercentile(complaintPercentile);
+  renderAllegationPercentile() {
+    const { allegationPercentile } = this.props;
+    if (allegationPercentile) {
+      const complaintFormat = roundedPercentile(allegationPercentile);
       return (
         <p className='light-text no-print test--officer-card-percentile'>
           More than { complaintFormat }% of other officers
@@ -112,7 +112,7 @@ export default class CoaccusedCard extends Component {
           </div>
           <div className='coaccused-card-section'>
             <p className='bold-text'>{ this.renderComplaintInfo() }</p>
-            { this.renderComplaintPercentile() }
+            { this.renderAllegationPercentile() }
           </div>
           <div className='coaccused-card-section officer-card-demographic'>
             <p className='extra-info'>{ `${age} ${race} ${gender}` }</p>
@@ -142,7 +142,7 @@ CoaccusedCard.propTypes = {
   style: PropTypes.object,
   complaintCount: PropTypes.number,
   sustainedCount: PropTypes.number,
-  complaintPercentile: PropTypes.number,
+  allegationPercentile: PropTypes.number,
   age: PropTypes.string,
   race: PropTypes.string,
   gender: PropTypes.string,

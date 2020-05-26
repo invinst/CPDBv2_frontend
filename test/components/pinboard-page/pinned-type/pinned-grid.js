@@ -54,12 +54,11 @@ describe('PinnedGrid component', function () {
       fullName: 'Daryl Mack',
       complaintCount: 0,
       sustainedCount: 0,
-      complaintPercentile: 99.3450,
+      allegationPercentile: 99.3450,
       birthYear: 1975,
       race: 'White',
       gender: 'Male',
       rank: 'Police Officer',
-      percentile: {},
     }, {
       id: 2,
       type: 'OFFICER',
@@ -68,12 +67,11 @@ describe('PinnedGrid component', function () {
       fullName: 'Daryl Mack',
       complaintCount: 0,
       sustainedCount: 0,
-      complaintPercentile: 99.3450,
+      allegationPercentile: 99.3450,
       birthYear: 1975,
       race: 'White',
       gender: 'Male',
       rank: 'Police Officer',
-      percentile: {},
     }];
     const focusItem = spy();
 

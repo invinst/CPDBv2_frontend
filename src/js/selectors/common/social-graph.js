@@ -5,7 +5,7 @@ import { get } from 'lodash';
 const officerTransform = officer => ({
   id: officer['id'],
   fullName: officer['full_name'],
-  visualTokenBackground: visualTokenBackground(officer['percentile']),
+  visualTokenBackground: visualTokenBackground(officer['percentile_allegation']),
 });
 
 const coaccusedDataTransform = coaccusedDatum => ({

@@ -13,7 +13,7 @@ describe('Officers By Allegation components', function () {
     'complaintCount': 56,
     'sustainedCount': 30,
     'birthYear': 1974,
-    'complaintPercentile': 99.5,
+    'allegationPercentile': 99.5,
     'race': 'Hispanic',
     'gender': 'Male',
   }, {
@@ -22,7 +22,7 @@ describe('Officers By Allegation components', function () {
     'complaintCount': 55,
     'sustainedCount': 22,
     'birthYear': 1979,
-    'complaintPercentile': 99.1,
+    'allegationPercentile': 99.1,
     'race': 'White',
     'gender': 'Male',
   }];

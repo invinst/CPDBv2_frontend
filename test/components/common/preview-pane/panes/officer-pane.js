@@ -29,7 +29,7 @@ describe('OfficerPane component', () => {
     gender: 'Male',
     complaintCount: 1,
     sustainedCount: 1,
-    complaintPercentile: 10,
+    allegationPercentile: 10,
     disciplineCount: 0,
     trrCount: 5,
     trrPercentile: 78,
@@ -113,7 +113,7 @@ describe('OfficerPane component', () => {
     const wrapper = shallow(
       <OfficerPane
         { ...officer }
-        complaintPercentile={ 0 }
+        allegationPercentile={ 0 }
         honorableMentionPercentile={ 0 }
         trrPercentile={ 0 }
       />
@@ -142,7 +142,7 @@ describe('OfficerPane component', () => {
     const wrapper = shallow(
       <OfficerPane
         { ...officer }
-        complaintPercentile={ null }
+        allegationPercentile={ null }
         honorableMentionPercentile={ null }
         trrPercentile={ null }
       />
@@ -171,7 +171,7 @@ describe('OfficerPane component', () => {
     const wrapper = shallow(
       <OfficerPane
         { ...officer }
-        complaintPercentile={ null }
+        allegationPercentile={ null }
         honorableMentionPercentile={ null }
         trrPercentile={ null }
       />
@@ -185,7 +185,7 @@ describe('OfficerPane component', () => {
     const wrapper = shallow(
       <OfficerPane
         { ...officer }
-        complaintPercentile={ null }
+        allegationPercentile={ null }
         honorableMentionPercentile={ null }
         trrPercentile={ null }
         pinnable={ false }
@@ -202,7 +202,7 @@ describe('OfficerPane component', () => {
     const wrapper = mount(
       <OfficerPane
         { ...officer }
-        complaintPercentile={ null }
+        allegationPercentile={ null }
         honorableMentionPercentile={ null }
         trrPercentile={ null }
         type={ 'OFFICER' }
@@ -229,7 +229,7 @@ describe('OfficerPane component', () => {
 
     wrapper.setProps({
       ...officer,
-      complaintPercentile: null,
+      allegationPercentile: null,
       honorableMentionPercentile: null,
       trrPercentile: null,
       type: 'OFFICER',
@@ -261,7 +261,7 @@ describe('OfficerPane component', () => {
     const wrapper = shallow(
       <OfficerPane
         { ...officer }
-        complaintPercentile={ null }
+        allegationPercentile={ null }
         honorableMentionPercentile={ null }
         trrPercentile={ null }
         type={ 'OFFICER' }

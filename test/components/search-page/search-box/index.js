@@ -118,11 +118,9 @@ describe('SearchBox component', function () {
         'full_name': 'Jerome Finnigan',
         'rank': 'Officer',
         'complaint_count': 22,
-        'percentile': {
-          'percentile_trr': 20.6,
-          'percentile_allegation_internal': 10.1,
-          'percentile_allegation_civilian': 52.5,
-        },
+        'percentile_trr': '20.6000',
+        'percentile_allegation_internal': '10.1000',
+        'percentile_allegation_civilian': '52.5000',
       };
       const firstSuggestionItem =
         {

@@ -79,6 +79,8 @@ class OfficersSection extends Section {
     this.prepareElementGetters({
       firstOfficerRow: '//div[contains(@class, "officer-row")][1]',
       officerName: '//h1[contains(@class, "test--officer-name")]',
+      firstOfficerRowRadarChart: '//div[contains(@class, "officer-preview-link")]' +
+        '//*[name()="svg" and contains(@class, "radar")]',
     });
   }
 
@@ -115,6 +117,8 @@ class PreviewPaneSection extends Section {
       edgePreviewPaneHeader: '(//div[@class="edge-coaccusals-pane-header"])',
       crPreviewPaneTitle: '//div[contains(@class, "cr-preview-pane-title-title")]',
       crPreviewPaneSubtitle: '//div[contains(@class, "cr-preview-pane-title-subtitle")]',
+      radarChart: '//div[contains(@class, "preview-pane")]//*[name()="svg" and contains(@class, "radar")]',
+      firstAccusedOfficerRadarChart: '//ul[@class="list-widget-list"]//*[name()="svg"]',
     });
   }
 

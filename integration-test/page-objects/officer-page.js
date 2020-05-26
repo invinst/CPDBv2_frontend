@@ -5,6 +5,18 @@ import Section from './sections/section';
 import PinboardsMenuSection from './sections/pinboards-menu';
 
 
+const paneSelector = (rowId, colId) => (
+  `//div[contains(@class, "metrics-column")][${colId}]//div[contains(@class, "metric-pane__metric-pane")][${rowId}]`
+);
+
+const metricPaneValueSelector = (rowId, colId) => (
+  paneSelector(rowId, colId) + '//div[contains(@class, "metrics-pane-value")]'
+);
+
+const metricPaneDescriptionSelector = (rowId, colId) => (
+  paneSelector(rowId, colId) + '//div[contains(@class, "metrics-pane-description")]'
+);
+
 class SummarySection extends Section {
   constructor() {
     super();
@@ -22,6 +34,25 @@ class SummarySection extends Section {
     });
 
     this.prepareElementGetters(elementGetters);
+  }
+}
+
+class MetricsSection extends Section {
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      allegationCount: metricPaneValueSelector(1, 1),
+      allegationDescription: metricPaneDescriptionSelector(1, 1),
+      disciplineCount: metricPaneValueSelector(2, 1),
+      disciplineDescription: metricPaneDescriptionSelector(2, 1),
+      useOfForceCount: metricPaneValueSelector(1, 2),
+      useOfForceDescription: metricPaneDescriptionSelector(1, 2),
+      civilianComplimentCount: metricPaneValueSelector(2, 2),
+      majorAwardCount: metricPaneValueSelector(1, 3),
+      honorableMentionCount: metricPaneValueSelector(2, 3),
+      honorableDescriptionCount: metricPaneDescriptionSelector(2, 3),
+    });
   }
 }
 
@@ -74,6 +105,7 @@ class CoaccusalsSection extends Section {
       firstCoaccusalGroupName: '//span[contains(@class, "coaccusals-group-name")][1]',
       firstCoaccusalCard: firstCoaccusalCardSelector,
       firstPinButton: `${firstCoaccusalCardSelector}//div[contains(@class, "item-pin-button__item-pin-button")]`,
+      firstRadarChart: `${firstCoaccusalCardSelector}//*[name()="svg" and contains(@class, "radar")]`,
     });
   }
 }
@@ -173,6 +205,7 @@ class RadarChartSection extends Section {
 
 class OfficerPage extends Page {
   summarySection = new SummarySection();
+  metricsSection = new MetricsSection();
   tabbedPaneSection = new TabbedPaneSection();
   radarChartSection = new RadarChartSection();
   pinboardsMenuSection = new PinboardsMenuSection();

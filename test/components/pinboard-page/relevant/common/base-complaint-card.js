@@ -14,7 +14,6 @@ describe('BaseComplaintCard component', function () {
       id: 1,
       shortName: 'R. Sullivan',
       percentile: {
-        year: 2015,
         items: [
           { axis: 'Use of Force Reports', value: 20.6 },
           { axis: 'Officer Allegations', value: 10.1 },
@@ -26,26 +25,26 @@ describe('BaseComplaintCard component', function () {
     }, {
       id: 2,
       shortName: 'E. May',
-      percentile: { year: 2015, items: [] },
+      percentile: { items: [] },
     }, {
       id: 3,
       shortName: 'B. Lopez',
-      percentile: { year: 2015, items: [] },
+      percentile: { items: [] },
     }, {
       id: 4,
-      percentile: { year: 2015, items: [] },
+      percentile: { items: [] },
     }, {
       id: 5,
-      percentile: { year: 2015, items: [] },
+      percentile: { items: [] },
     }, {
       id: 6,
-      percentile: { year: 2015, items: [] },
+      percentile: { items: [] },
     }, {
       id: 7,
-      percentile: { year: 2015, items: [] },
+      percentile: { items: [] },
     }, {
       id: 8,
-      percentile: { year: 2015, items: [] },
+      percentile: { items: [] },
     }];
     const addItemInPinboardPage = stub();
     const wrapper = shallow(
@@ -79,7 +78,6 @@ describe('BaseComplaintCard component', function () {
     topOfficerNames.at(1).text().should.equal('E. May');
     miniVisualTokens.at(0).prop('className').should.equal('top-officer-row-token');
     miniVisualTokens.at(0).prop('percentile').should.eql({
-      year: 2015,
       items: [
         { axis: 'Use of Force Reports', value: 20.6 },
         { axis: 'Officer Allegations', value: 10.1 },
@@ -89,18 +87,18 @@ describe('BaseComplaintCard component', function () {
       textColor: softBlackColor,
     });
     miniVisualTokens.at(1).prop('className').should.equal('top-officer-row-token');
-    miniVisualTokens.at(1).prop('percentile').should.eql({ year: 2015, items: [] });
+    miniVisualTokens.at(1).prop('percentile').should.eql({ items: [] });
 
     miniVisualTokens.at(2).prop('className').should.equal('remaining-officer');
-    miniVisualTokens.at(2).prop('percentile').should.eql({ year: 2015, items: [] });
+    miniVisualTokens.at(2).prop('percentile').should.eql({ items: [] });
     miniVisualTokens.at(3).prop('className').should.equal('remaining-officer');
-    miniVisualTokens.at(3).prop('percentile').should.eql({ year: 2015, items: [] });
+    miniVisualTokens.at(3).prop('percentile').should.eql({ items: [] });
     miniVisualTokens.at(4).prop('className').should.equal('remaining-officer');
-    miniVisualTokens.at(4).prop('percentile').should.eql({ year: 2015, items: [] });
+    miniVisualTokens.at(4).prop('percentile').should.eql({ items: [] });
     miniVisualTokens.at(5).prop('className').should.equal('remaining-officer');
-    miniVisualTokens.at(5).prop('percentile').should.eql({ year: 2015, items: [] });
+    miniVisualTokens.at(5).prop('percentile').should.eql({ items: [] });
     miniVisualTokens.at(6).prop('className').should.equal('remaining-officer');
-    miniVisualTokens.at(6).prop('percentile').should.eql({ year: 2015, items: [] });
+    miniVisualTokens.at(6).prop('percentile').should.eql({ items: [] });
 
     wrapper.find('.not-showing-officer-count').text().should.equal('1+');
 

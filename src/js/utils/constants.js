@@ -792,3 +792,5 @@ export const ELLIPSIS_CONFIG = {
 };
 
 export const PIN_BUTTON_INTRODUCTION_INDEX = 3;
+
+export const SLIDE_PER_WHEEL = 2;
