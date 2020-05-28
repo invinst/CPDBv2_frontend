@@ -188,7 +188,7 @@ class PinboardIntroductionSection extends Section {
     super();
     this.prepareElementGetters({
       body: '.pinboard-button-introduction',
-      dismissButton: '.dismiss-btn',
+      closeButton: '.pinboard-button-introduction-close-btn',
       tryItButton: '.try-it-btn',
       pinboardButton: '//div[contains(@class, "header-links")]//div[contains(@class, "pinboard-button")]',
     });

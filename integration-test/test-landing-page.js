@@ -535,9 +535,9 @@ describe('landing page', function () {
       landingPage.pinboardIntroduction.body.waitForDisplayed();
     });
 
-    it('should not display Pinboard introduction after click dismiss', function () {
+    it('should not display Pinboard introduction after click close button', function () {
       landingPage.pinboardIntroduction.body.waitForDisplayed();
-      landingPage.pinboardIntroduction.dismissButton.click();
+      landingPage.pinboardIntroduction.closeButton.click();
       landingPage.pinboardIntroduction.body.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT, true);
       browser.refresh();
       landingPage.header.content.waitForDisplayed();
