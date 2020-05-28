@@ -12,7 +12,7 @@ import pinButtonStyles from 'components/common/item-pin-button.sass';
 
 
 const PINBOARDS_MENU_PROPS = [
-  'pinboards', 'item', 'fetchHeaderPinboards', 'addOrRemoveItemInPinboard', 'createPinboard', 'fetchPinboard',
+  'pinboards', 'item', 'addOrRemoveItemInPinboard', 'createPinboard', 'fetchPinboard',
 ];
 
 export default function HeaderPinButton(props) {
@@ -46,7 +46,6 @@ HeaderPinButton.propTypes = {
   pinboards: PropTypes.array,
   isPinned: PropTypes.bool,
   showSelectPinboards: PropTypes.bool,
-  fetchHeaderPinboards: PropTypes.func,
   addOrRemoveItemInPinboard: PropTypes.func,
   fetchPinboard: PropTypes.func,
   createPinboard: PropTypes.func,
@@ -57,7 +56,6 @@ HeaderPinButton.defaultProps = {
   pinboards: [],
   isPinned: false,
   showSelectPinboards: false,
-  fetchHeaderPinboards: noop,
   addOrRemoveItemInPinboard: noop,
   fetchPinboard: noop,
   createPinboard: noop,

@@ -217,7 +217,6 @@ describe('store', function () {
           logoSectionEditModeOn: false,
           videoInfo: [],
         },
-        pinboards: [],
       },
       embed: {
         officers: [],

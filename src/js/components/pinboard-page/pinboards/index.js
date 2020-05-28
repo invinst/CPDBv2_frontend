@@ -11,14 +11,6 @@ import PinboardLinkContainer from 'containers/pinboard-page/pinboard-link-contai
 
 
 class Pinboards extends Component {
-  componentDidUpdate(prevProps) {
-    const { isShown, fetchPinboards } = this.props;
-
-    if (!prevProps.isShown && isShown) {
-      fetchPinboards();
-    }
-  }
-
   handleCreateNewEmptyPinboard = () => {
     const { createNewEmptyPinboard, handleClose } = this.props;
 
@@ -59,7 +51,6 @@ class Pinboards extends Component {
 
 Pinboards.propTypes = {
   pinboards: PropTypes.array,
-  fetchPinboards: PropTypes.func,
   isShown: PropTypes.bool,
   handleClose: PropTypes.func,
   createNewEmptyPinboard: PropTypes.func,

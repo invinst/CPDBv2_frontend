@@ -145,6 +145,14 @@ export const pinboards = {
     'description': 'Description for e25aa999',
   },
   'abcd1234': emptyPinboard(),
+  'ffff6666': {
+    'id': 'ffff6666',
+    'title': '',
+    'officer_ids': [1, 2],
+    'crids': ['5678123'],
+    'trr_ids': [3, 2],
+    'description': '',
+  },
 };
 
 export function getOrCreateEmptyPinboard(pinboardId='5cd06f2b') {

@@ -1,14 +1,8 @@
 import { createSelector } from 'reselect';
-import { identity, get } from 'lodash';
-import moment from 'moment';
+import { identity } from 'lodash';
 
-import { ACTIVITY_GRID_CARD_TYPES, PINNED_ITEM_TYPES, DATE_FORMAT } from 'utils/constants';
-import {
-  isItemPinned,
-  pinboardPinnedItemsTransform,
-  pinboardPinnedItemsMapping,
-  pinboardItemsSelector,
-} from 'selectors/pinboard-page/pinboard';
+import { ACTIVITY_GRID_CARD_TYPES, PINNED_ITEM_TYPES } from 'utils/constants';
+import { isItemPinned, pinboardItemsSelector } from 'selectors/pinboard-page/pinboard';
 
 
 export const createWithIsPinnedSelector = (cardsSelector, pinnedType, cardTransform=identity) => createSelector(
@@ -38,30 +32,4 @@ export const createWithIsPinnedSelector = (cardsSelector, pinnedType, cardTransf
       }
     });
   },
-);
-
-const getHeaderPinboards = state => get(state, 'headers.pinboards', []);
-
-export const pinboardsMenuSelector = (idSelector, itemType) => createSelector(
-  getHeaderPinboards,
-  state => state.pinboardPage.pinboard,
-  idSelector,
-  (pinboards, currentPinboard, id) => pinboards.map(pinboard => {
-    const isCurrent = pinboard.id === currentPinboard.id;
-
-    const pinboardData = pinboardPinnedItemsTransform(isCurrent ? currentPinboard : pinboard);
-    const isPinned = isItemPinned(itemType, id, pinboardPinnedItemsMapping(pinboardData));
-    return {
-      id: pinboard['id'].toString(),
-      title: get(pinboard, 'title', ''),
-      createdAt: moment(pinboard['created_at']).format(DATE_FORMAT),
-      isPinned,
-      isCurrent,
-    };
-  }),
-);
-
-export const showSelectPinboardsSelector = createSelector(
-  getHeaderPinboards,
-  pinboards => pinboards.length > 1,
 );
