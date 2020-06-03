@@ -55,7 +55,7 @@ export default class OfficerInfoWidget extends Component {
     const listInfo = [
       {
         key: '',
-        value: !isEmpty(geographicInfo) ? `${geographicInfo.join(', ')}.` : null,
+        value: !isEmpty(geographicInfo) ? `${geographicInfo.join(' ')}` : null,
       },
       {
         key: 'Badge',

@@ -23,7 +23,7 @@ describe('OfficerInfoWidget component', function () {
     wrapper.find('h1').text().should.equal('Timothy Parker');
     const listItem = wrapper.find('li');
     listItem.should.have.length(5);
-    listItem.at(0).text().should.equal('37-year-old, white, male.');
+    listItem.at(0).text().should.equal('37-year-old white male');
     listItem.at(1).text().should.containEql('23');
     listItem.at(2).text().should.containEql('Police Officer');
     listItem.at(3).text().should.containEql('District 018');
@@ -61,7 +61,7 @@ describe('OfficerInfoWidget component', function () {
     );
     const listItem = wrapper.find('li');
     listItem.should.have.length(4);
-    listItem.at(0).text().should.equal('37-year-old, male.');
+    listItem.at(0).text().should.equal('37-year-old male');
     listItem.at(1).text().should.containEql('23');
     listItem.at(2).text().should.containEql('District 018');
   });
