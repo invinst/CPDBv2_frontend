@@ -1,5 +1,6 @@
 import Page from './page';
 import Section from './sections/section';
+import { PreviewPaneSection } from './social-graph-page';
 
 
 class PinnedOfficers extends Section {
@@ -339,6 +340,7 @@ class PinboardPage extends Page {
   relevantComplaintsSection = new RelevantComplaintsSection();
   emptyPinboardSection = new EmptyPinboardSection();
   previewPane = new PreviewPane();
+  complaintPreviewPane = new PreviewPaneSection();
   officerPreviewPane = new OfficerPreviewPane();
 
   constructor() {

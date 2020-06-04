@@ -461,13 +461,6 @@ describe('Pinboard Page', function () {
       cardsCount.should.be.deepEqual([20, 40, 50]);
     });
 
-    it('should not show preview pane when we click on the right half of document card', function () {
-      const firstDocumentCard = pinboardPage.relevantDocumentsSection.documentCardSection;
-      firstDocumentCard.rightHalf.click();
-
-      pinboardPage.previewPane.wrapper.waitForDisplayed(1000, true);
-    });
-
     it('should redirect to document page when click on the left half of document card', function () {
       const firstDocumentCard = pinboardPage.relevantDocumentsSection.documentCardSection;
       firstDocumentCard.leftHalf.click();
@@ -476,6 +469,38 @@ describe('Pinboard Page', function () {
       browser.switchWindow(
         'https://assets.documentcloud.org/documents/5680384/CRID-1083633-CR-CRID-1083633-CR-Tactical.pdf'
       );
+    });
+
+    it('should display preview pane when we click on right half of document card', function () {
+      pinboardPage.relevantDocumentsSection.documentCardSection.incidentDate.click();
+      const complaintPreviewPane = pinboardPage.complaintPreviewPane;
+      complaintPreviewPane.previewPane.waitForDisplayed();
+      complaintPreviewPane.crPreviewPaneTitle.getText().should.eql('Lockup Procedures');
+      complaintPreviewPane.crPreviewPaneSubtitle.getText().should.eql('Prisoners Property');
+      complaintPreviewPane.crPreviewPaneIncidentDate.getText().should.eql('APR 23, 2004');
+      complaintPreviewPane.crPreviewPaneAddress.getText().should.eql(
+        '51XX South WENTWORTH AVE, CHICAGO ILLINOIS 60609'
+      );
+      complaintPreviewPane.crPreviewPaneVictims.getText().should.eql('Black, MaleBlack, Male');
+      complaintPreviewPane.firstAccusedOfficerRadarChart
+        .getCSSProperty('background-color').value.should.eql('rgba(249,211,195,1)');
+      complaintPreviewPane.firstAccusedOfficerName.getText().should.eql('Richard Sullivan');
+      complaintPreviewPane.firstAccusedAllegationCount.getText().should.eql('33 allegations');
+      complaintPreviewPane.overlay.click();
+      complaintPreviewPane.previewPane.waitForDisplayed(2000, true);
+
+      pinboardPage.relevantDocumentsSection.documentCardSection.category.click();
+      pinboardPage.complaintPreviewPane.previewPane.waitForDisplayed();
+      complaintPreviewPane.overlay.click();
+      complaintPreviewPane.previewPane.waitForDisplayed(2000, true);
+
+      pinboardPage.relevantDocumentsSection.documentCardSection.topOfficers.click();
+      pinboardPage.complaintPreviewPane.previewPane.waitForDisplayed();
+      complaintPreviewPane.overlay.click();
+      complaintPreviewPane.previewPane.waitForDisplayed(2000, true);
+
+      pinboardPage.relevantDocumentsSection.documentCardSection.remainingOfficers.click();
+      pinboardPage.complaintPreviewPane.previewPane.waitForDisplayed();
     });
 
     it('should add cr to the pinned crs section', function () {
@@ -538,28 +563,37 @@ describe('Pinboard Page', function () {
       cardsCount.should.be.deepEqual([20, 40, 50]);
     });
 
-    it('should display preview pane when we click on incident date', function () {
+    it('should display preview pane when we click on complaint card', function () {
       pinboardPage.relevantComplaintsSection.complaintCardSection.incidentDate.click();
+      const complaintPreviewPane = pinboardPage.complaintPreviewPane;
+      complaintPreviewPane.previewPane.waitForDisplayed();
+      complaintPreviewPane.crPreviewPaneTitle.getText().should.eql('Lockup Procedures');
+      complaintPreviewPane.crPreviewPaneSubtitle.getText().should.eql('Prisoners Property');
+      complaintPreviewPane.crPreviewPaneIncidentDate.getText().should.eql('APR 23, 2004');
+      complaintPreviewPane.crPreviewPaneAddress.getText().should.eql(
+        '51XX South WENTWORTH AVE, CHICAGO ILLINOIS 60609'
+      );
+      complaintPreviewPane.crPreviewPaneVictims.getText().should.eql('Black, MaleBlack, Male');
+      complaintPreviewPane.firstAccusedOfficerRadarChart
+        .getCSSProperty('background-color').value.should.eql('rgba(249,211,195,1)');
+      complaintPreviewPane.firstAccusedOfficerName.getText().should.eql('Richard Sullivan');
+      complaintPreviewPane.firstAccusedAllegationCount.getText().should.eql('33 allegations');
 
-      pinboardPage.previewPane.wrapper.waitForDisplayed();
-    });
+      complaintPreviewPane.overlay.click();
+      complaintPreviewPane.previewPane.waitForDisplayed(2000, true);
 
-    it('should display preview pane when we click on top officers', function () {
       pinboardPage.relevantComplaintsSection.complaintCardSection.topOfficers.click();
+      complaintPreviewPane.previewPane.waitForDisplayed();
+      complaintPreviewPane.overlay.click();
+      complaintPreviewPane.previewPane.waitForDisplayed(2000, true);
 
-      pinboardPage.previewPane.wrapper.waitForDisplayed();
-    });
-
-    it('should display preview pane when we click on remaining officers', function () {
       pinboardPage.relevantComplaintsSection.complaintCardSection.remainingOfficers.click();
+      complaintPreviewPane.previewPane.waitForDisplayed();
+      complaintPreviewPane.overlay.click();
+      complaintPreviewPane.previewPane.waitForDisplayed(2000, true);
 
-      pinboardPage.previewPane.wrapper.waitForDisplayed();
-    });
-
-    it('should display preview pane when we click on left half of a complaint card', function () {
       pinboardPage.relevantComplaintsSection.complaintCardSection.leftHalf.click();
-
-      pinboardPage.previewPane.wrapper.waitForDisplayed();
+      complaintPreviewPane.previewPane.waitForDisplayed();
     });
 
     it('should remove cr from the row and add to the pinned crs section', function () {
