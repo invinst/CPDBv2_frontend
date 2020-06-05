@@ -107,6 +107,7 @@ class BaseComplaintCardSection extends Section {
       thumbnail: '//div[contains(@class, "document-card-thumbnail")]',
       plusButton: '//div[contains(@class, "plus-button")]',
       incidentDate: '//div[contains(@class, "incident-date")]',
+      thirdIncidentDate: '(//div[contains(@class, "incident-date")])[3]',
       category: '//div[contains(@class, "category")]',
       topOfficers: '//div[contains(@class, "top-officers")]',
       firstTopOfficerName: '//div[@class="top-officer-row-officer-name"]',

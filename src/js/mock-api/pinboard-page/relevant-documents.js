@@ -44,6 +44,44 @@ export const getFirstRelevantDocuments = (pinboardId, count) => {
         'coaccused': RawRelevantCoaccusalFactory.buildList(10),
       }),
     }),
+    RawRelevantDocumentFactory.build({
+      'preview_image_url': 'http://via.placeholder.com/121x178',
+      'url': 'https://assets.documentcloud.org/documents/5680384/CRID-1079899.pdf',
+      'allegation': {
+        'crid': '1073132',
+        'address': '31XX West HARRISON ST, CHICAGO ILLINOIS 60612',
+        'category': 'Use Of Force',
+        'incident_date': '2014-12-28',
+        'victims': [
+          {
+            'gender': 'Female',
+            'race': 'Black',
+          },
+          {
+            'gender': 'Female',
+            'race': 'Black',
+          },
+        ],
+        'point': {
+          'lon': -87.7053303,
+          'lat': 41.8734621,
+        },
+        'to': '/complaint/1073132/',
+        'sub_category': 'Miscellaneous',
+        'coaccused': [
+          {
+            'id': 7771,
+            'rank': 'Police Officer',
+            'full_name': 'Darryl Edwards',
+            'allegation_count': 33,
+            'percentile_allegation': '97.6501',
+            'percentile_allegation_civilian': '96.9255',
+            'percentile_allegation_internal': '95.2661',
+            'percentile_trr': '91.2913',
+          },
+        ],
+      },
+    }),
   ];
   documents.results = fixedDocuments.concat(documents.results).slice(0, 20);
   return documents;

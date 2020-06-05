@@ -472,19 +472,19 @@ describe('Pinboard Page', function () {
     });
 
     it('should display preview pane when we click on right half of document card', function () {
-      pinboardPage.relevantDocumentsSection.documentCardSection.incidentDate.click();
+      pinboardPage.relevantDocumentsSection.documentCardSection.thirdIncidentDate.click();
       const complaintPreviewPane = pinboardPage.complaintPreviewPane;
       complaintPreviewPane.previewPane.waitForDisplayed();
-      complaintPreviewPane.crPreviewPaneTitle.getText().should.eql('Lockup Procedures');
-      complaintPreviewPane.crPreviewPaneSubtitle.getText().should.eql('Prisoners Property');
-      complaintPreviewPane.crPreviewPaneIncidentDate.getText().should.eql('APR 23, 2004');
+      complaintPreviewPane.crPreviewPaneTitle.getText().should.eql('Use Of Force');
+      complaintPreviewPane.crPreviewPaneSubtitle.getText().should.eql('Miscellaneous');
+      complaintPreviewPane.crPreviewPaneIncidentDate.getText().should.eql('DEC 28, 2014');
       complaintPreviewPane.crPreviewPaneAddress.getText().should.eql(
-        '51XX South WENTWORTH AVE, CHICAGO ILLINOIS 60609'
+        '31XX West HARRISON ST, CHICAGO ILLINOIS 60612'
       );
-      complaintPreviewPane.crPreviewPaneVictims.getText().should.eql('Black, MaleBlack, Male');
+      complaintPreviewPane.crPreviewPaneVictims.getText().should.eql('Black, FemaleBlack, Female');
       complaintPreviewPane.firstAccusedOfficerRadarChart
-        .getCSSProperty('background-color').value.should.eql('rgba(249,211,195,1)');
-      complaintPreviewPane.firstAccusedOfficerName.getText().should.eql('Richard Sullivan');
+        .getCSSProperty('background-color').value.should.eql('rgba(245,37,36,1)');
+      complaintPreviewPane.firstAccusedOfficerName.getText().should.eql('Darryl Edwards');
       complaintPreviewPane.firstAccusedAllegationCount.getText().should.eql('33 allegations');
       complaintPreviewPane.overlay.click();
       complaintPreviewPane.previewPane.waitForDisplayed(2000, true);
