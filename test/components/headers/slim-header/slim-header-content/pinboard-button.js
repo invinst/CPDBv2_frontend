@@ -213,10 +213,10 @@ describe('PinboardButton component', function () {
         browserHistoryPushSpy.should.be.calledWith('/pinboard/');
       });
 
-      it('should call visitPinboardButtonIntroduction on user click Dismiss', function () {
+      it('should call visitPinboardButtonIntroduction on user click close button', function () {
         clock.tick(PINBOARD_INTRODUCTION_DELAY + 50);
         wrapper.update();
-        wrapper.find('.dismiss-btn').simulate('click');
+        wrapper.find('.pinboard-button-introduction-close-btn').simulate('click');
         visitPinboardButtonIntroductionSpy.should.be.calledOnce();
       });
     });

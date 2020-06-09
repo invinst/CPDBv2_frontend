@@ -65,26 +65,6 @@ describe('Pinboards component', function () {
     wrapper.find('.pinboard-item').exists().should.be.false();
   });
 
-  describe('componentDidUpdate', function () {
-    it('should fetchPinboards if isShow change from false to true', function () {
-      const fetchPinboardsSpy = spy();
-
-      const wrapper = mount(
-        <Provider store={ store }>
-          <Pinboards pinboards={ pinboards } isShown={ false } fetchPinboards={ fetchPinboardsSpy }/>
-        </Provider>
-      );
-
-      fetchPinboardsSpy.should.not.be.called();
-
-      wrapper.setProps({
-        children: <Pinboards pinboards={ pinboards } isShown={ true } fetchPinboards={ fetchPinboardsSpy }/>,
-      });
-
-      fetchPinboardsSpy.should.be.called();
-    });
-  });
-
   it('should render new-pinboard-btn', function (done) {
     const createNewEmptyPinboardStub = stub().usingPromise(Promise).resolves({
       payload: {

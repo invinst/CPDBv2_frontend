@@ -396,6 +396,10 @@ axiosMockClient.onGet(`${PINBOARDS_URL}ceea8ea3/`).reply(
   updateLatestRetrievePinboardOnApiCall(200, getOrCreateEmptyPinboard('ceea8ea3'))
 );
 
+axiosMockClient.onGet(`${PINBOARDS_URL}ffff6666/`).reply(
+  updateLatestRetrievePinboardOnApiCall(200, getOrCreateEmptyPinboard('ffff6666'))
+);
+
 axiosMockClient.onPut(`${PINBOARDS_URL}5cd06f2b/`).reply(function (config) {
   const pinboard = JSON.parse(config.data);
   pinboard.id = '5cd06f2b';
@@ -452,6 +456,7 @@ axiosMockClient.onGet(`${PINBOARDS_URL}ceea8ea3/trrs/`).reply(200, fetchPinboard
 axiosMockClient.onGet(`${PINBOARDS_URL}ffff6666/officers/`).reply(200, ffff6666Officers);
 axiosMockClient.onGet(`${PINBOARDS_URL}ffff6666/complaints/`).reply(200, ffff6666Complaints);
 axiosMockClient.onGet(`${PINBOARDS_URL}ffff6666/trrs/`).reply(200, ffff6666TRRs);
+axiosMockClient.onGet(`${PINBOARDS_URL}ffff6666/`).reply(200, ffff6666TRRs);
 
 axiosMockClient.onGet(`${PINBOARDS_URL}eeee7777/officers/`).reply(200, eeee7777Officers);
 axiosMockClient.onGet(`${PINBOARDS_URL}eeee7777/complaints/`).reply(200, eeee7777Complaints);

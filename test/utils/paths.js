@@ -1,4 +1,10 @@
-import { officerPath, getPathNameKey } from 'utils/paths';
+import {
+  officerPath,
+  getPathNameKey,
+  onOfficerPage,
+  onCrPage,
+  onPinboardPage,
+} from 'utils/paths';
 
 
 describe('officerPath', function () {
@@ -33,5 +39,29 @@ describe('getPathNameKey', function () {
   it('should return pathname', function () {
     const trrKey = getPathNameKey('/trr/123/');
     trrKey.should.equal('/trr/123/');
+  });
+});
+
+describe('onOfficerPage', function () {
+  it('should return correct value', function () {
+    onOfficerPage('/officer/12074/keith-herrera/').should.be.true();
+    onOfficerPage('/complaint/259069/').should.be.false();
+    onOfficerPage('/embed/officers/').should.be.false();
+  });
+});
+
+describe('onCrPage', function () {
+  it('should return correct value', function () {
+    onCrPage('/complaint/259069/').should.be.true();
+    onCrPage('/officer/12074/keith-herrera/').should.be.false();
+    onCrPage('/pinboard/').should.be.false();
+  });
+});
+
+describe('onPinboardPage', function () {
+  it('should return correct value', function () {
+    onPinboardPage('/pinboard/f306ed76/untitled-pinboard/').should.be.true();
+    onPinboardPage('/complaint/259069/').should.be.false();
+    onPinboardPage('/officer/12074/keith-herrera/').should.be.false();
   });
 });

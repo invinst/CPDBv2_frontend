@@ -4,11 +4,6 @@ import { CancelToken } from 'axios';
 
 import { get, post, put } from 'actions/common/async-action';
 import * as constants from 'utils/constants';
-import {
-  HEADER_PINBOARDS_REQUEST_START,
-  HEADER_PINBOARDS_REQUEST_SUCCESS,
-  HEADER_PINBOARDS_REQUEST_FAILURE,
-} from 'utils/constants';
 
 
 export const addOrRemoveItemInPinboard = createAction(constants.ADD_OR_REMOVE_ITEM_IN_PINBOARD);
@@ -237,12 +232,3 @@ export const fetchLatestRetrievedPinboard = get(
     constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_FAILURE,
   ]
 );
-
-export const fetchHeaderPinboards = () => get(
-  constants.PINBOARDS_URL,
-  [
-    HEADER_PINBOARDS_REQUEST_START,
-    HEADER_PINBOARDS_REQUEST_SUCCESS,
-    HEADER_PINBOARDS_REQUEST_FAILURE,
-  ]
-)({ detail: true });

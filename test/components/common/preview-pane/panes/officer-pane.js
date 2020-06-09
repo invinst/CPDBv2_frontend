@@ -6,7 +6,7 @@ import browserHistory from 'utils/history';
 import { OfficerPane as OfficerPane } from 'components/common/preview-pane/panes';
 import {
   NewVisualTokenWidget as VisualTokenWidget,
-  NewOfficerInfoWidget as OfficerInfoWidget,
+  OfficerInfoWidget,
   NewMetricWidget as MetricWidget,
 } from 'components/common/preview-pane/widgets';
 

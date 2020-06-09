@@ -24,7 +24,9 @@ export default class PinboardItem extends Component {
     const { handleClose, pinboard } = this.props;
 
     handleClose();
-    browserHistory.push(pinboard.url);
+    if (!pinboard.isCurrent) {
+      browserHistory.push(pinboard.url);
+    }
   };
 
   render() {
