@@ -42,7 +42,6 @@ import {
   fetchPinboardRelevantDocuments,
   fetchPinboardRelevantCoaccusals,
   fetchPinboardRelevantComplaints,
-  fetchHeaderPinboards,
 } from 'actions/pinboard';
 import { fetchVideoInfo } from 'actions/headers/slim-header';
 import * as pinboardAdminAction from 'actions/pinboard-admin-page';
@@ -211,7 +210,6 @@ describe('fetchPageInitialData middleware', function () {
     store.dispatch.calledWith(fetchNewTimelineItems(2)).should.be.true();
     store.dispatch.calledWith(requestCreateOfficerZipFile(2)).should.be.true();
     store.dispatch.calledWith(fetchPopup('officer')).should.be.true();
-    store.dispatch.calledWith(fetchHeaderPinboards()).should.be.true();
   });
 
   it('should dispatch fetchTRR if trr id change', function () {
@@ -253,7 +251,6 @@ describe('fetchPageInitialData middleware', function () {
     dispatched.should.eql(locationChangeAction);
     store.dispatch.calledWith(fetchCR(2)).should.be.true();
     store.dispatch.calledWith(fetchPopup('complaint')).should.be.true();
-    store.dispatch.calledWith(fetchHeaderPinboards()).should.be.true();
   });
 
   it('should dispatch fetch unit data when location change to unit page', function () {

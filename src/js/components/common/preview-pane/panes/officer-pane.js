@@ -7,7 +7,7 @@ import cx from 'classnames';
 import browserHistory from 'utils/history';
 import {
   NewVisualTokenWidget as VisualTokenWidget,
-  NewOfficerInfoWidget as OfficerInfoWidget,
+  OfficerInfoWidget,
   NewMetricWidget as MetricWidget,
   PinButton,
 } from '../widgets';

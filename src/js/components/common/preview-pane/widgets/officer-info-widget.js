@@ -1,80 +1,93 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Component } from 'react';
 import { map, compact, lowerCase, isEmpty } from 'lodash';
+import cx from 'classnames';
 
-import {
-  wrapperStyle,
-  titleStyle,
-  listStyle,
-  listItemStyle,
-  itemKeyStyle,
-  itemValueStyle,
-  clearfixStyle,
-} from './officer-info-widget.style';
+import browserHistory from 'utils/history';
+import styles from './officer-info-widget.sass';
 
 
-export default function OfficerInfoWidget(props) {
-  const {
-    fullName,
-    age,
-    race,
-    gender,
-    badge,
-    rank,
-    unit,
-    appointedDate,
-    resignationDate,
-  } = props;
+export default class OfficerInfoWidget extends Component {
+  handleClick(to) {
+    if (!isEmpty(to)) {
+      browserHistory.push(to);
+    }
+  }
 
-  const raceString = race ? lowerCase(race) : null;
-  const genderString = gender ? lowerCase(gender) : null;
-  const geographicInfo = compact([age, raceString, genderString]);
+  renderInfo(metric) {
+    if (!metric.value) {
+      return null;
+    }
 
-  const listInfo = [
-    {
-      key: '',
-      value: !isEmpty(geographicInfo) ? `${geographicInfo.join(', ')}.` : null,
-    },
-    {
-      key: 'Badge',
-      value: badge,
-    },
-    {
-      key: 'Rank',
-      value: rank,
-    },
-    {
-      key: 'Unit',
-      value: unit.description || unit.unitName,
-      title: unit.description,
-    },
-    {
-      key: 'Career',
-      value: `${appointedDate || 'Unknown'} — ${resignationDate || 'Present'}`,
-    },
-  ];
+    return (
+      <li
+        className={ cx(styles.listItem, { 'has-link': !isEmpty(metric.to) }) } key={ `item-${metric.key}` }
+        onClick={ () => this.handleClick(metric.to) }>
+        { metric.key && <div className={ styles.itemKey }>{ metric.key }</div> }
+        <div
+          title={ metric.title }
+          className={ cx(styles.itemValue, { 'has-key': !!metric.key }) }
+        >
+          { metric.value }
+        </div>
+        <div className='clearfix'/>
+      </li>
+    );
+  }
 
-  return (
-    <div style={ wrapperStyle }>
-      <h1 className='test--officer-name' style={ titleStyle }>{ fullName }</h1>
-      <ul style={ listStyle }>
-        {
-          map(listInfo, (metric) => metric.value ? (
-            <li style={ listItemStyle } key={ `item-${metric.key}` }>
-              { metric.key && <div style={ itemKeyStyle }>{ metric.key }</div> }
-              <div
-                title={ metric.title }
-                style={ itemValueStyle(!!metric.key) }
-              >
-                { metric.value }
-              </div>
-              <div style={ clearfixStyle }/>
-            </li>
-          ) : null)
-        }
-      </ul>
-    </div>
-  );
+  render() {
+    const {
+      fullName,
+      age,
+      race,
+      gender,
+      badge,
+      rank,
+      unit,
+      appointedDate,
+      resignationDate,
+    } = this.props;
+
+    const raceString = race ? lowerCase(race) : null;
+    const genderString = gender ? lowerCase(gender) : null;
+    const geographicInfo = compact([age, raceString, genderString]);
+
+    const listInfo = [
+      {
+        key: '',
+        value: !isEmpty(geographicInfo) ? `${geographicInfo.join(' ')}` : null,
+      },
+      {
+        key: 'Badge',
+        value: badge,
+      },
+      {
+        key: 'Rank',
+        value: rank,
+      },
+      {
+        key: 'Unit',
+        to: `/unit/${unit.unitName}/`,
+        value: unit.description || unit.unitName,
+        title: unit.description,
+      },
+      {
+        key: 'Career',
+        value: `${appointedDate || 'Unknown'} — ${resignationDate || 'Present'}`,
+      },
+    ];
+
+    return (
+      <div className={ styles.wrapper }>
+        <h1 className={ cx('test--officer-name', styles.title) }>{ fullName }</h1>
+        <ul className={ styles.list }>
+          {
+            map(listInfo, metric => this.renderInfo(metric))
+          }
+        </ul>
+      </div>
+    );
+  }
 }
 
 OfficerInfoWidget.defaultProps = {

@@ -5,6 +5,7 @@ import {
   PINBOARD_CREATE_REQUEST_SUCCESS,
   PINBOARD_UPDATE_FROM_SOURCE_REQUEST_SUCCESS,
   PINBOARD_UPDATE_REQUEST_SUCCESS,
+  DEFAULT_PINBOARD_PATH,
 } from 'utils/constants';
 import {
   dispatchFetchPinboardPinnedItems,
@@ -12,19 +13,13 @@ import {
   generatePinboardUrl,
 } from 'utils/pinboard';
 import { updatePathName } from 'actions/path-name';
-import { DEFAULT_PINBOARD_PATH } from 'utils/constants';
+import { onPinboardPage } from 'utils/paths';
 import { getPinboardID } from 'utils/location';
 
-
-const pinboardPageUrlPattern = /^\/pinboard\/([a-fA-F0-9]+)\/.*/;
 
 function getPinboardData(store, pinboardId) {
   dispatchFetchPinboardPinnedItems(store, pinboardId);
   dispatchFetchPinboardPageData(store, pinboardId);
-}
-
-function onPinboardPage(pathname) {
-  return pathname.match(pinboardPageUrlPattern) || pathname === DEFAULT_PINBOARD_PATH;
 }
 
 export default store => next => action => {
@@ -39,7 +34,7 @@ export default store => next => action => {
     const pathname = browserHistory.location.pathname;
     const idOnPath = getPinboardID(pathname);
 
-    if (onPinboardPage(pathname)) {
+    if (onPinboardPage(pathname) || pathname === DEFAULT_PINBOARD_PATH) {
       const rawPinboard = action.payload;
       const newPinboardId = rawPinboard.id;
       if (newPinboardId) {

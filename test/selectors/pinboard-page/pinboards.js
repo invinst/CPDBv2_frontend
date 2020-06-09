@@ -21,6 +21,9 @@ describe('Pinboards selectors', function () {
               'created_at': '2019-10-15',
             },
           ],
+          pinboard: {
+            id: 1,
+          },
         },
       };
 
@@ -30,12 +33,14 @@ describe('Pinboards selectors', function () {
           title: 'Pinboard Title',
           createdAt: 'Sep 12, 2019',
           url: '/pinboard/1/pinboard-title/',
+          isCurrent: true,
         },
         {
           id: '2',
           title: '',
           createdAt: 'Oct 15, 2019',
           url: '/pinboard/2/untitled-pinboard/',
+          isCurrent: false,
         },
       ]);
     });

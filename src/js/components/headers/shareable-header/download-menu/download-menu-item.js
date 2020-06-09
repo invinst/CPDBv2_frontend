@@ -10,8 +10,8 @@ import LoadingSpinner from 'components/common/loading-spinner';
 
 
 const contentMap = {
-  [OFFICER_DOWNLOAD_KINDS.WITH_DOCS]: { text: 'Data + documents', extension: '.xlxs, .pdf' },
-  [OFFICER_DOWNLOAD_KINDS.WITHOUT_DOCS]: { text: 'Data', extension: '.xlxs' },
+  [OFFICER_DOWNLOAD_KINDS.WITH_DOCS]: { text: 'Data + Documents', extension: 'xlxs, pdf' },
+  [OFFICER_DOWNLOAD_KINDS.WITHOUT_DOCS]: { text: 'Data', extension: 'xlxs' },
 };
 
 export default class DownloadMenuItem extends React.Component {

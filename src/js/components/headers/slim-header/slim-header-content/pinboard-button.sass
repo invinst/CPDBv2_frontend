@@ -41,9 +41,17 @@
     .pinboard-button-introduction-btns
       padding: 0 16px 18px 16px
 
-      .try-it-btn, .dismiss-btn
+      .try-it-btn
         color: $blue-ribbon-color
         line-height: 17px
 
-      .dismiss-btn
-        margin-left: 31px
+    .pinboard-button-introduction-close-btn
+      background: url("/img/ic-clear-green.svg") no-repeat center
+      position: absolute
+      width: 24px
+      height: 24px
+      top: 5px
+      right: 4px
+
+      &:hover
+        cursor: pointer

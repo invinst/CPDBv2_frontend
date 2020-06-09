@@ -41,14 +41,14 @@ export const turnOffEmptyPinboardDescriptionEditMode = createChangeEditModeActio
   PINBOARD_EDIT_TYPES.EMPTY_PINBOARD_DESCRIPTION, false
 );
 
-export const fetchPinboards = get(
+export const fetchPinboards = (params) => get(
   constants.PINBOARDS_URL,
   [
     PINBOARDS_FETCH_REQUEST_START,
     PINBOARDS_FETCH_REQUEST_SUCCESS,
     PINBOARDS_FETCH_REQUEST_FAILURE,
   ]
-);
+)(params);
 
 const hideShowPinboardsList = createAction(HIDE_SHOW_PINBOARDS_LIST);
 export const showPinboardsList = () => hideShowPinboardsList(true);

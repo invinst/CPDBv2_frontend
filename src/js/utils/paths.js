@@ -1,5 +1,7 @@
 import { kebabCase } from 'lodash';
 
+import { OFFICER_PAGE_PATTERN, CR_PAGE_PATTERN, PINBOARD_PAGE_PATTERN } from 'utils/constants';
+
 
 export const officerPath = (officerId, name = '') => {
   const nameSuffix = name && `${kebabCase(name)}/`;
@@ -29,3 +31,9 @@ export const getPathNameKey = (pathname) => {
   }
   return pathnameKey;
 };
+
+export const onOfficerPage = pathname => OFFICER_PAGE_PATTERN.test(pathname);
+
+export const onCrPage = pathname => CR_PAGE_PATTERN.test(pathname);
+
+export const onPinboardPage = pathname => PINBOARD_PAGE_PATTERN.test(pathname);
