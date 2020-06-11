@@ -287,7 +287,7 @@ class PreviewPane extends Section {
 class OfficerPreviewPane extends Section {
   constructor() {
     super();
-    this.officerInfoWidgetSelector = '//li[starts-with(@class, "new-officer-info-widget")]';
+    this.officerInfoWidgetSelector = '//li[starts-with(@class, "officer-info-widget")]';
     this.officerMetricWidgetItemSelector = '//div[starts-with(@class, "new-metric-widget-item")]';
 
     this.prepareElementGetters({
