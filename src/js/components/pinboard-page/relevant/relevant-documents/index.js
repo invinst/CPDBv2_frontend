@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { noop } from 'lodash';
 
 import { RelevantDocumentCardWithUndo as RelevantDocumentCard } from './relevant-document-card';
 import RelevantInfiniteCarousel from 'components/pinboard-page/relevant/common/relevant-infinite-carousel';
@@ -12,7 +13,7 @@ export default class RelevantDocuments extends Component {
   };
 
   render() {
-    const { documents, hasMore, addItemInPinboardPage, requesting } = this.props;
+    const { documents, hasMore, addItemInPinboardPage, requesting, focusItem } = this.props;
     return (
       <RelevantInfiniteCarousel
         title='DOCUMENTS'
@@ -25,7 +26,11 @@ export default class RelevantDocuments extends Component {
         {
           documents.map((document, index) =>
             <div key={ index } style={ { width: '306px' } }>
-              <RelevantDocumentCard { ...document } addItemInPinboardPage={ addItemInPinboardPage }/>
+              <RelevantDocumentCard
+                { ...document }
+                addItemInPinboardPage={ addItemInPinboardPage }
+                focusItem={ focusItem }
+              />
             </div>
           )
         }
@@ -42,8 +47,10 @@ RelevantDocuments.propTypes = {
   pinboardId: PropTypes.string,
   addItemInPinboardPage: PropTypes.func,
   requesting: PropTypes.bool,
+  focusItem: PropTypes.func,
 };
 
 RelevantDocuments.defaultProps = {
   documents: [],
+  focusItem: noop,
 };

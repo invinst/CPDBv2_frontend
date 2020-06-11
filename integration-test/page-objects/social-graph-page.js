@@ -117,8 +117,14 @@ class PreviewPaneSection extends Section {
       edgePreviewPaneHeader: '(//div[@class="edge-coaccusals-pane-header"])',
       crPreviewPaneTitle: '//div[contains(@class, "cr-preview-pane-title-title")]',
       crPreviewPaneSubtitle: '//div[contains(@class, "cr-preview-pane-title-subtitle")]',
+      crPreviewPaneIncidentDate: '//div[contains(@class, "cr-preview-pane-info-row")]',
+      crPreviewPaneAddress: '//div[contains(@class, "cr-preview-pane-address")]',
+      crPreviewPaneVictims: '//div[@class="cr-preview-pane-victims"]',
       radarChart: '//div[contains(@class, "preview-pane")]//*[name()="svg" and contains(@class, "radar")]',
       firstAccusedOfficerRadarChart: '//ul[@class="list-widget-list"]//*[name()="svg"]',
+      firstAccusedOfficerName: '//p[contains(@class, "list-widget-list-item-name")][1]',
+      firstAccusedAllegationCount: '//p[contains(@class, "list-widget-list-item-count")][1]',
+      overlay: '//div[@class="overlay" and @aria-hidden="false"]',
     });
   }
 
@@ -140,3 +146,4 @@ class SocialGraphPage extends Page {
 }
 
 module.exports = new SocialGraphPage();
+module.exports.PreviewPaneSection = PreviewPaneSection;

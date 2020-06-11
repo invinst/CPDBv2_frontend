@@ -1,5 +1,6 @@
 import Page from './page';
 import Section from './sections/section';
+import { PreviewPaneSection } from './social-graph-page';
 
 
 class PinnedOfficers extends Section {
@@ -106,6 +107,7 @@ class BaseComplaintCardSection extends Section {
       thumbnail: '//div[contains(@class, "document-card-thumbnail")]',
       plusButton: '//div[contains(@class, "plus-button")]',
       incidentDate: '//div[contains(@class, "incident-date")]',
+      thirdIncidentDate: '(//div[contains(@class, "incident-date")])[3]',
       category: '//div[contains(@class, "category")]',
       topOfficers: '//div[contains(@class, "top-officers")]',
       firstTopOfficerName: '//div[@class="top-officer-row-officer-name"]',
@@ -339,6 +341,7 @@ class PinboardPage extends Page {
   relevantComplaintsSection = new RelevantComplaintsSection();
   emptyPinboardSection = new EmptyPinboardSection();
   previewPane = new PreviewPane();
+  complaintPreviewPane = new PreviewPaneSection();
   officerPreviewPane = new OfficerPreviewPane();
 
   constructor() {

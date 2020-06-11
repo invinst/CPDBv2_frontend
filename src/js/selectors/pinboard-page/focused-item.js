@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { get, concat, keyBy, isEmpty, each } from 'lodash';
+import { get, concat, keyBy, isEmpty, each, map } from 'lodash';
 
 import {
   getPinnedCRs,
@@ -13,6 +13,7 @@ const focusedItem = state => state.pinboardPage.focusedItem;
 
 const getRelevantComplaints = state => state.pinboardPage.relevantComplaints.items;
 const getRelevantCoaccusals = state => state.pinboardPage.relevantCoaccusals.items;
+const getRelevantDocuments = state => state.pinboardPage.relevantDocuments.items;
 
 const allItemsSelector = createSelector(
   getPinnedCRs,
@@ -20,15 +21,17 @@ const allItemsSelector = createSelector(
   getPinnedOfficers,
   getRelevantComplaints,
   getRelevantCoaccusals,
-  (pinnedCRs, pinnedTRRs, pinnedOfficers, relevantCRs, relevantOfficers) => {
+  getRelevantDocuments,
+  (pinnedCRs, pinnedTRRs, pinnedOfficers, relevantCRs, relevantOfficers, relevantDocuments) => {
     each(pinnedCRs, cr => cr.isPinned = true);
     each(pinnedTRRs, trr => trr.isPinned = true);
     each(pinnedOfficers, officer => officer.isPinned = true);
     each(relevantCRs, cr => cr.isPinned = false);
     each(relevantOfficers, officer => officer.isPinned = false);
+    const relevantDocumentsCRs = map(relevantDocuments, document => document.allegation);
 
     return {
-      'CR': keyBy(concat(pinnedCRs, relevantCRs), item => item.crid),
+      'CR': keyBy(concat(pinnedCRs, relevantDocumentsCRs, relevantCRs), item => item.crid),
       'TRR': keyBy(pinnedTRRs, item => item.id.toString()),
       'OFFICER': keyBy(concat(pinnedOfficers, relevantOfficers), item => item.id.toString()),
     };

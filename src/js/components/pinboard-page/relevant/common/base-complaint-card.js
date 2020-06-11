@@ -30,6 +30,7 @@ export default class BaseComplaintCard extends Component {
       officers,
       leftChild,
       pinned,
+      leftHaftClick,
     } = this.props;
 
     const topOfficers = take(officers, 2);
@@ -38,11 +39,11 @@ export default class BaseComplaintCard extends Component {
 
     return (
       <div className={ styles.baseComplaintCard }>
-        <div onClick={ this.handleFocus }>
-          <div className='left-half'>
+        <div>
+          <div className='left-half' onClick={ leftHaftClick ? this.handleFocus : noop }>
             { leftChild }
           </div>
-          <div className='right-half'>
+          <div className='right-half' onClick={ this.handleFocus }>
             <div className='incident-date'>{ incidentDate }</div>
             <div className='category'>{ category }</div>
             <div className='top-officers'>
@@ -84,9 +85,11 @@ BaseComplaintCard.propTypes = {
   pinned: PropTypes.bool,
   focusItem: PropTypes.func,
   rawData: PropTypes.object,
+  leftHaftClick: PropTypes.bool,
 };
 
 BaseComplaintCard.defaultProps = {
   focusItem: noop,
   rawData: {},
+  leftHaftClick: true,
 };

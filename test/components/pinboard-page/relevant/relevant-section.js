@@ -28,6 +28,7 @@ describe('RelevantSection component', function () {
     const fetchPinboardRelevantCoaccusals = spy();
     const fetchPinboardRelevantComplaints = spy();
     const addItemInPinboardPage = spy();
+    const focusItem = spy();
     const documents = [{
       previewImageUrl: 'https://www.documentcloud.org/documents/CRID-1074534-TRR-Stegmiller-p1-normal.gif',
       url: 'https://www.documentcloud.org/documents/3037807/CRID-1074534-TRR-Stegmiller.pdf',
@@ -81,6 +82,7 @@ describe('RelevantSection component', function () {
         isRequestingDocuments={ false }
         isRequestingCoaccusals={ false }
         isRequestingComplaints={ false }
+        focusItem={ focusItem }
       />
     );
 
@@ -94,6 +96,7 @@ describe('RelevantSection component', function () {
     relevantDocuments.prop('requesting').should.be.false();
     relevantDocuments.prop('fetchPinboardRelevantDocuments').should.equal(fetchPinboardRelevantDocuments);
     relevantDocuments.prop('addItemInPinboardPage').should.equal(addItemInPinboardPage);
+    relevantDocuments.prop('focusItem').should.equal(focusItem);
 
     const relevantCoaccusals = wrapper.find(RelevantCoaccusals);
     relevantCoaccusals.prop('pinboardId').should.equal('66ef1560');
@@ -103,6 +106,7 @@ describe('RelevantSection component', function () {
     relevantCoaccusals.prop('requesting').should.be.false();
     relevantCoaccusals.prop('fetchPinboardRelevantCoaccusals').should.equal(fetchPinboardRelevantCoaccusals);
     relevantCoaccusals.prop('addItemInPinboardPage').should.equal(addItemInPinboardPage);
+    relevantCoaccusals.prop('focusItem').should.equal(focusItem);
 
     const relevantComplaints = wrapper.find(RelevantComplaints);
     relevantComplaints.prop('pinboardId').should.equal('66ef1560');
@@ -112,5 +116,6 @@ describe('RelevantSection component', function () {
     relevantComplaints.prop('requesting').should.be.false();
     relevantComplaints.prop('fetchPinboardRelevantComplaints').should.equal(fetchPinboardRelevantComplaints);
     relevantComplaints.prop('addItemInPinboardPage').should.equal(addItemInPinboardPage);
+    relevantComplaints.prop('focusItem').should.equal(focusItem);
   });
 });
