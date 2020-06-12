@@ -36,7 +36,7 @@ describe('searchPage.contentType reducer', function () {
       type: LOCATION_CHANGE,
       payload: {
         location: {
-          search: 'terms=officer:123',
+          search: 'q=officer:123',
         },
       },
     }).should.eql('OFFICER');
@@ -47,7 +47,7 @@ describe('searchPage.contentType reducer', function () {
       type: LOCATION_CHANGE,
       payload: {
         location: {
-          search: 'terms=abc:123',
+          search: 'q=abc:123',
         },
       },
     })).be.null();
