@@ -38,11 +38,13 @@ export const pinboardsList = [
     'id': 'ceea8ea3',
     'title': 'Pinboard title',
     'created_at': '2019-09-12',
+    'last_viewed_at': '2019-10-20T05:45:00.967Z',
   },
   {
     'id': '77edc128',
     'title': '',
     'created_at': '2019-10-15',
+    'last_viewed_at': '2019-10-18T06:15:00.967Z',
   },
 ];
 

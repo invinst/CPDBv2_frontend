@@ -232,3 +232,12 @@ export const fetchLatestRetrievedPinboard = get(
     constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_FAILURE,
   ]
 );
+
+export const viewPinboard = (id) => post(
+  `${constants.PINBOARDS_URL}${id}/view/`,
+  [
+    constants.VIEW_PINBOARD_REQUEST_START,
+    constants.VIEW_PINBOARD_REQUEST_SUCCESS,
+    constants.VIEW_PINBOARD_REQUEST_FAILURE,
+  ]
+)();

@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import cx from 'classnames';
-import { isEmpty, noop } from 'lodash';
+import { noop } from 'lodash';
 
 import browserHistory from 'utils/history';
 import { redirectToCreatedPinboard } from 'utils/pinboard';
@@ -30,17 +29,17 @@ export default class PinboardItem extends Component {
   };
 
   render() {
-    const { pinboard } = this.props;
+    const { pinboard: { title, createdAt, lastViewedAt } } = this.props;
 
     return (
       <PinboardLinkContainer
         customComponent='div'
-        className={ cx('pinboard-item', { 'untitled-pinboard': isEmpty(pinboard.title) }) }
+        className='pinboard-item'
         onClick={ this.handlePinboardItemClick }
       >
         <div className='pinboard-info'>
-          <div className='pinboard-title'>{ pinboard.title }</div>
-          <div className='pinboard-created-at'>Created { pinboard.createdAt }</div>
+          <div className='pinboard-title'>{ title || `Created ${createdAt}` }</div>
+          <div className='pinboard-viewed-at'>Viewed { lastViewedAt }</div>
         </div>
         <PinboardLinkContainer
           className='duplicate-pinboard-btn'

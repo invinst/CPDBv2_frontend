@@ -23,13 +23,15 @@ describe('Pinboards component', function () {
     {
       id: '1',
       title: 'Pinboard Title',
-      createdAt: 'Sep 12, 2019',
+      createdAt: '12/12/2019',
+      lastViewedAt: '13/12/2019 at 10:20 AM',
       url: '/pinboard/1/pinboard-title/',
     },
     {
       id: '2',
       title: '',
-      createdAt: 'Oct 15, 2019',
+      createdAt: '15/10/2019',
+      lastViewedAt: '18/12/2019 at 10:20 AM',
       url: '/pinboard/2/untitled-pinboard/',
     },
   ];
@@ -47,13 +49,13 @@ describe('Pinboards component', function () {
     pinboardItems.should.have.length(2);
 
     const pinboardTitles = wrapper.find('.pinboard-title');
-    const pinboardCreatedAts = wrapper.find('.pinboard-created-at');
+    const pinboardViewedAts = wrapper.find('.pinboard-viewed-at');
 
     pinboardTitles.at(0).text().should.equal('Pinboard Title');
-    pinboardCreatedAts.at(0).text().should.equal('Created Sep 12, 2019');
+    pinboardViewedAts.at(0).text().should.equal('Viewed 13/12/2019 at 10:20 AM');
 
-    pinboardTitles.at(1).text().should.equal('');
-    pinboardCreatedAts.at(1).text().should.equal('Created Oct 15, 2019');
+    pinboardTitles.at(1).text().should.equal('Created 15/10/2019');
+    pinboardViewedAts.at(1).text().should.equal('Viewed 18/12/2019 at 10:20 AM');
   });
 
   it('should not render pinboard list if isShown is false', function () {

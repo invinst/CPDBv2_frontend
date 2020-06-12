@@ -2,7 +2,7 @@ import { filter, find, get, isUndefined } from 'lodash';
 import { createSelector } from 'reselect';
 import moment from 'moment';
 
-import { DATE_FORMAT } from 'utils/constants';
+import { MONTH_NAME_DAY_YEAR_FORMAT } from 'utils/constants';
 import {
   isItemPinned,
   pinboardPinnedItemsMapping,
@@ -22,7 +22,7 @@ export const rawPinboardsSelector = createSelector(
     }
     const filteredPinboards = filter(pinboards, (pinboard) => pinboard.id !== currentPinboard.id);
     return [
-      { ...currentPinboardInList, ...currentPinboard, 'is_current': true },
+      { ...currentPinboardInList, ...currentPinboard, 'is_current': true, 'last_viewed_at': moment().toISOString() },
       ...filteredPinboards,
     ];
   }
@@ -31,7 +31,7 @@ export const rawPinboardsSelector = createSelector(
 const pinboardItemTransform = (pinboard, id, itemType) => ({
   id: pinboard['id'].toString(),
   title: get(pinboard, 'title', ''),
-  createdAt: moment(pinboard['created_at']).format(DATE_FORMAT),
+  createdAt: moment(pinboard['created_at']).format(MONTH_NAME_DAY_YEAR_FORMAT),
   isPinned: isItemPinned(itemType, id, pinboardPinnedItemsMapping(pinboardPinnedItemsTransform(pinboard))),
   isCurrent: get(pinboard, 'is_current', false),
 });

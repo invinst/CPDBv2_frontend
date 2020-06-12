@@ -15,6 +15,7 @@ describe('PinboardItem component', function () {
     id: '1',
     title: 'Pinboard Title',
     createdAt: 'Sep 12, 2019',
+    lastViewedAt: '13/12/2019 at 12:12 AM',
     url: '/pinboard/1/pinboard-title/',
     isCurrent: false,
   };
@@ -25,7 +26,7 @@ describe('PinboardItem component', function () {
     );
 
     wrapper.find('.pinboard-title').text().should.equal('Pinboard Title');
-    wrapper.find('.pinboard-created-at').text().should.equal('Created Sep 12, 2019');
+    wrapper.find('.pinboard-viewed-at').text().should.equal('Viewed 13/12/2019 at 12:12 AM');
   });
 
   it('should render duplicate-pinboard-btn', function (done) {

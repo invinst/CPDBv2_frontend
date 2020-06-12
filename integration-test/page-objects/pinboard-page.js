@@ -220,18 +220,36 @@ class ManagePinboardsButtonsSection extends Section {
   }
 }
 
+class PinboardListItemSection extends Section {
+  constructor(index) {
+    super(
+      '',
+      `(//div[contains(@class, "pinboards__pinboards")]/div[contains(@class, "pinboard-item")])[${index}]`
+    );
+
+    this.prepareElementGetters({
+      title: '//div[@class="pinboard-title"]',
+      viewedAt: '//div[@class="pinboard-viewed-at"]',
+      actionsButton: '//div[contains(@class, "pinboard-item-actions-btn")]',
+      actionsPane: '//div[contains(@class, "pinboard-item-actions-menu")]',
+      duplicateButton: '//a[@class="duplicate-pinboard-btn"]',
+      removeButton: '//div[@class="remove-pinboard-btn"]',
+      spinner: '//img[@class="spinner"]',
+    });
+  }
+}
+
 class PinboardsListSection extends Section {
+  firstPinboardItem = new PinboardListItemSection(1);
+  secondPinboardItem = new PinboardListItemSection(2);
+  thirdPinboardItem = new PinboardListItemSection(3);
+
   constructor() {
     super();
 
     this.prepareElementGetters({
       pinboardsTitle: '.pinboards-title',
       createNewPinboardButton: '.new-pinboard-btn',
-      firstDuplicatePinboardButton: '(//a[contains(@class, "duplicate-pinboard-btn")])[1]',
-      firstPinboardItemTitle: '//div[contains(@class, "pinboard-item")][1]//div[@class="pinboard-title"]',
-      firstPinboardItemCreatedAt: '//div[contains(@class, "pinboard-item")][1]//div[@class="pinboard-created-at"]',
-      secondPinboardItemTitle: '//div[contains(@class, "pinboard-item")][2]//div[@class="pinboard-title"]',
-      secondPinboardItemCreatedAt: '//div[contains(@class, "pinboard-item")][2]//div[@class="pinboard-created-at"]',
     });
   }
 

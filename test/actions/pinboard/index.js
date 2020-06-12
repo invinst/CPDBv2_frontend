@@ -28,6 +28,7 @@ import {
   addItemInPinboardPage,
   fetchLatestRetrievedPinboard,
   updatePinboardFromSource,
+  viewPinboard,
 } from 'actions/pinboard';
 import * as constants from 'utils/constants';
 
@@ -685,6 +686,27 @@ describe('pinboard actions', function () {
               'source_pinboard_id': 'abcd5678',
             },
             cancelToken: 'token',
+          },
+        },
+      });
+    });
+  });
+
+  describe('viewPinboard', function () {
+    it('should return correct action', function () {
+      viewPinboard('123f78').should.deepEqual({
+        types: [
+          constants.VIEW_PINBOARD_REQUEST_START,
+          constants.VIEW_PINBOARD_REQUEST_SUCCESS,
+          constants.VIEW_PINBOARD_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            adapter: null,
+            data: undefined,
+            cancelToken: undefined,
+            method: 'post',
+            url: `${constants.PINBOARDS_URL}123f78/view/`,
           },
         },
       });

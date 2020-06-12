@@ -2,6 +2,7 @@
 
 require('should');
 import { map, countBy, filter, times } from 'lodash';
+import moment from 'moment';
 
 import pinboardPage from './page-objects/pinboard-page';
 import socialGraphPage from './page-objects/social-graph-page';
@@ -635,21 +636,26 @@ describe('Pinboard Page', function () {
       pinboardPage.open('ceea8ea3');
       pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
 
+      const expectedFormat = '[Viewed] DD/MM/YYYY [at] hh:mm A';
+      const currentHourString = moment().format('[^Viewed] DD/MM/YYYY [at] hh[:\\d\\d] A$');
+      const currentHour = new RegExp(currentHourString);
+      const secondPinboardItemViewedAt = moment('2019-10-18T06:15:00.967Z').format(expectedFormat);
+
       pinboardPage.pinboardsListSection.pinboardsTitle.getText().should.equal('Pinboards');
       pinboardPage.pinboardsListSection.pinboardItems().should.have.length(2);
 
-      pinboardPage.pinboardsListSection.firstPinboardItemTitle.getText().should.equal('Pinboard Title');
-      pinboardPage.pinboardsListSection.firstPinboardItemCreatedAt.getText().should.equal('Created Sep 12, 2019');
+      pinboardPage.pinboardsListSection.firstPinboardItem.title.getText().should.equal('Pinboard Title');
+      pinboardPage.pinboardsListSection.firstPinboardItem.viewedAt.getText().should.match(currentHour);
 
-      pinboardPage.pinboardsListSection.secondPinboardItemTitle.getText().should.equal('');
-      pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.getText().should.equal('Created Oct 15, 2019');
+      pinboardPage.pinboardsListSection.secondPinboardItem.title.getText().should.equal('Created 15/10/2019');
+      pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.getText().should.equal(secondPinboardItemViewedAt);
     });
 
     context('clicking on pinboard item', function () {
       it('should go to pinboard detail page', function () {
         pinboardPage.open('ceea8ea3');
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
-        pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
+        pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.click();
         browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
         pinboardPage.pinboardSection.title.getText().should.equal('');
         pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
@@ -661,7 +667,7 @@ describe('Pinboard Page', function () {
         browser.pause(2500);
 
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
-        pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
+        pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.click();
         browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
         pinboardPage.pinboardSection.title.getText().should.equal('');
         pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
@@ -674,7 +680,7 @@ describe('Pinboard Page', function () {
         browser.pause(4500);
 
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
-        pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
+        pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.click();
         browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
         pinboardPage.pinboardSection.title.getText().should.equal('');
         pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
@@ -686,7 +692,7 @@ describe('Pinboard Page', function () {
             pinboardPage.open('ceea8ea3');
             removeOfficerFromPinboard();
             pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
-            pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
+            pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.click();
             expectAlertContent(browser);
             browser.acceptAlert();
             browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
@@ -700,7 +706,7 @@ describe('Pinboard Page', function () {
             browser.pause(500);
 
             pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
-            pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
+            pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.click();
             expectAlertContent(browser);
             browser.acceptAlert();
             browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
@@ -714,7 +720,7 @@ describe('Pinboard Page', function () {
             browser.pause(4500);
 
             pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
-            pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
+            pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.click();
             expectAlertContent(browser);
             browser.acceptAlert();
             browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
@@ -728,7 +734,7 @@ describe('Pinboard Page', function () {
             browser.pause(500);
 
             pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
-            pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
+            pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.click();
             expectAlertContent(browser);
             browser.acceptAlert();
             browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
@@ -736,7 +742,7 @@ describe('Pinboard Page', function () {
             pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
 
             pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
-            pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
+            pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.click();
             browser.getUrl().should.containEql('/pinboard/ceea8ea3/pinboard-title/');
             pinboardPage.pinboardSection.title.getText().should.equal('Pinboard Title');
             pinboardPage.pinboardSection.description.getText().should.equal('Pinboard Description');
@@ -748,7 +754,7 @@ describe('Pinboard Page', function () {
             pinboardPage.open('ceea8ea3');
             removeOfficerFromPinboard();
             pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
-            pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
+            pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.click();
             expectAlertContent(browser);
             browser.dismissAlert();
             expectStillInCurrentPinboardPage(browser);
@@ -872,7 +878,7 @@ describe('Pinboard Page', function () {
         pinboardPage.pinnedSection.trrs.trrCards().should.have.length(2);
 
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
-        pinboardPage.pinboardsListSection.firstDuplicatePinboardButton.click();
+        pinboardPage.pinboardsListSection.firstPinboardItem.duplicateButton.click();
         browser.getUrl().should.containEql('/pinboard/5cd06f2b/pinboard-title/');
         pinboardPage.pinboardSection.title.getText().should.containEql('Pinboard Title');
         pinboardPage.pinboardSection.description.getText().should.containEql('Pinboard Description');
@@ -885,7 +891,7 @@ describe('Pinboard Page', function () {
       it('should duplicate selected pinboard if pinboard is saving and user confirm yes', function () {
         removeOfficerFromPinboard();
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
-        pinboardPage.pinboardsListSection.firstDuplicatePinboardButton.click();
+        pinboardPage.pinboardsListSection.firstPinboardItem.duplicateButton.click();
         expectAlertContent(browser);
         browser.acceptAlert();
         browser.getUrl().should.containEql('/pinboard/5cd06f2b/pinboard-title/');
@@ -896,7 +902,7 @@ describe('Pinboard Page', function () {
       it('should still in current page if pinboard is saving and user confirm no', function () {
         removeOfficerFromPinboard();
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
-        pinboardPage.pinboardsListSection.firstDuplicatePinboardButton.click();
+        pinboardPage.pinboardsListSection.firstPinboardItem.duplicateButton.click();
         expectAlertContent(browser);
         browser.dismissAlert();
         expectStillInCurrentPinboardPage(browser);
