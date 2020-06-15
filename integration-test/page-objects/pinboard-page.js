@@ -249,6 +249,7 @@ class PinboardsListSection extends Section {
     this.prepareElementGetters({
       pinboardsTitle: '.pinboards-title',
       createNewPinboardButton: '.new-pinboard-btn',
+      overlay: '//div[@class="overlay" and @aria-hidden="false"]',
     });
   }
 

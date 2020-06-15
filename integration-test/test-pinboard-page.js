@@ -652,6 +652,62 @@ describe('Pinboard Page', function () {
       pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.getText().should.equal(secondPinboardItemViewedAt);
     });
 
+    describe('display spinner', function () {
+      beforeEach(function () {
+        setupMockApiFile('pinboard-page/manage-pinboards/display-spinner.js');
+        pinboardPage.open('ceea8ea3');
+        pinboardPage.managePinboardsButtonsSection.pinboardsListButton.waitForDisplayed();
+      });
+
+      afterEach(function () {
+        restoreMockApiFile();
+      });
+
+      context('update title', function () {
+        it('should display spinner on pinboards list', function () {
+          const firstPinboardItem = pinboardPage.pinboardsListSection.firstPinboardItem;
+          pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+          firstPinboardItem.spinner.waitForDisplayed(2000, true);
+          firstPinboardItem.title.getText().should.equal('Pinboard Title');
+
+
+          pinboardPage.pinboardsListSection.overlay.click();
+          firstPinboardItem.title.waitForDisplayed(2000, true);
+
+          pinboardPage.pinboardSection.title.waitForDisplayed();
+          pinboardPage.pinboardSection.description.waitForDisplayed();
+          pinboardPage.pinboardSection.title.getText().should.equal('Pinboard Title');
+          pinboardPage.pinboardSection.description.getText().should.equal('Pinboard Description');
+          browser.waitForUrl(url => url.should.containEql('/pinboard-title/'), 500);
+
+          pinboardPage.pinboardSection.title.click();
+          pinboardPage.pinboardSection.title.setValue('Updated Pinboard Title');
+          pinboardPage.pinboardSection.description.click();
+
+          pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+          firstPinboardItem.spinner.waitForDisplayed();
+          firstPinboardItem.title.getText().should.equal('Updating pinboard title...');
+          firstPinboardItem.spinner.waitForDisplayed(5000, true);
+          firstPinboardItem.title.getText().should.equal('Updated Pinboard Title');
+        });
+      });
+
+      it('should display spinner on creating new pinboard', function () {
+        const pinboardsListSection = pinboardPage.pinboardsListSection;
+        const firstPinboardItem = pinboardsListSection.firstPinboardItem;
+        pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+
+        pinboardsListSection.createNewPinboardButton.waitForDisplayed();
+        pinboardsListSection.createNewPinboardButton.click();
+
+        firstPinboardItem.spinner.waitForDisplayed();
+        firstPinboardItem.title.getText().should.equal('Adding pinboard...');
+        firstPinboardItem.spinner.waitForDisplayed(5000, true);
+
+        browser.waitForUrl(url => url.should.containEql('pinboard/231faa/untitled-pinboard/'), 500);
+      });
+    });
+
     context('clicking on pinboard item', function () {
       it('should go to pinboard detail page', function () {
         pinboardPage.open('ceea8ea3');
@@ -918,7 +974,7 @@ describe('Pinboard Page', function () {
 
     context('clicking on remove pinboard button', function () {
       beforeEach(function () {
-        setupMockApiFile('pinboard-page/remove-pinboard.js');
+        setupMockApiFile('pinboard-page/manage-pinboards/remove-pinboard.js');
         pinboardPage.open('ceea8ea3');
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.waitForDisplayed();
       });

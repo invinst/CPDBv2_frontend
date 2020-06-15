@@ -16,6 +16,7 @@ describe('Pinboard reducer', function () {
       'saving': false,
       'needRefreshData': false,
       hasPendingChanges: false,
+      hasTitlePendingChange: false,
     });
   });
 
@@ -166,28 +167,50 @@ describe('Pinboard reducer', function () {
     });
   });
 
-  it('should handle PINBOARD_UPDATE_REQUEST_SUCCESS', function () {
-    pinboardReducer(
-      {
-        'id': '66ef1560',
-        'title': '',
-        'officer_ids': [],
-        'crids': [],
-        'trr_ids': [],
-        'description': '',
-        'saving': true,
-        'isPinboardRestored': false,
-        hasPendingChanges: false,
-      },
-      {
-        type: constants.PINBOARD_UPDATE_REQUEST_SUCCESS,
-        payload: {
-          id: '66ef1560',
-          title: 'Title',
-          description: 'Description',
-          'officer_ids': [1],
-          crids: ['abc'],
-          'trr_ids': [1],
+  describe('should handle PINBOARD_UPDATE_REQUEST_SUCCESS', function () {
+    context('title from payload does not match with updated title', function () {
+      it('should set hasPendingChanges and hasTitlePendingChange to true', function () {
+        pinboardReducer(
+          {
+            'id': '66ef1560',
+            'title': '',
+            'officer_ids': [],
+            'crids': [],
+            'trr_ids': [],
+            'description': 'Description',
+            'saving': true,
+            'isPinboardRestored': false,
+            'hasPendingChanges': false,
+          },
+          {
+            type: constants.PINBOARD_UPDATE_REQUEST_SUCCESS,
+            payload: {
+              id: '66ef1560',
+              title: 'Title',
+              description: 'Description',
+              'officer_ids': [1],
+              crids: ['abc'],
+              'trr_ids': [1],
+              'example_pinboards': [{
+                id: '66ef1561',
+                title: 'Pinboard 1',
+                description: 'Description 1',
+              }, {
+                id: '66ef1562',
+                title: 'Pinboard 2',
+                description: 'Description 2',
+              }],
+            },
+          }
+        ).should.deepEqual({
+          'id': '66ef1560',
+          'title': '',
+          'officer_ids': [],
+          'crids': [],
+          'trr_ids': [],
+          'description': 'Description',
+          'saving': false,
+          'isPinboardRestored': false,
           'example_pinboards': [{
             id: '66ef1561',
             title: 'Pinboard 1',
@@ -197,27 +220,126 @@ describe('Pinboard reducer', function () {
             title: 'Pinboard 2',
             description: 'Description 2',
           }],
-        },
-      }
-    ).should.deepEqual({
-      'id': '66ef1560',
-      'title': '',
-      'officer_ids': [],
-      'crids': [],
-      'trr_ids': [],
-      'description': '',
-      'saving': false,
-      'isPinboardRestored': false,
-      'example_pinboards': [{
-        id: '66ef1561',
-        title: 'Pinboard 1',
-        description: 'Description 1',
-      }, {
-        id: '66ef1562',
-        title: 'Pinboard 2',
-        description: 'Description 2',
-      }],
-      hasPendingChanges: true,
+          hasPendingChanges: true,
+          hasTitlePendingChange: true,
+        });
+      });
+    });
+
+    context('description from payload does not match with updated title', function () {
+      it('should set hasPendingChanges to true and hasTitlePendingChange to false', function () {
+        pinboardReducer(
+          {
+            'id': '66ef1560',
+            'title': 'Title',
+            'officer_ids': [],
+            'crids': [],
+            'trr_ids': [],
+            'description': '',
+            'saving': true,
+            'isPinboardRestored': false,
+            'hasPendingChanges': false,
+          },
+          {
+            type: constants.PINBOARD_UPDATE_REQUEST_SUCCESS,
+            payload: {
+              id: '66ef1560',
+              title: 'Title',
+              description: 'Description',
+              'officer_ids': [1],
+              crids: ['abc'],
+              'trr_ids': [1],
+              'example_pinboards': [{
+                id: '66ef1561',
+                title: 'Pinboard 1',
+                description: 'Description 1',
+              }, {
+                id: '66ef1562',
+                title: 'Pinboard 2',
+                description: 'Description 2',
+              }],
+            },
+          }
+        ).should.deepEqual({
+          'id': '66ef1560',
+          'title': 'Title',
+          'officer_ids': [],
+          'crids': [],
+          'trr_ids': [],
+          'description': '',
+          'saving': false,
+          'isPinboardRestored': false,
+          'example_pinboards': [{
+            id: '66ef1561',
+            title: 'Pinboard 1',
+            description: 'Description 1',
+          }, {
+            id: '66ef1562',
+            title: 'Pinboard 2',
+            description: 'Description 2',
+          }],
+          hasPendingChanges: true,
+          hasTitlePendingChange: false,
+        });
+      });
+    });
+
+    context('action payload match with local pinboard', function () {
+      it('should set hasPendingChanges and hasTitlePendingChange to false', function () {
+        pinboardReducer(
+          {
+            'id': '66ef1560',
+            'title': 'Title',
+            'officer_ids': [],
+            'crids': [],
+            'trr_ids': [],
+            'description': 'Description',
+            'saving': true,
+            'isPinboardRestored': false,
+            'hasPendingChanges': false,
+          },
+          {
+            type: constants.PINBOARD_UPDATE_REQUEST_SUCCESS,
+            payload: {
+              id: '66ef1560',
+              title: 'Title',
+              description: 'Description',
+              'officer_ids': [],
+              crids: [],
+              'trr_ids': [],
+              'example_pinboards': [{
+                id: '66ef1561',
+                title: 'Pinboard 1',
+                description: 'Description 1',
+              }, {
+                id: '66ef1562',
+                title: 'Pinboard 2',
+                description: 'Description 2',
+              }],
+            },
+          }
+        ).should.deepEqual({
+          'id': '66ef1560',
+          'title': 'Title',
+          'officer_ids': [],
+          'crids': [],
+          'trr_ids': [],
+          'description': 'Description',
+          'saving': false,
+          'isPinboardRestored': false,
+          'example_pinboards': [{
+            id: '66ef1561',
+            title: 'Pinboard 1',
+            description: 'Description 1',
+          }, {
+            id: '66ef1562',
+            title: 'Pinboard 2',
+            description: 'Description 2',
+          }],
+          hasPendingChanges: false,
+          hasTitlePendingChange: false,
+        });
+      });
     });
   });
 
@@ -273,6 +395,7 @@ describe('Pinboard reducer', function () {
       saving: false,
       needRefreshData: false,
       hasPendingChanges: false,
+      hasTitlePendingChange: false,
       isPinboardRestored: true,
     });
   });
@@ -431,6 +554,7 @@ describe('Pinboard reducer', function () {
       crids: ['abc'],
       'trr_ids': [1],
       hasPendingChanges: false,
+      hasTitlePendingChange: false,
       isPinboardRestored: true,
       needRefreshData: false,
       saving: false,
@@ -461,6 +585,7 @@ describe('Pinboard reducer', function () {
       saving: false,
       needRefreshData: false,
       hasPendingChanges: false,
+      hasTitlePendingChange: false,
       isPinboardRestored: true,
     });
   });
@@ -482,6 +607,7 @@ describe('Pinboard reducer', function () {
       saving: false,
       needRefreshData: false,
       hasPendingChanges: false,
+      hasTitlePendingChange: false,
       isPinboardRestored: true,
     });
   });
@@ -919,31 +1045,67 @@ describe('Pinboard reducer', function () {
     });
   });
 
-  it('should handle UPDATE_PINBOARD_INFO_STATE', function () {
-    pinboardReducer(
-      {
-        id: null,
-        title: 'Title',
-        description: 'Description',
-        'officer_ids': [10, 11, 12, 13, 14],
-        crids: [],
-        'trr_ids': [1, 2, 3, 4],
-      },
-      {
-        type: constants.UPDATE_PINBOARD_INFO_STATE,
-        payload: {
-          attr: 'description',
-          value: 'Updated Description',
-        },
-      }
-    ).should.deepEqual({
-      id: null,
-      title: 'Title',
-      description: 'Updated Description',
-      'officer_ids': [10, 11, 12, 13, 14],
-      crids: [],
-      'trr_ids': [1, 2, 3, 4],
-      hasPendingChanges: true,
+  describe('should handle UPDATE_PINBOARD_INFO_STATE', function () {
+    context('update description', function () {
+      it('should update new description', function () {
+        pinboardReducer(
+          {
+            id: null,
+            title: 'Title',
+            description: 'Description',
+            'officer_ids': [10, 11, 12, 13, 14],
+            crids: [],
+            'trr_ids': [1, 2, 3, 4],
+          },
+          {
+            type: constants.UPDATE_PINBOARD_INFO_STATE,
+            payload: {
+              attr: 'description',
+              value: 'Updated Description',
+            },
+          }
+        ).should.deepEqual({
+          id: null,
+          title: 'Title',
+          description: 'Updated Description',
+          'officer_ids': [10, 11, 12, 13, 14],
+          crids: [],
+          'trr_ids': [1, 2, 3, 4],
+          hasPendingChanges: true,
+          hasTitlePendingChange: false,
+        });
+      });
+    });
+
+    context('update title', function () {
+      it('should update title and set hasTitlePendingChange to true', function () {
+        pinboardReducer(
+          {
+            id: null,
+            title: 'Title',
+            description: 'Description',
+            'officer_ids': [10, 11, 12, 13, 14],
+            crids: [],
+            'trr_ids': [1, 2, 3, 4],
+          },
+          {
+            type: constants.UPDATE_PINBOARD_INFO_STATE,
+            payload: {
+              attr: 'title',
+              value: 'Updated Title',
+            },
+          }
+        ).should.deepEqual({
+          id: null,
+          title: 'Updated Title',
+          description: 'Description',
+          'officer_ids': [10, 11, 12, 13, 14],
+          crids: [],
+          'trr_ids': [1, 2, 3, 4],
+          hasPendingChanges: true,
+          hasTitlePendingChange: true,
+        });
+      });
     });
   });
 
@@ -998,6 +1160,7 @@ describe('Pinboard reducer', function () {
       saving: false,
       needRefreshData: false,
       hasPendingChanges: false,
+      hasTitlePendingChange: false,
     });
   });
 
@@ -1024,6 +1187,7 @@ describe('Pinboard reducer', function () {
       saving: false,
       needRefreshData: false,
       hasPendingChanges: false,
+      hasTitlePendingChange: false,
     });
   });
 });

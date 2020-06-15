@@ -1,7 +1,11 @@
 import axiosMockClient from 'utils/axios-mock-client';
 import { PINBOARDS_URL } from 'utils/constants';
 import { createPinboard, getOrCreateEmptyPinboard, pinboardsList } from 'mock-api/pinboard';
-import { fetchPinboardComplaints, fetchPinboardOfficers, fetchPinboardTRRs } from './fetch-pinned-items';
+import {
+  fetchPinboardComplaints,
+  fetchPinboardOfficers,
+  fetchPinboardTRRs,
+} from 'mock-api/pinboard-page/fetch-pinned-items';
 
 
 axiosMockClient.onGet(`${PINBOARDS_URL}latest-retrieved-pinboard/`, { params: {} }).reply(200, {});
