@@ -18,6 +18,8 @@ import {
 import { DEFAULT_PINBOARD_PATH, PINBOARD_REQUEST_PATTERN } from 'utils/constants';
 import { loadPaginatedData } from 'utils/load-paginated-data';
 import config from 'config';
+import { hidePinboardList } from 'actions/pinboard-page';
+import { showIntercomLauncher } from './intercom';
 
 
 export const generatePinboardUrl = (pinboard, isCurrent) => {
@@ -91,3 +93,8 @@ export const getRequestPinboard = pinboard => ({
 });
 
 export const isPinboardFeatureEnabled = () => get(config, 'enableFeatures.pinboard', true);
+
+export const handleClosePinboardsList = () => {
+  showIntercomLauncher(true);
+  return hidePinboardList();
+};

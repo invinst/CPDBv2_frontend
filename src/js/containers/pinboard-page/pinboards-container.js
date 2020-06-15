@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 import { pinboardsSelector, getShowPinboardsList } from 'selectors/pinboard-page/pinboards';
 import PinboardsWithOverlay from 'components/pinboard-page/pinboards';
-import { hidePinboardList } from 'actions/pinboard-page';
+import { handleClosePinboardsList } from 'utils/pinboard';
 import { createNewEmptyPinboard, duplicatePinboard, removePinboard } from 'actions/pinboard';
 
 
@@ -16,7 +16,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  handleClose: hidePinboardList,
+  handleClose: handleClosePinboardsList,
   createNewEmptyPinboard,
   duplicatePinboard,
   removePinboard,

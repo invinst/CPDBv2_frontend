@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { Promise } from 'es6-promise';
-import { stub } from 'sinon';
+import { spy, stub } from 'sinon';
 
 import browserHistory from 'utils/history';
 import PinboardItem from 'components/pinboard-page/pinboards/pinboard-item';
@@ -43,10 +43,12 @@ describe('PinboardItem component', function () {
     let handleSetShowActionsPinboardId;
     let duplicatePinboard;
     let removePinboard;
+    let handleCloseSpy;
 
     beforeEach(function () {
-      handleSetShowActionsPinboardId = stub();
-      removePinboard = stub();
+      handleSetShowActionsPinboardId = spy();
+      removePinboard = spy();
+      handleCloseSpy = spy();
       duplicatePinboard = stub().usingPromise(Promise).resolves({
         payload: {
           id: '5cd06f2b',
@@ -62,13 +64,14 @@ describe('PinboardItem component', function () {
               removePinboard={ removePinboard }
               handleSetShowActionsPinboardId={ handleSetShowActionsPinboardId }
               shouldShowActions={ true }
+              handleClose={ handleCloseSpy }
             />
           </MemoryRouter>
         </Provider>
       );
     });
 
-    it('should render actions button and call handleSetShowActionsPinboard with null', function () {
+    it('should render actions button and call handleSetShowActionsPinboardId with null on click', function () {
       const pinboardItemActionsBtn = wrapper.find('.pinboard-item-actions-btn').first();
       pinboardItemActionsBtn.prop('className').should.containEql('focused');
       pinboardItemActionsBtn.simulate('click');
@@ -81,23 +84,53 @@ describe('PinboardItem component', function () {
       wrapper.find('.remove-pinboard-btn').exists().should.be.true();
     });
 
-    it('should close actions pane and redirect on click on duplicate', function (done) {
+    it('should close actions pane, pinboards list and redirect on click on duplicate', function (done) {
       const duplicateButton = wrapper.find('.duplicate-pinboard-btn').first();
       duplicateButton.simulate('click');
       duplicatePinboard.should.be.calledOnce();
       handleSetShowActionsPinboardId.should.be.calledOnce();
       handleSetShowActionsPinboardId.should.be.calledWith(null);
       setTimeout(() => {
+        handleCloseSpy.should.be.calledOnce();
         browserHistory.location.pathname.should.equal('/pinboard/5cd06f2b/pinboard-title/');
         done();
       }, 50);
     });
 
-    it('should call removePinboard on click on remove', function () {
-      const removePinboardButton = wrapper.find('.remove-pinboard-btn').first();
-      removePinboardButton.simulate('click');
-      removePinboard.should.be.calledOnce();
-      removePinboard.should.be.calledWith('1');
+    describe('remove pinboard item', function () {
+      context('pinboard item is current pinboard', function () {
+        it('should call removePinboard on click on remove', function () {
+          const wrapper = mount(
+            <Provider store={ store }>
+              <MemoryRouter>
+                <PinboardItem
+                  pinboard={ { ...pinboard, isCurrent: true } }
+                  duplicatePinboard={ duplicatePinboard }
+                  removePinboard={ removePinboard }
+                  handleSetShowActionsPinboardId={ handleSetShowActionsPinboardId }
+                  shouldShowActions={ true }
+                  handleClose={ handleCloseSpy }
+                />
+              </MemoryRouter>
+            </Provider>
+          );
+          const removePinboardButton = wrapper.find('.remove-pinboard-btn').first();
+          removePinboardButton.simulate('click');
+          removePinboard.should.be.calledOnce();
+          removePinboard.should.be.calledWith('1');
+          handleCloseSpy.should.be.calledOnce();
+        });
+      });
+
+      context('pinboard item is not current pinboard', function () {
+        it('should call removePinboard and handleClose on click on remove', function () {
+          const removePinboardButton = wrapper.find('.remove-pinboard-btn').first();
+          removePinboardButton.simulate('click');
+          removePinboard.should.be.calledOnce();
+          removePinboard.should.be.calledWith('1');
+          handleCloseSpy.should.not.be.called();
+        });
+      });
     });
   });
 
@@ -108,8 +141,8 @@ describe('PinboardItem component', function () {
     let removePinboard;
 
     beforeEach(function () {
-      handleSetShowActionsPinboardId = stub();
-      removePinboard = stub();
+      handleSetShowActionsPinboardId = spy();
+      removePinboard = spy();
       duplicatePinboard = stub().usingPromise(Promise).resolves({
         payload: {
           id: '5cd06f2b',

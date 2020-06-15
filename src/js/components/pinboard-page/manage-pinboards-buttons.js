@@ -6,6 +6,7 @@ import cx from 'classnames';
 import styles from './manage-pinboards-buttons.sass';
 import { redirectToCreatedPinboard } from 'utils/pinboard';
 import PinboardLinkContainer from 'containers/pinboard-page/pinboard-link-container';
+import { showIntercomLauncher } from 'utils/intercom';
 
 
 export default class ManagePinboardsButtons extends Component {
@@ -21,6 +22,7 @@ export default class ManagePinboardsButtons extends Component {
     const { showPinboardsList } = this.props;
 
     showPinboardsList(true);
+    showIntercomLauncher(false);
     e.stopPropagation();
   };
 

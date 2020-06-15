@@ -10,21 +10,26 @@ import PinboardLinkContainer from 'containers/pinboard-page/pinboard-link-contai
 
 export default class PinboardItem extends Component {
   handleDuplicatePinboard = e => {
-    const { pinboard, duplicatePinboard, handleSetShowActionsPinboardId } = this.props;
+    const { pinboard, duplicatePinboard, handleSetShowActionsPinboardId, handleClose } = this.props;
     duplicatePinboard(pinboard.id).then((response) => {
+      handleClose();
       redirectToCreatedPinboard(response);
     });
     handleSetShowActionsPinboardId(null);
   };
 
   handleRemovePinboard = e => {
-    const { pinboard: { id }, removePinboard } = this.props;
+    const { pinboard: { id, isCurrent }, removePinboard, handleClose } = this.props;
     removePinboard(id);
+    if (isCurrent) {
+      handleClose();
+    }
   };
 
   handlePinboardItemClick = () => {
-    const { pinboard } = this.props;
+    const { pinboard, handleClose } = this.props;
     if (!pinboard.isCurrent) {
+      handleClose();
       browserHistory.push(pinboard.url);
     }
   };

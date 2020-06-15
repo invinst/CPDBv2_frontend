@@ -13,10 +13,18 @@ import PinboardLinkContainer from 'containers/pinboard-page/pinboard-link-contai
 class Pinboards extends Component {
   state = { showActionsPinboardId: null };
 
+  static getDerivedStateFromProps(props, state) {
+    if (!props.isShown) {
+      return { showActionsPinboardId: null };
+    }
+    return null;
+  }
+
   handleCreateNewEmptyPinboard = () => {
-    const { createNewEmptyPinboard } = this.props;
+    const { createNewEmptyPinboard, handleClose } = this.props;
 
     createNewEmptyPinboard().then((response) => {
+      handleClose();
       redirectToCreatedPinboard(response);
     });
   };
@@ -26,7 +34,7 @@ class Pinboards extends Component {
   };
 
   render() {
-    const { pinboards, isShown, duplicatePinboard, removePinboard } = this.props;
+    const { pinboards, isShown, duplicatePinboard, removePinboard, handleClose } = this.props;
     const { showActionsPinboardId } = this.state;
 
     return (
@@ -48,6 +56,7 @@ class Pinboards extends Component {
                 removePinboard={ removePinboard }
                 shouldShowActions={ pinboard.id === showActionsPinboardId }
                 handleSetShowActionsPinboardId={ this.handleSetShowActionsPinboardId }
+                handleClose={ handleClose }
               />
             ))
           }
@@ -63,6 +72,7 @@ Pinboards.propTypes = {
   createNewEmptyPinboard: PropTypes.func,
   duplicatePinboard: PropTypes.func,
   removePinboard: PropTypes.func,
+  handleClose: PropTypes.func,
 };
 
 Pinboards.defaultProps = {
@@ -71,6 +81,7 @@ Pinboards.defaultProps = {
   createNewEmptyPinboard: noop,
   duplicatePinboard: noop,
   removePinboard: noop,
+  handleClose: noop,
 };
 
 export default withOverlay(Pinboards);
