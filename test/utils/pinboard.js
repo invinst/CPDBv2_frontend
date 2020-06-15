@@ -12,6 +12,7 @@ import {
   isEmptyPinboard,
   getRequestPinboard,
   isPinboardFeatureEnabled,
+  getPinboardIdFromRequestUrl,
 } from 'utils/pinboard';
 import PinboardFactory from 'utils/test/factories/pinboard';
 import {
@@ -213,6 +214,12 @@ describe('pinboard utils', function () {
         stub(config.enableFeatures, 'pinboard').value(true);
         isPinboardFeatureEnabled().should.be.true();
       });
+    });
+  });
+
+  describe('getPinboardIdFromRequestUrl', function () {
+    it('should return correct pinboard id', function () {
+      getPinboardIdFromRequestUrl('/pinboards/12f84b/').should.equal('12f84b');
     });
   });
 });

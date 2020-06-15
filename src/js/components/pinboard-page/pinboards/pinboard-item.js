@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { noop } from 'lodash';
+import cx from 'classnames';
 
 import browserHistory from 'utils/history';
 import { redirectToCreatedPinboard } from 'utils/pinboard';
@@ -9,54 +10,83 @@ import PinboardLinkContainer from 'containers/pinboard-page/pinboard-link-contai
 
 export default class PinboardItem extends Component {
   handleDuplicatePinboard = e => {
-    const { pinboard, duplicatePinboard, handleClose } = this.props;
+    const { pinboard, duplicatePinboard, handleSetShowActionsPinboardId } = this.props;
 
     duplicatePinboard(pinboard.id).then((response) => {
-      handleClose();
       redirectToCreatedPinboard(response);
     });
+    handleSetShowActionsPinboardId(null);
+  };
 
-    e.stopPropagation();
+  handleRemovePinboard = e => {
+    const { pinboard: { id }, removePinboard } = this.props;
+    removePinboard(id);
   };
 
   handlePinboardItemClick = () => {
-    const { handleClose, pinboard } = this.props;
+    const { pinboard } = this.props;
 
-    handleClose();
     if (!pinboard.isCurrent) {
       browserHistory.push(pinboard.url);
     }
   };
 
+  handleActionsBtnClick = (e) => {
+    const { handleSetShowActionsPinboardId, shouldShowActions, pinboard: { id } } = this.props;
+    handleSetShowActionsPinboardId(shouldShowActions ? null : id);
+  };
+
   render() {
-    const { pinboard: { title, createdAt, lastViewedAt } } = this.props;
+    const {
+      pinboard: { title, createdAt, lastViewedAt, isCurrent },
+      shouldShowActions,
+    } = this.props;
 
     return (
-      <PinboardLinkContainer
-        customComponent='div'
-        className='pinboard-item'
-        onClick={ this.handlePinboardItemClick }
-      >
-        <div className='pinboard-info'>
+      <div className={ cx('pinboard-item', { 'is-current': isCurrent }) }>
+        <PinboardLinkContainer
+          className={ 'pinboard-info' }
+          customComponent='div' onClick={ this.handlePinboardItemClick }
+        >
           <div className='pinboard-title'>{ title || `Created ${createdAt}` }</div>
           <div className='pinboard-viewed-at'>Viewed { lastViewedAt }</div>
+        </PinboardLinkContainer>
+        <div className='pinboard-item-actions-container'>
+          <div
+            className={ cx('pinboard-item-actions-btn', { 'focused': shouldShowActions }) }
+            onClick={ this.handleActionsBtnClick }
+          />
+          {
+            shouldShowActions && (
+              <div className='pinboard-item-actions-menu'>
+                <PinboardLinkContainer
+                  customComponent='div'
+                  className='duplicate-pinboard-btn'
+                  onClick={ this.handleDuplicatePinboard }
+                >
+                  Duplicate
+                </PinboardLinkContainer>
+                <div className='remove-pinboard-btn' onClick={ this.handleRemovePinboard }>Remove</div>
+              </div>
+            )
+          }
         </div>
-        <PinboardLinkContainer
-          className='duplicate-pinboard-btn'
-          title='Duplicate'
-          onClick={ this.handleDuplicatePinboard } />
-      </PinboardLinkContainer>
+      </div>
     );
   }
 }
 
 PinboardItem.propTypes = {
   pinboard: PropTypes.object,
-  handleClose: PropTypes.func,
   duplicatePinboard: PropTypes.func,
+  removePinboard: PropTypes.func,
+  shouldShowActions: PropTypes.bool,
+  handleSetShowActionsPinboardId: PropTypes.func,
 };
 
 PinboardItem.defaultProps = {
-  handleClose: noop,
   duplicatePinboard: noop,
+  removePinboard: noop,
+  shouldShowActions: false,
+  handleSetShowActionsPinboardId: noop,
 };

@@ -6,6 +6,7 @@ import moment from 'moment';
 
 import pinboardPage from './page-objects/pinboard-page';
 import socialGraphPage from './page-objects/social-graph-page';
+import { setupMockApiFile, restoreMockApiFile } from './utils';
 
 
 function waitForGraphAnimationEnd(browser, pinboardPage) {
@@ -878,6 +879,8 @@ describe('Pinboard Page', function () {
         pinboardPage.pinnedSection.trrs.trrCards().should.have.length(2);
 
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+        pinboardPage.pinboardsListSection.firstPinboardItem.actionsButton.click();
+        pinboardPage.pinboardsListSection.firstPinboardItem.duplicateButton.waitForDisplayed();
         pinboardPage.pinboardsListSection.firstPinboardItem.duplicateButton.click();
         browser.getUrl().should.containEql('/pinboard/5cd06f2b/pinboard-title/');
         pinboardPage.pinboardSection.title.getText().should.containEql('Pinboard Title');
@@ -891,6 +894,8 @@ describe('Pinboard Page', function () {
       it('should duplicate selected pinboard if pinboard is saving and user confirm yes', function () {
         removeOfficerFromPinboard();
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+        pinboardPage.pinboardsListSection.firstPinboardItem.actionsButton.click();
+        pinboardPage.pinboardsListSection.firstPinboardItem.duplicateButton.waitForDisplayed();
         pinboardPage.pinboardsListSection.firstPinboardItem.duplicateButton.click();
         expectAlertContent(browser);
         browser.acceptAlert();
@@ -902,10 +907,92 @@ describe('Pinboard Page', function () {
       it('should still in current page if pinboard is saving and user confirm no', function () {
         removeOfficerFromPinboard();
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+        pinboardPage.pinboardsListSection.firstPinboardItem.actionsButton.click();
+        pinboardPage.pinboardsListSection.firstPinboardItem.duplicateButton.waitForDisplayed();
         pinboardPage.pinboardsListSection.firstPinboardItem.duplicateButton.click();
         expectAlertContent(browser);
         browser.dismissAlert();
         expectStillInCurrentPinboardPage(browser);
+      });
+    });
+
+    context('clicking on remove pinboard button', function () {
+      beforeEach(function () {
+        setupMockApiFile('pinboard-page/remove-pinboard.js');
+        pinboardPage.open('ceea8ea3');
+        pinboardPage.managePinboardsButtonsSection.pinboardsListButton.waitForDisplayed();
+      });
+
+      afterEach(function () {
+        restoreMockApiFile();
+      });
+
+      context('remove not current pinboard', function () {
+        it('should remove item from pinboards list', function () {
+          const pinboardsListSection = pinboardPage.pinboardsListSection;
+          const firstPinboardItem = pinboardsListSection.firstPinboardItem;
+          const secondPinboardItem = pinboardsListSection.secondPinboardItem;
+          pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+
+          const expectedFormat = '[Viewed] DD/MM/YYYY [at] hh:mm A';
+          const currentHourString = moment().format('[^Viewed] DD/MM/YYYY [at] hh[:\\d\\d] A$');
+          const currentHour = new RegExp(currentHourString);
+          const secondPinboardItemViewedAt = moment('2019-10-18T06:15:00.967Z').format(expectedFormat);
+
+          secondPinboardItem.actionsButton.waitForDisplayed();
+
+          firstPinboardItem.title.getText().should.equal('Pinboard Title');
+          firstPinboardItem.viewedAt.getText().should.match(currentHour);
+          secondPinboardItem.title.getText().should.equal('Created 15/10/2019');
+          secondPinboardItem.viewedAt.getText().should.equal(secondPinboardItemViewedAt);
+          pinboardsListSection.pinboardItems().should.have.length(2);
+
+          secondPinboardItem.actionsButton.click();
+          secondPinboardItem.removeButton.waitForDisplayed();
+          secondPinboardItem.removeButton.click();
+
+          firstPinboardItem.title.getText().should.equal('Pinboard Title');
+          firstPinboardItem.viewedAt.getText().should.match(currentHour);
+          pinboardsListSection.pinboardItems().should.have.length(1);
+        });
+      });
+
+      context('remove current pinboard', function () {
+        it('should remove item from pinboards list and redirect to most recent viewed pinboard', function () {
+          const pinboardsListSection = pinboardPage.pinboardsListSection;
+          const firstPinboardItem = pinboardsListSection.firstPinboardItem;
+
+          pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+          firstPinboardItem.actionsButton.waitForDisplayed();
+          firstPinboardItem.actionsButton.click();
+          firstPinboardItem.removeButton.waitForDisplayed();
+          firstPinboardItem.removeButton.click();
+
+          pinboardsListSection.pinboardsTitle.waitForDisplayed(2000, true);
+          browser.waitForUrl(url => url.should.containEql('/pinboard/77edc128/'), 500);
+        });
+      });
+
+      context('remove last pinboard', function () {
+        it('should create new pinboard', function () {
+          const pinboardsListSection = pinboardPage.pinboardsListSection;
+          const firstPinboardItem = pinboardsListSection.firstPinboardItem;
+          const secondPinboardItem = pinboardsListSection.secondPinboardItem;
+
+          pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+          firstPinboardItem.title.waitForDisplayed();
+
+          secondPinboardItem.actionsButton.click();
+          secondPinboardItem.removeButton.waitForDisplayed();
+          secondPinboardItem.removeButton.click();
+
+          firstPinboardItem.actionsButton.click();
+          firstPinboardItem.removeButton.waitForDisplayed();
+          firstPinboardItem.removeButton.click();
+
+          pinboardsListSection.pinboardsTitle.waitForDisplayed(2000, true);
+          browser.waitForUrl(url => url.should.containEql('/pinboard/87e31b82/'), 500);
+        });
       });
     });
   });

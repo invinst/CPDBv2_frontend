@@ -30,12 +30,11 @@
     height: 64px
     box-sizing: border-box
     background-color: white
-    padding: 16px 16px 16px 12px
     cursor: pointer
 
     .pinboard-info
-      width: calc(100% - 23px)
-      padding-right: 16px
+      width: calc(100% - 66px)
+      padding: 16px 0 16px 8px
       box-sizing: border-box
       display: inline-block
       vertical-align: top
@@ -56,19 +55,50 @@
         font-weight: 300
         line-height: 14px
 
-    .duplicate-pinboard-btn
+    .pinboard-item-actions-container
+      padding: 16px 8px
       display: inline-block
-      width: 32px
-      height: 32px
-      margin-right: -9px
-      background: url('/img/ic-copy.svg') no-repeat center
+      position: relative
+      vertical-align: top
+
+      .pinboard-item-actions-btn
+        width: 48px
+        height: 32px
+        background: url('/img/ic-ellipsis-black.svg') no-repeat center
+        border: 1px solid $alto-color
+        border-radius: 2px
+
+        &.focused
+          background: $blue-ribbon-color url('/img/ic-ellipsis-white.svg') no-repeat center
+          border: none
+
+      .pinboard-item-actions-menu
+        position: absolute
+        top: 44px
+        right: 12px
+        width: 200px
+        line-height: 40px
+        border-radius: 4px
+        background: white
+        font-weight: 300
+        z-index: 2
+        border: 1px solid $alto-color
+
+        .duplicate-pinboard-btn
+          color: $blue-ribbon-color
+
+        .remove-pinboard-btn
+          color: $pomegranate-color
+
+        .duplicate-pinboard-btn, .remove-pinboard-btn
+          padding: 0 16px
+
+        &.top
+          top: -62px
+
 
     &:hover
       background-color: $gin-fizz-color
 
       .pinboard-title
         color: $thunder-color
-
-      &.untitled-pinboard
-        .pinboard-created-at
-          color: $thunder-color

@@ -15,7 +15,7 @@ import {
   fetchPinboardTRRs,
   fetchPinboardSocialGraph,
 } from 'actions/pinboard';
-import { DEFAULT_PINBOARD_PATH } from 'utils/constants';
+import { DEFAULT_PINBOARD_PATH, PINBOARD_REQUEST_PATTERN } from 'utils/constants';
 import { loadPaginatedData } from 'utils/load-paginated-data';
 import config from 'config';
 
@@ -29,6 +29,13 @@ export const generatePinboardUrl = (pinboard, isCurrent) => {
   return `/pinboard/${pinboard.id}/${kebabCase(title)}/`;
 };
 
+export const getPinboardIdFromRequestUrl = url => {
+  if (url === undefined) {
+    return url;
+  }
+  const matchUrl = url.match(PINBOARD_REQUEST_PATTERN);
+  return matchUrl ? matchUrl[1] : null;
+};
 
 export const getFormatId = (attr) => {
   return includes(['officer_ids', 'trr_ids'], attr) ? parseInt : identity;

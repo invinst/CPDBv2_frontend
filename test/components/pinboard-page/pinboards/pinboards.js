@@ -37,25 +37,40 @@ describe('Pinboards component', function () {
   ];
 
   it('should render pinboard items', function () {
+    const removePinboardSpy = spy();
     const wrapper = mount(
       <Provider store={ store }>
-        <Pinboards pinboards={ pinboards } isShown={ true } />
+        <Pinboards pinboards={ pinboards } isShown={ true } removePinboard={ removePinboardSpy } />
       </Provider>
     );
 
     wrapper.find('.pinboards-title').text().should.equal('Pinboards');
 
-    const pinboardItems = wrapper.find('.pinboard-item').hostNodes();
+    let pinboardItems = wrapper.find('PinboardItem');
     pinboardItems.should.have.length(2);
 
     const pinboardTitles = wrapper.find('.pinboard-title');
     const pinboardViewedAts = wrapper.find('.pinboard-viewed-at');
+    const handleSetShowActionsPinboardId = wrapper.find('Pinboards').instance().handleSetShowActionsPinboardId;
 
     pinboardTitles.at(0).text().should.equal('Pinboard Title');
     pinboardViewedAts.at(0).text().should.equal('Viewed 13/12/2019 at 10:20 AM');
+    pinboardItems.at(0).prop('removePinboard').should.equal(removePinboardSpy);
+    pinboardItems.at(0).prop('handleSetShowActionsPinboardId').should.equal(handleSetShowActionsPinboardId);
+    pinboardItems.at(0).prop('shouldShowActions').should.be.false();
 
     pinboardTitles.at(1).text().should.equal('Created 15/10/2019');
     pinboardViewedAts.at(1).text().should.equal('Viewed 18/12/2019 at 10:20 AM');
+    pinboardItems.at(1).prop('removePinboard').should.equal(removePinboardSpy);
+    pinboardItems.at(1).prop('handleSetShowActionsPinboardId').should.equal(handleSetShowActionsPinboardId);
+    pinboardItems.at(1).prop('shouldShowActions').should.be.false();
+
+    wrapper.find('Pinboards').instance().handleSetShowActionsPinboardId('1');
+    wrapper.update();
+    pinboardItems = wrapper.find('PinboardItem');
+
+    pinboardItems.at(0).prop('shouldShowActions').should.be.true();
+    pinboardItems.at(1).prop('shouldShowActions').should.be.false();
   });
 
   it('should not render pinboard list if isShown is false', function () {
@@ -74,7 +89,6 @@ describe('Pinboards component', function () {
         title: 'Pinboard title',
       },
     });
-    const handleCloseSpy = spy();
 
     const wrapper = mount(
       <Provider store={ store }>
@@ -83,7 +97,6 @@ describe('Pinboards component', function () {
             isShown={ true }
             pinboards={ pinboards }
             createNewEmptyPinboard={ createNewEmptyPinboardStub }
-            handleClose={ handleCloseSpy }
           />
         </MemoryRouter>
       </Provider>
@@ -94,7 +107,6 @@ describe('Pinboards component', function () {
     createNewEmptyPinboardStub.should.be.called();
 
     setTimeout(() => {
-      handleCloseSpy.should.be.called();
       browserHistory.location.pathname.should.equal('/pinboard/5cd06f2b/pinboard-title/');
       done();
     }, 50);

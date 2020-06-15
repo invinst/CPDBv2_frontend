@@ -11,17 +11,23 @@ import PinboardLinkContainer from 'containers/pinboard-page/pinboard-link-contai
 
 
 class Pinboards extends Component {
+  state = { showActionsPinboardId: null };
+
   handleCreateNewEmptyPinboard = () => {
-    const { createNewEmptyPinboard, handleClose } = this.props;
+    const { createNewEmptyPinboard } = this.props;
 
     createNewEmptyPinboard().then((response) => {
-      handleClose();
       redirectToCreatedPinboard(response);
     });
   };
 
+  handleSetShowActionsPinboardId = pinboardId => {
+    this.setState({ showActionsPinboardId: pinboardId });
+  };
+
   render() {
-    const { pinboards, isShown, duplicatePinboard, handleClose } = this.props;
+    const { pinboards, isShown, duplicatePinboard, removePinboard } = this.props;
+    const { showActionsPinboardId } = this.state;
 
     return (
       <SlideMotion show={ isShown }>
@@ -39,7 +45,9 @@ class Pinboards extends Component {
                 key={ pinboard.id }
                 pinboard={ pinboard }
                 duplicatePinboard={ duplicatePinboard }
-                handleClose={ handleClose }
+                removePinboard={ removePinboard }
+                shouldShowActions={ pinboard.id === showActionsPinboardId }
+                handleSetShowActionsPinboardId={ this.handleSetShowActionsPinboardId }
               />
             ))
           }
@@ -52,17 +60,17 @@ class Pinboards extends Component {
 Pinboards.propTypes = {
   pinboards: PropTypes.array,
   isShown: PropTypes.bool,
-  handleClose: PropTypes.func,
   createNewEmptyPinboard: PropTypes.func,
   duplicatePinboard: PropTypes.func,
+  removePinboard: PropTypes.func,
 };
 
 Pinboards.defaultProps = {
   pinboards: [],
   isShown: false,
-  handleClose: noop,
   createNewEmptyPinboard: noop,
   duplicatePinboard: noop,
+  removePinboard: noop,
 };
 
 export default withOverlay(Pinboards);
