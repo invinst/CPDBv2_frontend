@@ -806,3 +806,5 @@ export const PIN_BUTTON_INTRODUCTION_INDEX = 3;
 export const SLIDE_PER_WHEEL = 2;
 
 export const PINBOARD_REQUEST_PATTERN = /.*\/pinboards\/([a-fA-F0-9]+)\/.*/;
+
+export const PINBOARD_ACTIONS_PANE_SPACE = 78;

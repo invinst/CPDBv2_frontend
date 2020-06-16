@@ -5,6 +5,7 @@ import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { Promise } from 'es6-promise';
 import { spy, stub } from 'sinon';
+import should from 'should';
 
 import browserHistory from 'utils/history';
 import Pinboards from 'components/pinboard-page/pinboards';
@@ -27,6 +28,7 @@ describe('Pinboards component', function () {
       createdAt: '12/12/2019',
       lastViewedAt: '13/12/2019 at 10:20 AM',
       url: '/pinboard/1/pinboard-title/',
+      isCurrent: false,
     },
     {
       id: '2',
@@ -35,6 +37,7 @@ describe('Pinboards component', function () {
       createdAt: '15/10/2019',
       lastViewedAt: '18/12/2019 at 10:20 AM',
       url: '/pinboard/2/untitled-pinboard/',
+      isCurrent: true,
     },
   ];
 
@@ -122,5 +125,71 @@ describe('Pinboards component', function () {
       browserHistory.location.pathname.should.equal('/pinboard/5cd06f2b/pinboard-title/');
       done();
     }, 50);
+  });
+
+  describe('handleSetShowActionsPinboardId', function () {
+    let wrapper;
+    beforeEach(function () {
+      wrapper = mount(
+        <Provider store={ store }>
+          <Pinboards
+            pinboards={ pinboards }
+            pinboard={ { id: '2', saving: false } }
+            isShown={ true } />
+        </Provider>
+      );
+    });
+
+    context('pinboardId is not null', function () {
+      context('current actionsPaneSpace larger than PINBOARD_ACTIONS_PANE_SPACE', function () {
+        it('should set actionsPanePosition to bottom', function () {
+          let instance = wrapper.find('Pinboards').instance();
+          instance.pinboards = { getBoundingClientRect: () => ({ bottom: 250 }) };
+          instance.handleSetShowActionsPinboardId('1', 150);
+          instance.state.should.eql({
+            showActionsPinboardId: '1',
+            actionsPanePosition: 'bottom',
+          });
+
+          wrapper.update();
+          const pinboardItems = wrapper.find('PinboardItem');
+          pinboardItems.at(0).prop('shouldShowActions').should.be.true();
+          pinboardItems.at(0).prop('actionsPanePosition').should.equal('bottom');
+
+          pinboardItems.at(1).prop('shouldShowActions').should.be.false();
+          pinboardItems.at(1).prop('actionsPanePosition').should.equal('bottom');
+        });
+      });
+
+      context('current actionsPaneSpace smaller than PINBOARD_ACTIONS_PANE_SPACE', function () {
+        it('should set actionsPanePosition to top', function () {
+          let instance = wrapper.find('Pinboards').instance();
+          stub(instance.pinboards, 'getBoundingClientRect').returns({ bottom: 250 });
+          instance.handleSetShowActionsPinboardId('2', 200);
+          instance.state.should.eql({
+            showActionsPinboardId: '2',
+            actionsPanePosition: 'top',
+          });
+          wrapper.update();
+          const pinboardItems = wrapper.find('PinboardItem');
+          pinboardItems.at(0).prop('shouldShowActions').should.be.false();
+          pinboardItems.at(0).prop('actionsPanePosition').should.equal('top');
+
+          pinboardItems.at(1).prop('shouldShowActions').should.be.true();
+          pinboardItems.at(1).prop('actionsPanePosition').should.equal('top');
+        });
+      });
+    });
+
+    context('pinboardId is null', function () {
+      context('current actionsPaneSpace smaller than PINBOARD_ACTIONS_PANE_SPACE', function () {
+        it('should set showActionsPinboardId to null', function () {
+          wrapper.find('Pinboards').setState({ showActionsPinboardId: '1' });
+          const instance = wrapper.find('Pinboards').instance();
+          instance.handleSetShowActionsPinboardId(null);
+          should(instance.state.showActionsPinboardId).be.null();
+        });
+      });
+    });
   });
 });

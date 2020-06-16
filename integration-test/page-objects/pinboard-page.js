@@ -242,6 +242,7 @@ class PinboardListItemSection extends Section {
 class PinboardsListSection extends Section {
   firstPinboardItem = new PinboardListItemSection(1);
   secondPinboardItem = new PinboardListItemSection(2);
+  lastPinboardItem = new PinboardListItemSection('last()');
 
   constructor() {
     super();
@@ -250,6 +251,9 @@ class PinboardsListSection extends Section {
       pinboardsTitle: '.pinboards-title',
       createNewPinboardButton: '.new-pinboard-btn',
       overlay: '//div[@class="overlay" and @aria-hidden="false"]',
+      pinboardActionsPane: '//div[@class="pinboard-item-actions-menu"]',
+      duplicatePinboardButton: '(//a[contains(@class, "duplicate-pinboard-btn")])[1]',
+      removePinboardButton: '(//a[contains(@class, "remove-pinboard-btn")])[1]',
     });
   }
 

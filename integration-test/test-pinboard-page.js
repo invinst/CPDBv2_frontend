@@ -652,6 +652,47 @@ describe('Pinboard Page', function () {
       pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.getText().should.equal(secondPinboardItemViewedAt);
     });
 
+    describe('actions pane position', function () {
+      beforeEach(function () {
+        setupMockApiFile('pinboard-page/manage-pinboards/actions-pane-position.js');
+        pinboardPage.open('ceea8ea3');
+        browser.setWindowRect(0, 0, 1000, 1000);
+        pinboardPage.managePinboardsButtonsSection.pinboardsListButton.waitForDisplayed();
+      });
+
+      afterEach(function () {
+        restoreMockApiFile();
+      });
+
+      it('should display actions pane in correct position', function () {
+        const pinboardsListSection = pinboardPage.pinboardsListSection;
+        pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+        const firstPinboardItemSection = pinboardsListSection.firstPinboardItem;
+        const secondPinboardItemSection = pinboardsListSection.secondPinboardItem;
+        const lastPinboardItemSection = pinboardsListSection.lastPinboardItem;
+        pinboardsListSection.createNewPinboardButton.waitForDisplayed();
+        pinboardsListSection.pinboardActionsPane.waitForDisplayed(1000, true);
+        pinboardsListSection.duplicatePinboardButton.waitForDisplayed(1000, true);
+        pinboardsListSection.removePinboardButton.waitForDisplayed(1000, true);
+
+        firstPinboardItemSection.actionsButton.click();
+        firstPinboardItemSection.actionsPane.waitForDisplayed();
+        firstPinboardItemSection.actionsPane.getAttribute('class').should.containEql('bottom');
+        firstPinboardItemSection.actionsButton.click();
+        firstPinboardItemSection.actionsPane.waitForDisplayed(2000, true);
+
+        secondPinboardItemSection.actionsButton.click();
+        secondPinboardItemSection.actionsPane.waitForDisplayed();
+        secondPinboardItemSection.actionsPane.getAttribute('class').should.containEql('bottom');
+        secondPinboardItemSection.actionsButton.click();
+        secondPinboardItemSection.actionsPane.waitForDisplayed(2000, true);
+
+        lastPinboardItemSection.actionsButton.click();
+        lastPinboardItemSection.actionsPane.waitForDisplayed();
+        lastPinboardItemSection.actionsPane.getAttribute('class').should.containEql('top');
+      });
+    });
+
     describe('display spinner', function () {
       beforeEach(function () {
         setupMockApiFile('pinboard-page/manage-pinboards/display-spinner.js');

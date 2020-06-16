@@ -8,10 +8,11 @@ import SlideMotion from 'components/animation/slide-motion';
 import { redirectToCreatedPinboard } from 'utils/pinboard';
 import PinboardItem from './pinboard-item';
 import PinboardLinkContainer from 'containers/pinboard-page/pinboard-link-container';
+import { PINBOARD_ACTIONS_PANE_SPACE } from 'utils/constants';
 
 
 class Pinboards extends Component {
-  state = { showActionsPinboardId: null };
+  state = { showActionsPinboardId: null, actionsPanePosition: 'bottom' };
 
   static getDerivedStateFromProps(props, state) {
     if (!props.isShown) {
@@ -29,17 +30,26 @@ class Pinboards extends Component {
     });
   };
 
-  handleSetShowActionsPinboardId = pinboardId => {
-    this.setState({ showActionsPinboardId: pinboardId });
+  handleSetShowActionsPinboardId = (pinboardId, actionsButtonBottom) => {
+    if (pinboardId) {
+      const { bottom: modalBottom } = this.pinboards.getBoundingClientRect();
+      const actionsPaneSpace = modalBottom - actionsButtonBottom;
+      this.setState({
+        showActionsPinboardId: pinboardId,
+        actionsPanePosition: actionsPaneSpace > PINBOARD_ACTIONS_PANE_SPACE ? 'bottom' : 'top',
+      });
+    } else {
+      this.setState({ showActionsPinboardId: null });
+    }
   };
 
   render() {
     const { pinboards, isShown, duplicatePinboard, removePinboard, handleClose } = this.props;
-    const { showActionsPinboardId } = this.state;
+    const { showActionsPinboardId, actionsPanePosition } = this.state;
 
     return (
       <SlideMotion show={ isShown }>
-        <div className={ styles.pinboards }>
+        <div className={ styles.pinboards } ref={ el => this.pinboards = el }>
           <div className='pinboards-title'>
             Pinboards
             <PinboardLinkContainer
@@ -52,6 +62,7 @@ class Pinboards extends Component {
               <PinboardItem
                 key={ pinboard.key }
                 pinboard={ pinboard }
+                actionsPanePosition={ actionsPanePosition }
                 duplicatePinboard={ duplicatePinboard }
                 removePinboard={ removePinboard }
                 shouldShowActions={ pinboard.id === showActionsPinboardId }
