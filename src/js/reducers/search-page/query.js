@@ -13,6 +13,6 @@ export default handleActions({
   [CHANGE_SEARCH_QUERY]: (state, action) => getSearchQuery(action.payload),
   [LOCATION_CHANGE]: (state, action) => {
     const { pathname, search } = action.payload.location;
-    return pathname === '/' ? '' : (getSearchQuery(queryString.parse(search).terms) || state);
+    return pathname === '/' ? '' : (getSearchQuery(queryString.parse(search).q) || state);
   },
 }, '');
