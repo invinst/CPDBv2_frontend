@@ -82,3 +82,18 @@ const putWithConfig = (config=() => ({})) => (url, types, cancelToken) => ((data
 export const put = putWithConfig();
 
 export const authenticatedPut = putWithConfig(authorizationHeaders);
+
+export const deleteRequest = (url, types, cancelToken) => ((data, adapter=getMockAdapter()) => {
+  return {
+    types,
+    payload: {
+      request: {
+        method: 'DELETE',
+        url,
+        data,
+        adapter,
+        cancelToken,
+      },
+    },
+  };
+});

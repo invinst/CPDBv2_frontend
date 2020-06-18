@@ -2,9 +2,11 @@
 
 require('should');
 import { map, countBy, filter, times } from 'lodash';
+import moment from 'moment';
 
 import pinboardPage from './page-objects/pinboard-page';
 import socialGraphPage from './page-objects/social-graph-page';
+import { setupMockApiFile, restoreMockApiFile } from './utils';
 
 
 function waitForGraphAnimationEnd(browser, pinboardPage) {
@@ -635,21 +637,123 @@ describe('Pinboard Page', function () {
       pinboardPage.open('ceea8ea3');
       pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
 
+      const expectedFormat = '[Viewed] DD/MM/YYYY [at] hh:mm A';
+      const currentHourString = moment().format('[^Viewed] DD/MM/YYYY [at] hh[:\\d\\d] A$');
+      const currentHour = new RegExp(currentHourString);
+      const secondPinboardItemViewedAt = moment('2019-10-18T06:15:00.967Z').format(expectedFormat);
+
       pinboardPage.pinboardsListSection.pinboardsTitle.getText().should.equal('Pinboards');
       pinboardPage.pinboardsListSection.pinboardItems().should.have.length(2);
 
-      pinboardPage.pinboardsListSection.firstPinboardItemTitle.getText().should.equal('Pinboard Title');
-      pinboardPage.pinboardsListSection.firstPinboardItemCreatedAt.getText().should.equal('Created Sep 12, 2019');
+      pinboardPage.pinboardsListSection.firstPinboardItem.title.getText().should.equal('Pinboard Title');
+      pinboardPage.pinboardsListSection.firstPinboardItem.viewedAt.getText().should.match(currentHour);
 
-      pinboardPage.pinboardsListSection.secondPinboardItemTitle.getText().should.equal('');
-      pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.getText().should.equal('Created Oct 15, 2019');
+      pinboardPage.pinboardsListSection.secondPinboardItem.title.getText().should.equal('Created 15/10/2019');
+      pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.getText().should.equal(secondPinboardItemViewedAt);
+    });
+
+    describe('actions pane position', function () {
+      beforeEach(function () {
+        setupMockApiFile('pinboard-page/manage-pinboards/actions-pane-position.js');
+        pinboardPage.open('ceea8ea3');
+        browser.setWindowRect(0, 0, 1000, 1000);
+        pinboardPage.managePinboardsButtonsSection.pinboardsListButton.waitForDisplayed();
+      });
+
+      afterEach(function () {
+        restoreMockApiFile();
+      });
+
+      it('should display actions pane in correct position', function () {
+        const pinboardsListSection = pinboardPage.pinboardsListSection;
+        pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+        const firstPinboardItemSection = pinboardsListSection.firstPinboardItem;
+        const secondPinboardItemSection = pinboardsListSection.secondPinboardItem;
+        const lastPinboardItemSection = pinboardsListSection.lastPinboardItem;
+        pinboardsListSection.createNewPinboardButton.waitForDisplayed();
+        pinboardsListSection.pinboardActionsPane.waitForDisplayed(1000, true);
+        pinboardsListSection.duplicatePinboardButton.waitForDisplayed(1000, true);
+        pinboardsListSection.removePinboardButton.waitForDisplayed(1000, true);
+
+        firstPinboardItemSection.actionsButton.click();
+        firstPinboardItemSection.actionsPane.waitForDisplayed();
+        firstPinboardItemSection.actionsPane.getAttribute('class').should.containEql('bottom');
+        firstPinboardItemSection.actionsButton.click();
+        firstPinboardItemSection.actionsPane.waitForDisplayed(2000, true);
+
+        secondPinboardItemSection.actionsButton.click();
+        secondPinboardItemSection.actionsPane.waitForDisplayed();
+        secondPinboardItemSection.actionsPane.getAttribute('class').should.containEql('bottom');
+        secondPinboardItemSection.actionsButton.click();
+        secondPinboardItemSection.actionsPane.waitForDisplayed(2000, true);
+
+        lastPinboardItemSection.actionsButton.click();
+        lastPinboardItemSection.actionsPane.waitForDisplayed();
+        lastPinboardItemSection.actionsPane.getAttribute('class').should.containEql('top');
+      });
+    });
+
+    describe('display spinner', function () {
+      beforeEach(function () {
+        setupMockApiFile('pinboard-page/manage-pinboards/display-spinner.js');
+        pinboardPage.open('ceea8ea3');
+        pinboardPage.managePinboardsButtonsSection.pinboardsListButton.waitForDisplayed();
+      });
+
+      afterEach(function () {
+        restoreMockApiFile();
+      });
+
+      context('update title', function () {
+        it('should display spinner on pinboards list', function () {
+          const firstPinboardItem = pinboardPage.pinboardsListSection.firstPinboardItem;
+          pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+          firstPinboardItem.spinner.waitForDisplayed(2000, true);
+          firstPinboardItem.title.getText().should.equal('Pinboard Title');
+
+
+          pinboardPage.pinboardsListSection.overlay.click();
+          firstPinboardItem.title.waitForDisplayed(2000, true);
+
+          pinboardPage.pinboardSection.title.waitForDisplayed();
+          pinboardPage.pinboardSection.description.waitForDisplayed();
+          pinboardPage.pinboardSection.title.getText().should.equal('Pinboard Title');
+          pinboardPage.pinboardSection.description.getText().should.equal('Pinboard Description');
+          browser.waitForUrl(url => url.should.containEql('/pinboard-title/'), 500);
+
+          pinboardPage.pinboardSection.title.click();
+          pinboardPage.pinboardSection.title.setValue('Updated Pinboard Title');
+          pinboardPage.pinboardSection.description.click();
+
+          pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+          firstPinboardItem.spinner.waitForDisplayed();
+          firstPinboardItem.title.getText().should.equal('Updating pinboard title...');
+          firstPinboardItem.spinner.waitForDisplayed(5000, true);
+          firstPinboardItem.title.getText().should.equal('Updated Pinboard Title');
+        });
+      });
+
+      it('should display spinner on creating new pinboard', function () {
+        const pinboardsListSection = pinboardPage.pinboardsListSection;
+        const firstPinboardItem = pinboardsListSection.firstPinboardItem;
+        pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+
+        pinboardsListSection.createNewPinboardButton.waitForDisplayed();
+        pinboardsListSection.createNewPinboardButton.click();
+
+        firstPinboardItem.spinner.waitForDisplayed();
+        firstPinboardItem.title.getText().should.equal('Adding pinboard...');
+        firstPinboardItem.spinner.waitForDisplayed(5000, true);
+
+        browser.waitForUrl(url => url.should.containEql('pinboard/231faa/untitled-pinboard/'), 500);
+      });
     });
 
     context('clicking on pinboard item', function () {
       it('should go to pinboard detail page', function () {
         pinboardPage.open('ceea8ea3');
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
-        pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
+        pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.click();
         browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
         pinboardPage.pinboardSection.title.getText().should.equal('');
         pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
@@ -661,7 +765,7 @@ describe('Pinboard Page', function () {
         browser.pause(2500);
 
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
-        pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
+        pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.click();
         browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
         pinboardPage.pinboardSection.title.getText().should.equal('');
         pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
@@ -674,7 +778,7 @@ describe('Pinboard Page', function () {
         browser.pause(4500);
 
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
-        pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
+        pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.click();
         browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
         pinboardPage.pinboardSection.title.getText().should.equal('');
         pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
@@ -686,7 +790,7 @@ describe('Pinboard Page', function () {
             pinboardPage.open('ceea8ea3');
             removeOfficerFromPinboard();
             pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
-            pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
+            pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.click();
             expectAlertContent(browser);
             browser.acceptAlert();
             browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
@@ -700,7 +804,7 @@ describe('Pinboard Page', function () {
             browser.pause(500);
 
             pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
-            pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
+            pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.click();
             expectAlertContent(browser);
             browser.acceptAlert();
             browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
@@ -714,7 +818,7 @@ describe('Pinboard Page', function () {
             browser.pause(4500);
 
             pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
-            pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
+            pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.click();
             expectAlertContent(browser);
             browser.acceptAlert();
             browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
@@ -728,7 +832,7 @@ describe('Pinboard Page', function () {
             browser.pause(500);
 
             pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
-            pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
+            pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.click();
             expectAlertContent(browser);
             browser.acceptAlert();
             browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
@@ -736,7 +840,7 @@ describe('Pinboard Page', function () {
             pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
 
             pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
-            pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
+            pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.click();
             browser.getUrl().should.containEql('/pinboard/ceea8ea3/pinboard-title/');
             pinboardPage.pinboardSection.title.getText().should.equal('Pinboard Title');
             pinboardPage.pinboardSection.description.getText().should.equal('Pinboard Description');
@@ -748,7 +852,7 @@ describe('Pinboard Page', function () {
             pinboardPage.open('ceea8ea3');
             removeOfficerFromPinboard();
             pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
-            pinboardPage.pinboardsListSection.secondPinboardItemCreatedAt.click();
+            pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.click();
             expectAlertContent(browser);
             browser.dismissAlert();
             expectStillInCurrentPinboardPage(browser);
@@ -872,7 +976,9 @@ describe('Pinboard Page', function () {
         pinboardPage.pinnedSection.trrs.trrCards().should.have.length(2);
 
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
-        pinboardPage.pinboardsListSection.firstDuplicatePinboardButton.click();
+        pinboardPage.pinboardsListSection.firstPinboardItem.actionsButton.click();
+        pinboardPage.pinboardsListSection.firstPinboardItem.duplicateButton.waitForDisplayed();
+        pinboardPage.pinboardsListSection.firstPinboardItem.duplicateButton.click();
         browser.getUrl().should.containEql('/pinboard/5cd06f2b/pinboard-title/');
         pinboardPage.pinboardSection.title.getText().should.containEql('Pinboard Title');
         pinboardPage.pinboardSection.description.getText().should.containEql('Pinboard Description');
@@ -885,7 +991,9 @@ describe('Pinboard Page', function () {
       it('should duplicate selected pinboard if pinboard is saving and user confirm yes', function () {
         removeOfficerFromPinboard();
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
-        pinboardPage.pinboardsListSection.firstDuplicatePinboardButton.click();
+        pinboardPage.pinboardsListSection.firstPinboardItem.actionsButton.click();
+        pinboardPage.pinboardsListSection.firstPinboardItem.duplicateButton.waitForDisplayed();
+        pinboardPage.pinboardsListSection.firstPinboardItem.duplicateButton.click();
         expectAlertContent(browser);
         browser.acceptAlert();
         browser.getUrl().should.containEql('/pinboard/5cd06f2b/pinboard-title/');
@@ -896,10 +1004,92 @@ describe('Pinboard Page', function () {
       it('should still in current page if pinboard is saving and user confirm no', function () {
         removeOfficerFromPinboard();
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
-        pinboardPage.pinboardsListSection.firstDuplicatePinboardButton.click();
+        pinboardPage.pinboardsListSection.firstPinboardItem.actionsButton.click();
+        pinboardPage.pinboardsListSection.firstPinboardItem.duplicateButton.waitForDisplayed();
+        pinboardPage.pinboardsListSection.firstPinboardItem.duplicateButton.click();
         expectAlertContent(browser);
         browser.dismissAlert();
         expectStillInCurrentPinboardPage(browser);
+      });
+    });
+
+    context('clicking on remove pinboard button', function () {
+      beforeEach(function () {
+        setupMockApiFile('pinboard-page/manage-pinboards/remove-pinboard.js');
+        pinboardPage.open('ceea8ea3');
+        pinboardPage.managePinboardsButtonsSection.pinboardsListButton.waitForDisplayed();
+      });
+
+      afterEach(function () {
+        restoreMockApiFile();
+      });
+
+      context('remove not current pinboard', function () {
+        it('should remove item from pinboards list', function () {
+          const pinboardsListSection = pinboardPage.pinboardsListSection;
+          const firstPinboardItem = pinboardsListSection.firstPinboardItem;
+          const secondPinboardItem = pinboardsListSection.secondPinboardItem;
+          pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+
+          const expectedFormat = '[Viewed] DD/MM/YYYY [at] hh:mm A';
+          const currentHourString = moment().format('[^Viewed] DD/MM/YYYY [at] hh[:\\d\\d] A$');
+          const currentHour = new RegExp(currentHourString);
+          const secondPinboardItemViewedAt = moment('2019-10-18T06:15:00.967Z').format(expectedFormat);
+
+          secondPinboardItem.actionsButton.waitForDisplayed();
+
+          firstPinboardItem.title.getText().should.equal('Pinboard Title');
+          firstPinboardItem.viewedAt.getText().should.match(currentHour);
+          secondPinboardItem.title.getText().should.equal('Created 15/10/2019');
+          secondPinboardItem.viewedAt.getText().should.equal(secondPinboardItemViewedAt);
+          pinboardsListSection.pinboardItems().should.have.length(2);
+
+          secondPinboardItem.actionsButton.click();
+          secondPinboardItem.removeButton.waitForDisplayed();
+          secondPinboardItem.removeButton.click();
+
+          firstPinboardItem.title.getText().should.equal('Pinboard Title');
+          firstPinboardItem.viewedAt.getText().should.match(currentHour);
+          pinboardsListSection.pinboardItems().should.have.length(1);
+        });
+      });
+
+      context('remove current pinboard', function () {
+        it('should remove item from pinboards list and redirect to most recent viewed pinboard', function () {
+          const pinboardsListSection = pinboardPage.pinboardsListSection;
+          const firstPinboardItem = pinboardsListSection.firstPinboardItem;
+
+          pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+          firstPinboardItem.actionsButton.waitForDisplayed();
+          firstPinboardItem.actionsButton.click();
+          firstPinboardItem.removeButton.waitForDisplayed();
+          firstPinboardItem.removeButton.click();
+
+          pinboardsListSection.pinboardsTitle.waitForDisplayed(2000, true);
+          browser.waitForUrl(url => url.should.containEql('/pinboard/77edc128/'), 500);
+        });
+      });
+
+      context('remove last pinboard', function () {
+        it('should create new pinboard', function () {
+          const pinboardsListSection = pinboardPage.pinboardsListSection;
+          const firstPinboardItem = pinboardsListSection.firstPinboardItem;
+          const secondPinboardItem = pinboardsListSection.secondPinboardItem;
+
+          pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
+          firstPinboardItem.title.waitForDisplayed();
+
+          secondPinboardItem.actionsButton.click();
+          secondPinboardItem.removeButton.waitForDisplayed();
+          secondPinboardItem.removeButton.click();
+
+          firstPinboardItem.actionsButton.click();
+          firstPinboardItem.removeButton.waitForDisplayed();
+          firstPinboardItem.removeButton.click();
+
+          pinboardsListSection.pinboardsTitle.waitForDisplayed(2000, true);
+          browser.waitForUrl(url => url.should.containEql('/pinboard/87e31b82/'), 500);
+        });
       });
     });
   });

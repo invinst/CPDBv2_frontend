@@ -2,7 +2,7 @@ import { createAction } from 'redux-actions';
 import { map, entries } from 'lodash';
 import { CancelToken } from 'axios';
 
-import { get, post, put } from 'actions/common/async-action';
+import { get, post, put, deleteRequest } from 'actions/common/async-action';
 import * as constants from 'utils/constants';
 
 
@@ -232,3 +232,21 @@ export const fetchLatestRetrievedPinboard = get(
     constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_FAILURE,
   ]
 );
+
+export const removePinboard = (id) => deleteRequest(
+  `${constants.PINBOARDS_URL}${id}/`,
+  [
+    constants.REMOVE_PINBOARD_REQUEST_START,
+    constants.REMOVE_PINBOARD_REQUEST_SUCCESS,
+    constants.REMOVE_PINBOARD_REQUEST_FAILURE,
+  ]
+)();
+
+export const viewPinboard = (id) => post(
+  `${constants.PINBOARDS_URL}${id}/view/`,
+  [
+    constants.VIEW_PINBOARD_REQUEST_START,
+    constants.VIEW_PINBOARD_REQUEST_SUCCESS,
+    constants.VIEW_PINBOARD_REQUEST_FAILURE,
+  ]
+)();

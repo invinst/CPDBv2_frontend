@@ -12,6 +12,8 @@ import {
   isEmptyPinboard,
   getRequestPinboard,
   isPinboardFeatureEnabled,
+  getPinboardIdFromRequestUrl,
+  handleClosePinboardsList,
 } from 'utils/pinboard';
 import PinboardFactory from 'utils/test/factories/pinboard';
 import {
@@ -27,6 +29,8 @@ import {
   fetchPinboardTRRs,
 } from 'actions/pinboard';
 import config from 'config';
+import { hidePinboardList } from 'actions/pinboard-page';
+import * as intercomUtils from 'utils/intercom';
 
 
 describe('pinboard utils', function () {
@@ -213,6 +217,24 @@ describe('pinboard utils', function () {
         stub(config.enableFeatures, 'pinboard').value(true);
         isPinboardFeatureEnabled().should.be.true();
       });
+    });
+  });
+
+  describe('getPinboardIdFromRequestUrl', function () {
+    it('should return correct pinboard id', function () {
+      getPinboardIdFromRequestUrl('/pinboards/12f84b/').should.equal('12f84b');
+    });
+  });
+
+  describe('dispatch handleClosePinboardsList', function () {
+    it('should call showIntercomLauncher and dispatch hidePinboardList with correct params', function () {
+      const showIntercomLauncherStub = stub(intercomUtils, 'showIntercomLauncher');
+      const store = {
+        dispatch: stub().usingPromise(Promise).resolves('abc'),
+      };
+      store.dispatch(handleClosePinboardsList());
+      store.dispatch.should.be.calledWith(hidePinboardList());
+      showIntercomLauncherStub.should.be.calledWith(true);
     });
   });
 });
