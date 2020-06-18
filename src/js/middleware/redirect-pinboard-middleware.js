@@ -5,6 +5,7 @@ import {
   PINBOARD_CREATE_REQUEST_SUCCESS,
   PINBOARD_UPDATE_FROM_SOURCE_REQUEST_SUCCESS,
   PINBOARD_UPDATE_REQUEST_SUCCESS,
+  REMOVE_PINBOARD_REQUEST_SUCCESS,
   DEFAULT_PINBOARD_PATH,
 } from 'utils/constants';
 import {
@@ -14,7 +15,10 @@ import {
 } from 'utils/pinboard';
 import { updatePathName } from 'actions/path-name';
 import { onPinboardPage } from 'utils/paths';
+import { getPinboardIdFromRequestUrl } from 'utils/pinboard';
 import { getPinboardID } from 'utils/location';
+import { getPinboard } from 'selectors/pinboard-page/pinboard';
+import { pinboardsSelector } from 'selectors/pinboard-page/pinboards';
 
 
 function getPinboardData(store, pinboardId) {
@@ -59,6 +63,21 @@ export default store => next => action => {
       const newPinboardPathName = generatePinboardUrl(action.payload);
       if (pathname !== newPinboardPathName) {
         store.dispatch(updatePathName(newPinboardPathName));
+      }
+    }
+  }
+
+  if (action.type === REMOVE_PINBOARD_REQUEST_SUCCESS) {
+    const state = store.getState();
+    const { id: currentPinboardId } = getPinboard(state);
+    const removedPinboardId = getPinboardIdFromRequestUrl(action.request.url);
+    if (removedPinboardId === currentPinboardId) {
+      const pinboards = pinboardsSelector(state);
+      if (pinboards.length > 0) {
+        const newPinboardPathName = generatePinboardUrl(pinboards[0]);
+        browserHistory.push(newPinboardPathName);
+      } else {
+        browserHistory.push(DEFAULT_PINBOARD_PATH);
       }
     }
   }

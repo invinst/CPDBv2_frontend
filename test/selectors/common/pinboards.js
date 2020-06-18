@@ -1,3 +1,6 @@
+import { useFakeTimers } from 'sinon';
+import moment from 'moment';
+
 import {
   showSelectPinboardsSelector,
   rawPinboardsSelector,
@@ -95,6 +98,8 @@ describe('pinboards common selectors', function () {
 
     context('current pinboard is on pinboards list', function () {
       it('should select correct value', function () {
+        useFakeTimers();
+        const currentTimeISOString = moment().toISOString();
         rawPinboardsSelector({
           pinboardPage: {
             pinboards: [
@@ -102,6 +107,7 @@ describe('pinboards common selectors', function () {
                 'id': '65fbab53',
                 'title': '',
                 'created_at': '2020-05-21',
+                'last_viewed_at': '2019-05-23T09:30:00',
                 'crids': [],
                 'officer_ids': [],
                 'trr_ids': [],
@@ -110,6 +116,7 @@ describe('pinboards common selectors', function () {
                 'id': 'f1f16550',
                 'title': '',
                 'created_at': '2020-05-14',
+                'last_viewed_at': '2019-05-21T09:33:00',
                 'crids': [],
                 'officer_ids': [
                   8562,
@@ -121,6 +128,7 @@ describe('pinboards common selectors', function () {
               'id': '65fbab53',
               'title': 'New title',
               'created_at': '2020-05-21',
+              'last_viewed_at': '2019-05-26T09:30:00',
               'crids': [],
               'officer_ids': [123],
               'trr_ids': [],
@@ -131,6 +139,7 @@ describe('pinboards common selectors', function () {
             'id': '65fbab53',
             'title': 'New title',
             'created_at': '2020-05-21',
+            'last_viewed_at': currentTimeISOString,
             'crids': [],
             'officer_ids': [123],
             'trr_ids': [],
@@ -140,6 +149,7 @@ describe('pinboards common selectors', function () {
             'id': 'f1f16550',
             'title': '',
             'created_at': '2020-05-14',
+            'last_viewed_at': '2019-05-21T09:33:00',
             'crids': [],
             'officer_ids': [
               8562,
