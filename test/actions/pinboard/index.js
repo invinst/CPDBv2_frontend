@@ -30,6 +30,8 @@ import {
   updatePinboardFromSource,
   removePinboard,
   viewPinboard,
+  fetchComplaintSummary,
+  fetchTRRSummary,
 } from 'actions/pinboard';
 import * as constants from 'utils/constants';
 
@@ -729,6 +731,46 @@ describe('pinboard actions', function () {
             cancelToken: undefined,
             method: 'post',
             url: `${constants.PINBOARDS_URL}123f78/view/`,
+          },
+        },
+      });
+    });
+  });
+
+  describe('fetchComplaintSummary', function () {
+    it('should return correct action', function () {
+      fetchComplaintSummary('84ab47').should.deepEqual({
+        types: [
+          constants.PINBOARD_COMPLAINT_SUMMARY_FETCH_REQUEST_START,
+          constants.PINBOARD_COMPLAINT_SUMMARY_FETCH_REQUEST_SUCCESS,
+          constants.PINBOARD_COMPLAINT_SUMMARY_FETCH_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            adapter: null,
+            cancelToken: undefined,
+            params: undefined,
+            url: `${constants.PINBOARDS_URL}84ab47/complaint-summary/`,
+          },
+        },
+      });
+    });
+  });
+
+  describe('fetchTRRSummary', function () {
+    it('should return correct action', function () {
+      fetchTRRSummary('84ab47').should.deepEqual({
+        types: [
+          constants.PINBOARD_TRR_SUMMARY_FETCH_REQUEST_START,
+          constants.PINBOARD_TRR_SUMMARY_FETCH_REQUEST_SUCCESS,
+          constants.PINBOARD_TRR_SUMMARY_FETCH_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            adapter: null,
+            cancelToken: undefined,
+            params: undefined,
+            url: `${constants.PINBOARDS_URL}84ab47/trr-summary/`,
           },
         },
       });

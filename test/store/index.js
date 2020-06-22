@@ -340,6 +340,12 @@ describe('store', function () {
           EMPTY_PINBOARD_DESCRIPTION: false,
           EMPTY_PINBOARD_TITLE: false,
         },
+        widgets: {
+          complaintSummary: [],
+          complaintSummaryRequesting: false,
+          trrSummary: [],
+          trrSummaryRequesting: false,
+        },
       },
       pinboardAdminPage: {
         allPinboards: {

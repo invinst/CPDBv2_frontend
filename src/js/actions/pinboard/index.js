@@ -157,6 +157,24 @@ export const fetchOtherPagesPinboardGeographicTrrs = (params) => get(
   pinboardSource && pinboardSource.token
 )(params);
 
+export const fetchComplaintSummary = (id) => get(
+  `${constants.PINBOARDS_URL}${id}/complaint-summary/`,
+  [
+    constants.PINBOARD_COMPLAINT_SUMMARY_FETCH_REQUEST_START,
+    constants.PINBOARD_COMPLAINT_SUMMARY_FETCH_REQUEST_SUCCESS,
+    constants.PINBOARD_COMPLAINT_SUMMARY_FETCH_REQUEST_FAILURE,
+  ],
+)();
+
+export const fetchTRRSummary = (id) => get(
+  `${constants.PINBOARDS_URL}${id}/trr-summary/`,
+  [
+    constants.PINBOARD_TRR_SUMMARY_FETCH_REQUEST_START,
+    constants.PINBOARD_TRR_SUMMARY_FETCH_REQUEST_SUCCESS,
+    constants.PINBOARD_TRR_SUMMARY_FETCH_REQUEST_FAILURE,
+  ],
+)();
+
 export const fetchPinboardComplaints = id => get(
   `${constants.PINBOARDS_URL}${id}/complaints/`,
   [

@@ -300,6 +300,52 @@ describe('Pinboard Page', function () {
     });
   });
 
+  context('Complaint Summary section', function () {
+    beforeEach(function () {
+      setupMockApiFile('pinboard-page/widgets.js');
+      pinboardPage.open('ceea8ea3');
+    });
+
+    afterEach(function () {
+      restoreMockApiFile();
+    });
+
+    it('should render complaint summary section', function () {
+      pinboardPage.complaintSummaryWidget.widgetTitle.getText().should.equal('COMPLAINT SUMMARY');
+      pinboardPage.complaintSummaryWidget.spinner.waitForDisplayed();
+      pinboardPage.complaintSummaryWidget.spinner.waitForDisplayed(5000, true);
+      pinboardPage.complaintSummaryWidget.summaryItems().should.have.length(8);
+      pinboardPage.complaintSummaryWidget.firstSummaryItemTitle.getText().should.equal(
+        'Operation/Personnel Violations'
+      );
+      pinboardPage.complaintSummaryWidget.firstSummaryItemCount.getText().should.equal('10');
+      pinboardPage.complaintSummaryWidget.secondSummaryItemTitle.getText().should.equal('Unknown');
+      pinboardPage.complaintSummaryWidget.secondSummaryItemCount.getText().should.equal('8');
+    });
+  });
+
+  context('TRR Summary section', function () {
+    beforeEach(function () {
+      setupMockApiFile('pinboard-page/widgets.js');
+      pinboardPage.open('ceea8ea3');
+    });
+
+    afterEach(function () {
+      restoreMockApiFile();
+    });
+
+    it('should render complaint summary section', function () {
+      pinboardPage.trrSummaryWidget.widgetTitle.getText().should.equal('TACTICAL RESPONSE REPORT SUMMARY');
+      pinboardPage.trrSummaryWidget.spinner.waitForDisplayed();
+      pinboardPage.trrSummaryWidget.spinner.waitForDisplayed(5000, true);
+      pinboardPage.trrSummaryWidget.summaryItems().should.have.length(9);
+      pinboardPage.trrSummaryWidget.firstSummaryItemTitle.getText().should.equal('Unknown');
+      pinboardPage.trrSummaryWidget.firstSummaryItemCount.getText().should.equal('141');
+      pinboardPage.trrSummaryWidget.secondSummaryItemTitle.getText().should.equal('Physical Force - Holding');
+      pinboardPage.trrSummaryWidget.secondSummaryItemCount.getText().should.equal('56');
+    });
+  });
+
   context('relevant coaccusals section', function () {
     beforeEach(function () {
       pinboardPage.open();

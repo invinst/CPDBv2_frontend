@@ -3,6 +3,29 @@ import Section from './sections/section';
 import { PreviewPaneSection } from './social-graph-page';
 
 
+class SummaryWidget extends Section {
+  constructor(parentSelector='') {
+    super(parentSelector);
+
+    this.summaryItemSelector = `${parentSelector}//div[@class="summary-item"]`;
+    const firstSummaryItemSelector = '(//div[@class="summary-item"])[1]';
+    const secondSummaryItemSelector = '(//div[@class="summary-item"])[2]';
+
+    this.prepareElementGetters({
+      widgetTitle: '//div[contains(@class, "widget-title")]',
+      spinner: '//*[contains(@class, "widget__widget-spinner")]',
+      firstSummaryItemTitle: `${firstSummaryItemSelector}//div[contains(@class, "item-title")]`,
+      firstSummaryItemCount: `${firstSummaryItemSelector}//div[contains(@class, "item-count")]`,
+      secondSummaryItemTitle: `${secondSummaryItemSelector}//div[contains(@class, "item-title")]`,
+      secondSummaryItemCount: `${secondSummaryItemSelector}//div[contains(@class, "item-count")]`,
+    });
+  }
+
+  summaryItems() {
+    return $$(this.summaryItemSelector);
+  }
+}
+
 class PinnedOfficers extends Section {
   constructor() {
     super();
@@ -365,6 +388,12 @@ class PinboardPage extends Page {
   previewPane = new PreviewPane();
   complaintPreviewPane = new PreviewPaneSection();
   officerPreviewPane = new OfficerPreviewPane();
+  complaintSummaryWidget = new SummaryWidget(
+    '//div[contains(@class, "widget__widget")]/div[contains(text(), "COMPLAINT SUMMARY")]/..'
+  );
+  trrSummaryWidget = new SummaryWidget(
+    '//div[contains(@class, "widget__widget")]/div[contains(text(), "TACTICAL RESPONSE REPORT SUMMARY")]/..'
+  );
 
   constructor() {
     super();
