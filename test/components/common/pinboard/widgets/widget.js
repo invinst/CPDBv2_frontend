@@ -8,10 +8,11 @@ describe('Widget component', function () {
   context('isVisualization is true', function () {
     it('should render correctly', function () {
       const wrapper = mount(
-        <Widget isVisualization={ true } widgetTitle='SOCIAL GRAPH'>
+        <Widget isVisualization={ true } widgetTitle='SOCIAL GRAPH' className='widget-classname'>
           <div className='children' />
         </Widget>
       );
+      wrapper.childAt(0).prop('className').should.containEql('widget-classname');
       const widgetTitle = wrapper.find('.widget-title');
 
       widgetTitle.text().should.equal('SOCIAL GRAPH');
@@ -23,10 +24,11 @@ describe('Widget component', function () {
   context('isVisualization is false', function () {
     it('should render correctly', function () {
       const wrapper = mount(
-        <Widget isVisualization={ false } widgetTitle='GEOGRAPHIC MAP'>
+        <Widget isVisualization={ false } widgetTitle='GEOGRAPHIC MAP' className='widget-classname'>
           <div className='children' />
         </Widget>
       );
+      wrapper.childAt(0).prop('className').should.containEql('widget-classname');
       const widgetTitle = wrapper.find('.widget-title');
 
       widgetTitle.text().should.equal('GEOGRAPHIC MAP');

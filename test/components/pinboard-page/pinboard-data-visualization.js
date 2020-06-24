@@ -74,6 +74,29 @@ describe('PinboardDataVisualization component', function () {
     },
   });
 
+  it('should render social graph', function () {
+    const wrapper = mount(
+      <Provider store={ store }>
+        <MemoryRouter>
+          <PinboardDataVisualization
+            pinboard={ { id: '1234abcd' } }
+          />
+        </MemoryRouter>
+      </Provider>
+    );
+
+    const carousel = wrapper.find('Carousel');
+    carousel.exists().should.be.true();
+
+    const socialGraphWidget = carousel.find('Widget').at(0);
+    socialGraphWidget.prop('widgetTitle').should.equal('SOCIAL GRAPH');
+
+    socialGraphWidget.find(AnimatedSocialGraph).exists().should.be.true();
+    socialGraphWidget.find('.expanded-mode-btn').hostNodes().at(0).prop('href').should.containEql(
+      '/social-graph/pinboard/1234abcd/'
+    );
+  });
+
   context('hasMapMarker is true', function () {
     it('should render geographic map', function () {
       const wrapper = mount(
@@ -87,13 +110,16 @@ describe('PinboardDataVisualization component', function () {
         </Provider>
       );
 
-      wrapper.find(AnimatedSocialGraph).exists().should.be.true();
-      wrapper.find(AllegationsMap).exists().should.be.true();
+      const carousel = wrapper.find('Carousel');
+      carousel.exists().should.be.true();
 
-      const expandedModeButton = wrapper.find('.expanded-mode-btn').hostNodes();
-      expandedModeButton.should.have.length(2);
-      expandedModeButton.at(0).prop('href').should.containEql('/social-graph/pinboard/1234abcd/');
-      expandedModeButton.at(1).prop('href').should.containEql('/geographic/pinboard/1234abcd/');
+      const geographicMapWidget = carousel.find('Widget').at(1);
+      geographicMapWidget.prop('widgetTitle').should.equal('GEOGRAPHIC MAP');
+
+      carousel.find(AllegationsMap).exists().should.be.true();
+      carousel.find('.expanded-mode-btn').hostNodes().at(1).prop('href').should.containEql(
+        '/geographic/pinboard/1234abcd/'
+      );
     });
   });
 
@@ -110,11 +136,10 @@ describe('PinboardDataVisualization component', function () {
         </Provider>
       );
 
-      wrapper.find(AnimatedSocialGraph).exists().should.be.true();
+      const carousel = wrapper.find('Carousel');
+      carousel.exists().should.be.true();
 
-      const expandedModeButton = wrapper.find('.expanded-mode-btn').hostNodes();
-      expandedModeButton.should.have.length(1);
-      expandedModeButton.at(0).prop('href').should.containEql('/social-graph/pinboard/1234abcd/');
+      carousel.find(AllegationsMap).exists().should.be.false();
     });
   });
 
@@ -131,7 +156,10 @@ describe('PinboardDataVisualization component', function () {
         </Provider>
       );
 
-      const complaintSummaryWidget = wrapper.find('Widget').last();
+      const carousel = wrapper.find('Carousel');
+      carousel.exists().should.be.true();
+
+      const complaintSummaryWidget = carousel.find('Widget').at(1);
       complaintSummaryWidget.prop('widgetTitle').should.equal('COMPLAINT SUMMARY');
       const complaintSummary = complaintSummaryWidget.find('SummaryWidget');
       complaintSummary.prop('summaryItems').should.deepEqual([
@@ -154,7 +182,10 @@ describe('PinboardDataVisualization component', function () {
         </Provider>
       );
 
-      wrapper.find('SummaryWidget').exists().should.be.false();
+      const carousel = wrapper.find('Carousel');
+      carousel.exists().should.be.true();
+
+      carousel.find('SummaryWidget').exists().should.be.false();
     });
   });
 
@@ -171,7 +202,10 @@ describe('PinboardDataVisualization component', function () {
         </Provider>
       );
 
-      const trrSummaryWidget = wrapper.find('Widget').last();
+      const carousel = wrapper.find('Carousel');
+      carousel.exists().should.be.true();
+
+      const trrSummaryWidget = carousel.find('Widget').last();
       trrSummaryWidget.prop('widgetTitle').should.equal('TACTICAL RESPONSE REPORT SUMMARY');
       const trrSummary = trrSummaryWidget.find('SummaryWidget');
       trrSummary.prop('summaryItems').should.deepEqual([
@@ -194,7 +228,10 @@ describe('PinboardDataVisualization component', function () {
         </Provider>
       );
 
-      wrapper.find('SummaryWidget').exists().should.be.false();
+      const carousel = wrapper.find('Carousel');
+      carousel.exists().should.be.true();
+
+      carousel.find('SummaryWidget').exists().should.be.false();
     });
   });
 
@@ -211,7 +248,10 @@ describe('PinboardDataVisualization component', function () {
         </Provider>
       );
 
-      const officersSummaryWidget = wrapper.find('Widget').last();
+      const carousel = wrapper.find('Carousel');
+      carousel.exists().should.be.true();
+
+      const officersSummaryWidget = carousel.find('Widget').last();
       officersSummaryWidget.prop('widgetTitle').should.equal('OFFICERS');
       const officersSummary = officersSummaryWidget.find('DemographicWidget');
       officersSummary.prop('demographicData').should.deepEqual({
@@ -240,7 +280,10 @@ describe('PinboardDataVisualization component', function () {
         </Provider>
       );
 
-      wrapper.find('DemographicWidget').exists().should.be.false();
+      const carousel = wrapper.find('Carousel');
+      carousel.exists().should.be.true();
+
+      carousel.find('DemographicWidget').exists().should.be.false();
     });
   });
 
@@ -257,7 +300,10 @@ describe('PinboardDataVisualization component', function () {
         </Provider>
       );
 
-      const complainantsSummaryWidget = wrapper.find('Widget').last();
+      const carousel = wrapper.find('Carousel');
+      carousel.exists().should.be.true();
+
+      const complainantsSummaryWidget = carousel.find('Widget').last();
       complainantsSummaryWidget.prop('widgetTitle').should.equal('COMPLAINANTS');
       const complainantsSummary = complainantsSummaryWidget.find('DemographicWidget');
       complainantsSummary.prop('demographicData').should.deepEqual({
@@ -287,7 +333,10 @@ describe('PinboardDataVisualization component', function () {
         </Provider>
       );
 
-      wrapper.find('DemographicWidget').exists().should.be.false();
+      const carousel = wrapper.find('Carousel');
+      carousel.exists().should.be.true();
+
+      carousel.find('DemographicWidget').exists().should.be.false();
     });
   });
 });

@@ -311,8 +311,6 @@ describe('Pinboard Page', function () {
     });
 
     context('Complaint Summary section', function () {
-
-
       it('should render complaint summary section', function () {
         pinboardPage.complaintSummaryWidget.widgetTitle.getText().should.equal('COMPLAINT SUMMARY');
         pinboardPage.complaintSummaryWidget.spinner.waitForDisplayed();
@@ -329,6 +327,9 @@ describe('Pinboard Page', function () {
 
     context('TRR Summary section', function () {
       it('should render complaint summary section', function () {
+        pinboardPage.widgetsRightArrow.waitForDisplayed();
+        pinboardPage.widgetsRightArrow.click();
+        pinboardPage.trrSummaryWidget.widgetTitle.waitForDisplayedInViewport();
         pinboardPage.trrSummaryWidget.widgetTitle.getText().should.equal('TACTICAL RESPONSE REPORT SUMMARY');
         pinboardPage.trrSummaryWidget.spinner.waitForDisplayed();
         pinboardPage.trrSummaryWidget.spinner.waitForDisplayed(5000, true);
@@ -342,6 +343,9 @@ describe('Pinboard Page', function () {
 
     context('Officers Summary section', function () {
       it('should render officers summary section', function () {
+        pinboardPage.widgetsRightArrow.waitForDisplayed();
+        pinboardPage.widgetsRightArrow.click();
+        pinboardPage.officersSummaryWidget.widgetTitle.waitForDisplayedInViewport();
         pinboardPage.officersSummaryWidget.widgetTitle.getText().should.equal('OFFICERS');
         pinboardPage.officersSummaryWidget.spinner.waitForDisplayed();
         pinboardPage.officersSummaryWidget.spinner.waitForDisplayed(5000, true);
@@ -382,6 +386,9 @@ describe('Pinboard Page', function () {
 
     context('Complainants Summary section', function () {
       it('should render complainants summary section', function () {
+        pinboardPage.widgetsRightArrow.waitForDisplayed();
+        pinboardPage.widgetsRightArrow.click();
+        pinboardPage.complainantsSummaryWidget.widgetTitle.waitForDisplayedInViewport();
         pinboardPage.complainantsSummaryWidget.widgetTitle.getText().should.equal('COMPLAINANTS');
         pinboardPage.complainantsSummaryWidget.spinner.waitForDisplayed();
         pinboardPage.complainantsSummaryWidget.spinner.waitForDisplayed(5000, true);
@@ -423,6 +430,26 @@ describe('Pinboard Page', function () {
         genderSection.thirdPercentage.getAttribute('class').should.containEql('short-bar');
         genderSection.thirdLabel.getText().should.equal('Unknown');
       });
+    });
+
+    it('should handle swiper arrow click', function () {
+      pinboardPage.complaintSummaryWidget.widgetTitle.waitForDisplayedInViewport();
+      pinboardPage.complainantsSummaryWidget.widgetTitle.waitForDisplayedInViewport(1000, true);
+      pinboardPage.widgetsLeftArrow.waitForDisplayed(1000, true);
+      pinboardPage.widgetsRightArrow.waitForDisplayed();
+
+      pinboardPage.widgetsRightArrow.click();
+      pinboardPage.widgetsRightArrow.click();
+      pinboardPage.widgetsRightArrow.waitForDisplayed(1000, true);
+      pinboardPage.complaintSummaryWidget.widgetTitle.waitForDisplayedInViewport(1000, true);
+      pinboardPage.complainantsSummaryWidget.widgetTitle.waitForDisplayedInViewport();
+      pinboardPage.widgetsLeftArrow.waitForDisplayed();
+
+      pinboardPage.widgetsLeftArrow.click();
+      pinboardPage.widgetsLeftArrow.click();
+      pinboardPage.complaintSummaryWidget.widgetTitle.waitForDisplayedInViewport();
+      pinboardPage.complainantsSummaryWidget.widgetTitle.waitForDisplayedInViewport(1000, true);
+      pinboardPage.widgetsLeftArrow.waitForDisplayed(1000, true);
     });
   });
 

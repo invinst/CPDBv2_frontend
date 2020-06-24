@@ -5,9 +5,9 @@ import cx from 'classnames';
 import styles from './widget.sass';
 
 
-const Widget = ({ widgetTitle, children, isVisualization }) => {
+const Widget = ({ widgetTitle, children, isVisualization, className }) => {
   return (
-    <div className={ styles.widget }>
+    <div className={ cx(styles.widget, className) }>
       <div className={ cx('widget-title', { 'visualization-title': isVisualization }) }>{ widgetTitle }</div>
       { children }
     </div>
@@ -21,6 +21,7 @@ Widget.propTypes = {
     PropTypes.node,
   ]),
   isVisualization: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 export default Widget;

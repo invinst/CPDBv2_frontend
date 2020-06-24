@@ -449,6 +449,10 @@ class PinboardPage extends Page {
       firstToast: '.Toastify__toast:first-child',
       secondToast: '.Toastify__toast:nth-child(2)',
       geographicMap: '//div[starts-with(@class, "allegations-map")]',
+      widgetsLeftArrow: '//div[contains(@class, "pinboard-data-visualization")]' +
+        '//button[contains(@class, "left carousel-arrow")]',
+      widgetsRightArrow: '//div[contains(@class, "pinboard-data-visualization")]' +
+        '//button[contains(@class, "right carousel-arrow")]',
     });
   }
 
