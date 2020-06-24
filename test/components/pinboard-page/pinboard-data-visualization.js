@@ -49,6 +49,27 @@ describe('PinboardDataVisualization component', function () {
           { 'force_type': 'Unknown', count: 141 },
           { 'force_type': 'Taser', count: 13 },
         ],
+        officersSummary: {
+          race: [
+            { race: 'Black', percentage: 0.67 },
+            { race: '', percentage: 0.14 },
+          ],
+          gender: [
+            { gender: '', percentage: 0.49 },
+            { gender: 'M', percentage: 0.47 },
+          ],
+        },
+        complainantsSummary: {
+          race: [
+            { race: 'Black', percentage: 0.77 },
+            { race: 'White', percentage: 0.12 },
+            { race: '', percentage: 0.11 },
+          ],
+          gender: [
+            { gender: 'F', percentage: 0.81 },
+            { gender: 'M', percentage: 0.19 },
+          ],
+        },
       },
     },
   });
@@ -174,6 +195,99 @@ describe('PinboardDataVisualization component', function () {
       );
 
       wrapper.find('SummaryWidget').exists().should.be.false();
+    });
+  });
+
+  context('hasOfficersSummary is true', function () {
+    it('should render OfficersSummaryContainer', function () {
+      const wrapper = mount(
+        <Provider store={ store }>
+          <MemoryRouter>
+            <PinboardDataVisualization
+              pinboard={ { id: '1234abcd' } }
+              hasOfficersSummary={ true }
+            />
+          </MemoryRouter>
+        </Provider>
+      );
+
+      const officersSummaryWidget = wrapper.find('Widget').last();
+      officersSummaryWidget.prop('widgetTitle').should.equal('OFFICERS');
+      const officersSummary = officersSummaryWidget.find('DemographicWidget');
+      officersSummary.prop('demographicData').should.deepEqual({
+        race: [
+          { name: 'Black', percentage: 0.67 },
+          { name: 'Unknown', percentage: 0.14 },
+        ],
+        gender: [
+          { name: 'Unknown', percentage: 0.49 },
+          { name: 'M', percentage: 0.47 },
+        ],
+      });
+    });
+  });
+
+  context('hasOfficersSummary is false', function () {
+    it('should not render TRRSummaryContainer', function () {
+      const wrapper = mount(
+        <Provider store={ store }>
+          <MemoryRouter>
+            <PinboardDataVisualization
+              pinboard={ { id: '1234abcd' } }
+              hasOfficersSummary={ false }
+            />
+          </MemoryRouter>
+        </Provider>
+      );
+
+      wrapper.find('DemographicWidget').exists().should.be.false();
+    });
+  });
+
+  context('hasComplainantsSummary is true', function () {
+    it('should render OfficersSummaryContainer', function () {
+      const wrapper = mount(
+        <Provider store={ store }>
+          <MemoryRouter>
+            <PinboardDataVisualization
+              pinboard={ { id: '1234abcd' } }
+              hasComplainantsSummary={ true }
+            />
+          </MemoryRouter>
+        </Provider>
+      );
+
+      const complainantsSummaryWidget = wrapper.find('Widget').last();
+      complainantsSummaryWidget.prop('widgetTitle').should.equal('COMPLAINANTS');
+      const complainantsSummary = complainantsSummaryWidget.find('DemographicWidget');
+      complainantsSummary.prop('demographicData').should.deepEqual({
+        race: [
+          { name: 'Black', percentage: 0.77 },
+          { name: 'White', percentage: 0.12 },
+          { name: 'Unknown', percentage: 0.11 },
+        ],
+        gender: [
+          { name: 'F', percentage: 0.81 },
+          { name: 'M', percentage: 0.19 },
+        ],
+      });
+    });
+  });
+
+  context('hasComplainantsSummary is false', function () {
+    it('should not render TRRSummaryContainer', function () {
+      const wrapper = mount(
+        <Provider store={ store }>
+          <MemoryRouter>
+            <PinboardDataVisualization
+              pinboard={ { id: '1234abcd' } }
+              hasComplainantsSummary={ false }
+            />
+          </MemoryRouter>
+        </Provider>
+      );
+
+      wrapper.find('DemographicWidget').exists().should.be.false();
     });
   });
 });

@@ -175,6 +175,24 @@ export const fetchTRRSummary = (id) => get(
   ],
 )();
 
+export const fetchOfficersSummary = (id) => get(
+  `${constants.PINBOARDS_URL}${id}/officers-summary/`,
+  [
+    constants.PINBOARD_OFFICERS_SUMMARY_FETCH_REQUEST_START,
+    constants.PINBOARD_OFFICERS_SUMMARY_FETCH_REQUEST_SUCCESS,
+    constants.PINBOARD_OFFICERS_SUMMARY_FETCH_REQUEST_FAILURE,
+  ],
+)();
+
+export const fetchComplainantsSummary = (id) => get(
+  `${constants.PINBOARDS_URL}${id}/complainants-summary/`,
+  [
+    constants.PINBOARD_COMPLAINANTS_SUMMARY_FETCH_REQUEST_START,
+    constants.PINBOARD_COMPLAINANTS_SUMMARY_FETCH_REQUEST_SUCCESS,
+    constants.PINBOARD_COMPLAINANTS_SUMMARY_FETCH_REQUEST_FAILURE,
+  ],
+)();
+
 export const fetchPinboardComplaints = id => get(
   `${constants.PINBOARDS_URL}${id}/complaints/`,
   [

@@ -345,6 +345,10 @@ describe('store', function () {
           complaintSummaryRequesting: false,
           trrSummary: [],
           trrSummaryRequesting: false,
+          officersSummary: {},
+          officersSummaryRequesting: false,
+          complainantsSummary: {},
+          complainantsSummaryRequesting: false,
         },
       },
       pinboardAdminPage: {

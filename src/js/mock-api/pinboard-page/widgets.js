@@ -115,5 +115,80 @@ axiosMockClient.onGet(`${PINBOARDS_URL}ceea8ea3/trr-summary/`).reply(function ()
   });
 });
 
+axiosMockClient.onGet(`${PINBOARDS_URL}ceea8ea3/officers-summary/`).reply(function () {
+  return new Promise(function (resolve, reject) {
+    setTimeout(function () {
+      resolve([
+        200,
+        {
+          'race': [
+            {
+              'race': 'Black',
+              'percentage': 0.55,
+            },
+            {
+              'race': 'White',
+              'percentage': 0.43,
+            },
+            {
+              'race': 'Other',
+              'percentage': 0.02,
+            },
+          ],
+          'gender': [
+            {
+              'gender': 'M',
+              'percentage': 0.96,
+            },
+            {
+              'gender': 'F',
+              'percentage': 0.04,
+            },
+          ],
+        },
+      ]);
+    }, 3000);
+  });
+});
+
+axiosMockClient.onGet(`${PINBOARDS_URL}ceea8ea3/complainants-summary/`).reply(function () {
+  return new Promise(function (resolve, reject) {
+    setTimeout(function () {
+      resolve([
+        200,
+        {
+          'race': [
+            {
+              'race': 'Black',
+              'percentage': 0.67,
+            },
+            {
+              'race': 'White',
+              'percentage': 0.27,
+            },
+            {
+              'race': 'Other',
+              'percentage': 0.05,
+            },
+          ],
+          'gender': [
+            {
+              'gender': 'F',
+              'percentage': 0.49,
+            },
+            {
+              'gender': 'M',
+              'percentage': 0.47,
+            },
+            {
+              'gender': '',
+              'percentage': 0.04,
+            },
+          ],
+        },
+      ]);
+    }, 3000);
+  });
+});
 
 module.exports = axiosMockClient;

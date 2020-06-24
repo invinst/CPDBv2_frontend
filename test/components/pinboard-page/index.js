@@ -53,7 +53,10 @@ describe('PinboardPage component', function () {
     pinboard,
     editModeOn,
     pinboards: [],
-    widgets: {},
+    widgets: {
+      officersSummary: {},
+      complainantsSummary: {},
+    },
   });
 
   const defaultFields = buildEditStateFields({

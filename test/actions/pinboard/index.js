@@ -32,6 +32,8 @@ import {
   viewPinboard,
   fetchComplaintSummary,
   fetchTRRSummary,
+  fetchOfficersSummary,
+  fetchComplainantsSummary,
 } from 'actions/pinboard';
 import * as constants from 'utils/constants';
 
@@ -771,6 +773,46 @@ describe('pinboard actions', function () {
             cancelToken: undefined,
             params: undefined,
             url: `${constants.PINBOARDS_URL}84ab47/trr-summary/`,
+          },
+        },
+      });
+    });
+  });
+
+  describe('fetchOfficersSummary', function () {
+    it('should return correct action', function () {
+      fetchOfficersSummary('84ab47').should.deepEqual({
+        types: [
+          constants.PINBOARD_OFFICERS_SUMMARY_FETCH_REQUEST_START,
+          constants.PINBOARD_OFFICERS_SUMMARY_FETCH_REQUEST_SUCCESS,
+          constants.PINBOARD_OFFICERS_SUMMARY_FETCH_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            adapter: null,
+            cancelToken: undefined,
+            params: undefined,
+            url: `${constants.PINBOARDS_URL}84ab47/officers-summary/`,
+          },
+        },
+      });
+    });
+  });
+
+  describe('fetchComplainantsSummary', function () {
+    it('should return correct action', function () {
+      fetchComplainantsSummary('84ab47').should.deepEqual({
+        types: [
+          constants.PINBOARD_COMPLAINANTS_SUMMARY_FETCH_REQUEST_START,
+          constants.PINBOARD_COMPLAINANTS_SUMMARY_FETCH_REQUEST_SUCCESS,
+          constants.PINBOARD_COMPLAINANTS_SUMMARY_FETCH_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            adapter: null,
+            cancelToken: undefined,
+            params: undefined,
+            url: `${constants.PINBOARDS_URL}84ab47/complainants-summary/`,
           },
         },
       });

@@ -6,6 +6,8 @@ import GeographicContainer from 'containers/pinboard-page/geographic-container';
 import SocialGraphContainer from 'containers/pinboard-page/social-graph-container';
 import ComplaintSummaryContainer from 'containers/pinboard-page/widgets/complaint-summary-container';
 import TRRSummaryContainer from 'containers/pinboard-page/widgets/trr-summary-container';
+import OfficersSummaryContainer from 'containers/pinboard-page/widgets/officers-summary-container';
+import ComplainantsSummaryContainer from 'containers/pinboard-page/widgets/complainants-summary-container';
 import Widget from 'components/common/pinboard/widgets/widget';
 import styles from './pinboard-data-visualization.sass';
 
@@ -18,7 +20,7 @@ export default class PinboardDataVisualization extends Component {
   }
 
   render() {
-    const { hasMapMarker, hasComplaintSummary, hasTRRSummary } = this.props;
+    const { hasMapMarker, hasComplaintSummary, hasTRRSummary, hasOfficersSummary, hasComplainantsSummary } = this.props;
 
     return (
       <div className={ styles.pinboardDataVisualization }>
@@ -48,6 +50,20 @@ export default class PinboardDataVisualization extends Component {
             </Widget>
           )
         }
+        {
+          hasOfficersSummary && (
+            <Widget widgetTitle='OFFICERS'>
+              <OfficersSummaryContainer />
+            </Widget>
+          )
+        }
+        {
+          hasComplainantsSummary && (
+            <Widget widgetTitle='COMPLAINANTS'>
+              <ComplainantsSummaryContainer />
+            </Widget>
+          )
+        }
         <div className='clearfix' />
       </div>
     );
@@ -59,6 +75,8 @@ PinboardDataVisualization.propTypes = {
   hasMapMarker: PropTypes.bool,
   hasComplaintSummary: PropTypes.bool,
   hasTRRSummary: PropTypes.bool,
+  hasOfficersSummary: PropTypes.bool,
+  hasComplainantsSummary: PropTypes.bool,
 };
 
 PinboardDataVisualization.defaultProps = {
@@ -66,4 +84,6 @@ PinboardDataVisualization.defaultProps = {
   hasMapMarker: false,
   hasComplaintSummary: false,
   hasTRRSummary: false,
+  hasOfficersSummary: false,
+  hasComplainantsSummary: false,
 };

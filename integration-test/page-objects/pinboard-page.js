@@ -3,6 +3,14 @@ import Section from './sections/section';
 import { PreviewPaneSection } from './social-graph-page';
 
 
+const summarySectionSelectorByTitle = (title) => (
+  `//div[contains(@class, "widget__widget")]/div[contains(text(), "${title}")]/..`
+);
+
+const demographicBarSelector = (index) => `//*[@class="bar-chart"]//*[${index}]`;
+const demographicPercentageSelector = (index) => `//*[contains(@class, "bar-chart-precentage")][${index}]`;
+const demographicLabelSelector = (index) => `//*[contains(@class, "bar-chart-label")]/*[${index}]`;
+
 class SummaryWidget extends Section {
   constructor(parentSelector='') {
     super(parentSelector);
@@ -23,6 +31,43 @@ class SummaryWidget extends Section {
 
   summaryItems() {
     return $$(this.summaryItemSelector);
+  }
+}
+
+class DemographicChartSection extends Section {
+  constructor(parentSelector, chartIndex) {
+    super(`(${parentSelector}//*[contains(@class, "demographic-chart__demographic-chart")])[${chartIndex}]`);
+
+    this.prepareElementGetters({
+      firstBar: demographicBarSelector(1),
+      firstPercentage: demographicPercentageSelector(1),
+      firstLabel: demographicLabelSelector(1),
+      secondBar: demographicBarSelector(2),
+      secondPercentage: demographicPercentageSelector(2),
+      secondLabel: demographicLabelSelector(2),
+      thirdBar: demographicBarSelector(3),
+      thirdPercentage: demographicPercentageSelector(3),
+      thirdLabel: demographicLabelSelector(3),
+      fourthBar: demographicBarSelector(4),
+      fourthPercentage: demographicPercentageSelector(4),
+      fourthLabel: demographicLabelSelector(4),
+    });
+  }
+
+  charts() {
+    return $$(`${this.parentSelector}//*[@class="bar-chart"]/*`);
+  }
+}
+
+class DemographicWidget extends Section {
+  constructor(parentSelector) {
+    super(parentSelector);
+    this.raceSection = new DemographicChartSection(parentSelector, 1);
+    this.genderSection = new DemographicChartSection(parentSelector, 2);
+    this.prepareElementGetters({
+      widgetTitle: '//div[contains(@class, "widget-title")]',
+      spinner: '//*[contains(@class, "widget__widget-spinner")]',
+    });
   }
 }
 
@@ -388,12 +433,10 @@ class PinboardPage extends Page {
   previewPane = new PreviewPane();
   complaintPreviewPane = new PreviewPaneSection();
   officerPreviewPane = new OfficerPreviewPane();
-  complaintSummaryWidget = new SummaryWidget(
-    '//div[contains(@class, "widget__widget")]/div[contains(text(), "COMPLAINT SUMMARY")]/..'
-  );
-  trrSummaryWidget = new SummaryWidget(
-    '//div[contains(@class, "widget__widget")]/div[contains(text(), "TACTICAL RESPONSE REPORT SUMMARY")]/..'
-  );
+  complaintSummaryWidget = new SummaryWidget(summarySectionSelectorByTitle('COMPLAINT SUMMARY'));
+  trrSummaryWidget = new SummaryWidget(summarySectionSelectorByTitle('TACTICAL RESPONSE REPORT SUMMARY'));
+  officersSummaryWidget = new DemographicWidget(summarySectionSelectorByTitle('OFFICERS'));
+  complainantsSummaryWidget = new DemographicWidget(summarySectionSelectorByTitle('COMPLAINANTS'));
 
   constructor() {
     super();

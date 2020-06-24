@@ -8,8 +8,6 @@ import {
   getInitialRequested,
 } from 'selectors/pinboard-page/pinboard';
 import PinboardPage from 'components/pinboard-page';
-import { hasMapMarkersSelector } from 'selectors/pinboard-page/geographic-data';
-import { hasComplaintSummarySelector } from 'selectors/pinboard-page/widgets/complaint-summary';
 import { focusedItemSelector } from 'selectors/pinboard-page/focused-item';
 import { createNewEmptyPinboard, duplicatePinboard } from 'actions/pinboard';
 import {
@@ -28,8 +26,6 @@ function mapStateToProps(state, ownProps) {
     pinboardPageLoading: pinboardPageLoadingSelector(state),
     isEmptyPinboard: isEmptyPinboardWithRemovingItemSelector(state),
     focusedItem: focusedItemSelector(state),
-    hasMapMarker: hasMapMarkersSelector(state),
-    hasComplaintSummary: hasComplaintSummarySelector(state),
   };
 }
 
