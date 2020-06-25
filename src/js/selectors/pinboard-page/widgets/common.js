@@ -1,7 +1,7 @@
 import { isEmpty } from 'lodash';
 
 const raceItemTransform = ({ race, percentage }) => ({
-  name: race || 'Unknown',
+  name: race,
   percentage,
 });
 

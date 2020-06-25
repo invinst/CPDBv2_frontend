@@ -9,7 +9,7 @@ describe('officersSummary selectors', function () {
   const officersSummaryItems = {
     race: [
       { race: 'Black', percentage: 0.67 },
-      { race: '', percentage: 0.14 },
+      { race: 'Other', percentage: 0.14 },
     ],
     gender: [
       { gender: '', percentage: 0.49 },
@@ -49,7 +49,7 @@ describe('officersSummary selectors', function () {
       officersSummarySelector(createState(officersSummaryItems, false)).should.eql({
         race: [
           { name: 'Black', percentage: 0.67 },
-          { name: 'Unknown', percentage: 0.14 },
+          { name: 'Other', percentage: 0.14 },
         ],
         gender: [
           { name: 'Unknown', percentage: 0.49 },

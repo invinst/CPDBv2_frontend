@@ -4,7 +4,7 @@ import { hasDemographicData, demographicDataTransform } from 'selectors/pinboard
 describe('widgets common selectors', function () {
   const race = [
     { race: 'Black', percentage: 0.67 },
-    { race: '', percentage: 0.14 },
+    { race: 'Other', percentage: 0.14 },
   ];
 
   const gender = [
@@ -57,7 +57,7 @@ describe('widgets common selectors', function () {
         }).should.eql({
           race: [
             { name: 'Black', percentage: 0.67 },
-            { name: 'Unknown', percentage: 0.14 },
+            { name: 'Other', percentage: 0.14 },
           ],
           gender: [
             { name: 'Unknown', percentage: 0.49 },

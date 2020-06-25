@@ -52,7 +52,7 @@ describe('PinboardDataVisualization component', function () {
         officersSummary: {
           race: [
             { race: 'Black', percentage: 0.67 },
-            { race: '', percentage: 0.14 },
+            { race: 'Other', percentage: 0.14 },
           ],
           gender: [
             { gender: '', percentage: 0.49 },
@@ -63,7 +63,7 @@ describe('PinboardDataVisualization component', function () {
           race: [
             { race: 'Black', percentage: 0.77 },
             { race: 'White', percentage: 0.12 },
-            { race: '', percentage: 0.11 },
+            { race: 'Other', percentage: 0.11 },
           ],
           gender: [
             { gender: 'F', percentage: 0.81 },
@@ -257,7 +257,7 @@ describe('PinboardDataVisualization component', function () {
       officersSummary.prop('demographicData').should.deepEqual({
         race: [
           { name: 'Black', percentage: 0.67 },
-          { name: 'Unknown', percentage: 0.14 },
+          { name: 'Other', percentage: 0.14 },
         ],
         gender: [
           { name: 'Unknown', percentage: 0.49 },
@@ -310,7 +310,7 @@ describe('PinboardDataVisualization component', function () {
         race: [
           { name: 'Black', percentage: 0.77 },
           { name: 'White', percentage: 0.12 },
-          { name: 'Unknown', percentage: 0.11 },
+          { name: 'Other', percentage: 0.11 },
         ],
         gender: [
           { name: 'F', percentage: 0.81 },
