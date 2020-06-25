@@ -45,29 +45,48 @@ describe('App component', function () {
     toggleEditMode.should.be.calledWith('/');
   });
 
-  it('should toggle search mode and change search query when press any key and not in search page', function () {
-    const toggleSearchMode = spy();
-    const changeSearchQuery = spy();
+  context('press any key and not in search page', function () {
+    beforeEach(function () {
+      this.oldTrigger = Mousetrap.prototype.trigger;
+      // Override Mousetrap.trigger to call callback with custom event object
+      Mousetrap.prototype.trigger = function (keys, action, event) {
+        var self = this;
+        if (self._directMap[keys + ':' + action]) {
+          self._directMap[keys + ':' + action](event || {}, keys);
+        }
+        return self;
+      };
+    });
 
-    mount(
-      <Provider store={ store }>
-        <MemoryRouter>
-          <App
-            toggleSearchMode={ toggleSearchMode }
-            changeSearchQuery={ changeSearchQuery }
-            location={ location }
-          >
-            <ChildComponent/>
-          </App>
-        </MemoryRouter>
-      </Provider>
-    );
+    afterEach(function () {
+      Mousetrap.prototype.trigger = this.oldTrigger;
+    });
 
-    Mousetrap.trigger('a');
+    it('should toggle search mode and change search query when ', function () {
+      const toggleSearchMode = spy();
+      const changeSearchQuery = spy();
+      const preventDefault = spy();
+      mount(
+        <Provider store={ store }>
+          <MemoryRouter>
+            <App
+              toggleSearchMode={ toggleSearchMode }
+              changeSearchQuery={ changeSearchQuery }
+              location={ location }
+            >
+              <ChildComponent/>
+            </App>
+          </MemoryRouter>
+        </Provider>
+      );
 
-    toggleSearchMode.calledOnce.should.be.true();
-    changeSearchQuery.calledOnce.should.be.true();
-    changeSearchQuery.should.be.calledWith('a');
+      Mousetrap.trigger('a', undefined, { preventDefault });
+
+      toggleSearchMode.calledOnce.should.be.true();
+      changeSearchQuery.calledOnce.should.be.true();
+      // preventDefault.should.be.calledOnce();
+      changeSearchQuery.should.be.calledWith('a');
+    });
   });
 
   it('should not toggle search mode and change search query when press any key and be in search page', function () {
