@@ -162,7 +162,12 @@ describe('Pinboard Page', function () {
 
   context('social graph section', function () {
     beforeEach(function () {
+      setupMockApiFile('social-graph-page/social-graph-page-with-pinboard-id-mock.js');
       pinboardPage.open();
+    });
+
+    afterEach(function () {
+      restoreMockApiFile();
     });
 
     it('should render correctly', function () {
@@ -273,13 +278,20 @@ describe('Pinboard Page', function () {
   });
 
   context('Geographic section', function () {
-    it('should render geographic section', function () {
+    beforeEach(function () {
+      setupMockApiFile('social-graph-page/social-graph-page-with-pinboard-id-mock.js');
       pinboardPage.open();
+    });
+
+    afterEach(function () {
+      restoreMockApiFile();
+    });
+
+    it('should render geographic section', function () {
       pinboardPage.geographicMap.waitForDisplayed();
     });
 
     it('should go to corresponding geographic visualization page when clicking on expanded button', function () {
-      pinboardPage.open();
       pinboardPage.geographicMap.waitForDisplayed();
       pinboardPage.pinboardSection.geographicExpandButton.click();
       browser.getUrl().should.containEql('/geographic/pinboard/5cd06f2b/');
