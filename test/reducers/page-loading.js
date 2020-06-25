@@ -6,7 +6,7 @@ import * as constants from 'utils/constants';
 
 describe('pageLoading reducer', function () {
   it('should have initial state', function () {
-    should(pageLoading(undefined, {})).eql(false);
+    should(pageLoading(undefined, {})).eql(true);
   });
 
   it('should handle PAGE_LOAD_START', function () {

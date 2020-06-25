@@ -32,7 +32,7 @@ export default class RouteTransition extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showOverlay: false,
+      showOverlay: props.pageLoading,
       prevKey: RouteTransition.getRouteTransitionKey(props.pathname),
       prevPageLoading: props.pageLoading,
     };
