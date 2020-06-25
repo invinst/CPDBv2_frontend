@@ -291,6 +291,7 @@ describe('store', function () {
           saving: false,
           needRefreshData: false,
           hasPendingChanges: false,
+          hasTitlePendingChange: false,
         },
         graphData: {
           requesting: false,
@@ -334,6 +335,7 @@ describe('store', function () {
         refreshIntervalId: null,
         focusedItem: {},
         pinItemFromPreviewPane: {},
+        creatingNewPinboard: false,
         editModeOn: {
           EMPTY_PINBOARD_DESCRIPTION: false,
           EMPTY_PINBOARD_TITLE: false,

@@ -87,7 +87,7 @@ describe('Search term navigation selector', function () {
         name: 'Communities',
         description: 'Chicago is divided into 77 community areas.',
         callToActionType: 'view_all',
-        to: '/search/?terms=community&type=COMMUNITY',
+        to: '/search/?q=community&type=COMMUNITY',
         type: 'Geography',
         uniqueKey: 'Geography-community',
         url: '',

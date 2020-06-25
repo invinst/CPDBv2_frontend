@@ -28,7 +28,7 @@ describe('isRequesting reducer', function () {
       type: LOCATION_CHANGE,
       payload: {
         location: {
-          search: 'terms=new term',
+          search: 'q=new term',
         },
       },
     }).should.eql('new term');
@@ -39,7 +39,7 @@ describe('isRequesting reducer', function () {
       type: LOCATION_CHANGE,
       payload: {
         location: {
-          search: 'terms=cr:123456',
+          search: 'q=cr:123456',
         },
       },
     }).should.eql('123456');

@@ -1,97 +1,144 @@
 import { stub } from 'sinon';
 import { LOCATION_CHANGE } from 'connected-react-router';
 
+import { viewPinboard } from 'actions/pinboard';
+import { PINBOARD_FETCH_REQUEST_SUCCESS } from 'utils/constants';
 import trackingMiddleware from 'middleware/tracking';
-import * as constants from 'utils/constants';
-import * as tracking from 'utils/tracking';
+import browserHistory from 'utils/history';
 
+describe('tracking-middleware', function () {
+  describe('handling PINBOARD_FETCH_REQUEST_SUCCESS', function () {
+    context('on pinboard page', function () {
+      it('should dispatch viewPinboard with correct pinboard id', function () {
+        let dispatched;
+        const store = {
+          getState: () => ({
 
-describe('trackingMiddleware', function () {
-  it('should send pageview event on LOCATION_CHANGE', function () {
-    stub(tracking, 'trackPageView');
+          }),
+          dispatch: stub(),
+        };
+        browserHistory.location = { pathname: '/pinboard/72a4f2/untitled-pinboard/' };
+        const action = { type: PINBOARD_FETCH_REQUEST_SUCCESS, payload: { id: '72a4f2' } };
+        trackingMiddleware(store)(action => dispatched = action)(action);
+        dispatched.should.eql(action);
+        store.dispatch.should.be.calledOnce();
+        store.dispatch.should.be.calledWith(viewPinboard('72a4f2'));
+      });
+    });
 
-    let dispatched;
-    const dispatchAction = {
-      type: LOCATION_CHANGE,
-      payload: {
-        location: { pathname: 'abc' },
-      },
-    };
+    context('not on pinboard page', function () {
+      it('should not dispatch viewPinboard', function () {
+        let dispatched;
+        const store = {
+          getState: () => ({
 
-    trackingMiddleware({})(action => dispatched = action)(dispatchAction);
-
-    dispatched.should.eql(dispatchAction);
-    tracking.trackPageView.should.be.calledWith('abc');
+          }),
+          dispatch: stub(),
+        };
+        browserHistory.location = { pathname: '/officer/officer/8658/corey-flagg/' };
+        const action = { type: PINBOARD_FETCH_REQUEST_SUCCESS, payload: { id: '72a4f2' } };
+        trackingMiddleware(store)(action => dispatched = action)(action);
+        dispatched.should.eql(action);
+        store.dispatch.should.not.be.called();
+      });
+    });
   });
 
-  it('should send pageview event on CHANGE_SEARCH_QUERY', function () {
-    stub(tracking, 'trackSearchQuery');
+  describe('handling LOCATION_CHANGE', function () {
+    context('on pinboard page', function () {
+      let action;
 
-    let dispatched;
-    const dispatchAction = {
-      type: constants.CHANGE_SEARCH_QUERY,
-      payload: 'abc',
-    };
+      beforeEach(function () {
+        action = {
+          type: LOCATION_CHANGE,
+          payload: { location: { pathname: '/pinboard/72a4f2/untitled-pinboard/' } },
+        };
+      });
 
-    trackingMiddleware({})(action => dispatched = action)(dispatchAction);
+      context('pinboard.hasPendingChanges is true', function () {
+        context('pinboard id from pathname is equal to pinboard id from store', function () {
+          it('should dispatch viewPinboard with correct pinboard id', function () {
+            let dispatched;
+            const store = {
+              getState: () => ({
+                pinboardPage: {
+                  pinboard: {
+                    id: '72a4f2',
+                    hasPendingChanges: true,
+                  },
+                },
+              }),
+              dispatch: stub(),
+            };
+            trackingMiddleware(store)(action => dispatched = action)(action);
+            dispatched.should.eql(action);
+            store.dispatch.should.be.calledOnce();
+            store.dispatch.should.be.calledWith(viewPinboard('72a4f2'));
+          });
+        });
 
-    dispatched.should.eql(dispatchAction);
-    tracking.trackSearchQuery.should.be.calledWith('abc');
-  });
+        context('pinboard id from pathname is not equal to pinboard id from store', function () {
+          it('should not dispatch viewPinboard with correct pinboard id', function () {
+            let dispatched;
+            const store = {
+              getState: () => ({
+                pinboardPage: {
+                  pinboard: {
+                    id: '72cc78',
+                    hasPendingChanges: true,
+                  },
+                },
+              }),
+              dispatch: stub(),
+            };
+            trackingMiddleware(store)(action => dispatched = action)(action);
+            dispatched.should.eql(action);
+            store.dispatch.should.not.be.called();
+          });
+        });
+      });
 
-  it('should send pageview event on SUGGESTION_SINGLE_REQUEST_SUCCESS', function () {
-    stub(tracking, 'trackSearchResultsCount');
+      context('pinboard.hasPendingChanges is false', function () {
+        context('pinboard id from pathname is equal to pinboard id from store', function () {
+          it('should not dispatch viewPinboard with correct pinboard id', function () {
+            let dispatched;
+            const store = {
+              getState: () => ({
+                pinboardPage: {
+                  pinboard: {
+                    id: '72a4f2',
+                    hasPendingChanges: false,
+                  },
+                },
+              }),
+              dispatch: stub(),
+            };
+            trackingMiddleware(store)(action => dispatched = action)(action);
+            dispatched.should.eql(action);
+            store.dispatch.should.not.be.called();
+          });
+        });
 
-    let dispatched;
-    const dispatchAction = {
-      type: constants.SUGGESTION_SINGLE_REQUEST_SUCCESS,
-      payload: {
-        count: 203,
-        results: [],
-      },
-      request: { params: {} },
-    };
-
-    trackingMiddleware({})(action => dispatched = action)(dispatchAction);
-
-    dispatched.should.eql(dispatchAction);
-    tracking.trackSearchResultsCount.should.be.calledWith(203);
-  });
-
-  it('should trackSingleSearchResults on SUGGESTION_SINGLE_REQUEST_SUCCESS', function () {
-    stub(tracking, 'trackSingleSearchResults');
-
-    let dispatched;
-    const dispatchAction = {
-      type: constants.SUGGESTION_SINGLE_REQUEST_SUCCESS,
-      payload: {
-        count: 203,
-        results: [{ id: 1 }, { id: 2 }],
-      },
-      request: { params: { contentType: 'OFFICER', term: '123' } },
-    };
-
-    trackingMiddleware({})(action => dispatched = action)(dispatchAction);
-
-    dispatched.should.eql(dispatchAction);
-    tracking.trackSingleSearchResults.should.be.calledWith('OFFICER', '123', 2);
-  });
-
-  it('should send pageview event on SUGGESTION_REQUEST_SUCCESS', function () {
-    stub(tracking, 'trackSearchResultsCount');
-
-    let dispatched;
-    const dispatchAction = {
-      type: constants.SUGGESTION_REQUEST_SUCCESS,
-      payload: {
-        'COMMUNITY': [1, 2],
-        'CR': [1],
-      },
-    };
-
-    trackingMiddleware({})(action => dispatched = action)(dispatchAction);
-
-    dispatched.should.eql(dispatchAction);
-    tracking.trackSearchResultsCount.should.be.calledWith(3);
+        context('pinboard id from pathname is not equal to pinboard id from store', function () {
+          it('should not dispatch viewPinboard with correct pinboard id', function () {
+            let dispatched;
+            const store = {
+              getState: () => ({
+                pinboardPage: {
+                  pinboard: {
+                    id: '72cc78',
+                    hasPendingChanges: false,
+                  },
+                },
+              }),
+              dispatch: stub(),
+            };
+            trackingMiddleware(store)(action => dispatched = action)(action);
+            dispatched.should.eql(action);
+            store.dispatch.should.not.be.called();
+          });
+        });
+      });
+    });
   });
 });

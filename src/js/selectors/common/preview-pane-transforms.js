@@ -4,7 +4,7 @@ import moment from 'moment';
 import { extractLatestPercentile } from 'selectors/common/percentile';
 import { formatDate, getCurrentAgeString } from 'utils/date';
 import { roundedPercentile } from 'utils/calculations';
-import { DATE_FORMAT, FULL_MONTH_DATE_FORMAT } from 'utils/constants';
+import { MONTH_NAME_DAY_YEAR_FORMAT, FULL_MONTH_DATE_FORMAT } from 'utils/constants';
 import { getDemographicString } from 'utils/victims';
 import { navigationItemTransform as previewPaneNavigationItemTransform } from './navigation-item-transform';
 
@@ -118,7 +118,9 @@ const crTransform = (item) => {
 };
 
 const trrTransform = (item) => {
-  const incidentDate = !isEmpty(item['trr_datetime']) ? moment(item['trr_datetime']).format(DATE_FORMAT) : '';
+  const incidentDate = !isEmpty(item['trr_datetime']) ?
+    moment(item['trr_datetime']).format(MONTH_NAME_DAY_YEAR_FORMAT) :
+    '';
   const dateText = item['trr_datetime'] ? ` - ${moment(item['trr_datetime']).format(FULL_MONTH_DATE_FORMAT)}` : '';
   const officer = item['officer'];
   const firearmUsed = item['firearm_used'];

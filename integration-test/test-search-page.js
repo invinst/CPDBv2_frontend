@@ -174,7 +174,7 @@ describe('Search Page', function () {
     searchPage.searchTermsResultsSection.previewPaneButton.getText().should.containEql('View ALL Communities');
     searchPage.searchTermsResultsSection.previewPaneButton.click();
     browser.pause(600);
-    browser.getUrl().should.containEql('/search/?terms=community&type=COMMUNITY');
+    browser.getUrl().should.containEql('/search/?q=community&type=COMMUNITY');
     searchPage.input.getValue().should.eql('community:community');
     searchPage.searchCommunityResultsSection.firstResultText.getText().should.equal('Austin');
   });
