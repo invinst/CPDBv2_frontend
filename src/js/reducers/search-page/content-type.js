@@ -24,7 +24,7 @@ export default handleActions({
   [CHANGE_SEARCH_QUERY]: (state, action) => getContentType(action.payload),
   [LOCATION_CHANGE]: (state, action) => {
     const query = queryString.parse(action.payload.location.search);
-    let contentType = getContentType(query.q);
+    let contentType = getContentType(query.q || query.terms);
     if (isNull(contentType)) {
       contentType = query.type;
       contentType = SEARCH_CATEGORIES.includes(contentType) ? contentType : null;

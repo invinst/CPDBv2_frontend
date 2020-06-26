@@ -222,6 +222,10 @@ class SearchPage extends Page {
     super.open(result);
   }
 
+  openWithTerms(term) {
+    super.open(`/search/?terms=${term}`);
+  }
+
   openWithEditMode() {
     super.open('/edit/search/');
   }

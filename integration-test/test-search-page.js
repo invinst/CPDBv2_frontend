@@ -1332,6 +1332,15 @@ describe('Search Page with query parameter', function () {
     searchPage.crResultsSection.results.waitForDisplayed(500, true);
     searchPage.trrResultsSection.results.waitForDisplayed(500, true);
   });
+
+  it('should search with correct query using terms', function () {
+    searchPage.openWithTerms('officer:jerome');
+
+    searchPage.officerResultsSection.results.waitForDisplayed();
+    searchPage.input.getValue().should.eql('officer:jerome');
+    searchPage.officerResultsSection.resultsCount('OFFICER').should.equal(20);
+    searchPage.officerResultsSection.firstResultText.getText().should.equal('Jerome Finnigan');
+  });
 });
 
 describe('Search Page with pinboard functionalities', function () {
