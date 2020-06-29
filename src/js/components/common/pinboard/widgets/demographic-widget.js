@@ -7,16 +7,14 @@ import styles from './demographic-widget.sass';
 import widgetStyles from './widget.sass';
 
 
-const DemographicWidget = ({ demographicData }) => {
-  return (
-    <div className={ styles.demographicWidget }>
-      <div className='demographic-header'>RACE</div>
-      <DemographicChart demographicData={ demographicData['race'] } />
-      <div className='demographic-header'>GENDER</div>
-      <DemographicChart demographicData={ demographicData['gender'] } />
-    </div>
-  );
-};
+const DemographicWidget = ({ demographicData }) => (
+  <div className={ styles.demographicWidget }>
+    <div className='demographic-header'>RACE</div>
+    <DemographicChart demographicData={ demographicData['race'] } />
+    <div className='demographic-header'>GENDER</div>
+    <DemographicChart demographicData={ demographicData['gender'] } />
+  </div>
+);
 
 DemographicWidget.propTypes = {
   demographicData: PropTypes.object,

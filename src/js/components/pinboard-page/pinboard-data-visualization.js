@@ -15,9 +15,9 @@ import styles from './pinboard-data-visualization.sass';
 
 export default class PinboardDataVisualization extends Component {
   expandedLink(visualizationName) {
-    const { pinboard } = this.props;
+    const { pinboardId } = this.props;
 
-    return `/${visualizationName}/pinboard/${pinboard.id}/`;
+    return `/${visualizationName}/pinboard/${pinboardId}/`;
   }
 
   render() {
@@ -74,7 +74,7 @@ export default class PinboardDataVisualization extends Component {
 }
 
 PinboardDataVisualization.propTypes = {
-  pinboard: PropTypes.object,
+  pinboardId: PropTypes.string,
   hasMapMarker: PropTypes.bool,
   hasComplaintSummary: PropTypes.bool,
   hasTRRSummary: PropTypes.bool,
@@ -83,7 +83,7 @@ PinboardDataVisualization.propTypes = {
 };
 
 PinboardDataVisualization.defaultProps = {
-  pinboard: {},
+  pinboardId: '',
   hasMapMarker: false,
   hasComplaintSummary: false,
   hasTRRSummary: false,

@@ -79,7 +79,7 @@ describe('PinboardDataVisualization component', function () {
       <Provider store={ store }>
         <MemoryRouter>
           <PinboardDataVisualization
-            pinboard={ { id: '1234abcd' } }
+            pinboardId='1234abcd'
           />
         </MemoryRouter>
       </Provider>
@@ -103,7 +103,7 @@ describe('PinboardDataVisualization component', function () {
         <Provider store={ store }>
           <MemoryRouter>
             <PinboardDataVisualization
-              pinboard={ { id: '1234abcd' } }
+              pinboardId='1234abcd'
               hasMapMarker={ true }
             />
           </MemoryRouter>
@@ -129,7 +129,7 @@ describe('PinboardDataVisualization component', function () {
         <Provider store={ store }>
           <MemoryRouter>
             <PinboardDataVisualization
-              pinboard={ { id: '1234abcd' } }
+              pinboardId='1234abcd'
               hasMapMarker={ false }
             />
           </MemoryRouter>
@@ -149,7 +149,7 @@ describe('PinboardDataVisualization component', function () {
         <Provider store={ store }>
           <MemoryRouter>
             <PinboardDataVisualization
-              pinboard={ { id: '1234abcd' } }
+              pinboardId='1234abcd'
               hasComplaintSummary={ true }
             />
           </MemoryRouter>
@@ -175,7 +175,7 @@ describe('PinboardDataVisualization component', function () {
         <Provider store={ store }>
           <MemoryRouter>
             <PinboardDataVisualization
-              pinboard={ { id: '1234abcd' } }
+              pinboardId='1234abcd'
               hasComplaintSummary={ false }
             />
           </MemoryRouter>
@@ -195,7 +195,7 @@ describe('PinboardDataVisualization component', function () {
         <Provider store={ store }>
           <MemoryRouter>
             <PinboardDataVisualization
-              pinboard={ { id: '1234abcd' } }
+              pinboardId='1234abcd'
               hasTRRSummary={ true }
             />
           </MemoryRouter>
@@ -221,7 +221,7 @@ describe('PinboardDataVisualization component', function () {
         <Provider store={ store }>
           <MemoryRouter>
             <PinboardDataVisualization
-              pinboard={ { id: '1234abcd' } }
+              pinboardId='1234abcd'
               hasTRRSummary={ false }
             />
           </MemoryRouter>
@@ -241,7 +241,7 @@ describe('PinboardDataVisualization component', function () {
         <Provider store={ store }>
           <MemoryRouter>
             <PinboardDataVisualization
-              pinboard={ { id: '1234abcd' } }
+              pinboardId='1234abcd'
               hasOfficersSummary={ true }
             />
           </MemoryRouter>
@@ -273,7 +273,7 @@ describe('PinboardDataVisualization component', function () {
         <Provider store={ store }>
           <MemoryRouter>
             <PinboardDataVisualization
-              pinboard={ { id: '1234abcd' } }
+              pinboardId='1234abcd'
               hasOfficersSummary={ false }
             />
           </MemoryRouter>
@@ -293,7 +293,7 @@ describe('PinboardDataVisualization component', function () {
         <Provider store={ store }>
           <MemoryRouter>
             <PinboardDataVisualization
-              pinboard={ { id: '1234abcd' } }
+              pinboardId='1234abcd'
               hasComplainantsSummary={ true }
             />
           </MemoryRouter>
@@ -326,7 +326,7 @@ describe('PinboardDataVisualization component', function () {
         <Provider store={ store }>
           <MemoryRouter>
             <PinboardDataVisualization
-              pinboard={ { id: '1234abcd' } }
+              pinboardId='1234abcd'
               hasComplainantsSummary={ false }
             />
           </MemoryRouter>
