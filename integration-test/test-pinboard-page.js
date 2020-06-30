@@ -162,7 +162,12 @@ describe('Pinboard Page', function () {
 
   context('social graph section', function () {
     beforeEach(function () {
+      setupMockApiFile('social-graph-page/social-graph-page-with-pinboard-id-mock.js');
       pinboardPage.open();
+    });
+
+    afterEach(function () {
+      restoreMockApiFile();
     });
 
     it('should render correctly', function () {
@@ -273,13 +278,20 @@ describe('Pinboard Page', function () {
   });
 
   context('Geographic section', function () {
-    it('should render geographic section', function () {
+    beforeEach(function () {
+      setupMockApiFile('social-graph-page/social-graph-page-with-pinboard-id-mock.js');
       pinboardPage.open();
+    });
+
+    afterEach(function () {
+      restoreMockApiFile();
+    });
+
+    it('should render geographic section', function () {
       pinboardPage.geographicMap.waitForDisplayed();
     });
 
     it('should go to corresponding geographic visualization page when clicking on expanded button', function () {
-      pinboardPage.open();
       pinboardPage.geographicMap.waitForDisplayed();
       pinboardPage.pinboardSection.geographicExpandButton.click();
       browser.getUrl().should.containEql('/geographic/pinboard/5cd06f2b/');
@@ -297,6 +309,159 @@ describe('Pinboard Page', function () {
       );
       socialGraphPage.animatedSocialGraphSection.startDate.getText().should.equal('1990-01-09');
       socialGraphPage.animatedSocialGraphSection.endDate.getText().should.equal('2008-01-11');
+    });
+  });
+
+  context('Summary widgets', function () {
+    beforeEach(function () {
+      setupMockApiFile('pinboard-page/widgets.js');
+      pinboardPage.open('ceea8ea3');
+    });
+
+    afterEach(function () {
+      restoreMockApiFile();
+    });
+
+    context('Complaint Summary section', function () {
+      it('should render complaint summary section', function () {
+        pinboardPage.complaintSummaryWidget.widgetTitle.getText().should.equal('COMPLAINT SUMMARY');
+        pinboardPage.complaintSummaryWidget.spinner.waitForDisplayed();
+        pinboardPage.complaintSummaryWidget.spinner.waitForDisplayed(5000, true);
+        pinboardPage.complaintSummaryWidget.summaryItems().should.have.length(8);
+        pinboardPage.complaintSummaryWidget.firstSummaryItemTitle.getText().should.equal(
+          'Operation/Personnel Violations'
+        );
+        pinboardPage.complaintSummaryWidget.firstSummaryItemCount.getText().should.equal('10');
+        pinboardPage.complaintSummaryWidget.secondSummaryItemTitle.getText().should.equal('Unknown');
+        pinboardPage.complaintSummaryWidget.secondSummaryItemCount.getText().should.equal('8');
+      });
+    });
+
+    context('TRR Summary section', function () {
+      it('should render complaint summary section', function () {
+        pinboardPage.widgetsRightArrow.waitForDisplayed();
+        pinboardPage.widgetsRightArrow.click();
+        pinboardPage.trrSummaryWidget.widgetTitle.waitForDisplayedInViewport();
+        pinboardPage.trrSummaryWidget.widgetTitle.getText().should.equal('TACTICAL RESPONSE REPORT SUMMARY');
+        pinboardPage.trrSummaryWidget.spinner.waitForDisplayed();
+        pinboardPage.trrSummaryWidget.spinner.waitForDisplayed(5000, true);
+        pinboardPage.trrSummaryWidget.summaryItems().should.have.length(9);
+        pinboardPage.trrSummaryWidget.firstSummaryItemTitle.getText().should.equal('Unknown');
+        pinboardPage.trrSummaryWidget.firstSummaryItemCount.getText().should.equal('141');
+        pinboardPage.trrSummaryWidget.secondSummaryItemTitle.getText().should.equal('Physical Force - Holding');
+        pinboardPage.trrSummaryWidget.secondSummaryItemCount.getText().should.equal('56');
+      });
+    });
+
+    context('Officers Summary section', function () {
+      it('should render officers summary section', function () {
+        pinboardPage.widgetsRightArrow.waitForDisplayed();
+        pinboardPage.widgetsRightArrow.click();
+        pinboardPage.officersSummaryWidget.widgetTitle.waitForDisplayedInViewport();
+        pinboardPage.officersSummaryWidget.widgetTitle.getText().should.equal('OFFICERS');
+        pinboardPage.officersSummaryWidget.spinner.waitForDisplayed();
+        pinboardPage.officersSummaryWidget.spinner.waitForDisplayed(5000, true);
+
+        const raceSection = pinboardPage.officersSummaryWidget.raceSection;
+        const genderSection = pinboardPage.officersSummaryWidget.genderSection;
+
+        raceSection.charts().should.have.length(3);
+
+        parseInt(raceSection.firstBar.getAttribute('width')).should.equal(232);
+        raceSection.firstPercentage.getText().should.equal('55%');
+        raceSection.firstPercentage.getAttribute('class').should.not.containEql('short-bar');
+        raceSection.firstLabel.getText().should.equal('Black');
+
+        parseInt(raceSection.secondBar.getAttribute('width')).should.equal(181);
+        raceSection.secondPercentage.getText().should.equal('43%');
+        raceSection.secondPercentage.getAttribute('class').should.not.containEql('short-bar');
+        raceSection.secondLabel.getText().should.equal('White');
+
+        parseInt(raceSection.thirdBar.getAttribute('width')).should.equal(8);
+        raceSection.thirdPercentage.getText().should.equal('2%');
+        raceSection.thirdPercentage.getAttribute('class').should.containEql('short-bar');
+        raceSection.thirdLabel.getText().should.equal('Other');
+
+        genderSection.charts().should.have.length(2);
+
+        parseInt(genderSection.firstBar.getAttribute('width')).should.equal(232);
+        genderSection.firstPercentage.getText().should.equal('96%');
+        genderSection.firstPercentage.getAttribute('class').should.not.containEql('short-bar');
+        genderSection.firstLabel.getText().should.equal('M');
+
+        parseInt(genderSection.secondBar.getAttribute('width')).should.equal(9);
+        genderSection.secondPercentage.getText().should.equal('4%');
+        genderSection.secondPercentage.getAttribute('class').should.containEql('short-bar');
+        genderSection.secondLabel.getText().should.equal('F');
+      });
+    });
+
+    context('Complainants Summary section', function () {
+      it('should render complainants summary section', function () {
+        pinboardPage.widgetsRightArrow.waitForDisplayed();
+        pinboardPage.widgetsRightArrow.click();
+        pinboardPage.complainantsSummaryWidget.widgetTitle.waitForDisplayedInViewport();
+        pinboardPage.complainantsSummaryWidget.widgetTitle.getText().should.equal('COMPLAINANTS');
+        pinboardPage.complainantsSummaryWidget.spinner.waitForDisplayed();
+        pinboardPage.complainantsSummaryWidget.spinner.waitForDisplayed(5000, true);
+
+        const raceSection = pinboardPage.complainantsSummaryWidget.raceSection;
+        const genderSection = pinboardPage.complainantsSummaryWidget.genderSection;
+
+        raceSection.charts().should.have.length(3);
+
+        parseInt(raceSection.firstBar.getAttribute('width')).should.equal(232);
+        raceSection.firstPercentage.getText().should.equal('67%');
+        raceSection.firstPercentage.getAttribute('class').should.not.containEql('short-bar');
+        raceSection.firstLabel.getText().should.equal('Black');
+
+        parseInt(raceSection.secondBar.getAttribute('width')).should.equal(93);
+        raceSection.secondPercentage.getText().should.equal('27%');
+        raceSection.secondPercentage.getAttribute('class').should.not.containEql('short-bar');
+        raceSection.secondLabel.getText().should.equal('White');
+
+        parseInt(raceSection.thirdBar.getAttribute('width')).should.equal(17);
+        raceSection.thirdPercentage.getText().should.equal('5%');
+        raceSection.thirdPercentage.getAttribute('class').should.containEql('short-bar');
+        raceSection.thirdLabel.getText().should.equal('Other');
+
+        genderSection.charts().should.have.length(3);
+
+        parseInt(genderSection.firstBar.getAttribute('width')).should.equal(232);
+        genderSection.firstPercentage.getText().should.equal('49%');
+        genderSection.firstPercentage.getAttribute('class').should.not.containEql('short-bar');
+        genderSection.firstLabel.getText().should.equal('F');
+
+        parseInt(genderSection.secondBar.getAttribute('width')).should.equal(222);
+        genderSection.secondPercentage.getText().should.equal('47%');
+        genderSection.secondPercentage.getAttribute('class').should.not.containEql('short-bar');
+        genderSection.secondLabel.getText().should.equal('M');
+
+        parseInt(genderSection.thirdBar.getAttribute('width')).should.equal(18);
+        genderSection.thirdPercentage.getText().should.equal('4%');
+        genderSection.thirdPercentage.getAttribute('class').should.containEql('short-bar');
+        genderSection.thirdLabel.getText().should.equal('Unknown');
+      });
+    });
+
+    it('should handle swiper arrow click', function () {
+      pinboardPage.complaintSummaryWidget.widgetTitle.waitForDisplayedInViewport();
+      pinboardPage.complainantsSummaryWidget.widgetTitle.waitForDisplayedInViewport(1000, true);
+      pinboardPage.widgetsLeftArrow.waitForDisplayed(1000, true);
+      pinboardPage.widgetsRightArrow.waitForDisplayed();
+
+      pinboardPage.widgetsRightArrow.click();
+      pinboardPage.widgetsRightArrow.click();
+      pinboardPage.widgetsRightArrow.waitForDisplayed(1000, true);
+      pinboardPage.complaintSummaryWidget.widgetTitle.waitForDisplayedInViewport(1000, true);
+      pinboardPage.complainantsSummaryWidget.widgetTitle.waitForDisplayedInViewport();
+      pinboardPage.widgetsLeftArrow.waitForDisplayed();
+
+      pinboardPage.widgetsLeftArrow.click();
+      pinboardPage.widgetsLeftArrow.click();
+      pinboardPage.complaintSummaryWidget.widgetTitle.waitForDisplayedInViewport();
+      pinboardPage.complainantsSummaryWidget.widgetTitle.waitForDisplayedInViewport(1000, true);
+      pinboardPage.widgetsLeftArrow.waitForDisplayed(1000, true);
     });
   });
 

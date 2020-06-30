@@ -117,6 +117,7 @@ export default class NetworkGraph extends Component {
       requestSocialGraphNetwork,
       requestSocialGraphAllegations,
       requestSocialGraphOfficers,
+      fetchComplaintSummary,
       officerIds,
       unitId,
       pinboardId,
@@ -127,6 +128,7 @@ export default class NetworkGraph extends Component {
       requestParams = {
         'pinboard_id': pinboardId, 'threshold': thresholdValue, 'complaint_origin': complaintOrigin,
       };
+      fetchComplaintSummary(pinboardId);
     } else if (!isEmpty(unitId)) {
       requestParams = { 'unit_id': unitId, 'threshold': thresholdValue, 'complaint_origin': complaintOrigin };
     } else if (!isEmpty(officerIds)) {
@@ -298,6 +300,7 @@ NetworkGraph.propTypes = {
   requestSocialGraphNetwork: PropTypes.func,
   requestSocialGraphAllegations: PropTypes.func,
   requestSocialGraphOfficers: PropTypes.func,
+  fetchComplaintSummary: PropTypes.func,
   mainTabsContent: PropTypes.node,
   officerIds: PropTypes.string,
   unitId: PropTypes.string,
@@ -321,6 +324,7 @@ NetworkGraph.defaultProps = {
   requestSocialGraphNetwork: noop,
   requestSocialGraphAllegations: noop,
   requestSocialGraphOfficers: noop,
+  fetchComplaintSummary: noop,
   updateSelectedOfficerId: noop,
   updateSelectedEdge: noop,
   updateSelectedCrid: noop,
