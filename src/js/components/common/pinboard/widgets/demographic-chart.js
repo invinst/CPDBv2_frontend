@@ -17,7 +17,7 @@ const BAR_LINE_HEIGHT = BAR_HEIGHT + 6;
 const BAR_CHART_RIGHT_PADDING = 12;
 const PERCENTAGE_PADDING = 8;
 const SHORT_BAR_PERCENTAGE_PADDING = 4;
-const PERCENTAGE_TOP_PADDING = 3;
+const PERCENTAGE_TOP_PADDING = 4;
 
 class DemographicChart extends Component {
   componentDidMount() {
@@ -39,7 +39,7 @@ class DemographicChart extends Component {
       .range([0, BAR_CHART_WIDTH - BAR_CHART_RIGHT_PADDING]);
 
     const y = d3.scale.ordinal()
-      .rangeRoundBands([0, barChartHeight], .1)
+      .rangeRoundBands([0, barChartHeight])
       .domain(demographicData.map(d => d.name));
 
     const chartContainer = this.svg
