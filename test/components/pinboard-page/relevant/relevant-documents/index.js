@@ -82,6 +82,7 @@ describe('RelevantDocuments component', function () {
     }];
     const addItemInPinboardPageStub = stub();
     const fetchPinboardRelevantDocumentsStub = stub();
+    const focusItemStub = stub();
 
     const wrapper = mount(
       <RelevantDocuments
@@ -92,6 +93,7 @@ describe('RelevantDocuments component', function () {
         hasMore={ true }
         pinboardId='66ef1560'
         nextParams={ { limit: 20, offset: 20 } }
+        focusItem={ focusItemStub }
       />
     );
 
@@ -112,6 +114,7 @@ describe('RelevantDocuments component', function () {
     );
     relevantDocumentCards.at(0).prop('allegation').should.eql(firstAllegation);
     relevantDocumentCards.at(0).prop('pinned').should.be.true();
+    relevantDocumentCards.at(0).prop('focusItem').should.equal(focusItemStub);
 
     relevantDocumentCards.at(1).prop('url').should.eql(
       'https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html'
@@ -121,6 +124,7 @@ describe('RelevantDocuments component', function () {
     );
     relevantDocumentCards.at(1).prop('allegation').should.eql(secondAllegation);
     relevantDocumentCards.at(1).prop('pinned').should.be.false();
+    relevantDocumentCards.at(1).prop('focusItem').should.equal(focusItemStub);
 
     relevantInfiniteCarousel.prop('loadMore')();
     fetchPinboardRelevantDocumentsStub.should.be.calledOnce();

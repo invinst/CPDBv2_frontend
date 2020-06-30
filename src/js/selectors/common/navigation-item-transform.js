@@ -10,7 +10,7 @@ export const navigationItemTransform = item => {
   const callToActionType = get(item, 'call_to_action_type', '');
 
   if (callToActionType === CALL_TO_ACTION_TYPES.VIEW_ALL) {
-    to = `/search/?terms=${id}&type=${id.toUpperCase()}`;
+    to = `/search/?q=${id}&type=${id.toUpperCase()}`;
     url = '';
   } else if (callToActionType === CALL_TO_ACTION_TYPES.LINK) {
     to = '';

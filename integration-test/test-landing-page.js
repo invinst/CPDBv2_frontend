@@ -105,6 +105,26 @@ describe('landing page', function () {
       landingPage.header.content.waitForExist();
     });
 
+    it('should show search page and hide landing page when typing some characters in landing page', function () {
+      browser.keys('4');
+
+      searchPage.input.waitForDisplayed(2000);
+      searchPage.input.getValue().should.equal('4');
+      landingPage.header.content.waitForDisplayed(2000, true);
+      landingPage.header.content.waitForExist();
+
+      searchPage.pinboardButton.waitForDisplayed();
+      searchPage.backButton.click();
+      landingPage.recentActivityCarousel.firstCard.waitForDisplayed();
+
+      browser.keys('123');
+
+      searchPage.input.waitForDisplayed(2000);
+      searchPage.input.getValue().should.equal('123');
+      landingPage.header.content.waitForDisplayed(2000, true);
+      landingPage.header.content.waitForExist();
+    });
+
     it('should expand search input when clicking on search box', function () {
       const SEARCH_INPUT_WIDTH_AFTER_EXPAND = 893;
       const searchBox = landingPage.header.navBar.searchBox;

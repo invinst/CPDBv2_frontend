@@ -80,6 +80,6 @@ describe('Search terms page', function () {
     secondTerm.getAttribute('style').should.not.containEql(focusedColor);
 
     browser.keys('Enter');
-    browser.getUrl().should.match(/\/search\/\?terms=community&type=COMMUNITY$/);
+    browser.getUrl().should.match(/\/search\/\?q=community&type=COMMUNITY$/);
   });
 });

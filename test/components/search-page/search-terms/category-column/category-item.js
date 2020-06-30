@@ -29,7 +29,7 @@ describe('CategoryItem component', function () {
       const categoryItem = wrapper.find('.test--category-item');
       categoryItem.simulate('click');
 
-      pushStub.should.be.calledWith('/search/?terms=community&type=COMMUNITY');
+      pushStub.should.be.calledWith('/search/?q=community&type=COMMUNITY');
     });
 
     it('should track outbound link if the item type is LINK', function () {

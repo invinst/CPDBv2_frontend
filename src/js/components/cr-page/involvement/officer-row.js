@@ -14,7 +14,7 @@ function OfficerRow(props) {
   return (
     <Link
       className={ cx(styles.officerRow, 'test--officer-row', { 'hoverable': !isNil(id) }) }
-      to={ id ? `/officer/${id}/${officerSlug}/` : `/search/?terms=${fullName}` }>
+      to={ id ? `/officer/${id}/${officerSlug}/` : `/search/?q=${fullName}` }>
       <div className='chart-wrapper no-print'>
         <StaticRadarChart
           width={ 32 }

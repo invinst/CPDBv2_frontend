@@ -6,7 +6,7 @@ import { routerMiddleware } from 'connected-react-router';
 import rootReducer from 'reducers/root-reducer';
 import configuredAxiosMiddleware from 'middleware/configured-axios-middleware';
 import searchPath from 'middleware/search-path';
-import tracking from 'middleware/tracking';
+import analyticTracking from 'middleware/analytic-tracking';
 import localStorageConfig from './local-storage-config';
 import fetchPageInitialData from 'middleware/fetch-page-initial-data';
 import redirectPinboardMiddleware from 'middleware/redirect-pinboard-middleware';
@@ -17,6 +17,7 @@ import restoreCreateOrUpdatePinboard from 'middleware/restore-create-or-update-p
 import forceEditModeWhenAuthenticated from 'middleware/force-edit-mode-when-authenticated';
 import updateAppConfig from 'middleware/app-config';
 import fetchPinboardsMiddleware from 'middleware/fetch-pinboards-middleware';
+import tracking from 'middleware/tracking';
 import config from 'config';
 import browserHistory from 'utils/history';
 import { isPinboardFeatureEnabled } from 'utils/pinboard';
@@ -33,7 +34,7 @@ function configureStore(initialState) {
     thunk,
     configuredAxiosMiddleware,
     searchPath,
-    tracking,
+    analyticTracking,
     routerMiddleware(browserHistory),
     fetchPageInitialData,
     redirectPinboardMiddleware,
@@ -43,6 +44,7 @@ function configureStore(initialState) {
     fetchPinboardsMiddleware,
     forceEditModeWhenAuthenticated,
     updateAppConfig,
+    tracking,
   ];
   if (isPinboardFeatureEnabled())
     middleware = [...middleware, restoreCreateOrUpdatePinboard];

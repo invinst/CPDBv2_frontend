@@ -10,6 +10,7 @@ import {
   PINBOARD_CREATE_REQUEST_SUCCESS,
   PINBOARD_UPDATE_FROM_SOURCE_REQUEST_SUCCESS,
   PINBOARD_UPDATE_REQUEST_SUCCESS,
+  REMOVE_PINBOARD_REQUEST_SUCCESS,
 } from 'utils/constants';
 import {
   fetchPinboardComplaints,
@@ -33,11 +34,12 @@ const REDIRECT_ACTION_TYPES = [
 ];
 
 describe('redirectPinboardMiddleware', function () {
-  const createStore = (pinboard, pathname='', toasts=[]) => ({
+  const createStore = (pinboard, pathname='', toasts=[], pinboards=[]) => ({
     getState: () => {
       return {
         pinboardPage: {
           pinboard,
+          pinboards,
         },
         toasts: toasts,
       };
@@ -233,6 +235,77 @@ describe('redirectPinboardMiddleware', function () {
         });
       });
     });
+  });
 
+  describe('handling REMOVE_PINBOARD_REQUEST_SUCCESS', function () {
+    beforeEach(function () {
+      stub(browserHistory, 'push');
+    });
+
+    context('remove current pinboard', function () {
+      let action;
+      beforeEach(function () {
+        action = {
+          type: REMOVE_PINBOARD_REQUEST_SUCCESS,
+          request: { url: 'http://localhost:8000/api/v2/mobile/pinboards/ab72f2/' },
+        };
+      });
+
+      context('current pinboard is last pinboard', function () {
+        it('should redirect to /pinboard/', function () {
+          const store = createStore({ id: 'ab72f2' }
+            , '',
+            [],
+            []
+          );
+          let dispatched;
+
+          fetchAndRedirectPinboardMiddleware(store)(action => dispatched = action)(action);
+          dispatched.should.eql(action);
+
+          browserHistory.push.should.be.calledOnce();
+          browserHistory.push.should.be.calledWith('/pinboard/');
+          browserHistory.replace.should.not.be.called();
+        });
+      });
+
+      context('current pinboard is not last pinboard', function () {
+        it('should redirect to most recent viewed pinboard', function () {
+          const store = createStore({ id: 'ab72f2' }
+            , '',
+            [],
+            [{ id: '63f12b', title: 'Recent Pinboard' }, { id: 'ab23f7', title: 'Other pinboard' }]
+          );
+          let dispatched;
+
+          fetchAndRedirectPinboardMiddleware(store)(action => dispatched = action)(action);
+          dispatched.should.eql(action);
+
+          browserHistory.push.should.be.calledOnce();
+          browserHistory.push.should.be.calledWith('/pinboard/63f12b/recent-pinboard/');
+          browserHistory.replace.should.not.be.called();
+        });
+      });
+    });
+
+    context('remove not current pinboard', function () {
+      it('should no redirect', function () {
+        const store = createStore({ id: 'ab72f2' }
+          , '',
+          [],
+          [{ id: 'ac12f9' }, { id: '123f98' }, { id: '35ac4f' }]
+        );
+        const action = {
+          type: REMOVE_PINBOARD_REQUEST_SUCCESS,
+          request: { url: 'http://localhost:8000/api/v2/mobile/pinboards/ac12f9/' },
+        };
+        let dispatched;
+        fetchAndRedirectPinboardMiddleware(store)(action => dispatched = action)(action);
+        dispatched.should.eql(action);
+
+        browserHistory.push.should.not.be.called();
+        browserHistory.replace.should.not.be.called();
+      });
+    });
   });
 });

@@ -47,6 +47,7 @@ export default function RelevantSection(props) {
         fetchPinboardRelevantDocuments={ fetchPinboardRelevantDocuments }
         addItemInPinboardPage={ addItemInPinboardPage }
         requesting={ isRequestingDocuments }
+        focusItem={ focusItem }
       />
       <RelevantCoaccusals
         pinboardId={ pinboardId }

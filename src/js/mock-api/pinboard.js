@@ -38,11 +38,88 @@ export const pinboardsList = [
     'id': 'ceea8ea3',
     'title': 'Pinboard title',
     'created_at': '2019-09-12',
+    'last_viewed_at': '2019-10-20T05:45:00.967Z',
   },
   {
     'id': '77edc128',
     'title': '',
     'created_at': '2019-10-15',
+    'last_viewed_at': '2019-10-18T06:15:00.967Z',
+  },
+];
+
+export const largePinboardsList = [
+  {
+    'id': 'ceea8ea3',
+    'title': 'Pinboard title',
+    'created_at': '2019-09-12',
+    'last_viewed_at': '2019-10-20T05:45:00.967Z',
+  },
+  {
+    'id': '28a6cad6',
+    'title': ' copy 2',
+    'created_at': '2020-06-16',
+    'last_viewed_at': '2020-06-16T03:13:18.634819Z',
+  },
+  {
+    'id': '1cf707c8',
+    'title': ' copy',
+    'created_at': '2020-06-16',
+    'last_viewed_at': '2020-06-16T03:13:15.413617Z',
+  },
+  {
+    'id': '8f75b55e',
+    'title': ' copy',
+    'created_at': '2020-06-16',
+    'last_viewed_at': '2020-06-16T03:13:12.476303Z',
+  },
+  {
+    'id': '133b5796',
+    'title': '',
+    'created_at': '2020-06-16',
+    'last_viewed_at': '2020-06-16T03:12:47.264821Z',
+  },
+  {
+    'id': '357a1a92',
+    'title': ' copy',
+    'created_at': '2020-06-16',
+    'last_viewed_at': '2020-06-16T02:55:33.132359Z',
+  },
+  {
+    'id': '6ea61a74',
+    'title': '',
+    'created_at': '2020-06-15',
+    'last_viewed_at': '2020-06-15T09:51:22.959919Z',
+  },
+  {
+    'id': '746b76a8',
+    'title': ' copy',
+    'created_at': '2020-06-15',
+    'last_viewed_at': '2020-06-15T09:51:19.732191Z',
+  },
+  {
+    'id': 'fbddbd63',
+    'title': '',
+    'created_at': '2020-06-15',
+    'last_viewed_at': '2020-06-15T07:09:53.012098Z',
+  },
+  {
+    'id': '0791a1a6',
+    'title': ' copy',
+    'created_at': '2020-06-15',
+    'last_viewed_at': '2020-06-15T07:09:08.599145Z',
+  },
+  {
+    'id': '2752843c',
+    'title': '',
+    'created_at': '2020-06-15',
+    'last_viewed_at': '2020-06-15T07:08:44.969149Z',
+  },
+  {
+    'id': '6d00ea6f',
+    'title': '',
+    'created_at': '2020-06-15',
+    'last_viewed_at': '2020-06-15T07:08:07.699989Z',
   },
 ];
 
