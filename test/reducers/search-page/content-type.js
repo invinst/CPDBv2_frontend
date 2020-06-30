@@ -40,6 +40,15 @@ describe('searchPage.contentType reducer', function () {
         },
       },
     }).should.eql('OFFICER');
+
+    contentType(undefined, {
+      type: LOCATION_CHANGE,
+      payload: {
+        location: {
+          search: 'terms=officer:123',
+        },
+      },
+    }).should.eql('OFFICER');
   });
 
   it('should handle LOCATION_CHANGE with terms does not match SEARCH_QUERY_PREFIX_REGEX', function () {
