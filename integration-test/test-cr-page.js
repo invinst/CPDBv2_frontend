@@ -79,7 +79,7 @@ describe('CR page', function () {
 
   it('should navigate to officer page when we click on investigator item which does not link to officer', function () {
     crPage.investigator.secondItem.click();
-    browser.getUrl().should.containEql('/search/?terms=Edward%20May');
+    browser.getUrl().should.containEql('/search/?q=Edward%20May');
   });
 
   it('should render correct radar color of police witness item', function () {

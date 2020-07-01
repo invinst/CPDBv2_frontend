@@ -11,6 +11,7 @@ import { UNDO_CARD_VISIBLE_TIME } from 'utils/constants';
 
 describe('RelevantDocumentCard component', function () {
   const addItemInPinboardPageStub = stub();
+  const focusItemStub = stub();
   const officers = [{
     fullName: 'Scott Mc Kenna',
     id: 32172,
@@ -67,6 +68,7 @@ describe('RelevantDocumentCard component', function () {
         allegation={ allegation }
         addItemInPinboardPage={ addItemInPinboardPageStub }
         pinned={ false }
+        focusItem={ focusItemStub }
       />
     );
 
@@ -82,6 +84,8 @@ describe('RelevantDocumentCard component', function () {
     );
     baseComplaintCard.prop('leftChild').props.target.should.equal('_blank');
     baseComplaintCard.prop('leftChild').type.should.equal('a');
+    baseComplaintCard.prop('focusItem').should.equal(focusItemStub);
+    baseComplaintCard.prop('leftHaftClick').should.be.false();
 
     const previewImg = wrapper.find('img');
     previewImg.prop('className').should.equal('document-card-thumbnail-img');

@@ -83,6 +83,7 @@ describe('RelevantComplaintCard component', function () {
 
   it('should render when no point', function () {
     const addItemInPinboardPageStub = stub();
+    const focusItemStub = stub();
 
     const wrapper = mount(
       <RelevantComplaintCard
@@ -92,6 +93,7 @@ describe('RelevantComplaintCard component', function () {
         officers={ [] }
         point={ null }
         addItemInPinboardPage={ addItemInPinboardPageStub }
+        focusItem={ focusItemStub }
       />
     );
 
@@ -100,6 +102,8 @@ describe('RelevantComplaintCard component', function () {
     baseComplaintCard.prop('incidentDate').should.equal('Feb 1, 2018');
     baseComplaintCard.prop('category').should.equal('False Arrest');
     baseComplaintCard.prop('officers').should.eql([]);
+    baseComplaintCard.prop('focusItem').should.equal(focusItemStub);
+    baseComplaintCard.prop('leftHaftClick').should.be.true();
     should(baseComplaintCard.prop('point')).be.null();
     baseComplaintCard.prop('addItemInPinboardPage').should.eql(addItemInPinboardPageStub);
     should(baseComplaintCard.prop('leftChild').props.style).be.null();

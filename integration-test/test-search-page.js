@@ -174,7 +174,7 @@ describe('Search Page', function () {
     searchPage.searchTermsResultsSection.previewPaneButton.getText().should.containEql('View ALL Communities');
     searchPage.searchTermsResultsSection.previewPaneButton.click();
     browser.pause(600);
-    browser.getUrl().should.containEql('/search/?terms=community&type=COMMUNITY');
+    browser.getUrl().should.containEql('/search/?q=community&type=COMMUNITY');
     searchPage.input.getValue().should.eql('community:community');
     searchPage.searchCommunityResultsSection.firstResultText.getText().should.equal('Austin');
   });
@@ -1331,6 +1331,15 @@ describe('Search Page with query parameter', function () {
     searchPage.searchCommunityResultsSection.results.waitForDisplayed(500, true);
     searchPage.crResultsSection.results.waitForDisplayed(500, true);
     searchPage.trrResultsSection.results.waitForDisplayed(500, true);
+  });
+
+  it('should search with correct query using terms', function () {
+    searchPage.openWithTerms('officer:jerome');
+
+    searchPage.officerResultsSection.results.waitForDisplayed();
+    searchPage.input.getValue().should.eql('officer:jerome');
+    searchPage.officerResultsSection.resultsCount('OFFICER').should.equal(20);
+    searchPage.officerResultsSection.firstResultText.getText().should.equal('Jerome Finnigan');
   });
 });
 

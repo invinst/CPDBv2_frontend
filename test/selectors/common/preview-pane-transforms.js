@@ -58,7 +58,7 @@ describe('previewPaneTransform', function () {
         name: 'Communities',
         description: 'This is community description',
         callToActionType: 'view_all',
-        to: '/search/?terms=123456abcd&type=123456ABCD',
+        to: '/search/?q=123456abcd&type=123456ABCD',
         url: '',
         type: 'SEARCH-TERMS',
         uniqueKey: 'SEARCH-TERMS-123456-abcd',

@@ -28,6 +28,15 @@ describe('isRequesting reducer', function () {
       type: LOCATION_CHANGE,
       payload: {
         location: {
+          search: 'q=new term',
+        },
+      },
+    }).should.eql('new term');
+
+    query(null, {
+      type: LOCATION_CHANGE,
+      payload: {
+        location: {
           search: 'terms=new term',
         },
       },
@@ -35,6 +44,15 @@ describe('isRequesting reducer', function () {
   });
 
   it('should handle LOCATION_CHANGE with prefix terms', function () {
+    query(null, {
+      type: LOCATION_CHANGE,
+      payload: {
+        location: {
+          search: 'q=cr:123456',
+        },
+      },
+    }).should.eql('123456');
+
     query(null, {
       type: LOCATION_CHANGE,
       payload: {

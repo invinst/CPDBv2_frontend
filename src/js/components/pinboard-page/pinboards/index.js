@@ -8,9 +8,19 @@ import SlideMotion from 'components/animation/slide-motion';
 import { redirectToCreatedPinboard } from 'utils/pinboard';
 import PinboardItem from './pinboard-item';
 import PinboardLinkContainer from 'containers/pinboard-page/pinboard-link-container';
+import { PINBOARD_ACTIONS_PANE_SPACE } from 'utils/constants';
 
 
 class Pinboards extends Component {
+  state = { showActionsPinboardId: null, actionsPanePosition: 'bottom' };
+
+  static getDerivedStateFromProps(props, state) {
+    if (!props.isShown) {
+      return { showActionsPinboardId: null };
+    }
+    return null;
+  }
+
   handleCreateNewEmptyPinboard = () => {
     const { createNewEmptyPinboard, handleClose } = this.props;
 
@@ -20,12 +30,26 @@ class Pinboards extends Component {
     });
   };
 
+  handleSetShowActionsPinboardId = (pinboardId, actionsButtonBottom) => {
+    if (pinboardId) {
+      const { bottom: modalBottom } = this.pinboards.getBoundingClientRect();
+      const actionsPaneSpace = modalBottom - actionsButtonBottom;
+      this.setState({
+        showActionsPinboardId: pinboardId,
+        actionsPanePosition: actionsPaneSpace > PINBOARD_ACTIONS_PANE_SPACE ? 'bottom' : 'top',
+      });
+    } else {
+      this.setState({ showActionsPinboardId: null });
+    }
+  };
+
   render() {
-    const { pinboards, isShown, duplicatePinboard, handleClose } = this.props;
+    const { pinboards, isShown, duplicatePinboard, removePinboard, handleClose } = this.props;
+    const { showActionsPinboardId, actionsPanePosition } = this.state;
 
     return (
       <SlideMotion show={ isShown }>
-        <div className={ styles.pinboards }>
+        <div className={ styles.pinboards } ref={ el => this.pinboards = el }>
           <div className='pinboards-title'>
             Pinboards
             <PinboardLinkContainer
@@ -36,9 +60,13 @@ class Pinboards extends Component {
           {
             pinboards.map((pinboard) => (
               <PinboardItem
-                key={ pinboard.id }
+                key={ pinboard.key }
                 pinboard={ pinboard }
+                actionsPanePosition={ actionsPanePosition }
                 duplicatePinboard={ duplicatePinboard }
+                removePinboard={ removePinboard }
+                shouldShowActions={ pinboard.id === showActionsPinboardId }
+                handleSetShowActionsPinboardId={ this.handleSetShowActionsPinboardId }
                 handleClose={ handleClose }
               />
             ))
@@ -52,17 +80,19 @@ class Pinboards extends Component {
 Pinboards.propTypes = {
   pinboards: PropTypes.array,
   isShown: PropTypes.bool,
-  handleClose: PropTypes.func,
   createNewEmptyPinboard: PropTypes.func,
   duplicatePinboard: PropTypes.func,
+  removePinboard: PropTypes.func,
+  handleClose: PropTypes.func,
 };
 
 Pinboards.defaultProps = {
   pinboards: [],
   isShown: false,
-  handleClose: noop,
   createNewEmptyPinboard: noop,
   duplicatePinboard: noop,
+  removePinboard: noop,
+  handleClose: noop,
 };
 
 export default withOverlay(Pinboards);

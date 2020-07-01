@@ -23,7 +23,7 @@ describe('cancelPathname reducer', function () {
     const action = {
       type: LOCATION_CHANGE,
       payload: {
-        location: { pathname: '/search/?terms=Edward%20May' },
+        location: { pathname: '/search/?q=Edward%20May' },
       },
     };
 
@@ -34,7 +34,7 @@ describe('cancelPathname reducer', function () {
     const action = {
       type: LOCATION_CHANGE,
       payload: {
-        location: { pathname: '/edit/search/?terms=Edward%20May' },
+        location: { pathname: '/edit/search/?q=Edward%20May' },
       },
     };
 

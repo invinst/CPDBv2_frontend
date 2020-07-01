@@ -13,6 +13,8 @@ export const getFirstRelevantComplaints = (pinboardId, count) => {
       'crid': '1071234',
       'category': 'Lockup Procedures',
       'incident_date': '2004-04-23',
+      'address': '51XX South WENTWORTH AVE, CHICAGO ILLINOIS 60609',
+      'sub_category': 'Prisoners Property',
       'coaccused': [
         RawRelevantCoaccusalFactory.build({
           'id': 123,
@@ -20,6 +22,7 @@ export const getFirstRelevantComplaints = (pinboardId, count) => {
           'full_name': 'Richard Sullivan',
           'coaccusal_count': 53,
           'percentile_allegation': '22.2200',
+          'allegation_count': 33,
         }),
         RawRelevantCoaccusalFactory.build({
           'id': 456,
@@ -28,6 +31,16 @@ export const getFirstRelevantComplaints = (pinboardId, count) => {
           'coaccusal_count': 47,
         }),
         ...RawRelevantCoaccusalFactory.buildList(8),
+      ],
+      'victims': [
+        {
+          'gender': 'Male',
+          'race': 'Black',
+        },
+        {
+          'gender': 'Male',
+          'race': 'Black',
+        },
       ],
     }),
     RawRelevantComplaintFactory.build({

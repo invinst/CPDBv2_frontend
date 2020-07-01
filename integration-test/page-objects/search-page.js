@@ -217,9 +217,13 @@ class SearchPage extends Page {
   open(query = '') {
     let result = '/search/';
     if (query) {
-      result = `${result}?terms=${query}`;
+      result = `${result}?q=${query}`;
     }
     super.open(result);
+  }
+
+  openWithTerms(term) {
+    super.open(`/search/?terms=${term}`);
   }
 
   openWithEditMode() {

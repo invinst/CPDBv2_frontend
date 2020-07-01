@@ -42,9 +42,10 @@ export default class App extends React.Component {
   bindEvents() {
     LayeredKeyBinding.bind('esc', () => this.props.toggleEditMode(this.props.location.pathname));
     ALPHA_NUMBERIC.forEach((letter) => {
-      LayeredKeyBinding.bind(letter, () => {
+      LayeredKeyBinding.bind(letter, (event) => {
         const pathname = this.props.location.pathname;
         if (['/', '/edit/'].includes(pathname)) {
+          event && event.preventDefault();
           this.props.changeSearchQuery(letter);
           this.props.toggleSearchMode();
         }
