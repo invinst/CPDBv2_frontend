@@ -124,25 +124,33 @@ axiosMockClient.onGet(`${PINBOARDS_URL}ceea8ea3/officers-summary/`).reply(functi
           'race': [
             {
               'race': 'Black',
-              'percentage': 0.55,
+              'percentage': 0.02,
             },
             {
               'race': 'White',
-              'percentage': 0.43,
+              'percentage': 0.98,
+            },
+            {
+              'race': 'Hispanic',
+              'percentage': 0.0,
             },
             {
               'race': 'Other',
-              'percentage': 0.02,
+              'percentage': 0.0,
             },
           ],
           'gender': [
             {
               'gender': 'M',
-              'percentage': 0.96,
+              'percentage': 1.0,
             },
             {
               'gender': 'F',
-              'percentage': 0.04,
+              'percentage': 0.0,
+            },
+            {
+              'gender': 'Unknown',
+              'percentage': 0.0,
             },
           ],
         },
@@ -160,29 +168,33 @@ axiosMockClient.onGet(`${PINBOARDS_URL}ceea8ea3/complainants-summary/`).reply(fu
           'race': [
             {
               'race': 'Black',
-              'percentage': 0.67,
+              'percentage': 0.63,
             },
             {
               'race': 'White',
-              'percentage': 0.27,
+              'percentage': 0.12,
+            },
+            {
+              'race': 'Hispanic',
+              'percentage': 0.1,
             },
             {
               'race': 'Other',
-              'percentage': 0.05,
+              'percentage': 0.15,
             },
           ],
           'gender': [
             {
-              'gender': 'F',
-              'percentage': 0.49,
-            },
-            {
               'gender': 'M',
-              'percentage': 0.47,
+              'percentage': 0.62,
             },
             {
-              'gender': '',
-              'percentage': 0.04,
+              'gender': 'F',
+              'percentage': 0.32,
+            },
+            {
+              'gender': 'Unknown',
+              'percentage': 0.06,
             },
           ],
         },
