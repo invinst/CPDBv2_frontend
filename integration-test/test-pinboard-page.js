@@ -365,34 +365,44 @@ describe('Pinboard Page', function () {
         const raceSection = pinboardPage.officersSummaryWidget.raceSection;
         const genderSection = pinboardPage.officersSummaryWidget.genderSection;
 
-        raceSection.charts().should.have.length(3);
+        raceSection.charts().should.have.length(4);
 
-        parseInt(raceSection.firstBar.getAttribute('width')).should.equal(232);
-        raceSection.firstPercentage.getText().should.equal('55%');
-        raceSection.firstPercentage.getAttribute('class').should.not.containEql('short-bar');
+        parseInt(raceSection.firstBar.getAttribute('width')).should.equal(4);
+        raceSection.firstPercentage.getText().should.equal('2%');
+        raceSection.firstPercentage.getAttribute('class').should.containEql('short-bar');
         raceSection.firstLabel.getText().should.equal('Black');
 
-        parseInt(raceSection.secondBar.getAttribute('width')).should.equal(181);
-        raceSection.secondPercentage.getText().should.equal('43%');
+        parseInt(raceSection.secondBar.getAttribute('width')).should.equal(227);
+        raceSection.secondPercentage.getText().should.equal('98%');
         raceSection.secondPercentage.getAttribute('class').should.not.containEql('short-bar');
         raceSection.secondLabel.getText().should.equal('White');
 
-        parseInt(raceSection.thirdBar.getAttribute('width')).should.equal(8);
-        raceSection.thirdPercentage.getText().should.equal('2%');
+        parseInt(raceSection.thirdBar.getAttribute('width')).should.equal(0);
+        raceSection.thirdPercentage.getText().should.equal('0%');
         raceSection.thirdPercentage.getAttribute('class').should.containEql('short-bar');
-        raceSection.thirdLabel.getText().should.equal('Other');
+        raceSection.thirdLabel.getText().should.equal('Hispanic');
 
-        genderSection.charts().should.have.length(2);
+        parseInt(raceSection.fourthBar.getAttribute('width')).should.equal(0);
+        raceSection.fourthPercentage.getText().should.equal('0%');
+        raceSection.fourthPercentage.getAttribute('class').should.containEql('short-bar');
+        raceSection.fourthLabel.getText().should.equal('Other');
+
+        genderSection.charts().should.have.length(3);
 
         parseInt(genderSection.firstBar.getAttribute('width')).should.equal(232);
-        genderSection.firstPercentage.getText().should.equal('96%');
+        genderSection.firstPercentage.getText().should.equal('100%');
         genderSection.firstPercentage.getAttribute('class').should.not.containEql('short-bar');
         genderSection.firstLabel.getText().should.equal('M');
 
-        parseInt(genderSection.secondBar.getAttribute('width')).should.equal(9);
-        genderSection.secondPercentage.getText().should.equal('4%');
+        parseInt(genderSection.secondBar.getAttribute('width')).should.equal(0);
+        genderSection.secondPercentage.getText().should.equal('0%');
         genderSection.secondPercentage.getAttribute('class').should.containEql('short-bar');
         genderSection.secondLabel.getText().should.equal('F');
+
+        parseInt(genderSection.thirdBar.getAttribute('width')).should.equal(0);
+        genderSection.thirdPercentage.getText().should.equal('0%');
+        genderSection.thirdPercentage.getAttribute('class').should.containEql('short-bar');
+        genderSection.thirdLabel.getText().should.equal('Unknown');
       });
     });
 
@@ -408,37 +418,42 @@ describe('Pinboard Page', function () {
         const raceSection = pinboardPage.complainantsSummaryWidget.raceSection;
         const genderSection = pinboardPage.complainantsSummaryWidget.genderSection;
 
-        raceSection.charts().should.have.length(3);
+        raceSection.charts().should.have.length(4);
 
-        parseInt(raceSection.firstBar.getAttribute('width')).should.equal(232);
-        raceSection.firstPercentage.getText().should.equal('67%');
+        parseInt(raceSection.firstBar.getAttribute('width')).should.equal(146);
+        raceSection.firstPercentage.getText().should.equal('63%');
         raceSection.firstPercentage.getAttribute('class').should.not.containEql('short-bar');
         raceSection.firstLabel.getText().should.equal('Black');
 
-        parseInt(raceSection.secondBar.getAttribute('width')).should.equal(93);
-        raceSection.secondPercentage.getText().should.equal('27%');
-        raceSection.secondPercentage.getAttribute('class').should.not.containEql('short-bar');
+        parseInt(raceSection.secondBar.getAttribute('width')).should.equal(27);
+        raceSection.secondPercentage.getText().should.equal('12%');
+        raceSection.secondPercentage.getAttribute('class').should.containEql('short-bar');
         raceSection.secondLabel.getText().should.equal('White');
 
-        parseInt(raceSection.thirdBar.getAttribute('width')).should.equal(17);
-        raceSection.thirdPercentage.getText().should.equal('5%');
+        parseInt(raceSection.thirdBar.getAttribute('width')).should.equal(23);
+        raceSection.thirdPercentage.getText().should.equal('10%');
         raceSection.thirdPercentage.getAttribute('class').should.containEql('short-bar');
-        raceSection.thirdLabel.getText().should.equal('Other');
+        raceSection.thirdLabel.getText().should.equal('Hispanic');
+
+        parseInt(raceSection.fourthBar.getAttribute('width')).should.equal(34);
+        raceSection.fourthPercentage.getText().should.equal('15%');
+        raceSection.fourthPercentage.getAttribute('class').should.not.containEql('short-bar');
+        raceSection.fourthLabel.getText().should.equal('Other');
 
         genderSection.charts().should.have.length(3);
 
-        parseInt(genderSection.firstBar.getAttribute('width')).should.equal(232);
-        genderSection.firstPercentage.getText().should.equal('49%');
+        parseInt(genderSection.firstBar.getAttribute('width')).should.equal(143);
+        genderSection.firstPercentage.getText().should.equal('62%');
         genderSection.firstPercentage.getAttribute('class').should.not.containEql('short-bar');
-        genderSection.firstLabel.getText().should.equal('F');
+        genderSection.firstLabel.getText().should.equal('M');
 
-        parseInt(genderSection.secondBar.getAttribute('width')).should.equal(222);
-        genderSection.secondPercentage.getText().should.equal('47%');
+        parseInt(genderSection.secondBar.getAttribute('width')).should.equal(74);
+        genderSection.secondPercentage.getText().should.equal('32%');
         genderSection.secondPercentage.getAttribute('class').should.not.containEql('short-bar');
-        genderSection.secondLabel.getText().should.equal('M');
+        genderSection.secondLabel.getText().should.equal('F');
 
-        parseInt(genderSection.thirdBar.getAttribute('width')).should.equal(18);
-        genderSection.thirdPercentage.getText().should.equal('4%');
+        parseInt(genderSection.thirdBar.getAttribute('width')).should.equal(13);
+        genderSection.thirdPercentage.getText().should.equal('6%');
         genderSection.thirdPercentage.getAttribute('class').should.containEql('short-bar');
         genderSection.thirdLabel.getText().should.equal('Unknown');
       });

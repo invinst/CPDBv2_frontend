@@ -9,7 +9,7 @@ import * as styles from './demographic-chart.sass';
 
 const BAR_CHART_WIDTH = 244;
 const LABEL_WIDTH = 78;
-const SHORT_BAR_WIDTH = 25;
+const SHORT_BAR_WIDTH = 30;
 
 const BAR_HEIGHT = 17;
 const BAR_LINE_HEIGHT = BAR_HEIGHT + 6;
@@ -35,7 +35,7 @@ class DemographicChart extends Component {
       .attr('height', barChartHeight);
 
     const x = scaleLinear()
-      .domain([0, d3.max(demographicData, d => d.percentage)])
+      .domain([0, 1])
       .range([0, BAR_CHART_WIDTH - BAR_CHART_RIGHT_PADDING]);
 
     const y = d3.scale.ordinal()
