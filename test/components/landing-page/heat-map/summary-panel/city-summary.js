@@ -42,7 +42,7 @@ describe('CitySummary component', function () {
 
         const wrapper = shallow(<CitySummary citySummary={ citySummary } />);
 
-        wrapper.find('.test--city-summary-header').text().should.equal('CHICAGO 1999 - 2017');
+        wrapper.find('.city-summary-header').text().should.equal('CHICAGO 1999 - 2017');
       });
     });
 
@@ -50,7 +50,7 @@ describe('CitySummary component', function () {
       it('should render header without period time', function () {
         const wrapper = shallow(<CitySummary />);
 
-        wrapper.find('.test--city-summary-header').text().should.equal('CHICAGO');
+        wrapper.find('.city-summary-header').text().should.equal('CHICAGO');
       });
     });
   });
