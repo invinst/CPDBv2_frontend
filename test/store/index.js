@@ -71,7 +71,7 @@ describe('store', function () {
       cms: {
         pages: {},
       },
-      pageLoading: false,
+      pageLoading: true,
       popups: [],
       router: {
         action: router.action,
