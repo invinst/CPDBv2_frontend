@@ -25,6 +25,8 @@ import {
 import PinboardPage from 'components/pinboard-page';
 import EmptyPinboardContainer from 'containers/pinboard-page/empty-pinboard';
 import EmptyPinboardPage from 'components/pinboard-page/empty-pinboard';
+import ManagePinboardsButtons from 'components/pinboard-page/manage-pinboards-buttons';
+import PinboardDataVisualizationContainer from 'containers/pinboard-page/pinboard-data-visualization-container';
 import { buildEditStateFields } from 'utils/test/factories/draft';
 import LoadingSpinner from 'components/common/loading-spinner';
 
@@ -51,6 +53,10 @@ describe('PinboardPage component', function () {
     pinboard,
     editModeOn,
     pinboards: [],
+    widgets: {
+      officersSummary: {},
+      complainantsSummary: {},
+    },
   });
 
   const defaultFields = buildEditStateFields({
@@ -135,6 +141,7 @@ describe('PinboardPage component', function () {
 
   it('should render pinboard page correctly', function () {
     const pinboard = {
+      id: 'fe12bc',
       title: 'This is pinboard title',
       description: 'This is pinboard description',
       crids: ['123'],
@@ -149,6 +156,8 @@ describe('PinboardPage component', function () {
     );
 
     wrapper.find(RelevantSectionContainer).exists().should.be.true();
+    wrapper.find(PinboardDataVisualizationContainer).exists().should.be.true();
+    wrapper.find(ManagePinboardsButtons).prop('pinboardId').should.equal('fe12bc');
     const footer = wrapper.find(FooterContainer);
     footer.prop('className').should.equal('footer');
   });

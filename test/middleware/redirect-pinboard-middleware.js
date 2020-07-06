@@ -19,6 +19,10 @@ import {
   fetchPinboardSocialGraph,
   fetchFirstPagePinboardGeographicCrs,
   fetchFirstPagePinboardGeographicTrrs,
+  fetchComplaintSummary,
+  fetchTRRSummary,
+  fetchOfficersSummary,
+  fetchComplainantsSummary,
   fetchPinboardRelevantDocuments,
   fetchPinboardRelevantCoaccusals,
   fetchPinboardRelevantComplaints,
@@ -98,7 +102,7 @@ describe('redirectPinboardMiddleware', function () {
 
                 browserHistory.replace.should.not.be.called();
 
-                this.store.dispatch.callCount.should.equal(11);
+                this.store.dispatch.callCount.should.equal(15);
                 this.store.dispatch.should.be.calledWith(updatePathName('/pinboard/2bd40cf2/new-pinboard-title/'));
                 this.store.dispatch.should.be.calledWith(fetchPinboardComplaints('2bd40cf2'));
                 this.store.dispatch.should.be.calledWith(fetchPinboardOfficers('2bd40cf2'));
@@ -110,6 +114,10 @@ describe('redirectPinboardMiddleware', function () {
                 this.store.dispatch.should.be.calledWith(
                   fetchFirstPagePinboardGeographicTrrs({ 'pinboard_id': '2bd40cf2' })
                 );
+                this.store.dispatch.should.be.calledWith(fetchComplaintSummary('2bd40cf2'));
+                this.store.dispatch.should.be.calledWith(fetchTRRSummary('2bd40cf2'));
+                this.store.dispatch.should.be.calledWith(fetchOfficersSummary('2bd40cf2'));
+                this.store.dispatch.should.be.calledWith(fetchComplainantsSummary('2bd40cf2'));
                 this.store.dispatch.should.be.calledWith(fetchPinboardRelevantDocuments('2bd40cf2'));
                 this.store.dispatch.should.be.calledWith(fetchPinboardRelevantCoaccusals('2bd40cf2'));
                 this.store.dispatch.should.be.calledWith(fetchPinboardRelevantComplaints('2bd40cf2'));
@@ -132,7 +140,7 @@ describe('redirectPinboardMiddleware', function () {
 
                 browserHistory.replace.should.not.be.called();
 
-                this.store.dispatch.callCount.should.equal(10);
+                this.store.dispatch.callCount.should.equal(14);
                 this.store.dispatch.should.not.be.calledWith(updatePathName('/pinboard/2bd40cf2/new-pinboard-title/'));
                 this.store.dispatch.should.be.calledWith(fetchPinboardComplaints('2bd40cf2'));
                 this.store.dispatch.should.be.calledWith(fetchPinboardOfficers('2bd40cf2'));
@@ -144,6 +152,10 @@ describe('redirectPinboardMiddleware', function () {
                 this.store.dispatch.should.be.calledWith(
                   fetchFirstPagePinboardGeographicTrrs({ 'pinboard_id': '2bd40cf2' })
                 );
+                this.store.dispatch.should.be.calledWith(fetchComplaintSummary('2bd40cf2'));
+                this.store.dispatch.should.be.calledWith(fetchTRRSummary('2bd40cf2'));
+                this.store.dispatch.should.be.calledWith(fetchOfficersSummary('2bd40cf2'));
+                this.store.dispatch.should.be.calledWith(fetchComplainantsSummary('2bd40cf2'));
                 this.store.dispatch.should.be.calledWith(fetchPinboardRelevantDocuments('2bd40cf2'));
                 this.store.dispatch.should.be.calledWith(fetchPinboardRelevantCoaccusals('2bd40cf2'));
                 this.store.dispatch.should.be.calledWith(fetchPinboardRelevantComplaints('2bd40cf2'));

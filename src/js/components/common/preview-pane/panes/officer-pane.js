@@ -126,7 +126,7 @@ export default class OfficerPane extends Component {
 OfficerPane.propTypes = {
   id: PropTypes.number,
   fullName: PropTypes.string,
-  age: PropTypes.number,
+  age: PropTypes.string,
   appointedDate: PropTypes.string,
   resignationDate: PropTypes.string,
   unit: PropTypes.shape({

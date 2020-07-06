@@ -97,7 +97,6 @@ import {
 } from './pinboard-page/fetch-pinned-items';
 import { getSocialGraphData } from './pinboard-page/social-graph';
 import { getSocialGraphBigData } from './pinboard-page/big-social-graph';
-import { pinboardGeographicCrsData, pinboardGeographicTrrsData } from './pinboard-page/geographic-data';
 import { socialGraphGeographicCrsData, socialGraphGeographicTrrsData } from './social-graph-page/geographic-data';
 import getRelevantCoaccusals, {
   getFirstRelevantCoaccusals,
@@ -472,33 +471,8 @@ axiosMockClient.onGet(`${PINBOARDS_URL}eeee9999/trrs/`).reply(200, []);
 
 axiosMockClient.onGet(
   SOCIAL_GRAPH_NETWORK_API_URL,
-  { params: { 'pinboard_id': '5cd06f2b' } }
-).reply(200, getSocialGraphData());
-axiosMockClient.onGet(
-  SOCIAL_GRAPH_NETWORK_API_URL,
   { params: { 'pinboard_id': '18a5b091' } }
 ).reply(200, getSocialGraphData());
-axiosMockClient.onGet(
-  SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
-  { params: { 'pinboard_id': '5cd06f2b' } }
-).reply(200, pinboardGeographicCrsData);
-axiosMockClient.onGet(
-  SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL,
-  { params: { 'pinboard_id': '5cd06f2b' } }
-).reply(200, pinboardGeographicTrrsData);
-
-axiosMockClient.onGet(
-  SOCIAL_GRAPH_NETWORK_API_URL,
-  { params: { 'threshold': 2, 'complaint_origin': 'CIVILIAN', 'pinboard_id': '5cd06f2b' } }
-).reply(200, getSocialGraphData());
-axiosMockClient.onGet(
-  SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
-  { params: { detail: true, 'pinboard_id': '5cd06f2b' } }
-).reply(200, pinboardGeographicCrsData);
-axiosMockClient.onGet(
-  SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL,
-  { params: { detail: true, 'pinboard_id': '5cd06f2b' } }
-).reply(200, pinboardGeographicTrrsData);
 
 axiosMockClient.onGet(
   SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,

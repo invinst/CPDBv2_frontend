@@ -13,11 +13,13 @@ import {
   updateSocialGraphTimelineIdxFromTimelineTab,
   updateSocialGraphSelectedCrid,
 } from 'actions/social-graph-page';
+import { hasComplaintSummarySelector } from 'selectors/pinboard-page/widgets/complaint-summary';
 
 
 function mapStateToProps(state, ownProps) {
   return {
     items: socialGraphTimelineItemsSelector(state),
+    hasComplaintSummary: hasComplaintSummarySelector(state),
     pathname: `${ownProps.location.pathname}${ownProps.location.search}`,
     timelineIdx: getSocialGraphTimelineIdx(state),
     refreshIntervalId: getSocialGraphRefreshIntervalId(state),

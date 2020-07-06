@@ -19,6 +19,7 @@ import pinnedItemsRequested from './pinned-items-requested';
 import pinItemFromPreviewPane from './pin-item-from-preview-pane';
 import editModeOn from './edit-mode-on';
 import creatingNewPinboard from './creating-new-pinboard';
+import widgets from './widgets';
 
 
 export default combineReducers({
@@ -41,4 +42,5 @@ export default combineReducers({
   pinItemFromPreviewPane,
   editModeOn,
   creatingNewPinboard,
+  widgets,
 });

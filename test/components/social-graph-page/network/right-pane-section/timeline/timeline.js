@@ -1,6 +1,8 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { spy, stub } from 'sinon';
+import MockStore from 'redux-mock-store';
+import { Provider } from 'react-redux';
 
 import Timeline, { TimelineWithSpinner } from 'components/social-graph-page/network/right-pane-section/timeline';
 import Item from 'components/social-graph-page/network/right-pane-section/timeline/item';
@@ -192,6 +194,70 @@ describe('Timeline component', function () {
 
       wrapper.find(Timeline).exists().should.be.true();
       wrapper.find(LoadingSpinner).exists().should.be.false();
+    });
+  });
+
+  context('hasComplaintSummary is true', function () {
+    it('should render ComplaintSummaryContainer', function () {
+      const store = MockStore()({
+        pinboardPage: {
+          widgets: {
+            complaintSummary: [
+              { category: 'Operation/Personnel Violations', count: 10 },
+              { category: 'Illegal Search', count: 4 },
+            ],
+          },
+        },
+      });
+      const wrapper = mount(
+        <Provider store={ store }>
+          <TimelineWithSpinner
+            items={ items }
+            timelineIdx={ 0 }
+            timelineIdxTriggerChange={ 0 }
+            requesting={ false }
+            hasComplaintSummary={ true }
+          />
+        </Provider>
+      );
+
+      const complaintSummaryWidget = wrapper.find('Widget');
+      complaintSummaryWidget.prop('widgetTitle').should.equal('COMPLAINT SUMMARY');
+
+      const complaintSummary = complaintSummaryWidget.find('SummaryWidget');
+      complaintSummary.prop('summaryItems').should.eql([
+        { title: 'Operation/Personnel Violations', count: 10 },
+        { title: 'Illegal Search', count: 4 },
+      ]);
+    });
+  });
+
+  context('hasComplaintSummary is false', function () {
+    it('should not render ComplaintSummaryContainer', function () {
+      const store = MockStore()({
+        pinboardPage: {
+          widgets: {
+            complaintSummary: [
+              { category: 'Operation/Personnel Violations', count: 10 },
+              { category: 'Illegal Search', count: 4 },
+            ],
+          },
+        },
+      });
+      const wrapper = mount(
+        <Provider store={ store }>
+          <TimelineWithSpinner
+            items={ items }
+            timelineIdx={ 0 }
+            timelineIdxTriggerChange={ 0 }
+            requesting={ false }
+            hasComplaintSummary={ false }
+          />
+        </Provider>
+      );
+
+      const complaintSummaryWidget = wrapper.find('Widget');
+      complaintSummaryWidget.exists().should.be.false();
     });
   });
 });
