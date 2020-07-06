@@ -9,6 +9,8 @@ import Item from './item';
 import ReactDOM from 'react-dom';
 import { imgUrl } from 'utils/static-assets';
 import withLoadingSpinner from 'components/common/with-loading-spinner';
+import ComplaintSummaryContainer from 'containers/pinboard-page/widgets/complaint-summary-container';
+import Widget from 'components/common/pinboard/widgets/widget';
 
 const SCROLL_THROTTLE_THRESHOLD = 150;
 
@@ -96,7 +98,7 @@ export default class Timeline extends Component {
   };
 
   render() {
-    const { items, pathname, onTrackingAttachment, timelineIdx, updateSelectedCrid } = this.props;
+    const { items, pathname, onTrackingAttachment, timelineIdx, updateSelectedCrid, hasComplaintSummary } = this.props;
     return (
       <div ref='scrollContainer' className={ styles.timeline }>
         { isEmpty(items) && (<img className='loading-img' src={ imgUrl('loading.svg') } />) }
@@ -114,6 +116,15 @@ export default class Timeline extends Component {
             );
           })
         }
+        <div className='summary-widget-wrapper'>
+          {
+            hasComplaintSummary && (
+              <Widget widgetTitle='COMPLAINT SUMMARY' className='summary-widget'>
+                <ComplaintSummaryContainer />
+              </Widget>
+            )
+          }
+        </div>
       </div>
     );
   }
@@ -121,6 +132,7 @@ export default class Timeline extends Component {
 
 Timeline.propTypes = {
   items: PropTypes.array,
+  hasComplaintSummary: PropTypes.bool,
   pathname: PropTypes.string,
   onTrackingAttachment: PropTypes.func,
   updateTimelineIdx: PropTypes.func,
@@ -132,6 +144,7 @@ Timeline.propTypes = {
 
 Timeline.defaultProps = {
   items: [],
+  hasComplaintSummary: false,
 };
 
 export const TimelineWithSpinner = withLoadingSpinner(Timeline, styles.timelineLoading);

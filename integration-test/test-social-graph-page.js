@@ -7,6 +7,7 @@ import { map, countBy, isEqual, filter } from 'lodash';
 import moment from 'moment/moment';
 
 import socialGraphPage from './page-objects/social-graph-page';
+import { setupMockApiFile, restoreMockApiFile } from './utils';
 
 
 function waitForGraphAnimationEnd(browser, socialGraphPage, endDate='2008-01-11') {
@@ -551,13 +552,29 @@ describe('Social Graph Page', function () {
 
 describe('Social Graph Page with pinboard_id', function () {
   beforeEach(function () {
+    setupMockApiFile('social-graph-page/social-graph-page-with-pinboard-id-mock.js');
     socialGraphPage.open('?pinboard_id=5cd06f2b');
+  });
+
+  afterEach(function () {
+    restoreMockApiFile();
   });
 
   context('Network tab', function () {
     it('should go back to pinboard page when clicking on back to pinboard button', function () {
       socialGraphPage.animatedSocialGraphSection.backToPinboardButton.click();
       browser.getUrl().should.containEql('/pinboard/5cd06f2b/');
+    });
+
+    it('should render complaint summary section', function () {
+      socialGraphPage.complaintSummaryWidget.widgetTitle.getText().should.equal('COMPLAINT SUMMARY');
+      socialGraphPage.complaintSummaryWidget.summaryItems().should.have.length(8);
+      socialGraphPage.complaintSummaryWidget.firstSummaryItemTitle.getText().should.equal(
+        'Operation/Personnel Violations'
+      );
+      socialGraphPage.complaintSummaryWidget.firstSummaryItemCount.getText().should.equal('10');
+      socialGraphPage.complaintSummaryWidget.secondSummaryItemTitle.getText().should.equal('Unknown');
+      socialGraphPage.complaintSummaryWidget.secondSummaryItemCount.getText().should.equal('8');
     });
   });
 

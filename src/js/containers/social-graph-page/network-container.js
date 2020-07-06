@@ -11,6 +11,7 @@ import {
   updateSocialGraphSelectedEdge,
   updateSocialGraphSelectedCrid,
 } from 'actions/social-graph-page';
+import { fetchComplaintSummary } from 'actions/pinboard';
 import {
   getShowTimelineTab,
   getCurrentNetworkTab,
@@ -41,6 +42,7 @@ const mapDispatchToProps = {
   requestSocialGraphNetwork,
   requestSocialGraphAllegations,
   requestSocialGraphOfficers,
+  fetchComplaintSummary,
   changeNetworkTab,
   updateSelectedOfficerId,
   updateSelectedEdge: updateSocialGraphSelectedEdge,

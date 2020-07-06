@@ -2,10 +2,9 @@
 
 
 \:local(.timeline)
-  background-color: $wild-sand-color
+  background-color: white
   height: calc(100vh - 64px)
   overflow-y: auto
-  padding-bottom: calc(100vh - 122px)
   box-sizing: border-box
 
   .header-wrapper
@@ -24,6 +23,23 @@
     border-radius: 2px
     height: 64px
     line-height: 64px
+
+  .summary-widget-wrapper
+    height: calc(100vh - 122px)
+    padding: 8px 9px 8px 7px
+    box-sizing: border-box
+
+    .summary-widget
+      border: 1px solid $alto-color
+      width: 100%
+      height: auto
+      max-height: calc(100vh - 138px)
+      overflow: hidden
+
+      .summary-items-wrapper
+        height: auto
+        max-height: calc(100vh - 228px)
+
 
 \:local(.timeline-loading)
   position: absolute
