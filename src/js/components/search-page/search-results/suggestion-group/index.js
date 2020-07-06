@@ -118,7 +118,7 @@ SuggestionGroup.propTypes = {
   setSearchNavigation: PropTypes.func,
   addOrRemoveItemInPinboard: PropTypes.func,
   pinboardUrl: PropTypes.string,
-  visitPinButtonIntroduction: PropTypes.string,
+  visitPinButtonIntroduction: PropTypes.func,
   hide: PropTypes.bool,
 };
 

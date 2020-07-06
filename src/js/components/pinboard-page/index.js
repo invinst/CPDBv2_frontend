@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import cx from 'classnames';
-import { isEmpty, noop, get } from 'lodash';
+import { isEmpty, noop } from 'lodash';
 
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import SearchBar from './search-bar';
@@ -18,7 +18,7 @@ import EmptyPinboardContainer from 'containers/pinboard-page/empty-pinboard';
 import { PreviewPaneWithOverlay } from 'components/common/preview-pane';
 import ManagePinboardsButtons from 'components/pinboard-page/manage-pinboards-buttons';
 import LoadingSpinner from 'components/common/loading-spinner';
-import PinboardDataVisualization from 'components/pinboard-page/pinboard-data-visualization';
+import PinboardDataVisualizationContainer from 'containers/pinboard-page/pinboard-data-visualization-container';
 
 
 export default class PinboardPage extends Component {
@@ -61,11 +61,7 @@ export default class PinboardPage extends Component {
   }
 
   renderContent() {
-    const {
-      pinboard,
-      isEmptyPinboard,
-      hasMapMarker,
-    } = this.props;
+    const { isEmptyPinboard } = this.props;
 
     if (isEmptyPinboard) {
       return (
@@ -77,7 +73,7 @@ export default class PinboardPage extends Component {
       <div>
         <div className={ cx(responsiveContainerStyles.responsiveContainer, 'pinboard-page') }>
           <PinboardInfoContainer />
-          <PinboardDataVisualization pinboard={ pinboard } hasMapMarker={ hasMapMarker }/>
+          <PinboardDataVisualizationContainer />
           <div className='pinned-section'>
             <PinnedOfficersContainer/>
             <PinnedCRsContainer/>
@@ -92,7 +88,7 @@ export default class PinboardPage extends Component {
 
   render() {
     const {
-      pinboard,
+      pinboardId,
       initialRequested,
       pinboardPageLoading,
       isEmptyPinboard,
@@ -117,7 +113,7 @@ export default class PinboardPage extends Component {
             shareable={ !isEmptyPinboard }
             headerButtons={
               <ManagePinboardsButtons
-                pinboardId={ get(pinboard, 'id') }
+                pinboardId={ pinboardId }
                 showPinboardsList={ showPinboardsList }
                 createNewEmptyPinboard={ createNewEmptyPinboard }
                 duplicatePinboard={ duplicatePinboard }
@@ -134,9 +130,8 @@ export default class PinboardPage extends Component {
 }
 
 PinboardPage.propTypes = {
-  pinboard: PropTypes.object,
+  pinboardId: PropTypes.string,
   params: PropTypes.object,
-  hasMapMarker: PropTypes.bool,
   initialRequested: PropTypes.bool,
   pinboardPageLoading: PropTypes.bool,
   isEmptyPinboard: PropTypes.bool,
@@ -154,7 +149,6 @@ PinboardPage.propTypes = {
 };
 
 PinboardPage.defaultProps = {
-  focusedItem: {},
   pinboard: {},
   focusItem: noop,
   addOrRemoveItemInPinboardFromPreviewPane: noop,

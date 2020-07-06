@@ -1,0 +1,49 @@
+@import 'variables'
+
+
+\:local(.widget)
+  position: relative
+  width: 344px
+  height: 344px
+  font-size: 14px
+  font-weight: 300
+  line-height: 17px
+  border: 1px solid $alto-dark-color
+  box-sizing: border-box
+  color: $boulder-color
+  margin-right: 8px
+
+  .widget-title
+    padding: 39px 0 8px 12px
+
+    &.visualization-title
+      position: absolute
+      top: 0
+      z-index: 3
+
+  .expanded-mode-btn
+    position: absolute
+    color: $boulder-color
+    font-weight: 300
+    bottom: 8px
+    right: 8px
+    box-sizing: border-box
+    height: 44px
+    line-height: 16px
+    padding: 14px 39px 14px 16px
+    outline: none
+    background-size: 16px
+    z-index: 9
+    background: $wild-sand-80-color url('/img/ic-expand.svg') no-repeat center right 16px
+    border: 1px solid $alto-color
+
+    &:hover
+      background-image: url('/img/ic-expand-hover.svg')
+
+\:local(.widget-spinner)
+  width: 100px
+  height: 100px
+  position: absolute
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)

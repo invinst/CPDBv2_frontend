@@ -191,6 +191,46 @@ describe('NetworkGraph component', function () {
     });
   });
 
+  context('pinboardId in param', function () {
+    it('should call fetchComplaintSummary on componentDidMount', function () {
+      const fetchComplaintSummaryStub = stub();
+      mount(
+        <Provider store={ store }>
+          <NetworkGraph
+            fetchComplaintSummary={ fetchComplaintSummaryStub }
+            pinboardId='c05fbe83'
+          />
+        </Provider>
+      );
+      fetchComplaintSummaryStub.should.be.calledOnce();
+    });
+  });
+
+  context('pinboardId is not in param', function () {
+    it('should not call fetchComplaintSummary on componentDidMount', function () {
+      const fetchComplaintSummaryStub = stub();
+      mount(
+        <Provider store={ store }>
+          <NetworkGraph
+            fetchComplaintSummary={ fetchComplaintSummaryStub }
+            unitId='235'
+          />
+        </Provider>
+      );
+
+      mount(
+        <Provider store={ store }>
+          <NetworkGraph
+            fetchComplaintSummary={ fetchComplaintSummaryStub }
+            officerIds='2,3,7,8'
+          />
+        </Provider>
+      );
+
+      fetchComplaintSummaryStub.should.not.be.called();
+    });
+  });
+
   it('should not call requestSocialGraphOfficer if both unitId and officerIds are missing', function () {
     const requestSocialGraphOfficersStub = stub();
     mount(

@@ -1,7 +1,47 @@
 import Page from './page';
 import Section from './sections/section';
-import { PreviewPaneSection } from './social-graph-page';
+import { PreviewPaneSection, SummaryWidget, summarySectionSelectorByTitle } from './pinboard-page-common';
 
+const demographicBarSelector = (index) => `//*[@class="bar-chart"]//*[${index}]`;
+const demographicPercentageSelector = (index) => `//*[contains(@class, "bar-chart-precentage")][${index}]`;
+const demographicLabelSelector = (index) => `//*[contains(@class, "bar-chart-label")]/*[${index}]`;
+
+class DemographicChartSection extends Section {
+  constructor(parentSelector, chartIndex) {
+    super(`(${parentSelector}//*[contains(@class, "demographic-chart__demographic-chart")])[${chartIndex}]`);
+
+    this.prepareElementGetters({
+      firstBar: demographicBarSelector(1),
+      firstPercentage: demographicPercentageSelector(1),
+      firstLabel: demographicLabelSelector(1),
+      secondBar: demographicBarSelector(2),
+      secondPercentage: demographicPercentageSelector(2),
+      secondLabel: demographicLabelSelector(2),
+      thirdBar: demographicBarSelector(3),
+      thirdPercentage: demographicPercentageSelector(3),
+      thirdLabel: demographicLabelSelector(3),
+      fourthBar: demographicBarSelector(4),
+      fourthPercentage: demographicPercentageSelector(4),
+      fourthLabel: demographicLabelSelector(4),
+    });
+  }
+
+  charts() {
+    return $$(`${this.parentSelector}//*[@class="bar-chart"]/*`);
+  }
+}
+
+class DemographicWidget extends Section {
+  constructor(parentSelector) {
+    super(parentSelector);
+    this.raceSection = new DemographicChartSection(parentSelector, 1);
+    this.genderSection = new DemographicChartSection(parentSelector, 2);
+    this.prepareElementGetters({
+      widgetTitle: '//div[contains(@class, "widget-title")]',
+      spinner: '//*[contains(@class, "widget__widget-spinner")]',
+    });
+  }
+}
 
 class PinnedOfficers extends Section {
   constructor() {
@@ -365,6 +405,10 @@ class PinboardPage extends Page {
   previewPane = new PreviewPane();
   complaintPreviewPane = new PreviewPaneSection();
   officerPreviewPane = new OfficerPreviewPane();
+  complaintSummaryWidget = new SummaryWidget(summarySectionSelectorByTitle('COMPLAINT SUMMARY'));
+  trrSummaryWidget = new SummaryWidget(summarySectionSelectorByTitle('TACTICAL RESPONSE REPORT SUMMARY'));
+  officersSummaryWidget = new DemographicWidget(summarySectionSelectorByTitle('OFFICERS'));
+  complainantsSummaryWidget = new DemographicWidget(summarySectionSelectorByTitle('COMPLAINANTS'));
 
   constructor() {
     super();
@@ -377,6 +421,10 @@ class PinboardPage extends Page {
       firstToast: '.Toastify__toast:first-child',
       secondToast: '.Toastify__toast:nth-child(2)',
       geographicMap: '//div[starts-with(@class, "allegations-map")]',
+      widgetsLeftArrow: '//div[contains(@class, "pinboard-data-visualization")]' +
+        '//button[contains(@class, "left carousel-arrow")]',
+      widgetsRightArrow: '//div[contains(@class, "pinboard-data-visualization")]' +
+        '//button[contains(@class, "right carousel-arrow")]',
     });
   }
 

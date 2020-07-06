@@ -31,7 +31,7 @@ import browserHistory from 'utils/history';
 
 
 const renderRouter = (initialEntry) => {
-  const store = ReduxCreateStore(RootReducer(browserHistory));
+  const store = ReduxCreateStore(RootReducer(browserHistory), { pageLoading: false });
   return mount(
     <Provider store={ store }>
       <MemoryRouter initialEntries={ [initialEntry] } initialIndex={ 0 }>
