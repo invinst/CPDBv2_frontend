@@ -82,7 +82,7 @@ const handleFetchingDocumentsOverviewPage = (dispatches, store, state, action, f
     currentMatch !== previousMatch ||
     (currentMatch === '' && previousDataOrders.length === 0)
   ) {
-    dispatches.push(store.dispatch(fetch(params)).catch(cancelledByUser));
+    store.dispatch(fetch(params)).catch(cancelledByUser);
   }
 };
 
@@ -152,14 +152,14 @@ export default store => next => action => {
     }
 
     else if (pathName.match(/^\/(edit\/?)?(search\/?)?$/)) {
-      if (!hasCommunitiesSelector(state)) {
-        dispatches.push(store.dispatch(getCommunities()));
-      }
       if (!hasCitySummarySelector(state)) {
         dispatches.push(store.dispatch(getCitySummary()));
       }
+      if (!hasCommunitiesSelector(state)) {
+        store.dispatch(getCommunities());
+      }
       if (!hasClusterGeoJsonData(state)) {
-        dispatches.push(store.dispatch(getClusterGeoJson()));
+        store.dispatch(getClusterGeoJson());
       }
 
       if (!hasOfficerByAllegationData(state)) {
