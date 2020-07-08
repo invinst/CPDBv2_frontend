@@ -69,6 +69,16 @@ export const restoreMockApiFile = () => {
   browser.removeLocalStorage('TEST_MOCK_API_FILE');
 };
 
+// TODO: Remove this after removing axios mock in code
+export const disableAxiosMock = () => {
+  browser.url('');
+  browser.setLocalStorage('DISABLE_AXIOS_MOCK', 'true');
+};
+
+export const restoreAxiosMock = () => {
+  browser.setLocalStorage('DISABLE_AXIOS_MOCK', 'false');
+};
+
 export const setupPinboardEnabled = (value) => {
   browser.url('');
 
