@@ -1,7 +1,19 @@
-const { isUndefined, has, get, fromPairs, toPairs, sortBy, isArray, isEmpty, times, concat } = require('lodash');
+const { isUndefined, has, get, fromPairs, toPairs, isArray, isEmpty, times, concat, map } = require('lodash');
 
 const hashBody = (body) => isEmpty(body) ? '' : JSON.stringify(body, Object.keys(body).sort());
 const return404 = (response) => response.status(404).send();
+
+const splitGetUrl = (requestUrl) => {
+  const splittedUrl = requestUrl.split('?');
+  const url = splittedUrl[0];
+  const params = {};
+  for (const [key, value] of new URLSearchParams(splittedUrl[1])) {
+    params[key] = value;
+  }
+  return { url, params };
+};
+
+const stringifyObject = (obj) => fromPairs(map(toPairs(obj), ([key, value]) => [key, value.toString()]));
 
 function Request(handleMap, method, url, requestBody) {
   this.method = method;
@@ -65,6 +77,11 @@ function Mockapi() {
 }
 
 Mockapi.prototype.getResponse = function (request) {
+  if ((request.method === 'GET') && request.originalUrl.includes('/?')) {
+    const { url, params } = splitGetUrl(request.originalUrl);
+    request.originalUrl = url;
+    request.body = params;
+  }
   const urlHandlers = get(this.data, request.method, {})[request.originalUrl];
 
   if (isUndefined(urlHandlers)) {
@@ -91,8 +108,8 @@ Mockapi.prototype.request = function (method, url, requestBody) {
 };
 
 Mockapi.prototype.onGet = function (url, params) {
-  const sortedParams = fromPairs(sortBy(toPairs(params), 0));
-  return this.request('GET', isUndefined(params) ? url : `${url}?${new URLSearchParams(sortedParams).toString()}`);
+  const { url: requestUrl, params: urlParams } = splitGetUrl(url);
+  return this.request('GET', requestUrl, { ...urlParams, ...stringifyObject(params) });
 };
 
 Mockapi.prototype.onPost = function (url, params) {

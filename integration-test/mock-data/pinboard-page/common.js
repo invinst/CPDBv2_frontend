@@ -4,6 +4,15 @@ export const createNewPinboardParams = {
   'trr_ids': [],
 };
 
+export const pinboardData = {
+  'id': 'ceea8ea3',
+  'title': 'Pinboard Title',
+  'officer_ids': [1234],
+  'crids': ['1234567'],
+  'trr_ids': [1234],
+  'description': 'Pinboard Description',
+};
+
 export const emptyPinboard = (id='abcd1234') => ({
   'id': id,
   'title': '',
@@ -23,3 +32,12 @@ export const emptyPinboard = (id='abcd1234') => ({
     'title': 'Skullcap Crew',
   }],
 });
+
+export const emptyCreatedPinboard = {
+  'id': '5cd06f2b',
+  'title': '',
+  'officer_ids': [],
+  'crids': [],
+  'trr_ids': [],
+  'description': '',
+};

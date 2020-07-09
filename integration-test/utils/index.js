@@ -60,18 +60,8 @@ export const selectText = selector => {
   }, selector);
 };
 
-export const setupMockApiFile = (mockApiFile) => {
-  browser.url('');
-  browser.setLocalStorage('TEST_MOCK_API_FILE', mockApiFile);
-};
-
-export const restoreMockApiFile = () => {
-  browser.removeLocalStorage('TEST_MOCK_API_FILE');
-};
-
 // TODO: Remove this after removing axios mock in code
 export const disableAxiosMock = () => {
-  browser.url('');
   browser.setLocalStorage('DISABLE_AXIOS_MOCK', 'true');
 };
 
@@ -80,8 +70,6 @@ export const restoreAxiosMock = () => {
 };
 
 export const setupPinboardEnabled = (value) => {
-  browser.url('');
-
   browser.setLocalStorage('PINBOARD_ENABLED', value);
 };
 
