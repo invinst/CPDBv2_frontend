@@ -4,14 +4,15 @@ require('should');
 
 import { times } from 'lodash';
 
+import api from '../mock-api';
 import searchPage from '../page-objects/search-page';
 import landingPage from '../page-objects/landing-page';
 import pinboardPage from '../page-objects/pinboard-page';
-import {
-  setupMockApiFile,
-  restoreMockApiFile,
-} from '../utils';
+import { disableAxiosMock, restoreAxiosMock } from '../utils';
 import { INTRODUCTION_DISPLAY_TIMEOUT } from '../utils/constants';
+import { mockCommonApi } from '../mock-data/utils';
+import { defaultSearchResult } from '../mock-data/search-page/common';
+import { emptyCreatedPinboard, pinboardData } from '../mock-data/pinboard-page/common';
 
 
 const backToSearch = () => {
@@ -451,11 +452,14 @@ describe('Search Page', function () {
 
     context('lastest pinboard is not empty', function () {
       beforeEach(function () {
-        setupMockApiFile('search-page/search-page-mock-non-empty-lastest-pinboard.js');
+        disableAxiosMock();
+        mockCommonApi();
+
+        api.onGet('/api/v2/pinboards/latest-retrieved-pinboard/', { 'create': false }).reply(200, pinboardData);
       });
 
       afterEach(function () {
-        restoreMockApiFile();
+        restoreAxiosMock();
       });
 
       it('should not display pinboard introduction when lasted pinboard is not empty', function () {
@@ -790,9 +794,7 @@ describe('Search Page', function () {
   });
 
   it('should not show the recent search if it is empty', function () {
-    browser.execute(() => {
-      window.localStorage.clear();
-    });
+    browser.clearReduxStore();
     searchPage.open();
 
     searchPage.recentSuggestions.waitForDisplayed(20000, true);
@@ -894,9 +896,7 @@ describe('Search Page', function () {
   });
 
   it('should show save recent suggestions when user press Enter and there are results', function () {
-    browser.execute(() => {
-      window.localStorage.clear();
-    });
+    browser.clearReduxStore();
 
     searchPage.open();
     searchPage.input.waitForDisplayed();
@@ -1345,11 +1345,15 @@ describe('Search Page with query parameter', function () {
 
 describe('Search Page with pinboard functionalities', function () {
   beforeEach(function () {
-    setupMockApiFile('search-page/search-page-mock-api.js');
+    disableAxiosMock();
+    mockCommonApi();
+
+    api.onGet('/api/v2/pinboards/latest-retrieved-pinboard/', { 'create': false }).reply(200, emptyCreatedPinboard);
+    api.onGet('/api/v1/suggestion/').reply(200, defaultSearchResult);
   });
 
   afterEach(function () {
-    restoreMockApiFile();
+    restoreAxiosMock();
   });
 
   it('should display pinboard button with correct text when items are added/removed', function () {
@@ -1371,7 +1375,7 @@ describe('Search Page with pinboard functionalities', function () {
       searchPage.firstPinboardHintButton.waitForDisplayed();
       searchPage.firstPinboardHintButton.moveTo();
       searchPage.firstPinboardHintButton.click();
-      browser.waitForUrl(url => url.should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/), 1000);
+      browser.waitForUrl(url => url.should.match(/pinboard\/5cd06f2b\/untitled-pinboard\/$/), 1000);
     });
   });
 
@@ -1390,10 +1394,11 @@ describe('Search Page with pinboard functionalities', function () {
       backToSearch();
       clearSearchInput();
       searchPage.firstRecentPinButton.click();
+      searchPage.toast.waitForDisplayed(10000, true);
       searchPage.firstPinboardHintButton.waitForDisplayed();
       searchPage.firstPinboardHintButton.moveTo();
       searchPage.firstPinboardHintButton.click();
-      browser.waitForUrl(url => url.should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/), 1000);
+      browser.waitForUrl(url => url.should.match(/pinboard\/5cd06f2b\/untitled-pinboard\/$/), 1000);
     });
   });
 
@@ -1403,7 +1408,7 @@ describe('Search Page with pinboard functionalities', function () {
       searchPage.suggestionGroup.waitForDisplayed();
 
       searchPage.pinboardButton.click();
-      browser.getUrl().should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/);
+      browser.getUrl().should.match(/pinboard\/5cd06f2b\/untitled-pinboard\/$/);
     });
   });
 });

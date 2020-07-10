@@ -1,11 +1,4 @@
-export const pinboardData = {
-  'id': 'ceea8ea3',
-  'title': 'Pinboard Title',
-  'officer_ids': [1234],
-  'crids': ['1234567'],
-  'trr_ids': [1234],
-  'description': 'Pinboard Description',
-};
+
 
 export const pinboardOfficersData = [
   {
@@ -68,6 +61,21 @@ export const pinboardTRRsData = [
       'allegation_count': 93,
     },
     'to': '/trr/123456/',
+  },
+];
+
+export const shortPinboardsListData = [
+  {
+    'id': 'ceea8ea3',
+    'title': 'Pinboard title',
+    'created_at': '2019-09-12',
+    'last_viewed_at': '2019-10-20T05:45:00.967Z',
+  },
+  {
+    'id': '77edc128',
+    'title': '',
+    'created_at': '2019-10-15',
+    'last_viewed_at': '2019-10-18T06:15:00.967Z',
   },
 ];
 

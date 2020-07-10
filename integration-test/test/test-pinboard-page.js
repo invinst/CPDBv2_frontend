@@ -7,23 +7,36 @@ import moment from 'moment';
 import api from '../mock-api';
 import pinboardPage from '../page-objects/pinboard-page';
 import socialGraphPage from '../page-objects/social-graph-page';
-import { setupMockApiFile, restoreMockApiFile, disableAxiosMock, restoreAxiosMock } from '../utils';
+import { disableAxiosMock, restoreAxiosMock } from '../utils';
 import {
-  pinboardData,
   pinboardOfficersData,
   pinboardComplaintsData,
   pinboardTRRsData,
   pinboardsListData,
+  shortPinboardsListData,
 } from '../mock-data/pinboard-page/manage-pinboards';
 import {
   updatePinboardParams,
   updatePinboardResponse,
 } from '../mock-data/pinboard-page/display-spinner';
 import {
+  pinboardData,
   createNewPinboardParams,
   emptyPinboard,
 } from '../mock-data/pinboard-page/common';
-import { mockCommonApi } from '../mock-data/utils';
+import { mockCommonApi, mockCommonPinboardApi } from '../mock-data/utils';
+import {
+  pinboardGeographicCrsData,
+  pinboardGeographicTrrsData,
+} from '../mock-data/pinboard-page/social-graph/geographic-data';
+import { socialGraphData } from '../mock-data/pinboard-page/social-graph/social-graph-data';
+import { socialGraphAllegationsData } from '../mock-data/pinboard-page/social-graph/allegation-data';
+import {
+  complaintSummaryData,
+  trrSummaryData,
+  officersSummaryData,
+  complainantsSummaryData,
+} from '../mock-data/pinboard-page/widgets';
 
 
 function waitForGraphAnimationEnd(browser, pinboardPage) {
@@ -177,166 +190,199 @@ describe('Pinboard Page', function () {
     });
   });
 
-  context('social graph section', function () {
+  context('visualization section', function () {
     beforeEach(function () {
-      setupMockApiFile('social-graph-page/social-graph-page-with-pinboard-id-mock.js');
-      pinboardPage.open();
+      disableAxiosMock();
+      mockCommonApi();
+
+      api.onGet('/api/v2/pinboards/ceea8ea3/').reply(200, pinboardData);
+      api
+        .onGet('/api/v2/social-graph/network/', { 'pinboard_id': 'ceea8ea3' })
+        .reply(200, socialGraphData);
+      api
+        .onGet(
+          '/api/v2/social-graph/network/',
+          { 'threshold': 2, 'complaint_origin': 'CIVILIAN', 'pinboard_id': 'ceea8ea3' },
+        )
+        .reply(200, socialGraphData);
+      api
+        .onGet('/api/v2/social-graph/geographic-crs/', { 'pinboard_id': 'ceea8ea3' })
+        .reply(200, pinboardGeographicCrsData);
+      api
+        .onGet('/api/v2/social-graph/geographic-trrs/', { 'pinboard_id': 'ceea8ea3' })
+        .reply(200, pinboardGeographicTrrsData);
+      api
+        .onGet('/api/v2/social-graph/geographic-crs/', { detail: true, 'pinboard_id': 'ceea8ea3' })
+        .reply(200, pinboardGeographicCrsData);
+      api
+        .onGet('/api/v2/social-graph/geographic-trrs/', { detail: true, 'pinboard_id': 'ceea8ea3' })
+        .reply(200, pinboardGeographicTrrsData);
+      api
+        .onGet(
+          '/api/v2/social-graph/allegations/',
+          { 'threshold': 2, 'complaint_origin': 'CIVILIAN', 'pinboard_id': 'ceea8ea3' }
+        )
+        .reply(200, socialGraphAllegationsData);
+      api
+        .onGet('/api/v2/pinboards/5cd06f2b/complaint-summary/')
+        .reply(200, complaintSummaryData);
+      pinboardPage.open('ceea8ea3');
     });
 
     afterEach(function () {
-      restoreMockApiFile();
+      restoreAxiosMock();
     });
 
-    it('should render correctly', function () {
-      waitForGraphAnimationEnd(browser, pinboardPage);
+    context('social graph section', function () {
+      it('should render correctly', function () {
+        waitForGraphAnimationEnd(browser, pinboardPage);
 
-      const graphNodes = pinboardPage.animatedSocialGraphSection.graphNodes();
-      const graphLinks = pinboardPage.animatedSocialGraphSection.graphLinks();
-      const graphLabels = pinboardPage.animatedSocialGraphSection.graphLabels();
+        const graphNodes = pinboardPage.animatedSocialGraphSection.graphNodes();
+        const graphLinks = pinboardPage.animatedSocialGraphSection.graphLinks();
+        const graphLabels = pinboardPage.animatedSocialGraphSection.graphLabels();
 
-      graphNodes.should.have.length(20);
-      graphLinks.should.have.length(37);
-      graphLabels.should.have.length(5);
+        graphNodes.should.have.length(20);
+        graphLinks.should.have.length(37);
+        graphLabels.should.have.length(5);
 
-      const nodeGroupColors = countBy(map(
-        graphNodes,
-        (graphNode) => graphNode.getCSSProperty('fill').value
-      ));
-      const expectedNodeGroupColors = {
-        'rgb(245,37,36)': 6,
-        'rgb(255,65,44)': 6,
-        'rgb(255,100,83)': 5,
-        'rgb(244,162,152)': 1,
-        'rgb(249,211,195)': 1,
-        'rgb(245,244,244)': 1,
-      };
-      nodeGroupColors.should.eql(expectedNodeGroupColors);
+        const nodeGroupColors = countBy(map(
+          graphNodes,
+          (graphNode) => graphNode.getCSSProperty('fill').value
+        ));
+        const expectedNodeGroupColors = {
+          'rgb(245,37,36)': 6,
+          'rgb(255,65,44)': 6,
+          'rgb(255,100,83)': 5,
+          'rgb(244,162,152)': 1,
+          'rgb(249,211,195)': 1,
+          'rgb(245,244,244)': 1,
+        };
+        nodeGroupColors.should.eql(expectedNodeGroupColors);
 
-      const linkGroupColors = countBy(map(
-        graphLinks,
-        (graphLink) => graphLink.getAttribute('class').match(/link-group-color-[\d]/)
-      ));
+        const linkGroupColors = countBy(map(
+          graphLinks,
+          (graphLink) => graphLink.getAttribute('class').match(/link-group-color-[\d]/)
+        ));
 
-      const expectedlinkGroupColors = {
-        'link-group-color-1': 6,
-        'link-group-color-2': 6,
-        'link-group-color-3': 6,
-        'link-group-color-4': 6,
-        'link-group-color-5': 6,
-        'link-group-color-6': 7,
-      };
+        const expectedlinkGroupColors = {
+          'link-group-color-1': 6,
+          'link-group-color-2': 6,
+          'link-group-color-3': 6,
+          'link-group-color-4': 6,
+          'link-group-color-5': 6,
+          'link-group-color-6': 7,
+        };
 
-      linkGroupColors.should.eql(expectedlinkGroupColors);
+        linkGroupColors.should.eql(expectedlinkGroupColors);
 
-      const graphLabelTexts = map(
-        graphLabels,
-        (graphLabel) => graphLabel.getText()
-      );
+        const graphLabelTexts = map(
+          graphLabels,
+          (graphLabel) => graphLabel.getText()
+        );
 
-      const expectedGraphLabelTexts = [
-        'Donnell Calhoun',
-        'Eugene Offett',
-        'Hardy White',
-        'Johnny Cavers',
-        'Melvin Ector',
-      ];
+        const expectedGraphLabelTexts = [
+          'Donnell Calhoun',
+          'Eugene Offett',
+          'Hardy White',
+          'Johnny Cavers',
+          'Melvin Ector',
+        ];
 
-      graphLabelTexts.sort().should.eql(expectedGraphLabelTexts);
+        graphLabelTexts.sort().should.eql(expectedGraphLabelTexts);
+      });
+
+      it('should show connected nodes when double click on a node', function () {
+        waitForGraphAnimationEnd(browser, pinboardPage);
+
+        const graphNodes = pinboardPage.animatedSocialGraphSection.graphNodes();
+        const graphLinks = pinboardPage.animatedSocialGraphSection.graphLinks();
+
+        const biggestNode = pinboardPage.animatedSocialGraphSection.biggestGraphNode;
+        biggestNode.doubleClick();
+
+        let hideGraphNodes = filter(graphNodes, graphNode => graphNode.getCSSProperty('opacity').value === 0.1);
+        let visibleGraphNodes = filter(graphNodes, graphNode => graphNode.getCSSProperty('opacity').value === 1);
+        hideGraphNodes.should.have.length(9);
+        visibleGraphNodes.should.have.length(11);
+
+        let hideGraphLinks = filter(graphLinks, graphLink => graphLink.getCSSProperty('opacity').value === 0.1);
+        let visibleGraphLinks = filter(graphLinks, graphLink => graphLink.getCSSProperty('opacity').value === 1);
+        hideGraphLinks.should.have.length(27);
+        visibleGraphLinks.should.have.length(10);
+
+        biggestNode.doubleClick();
+
+        hideGraphNodes = filter(graphNodes, graphNode => graphNode.getCSSProperty('opacity').value === 0.1);
+        visibleGraphNodes = filter(graphNodes, graphNode => graphNode.getCSSProperty('opacity').value === 1);
+        hideGraphNodes.should.have.length(0);
+        visibleGraphNodes.should.have.length(20);
+
+        hideGraphLinks = filter(graphLinks, graphLink => graphLink.getCSSProperty('opacity').value === 0.1);
+        visibleGraphLinks = filter(graphLinks, graphLink => graphLink.getCSSProperty('opacity').value === 1);
+        hideGraphLinks.should.have.length(0);
+        visibleGraphLinks.should.have.length(37);
+      });
+
+      it('should go to corresponding social graph visualization page when clicking on expanded button', function () {
+        pinboardPage.pinboardSection.socialGraphExpandButton.click();
+        browser.getUrl().should.containEql('/social-graph/pinboard/ceea8ea3/');
+        socialGraphPage.animatedSocialGraphSection.coaccusalsThresholdText.getText().should.equal(
+          'Minimum Coaccusal Threshold'
+        );
+        socialGraphPage.animatedSocialGraphSection.startDate.getText().should.equal('1990-01-09');
+        socialGraphPage.animatedSocialGraphSection.endDate.getText().should.equal('2008-01-11');
+
+        socialGraphPage.animatedSocialGraphSection.geographicTab.click();
+        browser.getUrl().should.containEql('/geographic/pinboard/ceea8ea3/');
+        socialGraphPage.geographicSection.complaintText.getText().should.eql('Complaint');
+        socialGraphPage.geographicSection.complaintNumber.getText().should.eql('5');
+        socialGraphPage.geographicSection.trrText.getText().should.eql('Use of Force Report');
+        socialGraphPage.geographicSection.trrNumber.getText().should.eql('2');
+      });
     });
 
-    it('should show connected nodes when double click on a node', function () {
-      waitForGraphAnimationEnd(browser, pinboardPage);
+    context('Geographic section', function () {
+      it('should render geographic section', function () {
+        pinboardPage.geographicMap.waitForDisplayed();
+      });
 
-      const graphNodes = pinboardPage.animatedSocialGraphSection.graphNodes();
-      const graphLinks = pinboardPage.animatedSocialGraphSection.graphLinks();
+      it('should go to corresponding geographic visualization page when clicking on expanded button', function () {
+        pinboardPage.geographicMap.waitForDisplayed();
+        pinboardPage.pinboardSection.geographicExpandButton.click();
+        browser.getUrl().should.containEql('/geographic/pinboard/ceea8ea3/');
 
-      const biggestNode = pinboardPage.animatedSocialGraphSection.biggestGraphNode;
-      biggestNode.doubleClick();
+        socialGraphPage.animatedSocialGraphSection.mainTabs.waitForDisplayed();
+        socialGraphPage.geographicSection.complaintText.getText().should.eql('Complaint');
+        socialGraphPage.geographicSection.complaintNumber.getText().should.eql('5');
+        socialGraphPage.geographicSection.trrText.getText().should.eql('Use of Force Report');
+        socialGraphPage.geographicSection.trrNumber.getText().should.eql('2');
 
-      let hideGraphNodes = filter(graphNodes, graphNode => graphNode.getCSSProperty('opacity').value === 0.1);
-      let visibleGraphNodes = filter(graphNodes, graphNode => graphNode.getCSSProperty('opacity').value === 1);
-      hideGraphNodes.should.have.length(9);
-      visibleGraphNodes.should.have.length(11);
-
-      let hideGraphLinks = filter(graphLinks, graphLink => graphLink.getCSSProperty('opacity').value === 0.1);
-      let visibleGraphLinks = filter(graphLinks, graphLink => graphLink.getCSSProperty('opacity').value === 1);
-      hideGraphLinks.should.have.length(27);
-      visibleGraphLinks.should.have.length(10);
-
-      biggestNode.doubleClick();
-
-      hideGraphNodes = filter(graphNodes, graphNode => graphNode.getCSSProperty('opacity').value === 0.1);
-      visibleGraphNodes = filter(graphNodes, graphNode => graphNode.getCSSProperty('opacity').value === 1);
-      hideGraphNodes.should.have.length(0);
-      visibleGraphNodes.should.have.length(20);
-
-      hideGraphLinks = filter(graphLinks, graphLink => graphLink.getCSSProperty('opacity').value === 0.1);
-      visibleGraphLinks = filter(graphLinks, graphLink => graphLink.getCSSProperty('opacity').value === 1);
-      hideGraphLinks.should.have.length(0);
-      visibleGraphLinks.should.have.length(37);
-    });
-
-    it('should go to corresponding social graph visualization page when clicking on expanded button', function () {
-      pinboardPage.pinboardSection.socialGraphExpandButton.click();
-      browser.getUrl().should.containEql('/social-graph/pinboard/5cd06f2b/');
-      socialGraphPage.animatedSocialGraphSection.coaccusalsThresholdText.getText().should.equal(
-        'Minimum Coaccusal Threshold'
-      );
-      socialGraphPage.animatedSocialGraphSection.startDate.getText().should.equal('1990-01-09');
-      socialGraphPage.animatedSocialGraphSection.endDate.getText().should.equal('2008-01-11');
-
-      socialGraphPage.animatedSocialGraphSection.geographicTab.click();
-      browser.getUrl().should.containEql('/geographic/pinboard/5cd06f2b/');
-      socialGraphPage.geographicSection.complaintText.getText().should.eql('Complaint');
-      socialGraphPage.geographicSection.complaintNumber.getText().should.eql('5');
-      socialGraphPage.geographicSection.trrText.getText().should.eql('Use of Force Report');
-      socialGraphPage.geographicSection.trrNumber.getText().should.eql('2');
-    });
-  });
-
-  context('Geographic section', function () {
-    beforeEach(function () {
-      setupMockApiFile('social-graph-page/social-graph-page-with-pinboard-id-mock.js');
-      pinboardPage.open();
-    });
-
-    afterEach(function () {
-      restoreMockApiFile();
-    });
-
-    it('should render geographic section', function () {
-      pinboardPage.geographicMap.waitForDisplayed();
-    });
-
-    it('should go to corresponding geographic visualization page when clicking on expanded button', function () {
-      pinboardPage.geographicMap.waitForDisplayed();
-      pinboardPage.pinboardSection.geographicExpandButton.click();
-      browser.getUrl().should.containEql('/geographic/pinboard/5cd06f2b/');
-
-      socialGraphPage.animatedSocialGraphSection.mainTabs.waitForDisplayed();
-      socialGraphPage.geographicSection.complaintText.getText().should.eql('Complaint');
-      socialGraphPage.geographicSection.complaintNumber.getText().should.eql('5');
-      socialGraphPage.geographicSection.trrText.getText().should.eql('Use of Force Report');
-      socialGraphPage.geographicSection.trrNumber.getText().should.eql('2');
-
-      socialGraphPage.animatedSocialGraphSection.networkTab.click();
-      browser.getUrl().should.containEql('/social-graph/pinboard/5cd06f2b/');
-      socialGraphPage.animatedSocialGraphSection.coaccusalsThresholdText.getText().should.equal(
-        'Minimum Coaccusal Threshold'
-      );
-      socialGraphPage.animatedSocialGraphSection.startDate.getText().should.equal('1990-01-09');
-      socialGraphPage.animatedSocialGraphSection.endDate.getText().should.equal('2008-01-11');
+        socialGraphPage.animatedSocialGraphSection.networkTab.click();
+        browser.getUrl().should.containEql('/social-graph/pinboard/ceea8ea3/');
+        socialGraphPage.animatedSocialGraphSection.coaccusalsThresholdText.getText().should.equal(
+          'Minimum Coaccusal Threshold'
+        );
+        socialGraphPage.animatedSocialGraphSection.startDate.getText().should.equal('1990-01-09');
+        socialGraphPage.animatedSocialGraphSection.endDate.getText().should.equal('2008-01-11');
+      });
     });
   });
 
   context('Summary widgets', function () {
     beforeEach(function () {
-      setupMockApiFile('pinboard-page/widgets.js');
+      disableAxiosMock();
+      mockCommonApi();
+
+      api.onGet('/api/v2/pinboards/ceea8ea3/').reply(200, pinboardData);
+      api.onGet('/api/v2/pinboards/ceea8ea3/complaint-summary/').delay(3000).reply(200, complaintSummaryData);
+      api.onGet('/api/v2/pinboards/ceea8ea3/trr-summary/').delay(3000).reply(200, trrSummaryData);
+      api.onGet('/api/v2/pinboards/ceea8ea3/officers-summary/').delay(3000).reply(200, officersSummaryData);
+      api.onGet('/api/v2/pinboards/ceea8ea3/complainants-summary/').delay(3000).reply(200, complainantsSummaryData);
       pinboardPage.open('ceea8ea3');
     });
 
     afterEach(function () {
-      restoreMockApiFile();
+      restoreAxiosMock();
     });
 
     context('Complaint Summary section', function () {
@@ -901,6 +947,8 @@ describe('Pinboard Page', function () {
     describe('display spinner', function () {
       beforeEach(function () {
         disableAxiosMock();
+        mockCommonApi();
+
         api.onGet('/api/v2/pinboards/latest-retrieved-pinboard/').reply(200, {});
         api.onGet('/api/v2/pinboards/latest-retrieved-pinboard/', { create: false }).reply(200, {});
         api.onGet('/api/v2/pinboards/latest-retrieved-pinboard/', { create: true }).reply(200, pinboardData);
@@ -1230,13 +1278,20 @@ describe('Pinboard Page', function () {
 
     context('clicking on remove pinboard button', function () {
       beforeEach(function () {
-        setupMockApiFile('pinboard-page/manage-pinboards/remove-pinboard.js');
+        disableAxiosMock();
+        mockCommonPinboardApi();
+
+        api.onGet('/api/v2/pinboards/ceea8ea3/').reply(200, pinboardData);
+        api.onGet('/api/v2/pinboards/').replyOnce(200, shortPinboardsListData);
+        api.onGet('/api/v2/pinboards/').replyOnce(200, [shortPinboardsListData[1]]);
+        api.onDelete('/api/v2/pinboards/77edc128/').reply(200);
+        api.onDelete('/api/v2/pinboards/ceea8ea3/').reply(200);
         pinboardPage.open('ceea8ea3');
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.waitForDisplayed();
       });
 
       afterEach(function () {
-        restoreMockApiFile();
+        restoreAxiosMock();
       });
 
       context('remove not current pinboard', function () {
@@ -1303,7 +1358,7 @@ describe('Pinboard Page', function () {
           firstPinboardItem.removeButton.click();
 
           pinboardsListSection.pinboardsTitle.waitForDisplayed(2000, true);
-          browser.waitForUrl(url => url.should.containEql('/pinboard/87e31b82/'), 500);
+          browser.waitForUrl(url => url.should.containEql('/pinboard/5cd06f2b/'), 500);
         });
       });
     });

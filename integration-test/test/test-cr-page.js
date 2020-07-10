@@ -2,11 +2,14 @@
 
 require('should');
 
+import api from '../mock-api';
 import crPage from '../page-objects/cr-page';
 import landingPage from '../page-objects/landing-page';
 import searchPage from '../page-objects/search-page';
 import pinboardPage from '../page-objects/pinboard-page';
-import { restoreMockApiFile, setupMockApiFile } from '../utils';
+import { disableAxiosMock, restoreAxiosMock } from '../utils';
+import { crData } from '../mock-data/cr-page/common';
+import { mockCommonApi } from '../mock-data/utils';
 
 
 describe('CR page', function () {
@@ -216,12 +219,16 @@ describe('CR page', function () {
     context('current complaint', function () {
       context('when user has no or only one active pinboard', function () {
         beforeEach(function () {
-          setupMockApiFile('cr-page/user-has-no-or-only-one-active-pinboard.js');
+          disableAxiosMock();
+          mockCommonApi();
+
+          api.onGet('/api/v2/pinboards/', { detail: true }).reply(200, []);
+          api.onGet('/api/v2/cr/1000000/').reply(200, crData);
           crPage.open();
         });
 
         afterEach(function () {
-          restoreMockApiFile();
+          restoreAxiosMock();
         });
 
         it('should display toast when pinning', function () {

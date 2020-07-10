@@ -3,12 +3,15 @@
 
 require('should');
 
+import api from '../mock-api';
 import officerPage from '../page-objects/officer-page';
 import header from '../page-objects/shareable-header';
 import landingPage from '../page-objects/landing-page';
 import searchPage from '../page-objects/search-page';
 import pinboardPage from '../page-objects/pinboard-page';
-import { setupMockApiFile, restoreMockApiFile, selectText } from '../utils';
+import { restoreAxiosMock, disableAxiosMock, selectText } from '../utils';
+import { mockCommonApi } from '../mock-data/utils';
+import { officerData } from '../mock-data/officer-page/common';
 
 const noDataRadarChartOfficerId = 2;
 
@@ -554,12 +557,16 @@ describe('officer page', function () {
     context('current officer', function () {
       context('when user has no or only one active pinboard', function () {
         beforeEach(function () {
-          setupMockApiFile('officer-page/user-has-no-or-only-one-active-pinboard.js');
+          disableAxiosMock();
+          mockCommonApi();
+
+          api.onGet('/api/v2/pinboards/', { detail: true }).reply(200, []);
+          api.onGet('/api/v2/officers/1/summary/').reply(200, officerData);
           officerPage.open();
         });
 
         afterEach(function () {
-          restoreMockApiFile();
+          restoreAxiosMock();
         });
 
         it('should display toast when pinning', function () {

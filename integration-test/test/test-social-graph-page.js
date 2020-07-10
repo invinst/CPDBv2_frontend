@@ -7,7 +7,17 @@ import { map, countBy, isEqual, filter } from 'lodash';
 import moment from 'moment/moment';
 
 import socialGraphPage from '../page-objects/social-graph-page';
-import { setupMockApiFile, restoreMockApiFile } from '../utils';
+import { disableAxiosMock, restoreAxiosMock } from '../utils';
+import { mockCommonApi } from '../mock-data/utils';
+import api from '../mock-api';
+import { pinboardData } from '../mock-data/pinboard-page/common';
+import { socialGraphData } from '../mock-data/pinboard-page/social-graph/social-graph-data';
+import {
+  pinboardGeographicCrsData,
+  pinboardGeographicTrrsData,
+} from '../mock-data/pinboard-page/social-graph/geographic-data';
+import { socialGraphAllegationsData } from '../mock-data/pinboard-page/social-graph/allegation-data';
+import { complaintSummaryData } from '../mock-data/pinboard-page/widgets';
 
 
 function waitForGraphAnimationEnd(browser, socialGraphPage, endDate='2008-01-11') {
@@ -552,12 +562,45 @@ describe('Social Graph Page', function () {
 
 describe('Social Graph Page with pinboard_id', function () {
   beforeEach(function () {
-    setupMockApiFile('social-graph-page/social-graph-page-with-pinboard-id-mock.js');
+    disableAxiosMock();
+    mockCommonApi();
+
+    api.onGet('/api/v2/pinboards/ceea8ea3/').reply(200, pinboardData);
+    api
+      .onGet('/api/v2/social-graph/network/', { 'pinboard_id': 'ceea8ea3' })
+      .reply(200, socialGraphData);
+    api
+      .onGet(
+        '/api/v2/social-graph/network/',
+        { 'threshold': 2, 'complaint_origin': 'CIVILIAN', 'pinboard_id': 'ceea8ea3' },
+      )
+      .reply(200, socialGraphData);
+    api
+      .onGet('/api/v2/social-graph/geographic-crs/', { 'pinboard_id': 'ceea8ea3' })
+      .reply(200, pinboardGeographicCrsData);
+    api
+      .onGet('/api/v2/social-graph/geographic-trrs/', { 'pinboard_id': 'ceea8ea3' })
+      .reply(200, pinboardGeographicTrrsData);
+    api
+      .onGet('/api/v2/social-graph/geographic-crs/', { detail: true, 'pinboard_id': 'ceea8ea3' })
+      .reply(200, pinboardGeographicCrsData);
+    api
+      .onGet('/api/v2/social-graph/geographic-trrs/', { detail: true, 'pinboard_id': 'ceea8ea3' })
+      .reply(200, pinboardGeographicTrrsData);
+    api
+      .onGet(
+        '/api/v2/social-graph/allegations/',
+        { 'threshold': 2, 'complaint_origin': 'CIVILIAN', 'pinboard_id': 'ceea8ea3' }
+      )
+      .reply(200, socialGraphAllegationsData);
+    api
+      .onGet('/api/v2/pinboards/5cd06f2b/complaint-summary/')
+      .reply(200, complaintSummaryData);
     socialGraphPage.open('?pinboard_id=5cd06f2b');
   });
 
   afterEach(function () {
-    restoreMockApiFile();
+    restoreAxiosMock();
   });
 
   context('Network tab', function () {
