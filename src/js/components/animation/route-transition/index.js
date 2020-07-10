@@ -63,12 +63,14 @@ export default class RouteTransition extends Component {
   }
 
   render() {
+    const { showOverlay } = this.state;
+    const { children, pathname } = this.props;
+    const childrenComponent = showOverlay ? <div className={ styles.overlayStyle } /> : children;
+
     if (global.disableAnimation) {
-      return this.props.children;
+      return childrenComponent;
     }
 
-    const { children, pathname } = this.props;
-    const { showOverlay } = this.state;
     const key = showOverlay ? 'loading' : RouteTransition.getRouteTransitionKey(pathname);
     return (
       <TransitionGroup>
@@ -78,7 +80,7 @@ export default class RouteTransition extends Component {
           classNames={ ROUTE_TRANSITION_CLASS_NAMES }
           unmountOnExit={ true }
         >
-          { showOverlay ? <div className={ styles.overlayStyle } /> : children }
+          { childrenComponent }
         </CSSTransition>
       </TransitionGroup>
     );
