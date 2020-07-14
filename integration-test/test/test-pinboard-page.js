@@ -41,6 +41,9 @@ import {
 
 function waitForGraphAnimationEnd(browser, pinboardPage) {
   browser.waitUntil(function () {
+    return pinboardPage.animatedSocialGraphSection.graphLinks().length > 0;
+  }, 30000, 'expected graph to load');
+  browser.waitUntil(function () {
     return pinboardPage.animatedSocialGraphSection.graphLinks().length === 37;
   }, 3000, 'expected graph reaches end after 1.65s');
 }
