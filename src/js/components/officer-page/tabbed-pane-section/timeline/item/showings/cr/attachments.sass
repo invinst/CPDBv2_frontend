@@ -6,23 +6,24 @@
   margin: 0 8px 0 17px
   vertical-align: middle
 
-  .attachment-image
+  .attachment-image-href
     float: right
-    height: 32px
-    width: 24px
-    display: inline-block
-    border: solid 1px $alto-color
-    box-sizing: border-box
-    background: white no-repeat center center
 
-    &.document
-       background-size: cover
+    .attachment-image
+      height: 32px
+      width: 24px
+      border: solid 1px $alto-color
+      box-sizing: border-box
+      background: white no-repeat center center
 
-    &.audio
-      background-size: auto
+      &.document
+         background-size: cover
 
-    &.video
-      background-size: auto
+      &.audio
+        background-size: auto
+
+      &.video
+        background-size: auto
 
   .more-attachment
     float: right
@@ -30,7 +31,6 @@
     margin-left: 3px
     line-height: 32px
     height: 32px
-    display: inline-block
     border: solid 1px $alto-color
     text-align: center
     box-sizing: border-box
