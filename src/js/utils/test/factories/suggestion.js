@@ -1,7 +1,7 @@
 import { Factory } from 'rosie';
 import { random, lorem, name } from 'faker';
 
-import { yearGenerator } from 'utils/test/factories/utils';
+import { yearGenerator } from './utils';
 
 /* istanbul ignore next */
 export const RawOfficerSuggestion = Factory.define('RawOfficerSuggestion')

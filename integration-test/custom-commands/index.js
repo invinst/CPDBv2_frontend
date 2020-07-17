@@ -113,12 +113,6 @@ function initCommands() {
     }, _key);
   });
 
-  browser.addCommand('clearLocalStorage', () => {
-    browser.execute(function () {
-      this.localStorage.clear();
-    });
-  });
-
   browser.addCommand('clearReduxStore', (refresh=false) => {
     browser.execute(function () {
       this.localStorage.removeItem('redux');

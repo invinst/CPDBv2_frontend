@@ -1,7 +1,7 @@
 import { Factory } from 'rosie';
 import { lorem, helpers, address, random, internet, name } from 'faker';
 
-import { dateGenerator, percentileGenerator } from 'utils/test/factories/utils';
+import { dateGenerator, percentileGenerator } from './utils';
 
 
 /* istanbul ignore next */
