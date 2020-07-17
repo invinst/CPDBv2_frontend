@@ -2,13 +2,12 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import {
-  getPinboard,
+  getPinboardId,
   isEmptyPinboardWithRemovingItemSelector,
   pinboardPageLoadingSelector,
   getInitialRequested,
 } from 'selectors/pinboard-page/pinboard';
 import PinboardPage from 'components/pinboard-page';
-import { hasMapMarkersSelector } from 'selectors/pinboard-page/geographic-data';
 import { focusedItemSelector } from 'selectors/pinboard-page/focused-item';
 import { createNewEmptyPinboard, duplicatePinboard } from 'actions/pinboard';
 import {
@@ -22,12 +21,11 @@ import { updatePathName } from 'actions/path-name';
 function mapStateToProps(state, ownProps) {
   return {
     ...ownProps,
-    pinboard: getPinboard(state),
+    pinboardId: getPinboardId(state),
     initialRequested: getInitialRequested(state),
     pinboardPageLoading: pinboardPageLoadingSelector(state),
     isEmptyPinboard: isEmptyPinboardWithRemovingItemSelector(state),
     focusedItem: focusedItemSelector(state),
-    hasMapMarker: hasMapMarkersSelector(state),
   };
 }
 

@@ -1,5 +1,6 @@
 import Page from './page';
 import Section from './sections/section';
+import { PreviewPaneSection, summarySectionSelectorByTitle, SummaryWidget } from './pinboard-page-common';
 
 
 class AnimatedSocialGraphSection extends Section {
@@ -107,38 +108,13 @@ class TimelineSection extends Section {
   }
 }
 
-class PreviewPaneSection extends Section {
-  constructor() {
-    super();
-
-    this.prepareElementGetters({
-      previewPane: '//div[contains(@class, "preview-pane")]',
-      officerPreviewPaneName: '//h1[contains(@class, "test--officer-name")]',
-      edgePreviewPaneHeader: '(//div[@class="edge-coaccusals-pane-header"])',
-      crPreviewPaneTitle: '//div[contains(@class, "cr-preview-pane-title-title")]',
-      crPreviewPaneSubtitle: '//div[contains(@class, "cr-preview-pane-title-subtitle")]',
-      crPreviewPaneIncidentDate: '//div[contains(@class, "cr-preview-pane-info-row")]',
-      crPreviewPaneAddress: '//div[contains(@class, "cr-preview-pane-address")]',
-      crPreviewPaneVictims: '//div[@class="cr-preview-pane-victims"]',
-      radarChart: '//div[contains(@class, "preview-pane")]//*[name()="svg" and contains(@class, "radar")]',
-      firstAccusedOfficerRadarChart: '//ul[@class="list-widget-list"]//*[name()="svg"]',
-      firstAccusedOfficerName: '//p[contains(@class, "list-widget-list-item-name")][1]',
-      firstAccusedAllegationCount: '//p[contains(@class, "list-widget-list-item-count")][1]',
-      overlay: '//div[@class="overlay" and @aria-hidden="false"]',
-    });
-  }
-
-  edgeCoaccusalsItems() {
-    return $$('//div[contains(@class, "item__item")]');
-  }
-}
-
 class SocialGraphPage extends Page {
   animatedSocialGraphSection = new AnimatedSocialGraphSection();
   geographicSection = new GeographicSection();
   officersSection = new OfficersSection();
   timelineSection = new TimelineSection();
   previewPaneSection = new PreviewPaneSection();
+  complaintSummaryWidget = new SummaryWidget(summarySectionSelectorByTitle('COMPLAINT SUMMARY'));
 
   open(params='?unit_id=123&title=Live test social graph title') {
     super.open(`/social-graph/${params}`);
@@ -146,4 +122,3 @@ class SocialGraphPage extends Page {
 }
 
 module.exports = new SocialGraphPage();
-module.exports.PreviewPaneSection = PreviewPaneSection;

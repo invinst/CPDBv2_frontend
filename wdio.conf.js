@@ -4,6 +4,10 @@ const webpack = require('webpack');
 const webpackConfig = require('./webpack.config');
 const initCommands = require('./integration-test/custom-commands');
 
+let server;
+let api;
+
+const SYSTEM_PORT = 1024;
 
 exports.config = {
   // ==================================
@@ -104,6 +108,8 @@ exports.config = {
   // with "/", then the base url gets prepended.
   baseUrl: 'http://localhost:4000',
   //
+  // Port for express mock API server
+  apiServerPort: 9002,
   // Default timeout for all waitFor* commands.
   waitforTimeout: 30000,
   //
@@ -224,10 +230,18 @@ exports.config = {
     initCommands();
   },
   //
+
   // Hook that gets executed before the suite starts
-  // beforeSuite: function (suite) {
-  // },
-  //
+  beforeSuite: function (suite) {
+    // Start Mock API Server
+    const startMockServer = require('./integration-test/mocker-server');
+    api = require('./integration-test/mock-api');
+    const apiDomainPort = (Date.now() % 10000) + SYSTEM_PORT;
+    browser.url('');
+    browser.setLocalStorage('API_DOMAIN_PORT', apiDomainPort.toString());
+    server = startMockServer(apiDomainPort);
+  },
+
   // Hook that gets executed _before_ a hook within the suite starts (e.g. runs before calling
   // beforeEach in Mocha)
   // beforeHook: function () {
@@ -241,6 +255,7 @@ exports.config = {
   // Function to be executed before a test (in Mocha/Jasmine) or a step (in Cucumber) starts.
   beforeTest: function (test) {
     browser.setWindowRect(0, 0, 1000, 1000);
+    api && api.clean();
   },
   //
   // Runs before a WebdriverIO command gets executed.
@@ -256,8 +271,9 @@ exports.config = {
   // },
   //
   // Hook that gets executed after the suite has ended
-  // afterSuite: function (suite) {
-  // },
+  afterSuite: function (suite) {
+    server.close();
+  },
   //
   // Gets executed after all tests are done. You still have access to all global variables from
   // the test.

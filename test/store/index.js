@@ -71,7 +71,7 @@ describe('store', function () {
       cms: {
         pages: {},
       },
-      pageLoading: false,
+      pageLoading: true,
       popups: [],
       router: {
         action: router.action,
@@ -339,6 +339,16 @@ describe('store', function () {
         editModeOn: {
           EMPTY_PINBOARD_DESCRIPTION: false,
           EMPTY_PINBOARD_TITLE: false,
+        },
+        widgets: {
+          complaintSummary: [],
+          complaintSummaryRequesting: false,
+          trrSummary: [],
+          trrSummaryRequesting: false,
+          officersSummary: {},
+          officersSummaryRequesting: false,
+          complainantsSummary: {},
+          complainantsSummaryRequesting: false,
         },
       },
       pinboardAdminPage: {

@@ -30,9 +30,6 @@ export default (axiosMockClient, pinboardId, threshold, errorResponse) => {
   axiosMockClient.onGet(SOCIAL_GRAPH_NETWORK_API_URL, { params: { 'pinboard_id': pinboardId } }).reply(
     200, getSocialGraphData()
   );
-  axiosMockClient.onGet(SOCIAL_GRAPH_NETWORK_API_URL, { params: { 'pinboard_id': pinboardId } }).reply(
-    200, getSocialGraphData()
-  );
   axiosMockClient.onGet(SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL, { params: { 'pinboard_id': pinboardId } }).reply(
     200, pinboardGeographicTrrsData
   );

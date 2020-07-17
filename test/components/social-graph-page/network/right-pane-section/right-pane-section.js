@@ -13,6 +13,11 @@ import Timeline from 'components/social-graph-page/network/right-pane-section/ti
 describe('RightPaneSection component', function () {
   const mockStore = MockStore();
   const store = mockStore({
+    pinboardPage: {
+      widgets: {
+        complaintSummary: [],
+      },
+    },
     socialGraphPage: {
       networkData: {
         graphData: {

@@ -98,7 +98,7 @@ OfficerInfoWidget.defaultProps = {
 
 OfficerInfoWidget.propTypes = {
   fullName: PropTypes.string.isRequired,
-  age: PropTypes.number,
+  age: PropTypes.string,
   race: PropTypes.string,
   gender: PropTypes.string,
   badge: PropTypes.string,

@@ -13,7 +13,8 @@ function mapStateToProps(state, ownProps) {
   return {
     showLegends: false,
     mapCustomClassName: 'pinboard-map',
-    attributionControlPosition: 'top-left',
+    attributionControlPosition: 'top-right',
+    navigationControlPosition: 'top-right',
     markerGroups: mapMarkerGroupsSelector(state),
     clearAllMarkers: getClearAllMarkers(state),
     requesting: geographicDataRequestingSelector(state),
