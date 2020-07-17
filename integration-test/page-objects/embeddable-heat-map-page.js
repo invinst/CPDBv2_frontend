@@ -10,7 +10,7 @@ class CitySummary extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      allegationDiscipline: '.test--allegation-discipline-count',
+      allegationDiscipline: '.allegation-discipline-count',
       mostCommonComplaints: '.test--most-common-complaints',
     });
   }
@@ -44,7 +44,7 @@ class HeatMapSection extends Section {
     super();
     this.prepareElementGetters({
       dropdownPlaceholder: '.test--dropdown-placeholder',
-      complaintCategory: '.test--complaint-category',
+      complaintCategory: '.complaint-category',
       searchTermsLink: '.test--dropdown-search-terms',
     });
   }
