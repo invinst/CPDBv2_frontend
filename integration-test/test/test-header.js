@@ -1,12 +1,18 @@
 'use strict';
 
 import landingPage from '../page-objects/landing-page';
+import api from '../mock-api';
 import { selectText } from '../utils';
+import { mockCommonApi, mockLandingPageApi } from '../mock-data/utils';
 
 
 describe('Header', function () {
-
   beforeEach(function () {
+    mockCommonApi();
+    mockLandingPageApi();
+    api
+      .onPost('/api/v2/users/sign-in/', { username: 'username', password: 'password' })
+      .reply(200, { 'apiAccessToken': '055a5575c1832e9123cd546fe0cfdc8607f8680c' });
     landingPage.open();
   });
 

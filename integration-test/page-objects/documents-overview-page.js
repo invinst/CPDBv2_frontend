@@ -47,6 +47,9 @@ class DocumentsOverviewPage extends Page {
     }
 
     super.open(url);
+    if (editModeOn) {
+      this.loginScreen.login();
+    }
   }
 }
 

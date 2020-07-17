@@ -17,7 +17,6 @@ describe('authentication actions', function () {
         payload: {
           request: {
             url: SIGNIN_URL,
-            adapter: null,
             data: data,
             method: 'post',
             cancelToken: undefined,
@@ -35,7 +34,6 @@ describe('authentication actions', function () {
         payload: {
           request: {
             url: RESET_PASSWORD_URL,
-            adapter: null,
             data: data,
             method: 'post',
             cancelToken: undefined,

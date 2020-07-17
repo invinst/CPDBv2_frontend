@@ -4,12 +4,15 @@ import should from 'should';
 
 import searchTermsPage from '../page-objects/search-terms-page';
 import searchPage from '../page-objects/search-page';
+import { searchTermsData } from '../mock-data/search-terms-page';
+import api from '../mock-api';
 
 
 should.config.checkProtoEql = false;
 
 describe('Search terms page', function () {
   beforeEach(function () {
+    api.onGet('/api/v2/search-term-categories/').reply(200, searchTermsData);
     searchTermsPage.open();
   });
 

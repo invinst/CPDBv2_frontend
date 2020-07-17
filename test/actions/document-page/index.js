@@ -38,7 +38,6 @@ describe('DocumentPage actions', function () {
           request: {
             url: `${ DOCUMENTS_URL }123/`,
             params: undefined,
-            adapter: null,
             headers: {},
             cancelToken: undefined,
           },
@@ -68,7 +67,6 @@ describe('DocumentPage actions', function () {
               id: 123,
             },
             method: 'patch',
-            adapter: null,
             headers: {},
           },
         },
@@ -138,7 +136,6 @@ describe('DocumentPage actions', function () {
           request: {
             url: `${V2_ROOT_PATH}attachments/tags/`,
             params: undefined,
-            adapter: null,
             cancelToken: undefined,
           },
         },

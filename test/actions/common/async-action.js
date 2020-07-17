@@ -19,7 +19,6 @@ describe('async-action', function () {
           request: {
             url,
             params: undefined,
-            adapter: null,
             cancelToken: undefined,
           },
         },
@@ -40,7 +39,6 @@ describe('async-action', function () {
           request: {
             url,
             params,
-            adapter: null,
             cancelToken: undefined,
             headers: {
               Authorization: 'Token authenticated_token',
@@ -62,7 +60,6 @@ describe('async-action', function () {
           request: {
             url,
             params,
-            adapter: null,
             cancelToken: undefined,
             headers: {},
           },
@@ -82,7 +79,6 @@ describe('async-action', function () {
           request: {
             url,
             params: undefined,
-            adapter: null,
             cancelToken: undefined,
             withCredentials: false,
           },
@@ -104,7 +100,6 @@ describe('async-action', function () {
             url,
             method: 'post',
             data,
-            adapter: null,
             cancelToken: undefined,
           },
         },
@@ -126,7 +121,6 @@ describe('async-action', function () {
             url,
             method: 'post',
             data,
-            adapter: null,
             headers: {
               Authorization: 'Token authenticated_token',
             },
@@ -150,7 +144,6 @@ describe('async-action', function () {
             url,
             method: 'patch',
             data,
-            adapter: null,
           },
         },
       });
@@ -171,7 +164,6 @@ describe('async-action', function () {
             url,
             method: 'patch',
             data,
-            adapter: null,
             headers: {
               Authorization: 'Token authenticated_token',
             },
@@ -194,7 +186,6 @@ describe('async-action', function () {
             url,
             method: 'put',
             data,
-            adapter: null,
             cancelToken: undefined,
           },
         },
@@ -216,7 +207,6 @@ describe('async-action', function () {
             url,
             method: 'put',
             data,
-            adapter: null,
             headers: {
               Authorization: 'Token authenticated_token',
             },

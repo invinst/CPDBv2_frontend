@@ -1,8 +1,8 @@
 import { Factory } from 'rosie';
 import { random, helpers, lorem } from 'faker';
 
-import { dateGenerator } from 'utils/test/factories/utils';
-import RawOfficer from 'utils/test/factories/pinboard-page/raw-officer';
+import { dateGenerator } from '../utils';
+import RawOfficer from '../pinboard-page/raw-officer';
 
 
 export const RawAllegationFactory = Factory.define('RawRelevantDocumentFactory')

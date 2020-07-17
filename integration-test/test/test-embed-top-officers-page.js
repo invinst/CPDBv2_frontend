@@ -3,12 +3,17 @@
 import should from 'should';
 
 import embedTopOfficersPage from '../page-objects/embed-top-officers-page';
+import api from '../mock-api';
+import { mockCommonApi } from '../mock-data/utils';
+import { topOfficersByAllegationData } from '../mock-data/landing-page/common';
 
 
 should.config.checkProtoEql = false;
 
 describe('embed top officers page', function () {
   beforeEach(function () {
+    mockCommonApi();
+    api.onGet('/api/v2/officers/top-by-allegation/').reply(200, topOfficersByAllegationData);
     embedTopOfficersPage.open();
     browser.pause(500);
   });

@@ -68,7 +68,6 @@ describe('Video info actions', function () {
           request: {
             url: 'https://vimeo.com/api/v2/video/285002059.json',
             params: undefined,
-            adapter: null,
             cancelToken: undefined,
             withCredentials: false,
           },

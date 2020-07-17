@@ -17,7 +17,6 @@ describe('getRecentDocument action', function () {
       payload: {
         request: {
           url: constants.RECENT_DOCUMENT_URL,
-          adapter: null,
           params: undefined,
           cancelToken: undefined,
         },

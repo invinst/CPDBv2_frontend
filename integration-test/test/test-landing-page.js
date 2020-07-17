@@ -9,14 +9,20 @@ import header from '../page-objects/shareable-header';
 import searchTermsPage from '../page-objects/search-terms-page';
 import pinboardPage from '../page-objects/pinboard-page';
 import { INTRODUCTION_DISPLAY_TIMEOUT } from '../utils/constants';
+import api from '../mock-api';
+import { mockCommonApi, mockLandingPageApi } from '../mock-data/utils';
+import { emptyCreatedPinboard, emptyPinboard, pinboardData } from '../mock-data/pinboard-page/common';
 
 
 should.config.checkProtoEql = false;
 
 
 describe('landing page', function () {
-
   beforeEach(function () {
+    mockCommonApi();
+    mockLandingPageApi();
+    api.onGet('/api/v2/pinboards/latest-retrieved-pinboard/', { 'create': false }).reply(200, emptyPinboard);
+
     landingPage.open();
     landingPage.header.content.waitForDisplayed();
   });
@@ -38,6 +44,10 @@ describe('landing page', function () {
   });
 
   it('should not show login screen if already logged-in when entering edit mode', function () {
+    api
+      .onPost('/api/v2/users/sign-in/', { username: 'username', password: 'password' })
+      .reply(200, { 'apiAccessToken': '055a5575c1832e9123cd546fe0cfdc8607f8680c' });
+
     landingPage.toggleEditMode(false);
     landingPage.loginScreen.login();
 
@@ -70,23 +80,6 @@ describe('landing page', function () {
 
     landingPage.genericModalSection.overlay.click();
     landingPage.genericModalSection.legalDisclaimerTitle.waitForDisplayed(2000, true);
-  });
-
-  it('should keep the same body width when scrollbar disappears because of open modal', function () {
-    const initialWidth = $('body').getCSSProperty('width').value;
-    landingPage.footer.legalDisclaimer.click();
-    const activeWidth = $('body').getCSSProperty('width').value;
-    activeWidth.should.eql(initialWidth);
-  });
-
-  it('should go to the landing page when the url does not match any route', function () {
-    browser.url('/url-mediator/session-builder/');
-    $('body').waitForDisplayed();
-    landingPage.currentBasePath.should.eql('/');
-
-    browser.url('/something/really/wrong/');
-    $('body').waitForDisplayed();
-    landingPage.currentBasePath.should.eql('/');
   });
 
   describe('Switch to Search Page Transition', function () {
@@ -402,11 +395,14 @@ describe('landing page', function () {
     });
 
     it('should go to pinboard page when clicking on pinboard tag', function () {
+      api.onGet('/api/v2/pinboards/latest-retrieved-pinboard/', { 'create': true }).reply(200, pinboardData);
+      api.onGet('/api/v2/pinboards/abcd1234/').reply(200, pinboardData);
+
       const navBar = landingPage.header.navBar;
       navBar.mainElement.waitForDisplayed();
       navBar.headerLinks.pinboard.click();
-      pinboardPage.emptyPinboardSection.mainElement.waitForDisplayed();
-      browser.getUrl().should.endWith('/pinboard/abcd1234/untitled-pinboard/');
+      pinboardPage.pinboardSection.title.waitForDisplayed();
+      browser.getUrl().should.endWith('/pinboard/abcd5678/pinboard-title/');
     });
 
     it('should go to search page when clicking anywhere in the search box', function () {
@@ -467,6 +463,10 @@ describe('landing page', function () {
     };
 
     it('should display toast when pinning cards', function () {
+      api.onPut('/api/v2/pinboards/abcd1234/').reply(function (request) {
+        return [200, { ...request.body, id: 'abcd1234' }];
+      });
+
       checkPinToast(
         landingPage.recentActivityCarousel.jeromeFinniganPinButton,
         'Police Officer Jerome Finnigan 54-year-old white male, with 10 complaints, 5 sustained'
@@ -565,6 +565,9 @@ describe('landing page', function () {
     });
 
     it('should not display Pinboard introduction after click try it', function () {
+      api.onGet('/api/v2/pinboards/latest-retrieved-pinboard/', { 'create': true }).reply(200, emptyCreatedPinboard);
+      api.onGet('/api/v2/pinboards/abcd1234/').reply(200, emptyPinboard);
+
       landingPage.pinboardIntroduction.body.waitForDisplayed();
       landingPage.pinboardIntroduction.tryItButton.click();
       browser.waitForUrl(url => url.should.match(/\/pinboard\/.*/), 2000);
@@ -574,6 +577,9 @@ describe('landing page', function () {
     });
 
     it('should not display Pinboard introduction after click Pinboard button', function () {
+      api.onGet('/api/v2/pinboards/latest-retrieved-pinboard/', { 'create': true }).reply(200, emptyCreatedPinboard);
+      api.onGet('/api/v2/pinboards/abcd1234/').reply(200, emptyPinboard);
+
       landingPage.pinboardIntroduction.pinboardButton.click();
       browser.waitForUrl(url => url.should.match(/\/pinboard\/.*/), 2000);
       pinboardPage.headerTitle.click();

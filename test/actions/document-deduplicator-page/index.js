@@ -18,7 +18,6 @@ describe('document decuplicator page actions', function () {
           request: {
             url: constants.DOCUMENTS_URL,
             params: { crid: 1, limit: undefined, offset: undefined },
-            adapter: null,
             cancelToken: undefined,
             headers: {
               Authorization: 'Token authenticated_token',
@@ -41,7 +40,6 @@ describe('document decuplicator page actions', function () {
           request: {
             url: `${constants.DOCUMENTS_URL}3001/`,
             data: { show: true },
-            adapter: null,
             method: 'patch',
             headers: {
               Authorization: 'Token authenticated_token',

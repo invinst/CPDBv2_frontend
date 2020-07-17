@@ -8,6 +8,18 @@ import searchPage from '../page-objects/search-page';
 import officerPage from '../page-objects/officer-page';
 import crPage from '../page-objects/cr-page';
 import { INTRODUCTION_DISPLAY_TIMEOUT } from '../utils/constants';
+import api from '../mock-api';
+import { mockCommonApi, mockLandingPageApi } from '../mock-data/utils';
+import { groupedSuggestions } from '../mock-data/landing-page/suggestions';
+import { crData, crPopupData } from '../mock-data/cr-page/common';
+import { relatedComplaintsData } from '../mock-data/cr-page/related-complaints';
+import {
+  officerData,
+  timelineItems,
+  coaccusalsData,
+  officerPageCmsData,
+} from '../mock-data/officer-page/common';
+import { pinboardsDetailMenu } from '../mock-data/pinboard-page/manage-pinboards';
 
 
 const performSearch = (searchPage, term) => {
@@ -17,6 +29,7 @@ const performSearch = (searchPage, term) => {
 
 describe('Disable pinboard feature', function () {
   beforeEach(function () {
+    mockCommonApi();
     setupPinboardEnabled(false);
   });
 
@@ -32,6 +45,7 @@ describe('Disable pinboard feature', function () {
 
   describe('Landing page', function () {
     beforeEach(function () {
+      mockLandingPageApi();
       landingPage.open();
     });
 
@@ -72,6 +86,8 @@ describe('Disable pinboard feature', function () {
 
   describe('Search page', function () {
     beforeEach(function () {
+      api.onGet('/api/v1/suggestion/', { term: 'Ke', limit: 9 }).reply(200, groupedSuggestions['default']);
+
       searchPage.open();
     });
 
@@ -82,6 +98,9 @@ describe('Disable pinboard feature', function () {
     });
 
     it('should not display pinned button on search results', function () {
+      api.onGet('/api/v1/suggestion/', { term: '2004/04/23', limit: 9 }).reply(200, groupedSuggestions['2004/04/23']);
+      api.onGet('/api/v1/suggestion/', { term: 'Kelly', limit: 9 }).reply(200, groupedSuggestions['Kelly']);
+
       searchPage.input.waitForDisplayed();
       searchPage.input.setValue('Ke');
 
@@ -172,6 +191,8 @@ describe('Disable pinboard feature', function () {
     });
 
     it('should not display PinButton introduction', function () {
+      api.onGet('/api/v1/suggestion/', { term: 'intr', limit: 9 }).reply(200, groupedSuggestions['intr']);
+
       performSearch(searchPage, 'intr');
 
       searchPage.unitOfficerResultsSection.firstResultText.waitForDisplayed();
@@ -181,6 +202,15 @@ describe('Disable pinboard feature', function () {
   });
 
   describe('Officer page', function () {
+    beforeEach(function () {
+      api.onGet('/api/v2/cms-pages/officer-page/').reply(200, officerPageCmsData);
+      api.onGet('/api/v2/pinboards/', { detail: true }).reply(200, []);
+      api.onGet('/api/v2/officers/1/summary/').reply(200, officerData);
+      api.onGet('/api/v2/officers/1/new-timeline-items/').reply(200, timelineItems);
+      api.onGet('/api/v2/officers/1/coaccusals/').reply(200, coaccusalsData);
+      api.onGet('/api/v2/pinboards/', { detail: true }).reply(200, pinboardsDetailMenu.pinboards);
+    });
+
     it('should not show pinned button on header', function () {
       officerPage.open();
       officerPage.pinboardsMenuSection.addToPinboardButton.waitForExist();
@@ -198,15 +228,28 @@ describe('Disable pinboard feature', function () {
   });
 
   describe('CR page', function () {
-    it('should not show pinned button on header', function () {
+    beforeEach(function () {
+      api.onGet('/api/v2/cr/1000000/').reply(200, crData);
+      api.onGet('/api/v2/popup/', { page: 'complaint' }).reply(200, crPopupData);
+      api.onGet('/api/v2/pinboards/', { detail: true }).reply(200, []);
+      api
+        .onGet('/api/v2/cr/1000000/related-complaints/?match=categories&distance=0.5mi')
+        .reply(200, relatedComplaintsData({ match: 'categories', distance: '0.5mi' }));
+
+      api
+        .onGet('/api/v2/cr/1000000/related-complaints/?distance=0.5mi&match=categories&offset=20')
+        .reply(200, relatedComplaintsData({ match: 'categories', distance: '0.5mi', nextOffset: 40 }));
+      api.onGet('/api/v2/pinboards/', { detail: true }).reply(200, pinboardsDetailMenu.pinboards);
+
       crPage.open();
+    });
+
+    it('should not show pinned button on header', function () {
       crPage.pinboardsMenuSection.addToPinboardButton.waitForExist();
       crPage.pinboardsMenuSection.addToPinboardButton.isDisplayed().should.be.false();
     });
 
     it('should not show pinned button on accused officer cards', function () {
-      crPage.open();
-
       crPage.accusedOfficers.firstCard.name.waitForDisplayed();
       crPage.accusedOfficers.firstCard.pinButton.waitForExist();
       crPage.accusedOfficers.firstCard.pinButton.isDisplayed().should.be.false();

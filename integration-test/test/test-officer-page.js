@@ -9,9 +9,17 @@ import header from '../page-objects/shareable-header';
 import landingPage from '../page-objects/landing-page';
 import searchPage from '../page-objects/search-page';
 import pinboardPage from '../page-objects/pinboard-page';
-import { restoreAxiosMock, disableAxiosMock, selectText } from '../utils';
+import { selectText } from '../utils';
 import { mockCommonApi } from '../mock-data/utils';
-import { officerData } from '../mock-data/officer-page/common';
+import {
+  officerData,
+  timelineItems,
+  coaccusalsData,
+  noPercentileOfficerData,
+  officerPageCmsData,
+} from '../mock-data/officer-page/common';
+import { pinboardsDetailMenu } from '../mock-data/pinboard-page/manage-pinboards';
+
 
 const noDataRadarChartOfficerId = 2;
 
@@ -33,9 +41,16 @@ function showingAllEvents(officerPage) {
 }
 
 describe('officer page', function () {
-
   beforeEach(function () {
+    mockCommonApi();
+
+    api.onGet('/api/v2/cms-pages/officer-page/').reply(200, officerPageCmsData);
+    api.onGet('/api/v2/pinboards/', { detail: true }).reply(200, []);
+    api.onGet('/api/v2/officers/1/summary/').reply(200, officerData);
+    api.onGet('/api/v2/officers/1/new-timeline-items/').reply(200, timelineItems);
+    api.onGet('/api/v2/officers/1/coaccusals/').reply(200, coaccusalsData);
     officerPage.open();
+    officerPage.summarySection.officerName.waitForDisplayed();
   });
 
   afterEach(function () {
@@ -167,6 +182,7 @@ describe('officer page', function () {
 
     context('not enough data for radar chart', function () {
       beforeEach(function () {
+        api.onGet('/api/v2/officers/2/summary/').reply(200, noPercentileOfficerData);
         browser.setWindowRect(0, 0, 1000, 500);
         officerPage.open(noDataRadarChartOfficerId);
       });
@@ -285,14 +301,11 @@ describe('officer page', function () {
         officerPage.tabbedPaneSection.timelineSection.filter.button.click();
       });
 
-      afterEach(function () {
+      it('should filter all events by by default', function () {
         officerPage.tabbedPaneSection.timelineSection.unitChangeItem.waitForDisplayed();
         officerPage.tabbedPaneSection.timelineSection.joinedItem.waitForDisplayed();
         officerPage.tabbedPaneSection.timelineSection.yearItem.waitForDisplayed();
         officerPage.tabbedPaneSection.timelineSection.emptyItem.waitForDisplayed();
-      });
-
-      it('should filter all events by by default', function () {
         officerPage.tabbedPaneSection.timelineSection.crItem.waitForDisplayed();
         officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed();
         officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed();
@@ -356,6 +369,9 @@ describe('officer page', function () {
       });
 
       it('should reset filter when navigating to another officer page', function () {
+        api.onGet('/api/v2/officers/2/summary/').reply(200, noPercentileOfficerData);
+        api.onGet('/api/v2/officers/2/new-timeline-items/').reply(200, timelineItems);
+
         officerPage.tabbedPaneSection.timelineSection.filter.crs.click();
 
         showingComplaints(officerPage).should.be.true();
@@ -411,6 +427,10 @@ describe('officer page', function () {
   describe('Officer CMS text editor', function () {
     context('no data radar chart', function () {
       beforeEach(function () {
+        api
+          .onPost('/api/v2/users/sign-in/', { username: 'username', password: 'password' })
+          .reply(200, { 'apiAccessToken': '055a5575c1832e9123cd546fe0cfdc8607f8680c' });
+        api.onGet('/api/v2/officers/2/summary/').reply(200, noPercentileOfficerData);
         officerPage.open(noDataRadarChartOfficerId);
         officerPage.openEditMode();
         officerPage.radarChartSection.noDataRadarChartSection.noDataText.moveTo();
@@ -426,6 +446,9 @@ describe('officer page', function () {
 
     context('triangle & scale explainer', function () {
       beforeEach(function () {
+        api
+          .onPost('/api/v2/users/sign-in/', { username: 'username', password: 'password' })
+          .reply(200, { 'apiAccessToken': '055a5575c1832e9123cd546fe0cfdc8607f8680c' });
         officerPage.open();
         officerPage.openEditMode();
         officerPage.radarChartSection.radarChartPlaceHolder.click();
@@ -556,19 +579,6 @@ describe('officer page', function () {
 
     context('current officer', function () {
       context('when user has no or only one active pinboard', function () {
-        beforeEach(function () {
-          disableAxiosMock();
-          mockCommonApi();
-
-          api.onGet('/api/v2/pinboards/', { detail: true }).reply(200, []);
-          api.onGet('/api/v2/officers/1/summary/').reply(200, officerData);
-          officerPage.open();
-        });
-
-        afterEach(function () {
-          restoreAxiosMock();
-        });
-
         it('should display toast when pinning', function () {
           officerPage.pinButton.click();
           officerPage.lastToast.waitForDisplayed();
@@ -608,6 +618,12 @@ describe('officer page', function () {
       });
 
       context('when user has more than 1 pinboard', function () {
+        beforeEach(function () {
+          api.onGet('/api/v2/pinboards/', { detail: true }).reply(200, pinboardsDetailMenu.pinboards);
+          api.onGet('/api/v2/pinboards/8d2daffe/').reply(200, pinboardsDetailMenu.pinboards[0]);
+          officerPage.open();
+        });
+
         it('should display pinboards menu', function () {
           officerPage.pinboardsMenuSection.addToPinboardButton.click();
           officerPage.pinboardsMenuSection.menu.waitForDisplayed();
@@ -629,6 +645,10 @@ describe('officer page', function () {
         });
 
         it('should display toast and close pinboards menu when pinning', function () {
+          api
+            .onPut('/api/v2/pinboards/8d2daffe/', pinboardsDetailMenu.updateRequestParams[0])
+            .reply(200, pinboardsDetailMenu.updatedPinboards[0]);
+
           officerPage.pinboardsMenuSection.addToPinboardButton.click();
           officerPage.pinboardsMenuSection.menu.waitForDisplayed();
 
@@ -647,6 +667,10 @@ describe('officer page', function () {
         });
 
         it('should display toast when unpinning', function () {
+          api
+            .onPut('/api/v2/pinboards/8d2daffe/', pinboardsDetailMenu.updateRequestParams[0])
+            .reply(200, pinboardsDetailMenu.updatedPinboards[0]);
+
           officerPage.pinboardsMenuSection.addToPinboardButton.click();
           officerPage.pinboardsMenuSection.menu.waitForDisplayed();
 
@@ -677,6 +701,16 @@ describe('officer page', function () {
         });
 
         it('should create new pinboard with current officer', function () {
+          api
+            .onPost('/api/v2/pinboards/', pinboardsDetailMenu.createPinboardRequestParams[0])
+            .reply(201, pinboardsDetailMenu.createdPinboards[0]);
+          api
+            .onGet(`/api/v2/pinboards/${pinboardsDetailMenu.createdPinboards[0].id}/`)
+            .reply(201, pinboardsDetailMenu.createdPinboards[0]);
+          api
+            .onGet(`/api/v2/pinboards/${pinboardsDetailMenu.createdPinboards[0].id}/officers/`)
+            .reply(200, [officerData]);
+
           officerPage.pinboardsMenuSection.addToPinboardButton.click();
           officerPage.pinboardsMenuSection.menu.waitForDisplayed();
           officerPage.pinboardsMenuSection.createPinboardWithSelectionButton.click();

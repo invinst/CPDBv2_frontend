@@ -30,7 +30,6 @@ describe('CRPage actions', function () {
           request: {
             url: `${CR_URL}123/`,
             params: undefined,
-            adapter: null,
             cancelToken: undefined,
           },
         },
@@ -49,7 +48,6 @@ describe('CRPage actions', function () {
               email: 'valid@email.com',
             },
             method: 'post',
-            adapter: null,
             cancelToken: undefined,
           },
         },

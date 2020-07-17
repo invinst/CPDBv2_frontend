@@ -38,7 +38,7 @@ class AccusedOfficerSection extends Section {
       popupTitle: '.test--accused-officer .tooltip-title',
       popupText: '.test--accused-officer .tooltip-text',
       popupCloseButton: '.test--accused-officer .popup-close-button',
-      firstRadarChart: '//p[contains(@class, "coaccused-card-name") and text()="Ridchard Sullivan"]' +
+      firstRadarChart: '//p[contains(@class, "coaccused-card-name") and text()="Bernadette Kelly"]' +
         '/../..//*[name()="svg"]',
     });
   }
