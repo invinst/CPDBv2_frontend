@@ -3,11 +3,24 @@
 require('should');
 
 import docOverviewPage from '../page-objects/documents-overview-page';
+import api from '../mock-api';
+import { mockCommonApi } from '../mock-data/utils';
+import { documentsData, authenticatedDocumentsData, searchDocumentsData } from '../mock-data/documents-overview-page';
 
 
 describe('Documents Overview page', function () {
+  beforeEach(function () {
+    mockCommonApi();
+    api
+      .onGet('/api/v2/attachments/', { authenticated: true })
+      .reply(200, authenticatedDocumentsData);
+    api.onGet('/api/v2/attachments/').reply(200, documentsData);
+  });
 
   it('should display documents separated by month and year', function () {
+    api
+      .onPost('/api/v2/users/sign-in/', { username: 'username', password: 'password' })
+      .reply(200, { 'apiAccessToken': '055a5575c1832e9123cd546fe0cfdc8607f8680c' });
     docOverviewPage.open({}, true);
     docOverviewPage.docTable.waitForDisplayed();
 
@@ -44,6 +57,8 @@ describe('Documents Overview page', function () {
   });
 
   it('should display documents whose title or crid match the searched text', function () {
+    api.onGet('/api/v2/attachments/', { match: '123457' }).reply(200, searchDocumentsData);
+
     docOverviewPage.open();
     docOverviewPage.searchBox.waitForDisplayed();
     docOverviewPage.searchBox.setValue('123457');
@@ -54,6 +69,8 @@ describe('Documents Overview page', function () {
   });
 
   it('should filter documents with crid when click on CR link', function () {
+    api.onGet('/api/v2/attachments/', { match: '123457' }).reply(200, searchDocumentsData);
+
     docOverviewPage.open();
     docOverviewPage.secondDocCRLink.click();
 
@@ -82,6 +99,8 @@ describe('Documents Overview page', function () {
   });
 
   it('should display filtered documents when accessed with url that has query parameter', function () {
+    api.onGet('/api/v2/attachments/', { match: '123457' }).reply(200, searchDocumentsData);
+
     docOverviewPage.open({ match: '123457' });
     docOverviewPage.docTable.waitForDisplayed();
 

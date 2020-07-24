@@ -22,7 +22,6 @@ describe('officer new timeline actions', function () {
           request: {
             url: `${OFFICER_URL}123/new-timeline-items/`,
             params: undefined,
-            adapter: null,
             cancelToken: undefined,
           },
         },

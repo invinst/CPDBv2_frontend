@@ -1,15 +1,40 @@
 'use strict';
 
+import { get } from 'lodash';
 import moment from 'moment';
 
 require('should');
 
 import pinboardAdminPage from '../page-objects/pinboard-admin-page';
 import shareableHeader from '../page-objects/shareable-header';
+import { mockCommonApi } from '../mock-data/utils';
+import api from '../mock-api';
+import {
+  emptyPinboardsPagination,
+  firstPinboardsPageData,
+  secondPinboardsPageData,
+  searchPinboardTitleData,
+} from '../mock-data/pinboard-admin-page';
 
 
 describe('Pinboard Admin Page', function () {
   beforeEach(function () {
+    mockCommonApi();
+    api
+      .onPost('/api/v2/users/sign-in/', { username: 'username', password: 'password' })
+      .reply(200, { 'apiAccessToken': '055a5575c1832e9123cd546fe0cfdc8607f8680c' });
+
+    api.onGet('/api/v2/pinboards/all/').reply(function (request) {
+      const authenticated = request.header('Authorization') === 'Token 055a5575c1832e9123cd546fe0cfdc8607f8680c';
+      if (authenticated) {
+        const offset = get(request, 'query.offset');
+        if (offset === '10') {
+          return [200, secondPinboardsPageData];
+        }
+        return [200, firstPinboardsPageData];
+      }
+      return [200, emptyPinboardsPagination];
+    });
     pinboardAdminPage.open();
   });
 
@@ -64,11 +89,22 @@ describe('Pinboard Admin Page', function () {
     });
 
     it('should show latest pinboards first and load more when scrolling down', function () {
-      pinboardAdminPage.pinboardTables.pinboardRows.count.should.equal(10);
+      pinboardAdminPage.pinboardTables.pinboardRows.waitForCount(10, 2000);
 
       pinboardAdminPage.pinboardTables.secondMonthSeparator.scrollIntoView({ behavior: 'smooth' });
 
       pinboardAdminPage.pinboardTables.pinboardRows.waitForCount(20, 2000);
+    });
+
+    it('should display pinboard(s) whose title match the searched text', function () {
+      api.onGet('/api/v2/pinboards/all/', { match: 'Title' }).reply(200, searchPinboardTitleData);
+      pinboardAdminPage.pinboardTables.pinboardRows.waitForCount(10, 2000);
+
+      pinboardAdminPage.searchBox.waitForDisplayed();
+      pinboardAdminPage.searchBox.setValue('Title');
+      pinboardAdminPage.pinboardTables.pinboardRows.waitForCount(1, 2000);
+
+      pinboardAdminPage.firstPinboardTitle.getText().should.equal('Pinboard 18a5b091 Title');
     });
 
     describe('Pinboard Preview Pane', function () {
@@ -235,13 +271,6 @@ describe('Pinboard Admin Page', function () {
         pinnedTRRs.firstItem.mainElement.click();
 
         browser.getUrl().should.match(/\/trr\/2236\//);
-      });
-
-      it('should display pinboard(s) whose title match the searched text', function () {
-        pinboardAdminPage.searchBox.waitForDisplayed();
-        pinboardAdminPage.searchBox.setValue('Title');
-
-        pinboardAdminPage.firstPinboardTitle.getText().should.equal('Pinboard 18a5b091 Title');
       });
     });
   });

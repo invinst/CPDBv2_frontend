@@ -7,24 +7,63 @@ import moment from 'moment';
 import api from '../mock-api';
 import pinboardPage from '../page-objects/pinboard-page';
 import socialGraphPage from '../page-objects/social-graph-page';
-import { disableAxiosMock, restoreAxiosMock } from '../utils';
+import {
+  pinboardsListData,
+  shortPinboardsListData,
+  unpinFirstOfficerCardRequestData,
+  unpinFirstOfficerCardData,
+  duplicateCurrentPinboardRequestData,
+  duplicatedPinboardData,
+  createdPinboardFromParamsRequestData,
+  createdPinboardFromParamsData,
+  createdPinboardFromParamsOfficersData,
+  createdPinboardFromParamsTRRsData,
+  createdPinboardFromParamsComplaintsData,
+  duplicateCreatedPinboardFromParamsRequestData,
+  duplicateCreatedPinboardFromParamsData,
+  createdPinboardWithTitleRequestData,
+  createdPinboardWithTitleData,
+  createdPinboardWithTitleAndParamsRequestData,
+  createdPinboardWithTitleAndParamsData,
+  createdPinboardFromInvalidParamsRequestData,
+  createdPinboardFromInvalidParamsResponseData,
+  createdPinboardFromInvalidParamsData,
+} from '../mock-data/pinboard-page/manage-pinboards';
 import {
   pinboardOfficersData,
   pinboardComplaintsData,
   pinboardTRRsData,
-  pinboardsListData,
-  shortPinboardsListData,
-} from '../mock-data/pinboard-page/manage-pinboards';
+} from '../mock-data/pinboard-page/pinboard-items';
+
 import {
-  updatePinboardParams,
-  updatePinboardResponse,
-} from '../mock-data/pinboard-page/display-spinner';
+  updatePinboardTitleRequestData,
+  updatePinboardTitleResponseData,
+  updatePinboardDescriptionRequestData,
+  updatePinboardDescriptionResponseData,
+} from '../mock-data/pinboard-page/update-pinboard';
+import {
+  pinboardCoaccusalsData,
+  pinboardCoaccusalsDataOffset20,
+  pinboardCoaccusalsDataOffset40,
+  pinRelevantCoaccusalRequestData,
+  pinRelevantCoaccusalData,
+  updatedPinboardCoaccusalsData,
+  pinboardRelevantDocumentsData,
+  pinboardRelevantDocumentsDataOffset20,
+  pinboardRelevantDocumentsDataOffset40,
+  pinboardRelevantComplaintsData,
+  pinboardRelevantComplaintsDataOffset20,
+  pinboardRelevantComplaintsDataOffset40,
+} from '../mock-data/pinboard-page/pinboard-relevant-items';
 import {
   pinboardData,
+  otherPinboardData,
   createNewPinboardParams,
   emptyPinboard,
+  wattsCrewPinboard,
+  skullcapCrewPinboard,
 } from '../mock-data/pinboard-page/common';
-import { mockCommonApi, mockCommonPinboardApi } from '../mock-data/utils';
+import { mockCommonApi } from '../mock-data/utils';
 import {
   pinboardGeographicCrsData,
   pinboardGeographicTrrsData,
@@ -49,6 +88,11 @@ function waitForGraphAnimationEnd(browser, pinboardPage) {
 }
 
 describe('Pinboard Page', function () {
+  beforeEach(function () {
+    mockCommonApi();
+    api.onGet('/api/v2/pinboards/abcd5678/').reply(200, pinboardData);
+  });
+
   it('should go to search page when the search bar is clicked', function () {
     pinboardPage.open();
     pinboardPage.searchBar.click();
@@ -68,16 +112,20 @@ describe('Pinboard Page', function () {
   });
 
   it('should open pinboard instead of latest retrieved pinboard', function () {
-    pinboardPage.open('5cd06f2b');
+    api.onGet('/api/v2/pinboards/latest-retrieved-pinboard/', { create: false }).reply(otherPinboardData);
+    pinboardPage.open();
     times(20, () => {
-      browser.getUrl().should.not.match(/\/pinboard\/abcd5678\//);
+      browser.getUrl().should.not.match(/\/pinboard\/abcd1234\//);
       browser.pause(50);
     });
-    browser.getUrl().should.match(/\/pinboard\/5cd06f2b\//);
+    browser.waitForUrl(url => url.should.containEql('/pinboard/abcd5678/'), 3000);
   });
 
   context('pinboard pinned section', function () {
     beforeEach(function () {
+      api.onGet('/api/v2/pinboards/abcd5678/officers/').reply(200, pinboardOfficersData);
+      api.onGet('/api/v2/pinboards/abcd5678/trrs/').reply(200, pinboardTRRsData);
+      api.onGet('/api/v2/pinboards/abcd5678/complaints/').reply(200, pinboardComplaintsData);
       pinboardPage.open();
     });
 
@@ -176,9 +224,15 @@ describe('Pinboard Page', function () {
     });
 
     it('should update title and description after editing and out focusing them', function () {
+      api
+        .onPut('/api/v2/pinboards/abcd5678/', updatePinboardTitleRequestData)
+        .reply(201, updatePinboardTitleResponseData);
+      api
+        .onPut('/api/v2/pinboards/abcd5678/', updatePinboardDescriptionRequestData)
+        .reply(201, updatePinboardDescriptionResponseData);
       pinboardPage.pinboardSection.title.getValue().should.equal('Pinboard Title');
       pinboardPage.pinboardSection.description.getText().should.equal('Pinboard Description');
-      browser.getUrl().should.containEql('/pinboard-title/');
+      browser.waitForUrl(url => url.should.containEql('/pinboard-title/'), 3000);
       pinboardPage.pinboardSection.title.click();
       pinboardPage.pinboardSection.title.setValue('Updated Title');
       pinboardPage.pinboardSection.description.click();
@@ -189,51 +243,45 @@ describe('Pinboard Page', function () {
       pinboardPage.pinboardSection.description.getHTML().should.containEql(
         '<p>Pinboard Description <strong>Updated</strong></p>'
       );
-      browser.getUrl().should.containEql('/updated-title/');
+      browser.waitForUrl(url => url.should.containEql('/updated-title/'), 3000);
     });
   });
 
   context('visualization section', function () {
     beforeEach(function () {
-      disableAxiosMock();
-      mockCommonApi();
-
-      api.onGet('/api/v2/pinboards/ceea8ea3/').reply(200, pinboardData);
+      api.onGet('/api/v2/pinboards/abcd5678/').reply(200, pinboardData);
       api
-        .onGet('/api/v2/social-graph/network/', { 'pinboard_id': 'ceea8ea3' })
+        .onGet('/api/v2/social-graph/network/', { 'pinboard_id': 'abcd5678' })
         .reply(200, socialGraphData);
       api
         .onGet(
           '/api/v2/social-graph/network/',
-          { 'threshold': 2, 'complaint_origin': 'CIVILIAN', 'pinboard_id': 'ceea8ea3' },
+          { 'threshold': 2, 'complaint_origin': 'CIVILIAN', 'pinboard_id': 'abcd5678' },
         )
         .reply(200, socialGraphData);
       api
-        .onGet('/api/v2/social-graph/geographic-crs/', { 'pinboard_id': 'ceea8ea3' })
+        .onGet('/api/v2/social-graph/geographic-crs/', { 'pinboard_id': 'abcd5678' })
         .reply(200, pinboardGeographicCrsData);
       api
-        .onGet('/api/v2/social-graph/geographic-trrs/', { 'pinboard_id': 'ceea8ea3' })
+        .onGet('/api/v2/social-graph/geographic-trrs/', { 'pinboard_id': 'abcd5678' })
         .reply(200, pinboardGeographicTrrsData);
       api
-        .onGet('/api/v2/social-graph/geographic-crs/', { detail: true, 'pinboard_id': 'ceea8ea3' })
+        .onGet('/api/v2/social-graph/geographic-crs/', { detail: true, 'pinboard_id': 'abcd5678' })
         .reply(200, pinboardGeographicCrsData);
       api
-        .onGet('/api/v2/social-graph/geographic-trrs/', { detail: true, 'pinboard_id': 'ceea8ea3' })
+        .onGet('/api/v2/social-graph/geographic-trrs/', { detail: true, 'pinboard_id': 'abcd5678' })
         .reply(200, pinboardGeographicTrrsData);
       api
         .onGet(
           '/api/v2/social-graph/allegations/',
-          { 'threshold': 2, 'complaint_origin': 'CIVILIAN', 'pinboard_id': 'ceea8ea3' }
+          { 'threshold': 2, 'complaint_origin': 'CIVILIAN', 'pinboard_id': 'abcd5678' }
         )
         .reply(200, socialGraphAllegationsData);
       api
-        .onGet('/api/v2/pinboards/5cd06f2b/complaint-summary/')
+        .onGet('/api/v2/pinboards/abcd5678/complaint-summary/')
         .reply(200, complaintSummaryData);
-      pinboardPage.open('ceea8ea3');
-    });
 
-    afterEach(function () {
-      restoreAxiosMock();
+      pinboardPage.open();
     });
 
     context('social graph section', function () {
@@ -328,7 +376,7 @@ describe('Pinboard Page', function () {
 
       it('should go to corresponding social graph visualization page when clicking on expanded button', function () {
         pinboardPage.pinboardSection.socialGraphExpandButton.click();
-        browser.getUrl().should.containEql('/social-graph/pinboard/ceea8ea3/');
+        browser.waitForUrl(url => url.should.containEql('/social-graph/pinboard/abcd5678/'), 3000);
         socialGraphPage.animatedSocialGraphSection.coaccusalsThresholdText.getText().should.equal(
           'Minimum Coaccusal Threshold'
         );
@@ -336,7 +384,7 @@ describe('Pinboard Page', function () {
         socialGraphPage.animatedSocialGraphSection.endDate.getText().should.equal('2008-01-11');
 
         socialGraphPage.animatedSocialGraphSection.geographicTab.click();
-        browser.getUrl().should.containEql('/geographic/pinboard/ceea8ea3/');
+        browser.waitForUrl(url => url.should.containEql('/geographic/pinboard/abcd5678/'), 3000);
         socialGraphPage.geographicSection.complaintText.getText().should.eql('Complaint');
         socialGraphPage.geographicSection.complaintNumber.getText().should.eql('5');
         socialGraphPage.geographicSection.trrText.getText().should.eql('Use of Force Report');
@@ -352,7 +400,7 @@ describe('Pinboard Page', function () {
       it('should go to corresponding geographic visualization page when clicking on expanded button', function () {
         pinboardPage.geographicMap.waitForDisplayed();
         pinboardPage.pinboardSection.geographicExpandButton.click();
-        browser.getUrl().should.containEql('/geographic/pinboard/ceea8ea3/');
+        browser.waitForUrl(url => url.should.containEql('/geographic/pinboard/abcd5678/'), 3000);
 
         socialGraphPage.animatedSocialGraphSection.mainTabs.waitForDisplayed();
         socialGraphPage.geographicSection.complaintText.getText().should.eql('Complaint');
@@ -361,7 +409,7 @@ describe('Pinboard Page', function () {
         socialGraphPage.geographicSection.trrNumber.getText().should.eql('2');
 
         socialGraphPage.animatedSocialGraphSection.networkTab.click();
-        browser.getUrl().should.containEql('/social-graph/pinboard/ceea8ea3/');
+        browser.waitForUrl(url => url.should.containEql('/social-graph/pinboard/abcd5678/'), 3000);
         socialGraphPage.animatedSocialGraphSection.coaccusalsThresholdText.getText().should.equal(
           'Minimum Coaccusal Threshold'
         );
@@ -373,19 +421,13 @@ describe('Pinboard Page', function () {
 
   context('Summary widgets', function () {
     beforeEach(function () {
-      disableAxiosMock();
-      mockCommonApi();
+      api.onGet('/api/v2/pinboards/abcd5678/').reply(200, pinboardData);
+      api.onGet('/api/v2/pinboards/abcd5678/complaint-summary/').delay(3000).reply(200, complaintSummaryData);
+      api.onGet('/api/v2/pinboards/abcd5678/trr-summary/').delay(3000).reply(200, trrSummaryData);
+      api.onGet('/api/v2/pinboards/abcd5678/officers-summary/').delay(3000).reply(200, officersSummaryData);
+      api.onGet('/api/v2/pinboards/abcd5678/complainants-summary/').delay(3000).reply(200, complainantsSummaryData);
 
-      api.onGet('/api/v2/pinboards/ceea8ea3/').reply(200, pinboardData);
-      api.onGet('/api/v2/pinboards/ceea8ea3/complaint-summary/').delay(3000).reply(200, complaintSummaryData);
-      api.onGet('/api/v2/pinboards/ceea8ea3/trr-summary/').delay(3000).reply(200, trrSummaryData);
-      api.onGet('/api/v2/pinboards/ceea8ea3/officers-summary/').delay(3000).reply(200, officersSummaryData);
-      api.onGet('/api/v2/pinboards/ceea8ea3/complainants-summary/').delay(3000).reply(200, complainantsSummaryData);
-      pinboardPage.open('ceea8ea3');
-    });
-
-    afterEach(function () {
-      restoreAxiosMock();
+      pinboardPage.open();
     });
 
     context('Complaint Summary section', function () {
@@ -548,6 +590,15 @@ describe('Pinboard Page', function () {
 
   context('relevant coaccusals section', function () {
     beforeEach(function () {
+      api.onGet('/api/v2/pinboards/abcd5678/officers/').reply(200, pinboardOfficersData);
+      api.onGet('/api/v2/pinboards/abcd5678/relevant-coaccusals/').replyOnce(200, pinboardCoaccusalsData);
+      api
+        .onGet('/api/v2/pinboards/abcd5678/relevant-coaccusals/', { limit: 20, offset: 20 })
+        .reply(200, pinboardCoaccusalsDataOffset20);
+      api
+        .onGet('/api/v2/pinboards/abcd5678/relevant-coaccusals/', { limit: 20, offset: 40 })
+        .reply(200, pinboardCoaccusalsDataOffset40);
+
       pinboardPage.open();
     });
 
@@ -599,6 +650,9 @@ describe('Pinboard Page', function () {
     });
 
     it('should remove officer from the row and add to the pinned officers section', function () {
+      api.onGet('/api/v2/pinboards/abcd5678/relevant-coaccusals/').replyOnce(200, updatedPinboardCoaccusalsData);
+      api.onPut('/api/v2/pinboards/abcd5678/', pinRelevantCoaccusalRequestData).reply(200, pinRelevantCoaccusalData);
+
       pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
       pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.officerName.getText().should.equal(
         'Richard Sullivan'
@@ -623,6 +677,9 @@ describe('Pinboard Page', function () {
     });
 
     it('should supply enough data to pinned section if user pin it', function () {
+      api.onGet('/api/v2/pinboards/abcd5678/relevant-coaccusals/').replyOnce(200, updatedPinboardCoaccusalsData);
+      api.onPut('/api/v2/pinboards/abcd5678/', pinRelevantCoaccusalRequestData).reply(200, pinRelevantCoaccusalData);
+
       pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
       pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.plusButton.click();
       browser.pause(4500);
@@ -663,6 +720,15 @@ describe('Pinboard Page', function () {
 
   context('relevant documents section', function () {
     beforeEach(function () {
+      api.onGet('/api/v2/pinboards/abcd5678/complaints/').replyOnce(200, pinboardComplaintsData);
+      api.onGet('/api/v2/pinboards/abcd5678/relevant-documents/').reply(200, pinboardRelevantDocumentsData);
+      api
+        .onGet('/api/v2/pinboards/abcd5678/relevant-documents/', { limit: 20, offset: 20 })
+        .reply(200, pinboardRelevantDocumentsDataOffset20);
+      api
+        .onGet('/api/v2/pinboards/abcd5678/relevant-documents/', { limit: 20, offset: 40 })
+        .reply(200, pinboardRelevantDocumentsDataOffset40);
+
       pinboardPage.open();
     });
 
@@ -717,6 +783,8 @@ describe('Pinboard Page', function () {
       browser.switchWindow(
         'https://assets.documentcloud.org/documents/5680384/CRID-1083633-CR-CRID-1083633-CR-Tactical.pdf'
       );
+      browser.closeWindow();
+      browser.switchWindow('localhost');
     });
 
     it('should display preview pane when we click on right half of document card', function () {
@@ -765,6 +833,15 @@ describe('Pinboard Page', function () {
 
   context('relevant complaints section', function () {
     beforeEach(function () {
+      api.onGet('/api/v2/pinboards/abcd5678/complaints/').replyOnce(200, pinboardComplaintsData);
+      api.onGet('/api/v2/pinboards/abcd5678/relevant-complaints/').reply(200, pinboardRelevantComplaintsData);
+      api
+        .onGet('/api/v2/pinboards/abcd5678/relevant-complaints/', { limit: 20, offset: 20 })
+        .reply(200, pinboardRelevantComplaintsDataOffset20);
+      api
+        .onGet('/api/v2/pinboards/abcd5678/relevant-complaints/', { limit: 20, offset: 40 })
+        .reply(200, pinboardRelevantComplaintsDataOffset40);
+
       pinboardPage.open();
     });
 
@@ -861,6 +938,10 @@ describe('Pinboard Page', function () {
   });
 
   context('manage pinboards', function () {
+    beforeEach(function () {
+      api.onGet('/api/v2/pinboards/').reply(200, shortPinboardsListData);
+    });
+
     const removeOfficerFromPinboard = function () {
       pinboardPage.pinnedSection.officers.firstCardUnpinBtn.click();
       pinboardPage.pinnedSection.officers.undoCard.waitForDisplayed();
@@ -874,13 +955,13 @@ describe('Pinboard Page', function () {
     };
 
     const expectStillInCurrentPinboardPage = function (browser) {
-      browser.getUrl().should.containEql('/pinboard/ceea8ea3/pinboard-title/');
+      browser.waitForUrl(url => url.should.containEql('/pinboard/abcd5678/pinboard-title/'), 3000);
       pinboardPage.pinboardSection.title.getText().should.equal('Pinboard Title');
       pinboardPage.pinboardSection.description.getText().should.equal('Pinboard Description');
     };
 
     it('should render the pinboards list', function () {
-      pinboardPage.open('ceea8ea3');
+      pinboardPage.open();
       pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
 
       const expectedFormat = '[Viewed] DD/MM/YYYY [at] hh:mm A';
@@ -900,22 +981,11 @@ describe('Pinboard Page', function () {
 
     describe('actions pane position', function () {
       beforeEach(function () {
-        disableAxiosMock();
-
-        mockCommonApi();
-        api.onGet('/api/v2/pinboards/ceea8ea3/').reply(200, pinboardData);
-        api.onGet('/api/v2/pinboards/ceea8ea3/officers/').reply(200, pinboardOfficersData);
-        api.onGet('/api/v2/pinboards/ceea8ea3/complaints/').reply(200, pinboardComplaintsData);
-        api.onGet('/api/v2/pinboards/ceea8ea3/trrs/').reply(200, pinboardTRRsData);
         api.onGet('/api/v2/pinboards/').reply(200, pinboardsListData);
 
-        pinboardPage.open('ceea8ea3');
+        pinboardPage.open();
         browser.setWindowRect(0, 0, 1000, 1000);
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.waitForDisplayed();
-      });
-
-      afterEach(function () {
-        restoreAxiosMock();
       });
 
       it('should display actions pane in correct position', function () {
@@ -949,25 +1019,17 @@ describe('Pinboard Page', function () {
 
     describe('display spinner', function () {
       beforeEach(function () {
-        disableAxiosMock();
-        mockCommonApi();
-
-        api.onGet('/api/v2/pinboards/latest-retrieved-pinboard/').reply(200, {});
-        api.onGet('/api/v2/pinboards/latest-retrieved-pinboard/', { create: false }).reply(200, {});
         api.onGet('/api/v2/pinboards/latest-retrieved-pinboard/', { create: true }).reply(200, pinboardData);
-        api.onPut('/api/v2/pinboards/ceea8ea3/', updatePinboardParams).delay(2000).reply(201, updatePinboardResponse);
-        api.onPost('/api/v2/pinboards/', createNewPinboardParams).delay(2000).reply(200, emptyPinboard('231faa'));
-        api.onGet('/api/v2/pinboards/ceea8ea3/').reply(200, pinboardData);
-        api.onGet('/api/v2/pinboards/ceea8ea3/officers/').reply(200, pinboardOfficersData);
-        api.onGet('/api/v2/pinboards/ceea8ea3/complaints/').reply(200, pinboardComplaintsData);
-        api.onGet('/api/v2/pinboards/ceea8ea3/trrs/').reply(200, pinboardTRRsData);
+        api
+          .onPut('/api/v2/pinboards/abcd5678/', updatePinboardTitleRequestData)
+          .delay(2000)
+          .reply(201, updatePinboardTitleResponseData);
+        api.onPost('/api/v2/pinboards/', createNewPinboardParams).delay(2000).reply(200, emptyPinboard);
+        api.onGet('/api/v2/pinboards/abcd5678/').reply(200, pinboardData);
         api.onGet('/api/v2/pinboards/').reply(200, pinboardsListData);
-        pinboardPage.open('ceea8ea3');
-        pinboardPage.managePinboardsButtonsSection.pinboardsListButton.waitForDisplayed();
-      });
 
-      afterEach(function () {
-        restoreAxiosMock();
+        pinboardPage.open();
+        pinboardPage.managePinboardsButtonsSection.pinboardsListButton.waitForDisplayed();
       });
 
       context('update title', function () {
@@ -988,14 +1050,14 @@ describe('Pinboard Page', function () {
           browser.waitForUrl(url => url.should.containEql('/pinboard-title/'), 500);
 
           pinboardPage.pinboardSection.title.click();
-          pinboardPage.pinboardSection.title.setValue('Updated Pinboard Title');
+          pinboardPage.pinboardSection.title.setValue('Updated Title');
           pinboardPage.pinboardSection.description.click();
 
           pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
           firstPinboardItem.spinner.waitForDisplayed();
           firstPinboardItem.title.getText().should.equal('Updating pinboard title...');
           firstPinboardItem.spinner.waitForDisplayed(5000, true);
-          firstPinboardItem.title.getText().should.equal('Updated Pinboard Title');
+          firstPinboardItem.title.getText().should.equal('Updated Title');
         });
       });
 
@@ -1011,89 +1073,126 @@ describe('Pinboard Page', function () {
         firstPinboardItem.title.getText().should.equal('Adding pinboard...');
         firstPinboardItem.spinner.waitForDisplayed(5000, true);
 
-        browser.waitForUrl(url => url.should.containEql('pinboard/231faa/untitled-pinboard/'), 500);
+        browser.waitForUrl(url => url.should.containEql('pinboard/abcd1234/untitled-pinboard/'), 500);
       });
     });
 
     context('clicking on pinboard item', function () {
+      beforeEach(function () {
+        api.onGet('/api/v2/pinboards/abcd1234/').reply(200, otherPinboardData);
+      });
+
       it('should go to pinboard detail page', function () {
-        pinboardPage.open('ceea8ea3');
+        pinboardPage.open();
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
         pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.click();
-        browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
+        browser.waitForUrl(url => url.should.containEql('/pinboard/abcd1234/untitled-pinboard/'), 3000);
         pinboardPage.pinboardSection.title.getText().should.equal('');
-        pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
+        pinboardPage.pinboardSection.description.getText().should.equal('Pinboard Description for abcd1234');
       });
 
       it('should go to pinboard detail page if pinboard is saved', function () {
-        pinboardPage.open('ceea8ea3');
+        api.onGet('/api/v2/pinboards/abcd5678/officers/').reply(200, pinboardOfficersData);
+        api
+          .onPut('/api/v2/pinboards/abcd5678/', unpinFirstOfficerCardRequestData)
+          .reply(200, unpinFirstOfficerCardData);
+
+        pinboardPage.open();
         pinboardPage.pinnedSection.officers.firstCardUnpinBtn.click();
         browser.pause(2500);
 
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
         pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.click();
-        browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
+        browser.waitForUrl(url => url.should.containEql('/pinboard/abcd1234/untitled-pinboard/'), 3000);
         pinboardPage.pinboardSection.title.getText().should.equal('');
-        pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
+        pinboardPage.pinboardSection.description.getText().should.equal('Pinboard Description for abcd1234');
       });
 
-
       it('should go to pinboard detail page if users add relevant item and pinboard is saved', function () {
-        pinboardPage.open('5cd06f2b');
+        api.onGet('/api/v2/pinboards/abcd5678/relevant-coaccusals/').replyOnce(200, pinboardCoaccusalsData);
+        api.onPut('/api/v2/pinboards/abcd5678/', pinRelevantCoaccusalRequestData).reply(200, pinRelevantCoaccusalData);
+
+        pinboardPage.open();
         pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.plusButton.click();
         browser.pause(4500);
 
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
         pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.click();
-        browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
+        browser.waitForUrl(url => url.should.containEql('/pinboard/abcd1234/untitled-pinboard/'), 3000);
         pinboardPage.pinboardSection.title.getText().should.equal('');
-        pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
+        pinboardPage.pinboardSection.description.getText().should.equal('Pinboard Description for abcd1234');
       });
 
       context('pinboard is saving', function () {
         context('users confirm yes', function () {
+          beforeEach(function () {
+            api.onGet('/api/v2/pinboards/abcd1234/').reply(200, otherPinboardData);
+          });
+
           it('should go to pinboard detail page (pinboard is saving with long api call)', function () {
-            pinboardPage.open('ceea8ea3');
+            api.onGet('/api/v2/pinboards/abcd5678/officers/').reply(200, pinboardOfficersData);
+            api
+              .onPut('/api/v2/pinboards/abcd5678/', unpinFirstOfficerCardRequestData)
+              .delay(2000)
+              .reply(200, unpinFirstOfficerCardData);
+
+            pinboardPage.open();
             removeOfficerFromPinboard();
             pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
             pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.click();
             expectAlertContent(browser);
             browser.acceptAlert();
-            browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
+            browser.waitForUrl(url => url.should.containEql('/pinboard/abcd1234/untitled-pinboard/'), 3000);
             pinboardPage.pinboardSection.title.getText().should.equal('');
-            pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
+            pinboardPage.pinboardSection.description.getText().should.equal('Pinboard Description for abcd1234');
           });
 
           it('should go to pinboard detail page (users remove pinned items and pinboard saving errors)', function () {
-            pinboardPage.open('ceea8ea3');
-            pinboardPage.pinnedSection.crs.firstCardUnpinBtn.click();
-            browser.pause(500);
+            api.onGet('/api/v2/pinboards/abcd5678/officers/').reply(200, pinboardOfficersData);
+            api
+              .onPut('/api/v2/pinboards/abcd5678/', unpinFirstOfficerCardRequestData)
+              .delay(2000)
+              .reply(500, {});
 
+            pinboardPage.open();
+            removeOfficerFromPinboard();
             pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
             pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.click();
             expectAlertContent(browser);
             browser.acceptAlert();
-            browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
+            browser.waitForUrl(url => url.should.containEql('/pinboard/abcd1234/untitled-pinboard/'), 3000);
             pinboardPage.pinboardSection.title.getText().should.equal('');
-            pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
+            pinboardPage.pinboardSection.description.getText().should.equal('Pinboard Description for abcd1234');
           });
 
           it('should go to pinboard detail page (users add relevant item and pinboard saving errors)', function () {
-            pinboardPage.open('ceea8ea3');
-            pinboardPage.relevantDocumentsSection.documentCardSection.plusButton.click();
+            api.onGet('/api/v2/pinboards/abcd5678/relevant-coaccusals/').replyOnce(200, pinboardCoaccusalsData);
+            api
+              .onPut('/api/v2/pinboards/abcd5678/', pinRelevantCoaccusalRequestData)
+              .delay(1000)
+              .reply(200, pinRelevantCoaccusalData);
+
+            pinboardPage.open();
+            pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.plusButton.click();
             browser.pause(4500);
 
             pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
             pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.click();
             expectAlertContent(browser);
             browser.acceptAlert();
-            browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
+            browser.waitForUrl(url => url.should.containEql('/pinboard/abcd1234/untitled-pinboard/'), 3000);
             pinboardPage.pinboardSection.title.getText().should.equal('');
-            pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
+            pinboardPage.pinboardSection.description.getText().should.equal('Pinboard Description for abcd1234');
           });
 
           it('should go to pinboard detail page and click on pinboard item again will not show alert', function () {
-            pinboardPage.open('ceea8ea3');
+            api.onGet('/api/v2/pinboards/abcd5678/officers/').reply(200, pinboardOfficersData);
+            api
+              .onPut('/api/v2/pinboards/abcd5678/', unpinFirstOfficerCardRequestData)
+              .delay(1000)
+              .reply(200, unpinFirstOfficerCardData);
+
+            pinboardPage.open();
             pinboardPage.pinnedSection.officers.firstCardUnpinBtn.click();
             browser.pause(500);
 
@@ -1101,13 +1200,13 @@ describe('Pinboard Page', function () {
             pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.click();
             expectAlertContent(browser);
             browser.acceptAlert();
-            browser.getUrl().should.containEql('/pinboard/77edc128/untitled-pinboard/');
+            browser.waitForUrl(url => url.should.containEql('/pinboard/abcd1234/untitled-pinboard/'), 3000);
             pinboardPage.pinboardSection.title.getText().should.equal('');
-            pinboardPage.pinboardSection.description.getText().should.equal('Description for 77edc128');
+            pinboardPage.pinboardSection.description.getText().should.equal('Pinboard Description for abcd1234');
 
             pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
             pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.click();
-            browser.getUrl().should.containEql('/pinboard/ceea8ea3/pinboard-title/');
+            browser.waitForUrl(url => url.should.containEql('/pinboard/abcd5678/pinboard-title/'), 3000);
             pinboardPage.pinboardSection.title.getText().should.equal('Pinboard Title');
             pinboardPage.pinboardSection.description.getText().should.equal('Pinboard Description');
           });
@@ -1115,7 +1214,9 @@ describe('Pinboard Page', function () {
 
         context('user confirm no', function () {
           it('should still in current page', function () {
-            pinboardPage.open('ceea8ea3');
+            api.onGet('/api/v2/pinboards/abcd5678/officers/').reply(200, pinboardOfficersData);
+
+            pinboardPage.open();
             removeOfficerFromPinboard();
             pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
             pinboardPage.pinboardsListSection.secondPinboardItem.viewedAt.click();
@@ -1129,29 +1230,46 @@ describe('Pinboard Page', function () {
 
     context('clicking on create new pinboard button in menu', function () {
       beforeEach(function () {
-        pinboardPage.open('ceea8ea3');
+        api.onGet('/api/v2/pinboards/abcd5678/officers/').reply(200, pinboardOfficersData);
+
+        pinboardPage.open();
       });
 
       it('should create an empty pinboard', function () {
+        api.onPost('/api/v2/pinboards/', createNewPinboardParams).reply(200, emptyPinboard);
+        api.onGet('/api/v2/pinboards/abcd1234/').reply(200, emptyPinboard);
+
         pinboardPage.managePinboardsButtonsSection.newPinboardMenuButton.click();
         pinboardPage.managePinboardsButtonsSection.createNewPinboardButton.click();
-        browser.getUrl().should.containEql('/pinboard/87e31b82/untitled-pinboard/');
+        browser.waitForUrl(url => url.should.containEql('/pinboard/abcd1234/untitled-pinboard/'), 3000);
         pinboardPage.emptyPinboardSection.firstExample.getText().should.containEql('Watts Crew');
         pinboardPage.emptyPinboardSection.secondExample.getText().should.containEql('Skullcap Crew');
       });
 
       it('should create an empty pinboard if pinboard is saving and user confirm yes', function () {
+        api.onPost('/api/v2/pinboards/', createNewPinboardParams).reply(200, emptyPinboard);
+        api.onGet('/api/v2/pinboards/abcd1234/').reply(200, emptyPinboard);
+        api
+          .onPut('/api/v2/pinboards/abcd5678/', unpinFirstOfficerCardRequestData)
+          .delay(1000)
+          .reply(200, unpinFirstOfficerCardData);
+
         removeOfficerFromPinboard();
         pinboardPage.managePinboardsButtonsSection.newPinboardMenuButton.click();
         pinboardPage.managePinboardsButtonsSection.createNewPinboardButton.click();
         expectAlertContent(browser);
         browser.acceptAlert();
-        browser.getUrl().should.containEql('/pinboard/87e31b82/untitled-pinboard/');
+        browser.waitForUrl(url => url.should.containEql('/pinboard/abcd1234/untitled-pinboard/'), 3000);
         pinboardPage.emptyPinboardSection.firstExample.getText().should.containEql('Watts Crew');
         pinboardPage.emptyPinboardSection.secondExample.getText().should.containEql('Skullcap Crew');
       });
 
       it('should still in current page if pinboard is saving and user confirm no', function () {
+        api
+          .onPut('/api/v2/pinboards/abcd5678/', unpinFirstOfficerCardRequestData)
+          .delay(1000)
+          .reply(200, unpinFirstOfficerCardData);
+
         removeOfficerFromPinboard();
         pinboardPage.managePinboardsButtonsSection.newPinboardMenuButton.click();
         pinboardPage.managePinboardsButtonsSection.createNewPinboardButton.click();
@@ -1163,29 +1281,46 @@ describe('Pinboard Page', function () {
 
     context('clicking on Duplicate this pinboard button', function () {
       beforeEach(function () {
-        pinboardPage.open('ceea8ea3');
+        api.onGet('/api/v2/pinboards/abcd5678/officers/').reply(200, pinboardOfficersData);
+
+        pinboardPage.open();
       });
 
       it('should duplicate current pinboard', function () {
+        api.onPost('/api/v2/pinboards/', duplicateCurrentPinboardRequestData).reply(200, duplicatedPinboardData);
+        api.onGet('/api/v2/pinboards/abcd1234/').reply(200, duplicatedPinboardData);
+
         pinboardPage.managePinboardsButtonsSection.newPinboardMenuButton.click();
         pinboardPage.managePinboardsButtonsSection.duplicateCurrentPinboardButton.click();
-        browser.getUrl().should.containEql('/pinboard/5cd06f2b/pinboard-title/');
+        browser.waitForUrl(url => url.should.containEql('/pinboard/abcd1234/pinboard-title/'), 3000);
         pinboardPage.pinboardSection.title.getText().should.containEql('Pinboard Title');
         pinboardPage.pinboardSection.description.getText().should.containEql('Pinboard Description');
       });
 
       it('should duplicate current pinboard if pinboard is saving and user confirm yes', function () {
+        api.onPost('/api/v2/pinboards/', duplicateCurrentPinboardRequestData).reply(200, duplicatedPinboardData);
+        api.onGet('/api/v2/pinboards/abcd1234/').reply(200, duplicatedPinboardData);
+        api
+          .onPut('/api/v2/pinboards/abcd5678/', unpinFirstOfficerCardRequestData)
+          .delay(1000)
+          .reply(200, unpinFirstOfficerCardData);
+
         removeOfficerFromPinboard();
         pinboardPage.managePinboardsButtonsSection.newPinboardMenuButton.click();
         pinboardPage.managePinboardsButtonsSection.duplicateCurrentPinboardButton.click();
         expectAlertContent(browser);
         browser.acceptAlert();
-        browser.getUrl().should.containEql('/pinboard/5cd06f2b/pinboard-title/');
+        browser.waitForUrl(url => url.should.containEql('/pinboard/abcd1234/pinboard-title/'), 3000);
         pinboardPage.pinboardSection.title.getText().should.containEql('Pinboard Title');
         pinboardPage.pinboardSection.description.getText().should.containEql('Pinboard Description');
       });
 
       it('should still in current page if pinboard is saving and user confirm no', function () {
+        api
+          .onPut('/api/v2/pinboards/abcd5678/', unpinFirstOfficerCardRequestData)
+          .delay(1000)
+          .reply(200, unpinFirstOfficerCardData);
+
         removeOfficerFromPinboard();
         pinboardPage.managePinboardsButtonsSection.newPinboardMenuButton.click();
         pinboardPage.managePinboardsButtonsSection.duplicateCurrentPinboardButton.click();
@@ -1197,29 +1332,46 @@ describe('Pinboard Page', function () {
 
     context('clicking on plus button in pinboard list', function () {
       beforeEach(function () {
-        pinboardPage.open('ceea8ea3');
+        api.onGet('/api/v2/pinboards/abcd5678/officers/').reply(200, pinboardOfficersData);
+
+        pinboardPage.open();
       });
 
       it('should create an empty pinboard', function () {
+        api.onPost('/api/v2/pinboards/', createNewPinboardParams).reply(200, emptyPinboard);
+        api.onGet('/api/v2/pinboards/abcd1234/').reply(200, emptyPinboard);
+
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
         pinboardPage.pinboardsListSection.createNewPinboardButton.click();
-        browser.getUrl().should.containEql('/pinboard/87e31b82/untitled-pinboard/');
+        browser.waitForUrl(url => url.should.containEql('/pinboard/abcd1234/untitled-pinboard/'), 3000);
         pinboardPage.emptyPinboardSection.firstExample.getText().should.containEql('Watts Crew');
         pinboardPage.emptyPinboardSection.secondExample.getText().should.containEql('Skullcap Crew');
       });
 
       it('should create an empty pinboard if pinboard is saving and user confirm yes', function () {
+        api.onPost('/api/v2/pinboards/', createNewPinboardParams).reply(200, emptyPinboard);
+        api.onGet('/api/v2/pinboards/abcd1234/').reply(200, emptyPinboard);
+        api
+          .onPut('/api/v2/pinboards/abcd5678/', unpinFirstOfficerCardRequestData)
+          .delay(1000)
+          .reply(200, unpinFirstOfficerCardData);
+
         removeOfficerFromPinboard();
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
         pinboardPage.pinboardsListSection.createNewPinboardButton.click();
         expectAlertContent(browser);
         browser.acceptAlert();
-        browser.getUrl().should.containEql('/pinboard/87e31b82/untitled-pinboard/');
+        browser.waitForUrl(url => url.should.containEql('/pinboard/abcd1234/untitled-pinboard/'), 3000);
         pinboardPage.emptyPinboardSection.firstExample.getText().should.containEql('Watts Crew');
         pinboardPage.emptyPinboardSection.secondExample.getText().should.containEql('Skullcap Crew');
       });
 
       it('should still in current page if pinboard is saving and user confirm no', function () {
+        api
+          .onPut('/api/v2/pinboards/abcd5678/', unpinFirstOfficerCardRequestData)
+          .delay(1000)
+          .reply(200, unpinFirstOfficerCardData);
+
         removeOfficerFromPinboard();
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
         pinboardPage.pinboardsListSection.createNewPinboardButton.click();
@@ -1231,12 +1383,32 @@ describe('Pinboard Page', function () {
 
     context('clicking on duplicate button in pinboard list', function () {
       beforeEach(function () {
-        pinboardPage.open('ceea8ea3');
+        api.onGet('/api/v2/pinboards/abcd5678/officers/').reply(200, pinboardOfficersData);
+
+        api.onGet('/api/v2/pinboards/abcd1234/officers/').reply(200, createdPinboardFromParamsOfficersData);
+        api.onGet('/api/v2/pinboards/abcd1234/trrs/').reply(200, createdPinboardFromParamsTRRsData);
+        api.onGet('/api/v2/pinboards/abcd1234/complaints/').reply(200, createdPinboardFromParamsComplaintsData);
+
+        api.onGet('/api/v2/pinboards/abcd7890/officers/').reply(200, createdPinboardFromParamsOfficersData);
+        api.onGet('/api/v2/pinboards/abcd7890/trrs/').reply(200, createdPinboardFromParamsTRRsData);
+        api.onGet('/api/v2/pinboards/abcd7890/complaints/').reply(200, createdPinboardFromParamsComplaintsData);
+
+        pinboardPage.open();
       });
 
       it('should duplicate selected pinboard', function () {
+        api
+          .onPost('/api/v2/pinboards/', createdPinboardFromParamsRequestData)
+          .reply(200, createdPinboardFromParamsData);
+        api
+          .onPost('/api/v2/pinboards/', duplicateCreatedPinboardFromParamsRequestData)
+          .reply(200, duplicateCreatedPinboardFromParamsData);
+        api.onGet('/api/v2/pinboards/abcd1234/').reply(200, createdPinboardFromParamsData);
+        api.onGet('/api/v2/pinboards/abcd7890/').reply(200, duplicateCreatedPinboardFromParamsData);
+
         pinboardPage.openByQuery('?officer-ids=1,2&crids=5678123&trr-ids=3,2');
 
+        browser.waitForUrl(url => url.should.containEql('/pinboard/abcd1234/untitled-pinboard/'), 3000);
         pinboardPage.pinnedSection.officers.officerCards().should.have.length(2);
         pinboardPage.pinnedSection.crs.crCards().should.have.length(1);
         pinboardPage.pinnedSection.trrs.trrCards().should.have.length(2);
@@ -1245,16 +1417,23 @@ describe('Pinboard Page', function () {
         pinboardPage.pinboardsListSection.firstPinboardItem.actionsButton.click();
         pinboardPage.pinboardsListSection.firstPinboardItem.duplicateButton.waitForDisplayed();
         pinboardPage.pinboardsListSection.firstPinboardItem.duplicateButton.click();
-        browser.getUrl().should.containEql('/pinboard/5cd06f2b/pinboard-title/');
-        pinboardPage.pinboardSection.title.getText().should.containEql('Pinboard Title');
-        pinboardPage.pinboardSection.description.getText().should.containEql('Pinboard Description');
+        browser.waitForUrl(url => url.should.containEql('/pinboard/abcd7890/untitled-pinboard/'), 3000);
+        pinboardPage.pinboardSection.title.getText().should.containEql('');
+        pinboardPage.pinboardSection.description.getText().should.containEql('');
 
-        pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
+        pinboardPage.pinnedSection.officers.officerCards().should.have.length(2);
         pinboardPage.pinnedSection.crs.crCards().should.have.length(1);
-        pinboardPage.pinnedSection.trrs.trrCards().should.have.length(1);
+        pinboardPage.pinnedSection.trrs.trrCards().should.have.length(2);
       });
 
       it('should duplicate selected pinboard if pinboard is saving and user confirm yes', function () {
+        api
+          .onPut('/api/v2/pinboards/abcd5678/', unpinFirstOfficerCardRequestData)
+          .delay(1000)
+          .reply(200, unpinFirstOfficerCardData);
+        api.onPost('/api/v2/pinboards/', duplicateCurrentPinboardRequestData).reply(200, duplicatedPinboardData);
+        api.onGet('/api/v2/pinboards/abcd1234/').reply(200, duplicatedPinboardData);
+
         removeOfficerFromPinboard();
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
         pinboardPage.pinboardsListSection.firstPinboardItem.actionsButton.click();
@@ -1262,12 +1441,17 @@ describe('Pinboard Page', function () {
         pinboardPage.pinboardsListSection.firstPinboardItem.duplicateButton.click();
         expectAlertContent(browser);
         browser.acceptAlert();
-        browser.getUrl().should.containEql('/pinboard/5cd06f2b/pinboard-title/');
+        browser.waitForUrl(url => url.should.containEql('/pinboard/abcd1234/pinboard-title/'), 3000);
         pinboardPage.pinboardSection.title.getText().should.containEql('Pinboard Title');
         pinboardPage.pinboardSection.description.getText().should.containEql('Pinboard Description');
       });
 
       it('should still in current page if pinboard is saving and user confirm no', function () {
+        api
+          .onPut('/api/v2/pinboards/abcd5678/', unpinFirstOfficerCardRequestData)
+          .delay(1000)
+          .reply(200, unpinFirstOfficerCardData);
+
         removeOfficerFromPinboard();
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.click();
         pinboardPage.pinboardsListSection.firstPinboardItem.actionsButton.click();
@@ -1281,24 +1465,22 @@ describe('Pinboard Page', function () {
 
     context('clicking on remove pinboard button', function () {
       beforeEach(function () {
-        disableAxiosMock();
-        mockCommonPinboardApi();
+        api
+          .onGet('/api/v2/pinboards/latest-retrieved-pinboard/', { create: true })
+          .reply(200, duplicateCreatedPinboardFromParamsData);
+        api.onGet('/api/v2/pinboards/abcd5678/').reply(200, pinboardData);
+        api.onGet('/api/v2/pinboards/abcd1234/').reply(200, otherPinboardData);
+        api.onDelete('/api/v2/pinboards/abcd5678/').reply(200);
+        api.onDelete('/api/v2/pinboards/abcd1234/').reply(200);
 
-        api.onGet('/api/v2/pinboards/ceea8ea3/').reply(200, pinboardData);
-        api.onGet('/api/v2/pinboards/').replyOnce(200, shortPinboardsListData);
-        api.onGet('/api/v2/pinboards/').replyOnce(200, [shortPinboardsListData[1]]);
-        api.onDelete('/api/v2/pinboards/77edc128/').reply(200);
-        api.onDelete('/api/v2/pinboards/ceea8ea3/').reply(200);
-        pinboardPage.open('ceea8ea3');
+        pinboardPage.open();
         pinboardPage.managePinboardsButtonsSection.pinboardsListButton.waitForDisplayed();
-      });
-
-      afterEach(function () {
-        restoreAxiosMock();
       });
 
       context('remove not current pinboard', function () {
         it('should remove item from pinboards list', function () {
+          api.onGet('/api/v2/pinboards/').reply(200, shortPinboardsListData);
+
           const pinboardsListSection = pinboardPage.pinboardsListSection;
           const firstPinboardItem = pinboardsListSection.firstPinboardItem;
           const secondPinboardItem = pinboardsListSection.secondPinboardItem;
@@ -1329,6 +1511,9 @@ describe('Pinboard Page', function () {
 
       context('remove current pinboard', function () {
         it('should remove item from pinboards list and redirect to most recent viewed pinboard', function () {
+          api.onGet('/api/v2/pinboards/').replyOnce(200, shortPinboardsListData);
+          api.onGet('/api/v2/pinboards/').replyOnce(200, [shortPinboardsListData[1]]);
+
           const pinboardsListSection = pinboardPage.pinboardsListSection;
           const firstPinboardItem = pinboardsListSection.firstPinboardItem;
 
@@ -1339,12 +1524,14 @@ describe('Pinboard Page', function () {
           firstPinboardItem.removeButton.click();
 
           pinboardsListSection.pinboardsTitle.waitForDisplayed(2000, true);
-          browser.waitForUrl(url => url.should.containEql('/pinboard/77edc128/'), 500);
+          browser.waitForUrl(url => url.should.containEql('/pinboard/abcd1234/'), 500);
         });
       });
 
       context('remove last pinboard', function () {
         it('should create new pinboard', function () {
+          api.onGet('/api/v2/pinboards/').reply(200, shortPinboardsListData);
+
           const pinboardsListSection = pinboardPage.pinboardsListSection;
           const firstPinboardItem = pinboardsListSection.firstPinboardItem;
           const secondPinboardItem = pinboardsListSection.secondPinboardItem;
@@ -1361,7 +1548,7 @@ describe('Pinboard Page', function () {
           firstPinboardItem.removeButton.click();
 
           pinboardsListSection.pinboardsTitle.waitForDisplayed(2000, true);
-          browser.waitForUrl(url => url.should.containEql('/pinboard/5cd06f2b/'), 500);
+          browser.waitForUrl(url => url.should.containEql('/pinboard/abcd7890/'), 500);
         });
       });
     });
@@ -1370,10 +1557,18 @@ describe('Pinboard Page', function () {
 
 describe('Undo card', function () {
   beforeEach(function () {
+    mockCommonApi();
+    api.onGet('/api/v2/pinboards/abcd5678/').reply(200, pinboardData);
+    api.onGet('/api/v2/pinboards/abcd5678/officers/').reply(200, pinboardOfficersData);
+
     pinboardPage.open();
   });
 
   it('should show undo card when user click on unpin button', function () {
+    api
+      .onPut('/api/v2/pinboards/abcd5678/', unpinFirstOfficerCardRequestData)
+      .reply(200, unpinFirstOfficerCardData);
+
     pinboardPage.pinnedSection.officers.firstCardUnpinBtn.click();
     pinboardPage.pinnedSection.officers.undoCard.waitForDisplayed();
 
@@ -1392,6 +1587,10 @@ describe('Undo card', function () {
 
 describe('Empty Pinboard Page', function () {
   beforeEach(function () {
+    mockCommonApi();
+    api.onGet('/api/v2/pinboards/abcd1234/').replyOnce(200, emptyPinboard);
+    api.onGet('/api/v2/pinboards/abcd1234/officers/').reply(200, pinboardOfficersData);
+
     pinboardPage.open('abcd1234');
   });
 
@@ -1413,21 +1612,27 @@ describe('Empty Pinboard Page', function () {
   });
 
   it('should go to Watts Crew pinboard page when clicking on Repeaters row', function () {
+    api.onGet('/api/v2/pinboards/abcd1234/').replyOnce(200, wattsCrewPinboard);
+    api.onPut('/api/v2/pinboards/abcd1234/', { 'source_pinboard_id': 'e12345' }).reply(200, wattsCrewPinboard);
+
     pinboardPage.emptyPinboardSection.firstExample.click();
-    browser.getUrl().should.match(/pinboard\/abcd1234\/watts-crew\//);
+    browser.waitForUrl(url => url.should.containEql('/pinboard/abcd1234/watts-crew/'), 3000);
     pinboardPage.pinboardSection.title.getValue().should.equal('Watts Crew');
-    pinboardPage.pinboardSection.description.getText().should.equal(
-      'Officers with at least 10 complaints against them generate 64% of all complaints.'
+    pinboardPage.pinboardSection.description.getText().should.containEql(
+      'It will be a election and we are going to do the best '
     );
     pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
   });
 
   it('should go to Skullcap Crew pinboard page when clicking on Skullcap Crew row', function () {
+    api.onGet('/api/v2/pinboards/abcd1234/').replyOnce(200, skullcapCrewPinboard);
+    api.onPut('/api/v2/pinboards/abcd1234/', { 'source_pinboard_id': 'e23456' }).reply(200, skullcapCrewPinboard);
+
     pinboardPage.emptyPinboardSection.secondExample.click();
-    browser.getUrl().should.match(/pinboard\/abcd1234\/skullcap-crew\//);
+    browser.waitForUrl(url => url.should.containEql('/pinboard/abcd1234/skullcap-crew/'), 3000);
     pinboardPage.pinboardSection.title.getValue().should.equal('Skullcap Crew');
     pinboardPage.pinboardSection.description.getText().should.equal(
-      'Skullcap Crew is a nickname given to a group of five Chicago Police officers in a gang.'
+      'Skullcap Crew is a nickname given to a group of five Chicago Police officers in a gang tactical.'
     );
     pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
   });
@@ -1435,17 +1640,28 @@ describe('Empty Pinboard Page', function () {
 
 describe('No Id Pinboard Page', function () {
   beforeEach(function () {
+    mockCommonApi();
+    api.onGet('/api/v2/pinboards/latest-retrieved-pinboard/', { create: true }).reply(200, emptyPinboard);
+
     pinboardPage.open('');
   });
 
   it('should render pinboard return by latest-retrieved-pinboard', function () {
     pinboardPage.emptyPinboardSection.mainElement.waitForDisplayed();
+    browser.waitForUrl(url => url.should.containEql('/pinboard/abcd1234/untitled-pinboard/'), 500);
   });
 });
 
 describe('Session Generator Pinboard Page', function () {
-  const showingPinboardffff6666 = () => {
-    browser.getUrl().should.match(/\/pinboard\/ffff6666\//);
+  beforeEach(function () {
+    mockCommonApi();
+    api.onGet('/api/v2/pinboards/abcd1234/officers/').reply(200, createdPinboardFromParamsOfficersData);
+    api.onGet('/api/v2/pinboards/abcd1234/trrs/').reply(200, createdPinboardFromParamsTRRsData);
+    api.onGet('/api/v2/pinboards/abcd1234/complaints/').reply(200, createdPinboardFromParamsComplaintsData);
+  });
+
+  const checkShouldShowCorrectPinboard = () => {
+    browser.waitForUrl(url => url.should.containEql('/pinboard/abcd1234/'), 3000);
 
     const officers = pinboardPage.pinnedSection.officers;
     const crs = pinboardPage.pinnedSection.crs;
@@ -1457,27 +1673,47 @@ describe('Session Generator Pinboard Page', function () {
   };
 
   it('should create new pinboard by query', function () {
+    api.onPost('/api/v2/pinboards/', createdPinboardFromParamsRequestData).reply(200, createdPinboardFromParamsData);
+    api.onGet('/api/v2/pinboards/abcd1234/').reply(200, createdPinboardFromParamsData);
+
     pinboardPage.openByQuery('?officer-ids=1,2&crids=5678123&trr-ids=3,2');
-    showingPinboardffff6666();
+    checkShouldShowCorrectPinboard();
   });
 
   it('should accept title param', function () {
-    pinboardPage.openByQuery('?officer-ids=1,2&crids=5678123&title=Preset+title+via+url');
-    browser.getUrl().should.match(/\/pinboard\/eeee8888\/preset-title-via-url\//);
+    api
+      .onPost('/api/v2/pinboards/', createdPinboardWithTitleAndParamsRequestData)
+      .reply(200, createdPinboardWithTitleAndParamsData);
+    api.onGet('/api/v2/pinboards/abcd1234/').reply(200, createdPinboardWithTitleAndParamsData);
+
+    pinboardPage.openByQuery('?officer-ids=1,2&crids=5678123&trr-ids=3,2&title=Preset+title+via+url');
+    browser.waitForUrl(url => url.should.containEql('/pinboard/abcd1234/preset-title-via-url/'), 3000);
 
     pinboardPage.pinboardSection.title.getText().should.equal('Preset title via url');
   });
 
   it('should create empty pinboard if only title is provided', function () {
+    api.onPost('/api/v2/pinboards/', createdPinboardWithTitleRequestData).reply(200, createdPinboardWithTitleData);
+    api.onGet('/api/v2/pinboards/abcd1234/').reply(200, createdPinboardWithTitleData);
+
     pinboardPage.openByQuery('?title=Empty+pinboard+with+preset+title+via+url');
-    browser.getUrl().should.match(/\/pinboard\/eeee9999\/empty-pinboard-with-preset-title-via-url\//);
+    browser.waitForUrl(
+      url => url.should.containEql('/pinboard/abcd1234/empty-pinboard-with-preset-title-via-url/'),
+      3000
+    );
 
     pinboardPage.emptyPinboardSection.mainElement.waitForDisplayed();
   });
 
   it('should create new pinboard by query with some not-found items', function () {
+    api
+      .onPost('/api/v2/pinboards/', createdPinboardFromInvalidParamsRequestData)
+      .reply(200, createdPinboardFromInvalidParamsResponseData);
+    api.onGet('/api/v2/pinboards/abcd1234/').reply(200, createdPinboardFromInvalidParamsData);
+    api.onGet('/api/v2/pinboards/abcd1234/trrs/').reply(200, []);
+
     pinboardPage.openByQuery('?officer-ids=1,2&crids=987654,5678123&trr-ids=9,7');
-    browser.getUrl().should.match(/\/pinboard\/eeee7777\//);
+    browser.waitForUrl(url => url.should.containEql('/pinboard/abcd1234/'), 3000);
 
     pinboardPage.firstToast.waitForText(
       '1 out of 2 allegations were added to this pinboard. 1 out of 2 allegation IDs could not be recognized (987654).'
@@ -1496,42 +1732,64 @@ describe('Session Generator Pinboard Page', function () {
   });
 
   it('should accept params without s', function () {
+    api.onPost('/api/v2/pinboards/', createdPinboardFromParamsRequestData).reply(200, createdPinboardFromParamsData);
+    api.onGet('/api/v2/pinboards/abcd1234/').reply(200, createdPinboardFromParamsData);
+
     pinboardPage.openByQuery('?officer-id=1,2&crid=5678123&trr-id=3,2');
-    showingPinboardffff6666();
+    checkShouldShowCorrectPinboard();
   });
 
   it('should accept params with under score', function () {
+    api.onPost('/api/v2/pinboards/', createdPinboardFromParamsRequestData).reply(200, createdPinboardFromParamsData);
+    api.onGet('/api/v2/pinboards/abcd1234/').reply(200, createdPinboardFromParamsData);
+
     pinboardPage.openByQuery('?officer_ids=1,2&crid=5678123&trr_id=3,2');
-    showingPinboardffff6666();
+    checkShouldShowCorrectPinboard();
   });
 
   it('should accept camelCase params', function () {
+    api.onPost('/api/v2/pinboards/', createdPinboardFromParamsRequestData).reply(200, createdPinboardFromParamsData);
+    api.onGet('/api/v2/pinboards/abcd1234/').reply(200, createdPinboardFromParamsData);
+
     pinboardPage.openByQuery('?officerIds=1,2&crids=5678123&trrId=3,2');
-    showingPinboardffff6666();
+    checkShouldShowCorrectPinboard();
   });
 
   it('should accept params with some capitalizing mistakes', function () {
+    api.onPost('/api/v2/pinboards/', createdPinboardFromParamsRequestData).reply(200, createdPinboardFromParamsData);
+    api.onGet('/api/v2/pinboards/abcd1234/').reply(200, createdPinboardFromParamsData);
+
     pinboardPage.openByQuery('?officerID=1,2&CRids=5678123&tRRIds=3,2');
-    showingPinboardffff6666();
+    checkShouldShowCorrectPinboard();
   });
 
   it('should skip invalid param and show invalid param message', function () {
+    api.onPost('/api/v2/pinboards/', createdPinboardFromParamsRequestData).reply(200, createdPinboardFromParamsData);
+    api.onGet('/api/v2/pinboards/abcd1234/').reply(200, createdPinboardFromParamsData);
+
     pinboardPage.openByQuery('?officer_ids=1,2&crid=5678123&trr_id=3,2&invalid-param=1,2');
-    showingPinboardffff6666();
+    checkShouldShowCorrectPinboard();
 
     pinboardPage.firstToast.waitForText('invalid-param is not recognized.');
   });
 
   it('should skip invalid params and show invalid params message', function () {
+    api.onPost('/api/v2/pinboards/', createdPinboardFromParamsRequestData).reply(200, createdPinboardFromParamsData);
+    api.onGet('/api/v2/pinboards/abcd1234/').reply(200, createdPinboardFromParamsData);
+
     pinboardPage.openByQuery('?officer_ids=1,2&crid=5678123&trr_id=3,2&invalid-param-a=1,2&invalid-param-b=1,2');
-    showingPinboardffff6666();
+    checkShouldShowCorrectPinboard();
 
     pinboardPage.firstToast.waitForText('invalid-param-a, invalid-param-b are not recognized.');
   });
 
   it('should show redirect message and redirect to latest pinboard if no valid params', function () {
+    api
+      .onGet('/api/v2/pinboards/latest-retrieved-pinboard/', { create: true })
+      .reply(200, pinboardData);
+
     pinboardPage.openByQuery('?invalid-param-a=1,2&invalid-param-b=1,2');
-    browser.getUrl().should.match(/\/pinboard\/abcd1234\//);
+    browser.waitForUrl(url => url.should.containEql('/pinboard/abcd5678/'), 3000);
 
     pinboardPage.firstToast.waitForText('invalid-param-a, invalid-param-b are not recognized.');
     pinboardPage.secondToast.waitForText('Redirected to latest pinboard.');
@@ -1539,10 +1797,22 @@ describe('Session Generator Pinboard Page', function () {
 });
 
 describe('Saving Pinboard Failure Handling', function () {
+  beforeEach(function () {
+    mockCommonApi();
+    api.onGet('/api/v2/pinboards/abcd5678/').reply(200, pinboardData);
+    api.onGet('/api/v2/pinboards/abcd5678/officers/').reply(200, pinboardOfficersData);
+    api.onGet('/api/v2/pinboards/abcd5678/relevant-coaccusals/').replyOnce(200, pinboardCoaccusalsData);
+    api.onGet('/api/v2/pinboards/abcd5678/relevant-coaccusals/').replyOnce(200, updatedPinboardCoaccusalsData);
+
+    pinboardPage.open();
+  });
+
+  afterEach(function () {
+    browser.setNetworkConditions({}, 'No throttling');
+  });
+
   describe('Connection lost', function () {
     it('should show connection lost toast', function () {
-      pinboardPage.open('5cd0dddd');
-
       pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
       pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.officerName.getText().should.equal(
         'Richard Sullivan'
@@ -1563,7 +1833,10 @@ describe('Saving Pinboard Failure Handling', function () {
     });
 
     it('should show connection lost toast and retry on click', function () {
-      pinboardPage.open('5cd0eeee');
+      api
+        .onPut('/api/v2/pinboards/abcd5678/', pinRelevantCoaccusalRequestData)
+        .reply(200, pinRelevantCoaccusalData);
+
       pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
       pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.officerName.getText().should.equal(
         'Richard Sullivan'
@@ -1587,18 +1860,17 @@ describe('Saving Pinboard Failure Handling', function () {
       browser.pause(500);
 
       pinboardPage.firstToast.click();
+      browser.setNetworkConditions({}, 'No throttling');
       pinboardPage.firstToast.waitForDisplayed(5000, true);
 
       times(10, () => {
         browser.pause(100);
         pinboardPage.firstToast.waitForDisplayed(5000, true);
       });
-
-      browser.setNetworkConditions({}, 'No throttling');
     });
 
     it('should show connection lost toast and retry when online again', function () {
-      pinboardPage.open('5cd0ffff');
+      api.onPut('/api/v2/pinboards/abcd5678/', pinRelevantCoaccusalRequestData).reply(200, pinRelevantCoaccusalData);
 
       pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
       pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.officerName.getText().should.equal(
@@ -1624,7 +1896,7 @@ describe('Saving Pinboard Failure Handling', function () {
 
   describe('request failure', function () {
     it('should show saving failure toast', function () {
-      pinboardPage.open('5cd0aaaa');
+      api.onPut('/api/v2/pinboards/abcd5678/', pinRelevantCoaccusalRequestData).reply(500, {});
 
       pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
       pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.officerName.getText().should.equal(
@@ -1644,7 +1916,11 @@ describe('Saving Pinboard Failure Handling', function () {
     });
 
     it('should show saving failure toast and retry on click', function () {
-      pinboardPage.open('5cd0bbbb');
+      api.onPut('/api/v2/pinboards/abcd5678/', pinRelevantCoaccusalRequestData).times(150).reply(500, {});
+      api
+        .onPut('/api/v2/pinboards/abcd5678/', pinRelevantCoaccusalRequestData)
+        .replyOnce(200, pinRelevantCoaccusalData);
+
       pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
       pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.officerName.getText().should.equal(
         'Richard Sullivan'

@@ -3,11 +3,13 @@
 require('should');
 
 import landingPage from '../page-objects/landing-page';
+import api from '../mock-api';
+import { mockCommonApi } from '../mock-data/utils';
 
 
 describe('Login screen', function () {
-
   beforeEach(function () {
+    mockCommonApi();
     landingPage.open();
     landingPage.toggleEditMode(false);
   });
@@ -20,6 +22,10 @@ describe('Login screen', function () {
     });
 
     it('should hide login screen when clicked on if logged-in successfully', function () {
+      api
+        .onPost('/api/v2/users/sign-in/', { username: 'username', password: 'password' })
+        .reply(200, { 'apiAccessToken': '055a5575c1832e9123cd546fe0cfdc8607f8680c' });
+
       landingPage.loginScreen.loginModal.waitForDisplayed();
       landingPage.loginScreen.enterCredentials('username', 'password');
       landingPage.loginScreen.loginButton.click();
@@ -27,6 +33,10 @@ describe('Login screen', function () {
     });
 
     it('should show error message when clicked on if there is an error', function () {
+      api
+        .onPost('/api/v2/users/sign-in/', { username: 'badname', password: 'badpassword' })
+        .reply(400, { 'message': 'Bad username/password' });
+
       landingPage.loginScreen.loginModal.waitForDisplayed();
       landingPage.loginScreen.enterCredentials('badname', 'badpassword');
       landingPage.loginScreen.loginButton.click();
@@ -55,6 +65,10 @@ describe('Login screen', function () {
 
     describe('reset password button', function () {
       it('should show success message when clicked on if there is not an error', function () {
+        api
+          .onPost('/api/v2/users/forgot-password/', { email: 'valid@email.com' })
+          .reply(200, { 'message': 'Please check your email for a password reset link.' });
+
         landingPage.loginScreen.emailInput.waitForDisplayed();
         landingPage.loginScreen.emailInput.setValue('valid@email.com');
         landingPage.loginScreen.resetPasswordButton.click();
@@ -68,6 +82,10 @@ describe('Login screen', function () {
       });
 
       it('should show error message when clicked on if there is an error', function () {
+        api
+          .onPost('/api/v2/users/forgot-password/', { email: 'invalid@email.com' })
+          .reply(400, { 'message': 'Sorry, there\'s no account registered with this email address.' });
+
         landingPage.loginScreen.emailInput.setValue('invalid@email.com');
         landingPage.loginScreen.resetPasswordButton.click();
 

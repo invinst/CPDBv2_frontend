@@ -21,7 +21,6 @@ describe('analytic actions', function () {
               'attachment_id': '123456',
             },
             method: 'post',
-            adapter: null,
             cancelToken: undefined,
           },
         },

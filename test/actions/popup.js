@@ -15,7 +15,6 @@ describe('popup actions', function () {
           request: {
             url: `${POPUP_API_URL}?page=officer`,
             params: undefined,
-            adapter: null,
             cancelToken: undefined,
           },
         },

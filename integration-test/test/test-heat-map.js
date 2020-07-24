@@ -3,10 +3,13 @@
 import 'should';
 
 import landingPage from '../page-objects/landing-page';
+import { mockCommonApi, mockLandingPageApi } from '../mock-data/utils';
 
 
 describe('Heat map', function () {
   beforeEach(function () {
+    mockCommonApi();
+    mockLandingPageApi();
     landingPage.open();
   });
 

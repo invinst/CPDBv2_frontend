@@ -1,19 +1,52 @@
-const { isUndefined, has, get, fromPairs, toPairs, isArray, isEmpty, times, concat, map } = require('lodash');
+const {
+  isUndefined, has, get,
+  isArray, isEmpty, times,
+  concat, map, isFunction, reduce, trimEnd,
+} = require('lodash');
 
-const hashBody = (body) => isEmpty(body) ? '' : JSON.stringify(body, Object.keys(body).sort());
+const sortObjectValues = (obj) => reduce(obj || {}, (sortedObject, value, key) => {
+  if (isArray(value)) {
+    sortedObject[key] = value.sort();
+  } else {
+    sortedObject[key] = value;
+  }
+  return sortedObject;
+}, {});
+
+const hashBody = (body) => isEmpty(body) ? '' : JSON.stringify(sortObjectValues(body), Object.keys(body).sort());
 const return404 = (response) => response.status(404).send();
+
+const parseUrlParams = (paramsString) => {
+  if (isUndefined(paramsString)) {
+    return {};
+  }
+  const params = {};
+  for (const [key, value] of new URLSearchParams(paramsString)) {
+    if (key.endsWith('[]')) {
+      const splitKey = key.substr(0, key.length - 2);
+      params[splitKey] = [...(params[splitKey] || []), value];
+    } else {
+      params[key] = value;
+    }
+  }
+  return params;
+};
 
 const splitGetUrl = (requestUrl) => {
   const splittedUrl = requestUrl.split('?');
   const url = splittedUrl[0];
-  const params = {};
-  for (const [key, value] of new URLSearchParams(splittedUrl[1])) {
-    params[key] = value;
-  }
+  const params = parseUrlParams(splittedUrl[1]);
   return { url, params };
 };
 
-const stringifyObject = (obj) => fromPairs(map(toPairs(obj), ([key, value]) => [key, value.toString()]));
+const stringifyObject = obj => reduce(obj || {}, (stringifiedObj, value, key) => {
+  if (isArray(value)) {
+    stringifiedObj[key] = map(value, v => v.toString());
+  } else {
+    stringifiedObj[key] = value.toString();
+  }
+  return stringifiedObj;
+}, {});
 
 function Request(handleMap, method, url, requestBody) {
   this.method = method;
@@ -38,10 +71,18 @@ Request.prototype.getURLHandlers = function () {
 Request.prototype.reply = function (status, responseBody) {
   const urlHandlers = this.getURLHandlers();
   const delayDuration = this.duration;
-  const response = function (res) {
-    setTimeout(function () {
-      res.status(status).send(responseBody);
-    }, delayDuration);
+  const response = function (request) {
+    return function (res) {
+      setTimeout(function () {
+        if (isFunction(status)) {
+          const result = status(request);
+
+          res.status(result[0]).send(result[1]);
+        } else {
+          res.status(status).send(responseBody);
+        }
+      }, delayDuration);
+    };
   };
   const handlers = urlHandlers[this.requestBody];
   const replyAll = this.responseTimes === -1;
@@ -77,25 +118,18 @@ function Mockapi() {
 }
 
 Mockapi.prototype.getResponse = function (request) {
-  if ((request.method === 'GET') && request.originalUrl.includes('/?')) {
-    const { url, params } = splitGetUrl(request.originalUrl);
-    request.originalUrl = url;
-    request.body = params;
-  }
-  const urlHandlers = get(this.data, request.method, {})[request.originalUrl];
+  const urlHandlers = get(this.data, request.method, {})[trimEnd(request.baseUrl, '/')];
 
   if (isUndefined(urlHandlers)) {
     return return404;
   }
-  const handlers = urlHandlers[hashBody(request.body)] || urlHandlers[''];
+  const hashedBody = hashBody(request.method === 'GET' ? request.query : request.body);
+  const handlers = urlHandlers[hashedBody] || urlHandlers[''];
   if (isUndefined(handlers) || (isArray(handlers) && handlers.length === 0)) {
     return return404;
   }
-  if (isArray(handlers)) {
-    return handlers.shift();
-  } else {
-    return handlers;
-  }
+  const reponseHandler = isArray(handlers) ? handlers.shift() : handlers;
+  return reponseHandler(request);
 };
 
 Mockapi.prototype.clean = function () {
@@ -104,7 +138,7 @@ Mockapi.prototype.clean = function () {
 
 Mockapi.prototype.request = function (method, url, requestBody) {
   const hashedBody = hashBody(requestBody);
-  return new Request(this.data, method, url, hashedBody);
+  return new Request(this.data, method, trimEnd(url, '/'), hashedBody);
 };
 
 Mockapi.prototype.onGet = function (url, params) {
@@ -118,6 +152,10 @@ Mockapi.prototype.onPost = function (url, params) {
 
 Mockapi.prototype.onPut = function (url, params) {
   return this.request('PUT', url, params);
+};
+
+Mockapi.prototype.onPatch = function (url, params) {
+  return this.request('PATCH', url, params);
 };
 
 Mockapi.prototype.onDelete = function (url, params) {

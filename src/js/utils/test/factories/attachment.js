@@ -1,7 +1,7 @@
 import { Factory } from 'rosie';
 
 import { internet, random, helpers, lorem } from 'faker';
-import { dateGenerator } from 'utils/test/factories/utils';
+import { dateGenerator } from './utils';
 
 const RawDocumentFactory = Factory.define('RawDocumentFactory')
   .attr('title', () => (`CR ${random.number()}`))

@@ -234,7 +234,7 @@ exports.config = {
   // Hook that gets executed before the suite starts
   beforeSuite: function (suite) {
     // Start Mock API Server
-    const startMockServer = require('./integration-test/mocker-server');
+    const startMockServer = require('./integration-test/mock-server');
     api = require('./integration-test/mock-api');
     const apiDomainPort = (Date.now() % 10000) + SYSTEM_PORT;
     browser.url('');

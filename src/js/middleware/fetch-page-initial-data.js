@@ -1,5 +1,5 @@
 import { Promise } from 'es6-promise';
-import { every, get, throttle } from 'lodash';
+import { get, throttle } from 'lodash';
 import { LOCATION_CHANGE } from 'connected-react-router';
 import queryString from 'query-string';
 
@@ -132,11 +132,6 @@ export default store => next => action => {
       dispatches.push(store.dispatch(fetchAppConfig()));
     }
 
-    const notRequiredLandingPageContent = [/embed\/map/];
-    if (every(notRequiredLandingPageContent, item => !pathName.match(item))) {
-      getCMSContent(LANDING_PAGE_ID);
-    }
-
     if (pathName.match(/officer\/\d+/)) {
       const officerId = getOfficerId(pathName);
       const oldOfficerId = getOfficerId(prevPathname);
@@ -152,6 +147,8 @@ export default store => next => action => {
     }
 
     else if (pathName.match(/^\/(edit\/?)?(search\/?)?$/)) {
+      getCMSContent(LANDING_PAGE_ID);
+
       if (!hasCitySummarySelector(state)) {
         dispatches.push(store.dispatch(getCitySummary()));
       }
@@ -215,6 +212,8 @@ export default store => next => action => {
     }
 
     else if (pathName.match(/embed\/top-officers/)) {
+      getCMSContent(LANDING_PAGE_ID);
+
       if (!hasOfficerByAllegationData(state)) {
         dispatches.push(store.dispatch(requestOfficersByAllegation()));
       }

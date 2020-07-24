@@ -6,9 +6,21 @@ const moment = require('moment');
 import documentPage from '../page-objects/document-page';
 import landingPage from '../page-objects/landing-page';
 import docOverviewPage from '../page-objects/documents-overview-page';
+import api from '../mock-api';
+import { mockCommonApi } from '../mock-data/utils';
+import { documentData, updateDocumentData } from '../mock-data/document-page';
+import { documentsData } from '../mock-data/documents-overview-page';
 
 
 describe('Document page', function () {
+  beforeEach(function () {
+    mockCommonApi();
+    api.onGet('/api/v2/attachments/1/').reply(function (request) {
+      const authenticated = request.header('Authorization') === 'Token 055a5575c1832e9123cd546fe0cfdc8607f8680c';
+      return [200, documentData(authenticated)];
+    });
+  });
+
   context('Unauthenticated user', function () {
     beforeEach(function () {
       documentPage.open();
@@ -62,6 +74,14 @@ describe('Document page', function () {
 
   context('Authenticated user', function () {
     beforeEach(function () {
+      api
+        .onPost('/api/v2/users/sign-in/', { username: 'username', password: 'password' })
+        .reply(200, { 'apiAccessToken': '055a5575c1832e9123cd546fe0cfdc8607f8680c' });
+
+      api
+        .onGet('/api/v2/attachments/tags/')
+        .reply(200, ['twitter', 'Turbyville', 'tactical', 'complaint', 'investigation']);
+
       documentPage.open(1, true);
     });
 
@@ -98,6 +118,33 @@ describe('Document page', function () {
     });
 
     it('should be able to update document tags', function () {
+      api
+        .onPatch(
+          '/api/v2/attachments/1/',
+          updateDocumentData.success.updateTagParams(['tactical'])
+        )
+        .reply(200, updateDocumentData.success.updatedDocumentTagData(['tactical']));
+      api
+        .onPatch(
+          '/api/v2/attachments/1/',
+          updateDocumentData.success.updateTagParams(['tactical', 'chicago'])
+        )
+        .reply(200, updateDocumentData.success.updatedDocumentTagData(['tactical', 'chicago']));
+
+      api
+        .onPatch(
+          '/api/v2/attachments/1/',
+          updateDocumentData.success.updateTagParams(['tactical', 'chicago', 'copa'])
+        )
+        .reply(200, updateDocumentData.success.updatedDocumentTagData(['tactical', 'chicago', 'copa']));
+
+      api
+        .onPatch(
+          '/api/v2/attachments/1/',
+          updateDocumentData.failure.updateParamsFailure
+        )
+        .reply(400, updateDocumentData.failure.updatedDocumentDataFailure);
+
       documentPage.tagsSection.tags.count.should.equal(2);
       documentPage.tagsSection.firstTag.getText().should.equal('hospital');
       documentPage.tagsSection.secondTag.getText().should.equal('tactical');
@@ -126,6 +173,13 @@ describe('Document page', function () {
     });
 
     it('should be able to update document tags by autosuggest', function () {
+      api
+        .onPatch(
+          '/api/v2/attachments/1/',
+          updateDocumentData.success.updateTagParams(['hospital', 'tactical', 'twitter'])
+        )
+        .reply(200, updateDocumentData.success.updatedDocumentTagData(['hospital', 'tactical', 'twitter']));
+
       browser.refresh();
       $('body').waitForDisplayed();
 
@@ -161,6 +215,14 @@ describe('Document page', function () {
 
   context('Authenticated user another page', function () {
     beforeEach(function () {
+      api
+        .onPost('/api/v2/users/sign-in/', { username: 'username', password: 'password' })
+        .reply(200, { 'apiAccessToken': '055a5575c1832e9123cd546fe0cfdc8607f8680c' });
+
+      api
+        .onGet('/api/v2/attachments/')
+        .reply(200, documentsData);
+
       landingPage.open(true);
       landingPage.header.navBar.headerLinks.documents.click();
       docOverviewPage.firstDocTitle.click();
@@ -203,6 +265,33 @@ describe('Document page', function () {
     });
 
     it('should be able to update document tags', function () {
+      api
+        .onPatch(
+          '/api/v2/attachments/1/',
+          updateDocumentData.success.updateTagParams(['tactical'])
+        )
+        .reply(200, updateDocumentData.success.updatedDocumentTagData(['tactical']));
+      api
+        .onPatch(
+          '/api/v2/attachments/1/',
+          updateDocumentData.success.updateTagParams(['tactical', 'chicago'])
+        )
+        .reply(200, updateDocumentData.success.updatedDocumentTagData(['tactical', 'chicago']));
+
+      api
+        .onPatch(
+          '/api/v2/attachments/1/',
+          updateDocumentData.success.updateTagParams(['tactical', 'chicago', 'copa'])
+        )
+        .reply(200, updateDocumentData.success.updatedDocumentTagData(['tactical', 'chicago', 'copa']));
+
+      api
+        .onPatch(
+          '/api/v2/attachments/1/',
+          updateDocumentData.failure.updateParamsFailure
+        )
+        .reply(400, updateDocumentData.failure.updatedDocumentDataFailure);
+
       landingPage.open(true);
       landingPage.header.navBar.headerLinks.documents.click();
       docOverviewPage.firstDocTitle.click();

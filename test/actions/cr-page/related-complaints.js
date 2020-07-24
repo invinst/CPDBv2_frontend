@@ -17,7 +17,6 @@ describe('related complaints actions', function () {
         payload: {
           request: {
             params: undefined,
-            adapter: null,
             url: `${constants.CR_URL}123/related-complaints/?match=categories&a=1`,
             cancelToken: undefined,
           },
@@ -38,7 +37,6 @@ describe('related complaints actions', function () {
         payload: {
           request: {
             params: undefined,
-            adapter: null,
             url: `${constants.CR_URL}123/related-complaints/?match=officers&a=1`,
             cancelToken: undefined,
           },

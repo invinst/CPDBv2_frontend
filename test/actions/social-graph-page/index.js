@@ -30,7 +30,6 @@ describe('socialGraph actions', function () {
           request: {
             url: constants.SOCIAL_GRAPH_NETWORK_API_URL,
             params: { 'unit_id': 123, 'threshold': 2, 'complaint_origin': 'CIVILIAN' },
-            adapter: null,
             cancelToken: undefined,
           },
         },
@@ -50,7 +49,6 @@ describe('socialGraph actions', function () {
           request: {
             url: constants.SOCIAL_GRAPH_ALLEGATIONS_API_URL,
             params: { 'unit_id': 123, 'threshold': 2, 'complaint_origin': 'CIVILIAN' },
-            adapter: null,
             cancelToken: undefined,
           },
         },
@@ -70,7 +68,6 @@ describe('socialGraph actions', function () {
           request: {
             url: constants.SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
             params: { 'unit_id': 123 },
-            adapter: null,
             cancelToken: undefined,
           },
         },
@@ -90,7 +87,6 @@ describe('socialGraph actions', function () {
           request: {
             url: constants.SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
             params: { 'unit_id': 123 },
-            adapter: null,
             cancelToken: undefined,
           },
         },
@@ -110,7 +106,6 @@ describe('socialGraph actions', function () {
           request: {
             url: constants.SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL,
             params: { 'unit_id': 123 },
-            adapter: null,
             cancelToken: undefined,
           },
         },
@@ -130,7 +125,6 @@ describe('socialGraph actions', function () {
           request: {
             url: constants.SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL,
             params: { 'unit_id': 123 },
-            adapter: null,
             cancelToken: undefined,
           },
         },
@@ -150,7 +144,6 @@ describe('socialGraph actions', function () {
           request: {
             url: constants.SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
             params: { 'unit_id': 123, 'detail': true },
-            adapter: null,
             cancelToken: undefined,
           },
         },
@@ -170,7 +163,6 @@ describe('socialGraph actions', function () {
           request: {
             url: constants.SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
             params: { 'unit_id': 123, 'detail': true },
-            adapter: null,
             cancelToken: undefined,
           },
         },
@@ -190,7 +182,6 @@ describe('socialGraph actions', function () {
           request: {
             url: constants.SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL,
             params: { 'unit_id': 123, 'detail': true },
-            adapter: null,
             cancelToken: undefined,
           },
         },
@@ -210,7 +201,6 @@ describe('socialGraph actions', function () {
           request: {
             url: constants.SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL,
             params: { 'unit_id': 123, 'detail': true },
-            adapter: null,
             cancelToken: undefined,
           },
         },
@@ -230,7 +220,6 @@ describe('socialGraph actions', function () {
           request: {
             url: constants.SOCIAL_GRAPH_OFFICERS_API_URL,
             params: { 'unit_id': 123 },
-            adapter: null,
             cancelToken: undefined,
           },
         },

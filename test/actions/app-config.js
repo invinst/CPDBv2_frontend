@@ -16,7 +16,6 @@ describe('App config actions', function () {
           request: {
             url: APP_CONFIG_API_URL,
             params: undefined,
-            adapter: null,
             cancelToken: undefined,
           },
         },
