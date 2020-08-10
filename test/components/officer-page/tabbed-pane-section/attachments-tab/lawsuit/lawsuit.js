@@ -1,12 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Complaint from 'components/officer-page/tabbed-pane-section/attachments-tab/complaint';
-import Heading from 'components/officer-page/tabbed-pane-section/attachments-tab/complaint/heading';
+import Lawsuit from 'components/officer-page/tabbed-pane-section/attachments-tab/lawsuit';
+import Heading from 'components/officer-page/tabbed-pane-section/attachments-tab/lawsuit/heading';
 import Attachment from 'components/officer-page/tabbed-pane-section/attachments-tab/attachment';
 
 
-describe('Complaint component', function () {
+describe('Lawsuit component', function () {
   const attachment0 = {
     title: 'CRID 1071970 OCIR 2 of 3',
     url: 'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-2-of-3.html',
@@ -19,12 +19,11 @@ describe('Complaint component', function () {
     previewImageUrl: '/src/img/ic-video.svg',
     fileType: 'video',
   };
-  const complaint = {
-    crid: '307775',
-    officerId: '12074',
-    category: 'Use Of Force',
-    finding: 'Not Sustained',
-    outcome: 'No Action Taken',
+  const lawsuit = {
+    caseNo: 'LL-540-10',
+    kind: 'LAWSUIT',
+    misconduct: 'Excessive force',
+    outcome: 'killed by officer',
     date: 'MAR 1',
     coaccused: 4,
     attachments: [attachment0, attachment1],
@@ -32,17 +31,17 @@ describe('Complaint component', function () {
 
   it('should render Heading and AttachmentsTab', function () {
     const wrapper = shallow(
-      <Complaint complaint={ complaint } pathname='/complaint/307775/'/>
+      <Lawsuit lawsuit={ lawsuit } pathname='/lawsuit/307775/'/>
     );
 
     const heading = wrapper.find(Heading);
-    heading.prop('complaint').should.eql(complaint);
+    heading.prop('lawsuit').should.eql(lawsuit);
 
     const attachments = wrapper.find(Attachment);
     attachments.should.have.length(2);
     attachments.at(0).prop('attachment').should.eql(attachment0);
-    attachments.at(0).prop('pathname').should.eql('/complaint/307775/');
+    attachments.at(0).prop('pathname').should.eql('/lawsuit/307775/');
     attachments.at(1).prop('attachment').should.eql(attachment1);
-    attachments.at(1).prop('pathname').should.eql('/complaint/307775/');
+    attachments.at(1).prop('pathname').should.eql('/lawsuit/307775/');
   });
 });

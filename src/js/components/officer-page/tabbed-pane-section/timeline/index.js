@@ -55,6 +55,8 @@ export default class Timeline extends Component {
 
   renderItems() {
     const { items, officerId, changeOfficerTab, pathname, onTrackingAttachment } = this.props;
+    console.log('------- items')
+    console.log(items)
 
     return (
       <div>

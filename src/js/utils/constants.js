@@ -568,6 +568,7 @@ export const NEW_TIMELINE_ITEMS = {
   JOINED: 'JOINED',
   YEAR: 'YEAR',
   EMPTY: 'EMPTY',
+  LAWSUIT: 'LAWSUIT',
 };
 
 export const DOCUMENTS_SEARCH_ITEMS = {

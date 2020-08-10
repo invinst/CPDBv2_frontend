@@ -1,0 +1,68 @@
+@import 'variables'
+
+$height: 58px
+
+\:local(.heading)
+  background-color: inherit
+  height: $height
+  line-height: calc(#{$height} - 1px)
+  cursor: pointer
+  padding: 0 16px
+  box-sizing: border-box
+  display: block
+
+  .heading-box
+    border-bottom: solid 1px $alto-color
+
+    .heading-kind-wrapper
+      width: 85px
+      display: inline-block
+      margin-right: 16px
+
+      .attachments-heading-kind
+        width: 85px
+        border: solid 1px $thunder-color
+        color: white
+        background-color: $thunder-color
+        line-height: 24px
+        display: inline-block
+        text-align: center
+
+        &.active
+          color: $scarlet-color
+          background-color: $champagne-color
+
+    .heading-detail
+      display: inline-block
+      vertical-align: middle
+
+      .attachments-heading-misconduct
+        color: $thunder-color
+        line-height: 18px
+
+      .attachments-heading-outcome
+        font-weight: 300
+        line-height: 14px
+        font-size: 12px
+        color: $boulder-color
+
+    .heading-right
+      display: inline-block
+      float: right
+
+      .attachments-heading-date
+        font-size: 12px
+        color: $thunder-color
+        font-weight: 300
+        float: right
+        width: 120px
+        display: inline-block
+        text-align: right
+
+  &:hover
+    background-color: white
+
+    .heading-box
+      .heading-detail
+        .attachments-heading-misconduct
+          color: $blue-ribbon-color

@@ -9,6 +9,7 @@ import Award from 'components/officer-page/tabbed-pane-section/timeline/item/sho
 import UnitChange from 'components/officer-page/tabbed-pane-section/timeline/item/showings/unit-change';
 import Joined from 'components/officer-page/tabbed-pane-section/timeline/item/showings/joined';
 import Empty from 'components/officer-page/tabbed-pane-section/timeline/item/showings/empty';
+import Lawsuit from 'components/officer-page/tabbed-pane-section/timeline/item/showings/lawsuit';
 
 
 describe('Item component', function () {
@@ -26,7 +27,7 @@ describe('Item component', function () {
   });
 
   it('should not render item with incorrect kind', function () {
-    const components = [CR, TRR, Award, UnitChange, Joined, Year, Empty];
+    const components = [CR, TRR, Award, UnitChange, Joined, Year, Empty, Lawsuit];
     const someItem = {
       kind: 'SOMEKIND',
     };

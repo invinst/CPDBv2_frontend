@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 
 import AttachmentsTab from 'components/officer-page/tabbed-pane-section/attachments-tab';
 import Complaint from 'components/officer-page/tabbed-pane-section/attachments-tab/complaint';
-
+import Lawsuit from 'components/officer-page/tabbed-pane-section/attachments-tab/lawsuit';
 
 describe('AttachmentsTab component', function () {
   const attachment0 = {
@@ -39,10 +39,29 @@ describe('AttachmentsTab component', function () {
     attachments: [attachment0],
   };
   const complaints = [complaint0, complaint1];
+  const lawsuit0 = {
+    caseNo: 'LL-520-0',
+    misconduct: 'Excessive force',
+    outcome: 'Killed by officer',
+    date: 'MAR 2',
+    attachments: [attachment0],
+  };
+  const lawsuit1 = {
+    caseNo: 'LL-520-1',
+    misconduct: 'Racial epithets',
+    outcome: 'Killed by officer',
+    date: 'MAR 2',
+    attachments: [attachment0],
+  };
+  const lawsuits = [lawsuit0, lawsuit1];
 
-  it('should render Complaints', function () {
+  it('should render Complaints and Lawsuits', function () {
     const wrapper = shallow(
-      <AttachmentsTab complaints={ complaints } location={ { pathname: '/complaint/307776/' } }/>,
+      <AttachmentsTab
+        lawsuits={ lawsuits }
+        complaints={ complaints }
+        location={ { pathname: '/officer/32218/joseph-nega/documents/' } }
+      />,
     );
 
     const complaintComponents = wrapper.find(Complaint);
@@ -50,10 +69,21 @@ describe('AttachmentsTab component', function () {
 
     const complaintComponent0 = complaintComponents.at(0);
     complaintComponent0.prop('complaint').should.eql(complaint0);
-    complaintComponent0.prop('pathname').should.eql('/complaint/307776/');
+    complaintComponent0.prop('pathname').should.eql('/officer/32218/joseph-nega/documents/');
 
     const complaintComponent1 = complaintComponents.at(1);
     complaintComponent1.prop('complaint').should.eql(complaint1);
-    complaintComponent1.prop('pathname').should.eql('/complaint/307776/');
+    complaintComponent1.prop('pathname').should.eql('/officer/32218/joseph-nega/documents/');
+
+    const lawsuitComponents = wrapper.find(Lawsuit);
+    lawsuitComponents.should.have.length(2);
+
+    const lawsuitComponent0 = lawsuitComponents.at(0);
+    lawsuitComponent0.prop('lawsuit').should.eql(lawsuit0);
+    lawsuitComponent0.prop('pathname').should.eql('/officer/32218/joseph-nega/documents/');
+
+    const lawsuitComponent1 = lawsuitComponents.at(1);
+    lawsuitComponent1.prop('lawsuit').should.eql(lawsuit1);
+    lawsuitComponent1.prop('pathname').should.eql('/officer/32218/joseph-nega/documents/');
   });
 });

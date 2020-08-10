@@ -2,11 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import Complaint from './complaint';
+import Lawsuit from './lawsuit';
 import styles from './attachments-tab.sass';
 
 
 export default function AttachmentsTab(props) {
-  const { complaints, onTrackingAttachment, location: { pathname } } = props;
+  const { lawsuits, complaints, onTrackingAttachment, location: { pathname } } = props;
   return (
     <div className={ styles.attachmentsTab }>
       <div className='attachments-tab-title'>
@@ -24,6 +25,18 @@ export default function AttachmentsTab(props) {
           return (
             <Complaint
               complaint={ complaint }
+              key={ index }
+              onTrackingAttachment={ onTrackingAttachment }
+              pathname={ pathname }
+            />
+          );
+        })
+      }
+      {
+        lawsuits.map((lawsuit, index) => {
+          return (
+            <Lawsuit
+              lawsuit={ lawsuit }
               key={ index }
               onTrackingAttachment={ onTrackingAttachment }
               pathname={ pathname }
