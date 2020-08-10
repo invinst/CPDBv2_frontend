@@ -6,7 +6,7 @@ import cx from 'classnames';
 import baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/showings/base-item.sass';
 import styles from './lawsuit.sass';
 import { PrintModeContext } from 'contexts';
-import Attachments from '../cr/attachments';
+import Attachments from '../attachments';
 
 
 export default function Lawsuit(props) {
@@ -20,10 +20,10 @@ export default function Lawsuit(props) {
         </div>
         <span className='lawsuit-detail'>
           <div
-            className='item-category lawsuit-item-category'>
-            { item.misconduct }
+            className='item-category lawsuit-item-title'>
+            { item.caseNo }
           </div>
-          <div className='lawsuit-item-finding'>{ item.outcome }</div>
+          <div className='lawsuit-item-subtitle'>{ item.misconduct }</div>
         </span>
         <span className='lawsuit-right'>
           <Attachments

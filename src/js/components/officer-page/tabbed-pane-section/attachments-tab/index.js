@@ -50,11 +50,13 @@ export default function AttachmentsTab(props) {
 
 AttachmentsTab.defaultProps = {
   complaints: () => {},
+  lawsuits: () => {},
   location: {},
 };
 
 AttachmentsTab.propTypes = {
   complaints: PropTypes.array,
+  lawsuits: PropTypes.array,
   onTrackingAttachment: PropTypes.func,
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired,

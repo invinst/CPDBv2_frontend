@@ -20,11 +20,11 @@ describe('Lawsuit heading component', function () {
       <Heading lawsuit={ lawsuit } hovering={ false }/>,
     );
 
-    const lawsuitMisconduct = wrapper.find('.attachments-heading-misconduct');
-    lawsuitMisconduct.text().should.equal('Excessive force');
+    const lawsuitTitle = wrapper.find('.attachments-heading-title');
+    lawsuitTitle.text().should.equal('Excessive force');
 
-    const lawsuitOutcome = wrapper.find('.attachments-heading-outcome');
-    lawsuitOutcome.text().should.equal('killed by officer');
+    const lawsuitSubtitle = wrapper.find('.attachments-heading-subtitle');
+    lawsuitSubtitle.text().should.equal('killed by officer');
 
     const lawsuitDate = wrapper.find('.attachments-heading-date');
     lawsuitDate.text().should.equal('MAR 1');

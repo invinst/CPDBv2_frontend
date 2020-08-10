@@ -584,7 +584,12 @@ export const PINBOARDS_SEARCH_ITEMS = {
 export const NEW_TIMELINE_FILTERS = {
   ALL: {
     label: 'All',
-    kind: [NEW_TIMELINE_ITEMS.CR, NEW_TIMELINE_ITEMS.FORCE, NEW_TIMELINE_ITEMS.AWARD],
+    kind: [
+      NEW_TIMELINE_ITEMS.CR,
+      NEW_TIMELINE_ITEMS.FORCE,
+      NEW_TIMELINE_ITEMS.AWARD,
+      NEW_TIMELINE_ITEMS.LAWSUIT,
+    ],
   },
   CRS: {
     label: 'Complaints',
@@ -602,6 +607,10 @@ export const NEW_TIMELINE_FILTERS = {
   AWARDS: {
     label: 'Awards',
     kind: [NEW_TIMELINE_ITEMS.AWARD],
+  },
+  LAWSUIT: {
+    label: 'Lawsuits',
+    kind: [NEW_TIMELINE_ITEMS.LAWSUIT],
   },
   RANK_UNIT_CHANGES: {
     label: 'Rank/Unit Changes',

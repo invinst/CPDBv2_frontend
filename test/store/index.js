@@ -175,7 +175,7 @@ describe('store', function () {
         newTimeline: {
           filter: {
             label: 'All',
-            kind: ['CR', 'FORCE', 'AWARD'],
+            kind: ['CR', 'FORCE', 'AWARD', 'LAWSUIT'],
           },
           isRequesting: false,
           items: [],

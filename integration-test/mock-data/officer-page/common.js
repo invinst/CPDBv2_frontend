@@ -129,6 +129,32 @@ export const timelineItems = [
     rank: 'Detective',
     date: '2000-02-05',
   },
+  {
+    date: '2000-08-06',
+    kind: 'LAWSUIT',
+    rank: 'Detective',
+    'unit_description': 'Recruit Training Section',
+    'unit_name': '044',
+    'case_no': '00-L-5230',
+    misconduct: 'Excessive force, Racial epithets',
+    outcome: 'Killed by officer',
+    attachments: [
+      {
+        title: 'Phone subject information organization off important.',
+        url: 'https://assets.documentcloud.org/documents/6246754/CRID-1086093-CR-COPA-Summary-Report.pdf',
+        'preview_image_url': 'https://assets.documentcloud.org/documents/6246754/pages/CRID.gif',
+        'file_type': '',
+        'id': '95637',
+      },
+      {
+        title: 'Product all far later exist he author.',
+        url: 'https://assets.documentcloud.org/documents/6246754/CRID-1086093-CR-COPA-Summary-Report.pdf',
+        'preview_image_url': 'https://assets.documentcloud.org/documents/6246754/pages/CRID.gif',
+        'file_type': '',
+        'id': '95636',
+      },
+    ],
+  },
 ];
 
 export const officerData = {

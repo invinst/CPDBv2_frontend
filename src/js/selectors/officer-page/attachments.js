@@ -29,12 +29,12 @@ export const complaintsWithAttachmentsSelector = createSelector(
   items => items.filter(attachedComplaint).map(attachmentsComplaintTransform)
 );
 
-export const hasComplaintSelector = createSelector(
+export const hasAttachmentsSelector = createSelector(
   getItems,
-  items => !isUndefined(items.find(attachedComplaint))
+  items => !isUndefined(items.find(attachedComplaint) || items.find(attachedLawsuit))
 );
 
-const attachmentsLawsuitTransform = item => ({
+export const attachmentsLawsuitTransform = item => ({
   caseNo: item.case_no,
   date: moment(item.date).format('MMM D, YYYY').toUpperCase(),
   misconduct: item.misconduct,

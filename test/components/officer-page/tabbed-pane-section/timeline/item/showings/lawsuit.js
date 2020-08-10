@@ -18,11 +18,11 @@ describe('Lawsuit component', function () {
     const wrapper = shallow(<Lawsuit item={ lawsuitItem } hasBorderBottom={ false } />);
 
     const kind = wrapper.find('.lawsuit-item-kind');
-    const category = wrapper.find('.lawsuit-item-category');
+    const title = wrapper.find('.lawsuit-item-title');
     const date = wrapper.find('.lawsuit-item-date');
 
     kind.text().should.equal('Lawsuit');
-    category.text().should.equal('Excessive force');
+    title.text().should.equal('LL-540-10');
     date.text().should.equal('DEC 5');
 
     const link = wrapper.find(Link);

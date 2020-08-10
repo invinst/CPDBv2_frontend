@@ -18,10 +18,10 @@ export default function Heading(props) {
           </span>
         </div>
         <span className='heading-detail'>
-          <div className='attachments-heading-misconduct'>
+          <div className='attachments-heading-title'>
             { misconduct }
           </div>
-          <div className='attachments-heading-outcome'>{ outcome }</div>
+          <div className='attachments-heading-subtitle'>{ outcome }</div>
         </span>
         <span className='heading-right'>
           <span className='attachments-heading-date'>
