@@ -164,6 +164,9 @@ describe('store', function () {
         },
       },
       crs: {},
+      lawsuitPage: {
+        lawsuit: {},
+      },
       officerPage: {
         activeTab: null,
         currentTab: 'TIMELINE',

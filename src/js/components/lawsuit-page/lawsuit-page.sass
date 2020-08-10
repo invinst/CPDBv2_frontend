@@ -1,0 +1,122 @@
+@import 'variables'
+
+\:local(.lawsuit-page)
+  font-size: 14px
+  line-height: 17px
+  font-weight: 300
+
+  .lawsuit-content
+    width: 564px
+    color: $thunder-color
+    margin: 12px 16px 140px 16px
+
+    .lawsuit-label
+      color: $gray-color
+
+    .basic-info
+      margin: 19px 0 17px 0
+
+      .lawsuit-title
+        float: left
+        width: calc(100% - 150px)
+
+        .case-no, .misconduct
+          font-size: 26px
+          line-height: 31px
+
+      .misconduct
+        color: $gray-color
+        text-transform: uppercase
+
+      .total-payments-summary
+        box-sizing: border-box
+        border-radius: 2px
+        color: white
+        float: left
+        width: 150px
+        height: 62px
+        padding: 11px 0 0 36px
+        background: $mine-shaft-dark-color url('/img/ic-coin-stack.svg') no-repeat 9px 21px
+
+        .total-payments-summary-value
+          text-transform: uppercase
+          font-weight: 500
+          font-size: 18px
+          line-height: 21px
+
+    .lawsuit-map
+      width: 173px
+      height: 130px
+      margin-top: 11px
+      border-radius: 2px
+      border: 1px solid $alto-color
+      box-sizing: border-box
+
+    .field-row
+      padding: 12px 0 11px 0
+      display: flex
+
+      & + .field-row
+        border-top: 1px solid $alto-color
+
+      .field-row-label
+        width: 94px
+        color: $boulder-color
+
+      .field-row-value
+        flex-grow: 1
+
+    .section
+      .section-label
+        padding: 36px 0 11px 0
+        color: $boulder-color
+
+    .summary-section
+      .summary-table
+        border: 1px solid $alto-color
+        padding: 0 16px
+        margin-top: 16px
+
+    .payment-section
+      .payment-breakdown-table
+        border: 1px solid $alto-color
+
+        .payment-row
+          display: flex
+          padding: 12px 16px 11px 16px
+
+          &.payment-table-header, &.subtotals
+            background-color: $wild-sand-color
+
+          &.payment-table-header
+            color: $boulder-color
+
+          &.detail-row
+            padding: 12px 0 11px 0
+            margin: 0 16px
+
+            & + .detail-row
+              border-top: 1px solid $alto-color
+
+          &.subtotals
+            border-top: 1px solid $alto-color
+
+          &.total-payments
+            background-color: $thunder-color
+            color: white
+            font-weight: 500
+
+            .total-payments-label
+              flex-grow: 1
+
+            .total-payments-value
+              width: 140px
+
+          .payee
+            flex-grow: 1
+
+          .settlement
+            width: 160px
+
+          .legal-fees
+            width: 140px

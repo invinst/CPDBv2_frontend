@@ -1,0 +1,23 @@
+@import 'variables'
+
+\:local(.officer-row)
+  padding: 12px 0 10px
+  border-bottom: 1px solid $alto-color
+
+  &:last-of-type
+    border-bottom: none
+
+  .radar-char-container
+    display: inline-block
+    vertical-align: top
+    width: 34px
+    height: 34px
+
+  .officer-info
+    display: inline-block
+    vertical-align: top
+    margin-left: 10px
+    width: calc(100% - 44px)
+
+    .allegation-count
+      color: $boulder-color
