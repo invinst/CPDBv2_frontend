@@ -50,6 +50,7 @@ export const lawsuitSelector = createSelector(
       violences: lawsuit['violences'],
       outcomes: lawsuit['outcomes'],
       incidentDate: lawsuit['incident_date'],
+      point: lawsuit['point'],
       plaintiffs: map(lawsuit['plaintiffs'], plaintiffTransform),
       officers: map(lawsuit['officers'], officerTransform),
       payments: map(lawsuit['payments'], paymentTransform),

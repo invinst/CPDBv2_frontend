@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import style from './lawsuit-page.sass';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import OfficerRow from './officer-row';
-import { getLawsuitMapUrl, getPointFromLocation } from '../../utils/mapbox';
+import { getLawsuitMapUrl } from 'utils/mapbox';
 
 
 export default function LawsuitPage(props) {
@@ -25,15 +25,8 @@ export default function LawsuitPage(props) {
     payments,
     totalPayments,
     totalPaymentsDisplayShort,
+    point,
   } = props;
-
-  const [point, setPoint] = useState({});
-  useEffect(() => {
-    (async () => {
-      const pointValue = await getPointFromLocation(address);
-      await setPoint(pointValue);
-    })();
-  }, []);
 
   return (
     <React.Fragment>
@@ -70,7 +63,7 @@ export default function LawsuitPage(props) {
                 {address}
                 <div
                   className='lawsuit-map'
-                  style={ point !== {} ? {
+                  style={ point ? {
                     background: `url("${getLawsuitMapUrl(point.lat, point.lon, 234, 130)}") no-repeat center/cover`,
                   }: null }
                 />
@@ -166,6 +159,10 @@ LawsuitPage.propTypes = {
       name: PropTypes.string,
     })
   ),
+  point: PropTypes.shape({
+    lat: PropTypes.number,
+    lon: PropTypes.number,
+  }),
   officers: PropTypes.arrayOf(
     PropTypes.shape({
       fullName: PropTypes.string,

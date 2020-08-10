@@ -1,6 +1,4 @@
-import {
-  lawsuitSelector
-} from 'selectors/lawsuit-page';
+import { lawsuitSelector } from 'selectors/lawsuit-page';
 
 describe('Lawsuit selectors', function () {
   describe('lawsuitSelector', function () {
@@ -55,6 +53,10 @@ describe('Lawsuit selectors', function () {
           'outcomes': [
             'Killed by officer',
           ],
+          'point': {
+            'lon': 37.3,
+            'lat': 80.2,
+          },
           'payments': [
             {
               'payee': 'Genre Wilson',
@@ -130,6 +132,10 @@ describe('Lawsuit selectors', function () {
             },
           ],
           'outcomes': ['Killed by officer'],
+          'point': {
+            'lon': 37.3,
+            'lat': 80.2,
+          },
           'payments': [
             {
               'legalFees': '2,500,000,000.00',
