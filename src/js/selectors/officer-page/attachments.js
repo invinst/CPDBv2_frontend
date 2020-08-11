@@ -37,8 +37,7 @@ export const hasAttachmentsSelector = createSelector(
 export const attachmentsLawsuitTransform = item => ({
   caseNo: item.case_no,
   date: moment(item.date).format('MMM D, YYYY').toUpperCase(),
-  misconduct: item.misconduct,
-  outcome: item.outcome,
+  primaryCause: item.primary_cause,
   attachments: attachmentsTransform(item.attachments),
 });
 

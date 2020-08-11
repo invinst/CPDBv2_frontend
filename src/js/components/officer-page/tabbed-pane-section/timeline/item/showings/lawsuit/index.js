@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import cx from 'classnames';
 
 import baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/showings/base-item.sass';
 import styles from './lawsuit.sass';
-import { PrintModeContext } from 'contexts';
 import Attachments from '../attachments';
 
 
@@ -20,9 +19,9 @@ export default function Lawsuit(props) {
         <span className='lawsuit-detail'>
           <div
             className='item-category lawsuit-item-title'>
-            { item.caseNo }
+            { item.primaryCause }
           </div>
-          <div className='lawsuit-item-subtitle'>{ item.misconduct }</div>
+          <div className='lawsuit-item-subtitle'>{ item.caseNo }</div>
         </span>
         <span className='lawsuit-right'>
           <Attachments

@@ -41,15 +41,13 @@ describe('AttachmentsTab component', function () {
   const complaints = [complaint0, complaint1];
   const lawsuit0 = {
     caseNo: 'LL-520-0',
-    misconduct: 'Excessive force',
-    outcome: 'Killed by officer',
+    primaryCause: 'Excessive force',
     date: 'MAR 2',
     attachments: [attachment0],
   };
   const lawsuit1 = {
     caseNo: 'LL-520-1',
-    misconduct: 'Racial epithets',
-    outcome: 'Killed by officer',
+    primaryCause: 'Racial epithets',
     date: 'MAR 2',
     attachments: [attachment0],
   };

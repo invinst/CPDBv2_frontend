@@ -11,18 +11,19 @@ describe('Lawsuit component', function () {
       caseNo: 'LL-540-10',
       date: 'DEC 5',
       kind: 'LAWSUIT',
-      misconduct: 'Excessive force',
-      outcome: 'killed by officer',
+      primaryCause: 'Excessive force',
     };
 
     const wrapper = shallow(<Lawsuit item={ lawsuitItem } hasBorderBottom={ false } />);
 
     const kind = wrapper.find('.lawsuit-item-kind');
     const title = wrapper.find('.lawsuit-item-title');
+    const subtitle = wrapper.find('.lawsuit-item-subtitle');
     const date = wrapper.find('.lawsuit-item-date');
 
     kind.text().should.equal('Lawsuit');
-    title.text().should.equal('LL-540-10');
+    title.text().should.equal('Excessive force');
+    subtitle.text().should.equal('LL-540-10');
     date.text().should.equal('DEC 5');
 
     const link = wrapper.find(Link);

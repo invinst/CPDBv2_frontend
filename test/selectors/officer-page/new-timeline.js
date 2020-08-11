@@ -344,8 +344,7 @@ describe('Officer new timeline selectors', function () {
         'unit_description': 'Gang Investigation Division',
         'unit_name': '153',
         'case_no': '00-L-5230',
-        'misconduct': 'Excessive force, Racial epithets',
-        'outcome': 'Killed by officer',
+        'primary_cause': 'Excessive force, Racial epithets',
         'attachments': [
           {
             'title': 'Phone subject information organization off important.',
@@ -370,8 +369,7 @@ describe('Officer new timeline selectors', function () {
         rank: 'Detective',
         kind: 'LAWSUIT',
         caseNo: '00-L-5230',
-        misconduct: 'Excessive force, Racial epithets',
-        outcome: 'Killed by officer',
+        primaryCause: 'Excessive force, Racial epithets',
         attachments: [
           {
             title: 'Phone subject information organization off important.',
@@ -1578,8 +1576,7 @@ describe('Officer new timeline selectors', function () {
                 'unit_description': 'Recruit Training Section',
                 'unit_name': '044',
                 'case_no': '00-L-5230',
-                misconduct: 'Excessive force, Racial epithets',
-                outcome: 'Killed by officer',
+                'primary_cause': 'Excessive force, Racial epithets',
                 attachments: [
                   {
                     title: 'Phone subject information organization off important.',
@@ -1903,8 +1900,7 @@ describe('Officer new timeline selectors', function () {
           rank: 'Detective',
           kind: 'LAWSUIT',
           caseNo: '00-L-5230',
-          misconduct: 'Excessive force, Racial epithets',
-          outcome: 'Killed by officer',
+          primaryCause: 'Excessive force, Racial epithets',
           attachments: [
             {
               title: 'Phone subject information organization off important.',
@@ -2062,7 +2058,7 @@ describe('Officer new timeline selectors', function () {
                 'unit_description': 'Recruit Training Section',
                 'unit_name': '044',
                 'case_no': '00-L-5230',
-                misconduct: 'Excessive force, Racial epithets',
+                'primary_cause': 'Excessive force, Racial epithets',
                 outcome: 'Killed by officer',
                 attachments: [
                   {

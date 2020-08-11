@@ -119,8 +119,10 @@ class AttachmentsSection extends Section {
     super();
     this.prepareElementGetters({
       attachmentComplaint: '//div[contains(@class, "complaint__complaint")]',
-      attachmentComplaintHeading: '//div[contains(@class, "complaint__complaint")]//a[contains(@class, "heading__heading")]',
-      complaintAttachment: '//div[contains(@class, "complaint__complaint")]//div[contains(@class, "attachment__attachment")]',
+      attachmentComplaintHeading: '//div[contains(@class, "complaint__complaint")]'
+        + '//a[contains(@class, "heading__heading")]',
+      complaintAttachment: '//div[contains(@class, "complaint__complaint")]'
+        + '//div[contains(@class, "attachment__attachment")]',
       attachmentLawsuit: '//div[contains(@class, "lawsuit__lawsuit")]',
       attachmentLawsuitHeading: '//div[contains(@class, "lawsuit__lawsuit")]//a[contains(@class, "heading__heading")]',
       lawsuitAttachment: '//div[contains(@class, "lawsuit__lawsuit")]//div[contains(@class, "attachment__attachment")]',

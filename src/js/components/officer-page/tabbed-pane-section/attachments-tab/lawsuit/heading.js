@@ -7,7 +7,7 @@ import styles from './heading.sass';
 
 
 export default function Heading(props) {
-  const { misconduct, caseNo, outcome, date } = props.lawsuit;
+  const { caseNo, primaryCause, date } = props.lawsuit;
 
   return (
     <Link to={ `/lawsuit/${caseNo}/` } className={ styles.heading }>
@@ -19,9 +19,9 @@ export default function Heading(props) {
         </div>
         <span className='heading-detail'>
           <div className='attachments-heading-title'>
-            { misconduct }
+            { primaryCause }
           </div>
-          <div className='attachments-heading-subtitle'>{ outcome }</div>
+          <div className='attachments-heading-subtitle'>{ caseNo }</div>
         </span>
         <span className='heading-right'>
           <span className='attachments-heading-date'>

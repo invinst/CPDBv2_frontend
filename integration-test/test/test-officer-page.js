@@ -538,15 +538,15 @@ describe('officer page', function () {
       browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/coaccusals\/$/);
 
       officerPage.open(1, 'bernadette-kelly', 'documents');
-      officerPage.tabbedPaneSection.attachmentsSection.attachment.waitForDisplayed();
+      officerPage.tabbedPaneSection.attachmentsSection.complaintAttachment.waitForDisplayed();
       browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/documents\/$/);
 
       officerPage.open(1, '', 'documents');
-      officerPage.tabbedPaneSection.attachmentsSection.attachment.waitForDisplayed();
+      officerPage.tabbedPaneSection.attachmentsSection.complaintAttachment.waitForDisplayed();
       browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/documents\/$/);
 
       officerPage.open(1, 'bernadette-wrong-name', 'documents');
-      officerPage.tabbedPaneSection.attachmentsSection.attachment.waitForDisplayed();
+      officerPage.tabbedPaneSection.attachmentsSection.complaintAttachment.waitForDisplayed();
       browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/documents\/$/);
 
       officerPage.open(1, 'bernadette-kelly', 'wrong-tab');

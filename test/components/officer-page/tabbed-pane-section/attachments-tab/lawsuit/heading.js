@@ -9,8 +9,7 @@ describe('Lawsuit heading component', function () {
   const lawsuit = {
     caseNo: 'LL-540-10',
     kind: 'LAWSUIT',
-    misconduct: 'Excessive force',
-    outcome: 'killed by officer',
+    primaryCause: 'Excessive force',
     date: 'MAR 1',
     coaccused: 4,
   };
@@ -24,7 +23,7 @@ describe('Lawsuit heading component', function () {
     lawsuitTitle.text().should.equal('Excessive force');
 
     const lawsuitSubtitle = wrapper.find('.attachments-heading-subtitle');
-    lawsuitSubtitle.text().should.equal('killed by officer');
+    lawsuitSubtitle.text().should.equal('LL-540-10');
 
     const lawsuitDate = wrapper.find('.attachments-heading-date');
     lawsuitDate.text().should.equal('MAR 1');

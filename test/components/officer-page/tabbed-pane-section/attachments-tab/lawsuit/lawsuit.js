@@ -22,8 +22,7 @@ describe('Lawsuit component', function () {
   const lawsuit = {
     caseNo: 'LL-540-10',
     kind: 'LAWSUIT',
-    misconduct: 'Excessive force',
-    outcome: 'killed by officer',
+    primaryCause: 'Excessive force',
     date: 'MAR 1',
     coaccused: 4,
     attachments: [attachment0, attachment1],
