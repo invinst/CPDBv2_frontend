@@ -2,7 +2,7 @@ import { lawsuitSelector } from 'selectors/lawsuit-page';
 
 describe('Lawsuit selectors', function () {
   describe('lawsuitSelector', function () {
-    const state = {
+    const state = (totalSettlement = '90000') => ({
       lawsuitPage: {
         lawsuit: {
           'case_no': '00-L-5230',
@@ -26,6 +26,13 @@ describe('Lawsuit selectors', function () {
               'id': 32218,
               'full_name': 'Joseph Nega',
               'allegation_count': 12,
+              'sustained_count': 0,
+              'birth_year': 1964,
+              'race': 'White',
+              'gender': 'M',
+              'rank': 'Detective',
+              'lawsuit_count': 3,
+              'lawsuit_payment': '7500022500.00',
             },
             {
               'percentile_allegation': '34.6987',
@@ -35,6 +42,13 @@ describe('Lawsuit selectors', function () {
               'id': 32300,
               'full_name': 'Robert Rose',
               'allegation_count': 4,
+              'sustained_count': 0,
+              'birth_year': 1964,
+              'race': 'White',
+              'gender': 'M',
+              'rank': 'Detective',
+              'lawsuit_count': 3,
+              'lawsuit_payment': '7500022500.00',
             },
           ],
           'interactions': [
@@ -64,20 +78,28 @@ describe('Lawsuit selectors', function () {
             },
             {
               'payee': 'Lucy Bells',
-              'settlement': '7500.00',
+              'settlement': totalSettlement,
             },
           ],
           'total_payments': {
-            'total': '2500007500.00',
-            'total_settlement': '7500.00',
+            'total': `${2500000000.00 + Number(totalSettlement)}`,
+            'total_settlement': totalSettlement,
             'total_legal_fees': '2500000000.00',
+          },
+          'attachment': {
+            'id': '95636',
+            'title': 'Product all far later exist he author.',
+            'file_type': 'document',
+            'url': 'https://assets.documentcloud.org/documents/6246754/CRID-1086093-CR-COPA-Summary-Report.pdf',
+            'preview_image_url': 'https://assets.documentcloud.org/documents/'
+              + '6246754/pages/CRID-1086093-CR-COPA-Summary-Report-p1-normal.gif',
           },
         },
       },
-    };
+    });
 
     it('should return correct result', function () {
-      lawsuitSelector(state).should.eql(
+      lawsuitSelector(state()).should.eql(
         {
           'address': '200 E. Chicago Ave., Chicago IL',
           'caseNo': '00-L-5230',
@@ -89,46 +111,70 @@ describe('Lawsuit selectors', function () {
           ],
           'officers': [
             {
-              'allegationCount': 12,
+              'complaintCount': 12,
               'fullName': 'Joseph Nega',
-              'id': 32218,
-              'radarAxes': [
-                {
-                  'axis': 'Use of Force Reports',
-                  'value': 49.1036,
-                },
-                {
-                  'axis': 'Officer Allegations',
-                  'value': 0,
-                },
-                {
-                  'axis': 'Civilian Allegations',
-                  'value': 47.638,
-                },
-              ],
-              'radarColor': '#FF6453',
+              'officerId': 32218,
+              'percentile': {
+                'items': [
+                  {
+                    'axis': 'Use of Force Reports',
+                    'value': 49.1036,
+                  },
+                  {
+                    'axis': 'Officer Allegations',
+                    'value': 0,
+                  },
+                  {
+                    'axis': 'Civilian Allegations',
+                    'value': 47.638,
+                  },
+                ],
+                'textColor': '#231F20',
+                'visualTokenBackground': '#FF6453',
+              },
               'url': '/officer/32218/joseph-nega/',
+              'allegationPercentile': 59.543,
+              'sustainedCount': 0,
+              'age': '53-year-old',
+              'isPinned': false,
+              'race': 'White',
+              'gender': 'm',
+              'rank': 'Detective',
+              'lawsuitCount': 3,
+              'lawsuitPayment': '7.5b',
             },
             {
-              'allegationCount': 4,
+              'complaintCount': 4,
               'fullName': 'Robert Rose',
-              'id': 32300,
-              'radarAxes': [
-                {
-                  'axis': 'Use of Force Reports',
-                  'value': 67.911,
-                },
-                {
-                  'axis': 'Officer Allegations',
-                  'value': 0,
-                },
-                {
-                  'axis': 'Civilian Allegations',
-                  'value': 43.9207,
-                },
-              ],
-              'radarColor': '#F4A298',
+              'officerId': 32300,
+              'percentile': {
+                'items': [
+                  {
+                    'axis': 'Use of Force Reports',
+                    'value': 67.911,
+                  },
+                  {
+                    'axis': 'Officer Allegations',
+                    'value': 0,
+                  },
+                  {
+                    'axis': 'Civilian Allegations',
+                    'value': 43.9207,
+                  },
+                ],
+                'textColor': '#231F20',
+                'visualTokenBackground': '#F4A298',
+              },
               'url': '/officer/32300/robert-rose/',
+              'allegationPercentile': 34.6987,
+              'sustainedCount': 0,
+              'age': '53-year-old',
+              'isPinned': false,
+              'race': 'White',
+              'gender': 'm',
+              'rank': 'Detective',
+              'lawsuitCount': 3,
+              'lawsuitPayment': '7.5b',
             },
           ],
           'outcomes': ['Killed by officer'],
@@ -145,7 +191,7 @@ describe('Lawsuit selectors', function () {
             {
               'legalFees': '-',
               'payee': 'Lucy Bells',
-              'settlement': '7,500.00',
+              'settlement': '90,000.00',
             },
           ],
           'plaintiffs': [
@@ -155,14 +201,43 @@ describe('Lawsuit selectors', function () {
           'services': ['On Duty'],
           'summary': 'Hutchinson was shot and killed outside a bar near the Addison Red Line stop.',
           'totalPayments': {
-            'total': '2,500,007,500.00',
+            'total': '2,500,090,000.00',
             'totalLegalFees': '2,500,000,000.00',
-            'totalSettlement': '7,500.00',
+            'totalSettlement': '90,000.00',
+            'mustBeAcceptedByCouncilCity': false,
           },
-          'totalPaymentsDisplayShort': '2.50b',
+          'totalPaymentsDisplayShort': '2.5b',
           'violences': ['Physical Force'],
+          'attachment': {
+            'id': '95636',
+            'title': 'Product all far later exist he author.',
+            'fileType': 'document',
+            'url': 'https://assets.documentcloud.org/documents/6246754/CRID-1086093-CR-COPA-Summary-Report.pdf',
+            'previewImageUrl': 'https://assets.documentcloud.org/documents/'
+              + '6246754/pages/CRID-1086093-CR-COPA-Summary-Report-p1-normal.gif',
+          },
         }
       );
+    });
+
+    describe('totalPayments', function () {
+      it('should return correct result when total settlement over 100K', function () {
+        lawsuitSelector(state('110000')).totalPayments.should.eql({
+          'total': '2,500,110,000.00',
+          'totalLegalFees': '2,500,000,000.00',
+          'totalSettlement': '110,000.00',
+          'mustBeAcceptedByCouncilCity': true,
+        });
+      });
+
+      it('should return correct result when total settlement under 100K', function () {
+        lawsuitSelector(state('90000')).totalPayments.should.eql({
+          'total': '2,500,090,000.00',
+          'totalLegalFees': '2,500,000,000.00',
+          'totalSettlement': '90,000.00',
+          'mustBeAcceptedByCouncilCity': false,
+        });
+      });
     });
   });
 });
