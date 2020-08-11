@@ -11,12 +11,11 @@ import Attachments from '../attachments';
 
 export default function Lawsuit(props) {
   const { item, changeOfficerTab, pathname, onTrackingAttachment } = props;
-  const { printMode } = useContext(PrintModeContext);
   return (
     <Link className={ cx(baseStyles.baseItem, styles.lawsuitRow) } to={ `/lawsuit/${item.caseNo}/` }>
       <span className='item-content lawsuit-item-content'>
         <div className='item-wrapper-kind'>
-          <span className='item-kind lawsuit-item-kind'>{ printMode ? `Lawsuit ${item.caseNo}` : 'Lawsuit' }</span>
+          <span className='item-kind lawsuit-item-kind'>Lawsuit</span>
         </div>
         <span className='lawsuit-detail'>
           <div

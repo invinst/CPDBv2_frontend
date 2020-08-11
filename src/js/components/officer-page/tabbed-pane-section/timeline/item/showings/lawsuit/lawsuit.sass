@@ -1,6 +1,6 @@
 @import variables
 
-$height: 58px
+$height: 68px
 
 \:local(.lawsuit-row)
   cursor: pointer
@@ -10,13 +10,13 @@ $height: 58px
     line-height: calc(#{$height} - 1px)
 
     .lawsuit-item-kind
-      width: 85px
       background-color: $thunder-color
       border: solid 1px $thunder-color
       border-radius: 2px
       color: white
 
       @media print
+        background-color: $gray-color
         border: solid 1px $alto-color
 
     .lawsuit-detail
@@ -25,11 +25,14 @@ $height: 58px
 
       .lawsuit-item-title
         color: $thunder-color
+        font-size: 18px
+        line-height: 21px
 
       .lawsuit-item-subtitle
         font-weight: 300
         line-height: 14px
-        font-size: 12px
+        font-size: 16px
+        margin-top: 2px
         color: $boulder-color
 
         @media print
@@ -41,7 +44,7 @@ $height: 58px
       float: right
 
       .lawsuit-item-date
-      font-size: 12px
+      font-size: 16px
       color: $thunder-color
       font-weight: 300
 
