@@ -17,6 +17,7 @@ export default function LawsuitPage(props) {
   const {
     caseNo,
     summary,
+    primaryCause,
     address,
     interactions,
     services,
@@ -39,7 +40,7 @@ export default function LawsuitPage(props) {
   return (
     <React.Fragment>
       <Helmet>
-        <title>{ `Lawsuit ${caseNo}` }</title>
+        <title>{ `Case ${caseNo}` }</title>
       </Helmet>
       <div className={ style.lawsuitPage }>
         <ShareableHeaderContainer/>
@@ -48,8 +49,8 @@ export default function LawsuitPage(props) {
             <div className='lawsuit-label'>LAWSUIT</div>
             <div className='basic-info'>
               <div className='lawsuit-title'>
-                <div className='case-no'>{caseNo}</div>
-                <div className='misconduct'>{misconducts[0]}</div>
+                <div className='case-no'>Case {caseNo}</div>
+                <div className='primary-cause'>{primaryCause}</div>
               </div>
               <div className='total-payments-summary'>
                 <div className='total-payments-summary-value'>${ totalPaymentsDisplayShort }</div>
@@ -194,6 +195,7 @@ export default function LawsuitPage(props) {
 LawsuitPage.propTypes = {
   caseNo: PropTypes.string,
   summary: PropTypes.string,
+  primaryCause: PropTypes.string,
   address: PropTypes.string,
   interactions: PropTypes.arrayOf(PropTypes.string),
   services: PropTypes.arrayOf(PropTypes.string),
@@ -234,4 +236,16 @@ LawsuitPage.propTypes = {
     url: PropTypes.string,
     previewImageUrl: PropTypes.string,
   }),
+};
+
+LawsuitPage.defaultProps = {
+  officers: [],
+  payments: [],
+  totalPayments: {},
+  interactions: [],
+  services: [],
+  misconducts: [],
+  violences: [],
+  outcomes: [],
+  plaintiffs: [],
 };

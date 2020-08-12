@@ -169,22 +169,6 @@ describe('LawsuitPage component', function () {
           <HelmetProvider>
             <LawsuitPage
               caseNo='00-L-5230'
-              summary='Hutchinson was shot and killed outside a bar near the Addison Red Line stop.'
-              address='200 E. Chicago Ave., Chicago IL'
-              interactions={ ['Protest'] }
-              services={ ['On Duty'] }
-              misconducts={ ['Killed by officer'] }
-              violences={ ['Physical Force'] }
-              outcomes={ ['Killed by officer'] }
-              incidentDate='2000-03-16'
-              plaintiffs={ [{ 'name': 'Sharon Ambielli' }, { 'name': 'Kevin Vodak' }] }
-              point={ { lat: 10, lon: 10 } }
-              officers={ officers }
-              payments={ [
-                { payee: 'Genre Wilson', settlement: '-', legalFees: '2500000000.00' },
-                { payee: 'Lucy Bells', settlement: '7500.00', legalFees: '-' },
-              ] }
-              totalPaymentsDisplayShort={ '2.5B' }
               totalPayments={ {
                 total: '2,500,090,000.00',
                 totalSettlement: '90,000.00',

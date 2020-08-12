@@ -78,6 +78,7 @@ export const lawsuitSelector = createSelector(
     return {
       caseNo: lawsuit['case_no'],
       summary: lawsuit['summary'],
+      primaryCause: lawsuit['primary_cause'],
       address: lawsuit['address'],
       interactions: lawsuit['interactions'],
       services: lawsuit['services'],
