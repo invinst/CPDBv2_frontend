@@ -10,7 +10,7 @@ import responsiveContainerStyles from 'components/common/responsive-container.sa
 import { getLawsuitMapUrl } from 'utils/mapbox';
 import OutboundLink from 'components/common/outbound-link';
 import { imageStyle } from 'components/common/shared.style';
-import InvolvedOfficerCard from './involved-officer-card';
+import InvolvedOfficers from './involved-officers';
 
 
 export default function LawsuitPage(props) {
@@ -82,15 +82,7 @@ export default function LawsuitPage(props) {
               <div className='section-label'>
                 {officersCount} Involved {pluralize('Officer', officersCount)} ({pluralize('Defendant', officersCount)})
               </div>
-              {
-                officers.map((officer) => (
-                  <InvolvedOfficerCard
-                    key={ officer.officerId }
-                    officer={ officer }
-                    addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
-                  />
-                ))
-              }
+              <InvolvedOfficers officers={ officers } addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard } />
             </div>
 
             <div className='payment-section section'>

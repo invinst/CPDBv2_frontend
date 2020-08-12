@@ -163,7 +163,7 @@ exports.config = {
     ui: 'bdd',
     timeout: 2000000,
     compilers: ['js:@babel/register'],
-    retries: 0,
+    retries: 3,
   },
   //
   // =====
@@ -293,7 +293,7 @@ exports.config = {
   seleniumArgs: {
     drivers: {
       chrome: {
-        version: '84.0.4147.30',
+        version: '81.0.4044.20',
         arch: process.arch,
       }
     }
@@ -301,7 +301,7 @@ exports.config = {
   seleniumInstallArgs: {
     drivers: {
       chrome: {
-        version: '84.0.4147.30',
+        version: '81.0.4044.20',
         arch: process.arch,
         baseURL: 'https://chromedriver.storage.googleapis.com'
       }

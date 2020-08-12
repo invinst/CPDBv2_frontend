@@ -7,7 +7,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { spy } from 'sinon';
 
 import LawsuitPage from 'components/lawsuit-page';
-import SmallRadarChartOfficerCard from 'components/lawsuit-page/involved-officer-card';
+import InvolvedOfficers from 'components/lawsuit-page/involved-officers';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 
 describe('LawsuitPage component', function () {
@@ -143,16 +143,11 @@ describe('LawsuitPage component', function () {
       </Provider>
     );
 
-    const officerCard = wrapper.find(SmallRadarChartOfficerCard);
-    officerCard.exists().should.be.true();
-    officerCard.should.have.length(2);
-    officerCard.at(0).props().should.eql({
+    const involvedOfficers = wrapper.find(InvolvedOfficers);
+    involvedOfficers.exists().should.be.true();
+    involvedOfficers.props().should.eql({
       addOrRemoveItemInPinboard: addOrRemoveItemInPinboardSpy,
-      officer: officers[0],
-    });
-    officerCard.at(1).props().should.eql({
-      addOrRemoveItemInPinboard: addOrRemoveItemInPinboardSpy,
-      officer: officers[1],
+      officers: officers,
     });
 
     const shareableHeader = wrapper.find(ShareableHeaderContainer);
