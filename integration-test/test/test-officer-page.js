@@ -288,6 +288,16 @@ describe('officer page', function () {
       officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForDisplayed();
     });
 
+    it('should go to lawsuit page when clicking on an lawsuit timeline item', function () {
+      officerPage.tabbedPaneSection.timelineSection.lawsuitItem.waitForDisplayed();
+      officerPage.tabbedPaneSection.timelineSection.lawsuitItem.click();
+
+      browser.getUrl().should.containEql('lawsuit/00-L-5230/');
+
+      header.breadcrumbs.secondItem.click();
+      browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/?$/);
+    });
+
     it('should go to attachment source page when clicking on the lawsuit attachment thumbnail', function () {
       officerPage.tabbedPaneSection.timelineSection.lawsuitAttachmentThumbnail.waitForDisplayed();
       officerPage.tabbedPaneSection.timelineSection.lawsuitAttachmentThumbnail.click();
@@ -450,6 +460,12 @@ describe('officer page', function () {
     });
 
     describe('Lawsuits', function () {
+      it('should go to lawsuit page when clicking on the lawsuit heading', function () {
+        officerPage.tabbedPaneSection.attachmentsSection.attachmentLawsuit.waitForDisplayed();
+        officerPage.tabbedPaneSection.attachmentsSection.attachmentLawsuitHeading.click();
+        browser.getUrl().should.match(/\/lawsuit\/00-L-5230\/$/);
+      });
+
       it('should go to attachment source page when clicking on the attachment', function () {
         officerPage.tabbedPaneSection.attachmentsSection.attachmentLawsuit.waitForDisplayed();
         officerPage.tabbedPaneSection.attachmentsSection.lawsuitAttachment.click();

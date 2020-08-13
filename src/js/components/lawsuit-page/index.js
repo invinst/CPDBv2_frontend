@@ -154,7 +154,7 @@ export default function LawsuitPage(props) {
               </div>
             </div>
 
-            <div className='section'>
+            <div className='case-details-section section'>
               <div className='section-label'>Case Details</div>
               <div className='field-row'>
                 <div className='field-row-label'>Plaintiff</div>
