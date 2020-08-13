@@ -295,12 +295,6 @@ describe('officer page', function () {
       browser.switchWindow(url);
     });
 
-    it('should go to attachment tab when clicking on the more lawsuit attachment', function () {
-      officerPage.tabbedPaneSection.timelineSection.moreLawsuitAttachment.waitForDisplayed();
-      officerPage.tabbedPaneSection.timelineSection.moreLawsuitAttachment.click();
-      officerPage.tabbedPaneSection.attachmentsSection.attachmentLawsuit.waitForDisplayed();
-    });
-
     it('should go to trr page when clicking on an trr timeline item', function () {
       officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed();
       officerPage.tabbedPaneSection.timelineSection.trrItem.click();

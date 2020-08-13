@@ -145,13 +145,6 @@ export const timelineItems = [
         'file_type': '',
         'id': '95637',
       },
-      {
-        title: 'Product all far later exist he author.',
-        url: 'https://assets.documentcloud.org/documents/6246754/CRID-1086093-CR-COPA-Summary-Report.pdf',
-        'preview_image_url': 'https://assets.documentcloud.org/documents/6246754/pages/CRID.gif',
-        'file_type': '',
-        'id': '95636',
-      },
     ],
   },
 ];

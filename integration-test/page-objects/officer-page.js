@@ -91,7 +91,6 @@ class TimelineSection extends Section {
       emptyItem: '//div[contains(@class, "timeline-empty-item")]',
       lawsuitAttachmentThumbnail: '.lawsuit-item-content .attachment-image',
       complaintAttachmentThumbnail: '.cr-item-content .attachment-image',
-      moreLawsuitAttachment: '.lawsuit-item-content .more-attachment',
       moreComplaintAttachment: '.cr-item-content .more-attachment',
       rankPopup: '.rank-header .popup',
       rankPopupButton: '.rank-header .popup-button',

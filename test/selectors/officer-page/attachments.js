@@ -94,13 +94,6 @@ describe('Officer attachments selectors', function () {
         'file_type': '',
         'id': '95637',
       },
-      {
-        title: 'Product all far later exist he author.',
-        url: 'https://assets.documentcloud.org/documents/6246754/CRID-1086093-CR-COPA-Summary-Report.pdf',
-        'preview_image_url': 'https://assets.documentcloud.org/documents/6246754/pages/CRID.gif',
-        'file_type': '',
-        'id': '95636',
-      },
     ],
   };
 
@@ -112,7 +105,6 @@ describe('Officer attachments selectors', function () {
     'unit_name': '044',
     'case_no': '00-L-5231',
     'primary_cause': 'Excessive force, Racial epithets',
-    attachments: [],
   };
 
   const lawsuitResult = {
@@ -126,13 +118,6 @@ describe('Officer attachments selectors', function () {
         previewImageUrl: 'https://assets.documentcloud.org/documents/6246754/pages/CRID.gif',
         fileType: '',
         id: '95637',
-      },
-      {
-        title: 'Product all far later exist he author.',
-        url: 'https://assets.documentcloud.org/documents/6246754/CRID-1086093-CR-COPA-Summary-Report.pdf',
-        previewImageUrl: 'https://assets.documentcloud.org/documents/6246754/pages/CRID.gif',
-        fileType: '',
-        id: '95636',
       },
     ],
   };
@@ -222,7 +207,7 @@ describe('Officer attachments selectors', function () {
         },
       };
 
-      numAttachmentsSelector(state).should.eql(4);
+      numAttachmentsSelector(state).should.eql(3);
     });
   });
 });
