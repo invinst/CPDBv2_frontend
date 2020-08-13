@@ -4,10 +4,18 @@
 require('should');
 
 import trrPage from '../page-objects/trr-page';
+import { mockCommonApi } from '../mock-data/utils';
+import api from '../mock-api';
+import { trrData } from '../mock-data/trr-page';
+import { officerData } from '../mock-data/officer-page/common';
 
 
 describe('TRR page', function () {
   beforeEach(function () {
+    mockCommonApi();
+
+    api.onGet('/api/v2/trr/1/').reply(200, trrData);
+    api.onGet('/api/v2/officers/1/summary/').reply(200, officerData);
     trrPage.open();
   });
 
@@ -22,6 +30,7 @@ describe('TRR page', function () {
 
 
   it('should go to officer profile page when clicking on the Officer Row', function () {
+    api.onGet('/api/v2/officers/1/summary/').reply(200, officerData);
     trrPage.officerSection.officerRow.waitForDisplayed();
     trrPage.officerSection.officerRow.click();
 
@@ -41,6 +50,9 @@ describe('TRR page', function () {
   });
 
   it('should accept valid email, and close modal after 1.5s', function () {
+    api.onPost('/api/v2/trr/1/request-document/', { email: 'valid@email.com' })
+      .reply(200, { 'message': 'Thanks for subscribing.', 'trr_id': 1 });
+
     trrPage.trrInfoSection.documentRequestButton.click();
     trrPage.documentRequestModal.emailInput.waitForDisplayed();
     trrPage.documentRequestModal.emailInput.setValue('valid@email.com');
@@ -52,6 +64,9 @@ describe('TRR page', function () {
   });
 
   it('should ignore invalid email', function () {
+    api.onPost('/api/v2/trr/1/request-document/', { email: 'invalid@email.com' })
+      .reply(400, { 'message': 'Sorry, we can not subscribe your email' });
+
     trrPage.trrInfoSection.documentRequestButton.click();
     trrPage.documentRequestModal.emailInput.waitForDisplayed();
     trrPage.documentRequestModal.emailInput.setValue('invalid@email.com');

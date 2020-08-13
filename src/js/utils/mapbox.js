@@ -16,6 +16,10 @@ export const getComplaintMapUrl = (lat, lon, width, height) => {
   return getMapUrl(lat, lon, width, height, 'streets-v10', 12);
 };
 
+export const getLawsuitMapUrl = (lat, lon, width, height) => {
+  return getMapUrl(lat, lon, width, height, 'streets-v10', 10);
+};
+
 export const getPrintMapUrl = (lat, lon, width, height) => {
   return getMapUrl(lat, lon, width, height, 'light-v9', 14);
 };

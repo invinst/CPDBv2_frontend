@@ -8,11 +8,27 @@ import api from '../mock-api';
 import searchPage from '../page-objects/search-page';
 import landingPage from '../page-objects/landing-page';
 import pinboardPage from '../page-objects/pinboard-page';
-import { disableAxiosMock, restoreAxiosMock } from '../utils';
 import { INTRODUCTION_DISPLAY_TIMEOUT } from '../utils/constants';
-import { mockCommonApi } from '../mock-data/utils';
-import { defaultSearchResult } from '../mock-data/search-page/common';
-import { emptyCreatedPinboard, pinboardData } from '../mock-data/pinboard-page/common';
+import { mockCommonApi, mockCommonPinboardApi, mockLandingPageApi } from '../mock-data/utils';
+import { pinboardData } from '../mock-data/pinboard-page/common';
+import {
+  pinboardWithOfficer1Data,
+  pinboardWithOfficer1OfficersData,
+  createPinboardWithOfficer1RequestData,
+  createPinboardWithOfficer1Data,
+  pinOfficer2PinboardRequestData,
+  pinOfficer2PinboardData,
+  removeAllPinItemsPinboardRequestData,
+  removeAllPinItemsPinboardData,
+  pinOfficer2OfficersData,
+  emptyCreatedPinboardData,
+  pinTRR123PinboardRequestData,
+  pinTRR123PinboardData,
+  pinCR123PinboardRequestData,
+  pinCR123PinboardData,
+} from '../mock-data/pinboard-page/pin-item';
+import { groupedSuggestions, singleGroupSuggestions } from '../mock-data/landing-page/suggestions';
+import { recentSearchItemsRequestData, recentSearchItemsData } from '../mock-data/search-page/recent-search';
 
 
 const backToSearch = () => {
@@ -38,7 +54,11 @@ const clickOnSearchResultItem = (suggestionGroupSelector, expectedText, isFirstR
 
 describe('Landing Page to Search Page', function () {
   beforeEach(function () {
+    mockCommonApi();
+    mockLandingPageApi();
+
     landingPage.open();
+    landingPage.header.content.waitForDisplayed();
   });
 
   it('should activate search page with correct query when user types anything from landing page', function () {
@@ -51,6 +71,9 @@ describe('Landing Page to Search Page', function () {
 
 describe('Search Page', function () {
   beforeEach(function () {
+    mockCommonApi();
+    api.onGet('/api/v1/suggestion/', { term: 'Ke', limit: 9 }).reply(200, groupedSuggestions['default']);
+
     searchPage.open();
     searchPage.input.waitForDisplayed();
   });
@@ -94,6 +117,8 @@ describe('Search Page', function () {
   });
 
   it('should able to show INVESTIGATOR > CR results', function () {
+    api.onGet('/api/v1/suggestion/', { term: 'Kelly', limit: 9 }).reply(200, groupedSuggestions['Kelly']);
+
     searchPage.input.waitForDisplayed();
     searchPage.input.setValue('Kelly');
 
@@ -112,6 +137,8 @@ describe('Search Page', function () {
   });
 
   it('should able to show date > trr and date > cr results', function () {
+    api.onGet('/api/v1/suggestion/', { term: '2004/04/23', limit: 9 }).reply(200, groupedSuggestions['2004/04/23']);
+
     searchPage.input.waitForDisplayed();
     searchPage.input.setValue('2004/04/23');
 
@@ -134,6 +161,8 @@ describe('Search Page', function () {
   });
 
   it('should able to show DATE > OFFICERS results', function () {
+    api.onGet('/api/v1/suggestion/', { term: '2004/04/23', limit: 9 }).reply(200, groupedSuggestions['2004/04/23']);
+
     searchPage.input.waitForDisplayed();
     searchPage.input.setValue('2004/04/23');
 
@@ -153,6 +182,8 @@ describe('Search Page', function () {
   });
 
   it('should able to show RANK results', function () {
+    api.onGet('/api/v1/suggestion/', { term: 'rank', limit: 9 }).reply(200, groupedSuggestions['rank']);
+
     searchPage.input.waitForDisplayed();
     searchPage.input.setValue('rank');
 
@@ -164,6 +195,11 @@ describe('Search Page', function () {
   });
 
   it('should able to show SEARCH-TERMS results', function () {
+    api.onGet('/api/v1/suggestion/', { term: 'Geography', limit: 9 }).reply(200, groupedSuggestions['Geography']);
+    api
+      .onGet('/api/v1/suggestion/', { term: 'community', limit: 9 })
+      .reply(200, groupedSuggestions['community']);
+
     searchPage.input.waitForDisplayed();
     searchPage.input.setValue('Geography');
     searchPage.searchTermsResultsSection.results.waitForDisplayed();
@@ -181,6 +217,23 @@ describe('Search Page', function () {
   });
 
   it('should able to show single search results', function () {
+    api.onGet('/api/v1/suggestion/', { term: 'jerome', limit: 9 }).reply(200, groupedSuggestions['jerome']);
+    api
+      .onGet('/api/v1/suggestion/single/', { term: 'jerome', contentType: 'OFFICER' })
+      .reply(200, singleGroupSuggestions['officer']);
+    api
+      .onGet('/api/v1/suggestion/single/', { term: 'jerome', contentType: 'OFFICER', offset: '10' })
+      .reply(200, singleGroupSuggestions['officerOffset10']);
+    api
+      .onGet('/api/v1/suggestion/single/', { term: 'jerome', contentType: 'CR' })
+      .reply(200, singleGroupSuggestions['cr']);
+    api
+      .onGet('/api/v1/suggestion/single/', { term: 'jerome', contentType: 'TRR' })
+      .reply(200, singleGroupSuggestions['trr']);
+    api
+      .onGet('/api/v1/suggestion/single/', { term: 'jerome', contentType: 'COMMUNITY' })
+      .reply(200, singleGroupSuggestions['community1']);
+
     searchPage.input.waitForDisplayed();
     searchPage.input.setValue('jerome');
 
@@ -242,6 +295,14 @@ describe('Search Page', function () {
   });
 
   it('should able to show single search results with prefix query', function () {
+    api.onGet('/api/v1/suggestion/', { term: 'jerome', limit: 9 }).reply(200, groupedSuggestions['jerome']);
+    api
+      .onGet('/api/v1/suggestion/single/', { term: 'jerome', contentType: 'OFFICER' })
+      .reply(200, singleGroupSuggestions['officer']);
+    api
+      .onGet('/api/v1/suggestion/single/', { term: 'jerome', contentType: 'OFFICER', offset: '10' })
+      .reply(200, singleGroupSuggestions['officerOffset10']);
+
     searchPage.input.waitForDisplayed();
     searchPage.input.setValue('officer:jerome');
 
@@ -261,6 +322,17 @@ describe('Search Page', function () {
   });
 
   it('should show filtered result when user clicks "More"', function () {
+    api.onGet('/api/v1/suggestion/', { term: 'jerome', limit: 9 }).reply(200, groupedSuggestions['jerome']);
+    api
+      .onGet('/api/v1/suggestion/single/', { term: 'jerome', contentType: 'OFFICER' })
+      .reply(200, singleGroupSuggestions['officer']);
+    api
+      .onGet('/api/v1/suggestion/single/', { term: 'jerome', contentType: 'OFFICER', offset: '10' })
+      .reply(200, singleGroupSuggestions['officerOffset10']);
+    api
+      .onGet('/api/v1/suggestion/single/', { term: 'jerome', contentType: 'OFFICER', offset: '20' })
+      .reply(200, singleGroupSuggestions['officerOffset20']);
+
     browser.setWindowRect(0, 0, 900, 600);
     searchPage.input.waitForDisplayed();
     searchPage.input.setValue('jerome');
@@ -295,6 +367,17 @@ describe('Search Page', function () {
   });
 
   it('should show filtered result when user presses enter when focusing on "Show more results"', function () {
+    api.onGet('/api/v1/suggestion/', { term: 'jerome', limit: 9 }).reply(200, groupedSuggestions['jerome']);
+    api
+      .onGet('/api/v1/suggestion/single/', { term: 'jerome', contentType: 'OFFICER' })
+      .reply(200, singleGroupSuggestions['officer']);
+    api
+      .onGet('/api/v1/suggestion/single/', { term: 'jerome', contentType: 'OFFICER', offset: '10' })
+      .reply(200, singleGroupSuggestions['officerOffset10']);
+    api
+      .onGet('/api/v1/suggestion/single/', { term: 'jerome', contentType: 'OFFICER', offset: '20' })
+      .reply(200, singleGroupSuggestions['officerOffset20']);
+
     searchPage.input.waitForDisplayed();
     searchPage.input.setValue('jerome');
 
@@ -321,6 +404,8 @@ describe('Search Page', function () {
   });
 
   it('should show DataTool suggestions when no result return', function () {
+    api.onGet('/api/v1/suggestion/', { term: 'noresult', limit: 9 }).reply(200, groupedSuggestions['noresult']);
+
     searchPage.input.waitForDisplayed();
     searchPage.input.setValue('noresult');
 
@@ -385,6 +470,7 @@ describe('Search Page', function () {
 
   context('Pinboard introduction', function () {
     beforeEach(function () {
+      mockCommonApi();
       browser.clearReduxStore(true);
       searchPage.input.waitForDisplayed();
     });
@@ -409,6 +495,8 @@ describe('Search Page', function () {
     });
 
     it('should close pinboard introduction after click close', function () {
+      mockCommonPinboardApi();
+
       searchPage.pinboardIntroduction.body.waitForDisplayed();
       searchPage.pinboardIntroduction.closeButton.click();
       searchPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
@@ -418,6 +506,8 @@ describe('Search Page', function () {
     });
 
     it('should close pinboard introduction and redirect to pinboard page after click Get Started', function () {
+      mockCommonPinboardApi();
+
       searchPage.pinboardIntroduction.body.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT);
       searchPage.pinboardIntroduction.getStartedButton.click();
       browser.waitForUrl(url => url.should.match(/\/pinboard\/.*/), 2000);
@@ -427,24 +517,34 @@ describe('Search Page', function () {
     });
 
     it('should not display pinboard introduction after user add item to pinboard', function () {
+      mockCommonApi();
+      api
+        .onPost('/api/v2/pinboards/', createPinboardWithOfficer1RequestData)
+        .reply(200, createPinboardWithOfficer1Data);
+
       searchPage.input.waitForDisplayed();
       searchPage.input.setValue('Ke');
 
-      searchPage.secondOfficerResult.waitForDisplayed();
-      searchPage.secondOfficerPinButton.click();
+      searchPage.firstOfficerResult.waitForDisplayed();
+      searchPage.firstOfficerPinButton.click();
       searchPage.clearSearchButton.click();
       searchPage.pinboardButton.waitForText('Pinboard (1)');
       searchPage.pinboardIntroduction.body.waitForDisplayed(1000, true);
     });
 
     it('should display pinboard introduction after user remove all item from pinboard', function () {
+      mockCommonApi();
+      api
+        .onPost('/api/v2/pinboards/', createPinboardWithOfficer1RequestData)
+        .reply(200, createPinboardWithOfficer1Data);
+
       searchPage.input.waitForDisplayed();
       searchPage.input.setValue('Ke');
 
-      searchPage.secondOfficerResult.waitForDisplayed();
-      searchPage.secondOfficerPinButton.click();
+      searchPage.firstOfficerResult.waitForDisplayed();
+      searchPage.firstOfficerPinButton.click();
       browser.pause(100);
-      searchPage.secondOfficerPinButton.click();
+      searchPage.firstOfficerPinButton.click();
       searchPage.clearSearchButton.click();
       searchPage.pinboardIntroduction.body.waitForDisplayed(1000);
       searchPage.pinboardButton.waitForDisplayed(1000, true);
@@ -452,14 +552,8 @@ describe('Search Page', function () {
 
     context('lastest pinboard is not empty', function () {
       beforeEach(function () {
-        disableAxiosMock();
         mockCommonApi();
-
         api.onGet('/api/v2/pinboards/latest-retrieved-pinboard/', { 'create': false }).reply(200, pinboardData);
-      });
-
-      afterEach(function () {
-        restoreAxiosMock();
       });
 
       it('should not display pinboard introduction when lasted pinboard is not empty', function () {
@@ -472,6 +566,7 @@ describe('Search Page', function () {
 
   context('PinButton introduction', function () {
     beforeEach(function () {
+      mockCommonApi();
       browser.clearReduxStore(true);
       searchPage.input.waitForDisplayed();
     });
@@ -479,6 +574,8 @@ describe('Search Page', function () {
     context('search results', function () {
       context('search result have more than 3 items', function () {
         it('should display PinButtonIntroduction in third pinnable search result', function () {
+          api.onGet('/api/v1/suggestion/', { term: 'intr', limit: 9 }).reply(200, groupedSuggestions['intr']);
+
           searchPage.input.setValue('intr');
           searchPage.unitOfficerResultsSection.thirdPinButtonIntroduction.waitForDisplayed();
           searchPage.unitOfficerResultsSection.pinButtonIntroduction.count.should.equal(1);
@@ -489,6 +586,8 @@ describe('Search Page', function () {
 
       context('search result have less than 3 items', function () {
         it('should display PinButtonIntroduction in last pinnable search result', function () {
+          api.onGet('/api/v1/suggestion/', { term: 'Kelly', limit: 9 }).reply(200, groupedSuggestions['Kelly']);
+
           searchPage.input.setValue('Kelly');
           searchPage.officerResultsSection.firstPinButtonIntroduction.waitForDisplayed();
           searchPage.officerResultsSection.pinButtonIntroduction.count.should.equal(1);
@@ -497,6 +596,8 @@ describe('Search Page', function () {
       });
 
       it('should not display PinButtonIntroduction after click on PinButton have introduction', function () {
+        api.onGet('/api/v1/suggestion/', { term: 'intr', limit: 9 }).reply(200, groupedSuggestions['intr']);
+
         searchPage.input.setValue('intr');
         const thirdPinbuttonIntroduction = searchPage.unitOfficerResultsSection.thirdPinButtonIntroduction;
         thirdPinbuttonIntroduction.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT + 500);
@@ -510,6 +611,8 @@ describe('Search Page', function () {
       });
 
       it('should not display PinButtonIntroduction after click on any PinButton', function () {
+        api.onGet('/api/v1/suggestion/', { term: 'intr', limit: 9 }).reply(200, groupedSuggestions['intr']);
+
         searchPage.input.setValue('intr');
         const thirdPinbuttonIntroduction = searchPage.unitOfficerResultsSection.thirdPinButtonIntroduction;
         thirdPinbuttonIntroduction.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT + 500);
@@ -523,6 +626,8 @@ describe('Search Page', function () {
       });
 
       it('should not display PinButtonIntroduction after click on result item have introduction', function () {
+        api.onGet('/api/v1/suggestion/', { term: 'intr', limit: 9 }).reply(200, groupedSuggestions['intr']);
+
         searchPage.input.setValue('intr');
         const thirdPinbuttonIntroduction = searchPage.unitOfficerResultsSection.thirdPinButtonIntroduction;
         thirdPinbuttonIntroduction.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT + 500);
@@ -536,6 +641,8 @@ describe('Search Page', function () {
       });
 
       it('should not display PinButtonIntroduction after click on introduction message', function () {
+        api.onGet('/api/v1/suggestion/', { term: 'intr', limit: 9 }).reply(200, groupedSuggestions['intr']);
+
         searchPage.input.setValue('intr');
         const thirdPinbuttonIntroduction = searchPage.unitOfficerResultsSection.thirdPinButtonIntroduction;
         thirdPinbuttonIntroduction.waitForDisplayed(INTRODUCTION_DISPLAY_TIMEOUT + 500);
@@ -622,6 +729,7 @@ describe('Search Page', function () {
 
       context('all 3 first recent item is unpinnable', function () {
         it('should display PinButtonIntroduction in first pinnable item', function () {
+          api.onGet('/api/v1/suggestion/', { term: 'intr', limit: 9 }).reply(200, groupedSuggestions['intr']);
           performSearch('intr');
           searchPage.unitOfficerResultsSection.firstResultText.click();
           searchPage.unitOfficerResultsSection.firstResultText.click();
@@ -652,6 +760,28 @@ describe('Search Page', function () {
     });
 
     it('when click on result item', function () {
+      mockCommonApi();
+      api.onGet('/api/v1/suggestion/', { term: 'Geography', limit: 9 }).reply(200, groupedSuggestions['Geography']);
+      api.onGet('/api/v1/suggestion/', { term: 'Kelly', limit: 9 }).reply(200, groupedSuggestions['Kelly']);
+      api.onGet('/api/v1/suggestion/', { term: '2004/04/23', limit: 9 }).reply(200, groupedSuggestions['2004/04/23']);
+      api.onGet('/api/v1/suggestion/', { term: 'rank', limit: 9 }).reply(200, groupedSuggestions['rank']);
+
+      api
+        .onPost('/api/v2/pinboards/', createPinboardWithOfficer1RequestData)
+        .reply(200, createPinboardWithOfficer1Data);
+      api
+        .onPut('/api/v2/pinboards/abcd5678/', pinTRR123PinboardRequestData)
+        .reply(200, pinTRR123PinboardData);
+      api
+        .onPut('/api/v2/pinboards/abcd5678/', pinCR123PinboardRequestData)
+        .reply(200, pinCR123PinboardData);
+      api
+        .onPut('/api/v2/pinboards/abcd5678/', removeAllPinItemsPinboardRequestData)
+        .reply(200, removeAllPinItemsPinboardData);
+      api
+        .onGet('/api/v1/suggestion/recent-search-items/', recentSearchItemsRequestData)
+        .reply(200, recentSearchItemsData);
+
       performSearch('Geography');
       clickOnSearchResultItem(searchPage.firstSearchTermsResult, 'Geography - Communities', true);
 
@@ -710,6 +840,13 @@ describe('Search Page', function () {
       browser.scroll(0, -2000);
       browser.pause(500);
 
+      searchPage.thirdRecentPinButton.click();
+      searchPage.toast.waitForText(
+        'Police Officer Bernadette Kelly 45-year-old White Male, with 10 complaints, 2 sustained added.' +
+        '\nGo to pinboard'
+      );
+      searchPage.toast.waitForDisplayed(5000, true);
+
       searchPage.firstRecentPinButton.click();
       searchPage.toast.waitForText(
         'TRR #123 categorized as Member Presence happened in Apr 27, 2004 added.' +
@@ -724,25 +861,19 @@ describe('Search Page', function () {
       );
       searchPage.toast.waitForDisplayed(5000, true);
 
-      searchPage.thirdRecentPinButton.click();
-      searchPage.toast.waitForText(
-        'Police Officer Bernadette Kelly 45-year-old White Male, with 10 complaints, 2 sustained added.' +
-        '\nGo to pinboard'
-      );
-      searchPage.toast.waitForDisplayed(5000, true);
       searchPage.pinboardButton.waitForDisplayed(2000);
       searchPage.pinboardButton.getText().should.eql('Pinboard (3)');
-
-      searchPage.firstRecentPinButton.click();
-      searchPage.toast.waitForText(
-        'TRR #123 categorized as Member Presence happened in Apr 27, 2004 removed.' +
-        '\nGo to pinboard'
-      );
-      searchPage.toast.waitForDisplayed(5000, true);
 
       searchPage.secondRecentPinButton.click();
       searchPage.toast.waitForText(
         'CR #CR123 categorized as Lockup Procedures happened in Apr 23, 2004 removed.' +
+        '\nGo to pinboard'
+      );
+      searchPage.toast.waitForDisplayed(5000, true);
+
+      searchPage.firstRecentPinButton.click();
+      searchPage.toast.waitForText(
+        'TRR #123 categorized as Member Presence happened in Apr 27, 2004 removed.' +
         '\nGo to pinboard'
       );
       searchPage.toast.waitForDisplayed(5000, true);
@@ -821,23 +952,27 @@ describe('Search Page', function () {
   });
 
   it('should go back to pinboard page when user click on close button', function () {
-    pinboardPage.open('abcd8765');
+    api.onGet('/api/v2/pinboards/abcd5678/').reply(200, pinboardData);
+
+    pinboardPage.open();
     pinboardPage.searchBar.click();
     searchPage.backButton.waitForDisplayed();
     searchPage.backButton.click();
     searchPage.backButton.waitForDisplayed(20000, true);
 
-    browser.getUrl().should.match(/pinboard\/abcd8765\/pinboard-title\/$/);
+    browser.getUrl().should.match(/pinboard\/abcd5678\/pinboard-title\/$/);
   });
 
   it('should go back to pinboard page when user hit ESCAPE with focus on search input', function () {
-    pinboardPage.open('abcd8765');
+    api.onGet('/api/v2/pinboards/abcd5678/').reply(200, pinboardData);
+
+    pinboardPage.open();
     pinboardPage.searchBar.click();
     searchPage.backButton.waitForDisplayed();
     browser.keys('Escape');
     searchPage.backButton.waitForDisplayed(20000, true);
 
-    browser.getUrl().should.match(/pinboard\/abcd8765\/pinboard-title\/$/);
+    browser.getUrl().should.match(/pinboard\/abcd5678\/pinboard-title\/$/);
   });
 
   it('should follow the first link when user press enter after typing', function () {
@@ -885,6 +1020,8 @@ describe('Search Page', function () {
   });
 
   it('should not follow the v1 url when user press enter and there is no results', function () {
+    api.onGet('/api/v1/suggestion/', { term: 'noresult', limit: 9 }).reply(200, groupedSuggestions['noresult']);
+
     searchPage.input.waitForDisplayed();
     searchPage.input.setValue('noresult');
 
@@ -990,6 +1127,7 @@ describe('Search Page', function () {
 
   context('After getting back to landing page', function () {
     beforeEach(function () {
+      mockLandingPageApi();
       browser.setWindowRect(0, 0, 1000, 1000);
       landingPage.header.content.waitForExist();
       landingPage.header.content.waitForDisplayed(1000, true);
@@ -1196,6 +1334,8 @@ describe('Search Page', function () {
 
   describe('RankPreviewPane', function () {
     it('should redirect to officer profile when clicking on officer item', function () {
+      api.onGet('/api/v1/suggestion/', { term: 'rank', limit: 9 }).reply(200, groupedSuggestions['rank']);
+
       searchPage.input.waitForDisplayed();
       searchPage.input.setValue('rank');
       searchPage.rankResultsSection.firstResultText.waitForDisplayed();
@@ -1212,6 +1352,8 @@ describe('Search Page', function () {
 
   describe('CRPreviewPane', function () {
     beforeEach(function () {
+      api.onGet('/api/v1/suggestion/', { term: 'CR only', limit: 9 }).reply(200, groupedSuggestions['CR only']);
+
       searchPage.input.waitForDisplayed();
       searchPage.input.setValue('CR only');
       searchPage.crResultsSection.firstResultText.waitForDisplayed();
@@ -1252,6 +1394,8 @@ describe('Search Page', function () {
 
   describe('TRRPreviewPane', function () {
     beforeEach(function () {
+      api.onGet('/api/v1/suggestion/', { term: '2004/04/23', limit: 9 }).reply(200, groupedSuggestions['2004/04/23']);
+
       searchPage.input.waitForDisplayed();
       searchPage.input.setValue('2004/04/23');
       searchPage.dateTRRResultsSection.firstResultText.waitForDisplayed();
@@ -1286,6 +1430,12 @@ describe('Search Page', function () {
 
 describe('Search Page in edit mode', function () {
   beforeEach(function () {
+    mockCommonApi();
+    api.onGet('/api/v1/suggestion/', { term: 'Ke', limit: 9 }).reply(200, groupedSuggestions['default']);
+    api
+      .onPost('/api/v2/users/sign-in/', { username: 'username', password: 'password' })
+      .reply(200, { 'apiAccessToken': '055a5575c1832e9123cd546fe0cfdc8607f8680c' });
+
     searchPage.openWithEditMode();
     searchPage.loginScreen.login();
   });
@@ -1294,7 +1444,6 @@ describe('Search Page in edit mode', function () {
     searchPage.input.setValue('Ke');
     searchPage.plusSign.waitForDisplayed();
     searchPage.plusSign.click();
-    searchPage.input.setValue('Ke');
     searchPage.firstAliasButton.waitForDisplayed();
     searchPage.firstAliasButton.click();
     browser.getUrl().should.match(/\/edit\/search\/alias\/form\/$/);
@@ -1302,7 +1451,13 @@ describe('Search Page in edit mode', function () {
 });
 
 describe('Search Page with query parameter', function () {
+  beforeEach(function () {
+    mockCommonApi();
+  });
+
   it('should able to show INVESTIGATOR > CR results via query parameter', function () {
+    api.onGet('/api/v1/suggestion/', { term: 'Kelly', limit: 9 }).reply(200, groupedSuggestions['Kelly']);
+
     searchPage.open('Kelly');
     searchPage.investigatorCRResultsSection.results.waitForDisplayed();
     searchPage.suggestionTags.getText().should.containEql('INVESTIGATOR > CR');
@@ -1316,6 +1471,14 @@ describe('Search Page with query parameter', function () {
   });
 
   it('should able to show OFFICERS results via query parameter', function () {
+    api.onGet('/api/v1/suggestion/', { term: 'jerome', limit: 9 }).reply(200, groupedSuggestions['jerome']);
+    api
+      .onGet('/api/v1/suggestion/single/', { term: 'jerome', contentType: 'OFFICER' })
+      .reply(200, singleGroupSuggestions['officer']);
+    api
+      .onGet('/api/v1/suggestion/single/', { term: 'jerome', contentType: 'OFFICER', offset: '10' })
+      .reply(200, singleGroupSuggestions['officerOffset10']);
+
     searchPage.open('officer:jerome');
 
     searchPage.officerResultsSection.results.waitForDisplayed();
@@ -1334,6 +1497,14 @@ describe('Search Page with query parameter', function () {
   });
 
   it('should search with correct query using terms', function () {
+    api.onGet('/api/v1/suggestion/', { term: 'jerome', limit: 9 }).reply(200, groupedSuggestions['jerome']);
+    api
+      .onGet('/api/v1/suggestion/single/', { term: 'jerome', contentType: 'OFFICER' })
+      .reply(200, singleGroupSuggestions['officer']);
+    api
+      .onGet('/api/v1/suggestion/single/', { term: 'jerome', contentType: 'OFFICER', offset: '10' })
+      .reply(200, singleGroupSuggestions['officerOffset10']);
+
     searchPage.openWithTerms('officer:jerome');
 
     searchPage.officerResultsSection.results.waitForDisplayed();
@@ -1345,15 +1516,8 @@ describe('Search Page with query parameter', function () {
 
 describe('Search Page with pinboard functionalities', function () {
   beforeEach(function () {
-    disableAxiosMock();
     mockCommonApi();
-
-    api.onGet('/api/v2/pinboards/latest-retrieved-pinboard/', { 'create': false }).reply(200, emptyCreatedPinboard);
-    api.onGet('/api/v1/suggestion/').reply(200, defaultSearchResult);
-  });
-
-  afterEach(function () {
-    restoreAxiosMock();
+    api.onGet('/api/v1/suggestion/', { term: 'Ke', limit: 9 }).reply(200, groupedSuggestions['default']);
   });
 
   it('should display pinboard button with correct text when items are added/removed', function () {
@@ -1370,27 +1534,36 @@ describe('Search Page with pinboard functionalities', function () {
 
   context('when click on pinboard hint button in search result', function () {
     it('should redirect to pinboard page', function () {
+      api
+        .onPost('/api/v2/pinboards/', createPinboardWithOfficer1RequestData)
+        .reply(200, createPinboardWithOfficer1Data);
+      api.onGet('/api/v2/pinboards/latest-retrieved-pinboard/', { create: true }).reply(200, pinboardWithOfficer1Data);
+
       searchPage.open('Ke');
       searchPage.firstOfficerPinButton.click();
       searchPage.firstPinboardHintButton.waitForDisplayed();
       searchPage.firstPinboardHintButton.moveTo();
       searchPage.firstPinboardHintButton.click();
-      browser.waitForUrl(url => url.should.match(/pinboard\/5cd06f2b\/untitled-pinboard\/$/), 1000);
+      browser.waitForUrl(url => url.should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/), 3000);
     });
   });
 
-
   context('when click on pinboard hint button in recent section', function () {
     it('should redirect to pinboard page', function () {
+      api
+        .onPost('/api/v2/pinboards/', createPinboardWithOfficer1RequestData)
+        .reply(200, createPinboardWithOfficer1Data);
+      api.onGet('/api/v2/pinboards/latest-retrieved-pinboard/', { create: true }).reply(200, pinboardWithOfficer1Data);
+
       searchPage.open();
       performSearch('Ke');
-      clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly', true);
-
-      backToSearch();
       clickOnSearchResultItem(searchPage.firstCrResult, 'CR # CR123 • April 23, 2004');
-
       backToSearch();
+
       clickOnSearchResultItem(searchPage.firstTrrResult, 'Member Presence');
+      backToSearch();
+
+      clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly', true);
       backToSearch();
       clearSearchInput();
       searchPage.firstRecentPinButton.click();
@@ -1398,23 +1571,33 @@ describe('Search Page with pinboard functionalities', function () {
       searchPage.firstPinboardHintButton.waitForDisplayed();
       searchPage.firstPinboardHintButton.moveTo();
       searchPage.firstPinboardHintButton.click();
-      browser.waitForUrl(url => url.should.match(/pinboard\/5cd06f2b\/untitled-pinboard\/$/), 1000);
+      browser.waitForUrl(url => url.should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/), 3000);
     });
   });
 
   context('when click on pinboard button', function () {
     it('should redirect to Pinboard page', function () {
+      api.onPost('/api/v2/pinboards/', ).reply(201, emptyCreatedPinboardData);
+
       searchPage.open('Ke');
       searchPage.suggestionGroup.waitForDisplayed();
 
+      searchPage.pinboardButton.waitForDisplayed();
       searchPage.pinboardButton.click();
-      browser.getUrl().should.match(/pinboard\/5cd06f2b\/untitled-pinboard\/$/);
+      browser.waitForUrl(url => url.should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/), 3000);
     });
   });
 });
 
 describe('Search Page toast', function () {
+  beforeEach(function () {
+    mockCommonApi();
+    api.onGet('/api/v1/suggestion/', { term: 'Ke', limit: 9 }).reply(200, groupedSuggestions['default']);
+  });
+
   it('should display toast in few seconds when items are added/removed', function () {
+    api.onGet('/api/v2/pinboards/latest-retrieved-pinboard/').reply(200, {});
+
     searchPage.open('Ke');
 
     searchPage.suggestionGroup.waitForDisplayed();
@@ -1438,7 +1621,17 @@ describe('Search Page toast', function () {
   });
 
   context('create new pinboard', function () {
+    beforeEach(function () {
+      api.onGet('/api/v2/pinboards/abcd5678/officers/').replyOnce(200, pinboardWithOfficer1OfficersData);
+      api.onGet('/api/v2/pinboards/abcd5678/').reply(200, pinboardWithOfficer1Data);
+      api.onGet('/api/v2/pinboards/latest-retrieved-pinboard/', { create: true }).reply(200, pinboardWithOfficer1Data);
+    });
+
     it('should go to pinboard detail page when clicking on success added toast', function () {
+      api
+        .onPost('/api/v2/pinboards/', createPinboardWithOfficer1RequestData)
+        .reply(200, createPinboardWithOfficer1Data);
+
       searchPage.open('Ke');
 
       searchPage.suggestionGroup.waitForDisplayed();
@@ -1450,48 +1643,71 @@ describe('Search Page toast', function () {
         '\nGo to pinboard'
       );
       searchPage.toast.click();
-      browser.getUrl().should.match(/pinboard\/e25aa777\/untitled-pinboard\/$/);
+      browser.getUrl().should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/);
       pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
     });
 
     it('should go to pinboard detail page when clicking on error added toast', function () {
+      api
+        .onPost('/api/v2/pinboards/', createPinboardWithOfficer1RequestData)
+        .reply(500, {});
+      api
+        .onPost('/api/v2/pinboards/', createPinboardWithOfficer1RequestData)
+        .reply(200, createPinboardWithOfficer1Data);
+
       searchPage.open('Ke');
 
       searchPage.suggestionGroup.waitForDisplayed();
-      searchPage.secondOfficerPinButton.click();
+      searchPage.firstOfficerPinButton.click();
 
       searchPage.toast.waitForDisplayed();
       searchPage.toast.waitForText(
-        'Police Officer John Kelly 37-year-old White Female, with 5 complaints, 1 sustained added.' +
+        'Police Officer Bernadette Kelly 45-year-old White Male, with 10 complaints, 2 sustained added.' +
         '\nGo to pinboard'
       );
       searchPage.toast.click();
       browser.getUrl().should.match(/pinboard\/$/);
-      browser.waitForUrl(url => url.should.match(/pinboard\/e25aa888\/untitled-pinboard\/$/), 2500);
+      browser.waitForUrl(url => url.should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/), 2500);
       pinboardPage.pinnedSection.officers.title.waitForDisplayed();
       pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
     });
 
     it('should go to pinboard detail page when clicking on long api call added toast', function () {
+      api
+        .onPost('/api/v2/pinboards/', createPinboardWithOfficer1RequestData)
+        .delay(2000)
+        .reply(200, createPinboardWithOfficer1Data);
+
       searchPage.open('Ke');
 
       searchPage.suggestionGroup.waitForDisplayed();
-      searchPage.thirdOfficerPinButton.click();
+      searchPage.firstOfficerPinButton.click();
 
       searchPage.toast.waitForDisplayed();
       searchPage.toast.waitForText(
-        'Police Officer Edward may 33-year-old White Female, with 8 complaints, 2 sustained added.' +
+        'Police Officer Bernadette Kelly 45-year-old White Male, with 10 complaints, 2 sustained added.' +
         '\nGo to pinboard'
       );
       searchPage.toast.click();
       browser.getUrl().should.match(/pinboard\/$/);
-      browser.waitForUrl(url => url.should.match(/pinboard\/e25aa999\/untitled-pinboard\/$/), 1500);
+      browser.waitForUrl(url => url.should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/), 1500);
       pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
     });
   });
 
   context('update current pinboard', function () {
+    beforeEach(function () {
+      api.onGet('/api/v2/pinboards/', { create: false }).reply(200, pinboardWithOfficer1Data);
+      api.onGet('/api/v2/pinboards/abcd5678/').reply(200, pinboardWithOfficer1Data);
+      api.onGet('/api/v2/pinboards/abcd5678/officers/').replyOnce(200, pinboardWithOfficer1OfficersData);
+    });
+
     it('should go to pinboard detail page when clicking on success removed toast', function () {
+      api.onGet('/api/v2/pinboards/abcd5678/officers/').replyOnce(200, []);
+      api
+        .onPut('/api/v2/pinboards/abcd5678/', removeAllPinItemsPinboardRequestData)
+        .reply(200, removeAllPinItemsPinboardData);
+
       pinboardPage.open('abcd5678');
       pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
 
@@ -1507,12 +1723,20 @@ describe('Search Page toast', function () {
       );
 
       searchPage.toast.click();
-      browser.getUrl().should.match(/pinboard\/abcd5678\/pinboard-title\/$/);
+      browser.getUrl().should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/);
       pinboardPage.pinnedSection.officers.officerCards().should.have.length(0);
     });
 
     it('should go to pinboard detail page when clicking on error added toast', function () {
-      pinboardPage.open('abcd8765');
+      api.onGet('/api/v2/pinboards/abcd5678/officers/').replyOnce(200, pinOfficer2OfficersData);
+      api
+        .onPut('/api/v2/pinboards/abcd5678/', pinOfficer2PinboardRequestData)
+        .replyOnce(500, {});
+      api
+        .onPut('/api/v2/pinboards/abcd5678/', pinOfficer2PinboardRequestData)
+        .replyOnce(200, pinOfficer2PinboardData);
+
+      pinboardPage.open('abcd5678');
       pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
 
       pinboardPage.searchBar.click();
@@ -1527,29 +1751,35 @@ describe('Search Page toast', function () {
       );
 
       searchPage.toast.click();
-      browser.getUrl().should.match(/pinboard\/abcd8765\/pinboard-title\/$/);
+      browser.getUrl().should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/);
       pinboardPage.pinnedSection.officers.title.waitForDisplayed();
       pinboardPage.pinnedSection.officers.officerCards().should.have.length(2);
     });
 
     it('should go to pinboard detail page when clicking on long api call added toast ', function () {
-      pinboardPage.open('dcab5678');
+      api.onGet('/api/v2/pinboards/abcd5678/officers/').replyOnce(200, pinOfficer2OfficersData);
+      api
+        .onPut('/api/v2/pinboards/abcd5678/', pinOfficer2PinboardRequestData)
+        .delay(2000)
+        .replyOnce(200, pinOfficer2PinboardData);
+
+      pinboardPage.open('abcd5678');
       pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
 
       pinboardPage.searchBar.click();
       searchPage.input.setValue('Ke');
 
       searchPage.suggestionGroup.waitForDisplayed();
-      searchPage.thirdOfficerPinButton.click();
+      searchPage.secondOfficerPinButton.click();
       searchPage.toast.waitForDisplayed();
       searchPage.toast.waitForText(
-        'Police Officer Edward may 33-year-old White Female, with 8 complaints, 2 sustained added.' +
+        'Police Officer John Kelly 37-year-old White Female, with 5 complaints, 1 sustained added.' +
         '\nGo to pinboard'
       );
 
       searchPage.toast.click();
       browser.pause(2500);
-      browser.getUrl().should.match(/pinboard\/dcab5678\/pinboard-title\/$/);
+      browser.getUrl().should.match(/pinboard\/abcd5678\/untitled-pinboard\/$/);
       pinboardPage.pinnedSection.officers.officerCards().should.have.length(2);
     });
   });

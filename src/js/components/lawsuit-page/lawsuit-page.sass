@@ -1,0 +1,173 @@
+@import 'variables'
+
+\:local(.lawsuit-page)
+  font-size: 14px
+  line-height: 17px
+  font-weight: 300
+  padding: 0 16px
+
+  .lawsuit-content
+    color: $thunder-color
+    margin: 12px 16px 140px 16px
+
+    .lawsuit-label
+      color: $gray-color
+
+    .basic-info
+      width: 736px
+      margin: 19px 0 17px 0
+
+      .lawsuit-title
+        float: left
+        width: calc(100% - 150px)
+
+        .case-no, .primary-cause
+          font-size: 26px
+          line-height: 31px
+          text-transform: uppercase
+
+        .primary-cause
+          color: $gray-color
+
+      .total-payments-summary
+        box-sizing: border-box
+        border-radius: 2px
+        color: white
+        float: left
+        width: 150px
+        height: 62px
+        padding: 11px 0 0 36px
+        background: $mine-shaft-dark-color url('/img/ic-coin-stack.svg') no-repeat 9px 21px
+
+        .total-payments-summary-value
+          text-transform: uppercase
+          font-weight: 500
+          font-size: 18px
+          line-height: 21px
+
+    .summary-section
+      width: 736px
+      margin-top: 53px
+
+      .attachment-image-href
+        float: left
+        margin-right: 16px
+
+        .attachment-image
+          border: 1px solid $alto-color
+          box-sizing: border-box
+          width: 198px
+          height: 242px
+          background-size: contain
+
+      .summary-info
+        width: 522px
+        float: left
+
+        .summary-title
+          color: $boulder-color
+          padding-bottom: 11px
+
+    .field-row
+      padding: 12px 0 11px 0
+      display: flex
+
+      & + .field-row
+        border-top: 1px solid $alto-color
+
+      .field-row-label
+        width: 94px
+        color: $boulder-color
+
+      .field-row-value
+        flex-grow: 1
+
+    .section
+      width: 532px
+
+      .section-label
+        padding: 36px 0 11px 0
+        color: $boulder-color
+
+    .case-breakdown-section
+      .case-breakdown-table
+        border: 1px solid $alto-color
+        padding: 0 16px
+
+    .officers-section
+      width: auto
+      max-width: 1200px
+
+    .payment-section
+      .payment-breakdown-table
+        border: 1px solid $alto-color
+
+        .payment-row
+          padding: 12px 16px 11px 16px
+
+          &.payment-table-header, &.subtotals
+            background-color: $wild-sand-color
+
+          &.payment-table-header
+            color: $boulder-color
+
+          &.detail-row
+            padding: 12px 0 11px 0
+            margin: 0 16px
+
+            & + .detail-row
+              border-top: 1px solid $alto-color
+
+          &.subtotals
+            font-weight: 500
+
+          &.total-payments
+            background-color: $alto-color
+            font-weight: 500
+
+            .total-payments-label, .total-payments-value
+              display: inline-block
+
+            .total-payments-label
+              width: calc(100% - 140px)
+
+            .total-payments-value
+              width: 140px
+
+          .payee, .settlement, .legal-fees
+            display: inline-block
+            vertical-align: top
+
+          .payee
+            width: calc(100% - 300px)
+            padding-right: 8px
+            box-sizing: border-box
+            white-space: nowrap
+            overflow: hidden
+            text-overflow: ellipsis
+
+          .settlement
+            width: 160px
+
+          .legal-fees
+            width: 140px
+
+        .must-be-accepted-by-council-city
+          .subtotals
+            padding-bottom: 2px
+
+          .must-be-accepted-by-council-city-description
+            background-color: $wild-sand-color
+            color: $boulder-color
+            font-size: 12px
+            line-height: 14px
+            padding: 0 0 14px 16px
+
+    .case-details-section
+      .lawsuit-map
+        width: 200px
+        height: 133px
+        margin-top: 11px
+        border-radius: 2px
+        border: 1px solid $alto-color
+        box-sizing: border-box

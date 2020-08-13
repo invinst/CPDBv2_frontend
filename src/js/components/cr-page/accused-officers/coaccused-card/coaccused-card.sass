@@ -1,115 +1,8 @@
 @import 'variables'
 
 \:local(.coaccused-card)
-  display: inline-block
-  margin: 0
-  box-sizing: border-box
-  text-decoration: none
-  border: solid 1px $alto-color
-  border-radius: 2px
-  width: 234px
-
-  @media print
-    page-break-inside: avoid
-    display: block
-    width: 100%
-    border: none
-    border-bottom: solid 1px $alto-color
-    padding: 4px 0
-
-  .coaccused-card-info
-    padding-bottom: 4px
-
-    @media print
-      display: inline-block
-      width: 40%
-
-  .coaccused-card-header
-    padding: 8px 16px
-
-    @media print
-      width: 40%
-      height: auto
-      padding: 0
-
-    .radar-chart-wrapper
-      width: 38px
-      height: 38px
-      border-radius: 2px
-      overflow: hidden
-      float: left
-
-    .coaccused-card-header-info
-      float: left
-      margin: 2px 0 0 8px
-      width: 154px
-
-      @media print
-        margin: 0
-        width: auto
-
-      .coaccused-card-rank, .coaccused-card-name
-        @media print
-          display: inline
-          font-size: 12px
-          font-weight: 500
-          padding-right: 5px
-
-  .coaccused-card-section
-    padding: 11px 0 11px 16px
-    border-bottom: solid 1px $alto-color
-    height: 54px
-    box-sizing: border-box
-
-    @media print
-      border-bottom: none
-      margin: 0
-      padding: 0
-      height: auto
-
-    &:last-child
-      border-bottom: none
-
-  .light-text
-    font-size: 12px
-    line-height: 14px
-    color: $boulder-color
-    margin-top: 0
-    margin-bottom: 0
-    white-space: nowrap
-    overflow: hidden
-    text-overflow: ellipsis
-
-  .bold-text
-    line-height: 18px
-    font-size: 14px
-    color: $thunder-color
-    margin-top: 0
-    margin-bottom: 0
-
-  .extra-info
-    font-size: 14px
-    line-height: 18px
-    margin: 0
-    color: $boulder-color
-
-  .coaccused-card-sustained
-    color: $blaze-orange-light-color
-    white-space: nowrap
-
-    &.unsustained
-      color: $boulder-color
-
-  .coaccused-card-allegation
-    font-size: 14px
-    color: $thunder-color
-
-  .extra-info, .coaccused-card-sustained, .coaccused-card-allegation
-    @media print
-      font-size: 10px
-
   .coaccused-card-footer
-    padding: 11px 16px 4px
+    padding: 15px 16px 4px
     background-color: white
 
     @media print
@@ -189,12 +82,6 @@
           vertical-align: top
 
   &:hover
-    border: solid 1px $blue-ribbon-color
-
-    .coaccused-card-header-info
-      .coaccused-card-name
-        color: $blue-ribbon-color
-
     .coaccused-card-footer
       .accused-card-category
         color: $blue-ribbon-color

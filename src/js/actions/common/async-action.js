@@ -1,5 +1,4 @@
 import Cookies from 'js-cookie';
-import { getMockAdapter } from 'mock-api';
 
 
 const authorizationHeaders = () => {
@@ -11,13 +10,12 @@ const authorizationHeaders = () => {
   return { headers };
 };
 
-const getWithConfig = (config=() => ({})) => (url, types, cancelToken) => ((params, adapter=getMockAdapter()) => ({
+const getWithConfig = (config=() => ({})) => (url, types, cancelToken) => ((params) => ({
   types,
   payload: {
     request: {
       url,
       params,
-      adapter,
       cancelToken,
       ...config(),
     },
@@ -30,14 +28,13 @@ export const authenticatedGet = getWithConfig(authorizationHeaders);
 
 export const withoutCredentialsGet = getWithConfig(() => ({ withCredentials: false }));
 
-const postWithConfig = (config=() => ({})) => (url, types, cancelToken) => ((data, adapter=getMockAdapter()) => ({
+const postWithConfig = (config=() => ({})) => (url, types, cancelToken) => ((data) => ({
   types,
   payload: {
     request: {
       method: 'post',
       url,
       data,
-      adapter,
       cancelToken,
       ...config(),
     },
@@ -48,14 +45,13 @@ export const post = postWithConfig();
 
 export const authenticatedPost = postWithConfig(authorizationHeaders);
 
-const patchWithConfig = (config=() => ({})) => (url, types) => ((data, adapter=getMockAdapter()) => ({
+const patchWithConfig = (config=() => ({})) => (url, types) => ((data) => ({
   types,
   payload: {
     request: {
       method: 'patch',
       url,
       data,
-      adapter,
       ...config(),
     },
   },
@@ -65,14 +61,13 @@ export const patch = patchWithConfig();
 
 export const authenticatedPatch = patchWithConfig(authorizationHeaders);
 
-const putWithConfig = (config=() => ({})) => (url, types, cancelToken) => ((data, adapter=getMockAdapter()) => ({
+const putWithConfig = (config=() => ({})) => (url, types, cancelToken) => ((data) => ({
   types,
   payload: {
     request: {
       method: 'put',
       url,
       data,
-      adapter,
       cancelToken,
       ...config(),
     },
@@ -83,7 +78,7 @@ export const put = putWithConfig();
 
 export const authenticatedPut = putWithConfig(authorizationHeaders);
 
-export const deleteRequest = (url, types, cancelToken) => ((data, adapter=getMockAdapter()) => {
+export const deleteRequest = (url, types, cancelToken) => ((data) => {
   return {
     types,
     payload: {
@@ -91,7 +86,6 @@ export const deleteRequest = (url, types, cancelToken) => ((data, adapter=getMoc
         method: 'DELETE',
         url,
         data,
-        adapter,
         cancelToken,
       },
     },

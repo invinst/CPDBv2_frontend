@@ -4,10 +4,16 @@ import 'should';
 
 import landingPage from '../page-objects/landing-page';
 import { selectText } from '../utils';
+import { landingPageCmsData } from '../mock-data/landing-page/common';
+import api from '../mock-api';
 
 
 describe('Rich text editor', function () {
   beforeEach(function () {
+    api.onGet('/api/v2/cms-pages/landing-page/').reply(200, landingPageCmsData);
+    api
+      .onPost('/api/v2/users/sign-in/', { username: 'username', password: 'password' })
+      .reply(200, { 'apiAccessToken': '055a5575c1832e9123cd546fe0cfdc8607f8680c' });
     landingPage.open();
     landingPage.openEditMode();
     landingPage.header.topBar.logo.subtitle.moveTo();

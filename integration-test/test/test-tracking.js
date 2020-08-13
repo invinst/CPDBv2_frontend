@@ -1,6 +1,7 @@
 import should from 'should';
 
 import pinboardPage from '../page-objects/pinboard-page';
+import { mockCommonApi } from '../mock-data/utils';
 
 
 describe('Tracking', function () {
@@ -8,6 +9,9 @@ describe('Tracking', function () {
   const clickyLogType = () => browser.execute('return (typeof window.clicky.log);');
   const clicky = () => browser.execute('return window.clicky;');
   const gaLoaded = () => browser.execute('return window.gaLoaded;');
+  beforeEach(function () {
+    mockCommonApi();
+  });
 
   it('should assign gaLoaded, ga & clicky on load', function () {
     pinboardPage.open();

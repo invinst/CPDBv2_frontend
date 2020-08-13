@@ -428,7 +428,7 @@ class PinboardPage extends Page {
     });
   }
 
-  open(id='5cd06f2b') {
+  open(id='abcd5678') {
     const url = id ? `/pinboard/${id}/pinboard-title/` : '/pinboard/';
 
     super.open(url);

@@ -6,7 +6,6 @@ import landingPage from '../page-objects/landing-page';
 
 
 describe('localStorage', function () {
-
   beforeEach(function () {
     landingPage.open();
     browser.pause(500);

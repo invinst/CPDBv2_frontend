@@ -3,12 +3,17 @@
 import should from 'should';
 
 import embedOfficersPage from '../page-objects/embed-officers-page';
+import api from '../mock-api';
+import { mockCommonApi } from '../mock-data/utils';
+import { officersData } from '../mock-data/embed-officers-page';
 
 
 should.config.checkProtoEql = false;
 
 describe('embed top officers page', function () {
   beforeEach(function () {
+    mockCommonApi();
+    api.onGet('/api/v2/officers/', { ids: '1,2,3' }).reply(200, officersData([1, 2, 3]));
     embedOfficersPage.open('/embed/officers/?ids=1,2,3&title=Some%20title&description=Some%20description');
     browser.pause(500);
   });

@@ -15,7 +15,7 @@ export default function TabbedPaneSection(props) {
   const {
     currentTab,
     changeOfficerTab,
-    hasComplaint,
+    hasAttachments,
     hasMapMarker,
     hasCoaccusal,
   } = props;
@@ -34,7 +34,7 @@ export default function TabbedPaneSection(props) {
     },
     [OFFICER_PAGE_TAB_NAMES.ATTACHMENTS]: {
       component: AttachmentsContainer,
-      show: hasComplaint,
+      show: hasAttachments,
     },
   };
   const CurrentComponent = get(tabbedPaneMap, `${currentTab}.component`, null);
@@ -63,7 +63,7 @@ export default function TabbedPaneSection(props) {
 TabbedPaneSection.propTypes = {
   currentTab: PropTypes.string,
   changeOfficerTab: PropTypes.func,
-  hasComplaint: PropTypes.bool,
+  hasAttachments: PropTypes.bool,
   hasMapMarker: PropTypes.bool,
   hasCoaccusal: PropTypes.bool,
 };

@@ -3,10 +3,21 @@
 require('should');
 
 import crawlersPage from '../page-objects/crawlers-page';
+import api from '../mock-api';
+import { mockCommonApi } from '../mock-data/utils';
+import { crawlersData, nextCrawlersData } from '../mock-data/crawlers-page';
 
 
 describe('Crawlers Page', function () {
   beforeEach(function () {
+    mockCommonApi();
+    api
+      .onGet('/api/v2/document-crawlers/')
+      .reply(200, crawlersData);
+    api
+      .onGet('/api/v2/document-crawlers/', { limit: 20, offset: 20 })
+      .reply(200, nextCrawlersData);
+
     browser.setWindowRect(0, 0, 1000, 900);
     crawlersPage.open();
   });

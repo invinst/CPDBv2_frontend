@@ -39,7 +39,6 @@ describe('suggestion action', function () {
           request: {
             url: SUGGESTION_URL,
             params: { term: 'abc' },
-            adapter: null,
             cancelToken: 'token',
           },
         },
@@ -71,7 +70,6 @@ describe('suggestion action', function () {
               contentType: 'xyz',
               term: 'abc',
             },
-            adapter: null,
             cancelToken: 'token',
           },
         },
@@ -142,7 +140,6 @@ describe('suggestion action', function () {
               crids: ['271235'],
               'trr_ids': [123],
             },
-            adapter: null,
             cancelToken: undefined,
           },
         },

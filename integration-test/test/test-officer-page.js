@@ -9,9 +9,17 @@ import header from '../page-objects/shareable-header';
 import landingPage from '../page-objects/landing-page';
 import searchPage from '../page-objects/search-page';
 import pinboardPage from '../page-objects/pinboard-page';
-import { restoreAxiosMock, disableAxiosMock, selectText } from '../utils';
+import { selectText } from '../utils';
 import { mockCommonApi } from '../mock-data/utils';
-import { officerData } from '../mock-data/officer-page/common';
+import {
+  officerData,
+  timelineItems,
+  coaccusalsData,
+  noPercentileOfficerData,
+  officerPageCmsData,
+} from '../mock-data/officer-page/common';
+import { pinboardsDetailMenu } from '../mock-data/pinboard-page/manage-pinboards';
+
 
 const noDataRadarChartOfficerId = 2;
 
@@ -21,6 +29,7 @@ function showingComplaints(officerPage) {
   officerPage.tabbedPaneSection.timelineSection.crItem.count.should.eql(2);
   officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed(1000, true);
   officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed(1000, true);
+  officerPage.tabbedPaneSection.timelineSection.lawsuitItem.waitForDisplayed(1000, true);
   return true;
 }
 
@@ -29,13 +38,21 @@ function showingAllEvents(officerPage) {
   officerPage.tabbedPaneSection.timelineSection.crItem.waitForDisplayed();
   officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed();
   officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed();
+  officerPage.tabbedPaneSection.timelineSection.lawsuitItem.waitForDisplayed();
   return true;
 }
 
 describe('officer page', function () {
-
   beforeEach(function () {
+    mockCommonApi();
+
+    api.onGet('/api/v2/cms-pages/officer-page/').reply(200, officerPageCmsData);
+    api.onGet('/api/v2/pinboards/', { detail: true }).reply(200, []);
+    api.onGet('/api/v2/officers/1/summary/').reply(200, officerData);
+    api.onGet('/api/v2/officers/1/new-timeline-items/').reply(200, timelineItems);
+    api.onGet('/api/v2/officers/1/coaccusals/').reply(200, coaccusalsData);
     officerPage.open();
+    officerPage.summarySection.officerName.waitForDisplayed();
   });
 
   afterEach(function () {
@@ -110,6 +127,7 @@ describe('officer page', function () {
     officerPage.tabbedPaneSection.timelineSection.crItem.waitForDisplayed();
     officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed();
     officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed();
+    officerPage.tabbedPaneSection.timelineSection.lawsuitItem.waitForDisplayed();
     officerPage.tabbedPaneSection.timelineSection.unitChangeItem.waitForDisplayed();
     officerPage.tabbedPaneSection.timelineSection.joinedItem.waitForDisplayed();
     officerPage.tabbedPaneSection.timelineSection.yearItem.waitForDisplayed();
@@ -167,6 +185,7 @@ describe('officer page', function () {
 
     context('not enough data for radar chart', function () {
       beforeEach(function () {
+        api.onGet('/api/v2/officers/2/summary/').reply(200, noPercentileOfficerData);
         browser.setWindowRect(0, 0, 1000, 500);
         officerPage.open(noDataRadarChartOfficerId);
       });
@@ -257,16 +276,33 @@ describe('officer page', function () {
       browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/?$/);
     });
 
-    it('should go to attachment source page when clicking on the attachment thumbnail', function () {
-      officerPage.tabbedPaneSection.timelineSection.attachmentThumbnail.waitForDisplayed();
-      officerPage.tabbedPaneSection.timelineSection.attachmentThumbnail.click();
+    it('should go to attachment source page when clicking on the conplaint attachment thumbnail', function () {
+      officerPage.tabbedPaneSection.timelineSection.complaintAttachmentThumbnail.waitForDisplayed();
+      officerPage.tabbedPaneSection.timelineSection.complaintAttachmentThumbnail.click();
       browser.switchWindow('https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html');
     });
 
-    it('should go to attachment tab when clicking on the more attachment', function () {
-      officerPage.tabbedPaneSection.timelineSection.moreAttachment.waitForDisplayed();
-      officerPage.tabbedPaneSection.timelineSection.moreAttachment.click();
+    it('should go to attachment tab when clicking on the more complaint attachment', function () {
+      officerPage.tabbedPaneSection.timelineSection.moreComplaintAttachment.waitForDisplayed();
+      officerPage.tabbedPaneSection.timelineSection.moreComplaintAttachment.click();
       officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForDisplayed();
+    });
+
+    it('should go to lawsuit page when clicking on an lawsuit timeline item', function () {
+      officerPage.tabbedPaneSection.timelineSection.lawsuitItem.waitForDisplayed();
+      officerPage.tabbedPaneSection.timelineSection.lawsuitItem.click();
+
+      browser.getUrl().should.containEql('lawsuit/00-L-5230/');
+
+      header.breadcrumbs.secondItem.click();
+      browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/?$/);
+    });
+
+    it('should go to attachment source page when clicking on the lawsuit attachment thumbnail', function () {
+      officerPage.tabbedPaneSection.timelineSection.lawsuitAttachmentThumbnail.waitForDisplayed();
+      officerPage.tabbedPaneSection.timelineSection.lawsuitAttachmentThumbnail.click();
+      const url = 'https://assets.documentcloud.org/documents/6246754/CRID-1086093-CR-COPA-Summary-Report.pdf';
+      browser.switchWindow(url);
     });
 
     it('should go to trr page when clicking on an trr timeline item', function () {
@@ -285,17 +321,15 @@ describe('officer page', function () {
         officerPage.tabbedPaneSection.timelineSection.filter.button.click();
       });
 
-      afterEach(function () {
+      it('should filter all events by by default', function () {
         officerPage.tabbedPaneSection.timelineSection.unitChangeItem.waitForDisplayed();
         officerPage.tabbedPaneSection.timelineSection.joinedItem.waitForDisplayed();
         officerPage.tabbedPaneSection.timelineSection.yearItem.waitForDisplayed();
         officerPage.tabbedPaneSection.timelineSection.emptyItem.waitForDisplayed();
-      });
-
-      it('should filter all events by by default', function () {
         officerPage.tabbedPaneSection.timelineSection.crItem.waitForDisplayed();
         officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed();
         officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed();
+        officerPage.tabbedPaneSection.timelineSection.lawsuitItem.waitForDisplayed();
       });
 
       it('should filter complaints', function () {
@@ -311,6 +345,7 @@ describe('officer page', function () {
         officerPage.tabbedPaneSection.timelineSection.crItem.count.should.eql(1);
         officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed(1000, true);
         officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.lawsuitItem.waitForDisplayed(1000, true);
       });
 
       it('should filter TRRs', function () {
@@ -319,6 +354,7 @@ describe('officer page', function () {
         officerPage.tabbedPaneSection.timelineSection.crItem.waitForDisplayed(1000, true);
         officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed();
         officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.lawsuitItem.waitForDisplayed(1000, true);
       });
 
       it('should filter awards', function () {
@@ -327,6 +363,16 @@ describe('officer page', function () {
         officerPage.tabbedPaneSection.timelineSection.crItem.waitForDisplayed(1000, true);
         officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed(1000, true);
         officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed();
+        officerPage.tabbedPaneSection.timelineSection.lawsuitItem.waitForDisplayed(1000, true);
+      });
+
+      it('should filter lawsuits', function () {
+        officerPage.tabbedPaneSection.timelineSection.filter.lawsuits.click();
+
+        officerPage.tabbedPaneSection.timelineSection.crItem.waitForDisplayed(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.lawsuitItem.waitForDisplayed();
       });
 
       it('should filter rank/unit changes', function () {
@@ -335,6 +381,7 @@ describe('officer page', function () {
         officerPage.tabbedPaneSection.timelineSection.crItem.waitForDisplayed(1000, true);
         officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed(1000, true);
         officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.lawsuitItem.waitForDisplayed(1000, true);
         officerPage.tabbedPaneSection.timelineSection.rankChangeItem.waitForDisplayed();
         officerPage.tabbedPaneSection.timelineSection.unitChangeItem.waitForDisplayed();
       });
@@ -356,6 +403,9 @@ describe('officer page', function () {
       });
 
       it('should reset filter when navigating to another officer page', function () {
+        api.onGet('/api/v2/officers/2/summary/').reply(200, noPercentileOfficerData);
+        api.onGet('/api/v2/officers/2/new-timeline-items/').reply(200, timelineItems);
+
         officerPage.tabbedPaneSection.timelineSection.filter.crs.click();
 
         showingComplaints(officerPage).should.be.true();
@@ -395,22 +445,43 @@ describe('officer page', function () {
       officerPage.tabbedPaneSection.attachmentsTabName.click();
     });
 
-    it('should go to complaint page when clicking on the complaint heading', function () {
-      officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForDisplayed();
-      officerPage.tabbedPaneSection.attachmentsSection.attachmentHeading.click();
-      browser.getUrl().should.match(/\/complaint\/294088\/$/);
+    describe('Complaints', function () {
+      it('should go to complaint page when clicking on the complaint heading', function () {
+        officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForDisplayed();
+        officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaintHeading.click();
+        browser.getUrl().should.match(/\/complaint\/294088\/$/);
+      });
+
+      it('should go to attachment source page when clicking on the attachment', function () {
+        officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForDisplayed();
+        officerPage.tabbedPaneSection.attachmentsSection.complaintAttachment.click();
+        browser.switchWindow('https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html');
+      });
     });
 
-    it('should go to attachment source page when clicking on the complaint attachment', function () {
-      officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForDisplayed();
-      officerPage.tabbedPaneSection.attachmentsSection.attachment.click();
-      browser.switchWindow('https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html');
+    describe('Lawsuits', function () {
+      it('should go to lawsuit page when clicking on the lawsuit heading', function () {
+        officerPage.tabbedPaneSection.attachmentsSection.attachmentLawsuit.waitForDisplayed();
+        officerPage.tabbedPaneSection.attachmentsSection.attachmentLawsuitHeading.click();
+        browser.getUrl().should.match(/\/lawsuit\/00-L-5230\/$/);
+      });
+
+      it('should go to attachment source page when clicking on the attachment', function () {
+        officerPage.tabbedPaneSection.attachmentsSection.attachmentLawsuit.waitForDisplayed();
+        officerPage.tabbedPaneSection.attachmentsSection.lawsuitAttachment.click();
+        const url = 'https://assets.documentcloud.org/documents/6246754/CRID-1086093-CR-COPA-Summary-Report.pdf';
+        browser.switchWindow(url);
+      });
     });
   });
 
   describe('Officer CMS text editor', function () {
     context('no data radar chart', function () {
       beforeEach(function () {
+        api
+          .onPost('/api/v2/users/sign-in/', { username: 'username', password: 'password' })
+          .reply(200, { 'apiAccessToken': '055a5575c1832e9123cd546fe0cfdc8607f8680c' });
+        api.onGet('/api/v2/officers/2/summary/').reply(200, noPercentileOfficerData);
         officerPage.open(noDataRadarChartOfficerId);
         officerPage.openEditMode();
         officerPage.radarChartSection.noDataRadarChartSection.noDataText.moveTo();
@@ -426,6 +497,9 @@ describe('officer page', function () {
 
     context('triangle & scale explainer', function () {
       beforeEach(function () {
+        api
+          .onPost('/api/v2/users/sign-in/', { username: 'username', password: 'password' })
+          .reply(200, { 'apiAccessToken': '055a5575c1832e9123cd546fe0cfdc8607f8680c' });
         officerPage.open();
         officerPage.openEditMode();
         officerPage.radarChartSection.radarChartPlaceHolder.click();
@@ -474,15 +548,15 @@ describe('officer page', function () {
       browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/coaccusals\/$/);
 
       officerPage.open(1, 'bernadette-kelly', 'documents');
-      officerPage.tabbedPaneSection.attachmentsSection.attachment.waitForDisplayed();
+      officerPage.tabbedPaneSection.attachmentsSection.complaintAttachment.waitForDisplayed();
       browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/documents\/$/);
 
       officerPage.open(1, '', 'documents');
-      officerPage.tabbedPaneSection.attachmentsSection.attachment.waitForDisplayed();
+      officerPage.tabbedPaneSection.attachmentsSection.complaintAttachment.waitForDisplayed();
       browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/documents\/$/);
 
       officerPage.open(1, 'bernadette-wrong-name', 'documents');
-      officerPage.tabbedPaneSection.attachmentsSection.attachment.waitForDisplayed();
+      officerPage.tabbedPaneSection.attachmentsSection.complaintAttachment.waitForDisplayed();
       browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/documents\/$/);
 
       officerPage.open(1, 'bernadette-kelly', 'wrong-tab');
@@ -556,19 +630,6 @@ describe('officer page', function () {
 
     context('current officer', function () {
       context('when user has no or only one active pinboard', function () {
-        beforeEach(function () {
-          disableAxiosMock();
-          mockCommonApi();
-
-          api.onGet('/api/v2/pinboards/', { detail: true }).reply(200, []);
-          api.onGet('/api/v2/officers/1/summary/').reply(200, officerData);
-          officerPage.open();
-        });
-
-        afterEach(function () {
-          restoreAxiosMock();
-        });
-
         it('should display toast when pinning', function () {
           officerPage.pinButton.click();
           officerPage.lastToast.waitForDisplayed();
@@ -608,6 +669,12 @@ describe('officer page', function () {
       });
 
       context('when user has more than 1 pinboard', function () {
+        beforeEach(function () {
+          api.onGet('/api/v2/pinboards/', { detail: true }).reply(200, pinboardsDetailMenu.pinboards);
+          api.onGet('/api/v2/pinboards/8d2daffe/').reply(200, pinboardsDetailMenu.pinboards[0]);
+          officerPage.open();
+        });
+
         it('should display pinboards menu', function () {
           officerPage.pinboardsMenuSection.addToPinboardButton.click();
           officerPage.pinboardsMenuSection.menu.waitForDisplayed();
@@ -629,6 +696,10 @@ describe('officer page', function () {
         });
 
         it('should display toast and close pinboards menu when pinning', function () {
+          api
+            .onPut('/api/v2/pinboards/8d2daffe/', pinboardsDetailMenu.updateRequestParams[0])
+            .reply(200, pinboardsDetailMenu.updatedPinboards[0]);
+
           officerPage.pinboardsMenuSection.addToPinboardButton.click();
           officerPage.pinboardsMenuSection.menu.waitForDisplayed();
 
@@ -647,6 +718,10 @@ describe('officer page', function () {
         });
 
         it('should display toast when unpinning', function () {
+          api
+            .onPut('/api/v2/pinboards/8d2daffe/', pinboardsDetailMenu.updateRequestParams[0])
+            .reply(200, pinboardsDetailMenu.updatedPinboards[0]);
+
           officerPage.pinboardsMenuSection.addToPinboardButton.click();
           officerPage.pinboardsMenuSection.menu.waitForDisplayed();
 
@@ -677,6 +752,16 @@ describe('officer page', function () {
         });
 
         it('should create new pinboard with current officer', function () {
+          api
+            .onPost('/api/v2/pinboards/', pinboardsDetailMenu.createPinboardRequestParams[0])
+            .reply(201, pinboardsDetailMenu.createdPinboards[0]);
+          api
+            .onGet(`/api/v2/pinboards/${pinboardsDetailMenu.createdPinboards[0].id}/`)
+            .reply(201, pinboardsDetailMenu.createdPinboards[0]);
+          api
+            .onGet(`/api/v2/pinboards/${pinboardsDetailMenu.createdPinboards[0].id}/officers/`)
+            .reply(200, [officerData]);
+
           officerPage.pinboardsMenuSection.addToPinboardButton.click();
           officerPage.pinboardsMenuSection.menu.waitForDisplayed();
           officerPage.pinboardsMenuSection.createPinboardWithSelectionButton.click();

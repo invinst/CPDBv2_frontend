@@ -73,6 +73,15 @@ describe('breadcrumbMapping', function () {
     }).should.eql({ '/documents/crid/1000000/': '#1000000 document deduplicator' });
   });
 
+  it('should store lawsuit breadcrumb text', function () {
+    breadcrumbMapping({}, {
+      type: constants.LAWSUIT_FETCH_SUCCESS,
+      payload: {
+        'case_no': '00-L-5230',
+      },
+    }).should.eql({ '/lawsuit/00-L-5230/': 'Case 00-L-5230' });
+  });
+
   it('should store document breadcrumb text when successfully requesting document', function () {
     breadcrumbMapping({}, {
       type: constants.DOCUMENT_REQUEST_SUCCESS,

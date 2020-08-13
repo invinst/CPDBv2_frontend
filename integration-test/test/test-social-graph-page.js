@@ -7,7 +7,6 @@ import { map, countBy, isEqual, filter } from 'lodash';
 import moment from 'moment/moment';
 
 import socialGraphPage from '../page-objects/social-graph-page';
-import { disableAxiosMock, restoreAxiosMock } from '../utils';
 import { mockCommonApi } from '../mock-data/utils';
 import api from '../mock-api';
 import { pinboardData } from '../mock-data/pinboard-page/common';
@@ -17,7 +16,14 @@ import {
   pinboardGeographicTrrsData,
 } from '../mock-data/pinboard-page/social-graph/geographic-data';
 import { socialGraphAllegationsData } from '../mock-data/pinboard-page/social-graph/allegation-data';
+import { socialGraphOfficersData } from '../mock-data/pinboard-page/social-graph/officers-data';
 import { complaintSummaryData } from '../mock-data/pinboard-page/widgets';
+import {
+  defaultSocialGraphData,
+  defaultOfficerSocialGraphData,
+  officerComplaintSocialGraphData,
+  thresholdThreeSocialGraphData,
+} from '../mock-data/social-graph-page/common';
 
 
 function waitForGraphAnimationEnd(browser, socialGraphPage, endDate='2008-01-11') {
@@ -28,6 +34,16 @@ function waitForGraphAnimationEnd(browser, socialGraphPage, endDate='2008-01-11'
 
 describe('Social Graph Page', function () {
   beforeEach(function () {
+    mockCommonApi();
+
+    api
+      .onGet('/api/v2/social-graph/network/', { 'threshold': 2, 'complaint_origin': 'CIVILIAN', 'unit_id': '123' })
+      .reply(200, defaultSocialGraphData);
+    api.onGet('/api/v2/social-graph/officers/', { 'threshold': 2, 'complaint_origin': 'CIVILIAN', 'unit_id': '123' })
+      .reply(200, socialGraphOfficersData);
+    api.onGet('/api/v2/social-graph/allegations/', { 'threshold': 2, 'complaint_origin': 'CIVILIAN', 'unit_id': '123' })
+      .reply(200, socialGraphAllegationsData);
+
     socialGraphPage.open();
   });
 
@@ -207,6 +223,16 @@ describe('Social Graph Page', function () {
   });
 
   it('should load new data when change threshold and complaintOrigin', function () {
+    api
+      .onGet('/api/v2/social-graph/network/', { 'threshold': 2, 'complaint_origin': 'OFFICER', 'unit_id': '123' })
+      .reply(200, defaultOfficerSocialGraphData);
+    api
+      .onGet('/api/v2/social-graph/network/', { 'threshold': 2, 'complaint_origin': 'ALL', 'unit_id': '123' })
+      .reply(200, officerComplaintSocialGraphData);
+    api
+      .onGet('/api/v2/social-graph/network/', { 'threshold': 3, 'complaint_origin': 'ALL', 'unit_id': '123' })
+      .reply(200, thresholdThreeSocialGraphData);
+
     waitForGraphAnimationEnd(browser, socialGraphPage);
     socialGraphPage.animatedSocialGraphSection.complaintOriginSelected.getText().should.eql('CIVILIAN');
     socialGraphPage.animatedSocialGraphSection.startDate.getText().should.eql('1990-01-09');
@@ -237,6 +263,13 @@ describe('Social Graph Page', function () {
   });
 
   it('should render geographic section when clicking on geographic button', function () {
+    api
+      .onGet('/api/v2/social-graph/geographic-crs/', { 'unit_id': '123' })
+      .reply(200, pinboardGeographicCrsData);
+    api
+      .onGet('/api/v2/social-graph/geographic-trrs/', { 'unit_id': '123' })
+      .reply(200, pinboardGeographicTrrsData);
+
     socialGraphPage.animatedSocialGraphSection.mainTabs.waitForDisplayed();
     socialGraphPage.animatedSocialGraphSection.geographicTab.click();
     socialGraphPage.geographicSection.complaintText.getText().should.eql('Complaint');
@@ -562,7 +595,6 @@ describe('Social Graph Page', function () {
 
 describe('Social Graph Page with pinboard_id', function () {
   beforeEach(function () {
-    disableAxiosMock();
     mockCommonApi();
 
     api.onGet('/api/v2/pinboards/ceea8ea3/').reply(200, pinboardData);
@@ -597,10 +629,6 @@ describe('Social Graph Page with pinboard_id', function () {
       .onGet('/api/v2/pinboards/5cd06f2b/complaint-summary/')
       .reply(200, complaintSummaryData);
     socialGraphPage.open('?pinboard_id=5cd06f2b');
-  });
-
-  afterEach(function () {
-    restoreAxiosMock();
   });
 
   context('Network tab', function () {

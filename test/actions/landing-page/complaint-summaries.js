@@ -17,7 +17,6 @@ describe('getComplaintSummaries action', function () {
       payload: {
         request: {
           url: constants.RECENT_COMPLAINT_SUMMARIES_URL,
-          adapter: null,
           params: undefined,
           cancelToken: undefined,
         },

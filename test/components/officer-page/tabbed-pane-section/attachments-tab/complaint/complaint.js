@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 
 import Complaint from 'components/officer-page/tabbed-pane-section/attachments-tab/complaint';
 import Heading from 'components/officer-page/tabbed-pane-section/attachments-tab/complaint/heading';
-import Attachment from 'components/officer-page/tabbed-pane-section/attachments-tab/complaint/attachment';
+import Attachment from 'components/officer-page/tabbed-pane-section/attachments-tab/attachment';
 
 
 describe('Complaint component', function () {

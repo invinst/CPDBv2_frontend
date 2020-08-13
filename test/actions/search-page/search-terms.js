@@ -24,7 +24,6 @@ describe('search terms actions', function () {
           request: {
             url: SEARCH_TERMS_CATEGORIES_API_URL,
             params: undefined,
-            adapter: null,
             cancelToken: undefined,
           },
         },

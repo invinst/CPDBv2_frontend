@@ -3,10 +3,17 @@
 import 'should';
 
 import embeddableHeatMapPage from '../page-objects/embeddable-heat-map-page';
+import api from '../mock-api';
+import { mockCommonApi } from '../mock-data/utils';
+import { citySummaryData, clusterData, communityData } from '../mock-data/landing-page/common';
 
 
 describe('Heat map', function () {
   beforeEach(function () {
+    mockCommonApi();
+    api.onGet('/heatmap/community.geojson').reply(200, communityData);
+    api.onGet('/heatmap/cluster.geojson').reply(200, clusterData);
+    api.onGet('/api/v2/city-summary/').reply(200, citySummaryData);
     embeddableHeatMapPage.open();
   });
 
@@ -24,6 +31,8 @@ describe('Heat map', function () {
       $$(embeddableHeatMapPage.heatMapSection.complaintCategory.selector)[0].click();
       browser.switchWindow('/url-mediator/session-builder');
       browser.getUrl().should.match(/\/url-mediator\/session-builder\?cat__category=/);
+      browser.closeWindow();
+      browser.switchWindow('localhost');
     });
 
     it('should go to v1 datatool when click on allegation count', function () {
@@ -32,6 +41,8 @@ describe('Heat map', function () {
 
       browser.switchWindow('cpdb');
       browser.getUrl().should.not.equal(v2Url);
+      browser.closeWindow();
+      browser.switchWindow('localhost');
     });
   });
 });

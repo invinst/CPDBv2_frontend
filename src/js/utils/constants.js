@@ -20,6 +20,7 @@ export const SEARCH_ALIAS_EDIT_PATH = `${SEARCH_PATH}alias/`;
 export const INLINE_SEARCH_ALIAS_ADMIN_PATH = `${SEARCH_ALIAS_EDIT_PATH}form/`;
 export const OFFICER_PATH = '/officer/:officerId/:fullName?/:tab?';
 export const STANDALONE_CR_PATH = '/complaint/:crid';
+export const LAWSUIT_PATH = '/lawsuit/:caseNo';
 export const TTR_PATH = '/trr/:trrId';
 export const UNIT_PROFILE_PATH = '/unit/:unitName';
 export const CRAWLERS_PATH = '/crawlers/';
@@ -83,6 +84,7 @@ export const ALL_PINBOARD_URL = `${V2_ROOT_PATH}pinboards/all/`;
 export const RECENT_SEARCH_ITEMS_API_URL = 'suggestion/recent-search-items/';
 export const TRACKING_API_URL = `${V2_ROOT_PATH}tracking/`;
 export const APP_CONFIG_API_URL = `${V2_ROOT_PATH}app-config/`;
+export const LAWSUIT_API_URL = `${V2_ROOT_PATH}lawsuit/`;
 
 export const OFFICER_PAGE_PATTERN = /^\/officer\/\d+\/.*/;
 export const CR_PAGE_PATTERN = /^\/complaint\/\d+\/.*/;
@@ -548,6 +550,10 @@ export const APP_CONFIG_FETCH_START = 'APP_CONFIG_FETCH_START';
 export const APP_CONFIG_FETCH_SUCCESS = 'APP_CONFIG_FETCH_SUCCESS';
 export const APP_CONFIG_FETCH_FAILURE = 'APP_CONFIG_FETCH_FAILURE';
 
+export const LAWSUIT_FETCH_START = 'LAWSUIT_FETCH_START';
+export const LAWSUIT_FETCH_SUCCESS = 'LAWSUIT_FETCH_SUCCESS';
+export const LAWSUIT_FETCH_FAILURE = 'LAWSUIT_FETCH_FAILURE';
+
 export const LANDING_PAGE_ID = 'landing-page';
 export const OFFICER_PAGE_ID = 'officer-page';
 export const CR_PAGE_ID = 'cr-page';
@@ -568,6 +574,7 @@ export const NEW_TIMELINE_ITEMS = {
   JOINED: 'JOINED',
   YEAR: 'YEAR',
   EMPTY: 'EMPTY',
+  LAWSUIT: 'LAWSUIT',
 };
 
 export const DOCUMENTS_SEARCH_ITEMS = {
@@ -583,7 +590,12 @@ export const PINBOARDS_SEARCH_ITEMS = {
 export const NEW_TIMELINE_FILTERS = {
   ALL: {
     label: 'All',
-    kind: [NEW_TIMELINE_ITEMS.CR, NEW_TIMELINE_ITEMS.FORCE, NEW_TIMELINE_ITEMS.AWARD],
+    kind: [
+      NEW_TIMELINE_ITEMS.CR,
+      NEW_TIMELINE_ITEMS.FORCE,
+      NEW_TIMELINE_ITEMS.AWARD,
+      NEW_TIMELINE_ITEMS.LAWSUIT,
+    ],
   },
   CRS: {
     label: 'Complaints',
@@ -601,6 +613,10 @@ export const NEW_TIMELINE_FILTERS = {
   AWARDS: {
     label: 'Awards',
     kind: [NEW_TIMELINE_ITEMS.AWARD],
+  },
+  LAWSUIT: {
+    label: 'Lawsuits',
+    kind: [NEW_TIMELINE_ITEMS.LAWSUIT],
   },
   RANK_UNIT_CHANGES: {
     label: 'Rank/Unit Changes',

@@ -6,14 +6,14 @@ describe('filter reducer', function () {
   it('should have initial state', function () {
     filter(undefined, {}).should.eql({
       label: 'All',
-      kind: ['CR', 'FORCE', 'AWARD'],
+      kind: ['CR', 'FORCE', 'AWARD', 'LAWSUIT'],
     });
   });
 
   it('should handle OFFICER_NEW_TIMELINE_ITEMS_CHANGE_FILTER', function () {
     filter({
       label: 'All',
-      kind: ['CR', 'FORCE', 'AWARD'],
+      kind: ['CR', 'FORCE', 'AWARD', 'LAWSUIT'],
     }, {
       type: OFFICER_NEW_TIMELINE_ITEMS_CHANGE_FILTER,
       payload: {
@@ -34,7 +34,7 @@ describe('filter reducer', function () {
       type: CHANGE_OFFICER_ID,
     }).should.eql({
       label: 'All',
-      kind: ['CR', 'FORCE', 'AWARD'],
+      kind: ['CR', 'FORCE', 'AWARD', 'LAWSUIT'],
     });
   });
 });

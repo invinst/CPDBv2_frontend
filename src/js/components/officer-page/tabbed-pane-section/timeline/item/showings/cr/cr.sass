@@ -1,6 +1,6 @@
 @import 'variables'
 
-$height: 58px
+$height: 68px
 
 \:local(.cr)
   cursor: pointer
@@ -10,7 +10,6 @@ $height: 58px
     line-height: calc(#{$height} - 1px)
 
     .cr-item-kind
-      width: 85px
       border: solid 1px $champagne-color
       color: $blaze-orange-light-color
       background-color: inherit
@@ -32,11 +31,14 @@ $height: 58px
 
       .cr-item-category
         color: $thunder-color
+        font-size: 18px
+        line-height: 21px
 
       .cr-item-finding
         font-weight: 300
         line-height: 14px
-        font-size: 12px
+        font-size: 16px
+        margin-top: 2px
         color: $boulder-color
 
         @media print
@@ -48,13 +50,14 @@ $height: 58px
       float: right
 
       .cr-item-coaccused
-        font-size: 14px
+        font-size: 16px
+        line-height: 19px
         font-weight: 300
         color: $boulder-color
         display: inline-block
 
       .cr-item-date
-        font-size: 12px
+        font-size: 16px
         color: $thunder-color
         font-weight: 300
         float: none
@@ -69,3 +72,6 @@ $height: 58px
     .cr-item-content
       .cr-detail
         color: $blue-ribbon-color
+
+    .cr-item-kind
+      background-color: $champagne-color

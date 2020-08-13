@@ -1,0 +1,53 @@
+@import variables
+
+$height: 68px
+
+\:local(.lawsuit-row)
+  cursor: pointer
+
+  .lawsuit-item-content
+    height: $height
+    line-height: calc(#{$height} - 1px)
+
+    .lawsuit-item-kind
+      background-color: $thunder-color
+      border: solid 1px $thunder-color
+      border-radius: 2px
+      color: white
+
+      @media print
+        background-color: $gray-color
+        border: solid 1px $alto-color
+
+    .lawsuit-detail
+      display: inline-block
+      vertical-align: middle
+
+      .lawsuit-item-title
+        color: $thunder-color
+        font-size: 18px
+        line-height: 21px
+
+      .lawsuit-item-subtitle
+        font-weight: 300
+        line-height: 14px
+        font-size: 16px
+        margin-top: 2px
+        color: $boulder-color
+
+        @media print
+          font-size: 10px
+          font-weight: 500
+
+    .lawsuit-right
+      display: inline-block
+      float: right
+
+      .lawsuit-item-date
+      font-size: 16px
+      color: $thunder-color
+      font-weight: 300
+
+      @media print
+        font-size: 10px
+        font-weight: 400

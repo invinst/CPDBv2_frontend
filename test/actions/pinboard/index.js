@@ -93,7 +93,6 @@ describe('pinboard actions', function () {
           request: {
             url: constants.PINBOARDS_URL,
             method: 'post',
-            adapter: null,
             data: {
               title: 'Pinboard title',
               'officer_ids': [],
@@ -126,7 +125,6 @@ describe('pinboard actions', function () {
           request: {
             url: constants.PINBOARDS_URL,
             method: 'post',
-            adapter: null,
             data: {
               'officer_ids': [],
               crids: [],
@@ -158,7 +156,6 @@ describe('pinboard actions', function () {
           request: {
             url: constants.PINBOARDS_URL,
             method: 'post',
-            adapter: null,
             data: {
               'officer_ids': undefined,
               crids: undefined,
@@ -198,7 +195,6 @@ describe('pinboard actions', function () {
           request: {
             url: `${constants.PINBOARDS_URL}5cd06f2b/`,
             method: 'put',
-            adapter: null,
             data: {
               title: 'Title',
               description: 'Description',
@@ -323,7 +319,6 @@ describe('pinboard actions', function () {
           request: {
             url: `${constants.PINBOARDS_URL}5cd06f2b/`,
             params: undefined,
-            adapter: null,
             cancelToken: 'token',
           },
         },
@@ -344,7 +339,6 @@ describe('pinboard actions', function () {
           request: {
             url: `${constants.PINBOARDS_URL}5cd06f2b/complaints/`,
             params: undefined,
-            adapter: null,
             cancelToken: 'token',
           },
         },
@@ -365,7 +359,6 @@ describe('pinboard actions', function () {
           request: {
             url: `${constants.PINBOARDS_URL}5cd06f2b/officers/`,
             params: undefined,
-            adapter: null,
             cancelToken: 'token',
           },
         },
@@ -386,7 +379,6 @@ describe('pinboard actions', function () {
           request: {
             url: `${constants.PINBOARDS_URL}5cd06f2b/trrs/`,
             params: undefined,
-            adapter: null,
             cancelToken: 'token',
           },
         },
@@ -407,7 +399,6 @@ describe('pinboard actions', function () {
           request: {
             url: constants.SOCIAL_GRAPH_NETWORK_API_URL,
             params: { 'pinboard_id': '268a5e58' },
-            adapter: null,
             cancelToken: 'token',
           },
         },
@@ -428,7 +419,6 @@ describe('pinboard actions', function () {
           request: {
             url: constants.SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
             params: { 'pinboard_id': '268a5e58' },
-            adapter: null,
             cancelToken: 'token',
           },
         },
@@ -449,7 +439,6 @@ describe('pinboard actions', function () {
           request: {
             url: constants.SOCIAL_GRAPH_GEOGRAPHIC_CRS_API_URL,
             params: { 'pinboard_id': '268a5e58' },
-            adapter: null,
             cancelToken: 'token',
           },
         },
@@ -470,7 +459,6 @@ describe('pinboard actions', function () {
           request: {
             url: constants.SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL,
             params: { 'pinboard_id': '268a5e58' },
-            adapter: null,
             cancelToken: 'token',
           },
         },
@@ -491,7 +479,6 @@ describe('pinboard actions', function () {
           request: {
             url: constants.SOCIAL_GRAPH_GEOGRAPHIC_TRRS_API_URL,
             params: { 'pinboard_id': '268a5e58' },
-            adapter: null,
             cancelToken: 'token',
           },
         },
@@ -512,7 +499,6 @@ describe('pinboard actions', function () {
           request: {
             url: `${constants.PINBOARDS_URL}66ef1560/relevant-documents/?`,
             params: undefined,
-            adapter: null,
             cancelToken: 'token',
           },
         },
@@ -534,7 +520,6 @@ describe('pinboard actions', function () {
           request: {
             url: `${constants.PINBOARDS_URL}66ef1560/relevant-documents/?limit=20&offset=20`,
             params: undefined,
-            adapter: null,
             cancelToken: 'token',
           },
         },
@@ -555,7 +540,6 @@ describe('pinboard actions', function () {
           request: {
             url: `${constants.PINBOARDS_URL}66ef1560/relevant-coaccusals/?`,
             params: undefined,
-            adapter: null,
             cancelToken: 'token',
           },
         },
@@ -577,7 +561,6 @@ describe('pinboard actions', function () {
           request: {
             url: `${constants.PINBOARDS_URL}66ef1560/relevant-coaccusals/?limit=20&offset=20`,
             params: undefined,
-            adapter: null,
             cancelToken: 'token',
           },
         },
@@ -598,7 +581,6 @@ describe('pinboard actions', function () {
           request: {
             url: `${constants.PINBOARDS_URL}66ef1560/relevant-complaints/?`,
             params: undefined,
-            adapter: null,
             cancelToken: 'token',
           },
         },
@@ -620,7 +602,6 @@ describe('pinboard actions', function () {
           request: {
             url: `${constants.PINBOARDS_URL}66ef1560/relevant-complaints/?limit=20&offset=20`,
             params: undefined,
-            adapter: null,
             cancelToken: 'token',
           },
         },
@@ -640,7 +621,6 @@ describe('pinboard actions', function () {
           request: {
             url: `${constants.PINBOARDS_URL}latest-retrieved-pinboard/`,
             params: undefined,
-            adapter: null,
             cancelToken: undefined,
           },
         },
@@ -660,7 +640,6 @@ describe('pinboard actions', function () {
           request: {
             url: constants.PINBOARDS_URL,
             method: 'post',
-            adapter: null,
             data: {
               'officer_ids': [],
               crids: ['abc'],
@@ -686,7 +665,6 @@ describe('pinboard actions', function () {
           request: {
             url: `${constants.PINBOARDS_URL}abcd1234/`,
             method: 'put',
-            adapter: null,
             data: {
               'source_pinboard_id': 'abcd5678',
             },
@@ -707,7 +685,6 @@ describe('pinboard actions', function () {
         ],
         payload: {
           request: {
-            adapter: null,
             data: undefined,
             cancelToken: undefined,
             method: 'DELETE',
@@ -728,7 +705,6 @@ describe('pinboard actions', function () {
         ],
         payload: {
           request: {
-            adapter: null,
             data: undefined,
             cancelToken: undefined,
             method: 'post',
@@ -749,7 +725,6 @@ describe('pinboard actions', function () {
         ],
         payload: {
           request: {
-            adapter: null,
             cancelToken: undefined,
             params: undefined,
             url: `${constants.PINBOARDS_URL}84ab47/complaint-summary/`,
@@ -769,7 +744,6 @@ describe('pinboard actions', function () {
         ],
         payload: {
           request: {
-            adapter: null,
             cancelToken: undefined,
             params: undefined,
             url: `${constants.PINBOARDS_URL}84ab47/trr-summary/`,
@@ -789,7 +763,6 @@ describe('pinboard actions', function () {
         ],
         payload: {
           request: {
-            adapter: null,
             cancelToken: undefined,
             params: undefined,
             url: `${constants.PINBOARDS_URL}84ab47/officers-summary/`,
@@ -809,7 +782,6 @@ describe('pinboard actions', function () {
         ],
         payload: {
           request: {
-            adapter: null,
             cancelToken: undefined,
             params: undefined,
             url: `${constants.PINBOARDS_URL}84ab47/complainants-summary/`,

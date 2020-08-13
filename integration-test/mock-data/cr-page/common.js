@@ -6,12 +6,34 @@ import {
   PoliceWitnessFactory,
 } from '../../../src/js/utils/test/factories/complaint';
 
+
+export const crPopupData = [
+  {
+    name: 'accused_officer',
+    page: 'cr',
+    title: 'Accused Officer',
+    text: 'Some accused officer explanation',
+  },
+  {
+    name: 'investigator',
+    page: 'cr',
+    title: 'Investigator',
+    text: 'Some investigator explanation',
+  },
+  {
+    name: 'policeWitness',
+    page: 'cr',
+    title: 'Police Witness',
+    text: 'Some police witness explanation',
+  },
+];
+
 export const crData = ComplaintFactory.build({
   crid: '1000000',
   coaccused: [
     CoaccusedFactory.build({
       rank: 'Officer',
-      'full_name': 'Ridchard Sullivan',
+      'full_name': 'Bernadette Kelly',
       'complaint_count': 43,
       'sustained_count': 1,
       'percentile_allegation': '99.0000',

@@ -3,10 +3,16 @@
 require('should');
 
 import summaryPage from '../page-objects/unit-summary-page';
+import { mockCommonApi } from '../mock-data/utils';
+import api from '../mock-api';
+import { unitData } from '../mock-data/unit-page';
 
 
 describe('unit summary page', function () {
   beforeEach(function () {
+    mockCommonApi();
+
+    api.onGet('/api/v2/units/001/summary/').reply(200, unitData);
     summaryPage.open();
   });
 
