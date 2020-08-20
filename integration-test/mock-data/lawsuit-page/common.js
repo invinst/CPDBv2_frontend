@@ -22,6 +22,7 @@ export const lawsuitData = {
     'She proceeded to call her son, who later arrived at the scene. The search was called off.',
   'primary_cause': 'EXCESSIVE FORCE/MINOR',
   address: '200 E. Chicago Ave., Chicago IL',
+  location: 'near intersection of N Wavelandand Sheffield',
   'incident_date': '2015-10-28',
   plaintiffs: [
     {

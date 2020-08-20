@@ -45,7 +45,8 @@ describe('Lawsuit page', function () {
 
       lawsuitPage.caseDetails.plaintiffs.getText().should.equal('Sharon Ambielli, Kevin Vodak');
       lawsuitPage.caseDetails.incidentDate.getText().should.equal('2015-10-28');
-      lawsuitPage.caseDetails.location.getText().should.equal('200 E. Chicago Ave., Chicago IL');
+      lawsuitPage.caseDetails.location.getText().should.equal('near intersection of N Wavelandand Sheffield');
+      lawsuitPage.caseDetails.address.getText().should.equal('200 E. Chicago Ave., Chicago IL');
 
       lawsuitPage.involvedOfficers.card.count.should.equal(20);
       lawsuitPage.involvedOfficers.firstCard.rank.getText().should.equal('Detective');
@@ -58,9 +59,13 @@ describe('Lawsuit page', function () {
     });
 
     it('should go to attachment source page when clicking on the attachment', function () {
-      lawsuitPage.summary.attachmentImage.waitForDisplayed();
-      lawsuitPage.summary.attachmentImageHref.waitForDisplayed();
-      lawsuitPage.summary.attachmentImageHref.click();
+      lawsuitPage.attachmentImage.waitForDisplayed();
+      lawsuitPage.attachmentImage.getCSSProperty('background-image').value.should.eql(
+        'url("https://assets.documentcloud.org/documents/6246754' +
+        '/pages/crid-1086093-cr-copa-summary-report-p1-normal.gif")'
+      );
+      lawsuitPage.attachmentImageHref.waitForDisplayed();
+      lawsuitPage.attachmentImageHref.click();
       const url = 'https://assets.documentcloud.org/documents/6246754/CRID-1086093-CR-COPA-Summary-Report.pdf';
       browser.switchWindow(url);
       browser.closeWindow();

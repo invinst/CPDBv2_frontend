@@ -1,15 +1,13 @@
 import Page from './page';
 import Section from './sections/section';
 
-class SummarySection extends Section {
+class SummaryInfo extends Section {
   constructor() {
-    super('', '//*[contains(@class, "summary-section")]');
+    super('', '//div[contains(@class, "summary-info")]');
 
     this.prepareElementGetters({
-      content: '(//div[contains(@class, "summary-info")] //div)[2]',
+      content: '//div[@class="summary-text"]',
       showMoreButton: '//div[contains(@class, "show-more-button-container")]',
-      attachmentImage: '//div[contains(@class, "attachment-image")]',
-      attachmentImageHref: '//div[contains(@class, "attachment-image-href")]',
     });
   }
 }
@@ -86,12 +84,13 @@ class CaseDetailsSection extends Section {
       plaintiffs: '(//*[contains(@class, "field-row-value")])[1]',
       incidentDate: '(//*[contains(@class, "field-row-value")])[2]',
       location: '(//*[contains(@class, "field-row-value")])[3]',
+      address: '(//*[contains(@class, "field-row-value")])[4]',
     });
   }
 }
 
 class LawsuitPage extends Page {
-  summary = new SummarySection();
+  summary = new SummaryInfo();
   payment = new PaymentSection();
   caseBreakdown = new CaseBreakdownSection();
   caseDetails = new CaseDetailsSection();
@@ -103,6 +102,8 @@ class LawsuitPage extends Page {
     this.prepareElementGetters({
       title: '.case-no',
       primaryCause: '.primary-cause',
+      attachmentImage: '.attachment-image',
+      attachmentImageHref: '.attachment-image-href',
       pinButton: '.shareable-header-nav-bar div.pin-button',
       totalPaymentsValue: '.total-payments-summary-value',
       lastToast: '(//div[contains(@class, "Toastify__toast-body")])[last()]',

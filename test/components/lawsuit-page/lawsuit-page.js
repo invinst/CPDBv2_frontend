@@ -158,7 +158,9 @@ describe('LawsuitPage component', function () {
 
     const summary = wrapper.find(Summary);
     summary.exists().should.be.true();
-    summary.prop('summary').should.equal('Hutchinson was shot and killed outside a bar near the Addison Red Line stop.');
+    summary.prop('summary').should.equal(
+      'Hutchinson was shot and killed outside a bar near the Addison Red Line stop.'
+    );
     summary.prop('className').should.equal('summary-info');
 
     const shareableHeader = wrapper.find(ShareableHeaderContainer);
