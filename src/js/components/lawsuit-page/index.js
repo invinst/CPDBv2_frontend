@@ -12,6 +12,7 @@ import { getLawsuitMapUrl } from 'utils/mapbox';
 import OutboundLink from 'components/common/outbound-link';
 import { imageStyle } from 'components/common/shared.style';
 import InvolvedOfficers from './involved-officers';
+import Summary from './summary';
 
 
 export default function LawsuitPage(props) {
@@ -73,10 +74,7 @@ export default function LawsuitPage(props) {
                   </OutboundLink>
                 )
               }
-              <div className='summary-info'>
-                <div className='summary-title'>Summary</div>
-                <div>{ summary }</div>
-              </div>
+              <Summary summary={ summary } className='summary-info' />
               <div className='clearfix' />
             </div>
 

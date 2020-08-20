@@ -29,8 +29,8 @@ describe('Lawsuit page', function () {
       lawsuitPage.primaryCause.getText().should.equal('EXCESSIVE FORCE/MINOR');
       lawsuitPage.totalPaymentsValue.getText().should.equal('$2.5B');
 
-      lawsuitPage.summary.content.getText().should.equal(
-        'Hutchinson was shot and killed outside a bar near the Addison Red Line stop.'
+      lawsuitPage.summary.content.getText().should.containEql(
+        'Pearce was detained and taken into police custody while he was in the Clearing neighborhood'
       );
 
       lawsuitPage.payment.totalsRowValue.getText().should.equal('2,500,007,500.00');
@@ -65,6 +65,12 @@ describe('Lawsuit page', function () {
       browser.switchWindow(url);
       browser.closeWindow();
       browser.switchWindow('localhost');
+    });
+
+    it('should show full summary when click on show more button', function () {
+      lawsuitPage.summary.showMoreButton.isDisplayed().should.be.true();
+      lawsuitPage.summary.showMoreButton.click();
+      lawsuitPage.summary.showMoreButton.isDisplayed().should.be.false();
     });
 
     it('should show full list of accused officers when click on show more button', function () {

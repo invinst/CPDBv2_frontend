@@ -8,6 +8,7 @@ import { spy } from 'sinon';
 
 import LawsuitPage from 'components/lawsuit-page';
 import InvolvedOfficers from 'components/lawsuit-page/involved-officers';
+import Summary from 'components/lawsuit-page/summary';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 
 describe('LawsuitPage component', function () {
@@ -134,6 +135,7 @@ describe('LawsuitPage component', function () {
 
   it('should render enough sections', function () {
     const addOrRemoveItemInPinboardSpy = spy();
+
     const wrapper = mount(
       <Provider store={ store }>
         <MemoryRouter>
@@ -153,6 +155,11 @@ describe('LawsuitPage component', function () {
       addOrRemoveItemInPinboard: addOrRemoveItemInPinboardSpy,
       officers: officers,
     });
+
+    const summary = wrapper.find(Summary);
+    summary.exists().should.be.true();
+    summary.prop('summary').should.equal('Hutchinson was shot and killed outside a bar near the Addison Red Line stop.');
+    summary.prop('className').should.equal('summary-info');
 
     const shareableHeader = wrapper.find(ShareableHeaderContainer);
     shareableHeader.exists().should.be.true();

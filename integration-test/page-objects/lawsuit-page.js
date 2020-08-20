@@ -7,6 +7,7 @@ class SummarySection extends Section {
 
     this.prepareElementGetters({
       content: '(//div[contains(@class, "summary-info")] //div)[2]',
+      showMoreButton: '//div[contains(@class, "show-more-button-container")]',
       attachmentImage: '//div[contains(@class, "attachment-image")]',
       attachmentImageHref: '//div[contains(@class, "attachment-image-href")]',
     });
@@ -37,12 +38,12 @@ class InvolvedOfficersSection extends Section {
   firstCard = new InvolvedOfficerCard(0);
 
   constructor() {
-    super();
+    super('', '//div[contains(@class, "involved-officers")]');
 
     this.prepareElementGetters({
       card: '//a[contains(@class, "involved-officer-card")]',
       lastCard: '(//a[contains(@class, "involved-officer-card")])[last()]',
-      showMoreButton: '.show-more-button-container',
+      showMoreButton: '//div[contains(@class, "show-more-button-container")]',
       firstRadarChart: '//p[contains(@class, "officer-card-name") and text()="Joseph Nega"]' +
         '/../..//*[name()="svg"]',
     });
