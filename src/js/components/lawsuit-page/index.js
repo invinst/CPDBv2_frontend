@@ -3,6 +3,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import pluralize from 'pluralize';
 import cx from 'classnames';
+import { isEmpty } from 'lodash';
 
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import style from './lawsuit-page.sass';
@@ -19,6 +20,7 @@ export default function LawsuitPage(props) {
     summary,
     primaryCause,
     address,
+    location,
     interactions,
     services,
     misconducts,
@@ -164,6 +166,14 @@ export default function LawsuitPage(props) {
                 <div className='field-row-label'>Incident date</div>
                 <div className='field-row-value'>{incidentDate}</div>
               </div>
+              {
+                !isEmpty(location) && (
+                  <div className='field-row location-description'>
+                    <div className='field-row-label'>Location</div>
+                    <div className='field-row-value'>{location}</div>
+                  </div>
+                )
+              }
               <div className='field-row'>
                 <div className='field-row-label'>Location</div>
                 <div className='field-row-value'>
@@ -189,6 +199,7 @@ LawsuitPage.propTypes = {
   summary: PropTypes.string,
   primaryCause: PropTypes.string,
   address: PropTypes.string,
+  location: PropTypes.string,
   interactions: PropTypes.arrayOf(PropTypes.string),
   services: PropTypes.arrayOf(PropTypes.string),
   misconducts: PropTypes.arrayOf(PropTypes.string),

@@ -9,6 +9,7 @@ describe('Lawsuit selectors', function () {
           'summary': 'Hutchinson was shot and killed outside a bar near the Addison Red Line stop.',
           'primary_cause': 'EXCESSIVE FORCE/MINOR',
           'address': '200 E. Chicago Ave., Chicago IL',
+          'location': 'near intersection of N Wavelandand Sheffield',
           'incident_date': '2000-03-16',
           'plaintiffs': [
             {
@@ -103,6 +104,7 @@ describe('Lawsuit selectors', function () {
       lawsuitSelector(state()).should.eql(
         {
           'address': '200 E. Chicago Ave., Chicago IL',
+          'location': 'near intersection of N Wavelandand Sheffield',
           'caseNo': '00-L-5230',
           'primaryCause': 'EXCESSIVE FORCE/MINOR',
           'incidentDate': '2000-03-16',

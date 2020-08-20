@@ -106,6 +106,32 @@ describe('LawsuitPage component', function () {
     },
   ];
 
+  const lawsuit = {
+    caseNo: '00-L-5230',
+    summary: 'Hutchinson was shot and killed outside a bar near the Addison Red Line stop.',
+    address: '200 E. Chicago Ave., Chicago IL',
+    interactions: ['Protest'],
+    services: ['On Duty'],
+    misconducts: ['Killed by officer'],
+    violences: ['Physical Force'],
+    outcomes: ['Killed by officer'],
+    incidentDate: '2000-03-16',
+    plaintiffs: [{ 'name': 'Sharon Ambielli' }, { 'name': 'Kevin Vodak' }],
+    point: { lat: 10, lon: 10 },
+    officers: officers,
+    payments: [
+      { payee: 'Genre Wilson', settlement: '-', legalFees: '2500000000.00' },
+      { payee: 'Lucy Bells', settlement: '7500.00', legalFees: '-' },
+    ],
+    totalPaymentsDisplayShort: '2.5B',
+    totalPayments: {
+      total: '2,500,200,000.00',
+      totalSettlement: '200,000.00',
+      totalLegalFees: '2500,000,000.00',
+      mustBeAcceptedByCouncilCity: true,
+    },
+  };
+
   it('should render enough sections', function () {
     const addOrRemoveItemInPinboardSpy = spy();
     const wrapper = mount(
@@ -113,29 +139,7 @@ describe('LawsuitPage component', function () {
         <MemoryRouter>
           <HelmetProvider>
             <LawsuitPage
-              caseNo='00-L-5230'
-              summary='Hutchinson was shot and killed outside a bar near the Addison Red Line stop.'
-              address='200 E. Chicago Ave., Chicago IL'
-              interactions={ ['Protest'] }
-              services={ ['On Duty'] }
-              misconducts={ ['Killed by officer'] }
-              violences={ ['Physical Force'] }
-              outcomes={ ['Killed by officer'] }
-              incidentDate='2000-03-16'
-              plaintiffs={ [{ 'name': 'Sharon Ambielli' }, { 'name': 'Kevin Vodak' }] }
-              point={ { lat: 10, lon: 10 } }
-              officers={ officers }
-              payments={ [
-                { payee: 'Genre Wilson', settlement: '-', legalFees: '2500000000.00' },
-                { payee: 'Lucy Bells', settlement: '7500.00', legalFees: '-' },
-              ] }
-              totalPaymentsDisplayShort={ '2.5B' }
-              totalPayments={ {
-                total: '2,500,200,000.00',
-                totalSettlement: '200,000.00',
-                totalLegalFees: '2500,000,000.00',
-                mustBeAcceptedByCouncilCity: true,
-              } }
+              { ...lawsuit }
               addOrRemoveItemInPinboard={ addOrRemoveItemInPinboardSpy }
             />
           </HelmetProvider>
@@ -178,5 +182,41 @@ describe('LawsuitPage component', function () {
 
     const mustBeAcceptedByCouncilCityNote = wrapper.find('.must-be-accepted-by-council-city-description');
     mustBeAcceptedByCouncilCityNote.exists().should.be.false();
+  });
+
+  describe('location field', function () {
+    it('should render location field if location field is not null', function () {
+      const wrapper = mount(
+        <Provider store={ store }>
+          <MemoryRouter>
+            <HelmetProvider>
+              <LawsuitPage
+                { ...lawsuit }
+                location={ 'near intersection of N Wavelandand Sheffield' }
+              />
+            </HelmetProvider>
+          </MemoryRouter>
+        </Provider>
+      );
+
+      wrapper.find('.location-description').exists().should.be.true();
+    });
+
+    it('should not render location field if location field is null', function () {
+      const wrapper = mount(
+        <Provider store={ store }>
+          <MemoryRouter>
+            <HelmetProvider>
+              <LawsuitPage
+                { ...lawsuit }
+                location={ null }
+              />
+            </HelmetProvider>
+          </MemoryRouter>
+        </Provider>
+      );
+
+      wrapper.find('.location-description').exists().should.be.false();
+    });
   });
 });
