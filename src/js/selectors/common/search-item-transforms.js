@@ -4,17 +4,29 @@ import { previewPaneTransformMap } from './preview-pane-transforms';
 import { formatDate } from 'utils/date';
 import { FULL_MONTH_DATE_FORMAT } from 'utils/constants';
 
+
+const dateText = (dateString) => {
+  const formattedDate = formatDate(dateString, false, FULL_MONTH_DATE_FORMAT);
+  return dateString ? ` • ${formattedDate}` : '';
+};
 const getBaseTexts = (item) => ({ text: item.name, recentText: item.name });
 const getCRTexts = (item) => {
-  const formattedDate = formatDate(item['incident_date'], false, FULL_MONTH_DATE_FORMAT);
-  const dateText = item['incident_date'] ? ` • ${formattedDate}` : '';
-  const text = `CR # ${item.crid}${dateText}`;
+  const text = `CR # ${item.crid}${dateText(item['incident_date'])}`;
   return {
     text,
     recentText: text,
   };
 };
 const getTRRTexts = (item) => ({ text: item['force_type'] || 'Unknown', recentText: item.id });
+const getlawsuitTexts = (item) => {
+  const text = `${item['primary_cause']}${dateText(item['incident_date'])}`;
+  return {
+    text,
+    subText: item['summary'],
+    recentText: text,
+  };
+};
+
 const getUnitTexts = (item) => {
   const text = item.description || `Unit ${item.name}`;
   return { text, recentText: text };
@@ -30,6 +42,7 @@ const textsMap = {
   'DATE > TRR': getTRRTexts,
   CR: getCRTexts,
   TRR: getTRRTexts,
+  LAWSUIT: getlawsuitTexts,
   UNIT: getUnitTexts,
   'INVESTIGATOR > CR': getCRTexts,
 };

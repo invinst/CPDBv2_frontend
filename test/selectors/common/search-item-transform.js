@@ -353,5 +353,30 @@ describe('searchItemTransform', function () {
         recentText: 'Geography - Communities',
       });
     });
+
+    it('should transform lawsuit correctly', function () {
+      searchResultItemTransform({
+        type: 'LAWSUIT',
+        id: 25,
+        to: '/lawsuit/00-L-5230/',
+        'case_no': '00-L-5230',
+        'primary_cause': 'Excessive force',
+        'summary': 'Lawsuit summary',
+        'incident_date': '2016-09-11',
+      }).should.deepEqual({
+        type: 'LAWSUIT',
+        id: 25,
+        isPinned: undefined,
+        to: '/lawsuit/00-L-5230/',
+        url: undefined,
+        uniqueKey: 'LAWSUIT-25',
+        tags: [],
+        itemIndex: 1,
+        itemRank: undefined,
+        text: 'Excessive force • September 11, 2016',
+        subText: 'Lawsuit summary',
+        recentText: 'Excessive force • September 11, 2016',
+      });
+    });
   });
 });

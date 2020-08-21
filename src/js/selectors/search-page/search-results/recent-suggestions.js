@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import { filter, isUndefined, map, startCase, toLower, get, find, reverse, range, slice } from 'lodash';
 
 import { pinboardItemsSelector } from 'selectors/pinboard-page/pinboard';
-import { officerPath } from 'utils/paths';
+import { officerPath, lawsuitPath } from 'utils/paths';
 import { formatDate, getCurrentAgeString } from 'utils/date';
 import { navigationItemTransform } from 'selectors/common/search-item-transforms';
 import { FULL_MONTH_DATE_FORMAT, PIN_BUTTON_INTRODUCTION_INDEX, PINNED_ITEM_TYPES } from 'utils/constants';
@@ -49,10 +49,18 @@ const trrTransform = (item, pinboardItems) => {
   };
 };
 
+const lawsuitTransform = (item) => {
+  return {
+    ...navigationItemTransform(item),
+    to: lawsuitPath(item['case_no']),
+  };
+};
+
 const recentItemFormatterMapping = {
   'OFFICER': officerTransform,
   'CR': crTransform,
   'TRR': trrTransform,
+  'LAWSUIT': lawsuitTransform,
 };
 
 const getRecentSuggestions = (state) => get(state, 'searchPage.recentSuggestions', []);
