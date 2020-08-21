@@ -4,13 +4,20 @@ import {
   onOfficerPage,
   onCrPage,
   onPinboardPage,
+  lawsuitPath,
 } from 'utils/paths';
 
 
 describe('officerPath', function () {
-  it('should return domain name', function () {
+  it('should return correct path for officer', function () {
     officerPath('21860', 'Robbin Parker',).should.equal('/officer/21860/robbin-parker/');
     officerPath('21860').should.equal('/officer/21860/');
+  });
+});
+
+describe('lawsuitPath', function () {
+  it('should return correct path for lawsuit', function () {
+    lawsuitPath('00-L-5230').should.equal('/lawsuit/00-L-5230/');
   });
 });
 

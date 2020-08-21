@@ -111,8 +111,8 @@ class LawsuitPage extends Page {
     });
   }
 
-  open(id = '00-L-5230') {
-    super.open(`/lawsuit/${id}/`);
+  open(caseNo = '00-L-5230') {
+    super.open(`/lawsuit/${caseNo}/`);
   }
 }
 
