@@ -1,8 +1,28 @@
 export const lawsuitData = {
   'case_no': '00-L-5230',
-  summary: 'Hutchinson was shot and killed outside a bar near the Addison Red Line stop.',
+  summary: 'Pearce was detained and taken into police custody while he was in the Clearing neighborhood. ' +
+    'He was charged with reckless conduct even though officers failed to witness misconduct. ' +
+    'While at the station, officers threatened him with lockup if he did not identify a marijuana source. ' +
+    'After multiple threats, Pearce identified an individual known as "Hitman". Pearce had not purchased any drugs' +
+    ' from "Hitman" in four months and identified a gang way between two houses in the Ashburn neighborhood ' +
+    'as the last place of purchase. An officer submitted a complaint for search warrant naming Rudy Cantu ' +
+    '(a.k.a. "Hitman"). In the search warrant, the officer falsely stated that a cooperative individual had ' +
+    'approached them with the information after having bought drugs from "Hitman" approximately 30 times over ' +
+    'the past three months at a residence on 84th Place. The officer did not inform the State\'s Attorney\'s ' +
+    'Office that Pearce, the cooperative individual, was detained. The next day, the officer sent a second ' +
+    'complaint for search warrant. This warrant claimed that Cantu lived in a residence on 78th Place. ' +
+    'The officer made false claims that Pearce had purchased drugs from Cantu at this location more than 30 ' +
+    'times in the last three months. Pearce was taken to a lock-up and presented before a judge in order to get ' +
+    'the warrant approved. Officers told Pearce that if he wanted to get out, he needed to tell the judge that ' +
+    'everything on the warrant was true. He was never given the exact details of the warrant\'s content. ' +
+    'The judge approved the warrant and Pearce was taken back to lockup. Officers proceeded to execute a ' +
+    'search warrant of the residence on 78th Place. Livingstone, 56, and her mother, Manny, 83, had lived at ' +
+    'this location for over 30 years. Without showing a warrant, the officers detained both women inside the house ' +
+    'for two hours even though Livingstone told the officers that her son was a Chicago Police detective. ' +
+    'She proceeded to call her son, who later arrived at the scene. The search was called off.',
   'primary_cause': 'EXCESSIVE FORCE/MINOR',
   address: '200 E. Chicago Ave., Chicago IL',
+  location: 'near intersection of N Wavelandand Sheffield',
   'incident_date': '2015-10-28',
   plaintiffs: [
     {
