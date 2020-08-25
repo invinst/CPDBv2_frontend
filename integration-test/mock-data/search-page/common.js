@@ -3,6 +3,7 @@ import {
   RawNeighborhoodSuggestion,
   RawOfficerSuggestion,
   RawTRRSuggestion,
+  RawLawsuitSuggestion,
 } from '../../../src/js/utils/test/factories/suggestion';
 
 const communitySuggestions = [
@@ -13,6 +14,49 @@ const communitySuggestions = [
   RawNeighborhoodSuggestion.build({ id: '5', name: 'Garfield Park' }),
   RawNeighborhoodSuggestion.build({ id: '6', name: 'Humboldt Park' }),
   RawNeighborhoodSuggestion.build({ id: '7', name: 'Auburn Gresham' }),
+];
+
+export const defaultLawsuitSearchResult = [
+  RawLawsuitSuggestion.build(
+    {
+      id: '25',
+      to: '/lawsuit/00-L-1/',
+      'case_no': '00-L-1',
+      'summary': 'Hutchinson was shot and killed outside a bar near the Addison Red Line stop.',
+      'primary_cause': 'EXCESSIVE FORCE/MINOR',
+      'address': '200 E. Chicago Ave., Chicago IL',
+      'location': 'near intersection of N Wavelandand Sheffield',
+      'incident_date': '2000-03-16',
+      'officers': [{
+        'id': 2,
+        'full_name': 'Lorem Ipsum',
+        'allegation_count': 2,
+        'percentile_trr': '4.4000',
+        'percentile_allegation_civilian': '5.5000',
+        'percentile_allegation_internal': '6.6000',
+      }],
+    }
+  ),
+  RawLawsuitSuggestion.build(
+    {
+      id: '26',
+      to: '/lawsuit/00-L-2/',
+      'case_no': '00-L-2',
+      'summary': 'Hutchinson was shot and killed outside a bar near the Addison Red Line stop.',
+      'primary_cause': 'EXCESSIVE FORCE/MINOR',
+      'address': '200 E. Chicago Ave., Chicago IL',
+      'location': 'near intersection of N Wavelandand Sheffield',
+      'incident_date': '2000-03-16',
+      'officers': [{
+        'id': 3,
+        'full_name': 'Lorem Ipsum',
+        'allegation_count': 1,
+        'percentile_trr': '3.3000',
+        'percentile_allegation_civilian': '1.1000',
+        'percentile_allegation_internal': '2.2000',
+      }],
+    }
+  ),
 ];
 
 export const defaultSearchResult = {
@@ -183,4 +227,5 @@ export const defaultSearchResult = {
       }
     ),
   ],
+  'LAWSUIT': defaultLawsuitSearchResult,
 };

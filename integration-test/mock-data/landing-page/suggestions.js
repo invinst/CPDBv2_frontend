@@ -1,12 +1,14 @@
 import {
   CommunitySuggestion,
   RawCRSuggestion,
+  RawLawsuitSuggestion,
   RawNeighborhoodSuggestion,
   RawOfficerSuggestion,
   RawRankSuggestion,
   RawTRRSuggestion,
 } from '../../../src/js/utils/test/factories/suggestion';
 import { SearchTermCategoryItem } from '../../../src/js/utils/test/factories/search-terms';
+import { defaultLawsuitSearchResult } from '../search-page/common';
 
 const officerSuggestions = [
   RawOfficerSuggestion.build(
@@ -105,6 +107,8 @@ const crSuggestions = [
     }
   ),
 ];
+
+export const lawsuitSuggestions = defaultLawsuitSearchResult;
 
 const trrSuggestions = [
   RawTRRSuggestion.build(
@@ -314,6 +318,7 @@ export const groupedSuggestions = {
         }
       ),
     ],
+    'LAWSUIT': defaultLawsuitSearchResult,
   },
   'noresult': {},
   'foo': {
@@ -690,6 +695,7 @@ export const groupedSuggestions = {
     'CR': crSuggestions,
     'TRR': trrSuggestions,
     'COMMUNITY': community1Suggestions,
+    'LAWSUIT': lawsuitSuggestions,
   },
   'intr': {
     'NEIGHBORHOOD': communitySuggestions,
