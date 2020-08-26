@@ -31,8 +31,8 @@ export default function LawsuitPage(props) {
     plaintiffs,
     officers,
     payments,
-    totalPayments,
-    totalPaymentsDisplayShort,
+    totalPaymentsDetails,
+    totalPaymentsDisplay,
     point,
     attachment,
     addOrRemoveItemInPinboard,
@@ -56,7 +56,7 @@ export default function LawsuitPage(props) {
                 <div className='primary-cause'>{primaryCause}</div>
               </div>
               <div className='total-payments-summary'>
-                <div className='total-payments-summary-value'>${ totalPaymentsDisplayShort }</div>
+                <div className='total-payments-summary-value'>${ totalPaymentsDisplay }</div>
                 <div className='total-payments-summary-label'>Total payments</div>
               </div>
               <div className='clearfix' />
@@ -102,18 +102,19 @@ export default function LawsuitPage(props) {
                     </div>
                   ))
                 }
-                <div
-                  className={ cx({ 'must-be-accepted-by-council-city': totalPayments.mustBeAcceptedByCouncilCity }) }
-                >
+                <div className={
+                  cx({ 'must-be-accepted-by-council-city': totalPaymentsDetails.mustBeAcceptedByCouncilCity })
+                }>
                   <div className='payment-row subtotals'>
                     <div className='payee'>Subtotals</div>
                     <div className='settlement'>
-                      { totalPayments.mustBeAcceptedByCouncilCity && '*' }{ totalPayments.totalSettlement }
+                      { totalPaymentsDetails.mustBeAcceptedByCouncilCity && '*' }
+                      { totalPaymentsDetails.totalSettlement }
                     </div>
-                    <div className='legal-fees'>{ totalPayments.totalLegalFees }</div>
+                    <div className='legal-fees'>{ totalPaymentsDetails.totalLegalFees }</div>
                   </div>
                   {
-                    totalPayments.mustBeAcceptedByCouncilCity && (
+                    totalPaymentsDetails.mustBeAcceptedByCouncilCity && (
                       <div className='must-be-accepted-by-council-city-description'>
                         *Lawsuits over 100K must be approved by City Council
                       </div>
@@ -123,7 +124,7 @@ export default function LawsuitPage(props) {
 
                 <div className='payment-row total-payments'>
                   <div className='total-payments-label'>Total Payments</div>
-                  <div className='total-payments-value'>{ totalPayments.total }</div>
+                  <div className='total-payments-value'>{ totalPaymentsDetails.totalPayments }</div>
                 </div>
               </div>
             </div>
@@ -225,13 +226,13 @@ LawsuitPage.propTypes = {
       legalFees: PropTypes.string,
     })
   ),
-  totalPayments: PropTypes.shape({
-    total: PropTypes.string,
+  totalPaymentsDetails: PropTypes.shape({
+    totalPayments: PropTypes.string,
     totalSettlement: PropTypes.string,
     totalLegalFees: PropTypes.string,
     mustBeAcceptedByCouncilCity: PropTypes.bool,
   }),
-  totalPaymentsDisplayShort: PropTypes.string,
+  totalPaymentsDisplay: PropTypes.string,
   addOrRemoveItemInPinboard: PropTypes.func,
   attachment: PropTypes.shape({
     url: PropTypes.string,
@@ -242,7 +243,7 @@ LawsuitPage.propTypes = {
 LawsuitPage.defaultProps = {
   officers: [],
   payments: [],
-  totalPayments: {},
+  totalPaymentsDetails: {},
   interactions: [],
   services: [],
   misconducts: [],

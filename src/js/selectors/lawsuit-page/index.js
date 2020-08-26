@@ -58,13 +58,13 @@ const attachmentTransform = attachment => ({
   id: attachment['id'],
 });
 
-const totalPaymentsTransform = (totalPayments) => {
-  const totalSettlement = totalPayments['total_settlement'] || 0;
+const totalPaymentsDetailsTransform = (lawsuit) => {
+  const totalSettlement = lawsuit['total_settlement'] || 0;
 
   return {
-    total: moneyFormat(totalPayments['total']),
+    totalPayments: moneyFormat(lawsuit['total_payments']),
     totalSettlement: moneyFormat(totalSettlement),
-    totalLegalFees: moneyFormat(totalPayments['total_legal_fees']),
+    totalLegalFees: moneyFormat(lawsuit['total_legal_fees']),
     mustBeAcceptedByCouncilCity: totalSettlement > MUST_BE_ACCEPTED_BY_COUNCIL_CITY_THRESHOLD,
   };
 };
@@ -72,28 +72,24 @@ const totalPaymentsTransform = (totalPayments) => {
 export const lawsuitSelector = createSelector(
   getlawsuit,
   pinboardItemsSelector,
-  (lawsuit, pinboardItems) => {
-    const totalPayments = lawsuit['total_payments'] || {};
-
-    return {
-      caseNo: lawsuit['case_no'],
-      summary: lawsuit['summary'],
-      primaryCause: lawsuit['primary_cause'],
-      address: lawsuit['address'],
-      location: lawsuit['location'],
-      interactions: lawsuit['interactions'],
-      services: lawsuit['services'],
-      misconducts: lawsuit['misconducts'],
-      violences: lawsuit['violences'],
-      outcomes: lawsuit['outcomes'],
-      incidentDate: lawsuit['incident_date'],
-      point: lawsuit['point'],
-      plaintiffs: map(lawsuit['plaintiffs'], plaintiffTransform),
-      officers: map(lawsuit['officers'], (officer) => officerTransform(officer, pinboardItems)),
-      payments: map(lawsuit['payments'], paymentTransform),
-      totalPaymentsDisplayShort: moneyFormatShort(totalPayments['total']),
-      totalPayments: totalPaymentsTransform(totalPayments),
-      attachment: lawsuit['attachment'] && attachmentTransform(lawsuit['attachment']),
-    };
-  },
+  (lawsuit, pinboardItems) => ({
+    caseNo: lawsuit['case_no'],
+    summary: lawsuit['summary'],
+    primaryCause: lawsuit['primary_cause'],
+    address: lawsuit['address'],
+    location: lawsuit['location'],
+    interactions: lawsuit['interactions'],
+    services: lawsuit['services'],
+    misconducts: lawsuit['misconducts'],
+    violences: lawsuit['violences'],
+    outcomes: lawsuit['outcomes'],
+    incidentDate: lawsuit['incident_date'],
+    point: lawsuit['point'],
+    plaintiffs: map(lawsuit['plaintiffs'], plaintiffTransform),
+    officers: map(lawsuit['officers'], (officer) => officerTransform(officer, pinboardItems)),
+    payments: map(lawsuit['payments'], paymentTransform),
+    totalPaymentsDisplay: moneyFormatShort(lawsuit['total_payments']),
+    totalPaymentsDetails: totalPaymentsDetailsTransform(lawsuit),
+    attachment: lawsuit['attachment'] && attachmentTransform(lawsuit['attachment']),
+  }),
 );

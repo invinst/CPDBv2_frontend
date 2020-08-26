@@ -83,11 +83,9 @@ describe('Lawsuit selectors', function () {
               'settlement': totalSettlement,
             },
           ],
-          'total_payments': {
-            'total': `${2500000000.00 + Number(totalSettlement)}`,
-            'total_settlement': totalSettlement,
-            'total_legal_fees': '2500000000.00',
-          },
+          'total_payments': `${2500000000.00 + Number(totalSettlement)}`,
+          'total_settlement': totalSettlement,
+          'total_legal_fees': '2500000000.00',
           'attachment': {
             'id': '95636',
             'title': 'Product all far later exist he author.',
@@ -204,13 +202,13 @@ describe('Lawsuit selectors', function () {
           ],
           'services': ['On Duty'],
           'summary': 'Hutchinson was shot and killed outside a bar near the Addison Red Line stop.',
-          'totalPayments': {
-            'total': '2,500,090,000.00',
+          'totalPaymentsDetails': {
+            'totalPayments': '2,500,090,000.00',
             'totalLegalFees': '2,500,000,000.00',
             'totalSettlement': '90,000.00',
             'mustBeAcceptedByCouncilCity': false,
           },
-          'totalPaymentsDisplayShort': '2.5b',
+          'totalPaymentsDisplay': '2.5b',
           'violences': ['Physical Force'],
           'attachment': {
             'id': '95636',
@@ -224,10 +222,10 @@ describe('Lawsuit selectors', function () {
       );
     });
 
-    describe('totalPayments', function () {
+    describe('totalPaymentsDetails', function () {
       it('should return correct result when total settlement over 100K', function () {
-        lawsuitSelector(state('110000')).totalPayments.should.eql({
-          'total': '2,500,110,000.00',
+        lawsuitSelector(state('110000')).totalPaymentsDetails.should.eql({
+          'totalPayments': '2,500,110,000.00',
           'totalLegalFees': '2,500,000,000.00',
           'totalSettlement': '110,000.00',
           'mustBeAcceptedByCouncilCity': true,
@@ -235,8 +233,8 @@ describe('Lawsuit selectors', function () {
       });
 
       it('should return correct result when total settlement under 100K', function () {
-        lawsuitSelector(state('90000')).totalPayments.should.eql({
-          'total': '2,500,090,000.00',
+        lawsuitSelector(state('90000')).totalPaymentsDetails.should.eql({
+          'totalPayments': '2,500,090,000.00',
           'totalLegalFees': '2,500,000,000.00',
           'totalSettlement': '90,000.00',
           'mustBeAcceptedByCouncilCity': false,

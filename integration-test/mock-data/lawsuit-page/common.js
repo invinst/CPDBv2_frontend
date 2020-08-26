@@ -334,11 +334,9 @@ export const lawsuitData = {
     lon: -35.5,
     lat: 68.9,
   },
-  'total_payments': {
-    total: '2500007500.00',
-    'total_settlement': '7500.00',
-    'total_legal_fees': '2500000000.00',
-  },
+  'total_payments': '2500007500.00',
+  'total_settlement': '7500.00',
+  'total_legal_fees': '2500000000.00',
   attachment: {
     id: '95636',
     title: 'Product all far later exist he author.',
