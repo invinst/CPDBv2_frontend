@@ -32,7 +32,7 @@ function OfficerPage(props) {
     threeCornerPercentile,
     changeOfficerTab,
     currentTab,
-    hasComplaint,
+    hasAttachments,
     hasMapMarker,
     hasCoaccusal,
     popup,
@@ -101,7 +101,7 @@ function OfficerPage(props) {
         <TabbedPaneSection
           changeOfficerTab={ changeOfficerTab }
           currentTab={ currentTab }
-          hasComplaint={ hasComplaint }
+          hasAttachments={ hasAttachments }
           hasMapMarker={ hasMapMarker }
           hasCoaccusal={ hasCoaccusal }
         />
@@ -122,7 +122,7 @@ OfficerPage.propTypes = {
   threeCornerPercentile: PropTypes.array,
   currentTab: PropTypes.string,
   changeOfficerTab: PropTypes.func,
-  hasComplaint: PropTypes.bool,
+  hasAttachments: PropTypes.bool,
   hasMapMarker: PropTypes.bool,
   hasCoaccusal: PropTypes.bool,
   isRequesting: PropTypes.bool,

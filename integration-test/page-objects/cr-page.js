@@ -10,8 +10,8 @@ class AccusedOfficerCard extends Section {
     super('', `(//*[contains(@class, "coaccused-card__coaccused-card")])[${index + 1}]`);
 
     this.prepareElementGetters({
-      rank: '//p[contains(@class, "coaccused-card-rank")]',
-      name: '//p[contains(@class, "coaccused-card-name")]',
+      rank: '//p[contains(@class, "officer-card-rank")]',
+      name: '//p[contains(@class, "officer-card-name")]',
       metric: '//span[@class="test--officer-card-metric"]',
       percentile: '//p[contains(@class, "test--officer-card-percentile")]',
       demographic: '//div[contains(@class, "officer-card-demographic")]',
@@ -38,7 +38,7 @@ class AccusedOfficerSection extends Section {
       popupTitle: '.test--accused-officer .tooltip-title',
       popupText: '.test--accused-officer .tooltip-text',
       popupCloseButton: '.test--accused-officer .popup-close-button',
-      firstRadarChart: '//p[contains(@class, "coaccused-card-name") and text()="Bernadette Kelly"]' +
+      firstRadarChart: '//p[contains(@class, "officer-card-name") and text()="Bernadette Kelly"]' +
         '/../..//*[name()="svg"]',
     });
   }

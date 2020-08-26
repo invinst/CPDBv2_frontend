@@ -20,6 +20,10 @@ const breadcrumbMapping = handleActions({
     ...state,
     [`/trr/${action.payload.id}/`]: `TRR ${action.payload.id}`,
   }),
+  [constants.LAWSUIT_FETCH_SUCCESS]: (state, action) => ({
+    ...state,
+    [`/lawsuit/${action.payload['case_no']}/`]: `Case ${action.payload['case_no']}`,
+  }),
   [constants.OFFICER_SUMMARY_REQUEST_SUCCESS]: (state, action) => ({
     ...state,
     [`/officer/${action.payload.id}/`]: action.payload['full_name'],

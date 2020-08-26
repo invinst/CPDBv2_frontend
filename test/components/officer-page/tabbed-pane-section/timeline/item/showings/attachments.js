@@ -2,11 +2,11 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { stub } from 'sinon';
 
-import Attachments from 'components/officer-page/tabbed-pane-section/timeline/item/showings/cr/attachments';
+import Attachments from 'components/officer-page/tabbed-pane-section/timeline/item/showings/attachments';
 import OutboundLink from 'components/common/outbound-link';
 import * as domUtils from 'utils/dom';
 import * as tracking from 'utils/tracking';
-import styles from 'components/officer-page/tabbed-pane-section/timeline/item/showings/cr/attachments.sass';
+import styles from 'components/officer-page/tabbed-pane-section/timeline/item/showings/attachments/attachments.sass';
 
 
 describe('Attachments component', function () {

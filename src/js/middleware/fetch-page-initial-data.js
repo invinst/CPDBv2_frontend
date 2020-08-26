@@ -10,6 +10,7 @@ import {
 import {
   getOfficerId, getCRID, getTRRId, getUnitName,
   getDocDedupCRID, getDocumentId, getPinboardID,
+  getLawsuitCaseNo,
 } from 'utils/location';
 import { hasCommunitiesSelector, hasClusterGeoJsonData } from 'selectors/landing-page/heat-map';
 import { hasCitySummarySelector } from 'selectors/landing-page/city-summary';
@@ -44,6 +45,7 @@ import { fetchDocuments, fetchDocumentsAuthenticated } from 'actions/documents-o
 import { cancelledByUser } from 'utils/axios-client';
 import { requestCrawlers } from 'actions/crawlers-page';
 import { fetchPinboard } from 'actions/pinboard';
+import { fetchLawsuit } from 'actions/lawsuit-page';
 import { fetchAllPinboards } from 'actions/pinboard-admin-page';
 import { fetchVideoInfo } from 'actions/headers/slim-header';
 import { hasVideoInfoSelector } from 'selectors/headers/slim-header';
@@ -270,6 +272,11 @@ export default store => next => action => {
 
     else if (pathName.match(/\/view-all-pinboards\//)) {
       throttledFetchAllPinboards(store, action);
+    }
+
+    else if (pathName.match(/\/lawsuit\/[a-zA-Z0-9-]+\//)) {
+      const lawsuitCaseNo = getLawsuitCaseNo(pathName);
+      dispatches.push(store.dispatch(fetchLawsuit(lawsuitCaseNo)));
     }
 
     prevPathname = pathName;

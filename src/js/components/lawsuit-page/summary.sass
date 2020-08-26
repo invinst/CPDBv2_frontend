@@ -1,0 +1,40 @@
+@import 'variables'
+
+$height: 346px
+$show-more-height: 40px
+
+\:local(.summary)
+  overflow: hidden
+  position: relative
+  max-height: $height + $show-more-height
+
+  .summary-title
+    color: $boulder-color
+    padding-bottom: 11px
+
+  .summary-text
+    font-size: 18px
+    line-height: 21px
+
+  &.expanded
+    max-height: none
+
+  @media print
+    max-height: none
+
+  .show-more-button-container
+    border-top: 1px solid $alto-color
+    position: absolute
+    box-sizing: border-box
+    top: $height
+    width: 100%
+    text-align: center
+    background-color: white
+
+    .show-more-button
+      cursor: pointer
+      line-height: $show-more-height - 1px
+      color: $blue-ribbon-color
+
+      &:hover
+        color: $thunder-color

@@ -86,6 +86,13 @@ export const awardTransform = (item, index) => ({
   category: item['award_type'],
 });
 
+export const lawsuitTransform = (item, index) => ({
+  ...baseTransform(item, index),
+  caseNo: item['case_no'],
+  primaryCause: item['primary_cause'],
+  attachments: attachmentsTransform(item['attachments']),
+});
+
 const transformMap = {
   [NEW_TIMELINE_ITEMS.CR]: crTransform,
   [NEW_TIMELINE_ITEMS.FORCE]: trrTransform,
@@ -93,6 +100,7 @@ const transformMap = {
   [NEW_TIMELINE_ITEMS.UNIT_CHANGE]: baseTransform,
   [NEW_TIMELINE_ITEMS.RANK_CHANGE]: baseTransform,
   [NEW_TIMELINE_ITEMS.AWARD]: awardTransform,
+  [NEW_TIMELINE_ITEMS.LAWSUIT]: lawsuitTransform,
 };
 
 const transform = (item, index) => transformMap[item.kind](item, index);

@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme';
 import { stub } from 'sinon';
 
 import OutboundLink from 'components/common/outbound-link';
-import Attachment from 'components/officer-page/tabbed-pane-section/attachments-tab/complaint/attachment';
+import Attachment from 'components/officer-page/tabbed-pane-section/attachments-tab/attachment';
 import * as tracking from 'utils/tracking';
 
 
