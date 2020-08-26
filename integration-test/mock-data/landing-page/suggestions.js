@@ -1,7 +1,6 @@
 import {
   CommunitySuggestion,
   RawCRSuggestion,
-  RawLawsuitSuggestion,
   RawNeighborhoodSuggestion,
   RawOfficerSuggestion,
   RawRankSuggestion,

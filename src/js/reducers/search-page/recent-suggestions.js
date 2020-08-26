@@ -7,7 +7,7 @@ import {
   PINNED_ITEM_TYPES,
 } from 'utils/constants';
 
-const FETCHED_RECENT_SUGGESTION_TYPES = ['CR', 'OFFICER', 'TRR'];
+const FETCHED_RECENT_SUGGESTION_TYPES = ['CR', 'OFFICER', 'TRR', 'LAWSUIT'];
 
 const matchRecentItem = (item, recentItem) => {
   return item.type === recentItem.type && String(item.id) === String(recentItem.id);

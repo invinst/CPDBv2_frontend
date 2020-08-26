@@ -100,6 +100,7 @@ const RECENT_SUGGESTION_TYPES = {
   officerIds: 'OFFICER',
   crids: 'CR',
   trrIds: 'TRR',
+  lawsuitIds: 'LAWSUIT',
 };
 
 export const recentSuggestionIdsSelector = createSelector(

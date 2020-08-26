@@ -193,6 +193,7 @@ describe('RecentSuggestions selector', function () {
               'officer_ids': [8562],
               crids: ['317'],
               'trr_ids': [123456],
+              'lawsuit_ids': [25],
             },
           },
           searchPage: {
@@ -637,6 +638,7 @@ describe('RecentSuggestions selector', function () {
           { type: 'CR', data: {} },
           { type: 'OFFICER', id: 8566, data: {} },
           { type: 'TRR', id: 123, data: {} },
+          { type: 'LAWSUIT', id: 234567, data: {} },
         ],
       },
     };
@@ -646,6 +648,7 @@ describe('RecentSuggestions selector', function () {
         officerIds: [8562, 8563, 8564, 8565, 8566],
         crids: ['271235', '271236', '271237'],
         trrIds: [123],
+        lawsuitIds: [234567],
       });
     });
   });

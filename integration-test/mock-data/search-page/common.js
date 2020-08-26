@@ -46,7 +46,7 @@ export const defaultLawsuitSearchResult = [
       'primary_cause': 'EXCESSIVE FORCE/MINOR',
       'address': '200 E. Chicago Ave., Chicago IL',
       'location': 'near intersection of N Wavelandand Sheffield',
-      'incident_date': '2000-03-16',
+      'incident_date': '2000-04-16',
       'officers': [{
         'id': 3,
         'full_name': 'Lorem Ipsum',

@@ -125,7 +125,7 @@ describe('Search Page', function () {
       'Hutchinson was shot and killed outside a bar near the Addison Red Line stop.'
     );
     searchPage.lawsuitResultsSection.secondResultText.getText().should.equal(
-      'EXCESSIVE FORCE/MINOR • March 16, 2000'
+      'EXCESSIVE FORCE/MINOR • April 16, 2000'
     );
     searchPage.lawsuitResultsSection.secondResultSubText.getText().should.equal(
       'Hutchinson was shot and killed outside a bar near the Addison Red Line stop.'
@@ -317,8 +317,8 @@ describe('Search Page', function () {
     searchPage.input.getValue().should.eql('lawsuit:jerome');
     searchPage.lawsuitResultsSection.results.waitForDisplayed();
     searchPage.lawsuitResultsSection.resultsCount('LAWSUIT').should.equal(2);
-    searchPage.lawsuitResultsSection.firstResultText.getText().should.equal('00-L-1');
-    searchPage.lawsuitResultsSection.secondResultText.getText().should.equal('00-L-2');
+    searchPage.lawsuitResultsSection.firstResultText.getText().should.equal('EXCESSIVE FORCE/MINOR • March 16, 2000');
+    searchPage.lawsuitResultsSection.secondResultText.getText().should.equal('EXCESSIVE FORCE/MINOR • April 16, 2000');
     searchPage.officerResultsSection.results.waitForDisplayed(500, true);
     searchPage.searchCommunityResultsSection.results.waitForDisplayed(500, true);
     searchPage.crResultsSection.results.waitForDisplayed(500, true);
@@ -960,9 +960,9 @@ describe('Search Page', function () {
         searchPage.open();
 
         const newExpectedRecentSuggestions = [
-          'Member Presence\nTRR # 123 - April 27, 2009',
-          'CR # CR123 • April 23, 2005',
-          'Bernadette Kelly\n45-year-old, White, Male, 12 Complaints, 3 Sustained',
+          'Member Presence\nTRR # 123 - April 27, 2004',
+          'CR # CR123 • April 23, 2004',
+          'Bernadette Kelly\n45-year-old, White, Male, 10 Complaints, 2 Sustained',
           'EXCESSIVE FORCE/MINOR • March 16, 2000'
            + '\nHutchinson was shot and killed outside a bar near the Addison Red Line stop.',
           'Officer\nRank',
