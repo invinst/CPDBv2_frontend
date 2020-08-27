@@ -29,7 +29,7 @@ export default class MetricsSection extends Component {
       useOfForceCount,
       majorAwardCount,
       useOfForcePercentile,
-      civilianComplimentCount,
+      totalLawsuitSettlements,
     } = this.props.metrics;
 
     const metrics = [
@@ -53,8 +53,8 @@ export default class MetricsSection extends Component {
         popup: get(popup, POPUP_NAMES.OFFICER.TRR),
       },
       {
-        value: civilianComplimentCount,
-        name: `Civilian ${pluralize('Compliment', civilianComplimentCount)}`,
+        value: totalLawsuitSettlements,
+        name: 'Total Lawsuit Settlements',
         description: '',
         popup: get(popup, POPUP_NAMES.OFFICER.CIVILIAN_COMPLIMENT),
       },
