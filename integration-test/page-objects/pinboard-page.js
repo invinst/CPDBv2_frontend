@@ -357,7 +357,7 @@ class OfficerPreviewPane extends Section {
       gradient: '.test--gradient',
       communityPane: '.test--preview-pane-community',
       neighborhoodPane: '.test--preview-pane-neighborhood',
-      listMostOfficers: '//*[starts-with(@class, "preview-pane")]//*[contains(@class,"list-widget-item-link")]',
+      listMostOfficers: '//*[starts-with(@class, "preview-pane")]//*[contains(@class,"list-widget-item")]',
       pinButton: '.pin-button',
       viewOfficerButton: '.view-officer-profile-button',
       officerName: '.test--officer-name',

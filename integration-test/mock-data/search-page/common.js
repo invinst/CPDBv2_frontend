@@ -27,14 +27,40 @@ export const defaultLawsuitSearchResult = [
       'address': '200 E. Chicago Ave., Chicago IL',
       'location': 'near intersection of N Wavelandand Sheffield',
       'incident_date': '2000-03-16',
-      'officers': [{
-        'id': 2,
-        'full_name': 'Lorem Ipsum',
-        'allegation_count': 2,
-        'percentile_trr': '4.4000',
-        'percentile_allegation_civilian': '5.5000',
-        'percentile_allegation_internal': '6.6000',
-      }],
+      'officers': [
+        {
+          'id': 2,
+          'full_name': 'Lorem Ipsum',
+          'allegation_count': 2,
+          'percentile_trr': '4.4000',
+          'percentile_allegation_civilian': '5.5000',
+          'percentile_allegation_internal': '6.6000',
+        },
+        {
+          'id': 3,
+          'full_name': 'Lorem Ipsum',
+          'allegation_count': 2,
+          'percentile_trr': '4.4000',
+          'percentile_allegation_civilian': '5.5000',
+          'percentile_allegation_internal': '6.6000',
+        },
+        {
+          'id': 4,
+          'full_name': 'Lorem Ipsum',
+          'allegation_count': 2,
+          'percentile_trr': '4.4000',
+          'percentile_allegation_civilian': '5.5000',
+          'percentile_allegation_internal': '6.6000',
+        },
+        {
+          'id': 5,
+          'full_name': 'Lorem Ipsum',
+          'allegation_count': 2,
+          'percentile_trr': '4.4000',
+          'percentile_allegation_civilian': '5.5000',
+          'percentile_allegation_internal': '6.6000',
+        },
+      ],
     }
   ),
   RawLawsuitSuggestion.build(

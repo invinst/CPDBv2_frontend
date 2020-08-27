@@ -24,7 +24,7 @@ class ListWidget extends Section {
       header: '//h5[@class="list-widget-header"]',
       items: '//li[contains(@class, "list-widget-item")]',
       viewMoreButton: '//div[contains(@class, "rc-collapse-header")]',
-      lastCollapsableItem:
+      lastCollapsibleItem:
         '(//div[contains(@class, "rc-collapse-content")]//li[contains(@class, "list-widget-item")])[last()]',
     });
     this.firstItem = new ListWidgetItem('', nthListWidgetItem(this.mainElementSelector, 1));
