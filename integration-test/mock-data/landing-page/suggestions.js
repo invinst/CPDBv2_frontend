@@ -107,7 +107,7 @@ const crSuggestions = [
   ),
 ];
 
-export const lawsuitSuggestions = defaultLawsuitSearchResult;
+const lawsuitSuggestions = defaultLawsuitSearchResult;
 
 const trrSuggestions = [
   RawTRRSuggestion.build(
@@ -740,6 +740,12 @@ export const singleGroupSuggestions = {
     previous: null,
     next: null,
     results: trrSuggestions,
+  },
+  lawsuit: {
+    count: 2,
+    previous: null,
+    next: null,
+    results: lawsuitSuggestions,
   },
   community1: {
     count: 1,

@@ -184,7 +184,7 @@ describe('Officer attachments selectors', function () {
   });
 
   describe('lawsuitsWithAttachmentsSelector', function () {
-    it('should return correct result', function () {
+    it('should return correct result when primary_cause is not null', function () {
       const state = {
         officerPage: {
           newTimeline: {
@@ -194,6 +194,19 @@ describe('Officer attachments selectors', function () {
       };
 
       lawsuitsWithAttachmentsSelector(state).should.eql([lawsuitResult]);
+    });
+
+    it('should return correct result when primary_cause is null', function () {
+      const lawsuitWithNullPrimaryCause = { ...lawsuit, 'primary_cause': null };
+      const state = {
+        officerPage: {
+          newTimeline: {
+            items: [lawsuitWithNullPrimaryCause, lawsuitWithoutAttachment],
+          },
+        },
+      };
+
+      lawsuitsWithAttachmentsSelector(state)[0].primaryCause.should.eql('Unknown');
     });
   });
 

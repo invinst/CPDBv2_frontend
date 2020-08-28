@@ -19,7 +19,7 @@ const getCRTexts = (item) => {
 };
 const getTRRTexts = (item) => ({ text: item['force_type'] || 'Unknown', recentText: item.id });
 const getlawsuitTexts = (item) => {
-  const text = `${item['primary_cause']}${dateText(item['incident_date'])}`;
+  const text = `${item['primary_cause'] || 'Unknown'}${dateText(item['incident_date'])}`;
   return {
     text,
     subText: item['summary'],

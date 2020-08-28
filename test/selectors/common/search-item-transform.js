@@ -354,8 +354,8 @@ describe('searchItemTransform', function () {
       });
     });
 
-    it('should transform lawsuit correctly', function () {
-      searchResultItemTransform({
+    describe('should transform lawsuit correctly', function () {
+      const lawsuit = {
         type: 'LAWSUIT',
         id: 25,
         to: '/lawsuit/00-L-5230/',
@@ -363,19 +363,28 @@ describe('searchItemTransform', function () {
         'primary_cause': 'Excessive force',
         'summary': 'Lawsuit summary',
         'incident_date': '2016-09-11',
-      }).should.deepEqual({
-        type: 'LAWSUIT',
-        id: 25,
-        isPinned: undefined,
-        to: '/lawsuit/00-L-5230/',
-        url: undefined,
-        uniqueKey: 'LAWSUIT-25',
-        tags: [],
-        itemIndex: 1,
-        itemRank: undefined,
-        text: 'Excessive force • September 11, 2016',
-        subText: 'Lawsuit summary',
-        recentText: 'Excessive force • September 11, 2016',
+      };
+
+      it('when primay_cause is not null', function () {
+        searchResultItemTransform(lawsuit).should.deepEqual({
+          type: 'LAWSUIT',
+          id: 25,
+          isPinned: undefined,
+          to: '/lawsuit/00-L-5230/',
+          url: undefined,
+          uniqueKey: 'LAWSUIT-25',
+          tags: [],
+          itemIndex: 1,
+          itemRank: undefined,
+          text: 'Excessive force • September 11, 2016',
+          subText: 'Lawsuit summary',
+          recentText: 'Excessive force • September 11, 2016',
+        });
+      });
+
+      it('when primay_cause is null', function () {
+        const lawsuitWithNullPrimaryCause = { ...lawsuit, 'primary_cause': null };
+        searchResultItemTransform(lawsuitWithNullPrimaryCause).text.should.eql('Unknown • September 11, 2016');
       });
     });
   });

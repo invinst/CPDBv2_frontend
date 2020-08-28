@@ -89,7 +89,7 @@ export const awardTransform = (item, index) => ({
 export const lawsuitTransform = (item, index) => ({
   ...baseTransform(item, index),
   caseNo: item['case_no'],
-  primaryCause: item['primary_cause'],
+  primaryCause: item['primary_cause'] || 'Unknown',
   attachments: attachmentsTransform(item['attachments']),
 });
 

@@ -336,26 +336,26 @@ describe('Officer new timeline selectors', function () {
   });
 
   describe('lawsuitTransform', function () {
-    it('should map correcctly', function () {
-      const lawsuitItem = {
-        date: '2011-03-01',
-        kind: 'LAWSUIT',
-        'rank': 'Detective',
-        'unit_description': 'Gang Investigation Division',
-        'unit_name': '153',
-        'case_no': '00-L-5230',
-        'primary_cause': 'Excessive force, Racial epithets',
-        'attachments': [
-          {
-            'title': 'Phone subject information organization off important.',
-            'url': 'https://assets.documentcloud.org/documents/6246754/CRID-1086093-CR-COPA-Summary-Report.pdf',
-            'preview_image_url': 'https://assets.documentcloud.org/documents/6246754/pages/CRID.gif',
-            'file_type': '',
-            'id': '95637',
-          },
-        ],
-      };
+    const lawsuitItem = {
+      date: '2011-03-01',
+      kind: 'LAWSUIT',
+      'rank': 'Detective',
+      'unit_description': 'Gang Investigation Division',
+      'unit_name': '153',
+      'case_no': '00-L-5230',
+      'primary_cause': 'Excessive force, Racial epithets',
+      'attachments': [
+        {
+          'title': 'Phone subject information organization off important.',
+          'url': 'https://assets.documentcloud.org/documents/6246754/CRID-1086093-CR-COPA-Summary-Report.pdf',
+          'preview_image_url': 'https://assets.documentcloud.org/documents/6246754/pages/CRID.gif',
+          'file_type': '',
+          'id': '95637',
+        },
+      ],
+    };
 
+    it('should map correcctly', function () {
       lawsuitTransform(lawsuitItem, 1).should.eql({
         year: 2011,
         date: 'MAR 1',
@@ -380,6 +380,11 @@ describe('Officer new timeline selectors', function () {
         isAfterRankChange: false,
         isAfterUnitChange: false,
       });
+    });
+
+    it('should map correctly when primary_cause is nul', function () {
+      const lawsuitWithNullPrimaryCause = { ...lawsuitItem, 'primary_cause': null };
+      lawsuitTransform(lawsuitWithNullPrimaryCause).primaryCause.should.eql('Unknown');
     });
   });
 

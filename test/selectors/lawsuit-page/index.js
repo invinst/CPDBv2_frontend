@@ -222,6 +222,12 @@ describe('Lawsuit selectors', function () {
       );
     });
 
+    it('should return correct result when primary_cause is null', function () {
+      const store = state();
+      store.lawsuitPage.lawsuit['primary_cause'] = null;
+      lawsuitSelector(store).primaryCause.should.eql('Unknown');
+    });
+
     describe('totalPaymentsDetails', function () {
       it('should return correct result when total settlement over 100K', function () {
         lawsuitSelector(state('110000')).totalPaymentsDetails.should.eql({
