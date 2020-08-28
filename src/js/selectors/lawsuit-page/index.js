@@ -36,7 +36,7 @@ const officerTransform = (officer, pinboardItems) => {
     race: officer['race'],
     rank: officer['rank'],
     lawsuitCount: officer['lawsuit_count'],
-    lawsuitPayment: moneyFormatShort(officer['lawsuit_payment']),
+    totalLawsuitSettlements: moneyFormatShort(officer['total_lawsuit_settlements']),
     url: officerPath(officer.id, officer['full_name']),
     complaintCount: officer['allegation_count'],
     percentile,

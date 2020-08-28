@@ -34,7 +34,7 @@ describe('Lawsuit selectors', function () {
               'gender': 'M',
               'rank': 'Detective',
               'lawsuit_count': 3,
-              'lawsuit_payment': '7500022500.00',
+              'total_lawsuit_settlements': '7500022500.00',
             },
             {
               'percentile_allegation': '34.6987',
@@ -50,7 +50,7 @@ describe('Lawsuit selectors', function () {
               'gender': 'M',
               'rank': 'Detective',
               'lawsuit_count': 3,
-              'lawsuit_payment': '7500022500.00',
+              'total_lawsuit_settlements': '7500022500.00',
             },
           ],
           'interactions': [
@@ -143,7 +143,7 @@ describe('Lawsuit selectors', function () {
               'gender': 'm',
               'rank': 'Detective',
               'lawsuitCount': 3,
-              'lawsuitPayment': '7.5b',
+              'totalLawsuitSettlements': '7.5b',
             },
             {
               'complaintCount': 4,
@@ -176,7 +176,7 @@ describe('Lawsuit selectors', function () {
               'gender': 'm',
               'rank': 'Detective',
               'lawsuitCount': 3,
-              'lawsuitPayment': '7.5b',
+              'totalLawsuitSettlements': '7.5b',
             },
           ],
           'outcomes': ['Killed by officer'],

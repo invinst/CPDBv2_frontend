@@ -25,7 +25,7 @@ class InvolvedOfficerCard extends Section {
       metric: '//span[@class="test--officer-card-metric"]',
       percentile: '//p[contains(@class, "test--officer-card-percentile")]',
       demographic: '//div[contains(@class, "officer-card-demographic")]',
-      totalPayments: '//div[contains(@class, "officer-total-payments-value")]',
+      totalPayments: '//div[contains(@class, "officer-total-lawsuit-settlements-value")]',
       totalLawsuits: '//div[contains(@class, "officer-total-lawsuits")]',
       pinButton: '//div[contains(@class, "item-pin-button__item-pin-button")]',
     });

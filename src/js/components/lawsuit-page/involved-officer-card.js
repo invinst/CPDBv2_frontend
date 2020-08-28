@@ -12,8 +12,8 @@ export default function InvolvedOfficerCard(props) {
       { ...officer }
       addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
       cardFooter={
-        <div className='officer-total-payments'>
-          <div className='officer-total-payments-value'>${ officer.lawsuitPayment }</div>
+        <div className='officer-total-lawsuit-settlements'>
+          <div className='officer-total-lawsuit-settlements-value'>${ officer.totalLawsuitSettlements }</div>
           <div className='officer-total-lawsuits'>
             in {officer.lawsuitCount} {pluralize('lawsuit', officer.lawsuitCount)}
           </div>

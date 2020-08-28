@@ -364,7 +364,11 @@ describe('Search Page', function () {
       .onGet('/api/v1/suggestion/single/', { term: 'jerome', contentType: 'OFFICER', offset: '20' })
       .reply(200, singleGroupSuggestions['officerOffset20']);
 
-    browser.setWindowRect(0, 0, 900, 600);
+    const resultTopOffset = 175;
+    const searchResultItemHeight = 64;
+    // Screen height should be bigger than 6 search result items to auto fetch second page
+    const windowHeight = resultTopOffset + searchResultItemHeight * 6 + 200;
+    browser.setWindowRect(0, 0, 900, windowHeight);
     searchPage.input.waitForDisplayed();
     searchPage.input.setValue('jerome');
 
@@ -379,6 +383,9 @@ describe('Search Page', function () {
     searchPage.firstLoadMoreButton.click();
 
     searchPage.input.getValue().should.eql('officer:jerome');
+    browser.waitUntil(function () {
+      return searchPage.officerResultsSection.resultsCount('OFFICER') === 20;
+    }, 2000, 'expected officer suggestions are 20');
     searchPage.officerResultsSection.resultsCount('OFFICER').should.equal(20);
 
     times(21, () => browser.keys('ArrowDown'));
