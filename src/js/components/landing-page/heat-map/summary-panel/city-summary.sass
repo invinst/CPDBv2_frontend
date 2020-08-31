@@ -5,8 +5,10 @@
   background-color: $wild-sand-color
   cursor: pointer
   border: 1px solid $alto-color
-  padding: 0 16px
-  font-size: 14px
+  padding: 45px 31px 53px
+  font-size: 16px
+  line-height: 19px
+  word-spacing: -1px
 
   &.is-active
     background-color: white
@@ -20,54 +22,31 @@
     left: 0
 
   .city-summary-header
-    padding: 23px 0
     color: $thunder-color
-    border-bottom: 1px solid $alto-color
+    font-size: 20px
+    line-height: 24px
 
-  .allegation-discipline-link
-    display: block
-    padding: 20px 0
-    border-bottom: 1px solid $alto-color
+  .lawsuit-info
+    margin-top: 38px
 
-    .allegation-discipline-count
-      display: inline-block
-      width: calc(100% - 8px)
-      vertical-align: middle
-      font-size: 26px
+    .total-lawsuit-settlements
+      color: $guardsman-red-color
 
-      .allegation-text
-        color: $thunder-color
+  .complaint-info
+    margin-top: 44px
 
-      .discipline-text
-        color: $guardsman-red-color
+    .allegation-discipline-count, .disciplined
+      color: $guardsman-red-color
 
-  .right-arrow
-    background: url('/img/disclosure-indicator.svg') 0 0 no-repeat
-    display: inline-block
-    vertical-align: middle
-    width: 8px
-    height: 13px
+  .block-info
+    .info-label
+      font-weight: 400
+      margin-bottom: 8px
 
-  .most-common-complaint
-    padding: 20px 0 6px
-    font-weight: 500
-    color: $thunder-color
+    .info-summary
+      font-weight: 200
+      margin-bottom: 12px
 
-  .complaint-category
-    display: block
-    text-decoration: none
-    padding: 8px 0 14px
-    border-bottom: 1px solid $alto-color
-    font-weight: 300
-    color: $boulder-color
-
-    &:last-of-type
-      border-bottom: 0
-
-    .category-text-wrapper
-      display: inline-block
-      vertical-align: middle
-      width: calc(100% - 8px)
-
-      .category-name
-        color: $thunder-color
+    .info-stories
+      font-weight: 200
+      color: $blue-ribbon-color

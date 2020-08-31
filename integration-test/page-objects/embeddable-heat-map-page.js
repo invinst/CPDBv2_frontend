@@ -16,18 +16,6 @@ class CitySummary extends Section {
   }
 }
 
-class CommunityDetail extends Section {
-  constructor() {
-    super();
-    this.prepareElementGetters({
-      closeBtn: '.test--community-close-btn',
-      allegationDiscipline: '.test--community-allegation-discipline',
-      v1Link: '.test--community-v1-link',
-      officers: '.test--community-officers',
-    });
-  }
-}
-
 class Dropdown extends Section {
   constructor() {
     super();
@@ -50,7 +38,6 @@ class HeatMapSection extends Section {
   }
 
   citySummary = new CitySummary();
-  communityDetail = new CommunityDetail();
   dropdown = new Dropdown();
 }
 
