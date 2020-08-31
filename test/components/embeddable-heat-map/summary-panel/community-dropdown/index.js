@@ -1,5 +1,4 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import { spy } from 'sinon';
 
 import { mountWithRouter } from 'utils/test';
