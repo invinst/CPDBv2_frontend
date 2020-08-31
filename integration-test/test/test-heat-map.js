@@ -23,7 +23,7 @@ describe('Heat map', function () {
       landingPage.heatMapSection.citySummary.allegationDisciplineCount.getText().should.equal('50%');
     });
 
-    it('should go to v1 datatool when click on allegation count', function () {
+    it('should go to v1 datatool when click on explore complaint data', function () {
       const v2Url = browser.getUrl();
       landingPage.pinboardIntroduction.body.waitForDisplayed();
       landingPage.pinboardIntroduction.closeButton.click();
