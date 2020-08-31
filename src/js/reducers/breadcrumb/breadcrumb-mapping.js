@@ -1,6 +1,7 @@
 import { handleActions } from 'redux-actions';
 
 import * as constants from 'utils/constants';
+import { lawsuitPath } from 'utils/paths';
 
 
 const buildPinboardBreadcrumbs = (state, action) => {
@@ -22,7 +23,7 @@ const breadcrumbMapping = handleActions({
   }),
   [constants.LAWSUIT_FETCH_SUCCESS]: (state, action) => ({
     ...state,
-    [`/lawsuit/${action.payload['case_no']}/`]: `Case ${action.payload['case_no']}`,
+    [lawsuitPath(action.payload['case_no'])]: `Case ${action.payload['case_no']}`,
   }),
   [constants.OFFICER_SUMMARY_REQUEST_SUCCESS]: (state, action) => ({
     ...state,

@@ -173,6 +173,7 @@ export const officerData = {
   'sustained_count': 4,
   'discipline_count': 5,
   'civilian_compliment_count': 6,
+  'total_lawsuit_settlements': '10000000.00',
   'current_salary': 100000,
   'honorable_mention_percentile': '79.8700',
   'percentiles': [
@@ -286,7 +287,7 @@ export const noPercentileOfficerData = {
   'honorable_mention_count': 3,
   'sustained_count': 4,
   'discipline_count': 5,
-  'civilian_compliment_count': 6,
+  'total_lawsuit_settlements': '10000000.00',
   'current_salary': 100000,
   'percentiles': [
     {

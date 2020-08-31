@@ -148,7 +148,7 @@ describe('officer page selectors', function () {
         'sustained_count': 4,
         'discipline_count': 5,
         'trr_count': 7,
-        'civilian_compliment_count': 10,
+        'total_lawsuit_settlements': '10000000.00',
         'major_award_count': 5,
         'percentiles': [
           { 'year': 2015, 'percentile_trr': '8.0000' },
@@ -168,7 +168,7 @@ describe('officer page selectors', function () {
         useOfForceCount: 7,
         majorAwardCount: 5,
         useOfForcePercentile: '9.0000',
-        civilianComplimentCount: 10,
+        totalLawsuitSettlements: '$10.0M',
       });
     });
   });

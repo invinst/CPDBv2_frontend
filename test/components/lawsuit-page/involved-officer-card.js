@@ -11,7 +11,7 @@ describe('InvolvedOfficerCard component', function () {
     complaintCount: 12,
     fullName: 'Joseph Nega',
     officerId: 32218,
-    lawsuitPayment: '1.1M',
+    totalLawsuitSettlements: '1.1M',
     lawsuitCount: 3,
   };
 
@@ -32,8 +32,8 @@ describe('InvolvedOfficerCard component', function () {
     smallRadarChartOfficerCard.prop('addOrRemoveItemInPinboard').should.eql(addOrRemoveItemInPinboardSpy);
     smallRadarChartOfficerCard.prop('className').should.eql(style.involvedOfficerCard);
 
-    wrapper.find('.officer-total-payments').exists().should.be.true();
-    wrapper.find('.officer-total-payments-value').text().should.eql(`$${officer.lawsuitPayment}`);
+    wrapper.find('.officer-total-lawsuit-settlements').exists().should.be.true();
+    wrapper.find('.officer-total-lawsuit-settlements-value').text().should.eql(`$${officer.totalLawsuitSettlements}`);
     wrapper.find('.officer-total-lawsuits').text().should.eql(`in ${officer.lawsuitCount} lawsuits`);
   });
 });

@@ -94,7 +94,7 @@ describe('officer page', function () {
     officerPage.metricsSection.disciplineDescription.getText().should.equal('5 Disciplined');
     officerPage.metricsSection.useOfForceCount.getText().should.equal('5');
     officerPage.metricsSection.useOfForceDescription.getText().should.equal('More than 7% of other officers');
-    officerPage.metricsSection.civilianComplimentCount.getText().should.equal('6');
+    officerPage.metricsSection.totalLawsuitSettlements.getText().should.equal('$10.0M');
     officerPage.metricsSection.majorAwardCount.getText().should.equal('19');
     officerPage.metricsSection.honorableMentionCount.getText().should.equal('3');
     officerPage.metricsSection.honorableDescriptionCount.getText().should.equal('More than 79% of other officers');

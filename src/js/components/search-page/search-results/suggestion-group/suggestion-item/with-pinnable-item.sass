@@ -5,7 +5,7 @@
   text-decoration: none
   background-color: transparent
   font-family: $san-francisco-text-family
-  height: 54px
+  height: 64px
   box-sizing: border-box
   padding: 0 16px
 
@@ -23,7 +23,7 @@
 
 \:local(.inner-wrapper)
   height: 100%
-  padding: 11px 0
+  padding: 16px 0 14px 0
   box-sizing: border-box
 
   em
@@ -73,14 +73,16 @@
   text-overflow: ellipsis
 
 \:local(.gray-text)
-  %overflow-text
+  @extend %overflow-text
   color: $boulder-color
-  font-size: 12px
+  font-size: 14px
+  line-height: 17px
 
 \:local(.black-text)
   @extend %overflow-text
   color: $thunder-color
   font-size: 14px
+  line-height: 17px
 
 .without-summary
   padding-top: 7px

@@ -61,6 +61,18 @@ describe('RecentSuggestions selector', function () {
             'trr_datetime': '2004-02-24',
           },
         };
+        const lawsuitItem = {
+          type: 'LAWSUIT',
+          id: 25,
+          data: {
+            type: 'LAWSUIT',
+            id: 25,
+            'case_no': '00-L-5230',
+            'primary_cause': 'Excessive force',
+            'summary': 'Lawsuit summary',
+            'incident_date': '2016-09-11',
+          },
+        };
         const expectedCommunityItem = {
           type: 'COMMUNITY',
           id: 317,
@@ -156,16 +168,36 @@ describe('RecentSuggestions selector', function () {
           subText: 'TRR # 123456 - February 24, 2004',
           isPinned: true,
         };
+        const expectedLawsuitItem = {
+          type: 'LAWSUIT',
+          id: 25,
+          to: '/lawsuit/00-L-5230/',
+          url: undefined,
+          uniqueKey: 'LAWSUIT-25',
+          text: 'Excessive force • September 11, 2016',
+          recentText: 'Excessive force • September 11, 2016',
+          subText: 'Lawsuit summary',
+          itemRank: undefined,
+          recentItemData: {
+            type: 'LAWSUIT',
+            id: 25,
+            'case_no': '00-L-5230',
+            'primary_cause': 'Excessive force',
+            'summary': 'Lawsuit summary',
+            'incident_date': '2016-09-11',
+          },
+        };
         const state = {
           pinboardPage: {
             pinboard: {
               'officer_ids': [8562],
               crids: ['317'],
               'trr_ids': [123456],
+              'lawsuit_ids': [25],
             },
           },
           searchPage: {
-            recentSuggestions: [communityItem, officerItem, crItem, trrItem],
+            recentSuggestions: [communityItem, officerItem, crItem, trrItem, lawsuitItem],
           },
         };
         const introductionNotVisitedState = {
@@ -198,6 +230,10 @@ describe('RecentSuggestions selector', function () {
             ...expectedTrrItem,
             showIntroduction: false,
           },
+          {
+            ...expectedLawsuitItem,
+            showIntroduction: false,
+          },
         ]);
 
         recentSuggestionsSelector(introductionVisitedState).should.be.eql([
@@ -215,6 +251,10 @@ describe('RecentSuggestions selector', function () {
           },
           {
             ...expectedTrrItem,
+            showIntroduction: false,
+          },
+          {
+            ...expectedLawsuitItem,
             showIntroduction: false,
           },
         ]);
@@ -598,6 +638,7 @@ describe('RecentSuggestions selector', function () {
           { type: 'CR', data: {} },
           { type: 'OFFICER', id: 8566, data: {} },
           { type: 'TRR', id: 123, data: {} },
+          { type: 'LAWSUIT', id: 234567, data: {} },
         ],
       },
     };
@@ -607,6 +648,7 @@ describe('RecentSuggestions selector', function () {
         officerIds: [8562, 8563, 8564, 8565, 8566],
         crids: ['271235', '271236', '271237'],
         trrIds: [123],
+        lawsuitIds: [234567],
       });
     });
   });

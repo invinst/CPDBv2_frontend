@@ -95,13 +95,15 @@ describe('Search Page', function () {
     searchPage.firstNeighborhoodResult.getText().should.containEql('Kenwood'); // neighborhood
   });
 
-  it('should able to show trr and cr results', function () {
+  it('should able to show trr and cr and lawsuit results', function () {
     searchPage.input.waitForDisplayed();
     searchPage.input.setValue('Ke');
 
     searchPage.crResultsSection.results.waitForDisplayed();
     searchPage.suggestionTags.getText().should.containEql('CR');
     searchPage.suggestionTags.getText().should.containEql('TRR');
+    searchPage.suggestionTags.getText().should.containEql('LAWSUIT');
+
 
     searchPage.crResultsSection.results.count.should.equal(2);
     searchPage.crResultsSection.firstResultText.getText().should.equal('CR # CR123 • April 23, 2004');
@@ -114,6 +116,20 @@ describe('Search Page', function () {
     searchPage.trrResultsSection.firstResultSubText.getText().should.equal('TRR # 123 - April 27, 2004');
     searchPage.trrResultsSection.secondResultText.getText().should.equal('Unknown');
     searchPage.trrResultsSection.secondResultSubText.getText().should.equal('TRR # 456');
+
+    searchPage.lawsuitResultsSection.results.count.should.equal(2);
+    searchPage.lawsuitResultsSection.firstResultText.getText().should.equal(
+      'EXCESSIVE FORCE/MINOR • March 16, 2000'
+    );
+    searchPage.lawsuitResultsSection.firstResultSubText.getText().should.equal(
+      'Hutchinson was shot and killed outside a bar near the Addison Red Line stop.'
+    );
+    searchPage.lawsuitResultsSection.secondResultText.getText().should.equal(
+      'EXCESSIVE FORCE/MINOR • April 16, 2000'
+    );
+    searchPage.lawsuitResultsSection.secondResultSubText.getText().should.equal(
+      'Hutchinson was shot and killed outside a bar near the Addison Red Line stop.'
+    );
   });
 
   it('should able to show INVESTIGATOR > CR results', function () {
@@ -231,6 +247,9 @@ describe('Search Page', function () {
       .onGet('/api/v1/suggestion/single/', { term: 'jerome', contentType: 'TRR' })
       .reply(200, singleGroupSuggestions['trr']);
     api
+      .onGet('/api/v1/suggestion/single/', { term: 'jerome', contentType: 'LAWSUIT' })
+      .reply(200, singleGroupSuggestions['lawsuit']);
+    api
       .onGet('/api/v1/suggestion/single/', { term: 'jerome', contentType: 'COMMUNITY' })
       .reply(200, singleGroupSuggestions['community1']);
 
@@ -248,11 +267,12 @@ describe('Search Page', function () {
     searchPage.trrResultsSection.firstResultText.getText().should.equal('Member Presence');
 
     searchPage.suggestionTags.waitForDisplayed();
-    searchPage.suggestionTagCount().should.equal(4);
+    searchPage.suggestionTagCount().should.equal(5);
     searchPage.suggestionTag(1).getText().should.equal('OFFICER');
     searchPage.suggestionTag(2).getText().should.equal('COMMUNITY');
     searchPage.suggestionTag(3).getText().should.equal('CR');
     searchPage.suggestionTag(4).getText().should.equal('TRR');
+    searchPage.suggestionTag(5).getText().should.equal('LAWSUIT');
 
     searchPage.suggestionTag(1).click();
     searchPage.input.getValue().should.eql('officer:jerome');
@@ -292,6 +312,16 @@ describe('Search Page', function () {
     searchPage.officerResultsSection.results.waitForDisplayed(500, true);
     searchPage.searchCommunityResultsSection.results.waitForDisplayed(500, true);
     searchPage.crResultsSection.results.waitForDisplayed(500, true);
+
+    searchPage.suggestionTag(5).click();
+    searchPage.input.getValue().should.eql('lawsuit:jerome');
+    searchPage.lawsuitResultsSection.results.waitForDisplayed();
+    searchPage.lawsuitResultsSection.resultsCount('LAWSUIT').should.equal(2);
+    searchPage.lawsuitResultsSection.firstResultText.getText().should.equal('EXCESSIVE FORCE/MINOR • March 16, 2000');
+    searchPage.lawsuitResultsSection.secondResultText.getText().should.equal('EXCESSIVE FORCE/MINOR • April 16, 2000');
+    searchPage.officerResultsSection.results.waitForDisplayed(500, true);
+    searchPage.searchCommunityResultsSection.results.waitForDisplayed(500, true);
+    searchPage.crResultsSection.results.waitForDisplayed(500, true);
   });
 
   it('should able to show single search results with prefix query', function () {
@@ -307,11 +337,12 @@ describe('Search Page', function () {
     searchPage.input.setValue('officer:jerome');
 
     searchPage.officerResultsSection.results.waitForDisplayed();
-    searchPage.suggestionTagCount().should.equal(4);
+    searchPage.suggestionTagCount().should.equal(5);
     searchPage.suggestionTag(1).getText().should.equal('OFFICER');
     searchPage.suggestionTag(2).getText().should.equal('COMMUNITY');
     searchPage.suggestionTag(3).getText().should.equal('CR');
     searchPage.suggestionTag(4).getText().should.equal('TRR');
+    searchPage.suggestionTag(5).getText().should.equal('LAWSUIT');
 
     searchPage.officerResultsSection.resultsCount('OFFICER').should.equal(20);
     searchPage.officerResultsSection.firstResultText.getText().should.equal('Jerome Finnigan');
@@ -333,20 +364,28 @@ describe('Search Page', function () {
       .onGet('/api/v1/suggestion/single/', { term: 'jerome', contentType: 'OFFICER', offset: '20' })
       .reply(200, singleGroupSuggestions['officerOffset20']);
 
-    browser.setWindowRect(0, 0, 900, 600);
+    const resultTopOffset = 175;
+    const searchResultItemHeight = 64;
+    // Screen height should be bigger than 6 search result items to auto fetch second page
+    const windowHeight = resultTopOffset + searchResultItemHeight * 6 + 200;
+    browser.setWindowRect(0, 0, 900, windowHeight);
     searchPage.input.waitForDisplayed();
     searchPage.input.setValue('jerome');
 
     searchPage.suggestionGroup.waitForDisplayed();
-    searchPage.suggestionTagCount().should.equal(4);
+    searchPage.suggestionTagCount().should.equal(5);
     searchPage.suggestionTag(1).getText().should.equal('OFFICER');
     searchPage.suggestionTag(2).getText().should.equal('COMMUNITY');
     searchPage.suggestionTag(3).getText().should.equal('CR');
     searchPage.suggestionTag(4).getText().should.equal('TRR');
+    searchPage.suggestionTag(5).getText().should.equal('LAWSUIT');
 
     searchPage.firstLoadMoreButton.click();
 
     searchPage.input.getValue().should.eql('officer:jerome');
+    browser.waitUntil(function () {
+      return searchPage.officerResultsSection.resultsCount('OFFICER') === 20;
+    }, 2000, 'expected officer suggestions are 20');
     searchPage.officerResultsSection.resultsCount('OFFICER').should.equal(20);
 
     times(21, () => browser.keys('ArrowDown'));
@@ -382,11 +421,12 @@ describe('Search Page', function () {
     searchPage.input.setValue('jerome');
 
     searchPage.suggestionGroup.waitForDisplayed();
-    searchPage.suggestionTagCount().should.equal(4);
+    searchPage.suggestionTagCount().should.equal(5);
     searchPage.suggestionTag(1).getText().should.equal('OFFICER');
     searchPage.suggestionTag(2).getText().should.equal('COMMUNITY');
     searchPage.suggestionTag(3).getText().should.equal('CR');
     searchPage.suggestionTag(4).getText().should.equal('TRR');
+    searchPage.suggestionTag(5).getText().should.equal('LAWSUIT');
 
     times(6, () => browser.keys('ArrowDown'));
     browser.keys('Enter');
@@ -759,150 +799,186 @@ describe('Search Page', function () {
       browser.clearReduxStore(true);
     });
 
-    it('when click on result item', function () {
-      mockCommonApi();
-      api.onGet('/api/v1/suggestion/', { term: 'Geography', limit: 9 }).reply(200, groupedSuggestions['Geography']);
-      api.onGet('/api/v1/suggestion/', { term: 'Kelly', limit: 9 }).reply(200, groupedSuggestions['Kelly']);
-      api.onGet('/api/v1/suggestion/', { term: '2004/04/23', limit: 9 }).reply(200, groupedSuggestions['2004/04/23']);
-      api.onGet('/api/v1/suggestion/', { term: 'rank', limit: 9 }).reply(200, groupedSuggestions['rank']);
+    describe('when click on result item', function () {
+      it('without pin to pinboard', function () {
+        mockCommonApi();
+        api.onGet('/api/v1/suggestion/', { term: 'Geography', limit: 9 }).reply(200, groupedSuggestions['Geography']);
+        api.onGet('/api/v1/suggestion/', { term: 'Kelly', limit: 9 }).reply(200, groupedSuggestions['Kelly']);
+        api.onGet('/api/v1/suggestion/', { term: '2004/04/23', limit: 9 }).reply(200, groupedSuggestions['2004/04/23']);
 
-      api
-        .onPost('/api/v2/pinboards/', createPinboardWithOfficer1RequestData)
-        .reply(200, createPinboardWithOfficer1Data);
-      api
-        .onPut('/api/v2/pinboards/abcd5678/', pinTRR123PinboardRequestData)
-        .reply(200, pinTRR123PinboardData);
-      api
-        .onPut('/api/v2/pinboards/abcd5678/', pinCR123PinboardRequestData)
-        .reply(200, pinCR123PinboardData);
-      api
-        .onPut('/api/v2/pinboards/abcd5678/', removeAllPinItemsPinboardRequestData)
-        .reply(200, removeAllPinItemsPinboardData);
-      api
-        .onGet('/api/v1/suggestion/recent-search-items/', recentSearchItemsRequestData)
-        .reply(200, recentSearchItemsData);
+        performSearch('Geography');
+        clickOnSearchResultItem(searchPage.firstSearchTermsResult, 'Geography - Communities', true);
 
-      performSearch('Geography');
-      clickOnSearchResultItem(searchPage.firstSearchTermsResult, 'Geography - Communities', true);
+        clearSearchInput();
+        performSearch('Kelly');
+        clickOnSearchResultItem(searchPage.firstInvestigatorCrResult, 'CR # CR123456 • April 23, 2004');
 
-      clearSearchInput();
-      performSearch('Kelly');
-      clickOnSearchResultItem(searchPage.firstInvestigatorCrResult, 'CR # CR123456 • April 23, 2004');
+        backToSearch();
+        clearSearchInput();
+        performSearch('2004/04/23');
+        clickOnSearchResultItem(searchPage.secondDateCrResult, 'CR # CR456 • April 23, 2004');
+        backToSearch();
+        clickOnSearchResultItem(searchPage.secondDateTrrResult, 'Physical Force - Holding');
+        backToSearch();
+        clickOnSearchResultItem(searchPage.firstDateOfficerResult, 'Jerome Finnigan');
 
-      backToSearch();
-      clearSearchInput();
-      performSearch('2004/04/23');
-      clickOnSearchResultItem(searchPage.secondDateCrResult, 'CR # CR456 • April 23, 2004');
-      backToSearch();
-      clickOnSearchResultItem(searchPage.secondDateTrrResult, 'Physical Force - Holding');
-      backToSearch();
-      clickOnSearchResultItem(searchPage.firstDateOfficerResult, 'Jerome Finnigan');
+        backToSearch();
+        clearSearchInput();
 
-      backToSearch();
-      clearSearchInput();
-      performSearch('Ke');
-      clickOnSearchResultItem(searchPage.firstNeighborhoodResult, 'Kenwood');
+        const expectedRecentSuggestions = [
+          'Jerome Finnigan\n42-year-old, White, Male, 20 Complaints, 0 Sustained',
+          'Physical Force - Holding\nTRR # 456 - April 23, 2004',
+          'CR # CR456 • April 23, 2004',
+          'CR # CR123456 • April 23, 2004',
+          'Geography - Communities\nSearch Terms',
+        ];
 
-      browser.switchWindow('/search/');
-      clearSearchInput();
-      performSearch('rank');
-      clickOnSearchResultItem(searchPage.firstRankResult, 'Officer');
-
-      clearSearchInput();
-      performSearch('Ke');
-      clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly', true);
-      backToSearch();
-      clickOnSearchResultItem(searchPage.firstCrResult, 'CR # CR123 • April 23, 2004');
-      backToSearch();
-      clickOnSearchResultItem(searchPage.firstTrrResult, 'Member Presence');
-
-      backToSearch();
-      clearSearchInput();
-
-      const expectedRecentSuggestions = [
-        'Member Presence\nTRR # 123 - April 27, 2004',
-        'CR # CR123 • April 23, 2004',
-        'Bernadette Kelly\n45-year-old, White, Male, 10 Complaints, 2 Sustained',
-        'Officer\nRank',
-        'Kenwood\nNeighborhood',
-        'Jerome Finnigan\n42-year-old, White, Male, 20 Complaints, 0 Sustained',
-        'Physical Force - Holding\nTRR # 456 - April 23, 2004',
-        'CR # CR456 • April 23, 2004',
-        'CR # CR123456 • April 23, 2004',
-        'Geography - Communities\nSearch Terms',
-      ];
-
-      expectedRecentSuggestions.forEach((expectedText, index) => {
-        searchPage.recentSuggestionItem(index + 1).getText().should.equal(expectedText);
+        expectedRecentSuggestions.forEach((expectedText, index) => {
+          searchPage.recentSuggestionItem(index + 1).getText().should.equal(expectedText);
+        });
       });
-      searchPage.pinboardButton.waitForDisplayed(1000, true);
 
-      browser.scroll(0, -2000);
-      browser.pause(500);
+      it('with pin to pinboard', function () {
+        mockCommonApi();
+        api.onGet('/api/v1/suggestion/', { term: 'Geography', limit: 9 }).reply(200, groupedSuggestions['Geography']);
+        api.onGet('/api/v1/suggestion/', { term: 'Kelly', limit: 9 }).reply(200, groupedSuggestions['Kelly']);
+        api.onGet('/api/v1/suggestion/', { term: '2004/04/23', limit: 9 }).reply(200, groupedSuggestions['2004/04/23']);
+        api.onGet('/api/v1/suggestion/', { term: 'rank', limit: 9 }).reply(200, groupedSuggestions['rank']);
 
-      searchPage.thirdRecentPinButton.click();
-      searchPage.toast.waitForText(
-        'Police Officer Bernadette Kelly 45-year-old White Male, with 10 complaints, 2 sustained added.' +
-        '\nGo to pinboard'
-      );
-      searchPage.toast.waitForDisplayed(5000, true);
+        api
+          .onPost('/api/v2/pinboards/', createPinboardWithOfficer1RequestData)
+          .reply(200, createPinboardWithOfficer1Data);
+        api
+          .onPut('/api/v2/pinboards/abcd5678/', pinTRR123PinboardRequestData)
+          .reply(200, pinTRR123PinboardData);
+        api
+          .onPut('/api/v2/pinboards/abcd5678/', pinCR123PinboardRequestData)
+          .reply(200, pinCR123PinboardData);
+        api
+          .onPut('/api/v2/pinboards/abcd5678/', removeAllPinItemsPinboardRequestData)
+          .reply(200, removeAllPinItemsPinboardData);
+        api
+          .onGet('/api/v1/suggestion/recent-search-items/', recentSearchItemsRequestData)
+          .reply(200, recentSearchItemsData);
 
-      searchPage.firstRecentPinButton.click();
-      searchPage.toast.waitForText(
-        'TRR #123 categorized as Member Presence happened in Apr 27, 2004 added.' +
-        '\nGo to pinboard'
-      );
-      searchPage.toast.waitForDisplayed(5000, true);
+        performSearch('Geography');
+        clickOnSearchResultItem(searchPage.firstSearchTermsResult, 'Geography - Communities', true);
 
-      searchPage.secondRecentPinButton.click();
-      searchPage.toast.waitForText(
-        'CR #CR123 categorized as Lockup Procedures happened in Apr 23, 2004 added.' +
-        '\nGo to pinboard'
-      );
-      searchPage.toast.waitForDisplayed(5000, true);
+        clearSearchInput();
+        performSearch('Kelly');
+        clickOnSearchResultItem(searchPage.firstInvestigatorCrResult, 'CR # CR123456 • April 23, 2004');
 
-      searchPage.pinboardButton.waitForDisplayed(2000);
-      searchPage.pinboardButton.getText().should.eql('Pinboard (3)');
+        backToSearch();
+        clearSearchInput();
+        performSearch('2004/04/23');
+        clickOnSearchResultItem(searchPage.secondDateCrResult, 'CR # CR456 • April 23, 2004');
+        backToSearch();
+        clickOnSearchResultItem(searchPage.secondDateTrrResult, 'Physical Force - Holding');
+        backToSearch();
+        clickOnSearchResultItem(searchPage.firstDateOfficerResult, 'Jerome Finnigan');
 
-      searchPage.secondRecentPinButton.click();
-      searchPage.toast.waitForText(
-        'CR #CR123 categorized as Lockup Procedures happened in Apr 23, 2004 removed.' +
-        '\nGo to pinboard'
-      );
-      searchPage.toast.waitForDisplayed(5000, true);
+        backToSearch();
+        clearSearchInput();
+        performSearch('Ke');
+        clickOnSearchResultItem(searchPage.firstNeighborhoodResult, 'Kenwood');
 
-      searchPage.firstRecentPinButton.click();
-      searchPage.toast.waitForText(
-        'TRR #123 categorized as Member Presence happened in Apr 27, 2004 removed.' +
-        '\nGo to pinboard'
-      );
-      searchPage.toast.waitForDisplayed(5000, true);
+        browser.switchWindow('/search/');
+        clearSearchInput();
+        performSearch('rank');
+        clickOnSearchResultItem(searchPage.firstRankResult, 'Officer');
 
-      searchPage.thirdRecentPinButton.click();
-      searchPage.toast.waitForText(
-        'Police Officer Bernadette Kelly 45-year-old White Male, with 10 complaints, 2 sustained removed.' +
-        '\nGo to pinboard'
-      );
-      searchPage.toast.waitForDisplayed(5000, true);
-      searchPage.pinboardButton.waitForDisplayed(1000, true);
+        clearSearchInput();
+        performSearch('Ke');
+        clickOnSearchResultItem(searchPage.firstLawsuitResult, 'EXCESSIVE FORCE/MINOR');
+        backToSearch();
+        clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly', true);
+        backToSearch();
+        clickOnSearchResultItem(searchPage.firstCrResult, 'CR # CR123 • April 23, 2004');
+        backToSearch();
+        clickOnSearchResultItem(searchPage.firstTrrResult, 'Member Presence');
 
-      searchPage.open();
+        backToSearch();
+        clearSearchInput();
 
-      const newExpectedRecentSuggestions = [
-        'Member Presence\nTRR # 123 - April 27, 2009',
-        'CR # CR123 • April 23, 2005',
-        'Bernadette Kelly\n45-year-old, White, Male, 12 Complaints, 3 Sustained',
-        'Officer\nRank',
-        'Kenwood\nNeighborhood',
-        'Jerome Finnigan\n42-year-old, White, Male, 22 Complaints, 2 Sustained',
-        'Physical Force - Holding\nTRR # 456 - April 23, 2010',
-        'CR # CR456 • April 23, 2006',
-        'CR # CR123456 • April 23, 2007',
-        'Geography - Communities\nSearch Terms',
-      ];
+        const expectedRecentSuggestions = [
+          'Member Presence\nTRR # 123 - April 27, 2004',
+          'CR # CR123 • April 23, 2004',
+          'Bernadette Kelly\n45-year-old, White, Male, 10 Complaints, 2 Sustained',
+          'EXCESSIVE FORCE/MINOR • March 16, 2000' +
+          '\nHutchinson was shot and killed outside a bar near the Addison Red Line stop.',
+          'Officer\nRank',
+          'Kenwood\nNeighborhood',
+        ];
 
-      newExpectedRecentSuggestions.forEach((expectedText, index) => {
-        searchPage.recentSuggestionItem(index + 1).getText().should.equal(expectedText);
+        expectedRecentSuggestions.forEach((expectedText, index) => {
+          searchPage.recentSuggestionItem(index + 1).getText().should.equal(expectedText);
+        });
+        searchPage.pinboardButton.waitForDisplayed(1000, true);
+
+        browser.scroll(0, -2000);
+        browser.pause(500);
+
+        searchPage.thirdRecentPinButton.click();
+        searchPage.toast.waitForText(
+          'Police Officer Bernadette Kelly 45-year-old White Male, with 10 complaints, 2 sustained added.' +
+          '\nGo to pinboard'
+        );
+        searchPage.toast.waitForDisplayed(5000, true);
+
+        searchPage.firstRecentPinButton.click();
+        searchPage.toast.waitForText(
+          'TRR #123 categorized as Member Presence happened in Apr 27, 2004 added.' +
+          '\nGo to pinboard'
+        );
+        searchPage.toast.waitForDisplayed(5000, true);
+
+        searchPage.secondRecentPinButton.click();
+        searchPage.toast.waitForText(
+          'CR #CR123 categorized as Lockup Procedures happened in Apr 23, 2004 added.' +
+          '\nGo to pinboard'
+        );
+        searchPage.toast.waitForDisplayed(5000, true);
+
+        searchPage.pinboardButton.waitForDisplayed(2000);
+        searchPage.pinboardButton.getText().should.eql('Pinboard (3)');
+
+        searchPage.secondRecentPinButton.click();
+        searchPage.toast.waitForText(
+          'CR #CR123 categorized as Lockup Procedures happened in Apr 23, 2004 removed.' +
+          '\nGo to pinboard'
+        );
+        searchPage.toast.waitForDisplayed(5000, true);
+
+        searchPage.firstRecentPinButton.click();
+        searchPage.toast.waitForText(
+          'TRR #123 categorized as Member Presence happened in Apr 27, 2004 removed.' +
+          '\nGo to pinboard'
+        );
+        searchPage.toast.waitForDisplayed(5000, true);
+
+        searchPage.thirdRecentPinButton.click();
+        searchPage.toast.waitForText(
+          'Police Officer Bernadette Kelly 45-year-old White Male, with 10 complaints, 2 sustained removed.' +
+          '\nGo to pinboard'
+        );
+        searchPage.toast.waitForDisplayed(5000, true);
+        searchPage.pinboardButton.waitForDisplayed(1000, true);
+
+        searchPage.open();
+
+        const newExpectedRecentSuggestions = [
+          'Member Presence\nTRR # 123 - April 27, 2004',
+          'CR # CR123 • April 23, 2004',
+          'Bernadette Kelly\n45-year-old, White, Male, 10 Complaints, 2 Sustained',
+          'EXCESSIVE FORCE/MINOR • March 16, 2000'
+           + '\nHutchinson was shot and killed outside a bar near the Addison Red Line stop.',
+          'Officer\nRank',
+          'Kenwood\nNeighborhood',
+        ];
+
+        newExpectedRecentSuggestions.forEach((expectedText, index) => {
+          searchPage.recentSuggestionItem(index + 1).getText().should.equal(expectedText);
+        });
       });
     });
 
@@ -1482,11 +1558,12 @@ describe('Search Page with query parameter', function () {
     searchPage.open('officer:jerome');
 
     searchPage.officerResultsSection.results.waitForDisplayed();
-    searchPage.suggestionTagCount().should.equal(4);
+    searchPage.suggestionTagCount().should.equal(5);
     searchPage.suggestionTag(1).getText().should.equal('OFFICER');
     searchPage.suggestionTag(2).getText().should.equal('COMMUNITY');
     searchPage.suggestionTag(3).getText().should.equal('CR');
     searchPage.suggestionTag(4).getText().should.equal('TRR');
+    searchPage.suggestionTag(5).getText().should.equal('LAWSUIT');
 
     searchPage.officerResultsSection.resultsCount('OFFICER').should.equal(20);
     searchPage.officerResultsSection.firstResultText.getText().should.equal('Jerome Finnigan');

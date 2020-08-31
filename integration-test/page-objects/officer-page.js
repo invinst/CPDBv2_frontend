@@ -48,7 +48,7 @@ class MetricsSection extends Section {
       disciplineDescription: metricPaneDescriptionSelector(2, 1),
       useOfForceCount: metricPaneValueSelector(1, 2),
       useOfForceDescription: metricPaneDescriptionSelector(1, 2),
-      civilianComplimentCount: metricPaneValueSelector(2, 2),
+      totalLawsuitSettlements: metricPaneValueSelector(2, 2),
       majorAwardCount: metricPaneValueSelector(1, 3),
       honorableMentionCount: metricPaneValueSelector(2, 3),
       honorableDescriptionCount: metricPaneDescriptionSelector(2, 3),

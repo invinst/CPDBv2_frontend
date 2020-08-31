@@ -6,12 +6,13 @@ import cx from 'classnames';
 import baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/showings/base-item.sass';
 import styles from './lawsuit.sass';
 import Attachments from '../attachments';
+import { lawsuitPath } from 'utils/paths';
 
 
 export default function Lawsuit(props) {
   const { item, changeOfficerTab, pathname, onTrackingAttachment } = props;
   return (
-    <Link className={ cx(baseStyles.baseItem, styles.lawsuitRow) } to={ `/lawsuit/${item.caseNo}/` }>
+    <Link className={ cx(baseStyles.baseItem, styles.lawsuitRow) } to={ lawsuitPath(item.caseNo) }>
       <span className='item-content lawsuit-item-content'>
         <div className='item-wrapper-kind'>
           <span className='item-kind lawsuit-item-kind'>Lawsuit</span>
