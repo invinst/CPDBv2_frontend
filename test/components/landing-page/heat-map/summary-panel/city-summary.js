@@ -1,57 +1,29 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import CitySummary from 'components/landing-page/heat-map/summary-panel/city-summary';
 
 
 describe('CitySummary component', function () {
-  it('should render most common complaints', function () {
-    const mostCommonComplaints = [
-      {
-        name: 'failure to provide service',
-        count: 3,
-      },
-      {
-        name: 'search of premise without warrant',
-        count: 2,
-      },
-      {
-        name: 'excessive force',
-        count: 1,
-      },
-    ];
+  it('should render enough section', function () {
     const citySummary = {
-      mostCommonComplaints,
+      startYear: 1999,
+      endYear: 2017,
+      allegationCount: 123456,
+      totalLawsuitSettlements: '10.0 billion',
+      disciplinePercentage: '7',
     };
 
-    const wrapper = mount(<CitySummary citySummary={ citySummary } />);
+    const wrapper = shallow(<CitySummary citySummary={ citySummary } />);
 
-    mostCommonComplaints.forEach(({ name, count }) => {
-      wrapper.text().should.containEql(name);
-      wrapper.text().should.containEql(`${ count } allegations`);
-    });
-  });
-
-  describe('city summary header', function () {
-    context('start year is present', function () {
-      it('should render header with start and end year', function () {
-        const citySummary = {
-          startYear: 1999,
-          endYear: 2017,
-        };
-
-        const wrapper = shallow(<CitySummary citySummary={ citySummary } />);
-
-        wrapper.find('.city-summary-header').text().should.equal('CHICAGO 1999 - 2017');
-      });
-    });
-
-    context('start year is empty', function () {
-      it('should render header without period time', function () {
-        const wrapper = shallow(<CitySummary />);
-
-        wrapper.find('.city-summary-header').text().should.equal('CHICAGO');
-      });
-    });
+    wrapper.find('.city-summary-header').text().should.equal(
+      'Citizens Police Data Project collects and publishes data about police misconduct in Chicago.'
+    );
+    wrapper.find('.lawsuit-info-summary').text().should.containEql(
+      `Between ${citySummary.startYear} and ${citySummary.endYear}`
+    );
+    wrapper.find('.total-lawsuit-settlements').text().should.equal('$10.0 billion');
+    wrapper.find('.allegation-count').text().should.equal('123,456');
+    wrapper.find('.complaint-info-summary').text().should.containEql(`Since ${citySummary.startYear}`);
   });
 });

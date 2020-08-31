@@ -1,13 +1,9 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import { spy } from 'sinon';
 
 import { mountWithRouter } from 'utils/test';
 import { communityFactory } from 'utils/test/factories/heat-map';
 import CommunityDetail from 'components/landing-page/heat-map/summary-panel/community-dropdown/community-detail';
-import DropdownPlaceHolder from
-  'components/landing-page/heat-map/summary-panel/community-dropdown/dropdown-placeholder';
-import Dropdown from 'components/landing-page/heat-map/summary-panel/community-dropdown/dropdown';
 import CommunityDropdown from 'components/landing-page/heat-map/summary-panel/community-dropdown';
 
 
@@ -31,15 +27,5 @@ describe('CommunityDropdown component', function () {
     selectCommunity.calledWith(0).should.be.true();
 
     comDetail.prop('community').should.eql(community);
-  });
-
-  it('should render Dropdown if communityId is 0 and showDropdown is true', function () {
-    const wrapper = mount(<CommunityDropdown showDropdown={ true } communityId={ 0 }/>);
-    wrapper.find(Dropdown).exists().should.be.true();
-  });
-
-  it('should render DropdownPlaceholder otherwise', function () {
-    const wrapper = mountWithRouter(<CommunityDropdown showDropdown={ false } communityId={ 0 }/>);
-    wrapper.find(DropdownPlaceHolder).exists().should.be.true();
   });
 });

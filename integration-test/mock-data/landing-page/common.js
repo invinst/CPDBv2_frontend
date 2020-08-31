@@ -75,20 +75,7 @@ export const citySummaryData = CitySummaryFactory.build({
   'end_year': 2017,
   'allegation_count': 10,
   'discipline_count': 5,
-  'most_common_complaints': [
-    {
-      name: 'Operation/Personnel Violations',
-      count: 3,
-    },
-    {
-      name: 'Use Of Force',
-      count: 2,
-    },
-    {
-      name: 'Illegal Search',
-      count: 1,
-    },
-  ],
+  'total_lawsuit_settlements': '10000000.00',
 });
 
 export const topOfficersByAllegationData = [

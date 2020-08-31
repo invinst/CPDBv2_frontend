@@ -126,25 +126,15 @@ class CitySummary extends Section {
     super();
     this.prepareElementGetters({
       header: '.city-summary-header',
-      allegationDiscipline: '.allegation-discipline-count',
-      mostCommonComplaints: '.test--most-common-complaints',
+      totalLawsuitSettlements: '.total-lawsuit-settlements',
+      allegationCount: '.allegation-count',
+      allegationDisciplineCount: '.allegation-discipline-count',
+      exploreComplaintData: '(//*[contains(@class, "info-stories")])[2]',
     });
   }
 
   tapBottom() {
     $('.test--city-summary').clickAt(100, 370);
-  }
-}
-
-class CommunityDetail extends Section {
-  constructor() {
-    super();
-    this.prepareElementGetters({
-      closeBtn: '.test--community-close-btn',
-      allegationDiscipline: '.test--community-allegation-discipline',
-      v1Link: '.test--community-v1-link',
-      firstOfficer: '(//a[@class="test--community-officer"])[1]',
-    });
   }
 }
 
@@ -162,15 +152,10 @@ class Dropdown extends Section {
 class HeatMapSection extends Section {
   constructor() {
     super();
-    this.prepareElementGetters({
-      dropdownPlaceholder: '.test--dropdown-placeholder',
-      complaintCategory: '.complaint-category',
-      searchTermsLink: '.test--dropdown-search-terms',
-    });
+    this.prepareElementGetters();
   }
 
   citySummary = new CitySummary();
-  communityDetail = new CommunityDetail();
   dropdown = new Dropdown();
 }
 
