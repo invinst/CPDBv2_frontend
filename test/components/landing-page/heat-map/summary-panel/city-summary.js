@@ -20,7 +20,7 @@ describe('CitySummary component', function () {
       'Citizens Police Data Project collects and publishes data about police misconduct in Chicago.'
     );
     wrapper.find('.lawsuit-info-summary').text().should.containEql(
-      `Between ${citySummary.startYear} and ${citySummary.endYear}`
+      'Between 2014 and 2019'
     );
     wrapper.find('.total-lawsuit-settlements').text().should.equal('$10.0 billion');
     wrapper.find('.allegation-count').text().should.equal('123,456');
