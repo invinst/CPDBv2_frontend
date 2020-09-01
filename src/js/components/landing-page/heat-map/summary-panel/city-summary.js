@@ -10,7 +10,7 @@ import styles from './city-summary.sass';
 
 export default function CitySummary(props) {
   const { citySummary, isActive, onClick } = props;
-  const { startYear, endYear, allegationCount, disciplinePercentage, totalLawsuitSettlements } = citySummary;
+  const { startYear, allegationCount, disciplinePercentage, totalLawsuitSettlements } = citySummary;
 
   return (
     <div className={ cx( styles.citySummary, 'link--transition test--city-summary', { 'is-active': isActive }) }>
@@ -25,7 +25,7 @@ export default function CitySummary(props) {
       <div className='lawsuit-info block-info'>
         <div className='info-label'>Lawsuits</div>
         <div className='lawsuit-info-summary info-summary'>
-          Between {startYear} and {endYear}, the City of Chicago paid&nbsp;
+          Between 2014 and 2019, the City of Chicago paid&nbsp;
           <span className='total-lawsuit-settlements'>${totalLawsuitSettlements}</span>&nbsp;
           in settlements in police misconduct cases.
         </div>
