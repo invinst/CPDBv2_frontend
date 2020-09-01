@@ -27,14 +27,6 @@ describe('Heat map', function () {
       );
     });
 
-    it('should go to v1 complain category when click on the complaints', function () {
-      $$(embeddableHeatMapPage.heatMapSection.complaintCategory.selector)[0].click();
-      browser.switchWindow('/url-mediator/session-builder');
-      browser.getUrl().should.match(/\/url-mediator\/session-builder\?cat__category=/);
-      browser.closeWindow();
-      browser.switchWindow('localhost');
-    });
-
     it('should go to v1 datatool when click on allegation count', function () {
       const v2Url = browser.getUrl();
       embeddableHeatMapPage.heatMapSection.citySummary.allegationDiscipline.click();

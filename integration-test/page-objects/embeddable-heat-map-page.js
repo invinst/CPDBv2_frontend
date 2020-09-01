@@ -16,17 +16,6 @@ class CitySummary extends Section {
   }
 }
 
-class Dropdown extends Section {
-  constructor() {
-    super();
-    this.prepareElementGetters({
-      dropdownUpArrow: '.test--dropdown-up-arrow',
-      textInput: '.test--dropdown-text-input',
-      dropdownItems: '.test--dropdown-item',
-    });
-  }
-}
-
 class HeatMapSection extends Section {
   constructor() {
     super();
@@ -38,7 +27,6 @@ class HeatMapSection extends Section {
   }
 
   citySummary = new CitySummary();
-  dropdown = new Dropdown();
 }
 
 class EmbeddableHeatMapPage extends Page {
