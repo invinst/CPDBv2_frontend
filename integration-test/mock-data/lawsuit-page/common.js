@@ -47,7 +47,7 @@ export const lawsuitData = {
       gender: 'Male',
       rank: 'Detective',
       'lawsuit_count': 3,
-      'lawsuit_payment': '7500022500.00',
+      'total_lawsuit_settlements': '7500022500.00',
     },
     {
       'percentile_allegation': '34.6987',
@@ -63,7 +63,7 @@ export const lawsuitData = {
       gender: 'Male',
       rank: 'Detective',
       'lawsuit_count': 3,
-      'lawsuit_payment': '7500022500.00',
+      'total_lawsuit_settlements': '7500022500.00',
     },
     {
       'percentile_allegation': '0.0000',
@@ -79,7 +79,7 @@ export const lawsuitData = {
       gender: 'Male',
       rank: '',
       'lawsuit_count': 3,
-      'lawsuit_payment': '7500022500.00',
+      'total_lawsuit_settlements': '7500022500.00',
     },
     {
       id: 4,
@@ -91,7 +91,7 @@ export const lawsuitData = {
       gender: 'Male',
       rank: '',
       'lawsuit_count': 1,
-      'lawsuit_payment': '2500007500.00',
+      'total_lawsuit_settlements': '2500007500.00',
     },
     {
       id: 5,
@@ -103,7 +103,7 @@ export const lawsuitData = {
       gender: 'Male',
       rank: '',
       'lawsuit_count': 2,
-      'lawsuit_payment': '5000015000.00',
+      'total_lawsuit_settlements': '5000015000.00',
     },
     {
       'percentile_allegation': '85.5260',
@@ -119,7 +119,7 @@ export const lawsuitData = {
       gender: 'Male',
       rank: 'Detective',
       'lawsuit_count': 3,
-      'lawsuit_payment': '7500022500.00',
+      'total_lawsuit_settlements': '7500022500.00',
     },
     {
       'percentile_allegation': '50.8846',
@@ -135,7 +135,7 @@ export const lawsuitData = {
       gender: 'Male',
       rank: 'Detective',
       'lawsuit_count': 3,
-      'lawsuit_payment': '7500022500.00',
+      'total_lawsuit_settlements': '7500022500.00',
     },
     {
       id: 8,
@@ -147,7 +147,7 @@ export const lawsuitData = {
       gender: 'Male',
       rank: '',
       'lawsuit_count': 3,
-      'lawsuit_payment': '7500022500.00',
+      'total_lawsuit_settlements': '7500022500.00',
     },
     {
       'percentile_allegation': '0.0000',
@@ -160,7 +160,7 @@ export const lawsuitData = {
       gender: 'Male',
       rank: '',
       'lawsuit_count': 1,
-      'lawsuit_payment': '2500007500.00',
+      'total_lawsuit_settlements': '2500007500.00',
     },
     {
       id: 10,
@@ -172,7 +172,7 @@ export const lawsuitData = {
       gender: 'Male',
       rank: '',
       'lawsuit_count': 2,
-      'lawsuit_payment': '5000015000.00',
+      'total_lawsuit_settlements': '5000015000.00',
     },
     {
       'percentile_allegation': '45.6268',
@@ -188,7 +188,7 @@ export const lawsuitData = {
       gender: 'Male',
       rank: 'Detective',
       'lawsuit_count': 3,
-      'lawsuit_payment': '7500022500.00',
+      'total_lawsuit_settlements': '7500022500.00',
     },
     {
       'percentile_allegation': '0.0000',
@@ -204,7 +204,7 @@ export const lawsuitData = {
       gender: 'Male',
       rank: '',
       'lawsuit_count': 2,
-      'lawsuit_payment': '5000015000.00',
+      'total_lawsuit_settlements': '5000015000.00',
     },
     {
       id: 13,
@@ -215,7 +215,7 @@ export const lawsuitData = {
       gender: 'Male',
       rank: '',
       'lawsuit_count': 2,
-      'lawsuit_payment': '5000015000.00',
+      'total_lawsuit_settlements': '5000015000.00',
     },
     {
       'percentile_allegation': '92.1287',
@@ -231,7 +231,7 @@ export const lawsuitData = {
       gender: 'Male',
       rank: 'Detective',
       'lawsuit_count': 3,
-      'lawsuit_payment': '7500022500.00',
+      'total_lawsuit_settlements': '7500022500.00',
     },
     {
       id: 15,
@@ -243,7 +243,7 @@ export const lawsuitData = {
       gender: 'Male',
       rank: '',
       'lawsuit_count': 1,
-      'lawsuit_payment': '2500007500.00',
+      'total_lawsuit_settlements': '2500007500.00',
     },
     {
       'percentile_allegation': '0.0000',
@@ -256,7 +256,7 @@ export const lawsuitData = {
       gender: 'Male',
       rank: '',
       'lawsuit_count': 1,
-      'lawsuit_payment': '2500007500.00',
+      'total_lawsuit_settlements': '2500007500.00',
     },
     {
       id: 17,
@@ -268,7 +268,7 @@ export const lawsuitData = {
       gender: 'Male',
       rank: '',
       'lawsuit_count': 2,
-      'lawsuit_payment': '5000015000.00',
+      'total_lawsuit_settlements': '5000015000.00',
     },
     {
       id: 18,
@@ -280,7 +280,7 @@ export const lawsuitData = {
       gender: 'Male',
       rank: '',
       'lawsuit_count': 1,
-      'lawsuit_payment': '2500007500.00',
+      'total_lawsuit_settlements': '2500007500.00',
     },
     {
       'percentile_allegation': '62.1757',
@@ -296,7 +296,7 @@ export const lawsuitData = {
       gender: 'Male',
       rank: 'Detective',
       'lawsuit_count': 3,
-      'lawsuit_payment': '7500022500.00',
+      'total_lawsuit_settlements': '7500022500.00',
     },
     {
       'percentile_allegation': '72.9166',
@@ -312,7 +312,7 @@ export const lawsuitData = {
       gender: 'Male',
       rank: 'Detective',
       'lawsuit_count': 3,
-      'lawsuit_payment': '7500022500.00',
+      'total_lawsuit_settlements': '7500022500.00',
     },
   ],
   interactions: ['Protest'],
@@ -334,11 +334,9 @@ export const lawsuitData = {
     lon: -35.5,
     lat: 68.9,
   },
-  'total_payments': {
-    total: '2500007500.00',
-    'total_settlement': '7500.00',
-    'total_legal_fees': '2500000000.00',
-  },
+  'total_payments': '2500007500.00',
+  'total_settlement': '7500.00',
+  'total_legal_fees': '2500000000.00',
   attachment: {
     id: '95636',
     title: 'Product all far later exist he author.',

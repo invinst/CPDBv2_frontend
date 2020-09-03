@@ -138,6 +138,7 @@ class SearchPage extends Page {
   dateOfficerResultsSection = new ResultsSection('DATE-OFFICERS');
   officerResultsSection = new ResultsSection('OFFICER');
   crResultsSection = new ResultsSection('CR');
+  lawsuitResultsSection = new ResultsSection('LAWSUIT');
   trrResultsSection = new ResultsSection('TRR');
   rankResultsSection = new ResultsSection('RANK');
   searchTermsResultsSection = new ResultsSection('SEARCH-TERMS');
@@ -179,6 +180,8 @@ class SearchPage extends Page {
       toast: '.Toastify__toast-body',
       firstCrResult: '.test--suggestion-group .suggestion-item-CR-CR123',
       secondDateCrResult: '.test--suggestion-group .suggestion-item-DATE-CR-CR456',
+      firstLawsuitResult: '(//*[contains(@class, "test--suggestion-group")]' +
+        ' //*[contains(@class, "suggestion-item-LAWSUIT")])[1]',
       firstTrrResult: '.test--suggestion-group .suggestion-item-TRR-123',
       secondDateTrrResult: '.test--suggestion-group .suggestion-item-DATE-TRR-456',
       firstDateOfficerResult: '.test--suggestion-group .suggestion-item-DATE-OFFICERS-123',

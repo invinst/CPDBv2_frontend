@@ -7,6 +7,7 @@ import { extractPercentile } from 'selectors/common/percentile';
 import { pinboardItemsSelector } from 'selectors/pinboard-page/pinboard';
 import { isItemPinned } from 'selectors/pinboard-page/pinboard';
 import { PINNED_ITEM_TYPES } from 'utils/constants';
+import { moneyFormatShort } from 'utils/money';
 
 export const getOfficerInfo = state => state.officerPage.summary;
 export const getCurrentTab = state => state.officerPage.currentTab;
@@ -75,7 +76,7 @@ export const metricsSelector = createSelector(
       useOfForceCount: get(summary, 'trr_count', DATA_NOT_AVAILABLE),
       majorAwardCount: get(summary, 'major_award_count', DATA_NOT_AVAILABLE),
       useOfForcePercentile: get(summary, 'percentile_trr', DATA_NOT_AVAILABLE),
-      civilianComplimentCount: get(summary, 'civilian_compliment_count', DATA_NOT_AVAILABLE),
+      totalLawsuitSettlements: `$${moneyFormatShort(summary['total_lawsuit_settlements'])}`.toUpperCase(),
     };
   }
 );

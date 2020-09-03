@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom';
 import cx from 'classnames';
 
 import styles from './heading.sass';
+import { lawsuitPath } from 'utils/paths';
 
 
 export default function Heading(props) {
   const { caseNo, primaryCause, date } = props.lawsuit;
 
   return (
-    <Link to={ `/lawsuit/${caseNo}/` } className={ styles.heading }>
+    <Link to={ lawsuitPath(caseNo) } className={ styles.heading }>
       <div className='heading-box'>
         <div className='heading-kind-wrapper'>
           <span className={ cx('attachments-heading-kind') }>
