@@ -76,11 +76,13 @@ describe('Lawsuit selectors', function () {
           'payments': [
             {
               'payee': 'Genre Wilson',
+              'settlement': '0.00',
               'legal_fees': '2500000000.00',
             },
             {
               'payee': 'Lucy Bells',
               'settlement': totalSettlement,
+              'legal_fees': '0.00',
             },
           ],
           'total_payments': `${2500000000.00 + Number(totalSettlement)}`,

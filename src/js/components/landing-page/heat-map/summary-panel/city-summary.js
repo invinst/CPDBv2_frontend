@@ -1,17 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { map } from 'lodash';
 import cx from 'classnames';
 
 import config from 'config';
-import { categoryUrl } from 'utils/v1-url';
 import OutboundLink from 'components/common/outbound-link';
+
 import styles from './city-summary.sass';
 
 
 export default function CitySummary(props) {
   const { citySummary, isActive, onClick } = props;
-  const { startYear, endYear, allegationCount, disciplinePercentage, mostCommonComplaints } = citySummary;
+  const { startYear, allegationCount, disciplinePercentage, totalLawsuitSettlements } = citySummary;
 
   return (
     <div className={ cx( styles.citySummary, 'link--transition test--city-summary', { 'is-active': isActive }) }>
@@ -21,44 +20,35 @@ export default function CitySummary(props) {
           <div className='click-receiver' onClick={ onClick } />
       }
       <div className='city-summary-header'>
-        CHICAGO{ startYear ? ` ${startYear} - ${endYear}` : '' }
+        Citizens Police Data Project collects and publishes data about police misconduct in Chicago.
       </div>
-      <OutboundLink href={ config.v1Url } className='allegation-discipline-link'>
-        <div className='allegation-discipline-count'>
-          <div className='allegation-text'>
-            {
-              allegationCount ?
-                `${allegationCount.toLocaleString()} allegations` :
-                null
-            }
-          </div>
-          <div className='discipline-text'>
-            {
-              disciplinePercentage ?
-                `${ disciplinePercentage }% disciplined` :
-                null
-            }
-          </div>
+      <div className='lawsuit-info block-info'>
+        <div className='info-label'>Lawsuits</div>
+        <div className='lawsuit-info-summary info-summary'>
+          Between 2014 and 2019, the City of Chicago paid&nbsp;
+          <span className='total-lawsuit-settlements'>${totalLawsuitSettlements}</span>&nbsp;
+          in settlements in police misconduct cases.
         </div>
-        <div className='right-arrow' />
-      </OutboundLink>
-
-      <div className='most-common-complaint'>MOST COMMON COMPLAINTS</div>
-      <div className='test--most-common-complaints'>
-        {
-          map(mostCommonComplaints, ({ name, count }, index) => (
-            <OutboundLink
-              className='complaint-category'
-              href={ isActive ? categoryUrl(name) : null }
-              key={ index }>
-              <div className='category-text-wrapper'>
-                <div className='category-name'>{ name }</div>
-                <div>{ count.toLocaleString() } allegations</div>
-              </div>
-              <div className='right-arrow' />
-            </OutboundLink>
-          ))
-        }
+        <OutboundLink href='' className='info-stories'>
+          Read the lawsuit stories
+        </OutboundLink>
+      </div>
+      <div className='complaint-info block-info'>
+        <div className='info-label'>Complaints</div>
+        <div className='complaint-info-summary info-summary'>
+          Since {startYear}, there have been&nbsp;
+          <span className='allegation-count'>{allegationCount? allegationCount.toLocaleString() : '0'}</span>&nbsp;
+          allegations of misconduct against Chicago police officers.&nbsp;
+          <span className='allegation-discipline-count'>{disciplinePercentage}%</span>&nbsp;
+          of those allegations were&nbsp;
+          <span className='disciplined'>disciplined.</span>
+        </div>
+        <OutboundLink
+          href={ config.v1Url }
+          className='info-stories'
+        >
+          Explore the complaints data
+        </OutboundLink>
       </div>
     </div>
   );
