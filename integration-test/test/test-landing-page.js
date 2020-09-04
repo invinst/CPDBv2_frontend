@@ -325,6 +325,29 @@ describe('landing page', function () {
     });
   });
 
+  describe('Top Lawsuits Carousel', function () {
+    it('should show initial carousel', function () {
+      landingPage.topLawsuitsCarousel.cards.count.should.equal(20);
+      landingPage.topLawsuitsCarousel.rightArrow.waitForDisplayed();
+      landingPage.topLawsuitsCarousel.leftArrow.waitForDisplayed(2000, true);
+    });
+
+    it('should go to lawsuit page when click to card', function () {
+      const firstCard = landingPage.topLawsuitsCarousel.cards;
+      firstCard.click();
+      browser.waitForUrl(url => url.should.containEql('/lawsuit/00-L-1234/'), 500);
+    });
+
+    it('should navigate to the last slide by clicking right arrow', function () {
+      browser.setWindowRect(0, 0, 1200, 1000);
+
+      landingPage.topLawsuitsCarousel.cards.count.should.equal(20);
+      landingPage.topLawsuitsCarousel.rightArrow.waitForDisplayed();
+      times(6, () => landingPage.topLawsuitsCarousel.rightArrow.click());
+      landingPage.topLawsuitsCarousel.rightArrow.waitForDisplayed(2000, true);
+    });
+  });
+
   describe('Header', function () {
     afterEach(function () {
       browser.scroll(0, 0);

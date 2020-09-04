@@ -6,6 +6,7 @@ import { get } from 'lodash';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import ComplaintSummariesContainer from 'containers/landing-page/complaint-summaries';
+import TopLawsuits from 'containers/landing-page/top-lawsuits';
 import SlimHeader from 'components/headers/slim-header';
 import FooterContainer from 'containers/footer-container';
 import HeatMap from 'containers/landing-page/heat-map';
@@ -74,6 +75,7 @@ class LandingPage extends Component {
             <RecentActivityContainer className='landing-page-carousel' pathname={ pathname }/>
             <RecentDocumentContainer className='landing-page-carousel' pathname={ pathname }/>
             <ComplaintSummariesContainer className='landing-page-carousel' pathname={ pathname }/>
+            <TopLawsuits className='landing-page-carousel' pathname={ pathname } />
           </div>
           <FooterContainer/>
         </div>

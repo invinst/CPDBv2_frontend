@@ -7,6 +7,7 @@ import {
   clusterData,
   communityData,
   complaintSummariesData,
+  topLawsuitsData,
   landingPageCmsData,
   listByNewDocumentData,
   topOfficersByAllegationData,
@@ -36,5 +37,6 @@ export const mockLandingPageApi = () => {
   api.onGet('/api/v2/activity-grid/').reply(200, activityGridOfficersData);
   api.onGet('/api/v2/cr/list-by-new-document/').reply(200, listByNewDocumentData);
   api.onGet('/api/v2/cr/complaint-summaries/').reply(200, complaintSummariesData);
+  api.onGet('/api/v2/lawsuit/top-lawsuits/').reply(200, topLawsuitsData);
   api.onGet('/api/v1/suggestion/').reply(200, {});
 };
