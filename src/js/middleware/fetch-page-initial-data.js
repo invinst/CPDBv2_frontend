@@ -20,6 +20,7 @@ import { hasCards as hasRecentActivityData } from 'selectors/landing-page/activi
 import { hasCards as hasRecentDocumentData } from 'selectors/landing-page/recent-document';
 import { hasCategoriesSelector } from 'selectors/search-page/search-terms/categories';
 import { hasCards as hasComplaintSummaryData } from 'selectors/landing-page/complaint-summaries';
+import { hasCards as hasTopLawsuitData } from 'selectors/landing-page/top-lawsuits';
 import { getMatchParamater, getDocumentsOrder } from 'selectors/documents-overview-page';
 import { getCRIDParameter } from 'selectors/document-deduplicator-page';
 import { getPinboard } from 'selectors/pinboard-page/pinboard';
@@ -37,6 +38,7 @@ import { requestOfficersByAllegation } from 'actions/landing-page/officers-by-al
 import { requestActivityGrid } from 'actions/landing-page/activity-grid';
 import { getRecentDocument } from 'actions/landing-page/recent-document';
 import { getComplaintSummaries } from 'actions/landing-page/complaint-summaries';
+import { getTopLawsuits } from 'actions/landing-page/top-lawsuits';
 import { pageLoadFinish, pageLoadStart } from 'actions/page-loading';
 import { fetchPopup } from 'actions/popup';
 import { requestSearchTermCategories } from 'actions/search-page/search-terms';
@@ -173,6 +175,10 @@ export default store => next => action => {
 
       if (!hasComplaintSummaryData(state)) {
         dispatches.push(store.dispatch(getComplaintSummaries()));
+      }
+
+      if (!hasTopLawsuitData(state)) {
+        dispatches.push(store.dispatch(getTopLawsuits()));
       }
 
       if (!hasVideoInfoSelector(state)) {

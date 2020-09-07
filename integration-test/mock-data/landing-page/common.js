@@ -9,6 +9,7 @@ import {
 } from '../../../src/js/utils/test/factories/activity-grid';
 import { RawDocumentCardFactory } from '../../../src/js/utils/test/factories/attachment';
 import { RawComplaintSummaryFactory } from '../../../src/js/utils/test/factories/complaint';
+import { RawTopLawsuitFactory } from '../../../src/js/utils/test/factories/lawsuit';
 
 
 const firstOfficer = {
@@ -112,4 +113,13 @@ export const complaintSummariesData = [
     'category_names': ['Criminal Misconduct'],
   }),
   ...RawComplaintSummaryFactory.buildList(19),
+];
+
+export const topLawsuitsData = [
+  RawTopLawsuitFactory.build({
+    'case_no': '00-L-1234',
+    'incident_date': '1999-07-04',
+    'primary_cause': 'Extended Detention',
+  }),
+  ...RawTopLawsuitFactory.buildList(19),
 ];

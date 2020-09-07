@@ -52,6 +52,10 @@ describe('store', function () {
           isRequesting: false,
           headerEditModeOn: false,
         },
+        topLawsuits: {
+          cards: [],
+          headerEditModeOn: false,
+        },
         heatMap: {
           citySummary: {},
           communities: null,
