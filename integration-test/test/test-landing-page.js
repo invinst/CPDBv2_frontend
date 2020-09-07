@@ -272,6 +272,7 @@ describe('landing page', function () {
       const forthCard = landingPage.officersByAllegationCarousel.getNthCardSelector(4);
       const carouselSelector = landingPage.officersByAllegationCarousel.carouselSelector;
       landingPage.officersByAllegationCarousel.rightArrow.waitForDisplayed();
+      landingPage.officersByAllegationCarousel.rightArrow.scrollIntoView();
       forthCard.isDisplayedInViewport().should.be.false();
 
       browser.simulateMouseWheel(carouselSelector, 0, 10);
@@ -339,7 +340,7 @@ describe('landing page', function () {
     });
 
     it('should navigate to the last slide by clicking right arrow', function () {
-      browser.setWindowRect(0, 0, 1200, 1000);
+      browser.setWindowRect(0, 0, 1200, 1200);
 
       landingPage.topLawsuitsCarousel.cards.count.should.equal(20);
       landingPage.topLawsuitsCarousel.rightArrow.waitForDisplayed();
