@@ -75,7 +75,7 @@ class LandingPage extends Component {
             <RecentActivityContainer className='landing-page-carousel' pathname={ pathname }/>
             <RecentDocumentContainer className='landing-page-carousel' pathname={ pathname }/>
             <ComplaintSummariesContainer className='landing-page-carousel' pathname={ pathname }/>
-            <TopLawsuits className='landing-page-carousel' pathname={ pathname } />
+            <TopLawsuits className='landing-page-carousel top-lawsuit' pathname={ pathname } />
           </div>
           <FooterContainer/>
         </div>

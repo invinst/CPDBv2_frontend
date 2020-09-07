@@ -115,7 +115,7 @@ class TopLawsuitsCarouselSection extends CarouselSection {
     const cardSelector = '//a[contains(@class, "top-lawsuit-card")]';
     super(
       '',
-      '//div[@class="test--landing-carousel-lawsuit landing-page-carousel"]',
+      '//div[contains(@class, "test--landing-carousel-lawsuit")] ',
       cardSelector
     );
   }
