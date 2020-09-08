@@ -53,7 +53,7 @@ export default class ListWidget extends Component {
                     </div>
                   </Panel>
                 </Collapse>
-              ) : restItems.map(this.renderItem)
+              ) : <div className='list-widget-rest-items'>{ restItems.map(this.renderItem) }</div>
             }
           </ul>
         </div>

@@ -87,7 +87,7 @@ export default class OfficerPane extends Component {
     ];
     return (
       <div className={ styles.wrapper }>
-        <div className={ styles.officerPane }>
+        <div className={ cx(styles.officerPane, { 'not-scrollable': !yScrollable }) }>
           {
             pinnable &&
             <PinButton
