@@ -268,13 +268,23 @@ describe('Search Page', function () {
 
     searchPage.suggestionTags.waitForDisplayed();
     searchPage.suggestionTagCount().should.equal(5);
-    searchPage.suggestionTag(1).getText().should.equal('OFFICER');
-    searchPage.suggestionTag(2).getText().should.equal('COMMUNITY');
-    searchPage.suggestionTag(3).getText().should.equal('CR');
-    searchPage.suggestionTag(4).getText().should.equal('TRR');
-    searchPage.suggestionTag(5).getText().should.equal('LAWSUIT');
+    searchPage.suggestionTag(1).getText().should.equal('LAWSUIT');
+    searchPage.suggestionTag(2).getText().should.equal('OFFICER');
+    searchPage.suggestionTag(3).getText().should.equal('COMMUNITY');
+    searchPage.suggestionTag(4).getText().should.equal('CR');
+    searchPage.suggestionTag(5).getText().should.equal('TRR');
 
     searchPage.suggestionTag(1).click();
+    searchPage.input.getValue().should.eql('lawsuit:jerome');
+    searchPage.lawsuitResultsSection.results.waitForDisplayed();
+    searchPage.lawsuitResultsSection.resultsCount('LAWSUIT').should.equal(2);
+    searchPage.lawsuitResultsSection.firstResultText.getText().should.equal('EXCESSIVE FORCE/MINOR • March 16, 2000');
+    searchPage.lawsuitResultsSection.secondResultText.getText().should.equal('EXCESSIVE FORCE/MINOR • April 16, 2000');
+    searchPage.officerResultsSection.results.waitForDisplayed(500, true);
+    searchPage.searchCommunityResultsSection.results.waitForDisplayed(500, true);
+    searchPage.crResultsSection.results.waitForDisplayed(500, true);
+
+    searchPage.suggestionTag(2).click();
     searchPage.input.getValue().should.eql('officer:jerome');
     searchPage.officerResultsSection.results.waitForDisplayed();
     searchPage.officerResultsSection.resultsCount('OFFICER').should.equal(20);
@@ -284,7 +294,7 @@ describe('Search Page', function () {
     searchPage.crResultsSection.results.waitForDisplayed(500, true);
     searchPage.trrResultsSection.results.waitForDisplayed(500, true);
 
-    searchPage.suggestionTag(2).click();
+    searchPage.suggestionTag(3).click();
     searchPage.input.getValue().should.eql('community:jerome');
     searchPage.searchCommunityResultsSection.results.waitForDisplayed();
     searchPage.searchCommunityResultsSection.resultsCount('COMMUNITY').should.equal(1);
@@ -293,7 +303,7 @@ describe('Search Page', function () {
     searchPage.crResultsSection.results.waitForDisplayed(500, true);
     searchPage.trrResultsSection.results.waitForDisplayed(500, true);
 
-    searchPage.suggestionTag(3).click();
+    searchPage.suggestionTag(4).click();
     searchPage.input.getValue().should.eql('cr:jerome');
     searchPage.crResultsSection.results.waitForDisplayed();
     searchPage.crResultsSection.resultsCount('CR').should.equal(2);
@@ -303,22 +313,12 @@ describe('Search Page', function () {
     searchPage.searchCommunityResultsSection.results.waitForDisplayed(500, true);
     searchPage.trrResultsSection.results.waitForDisplayed(500, true);
 
-    searchPage.suggestionTag(4).click();
+    searchPage.suggestionTag(5).click();
     searchPage.input.getValue().should.eql('trr:jerome');
     searchPage.trrResultsSection.results.waitForDisplayed();
     searchPage.trrResultsSection.resultsCount('TRR').should.equal(2);
     searchPage.trrResultsSection.firstResultText.getText().should.equal('Member Presence');
     searchPage.trrResultsSection.secondResultText.getText().should.equal('Verbal Commands');
-    searchPage.officerResultsSection.results.waitForDisplayed(500, true);
-    searchPage.searchCommunityResultsSection.results.waitForDisplayed(500, true);
-    searchPage.crResultsSection.results.waitForDisplayed(500, true);
-
-    searchPage.suggestionTag(5).click();
-    searchPage.input.getValue().should.eql('lawsuit:jerome');
-    searchPage.lawsuitResultsSection.results.waitForDisplayed();
-    searchPage.lawsuitResultsSection.resultsCount('LAWSUIT').should.equal(2);
-    searchPage.lawsuitResultsSection.firstResultText.getText().should.equal('EXCESSIVE FORCE/MINOR • March 16, 2000');
-    searchPage.lawsuitResultsSection.secondResultText.getText().should.equal('EXCESSIVE FORCE/MINOR • April 16, 2000');
     searchPage.officerResultsSection.results.waitForDisplayed(500, true);
     searchPage.searchCommunityResultsSection.results.waitForDisplayed(500, true);
     searchPage.crResultsSection.results.waitForDisplayed(500, true);
@@ -338,11 +338,11 @@ describe('Search Page', function () {
 
     searchPage.officerResultsSection.results.waitForDisplayed();
     searchPage.suggestionTagCount().should.equal(5);
-    searchPage.suggestionTag(1).getText().should.equal('OFFICER');
-    searchPage.suggestionTag(2).getText().should.equal('COMMUNITY');
-    searchPage.suggestionTag(3).getText().should.equal('CR');
-    searchPage.suggestionTag(4).getText().should.equal('TRR');
-    searchPage.suggestionTag(5).getText().should.equal('LAWSUIT');
+    searchPage.suggestionTag(1).getText().should.equal('LAWSUIT');
+    searchPage.suggestionTag(2).getText().should.equal('OFFICER');
+    searchPage.suggestionTag(3).getText().should.equal('COMMUNITY');
+    searchPage.suggestionTag(4).getText().should.equal('CR');
+    searchPage.suggestionTag(5).getText().should.equal('TRR');
 
     searchPage.officerResultsSection.resultsCount('OFFICER').should.equal(20);
     searchPage.officerResultsSection.firstResultText.getText().should.equal('Jerome Finnigan');
@@ -374,11 +374,11 @@ describe('Search Page', function () {
 
     searchPage.suggestionGroup.waitForDisplayed();
     searchPage.suggestionTagCount().should.equal(5);
-    searchPage.suggestionTag(1).getText().should.equal('OFFICER');
-    searchPage.suggestionTag(2).getText().should.equal('COMMUNITY');
-    searchPage.suggestionTag(3).getText().should.equal('CR');
-    searchPage.suggestionTag(4).getText().should.equal('TRR');
-    searchPage.suggestionTag(5).getText().should.equal('LAWSUIT');
+    searchPage.suggestionTag(1).getText().should.equal('LAWSUIT');
+    searchPage.suggestionTag(2).getText().should.equal('OFFICER');
+    searchPage.suggestionTag(3).getText().should.equal('COMMUNITY');
+    searchPage.suggestionTag(4).getText().should.equal('CR');
+    searchPage.suggestionTag(5).getText().should.equal('TRR');
 
     searchPage.firstLoadMoreButton.click();
 
@@ -422,13 +422,13 @@ describe('Search Page', function () {
 
     searchPage.suggestionGroup.waitForDisplayed();
     searchPage.suggestionTagCount().should.equal(5);
-    searchPage.suggestionTag(1).getText().should.equal('OFFICER');
-    searchPage.suggestionTag(2).getText().should.equal('COMMUNITY');
-    searchPage.suggestionTag(3).getText().should.equal('CR');
-    searchPage.suggestionTag(4).getText().should.equal('TRR');
-    searchPage.suggestionTag(5).getText().should.equal('LAWSUIT');
+    searchPage.suggestionTag(1).getText().should.equal('LAWSUIT');
+    searchPage.suggestionTag(2).getText().should.equal('OFFICER');
+    searchPage.suggestionTag(3).getText().should.equal('COMMUNITY');
+    searchPage.suggestionTag(4).getText().should.equal('CR');
+    searchPage.suggestionTag(5).getText().should.equal('TRR');
 
-    times(6, () => browser.keys('ArrowDown'));
+    times(8, () => browser.keys('ArrowDown'));
     browser.keys('Enter');
     browser.pause(100);
 
@@ -717,7 +717,7 @@ describe('Search Page', function () {
       context('recent section have more than 3 items', function () {
         beforeEach(function () {
           performSearch('Ke');
-          clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly', true);
+          clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly');
           backToSearch();
           clickOnSearchResultItem(searchPage.firstCrResult, 'CR # CR123 • April 23, 2004');
           backToSearch();
@@ -862,7 +862,7 @@ describe('Search Page', function () {
           .reply(200, recentSearchItemsData);
 
         performSearch('Geography');
-        clickOnSearchResultItem(searchPage.firstSearchTermsResult, 'Geography - Communities', true);
+        clickOnSearchResultItem(searchPage.firstSearchTermsResult, 'Geography - Communities');
 
         clearSearchInput();
         performSearch('Kelly');
@@ -889,9 +889,9 @@ describe('Search Page', function () {
 
         clearSearchInput();
         performSearch('Ke');
-        clickOnSearchResultItem(searchPage.firstLawsuitResult, 'EXCESSIVE FORCE/MINOR');
+        clickOnSearchResultItem(searchPage.firstLawsuitResult, 'EXCESSIVE FORCE/MINOR', true);
         backToSearch();
-        clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly', true);
+        clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly');
         backToSearch();
         clickOnSearchResultItem(searchPage.firstCrResult, 'CR # CR123 • April 23, 2004');
         backToSearch();
@@ -986,8 +986,7 @@ describe('Search Page', function () {
       performSearch('Ke');
       searchPage.secondOfficerResult.waitForDisplayed();
       searchPage.secondOfficerResult.getText().should.containEql('John Kelly');
-      browser.keys('ArrowDown');
-      browser.keys('ArrowDown');
+      times(4, () => browser.keys('ArrowDown'));
       browser.keys('Enter');
 
       backToSearch();
@@ -1058,7 +1057,7 @@ describe('Search Page', function () {
     searchPage.suggestionGroup.waitForDisplayed();
     searchPage.contentWrapper.waitForDisplayed();
     browser.keys('Enter');
-    searchPage.currentBasePath.should.equal('/officer/1/bernadette-kelly/');
+    searchPage.currentBasePath.should.equal('/lawsuit/00-L-1/');
   });
 
   it('should go back to officer page when user click on close button', function () {
@@ -1121,7 +1120,8 @@ describe('Search Page', function () {
 
     searchPage.open();
     searchPage.recentSuggestionItem(1).getText().should.equal(
-      'Bernadette Kelly\n45-year-old, White, Male, 10 Complaints, 2 Sustained'
+      'EXCESSIVE FORCE/MINOR • March 16, 2000'+
+      '\nHutchinson was shot and killed outside a bar near the Addison Red Line stop.'
     );
   });
 
@@ -1131,14 +1131,14 @@ describe('Search Page', function () {
 
     searchPage.suggestionGroup.waitForDisplayed();
     searchPage.contentWrapper.waitForDisplayed();
-    searchPage.firstOfficerResult.getAttribute('class').should.containEql('test--focused');
-    searchPage.secondOfficerResult.getAttribute('class').should.not.containEql('test--focused');
 
-    browser.keys('ArrowDown');
-    browser.keys('ArrowDown');
+    searchPage.firstLawsuitResult.getAttribute('class').should.containEql('test--focused');
+    searchPage.secondLawsuitResult.getAttribute('class').should.not.containEql('test--focused');
 
-    searchPage.firstOfficerResult.getAttribute('class').should.not.containEql('test--focused');
-    searchPage.secondOfficerResult.getAttribute('class').should.containEql('test--focused');
+    times(2, () => browser.keys('ArrowDown'));
+
+    searchPage.firstLawsuitResult.getAttribute('class').should.not.containEql('test--focused');
+    searchPage.secondLawsuitResult.getAttribute('class').should.containEql('test--focused');
   });
 
   it('should focus on More button after the last suggestion item when user press the navigation keys', function () {
@@ -1150,7 +1150,7 @@ describe('Search Page', function () {
 
     searchPage.firstLoadMoreButton.getAttribute('class').should.not.containEql('test--focused');
 
-    times(6, () => browser.keys('ArrowDown'));
+    times(8, () => browser.keys('ArrowDown'));
 
     searchPage.firstLoadMoreButton.getAttribute('class').should.containEql('test--focused');
   });
@@ -1171,13 +1171,13 @@ describe('Search Page', function () {
     searchPage.firstOfficerResult.waitForDisplayed();
     browser.keys('Enter');
 
-    searchPage.currentBasePath.should.eql('/officer/1/bernadette-kelly/');
+    searchPage.currentBasePath.should.eql('/lawsuit/00-L-1/');
   });
 
   it('should keep search results after coming back from other page', function () {
     searchPage.open();
     performSearch('Ke');
-    clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly', true);
+    clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly');
 
     backToSearch();
     searchPage.input.getValue().should.containEql('Ke');
@@ -1309,6 +1309,8 @@ describe('Search Page', function () {
       browser.setWindowRect(0, 0, 1000, 800);
       searchPage.input.waitForDisplayed();
       searchPage.input.setValue('Ke');
+      searchPage.officerResultsSection.firstResultText.waitForDisplayed();
+      searchPage.officerResultsSection.firstResultText.click();
       searchPage.officerPreviewPaneSection.radarChart.waitForDisplayed();
       searchPage.officerPreviewPaneSection.radarChart
         .getCSSProperty('background-color').value.should.eql('rgba(245,37,36,1)');
@@ -1319,8 +1321,8 @@ describe('Search Page', function () {
       searchPage.input.waitForDisplayed();
       searchPage.input.setValue('Ke');
       searchPage.clearSearchButton.waitForDisplayed();
-      searchPage.firstOfficerResult.waitForDisplayed();
-
+      searchPage.officerResultsSection.firstResultText.waitForDisplayed();
+      searchPage.officerResultsSection.firstResultText.click();
       searchPage.officerPreviewPaneSection.wrapper.waitForDisplayed();
       searchPage.officerPreviewPaneSection.gradient.waitForDisplayed();
     });
@@ -1330,7 +1332,8 @@ describe('Search Page', function () {
       searchPage.input.waitForDisplayed();
       searchPage.input.setValue('Ke');
       searchPage.clearSearchButton.waitForDisplayed();
-      searchPage.firstOfficerResult.waitForDisplayed();
+      searchPage.officerResultsSection.firstResultText.waitForDisplayed();
+      searchPage.officerResultsSection.firstResultText.click();
       searchPage.officerPreviewPaneSection.wrapper.waitForDisplayed();
       searchPage.officerPreviewPaneSection.gradient.waitForDisplayed(1000, true);
     });
@@ -1364,7 +1367,8 @@ describe('Search Page', function () {
     it('should redirect to officer page when click on view profile button', function () {
       searchPage.input.waitForDisplayed();
       searchPage.input.setValue('Ke');
-
+      searchPage.officerResultsSection.firstResultText.waitForDisplayed();
+      searchPage.officerResultsSection.firstResultText.click();
       searchPage.officerPreviewPaneSection.viewOfficerButton.waitForDisplayed();
       searchPage.officerPreviewPaneSection.viewOfficerButton.click();
       browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/$/);
@@ -1373,7 +1377,8 @@ describe('Search Page', function () {
     it('should add/remove officer to/from pinboard when click on pin button', function () {
       searchPage.input.waitForDisplayed();
       searchPage.input.setValue('Ke');
-
+      searchPage.officerResultsSection.firstResultText.waitForDisplayed();
+      searchPage.officerResultsSection.firstResultText.click();
       searchPage.officerPreviewPaneSection.pinButton.waitForDisplayed();
       searchPage.pinboardButton.getText().should.eql('Your pinboard is empty');
 
@@ -1401,7 +1406,8 @@ describe('Search Page', function () {
     it('should redirect to unit page when click on unit item on officer info widget', function () {
       searchPage.input.waitForDisplayed();
       searchPage.input.setValue('Ke');
-
+      searchPage.officerResultsSection.firstResultText.waitForDisplayed();
+      searchPage.officerResultsSection.firstResultText.click();
       searchPage.officerPreviewPaneSection.unitItem.waitForDisplayed();
       searchPage.officerPreviewPaneSection.unitItem.click();
       browser.getUrl().should.match(/\/unit\/\d+\/$/);
@@ -1559,11 +1565,11 @@ describe('Search Page with query parameter', function () {
 
     searchPage.officerResultsSection.results.waitForDisplayed();
     searchPage.suggestionTagCount().should.equal(5);
-    searchPage.suggestionTag(1).getText().should.equal('OFFICER');
-    searchPage.suggestionTag(2).getText().should.equal('COMMUNITY');
-    searchPage.suggestionTag(3).getText().should.equal('CR');
-    searchPage.suggestionTag(4).getText().should.equal('TRR');
-    searchPage.suggestionTag(5).getText().should.equal('LAWSUIT');
+    searchPage.suggestionTag(1).getText().should.equal('LAWSUIT');
+    searchPage.suggestionTag(2).getText().should.equal('OFFICER');
+    searchPage.suggestionTag(3).getText().should.equal('COMMUNITY');
+    searchPage.suggestionTag(4).getText().should.equal('CR');
+    searchPage.suggestionTag(5).getText().should.equal('TRR');
 
     searchPage.officerResultsSection.resultsCount('OFFICER').should.equal(20);
     searchPage.officerResultsSection.firstResultText.getText().should.equal('Jerome Finnigan');
@@ -1640,7 +1646,7 @@ describe('Search Page with pinboard functionalities', function () {
       clickOnSearchResultItem(searchPage.firstTrrResult, 'Member Presence');
       backToSearch();
 
-      clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly', true);
+      clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly');
       backToSearch();
       clearSearchInput();
       searchPage.firstRecentPinButton.click();

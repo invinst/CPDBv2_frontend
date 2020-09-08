@@ -1,8 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { stub } from 'sinon';
 
 import CitySummary from 'components/landing-page/heat-map/summary-panel/city-summary';
-
+import * as DOMUtils from 'utils/dom';
 
 describe('CitySummary component', function () {
   it('should render enough section', function () {
@@ -25,5 +26,13 @@ describe('CitySummary component', function () {
     wrapper.find('.total-lawsuit-settlements').text().should.equal('$10.0 billion');
     wrapper.find('.allegation-count').text().should.equal('123,456');
     wrapper.find('.complaint-info-summary').text().should.containEql(`Since ${citySummary.startYear}`);
+  });
+
+  it('should scroll to top lawsuit row when click on read lawsuit stories', function () {
+    const scrollToElementStub = stub(DOMUtils, 'scrollToElement');
+    const wrapper = shallow(<CitySummary />);
+    const readLawsuitStories = wrapper.find('.lawsuit-info .info-stories');
+    readLawsuitStories.simulate('click');
+    scrollToElementStub.should.be.calledWith('.top-lawsuit');
   });
 });

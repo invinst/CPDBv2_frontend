@@ -110,6 +110,17 @@ class ComplaintSummariesCarouselSection extends CarouselSection {
   }
 }
 
+class TopLawsuitsCarouselSection extends CarouselSection {
+  constructor() {
+    const cardSelector = '//a[contains(@class, "top-lawsuit-card")]';
+    super(
+      '',
+      '//div[contains(@class, "test--landing-carousel-lawsuit")] ',
+      cardSelector
+    );
+  }
+}
+
 class GenericModalSection extends Section {
   constructor() {
     super();
@@ -187,6 +198,7 @@ class LandingPage extends Page {
   recentActivityCarousel = new RecentActivityCarouselSection();
   officersByAllegationCarousel = new OfficersByAllegationCarouselSection();
   complaintSummariesCarousel = new ComplaintSummariesCarouselSection();
+  topLawsuitsCarousel = new TopLawsuitsCarouselSection();
   recentDocumentCarousel = new RecentDocumentCarouselSection();
   genericModalSection = new GenericModalSection();
   heatMapSection = new HeatMapSection();

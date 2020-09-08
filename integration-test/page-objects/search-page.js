@@ -182,6 +182,8 @@ class SearchPage extends Page {
       secondDateCrResult: '.test--suggestion-group .suggestion-item-DATE-CR-CR456',
       firstLawsuitResult: '(//*[contains(@class, "test--suggestion-group")]' +
         ' //*[contains(@class, "suggestion-item-LAWSUIT")])[1]',
+      secondLawsuitResult: '(//*[contains(@class, "test--suggestion-group")]' +
+        ' //*[contains(@class, "suggestion-item-LAWSUIT")])[2]',
       firstTrrResult: '.test--suggestion-group .suggestion-item-TRR-123',
       secondDateTrrResult: '.test--suggestion-group .suggestion-item-DATE-TRR-456',
       firstDateOfficerResult: '.test--suggestion-group .suggestion-item-DATE-OFFICERS-123',

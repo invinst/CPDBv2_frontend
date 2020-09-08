@@ -137,6 +137,8 @@ describe('Disable pinboard feature', function () {
       searchPage.input.waitForDisplayed();
       searchPage.input.setValue('Ke');
 
+      searchPage.firstOfficerResult.waitForDisplayed();
+      searchPage.firstOfficerResult.click();
       searchPage.officerPreviewPaneSection.wrapper.waitForDisplayed();
       searchPage.officerPreviewPaneSection.pinButton.waitForExist();
       searchPage.officerPreviewPaneSection.pinButton.isDisplayed().should.be.false();
@@ -158,7 +160,7 @@ describe('Disable pinboard feature', function () {
       };
 
       performSearch(searchPage, 'Ke');
-      clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly', true);
+      clickOnSearchResultItem(searchPage.firstOfficerResult, 'Bernadette Kelly');
       backToSearch();
       clickOnSearchResultItem(searchPage.firstCrResult, 'CR # CR123 • April 23, 2004');
       backToSearch();

@@ -272,6 +272,7 @@ describe('landing page', function () {
       const forthCard = landingPage.officersByAllegationCarousel.getNthCardSelector(4);
       const carouselSelector = landingPage.officersByAllegationCarousel.carouselSelector;
       landingPage.officersByAllegationCarousel.rightArrow.waitForDisplayed();
+      landingPage.officersByAllegationCarousel.rightArrow.scrollIntoView();
       forthCard.isDisplayedInViewport().should.be.false();
 
       browser.simulateMouseWheel(carouselSelector, 0, 10);
@@ -322,6 +323,29 @@ describe('landing page', function () {
       landingPage.complaintSummariesCarousel.rightArrow.waitForDisplayed();
       times(6, () => landingPage.complaintSummariesCarousel.rightArrow.click());
       landingPage.complaintSummariesCarousel.rightArrow.waitForDisplayed(2000, true);
+    });
+  });
+
+  describe('Top Lawsuits Carousel', function () {
+    it('should show initial carousel', function () {
+      landingPage.topLawsuitsCarousel.cards.count.should.equal(20);
+      landingPage.topLawsuitsCarousel.rightArrow.waitForDisplayed();
+      landingPage.topLawsuitsCarousel.leftArrow.waitForDisplayed(2000, true);
+    });
+
+    it('should go to lawsuit page when click to card', function () {
+      const firstCard = landingPage.topLawsuitsCarousel.cards;
+      firstCard.click();
+      browser.waitForUrl(url => url.should.containEql('/lawsuit/00-L-1234/'), 500);
+    });
+
+    it('should navigate to the last slide by clicking right arrow', function () {
+      browser.setWindowRect(0, 0, 1200, 1200);
+
+      landingPage.topLawsuitsCarousel.cards.count.should.equal(20);
+      landingPage.topLawsuitsCarousel.rightArrow.waitForDisplayed();
+      times(6, () => landingPage.topLawsuitsCarousel.rightArrow.click());
+      landingPage.topLawsuitsCarousel.rightArrow.waitForDisplayed(2000, true);
     });
   });
 

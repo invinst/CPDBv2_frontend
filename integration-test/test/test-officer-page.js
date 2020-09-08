@@ -56,7 +56,7 @@ describe('officer page', function () {
   });
 
   afterEach(function () {
-    browser.setWindowRect(0, 0, 1000, 1000);
+    browser.setWindowRect(0, 0, 1000, 1200);
   });
 
   it('should display officer summary', function () {

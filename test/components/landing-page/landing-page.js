@@ -11,6 +11,7 @@ import RecentActivityContainer from 'containers/landing-page/recent-activity';
 import RecentDocumentContainer from 'containers/landing-page/recent-document';
 import OfficersByAllegationContainer from 'containers/landing-page/officers-by-allegation';
 import ComplaintSummariesContainer from 'containers/landing-page/complaint-summaries';
+import TopLawsuitsContainer from 'containers/landing-page/top-lawsuits';
 import LandingPage from 'components/landing-page';
 import SlimHeader from 'components/headers/slim-header';
 import FooterContainer from 'containers/footer-container';
@@ -19,6 +20,7 @@ import styles from 'components/landing-page/landing-page.sass';
 import { RawOfficerCardFactory } from 'utils/test/factories/activity-grid';
 import { RawDocumentCardFactory } from 'utils/test/factories/attachment';
 import { ComplaintSummaryFactory } from 'utils/test/factories/complaint';
+import { TopLawsuitFactory } from 'utils/test/factories/lawsuit';
 import * as DomUtils from 'utils/dom';
 import * as intercomUtils from 'utils/intercom';
 
@@ -63,6 +65,12 @@ const store = mockStore({
         ComplaintSummaryFactory.build(),
       ],
       headerEditModeOn: false,
+    },
+    topLawsuits: {
+      cards: [
+        TopLawsuitFactory.build(),
+        TopLawsuitFactory.build(),
+      ],
     },
   },
   breadcrumb: {
@@ -131,6 +139,7 @@ describe('LandingPage component', function () {
     wrapper.find(RecentActivityContainer).exists().should.be.true();
     wrapper.find(RecentDocumentContainer).exists().should.be.true();
     wrapper.find(ComplaintSummariesContainer).exists().should.be.true();
+    wrapper.find(TopLawsuitsContainer).exists().should.be.true();
     wrapper.find(FooterContainer).exists().should.be.true();
 
     const searchPage = wrapper.find(SearchPageContainer);

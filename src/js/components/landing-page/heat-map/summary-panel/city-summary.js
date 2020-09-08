@@ -6,11 +6,16 @@ import config from 'config';
 import OutboundLink from 'components/common/outbound-link';
 
 import styles from './city-summary.sass';
+import { scrollToElement } from 'utils/dom';
 
 
 export default function CitySummary(props) {
   const { citySummary, isActive, onClick } = props;
   const { startYear, allegationCount, disciplinePercentage, totalLawsuitSettlements } = citySummary;
+
+  const handleLawsuitSummaryClick = () => {
+    scrollToElement('.top-lawsuit');
+  };
 
   return (
     <div className={ cx( styles.citySummary, 'link--transition test--city-summary', { 'is-active': isActive }) }>
@@ -29,7 +34,7 @@ export default function CitySummary(props) {
           <span className='total-lawsuit-settlements'>${totalLawsuitSettlements}</span>&nbsp;
           in settlements in police misconduct cases.
         </div>
-        <OutboundLink href='' className='info-stories'>
+        <OutboundLink href='' className='info-stories' onClick={ handleLawsuitSummaryClick }>
           Read the lawsuit stories
         </OutboundLink>
       </div>
