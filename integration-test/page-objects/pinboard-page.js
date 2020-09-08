@@ -341,7 +341,7 @@ class PreviewPane extends Section {
       trrTitle: '.trr-preview-pane-title-title',
       trrFirstInfo: '//div[@class="trr-preview-pane-info-row"][1]',
       trrSecondInfo: '//div[@class="trr-preview-pane-info-row"][2]',
-      trrOfficerRadarChart: '//li[contains(@class, "list-widget-item")]//*[name()="svg" and contains(@class, "radar")]',
+      trrOfficerRadarChart: '//*[contains(@class, "list-widget-item")] //*[name()="svg" and contains(@class, "radar")]',
     });
   }
 }

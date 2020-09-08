@@ -1308,8 +1308,8 @@ describe('Search Page', function () {
     beforeEach(function () {
       searchPage.input.waitForDisplayed();
       searchPage.input.setValue('Ke');
-      searchPage.firstLawsuitResult.waitForDisplayed();
-      searchPage.firstLawsuitResult.click();
+      searchPage.secondLawsuitResult.waitForDisplayed();
+      searchPage.secondLawsuitResult.click();
       searchPage.lawsuitPreviewPaneSection.wrapper.waitForDisplayed();
     });
 

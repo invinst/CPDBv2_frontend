@@ -36,6 +36,28 @@ export const defaultLawsuitSearchResult = [
           'percentile_allegation_civilian': '5.5000',
           'percentile_allegation_internal': '6.6000',
         },
+      ],
+    }
+  ),
+  RawLawsuitSuggestion.build(
+    {
+      id: '26',
+      to: '/lawsuit/00-L-2/',
+      'case_no': '00-L-2',
+      'summary': 'Hutchinson was shot and killed outside a bar near the Addison Red Line stop.',
+      'primary_cause': 'EXCESSIVE FORCE/MINOR',
+      'address': '200 E. Chicago Ave., Chicago IL',
+      'location': 'near intersection of N Wavelandand Sheffield',
+      'incident_date': '2000-04-16',
+      'officers': [
+        {
+          'id': 3,
+          'full_name': 'Lorem Ipsum',
+          'allegation_count': 1,
+          'percentile_trr': '3.3000',
+          'percentile_allegation_civilian': '1.1000',
+          'percentile_allegation_internal': '2.2000',
+        },
         {
           'id': 3,
           'full_name': 'Lorem Ipsum',
@@ -61,26 +83,6 @@ export const defaultLawsuitSearchResult = [
           'percentile_allegation_internal': '6.6000',
         },
       ],
-    }
-  ),
-  RawLawsuitSuggestion.build(
-    {
-      id: '26',
-      to: '/lawsuit/00-L-2/',
-      'case_no': '00-L-2',
-      'summary': 'Hutchinson was shot and killed outside a bar near the Addison Red Line stop.',
-      'primary_cause': 'EXCESSIVE FORCE/MINOR',
-      'address': '200 E. Chicago Ave., Chicago IL',
-      'location': 'near intersection of N Wavelandand Sheffield',
-      'incident_date': '2000-04-16',
-      'officers': [{
-        'id': 3,
-        'full_name': 'Lorem Ipsum',
-        'allegation_count': 1,
-        'percentile_trr': '3.3000',
-        'percentile_allegation_civilian': '1.1000',
-        'percentile_allegation_internal': '2.2000',
-      }],
     }
   ),
 ];
