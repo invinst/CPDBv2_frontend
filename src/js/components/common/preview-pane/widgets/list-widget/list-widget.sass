@@ -2,7 +2,7 @@
 @import 'list-widget-item'
 
 \:local(.list-widget)
-  padding: 18px 16px 8px 16px
+  padding: 18px 0 8px 0
   background-color: white
   border: 1px solid $alto-dark-color
   border-radius: 2px
@@ -10,6 +10,7 @@
   box-sizing: border-box
 
   .list-widget-header
+    padding: 0 16px
     font-size: 14px
     font-weight: 600
     line-height: 18px
@@ -27,12 +28,15 @@
     &:hover
       color: $blue-ribbon-color
 
+  .list-widget-first-items, .list-widget-rest-items
+    padding: 0 16px
+
   .list-widget-collapse
     border: none
 
     .rc-collapse-header
       background-color: white
-      padding: 8px 0
+      padding: 8px 16px
       -webkit-user-select: none
       -moz-user-select: none
       -ms-user-select: none
@@ -49,3 +53,8 @@
 
     .rc-collapse-content-box
       margin: 0
+
+  .rc-collapse-item-active
+    &.disable-collapsible
+      .rc-collapse-header
+        display: none

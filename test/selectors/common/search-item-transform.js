@@ -363,6 +363,36 @@ describe('searchItemTransform', function () {
         'primary_cause': 'Excessive force',
         'summary': 'Lawsuit summary',
         'incident_date': '2016-09-11',
+        'address': '',
+        'location': 'near intersection of N Waveland and Sheffield',
+        'plaintiffs': [
+          {
+            'name': 'Arthur Hutchinson',
+          },
+        ],
+        'officers': [
+          {
+            'id': 412,
+            'full_name': 'Sidney Allgood',
+            'allegation_count': 3,
+          },
+          {
+            'percentile_allegation': '36.0395',
+            'id': 24379,
+            'full_name': 'William Rodriguez',
+            'allegation_count': 3,
+          },
+          {
+            'percentile_allegation': '30.9271',
+            'percentile_trr': '0.0000',
+            'percentile_allegation_civilian': '29.1229',
+            'percentile_allegation_internal': '77.7431',
+            'id': 19002,
+            'full_name': 'Richard Mierniczak',
+            'allegation_count': 6,
+          },
+        ],
+        'total_payments': '60000.00',
       };
 
       it('when primay_cause is not null', function () {
@@ -379,6 +409,70 @@ describe('searchItemTransform', function () {
           text: 'Excessive force • September 11, 2016',
           subText: 'Lawsuit summary',
           recentText: 'Excessive force • September 11, 2016',
+          summary: 'Lawsuit summary',
+          totalPaymentsDisplay: '60.0K',
+          location: 'near intersection of N Waveland and Sheffield',
+          officers: [
+            {
+              'count': 3,
+              'id': 412,
+              'name': 'Sidney Allgood',
+              'radarAxes': undefined,
+              'radarColor': undefined,
+              'url': '/officer/412/sidney-allgood/',
+            },
+            {
+              'count': 3,
+              'id': 24379,
+              'name': 'William Rodriguez',
+              'radarAxes': [
+                {
+                  'axis': 'Use of Force Reports',
+                  'value': NaN,
+                },
+                {
+                  'axis': 'Officer Allegations',
+                  'value': NaN,
+                },
+                {
+                  'axis': 'Civilian Allegations',
+                  'value': NaN,
+                },
+              ],
+              'radarColor': '#F4A298',
+              'url': '/officer/24379/william-rodriguez/',
+            },
+            {
+              'count': 6,
+              'id': 19002,
+              'name': 'Richard Mierniczak',
+              'radarAxes': [
+                {
+                  'axis': 'Use of Force Reports',
+                  'value': 0,
+                },
+                {
+                  'axis': 'Officer Allegations',
+                  'value': 77.7431,
+                },
+                {
+                  'axis': 'Civilian Allegations',
+                  'value': 29.1229,
+                },
+              ],
+              'radarColor': '#F4A298',
+              'url': '/officer/19002/richard-mierniczak/',
+            },
+          ],
+          plaintiffs: [
+            {
+              name: 'Arthur Hutchinson',
+            },
+          ],
+          primaryCause: 'Excessive force',
+          incidentDate: '2016-09-11',
+          address: '',
+          caseNo: '00-L-5230',
         });
       });
 

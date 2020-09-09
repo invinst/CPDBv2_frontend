@@ -18,7 +18,7 @@ const getCRTexts = (item) => {
   };
 };
 const getTRRTexts = (item) => ({ text: item['force_type'] || 'Unknown', recentText: item.id });
-const getlawsuitTexts = (item) => {
+const getLawsuitTexts = (item) => {
   const text = `${item['primary_cause'] || 'Unknown'}${dateText(item['incident_date'])}`;
   return {
     text,
@@ -42,7 +42,7 @@ const textsMap = {
   'DATE > TRR': getTRRTexts,
   CR: getCRTexts,
   TRR: getTRRTexts,
-  LAWSUIT: getlawsuitTexts,
+  LAWSUIT: getLawsuitTexts,
   UNIT: getUnitTexts,
   'INVESTIGATOR > CR': getCRTexts,
 };

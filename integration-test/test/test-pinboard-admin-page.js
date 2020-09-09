@@ -209,9 +209,9 @@ describe('Pinboard Admin Page', function () {
         pinnedOfficers.viewMoreButton.click();
         pinnedOfficers.items.count.should.equal(10);
 
-        pinnedOfficers.lastCollapsableItem.waitForDisplayed();
+        pinnedOfficers.lastCollapsibleItem.waitForDisplayed();
         pinnedOfficers.viewMoreButton.click();
-        pinnedOfficers.lastCollapsableItem.waitForDisplayed(1000, true);
+        pinnedOfficers.lastCollapsibleItem.waitForDisplayed(1000, true);
       });
 
       it('should show and hide other allegations when clicking on view more button', function () {
@@ -223,9 +223,9 @@ describe('Pinboard Admin Page', function () {
         pinnedAllegations.viewMoreButton.click();
         pinnedAllegations.items.count.should.equal(8);
 
-        pinnedAllegations.lastCollapsableItem.waitForDisplayed();
+        pinnedAllegations.lastCollapsibleItem.waitForDisplayed();
         pinnedAllegations.viewMoreButton.click();
-        pinnedAllegations.lastCollapsableItem.waitForDisplayed(1000, true);
+        pinnedAllegations.lastCollapsibleItem.waitForDisplayed(1000, true);
       });
 
       it('should show and hide other TRRs when clicking on view more button', function () {
@@ -237,9 +237,9 @@ describe('Pinboard Admin Page', function () {
         pinnedTRRs.viewMoreButton.click();
         pinnedTRRs.items.count.should.equal(9);
 
-        pinnedTRRs.lastCollapsableItem.waitForDisplayed();
+        pinnedTRRs.lastCollapsibleItem.waitForDisplayed();
         pinnedTRRs.viewMoreButton.click();
-        pinnedTRRs.lastCollapsableItem.waitForDisplayed(1000, true);
+        pinnedTRRs.lastCollapsibleItem.waitForDisplayed(1000, true);
       });
 
       it('should open pinboard page when clicking on View Pinboard', function () {
