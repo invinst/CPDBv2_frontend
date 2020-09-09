@@ -1,9 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { stub } from 'sinon';
+import { spy } from 'sinon';
 
 import CitySummary from 'components/landing-page/heat-map/summary-panel/city-summary';
-import * as DOMUtils from 'utils/dom';
 
 describe('CitySummary component', function () {
   it('should render enough section', function () {
@@ -29,10 +28,12 @@ describe('CitySummary component', function () {
   });
 
   it('should scroll to top lawsuit row when click on read lawsuit stories', function () {
-    const scrollToElementStub = stub(DOMUtils, 'scrollToElement');
-    const wrapper = shallow(<CitySummary />);
+    const scrollToTopLawsuitSpy = spy();
+    const wrapper = shallow(
+      <CitySummary scrollToTopLawsuit={ scrollToTopLawsuitSpy }/>
+    );
     const readLawsuitStories = wrapper.find('.lawsuit-info .info-stories');
     readLawsuitStories.simulate('click');
-    scrollToElementStub.should.be.calledWith('.top-lawsuit');
+    scrollToTopLawsuitSpy.should.be.called();
   });
 });

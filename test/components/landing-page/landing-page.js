@@ -23,6 +23,7 @@ import { ComplaintSummaryFactory } from 'utils/test/factories/complaint';
 import { TopLawsuitFactory } from 'utils/test/factories/lawsuit';
 import * as DomUtils from 'utils/dom';
 import * as intercomUtils from 'utils/intercom';
+import { HEADER_HEIGHT } from 'utils/constants';
 
 const mockStore = configureStore();
 const store = mockStore({
@@ -366,5 +367,25 @@ describe('LandingPage component', function () {
       </Provider>
     );
     intercomUtils.showIntercomLauncher.should.be.calledWith(true);
+  });
+
+  it('should scroll into top lawsuits when clicking on "read the lawsuit stories"', function () {
+    const scrollToTopLawsuitStub = stub(DomUtils, 'animatedScrollTo');
+    const wrapper = mount(
+      <Provider store={ store }>
+        <MemoryRouter>
+          <HelmetProvider>
+            <LandingPage
+              location={ { pathname: '/' } }
+            />
+          </HelmetProvider>
+        </MemoryRouter>
+      </Provider>
+    );
+
+    const readLawsuitStories = wrapper.find('.lawsuit-info div.info-stories');
+    readLawsuitStories.simulate('click');
+    scrollToTopLawsuitStub.should.be.called();
+    scrollToTopLawsuitStub.should.be.calledWith('topLawsuits', { offset: -HEADER_HEIGHT });
   });
 });

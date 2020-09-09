@@ -82,6 +82,13 @@ describe('landing page', function () {
     landingPage.genericModalSection.legalDisclaimerTitle.waitForDisplayed(2000, true);
   });
 
+  it('should scroll into top lawsuits carousel when clicking on "read lawsuit stories"', function () {
+    browser.setWindowRect(0, 0, 1200, 600);
+    landingPage.topLawsuitsCarousel.cards.isDisplayedInViewport().should.be.false();
+    landingPage.heatMapSection.citySummary.readTheLawsuitStories.click();
+    landingPage.topLawsuitsCarousel.cards.waitForDisplayedInViewport(5000);
+  });
+
   describe('Switch to Search Page Transition', function () {
     beforeEach(function () {
       browser.setWindowRect(0, 0, 1000, 1000);

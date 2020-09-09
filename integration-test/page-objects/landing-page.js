@@ -138,6 +138,7 @@ class CitySummary extends Section {
     this.prepareElementGetters({
       header: '.city-summary-header',
       totalLawsuitSettlements: '.total-lawsuit-settlements',
+      readTheLawsuitStories: '.lawsuit-info .info-stories',
       allegationCount: '.allegation-count',
       allegationDisciplineCount: '.allegation-discipline-count',
       exploreComplaintData: '(//*[contains(@class, "info-stories")])[2]',
