@@ -53,6 +53,7 @@ class PaymentSection extends Section {
     super('', '//*[contains(@class, "payment-section")]');
 
     this.prepareElementGetters({
+      breakdownTable: '//*[contains(@class, "payment-breakdown-table")]',
       detailRowSettlements: '.detail-row .settlement',
       detailRowLegalFees: '.detail-row .legal-fees',
       subtotalsSettlements: '//*[contains(@class, "subtotals")] //*[contains(@class, "settlement")]',
@@ -104,6 +105,7 @@ class LawsuitPage extends Page {
       primaryCause: '.primary-cause',
       attachmentImage: '.attachment-image',
       attachmentImageHref: '.attachment-image-href',
+      totalPaymentsSummary: '.total-payments-summary',
       pinButton: '.shareable-header-nav-bar div.pin-button',
       totalPaymentsValue: '.total-payments-summary-value',
       lastToast: '(//div[contains(@class, "Toastify__toast-body")])[last()]',
