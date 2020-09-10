@@ -1,21 +1,17 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
+import { noop } from 'lodash';
 
 import config from 'config';
 import OutboundLink from 'components/common/outbound-link';
 
 import styles from './city-summary.sass';
-import { scrollToElement } from 'utils/dom';
 
 
 export default function CitySummary(props) {
-  const { citySummary, isActive, onClick } = props;
+  const { citySummary, isActive, onClick, scrollToTopLawsuit } = props;
   const { startYear, allegationCount, disciplinePercentage, totalLawsuitSettlements } = citySummary;
-
-  const handleLawsuitSummaryClick = () => {
-    scrollToElement('.top-lawsuit');
-  };
 
   return (
     <div className={ cx( styles.citySummary, 'link--transition test--city-summary', { 'is-active': isActive }) }>
@@ -34,7 +30,7 @@ export default function CitySummary(props) {
           <span className='total-lawsuit-settlements'>${totalLawsuitSettlements}</span>&nbsp;
           in settlements in police misconduct cases.
         </div>
-        <OutboundLink href='' className='info-stories' onClick={ handleLawsuitSummaryClick }>
+        <OutboundLink href='' className='info-stories' onClick={ scrollToTopLawsuit }>
           Read the lawsuit stories
         </OutboundLink>
       </div>
@@ -63,8 +59,10 @@ CitySummary.propTypes = {
   citySummary: PropTypes.object,
   onClick: PropTypes.func,
   isActive: PropTypes.bool,
+  scrollToTopLawsuit: PropTypes.func,
 };
 
 CitySummary.defaultProps = {
   citySummary: {},
+  scrollToTopLawsuit: noop,
 };
