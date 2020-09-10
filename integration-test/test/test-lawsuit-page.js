@@ -96,6 +96,13 @@ describe('Lawsuit page', function () {
       browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/$/);
     });
 
+    it('should scroll to "payment section" when clicking on "total payments summary"', function () {
+      browser.setWindowRect(0, 0, 1200, 400);
+      lawsuitPage.payment.breakdownTable.isDisplayedInViewport().should.be.false();
+      lawsuitPage.totalPaymentsSummary.click();
+      lawsuitPage.payment.breakdownTable.waitForDisplayedInViewport(5000);
+    });
+
     describe('Pinboard function', function () {
       it('should display toast when pinning a officer card', function () {
         lawsuitPage.involvedOfficers.firstCard.pinButton.click();

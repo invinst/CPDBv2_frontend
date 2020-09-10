@@ -4,12 +4,14 @@ import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { HelmetProvider } from 'react-helmet-async';
 import { MemoryRouter } from 'react-router-dom';
-import { spy } from 'sinon';
+import { spy, stub } from 'sinon';
 
 import LawsuitPage from 'components/lawsuit-page';
 import InvolvedOfficers from 'components/lawsuit-page/involved-officers';
 import Summary from 'components/lawsuit-page/summary';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
+import * as DOMUtils from 'utils/dom';
+import { BREADCRUMB_HEIGHT } from 'utils/constants';
 
 describe('LawsuitPage component', function () {
   const mockStore = MockStore();
@@ -227,5 +229,26 @@ describe('LawsuitPage component', function () {
 
       wrapper.find('.location-description').exists().should.be.false();
     });
+  });
+
+  it('should call animatedScrollTo function when clicking on "total payments summary"', function f() {
+    const animatedScrollToStub = stub(DOMUtils, 'animatedScrollTo');
+
+    const wrapper = mount(
+      <Provider store={ store }>
+        <MemoryRouter>
+          <HelmetProvider>
+            <LawsuitPage
+              { ...lawsuit }
+              location={ null }
+            />
+          </HelmetProvider>
+        </MemoryRouter>
+      </Provider>
+    );
+
+    const totalPaymentsSummary = wrapper.find('.total-payments-summary');
+    totalPaymentsSummary.simulate('click');
+    animatedScrollToStub.should.be.calledWith('paymentSection', { offset: -BREADCRUMB_HEIGHT });
   });
 });
