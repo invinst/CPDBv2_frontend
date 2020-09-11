@@ -35,9 +35,9 @@ describe('RelatedComplaints component', function () {
     );
 
     const relatedComplaints = wrapper.find(RelatedComplaints).dive();
-    relatedComplaints.state('selectedDistance').should.equal('0.5mi');
+    relatedComplaints.state('selectedDistance').should.equal('0.5');
     const dropdown = relatedComplaints.find(Dropdown);
     dropdown.prop('onChange')('5 MILES');
-    relatedComplaints.state('selectedDistance').should.equal('5mi');
+    relatedComplaints.state('selectedDistance').should.equal('5');
   });
 });
