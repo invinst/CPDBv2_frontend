@@ -5,7 +5,7 @@ import { noop, pick } from 'lodash';
 import styles from './relevant-complaint-card.sass';
 import BaseComplaintCard from 'components/pinboard-page/relevant/common/base-complaint-card';
 import withUndoCard from 'components/pinboard-page/cards/with-undo-card';
-import { getComplaintMapUrl } from 'utils/mapbox';
+import { getStreetMapUrl } from 'utils/mapbox';
 import { UNDO_CARD_THEMES } from 'utils/constants';
 
 
@@ -24,7 +24,7 @@ export default function RelevantComplaintCard(props) {
     <div
       className={ styles.relevantComplaintMap }
       style={ point ? {
-        background: `url("${getComplaintMapUrl(point.lat, point.lon, 130, 176)}") no-repeat center/cover`,
+        background: `url("${getStreetMapUrl(point.lat, point.lon, 130, 176)}") no-repeat center/cover`,
       }: null }
     />
   );

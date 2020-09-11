@@ -8,7 +8,7 @@ import { isEmpty } from 'lodash';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import style from './lawsuit-page.sass';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
-import { getLawsuitMapUrl } from 'utils/mapbox';
+import { getStreetMapUrl } from 'utils/mapbox';
 import OutboundLink from 'components/common/outbound-link';
 import { imageStyle } from 'components/common/shared.style';
 import InvolvedOfficers from './involved-officers';
@@ -180,7 +180,7 @@ export default function LawsuitPage(props) {
                   <div
                     className='lawsuit-map'
                     style={ point ? {
-                      background: `url("${getLawsuitMapUrl(point.lat, point.lon, 234, 130)}") no-repeat center/cover`,
+                      background: `url("${getStreetMapUrl(point.lat, point.lon, 234, 130)}") no-repeat center/cover`,
                     }: null }
                   />
                 </div>
