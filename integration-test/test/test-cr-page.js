@@ -21,12 +21,12 @@ describe('CR page', function () {
     api.onGet('/api/v2/popup/', { page: 'complaint' }).reply(200, crPopupData);
     api.onGet('/api/v2/pinboards/', { detail: true }).reply(200, []);
     api
-      .onGet('/api/v2/cr/1000000/related-complaints/?match=categories&distance=0.5mi')
-      .reply(200, relatedComplaintsData({ match: 'categories', distance: '0.5mi' }));
+      .onGet('/api/v2/cr/1000000/related-complaints/?match=categories&distance=0.5')
+      .reply(200, relatedComplaintsData({ match: 'categories', distance: '0.5' }));
 
     api
-      .onGet('/api/v2/cr/1000000/related-complaints/?distance=0.5mi&match=categories&offset=20')
-      .reply(200, relatedComplaintsData({ match: 'categories', distance: '0.5mi', nextOffset: 40 }));
+      .onGet('/api/v2/cr/1000000/related-complaints/?distance=0.5&match=categories&offset=20')
+      .reply(200, relatedComplaintsData({ match: 'categories', distance: '0.5', nextOffset: 40 }));
 
     browser.setWindowRect(0, 0, 900, 1000);
   });

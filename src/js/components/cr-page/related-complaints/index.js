@@ -15,7 +15,7 @@ export default class RelatedComplaints extends Component {
     super(props);
 
     this.state = {
-      selectedDistance: '0.5mi',
+      selectedDistance: '0.5',
     };
   }
 

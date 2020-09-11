@@ -634,11 +634,11 @@ export const NEW_TIMELINE_FILTERS = {
 };
 
 export const DISTANCE_OPTIONS = {
-  '0.5mi': '0.5 MILES',
-  '1mi': '1 MILES',
-  '2.5mi': '2.5 MILES',
-  '5mi': '5 MILES',
-  '10mi': '10 MILES',
+  '0.5': '0.5 MILES',
+  '1': '1 MILES',
+  '2.5': '2.5 MILES',
+  '5': '5 MILES',
+  '10': '10 MILES',
 };
 
 export const QA_LINK = 'http://how.cpdp.works/';
