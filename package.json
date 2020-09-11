@@ -178,6 +178,7 @@
     "react-redux": "^6.0.1",
     "react-responsive": "^8.0.1",
     "react-router-dom": "^5.1.2",
+    "react-scroll": "^1.8.1",
     "react-tagsinput": "^3.19.0",
     "react-toastify": "5.4.0",
     "react-tooltip": "3.11.1",

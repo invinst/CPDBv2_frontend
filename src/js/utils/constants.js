@@ -8,6 +8,8 @@ export const MOBILE_BREAK_POINT = 768;
 export const TABLET_BREAK_POINT = 992;
 export const DESKTOP_BREAK_POINT = 1200;
 
+export const HEADER_HEIGHT = 56;
+
 export const EXTRA_WIDE = 'extra_wide';
 export const DESKTOP = 'desktop';
 export const MOBILE = 'mobile';

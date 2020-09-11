@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Helmet } from 'react-helmet-async';
 import cx from 'classnames';
 import { get } from 'lodash';
+import Scroll from 'react-scroll';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import ComplaintSummariesContainer from 'containers/landing-page/complaint-summaries';
@@ -15,9 +16,10 @@ import RecentDocumentContainer from 'containers/landing-page/recent-document';
 import OfficersByAllegationContainer from 'containers/landing-page/officers-by-allegation';
 import styles from './landing-page.sass';
 import SearchPageContainer from 'containers/search-page';
-import { calculateSlimHeaderPosition, scrollToTop } from 'utils/dom';
-import { SEARCH_PATH } from 'utils/constants';
+import { animatedScrollTo, calculateSlimHeaderPosition, scrollToTop } from 'utils/dom';
+import { HEADER_HEIGHT, SEARCH_PATH } from 'utils/constants';
 
+const ScrollElement = Scroll.Element;
 
 class LandingPage extends Component {
   constructor(props) {
@@ -25,6 +27,7 @@ class LandingPage extends Component {
 
     this.initial = true;
     this.previousSearchPageShowing = null;
+    this.scrollToTopLawsuit = this.scrollToTopLawsuit.bind(this);
   }
 
   componentDidMount() {
@@ -38,6 +41,10 @@ class LandingPage extends Component {
       scrollToTop();
       this.previousSearchPageShowing = searchPageShowing;
     }
+  }
+
+  scrollToTopLawsuit() {
+    animatedScrollTo('topLawsuits', { offset: -HEADER_HEIGHT });
   }
 
   getSearchPageShowing() {
@@ -69,9 +76,11 @@ class LandingPage extends Component {
             })
           }>
           <SlimHeader pathname={ pathname }/>
-          { searchPageShowing || <HeatMap /> }
+          { searchPageShowing || <HeatMap scrollToTopLawsuit={ this.scrollToTopLawsuit }/> }
           <div className='landing-page-carousel-wrapper'>
-            <TopLawsuits className='landing-page-carousel top-lawsuit' pathname={ pathname } />
+            <ScrollElement name='topLawsuits'>
+              <TopLawsuits className='landing-page-carousel top-lawsuit' pathname={ pathname } />
+            </ScrollElement>
             <OfficersByAllegationContainer className='landing-page-carousel' pathname={ pathname }/>
             <RecentActivityContainer className='landing-page-carousel' pathname={ pathname }/>
             <RecentDocumentContainer className='landing-page-carousel' pathname={ pathname }/>

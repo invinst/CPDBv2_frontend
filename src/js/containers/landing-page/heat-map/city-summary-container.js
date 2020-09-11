@@ -5,10 +5,11 @@ import { citySummarySelector } from 'selectors/landing-page/city-summary';
 
 
 function mapStateToProps(state, props) {
-  const { onClick } = props;
+  const { onClick, scrollToTopLawsuit } = props;
   return {
     citySummary: citySummarySelector(state),
     onClick,
+    scrollToTopLawsuit,
   };
 }
 
