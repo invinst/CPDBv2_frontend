@@ -1,0 +1,77 @@
+@import 'variables'
+
+$field-row-label-width: 112px
+
+\:local(.lawsuit-pane)
+  font-size: 14px
+  line-height: 17px
+  font-weight: 300
+  background-color: white
+  color: $thunder-color
+
+  .lawsuit-title
+    padding: 16px 16px 8px 16px
+
+    .case-no, .primary-cause
+      font-size: 26px
+      line-height: 31px
+      text-transform: uppercase
+
+    .primary-cause
+      color: $gray-color
+
+  .summary-text
+    padding: 13px 16px 32px 16px
+    font-size: 18px
+    line-height: 21px
+
+  .lawsuit-preview-pane-involved-officer
+    border: none
+    padding: 36px 0 0 0
+    margin: 0
+
+    .list-widget-header
+      color: $boulder-color
+      text-transform: none
+      font-weight: 400
+
+    .rc-collapse-header
+      text-align: center
+      display: block
+      background-color: $wild-sand-color
+      color: $thunder-color
+      padding: 12px 0 11px 0
+
+      .arrow
+        display: none
+
+  .total-payments, .case-details-section
+    padding: 0 16px
+
+    .field-row
+      padding: 12px 0 11px 0
+
+      .field-row-label
+        display: inline-block
+        width: $field-row-label-width
+        padding-right: 8px
+        box-sizing: border-box
+        vertical-align: top
+        color: $boulder-color
+
+      .field-row-value
+        display: inline-block
+        width: calc(100% - #{$field-row-label-width})
+
+  .total-payments
+    .field-row
+      border-bottom: 1px solid $alto-color
+
+  .case-details-section
+    .field-row
+      & + .field-row
+        border-top: 1px solid $alto-color
+
+    .location-description + .field-row
+      .field-row-label
+        visibility: hidden

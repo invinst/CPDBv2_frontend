@@ -10,3 +10,4 @@ export { default as SearchTermItemPane } from './search-term-item-pane';
 export { default as CRPane } from './cr-pane';
 export { default as TRRPane } from './trr-pane';
 export { default as PinboardPane } from './pinboard-pane';
+export { default as LawsuitPane } from './lawsuit-pane';

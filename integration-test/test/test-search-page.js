@@ -1304,6 +1304,27 @@ describe('Search Page', function () {
     });
   });
 
+  describe('LawsuitPreviewPane', function () {
+    beforeEach(function () {
+      searchPage.input.waitForDisplayed();
+      searchPage.input.setValue('Ke');
+      searchPage.secondLawsuitResult.waitForDisplayed();
+      searchPage.secondLawsuitResult.click();
+      searchPage.lawsuitPreviewPaneSection.wrapper.waitForDisplayed();
+    });
+
+    it('should redirect to lawsuit details page when clicking on lawsuit item', function () {
+      searchPage.lawsuitPreviewPaneSection.title.click();
+      browser.getUrl().should.match(/\/lawsuit\/[-\w]+\/$/);
+    });
+
+    it('should show more officers when clicking on more officers', function () {
+      searchPage.lawsuitPreviewPaneSection.listOfficers.count.should.eql(3);
+      searchPage.lawsuitPreviewPaneSection.showMoreButton.click();
+      searchPage.lawsuitPreviewPaneSection.listOfficers.count.should.eql(4);
+    });
+  });
+
   describe('OfficerPreviewPane', function () {
     it('should render radar chart color correctly', function () {
       browser.setWindowRect(0, 0, 1000, 800);

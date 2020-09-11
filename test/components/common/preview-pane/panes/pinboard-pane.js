@@ -132,15 +132,15 @@ describe('PinboardPane component', function () {
 
     listWidgets.at(0).prop('title').should.equal('1 Pinned officer');
     listWidgets.at(0).prop('items').should.eql(recentOfficers);
-    listWidgets.at(0).prop('collapsable').should.be.true();
+    listWidgets.at(0).prop('collapsible').should.be.true();
 
     listWidgets.at(1).prop('title').should.equal('2 Pinned allegations');
     listWidgets.at(1).prop('items').should.eql(recentAllegations);
-    listWidgets.at(1).prop('collapsable').should.be.true();
+    listWidgets.at(1).prop('collapsible').should.be.true();
 
     listWidgets.at(2).prop('title').should.equal('3 Pinned TRRS');
     listWidgets.at(2).prop('items').should.eql(recentTrrs);
-    listWidgets.at(2).prop('collapsable').should.be.true();
+    listWidgets.at(2).prop('collapsible').should.be.true();
   });
 
   it('should fetchPinboardStaticSocialGraph when mounted with no cache data', function () {
