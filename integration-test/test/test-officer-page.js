@@ -29,6 +29,7 @@ function showingComplaints(officerPage) {
   officerPage.tabbedPaneSection.timelineSection.crItem.count.should.eql(2);
   officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed(1000, true);
   officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed(1000, true);
+  officerPage.tabbedPaneSection.timelineSection.lawsuitItem.waitForDisplayed(1000, true);
   return true;
 }
 
@@ -37,6 +38,7 @@ function showingAllEvents(officerPage) {
   officerPage.tabbedPaneSection.timelineSection.crItem.waitForDisplayed();
   officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed();
   officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed();
+  officerPage.tabbedPaneSection.timelineSection.lawsuitItem.waitForDisplayed();
   return true;
 }
 
@@ -54,7 +56,7 @@ describe('officer page', function () {
   });
 
   afterEach(function () {
-    browser.setWindowRect(0, 0, 1000, 1000);
+    browser.setWindowRect(0, 0, 1000, 1200);
   });
 
   it('should display officer summary', function () {
@@ -92,7 +94,7 @@ describe('officer page', function () {
     officerPage.metricsSection.disciplineDescription.getText().should.equal('5 Disciplined');
     officerPage.metricsSection.useOfForceCount.getText().should.equal('5');
     officerPage.metricsSection.useOfForceDescription.getText().should.equal('More than 7% of other officers');
-    officerPage.metricsSection.civilianComplimentCount.getText().should.equal('6');
+    officerPage.metricsSection.totalLawsuitSettlements.getText().should.equal('$10.0M');
     officerPage.metricsSection.majorAwardCount.getText().should.equal('19');
     officerPage.metricsSection.honorableMentionCount.getText().should.equal('3');
     officerPage.metricsSection.honorableDescriptionCount.getText().should.equal('More than 79% of other officers');
@@ -125,6 +127,7 @@ describe('officer page', function () {
     officerPage.tabbedPaneSection.timelineSection.crItem.waitForDisplayed();
     officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed();
     officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed();
+    officerPage.tabbedPaneSection.timelineSection.lawsuitItem.waitForDisplayed();
     officerPage.tabbedPaneSection.timelineSection.unitChangeItem.waitForDisplayed();
     officerPage.tabbedPaneSection.timelineSection.joinedItem.waitForDisplayed();
     officerPage.tabbedPaneSection.timelineSection.yearItem.waitForDisplayed();
@@ -273,16 +276,33 @@ describe('officer page', function () {
       browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/?$/);
     });
 
-    it('should go to attachment source page when clicking on the attachment thumbnail', function () {
-      officerPage.tabbedPaneSection.timelineSection.attachmentThumbnail.waitForDisplayed();
-      officerPage.tabbedPaneSection.timelineSection.attachmentThumbnail.click();
+    it('should go to attachment source page when clicking on the conplaint attachment thumbnail', function () {
+      officerPage.tabbedPaneSection.timelineSection.complaintAttachmentThumbnail.waitForDisplayed();
+      officerPage.tabbedPaneSection.timelineSection.complaintAttachmentThumbnail.click();
       browser.switchWindow('https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html');
     });
 
-    it('should go to attachment tab when clicking on the more attachment', function () {
-      officerPage.tabbedPaneSection.timelineSection.moreAttachment.waitForDisplayed();
-      officerPage.tabbedPaneSection.timelineSection.moreAttachment.click();
+    it('should go to attachment tab when clicking on the more complaint attachment', function () {
+      officerPage.tabbedPaneSection.timelineSection.moreComplaintAttachment.waitForDisplayed();
+      officerPage.tabbedPaneSection.timelineSection.moreComplaintAttachment.click();
       officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForDisplayed();
+    });
+
+    it('should go to lawsuit page when clicking on an lawsuit timeline item', function () {
+      officerPage.tabbedPaneSection.timelineSection.lawsuitItem.waitForDisplayed();
+      officerPage.tabbedPaneSection.timelineSection.lawsuitItem.click();
+
+      browser.getUrl().should.containEql('lawsuit/00-L-5230/');
+
+      header.breadcrumbs.secondItem.click();
+      browser.getUrl().should.match(/\/officer\/\d+\/[-a-z]+\/?$/);
+    });
+
+    it('should go to attachment source page when clicking on the lawsuit attachment thumbnail', function () {
+      officerPage.tabbedPaneSection.timelineSection.lawsuitAttachmentThumbnail.waitForDisplayed();
+      officerPage.tabbedPaneSection.timelineSection.lawsuitAttachmentThumbnail.click();
+      const url = 'https://assets.documentcloud.org/documents/6246754/CRID-1086093-CR-COPA-Summary-Report.pdf';
+      browser.switchWindow(url);
     });
 
     it('should go to trr page when clicking on an trr timeline item', function () {
@@ -309,6 +329,7 @@ describe('officer page', function () {
         officerPage.tabbedPaneSection.timelineSection.crItem.waitForDisplayed();
         officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed();
         officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed();
+        officerPage.tabbedPaneSection.timelineSection.lawsuitItem.waitForDisplayed();
       });
 
       it('should filter complaints', function () {
@@ -324,6 +345,7 @@ describe('officer page', function () {
         officerPage.tabbedPaneSection.timelineSection.crItem.count.should.eql(1);
         officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed(1000, true);
         officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.lawsuitItem.waitForDisplayed(1000, true);
       });
 
       it('should filter TRRs', function () {
@@ -332,6 +354,7 @@ describe('officer page', function () {
         officerPage.tabbedPaneSection.timelineSection.crItem.waitForDisplayed(1000, true);
         officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed();
         officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.lawsuitItem.waitForDisplayed(1000, true);
       });
 
       it('should filter awards', function () {
@@ -340,6 +363,16 @@ describe('officer page', function () {
         officerPage.tabbedPaneSection.timelineSection.crItem.waitForDisplayed(1000, true);
         officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed(1000, true);
         officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed();
+        officerPage.tabbedPaneSection.timelineSection.lawsuitItem.waitForDisplayed(1000, true);
+      });
+
+      it('should filter lawsuits', function () {
+        officerPage.tabbedPaneSection.timelineSection.filter.lawsuits.click();
+
+        officerPage.tabbedPaneSection.timelineSection.crItem.waitForDisplayed(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.lawsuitItem.waitForDisplayed();
       });
 
       it('should filter rank/unit changes', function () {
@@ -348,6 +381,7 @@ describe('officer page', function () {
         officerPage.tabbedPaneSection.timelineSection.crItem.waitForDisplayed(1000, true);
         officerPage.tabbedPaneSection.timelineSection.trrItem.waitForDisplayed(1000, true);
         officerPage.tabbedPaneSection.timelineSection.awardItem.waitForDisplayed(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.lawsuitItem.waitForDisplayed(1000, true);
         officerPage.tabbedPaneSection.timelineSection.rankChangeItem.waitForDisplayed();
         officerPage.tabbedPaneSection.timelineSection.unitChangeItem.waitForDisplayed();
       });
@@ -411,16 +445,33 @@ describe('officer page', function () {
       officerPage.tabbedPaneSection.attachmentsTabName.click();
     });
 
-    it('should go to complaint page when clicking on the complaint heading', function () {
-      officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForDisplayed();
-      officerPage.tabbedPaneSection.attachmentsSection.attachmentHeading.click();
-      browser.getUrl().should.match(/\/complaint\/294088\/$/);
+    describe('Complaints', function () {
+      it('should go to complaint page when clicking on the complaint heading', function () {
+        officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForDisplayed();
+        officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaintHeading.click();
+        browser.getUrl().should.match(/\/complaint\/294088\/$/);
+      });
+
+      it('should go to attachment source page when clicking on the attachment', function () {
+        officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForDisplayed();
+        officerPage.tabbedPaneSection.attachmentsSection.complaintAttachment.click();
+        browser.switchWindow('https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html');
+      });
     });
 
-    it('should go to attachment source page when clicking on the complaint attachment', function () {
-      officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForDisplayed();
-      officerPage.tabbedPaneSection.attachmentsSection.attachment.click();
-      browser.switchWindow('https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html');
+    describe('Lawsuits', function () {
+      it('should go to lawsuit page when clicking on the lawsuit heading', function () {
+        officerPage.tabbedPaneSection.attachmentsSection.attachmentLawsuit.waitForDisplayed();
+        officerPage.tabbedPaneSection.attachmentsSection.attachmentLawsuitHeading.click();
+        browser.getUrl().should.match(/\/lawsuit\/00-L-5230\/$/);
+      });
+
+      it('should go to attachment source page when clicking on the attachment', function () {
+        officerPage.tabbedPaneSection.attachmentsSection.attachmentLawsuit.waitForDisplayed();
+        officerPage.tabbedPaneSection.attachmentsSection.lawsuitAttachment.click();
+        const url = 'https://assets.documentcloud.org/documents/6246754/CRID-1086093-CR-COPA-Summary-Report.pdf';
+        browser.switchWindow(url);
+      });
     });
   });
 
@@ -497,15 +548,15 @@ describe('officer page', function () {
       browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/coaccusals\/$/);
 
       officerPage.open(1, 'bernadette-kelly', 'documents');
-      officerPage.tabbedPaneSection.attachmentsSection.attachment.waitForDisplayed();
+      officerPage.tabbedPaneSection.attachmentsSection.complaintAttachment.waitForDisplayed();
       browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/documents\/$/);
 
       officerPage.open(1, '', 'documents');
-      officerPage.tabbedPaneSection.attachmentsSection.attachment.waitForDisplayed();
+      officerPage.tabbedPaneSection.attachmentsSection.complaintAttachment.waitForDisplayed();
       browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/documents\/$/);
 
       officerPage.open(1, 'bernadette-wrong-name', 'documents');
-      officerPage.tabbedPaneSection.attachmentsSection.attachment.waitForDisplayed();
+      officerPage.tabbedPaneSection.attachmentsSection.complaintAttachment.waitForDisplayed();
       browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/documents\/$/);
 
       officerPage.open(1, 'bernadette-kelly', 'wrong-tab');

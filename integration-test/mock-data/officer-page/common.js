@@ -129,6 +129,24 @@ export const timelineItems = [
     rank: 'Detective',
     date: '2000-02-05',
   },
+  {
+    date: '2000-08-06',
+    kind: 'LAWSUIT',
+    rank: 'Detective',
+    'unit_description': 'Recruit Training Section',
+    'unit_name': '044',
+    'case_no': '00-L-5230',
+    'primary_cause': 'Excessive force, Racial epithets',
+    attachments: [
+      {
+        title: 'Phone subject information organization off important.',
+        url: 'https://assets.documentcloud.org/documents/6246754/CRID-1086093-CR-COPA-Summary-Report.pdf',
+        'preview_image_url': 'https://assets.documentcloud.org/documents/6246754/pages/CRID.gif',
+        'file_type': '',
+        'id': '95637',
+      },
+    ],
+  },
 ];
 
 export const officerData = {
@@ -155,6 +173,7 @@ export const officerData = {
   'sustained_count': 4,
   'discipline_count': 5,
   'civilian_compliment_count': 6,
+  'total_lawsuit_settlements': '10000000.00',
   'current_salary': 100000,
   'honorable_mention_percentile': '79.8700',
   'percentiles': [
@@ -268,7 +287,7 @@ export const noPercentileOfficerData = {
   'honorable_mention_count': 3,
   'sustained_count': 4,
   'discipline_count': 5,
-  'civilian_compliment_count': 6,
+  'total_lawsuit_settlements': '10000000.00',
   'current_salary': 100000,
   'percentiles': [
     {

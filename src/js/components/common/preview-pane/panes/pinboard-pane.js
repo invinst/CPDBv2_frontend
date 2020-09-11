@@ -65,21 +65,24 @@ export default class PinboardPane extends Component {
           key={ `pinboard-${id}-officer` }
           title={ pluralize('Pinned officer', officersCount, true) }
           items={ recentOfficers }
-          collapsable={ true }
+          expandable={ true }
+          collapsible={ true }
         />
         <ListWidget
           key={ `pinboard-${id}-allegation` }
           title={ pluralize('Pinned allegation', allegationsCount, true) }
           items={ recentAllegations }
           showAvatar={ false }
-          collapsable={ true }
+          expandable={ true }
+          collapsible={ true }
         />
         <ListWidget
           key={ `pinboard-${id}-trr` }
           title={ pluralize('Pinned TRR', trrsCount, true) }
           items={ recentTrrs }
           showAvatar={ false }
-          collapsable={ true }
+          expandable={ true }
+          collapsible={ true }
         />
       </NewWidgetWrapper>
     );

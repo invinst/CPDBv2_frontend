@@ -48,7 +48,7 @@ class MetricsSection extends Section {
       disciplineDescription: metricPaneDescriptionSelector(2, 1),
       useOfForceCount: metricPaneValueSelector(1, 2),
       useOfForceDescription: metricPaneDescriptionSelector(1, 2),
-      civilianComplimentCount: metricPaneValueSelector(2, 2),
+      totalLawsuitSettlements: metricPaneValueSelector(2, 2),
       majorAwardCount: metricPaneValueSelector(1, 3),
       honorableMentionCount: metricPaneValueSelector(2, 3),
       honorableDescriptionCount: metricPaneDescriptionSelector(2, 3),
@@ -67,7 +67,8 @@ class Filter extends Section {
       sustained: '(//div[@class="dropdown-menu-item"])[2]',
       force: '(//div[@class="dropdown-menu-item"])[3]',
       awards: '(//div[@class="dropdown-menu-item"])[4]',
-      changes: '(//div[@class="dropdown-menu-item"])[5]',
+      lawsuits: '(//div[@class="dropdown-menu-item"])[5]',
+      changes: '(//div[@class="dropdown-menu-item"])[6]',
     });
   }
 }
@@ -82,13 +83,15 @@ class TimelineSection extends Section {
       crItem: '//div[contains(@class, "timeline-cr-item")]',
       trrItem: '//div[contains(@class, "timeline-force-item")]',
       awardItem: '//div[contains(@class, "timeline-award-item")]',
+      lawsuitItem: '//div[contains(@class, "timeline-lawsuit-item")]',
       unitChangeItem: '//div[contains(@class, "timeline-unit-change-item")]',
       rankChangeItem: '//div[contains(@class, "timeline-rank-change-item")]',
       joinedItem: '//div[contains(@class, "timeline-joined-item")]',
       yearItem: '//div[contains(@class, "timeline-year-item")]',
       emptyItem: '//div[contains(@class, "timeline-empty-item")]',
-      attachmentThumbnail: '.attachment-image',
-      moreAttachment: '.more-attachment',
+      lawsuitAttachmentThumbnail: '.lawsuit-item-content .attachment-image',
+      complaintAttachmentThumbnail: '.cr-item-content .attachment-image',
+      moreComplaintAttachment: '.cr-item-content .more-attachment',
       rankPopup: '.rank-header .popup',
       rankPopupButton: '.rank-header .popup-button',
       salaryPopup: '//div[contains(@class, "salary__salary")]//div[contains(@class, "popup")]',
@@ -115,8 +118,13 @@ class AttachmentsSection extends Section {
     super();
     this.prepareElementGetters({
       attachmentComplaint: '//div[contains(@class, "complaint__complaint")]',
-      attachmentHeading: '//div[contains(@class, "complaint__complaint")]//a[contains(@class, "heading__heading")]',
-      attachment: '//div[contains(@class, "attachment__attachment")]',
+      attachmentComplaintHeading: '//div[contains(@class, "complaint__complaint")]'
+        + '//a[contains(@class, "heading__heading")]',
+      complaintAttachment: '//div[contains(@class, "complaint__complaint")]'
+        + '//div[contains(@class, "attachment__attachment")]',
+      attachmentLawsuit: '//div[contains(@class, "lawsuit__lawsuit")]',
+      attachmentLawsuitHeading: '//div[contains(@class, "lawsuit__lawsuit")]//a[contains(@class, "heading__heading")]',
+      lawsuitAttachment: '//div[contains(@class, "lawsuit__lawsuit")]//div[contains(@class, "attachment__attachment")]',
     });
   }
 }

@@ -5,6 +5,13 @@ import { createSelector } from 'reselect';
 import { attachmentsTransform } from 'selectors/officer-page/new-timeline';
 
 
+const getItems = state => get(state.officerPage.newTimeline, 'items', []);
+
+export const numAttachmentsSelector = createSelector(
+  getItems,
+  items => sum(items.map(item => (item.attachments || []).length))
+);
+
 export const attachmentsComplaintTransform = item => ({
   date: moment(item.date).format('MMM D, YYYY').toUpperCase(),
   category: item.category,
@@ -15,21 +22,28 @@ export const attachmentsComplaintTransform = item => ({
   attachments: attachmentsTransform(item.attachments),
 });
 
-const getItems = state => get(state.officerPage.newTimeline, 'items', []);
-
-const attachedComplaint = item => !isEmpty(get(item, 'attachments'));
+const attachedComplaint = item => (item.kind == 'CR') && !isEmpty(get(item, 'attachments'));
 
 export const complaintsWithAttachmentsSelector = createSelector(
   getItems,
   items => items.filter(attachedComplaint).map(attachmentsComplaintTransform)
 );
 
-export const hasComplaintSelector = createSelector(
+export const hasAttachmentsSelector = createSelector(
   getItems,
-  items => !isUndefined(items.find(attachedComplaint))
+  items => !isUndefined(items.find(attachedComplaint) || items.find(attachedLawsuit))
 );
 
-export const numAttachmentsSelector = createSelector(
+export const attachmentsLawsuitTransform = item => ({
+  caseNo: item.case_no,
+  date: moment(item.date).format('MMM D, YYYY').toUpperCase(),
+  primaryCause: item.primary_cause || 'Unknown',
+  attachments: attachmentsTransform(item.attachments),
+});
+
+const attachedLawsuit = item => (item.kind == 'LAWSUIT') && !isEmpty(get(item, 'attachments'));
+
+export const lawsuitsWithAttachmentsSelector = createSelector(
   getItems,
-  items => sum(items.map(item => (item.attachments || []).length))
+  items => items.filter(attachedLawsuit).map(attachmentsLawsuitTransform)
 );

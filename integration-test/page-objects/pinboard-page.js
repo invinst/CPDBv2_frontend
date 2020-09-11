@@ -341,7 +341,7 @@ class PreviewPane extends Section {
       trrTitle: '.trr-preview-pane-title-title',
       trrFirstInfo: '//div[@class="trr-preview-pane-info-row"][1]',
       trrSecondInfo: '//div[@class="trr-preview-pane-info-row"][2]',
-      trrOfficerRadarChart: '//li[contains(@class, "list-widget-item")]//*[name()="svg" and contains(@class, "radar")]',
+      trrOfficerRadarChart: '//*[contains(@class, "list-widget-item")] //*[name()="svg" and contains(@class, "radar")]',
     });
   }
 }
@@ -357,7 +357,7 @@ class OfficerPreviewPane extends Section {
       gradient: '.test--gradient',
       communityPane: '.test--preview-pane-community',
       neighborhoodPane: '.test--preview-pane-neighborhood',
-      listMostOfficers: '//*[starts-with(@class, "preview-pane")]//*[contains(@class,"list-widget-item-link")]',
+      listMostOfficers: '//*[starts-with(@class, "preview-pane")]//*[contains(@class,"list-widget-item")]',
       pinButton: '.pin-button',
       viewOfficerButton: '.view-officer-profile-button',
       officerName: '.test--officer-name',

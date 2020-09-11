@@ -3,8 +3,7 @@ import { shallow } from 'enzyme';
 import { Link } from 'react-router-dom';
 
 import Cr from 'components/officer-page/tabbed-pane-section/timeline/item/showings/cr';
-import Attachments from 'components/officer-page/tabbed-pane-section/timeline/item/showings/cr/attachments';
-
+import Attachments from 'components/officer-page/tabbed-pane-section/timeline/item/showings/attachments';
 
 describe('Cr component', function () {
   const item = {

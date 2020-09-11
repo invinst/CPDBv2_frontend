@@ -1,16 +1,10 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import should from 'should';
+import { mount } from 'enzyme';
 import { Link, MemoryRouter } from 'react-router-dom';
-import { spy } from 'sinon';
-import { random } from 'faker';
 
 import { mountWithRouter } from 'utils/test';
 import CoaccusedCard from 'components/cr-page/accused-officers/coaccused-card';
-import RadarChart from 'components/common/radar-chart/radar-chart';
-import ItemPinButton from 'components/common/item-pin-button';
-import pinButtonStyles from 'components/common/item-pin-button.sass';
-import { PINNED_ITEM_TYPES } from 'utils/constants';
+import SmallRadarChartOfficerCard from 'components/common/small-radar-chart-officer-card';
 import { PrintModeContext } from 'contexts';
 
 
@@ -41,6 +35,12 @@ describe('CoaccusedCard component', function () {
     radarChartElement.prop('height').should.equal('100%');
     radarChartElement.find('.test--radar-radar-area').should.not.be.null();
 
+    const smallRadarChartOfficerCard = wrapper.find(SmallRadarChartOfficerCard);
+    smallRadarChartOfficerCard.exists().should.be.true();
+    smallRadarChartOfficerCard.prop('officerId').should.equal(1);
+    smallRadarChartOfficerCard.prop('fullName').should.equal('Jerome Finnigan');
+    smallRadarChartOfficerCard.prop('age').should.equal('37-year-old');
+
     const text = wrapper.text();
     text.should.containEql('Police Officer');
     text.should.containEql('Jerome Finnigan');
@@ -51,21 +51,8 @@ describe('CoaccusedCard component', function () {
     text.should.containEql('37-year-old white male');
   });
 
-  it('should show NoDataRadarChart when no percentile', function () {
-    const wrapper = shallow(<CoaccusedCard officerId={ 3 }/>);
-    const noDataRadarChart = wrapper.find(RadarChart);
-    should(noDataRadarChart.props.data).be.undefined();
-  });
-
-  it('should render link with target _blank when openCardInNewPage is true', function () {
-    const wrapper = shallow(<CoaccusedCard officerId={ 3 } openCardInNewPage={ true }/>);
-
-    const link = wrapper.find(Link);
-    link.prop('target').should.equal('_blank');
-  });
-
   it('should render category and outcome correctly', function () {
-    const wrapper = shallow(
+    const wrapper = mountWithRouter(
       <CoaccusedCard
         finding='Sustained'
         disciplined={ true }
@@ -113,52 +100,5 @@ describe('CoaccusedCard component', function () {
     );
     const findingOutcome = wrapper.find('.finding-outcome-mix');
     findingOutcome.text().should.equal('Disciplined');
-  });
-
-  it('should render ItemPinButton with correct props', function () {
-    const addOrRemoveItemInPinboard = spy();
-    const id = random.number({ min: 10, max: 1000 });
-    const isPinned = random.boolean();
-    const complaintCount = 10;
-    const sustainedCount = 10;
-    const age = '37-year-old';
-    const race = 'White';
-    const gender = 'Male';
-    const rank = 'Officer';
-    const fullName = 'Ferome Finnigan';
-
-    const wrapper = shallow(
-      <CoaccusedCard
-        officerId={ id }
-        isPinned={ isPinned }
-        complaintCount={ complaintCount }
-        sustainedCount={ sustainedCount }
-        age={ age }
-        race={ race }
-        gender={ gender }
-        rank={ rank }
-        fullName={ fullName }
-        addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
-      />
-    );
-
-    const itemPinButton = wrapper.find(ItemPinButton);
-    itemPinButton.prop('className').should.equal(pinButtonStyles.cardPinnedButton);
-    itemPinButton.prop('addOrRemoveItemInPinboard').should.equal(addOrRemoveItemInPinboard);
-    itemPinButton.prop('showHint').should.be.false();
-    itemPinButton.prop('item').should.eql(
-      {
-        type: PINNED_ITEM_TYPES.OFFICER,
-        id,
-        isPinned,
-        complaintCount,
-        sustainedCount,
-        age,
-        race,
-        gender,
-        rank,
-        fullName,
-      }
-    );
   });
 });

@@ -8,6 +8,8 @@ export const officerPath = (officerId, name = '') => {
   return officerId && `/officer/${officerId}/${nameSuffix}`;
 };
 
+export const lawsuitPath = caseNo => `/lawsuit/${caseNo}/`;
+
 /**
  * Return the same key for some paths identify the same page
  *

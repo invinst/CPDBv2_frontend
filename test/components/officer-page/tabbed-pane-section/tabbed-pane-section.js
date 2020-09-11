@@ -28,7 +28,7 @@ describe('TabbedPaneSection component', function () {
     const wrapper = shallow(
       <TabbedPaneSection
         currentTab='TIMELINE'
-        hasComplaint={ true }
+        hasAttachments={ true }
         hasMapMarker={ true }
         hasCoaccusal={ true }
       />
@@ -48,7 +48,7 @@ describe('TabbedPaneSection component', function () {
       <Provider store={ store }>
         <TabbedPaneSection
           currentTab='TIMELINE'
-          hasComplaint={ false }
+          hasAttachments={ false }
           hasMapMarker={ false }
           hasCoaccusal={ false }
         />
@@ -116,7 +116,7 @@ describe('TabbedPaneSection component', function () {
         <TabbedPaneSection
           changeOfficerTab={ stubChangeOfficerTab }
           hasCoaccusal={ true }
-          hasComplaint={ true }
+          hasAttachments={ true }
           hasMapMarker={ true }
         />
       </Provider>

@@ -128,6 +128,13 @@ describe('recent reducer', function () {
           },
         },
         {
+          type: 'LAWSUIT',
+          id: 25,
+          data: {
+            id: 25,
+          },
+        },
+        {
           type: 'WARD',
           id: '384',
           data: {
@@ -160,6 +167,14 @@ describe('recent reducer', function () {
             'force_type': 'Physical Force - Holding',
             'trr_datetime': '2004-02-24',
             'type': 'TRR',
+          },
+          {
+            'id': 25,
+            'case_no': '00-L-5230',
+            'type': 'LAWSUIT',
+            'primary_cause': 'Excessive force',
+            'summary': 'Lawsuit summary',
+            'incident_date': '2016-09-11',
           },
         ],
       }
@@ -196,6 +211,18 @@ describe('recent reducer', function () {
           'sustained_count': 1,
           'birth_year': 1927,
           'type': 'OFFICER',
+        },
+      },
+      {
+        type: 'LAWSUIT',
+        id: 25,
+        data: {
+          type: 'LAWSUIT',
+          id: 25,
+          'case_no': '00-L-5230',
+          'primary_cause': 'Excessive force',
+          'summary': 'Lawsuit summary',
+          'incident_date': '2016-09-11',
         },
       },
       {

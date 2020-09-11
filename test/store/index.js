@@ -52,6 +52,10 @@ describe('store', function () {
           isRequesting: false,
           headerEditModeOn: false,
         },
+        topLawsuits: {
+          cards: [],
+          headerEditModeOn: false,
+        },
         heatMap: {
           citySummary: {},
           communities: null,
@@ -164,6 +168,9 @@ describe('store', function () {
         },
       },
       crs: {},
+      lawsuitPage: {
+        lawsuit: {},
+      },
       officerPage: {
         activeTab: null,
         currentTab: 'TIMELINE',
@@ -175,7 +182,7 @@ describe('store', function () {
         newTimeline: {
           filter: {
             label: 'All',
-            kind: ['CR', 'FORCE', 'AWARD'],
+            kind: ['CR', 'FORCE', 'AWARD', 'LAWSUIT'],
           },
           isRequesting: false,
           items: [],

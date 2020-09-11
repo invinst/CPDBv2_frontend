@@ -7,6 +7,7 @@ import authentication from './authentication';
 import crs from './crs';
 import officerPage from './officer-page';
 import crPage from './cr-page';
+import lawsuitPage from './lawsuit-page';
 import trrPage from './trr-page';
 import documentPage from './document-page';
 import unitProfilePage from './unit-profile-page';
@@ -38,6 +39,7 @@ export default (history) => combineReducers({
   router: connectRouter(history),
   officerPage,
   crPage,
+  lawsuitPage,
   trrPage,
   documentPage,
   unitProfilePage,

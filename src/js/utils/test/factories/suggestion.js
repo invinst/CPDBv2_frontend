@@ -59,6 +59,13 @@ export const RawTRRSuggestion = Factory.define('RawTRRSuggestion')
   .attr('address', lorem.words)
   .attr('firearm_used', lorem.words);
 
+/* istanbul ignore next */
+export const RawLawsuitSuggestion = Factory.define('RawLawsuitSuggestion')
+  .attr('id', () => String(random.number()))
+  .attr('case_no', () => String(random.number()))
+  .attr('summary', () => String(lorem.sentence))
+  .attr('primary_cause', lorem.words)
+  .attr('incident_date', '2000-12-13');
 
 /* istanbul ignore next */
 export const RawNeighborhoodSuggestion = Factory.define('RawNeighborhoodSuggestion')

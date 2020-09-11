@@ -8,6 +8,7 @@ import SearchPageContainer from 'containers/search-page';
 import OfficerPageContainer from 'containers/officer-page';
 import UnitProfilePageContainer from 'containers/unit-profile-page';
 import CRPageContainer from 'containers/cr-page';
+import LawsuitPageContainer from 'containers/lawsuit-page';
 import TRRPageContainer from 'containers/trr-page';
 import DocumentPageContainer from 'containers/document-page';
 import InlineAliasAdminContainer from 'containers/inline-alias-admin-container';
@@ -29,6 +30,7 @@ import {
   SEARCH_ALIAS_EDIT_PATH,
   INLINE_SEARCH_ALIAS_ADMIN_PATH,
   STANDALONE_CR_PATH,
+  LAWSUIT_PATH,
   CRAWLERS_PATH,
   DOCUMENT_PATH,
   EMBED_MAP_PATH,
@@ -70,6 +72,9 @@ export default function RouterRoot(props) {
       <Route
         path={ editRouterPath(STANDALONE_CR_PATH) }
         component={ CRPageContainer } />
+      <Route
+        path={ editRouterPath(LAWSUIT_PATH) }
+        component={ LawsuitPageContainer } />
       <Route
         path={ editRouterPath(DOCUMENT_PATH) }
         component={ DocumentPageContainer } />

@@ -20,6 +20,14 @@ export function getCRID(url) {
   return url.replace(crPattern, '$1');
 }
 
+export function getLawsuitCaseNo(url) {
+  const lawsuitPattern = /.*lawsuit\/([a-zA-Z0-9-]+).*/;
+  if (url === undefined || !url.match(lawsuitPattern)) {
+    return null;
+  }
+  return url.replace(lawsuitPattern, '$1');
+}
+
 export function getDocumentId(url) {
   if (!url) {
     return NaN;

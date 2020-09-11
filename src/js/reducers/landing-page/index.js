@@ -5,6 +5,7 @@ import heatMap from './heat-map';
 import officersByAllegation from './officers-by-allegation';
 import complaintSummaries from './complaint-summaries';
 import recentDocument from './recent-document';
+import topLawsuits from './top-lawsuits';
 
 export default combineReducers({
   activityGrid,
@@ -12,4 +13,5 @@ export default combineReducers({
   officersByAllegation,
   recentDocument,
   complaintSummaries,
+  topLawsuits,
 });

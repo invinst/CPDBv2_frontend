@@ -1,0 +1,117 @@
+@import 'variables'
+
+\:local(.small-radar-chart-officer-card)
+  display: inline-block
+  margin: 0
+  box-sizing: border-box
+  text-decoration: none
+  border: solid 1px $alto-color
+  border-radius: 2px
+  width: 232px
+  position: relative
+
+  @media print
+    page-break-inside: avoid
+    display: block
+    width: 100%
+    border: none
+    border-bottom: solid 1px $alto-color
+    padding: 4px 0
+
+  .officer-card-info
+    @media print
+      display: inline-block
+      width: 40%
+
+  .officer-card-header
+    padding: 8px 0 7px
+    margin: 0 16px
+    border-bottom: 1px solid transparent
+
+    @media print
+      width: 40%
+      height: auto
+      padding: 0
+
+    .radar-chart-wrapper
+      width: 38px
+      height: 38px
+      border-radius: 2px
+      overflow: hidden
+      float: left
+
+    .officer-card-header-info
+      float: left
+      margin: 2px 0 0 8px
+      width: 152px
+
+      @media print
+        margin: 0
+        width: auto
+
+      .officer-card-rank, .officer-card-name
+        @media print
+          display: inline
+          font-size: 12px
+          font-weight: 500
+          padding-right: 5px
+
+  .officer-card-section
+    padding: 11px 0 11px 16px
+    border-bottom: solid 1px $alto-color
+    height: 54px
+    box-sizing: border-box
+
+    @media print
+      border-bottom: none
+      margin: 0
+      padding: 0
+      height: auto
+
+    &:last-child
+      border-bottom: none
+
+  .light-text
+    font-size: 12px
+    line-height: 14px
+    color: $boulder-color
+    margin-top: 0
+    margin-bottom: 0
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+
+  .bold-text
+    line-height: 18px
+    font-size: 14px
+    color: $thunder-color
+    margin-top: 0
+    margin-bottom: 0
+
+  .extra-info
+    font-size: 14px
+    line-height: 18px
+    margin: 0
+    color: $boulder-color
+
+  .officer-card-sustained
+    color: $blaze-orange-light-color
+    white-space: nowrap
+
+    &.unsustained
+      color: $boulder-color
+
+  .officer-card-allegation
+    font-size: 14px
+    color: $thunder-color
+
+  .extra-info, .officer-card-sustained, .officer-card-allegation
+    @media print
+      font-size: 10px
+
+  &:hover
+    border: solid 1px $blue-ribbon-color
+
+    .officer-card-header-info
+      .officer-card-name
+        color: $blue-ribbon-color

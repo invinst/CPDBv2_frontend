@@ -17,6 +17,7 @@ import {
   CRPane,
   TRRPane,
   PinboardPane,
+  LawsuitPane,
 } from 'components/common/preview-pane/panes';
 import styles from './preview-pane.sass';
 import withOverlay from 'components/common/with-overlay';
@@ -57,6 +58,7 @@ export default class PreviewPane extends Component {
       TRR: trrPaneFunc,
       'DATE > TRR': trrPaneFunc,
       'PINBOARD': () => <PinboardPane { ...data } { ...this.props }/>,
+      'LAWSUIT': () => <LawsuitPane { ...data } { ...this.props }/>,
     };
     return get(paneTypes, type, () => null)();
   }

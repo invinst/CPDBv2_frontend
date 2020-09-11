@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import MediaQuery from 'react-responsive';
+import cx from 'classnames';
 
 import NewCallToActionWidget from './new-call-to-action-widget';
 import styles from './new-widget-wrapper.sass';
@@ -38,7 +39,7 @@ export default class NewWidgetWrapper extends Component {
 
     return (
       <WrapperLink url={ isClickable ? url : undefined } to={ isClickable ? to : undefined }>
-        <div className={ `${styles.newWidgetWrapper} ${className}` }>
+        <div className={ cx(styles.newWidgetWrapper, className, { 'not-scrollable': !yScrollable }) }>
           { url || to ? (
             <div className='new-call-to-action-widget-container'>
               <WrapperLink url={ !isClickable ? url : undefined } to={ !isClickable ? to : undefined }>

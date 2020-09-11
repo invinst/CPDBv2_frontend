@@ -2,7 +2,7 @@ import Page from './page';
 import Section from './sections/section';
 
 
-const nthListWidgetItem = (parentSelector, n) => `(${parentSelector}//li[contains(@class, "list-widget-item")])[${n}]`;
+const nthListWidgetItem = (parentSelector, n) => `(${parentSelector}//*[contains(@class, "list-widget-item")])[${n}]`;
 class ListWidgetItem extends Section {
   constructor(parentSelector='', mainElementSelector='') {
     super(parentSelector, mainElementSelector);
@@ -22,10 +22,10 @@ class ListWidget extends Section {
 
     this.prepareElementGetters({
       header: '//h5[@class="list-widget-header"]',
-      items: '//li[contains(@class, "list-widget-item")]',
+      items: '//*[contains(@class, "list-widget-item")]',
       viewMoreButton: '//div[contains(@class, "rc-collapse-header")]',
-      lastCollapsableItem:
-        '(//div[contains(@class, "rc-collapse-content")]//li[contains(@class, "list-widget-item")])[last()]',
+      lastCollapsibleItem:
+        '(//div[contains(@class, "rc-collapse-content")]//*[contains(@class, "list-widget-item")])[last()]',
     });
     this.firstItem = new ListWidgetItem('', nthListWidgetItem(this.mainElementSelector, 1));
     this.secondItem = new ListWidgetItem('', nthListWidgetItem(this.mainElementSelector, 2));

@@ -24,7 +24,7 @@ describe('MetricsSection', function () {
       useOfForceCount: 4,
       majorAwardCount: 5,
       useOfForcePercentile: 6.000,
-      civilianComplimentCount: 0,
+      totalLawsuitSettlements: '$0',
     };
     const wrapper = mount(<MetricsSection metrics={ metrics }/>);
 
@@ -35,7 +35,7 @@ describe('MetricsSection', function () {
     checkMetricPaneDataInfo(metricsPanes.at(0), '90', 'Allegations', 'More than 99.9% of other officers');
     checkMetricPaneDataInfo(metricsPanes.at(1), '4', 'Sustained', '0 Disciplined');
     checkMetricPaneDataInfo(metricsPanes.at(2), '4', 'Use of Force Reports', 'More than 6% of other officers');
-    checkMetricPaneDataInfo(metricsPanes.at(3), '0', 'Civilian Compliments', '');
+    checkMetricPaneDataInfo(metricsPanes.at(3), '$0', 'Total Lawsuit Settlements', '');
     checkMetricPaneDataInfo(metricsPanes.at(4), '5', 'Major Awards', '');
     checkMetricPaneDataInfo(metricsPanes.at(5), '1', 'Honorable Mention', 'More than 3% of other officers');
   });
@@ -51,14 +51,14 @@ describe('MetricsSection', function () {
       useOfForceCount: 4,
       majorAwardCount: 5,
       useOfForcePercentile: 'N/A',
-      civilianComplimentCount: 0,
+      totalLawsuitSettlements: '$0',
     };
     const wrapper = mount(<MetricsSection metrics={ metrics } />);
     const metricsPanes = wrapper.find(MetricPane);
     checkMetricPaneDataInfo(metricsPanes.at(0), '90', 'Allegations', '');
     checkMetricPaneDataInfo(metricsPanes.at(1), '4', 'Sustained', '0 Disciplined');
     checkMetricPaneDataInfo(metricsPanes.at(2), '4', 'Use of Force Reports', '');
-    checkMetricPaneDataInfo(metricsPanes.at(3), '0', 'Civilian Compliments', '');
+    checkMetricPaneDataInfo(metricsPanes.at(3), '$0', 'Total Lawsuit Settlements', '');
     checkMetricPaneDataInfo(metricsPanes.at(4), '5', 'Major Awards', '');
     checkMetricPaneDataInfo(metricsPanes.at(5), '1', 'Honorable Mention', '');
   });
@@ -74,7 +74,7 @@ describe('MetricsSection', function () {
       useOfForceCount: 4,
       majorAwardCount: 5,
       useOfForcePercentile: 'N/A',
-      civilianComplimentCount: 0,
+      totalLawsuitSettlements: '$0',
     };
     const wrapper = mount(<MetricsSection metrics={ metrics } />);
     const metricsPanes = wrapper.find(MetricPane);

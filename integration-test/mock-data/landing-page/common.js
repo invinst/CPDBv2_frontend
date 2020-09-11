@@ -9,6 +9,7 @@ import {
 } from '../../../src/js/utils/test/factories/activity-grid';
 import { RawDocumentCardFactory } from '../../../src/js/utils/test/factories/attachment';
 import { RawComplaintSummaryFactory } from '../../../src/js/utils/test/factories/complaint';
+import { RawTopLawsuitFactory } from '../../../src/js/utils/test/factories/lawsuit';
 
 
 const firstOfficer = {
@@ -75,20 +76,7 @@ export const citySummaryData = CitySummaryFactory.build({
   'end_year': 2017,
   'allegation_count': 10,
   'discipline_count': 5,
-  'most_common_complaints': [
-    {
-      name: 'Operation/Personnel Violations',
-      count: 3,
-    },
-    {
-      name: 'Use Of Force',
-      count: 2,
-    },
-    {
-      name: 'Illegal Search',
-      count: 1,
-    },
-  ],
+  'total_lawsuit_settlements': '10000000.00',
 });
 
 export const topOfficersByAllegationData = [
@@ -125,4 +113,13 @@ export const complaintSummariesData = [
     'category_names': ['Criminal Misconduct'],
   }),
   ...RawComplaintSummaryFactory.buildList(19),
+];
+
+export const topLawsuitsData = [
+  RawTopLawsuitFactory.build({
+    'case_no': '00-L-1234',
+    'incident_date': '1999-07-04',
+    'primary_cause': 'Extended Detention',
+  }),
+  ...RawTopLawsuitFactory.buildList(19),
 ];
