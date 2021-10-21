@@ -16,14 +16,14 @@ jobs:
       - run: yarn
       - run: yarn lint
       - run: yarn cover
-      - run:
-          name: Submit coverage
-          command: |
-            if [ -z $SKIP_COVERALLS ] || [ $SKIP_COVERALLS != "true" ]; then
-              yarn cover-report
-            else
-              echo "Skipped due to SKIP_COVERALLS is" $SKIP_COVERALLS
-            fi
+#      - run:
+#          name: Submit coverage
+#          command: |
+#            if [ -z $SKIP_COVERALLS ] || [ $SKIP_COVERALLS != "true" ]; then
+ #             yarn cover-report
+ #           else
+ #             echo "Skipped due to SKIP_COVERALLS is" $SKIP_COVERALLS
+ #           fi
       # TODO: Enable integration-test back after fixing unstable integration-test
       # - run: yarn integration-test
       - store_artifacts:
