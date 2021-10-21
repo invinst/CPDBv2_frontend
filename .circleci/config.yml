@@ -192,9 +192,9 @@ workflows:
       - deploy:
           requires:
             - push_image
-      - notify_slack:
-          requires:
-            - deploy
-          filters:
-            branches:
-              only: master
+      #- notify_slack:
+      #    requires:
+      #      - deploy
+      #    filters:
+      #      branches:
+      #        only: master
