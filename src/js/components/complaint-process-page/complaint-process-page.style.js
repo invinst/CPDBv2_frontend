@@ -11,12 +11,28 @@ export const headLineStyle = {
   height: '90px',
 };
 
-export const sectionHeaderStyle = {
-  margin: '0',
-  color: softBlackColor,
-  fontSize: '19px',
-  fontFamily: sanFranciscoTextFamily,
-  fontWeight: '600',
-  boxSizing: 'border-box',
+export const headerStyle = {
   textAlign: 'center',
+  fontFamily: minionProFamily,
+  fontSize: '32px',
+  paddingBottom: '30px',
 };
+
+export const sectionHeaderStyle = {
+  color: softBlackColor,
+  fontSize: '20px',
+  fontFamily: minionProFamily,
+  fontWeight: '600',
+  textAlign: 'center',
+  marginBottom: '-10px',
+};
+
+export const authorStyle = {
+  color: smokeGray,
+  fontFamily: minionProFamily,
+  fontSize: '15px',
+  textAlign: 'center',
+  marginBottom: '50px',
+}
+
+
