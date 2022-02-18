@@ -39,6 +39,7 @@ export const PINBOARD_DATA_VISUALIZATION_SOCIAL_GRAPH_PATH = '/social-graph/pinb
 export const PINBOARD_DATA_VISUALIZATION_GEOGRAPHIC_PATH = '/geographic/pinboard/:pinboardId';
 export const PINBOARD_PATH = '/pinboard/:pinboardId?/:pinboardTitle?';
 export const PINBOARD_ADMIN_PATH = '/view-all-pinboards/';
+export const QUESTIONS_PATH = '/questions';
 
 // Date format
 export const MONTH_NAME_DAY_YEAR_FORMAT = 'MMM DD, YYYY';
