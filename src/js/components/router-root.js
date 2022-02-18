@@ -22,6 +22,7 @@ import SocialGraphContainer from 'containers/social-graph-page';
 import PinboardPageContainer from 'containers/pinboard-page';
 import PinboardAdminPageContainer from 'containers/pinboard-admin-page';
 import QuestionsPage from 'components/questions-page/questions-page';
+import ComplaintProcessPage from 'components/complaint-process-page/complaint-process-page';
 import {
   COLLAB_PATH,
   SEARCH_PATH,
@@ -46,6 +47,7 @@ import {
   PINBOARD_PATH,
   PINBOARD_ADMIN_PATH,
   QUESTIONS_PATH,
+  COMPLAINT_PROCESS_PATH,
 } from 'utils/constants';
 import { isPinboardFeatureEnabled } from 'utils/pinboard';
 import { editRouterPath } from 'utils/router-path';
@@ -77,6 +79,9 @@ export default function RouterRoot(props) {
       <Route
         path={ editRouterPath(QUESTIONS_PATH) }
         component={ QuestionsPage } />
+      <Route
+        path={ editRouterPath(COMPLAINT_PROCESS_PATH) }
+        component={ ComplaintProcessPage } />
       <Route
         path={ editRouterPath(LAWSUIT_PATH) }
         component={ LawsuitPageContainer } />

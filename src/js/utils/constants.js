@@ -40,6 +40,7 @@ export const PINBOARD_DATA_VISUALIZATION_GEOGRAPHIC_PATH = '/geographic/pinboard
 export const PINBOARD_PATH = '/pinboard/:pinboardId?/:pinboardTitle?';
 export const PINBOARD_ADMIN_PATH = '/view-all-pinboards/';
 export const QUESTIONS_PATH = '/questions';
+export const COMPLAINT_PROCESS_PATH = '/complaint-process';
 
 // Date format
 export const MONTH_NAME_DAY_YEAR_FORMAT = 'MMM DD, YYYY';
