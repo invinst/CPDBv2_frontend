@@ -1,4 +1,4 @@
-import { softBlackColor, accentColor, lightGreyColor, sanFranciscoTextFamily, minionProFamily } from 'utils/styles';
+import { whiteTwoColor, softBlackColor, accentColor, lightGreyColor, sanFranciscoTextFamily, minionProFamily } from 'utils/styles';
 
 
 export const wrapperStyle = {
@@ -16,11 +16,14 @@ export const wrapperStyle = {
 };
 
 export const headLineStyle = {
-  marginBottom: '79px',
+  textAlign: 'center',
+  paddingTop: '50px',
   fontFamily: minionProFamily,
   fontWeight: 'normal',
   fontSize: '36px',
-  color: softBlackColor,
+  color: '#FFFFFF',
+  background: '#235FEB',
+  height: '90px',
 };
 
 export const leftColumnStyle = {
@@ -40,10 +43,11 @@ export const columnHeadLineStyle = {
   margin: '0',
   padding: '0 0 35px 0',
   color: softBlackColor,
-  fontSize: '16px',
+  fontSize: '20px',
   fontFamily: sanFranciscoTextFamily,
   fontWeight: '600',
   boxSizing: 'border-box',
+  textAlign: 'center',
 };
 
 export const emailLinkWrapperStyle = {
