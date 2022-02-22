@@ -22,7 +22,10 @@ import SocialGraphContainer from 'containers/social-graph-page';
 import PinboardPageContainer from 'containers/pinboard-page';
 import PinboardAdminPageContainer from 'containers/pinboard-admin-page';
 import QuestionsPage from 'components/questions-page/questions-page';
-import ComplaintProcessPage from 'components/complaint-process-page/complaint-process-page';
+import ComplaintProcessPage from 'components/questions-page/complaint-process-page/complaint-process-page';
+import ComplaintInvestigatePage from 'components/questions-page/complaint-process-page/complaint-articles/complaint-investigate-page';
+import FileComplaintArticlePage from 'components/questions-page/complaint-process-page/complaint-articles/file-complaint-page';
+import ImperfectInfoPage from 'components/questions-page/complaint-process-page/complaint-articles/imperfect-info-page'; 
 import {
   COLLAB_PATH,
   SEARCH_PATH,
@@ -48,6 +51,9 @@ import {
   PINBOARD_ADMIN_PATH,
   QUESTIONS_PATH,
   COMPLAINT_PROCESS_PATH,
+  COMPLAINT_INVESTIGATE_PATH,
+  FILE_COMPLAINT_ARTICLE_PATH,
+  IMPERFECT_INFO_ARTICLE_PATH,
 } from 'utils/constants';
 import { isPinboardFeatureEnabled } from 'utils/pinboard';
 import { editRouterPath } from 'utils/router-path';
@@ -82,6 +88,15 @@ export default function RouterRoot(props) {
       <Route
         path={ editRouterPath(COMPLAINT_PROCESS_PATH) }
         component={ ComplaintProcessPage } />
+      <Route
+        path={ editRouterPath(COMPLAINT_INVESTIGATE_PATH) }
+        component={ ComplaintInvestigatePage } />
+      <Route
+        path={ editRouterPath(FILE_COMPLAINT_ARTICLE_PATH) }
+        component={ FileComplaintArticlePage} />
+      <Route
+        path={ editRouterPath(IMPERFECT_INFO_ARTICLE_PATH) }
+        component={ ImperfectInfoPage } />
       <Route
         path={ editRouterPath(LAWSUIT_PATH) }
         component={ LawsuitPageContainer } />

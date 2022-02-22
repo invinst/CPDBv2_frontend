@@ -18,7 +18,7 @@ export const wrapperStyle = {
 export const headLineStyle = {
   textAlign: 'center',
   paddingTop: '50px',
-  fontFamily: minionProFamily,
+  fontFamily: sanFranciscoTextFamily,
   fontWeight: 'normal',
   fontSize: '36px',
   color: '#FFFFFF',
@@ -27,18 +27,17 @@ export const headLineStyle = {
 };
 
 export const sectionHeaderStyle = {
-  margin: '0',
   color: softBlackColor,
-  fontSize: '19px',
+  fontSize: '20px',
   fontFamily: sanFranciscoTextFamily,
-  fontWeight: '600',
-  boxSizing: 'border-box',
+  fontWeight: '500',
   textAlign: 'center',
+  marginBottom: '-10px',
 };
 
 export const smallSubHeaderStyle = {
   color: smokeGray,
-  fontSize: '14px',
+  fontSize: '15px',
   fontFamily: sanFranciscoTextFamily,
   fontWeight: 'normal',
   textDecoration: 'none',

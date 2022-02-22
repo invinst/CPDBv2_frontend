@@ -1,16 +1,7 @@
 import React, { Component } from 'react';
-import ConfiguredRadium from 'utils/configured-radium';
-import CopyLinkButton from 'components/common/copy-link-btn';
-import ResponsiveStyleComponent from 'components/responsive/responsive-style-component';
 import {
-  wrapperStyle, headLineStyle, leftColumnStyle, rightColumnStyle,
-  sectionHeaderStyle, emailLinkStyle, listElementStyle, paragraphStyle,
-  emailLinkWrapperStyle, smallTextStyle, copyLinkStyle, listStyle, smallSubHeaderStyle,
+  headLineStyle, sectionHeaderStyle, smallSubHeaderStyle,
 } from './questions-page.style';
-import { MOBILE, TABLET, DESKTOP } from 'utils/constants';
-import NoRerender from 'components/common/higher-order/no-rerender';
-import { style } from 'd3-selection';
-
 
 class QuestionsPage extends Component {
   render() {
@@ -24,7 +15,7 @@ class QuestionsPage extends Component {
         
         <div>
           <h2 style={ sectionHeaderStyle }>
-            The Complaint Process
+            <a href="/complaint-process">The Complaint Process</a>
           </h2>
           <h3 style={ smallSubHeaderStyle }>
             Can you help me file a complaint? How do complaints get investigated?

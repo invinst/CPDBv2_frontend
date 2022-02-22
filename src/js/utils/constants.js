@@ -41,6 +41,9 @@ export const PINBOARD_PATH = '/pinboard/:pinboardId?/:pinboardTitle?';
 export const PINBOARD_ADMIN_PATH = '/view-all-pinboards/';
 export const QUESTIONS_PATH = '/questions';
 export const COMPLAINT_PROCESS_PATH = '/complaint-process';
+export const COMPLAINT_INVESTIGATE_PATH = '/complaint-investigate';
+export const FILE_COMPLAINT_ARTICLE_PATH = '/how-to-file-complaint';
+export const IMPERFECT_INFO_ARTICLE_PATH = '/why-is-info-imperfect';
 
 // Date format
 export const MONTH_NAME_DAY_YEAR_FORMAT = 'MMM DD, YYYY';
