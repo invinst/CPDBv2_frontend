@@ -25,7 +25,7 @@ import QuestionsPage from 'components/questions-page/questions-page';
 import ComplaintProcessPage from 'components/questions-page/complaint-process-page/complaint-process-page';
 import ComplaintInvestigatePage from 'components/questions-page/complaint-process-page/complaint-articles/complaint-investigate-page';
 import FileComplaintArticlePage from 'components/questions-page/complaint-process-page/complaint-articles/file-complaint-page';
-import ImperfectInfoPage from 'components/questions-page/complaint-process-page/complaint-articles/imperfect-info-page'; 
+import ImperfectInfoPage from 'components/questions-page/complaint-process-page/complaint-articles/imperfect-info-page';
 import {
   COLLAB_PATH,
   SEARCH_PATH,
@@ -93,7 +93,7 @@ export default function RouterRoot(props) {
         component={ ComplaintInvestigatePage } />
       <Route
         path={ editRouterPath(FILE_COMPLAINT_ARTICLE_PATH) }
-        component={ FileComplaintArticlePage} />
+        component={ FileComplaintArticlePage } />
       <Route
         path={ editRouterPath(IMPERFECT_INFO_ARTICLE_PATH) }
         component={ ImperfectInfoPage } />

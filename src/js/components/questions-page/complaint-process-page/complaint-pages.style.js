@@ -1,4 +1,4 @@
-import { smokeGray, softBlackColor, sanFranciscoTextFamily, minionProFamily } from 'utils/styles';
+import { smokeGray, softBlackColor, sanFranciscoTextFamily, } from 'utils/styles';
 
 export const headLineStyle = {
   textAlign: 'center',
@@ -35,7 +35,7 @@ export const authorStyle = {
   fontSize: '15px',
   textAlign: 'center',
   marginBottom: '50px',
-}
+};
 
 export const smallTextStyle = {
   color: softBlackColor,
@@ -53,7 +53,7 @@ export const centeredSmallTextStyle = {
   fontWeight: 'normal',
   textAlign: 'center',
   marginBottom: '60px', 
-}
+};
 
 export const inArticleHeaderStyle = {
   color: softBlackColor,
@@ -61,6 +61,4 @@ export const inArticleHeaderStyle = {
   fontFamily: sanFranciscoTextFamily,
   fontWeight: 'normal',
   marginLeft: '610px',
-}
-
-
+};
