@@ -44,6 +44,8 @@ export const COMPLAINT_PROCESS_PATH = '/complaint-process';
 export const COMPLAINT_INVESTIGATE_PATH = '/complaint-investigate';
 export const FILE_COMPLAINT_ARTICLE_PATH = '/how-to-file-complaint';
 export const IMPERFECT_INFO_ARTICLE_PATH = '/why-is-info-imperfect';
+export const ABOUT_THE_DATA_PATH = '/about-the-data';
+export const DATA_PUBLIC_PATH = '/data-public';
 
 // Date format
 export const MONTH_NAME_DAY_YEAR_FORMAT = 'MMM DD, YYYY';

@@ -25,7 +25,7 @@ class QuestionsPage extends React.PureComponent {
 
         <div>
           <h2 style={ sectionHeaderStyle }>
-            About the Data
+            <a href='/about-the-data'>About the Data</a>
           </h2>
           <h3 style={ smallSubHeaderStyle }>
             How did this data become public? How current is the data? How accurate is the data?

@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   headerStyle, headLineStyle, sectionHeaderStyle, authorStyle,
-} from './complaint-pages.style';
+} from '../questions-page.style';
 
 
 class ComplaintProcessPage extends React.PureComponent {

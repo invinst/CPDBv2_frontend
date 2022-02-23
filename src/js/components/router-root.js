@@ -29,6 +29,10 @@ import FileComplaintArticlePage from
   'components/questions-page/complaint-process-page/complaint-articles/file-complaint-page';
 import ImperfectInfoPage from
   'components/questions-page/complaint-process-page/complaint-articles/imperfect-info-page';
+import AboutTheDataPage from
+  'components/questions-page/about-the-data-page/about-the-data-page';
+import DataPublicPage from
+  'components/questions-page/about-the-data-page/about-data-articles/data-public-page';
 import {
   COLLAB_PATH,
   SEARCH_PATH,
@@ -57,6 +61,8 @@ import {
   COMPLAINT_INVESTIGATE_PATH,
   FILE_COMPLAINT_ARTICLE_PATH,
   IMPERFECT_INFO_ARTICLE_PATH,
+  ABOUT_THE_DATA_PATH,
+  DATA_PUBLIC_PATH,
 } from 'utils/constants';
 import { isPinboardFeatureEnabled } from 'utils/pinboard';
 import { editRouterPath } from 'utils/router-path';
@@ -100,6 +106,12 @@ export default function RouterRoot(props) {
       <Route
         path={ editRouterPath(IMPERFECT_INFO_ARTICLE_PATH) }
         component={ ImperfectInfoPage } />
+      <Route
+        path={ editRouterPath(ABOUT_THE_DATA_PATH) }
+        component={ AboutTheDataPage } />
+      <Route
+        path={ editRouterPath(DATA_PUBLIC_PATH) }
+        component={ DataPublicPage } />
       <Route
         path={ editRouterPath(LAWSUIT_PATH) }
         component={ LawsuitPageContainer } />

@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   headerStyle, headLineStyle, smallTextStyle, centeredSmallTextStyle, inArticleHeaderStyle,
-} from '../complaint-pages.style.js';
+} from 'components/questions-page/questions-page.style';
 
 class FileComplaintArticlePage extends React.PureComponent {
   render() {
