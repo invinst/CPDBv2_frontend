@@ -2,7 +2,8 @@ import React from 'react';
 import {
   authorStyle,
   headerStyle,
-  headLineStyle, sectionHeaderStyle, smallSubHeaderStyle,
+  headLineStyle,
+  sectionHeaderStyle,
 } from '../questions-page.style';
 
 class AboutTheDataPage extends React.PureComponent {
@@ -79,4 +80,4 @@ class AboutTheDataPage extends React.PureComponent {
   }
 }
 
-export default AboutTheDataPage; 
+export default AboutTheDataPage;
