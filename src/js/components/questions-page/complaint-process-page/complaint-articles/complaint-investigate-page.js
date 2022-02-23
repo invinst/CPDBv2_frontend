@@ -4,7 +4,7 @@ import {
 } from '../complaint-pages.style.js';
 
 
-class ComplaintInvestigatePage extends Component {
+class ComplaintInvestigatePage extends React.PureComponent {
   render() {
     return (
       <div>
