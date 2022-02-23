@@ -21,12 +21,12 @@ class FileComplaintArticlePage extends React.PureComponent {
 
         <div>
           <p style={ smallTextStyle }>
-            Complaints against the Chicago Police Department can be submitted to the<br/> 
+            Complaints against the Chicago Police Department can be submitted to the<br/>
             <a href='https://www.chicagocopa.org/' target='_blank' rel='noopener noreferrer'>
               <u>Civilian Office of Police Accountability</u></a> (COPA). <br/><br/>
-            COPA is an independent agency that oversees misconduct investigations. 
+            COPA is an independent agency that oversees misconduct investigations.
             They<br/> accept complaints <a href='https://www.chicagocopa.org/complaints/intake-form/'
-            target='_blank' rel='noopener noreferrer'><u>online</u></a>, by phone, and in person.
+              target='_blank' rel='noopener noreferrer'><u>online</u></a>, by phone, and in person.
             <br/> <br/> <br/>
           </p>
           <p style={ centeredSmallTextStyle }>
@@ -40,15 +40,15 @@ class FileComplaintArticlePage extends React.PureComponent {
             What happens after I file a complaint <br/>
           </h3>
           <p style={ smallTextStyle }>
-          After you file a complaint, an investigator will ask you to sign an affidavit, swearing<br/> 
-          that your statement is true. If you lie in this sworn statement, you may be charged<br/> 
-          with the crime of perjury, so consider obtaining legal counsel before signing an<br/> 
+          After you file a complaint, an investigator will ask you to sign an affidavit, swearing<br/>
+          that your statement is true. If you lie in this sworn statement, you may be charged<br/>
+          with the crime of perjury, so consider obtaining legal counsel before signing an<br/>
           affidavit. For an analysis of the affidavit policy, please see researcher Bocar Ba’s<br/>
-          <a href='https://www.dropbox.com/s/bny5hze4dlvy2vu/jmp_Bocar%20Ba.pdf?dl=0' target='_blank'
-          rel='noopener noreferrer'><u>Going the Extra Mile</u></a>. <br/><br/>
-          On COPA's website, there is a detailed explanation of the 
-          <a href='https://www.chicagocopa.org/investigations/investigative-process/' target='_blank' 
-          rel='noopener noreferrer'><u>Investigative Process</u></a>.
+            <a href='https://www.dropbox.com/s/bny5hze4dlvy2vu/jmp_Bocar%20Ba.pdf?dl=0' target='_blank'
+              rel='noopener noreferrer'><u>Going the Extra Mile</u></a>. <br/><br/>
+          On COPA's website, there is a detailed explanation of the
+            <a href='https://www.chicagocopa.org/investigations/investigative-process/' target='_blank'
+              rel='noopener noreferrer'><u>Investigative Process</u></a>.
           </p>
         </div>
         <br/>
