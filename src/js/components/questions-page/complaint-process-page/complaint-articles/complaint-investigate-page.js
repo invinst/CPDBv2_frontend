@@ -24,8 +24,8 @@ class ComplaintInvestigatePage extends React.PureComponent {
           <p style={ smallTextStyle }>
             All complaints made by civilians are initially processed by the independent agency <br/>
             <a href='https://www.chicagocopa.org/' target='_blank' rel='noopener noreferrer'>
-               <u>Civilian Office of Police Accountability</u>
-             </a>, which then assigns them to the proper agency. <br/><br/>
+              <u>Civilian Office of Police Accountability</u>
+            </a>, which then assigns them to the proper agency. <br/><br/>
             Currently, COPA investigates certain types of serious complaints against Chicago<br/>
             Police officers, including excessive force, domestic violence, and improper search<br/>
             and seizure. COPA also investigates all officer-involved shootings. All other <br/>

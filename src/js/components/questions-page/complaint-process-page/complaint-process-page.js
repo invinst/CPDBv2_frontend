@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   headerStyle, headLineStyle, sectionHeaderStyle, authorStyle,
 } from './complaint-pages.style';
 
 
-class ComplaintProcessPage extends Component {
+class ComplaintProcessPage extends React.PureComponent {
   render() {
     return (
       <div>
@@ -19,10 +19,10 @@ class ComplaintProcessPage extends Component {
             The Complaint Process
           </h1>
         </div>
-         
+
         <div>
           <h2 style={ sectionHeaderStyle }>
-            <a href="/complaint-investigate">How do complaints get investigated?</a>
+            <a href='/complaint-investigate'>How do complaints get investigated?</a>
           </h2>
           <p style={ authorStyle }>
             Written by Invisible Institute
@@ -31,7 +31,7 @@ class ComplaintProcessPage extends Component {
 
         <div>
           <h2 style={ sectionHeaderStyle }>
-            <a href="/how-to-file-complaint">How do I file a complaint?</a>
+            <a href='/how-to-file-complaint'>How do I file a complaint?</a>
           </h2>
           <p style={ authorStyle }>
             Written by Invisible Institute
@@ -40,7 +40,7 @@ class ComplaintProcessPage extends Component {
 
         <div>
           <h2 style={ sectionHeaderStyle }>
-            <a href="/why-is-info-imperfect">Why is this information imperfect?</a>
+            <a href='/why-is-info-imperfect'>Why is this information imperfect?</a>
           </h2>
           <p style={ authorStyle }>
             Written by Invisible Institute

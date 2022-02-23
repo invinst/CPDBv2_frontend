@@ -1,4 +1,4 @@
-import { smokeGray, softBlackColor, sanFranciscoTextFamily, minionProFamily } from 'utils/styles';
+import { smokeGray, softBlackColor, sanFranciscoTextFamily } from 'utils/styles';
 
 
 export const wrapperStyle = {

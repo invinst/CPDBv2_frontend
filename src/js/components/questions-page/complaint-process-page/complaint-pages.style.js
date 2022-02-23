@@ -1,4 +1,4 @@
-import { smokeGray, softBlackColor, sanFranciscoTextFamily, } from 'utils/styles';
+import { smokeGray, softBlackColor, sanFranciscoTextFamily } from 'utils/styles';
 
 export const headLineStyle = {
   textAlign: 'center',
@@ -52,7 +52,7 @@ export const centeredSmallTextStyle = {
   fontFamily: sanFranciscoTextFamily,
   fontWeight: 'normal',
   textAlign: 'center',
-  marginBottom: '60px', 
+  marginBottom: '60px',
 };
 
 export const inArticleHeaderStyle = {

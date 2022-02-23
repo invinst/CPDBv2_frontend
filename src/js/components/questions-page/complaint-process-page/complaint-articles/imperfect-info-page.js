@@ -37,13 +37,13 @@ class ImperfectInfoPage extends React.PureComponent {
           a misconduct allegation in May 2009. You can view the data we have under the CRID<br/>
           1062099. The Category, Finding, and Final Outcome of this allegation are “Unknown.”<br/>
           However, Officer Drell was suspended in October, 2014 and had a hearing in front of<br/>
-          the Chicago Police Board in January, 2015. The Board found him 
-          <a href='https://www.documentcloud.org/documents/2510144-14pb2877-decision.html'
-          target='_blank' rel='noopener noreferrer'><u>not guilty</u></a>, and<br/>
+          the Chicago Police Board in January, 2015. The Board found him
+            <a href='https://www.documentcloud.org/documents/2510144-14pb2877-decision.html'
+            target='_blank' rel='noopener noreferrer'><u>not guilty</u></a>, and<br/>
           Officer Drell was reinstated as an officer, with back-pay, on March 19, 2015. <br/><br/>
           This site does not include settlements after an officer has been sued. Please see<br/>
-          <a href='http://projects.chicagoreporter.com/settlements' target='_blank'
-          rel='noopener noreferrer'><u>Settling for Misconduct</u></a> by the Chicago Reporter. <br/><br/>
+            <a href='http://projects.chicagoreporter.com/settlements' target='_blank'
+            rel='noopener noreferrer'><u>Settling for Misconduct</u></a> by the Chicago Reporter. <br/><br/>
           Use of force data is self-reported by officers. If an officer uses force and does not<br/>
           complete a Tactical Response Report, that incident is not reflected. So, there may be<br/>
           a complaint that does not have an associated TRR. <br/><br/>
@@ -53,8 +53,8 @@ class ImperfectInfoPage extends React.PureComponent {
           The awards data is also incomplete, and only reflects the most common and most<br/>
           important awards. <br/><br/>
           For a full explanation, please see the contextual information at<br/>
-          <a href='https://github.com/invinst/chicago-police-data' target='_blank'
-          rel='noopener noreferrer'><u>invisible.institute/data-repository</u></a>
+            <a href='https://github.com/invinst/chicago-police-data' target='_blank'
+            rel='noopener noreferrer'><u>invisible.institute/data-repository</u></a>
           </p>
         </div>
         <br/> <br/> <br/> <br/>
