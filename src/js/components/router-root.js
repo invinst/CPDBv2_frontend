@@ -23,9 +23,12 @@ import PinboardPageContainer from 'containers/pinboard-page';
 import PinboardAdminPageContainer from 'containers/pinboard-admin-page';
 import QuestionsPage from 'components/questions-page/questions-page';
 import ComplaintProcessPage from 'components/questions-page/complaint-process-page/complaint-process-page';
-import ComplaintInvestigatePage from 'components/questions-page/complaint-process-page/complaint-articles/complaint-investigate-page';
-import FileComplaintArticlePage from 'components/questions-page/complaint-process-page/complaint-articles/file-complaint-page';
-import ImperfectInfoPage from 'components/questions-page/complaint-process-page/complaint-articles/imperfect-info-page';
+import ComplaintInvestigatePage from
+  'components/questions-page/complaint-process-page/complaint-articles/complaint-investigate-page';
+import FileComplaintArticlePage from
+  'components/questions-page/complaint-process-page/complaint-articles/file-complaint-page';
+import ImperfectInfoPage from
+  'components/questions-page/complaint-process-page/complaint-articles/imperfect-info-page';
 import {
   COLLAB_PATH,
   SEARCH_PATH,

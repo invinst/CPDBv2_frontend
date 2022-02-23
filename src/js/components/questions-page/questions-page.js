@@ -71,7 +71,7 @@ class QuestionsPage extends React.PureComponent {
             <br/>If I have information that you don't have, how can I share it?
           </h3>
         </div>
-      </div>      
+      </div>
     );
   }
 }
