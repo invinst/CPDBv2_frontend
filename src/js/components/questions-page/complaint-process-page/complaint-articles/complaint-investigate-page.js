@@ -22,8 +22,8 @@ class ComplaintInvestigatePage extends React.PureComponent {
 
         <div>
           <p style={ smallTextStyle }>
-            All complaints made by civilians are initially processed by the independent agency <br>
-            </br> <a href='https://www.chicagocopa.org/' target='_blank' rel='noopener noreferrer'>
+            All complaints made by civilians are initially processed by the independent agency <br/>
+             <a href='https://www.chicagocopa.org/' target='_blank' rel='noopener noreferrer'>
               <u>Civilian Office of Police Accountability</u>
             </a>, which then assigns them to the proper agency. <br/><br/>
             Currently, COPA investigates certain types of serious complaints against Chicago<br/>
