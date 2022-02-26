@@ -190,7 +190,7 @@
     "swiper": "^4.4.1",
     "titleize": "^1.0.0",
     "twitter-widgets": "^1.0.0",
-    "url-parse": "^1.4.7",
+    "url-parse": "^1.5.8",
     "venn.js": "^0.2.20",
     "web-animations-js": "^2.3.1",
     "webworkify-webpack": "^2.1.3"
