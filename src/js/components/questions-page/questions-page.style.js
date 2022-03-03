@@ -72,3 +72,8 @@ export const smallSubHeaderStyle = {
   textAlign: 'center',
   paddingBottom: '30px',
 };
+
+export const listStyle = {
+  paddingTop: '20px',
+  marginLeft: '610px',
+}
