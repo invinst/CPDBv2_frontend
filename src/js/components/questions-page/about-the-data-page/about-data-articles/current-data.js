@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  headerStyle, headLineStyle, smallTextStyle, listStyle,
+  headerStyle, headLineStyle, smallTextStyle,
 } from 'components/questions-page/questions-page.style';
 
 class CurrentDataPage extends React.PureComponent {

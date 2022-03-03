@@ -35,6 +35,8 @@ import DataPublicPage from
   'components/questions-page/about-the-data-page/about-data-articles/data-public-page';
 import CurrentDataPage
  from './questions-page/about-the-data-page/about-data-articles/current-data';
+import AccurateDataPage 
+ from './questions-page/about-the-data-page/about-data-articles/accurate-data-page';
 import {
   COLLAB_PATH,
   SEARCH_PATH,
@@ -66,6 +68,7 @@ import {
   ABOUT_THE_DATA_PATH,
   DATA_PUBLIC_PATH,
   CURRENT_DATA_PATH,
+  ACCURATE_DATA_PATH,
 } from 'utils/constants';
 import { isPinboardFeatureEnabled } from 'utils/pinboard';
 import { editRouterPath } from 'utils/router-path';
@@ -118,6 +121,9 @@ export default function RouterRoot(props) {
       <Route
         path={ editRouterPath(CURRENT_DATA_PATH) }
         component={ CurrentDataPage } />
+      <Route
+        path={ editRouterPath(ACCURATE_DATA_PATH) }
+        component={ AccurateDataPage } />
       <Route
         path={ editRouterPath(LAWSUIT_PATH) }
         component={ LawsuitPageContainer } />

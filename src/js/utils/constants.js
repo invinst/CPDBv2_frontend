@@ -47,6 +47,7 @@ export const IMPERFECT_INFO_ARTICLE_PATH = '/why-is-info-imperfect';
 export const ABOUT_THE_DATA_PATH = '/about-the-data';
 export const DATA_PUBLIC_PATH = '/data-public';
 export const CURRENT_DATA_PATH = '/current-data';
+export const ACCURATE_DATA_PATH = '/accurate-data';
 
 // Date format
 export const MONTH_NAME_DAY_YEAR_FORMAT = 'MMM DD, YYYY';
