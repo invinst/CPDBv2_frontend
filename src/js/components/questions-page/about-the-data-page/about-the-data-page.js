@@ -33,7 +33,7 @@ class AboutTheDataPage extends React.PureComponent {
 
         <div>
           <h2 style={ sectionHeaderStyle }>
-            How current is the data?
+            <a href='/current-data'>How current is the data?</a>
           </h2>
           <p style={ authorStyle }>
             Written by Invisible Institute
