@@ -34,9 +34,9 @@ import AboutTheDataPage from
 import DataPublicPage from
   'components/questions-page/about-the-data-page/about-data-articles/data-public-page';
 import CurrentDataPage
- from './questions-page/about-the-data-page/about-data-articles/current-data';
+  from './questions-page/about-the-data-page/about-data-articles/current-data';
 import AccurateDataPage 
- from './questions-page/about-the-data-page/about-data-articles/accurate-data-page';
+  from './questions-page/about-the-data-page/about-data-articles/accurate-data-page';
 import {
   COLLAB_PATH,
   SEARCH_PATH,
