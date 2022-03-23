@@ -64,7 +64,8 @@ jobs:
             - dist
 
   test_nginx:
-    machine: true
+    machine: 
+      image: ubuntu-2004:202201-02
     steps:
       - checkout
       - restore_cache:
