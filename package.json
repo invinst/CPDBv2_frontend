@@ -149,7 +149,7 @@
     "mapbox-gl": "^1.9.1",
     "marked": "^0.7.0",
     "memoize-one": "^5.1.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "moment-timezone": "^0.5.23",
     "mousetrap": "^1.6.1",
     "muuri": "^0.7.1",
