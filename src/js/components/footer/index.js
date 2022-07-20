@@ -44,6 +44,9 @@ function Footer(props) {
             className='invist-logo test--footer-invinst-logo'
             href={ INVISIBLE_INSTITUTE_URL }
           />
+        <div>
+          This is a test to see if this comes up on the footer.
+        </div>
         </div>
       </div>
     </div>
