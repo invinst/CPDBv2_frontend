@@ -8,6 +8,8 @@ import ConfiguredRadium from 'utils/configured-radium';
 import ComplaintSummariesContainer from 'containers/landing-page/complaint-summaries';
 import SlimHeader from 'components/headers/slim-header';
 import FooterContainer from 'containers/footer-container';
+//import PopupContainer from 'containers/popup-container';
+import ModalPopup from '../popup/popup';
 import HeatMap from 'containers/landing-page/heat-map';
 import RecentActivityContainer from 'containers/landing-page/recent-activity';
 import RecentDocumentContainer from 'containers/landing-page/recent-document';
@@ -50,6 +52,15 @@ class LandingPage extends Component {
       return this.previousSearchPageShowing;
   }
 
+  state = {
+    show: true,
+  };
+  showModal = e => {
+    this.setState({
+      show: !this.state.show,
+    });
+  };
+
   render() {
     const pathname = get(this.props, 'location.pathname', '');
     const position = calculateSlimHeaderPosition();
@@ -75,13 +86,14 @@ class LandingPage extends Component {
             <RecentDocumentContainer className='landing-page-carousel' pathname={ pathname }/>
             <ComplaintSummariesContainer className='landing-page-carousel' pathname={ pathname }/>
           </div>
-          <FooterContainer/>
+          <FooterContainer />
         </div>
         <SearchPageContainer
           hide={ !searchPageShowing }
           position={ position }
           animationIn={ !this.initial && searchPageShowing && !this.previousSearchPageShowing }
         />
+        <ModalPopup onClose={ this.showModal } show={ this.state.show } > Content </ModalPopup>
       </React.Fragment>
     );
   }

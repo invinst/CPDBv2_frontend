@@ -1,0 +1,46 @@
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    background-color: rgba(255, 255, 255, 0.8);
+    opacity: 0.7;
+    background: grey;
+
+    h2 {
+        border-bottom: 1px solid #ccc;
+        padding: 1rem;
+        margin: 0;
+    }
+
+    .content {
+        padding: 1rem;
+
+
+    }
+
+    .actions {
+        border-top: 1px solid #ccc;
+        background: #eee;
+        padding: 0.5rem 1rem;
+    }
+}
+
+#centered-toggle-button {
+    position: absolute;
+}
+
+.generic-modal-content {
+    background-color: white;
+    border: 1px solid;
+    margin: auto;
+    width: 500px;
+    max-height: calc(100vh - 120px);
+    width: calc(100% - 120px);
+    max-width: 1024px;
+    margin-top: 60px;
+    box-shadow: -2rem 2rem 2rem rgba(black, 0.2);
+    opacity: 1;
+}
