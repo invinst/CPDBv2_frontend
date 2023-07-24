@@ -26,7 +26,7 @@ export default class ModalPopup extends React.Component {
     //localStorage.removeItem('popupClosedRecently');
 
     if (expirationDate && now.getTime() / 1000 < expirationDate) {
-      //return null;
+      return null;
     }
 
     return (
