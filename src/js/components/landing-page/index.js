@@ -93,7 +93,19 @@ class LandingPage extends Component {
           position={ position }
           animationIn={ !this.initial && searchPageShowing && !this.previousSearchPageShowing }
         />
-        <ModalPopup onClose={ this.showModal } show={ this.state.show } > Content </ModalPopup>
+        <ModalPopup onClose={ this.showModal } show={ this.state.show } >
+          <h4><a href='https://cpdp.co/' target='_blank'>CPDP.co</a> is built and maintained
+           by the Invisible Institute, a journalism nonprofit
+           based on the South Side of Chicago.</h4>
+          <h4>Visit our <a href='https://invisible.institute/' target='_blank'>website</a> to learn
+            more about our work, including our <a href='https://invisible.institute/all-investigations' target='_blank'>
+			investigations</a> into police
+            misconduct, our award-winning <a href='https://invisible.institute/somebody-podcast' target='_blank'>podcasts</a>, and
+			our <a href='https://chicagopolicetorturearchive.com/' target='_blank'>archive</a> of documents
+            related to police torture in Chicago. Subscribe to
+            our monthly newsletter, <em>View from the Ground</em>,
+            for updates and developments in our work.</h4>
+        </ModalPopup>
       </React.Fragment>
     );
   }

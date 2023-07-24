@@ -1,9 +1,6 @@
-import React from "react";
-import "./modal.css";
-import PropTypes from "prop-types";
-import style from "../generic-modal/legal-disclaimer-modal-content.sass";
-import cx from "classnames";
-import {Style} from "radium";
+import React from 'react';
+import './modal.sass';
+import PropTypes from 'prop-types';
 
 
 export default class ModalPopup extends React.Component {
@@ -18,31 +15,28 @@ export default class ModalPopup extends React.Component {
     const expirationDate = localStorage.getItem('popupExpirationDate');
     const now = new Date();
     // eslint-disable-next-line no-console
-    console.log('Here I go again ', this.props.show);
+    //console.log('Here I go again ', this.props.show);
     if (!this.props.show) {
       return null;
     }
     // eslint-disable-next-line no-console
-    console.log(expirationDate);
+    //console.log(expirationDate);
     // eslint-disable-next-line no-console
-    console.log(now.getTime() / 1000 < expirationDate);
+    //console.log(now.getTime() / 1000 < expirationDate);
     //localStorage.removeItem('popupClosedRecently');
 
     if (expirationDate && now.getTime() / 1000 < expirationDate) {
-      return '';
+      //return null;
     }
 
     return (
       <div className='modal' id='modal'>
+        <div className='modal-backdrop' onClick={ this.onClose }/>
         <div className='generic-modal-content'>
-          <h2>Modal Window</h2>
+          <div className='popup-close-button' onClick={ this.onClose }/>
+          {/* <h2>Modal Window</h2> */}
           <div className='content'>
             {this.props.children}
-          </div>
-          <div className='actions'>
-            <button className='toggle-button' onClick={this.onClose}>
-              close
-            </button>
           </div>
         </div>
       </div>
