@@ -101,8 +101,8 @@ class LandingPage extends Component {
             more about our work, including our <a href='https://invisible.institute/all-investigations' target='_blank'>
 			investigations</a> into police
             misconduct, our award-winning <a href='https://invisible.institute/somebody-podcast'
-              target='_blank'>podcasts</a>, and our <a href='https://chicagopolicetorturearchive.com/'
-              target='_blank'>archive</a> of documents
+            target='_blank'>podcasts</a>, and our <a href='https://chicagopolicetorturearchive.com/'
+            target='_blank'>archive</a> of documents
             related to police torture in Chicago. Subscribe to
             our monthly newsletter, <em>View from the Ground</em>,
             for updates and developments in our work.</h4>
