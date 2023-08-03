@@ -8,6 +8,8 @@ import ConfiguredRadium from 'utils/configured-radium';
 import ComplaintSummariesContainer from 'containers/landing-page/complaint-summaries';
 import SlimHeader from 'components/headers/slim-header';
 import FooterContainer from 'containers/footer-container';
+//import PopupContainer from 'containers/popup-container';
+import ModalPopup from '../popup/popup';
 import HeatMap from 'containers/landing-page/heat-map';
 import RecentActivityContainer from 'containers/landing-page/recent-activity';
 import RecentDocumentContainer from 'containers/landing-page/recent-document';
@@ -50,6 +52,15 @@ class LandingPage extends Component {
       return this.previousSearchPageShowing;
   }
 
+  state = {
+    show: true,
+  };
+  showModal = e => {
+    this.setState({
+      show: !this.state.show,
+    });
+  };
+
   render() {
     const pathname = get(this.props, 'location.pathname', '');
     const position = calculateSlimHeaderPosition();
@@ -75,13 +86,27 @@ class LandingPage extends Component {
             <RecentDocumentContainer className='landing-page-carousel' pathname={ pathname }/>
             <ComplaintSummariesContainer className='landing-page-carousel' pathname={ pathname }/>
           </div>
-          <FooterContainer/>
+          <FooterContainer />
         </div>
         <SearchPageContainer
           hide={ !searchPageShowing }
           position={ position }
           animationIn={ !this.initial && searchPageShowing && !this.previousSearchPageShowing }
         />
+        <ModalPopup onClose={ this.showModal } show={ this.state.show } >
+          <h4><a href='https://cpdp.co/' target='_blank'>CPDP.co</a> is built and maintained
+           by the Invisible Institute, a journalism nonprofit
+           based on the South Side of Chicago.</h4>
+          <h4>Visit our <a href='https://invisible.institute/' target='_blank'>website</a> to learn
+            more about our work, including our <a href='https://invisible.institute/all-investigations' target='_blank'>
+			investigations</a> into police
+            misconduct, our award-winning <a href='https://invisible.institute/somebody-podcast'
+            target='_blank'>podcasts</a>, and our <a href='https://chicagopolicetorturearchive.com/'
+            target='_blank'>archive</a> of documents
+            related to police torture in Chicago. Subscribe to
+            our monthly newsletter, <em>View from the Ground</em>,
+            for updates and developments in our work.</h4>
+        </ModalPopup>
       </React.Fragment>
     );
   }
