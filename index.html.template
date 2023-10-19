@@ -14,6 +14,7 @@
       var GA_TRACKING_ID = '<%= GA_TRACKING_ID %>';
       var INTERCOM_ID = '<%= INTERCOM_ID %>';
       var CLICKY_TRACKING_ID = '<%= CLICKY_TRACKING_ID %>';
+      var TAG_ID = '<%= TAG_ID %>';
     </script>
     <!-- Google Analytics -->
     <script>
@@ -23,6 +24,15 @@
     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
     ga('create', GA_TRACKING_ID, 'auto');
     ga(function() { window.gaLoaded = true; });
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=TAG_ID">
+    </script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'TAG_ID');
     </script>
     <!-- End Google Analytics -->
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css'>
