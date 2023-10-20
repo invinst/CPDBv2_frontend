@@ -18,6 +18,7 @@ let config = Object.assign({}, baseConfig, {
       filename: 'index.html',
       templateParameters: {
         'GA_TRACKING_ID': 'UA-63671047-2',
+        'TAG_ID': 'G-G8F567LMXG',
         'INTERCOM_ID': 'p51vy1rb',
         'DISABLE_SEARCH_INDEX': false,
         'CLICKY_TRACKING_ID': '101220048',
