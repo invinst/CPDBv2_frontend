@@ -14,18 +14,6 @@ const ITEM_LIMIT = 3;
 
 
 export default class ListWidget extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      collapsed: true,
-    };
-  }
-
-  toggleCollapsed = () => {
-    const { collapsed } = this.state;
-    this.setState({ collapsed: !collapsed });
-  };
-
   renderItem = item => {
     const { typeName, showAvatar, showItemArrow } = this.props;
     return (
@@ -43,7 +31,7 @@ export default class ListWidget extends Component {
   };
 
   render() {
-    const { wrapperClassName, items, title, collapsable } = this.props;
+    const { wrapperClassName, items, title, expandable, collapsible } = this.props;
     const firstThreeItems = slice(items, 0, ITEM_LIMIT);
     const restItems = slice(items, ITEM_LIMIT);
     return (
@@ -55,13 +43,17 @@ export default class ListWidget extends Component {
               { firstThreeItems.map(this.renderItem) }
             </div>
             {
-              collapsable && !isEmpty(restItems) ? (
+              expandable && !isEmpty(restItems) ? (
                 <Collapse className='list-widget-collapse'>
-                  <Panel header='View more'>
-                    { restItems.map(this.renderItem) }
+                  <Panel
+                    header={ `and ${restItems.length} more` }
+                    className={ cx({ 'disable-collapsible': !collapsible }) }>
+                    <div className='list-widget-rest-items'>
+                      { restItems.map(this.renderItem) }
+                    </div>
                   </Panel>
                 </Collapse>
-              ) : restItems.map(this.renderItem)
+              ) : <div className='list-widget-rest-items'>{ restItems.map(this.renderItem) }</div>
             }
           </ul>
         </div>
@@ -74,7 +66,7 @@ ListWidget.defaultProps = {
   typeName: 'allegation',
   showAvatar: true,
   showItemArrow: false,
-  collapsable: false,
+  collapsible: false,
 };
 
 ListWidget.propTypes = {
@@ -92,5 +84,6 @@ ListWidget.propTypes = {
   showAvatar: PropTypes.bool,
   wrapperClassName: PropTypes.string,
   showItemArrow: PropTypes.bool,
-  collapsable: PropTypes.bool,
+  expandable: PropTypes.bool,
+  collapsible: PropTypes.bool,
 };

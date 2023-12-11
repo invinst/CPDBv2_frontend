@@ -14,7 +14,6 @@ describe('getCitySummary action', function () {
         request: {
           url: constants.CITY_SUMMARY_API_URL,
           params: undefined,
-          adapter: null,
           cancelToken: undefined,
         },
       },

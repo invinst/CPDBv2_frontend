@@ -1,5 +1,5 @@
 import { Promise } from 'es6-promise';
-import { every, get, throttle } from 'lodash';
+import { get, throttle } from 'lodash';
 import { LOCATION_CHANGE } from 'connected-react-router';
 import queryString from 'query-string';
 
@@ -10,6 +10,7 @@ import {
 import {
   getOfficerId, getCRID, getTRRId, getUnitName,
   getDocDedupCRID, getDocumentId, getPinboardID,
+  getLawsuitCaseNo,
 } from 'utils/location';
 import { hasCommunitiesSelector, hasClusterGeoJsonData } from 'selectors/landing-page/heat-map';
 import { hasCitySummarySelector } from 'selectors/landing-page/city-summary';
@@ -19,6 +20,7 @@ import { hasCards as hasRecentActivityData } from 'selectors/landing-page/activi
 import { hasCards as hasRecentDocumentData } from 'selectors/landing-page/recent-document';
 import { hasCategoriesSelector } from 'selectors/search-page/search-terms/categories';
 import { hasCards as hasComplaintSummaryData } from 'selectors/landing-page/complaint-summaries';
+import { hasCards as hasTopLawsuitData } from 'selectors/landing-page/top-lawsuits';
 import { getMatchParamater, getDocumentsOrder } from 'selectors/documents-overview-page';
 import { getCRIDParameter } from 'selectors/document-deduplicator-page';
 import { getPinboard } from 'selectors/pinboard-page/pinboard';
@@ -36,6 +38,7 @@ import { requestOfficersByAllegation } from 'actions/landing-page/officers-by-al
 import { requestActivityGrid } from 'actions/landing-page/activity-grid';
 import { getRecentDocument } from 'actions/landing-page/recent-document';
 import { getComplaintSummaries } from 'actions/landing-page/complaint-summaries';
+import { getTopLawsuits } from 'actions/landing-page/top-lawsuits';
 import { pageLoadFinish, pageLoadStart } from 'actions/page-loading';
 import { fetchPopup } from 'actions/popup';
 import { requestSearchTermCategories } from 'actions/search-page/search-terms';
@@ -44,6 +47,7 @@ import { fetchDocuments, fetchDocumentsAuthenticated } from 'actions/documents-o
 import { cancelledByUser } from 'utils/axios-client';
 import { requestCrawlers } from 'actions/crawlers-page';
 import { fetchPinboard } from 'actions/pinboard';
+import { fetchLawsuit } from 'actions/lawsuit-page';
 import { fetchAllPinboards } from 'actions/pinboard-admin-page';
 import { fetchVideoInfo } from 'actions/headers/slim-header';
 import { hasVideoInfoSelector } from 'selectors/headers/slim-header';
@@ -82,7 +86,7 @@ const handleFetchingDocumentsOverviewPage = (dispatches, store, state, action, f
     currentMatch !== previousMatch ||
     (currentMatch === '' && previousDataOrders.length === 0)
   ) {
-    dispatches.push(store.dispatch(fetch(params)).catch(cancelledByUser));
+    store.dispatch(fetch(params)).catch(cancelledByUser);
   }
 };
 
@@ -132,11 +136,6 @@ export default store => next => action => {
       dispatches.push(store.dispatch(fetchAppConfig()));
     }
 
-    const notRequiredLandingPageContent = [/embed\/map/];
-    if (every(notRequiredLandingPageContent, item => !pathName.match(item))) {
-      getCMSContent(LANDING_PAGE_ID);
-    }
-
     if (pathName.match(/officer\/\d+/)) {
       const officerId = getOfficerId(pathName);
       const oldOfficerId = getOfficerId(prevPathname);
@@ -152,14 +151,16 @@ export default store => next => action => {
     }
 
     else if (pathName.match(/^\/(edit\/?)?(search\/?)?$/)) {
-      if (!hasCommunitiesSelector(state)) {
-        dispatches.push(store.dispatch(getCommunities()));
-      }
+      getCMSContent(LANDING_PAGE_ID);
+
       if (!hasCitySummarySelector(state)) {
         dispatches.push(store.dispatch(getCitySummary()));
       }
+      if (!hasCommunitiesSelector(state)) {
+        store.dispatch(getCommunities());
+      }
       if (!hasClusterGeoJsonData(state)) {
-        dispatches.push(store.dispatch(getClusterGeoJson()));
+        store.dispatch(getClusterGeoJson());
       }
 
       if (!hasOfficerByAllegationData(state)) {
@@ -174,6 +175,10 @@ export default store => next => action => {
 
       if (!hasComplaintSummaryData(state)) {
         dispatches.push(store.dispatch(getComplaintSummaries()));
+      }
+
+      if (!hasTopLawsuitData(state)) {
+        dispatches.push(store.dispatch(getTopLawsuits()));
       }
 
       if (!hasVideoInfoSelector(state)) {
@@ -215,6 +220,8 @@ export default store => next => action => {
     }
 
     else if (pathName.match(/embed\/top-officers/)) {
+      getCMSContent(LANDING_PAGE_ID);
+
       if (!hasOfficerByAllegationData(state)) {
         dispatches.push(store.dispatch(requestOfficersByAllegation()));
       }
@@ -271,6 +278,11 @@ export default store => next => action => {
 
     else if (pathName.match(/\/view-all-pinboards\//)) {
       throttledFetchAllPinboards(store, action);
+    }
+
+    else if (pathName.match(/\/lawsuit\/[a-zA-Z0-9-]+\//)) {
+      const lawsuitCaseNo = getLawsuitCaseNo(pathName);
+      dispatches.push(store.dispatch(fetchLawsuit(lawsuitCaseNo)));
     }
 
     prevPathname = pathName;

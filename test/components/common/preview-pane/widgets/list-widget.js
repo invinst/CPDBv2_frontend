@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { mountWithRouter } from 'utils/test';
 import ListWidget from 'components/common/preview-pane/widgets/list-widget';
 import ListWidgetItem from 'components/common/preview-pane/widgets/list-widget/list-widget-item';
+import styles from 'components/common/preview-pane/widgets/list-widget/list-widget-item.sass';
 
 
 describe('ListWidget', () => {
@@ -30,7 +31,7 @@ describe('ListWidget', () => {
         title='TITLE'
       />
     );
-    const categories = wrapper.find('li');
+    const categories = wrapper.find(`.${styles.listWidgetItem}`);
     categories.at(0).text().should.containEql('Category Name 1');
     categories.at(0).text().should.containEql('90 allegations');
     categories.at(1).text().should.containEql('Category Name 2');
@@ -115,7 +116,7 @@ describe('ListWidget', () => {
     wrapper.find('.list-widget-list').exists().should.be.false();
   });
 
-  describe('collapsable', function () {
+  describe('collapsible', function () {
     const items = [
       {
         count: 175,
@@ -167,13 +168,13 @@ describe('ListWidget', () => {
       },
     ];
 
-    it('should not render Collapse when not collapsable', function () {
+    it('should not render Collapse when not collapsible', function () {
       const wrapper = shallow(
         <ListWidget
           typeName='allegation'
           items={ items }
           title='TITLE'
-          collapsable={ false }
+          expandable={ false }
         />,
       );
 
@@ -181,26 +182,26 @@ describe('ListWidget', () => {
       wrapper.find(ListWidgetItem).should.have.length(4);
     });
 
-    it('should not render Panel when collapsable but there are only 3 items or less', function () {
+    it('should not render Panel when collapsible but there are only 3 items or less', function () {
       const wrapper = shallow(
         <ListWidget
           typeName='allegation'
           items={ items.slice(0, 3) }
           title='TITLE'
-          collapsable={ true }
+          expandable={ true }
         />,
       );
 
       wrapper.find(Panel).exists().should.be.false();
     });
 
-    it('should render Collapse when collapsable and having more than 3 items', function () {
+    it('should render Collapse when collapsible and having more than 3 items', function () {
       const wrapper = shallow(
         <ListWidget
           typeName='allegation'
           items={ items }
           title='TITLE'
-          collapsable={ true }
+          expandable={ true }
         />,
       );
 
@@ -213,7 +214,8 @@ describe('ListWidget', () => {
           typeName='allegation'
           items={ items }
           title='TITLE'
-          collapsable={ true }
+          expandable={ true }
+          collapsible={ true }
         />
       );
 
@@ -221,7 +223,8 @@ describe('ListWidget', () => {
       const panel = collapse.find(Panel);
       const header = collapse.find('.rc-collapse-header');
 
-      panel.prop('header').should.equal('View more');
+      panel.prop('header').should.equal('and 1 more');
+      collapse.find('.rc-collapse-item').prop('className').should.not.containEql('disable-collapsible');
       collapse.find(ListWidgetItem).exists().should.be.false();
       wrapper.find(ListWidgetItem).should.have.length(3);
 
@@ -229,10 +232,27 @@ describe('ListWidget', () => {
 
       setTimeout(() => {
         collapse = wrapper.find(Collapse);
+
+        collapse.find(ListWidgetItem).exists().should.be.true();
         collapse.find(ListWidgetItem).exists().should.be.true();
         wrapper.find(ListWidgetItem).should.have.length(4);
         done();
       }, 500);
+    });
+
+    it('should add class disable-collapsible to View more item when collapsible is false', function () {
+      const wrapper = mountWithRouter(
+        <ListWidget
+          typeName='allegation'
+          items={ items }
+          title='TITLE'
+          expandable={ true }
+          collapsible={ false }
+        />
+      );
+
+      let collapse = wrapper.find(Collapse);
+      collapse.find('.rc-collapse-item').prop('className').should.containEql('disable-collapsible');
     });
   });
 });

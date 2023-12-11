@@ -4,6 +4,20 @@ import Page from './page';
 import Section from './sections/section';
 
 
+class LawsuitPreviewPaneSection extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      wrapper: '//div[starts-with(@class, "preview-pane")]',
+      title: '//div[contains(@class, "lawsuit-title")]',
+      firstOfficerRadarChart: '//div[starts-with(@class, "preview-pane")]' +
+        '//ul//*[name()="svg" and contains(@class, "lawsuit")]',
+      listOfficers: '//*[starts-with(@class, "preview-pane")]//*[contains(@class,"list-widget-item")]',
+      showMoreButton: '//div[contains(@class, "list-widget-collapse")]',
+    });
+  }
+}
+
 class OfficerPreviewPaneSection extends Section {
   constructor() {
     super();
@@ -12,7 +26,7 @@ class OfficerPreviewPaneSection extends Section {
       gradient: '.test--gradient',
       communityPane: '.test--preview-pane-community',
       neighborhoodPane: '.test--preview-pane-neighborhood',
-      listMostOfficers: '//*[starts-with(@class, "preview-pane")]//*[contains(@class,"list-widget-item-link")]',
+      listMostOfficers: '//*[starts-with(@class, "preview-pane")]//*[contains(@class,"list-widget-item")]',
       previewPane: '//div[starts-with(@class, "preview-pane")]',
       pinButton: '//div[starts-with(@class, "preview-pane")]//*[contains(@class,"pin-button")]',
       viewOfficerButton: '.view-officer-profile-button',
@@ -29,7 +43,7 @@ class RankPreviewPaneSection extends Section {
       previewPane: '//div[starts-with(@class, "preview-pane")]',
       firstOfficerRadarChart: '//div[starts-with(@class, "preview-pane")]' +
         '//ul//*[name()="svg" and contains(@class, "radar")]',
-      listMostOfficers: '//*[starts-with(@class, "preview-pane")]//*[contains(@class,"list-widget-item-link")]',
+      listMostOfficers: '//*[starts-with(@class, "preview-pane")]//*[contains(@class,"list-widget-item")]',
     });
   }
 }
@@ -51,7 +65,7 @@ class CRPreviewPaneSection extends Section {
       firstVictim: '//div[contains(@class, "demographic__demographic")][1]',
       secondVictim: '//div[contains(@class, "demographic__demographic")][2]',
       accusedText: '.list-widget-header',
-      accusedOfficers: '//*[contains(@class, "list-widget-item-link")]',
+      accusedOfficers: '//*[contains(@class, "list-widget-item")]',
       firstAccusedOfficerRadarChart: '//div[starts-with(@class, "preview-pane")]' +
         '//ul//*[name()="svg" and contains(@class, "radar")]',
     });
@@ -68,7 +82,7 @@ class TRRPreviewPaneSection extends Section {
       incidentDate: '//div[@class="trr-preview-pane-info-row"][1]',
       address: '//div[@class="trr-preview-pane-info-row"][2]',
       officerHeader: '.list-widget-header',
-      officerLink: '//*[contains(@class, "list-widget-item-link")]',
+      officerLink: '//*[contains(@class, "list-widget-item")]',
       officerName: '.list-widget-list-item-name',
       officerAllegationCount: '.list-widget-list-item-count',
       firstOfficerAllegationRadarChart: '//div[starts-with(@class, "preview-pane")]' +
@@ -126,6 +140,7 @@ class PinboardIntroduction extends Section {
 }
 
 class SearchPage extends Page {
+  lawsuitPreviewPaneSection = new LawsuitPreviewPaneSection();
   officerPreviewPaneSection = new OfficerPreviewPaneSection();
   rankPreviewPaneSection = new RankPreviewPaneSection();
   crPreviewPaneSection = new CRPreviewPaneSection();
@@ -138,6 +153,7 @@ class SearchPage extends Page {
   dateOfficerResultsSection = new ResultsSection('DATE-OFFICERS');
   officerResultsSection = new ResultsSection('OFFICER');
   crResultsSection = new ResultsSection('CR');
+  lawsuitResultsSection = new ResultsSection('LAWSUIT');
   trrResultsSection = new ResultsSection('TRR');
   rankResultsSection = new ResultsSection('RANK');
   searchTermsResultsSection = new ResultsSection('SEARCH-TERMS');
@@ -179,6 +195,10 @@ class SearchPage extends Page {
       toast: '.Toastify__toast-body',
       firstCrResult: '.test--suggestion-group .suggestion-item-CR-CR123',
       secondDateCrResult: '.test--suggestion-group .suggestion-item-DATE-CR-CR456',
+      firstLawsuitResult: '(//*[contains(@class, "test--suggestion-group")]' +
+        ' //*[contains(@class, "suggestion-item-LAWSUIT")])[1]',
+      secondLawsuitResult: '(//*[contains(@class, "test--suggestion-group")]' +
+        ' //*[contains(@class, "suggestion-item-LAWSUIT")])[2]',
       firstTrrResult: '.test--suggestion-group .suggestion-item-TRR-123',
       secondDateTrrResult: '.test--suggestion-group .suggestion-item-DATE-TRR-456',
       firstDateOfficerResult: '.test--suggestion-group .suggestion-item-DATE-OFFICERS-123',

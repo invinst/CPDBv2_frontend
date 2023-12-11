@@ -23,6 +23,7 @@ import { requestOfficersByAllegation } from 'actions/landing-page/officers-by-al
 import { requestActivityGrid } from 'actions/landing-page/activity-grid';
 import { getRecentDocument } from 'actions/landing-page/recent-document';
 import { getComplaintSummaries } from 'actions/landing-page/complaint-summaries';
+import { getTopLawsuits } from 'actions/landing-page/top-lawsuits';
 import { fetchCR } from 'actions/cr-page';
 import { fetchTRR } from 'actions/trr-page';
 import { fetchUnitProfileSummary } from 'actions/unit-profile-page';
@@ -83,6 +84,9 @@ const buildStore = () => ({
         cards: [],
       },
       complaintSummaries: {
+        cards: [],
+      },
+      topLawsuits: {
         cards: [],
       },
       activityGrid: {
@@ -238,6 +242,7 @@ describe('fetchPageInitialData middleware', function () {
         store.dispatch.calledWith(requestActivityGrid()).should.be.true();
         store.dispatch.calledWith(getRecentDocument()).should.be.true();
         store.dispatch.calledWith(getComplaintSummaries()).should.be.true();
+        store.dispatch.calledWith(getTopLawsuits()).should.be.true();
         store.dispatch.calledWith(fetchVideoInfo()).should.be.true();
       });
     });

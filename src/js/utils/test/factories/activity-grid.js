@@ -1,7 +1,7 @@
 import { Factory } from 'rosie';
 import { internet, name, random, helpers } from 'faker';
 
-import { yearGenerator } from 'utils/test/factories/utils';
+import { yearGenerator } from './utils';
 
 
 export const OfficerCardFactory = Factory.define('OfficerCardFactory')

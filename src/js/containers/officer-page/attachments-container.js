@@ -2,13 +2,17 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import AttachmentsTab from 'components/officer-page/tabbed-pane-section/attachments-tab';
-import { complaintsWithAttachmentsSelector } from 'selectors/officer-page/attachments';
+import {
+  complaintsWithAttachmentsSelector,
+  lawsuitsWithAttachmentsSelector,
+} from 'selectors/officer-page/attachments';
 import { changeFilter } from 'actions/officer-page/new-timeline';
 import { trackingClickAttachment } from 'actions/common/analytic';
 import { getOfficerId } from 'selectors/officer-page';
 
 function mapStateToProps(state, ownProps) {
   return {
+    lawsuits: lawsuitsWithAttachmentsSelector(state),
     complaints: complaintsWithAttachmentsSelector(state),
     officerId: getOfficerId(state),
   };

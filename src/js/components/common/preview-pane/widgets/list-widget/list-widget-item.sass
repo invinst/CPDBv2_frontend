@@ -1,17 +1,19 @@
 @import 'variables'
 
-\:local(.list-widget-item-link)
+\:local(.list-widget-item)
   text-decoration: none
   color: inherit
   display: inline-block
   width: 100%
+  padding: 12px 0
+  border-bottom: 1px solid $alto-color
+  box-sizing: border-box
 
   &:hover
     color: $blue-ribbon-color
 
   &:last-child
-    \:local(.list-widget-item)
-      border-bottom: none
+    border-bottom: none
 
   .list-widget-list-item-chart-wrapper
     display: inline-block
@@ -42,13 +44,3 @@
     width: 7px
     vertical-align: middle
     background: url('/img/disclosure-indicator.svg') no-repeat scroll center transparent
-
-.list-widget-first-items
-  \:local(.list-widget-item):last-child
-    border-bottom: none
-
-\:local(.list-widget-item)
-  padding: 12px 0
-  border-bottom: 1px solid $alto-color
-  list-style-type: none
-  box-sizing: border-box

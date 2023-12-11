@@ -17,7 +17,6 @@ describe('requestActivityGrid action', function () {
       payload: {
         request: {
           url: constants.ACTIVITY_GRID_API_URL,
-          adapter: null,
           params: undefined,
           cancelToken: undefined,
         },

@@ -28,7 +28,6 @@ describe('TRRPage actions', function () {
           request: {
             url: `${TRR_URL}123/`,
             params: undefined,
-            adapter: null,
             cancelToken: undefined,
           },
         },
@@ -47,7 +46,6 @@ describe('TRRPage actions', function () {
               email: 'valid@email.com',
             },
             method: 'post',
-            adapter: null,
             cancelToken: undefined,
           },
         },

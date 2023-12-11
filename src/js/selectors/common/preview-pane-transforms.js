@@ -1,12 +1,14 @@
 import { get, sumBy, map, kebabCase, has, isEmpty, compact } from 'lodash';
 import moment from 'moment';
 
+import { lawsuitPath } from 'utils/paths';
 import { extractLatestPercentile } from 'selectors/common/percentile';
 import { formatDate, getCurrentAgeString } from 'utils/date';
 import { roundedPercentile } from 'utils/calculations';
 import { MONTH_NAME_DAY_YEAR_FORMAT, FULL_MONTH_DATE_FORMAT } from 'utils/constants';
 import { getDemographicString } from 'utils/victims';
 import { navigationItemTransform as previewPaneNavigationItemTransform } from './navigation-item-transform';
+import { moneyFormatShort } from 'utils/money';
 
 
 const mappingRace = (race) => {
@@ -169,6 +171,23 @@ export const officerTransform = (item) => ({
   honorableMentionPercentile: roundedPercentile(get(item, 'honorable_mention_percentile')),
 });
 
+const plaintiffTransform = (plaintiff) => ({
+  name: plaintiff['name'],
+});
+
+export const lawsuitTransform = (item) => ({
+  caseNo: item['case_no'],
+  summary: item['summary'],
+  primaryCause: item['primary_cause'],
+  address: item['address'],
+  location: item['location'],
+  incidentDate: item['incident_date'],
+  to: lawsuitPath(item['case_no']),
+  plaintiffs: map(item['plaintiffs'], plaintiffTransform),
+  officers: map(item['officers'], accusedTransform),
+  totalPaymentsDisplay: moneyFormatShort(item['total_payments']).toUpperCase(),
+});
+
 export const previewPaneTransformMap = {
   'SEARCH-TERMS': previewPaneNavigationItemTransform,
   'DATE > CR': crTransform,
@@ -186,4 +205,5 @@ export const previewPaneTransformMap = {
   'SCHOOL-GROUND': areaTransform,
   RANK: rankTransform,
   'INVESTIGATOR > CR': crTransform,
+  'LAWSUIT': lawsuitTransform,
 };

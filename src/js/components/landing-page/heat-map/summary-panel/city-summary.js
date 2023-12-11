@@ -1,88 +1,55 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { map } from 'lodash';
+import cx from 'classnames';
+import { noop } from 'lodash';
 
 import config from 'config';
-import { categoryUrl } from 'utils/v1-url';
-import {
-  wrapperStyle,
-  headerStyle,
-  allegationDisciplineLinkStyle,
-  allegationDisciplineStyle,
-  allegationTextStyle,
-  disciplineTextStyle,
-  mostCommonComplaintStyle,
-  categoryStyle,
-  categoryNameStyle,
-  rightArrowStyle,
-  categoryTextWrapper,
-  clickReceiver,
-  allegationDisciplineCountStyle,
-} from './city-summary.style';
 import OutboundLink from 'components/common/outbound-link';
+
+import styles from './city-summary.sass';
 
 
 export default function CitySummary(props) {
-  const { citySummary, isActive, onClick } = props;
-  const { startYear, endYear, allegationCount, disciplinePercentage, mostCommonComplaints } = citySummary;
+  const { citySummary, isActive, onClick, scrollToTopLawsuit } = props;
+  const { startYear, allegationCount, disciplinePercentage, totalLawsuitSettlements } = citySummary;
 
   return (
-    <div
-      style={ wrapperStyle(isActive) }
-      className='link--transition test--city-summary'
-    >
+    <div className={ cx( styles.citySummary, 'link--transition test--city-summary', { 'is-active': isActive }) }>
       {
         isActive ?
           null :
-          <div style={ clickReceiver } onClick={ onClick } />
+          <div className='click-receiver' onClick={ onClick } />
       }
-      <div style={ headerStyle } className='test--city-summary-header'>
-        CHICAGO{ startYear ? ` ${startYear} - ${endYear}` : '' }
+      <div className='city-summary-header'>
+        Citizens Police Data Project collects and publishes data about police misconduct in Chicago.
       </div>
-      <OutboundLink href={ config.v1Url } style={ allegationDisciplineLinkStyle }>
-        <div
-          style={ allegationDisciplineStyle }
-          className='test--allegation-discipline-count'
+      <div className='lawsuit-info block-info'>
+        <div className='info-label'>Lawsuits</div>
+        <div className='lawsuit-info-summary info-summary'>
+          Between 2014 and 2019, the City of Chicago paid&nbsp;
+          <span className='total-lawsuit-settlements'>${totalLawsuitSettlements}</span>&nbsp;
+          in settlements in police misconduct cases.
+        </div>
+        <OutboundLink href='' className='info-stories' onClick={ scrollToTopLawsuit }>
+          Read the lawsuit stories
+        </OutboundLink>
+      </div>
+      <div className='complaint-info block-info'>
+        <div className='info-label'>Complaints</div>
+        <div className='complaint-info-summary info-summary'>
+          Since {startYear}, there have been&nbsp;
+          <span className='allegation-count'>{allegationCount? allegationCount.toLocaleString() : '0'}</span>&nbsp;
+          allegations of misconduct against Chicago police officers.&nbsp;
+          <span className='allegation-discipline-count'>{disciplinePercentage}%</span>&nbsp;
+          of those allegations were&nbsp;
+          <span className='disciplined'>disciplined.</span>
+        </div>
+        <OutboundLink
+          href={ config.v1Url }
+          className='info-stories'
         >
-          <div style={ allegationDisciplineCountStyle }>
-            <div style={ allegationTextStyle }>
-              {
-                allegationCount ?
-                  `${allegationCount.toLocaleString()} allegations` :
-                  null
-              }
-            </div>
-            <div style={ disciplineTextStyle }>
-              {
-                disciplinePercentage ?
-                  `${ disciplinePercentage }% disciplined` :
-                  null
-              }
-            </div>
-          </div>
-          <div style={ rightArrowStyle } />
-        </div>
-      </OutboundLink>
-
-      <div>
-        <div style={ mostCommonComplaintStyle }>MOST COMMON COMPLAINTS</div>
-        <div className='test--most-common-complaints'>
-          {
-            map(mostCommonComplaints, ({ name, count }, index) => (
-              <OutboundLink
-                className='test--complaint-category'
-                href={ isActive ? categoryUrl(name) : null }
-                key={ index }
-                style={ categoryStyle(index === mostCommonComplaints.length - 1) }>
-                <div style={ categoryTextWrapper }>
-                  <div style={ categoryNameStyle }>{ name }</div>
-                  <div>{ count.toLocaleString() } allegations</div>
-                </div>
-                <div style={ rightArrowStyle } />
-              </OutboundLink>
-            ))
-          }
-        </div>
+          Explore the complaints data
+        </OutboundLink>
       </div>
     </div>
   );
@@ -92,8 +59,10 @@ CitySummary.propTypes = {
   citySummary: PropTypes.object,
   onClick: PropTypes.func,
   isActive: PropTypes.bool,
+  scrollToTopLawsuit: PropTypes.func,
 };
 
 CitySummary.defaultProps = {
   citySummary: {},
+  scrollToTopLawsuit: noop,
 };

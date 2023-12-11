@@ -43,7 +43,6 @@ describe('pinboard admin page actions', function () {
           request: {
             url: ALL_PINBOARD_URL,
             params,
-            adapter: null,
             cancelToken: 'token',
             headers: {
               Authorization: 'Token authenticated_token',
@@ -66,7 +65,6 @@ describe('pinboard admin page actions', function () {
           request: {
             url: SOCIAL_GRAPH_NETWORK_API_URL,
             params: { 'pinboard_id': '268a5e58', static: true },
-            adapter: null,
             cancelToken: undefined,
           },
         },

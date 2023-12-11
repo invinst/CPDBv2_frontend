@@ -34,6 +34,7 @@ describe('SearchTerms component', function () {
           officerIds: [8562],
           crids: ['123456'],
           trrIds: [456789],
+          lawsuitIds: [234567],
         };
         mount(
           <Provider store={ store }>
@@ -46,11 +47,12 @@ describe('SearchTerms component', function () {
             </MemoryRouter>
           </Provider>
         );
-        fetchRecentSearchItemsSpy.should.be.calledWith(
-          [8562],
-          ['123456'],
-          [456789],
-        );
+        fetchRecentSearchItemsSpy.should.be.calledWith({
+          officerIds: [8562],
+          crids: ['123456'],
+          trrIds: [456789],
+          lawsuitIds: [234567],
+        });
       });
 
       it('should not be called if recentSuggestionIds is empty', () => {
@@ -75,6 +77,7 @@ describe('SearchTerms component', function () {
           officerIds: [8562],
           crids: ['123456'],
           trrIds: [456789],
+          lawsuitIds: [234567],
         };
         mount(
           <Provider store={ store }>

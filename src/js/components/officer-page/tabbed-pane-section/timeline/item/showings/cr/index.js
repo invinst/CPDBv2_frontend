@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import cx from 'classnames';
 
-import Attachments from './attachments';
+import Attachments from '../attachments';
 import baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/showings/base-item.sass';
 import styles from './cr.sass';
 import { PrintModeContext } from 'contexts';

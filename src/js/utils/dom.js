@@ -1,6 +1,10 @@
 import { sumBy } from 'lodash';
+import Scroll from 'react-scroll';
 
 import { HEADER_TOP_BAR_HEIGHT } from 'utils/constants';
+
+const scroller = Scroll.scroller;
+
 
 // Disable scroll restoration feature from Chrome
 // which has undesirable behaviors for our SPA
@@ -84,4 +88,13 @@ export function scrollToElement(selector, alignToTop=true, offset=0) {
 /* istanbul ignore next */
 export function scrollToTop() {
   window.scrollTo(0, 0);
+}
+
+export function animatedScrollTo(name, options) {
+  scroller.scrollTo(name, {
+    duration: 1500,
+    delay: 100,
+    smooth: true,
+    ...options,
+  });
 }

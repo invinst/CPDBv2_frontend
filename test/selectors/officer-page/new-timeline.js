@@ -1,6 +1,7 @@
 import {
   attachmentsTransform,
   awardTransform,
+  lawsuitTransform,
   baseTransform,
   crTransform,
   fillEmptyItems,
@@ -331,6 +332,59 @@ describe('Officer new timeline selectors', function () {
         isAfterRankChange: false,
         isAfterUnitChange: false,
       });
+    });
+  });
+
+  describe('lawsuitTransform', function () {
+    const lawsuitItem = {
+      date: '2011-03-01',
+      kind: 'LAWSUIT',
+      'rank': 'Detective',
+      'unit_description': 'Gang Investigation Division',
+      'unit_name': '153',
+      'case_no': '00-L-5230',
+      'primary_cause': 'Excessive force, Racial epithets',
+      'attachments': [
+        {
+          'title': 'Phone subject information organization off important.',
+          'url': 'https://assets.documentcloud.org/documents/6246754/CRID-1086093-CR-COPA-Summary-Report.pdf',
+          'preview_image_url': 'https://assets.documentcloud.org/documents/6246754/pages/CRID.gif',
+          'file_type': '',
+          'id': '95637',
+        },
+      ],
+    };
+
+    it('should map correcctly', function () {
+      lawsuitTransform(lawsuitItem, 1).should.eql({
+        year: 2011,
+        date: 'MAR 1',
+        rank: 'Detective',
+        kind: 'LAWSUIT',
+        caseNo: '00-L-5230',
+        primaryCause: 'Excessive force, Racial epithets',
+        attachments: [
+          {
+            title: 'Phone subject information organization off important.',
+            url: 'https://assets.documentcloud.org/documents/6246754/CRID-1086093-CR-COPA-Summary-Report.pdf',
+            previewImageUrl: 'https://assets.documentcloud.org/documents/6246754/pages/CRID.gif',
+            fileType: '',
+            id: '95637',
+          },
+        ],
+        unitName: 'Unit 153',
+        unitDescription: 'Gang Investigation Division',
+        isCurrentUnit: false,
+        isCurrentRank: false,
+        key: 1,
+        isAfterRankChange: false,
+        isAfterUnitChange: false,
+      });
+    });
+
+    it('should map correctly when primary_cause is nul', function () {
+      const lawsuitWithNullPrimaryCause = { ...lawsuitItem, 'primary_cause': null };
+      lawsuitTransform(lawsuitWithNullPrimaryCause).primaryCause.should.eql('Unknown');
     });
   });
 
@@ -1388,7 +1442,7 @@ describe('Officer new timeline selectors', function () {
           newTimeline: {
             filter: {
               label: 'All',
-              kind: ['CR', 'FORCE', 'AWARD'],
+              kind: ['CR', 'FORCE', 'AWARD', 'LAWSUIT'],
             },
             items: [
               {
@@ -1505,6 +1559,31 @@ describe('Officer new timeline selectors', function () {
                 'unit_description': 'Recruit Training Section',
                 rank: 'Detective',
                 date: '2000-02-05',
+              },
+              {
+                date: '2000-08-06',
+                kind: 'LAWSUIT',
+                rank: 'Detective',
+                'unit_description': 'Recruit Training Section',
+                'unit_name': '044',
+                'case_no': '00-L-5230',
+                'primary_cause': 'Excessive force, Racial epithets',
+                attachments: [
+                  {
+                    title: 'Phone subject information organization off important.',
+                    url: 'https://assets.documentcloud.org/documents/6246754/CRID-1086093-CR-COPA-Summary-Report.pdf',
+                    'preview_image_url': 'https://assets.documentcloud.org/documents/6246754/pages/CRID.gif',
+                    'file_type': '',
+                    'id': '95637',
+                  },
+                  {
+                    title: 'Product all far later exist he author.',
+                    url: 'https://assets.documentcloud.org/documents/6246754/CRID-1086093-CR-COPA-Summary-Report.pdf',
+                    'preview_image_url': 'https://assets.documentcloud.org/documents/6246754/pages/CRID.gif',
+                    'file_type': '',
+                    'id': '95636',
+                  },
+                ],
               },
             ],
           },
@@ -1806,6 +1885,37 @@ describe('Officer new timeline selectors', function () {
           isAfterRankChange: false,
           isAfterUnitChange: false,
         },
+        {
+          year: 2000,
+          date: 'AUG 6',
+          rank: 'Detective',
+          kind: 'LAWSUIT',
+          caseNo: '00-L-5230',
+          primaryCause: 'Excessive force, Racial epithets',
+          attachments: [
+            {
+              title: 'Phone subject information organization off important.',
+              url: 'https://assets.documentcloud.org/documents/6246754/CRID-1086093-CR-COPA-Summary-Report.pdf',
+              previewImageUrl: 'https://assets.documentcloud.org/documents/6246754/pages/CRID.gif',
+              fileType: '',
+              id: '95637',
+            },
+            {
+              title: 'Product all far later exist he author.',
+              url: 'https://assets.documentcloud.org/documents/6246754/CRID-1086093-CR-COPA-Summary-Report.pdf',
+              previewImageUrl: 'https://assets.documentcloud.org/documents/6246754/pages/CRID.gif',
+              fileType: '',
+              id: '95636',
+            },
+          ],
+          unitName: 'Unit 044',
+          unitDescription: 'Recruit Training Section',
+          isCurrentUnit: false,
+          isCurrentRank: false,
+          key: 11,
+          isAfterRankChange: false,
+          isAfterUnitChange: false,
+        },
       ])
       ;
     });
@@ -1932,6 +2042,32 @@ describe('Officer new timeline selectors', function () {
                 rank: 'Detective',
                 date: '2000-02-05',
               },
+              {
+                date: '2000-08-06',
+                kind: 'LAWSUIT',
+                rank: 'Detective',
+                'unit_description': 'Recruit Training Section',
+                'unit_name': '044',
+                'case_no': '00-L-5230',
+                'primary_cause': 'Excessive force, Racial epithets',
+                outcome: 'Killed by officer',
+                attachments: [
+                  {
+                    title: 'Phone subject information organization off important.',
+                    url: 'https://assets.documentcloud.org/documents/6246754/CRID-1086093-CR-COPA-Summary-Report.pdf',
+                    'preview_image_url': 'https://assets.documentcloud.org/documents/6246754/pages/CRID.gif',
+                    'file_type': '',
+                    'id': '95637',
+                  },
+                  {
+                    title: 'Product all far later exist he author.',
+                    url: 'https://assets.documentcloud.org/documents/6246754/CRID-1086093-CR-COPA-Summary-Report.pdf',
+                    'preview_image_url': 'https://assets.documentcloud.org/documents/6246754/pages/CRID.gif',
+                    'file_type': '',
+                    'id': '95636',
+                  },
+                ],
+              },
             ],
           },
         },
@@ -1940,7 +2076,8 @@ describe('Officer new timeline selectors', function () {
         'CRS': 3,
         'FORCE': 3,
         'AWARDS': 1,
-        'ALL': 7,
+        'LAWSUIT': 1,
+        'ALL': 8,
         'SUSTAINED': 0,
         'RANK_UNIT_CHANGES': 0,
       });
