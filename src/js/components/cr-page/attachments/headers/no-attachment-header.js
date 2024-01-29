@@ -21,13 +21,7 @@ export default function NoAttachmentHeader(props) {
           />
         </HoverableEditWrapper>
       </EditWrapperStateProvider>
-      <div className='request-button'>
-        <RequestDocumentButton
-          alreadyRequested={ alreadyRequested }
-          openRequestDocumentModal={ openRequestDocumentModal }
-          hasData={ false }
-        />
-      </div>
+      
     </div>
   );
 }
