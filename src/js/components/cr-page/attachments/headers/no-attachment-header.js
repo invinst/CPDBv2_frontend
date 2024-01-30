@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import RequestDocumentButton from 'components/common/request-document-button';
 import styles from './no-attachment-header.sass';
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
@@ -9,7 +8,7 @@ import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-st
 
 
 export default function NoAttachmentHeader(props) {
-  const { openRequestDocumentModal, alreadyRequested, editWrapperStateProps } = props;
+  const { editWrapperStateProps } = props;
 
   return (
     <div className={ styles.noHeaderMessage }>
@@ -21,13 +20,6 @@ export default function NoAttachmentHeader(props) {
           />
         </HoverableEditWrapper>
       </EditWrapperStateProvider>
-      <div className='request-button'>
-        <RequestDocumentButton
-          alreadyRequested={ alreadyRequested }
-          openRequestDocumentModal={ openRequestDocumentModal }
-          hasData={ false }
-        />
-      </div>
     </div>
   );
 }
