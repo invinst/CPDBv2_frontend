@@ -20,13 +20,6 @@ export default function TRRDocument(props) {
           />
         </HoverableEditWrapper>
       </EditWrapperStateProvider>
-      <div className='trr-request-document-button'>
-        <RequestDocumentButton
-          alreadyRequested={ alreadyRequested }
-          openRequestDocumentModal={ openRequestTRRDocumentModal }
-          hasData={ false }
-        />
-      </div>
     </div>
   );
 }
