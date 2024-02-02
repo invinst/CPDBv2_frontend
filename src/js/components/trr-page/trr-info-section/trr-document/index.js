@@ -2,14 +2,13 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import style from './trr-document.sass';
-import RequestDocumentButton from 'components/common/request-document-button';
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
 
 
 export default function TRRDocument(props) {
-  const { alreadyRequested, openRequestTRRDocumentModal, noAttachmentTextEditWrapperStateProps } = props;
+  const { noAttachmentTextEditWrapperStateProps } = props;
   return (
     <div className={ `${style.trrDocument} no-print` }>
       <EditWrapperStateProvider { ...noAttachmentTextEditWrapperStateProps }>
