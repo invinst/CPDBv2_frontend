@@ -9,7 +9,7 @@ import { POPUP_NAMES } from 'utils/constants';
 
 
 export default function TRRDetail(props) {
-  const { subjectDemographic, category, forceTypes, popup, pathName, actions } = props;
+  const { subjectDemographic, category, popup, pathName, actions } = props;
   return (
     <div className={ style.trrDetail }>
       <Row title='subject' twoRowsWhenPrint={ true } borderValue={ !!subjectDemographic }>
@@ -39,5 +39,5 @@ TRRDetail.propTypes = {
   forceTypes: PropTypes.arrayOf(PropTypes.string),
   popup: PropTypes.object,
   pathName: PropTypes.string,
-  actions: PropTypes.arrayOf(PropTypes.string)
+  actions: PropTypes.arrayOf(PropTypes.string),
 };
