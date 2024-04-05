@@ -9,7 +9,7 @@ import { POPUP_NAMES } from 'utils/constants';
 
 
 export default function TRRDetail(props) {
-  const { subjectDemographic, category, forceTypes, popup, pathName } = props;
+  const { subjectDemographic, category, forceTypes, popup, pathName, actions } = props;
   return (
     <div className={ style.trrDetail }>
       <Row title='subject' twoRowsWhenPrint={ true } borderValue={ !!subjectDemographic }>
@@ -27,7 +27,7 @@ export default function TRRDetail(props) {
         popup={ get(popup, POPUP_NAMES.TRR.TYPES_OF_FORCE) }
         pathName={ pathName }
       >
-        { forceTypes ? forceTypes.join(' ← ') : '' }
+        { actions ? actions.join(' , ') : '' }
       </Row>
     </div>
   );
@@ -39,4 +39,5 @@ TRRDetail.propTypes = {
   forceTypes: PropTypes.arrayOf(PropTypes.string),
   popup: PropTypes.object,
   pathName: PropTypes.string,
+  actions: PropTypes.arrayOf(PropTypes.string)
 };
