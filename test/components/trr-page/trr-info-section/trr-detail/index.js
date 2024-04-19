@@ -12,6 +12,7 @@ describe('TRRDetail component', function () {
       subjectDemographic: 'Black, Male, 21 years old',
       category: 'Other',
       forceTypes: ['Stiffened (Dead Weight)', 'Did Not Follow Verbal Direction', 'Imminent Threat Of Battery'],
+      actions: ['Stiffened (Dead Weight)', 'Did Not Follow Verbal Direction', 'Imminent Threat Of Battery'],
     };
 
     const wrapper = shallow(
@@ -35,7 +36,7 @@ describe('TRRDetail component', function () {
     forceTypeRow.prop('title').should.equal('types of force');
     forceTypeRow.prop('borderValue').should.be.false();
     forceTypeRow.prop('children').should.eql(
-      'Stiffened (Dead Weight) ← Did Not Follow Verbal Direction ← Imminent Threat Of Battery'
+      'Stiffened (Dead Weight), Did Not Follow Verbal Direction, Imminent Threat Of Battery'
     );
   });
 
@@ -58,6 +59,7 @@ describe('TRRDetail component', function () {
     const trrDetail = {
       category: 'Other',
       forceTypes: ['Stiffened (Dead Weight)'],
+      actions: ['Stiffened (Dead Weight)'], 
     };
     const wrapper = shallow(
       <TRRDetail{ ...trrDetail }/>
