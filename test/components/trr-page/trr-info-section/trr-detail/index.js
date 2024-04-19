@@ -59,7 +59,7 @@ describe('TRRDetail component', function () {
     const trrDetail = {
       category: 'Other',
       forceTypes: ['Stiffened (Dead Weight)'],
-      actions: ['Stiffened (Dead Weight)'], 
+      actions: ['Stiffened (Dead Weight)'],
     };
     const wrapper = shallow(
       <TRRDetail{ ...trrDetail }/>
