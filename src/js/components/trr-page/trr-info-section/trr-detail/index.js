@@ -27,7 +27,7 @@ export default function TRRDetail(props) {
         popup={ get(popup, POPUP_NAMES.TRR.TYPES_OF_FORCE) }
         pathName={ pathName }
       >
-        { actions ? actions.join(', ') : '' }
+        { forceTypes ? forceTypes.join(' ← ') : '' }
       </Row>
     </div>
   );
@@ -39,5 +39,4 @@ TRRDetail.propTypes = {
   forceTypes: PropTypes.arrayOf(PropTypes.string),
   popup: PropTypes.object,
   pathName: PropTypes.string,
-  actions: PropTypes.arrayOf(PropTypes.string),
 };
