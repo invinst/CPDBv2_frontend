@@ -9,7 +9,7 @@ import { POPUP_NAMES } from 'utils/constants';
 
 
 export default function TRRDetail(props) {
-  const { subjectDemographic, category, popup, pathName, actions } = props;
+  const { subjectDemographic, category, popup, pathName, forceTypes } = props;
   return (
     <div className={ style.trrDetail }>
       <Row title='subject' twoRowsWhenPrint={ true } borderValue={ !!subjectDemographic }>
