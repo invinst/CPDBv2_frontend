@@ -11,7 +11,7 @@ describe('TRRDetail component', function () {
     const trrDetail = {
       subjectDemographic: 'Black, Male, 21 years old',
       category: 'Other',
-      forceTypes: ['Stiffened (Dead Weight)', 'Did Not Follow Verbal Direction', 'Imminent Threat Of Battery']
+      forceTypes: ['Stiffened (Dead Weight)', 'Did Not Follow Verbal Direction', 'Imminent Threat Of Battery'],
     };
 
     const wrapper = shallow(

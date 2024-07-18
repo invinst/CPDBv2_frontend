@@ -692,6 +692,8 @@ export const POPUP_NAMES = {
     RANK: 'rank',
     SALARY: 'salary',
     NO_DATA_RADAR_CHART: 'noDataRadarChart',
+    TORTURE: 'torture',
+    BRADY: 'brady',
   },
   COMPLAINT: {
     CATEGORY: 'category',

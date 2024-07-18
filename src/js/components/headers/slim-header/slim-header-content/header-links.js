@@ -14,6 +14,7 @@ export default function HeaderLinks({ position }) {
     <div className={ cx(styles.headerLinks, position) }>
       <a href={ config.v1Url } className='header-link'>Data</a>
       <a href={ QA_LINK } className='header-link'>Q&A</a>
+      <a href={ QA_LINK } className='header-link'>Police Employment Data Tool</a>
       <Link to='/documents/' className='header-link'>Documents</Link>
       <PinboardButtonContainer />
     </div>
