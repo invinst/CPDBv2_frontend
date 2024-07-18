@@ -58,8 +58,6 @@ export default class SummarySection extends Component {
         <ViewUnitProfileButton unitName={ unitName } key='Unit'/>
       )],
       ['Career', careerDuration],
-      ['Brady', gender, <TortureBrady popup={ get(popup, POPUP_NAMES.OFFICER.BRADY) }/>],
-      ['Torture', gender]
     ];
   }
 
