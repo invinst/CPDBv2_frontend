@@ -8,6 +8,7 @@ import Salary from './salary';
 import YearOld from './year-old';
 import { POPUP_NAMES } from 'utils/constants';
 import styles from './summary-section.sass';
+import TortureBrady from './tortureBrady';
 
 
 export default class SummarySection extends Component {
@@ -57,6 +58,8 @@ export default class SummarySection extends Component {
         <ViewUnitProfileButton unitName={ unitName } key='Unit'/>
       )],
       ['Career', careerDuration],
+      ['Brady', gender, <TortureBrady popup={ get(popup, POPUP_NAMES.OFFICER.BRADY) }/>],
+      ['Torture', gender]
     ];
   }
 
