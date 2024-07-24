@@ -20,6 +20,7 @@ export default function HeaderLinks({ position }) {
   );
 }
 
+
 HeaderLinks.propTypes = {
   position: PropTypes.string,
 };
