@@ -12,7 +12,6 @@ import styles from './slim-header-content.sass';
 import DemoVideoContainer from 'containers/headers/slim-header/demo-video-container';
 
 
-
 function SlimHeaderContent(props) {
   const { pathname, editModeOn, position } = props;
 
