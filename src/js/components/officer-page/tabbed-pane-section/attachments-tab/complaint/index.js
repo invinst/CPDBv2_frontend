@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Attachment from './attachment';
+import Attachment from '../attachment';
 import Heading from './heading';
 import styles from './complaint.sass';
 

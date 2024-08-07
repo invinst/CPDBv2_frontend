@@ -15,7 +15,6 @@ describe('toast actions', function () {
           request: {
             url: TOAST_API_URL,
             params: undefined,
-            adapter: null,
             cancelToken: undefined,
           },
         },

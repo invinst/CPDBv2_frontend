@@ -39,7 +39,6 @@ describe('suggestion action', function () {
           request: {
             url: SUGGESTION_URL,
             params: { term: 'abc' },
-            adapter: null,
             cancelToken: 'token',
           },
         },
@@ -71,7 +70,6 @@ describe('suggestion action', function () {
               contentType: 'xyz',
               term: 'abc',
             },
-            adapter: null,
             cancelToken: 'token',
           },
         },
@@ -128,7 +126,12 @@ describe('suggestion action', function () {
 
   describe('fetchRecentSearchItems', function () {
     it('should return right action', function () {
-      fetchRecentSearchItems([8562], ['271235'], [123]).should.eql({
+      fetchRecentSearchItems({
+        officerIds: [8562],
+        crids: ['271235'],
+        trrIds: [123],
+        lawsuitIds: [234567],
+      }).should.eql({
         types: [
           constants.FETCH_RECENT_SEARCH_ITEMS_START,
           constants.FETCH_RECENT_SEARCH_ITEMS_SUCCESS,
@@ -141,8 +144,8 @@ describe('suggestion action', function () {
               'officer_ids': [8562],
               crids: ['271235'],
               'trr_ids': [123],
+              'lawsuit_ids': [234567],
             },
-            adapter: null,
             cancelToken: undefined,
           },
         },

@@ -89,7 +89,6 @@ describe('pinboard-page actions', function () {
           request: {
             url: PINBOARDS_URL,
             params: { detail: true },
-            adapter: null,
             cancelToken: undefined,
           },
         },
@@ -104,7 +103,6 @@ describe('pinboard-page actions', function () {
           request: {
             url: PINBOARDS_URL,
             params: { detail: false },
-            adapter: null,
             cancelToken: undefined,
           },
         },

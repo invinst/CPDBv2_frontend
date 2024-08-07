@@ -1,0 +1,52 @@
+@import 'variables'
+
+
+\:local(.city-summary)
+  background-color: $wild-sand-color
+  cursor: pointer
+  border: 1px solid $alto-color
+  padding: 45px 31px 53px
+  font-size: 16px
+  line-height: 19px
+  word-spacing: -1px
+
+  &.is-active
+    background-color: white
+    cursor: default
+
+  .click-receiver
+    position: absolute
+    width: 100%
+    height: 100%
+    top: 0
+    left: 0
+
+  .city-summary-header
+    color: $thunder-color
+    font-size: 20px
+    line-height: 24px
+
+  .lawsuit-info
+    margin-top: 38px
+
+    .total-lawsuit-settlements
+      color: $guardsman-red-color
+
+  .complaint-info
+    margin-top: 44px
+
+    .allegation-discipline-count, .disciplined
+      color: $guardsman-red-color
+
+  .block-info
+    .info-label
+      font-weight: 400
+      margin-bottom: 8px
+
+    .info-summary
+      font-weight: 200
+      margin-bottom: 12px
+
+    .info-stories
+      font-weight: 200
+      color: $blue-ribbon-color

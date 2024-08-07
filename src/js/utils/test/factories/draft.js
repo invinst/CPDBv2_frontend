@@ -1,5 +1,3 @@
-import 'polyfill';
-
 import { lorem } from 'faker';
 import { Factory } from 'rosie';
 import { mapValues } from 'lodash';

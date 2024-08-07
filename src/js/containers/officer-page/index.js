@@ -21,7 +21,7 @@ import {
   turnOnNoDataRadarChartExplainEditMode,
   turnOffNoDataRadarChartExplainEditMode,
 } from 'actions/officer-page';
-import { hasComplaintSelector, numAttachmentsSelector } from 'selectors/officer-page/attachments';
+import { hasAttachmentsSelector, numAttachmentsSelector } from 'selectors/officer-page/attachments';
 import { hasMapMarkersSelector } from 'selectors/officer-page/map';
 import { hasCoaccusalSelector } from 'selectors/officer-page/coaccusals';
 import { popupSelector } from 'selectors/popup';
@@ -41,7 +41,7 @@ function mapStateToProps(state, ownProps) {
     numAttachments: numAttachmentsSelector(state),
     threeCornerPercentile: officerYearlyThreePercentile(state),
     currentTab: getCurrentTab(state),
-    hasComplaint: hasComplaintSelector(state),
+    hasAttachments: hasAttachmentsSelector(state),
     hasMapMarker: hasMapMarkersSelector(state),
     hasCoaccusal: hasCoaccusalSelector(state),
     popup: popupSelector(state),

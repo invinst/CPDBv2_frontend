@@ -49,7 +49,7 @@ describe('Timeline component', function () {
     const dropdown = wrapper.find(Dropdown);
     dropdown.prop('defaultValue').should.equal('All');
     dropdown.prop('options').should.eql([
-      'All', 'Complaints', 'Sustained', 'Use Of Force', 'Awards', 'Rank/Unit Changes',
+      'All', 'Complaints', 'Sustained', 'Use Of Force', 'Awards', 'Lawsuits', 'Rank/Unit Changes',
     ]);
   });
 

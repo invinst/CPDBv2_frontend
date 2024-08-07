@@ -8,6 +8,9 @@ export const MOBILE_BREAK_POINT = 768;
 export const TABLET_BREAK_POINT = 992;
 export const DESKTOP_BREAK_POINT = 1200;
 
+export const HEADER_HEIGHT = 56;
+export const BREADCRUMB_HEIGHT = 40;
+
 export const EXTRA_WIDE = 'extra_wide';
 export const DESKTOP = 'desktop';
 export const MOBILE = 'mobile';
@@ -20,6 +23,7 @@ export const SEARCH_ALIAS_EDIT_PATH = `${SEARCH_PATH}alias/`;
 export const INLINE_SEARCH_ALIAS_ADMIN_PATH = `${SEARCH_ALIAS_EDIT_PATH}form/`;
 export const OFFICER_PATH = '/officer/:officerId/:fullName?/:tab?';
 export const STANDALONE_CR_PATH = '/complaint/:crid';
+export const LAWSUIT_PATH = '/lawsuit/:caseNo';
 export const TTR_PATH = '/trr/:trrId';
 export const UNIT_PROFILE_PATH = '/unit/:unitName';
 export const CRAWLERS_PATH = '/crawlers/';
@@ -60,8 +64,10 @@ export const MAIL_CHIMP_URL = '/vftg/';
 export const OFFICER_URL = `${V2_ROOT_PATH}officers/`;
 export const OFFICERS_BY_ALLEGATION_API_URL = `${OFFICER_URL}top-by-allegation/`;
 export const CR_URL = `${V2_ROOT_PATH}cr/`;
+export const LAWSUIT_URL = `${V2_ROOT_PATH}lawsuit/`;
 export const RECENT_DOCUMENT_URL = `${CR_URL}list-by-new-document/`;
 export const RECENT_COMPLAINT_SUMMARIES_URL = `${CR_URL}complaint-summaries/`;
+export const TOP_LAWSUITS_URL = `${LAWSUIT_URL}top-lawsuits/`;
 export const UNIT_PROFILE_URL = `${V2_ROOT_PATH}units/`;
 export const UPDATE_ALIAS_URL = `${V2_ROOT_PATH}aliases/`;
 export const ACTIVITY_GRID_API_URL = `${V2_ROOT_PATH}activity-grid/`;
@@ -83,6 +89,7 @@ export const ALL_PINBOARD_URL = `${V2_ROOT_PATH}pinboards/all/`;
 export const RECENT_SEARCH_ITEMS_API_URL = 'suggestion/recent-search-items/';
 export const TRACKING_API_URL = `${V2_ROOT_PATH}tracking/`;
 export const APP_CONFIG_API_URL = `${V2_ROOT_PATH}app-config/`;
+export const LAWSUIT_API_URL = `${V2_ROOT_PATH}lawsuit/`;
 
 export const OFFICER_PAGE_PATTERN = /^\/officer\/\d+\/.*/;
 export const CR_PAGE_PATTERN = /^\/complaint\/\d+\/.*/;
@@ -267,6 +274,10 @@ export const RECENT_DOCUMENT_REQUEST_FAILURE = 'RECENT_DOCUMENT_REQUEST_FAILURE'
 export const RECENT_COMPLAINT_SUMMARIES_REQUEST_START = 'RECENT_COMPLAINT_SUMMARIES_REQUEST_START';
 export const RECENT_COMPLAINT_SUMMARIES_REQUEST_SUCCESS = 'RECENT_COMPLAINT_SUMMARIES_REQUEST_SUCCESS';
 export const RECENT_COMPLAINT_SUMMARIES_REQUEST_FAILURE = 'RECENT_COMPLAINT_SUMMARIES_REQUEST_FAILURE';
+
+export const TOP_LAWSUITS_REQUEST_START = 'TOP_LAWSUITS_REQUEST_START';
+export const TOP_LAWSUITS_REQUEST_SUCCESS = 'TOP_LAWSUITS_REQUEST_SUCCESS';
+export const TOP_LAWSUITS_REQUEST_FAILURE = 'TOP_LAWSUITS_REQUEST_FAILURE';
 
 export const SUGGESTION_SINGLE_REQUEST_START = 'SUGGESTION_SINGLE_REQUEST_START';
 export const SUGGESTION_SINGLE_REQUEST_SUCCESS = 'SUGGESTION_SINGLE_REQUEST_SUCCESS';
@@ -484,9 +495,9 @@ export const MORE_BUTTON = 'MORE_BUTTON';
 export const SEARCH_BOX = 'SEARCH_BOX';
 
 export const SEARCH_CATEGORIES = [
-  'SEARCH-TERMS', 'DATE > CR', 'DATE > TRR', 'DATE > OFFICERS', 'OFFICER', 'CO-ACCUSED', 'COMMUNITY', 'NEIGHBORHOOD',
-  'UNIT > OFFICERS', 'CR', 'INVESTIGATOR > CR', 'TRR', 'BEAT', 'POLICE-DISTRICT', 'WARD', 'SCHOOL-GROUND', 'UNIT',
-  'RANK', 'ZIP-CODE',
+  'LAWSUIT', 'SEARCH-TERMS', 'DATE > CR', 'DATE > TRR', 'DATE > OFFICERS', 'OFFICER', 'CO-ACCUSED', 'COMMUNITY',
+  'NEIGHBORHOOD', 'UNIT > OFFICERS', 'CR', 'INVESTIGATOR > CR', 'TRR', 'BEAT', 'POLICE-DISTRICT', 'WARD',
+  'SCHOOL-GROUND', 'UNIT', 'RANK', 'ZIP-CODE',
 ];
 
 export const SEARCH_CATEGORY_PREFIXES = SEARCH_CATEGORIES.reduce((result, searchCategory) => {
@@ -523,7 +534,7 @@ export const TURN_OFF_DOCUMENT_TITLE_EDIT_MODE = 'TURN_OFF_DOCUMENT_TITLE_EDIT_M
 export const TURN_ON_TAGS_EDIT_MODE = 'TURN_ON_TAGS_EDIT_MODE';
 export const TURN_OFF_TAGS_EDIT_MODE = 'TURN_OFF_TAGS_EDIT_MODE';
 
-export const CAROUSEL_TYPES = new Enum(['COMPLAINT', 'ACTIVITY', 'ALLEGATION', 'DOCUMENT']);
+export const CAROUSEL_TYPES = new Enum(['COMPLAINT', 'ACTIVITY', 'ALLEGATION', 'DOCUMENT', 'LAWSUIT']);
 
 export const UPDATE_CMS_PAGE_REQUEST_START = 'UPDATE_CMS_PAGE_REQUEST_START';
 export const UPDATE_CMS_PAGE_REQUEST_SUCCESS = 'UPDATE_CMS_PAGE_REQUEST_SUCCESS';
@@ -548,6 +559,10 @@ export const APP_CONFIG_FETCH_START = 'APP_CONFIG_FETCH_START';
 export const APP_CONFIG_FETCH_SUCCESS = 'APP_CONFIG_FETCH_SUCCESS';
 export const APP_CONFIG_FETCH_FAILURE = 'APP_CONFIG_FETCH_FAILURE';
 
+export const LAWSUIT_FETCH_START = 'LAWSUIT_FETCH_START';
+export const LAWSUIT_FETCH_SUCCESS = 'LAWSUIT_FETCH_SUCCESS';
+export const LAWSUIT_FETCH_FAILURE = 'LAWSUIT_FETCH_FAILURE';
+
 export const LANDING_PAGE_ID = 'landing-page';
 export const OFFICER_PAGE_ID = 'officer-page';
 export const CR_PAGE_ID = 'cr-page';
@@ -568,6 +583,7 @@ export const NEW_TIMELINE_ITEMS = {
   JOINED: 'JOINED',
   YEAR: 'YEAR',
   EMPTY: 'EMPTY',
+  LAWSUIT: 'LAWSUIT',
 };
 
 export const DOCUMENTS_SEARCH_ITEMS = {
@@ -583,7 +599,12 @@ export const PINBOARDS_SEARCH_ITEMS = {
 export const NEW_TIMELINE_FILTERS = {
   ALL: {
     label: 'All',
-    kind: [NEW_TIMELINE_ITEMS.CR, NEW_TIMELINE_ITEMS.FORCE, NEW_TIMELINE_ITEMS.AWARD],
+    kind: [
+      NEW_TIMELINE_ITEMS.CR,
+      NEW_TIMELINE_ITEMS.FORCE,
+      NEW_TIMELINE_ITEMS.AWARD,
+      NEW_TIMELINE_ITEMS.LAWSUIT,
+    ],
   },
   CRS: {
     label: 'Complaints',
@@ -602,6 +623,10 @@ export const NEW_TIMELINE_FILTERS = {
     label: 'Awards',
     kind: [NEW_TIMELINE_ITEMS.AWARD],
   },
+  LAWSUIT: {
+    label: 'Lawsuits',
+    kind: [NEW_TIMELINE_ITEMS.LAWSUIT],
+  },
   RANK_UNIT_CHANGES: {
     label: 'Rank/Unit Changes',
     kind: [],
@@ -609,11 +634,11 @@ export const NEW_TIMELINE_FILTERS = {
 };
 
 export const DISTANCE_OPTIONS = {
-  '0.5mi': '0.5 MILES',
-  '1mi': '1 MILES',
-  '2.5mi': '2.5 MILES',
-  '5mi': '5 MILES',
-  '10mi': '10 MILES',
+  '0.5': '0.5 MILES',
+  '1': '1 MILES',
+  '2.5': '2.5 MILES',
+  '5': '5 MILES',
+  '10': '10 MILES',
 };
 
 export const QA_LINK = 'http://how.cpdp.works/';
@@ -667,6 +692,8 @@ export const POPUP_NAMES = {
     RANK: 'rank',
     SALARY: 'salary',
     NO_DATA_RADAR_CHART: 'noDataRadarChart',
+    TORTURE: 'torture',
+    BRADY: 'brady',
   },
   COMPLAINT: {
     CATEGORY: 'category',

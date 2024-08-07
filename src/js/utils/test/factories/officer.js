@@ -2,7 +2,7 @@ import { Factory } from 'rosie';
 import { name, random, lorem } from 'faker';
 
 
-export const CoaccusedFactory = Factory.define('coaccused')
+Factory.define('BaseOfficerFactory')
   .sequence('id')
   .attr('rank', 'Officer')
   .attr('fullname', () => `${name.firstName()} ${name.lastName}`)
@@ -23,3 +23,15 @@ export const CoaccusedFactory = Factory.define('coaccused')
     visualTokenBackground: '#f5f4f4',
     textColor: '#231F20',
   }));
+
+export const CoaccusedFactory = Factory.define('coaccused')
+  .extend('BaseOfficerFactory')
+  .attr('finding', () => lorem.word())
+  .attr('category', () => lorem.word())
+  .attr('findingOutcomeMix', () => lorem.word())
+  .attr('disciplined', () => random.boolean());
+
+export const InvolvedOfficerFactory = Factory.define('InvolvedOfficerFactory')
+  .extend('BaseOfficerFactory')
+  .attr('lawsuitPayment', () => random.number())
+  .attr('lawsuitCount', () => random.number());

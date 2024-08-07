@@ -110,6 +110,17 @@ class ComplaintSummariesCarouselSection extends CarouselSection {
   }
 }
 
+class TopLawsuitsCarouselSection extends CarouselSection {
+  constructor() {
+    const cardSelector = '//a[contains(@class, "top-lawsuit-card")]';
+    super(
+      '',
+      '//div[contains(@class, "test--landing-carousel-lawsuit")] ',
+      cardSelector
+    );
+  }
+}
+
 class GenericModalSection extends Section {
   constructor() {
     super();
@@ -125,26 +136,17 @@ class CitySummary extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      header: '.test--city-summary-header',
-      allegationDiscipline: '.test--allegation-discipline-count',
-      mostCommonComplaints: '.test--most-common-complaints',
+      header: '.city-summary-header',
+      totalLawsuitSettlements: '.total-lawsuit-settlements',
+      readTheLawsuitStories: '.lawsuit-info .info-stories',
+      allegationCount: '.allegation-count',
+      allegationDisciplineCount: '.allegation-discipline-count',
+      exploreComplaintData: '(//*[contains(@class, "info-stories")])[2]',
     });
   }
 
   tapBottom() {
     $('.test--city-summary').clickAt(100, 370);
-  }
-}
-
-class CommunityDetail extends Section {
-  constructor() {
-    super();
-    this.prepareElementGetters({
-      closeBtn: '.test--community-close-btn',
-      allegationDiscipline: '.test--community-allegation-discipline',
-      v1Link: '.test--community-v1-link',
-      firstOfficer: '(//a[@class="test--community-officer"])[1]',
-    });
   }
 }
 
@@ -162,15 +164,10 @@ class Dropdown extends Section {
 class HeatMapSection extends Section {
   constructor() {
     super();
-    this.prepareElementGetters({
-      dropdownPlaceholder: '.test--dropdown-placeholder',
-      complaintCategory: '.test--complaint-category',
-      searchTermsLink: '.test--dropdown-search-terms',
-    });
+    this.prepareElementGetters();
   }
 
   citySummary = new CitySummary();
-  communityDetail = new CommunityDetail();
   dropdown = new Dropdown();
 }
 
@@ -202,6 +199,7 @@ class LandingPage extends Page {
   recentActivityCarousel = new RecentActivityCarouselSection();
   officersByAllegationCarousel = new OfficersByAllegationCarouselSection();
   complaintSummariesCarousel = new ComplaintSummariesCarouselSection();
+  topLawsuitsCarousel = new TopLawsuitsCarouselSection();
   recentDocumentCarousel = new RecentDocumentCarouselSection();
   genericModalSection = new GenericModalSection();
   heatMapSection = new HeatMapSection();

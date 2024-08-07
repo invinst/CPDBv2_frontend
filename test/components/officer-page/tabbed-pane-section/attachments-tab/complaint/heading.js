@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Heading from 'components/officer-page/tabbed-pane-section/attachments-tab/complaint/heading';
 
 
-describe('Heading component', function () {
+describe('Complaint heading component', function () {
   const complaint = {
     crid: 307775,
     officerId: 12074,

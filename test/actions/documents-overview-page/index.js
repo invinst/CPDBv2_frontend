@@ -29,7 +29,6 @@ describe('documents overview page actions', function () {
           request: {
             url: constants.DOCUMENTS_URL,
             params: {},
-            adapter: null,
             cancelToken: 'token',
           },
         },
@@ -49,7 +48,6 @@ describe('documents overview page actions', function () {
             params: {
               match: '1001',
             },
-            adapter: null,
             cancelToken: 'token',
           },
         },
@@ -78,7 +76,6 @@ describe('documents overview page actions', function () {
             params: {
               authenticated: true,
             },
-            adapter: null,
             cancelToken: 'token',
             headers: {
               Authorization: 'Token authenticated_token',
@@ -103,7 +100,6 @@ describe('documents overview page actions', function () {
               match: '1001',
               authenticated: true,
             },
-            adapter: null,
             cancelToken: 'token',
             headers: {
               Authorization: 'Token authenticated_token',

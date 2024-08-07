@@ -17,7 +17,6 @@ describe('requestOfficersByAllegation action', function () {
       payload: {
         request: {
           url: constants.OFFICERS_BY_ALLEGATION_API_URL,
-          adapter: null,
           params: undefined,
           cancelToken: undefined,
         },

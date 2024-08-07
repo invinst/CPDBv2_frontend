@@ -10,20 +10,23 @@ import styles from './list-widget-item.sass';
 const wrapWithLink = (component, url) => (
   url ? (
     <Link
-      className={ styles.listWidgetItemLink }
+      className={ styles.listWidgetItem }
       to={ url }
       onClick={ e => e.stopPropagation() }
     >
       { component }
     </Link>
-  ) : component
+  ) :
+    <div className={ styles.listWidgetItem }>
+      { component }
+    </div>
 );
 
 export default function ListWidgetItem(props) {
   const { name, url, subText, radarAxes, radarColor, showAvatar, showItemArrow } = props;
 
   return wrapWithLink(
-    <li className={ styles.listWidgetItem }>
+    <React.Fragment>
       { (showAvatar) && (
         <div className='list-widget-list-item-chart-wrapper'>
           <StaticRadarChart
@@ -41,7 +44,7 @@ export default function ListWidgetItem(props) {
         <p className='list-widget-list-item-count'>{ subText }</p>
       </div>
       { showItemArrow ? <div className='list-widget-list-item-arrow'/> : null }
-    </li>,
+    </React.Fragment>,
     url
   );
 }

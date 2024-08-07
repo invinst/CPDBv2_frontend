@@ -1,5 +1,9 @@
 @import 'variables'
 
+
+$search-bar-height: 57px
+$search-results-header-height: 56px
+
 \:local(.wrapper)
   background-color: $wild-sand-color
   padding-top: 8px
@@ -9,6 +13,11 @@
   border-radius: 2px
   border: solid 1px $alto-color
   background-color: white
+
+  &.not-scrollable
+    max-height: calc(100vh - #{$search-bar-height} - #{$search-results-header-height})
+    overflow: hidden
+    position: relative
 
   .pin-button
     background-color: $wild-sand-color
@@ -63,7 +72,7 @@
 
   .gradient
     background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(245, 244, 244, 1) 90%)
-    bottom: 100px
+    bottom: 0
     height: 150px
     left: 0
     position: absolute

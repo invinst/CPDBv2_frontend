@@ -12,7 +12,7 @@ const getMapUrl = (lat, lon, width, height, mapStyle, zoom) => [
   `${width}x${height}@2x?access_token=${MAPBOX_ACCESS_TOKEN}`,
 ].join('/');
 
-export const getComplaintMapUrl = (lat, lon, width, height) => {
+export const getStreetMapUrl = (lat, lon, width, height) => {
   return getMapUrl(lat, lon, width, height, 'streets-v10', 12);
 };
 
