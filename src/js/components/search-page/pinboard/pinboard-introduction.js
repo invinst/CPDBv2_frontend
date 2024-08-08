@@ -18,22 +18,7 @@ export default class PinboardIntroduction extends Component {
   };
 
   render() {
-    const { pinboardFeatureUsed, isPinboardIntroductionVisited } = this.props;
-    const showIntroduction = !pinboardFeatureUsed && !isPinboardIntroductionVisited;
-    return showIntroduction && (
-      <div className={ cx(styles.pinboardIntroduction, 'pinboard-feature') }>
-        <div className='introduction-title'>Introducing Pinboards</div>
-        <div className='introduction-close-btn' onClick={ this.onCloseButtonClick } />
-        <div className='pinboard-thumbnail' />
-        <div className='introduction-content'>
-          <div className='introduction-text'>
-            Use search to create collections of officers, complaint records, and tactical reponse reports.
-          </div>
-          <a className='get-started-btn' onClick={ this.onGetStartedButtonClick }>Get started</a>
-        </div>
-        <div className='clearfix' />
-      </div>
-    );
+    return (null)
   }
 }
 
@@ -46,3 +31,21 @@ PinboardIntroduction.propTypes = {
 PinboardIntroduction.defaultProps = {
   pinboardFeatureUsed: false,
 };
+
+// const { pinboardFeatureUsed, isPinboardIntroductionVisited } = this.props;
+// const showIntroduction = !pinboardFeatureUsed && !isPinboardIntroductionVisited;
+
+// showIntroduction && (
+//   <div className={ cx(styles.pinboardIntroduction, 'pinboard-feature') }>
+//     <div className='introduction-title'>Introducing Pinboards</div>
+//     <div className='introduction-close-btn' onClick={ this.onCloseButtonClick } />
+//     <div className='pinboard-thumbnail' />
+//     <div className='introduction-content'>
+//       <div className='introduction-text'>
+//         Use search to create collections of officers, complaint records, and tactical reponse reports.
+//       </div>
+//       <a className='get-started-btn' onClick={ this.onGetStartedButtonClick }>Get started</a>
+//     </div>
+//     <div className='clearfix' />
+//   </div>
+// );
