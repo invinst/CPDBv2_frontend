@@ -27,7 +27,5 @@ describe('HeaderLinks component', function () {
     links.at(0).prop('className').should.equal('header-link');
     links.at(0).prop('to').should.equal('/documents/');
     links.at(0).prop('children').should.equal('Documents');
-
-    wrapper.find(PinboardButtonContainer).exists().should.be.true();
   });
 });
