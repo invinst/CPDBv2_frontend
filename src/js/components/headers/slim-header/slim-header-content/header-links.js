@@ -15,7 +15,6 @@ export default function HeaderLinks({ position }) {
       <a href={ config.v1Url } className='header-link'>Data</a>
       <a href={ QA_LINK } className='header-link'>Q&A</a>
       <Link to='/documents/' className='header-link'>Documents</Link>
-      <PinboardButtonContainer />
     </div>
   );
 }
