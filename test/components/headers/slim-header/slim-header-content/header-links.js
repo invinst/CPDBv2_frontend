@@ -3,7 +3,6 @@ import { shallow } from 'enzyme';
 import { Link } from 'react-router-dom';
 
 import HeaderLinks from 'components/headers/slim-header/slim-header-content/header-links';
-import PinboardButtonContainer from 'containers/headers/slim-header/pinboard-button-container';
 import styles from 'components/headers/slim-header/slim-header-content/header-links.sass';
 
 
