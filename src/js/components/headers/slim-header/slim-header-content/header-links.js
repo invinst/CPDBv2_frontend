@@ -6,7 +6,6 @@ import cx from 'classnames';
 
 import { QA_LINK } from 'utils/constants';
 import styles from 'components/headers/slim-header/slim-header-content/header-links.sass';
-import PinboardButtonContainer from 'containers/headers/slim-header/pinboard-button-container';
 
 
 export default function HeaderLinks({ position }) {
