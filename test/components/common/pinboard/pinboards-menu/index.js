@@ -1,13 +1,13 @@
-import React from 'react';
-import { mount } from 'enzyme';
-import { spy, stub } from 'sinon';
-import { Provider } from 'react-redux';
-import { Promise } from 'es6-promise';
-import MockStore from 'redux-mock-store';
+// import React from 'react';
+// import { mount } from 'enzyme';
+// import { spy, stub } from 'sinon';
+// import { Provider } from 'react-redux';
+// import { Promise } from 'es6-promise';
+// import MockStore from 'redux-mock-store';
 
-import PinboardsMenu from 'components/common/pinboard/pinboards-menu';
-import { PINNED_ITEM_TYPES } from 'utils/constants';
-import * as pinboardUtils from 'utils/pinboard';
+// import PinboardsMenu from 'components/common/pinboard/pinboards-menu';
+// import { PINNED_ITEM_TYPES } from 'utils/constants';
+// import * as pinboardUtils from 'utils/pinboard';
 
 
 describe('PinboardsMenu component', function () {
