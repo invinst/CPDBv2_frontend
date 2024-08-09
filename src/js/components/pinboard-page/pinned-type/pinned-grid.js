@@ -3,9 +3,9 @@ import { Component } from 'react';
 import { map, isEqual, find, noop } from 'lodash';
 import { Muuri } from 'utils/vendors';
 
-import { OfficerCardWithUndo as OfficerCard } from 'components/pinboard-page/cards/officer-card';
-import { CRCardWithUndo as CRCard } from 'components/pinboard-page/cards/cr-card';
-import { TRRCardWithUndo as TRRCard } from 'components/pinboard-page/cards/trr-card';
+// import { OfficerCardWithUndo as OfficerCard } from 'components/pinboard-page/cards/officer-card';
+// import { CRCardWithUndo as CRCard } from 'components/pinboard-page/cards/cr-card';
+// import { TRRCardWithUndo as TRRCard } from 'components/pinboard-page/cards/trr-card';
 import { getPageYBottomOffset, scrollByBottomOffset } from 'utils/navigation';
 //import styles from './pinned-grid.sass';
 

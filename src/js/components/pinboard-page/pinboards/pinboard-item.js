@@ -73,7 +73,7 @@ export default class PinboardItem extends Component {
     //     >
     //       <div className='pinboard-title'>{ this.getTitle() }</div>
     //       {
-    //         lastViewedAt && !hasTitlePendingChange && <div 
+    //         lastViewedAt && !hasTitlePendingChange && <div
     // className='pinboard-viewed-at'>Viewed { lastViewedAt }</div>
     //       }
     //     </PinboardLinkContainer>

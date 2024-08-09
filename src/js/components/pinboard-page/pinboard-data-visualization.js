@@ -21,7 +21,8 @@ export default class PinboardDataVisualization extends Component {
   }
 
   render() {
-    //const { hasMapMarker, hasComplaintSummary, hasTRRSummary, hasOfficersSummary, hasComplainantsSummary } = this.props;
+    //const { hasMapMarker, hasComplaintSummary, hasTRRSummary, 
+    // hasOfficersSummary, hasComplainantsSummary } = this.props;
 
     return (null);
     // (
