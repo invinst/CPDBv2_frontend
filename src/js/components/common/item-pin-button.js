@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 // import cx from 'classnames';
-import { every, isEmpty } from 'lodash';
+// import { every, isEmpty } from 'lodash';
 
 import withPinnable from 'components/common/with-pinnable';
 // import styles from 'components/common/item-pin-button.sass';
@@ -18,7 +18,7 @@ class ItemPinButton extends Component {
   };
 
   render() {
-    const { item, items } = this.props;
+    // const { item, items } = this.props;
     // const isPinned = every(isEmpty(items) ? [item] : items, item => item.isPinned);
 
     return (null);
