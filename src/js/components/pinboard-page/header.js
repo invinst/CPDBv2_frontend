@@ -57,7 +57,7 @@ export default class Header extends Component {
   }
 
   render() {
-    return (null); 
+    return (null);
     // (
     //   <div className={ styles.wrapper } >
     //     <div className={ cx(responsiveContainerStyles.responsiveContainer, 'inner-wrapper') }>

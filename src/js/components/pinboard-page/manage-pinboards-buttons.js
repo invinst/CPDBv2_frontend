@@ -51,9 +51,9 @@ export default class ManagePinboardsButtons extends Component {
   };
 
   render() {
-    const { showNewPinboardMenu } = this.state;
+    //const { showNewPinboardMenu } = this.state;
 
-    return (null); 
+    return (null);
     // (
     //   <div className={ styles.managePinboardsButtons }>
     //     <div className='new-pinboard-btn-container'>

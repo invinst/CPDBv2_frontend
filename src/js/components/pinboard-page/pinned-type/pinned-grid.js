@@ -10,11 +10,11 @@ import { getPageYBottomOffset, scrollByBottomOffset } from 'utils/navigation';
 //import styles from './pinned-grid.sass';
 
 
-const CARD_MAP = {
-  'OFFICER': OfficerCard,
-  'CR': CRCard,
-  'TRR': TRRCard,
-};
+// const CARD_MAP = {
+//   'OFFICER': OfficerCard,
+//   'CR': CRCard,
+//   'TRR': TRRCard,
+// };
 
 export default class PinnedGrid extends Component {
   constructor(props) {
@@ -82,7 +82,7 @@ export default class PinnedGrid extends Component {
     //const Card = CARD_MAP[type];
     this.itemElements = {};
 
-    return (null) 
+    return (null);
     // (
     //   <div className={ styles.pinnedGrid } ref={ grid => this.grid = grid }>
     //     {

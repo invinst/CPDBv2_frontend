@@ -60,7 +60,7 @@ export default class PinboardItem extends Component {
     //   actionsPanePosition,
     // } = this.props;
 
-    return (null); 
+    return (null);
     // (
     //   <div className={ cx('pinboard-item', { 'is-current': isCurrent }) }>
     //     {
@@ -73,7 +73,8 @@ export default class PinboardItem extends Component {
     //     >
     //       <div className='pinboard-title'>{ this.getTitle() }</div>
     //       {
-    //         lastViewedAt && !hasTitlePendingChange && <div className='pinboard-viewed-at'>Viewed { lastViewedAt }</div>
+    //         lastViewedAt && !hasTitlePendingChange && <div 
+    // className='pinboard-viewed-at'>Viewed { lastViewedAt }</div>
     //       }
     //     </PinboardLinkContainer>
     //     <div className='pinboard-item-actions-container'>

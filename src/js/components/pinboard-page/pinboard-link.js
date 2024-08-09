@@ -17,11 +17,11 @@ export default class PinboardLink extends Component {
   };
 
   render() {
-    const { customComponent } = this.props;
+    //const { customComponent } = this.props;
     // const componentProps = omit(this.props, 'onClick', 'hasPendingChanges', 'customComponent');
     // const ContentComponent = customComponent || 'a';
 
-    return (null); 
+    return (null);
     // (
     //   <ContentComponent { ...componentProps } onClick={ this.handleClick } />
     // );

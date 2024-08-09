@@ -7,8 +7,8 @@ import PropTypes from 'prop-types';
 
 
 export default function PinboardInfo(props) {
-  const { pinboard, updatePinboardInfo } = props;
-  return (null); 
+  //const { pinboard, updatePinboardInfo } = props;
+  return (null);
   // (
   //   <div className={ styles.pinboardInfo }>
   //     <AutosaveTextareaInput

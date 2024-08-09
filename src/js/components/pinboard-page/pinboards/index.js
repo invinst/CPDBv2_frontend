@@ -47,7 +47,7 @@ class Pinboards extends Component {
     // const { pinboards, isShown, duplicatePinboard, removePinboard, handleClose } = this.props;
     // const { showActionsPinboardId, actionsPanePosition } = this.state;
 
-    return (null); 
+    return (null);
     // (
     //   <SlideMotion show={ isShown }>
     //     <div className={ styles.pinboards } ref={ el => this.pinboards = el }>

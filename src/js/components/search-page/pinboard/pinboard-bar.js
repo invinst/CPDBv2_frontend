@@ -6,14 +6,14 @@ import { noop } from 'lodash';
 // import styles from './pinboard-bar.sass';
 // import PinboardButtonContainer from 'containers/search-page/pinboard-button-container';
 
-const PINBOARD_TIP = 'Create collections of officers, complaint records, \
-  and tactical reponse reports using search.';
+// const PINBOARD_TIP = 'Create collections of officers, complaint records, \
+//   and tactical reponse reports using search.';
 
 
 export default function PinboardBar(props) {
   //const { onEmptyPinboardButtonClick, isEmptyPinboard } = props;
 
-  return (null); 
+  return (null);
   // (
   //   <div className={ cx('pinboard-feature', styles.wrapper, { 'slide-in': !isEmptyPinboard }) }>
   //     <span className='pinboard-tip'>

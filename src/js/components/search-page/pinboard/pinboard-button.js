@@ -33,7 +33,7 @@ export default class PinboardButton extends Component {
     }
 
     if (pinboard.itemsCount === 0 && emptyText) {
-      return (null); 
+      return (null);
       // (
       //   <span className={
       //     cx('pinboard-feature', 'test--pinboard-button', styles.pinboardNoItem) } onClick={ this.handleClick }
@@ -43,7 +43,7 @@ export default class PinboardButton extends Component {
       // );
     }
 
-    return (null); 
+    return (null);
     // (
     //   <span className={
     //     cx('pinboard-feature', 'test--pinboard-button', styles.pinboardHasItems) } onClick={ this.handleClick }

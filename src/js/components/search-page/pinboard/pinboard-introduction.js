@@ -18,9 +18,9 @@ export default class PinboardIntroduction extends Component {
   };
 
   render() { return (null);
-    //const { pinboardFeatureUsed, isPinboardIntroductionVisited } = this.props;
-    //const showIntroduction = !pinboardFeatureUsed && !isPinboardIntroductionVisited;
-    return 
+    // const { pinboardFeatureUsed, isPinboardIntroductionVisited } = this.props;
+    // const showIntroduction = !pinboardFeatureUsed && !isPinboardIntroductionVisited;
+    // return 
     // showIntroduction && (
     //   <div className={ cx(styles.pinboardIntroduction, 'pinboard-feature') }>
     //     <div className='introduction-title'>Introducing Pinboards</div>
