@@ -82,30 +82,31 @@ export default class PinnedGrid extends Component {
     const Card = CARD_MAP[type];
     this.itemElements = {};
 
-    return (
-      <div className={ styles.pinnedGrid } ref={ grid => this.grid = grid }>
-        {
-          map(items, item => (
-            <div
-              key={ item.id }
-              className='pinned-grid-item'
-              data-id={ item.id }
-              ref={ element => this.itemElements[item.id] = element }
-            >
-              <div className='item-content'>
-                <Card
-                  item={ item }
-                  removeItemInPinboardPage={ this.removeItemInPinboardPage }
-                  completeRemoveItemInPinboardPage={ this.completeRemoveItemInPinboardPage }
-                  addItemInPinboardPage={ addItemInPinboardPage }
-                  focusItem={ focusItem }
-                />
-              </div>
-            </div>
-          ))
-        }
-      </div>
-    );
+    return (null); 
+    // (
+    //   <div className={ styles.pinnedGrid } ref={ grid => this.grid = grid }>
+    //     {
+    //       map(items, item => (
+    //         <div
+    //           key={ item.id }
+    //           className='pinned-grid-item'
+    //           data-id={ item.id }
+    //           ref={ element => this.itemElements[item.id] = element }
+    //         >
+    //           <div className='item-content'>
+    //             <Card
+    //               item={ item }
+    //               removeItemInPinboardPage={ this.removeItemInPinboardPage }
+    //               completeRemoveItemInPinboardPage={ this.completeRemoveItemInPinboardPage }
+    //               addItemInPinboardPage={ addItemInPinboardPage }
+    //               focusItem={ focusItem }
+    //             />
+    //           </div>
+    //         </div>
+    //       ))
+    //     }
+    //   </div>
+    // );
   }
 }
 

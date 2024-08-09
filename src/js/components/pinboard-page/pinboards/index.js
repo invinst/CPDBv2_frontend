@@ -47,33 +47,34 @@ class Pinboards extends Component {
     const { pinboards, isShown, duplicatePinboard, removePinboard, handleClose } = this.props;
     const { showActionsPinboardId, actionsPanePosition } = this.state;
 
-    return (
-      <SlideMotion show={ isShown }>
-        <div className={ styles.pinboards } ref={ el => this.pinboards = el }>
-          <div className='pinboards-title'>
-            Pinboards
-            <PinboardLinkContainer
-              className='new-pinboard-btn'
-              title='Add new'
-              onClick={ this.handleCreateNewEmptyPinboard } />
-          </div>
-          {
-            pinboards.map((pinboard) => (
-              <PinboardItem
-                key={ pinboard.key }
-                pinboard={ pinboard }
-                actionsPanePosition={ actionsPanePosition }
-                duplicatePinboard={ duplicatePinboard }
-                removePinboard={ removePinboard }
-                shouldShowActions={ pinboard.id === showActionsPinboardId }
-                handleSetShowActionsPinboardId={ this.handleSetShowActionsPinboardId }
-                handleClose={ handleClose }
-              />
-            ))
-          }
-        </div>
-      </SlideMotion>
-    );
+    return (null); 
+    // (
+    //   <SlideMotion show={ isShown }>
+    //     <div className={ styles.pinboards } ref={ el => this.pinboards = el }>
+    //       <div className='pinboards-title'>
+    //         Pinboards
+    //         <PinboardLinkContainer
+    //           className='new-pinboard-btn'
+    //           title='Add new'
+    //           onClick={ this.handleCreateNewEmptyPinboard } />
+    //       </div>
+    //       {
+    //         pinboards.map((pinboard) => (
+    //           <PinboardItem
+    //             key={ pinboard.key }
+    //             pinboard={ pinboard }
+    //             actionsPanePosition={ actionsPanePosition }
+    //             duplicatePinboard={ duplicatePinboard }
+    //             removePinboard={ removePinboard }
+    //             shouldShowActions={ pinboard.id === showActionsPinboardId }
+    //             handleSetShowActionsPinboardId={ this.handleSetShowActionsPinboardId }
+    //             handleClose={ handleClose }
+    //           />
+    //         ))
+    //       }
+    //     </div>
+    //   </SlideMotion>
+    // );
   }
 }
 

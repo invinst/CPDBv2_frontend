@@ -60,44 +60,45 @@ export default class PinboardItem extends Component {
       actionsPanePosition,
     } = this.props;
 
-    return (
-      <div className={ cx('pinboard-item', { 'is-current': isCurrent }) }>
-        {
-          hasPendingChanges &&
-            <img src='/img/pinboard-loading-spinner.svg' className='spinner' alt='spinner' />
-        }
-        <PinboardLinkContainer
-          className={ cx('pinboard-info', { 'has-loading-spinner': hasPendingChanges }) }
-          customComponent='div' onClick={ this.handlePinboardItemClick }
-        >
-          <div className='pinboard-title'>{ this.getTitle() }</div>
-          {
-            lastViewedAt && !hasTitlePendingChange && <div className='pinboard-viewed-at'>Viewed { lastViewedAt }</div>
-          }
-        </PinboardLinkContainer>
-        <div className='pinboard-item-actions-container'>
-          <div
-            className={ cx('pinboard-item-actions-btn', { 'focused': shouldShowActions }) }
-            onClick={ this.handleActionsBtnClick }
-            ref={ el => this.actionsBtn = el }
-          />
-          {
-            shouldShowActions && (
-              <div className={ cx('pinboard-item-actions-menu', actionsPanePosition) }>
-                <PinboardLinkContainer
-                  customComponent='div'
-                  className='duplicate-pinboard-btn'
-                  onClick={ this.handleDuplicatePinboard }
-                >
-                  Duplicate
-                </PinboardLinkContainer>
-                <div className='remove-pinboard-btn' onClick={ this.handleRemovePinboard }>Remove</div>
-              </div>
-            )
-          }
-        </div>
-      </div>
-    );
+    return (null); 
+    // (
+    //   <div className={ cx('pinboard-item', { 'is-current': isCurrent }) }>
+    //     {
+    //       hasPendingChanges &&
+    //         <img src='/img/pinboard-loading-spinner.svg' className='spinner' alt='spinner' />
+    //     }
+    //     <PinboardLinkContainer
+    //       className={ cx('pinboard-info', { 'has-loading-spinner': hasPendingChanges }) }
+    //       customComponent='div' onClick={ this.handlePinboardItemClick }
+    //     >
+    //       <div className='pinboard-title'>{ this.getTitle() }</div>
+    //       {
+    //         lastViewedAt && !hasTitlePendingChange && <div className='pinboard-viewed-at'>Viewed { lastViewedAt }</div>
+    //       }
+    //     </PinboardLinkContainer>
+    //     <div className='pinboard-item-actions-container'>
+    //       <div
+    //         className={ cx('pinboard-item-actions-btn', { 'focused': shouldShowActions }) }
+    //         onClick={ this.handleActionsBtnClick }
+    //         ref={ el => this.actionsBtn = el }
+    //       />
+    //       {
+    //         shouldShowActions && (
+    //           <div className={ cx('pinboard-item-actions-menu', actionsPanePosition) }>
+    //             <PinboardLinkContainer
+    //               customComponent='div'
+    //               className='duplicate-pinboard-btn'
+    //               onClick={ this.handleDuplicatePinboard }
+    //             >
+    //               Duplicate
+    //             </PinboardLinkContainer>
+    //             <div className='remove-pinboard-btn' onClick={ this.handleRemovePinboard }>Remove</div>
+    //           </div>
+    //         )
+    //       }
+    //     </div>
+    //   </div>
+    // );
   }
 }
 

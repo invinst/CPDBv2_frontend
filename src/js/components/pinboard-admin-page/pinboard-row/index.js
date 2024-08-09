@@ -1,8 +1,4 @@
 import PropTypes from 'prop-types';
-import React from 'react';
-import cx from 'classnames';
-
-import styles from './pinboard-row.sass';
 
 export default function PinboardRow(props) {
   const {
@@ -15,15 +11,16 @@ export default function PinboardRow(props) {
     onClick,
   } = props;
 
-  return (
-    <div className={ cx(styles.row, { 'header': isHeader }) } onClick={ onClick }>
-      <span className='cell pinboard-id'>{ id }</span>
-      <span className='cell pinboard-title'>{ title }</span>
-      <span className='cell pinboard-pinned'>{ pinnedCount }</span>
-      <span className='cell pinboard-children'>{ childCount }</span>
-      <span className='cell pinboard-date'>{ createdAt }</span>
-    </div>
-  );
+  return (null); 
+  // (
+  //   <div className={ cx(styles.row, { 'header': isHeader }) } onClick={ onClick }>
+  //     <span className='cell pinboard-id'>{ id }</span>
+  //     <span className='cell pinboard-title'>{ title }</span>
+  //     <span className='cell pinboard-pinned'>{ pinnedCount }</span>
+  //     <span className='cell pinboard-children'>{ childCount }</span>
+  //     <span className='cell pinboard-date'>{ createdAt }</span>
+  //   </div>
+  // );
 }
 
 PinboardRow.propTypes = {

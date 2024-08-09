@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import cx from 'classnames';
 import { isEmpty, noop } from 'lodash';
 
 import browserHistory from 'utils/history';
-import styles from './pinboard-button.sass';
 import { DEFAULT_PINBOARD_PATH } from 'utils/constants';
 
 
@@ -33,22 +31,24 @@ export default class PinboardButton extends Component {
     }
 
     if (pinboard.itemsCount === 0 && emptyText) {
-      return (
-        <span className={
-          cx('pinboard-feature', 'test--pinboard-button', styles.pinboardNoItem) } onClick={ this.handleClick }
-        >
-          Your pinboard is empty
-        </span>
-      );
+      return (null);
+      // (
+      //   <span className={
+      //     cx('pinboard-feature', 'test--pinboard-button', styles.pinboardNoItem) } onClick={ this.handleClick }
+      //   >
+      //     Your pinboard is empty
+      //   </span>
+      // );
     }
 
-    return (
-      <span className={
-        cx('pinboard-feature', 'test--pinboard-button', styles.pinboardHasItems) } onClick={ this.handleClick }
-      >
-        { `Pinboard (${pinboard.itemsCount})` }
-      </span>
-    );
+    return (null);
+    // (
+    //   <span className={
+    //     cx('pinboard-feature', 'test--pinboard-button', styles.pinboardHasItems) } onClick={ this.handleClick }
+    //   >
+    //     { `Pinboard (${pinboard.itemsCount})` }
+    //   </span>
+    // );
   }
 }
 

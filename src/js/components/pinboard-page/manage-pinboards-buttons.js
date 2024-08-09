@@ -53,33 +53,7 @@ export default class ManagePinboardsButtons extends Component {
   render() {
     const { showNewPinboardMenu } = this.state;
 
-    return (
-      <div className={ styles.managePinboardsButtons }>
-        <div className='new-pinboard-btn-container'>
-          <a
-            className={ cx('new-pinboard-menu-btn', { 'close-btn': showNewPinboardMenu }) }
-            onClick={ this.toggleShowNewPinboardMenu }
-          />
-          {
-            showNewPinboardMenu && (
-              <div className='new-pinboard-menu'>
-                <PinboardLinkContainer
-                  className='menu-item new-pinboard-link'
-                  onClick={ this.handleCreateNewEmptyPinboard }>
-                  Create new pinboard
-                </PinboardLinkContainer>
-                <PinboardLinkContainer
-                  className='menu-item duplicate-current-pinboard-link'
-                  onClick={ this.handleDuplicatePinboard }>
-                  Duplicate this pinboard
-                </PinboardLinkContainer>
-              </div>
-            )
-          }
-        </div>
-        <a className='pinboards-list-btn' onClick={ this.handleShowPinboardList } />
-      </div>
-    );
+    return (null);
   }
 }
 
@@ -95,3 +69,31 @@ ManagePinboardsButtons.defaultProps = {
   createNewEmptyPinboard: noop,
   duplicatePinboard: noop,
 };
+
+// (
+//   <div className={ styles.managePinboardsButtons }>
+//     <div className='new-pinboard-btn-container'>
+//       <a
+//         className={ cx('new-pinboard-menu-btn', { 'close-btn': showNewPinboardMenu }) }
+//         onClick={ this.toggleShowNewPinboardMenu }
+//       />
+//       {
+//         showNewPinboardMenu && (
+//           <div className='new-pinboard-menu'>
+//             <PinboardLinkContainer
+//               className='menu-item new-pinboard-link'
+//               onClick={ this.handleCreateNewEmptyPinboard }>
+//               Create new pinboard
+//             </PinboardLinkContainer>
+//             <PinboardLinkContainer
+//               className='menu-item duplicate-current-pinboard-link'
+//               onClick={ this.handleDuplicatePinboard }>
+//               Duplicate this pinboard
+//             </PinboardLinkContainer>
+//           </div>
+//         )
+//       }
+//     </div>
+//     <a className='pinboards-list-btn' onClick={ this.handleShowPinboardList } />
+//   </div>
+// );
