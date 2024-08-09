@@ -82,40 +82,40 @@ describe('PinboardsMenu component', function () {
   });
 
   describe('PinButton click', function () {
-    let fetchPinboardStub;
-    let addOrRemoveItemInPinboardSpy;
-    let closeMenuSpy;
-    let wrapper;
+    // let fetchPinboardStub;
+    // let addOrRemoveItemInPinboardSpy;
+    // let closeMenuSpy;
+    // let wrapper;
 
-    beforeEach(function () {
-      addOrRemoveItemInPinboardSpy = spy();
-      closeMenuSpy = spy();
-      fetchPinboardStub = stub().returns(new Promise(resolve => resolve()));
-      const pinboards = [
-        {
-          id: 1,
-          title: 'Pinboard 1',
-          isPinned: false,
-          isCurrent: false,
-        },
-        {
-          id: 2,
-          title: 'Pinboard 2',
-          isPinned: true,
-          isCurrent: true,
-        },
-      ];
-      wrapper = mount(
-        <Provider store={ MockStore()({}) }>
-          <PinboardsMenu
-            pinboards={ pinboards }
-            addOrRemoveItemInPinboard={ addOrRemoveItemInPinboardSpy }
-            item={ { type: 'OFFICER' } }
-            closeMenu={ closeMenuSpy }
-            fetchPinboard={ fetchPinboardStub }/>
-        </Provider>
-      );
-    });
+    // beforeEach(function () {
+    //   addOrRemoveItemInPinboardSpy = spy();
+    //   closeMenuSpy = spy();
+    //   fetchPinboardStub = stub().returns(new Promise(resolve => resolve()));
+    //   const pinboards = [
+    //     {
+    //       id: 1,
+    //       title: 'Pinboard 1',
+    //       isPinned: false,
+    //       isCurrent: false,
+    //     },
+    //     {
+    //       id: 2,
+    //       title: 'Pinboard 2',
+    //       isPinned: true,
+    //       isCurrent: true,
+    //     },
+    //   ];
+    //   wrapper = mount(
+    //     <Provider store={ MockStore()({}) }>
+    //       <PinboardsMenu
+    //         pinboards={ pinboards }
+    //         addOrRemoveItemInPinboard={ addOrRemoveItemInPinboardSpy }
+    //         item={ { type: 'OFFICER' } }
+    //         closeMenu={ closeMenuSpy }
+    //         fetchPinboard={ fetchPinboardStub }/>
+    //     </Provider>
+    //   );
+    // });
 
     // it('should call fetchPinboard if isCurrent is false', function (done) {
     //   const firstPinButton = wrapper.find('PinboardMenuItem').first();

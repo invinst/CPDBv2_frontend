@@ -58,7 +58,8 @@ describe('PinboardLink component', function () {
   //     onClickSpy.should.be.calledOnce();
   //   });
 
-  //   it('should show confirmation and not call onClick if hasPendingChanges is true and user confirm no', function () {
+  //   it('should show confirmation and not call onClick if hasPendingChanges
+  // is true and user confirm no', function () {
   //     const windowConfirmStub = stub(window, 'confirm');
   //     windowConfirmStub.withArgs(CONFIRM_MESSAGE).returns(false);
   //     const onClickSpy = spy();

@@ -47,7 +47,8 @@ describe('PinboardIntroduction component', function () {
   //       visitPinboardIntroductionSpy.should.be.calledOnce();
   //     });
 
-  //     it('should call setPinboardIntroductionVisited and redirect to /pinboard/ on Get Started clicked', function () {
+  //     it('should call setPinboardIntroductionVisited and redirect to
+  // pinboard/ on Get Started clicked', function () {
   //       wrapper.find('.get-started-btn').simulate('click');
   //       visitPinboardIntroductionSpy.should.be.calledOnce();
   //       browserHistoryPushSpy.should.be.calledWith('/pinboard/');

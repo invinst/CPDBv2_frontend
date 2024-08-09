@@ -73,7 +73,8 @@ describe('PinboardButton component', function () {
   //   browserHistoryPush.should.be.calledWith('/pinboard/1/title/');
   // });
 
-  // it('should redirect to /pinboard/ if pinboard_id is null and hasPendingChanges when clicking on button', function () {
+  // it('should redirect to /pinboard/ if pinboard_id is null and
+  // hasPendingChanges when clicking on button', function () {
   //   const browserHistoryPush = stub(browserHistory, 'push');
 
   //   const wrapper = mount(
