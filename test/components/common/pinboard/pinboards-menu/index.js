@@ -140,5 +140,3 @@ describe('PinboardsMenu component', function () {
     //   closeMenuSpy.should.be.calledOnce();
     // });
   });
-
-});
