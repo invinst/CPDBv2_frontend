@@ -21,17 +21,18 @@ class ItemPinButton extends Component {
     const { className, showHint, item, items, showIntroduction } = this.props;
     const isPinned = every(isEmpty(items) ? [item] : items, item => item.isPinned);
 
-    return (
-      <div className={ cx(
-        'pinboard-feature',
-        styles.itemPinButton,
-        className,
-        { 'is-pinned': isPinned, 'show-introduction': showIntroduction }
-      ) }>
-        <div className='pin-button' />
-        { showHint && <div className='pin-action-hint' onClick={ this.handleClickHint }> Unpin? </div> }
-      </div>
-    );
+    return (null);
+    // (
+    //  <div className={ cx(
+    //     'pinboard-feature',
+    //     styles.itemPinButton,
+    //     className,
+    //     { 'is-pinned': isPinned, 'show-introduction': showIntroduction }
+    //   ) }>
+    //     <div className='pin-button' />
+    //     { showHint && <div className='pin-action-hint' onClick={ this.handleClickHint }> Unpin? </div> }
+    //   </div>
+    // );
   }
 }
 
