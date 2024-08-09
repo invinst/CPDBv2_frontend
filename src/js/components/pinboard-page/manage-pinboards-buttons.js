@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { isEmpty, noop } from 'lodash';
-import cx from 'classnames';
+// import cx from 'classnames';
 
-import styles from './manage-pinboards-buttons.sass';
+// import styles from './manage-pinboards-buttons.sass';
 import { redirectToCreatedPinboard } from 'utils/pinboard';
-import PinboardLinkContainer from 'containers/pinboard-page/pinboard-link-container';
+// import PinboardLinkContainer from 'containers/pinboard-page/pinboard-link-container';
 import { showIntercomLauncher } from 'utils/intercom';
 
 
@@ -53,33 +53,34 @@ export default class ManagePinboardsButtons extends Component {
   render() {
     const { showNewPinboardMenu } = this.state;
 
-    return (
-      <div className={ styles.managePinboardsButtons }>
-        <div className='new-pinboard-btn-container'>
-          <a
-            className={ cx('new-pinboard-menu-btn', { 'close-btn': showNewPinboardMenu }) }
-            onClick={ this.toggleShowNewPinboardMenu }
-          />
-          {
-            showNewPinboardMenu && (
-              <div className='new-pinboard-menu'>
-                <PinboardLinkContainer
-                  className='menu-item new-pinboard-link'
-                  onClick={ this.handleCreateNewEmptyPinboard }>
-                  Create new pinboard
-                </PinboardLinkContainer>
-                <PinboardLinkContainer
-                  className='menu-item duplicate-current-pinboard-link'
-                  onClick={ this.handleDuplicatePinboard }>
-                  Duplicate this pinboard
-                </PinboardLinkContainer>
-              </div>
-            )
-          }
-        </div>
-        <a className='pinboards-list-btn' onClick={ this.handleShowPinboardList } />
-      </div>
-    );
+    return (null); 
+    // (
+    //   <div className={ styles.managePinboardsButtons }>
+    //     <div className='new-pinboard-btn-container'>
+    //       <a
+    //         className={ cx('new-pinboard-menu-btn', { 'close-btn': showNewPinboardMenu }) }
+    //         onClick={ this.toggleShowNewPinboardMenu }
+    //       />
+    //       {
+    //         showNewPinboardMenu && (
+    //           <div className='new-pinboard-menu'>
+    //             <PinboardLinkContainer
+    //               className='menu-item new-pinboard-link'
+    //               onClick={ this.handleCreateNewEmptyPinboard }>
+    //               Create new pinboard
+    //             </PinboardLinkContainer>
+    //             <PinboardLinkContainer
+    //               className='menu-item duplicate-current-pinboard-link'
+    //               onClick={ this.handleDuplicatePinboard }>
+    //               Duplicate this pinboard
+    //             </PinboardLinkContainer>
+    //           </div>
+    //         )
+    //       }
+    //     </div>
+    //     <a className='pinboards-list-btn' onClick={ this.handleShowPinboardList } />
+    //   </div>
+    // );
   }
 }
 

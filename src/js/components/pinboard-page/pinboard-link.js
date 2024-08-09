@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import { omit } from 'lodash';
+import { Component } from 'react';
+//import { omit } from 'lodash';
 
 export const CONFIRM_MESSAGE = `
   Pinboard is saving, changes you made may not be saved.
@@ -18,12 +18,13 @@ export default class PinboardLink extends Component {
 
   render() {
     const { customComponent } = this.props;
-    const componentProps = omit(this.props, 'onClick', 'hasPendingChanges', 'customComponent');
-    const ContentComponent = customComponent || 'a';
+    // const componentProps = omit(this.props, 'onClick', 'hasPendingChanges', 'customComponent');
+    // const ContentComponent = customComponent || 'a';
 
-    return (
-      <ContentComponent { ...componentProps } onClick={ this.handleClick } />
-    );
+    return (null); 
+    // (
+    //   <ContentComponent { ...componentProps } onClick={ this.handleClick } />
+    // );
   }
 }
 

@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { noop } from 'lodash';
 
-import styles from './pinboards.sass';
+// import styles from './pinboards.sass';
 import withOverlay from 'components/common/with-overlay';
-import SlideMotion from 'components/animation/slide-motion';
+// import SlideMotion from 'components/animation/slide-motion';
 import { redirectToCreatedPinboard } from 'utils/pinboard';
-import PinboardItem from './pinboard-item';
-import PinboardLinkContainer from 'containers/pinboard-page/pinboard-link-container';
+// import PinboardItem from './pinboard-item';
+// import PinboardLinkContainer from 'containers/pinboard-page/pinboard-link-container';
 import { PINBOARD_ACTIONS_PANE_SPACE } from 'utils/constants';
 
 
@@ -44,36 +44,37 @@ class Pinboards extends Component {
   };
 
   render() {
-    const { pinboards, isShown, duplicatePinboard, removePinboard, handleClose } = this.props;
-    const { showActionsPinboardId, actionsPanePosition } = this.state;
+    // const { pinboards, isShown, duplicatePinboard, removePinboard, handleClose } = this.props;
+    // const { showActionsPinboardId, actionsPanePosition } = this.state;
 
-    return (
-      <SlideMotion show={ isShown }>
-        <div className={ styles.pinboards } ref={ el => this.pinboards = el }>
-          <div className='pinboards-title'>
-            Pinboards
-            <PinboardLinkContainer
-              className='new-pinboard-btn'
-              title='Add new'
-              onClick={ this.handleCreateNewEmptyPinboard } />
-          </div>
-          {
-            pinboards.map((pinboard) => (
-              <PinboardItem
-                key={ pinboard.key }
-                pinboard={ pinboard }
-                actionsPanePosition={ actionsPanePosition }
-                duplicatePinboard={ duplicatePinboard }
-                removePinboard={ removePinboard }
-                shouldShowActions={ pinboard.id === showActionsPinboardId }
-                handleSetShowActionsPinboardId={ this.handleSetShowActionsPinboardId }
-                handleClose={ handleClose }
-              />
-            ))
-          }
-        </div>
-      </SlideMotion>
-    );
+    return (null); 
+    // (
+    //   <SlideMotion show={ isShown }>
+    //     <div className={ styles.pinboards } ref={ el => this.pinboards = el }>
+    //       <div className='pinboards-title'>
+    //         Pinboards
+    //         <PinboardLinkContainer
+    //           className='new-pinboard-btn'
+    //           title='Add new'
+    //           onClick={ this.handleCreateNewEmptyPinboard } />
+    //       </div>
+    //       {
+    //         pinboards.map((pinboard) => (
+    //           <PinboardItem
+    //             key={ pinboard.key }
+    //             pinboard={ pinboard }
+    //             actionsPanePosition={ actionsPanePosition }
+    //             duplicatePinboard={ duplicatePinboard }
+    //             removePinboard={ removePinboard }
+    //             shouldShowActions={ pinboard.id === showActionsPinboardId }
+    //             handleSetShowActionsPinboardId={ this.handleSetShowActionsPinboardId }
+    //             handleClose={ handleClose }
+    //           />
+    //         ))
+    //       }
+    //     </div>
+    //   </SlideMotion>
+    // );
   }
 }
 

@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import cx from 'classnames';
+import { Component } from 'react';
+// import cx from 'classnames';
 import { noop } from 'lodash';
 
 import browserHistory from 'utils/history';
 import { redirectToCreatedPinboard } from 'utils/pinboard';
-import PinboardLinkContainer from 'containers/pinboard-page/pinboard-link-container';
+// import PinboardLinkContainer from 'containers/pinboard-page/pinboard-link-container';
 
 
 export default class PinboardItem extends Component {
@@ -54,50 +54,51 @@ export default class PinboardItem extends Component {
   }
 
   render() {
-    const {
-      pinboard: { lastViewedAt, isCurrent, hasPendingChanges, hasTitlePendingChange },
-      shouldShowActions,
-      actionsPanePosition,
-    } = this.props;
+    // const {
+    //   pinboard: { lastViewedAt, isCurrent, hasPendingChanges, hasTitlePendingChange },
+    //   shouldShowActions,
+    //   actionsPanePosition,
+    // } = this.props;
 
-    return (
-      <div className={ cx('pinboard-item', { 'is-current': isCurrent }) }>
-        {
-          hasPendingChanges &&
-            <img src='/img/pinboard-loading-spinner.svg' className='spinner' alt='spinner' />
-        }
-        <PinboardLinkContainer
-          className={ cx('pinboard-info', { 'has-loading-spinner': hasPendingChanges }) }
-          customComponent='div' onClick={ this.handlePinboardItemClick }
-        >
-          <div className='pinboard-title'>{ this.getTitle() }</div>
-          {
-            lastViewedAt && !hasTitlePendingChange && <div className='pinboard-viewed-at'>Viewed { lastViewedAt }</div>
-          }
-        </PinboardLinkContainer>
-        <div className='pinboard-item-actions-container'>
-          <div
-            className={ cx('pinboard-item-actions-btn', { 'focused': shouldShowActions }) }
-            onClick={ this.handleActionsBtnClick }
-            ref={ el => this.actionsBtn = el }
-          />
-          {
-            shouldShowActions && (
-              <div className={ cx('pinboard-item-actions-menu', actionsPanePosition) }>
-                <PinboardLinkContainer
-                  customComponent='div'
-                  className='duplicate-pinboard-btn'
-                  onClick={ this.handleDuplicatePinboard }
-                >
-                  Duplicate
-                </PinboardLinkContainer>
-                <div className='remove-pinboard-btn' onClick={ this.handleRemovePinboard }>Remove</div>
-              </div>
-            )
-          }
-        </div>
-      </div>
-    );
+    return (null); 
+    // (
+    //   <div className={ cx('pinboard-item', { 'is-current': isCurrent }) }>
+    //     {
+    //       hasPendingChanges &&
+    //         <img src='/img/pinboard-loading-spinner.svg' className='spinner' alt='spinner' />
+    //     }
+    //     <PinboardLinkContainer
+    //       className={ cx('pinboard-info', { 'has-loading-spinner': hasPendingChanges }) }
+    //       customComponent='div' onClick={ this.handlePinboardItemClick }
+    //     >
+    //       <div className='pinboard-title'>{ this.getTitle() }</div>
+    //       {
+    //         lastViewedAt && !hasTitlePendingChange && <div className='pinboard-viewed-at'>Viewed { lastViewedAt }</div>
+    //       }
+    //     </PinboardLinkContainer>
+    //     <div className='pinboard-item-actions-container'>
+    //       <div
+    //         className={ cx('pinboard-item-actions-btn', { 'focused': shouldShowActions }) }
+    //         onClick={ this.handleActionsBtnClick }
+    //         ref={ el => this.actionsBtn = el }
+    //       />
+    //       {
+    //         shouldShowActions && (
+    //           <div className={ cx('pinboard-item-actions-menu', actionsPanePosition) }>
+    //             <PinboardLinkContainer
+    //               customComponent='div'
+    //               className='duplicate-pinboard-btn'
+    //               onClick={ this.handleDuplicatePinboard }
+    //             >
+    //               Duplicate
+    //             </PinboardLinkContainer>
+    //             <div className='remove-pinboard-btn' onClick={ this.handleRemovePinboard }>Remove</div>
+    //           </div>
+    //         )
+    //       }
+    //     </div>
+    //   </div>
+    // );
   }
 }
 
