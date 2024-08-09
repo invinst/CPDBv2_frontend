@@ -7,7 +7,7 @@ import withPinnable from 'components/common/with-pinnable';
 function PinButton(props) {
   const { item } = props;
   const { isPinned } = item;
-  const pinButtonText = isPinned ? 'Remove from pinboard' : 'Add to pinboard';
+  // const pinButtonText = isPinned ? 'Remove from pinboard' : 'Add to pinboard';
 
   return (null);
   // (
