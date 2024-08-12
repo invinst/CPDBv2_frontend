@@ -11,7 +11,7 @@ import styles from './city-summary.sass';
 
 export default function CitySummary(props) {
   const { citySummary, isActive, onClick, scrollToTopLawsuit } = props;
-  const { startYear, allegationCount, disciplinePercentage, totalLawsuitSettlements } = citySummary;
+  const { allegationCount, disciplinePercentage, totalLawsuitSettlements } = citySummary;
 
   return (
     <div className={ cx( styles.citySummary, 'link--transition test--city-summary', { 'is-active': isActive }) }>
