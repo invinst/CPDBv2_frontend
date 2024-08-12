@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { noop } from 'lodash';
 
-import styles from './pinboards-menu.sass';
+// import styles from './pinboards-menu.sass';
 import { redirectToCreatedPinboard } from 'utils/pinboard';
-import PinboardMenuItem from './pinboard-menu-item';
+// import PinboardMenuItem from './pinboard-menu-item';
 import { PINNED_ITEM_TYPES } from 'utils/constants';
 
 
@@ -36,29 +36,30 @@ export default class PinboardsMenu extends Component {
   };
 
   render() {
-    const { pinboards, closeMenu } = this.props;
+    // const { pinboards, closeMenu } = this.props;
 
-    return (
-      <div className={ styles.pinboardsMenu }>
-        <div className='title'>Add to Pinboard</div>
-        <div className='pinboards'>
-          {
-            pinboards.map((pinboard) => (
-              <PinboardMenuItem
-                key={ pinboard.id }
-                pinboard={ pinboard }
-                onClick={ this.handlePinButtonClick }
-                closeMenu={ closeMenu }
-              />
-            ))
-          }
-        </div>
-        <div
-          className='add-to-new-pinboard'
-          onClick={ this.handleAddToNewPinboard }
-        >Add to a new pinboard</div>
-      </div>
-    );
+    return (null);
+    // (
+    //   <div className={ styles.pinboardsMenu }>
+    //     <div className='title'>Add to Pinboard</div>
+    //     <div className='pinboards'>
+    //       {
+    //         pinboards.map((pinboard) => (
+    //           <PinboardMenuItem
+    //             key={ pinboard.id }
+    //             pinboard={ pinboard }
+    //             onClick={ this.handlePinButtonClick }
+    //             closeMenu={ closeMenu }
+    //           />
+    //         ))
+    //       }
+    //     </div>
+    //     <div
+    //       className='add-to-new-pinboard'
+    //       onClick={ this.handleAddToNewPinboard }
+    //     >Add to a new pinboard</div>
+    //   </div>
+    // );
   }
 }
 

@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import cx from 'classnames';
+import { Component } from 'react';
+// import cx from 'classnames';
 import { noop } from 'lodash';
 
 import browserHistory from 'utils/history';
 import { redirectToCreatedPinboard } from 'utils/pinboard';
-import PinboardLinkContainer from 'containers/pinboard-page/pinboard-link-container';
+// import PinboardLinkContainer from 'containers/pinboard-page/pinboard-link-container';
 
 
 export default class PinboardItem extends Component {
@@ -54,13 +54,13 @@ export default class PinboardItem extends Component {
   }
 
   render() {
-    const {
-      pinboard: { lastViewedAt, isCurrent, hasPendingChanges, hasTitlePendingChange },
-      shouldShowActions,
-      actionsPanePosition,
-    } = this.props;
+    // const {
+    //   pinboard: { lastViewedAt, isCurrent, hasPendingChanges, hasTitlePendingChange },
+    //   shouldShowActions,
+    //   actionsPanePosition,
+    // } = this.props;
 
-    return (null); 
+    return (null);
     // (
     //   <div className={ cx('pinboard-item', { 'is-current': isCurrent }) }>
     //     {
@@ -73,7 +73,8 @@ export default class PinboardItem extends Component {
     //     >
     //       <div className='pinboard-title'>{ this.getTitle() }</div>
     //       {
-    //         lastViewedAt && !hasTitlePendingChange && <div className='pinboard-viewed-at'>Viewed { lastViewedAt }</div>
+    //         lastViewedAt && !hasTitlePendingChange && <div
+    // className='pinboard-viewed-at'>Viewed { lastViewedAt }</div>
     //       }
     //     </PinboardLinkContainer>
     //     <div className='pinboard-item-actions-container'>

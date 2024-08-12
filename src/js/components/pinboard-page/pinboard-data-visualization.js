@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import { Component } from 'react';
 // import { Link } from 'react-router-dom';
 
 // import GeographicContainer from 'containers/pinboard-page/geographic-container';
@@ -21,9 +21,10 @@ export default class PinboardDataVisualization extends Component {
   }
 
   render() {
-    const { hasMapMarker, hasComplaintSummary, hasTRRSummary, hasOfficersSummary, hasComplainantsSummary } = this.props;
+    //const { hasMapMarker, hasComplaintSummary, hasTRRSummary,
+    // hasOfficersSummary, hasComplainantsSummary } = this.props;
 
-    return (null); 
+    return (null);
     // (
     //   <div className={ styles.pinboardDataVisualization }>
     //     <Carousel childWidth={ 344 } arrowClassName='carousel-arrow'>

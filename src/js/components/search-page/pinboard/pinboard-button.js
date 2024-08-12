@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import { Component } from 'react';
+// import cx from 'classnames';
 import { isEmpty, noop } from 'lodash';
 
 import browserHistory from 'utils/history';
+// import styles from './pinboard-button.sass';
 import { DEFAULT_PINBOARD_PATH } from 'utils/constants';
 
 

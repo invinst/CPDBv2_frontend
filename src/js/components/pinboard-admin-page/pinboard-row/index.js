@@ -1,17 +1,21 @@
 import PropTypes from 'prop-types';
+// import React from 'react';
+// import cx from 'classnames';
+
+// import styles from './pinboard-row.sass';
 
 export default function PinboardRow(props) {
-  const {
-    id,
-    title,
-    createdAt,
-    pinnedCount,
-    childCount,
-    isHeader,
-    onClick,
-  } = props;
+  // const {
+  //   id,
+  //   title,
+  //   createdAt,
+  //   pinnedCount,
+  //   childCount,
+  //   isHeader,
+  //   onClick,
+  // } = props;
 
-  return (null); 
+  return (null);
   // (
   //   <div className={ cx(styles.row, { 'header': isHeader }) } onClick={ onClick }>
   //     <span className='cell pinboard-id'>{ id }</span>

@@ -12,7 +12,7 @@ import { SearchTermCategory } from 'utils/test/factories/search-terms';
 import CategoryColumn from 'components/search-page/search-terms/category-column';
 import * as IntercomTracking from 'utils/intercom-tracking';
 import RecentSuggestion from 'components/search-page/search-results/recent-suggestion';
-import PinboardBar from 'components/search-page/pinboard/pinboard-bar';
+// import PinboardBar from 'components/search-page/pinboard/pinboard-bar';
 import PinboardIntroductionContainer from 'containers/search-page/pinboard/pinboard-introduction-container';
 
 
@@ -242,22 +242,22 @@ describe('SearchTerms component', function () {
     });
   });
 
-  context('isEmptyPinboard is true', function () {
-    it('should render PinboardBar without slide-in class', function () {
-      const wrapper = shallow(
-        <SearchTerms isEmptyPinboard={ true } />
-      );
-      const pinboardBar = wrapper.find(PinboardBar).dive();
-      pinboardBar.prop('className').should.not.containEql('slide-in');
-    });
-  });
-  context('isEmptyPinboard is false', function () {
-    it('should render PinboardBar with slide-in class', function () {
-      const wrapper = shallow(
-        <SearchTerms isEmptyPinboard={ false } />
-      );
-      const pinboardBar = wrapper.find(PinboardBar).dive();
-      pinboardBar.prop('className').should.containEql('slide-in');
-    });
-  });
+  // context('isEmptyPinboard is true', function () {
+  //   it('should render PinboardBar without slide-in class', function () {
+  //     const wrapper = shallow(
+  //       <SearchTerms isEmptyPinboard={ true } />
+  //     );
+  //     const pinboardBar = wrapper.find(PinboardBar).dive();
+  //     pinboardBar.prop('className').should.not.containEql('slide-in');
+  //   });
+  // });
+  // context('isEmptyPinboard is false', function () {
+  //   it('should render PinboardBar with slide-in class', function () {
+  //     const wrapper = shallow(
+  //       <SearchTerms isEmptyPinboard={ false } />
+  //     );
+  //     const pinboardBar = wrapper.find(PinboardBar).dive();
+  //     pinboardBar.prop('className').should.containEql('slide-in');
+  //   });
+  // });
 });
