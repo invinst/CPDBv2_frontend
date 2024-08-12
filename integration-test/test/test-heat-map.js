@@ -16,7 +16,7 @@ describe('Heat map', function () {
   describe('summary panel', function () {
     it('should display city summary', function () {
       landingPage.heatMapSection.citySummary.header.getText().should.equal(
-        'Citizens Police Data Project collects and publishes data about police misconduct in Chicago.'
+        'Civic Police Data Project collects and publishes data about police misconduct in Chicago.'
       );
       landingPage.heatMapSection.citySummary.totalLawsuitSettlements.getText().should.equal('$10.0 million');
       landingPage.heatMapSection.citySummary.allegationCount.getText().should.equal('10');

@@ -17,7 +17,7 @@ describe('CitySummary component', function () {
     const wrapper = shallow(<CitySummary citySummary={ citySummary } />);
 
     wrapper.find('.city-summary-header').text().should.equal(
-      'Citizens Police Data Project collects and publishes data about police misconduct in Chicago.'
+      'Civic Police Data Project collects and publishes data about police misconduct in Chicago.'
     );
     wrapper.find('.lawsuit-info-summary').text().should.containEql(
       'Between 2014 and 2019'

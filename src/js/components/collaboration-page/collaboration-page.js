@@ -23,7 +23,7 @@ class CollaborationPage extends Component {
           <div className='pure-g'>
             <div className='pure-u-1-1'>
               <h2 style={ headLineStyle }>
-                This information presented in the Citizens Police Data Project
+                This information presented in the Civic Police Data Project
                 was collected through Freedom of Information Act requests (FOIAs).
               </h2>
             </div>

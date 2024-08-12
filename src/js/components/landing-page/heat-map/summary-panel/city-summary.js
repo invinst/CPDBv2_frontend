@@ -21,12 +21,12 @@ export default function CitySummary(props) {
           <div className='click-receiver' onClick={ onClick } />
       }
       <div className='city-summary-header'>
-        Citizens Police Data Project collects and publishes data about police misconduct in Chicago.
+        Civic Police Data Project collects and publishes data about police misconduct in Chicago.
       </div>
       <div className='lawsuit-info block-info'>
         <div className='info-label'>Lawsuits</div>
         <div className='lawsuit-info-summary info-summary'>
-          Between 2014 and 2019, the City of Chicago paid&nbsp;
+          Between 2011 and 2019, the City of Chicago paid&nbsp;
           <span className='total-lawsuit-settlements'>${totalLawsuitSettlements}</span>&nbsp;
           in settlements in police misconduct cases.
         </div>
@@ -37,7 +37,7 @@ export default function CitySummary(props) {
       <div className='complaint-info block-info'>
         <div className='info-label'>Complaints</div>
         <div className='complaint-info-summary info-summary'>
-          Since {startYear}, there have been&nbsp;
+          From 1988 - 2023, there have been&nbsp;
           <span className='allegation-count'>{allegationCount? allegationCount.toLocaleString() : '0'}</span>&nbsp;
           allegations of misconduct against Chicago police officers.&nbsp;
           <span className='allegation-discipline-count'>{disciplinePercentage}%</span>&nbsp;
