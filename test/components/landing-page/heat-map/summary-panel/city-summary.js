@@ -24,7 +24,7 @@ describe('CitySummary component', function () {
     );
     wrapper.find('.total-lawsuit-settlements').text().should.equal('$10.0 billion');
     wrapper.find('.allegation-count').text().should.equal('123,456');
-    wrapper.find('.complaint-info-summary').text().should.containEql(`From 1988`);
+    wrapper.find('.complaint-info-summary').text().should.containEql('From 1988');
   });
 
   it('should scroll to top lawsuit row when click on read lawsuit stories', function () {
