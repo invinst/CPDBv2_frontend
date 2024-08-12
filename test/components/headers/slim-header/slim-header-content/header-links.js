@@ -18,7 +18,7 @@ describe('HeaderLinks component', function () {
 
     tags.at(0).prop('className').should.equal('header-link');
     tags.at(0).prop('href').should.equal('http://cpdb.lvh.me');
-    tags.at(0).text().should.equal('Data');
+    tags.at(0).text().should.equal('Data Tool');
 
     tags.at(1).prop('className').should.equal('header-link');
     tags.at(1).prop('href').should.equal('http://how.cpdp.works/');
