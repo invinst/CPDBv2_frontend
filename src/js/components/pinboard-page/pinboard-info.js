@@ -41,18 +41,18 @@ PinboardInfo.propTypes = {
       <AutosaveTextareaInput
         className='pinboard-title'
         value={ pinboard.title } */
-      //   placeholder='Give your pinboard a title'
-      //   fieldType='title'
-      //   save={ updatePinboardInfo }
-      //   textareaLineHeight={ 31 }
-      // />
-      // <AutosaveMarkdownTextareaInput
-      //   className='pinboard-description'
-      //   placeholderClassName='pinboard-description-placeholder'
-      //   value={ pinboard.description }
-      //   placeholder='When you’re ready, add a description for your pinboard here'
-      //   fieldType='description'
-    //     save={ updatePinboardInfo }
-    //     textareaLineHeight={ 16 }
-    //   />
-    // </div>
+//   placeholder='Give your pinboard a title'
+//   fieldType='title'
+//   save={ updatePinboardInfo }
+//   textareaLineHeight={ 31 }
+// />
+// <AutosaveMarkdownTextareaInput
+//   className='pinboard-description'
+//   placeholderClassName='pinboard-description-placeholder'
+//   value={ pinboard.description }
+//   placeholder='When you’re ready, add a description for your pinboard here'
+//   fieldType='description'
+//     save={ updatePinboardInfo }
+//     textareaLineHeight={ 16 }
+//   />
+// </div>
