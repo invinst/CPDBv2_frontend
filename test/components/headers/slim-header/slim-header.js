@@ -92,7 +92,7 @@ describe('SlimHeader component', function () {
     );
 
     const links = wrapper.find('a');
-    const link = links.filter({ children: 'Data Tool' });
+    const link = links.filter({ children: 'Data Tool (1988-2018)' });
     link.prop('href').should.equal('http://cpdb.lvh.me');
   });
 
