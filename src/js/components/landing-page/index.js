@@ -6,14 +6,14 @@ import { get } from 'lodash';
 import Scroll from 'react-scroll';
 
 import ConfiguredRadium from 'utils/configured-radium';
-import ComplaintSummariesContainer from 'containers/landing-page/complaint-summaries';
+// import ComplaintSummariesContainer from 'containers/landing-page/complaint-summaries';
 import TopLawsuits from 'containers/landing-page/top-lawsuits';
 import SlimHeader from 'components/headers/slim-header';
 import FooterContainer from 'containers/footer-container';
 //import PopupContainer from 'containers/popup-container';
 import ModalPopup from '../popup/popup';
 import HeatMap from 'containers/landing-page/heat-map';
-import RecentActivityContainer from 'containers/landing-page/recent-activity';
+// import RecentActivityContainer from 'containers/landing-page/recent-activity';
 import RecentDocumentContainer from 'containers/landing-page/recent-document';
 import OfficersByAllegationContainer from 'containers/landing-page/officers-by-allegation';
 import styles from './landing-page.sass';
@@ -93,9 +93,9 @@ class LandingPage extends Component {
               <TopLawsuits className='landing-page-carousel top-lawsuit' pathname={ pathname } />
             </ScrollElement>
             <OfficersByAllegationContainer className='landing-page-carousel' pathname={ pathname }/>
-            <RecentActivityContainer className='landing-page-carousel' pathname={ pathname }/>
+            {/* <RecentActivityContainer className='landing-page-carousel' pathname={ pathname }/> */}
             <RecentDocumentContainer className='landing-page-carousel' pathname={ pathname }/>
-            <ComplaintSummariesContainer className='landing-page-carousel' pathname={ pathname }/>
+            {/* <ComplaintSummariesContainer className='landing-page-carousel' pathname={ pathname }/> */}
           </div>
           <FooterContainer />
         </div>
