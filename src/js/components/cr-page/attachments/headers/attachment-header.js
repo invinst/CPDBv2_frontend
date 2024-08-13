@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import RequestDocumentButton from 'components/common/request-document-button';
+// import RequestDocumentButton from 'components/common/request-document-button';
 import styles from './attachment-header.sass';
 
 
 export default function AttachmentHeader(props) {
-  const { openRequestDocumentModal, alreadyRequested } = props;
+  // const { openRequestDocumentModal, alreadyRequested } = props;
 
   return (
     <div className={ styles.attachmentHeader }>
