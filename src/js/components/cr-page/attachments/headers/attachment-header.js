@@ -15,11 +15,11 @@ export default function AttachmentHeader(props) {
         <span className='attachment-subtitle no-print'>MAY CONTAIN GRAPHIC CONTENT</span>
       </div>
       <div className='attachment-request-button no-print'>
-        <RequestDocumentButton
+        {/* <RequestDocumentButton
           alreadyRequested={ alreadyRequested }
           openRequestDocumentModal={ openRequestDocumentModal }
           hasData={ true }
-        />
+        /> */}
       </div>
     </div>
   );
