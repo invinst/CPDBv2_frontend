@@ -17,12 +17,16 @@ describe('HeaderLinks component', function () {
     const links = wrapper.find(Link);
 
     tags.at(0).prop('className').should.equal('header-link');
-    tags.at(0).prop('href').should.equal('http://cpdb.lvh.me');
-    tags.at(0).text().should.equal('Data Tool (1988-2018)');
+    tags.at(0).prop('href').should.equal('https://national.cpdp.co/');
+    tags.at(0).text().should.equal('National Police Index');
 
     tags.at(1).prop('className').should.equal('header-link');
-    tags.at(1).prop('href').should.equal('http://how.cpdp.works/');
-    tags.at(1).text().should.equal('Q&A');
+    tags.at(1).prop('href').should.equal('http://cpdb.lvh.me');
+    tags.at(1).text().should.equal('Data Tool (1988-2018)');
+
+    tags.at(2).prop('className').should.equal('header-link');
+    tags.at(2).prop('href').should.equal('http://how.cpdp.works/');
+    tags.at(2).text().should.equal('Q&A');
 
     links.at(0).prop('className').should.equal('header-link');
     links.at(0).prop('to').should.equal('/documents/');

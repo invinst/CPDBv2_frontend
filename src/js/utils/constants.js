@@ -642,6 +642,7 @@ export const DISTANCE_OPTIONS = {
 };
 
 export const QA_LINK = 'http://how.cpdp.works/';
+export const NPI_LINK = 'https://national.cpdp.co/';
 
 export const ATTACHMENT_TYPES = {
   VIDEO: 'video',
