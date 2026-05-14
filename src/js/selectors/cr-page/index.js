@@ -71,11 +71,9 @@ const getTransformedCoaccused = createWithIsPinnedSelector(
   coaccused => ({
     ...officerCardTransform(coaccused),
     coaccusedCount: coaccused['coaccused_count'],
-    findingOutcomeMix: getFindingOutcomeMix(coaccused['final_finding'], coaccused['final_outcome']),
-    finding: coaccused['final_finding'],
+    findings: coaccused['findings'],
     outcome: coaccused['final_outcome'],
     recommendedOutcome: coaccused['recommended_outcome'],
-    category: coaccused['category'] || 'Unknown',
     disciplined: coaccused['disciplined'],
   })
 );

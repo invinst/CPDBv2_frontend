@@ -10,9 +10,9 @@ import SmallRadarChartOfficerCard from 'components/common/small-radar-chart-offi
 
 export default function CoaccusedCard(props) {
   const {
-    finding,
+    findings,
     disciplined,
-    category,
+    outcome,
     findingOutcomeMix,
   } = props;
   const { printMode } = useContext(PrintModeContext);
@@ -23,16 +23,28 @@ export default function CoaccusedCard(props) {
       { ...props }
       className={ styles.coaccusedCard }
       cardFooter={
-        <div className='coaccused-card-footer'>
-          <div className='accused-card-category'>{ category }</div>
-          <div
-            className={
-              cx('accused-card-outcome', { 'sustained': finding === 'Sustained', disciplined })
-            }
-          >
-            <div className='finding-outcome-mix'>
-              { join(compact([findingOutcomeMix, outcomeDisciplined]), ', ') }
+        <div>
+          <div className='coaccused-card-footer'>
+            <div
+              className={
+                cx('accused-card-outcome', { disciplined })
+              }
+            >
+              <div className='finding-outcome-mix'>
+                { join(compact([outcome, outcomeDisciplined]), ', ') }
+              </div>
             </div>
+          </div>
+          <div className='findings-list'>
+            {findings.map((finding, index) => (
+              <div className='finding-row' key={index}>
+                <div className='finding-detail'>
+                  <div className='finding-category-top'>{finding.category}</div>
+                  <div className='finding-allegation-name'>{finding.subcategory}</div>
+                </div>
+                <div className={(finding.recc_finding == 'Sustained') ? 'finding-tag sustained': 'finding-tag'}>{finding.recc_finding}</div>
+              </div>
+            ))}
           </div>
         </div>
       }
@@ -55,7 +67,7 @@ CoaccusedCard.propTypes = {
   openCardInNewPage: PropTypes.bool,
   rank: PropTypes.string,
   className: PropTypes.string,
-  finding: PropTypes.string,
+  findings: PropTypes.array,
   disciplined: PropTypes.bool,
   category: PropTypes.string,
   findingOutcomeMix: PropTypes.string,

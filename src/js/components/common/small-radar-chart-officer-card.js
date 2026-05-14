@@ -105,12 +105,11 @@ export default class SmallRadarChartOfficerCard extends Component {
             </div>
             <div className='clearfix'/>
           </div>
-          <div className='officer-card-section'>
-            <p className='bold-text'>{ this.renderComplaintInfo() }</p>
-            { this.renderAllegationPercentile() }
-          </div>
           <div className='officer-card-section officer-card-demographic'>
             <p className='extra-info'>{ `${age} ${race} ${gender}` }</p>
+          </div>
+          <div className='officer-card-section'>
+            <p className='bold-text'>{ this.renderComplaintInfo() }</p>
           </div>
         </div>
         { cardFooter }
