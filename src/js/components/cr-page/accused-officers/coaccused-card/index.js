@@ -13,7 +13,6 @@ export default function CoaccusedCard(props) {
     findings,
     disciplined,
     outcome,
-    findingOutcomeMix,
   } = props;
   const { printMode } = useContext(PrintModeContext);
   const outcomeDisciplined = printMode && disciplined ? 'Disciplined' : null;
@@ -36,13 +35,15 @@ export default function CoaccusedCard(props) {
             </div>
           </div>
           <div className='findings-list'>
-            {findings.map((finding, index) => (
-              <div className='finding-row' key={index}>
+            { findings.map((finding, index) => (
+              <div className='finding-row' key={ index }>
                 <div className='finding-detail'>
-                  <div className='finding-category-top'>{finding.category}</div>
-                  <div className='finding-allegation-name'>{finding.subcategory}</div>
+                  <div className='finding-category-top'>{ finding.category }</div>
+                  <div className='finding-allegation-name'>{ finding.subcategory }</div>
                 </div>
-                <div className={(finding.recc_finding == 'Sustained') ? 'finding-tag sustained': 'finding-tag'}>{finding.recc_finding}</div>
+                <div className={ (finding.recc_finding == 'Sustained') ? 'finding-tag sustained': 'finding-tag' }>
+                  { finding.recc_finding }
+                </div>
               </div>
             ))}
           </div>
