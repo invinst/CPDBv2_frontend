@@ -5,7 +5,6 @@ import pluralize from 'pluralize';
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
 import { getOfficerId as parseOfficerId } from 'utils/location';
 import { getBreadcrumbItems } from 'selectors/breadcrumb';
-import { getFindingOutcomeMix } from './finding-outcome-mix';
 import { officerCardTransform } from 'selectors/common/officer-card';
 import { getDemographicString } from 'utils/victims';
 import { createWithIsPinnedSelector } from 'selectors/common/pinboard';
