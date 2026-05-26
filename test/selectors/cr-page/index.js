@@ -70,10 +70,16 @@ describe('CR page selectors', function () {
         'coaccused_count': 4,
         rank: 'Po As Detective',
         'final_outcome': 'Reprimand',
-        'final_finding': 'Sustained',
         'recommended_outcome': '365 Day Suspension',
         'disciplined': true,
-        'category': 'Operations/Personnel Violation',
+        'findings': [
+          {
+            'category': 'Operations/Personnel Violation',
+            'subcategory': 'Failure To Report Misconduct',
+            'reccFinding': 'Sustained',
+            'finalFinding': 'Sustained',
+          },
+        ],
         'percentile_allegation': '91.5000',
         'percentile_allegation_civilian': '97.0000',
         'percentile_allegation_internal': '82.0000',
@@ -96,12 +102,17 @@ describe('CR page selectors', function () {
         gender: 'male',
         coaccusedCount: 4,
         rank: 'Po As Detective',
-        findingOutcomeMix: 'Reprimand',
         recommendedOutcome: '365 Day Suspension',
         outcome: 'Reprimand',
-        finding: 'Sustained',
-        category: 'Operations/Personnel Violation',
         disciplined: true,
+        findings: [
+          {
+            category: 'Operations/Personnel Violation',
+            subcategory: 'Failure To Report Misconduct',
+            reccFinding: 'Sustained',
+            finalFinding: 'Sustained',
+          },
+        ],
         percentile: {
           items: [
             {
@@ -193,8 +204,8 @@ describe('CR page selectors', function () {
         crs: {
           '123': ComplaintFactory.build({
             coaccused: [
-              CoaccusedFactory.build({ id: 1, 'final_finding': 'Not Sustained' }),
-              CoaccusedFactory.build({ id: 2, 'final_finding': 'Sustained' }),
+              CoaccusedFactory.build({ id: 1, findings: [{'final_finding': 'Not Sustained' }] }),
+              CoaccusedFactory.build({ id: 2, findings: [{ 'final_finding': 'Sustained' }] }),
             ],
           }),
         },

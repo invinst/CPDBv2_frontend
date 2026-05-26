@@ -38,8 +38,12 @@ export const CoaccusedFactory = Factory.define('CoaccusedFactory')
   .attr('percentile_allegation_internal', () => (random.number({ min: 10, max: 1000 }) / 10.0))
   .attr('percentile_allegation', () => (random.number({ min: 10, max: 1000 }) / 10.0))
   .attr('final_outcome', lorem.word)
-  .attr('final_finding', lorem.word)
-  .attr('category', lorem.words)
+  .attr('findings', () => [{
+    'category': lorem.words(),
+    'subcategory': lorem.words(),
+    'recc_finding': lorem.word(),
+    'final_finding': lorem.word(),
+  }])
   .attr('disciplined', () => random.boolean())
   .attr('coaccused_count', () => random.number());
 

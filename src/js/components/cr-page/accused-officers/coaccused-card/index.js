@@ -10,7 +10,7 @@ import SmallRadarChartOfficerCard from 'components/common/small-radar-chart-offi
 
 export default function CoaccusedCard(props) {
   const {
-    findings,
+    findings = [],
     disciplined,
     outcome,
   } = props;
