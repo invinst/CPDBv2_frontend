@@ -54,8 +54,8 @@ describe('CoaccusedCard component', function () {
       <CoaccusedCard
         findings={ [{
           category: 'Operations/Personnel Violation',
-          subcategory: "Failure To Report Misconduct",
-          recc_finding: 'Sustained',
+          subcategory: 'Failure To Report Misconduct',
+          reccFinding: 'Sustained',
         }] }
         disciplined={ true }
         outcome='Reprimand'

@@ -204,7 +204,7 @@ describe('CR page selectors', function () {
         crs: {
           '123': ComplaintFactory.build({
             coaccused: [
-              CoaccusedFactory.build({ id: 1, findings: [{'final_finding': 'Not Sustained' }] }),
+              CoaccusedFactory.build({ id: 1, findings: [{ 'final_finding': 'Not Sustained' }] }),
               CoaccusedFactory.build({ id: 2, findings: [{ 'final_finding': 'Sustained' }] }),
             ],
           }),
