@@ -8,8 +8,6 @@ import Timeline, { TimelineWithSpinner } from 'components/social-graph-page/netw
 import Item from 'components/social-graph-page/network/right-pane-section/timeline/item';
 import LoadingSpinner from 'components/common/loading-spinner';
 import styles from 'components/social-graph-page/network/right-pane-section/timeline/timeline.sass';
-import { it } from 'faker/lib/locales';
-
 
 describe('Timeline component', function () {
   const items = [
@@ -146,26 +144,26 @@ describe('Timeline component', function () {
     wrapper.instance().externalUpdate.should.be.false();
   });
 
-  // // TODO: fix this
-  // it.skip('should call handleScroll when timeline reach ScrollMagic.Scene', function (done) {
-  //   const componentDidMountStub = stub(Timeline.prototype, 'componentDidMount');
-  //   const wrapper = mount(
-  //     <Timeline
-  //       items={ items }
-  //       timelineIdx={ 0 }
-  //       timelineIdxTriggerChange={ 0 }
-  //     />
-  //   );
-  //   const instance = wrapper.instance();
-  //   const handleScrollStub = stub(instance, 'handleScroll');
-  //   componentDidMountStub.restore();
-  //   instance.componentDidMount();
+  // TODO: fix this
+  it.skip('should call handleScroll when timeline reach ScrollMagic.Scene', function (done) {
+    const componentDidMountStub = stub(Timeline.prototype, 'componentDidMount');
+    const wrapper = mount(
+      <Timeline
+        items={ items }
+        timelineIdx={ 0 }
+        timelineIdxTriggerChange={ 0 }
+      />
+    );
+    const instance = wrapper.instance();
+    const handleScrollStub = stub(instance, 'handleScroll');
+    componentDidMountStub.restore();
+    instance.componentDidMount();
 
-  //   setTimeout(() => {
-  //     handleScrollStub.should.be.calledWith(items[1]);
-  //     done();
-  //   }, 150);
-  // });
+    setTimeout(() => {
+      handleScrollStub.should.be.calledWith(items[1]);
+      done();
+    }, 150);
+  });
 
   context('withLoadingSpinner', function () {
     it('should render LoadingSpinner only if requesting is true', function () {
