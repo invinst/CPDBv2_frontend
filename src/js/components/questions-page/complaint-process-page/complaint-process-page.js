@@ -2,6 +2,7 @@ import React from 'react';
 import {
   headerStyle, headLineStyle, sectionHeaderStyle, authorStyle,
 } from '../questions-page.style';
+import Collapsible from '../collapsible';
 
 
 class ComplaintProcessPage extends React.PureComponent {
@@ -18,6 +19,9 @@ class ComplaintProcessPage extends React.PureComponent {
           <h1 style={ headerStyle }>
             The Complaint Process
           </h1>
+          <Collapsible>
+            <hr/>
+          </Collapsible>
         </div>
 
         <div>
