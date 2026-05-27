@@ -99,7 +99,7 @@ const sortByOfficerInBreadcrumb = breadcrumbOfficerIds => officer => {
 
 // TODO: revisit if we switch to recommended finding
 const isSustainedFinding = finding => finding.final_finding == 'Sustained';
-const isOfficerSustained = officer => some(officer.findings, isSustainedFinding)
+const isOfficerSustained = officer => some(officer.findings, isSustainedFinding);
 
 const sortByOfficerFinding = officer => {
   return isOfficerSustained(officer) ? 0 : 1;
