@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { map, get, reduce, defaults, sortBy, kebabCase, isNil, isEmpty, compact, each } from 'lodash';
+import { map, get, reduce, defaults, sortBy, kebabCase, isNil, isEmpty, compact, each, some } from 'lodash';
 import pluralize from 'pluralize';
 
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
@@ -97,8 +97,12 @@ const sortByOfficerInBreadcrumb = breadcrumbOfficerIds => officer => {
   return -breadcrumbOfficerIds.indexOf(parseInt(officer.id));
 };
 
+// TODO: revisit if we switch to recommended finding
+const isSustainedFinding = finding => finding.final_finding == 'Sustained';
+const isOfficerSustained = officer => some(officer.findings, isSustainedFinding)
+
 const sortByOfficerFinding = officer => {
-  return officer.finding === 'Sustained' ? 0 : 1;
+  return isOfficerSustained(officer) ? 0 : 1;
 };
 
 const sortByOfficerComplaint = officer => -officer.complaintCount;
