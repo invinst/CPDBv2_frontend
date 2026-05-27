@@ -65,7 +65,7 @@ jobs:
 
   test_nginx:
     machine: 
-      image: ubuntu-2004:202201-02
+      image: default
     steps:
       - checkout
       - restore_cache:
