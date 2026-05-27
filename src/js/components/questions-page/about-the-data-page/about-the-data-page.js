@@ -4,6 +4,7 @@ import {
   headerStyle,
   headLineStyle,
   sectionHeaderStyle,
+  cpdpLinkStyle,
 } from '../questions-page.style';
 
 class AboutTheDataPage extends React.PureComponent {
@@ -12,7 +13,7 @@ class AboutTheDataPage extends React.PureComponent {
       <div>
         <div>
           <h1 style={ headLineStyle }>
-            Advice and answers from the CPDP Team
+            Advice and answers from the CPDP Team <br/><a href='cpdp.co' style={ cpdpLinkStyle }>Back to CPDP</a>
           </h1>
         </div>
 

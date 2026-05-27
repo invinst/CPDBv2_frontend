@@ -11,6 +11,15 @@ export const headLineStyle = {
   height: '90px',
 };
 
+export const cpdpLinkStyle = {
+  color: '#FFFFFF',
+  fontSize: '16px',
+  fontFamily: sanFranciscoTextFamily,
+  fontWeight: '500',
+  textAlign: 'center',
+  marginBottom: '10px',
+};
+
 export const headerStyle = {
   textAlign: 'center',
   fontFamily: sanFranciscoTextFamily,

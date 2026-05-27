@@ -1,6 +1,7 @@
 import React from 'react';
 import {
-  headLineStyle, sectionHeaderStyle, smallSubHeaderStyle,
+  headLineStyle, sectionHeaderStyle, smallSubHeaderStyle, cpdpLinkStyle,
+  //smallTextStyle,
 } from './questions-page.style';
 
 class QuestionsPage extends React.PureComponent {
@@ -9,7 +10,7 @@ class QuestionsPage extends React.PureComponent {
       <div>
         <div>
           <h1 style={ headLineStyle }>
-            Advice and answers from the CPDP Team
+            Advice and answers from the CPDP Team <br/><a href='cpdp.co' style={ cpdpLinkStyle }>Back to CPDP</a>
           </h1>
         </div>
 
