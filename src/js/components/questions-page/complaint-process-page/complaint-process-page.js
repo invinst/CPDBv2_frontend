@@ -2,7 +2,12 @@ import React from 'react';
 import {
   headerStyle, headLineStyle, sectionHeaderStyle, authorStyle,
 } from '../questions-page.style';
-import Collapsible from '../collapsible';
+import Accordion from '@mui/material/Accordion';
+//import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+//import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import Typography from '@mui/material/Typography';
 
 
 class ComplaintProcessPage extends React.PureComponent {
@@ -19,9 +24,16 @@ class ComplaintProcessPage extends React.PureComponent {
           <h1 style={ headerStyle }>
             The Complaint Process
           </h1>
-          <Collapsible>
-            <hr/>
-          </Collapsible>
+        </div>
+
+        <div>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={ <ArrowDownwardIcon /> }
+            >
+              <Typography component='span'>Accordion 1</Typography>
+            </AccordionSummary>
+          </Accordion>
         </div>
 
         <div>
