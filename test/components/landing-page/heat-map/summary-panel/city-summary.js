@@ -17,14 +17,14 @@ describe('CitySummary component', function () {
     const wrapper = shallow(<CitySummary citySummary={ citySummary } />);
 
     wrapper.find('.city-summary-header').text().should.equal(
-      'Citizens Police Data Project collects and publishes data about police misconduct in Chicago.'
+      'Civic Police Data Project collects and publishes data about police misconduct in Chicago.'
     );
     wrapper.find('.lawsuit-info-summary').text().should.containEql(
-      'Between 2014 and 2019'
+      'Between 2011 and 2019'
     );
     wrapper.find('.total-lawsuit-settlements').text().should.equal('$10.0 billion');
     wrapper.find('.allegation-count').text().should.equal('123,456');
-    wrapper.find('.complaint-info-summary').text().should.containEql(`Since ${citySummary.startYear}`);
+    wrapper.find('.complaint-info-summary').text().should.containEql('From 1988');
   });
 
   it('should scroll to top lawsuit row when click on read lawsuit stories', function () {

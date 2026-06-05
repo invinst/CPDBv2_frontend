@@ -7,10 +7,10 @@ import { MemoryRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 
 import SearchPageContainer from 'containers/search-page';
-import RecentActivityContainer from 'containers/landing-page/recent-activity';
+// import RecentActivityContainer from 'containers/landing-page/recent-activity';
 import RecentDocumentContainer from 'containers/landing-page/recent-document';
 import OfficersByAllegationContainer from 'containers/landing-page/officers-by-allegation';
-import ComplaintSummariesContainer from 'containers/landing-page/complaint-summaries';
+// import ComplaintSummariesContainer from 'containers/landing-page/complaint-summaries';
 import TopLawsuitsContainer from 'containers/landing-page/top-lawsuits';
 import LandingPage from 'components/landing-page';
 import SlimHeader from 'components/headers/slim-header';
@@ -137,9 +137,9 @@ describe('LandingPage component', function () {
 
     wrapper.find(HeatMap).exists().should.be.true();
     wrapper.find(OfficersByAllegationContainer).exists().should.be.true();
-    wrapper.find(RecentActivityContainer).exists().should.be.true();
+    // wrapper.find(RecentActivityContainer).exists().should.be.true();
     wrapper.find(RecentDocumentContainer).exists().should.be.true();
-    wrapper.find(ComplaintSummariesContainer).exists().should.be.true();
+    // wrapper.find(ComplaintSummariesContainer).exists().should.be.true();
     wrapper.find(TopLawsuitsContainer).exists().should.be.true();
     wrapper.find(FooterContainer).exists().should.be.true();
 

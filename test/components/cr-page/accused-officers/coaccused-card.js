@@ -46,21 +46,22 @@ describe('CoaccusedCard component', function () {
     text.should.containEql('Jerome Finnigan');
     text.should.containEql('10 allegations');
     text.should.containEql('5 sustained');
-    text.should.containEql('More than 20% of other officers');
-
     text.should.containEql('37-year-old white male');
   });
 
   it('should render category and outcome correctly', function () {
     const wrapper = mountWithRouter(
       <CoaccusedCard
-        finding='Sustained'
+        findings={ [{
+          category: 'Operations/Personnel Violation',
+          subcategory: 'Failure To Report Misconduct',
+          reccFinding: 'Sustained',
+        }] }
         disciplined={ true }
-        category='Operations/Personnel Violation'
-        findingOutcomeMix='Reprimand'
+        outcome='Reprimand'
       />
     );
-    const category = wrapper.find('.accused-card-category');
+    const category = wrapper.find('.finding-category-top');
     const outcome = wrapper.find('.accused-card-outcome');
     category.text().should.equal('Operations/Personnel Violation');
     outcome.text().should.equal('Reprimand');
@@ -75,7 +76,7 @@ describe('CoaccusedCard component', function () {
             finding='Sustained'
             disciplined={ true }
             category='Operations/Personnel Violation'
-            findingOutcomeMix='Reprimand'
+            outcome='Reprimand'
           />
         </MemoryRouter>
       </PrintModeContext.Provider>

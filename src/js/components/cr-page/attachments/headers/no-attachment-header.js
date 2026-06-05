@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
 import styles from './no-attachment-header.sass';
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';

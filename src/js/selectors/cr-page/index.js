@@ -1,11 +1,10 @@
 import { createSelector } from 'reselect';
-import { map, get, reduce, defaults, sortBy, kebabCase, isNil, isEmpty, compact, each } from 'lodash';
+import { map, get, reduce, defaults, sortBy, kebabCase, isNil, isEmpty, compact, each, some } from 'lodash';
 import pluralize from 'pluralize';
 
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
 import { getOfficerId as parseOfficerId } from 'utils/location';
 import { getBreadcrumbItems } from 'selectors/breadcrumb';
-import { getFindingOutcomeMix } from './finding-outcome-mix';
 import { officerCardTransform } from 'selectors/common/officer-card';
 import { getDemographicString } from 'utils/victims';
 import { createWithIsPinnedSelector } from 'selectors/common/pinboard';
@@ -71,11 +70,9 @@ const getTransformedCoaccused = createWithIsPinnedSelector(
   coaccused => ({
     ...officerCardTransform(coaccused),
     coaccusedCount: coaccused['coaccused_count'],
-    findingOutcomeMix: getFindingOutcomeMix(coaccused['final_finding'], coaccused['final_outcome']),
-    finding: coaccused['final_finding'],
+    findings: coaccused['findings'],
     outcome: coaccused['final_outcome'],
     recommendedOutcome: coaccused['recommended_outcome'],
-    category: coaccused['category'] || 'Unknown',
     disciplined: coaccused['disciplined'],
   })
 );
@@ -100,8 +97,12 @@ const sortByOfficerInBreadcrumb = breadcrumbOfficerIds => officer => {
   return -breadcrumbOfficerIds.indexOf(parseInt(officer.id));
 };
 
+// TODO: revisit if we switch to recommended finding
+const isSustainedFinding = finding => finding.final_finding == 'Sustained';
+const isOfficerSustained = officer => some(officer.findings, isSustainedFinding);
+
 const sortByOfficerFinding = officer => {
-  return officer.finding === 'Sustained' ? 0 : 1;
+  return isOfficerSustained(officer) ? 0 : 1;
 };
 
 const sortByOfficerComplaint = officer => -officer.complaintCount;
