@@ -58,7 +58,7 @@ describe('OfficerPane component', () => {
 
     const visualToken = wrapper.find(VisualTokenWidget);
     const officerInfo = wrapper.find(OfficerInfoWidget);
-    const metric = wrapper.find(MetricWidget);
+    // const metric = wrapper.find(MetricWidget);
 
     visualToken.prop('items').should.eql([
       { axis: 'a', value: 10 },
