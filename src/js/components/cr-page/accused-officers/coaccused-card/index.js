@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
-import { compact, join } from 'lodash';
+import { compact, join, groupBy } from 'lodash';
 import cx from 'classnames';
 
 import { PrintModeContext } from 'contexts';
@@ -8,7 +8,7 @@ import styles from './coaccused-card.sass';
 import SmallRadarChartOfficerCard from 'components/common/small-radar-chart-officer-card';
 
 function groupFindings(findings) {
-  const groups = Object.groupBy(findings, ({ category, subcategory, reccFinding }) =>
+  const groups = groupBy(findings, ({ category, subcategory, reccFinding }) =>
     JSON.stringify([category, subcategory, reccFinding])
   );
 
