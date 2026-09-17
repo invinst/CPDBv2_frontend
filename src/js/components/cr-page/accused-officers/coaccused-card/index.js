@@ -8,8 +8,8 @@ import styles from './coaccused-card.sass';
 import SmallRadarChartOfficerCard from 'components/common/small-radar-chart-officer-card';
 
 function groupFindings(findings) {
-  const groups = Object.groupBy(findings, ({ category, subcategory, recc_finding }) =>
-    JSON.stringify([category, subcategory, recc_finding])
+  const groups = Object.groupBy(findings, ({ category, subcategory, reccFinding }) =>
+    JSON.stringify([category, subcategory, reccFinding])
   );
 
   return Object.entries(groups).map(([, group]) => ({
@@ -50,7 +50,9 @@ export default function CoaccusedCard(props) {
             { groupedFindings.map((finding, index) => (
               <div className='finding-row' key={ index }>
                 <div className='finding-detail'>
-                  <div className='finding-category-top'>{ finding.category }{ finding.count > 1 && ` \u00D7 ${finding.count}`}</div>
+                  <div className='finding-category-top'>
+                    { finding.category }{ finding.count > 1 && ` \u00D7 ${finding.count}`}
+                  </div>
                   <div className='finding-allegation-name'>{ finding.subcategory }</div>
                 </div>
                 <div className={ (finding.recc_finding == 'Sustained') ? 'finding-tag sustained': 'finding-tag' }>
