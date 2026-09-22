@@ -39,7 +39,7 @@ export default function CitySummary(props) {
         <div className='complaint-info-summary info-summary'>
           From 1988 - 2023, there have been&nbsp;
           <span className='allegation-count'>{allegationCount? allegationCount.toLocaleString() : '0'}</span>&nbsp;
-          allegations of misconduct against Chicago police officers.&nbsp;
+          complaints against Chicago police officers.&nbsp;
           <span className='allegation-discipline-count'>{disciplinePercentage}%</span>&nbsp;
           of those allegations were&nbsp;
           <span className='disciplined'>disciplined.</span>

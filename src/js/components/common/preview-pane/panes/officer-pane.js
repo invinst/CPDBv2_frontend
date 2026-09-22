@@ -56,7 +56,7 @@ export default class OfficerPane extends Component {
     const formatValue = (value) => isNil(value) ? 'N/A' : value;
     const metrics = [
       {
-        name: 'Allegations',
+        name: 'Complaints',
         value: formatValue(complaintCount),
         description: allegationPercentile > 0 ? `More than ${allegationPercentile}% of other officers` : '',
       },

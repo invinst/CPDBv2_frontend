@@ -1,11 +1,22 @@
 import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
-import { compact, join } from 'lodash';
+import { compact, join, groupBy } from 'lodash';
 import cx from 'classnames';
 
 import { PrintModeContext } from 'contexts';
 import styles from './coaccused-card.sass';
 import SmallRadarChartOfficerCard from 'components/common/small-radar-chart-officer-card';
+
+function groupFindings(findings) {
+  const groups = groupBy(findings, ({ category, subcategory, reccFinding }) =>
+    JSON.stringify([category, subcategory, reccFinding])
+  );
+
+  return Object.entries(groups).map(([, group]) => ({
+    ...group[0],
+    count: group.length,
+  }));
+}
 
 
 export default function CoaccusedCard(props) {
@@ -16,6 +27,7 @@ export default function CoaccusedCard(props) {
   } = props;
   const { printMode } = useContext(PrintModeContext);
   const outcomeDisciplined = printMode && disciplined ? 'Disciplined' : null;
+  const groupedFindings = groupFindings(findings);
 
   return (
     <SmallRadarChartOfficerCard
@@ -35,10 +47,12 @@ export default function CoaccusedCard(props) {
             </div>
           </div>
           <div className='findings-list'>
-            { findings.map((finding, index) => (
+            { groupedFindings.map((finding, index) => (
               <div className='finding-row' key={ index }>
                 <div className='finding-detail'>
-                  <div className='finding-category-top'>{ finding.category }</div>
+                  <div className='finding-category-top'>
+                    { finding.category }{ finding.count > 1 && ` \u00D7 ${finding.count}`}
+                  </div>
                   <div className='finding-allegation-name'>{ finding.subcategory }</div>
                 </div>
                 <div className={ (finding.recc_finding == 'Sustained') ? 'finding-tag sustained': 'finding-tag' }>
