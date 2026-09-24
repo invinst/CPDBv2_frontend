@@ -28,10 +28,13 @@
   .accused-officers-wrapper
     box-sizing: border-box
     margin-bottom: 16px
+    column-count: 2
+    column-gap: 8px
 
     @media print
       border-bottom: none
       margin-bottom: 0
+      column-count: 1
 
   .show-more-button-container
     border-top: 1px solid $alto-color
@@ -54,9 +57,12 @@
         color: $thunder-color
 
   .accused-officer-card
-    margin: 0 8px 8px 0
+    margin: 0 0 8px
     display: inline-block
+    width: 100%
+    break-inside: avoid
 
     @media print
       margin: 0
       display: block
+      margin: 0
