@@ -31,10 +31,6 @@ export default class AccusedOfficers extends Component {
       <div className={ cx(style.accusedOfficers, 'test--accused-officer', { 'expanded': expanded }) }>
         <h2 className='accused-officer-title'>
           { `${officers.length} ${pluralize('accused officer', officers.length).toUpperCase()}` }
-          <Popup
-            { ...popup }
-            url={ pathName }
-          />
         </h2>
         <div className='accused-officers-wrapper'>
           {

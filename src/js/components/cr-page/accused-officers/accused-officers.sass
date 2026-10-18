@@ -28,8 +28,8 @@
   .accused-officers-wrapper
     box-sizing: border-box
     margin-bottom: 16px
-    display: grid
-    grid-template-columns: auto auto auto
+    column-count: 1
+    column-gap: 8px
 
     @media print
       border-bottom: none
@@ -58,7 +58,7 @@
 
   .accused-officer-card
     margin: 0 0 8px
-    flex: 1
+    display: inline-block
     width: 100%
     break-inside: avoid
 
