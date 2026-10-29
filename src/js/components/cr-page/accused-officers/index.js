@@ -1,78 +1,82 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { Fragment, useState } from 'react';
 import pluralize from 'pluralize';
 import cx from 'classnames';
 
 import CoaccusedCard from './coaccused-card';
-import Popup from 'components/common/popup';
+// import CoaccusedPopup from './coaccused-popup';
+import AllegationPanel from './allegation-panel';
+import { allegationPanelId } from './coaccused-card/findings';
 import style from './accused-officers.sass';
-import CoaccusedPopup from './coaccused-popup';
 
+const COLUMN_COUNT = 4;
+const COLLAPSED_COUNT = COLUMN_COUNT * 2;
 
-export default class AccusedOfficers extends Component {
-  constructor(props) {
-    super(props);
+export default function AccusedOfficers({ officers = [], addOrRemoveItemInPinboard }) {
+  const [expanded, setExpanded] = useState(false);
+  const [openId, setOpenId] = useState(null);
 
-    this.state = {
-      expanded: false,
-    };
-  }
-
-  handleExpandList = () => {
-    this.setState({
-      expanded: true,
-    });
+  const handleToggleOfficer = (id) => {
+    setOpenId((currentId) => (currentId === id ? null : id));
   };
 
-  render() {
-    const { officers, popup, pathName, addOrRemoveItemInPinboard } = this.props;
-    const { expanded } = this.state;
-    return (
-      <div className={ cx(style.accusedOfficers, 'test--accused-officer', { 'expanded': expanded }) }>
-        <h2 className='accused-officer-title'>
-          { `${officers.length} ${pluralize('accused officer', officers.length).toUpperCase()}` }
-        </h2>
-        <div className='accused-officers-wrapper'>
-          {
-            officers.map(officer => (
-              <div key={ officer.id } className='accused-officer-card'>
-                <CoaccusedPopup
-                  finding={ officer.finding }
-                  outcome={ officer.outcome }
-                  recommendedOutcome={ officer.recommendedOutcome }
-                />
+  const handleClosePanel = () => setOpenId(null);
+
+  const showMoreButton = !expanded && officers.length > COLLAPSED_COUNT;
+
+  return (
+    <div className={ cx(style.accusedOfficers, 'test--accused-officer', { expanded }) }>
+      <h2 className='accused-officer-title'>
+        { `${officers.length} ${pluralize('accused officer', officers.length).toUpperCase()}` }
+      </h2>
+
+      <div className='accused-officers-wrapper'>
+        { officers.map((officer, index) => {
+          const isOpen = openId === officer.id;
+          const isBeyondFold = !expanded && index >= COLLAPSED_COUNT;
+
+          return (
+            <Fragment key={ officer.id }>
+              <div className={ cx('accused-officer-card', { 'beyond-fold': isBeyondFold, 'is-open': isOpen }) }>
                 <CoaccusedCard
                   addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
                   { ...officer }
+                  isOpen={ isOpen }
+                  onToggle={ () => handleToggleOfficer(officer.id) }
                 />
               </div>
-            ))
-          }
-        </div>
-        {
-          !expanded
-            ? (
-              <div className='show-more-button-container no-print'>
-                <span onClick={ this.handleExpandList } className='show-more-button'>
-                  Show all accused officers
-                </span>
-              </div>
-            )
-            : null
-        }
+
+              { isOpen && (
+                <AllegationPanel
+                  id={ allegationPanelId(officer.id) }
+                  fullName={ officer.fullName }
+                  findings={ officer.findings }
+                  onClose={ handleClosePanel }
+                />
+              ) }
+            </Fragment>
+          );
+        }) }
       </div>
-    );
-  }
+
+      { showMoreButton && (
+        <div className='show-more-button-container no-print'>
+          <button
+            type='button'
+            className='show-more-button'
+            onClick={ () => setExpanded(true) }
+          >
+            Show all accused officers
+          </button>
+        </div>
+      ) }
+    </div>
+  );
 }
 
 AccusedOfficers.propTypes = {
   officers: PropTypes.array,
-  expanded: PropTypes.bool,
   popup: PropTypes.object,
   pathName: PropTypes.string,
   addOrRemoveItemInPinboard: PropTypes.func,
-};
-
-AccusedOfficers.defaultProps = {
-  officers: [],
 };

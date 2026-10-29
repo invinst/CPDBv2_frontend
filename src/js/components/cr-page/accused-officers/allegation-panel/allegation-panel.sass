@@ -1,0 +1,54 @@
+@import 'variables'
+
+$grid-gap: 8px
+$grid-columns: 4
+$sustained-color: #f26b21 !default
+
+:local(.allegation-panel)
+  grid-column: 1 / -1
+  position: relative
+  box-sizing: border-box
+  padding: 16px 20px 8px
+  background-color: white
+  border: 1px solid $alto-color
+
+  @media print
+    display: none
+
+  .allegation-panel-header
+    display: flex
+    justify-content: space-between
+    align-items: center
+    margin-bottom: 8px
+
+  .allegation-panel-title
+    margin: 0
+    font-family: $san-francisco-text-family
+    font-size: 14px
+    font-weight: 500
+    color: $thunder-color
+
+  .allegation-panel-sustained
+    font-weight: normal
+
+    &.has-sustained
+      color: $sustained-color
+
+  .allegation-panel-close
+    padding: 4px 8px
+    border: none
+    background: none
+    cursor: pointer
+    font-size: 20px
+    line-height: 1
+    color: $thunder-color
+
+    &:hover
+      color: $blue-ribbon-color
+
+  .allegation-panel-list
+    column-count: 2
+    column-gap: 32px
+
+    .finding-row
+      break-inside: avoid

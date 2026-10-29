@@ -6,37 +6,33 @@ import cx from 'classnames';
 import { PrintModeContext } from 'contexts';
 import styles from './coaccused-card.sass';
 import SmallRadarChartOfficerCard from 'components/common/small-radar-chart-officer-card';
-import Findings from './findings/index.js';
-
-
+import Findings from './findings';
 
 export default function CoaccusedCard(props) {
-  const {
-    findings = [],
-    disciplined,
-    outcome,
-  } = props;
+  const { isOpen, onToggle, ...cardProps } = props;
+  const { id, findings = [], disciplined, outcome } = cardProps;
   const { printMode } = useContext(PrintModeContext);
   const outcomeDisciplined = printMode && disciplined ? 'Disciplined' : null;
 
   return (
     <SmallRadarChartOfficerCard
-      { ...props }
+      { ...cardProps }
       className={ styles.coaccusedCard }
       cardFooter={
-        <div>
+        <div className='coaccused-card-body'>
           <div className='coaccused-card-footer'>
-            <div
-              className={
-                cx('accused-card-outcome', { disciplined })
-              }
-            >
+            <div className={ cx('accused-card-outcome', { disciplined }) }>
               <div className='finding-outcome-mix'>
                 { join(compact([outcome, outcomeDisciplined]), ', ') }
               </div>
             </div>
           </div>
-        < Findings findings={findings}/>
+          <Findings
+            findings={ findings }
+            officerId={ id }
+            isOpen={ isOpen }
+            onToggle={ onToggle }
+          />
         </div>
       }
     />
@@ -44,6 +40,7 @@ export default function CoaccusedCard(props) {
 }
 
 CoaccusedCard.propTypes = {
+  id: PropTypes.number,
   officerId: PropTypes.number,
   fullName: PropTypes.string,
   visualTokenBackgroundColor: PropTypes.string,
@@ -64,6 +61,8 @@ CoaccusedCard.propTypes = {
   findingOutcomeMix: PropTypes.string,
   addOrRemoveItemInPinboard: PropTypes.func,
   isPinned: PropTypes.bool,
+  isOpen: PropTypes.bool,
+  onToggle: PropTypes.func,
 };
 
 CoaccusedCard.defaultProps = {
