@@ -1,6 +1,22 @@
 @import 'variables'
+$grid-gap: 8px
 
-\:local(.coaccused-card)
+
+:local(.coaccused-card)
+  display: flex
+  flex-direction: column
+  flex: 1
+
+  > a
+    display: flex
+    flex-direction: column
+    flex: 1
+
+  .coaccused-card-body
+    display: flex
+    flex-direction: column
+    flex: 1
+
   .coaccused-card-footer
     padding: 15px 16px 4px
 
@@ -55,65 +71,6 @@
           font-size: 12px
           font-weight: normal
           vertical-align: top
-
-  .findings-list
-    padding: 15px 16px 4px
-    
-    .finding-row
-      display: flex
-      justify-content: space-between
-      align-items: baseline
-      padding: 8px 0
-      border-bottom: 1px solid $alto-lighter-color
-      gap: 12px
-
-      @media print
-        padding: 4px 0
-        border-bottom: none
-      &:last-child
-        border-bottom: 1px solid $alto-color
-      &.sustained
-        background-color: $champagne-color
-        margin: 0 -8px
-        padding: 8px 8px
-        @media print
-          background-color: transparent
-
-      .finding-detail
-        min-width: 0
-
-        .finding-allegation-name
-          font-size: 11px
-          font-weight: 600
-          letter-spacing: 0.5px
-          text-transform: uppercase
-          color: $silver-chalice-color
-          line-height: 1.4
-
-        .finding-category-top
-          font-size: 14px
-          font-weight: 500
-          color: $thunder-color
-          line-height: 1.4
-          @media print
-            font-size: 12px
-            font-weight: normal
-
-      .finding-tag
-        font-size: 12px
-        font-weight: 500
-        color: $boulder-color
-        white-space: nowrap
-        padding: 2px 8px
-        background-color: $wild-sand-color
-        border-radius: 2px
-        flex-shrink: 0
-        &.sustained
-          color: $blaze-orange-color
-          background-color: $champagne-color
-          font-weight: 600
-
-
 
   &:hover
     .coaccused-card-footer
