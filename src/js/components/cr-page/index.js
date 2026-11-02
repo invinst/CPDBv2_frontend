@@ -55,6 +55,14 @@ function CRPage(props) {
             subcategory={ subcategory }
           />
           <ComplaintIncidentDate incidentDate={ incidentDate }/>
+          <Attachments
+            items={ attachments }
+            openRequestDocumentModal={ openRequestDocumentModal }
+            onTrackingAttachment={ onTrackingAttachment }
+            alreadyRequested={ alreadyRequested }
+            pathname={ pathname }
+            noAttachmentTextEditWrapperStateProps={ noAttachmentTextEditWrapperStateProps }
+          />
           <AccusedOfficers
             officers={ coaccused }
             popup={ get(popup, POPUP_NAMES.COMPLAINT.ACCUSED_OFFICER) }
@@ -86,14 +94,6 @@ function CRPage(props) {
                   </SummaryRow>
                 ) : null
             }
-            <Attachments
-              items={ attachments }
-              openRequestDocumentModal={ openRequestDocumentModal }
-              onTrackingAttachment={ onTrackingAttachment }
-              alreadyRequested={ alreadyRequested }
-              pathname={ pathname }
-              noAttachmentTextEditWrapperStateProps={ noAttachmentTextEditWrapperStateProps }
-            />
             <div className='timeline-location-container'>
               <div className='investigation-timeline'>
                 <Timeline startDate={ startDate } endDate={ endDate } incidentDate={ incidentDate }/>
